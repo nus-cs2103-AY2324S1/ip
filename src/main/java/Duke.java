@@ -1,6 +1,4 @@
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Scanner;
@@ -24,6 +22,13 @@ public class Duke {
                 "     What can I do for you?\n" +
                 "    ____________________________________________________________\n");
 
+        try {
+            System.out.println("Here is a list of your saved tasks:");
+            printFileContents("tasks.txt");
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found, proceed to use bot normally.");
+        }
+
         // Implement function to read user input via keyboard
         Scanner scan = new Scanner(System.in);
 
@@ -35,7 +40,11 @@ public class Duke {
                 if (Objects.equals(userInput, "bye")) {
                     String file = "tasks.txt";
                     try {
-                        writeToFile(file, listTasks(inputNum));
+                        String textToWrite = "";
+                        for (Task task: taskArray) {
+                            textToWrite += writeTaskLine(task);
+                        }
+                        writeToFile(file, textToWrite);
                     } catch (IOException e) {
                         System.out.println("Something went wrong: " + e.getMessage());
                     }
@@ -122,6 +131,12 @@ public class Duke {
         return inputArrayString;
     }
 
+    private static String writeTaskLine(Task task) {
+        Boolean isDone = task.getStatus();
+        String taskLine = task.getType() + " | " + (isDone ? "1" : "0") + " | " + task.getDescription() + "\n";
+        return taskLine;
+    }
+
     /**
      * Marks a task as done based on user input.
      *
@@ -144,7 +159,7 @@ public class Duke {
         System.out.println(
                 "    ____________________________________________________________\n" +
                         "     Nice! I've marked this task as done:\n" +
-                        "       " + currentTask.toString() + "\n" +
+                        "       " + currentTask.statusAndTask() + "\n" +
                         "    ____________________________________________________________\n");
     }
 
@@ -170,7 +185,7 @@ public class Duke {
         System.out.println(
                 "    ____________________________________________________________\n" +
                         "     OK, I've marked this task as not done yet:\n" +
-                        "       " + currentTask.toString() + "\n" +
+                        "       " + currentTask.statusAndTask() + "\n" +
                         "    ____________________________________________________________\n");
     }
 
@@ -185,7 +200,7 @@ public class Duke {
         System.out.println(
                 "    ____________________________________________________________\n" +
                         "     Got it. I've added this task:\n" +
-                        "       " + taskArray.get(inputNum).toString() + "\n" +
+                        "       " + taskArray.get(inputNum).statusAndTask() + "\n" +
                         "     Now you have " + (inputNum + 1) + " task(s) in the list.\n" +
                         "    ____________________________________________________________\n");
     }
@@ -218,7 +233,7 @@ public class Duke {
         System.out.println(
                 "    ____________________________________________________________\n" +
                         "     Got it. I've added this task:\n" +
-                        "       " + taskArray.get(inputNum).toString() + "\n" +
+                        "       " + taskArray.get(inputNum).statusAndTask() + "\n" +
                         "     Now you have " + (inputNum + 1) + " task(s) in the list.\n" +
                         "    ____________________________________________________________\n");
     }
@@ -255,7 +270,7 @@ public class Duke {
         taskArray.add(new Event(taskName, start, end));
         System.out.println("    ____________________________________________________________\n" +
                 "     Got it. I've added this task:\n" +
-                "       " + taskArray.get(inputNum).toString() + "\n" +
+                "       " + taskArray.get(inputNum).statusAndTask() + "\n" +
                 "     Now you have " + (inputNum + 1) + " task(s) in the list.\n" +
                 "    ____________________________________________________________\n");
     }
@@ -290,6 +305,14 @@ public class Duke {
         FileWriter fw = new FileWriter(filePath);
         fw.write(textToAdd);
         fw.close();
+    }
+
+    private static void printFileContents(String filePath) throws FileNotFoundException {
+        File f = new File(filePath); // create a File for the given file path
+        Scanner s = new Scanner(f); // create a Scanner using the File as the source
+        while (s.hasNext()) {
+            System.out.println(s.nextLine());
+        }
     }
 
 

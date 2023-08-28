@@ -17,6 +17,8 @@ public class Task {
         return this.taskName;
     }
 
+    public String getType() { return "No task type"; };
+
     public boolean getStatus() {
         return this.status;
     }
@@ -31,8 +33,15 @@ public class Task {
         return "[" + statusString + "]";
     }
 
-    @Override
-    public String toString() {
+    String getDescription() {
+        return toString();
+    }
+
+    public String statusAndTask() {
         return statusString() + " " + this.taskName;
+    }
+
+    public String toString() {
+        return this.taskName;
     }
 }

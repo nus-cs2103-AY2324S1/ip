@@ -9,7 +9,17 @@ public class Event extends Task {
     }
 
     @Override
-    public String toString() {
-        return "[E]" + super.toString() + " (from: " + this.start + " to: " + this.end + ")";
+    public String getType() {
+        return "T";
+    }
+
+    @Override
+    public String getDescription() {
+        return super.toString() + " | " + this.start + " | " + this.end;
+    }
+
+    @Override
+    public String statusAndTask() {
+        return "[E] " + super.toString() + " (from: " + this.start + " to: " + this.end + ")";
     }
 }

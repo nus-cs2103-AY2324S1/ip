@@ -8,7 +8,18 @@ public class Deadline extends Task {
     }
 
     @Override
-    public String toString() {
-        return "[D]" + super.toString() + " (by: " + by + ")";
+    public String getType() {
+        return "D";
     }
+
+    @Override
+    public String getDescription() {
+        return super.toString() + " | " + by ;
+    }
+
+    @Override
+    public String statusAndTask() {
+        return "[D] " + super.toString() + " (by: " + by + ")";
+    }
+
 }
