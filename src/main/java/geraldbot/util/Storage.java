@@ -24,6 +24,10 @@ public class Storage {
         }
     }
 
+    public File getFile() {
+        return this.file;
+    }
+
     private void createFile() {
         File parentFolder = this.file.getParentFile();
 
