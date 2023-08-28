@@ -12,10 +12,10 @@ public class TaskHandler {
     }
 
     private void echo() {
-        if (input.isBlank()) {
+        if (description.isBlank()) {
             System.out.println("You didn't say anything peko?");
         } else {
-            System.out.println(input);
+            System.out.println(description);
         }
 
         System.out.println(lineBreak);
@@ -25,7 +25,7 @@ public class TaskHandler {
         System.out.println(lineBreak);
     }
     private void addToArray() throws InvalidTaskException {
-        Task t = new Task(input);
+        Task t = new Task(description);
         StorageHandler.addToArray(t);
         System.out.println(lineBreak);
     }
