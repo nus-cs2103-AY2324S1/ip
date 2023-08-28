@@ -1,5 +1,8 @@
 package Task;
-public class Task {
+
+import DukeException.*;
+
+public abstract class Task {
     final private String name;
     private boolean completed = false;
 
@@ -11,14 +14,14 @@ public class Task {
     protected String insertColonInTime(String time) {
         return time.replaceFirst(" ", ": ");
     }
-    public Task(String name) throws DukeException.EmptyTaskDescException {
+    public Task(String name) throws EmptyTaskDescException {
         if(name.isBlank()) {
-            throw new DukeException.EmptyTaskDescException();
+            throw new EmptyTaskDescException("Name cannot be blank.");
         }
         this.name = name;
     }
 
-    public static Task Of(String task, TaskType taskType) throws DukeException.EmptyTaskDescException {
+    public static Task Of(String task, TaskType taskType) throws EmptyTaskDescException, InvalidTaskFormatException {
         switch (taskType) {
             case TODO:
                 return new Todo(task);
@@ -40,5 +43,9 @@ public class Task {
 
         return completed ? "[X] " + name : "[ ] " + name;
 
+    }
+
+    public String toSaveFormat(){
+        return name + "|" + completed;
     }
 }

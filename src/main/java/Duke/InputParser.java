@@ -1,11 +1,14 @@
-
+package Duke;
+import DukeException.*;
 import Task.Task;
 import Task.TaskList;
 
 public class InputParser {
 
     private TaskList taskList;
-    public InputParser() {}
+    public InputParser(TaskList taskList) {
+        this.taskList = taskList;
+    }
     public Message HandleInput(String input, Duke duke) {
         String[] inputComponents = input.trim().split(" ", 2);
         String command = inputComponents[0];
@@ -37,12 +40,12 @@ public class InputParser {
                     try {
                         taskIndex = Integer.parseInt(content) - 1;
                     } catch (NumberFormatException e) {
-                        throw new DukeException.InvalidTaskIndexException(content);
+                        throw new InvalidTaskIndexException(content);
                     }
                     try {
                         task = taskList.GetTask(taskIndex);
                     } catch (IndexOutOfBoundsException e) {
-                        throw new DukeException.TaskIndexOutOfRangeException(taskIndex + " is not a valid index");
+                        throw new TaskIndexOutOfRangeException(taskIndex + " is not a valid index");
                     }
                     task.SetCompleted();
                     return Message.OnTaskComplete(task);
@@ -55,7 +58,7 @@ public class InputParser {
                     try {
                         task = taskList.GetTask(taskIndex);
                     } catch (IndexOutOfBoundsException e) {
-                        throw new DukeException.TaskIndexOutOfRangeException(taskIndex + " is not a valid index");
+                        throw new TaskIndexOutOfRangeException(taskIndex + " is not a valid index");
                     }
                     task.SetUncompleted();
                     return Message.OnTaskUncomplete(task);
@@ -68,20 +71,22 @@ public class InputParser {
                     try {
                         task = taskList.GetTask(taskIndex);
                     } catch (IndexOutOfBoundsException e) {
-                        throw new DukeException.TaskIndexOutOfRangeException(taskIndex + " is not a valid index");
+                        throw new TaskIndexOutOfRangeException(taskIndex + " is not a valid index");
                     }
                     taskList.RemoveTask((task));
                     return Message.OnTaskDelete(task);
                 default:
-                    throw new DukeException.NoCommandFoundException(command + " is not a valid command.");
+                    throw new NoCommandFoundException(command + " is not a valid command.");
             }
-        } catch (DukeException.EmptyTaskDescException e) {
+        } catch (EmptyTaskDescException e) {
             return Message.EmptyTaskName();
-        } catch (DukeException.NoCommandFoundException e) {
+        } catch (InvalidTaskFormatException e) {
+            return Message.OnInvalidTaskFormat();
+        } catch (NoCommandFoundException e) {
             return Message.NoCommandFound();
-        } catch (DukeException.InvalidTaskIndexException e) {
+        } catch (InvalidTaskIndexException e) {
             return Message.OnInvalidTaskNo(e.getMessage());
-        } catch (DukeException.TaskIndexOutOfRangeException e) {
+        } catch (TaskIndexOutOfRangeException e) {
             return Message.OnTaskIndexOutOfRange();
         }
     }

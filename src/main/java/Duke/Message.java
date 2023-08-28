@@ -1,3 +1,5 @@
+package Duke;
+
 import Task.Task;
 import Task.TaskList;
 
@@ -62,6 +64,14 @@ public class Message {
 
     public static Message NumberOfTasks(TaskList tasks) {
         return new Message ("There are " + tasks.Size() + " tasks in the list.");
+    }
+
+    public static Message OnInvalidTaskFormat() {
+        return new Message ("This isn't the right format for this type of task!");
+    }
+
+    public static Message OnLoadingError() {
+        return new Message("The file couldn't be loaded.");
     }
 
     public Message ChainTo(Message message, String splitString) {
