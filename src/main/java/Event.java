@@ -4,13 +4,13 @@ public class Event extends Task {
     protected LocalDateTime from;
     protected LocalDateTime to;
 
-    public Event (String description, String from, String to) {
+    public Event (String description, String from, String to) throws DukeException {
         super(description);
         this.from = LocalDateTime.parse(from);
         this.to = LocalDateTime.parse(to);
     }
 
-    public Event (String description, String from, String to, boolean isDone) {
+    public Event (String description, String from, String to, boolean isDone) throws DukeException {
         super(description, isDone);
         this.from = LocalDateTime.parse(from);
         this.to = LocalDateTime.parse(to);
