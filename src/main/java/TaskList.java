@@ -1,11 +1,15 @@
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
+
 class TaskList {
+    private String filePath = "./data/tasks.txt";
     private List<Task> list;
     public String divider = "____________________________________________________________";
-    public TaskList() {
-        this.list = new ArrayList<Task>();
+
+    public TaskList(List<Task> list) {
+        this.list = list;
     }
 
     public void add(Task task) {
@@ -29,6 +33,7 @@ class TaskList {
         System.out.println("Noice! I've marked this task as donezo:");
         System.out.println(task.toString());
         System.out.println(divider);
+        updateFile();
     }
 
     public void delete(int idx) throws DukeException {
@@ -40,6 +45,7 @@ class TaskList {
         System.out.println("Task remove UwU");
         System.out.println(task.toString());
         System.out.println(divider);
+        updateFile();
     }
 
     public void unmark(int idx) throws DukeException {
@@ -54,6 +60,7 @@ class TaskList {
         System.out.println("OK, I've marked this task as not done yet bruh:");
         System.out.println(task.toString());
         System.out.println(divider);
+        updateFile();
     }
 
     public void print() {
@@ -61,8 +68,27 @@ class TaskList {
         System.out.println("Here yo tasks in your list my g:");
         for (int i = 0; i < list.size(); i++) {
             Task task = list.get(i);
-            System.out.println((i+1) + "." + task.toString());
+            System.out.println((i + 1) + "." + task.toString());
         }
         System.out.println(divider);
+    }
+
+    public String toFileString() {
+        StringBuilder res = new StringBuilder("");
+        for (Task t : list) {
+            res.append(t.toFileString());
+        }
+        return res.toString();
+    }
+
+    public void updateFile() {
+        try {
+            FileWriter fileWriter = new FileWriter(filePath);
+            String newContent = toFileString();
+            fileWriter.write(newContent);
+            fileWriter.close();
+        } catch (IOException e) {
+            System.out.println("oops i done goofed");
+        }
     }
 }

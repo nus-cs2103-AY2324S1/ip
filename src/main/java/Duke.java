@@ -1,16 +1,49 @@
+import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Duke {
-    //    public String logo = " ____        _        \n"
-    //            + "|  _ \\ _   _| | _____ \n"
-    //            + "| | | | | | | |/ / _ \\\n"
-    //            + "| |_| | |_| |   <  __/\n"
-    //            + "|____/ \\__,_|_|\\_\\___|\n";
-    //        System.out.println("Hello from\n" + logo);
     public static String divider = "____________________________________________________________";
+
     public static void main(String[] args) {
-        TaskList taskList = new TaskList();
+        String filePath = "./data/tasks.txt";
+        String directoryPath = "./data";  // Directory path
+        TaskList taskList;
+        List<Task> list = new ArrayList<>();
         boolean flag = true;
+
+        try {
+            FileReader fileReader = new FileReader(filePath);
+            BufferedReader bufferedReader = new BufferedReader(fileReader);
+
+            String line;
+            while ((line = bufferedReader.readLine()) != null) {
+                Task task = Task.fromString(line);
+                list.add(task);
+            }
+
+            bufferedReader.close();
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found: " + e.getMessage());
+            System.out.println("Creating new tasks.txt at " + directoryPath);
+
+            File directory = new File(directoryPath);
+            if (!directory.exists()) {
+                directory.mkdirs();
+            } else {
+                File file = new File(filePath);
+                try {
+                    file.createNewFile();
+                } catch (IOException ioException) {
+                    System.out.println("Oopsie something went wrong creating the file.");
+                }
+            }
+        } catch (IOException e) {
+            System.out.println("Error reading file: " + e.getMessage());
+        } finally {
+            taskList = new TaskList(list);
+        }
 
         System.out.println(divider);
         System.out.println("Hello! I'm BanterBot");
@@ -77,9 +110,9 @@ public class Duke {
                 }
             } catch (DukeException e) {
                 System.out.println(e.getMessage());
-            } finally {
-                input = scanner.nextLine();
             }
+            
+            input = scanner.nextLine();
         }
     }
 }
