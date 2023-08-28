@@ -7,7 +7,7 @@ import duke.UI;
 import java.io.IOException;
 
 public class MarkCommand extends Command {
-    int index;
+    private int index;
     public MarkCommand(int index) {
         super(false);
         this.index= index;

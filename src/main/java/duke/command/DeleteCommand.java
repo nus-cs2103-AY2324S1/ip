@@ -7,8 +7,8 @@ import duke.task.Task;
 
 import java.io.IOException;
 
-public class DeleteCommand extends Command{
-    int index;
+public class DeleteCommand extends Command {
+    private int index;
 
     public DeleteCommand(int index) {
         super(false);

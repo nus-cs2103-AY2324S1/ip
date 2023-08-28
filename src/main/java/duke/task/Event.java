@@ -7,7 +7,7 @@ package duke.task;
  * @author Zi Xiang
  * @version CS2103 AY23/24 Sem 1
  */
-public class Event extends Task{
+public class Event extends Task {
     protected String start;
     protected String end;
 

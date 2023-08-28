@@ -7,7 +7,7 @@ import duke.UI;
 import java.io.IOException;
 
 public abstract class Command {
-    boolean isExit;
+    private boolean isExit;
 
     public Command(boolean isExit){
         this.isExit = isExit;

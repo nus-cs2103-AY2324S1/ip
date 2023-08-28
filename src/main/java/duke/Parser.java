@@ -22,7 +22,8 @@ import java.util.Arrays;
  */
 public class Parser {
     // Initialisation of objects and variables
-    static List<String> commands = Arrays.asList(new String[]{"todo", "deadline", "event", "mark", "unmark", "delete"});;
+    private static List<String> commands = Arrays.asList(
+            new String[]{"todo", "deadline", "event", "mark", "unmark", "delete"});;
 
     public static Command parse(String fullCommand) throws DukeException {
         if (fullCommand.equals("bye")) {
@@ -75,7 +76,7 @@ public class Parser {
                         } else {
                             throw new UnknownCommandException();
                         }
-                    } else if (command.equals("delete")){
+                    } else if (command.equals("delete")) {
                         int index = Integer.parseInt(temp[1]);
                         return new DeleteCommand(index);
                     }

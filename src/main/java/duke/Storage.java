@@ -9,7 +9,9 @@ import java.io.FileNotFoundException;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+
 import java.time.LocalDate;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -20,7 +22,7 @@ public class Storage {
         this.filePath = filePath;
     }
 
-    public ArrayList<Task> load() throws FileNotFoundException{
+    public ArrayList<Task> load() throws FileNotFoundException {
         File file = new File(filePath);
         ArrayList<Task> tasks = new ArrayList<Task>();
 
@@ -46,7 +48,7 @@ public class Storage {
      * @param tasks
      * @throws IOException
      */
-    public void rewrite(TaskList tasks) throws IOException{
+    public void rewrite(TaskList tasks) throws IOException {
         ArrayList<Task> arrayTasks = tasks.getTasks();
         FileWriter file = new FileWriter("storage.txt");
         for (int i = 0; i < arrayTasks.size(); i++) {
