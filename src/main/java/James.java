@@ -10,6 +10,7 @@ public class James {
     public static void main(String[] args) {
         new James().start();
     }
+    public ArrayList<Task> items = new ArrayList<Task>();
 
     public void start() {
         String line = "____________________________________________________________";
@@ -20,34 +21,33 @@ public class James {
         // User Input
         Scanner in = new Scanner(System.in);
 
-        ArrayList<Task> items = new ArrayList<Task>();
 
         String input = in.nextLine();
         while (!input.equals("bye")) {
             try {
                 if (input.equals("list")) {
                     System.out.println(line);
-                    for (int i = 0; i < items.size(); i++) {
-                        System.out.println(i + 1 + "." + items.get(i));
+                    for (int i = 0; i < this.items.size(); i++) {
+                        System.out.println(i + 1 + "." + this.items.get(i));
                     }
                 } else if (input.contains("unmark")) {
                     Integer taskIdx = Integer.parseInt(input.split(" ")[1]);
-                    Task task = items.get(taskIdx - 1);
+                    Task task = this.items.get(taskIdx - 1);
                     task.unmark();
                     System.out.println(line + "\n" + "OK! I've marked this task as not done yet:");
                     System.out.println(task + "\n" + line);
                 } else if (input.contains("mark")) {
                     Integer taskIdx = Integer.parseInt(input.split(" ")[1]);
-                    Task task = items.get(taskIdx - 1);
+                    Task task = this.items.get(taskIdx - 1);
                     task.mark();
                     System.out.println(line + "\n" + "Nice! I've marked this task as done:");
                     System.out.println(task + "\n" + line);
                 } else if (input.contains("delete")) {
                     Integer taskIdx = Integer.parseInt(input.split(" ")[1]);
-                    Task task = items.get(taskIdx - 1);
-                    items.remove(task);
+                    Task task = this.items.get(taskIdx - 1);
+                    this.items.remove(task);
                     System.out.println(line + "\n" + "Noted. I've removed this task:\n" + task + "\n" + line);
-                    System.out.println("Now you have " + items.size() + " tasks in the list.");
+                    System.out.println("Now you have " + this.items.size() + " tasks in the list.");
                 } else {
                     // Add Task
                     TaskType taskType = null;
@@ -96,9 +96,10 @@ public class James {
                     } else {
                         throw new JamesException(sadFace + " OOPS!!! I'm sorry, but I don't know what that means :-(");
                     }
-                    items.add(task);
+                    this.items.add(task);
                     System.out.println(line + "\n" + "Got it. I've added this task:\n" + task + "\n" + line);
-                    System.out.println("Now you have " + items.size() + " tasks in the list.");
+                    System.out.println("Now you have " + this.items.size() + " tasks in the list.");
+                    this.save();
                 }
 
             } catch (JamesException e) {
@@ -108,6 +109,10 @@ public class James {
         }
 
         System.out.println(line + "\nBye. Hope to see you again soon!\n" + line);
+
+    }
+
+    public void save() {
 
     }
 }
