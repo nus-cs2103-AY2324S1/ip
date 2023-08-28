@@ -1,2 +1,5 @@
-package PACKAGE_NAME;public class NotIntegerException {
+public class NotIntegerException extends Exception {
+    public NotIntegerException() {
+        super("NotIntegerException: Not an Integer\n");
+    }
 }

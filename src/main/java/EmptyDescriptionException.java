@@ -1,5 +1,5 @@
-public class DukeException extends Exception {
-    public DukeException(String message) {
-        super("DukeException: " + message + "\n");
+public class EmptyDescriptionException extends Exception {
+    public EmptyDescriptionException(String message) {
+        super("EmptyDescriptionException: " + message + "\n");
     }
 }

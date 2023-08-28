@@ -1,2 +1,5 @@
-package PACKAGE_NAME;public class MissingKeywordException {
+public class MissingKeywordException extends Exception {
+    public MissingKeywordException(String message) {
+        super("MissingKeywordException: " + message + "\n");
+    }
 }
