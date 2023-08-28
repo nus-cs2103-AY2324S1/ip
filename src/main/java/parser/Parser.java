@@ -49,7 +49,7 @@ public class Parser {
         try {
             return new MarkCommand(Integer.parseInt(argument), commandType == CommandType.MARK);
         } catch (NumberFormatException e) {
-            throw new BobInvalidTaskNumberException();
+            throw new BobInvalidTaskNumberException("The mark/unmark command needs to be followed up by an integer number!\n");
         }
     }
 

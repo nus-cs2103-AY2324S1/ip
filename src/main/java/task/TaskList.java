@@ -34,7 +34,8 @@ public class TaskList {
         try {
             return this.tasks.get(num);
         } catch (IndexOutOfBoundsException e) {
-            throw new BobInvalidTaskNumberException();
+            throw new BobInvalidTaskNumberException("You are trying to access a non-existent task :O\n" +
+                    "Use the command: \"list\" to find out what tasks you have.");
         }
     }
 }
