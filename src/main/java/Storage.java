@@ -14,29 +14,8 @@ public class Storage {
         this.filePath = filePath;
     }
 
-    public void writeTask(Task task) {
-        store.add(task);
-        saveData();
-    }
 
-    public Task updateTask(int taskIndex, String status) {
-        Task selectedTask = store.get(taskIndex);
-        if (status.equals("mark")) {
-            selectedTask.markTask();
-        } else if (status.equals("unmark")) {
-            selectedTask.unmarkTask();
-        } else if (status.equals("delete")) {
-            store.remove(taskIndex);
-        }
-        saveData();
-        return selectedTask;
-    }
-
-    public void saveData() {
-        StringBuilder sb = new StringBuilder();
-        for (Task task : store) {
-            sb.append(task.exportData()).append("\n");
-        }
+    public void saveData(String data) {
         try {
             File file = new File(filePath);
             if (!file.exists()) {
@@ -44,7 +23,7 @@ public class Storage {
                 file.createNewFile();
             }
             FileWriter fw = new FileWriter(file);
-            fw.write(String.valueOf(sb));
+            fw.write(data);
             fw.close();
         } catch (IOException e) {
             System.out.println(e.getMessage());
