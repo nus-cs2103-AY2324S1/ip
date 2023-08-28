@@ -38,7 +38,7 @@ public class Event extends Task {
     }
 
     @Override
-    public boolean checkSameDate(LocalDateTime date) {
+    public boolean isWithinDateRange(LocalDateTime date) {
         return this.start.isBefore(date) && this.deadline.isAfter(date);
     }
 }

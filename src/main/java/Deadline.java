@@ -34,7 +34,7 @@ public class Deadline extends Task{
     }
 
     @Override
-    public boolean checkSameDate(LocalDateTime date) {
+    public boolean isWithinDateRange(LocalDateTime date) {
         return this.deadline.equals(date);
     }
 }

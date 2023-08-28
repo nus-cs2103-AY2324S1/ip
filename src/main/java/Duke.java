@@ -37,9 +37,8 @@ public class Duke {
     private static final String FILE_NAME = "duke.txt";
     private static final DateTimeFormatter FORMATTER = new DateTimeFormatterBuilder()
             .appendPattern("yyyy-MM-dd")
-            .optionalStart()
-            .appendPattern(" HH:mm")
-            .optionalEnd()
+            .optionalStart().appendPattern(" HH:mm").optionalEnd()
+            .optionalStart().appendPattern(" HHmm").optionalEnd()
             .parseDefaulting(ChronoField.HOUR_OF_DAY, 0)
             .parseDefaulting(ChronoField.MINUTE_OF_HOUR, 0)
             .toFormatter();
@@ -63,7 +62,7 @@ public class Duke {
         List<Task> relevantTasks = new ArrayList<>();
 
         for (Task task : tasks) {
-            if (task.checkSameDate(date)) {
+            if (task.isWithinDateRange(date)) {
                 relevantTasks.add(task);
             }
         }

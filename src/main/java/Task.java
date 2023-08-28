@@ -41,7 +41,7 @@ public class Task {
         return String.format("%s | %s", isDone ? "1" : "0", this.description);
     }
 
-    public boolean checkSameDate(LocalDateTime date) {
+    public boolean isWithinDateRange(LocalDateTime date) {
         return false;
     }
 
