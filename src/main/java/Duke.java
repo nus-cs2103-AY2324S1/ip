@@ -16,16 +16,25 @@ public class Duke {
             "                      \\/_/    \\_________\\/             \\/_/";
     private static final String NAME = "404";
     public static final String INDENT = "     ";
-
+    private Storage storage;
     private TaskList taskList;
 
     public static void main(String[] args) {
-        Duke robot404 = new Duke();
+        Duke robot404 = new Duke("./data", "duke.txt");
         robot404.start();
     }
 
-    public Duke() {
-        this.taskList = new TaskList();
+    public Duke(String foldPath, String fileName) {
+        this.storage = new Storage(foldPath, fileName);
+        try {
+            this.taskList = new TaskList(this.storage.load());
+        } catch (DukeException e) {
+            printLine();
+            System.out.println(e.getMessage());
+            printLine();
+            storage.createFile();
+            taskList = new TaskList();
+        }
     }
 
     public void start() {
@@ -81,27 +90,27 @@ public class Duke {
         String message = String.format("%sOOPS!!! The description of a %s cannot be empty.%n%s",
                 INDENT, key.getKeyword(), INDENT);
         switch (key){
-            case BYE:
-                System.out.printf("%sBye. Hope to see you again soon!%n", INDENT);
-                return true;
+        case BYE:
+            System.out.printf("%sBye. Hope to see you again soon!%n", INDENT);
+            return true;
 
-            case LIST:
-                taskList.listTask();
-                break;
+        case LIST:
+            taskList.listTask();
+            break;
 
-            case TODO:
-                throw new TodoException(message);
+        case TODO:
+            throw new TodoException(message);
 
-            case DEADLINE:
-                throw new DeadlineException(message);
+        case DEADLINE:
+            throw new DeadlineException(message);
 
-            case EVENT:
-                throw new EventException(message);
+        case EVENT:
+            throw new EventException(message);
 
-            case MARK:
-            case UNMARK:
-            case DELETE:
-                throw new ManipulateException(message, key.getKeyword());
+        case MARK:
+        case UNMARK:
+        case DELETE:
+            throw new ManipulateException(message, key.getKeyword());
         }
         return false;
     }
@@ -110,28 +119,29 @@ public class Duke {
         String message = String.format("%sOOPS!!! The command for %s task is invalid.%n%s",
                 INDENT, key.getKeyword(), INDENT);
         switch (key) {
-            case BYE:
+        case BYE:
                 if (rest.equals(NAME)) {
                     System.out.printf("%sBye. Hope to see you again soon!%n", INDENT);
                     return true;
                 }
-            case LIST:
-                String errMessage = String.format("%sOOPS!!! The command for %s is invalid.\n" +
+            // fall through
+        case LIST:
+            String errMessage = String.format("%sOOPS!!! The command for %s is invalid.\n" +
                                 "%sEnter in the form: \"%s\"",
-                        INDENT, key.getKeyword(), INDENT, key.getKeyword());
-                throw new DukeException(errMessage);
+                    INDENT, key.getKeyword(), INDENT, key.getKeyword());
+            throw new DukeException(errMessage);
 
-            case MARK:
-            case UNMARK:
-            case DELETE:
-                processManipulateCommand(key, rest, message);
-                break;
+        case MARK:
+        case UNMARK:
+        case DELETE:
+            processManipulateCommand(key, rest, message);
+            break;
 
-            case TODO:
-            case DEADLINE:
-            case EVENT:
-                processAddCommand(key, rest, message);
-                break;
+        case TODO:
+        case DEADLINE:
+        case EVENT:
+            processAddCommand(key, rest, message);
+            break;
         }
         return false;
     }
@@ -143,6 +153,7 @@ public class Duke {
                 task_num = Integer.parseInt(rest);
             } else {
                 taskList.manipulateAllTask(key);
+                storage.changeFile(key, -1);
                 return;
             }
         } catch (NumberFormatException e) {
@@ -151,37 +162,42 @@ public class Duke {
 
         if (key.equals(Keyword.DELETE)) {
             taskList.deleteTask(task_num - 1);
+            storage.changeFile(Keyword.DELETE, task_num - 1);
         } else {
             taskList.markTask(task_num - 1, key.equals(Keyword.MARK));
+            storage.changeFile(key, task_num - 1);
         }
     }
 
     private void processAddCommand(Keyword key, String rest, String err) throws DukeException {
+        Task task;
         switch(key) {
-            case TODO:
-                taskList.addTask(new Todo(rest));
-                break;
+        case TODO:
+            task = new Todo(rest);
+            break;
 
-            case DEADLINE:
-                String[] deadlineTask = rest.split(" /by ");
-                if (deadlineTask.length != 2) {
-                    throw new DeadlineException(err);
-                }
-                taskList.addTask(new Deadline(deadlineTask[0], deadlineTask[1]));
-                break;
+        case DEADLINE:
+            String[] deadlineTask = rest.split(" /by ");
+            if (deadlineTask.length != 2) {
+                throw new DeadlineException(err);
+            }
+            task = new Deadline(deadlineTask[0], deadlineTask[1]);
+            break;
 
-            case EVENT:
-                String[] eventTask = rest.split(" /from ");
-                if (eventTask.length != 2) {
-                    throw new EventException(err);
-                }
-                String[] dates = eventTask[1].split(" /to ");
-                if (dates.length != 2) {
-                    throw new EventException(err);
-                }
-                taskList.addTask(new Event(eventTask[0], dates[0], dates[1]));
-                break;
+        default: // equivalent to case EVENT
+            String[] eventTask = rest.split(" /from ");
+            if (eventTask.length != 2) {
+                throw new EventException(err);
+            }
+            String[] dates = eventTask[1].split(" /to ");
+            if (dates.length != 2) {
+                throw new EventException(err);
+            }
+            task = new Event(eventTask[0], dates[0], dates[1]);
+            break;
         }
+        taskList.addTask(task);
+        storage.appendFile(task.fileFormat());
     }
 
     private static void printLine() {

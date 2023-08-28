@@ -10,6 +10,14 @@ public class Event extends Task{
     }
 
     @Override
+    public String fileFormat() {
+        return String.format("E%s%s%s%s%s%s",
+                Storage.SEPARATOR, super.fileFormat(),
+                Storage.SEPARATOR, this.from,
+                Storage.SEPARATOR, this.to);
+    }
+
+    @Override
     public String toString() {
         return String.format("[E]%s (from: %s to: %s)", super.toString(), this.from, this.to);
     }

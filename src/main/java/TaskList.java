@@ -6,6 +6,10 @@ public class TaskList {
 
     private List<Task> taskList;
 
+    public TaskList(List<Task> tasks) {
+        this.taskList = tasks;
+    }
+
     public TaskList() {
         this.taskList = new ArrayList<>();
     }
@@ -44,15 +48,15 @@ public class TaskList {
                 Duke.INDENT, Duke.INDENT, removedTask, Duke.INDENT, taskList.size());
     }
 
-    public void markTask(int index, boolean mark) throws DukeException {
+    public void markTask(int index, boolean isMark) throws DukeException {
         if (index >= taskList.size() || index < 0) {
             String str = String.format("%sOOPS!!! There is no task %d to %s",
-                    Duke.INDENT, index + 1, mark ? "mark" : "unmark");
+                    Duke.INDENT, index + 1, isMark ? "mark" : "unmark");
             listTask();
             throw new DukeException(str);
         }
-        String task = taskList.get(index).mark(mark);
-        String message = mark ? "Nice! I've marked this task as done:"
+        String task = taskList.get(index).mark(isMark);
+        String message = isMark ? "Nice! I've marked this task as done:"
                               : "OK, I've marked this task as not done yet:";
         System.out.printf("%s%s%n%s  %s%n", Duke.INDENT, message, Duke.INDENT, task);
     }
