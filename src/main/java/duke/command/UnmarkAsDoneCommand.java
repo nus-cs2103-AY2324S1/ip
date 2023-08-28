@@ -1,12 +1,12 @@
 package duke.command;
 
-import duke.task.TaskList;
-import duke.ui.Ui;
 import duke.exception.DukeException;
 import duke.storage.Storage;
+import duke.task.TaskList;
+import duke.ui.Ui;
 
 public class UnmarkAsDoneCommand extends Command {
-    private int index;
+    private final int index;
 
     public UnmarkAsDoneCommand(int index) {
         this.index = index;

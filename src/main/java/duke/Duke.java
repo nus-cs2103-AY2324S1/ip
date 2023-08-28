@@ -1,16 +1,16 @@
 package duke;
 
+import duke.command.Command;
+import duke.exception.DukeException;
 import duke.parser.Parser;
 import duke.storage.Storage;
 import duke.task.TaskList;
 import duke.ui.Ui;
-import duke.command.Command;
-import duke.exception.DukeException;
 
 public class Duke {
-    private Storage storage;
+    private final Storage storage;
     private TaskList tasks;
-    private Ui ui;
+    private final Ui ui;
 
     public Duke(String filePath) {
         ui = new Ui();
@@ -21,6 +21,10 @@ public class Duke {
             ui.showLoadingError();
             tasks = new TaskList();
         }
+    }
+
+    public static void main(String[] args) {
+        new Duke("tasks.txt").run();
     }
 
     public void run() {
@@ -40,9 +44,5 @@ public class Duke {
             }
         }
         ui.close();
-    }
-
-    public static void main(String[] args) {
-        new Duke("tasks.txt").run();
     }
 }

@@ -9,7 +9,7 @@ public class Ui {
     private static final String HORIZONTAL_LINE = "____________________________________________________________";
     private static final String CHATBOT_NAME = "Duke";
 
-    private Scanner sc;
+    private final Scanner sc;
 
     public Ui() {
         this.sc = new Scanner(System.in);

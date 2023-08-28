@@ -1,17 +1,13 @@
 package duke.task;
 
+import duke.exception.DukeException;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-
-import duke.exception.DukeException;
 
 public class Task {
     protected String description;
     protected boolean isDone;
-
-    protected static String getDate(LocalDateTime date) {
-        return date.format(DateTimeFormatter.ofPattern("h:mm a, MMM d yyyy"));
-    }
 
     public Task(String description) throws DukeException {
         if (description.isEmpty()) {
@@ -27,6 +23,10 @@ public class Task {
         }
         this.description = description;
         this.isDone = isDone;
+    }
+
+    protected static String getDate(LocalDateTime date) {
+        return date.format(DateTimeFormatter.ofPattern("h:mm a, MMM d yyyy"));
     }
 
     public String getStatusIcon() {

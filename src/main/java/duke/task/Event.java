@@ -1,8 +1,8 @@
 package duke.task;
 
-import java.time.LocalDateTime;
-
 import duke.exception.DukeException;
+
+import java.time.LocalDateTime;
 
 public class Event extends Task {
     protected LocalDateTime from;
