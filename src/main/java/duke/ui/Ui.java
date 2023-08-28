@@ -48,6 +48,15 @@ public class Ui {
         printWithLines("Bye. Hope to see you again soon!");
     }
 
+    public void printFindTasks(TaskList findTasks) {
+        System.out.println(HORIZONTAL_LINE);
+        System.out.println("Here are the matching tasks in your list:");
+        for (int i = 0; i < findTasks.getCountTasks(); i++) {
+            System.out.println((i + 1) + ". " + findTasks.getTask(i));
+        }
+        System.out.println(HORIZONTAL_LINE);
+    }
+
     public void printErrorMessage(DukeException e) {
         printWithLines(e.toString());
     }
