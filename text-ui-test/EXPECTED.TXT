@@ -3,13 +3,17 @@
   What can I do for you?
  ----------------------------------------
  ----------------------------------------
-You have no tasks! Please add some tasks first
+  Nice! I've marked this task as done:
+     [D][X] homework(by: Jan 01 2024 2359)
  ----------------------------------------
  ----------------------------------------
-You have no tasks! Please add some tasks first
+  OK, I've marked this task as not done yet:
+     [D][ ] homework(by: Jan 01 2024 2359)
  ----------------------------------------
  ----------------------------------------
-You have no tasks! Please add some tasks first
+ Noted. I've removed this task:
+     [D][ ] homework(by: Jan 01 2024 2359)
+ Now you have 1 tasks in the list.
  ----------------------------------------
  ----------------------------------------
 Invalid command! Please include the index of the task you wish to mark
@@ -50,54 +54,68 @@ Sorry! I do not recognise this command
  ----------------------------------------
  Got it. I've added this task:
      [T][ ] borrow book
- Now you have 1 tasks in the list.
- ----------------------------------------
- ----------------------------------------
- Got it. I've added this task:
-     [D][ ] homework (by: thursday)
  Now you have 2 tasks in the list.
  ----------------------------------------
  ----------------------------------------
  Got it. I've added this task:
-     [E][ ] meeting (from: 2pm to: 4pm)
+     [D][ ] homework (by: Jan 01 2024 2359)
  Now you have 3 tasks in the list.
  ----------------------------------------
  ----------------------------------------
+Invalid date and time format! Please use the format dd/mm/yyyy hhmm
+ ----------------------------------------
+ ----------------------------------------
+Invalid date and time format! Please use the format dd/mm/yyyy hhmm
+ ----------------------------------------
+ ----------------------------------------
+ Got it. I've added this task:
+     [E][ ] meeting (from: Jan 01 2024 0800 to: Jan 01 2024 1000)
+ Now you have 4 tasks in the list.
+ ----------------------------------------
+ ----------------------------------------
+Invalid date and time format! Please use the format dd/mm/yyyy hhmm
+ ----------------------------------------
+ ----------------------------------------
 Here are the tasks in your list:
- 1. [T][ ] borrow book
- 2. [D][ ] homework (by: thursday)
- 3. [E][ ] meeting (from: 2pm to: 4pm)
+ 1. [D][ ] homework(by: Jan 01 2024 2359)
+ 2. [T][ ] borrow book
+ 3. [D][ ] homework (by: Jan 01 2024 2359)
+ 4. [E][ ] meeting (from: Jan 01 2024 0800 to: Jan 01 2024 1000)
+ ----------------------------------------
+ ----------------------------------------
+  Nice! I've marked this task as done:
+     [D][X] homework(by: Jan 01 2024 2359)
  ----------------------------------------
  ----------------------------------------
   Nice! I've marked this task as done:
      [T][X] borrow book
  ----------------------------------------
  ----------------------------------------
+  OK, I've marked this task as not done yet:
+     [D][ ] homework(by: Jan 01 2024 2359)
+ ----------------------------------------
+ ----------------------------------------
   Nice! I've marked this task as done:
-     [D][X] homework (by: thursday)
+     [E][X] meeting (from: Jan 01 2024 0800 to: Jan 01 2024 1000)
  ----------------------------------------
  ----------------------------------------
   OK, I've marked this task as not done yet:
-     [T][ ] borrow book
- ----------------------------------------
- ----------------------------------------
-No such task! Please enter a task ID between 1 and 3
- ----------------------------------------
- ----------------------------------------
-No such task! Please enter a task ID between 1 and 3
- ----------------------------------------
- ----------------------------------------
-No such task! Please enter a task ID between 1 and 3
+     [E][ ] meeting (from: Jan 01 2024 0800 to: Jan 01 2024 1000)
  ----------------------------------------
  ----------------------------------------
  Noted. I've removed this task:
-     [D][X] homework (by: thursday)
+     [E][ ] meeting (from: Jan 01 2024 0800 to: Jan 01 2024 1000)
+ Now you have 3 tasks in the list.
+ ----------------------------------------
+ ----------------------------------------
+ Noted. I've removed this task:
+     [T][X] borrow book
  Now you have 2 tasks in the list.
  ----------------------------------------
  ----------------------------------------
 Here are the tasks in your list:
- 1. [T][ ] borrow book
- 2. [E][ ] meeting (from: 2pm to: 4pm)
+ 1. [D][ ] homework(by: Jan 01 2024 2359)
+ 2. [D][ ] homework (by: Jan 01 2024 2359)
  ----------------------------------------
  ----------------------------------------
   Bye. Hope to see you again soon!
