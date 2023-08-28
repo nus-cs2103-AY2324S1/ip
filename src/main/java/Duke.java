@@ -1,4 +1,5 @@
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Path;
@@ -25,21 +26,37 @@ public class Duke {
         }
     }
 
-    private static File createFile() {
+    public static void main(String[] args) {
+        outputMessage(" Hello! I'm Pixel\n What can I do for you?\n");
+
         File file = new File(filePath.toUri());
         try {
-            if (!file.getParentFile().mkdirs() && !file.createNewFile() && !file.exists()) {
-                System.out.println("Something went wrong.");
-            }
-        } catch (IOException e) {
-            System.out.println("Something went wrong: " + e.getMessage());
-        }
-        return file;
-    }
+            Scanner loader = new Scanner(file);
+            outputMessage(" Loaded tasks from database!\n");
 
-    public static void main(String[] args) {
-        File file = createFile();
-        outputMessage(" Hello! I'm Pixel\n What can I do for you?\n");
+            while (loader.hasNextLine()) {
+                String[] fields = loader.nextLine().split(";");
+                switch (fields[0]) {
+                    case "T":
+                        tasks.add(new Todo(fields[2], fields[1].equals("X")));
+                        break;
+                    case "D":
+                        tasks.add(new Deadline(fields[2], fields[1].equals("X"), fields[3]));
+                        break;
+                    case "E":
+                        tasks.add(new Event(fields[2], fields[1].equals("X"), fields[3], fields[4]));
+                        break;
+                }
+            }
+        } catch (FileNotFoundException _e) {
+            try {
+                if (!file.getParentFile().mkdirs() && !file.createNewFile() && !file.exists()) {
+                    System.out.println("Something went wrong.");
+                }
+            } catch (IOException e) {
+                System.out.println("Something went wrong: " + e.getMessage());
+            }
+        }
 
         Scanner scanner = new Scanner(System.in);
         while (scanner.hasNext()) {
@@ -49,7 +66,7 @@ public class Duke {
                 case "bye": {
                     outputMessage(" Bye. Hope to see you again soon!\n");
                     scanner.close();
-                    writeToFile(file, tasks.stream().map(Task::toString).collect(Collectors.joining("\n")));
+                    writeToFile(file, tasks.stream().map(Task::encodeTask).collect(Collectors.joining("\n")));
                     return;
                 }
                 case "list": {
