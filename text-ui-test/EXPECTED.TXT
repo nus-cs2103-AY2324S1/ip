@@ -25,7 +25,7 @@ There are now 1 tasks in the list
 
 ----------------------------------------------------------------------------------------------------------
 You have added a task:
-        [D][ ] return book to library (by: Sunday 5pm)
+    	[D][ ] return book to library (by: Sunday 5pm)
 There are now 2 tasks in the list
 ----------------------------------------------------------------------------------------------------------
 
