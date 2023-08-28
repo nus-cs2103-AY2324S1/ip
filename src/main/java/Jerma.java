@@ -1,7 +1,8 @@
 import java.util.Scanner;
 
 import commands.List;
-
+import commands.Mark;
+import commands.Unmark;
 import tasks.Deadline;
 import tasks.Event;
 import tasks.Task;
@@ -49,23 +50,18 @@ public class Jerma {
 
         switch (command) {
         case LIST:
-          new List(tasks, ui).execute();
+          new List(ui, tasks).execute();
           break;
         case BYE:
           break listen;
         case MARK:
-          int index = Integer.parseInt(inputArgs[1]) - 1;
-          Task task = tasks.get(index);
-          task.setDone();
-
-          System.out.println("Marked as done: \n" + task);
+          int index = Integer.parseInt(inputArgs[1]);
+          new Mark(ui, tasks, index).execute();
+          ;
           break;
         case UNMARK:
-          index = Integer.parseInt(inputArgs[1]) - 1;
-          task = tasks.get(index);
-          task.setUndone();
-
-          System.out.println("Marked as undone: \n" + task);
+          index = Integer.parseInt(inputArgs[1]);
+          new Unmark(ui, tasks, index).execute();
           break;
         case DELETE:
           index = Integer.parseInt(inputArgs[1]) - 1;

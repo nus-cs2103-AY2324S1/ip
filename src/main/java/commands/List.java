@@ -4,12 +4,8 @@ import utils.TaskList;
 import utils.Ui;
 
 public class List extends Command {
-  private TaskList tasks;
-  private Ui ui;
-
-  public List(TaskList tasks, Ui ui) {
-    this.tasks = tasks;
-    this.ui = ui;
+  public List(Ui ui, TaskList tasks) {
+    super(ui, tasks);
   }
 
   public void execute() {
