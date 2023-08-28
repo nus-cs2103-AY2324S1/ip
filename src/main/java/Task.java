@@ -1,6 +1,10 @@
-public class Task {
+public abstract class Task {
     protected String description;
     protected boolean isDone;
+
+    public String toFormattedString() {
+        return String.format("%s | %s", this.isDone ? "1" : "0", this.description);
+    }
 
     public Task(String description) {
         this.description = description;

@@ -10,4 +10,9 @@ public class Deadline extends Task {
     public String getStatusMessage() {
         return "[D]" + super.getStatusMessage() + " (by: " + this.by + ")";
     }
+
+    @Override
+    public String toFormattedString() {
+        return String.format("D | %s", super.toFormattedString());
+    }
 }

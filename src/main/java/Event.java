@@ -12,4 +12,9 @@ public class Event extends Task {
     public String getStatusMessage() {
         return "[E]" + super.getStatusMessage() + " (from: " + this.from + " to: " + this.to + ")";
     }
+
+    @Override
+    public String toFormattedString() {
+        return String.format("E | %s", super.toFormattedString());
+    }
 }
