@@ -8,10 +8,10 @@ public abstract class TaskCommand extends Command {
     super(name, args);
   }
 
-  protected abstract Task makeTask();
+  protected abstract Task makeTask() throws DukeException;
 
   @Override
-  public void execute(List<Task> tasks, Ui ui, File storage) throws OutOfBoundsException {
+  public void execute(List<Task> tasks, Ui ui, File storage) throws DukeException {
     Task newTask = this.makeTask();
     tasks.add(newTask);
     ui.print(String.format("Got it. I've added this task:\n  %s\n%s", tasks.get(tasks.size() - 1).toString(), ui.getTaskCount(tasks.size())));;

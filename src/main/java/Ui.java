@@ -1,3 +1,5 @@
+import java.time.format.DateTimeFormatter;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -22,6 +24,10 @@ public abstract class Ui {
       enumArr.add(String.format("%d. %s", i + 1, arr.get(i).toString()));
     }
     return String.join("\n", enumArr);
+  }
+
+  public static String stringifyDate(LocalDate date) {
+    return date.format(DateTimeFormatter.ofPattern("d MMM yyyy"));
   }
 
   public String readCommand() {

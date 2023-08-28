@@ -21,6 +21,8 @@ public class Duke {
   private static final String storageFileName = "data.txt";
   private static final Map<String, Function<Map<String, Object>, Command>> commands = Map.ofEntries(
       new SimpleEntry<>("list", x -> new ListCommand(x)),
+      new SimpleEntry<>("queue", x -> new QueueCommand(x)),
+      new SimpleEntry<>("ongoing", x -> new OngoingCommand(x)),
       new SimpleEntry<>("mark", x -> new MarkCommand(x)),
       new SimpleEntry<>("unmark", x -> new UnmarkCommand(x)),
       new SimpleEntry<>("todo", x -> new ToDoCommand(x)),
