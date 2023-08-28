@@ -1,5 +1,8 @@
 package main.java;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Scanner;
 
 public class Duke {
@@ -10,6 +13,23 @@ public class Duke {
     }
 
     private static void greet() {
+        //loadData
+        File saveData = new File("./data.duke.txt");
+        try {
+            Scanner readData = new Scanner(saveData);
+            while (readData.hasNextLine()) {
+                quickLoad(readData.nextLine());
+            }
+        } catch (FileNotFoundException e) {
+            try {
+                saveData.createNewFile();
+            } catch (IOException f) {
+                if (clarify() == 0) {
+                    exit();
+                    return;
+                }
+            }
+        }
         System.out.println(
                 "Hello. I am Luxion. \n" +
                 "What can I do for you?");
@@ -21,6 +41,52 @@ public class Duke {
 
     private static void exit() {
         System.out.println("Bye. See you soon.\n");
+    }
+
+    private static int clarify() {
+        System.out.println("You do not have access to create a save file");
+        System.out.println("Do you wish to continue? (yes/no) None of your data will be saved.");
+        Scanner scan = new Scanner(System.in);
+        String respond = scan.nextLine();
+        if (respond.equals("yes")) {
+            return 1;
+        } else if (respond.equals("no")) {
+            return 0;
+        } else {
+            return clarify();
+        }
+    }
+
+    protected static void quickLoad(String command) {
+        Parse cmd = new Parse(command);
+        COMMANDS firstWord = cmd.mainCommand();
+
+        switch (firstWord) {
+        case TODO:
+            taskList.addTask(cmd.secondWord());
+            break;
+
+        case DEADLINE:
+            String task = cmd.phaseParse();
+            String dayDate = cmd.phaseTwo();
+            Parse parseDayDate = new Parse(dayDate);
+            taskList.addTask(task, parseDayDate.secondWord());
+            return;
+
+        case EVENT:
+            String task2 = cmd.phaseParse();
+            String startDayDateTime = cmd.phaseTwo();
+            Parse parseStartDayDateTime = new Parse(startDayDateTime);
+            String endDayDateTime = cmd.phaseThree();
+            Parse parseEndDayDateTime = new Parse(endDayDateTime);
+            taskList.addTask(task2, parseStartDayDateTime.secondWord(), parseEndDayDateTime.secondWord());
+            return;
+
+        case MARK:
+            int i = Integer.parseInt(cmd.secondWord());
+            taskList.mark(i);
+            return;
+        }
     }
 
     static class Parse {
