@@ -3,13 +3,17 @@ import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
 /**
- * A chatbot to interact with. Provides methods to allow for users to easily
- * interact with the bot and for UI clients to subscribe to chat messages.
+ * A chatbot to interact with.
+ *
+ * <p>
+ *     This class is an abstraction over a chatbot that also supplies methods to allow
+ *     users to easily interact with the bot, and for UI clients to subscribe to chat messages.
+ * </p>
  */
 public class Chatbot extends EventEmitter<ChatMessage> {
 
     /** The default name of the chatbot. */
-    public static String DEFAULT_NAME = "Todoify";
+    public final static String DEFAULT_NAME = "Todoify";
 
 
     private static Chatbot sharedInstance = null;

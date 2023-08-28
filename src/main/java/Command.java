@@ -2,10 +2,19 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * An abstraction for a command.
+ * An abstraction for an instruction command.
+ *
+ * <p>
+ *     This class represents a simple command structure with name, data, parameters.
+ *     It also provides convenience parser methods to automatically parse an instruction String into a command,
+ *     and enum lookups for known command operation types.
+ * </p>
  */
 public class Command {
 
+    /**
+     * A command operation, representing an identified operation for a command.
+     */
     public enum Operation {
         AddTodo,
         AddDeadline,
@@ -21,9 +30,10 @@ public class Command {
         Unknown
     }
 
-    private String name;
-    private String data;
-    private Map<String, String> params = new HashMap<>();
+    private final String name;
+    private Operation type = null;
+    private final String data;
+    private final Map<String, String> params = new HashMap<>();
 
     /**
      * Constructs a command with the given properties.
@@ -145,24 +155,28 @@ public class Command {
      * @return The operation of the given command.
      */
     public Operation getOperation() {
+        if (this.type != null) {
+            return this.type;
+        }
+
         switch (this.name) {
-            case "todo": return Operation.AddTodo;
-            case "event": return Operation.AddEvent;
-            case "deadline": return Operation.AddDeadline;
+            case "todo": return this.type = Operation.AddTodo;
+            case "event": return this.type = Operation.AddEvent;
+            case "deadline": return this.type = Operation.AddDeadline;
 
-            case "delete": return Operation.Delete;
+            case "delete": return this.type = Operation.Delete;
 
-            case "mark": return Operation.MarkComplete;
-            case "unmark": return Operation.UnmarkComplete;
+            case "mark": return this.type = Operation.MarkComplete;
+            case "unmark": return this.type = Operation.UnmarkComplete;
 
-            case "list": return Operation.List;
+            case "list": return this.type = Operation.List;
 
             case "bye":
             case "exit":
-                return Operation.Exit;
+                return this.type = Operation.Exit;
         }
 
-        return Operation.Unknown;
+        return this.type = Operation.Unknown;
     }
 
     /**
@@ -202,7 +216,7 @@ public class Command {
 
 
     /**
-     * Checks whether the given parameter has any *useful* value.
+     * Checks whether the given parameter has any <i>useful</i> value.
      *
      * @param key the parameter, also known as the key.
      * @return `true` if it has any non-empty, non-whitespace value, `false` otherwise.

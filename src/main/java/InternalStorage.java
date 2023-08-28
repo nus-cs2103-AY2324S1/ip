@@ -1,86 +1,56 @@
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.nio.file.Files;
-import java.util.Arrays;
+import java.nio.file.Path;
 
 /**
  * A class that manages the program's internal storage's read-write operations.
  */
 public class InternalStorage {
 
-    private static final java.nio.file.Path BASE_JAVA_NIO_FILE_PATH = java.nio.file.Path.of(".","todoifydata");
-
+    private static InternalStorage sharedInstance = null;
     /**
-     * A path wrapper that represents the path from the base directory of the program.
+     * Returns the global singleton for the storage manager with the default path.
+     *
+     * @return The shared default instance of the internal storage manager.
      */
-    public static class Path {
-        String[] components;
-
-        /**
-         * Constructs a new path with path components representing the internal relative path
-         * starting from the base directory.
-         *
-         * <p>
-         *     All components are separated by path separators automatically, do not supply them.
-         * </p>
-         *
-         * @param components The path components.
-         */
-        public Path(String... components) {
-            this.components = components;
+    public static InternalStorage getDefault() {
+        if (sharedInstance == null) {
+            sharedInstance = new InternalStorage(null);
         }
-
-        /**
-         * Returns a new path relative to the configured base directory, while removing the last
-         * component in the path.
-         *
-         * @return The path after removing the last path component.
-         */
-        public Path excludingLastComponent() {
-            // Create parent directories first.
-            String[] directoryComponents = Arrays.copyOf(this.components, Math.max(0, this.components.length - 1));
-            return new Path(directoryComponents);
-        }
-
-        /**
-         * Returns the given path's full path relative to the configured base directory, as a
-         * {@link java.nio.file.Path} instance.
-         *
-         * @return The path for the given file as a {@link java.nio.file.Path} instance.
-         */
-        public java.nio.file.Path toJavaNioFilePath() {
-            return java.nio.file.Path.of(BASE_JAVA_NIO_FILE_PATH.toString(), this.components);
-        }
-
-        /**
-         * Returns a new File instance constructed from this path.
-         */
-        public File toFile() {
-            return this.toJavaNioFilePath().toFile();
-        }
-
-        @Override
-        public String toString() {
-            return this.toJavaNioFilePath().toString();
-        }
+        return sharedInstance;
     }
 
+    private Path baseNioPath;
 
+    /**
+     * Constructs a new instance of an internal storage manager.
+     *
+     * @param baseNioPath The Java NIO path to the base directory. May be null to use default.
+     */
+    public InternalStorage(Path baseNioPath) {
+        this.baseNioPath = baseNioPath;
+    }
 
     /**
      * Saves the given String data into the given path, relative to the configured base directory.
      *
-     * @param path The path to save to.
+     * @param internalPath The path to save to.
      * @param data The data to save in the file with.
      * @throws IOException if the file cannot be written for any reason.
      */
-    public static void saveTo(Path path, String data) throws IOException {
+    public void saveTo(InternalPath internalPath, String data) throws IOException {
 
         // Auto-create directory if necessary.
-        java.nio.file.Path nioPath = path.excludingLastComponent().toJavaNioFilePath();
+        Path nioPath = internalPath.excludingLastComponent().toJavaNioFilePath(this.baseNioPath);
         Files.createDirectories(nioPath);
 
         // Write to the file.
-        File file = path.toFile();
+        File file = internalPath.toFile(this.baseNioPath);
         FileWriter fileWriter = new FileWriter(file);
         fileWriter.write(data);
         fileWriter.close();
@@ -90,15 +60,15 @@ public class InternalStorage {
     /**
      * Reads the string data from the given filename, relative to the configured base directory.
      *
-     * @param path The path to read from.
+     * @param internalPath The path to read from.
      * @return The resulting data read from the file.
      * @throws FileNotFoundException if the file does not exist.
      * @throws IOException if the file cannot be read for any reason.
      */
-    public static String loadFrom(Path path) throws IOException {
+    public String loadFrom(InternalPath internalPath) throws IOException {
 
         // Reads from the file.
-        File file = path.toFile();
+        File file = internalPath.toFile(this.baseNioPath);
 
         FileReader fileReader = new FileReader(file);
         BufferedReader bufferedReader = new BufferedReader(fileReader);

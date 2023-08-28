@@ -1,12 +1,15 @@
 import java.util.Scanner;
 
+/**
+ * The chatbot CLI entry-point, which manages CLI interactive interactions.
+ */
 public class Duke {
 
     private static final Chatbot chatbot = Chatbot.getSharedInstance();
 
     public static void main(String[] args) {
 
-        // Perform some setups.
+        // Performs initial setup to listen to new messages.
         chatbot.addEventListener(message -> {
             if (message.getSenderType() != ChatMessage.SenderType.USER) {
                 System.out.println(message.getMessage());

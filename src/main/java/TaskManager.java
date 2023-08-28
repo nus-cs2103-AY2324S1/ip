@@ -1,4 +1,8 @@
-import com.google.gson.*;
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParser;
+import com.google.gson.JsonSyntaxException;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -232,28 +236,42 @@ public class TaskManager {
     }
 
 
-
-    private List<Task> taskList;
-    private InternalStorage.Path storageLocation;
     private static final String DEFAULT_FILENAME = "tasks.json";
 
+
+    private List<Task> taskList;
+    private InternalPath storageLocation;
+    private InternalStorage storageHandler;
+
     /**
-     * Constructor for a task manager, managing a list of items representing "tasks",
-     * with a custom storage location.
+     * Constructs a task manager, managing a list of items representing "tasks",
+     * with a custom storage location and storage handler.
+     *
+     * @param storageLocation The storage location.
+     * @param storageHandler The handler for processing storage operations.
+     */
+    public TaskManager(InternalPath storageLocation, InternalStorage storageHandler) {
+        this.taskList = new ArrayList<>();
+        this.storageLocation = storageLocation;
+        this.storageHandler = storageHandler == null ? InternalStorage.getDefault() : storageHandler;
+    }
+
+    /**
+     * Constructs a task manager, managing a list of items representing "tasks",
+     * with a custom storage location and default storage handler.
      *
      * @param storageLocation Path
      */
-    public TaskManager(InternalStorage.Path storageLocation) {
-        this.taskList = new ArrayList<>();
-        this.storageLocation = storageLocation;
+    public TaskManager(InternalPath storageLocation) {
+        this(storageLocation, null);
     }
 
     /**
      * Constructor for a task manager, managing a list of items representing "tasks",
-     * with the default storage location.
+     * with the default storage location and default storage handler.
      */
     public TaskManager() {
-        this(new InternalStorage.Path(DEFAULT_FILENAME));
+        this(InternalPath.of(DEFAULT_FILENAME));
     }
 
     /**
@@ -327,7 +345,7 @@ public class TaskManager {
     public void loadFromStorage() throws IOException, JsonSyntaxException {
         Gson gson = new Gson();
         try {
-            String data = InternalStorage.loadFrom(this.storageLocation);
+            String data = this.storageHandler.loadFrom(this.storageLocation);
             JsonArray array = JsonParser.parseString(data).getAsJsonArray();
 
             // Prepare a new list of tasks.
@@ -385,6 +403,6 @@ public class TaskManager {
     public void saveToStorage() throws IOException {
         Gson gson = new Gson();
         String data = gson.toJson(this.taskList);
-        InternalStorage.saveTo(this.storageLocation, data);
+        this.storageHandler.saveTo(this.storageLocation, data);
     }
 }

@@ -1,12 +1,13 @@
-import java.time.*;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.time.format.FormatStyle;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
- * A custom formatter and converter to assist in formatting dates to and from the Unix epoch.
+ * A utility formatter and converter class to assist in formatting dates to and from the Unix epoch.
  */
 public class EpochConverter {
 
