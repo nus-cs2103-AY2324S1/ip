@@ -44,17 +44,17 @@ public class TaskHandler {
         System.out.println(lineBreak);
     }
     private void todo(String s) throws InvalidTaskException{
-        Task t = new ToDos(input);
+        Task t = new ToDos(description);
         StorageHandler.addToArray(t);
         System.out.println(lineBreak);
     }
     private void deadline(String s) throws InvalidTaskException {
-        Task t = new Deadline(input);
+        Task t = new Deadline(description);
         StorageHandler.addToArray(t);
         System.out.println(lineBreak);
     }
     private void Event(String s) throws InvalidTaskException {
-        Task t = new Event(input);
+        Task t = new Event(description);
         StorageHandler.addToArray(t);
         System.out.println(lineBreak);
     }
@@ -77,22 +77,22 @@ public class TaskHandler {
                     addToArray();
                     return true;
                 case MARK:
-                    mark(input);
+                    mark(description);
                     return true;
                 case UNMARK:
-                    unmark(input);
+                    unmark(description);
                     return true;
                 case TODO:
-                    todo(input);
+                    todo(description);
                     return true;
                 case DEADLINE:
-                    deadline(input);
+                    deadline(description);
                     return true;
                 case EVENT:
-                    Event(input);
+                    Event(description);
                     return true;
                 case DELETE:
-                    delete(input);
+                    delete(description);
                     return true;
                 case COPYPASTA:
                     try {
