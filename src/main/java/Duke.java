@@ -1,11 +1,17 @@
 
 public class Duke {
 
+    private final CommandProcessor commandProcessor;
+    private final Ui ui;
+    private final Parser parser;
 
-    public static void main(String[] args) {
-        Parser parser = new Parser();
-        CommandProcessor commandProcessor = new CommandProcessor();
-        Ui ui = new Ui();
+    public Duke() {
+        commandProcessor = new CommandProcessor();
+        ui = new Ui();
+        parser = new Parser();
+    }
+
+    public void run() {
         ui.greeting();
 
         while (true) {
@@ -27,5 +33,10 @@ public class Duke {
         }
 
         parser.closeParser();
+    }
+
+
+    public static void main(String[] args) {
+        new Duke().run();
     }
 }
