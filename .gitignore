@@ -16,3 +16,4 @@ bin/
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT
 /data/harddrive.txt
+/text-ui-test/data/harddrive.txt

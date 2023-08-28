@@ -1,7 +1,12 @@
+package tasks;
+
 /**
  * Represents a task that occurs during a specific period.
+ *
+ * <p> An Event task is an extension of the basic Task, with additional characteristics of
+ * "from" and "to" fields representing the start and end times of the event, respectively. </p>
  */
-public class Event extends Task{
+public class Event extends Task {
     private String from;
     private String to;
 
@@ -28,6 +33,11 @@ public class Event extends Task{
         return super.toString() + " (from: " + this.from + " to: " + this.to + ")";
     }
 
+    /**
+     * Returns a transformed format of the event task, useful for data storage or other operations.
+     *
+     * @return A string that represents the event task in a unique format.
+     */
     @Override
     public String transformFormat() {
         return super.transformFormat() + " | " + this.from + " | " + this.to;

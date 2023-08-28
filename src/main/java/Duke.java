@@ -1,65 +1,56 @@
-import java.util.Scanner;
+import java.util.ArrayList;
+
+import exception.DukeException;
+import exception.EmptyTaskException;
+import exception.InvalidDateTimeException;
+import exception.InvalidIndexException;
+
+import tasks.TaskList;
+import tasks.Task;
+
+import util.Ui;
+import util.Storage;
+import util.Parser;
+
+import command.Command;
 public class Duke {
 
-    public static void main(String[] args) {
-        TaskList store = new TaskList();
-        String name = "CodeBuddy";
-        String horizontal = "----------------------------------------";
-        Scanner inputScanner = new Scanner(System.in);
-        System.out.println(horizontal);
-        System.out.println("Hello! I'm " + name);
-        System.out.println("What can I do for you?");
-        System.out.println(horizontal);
+    private Storage storage;
+    private TaskList tasks;
+    private Ui ui;
 
-        while(true) {
-            String input = inputScanner.nextLine();
-            System.out.println(horizontal);
+    public Duke() {
+        ui = new Ui();
+        storage = new Storage();
+        ArrayList<Task> tasks = storage.load();
+        this.tasks = new TaskList(tasks);
+    }
+
+    public static void main(String[] args) {
+        new Duke().run();
+    }
+
+    public void run() {
+        ui.showWelcomeMessage();
+        boolean isExit = false;
+
+        while (!isExit) {
             try {
-                if(input.equals("bye")) {
-                    System.out.println("Bye. Hope to see you again soon !");
-                    System.out.println(horizontal);
-                    break;
-                } else if(input.equals("list")) {
-                    store.listTasks();
-                } else if(input.startsWith("mark")) {
-                    String removedPrefix = input.substring("mark".length()).trim();
-                    int index = Integer.parseInt(removedPrefix);
-                    store.markTask(index);
-                } else if(input.startsWith("unmark")) {
-                    String removedPrefix = input.substring("unmark".length()).trim();
-                    int index = Integer.parseInt(removedPrefix);
-                    store.unmarkTask(index);
-                } else if(input.startsWith("todo")) {
-                    String removedPrefix = input.substring("todo".length()).trim();
-                    store.addTodo(removedPrefix);
-                } else if(input.startsWith("deadline")) {
-                    String removedPrefix = input.substring("deadline".length()).trim();
-                    store.addDeadline(removedPrefix);
-                } else if (input.startsWith("event")) {
-                    String removedPrefix = input.substring("event".length()).trim();
-                    store.addEvent(removedPrefix);
-                } else if(input.startsWith("delete")) {
-                    String removedPrefix = input.substring("delete".length()).trim();
-                    int index = Integer.parseInt(removedPrefix);
-                    store.deleteTask(index);
-                } else {
-                    throw new DukeException();
+                String input = ui.getUserInput();
+                ui.showLine();
+                Command c = Parser.parse(input);
+                c.execute(tasks, ui, storage);
+                isExit = c.isExit();
+            } catch (DukeException | InvalidIndexException | EmptyTaskException | InvalidDateTimeException e) {
+                System.out.println(e.getMessage());
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            } finally {
+                ui.showLine();
             }
-                System.out.println(horizontal);
-            } catch (DukeException e) {
-                System.out.println(e.getMessage());
-                System.out.println(horizontal);
-            } catch (EmptyTaskException e) {
-                System.out.println(e.getMessage());
-                System.out.println(horizontal);
-            } catch (InvalidIndexException e) {
-                System.out.println(e.getMessage());
-                System.out.println(horizontal);
-            } catch (InvalidDateTimeException e) {
-                System.out.println(e.getMessage());
-                System.out.println(horizontal);
-            }
+
 
         }
     }
+
 }

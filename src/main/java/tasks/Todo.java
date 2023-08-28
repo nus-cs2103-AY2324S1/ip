@@ -1,7 +1,12 @@
+package tasks;
+
+import tasks.Task;
+import tasks.TaskType;
+
 /**
  * Represents a todo task, a type of task without a specific deadline or duration.
  */
-public class Todo extends Task{
+public class Todo extends Task {
 
     /**
      * Creates a new todo task with the specified description.

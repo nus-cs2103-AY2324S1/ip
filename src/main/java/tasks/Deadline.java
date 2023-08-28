@@ -1,7 +1,12 @@
+package tasks;
+
 /**
  * Represents a task with a specific deadline.
+ *
+ * <p> A Deadline task is an extension of the basic Task, with an added
+ * characteristic of a "by" field that represents the deadline of the task. </p>
  */
-public class Deadline extends Task{
+public class Deadline extends Task {
     private String by;
 
     /**
@@ -25,6 +30,11 @@ public class Deadline extends Task{
         return super.toString() + " (by: " + this.by + ")";
     }
 
+    /**
+     * Returns a transformed format of the deadline task, useful for data storage or other operations.
+     *
+     * @return A string that represents the deadline task in a unique format.
+     */
     @Override
     public String transformFormat() {
         return super.transformFormat() + " | " + this.by;
