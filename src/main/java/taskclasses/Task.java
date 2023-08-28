@@ -3,19 +3,40 @@ package taskclasses;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Represents a basic task with a description and completion status.
+ */
 public class Task {
     protected String description;
     protected boolean isDone;
 
+    /**
+     * Constructs a Task with the given description and sets the completion status to false.
+     *
+     * @param description The description of the task.
+     */
     public Task(String description) {
         this.description = description;
         this.isDone = false;
     }
+
+    /**
+     * Constructs a Task with the given description and completion status.
+     *
+     * @param description The description of the task.
+     * @param isDone      The completion status of the task.
+     */
     public Task(String description, boolean isDone) {
         this.description = description;
         this.isDone = isDone;
     }
 
+    /**
+     * Creates a task object from a data line in storage.
+     *
+     * @param dataLine The data line representing the task.
+     * @return A Task object created from the data line.
+     */
     public static Task createTaskFromData(String dataLine) {
 
         String[] parts = dataLine.split(" \\| ");
@@ -55,6 +76,11 @@ public class Task {
         return (isDone ? "X" : " "); // mark done task with X
     }
 
+    /**
+     * Formats the task for storage.
+     *
+     * @return A formatted string representing the task for storage.
+     */
     public String formatToFile() {
         int status = isDone ? 1 : 0;
         return status + " | " + description;
