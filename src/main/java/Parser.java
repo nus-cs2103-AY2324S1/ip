@@ -7,8 +7,6 @@ public class Parser {
 
     private TaskList lst;
 
-    private final String line = "_____________________________________________________";
-
     private enum TaskType {
         TODO,
         DEADLINE,
@@ -169,7 +167,6 @@ public class Parser {
         Todo newTask = new Todo(input, isDone);
         String newTaskString = newTask.fileFormat();
 
-        System.out.println(line);
         System.out.println("Got it. I've added this task:");
         System.out.println("\t" + newTask);
 
@@ -177,14 +174,12 @@ public class Parser {
         storage.addTask(newTaskString);
 
         System.out.println("Now you have " + lst.size() + " tasks in the list.");
-        System.out.println(line);
     }
 
     public void addDeadline(String input, boolean isDone, LocalDateTime by) {
         Deadline newTask = new Deadline(input, isDone, by);
         String newTaskString = newTask.fileFormat();
 
-        System.out.println(line);
         System.out.println("Got it. I've added this task:");
         System.out.println("\t" + newTask);
 
@@ -192,14 +187,12 @@ public class Parser {
         storage.addTask(newTaskString);
 
         System.out.println("Now you have " + lst.size() + " tasks in the list.");
-        System.out.println(line);
     }
 
     public void addEvent(String input, boolean isDone, String start, String end) {
         Event newTask = new Event(input, isDone, start, end);
         String newTaskString = newTask.fileFormat();
 
-        System.out.println(line);
         System.out.println("Got it. I've added this task:");
         System.out.println("\t" + newTask);
 
@@ -207,26 +200,20 @@ public class Parser {
         storage.addTask(newTaskString);
 
         System.out.println("Now you have " + lst.size() + " tasks in the list.");
-        System.out.println(line);
     }
 
     public void printList() {
-        System.out.println(line);
         System.out.println("Here are the tasks in your list:");
         for (int i = 0; i < lst.size(); i++) {
             System.out.println((i + 1) + ". " + lst.get(i).toString());
         }
-        System.out.println(line);
     }
 
     public void markCompletion(Task task, int num) {
         if (task.getStatusIcon().equals("X")) {
-            System.out.println(line);
             System.out.println("Nice! I've marked this task as done:");
             System.out.println("\t" + task);
-            System.out.println(line);
         } else {
-            System.out.println(line);
             System.out.println("Nice! I've marked this task as done:");
 
             task.toggleCompletion();
@@ -234,18 +221,14 @@ public class Parser {
             this.storage.updateTask(num - 1, updatedTaskString);
 
             System.out.println("\t" + task);
-            System.out.println(line);
         }
     }
 
     public void unmarkCompletion(Task task, int num) {
         if (task.getStatusIcon().equals(" ")) {
-            System.out.println(line);
             System.out.println("OK, I've marked this task as not done yet:");
             System.out.println("\t" + task);
-            System.out.println(line);
         } else {
-            System.out.println(line);
             System.out.println("OK, I've marked this task as not done yet:");
 
             task.toggleCompletion();
@@ -253,12 +236,10 @@ public class Parser {
             this.storage.updateTask(num - 1, updatedTaskString);
 
             System.out.println("\t" + task);
-            System.out.println(line);
         }
     }
 
     public void deleteTask(Integer num) {
-        System.out.println(line);
         System.out.println("Noted. I've removed this task:");
 
         Task selectedTask = lst.remove(num - 1);
@@ -266,6 +247,5 @@ public class Parser {
 
         System.out.println("\t" + selectedTask);
         System.out.println("Now you have " + lst.size() + " tasks in the list.");
-        System.out.println(line);
     }
 }

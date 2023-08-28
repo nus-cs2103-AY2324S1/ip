@@ -1,8 +1,6 @@
-import java.util.Scanner;
 import java.util.ArrayList;
 
 public class Duke {
-    private final String line = "_____________________________________________________";
     private final Parser parser;
 
     private final Ui ui;
@@ -21,23 +19,26 @@ public class Duke {
 
     public void run() {
 
+        ui.showLine();
         ui.greet();
-
-        Scanner sc = new Scanner(System.in);
+        ui.showLine();
 
         while (true) {
             try {
-                String input = sc.nextLine();
+                String input = ui.readInput();
                 if (input.equals("bye")) {
+                    ui.showLine();
                     ui.bye();
+                    ui.showLine();
                     break;
                 } else {
+                    ui.showLine();
                     parser.parse(input);
+                    ui.showLine();
                 }
             } catch (DukeException e) {
-                System.out.println(line);
                 System.out.println(e);
-                System.out.println(line);
+                ui.showLine();
             }
         }
     }
