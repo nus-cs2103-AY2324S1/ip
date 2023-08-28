@@ -1,3 +1,8 @@
+package zean;
+
+import zean.exception.DukeException;
+import zean.task.Task;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -11,8 +16,6 @@ import java.util.Scanner;
  * @author Zhong Han
  */
 public class Storage {
-    private ArrayList<Task> tasks;
-    private int count;
 
     private File f;
 
@@ -24,8 +27,6 @@ public class Storage {
      * Reads the present content in the file into the ArrayList.
      */
     public Storage(String filePath) throws FileNotFoundException, IOException {
-        this.tasks = new ArrayList<>();
-        this.count = 0;
         this.filePath  = filePath;
 
         File dir = new File("./data");
@@ -48,7 +49,7 @@ public class Storage {
         try {
             sc = new Scanner(this.f);
             while (sc.hasNext()) {
-                this.count = Parser.parseToTask(tasks, sc.nextLine());
+                Parser.parseToTask(tasks, sc.nextLine());
             }
         } catch (FileNotFoundException e) {
             throw new DukeException("\tOOPS! The file cannot be created.");
@@ -64,7 +65,6 @@ public class Storage {
         try {
             FileWriter fw = new FileWriter(this.filePath, true);
             fw.write(task.toStringForFile() + System.lineSeparator());
-            this.count++;
             fw.close();
         } catch (IOException e) {
             throw new DukeException("\tOOPS! The file is not available!");

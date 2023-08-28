@@ -1,3 +1,5 @@
+package zean.exception;
+
 /**
  * The class that represents exceptions specific to the chatbot.
  */

@@ -1,3 +1,11 @@
+package zean;
+
+import zean.exception.DukeException;
+import zean.task.Deadline;
+import zean.task.Event;
+import zean.task.Task;
+import zean.task.Todo;
+
 import java.util.ArrayList;
 import java.util.regex.Pattern;
 

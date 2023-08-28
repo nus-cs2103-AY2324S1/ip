@@ -1,3 +1,7 @@
+package zean;
+
+import zean.exception.DukeException;
+
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Scanner;
