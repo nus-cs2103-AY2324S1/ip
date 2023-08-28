@@ -11,10 +11,15 @@ public class Task {
         return (isDone ? "X" : " ");
     }
 
-    public void mark() {
-        System.out.println("Nice! I've marked this task as done:\n");
-        this.isDone = true;
-        System.out.println(this);
+    public void mark(boolean flag) {
+        if (!flag) {
+            this.isDone = true;
+        }
+        else {
+            System.out.println("Nice! I've marked this task as done:\n");
+            this.isDone = true;
+            System.out.println(this);
+        }
     }
 
     public void unmark() {
