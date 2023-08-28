@@ -16,7 +16,11 @@ public class Parser {
         this.ui = ui;
         this.storage = storage;
     }
-
+    /**
+     * Parses the user input and performs corresponding actions based on the input.
+     *
+     * @param input The input provided by the user.
+     */
     public void parseInput(String input) {
         if (input.equals("list")) {
             ui.printTaskList(taskList);

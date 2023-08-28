@@ -2,20 +2,27 @@ package milbot;
 import taskclasses.*;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.List;
 
+/**
+ * Storage class handles reading tasks from and writing tasks to a file.
+ */
 public class Storage {
     private File file;
     private FileWriter tasksOutput;
     private String filePath;
     private TaskList taskList;
 
+    /**
+     * Constructs a Storage instance with a default file path.
+     */
     public Storage() {
         filePath = "..\\src\\main\\data\\mil.txt";
         file = new File(filePath);
     }
 
+    /**
+     * Loads tasks from the file and adds them to the task list.
+     */
     public void loadTasksFromFile() {
         if (taskList == null) {
             return;
@@ -34,6 +41,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Saves tasks from the provided TaskList to the file.
+     *
+     * @param tasks The TaskList containing tasks to be saved.
+     */
     public void saveTasksToFile(TaskList tasks) {
         try {
             taskList = tasks;
