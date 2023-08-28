@@ -20,7 +20,7 @@ public class Duke {
     }
 
     private static void exit() {
-        System.out.println("Bye. See you soon.\n");
+        System.out.println("Bye. See you soon.");
     }
 
     static class Parse {
