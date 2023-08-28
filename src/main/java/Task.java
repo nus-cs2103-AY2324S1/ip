@@ -1,6 +1,6 @@
 public class Task {
 
-  protected String description;
+  private String description;
   private boolean done;
 
   public Task(String desc) {
@@ -19,6 +19,10 @@ public class Task {
 
   public String getDoneIcon() {
     return this.done ? "X" : " ";
+  }
+
+  public String getDescription() {
+    return this.description;
   }
 
 }
