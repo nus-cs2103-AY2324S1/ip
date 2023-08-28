@@ -9,9 +9,9 @@ import java.util.Scanner;
 
 public class CommandParser {
     private static final Scanner SCANNER = new Scanner(System.in);
-    private final TaskList tasks;
+    private final FilePersistentTaskList tasks;
 
-    public CommandParser(TaskList tasks) {
+    public CommandParser(FilePersistentTaskList tasks) {
         this.tasks = tasks;
     }
 

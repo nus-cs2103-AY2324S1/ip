@@ -12,6 +12,11 @@ public class TodoTask extends ShibaTask {
      */
     public static TodoTask fromCmd(String cmd) throws InvalidCommandException {
         String[] cmdSplit = cmd.split(" ", 2);
+
+        if (!cmdSplit[0].toUpperCase().equals(TaskType.TODO.name())) {
+            throw new InvalidCommandException("Expected todo command!");
+        }
+
         if (cmdSplit.length != 2) {
             throw new InvalidCommandException("Todo name should not be empty!");
         }

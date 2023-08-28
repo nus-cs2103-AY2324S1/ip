@@ -2,7 +2,7 @@ package shiba.commands;
 
 import shiba.exceptions.ShibaException;
 import shiba.tasks.DeadlineTask;
-import shiba.tasks.TaskList;
+import shiba.tasks.PersistentTaskList;
 
 public class DeadlineCommand extends ShibaCommand {
     private final String fullCmd;
@@ -13,7 +13,7 @@ public class DeadlineCommand extends ShibaCommand {
      * @param tasks Current state of task list
      * @param cmd  Full command string
      */
-    public DeadlineCommand(TaskList tasks, String cmd) {
+    public DeadlineCommand(PersistentTaskList tasks, String cmd) {
         super(tasks);
         fullCmd = cmd;
     }

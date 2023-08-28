@@ -1,8 +1,8 @@
 package shiba.commands;
 
 import shiba.exceptions.ShibaException;
+import shiba.tasks.PersistentTaskList;
 import shiba.tasks.ShibaTask;
-import shiba.tasks.TaskList;
 import shiba.ui.Replier;
 
 public class MarkCommand extends ShibaCommand {
@@ -14,7 +14,7 @@ public class MarkCommand extends ShibaCommand {
      * @param tasks Current state of task list
      * @param cmd Full command string
      */
-    public MarkCommand(TaskList tasks, String cmd) {
+    public MarkCommand(PersistentTaskList tasks, String cmd) {
         super(tasks);
         params = cmd.split(" ");
     }

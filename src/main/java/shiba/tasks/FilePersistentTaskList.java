@@ -6,11 +6,11 @@ import shiba.ui.Replier;
 
 import java.util.ArrayList;
 
-public class TaskList {
+public class FilePersistentTaskList implements PersistentTaskList {
     private final ArrayList<ShibaTask> tasks = new ArrayList<>();
     private final Storage storage;
 
-    public TaskList(String dataPath) {
+    public FilePersistentTaskList(String dataPath) {
         storage = new Storage(dataPath);
 
         try {
@@ -20,48 +20,27 @@ public class TaskList {
         }
     }
 
-    /**
-     * Adds a task to the list.
-     *
-     * @param task The task to add.
-     */
+    @Override
     public void addTask(ShibaTask task) {
         tasks.add(task);
     }
 
-    /**
-     * Removes the task at the specified index.
-     *
-     * @param index Index of the task to remove.
-     */
+    @Override
     public ShibaTask removeIndex(int index) {
         return tasks.remove(index);
     }
 
-    /**
-     * Gets the task at the specified index.
-     *
-     * @param index Index of the task to get.
-     * @return The task at the specified index.
-     */
+    @Override
     public ShibaTask get(int index) {
         return tasks.get(index);
     }
 
-    /**
-     * Gets the number of tasks in the list.
-     *
-     * @return The number of tasks in the list.
-     */
+    @Override
     public int size() {
         return tasks.size();
     }
 
-    /**
-     * Saves the current task list state to storage.
-     *
-     * @throws ShibaException If there is an error saving the tasks.
-     */
+    @Override
     public void save() throws ShibaException {
         storage.saveTasks(tasks);
     }

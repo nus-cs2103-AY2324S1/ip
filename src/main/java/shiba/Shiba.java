@@ -15,7 +15,7 @@ public class Shiba {
 
     private Shiba(String name, String dataPath) {
         this.name = name;
-        parser = new CommandParser(new TaskList(dataPath));
+        parser = new CommandParser(new FilePersistentTaskList(dataPath));
     }
 
     private void start() {

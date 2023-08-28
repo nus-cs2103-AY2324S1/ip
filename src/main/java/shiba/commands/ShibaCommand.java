@@ -3,8 +3,8 @@ package shiba.commands;
 import shiba.exceptions.EmptyTasksException;
 import shiba.exceptions.InvalidCommandException;
 import shiba.exceptions.ShibaException;
+import shiba.tasks.PersistentTaskList;
 import shiba.tasks.ShibaTask;
-import shiba.tasks.TaskList;
 import shiba.ui.Replier;
 
 public abstract class ShibaCommand {
@@ -19,9 +19,9 @@ public abstract class ShibaCommand {
         DELETE
     }
 
-    protected TaskList tasks;
+    protected PersistentTaskList tasks;
 
-    protected ShibaCommand(TaskList tasks) {
+    protected ShibaCommand(PersistentTaskList tasks) {
         this.tasks = tasks;
     }
 

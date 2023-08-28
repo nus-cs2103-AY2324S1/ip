@@ -1,6 +1,6 @@
 package shiba.commands;
 
-import shiba.tasks.TaskList;
+import shiba.tasks.PersistentTaskList;
 import shiba.ui.Replier;
 
 public class ListCommand extends ShibaCommand {
@@ -9,7 +9,7 @@ public class ListCommand extends ShibaCommand {
      *
      * @param tasks Current state of task list
      */
-    public ListCommand(TaskList tasks) {
+    public ListCommand(PersistentTaskList tasks) {
         super(tasks);
     }
 

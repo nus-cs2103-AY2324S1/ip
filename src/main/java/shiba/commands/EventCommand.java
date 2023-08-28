@@ -2,7 +2,7 @@ package shiba.commands;
 
 import shiba.exceptions.ShibaException;
 import shiba.tasks.EventTask;
-import shiba.tasks.TaskList;
+import shiba.tasks.PersistentTaskList;
 
 public class EventCommand extends ShibaCommand {
     private final String fullCmd;
@@ -13,7 +13,7 @@ public class EventCommand extends ShibaCommand {
      * @param tasks Current state of task list
      * @param cmd Full command string
      */
-    public EventCommand(TaskList tasks, String cmd) {
+    public EventCommand(PersistentTaskList tasks, String cmd) {
         super(tasks);
         fullCmd = cmd;
     }

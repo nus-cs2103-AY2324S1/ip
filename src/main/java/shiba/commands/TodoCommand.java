@@ -1,7 +1,7 @@
 package shiba.commands;
 
 import shiba.exceptions.ShibaException;
-import shiba.tasks.TaskList;
+import shiba.tasks.PersistentTaskList;
 import shiba.tasks.TodoTask;
 
 public class TodoCommand extends ShibaCommand {
@@ -13,7 +13,7 @@ public class TodoCommand extends ShibaCommand {
      * @param tasks Current state of task list
      * @param cmd Full command string
      */
-    public TodoCommand(TaskList tasks, String cmd) {
+    public TodoCommand(PersistentTaskList tasks, String cmd) {
         super(tasks);
         fullCmd = cmd;
     }
