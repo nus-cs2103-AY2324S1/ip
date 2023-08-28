@@ -1,10 +1,12 @@
+package duke.task;
+
 import java.util.LinkedList;
 
 public class TaskList {
     protected LinkedList<Task> storage;
 
     /**
-     * Constructor to build a Task Manager.
+     * Constructor to build a Duke.Task Manager.
      */
     public TaskList() {
         this.storage = new LinkedList<Task>();

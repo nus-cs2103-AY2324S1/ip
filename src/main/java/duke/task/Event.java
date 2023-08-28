@@ -1,3 +1,7 @@
+package duke.task;
+
+import duke.filemanagement.DateTimeDetector;
+
 public class Event extends Task {
 
     protected String from;
