@@ -3,7 +3,9 @@ package main.java;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 
 class Task {
 
@@ -35,6 +37,13 @@ class Task {
         return "task " + this.taskName + "\n";
     }
 
+    public static class MyDate extends Date {
+        @Override
+        public String toString() {
+            return this.getDay() + "-" + this.getMonth() + "-" + this.getYear() + " " + this.getHours() + this.getMinutes();
+        }
+    }
+
     public static class ToDos extends Task {
         public ToDos(String taskName) {
             super(taskName);
@@ -50,38 +59,39 @@ class Task {
     }
 
     public static class Deadlines extends Task {
-        private String dayDate;
-        public Deadlines(String taskName, String dayDate) {
+        private LocalDateTime dayDate;
+        public Deadlines(String taskName, LocalDateTime dayDate) {
             super(taskName);
             this.dayDate = dayDate;
         }
 
         @Override
         public String toString() {
-            return "[D]" + super.toString() + "(by: " + dayDate + ")";
+            return "[D]" + super.toString() + "(by: " + this.dayDate.format(Duke.FORMAT) + ")";
         }
 
         protected String write() {
-            return "deadline " + super.taskName + "/by " + this.dayDate + "\n";
+            return "deadline " + super.taskName + "/by " + this.dayDate.format(Duke.FORMAT) + "\n";
         }
     }
 
     public static class Event extends Task {
-        private String startDayDateTime;
-        private String endDayDateTime;
-        public Event(String taskName, String startDayDateTime, String endDayDateTime) {
+        private LocalDateTime startDayDateTime;
+        private LocalDateTime endDayDateTime;
+        public Event(String taskName, LocalDateTime startDayDateTime, LocalDateTime endDayDateTime) {
             super(taskName);
+
             this.endDayDateTime = endDayDateTime;
             this.startDayDateTime = startDayDateTime;
         }
 
         @Override
         public String toString() {
-            return "[E]" + super.toString() + "(from: " + startDayDateTime + "to: " + endDayDateTime +")";
+            return "[E]" + super.toString() + "(from: " + startDayDateTime.format(Duke.FORMAT) + " to: " + endDayDateTime.format(Duke.FORMAT) +")";
         }
 
         protected String write() {
-            return "event " + super.taskName + "/from " + this.startDayDateTime + "/to " + this.endDayDateTime + "\n";
+            return "event " + super.taskName + "/from " + this.startDayDateTime.format(Duke.FORMAT) + "/to " + this.endDayDateTime.format(Duke.FORMAT) + "\n";
         }
     }
 }
@@ -100,14 +110,14 @@ class ListOfTask {
         save();
     }
 
-    protected void addTask(String task, String dayDate) {
+    protected void addTask(String task, LocalDateTime dayDate) {
         Task temp = new Task.Deadlines(task, dayDate);
         listOfTask.add(temp);
         System.out.println("added: " + temp);
         save();
     }
 
-    protected void addTask(String task, String startDayDateTime, String endDayDateTime) {
+    protected void addTask(String task, LocalDateTime startDayDateTime, LocalDateTime endDayDateTime) {
         Task temp = new Task.Event(task, startDayDateTime, endDayDateTime);
         listOfTask.add(temp);
         System.out.println("added: " + temp);
@@ -119,12 +129,12 @@ class ListOfTask {
         listOfTask.add(temp);
     }
 
-    protected void loadTask(String task, String dayDate) {
+    protected void loadTask(String task, LocalDateTime dayDate) {
         Task temp = new Task.Deadlines(task, dayDate);
         listOfTask.add(temp);
     }
 
-    protected void loadTask(String task, String startDayDateTime, String endDayDateTime) {
+    protected void loadTask(String task, LocalDateTime startDayDateTime, LocalDateTime endDayDateTime) {
         Task temp = new Task.Event(task, startDayDateTime, endDayDateTime);
         listOfTask.add(temp);
     }

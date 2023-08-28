@@ -3,10 +3,18 @@ package main.java;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.text.Format;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.util.Date;
 import java.util.Scanner;
 
 public class Duke {
     enum COMMANDS {BYE, LIST, TODO, DEADLINE, EVENT, MARK, UNMARK, DELETE, BY, FROM, TO, UNKNOWN}
+    static DateTimeFormatter FORMAT = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
     private static ListOfTask taskList = new ListOfTask();
     public static void main(String[] args) {
         greet();
@@ -75,10 +83,11 @@ public class Duke {
                 String task = cmd.phaseParse();
                 String dayDate = cmd.phaseTwo();
                 Parse parseDayDate = new Parse(dayDate);
-                if (parseDayDate.mainCommand().equals(COMMANDS.BY) && parseDayDate.secondWord() != null) {
-                    taskList.loadTask(task, parseDayDate.secondWord());
+                if (parseDayDate.mainCommand().equals(COMMANDS.BY)) {
+                    LocalDateTime date = LocalDateTime.parse(parseDayDate.secondWord().trim(),FORMAT);
+                    taskList.loadTask(task, date);
                 }
-            } catch (NullPointerException e) {
+            } catch (NullPointerException | DateTimeParseException e) {
                 System.out.println("Deadline line corrupted: " + command);
             }
             return;
@@ -90,8 +99,12 @@ public class Duke {
                 Parse parseStartDayDateTime = new Parse(startDayDateTime);
                 String endDayDateTime = cmd.phaseThree();
                 Parse parseEndDayDateTime = new Parse(endDayDateTime);
-                taskList.loadTask(task2, parseStartDayDateTime.secondWord(), parseEndDayDateTime.secondWord());
-            } catch (NullPointerException e) {
+                if (parseStartDayDateTime.mainCommand().equals(COMMANDS.FROM) && parseEndDayDateTime.mainCommand().equals(COMMANDS.TO)) {
+                    LocalDateTime startDate = LocalDateTime.parse(parseStartDayDateTime.secondWord().trim(),FORMAT);
+                    LocalDateTime endDate = LocalDateTime.parse(parseEndDayDateTime.secondWord().trim(),FORMAT);
+                    taskList.loadTask(task2, startDate, endDate);
+                }
+            } catch (NullPointerException | DateTimeParseException e) {
                 System.out.println("Event line corrupted: " + command);
             }
             return;
@@ -208,13 +221,16 @@ public class Duke {
                 try {
                     String dayDate = cmd.phaseTwo();
                     Parse parseDayDate = new Parse(dayDate);
-                    if (parseDayDate.mainCommand().equals(COMMANDS.BY) && parseDayDate.secondWord() != null) {
-                        taskList.addTask(task, parseDayDate.secondWord());
+                    LocalDateTime date = LocalDateTime.parse(parseDayDate.secondWord().trim(),FORMAT);
+                    if (parseDayDate.mainCommand().equals(COMMANDS.BY)) {
+                        taskList.addTask(task, date);
                     } else {
-                        System.out.println("The format for the command is: deadline task /by DayOrDate");
+                        System.out.println("The format for the command is: deadline task /by date&time");
                     }
                 } catch (NullPointerException e) {
                     System.out.println("Please add the day/date that the task is due by");
+                } catch (DateTimeParseException e) {
+                    System.out.println("The format for dates&time is 'dd-MM-yyyy hh-mm'");
                 }
             } catch (NullPointerException e) {
                 System.out.println("Please add the task that has to been done");
@@ -226,12 +242,14 @@ public class Duke {
             try {
                 String startDayDateTime = cmd.phaseTwo();
                 Parse parseStartDayDateTime = new Parse(startDayDateTime);
-                if (parseStartDayDateTime.mainCommand().equals(COMMANDS.FROM) && parseStartDayDateTime.secondWord() != null) {
+                if (parseStartDayDateTime.mainCommand().equals(COMMANDS.FROM)) {
                     try {
+                        LocalDateTime startDate = LocalDateTime.parse(parseStartDayDateTime.secondWord().trim(),FORMAT);
                         String endDayDateTime = cmd.phaseThree();
                         Parse parseEndDayDateTime = new Parse(endDayDateTime);
-                        if (parseEndDayDateTime.mainCommand().equals(COMMANDS.TO) && parseEndDayDateTime.secondWord() != null) {
-                            taskList.addTask(task, parseStartDayDateTime.secondWord(), parseEndDayDateTime.secondWord());
+                        if (parseEndDayDateTime.mainCommand().equals(COMMANDS.TO)) {
+                            LocalDateTime endDate = LocalDateTime.parse(parseEndDayDateTime.secondWord().trim(),FORMAT);
+                            taskList.addTask(task, startDate, endDate);
                         } else {
                             System.out.println("The format for the command is: event task /from startDayDateTime /to endDayDateTime");
                         }
@@ -243,6 +261,8 @@ public class Duke {
                 }
             } catch (NullPointerException e) {
                 System.out.println("Please add the event, start of the event and end of the event");
+            } catch (DateTimeParseException e) {
+                System.out.println("The format for dates&time is 'dd-MM-yyyy hh-mm'");
             }
             break;
 
