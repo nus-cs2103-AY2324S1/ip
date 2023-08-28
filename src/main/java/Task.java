@@ -15,7 +15,6 @@ public abstract class Task {
 		return this.letter;
 	}
 
-
 	public void mark() throws DukeException {
 		if (this.isDone) {
 			throw new DukeException("☹ OOPS!!! This task is already marked as done!");
