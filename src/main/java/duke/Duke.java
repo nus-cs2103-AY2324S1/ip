@@ -1,4 +1,4 @@
-import java.util.Scanner;
+package duke;
 
 public class Duke {
 
@@ -18,7 +18,6 @@ public class Duke {
 
 
     public void startService() throws DukeException {
-
         boolean exceptionOccurs = false;
 
         Commands cmd = this.ui.getNextUserInput();
