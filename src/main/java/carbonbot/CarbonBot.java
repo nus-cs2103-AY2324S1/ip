@@ -1,11 +1,13 @@
 package carbonbot;
-import carbonbot.command.Command;
 
 import java.io.IOException;
 
+import carbonbot.command.Command;
+
 /**
- * CarbonBot is a simple chat bot that helps to keep track of various things such as tasks.
+ * CarbonBot is a simple chatbot that helps to keep track of various things such as tasks.
  */
+
 public class CarbonBot {
     private final String saveFilePath;
     private final Ui ui;
@@ -14,6 +16,7 @@ public class CarbonBot {
 
     /**
      * Constructs a CarbonBot object that will read and write its data to the specified file path.
+     *
      * @param filePath Path to save file
      */
     public CarbonBot(String filePath) {
@@ -35,7 +38,7 @@ public class CarbonBot {
     public void run() {
         this.ui.showGreetings();
         boolean isExit = false;
-        while(!isExit) {
+        while (!isExit) {
             String input = this.ui.getNextInput();
 
             // Ignore if the input was empty
@@ -60,6 +63,7 @@ public class CarbonBot {
 
     /**
      * Starting point of the program.
+     *
      * @param args Arguments (unused at the moment)
      */
     public static void main(String[] args) {

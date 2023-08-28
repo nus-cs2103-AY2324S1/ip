@@ -5,11 +5,12 @@ package carbonbot;
  */
 public class DukeException extends Exception {
 
-	/**
-	 * Constructs a DukeException with the specified detail message.
-	 * @param errorMessage Error Message
-	 */
-	public DukeException(String errorMessage) {
-		super(errorMessage);
-	}
+    /**
+     * Constructs a DukeException with the specified detail message.
+     *
+     * @param errorMessage Error Message
+     */
+    public DukeException(String errorMessage) {
+        super(errorMessage);
+    }
 }

@@ -5,21 +5,22 @@ package carbonbot.task;
  */
 public class Todo extends Task {
 
-	/**
-	 * Constructs a Todo task with the provided description.
-	 * @param description Description of the task
-	 */
-	public Todo(String description) {
-		super(description);
-	}
+    /**
+     * Constructs a Todo task with the provided description.
+     *
+     * @param description Description of the task
+     */
+    public Todo(String description) {
+        super(description);
+    }
 
-	@Override
-	public String serialize() {
-		return String.format("T | %d | %s", super.isDone ? 1 : 0, super.description);
-	}
+    @Override
+    public String serialize() {
+        return String.format("T | %d | %s", super.isDone ? 1 : 0, super.description);
+    }
 
-	@Override
-	public String toString() {
-		return "[T]" + super.toString();
-	}
+    @Override
+    public String toString() {
+        return "[T]" + super.toString();
+    }
 }

@@ -7,34 +7,35 @@ import java.time.format.DateTimeFormatter;
  * Represents task that start at a specific date/time and ends at a specific date/time
  */
 public class Event extends Task {
-	protected LocalDateTime from;
-	protected LocalDateTime to;
+    protected LocalDateTime from;
+    protected LocalDateTime to;
 
-	/**
-	 * Constructs an Event task with the provided description, start datetime, and end datetime.
-	 * @param description 	Description of the task
-	 * @param from			Start date / time
-	 * @param to			End date / time
-	 */
-	public Event(String description, LocalDateTime from, LocalDateTime to) {
-		super(description);
-		this.from = from;
-		this.to = to;
-	}
+    /**
+     * Constructs an Event task with the provided description, start datetime, and end datetime.
+     *
+     * @param description Description of the task
+     * @param from        Start date / time
+     * @param to          End date / time
+     */
+    public Event(String description, LocalDateTime from, LocalDateTime to) {
+        super(description);
+        this.from = from;
+        this.to = to;
+    }
 
-	@Override
-	public String serialize() {
-		return String.format("E | %d | %s | %s | %s",
-				super.isDone ? 1 : 0,
-				super.description,
-				this.from.format(DateTimeFormatter.ofPattern("d/M/yyyy HHmm")),
-				this.to.format(DateTimeFormatter.ofPattern("d/M/yyyy HHmm")));
-	}
+    @Override
+    public String serialize() {
+        return String.format("E | %d | %s | %s | %s",
+                super.isDone ? 1 : 0,
+                super.description,
+                this.from.format(DateTimeFormatter.ofPattern("d/M/yyyy HHmm")),
+                this.to.format(DateTimeFormatter.ofPattern("d/M/yyyy HHmm")));
+    }
 
-	@Override
-	public String toString() {
-		return "[E]" + super.toString()
-				+ " (from: " + from.format(DateTimeFormatter.ofPattern("MMM dd yyyy, HH:mm"))
-				+ " to: " + to.format(DateTimeFormatter.ofPattern("MMM dd yyyy, HH:mm")) + ")";
-	}
+    @Override
+    public String toString() {
+        return "[E]" + super.toString()
+                + " (from: " + from.format(DateTimeFormatter.ofPattern("MMM dd yyyy, HH:mm"))
+                + " to: " + to.format(DateTimeFormatter.ofPattern("MMM dd yyyy, HH:mm")) + ")";
+    }
 }
