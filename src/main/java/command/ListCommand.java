@@ -4,6 +4,9 @@ import duke.DiskManager;
 import duke.TaskManager;
 import duke.Ui;
 
+/**
+ * Represents a list command where when executed, prints the list of current tasks to the ui.
+ */
 public class ListCommand extends Command {
 
     @Override

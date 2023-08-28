@@ -5,9 +5,17 @@ import duke.DukeException;
 import duke.TaskManager;
 import duke.Ui;
 
+/**
+ * Represents a delete command where when executed, deletes the specific task.
+ */
 public class DeleteCommand extends Command {
     private int index;
 
+    /**
+     * Constructs the DeleteCommand using the 1-indexed index.
+     *
+     * @param index The index of task to be deleted.
+     */
     public DeleteCommand(int index) {
         this.index = index;
     }

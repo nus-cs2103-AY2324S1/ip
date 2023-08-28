@@ -8,11 +8,21 @@ import task.Event;
 
 import java.time.LocalDate;
 
+/**
+ * Represents an event command where when executed, adds a task with a start and end to the task list.
+ */
 public class EventCommand extends Command {
     private String description;
     private LocalDate start;
     private LocalDate end;
 
+    /**
+     * Constructs an EventCommand using the description, start date and end date.
+     *
+     * @param description The description to the task.
+     * @param start The start date.
+     * @param end The end date.
+     */
     public EventCommand(String description, LocalDate start, LocalDate end) {
         this.description = description;
         this.start = start;
