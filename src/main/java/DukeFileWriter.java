@@ -2,6 +2,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -45,6 +47,7 @@ public class DukeFileWriter {
 
     public ArrayList<Task> extractFromFile() throws FileNotFoundException, DukeException {
         ArrayList<Task> taskList = new ArrayList<>();
+        DateTimeFormatter dateTimeFormat = DateTimeFormatter.ofPattern("dd MMM yyyy HH:mm");
 
         try {
             Scanner scanner = new Scanner(this.file);
@@ -68,7 +71,8 @@ public class DukeFileWriter {
                         break;
                     case("[D]"):
                         String[] taskDetailsArr = taskDetails.split("\\(by:", 2);
-                        taskToAdd = new Deadline(taskDetailsArr[0].trim(), taskDetailsArr[1].split("\\)")[0].trim());
+                        taskToAdd = new Deadline(taskDetailsArr[0].trim(),
+                                LocalDateTime.parse(taskDetailsArr[1].split("\\)")[0].trim(), dateTimeFormat));
                         if (taskDoneStatus.equals("[X]")) {
                             taskToAdd.markDone();
                         }
@@ -78,8 +82,9 @@ public class DukeFileWriter {
                         String[] taskDetailsArrOne = taskDetails.split("\\(from:", 2);
                         String taskDetailsForEvent = taskDetailsArrOne[0];
                         String[] taskDetailsArrTwo = taskDetailsArrOne[1].split("to:", 2);
-                        taskToAdd = new Event(taskDetailsForEvent.trim(), taskDetailsArrTwo[0].trim(),
-                                taskDetailsArrTwo[1].split("\\)")[0].trim());
+                        taskToAdd = new Event(taskDetailsForEvent.trim(),
+                                LocalDateTime.parse(taskDetailsArrTwo[0].trim(), dateTimeFormat),
+                                LocalDateTime.parse(taskDetailsArrTwo[1].split("\\)")[0].trim(), dateTimeFormat));
                         if (taskDoneStatus.equals("[X]")) {
                             taskToAdd.markDone();
                         }
