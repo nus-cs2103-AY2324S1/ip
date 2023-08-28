@@ -8,20 +8,20 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class DeadlineTest {
     @Test
-    public void createNewDeadline() {
+    public void testCreateNewDeadline() {
         Deadline task = new Deadline("CS2103T ip", LocalDate.parse("2023-08-12"));
         assertEquals(task.toString(), "[D][ ] CS2103T ip (by: Aug 12 2023)");
     }
 
     @Test
-    public void markDoneDeadline() {
+    public void testMarkDoneDeadline() {
         Deadline task = new Deadline("CS2103T ip", LocalDate.parse("2023-08-12"));
         task.markAsDone();
         assertEquals(task.toString(), "[D][X] CS2103T ip (by: Aug 12 2023)");
     }
 
     @Test
-    public void markUndoneDeadline() {
+    public void testMarkUndoneDeadline() {
         Deadline task = new Deadline("CS2103T ip", LocalDate.parse("2023-08-12"));
         task.markAsDone();
         task.markAsUndone();

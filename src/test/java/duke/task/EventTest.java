@@ -9,7 +9,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class EventTest {
     @Test
-    public void createNewEvent() {
+    public void testCreateNewEvent() {
         try {
             Event task = new Event("career fair", LocalDate.parse("2023-08-10"), LocalDate.parse("2023-08-11"));
             assertEquals(task.toString(), "[E][ ] career fair (from: Aug 10 2023 to: Aug 11 2023)");
@@ -19,7 +19,7 @@ public class EventTest {
     }
 
     @Test
-    public void createInvalidNewEvent() {
+    public void testCreateInvalidNewEvent() {
         try {
             Event task = new Event("career fair", LocalDate.parse("2023-08-10"), LocalDate.parse("2023-08-09"));
             assertEquals(task.toString(), "[E][ ] career fair (from: Aug 10 2023 to: Aug 11 2023)");
