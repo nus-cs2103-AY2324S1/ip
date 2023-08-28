@@ -34,6 +34,17 @@ public class Parser {
     }
 
     /**
+     * Extract the keyword from the input string when the command is a "find".
+     * 
+     * @param input the input string
+     * @return      the keyword to find
+     */
+    public static String getKeywordToFind(String input) {
+        String keyword = input.replace("find ", "");
+        return keyword.trim();
+    }
+
+    /**
      * Parses the input that the user gives.
      * 
      * @param input  user input
@@ -92,7 +103,9 @@ public class Parser {
                 int taskNum = getTaskNumber("delete", input);
                 DukeExceptionHandler.handleTaskNumOutOfBounds(taskNum);
             }
-            
+        } else if (input.contains("find")) {
+            String keyword = getKeywordToFind(input);
+            this.taskList.displayListWithKeyword(keyword);
         } else {
             DukeExceptionHandler.handleUnseenInput();
         }
