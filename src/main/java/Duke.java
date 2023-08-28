@@ -1,3 +1,7 @@
+import java.time.LocalDateTime;
+import java.time.DateTimeException;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 import java.util.ArrayList;
 
@@ -16,6 +20,7 @@ public class Duke {
                 + "  What can I do for you?";
         String goodbye = "  Bye. Hope to see you again soon!";
         printLine(welcome);
+        DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
         while (true) {
             String input = scan.nextLine();
             if (input.equals("bye")) {
@@ -116,7 +121,8 @@ public class Duke {
                             if (details[0].split(" ", 2).length < 2) {
                                 throw new DukeException("Invalid command! Please include details of this task");
                             }
-                            Deadline deadline = new Deadline(details[0], details[1]);
+                            LocalDateTime by = LocalDateTime.parse(details[1].trim(), inputFormatter);
+                            Deadline deadline = new Deadline(details[0], by);
                             tasks.add(deadline);
                             storage.writeToFile(tasks);
                             printLine(" Got it. I've added this task:\n"
@@ -142,7 +148,9 @@ public class Duke {
                             if (eventTimings.length < 2 || eventTimings[1].trim().isEmpty()) {
                                 throw new DukeException("Invalid command! Please include when the event ends");
                             }
-                            Event event = new Event(eventDetails[0], eventTimings[0], eventTimings[1]);
+                            LocalDateTime from = LocalDateTime.parse(eventTimings[0].trim(), inputFormatter);
+                            LocalDateTime to = LocalDateTime.parse(eventTimings[1].trim(), inputFormatter);
+                            Event event = new Event(eventDetails[0], from, to);
                             tasks.add(event);
                             storage.writeToFile(tasks);
                             String message = " Got it. I've added this task:\n"
@@ -155,6 +163,8 @@ public class Duke {
                     }
                 } catch (NumberFormatException e) { // user inputs invalid argument for mark and unmark eg. "mark ab"
                     printLine("Invalid command! Please enter only one valid task ID");
+                } catch (DateTimeParseException e) {
+                    printLine("Invalid date and time format! Please use the format dd/mm/yyyy hhmm");
                 } catch (DukeException e) {
                     printLine(e.getMessage());
                 }

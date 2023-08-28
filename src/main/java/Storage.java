@@ -1,6 +1,9 @@
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -36,6 +39,7 @@ public class Storage {
     }
 
     public ArrayList<Task> readFile() {
+        DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy HHmm");
         ArrayList<Task> tasks = new ArrayList<>();
         Scanner scanner = null;
         try {
@@ -55,16 +59,16 @@ public class Storage {
                         task = new Todo(description);
                         break;
                     case "D":
-                        String by = line[3];
+                        LocalDateTime by = LocalDateTime.parse(line[3].trim(), inputFormatter);
                         task = new Deadline(description, by);
                         break;
                     case "E":
-                        String from = line[3];
-                        String to = line[4];
+                        LocalDateTime from = LocalDateTime.parse(line[3].trim(), inputFormatter);
+                        LocalDateTime to = LocalDateTime.parse(line[4].trim(), inputFormatter);
                         task = new Event(description, from, to);
                         break;
                     default:
-                        throw new DukeException("Invalid format read from ./data/duke.txt," +
+                        throw new DukeException("Invalid format found in ./data/duke.txt," +
                                 " please ensure data is in correct format");
                 }
                 if (isDone) {
@@ -72,7 +76,7 @@ public class Storage {
                 }
                 tasks.add(task);
             }
-        } catch (IOException | DukeException e) {
+        } catch (IOException | DukeException | DateTimeParseException e) {
             System.out.println("Something went wrong when loading tasks: " + e.getMessage());
         } finally {
             if (scanner != null) {
