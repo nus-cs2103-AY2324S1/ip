@@ -2,6 +2,9 @@ package spot.task;
 
 import java.time.LocalDate;
 
+/**
+ * Represents a todo.
+ */
 public class ToDo extends Task {
 
     /**

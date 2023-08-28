@@ -8,6 +8,9 @@ import spot.Ui;
 import spot.exception.SpotException;
 import spot.task.Deadline;
 
+/**
+ * Represents a command to add a new deadline.
+ */
 public class AddDeadlineCommand extends Command {
 
     private String description;

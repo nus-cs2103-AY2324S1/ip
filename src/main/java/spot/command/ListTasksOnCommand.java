@@ -7,6 +7,9 @@ import spot.TaskList;
 import spot.Ui;
 import spot.exception.SpotException;
 
+/**
+ * Represents a command to list all tasks on a certain date.
+ */
 public class ListTasksOnCommand extends Command {
 
     private LocalDate date;

@@ -16,6 +16,9 @@ import spot.task.Event;
 import spot.task.Task;
 import spot.task.ToDo;
 
+/**
+ * Represents the file storage system of the chatbot.
+ */
 public class Storage {
 
     private static final String DIRECTORY_NAME = "./data";
@@ -23,6 +26,9 @@ public class Storage {
     private static final String FULL_PATH = DIRECTORY_NAME + "/" + FILE_NAME;
     private File storage;
 
+    /**
+     * Constructs a new Storage object.
+     */
     public Storage() throws SpotException {
         try {
             File directory = new File(DIRECTORY_NAME);
@@ -39,6 +45,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Loads tasks from storage.
+     *
+     * @return ArrayList of Tasks containing all stored tasks.
+     * @throws SpotException  If the file path cannot be found.
+     */
     public ArrayList<Task> loadTasks() throws SpotException {
         try {
             ArrayList<Task> tasks = new ArrayList<>();
@@ -81,6 +93,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Saves tasks into storage.
+     *
+     * @param tasks TaskList to be stored into a text file.
+     * @throws SpotException  If the text file cannot be opened.
+     */
     public void saveTasks(TaskList tasks) throws SpotException {
         try {
             FileWriter fileWriter = new FileWriter(Storage.FULL_PATH);

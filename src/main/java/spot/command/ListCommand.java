@@ -5,6 +5,9 @@ import spot.TaskList;
 import spot.Ui;
 import spot.exception.SpotException;
 
+/**
+ * Represents a command to list all tasks.
+ */
 public class ListCommand extends Command {
 
     /**

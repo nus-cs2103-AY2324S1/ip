@@ -8,6 +8,9 @@ import spot.Ui;
 import spot.exception.SpotException;
 import spot.task.Event;
 
+/**
+ * Represents a command to add a new event.
+ */
 public class AddEventCommand extends Command {
     private String description;
     private LocalDate start;

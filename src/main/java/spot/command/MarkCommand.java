@@ -5,6 +5,9 @@ import spot.TaskList;
 import spot.Ui;
 import spot.exception.SpotException;
 
+/**
+ * Represents a command to mark a certain task as done.
+ */
 public class MarkCommand extends Command {
 
     private int position;

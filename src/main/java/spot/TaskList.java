@@ -9,6 +9,9 @@ import spot.task.Event;
 import spot.task.Task;
 import spot.task.ToDo;
 
+/**
+ * Represents a list of tasks.
+ */
 public class TaskList {
     private ArrayList<Task> tasks;
 
@@ -168,6 +171,12 @@ public class TaskList {
         }
     }
 
+    /**
+     * Lists all tasks in the current TaskList that match the specified keyword.
+     *
+     * @param ui Current Ui object.
+     * @param keyword Specified keyword.
+     */
     public void findTasks(Ui ui, String keyword) {
         if (tasks.size() == 0) {
             ui.showMessage("You don't have any tasks for now! Want Spot to help find some?");

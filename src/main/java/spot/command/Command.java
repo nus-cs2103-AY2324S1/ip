@@ -5,6 +5,9 @@ import spot.TaskList;
 import spot.Ui;
 import spot.exception.SpotException;
 
+/**
+ * Represents a command.
+ */
 public abstract class Command {
 
     /**

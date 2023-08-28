@@ -3,9 +3,11 @@ package spot;
 import java.time.LocalDate;
 import java.util.Scanner;
 
-import spot.exception.SpotException;
 import spot.task.Task;
 
+/**
+ * Represents the user interface of the chatbot.
+ */
 public class Ui {
 
     private static final String HELLO_MESSAGE = "Hello, it's Spot!";
@@ -14,7 +16,7 @@ public class Ui {
     private Scanner inputScanner;
 
     /**
-     * Constructs an instance of the Ui class.
+     * Constructs a new Ui object.
      */
     public Ui() {
         this.inputScanner = new Scanner(System.in);

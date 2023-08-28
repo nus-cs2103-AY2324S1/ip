@@ -5,6 +5,9 @@ import spot.TaskList;
 import spot.Ui;
 import spot.exception.SpotException;
 
+/**
+ * Represents a command to delete a task from the list.
+ */
 public class DeleteCommand extends Command {
 
     private int position;

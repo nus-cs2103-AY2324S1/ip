@@ -6,6 +6,9 @@ import spot.Ui;
 import spot.exception.SpotException;
 import spot.task.ToDo;
 
+/**
+ * Represents a command to add a new todo.
+ */
 public class AddToDoCommand extends Command {
     private String description;
 

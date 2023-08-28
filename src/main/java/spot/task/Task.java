@@ -2,6 +2,9 @@ package spot.task;
 
 import java.time.LocalDate;
 
+/**
+ * Represents a task.
+ */
 public abstract class Task {
     private String description;
     private boolean isDone;

@@ -3,6 +3,9 @@ package spot;
 import spot.command.Command;
 import spot.exception.SpotException;
 
+/**
+ * Represents a chatbot named Spot.
+ */
 public class Spot {
 
     private Ui ui;

@@ -5,6 +5,9 @@ import spot.TaskList;
 import spot.Ui;
 import spot.exception.SpotException;
 
+/**
+ * Represents a command to exit the program.
+ */
 public class ExitCommand extends Command {
 
     /**

@@ -18,6 +18,10 @@ import spot.command.MarkCommand;
 import spot.command.UnmarkCommand;
 import spot.exception.SpotException;
 
+
+/**
+ * Represents a parser to parse commands and dates.
+ */
 public class Parser {
 
     /**
