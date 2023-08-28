@@ -1,5 +1,8 @@
 package main.java;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Scanner;
 
 public class Duke {
@@ -10,6 +13,23 @@ public class Duke {
     }
 
     private static void greet() {
+        File saveData = new File("./src/data/duke.txt");
+        try {
+            Scanner readData = new Scanner(saveData);
+            while (readData.hasNextLine()) {
+                quickLoad(readData.nextLine());
+            }
+            readData.close();
+        } catch (FileNotFoundException e) {
+            try {
+                saveData.createNewFile();
+            } catch (IOException f) {
+                if (clarify() == 0) {
+                    exit();
+                    return;
+                }
+            }
+        }
         System.out.println(
                 "Hello. I am Luxion. \n" +
                 "What can I do for you?");
@@ -21,6 +41,69 @@ public class Duke {
 
     private static void exit() {
         System.out.println("Bye. See you soon.");
+    }
+
+    private static int clarify() {
+        System.out.println("You do not have access to create a save file");
+        System.out.println("Do you wish to continue? (yes/no) None of your data will be saved.");
+        Scanner scan = new Scanner(System.in);
+        String respond = scan.nextLine();
+        if (respond.equals("yes")) {
+            return 1;
+        } else if (respond.equals("no")) {
+            return 0;
+        } else {
+            return clarify();
+        }
+    }
+
+    protected static void quickLoad(String command) {
+        Parse cmd = new Parse(command);
+        COMMANDS firstWord = cmd.mainCommand();
+
+        switch (firstWord) {
+        case TODO:
+            if (cmd.secondWord() != null) {
+                taskList.loadTask(cmd.secondWord());
+            } else {
+                System.out.println("ToDo line corrupted: " + command);
+            }
+            return;
+
+        case DEADLINE:
+            try {
+                String task = cmd.phaseParse();
+                String dayDate = cmd.phaseTwo();
+                Parse parseDayDate = new Parse(dayDate);
+                if (parseDayDate.mainCommand().equals(COMMANDS.BY) && parseDayDate.secondWord() != null) {
+                    taskList.loadTask(task, parseDayDate.secondWord());
+                }
+            } catch (NullPointerException e) {
+                System.out.println("Deadline line corrupted: " + command);
+            }
+            return;
+
+        case EVENT:
+            try {
+                String task2 = cmd.phaseParse();
+                String startDayDateTime = cmd.phaseTwo();
+                Parse parseStartDayDateTime = new Parse(startDayDateTime);
+                String endDayDateTime = cmd.phaseThree();
+                Parse parseEndDayDateTime = new Parse(endDayDateTime);
+                taskList.loadTask(task2, parseStartDayDateTime.secondWord(), parseEndDayDateTime.secondWord());
+            } catch (NullPointerException e) {
+                System.out.println("Event line corrupted: " + command);
+            }
+            return;
+
+        case MARK:
+            int i = taskList.size();
+            taskList.loadMark(i);
+            return;
+
+        default:
+            System.out.println("line corrupted: " + command);
+        }
     }
 
     static class Parse {
