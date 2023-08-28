@@ -1,14 +1,20 @@
 package TaskPackages;
+import java.time.LocalDate;
+import java.time.LocalTime;
 
 public class Event extends Task{
 
-  protected String from;
-  protected String to;
+  protected LocalDate fromDate;
+  protected LocalTime fromTime;
+  protected LocalDate toDate;
+  protected LocalTime toTime;
 
-  protected Event(String description, String from, String to) {
+  protected Event(String description, LocalDate fromDate, LocalTime fromTime, LocalDate toDate, LocalTime toTime) {
     super(description);
-    this.from = from;
-    this.to = to;
+    this.fromDate = fromDate;
+    this.fromTime = fromTime;
+    this.toDate = toDate;
+    this.toTime = toTime;
   }
   
   @Override

@@ -1,5 +1,7 @@
 package TaskPackages;
 import java.util.ArrayList;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import Utility.NoSuchEntryException;
 import Utility.DukeException;
 import Utility.IncorrectFormatException;
@@ -7,6 +9,35 @@ import Utility.InvalidNumberException;
 
 public class TaskList {
   protected ArrayList<Task> list;
+
+  protected static class DeadlineWrapper {
+    String description;
+    LocalDate byDate;
+    LocalTime byTime;
+
+    protected DeadlineWrapper(String description, LocalDate byDate, LocalTime byTime) {
+      this.description = description;
+      this.byDate = byDate;
+      this.byTime = byTime;
+    }
+  }
+
+  protected static class EventWrapper {
+
+    protected String description;
+    protected LocalDate fromDate;
+    protected LocalTime fromTime;
+    protected LocalDate toDate;
+    protected LocalTime toTime;
+
+    protected EventWrapper(String description, LocalDate fromDate, LocalTime fromTime, LocalDate toDate, LocalTime toTime) {
+      this.description = description;
+      this.fromDate = fromDate;
+      this.fromTime = fromTime;
+      this.toDate = toDate;
+      this.toTime = toTime;
+    }
+  }
 
   public TaskList() {
     this.list = new ArrayList<Task>();
@@ -26,10 +57,39 @@ public class TaskList {
     }
   }
 
-  public static String[] deadlineParser(String input) throws IncorrectFormatException{
+  public static DeadlineWrapper deadlineParser(String input) throws IncorrectFormatException{
     int index = input.indexOf(" /by ");
     if (index > -1) {
-        return input.split(" /by ", 2);
+      try {
+        String description;
+        LocalDate byDate;
+        LocalTime byTime;
+        String[] tempString = input.split(" /by ", 2);
+        String[] tempDate = tempString[1].split(" ", 2);
+
+        description = tempString[0];
+
+        if (LocalDate.parse(tempDate[0]) instanceof LocalDate) {
+          byDate = LocalDate.parse(tempDate[0]);
+        } else if (LocalDate.parse(tempDate[1]) instanceof LocalDate) {
+          byDate = LocalDate.parse(tempDate[1]);
+        } else {
+          byDate = null;
+        }
+
+        if (LocalTime.parse(tempDate[0]) instanceof LocalTime) {
+          byTime = LocalTime.parse(tempDate[0]);
+        } else if (LocalTime.parse(tempDate[1]) instanceof LocalTime) {
+          byTime = LocalTime.parse(tempDate[1]);
+        } else {
+          byTime = null;
+        }
+
+        return new DeadlineWrapper(description, byDate, byTime);
+        
+      } catch (Exception e) {
+        throw new IncorrectFormatException();
+      }
     } else {
         throw new IncorrectFormatException();
     }
@@ -37,8 +97,8 @@ public class TaskList {
 
   public String addDeadline(String entry) throws DukeException{
     try{
-      String[] parsedEntry = deadlineParser(entry);
-      Deadline tempDeadline = new Deadline(parsedEntry[0], parsedEntry[1]);
+      DeadlineWrapper parsedEntry = deadlineParser(entry);
+      Deadline tempDeadline = new Deadline(parsedEntry.description, parsedEntry.byDate, parsedEntry.byTime);
       list.add(tempDeadline);
       return String.format("I've added this deadline:\n%s\nNow you have %d task(s) in the list.\n", tempDeadline.toString(), list.size());
     } catch (DukeException e) {
@@ -46,12 +106,17 @@ public class TaskList {
     }
   }
 
-  public static String[] eventParser(String input) throws IncorrectFormatException {
+  public static EventWrapper eventParser(String input) throws IncorrectFormatException {
     int indexFrom = input.indexOf(" /from ");
     int indexTo = input.indexOf(" /to ");
     if (indexFrom > -1 && indexTo > -1) {
       String[] tempString = {input.substring(0, indexFrom), input.substring(indexFrom+7, indexTo), input.substring(indexTo+5, input.length())};
-      return tempString;
+      try {
+        String description = tempString[0];
+
+      } catch (Exception e) {
+        throw new IncorrectFormatException();
+      }
     } else {
       throw new IncorrectFormatException();
     }
@@ -59,8 +124,8 @@ public class TaskList {
 
   public String addEvent(String entry) throws DukeException{
     try {
-      String[] parsedEntry = eventParser(entry);
-      Event tempEvent = new Event(parsedEntry[0], parsedEntry[1], parsedEntry[2]);
+      EventWrapper parsedEntry = eventParser(entry);
+      Event tempEvent = new Event(parsedEntry.description, parsedEntry.fromDate, parsedEntry.fromTime, parsedEntry.toDate, parsedEntry.toTime);
       list.add(tempEvent);
       return String.format("I've added this event:\n%s\nNow you have %d task(s) in the list.\n", tempEvent.toString(), list.size());
     } catch (DukeException e) {
