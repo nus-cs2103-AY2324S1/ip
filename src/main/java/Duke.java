@@ -1,17 +1,11 @@
-import Exception.InvalidDateException;
 import java.util.Scanner;
 
 import Command.*;
 import Enums.Command;
 import Exception.InvalidInputException;
-import Exception.InvalidTimeException;
 import Exception.InvalidCommandException;
 import Exception.MissingArgumentException;
-import Parser.CommandParser;
-import Parser.Time;
-import Task.Events;
 import Task.TaskList;
-import Task.ToDo;
 import Ui.Reply;
 
 public class Duke {
