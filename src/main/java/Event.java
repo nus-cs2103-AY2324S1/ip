@@ -2,6 +2,7 @@ public class Event extends Task {
 
     protected String from;
     protected String to;
+    private final DateTimeDetector detector = new DateTimeDetector();
 
     /**
      * Constructor to build a task with description as input.
@@ -25,6 +26,8 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + from + " to: " + to + ")";
+        String f = detector.format(from);
+        String t = detector.format(to);
+        return "[E]" + super.toString() + " (from: " + f + " to: " + t + ")";
     }
 }
