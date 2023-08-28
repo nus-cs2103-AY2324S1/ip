@@ -1,6 +1,6 @@
 public class ToDos extends Task {
-    ToDos(String name) {
-        super(name);
+    ToDos(String name, boolean isDone) {
+        super(name, isDone);
     }
 
     /*

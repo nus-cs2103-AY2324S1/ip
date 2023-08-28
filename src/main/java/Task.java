@@ -5,9 +5,9 @@ public class Task extends Corubi {
     final String notDone = "[] ";
 
 
-    Task(String name) {
+    Task(String name, boolean isDone) {
         this.name = name;
-        this.isDone = false;
+        this.isDone = isDone;
     }
 
     /*

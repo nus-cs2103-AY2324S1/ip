@@ -1,7 +1,7 @@
 public class Deadlines extends Task {
     private String by;
-    Deadlines(String name, String by) {
-        super(name);
+    Deadlines(String name, String by, boolean isDone) {
+        super(name, isDone);
         this.by = by;
     }
 
