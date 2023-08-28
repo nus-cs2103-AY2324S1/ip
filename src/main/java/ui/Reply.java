@@ -1,10 +1,16 @@
 package ui;
 
+/**
+ * Class for chatbot to create standardised replies with ui
+ */
 public class Reply {
     private String indent = "     ";
     private String section = indent + "________________________________________\n";
     private static Reply reply = null;
 
+    /**
+     * private constructor
+     */
     private Reply() {
         //Print intro
         System.out.println(section
@@ -20,6 +26,10 @@ public class Reply {
                 + section);
     }
 
+    /**
+     * factory method to enforce one instance of the reply class
+     * @return an instance of Reply
+     */
     public static Reply init() {
         if (reply == null) {
             reply = new Reply();
@@ -27,6 +37,10 @@ public class Reply {
         return reply;
     }
 
+    /**
+     * Takes in a dialog and prints it our in a standardised ui format
+     * @param dialog dialog of the chatbot reply
+     */
     public void printDialog(String dialog) {
         System.out.println(section + indent + dialog + "\n" + section);
     }

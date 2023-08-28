@@ -10,10 +10,19 @@ import exception.MissingArgumentException;
 import task.TaskList;
 import ui.Reply;
 
+/**
+ * Main class for the chatbot
+ */
 public class Evan {
 
     private static TaskList tasks = TaskList.init();
     private static Reply reply = Reply.init();
+
+    /**
+     * main method of the Main class Evan chatbot
+     * Continuously takes in user input and gives an appropriate response until the user enters "bye
+     * @param args unused
+     */
     public static void main(String[] args) {
         //Start user interaction
         Scanner scanner = new Scanner(System.in);

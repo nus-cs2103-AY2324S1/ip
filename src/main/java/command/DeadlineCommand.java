@@ -9,9 +9,19 @@ import exception.InvalidTimeException;
 
 import java.util.Scanner;
 
+/**
+ * Class for Deadline command with its static implementation of its processes
+ */
 public class DeadlineCommand {
     private static Reply reply = Reply.init();
     private static TaskList tasks = TaskList.init();
+
+    /**
+     * Main process of Deadline Command. The choice of keeping the commands static is because there is no need for multiple
+     * instances of commands
+     * Prompts user to enter the task and deadline date and time before validating and adding it to the list.
+     * Returns to homepage otherwise.
+     */
     public static void start() {
         Scanner scanner = new Scanner(System.in);
         reply.printDialog("So you want to add a task with deadline. Tell me what's the task.");
@@ -25,6 +35,7 @@ public class DeadlineCommand {
             reply.printDialog(e.toString());
             return;
         }
+
         reply.printDialog("Indicate a start time in ranging from 0000 - 2359. You may enter 'Skip' to not indicate a time");
         String time = scanner.nextLine();
         if (!time.toLowerCase().equals(enums.Command.SKIP.getCommand())) {

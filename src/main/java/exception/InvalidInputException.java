@@ -1,8 +1,16 @@
 package exception;
 
+/**
+ * Checked Exception for the event where the input is not valid.
+ */
 public class InvalidInputException extends Exception{
+
+    /**
+     * Returns a string to inform users that the input is invalid
+     * @return string information to inform user of exception
+     */
     @Override
     public String toString() {
-        return "You given input or command is invalid. Returning to homepage...";
+        return "Your given input is invalid. Returning to homepage...";
     }
 }

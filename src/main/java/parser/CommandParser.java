@@ -5,8 +5,18 @@ import exception.MissingArgumentException;
 import exception.InvalidCommandException;
 import exception.MissingTaskArgumentException;
 
+/**
+ * Class to help parse complex strings from user input
+ */
 public class CommandParser {
 
+    /**
+     * Validates if the first word is a valid command and filters it to return the arguments
+     * @param input string of a single user input
+     * @return command arguments
+     * @throws MissingArgumentException if there are no arguments
+     * @throws InvalidCommandException if the first word is an invalid command
+     */
     public static String getCommandArguments(String input) throws
             MissingArgumentException,
             InvalidCommandException {
@@ -36,6 +46,11 @@ public class CommandParser {
         }
     }
 
+    /**
+     * Takes in a string of input and returns the first word
+     * @param input String of user input
+     * @return the first word of the string
+     */
     public static String getFirstWord(String input) {
         int spaceIndex = input.indexOf(' ');
         if (spaceIndex == -1) {

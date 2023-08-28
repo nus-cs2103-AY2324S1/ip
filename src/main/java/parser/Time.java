@@ -7,7 +7,17 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Class for the parsing of a string of date/time data
+ */
 public class Time {
+
+    /**
+     * Takes in a string containing the date and attempts to find a format that the date is written in
+     * @param date string of the date data
+     * @return DateTimeFormatter containing the corresponding date format
+     * @throws InvalidDateException if no appropriate date format is found
+     */
     private static DateTimeFormatter findDateFormat(String date) throws InvalidDateException {
         DateTimeFormatter[] formats = new DateTimeFormatter[]{
                 DateTimeFormatter.ofPattern("MMM-d-yyyy"),
@@ -112,6 +122,12 @@ public class Time {
         throw new InvalidDateException();
     }
 
+    /**
+     * Checks if the date string has the same date format in the formatter
+     * @param date string of the date data
+     * @param formatter date format to be checked with
+     * @return boolean indicating if its the same format or not
+     */
     private static boolean hasSameDateFormat(String date, DateTimeFormatter formatter) {
         try {
             LocalDate.parse(date, formatter);
@@ -121,12 +137,26 @@ public class Time {
         return true;
     }
 
+    /**
+     * Takes in a string containing date, validates if its a valid date and then returns the date in a standardized format
+     * @param date string containign the user input date
+     * @return date string in a standardised format
+     * @throws InvalidDateException if date is an invalid date
+     */
     public static String formatDate(String date) throws InvalidDateException {
         DateTimeFormatter stdFormat = DateTimeFormatter.ofPattern("dd-MMM-yyyy");
         DateTimeFormatter currentFormat = findDateFormat(date);
         return LocalDate.parse(date, currentFormat).format(stdFormat);
     }
 
+    /**
+     * Takes in a string containing time, validates if its a valid time and then returns the date/time in a standardized format
+     * @param date string date input by user
+     * @param time string time input by user
+     * @return date and time string in standardised format
+     * @throws InvalidTimeException if input time is not a valid time
+     * @throws InvalidDateException if date is not a valid date
+     */
     public static String formatTime(String date, String time) throws InvalidTimeException, InvalidDateException {
         DateTimeFormatter stdFormat = DateTimeFormatter.ofPattern("dd-MMM-yyyy HHmm");
         DateTimeFormatter currentFormat = findDateFormat(date);

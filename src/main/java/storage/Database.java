@@ -10,7 +10,14 @@ import ui.Reply;
 import java.io.*;
 import java.util.ArrayList;
 
+/**
+ * Class to interface with the text file storing the user task records
+ */
 public class Database {
+    /**
+     * Takes in a list of tasks and overwrites it onto the text file
+     * @param list list of tasks
+     */
     public static void save(ArrayList<Task> list) {
         File file = new File("data/tasklist.txt");
         try {
@@ -30,6 +37,10 @@ public class Database {
         }
     }
 
+    /**
+     * Retrieves the list of task records from the text file and returns it in an arraylist
+     * @return list of tasks saved in the text file
+     */
     public static ArrayList<Task> loadData() {
         File file = new File("data/tasklist.txt");
         ArrayList<Task> list = new ArrayList<>();
