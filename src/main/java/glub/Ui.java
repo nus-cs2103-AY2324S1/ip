@@ -1,24 +1,29 @@
+package glub;
+
+import glub.task.Task;
+import glub.task.TaskList;
+
 import java.util.ArrayList;
 
 public class Ui {
-    static void printHorizontalLine() {
+    public static void printHorizontalLine() {
         System.out.println("_________________________________________________");
     }
 
-    static void greet() {
+    public static void greet() {
         printHorizontalLine();
         System.out.println("Hello! I'm Glub!");
         System.out.println("What can I do for you?");
         printHorizontalLine();
     }
 
-    static void sayGoodbye() {
+    public static void sayGoodbye() {
         printHorizontalLine();
         System.out.println("Bye. Hope to see you again soon!");
         printHorizontalLine();
     }
 
-    static void printAddMsg(ArrayList<Task> taskList) {
+    public static void printAddMsg(ArrayList<Task> taskList) {
         int size = taskList.size();
         printHorizontalLine();
         System.out.println("Got it. I've added this task:");
@@ -27,7 +32,7 @@ public class Ui {
         printHorizontalLine();
     }
 
-    static void printDeleteMsg(ArrayList<Task> taskList, Task deleted) {
+    public static void printDeleteMsg(ArrayList<Task> taskList, Task deleted) {
         int size = taskList.size();
         printHorizontalLine();
         System.out.println("Noted. I've removed this task:");
@@ -36,28 +41,28 @@ public class Ui {
         printHorizontalLine();
     }
 
-    static void printListMsg(TaskList taskList) {
+    public static void printListMsg(TaskList taskList) {
         printHorizontalLine();
         System.out.println("Here are the tasks in your list:");
         System.out.println(taskList.showList());
         printHorizontalLine();
     }
 
-    static void printMarkMsg(Task task) {
+    public static void printMarkMsg(Task task) {
         printHorizontalLine();
         System.out.println("Nice! I've marked this task as done:");
         System.out.printf("\t%s%n", task);
         printHorizontalLine();
     }
 
-    static void printUnmarkMsg(Task task) {
+    public static void printUnmarkMsg(Task task) {
         printHorizontalLine();
         System.out.println("Ok, I've marked this task as not done yet:");
         System.out.printf("\t%s%n", task);
         printHorizontalLine();
     }
 
-    static void printError(String msg) {
+    public static void printError(String msg) {
         System.err.println(msg);
     }
 

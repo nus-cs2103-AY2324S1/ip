@@ -1,3 +1,7 @@
+package glub;
+
+import glub.task.Task;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -24,9 +28,9 @@ public class Storage {
             }
             scanner.close();
         } catch (FileNotFoundException ex) {
-            Ui.printError("Task list not found!");
+            Ui.printError("Glub.Task list not found!");
         } catch (IOException ex) {
-            Ui.printError("Task list file creation failed!");
+            Ui.printError("Glub.Task list file creation failed!");
         }
         return taskDetails;
     }

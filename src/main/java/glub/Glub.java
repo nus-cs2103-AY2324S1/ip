@@ -1,3 +1,7 @@
+package glub;
+
+import glub.task.TaskList;
+
 public class Glub {
     private TaskList taskList;
     private Parser parser;

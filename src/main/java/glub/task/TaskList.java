@@ -1,3 +1,9 @@
+package glub.task;
+
+import glub.GlubException;
+import glub.Storage;
+import glub.Ui;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -88,7 +94,7 @@ public class TaskList {
             Task deleted = taskList.remove(taskNum - 1);
             Ui.printDeleteMsg(taskList, deleted);
         } catch (IndexOutOfBoundsException ex) {
-            throw new GlubException(String.format("OOPS!! Task %d does not exist!\n", taskNum));
+            throw new GlubException(String.format("OOPS!! Glub.Task %d does not exist!\n", taskNum));
         }
         storage.saveTasks(this.taskList);
     }

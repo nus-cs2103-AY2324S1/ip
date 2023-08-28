@@ -1,3 +1,8 @@
+package glub;
+
+import glub.task.TaskList;
+import glub.task.TaskType;
+
 import java.util.Scanner;
 
 public class Parser {
