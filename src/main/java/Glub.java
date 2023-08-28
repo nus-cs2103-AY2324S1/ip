@@ -1,8 +1,8 @@
-public class Duke {
+public class Glub {
     private TaskList taskList;
     private Parser parser;
 
-    public Duke(Storage storage) {
+    public Glub(Storage storage) {
         try {
             this.taskList = new TaskList(storage);
         } catch (GlubException ex) {
@@ -16,9 +16,9 @@ public class Duke {
     }
 
     public static void main(String[] args) {
-        Duke duke = new Duke(new Storage("tasks.txt"));
+        Glub glub = new Glub(new Storage("tasks.txt"));
         Ui.greet();
-        duke.run();
+        glub.run();
     }
 
 }
