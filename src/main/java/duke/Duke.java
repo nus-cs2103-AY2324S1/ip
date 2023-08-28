@@ -20,7 +20,6 @@ public class Duke {
         parser = new Parser();
 
     }
-
     public void run() {
             ui.welcomeMessage();
             boolean isExit = false;
