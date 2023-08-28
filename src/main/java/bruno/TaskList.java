@@ -1,17 +1,27 @@
 package bruno;
 
-import bruno.exceptions.*;
-import bruno.task.Deadline;
-import bruno.task.Event;
-import bruno.task.Task;
-import bruno.task.ToDo;
-
 import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
+import bruno.exceptions.BrunoEmptyException;
+import bruno.exceptions.BrunoException;
+import bruno.exceptions.BrunoIndexOutOfBoundsException;
+import bruno.exceptions.BrunoIntegerMismatchException;
+import bruno.exceptions.BrunoMissingDeadlineException;
+import bruno.exceptions.BrunoMissingEventException;
+import bruno.exceptions.BrunoNegativeArgException;
+import bruno.task.Deadline;
+import bruno.task.Event;
+import bruno.task.Task;
+import bruno.task.ToDo;
+
+/**
+ * The TaskList class handles all functionality relating to the list of tasks, such as addition, deletion,
+ * update and display of tasks.
+ */
 public class TaskList {
     public static List<Task> list;
     private final Storage storage;
@@ -23,6 +33,11 @@ public class TaskList {
         this.ui = ui;
     }
 
+    /**
+     * Adds a task of type ToDo to the list of tasks.
+     * @param task
+     * @throws BrunoException
+     */
     public void addToDo(String task) throws BrunoException {
         if (task.split(" ").length == 1) {
             System.out.print("\t");
@@ -34,6 +49,11 @@ public class TaskList {
         ui.displayMessage(s);
     }
 
+    /**
+     * Adds a task of type Deadline to the list of tasks.
+     * @param task
+     * @throws BrunoException
+     */
     public void addDeadline(String task) throws BrunoException {
         if (task.split(" ").length == 1 || task.indexOf('/') == 9) {
             System.out.print("\t");
@@ -50,6 +70,11 @@ public class TaskList {
         ui.displayMessage(s);
     }
 
+    /**
+     * Adds a task of type Event to the list of tasks.
+     * @param task
+     * @throws BrunoException
+     */
     public void addEvent(String task) throws BrunoException {
         if (task.split(" ").length == 1 || task.indexOf('/') == 6) {
             System.out.print("\t");
@@ -68,6 +93,11 @@ public class TaskList {
         ui.displayMessage(s);
     }
 
+    /**
+     * Marks a task as done from the list of tasks.
+     * @param task
+     * @throws BrunoException
+     */
     public void markTask(String task) throws BrunoException {
         String markVal = task.split(" ")[1];
         try {
@@ -89,6 +119,11 @@ public class TaskList {
         ui.displayMessage(s);
     }
 
+    /**
+     * Unmarks a task to show that it is not done, from the list of tasks.
+     * @param task
+     * @throws BrunoException
+     */
     public void unmarkTask(String task) throws BrunoException {
         String unmarkVal = task.split(" ")[1];
         try {
@@ -109,6 +144,11 @@ public class TaskList {
         ui.displayMessage(s);
     }
 
+    /**
+     * Deletes a task from the list of tasks.
+     * @param task
+     * @throws BrunoException
+     */
     public void deleteTask(String task) throws BrunoException {
         String deleteVal = task.split(" ")[1];
         try {
@@ -129,12 +169,18 @@ public class TaskList {
         ui.displayMessage(s);
     }
 
+    /**
+     * Displays the number of tasks in the list.
+     */
     public void displayListSum() {
         String s = "\tNow you have " + list.size() + (list.size() == 1 ? " task" : " tasks") + " in your "
                 + "list.";
         ui.displayMessage(s);
     }
 
+    /**
+     * Displays the list of tasks.
+     */
     public void displayList() {
         String s = "\tHere are the tasks in your list:\n";
         for (int i = 0; i < list.size(); i++) {
@@ -143,6 +189,11 @@ public class TaskList {
         ui.displayMessage(s);
     }
 
+    /**
+     * Displays all the tasks the user has on a given date.
+     * @param task
+     * @throws DateTimeException
+     */
     public void showSchedule(String task) throws DateTimeException {
         String s = "";
         int counter = 0;
@@ -154,8 +205,8 @@ public class TaskList {
                 }
             } else if (t instanceof Event) {
                 if ((d.isAfter(((Event) t).from.toLocalDate()) && d.isBefore(((Event) t).by.toLocalDate()))
-                        || d.isEqual(((Event) t).from.toLocalDate()) || d.isEqual(
-                        ((Event) t).by.toLocalDate())) {
+                        || d.isEqual(((Event) t).from.toLocalDate()) || d.isEqual((
+                                (Event) t).by.toLocalDate())) {
                     s = s + "\t" + (++counter) + ". " + t.getString() + "\n";
                 }
             }

@@ -1,16 +1,24 @@
 package bruno;
 
-import bruno.exceptions.BrunoException;
-
 import java.time.DateTimeException;
 import java.util.Scanner;
 
+import bruno.exceptions.BrunoException;
+
+/**
+ * The Bruno class represents the main application class that handles the running of the application.
+ */
 public class Bruno {
 
     private Storage storage;
     private TaskList tasks;
     private UI ui;
 
+    /**
+     * Creates a new instance of the Bruno class with the specified directory path and file name
+     * @param dirPath
+     * @param fileName
+     */
     public Bruno(String dirPath, String fileName) {
         ui = new UI();
         storage = new Storage(dirPath, fileName);
@@ -22,6 +30,9 @@ public class Bruno {
         }
     }
 
+    /**
+     * Runs the Bruno application, allowing the user to interact with the task management system
+     */
     public void run() {
         Parser parser = new Parser(tasks);
         Scanner sc = new Scanner(System.in);

@@ -1,5 +1,10 @@
 package bruno;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.Scanner;
+
 import bruno.exceptions.BrunoException;
 import bruno.exceptions.BrunoIncorrectFormatException;
 import bruno.task.Deadline;
@@ -7,15 +12,19 @@ import bruno.task.Event;
 import bruno.task.Task;
 import bruno.task.ToDo;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.Scanner;
-
+/**
+ * The Storage class is responsible for all actions relating to the bruno.txt file, such as loading the
+ * file at the start of the application, and writing to the file whenever changes are made to the task list.
+ */
 public class Storage {
     private String dirPath;
     private String fileName;
 
+    /**
+     * Creates a new instance of the Storage class using the specified directory path and file name.
+     * @param dirPath
+     * @param fileName
+     */
     public Storage(String dirPath, String fileName) {
         this.dirPath = dirPath;
         this.fileName = fileName;
@@ -25,6 +34,9 @@ public class Storage {
         }
     }
 
+    /**
+     * Writes to the bruno.txt file by reading all tasks in the task list.
+     */
     public void writeToFile() {
         try {
             FileWriter fileWriter = new FileWriter(this.dirPath + this.fileName);
@@ -37,6 +49,10 @@ public class Storage {
         }
     }
 
+    /**
+     * Loads the bruno.txt file and populates the list of tasks.
+     * @throws BrunoException
+     */
     public void loadFile() throws BrunoException {
         try {
             File file = new File(this.dirPath + this.fileName);
