@@ -15,6 +15,10 @@ import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+
+/**
+ * Handles storage related operations.
+ */
 public class Storage {
 
 
@@ -30,6 +34,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Writes a task list to file.
+     *
+     * @param taskList List of tasks.
+     */
     public static void writeToFile(ArrayList<Task> taskList) {
         try {
             File file = new File("./data/duke.txt");
@@ -46,6 +55,12 @@ public class Storage {
 
     }
 
+    /**
+     * Loads a list of tasks from file.
+     *
+     * @return Loaded list of tasks.
+     * @throws FileNotFoundException If file containing list of tasks is not found.
+     */
     public ArrayList<Task> load() throws FileNotFoundException {
         ArrayList<Task> taskData = new ArrayList<>();
 
@@ -62,15 +77,15 @@ public class Storage {
             String taskInfo = taskInfoSplit[taskInfoSplit.length - 1].trim();
 
             switch (taskType) {
-            case "D":
-                newTask = Deadline.initializeFromStorage(taskInfo);
-                break;
-            case "T":
-                newTask = Todo.initializeFromStorage(taskInfo);
-                break;
-            case "E":
-                newTask = Event.initializeFromStorage(taskInfo);
-                break;
+                case "D":
+                    newTask = Deadline.initializeFromStorage(taskInfo);
+                    break;
+                case "T":
+                    newTask = Todo.initializeFromStorage(taskInfo);
+                    break;
+                case "E":
+                    newTask = Event.initializeFromStorage(taskInfo);
+                    break;
             }
             if (Objects.equals(taskComplete, "X")) {
                 assert newTask != null;

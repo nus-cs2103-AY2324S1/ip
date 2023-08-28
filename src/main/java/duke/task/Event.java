@@ -13,6 +13,14 @@ public class Event extends Task {
         this.to = to;
     }
 
+
+    /**
+     * Initialize a new Event from user input.
+     *
+     * @param input User input.
+     * @return A new Event object.
+     * @throws EmptyDescriptionException If user input does not follow the given format.
+     */
     public static Event initializeFromInput(String input) throws EmptyDescriptionException {
         try {
             String processed = input.split("event")[1];
@@ -25,6 +33,12 @@ public class Event extends Task {
         }
     }
 
+    /**
+     * Initialize a new Event from file storage.
+     *
+     * @param input Line from file storage.
+     * @return A new Event object.
+     */
     public static Event initializeFromStorage(String input) {
         String[] processed = input.split("\\(");
         String taskName = processed[0].trim();

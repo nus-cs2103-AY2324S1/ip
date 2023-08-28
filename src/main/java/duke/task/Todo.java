@@ -7,6 +7,13 @@ public class Todo extends Task {
         super(description);
     }
 
+    /**
+     * Initialize a new Todo from user input.
+     *
+     * @param input User input.
+     * @return A new Todo object.
+     * @throws EmptyDescriptionException If todo description is empty.
+     */
     public static Todo initializeFromInput(String input) throws EmptyDescriptionException {
         try {
             String taskName = input.split("todo")[1].strip();
@@ -16,6 +23,13 @@ public class Todo extends Task {
         }
     }
 
+
+    /**
+     * Initialize a new Todo from file storage.
+     *
+     * @param input Line from file storage.
+     * @return A new Todo object.
+     */
     public static Todo initializeFromStorage(String input) {
         return new Todo(input);
     }

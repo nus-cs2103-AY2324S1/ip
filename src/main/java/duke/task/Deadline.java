@@ -7,6 +7,9 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * A task with description and deadline.
+ */
 public class Deadline extends Task {
 
     protected LocalDate by;
@@ -16,6 +19,13 @@ public class Deadline extends Task {
         this.by = by;
     }
 
+    /**
+     * Initialize a new Deadline from user input.
+     *
+     * @param input User input.
+     * @return A new Deadline object.
+     * @throws Exception If user input does not follow the given format.
+     */
     public static Deadline initializeFromInput(String input) throws Exception {
         try {
             String[] processed = input.split("deadline")[1].split("/by");
@@ -29,6 +39,12 @@ public class Deadline extends Task {
         }
     }
 
+    /**
+     * Initialize a new Deadline from file storage.
+     *
+     * @param input Line from file storage.
+     * @return A new Deadline object.
+     */
     public static Deadline initializeFromStorage(String input) {
         String[] processed = input.split("\\(");
         String taskName = processed[0].trim();
