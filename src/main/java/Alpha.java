@@ -76,9 +76,12 @@ public class Alpha {
                     throw new InvalidFormatException("Invalid Format!", TaskException.TaskType.DEADLINE);
                 } else {
                     String[] splitDeadline = input.split("/by");
-                    Deadline deadline = new Deadline(splitDeadline[0].substring(9), splitDeadline[1]);
-                    taskList.add(deadline, false);
-                    fh.saveToFile(deadline);
+                        Deadline deadline = Deadline.makeDeadline(splitDeadline[0].substring(9),
+                                splitDeadline[1]);
+                        if (deadline != null) {
+                            taskList.add(deadline, false);
+                            fh.saveToFile(deadline);
+                        }
                 }
             } else if (splitInput[0].equals(EVENT)) {
                     if (splitInput.length < 3) {
@@ -86,11 +89,13 @@ public class Alpha {
                     } else {
                         String[] splitEvent = input.split("/");
                          if (splitEvent[1].startsWith("from") && splitEvent[2].startsWith("to")) {
-                             Event event = new Event(splitEvent[0].substring(6),
+                             Event event = Event.makeEvent(splitEvent[0].substring(6),
                                      splitEvent[1].substring(5),
                                      splitEvent[2].substring(3));
-                             taskList.add(event, false);
-                             fh.saveToFile(event);
+                             if (event != null) {
+                                 taskList.add(event, false);
+                                 fh.saveToFile(event);
+                             }
                          } else {
                              throw new InvalidFormatException("Invalid Format!", TaskException.TaskType.EVENT);
                          }
@@ -101,7 +106,7 @@ public class Alpha {
                     if (splitInput.length == 1) {
                         throw new MissingInfoException("Missing Information!", TaskException.TaskType.TODO);
                     } else {
-                        ToDo todo = new ToDo(input.substring(5));
+                        ToDo todo = ToDo.makeToDo(input.substring(5));
                         taskList.add(todo, false);
                         fh.saveToFile(todo);
                     }

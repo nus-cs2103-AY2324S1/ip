@@ -1,6 +1,7 @@
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.Scanner;
 import java.io.FileWriter;
 import java.io.FileReader;
@@ -46,16 +47,19 @@ public class FileHandler {
             String description = splitInput[2];
             Task task;
             if (type.equals("T ")) {
-                task = new ToDo(description);
+                task = ToDo.makeToDo(description);
             } else if (type.equals("D ")) {
-                task = new Deadline(description, splitInput[3]);
+                task = Deadline.makeDeadline(description, splitInput[3]);
             } else {
-                task = new Event(description, splitInput[3], splitInput[4]);
+                task = Event.makeEvent(description, splitInput[3], splitInput[4]);
             }
             if (checked.equals("X")) {
+                assert task != null;
                 task.mark();
             }
-            taskList.add(task, true);
+            if (task != null) {
+                taskList.add(task, true);
+            }
         }
         return taskList;
     }
@@ -69,7 +73,7 @@ public class FileHandler {
             }
             if (task instanceof Deadline) {
                 writer.write("D |" + task.getStatusIcon() + "| " + task.getDescription() + " | "
-                        + ((Deadline) task).getBy());
+                        + ((Deadline) task).getDateBy() + " " + ((Deadline) task).getTimeBy());
             } else if (task instanceof ToDo) {
                 writer.write("T |" + task.getStatusIcon() + "| " + task.getDescription());
             } else {
