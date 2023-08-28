@@ -111,7 +111,11 @@ public class Duke {
         case UNMARK:
         case DELETE:
             throw new ManipulateException(message, key.getKeyword());
+
+        case PRINT_DATE:
+            throw new PrintDateException(message);
         }
+
         return false;
     }
 
@@ -120,10 +124,10 @@ public class Duke {
                 INDENT, key.getKeyword(), INDENT);
         switch (key) {
         case BYE:
-                if (rest.equals(NAME)) {
-                    System.out.printf("%sBye. Hope to see you again soon!%n", INDENT);
-                    return true;
-                }
+            if (rest.equals(NAME)) {
+                System.out.printf("%sBye. Hope to see you again soon!%n", INDENT);
+                return true;
+            }
             // fall through
         case LIST:
             String errMessage = String.format("%sOOPS!!! The command for %s is invalid.\n" +
@@ -141,6 +145,10 @@ public class Duke {
         case DEADLINE:
         case EVENT:
             processAddCommand(key, rest, message);
+            break;
+
+        case PRINT_DATE:
+            processPrintCommand(key, rest, message);
             break;
         }
         return false;
@@ -181,7 +189,11 @@ public class Duke {
             if (deadlineTask.length != 2) {
                 throw new DeadlineException(err);
             }
-            task = new Deadline(deadlineTask[0], deadlineTask[1]);
+            try {
+                task = new Deadline(deadlineTask[0], Time.parseDateTime(deadlineTask[1]));
+            } catch (DukeException e) {
+                throw new DeadlineException(err);
+            }
             break;
 
         default: // equivalent to case EVENT
@@ -193,11 +205,31 @@ public class Duke {
             if (dates.length != 2) {
                 throw new EventException(err);
             }
-            task = new Event(eventTask[0], dates[0], dates[1]);
+            try {
+                task = new Event(eventTask[0], Time.parseDateTime(dates[0]), Time.parseDateTime(dates[1]));
+            } catch (DukeException e) {
+                throw new EventException(err);
+            }
             break;
         }
         taskList.addTask(task);
         storage.appendFile(task.fileFormat());
+    }
+
+    private void processPrintCommand(Keyword key, String rest, String err) throws DukeException {
+        String[] printTask = rest.split(" /on ");
+        if (printTask.length != 2) {
+            throw new PrintDateException(err);
+        }
+        if (!printTask[0].equals("deadline") && !printTask[0].equals("event")) {
+            throw new PrintDateException(err);
+        }
+
+        try {
+            taskList.printDateTask(Keyword.valueOf(printTask[0].toUpperCase()), Time.parseDate(printTask[1]));
+        } catch (DukeException e) {
+            throw new PrintDateException(err);
+        }
     }
 
     private static void printLine() {

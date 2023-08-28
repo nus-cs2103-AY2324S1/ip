@@ -1,3 +1,6 @@
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
 public class Task {
     protected String description;
     protected boolean isDone;
@@ -19,6 +22,10 @@ public class Task {
     public String fileFormat() {
         return String.format("%d%s%s",
                 isDone ? 1 : 0, Storage.SEPARATOR, description);
+    }
+
+    public boolean onDate(Keyword key, LocalDate date) {
+        return false;
     }
 
     @Override

@@ -39,10 +39,10 @@ public class Storage {
                     task = new Todo(temp[2]);
                     break;
                 case "D":
-                    task = new Deadline(temp[2], temp[3]);
+                    task = new Deadline(temp[2], Time.parseDateTime(temp[3]));
                     break;
                 case "E":
-                    task = new Event(temp[2], temp[3], temp[4]);
+                    task = new Event(temp[2], Time.parseDateTime(temp[3]), Time.parseDateTime(temp[4]));
                     break;
                 default:
                     throw new DukeException(goneWrongMessage);
