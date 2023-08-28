@@ -5,7 +5,12 @@ import duke.exception.DukeException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Represents a list for the Task objects.
+ */
 public class TaskList {
+
+    /** List of Task objects, encapsulated in the class. */
     private List<Task> taskList;
 
     public TaskList(List<Task> tasks) {
@@ -16,14 +21,31 @@ public class TaskList {
         this(new ArrayList<>());
     }
 
+    /**
+     * Getter for the list size.
+     *
+     * @return List size.
+     */
     public int getListSize() {
         return taskList.size();
     }
 
+    /**
+     * Adds a Task object to the list.
+     *
+     * @param task Task object to be added.
+     */
     public void addTask(Task task) {
         taskList.add(task);
     }
 
+    /**
+     * Deletes a Task object from the list based on its index.
+     *
+     * @param index Index of the Task object.
+     * @return Task object that is deleted.
+     * @throws DukeException If index does not exist in the list.
+     */
     public Task deleteTask(int index) throws DukeException {
         if (index > taskList.size() || index <= 0) {
             throw new DukeException(String.format(" ☹ OOPS!!! Task %d does not exist.", index));
@@ -31,6 +53,13 @@ public class TaskList {
         return taskList.remove(index - 1);
     }
 
+    /**
+     * Marks the Task object in the list based on its index.
+     *
+     * @param index Index of the Task object.
+     * @return Task object that is marked.
+     * @throws DukeException If index does not exist in the list.
+     */
     public Task markTask(int index) throws DukeException {
         if (index > taskList.size() || index <= 0) {
             throw new DukeException(String.format(" ☹ OOPS!!! Task %d does not exist.", index));
@@ -40,6 +69,13 @@ public class TaskList {
         return task;
     }
 
+    /**
+     * Unmark the Task object in the list based on its index.
+     *
+     * @param index Index of the Task object.
+     * @return Task object that is unmarked.
+     * @throws DukeException If index does not exist in the list.
+     */
     public Task unmarkTask(int index) throws DukeException {
         if (index > taskList.size() || index <= 0) {
             throw new DukeException(String.format(" ☹ OOPS!!! Task %d does not exist.", index));
@@ -49,6 +85,11 @@ public class TaskList {
         return task;
     }
 
+    /**
+     * Represents a String to be written in an external file.
+     *
+     * @return String representation.
+     */
     public String stringToFile() {
         StringBuilder msg = new StringBuilder();
         for (Task task : taskList) {

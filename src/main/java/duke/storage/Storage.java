@@ -13,14 +13,19 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Storage class to load and write data from or to
+ * an external file.
+ */
 public class Storage {
+    /** The file path for the Storage object. */
     private final String filePath;
 
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
-    public void createFile() throws DukeException {
+    private void createFile() throws DukeException {
         try {
             String[] temp = filePath.split("/");
             String directoryPath = "";
@@ -39,7 +44,7 @@ public class Storage {
         }
     }
 
-    public File loadFile() throws DukeException {
+    private File loadFile() throws DukeException {
         File file = new File(filePath);
         if (!file.exists()) {
             createFile();
@@ -47,6 +52,13 @@ public class Storage {
         return file;
     }
 
+    /**
+     * Writes a String into an external file.
+     * Rewrites the content of the file if the file exists.
+     *
+     * @param msg String to be written.
+     * @throws DukeException If I/O Error occurs.
+     */
     public void writeFile(String msg) throws DukeException {
         try {
             FileWriter fw = new FileWriter(filePath);
@@ -57,6 +69,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Appends a String to the end of an external file.
+     *
+     * @param task Task object - its String representation to be appended.
+     * @throws DukeException If I/O Error occurs.
+     */
     public void appendFile(Task task) throws DukeException {
         try {
             FileWriter fw = new FileWriter(filePath, true);
@@ -67,6 +85,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Creates an ArrayList of Task objects from an external file.
+     *
+     * @return An ArrayList of Task objects.
+     * @throws DukeException If loading error occurs.
+     */
     public ArrayList<Task> createList() throws DukeException {
         try {
             ArrayList<Task> taskList = new ArrayList<>();

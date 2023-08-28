@@ -6,7 +6,11 @@ import duke.task.Event;
 import duke.task.TaskList;
 import duke.ui.Ui;
 
+/**
+ * Represents a command to create an Event object.
+ */
 public class EventCommand extends Command {
+    /** Represents an Event object */
     private final Event event;
 
     public EventCommand(String input) throws DukeException {
@@ -22,6 +26,14 @@ public class EventCommand extends Command {
                 tokens[1].split("/to")[1].strip());
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * @param taskList List of Task objects.
+     * @param ui UI that the user interact with.
+     * @param storage Storage to handle data to and from an external file.
+     * @throws DukeException If any error occurs.
+     */
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) throws DukeException {
         taskList.addTask(event);

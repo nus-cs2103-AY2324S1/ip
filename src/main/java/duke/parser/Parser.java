@@ -11,7 +11,17 @@ import duke.command.MarkCommand;
 import duke.command.ToDoCommand;
 import duke.command.UnmarkCommand;
 
+/**
+ * Parser class to parse user input.
+ */
 public class Parser {
+    /**
+     * Parses user input strings into meaningful Command objects.
+     *
+     * @param userInput The full user input, in a line.
+     * @return A Command object.
+     * @throws DukeException If user input is invalid.
+     */
     public static Command parse(String userInput) throws DukeException {
         try {
             String[] tokens = userInput.split(" ", 2);

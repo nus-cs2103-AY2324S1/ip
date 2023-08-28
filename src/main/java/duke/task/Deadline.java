@@ -6,7 +6,11 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Represents a deadline.
+ */
 public class Deadline extends Task {
+    /** Represents the deadline of the Deadline object */
     protected LocalDateTime by;
 
     public Deadline(String description, String by) throws DukeException {
@@ -18,6 +22,9 @@ public class Deadline extends Task {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String stringToFile() {
         return String.format("D | %s | %s", super.stringToFile(),
