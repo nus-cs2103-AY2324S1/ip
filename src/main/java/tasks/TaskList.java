@@ -18,6 +18,7 @@ public class TaskList {
   private static TaskList INSTANCE;
   private final List<Task> tasks = new ArrayList<>();
   private static final String DATA_FILE_PATH = "data/data.json";
+  private static final Gson gson = new Gson();
 
   public TaskList() {
     List<Task> existingTasks = loadTasks();
@@ -36,20 +37,23 @@ public class TaskList {
 
   public void addTask(Task task) {
     this.tasks.add(task);
+    this.saveTasks();
   }
 
   public void removeTask(int index) {
     this.checkIndex(index);
     this.tasks.remove(index);
-  }
-
-  public int size() {
-    return this.tasks.size();
+    this.saveTasks();
   }
 
   public void setTaskStatus(int index, boolean status) {
     this.checkIndex(index);
     this.tasks.get(index).setDone(status);
+    this.saveTasks();
+  }
+
+  public int size() {
+    return this.tasks.size();
   }
 
   public Task getTask(int index) {
@@ -76,10 +80,35 @@ public class TaskList {
     return String.join("\n", formatted);
   }
 
+  private void saveTasks() {
+    try (BufferedWriter bw = new BufferedWriter(new FileWriter(DATA_FILE_PATH))) {
+      List<HashMap<String, String>> toSave = new ArrayList<>();
+      for (Task task : this.tasks) {
+        // Manually destructure the entry since we are including the name of the task as well
+        HashMap<String, String> entry = new HashMap<>();
+        entry.put("type", "todo");
+        entry.put("name", task.getName());
+        entry.put("status", String.valueOf(task.getDone()));
+        if (task instanceof Deadline) {
+          entry.put("due", ((Deadline) task).getDeadline());
+        } else if (task instanceof Event) {
+          entry.put("from", ((Event) task).getFrom());
+          entry.put("to", ((Event) task).getTo());
+        } else if (!(task instanceof ToDo)) {
+          throw new IllegalStateException("Invalid task found, this should not happen");
+        }
+        toSave.add(entry);
+      }
+      gson.toJson(toSave, bw);
+    } catch (IOException e) {
+      System.out.println("Failed to save tasks to data file");
+      System.exit(0);
+    }
+  }
+
   private static List<Task> loadTasks() {
     try {
       BufferedReader br = new BufferedReader(new FileReader(DATA_FILE_PATH));
-      Gson gson = new Gson();
       Type listType = new TypeToken<List<HashMap<String, String>>>() {
       }.getType();
       List<HashMap<String, String>> jsonTasks = gson.fromJson(br, listType);
