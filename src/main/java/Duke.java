@@ -1,9 +1,3 @@
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.Scanner;
-
 /**
  * Main entry point of the bot
  */
@@ -34,7 +28,7 @@ public class Duke {
     public void run() {
         ui.showWelcome();
         boolean isExit = false;
-        FileManager.readTask(tasks, ui);
+        Storage.readTask(tasks, ui);
 
         while (!isExit) {
             try {
@@ -42,7 +36,7 @@ public class Duke {
                 ui.showLine();
                 Command command = Parser.parse(userInput);
                 isExit = command.execute(this.tasks, ui);
-                FileManager.writeTask(tasks,ui);
+                Storage.writeTask(tasks,ui);
             } catch (DukeException e) {
                 ui.showError(e.getMessage());
             } finally {
