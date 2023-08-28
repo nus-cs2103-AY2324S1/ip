@@ -1,3 +1,6 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
+
 /**
  * Representation of a deadline task
  * recorded by the chatbot.
@@ -6,16 +9,20 @@
  */
 public class TaskDeadline extends Task {
     /** Deadline time of the task */
-    private String deadlineTime;
+    private LocalDate deadlineTime;
     /**
      * Creates a deadline task.
      * @param taskName Name of task
      * @param deadlineTime Deadline
      */
-    TaskDeadline(String taskName, String deadlineTime) {
+    TaskDeadline(String taskName, String deadlineTime) throws IllegalArgumentException {
         super(taskName);
         super.oneLetterAbbrev = "D";
-        this.deadlineTime = deadlineTime;
+        try {
+            this.deadlineTime = LocalDate.parse(deadlineTime);
+        } catch (DateTimeParseException e) {
+            throw new IllegalArgumentException("Illegal Date/Time");
+        }
     }
     @Override
     /**

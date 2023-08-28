@@ -1,3 +1,6 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
+
 /**
  * Representation of a deadline task
  * recorded by the chatbot.
@@ -6,18 +9,23 @@
  */
 public class TaskEvent extends Task{
     /**Start and end times of events */
-    String startTime, endTime;
+    LocalDate startTime, endTime;
     /**
      * Creates a deadline task.
      * @param taskName Name of task
      * @param startTime Start time of task
      * @param endTime End time of task
      */
-    TaskEvent(String taskName, String startTime, String endTime) {
+    TaskEvent(String taskName, String startTime, String endTime) throws IllegalArgumentException {
         super(taskName);
         super.oneLetterAbbrev = "E";
-        this.startTime = startTime;
-        this.endTime = endTime;
+        try {
+            this.startTime = LocalDate.parse(startTime);
+            this.endTime = LocalDate.parse(endTime);
+            if (startTime.compareTo(endTime) > 0) throw new IllegalArgumentException("Start Date after End Date");
+        } catch (DateTimeParseException e) {
+            throw new IllegalArgumentException("Illegal Date/Time");
+        }
     }
     @Override
     /**
