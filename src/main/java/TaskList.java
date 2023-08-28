@@ -1,4 +1,8 @@
 import java.util.ArrayList;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.File;
+
 /**
  * Represents a list of tasks in the Duke application.
  */
@@ -38,6 +42,16 @@ public class TaskList {
         taskList.remove(taskNumber);
         System.out.println("Noted. I've removed this task:\n" + task);
         message();
+    }
+
+    public void saveFile() throws IOException {
+        File dir = new File("data");
+        if (!dir.exists()) {
+            dir.mkdirs();
+        }
+        FileWriter file = new FileWriter("data/tasks.txt");
+        file.write(toString());
+        file.close();
     }
 
     /**
