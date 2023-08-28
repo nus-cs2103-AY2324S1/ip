@@ -32,7 +32,7 @@ public class AddCommand extends RatCommand {
             String[] paramsArr = params.split(" /by ");
             String name = paramsArr[0];
             String deadline = paramsArr[1];
-            this.validateTime(deadline);
+            validateTime(deadline);
             this.ratTaskManager.addDeadline(deadline, name);
         } catch (StringIndexOutOfBoundsException e) {
             printWithLines("Deadline name cannot be empty");
@@ -53,8 +53,8 @@ public class AddCommand extends RatCommand {
             String[] time = params.split(" /from ")[1].split(" /to ");
             String startTime = time[0];
             String endTime = time[1];
-            this.validateTime(startTime);
-            this.validateTime(endTime);
+            validateTime(startTime);
+            validateTime(endTime);
             this.ratTaskManager.addEvent(startTime, endTime, eventName);
         } catch (StringIndexOutOfBoundsException e) {
             printWithLines("Event name cannot be empty");

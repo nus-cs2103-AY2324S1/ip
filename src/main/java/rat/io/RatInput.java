@@ -70,6 +70,9 @@ public class RatInput {
             case "delete":
                 new DeleteCommand(this.ratTaskManager, input).execute();
                 break;
+            case "find":
+                new FindCommand(this.ratTaskManager, input).execute();
+                break;
             case "help":
                 this.showCommands();
                 break;
@@ -94,6 +97,7 @@ public class RatInput {
                 + "event <name> /from <start> /to <end>: add an event task with <name>, <start> and <end>\n"
                 + "delete <index>: delete task at <index>\n"
                 + "delete all: delete all tasks\n"
+                + "find <keyword>: find all tasks with <keyword>\n"
                 + "bye: exit the program\n"
                 + "\nbuilt by @keaganpzh";
         printWithLines(output);

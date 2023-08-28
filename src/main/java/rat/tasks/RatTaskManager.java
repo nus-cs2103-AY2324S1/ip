@@ -36,6 +36,32 @@ public class RatTaskManager {
         }
     }
 
+    public ArrayList<Task> findTasks(String keyword) {
+        ArrayList<Task> foundTasks = new ArrayList<>();
+        for (Task task : this.taskList) {
+            if (task.toString().contains(keyword)) {
+                foundTasks.add(task);
+            }
+        }
+        return foundTasks;
+    }
+
+    public String printFoundTasks(String keyword) {
+        ArrayList<Task> foundTasks = this.findTasks(keyword);
+        if (foundTasks.isEmpty()) {
+            String output = "No tasks found matching the keyword " + "\"" + keyword + "\"" + ".";
+            printWithLines(output);
+            return output;
+        }
+        StringBuilder str = new StringBuilder();
+        str.append("Here are the matching tasks in your list:\n");
+        for (int i = 0; i < foundTasks.size(); i++) {
+            str.append((i + 1)).append(". ").append(foundTasks.get(i).toString()).append("\n");
+        }
+        printWithLines(str.toString());
+        return str.toString();
+    }
+
     /**
      * Reads the data from the local storage file and adds it to the taskList.
      */
