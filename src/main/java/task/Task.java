@@ -27,22 +27,14 @@ public abstract class Task {
      * Marks the task as done.
      */
     public void markAsDone() {
-        System.out.println("____________________________________________________________");
-        System.out.println("Nice! I've marked this task as done:");
         this.isDone = true;
-        System.out.println(this);
-        System.out.println("____________________________________________________________");
     }
 
     /**
      * Marks the task as undone.
      */
     public void markAsUndone() {
-        System.out.println("____________________________________________________________");
-        System.out.println("OK, I've marked this task as not done yet:");
         this.isDone = false;
-        System.out.println(this);;
-        System.out.println("____________________________________________________________");
     }
 
     /**
