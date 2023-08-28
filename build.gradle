@@ -33,9 +33,7 @@ application {
 }
 
 shadowJar {
-    archiveBaseName = "carbonbot"
-    archiveClassifier = null
-    dependsOn("distZip", "distTar")
+    archiveFileName = 'carbonbot.jar'
 }
 
 run{
