@@ -1,8 +1,17 @@
+import java.time.LocalDateTime;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeFormatterBuilder;
+import java.time.temporal.ChronoUnit;
 public class Event extends Task{
 
     protected String start;
 
     protected String end;
+
+    protected LocalDate startDate;
+
+    protected LocalDate endDate;
 
     /**
      * This is a constructor.
@@ -17,14 +26,23 @@ public class Event extends Task{
         this.end = end;
     }
 
+    public Event (String description, LocalDate startDate, LocalDate endDate) {
+        super(description);
+        this.startDate = startDate;
+        this.endDate = endDate;
+    }
+
     @Override
     public String toString() {
         return "[E]" + super.toString() +
-                " (from: " + start + " to: " + end + ")";
+                " (from: " + startDate.format(DateTimeFormatter.ofPattern("MMM d yyyy")) +
+                " to: " + endDate.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
+
+
     }
 
     @Override
     public String saveString() {
-        return super.saveString() + "/" + start + "/" + end;
+        return super.saveString() + "/" + startDate.toString() + "/" + endDate.toString();
     }
 }

@@ -1,7 +1,11 @@
-import java.awt.*;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 
 public class Deadline extends Task{
      protected String by;
+
+     protected LocalDate byDate;
 
     /**
      * Constructor.
@@ -14,13 +18,21 @@ public class Deadline extends Task{
          this.by = by;
      }
 
+     public Deadline(String description, LocalDate byDate) {
+         super(description);
+         this.byDate = byDate;
+     }
+
+
      @Override
      public String toString() {
-         return "[D]" + super.toString() + " (by: " + by + ")";
+         return "[D]" + super.toString() + " (by: " +
+                 byDate.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
+
      }
 
     @Override
     public String saveString() {
-         return super.saveString() + "/" + by;
+         return super.saveString() + "/" + byDate.toString();
     }
 }

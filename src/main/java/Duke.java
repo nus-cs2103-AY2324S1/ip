@@ -1,3 +1,5 @@
+import java.time.DateTimeException;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Scanner;
@@ -5,6 +7,10 @@ import java.io.FileWriter;
 import java.io.FileNotFoundException;
 import java.io.File;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 public class Duke {
 
     private static String PATH = "data/duke.txt";
@@ -13,7 +19,7 @@ public class Duke {
     /**
      * Prints out the tasks that currently in the tasks arraylist.
      */
-    public static void listTasks() throws IOException{
+    public static void listTasks() {
         System.out.println("Here are the tasks in your list:");
         for (int i = 0; i < tasks.size(); i++) {
             System.out.println((i + 1) + "." + tasks.get(i).toString());
@@ -31,7 +37,6 @@ public class Duke {
         }
         while (sc.hasNext()) {
             String input = sc.nextLine();
-            System.out.println(input);
             String[] inputArr = input.split("/");
             Task temp;
             String des = inputArr[1];
@@ -39,13 +44,13 @@ public class Duke {
                 temp = new Todo(des);
             } else if (inputArr.length == 3) {
                 String by = inputArr[2];
-                temp = new Deadline(des, by);
+                temp = new Deadline(des, LocalDate.parse(by));
             } else {
                 String from = inputArr[2];
                 String to = inputArr[3];
-                temp = new Event(des, from, to);
+                temp = new Event(des, LocalDate.parse(from), LocalDate.parse(to));
             }
-            if (inputArr[0] == "1") {
+            if (inputArr[0].equals("1")) {
                 temp.mark();
             }
             tasks.add(temp);
@@ -143,7 +148,7 @@ public class Duke {
                     }
                     String des = detailsArr[0];
                     String by = detailsArr[1];
-                    addTask(new Deadline(des, by));
+                    addTask(new Deadline(des, LocalDate.parse(by)));
                 } else if (Objects.equals(command, "event")) {
                     if (inputArr.length == 1) {
                         throw new DukeException("☹ OOPS!!! The description of a event cannot be empty.");
@@ -161,7 +166,7 @@ public class Duke {
                     }
                     String start = timeArr[0];
                     String end = timeArr[1];
-                    addTask(new Event(des, start, end));
+                    addTask(new Event(des, LocalDate.parse(start), LocalDate.parse(end)));
                 } else if (Objects.equals(command, "delete")) {
                     if (inputArr.length == 1) {
                         throw new DukeException("☹ OOPS!!! The description of a delete cannot be empty.");
@@ -189,6 +194,8 @@ public class Duke {
                 System.out.println(e.getMessage());
             } catch (NumberFormatException e) {
                 System.out.println("Please type in INTEGER after this command ^v^");
+            } catch (DateTimeParseException e) {
+                System.out.println("There is something wrong with your date! format: yyyy-mm-dd");
             }
             finally {
 
