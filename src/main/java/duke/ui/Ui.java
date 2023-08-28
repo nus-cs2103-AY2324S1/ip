@@ -54,7 +54,8 @@ public class Ui {
                 "6. todo <description> - Add a new todo task",
                 "7. deadline <description> /by <dueDate> - Add a new deadline task",
                 "8. event <description> /from <startDate> /to <endDate> - Add a new event task",
-                "9. help - Displays the available commands"
+                "9. help - Displays the available commands",
+                "10. find <keyword> - Search for tasks with a keyword"
         );
     }
 
@@ -108,12 +109,8 @@ public class Ui {
         ArrayList<String> msg = new ArrayList<>();
         int num = 1;
         for (Task task : taskList) {
-            if (task != null) {
-                msg.add(num + ": " + task);
-                num ++;
-            } else {
-                break;
-            }
+            msg.add(num + ": " + task);
+            num ++;
         }
         if (taskList.size() == 0) {
             msg.add("You have no task currently.");
@@ -126,6 +123,21 @@ public class Ui {
     public static void showError(DukeException e) {
         showToUser(
                 e.toString()
+        );
+    }
+
+    public static void showFilteredTasks(ArrayList<Task> filteredTasks) {
+        ArrayList<String> msg = new ArrayList<>();
+        int num = 1;
+        for (Task task : filteredTasks) {
+            msg.add(num + ": " + task);
+            num ++;
+        }
+        if (filteredTasks.size() == 0) {
+            msg.add("You have no matching task.");
+        }
+        showToUser(
+                msg.toArray(new String[0])
         );
     }
 }

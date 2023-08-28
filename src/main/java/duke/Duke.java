@@ -75,6 +75,9 @@ public class Duke {
                     case EVENT:
                         this.taskList.newEvent(parsedInput);
                         break;
+                    case FIND:
+                        this.taskList.find(parsedInput);
+                        break;
                 }
             } catch (DukeException e) {
                 Ui.showError(e);

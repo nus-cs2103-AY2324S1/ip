@@ -1,5 +1,6 @@
 package duke.task;
 
+import duke.Duke;
 import duke.exception.*;
 import duke.task.Deadline;
 import duke.task.Event;
@@ -108,6 +109,21 @@ public class TaskList {
             Ui.showDeleteMessage(removedTask, this.taskList.size());
         } catch (NumberFormatException e) {
             throw new DukeInvalidArgumentException();
+        } catch (IndexOutOfBoundsException e) {
+            throw new DukeMissingArgumentException();
+        }
+    }
+
+    public void find(ArrayList<String> parsedInput) throws DukeMissingArgumentException {
+        try {
+            String target = parsedInput.get(1);
+            ArrayList<Task> filteredTasks = new ArrayList<>();
+            for (Task task : this.taskList) {
+                if (task.getDescription().contains(target)) {
+                    filteredTasks.add(task);
+                }
+            }
+            Ui.showFilteredTasks(filteredTasks);
         } catch (IndexOutOfBoundsException e) {
             throw new DukeMissingArgumentException();
         }
