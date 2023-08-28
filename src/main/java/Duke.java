@@ -4,6 +4,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -14,7 +16,7 @@ public class Duke {
     private String filePath;
 
     private enum Command {
-        LIST, UNMARK, MARK, DELETE, TODO, DEADLINE, EVENT, END, UNKNOWN
+        LIST, UNMARK, MARK, DELETE, TODO, DEADLINE, EVENT, END, DATE, UNKNOWN
     }
 
     private void greet() {
@@ -56,10 +58,25 @@ public class Duke {
     }
 
     private void list() {
-        System.out.println("Although I dunwan to list... But here is your list:");
+        if (data.isEmpty()) {
+            System.out.println("Congrats!!! Nothing to do now!!!");
+        } else {
+            System.out.println("Although I dunwan to list... But here is your list:");
+            for (int i = 0; i < data.size(); i++) {
+                Task dt = data.get(i);
+                System.out.println((i + 1) + ". " + dt.toString());
+            }
+            System.out.println(" ");
+        }
+    }
+
+    private void dateList(LocalDateTime date) {
+        System.out.println("You need to do...");
         for (int i = 0; i < data.size(); i++) {
             Task dt = data.get(i);
-            System.out.println((i + 1) + ". " + dt.toString());
+            if (dt.getDate().getDayOfMonth() == date.getDayOfMonth()) {
+                System.out.println((i + 1) + ". " + dt.toString());
+            }
         }
         System.out.println(" ");
     }
@@ -102,6 +119,8 @@ public class Duke {
                 c = Command.DEADLINE;
             } else if (input.startsWith("event")) {
                 c = Command.EVENT;
+            } else if (input.startsWith("date")) {
+                c = Command.DATE;
             } else if (input.startsWith("end")) {
                 c = Command.END;
             } else {
@@ -114,10 +133,26 @@ public class Duke {
                     input = sc.nextLine();
                     break;
 
+                case DATE:
+                    try {
+                        if (input.length() < 6) {
+                            throw new DukeException("Which day u want oh?? Give in dd-MM-yyyy ahhh\n");
+                        }
+                        String date = input.substring(6);
+                        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+                        this.dateList(LocalDateTime.parse(date, formatter));
+                    } catch (DukeException e) {
+                        System.err.println(e);
+                    } finally {
+                        input = sc.nextLine();
+                    }
+                    break;
+
                 case UNMARK:
                     try {
                         if (input.length() < 8) {
-                            throw new DukeException("Please unmark your task using this format: \"unmark [serial number]\"\n");
+                            throw new DukeException("Please unmark your task using this format: "
+                                    + "\"unmark [serial number]\"\n");
                         }
                         int t = Integer.parseInt(input.substring(7));
                         if (t > this.data.size()) {
@@ -136,7 +171,8 @@ public class Duke {
                 case MARK:
                     try {
                         if (input.length() < 6) {
-                            throw new DukeException("Please mark your task using this format: \"mark [serial number]\"\n");
+                            throw new DukeException("Please mark your task using this format: "
+                                    + "\"mark [serial number]\"\n");
                         }
                         int t = Integer.parseInt(input.substring(5));
                         if (t > this.data.size()) {
@@ -155,7 +191,8 @@ public class Duke {
                 case DELETE:
                     try {
                         if (input.length() < 8) {
-                            throw new DukeException("Please delete your task using this format: \"delete [serial number]\"\n");
+                            throw new DukeException("Please delete your task using this format: "
+                                    + "\"delete [serial number]\"\n");
                         }
                         int t = Integer.parseInt(input.substring(7));
                         if (t > this.data.size()) {
@@ -183,10 +220,11 @@ public class Duke {
                 case DEADLINE:
                     try {
                         if (!input.contains("/by")) {
-                            throw new DukeException("Please enter your task with this format: \"deadline task_description /by deadline\"\n");
+                            throw new DukeException("Please enter your task with this format: "
+                                    + "\"deadline task_description /by dd-MM-yyyy HH:mm (deadline)\"\n");
                         }
                         String tk = input.substring(8, input.indexOf("/") - 1);
-                        String date = input.substring(input.indexOf("/by") + 3);
+                        String date = input.substring(input.indexOf("/by") + 4);
                         this.add(new Deadline(tk, date));
                     } catch (DukeException e) {
                         System.err.println(e);
@@ -198,11 +236,13 @@ public class Duke {
                 case EVENT:
                     try {
                         if (!input.contains("/from") || !input.contains("/to")) {
-                            throw new DukeException("Please enter your task with this format: \"event task_description /from start /to end\"\n");
+                            throw new DukeException("Please enter your task with this format: "
+                                    + "\"event task_description /from dd-MM-yyyy HH:mm (start) "
+                                    + " /to dd-MM-yyyy HH:mm (end)\"\n");
                         }
                         String ts = input.substring(5, input.indexOf("/from") - 1);
-                        String start = input.substring(input.indexOf("/from") + 5, input.indexOf("/to") - 1);
-                        String end = input.substring(input.indexOf("/to") + 3);
+                        String start = input.substring(input.indexOf("/from") + 6, input.indexOf("/to") - 1);
+                        String end = input.substring(input.indexOf("/to") + 4);
                         this.add(new Event(ts, start, end));
                     } catch (DukeException e) {
                         System.err.println(e);
