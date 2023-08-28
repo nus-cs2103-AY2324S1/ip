@@ -1,4 +1,5 @@
 package duke;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -6,11 +7,9 @@ import java.util.Scanner;
 import java.io.FileWriter;
 
 public class Storage {
-
     public static final String FILESEPERATORCHARACTER = " | ";
     private final String filePath;
     private final File file;
-
 
     private Storage(String filePath, File file) {
         this.filePath = filePath;
@@ -33,10 +32,8 @@ public class Storage {
         }
     }
 
-
     /**
      * Checks if a file exists and is not a directory
-     *
      * @param filePath  the path of the file
      * @return  true if the file exists and is not a directory, false otherwise
      */
@@ -47,7 +44,6 @@ public class Storage {
 
     /**
      * Creates a directory if it does not exist
-     *
      * @param directoryPath the path of the directory
      */
     public static void createDirectory(String directoryPath) {
@@ -65,7 +61,6 @@ public class Storage {
 
     /**
      * Creates a file if it does not exist
-     *
      * @param filePath
      * @return File object
      * @throws IOException

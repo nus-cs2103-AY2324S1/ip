@@ -1,11 +1,10 @@
 package duke;
+
 /**
  * Task represents a task given by a user's input
  * It contains details of a task
  */
-
 public class Task {
-
     private String taskName;
     private boolean isDone;
 
@@ -34,6 +33,7 @@ public class Task {
     public void quietlyCompleteTask() {
         this.isDone = true;
     }
+
     /**
      * Mark a task as undone by setting done as false
      */
@@ -50,7 +50,6 @@ public class Task {
      */
     // Note that this is credited from the website partial solution
     public String getStatusIcon() {
-
         return (isDone ? "X" : " "); // mark done task with X
     }
 
@@ -70,6 +69,7 @@ public class Task {
         System.out.println("  " + this.toString());
         System.out.println("Now you have " + noOfTask + " tasks in the list.");
     }
+
     /**
      * Prints out a message that a task has been deleted
      */
@@ -87,7 +87,6 @@ public class Task {
         return "";
     }
 
-
     @Override
     public String toString() {
         if (this.isDone) {
@@ -96,4 +95,5 @@ public class Task {
             return "[" + this.getStatusIcon() + "] " + this.taskName;
         }
     }
+
 }

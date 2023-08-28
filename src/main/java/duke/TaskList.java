@@ -1,4 +1,5 @@
 package duke;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -68,6 +69,10 @@ public class TaskList {
         }
     }
 
+    /**
+     * Adds a task to the taskList. Unable to access from outside the class
+     * @param task
+     */
     private void addTaskInterally(Task task) {
         this.taskList.add(task);
     };
@@ -150,8 +155,5 @@ public class TaskList {
     public int length() {
         return this.taskList.size();
     }
-
-
-
 
 }

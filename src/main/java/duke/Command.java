@@ -16,8 +16,6 @@ public enum Command {
                     "event <task_name> /from <start-time> /to <end-time>", "mark <number>",
                     "unmark <number>", "delete <number>"};
 
-
-
     public static Command getCommand(String input) throws InvalidInputException {
         String[] inputtedWords = input.split(" ");
         // Command word should always be first word without space
@@ -42,6 +40,5 @@ public enum Command {
             throw new InvalidInputException();
         }
     }
-
 
 }

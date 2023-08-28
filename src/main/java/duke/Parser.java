@@ -1,4 +1,5 @@
 package duke;
+
 /**
  * Parser class that handles the parsing of user input
  */
@@ -34,70 +35,69 @@ public class Parser {
         String[] splitString = input.split(" ");
         try {
             switch (command) {
-                case BYE:
-                    this.ui.terminate();
-                    hasCommands = false;
-                    break;
-                case LIST:
-                    this.ui.list(this.taskList);
-                    break;
-                case UNMARK:
-                    // Order matters, if we check for marks first, unmark falls under mark loop
-                    // Split the string based on spaces
-                    // The input after the mark word should be task no (which should be index 1)
-                    int taskNumberUnmark = Integer.parseInt(splitString[1]);
-                    // The above should throw a NumberFormatException
-                    this.taskList.unmarkTask(taskNumberUnmark - 1, storage);
-                    break;
-                case MARK:
-                    // The input after the mark word should be task no (which should be index 1)
-                    int taskNumberMark = Integer.parseInt(splitString[1]);
-                    // The above should throw a NumberFormatException if not the right number
-                    this.taskList.markTask(taskNumberMark - 1, storage);
-                    break;
-                case TODO:
-                    // Test whether a ToDos input is valid
-                    ToDos.taskValidator(input);
-                    // for To-Dos anything after the command is task name
-                    Task toDo = new ToDos(input.substring(5));
-                    totalItemNumber++;
-                    this.taskList.addTask(toDo, totalItemNumber, storage);
-                    break;
-                case DEADLINE:
-                    // Test whether a deadline's input is valid
-                    Deadline.taskValidator(input);
-                    // for Deadline is slightly more complex, we will split by /by
-                    String[] segementedString = input.split(" /by ");
-                    // We should only have 2 segments for the Array, before and after
-                    String deadline = segementedString[1];
-                    // Hardcoded because we know how words are positioned
-                    String taskNameDeadline = segementedString[0].substring(DEADLINEOFFSET);
-                    DateTime deadlineDateTime = DateTime.createDateTime(deadline);
-                    Task deadlineTask = new Deadline(taskNameDeadline, deadlineDateTime);
-                    totalItemNumber++;
-                    this.taskList.addTask(deadlineTask, totalItemNumber, storage);
-                    break;
-                case EVENT:
-                    // Test whether an event's input is valid
-                    Event.taskValidator(input);
-                    // Event, split string twice to get relevant component
-                    String[] segmentedViaBy = input.split(" /from ");
-                    String taskNameEvent = segmentedViaBy[0].substring(EVENTOFFSET);
-                    String[] segmentedViaTo = segmentedViaBy[1].split(" /to ");
-                    String start = segmentedViaTo[0];
-                    DateTime startDateTime = DateTime.createDateTime(start);
-                    String end = segmentedViaTo[1];
-                    DateTime endDateTime = DateTime.createDateTime(end);
-                    Task event = new Event(taskNameEvent, startDateTime, endDateTime);
-                    totalItemNumber++;
-                    this.taskList.addTask(event, totalItemNumber, storage);
-                    break;
-                case DELETE:
-                    int taskNumberDelete = Integer.parseInt(splitString[1]);
-                    totalItemNumber--;
-                    this.taskList.deleteTask(taskNumberDelete - 1, totalItemNumber, storage);
-                    break;
-
+            case BYE:
+                this.ui.terminate();
+                hasCommands = false;
+                break;
+            case LIST:
+                this.ui.list(this.taskList);
+                break;
+            case UNMARK:
+                // Order matters, if we check for marks first, unmark falls under mark loop
+                // Split the string based on spaces
+                // The input after the mark word should be task no (which should be index 1)
+                int taskNumberUnmark = Integer.parseInt(splitString[1]);
+                // The above should throw a NumberFormatException
+                this.taskList.unmarkTask(taskNumberUnmark - 1, storage);
+                break;
+            case MARK:
+                // The input after the mark word should be task no (which should be index 1)
+                int taskNumberMark = Integer.parseInt(splitString[1]);
+                // The above should throw a NumberFormatException if not the right number
+                this.taskList.markTask(taskNumberMark - 1, storage);
+                break;
+            case TODO:
+                // Test whether a ToDos input is valid
+                ToDos.taskValidator(input);
+                // for To-Dos anything after the command is task name
+                Task toDo = new ToDos(input.substring(5));
+                totalItemNumber++;
+                this.taskList.addTask(toDo, totalItemNumber, storage);
+                break;
+            case DEADLINE:
+                // Test whether a deadline's input is valid
+                Deadline.taskValidator(input);
+                // for Deadline is slightly more complex, we will split by /by
+                String[] segementedString = input.split(" /by ");
+                // We should only have 2 segments for the Array, before and after
+                String deadline = segementedString[1];
+                // Hardcoded because we know how words are positioned
+                String taskNameDeadline = segementedString[0].substring(DEADLINEOFFSET);
+                DateTime deadlineDateTime = DateTime.createDateTime(deadline);
+                Task deadlineTask = new Deadline(taskNameDeadline, deadlineDateTime);
+                totalItemNumber++;
+                this.taskList.addTask(deadlineTask, totalItemNumber, storage);
+                break;
+            case EVENT:
+                // Test whether an event's input is valid
+                Event.taskValidator(input);
+                // Event, split string twice to get relevant component
+                String[] segmentedViaBy = input.split(" /from ");
+                String taskNameEvent = segmentedViaBy[0].substring(EVENTOFFSET);
+                String[] segmentedViaTo = segmentedViaBy[1].split(" /to ");
+                String start = segmentedViaTo[0];
+                DateTime startDateTime = DateTime.createDateTime(start);
+                String end = segmentedViaTo[1];
+                DateTime endDateTime = DateTime.createDateTime(end);
+                Task event = new Event(taskNameEvent, startDateTime, endDateTime);
+                totalItemNumber++;
+                this.taskList.addTask(event, totalItemNumber, storage);
+                break;
+            case DELETE:
+                int taskNumberDelete = Integer.parseInt(splitString[1]);
+                totalItemNumber--;
+                this.taskList.deleteTask(taskNumberDelete - 1, totalItemNumber, storage);
+                break;
             }
         } catch (NullPointerException e) {
             // If we mark a task number outside the range
@@ -112,6 +112,7 @@ public class Parser {
             System.out.println("Please enter a valid task number from the range in  list");
         }
     }
+
     public boolean shouldContinue() {
         return this.hasCommands;
     }
