@@ -1,3 +1,18 @@
+package duke.parser;
+
+import duke.command.AddCommand;
+import duke.command.Command;
+import duke.command.DeleteCommand;
+import duke.command.ExitCommand;
+import duke.command.ListCommand;
+import duke.command.MarkAsDoneCommand;
+import duke.command.UnmarkAsDoneCommand;
+import duke.exception.DukeException;
+import duke.task.Deadline;
+import duke.task.Event;
+import duke.task.Task;
+import duke.task.Todo;
+
 import java.time.format.DateTimeParseException;
 
 public class Parser {
@@ -36,12 +51,11 @@ public class Parser {
                     }
                 case BYE:
                     return new ExitCommand();
-                case TODO:
-                    {
-                        String description = argument;
-                        Task task = new Todo(description);
-                        return new AddCommand(task);
-                    }
+                case TODO: {
+                    String description = argument;
+                    Task task = new Todo(description);
+                    return new AddCommand(task);
+                }
                 case DEADLINE:
                     try {
                         inputs = argument.split(" /", 2);
@@ -64,7 +78,8 @@ public class Parser {
                         Task task = new Event(description, from, to);
                         return new AddCommand(task);
                     } catch (ArrayIndexOutOfBoundsException e) {
-                        throw new DukeException("\u2639 OOPS!!! The start time or end time of an event cannot be empty.");
+                        throw new DukeException(
+                                "\u2639 OOPS!!! The start time or end time of an event cannot be empty.");
                     } catch (DateTimeParseException e) {
                         throw new DukeException(
                                 "\u2639 OOPS!!! The date time format must be something like 2007-12-03T10:15:30.");
