@@ -1,10 +1,10 @@
 public class Todo extends Task {
-  @Override
-  public String toString() {
-    return "[T]" + super.toString();
-  }
+    @Override
+    public String toString() {
+        return "[T]" + super.toString();
+    }
 
-  Todo(String taskName) {
-    super(taskName);
-  }
+    Todo(String taskName, boolean isMarked) {
+        super(taskName, isMarked);
+    }
 }
