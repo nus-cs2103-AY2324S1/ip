@@ -12,10 +12,10 @@ public class Parser {
      * Parses the input and prints the corresponding output.
      *
      * @param input The input from the user.
-     * @param storage The storage object to store the tasks.
+     * @param tasks The taskList object to store the tasks.
      * @throws DukeException An exception related to the chatbot.
      */
-    public static void parse(String input, Storage storage) throws DukeException {
+    public static void parse(String input, TaskList tasks) throws DukeException {
         if (input.isBlank()) {
             return;
         }
@@ -27,7 +27,7 @@ public class Parser {
                 throw new DukeException("\tPlease provide the task number.");
             }
             try {
-                storage.markTaskDone(Integer.parseInt(inputArr[1]));
+                tasks.markTaskDone(Integer.parseInt(inputArr[1]));
             } catch (NumberFormatException e) {
                 throw new DukeException("\tPlease provide a valid task number.");
             }
@@ -37,7 +37,7 @@ public class Parser {
                 throw new DukeException("\tPlease provide the task number.");
             }
             try {
-                storage.markTaskNotDone(Integer.parseInt(inputArr[1]));
+                tasks.markTaskNotDone(Integer.parseInt(inputArr[1]));
             } catch (NumberFormatException e) {
                 throw new DukeException("\tPlease provide a valid task number.");
             }
@@ -47,20 +47,20 @@ public class Parser {
                 throw new DukeException("\tPlease provide the task number.");
             }
             try {
-                storage.deleteTask(Integer.parseInt(inputArr[1]));
+                tasks.deleteTask(Integer.parseInt(inputArr[1]));
             } catch (NumberFormatException e) {
                 throw new DukeException("\tPlease provide a valid task number.");
             }
             break;
         case "list":
-            storage.list();
+            tasks.list();
             break;
         case "todo":
             description = input.substring(4);
             if (description.isBlank()) {
                 throw new DukeException("\tHmm, the description of a todo cannot be empty :(");
             }
-            storage.add(description);
+            tasks.add(description);
             break;
         case "deadline":
             int indexOfBy = input.indexOf("/by");
@@ -82,7 +82,7 @@ public class Parser {
                 throw new DukeException("\tHmm, I don't understand the date. Use this format: YYYY-MM-DD");
             }
 
-            storage.add(description, deadline);
+            tasks.add(description, deadline);
             break;
         case "event":
             int indexOfFrom = input.indexOf("/from");
@@ -113,7 +113,7 @@ public class Parser {
             if (!DATE_PATTERN.matcher(from).matches() || !DATE_PATTERN.matcher(to).matches()) {
                 throw new DukeException("\tHmm, I don't understand the date. Use this format: YYYY-MM-DD");
             }
-            storage.add(description, from, to);
+            tasks.add(description, from, to);
             break;
         default:
             throw new DukeException("\tOOPS!!! I'm sorry, but I don't understand what that means :-(");
