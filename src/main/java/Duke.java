@@ -71,9 +71,11 @@ public class Duke {
 
                 } else if (userInput.startsWith("mark")) {
                     markTask(userInput, inputNum);
+                    updateTaskFile();
 
                 } else if (userInput.startsWith("unmark")) {
                     unmarkTask(userInput, inputNum);
+                    updateTaskFile();
 
                 } else if (userInput.startsWith("todo")) {
                     if (userInput.equals("todo")) {
@@ -82,6 +84,7 @@ public class Duke {
                     String taskName = userInput.substring("todo".length()).trim();
                     makeToDo(taskName, inputNum);
                     inputNum++;
+                    updateTaskFile();
 
                 } else if (userInput.startsWith("deadline")) {
                     if (userInput.equals("deadline")) {
@@ -94,6 +97,7 @@ public class Duke {
                     String by = deadlineParts[1];
                     makeDeadline(taskName, by, inputNum);
                     inputNum++;
+                    updateTaskFile();
 
                 } else if (userInput.startsWith("event")) {
                     if (userInput.equals("event")) {
@@ -105,15 +109,17 @@ public class Duke {
                     String end = eventParts[2];
                     makeEvent(taskName, start, end, inputNum);
                     inputNum++;
+                    updateTaskFile();
 
                 } else if (userInput.startsWith("delete")) {
                     deleteTask(userInput, inputNum);
                     inputNum--;
+                    updateTaskFile();
                 }
                 else {
                     throw new InvalidInputException("Invalid Input");
                 }
-            } catch (InvalidInputException | EmptyTaskException | EmptyDateException | OutOfRangeException e) {
+            } catch (InvalidInputException | EmptyTaskException | EmptyDateException | OutOfRangeException | IOException e) {
                 System.out.println(e);
             }
         }
@@ -153,7 +159,7 @@ public class Duke {
      * @throws EmptyTaskException  If the task is missing.
      * @throws OutOfRangeException If the task index is out of range.
      */
-    private static void markTask(String userInput, int inputNum) throws EmptyTaskException, OutOfRangeException {
+    private static void markTask(String userInput, int inputNum) throws EmptyTaskException, OutOfRangeException, IOException {
         if (userInput.equals("mark")) {
             throw new EmptyTaskException("mark");
         }
@@ -368,5 +374,23 @@ public class Duke {
             task.unmarkDone();
         }
     }
+
+    private static void generateTaskFileContent() throws IOException {
+        StringBuilder content = new StringBuilder();
+        for (Task task : taskArray) {
+            content.append(writeTaskLine(task));
+        }
+        writeToFile("tasks.txt", content.toString());
+    }
+
+    private static void updateTaskFile() throws IOException {
+        try {
+            generateTaskFileContent();
+        } catch (IOException e) {
+            System.out.println("Something went wrong while updating the task file: " + e.getMessage());
+        }
+    }
+
+
 
 }
