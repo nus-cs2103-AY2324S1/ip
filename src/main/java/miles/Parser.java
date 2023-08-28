@@ -1,9 +1,9 @@
-package duke;
+package miles;
 
-import duke.task.Deadline;
-import duke.task.Event;
-import duke.task.Task;
-import duke.task.ToDo;
+import miles.task.Deadline;
+import miles.task.Event;
+import miles.task.Task;
+import miles.task.ToDo;
 
 /**
  * Represents the parsing of user input, making sense of what command the user has given.
@@ -57,7 +57,7 @@ public class Parser {
         if (input.equals("bye")) {
             toBreak = true;
         } else if (input.equals("")) {
-            DukeExceptionHandler.handleEmptyInput();
+            MilesExceptionHandler.handleEmptyInput();
         } else if (input.equals("list")) {
             this.taskList.displayList();
         } else if (input.contains("unmark")) {
@@ -75,7 +75,7 @@ public class Parser {
                 this.storage.saveWhenAddTask(newToDo, this.taskList);
                 this.ui.printAddedTask(newToDo, n + 1);
             } catch (IllegalArgumentException e) {
-                DukeExceptionHandler.printErrorMsg(e.getMessage());
+                MilesExceptionHandler.printErrorMsg(e.getMessage());
             }
         } else if (input.contains("deadline")) {
             try {
@@ -83,7 +83,7 @@ public class Parser {
                 this.storage.saveWhenAddTask(newDeadline, this.taskList);
                 this.ui.printAddedTask(newDeadline, n + 1);
             } catch (IllegalArgumentException e) {
-                DukeExceptionHandler.printErrorMsg(e.getMessage());
+                MilesExceptionHandler.printErrorMsg(e.getMessage());
             } 
         } else if (input.contains("event")) {
             try {
@@ -91,7 +91,7 @@ public class Parser {
                 this.storage.saveWhenAddTask(newEvent, this.taskList);
                 this.ui.printAddedTask(newEvent, n + 1);
             } catch (IllegalArgumentException e) {
-                DukeExceptionHandler.printErrorMsg(e.getMessage());
+                MilesExceptionHandler.printErrorMsg(e.getMessage());
             } 
         } else if (input.contains("delete")) {
             try {
@@ -101,13 +101,13 @@ public class Parser {
                 this.ui.printDeletedTask(deletedTask, n - 1);
             } catch (IndexOutOfBoundsException e) {
                 int taskNum = getTaskNumber("delete", input);
-                DukeExceptionHandler.handleTaskNumOutOfBounds(taskNum);
+                MilesExceptionHandler.handleTaskNumOutOfBounds(taskNum);
             }
         } else if (input.contains("find")) {
             String keyword = getKeywordToFind(input);
             this.taskList.displayListWithKeyword(keyword);
         } else {
-            DukeExceptionHandler.handleUnseenInput();
+            MilesExceptionHandler.handleUnseenInput();
         }
 
         return toBreak;

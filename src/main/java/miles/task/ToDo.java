@@ -1,4 +1,4 @@
-package duke.task;
+package miles.task;
 
 /**
  * Represents a todo task that has no dates involved.

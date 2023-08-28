@@ -1,11 +1,15 @@
-package duke;
+package miles;
 
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.util.Scanner;
-import duke.task.*;
+
+import miles.task.Deadline;
+import miles.task.Event;
+import miles.task.Task;
+import miles.task.ToDo;
 
 /**
  * Represents the storage of the tasks, where we can load our tasks from a file or save our tasks
@@ -94,7 +98,7 @@ public class Storage {
             return taskList;
 
         } catch (IOException e) {
-            DukeExceptionHandler.printErrorMsg(e.getMessage());
+            MilesExceptionHandler.printErrorMsg(e.getMessage());
             return new TaskList();
         }
     }
@@ -120,7 +124,7 @@ public class Storage {
 
             bufferedWriter.close();
         } catch (IOException e) {
-            DukeExceptionHandler.printErrorMsg(e.getMessage());
+            MilesExceptionHandler.printErrorMsg(e.getMessage());
         }
     }
 }

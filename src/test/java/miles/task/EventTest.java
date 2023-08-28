@@ -1,6 +1,8 @@
-package duke.task;
+package miles.task;
 
 import org.junit.jupiter.api.Test;
+
+import miles.task.Event;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -72,11 +74,11 @@ public class EventTest {
     }
 
     @Test
-    public void testStringToSave() {
+    public void testSaveStringToFile() {
         String testString = "event project meeting /from 2019-10-15 1800 /to 2019-10-15 2000";
         Event event = new Event(testString);
         String expected = "E | [ ] | project meeting | 2019-10-15 1800 | 2019-10-15 2000";
-        assertEquals(expected, event.stringToSave());
+        assertEquals(expected, event.saveStringToFile());
     }
 
     @Test
@@ -85,6 +87,6 @@ public class EventTest {
         Event event = new Event(testString);
         event.markAsDone();
         String expected = "E | [X] | project meeting | 2019-10-15 1800 | 2019-10-15 2000";
-        assertEquals(expected, event.stringToSave());
+        assertEquals(expected, event.saveStringToFile());
     }
 }

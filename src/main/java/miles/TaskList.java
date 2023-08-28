@@ -1,7 +1,8 @@
-package duke;
+package miles;
 
 import java.util.ArrayList;
-import duke.task.Task;
+
+import miles.task.Task;
 
 /**
  * Represents a list of tasks.
@@ -79,7 +80,7 @@ public class TaskList {
      */
     public void markTaskAsDone(int taskNum) {
         if (taskNum <= 0 || taskNum > this.taskList.size()) {
-            DukeExceptionHandler.handleTaskNumOutOfBounds(taskNum);
+            MilesExceptionHandler.handleTaskNumOutOfBounds(taskNum);
             return;
         }
 
@@ -98,7 +99,7 @@ public class TaskList {
      */
     public void markTaskAsUndone(int taskNum) {
         if (taskNum <= 0 || taskNum > taskList.size()) {
-            DukeExceptionHandler.handleTaskNumOutOfBounds(taskNum);
+            MilesExceptionHandler.handleTaskNumOutOfBounds(taskNum);
             return;
         }
 

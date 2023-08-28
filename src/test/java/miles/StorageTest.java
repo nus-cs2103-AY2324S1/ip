@@ -1,11 +1,11 @@
-package duke;
-
-import duke.task.Deadline;
-import duke.task.Event;
-import duke.task.Task;
-import duke.task.ToDo;
+package miles;
 
 import org.junit.jupiter.api.Test;
+
+import miles.task.Deadline;
+import miles.task.Event;
+import miles.task.Task;
+import miles.task.ToDo;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

@@ -1,6 +1,6 @@
-package duke;
+package miles;
 
-import duke.task.Task;
+import miles.task.Task;
 
 /**
  * Represents the user interface of the chatbot.

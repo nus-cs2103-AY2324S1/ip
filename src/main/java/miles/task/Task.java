@@ -1,11 +1,11 @@
-package duke.task;
+package miles.task;
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 /*
  * Represents a general task.
  */
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-
 public abstract class Task {
     private boolean isDone;
     private String task;

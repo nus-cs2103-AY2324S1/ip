@@ -1,9 +1,9 @@
-package duke;
+package miles;
 
 /**
  * Class that handles exceptions that are raised or appear in the program.
 */
-public class DukeExceptionHandler {
+public class MilesExceptionHandler {
     /**
      * Prints an error message when the user inputs an empty string.
      */

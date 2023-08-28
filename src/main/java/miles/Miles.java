@@ -1,18 +1,18 @@
-package duke;
+package miles;
 
 import java.util.Scanner;
 
 /**
  * Represents our chat bot, Miles.
  */
-public class Duke {
+public class Miles {
     private static String filePath = "../../../data/miles.txt";
     private static String directoryPath = "../../../data";
     private Ui ui;
     private Storage storage;
     private TaskList taskList;
 
-    public Duke(String filePath) {
+    public Miles(String filePath) {
         this.ui = new Ui();
         this.storage = new Storage(filePath, directoryPath);
         this.taskList = this.storage.loadFile();
@@ -37,6 +37,6 @@ public class Duke {
     }
     
     public static void main(String[] args) {
-        new Duke(filePath).run();
+        new Miles(filePath).run();
     }
 }
