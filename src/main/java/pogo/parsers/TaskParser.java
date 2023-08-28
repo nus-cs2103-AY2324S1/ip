@@ -91,7 +91,7 @@ public class TaskParser {
         }
 
         try {
-            return Integer.parseInt(matcher.group("index"));
+            return Integer.parseInt(matcher.group("index")) - 1;
         } catch (NumberFormatException e) {
             return -1;
         }

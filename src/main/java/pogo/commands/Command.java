@@ -14,7 +14,6 @@ public class Command {
     /**
      * The {@code Pogo} instance where the command is executed.
      */
-    protected Pogo pogo;
     protected List<Task> tasks;
 
     protected Command() {
@@ -23,10 +22,9 @@ public class Command {
     /**
      * Supplies the data to be used by the command.
      *
-     * @param pogo
+     * @param tasks The list of tasks.
      */
-    public void setData(Pogo pogo, List<Task> tasks) {
-        this.pogo = pogo;
+    public void setData(List<Task> tasks) {
         this.tasks = tasks;
     }
 

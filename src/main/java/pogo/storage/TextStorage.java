@@ -1,10 +1,7 @@
 package pogo.storage;
 
 import pogo.parsers.TaskParser;
-import pogo.tasks.Deadline;
-import pogo.tasks.Event;
-import pogo.tasks.Task;
-import pogo.tasks.TaskType;
+import pogo.tasks.*;
 import pogo.tasks.exceptions.PogoInvalidTaskException;
 
 import java.io.File;

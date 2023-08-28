@@ -21,7 +21,7 @@ public class Parser {
      */
     public static final Pattern COMMAND_PATTERN = Pattern.compile("(?<command>\\S+)(?<arguments>.*)");
 
-    public Command parseCommand(String input) {
+    public static Command parseCommand(String input) {
         final Matcher matcher = COMMAND_PATTERN.matcher(input.trim());
         if (!matcher.matches()) {
             return new InvalidCommand(Messages.MESSAGE_INVALID_COMMAND);
@@ -53,6 +53,6 @@ public class Parser {
             return new InvalidCommand(Messages.INVALID_TASK);
         }
 
-        return null;
+        return new InvalidCommand(Messages.MESSAGE_INVALID_COMMAND);
     }
 }

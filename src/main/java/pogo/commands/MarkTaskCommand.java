@@ -11,7 +11,7 @@ public class MarkTaskCommand extends Command {
     }
 
     /**
-     * Marks the task at the specified index as done.
+     * Marks the task at the specified index (starting from 0) as done.
      * @return CommandResult containing the status of the command.
      */
     @Override

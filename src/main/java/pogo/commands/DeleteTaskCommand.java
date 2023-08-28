@@ -1,5 +1,7 @@
 package pogo.commands;
 
+import pogo.common.Messages;
+
 public class DeleteTaskCommand extends Command {
     public static final String COMMAND_WORD = "delete";
     private static final String DELETE_TASK_SUCCESS = "Noted. I've removed this task:\nThere are now %s tasks left.";
