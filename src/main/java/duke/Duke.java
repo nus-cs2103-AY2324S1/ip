@@ -7,10 +7,13 @@ import duke.ui.Ui;
 import duke.command.Command;
 import duke.exception.DukeException;
 
+/**
+ * Represents a personal application that helps a person to keep track of various things.
+ */
 public class Duke {
-    private Storage storage;
-    private TaskList tasks;
-    private Ui ui;
+    private Storage storage; // The storage used to store the list of tasks.
+    private TaskList tasks; // The list of tasks.
+    private Ui ui; // The user interface.
 
     public Duke(String filePath) {
         ui = new Ui();
@@ -23,6 +26,9 @@ public class Duke {
         }
     }
 
+    /**
+     * Runs the application until the user issues the exit command.
+     */
     public void run() {
         ui.showWelcome();
         boolean isExit = false;

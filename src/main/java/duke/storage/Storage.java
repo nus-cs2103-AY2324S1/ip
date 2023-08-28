@@ -10,13 +10,23 @@ import java.util.Scanner;
 
 import duke.exception.DukeException;
 
+/**
+ * Represents a storage that stores the task list in the hard disk.
+ * The tasks are stored in a text file. Each line corresponds to a task.
+ */
 public class Storage {
-    private String filePath;
+    private String filePath; // The path of the file to store the task list.
 
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
+    /**
+     * Loads the all lines from the file as a list of strings.
+     *
+     * @return A list of strings representing the lines in the file.
+     * @throws DukeException If there are problems loading the task list from the file.
+     */
     public List<String> load() throws DukeException {
         File file = new File(this.filePath);
         List<String> lines = new ArrayList<>();
@@ -37,6 +47,12 @@ public class Storage {
         return lines;
     }
 
+    /**
+     * Saves the given list of strings to the file.
+     *
+     * @param lines The list of strings to be saved.
+     * @throws DukeException If there are problems saving to the file.
+     */
     public void save(List<String> lines) throws DukeException {
         File file = new File(this.filePath);
         try {

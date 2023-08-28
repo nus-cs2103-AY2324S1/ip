@@ -5,6 +5,9 @@ import duke.ui.Ui;
 import duke.exception.DukeException;
 import duke.storage.Storage;
 
+/**
+ * Represents a command issued by the user to close the application.
+ */
 public class ExitCommand extends Command {
     public ExitCommand() {
         this.isExit = true;

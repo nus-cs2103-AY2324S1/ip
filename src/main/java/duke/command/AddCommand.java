@@ -6,8 +6,11 @@ import duke.ui.Ui;
 import duke.exception.DukeException;
 import duke.storage.Storage;
 
+/**
+ * Represents a command issued by the user to add a task to the list.
+ */
 public class AddCommand extends Command {
-    private Task task;
+    private Task task; // The task to be added.
 
     public AddCommand(Task task) {
         this.task = task;

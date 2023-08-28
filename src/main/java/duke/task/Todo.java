@@ -2,6 +2,9 @@ package duke.task;
 
 import duke.exception.DukeException;
 
+/**
+ * Represents a task without any date/time attached to it.
+ */
 public class Todo extends Task {
     public Todo(String description) throws DukeException {
         super(description);

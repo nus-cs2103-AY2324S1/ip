@@ -4,8 +4,11 @@ import java.time.LocalDateTime;
 
 import duke.exception.DukeException;
 
+/**
+ * Represents a task with a deadline.
+ */
 public class Deadline extends Task {
-    protected LocalDateTime by;
+    protected LocalDateTime by; // The deadline of the task in LocalDateTime format.
 
     public Deadline(String description, String by) throws DukeException {
         super(description);
