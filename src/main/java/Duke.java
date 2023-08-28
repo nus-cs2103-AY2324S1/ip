@@ -1,14 +1,10 @@
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
 
 public class Duke {
 
     // Array storing the tasks
-    static ArrayList<Task> taskArr = new ArrayList<>();
-    static String saveFilePath = "./data/duke.txt";
+    static ArrayList<Task> taskArr = new ArrayList<Task>();
 
     // Function that encapsulates message into a message Card template
     private static String messageCard(String message) {
@@ -29,39 +25,45 @@ public class Duke {
 
     private static void markTaskAsDone(int index) {
         taskArr.get(index).markAsDone();
+        System.out.println(messageCard("Nice! I've marked this task as done:\n\t\t" + taskArr.get(index)));
     }
 
     private static void markTaskAsUndone(int index) {
         taskArr.get(index).markAsUndone();
+        System.out.println(messageCard("OK, I've marked this task as not done yet:\n\t\t" + taskArr.get(index)));
     }
 
-    private static String addToDo(String description) {
+    private static void addToDo(String description) {
         Todo todo = new Todo(description);
         taskArr.add(todo);
-        return todo.toString();
+        System.out.println(messageCard("Got it. I've added this task:\n\t\t"
+                + todo
+                + "\n\tNow you have " + taskArr.size() + " tasks in the list."));
     }
 
-    private static String addDeadline(String description) {
-        String descriptionText = description.substring(0, description.indexOf("/by"));
-        String date = description.substring(description.indexOf("/by") + 4);
-
-        Deadline deadline = new Deadline(descriptionText, date);
+    private static void addDeadline(String description) {
+        Deadline deadline = new Deadline(description.substring(0, description.indexOf("/by")),
+                description.substring(description.indexOf("/by") + 4));
         taskArr.add(deadline);
-        return deadline.toString();
+        System.out.println(messageCard("Got it. I've added this task:\n\t\t"
+                + deadline
+                + "\n\tNow you have " + taskArr.size() + " tasks in the list."));
     }
 
-    private static String addEvent(String description) {
+    private static void addEvent(String description) {
+
         int indexFrom = description.indexOf("/from");
         int indexTo = description.indexOf("/to");
 
-        String eventDescription = description.substring(0, indexFrom).trim();
+        String event = description.substring(0, indexFrom).trim();
         String startTime = description.substring(indexFrom + "/from".length(), indexTo).trim();
         String endTime = description.substring(indexTo + "/to".length()).trim();
 
-        Event eventTask = new Event(eventDescription, startTime, endTime);
+        Event eventTask = new Event(event, startTime, endTime);
         taskArr.add(eventTask);
-
-        return eventTask.toString();
+        System.out.println(messageCard("Got it. I've added this task:\n\t\t"
+                + eventTask
+                + "\n\tNow you have " + taskArr.size() + " tasks in the list."));
     }
 
     private static void deleteTask(int index) {
@@ -72,196 +74,86 @@ public class Duke {
                 + "\n\tNow you have " + taskArr.size() + " tasks in the list."));
     }
 
-    private static void readFileContents(String filePath) throws IOException {
-        File f = new File(filePath);
-        if (!f.exists()) {
-            f.getParentFile().mkdirs(); // Creates parent directories if they don't exist
-            f.createNewFile(); // Creates the file itself
-        }
-        if (f.exists()) {
-            Scanner s = new Scanner(f);
-            int count = 0;
-
-            while (s.hasNext()) {
-                String str = s.nextLine();
-                String[] task = str.split(" \\| ");
-                switch (task[0]) {
-                    case "T":
-                        addToDo(task[2]);
-                        if (task[1].equals("1")) {
-                            markTaskAsDone(count);
-                        }
-                        break;
-                    case "D":
-                        addDeadline(task[2] + " /by " + task[3]);
-                        if (task[1].equals("1")) {
-                            markTaskAsDone(count);
-                        }
-                        break;
-                    case "E":
-                        String[] time = task[3].split("-");
-                        addEvent(task[2] + " /from " + time[0] + " /to " + time[1]);
-                        if (task[1].equals("1")) {
-                            markTaskAsDone(count);
-                        }
-                        break;
-                }
-                count++;
-            }
-        } else {
-            f.createNewFile();
-        }
-    }
-
-    private static void appendToFile(String filePath, String textToAppend) throws IOException {
-        FileWriter fw = new FileWriter(filePath, true);
-        fw.write(textToAppend);
-        fw.close();
-    }
-
-    private static void updateFileContents(String filePath) throws IOException {
-        FileWriter file = new FileWriter(filePath);
-        file.write("");
-        FileWriter fw = new FileWriter(filePath);
-        for (Task task : taskArr) {
-            if (task instanceof Todo) {
-                String taskType = task.toString().substring(1, 2);  // Extract "T"
-                String taskStatus = task.toString().substring(4, 5); // Extract " "
-                String description = task.toString().substring(7);    // Extract "read book"
-                String convertedTask = taskType + " | " + (taskStatus.equals(" ") ? "0" : "1") + " | " + description;
-                fw.write(convertedTask + "\n");
-            } else if (task instanceof Deadline) {
-                String originalTask = "[D][X] return book   (by: June 6th)";
-                String taskType = originalTask.substring(1, 2);  // Extract "D"
-                String taskStatus = originalTask.substring(4, 5); // Extract "X"
-                String description = originalTask.substring(7, originalTask.indexOf(" (by:")); // Extract "return book"
-                String date = originalTask.substring(originalTask.indexOf("(by: ") + 5, originalTask.indexOf(")")); // Extract "June 6th"
-
-                String convertedTask = taskType + " | " + (taskStatus.equals("X") ? "1" : "0") + " | " + description + " | " + date;
-                fw.write(convertedTask + "\n");
-            } else if (task instanceof Event) {
-                String originalTask = "[E][ ] project meeting (from: Mon 2pm to: 4pm)";
-                String taskType = originalTask.substring(1, 2);  // Extract "E"
-                String taskStatus = originalTask.substring(4, 5); // Extract " "
-                String description = originalTask.substring(7, originalTask.indexOf(" (from:")); // Extract "project meeting"
-                String startTime = originalTask.substring(originalTask.indexOf("(from: ") + 7, originalTask.indexOf(" to:")); // Extract "Mon 2pm"
-                String endTime = originalTask.substring(originalTask.indexOf("to: ") + 4, originalTask.indexOf(")")); // Extract "4pm"
-
-                String convertedTask = taskType + " | " + (taskStatus.equals(" ") ? "0" : "1") + " | " + description + " | " + startTime + "-" + endTime;
-                fw.write(convertedTask + "\n");
-            }
-        }
-        fw.close();
-    }
-
-
 
     // Main function
     public static void main(String[] args) {
         String CHATBOTNAME = "Carl";
         System.out.println(messageCard("Hello! I'm " + CHATBOTNAME
             + "\n\t What can I do for you?"));
+        Scanner SC = new Scanner(System.in);
 
-        try {
-            readFileContents(saveFilePath);
-
-            Scanner SC = new Scanner(System.in);
-            while (true) {
-                String userInput = SC.nextLine();
-                try {
-                    if (userInput.equals("bye")) {
-                        System.out.println(messageCard("Bye. Hope to see you again soon!"));
-                        break;
-                    } else if (userInput.equals("list")) {
-                        System.out.println(displayList(taskArr));
-                    } else if (userInput.contains("mark") && userInput.substring(0, 4).equals("mark")) {
-                        if (!userInput.equals("mark")) {
-                            int index = Integer.parseInt(userInput.substring(5)) - 1;
-                            if (index >= taskArr.size() || index < 0) {
-                                System.out.println(messageCard("Invalid mark task"));
-                            } else {
-                                markTaskAsDone(index);
-                                System.out.println(messageCard("Nice! I've marked this task as done:\n\t\t" + taskArr.get(index)));
-                                updateFileContents(saveFilePath);
-                            }
-                        } else {
+        while (true) {
+            String userInput = SC.nextLine();
+            try {
+                if (userInput.equals("bye")) {
+                    System.out.println(messageCard("Bye. Hope to see you again soon!"));
+                    break;
+                } else if (userInput.equals("list")) {
+                    System.out.println(displayList(taskArr));
+                } else if (userInput.contains("mark") && userInput.substring(0, 4).equals("mark")) {
+                    if (!userInput.equals("mark")) {
+                        int index = Integer.parseInt(userInput.substring(5)) - 1;
+                        if (index >= taskArr.size() || index < 0) {
                             System.out.println(messageCard("Invalid mark task"));
-                        }
-                    } else if (userInput.contains("unmark") && userInput.substring(0, 6).equals("unmark")) {
-                        if (!userInput.equals("unmark")) {
-                            int index = Integer.parseInt(userInput.substring(7)) - 1;
-                            if (index >= taskArr.size() || index < 0) {
-                                System.out.println(messageCard("Invalid unmark task"));
-                            } else {
-                                markTaskAsUndone(index);
-                                System.out.println(messageCard("OK, I've marked this task as not done yet:\n\t\t" + taskArr.get(index)));
-                                updateFileContents(saveFilePath);
-                            }
                         } else {
-                            System.out.println(messageCard("Invalid unmark task"));
-                        }
-                    } else if (userInput.contains("delete") && userInput.substring(0, 6).equals("delete")) {
-                        if (!userInput.equals("delete")) {
-                            int index = Integer.parseInt(userInput.substring(7)) - 1;
-                            if (index >= taskArr.size() || index < 0) {
-                                System.out.println(messageCard("Invalid task index to be deleted"));
-                            } else {
-                                deleteTask(index);
-                                updateFileContents(saveFilePath);
-                            }
-                        } else {
-                            System.out.println(messageCard("Invalid task index to be deleted"));
+                            markTaskAsDone(index);
                         }
                     } else {
-                        if (userInput.contains("todo") && userInput.substring(0, 4).equals("todo")) {
-                            // Add a task
-                            if (userInput.equals("todo")) { // checks if description is empty
-                                throw new DukeException("todo");
-                            } else {
-                                String description = userInput.substring(5);
-                                String todo = addToDo(description);
-                                System.out.println(messageCard("Got it. I've added this task:\n\t\t"
-                                        + todo
-                                        + "\n\tNow you have " + taskArr.size() + " tasks in the list."));
-                                updateFileContents(saveFilePath);
-                            }
-                        } else if (userInput.contains("deadline") && userInput.substring(0, 8).equals("deadline")) {
-                            // Add a deadline
-                            if (userInput.equals("deadline") || !userInput.contains("/by")) { // checks if description is invalid
-                                throw new DukeException("deadline");
-                            } else {
-                                String description = userInput.substring(9);
-                                String deadline = addDeadline(description);
-                                System.out.println(messageCard("Got it. I've added this task:\n\t\t"
-                                        + deadline
-                                        + "\n\tNow you have " + taskArr.size() + " tasks in the list."));
-                                updateFileContents(saveFilePath);
-                            }
-                        } else if (userInput.contains("event") && userInput.substring(0, 5).equals("event")) {
-                            // Add an event
-                            if (userInput.equals("event") || !userInput.contains("/from") || !userInput.contains("/to")) { // checks if description is invalid
-                                throw new DukeException("event");
-                            } else {
-                                String description = userInput.substring(6);
-                                String event = addEvent(description);
-                                System.out.println(messageCard("Got it. I've added this task:\n\t\t"
-                                        + event
-                                        + "\n\tNow you have " + taskArr.size() + " tasks in the list."));
-                                updateFileContents(saveFilePath);
-                            }
-                        } else {
-                            System.out.println(messageCard("OOPS!!! I'm sorry, but I don't know what that means :-("));
-                        }
+                        System.out.println(messageCard("Invalid mark task"));
                     }
-                } catch (DukeException e) {
-                    System.out.println(messageCard(e.getMessage()));
+                } else if (userInput.contains("unmark") && userInput.substring(0, 6).equals("unmark")) {
+                    if (!userInput.equals("unmark")) {
+                        int index = Integer.parseInt(userInput.substring(7)) - 1;
+                        if (index >= taskArr.size() || index < 0) {
+                            System.out.println(messageCard("Invalid unmark task"));
+                        } else {
+                            markTaskAsUndone(index);
+                        }
+                    } else {
+                        System.out.println(messageCard("Invalid unmark task"));
+                    }
+                } else if (userInput.contains("delete") && userInput.substring(0, 6).equals("delete")) {
+                    if (!userInput.equals("delete")) {
+                        int index = Integer.parseInt(userInput.substring(7)) - 1;
+                        if (index >= taskArr.size() || index < 0) {
+                            System.out.println(messageCard("Invalid task index to be deleted"));
+                        } else {
+                            deleteTask(index);
+                        }
+                    } else {
+                        System.out.println(messageCard("Invalid task index to be deleted"));
+                    }
+                } else {
+                    if (userInput.contains("todo") && userInput.substring(0, 4).equals("todo")) {
+                        // Add a task
+                        if (userInput.equals("todo")) { // checks if description is empty
+                            throw new DukeException("todo");
+                        } else {
+                            addToDo(userInput.substring(5));
+                        }
+                    } else if (userInput.contains("deadline") && userInput.substring(0, 8).equals("deadline")) {
+                        // Add a deadline
+                        if (userInput.equals("deadline") || !userInput.contains("/by")) { // checks if description is invalid
+                            throw new DukeException("deadline");
+                        } else {
+                            addDeadline(userInput.substring(9));
+                        }
+
+                    } else if (userInput.contains("event") && userInput.substring(0, 5).equals("event")) {
+                        // Add an event
+                        if (userInput.equals("event") || !userInput.contains("/from") || !userInput.contains("/to")) { // checks if description is invalid
+                            throw new DukeException("event");
+                        } else {
+                            addEvent(userInput.substring(6));
+                        }
+                    } else {
+                        System.out.println(messageCard("OOPS!!! I'm sorry, but I don't know what that means :-("));
+                    }
                 }
+            } catch (DukeException e) {
+                System.out.println(messageCard(e.getMessage()));
             }
-            SC.close();
-        } catch (IOException e) {
-            System.out.println("An error occurred: " + e.getMessage());
-            System.out.println("Working Directory = " + System.getProperty("user.dir"));
-            e.printStackTrace();
         }
+        SC.close();
     }
 }

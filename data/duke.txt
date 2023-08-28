@@ -1,4 +1,0 @@
-T | 0 | read book
-D | 1 | return book   | June 6th
-T | 0 | join sports club
-T | 0 | read textbook
