@@ -1,10 +1,14 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 /**
  * The class representing a deadline task.
  *
  * @author Zhong Han
  */
 public class Deadline extends Task {
-    private String by;
+    private LocalDate by;
 
     /**
      * Constructor for the deadline task.
@@ -12,14 +16,18 @@ public class Deadline extends Task {
      * @param description The description of the deadline task.
      * @param by The due date of the deadline task.
      */
-    public Deadline(String description, String by) {
+    public Deadline(String description, String by) throws DukeException {
         super(description.strip());
-        this.by = by.strip();
+        try {
+            this.by = LocalDate.parse(by.strip());
+        } catch (DateTimeParseException e) {
+            throw new DukeException("\tThe date is invalid!");
+        }
     }
 
     public Deadline(String bool, String description, String by) {
         super(description.strip());
-        this.by = by.strip();
+        this.by = LocalDate.parse(by.strip());
         if (Integer.parseInt(bool) == 1) {
             this.isDone = true;
         }
@@ -33,7 +41,7 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + by + ")";
+        return "[D]" + super.toString() + " (by: " + this.getDeadline() + ")";
     }
 
     /**
@@ -44,5 +52,9 @@ public class Deadline extends Task {
     @Override
     public String toStringForFile() {
         return "D | " + super.toStringForFile() + " | " + this.by;
+    }
+
+    private String getDeadline() {
+        return this.by.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
     }
 }
