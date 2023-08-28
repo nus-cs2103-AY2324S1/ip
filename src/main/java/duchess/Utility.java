@@ -67,8 +67,9 @@ public class Utility {
      * Converts a date string into a LocalDate.
      * Currently supports yyyy-mm-dd format.
      *
-     * @param dateString - the String to be converted into a LocalDate.
-     * @return             the LocalDate.
+     * @param dateString        - the String to be converted into a LocalDate.
+     * @return                    the LocalDate.
+     * @throws DuchessException   if the dateString is not in any recognized date format.
      */
     public static LocalDate parseDateString(String dateString) throws DuchessException {
         if (Utility.matchesRegex(dateString, "[0-9]{4}-[0-9]{2}-[0-9]{2}")) {

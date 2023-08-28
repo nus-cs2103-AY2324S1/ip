@@ -38,8 +38,9 @@ public class Parser {
     /**
      * Parses a mark task command, returning the index of the task to be marked.
      *
-     * @param s - the command to parse for "mark task" command.
-     * @return    an integer describing the index of the task to be marked.
+     * @param s                 - the command to parse for "mark task" command.
+     * @return                    an integer describing the index of the task to be marked.
+     * @throws DuchessException   if any essential arguments to this command are missing.
      */
     public static int parseMarkTaskCommand(String s) throws DuchessException {
         Matcher m = Utility.parseRegex(s, "^mark( [0-9]+)?$");
@@ -64,8 +65,9 @@ public class Parser {
     /**
      * Parses an unmark task command, returning the index of the task to be unmarked.
      *
-     * @param s - the command to parse for "unmark task" command.
-     * @return    an integer describing the index of the task to be unmarked.
+     * @param s                 - the command to parse for "unmark task" command.
+     * @return                    an integer describing the index of the task to be unmarked.
+     * @throws DuchessException   if any essential arguments to this command are missing.
      */
     public static int parseUnmarkTaskCommand(String s) throws DuchessException {
         Matcher m = Utility.parseRegex(s, "^unmark( [0-9]+)?$");
@@ -91,8 +93,9 @@ public class Parser {
     /**
      * Parses a delete task command, returning the index of the task to be deleted.
      *
-     * @param s - the command to parse for "delete task" command.
-     * @return    an integer describing the index of the task to be deleted.
+     * @param s                 - the command to parse for "delete task" command.
+     * @return                    an integer describing the index of the task to be deleted.
+     * @throws DuchessException   if any essential arguments to this command are missing.
      */
     public static int parseDeleteTaskCommand(String s) throws DuchessException {
         Matcher m = Utility.parseRegex(s, "^(?:delete|rm)( [0-9]+)?$");
@@ -117,8 +120,9 @@ public class Parser {
     /**
      * Parses a ToDo command, returning a ToDo task that was parsed from the command.
      *
-     * @param s - the command to parse for "todo" command.
-     * @return    the ToDo task.
+     * @param s                 - the command to parse for "todo" command.
+     * @return                    the ToDo task.
+     * @throws DuchessException   if any essential arguments to this command are missing.
      */
     public static ToDo parseToDoCommand(String s) throws DuchessException {
         Matcher m = Utility.parseRegex(s, "^todo( [A-Za-z0-9 ]+)?$");
@@ -144,8 +148,9 @@ public class Parser {
     /**
      * Parses a deadline command, returning the deadline object parsed from the command.
      *
-     * @param s - the command to parse for "deadline" command.
-     * @return    the Deadline task.
+     * @param s                 - the command to parse for "deadline" command.
+     * @return                    the Deadline task.
+     * @throws DuchessException   if any essential arguments to this command are missing.
      */
     public static Deadline parseDeadlineCommand(String s) throws DuchessException {
         Matcher m = Utility.parseRegex(s, "^deadline( [A-Za-z0-9 ]+)?( /by ([0-9\\-]+)?)?$");
@@ -173,8 +178,9 @@ public class Parser {
     /**
      * Parses a event command, returning the event object parsed from the command.
      *
-     * @param s - the command to parse for "event" command.
-     * @return    the Event task.
+     * @param s                 - the command to parse for "event" command.
+     * @return                    the Event task.
+     * @throws DuchessException   if any essential arguments to this command are missing.
      */
     public static Event parseEventCommand(String s) throws DuchessException {
         Matcher m = Utility.parseRegex(s, "^event( [A-Za-z0-9 ]+)?( /from( [A-Za-z0-9 ]+)?)?( /to( [A-Za-z0-9 ]+)?)?$");

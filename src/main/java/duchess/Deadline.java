@@ -9,9 +9,10 @@ class Deadline extends Task {
     /**
      * Creates a new Deadline instance with the provided name, deadline and status.
      *
-     * @param name     - the name of the Deadline.
-     * @param deadline - the deadline in String format.
-     * @param status   - the current task status of the Deadline.
+     * @param name              - the name of the Deadline.
+     * @param deadline          - the deadline in String format.
+     * @param status            - the current task status of the Deadline.
+     * @throws DuchessException   if the deadlineString is not in a recongnized Date format.
      */
     public Deadline(String name, String deadlineString, TaskStatus status) throws DuchessException {
         super(name, status);
@@ -22,8 +23,9 @@ class Deadline extends Task {
     /**
      * Creates a new Deadline instance with the provided name and deadline. The status will be the default status in Task.
      *
-     * @param name     - the name of the Deadline.
-     * @param deadline - the deadline in String format.
+     * @param name              - the name of the Deadline.
+     * @param deadline          - the deadline in String format.
+     * @throws DuchessException   if the deadlineString is not in a recongnized Date format.
      */
     public Deadline(String name, String deadlineString) throws DuchessException {
         super(name);
