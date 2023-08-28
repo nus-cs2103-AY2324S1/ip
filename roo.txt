@@ -1,1 +1,2 @@
-[T][ ]  do cs2103t
+[T][ ]  abcdefg
+[E][ ]  event from:  now to:  tomorrow

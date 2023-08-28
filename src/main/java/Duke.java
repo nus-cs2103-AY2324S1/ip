@@ -2,6 +2,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -42,7 +44,7 @@ public class Duke {
     private void add(Task task) {
         try {
             FileWriter writer = new FileWriter(filePath, true);
-            writer.write(task.toString());
+            writer.write(task.toString() + "\n");
             writer.close();
             this.data.add(task);
             System.out.println("\"" + task.toString() + "\" added :)");
@@ -64,17 +66,20 @@ public class Duke {
 
     private void markDone(int i) {
         data.get(i).markDone();
+        this.modifyFile();
         System.out.println("Yay! \"" + data.get(i) + "\" done liao!!\n");
     }
 
     private void markUndone(int i) {
         data.get(i).markUndone();
+        this.modifyFile();
         System.out.println("Hmm... Why just now don't mark \"" + data.get(i) + "\" as done properly...\n");
     }
 
     private void delete(int i) {
         System.out.println("Okay!! Task \"" + data.get(i) + "\" removed :) ");
         data.remove(i);
+        this.modifyFile();
         System.out.println("You still have " + data.size() + " tasks in the list\n");
     }
 
@@ -263,6 +268,21 @@ public class Duke {
             this.data.add(this.makeTask(sc.nextLine()));
         }
         sc.close();
+    }
+
+    private void modifyFile() {
+        try {
+            Files.delete(Paths.get(filePath));
+            this.file = new File(this.filePath);
+            FileWriter writer = new FileWriter(filePath, true);
+            for (Task t : this.data) {
+                writer.write(t.toString()  + "\n");
+            }
+            writer.close();
+        } catch (IOException e) {
+            System.err.println("I/O error modify " + e.getMessage());
+        }
+
     }
 
     public static void main(String[] args) {
