@@ -6,6 +6,7 @@ import duke.command.ByeCommand;
 import duke.command.DeadlineCommand;
 import duke.command.DeleteCommand;
 import duke.command.EventCommand;
+import duke.command.FindCommand;
 import duke.command.ListCommand;
 import duke.command.MarkCommand;
 import duke.command.ToDoCommand;
@@ -35,6 +36,8 @@ public class Parser {
                 return new DeadlineCommand(details);
             case "event":
                 return new EventCommand(details);
+            case "find":
+                return new FindCommand(details);
             default:
                 throw new DukeException(" ☹ I'm not ChatGPT, cannot understand what you mean.");
             }

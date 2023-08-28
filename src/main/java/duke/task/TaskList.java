@@ -49,6 +49,22 @@ public class TaskList {
         return task;
     }
 
+    public String findTasks(String keyword) {
+        StringBuilder msg = new StringBuilder();
+        int foundCount = 0;
+        for (int i = 1; i <= taskList.size(); i++) {
+            Task task = taskList.get(i - 1);
+            if (task.contains(keyword)) {
+                foundCount += 1;
+                msg.append(String.format("%d.%s", foundCount, task));
+                if (i != taskList.size()) {
+                    msg.append("\n");
+                }
+            }
+        }
+        return msg.toString();
+    }
+
     public String stringToFile() {
         StringBuilder msg = new StringBuilder();
         for (Task task : taskList) {

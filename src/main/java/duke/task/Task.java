@@ -17,6 +17,9 @@ public class Task {
         return String.format("%s | %s", isDone ? "1" : "0", description);
     }
 
+    public boolean contains(String keyword) {
+        return description.contains(keyword);
+    }
     public String getStatusIcon() {
         return (isDone ? "X" : " ");
     }
