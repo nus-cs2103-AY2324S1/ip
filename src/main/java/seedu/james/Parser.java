@@ -1,4 +1,4 @@
-package james;
+package seedu.james;
 
 public class Parser {
     public enum TaskType {

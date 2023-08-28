@@ -1,4 +1,4 @@
-package james;
+package seedu.james;
 
 import java.util.ArrayList;
 public class TaskList {

@@ -1,9 +1,9 @@
-package james;
+package seedu.james;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-public class DeadlineTask extends Task{
+public class DeadlineTask extends Task {
     private LocalDateTime time;
 
     public DeadlineTask(String description, String timeInput) {

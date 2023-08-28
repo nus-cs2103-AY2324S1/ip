@@ -1,4 +1,4 @@
-package james;
+package seedu.james;
 
 public class ToDoTask extends Task {
     public ToDoTask (String description) {

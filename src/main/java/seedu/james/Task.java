@@ -1,4 +1,4 @@
-package james;
+package seedu.james;
 
 public abstract class Task {
     String description;

@@ -1,4 +1,4 @@
-package james;
+package seedu.james;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -27,7 +27,7 @@ public class Storage {
         }
     }
 
-    public void save(TaskList taskList) throws SavingException{
+    public void save(TaskList taskList) throws SavingException {
         ArrayList<Task> tasks = taskList.getTasks();
         try {
             FileWriter writer = new FileWriter(this.saveFile);

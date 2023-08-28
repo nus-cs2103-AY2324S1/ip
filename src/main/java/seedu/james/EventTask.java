@@ -1,4 +1,4 @@
-package james;
+package seedu.james;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
