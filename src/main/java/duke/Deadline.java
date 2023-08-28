@@ -13,6 +13,6 @@ public class Deadline extends Task{
 
     @Override
     public String toString(){
-        return String.format("%s(by: %s)",description,deadline);
+        return String.format("%s (by: %s)",description,deadline);
     }
 }
