@@ -55,9 +55,11 @@ public class Parser {
                 ? 3
                 : isDelete
                 ? 4
-                : isExit
+                : isFind
                 ? 5
-                : 6;
+                : isExit
+                ? 6
+                : 7;
     }
 
     /*
@@ -146,7 +148,6 @@ public class Parser {
                 return new DeleteCommand(index - 1);
             }
             case 5: {
-                // add find task logic
                 Matcher matcher = Pattern.compile("find ").matcher(fullCommand);
                 if (!matcher.find()) {
                     // return error
