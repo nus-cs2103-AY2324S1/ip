@@ -13,7 +13,7 @@ public class Ui {
     private final String HORIZONTAL_LINE = "____________________________________________________________";
 
     private void printWithLines(String s) {
-        System.out.println(HORIZONTAL_LINE + "\n" + s + "\n" + HORIZONTAL_LINE);
+        System.out.println(this.HORIZONTAL_LINE + "\n" + s + "\n" + this.HORIZONTAL_LINE);
     }
 
     /**
