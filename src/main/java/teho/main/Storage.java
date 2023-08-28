@@ -14,8 +14,7 @@ public class Storage {
     public Storage(String filePath) {
         this.filePath = filePath;
     }
-
-
+    
     public static void saveTasks(TaskList taskList) {
         try {
             //Solution below inspired by https://www.geeksforgeeks.org/io-bufferedwriter-class-methods-java/
