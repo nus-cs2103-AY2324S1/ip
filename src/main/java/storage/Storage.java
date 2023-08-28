@@ -1,11 +1,13 @@
 package storage;
 
+import errors.DotException;
 import errors.TaskError;
-import tasks.*;
+import tasks.Deadline;
+import tasks.Event;
+import tasks.Task;
+import tasks.Todo;
 
 import java.io.File;
-import java.io.FileNotFoundException;
-
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -13,8 +15,38 @@ import java.util.Scanner;
 
 public class Storage {
     // TODO: Handle the situation of the data file being corrupted
-    public static ArrayList<Task> getTasks(File file) {
+    private final String storageLocation;
+
+    /**
+     * Current Storage is only designed to handle path names in the
+     * following format: <code>{@literal ./<directory>/<filename>}</code>
+     *
+     * @param storageLocation Pathname in format <code>{@literal 。/<directory>/<filename>}</code>
+     */
+    public Storage(String storageLocation) {
+        this.storageLocation = storageLocation;
+    }
+
+    public File getFile() throws DotException {
         try {
+            String[] splitBySlash = this.storageLocation.split("/");
+            String directoryName = splitBySlash[1];
+            String fileName = splitBySlash[2];
+            // Create directory if it does not exist
+            File directory = new File(directoryName);
+            directory.mkdirs();
+            // Create file if it does not exist
+            File file = new File(directoryName, fileName);
+            file.createNewFile();
+            return file;
+        } catch (IOException | SecurityException e) {
+            throw new DotException("Error getting file", TaskError.ERR_GETTING_FILE);
+        }
+    }
+
+    public ArrayList<Task> getTasks() throws DotException {
+        try {
+            File file = this.getFile();
             Scanner sc = new Scanner(file);
 
             ArrayList<Task> taskList = new ArrayList<>();
@@ -44,21 +76,21 @@ public class Storage {
                 }
             }
             return taskList;
-        } catch (FileNotFoundException e) {
-            TaskError.ERR_READING_FILE.printErrorMessage(e);
+        } catch (IOException e) {
+            throw new DotException("Error reading file", TaskError.ERR_READING_FILE);
         }
-        return new ArrayList<>();
     }
 
-    public static void saveTasks(File file, ArrayList<Task> taskList) {
+    public void saveTasks(ArrayList<Task> taskList) throws DotException {
         try {
+            File file = this.getFile();
             FileWriter fw = new FileWriter(file);
             for (Task currTask : taskList) {
                 fw.write(currTask.getFileFormat() + '\n');
             }
             fw.close();
         } catch (IOException e) {
-            TaskError.ERR_WRITING_FILE.printErrorMessage(e);
+            throw new DotException("Error saving tasks", TaskError.ERR_WRITING_FILE);
         }
     }
 }
