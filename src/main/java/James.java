@@ -114,8 +114,14 @@ public class James {
     }
 
     public void save() {
-        String path = "../james.txt";
+        String path = "../data/james.txt";
+        String directory = "../data";
         try {
+            File dir = new File(directory);
+            if (!dir.exists()) {
+                dir.mkdir();
+            }
+
             File file = new File(path);
 
             if (!file.exists()) {
