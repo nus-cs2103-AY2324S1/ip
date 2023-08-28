@@ -1,3 +1,4 @@
+import java.io.*;
 import java.util.Scanner;
 import java.util.ArrayList;
 
@@ -15,6 +16,7 @@ public class Sally {
             } else {
                 Task task = tasks.get(taskIndex);
                 task.mark();
+                saveTasksToFile(tasks);
                 System.out.println("Nice! I've marked this task as done:");
                 System.out.println(" " + task);
             }
@@ -35,6 +37,7 @@ public class Sally {
             } else {
                 Task task = tasks.get(taskIndex);
                 task.unmark();
+                saveTasksToFile(tasks);
                 System.out.println("Ok, I've marked this task as not done yet:");
                 System.out.println(" " + task);
             }
@@ -54,6 +57,7 @@ public class Sally {
                 throw new SallyException("OOPS! Provide a valid task number to delete.");
             }
             Task deletedTask = tasks.remove(taskIndex);
+            saveTasksToFile(tasks);
             System.out.println("Noted. I've removed this task:");
             System.out.println(" " + deletedTask);
             System.out.println("Now you have " + tasks.size() + " tasks in the list.");
@@ -69,6 +73,7 @@ public class Sally {
 
         Task newToDo = new Todo(input.substring(5));
         tasks.add(newToDo);
+        saveTasksToFile(tasks);
         System.out.println("Added to My List: ");
         System.out.println(" " + newToDo);
         System.out.println("Now you have " + tasks.size() + " tasks in the list.");
@@ -92,6 +97,7 @@ public class Sally {
         Task newDeadline = new Deadline(parts[0].substring(9), parts[1]);
 
         tasks.add(newDeadline);
+        saveTasksToFile(tasks);
         System.out.println("Added to My List: ");
         System.out.println(" " + newDeadline);
         System.out.println("Now you have " + tasks.size() + " tasks in the list.");
@@ -115,15 +121,56 @@ public class Sally {
         Task newEvent = new Event(parts[0].substring(6), parts[1], parts[2]);
 
         tasks.add(newEvent);
+        saveTasksToFile(tasks);
         System.out.println("Added to My List:");
         System.out.println(" " + newEvent);
         System.out.println("Now you have " + tasks.size() + " tasks in the list.");
     }
 
+    private static final String DATA_FILE_PATH = "./data/sally.txt";
+
+    private static void saveTasksToFile(ArrayList<Task> tasks) throws SallyException {
+        try {
+            File file = new File(DATA_FILE_PATH);
+            File directory = file.getParentFile();
+            if (!directory.exists()) {
+                directory.mkdirs();
+            }
+            FileWriter filewriter = new FileWriter(file);
+            for (Task task : tasks) {
+                filewriter.write(task.toFileString() + "\n");
+            }
+            filewriter.close();
+        } catch (IOException e) {
+            throw new SallyException("OOPS! Something went wrong while saving your tasks.");
+        }
+    }
+
+    private static ArrayList<Task> loadTasksFromFile() {
+        ArrayList<Task> tasks = new ArrayList<>();
+        try {
+            File file = new File(DATA_FILE_PATH);
+            if(!file.exists()) {
+                return tasks;
+            }
+            FileReader fileReader = new FileReader(file);
+            BufferedReader bufferedReader = new BufferedReader(fileReader);
+            String line;
+            while ((line = bufferedReader.readLine()) != null) {
+                Task task = Task.fromFileString(line);
+                tasks.add(task);
+            }
+            bufferedReader.close();
+        } catch (IOException e) {
+            System.out.println("OOPS! Something went wrong while loading your tasks.");
+        }
+        return tasks;
+    }
+
     public static void main(String[] args) {
         System.out.println("Hey! It's Sally here!\n" + "How can I help you today?");
 
-        ArrayList<Task> tasks = new ArrayList<>();
+        ArrayList<Task> tasks = loadTasksFromFile();
 
         Scanner scanner = new Scanner(System.in);
 
