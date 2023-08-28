@@ -14,10 +14,12 @@ import task.Event;
 import task.Task;
 import task.ToDo;
 
+import java.io.File;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import java.nio.file.Paths;
+
 
 public class Emiya {
 
@@ -39,7 +41,14 @@ public class Emiya {
     public static void main(String[] args) {
 
         String path = Paths.get("").toAbsolutePath().toString();
-        System.out.println("Project root path: " + path);
+        String pathToDataFolder = Paths.get(path, "data").toString();
+        File dataDir = new File (pathToDataFolder);
+
+        if (dataDir.exists()) {
+            System.out.println("dataDir exists");
+        } else {
+            System.out.println("dataDir does not exist");
+        }
 
         // Represents the list as an ArrayList of task.Task objects
         ArrayList<Task> taskArrayList = new ArrayList<>();
