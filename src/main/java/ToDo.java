@@ -11,6 +11,10 @@ public class ToDo extends Task {
         return "[T]" + super.toString();
     }
 
+    public String toStringFile() {
+        return "T | " + super.toStringFile();
+    }
+
     public static void addTodo(String description, ArrayList<Task> list) throws DukeException{
         if (description.isBlank()) {
             throw new DukeException("☹ OOPS!!! The description of a todo cannot be empty.");
@@ -22,6 +26,12 @@ public class ToDo extends Task {
         System.out.println("Now you have " + list.size() + " tasks in the list.");
         System.out.println(line);
 
+    }
+
+    public static void addSavedTodo(String description, ArrayList<Task> list, String isMarked) {
+        ToDo newTask = new ToDo(description);
+        newTask.markFromRead(isMarked);
+        list.add(newTask);
     }
 
 }

@@ -13,6 +13,10 @@ public class Deadline extends Task{
     public String toString() {
         return "[D]" + super.toString() + "(by: " + by + ")";
     }
+    public String toStringFile() {
+        return "D | " + super.toStringFile() + "/by " + by;
+    }
+
 
     public static void addDeadline(String description, ArrayList<Task> list) throws DukeException {
         String[] deadline = description.stripTrailing().split("/by ", 2);
@@ -30,5 +34,12 @@ public class Deadline extends Task{
         System.out.println("Now you have " + list.size() + " tasks in the list.");
         System.out.println(line);
 
+    }
+
+    public static void addSavedDeadline(String description, ArrayList<Task> list, String isMarked) {
+        String[] deadline = description.stripTrailing().split("/by ", 2);
+        Deadline newTask = new Deadline(deadline[0], deadline[1]);
+        newTask.markFromRead(isMarked);
+        list.add(newTask);
     }
 }

@@ -13,6 +13,10 @@ public class Event extends Task{
     public String toString() {
         return "[E]" + super.toString() + "(from: " + from + "to: " + to + ")";
     }
+    public String toStringFile() {
+        return "E | " + super.toStringFile() + "/from " + from + "/to " + to;
+    }
+
 
     public static void addEvent(String description, ArrayList<Task> list) throws DukeException {
         String[] event = description.stripTrailing().split("/from |/to ");
@@ -31,6 +35,12 @@ public class Event extends Task{
         System.out.println("Now you have " + list.size() + " tasks in the list.");
         System.out.println(line);
 
+    }
+    public static void addSavedEvent(String description, ArrayList<Task> list, String isMarked) {
+        String[] event = description.stripTrailing().split("/from |/to ");
+        Event newTask = new Event(event[0], event[1], event[2]);
+        list.add(newTask);
+        newTask.markFromRead(isMarked);
     }
 
 }
