@@ -1,3 +1,4 @@
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -248,7 +249,32 @@ public class Duke {
         Duke.respondWithAddedTask(newEvent);
     }
 
+    private static void loadTasks() throws DukeException{
+        try {
+            File storedTasks = new File("./data/duke.txt");
+            if (storedTasks.exists()) {
+                 Scanner scanner = new Scanner(storedTasks);
+                while (scanner.hasNextLine()) {
+                    String taskData = scanner.nextLine();
+                    // TODO: Parse task data and add to tasks
+                }
+                scanner.close();
+            } else {
+                storedTasks.getParentFile().mkdirs();
+                storedTasks.createNewFile();
+            }
+        } catch (Exception e) { 
+            throw new DukeException(String.format("Unable to load tasks from file as %s", e.getMessage()));
+        }
+    }
+
     public static void main(String[] args) {
+        try {
+            Duke.loadTasks();
+        } catch (DukeException e) {
+            Duke.respond(e);
+        }
+
         Duke.greet();
 
         Scanner scanner = new Scanner(System.in);
