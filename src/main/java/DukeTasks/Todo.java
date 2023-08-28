@@ -6,6 +6,7 @@ package DukeTasks;
  * @author Tan Kerway
  */
 public class Todo extends Task {
+
     /**
      * Constructor for the class.
      *
@@ -14,6 +15,17 @@ public class Todo extends Task {
      */
     public Todo(String description) {
         super(description);
+    }
+
+    /**
+     * Constructor for the class.
+     *
+     * @author Tan Kerway
+     * @param description the task description to be added
+     * @param isDone whether the task is done
+     */
+    public Todo(String description, boolean isDone) {
+        super(description, isDone);
     }
 
     /**

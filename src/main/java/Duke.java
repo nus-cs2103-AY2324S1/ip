@@ -4,6 +4,9 @@ import DukeTasks.Event;
 import DukeTasks.Task;
 import DukeTasks.Todo;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -15,15 +18,139 @@ import java.util.Scanner;
 public class Duke {
     // arraylist to store the user's tasks, as a DukeTasks.Task object
     private final ArrayList<Task> tasks;
+    // hardcoded file paths
+    private static final String DIR_PATH = System.getProperty("user.dir") + "/data";
+    private static final String FILE_PATH = System.getProperty("user.dir") + "/data/duke.txt";
 
     /**
      * Constructs an instance of a chatbot class.
      *
      * @author Tan Kerway
+     * @throws IOException if the database is unable to be loaded
      */
-    public Duke() {
-        this.tasks = new ArrayList<>();
+    public Duke() throws IOException {
+        this.tasks = loadDatabase();
     }
+
+    /**
+     * Loads the database from the file path(if any).
+     *
+     * @author Tan Kerway
+     * @return the list of tasks in the database
+     */
+    private ArrayList<Task> loadDatabase() throws IOException {
+        // get the directory
+        File dir = new File(DIR_PATH);
+        // if the dir does not exist, we create one
+        if (!dir.exists()) {
+            dir.mkdir();
+        }
+        // get the database
+        File database = new File(FILE_PATH);
+        // task list loaded from the tasks database
+        ArrayList<Task> taskList = new ArrayList<>();
+        // create the file if it does not exist
+        // and if it does not exist, the method will return true
+        if(!database.exists()) {
+            database.createNewFile();
+            // since the database is empty, just return an empty arraylist
+            return taskList;
+        }
+        // else, we need to load the tasks onto the Duke instance
+        // use a scanner to read each line
+        Scanner reader = new Scanner(database);
+        while (reader.hasNextLine()) {
+            // get the input
+            String[] tokens = reader.nextLine().split(" ");
+            // get the input length
+            Task currentTask = getTask(tokens);
+            // add the current task to the list of tasks
+            taskList.add(currentTask);
+        }
+        // close the scanner
+        reader.close();
+        // return the final tasklist loaded from the database
+        return taskList;
+    }
+
+    /**
+     * Gets the current task given the list of tokens.
+     *
+     * @author Tan Kerway
+     * @param tokens the input on the current line of the database
+     * @return the task if the operation completes normally. can be Todo, Deadline, or Event
+     * @throws IOException when the command is not recognised
+     */
+    private Task getTask(String[] tokens) throws IOException {
+        int n = tokens.length;
+        // get the task
+        Task currentTask;
+        StringBuilder description = new StringBuilder();
+        // case where todo
+        switch (tokens[0]) {
+            case "t":
+                for (int i = 2; i < n; i++) {
+                    description.append(tokens[i]);
+                    if (i != n - 1) {
+                        description.append(" ");
+                    }
+                }
+                currentTask = new Todo(description.toString(), Boolean.parseBoolean(tokens[1]));
+                break;
+            case "d": {
+                int i;
+                for (i = 2; i < n; i++) {
+                    if (tokens[i].equals("by")) {
+                        i++;
+                        break;
+                    }
+                    description.append(tokens[i]);
+                    if (i != n - 2) {
+                        description.append(" ");
+                    }
+                }
+                StringBuilder sb = new StringBuilder();
+                for (; i < n; i++) {
+                    sb.append(tokens[i]);
+                    if (i != n - 1) {
+                        sb.append(" ");
+                    }
+                }
+                currentTask = new Deadline(description.toString().trim(), Boolean.parseBoolean(tokens[1]), sb.toString());
+                break;
+            }
+            case "e": {
+                int i;
+                for (i = 2; i < n - 2; i++) {
+                    if (tokens[i].equals("from")) {
+                        i++;
+                        break;
+                    }
+                    description.append(tokens[i]);
+                    if (i != n - 1) {
+                        description.append(" ");
+                    }
+                }
+                StringBuilder sb1 = new StringBuilder();
+                while (!tokens[i].equals("to")) {
+                    sb1.append(tokens[i++]);
+                    sb1.append(" ");
+                }
+                i++;
+                StringBuilder sb2 = new StringBuilder();
+                for (; i < n; i++) {
+                    sb2.append(tokens[i]);
+                    sb2.append(" ");
+                }
+                currentTask = new Event(description.toString().trim(), Boolean.parseBoolean(tokens[1]), sb1.toString().trim(), sb2.toString().trim());
+                break;
+            }
+            default:
+                throw new IOException("Bad file type!");
+        }
+        return currentTask;
+    }
+
 
     /**
      * When called, the chatbot will greet the user.
@@ -34,6 +161,8 @@ public class Duke {
         System.out.println("------------------------------------------------------------------------");
         System.out.println("Hello! I'm nyancatbot!\nWhat can I do for nyan?");
         System.out.println("------------------------------------------------------------------------");
+        // list all the tasks
+        listAllTasks();
     }
 
     /**
@@ -60,7 +189,7 @@ public class Duke {
      */
     private Task addTask(String task) {
         String description;
-        Task createdTask = null;
+        Task createdTask;
         try {
             // get the length of the task
             int taskDescriptionLength = task.length();
@@ -90,9 +219,10 @@ public class Duke {
                 createdTask = new Event(description, period);
             }
             this.tasks.add(createdTask);
+            saveTaskList();
             return createdTask;
-        } catch (DukeException ignored) {}
-        return createdTask;
+        } catch (DukeException | IOException ignored) {}
+        return null;
     }
 
     /**
@@ -210,7 +340,7 @@ public class Duke {
     void echoTaskAdded(Task task) {
         if (task == null) { return; }
         System.out.println("------------------------------------------------------------------------");
-        System.out.println("Got it. I've added this task:\n    " + task.toString());
+        System.out.println("Got it. I've added this task:\n    " + task);
         System.out.println("Nyan you have " + tasks.size() + " tasks in the list.");
         System.out.println("------------------------------------------------------------------------");
     }
@@ -322,7 +452,7 @@ public class Duke {
             }
             // delete the task and announce that the task has been deleted
             echoTaskDeleted(deleteTask(numberString));
-        } catch (DukeException ignored) {}
+        } catch (DukeException | IOException ignored) {}
     }
 
     /**
@@ -413,9 +543,13 @@ public class Duke {
      * @param index the index of the task to delete
      * @return the deleted task instance
      */
-    private Task deleteTask(int index) {
+    private Task deleteTask(int index) throws IOException {
         // remove the task
-        return this.tasks.remove(index - 1);
+        Task deletedTask = this.tasks.remove(index - 1);
+        // update the list
+        saveTaskList();
+        // return the deleted task
+        return deletedTask;
     }
 
     /**
@@ -467,11 +601,13 @@ public class Duke {
     private void handleUserInput() {
         Scanner sc = new Scanner(System.in);
         String input;
-        boolean isNotDone = true;
-        while (sc.hasNextLine() && isNotDone) {
+        boolean isNotDone;
+        while (sc.hasNextLine()) {
             input = sc.nextLine(); // get the input from the user
             isNotDone = processUserCommand(input); // process the input
+            if (!isNotDone) { break; }
         }
+        sc.close();
     }
 
     /**
@@ -486,14 +622,67 @@ public class Duke {
     }
 
     /**
+     * Saves the latest list of user's tasks to the database
+     *
+     * @author Tan Kerway
+     */
+    private void saveTaskList() throws IOException {
+        // get the file
+        File database = new File(FILE_PATH);
+        // delete the file
+        database.delete();
+        // create new database
+        database.createNewFile();
+        try (FileWriter writer = new FileWriter(database)) {
+            // loop over the tasklist and add the tasks
+            for (Task task : this.tasks) {
+                // stringBuilder class to parse the task into a string for database storage
+                StringBuilder taskString = new StringBuilder();
+                if (task instanceof Todo) {
+                    taskString.append("t ");
+                    taskString.append(task.isDone());
+                    taskString.append(" ");
+                    taskString.append(task.getDescription());
+                } else if (task instanceof Deadline) { // case where deadline
+                    taskString.append("d ");
+                    taskString.append(task.isDone());
+                    taskString.append(" ");
+                    taskString.append(task.getDescription());
+                    Deadline temp = (Deadline) task;
+                    taskString.append(" by ");
+                    taskString.append(temp.getBy());
+                } else if (task instanceof Event) { // case where event
+                    taskString.append("e ");
+                    taskString.append(task.isDone());
+                    taskString.append(" ");
+                    taskString.append(task.getDescription());
+                    Event temp = (Event) task;
+                    taskString.append(" from ");
+                    taskString.append(temp.getFrom());
+                    taskString.append(" to ");
+                    taskString.append(temp.getTo());
+                } else {
+                    throw new IOException("Bad task type!");
+                }
+                // add the parsed string to the database
+                writer.write(taskString.toString());
+                // shift to next line
+                writer.write(System.getProperty("line.separator"));
+            }
+            writer.flush();
+        }
+    }
+
+    /**
      * Function that starts a chat with the user.
      *
      * @author Kerway
      */
-    private void initiateChat() {
-        greet();
-        handleUserInput();
-        sayGoodBye();
+    private void initiateChat() throws IOException {
+        greet();           // warmly welcome the user
+        handleUserInput(); // take in the user input
+        sayGoodBye();      // say goodbye to the user
+        saveTaskList();    // save the user's task to the database
     }
 
     /**
@@ -504,7 +693,12 @@ public class Duke {
      * @param args pointer to some array of command-line arguments
      */
     public static void main(String[] args) {
-        Duke dukeInstance = new Duke();
-        dukeInstance.initiateChat();
+        System.out.println(System.getProperty("user.dir"));
+        try {
+            Duke dukeInstance = new Duke();
+            dukeInstance.initiateChat();
+        } catch (IOException e) {
+            System.out.println("There was an issue accessing my nyanory :c");
+        }
     }
 }
