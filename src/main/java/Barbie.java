@@ -1,9 +1,19 @@
+import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.Scanner;
+import java.io.IOException;
+import java.util.stream.Collectors;
 
 
 public class Barbie {
+
+
     enum Command {
         MARK,
         UNMARK,
@@ -12,7 +22,9 @@ public class Barbie {
         DEADLINE,
         PARTY,
         LIST,
-        BYE
+        BYE,
+        SAVE,
+        NAME,
     }
     public static void main(String[] args) {
 
@@ -142,7 +154,40 @@ public class Barbie {
 
                         case LIST:
                             // No variables to edit, only output (refer to listTasks func)
-                            listTasks(list, indexNumber);
+                            if (parts.length < 2) {
+                                listTasks(list, indexNumber);
+                            } else {
+                                Path path = Paths.get(parts[1] + ".txt");
+                                if (Files.exists(path)) {
+                                    Files.lines(path).forEach(x -> System.out.println("\t" + x));
+                                } else {
+                                    throw new BarbieNoListNameException();
+                                }
+                            }
+                            break;
+
+                        case SAVE:
+                            // Editing variables,
+                            String listString = list
+                                    .stream()
+                                    .map(Objects::toString)
+                                    .collect(Collectors.joining("\n"));
+
+                            // Writing to files
+                            if (parts.length < 2) {
+                                throw new BarbieNoListNameException();
+                            }
+
+                            Path path = Paths.get(parts[1] + ".txt");
+                            if (!Files.exists(path)) {
+                                Files.createFile(path);
+                            }
+                            Files.write(path, (listString + "\n").getBytes(), StandardOpenOption.APPEND);
+
+                            //Output
+                            System.out.println("\tGot you Barbie! This list has been saved to your Barbie handbook!");
+                            Files.lines(path).forEach(x -> System.out.println("\t" + x));
+
                             break;
 
                         case BYE:
@@ -177,7 +222,7 @@ public class Barbie {
 
     }
 
-    protected static void listTasks (ArrayList<Task> list,int indexNumber){
+    protected static void listTasks(ArrayList<Task> list,int indexNumber) {
         if (indexNumber == 0) {
             System.out.println("Hmm.. your list looks empty. To add items, use the 'todo', 'deadline' or 'party' commands!");
         }
@@ -187,5 +232,6 @@ public class Barbie {
             System.out.println("\t" + itemNumber + ". " + list.get(i));
         }
     }
+
 
 }
