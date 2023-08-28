@@ -24,7 +24,7 @@ public class DateOptionalTime {
             return;
         } catch (DateTimeParseException ignored) {}
 
-        // Try with default ISo date only format
+        // Try with default ISO date only format
         try {
             date = LocalDate.parse(dateOptionalTime);
         } catch (DateTimeParseException e) {
@@ -40,10 +40,10 @@ public class DateOptionalTime {
      */
     public String getDisplayRepr() {
         if (dateTime != null) {
-            return dateTime.format(DateTimeFormatter.ofPattern("dd LLL yyyy hh:mma"));
+            return dateTime.format(DateTimeFormatter.ofPattern("d LLL yyyy h:mma"));
         }
 
-        return date.format(DateTimeFormatter.ofPattern("dd LLL yyyy"));
+        return date.format(DateTimeFormatter.ofPattern("d LLL yyyy"));
     }
 
     @Override
