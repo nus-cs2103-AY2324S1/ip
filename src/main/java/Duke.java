@@ -13,8 +13,10 @@ public class Duke {
      */
 
     static ArrayList<Task> taskArray = new ArrayList<>();
+    static int inputNum;
 
     public static void main(String[] args) throws DukeException {
+        inputNum = 0;
         // Send welcome message
         System.out.println(
                 "    ____________________________________________________________\n" +
@@ -23,16 +25,22 @@ public class Duke {
                 "    ____________________________________________________________\n");
 
         try {
-            System.out.println("Here is a list of your saved tasks:");
-            printFileContents("tasks.txt");
+            loadTasksFromFile("tasks.txt");
+            // System.out.println("Here is a list of your saved tasks:");
+            // printFileContents("tasks.txt");
+            System.out.println(
+                    "    ____________________________________________________________\n" +
+                            "     Here are the tasks in your list:\n" +
+                            listTasks(inputNum) +
+                            "    ____________________________________________________________\n");
         } catch (FileNotFoundException e) {
             System.out.println("File not found, proceed to use bot normally.");
+        } catch (IOException e) {
+            System.out.println("e.getMessage");
         }
 
         // Implement function to read user input via keyboard
         Scanner scan = new Scanner(System.in);
-
-        int inputNum = 0;
 
         while (true) {
             try {
@@ -123,7 +131,7 @@ public class Duke {
             Task currentTask = taskArray.get(i);
             if (taskArray.get(i) != null) {
                 int num = i + 1;
-                inputArrayString += "     " + num + ". " + currentTask.toString() + "\n";
+                inputArrayString += "     " + num + ". " + currentTask.statusAndTask() + "\n";
             } else {
                 break;
             }
@@ -296,7 +304,7 @@ public class Duke {
         taskArray.remove(currentTask);
         System.out.println("    ____________________________________________________________\n" +
                 "     Noted. I've removed this task:\n" +
-                "       " + currentTask + "\n" +
+                "       " + currentTask.statusAndTask() + "\n" +
                 "     Now you have " + (inputNum - 1) + " task(s) in the list.\n" +
                 "    ____________________________________________________________");
     }
@@ -315,7 +323,50 @@ public class Duke {
         }
     }
 
+    private static void loadTasksFromFile(String filePath) throws IOException {
+        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                Task task = parseTaskFromString(line);
+                taskArray.add(task);
+                inputNum++;
+            }
+        }
+    }
 
+    private static Task parseTaskFromString(String line) {
+        String[] parts = line.split("\\|");
+        String taskType = parts[0].trim();
+        boolean isDone = parts[1].trim().equals("1");
+        String taskDescription = parts[2].trim();
 
+        if (taskType.equals("T")) {
+            Task task = new ToDo(taskDescription);
+            setStatus(task, isDone);
+            return task;
+        } else if (taskType.equals("D")) {
+            String by = parts[3].trim();
+            Task task = new Deadline(taskDescription, by);
+            setStatus(task, isDone);
+            return task;
+        } else if (taskType.equals("E")) {
+            String start = parts[3].trim();
+            String end = parts[4].trim();
+            Task task = new Event(taskDescription, start, end);
+            setStatus(task, isDone);
+            return task;
+        } else {
+            // Handle unrecognized task type
+            return null;
+        }
+    }
+
+    private static void setStatus(Task task, boolean isDone) {
+        if (isDone) {
+            task.markDone();
+        } else {
+            task.unmarkDone();
+        }
+    }
 
 }

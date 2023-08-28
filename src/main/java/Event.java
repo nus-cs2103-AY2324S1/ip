@@ -10,7 +10,7 @@ public class Event extends Task {
 
     @Override
     public String getType() {
-        return "T";
+        return "E";
     }
 
     @Override
@@ -20,6 +20,6 @@ public class Event extends Task {
 
     @Override
     public String statusAndTask() {
-        return "[E] " + super.toString() + " (from: " + this.start + " to: " + this.end + ")";
+        return "[E]" + statusString() + " " + super.toString() + " (from: " + this.start + " to: " + this.end + ")";
     }
 }

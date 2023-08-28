@@ -19,7 +19,7 @@ public class Deadline extends Task {
 
     @Override
     public String statusAndTask() {
-        return "[D] " + super.toString() + " (by: " + by + ")";
+        return "[D]" + statusString() + " " + super.toString() + " (by: " + by + ")";
     }
 
 }

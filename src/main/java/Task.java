@@ -38,9 +38,10 @@ public class Task {
     }
 
     public String statusAndTask() {
-        return statusString() + " " + this.taskName;
+        return "[Task]" + statusString() + " " + this.taskName;
     }
 
+    @Override
     public String toString() {
         return this.taskName;
     }
