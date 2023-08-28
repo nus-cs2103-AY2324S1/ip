@@ -8,7 +8,7 @@ import ui.TextUi;
 public class ExitCommand extends Command {
     @Override
     public void execute(TaskList taskList, StorageFile storageFile, TextUi ui) throws BobException {
-         storageFile.saveTasks(taskList);
-        //TODO: Print Goodbye Message
+        storageFile.saveTasks(taskList);
+        ui.printGoodbyeMessage();
     }
 }

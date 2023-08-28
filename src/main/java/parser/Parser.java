@@ -52,7 +52,7 @@ public class Parser {
         }
     }
 
-    private static Command parseTodoCommand(CommandType commandType, String argument) throws BobMissingArgumentException {
+    private static Command parseTodoCommand(CommandType commandType, String argument) throws BobMissingArgumentException, BobInvalidCommandException {
         if (argument.isBlank()) {
             throw new BobMissingArgumentException("The description of your todo should not be empty! Try:\ntodo [description]");
         }

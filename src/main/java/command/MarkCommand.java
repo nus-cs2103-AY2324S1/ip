@@ -19,11 +19,10 @@ public class MarkCommand extends Command{
         Task task = taskList.getTask(taskNumber);
         if (isDone) {
             task.markAsDone();
-            //TODO: UI Print Mark Message
         } else {
             task.unmarkTask();
-            //TODO: UI Print Unmark Message
         }
+        ui.printMarkMessage(task, isDone);
         storageFile.saveTasks(taskList);
     }
 }

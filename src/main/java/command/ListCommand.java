@@ -9,6 +9,6 @@ public class ListCommand extends Command {
 
     @Override
     public void execute(TaskList taskList, StorageFile storageFile, TextUi ui) throws BobException {
-        //TODO: UI Print List Message
+        ui.printListMessage(taskList);
     }
 }

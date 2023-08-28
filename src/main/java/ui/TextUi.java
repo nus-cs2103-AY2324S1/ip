@@ -2,6 +2,8 @@ package ui;
 
 import java.util.Scanner;
 
+import exception.BobInvalidTaskNumberException;
+import task.Task;
 import task.TaskList;
 public class TextUi {
     private static final String DIVIDER = "\n____________________________________________________________\n";
@@ -26,18 +28,18 @@ public class TextUi {
         System.out.println(DIVIDER);
     }
 
-    private void printWelcomeMessage() {
+    public void printWelcomeMessage() {
         String welcomeMessage = "Hi, I'm Bob. How can I help you?";
         System.out.println(DIVIDER + LOGO + "\n" + welcomeMessage + DIVIDER);
     }
 
-    private void printGoodbyeMessage() {
+    public void printGoodbyeMessage() {
         String goodbyeMessage = "Goodbye! Bob signing out!";
         System.out.println(goodbyeMessage);
         printDivider();
     }
 
-    private void printListMessage(TaskList taskList) {
+    public void printListEndMessage(TaskList taskList) {
         int numOfTasks = taskList.size();
         if (numOfTasks == 0) {
             System.out.println("You currently have no tasks! Good Job!");
@@ -47,19 +49,45 @@ public class TextUi {
             } else {
                 System.out.printf("\nNow you have %d tasks in your list!%n", numOfTasks);
             }
-            printList(taskList);
         }
         printDivider();
     }
 
-    //TODO
-    private void printError(Exception e) {
-
+    public void printErrorMessage(Exception e) {
+        System.out.println(e.getMessage());
+        printDivider();
     }
 
-    private void printList(TaskList taskList) {
+    public void printListMessage(TaskList taskList) throws BobInvalidTaskNumberException {
         for (int i = 0; i < taskList.size(); i++) {
-            //System.out.println((i + 1) + ". " + taskList.getTask(i).toString());
+            System.out.println((i + 1) + ". " + taskList.getTask(i).toString());
         }
+        printListEndMessage(taskList);
+    }
+
+    public void printMarkMessage(Task task, boolean isDone) {
+        System.out.println();
+        if (isDone) {
+            System.out.println("Great Job! I've helped mark this task as done:\n" + task.toString());
+        } else {
+            System.out.println("No worries! I will help you unmark this task:\n" + task.toString());
+        }
+        printDivider();
+    }
+
+    public void printDeleteMessage(Task task) {
+        System.out.println("Foosh! Let it be gone! I've helped delete the task:\n" +
+                task.toString());
+        printDivider();
+    }
+
+    public void printAddMessage(Task task) {
+        String displayMessage = "I gotchu. New task added to the list:\n";
+        System.out.println(displayMessage + task.toString());
+        printDivider();
+    }
+
+    public String readTextInput() {
+        return scanner.nextLine();
     }
 }

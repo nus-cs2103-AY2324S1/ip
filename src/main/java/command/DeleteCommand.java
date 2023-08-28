@@ -17,7 +17,7 @@ public class DeleteCommand extends Command {
     @Override
     public void execute(TaskList taskList, StorageFile storageFile, TextUi ui) throws BobException {
         Task deletedTask = taskList.deleteTask(taskNumber);
-        //TODO: Ui print delete message
+        ui.printDeleteMessage(deletedTask);
         storageFile.saveTasks(taskList);
     }
 }

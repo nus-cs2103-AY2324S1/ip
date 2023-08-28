@@ -2,6 +2,7 @@ package command;
 
 import enums.CommandType;
 import exception.BobException;
+import exception.BobInvalidCommandException;
 import task.*;
 import ui.TextUi;
 import storage.StorageFile;
@@ -10,7 +11,10 @@ public class AddCommand extends Command {
 
     CommandType command;
     String description, startDate, endDate;
-    public AddCommand(CommandType command, String description, String startDate, String endDate) {
+    public AddCommand(CommandType command, String description, String startDate, String endDate) throws BobInvalidCommandException {
+        if (command != CommandType.TODO && command != CommandType.DEADLINE && command != CommandType.EVENT) {
+            throw new BobInvalidCommandException("You can only add tasks of type: Todo, Deadline and Event");
+        }
         this.command = command;
         this.description = description;
         this.startDate = startDate;
@@ -19,19 +23,21 @@ public class AddCommand extends Command {
 
     @Override
     public void execute(TaskList taskList, StorageFile storageFile, TextUi ui) throws BobException {
+        Task task = null;
         switch (command) {
             case TODO:
-                taskList.addTask(new Todo(this.description));
+                task = new Todo((this.description));
                 break;
             case DEADLINE:
-                taskList.addTask(new Deadline(this.description, this.endDate));
+                task = new Deadline(this.description, this.endDate);
                 break;
             case EVENT:
-                taskList.addTask(new Event(this.description, this.startDate, this.endDate));
+                task = new Event(this.description, this.startDate, this.endDate);
                 break;
-            default:
         }
-        //TODO: Ui Print Added Task Message
+        taskList.addTask(task);
+        assert task != null;
+        ui.printAddMessage(task);
         storageFile.saveTasks(taskList);
     }
 }
