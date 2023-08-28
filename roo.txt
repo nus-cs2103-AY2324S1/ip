@@ -1,2 +1,2 @@
-[T][ ]  abcdefg
-[E][ ]  event from:  now to:  tomorrow
+[D][ ]  1234 by: 29 Aug 2023 08:00 PM
+[E][ ]  qwertyui from: 12 Aug 2023 11:59 PM to: 13 Aug 2023 10:11 PM

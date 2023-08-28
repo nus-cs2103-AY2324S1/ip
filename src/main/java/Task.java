@@ -1,4 +1,6 @@
-public class Task {
+import java.time.LocalDateTime;
+
+public abstract class Task {
     private boolean finish;
     private String task;
 
@@ -26,6 +28,8 @@ public class Task {
     public void markUndone() {
         this.finish = false;
     }
+
+    public abstract LocalDateTime getDate();
 
     @Override
     public String toString() {
