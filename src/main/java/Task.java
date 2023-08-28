@@ -39,7 +39,7 @@ public class Task {
      * @return tick or X symbols.
      */
     public String getStatusIcon() {
-        return (isDone ? "\u2713" : " "); // return tick or X symbols
+        return (isDone ? "\u2713" : ""); // return tick or X symbols
     }
 
     /**
@@ -49,6 +49,10 @@ public class Task {
      */
     public String getDescription() {
         return this.description;
+    }
+
+    public String getFileDescriptor() {
+        return String.format("%s | %s ", this.isDone, this.getDescription());
     }
 
     @Override

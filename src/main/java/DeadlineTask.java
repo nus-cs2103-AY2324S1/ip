@@ -12,6 +12,11 @@ public class DeadlineTask extends Task {
         this.by = by;
     }
 
+    @Override
+    public String getFileDescriptor() {
+        return super.getFileDescriptor() + String.format("| %s | %s", this.getBy(), "DEADLINE");
+    }
+
     /**
      * Get the deadline of the task.
      *
