@@ -1,3 +1,5 @@
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -6,6 +8,33 @@ public class TaskList {
 
     public TaskList() {
         this.taskList = new ArrayList<>(100);
+    }
+
+
+    public void getTasksOnDate(LocalDate date) {
+        List<Task> tasksOnDate = new ArrayList<>();
+        for (Task task : taskList) {
+            if (task instanceof Deadline) {
+                Deadline deadline = (Deadline) task;
+                if (deadline.getByDate().isEqual(date)) {
+                    tasksOnDate.add(task);
+                }
+            } else if (task instanceof Event) {
+                Event event = (Event) task;
+                if (event.getFromDate().isEqual(date.atStartOfDay())) {
+                    tasksOnDate.add(task);
+                }
+            }
+        }
+        if (tasksOnDate.isEmpty()) {
+            System.out.println("You have no tasks.\n");
+        } else {
+            System.out.println(tasksOnDate.size() +" tasks on " + date + ": ");
+            for (int i = 0; i < tasksOnDate.size(); i++) {
+                Task task = tasksOnDate.get(i);
+                System.out.println((i + 1) + ". " + task);
+            }
+        }
     }
 
     public void addTask(Task task) {

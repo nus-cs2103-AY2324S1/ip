@@ -1,12 +1,24 @@
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
 public class Duke {
     public enum Operation {
-        BYE, LIST, MARK, UNMARK, DELETE, TODO, DEADLINE, EVENT
+        BYE, LIST, MARK, UNMARK, DELETE, TODO, DEADLINE, EVENT, CHECKDATE
     }
+
+    private final static DateTimeFormatter timeFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+
+    private final static String[] dateFormats = {
+            "yyyy-MM-dd HH:mm",  // Format 1
+            "dd/MM/yyyy HH:mm",  // Format 2
+            "dd.MM.yyyy HH:mm"   // Format 3 (add more formats as needed)
+    };
 
     private static void greet() {
         String logo = " ____        _        \n"
@@ -59,19 +71,55 @@ public class Duke {
         taskList.addTask(todoTask);
     }
 
-    public static void deadline(String userInput, TaskList taskList) throws EmptyDescriptionException, MissingKeywordException {
+    public static void deadline(String userInput, TaskList taskList) throws EmptyDescriptionException,
+            MissingKeywordException {
         String details = extractTaskDetails(userInput, "deadline", "/by");
-        String date = extractAfterKeyword(userInput, "/by");
-        Task deadlineTask = new Deadline(details, date);
-        taskList.addTask(deadlineTask);
+        String dateString = extractAfterKeyword(userInput, "/by");
+//        LocalDateTime date = null;
+//        String dateTimeFormat = null;
+//        // Try parsing the date using each format
+//        for (String format : Duke.dateFormats) {
+//            try {
+//                date = LocalDateTime.parse(dateString.trim(), DateTimeFormatter.ofPattern(format));
+//                dateTimeFormat = format;
+//                break;  // Stop once parsing succeeds
+//            } catch (DateTimeParseException ignored) {
+//                // Parsing failed, try the next format
+//            }
+//        }
+
+        try {
+            LocalDateTime date = LocalDateTime.parse(dateString.trim(), timeFormat);
+            Task deadlineTask = new Deadline(details, date);
+            taskList.addTask(deadlineTask);
+        } catch (DateTimeParseException e) {
+            System.out.println("Error: Invalid date format. Please use the format yyyy-MM-dd HH:mm");
+        }
     }
 
-    public static void event(String userInput, TaskList taskList) throws EmptyDescriptionException, MissingKeywordException {
+    public static void event(String userInput, TaskList taskList) throws EmptyDescriptionException,
+            MissingKeywordException {
         String details = extractTaskDetails(userInput, "event", "/from");
         String from = extractAfterKeyword(userInput, "/from", "/to");
         String to = extractAfterKeyword(userInput, "/to");
-        Task eventTask = new Event(details, from, to);
-        taskList.addTask(eventTask);
+        try {
+            LocalDateTime dateFrom = LocalDateTime.parse(from.trim(), timeFormat);
+            LocalDateTime dateTo = LocalDateTime.parse(to.trim(), timeFormat);
+            Task eventTask = new Event(details, dateFrom, dateTo);
+            taskList.addTask(eventTask);
+        } catch (DateTimeParseException e) {
+            System.out.println("Error: Invalid date format. Please use the format yyyy-MM-dd HH:mm");
+        }
+    }
+
+    public static void checkDate(String userInput, TaskList taskList) throws EmptyDescriptionException {
+        String details = extractNoKeywordsDetails(userInput);
+        try {
+            LocalDate detailsDate = LocalDate.parse(details.trim(), DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+            taskList.getTasksOnDate(detailsDate);
+        } catch (DateTimeParseException e) {
+            System.out.println("Error: Invalid date format. Please use the format yyyy-MM-dd");
+        }
     }
 
     /*  helper functions */
@@ -224,6 +272,9 @@ public class Duke {
                     break;
                 case EVENT:
                     event(userInput, taskList);
+                    break;
+                case CHECKDATE:
+                    checkDate(userInput, taskList);
                     break;
                 default:
                     throw new InvalidCommandException();
