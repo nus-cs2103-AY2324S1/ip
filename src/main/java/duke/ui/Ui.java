@@ -1,5 +1,6 @@
 package duke.ui;
 
+import duke.exception.DukeException;
 import duke.task.TaskList;
 import duke.task.Task;
 
@@ -29,25 +30,25 @@ public class Ui {
         System.out.println("Bye. Hope to see you again soon!");
     }
 
-    public void showTaskList(TaskList tasks) {
+    public void showTaskList(TaskList tasks) throws DukeException {
         System.out.println("Here are the tasks in your list:");
         for (int i = 0; i < tasks.size(); i++) {
             System.out.println((i + 1) + ". " + tasks.get(i));
         }
     }
 
-    public void showTaskAddedMessage(TaskList tasks) {
+    public void showTaskAddedMessage(TaskList tasks) throws DukeException {
         System.out.println("Got it. I've added this task:");
         System.out.println(tasks.get(tasks.size() - 1));
         System.out.println("Now you have " + tasks.size() + " tasks in the list.");
     }
 
-    public void showTaskMarkedAsDone(TaskList tasks, int taskIndex) {
+    public void showTaskMarkedAsDone(TaskList tasks, int taskIndex) throws DukeException {
         System.out.println("Nice! I've marked this task as done:");
         System.out.println(tasks.get(taskIndex));
     }
 
-    public void showTaskMarkedAsUndone(TaskList tasks, int taskIndex) {
+    public void showTaskMarkedAsUndone(TaskList tasks, int taskIndex) throws DukeException {
         System.out.println("OK, I've marked this task as not done yet:");
         System.out.println(tasks.get(taskIndex));
     }

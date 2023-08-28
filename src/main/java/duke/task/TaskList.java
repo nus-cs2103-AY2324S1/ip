@@ -1,5 +1,7 @@
 package duke.task;
 
+import duke.exception.DukeException;
+
 import java.util.ArrayList;
 
 public class TaskList {
@@ -21,7 +23,10 @@ public class TaskList {
         tasks.add(task);
     }
 
-    public Task deleteTask(int index) {
+    public Task deleteTask(int index) throws DukeException {
+        if (index < 0 || index >= tasks.size()) {
+            throw new DukeException("Invalid task number. Please provide a valid task number.");
+        }
         return tasks.remove(index);
     }
 
@@ -33,7 +38,10 @@ public class TaskList {
         tasks.get(index).markAsNotDone();
     }
 
-    public Task get(int index) {
+    public Task get(int index) throws DukeException {
+        if (index < 0 || index >= tasks.size()) {
+            throw new DukeException("Invalid task number. Please provide a valid task number.");
+        }
         return tasks.get(index);
     }
 
