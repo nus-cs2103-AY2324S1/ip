@@ -89,6 +89,13 @@ public class Ui {
                 + H_LINE);
     }
 
+    public void findResponse(String tasks){
+        System.out.println(H_LINE
+                + "Here are the matching tasks in your list:\n"
+                + tasks
+                + H_LINE);
+    }
+
     public void invalidInputRes(){
         System.out.println(H_LINE
                 + "☹ OOPS!!! I'm sorry, but I don't know what that means :-(\n"

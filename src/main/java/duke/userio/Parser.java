@@ -75,6 +75,16 @@ public class Parser  {
             taskList.deleteTask(a-1);
             ui.taskDeleted(toBeRemoved, taskList);
             updateSaveFile();
+        } else if (input.contains("find")) {
+            String inputToFind = input.substring(6);
+            TaskList tempTL = new TaskList();
+            for (int i = 0; i < taskList.getSize(); i++) {
+                Task t = taskList.getTask(i);
+                if (t.containString(inputToFind)) {
+                    tempTL.addTask(t);
+                }
+            }
+            ui.findResponse(tempTL.outputNumberedList());
         } else {
             throw new InvalidUserInputException();
         }
