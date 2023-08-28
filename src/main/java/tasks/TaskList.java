@@ -96,8 +96,7 @@ public class TaskList {
   }
 
   private static List<Task> loadTasks() {
-    try {
-      BufferedReader br = new BufferedReader(new FileReader(DATA_FILE_PATH));
+    try (BufferedReader br = new BufferedReader(new FileReader(DATA_FILE_PATH))) {
       Type listType = new TypeToken<List<HashMap<String, String>>>() {
       }.getType();
       List<HashMap<String, String>> jsonTasks = gson.fromJson(br, listType);
@@ -131,6 +130,9 @@ public class TaskList {
       return fileTasks;
     } catch (FileNotFoundException e) {
       createDataFile();
+    } catch (IOException e) {
+      System.out.println("Failed to read tasks from data file");
+      System.exit(0);
     }
 
     return new ArrayList<>();
