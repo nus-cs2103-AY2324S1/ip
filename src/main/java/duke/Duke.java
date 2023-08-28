@@ -7,6 +7,10 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
+/**
+ * The Duke Program is a chatbot that takes in
+ * input from the user and responds accordingly
+ */
 public class Duke {
     private Storage storage;
     private TaskList tasks;
@@ -30,6 +34,9 @@ public class Duke {
         }
     }
 
+    /**
+     * Runs the main logic of the chatbot.
+     */
     public void run() {
         ui.showWelcome();
         boolean isExit = false;

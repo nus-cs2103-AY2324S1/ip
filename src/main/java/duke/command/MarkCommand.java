@@ -6,6 +6,10 @@ import duke.UI;
 
 import java.io.IOException;
 
+/**
+ * The MarkCommand is a Command that
+ * marks a task as completed.
+ */
 public class MarkCommand extends Command {
     int index;
     public MarkCommand(int index) {

@@ -5,9 +5,8 @@ import duke.task.Task;
 import java.util.ArrayList;
 
 /**
- * The duke.Storage class contains a fixed sized array that
- * stores the input from the parser class and can also
- * display the stored values to the user
+ * The duke.Storage class stores the tasks and performs
+ * interactions with the tasks
  *
  * @author Zi Xiang
  * @version CS2103 AY23/24 Sem 1
@@ -28,14 +27,14 @@ public class TaskList {
     }
 
     /**
-     * Method that adds a task to the storage
+     * Adds a task to the storage
      * @param t The task to be added
      */
     public void add(Task t) {
         this.storage.add(t);
     }
 
-    /** Display Items in duke.TaskList */
+    /** Displays Items in duke.TaskList */
     public void display() {
         System.out.println("Here are the tasks in your list:");
         for (int i = 0; i < this.storage.size(); i++) {
@@ -62,7 +61,7 @@ public class TaskList {
     }
 
     /**
-     * Method that removes a specific task from storage
+     * Removes a specific task from storage
      * @param index the index of the task to be removed
      */
     public Task delete(int index) {
