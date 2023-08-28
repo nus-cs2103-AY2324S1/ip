@@ -96,12 +96,18 @@ public class TaskList {
         return this.items.get(index);
     }
 
+    /**
+     * Finds the tasks that contain the query string
+     *
+     * @param query the query string
+     * @return the string representation of the tasks that contain the query string
+     */
     public String find(String query) {
         String output = "";
         int count = 0;
         for (int i = 0; i < this.items.size(); i++) {
             Task task = this.items.get(i);
-            if (task.description.contains(query)) {
+            if (task.toString().contains(query)) {
                 output += (count + 1) + "." + task.toString() + "\n";
                 count++;
             }
