@@ -77,4 +77,14 @@ public class TaskList {
     public int getSize() {
         return this.storage.size();
     }
+
+    public ArrayList<Task> find(String text) {
+        ArrayList<Task> found = new ArrayList<>();
+        for (int i = 0; i < this.getSize(); i++) {
+            if (this.storage.get(i).getDescription().contains(text)) {
+                found.add(this.storage.get(i));
+            }
+        }
+        return found;
+    }
 }
