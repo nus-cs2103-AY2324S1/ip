@@ -4,6 +4,7 @@ import duke.data.exception.DukeException;
 import duke.data.task.Task;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class TaskList {
@@ -12,6 +13,10 @@ public class TaskList {
 
     public TaskList(List<Task> tasks) {
         this.tasks = tasks;
+    }
+
+    public TaskList(Task... tasks) {
+        this.tasks = new ArrayList<>(Arrays.asList(tasks));
     }
 
     public TaskList() {

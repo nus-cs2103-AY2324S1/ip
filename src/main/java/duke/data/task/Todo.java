@@ -14,4 +14,18 @@ public class Todo extends Task {
     public String getStorageString() {
         return "T | " + super.getStorageString();
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+
+        if (obj instanceof Todo) {
+            Todo todo = (Todo) obj;
+            return this.description.equals(todo.description);
+        }
+
+        return false;
+    }
 }

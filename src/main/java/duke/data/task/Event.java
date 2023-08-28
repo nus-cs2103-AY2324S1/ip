@@ -36,4 +36,21 @@ public class Event extends Task {
         return "E | " + super.getStorageString() + " | "
                 + getFormattedFrom(PARSE_FORMATTER) + " | " + getFormattedTo(PARSE_FORMATTER);
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+
+        if (obj instanceof Event) {
+            Event event = (Event) obj;
+
+            return this.description.equals(event.description)
+                    && this.from.equals(event.from)
+                    && this.to.equals(event.to);
+        }
+
+        return false;
+    }
 }

@@ -27,4 +27,19 @@ public class Deadline extends Task {
     public String getStorageString() {
         return "D | " + super.getStorageString() + " | " + getFormattedBy(PARSE_FORMATTER);
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+
+        if (obj instanceof Deadline) {
+            Deadline deadline = (Deadline) obj;
+
+            return this.description.equals(deadline.description) && this.by.equals(deadline.by);
+        }
+
+        return false;
+    }
 }

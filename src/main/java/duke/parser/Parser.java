@@ -65,7 +65,7 @@ public class Parser {
     private Command prepareTodo(String arguments) throws DukeException {
         final Matcher matcher = TODO_DATA_ARGS_FORMAT.matcher(arguments.trim());
         if (!matcher.matches()) {
-            throw new DukeException("The description of a todo cannot be empty.");
+            throw new DukeException("The description of a todo must be specified.");
         }
 
         return new AddTodoCommand(matcher.group("description"));
