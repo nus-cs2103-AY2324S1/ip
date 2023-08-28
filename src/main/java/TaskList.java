@@ -37,6 +37,9 @@ public class TaskList {
     }
 
     public void unmark(int index) {
-        this.tasks.get(index).markAsUndone();
+        Task task = this.tasks.get(index);
+        task.markAsUndone();
+        System.out.println("OK, I've marked this task as not done yet:");
+        System.out.println(task);
     }
 }
