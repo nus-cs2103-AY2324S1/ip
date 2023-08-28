@@ -3,6 +3,8 @@ package geraldbot.util;
 import geraldbot.task.Task;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Represents a list of tasks.
@@ -59,4 +61,15 @@ public class TaskList {
         return this.taskList.size();
     }
 
+    /**
+     * Finds tasks in the list that match the specified keyword in their descriptions.
+     *
+     * @param keyword The keyword to search for.
+     * @return A list of tasks matching the keyword.
+     */
+    public List<Task> findTasksByKeyword(String keyword) {
+        return taskList.stream()
+                .filter(task -> task.getDescription().contains(keyword))
+                .collect(Collectors.toList());
+    }
 }

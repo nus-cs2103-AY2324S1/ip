@@ -9,6 +9,7 @@ import geraldbot.task.Todo;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * The Parser class handles the parsing of user input and the execution of corresponding actions
@@ -45,6 +46,14 @@ public class Parser {
     public void parse(String input) throws DukeException {
         if (input.equals("list")) {
             this.printList();
+        } else if (input.startsWith("find")) {
+
+            if (input.replaceAll("\\s", "").equals(input)) {
+                throw new DukeInvalidCommandException("find");
+            }
+
+            String keyword = input.substring(input.indexOf("find") + 5).trim();
+            findTasks(keyword);
         } else if (input.startsWith("mark")) {
 
             if (input.replaceAll("\\s", "").equals(input)) {
@@ -317,5 +326,19 @@ public class Parser {
 
         System.out.println("\t" + selectedTask);
         System.out.println("Now you have " + lst.size() + " tasks in the list.");
+    }
+
+    /**
+     * Finds tasks that match a specified keyword and displays them.
+     *
+     * @param keyword The keyword to search for in task descriptions.
+     */
+    private void findTasks(String keyword) {
+        List<Task> matchingTasks = lst.findTasksByKeyword(keyword);
+
+        System.out.println("Here are the matching tasks in your list:");
+        for (int i = 0; i < matchingTasks.size(); i++) {
+            System.out.println((i + 1) + ". " + matchingTasks.get(i).toString());
+        }
     }
 }
