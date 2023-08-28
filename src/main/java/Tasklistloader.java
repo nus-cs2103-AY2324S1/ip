@@ -1,10 +1,14 @@
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper.DefaultTyping;
 import com.fasterxml.jackson.databind.jsontype.BasicPolymorphicTypeValidator;
 import com.fasterxml.jackson.databind.jsontype.PolymorphicTypeValidator;
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Array;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -30,16 +34,17 @@ public class Tasklistloader {
   // given the original tasklist, save the tasks into a json file
   public void saveTasks() {
 
-    Map<Integer, Task> tasks = new HashMap<>();
-    for (int i = 0; i < this.taskList.size(); i++) {
-      Integer index = i + 1;
-      Task currTask = taskList.get(i);
-      tasks.put(index, currTask);
-      try {
-        taskMapper.writeValue(new File("tasks.json"), tasks);
-      } catch (IOException e) {
-        e.printStackTrace();
-      }
+    try {
+
+      Path filePath = Paths.get("tasks.json");
+      String output =
+          this.taskMapper.writeValueAsString(this.taskList);
+      Files.write(filePath, output.getBytes());
+
+    } catch (JsonProcessingException ex) {
+      System.out.println("something went wrong");
+    } catch (IOException ex) {
+      System.out.println("Unable to save to file!");
     }
 
   }
