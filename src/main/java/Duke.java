@@ -1,24 +1,49 @@
-import java.util.*;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+import java.util.ArrayList;
+import java.io.File;
+import java.io.IOException;
+import java.io.FileWriter;
+
 public class Duke {
     Scanner reader = new Scanner(System.in);
     ArrayList<Task> list = new ArrayList<>();
     int counter = -1;
-    boolean shutdownCommand = false;
+    boolean isShuttingDown = false;
+    File savedTasks = new File("./data/tasks.txt");
     String logo = " _           _        \n"
             + "| |    _   _| | _____ \n"
             + "| |   | | | | |/ / _ \\\n"
             + "| |___| |_| |   <  __/\n"
             + "|____/ \\__,_|_|\\_\\___|\n";
-    public void introDuke() {
+    public void startDuke() {
         System.out.println("Hi, I'm \n" + logo);
+        loadTasklist();
+    }
+    public void loadTasklist() {
+        try {
+            Scanner loader = new Scanner(savedTasks);
+            while (loader.hasNextLine()) {
+                processInput(loader.nextLine());
+            }
+        } catch (FileNotFoundException e) {
+            try {
+                System.out.println("No file, creating one now.");
+                savedTasks.createNewFile();
+            } catch (IOException f) {
+                System.out.println("Could not create file; shutting down");
+                shutdownDuke();
+            }
+        } catch (InvalidVarException | InvalidCommandException e){
+            throw new RuntimeException("Need to put a handler for corrupted inputs when loading");
+        }
+
     }
     public void shutdownDuke() {
         System.out.println("Ok byeee\n");
-        shutdownCommand = true;
+        isShuttingDown = true;
     }
-    public void processInput() throws InvalidCommandException, InvalidVarException {
-        String input = reader.nextLine();
-
+    public void processInput(String input) throws InvalidCommandException, InvalidVarException {
         if (input.equals("bye")) {
             shutdownDuke();
         } else if (input.equals("help")) {
@@ -135,7 +160,7 @@ public class Duke {
             throw new InvalidVarException("Blank name!");
         }
         ToDo task = new ToDo(name);
-        addTask(task);
+        addTask(task, input);
     }
 
     public void processEvent(String input) throws InvalidCommandException, InvalidVarException {
@@ -157,7 +182,7 @@ public class Duke {
         if (name.isBlank() || start.isBlank() || end.isBlank()) {
             throw new InvalidVarException("Blank parameters!");
         }
-        addTask(task);
+        addTask(task, input);
     }
 
     public void processDeadline(String input) throws InvalidVarException, InvalidCommandException {
@@ -178,22 +203,30 @@ public class Duke {
             throw new InvalidVarException("Blank parameters!");
         }
         Deadline task = new Deadline(name, deadline);
-        addTask(task);
+        addTask(task, input);
     }
 
-    public void addTask(Task task) {
+    public void addTask(Task task, String input) {
+
         list.add(task);
         counter += 1;
         System.out.println("added: " + task.toString());
         System.out.println("current task count: " + (counter + 1));
+        try {
+            FileWriter taskSaver = new FileWriter("./data/tasks.txt");
+            taskSaver.write(input);
+            taskSaver.close();
+        } catch (IOException e) {
+            System.out.println("Error in saving to disk");
+        }
     }
 
     public static void main(String[] args) {
         Duke luke = new Duke();
-        luke.introDuke();
-        while (!luke.shutdownCommand) {
+        luke.startDuke();
+        while (!luke.isShuttingDown) {
             try {
-                luke.processInput();
+                luke.processInput(luke.reader.nextLine());
             }
             catch (InvalidCommandException e) {
                 System.out.println("Unknown command given; " + e.getMessage());
