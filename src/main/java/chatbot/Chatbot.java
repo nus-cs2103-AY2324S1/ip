@@ -29,19 +29,6 @@ public class Chatbot extends EventEmitter<ChatMessage> {
     public final static String DEFAULT_NAME = "Todoify";
 
 
-    private static Chatbot sharedInstance = null;
-    /**
-     * Returns the global singleton for the chatbot with the default name.
-     * To start talking with it, call {@link Chatbot#openConversation()}.
-     */
-    public static Chatbot getSharedInstance() {
-        if (sharedInstance == null) {
-            sharedInstance = new Chatbot(Chatbot.DEFAULT_NAME);
-        }
-        return sharedInstance;
-    }
-
-
     private final String name;
     private final ArrayList<ChatMessage> convoList;
     private final TaskManager taskManager;
@@ -53,12 +40,13 @@ public class Chatbot extends EventEmitter<ChatMessage> {
      * Creates a new chatbot with the given custom name.
      * To start talking with it, call {@link Chatbot#openConversation()}.
      *
-     * @param name The name of the chatbot.
+     * @param name The name of the chatbot. Uses the default if null.
+     * @param taskManager The task manager the chatbot should utilise. Uses the default if null.
      */
-    public Chatbot(String name) {
-        this.name = name;
+    public Chatbot(String name, TaskManager taskManager) {
+        this.name = name == null ? DEFAULT_NAME : name;
         this.convoList = new ArrayList<>();
-        this.taskManager = new TaskManager();
+        this.taskManager = taskManager == null ? new TaskManager() : taskManager;
         this.closed = true;
     }
 
@@ -99,12 +87,12 @@ public class Chatbot extends EventEmitter<ChatMessage> {
             if (this.taskManager.getTaskCount() > 0) {
                 this.sendMessage(
                         ChatMessage.SenderType.CHATBOT,
-                        String.format("You've %d tasks in your list right now. :)", this.taskManager.getTaskCount())
+                        String.format("You've %d tasks in your list right now! :)", this.taskManager.getTaskCount())
                 );
             } else {
                 this.sendMessage(
                         ChatMessage.SenderType.CHATBOT,
-                        "You have no tasks right now. :)"
+                        "You have no tasks right now! :)"
                 );
             }
 
@@ -112,7 +100,7 @@ public class Chatbot extends EventEmitter<ChatMessage> {
             // Do nothing.
             this.sendMessage(
                     ChatMessage.SenderType.CHATBOT,
-                    "You have no tasks right now. :)"
+                    "You have no tasks right now! :)"
             );
 
         } catch (IOException e) {
@@ -120,7 +108,8 @@ public class Chatbot extends EventEmitter<ChatMessage> {
             this.sendMessage(
                     ChatMessage.SenderType.CHATBOT,
                     String.format(
-                            "Sorry, I couldn't load your tasks.\nThe error was: [%s] %s",
+                            "Sorry, I couldn't load your tasks.\nThe error was: [%s] %s\n" +
+                                    "I'll be starting from a blank slate instead.",
                             e.getClass().getSimpleName(),
                             e.getLocalizedMessage()
                     )
