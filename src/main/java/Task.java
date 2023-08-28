@@ -10,13 +10,6 @@ public abstract class Task {
         this.isDone = false;
     }
 
-
-
-    // public static Task createTask(String input) throws DukeException {
-
-
-    // }
-
     public String getStatusIcon() {
         return (isDone ? "X" : " "); // mark done task with X
     }

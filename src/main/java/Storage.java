@@ -75,40 +75,4 @@ public class Storage {
         }
     }
 
-    // public void saveStringToFile(String textToAdd) throws DukeException {
-    //     try {
-    //         File file = new File(FILEPATH);
-    //         if (!file.exists()) {
-    //             file.getParentFile().mkdirs();
-    //             file.createNewFile();
-    //             System.out.println("File created: " + file.getName());
-    //         } else if (file.length() > 0) {
-    //             throw new DukeException("Clear the file before saving by using clearfile.");
-    //         }
-    //         FileWriter fw = new FileWriter(FILEPATH, true);
-    //         fw.write(textToAdd);
-    //         fw.close();
-    //     } catch (IOException e) {
-    //         throw new DukeException("Saving failed: " + e.getMessage());
-    //     }
-    // }
-
-    // public TaskList loadStringFromFile() throws DukeException {
-
-
-    // public void clearFile() throws DukeException {
-    //     try {
-    //         File file = new File(FILEPATH);
-    //         if (!file.exists()) {
-    //             throw new DukeException("File does not exist.");
-    //         } 
-    //         FileWriter fw = new FileWriter(FILEPATH);
-    //         fw.write("");
-    //         fw.close();
-    //     } catch (IOException e) {
-    //         throw new DukeException("Clearing failed: " + e.getMessage());
-    //     }
-    // }
-
-
 }
