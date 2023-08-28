@@ -3,7 +3,10 @@ package duke;
 import duke.task.*;
 public class Parser {
     private static TaskList tasks;
-    public static void parse(String input, TaskList tasks) throws DukeException {
+
+    private static Ui ui;
+    public static void parse(String input, TaskList tasks, Ui ui) throws DukeException {
+        Parser.ui = ui;
         String[] parts = input.split(" ", 2);
         String command = parts[0];
         switch (command) {
@@ -12,19 +15,19 @@ public class Parser {
             break;
         case "delete":
             int task = parseDeleteCommand(parts);
-            tasks.deleteTask(task);
+            tasks.deleteTask(task, ui);
             break;
         case "todo":
             ToDoTask toDoTask = parseTodoCommand(parts, false);
-            tasks.addTask(toDoTask);
+            tasks.addTask(toDoTask, ui);
             break;
         case "deadline":
             DeadlineTask deadlineTask = parseDeadline(parts[1], false);
-            tasks.addTask(deadlineTask);
+            tasks.addTask(deadlineTask, ui);
             break;
         case "event":
             EventTask eventTask = parseEvent(parts[1], false);
-            tasks.addTask(eventTask);
+            tasks.addTask(eventTask, ui);
             break;
         case "mark":
             int markTask = parseMarkCommand(parts) - 1;
@@ -50,7 +53,7 @@ public class Parser {
     //For the data loading
     public static Task parse(String taskType, String taskDetails, boolean isDone) throws DukeException {
         if (taskType.equalsIgnoreCase("[T")) {
-            taskDetails = taskDetails.replace(" ", "");
+            taskDetails = taskDetails.trim();
             return new ToDoTask(taskDetails, isDone);
         } else if (taskType.equals("[D")) {
             return Parser.parseDeadline(taskDetails, isDone);
@@ -113,7 +116,7 @@ public class Parser {
         }
         String[] details = taskDetails.split("by:", 2);
         String description = details[0];
-        description = description.replace(" ", "");
+        description = description.trim();
         String by = details[1];
         by = by.replace(" ", "");
         return new DeadlineTask(description, by, isDone);
@@ -126,7 +129,7 @@ public class Parser {
         String[] details = taskDetails.split("from:", 2);
         String[] innerDetails = details[1].split(" to:", 2);
         String description = details[0];
-        description = description.replace(" ", "");
+        description = description.trim();
         String from = innerDetails[0];
         from = from.replace(" ", "");
         String to = innerDetails[1];

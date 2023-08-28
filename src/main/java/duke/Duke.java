@@ -29,7 +29,7 @@ public class Duke {
                 break;
             } else {
                 try {
-                    Parser.parse(command, tasks);
+                    Parser.parse(command, tasks, ui);
                 } catch (DukeException e) {
                     System.out.println(e.getMessage());
                 }

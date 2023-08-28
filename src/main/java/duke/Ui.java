@@ -21,14 +21,17 @@ public class Ui {
         System.out.println("  " + task);
         System.out.println("Now you have " + totalTasks + " task(s) in the list.");
     }
+
+    public void showTaskRemoveMessage(Task task, int totalTasks) {
+        System.out.println("Yes Sir. I've removed the following task:");
+        System.out.println("  " + task);
+        System.out.println("Now you have " + totalTasks + " task(s) in the list.");
+    }
     public void showGoodbyeMessage() {
         System.out.println("I wish you a pleasant day ahead, goodbye!");
     }
     public void showLoadingError() {
         System.err.println("Error! Cannot load tasks from data file.");
-    }
-    public void showSavingError() {
-        System.err.println("Error! Cannot save tasks to data file.");
     }
     public void closeScanner() {
         scanner.close();

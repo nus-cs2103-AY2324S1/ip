@@ -1,6 +1,7 @@
 package duke.task;
 
 import duke.DukeException;
+import duke.Ui;
 
 import java.util.ArrayList;
 public class TaskList {
@@ -14,19 +15,14 @@ public class TaskList {
         this.tasks = tasks;
     }
 
-    public void addTask(Task task) {
+    public void addTask(Task task, Ui ui) {
         tasks.add(task);
-        System.out.println("You added '" + tasks.get(tasks.size() - 1) + "' to the list!"
-                + "\nNow you have " + tasks.size() + " task(s) in the list!");
+        ui.showTaskAddedMessage(task, tasks.size());
     }
 
-    public void deleteTask(int index) throws DukeException {
-        if (index < 1 || index > tasks.size()) {
-            throw new DukeException("Invalid task number. Please provide a valid task number.");
-        }
+    public void deleteTask(int index, Ui ui) {
         Task removedTask = tasks.remove(index - 1);
-        System.out.println("Yes Sir. I've removed the following task\n" + removedTask + "\nNow you" +
-                " have " + tasks.size() + " task(s) in the list!");
+        ui.showTaskRemoveMessage(removedTask, tasks.size());
     }
 
     public Task getTask(int index) throws DukeException {

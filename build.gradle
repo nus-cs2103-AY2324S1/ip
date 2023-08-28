@@ -40,3 +40,9 @@ shadowJar {
 run{
     standardInput = System.in
 }
+
+task deleteTextFile(type: Delete) {
+    delete './data/duke.txt'
+}
+
+clean.dependsOn deleteTextFile

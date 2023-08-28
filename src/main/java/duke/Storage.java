@@ -18,6 +18,10 @@ public class Storage {
         this.filePath = DATA_FILE_PATH;
     }
 
+    public Storage(String filePath) {
+        this.filePath = filePath;
+    }
+
     public ArrayList<Task> loadTask() throws DukeException {
         ArrayList<Task> loadedTasks = new ArrayList<>();
 

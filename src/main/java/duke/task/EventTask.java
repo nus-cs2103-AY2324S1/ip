@@ -43,8 +43,19 @@ public class EventTask extends Task {
     public String toSave() {
         return "[E]" + super.toString() + " (from: " + this.fromDate + " to: " + this.toDate + ")";
     }
+
+    public LocalDate getToDate() {
+        return toDate;
+    }
+
+    public LocalDate getFromDate() {
+        return fromDate;
+    }
     @Override
     public String toString() {
         return "[E]" + super.toString() + " (from: " + getFormattedFromDate() + " to: " + getFormattedToDate() + ")";
     }
+
+
+
 }

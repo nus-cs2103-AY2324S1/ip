@@ -25,6 +25,10 @@ public class DeadlineTask extends Task {
         return byDate.format(formatter);
     }
 
+    public LocalDate getByDate() {
+        return byDate;
+    }
+
     public String toSave() {
         return "[D]" + super.toString() + " (by: " + this.byDate + ")";
     }
