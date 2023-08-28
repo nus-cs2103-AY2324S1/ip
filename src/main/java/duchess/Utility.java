@@ -42,8 +42,7 @@ public class Utility {
 
         if (caseInsensitive) {
             pattern = Pattern.compile(patternString, Pattern.CASE_INSENSITIVE);
-        }
-        else {
+        } else {
             pattern = Pattern.compile(patternString);
         }
 
@@ -78,7 +77,7 @@ public class Utility {
                 LocalDate localDate = LocalDate.parse(dateString, dateTimeFormatter);
 
                 return localDate;
-            } catch(Exception e) {
+            } catch (Exception e) {
                 // Something went wrong... perhaps date is out of bounds.
                 throw new DuchessException("(´；ω；`) Sorry, I don't recognize that date... ;-;");
             }
