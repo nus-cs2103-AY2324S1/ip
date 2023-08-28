@@ -1,13 +1,13 @@
-package Ren;
+package ren;
 
-import Ren.task.Deadline;
-import Ren.task.Event;
-import Ren.task.TaskList;
-import Ren.task.ToDo;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.jsontype.NamedType;
+import ren.task.Deadline;
+import ren.task.Event;
+import ren.task.TaskList;
+import ren.task.ToDo;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -21,9 +21,9 @@ public final class RenObjectMapper {
     private static String cacheFileAddress = ".\\data\\cacheTaskList.txt";
 
     public RenObjectMapper() {
-        objectMapper.registerSubtypes(new NamedType(ToDo.class, "Ren.task.ToDo"));
-        objectMapper.registerSubtypes(new NamedType(Deadline.class, "Ren.task.Deadline"));
-        objectMapper.registerSubtypes(new NamedType(Event.class, "Ren.task.Event"));
+        objectMapper.registerSubtypes(new NamedType(ToDo.class, "ren.task.ToDo"));
+        objectMapper.registerSubtypes(new NamedType(Deadline.class, "ren.task.Deadline"));
+        objectMapper.registerSubtypes(new NamedType(Event.class, "ren.task.Event"));
     }
 
     public static void storeIntoHarddisk(TaskList taskList) {

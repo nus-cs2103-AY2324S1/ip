@@ -1,9 +1,10 @@
-package Ren;
+package ren;
 
-import Ren.task.Task;
-import Ren.task.TaskList;
+import ren.task.Task;
+import ren.task.TaskList;
 
 import java.util.Set;
+
 
 public class RenParser {
     private static Set<String> TASK_TYPES = Set.of(

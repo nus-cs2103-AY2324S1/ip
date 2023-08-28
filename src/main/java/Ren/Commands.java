@@ -1,4 +1,4 @@
-package Ren;
+package ren;
 
 public enum Commands {
     LS_COMMAND("list"),

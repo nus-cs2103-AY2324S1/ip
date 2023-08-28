@@ -1,7 +1,7 @@
-package Ren;
+package ren;
 
-import Ren.task.Task;
-import Ren.task.TaskList;
+import ren.task.Task;
+import ren.task.TaskList;
 
 public class RenUi {
     private static final String LINE_BREAK = "____________________________________________________________\n";

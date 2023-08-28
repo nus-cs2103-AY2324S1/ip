@@ -1,7 +1,7 @@
-package Ren.task;
+package ren.task;
 
-import Ren.InsufficientArguments;
-import Ren.RenObjectMapper;
+import ren.InsufficientArguments;
+import ren.RenObjectMapper;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -23,7 +23,7 @@ public class TaskList {
     }
 
     /**
-     * Adds Ren.task.Task into Ren.task.TaskList.
+     * Adds ren.task.Task into ren.task.TaskList.
      *
      * @param commandArr array of the command split by whitespace
      * @return the added task
@@ -100,7 +100,7 @@ public class TaskList {
 
     /**
      * Lists out the string representation of Tasks in the order they were added
-     * into the Ren.task.TaskList. List is 1-indexed
+     * into the ren.task.TaskList. List is 1-indexed
      */
     public void listTasks() {
         for (int i = 0; i < this.tasks.size(); i++) {
@@ -109,7 +109,7 @@ public class TaskList {
     }
 
     /**
-     * Adds Ren.task.Task into Ren.task.TaskList.
+     * Adds ren.task.Task into ren.task.TaskList.
      *
      * @param commandArr array of the command split by whitespace
      * @return the added task

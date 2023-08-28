@@ -1,4 +1,4 @@
-package Ren.task;
+package ren.task;
 
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
@@ -6,8 +6,8 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "type", visible = true)
 @JsonSubTypes({
         @JsonSubTypes.Type(value = ToDo.class, name = "Todo"),
-        @JsonSubTypes.Type(value = Deadline.class, name = "Ren.task.Deadline"),
-        @JsonSubTypes.Type(value = Event.class, name = "Ren.task.Event")
+        @JsonSubTypes.Type(value = Deadline.class, name = "ren.task.Deadline"),
+        @JsonSubTypes.Type(value = Event.class, name = "ren.task.Event")
 })
 
 public class Task {

@@ -1,4 +1,4 @@
-package Ren;
+package ren;
 
 public class InsufficientArguments extends RenException {
     public InsufficientArguments() {

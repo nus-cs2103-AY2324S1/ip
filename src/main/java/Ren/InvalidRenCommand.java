@@ -1,4 +1,4 @@
-package Ren;
+package ren;
 
 public class InvalidRenCommand extends RenException {
     public InvalidRenCommand() {
