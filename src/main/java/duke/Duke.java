@@ -6,10 +6,13 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Scanner;
 
 import java.util.ArrayList;
 import java.util.Scanner;
+
 public class Duke {
     protected static String name = "Alfred";
 
@@ -39,13 +42,11 @@ public class Duke {
         list.add(item);
     }
 
-
     private static void appendToFile(String filePath, String textToAppend) throws IOException {
         FileWriter fw = new FileWriter(filePath, true); // create a FileWriter in append mode
         fw.write(textToAppend);
         fw.close();
     }
-
 
 
     public static void main(String[] args) {
@@ -81,17 +82,22 @@ public class Duke {
                                 incrementCounter();
                             }
                         } else if (text.startsWith("deadline")) {
-                            String[] splitText = text.split("/");
+                            String[] splitText = text.split("/", 2);
                             String description = splitText[0].substring(8);
-                            String deadline = splitText[1].trim().substring(3);
+                            String deadlineText = splitText[1].substring(3);
+
+                            LocalDateTime deadline = LocalDateTime.parse(deadlineText);
                             Deadline dl = new Deadline(description.trim(), deadline);
                             setList(dl);
                             incrementCounter();
                         } else if (text.startsWith("event")) {
-                            String[] splitText = text.split("/");
+                            String[] splitText = text.split("/", 3);
                             String description = splitText[0].substring(5);
-                            String start = splitText[1].trim().substring(5);
-                            String end = splitText[2].trim().substring(3);
+                            String startText = splitText[1].trim().substring(5);
+                            String endText = splitText[2].trim().substring(3);
+
+                            LocalDateTime start = LocalDateTime.parse(startText);
+                            LocalDateTime end = LocalDateTime.parse(endText);
                             Event event = new Event(description.trim(), start, end);
                             setList(event);
                             incrementCounter();
@@ -188,19 +194,20 @@ public class Duke {
                                 printline();
                             }
                         } else if (text.startsWith("deadline")) {
-                            String[] splitText = text.split("/");
+                            String[] splitText = text.split("/", 2);
+
                             String description = splitText[0].substring(8);
                             if (description.isEmpty()) {
                                 throw new DukeException("I apologise, sir. " +
                                         "But the description and deadline cannot be empty");
-
                             } else {
                                 try {
                                     appendToFile("src/main/java/duke/data/duke.txt", text + "\n");
                                 } catch (IOException e) {
                                     System.out.println("Something went wrong: " + e.getMessage());
                                 }
-                                String deadline = splitText[1].trim().substring(3);
+                                String deadlineText = splitText[1].substring(3);
+                                LocalDateTime deadline = LocalDateTime.parse(deadlineText);
                                 Deadline dl = new Deadline(description.trim(), deadline);
                                 setList(dl);
                                 incrementCounter();
@@ -226,8 +233,11 @@ public class Duke {
                                 } catch (IOException e) {
                                     System.out.println("Something went wrong: " + e.getMessage());
                                 }
-                                String start = splitText[1].trim().substring(5);
-                                String end = splitText[2].trim().substring(3);
+                                String startText = splitText[1].trim().substring(5);
+                                String endText = splitText[2].trim().substring(3);
+
+                                LocalDateTime start = LocalDateTime.parse(startText);
+                                LocalDateTime end = LocalDateTime.parse(endText);
                                 Event event = new Event(description.trim(), start, end);
                                 setList(event);
                                 incrementCounter();
