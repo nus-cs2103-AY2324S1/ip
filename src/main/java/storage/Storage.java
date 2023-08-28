@@ -1,4 +1,4 @@
-package storage;
+package main.java.storage;
 
 import java.io.File;
 

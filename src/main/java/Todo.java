@@ -1,4 +1,4 @@
-
+package main.java;
 /**
  * Represents a todo task, which is a task without any date/time attached to it.
  */
