@@ -61,7 +61,7 @@ public class Storage {
             }
             fw.close();
         } catch (IOException e) {
-            throw new DukeException("File not found!", e);
+            throw new DukeException("Error writing to file!", e);
         }
     }
 
