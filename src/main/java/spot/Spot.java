@@ -9,6 +9,9 @@ public class Spot {
     private Storage storage;
     private TaskList tasks;
 
+    /**
+     * Constructs a new Spot object.
+     */
     public Spot() {
         try {
             ui = new Ui();
@@ -19,6 +22,9 @@ public class Spot {
         }
     }
 
+    /**
+     * Starts running the Spot chatbot.
+     */
     public void run() {
         ui.sayHello();
         boolean isExit = false;
@@ -34,6 +40,11 @@ public class Spot {
         }
     }
 
+    /**
+     * Starts up the Spot chatbot.
+     *
+     * @param args Command line arguments.
+     */
     public static void main(String[] args) {
         new Spot().run();
     }

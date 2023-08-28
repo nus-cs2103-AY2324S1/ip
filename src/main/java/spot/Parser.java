@@ -19,6 +19,13 @@ import spot.exception.SpotException;
 
 public class Parser {
 
+    /**
+     * Returns command corresponding to the specified input string.
+     *
+     * @param input Input string to be parsed.
+     * @return Resulting command.
+     * @throws SpotException  If input string is invalid.
+     */
     public static Command parseCommand(String input) throws SpotException {
         if (input.startsWith("list tasks on")) {
             if (input.length() <= 14) {
@@ -95,6 +102,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Returns LocalDate object corresponding to the specified input string.
+     *
+     * @param input Input string to be parsed.
+     * @return Resulting LocalDate object.
+     * @throws SpotException  If input string is an invalid date.
+     */
     public static LocalDate parseDate(String input) throws SpotException {
         try {
             return LocalDate.parse(input,
