@@ -1,4 +1,6 @@
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.function.Function;
 
 public class TaskList {
     private ArrayList<Task> taskList;
@@ -41,13 +43,64 @@ public class TaskList {
         return message;
     }
 
-    public String getSaveableString() {
+    public String filterTasks(Function<Task, Boolean> f) {
         StringBuilder result = new StringBuilder();
-        for (int i = 0; i < taskList.size(); i++) {
-            result.append(taskList.get(i).getSaveableString() + "\n");
+        for (Task task : taskList) {
+            if (f.apply(task)) result.append(task).append("\n");
         }
         return result.toString();
     }
+    public String getTasksBefore(LocalDate localDate) {
+        StringBuilder result = new StringBuilder();
+        for (int i = 0; i < taskList.size(); i++) {
+            Task curr = taskList.get(i);
+            TimedTask timedTask = null;
+            if (curr instanceof TimedTask) {
+                timedTask = (TimedTask) curr;
+            }
+            if (timedTask != null && timedTask.isBefore(localDate)) {
+                result.append(String.format("%d. %s\n", i + 1, taskList.get(i)));
+            }
+        }
+        return result.toString();
+    }
+    public String getTasksAfter(LocalDate localDate) {
+        StringBuilder result = new StringBuilder();
+        for (int i = 0; i < taskList.size(); i++) {
+            Task curr = taskList.get(i);
+            TimedTask timedTask = null;
+            if (curr instanceof TimedTask) {
+                timedTask = (TimedTask) curr;
+            }
+            if(timedTask != null &&  timedTask.isAfter(localDate)) {
+                result.append(String.format("%d. %s\n", i + 1, taskList.get(i)));
+            }
+        }
+        return result.toString();
+    }
+    public String getTasksDuring(LocalDate localDate) {
+        StringBuilder result = new StringBuilder();
+        for (int i = 0; i < taskList.size(); i++) {
+            Task curr = taskList.get(i);
+            TimedTask timedTask = null;
+            if (curr instanceof TimedTask) {
+                timedTask = (TimedTask) curr;
+            }
+            if(timedTask != null && timedTask.isDuring(localDate)) {
+                result.append(String.format("%d. %s\n", i + 1, taskList.get(i)));
+            }
+        }
+        return result.toString();
+    }
+
+    public String getSaveableString() {
+        StringBuilder result = new StringBuilder();
+        for (Task task : taskList) {
+            result.append(task.getSaveableString()).append("\n");
+        }
+        return result.toString();
+    }
+
     @Override public String toString() {
         StringBuilder result = new StringBuilder();
         for (int i = 0; i < taskList.size(); i++) {

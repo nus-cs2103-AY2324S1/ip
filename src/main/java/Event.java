@@ -21,7 +21,7 @@ public class Event extends Task implements TimedTask {
         }
     }
     @Override
-    public boolean fallsOn(LocalDate dateTime) {
+    public boolean isDuring(LocalDate dateTime) {
         try {
             return (fromDateTime.isEqual(dateTime) || fromDateTime.isBefore(dateTime)) &&
                     (toDateTime.isEqual(dateTime) || toDateTime.isAfter(dateTime));
@@ -32,7 +32,7 @@ public class Event extends Task implements TimedTask {
     @Override
     public boolean isAfter(LocalDate dateTime) {
         try {
-            return toDateTime.isBefore(dateTime);
+            return fromDateTime.isAfter(dateTime);
         } catch (NullPointerException e) {
             return false;
         }
@@ -40,7 +40,7 @@ public class Event extends Task implements TimedTask {
     @Override
     public boolean isBefore(LocalDate dateTime) {
         try {
-            return fromDateTime.isAfter(dateTime);
+            return toDateTime.isBefore(dateTime);
         } catch (NullPointerException e) {
             return false;
         }

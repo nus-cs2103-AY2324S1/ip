@@ -27,7 +27,7 @@ public class Deadline extends Task implements TimedTask {
         }
     }
     @Override
-    public boolean fallsOn(LocalDate dateTime) {
+    public boolean isDuring(LocalDate dateTime) {
         try {
             return byDateTime.isEqual(dateTime);
         } catch (NullPointerException e) {
@@ -37,7 +37,7 @@ public class Deadline extends Task implements TimedTask {
     @Override
     public boolean isAfter(LocalDate dateTime) {
         try {
-            return byDateTime.isBefore(dateTime);
+            return byDateTime.isAfter(dateTime);
         } catch (NullPointerException e) {
             return false;
         }
@@ -45,7 +45,7 @@ public class Deadline extends Task implements TimedTask {
     @Override
     public boolean isBefore(LocalDate dateTime) {
         try {
-            return byDateTime.isAfter(dateTime);
+            return byDateTime.isBefore(dateTime);
         } catch (NullPointerException e) {
             return false;
         }

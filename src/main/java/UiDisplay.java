@@ -13,4 +13,12 @@ public class UiDisplay {
     public void bidFarewell() {
         printMessage("Goodbye.");
     }
+    public void displayHelp() {
+        StringBuilder result = new StringBuilder();
+        result.append("Available commands:\n");
+        for (CommandInfo c : CommandInfo.values()) {
+            result.append(c.toString()).append("\n");
+        }
+        printMessage(result.toString());
+    }
 }
