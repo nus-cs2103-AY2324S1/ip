@@ -28,8 +28,8 @@ public class Event extends Task {
      */
     public Event(String eventName, String startTime, String endTime) {
         super(eventName, false);
-        this.startTime = TaskDateTime.read(startTime);
-        this.endTime = TaskDateTime.read(endTime);
+        this.startTime = TaskDateTime.fromDateTimeString(startTime);
+        this.endTime = TaskDateTime.fromDateTimeString(endTime);
     }
 
     /**

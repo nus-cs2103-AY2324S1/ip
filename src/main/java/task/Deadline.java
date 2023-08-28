@@ -26,7 +26,7 @@ public class Deadline extends Task {
      */
     public Deadline(String deadlineName, String deadlineTime) {
         super(deadlineName, false);
-        this.deadlineTime = TaskDateTime.read(deadlineTime);
+        this.deadlineTime = TaskDateTime.fromDateTimeString(deadlineTime);
     }
 
     /**
