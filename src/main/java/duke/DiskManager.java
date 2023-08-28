@@ -54,19 +54,25 @@ public class DiskManager {
         }
     }
 
-    public void saveToDisk(TaskManager taskManager) {
+    public String taskManagerToJson(TaskManager taskManager) throws DukeException {
         try {
-            String json = MAPPER.writeValueAsString(taskManager);
+            return MAPPER.writeValueAsString(taskManager);
+        } catch (JsonProcessingException e) {
+            throw new DukeException("Error when saving task list to local disk.");
+        }
+    }
+
+    public void saveToDisk(TaskManager taskManager) throws DukeException {
+        try {
+            String json = taskManagerToJson(taskManager);
             File file = getFile();
             if (file != null) {
                 FileWriter fileWriter = new FileWriter(file);
                 fileWriter.write(json);
                 fileWriter.close();
             }
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new DukeException("Error when writing to local disk.");
         }
     }
 

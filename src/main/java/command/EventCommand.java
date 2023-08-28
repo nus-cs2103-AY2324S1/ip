@@ -1,6 +1,7 @@
 package command;
 
 import duke.DiskManager;
+import duke.DukeException;
 import duke.TaskManager;
 import duke.Ui;
 import task.Event;
@@ -24,7 +25,7 @@ public class EventCommand extends Command {
     }
 
     @Override
-    public void execute(TaskManager taskManager, DiskManager diskManager, Ui ui) {
+    public void execute(TaskManager taskManager, DiskManager diskManager, Ui ui) throws DukeException {
         ui.printOutput(taskManager.addTask(new Event(description, start, end)));
         diskManager.saveToDisk(taskManager);
     }
