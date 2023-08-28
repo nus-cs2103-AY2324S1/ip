@@ -1,9 +1,15 @@
+package duke.parser;
+
+import duke.Duke;
+import duke.command.*;
+import duke.exception.DukeException;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 
 public class Parser {
 
-    public static Command parse(String command) throws DukeException{
+    public static Command parse(String command) throws DukeException {
 
         String[] commandArr = command.split(" ", 2);
         String keyword = commandArr[0];
