@@ -11,4 +11,9 @@ public class ListCommand extends Command {
     public void execute(TaskList taskList, StorageFile storageFile, TextUi ui) throws BobException {
         ui.printListMessage(taskList);
     }
+
+    @Override
+    public boolean isExit() {
+        return false;
+    }
 }

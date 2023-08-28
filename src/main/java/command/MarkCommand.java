@@ -16,7 +16,7 @@ public class MarkCommand extends Command{
     }
     @Override
     public void execute(TaskList taskList, StorageFile storageFile, TextUi ui) throws BobException {
-        Task task = taskList.getTask(taskNumber);
+        Task task = taskList.getTask(taskNumber - 1);
         if (isDone) {
             task.markAsDone();
         } else {
@@ -24,5 +24,10 @@ public class MarkCommand extends Command{
         }
         ui.printMarkMessage(task, isDone);
         storageFile.saveTasks(taskList);
+    }
+
+    @Override
+    public boolean isExit() {
+        return false;
     }
 }

@@ -1,7 +1,6 @@
 package command;
 
 import exception.BobException;
-import exception.BobInvalidTaskNumberException;
 import storage.StorageFile;
 import task.Task;
 import task.TaskList;
@@ -19,5 +18,10 @@ public class DeleteCommand extends Command {
         Task deletedTask = taskList.deleteTask(taskNumber);
         ui.printDeleteMessage(deletedTask);
         storageFile.saveTasks(taskList);
+    }
+
+    @Override
+    public boolean isExit() {
+        return false;
     }
 }

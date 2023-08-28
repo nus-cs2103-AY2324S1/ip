@@ -32,7 +32,7 @@ public class TaskList {
 
     public Task getTask(int num) throws BobInvalidTaskNumberException {
         try {
-            return this.tasks.get(num - 1);
+            return this.tasks.get(num);
         } catch (IndexOutOfBoundsException e) {
             throw new BobInvalidTaskNumberException();
         }

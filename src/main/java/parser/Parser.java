@@ -12,7 +12,8 @@ public class Parser {
 
     public static Command parse(String input) throws BobException {
         String[] inputSplit = input.split(" ", 2);
-        CommandType commandType = strToCommandType(inputSplit[0]);
+
+        CommandType commandType = strToCommandType(inputSplit[0].toUpperCase());
         String argument = "";
         if (inputSplit.length >= 2) {
             argument = inputSplit[1];

@@ -13,16 +13,16 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class StorageFile {
-    private String filePath;
+    private String fileDirectoryPath;
     private String fileName;
-    public StorageFile(String filePath, String fileName) {
-        this.filePath = filePath;
+    public StorageFile(String fileDirectoryPath, String fileName) {
+        this.fileDirectoryPath = fileDirectoryPath;
         this.fileName = fileName;
     }
     public void saveTasks(TaskList taskList) throws BobException {
         this.checkDirectoryExists();
         try {
-            FileWriter fileWriter = new FileWriter(this.filePath + this.fileName);
+            FileWriter fileWriter = new FileWriter(this.fileDirectoryPath + this.fileName);
             for (int i = 0; i < taskList.size(); i++) {
                 fileWriter.write(taskList.getTask(i).convertToFileFormat() + System.lineSeparator());
             }
@@ -35,7 +35,7 @@ public class StorageFile {
     public TaskList loadTasks() throws BobException {
         this.checkDirectoryExists();
         try {
-            File taskFile = new File(this.filePath + this.fileName);
+            File taskFile = new File(this.fileDirectoryPath + this.fileName);
             Scanner fileScanner = new Scanner(taskFile);
             ArrayList<Task> loadedTasks = new ArrayList<>();
             while (fileScanner.hasNextLine()) {
@@ -50,7 +50,7 @@ public class StorageFile {
     }
 
     private void checkDirectoryExists() throws BobException {
-        File dataDirectory = new File(this.filePath);
+        File dataDirectory = new File(this.fileDirectoryPath);
         if (!dataDirectory.exists()) {
             boolean isMkDirSuccess = dataDirectory.mkdir();
             if (!isMkDirSuccess) {

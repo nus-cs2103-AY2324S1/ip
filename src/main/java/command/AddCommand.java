@@ -40,4 +40,9 @@ public class AddCommand extends Command {
         ui.printAddMessage(task);
         storageFile.saveTasks(taskList);
     }
+
+    @Override
+    public boolean isExit() {
+        return false;
+    }
 }

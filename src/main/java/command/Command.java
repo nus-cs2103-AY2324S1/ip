@@ -7,4 +7,5 @@ import ui.TextUi;
 
 public abstract class Command {
     public abstract void execute(TaskList taskList, StorageFile storageFile, TextUi ui) throws BobException;
+    public abstract boolean isExit();
 }
