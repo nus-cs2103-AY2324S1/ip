@@ -3,14 +3,13 @@ import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 public class StorageHandler {
-    private static Task[] todoList;
-    private static int size;
-    private static SaveHandler saveHandler;
+    private Task[] todoList;
+    private int size;
     public StorageHandler() {
-        todoList = saveHandler.loadFrom();
-        size = saveHandler.size();
+        todoList = SaveHandler.loadFrom();
+        size = SaveHandler.size();
     }
-    public static void readArray() {
+    public void readArray() {
         int i = 0;
         System.out.println("--------------LIST-PEKO------------------");
         while (todoList[i] != null) {
@@ -21,34 +20,34 @@ public class StorageHandler {
             System.out.println("You are FREE PEKO!!!!!");
         }
     }
-    public static void addToArray(Task t) {
+    public void addToArray(Task t) {
         todoList[size] = t;
         System.out.println("Added: \n   " + todoList[size].toString() + "\nPeko!");
         System.out.println("You have: " + (size+1) + " tasks now Peko");
-        saveHandler.saveTo();
+        SaveHandler.saveTo();
     }
-    public static void setMarkArray(int i) {
+    public void setMarkArray(int i) {
         todoList[i-1].setMark();
         System.out.println("Marked as done peko!");
         System.out.println("    " + todoList[i-1]);
-        saveHandler.saveTo();
+        SaveHandler.saveTo();
     }
-    public static void setUnmarkArray(int i) {
+    public void setUnmarkArray(int i) {
         todoList[i-1].setUnmark();
         System.out.println("You haven't done this yet peko?!");
         System.out.println("    " + todoList[i-1]);
-        saveHandler.saveTo();
+        SaveHandler.saveTo();
     }
-    public static void setDelete(int i) {
+    public void setDelete(int i) {
         i--;
         while (i <= size) {
             todoList[i] = todoList[i+1];
             i++;
         }
         size--;
-        saveHandler.saveTo();
+        SaveHandler.saveTo();
     }
-    public static void degen() throws FileNotFoundException {
+    public void degen() throws FileNotFoundException {
         File text = new File("src/main/Copypasta.txt");
         Scanner sc = new Scanner(text);
         while (sc.hasNextLine()) {
