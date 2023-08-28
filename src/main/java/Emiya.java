@@ -17,6 +17,8 @@ import task.ToDo;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import java.nio.file.Paths;
+
 public class Emiya {
 
     // Used to check whether a given string contains purely numeric values.
@@ -35,6 +37,9 @@ public class Emiya {
     }
 
     public static void main(String[] args) {
+
+        String path = Paths.get("").toAbsolutePath().toString();
+        System.out.println("Project root path: " + path);
 
         // Represents the list as an ArrayList of task.Task objects
         ArrayList<Task> taskArrayList = new ArrayList<>();
