@@ -6,12 +6,12 @@ public class Event extends Task {
     /**
      * The start time of the event.
      */
-    private String from;
+    private final String from;
 
     /**
      * The end time of the event.
      */
-    private String to;
+    private final String to;
 
     /**
      * Constructs a new Event object with the specified description, start time, and end time.
@@ -20,8 +20,8 @@ public class Event extends Task {
      * @param from The start time of the event.
      * @param to The end time of the event.
      */
-    public Event(String description, String from, String to) {
-        super(description);
+    public Event(String description, boolean isDone, String from, String to) {
+        super(description, isDone);
         this.from = from;
         this.to = to;
     }
@@ -34,5 +34,10 @@ public class Event extends Task {
     @Override
     public String toString() {
         return "[E] " + super.toString() + " (from: " + this.from + " to: " + this.to + ")";
+    }
+
+    @Override
+    public String writeFile() {
+        return "E | " + super.writeFile() + " | " + this.from + " | " + this.to;
     }
 }

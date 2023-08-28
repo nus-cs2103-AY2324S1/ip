@@ -6,7 +6,7 @@ public class Deadline extends Task {
     /**
      * The due date of the task.
      */
-    private String by;
+    private final String by;
 
     /**
      * Constructs a new Deadline object with the specified description and due date.
@@ -14,8 +14,8 @@ public class Deadline extends Task {
      * @param description The description of the Deadline task.
      * @param deadline The due date of the task.
      */
-    public Deadline(String description, String deadline) {
-        super(description);
+    public Deadline(String description, boolean isDone, String deadline) {
+        super(description, isDone);
         this.by = deadline;
     }
 
@@ -27,5 +27,10 @@ public class Deadline extends Task {
     @Override
     public String toString() {
         return "[D] " + super.toString() + " (by: " + this.by + ")";
+    }
+
+    @Override
+    public String writeFile() {
+        return "D | " + super.writeFile() + " | " + this.by;
     }
 }

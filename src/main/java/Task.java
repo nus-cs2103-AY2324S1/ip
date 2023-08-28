@@ -6,7 +6,7 @@ public abstract class Task {
     /**
      * The description of the task.
      */
-    private String description;
+    private final String description;
 
     /**
      * The completion status of the task.
@@ -18,9 +18,9 @@ public abstract class Task {
      *
      * @param description The description of the task.
      */
-    public Task(String description) {
+    public Task(String description, boolean isDone) {
         this.description = description;
-        this.isDone = false;
+        this.isDone = isDone;
     }
 
     /**
@@ -52,7 +52,7 @@ public abstract class Task {
      * Marks the task as undone.
      */
     public void unmark() {
-        isDone = false;
+        this.isDone = false;
     }
 
     /**
@@ -63,5 +63,9 @@ public abstract class Task {
     @Override
     public String toString() {
         return "[" + getStatusIcon() + "] " + this.description;
+    }
+
+    public String writeFile() {
+        return this.isDone ? "1 | " + this.description : "0 | " + this.description;
     }
 }

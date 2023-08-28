@@ -1,3 +1,7 @@
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,13 +12,53 @@ public class DukeList {
     private final List<Task> dukeList;
     private final DukeFileWriter fileWriter;
 
+    private final String directory = "./src/main/java/data";
+    private final String fileName = "duke.txt";
+
     /**
      * Constructs a new DukeList object with an empty list of tasks.
      */
     public DukeList() {
         dukeList = new ArrayList<Task>(100);
+        fileWriter = new DukeFileWriter(this.directory, this.fileName);
+        this.readFile();
+    }
 
-        fileWriter = new DukeFileWriter("./src/main/java/data", "duke.txt");
+    public void readFile() {
+        BufferedReader reader = null;
+        try {
+            reader = new BufferedReader(
+                    new FileReader(this.directory + "/" + this.fileName));
+        } catch (FileNotFoundException e) {
+            System.out.println(e.getMessage());
+        }
+        if (reader != null) {
+            String line;
+            try {
+                while ((line = reader.readLine()) != null) {
+                    if (line.startsWith("T")) {
+                        String[] inputs = line.split(" \\| ", 3);
+                        boolean isDone = inputs[1].equals("1");
+                        ToDo todo = new ToDo(inputs[2], isDone);
+                        dukeList.add(todo);
+                    }
+                    if (line.startsWith("D")) {
+                        String[] inputs = line.split(" \\| ", 4);
+                        boolean isDone = inputs[1].equals("1");
+                        Deadline deadline = new Deadline(inputs[2], isDone, inputs[3]);
+                        dukeList.add(deadline);
+                    }
+                    if (line.startsWith("E")) {
+                        String[] inputs = line.split(" \\| ", 5);
+                        boolean isDone = inputs[1].equals("1");
+                        Event event = new Event(inputs[2], isDone, inputs[3], inputs[4]);
+                        dukeList.add(event);
+                    }
+                }
+            } catch (IOException e) {
+                System.out.println(e.getMessage());
+            }
+        }
     }
 
     /**
@@ -33,8 +77,8 @@ public class DukeList {
      *
      * @param input The description of the ToDo task to be added.
      */
-    private void addToDo(String input) {
-        ToDo todo = new ToDo(input);
+    private void addToDo(String input, boolean isDone) {
+        ToDo todo = new ToDo(input, isDone);
         this.add(todo);
     }
 
@@ -44,8 +88,8 @@ public class DukeList {
      * @param input The description of the Deadline task to be added.
      * @param by The deadline of the task.
      */
-    private void addDeadline(String input, String by) {
-        Deadline deadline = new Deadline(input, by);
+    private void addDeadline(String input, boolean isDone, String by) {
+        Deadline deadline = new Deadline(input, isDone, by);
         this.add(deadline);
     }
 
@@ -56,8 +100,8 @@ public class DukeList {
      * @param from The start time of the event.
      * @param to The end time of the event.
      */
-    private void addEvent(String input, String from, String to) {
-        Event event = new Event(input, from, to);
+    private void addEvent(String input, boolean isDone, String from, String to) {
+        Event event = new Event(input, isDone, from, to);
         this.add(event);
     }
 
@@ -80,6 +124,7 @@ public class DukeList {
     private void markDone(int key) {
         Task task = dukeList.get(key - 1);
         task.markDone();
+        fileWriter.writeToFile(dukeList);
         System.out.println("Nice! I've marked this task as done:\n" + "\t" + task.toString());
     }
 
@@ -91,6 +136,7 @@ public class DukeList {
     private void unmark(int key) {
         Task task = dukeList.get(key - 1);
         task.unmark();
+        fileWriter.writeToFile(dukeList);
         System.out.println("OK, I've marked this task as not done yet:\n" + "\t" + task.toString());
     }
 
@@ -140,7 +186,7 @@ public class DukeList {
         if (input.startsWith("todo")) {
             String[] inputs = input.split(" ", 2);
             try {
-                this.addToDo(inputs[1]);
+                this.addToDo(inputs[1], false);
             } catch (ArrayIndexOutOfBoundsException e) {
                 throw new DukeException("todo cant be empty");
             }
@@ -150,7 +196,7 @@ public class DukeList {
             String[] inputs = input.split(" ", 2);
             try {
                 String[] deadLine = inputs[1].split("/by", 2);
-                this.addDeadline(deadLine[0], deadLine[1]);
+                this.addDeadline(deadLine[0], false, deadLine[1]);
             } catch (ArrayIndexOutOfBoundsException e) {
                 throw new DukeException("deadline invalid format");
             }
@@ -161,7 +207,7 @@ public class DukeList {
             try {
                 String[] from = inputs[1].split("/from", 2);
                 String[] to = from[1].split("/to", 2);
-                this.addEvent(from[0], to[0], to[1]);
+                this.addEvent(from[0], false, to[0], to[1]);
             } catch (ArrayIndexOutOfBoundsException e) {
                 throw new DukeException("event invalid format");
             }

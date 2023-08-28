@@ -1,4 +1,7 @@
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -28,11 +31,12 @@ public class DukeFileWriter {
         try {
             FileWriter writer = new FileWriter(file);
             for (Task entry : data) {
-                writer.write(entry.toString() + "\n");
+                writer.write(entry.writeFile() + "\n");
             }
             writer.close();
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
     }
+
 }
