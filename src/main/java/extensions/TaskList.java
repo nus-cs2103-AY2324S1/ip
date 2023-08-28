@@ -1,5 +1,8 @@
 package extensions;
 
+import exceptions.DukeException;
+import exceptions.InvalidIndexException;
+
 import java.lang.StringBuilder;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -39,18 +42,36 @@ public class TaskList {
     }
 
     public Task markTaskAsDone(int i) {
+        if (this.list.size() < 1) {
+            throw new DukeException("The task list is empty.");
+        }
+        if (i < 1 || i > this.list.size()) {
+            throw new InvalidIndexException(this.list.size());
+        }
         Task task = this.list.get(i-1);
         task.markAsDone();
         return task;
     }
 
     public Task unmarkTask(int i) {
+        if (this.list.size() < 1) {
+            throw new DukeException("The task list is empty.");
+        }
+        if (i < 1 || i > this.list.size()) {
+            throw new InvalidIndexException(this.list.size());
+        }
         Task task = this.list.get(i-1);
         task.unmark();
         return task;
     }
 
     public Task deleteTask(int i) {
+        if (this.list.size() < 1) {
+            throw new DukeException("The task list is empty.");
+        }
+        if (i < 1 || i > this.list.size()) {
+            throw new InvalidIndexException(this.list.size());
+        }
         Task task = this.list.remove(i-1);
         return task;
     }

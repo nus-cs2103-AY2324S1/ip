@@ -65,5 +65,11 @@ public class Ui {
         System.out.print(HORIZONTAL_LINE);
     }
 
+    public static void printError(String errorMessage) {
+        System.out.print(HORIZONTAL_LINE);
+        System.out.println(errorMessage);
+        System.out.print(HORIZONTAL_LINE);
+    }
+
 
 }
