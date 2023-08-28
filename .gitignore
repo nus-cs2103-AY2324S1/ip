@@ -14,8 +14,11 @@ src/main/resources/docs/
 bin/
 
 # Compiled java classes
-/src/main/java/*.class
+/**/*.class
 
 # Test artifacts
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT
+
+# Data files
+/data

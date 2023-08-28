@@ -1,10 +1,21 @@
-public class ToDo extends Task {
-    public ToDo(String description) {
-        super(description);
-    }
+import java.util.AbstractMap.SimpleEntry;
+import java.util.Map;
 
-    @Override
-    public String toString() {
-        return String.format("[T]%s", super.toString());
-    }
+public class ToDo extends Task {
+
+  public ToDo(String description) {
+    super(description);
+  }
+
+  @Override
+  public String toString() {
+    return String.format("[T]%s", super.toString());
+  }
+
+  @Override
+  public String toCommand(int idx) {
+    return (new ToDoCommand(Map.ofEntries(new SimpleEntry<>("description", this.description)))).toString()
+        + "\n" + super.toCommand(idx) + "\n";
+  }
+  
 }

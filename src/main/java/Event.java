@@ -1,3 +1,6 @@
+import java.util.AbstractMap.SimpleEntry;
+import java.util.Map;
+
 public class Event extends Task {
 
   protected String from;
@@ -13,4 +16,11 @@ public class Event extends Task {
   public String toString() {
     return String.format("[E]%s (from: %s to: %s)", super.toString(), this.from, this.to);
   }
+
+  @Override
+  public String toCommand(int idx) {
+    return (new EventCommand(Map.ofEntries(new SimpleEntry<>("description", this.description), new SimpleEntry<>("from", this.from), new SimpleEntry<>("to", this.to)))).toString()
+        + "\n" + super.toCommand(idx) + "\n";
+  }
+  
 }

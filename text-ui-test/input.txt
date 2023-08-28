@@ -2,34 +2,17 @@ todo read book
 deadline return book /by June 6th
 list all
 unmark 3
-todo
-event project meeting /from Mon 2pm /to 4pm
-event sleep /from 6am
-event sleep /to 6am
-deadline book room /by June 6th /from June 1st
-remove
-mark 1
-peek
-event meeting /from Mon 2pm /to 4pm /from 2pm
+event project meeting /from Aug 6th 2pm /to 4pm
 mark all
-deadline eat
-mark 2
-unmark each
-remove all
+todo
 mark 0
-unmark 1
-remove 4
-unmark 2
-deadline /by 6 Jan
-mark 3
+deadline /by noon
+event eat /to 8am
+mark 2
+unmark
+do
 list
-unmark 0
-event /from 6am /to 5pm
+unmark 2
 bye bye
-mark 4
-remove 0
-remove 2
-todo a / b
-deadline sit /by 1pm //sgt
 list
 bye

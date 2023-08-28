@@ -1,4 +1,8 @@
+import java.util.AbstractMap.SimpleEntry;
+import java.util.Map;
+
 public class Task {
+
   protected String description;
   protected boolean isDone;
 
@@ -23,4 +27,13 @@ public class Task {
   public String toString() {
     return String.format("[%s] %s", this.getStatusIcon(), this.description);
   }
+
+  public String toCommand(int idx) {
+    Map<String, Object> indexMap = Map.ofEntries(new SimpleEntry<>("index", idx));
+    if (this.isDone) {
+      return (new MarkCommand(indexMap)).toString();
+    }
+    return (new UnmarkCommand(indexMap)).toString();
+  }
+  
 }
