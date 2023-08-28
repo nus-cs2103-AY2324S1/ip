@@ -1,9 +1,14 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Duke {
 
     private static final String chatbotName = "Gobble Gobble";
+    private static final String DUKE_FILEPATH = "./src/main/data/duke.txt";
     private static final String lineSeparator = "____________________________________________________________";
 
     public static void main(String[] args) {
@@ -13,7 +18,7 @@ public class Duke {
         Scanner scanner = new Scanner(System.in);
 
         // Data
-        ArrayList<Task> taskList = new ArrayList<>();
+        ArrayList<Task> taskList = readListFromDisk();
 
 
         while (true) {
@@ -59,6 +64,7 @@ public class Duke {
                     default:
                         throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
                 }
+                saveListToDisk(taskList);
             } catch (DukeException e) {
                 System.out.println(Duke.lineSeparator + "\n" + e.getMessage() + "\n" + Duke.lineSeparator);
             } catch (Exception e) {
@@ -92,6 +98,74 @@ public class Duke {
             i++;
         }
         System.out.println(Duke.lineSeparator);
+    }
+
+    public static void saveListToDisk(ArrayList<Task> taskList) {
+        File data = new File(DUKE_FILEPATH);
+        // checks if data folder and duke.txt exists, else create file
+        if (!data.exists()) {
+            try {
+                boolean success = data.getParentFile().mkdirs();
+                boolean fileSuccess = data.createNewFile();
+            } catch (IOException e) {
+                System.out.println("Something went wrong: " + e.getMessage());
+            }
+        }
+        try {
+            FileWriter fw = new FileWriter(DUKE_FILEPATH);
+            System.out.println("Saving list to disk...");
+            for (Task task : taskList) {
+                fw.write(task.getFileDescriptor() + "\n");
+            }
+            fw.close();
+        } catch (IOException e) {
+            System.out.println("Something went wrong: " + e.getMessage());
+        }
+    }
+
+    private static ArrayList<Task> readListFromDisk() {
+        ArrayList<Task> taskList = new ArrayList<>();
+        try {
+            File f = new File(DUKE_FILEPATH);
+            Scanner s = new Scanner(f);
+            while (s.hasNext()) {
+                String line = s.nextLine();
+                String[] details = line.split("\\|");
+                String taskType = details[details.length - 1].trim();
+                boolean isDone = details[0].trim().equals("true");
+                String taskDescription = details[1].trim();
+                Task task;
+
+                switch (taskType) {
+                    case "TODO":
+                        task = new ToDoTask(taskDescription);
+                        break;
+                    case "DEADLINE":
+                        String by = details[2].trim();
+                        task = new DeadlineTask(taskDescription, by);
+                        break;
+                    case "EVENT":
+                        String from = details[2].trim();
+                        String to = details[3].trim();
+                        task = new EventTask(taskDescription, from, to);
+                        break;
+                    default:
+                        throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+                }
+                if (isDone) {
+                    task.mark();
+                }
+                taskList.add(task);
+            }
+        } catch (FileNotFoundException e) {
+            // Create folder data
+
+
+//            System.out.println("File not found: " + e.getMessage());
+        } catch (DukeException e) {
+            System.out.println("Something went wrong converting: " + e.getMessage());
+        }
+        return taskList;
     }
 
     /**
@@ -210,6 +284,7 @@ public class Duke {
     }
 
     public static void addTask(ArrayList<Task> taskList, Task task) {
+
         taskList.add(task);
     }
 

@@ -11,6 +11,12 @@ public class ToDoTask extends Task {
     }
 
     @Override
+    public String getFileDescriptor() {
+        return super.getFileDescriptor() + String.format("| %s ", "TODO");
+    }
+
+
+    @Override
     public String toString() {
         return "[T] " + super.toString();
     }
