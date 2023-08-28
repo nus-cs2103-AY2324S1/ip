@@ -1,3 +1,7 @@
+package bruno;
+
+import bruno.exceptions.BrunoException;
+
 import java.time.DateTimeException;
 import java.util.Scanner;
 

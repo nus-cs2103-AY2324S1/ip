@@ -1,5 +1,7 @@
+package bruno.exceptions;
+
 public class BrunoIncorrectFormatException extends BrunoException {
-    BrunoIncorrectFormatException() {
+    public BrunoIncorrectFormatException() {
         super("File is not in correct format.");
     }
 }

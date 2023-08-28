@@ -1,10 +1,11 @@
+package bruno.task;
+
 import java.time.DateTimeException;
 import java.time.LocalDateTime;
-import java.util.Date;
 
 public class Event extends Task {
-    protected LocalDateTime from;
-    protected LocalDateTime by;
+    public LocalDateTime from;
+    public LocalDateTime by;
 
     public Event(String description, String from, String by) {
         super(TaskType.EVENT, description);
