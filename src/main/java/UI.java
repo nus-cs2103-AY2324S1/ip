@@ -28,13 +28,11 @@ public class UI {
         return scanner.hasNextLine();
     }
 
-    public void displayList(ArrayList<Task> list) {
+    public void displayList(TaskList list) {
         if (list.isEmpty()) {
             System.out.println("There are no tasks in the list");
         }
-        for (int i = 1; i <= list.size(); ++i) {
-            System.out.printf("%d. %s%n", i, list.get(i - 1));
-        }
+        System.out.println(list);
         System.out.println("____________________________________________________________");
     }
 
@@ -48,7 +46,7 @@ public class UI {
     public void displayRemoveFromList(Task task, int totalSize) {
         System.out.println("This task is deleted from the list");
         System.out.println(task);
-        System.out.printf("You now have %d tasks in your list%n", totalSize);
+        System.out.printf("You now have %d tasks in your list:%n", totalSize);
         System.out.println("____________________________________________________________");
     }
 
