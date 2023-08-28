@@ -12,10 +12,10 @@ public abstract class Task {
 
 
 
-    public static Task createTask(String input) throws DukeException {
+    // public static Task createTask(String input) throws DukeException {
 
 
-    }
+    // }
 
     public String getStatusIcon() {
         return (isDone ? "X" : " "); // mark done task with X

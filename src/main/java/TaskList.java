@@ -7,14 +7,14 @@ import java.util.ArrayList;
 
 public class TaskList {
     private ArrayList<Task> userTasks;
-    private Ui ui;
-    private Storage storage;
     protected static final DateTimeFormatter DATE_FORMAT_OUTPUT = DateTimeFormatter.ofPattern("d/M/yyyy");
 
-    public TaskList(Ui ui, Storage storage) {
+    public TaskList() {
         this.userTasks = new ArrayList<Task>();
-        this.ui = ui;
-        this.storage = storage;
+    }
+    
+    public TaskList(ArrayList<Task> userTasks) {
+        this.userTasks = userTasks;
     }
 
     // public enum ActionType {
@@ -68,7 +68,7 @@ public class TaskList {
     // }
     public void add(Task task) {
         this.userTasks.add(task);
-        ui.showTaskAdded(task, this.userTasks.size());
+
     }
 
     public void delete(int taskId) {
@@ -118,24 +118,24 @@ public class TaskList {
         return output;
     }
 
-    public String toFileString() {
-        String output = "";
-        for (int i = 0; i < userTasks.size(); i++) {
-            output += userTasks.get(i).toFileString() + "\n";
-        }
-        return output;
-    }
+    // public String toFileString() {
+    //     String output = "";
+    //     for (int i = 0; i < userTasks.size(); i++) {
+    //         output += userTasks.get(i).toFileString() + "\n";
+    //     }
+    //     return output;
+    // }
 
-    public void saveToFile() throws DukeException{
-        Storage storage  = new Storage();
-        storage.saveStringToFile(this.toFileString());
-    }
+    // public void saveToFile() throws DukeException{
+    //     Storage storage  = new Storage();
+    //     storage.saveStringToFile(this.toFileString());
+    // }
 
-    public void loadFromFile() throws DukeException{
-        Storage storage  = new Storage();
-        String fileString = storage.loadStringFromFile();
+    // public void loadFromFile() throws DukeException{
+    //     Storage storage  = new Storage();
+    //     String fileString = storage.loadStringFromFile();
 
-    }
+    // }
 
     // public void getSchedule(String input) throws DukeException {
     // }

@@ -21,13 +21,13 @@ public class ScheduleCommand extends Command {
         String output = "";
         for (int i = 0; i < taskList.size(); i++) {
             Task task = taskList.get(i);
-            if (task instanceof Deadline) {
-                Deadline deadline = (Deadline) task;
+            if (task instanceof DeadlineTask) {
+                DeadlineTask deadline = (DeadlineTask) task;
                 if (deadline.by.toLocalDate().equals(queryDateTime)) {
                     output += (i + 1) + ". " + deadline.toString() + "\n";
                 }
-            } else if (task instanceof Event) {
-                Event event = (Event) task;
+            } else if (task instanceof EventTask) {
+                EventTask event = (EventTask) task;
                 if (!event.startDate.toLocalDate().isAfter(queryDateTime) & !event.endDate.toLocalDate().isBefore(queryDateTime)) {
                     output += (i + 1) + ". " + event.toString() + "\n";
                 }

@@ -1,12 +1,12 @@
 import java.time.DateTimeException;
 import java.time.LocalDateTime;
 
-public class Event extends Task {
+public class EventTask extends Task {
 
     protected LocalDateTime startDate;
     protected LocalDateTime endDate;
 
-    public Event(String description, String startDate, String endDate) throws DukeException {
+    public EventTask(String description, String startDate, String endDate) throws DukeException {
         super(description);
         try {
             this.startDate = LocalDateTime.parse(startDate, Task.DATE_FORMAT);
@@ -16,7 +16,7 @@ public class Event extends Task {
         }
     }
 
-    public Event() {
+    public EventTask() {
         super("");
     }
 

@@ -1,6 +1,3 @@
-import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.Scanner;
 public class Duke {
 
     private Storage storage;
@@ -11,7 +8,7 @@ public class Duke {
         ui = new Ui();
         storage = new Storage(filePath);
         try {
-            tasks = new TaskList(storage.loadStringFromFile());
+            tasks = new TaskList(storage.load());
         } catch (DukeException e) {
             ui.showLoadingError();
             tasks = new TaskList();
@@ -24,7 +21,7 @@ public class Duke {
         while (!isExit) {
             try {
                 String fullCommand = ui.readCommand();
-                ui.showLine(); // show the divider line ("_______")
+                ui.showLine(); 
                 Command c = Parser.parse(fullCommand);
                 c.execute(tasks, ui, storage);
                 isExit = c.isExit();
@@ -36,22 +33,6 @@ public class Duke {
         }
     }
     public static void main(String[] args) {
-
-
-        //Add the ability to store whatever text entered by the user and display them back to the user when requested.
-        TaskList userTasks = new TaskList();
-
-        Scanner scanner = new Scanner(System.in);
-        String input;
-        do {
-            input = scanner.nextLine();
-            try {
-                System.out.println("####################");
-                System.out.println("Your request is: " + input);
-                userTasks.handleAction(input);
-            } catch (DukeException e) {
-                System.out.println(e.getMessage());
-            } 
-        } while (!input.equals("bye"));
+        new Duke("data/duke.txt").run();
     }
 }

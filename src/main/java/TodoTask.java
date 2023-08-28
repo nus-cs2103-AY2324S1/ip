@@ -1,10 +1,10 @@
-public class Todo extends Task {
+public class TodoTask extends Task {
 
-    public Todo (String description) {
+    public TodoTask (String description) {
         super(description);
     }
 
-    public Todo() {
+    public TodoTask() {
         super("");
     }
     
