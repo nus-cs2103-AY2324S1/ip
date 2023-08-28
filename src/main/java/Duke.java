@@ -2,46 +2,31 @@ import java.util.Objects;
 import java.util.Scanner;
 
 public class Duke {
+	/**
+	 * The main function where the program starts
+	 *
+	 * @param args input args
+	 */
 	public static void main(String[] args) {
-		printLine();
-		TaskList taskList = new TaskList(); // Initialise the list
+		Duke duke = new Duke();
+		Storage storage = new Storage("data/duke.txt");
+		TaskList taskList = storage.readFromFile();
+		duke.printLine();
 		System.out.println("Hello I'm RyamBot");
 		System.out.println("What can I do for you?");
-		printLine();
-		queryBot(taskList);
-		printLine();
+		duke.printLine();
+		duke.queryBot(taskList, storage);
+		duke.printLine();
 	}
 
 	/**
 	 * Prints a line
 	 */
-	public static void printLine() {
+	void printLine() {
 		System.out.println("____________________________________________________________");
 	}
 
-	/**
-	 * Checks if the argument is numeric or not. Leading and trailing whitespace characters in str are ignored. Empty
-	 * or null str return false.
-	 *
-	 * @param str - the string to be checked
-	 * @return true if the argument is numeric and can be parsed as a number. Returns false otherwise.
-	 */
-	public static boolean isNumeric(String str) {
-		if (str == null) {
-			return false;
-		}
-		try {
-			Double.parseDouble(str);
-			return true;
-		} catch (NumberFormatException nfe) {
-			return false;
-		}
-	}
-
-	/**
-	 * @param taskList
-	 */
-	static void queryBot(TaskList taskList) {
+	void queryBot(TaskList taskList, Storage storage) {
 		Scanner input = new Scanner(System.in);
 		while (input.hasNextLine()) {
 			try {
@@ -51,19 +36,19 @@ public class Duke {
 					exit();
 					break;
 				} else if (query.equals("list")) {
-					list(taskList);
+					list(taskList, storage);
 				} else if (query.startsWith("delete")) {
-					delete(taskList, query);
+					delete(query, taskList, storage);
 				} else if (query.startsWith("mark")) {
-					mark(taskList, query);
+					mark(query, taskList, storage);
 				} else if (query.startsWith("unmark")) {
-					unmark(taskList, query);
+					unmark(query, taskList, storage);
 				} else if (query.startsWith("event")) {
-					event(taskList, query);
+					event(query, taskList, storage);
 				} else if (query.startsWith("deadline")) {
-					deadline(taskList, query);
+					deadline(query, taskList, storage);
 				} else if (query.startsWith("todo")) {
-					todo(taskList, query);
+					todo(query, taskList, storage);
 				} else {
 					throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
 				}
@@ -76,10 +61,28 @@ public class Duke {
 	}
 
 	/**
-	 * @param taskList
+	 * Checks if the argument is numeric or not. Leading and trailing whitespace characters in str are ignored. Empty
+	 * or null str return false.
+	 *
+	 * @param str - the string to be checked
+	 * @return true if the argument is numeric and can be parsed as a number. Returns false otherwise.
+	 */
+	boolean isNumeric(String str) {
+		if (str == null) {
+			return false;
+		}
+		try {
+			Double.parseDouble(str);
+			return true;
+		} catch (NumberFormatException nfe) {
+			return false;
+		}
+	}
+
+	/**
 	 * @throws DukeException
 	 */
-	static void list(TaskList taskList) throws DukeException {
+	void list(TaskList taskList, Storage storage) throws DukeException {
 		if (taskList.length() <= 0) {
 			throw new DukeException("☹ OOPS!!! I'm sorry, but you don't have any tasks yet!");
 		}
@@ -87,11 +90,12 @@ public class Duke {
 	}
 
 	/**
-	 * @param taskList
 	 * @param query
+	 * @param taskList
+	 * @param storage
 	 * @throws DukeException
 	 */
-	static void delete(TaskList taskList, String query) throws DukeException {
+	void delete(String query, TaskList taskList, Storage storage) throws DukeException {
 		if (query.split(" ").length == 1) {
 			throw new DukeException("☹ OOPS!!! You are missing a number\n" +
 							"Please enter a valid delete query - delete 1");
@@ -112,15 +116,17 @@ public class Duke {
 							"and then delete the following task that you would like");
 		} else {
 			taskList.delete(index);
+			storage.writeToFile(taskList);
 		}
 	}
 
 	/**
-	 * @param taskList
 	 * @param query
+	 * @param taskList
+	 * @param storage
 	 * @throws DukeException
 	 */
-	static void mark(TaskList taskList, String query) throws DukeException {
+	void mark(String query, TaskList taskList, Storage storage) throws DukeException {
 		if (query.split(" ").length == 1) {
 			throw new DukeException("☹ OOPS!!! You are missing a number\n" +
 							"Please enter a valid mark query - mark 1");
@@ -142,16 +148,17 @@ public class Duke {
 		} else {
 			Task currTask = taskList.get(index);
 			currTask.mark();
-			System.out.println(currTask);
+			storage.writeToFile(taskList);
 		}
 	}
 
 	/**
-	 * @param taskList
 	 * @param query
+	 * @param taskList
+	 * @param storage
 	 * @throws DukeException
 	 */
-	static void unmark(TaskList taskList, String query) throws DukeException {
+	void unmark(String query, TaskList taskList, Storage storage) throws DukeException {
 		if (query.split(" ").length == 1) {
 			throw new DukeException("☹ OOPS!!! You are missing a number\n" +
 							"Please enter a valid unmark query - unmark 1");
@@ -173,31 +180,33 @@ public class Duke {
 		} else {
 			Task currTask = taskList.get(index);
 			currTask.unmark();
-			System.out.println(currTask);
+			storage.writeToFile(taskList);
 		}
 	}
 
 	/**
-	 * @param taskList
 	 * @param query
+	 * @param taskList
+	 * @param storage
 	 * @throws DukeException
 	 */
-	static void todo(TaskList taskList, String query) throws DukeException {
+	void todo(String query, TaskList taskList, Storage storage) throws DukeException {
 		if (query.split(" ").length == 1) {
 			throw new DukeException("☹ OOPS!!! The description of a todo cannot be empty.\n" +
 							"Please enter a valid todo - todo read book or todo sleep");
 		}
 		String[] splitted = query.split(" ", 2);
 		Task newTask = new ToDo(splitted[1]);
-		taskList.addToList(newTask);
+		taskList.addToList(newTask, storage);
 	}
 
 	/**
-	 * @param taskList
 	 * @param query
+	 * @param taskList
+	 * @param storage
 	 * @throws DukeException
 	 */
-	static void deadline(TaskList taskList, String query) throws DukeException {
+	void deadline(String query, TaskList taskList, Storage storage) throws DukeException {
 		if (query.split(" ").length == 1) {
 			throw new DukeException("☹ OOPS!!! The description of a deadline cannot be empty.\n" +
 							"Please enter a valid deadline - deadline return book /by 2pm");
@@ -218,15 +227,16 @@ public class Duke {
 		}
 		String deadline = parts[1];
 		Task newTask = new Deadline(taskName, deadline);
-		taskList.addToList(newTask);
+		taskList.addToList(newTask, storage);
 	}
 
 	/**
-	 * @param taskList
 	 * @param query
+	 * @param taskList
+	 * @param storage
 	 * @throws DukeException
 	 */
-	static void event(TaskList taskList, String query) throws DukeException {
+	void event(String query, TaskList taskList, Storage storage) throws DukeException {
 		if (query.split(" ").length == 1) {
 			throw new DukeException("☹ OOPS!!! The description of an event cannot be empty.\n" +
 							"Please enter a valid event - event read book /from 2pm /to 4pm");
@@ -263,13 +273,14 @@ public class Duke {
 							"Please enter a valid event - event read book /from 2pm /to 4pm");
 		}
 		Task newTask = new Event(taskName, from, to);
-		taskList.addToList(newTask);
+		taskList.addToList(newTask, storage);
 	}
 
 	/**
 	 * Prints exit message
 	 */
-	static void exit() {
+	void exit() {
 		System.out.println("Bye. Hope to see you again soon!");
 	}
+
 }
