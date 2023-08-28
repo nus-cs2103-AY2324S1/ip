@@ -1,6 +1,8 @@
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -215,17 +217,19 @@ public class Oscar {
             throw new OscarException("Sorry! " +
                     "The deadline task is not formatted correctly.\n");
         }
-        String[] split = details.split(" /by ", 2);
-        String description = split[0];
+        String[] detailsSplit = details.split(" /by ", 2);
+        String description = detailsSplit[0];
         if (description.length() == 0) {
             throw new OscarException("Sorry! " +
                     "The description of a deadline task cannot be empty.\n");
         }
-        String deadline = split[1];
-        if (deadline.length() == 0) {
+        String deadlineDateTime = detailsSplit[1];
+        if (!deadlineDateTime.contains(" ")) {
             throw new OscarException("Sorry! " +
-                    "The deadline of a deadline task cannot be empty.\n");
+                    "Please enter a date and time in this format: 2019-10-15 1800.\n");
         }
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+        LocalDateTime deadline = LocalDateTime.parse(deadlineDateTime, formatter);
         Task newDeadline = new Deadline(description, deadline);
         taskList.add(newDeadline);
         System.out.println("Oscar has added:\n" + newDeadline + "\n");
