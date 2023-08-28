@@ -15,4 +15,12 @@ public class ToDoTest {
         ToDo toDo1 = ToDo.create("0", "abc");
         assertEquals(toDo.toString(), toDo1.toString());
     }
+
+
+    @Test
+    public void saveToFileLine_correctFormat(){
+        ToDo toDo = new ToDo("abc");
+        String saveToFileLine = toDo.saveToFileLine();
+        assertEquals(saveToFileLine, "T | 0 | abc\n");
+    }
 }

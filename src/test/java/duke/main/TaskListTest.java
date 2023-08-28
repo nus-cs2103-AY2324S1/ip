@@ -7,16 +7,16 @@ public class TaskListTest {
     @Test
     public void add_newTask_taskListExpands(){
         TaskList taskList = new TaskList();
-        taskList.add(new Task("a"));
-        taskList.add(new Task("b"));
+        taskList.add(new Task("todo a"));
+        taskList.add(new Task("todo b"));
         assertEquals(taskList.size(), 2);
     }
 
     @Test
     public void remove_existingTask_taskListShrinks(){
         TaskList taskList = new TaskList();
-        Task a = new Task("a");
-        Task b = new Task("b");
+        Task a = new Task("todo a");
+        Task b = new Task("todo b");
         taskList.add(a);
         taskList.add(b);
         Task taskRemoved = taskList.remove(1);
