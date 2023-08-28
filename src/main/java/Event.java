@@ -5,10 +5,22 @@ public class Event extends Task{
             throw new DukeNoDescriptionException("Event");
         }
         int index = Description.indexOf("/");
-        String content = Description.substring(0, index);
+        String content = Description.substring(6, index);
+        String time = getTime(Description, index);
+        this.Description = content + "(" + time + ")";
+        System.out.println("Got it. I've added this task:");
+        System.out.println("    " + this);
+    }
+
+    private String getTime(String Description, int index) throws DukeNoDateException {
         String time;
-        int lastIndex = Description.lastIndexOf("/");
-        if (lastIndex == index || Description.length() - lastIndex <  7) {
+
+        int lastIndex = Description.substring(index + 1).indexOf("/");
+        if (lastIndex != -1) {
+            lastIndex += (index + 1);
+        }
+
+        if (lastIndex == index || Description.length() - lastIndex <  7 || lastIndex == -1) {
             throw new DukeNoDateException("Event");
         }
         String startTime = Description.substring(index + 1, index + 5)
@@ -18,12 +30,10 @@ public class Event extends Task{
                 + ":"
                 + Description.substring(lastIndex + 3);
         time = startTime + endTime;
-        this.Description = content + "(" + time + ")";
-        System.out.println("Got it. I've added this task:");
-        System.out.println("    " + this.toString());
+        return time;
     }
 
     public String toString() {
-        return "[E] " + super.toString();
+        return "[E]" + super.toString();
     }
 }

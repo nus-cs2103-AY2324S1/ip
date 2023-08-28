@@ -10,16 +10,16 @@ public class Deadline extends Task{
         if (index == -1) {
             throw new DukeNoDateException("Deadline");
         }
-        String content = Description.substring(0, index);
+        String content = Description.substring(9, index);
         String time = Description.substring(index + 1, index + 3)
                 + ":"
                 + Description.substring(index + 3);
         this.Description = content + "(" + time + ")";
         System.out.println("Got it. I've added this task:");
-        System.out.println("    " + this.toString());
+        System.out.println("    " + this);
     }
 
     public String toString() {
-        return "[D] " + super.toString();
+        return "[D]" + super.toString();
     }
 }

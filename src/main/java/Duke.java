@@ -2,24 +2,24 @@ import java.util.*;
 public class Duke {
 
     //private static final Task[] tasks = new Task[100];
-    private static ArrayList<Task> tasks = new ArrayList<>();
+    private static final ArrayList<Task> tasks = new ArrayList<>();
     private static int count = 0;
     private static boolean terminate = false;
-    private static String seperation = "____________________________________________";
+    private static final String separation = "____________________________________________";
 
     // A greeting display everytime entering the program
     private static void OnEnter () {
-        System.out.println(seperation);
+        System.out.println(separation);
         System.out.println("Hello! I am YOU");
         System.out.println("What can I do for you?");
-        System.out.println(seperation);
+        System.out.println(separation);
     }
 
     // An exit display everytime exits the program
     private static void OnExit() {
-        System.out.println(seperation);
+        System.out.println(separation);
         System.out.println("Bye. Hope to see you again soon!");
-        System.out.println(seperation);
+        System.out.println(separation);
     }
 
     //Reads and store input
@@ -38,7 +38,7 @@ public class Duke {
     // A display everytime receive an input
     private static void displayInfo(String msg) {
         Task task;
-        System.out.println(seperation);
+        System.out.println(separation);
         try{
             if (msg.startsWith("todo")) {
                 task = new ToDo(msg);
@@ -52,8 +52,11 @@ public class Duke {
             } else {
                 throw new DukeUnknownInstruction();
             }
-            System.out.println("Now you have " + Duke.count + " tasks in the list.");
-            System.out.println(seperation);
+            System.out.println("Now you have "
+                    + Duke.count
+                    + (count <= 1 ? " task" : " tasks")
+                    + " in the list.");
+            System.out.println(separation);
         } catch (Exception e) {
             System.err.println(e.getMessage());
         }
@@ -62,31 +65,35 @@ public class Duke {
     private static void deleteTask(int index){
         Task delete = tasks.remove(index);
         count --;
-        System.out.println(seperation);
+        System.out.println(separation);
         System.out.println("Noted. I've removed this task:");
         System.out.println("    " + delete.toString());
         System.out.println("Now you have " + Duke.count + " tasks in the list.");
-        System.out.println(seperation);
+        System.out.println(separation);
     }
 
     private static void readInputs(String msg) {
         if (msg.equals("list")) {
-            System.out.println(seperation);
+            System.out.println(separation);
             listTasks();
-            System.out.println(seperation);
+            System.out.println(separation);
         } else if (msg.equals("bye")) {
             Duke.terminate = true;
         } else {
-            boolean isMark = msg.matches(".*\\040[0-9]");
-            if (isMark) {
+            boolean isKeyword = msg.matches(".*\\040[0-9]");
+            if (isKeyword) {
                 String[] part = msg.split("\\s+");
                 int ind = Integer.parseInt(part[1]) - 1;
-                if (part[0].equals("mark")) {
-                    tasks.get(ind).MarkAsDone();
-                } else if (part[0].equals("unmark")) {
-                    tasks.get(ind).MarkAsUnDone();
-                } else if (part[0].equals("delete")) {
-                    deleteTask(ind);
+                switch (part[0]) {
+                    case "mark":
+                        tasks.get(ind).MarkAsDone();
+                        break;
+                    case "unmark":
+                        tasks.get(ind).MarkAsUnDone();
+                        break;
+                    case "delete":
+                        deleteTask(ind);
+                        break;
                 }
             } else {
                 displayInfo(msg);
@@ -104,11 +111,11 @@ public class Duke {
 
         OnEnter();
 
-        do {
-            Scanner sc = new Scanner(System.in);
+        Scanner sc = new Scanner(System.in);
+        while (!Duke.terminate && sc.hasNextLine()) {
             String line = sc.nextLine();
             readInputs(line);
-        } while(!Duke.terminate);
+        }
 
         OnExit();
     }
