@@ -120,4 +120,21 @@ public class Ui {
         System.out.println("☹ Oopsie! I'm sorry, but I don't know what that means.");
     }
 
+    public void printSearchResult(TaskList taskList) {
+        if(taskList.getSize() == 0) {
+            System.out.println(INDENTATION + HORIZONTAL_LINE);
+            System.out.println(INDENTATION + "There is no task matched to your query");
+            System.out.println(INDENTATION + HORIZONTAL_LINE);
+            return;
+        }
+        System.out.println(INDENTATION + HORIZONTAL_LINE);
+        System.out.println(INDENTATION + "Here are the matching tasks in your list:");
+        int i = 1;
+        for (Task task : taskList.getTaskList()) {
+            System.out.println(String.format("%s%d.%s",
+                    INDENTATION, i, task.toString()));
+            i++;
+        }
+        System.out.println(INDENTATION + HORIZONTAL_LINE);
+    }
 }

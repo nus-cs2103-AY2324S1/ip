@@ -16,18 +16,15 @@ public class Storage {
      * Constructs a Storage instance with a default file path.
      */
     public Storage() {
-        filePath = "..\\src\\main\\data\\mil.txt";
+        filePath = "src\\main\\data\\mil.txt";
         file = new File(filePath);
+        taskList = new TaskList();
     }
 
     /**
      * Loads tasks from the file and adds them to the task list.
      */
-    public void loadTasksFromFile() {
-        if (taskList == null) {
-            return;
-        }
-
+    public TaskList loadTasksFromFile() {
         try (BufferedReader inputFile = new BufferedReader(new FileReader(file))) {
             String line;
             while ((line = inputFile.readLine()) != null) {
@@ -39,6 +36,7 @@ public class Storage {
         } catch (IOException e) {
             System.err.println("Error loading tasks: " + e.getMessage());
         }
+        return taskList;
     }
 
     /**

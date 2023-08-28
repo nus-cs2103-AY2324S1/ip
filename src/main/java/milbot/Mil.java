@@ -15,10 +15,10 @@ public class Mil {
      * Initializes the task list, user interface, storage, and parser.
      */
     public Mil() {
-        taskList = new TaskList();
         ui = new Ui();
         storage = new Storage();
-        parser = new Parser(taskList, ui,storage);
+        taskList = storage.loadTasksFromFile();
+        parser = new Parser(taskList, ui);
     }
     /**
      * The main method that starts the Mil chatbot application.
@@ -30,7 +30,7 @@ public class Mil {
         Scanner scanner = new Scanner(System.in);
         String input;
         ui.printWelcomeMessage();
-        storage.loadTasksFromFile();
+
 
         while (scanner.hasNext()) {
             input = scanner.nextLine();
