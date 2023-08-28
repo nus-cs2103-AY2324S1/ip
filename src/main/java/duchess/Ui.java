@@ -1,3 +1,5 @@
+package duchess;
+
 public class Ui {
     /**
      * Prints text, but with a consistent formatting in Duchess style.

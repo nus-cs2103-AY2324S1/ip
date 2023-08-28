@@ -1,3 +1,5 @@
+package duchess;
+
 class DuchessException extends Throwable {
     private String message;
 

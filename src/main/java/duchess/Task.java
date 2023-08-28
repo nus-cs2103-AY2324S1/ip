@@ -1,3 +1,5 @@
+package duchess;
+
 public abstract class Task {
     public static final String SAVE_STRING_DELIMITER = "\\|";
 
