@@ -1,3 +1,4 @@
+package duke;
 public class Deadline extends Task{
     protected String deadline;
 
@@ -9,7 +10,7 @@ public class Deadline extends Task{
     @Override
     public String getDescription() {
         return "[D]" + super.getDescription()
-                + "(by:" + this.deadline + ")";
+                + " (by: " + this.deadline + ")";
     }
 
     @Override
