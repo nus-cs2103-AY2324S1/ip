@@ -5,6 +5,17 @@ event project meeting /from Mon 2pm /to 4pm
 list
 test
 test2
+deadline fix dates /by 2019-10-15 2pm
+event date fixing /from Fri 4pm /to Sun 6pm
 event bad event /to 4pm from 2pm
-delete 2
+event weirdly timed event /from apples /to oranges
+list
+delete 1
+delete 1
+delete 1
+delete 1
+delete 1
+delete 1
+delete 1
+list
 bye
