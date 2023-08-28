@@ -1,1 +1,4 @@
-D | 0 | return book | 28/08/2023 2359
+T | 0 | read book
+E | 1 | NUS GreyHats | 19/09/2023 1800 | 21/09/2023 1800
+D | 0 | submit lab | 19/08/2023 1900
+T | 1 | return book
