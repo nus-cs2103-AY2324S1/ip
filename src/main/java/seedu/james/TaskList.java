@@ -96,6 +96,23 @@ public class TaskList {
         return this.items.get(index);
     }
 
+    public String find(String query) {
+        String output = "";
+        int count = 0;
+        for (int i = 0; i < this.items.size(); i++) {
+            Task task = this.items.get(i);
+            if (task.description.contains(query)) {
+                output += (count + 1) + "." + task.toString() + "\n";
+                count++;
+            }
+        }
+        // remove the last \n
+        if (output.length() > 0) {
+            output = output.substring(0, output.length() - 1);
+        }
+        return output;
+    }
+
     /**
      * Returns the string representation of the task list
      *
