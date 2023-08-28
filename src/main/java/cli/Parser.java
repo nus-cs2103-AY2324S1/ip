@@ -19,7 +19,7 @@ public final class Parser {
             throw new IllegalArgumentException("Empty line passed to Command.parse");
         }
 
-        String[] componentStrings = line.split("\\\\");
+        String[] componentStrings = line.split("\\/");
 
         Component[] components = new Component[componentStrings.length];
 
@@ -132,7 +132,7 @@ public final class Parser {
     private static String getFlagValue(String line, HashMap<String, String> flags, String name) {
         String value = flags.get(name);
         if (value == null) {
-            throw new ParseException(line, "Missing an option: \\" + name);
+            throw new ParseException(line, "Missing an option: /" + name);
         }
         return value;
     }

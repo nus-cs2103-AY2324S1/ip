@@ -19,6 +19,6 @@ public final class CreateDeadlineAction extends Action {
 
     @Override
     public String toString() {
-        return String.format("deadline %s \\by %s", title, by);
+        return String.format("deadline %s /by %s", title, by.format(DateTime.FORMATTER));
     }
 }

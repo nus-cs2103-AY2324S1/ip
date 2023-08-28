@@ -25,6 +25,7 @@ public final class CreateEventAction extends Action {
 
     @Override
     public String toString() {
-        return String.format("event %s \\from %s \\to %s", title, from, to);
+        return String.format("event %s /from %s /to %s", title, from.format(DateTime.FORMATTER),
+                to.format(DateTime.FORMATTER));
     }
 }
