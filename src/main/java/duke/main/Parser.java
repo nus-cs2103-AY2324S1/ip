@@ -34,14 +34,6 @@ public class Parser {
     }
 
     /**
-     * Exits chatbot.
-     */
-    private void exit() {
-
-        this.line("  Bye~ Hope to see you again soon! >w<");
-    }
-
-    /**
      * Lists out all tasks.
      */
     private void listOutTasks() {
@@ -52,6 +44,14 @@ public class Parser {
         this.line(tasksList);
     }
 
+    /**
+     * Exits chatbot.
+     */
+    private void exit() {
+
+        this.line("  Bye~ Hope to see you again soon! >w<");
+    }
+    
     /**
      * Marks task as done.
      * @param index
