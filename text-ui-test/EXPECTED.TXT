@@ -10,9 +10,9 @@ Here's your list of tasks!
 
 1: To Do -> [ ] return books
 ---------------------------------
-Task cannot be found :(
+Tasks.Task cannot be found :(
 ---------------------------------
-Task cannot be found :(
+Tasks.Task cannot be found :(
 ---------------------------------
 To Do -> [ ] return books has been deleted!
 ---------------------------------
@@ -24,14 +24,14 @@ A new task has been added!
 Title of the task is missing! Please give your task a name :)
 ---------------------------------
 A new task has been added!
- Deadline -> [ ] write essay By: 25/9
+ Tasks.Deadline -> [ ] write essay By: 25/9
 ---------------------------------
 Title of the task is missing! Please give your task a name :)
 ---------------------------------
 Date of the task is missing! Please give your task a date :)
 ---------------------------------
 A new task has been added!
- Event -> [ ] hackathon (23/9 - 25/9)
+ Tasks.Event -> [ ] hackathon (23/9 - 25/9)
 ---------------------------------
 Title of the task is missing! Please give your task a name :)
 ---------------------------------
@@ -44,28 +44,28 @@ Date of the task is missing! Please give your task a date :)
 Here's your list of tasks!
 
 1: To Do -> [ ] return books
-2: Deadline -> [ ] write essay By: 25/9
-3: Event -> [ ] hackathon (23/9 - 25/9)
+2: Tasks.Deadline -> [ ] write essay By: 25/9
+3: Tasks.Event -> [ ] hackathon (23/9 - 25/9)
 ---------------------------------
 'return books' is completed! Good job :)
 ---------------------------------
-Task cannot be found :(
+Tasks.Task cannot be found :(
 ---------------------------------
-Task cannot be found :(
+Tasks.Task cannot be found :(
 ---------------------------------
 'return books' is now not completed :(
 ---------------------------------
-Task cannot be found :(
+Tasks.Task cannot be found :(
 ---------------------------------
-Task cannot be found :(
+Tasks.Task cannot be found :(
 ---------------------------------
 'write essay' is completed! Good job :)
 ---------------------------------
 Here's your list of tasks!
 
 1: To Do -> [ ] return books
-2: Deadline -> [X] write essay By: 25/9
-3: Event -> [ ] hackathon (23/9 - 25/9)
+2: Tasks.Deadline -> [X] write essay By: 25/9
+3: Tasks.Event -> [ ] hackathon (23/9 - 25/9)
 ---------------------------------
 ---------------------------------
 Goodbye. Hope to see you soon!

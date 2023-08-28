@@ -1,3 +1,5 @@
+package Tasks;
+
 public class Task {
 
     /** Completion status of the task. */
@@ -6,12 +8,12 @@ public class Task {
     private String taskName;
 
     /**
-     * Constructor for Task.
+     * Constructor for Tasks.Task.
      * @param taskName Name of task.
      */
-    public Task(String taskName) {
+    public Task(String taskName, int isDone) {
         this.taskName = taskName;
-        this.isDone = false;
+        this.isDone = isDone == 1;
     }
 
     /**
@@ -39,5 +41,10 @@ public class Task {
     public String markAsUndone() {
         this.isDone = false;
         return "'" + this.taskName + "'" + " is now not completed :(";
+    }
+
+    @Override
+    public String toString() {
+        return (isDone ? "/C " : "/UC ") + "/TASK" + taskName ;
     }
 }

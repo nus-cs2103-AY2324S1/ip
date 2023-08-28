@@ -1,3 +1,13 @@
+import Exceptions.DukeException;
+import Exceptions.InvalidInputException;
+import Exceptions.MissingTaskException;
+import Exceptions.MissingDateException;
+import Exceptions.MissingTitleException;
+import Tasks.Deadline;
+import Tasks.Event;
+import Tasks.Task;
+import Tasks.ToDo;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -23,7 +33,7 @@ public class Duke {
      * @param input The user input.
      * @param command Type of command given by the user.
      * @return The title of the task.
-     * @throws DukeException InvalidInputException thrown if input cannot be recognised. MissingTitleException thrown
+     * @throws DukeException Exceptions.InvalidInputException thrown if input cannot be recognised. Exceptions.MissingTitleException thrown
      * if user did not give a title for their task.
      */
     private static String obtainTitle(String input, Commands command) throws DukeException{
@@ -53,7 +63,7 @@ public class Duke {
      * @param input The user input.
      * @param command Type of command given by the user.
      * @return By date of deadlines or From and To date of events.
-     * @throws DukeException InvalidInputException thrown if input cannot be recognised. MissingDateException thrown
+     * @throws DukeException Exceptions.InvalidInputException thrown if input cannot be recognised. Exceptions.MissingDateException thrown
      * if user did not give a by date for their deadline or either a from or to date for their event.
      */
     private static String obtainDate(String input, Commands command) throws DukeException{
@@ -82,7 +92,7 @@ public class Duke {
      * @param command Type of command given by the user.
      * @param tasks List of tasks added by the user.
      * @return Dialogue for the bot to confirm status of the task.
-     * @throws DukeException InvalidInputException thrown if input cannot be recognised. MissingTaskException thrown
+     * @throws DukeException Exceptions.InvalidInputException thrown if input cannot be recognised. Exceptions.MissingTaskException thrown
      * if task cannot be found in the task list.
      */
     private static String changeTaskCompletion(String input, Commands command, List<Task> tasks) throws DukeException{
@@ -100,9 +110,9 @@ public class Duke {
             }
 
         } catch (ArrayIndexOutOfBoundsException aoob) {
-            throw new MissingTaskException("Missing Task");
+            throw new MissingTaskException("Missing Tasks.Task");
         } catch (IndexOutOfBoundsException ioob) {
-            throw new MissingTaskException("Missing Task");
+            throw new MissingTaskException("Missing Tasks.Task");
         } catch (Exception e) {
             throw new InvalidInputException("Invalid input");
         }
@@ -113,7 +123,7 @@ public class Duke {
      * @param input The user input.
      * @param tasks List of tasks added by the user.
      * @return Dialogue to confirm the deletion of the task from the list.
-     * @throws DukeException InvalidInputException thrown if input cannot be recognised. MissingTaskException thrown
+     * @throws DukeException Exceptions.InvalidInputException thrown if input cannot be recognised. Exceptions.MissingTaskException thrown
      * if task cannot be found in the task list.
      */
     private static String deleteTask(String input, List<Task> tasks) throws DukeException {
@@ -123,12 +133,62 @@ public class Duke {
             return deleted.getTask() + " has been deleted!";
 
         } catch (ArrayIndexOutOfBoundsException aoob) {
-            throw new MissingTaskException("Missing Task");
+            throw new MissingTaskException("Missing Tasks.Task");
         } catch (IndexOutOfBoundsException ioob) {
-            throw new MissingTaskException("Missing Task");
+            throw new MissingTaskException("Missing Tasks.Task");
         } catch (Exception e) {
             throw new InvalidInputException("Invalid input");
         }
+    }
+
+    private static Task createTask(String input, Commands command, int isDone) throws DukeException {
+        try {
+            switch (command) {
+                case TODO:
+                    String todoTitle = obtainTitle(input, Commands.TODO);
+                    return new ToDo(todoTitle, isDone);
+
+                case DEADLINE:
+                    String deadlineTitle = obtainTitle(input, Commands.DEADLINE);
+                    String by = obtainDate(input, Commands.DEADLINE);
+                    return new Deadline(deadlineTitle, isDone, by);
+
+                case EVENT:
+                    String eventTitle = obtainTitle(input, Commands.EVENT);
+                    String fromTo = obtainDate(input, Commands.EVENT);
+                    return new Event(eventTitle, isDone, fromTo.split("/to")[0], fromTo.split("/to")[1]);
+
+                default:
+                    throw new InvalidInputException("Invalid input");
+            }
+        } catch (DukeException e) {
+            throw e;
+        }
+    }
+
+    private static List<Task> stringToTask(List<String> input) {
+        List<Task> output = new ArrayList<>();
+        try {
+            for (int i = 0; i < input.size(); i++) {
+                String nextInput = input.get(i);
+                Commands command = determineCommand(nextInput);
+                int isDone = nextInput.contains("/UC") ? 0 : 1;
+                Task task = createTask(nextInput, command, isDone);
+                output.add(task);
+            }
+            return output;
+        } catch (DukeException e) {
+            System.out.println("File input cannot be read");
+            return output;
+        }
+    }
+
+    private static List<String> taskToString(List<Task> input) {
+        List<String> output = new ArrayList<>();
+        for (int i = 0; i < input.size(); i++) {
+            output.add(input.get(i).toString());
+        }
+        return output;
     }
     public static void main(String[] args) {
 
@@ -136,7 +196,7 @@ public class Duke {
 
         Scanner scanner = new Scanner(System.in);
 
-        List<Task> tasks = new ArrayList<>();
+        List<Task> tasks = stringToTask(LocalFile.readFile());
 
         String greeting = "Hello! I'm Toothless.\n" +
                 "What can I do for you today?\n" +
@@ -156,26 +216,11 @@ public class Duke {
 
                 switch (command) {
                     case TODO:
-                        String todoTitle = obtainTitle(nextInput, Commands.TODO);
-                        ToDo todo = new ToDo(todoTitle);
-                        tasks.add(todo);
-                        System.out.println(addTask + todo.getTask());
-                        break;
-
                     case DEADLINE:
-                        String deadlineTitle = obtainTitle(nextInput, Commands.DEADLINE);
-                        String by = obtainDate(nextInput, Commands.DEADLINE);
-                        Deadline deadline = new Deadline(deadlineTitle, by);
-                        tasks.add(deadline);
-                        System.out.println(addTask + deadline.getTask());
-                        break;
-
                     case EVENT:
-                        String eventTitle = obtainTitle(nextInput, Commands.EVENT);
-                        String fromTo = obtainDate(nextInput, Commands.EVENT);
-                        Event event = new Event(eventTitle, fromTo.split("/to")[0], fromTo.split("/to")[1]);
-                        tasks.add(event);
-                        System.out.println(addTask + event.getTask());
+                        Task t = createTask(nextInput, command, 0);
+                        tasks.add(t);
+                        System.out.println(addTask + t.getTask());
                         break;
 
                     case LIST:
@@ -204,6 +249,7 @@ public class Duke {
 
                     case BYE:
                         end = true;
+                        System.out.println(LocalFile.saveToDisk(taskToString(tasks)));
                         break;
 
                     case UNKNOWN:

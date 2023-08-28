@@ -1,10 +1,11 @@
-public class MissingDateException extends DukeException {
+package Exceptions;
 
+public class MissingTaskException extends DukeException {
     /**
-     * Constructor for MissingDateException.
+     * Constructor for Exceptions.MissingTaskException.
      * @param message Exception message.
      */
-    public MissingDateException(String message) {
+    public MissingTaskException(String message) {
         super(message);
     }
 
@@ -14,8 +15,6 @@ public class MissingDateException extends DukeException {
      */
     @Override
     public String getMessage() {
-        return "Date of the task is missing! Please give your task a date :)";
+        return "Tasks.Task cannot be found :(";
     }
-
 }
-

@@ -1,7 +1,9 @@
+package Exceptions;
+
 public class MissingTitleException extends DukeException {
 
     /**
-     * Constructor for MissingTitleException.
+     * Constructor for Exceptions.MissingTitleException.
      * @param message Exception message.
      */
     public MissingTitleException(String message) {
