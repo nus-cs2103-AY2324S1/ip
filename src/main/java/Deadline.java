@@ -33,4 +33,8 @@ public class Deadline extends Task{
         return String.format("D | %s | %s", super.formatForStorage(), this.deadline);
     }
 
+    @Override
+    public boolean checkSameDate(LocalDateTime date) {
+        return this.deadline.equals(date);
+    }
 }

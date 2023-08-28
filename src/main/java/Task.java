@@ -1,3 +1,5 @@
+import java.time.LocalDateTime;
+
 /**
  * Encapsulates a Task in the Chat bot.
  *
@@ -37,6 +39,10 @@ public class Task {
 
     public String formatForStorage() {
         return String.format("%s | %s", isDone ? "1" : "0", this.description);
+    }
+
+    public boolean checkSameDate(LocalDateTime date) {
+        return false;
     }
 
 }

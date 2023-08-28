@@ -27,7 +27,8 @@ public class Duke {
         TODO,
         DEADLINE,
         EVENT,
-        DELETE
+        DELETE,
+        CHECK,
     }
 
     // CONSTANTS
@@ -56,6 +57,18 @@ public class Duke {
         System.out.println("Hello! I'm your personal AI");
         System.out.println("What can I do for you?");
         System.out.println(LINE);
+    }
+
+    private static List<Task> checkScheduleOnDate(LocalDateTime date, List<Task> tasks) {
+        List<Task> relevantTasks = new ArrayList<>();
+
+        for (Task task : tasks) {
+            if (task.checkSameDate(date)) {
+                relevantTasks.add(task);
+            }
+        }
+        return relevantTasks;
+
     }
 
     private static List<Task> loadTasksFromStorage(String dirName, String fileName) {
@@ -132,6 +145,15 @@ public class Duke {
 
     }
 
+    private static void printTasks(List<Task> tasks) {
+        System.out.println("Here are your list of tasks:");
+        for (int i = 0; i < tasks.size(); i++) {
+            Task task = tasks.get(i);
+            System.out.printf("%d. %s%n", i + 1, task);
+        }
+        System.out.println(LINE);
+    }
+
     public static void main(String[] args) {
         List<Task> tasks = loadTasksFromStorage(DIR_NAME, FILE_NAME);
 
@@ -171,11 +193,7 @@ public class Duke {
                             throw new EmptyTaskListException();
                         }
 
-                        for (int i = 0; i < tasks.size(); i++) {
-                            Task task = tasks.get(i);
-                            System.out.println(String.format("%d. %s", i + 1, task));
-                        }
-                        System.out.println(LINE);
+                        printTasks(tasks);
                         continue;
                     }
 
@@ -304,6 +322,15 @@ public class Duke {
                         System.out.println(" " + task);
                         System.out.printf("Now you have %d tasks in the list%n", tasks.size());
                         System.out.println(LINE);
+                        continue;
+                    }
+
+                    // check for tasks on a day
+                    if (command.equals(Command.CHECK.name())) {
+                        String content = input.replaceAll("^\\s*check\\s*", "");
+                        List<Task> scheduledTasks = checkScheduleOnDate(LocalDateTime.parse(content, FORMATTER), tasks);
+
+                        printTasks(scheduledTasks);
                         continue;
                     }
 

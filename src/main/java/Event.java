@@ -37,4 +37,8 @@ public class Event extends Task {
         return String.format("E | %s | %s--%s", super.formatForStorage(), this.start, this.deadline);
     }
 
+    @Override
+    public boolean checkSameDate(LocalDateTime date) {
+        return this.start.isBefore(date) && this.deadline.isAfter(date);
+    }
 }
