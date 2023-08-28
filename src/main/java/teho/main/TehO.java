@@ -6,17 +6,30 @@ import java.util.Scanner;
 import static java.lang.Integer.parseInt;
 import java.time.LocalDate;
 
+/**
+ * Main class that represents a Personal Assistant Chatbot
+ * that helps a person to keep track of various things.
+ */
 public class TehO {
     private Storage storage;
     private TaskList taskList;
     private Ui ui;
 
+    /**
+     * Constructs a TehO instance with string representation of a file path
+     * to save and load tasks into and from.
+     *
+     * @param filePath Path of file to save and load tasks into and from.
+     */
     public TehO(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
         taskList = new TaskList(storage.loadTasks());
     }
 
+    /**
+     * Runs TehO to understand user's commands and carry out actions accordingly.
+     */
     public void run() {
         Scanner sc = new Scanner(System.in);
         ui.generateHelloMessage();
@@ -54,12 +67,20 @@ public class TehO {
         sc.close();
     }
 
-
+    /**
+     * Represents the main method to start TehO.
+     *
+     * @param args Stores Java command-line arguments and is an array of type java.lang.String class.
+     */
     public static void main(String[] args) {
         new TehO("/Users/loomeilinzann/ip/text-ui-test/data/teho.txt").run();
     }
 
-
+    /**
+     * Represents the marking of task according to user's command.
+     *
+     * @param userCommand User's command containing the task to be marked.
+     */
     public void markTask(String userCommand) {
         //note that split returns a String[]
         //parseInt returns the integer value which is represented by the argument
@@ -68,6 +89,12 @@ public class TehO {
         task.markAsDone(taskNumber);
         ui.generateMarkTaskMessage(task);
     }
+
+    /**
+     * Represents the unmarking of task according to user's command.
+     *
+     * @param userCommand User's command containing the task to be unmarked.
+     */
     public void unmarkTask(String userCommand) {
         int taskNumber = parseInt(userCommand.split(" ")[1]) - 1; //counting from 0
         Task task = this.taskList.getTask(taskNumber);
@@ -75,6 +102,11 @@ public class TehO {
         ui.generateUnmarkTaskMessage(task);
     }
 
+    /**
+     * Represents the adding of new ToDo task into taskList according to user's command.
+     *
+     * @param userCommand User's command containing the new ToDo task to be added into taskList.
+     */
     public void addToDo(String userCommand) {
         try {
             if (userCommand.length() < 5) {
@@ -89,6 +121,11 @@ public class TehO {
         }
     }
 
+    /**
+     * Represents the adding of new Deadline task into taskList according to user's command.
+     *
+     * @param userCommand User's command containing the new Deadline task to be added into taskList.
+     */
     public  void addDeadline(String userCommand) {
         try {
             if (userCommand.length() < 9) {
@@ -105,6 +142,11 @@ public class TehO {
         }
     }
 
+    /**
+     * Represents the addition of new Event task into taskList according to user's command.
+     *
+     * @param userCommand User's command containing the new Event task to be added into taskList.
+     */
     public void addEvent(String userCommand) {
         try {
             if (userCommand.length() < 6) {
@@ -123,6 +165,11 @@ public class TehO {
         }
     }
 
+    /**
+     * Represents the deletion of task from taskList according to user's command.
+     *
+     * @param userCommand User's command containing the task to be deleted from taskList.
+     */
     public  void delete(String userCommand) {
         int taskNumber = parseInt(userCommand.split(" ")[1]) - 1; //counting from 0
         Task task = this.taskList.getTask(taskNumber);
