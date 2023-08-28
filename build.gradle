@@ -34,7 +34,7 @@ application {
 
 shadowJar {
     archiveBaseName = "todoify"
-    archiveClassifier = null
+    archiveVersion = "0.0.1"
     dependsOn("distZip", "distTar")
 }
 
