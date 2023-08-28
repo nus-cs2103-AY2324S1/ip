@@ -2,11 +2,24 @@ package seedu.james;
 
 import java.io.File;
 import java.io.FileWriter;
-import java.util.Scanner;
 import java.util.ArrayList;
+import java.util.Scanner;
+
+/**
+ * Storage class to handle saving and loading of tasks
+ */
 public class Storage {
+    /** The path to the save file */
     private String savePath;
+
+    /** The save file */
     private File saveFile;
+
+    /**
+     * Constructor for Storage
+     * Creates the save file if it does not exist
+     * @param path The path to the save file
+     */
     public Storage(String path) {
         this.savePath = path;
         String directory = path.substring(0, path.lastIndexOf("/"));
@@ -27,6 +40,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Saves the task list to the save file
+     *
+     * @param taskList The task list to save
+     * @throws SavingException If an error occurs when saving
+     */
     public void save(TaskList taskList) throws SavingException {
         ArrayList<Task> tasks = taskList.getTasks();
         try {
@@ -40,6 +59,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Loads the task list from the save file
+     *
+     * @return An ArrayList of tasks
+     * @throws LoadingException If an error occurs when loading
+     */
     public ArrayList<Task> load() throws LoadingException {
         ArrayList<Task> tasks = new ArrayList<Task>();
         try {
@@ -55,6 +80,13 @@ public class Storage {
         }
         return tasks;
     }
+
+    /**
+     * Loads a task from a string
+     *
+     * @param s The string to load from
+     * @return Task
+     */
     public Task loadTask(String s) {
         Character taskType = s.charAt(1); // T, D, E
         Boolean isDone = s.charAt(4) == 'X';
@@ -78,5 +110,4 @@ public class Storage {
         }
         return task;
     }
-
 }

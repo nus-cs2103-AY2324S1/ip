@@ -2,11 +2,24 @@ package seedu.james;
 
 import java.util.ArrayList;
 
+/**
+ * James is a personal assistant chatbot that helps a person to keep track of various things.
+ */
 public class James {
+    /** Handles loading and saving to hard disk */
     private Storage storage;
+
+    /** Stores the tasks. */
     private TaskList tasks;
+
+    /** Handles user interaction. */
     private Ui ui;
 
+    /**
+     * Creates a James object.
+     *
+     * @param savePath The path to the save file.
+     */
     public James(String savePath) {
         Ui ui = new Ui();
         this.ui = ui;
@@ -24,6 +37,9 @@ public class James {
         new James("data/James.txt").run();
     }
 
+    /**
+     * Starts the James program.
+     */
     public void run() {
         ui.start(tasks);
         try {
@@ -32,7 +48,5 @@ public class James {
             System.out.println("Error saving file");
         }
     }
-
-
 
 }

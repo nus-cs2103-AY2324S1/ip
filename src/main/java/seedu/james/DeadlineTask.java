@@ -3,16 +3,30 @@ package seedu.james;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+
+/**
+ * Represents a task with a deadline.
+ */
 public class DeadlineTask extends Task {
+    /**
+     * The time of the deadline.
+     */
     private LocalDateTime time;
+
+    /**
+     * Creates a new DeadlineTask with the given description and time.
+     *
+     * @param description The description of the task.
+     * @param timeInput The time of the deadline.
+     */
 
     public DeadlineTask(String description, String timeInput) {
         super(description);
         String[] possibleFormats = {
-                "yyyy-MM-dd HH:mm",
-                "yyyy/MM/dd HH:mm",
-                "dd/MM/yyyy HH:mm",
-                "MMM dd yyyy HH:mm",
+            "yyyy-MM-dd HH:mm",
+            "yyyy/MM/dd HH:mm",
+            "dd/MM/yyyy HH:mm",
+            "MMM dd yyyy HH:mm",
         };
         for (String format : possibleFormats) {
             try {
@@ -27,6 +41,11 @@ public class DeadlineTask extends Task {
         }
     }
 
+    /**
+     * Returns the string representation of the DeadlineTask.
+     *
+     * @return The string representation of the DeadlineTask.
+     */
     @Override
     public String toString() {
         return "[D]" + super.toString() + " (by: "
