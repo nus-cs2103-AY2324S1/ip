@@ -16,11 +16,21 @@ import com.alpha.exceptions.InvalidTaskException.InvalidDeadlineException;
 import com.alpha.exceptions.InvalidTaskException.InvalidEventException;
 import com.alpha.exceptions.InvalidTaskException.InvalidToDoException;
 
+/**
+ * The type Parser.
+ */
 public class Parser {
 
     private Parser() {
     }
 
+    /**
+     * Gets to do task name from user input.
+     *
+     * @param text User input.
+     * @return Name of the todo task.
+     * @throws InvalidToDoException If the input is invalid.
+     */
     public static String getToDoName(String text) throws InvalidToDoException {
         String result = text.replaceFirst("todo", "").replaceFirst(" ", "");
         if (result.isEmpty()) {
@@ -29,6 +39,13 @@ public class Parser {
         return result;
     }
 
+    /**
+     * Gets deadline task name from user input.
+     *
+     * @param text User input.
+     * @return Name of the deadline task.
+     * @throws InvalidDeadlineException If the input is invalid.
+     */
     public static String getDeadlineName(String text) throws InvalidDeadlineException {
         String result = text.replaceFirst("deadline", "").replaceFirst(" ", "");
         int indexOfLastBy = result.lastIndexOf("/by ");
@@ -38,6 +55,13 @@ public class Parser {
         return result.substring(0, indexOfLastBy - 1);
     }
 
+    /**
+     * Gets deadline end datetime from user input.
+     *
+     * @param text User input.
+     * @return Deadline end datetime.
+     * @throws InvalidDeadlineException If the input is invalid.
+     */
     public static String getDeadlineEnd(String text) throws InvalidDeadlineException {
         String result = text.replaceFirst("deadline", "").replaceFirst(" ", "");
         int indexOfLastBy = result.lastIndexOf("/by ");
@@ -47,6 +71,13 @@ public class Parser {
         return result.substring(indexOfLastBy + 4);
     }
 
+    /**
+     * Gets event task name from user input.
+     *
+     * @param text User input.
+     * @return Name of the event task.
+     * @throws InvalidEventException If the input is invalid.
+     */
     public static String getEventName(String text) throws InvalidEventException {
         String result = text.replaceFirst("event", "").replaceFirst(" ", "");
         int indexOfLastFrom = result.lastIndexOf("/from");
@@ -57,6 +88,13 @@ public class Parser {
         return result.substring(0, indexOfLastFrom);
     }
 
+    /**
+     * Gets event start datetime from user input.
+     *
+     * @param text User input.
+     * @return Event start datetime.
+     * @throws InvalidEventException If the input is invalid.
+     */
     public static String getEventStart(String text) throws InvalidEventException {
         String result = text.replaceFirst("event", "").replaceFirst(" ", "");
         int indexOfLastFrom = result.lastIndexOf("/from");
@@ -68,6 +106,13 @@ public class Parser {
         return result.substring(indexOfLastFrom + 6, indexOfLastTo - 1);
     }
 
+    /**
+     * Gets event end datetime from user input.
+     *
+     * @param text User input.
+     * @return Event end datetime.
+     * @throws InvalidEventException If the input is invalid.
+     */
     public static String getEventEnd(String text) throws InvalidEventException {
         String result = text.replaceFirst("event", "").replaceFirst(" ", "");
         int indexOfLastTo = result.lastIndexOf("/to ");
@@ -78,19 +123,43 @@ public class Parser {
         return result.substring(indexOfLastTo + 4);
     }
 
+    /**
+     * Parse date time string local date time into LocalDateTime object.
+     *
+     * @param text User input.
+     * @return Parsed LocalDateTime object.
+     */
     public static LocalDateTime parseDateTimeString(String text) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         return LocalDateTime.parse(text, formatter);
     }
 
+    /**
+     * Parse LocalDateTime object to display string.
+     *
+     * @param localDateTime LocalDateTime object.
+     * @return Parsed datetime string to be displayed.
+     */
     public static String parseDateTimeObjectToDisplay(LocalDateTime localDateTime) {
         return localDateTime.format(DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm"));
     }
 
+    /**
+     * Parse LocalDateTime object to store string.
+     *
+     * @param localDateTime LocalDateTime object.
+     * @return Parsed datetime string to be stored.
+     */
     public static String parseDateTimeObjectToStore(LocalDateTime localDateTime) {
         return localDateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
     }
 
+    /**
+     * Parse command from user input.
+     *
+     * @param userInput User input
+     * @return Parsed command.
+     */
     public static Command parse(String userInput) {
         String[] tokens = userInput.split(" ");
 
