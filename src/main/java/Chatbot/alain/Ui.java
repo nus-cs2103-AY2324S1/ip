@@ -2,23 +2,23 @@ package Chatbot.alain;
 
 public class Ui {
     public void showlines() {
-        System.out.println("____________________________________________________________\n");
+        System.out.print("____________________________________________________________\n");
     }
     public void showWelcome() {
         this.showlines();
-        System.out.println("Hello! I'm Alain\nWhat can I do for you?");
+        System.out.print("Hello! I'm Alain\nWhat can I do for you?\n");
         this.showlines();
     }
 
     public void showGoodbye() {
         this.showlines();
-        System.out.println("Bye. Hope to see you again soon!");
+        System.out.print("Bye. Hope to see you again soon!\n");
         this.showlines();
     }
 
     public void showError(String errorMessage) {
         this.showlines();
-        System.out.println(" OOPS!!! " + errorMessage);
+        System.out.print(" OOPS!!! " + errorMessage + "\n");
         this.showlines();
     }
 
@@ -38,7 +38,7 @@ public class Ui {
         String output = " Noted. I've removed this task:\n"
                 + "   " + removedTask + "\n"
                 + " Now you have " + list.size() + " tasks in the list.\n";
-        System.out.println(output);
+        System.out.print(output);
         this.showlines();
     }
 
@@ -47,14 +47,14 @@ public class Ui {
         String output = " Got it. I've added this task:\n"
                 + "   " + task + "\n"
                 + " Now you have " + list.size() + " tasks in the list.\n";
-        System.out.println(output);
+        System.out.print(output);
         this.showlines();
     }
     public void showMarkTask(String numericPart, TaskList list) {
         this.showlines();
         String output = " Nice! I've marked this task as done:\n"
                 + "   " + list.getTask(Integer.parseInt(numericPart) - 1) + "\n";
-        System.out.println(output);
+        System.out.print(output);
         this.showlines();
     }
 
@@ -62,7 +62,7 @@ public class Ui {
         this.showlines();
         String output = " Nice! I've marked this task as not done yet:\n"
                 + "   " + list.getTask(Integer.parseInt(numericPart) - 1) + "\n";
-        System.out.println(output);
+        System.out.print(output);
         this.showlines();
 
     }

@@ -106,7 +106,7 @@ public class Storage {
                     if (mission.length() == 0) {
                         throw new AlainException("The description of a Deadline cannot be empty.");
                     }
-                    String[] parts = mission.split("by ");
+                    String[] parts = mission.split("/by ");
                     if (parts.length != 2) {
                         throw new AlainException("The description of a Deadline is invalid");
                     }
