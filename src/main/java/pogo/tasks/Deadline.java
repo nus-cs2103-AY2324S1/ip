@@ -1,5 +1,7 @@
 package pogo.tasks;
 
+import pogo.tasks.exceptions.PogoInvalidTaskException;
+
 public class Deadline extends Task {
     protected String by;
 

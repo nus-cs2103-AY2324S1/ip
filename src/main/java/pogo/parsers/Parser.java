@@ -39,6 +39,10 @@ public class Parser {
                 return TaskParser.parseToDoCommand(matcher.group("arguments"));
             case "event":
                 return TaskParser.parseEventCommand(matcher.group("arguments"));
+            case "mark":
+                return TaskParser.parseMarkCommand(matcher.group("arguments"), true);
+            case "unmark":
+                return TaskParser.parseMarkCommand(matcher.group("arguments"), false);
             case "bye":
                 return new ExitCommand();
             }

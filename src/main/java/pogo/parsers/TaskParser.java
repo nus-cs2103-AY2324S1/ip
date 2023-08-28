@@ -1,12 +1,8 @@
 package pogo.parsers;
 
-import pogo.commands.AddDeadlineCommand;
-import pogo.commands.AddEventCommand;
-import pogo.commands.AddToDoCommand;
-import pogo.tasks.Deadline;
-import pogo.tasks.Event;
+import pogo.commands.*;
+import pogo.common.Messages;
 import pogo.tasks.TaskType;
-import pogo.tasks.ToDo;
 import pogo.tasks.exceptions.PogoInvalidTaskException;
 
 import java.util.regex.Matcher;
@@ -80,5 +76,25 @@ public class TaskParser {
         String from = matcher.group("from");
         String to = matcher.group("to");
         return new AddEventCommand(description, from, to);
+    }
+
+    /**
+     * Parses a "mark task as done" command.
+     * @param input The input string.
+     * @param isMark Whether the command is a mark command or an unmark command.
+     */
+    public static Command parseMarkCommand(String input, boolean isMark) {
+        final Pattern MARK_PATTERN = Pattern.compile("(?<index>\\d+)");
+        final Matcher matcher = MARK_PATTERN.matcher(input);
+        if (!matcher.matches()) {
+            return new InvalidCommand(Messages.INVALID_MARK);
+        }
+
+        int index = Integer.parseInt(matcher.group("index"));
+        if (isMark) {
+            return new MarkTaskCommand(index);
+        } else {
+            return new UnmarkTaskCommand(index);
+        }
     }
 }
