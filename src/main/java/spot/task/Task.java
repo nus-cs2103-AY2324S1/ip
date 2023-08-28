@@ -50,4 +50,8 @@ public abstract class Task {
     }
 
     public abstract boolean fallsOn(LocalDate date);
+
+    public boolean descriptionContains(String keyword) {
+        return description.contains(keyword);
+    }
 }
