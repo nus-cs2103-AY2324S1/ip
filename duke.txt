@@ -1,5 +1,2 @@
-D | 1 | finish | 2pm
-E | 0 | something | 2pm - 4pm
-T | 0 | something else
 T | 1 | something something
-D | 1 | something | friday
+D | 0 | something | friday
