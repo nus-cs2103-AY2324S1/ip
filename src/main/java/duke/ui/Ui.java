@@ -87,6 +87,11 @@ public class Ui {
         printWithLines("Bye. Hope to see you again soon!");
     }
 
+    /**
+     * Prints the tasks that matched a certain keyword.
+     *
+     * @param findTasks A list of tasks that matched a certain keyword.
+     */
     public void printFindTasks(TaskList findTasks) {
         System.out.println(HORIZONTAL_LINE);
         System.out.println("Here are the matching tasks in your list:");
