@@ -20,22 +20,26 @@ public class Storage {
         this.filePath = filePath;
     }
 
-    public void createFile() throws IOException {
-        String[] temp = filePath.split("/");
-        String directoryPath = "";
-        for (int i = 0; i < temp.length - 1; i++) {
-            directoryPath += temp[i];
-            File directory = new File(directoryPath);
-            if (!directory.isDirectory()) {
-                directory.mkdir();
+    public void createFile() throws DukeException {
+        try {
+            String[] temp = filePath.split("/");
+            String directoryPath = "";
+            for (int i = 0; i < temp.length - 1; i++) {
+                directoryPath += temp[i];
+                File directory = new File(directoryPath);
+                if (!directory.isDirectory()) {
+                    directory.mkdir();
+                }
+                directoryPath += "/";
             }
-            directoryPath += "/";
+            File file = new File(filePath);
+            file.createNewFile();
+        } catch (IOException e) {
+            throw new DukeException(" ☹ I/O Error!");
         }
-        File file = new File(filePath);
-        file.createNewFile();
     }
 
-    public File loadFile() throws IOException {
+    public File loadFile() throws DukeException {
         File file = new File(filePath);
         if (!file.exists()) {
             createFile();
@@ -49,7 +53,7 @@ public class Storage {
             fw.write(msg);
             fw.close();
         } catch (IOException e) {
-            throw new DukeException("I/O Error!");
+            throw new DukeException(" ☹ I/O Error!");
         }
     }
 
@@ -59,7 +63,7 @@ public class Storage {
             fw.write(task.stringToFile() + "\n");
             fw.close();
         } catch (IOException e) {
-            throw new DukeException("I/O Error!");
+            throw new DukeException(" ☹ I/O Error!");
         }
     }
 
@@ -88,7 +92,7 @@ public class Storage {
             }
             return taskList;
         } catch (IOException e) {
-            throw new DukeException("Loading error!");
+            throw new DukeException(" ☹ Loading error!");
         }
     }
 }
