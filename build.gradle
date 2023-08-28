@@ -29,6 +29,7 @@ test {
 
 application {
     mainClass.set("Chatbot.alain.ChatbotAlain")
+    mainClassName = "Chatbot.alain.ChatbotAlain"
 }
 
 shadowJar {
