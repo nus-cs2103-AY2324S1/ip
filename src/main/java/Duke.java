@@ -1,6 +1,10 @@
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeFormatterBuilder;
+import java.time.temporal.ChronoField;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -23,13 +27,21 @@ public class Duke {
         TODO,
         DEADLINE,
         EVENT,
-        DELETE
+        DELETE,
+        CHECK,
     }
 
     // CONSTANTS
     private static final String LINE = "_______________________________________";
     private static final String DIR_NAME = "./data";
     private static final String FILE_NAME = "duke.txt";
+    private static final DateTimeFormatter FORMATTER = new DateTimeFormatterBuilder()
+            .appendPattern("yyyy-MM-dd")
+            .optionalStart().appendPattern(" HH:mm").optionalEnd()
+            .optionalStart().appendPattern(" HHmm").optionalEnd()
+            .parseDefaulting(ChronoField.HOUR_OF_DAY, 0)
+            .parseDefaulting(ChronoField.MINUTE_OF_HOUR, 0)
+            .toFormatter();
 
     private static void sendIntroduction() {
         String logo = "                     _                 _      \n" +
@@ -46,6 +58,18 @@ public class Duke {
         System.out.println(LINE);
     }
 
+    private static List<Task> checkScheduleOnDate(LocalDateTime date, List<Task> tasks) {
+        List<Task> relevantTasks = new ArrayList<>();
+
+        for (Task task : tasks) {
+            if (task.isWithinDateRange(date)) {
+                relevantTasks.add(task);
+            }
+        }
+        return relevantTasks;
+
+    }
+
     private static List<Task> loadTasksFromStorage(String dirName, String fileName) {
         List<Task> tasks = new ArrayList<>();
         File file = new File(dirName + File.separator + fileName);
@@ -59,21 +83,24 @@ public class Duke {
                 String[] segments = curr.split(" \\| ");
 
                 // check for the correct format - minimum 3 different segments
-                if ((!segments[0].equals("[T]") && !segments[0].equals("[D]")
-                        && !segments[0].equals("[E]")) || segments.length < 3) {
+                if ((!segments[0].equals("T") && !segments[0].equals("D")
+                        && !segments[0].equals("E")) || segments.length < 3) {
                     s.close(); // need to close scanner otherwise cannot replace file
                     throw new UnrecognisedFormatException();
                 }
 
-                boolean isDone = segments[1].equals("[X]");
+                boolean isDone = segments[1].equals("1");
 
-                if (segments[0].equals("[T]")) { // To do task
+                if (segments[0].equals("T")) { // To do task
                     tasks.add(new ToDo(segments[2], isDone));
-                } else if (segments[0].equals("[D]")) { // Deadline task
-                    tasks.add(new Deadline(segments[2], segments[3], isDone));
+                } else if (segments[0].equals("D")) { // Deadline task
+                    tasks.add(new Deadline(segments[2], LocalDateTime.parse(segments[3]), isDone));
                 } else { // Event task
-                    String[] times = segments[3].split("-");
-                    tasks.add(new Event(segments[2], times[0], times[1], isDone));
+                    String[] times = segments[3].split("--");
+                    tasks.add(new Event(segments[2],
+                            LocalDateTime.parse(times[0]),
+                            LocalDateTime.parse(times[1]),
+                            isDone));
                 }
 
             }
@@ -117,6 +144,15 @@ public class Duke {
 
     }
 
+    private static void printTasks(List<Task> tasks) {
+        System.out.println("Here are your list of tasks:");
+        for (int i = 0; i < tasks.size(); i++) {
+            Task task = tasks.get(i);
+            System.out.printf("%d. %s%n", i + 1, task);
+        }
+        System.out.println(LINE);
+    }
+
     public static void main(String[] args) {
         List<Task> tasks = loadTasksFromStorage(DIR_NAME, FILE_NAME);
 
@@ -139,7 +175,7 @@ public class Duke {
                         // store the data into the storage
                         StringBuilder textForStorage = new StringBuilder();
                         for (Task task : tasks) {
-                            textForStorage.append(task.toString()).append("\n");
+                            textForStorage.append(task.formatForStorage()).append("\n");
                         }
 
                         writeFile(DIR_NAME + File.separator + FILE_NAME, textForStorage.toString());
@@ -156,11 +192,7 @@ public class Duke {
                             throw new EmptyTaskListException();
                         }
 
-                        for (int i = 0; i < tasks.size(); i++) {
-                            Task task = tasks.get(i);
-                            System.out.println(String.format("%d. %s", i + 1, task));
-                        }
-                        System.out.println(LINE);
+                        printTasks(tasks);
                         continue;
                     }
 
@@ -232,7 +264,8 @@ public class Duke {
                             throw new UnknownTimeException(strings[0]);
                         }
 
-                        Task task = new Deadline(strings[0], strings[1]);
+                        Task task = new Deadline(strings[0],
+                                LocalDateTime.parse(strings[1], FORMATTER));
                         tasks.add(task);
                         System.out.println("Got it!. I've added this task:");
                         System.out.println(" " + task);
@@ -255,7 +288,14 @@ public class Duke {
                             throw new UnknownTimeException(desc_time[0]);
                         }
 
-                        Task task = new Event(desc_time[0], times[0], times[1]);
+                        LocalDateTime start = LocalDateTime.parse(times[0], FORMATTER);
+                        LocalDateTime end = LocalDateTime.parse(times[1], FORMATTER);
+
+                        if (start.isAfter(end)) {
+                            throw new BackwardsTimeException();
+                        }
+
+                        Task task = new Event(desc_time[0], start, end);
                         tasks.add(task);
                         System.out.println("Got it!. I've added this task:");
                         System.out.println(" " + task);
@@ -284,10 +324,19 @@ public class Duke {
                         continue;
                     }
 
+                    // check for tasks on a day
+                    if (command.equals(Command.CHECK.name())) {
+                        String content = input.replaceAll("^\\s*check\\s*", "");
+                        List<Task> scheduledTasks = checkScheduleOnDate(LocalDateTime.parse(content, FORMATTER), tasks);
+
+                        printTasks(scheduledTasks);
+                        continue;
+                    }
+
                     throw new UnknownCommandException(input);
 
                 } catch (UnknownTimeException | UnknownCommandException | EmptyTaskListException |
-                         NoDescriptionException | NoIndexException e) {
+                         NoDescriptionException | NoIndexException | BackwardsTimeException e) {
                     System.out.println(e.getMessage());
                     System.out.println(LINE);
                 }

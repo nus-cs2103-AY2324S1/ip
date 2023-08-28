@@ -19,18 +19,24 @@ _______________________________________
 _______________________________________
 _______________________________________
 Got it!. I've added this task:
- [D][ ] return book (by: Sunday)
+ [D][ ] return book (by: Jan 1 2019 00:00)
 Now you have 2 tasks in the list
 _______________________________________
 _______________________________________
 Got it!. I've added this task:
- [E][ ] project meeting (from: Mon 2pm to: 4pm)
+ [D][ ] return cup (by: Jan 1 2019 12:00)
 Now you have 3 tasks in the list
 _______________________________________
 _______________________________________
+Got it!. I've added this task:
+ [E][ ] project meeting (from: Apr 4 2023 14:00 to Apr 5 2023 16:00)
+Now you have 4 tasks in the list
+_______________________________________
+_______________________________________
 1. [T][ ] borrow book
-2. [D][ ] return book (by: Sunday)
-3. [E][ ] project meeting (from: Mon 2pm to: 4pm)
+2. [D][ ] return book (by: Jan 1 2019 00:00)
+3. [D][ ] return cup (by: Jan 1 2019 12:00)
+4. [E][ ] project meeting (from: Apr 4 2023 14:00 to Apr 5 2023 16:00)
 _______________________________________
 _______________________________________
 Great job completing the task! I've marked it as done.
@@ -38,7 +44,7 @@ Great job completing the task! I've marked it as done.
 _______________________________________
 _______________________________________
 Great job completing the task! I've marked it as done.
-[D][X] return book (by: Sunday)
+[D][X] return book (by: Jan 1 2019 00:00)
 _______________________________________
 _______________________________________
 Oops... Did you mark it incorrectly?
@@ -46,24 +52,34 @@ Oops... Did you mark it incorrectly?
 _______________________________________
 _______________________________________
 Noted... I've removed this task:
- [D][X] return book (by: Sunday)
-Now you have 2 tasks in the list
+ [D][X] return book (by: Jan 1 2019 00:00)
+Now you have 3 tasks in the list
 _______________________________________
 _______________________________________
 1. [T][ ] borrow book
-2. [E][ ] project meeting (from: Mon 2pm to: 4pm)
+2. [D][ ] return cup (by: Jan 1 2019 12:00)
+3. [E][ ] project meeting (from: Apr 4 2023 14:00 to Apr 5 2023 16:00)
 _______________________________________
 _______________________________________
 Noted... I've removed this task:
  [T][ ] borrow book
-Now you have 1 tasks in the list
+Now you have 2 tasks in the list
 _______________________________________
 _______________________________________
-1. [E][ ] project meeting (from: Mon 2pm to: 4pm)
+1. [D][ ] return cup (by: Jan 1 2019 12:00)
+2. [E][ ] project meeting (from: Apr 4 2023 14:00 to Apr 5 2023 16:00)
 _______________________________________
 _______________________________________
 Noted... I've removed this task:
- [E][ ] project meeting (from: Mon 2pm to: 4pm)
+ [D][ ] return cup (by: Jan 1 2019 12:00)
+Now you have 1 tasks in the list
+_______________________________________
+_______________________________________
+1. [E][ ] project meeting (from: Apr 4 2023 14:00 to Apr 5 2023 16:00)
+_______________________________________
+_______________________________________
+Noted... I've removed this task:
+ [E][ ] project meeting (from: Apr 4 2023 14:00 to Apr 5 2023 16:00)
 Now you have 0 tasks in the list
 _______________________________________
 _______________________________________
