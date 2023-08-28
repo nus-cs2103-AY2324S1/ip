@@ -1,3 +1,5 @@
+package duke.task;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -38,19 +40,23 @@ public class Task  {
 
         Task task;
 
-        if (type.equals("T")) {
-            task = new Todo(description);
-        } else if (type.equals("D")) {
-            String by = parts[3];
-            // Use parseDate method to convert to LocalDate
-            task = new Deadline(description, parseDate(by));
-        } else if (type.equals("E")) {
-            String from = parts[3];
-            String to = parts[4];
-            // Use parseDateTime method to convert to LocalDateTime
-            task = new Event(description, parseDateTime(from), parseDateTime(to));
-        } else {
-            throw new IllegalArgumentException("Invalid task type: " + type);
+        switch (type) {
+            case "T":
+                task = new Todo(description);
+                break;
+            case "D":
+                String by = parts[3];
+                // Use parseDate method to convert to LocalDate
+                task = new Deadline(description, parseDate(by));
+                break;
+            case "E":
+                String from = parts[3];
+                String to = parts[4];
+                // Use parseDateTime method to convert to LocalDateTime
+                task = new Event(description, parseDateTime(from), parseDateTime(to));
+                break;
+            default:
+                throw new IllegalArgumentException("Invalid task type: " + type);
         }
 
         if (isDone) {

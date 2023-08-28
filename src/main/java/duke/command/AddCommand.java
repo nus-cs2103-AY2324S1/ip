@@ -1,13 +1,24 @@
+package duke.command;
+
+import duke.task.Deadline;
+import duke.task.Event;
+import duke.task.Task;
+import duke.task.Todo;
+import duke.storage.Storage;
+import duke.ui.Ui;
+import duke.exception.DukeException;
+import duke.parser.Parser;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+
 public class AddCommand extends Command {
-    private final TaskType taskType;
+    private final Command.TaskType taskType;
     private final String taskDescription;
     private final String additionalInfo1;
     private final String additionalInfo2;
 
-    public AddCommand(TaskType taskType, String taskDescription, String additionalInfo1, String additionalInfo2) {
+    public AddCommand(Command.TaskType taskType, String taskDescription, String additionalInfo1, String additionalInfo2) {
         this.taskType = taskType;
         this.taskDescription = taskDescription;
         this.additionalInfo1 = additionalInfo1;

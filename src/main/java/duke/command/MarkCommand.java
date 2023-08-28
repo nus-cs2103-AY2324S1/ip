@@ -1,3 +1,12 @@
+package duke.command;
+
+import duke.storage.Storage;
+import duke.ui.Ui;
+import duke.task.Deadline;
+import duke.task.Event;
+import duke.task.Task;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public class MarkCommand extends Command {
@@ -18,9 +27,12 @@ public class MarkCommand extends Command {
 
             // Additional information
             if (task instanceof Event) {
-                System.out.print(" (from: " + ((Event) task).from + " to: " + ((Event) task).to + ")");
+                LocalDateTime from = ((Event) task).getFrom();
+                LocalDateTime to = ((Event) task).getTo();
+                System.out.print(" (from: " + from + " to: " + to + ")");
             } else if (task instanceof Deadline) {
-                System.out.print(" (by: " + ((Deadline) task).by + ")");
+                LocalDate by = ((Deadline) task).getBy();
+                System.out.print(" (by: " + by + ")");
             }
 
             System.out.print("\n");

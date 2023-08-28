@@ -1,3 +1,6 @@
+package duke.storage;
+
+import duke.task.Task;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -45,7 +48,7 @@ public class Storage {
                     tasks.add(task);
                 } catch (NumberFormatException e) {
                     // Handle corrupted data - logging the issue
-                    Logger logger = Logger.getLogger(EchoBot.class.getName());
+                    Logger logger = Logger.getLogger(Storage.class.getName());
                     logger.log(Level.SEVERE, "Corrupted data: " + formattedTask, e);
                 } catch (IllegalArgumentException e) {
                     System.out.println("Invalid data: " + formattedTask);
@@ -55,7 +58,7 @@ public class Storage {
         } catch (IOException e) {
             System.err.println("An error occurred while handling file operations: " + e.getMessage());
         } catch (Exception e) {
-            Logger logger = Logger.getLogger(EchoBot.class.getName());
+            Logger logger = Logger.getLogger(Storage.class.getName());
             logger.log(Level.SEVERE, "An error occurred while loading tasks", e);
         }
 
