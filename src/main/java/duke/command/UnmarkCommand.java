@@ -11,7 +11,7 @@ import java.io.IOException;
  * unmarks a specific task.
  */
 public class UnmarkCommand extends Command {
-    int index;
+    private int index;
 
     public UnmarkCommand(int index) {
         super(false);

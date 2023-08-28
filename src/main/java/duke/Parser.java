@@ -22,8 +22,8 @@ import java.util.Arrays;
  */
 public class Parser {
     // Initialisation of objects and variables
-    static List<String> commands =
-            Arrays.asList(new String[]{"todo", "deadline", "event", "mark", "unmark", "delete", "find"});;
+    private static List<String> commands = Arrays.asList(
+            new String[]{"todo", "deadline", "event", "mark", "unmark", "delete"});;
 
     /**
      * Returns a corresponding Command from input.
@@ -83,7 +83,7 @@ public class Parser {
                         } else {
                             throw new UnknownCommandException();
                         }
-                    } else if (command.equals("delete")){
+                    } else if (command.equals("delete")) {
                         int index = Integer.parseInt(temp[1]);
                         return new DeleteCommand(index);
                     } else if (command.equals("find")) {

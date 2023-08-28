@@ -11,8 +11,8 @@ import java.io.IOException;
  * The DeleteCommand represents a command
  * to delete a task from the TaskList.
  */
-public class DeleteCommand extends Command{
-    int index;
+public class DeleteCommand extends Command {
+    private int index;
 
     public DeleteCommand(int index) {
         super(false);

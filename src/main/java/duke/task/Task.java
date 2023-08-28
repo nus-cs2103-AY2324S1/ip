@@ -27,7 +27,7 @@ public class Task {
 
     /**
      * Method to check isDone status
-     * @return returns a boolean value of whether the task is completed
+     * @return Boolean value of whether the task is completed
      */
     public String getStatusIcon() {
         return (isDone ? "X" : " ");

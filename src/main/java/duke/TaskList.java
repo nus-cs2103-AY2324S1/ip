@@ -17,7 +17,7 @@ public class TaskList {
     UI ui;
 
     public TaskList() {
-        this.storage = new ArrayList<Task>();
+        this.storage = new ArrayList<>();
         this.ui = new UI();
     }
 

@@ -11,8 +11,10 @@ import java.io.IOException;
  * The AddCommand represents a command
  * to add a task to the TaskList.
  */
-public class AddCommand extends Command{
-    Task task;
+
+public class AddCommand extends Command {
+    private Task task;
+
     public AddCommand(Task task) {
         super(false);
         this.task = task;

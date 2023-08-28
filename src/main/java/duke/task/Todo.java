@@ -1,12 +1,12 @@
 package duke.task;
 
 /**
- * The T*odo class extends duke.task.Task
+ * The Todo class represents a Todo Task
  *
  * @author Zi Xiang
  * @version CS2103 AY23/24 Sem 1
  */
-public class Todo extends Task{
+public class Todo extends Task {
 
     /** Constructor for duke.task.Todo */
     public Todo(String done, String description) {

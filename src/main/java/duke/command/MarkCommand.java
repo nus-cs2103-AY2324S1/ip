@@ -11,7 +11,7 @@ import java.io.IOException;
  * marks a task as completed.
  */
 public class MarkCommand extends Command {
-    int index;
+    private int index;
     public MarkCommand(int index) {
         super(false);
         this.index= index;
