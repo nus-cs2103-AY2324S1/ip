@@ -1,9 +1,44 @@
+import java.io.File;
+import java.io.IOException;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
 import java.util.Scanner;
 import java.util.ArrayList;
 
 public class Duke {
     private static ArrayList<Task> list = new ArrayList<>();
     private static final String line = "___________________________________\n";
+
+    private static void saveDataToFile() {
+        File folder = new File("./data/");
+        if (!folder.exists()) folder.mkdirs();
+        try (PrintWriter writer = new PrintWriter("./data/list.txt")) {
+            for (Task task : list) {
+                writer.println(task.toStringFile());
+            }
+
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    private static void loadDataFromFile() {
+        try (Scanner fileScanner = new Scanner(new File("./data/list.txt"))) {
+            while (fileScanner.hasNextLine()) {
+                String taskString = fileScanner.nextLine();
+                String[] arr = taskString.split("\\|");
+                Task.readListFromFile(arr, list);
+
+            }
+            System.out.println("Welcome back!");
+            getList();
+        } catch (FileNotFoundException e) {
+            System.out.println("Looks like this is your first time!\nLets start with a new list!\n" + line);
+        } catch (DukeException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
 
     private static void getList() {
         Task[] temp = list.toArray(new Task[0]);
@@ -61,10 +96,11 @@ public class Duke {
 
     public static void main(String[] args) {
 
-        String name = "Duke but btr!";
+        String name = "Duke but btr!\n";
         String exit = line + "Bye Bye. Hope to see you again soon!\n" + line;
 
-        System.out.println(line + "Hello! I'm " + name + "\nWhat can I do for you?\n" + line);
+        System.out.println(line + "Hello! I'm " + name + line);
+        loadDataFromFile();
 
         Scanner scan = new Scanner(System.in);
 
@@ -76,6 +112,7 @@ public class Duke {
                 String type = arr[0];
 
                 if ("bye".equals(input)) {
+                    saveDataToFile();
                     System.out.println(exit);
                     break;
 
