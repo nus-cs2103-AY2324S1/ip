@@ -6,7 +6,7 @@ public class TaskList {
     private ArrayList<Task> tasklist;
     private static final Storage STORAGE = new Storage();
 
-    TaskList() {
+    public TaskList() {
         this.tasklist = new ArrayList<Task>();
     }
 
@@ -23,11 +23,11 @@ public class TaskList {
 
 
 
-    void add(Task task) {
+    public void add(Task task) {
         this.tasklist.add(task);
     }
 
-    int size() {
+    public int size() {
         return this.tasklist.size();
     }
 
@@ -35,7 +35,7 @@ public class TaskList {
 
 
     // adding task into tasklist and output the relevant information
-    void addToList(Task task) {
+    public void addToList(Task task) {
         this.tasklist.add(task);
         System.out.println("Got it. I've added this task:\n"
                 + task.toString() + "\nNow you have "
@@ -56,7 +56,7 @@ public class TaskList {
         }
         return taskIndex;
     }
-    void mark(String taskNumber) throws DukeException {
+    public void mark(String taskNumber) throws DukeException {
         int taskIndex = getTaskIndex(taskNumber);
         Task markedTask = this.tasklist.get(taskIndex).done();
         System.out.println("Nice! I've marked this task as done:\n" + markedTask.toString());
@@ -64,12 +64,12 @@ public class TaskList {
         STORAGE.writeAllToFile(tasklist);
     }
 
-    void mark(int taskIndex) {
+    public void mark(int taskIndex) {
         Task markedTask = this.tasklist.get(taskIndex).done();
         tasklist.set(taskIndex, markedTask);
     }
 
-    void unMark(String taskNumber) throws DukeException {
+    public void unMark(String taskNumber) throws DukeException {
         int taskIndex = getTaskIndex(taskNumber);
         Task unmarkedTask = this.tasklist.get(taskIndex).undone();
         System.out.println("OK, I've marked this task as not done yet:\n" + unmarkedTask.toString());
@@ -77,7 +77,7 @@ public class TaskList {
         STORAGE.writeAllToFile(tasklist);
     }
 
-    void delete(String taskNumber) throws DukeException {
+    public void delete(String taskNumber) throws DukeException {
         int taskIndex = getTaskIndex(taskNumber);
         Task removedTask = tasklist.remove(taskIndex);
         System.out.println("Noted. I've removed this task:\n"
@@ -88,7 +88,7 @@ public class TaskList {
         STORAGE.writeAllToFile(tasklist);
     }
 
-    void listContent() {
+    public void listContent() {
         if (tasklist.isEmpty()) {
             System.out.println("Oops! It seems you do not have anything in your task list");
         }

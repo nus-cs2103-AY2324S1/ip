@@ -4,12 +4,12 @@ abstract class Task {
 
 
 
-    Task(String task) {
+    public Task(String task) {
         this.task = task;
         this.isDone = false;
     }
 
-    Task(String task, boolean isDone) {
+    public Task(String task, boolean isDone) {
         this.task = task;
         this.isDone = isDone;
     }

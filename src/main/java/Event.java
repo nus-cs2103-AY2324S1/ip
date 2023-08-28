@@ -1,3 +1,5 @@
+
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
@@ -34,13 +36,13 @@ public class Event extends Task {
 
         return new String[] {eventInfoString, parseTimeRange[0].trim(), parseTimeRange[1].trim()};
     }
-    Event(String task) throws DukeException {
+    public Event(String task) throws DukeException {
         super(parseEvent(task)[0]);
         this.deadlineDate = LocalDate.parse(parseEvent(task)[1]);
         this.startDate = LocalDate.parse(parseEvent(task)[2]);
     }
 
-    Event(String task, boolean isDone, LocalDate deadlineDate, LocalDate startDate) {
+    public Event(String task, boolean isDone, LocalDate deadlineDate, LocalDate startDate) {
         super(task, isDone);
         this.deadlineDate = deadlineDate;
         this.startDate = startDate;

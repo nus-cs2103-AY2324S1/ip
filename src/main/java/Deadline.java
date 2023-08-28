@@ -25,12 +25,12 @@ public class Deadline extends Task {
         return new String[] {taskSplit[0], dueDate};
     }
 
-    Deadline(String task) throws DukeException {
+    public Deadline(String task) throws DukeException {
         super(parseDeadline(task)[0]);
         this.deadlineDate = LocalDate.parse(parseDeadline(task)[1]);
     }
 
-    Deadline(String task, boolean isDone, LocalDate deadlineDate) {
+    public Deadline(String task, boolean isDone, LocalDate deadlineDate) {
         super(task, isDone);
         this.deadlineDate = deadlineDate;
     }

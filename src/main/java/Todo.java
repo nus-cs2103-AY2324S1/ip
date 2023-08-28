@@ -7,11 +7,11 @@ public class Todo extends Task {
 
         return todoTask;
     }
-    Todo(String task) throws DukeException {
+    public Todo(String task) throws DukeException {
         super(parseTodo(task));
     }
 
-    Todo(String task, boolean isDone) {
+    public Todo(String task, boolean isDone) {
         super(task, isDone);
     }
     @Override

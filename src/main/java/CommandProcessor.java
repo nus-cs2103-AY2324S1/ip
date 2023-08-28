@@ -1,6 +1,5 @@
+
 import java.util.Arrays;
-
-
 
 public class CommandProcessor {
     private final TaskList tasks;
@@ -8,7 +7,7 @@ public class CommandProcessor {
 
     private static final Storage storage = new Storage();
 
-    CommandProcessor() {
+    public CommandProcessor() {
         this.tasks = storage.loadFromFile();
     }
 
@@ -36,7 +35,7 @@ public class CommandProcessor {
 
 
     //processCommand is a method that process the command and prints the relevant output
-    void processCommand(String command) {
+    public void processCommand(String command) {
 
         try {
 
