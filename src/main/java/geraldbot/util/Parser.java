@@ -1,11 +1,19 @@
+package geraldbot.util;
+
+import geraldbot.exception.*;
+import geraldbot.task.Deadline;
+import geraldbot.task.Event;
+import geraldbot.task.Task;
+import geraldbot.task.Todo;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 public class Parser {
-    private Storage storage;
+    private final Storage storage;
 
-    private TaskList lst;
+    private final TaskList lst;
 
     private enum TaskType {
         TODO,
@@ -156,8 +164,7 @@ public class Parser {
             String[] parts = dateStr.split("\\s+", 2);
             String dateString = parts.length > 1 ? parts[1] : parts[0]; // Use the second part if available
 
-            LocalDateTime dateTime = LocalDateTime.parse(dateString, DateTimeFormatter.ofPattern("d/M/yyyy HHmm"));
-            return dateTime;
+            return LocalDateTime.parse(dateString, DateTimeFormatter.ofPattern("d/M/yyyy HHmm"));
         } catch (Exception e) {
             return null;
         }

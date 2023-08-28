@@ -1,3 +1,5 @@
+package geraldbot.util;
+
 import java.util.Scanner;
 
 public class Ui {
@@ -7,7 +9,7 @@ public class Ui {
 
 
     public void greet() {
-        System.out.println("Hello! I'm Gerald_Bot\n" + "What can I do for you?");
+        System.out.println("Hello! I'm GeraldBot\n" + "What can I do for you?");
     }
 
     public void bye() {

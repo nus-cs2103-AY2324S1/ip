@@ -1,3 +1,7 @@
+package geraldbot.util;
+
+import geraldbot.task.Task;
+
 import java.util.ArrayList;
 
 public class TaskList {

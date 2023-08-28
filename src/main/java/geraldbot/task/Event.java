@@ -1,3 +1,5 @@
+package geraldbot.task;
+
 public class Event extends Task {
 
     protected String start;

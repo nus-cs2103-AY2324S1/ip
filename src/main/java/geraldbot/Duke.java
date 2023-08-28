@@ -1,3 +1,11 @@
+package geraldbot;
+
+import geraldbot.exception.DukeException;
+import geraldbot.task.Task;
+import geraldbot.util.Parser;
+import geraldbot.util.Storage;
+import geraldbot.util.Ui;
+
 import java.util.ArrayList;
 
 public class Duke {
