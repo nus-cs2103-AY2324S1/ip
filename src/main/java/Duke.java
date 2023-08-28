@@ -6,6 +6,10 @@ public class Duke {
     private static final String INDENTATION = "    ";
     private static ArrayList<Task> store = new ArrayList<Task>();
 
+    private static Storage storage;
+    private TaskList tasks;
+    private static final String FILEPATH = "./data/duke.txt";
+
     private static String formatOutput(String output) {
         String horizontalLine = "____________________________________________________________";
         return INDENTATION + horizontalLine + "\n " +
@@ -32,7 +36,8 @@ public class Duke {
             if (index > store.size() - 1 || index < 0) {
                 throw new DukeException("Invalid Task Index provided!");
             }
-            Task selectedTask = store.get(index);
+//            Task selectedTask = store.get(index);
+            Task selectedTask = storage.updateTask(index, status);
             if (status.equals("mark")) {
                 selectedTask.markTask();
                 System.out.println(formatOutput("Nice! I've marked the task as done:\n   " +
@@ -54,10 +59,12 @@ public class Duke {
             if (index > store.size() - 1 || index < 0) {
                 throw new DukeException("Invalid Task Index provided!");
             }
-            Task selectedTask = store.remove(index);
+//            Task selectedTask = store.remove(index);
+            Task selectedTask = storage.updateTask(index, "delete");
             System.out.println(formatOutput("Noted. I've removed this task:\n   " +
                     INDENTATION + selectedTask + "\n " + INDENTATION + "Now you have " +
                     store.size() + " tasks in the list."));
+
         } catch (NumberFormatException e) {
             throw new DukeException("Invalid Task Index provided!");
         }
@@ -70,7 +77,8 @@ public class Duke {
             throw new DukeException("Hey! The task description cannot be empty!");
         }
         ToDo item = new ToDo(task);
-        store.add(item);
+//        store.add(item);
+        storage.writeTask(item);
         System.out.println(formatOutput("Got it. I've added this task:\n   " +
                 INDENTATION + item + "\n " + INDENTATION + "Now you have " +
                 store.size() + " tasks in the list."));
@@ -87,7 +95,8 @@ public class Duke {
                     INDENTATION + "'taskDescription /by time'");
         }
         Deadline item = new Deadline(arr[0], arr[1]);
-        store.add(item);
+//        store.add(item);
+        storage.writeTask(item);
         System.out.println(formatOutput("Got it. I've added this task:\n   " +
                 INDENTATION + item + "\n " + INDENTATION + "Now you have " +
                 store.size() + " tasks in the list."));
@@ -115,7 +124,8 @@ public class Duke {
         String end = startEnd[1];
 
         Event item = new Event(desc, start, end);
-        store.add(item);
+//        store.add(item);
+        storage.writeTask(item);
         System.out.println(formatOutput("Got it. I've added this task:\n   " +
                 INDENTATION + item + "\n " + INDENTATION + "Now you have " +
                 store.size() + " tasks in the list."));
@@ -215,9 +225,21 @@ public class Duke {
 
     }
 
+
     public static void main(String[] args) {
 
+        storage = new Storage(FILEPATH);
+
         System.out.println(formatOutput("Hello! I'm Nano\n" + INDENTATION + " What can I do for you?"));
+        try {
+            store = storage.load();
+//            TaskList tasks = new TaskList(storage.load());
+
+        } catch (DukeException e) {
+            System.out.println("--- No Data Stored ---");
+//            TaskList tasks = new TaskList(new ArrayList<>());
+        }
+
         handleCommand();
 
     }
