@@ -99,6 +99,10 @@ public class Parser {
             System.out.println("Noted. I've removed this task:\n"
                     + tasks.getTask(taskIdx - 1));
             System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+        } else if (input.contains("find")) {
+            String keyword = input.split(" ")[1];
+            System.out.println("Here are the matching tasks in your list:");
+            System.out.println(tasks.find(keyword));
         } else {
             try {
                 Task task = parseTask(input);
