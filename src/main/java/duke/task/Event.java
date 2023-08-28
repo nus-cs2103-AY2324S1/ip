@@ -1,6 +1,10 @@
 package duke.task;
 
+/**
+ * Represents an event.
+ */
 public class Event extends Task {
+    /** Represents when the event starts and ends. */
     protected String from;
     protected String to;
 
@@ -10,6 +14,9 @@ public class Event extends Task {
         this.to = to;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String stringToFile() {
         return String.format("E | %s | %s | %s", super.stringToFile(), from, to);

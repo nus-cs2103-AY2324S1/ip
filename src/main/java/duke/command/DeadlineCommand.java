@@ -6,8 +6,11 @@ import duke.task.Deadline;
 import duke.task.TaskList;
 import duke.ui.Ui;
 
+/**
+ * Represents a command to create a Deadline object.
+ */
 public class DeadlineCommand extends Command {
-
+    /** Represents a Deadline object. */
     private final Deadline deadline;
 
     public DeadlineCommand(String input) throws DukeException {
@@ -20,6 +23,14 @@ public class DeadlineCommand extends Command {
         this.deadline = new Deadline(tokens[0].strip(), tokens[1].strip());
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * @param taskList List of Task objects.
+     * @param ui UI that the user interact with.
+     * @param storage Storage to handle data to and from an external file.
+     * @throws DukeException If any error occurs.
+     */
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) throws DukeException {
         taskList.addTask(deadline);

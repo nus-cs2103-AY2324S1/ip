@@ -6,7 +6,11 @@ import duke.task.ToDo;
 import duke.task.TaskList;
 import duke.ui.Ui;
 
+/**
+ * Represents a command to create a ToDo object.
+ */
 public class ToDoCommand extends Command {
+    /** Represents a ToDo object. */
     private final ToDo todo;
 
     public ToDoCommand(String input) throws DukeException {
@@ -16,6 +20,14 @@ public class ToDoCommand extends Command {
         this.todo = new ToDo(input.strip());
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * @param taskList List of Task objects.
+     * @param ui UI that the user interact with.
+     * @param storage Storage to handle data to and from an external file.
+     * @throws DukeException If any error occurs.
+     */
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) throws DukeException {
         taskList.addTask(todo);

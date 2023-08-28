@@ -7,11 +7,20 @@ import duke.storage.Storage;
 import duke.task.TaskList;
 import duke.ui.Ui;
 
+/**
+ * The main class of the bot.
+ */
 public class Duke {
+    /** Represents the storage, task list and UI of the bot. */
     private Storage storage;
     private TaskList taskList;
     private Ui ui;
 
+    /**
+     * Constructor method.
+     *
+     * @param filePath
+     */
     public Duke(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
@@ -23,6 +32,9 @@ public class Duke {
         }
     }
 
+    /**
+     * Runs the bot.
+     */
     public void run() {
         ui.helloGreeting();
         boolean isExit = false;
