@@ -1,3 +1,11 @@
+package duke;
+
+import duke.filemanagement.Storage;
+import duke.task.TaskList;
+import duke.userio.InvalidUserInputException;
+import duke.userio.Parser;
+import duke.userio.Ui;
+
 import java.util.*;
 public class Duke {
     private final TaskList taskList;

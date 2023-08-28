@@ -1,3 +1,7 @@
+package duke.userio;
+
+import duke.task.*;
+
 public class Ui {
     protected static String H_LINE = "____________________________________________________________\n";
     public Ui(){}
