@@ -19,7 +19,7 @@ public abstract class Task {
         this.isDone = false;
         MessagePrint.print(
                 "OK, I've marked this task as not done yet:\n"
-                        +  "[ ] "
+                        + "[ ] "
                         + this.description
         );
     }
