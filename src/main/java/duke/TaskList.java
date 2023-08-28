@@ -50,7 +50,9 @@ public class TaskList {
     }
 
     public void deleteTask(int taskId) throws TaskNotFoundException {
-        if (taskId >= taskList.size()) throw new TaskNotFoundException();
+        if (taskId >= taskList.size()) {
+            throw new TaskNotFoundException();
+        }
         Task removedTask = taskList.remove(taskId);
         System.out.println("Noted. I've removed this task:");
         System.out.println(removedTask);
@@ -61,12 +63,14 @@ public class TaskList {
         Storage.writeToFile(taskList);
     }
 
-    public int numTasks() {
+    public int getNumTasks() {
         return taskList.size();
     }
 
     public Task getTask(int taskId) throws TaskNotFoundException {
-        if (taskId >= taskList.size()) throw new TaskNotFoundException();
+        if (taskId >= taskList.size()) {
+            throw new TaskNotFoundException();
+        }
         return taskList.get(taskId);
     }
 }

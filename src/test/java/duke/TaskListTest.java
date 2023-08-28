@@ -11,10 +11,10 @@ public class TaskListTest {
 
     @Test
     public void testAddTask() {
-        assertEquals(0, tasks.numTasks());
+        assertEquals(0, tasks.getNumTasks());
 
         tasks.addTask(new Todo("new task"));
-        assertEquals(1, tasks.numTasks());
+        assertEquals(1, tasks.getNumTasks());
     }
 
     @Test
@@ -46,7 +46,7 @@ public class TaskListTest {
         tasks.addTask(new Todo("new task"));
         try {
             tasks.deleteTask(0);
-            assertEquals(0, tasks.numTasks());
+            assertEquals(0, tasks.getNumTasks());
         } catch (TaskNotFoundException e) {
             throw new RuntimeException(e);
         }
