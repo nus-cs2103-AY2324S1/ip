@@ -1,8 +1,16 @@
 todo Todo1
 list
-event Event1 /by 123 /to 321
+event Event1 test /by 123 /to 321
 list
-deadline Deadline1 /by 123
+deadline Deadline1 test /by 123
+list
+deadline Deadline no by
+list
+event Event no by /to 321
+list
+event Event no to /by 12312
+list
+event Event no both
 list
 mark 0
 list

@@ -6,6 +6,12 @@ public class Deadline extends Task{
     }
 
     @Override
+    public String saveString() {
+        String completedString = completed ? "X|" : " |";
+        return "D|" + completedString + task + "|" + deadline;
+    }
+
+    @Override
     public String toString() {
         return "[D]" + super.toString() + " (by: " + this.deadline + ")";
     }

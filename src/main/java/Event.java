@@ -8,6 +8,12 @@ public class Event extends Task{
     }
 
     @Override
+    public String saveString() {
+        String completedString = completed ? "X|" : " |";
+        return "E|" + completedString + task + "|" + start + "|" + deadline;
+    }
+
+    @Override
     public String toString() {
         return "[E]" + super.toString() + " (from: " + this.start + " to: " + this.deadline + ")";
     }
