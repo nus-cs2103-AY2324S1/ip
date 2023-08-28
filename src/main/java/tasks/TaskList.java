@@ -1,39 +1,55 @@
 package tasks;
 
-import java.io.File;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-
+import errors.DotException;
 import storage.Storage;
 import ui.Ui;
 
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+
+/**
+ * TaskList class that contains an ArrayList of tasks, where
+ * the Dot can tell it to perform actions on the tasks, and
+ * perform storage actions, enabled by the storage package.
+ * <p>
+ * Note that the errors package is not used for TaskList as
+ * this class can be repurposed.
+ */
 public class TaskList {
 
     private final ArrayList<Task> tasks;
     private final int maxSize;
+    private final Storage storage;
 
-    protected TaskList(int maxSize) {
+    /**
+     * Protected constructor for an empty TaskList, used by
+     * the newTaskList factory method
+     * @param maxSize of TaskList
+     * @param storage object for file read/write
+     */
+    protected TaskList(int maxSize, Storage storage) {
         this.tasks = new ArrayList<>();
         this.maxSize = maxSize;
+        this.storage = storage;
     }
 
-    protected TaskList(int maxSize, ArrayList<Task> tasks) {
+    protected TaskList(int maxSize, ArrayList<Task> tasks, Storage storage) {
         this.tasks = tasks;
         this.maxSize = maxSize;
+        this.storage = storage;
     }
 
     public void addTask(Task newTask) {
         if (this.tasks.size() < this.maxSize) {
             this.tasks.add(newTask);
             Ui.wrapPrintWithHorizontalRules(String.format("Got it. I've added this task:\n"
-                + "  %s\nNow you have %d tasks in the list.", newTask, this.tasks.size()));
+                    + "  %s\nNow you have %d tasks in the list.", newTask, this.tasks.size()));
         } else {
-            Ui.wrapPrintWithHorizontalRules("Your task list has reached the limit of 100 tasks. "
-                + "Please remove some tasks to proceed.");
+            Ui.wrapPrintWithHorizontalRules(String.format("Your task list has reached the limit of %d tasks. "
+                    + "Please remove some tasks to proceed.", this.maxSize));
         }
     }
 
-    // TODO: Move this method to Ui
     public void list() {
         ArrayList<String> linesToBePrinted = new ArrayList<>();
         for (int i = 0; i < this.tasks.size(); i++) {
@@ -48,19 +64,17 @@ public class TaskList {
      * For instance, if they are multiple empty TaskLists,
      * we are able to use a singleton.
      *
-     * @return New TaskList
+     * @return new TaskList
      */
-    public static TaskList newTaskList(int maxSize) {
-        return new TaskList(maxSize);
+    public static TaskList newTaskList(int maxSize, Storage storage) {
+        return new TaskList(maxSize, storage);
     }
 
-    public static TaskList taskListFromArrayList(int maxSize, ArrayList<Task> taskList) {
-        return new TaskList(maxSize, taskList);
+    public static TaskList taskListFromArrayList(int maxSize, ArrayList<Task> taskList, Storage storage) {
+        return new TaskList(maxSize, taskList, storage);
     }
 
-    // TODO: Add IndexOutOfBoundsException handling
-    // TODO: Add type mismatch exception handling
-    public void markTask(int position, boolean isCompleted) {
+    public void toggleTaskStatus(int position, boolean isCompleted) {
         if (position >= 0 && position < this.tasks.size()) {
             this.tasks.get(position).toggleStatus(isCompleted);
         } else {
@@ -77,8 +91,7 @@ public class TaskList {
         }
     }
 
-    // TODO: make this method more appropriate
-    public ArrayList<String> getAllTasksFallingOnDate(LocalDateTime dateTime) {
+    public ArrayList<String> getDisplayForTasksFallingOnDate(LocalDateTime dateTime) {
         // Deadline must be within the day
         // Event can either start or end on the date itself, or both
 
@@ -87,10 +100,9 @@ public class TaskList {
         LocalDateTime endOfDay = LocalDateTime.from(dateTime).withHour(23).withMinute(59).withSecond(59);
         ArrayList<String> outputList = new ArrayList<>();
         outputList.add("Finding the dots... to illuminate a constellation of "
-            + "tasks happening today!");
+                + "tasks happening today!");
         boolean hasTaskToday = false;
-        for (int i = 0; i < this.tasks.size(); i++) {
-            Task currTask = this.tasks.get(i);
+        for (Task currTask : this.tasks) {
             if (currTask.isOnDate(dateTime, endOfDay)) {
                 outputList.add(currTask.toString());
                 hasTaskToday = true;
@@ -102,7 +114,7 @@ public class TaskList {
         return outputList;
     }
 
-    public void saveTaskListToStorage(File file) {
-        Storage.saveTasks(file, this.tasks);
+    public void saveTaskListToStorage() throws DotException {
+        this.storage.saveTasks(this.tasks);
     }
 }

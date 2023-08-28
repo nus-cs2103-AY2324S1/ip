@@ -14,19 +14,20 @@ import ui.Ui;
  *  in the case of a built-in runtime error.
  */
 public enum TaskError {
-    ERR_USING_MARK ("..o.o..beep..Invalid use of mark, use: \"mark <task number>\""),
-    ERR_USING_UNMARK ("..o.o..beep..Invalid use of unmark, use: \"unmark <task number>\""),
-    ERR_USING_TODO ("..o.o..beep..Invalid use of todo, use: \"todo <description>\""),
-    ERR_USING_DEADLINE ("..o.o..beep..Invalid use of deadline, use: \"deadline <description> " +
-            "/by <deadline_desc>\""),
-    ERR_USING_EVENT ("..o.o..beep..Invalid use of event, use: \"event <description>" +
-            " /from <start_desc> /to <end_desc>\""),
-    ERR_DELETING_TASK ("..o.o..beep..Invalid use of delete, use: \"delete <task number>\""),
-    ERR_READING_COMMAND ("..o.o..beep..Command not found..beep.."),
-    ERR_READING_FILE ("..o.o..beep..Error reading file"),
-    ERR_WRITING_FILE ("..o.o..beep..Error writing to file"),
-    ERR_USING_WHATSGOINGON ("..o.o..beep..Error using command 'whatsgoingon', " +
-            "use: \"whatsgoingon <dd/MM/yyyy>\"");
+    ERR_USING_MARK("..o.o..beep..Invalid use of mark, use: \"mark <task number>\""),
+    ERR_USING_UNMARK("..o.o..beep..Invalid use of unmark, use: \"unmark <task number>\""),
+    ERR_USING_TODO("..o.o..beep..Invalid use of todo, use: \"todo <description>\""),
+    ERR_USING_DEADLINE("..o.o..beep..Invalid use of deadline, use: \"deadline <description> "
+            + "/by <deadline_desc>\""),
+    ERR_USING_EVENT("..o.o..beep..Invalid use of event, use: \"event <description>"
+            + " /from <start_desc> /to <end_desc>\""),
+    ERR_DELETING_TASK("..o.o..beep..Invalid use of delete, use: \"delete <task number>\""),
+    ERR_READING_COMMAND("..o.o..beep..Command not found..beep.."),
+    ERR_GETTING_FILE("..o.o..beep..Error getting file"),
+    ERR_READING_FILE("..o.o..beep..Error reading file"),
+    ERR_WRITING_FILE("..o.o..beep..Error writing to file"),
+    ERR_USING_WHATSGOINGON("..o.o..beep..Error using command 'whatsgoingon', "
+            + "use: \"whatsgoingon <dd/MM/yyyy>\"");
 
 
     private final String errorMessage;
@@ -36,11 +37,11 @@ public enum TaskError {
 
     public void printErrorMessage(Exception e) {
         if (e instanceof NumberFormatException) {
-            Ui.wrapPrintWithHorizontalRules(this.errorMessage +
-                    "\nConnecting the dots: An index number was not specified.");
+            Ui.wrapPrintWithHorizontalRules(this.errorMessage
+                    + "\nConnecting the dots: An index number was not specified.");
         } else {
-            Ui.wrapPrintWithHorizontalRules(this.errorMessage +
-                    String.format("\nConnecting the dots: %s", e));
+            Ui.wrapPrintWithHorizontalRules(this.errorMessage
+                    + String.format("\nConnecting the dots: %s", e));
         }
 
     }

@@ -17,7 +17,7 @@ public class WhatsgoingonCommand extends Command {
         this.dotTaskList = dotTaskList;
     }
     public void execute() throws DotException {
-        ArrayList<String> queriedTasks = dotTaskList.getAllTasksFallingOnDate(parsedLocalDateTime);
+        ArrayList<String> queriedTasks = dotTaskList.getDisplayForTasksFallingOnDate(parsedLocalDateTime);
         Ui.displayArrayList(queriedTasks);
     }
 }
