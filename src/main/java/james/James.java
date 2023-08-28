@@ -1,4 +1,5 @@
-import java.util.Scanner;
+package james;
+
 import java.util.ArrayList;
 
 public class James {

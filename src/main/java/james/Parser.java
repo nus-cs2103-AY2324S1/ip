@@ -1,3 +1,5 @@
+package james;
+
 public class Parser {
     public enum TaskType {
         TODO,
