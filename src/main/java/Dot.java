@@ -5,33 +5,35 @@ import storage.Storage;
 import tasks.TaskList;
 import ui.Ui;
 
-import java.io.File;
-
 public class Dot {
-    // NOTE: in contrast to the example in the tutorial,
-    //  our Storage class is fully static
-    private final String dataFilePathname;
-    private final TaskList dotTaskList;
+    private TaskList dotTaskList;
     private final Ui userInterface;
+    private final Storage storage;
 
-    public Dot(String dataFilePathname, int maxSize) {
-        this.dataFilePathname = dataFilePathname;
-        this.dotTaskList = TaskList.taskListFromArrayList(maxSize,
-                Storage.getTasks(new File(dataFilePathname)));
+    public Dot(int maxSize) {
+        String storageLocation = "./data/dot.txt";
+        this.storage = new Storage(storageLocation);
+        try {
+            this.dotTaskList = TaskList.taskListFromArrayList(maxSize,
+                    this.storage.getTasks(), this.storage);
+        } catch (DotException e) {
+            e.handleError();
+            this.dotTaskList = TaskList.newTaskList(100, this.storage);
+        }
         this.userInterface = new Ui();
     }
 
     // Inspired by tutorial sheet
     // The organisation was adapted, thus a similar looking run()
-    // However, the deeper implementation was not abstracted
+    // However, the deeper implementation were not adapted
     public void run() {
         Ui.welcome();
 
         while (true) {
             try {
                 String input = userInterface.readNextLine();
-                Command cmd = Parser.parseInputToCommand(input, dotTaskList, dataFilePathname);
-                if (cmd.isTerminateComamnd()) {
+                Command cmd = Parser.parseInputToCommand(input, dotTaskList);
+                if (cmd.isTerminateCommand()) {
                     break;
                 }
                 cmd.execute();
@@ -44,12 +46,8 @@ public class Dot {
     }
     public static void main(String[] args) {
         Dot dotInstance;
-        // If args[0] == "test", we enter Dot into testing mode
-        if (args.length == 1 && args[0].equals("test")) {
-            dotInstance = new Dot("../src/main/java/data/text-ui-test.txt", 100);
-        } else {
-            dotInstance = new Dot("src/main/java/data/dot.txt", 100);
-        }
+        // DEPRECATED: If args[0] == "test", we enter Dot into testing mode
+        dotInstance = new Dot(100);
         dotInstance.run();
     }
 }
