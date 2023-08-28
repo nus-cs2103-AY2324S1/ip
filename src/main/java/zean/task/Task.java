@@ -1,3 +1,5 @@
+package zean.task;
+
 /**
  * The class that represents a task.
  *

@@ -1,3 +1,5 @@
+package zean;
+
 /**
  * The class with methods called by the main class.
  *
