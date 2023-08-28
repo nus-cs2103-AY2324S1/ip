@@ -1,9 +1,10 @@
 import java.util.ArrayList;
+import java.io.Serializable;
 
 /**
  * Class for tasks
  */
-public class Task {
+public class Task implements Serializable {
     /** Name of task */
     private String name;
     
@@ -36,7 +37,7 @@ public class Task {
     public void markAsDone() {
         this.done = true;
         System.out.println("You have marked this task as done");
-        System.out.println("\t" + this.toString());
+        System.out.println("\t" + this.convertToString());
     }
 
     /**
@@ -45,7 +46,7 @@ public class Task {
     public void markAsNotDone() {
         this.done = false;
         System.out.println("You have marked this task as not done");
-        System.out.println("\t" + this.toString());
+        System.out.println("\t" + this.convertToString());
     }
 
     /**
@@ -56,7 +57,7 @@ public class Task {
      */
     public static void deleteTask(Task task, ArrayList<Task> list) {
         System.out.println("You have deleted a task:");
-        System.out.println("\t" + task.toString());
+        System.out.println("\t" + task.convertToString());
         list.remove(task);
         System.out.println("There are now " + list.size() + " tasks in the list");
     }

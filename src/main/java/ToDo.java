@@ -15,7 +15,6 @@ public class ToDo extends Task {
 
     /**
      * Prints out the confirmation text output when a todo task is added
-     * Also adds the task to the list
      * 
      * @param taskName Name of task
      * @param list List where task is to be added
@@ -23,8 +22,6 @@ public class ToDo extends Task {
     public static void printTaskAdded(String taskName, ArrayList<Task> list) {
         System.out.println("You have added a task:");
         System.out.println("\t[T][ ] " + taskName);
-        list.add(new ToDo(taskName));
         System.out.println("There are now " + list.size() + " tasks in the list");
     }
-
 }
