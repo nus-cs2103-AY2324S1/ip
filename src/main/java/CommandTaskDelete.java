@@ -1,4 +1,3 @@
-import java.util.List;
 /**
  * Representation of a command
  * to delete a task from the task list.
@@ -14,13 +13,14 @@ public class CommandTaskDelete extends Command {
      */
     public void accept(Parser input) {
         String inputString = input.getDefaultString();
-        List<Task> taskList = Rock.taskList;
+        TaskList taskList = Rock.taskList;
         try {
             int taskIdx = Integer.parseInt(inputString);
             if (taskIdx < 1 || taskIdx > taskList.size()) {
                 throw new IllegalArgumentException("Invalid index given!");
             } else {
-                Task removedTask = Rock.taskList.remove(taskIdx - 1);
+                Task removedTask = Rock.taskList.removeTask(taskIdx - 1);
+                Save.saveSaveFile();
                 Rock.respond("Task successfully removed!\n" + removedTask);
             }
         } catch (NumberFormatException e) {

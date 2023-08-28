@@ -31,18 +31,18 @@ public class CommandTaskCreate extends Command {
      * @param input Contains data for the Task to be created.
      * @throws IllegalArgumentException Thrown when data is missing or invalid data is given.
      */
-    public void accept(Parser input) throws IllegalArgumentException{
+    public void accept(Parser input) throws IllegalArgumentException {
         String taskName = input.getDefaultString();
         if (taskName == "") throw new IllegalArgumentException("Name of task cannot be empty!");
         switch (this.taskType) {
             case TODO:
-                Rock.taskList.add(new TaskTodo(taskName)); 
+                Rock.taskList.addTask(new TaskTodo(taskName)); 
                 Rock.respond("Todo Task added!"); 
                 break;
             case DEADLINE:
                 try {
                     String deadlineTime = input.getTaggedInput("by");
-                    Rock.taskList.add(new TaskDeadline(taskName, deadlineTime));
+                    Rock.taskList.addTask(new TaskDeadline(taskName, deadlineTime));
                     Rock.respond("Deadline Task added!");
                     break;
                 } catch (NoSuchElementException e) {
@@ -52,12 +52,13 @@ public class CommandTaskCreate extends Command {
                 try {
                     String startTime = input.getTaggedInput("from");
                     String endTime = input.getTaggedInput("to");
-                    Rock.taskList.add(new TaskEvent(taskName, startTime, endTime));
+                    Rock.taskList.addTask(new TaskEvent(taskName, startTime, endTime));
                     Rock.respond("Event Task added!");
                     break;
                 } catch (NoSuchElementException e) {
                     throw new IllegalArgumentException("No start or end time given. Indicate with /from and /to.");
                 }                   
         }
+        Save.saveSaveFile();
     }
 }

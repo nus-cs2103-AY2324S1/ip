@@ -1,4 +1,3 @@
-import java.util.List;
 /**
  * Representation of a command
  * to mark or unmark a task
@@ -19,14 +18,14 @@ public class CommandTaskMark extends Command {
      * @param input Contains index of task to be
      * @throws IllegalArgumentException Thrown when invalid index is given.
      */
-    public void accept(Parser input) throws IllegalArgumentException{
+    public void accept(Parser input) throws IllegalArgumentException {
         String inputString = input.getDefaultString();
-        List<Task> taskList = Rock.taskList;
+        TaskList taskList = Rock.taskList;
         try {
             int taskIdx = Integer.parseInt(inputString);
             if (taskIdx < 1 || taskIdx > taskList.size()) {
                 throw new IllegalArgumentException("Invalid index given!");
-            } else if (taskList.get(taskIdx - 1).isCompleted()){
+            } else if (taskList.getTask(taskIdx - 1).isCompleted()){
                 if (this.isMarking) {
                     throw new IllegalArgumentException("Task already marked!");
                 } else {
@@ -34,14 +33,15 @@ public class CommandTaskMark extends Command {
                 }
 
             } else {
-                taskList.get(taskIdx - 1).setCompleted(this.isMarking);
+                taskList.getTask(taskIdx - 1).setCompleted(this.isMarking);
+                Save.saveSaveFile();
                 String response = "";
                 if (this.isMarking) {
                     response += "Task marked successfully: \n";
                 } else {
                     response += "Task unmarked successfully: \n";
                 }
-                response += taskList.get(taskIdx - 1).toString();
+                response += taskList.getTask(taskIdx - 1).toString();
                 Rock.respond(response);
             }
         } catch (NumberFormatException e) {

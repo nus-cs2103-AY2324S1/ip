@@ -4,7 +4,7 @@
  * 
  * @author Alvis Ng (supermii2)
  */
-public class CommandTaskList extends Command{
+public class CommandTaskList extends Command {
     @Override
     /**
      * Removes task from task list.
@@ -17,7 +17,7 @@ public class CommandTaskList extends Command{
         } else {
             int counter = 1;
             String response = "Task List: ";
-            for (Task task:Rock.taskList) {
+            for (Task task:Rock.taskList.toArray()) {
                 response += "\n" + Integer.toString(counter) + ". " + task.toString();
                 counter++;
             }

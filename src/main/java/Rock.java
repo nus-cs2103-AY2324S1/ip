@@ -1,5 +1,3 @@
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 /**
  * Rock is the name of and the main program used
@@ -8,7 +6,7 @@ import java.util.Scanner;
  * @author Alvis Ng (supermii2)
  */
 public class Rock {
-    public static List<Task> taskList;
+    public static TaskList taskList;
     /**
      * Standardised line break used for separate input and output messages.
      */
@@ -59,9 +57,11 @@ public class Rock {
         // Instantiate scanner object
         scanner = new Scanner(System.in);
         //Initiate Task List
-        taskList = new ArrayList<>();
-        // Intro Message
+        taskList = new TaskList();
         say(LOGO);
+        // Load file
+        Save.initSave();
+        // Intro Message
         respond("How can I help you?"); 
     }
     /**

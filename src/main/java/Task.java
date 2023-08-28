@@ -1,10 +1,12 @@
+import java.io.Serializable;
+
 /**
  * Representation of a task
  * recorded by the chatbot.
  * 
  * @author Alvis Ng (supermii2)
  */
-public abstract class Task {
+public abstract class Task implements Serializable{
     /** Name of task */
     protected String taskName;
     /** Whether the task has been completed */
