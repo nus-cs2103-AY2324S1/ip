@@ -3,12 +3,15 @@ package carbonbot.task;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Represents task that start at a specific date/time and ends at a specific date/time
+ */
 public class Event extends Task {
 	protected LocalDateTime from;
 	protected LocalDateTime to;
 
 	/**
-	 * Represents task that start at a specific date/time and ends at a specific date/time
+	 * Constructs an Event task with the provided description, start datetime, and end datetime.
 	 * @param description 	Description of the task
 	 * @param from			Start date / time
 	 * @param to			End date / time

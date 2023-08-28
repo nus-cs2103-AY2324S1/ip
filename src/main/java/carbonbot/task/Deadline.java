@@ -3,11 +3,14 @@ package carbonbot.task;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Represents task that need to be done before a specific date/time
+ */
 public class Deadline extends Task {
 	protected LocalDateTime by;
 
 	/**
-	 * Represents task that need to be done before a specific date/time
+	 * Constructs a deadline task with the provided description and due datetime.
 	 * @param description 	Description of the task
 	 * @param by			Due date / time
 	 */

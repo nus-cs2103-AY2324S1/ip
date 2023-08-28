@@ -8,6 +8,9 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * The Parser class helps to parse user input strings to return the appropriate Command.
+ */
 public class Parser {
 	/**
 	 * Parses the user input and returns the corresponding Command to be executed

@@ -3,12 +3,19 @@ import carbonbot.command.Command;
 
 import java.io.IOException;
 
+/**
+ * CarbonBot is a simple chat bot that helps to keep track of various things such as tasks.
+ */
 public class CarbonBot {
     private final String saveFilePath;
     private final Ui ui;
     private final Storage storage;
     private TaskList tasks;
 
+    /**
+     * Constructs a CarbonBot object that will read and write its data to the specified file path.
+     * @param filePath Path to save file
+     */
     public CarbonBot(String filePath) {
         this.saveFilePath = filePath;
         this.ui = new Ui();
@@ -22,6 +29,9 @@ public class CarbonBot {
         }
     }
 
+    /**
+     * Executes CarbonBot to start running
+     */
     public void run() {
         this.ui.showGreetings();
         boolean isExit = false;
@@ -48,6 +58,10 @@ public class CarbonBot {
         }
     }
 
+    /**
+     * Starting point of the program.
+     * @param args Arguments (unused at the moment)
+     */
     public static void main(String[] args) {
         String saveFilePath = "./data/tasks.txt";
         new CarbonBot(saveFilePath).run();

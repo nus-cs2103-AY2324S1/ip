@@ -6,10 +6,18 @@ import carbonbot.TaskList;
 import carbonbot.Ui;
 import carbonbot.task.Task;
 
+/**
+ * The command sets the marked status of a task in the task list.
+ */
 public class MarkCommand extends Command {
 	private int taskIdx;
 	private boolean isMark;
 
+	/**
+	 * Constructs a MarkCommand object.
+	 * @param isMark The mark status of the task
+	 * @param taskIdx The task index to modify the mark status
+	 */
 	public MarkCommand(int taskIdx, boolean isMark) {
 		this.taskIdx = taskIdx;
 		this.isMark = isMark;

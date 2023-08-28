@@ -1,9 +1,12 @@
 package carbonbot.task;
 
+/**
+ * Represents task without any date/time attached to it
+ */
 public class Todo extends Task {
 
 	/**
-	 * Represents task without any date/time attached to it
+	 * Constructs a Todo task with the provided description.
 	 * @param description Description of the task
 	 */
 	public Todo(String description) {
