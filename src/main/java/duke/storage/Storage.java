@@ -1,9 +1,9 @@
-package storage;
+package duke.storage;
 
-import task.Task;
-import task.ToDo;
-import task.Deadline;
-import task.Event;
+import duke.task.Task;
+import duke.task.ToDo;
+import duke.task.Deadline;
+import duke.task.Event;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -11,7 +11,6 @@ import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.nio.file.Path;
 
@@ -41,14 +40,14 @@ public class Storage {
             data = Files.readAllLines(FILE_PATH);
         } catch (IOException e) {
             System.out.println("An error occurred while reading the file: " + e.getMessage());
-            return new ArrayList<>();  // Return an empty task list
+            return new ArrayList<>();  // Return an empty duke.task list
         }
         ArrayList<Task> tasks = new ArrayList<>();
 
         for (String line : data) {
             String[] parts = line.split("\\]", 3);
             if (parts.length < 3) {
-                System.out.println("Invalid task format found in Hard Disk");
+                System.out.println("Invalid duke.task format found in Hard Disk");
                 continue;
             }
             char type = parts[0].charAt(parts[0].length()- 1);

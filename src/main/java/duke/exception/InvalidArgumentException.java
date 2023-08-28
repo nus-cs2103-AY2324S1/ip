@@ -1,12 +1,12 @@
-package exception;
+package duke.exception;
 
 /**
- * exception.InvalidArgumentException class is a custom exception class that extends DukeException.
+ * duke.exception.InvalidArgumentException class is a custom duke.exception class that extends DukeException.
  * It is thrown when the user inputs an invalid argument for a command.
  */
 public class InvalidArgumentException extends DukeException{
     /**
-     * Constructor for exception.InvalidArgumentException.
+     * Constructor for duke.exception.InvalidArgumentException.
      */
     public InvalidArgumentException(String message) {
         super(message);

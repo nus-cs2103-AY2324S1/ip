@@ -1,13 +1,13 @@
-package exception;
+package duke.exception;
 
 /**
- * exception.UnknownCommandException class is a custom exception class that extends DukeException.
+ * duke.exception.UnknownCommandException class is a custom duke.exception class that extends DukeException.
  * It is thrown when the user inputs an unknown command.
  * @author Alan Lim
  */
 public class UnknownCommandException extends DukeException{
     /**
-    * Constructor for exception.UnknownCommandException.
+    * Constructor for duke.exception.UnknownCommandException.
     */
     public UnknownCommandException() {
         super("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");

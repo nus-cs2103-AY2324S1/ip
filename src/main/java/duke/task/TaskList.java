@@ -1,15 +1,17 @@
-package task;
+package duke.task;
 
-import exception.IllegalTaskIndexException;
-import exception.InvalidArgumentException;
-import storage.Storage;
+import duke.Ui;
+import duke.exception.IllegalTaskIndexException;
+import duke.exception.InvalidArgumentException;
+import duke.storage.Storage;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
-import java.time.format.DateTimeFormatter;
+
 
 /**
  * Represents a list of tasks.
@@ -51,9 +53,9 @@ public class TaskList {
         };
 
         /**
-         * Creates a deadline task.
-         * @param details The details of the deadline task.
-         * @return The deadline task.
+         * Creates a deadline duke.task.
+         * @param details The details of the deadline duke.task.
+         * @return The deadline duke.task.
          * @throws InvalidArgumentException If the deadline task's format is invalid.
          */
         public abstract Task createTask(String details) throws InvalidArgumentException;
@@ -86,7 +88,7 @@ public class TaskList {
         try {
             this.tasks = storage.load();
         } catch (IOException e) {
-            System.out.println("Error loading data from file: " + e);
+            Ui.showErrorLoadingFromFileMessage();
             this.tasks = new ArrayList<>();
         }
     }
@@ -114,33 +116,20 @@ public class TaskList {
         try {
             storage.save(tasks);
         } catch (IOException e) {
-            System.out.println("Error saving data to file: " + e);
+            Ui.showErrorSavingToFileMessage();
         }
-        System.out.println("____________________________________________________________");
-        System.out.println("Got it. I've added this task:");
-        System.out.println(this.tasks.get(this.tasks.size() - 1));
-        String placeholder = tasks.size() == 1 ? "task" : "tasks";
-        System.out.println("Now you have " + tasks.size() + " " + placeholder + " in the list.");
-        System.out.println("____________________________________________________________");
+        Ui.showAddTaskMessage(tasks);
     }
 
     /**
      * Lists all the tasks.
      */
     public void listTasks() {
-        System.out.println("____________________________________________________________");
-        if (this.tasks.isEmpty()) {
-            System.out.println("There are no tasks in your list.");
-        } else {
-            for (int i = 0; i < this.tasks.size(); i++) {
-                System.out.println((i + 1) + "." + this.tasks.get(i));
-            }
-        }
-        System.out.println("____________________________________________________________");
+        Ui.showListTasksMessage(tasks);
     }
 
     /**
-     * Marks a task as done.
+     * Marks a duke.task as done.
      * @param index The index of the task to be marked as done.
      * @throws IllegalTaskIndexException If the index is invalid.
      */
@@ -148,20 +137,16 @@ public class TaskList {
         if (index > tasks.size() || index < 1) {
             throw new IllegalTaskIndexException();
         }
-        System.out.println("____________________________________________________________");
-        System.out.println("Nice! I've marked this task as done:");
-        this.tasks.get(index - 1).markAsDone();
-        System.out.println(this.tasks.get(index - 1));
-        System.out.println("____________________________________________________________");
+        Ui.showMarkAsDoneMessage(tasks, index);
         try {
             storage.save(tasks);
         } catch (IOException e) {
-            System.out.println("Error saving data to file: " + e);
+            Ui.showErrorSavingToFileMessage();
         }
     }
 
     /**
-     * Marks a task as undone.
+     * Marks a duke.task as undone.
      * @param index The index of the task to be marked as undone.
      * @throws IllegalTaskIndexException If the index is invalid.
      */
@@ -169,15 +154,11 @@ public class TaskList {
         if (index > tasks.size() || index < 1) {
             throw new IllegalTaskIndexException();
         }
-        System.out.println("____________________________________________________________");
-        System.out.println("OK, I've marked this task as not done yet:");
-        this.tasks.get(index - 1).markAsUndone();
-        System.out.println(this.tasks.get(index-1));;
-        System.out.println("____________________________________________________________");
+        Ui.showMarkAsUndoneMessage(tasks, index);
         try {
             storage.save(tasks);
         } catch (IOException e) {
-            System.out.println("Error saving data to file: " + e);
+            Ui.showErrorSavingToFileMessage();
         }
     }
 
@@ -190,17 +171,12 @@ public class TaskList {
         if (index > tasks.size() || index < 1) {
             throw new IllegalTaskIndexException();
         }
-        System.out.println("____________________________________________________________");
-        System.out.println("Noted. I've removed this task:");
-        System.out.println(tasks.get(index - 1));
-        tasks.remove(index - 1);
-        String placeholder = tasks.size() == 1 ? "task" : "tasks";
-        System.out.println("Now you have " + tasks.size() + " " + placeholder + " in the list.");
-        System.out.println("____________________________________________________________");
+        // Calls delete message from duke.Ui class
+        Ui.showDeleteTaskMessage(tasks, index);
         try {
             storage.save(tasks);
         } catch (IOException e) {
-            System.out.println("Error saving data to file: " + e);
+            Ui.showErrorSavingToFileMessage();
         }
     }
 
