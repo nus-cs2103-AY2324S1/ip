@@ -10,6 +10,11 @@ public class Task {
         this.task = task;
     }
 
+    public Task (String task, boolean finish) throws DukeException {
+        this.finish = finish;
+        this.task = task;
+    }
+
     public boolean done() {
         return this.finish;
     }

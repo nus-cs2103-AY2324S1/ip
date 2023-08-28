@@ -3,6 +3,10 @@ public class Todo extends Task {
         super(task);
     }
 
+    public Todo(String task, boolean finish) throws DukeException{
+        super(task, finish);
+    }
+
     @Override
     public String toString() {
         return "[T]" + super.toString();
