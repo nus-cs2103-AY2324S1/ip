@@ -32,4 +32,8 @@ public class TaskList {
     public void mark(int index) {
         this.tasks.get(index).markAsDone();
     }
+
+    public void unmark(int index) {
+        this.tasks.get(index).markAsUndone();
+    }
 }
