@@ -31,6 +31,8 @@ public class Parser {
             if (sections[1].equals("1")) {
                 taskToAddFirst.markAsDone(taskNumber);
             }
+        } else {
+            System.out.println("☹ OOPS!!! Error when loading task(s).");
         }
     }
 }
