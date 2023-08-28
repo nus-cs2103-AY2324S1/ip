@@ -30,7 +30,10 @@ public class TaskList {
     }
 
     public void mark(int index) {
-        this.tasks.get(index).markAsDone();
+        Task task = this.tasks.get(index);
+        task.markAsDone();
+        System.out.println("Nice! I've marked this task as done:");
+        System.out.println(task);
     }
 
     public void unmark(int index) {
