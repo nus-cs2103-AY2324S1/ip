@@ -14,4 +14,9 @@ public class Todo extends Task {
         String statusMark = this.status ? "[✓]" : "[✕]";
         return String.format("[T]%s %s", statusMark, name);
     }
+
+    @Override
+    public String toSave() {
+        return String.format("T%s%s%s%d", DISCRIMINATOR, name, DISCRIMINATOR, Boolean.compare(status, false));
+    }
 }

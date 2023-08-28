@@ -1,8 +1,10 @@
 package task;
 
-public class Task {
+public abstract class Task {
     protected String name;
     protected boolean status;
+
+    protected static String DISCRIMINATOR = " || ";
 
     private TaskTypes type;
     public Task() {
@@ -36,19 +38,5 @@ public class Task {
         return String.format("%s %s", statusMark, name);
     }
 
-    public TaskTypes getType() {
-        return this.type;
-    }
-
-    public String getName() {
-        return this.name;
-    }
-
-    public boolean getStatus() {
-        return this.status;
-    }
-
-    public String getTimeDescriptor() {
-        return null;
-    }
+    public abstract String toSave();
 }

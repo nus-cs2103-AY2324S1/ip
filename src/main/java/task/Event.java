@@ -17,13 +17,13 @@ public class Event extends Task {
     }
 
     @Override
-    public String getTimeDescriptor() {
-        return String.format("%s to %s", startDate, endDate);
-    }
-
-    @Override
     public String toString() {
         String statusMark = this.status ? "[✓]" : "[✕]";
         return String.format("[E]%s %s (from: %s to: %s)", statusMark, name, startDate, endDate);
+    }
+
+    @Override
+    public String toSave() {
+        return String.format("D%s%s%s%d%s%s to %s", DISCRIMINATOR, name, DISCRIMINATOR, Boolean.compare(status, false), DISCRIMINATOR, startDate, endDate);
     }
 }
