@@ -7,19 +7,19 @@ import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
 public class Parser {
-    public static Command parse(String input, TaskList tasks) throws DukeException {
+    public static Command parse(String input, int size) throws DukeException {
         if (input.equals("bye")) {
             return new ExitCommand();
         } else if (input.equals("list")) {
             return new ListCommand();
         } else if (input.startsWith("mark")) {
             String number = input.replaceFirst("mark", "").trim();
-            validateMarkOrUnmarkorDelete(number, tasks.size());
+            validateMarkOrUnmarkorDelete(number, size);
             int index = Integer.parseInt(number);
             return new MarkDoneCommand(index);
         } else if (input.startsWith("unmark")) {
             String number = input.replaceFirst("unmark", "").trim();
-            validateMarkOrUnmarkorDelete(number, tasks.size());
+            validateMarkOrUnmarkorDelete(number, size);
             int index = Integer.parseInt(number);
             return new UnmarkDoneCommand(index);
         } else if (input.startsWith("todo")) {
@@ -54,7 +54,7 @@ public class Parser {
             return new AddEventCommand(description, d1, d2);
         } else if (input.startsWith("delete")) {
             String number = input.replaceFirst("delete", "").trim();
-            validateMarkOrUnmarkorDelete(number, tasks.size());
+            validateMarkOrUnmarkorDelete(number, size);
             int index = Integer.parseInt(number);
             return new DeleteCommand(index);
         } else {
@@ -69,7 +69,7 @@ public class Parser {
             try {
                 int numberInt = Integer.parseInt(number);
                 if (numberInt <= 0 || numberInt > size) {
-                    throw new DukeException("Boop Beep OOPS!!! Please make sure that"
+                    throw new DukeException("Boop Beep OOPS! Please make sure that"
                             + " the index of the task is within range.");
                 }
             } catch (NumberFormatException e) {
