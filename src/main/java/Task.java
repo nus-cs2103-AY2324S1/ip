@@ -16,6 +16,11 @@ public abstract class Task {
         this.isDone = false;
     }
 
+    public Task(String name, boolean isDone) {
+        this.name = name;
+        this.isDone = true;
+    }
+
     /**
      * Returns a string representing if the task is marked as done or not.
      *
@@ -44,5 +49,10 @@ public abstract class Task {
      */
     public String toString() {
         return this.getStatusIcon() + " " + this.name;
+    }
+
+    public String fileString() {
+        String done = isDone ? "1" : "0";
+        return " | " + done + " | " + this.name;
     }
 }
