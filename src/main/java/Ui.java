@@ -45,4 +45,21 @@ public class Ui {
             System.out.println(output);
         }
     }
+
+    public void showList(TaskManager userTasks) {
+        if (userTasks.size() == 0) {
+            System.out.println("You have no tasks.");
+        } else {
+            System.out.println("Here are the tasks in your list:");
+            System.out.println(userTasks.toString());
+        }
+    }
+
+    public void showGoodbye() {
+        System.out.println("Bye. Hope to see you again soon!");
+    }
+
+    public void showInvalidCommandMessage() {
+        System.out.println("Command is invalid. Please try again.");
+    }
 }
