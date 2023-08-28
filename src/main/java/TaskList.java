@@ -10,7 +10,10 @@ public class TaskList {
         this.tasks.add(task);
     }
 
-    public void remove(int index) {
+    public void remove(int index) throws InvalidCommandException {
+        if (!isTaskValid(index)) {
+            throw new InvalidCommandException("☹ OOPS!!! The task index in invalid");
+        }
         this.tasks.remove(index);
     }
 
@@ -29,14 +32,20 @@ public class TaskList {
         }
     }
 
-    public void mark(int index) {
+    public void mark(int index) throws InvalidCommandException {
+        if (!isTaskValid(index)) {
+            throw new InvalidCommandException("☹ OOPS!!! The task index in invalid");
+        }
         Task task = this.tasks.get(index);
         task.markAsDone();
         System.out.println("Nice! I've marked this task as done:");
         System.out.println(task);
     }
 
-    public void unmark(int index) {
+    public void unmark(int index) throws InvalidCommandException {
+        if (!isTaskValid(index)) {
+            throw new InvalidCommandException("☹ OOPS!!! The task index in invalid");
+        }
         Task task = this.tasks.get(index);
         task.markAsUndone();
         System.out.println("OK, I've marked this task as not done yet:");
