@@ -5,8 +5,11 @@ import duke.ui.Ui;
 import duke.exception.DukeException;
 import duke.storage.Storage;
 
+/**
+ * Represents a command issued by the user to mark a task as not done.
+ */
 public class UnmarkAsDoneCommand extends Command {
-    private int index;
+    private int index; // The index of the task to be marked as not done.
 
     public UnmarkAsDoneCommand(int index) {
         this.index = index;

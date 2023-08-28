@@ -5,8 +5,11 @@ import duke.exception.DukeException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Represents a list of tasks.
+ */
 public class TaskList {
-    private ArrayList<Task> tasks;
+    private ArrayList<Task> tasks; // The list of tasks.
 
     public TaskList() {
         this.tasks = new ArrayList<>();
@@ -38,6 +41,12 @@ public class TaskList {
         }
     }
 
+    /**
+     * Returns a list of strings representing the tasks in the list.
+     * The strings are in the format to be saved in the storage file.
+     *
+     * @return A list of strings representing the tasks in the list.
+     */
     public List<String> toFileString() {
         List<String> lines = new ArrayList<>();
         for (Task task : this.tasks) {
@@ -46,26 +55,57 @@ public class TaskList {
         return lines;
     }
 
+    /**
+     * Adds the given task to the list.
+     * 
+     * @param task The task to be added.
+     */
     public void add(Task task) {
         this.tasks.add(task);
     }
 
+    /**
+     * Deletes the task at the given index from the list.
+     * 
+     * @param index The index of the task to be deleted.
+     */
     public void delete(int index) {
         this.tasks.remove(index);
     }
 
+    /**
+     * Marks the task at the given index as done.
+     * 
+     * @param index The index of the task to be marked as done.
+     */
     public void markAsDone(int index) {
         this.tasks.get(index).markAsDone();
     }
 
+    /**
+     * Marks the task at the given index as not done.
+     * 
+     * @param index The index of the task to be marked as not done.
+     */
     public void unmarkAsDone(int index) {
         this.tasks.get(index).unmarkAsDone();
     }
 
+    /**
+     * Returns the number of tasks in the list.
+     * 
+     * @return The number of tasks in the list.
+     */
     public int size() {
         return this.tasks.size();
     }
 
+    /**
+     * Returns the task at the given index.
+     * 
+     * @param index The index of the task to be returned.
+     * @return The task at the given index.
+     */
     public Task get(int index) {
         return this.tasks.get(index);
     }

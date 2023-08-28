@@ -4,9 +4,12 @@ import java.time.LocalDateTime;
 
 import duke.exception.DukeException;
 
+/**
+ * Represents a task with a start and end time.
+ */
 public class Event extends Task {
-    protected LocalDateTime from;
-    protected LocalDateTime to;
+    protected LocalDateTime from; // The start time of the task in LocalDateTime format.
+    protected LocalDateTime to; // The end time of the task in LocalDateTime format.
 
     public Event(String description, String from, String to) throws DukeException {
         super(description);

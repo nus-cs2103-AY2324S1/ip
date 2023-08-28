@@ -15,11 +15,21 @@ import duke.task.Todo;
 
 import java.time.format.DateTimeParseException;
 
+/**
+ * Represents a parser that parses user input into specific commands.
+ */
 public class Parser {
     private static enum COMMAND {
         LIST, MARK, UNMARK, DELETE, BYE, TODO, DEADLINE, EVENT
     }
 
+    /**
+     * Parses the user input into a specific command.
+     *
+     * @param fullCommand The entire user input.
+     * @return The command parsed from the user input.
+     * @throws DukeException If the user input is invalid.
+     */
     public static Command parse(String fullCommand) throws DukeException {
         String[] inputs = fullCommand.split(" ", 2);
         String command = inputs[0].toUpperCase();
