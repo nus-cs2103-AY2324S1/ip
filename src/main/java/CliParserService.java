@@ -32,10 +32,10 @@ public class CliParserService {
                     handleTaskAction(input, dukeBot::markTask, "Nice! I've marked this task as done:");
                     break;
                 case "unmark":
-                    handleTaskAction(input, dukeBot::unmarkTask, "OK, I've marked this task as not done yet:");
+                    handleTaskAction(input, dukeBot::unmarkTask, "OK, I've unmarked this task:");
                     break;
                 case "delete":
-                    handleTaskAction(input, dukeBot::deleteTask, "Noted. I have removed this task:");
+                    handleDelete(input);
                     break;
                 case "todo":
                 case "deadline":
@@ -61,10 +61,9 @@ public class CliParserService {
             List<String> displayText = new ArrayList<>();
             displayText.add("Got it. I've added this task:");
             displayText.add(outputService.indentLeft(task.toString()));
-            int numberOfTasks = dukeBot.getTaskList().size();
             displayText.add(String.format("Now you have %s %s in the list.",
-                    numberOfTasks,
-                    numberOfTasks == 1 ? "task" : "tasks"));
+                    dukeBot.getNumberOfTasks(),
+                    dukeBot.getNumberOfTasks() == 1 ? "task" : "tasks"));
             outputService.echo(displayText);
         } catch (TaskParseException e) {
             return;
@@ -72,12 +71,7 @@ public class CliParserService {
     }
 
     private void handleTaskAction(String[] input, Function<Integer, Optional<Task>> action, String successMessage) {
-        if (input.length <= 1) {
-            outputService.echo("An argument is required.");
-            return;
-        }
-        if (!isNumeric(input[1])) {
-            outputService.echo("A numeric argument should be provided.");
+        if (!isValidTaskNumberArgument(input)) {
             return;
         }
 
@@ -95,6 +89,27 @@ public class CliParserService {
         );
     }
 
+    private void handleDelete(String[] input) {
+        if (!isValidTaskNumberArgument(input)) {
+            return;
+        }
+
+        int taskNumber = Integer.parseInt(input[1]);
+        Optional<Task> optionalTask = dukeBot.deleteTask(taskNumber - 1);
+
+        optionalTask.ifPresentOrElse(task -> {
+            List<String> displayText = new ArrayList<>();
+            displayText.add("Noted. I have removed this task:");
+            displayText.add(outputService.indentLeft(task.toString()));
+            displayText.add(String.format("Now you have %s %s in the list.",
+                    dukeBot.getNumberOfTasks(),
+                    dukeBot.getNumberOfTasks() == 1 ? "task" : "tasks"));
+            outputService.echo(displayText);
+        }, () ->
+            outputService.echo(String.format("Invalid Task index: %s provided.%n" +
+                    "Specify a number between %s - %s", taskNumber, 1, dukeBot.getNumberOfTasks() + 1))
+        );
+    }
 
     // Utility method to check if a string is numeric
     private boolean isNumeric(String str) {
@@ -104,5 +119,17 @@ public class CliParserService {
         } catch (NumberFormatException e) {
             return false;
         }
+    }
+
+    private boolean isValidTaskNumberArgument(String[] input) {
+        if (input.length <= 1) {
+            outputService.echo("An argument is required.");
+            return false;
+        }
+        if (!isNumeric(input[1])) {
+            outputService.echo("A numeric argument should be provided.");
+            return false;
+        }
+        return true;
     }
 }
