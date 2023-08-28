@@ -120,10 +120,10 @@ public class Duke {
                 INDENT, key.getKeyword(), INDENT);
         switch (key) {
         case BYE:
-                if (rest.equals(NAME)) {
-                    System.out.printf("%sBye. Hope to see you again soon!%n", INDENT);
-                    return true;
-                }
+            if (rest.equals(NAME)) {
+                System.out.printf("%sBye. Hope to see you again soon!%n", INDENT);
+                return true;
+            }
             // fall through
         case LIST:
             String errMessage = String.format("%sOOPS!!! The command for %s is invalid.\n" +
@@ -181,7 +181,11 @@ public class Duke {
             if (deadlineTask.length != 2) {
                 throw new DeadlineException(err);
             }
-            task = new Deadline(deadlineTask[0], deadlineTask[1]);
+            try {
+                task = new Deadline(deadlineTask[0], Time.parse(deadlineTask[1]));
+            } catch (DukeException e) {
+                throw new DeadlineException(err);
+            }
             break;
 
         default: // equivalent to case EVENT
@@ -193,7 +197,11 @@ public class Duke {
             if (dates.length != 2) {
                 throw new EventException(err);
             }
-            task = new Event(eventTask[0], dates[0], dates[1]);
+            try {
+                task = new Event(eventTask[0], Time.parse(dates[0]), Time.parse(dates[1]));
+            } catch (DukeException e) {
+                throw new EventException(err);
+            }
             break;
         }
         taskList.addTask(task);
