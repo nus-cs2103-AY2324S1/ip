@@ -10,6 +10,11 @@ public class Task {
         this.isDone = false;
     }
 
+    public Task(String description, boolean isDone) {
+        this.description = description;
+        this.isDone = isDone;
+    }
+
     /**
      * Returns the status icon
      * @return returns a string representation of the status icon
@@ -19,7 +24,11 @@ public class Task {
     }
 
     public String toString() {
-        return "[" + getStatusIcon() + "] " + description;
+        return "[" + getStatusIcon() + "] " + this.description;
+    }
+
+    public String toFile() {
+        return " | " + (this.isDone ? 1 : 0) + " | " + this.description + " | ";
     }
 
     public void setAsDone() {
