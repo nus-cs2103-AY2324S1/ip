@@ -1,9 +1,9 @@
 package spot.command;
 
-import spot.exception.SpotException;
 import spot.Storage;
 import spot.TaskList;
 import spot.Ui;
+import spot.exception.SpotException;
 import spot.task.ToDo;
 
 public class AddToDoCommand extends Command {

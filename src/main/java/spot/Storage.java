@@ -1,9 +1,9 @@
 package spot;
 
-import java.io.File;
-import java.io.FileWriter;
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -18,10 +18,10 @@ import spot.task.ToDo;
 
 public class Storage {
 
-    File storage;
-    private final static String DIRECTORY_NAME = "./data";
-    private final static String FILE_NAME = "spot.txt";
-    private final static String FULL_PATH = DIRECTORY_NAME + "/" + FILE_NAME;
+    private static final String DIRECTORY_NAME = "./data";
+    private static final String FILE_NAME = "spot.txt";
+    private static final String FULL_PATH = DIRECTORY_NAME + "/" + FILE_NAME;
+    private File storage;
 
     public Storage() throws SpotException {
         try {
