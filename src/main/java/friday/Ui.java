@@ -1,3 +1,4 @@
+package friday;
 public class Ui {
 
     public void greeting() {

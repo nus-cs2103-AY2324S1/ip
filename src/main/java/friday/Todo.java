@@ -1,3 +1,5 @@
+package friday;
+
 public class Todo extends Task {
 
     /**
