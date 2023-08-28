@@ -28,15 +28,17 @@ test {
 }
 
 application {
-    mainClass.set("seedu.duke.Duke")
+    //mainClass.set("seedu.duke.Duke") //check if need change
+    mainClass.set("teho.TehO") //new
 }
 
 shadowJar {
-    archiveBaseName = "duke"
+//    archiveBaseName = "duke"//old
+    archiveBaseName = "teho"//new
     archiveClassifier = null
     dependsOn("distZip", "distTar")
 }
 
-run{
+run {
     standardInput = System.in
 }
