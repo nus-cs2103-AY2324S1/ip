@@ -14,7 +14,7 @@ public class Parser  {
         this.storage = storage;
         this.botInUse = botInUse;
     }
-    public void updateSaveFile() {
+    private void updateSaveFile() {
         storage.saveFile(taskList.outputNumberedList());
     }
     public void listen(String input) throws InvalidUserInputException {

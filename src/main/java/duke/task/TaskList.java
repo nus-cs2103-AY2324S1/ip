@@ -6,27 +6,49 @@ public class TaskList {
     protected LinkedList<Task> storage;
 
     /**
-     * Constructor to build a Duke.Task Manager.
+     * Constructor to build a TaskList.
      */
     public TaskList() {
         this.storage = new LinkedList<Task>();
     }
 
+    /**
+     * Adds a task into the TaskList.
+     * @param task Task to be added into TaskList.
+     */
     public void addTask(Task task) {
         this.storage.add(task);
     }
 
+    /**
+     * Retrieves task from the TaskList based on its index.
+     * @param taskIndex Index of task to be retrieved.
+     * @return Task of given index in TaskList.
+     */
     public Task getTask(int taskIndex) {
         return this.storage.get(taskIndex);
     }
 
+    /**
+     * Deletes task with given index.
+     * @param taskIndex Index of task to be deleted.
+     */
     public void deleteTask(int taskIndex) {
         this.storage.remove(taskIndex);
     }
 
+    /**
+     * Returns the number of tasks in TaskList.
+     * @return Number of tasks in TaskList.
+     */
     public int getSize() {
         return this.storage.size();
     }
+
+    /**
+     * Return a String that represents the numbered list of tasks in the TaskList.
+     * @return String that represents the numbered list of tasks in the TaskList.
+     */
     public String outputNumberedList() {
         StringBuilder str = new StringBuilder();
         for (int i = 0; i < this.storage.size(); i++) {

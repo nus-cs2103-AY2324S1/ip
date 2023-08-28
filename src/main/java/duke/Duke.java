@@ -17,12 +17,20 @@ public class Duke {
         this("src/main/data/duke.txt");
     }
 
+    /**
+     * Constructor of Duke.
+     * @param filepath Task file to be loaded into Duke.
+     */
     public Duke(String filepath) {
         this.taskList = new TaskList();
         this.ui = new Ui();
         this.storage = new Storage(filepath);
         this.parser = new Parser(ui, taskList, botInUse, storage);
     }
+
+    /**
+     * Runs the Duke bot.
+     */
     public void run(){
         storage.loadFileToTaskManager(taskList);
         ui.greetings();
