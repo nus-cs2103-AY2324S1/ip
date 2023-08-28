@@ -1,8 +1,13 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Duke {
     private static final String HORIZONTAL_LINE = "____________________________________________________________";
+    private static final String FILE_NAME = "duke.txt";
 
     private static enum COMMAND {
         LIST, MARK, UNMARK, DELETE, BYE, TODO, DEADLINE, EVENT
@@ -13,6 +18,7 @@ public class Duke {
     public static final String NAME = "Duke";
 
     public static void main(String[] args) {
+        loadTasks(FILE_NAME);
         hello();
 
         Scanner sc = new Scanner(System.in);
@@ -35,6 +41,7 @@ public class Duke {
                         } catch (NumberFormatException e) {
                             throw new DukeException("\u2639 OOPS!!! The index of a task must be a number.");
                         }
+                        saveTasks(FILE_NAME);
                         break;
                     case BYE:
                         isRunning = false;
@@ -43,6 +50,7 @@ public class Duke {
                     case DEADLINE:
                     case EVENT:
                         addTask(command, argument);
+                        saveTasks(FILE_NAME);
                         break;
                     default:
                         throw new DukeException("\u2639 OOPS!!! I'm sorry, but I don't know what that means :-(");
@@ -172,4 +180,53 @@ public class Duke {
                 throw new DukeException("\u2639 OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
     }
+
+    private static void loadTasks(String fileName) {
+        File file = new File(fileName);
+        try {
+            Scanner sc = new Scanner(file);
+            while (sc.hasNextLine()) {
+                String[] inputs = sc.nextLine().split(" \\| ");
+                String taskType = inputs[0];
+                Boolean isDone = inputs[1].equals("1");
+                String description = inputs[2];
+                switch (taskType) {
+                    case "T":
+                        tasks.add(new Todo(description, isDone));
+                        break;
+                    case "D":
+                        String by = inputs[3];
+                        tasks.add(new Deadline(description, by, isDone));
+                        break;
+                    case "E":
+                        String from = inputs[3];
+                        String to = inputs[4];
+                        tasks.add(new Event(description, from, to, isDone));
+                        break;
+                    default:
+                        break;
+                }
+            }
+            sc.close();
+        } catch (FileNotFoundException fileNotFoundException) {
+            try {
+                file.createNewFile();
+            } catch (IOException ioException) {
+                printFormattedMessage("\u2639 OOPS!!! I have problems creating the file to save your tasks.");
+            }
+        }
+    }
+
+    private static void saveTasks(String fileName) {
+        File file = new File(fileName);
+        try {
+            FileWriter fileWriter = new FileWriter(file);
+            for (Task task : tasks) {
+                fileWriter.write(task.toFileString() + "\n");
+            }
+            fileWriter.close();
+        } catch (IOException ioException) {
+            printFormattedMessage("\u2639 OOPS!!! I have problems saving your tasks.");
+        }
+    } 
 }
