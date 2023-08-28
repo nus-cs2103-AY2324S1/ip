@@ -1,3 +1,7 @@
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.List;
@@ -16,6 +20,9 @@ public class Duke {
             List<Task> list = new ArrayList<>(100);
             System.out.println("Hello! I'm Victor\n" +
                     "What can I do for you?\n----------\n");
+
+            // Load tasks from a file
+            loadTasksFromFile(list);
 
             label:
             while (true) {
@@ -60,6 +67,8 @@ public class Duke {
                             throw new DukeException("☹ OOPS!!! The description of a todo task cannot be empty.");
                         Task task = new Todo(formattedInput[1]);
                         list.add(task);
+                        String taskToSave = String.format("T | 0 | %s", formattedInput[1]);
+                        saveTaskToFile(taskToSave);
                         System.out.printf("Got it. I've added this task:\n" +
                                 "%s\n" + "Now you have %d tasks in the list.\n" +
                                 "----------\n", task, list.size());
@@ -73,6 +82,8 @@ public class Duke {
                         String deadline = deadlineInfo[1];
                         Task task = new Deadline(description, deadline);
                         list.add(task);
+                        String taskToSave = String.format("D | 0 | %s | %s", description, deadline);
+                        saveTaskToFile(taskToSave);
                         System.out.printf("Got it. I've added this task:\n" +
                                 "%s\n" + "Now you have %d tasks in the list.\n" +
                                 "----------\n", task, list.size());
@@ -87,6 +98,8 @@ public class Duke {
                         String to = eventInfo[2];
                         Task task = new Event(description, from, to);
                         list.add(task);
+                        String taskToSave = String.format("E | 0 | %s | %s | %s", description, from, to);
+                        saveTaskToFile(taskToSave);
                         System.out.printf("Got it. I've added this task:\n" +
                                 "%s\n" + "Now you have %d tasks in the list.\n" +
                                 "----------\n", task, list.size());
@@ -110,5 +123,70 @@ public class Duke {
         } catch (Exception exception) {
             System.out.println(exception.getMessage());
         }
+    }
+
+    public static void saveTaskToFile(String task) {
+        String fileName = "./data/tasks.txt";
+        Path filePath = Paths.get(fileName);
+
+        try {
+            if (!Files.exists(filePath.getParent())) {
+                Files.createDirectories(filePath.getParent());
+            }
+            if (!Files.exists(filePath)) {
+                Files.createFile(filePath);
+            } else {
+                try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName, true))) {
+                    writer.newLine();
+                    writer.write(task);
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    public static List<Task> loadTasksFromFile(List<Task> list) {
+        String fileName = "./data/tasks.txt";
+        Path filePath = Paths.get(fileName);
+
+        try {
+            if (!Files.exists(filePath.getParent())) {
+                Files.createDirectories(filePath.getParent());
+            }
+            if (!Files.exists(filePath)) {
+                Files.createFile(filePath);
+            } else {
+                BufferedReader fileReader = new BufferedReader(new FileReader(fileName));
+                String line;
+                while ((line = fileReader.readLine()) != null) {
+                    String[] formattedLine = line.split(" \\| ");
+                    switch (formattedLine[0]) {
+                        case "T": {
+                            Task task = new Todo(formattedLine[2]);
+                            if (formattedLine[1].equals("1")) task.markDone();
+                            list.add(task);
+                            break;
+                        }
+                        case "D": {
+                            Task task = new Deadline(formattedLine[2], formattedLine[3]);
+                            if (formattedLine[1].equals("1")) task.markDone();
+                            list.add(task);
+                            break;
+                        }
+                        case "E": {
+                            Task task = new Event(formattedLine[2], formattedLine[3], formattedLine[4]);
+                            if (formattedLine[1].equals("1")) task.markDone();
+                            list.add(task);
+                            break;
+                        }
+                        default: break;
+                    }
+                }
+                fileReader.close();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return list;
     }
 }
