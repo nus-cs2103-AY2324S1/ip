@@ -34,7 +34,8 @@ public class Duke {
      * @return void
      */
     public static void main(String[] args) {
-        Duke bot = new Duke(System.getProperty("user.dir") + DIR + "/ipOutput.txt");
+//        Duke bot = new Duke(System.getProperty("user.dir") + DIR + "/ipOutput.txt");
+        Duke bot = new Duke("./ipOutput.txt");
         bot.run();
         bot.ui.exit();
     }

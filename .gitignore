@@ -20,6 +20,7 @@ text-ui-test/EXPECTED-UNIX.TXT
 *.class
 */data/
 /data
+ipOutput.txt
 
 # InteliJ jdk
 /lib

@@ -27,8 +27,9 @@ public class Storage {
      */
     public File createOutputFile() {
         File filePointer = new File(this.outputPath);
+        System.out.println(filePointer.getAbsolutePath());
         if (!filePointer.exists()) {
-//            File directory = new File(System.getProperty("user.dir") + duke.Duke.dir);
+//            File directory = new File(System.getProperty("user.dir") + duke.Duke.DIR);
             File directory = new File(new File(this.outputPath).getParent());
             // create directory if it doesn't exist
             if (!directory.exists()) {
