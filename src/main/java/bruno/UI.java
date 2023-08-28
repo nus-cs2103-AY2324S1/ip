@@ -1,3 +1,5 @@
+package bruno;
+
 import java.util.List;
 
 public class UI {
@@ -12,7 +14,7 @@ public class UI {
         String logo = "                ;~~,__,\n" + ":-….,———-‘`----/   ._.*\n" + " `-,,,   BRUNO   ,’\n"
                 + "     ;   ,~.——;  /\n" + "     :  |     :  |\n" + "     `_ ’     `_ ‘";
         System.out.println(logo);
-        String name = "Bruno";
+        String name = "bruno.Bruno";
         System.out.println("Woof Woof! I'm " + name + " 🐾");
         System.out.println("How can I help you?");
     }

@@ -1,8 +1,10 @@
+package bruno.task;
+
 import java.time.DateTimeException;
 import java.time.LocalDateTime;
 
 public class Deadline extends Task {
-    protected LocalDateTime by;
+    public LocalDateTime by;
 
     public Deadline(String description, String by) {
         super(TaskType.DEADLINE, description);

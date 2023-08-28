@@ -1,3 +1,11 @@
+package bruno;
+
+import bruno.exceptions.*;
+import bruno.task.Deadline;
+import bruno.task.Event;
+import bruno.task.Task;
+import bruno.task.ToDo;
+
 import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -62,7 +70,9 @@ public class TaskList {
 
     public void markTask(String task) throws BrunoException {
         String markVal = task.split(" ")[1];
-        if (!Character.isDigit(markVal.charAt(0))) {
+        try {
+            int a = Integer.parseInt(markVal);
+        } catch (NumberFormatException e) {
             throw new BrunoIntegerMismatchException("mark");
         }
         if (Integer.parseInt(markVal) > list.size()) {
@@ -81,8 +91,10 @@ public class TaskList {
 
     public void unmarkTask(String task) throws BrunoException {
         String unmarkVal = task.split(" ")[1];
-        if (!Character.isDigit(unmarkVal.charAt(0))) {
-            throw new BrunoIntegerMismatchException("unmark");
+        try {
+            int a = Integer.parseInt(unmarkVal);
+        } catch (NumberFormatException e) {
+            throw new BrunoIntegerMismatchException("mark");
         }
         if (Integer.parseInt(unmarkVal) > list.size()) {
             throw new BrunoIndexOutOfBoundsException("unmark");
@@ -99,8 +111,10 @@ public class TaskList {
 
     public void deleteTask(String task) throws BrunoException {
         String deleteVal = task.split(" ")[1];
-        if (!Character.isDigit(deleteVal.charAt(0))) {
-            throw new BrunoIntegerMismatchException("delete");
+        try {
+            int a = Integer.parseInt(deleteVal);
+        } catch (NumberFormatException e) {
+            throw new BrunoIntegerMismatchException("mark");
         }
         if (Integer.parseInt(deleteVal) > list.size()) {
             throw new BrunoIndexOutOfBoundsException("delete");

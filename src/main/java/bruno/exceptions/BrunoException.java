@@ -1,5 +1,7 @@
+package bruno.exceptions;
+
 public class BrunoException extends Exception {
-    BrunoException(String message) {
+    public BrunoException(String message) {
         super(message);
     }
 }
