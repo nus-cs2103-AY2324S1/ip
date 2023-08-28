@@ -1,6 +1,5 @@
 import java.time.DateTimeException;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
 import java.util.Scanner;
 import java.util.List;
 import java.util.ArrayList;
@@ -11,18 +10,19 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
+import static rayshawn.chatbot.messages.Messages.LINE_BREAK;
+
 public class ChatBot {
     private static List<Task> list = new ArrayList<>();
     private static File file;
-    private static final String lineBreak = "____________________________________________________________";
 
     public static void main(String[] args) {
 
         // Introduction message
-        System.out.println(lineBreak +
+        System.out.println(LINE_BREAK +
                 "\n Hello! I'm Desolute\n" +
                 " What can I do for you?\n" +
-                lineBreak);
+                LINE_BREAK);
 
         // Checks if data directory is available
         File dir = new File("./data");
@@ -45,9 +45,9 @@ public class ChatBot {
         } catch (FileNotFoundException f) {
             System.out.println("\n Task save file is missing!!! ");
         } catch (DukeException d) {
-            System.out.println(lineBreak +
+            System.out.println(LINE_BREAK +
                     d.getMessage() +
-                    lineBreak);
+                    LINE_BREAK);
         }
 
         Scanner sc = new Scanner(System.in);
@@ -58,17 +58,17 @@ public class ChatBot {
             try {
                 nextCommand(next);
             } catch (DukeException e) {
-                System.out.println(lineBreak +
+                System.out.println(LINE_BREAK +
                         e.getMessage()+
-                        lineBreak);
+                        LINE_BREAK);
             }
             next = sc.nextLine();
         }
 
         // Exit message
-        System.out.println(lineBreak +
+        System.out.println(LINE_BREAK +
                 "\n Bye. Hope to see you again soon!\n" +
-                lineBreak);
+                LINE_BREAK);
     }
 
     private static void nextCommand(String str) throws DukeException {
@@ -76,7 +76,7 @@ public class ChatBot {
         // https://stackoverflow.com/questions/9378394/remove-first-word-from-a-string-in-java
         String[] temp = str.split(" ", 2);
 
-        // Checks if any pre determined commands are given
+        // Checks if any predetermined commands are given
         switch (temp[0]) {
         case "list":
             showList();
@@ -98,11 +98,11 @@ public class ChatBot {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            System.out.println(lineBreak +
+            System.out.println(LINE_BREAK +
                     "\n Got it. I've added this task:\n  " +
                     toDo.toString() +
                     getTaskCount() +
-                    lineBreak);
+                    LINE_BREAK);
             break;
         case "deadline":
             if (temp.length != 2) {
@@ -125,11 +125,11 @@ public class ChatBot {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            System.out.println(lineBreak +
+            System.out.println(LINE_BREAK +
                     "\n Got it. I've added this task:\n  " +
                     deadline.toString() +
                     getTaskCount() +
-                    lineBreak);
+                    LINE_BREAK);
             break;
         case "event":
             if (temp.length != 2) {
@@ -160,11 +160,11 @@ public class ChatBot {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            System.out.println(lineBreak +
+            System.out.println(LINE_BREAK +
                     "\n Got it. I've added this task:\n  " +
                     event.toString() +
                     getTaskCount() +
-                    lineBreak);
+                    LINE_BREAK);
             break;
         case "delete":
             delete(temp[1]);
@@ -175,7 +175,7 @@ public class ChatBot {
     }
 
     private static void showList() {
-        System.out.print(lineBreak);
+        System.out.print(LINE_BREAK);
         if (list.isEmpty()) {
             System.out.println("\n The list is empty. Please add tasks in!");
         } else {
@@ -186,7 +186,7 @@ public class ChatBot {
             String current = String.format(" %d.%s", i + 1, temp.toString());
             System.out.println(current);
         }
-        System.out.println(lineBreak);
+        System.out.println(LINE_BREAK);
     }
 
     private static void markDone(String str) throws DukeException {
@@ -205,16 +205,16 @@ public class ChatBot {
 
         Task curr = list.get(num);
         if (curr.checkDone()) {
-            System.out.println(lineBreak +
+            System.out.println(LINE_BREAK +
                     "\n This task is already marked done!\n" +
-                    lineBreak);
+                    LINE_BREAK);
         } else {
             curr.markDone();
-            System.out.println(lineBreak +
+            System.out.println(LINE_BREAK +
                     "\n Nice! I've marked this task as done:\n " +
                     curr.toString() +
                     "\n" +
-                    lineBreak);
+                    LINE_BREAK);
         }
         try {
             writeAll();
@@ -240,16 +240,16 @@ public class ChatBot {
 
         Task curr = list.get(num);
         if (!curr.checkDone()) {
-            System.out.println(lineBreak +
+            System.out.println(LINE_BREAK +
                     "\n This task is not done yet!\n" +
-                    lineBreak);
+                    LINE_BREAK);
         } else {
             curr.unmarkDone();
-            System.out.println(lineBreak +
+            System.out.println(LINE_BREAK +
                     "\n OK, I've marked this task not done yet:\n " +
                     curr.toString() +
                     "\n" +
-                    lineBreak);
+                    LINE_BREAK);
         }
 
         try {
@@ -280,11 +280,11 @@ public class ChatBot {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        System.out.println(lineBreak +
+        System.out.println(LINE_BREAK +
                 "\n Noted. I've removed this task:\n  " +
                 curr.toString() +
                 getTaskCount() +
-                lineBreak);
+                LINE_BREAK);
     }
 
     private static void readAllTasks() throws FileNotFoundException, DukeException {
