@@ -5,6 +5,9 @@
  * @author Alvis Ng (supermii2)
  */
 public class CommandTaskList extends Command {
+    CommandTaskList(Rock client) {
+        super(client);
+    }
     @Override
     /**
      * Removes task from task list.
@@ -12,6 +15,6 @@ public class CommandTaskList extends Command {
      * @throws IllegalArgumentException Thrown when invalid index is given.
      */
     public void accept(Parser input) {
-        Rock.respond(Rock.taskList.toString());
+        this.client.ui.respond(this.client.taskList.toString());
     }
 }

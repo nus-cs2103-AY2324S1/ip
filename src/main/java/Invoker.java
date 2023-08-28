@@ -7,6 +7,10 @@ import java.util.function.Consumer;
  * @author Alvis Ng (supermii2)
  */
 public class Invoker {
+    Commands commands;
+    Invoker(Commands commands) {
+        this.commands = commands;
+    }
     /**
      * Helper function used to obtain the rest of a sentence sans keyword.
      * @param sentence String to be trimmed.
@@ -21,14 +25,14 @@ public class Invoker {
      * Used to handle a given user input and call the corresponding method.
      * @param inputString User's input.
      */
-    public static void handle(String inputString) {
+    public void handle(String inputString) throws RockError{
         Parser input = new Parser(removeFirstWord(inputString));
         String keyword = inputString.split(" ")[0];
         try {
-            Consumer<Parser> calledConsumer = Command.getCommand(keyword);
+            Consumer<Parser> calledConsumer = this.commands.getCommand(keyword);
             calledConsumer.accept(input);
         } catch (IllegalArgumentException e) {
-            Rock.respond(e.getMessage());
+            throw new RockError(e.getMessage());
         }
     }
 }

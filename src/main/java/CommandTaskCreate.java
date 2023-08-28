@@ -21,8 +21,8 @@ public class CommandTaskCreate extends Command {
      * the specified task type.
      * @param taskType Type of task that the created command should create.
      */
-    CommandTaskCreate(TaskTypes taskType) {
-        super();
+    CommandTaskCreate(Rock client, TaskTypes taskType) {
+        super(client);
         this.taskType = taskType;
     }    
     @Override
@@ -36,14 +36,14 @@ public class CommandTaskCreate extends Command {
         if (taskName == "") throw new IllegalArgumentException("Name of task cannot be empty!");
         switch (this.taskType) {
             case TODO:
-                Rock.taskList.addTask(new TaskTodo(taskName)); 
-                Rock.respond("Todo Task added!"); 
+                this.client.taskList.addTask(new TaskTodo(taskName)); 
+                this.client.ui.respond("Todo Task added!"); 
                 break;
             case DEADLINE:
                 try {
                     String deadlineTime = input.getTaggedInput("by");
-                    Rock.taskList.addTask(new TaskDeadline(taskName, deadlineTime));
-                    Rock.respond("Deadline Task added!");
+                    this.client.taskList.addTask(new TaskDeadline(taskName, deadlineTime));
+                    this.client.ui.respond("Deadline Task added!");
                     break;
                 } catch (NoSuchElementException e) {
                     throw new IllegalArgumentException("No deadline given. Indicate deadline with tag: /by");
@@ -52,13 +52,12 @@ public class CommandTaskCreate extends Command {
                 try {
                     String startTime = input.getTaggedInput("from");
                     String endTime = input.getTaggedInput("to");
-                    Rock.taskList.addTask(new TaskEvent(taskName, startTime, endTime));
-                    Rock.respond("Event Task added!");
+                    this.client.taskList.addTask(new TaskEvent(taskName, startTime, endTime));
+                    this.client.ui.respond("Event Task added!");
                     break;
                 } catch (NoSuchElementException e) {
                     throw new IllegalArgumentException("No start or end time given. Indicate with /from and /to.");
                 }                   
         }
-        Save.saveSaveFile();
     }
 }

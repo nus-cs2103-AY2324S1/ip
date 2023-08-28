@@ -3,6 +3,9 @@ import java.time.format.DateTimeParseException;
 import java.util.List;
 
 public class CommandTaskListByDate extends Command {
+    CommandTaskListByDate(Rock client) {
+        super(client);
+    }
     @Override
     public void accept(Parser input) throws IllegalArgumentException {
         LocalDate filterDate;
@@ -11,7 +14,7 @@ public class CommandTaskListByDate extends Command {
         } catch (DateTimeParseException e) {
             throw new IllegalArgumentException("Illegal Date");
         }
-        List<Task> taskList = Rock.taskList.toList();
+        List<Task> taskList = this.client.taskList.toList();
         String response = "";
         for (int i = 0; i < taskList.size(); i++) {
             if (taskList.get(i).getDate().equals(filterDate)) {
@@ -19,9 +22,9 @@ public class CommandTaskListByDate extends Command {
             }
         }
         if (response == "") {
-            Rock.respond("No tasks found!");
+            this.client.ui.respond("No tasks found!");
         } else {
-            Rock.respond(response);
+            this.client.ui.respond(response);
         }
     }
 }

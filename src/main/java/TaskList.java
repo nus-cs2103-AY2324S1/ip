@@ -32,6 +32,10 @@ public class TaskList implements Serializable{
         return this.items.size();
     }
 
+    public void reset() {
+        this.items = new ArrayList<>();
+    }
+
     public Task[] toArray() {
         Task[] lst = new Task[this.size()];
         return items.toArray(lst);
@@ -44,12 +48,12 @@ public class TaskList implements Serializable{
     @Override
     public String toString() {
         String response = "";
-        if (Rock.taskList.size() == 0) {
+        if (items.size() == 0) {
             response = "No tasks found!";
         } else {
             int counter = 1;
             response = "Task List: ";
-            for (Task task:Rock.taskList.toArray()) {
+            for (Task task:this.toArray()) {
                 response += "\n" + Integer.toString(counter) + ". " + task.toString();
                 counter++;
             }

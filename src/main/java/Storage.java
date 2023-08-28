@@ -1,5 +1,4 @@
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -7,51 +6,52 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
-public class Save {
-    public static Path FILE_PATH = Paths.get("data", "tasks.ser");
-    public static void createSaveFile() {
-        File saveFile = FILE_PATH.toFile();
+public class Storage {
+    Path savePath;
+    TaskList taskList;
+    Storage(Path path, TaskList taskList) {
+        this.savePath = path;
+        this.taskList = taskList;
+        createSaveFile();
+        loadSaveFile(taskList);
+    }
+    public void createSaveFile() throws StorageException {
+        File saveFile = this.savePath.toFile();
         try {
             saveFile.createNewFile();
         } catch (IOException e) {
-            Rock.say("WARNING: Unable to create save file!");
+            throw new StorageException("WARNING: Unable to create save file!");
         }
     }
-    public static void saveSaveFile() {
-        File saveFile = FILE_PATH.toFile();
+    public void saveSaveFile() throws StorageException{
+        File saveFile = savePath.toFile();
         try {
             FileOutputStream fileOutputStream = new FileOutputStream(saveFile);
             ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
-            objectOutputStream.writeObject(Rock.taskList);
+            objectOutputStream.writeObject(taskList);
             objectOutputStream.flush();
             objectOutputStream.close();
         } catch (IOException e) {
-            Rock.say("WARNING: Unable to find save file!");
+            throw new StorageException("WARNING: Unable to find save file!");
         }
     }
-    public static void loadSaveFile(TaskList list) {
-        File saveFile = FILE_PATH.toFile();
+    public void loadSaveFile(TaskList list) throws StorageException {
+        File saveFile = savePath.toFile();
         try {
             FileInputStream fileInputStream = new FileInputStream(saveFile);
             ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
             Object saveObj = objectInputStream.readObject();
             if (saveObj instanceof TaskList) {
-                Rock.taskList = (TaskList) saveObj;
+                taskList = (TaskList) saveObj;
                 objectInputStream.close(); 
             } else {
                 objectInputStream.close();
-                throw new SaveCorruptedException();
+                throw new StorageException("WARNING: Save File corrupted. Please delete save file!");
             }
         } catch (IOException e) {
-            Rock.say("WARNING: Failed to load save file!");
+            throw new StorageException("WARNING: Failed to load save file!");
         } catch (ClassNotFoundException e) {
-            Rock.say("WARNING: Class not found! Rock is likely corrupted. Please reinstall!");
-        } catch (SaveCorruptedException e) {
-            Rock.say("WARNING: Save File corrupted. Please delete save file!");
-        }
-    }
-    public static void initSave() {
-        createSaveFile();
-        loadSaveFile(Rock.taskList);
+            throw new StorageException("WARNING: Class not found! Rock is likely corrupted. Please reinstall!");
+        } 
     }
 }
