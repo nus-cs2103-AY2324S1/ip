@@ -63,4 +63,15 @@ public abstract class Task {
         char marked = '\u2717';
         return "[" + (isDone ? marked : " ") + "] " + this.description;
     }
+
+    /**
+     * Finds whether the description has the pattern in it.
+     *
+     * @param pattern The pattern to be matched.
+     * @return True if pattern is found in description.
+     */
+    public boolean descriptionContains(String pattern) {
+        int pos = this.description.indexOf(pattern);
+        return pos >= 0;
+    }
 }

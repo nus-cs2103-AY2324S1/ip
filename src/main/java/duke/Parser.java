@@ -6,6 +6,7 @@ import command.DeleteCommand;
 import command.EmptyCommand;
 import command.EventCommand;
 import command.ExitCommand;
+import command.FindCommand;
 import command.ListCommand;
 import command.MarkCommand;
 import command.TodoCommand;
@@ -27,6 +28,7 @@ public class Parser {
     private static final String DEADLINE_FLAG = "deadline";
     private static final String EVENT_FLAG = "event";
     private static final String DELETE_FLAG = "delete";
+    private static final String FLAG_FIND = "find";
 
     public static Command parseCommand(String input) throws DukeException {
         // skip past empty lines
@@ -177,6 +179,14 @@ public class Parser {
 
             return new DeleteCommand(index);
 
+        }
+
+        if (command.equals(FLAG_FIND)) {
+            if (value.isEmpty()) {
+                throw new DukeException("Oops!!! Please provide an input to find");
+            }
+
+            return new FindCommand(value);
         }
 
         throw new DukeException("Oops!!! I'm sorry, but I don't know what that means :-(");
