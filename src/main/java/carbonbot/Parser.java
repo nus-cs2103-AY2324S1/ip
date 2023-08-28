@@ -96,6 +96,9 @@ public class Parser {
 				return new MarkCommand(getIntegerArgument(fullCommand), false);
 			case "delete":
 				return new DeleteCommand(getIntegerArgument(fullCommand));
+			case "find":
+				String keyword = fullCommand.substring("find".length()).trim();
+				return new FindCommand(keyword);
 			default:
 				throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(" +
 						"\nMy supported commands are: list, mark, unmark, todo, deadline, event, bye.");
