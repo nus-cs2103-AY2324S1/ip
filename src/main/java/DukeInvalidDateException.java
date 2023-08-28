@@ -1,5 +1,5 @@
 public class DukeInvalidDateException extends DukeException {
     public DukeInvalidDateException() {
-        super("☹ OOPS!!! The date inputted is invalid.");
+        super("☹ OOPS!!! The selected date/time is invalid.");
     }
 }
