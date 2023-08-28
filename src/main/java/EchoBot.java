@@ -68,7 +68,7 @@ public class EchoBot {
                 deleteCommand.doCommand(tasks, ui, storage);
             } else {
                 Ui.showHorizontalLine();
-                System.out.println("    ☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+                System.out.println("    OOPS!!! I'm sorry, but I don't know what that means :-(");
                 Ui.showHorizontalLine();
             }
         }
