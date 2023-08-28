@@ -1,5 +1,8 @@
 import java.util.ArrayList;
 
+/**
+ * Represents a tasklist
+ */
 public class DukeList {
     private ArrayList<Task> dukeList;
 
@@ -7,31 +10,60 @@ public class DukeList {
         dukeList = new ArrayList<>(100);
     }
 
-    //General function to add task to list
+    /**
+     * This method simply prints out an acknowledgemnt that a task has been added
+     * @param newTask takes in a new task
+     */
     public void printAddList(Task newTask) {
         System.out.println("Got it. I've added this task:");
         System.out.println("\t" + newTask.toString());
         System.out.println("Now you have " + dukeList.size() + " tasks in the list.");
     }
 
+    /**
+     * This method adds a to-do task to the tasklist
+     * @param description description of the task
+     */
     public void addToDo(String description) {
         ToDo newToDo = new ToDo(description);
         dukeList.add(newToDo);
         printAddList(newToDo);
     }
 
+    /**
+     * This method adds a deadline task to the tasklist
+     * @param description description of the task
+     */
     public void addDeadline(String description, String by) {
         Deadline newDeadline = new Deadline(description, by);
         dukeList.add(newDeadline);
         printAddList(newDeadline);
     }
 
+    /**
+     * This method adds an event task to the tasklist
+     * @param description description of the task
+     */
     public void addEvent(String description, String from, String to) {
         Event newEvent = new Event(description, from, to);
         dukeList.add(newEvent);
         printAddList(newEvent);
     }
 
+    /**
+     * This method deletes a task from the tasklist
+     * @param taskNum index of the task
+     */
+    public void deleteTask(int taskNum) {
+        Task removedItem = dukeList.remove(taskNum - 1);
+        System.out.println("Noted. I've removed this task:");
+        System.out.println("\t " + removedItem.toString());
+        System.out.println("Now you have " + this.getSize() + " tasks in the list.");
+    }
+
+    /**
+     * Displays the current list
+     */
     public void displayList() {
         System.out.println("Here are the tasks in your list:");
         int len = dukeList.size();
@@ -42,6 +74,10 @@ public class DukeList {
         }
     }
 
+    /**
+     * Sets task as done
+     * @param taskNum index of task
+     */
     public void setTaskAsDone(int taskNum) {
         Task chosenTask = dukeList.get(taskNum - 1);
         chosenTask.setAsDone();
@@ -49,6 +85,10 @@ public class DukeList {
         System.out.println("\t" + chosenTask.toString());
     }
 
+    /**
+     * Sets task as undone
+     * @param taskNum index of task
+     */
     public void setTaskAsUndone(int taskNum) {
         Task chosenTask = dukeList.get(taskNum - 1);
         chosenTask.setAsUndone();
@@ -56,6 +96,10 @@ public class DukeList {
         System.out.println("\t" + chosenTask.toString());
     }
 
+    /**
+     * returns size of list
+     * @return size of list
+     */
     public int getSize() {
         return dukeList.size();
     }
