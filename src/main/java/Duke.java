@@ -111,7 +111,11 @@ public class Duke {
         case UNMARK:
         case DELETE:
             throw new ManipulateException(message, key.getKeyword());
+
+        case PRINT_DATE:
+            throw new PrintDateException(message);
         }
+
         return false;
     }
 
@@ -141,6 +145,10 @@ public class Duke {
         case DEADLINE:
         case EVENT:
             processAddCommand(key, rest, message);
+            break;
+
+        case PRINT_DATE:
+            processPrintCommand(key, rest, message);
             break;
         }
         return false;
@@ -182,7 +190,7 @@ public class Duke {
                 throw new DeadlineException(err);
             }
             try {
-                task = new Deadline(deadlineTask[0], Time.parse(deadlineTask[1]));
+                task = new Deadline(deadlineTask[0], Time.parseDateTime(deadlineTask[1]));
             } catch (DukeException e) {
                 throw new DeadlineException(err);
             }
@@ -198,7 +206,7 @@ public class Duke {
                 throw new EventException(err);
             }
             try {
-                task = new Event(eventTask[0], Time.parse(dates[0]), Time.parse(dates[1]));
+                task = new Event(eventTask[0], Time.parseDateTime(dates[0]), Time.parseDateTime(dates[1]));
             } catch (DukeException e) {
                 throw new EventException(err);
             }
@@ -206,6 +214,22 @@ public class Duke {
         }
         taskList.addTask(task);
         storage.appendFile(task.fileFormat());
+    }
+
+    private void processPrintCommand(Keyword key, String rest, String err) throws DukeException {
+        String[] printTask = rest.split(" /on ");
+        if (printTask.length != 2) {
+            throw new PrintDateException(err);
+        }
+        if (!printTask[0].equals("deadline") && !printTask[0].equals("event")) {
+            throw new PrintDateException(err);
+        }
+
+        try {
+            taskList.printDateTask(Keyword.valueOf(printTask[0].toUpperCase()), Time.parseDate(printTask[1]));
+        } catch (DukeException e) {
+            throw new PrintDateException(err);
+        }
     }
 
     private static void printLine() {

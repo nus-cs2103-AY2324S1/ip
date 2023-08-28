@@ -1,6 +1,8 @@
+import java.time.LocalDate;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.stream.IntStream;
+import java.time.LocalDateTime;
 
 public class TaskList {
 
@@ -32,6 +34,27 @@ public class TaskList {
         IntStream.range(0, taskList.size())
                 .forEach(i ->
                         System.out.printf("%s%d.%s%n", Duke.INDENT, i + 1, taskList.get(i)));
+    }
+
+    public void printDateTask(Keyword key, LocalDate date) {
+        if (taskList.isEmpty()) {
+            System.out.printf("%sOOPS!!! There is nothing in the list, yet!%n", Duke.INDENT);
+        } else {
+            List<Task> tasksOnDate = new ArrayList<>();
+            for (Task task : taskList) {
+                if (task.onDate(key, date)) {
+                    tasksOnDate.add(task);
+                }
+            }
+            if (!tasksOnDate.isEmpty()) {
+                System.out.printf("%sHere are the %d tasks happening on %s:%n",
+                        Duke.INDENT, tasksOnDate.size(), date.format(Time.DATE_DISPLAY_FORMATTER));
+                tasksOnDate.forEach(t -> System.out.printf("%s  %s%n", Duke.INDENT, t));
+            } else {
+                System.out.printf("%sOOPS!!! There is nothing happening on %s.%n",
+                        Duke.INDENT, date.format(Time.DATE_DISPLAY_FORMATTER));
+            }
+        }
     }
 
     public void deleteTask(int index) throws DukeException {

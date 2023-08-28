@@ -1,3 +1,4 @@
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
@@ -17,15 +18,24 @@ public class Event extends Task{
     public String fileFormat() {
         return String.format("E%s%s%s%s%s%s",
                 Storage.SEPARATOR, super.fileFormat(),
-                Storage.SEPARATOR, this.from.format(Time.FORMATTER),
-                Storage.SEPARATOR, this.to.format(Time.FORMATTER));
+                Storage.SEPARATOR, this.from.format(Time.DATE_TIME_FORMATTER),
+                Storage.SEPARATOR, this.to.format(Time.DATE_TIME_FORMATTER));
+    }
+
+    @Override
+    public boolean onDate(Keyword key, LocalDate date) {
+        LocalDate from = this.from.toLocalDate();
+        LocalDate to = this.to.toLocalDate();
+        return key.equals(Keyword.EVENT) &&
+                (from.isBefore(date) || from.equals(date)) &&
+                (to.isAfter(date) || to.equals(date));
     }
 
     @Override
     public String toString() {
         return String.format("[E]%s (from: %s to: %s)", super.toString(),
-                this.from.format(Time.DISPLAY_FORMATTER),
-                this.to.format(Time.DISPLAY_FORMATTER));
+                this.from.format(Time.DATE_TIME_DISPLAY_FORMATTER),
+                this.to.format(Time.DATE_TIME_DISPLAY_FORMATTER));
     }
 
     @Override
