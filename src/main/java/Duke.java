@@ -77,8 +77,8 @@ public class Duke {
 
         try {
             tasks = new TaskList(storage.load(), storage);
-
         } catch (DukeException e) {
+            System.out.println(e.getMessage());
             System.out.println("--- No Data Stored ---");
             tasks = new TaskList(new ArrayList<>(), storage);
         }
