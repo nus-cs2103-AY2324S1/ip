@@ -11,7 +11,8 @@ public enum Command {
     EVENT("event"),
     BY("by"),
     FROM("from"),
-    TO("to");
+    TO("to"),
+    SKIP("skip");
 
     private String cmd;
     private int strLength;

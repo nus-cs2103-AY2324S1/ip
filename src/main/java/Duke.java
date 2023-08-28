@@ -1,16 +1,18 @@
 import Exception.InvalidDateException;
 import java.util.Scanner;
 
+import Command.*;
 import Enums.Command;
 import Exception.InvalidInputException;
 import Exception.InvalidTimeException;
-import Exception.InvalidDateException;
 import Exception.InvalidCommandException;
 import Exception.MissingArgumentException;
-import Exception.MissingTaskArgumentException;
-import Task.Deadlines;
+import Parser.CommandParser;
+import Parser.Time;
 import Task.Events;
+import Task.TaskList;
 import Task.ToDo;
+import Ui.Reply;
 
 public class Duke {
 
@@ -28,17 +30,17 @@ public class Duke {
                 } else if (input.toLowerCase().equals(Command.LIST.getCommand())) {
                     tasks.printTasks();
                 } else if (input.startsWith(Command.MARK.getCommand())) {
-                    markTask(input, true);
+                    MarkCommand.start(input);
                 } else if (input.startsWith(Command.UNMARK.getCommand())) {
-                    markTask(input, false);
+                    UnmarkCommand.start(input);
                 } else if (input.toLowerCase().equals(Command.TODO.getCommand())) {
-                    handleToDo(scanner);
+                    ToDoCommand.start();
                 } else if (input.toLowerCase().equals(Command.DEADLINE.getCommand())) {
-                    handleDeadline(scanner);
+                    DeadlineCommand.start();
                 } else if (input.toLowerCase().equals(Command.EVENT.getCommand())) {
-                    handleEvent(scanner);
+                    EventCommand.start();
                 } else if (input.startsWith(Command.DELETE.getCommand())) {
-                    deleteTask(input);
+                    DeleteCommand.start(input);
                 } else {
                     throw new InvalidCommandException();
                 }
@@ -50,133 +52,7 @@ public class Duke {
                 reply.printDialog(e.toString());
             }
         }
-
     }
 
-    private static void handleToDo(Scanner scanner) {
-        reply.printDialog("So you want to add a ToDo task. Tell me what's the task.");
-        String desc = scanner.nextLine();
-        tasks.addTask(new ToDo(desc));
-    }
 
-    private static void handleDeadline(Scanner scanner) {
-
-        reply.printDialog("So you want to add a task with deadline. Tell me what's the task.");
-        String desc = scanner.nextLine();
-        reply.printDialog("Now indicate the deadline date.");
-        String date = scanner.nextLine();
-
-        try {
-            date = Time.formatDate(date);
-            tasks.addTask(new Deadlines(desc, date));
-        } catch (InvalidDateException e) {
-            reply.printDialog(e.toString());
-        }
-        reply.printDialog("Indicate a start time in ranging from 0000 - 2359. You may enter 'Skip' to not indicate a time");
-        String time = scanner.nextLine();
-        if (!time.toLowerCase().equals("skip")) {
-            try {
-                date = Time.formatTime(date, time);
-                tasks.addTask(new Deadlines(desc, date));
-            } catch (InvalidTimeException | InvalidDateException e) {
-                reply.printDialog(e.toString());
-            }
-        }
-    }
-
-    private static void handleEvent(Scanner scanner) {
-
-        reply.printDialog("So you want to add a event task. Tell me what's the task.");
-        String desc = scanner.nextLine();
-        reply.printDialog("Now indicate the start date.");
-        String from = scanner.nextLine();
-        try {
-            from = Time.formatDate(from);
-        } catch (InvalidDateException e) {
-            reply.printDialog(e.toString());
-        }
-        reply.printDialog("Indicate a start time in ranging from 0000 - 2359. You may enter 'Skip' to not indicate a time");
-        String fromTime = scanner.nextLine();
-        if (!fromTime.toLowerCase().equals("skip")) {
-            try {
-                from = Time.formatTime(from, fromTime);
-            } catch (InvalidTimeException | InvalidDateException e) {
-                reply.printDialog(e.toString());
-            }
-        }
-        reply.printDialog("Now indicate the end date.");
-        String to = scanner.nextLine();
-        try {
-            to = Time.formatDate(to);
-        } catch (InvalidDateException e) {
-            reply.printDialog(e.toString());
-        }
-        reply.printDialog("Indicate a start time in ranging from 0000 - 2359. You may enter 'Skip' to not indicate a time");
-        String toTime = scanner.nextLine();
-        if (!toTime.toLowerCase().equals("skip")) {
-            try {
-                to = Time.formatTime(to, toTime);
-                tasks.addTask(new Events(desc, from, to));
-            } catch (InvalidTimeException | InvalidDateException e) {
-                reply.printDialog(e.toString());
-            }
-        }
-    }
-    public static void markTask(String input, boolean mark) throws
-            InvalidInputException,
-            MissingArgumentException,
-            InvalidCommandException {
-
-        Command command = mark ? Command.MARK : Command.UNMARK;
-        String number = getCommandArguments(input, command);
-        try {
-            if (mark) {
-                tasks.markDone(Integer.parseInt(number));
-            } else {
-                tasks.unmarkDone(Integer.parseInt(number));
-            }
-        } catch (NumberFormatException e ) {
-            reply.printDialog("Strictly type 1 number only");
-        } catch (IndexOutOfBoundsException e) {
-            reply.printDialog("Index number does not exist in our list");
-        }
-    }
-    private static void deleteTask(String input) throws
-            InvalidInputException,
-            MissingArgumentException,
-            InvalidCommandException {
-
-        String number = getCommandArguments(input,Command.DELETE);
-        try {
-            tasks.deleteTask(Integer.parseInt(number));
-        } catch (NumberFormatException e ) {
-            reply.printDialog(" Strictly type 1 number only");
-        } catch (IndexOutOfBoundsException e) {
-            reply.printDialog(" Index number does not exist in our list");
-        }
-    }
-
-    private static String getCommandArguments(String input, Command command) throws
-            InvalidInputException,
-            MissingArgumentException,
-            InvalidCommandException {
-
-        int cmdLength = command.getCommandStringLength();
-        String args = input.substring(cmdLength);
-
-        if (args.isBlank()) {
-            switch (command) {
-                case MARK:
-                case UNMARK:
-                case DELETE:
-                    throw new MissingTaskArgumentException();
-                default:
-                    throw new InvalidCommandException();
-            }
-        } else if (args.startsWith(" ")){
-            return args.substring(1);
-        } else {
-            throw new InvalidInputException();
-        }
-    }
 }

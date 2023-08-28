@@ -1,3 +1,5 @@
+package Ui;
+
 public class Reply {
     private String indent = "     ";
     private String section = indent + "________________________________________\n";

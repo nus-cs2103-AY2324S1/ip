@@ -1,3 +1,5 @@
+package Parser;
+
 import Exception.InvalidDateException;
 import Exception.InvalidTimeException;
 
@@ -130,7 +132,7 @@ public class Time {
         DateTimeFormatter currentFormat = findDateFormat(date);
         LocalDate lDate = LocalDate.parse(date, currentFormat);
         int intTime = Integer.parseInt(time);
-        int hour = intTime / 100;
+        int hour = (int) Math.floor(intTime / 100.0);
         int minute = intTime - (hour * 100);
         return lDate.atTime(hour, minute).format(stdFormat);
     }
