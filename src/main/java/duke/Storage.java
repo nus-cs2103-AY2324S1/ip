@@ -7,6 +7,9 @@ import java.io.File;
 import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.Scanner;
+/**
+ * The `Storage` class handles loading and saving tasks to a data file.
+ */
 public class Storage {
     private String filePath;
 
@@ -14,14 +17,28 @@ public class Storage {
 
     private static final String DATA_FILE_PATH = "./data/duke.txt";
 
+    /**
+     * Constructs a `Storage` object with the default data file path.
+     */
     public Storage() {
         this.filePath = DATA_FILE_PATH;
     }
 
+    /**
+     * Constructs a `Storage` object with a custom data file path.
+     *
+     * @param filePath The file path to the data file.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
+    /**
+     * Loads tasks from the data file.
+     *
+     * @return An ArrayList of tasks loaded from the data file.
+     * @throws DukeException If there is an error loading tasks or the data file is corrupted.
+     */
     public ArrayList<Task> loadTask() throws DukeException {
         ArrayList<Task> loadedTasks = new ArrayList<>();
 
@@ -54,8 +71,12 @@ public class Storage {
         }
         return loadedTasks;
     }
-
-
+    /**
+     * Saves tasks to the data file.
+     *
+     * @param tasks The ArrayList of tasks to be saved.
+     * @throws DukeException If there is an error saving tasks to the data file.
+     */
     public void saveTasks(ArrayList<Task> tasks) throws DukeException {
         try {
             File folder = new File(FOLDER_PATH);
