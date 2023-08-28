@@ -11,7 +11,7 @@ public class Duke {
     /**
      * Name of the bot.
      */
-    private final String NAME = "Cabbage";
+    private final String NAME = "Snake CYQJ";
     /**
      * Dynamic array of tasks.
      */

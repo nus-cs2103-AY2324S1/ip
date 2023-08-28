@@ -2,6 +2,10 @@ package task;
 
 import exception.IllegalTaskIndexException;
 import exception.InvalidArgumentException;
+import storage.Storage;
+
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -53,13 +57,21 @@ public class TaskList {
         public abstract Task createTask(String details) throws InvalidArgumentException;
     }
 
-    private final List<Task> tasks;
+    private List<Task> tasks;
+    private final Storage storage;
 
     /**
      * Constructor for TaskList.
      */
     public TaskList() {
-        this.tasks = new ArrayList<>();
+//        this.tasks = new ArrayList<>();
+        this.storage = new Storage();
+        try {
+            this.tasks = storage.load();
+        } catch (IOException e) {
+            System.out.println("Error loading data from file: " + e);
+            this.tasks = new ArrayList<>();
+        }
     }
 
     /**
@@ -82,6 +94,11 @@ public class TaskList {
             throw new InvalidArgumentException("Bro your task type is unknown: " + type);
         }
         tasks.add(taskType.createTask(taskDetails));
+        try {
+            storage.save(tasks);
+        } catch (IOException e) {
+            System.out.println("Error saving data to file: " + e);
+        }
         System.out.println("____________________________________________________________");
         System.out.println("Got it. I've added this task:");
         System.out.println(this.tasks.get(this.tasks.size() - 1));
@@ -114,7 +131,16 @@ public class TaskList {
         if (index > tasks.size() || index < 1) {
             throw new IllegalTaskIndexException();
         }
+        System.out.println("____________________________________________________________");
+        System.out.println("Nice! I've marked this task as done:");
         this.tasks.get(index - 1).markAsDone();
+        System.out.println(this.tasks.get(index - 1));
+        System.out.println("____________________________________________________________");
+        try {
+            storage.save(tasks);
+        } catch (IOException e) {
+            System.out.println("Error saving data to file: " + e);
+        }
     }
 
     /**
@@ -126,7 +152,16 @@ public class TaskList {
         if (index > tasks.size() || index < 1) {
             throw new IllegalTaskIndexException();
         }
+        System.out.println("____________________________________________________________");
+        System.out.println("OK, I've marked this task as not done yet:");
         this.tasks.get(index - 1).markAsUndone();
+        System.out.println(this.tasks.get(index-1));;
+        System.out.println("____________________________________________________________");
+        try {
+            storage.save(tasks);
+        } catch (IOException e) {
+            System.out.println("Error saving data to file: " + e);
+        }
     }
 
     /**
@@ -145,6 +180,11 @@ public class TaskList {
         String placeholder = tasks.size() == 1 ? "task" : "tasks";
         System.out.println("Now you have " + tasks.size() + " " + placeholder + " in the list.");
         System.out.println("____________________________________________________________");
+        try {
+            storage.save(tasks);
+        } catch (IOException e) {
+            System.out.println("Error saving data to file: " + e);
+        }
     }
 
 }
