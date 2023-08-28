@@ -1,4 +1,4 @@
-package extensions;
+package tasks;
 
 public class TodoTask extends Task {
 
