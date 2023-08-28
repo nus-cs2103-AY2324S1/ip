@@ -7,12 +7,20 @@ import com.alpha.tasks.TaskList;
 import com.alpha.ui.Ui;
 import com.alpha.utils.Parser;
 
+/**
+ * The type Alpha.
+ */
 public class Alpha {
 
     private final Ui ui;
     private Storage storage;
     private TaskList taskList;
 
+    /**
+     * Instantiates a new Alpha.
+     *
+     * @param filePath File path of the local storage file.
+     */
     public Alpha(String filePath) {
         ui = new Ui();
         try {
@@ -24,10 +32,18 @@ public class Alpha {
         }
     }
 
+    /**
+     * The entry point of application.
+     *
+     * @param args Input arguments
+     */
     public static void main(String[] args) {
         new Alpha("./data/save.txt").run();
     }
 
+    /**
+     * Run the aplication.
+     */
     public void run() {
         ui.welcome();
         boolean isExit = false;

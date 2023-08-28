@@ -17,10 +17,19 @@ import com.alpha.ui.SilentUi;
 import com.alpha.ui.Ui;
 import com.alpha.utils.Parser;
 
+/**
+ * The type Storage.
+ */
 public class Storage {
 
     private final File file;
 
+    /**
+     * Instantiates a new Storage.
+     *
+     * @param filePath File path of the local storage file.
+     * @throws IOException If there is an IO exception.
+     */
     public Storage(String filePath) throws IOException {
         file = new File(filePath);
         createFile();
@@ -31,6 +40,13 @@ public class Storage {
         file.createNewFile();
     }
 
+    /**
+     * Load the task list from local storage.
+     *
+     * @return Local storage task list.
+     * @throws FileNotFoundException If the file cannot be found.
+     * @throws InvalidTaskException  If the task is invalid.
+     */
     public TaskList load() throws FileNotFoundException, InvalidTaskException {
         Scanner sc = new Scanner(file);
         TaskList taskList = new TaskList();
@@ -50,6 +66,12 @@ public class Storage {
         return taskList;
     }
 
+    /**
+     * Save the task list to local storage.
+     *
+     * @param taskList Task list of the application.
+     * @throws IOException If there is an IO exception.
+     */
     public void save(TaskList taskList) throws IOException {
         FileWriter fw = new FileWriter(file);
         boolean first = true;

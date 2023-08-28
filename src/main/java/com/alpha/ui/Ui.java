@@ -6,13 +6,22 @@ import java.util.Scanner;
 import com.alpha.tasks.Task;
 import com.alpha.tasks.TaskList;
 
+/**
+ * The type Ui.
+ */
 public class Ui {
 
     private final Scanner sc = new Scanner(System.in);
 
+    /**
+     * Instantiates a new Ui.
+     */
     public Ui() {
     }
 
+    /**
+     * Prints the welcome message.
+     */
     public void welcome() {
         lineBreak();
         System.out.println("Hello! I'm Alpha.");
@@ -20,16 +29,29 @@ public class Ui {
         lineBreak();
     }
 
+    /**
+     * Prints the goodbye message.
+     */
     public void goodbye() {
         lineBreak();
         System.out.println("Bye. Hope to see you again soon!");
         lineBreak();
     }
 
+    /**
+     * Proccess the next input from the user.
+     *
+     * @return Input string from user.
+     */
     public String proccessInput() {
         return sc.nextLine();
     }
 
+    /**
+     * Display all tasks given a list of tasks.
+     *
+     * @param tasks List of tasks.
+     */
     public void displayTasks(List<Task> tasks) {
         lineBreak();
         System.out.println("Here are the tasks in your list:");
@@ -41,6 +63,12 @@ public class Ui {
         lineBreak();
     }
 
+    /**
+     * Display message when adding a task.
+     *
+     * @param task     Task to be added.
+     * @param taskList Task list of the application.
+     */
     public void addTask(Task task, TaskList taskList) {
         lineBreak();
         System.out.println("Got it. I've added this task:");
@@ -49,6 +77,11 @@ public class Ui {
         lineBreak();
     }
 
+    /**
+     * Display message when marking task as done.
+     *
+     * @param task Task to be marked.
+     */
     public void markTask(Task task) {
         lineBreak();
         System.out.println("Nice! I've marked this task as done:");
@@ -56,6 +89,11 @@ public class Ui {
         lineBreak();
     }
 
+    /**
+     * Display message when marking task as not done.
+     *
+     * @param task Task to be unmarked.
+     */
     public void unmarkTask(Task task) {
         lineBreak();
         System.out.println("OK, I've marked this task as not done yet:");
@@ -63,6 +101,12 @@ public class Ui {
         lineBreak();
     }
 
+    /**
+     * Display message deleting task.
+     *
+     * @param task     Task to be deleted.
+     * @param taskList Task list of the application.
+     */
     public void deleteTask(Task task, TaskList taskList) {
         lineBreak();
         System.out.println("Noted. I've removed this task:");
@@ -71,10 +115,16 @@ public class Ui {
         lineBreak();
     }
 
+    /**
+     * Display loading error.
+     */
     public void loadingError() {
         System.out.println("Error loading. Please try again.");
     }
 
+    /**
+     * Display line break.
+     */
     public void lineBreak() {
         System.out.println("______________________________");
     }
