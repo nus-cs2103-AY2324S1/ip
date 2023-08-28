@@ -3,6 +3,7 @@ package parser;
 import enums.Command;
 import exception.InvalidCommandException;
 import exception.MissingArgumentException;
+import exception.MissingTaskArgumentException;
 import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 
@@ -43,5 +44,15 @@ public class CommandParserTest {
         } catch (Exception e) {
             Assert.fail();
         }
+    }
+
+    @Test
+    public void emptyInput() {
+        assertThrows(InvalidCommandException.class, () -> CommandParser.getCommandArguments(""));
+    }
+
+    @Test
+    public void noArguments() {
+        assertThrows(MissingTaskArgumentException.class, () -> CommandParser.getCommandArguments("delete"));
     }
 }

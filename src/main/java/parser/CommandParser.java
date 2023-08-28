@@ -15,13 +15,12 @@ public class CommandParser {
         Command command;
 
         try {
-            System.out.println(firstWord);
             command = Command.valueOf(firstWord.toUpperCase());
         } catch (IllegalArgumentException e) {
             throw new InvalidCommandException();
         }
 
-        String args = input.substring(command.getCommandStringLength() + 1);
+        String args = input.substring(command.getCommandStringLength());
 
         if (args.isBlank()) {
             switch (command) {
@@ -33,7 +32,7 @@ public class CommandParser {
                     throw new InvalidCommandException();
             }
         } else {
-            return args;
+            return args.substring(1);
         }
     }
 
