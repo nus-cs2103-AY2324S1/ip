@@ -3,6 +3,6 @@ E | 0 | meeting | 2023-09-04 1200 | 2023-09-04 1500
 T | 0 | do homework
 T | 1 | read book
 D | 1 | buy book | 2023-09-21
-D | 1 | buy food | 2023-08-29
+D | 0 | buy food | 2023-08-29
 T | 0 | watch movie
-D | 0 | return book | 2023-10-02
+D | 1 | return book | 2023-10-02

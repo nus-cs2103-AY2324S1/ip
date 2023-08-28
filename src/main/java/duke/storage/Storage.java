@@ -10,13 +10,26 @@ import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+/**
+ * Handles loading and saving tasks.
+ */
 public class Storage {
     private String filePath;
 
+    /**
+     * Constructs a Storage instance with the specified file path.
+     *
+     * @param filePath The path to the file where tasks are stored.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
+    /**
+     * Loads tasks from the file and returns them as a list.
+     *
+     * @return The list of tasks.
+     */
     public ArrayList<Task> loadTasks() {
         // Load tasks from the file and return them
         ArrayList<Task> tasks = new ArrayList<>();
@@ -65,6 +78,11 @@ public class Storage {
         return tasks;
     }
 
+    /**
+     * Saves the list of tasks to the file.
+     *
+     * @param tasks The list of tasks.
+     */
     public void saveTasks(ArrayList<Task> tasks) {
         // Save tasks to the file
         try (PrintWriter writer = new PrintWriter(filePath)) {

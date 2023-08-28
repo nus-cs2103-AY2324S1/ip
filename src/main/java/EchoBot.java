@@ -9,14 +9,22 @@ import duke.ui.Ui;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * The main class that represents the EchoBot application.
+ */
 public class EchoBot {
+    /**
+     * The entry point of the EchoBot application.
+     *
+     * @param args Command line arguments (not used).
+     */
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         String filePath = "./data/duke.txt"; // Default path
         Ui ui = new Ui();
         Storage storage = new Storage(filePath);
-
         ArrayList<Task> tasks = new ArrayList<>();
+
         ui.showWelcomeMessage();
 
         try {
@@ -36,14 +44,16 @@ public class EchoBot {
                 Ui.showTasks(tasks);
             } else if (userInput.startsWith("todo")) {
                 String taskDescription = Command.extractTaskDesc(userInput, "todo");
-                Command addCommand = new AddCommand(Command.TaskType.TODO, taskDescription, null, null);
+                Command addCommand = new AddCommand(Command.TaskType.TODO, taskDescription,
+                        null, null);
                 addCommand.doCommand(tasks, ui, storage);
             } else if (userInput.startsWith("deadline")) {
                 String taskDescription = Command.extractTaskDesc(userInput, "deadline");
                 int indexOfBy = taskDescription.indexOf("/by");
                 String deadlineDescription = taskDescription.substring(0, indexOfBy).trim();
                 String by = taskDescription.substring(indexOfBy + 3).trim();
-                Command addCommand = new AddCommand(Command.TaskType.DEADLINE, deadlineDescription, by, null);
+                Command addCommand = new AddCommand(Command.TaskType.DEADLINE, deadlineDescription,
+                        by, null);
                 addCommand.doCommand(tasks, ui, storage);
             } else if (userInput.startsWith("event")) {
                 String taskDescription = Command.extractTaskDesc(userInput, "event");

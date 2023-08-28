@@ -7,15 +7,30 @@ import duke.task.Event;
 import duke.task.Task;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-
 import java.util.ArrayList;
+
+/**
+ * Represents a command to unmark a task as not done.
+ */
 public class UnmarkCommand extends Command {
     private int taskNum;
 
+    /**
+     * Constructs an UnmarkCommand instance.
+     *
+     * @param taskNum The task number to be unmarked.
+     */
     public UnmarkCommand(int taskNum) {
         this.taskNum = taskNum;
     }
 
+    /**
+     * Executes the UnmarkCommand, unmarking a task as not done and updating the task list.
+     *
+     * @param tasks   The list of tasks.
+     * @param ui      The user interface.
+     * @param storage The data storage.
+     */
     public void doCommand(ArrayList<Task> tasks, Ui ui, Storage storage) {
         if (taskNum >= 1 && taskNum <= tasks.size()) {
             Task task = tasks.get(taskNum - 1);
@@ -25,7 +40,6 @@ public class UnmarkCommand extends Command {
             System.out.println("    OK, I've marked this task as not done yet:");
             System.out.print("      [" + task.getStatusIcon() + "] " + task.getDescription());
 
-            // Additional information
             if (task instanceof Event) {
                 LocalDateTime from = ((Event) task).getFrom();
                 LocalDateTime to = ((Event) task).getTo();

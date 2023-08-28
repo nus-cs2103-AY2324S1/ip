@@ -5,13 +5,28 @@ import duke.ui.Ui;
 import duke.task.Task;
 import java.util.ArrayList;
 
+/**
+ * Represents a command to delete a task from the list.
+ */
 public class DeleteCommand extends Command {
     private int taskNum;
 
+    /**
+     * Constructs a DeleteCommand instance.
+     *
+     * @param taskNum The task number to be deleted.
+     */
     public DeleteCommand(int taskNum) {
         this.taskNum = taskNum;
     }
 
+    /**
+     * Executes the DeleteCommand, removing a task from the list.
+     *
+     * @param tasks   The list of tasks.
+     * @param ui      The user interface.
+     * @param storage The data storage.
+     */
     @Override
     public void doCommand(ArrayList<Task> tasks, Ui ui, Storage storage) {
         if (taskNum >= 1 && taskNum <= tasks.size()) {

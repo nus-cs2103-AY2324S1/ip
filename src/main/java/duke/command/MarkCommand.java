@@ -9,13 +9,28 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
+/**
+ * Represents a command to mark a task as done.
+ */
 public class MarkCommand extends Command {
     private int taskNum;
 
+    /**
+     * Constructs a MarkCommand instance.
+     *
+     * @param taskNum The task number to be marked as done.
+     */
     public MarkCommand(int taskNum) {
         this.taskNum = taskNum;
     }
 
+    /**
+     * Executes the MarkCommand, marking a task as done and updating the task list.
+     *
+     * @param tasks   The list of tasks.
+     * @param ui      The user interface.
+     * @param storage The data storage.
+     */
     @Override
     public void doCommand(ArrayList<Task> tasks, Ui ui, Storage storage) {
         if (taskNum >= 1 && taskNum <= tasks.size()) {
