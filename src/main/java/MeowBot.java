@@ -15,7 +15,7 @@ public class MeowBot {
     Scanner scan;
     FileWriter writer;
 
-    public MeowBot()  {
+    public MeowBot() throws DukeException {
         this.scan = new Scanner(System.in);
         this.Tasklist = new ArrayList<>();
         this.lines = "______________________________";
@@ -24,12 +24,11 @@ public class MeowBot {
             this.loadTask();
             writer = new FileWriter(this.filename, true);
         } catch (FileNotFoundException e) {
-            System.out.println("Meow?? I cant find your data");
+//            System.out.println("Meow?? I cant find your data");
+            throw new DukeException("Meow???? I cant fid your data");
+
         } catch (IOException e) {
-            System.out.println("MEOOOWWWW!!! cannot initialise writer");
-        } catch (DukeException e) {
-            System.out.println("Meow!! I have meowblem to load past tasks");
-            System.out.println(e);
+            throw new DukeException("Meow???? I cannot write to your files :(");
         }
 
     }
@@ -291,7 +290,7 @@ public class MeowBot {
             }
         }
     }
-    public static void main(String[] args) throws FileNotFoundException {
+    public static void main(String[] args) throws DukeException {
         MeowBot meowBot = new MeowBot();
         meowBot.greet();
         meowBot.processCommand();
