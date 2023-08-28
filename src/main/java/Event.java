@@ -25,6 +25,17 @@ public class Event extends Task{
     }
 
     @Override
+    public String fileString() {
+        return String.format(
+                "event %d %s /from %s /to %s",
+                super.isDone ? 1 : 0,
+                super.description,
+                this.startTime,
+                this.endTime
+        );
+    }
+
+    @Override
     public String toString() {
         return String.format(
                 "[E][%s] %s (from: %s to: %s)",
