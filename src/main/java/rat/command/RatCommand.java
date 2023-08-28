@@ -15,9 +15,10 @@ public abstract class RatCommand {
 
     public abstract void execute();
 
-    protected void validateTime(String time) throws ParseException {
+    protected static boolean validateTime(String time) throws ParseException {
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm");
         dateFormat.parse(time.trim());
+        return true;
     }
 
 }

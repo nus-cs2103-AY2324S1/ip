@@ -35,10 +35,6 @@ public class RatStorage {
         }
     }
 
-    public File getFile() {
-        return ratData;
-    }
-
     public boolean isFileEmpty() {
         return ratData.length() == 0;
     }
