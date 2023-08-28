@@ -2,6 +2,7 @@ import java.io.BufferedReader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.concurrent.atomic.LongAccumulator;
 import java.util.regex.*;
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -12,6 +13,7 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.Path;
+import java.time.LocalDate;
 
 public class Aj {
 /*
@@ -116,6 +118,7 @@ Since each task have different flags, we parse to that task object to parse the 
     }
 
     public Task getDeadlineTask(String remaining, boolean isMark) { // takes in command, parse it and return task object
+        // deadline return book /by 2019-10-15
         String pattern = " (.*) /by (.*)";
 
         Pattern regexPattern = Pattern.compile(pattern);
@@ -124,7 +127,9 @@ Since each task have different flags, we parse to that task object to parse the 
         if (matcher.matches()) {
             String taskName = matcher.group(1);
             String by = matcher.group(2);
-            return new Deadline(taskName, isMark, by);
+            LocalDate newDate = LocalDate.parse(by);
+            System.out.println(newDate);
+            return new Deadline(taskName, isMark, newDate);
         }
         return null;
     }

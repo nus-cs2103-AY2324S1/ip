@@ -1,12 +1,17 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 public class Deadline extends Task {
-    private final String by;
+    private final LocalDate by;
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + this.by + ")";
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy");
+        String formattedDate = by.format(formatter);
+        return "[D]" + super.toString() + " (by: " + formattedDate + ")";
     }
 
-    Deadline(String taskName, boolean isMarked, String by) {
+    Deadline(String taskName, boolean isMarked, LocalDate by) {
         super(taskName, isMarked);
         this.by = by;
     }

@@ -1,3 +1,3 @@
-todo borrow book,true
-deadline return book /by Sunday,true
+todo borrow book,false
 todo last,true
+deadline return book /by 2019-10-15,true
