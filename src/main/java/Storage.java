@@ -25,7 +25,7 @@ public class Storage {
         }
     }
 
-    public TaskManager loadStringFromFile() throws DukeException {
+    public TaskList loadStringFromFile() throws DukeException {
         String fileString = "";
         try {
             // check if file exists
@@ -41,7 +41,7 @@ public class Storage {
             throw new DukeException("Loading failed: " + e.getMessage());
         }
         String[] fileStringArray = fileString.split("\n");
-        TaskManager userTasks = new TaskManager();
+        TaskList userTasks = new TaskList();
         if (userTasks.size() > 0) {
             throw new DukeException("Please clear your current task list before loading from file.");
         }

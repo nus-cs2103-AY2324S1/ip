@@ -5,13 +5,13 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
-public class TaskManager {
+public class TaskList {
     private ArrayList<Task> userTasks;
     private Ui ui;
     private Storage storage;
     protected static final DateTimeFormatter DATE_FORMAT_OUTPUT = DateTimeFormatter.ofPattern("d/M/yyyy");
 
-    public TaskManager(Ui ui, Storage storage) {
+    public TaskList(Ui ui, Storage storage) {
         this.userTasks = new ArrayList<Task>();
         this.ui = ui;
         this.storage = storage;

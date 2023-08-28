@@ -3,14 +3,14 @@ public class AddCommand extends Command {
     public AddCommand(String command) {
         super(command);
     }
-    
+
     public enum TaskType {
         TODO,
         DEADLINE,
         EVENT
     }
 
-    public void execute(TaskManager taskList, Ui ui, Storage storage) throws DukeException {
+    public void execute(TaskList taskList, Ui ui, Storage storage) throws DukeException {
         String input = getCommand();
         String[] inputArray = input.split(" ");
         String taskType = inputArray[0];

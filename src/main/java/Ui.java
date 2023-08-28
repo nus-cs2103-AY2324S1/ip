@@ -46,7 +46,7 @@ public class Ui {
         }
     }
 
-    public void showList(TaskManager userTasks) {
+    public void showList(TaskList userTasks) {
         if (userTasks.size() == 0) {
             System.out.println("You have no tasks.");
         } else {

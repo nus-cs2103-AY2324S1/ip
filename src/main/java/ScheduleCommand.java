@@ -9,7 +9,7 @@ public class ScheduleCommand extends Command {
         super(command);
     }
 
-    public void execute(TaskManager taskList, Ui ui, Storage storage) throws DukeException{
+    public void execute(TaskList taskList, Ui ui, Storage storage) throws DukeException{
         String input = getCommand();
         LocalDate queryDateTime;
         System.out.println(input.substring(9));

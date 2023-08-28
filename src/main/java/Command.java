@@ -28,6 +28,6 @@ public abstract class Command {
         this.fullCommand = fullCommand;
     }
 
-    public abstract void execute(TaskManager taskList, Ui ui, Storage storage) throws DukeException;
+    public abstract void execute(TaskList taskList, Ui ui, Storage storage) throws DukeException;
 
 }

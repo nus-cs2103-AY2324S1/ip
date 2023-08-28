@@ -4,17 +4,17 @@ import java.util.Scanner;
 public class Duke {
 
     private Storage storage;
-    private TaskManager tasks;
+    private TaskList tasks;
     private Ui ui;
 
     public Duke(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
         try {
-            tasks = new TaskManager(storage.loadStringFromFile());
+            tasks = new TaskList(storage.loadStringFromFile());
         } catch (DukeException e) {
             ui.showLoadingError();
-            tasks = new TaskManager();
+            tasks = new TaskList();
         }
     }
 
@@ -39,7 +39,7 @@ public class Duke {
 
 
         //Add the ability to store whatever text entered by the user and display them back to the user when requested.
-        TaskManager userTasks = new TaskManager();
+        TaskList userTasks = new TaskList();
 
         Scanner scanner = new Scanner(System.in);
         String input;
