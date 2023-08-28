@@ -27,10 +27,9 @@ public class TaskList {
             System.out.println("You have no tasks :(");
             return;
         }
-        int numTask = 1;
-        for (Task task : taskList) {
-            System.out.printf("%d.%s\n", numTask, task);
-            numTask += 1;
+
+        for (int i = 0; i < taskList.size(); i++) {
+            System.out.printf("%d.%s\n", i + 1, taskList.get(i));
         }
     }
 
@@ -91,20 +90,34 @@ public class TaskList {
     /**
      * Write list of tasks to file.
      */
+    public void findTask(String query) {
+        ArrayList<Task> matchingTasks = new ArrayList<>();
+        taskList.forEach((task -> {
+            if (task.getDescription().contains(query) && !matchingTasks.contains(task)) {
+                matchingTasks.add(task);
+            }
+        }));
+
+
+        System.out.println("Here are the matching tasks in your list:");
+        for (int i = 0; i < matchingTasks.size(); i++) {
+            System.out.printf("%d.%s\n", i + 1, matchingTasks.get(i));
+        }
+    }
+
+    /**
+     * Write list of tasks to file.
+     */
     public void write() {
         Storage.writeToFile(taskList);
     }
 
-<<<<<<< .merge_file_KeHKD9
     /**
      * Returns the number of tasks in the task list.
      *
      * @return Number of tasks.
      */
-    public int numTasks() {
-=======
     public int getNumTasks() {
->>>>>>> .merge_file_xEML82
         return taskList.size();
     }
 
