@@ -5,6 +5,9 @@ package duke.task;
  * 
  */
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public abstract class Task {
     protected String description;
     protected boolean isDone;
@@ -59,6 +62,13 @@ public abstract class Task {
         return "[" + this.getStatusIcon() + "] " + this.description;
     }
 
+    public boolean isKey(String keyString) {
+        Matcher matcher = Pattern.compile(keyString).matcher(this.getDescription());
+        if (!matcher.find()) {
+            return false;
+        }
+        return true;
+    }
     public abstract String toBeStored();
 
 }

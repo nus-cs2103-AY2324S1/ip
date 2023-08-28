@@ -7,6 +7,7 @@ import duke.command.AddCommand;
 import duke.command.Command;
 import duke.command.DeleteCommand;
 import duke.command.ExitCommand;
+import duke.command.FindCommand;
 import duke.command.ListCommand;
 import duke.command.MarkCommand;
 import duke.command.UnmarkCommand;
@@ -29,6 +30,7 @@ public class Parser {
         boolean isEvent = Pattern.compile("^event").matcher(userInput).find();
         boolean isDelete = Pattern.compile("^delete").matcher(userInput).find();
         boolean isExit = Pattern.compile("^bye").matcher(userInput).find();
+        boolean isFind = Pattern.compile("^find").matcher(userInput).find();
         boolean isValidTask = isTodo || isDeadline || isEvent;
 
         return isList ? 0
@@ -36,7 +38,7 @@ public class Parser {
                         : isUnmark ? 2
                                 : isValidTask ? 3
                                         : isDelete ? 4
-                                                : isExit ? 5 : 6;
+                                                : isFind ? 5 : isExit ? 6 : 7;
     }
 
     public static int getTaskType(String userInput) {
@@ -46,8 +48,13 @@ public class Parser {
         return isTodo ? 0 : isDeadline ? 1 : 2;
     }
 
+    // how to check if string is parseable without parsing it?
     public static int getIndex(String userInput) {
         return Integer.parseInt(userInput.split(" ")[1]);
+    }
+
+    public static String getKeyString(String userInput) {
+        return userInput.split(" ", 2)[1].trim();
     }
 
     public static Command parse(String fullCommand) throws DukeException {
@@ -94,6 +101,15 @@ public class Parser {
                 return new DeleteCommand(index - 1);
             }
             case 5: {
+                // add find task logic
+                Matcher matcher = Pattern.compile("find ").matcher(fullCommand);
+                if (!matcher.find()) {
+                    // return error
+                }
+                String keyString = Parser.getKeyString(fullCommand);
+                return new FindCommand(keyString);
+            }
+            case 6: {
                 return new ExitCommand();
             }
             default: {

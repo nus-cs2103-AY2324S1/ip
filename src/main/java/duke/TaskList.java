@@ -91,4 +91,14 @@ public class TaskList {
         }
         return out;
     }
+
+    public TaskList filter(String keyString) {
+        ArrayList<Task> out = new ArrayList<Task>();
+        for (Task task : this.taskArr) {
+            if (task.isKey(keyString)) {
+                out.add(task);
+            }
+        }
+        return new TaskList(out);
+    }
 }

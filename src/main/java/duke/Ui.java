@@ -70,6 +70,21 @@ public class Ui {
         }
     }
 
+    public String find(TaskList arr, String keyString) {
+        String out = "Here are the matching tasks in your list:\n";
+        TaskList outTaskList = arr.filter(keyString);
+        if (outTaskList.length() == 0) {
+            out = "There are no matching tasks in the list.";
+            System.out.println(out);
+            return out;
+        }
+        for (int i = 0; i < outTaskList.length(); i++) {
+            out = out + (i + 1) + ". " + outTaskList.taskToString(i) + "\n";
+        }
+        System.out.println(out);
+        return out;
+    }
+
     public void deleteTask(TaskList arr, int index) {
         System.out.println("Noted. I've removed this task:");
         System.out.println(arr.taskToString(index));

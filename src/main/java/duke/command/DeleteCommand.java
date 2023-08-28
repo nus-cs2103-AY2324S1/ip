@@ -10,7 +10,7 @@ public class DeleteCommand extends Command {
     public DeleteCommand(int index) {
         this.index = index;
     }
-
+    
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         tasks.delete(index);
         ui.deleteTask(tasks, index);
