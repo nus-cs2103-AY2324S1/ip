@@ -1,3 +1,4 @@
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -19,6 +20,26 @@ public class Duke {
 
         // Task List Storage
         ArrayList<Task> taskList = new ArrayList<>();
+
+        //Displaying Task List text file
+        String filePath = "data/duke.txt" ;
+        File file = new File(filePath);
+        if(file.length() == 0){
+            System.out.println("You have no outstanding tasks.");
+        } else {
+            try{
+                FileReader fileReader = new FileReader(filePath);
+                BufferedReader bufferedReader = new BufferedReader(fileReader);
+
+                String line;
+                while ((line = bufferedReader.readLine()) != null){
+                    System.out.println(line);
+                }
+                bufferedReader.close();
+            } catch (IOException e){
+                throw new DukeException("Incorrect FilePath");
+            }
+        }
 
         // Saving User input into a list
         while (true) {
@@ -119,6 +140,15 @@ public class Duke {
                         } else{
                             Todo toDoTask = new Todo(userInput.substring(5));
                             taskList.add(toDoTask);
+
+                            try{
+                                FileWriter writer = new FileWriter(filePath, true);
+                                writer.write(toDoTask.toString() + '\n');
+                                writer.close();
+                            } catch (IOException e){
+                                throw new DukeException("Incorrect FilePath");
+                            }
+
                             System.out.println(ErrorMessages.TASK_ADDED.getMessage());
                             System.out.println(toDoTask.toString());
                             System.out.println("Now you have " + taskList.size() + " tasks in the list.");
@@ -135,6 +165,14 @@ public class Duke {
                             } else {
                                 Deadline deadlineTask = new Deadline(deadlineString[0].trim(), deadlineString[1].substring(3));
                                 taskList.add(deadlineTask);
+
+                                try{
+                                    FileWriter writer = new FileWriter(filePath, true);
+                                    writer.write(deadlineTask.toString() + '\n');
+                                    writer.close();
+                                } catch (IOException e){
+                                    throw new DukeException("Incorrect FilePath");
+                                }
                                 System.out.println(ErrorMessages.TASK_ADDED.getMessage());
                                 System.out.println(deadlineTask.toString());
                                 System.out.println("Now you have " + taskList.size() + " tasks in the list.");
@@ -155,6 +193,14 @@ public class Duke {
                             } else {
                                 Event eventTask = new Event(eventString[0].trim(), eventString[1].substring(5).trim(), eventString[2].substring(3));
                                 taskList.add(eventTask);
+
+                                try{
+                                    FileWriter writer = new FileWriter(filePath, true);
+                                    writer.write(eventTask.toString() + '\n');
+                                    writer.close();
+                                } catch (IOException e){
+                                    throw new DukeException("Incorrect FilePath");
+                                }
                                 System.out.println(ErrorMessages.TASK_ADDED.getMessage());
                                 System.out.println(eventTask.toString());
                                 System.out.println("Now you have " + taskList.size() + " tasks in the list.");
