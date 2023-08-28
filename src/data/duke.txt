@@ -1,2 +1,2 @@
-todo line1
-deadline hi /by now
+too line1
+deadline hi by now

@@ -66,7 +66,7 @@ public class Duke {
             if (cmd.secondWord() != null) {
                 taskList.loadTask(cmd.secondWord());
             } else {
-                System.out.println("ToDo line corrupted");
+                System.out.println("ToDo line corrupted: " + command);
             }
             return;
 
@@ -79,7 +79,7 @@ public class Duke {
                     taskList.loadTask(task, parseDayDate.secondWord());
                 }
             } catch (NullPointerException e) {
-                System.out.println("Deadline line corrupted");
+                System.out.println("Deadline line corrupted: " + command);
             }
             return;
 
@@ -92,7 +92,7 @@ public class Duke {
                 Parse parseEndDayDateTime = new Parse(endDayDateTime);
                 taskList.loadTask(task2, parseStartDayDateTime.secondWord(), parseEndDayDateTime.secondWord());
             } catch (NullPointerException e) {
-                System.out.println("Event line corrupted");
+                System.out.println("Event line corrupted: " + command);
             }
             return;
 
@@ -102,7 +102,7 @@ public class Duke {
             return;
 
         default:
-            System.out.println("line corrupted");
+            System.out.println("line corrupted: " + command);
         }
     }
 
