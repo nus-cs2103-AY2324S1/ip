@@ -25,22 +25,47 @@ public class Storage {
         }
     }
 
-    public String loadStringFromFile() throws DukeException {
+    public TaskManager loadStringFromFile() throws DukeException {
+        String fileString = "";
         try {
             // check if file exists
             File file = new File(FILEPATH);
             if (!file.exists()) {
                 throw new DukeException("File does not exist.");
             }
-            String output = "";
             Scanner s = new Scanner(file);
             while (s.hasNext()) {
-                output += s.nextLine() + "\n";
+                fileString += s.nextLine() + "\n";
             }
-            return output;
         } catch (FileNotFoundException e) {
             throw new DukeException("Loading failed: " + e.getMessage());
         }
+        String[] fileStringArray = fileString.split("\n");
+        TaskManager userTasks = new TaskManager();
+        if (userTasks.size() > 0) {
+            throw new DukeException("Please clear your current task list before loading from file.");
+        }
+        for (int i = 0; i < fileStringArray.length; i++) {
+            String[] taskStringArray = fileStringArray[i].split(" \\| ");
+            String taskType = taskStringArray[0];
+            Task task;
+            switch (taskType) {
+            case "T":
+                task = new Todo();
+                break;
+            case "D":
+                task = new Deadline();
+                break;
+            case "E":
+                task = new Event();
+                break;
+            default:
+                throw new DukeException("Corrupted file, ensure content is in format.");
+            }
+            task.fromFileString(fileStringArray[i]);
+            userTasks.add(task);
+        }
+        return userTasks;
     }
 
     public void clearFile() throws DukeException {

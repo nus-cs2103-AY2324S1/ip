@@ -7,10 +7,14 @@ import java.util.ArrayList;
 
 public class TaskManager {
     private ArrayList<Task> userTasks;
+    private Ui ui;
+    private Storage storage;
     protected static final DateTimeFormatter DATE_FORMAT_OUTPUT = DateTimeFormatter.ofPattern("d/M/yyyy");
 
-    public TaskManager() {
+    public TaskManager(Ui ui, Storage storage) {
         this.userTasks = new ArrayList<Task>();
+        this.ui = ui;
+        this.storage = storage;
     }
 
     public enum ActionType {
@@ -64,19 +68,14 @@ public class TaskManager {
     }
     public void add(Task task) {
         this.userTasks.add(task);
-        System.out.println("Got it. I've added this task:");
-        System.out.println(task.toString());
-        System.out.println("Now you have " + userTasks.size() + " tasks in the list.");
-
+        ui.showTaskAdded(task, this.userTasks.size());
     }
 
     public void delete(String input) throws DukeException {
         try {
             int taskID = Integer.parseInt(input.substring(7)) - 1;
             this.userTasks.remove(taskID);
-            System.out.println("Noted. I've removed this task:");
-            System.out.println(userTasks.get(taskID).toString());
-            System.out.println("Now you have " + userTasks.size() + " tasks in the list.");
+            ui.showTaskDeleted(userTasks.get(taskID), this.userTasks.size());
         } catch (NumberFormatException e) {
             throw new DukeException("Please enter a valid task number.");
         } catch (IndexOutOfBoundsException e) {
@@ -143,40 +142,16 @@ public class TaskManager {
     public void loadFromFile() throws DukeException{
         Storage storage  = new Storage();
         String fileString = storage.loadStringFromFile();
-        String[] fileStringArray = fileString.split("\n");
-        if (userTasks.size() > 0) {
-            throw new DukeException("Please clear your current task list before loading from file.");
-        }
-        for (int i = 0; i < fileStringArray.length; i++) {
-            String[] taskStringArray = fileStringArray[i].split(" \\| ");
-            String taskType = taskStringArray[0];
-            Task task;
-            switch (taskType) {
-            case "T":
-                task = new Todo();
-                break;
-            case "D":
-                task = new Deadline();
-                break;
-            case "E":
-                task = new Event();
-                break;
-            default:
-                throw new DukeException("Corrupted file, ensure content is in format.");
-            }
-            task.fromFileString(fileStringArray[i]);
-            this.add(task);
-        }
+
     }
 
-    public void getSchedule(String input) {
+    public void getSchedule(String input) throws DukeException {
         LocalDate queryDateTime;
         System.out.println(input.substring(9));
         try {
             queryDateTime = LocalDate.parse(input.substring(9), DATE_FORMAT_OUTPUT);
         } catch (DateTimeException e) {
-            System.out.println("Date should follow the format d/M/yyyy");
-            return;
+            throw new DukeException("Date should follow the format d/M/yyyy");
         }
         String output = "";
         for (int i = 0; i < userTasks.size(); i++) {
@@ -193,11 +168,6 @@ public class TaskManager {
                 }
             }
         }
-        if (output.equals("")) {
-            System.out.println("There are no tasks on this date.");
-        } else {
-            System.out.println("Here are the tasks on this date:");
-            System.out.println(output);
-        }
+        ui.showSchedule(output);
     }
 }
