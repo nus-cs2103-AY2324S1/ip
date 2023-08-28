@@ -29,14 +29,6 @@ public class EventTask extends Task {
         return this.to.format(DateTimeFormatter.ofPattern(Task.DATE_FORMAT));
     }
 
-    public String getFrom() {
-        return this.from;
-    }
-
-    public String getTo() {
-        return this.to;
-    }
-
     @Override
     public String getFileDescriptor() {
         return super.getFileDescriptor() + String.format("| %s | %s | %s", this.getFrom(), this.getTo(), "EVENT");
