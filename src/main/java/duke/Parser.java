@@ -6,6 +6,7 @@ import command.DeleteCommand;
 import command.EmptyCommand;
 import command.EventCommand;
 import command.ExitCommand;
+import command.FindCommand;
 import command.ListCommand;
 import command.MarkCommand;
 import command.TodoCommand;
@@ -31,6 +32,7 @@ public class Parser {
     private static final String FLAG_DEADLINE = "deadline";
     private static final String FLAG_EVENT = "event";
     private static final String FLAG_DELETE = "delete";
+    private static final String FLAG_FIND = "find";
 
     /**
      * Parses the input passed in and return the respective command.
@@ -188,6 +190,14 @@ public class Parser {
 
             return new DeleteCommand(index);
 
+        }
+
+        if (command.equals(FLAG_FIND)) {
+            if (value.isEmpty()) {
+                throw new DukeException("Oops!!! Please provide an input to find");
+            }
+
+            return new FindCommand(value);
         }
 
         throw new DukeException("Oops!!! I'm sorry, but I don't know what that means :-(");
