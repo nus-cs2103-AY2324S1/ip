@@ -1,17 +1,6 @@
 package duke;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-
-import java.io.FileWriter;
-import java.io.IOException;
-
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.Scanner;
-
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class Duke {
 
@@ -21,8 +10,6 @@ public class Duke {
 
     private Parser parser;
 
-
-    protected  ArrayList<Task> list = new ArrayList<Task>();
 
 
     public Duke(String filePath) {
