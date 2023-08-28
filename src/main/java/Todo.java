@@ -13,4 +13,9 @@ public class Todo extends Task {
     public String getExtras() {
         return "";
     }
+
+    @Override
+    public String toString() {
+        return getTypeIcon() + super.getStatusIcon() + super.description;
+    }
 }

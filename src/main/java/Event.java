@@ -17,4 +17,10 @@ public class Event extends Task {
     public String getExtras() {
         return "(from:" + from + " to:" + to + ")";
     }
+
+    @Override
+    public String toString() {
+        return getTypeIcon() + super.getStatusIcon() + 
+                    super.description + getExtras();
+    }
 }

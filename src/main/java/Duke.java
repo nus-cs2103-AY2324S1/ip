@@ -1,6 +1,11 @@
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+
 
 public class Duke {
     public static void main(String[] args) {
@@ -21,6 +26,19 @@ public class Duke {
 
         System.out.println(print1);
 
+        File file = new File("./data/duke.txt");
+
+        try {
+            Scanner printSC = new Scanner(file);
+            while (printSC.hasNextLine()) {
+                System.out.println(printSC.nextLine());
+            }
+            printSC.close();
+
+        } catch (FileNotFoundException e) {
+            System.out.println("No file found!");
+        }
+
         Scanner sc = new Scanner(System.in);
 
         while (true) {
@@ -30,13 +48,25 @@ public class Duke {
                 break;
                 
             } else if (str.equals("list")) {
+                String toBeSaved = "";
                 for (Task task : taskForce) {
                     int index = taskForce.indexOf(task) + 1;
-                    System.out.println(index + ":" + task.getTypeIcon() 
-                                        + task.getStatusIcon() + " " 
-                                            + task.description + " "
-                                                + task.getExtras());
+
+                    toBeSaved = toBeSaved + task + "\n";
+                    System.out.println(index + ":" + task);
                 }
+
+                File path = new File("./data/duke.txt");
+
+                try {
+                    FileWriter wr = new FileWriter(path);
+                    wr.write(toBeSaved);
+                    wr.flush();
+                    wr.close();
+                } catch (IOException e) {
+                    System.out.println("This will never occur.");
+                }
+                
                 
             } else if (str.startsWith("unmark")) {
                 try {
@@ -85,11 +115,10 @@ public class Duke {
                 Task task = taskForce.get(index);
 
                 System.out.println("Noted. I have removed this task.");
-                System.out.println(task.getTypeIcon() + task.getStatusIcon()
-                                        + " " + task.description
-                                            + " " + task.getExtras());
+                System.out.println(task);
                 taskForce.remove(index);
 
+                System.out.println("Now you have " + taskForce.size() + " tasks in the list.");
 
             } else {
                 if (!(str.contains("todo") || str.contains("event") 
@@ -110,8 +139,7 @@ public class Duke {
                     taskForce.add(todo);
 
                     System.out.println("Got it. I've added this task:");
-                    System.out.println(todo.getTypeIcon() + 
-                                        todo.getStatusIcon() + " " + todo.description);
+                    System.out.println(todo);
 
                 } else if (str.startsWith("deadline")) {
                     try {
@@ -130,9 +158,7 @@ public class Duke {
                     taskForce.add(deadline);
 
                     System.out.println("Got it. I've added this task:");
-                    System.out.println(deadline.getTypeIcon() + deadline.getStatusIcon()
-                                        + " " + deadline.description
-                                            + " " + deadline.getExtras());
+                    System.out.println(deadline);
 
                 } else if (str.startsWith("event")) {
                     try {
@@ -152,9 +178,7 @@ public class Duke {
                     taskForce.add(event);
 
                     System.out.println("Got it. I've added this task:");
-                    System.out.println(event.getTypeIcon() + event.getStatusIcon()
-                                        + " " + event.description
-                                            + " " + event.getExtras());
+                    System.out.println(event);
                 } 
 
                 System.out.println("Now you have " + taskForce.size() + " tasks in the list.");
