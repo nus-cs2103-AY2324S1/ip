@@ -96,7 +96,7 @@ public class TaskList {
      * @throws InvalidIndexException If the provided index is invalid.
      */
     public void deleteTask(int index) throws InvalidIndexException{
-        if(index >= store.size()) {
+        if(index > store.size()) {
             throw new InvalidIndexException();
         }
         Task task = store.get(index - 1);
@@ -125,7 +125,7 @@ public class TaskList {
      * @throws InvalidIndexException If the provided index is invalid.
      */
     public void markTask(int index) throws InvalidIndexException{
-        if(index >= store.size()) {
+        if(index > store.size()) {
             throw new InvalidIndexException();
         }
         Task curr = store.get(index - 1);
@@ -141,7 +141,7 @@ public class TaskList {
      * @throws InvalidIndexException If the provided index is invalid.
      */
     public void unmarkTask(int index) throws InvalidIndexException{
-        if(index >= store.size()) {
+        if(index > store.size()) {
             throw new InvalidIndexException();
         }
         Task curr = store.get(index - 1);
