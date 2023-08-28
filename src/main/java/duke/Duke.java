@@ -120,7 +120,8 @@ public class Duke {
                         if (list.get(i) == null) {
                             break;
                         } else {
-                            System.out.println(String.format("%d. [%s] [%s] %s", i + 1, list.get(i).tag, list.get(i).getStatusIcon(), list.get(i)));
+                            System.out.println(String.format("%d. [%s] [%s] %s", i + 1, list.get(i).tag,
+                                    list.get(i).getStatusIcon(), list.get(i)));
                         }
                     }
                     println();
@@ -137,7 +138,8 @@ public class Duke {
 
                     println();
                     System.out.println("Alright! I'll uncheck this task for you: ");
-                    System.out.println(String.format("\t [%s] [%s] %s", list.get(numToUnmark).tag, list.get(numToUnmark).getStatusIcon(), list.get(numToUnmark)));
+                    System.out.println(String.format("\t [%s] [%s] %s", list.get(numToUnmark).tag,
+                            list.get(numToUnmark).getStatusIcon(), list.get(numToUnmark)));
                     println();
                     continue;
                 } else if (text.startsWith("mark")) {
@@ -152,7 +154,8 @@ public class Duke {
 
                     println();
                     System.out.println("Alright! I'll check this task as complete for you: ");
-                    System.out.println(String.format("\t [%s] [%s] %s", list.get(numToMark).tag, list.get(numToMark).getStatusIcon(), list.get(numToMark)));
+                    System.out.println(String.format("\t [%s] [%s] %s", list.get(numToMark).tag,
+                            list.get(numToMark).getStatusIcon(), list.get(numToMark)));
                     println();
                     continue;
                 } else if (text.equals("bye")) {
@@ -176,7 +179,8 @@ public class Duke {
 
                         println();
                         System.out.println("Noted Sir. I've added this task to your list: ");
-                        System.out.println(String.format("\t [%s] [%s] %s", todo.tag, todo.getStatusIcon(), todo.toString()));
+                        System.out.println(String.format("\t [%s] [%s] %s", todo.tag,
+                                todo.getStatusIcon(), todo.toString()));
                         System.out.println(String.format("As of now, you have %d tasks on the agenda.", getCounter()));
                         println();
                     }
@@ -199,7 +203,8 @@ public class Duke {
 
                         println();
                         System.out.println("Noted Sir. I've added this task to your list: ");
-                        System.out.println(String.format("\t [%s] [%s] %s", dl.tag, dl.getStatusIcon(), dl.toString()));
+                        System.out.println(String.format("\t [%s] [%s] %s", dl.tag, dl.getStatusIcon(),
+                                dl.toString()));
                         System.out.println(String.format("As of now, you have %d tasks on the agenda.", getCounter()));
                         println();
                     }
@@ -223,7 +228,8 @@ public class Duke {
 
                         println();
                         System.out.println("Noted Sir. I've added this task to your list: ");
-                        System.out.println(String.format("\t [%s] [%s] %s", event.tag, event.getStatusIcon(), event.toString()));
+                        System.out.println(String.format("\t [%s] [%s] %s", event.tag, event.getStatusIcon(),
+                                event.toString()));
                         System.out.println(String.format("As of now, you have %d tasks on the agenda.", getCounter()));
                         println();
                     }
@@ -239,7 +245,8 @@ public class Duke {
 
                     println();
                     System.out.println("Alright Sir, I have removed this task from the list for you.");
-                    System.out.println(String.format("\t [%s] [%s] %s",list.get(numToDelete).tag, list.get(numToDelete).getStatusIcon(), list.get(numToDelete).toString()));
+                    System.out.println(String.format("\t [%s] [%s] %s",list.get(numToDelete).tag,
+                            list.get(numToDelete).getStatusIcon(), list.get(numToDelete).toString()));
                     decrementCounter();
                     list.remove(numToDelete);
                     System.out.println(String.format("Now you have %d tasks left.", getCounter()));
