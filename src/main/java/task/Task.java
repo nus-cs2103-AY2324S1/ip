@@ -4,8 +4,8 @@ abstract public class Task {
     protected boolean completed;
     protected String nameOfTask;
 
-    public Task(String nameOfTask) {
-        this.completed = false;
+    public Task(boolean completed, String nameOfTask) {
+        this.completed = completed;
         this.nameOfTask = nameOfTask;
     }
 

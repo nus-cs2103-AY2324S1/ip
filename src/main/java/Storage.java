@@ -1,4 +1,6 @@
 import emiyaexception.CreateDirectoryFailException;
+import task.Deadline;
+import task.Event;
 import task.Task;
 import task.ToDo;
 
@@ -12,6 +14,21 @@ import java.util.ArrayList;
 public class Storage {
     public Storage() {
 
+    }
+
+    public String fileContents(String fileName, String dirName) {
+        String path = Paths.get("").toAbsolutePath().toString();
+        String pathToDataDir = Paths.get(path, dirName).toString();
+        Path pathToDataDoc = Paths.get(pathToDataDir, fileName);
+        String res = "";
+        try {
+            byte[] bytes = Files.readAllBytes(pathToDataDoc);
+            String content = new String(bytes);
+            res = content;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return res;
     }
 
     public void createDirectory(String dirName) throws CreateDirectoryFailException {
@@ -55,15 +72,7 @@ public class Storage {
         }
     }
 
-/*
-    need to create method to parse through storage file
-    follow given format:
-    T | 1 | read book
-    D | 0 | return book | June 6th
-    E | 0 | project meeting | Aug 6th 2-4pm
-    T | 1 | join sports club
- */
-    public void writeToFileFromTaskList (ArrayList<Task> taskArrayList, String fileName, String dirName) {
+    public void writeToFileFromTaskList(ArrayList<Task> taskArrayList, String fileName, String dirName) {
         String path = Paths.get("").toAbsolutePath().toString();
         String pathToDataDir = Paths.get(path, dirName).toString();
         Path pathToDataDoc = Paths.get(pathToDataDir, fileName);
@@ -85,4 +94,36 @@ public class Storage {
         }
     }
 
+
+    public void fillListWithFileContent(ArrayList<Task> taskArrayList, String fileContent) {
+        String[] tasksStrArr = fileContent.split("\n");
+
+        for (String tasksStr : tasksStrArr) {
+            if (tasksStr.isEmpty()) {
+                continue;
+            }
+            String[] tasksStrParts = tasksStr.split(" \\| ");
+            String taskType = tasksStrParts[0];
+            int completedInt = Integer.parseInt(tasksStrParts[1]);
+            boolean completedBool = (completedInt == 1);
+            String taskDetails = tasksStrParts[2];
+            String firstDate = "";
+            String secondDate = "";
+            if (tasksStrParts.length >= 4) {
+                firstDate = tasksStrParts[3];
+            }
+            if (tasksStrParts.length == 5) {
+                secondDate = tasksStrParts[4];
+            }
+
+            if (taskType.equals("T")) {
+                taskArrayList.add(new ToDo(completedBool, taskDetails));
+            } else if (taskType.equals("D")) {
+                taskArrayList.add(new Deadline(completedBool, taskDetails, firstDate));
+            } else {
+                taskArrayList.add(new Event(completedBool, taskDetails, firstDate, secondDate));
+            }
+        }
+
+    }
 }

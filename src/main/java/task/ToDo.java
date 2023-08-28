@@ -1,8 +1,8 @@
 package task;
 
 public class ToDo extends Task {
-    public ToDo(String nameOfTask) {
-        super(nameOfTask);
+    public ToDo(boolean completed, String nameOfTask) {
+        super(completed, nameOfTask);
     }
 
     @Override

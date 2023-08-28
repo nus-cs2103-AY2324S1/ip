@@ -1,28 +1,12 @@
-import emiyaexception.EmiyaException;
-import emiyaexception.EmptyDeadlineException;
-import emiyaexception.EmptyEventException;
-import emiyaexception.EmptyTodoException;
-import emiyaexception.ListEmptyException;
-import emiyaexception.NoByException;
-import emiyaexception.NoFromException;
-import emiyaexception.NoToException;
-import emiyaexception.OutOfListBoundsException;
-import emiyaexception.UnknownCommandException;
+import emiyaexception.*;
 
 import task.Deadline;
 import task.Event;
 import task.Task;
 import task.ToDo;
 
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Scanner;
-
-
 
 public class Emiya {
 
@@ -44,9 +28,18 @@ public class Emiya {
     public static void main(String[] args) {
 
         Storage storage = new Storage();
+        try {
+            storage.createDirectory("data");
+            storage.createFileInDirectory("emiya.txt", "data");
+        } catch (CreateDirectoryFailException e) {
+            System.out.println(e.getMessage());
+        }
+
+
 
         // Represents the list as an ArrayList of task.Task objects
         ArrayList<Task> taskArrayList = new ArrayList<>();
+        storage.fillListWithFileContent(taskArrayList, storage.fileContents("emiya.txt", "data"));
         String welcomeMessage = "-----------------------------------------\n"
                 + "Hello! I'm Emiya\n"
                 + "What can I do for you?\n"
@@ -193,7 +186,7 @@ public class Emiya {
                         // throw new EmiyaException("Oh no! Tod0 tasks cannot be empty! Please try again!");
                         throw new EmptyTodoException();
                     }
-                    ToDo todo = new ToDo(taskDetails);
+                    ToDo todo = new ToDo(false, taskDetails);
                     taskArrayList.add(todo);
                     String todoOutputMessage;
                     if (taskArrayList.size() == 1) {
@@ -215,12 +208,12 @@ public class Emiya {
                         // throw new EmiyaException("Oh no! task.Deadline tasks cannot be empty! Please try again!");
                         throw new EmptyDeadlineException();
                     }
-                    String[] deadlineDetails = taskDetails.split("/by", 2);
+                    String[] deadlineDetails = taskDetails.split(" /by", 2);
                     if (deadlineDetails.length <= 1) {
                         // throw new EmiyaException("It seems like there's an error in your input! Did you remember to use /by in your input?");
                         throw new NoByException();
                     }
-                    Deadline deadline = new Deadline(deadlineDetails[0], deadlineDetails[1]);
+                    Deadline deadline = new Deadline(false, deadlineDetails[0], deadlineDetails[1]);
                     taskArrayList.add(deadline);
                     String deadlineOutputMessage;
                     if (taskArrayList.size() == 1) {
@@ -242,17 +235,17 @@ public class Emiya {
                         // throw new EmiyaException("Oh no! task.Event tasks cannot be empty! Please try again!");
                         throw new EmptyEventException();
                     }
-                    String[] eventDetails = taskDetails.split("/from ", 2);
+                    String[] eventDetails = taskDetails.split(" /from ", 2);
                     if (eventDetails.length <= 1) {
                         // throw new EmiyaException("It seems like there's an error in your input! Did you remember to use /from in your input?");
                         throw new NoFromException();
                     }
-                    String[] eventDurationDetails = eventDetails[1].split("/to ", 2);
+                    String[] eventDurationDetails = eventDetails[1].split(" /to ", 2);
                     if (eventDurationDetails.length <= 1) {
                         // throw new EmiyaException("It seems like there's an error in your input! Did you remember to use /to in your input?");
                         throw new NoToException();
                     }
-                    Event event = new Event(eventDetails[0], eventDurationDetails[0], eventDurationDetails[1]);
+                    Event event = new Event(false, eventDetails[0], eventDurationDetails[0], eventDurationDetails[1]);
                     taskArrayList.add(event);
                     String eventOutputMessage;
                     if (taskArrayList.size() == 1) {

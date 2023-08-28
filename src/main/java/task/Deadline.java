@@ -1,22 +1,20 @@
 package task;
 
-import task.Task;
-
 public class Deadline extends Task {
 
-    private String dateOfDeadline;
+    private final String dateOfDeadline;
 
-    public Deadline(String nameOfTask, String dateOfDeadline) {
-        super(nameOfTask);
+    public Deadline(boolean completed, String nameOfTask, String dateOfDeadline) {
+        super(completed, nameOfTask);
         this.dateOfDeadline = dateOfDeadline;
     }
 
     @Override
     public String toString() {
         if (completed) {
-            return "[D][X] " + nameOfTask + "(by:" + dateOfDeadline + ")";
+            return "[D][X] " + nameOfTask + " (by:" + dateOfDeadline + ")";
         } else {
-            return "[D][ ] " + nameOfTask + "(by:" + dateOfDeadline + ")";
+            return "[D][ ] " + nameOfTask + " (by:" + dateOfDeadline + ")";
         }
     }
 
@@ -27,6 +25,6 @@ public class Deadline extends Task {
 
     @Override
     public String taskDetailsString() {
-        return super.nameOfTask + "| " + dateOfDeadline;
+        return super.nameOfTask + " |" + dateOfDeadline;
     }
 }
