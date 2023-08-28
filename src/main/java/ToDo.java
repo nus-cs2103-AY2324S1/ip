@@ -4,7 +4,17 @@ public class ToDo extends Task {
     }
 
     @Override
-    public String toString() {
-        return "[T]" + super.toString();
+    public String getType() {
+        return "T";
+    }
+
+    @Override
+    public String getDescription() {
+        return super.toString();
+    }
+
+    @Override
+    public String statusAndTask() {
+        return "[T]" + statusString() + " " + super.toString();
     }
 }
