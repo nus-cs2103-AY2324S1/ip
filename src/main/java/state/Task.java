@@ -1,12 +1,12 @@
-package task;
+package state;
 
 public abstract class Task {
     private final String title;
-    private boolean isDone;
+    private final boolean isDone;
 
-    protected Task(String title) {
+    protected Task(String title, boolean isDone) {
         this.title = title;
-        isDone = false;
+        this.isDone = isDone;
     }
 
     public String getTitle() {
@@ -17,13 +17,9 @@ public abstract class Task {
         return isDone;
     }
 
-    public void mark() {
-        isDone = true;
-    }
+    public abstract Task mark();
 
-    public void unmark() {
-        isDone = false;
-    }
+    public abstract Task unmark();
 
     @Override
     public String toString() {

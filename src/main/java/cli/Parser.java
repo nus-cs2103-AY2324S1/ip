@@ -1,11 +1,20 @@
-package command;
+package cli;
 
 import java.util.HashMap;
 
-import error.EkudException;
+import action.Action;
+import action.ByeAction;
+import action.CreateDeadlineAction;
+import action.CreateEventAction;
+import action.CreateTodoAction;
+import action.DeleteAction;
+import action.ListAction;
+import action.MarkAction;
+import action.UnmarkAction;
+import error.ParseException;
 
-public abstract class Command {
-    public static Command parse(String line) {
+public final class Parser {
+    public static Action parseAction(String line) {
         if (line.isEmpty()) {
             throw new IllegalArgumentException("Empty line passed to Command.parse");
         }
@@ -26,56 +35,57 @@ public abstract class Command {
 
         switch (name) {
             case "list": {
-                return new ListCommand();
+                return new ListAction();
             }
             case "todo": {
                 if (argument.isEmpty()) {
-                    throw new EkudException("The description of a todo cannot be empty.");
+                    throw new ParseException(line, "The description of a todo cannot be empty.");
                 }
-                return new TodoCommand(argument);
+                return new CreateTodoAction(argument);
             }
             case "deadline": {
                 if (argument.isEmpty()) {
-                    throw new EkudException("The description of a deadline cannot be empty.");
+                    throw new ParseException(line, "The description of a deadline cannot be empty.");
                 }
-                String by = getFlagValue(flags, "by");
-                return new DeadlineCommand(argument, by);
+                String by = getFlagValue(line, flags, "by");
+                return new CreateDeadlineAction(argument, by);
             }
             case "event": {
                 if (argument.isEmpty()) {
-                    throw new EkudException("The description of an event cannot be empty.");
+                    throw new ParseException(line, "The description of an event cannot be empty.");
                 }
-                String from = getFlagValue(flags, "from");
-                String to = getFlagValue(flags, "to");
-                return new EventCommand(argument, from, to);
+                String from = getFlagValue(line, flags, "from");
+                String to = getFlagValue(line, flags, "to");
+                return new CreateEventAction(argument, from, to);
             }
             case "mark": {
                 if (argument.isEmpty()) {
-                    throw new EkudException("A task identifier must be provided.");
+                    throw new ParseException(line, "A task identifier must be provided.");
                 }
                 int taskId = parseIntArgument(argument);
-                return new MarkCommand(taskId);
+                return new MarkAction(taskId);
             }
             case "unmark": {
                 if (argument.isEmpty()) {
-                    throw new EkudException("A task identifier must be provided.");
+                    throw new ParseException(line, "A task identifier must be provided.");
                 }
                 int taskId = parseIntArgument(argument);
-                return new UnmarkCommand(taskId);
+                return new UnmarkAction(taskId);
             }
             case "delete": {
                 if (argument.isEmpty()) {
-                    throw new EkudException("A task identifier must be provided.");
+                    throw new ParseException(line, "A task identifier must be provided.");
                 }
                 int taskId = parseIntArgument(argument);
-                return new DeleteCommand(taskId);
+                return new DeleteAction(taskId);
             }
             case "bye": {
-                return new ByeCommand();
+                return new ByeAction();
             }
             default:
-                throw new EkudException("I'm sorry, but I don't know what that means :-(");
+                throw new ParseException(line, "I'm sorry, but I don't know what that means :-(");
         }
+
     }
 
     private static class Component {
@@ -115,14 +125,14 @@ public abstract class Command {
         try {
             return Integer.parseInt(argument);
         } catch (NumberFormatException error) {
-            throw new EkudException("Expected an integer but received a string");
+            throw new ParseException(argument, "Expected an integer but received a string");
         }
     }
 
-    private static String getFlagValue(HashMap<String, String> flags, String name) {
+    private static String getFlagValue(String line, HashMap<String, String> flags, String name) {
         String value = flags.get(name);
         if (value == null) {
-            throw new EkudException("Missing an option: \\" + name);
+            throw new ParseException(line, "Missing an option: \\" + name);
         }
         return value;
     }
