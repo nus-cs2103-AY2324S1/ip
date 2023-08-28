@@ -19,14 +19,14 @@ import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
 public class Parser {
-    private static final String BYE_FLAG = "bye";
-    private static final String LIST_FLAG = "list";
-    private static final String MARK_FLAG = "mark";
-    private static final String UNMARK_FLAG = "unmark";
-    private static final String TODO_FLAG = "todo";
-    private static final String DEADLINE_FLAG = "deadline";
-    private static final String EVENT_FLAG = "event";
-    private static final String DELETE_FLAG = "delete";
+    private static final String FLAG_BYE = "bye";
+    private static final String FLAG_LIST = "list";
+    private static final String FLAG_MARK = "mark";
+    private static final String FLAG_UNMARK = "unmark";
+    private static final String FLAG_TODO = "todo";
+    private static final String FLAG_DEADLINE = "deadline";
+    private static final String FLAG_EVENT = "event";
+    private static final String FLAG_DELETE = "delete";
 
     public static Command parseCommand(String input) throws DukeException {
         // skip past empty lines
@@ -38,21 +38,21 @@ public class Parser {
         String command = parts[0];
         String value = parts.length >= 2 ? parts[1].trim() : "";
 
-        if (command.equals(BYE_FLAG)) {
+        if (command.equals(FLAG_BYE)) {
             if (!value.isEmpty()) {
                 throw new DukeException("Oops!!! The bye command should not be followed by any description");
             }
             return new ExitCommand();
         }
 
-        if (command.equals(LIST_FLAG)) {
+        if (command.equals(FLAG_LIST)) {
             if (!value.isEmpty()) {
                 throw new DukeException("Oops!!! The list command should not be followed by any description");
             }
             return new ListCommand();
         }
 
-        if (command.equals(MARK_FLAG)) {
+        if (command.equals(FLAG_MARK)) {
             Scanner tempSc = new Scanner(value);
 
             if (!tempSc.hasNextInt()) {
@@ -71,7 +71,7 @@ public class Parser {
             return new MarkCommand(index);
         }
 
-        if (command.equals(UNMARK_FLAG)) {
+        if (command.equals(FLAG_UNMARK)) {
             Scanner tempSc = new Scanner(value);
 
             if (!tempSc.hasNextInt()) {
@@ -89,7 +89,7 @@ public class Parser {
             return new UnmarkCommand(index);
         }
 
-        if (command.equals(TODO_FLAG)) {
+        if (command.equals(FLAG_TODO)) {
             if (value.isEmpty()) {
                 throw new DukeException("Oops!!! The description of a todo task cannot be empty");
             }
@@ -97,7 +97,7 @@ public class Parser {
             return new TodoCommand(value);
         }
 
-        if (command.equals(DEADLINE_FLAG)) {
+        if (command.equals(FLAG_DEADLINE)) {
             String[] tempParts = value.split("/by");
 
             // did not provide the /by argument
@@ -125,7 +125,7 @@ public class Parser {
             return new DeadlineCommand(taskName, date);
         }
 
-        if (command.equals(EVENT_FLAG)) {
+        if (command.equals(FLAG_EVENT)) {
             String[] tempParts = value.split("/from|/to");
 
             // did not provide the /from /to arguments
@@ -160,7 +160,7 @@ public class Parser {
             return new EventCommand(taskName, startDate, endDate);
         }
 
-        if (command.equals(DELETE_FLAG)) {
+        if (command.equals(FLAG_DELETE)) {
             Scanner tempSc = new Scanner(value);
             if (!tempSc.hasNextInt()) {
                 tempSc.close();
