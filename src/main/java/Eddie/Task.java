@@ -1,3 +1,5 @@
+package Eddie;
+
 public class Task {
     private boolean done;
     private String name;
@@ -25,7 +27,7 @@ public class Task {
     }
 
     public String getType() {
-        return "Task";
+        return "Eddie.Task";
     }
 
     public String toString() {

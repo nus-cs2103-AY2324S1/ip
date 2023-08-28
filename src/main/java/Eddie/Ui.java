@@ -1,3 +1,5 @@
+package Eddie;
+
 public class Ui {
     static String welcome = "Hello! I'm Eddie\n" +
             "What can I do for you?";
