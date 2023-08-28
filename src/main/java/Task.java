@@ -24,6 +24,9 @@ public class Task {
     public void unmark() {
         this.completed = false;
     }
+    public String saveTaskString() {
+        return completed ? " | 1 | " + description : " | 0 | " + description;
+    }
 
     /**
      * This method converts the value of the task into a String value.

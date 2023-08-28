@@ -13,7 +13,10 @@ public class Events extends Task{
         this.from = from;
         this.to = to;
     }
-
+    @Override
+    public String saveTaskString() {
+        return "E" + super.saveTaskString() + " | " + this.from + "-" + this.to;
+    }
     /**
      * This method converts the value of an Event into a String type.
      * @return the String representation of the event with its type, completion status,
