@@ -29,16 +29,14 @@ public class TaskList {
     }
 
     public void markTask(int taskId) throws TaskNotFoundException {
-        if (taskId >= taskList.size()) throw new TaskNotFoundException();
-        Task doneTask = taskList.get(taskId);
+        Task doneTask = getTask(taskId);
         doneTask.mark();
         System.out.println("Nice! I've marked this task as done:");
         System.out.println(doneTask);
     }
 
     public void unmarkTask(int taskId) throws TaskNotFoundException {
-        if (taskId >= taskList.size()) throw new TaskNotFoundException();
-        Task unmarkTask = taskList.get(taskId);
+        Task unmarkTask = getTask(taskId);
         unmarkTask.unMark();
         System.out.println("OK, I've marked this task as not done yet:");
         System.out.println(unmarkTask);
@@ -61,5 +59,14 @@ public class TaskList {
 
     public void write() {
         Storage.writeToFile(taskList);
+    }
+
+    public int numTasks() {
+        return taskList.size();
+    }
+
+    public Task getTask(int taskId) throws TaskNotFoundException {
+        if (taskId >= taskList.size()) throw new TaskNotFoundException();
+        return taskList.get(taskId);
     }
 }
