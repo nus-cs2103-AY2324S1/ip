@@ -1,5 +1,7 @@
 package task;
 
+import task.taskdatetime.TaskDateTime;
+
 public class Event extends Task {
 
     /**
@@ -11,12 +13,12 @@ public class Event extends Task {
     /**
      * String representing whene this Event starts
      */
-    private String startTime;
+    private TaskDateTime startTime;
 
     /**
      * String representing when this Event ends
      */
-    private String endTime;
+    private TaskDateTime endTime;
 
     /**
      * Constructor for Event, setting name, starting time, ending time
@@ -26,8 +28,8 @@ public class Event extends Task {
      */
     public Event(String eventName, String startTime, String endTime) {
         super(eventName, false);
-        this.startTime = startTime;
-        this.endTime = endTime;
+        this.startTime = TaskDateTime.fromDateTimeString(startTime);
+        this.endTime = TaskDateTime.fromDateTimeString(endTime);
     }
 
     /**
@@ -38,7 +40,8 @@ public class Event extends Task {
     @Override
     public String toPrintString() {
         String postpend = String.format(
-                " from : %s to: %s", this.startTime, this.endTime
+                " from : %s to: %s",
+                this.startTime.getDateTimeAsString(), this.endTime.getDateTimeAsString()
         ); //need a whitespace here for formatting reasons
         return Event.PREPEND + super.toPrintString() + postpend;
     }

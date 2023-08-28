@@ -1,10 +1,20 @@
 todo read book
 list
 deadline return book /by Sunday
-event project meeting /from Mon 2pm /to 4pm
+event project meeting /from 2010-12-03T10:15:30 /to 2011-12-03T09:15:15
 list
 test
 test2
+deadline fix dates /by 2007-12-03T10:15:30
 event bad event /to 4pm from 2pm
-delete 2
+event weirdly timed event /from apples /to oranges
+list
+delete 1
+delete 1
+delete 1
+delete 1
+delete 1
+delete 1
+delete 1
+list
 bye

@@ -1,5 +1,7 @@
 package task;
 
+import task.taskdatetime.TaskDateTime;
+
 /**
  * Encapsulates a task with a singular deadline,
  * so has a name, completion status, and a time representing the deadline
@@ -15,7 +17,7 @@ public class Deadline extends Task {
     /**
      * String representing the deadline of this Deadline
      */
-    private String deadlineTime = "";
+    private TaskDateTime deadlineTime;
 
     /**
      * Constructor for Deadline, setting name and time
@@ -24,7 +26,7 @@ public class Deadline extends Task {
      */
     public Deadline(String deadlineName, String deadlineTime) {
         super(deadlineName, false);
-        this.deadlineTime = deadlineTime;
+        this.deadlineTime = TaskDateTime.fromDateTimeString(deadlineTime);
     }
 
     /**
@@ -34,7 +36,8 @@ public class Deadline extends Task {
      */
     @Override
     public String toPrintString() {
-        String postpend = String.format("(by : %s)",this.deadlineTime);
+        String postpend = String.format("(by : %s)",
+                this.deadlineTime.getDateTimeAsString());
         return Deadline.PREPEND + super.toPrintString() + postpend;
 
     }
