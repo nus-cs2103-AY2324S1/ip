@@ -5,9 +5,63 @@
  */
 
 import java.util.ArrayList;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Scanner;
 
 public class Duke {
+    private static ArrayList<Task> list = new ArrayList<>();
+
+    private static void loadData() {
+        try {
+            File file = new File("data/duke.txt");
+            Scanner sc = new Scanner(file);
+            while (sc.hasNextLine()) {
+                String data = sc.nextLine();
+                readData(data);
+            }
+            sc.close();
+        } catch (FileNotFoundException e) {
+            System.out.println("No file found.");
+        }
+    }
+
+    private static void readData(String line) {
+        String[] data = line.split(" \\| ");
+        String taskType = data[0];
+        boolean isDone = Integer.parseInt(data[1]) == 1;
+        String description = data[2];
+        switch (taskType) {
+            case "T":
+                list.add(new Todo(description, isDone));
+                break;
+            case "D":
+                list.add(new Deadline(description, isDone, data[3]));
+                break;
+            case "E":
+                String[] time = data[3].split("-");
+                list.add(new Event(description, isDone, time[0], time[1]));
+                break;
+            default:
+                System.out.println("\t ☹ OOPS!!! Invalid task type.");
+        }
+    }
+
+    private static void saveData() {
+        try {
+            FileWriter fileWriter = new FileWriter("data/duke.txt");
+            for (Task t : list) {
+                String str = t.taskStringify();
+                fileWriter.write(str + "\n");
+            }
+            fileWriter.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     private static String getNumTasks(int num) {
         if (num == 1 || num == 0) {
             return "\t Now you have " + num + " task in the list.";
@@ -20,13 +74,14 @@ public class Duke {
     }
 
     public static void main(String[] args) {
-        ArrayList<Task> list = new ArrayList<>();
         boolean exit = false;
         String line = "\t____________________________________________________________";
         System.out.println(line);
         System.out.println("\t Hello! I'm Violet");
         System.out.println("\t What can I do for you?");
         System.out.println(line);
+
+        loadData();
 
         Scanner sc = new Scanner(System.in);
 
@@ -169,5 +224,8 @@ public class Duke {
             }
             System.out.println(line);
         }
+
+        saveData();
+
     }
 }

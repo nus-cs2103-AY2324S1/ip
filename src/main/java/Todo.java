@@ -16,6 +16,27 @@ public class Todo extends Task {
     }
 
     /**
+     * Constructor for Todo class.
+     *
+     * @param description The description of the todo.
+     * @param isDone The status of the todo.
+     */
+    public Todo(String description, boolean isDone) {
+        super(description, isDone);
+    }
+
+    /**
+     * Returns the string representation of the todo in the file.
+     *
+     * @return A string representation of the todo in the file.
+     */
+    @Override
+    public String taskStringify() {
+        int status = super.isDone ? 1 : 0;
+        return "T | " + status + " | " + super.description;
+    }
+
+    /**
      * Returns the string representation of the todo.
      *
      * @return A string representation of the todo.

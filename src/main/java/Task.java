@@ -4,7 +4,7 @@
  * @author Pearlynn
  */
 
-public class Task {
+public abstract class Task {
 
     /**
      * The description of the task.
@@ -24,6 +24,17 @@ public class Task {
     public Task(String description) {
         this.description = description;
         this.isDone = false;
+    }
+
+    /**
+     * Constructor for Task class.
+     *
+     * @param description The description of the task.
+     * @param isDone The status of the task.
+     */
+    public Task(String description, boolean isDone) {
+        this.description = description;
+        this.isDone = isDone;
     }
 
     /**
@@ -48,6 +59,13 @@ public class Task {
     public void markAsUndone() {
         this.isDone = false;
     }
+
+    /**
+     * Returns the string representation of the task in the file.
+     *
+     * @return A string representation of the task in the file.
+     */
+    public abstract String taskStringify();
 
     /**
      * Returns the string representation of the task.
