@@ -54,7 +54,7 @@ public class Duke {
     /**
      * Quacks memory
      */
-    private ArrayList<Task> tasks = new ArrayList<Task>();
+    private final ArrayList<Task> TASKS = new ArrayList<>();
 
     public static void main(String[] args) {
         new Duke().run();
@@ -70,7 +70,7 @@ public class Duke {
 
         this.collectCommand();
 
-        // Good bye Message
+        // Goodbye Message
         print(Duke.LINE_BREAK + Duke.GOODBYE_MESSAGE + Duke.LINE_BREAK);
     }
 
@@ -124,69 +124,69 @@ public class Duke {
      * Handles the execution of list
      */
     private void handleList() {
-        if (this.tasks.size() == 0) {
+        if (this.TASKS.size() == 0) {
             this.print("Quack Quack, you have not entered anything yet!");
             this.print("Create new tasks with the todo, deadline or event command");
             return;
         }
         this.print("Quack Quack, here are the tasks in quack's memory:");
-        for (int i = 0; i < this.tasks.size(); i++) {
-            this.print((i + 1) + "." + this.tasks.get(i));
+        for (int i = 0; i < this.TASKS.size(); i++) {
+            this.print((i + 1) + "." + this.TASKS.get(i));
         }
     }
 
     /**
      * validate the index to ensure it is within range
-     * 
+     *
      * @param index - the index of the task in question
      * @return the validated index
-     * @throws BadInputException
+     * @throws BadInputException if the index given is not within range
      */
     private int validateIndex(int index) throws BadInputException {
 
-        // vaidate input
-        if (this.tasks.size() == 0) {
+        // validate input
+        if (this.TASKS.size() == 0) {
             throw new BadInputException(
                     "Quack currently has no task remembered and cannot execute your command, add one now??");
         }
 
-        // vaidate input
-        if (index >= this.tasks.size()) {
+        // validate input
+        if (index >= this.TASKS.size()) {
             throw new BadInputException("Quack does not remember having a task: " + (index + 1) + "\n" + Duke.TAB +
-                    "Quack only remember till task " + (this.tasks.size()));
+                    "Quack only remember till task " + (this.TASKS.size()));
         }
         return index;
     }
 
     /**
      * Handles the deletion command
-     * 
-     * @param index
+     *
+     * @param index the index of the task being deleted
      */
     private void handleDeletion(int index) {
-        Task removed = this.tasks.remove(index);
+        Task removed = this.TASKS.remove(index);
         this.print("Quack! I have removed this task:");
         this.print(removed.toString());
-        this.print("Quack! Quack is currently remembering " + this.tasks.size() + " tasks.");
+        this.print("Quack! Quack is currently remembering " + this.TASKS.size() + " tasks.");
     }
 
     /**
      * Handles the mark/unmark command
-     * 
-     * @param mark  - true if its a mark command else false
+     *
+     * @param mark  - true if it is a mark command else false
      * @param index - index of the task in question
      */
     private void handleMark(boolean mark, int index) {
-        Task task = this.tasks.get(index);
-        // only toggle if mark != completed as if they are the same then theres no
+        Task task = this.TASKS.get(index);
+        // only toggle if mark != completed as if they are the same then there is no
         // effect
         String resp;
         if (mark != task.isCompleted()) {
             task.toggleCompleted();
-            resp = mark ? "Quack! Congrat for finishing the task!" : "Quack, I've marked this task as not done yet :(";
+            resp = mark ? "Quack! Congrats for finishing the task!" : "Quack, I've marked this task as not done yet :(";
         } else {
             resp = mark ? "Quack! This task is already done QUACK!"
-                    : "Quack! you cant unmark something that isnt done yet!!";
+                    : "Quack! you cant unmark something that isn't done yet!!";
         }
         this.print(resp);
         this.print(task.toString());
@@ -194,12 +194,12 @@ public class Duke {
 
     /**
      * Handles the creation of new tasks
-     * 
+     *
      * @param param - parser object containing information on the new task.
-     * @throws BadInputException
+     * @throws BadInputException if quack cannot remember anymore tasks
      */
     private void handleTask(Parser param) throws BadInputException {
-        if (this.tasks.size() >= 100) {
+        if (this.TASKS.size() >= 100) {
             throw new BadInputException("QUACK!! quack cannot remember any more tasks!!");
         }
 
@@ -214,16 +214,16 @@ public class Duke {
             newTask = new Event(param.getFlag("/from"), param.getFlag("/to"), param.getParam());
         }
 
-        this.tasks.add(newTask);
+        this.TASKS.add(newTask);
         this.print("Quack! I have added this task:");
         this.print(newTask.toString());
-        this.print("Quack! Quack is currently remembering " + this.tasks.size() + " tasks.");
+        this.print("Quack! Quack is currently remembering " + this.TASKS.size() + " tasks.");
 
     }
 
     /**
-     * Handles the formating of string being printed
-     * 
+     * Handles the formatting of string being printed
+     *
      * @param string - the string being printed
      */
     public void print(String string) {
