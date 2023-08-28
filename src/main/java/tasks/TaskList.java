@@ -1,12 +1,15 @@
 package tasks;
 
+import adapters.LocalDateAdapter;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
+import utility.DateUtility;
 
 import java.io.*;
 import java.lang.reflect.Modifier;
 import java.lang.reflect.Type;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -24,6 +27,7 @@ public class TaskList {
       new GsonBuilder()
           .excludeFieldsWithModifiers(Modifier.TRANSIENT)
           .setPrettyPrinting()
+          .registerTypeAdapter(LocalDate.class, new LocalDateAdapter())
           .create();
 
   public TaskList() {
@@ -116,7 +120,7 @@ public class TaskList {
             task = new ToDo(entry.get("name"));
             break;
           case "deadline":
-            task = new Deadline(entry.get("name"), entry.get("due"));
+            task = new Deadline(entry.get("name"), DateUtility.parse(entry.get("due")));
             break;
           case "event":
             task = new Event(entry.get("name"), entry.get("from"), entry.get("to"));
