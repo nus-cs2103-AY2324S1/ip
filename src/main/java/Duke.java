@@ -44,34 +44,34 @@ public class Duke {
                 args = parsedCommand.length > 1 ? parsedCommand[1] : "";
 
                 switch (userCommand) {
-                    case "bye":
-                        exitProgram = true;
-                        exit();
-                        break;
-                    case "list":
-                        taskList.displayTaskList();
-                        break;
-                    case "todo":
-                        taskList.addTask(TaskType.TODO, args);
-                        break;
-                    case "deadline":
-                        taskList.addTask(TaskType.DEADLINE, args);
-                        break;
-                    case "event":
-                        taskList.addTask(TaskType.EVENT, args);
-                        break;
-                    case "mark":
-                        taskList.changeTaskDoneStatus(args, true);
-                        break;
-                    case "unmark":
-                        taskList.changeTaskDoneStatus(args, false);
-                        break;
-                    case "delete":
-                        taskList.deleteTask(args);
-                        break;
-                    default:
-                        throw new DukeException("I don't understand what you are saying!\n" +
-                                "Available commands are list, todo, deadline, event, mark, unmark, delete, bye.");
+                case "bye":
+                    exitProgram = true;
+                    exit();
+                    break;
+                case "list":
+                    taskList.displayTaskList();
+                    break;
+                case "todo":
+                    taskList.addTask(TaskType.TODO, args);
+                    break;
+                case "deadline":
+                    taskList.addTask(TaskType.DEADLINE, args);
+                    break;
+                case "event":
+                    taskList.addTask(TaskType.EVENT, args);
+                    break;
+                case "mark":
+                    taskList.changeTaskDoneStatus(args, true);
+                    break;
+                case "unmark":
+                    taskList.changeTaskDoneStatus(args, false);
+                    break;
+                case "delete":
+                    taskList.deleteTask(args);
+                    break;
+                default:
+                    throw new DukeException("I don't understand what you are saying!\n" +
+                            "Available commands are list, todo, deadline, event, mark, unmark, delete, bye.");
                 }
             } catch (DukeException e) {
                 System.out.println(e.getMessage());

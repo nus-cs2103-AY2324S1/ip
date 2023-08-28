@@ -33,17 +33,17 @@ public class TaskList {
 
         try {
             switch (taskType) {
-                case TODO:
-                    newTask = createTodo(args);
-                    break;
-                case DEADLINE:
-                    newTask = createDeadline(args);
-                    break;
-                case EVENT:
-                    newTask = createEvent(args);
-                    break;
-                default:
-                    throw new DukeException("I can't create this task type!");
+            case TODO:
+                newTask = createTodo(args);
+                break;
+            case DEADLINE:
+                newTask = createDeadline(args);
+                break;
+            case EVENT:
+                newTask = createEvent(args);
+                break;
+            default:
+                throw new DukeException("I can't create this task type!");
             }
 
             System.out.println("Got it. I've added this task:");
