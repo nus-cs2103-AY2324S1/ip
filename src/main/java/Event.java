@@ -2,32 +2,48 @@ import java.util.ArrayList;
 
 /**
  * Class to declare a Event task
- * 
- * @author Jason Ray
  */
 public class Event extends Task {
-	private String start;
-	private String end;
+    /** Start time of the task */
+    private String start;
 
-	public Event(String name, String start, String end, Type type) {
-		super(name, type, " (from: "+ start + " to: " + end + ")");
-		this.start = start;
-		this.end = end;
-	}
-	
-	public static void printTaskAdded(String taskName, String start, String end, ArrayList<Task> list) {
-		System.out.println("You have added a task:");
-		System.out.println("\t[E][ ] " + taskName + " (from: "+ start + " to: " + end + ")");
-		list.add(new Event(taskName, start, end, Type.EVENT));
-		System.out.println("There are now " + list.size() + " tasks in the list");
-	}
+    /** End time of the task */
+    private String end;
 
-	public String getStart() {
-		return this.start;
-	}
+    /**
+     * Creates a new instance of an event task
+     * 
+     * @param name Name of task
+     * @param start Start time of task
+     * @param end End time of task
+     */
+    public Event(String name, String start, String end) {
+        super(name, Type.EVENT, " (from: "+ start + " to: " + end + ")");
+        this.start = start;
+        this.end = end;
+    }
+    
+    /**
+     * Prints the confirmation text output when a deadline task is added
+     * Also adds the task to the list
+     * 
+     * @param taskName Name of task
+     * @param start Start time of task
+     * @param end End time of task
+     * @param list List where task is to be added
+     */
+    public static void printTaskAdded(String taskName, String start, String end, ArrayList<Task> list) {
+        System.out.println("You have added a task:");
+        System.out.println("\t[E][ ] " + taskName + " (from: "+ start + " to: " + end + ")");
+        System.out.println("There are now " + list.size() + " tasks in the list");
+    }
 
-	public String getEnd() {
-		return this.end;
-	}
+    public String getStart() {
+        return this.start;
+    }
+
+    public String getEnd() {
+        return this.end;
+    }
 
 }
