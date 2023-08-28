@@ -1,4 +1,3 @@
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -10,11 +9,6 @@ public class Duke {
     private Storage storage;
     private TaskList taskList;
     private Ui ui;
-
-    public enum CommandType {
-        BYE, LIST, MARK, UNMARK, DELETE, CHECK, TODAY,
-        TODO, DEADLINE, EVENT,
-    }
 
     public Duke(String filePath) {
         this.storage = new Storage(filePath);
@@ -37,8 +31,8 @@ public class Duke {
                     throw new EmptyCommandException();
                 }
 
-                String[] parts = userInput.split(" ", 2);
-                CommandType command = this.getCommand(parts[0]);
+                CommandType command = Parser.parseCommand(userInput);
+                String args = Parser.parseArgument(userInput);
 
                 switch (command) {
                 case BYE:
@@ -48,25 +42,25 @@ public class Duke {
                     this.ui.showList(this.taskList);
                     break;
                 case MARK:
-                    this.markTaskAsDone(parts);
+                    this.markTaskAsDone(args);
                     break;
                 case UNMARK:
-                    this.markTaskAsNotDone(parts);
+                    this.markTaskAsNotDone(args);
                     break;
                 case TODO:
-                    this.addTodo(parts);
+                    this.addTodo(args);
                     break;
                 case DEADLINE:
-                    this.addDeadline(parts);
+                    this.addDeadline(args);
                     break;
                 case EVENT:
-                    this.addEvent(parts);
+                    this.addEvent(args);
                     break;
                 case DELETE:
-                    this.deleteTask(parts);
+                    this.deleteTask(args);
                     break;
                 case CHECK:
-                    this.checkTasksOnDate(parts);
+                    this.checkTasksOnDate(args);
                     break;
                 case TODAY:
                     this.checkTasksForToday();
@@ -80,14 +74,6 @@ public class Duke {
         }
     }
 
-    private CommandType getCommand(String command) throws UnknownCommandException {
-        try {
-            return CommandType.valueOf(command.toUpperCase());
-        } catch (IllegalArgumentException e){
-            throw new UnknownCommandException();
-        }
-    }
-
     private void exit() {
         try {
             this.storage.saveData(this.taskList);
@@ -97,9 +83,9 @@ public class Duke {
         }
     }
 
-    private void markTaskAsDone(String[] userCommandParts) throws InvalidTaskIndexException {
+    private void markTaskAsDone(String userCommand) throws InvalidTaskIndexException {
         try {
-            int taskIndex = Integer.parseInt(userCommandParts[1]) - 1;
+            int taskIndex = Integer.parseInt(userCommand) - 1;
             if (taskIndex < 0 || taskIndex >= taskList.getLength()) {
                 throw new InvalidTaskIndexException(taskIndex + 1);
             }
@@ -114,9 +100,9 @@ public class Duke {
         }
     }
 
-    private void markTaskAsNotDone(String[] userCommandParts) throws InvalidTaskIndexException {
+    private void markTaskAsNotDone(String userCommand) throws InvalidTaskIndexException {
         try {
-            int taskIndex = Integer.parseInt(userCommandParts[1]) - 1;
+            int taskIndex = Integer.parseInt(userCommand) - 1;
             if (taskIndex < 0 || taskIndex >= taskList.getLength()) {
                 throw new InvalidTaskIndexException(taskIndex + 1);
             }
@@ -132,13 +118,13 @@ public class Duke {
 
     }
 
-    private void addTodo(String[] userCommandParts) {
+    private void addTodo(String userCommand) {
         try {
-            if (userCommandParts.length < 2 || userCommandParts[1].trim().isEmpty()) {
+            if (userCommand.trim().isEmpty()) {
                 throw new EmptyDescriptionException("todo");
             }
 
-            String description = userCommandParts[1].trim();
+            String description = userCommand.trim();
 
             Todo newTodo = new Todo(description);
             taskList.add(newTodo);
@@ -148,13 +134,13 @@ public class Duke {
         }
     }
 
-    private void addDeadline(String[] userCommandParts) {
+    private void addDeadline(String userCommand) {
         try {
-            if (userCommandParts.length < 2) {
+            if (userCommand.trim().isEmpty()) {
                 throw new EmptyDescriptionException("Deadline");
             }
 
-            String[] deadlineParts = userCommandParts[1].split("/by");
+            String[] deadlineParts = userCommand.split("/by");
             if (deadlineParts.length < 2) {
                 throw new InvalidFormatException("Please use the format: deadline <description> /by <d/M/yyyy HHmm>.");
             }
@@ -174,13 +160,13 @@ public class Duke {
         }
     }
 
-    private void addEvent(String[] userCommandParts) throws EmptyDescriptionException {
+    private void addEvent(String userCommand) throws EmptyDescriptionException {
         try {
-            if (userCommandParts.length < 2) {
+            if (userCommand.trim().isEmpty()) {
                 throw new EmptyDescriptionException("event");
             }
 
-            String[] eventParts = userCommandParts[1].split("/at");
+            String[] eventParts = userCommand.split("/at");
             if (eventParts.length < 2) {
                 throw new InvalidFormatException("Please use the format: event <description> /at <d/M/yyyy HHmm>");
             }
@@ -201,9 +187,9 @@ public class Duke {
         }
     }
 
-    private void deleteTask(String[] userCommandParts) throws InvalidTaskIndexException {
+    private void deleteTask(String userCommand) throws InvalidTaskIndexException {
         try {
-            int taskIndex = Integer.parseInt(userCommandParts[1]) - 1;
+            int taskIndex = Integer.parseInt(userCommand) - 1;
 
             if (taskIndex < 0 || taskIndex >= taskList.getLength()) {
                 throw new InvalidTaskIndexException(taskIndex + 1);
@@ -219,13 +205,13 @@ public class Duke {
         }
     }
 
-    private void checkTasksOnDate(String[] userCommandParts) {
+    private void checkTasksOnDate(String userCommand) {
         try {
-            if (userCommandParts.length < 2) {
+            if (userCommand.trim().isEmpty()) {
                 throw new EmptyDescriptionException("date");
             }
 
-            String dateString = userCommandParts[1].trim();
+            String dateString = userCommand.trim();
             LocalDate date = LocalDate.parse(dateString, DateTimeFormatter.ofPattern("d/M/yyyy"));
             this.ui.showTasksOnDate(date, taskList);
 
