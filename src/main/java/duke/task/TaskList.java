@@ -91,6 +91,9 @@ public class TaskList {
         for (int i = 1; i <= taskList.size(); i++) {
             Task task = taskList.get(i - 1);
             if (task.contains(keyword)) {
+                if (foundCount == 0) {
+                    msg.append("\n");
+                }
                 foundCount += 1;
                 msg.append(String.format("%d.%s", foundCount, task));
                 if (i != taskList.size()) {
