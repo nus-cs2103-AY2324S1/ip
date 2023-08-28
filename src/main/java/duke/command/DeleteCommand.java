@@ -14,6 +14,12 @@ public class DeleteCommand extends Command {
     /** Index of Task object to be deleted. */
     private final int index;
 
+    /**
+     * Constructor method.
+     *
+     * @param input User input.
+     * @throws DukeException If any error occurs.
+     */
     public DeleteCommand(String input) throws DukeException {
         if (input == null) {
             throw new DukeException(" ☹ Which task?");
@@ -32,8 +38,8 @@ public class DeleteCommand extends Command {
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) throws DukeException {
         Task deletedTask = taskList.deleteTask(index);
-        ui.showMessage(String.format("Noted. I've removed this task:\n    " +
-                "%s\nNow you have %d tasks in the list.", deletedTask, taskList.getListSize()));
+        ui.showMessage(String.format("Noted. I've removed this task:\n    "
+                + "%s\nNow you have %d tasks in the list.", deletedTask, taskList.getListSize()));
         storage.writeFile(taskList.stringToFile());
     }
 }

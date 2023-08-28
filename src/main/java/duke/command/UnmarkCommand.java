@@ -13,6 +13,12 @@ public class UnmarkCommand extends Command {
     /** Index of Task object to be unmarked. */
     private final int index;
 
+    /**
+     * Constructor method.
+     *
+     * @param input User input.
+     * @throws DukeException If any error occurs.
+     */
     public UnmarkCommand(String input) throws DukeException {
         if (input == null) {
             throw new DukeException(" ☹ Which task?");
