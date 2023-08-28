@@ -9,12 +9,11 @@ import java.time.format.DateTimeParseException;
 public class Parser {
     private TaskList taskList;
     private Ui ui;
-    private Storage storage;
 
-    public Parser(TaskList taskList, Ui ui, Storage storage) {
+
+    public Parser(TaskList taskList, Ui ui) {
         this.taskList = taskList;
         this.ui = ui;
-        this.storage = storage;
     }
     /**
      * Parses the user input and performs corresponding actions based on the input.
@@ -122,6 +121,23 @@ public class Parser {
             Task task = taskList.getTask(index);
             taskList.removeTask(index);
             ui.printRemoveTask(task, taskList);
+        } else if(input.startsWith("find")) {
+            try {
+                if (input.trim().equals("find")) {
+                    throw new EmptyFindQueryException();
+                }
+            } catch (EmptyFindQueryException e) {
+                ui.printErrorMessage(e.getMessage());
+                return;
+            }
+            String taskQuery = input.split(" ")[1];
+            TaskList tasksResult = new TaskList();
+            for(Task task : taskList.getTaskList()) {
+                if(task.toString().contains(taskQuery)) {
+                    tasksResult.addTask(task);
+                }
+            }
+            ui.printSearchResult(tasksResult);
         } else {
             ui.printUnknownMessage();
         }
