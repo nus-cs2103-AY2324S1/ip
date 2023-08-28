@@ -23,5 +23,13 @@ public class Task {
             this.description
         );
     }
+
+    public String toFileFormatString() {
+        return String.format(
+            "%s|%s",
+            this.done ? "1" : "0",
+            this.description
+        );
+    }
 }
 

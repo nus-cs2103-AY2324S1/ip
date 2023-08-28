@@ -144,10 +144,20 @@ public class Duke {
         formatTasks[0] = "Here are the tasks in your list:";
         for (int i = 0; i < tasks.size(); i++) {
             formatTasks[i + 1] = String.format(
-                "%d.%s", i + 1, this.tasks.get(i).toString()
+                "%d.%s", 
+                i + 1, this.tasks.get(i).toString()
             );
         }
         this.speak(formatTasks);
+    }
+
+    private String taskListToString() {
+        String taskListString = "";
+        for (Task task : this.tasks) {
+            taskListString += task.toFileFormatString() + "\n";
+        }
+        System.out.println(taskListString);
+        return taskListString.strip();
     }
 
     private void delete(String taskCount) throws DukeException {
@@ -178,6 +188,8 @@ public class Duke {
             "  " + removedTask.toString(),
             "Total no. of tasks stored: " + tasks.size()
         });
+
+        // TODO: Rewrite to file?
     }
 
     private void addTodo(String description) {
@@ -212,6 +224,7 @@ public class Duke {
 
     private void addTask(Task task) {
         tasks.add(task);
+        // TODO: Write to file
     }
 
     private void markTask(String taskCount, boolean done) throws DukeException {

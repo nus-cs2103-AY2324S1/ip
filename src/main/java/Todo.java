@@ -9,4 +9,12 @@ public class Todo extends Task {
             "[T]%s", super.toString()
         );
     }
+
+    @Override
+    public String toFileFormatString() {
+        return String.format(
+            "T|%s",
+            super.toFileFormatString()
+        );
+    }
 }

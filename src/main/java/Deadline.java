@@ -10,7 +10,17 @@ public class Deadline extends Task {
     public String toString() {
         return String.format(
             "[D]%s (by: %s)",
-            super.toString(), deadline
+            super.toString(), 
+            this.deadline
+        );
+    }
+
+    @Override
+    public String toFileFormatString() {
+        return String.format(
+            "D|%s|%s",
+            super.toFileFormatString(),
+            this.deadline
         );
     }
 }
