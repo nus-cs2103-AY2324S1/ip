@@ -17,6 +17,10 @@ public class TaskList {
         this.userTasks = userTasks;
     }
 
+    public void setTasks(ArrayList<Task> userTasks) {
+        this.userTasks = userTasks;
+    }
+
     // public enum ActionType {
     //     BYE, LIST, SAVE, LOAD, MARK, UNMARK, DELETE, CLEAR, CLEARFILE, TODO, DEADLINE, EVENT, SCHEDULE;
     // }

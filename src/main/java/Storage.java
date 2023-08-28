@@ -52,7 +52,12 @@ public class Storage {
         return userTasks;
     }
 
-    public void save(ArrayList<Task> userTasks) throws DukeException {
+    public void load(TaskList taskList) throws DukeException {
+        ArrayList<Task> userTasks = this.load();
+        taskList.setTasks(userTasks);
+    }
+
+    public void save(TaskList taskList) throws DukeException {
         try {
             File file = new File(FILEPATH);
             if (!file.exists()) {
@@ -61,8 +66,8 @@ public class Storage {
                 System.out.println("File created: " + file.getName());
             }
             FileWriter fw = new FileWriter(FILEPATH);
-            for (int i = 0; i < userTasks.size(); i++) {
-                fw.write(userTasks.get(i).toFileString() + "\n");
+            for (int i = 0; i < taskList.size(); i++) {
+                fw.write(taskList.get(i).toFileString() + "\n");
             }
             fw.close();
         } catch (IOException e) {

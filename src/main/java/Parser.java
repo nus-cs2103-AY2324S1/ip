@@ -16,12 +16,12 @@ public class Parser {
         case "list":
             command = new ListCommand();
             break;
-        // case "save":
-        //     command = new SaveCommand();
-        //     break;
-        // case "load":
-        //     command = new LoadCommand();
-        //     break;
+        case "save":
+            command = new SaveCommand();
+            break;
+        case "load":
+            command = new LoadCommand();
+            break;
         case "mark":
             command = new MarkCommand(fullCommand);
             break;

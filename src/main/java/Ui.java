@@ -72,4 +72,12 @@ public class Ui {
         System.out.println("Nice! I've marked this task as undone:");
         System.out.println(task.toString());
     }
+
+    public void showSave() {
+        System.out.println("Tasks saved to file.");
+    }
+
+    public void showLoad() {
+        System.out.println("Tasks loaded from file.");
+    }
 }
