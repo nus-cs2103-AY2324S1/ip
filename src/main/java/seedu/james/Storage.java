@@ -2,8 +2,8 @@ package seedu.james;
 
 import java.io.File;
 import java.io.FileWriter;
-import java.util.Scanner;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 /**
  * Storage class to handle saving and loading of tasks
@@ -14,6 +14,12 @@ public class Storage {
 
     /** The save file */
     private File saveFile;
+
+    /**
+     * Constructor for Storage
+     * Creates the save file if it does not exist
+     * @param path The path to the save file
+     */
     public Storage(String path) {
         this.savePath = path;
         String directory = path.substring(0, path.lastIndexOf("/"));
@@ -37,8 +43,8 @@ public class Storage {
     /**
      * Saves the task list to the save file
      *
-     * @param taskList
-     * @throws SavingException
+     * @param taskList The task list to save
+     * @throws SavingException If an error occurs when saving
      */
     public void save(TaskList taskList) throws SavingException {
         ArrayList<Task> tasks = taskList.getTasks();
@@ -56,8 +62,8 @@ public class Storage {
     /**
      * Loads the task list from the save file
      *
-     * @return ArrayList<Task>
-     * @throws LoadingException
+     * @return An ArrayList of tasks
+     * @throws LoadingException If an error occurs when loading
      */
     public ArrayList<Task> load() throws LoadingException {
         ArrayList<Task> tasks = new ArrayList<Task>();
@@ -78,7 +84,7 @@ public class Storage {
     /**
      * Loads a task from a string
      *
-     * @param s
+     * @param s The string to load from
      * @return Task
      */
     public Task loadTask(String s) {

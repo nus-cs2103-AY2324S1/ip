@@ -6,15 +6,15 @@ package seedu.james;
 public abstract class Task {
 
     /** The description of the task */
-    String description;
+    private String description;
 
     /** The status of the task */
-    boolean isDone;
+    private boolean isDone;
 
     /**
      * Constructor for Task
      *
-     * @param description
+     * @param description A description of the task
      */
     public Task(String description) {
         this.description = description;

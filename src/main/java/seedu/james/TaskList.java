@@ -7,16 +7,16 @@ import java.util.ArrayList;
  */
 public class TaskList {
 
+    /** The parser to parse the user input */
+    private Parser parser = new Parser();
+
     /** The list of tasks */
     private ArrayList<Task> items = new ArrayList<Task>();
 
-    /** The parser to parse the user input */
-    public Parser parser = new Parser();
-
     /**
-     * Constructor for TaskList from existing ArrayList<Task>
+     * Constructor for TaskList from existing list of tasks
      *
-     * @param items
+     * @param items the list of tasks
      */
     public TaskList(ArrayList<Task> items) {
         this.items = items;
@@ -32,7 +32,7 @@ public class TaskList {
     /**
      * Unmarks the task at the specified index
      *
-     * @param idx
+     * @param idx the index of the task to be unmarked
      */
     public void unmarkTask(Integer idx) {
         Task task = this.items.get(idx);
@@ -42,7 +42,7 @@ public class TaskList {
     /**
      * Marks the task at the specified index
      *
-     * @param idx
+     * @param idx the index of the task to be marked
      */
     public void markTask(Integer idx) {
         Task task = this.items.get(idx);
@@ -52,7 +52,7 @@ public class TaskList {
     /**
      * Deletes the task at the specified index
      *
-     * @param idx
+     * @param idx the index of the task to be deleted
      */
     public void deleteTask(Integer idx) {
         Task task = this.items.get(idx);
@@ -62,7 +62,7 @@ public class TaskList {
     /**
      * Adds a task to the list
      *
-     * @param task
+     * @param task the task to be added
      */
     public void addTask(Task task) {
         this.items.add(task);
@@ -89,7 +89,7 @@ public class TaskList {
     /**
      * Gets the task at the specified index
      *
-     * @param index
+     * @param index the index of the task to be retrieved
      * @return the task at the specified index
      */
     public Task getTask(int index) {

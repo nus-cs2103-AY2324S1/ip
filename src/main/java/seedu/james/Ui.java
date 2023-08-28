@@ -7,17 +7,18 @@ import java.util.Scanner;
  */
 public class Ui {
 
+    private static String line = "____________________________________________________________";
+
     /**
      * The parser used to parse user input.
      */
     private Parser parser;
 
-    public static String line = "____________________________________________________________";
 
     /**
      * Constructs a Ui object.
      */
-    public Ui () {
+    public Ui() {
         this.parser = new Parser();
     }
 
