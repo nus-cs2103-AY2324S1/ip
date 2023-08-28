@@ -1,27 +1,51 @@
 package Chatbot.alain;
 
+/**
+ * Represents a task with a name and completion status.
+ */
 public class Task {
     protected String name;
     protected boolean isDone;
 
+    /**
+     * Constructs a Task with the given name and sets its completion status to false.
+     *
+     * @param name The name or description of the task.
+     */
     public Task(String name) {
         this.name = name;
         this.isDone = false;
     }
 
+    /**
+     * Returns a string representing the status icon of the task.
+     *
+     * @return A string containing "[X]" if the task is done, "[ ]" if the task is not done.
+     */
     public String getStatusIcon() {
         return (isDone ? "[X]" : "[ ]"); // mark done task with X
     }
 
+    /**
+     * Marks the task as done.
+     */
     public void markAsDone(){
         this.isDone = true;
     }
 
+    /**
+     * Marks the task as not done.
+     */
     public void markAsUndone(){
         this.isDone = false;
     }
 
+    /**
+     * Returns a string representation of the task, including its status icon and name.
+     *
+     * @return A string representation of the task.
+     */
     public String toString() {
-        return this.getStatusIcon() + this.name;
+        return this.getStatusIcon() + " " + this.name;
     }
 }

@@ -7,11 +7,19 @@ import java.util.regex.Pattern;
 import java.time.format.DateTimeFormatter;
 import java.time.LocalDate;
 
+/**
+ * Represents the main class for the Alain chatbot.
+ */
 public class ChatbotAlain{
     private  Ui ui;
     private  Storage storage;
     private  TaskList tasks;
 
+    /**
+     * Constructs a ChatbotAlain object.
+     *
+     * @param filePath The file path for loading tasks.
+     */
     public ChatbotAlain(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
@@ -21,6 +29,14 @@ public class ChatbotAlain{
             ui.showError("Error Occurs when loading tasks from file");
         }
     }
+
+    /**
+     * Converts a string representing time to a different format.
+     *
+     * @param inputTime The input time string.
+     * @return The transformed time string.
+     * @throws AlainException If an exception occurs during the transformation.
+     */
     public static String stringToTimeString(String inputTime) throws AlainException {
         if (Pattern.matches("\\d+-\\d+-\\d+",inputTime)) {
             DateTimeFormatter inputPattern = DateTimeFormatter.ofPattern("yyyy-MM-dd");
@@ -47,6 +63,12 @@ public class ChatbotAlain{
         }
     }
 
+    /**
+     * Runs the Alain chatbot.
+     *
+     * @throws AlainException If an exception occurs during chatbot execution.
+     * @throws IOException If an I/O error occurs during chatbot execution.
+     */
     public  void run() throws AlainException, IOException {
         if (this.storage.isBye()) {
             return;
@@ -142,6 +164,13 @@ public class ChatbotAlain{
         }
     }
 
+    /**
+     * Main method to start the Alain chatbot.
+     *
+     * @param args Command-line arguments (not used).
+     * @throws AlainException If an exception occurs during chatbot execution.
+     * @throws IOException If an I/O error occurs during chatbot execution.
+     */
     public static void main(String[] args) throws AlainException, IOException {
         //System.out.println("hi");
         new ChatbotAlain("tasks.txt").run();
