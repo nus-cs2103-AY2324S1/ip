@@ -111,6 +111,7 @@ public class TaskHandler {
             }
         } catch (InvalidTaskException e) {
             System.out.println(e);
+            Output.printLineBreak();
             return true;
         } catch (NumberFormatException e) {
             System.out.println("That's not a number Bakatare!");

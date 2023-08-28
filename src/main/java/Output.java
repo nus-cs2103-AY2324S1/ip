@@ -22,4 +22,7 @@ public class Output {
     public static void exit() {
         System.out.println(exitText);
     }
+    public static void printLineBreak() {
+        System.out.println(lineBreak);
+    }
 }

@@ -1,3 +1,4 @@
+import java.time.DateTimeException;
 import java.time.LocalDateTime;
 
 public class DateTimeHandler {
@@ -9,13 +10,12 @@ public class DateTimeHandler {
     private int day;
     private int hour;
     private int min;
-    public DateTimeHandler(String s) {
-
+    public DateTimeHandler(String s) throws InvalidTaskException {
         try {
-
             String[] dateTime = s.split(" ");
             String[] dateString = dateTime[0].split("/");
             int timeString = Integer.parseInt(dateTime[1]);
+            System.out.println("time String: " + timeString);
             day = Integer.parseInt(dateString[0]);
             month = Integer.parseInt(dateString[1]);
             year = Integer.parseInt(dateString[2]);
@@ -24,7 +24,9 @@ public class DateTimeHandler {
             date = LocalDateTime.of(year,month,day,hour,min);
             dateTimeString = date.getMonth() +  " " + date.getDayOfMonth() + " " + date.getYear();
         } catch (ArrayIndexOutOfBoundsException exception) {
-            
+            throw new InvalidTaskException("That's not a proper deadline BAAAKKKAAAAAAA!!!!!", true);
+        } catch (DateTimeException exception) {
+            throw new InvalidTaskException("That's not a proper deadline BAAAKKKAAAAAAA!!!!!", true);
         }
     }
 
