@@ -1,3 +1,6 @@
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Scanner;
@@ -10,8 +13,9 @@ public class Duke {
      * @param args Command-line arguments (not used).
      * @throws DukeException If an error occurs during user input processing.
      */
-    
+
     static ArrayList<Task> taskArray = new ArrayList<>();
+
     public static void main(String[] args) throws DukeException {
         // Send welcome message
         System.out.println(
@@ -29,6 +33,12 @@ public class Duke {
             try {
                 String userInput = scan.nextLine().trim();
                 if (Objects.equals(userInput, "bye")) {
+                    String file = "tasks.txt";
+                    try {
+                        writeToFile(file, listTasks(inputNum));
+                    } catch (IOException e) {
+                        System.out.println("Something went wrong: " + e.getMessage());
+                    }
                     System.out.println(
                             "    ____________________________________________________________\n" +
                                     "     Bye. Hope to see you again soon!\n" +
@@ -36,7 +46,11 @@ public class Duke {
                     break;
 
                 } else if (Objects.equals(userInput, "list")) {
-                    listTasks(inputNum);
+                    System.out.println(
+                            "    ____________________________________________________________\n" +
+                                    "     Here are the tasks in your list:\n" +
+                                    listTasks(inputNum) +
+                                    "    ____________________________________________________________\n");
 
                 } else if (userInput.startsWith("mark")) {
                     markTask(userInput, inputNum);
@@ -94,7 +108,7 @@ public class Duke {
      *
      * @param inputNum The number of tasks entered.
      */
-    private static void listTasks(int inputNum) {
+    private static String listTasks(int inputNum) {
         String inputArrayString = "";
         for (int i = 0; i < inputNum; i++) {
             Task currentTask = taskArray.get(i);
@@ -105,12 +119,7 @@ public class Duke {
                 break;
             }
         }
-        System.out.println(
-                "    ____________________________________________________________\n" +
-                        "     Here are the tasks in your list:\n" +
-                        inputArrayString +
-                        "    ____________________________________________________________\n");
-
+        return inputArrayString;
     }
 
     /**
@@ -276,6 +285,14 @@ public class Duke {
                 "     Now you have " + (inputNum - 1) + " task(s) in the list.\n" +
                 "    ____________________________________________________________");
     }
+
+    private static void writeToFile(String filePath, String textToAdd) throws IOException {
+        FileWriter fw = new FileWriter(filePath);
+        fw.write(textToAdd);
+        fw.close();
+    }
+
+
 
 
 }
