@@ -17,30 +17,6 @@ public class Duke {
         performCommands();
     }
 
-    private CommandType parseText(String line) throws DukeException {
-        String command = line.split(" ")[0];
-        switch(command) {
-        case "list":
-            return CommandType.LIST;
-        case "mark":
-            return CommandType.MARK;
-        case "unmark":
-            return CommandType.UNMARK;
-        case "todo":
-            return CommandType.TODO;
-        case "deadline":
-            return CommandType.DEADLINE;
-        case "event":
-            return CommandType.EVENT;
-        case "delete":
-            return CommandType.DELETE;
-        case "bye":
-            return CommandType.BYE;
-        default:
-            throw new DukeException("!!!: Sorry I do not understand what you mean");
-        }
-    }
-
     private void markDone(String options) throws DukeException {
         try {
             Integer.parseInt(options);
@@ -126,47 +102,43 @@ public class Duke {
     }
 
     private void performCommands() {
-        Scanner scanner = new Scanner(System.in);
-        while (scanner.hasNextLine()) {
-            String line = scanner.nextLine();
+        while (ui.hasInput()) {
+            String line = ui.readInput();
             try {
-                CommandType command = parseText(line);
-                String options = !line.contains(" ") ? "" : line.substring(line.indexOf(' ') + 1);
+                CommandType command = Parser.parseCommand(line);
                 switch (command) {
                 case LIST:
                     ui.displayList(list);
                     break;
                 case MARK:
-                    markDone(options);
+                    markDone(Parser.parseOptions(line));
                     break;
                 case UNMARK:
-                    unmarkDone(options);
+                    unmarkDone(Parser.parseOptions(line));
                     break;
                 case TODO:
-                    addTodoToList(options);
+                    addTodoToList(Parser.parseOptions(line));
                     break;
                 case DEADLINE:
-                    addDeadlineToList(options);
+                    addDeadlineToList(Parser.parseOptions(line));
                     break;
                 case EVENT:
-                    addEventToList(options);
+                    addEventToList(Parser.parseOptions(line));
                     break;
                 case DELETE:
-                    deleteFromList(options);
+                    deleteFromList(Parser.parseOptions(line));
                     break;
                 case BYE:
                     ui.exit();
                     return;
                 }
             } catch (DukeException e) {
-                System.out.println(e.getMessage());
+                ui.displayException(e);
             }
-            System.out.println("____________________________________________________________");
         }
     }
 
     public static void main(String[] args) {
-        Duke duke = new Duke();
-        duke.run();
+        new Duke().run();
     }
 }

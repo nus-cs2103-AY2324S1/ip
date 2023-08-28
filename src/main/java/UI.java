@@ -15,8 +15,17 @@ public class UI {
     }
 
     public void exit() {
+        scanner.close();
         System.out.println("Bye");
         System.out.println("____________________________________________________________");
+    }
+
+    public String readInput() {
+        return scanner.nextLine();
+    }
+
+    public boolean hasInput() {
+        return scanner.hasNextLine();
     }
 
     public void displayList(ArrayList<Task> list) {
@@ -26,27 +35,37 @@ public class UI {
         for (int i = 1; i <= list.size(); ++i) {
             System.out.printf("%d. %s%n", i, list.get(i - 1));
         }
+        System.out.println("____________________________________________________________");
     }
 
     public void displayAddToList(Task task, int totalSize) {
         System.out.println("This task is added to the list");
         System.out.println(task);
         System.out.printf("You now have %d tasks in your list%n", totalSize);
+        System.out.println("____________________________________________________________");
     }
 
     public void displayRemoveFromList(Task task, int totalSize) {
         System.out.println("This task is deleted from the list");
         System.out.println(task);
         System.out.printf("You now have %d tasks in your list%n", totalSize);
+        System.out.println("____________________________________________________________");
     }
 
     public void displayDoneTask(Task task) {
         System.out.println("This task is marked as done");
         System.out.println(task);
+        System.out.println("____________________________________________________________");
     }
 
     public void displayNotDoneTask(Task task) {
         System.out.println("This task is marked as not done");
         System.out.println(task);
+        System.out.println("____________________________________________________________");
+    }
+
+    public void displayException(DukeException exception) {
+        System.out.println(exception.getMessage());
+        System.out.println("____________________________________________________________");
     }
 }
