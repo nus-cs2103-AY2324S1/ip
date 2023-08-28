@@ -1,7 +1,10 @@
 package tasks;
 
+import com.google.gson.annotations.SerializedName;
+
 public class Task {
   private final String name;
+  @SerializedName("status")
   private boolean done;
 
   public Task(String name) {
@@ -10,14 +13,6 @@ public class Task {
 
   public void setDone(boolean done) {
     this.done = done;
-  }
-
-  public String getName() {
-    return this.name;
-  }
-
-  public boolean getDone() {
-    return this.done;
   }
 
   @Override

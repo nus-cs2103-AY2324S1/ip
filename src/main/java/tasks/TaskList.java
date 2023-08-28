@@ -1,9 +1,11 @@
 package tasks;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
 import java.io.*;
+import java.lang.reflect.Modifier;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -18,7 +20,11 @@ public class TaskList {
   private static TaskList INSTANCE;
   private final List<Task> tasks = new ArrayList<>();
   private static final String DATA_FILE_PATH = "data/data.json";
-  private static final Gson gson = new Gson();
+  private static final Gson gson =
+      new GsonBuilder()
+          .excludeFieldsWithModifiers(Modifier.TRANSIENT)
+          .setPrettyPrinting()
+          .create();
 
   public TaskList() {
     List<Task> existingTasks = loadTasks();
@@ -82,24 +88,7 @@ public class TaskList {
 
   private void saveTasks() {
     try (BufferedWriter bw = new BufferedWriter(new FileWriter(DATA_FILE_PATH))) {
-      List<HashMap<String, String>> toSave = new ArrayList<>();
-      for (Task task : this.tasks) {
-        // Manually destructure the entry since we are including the name of the task as well
-        HashMap<String, String> entry = new HashMap<>();
-        entry.put("type", "todo");
-        entry.put("name", task.getName());
-        entry.put("status", String.valueOf(task.getDone()));
-        if (task instanceof Deadline) {
-          entry.put("due", ((Deadline) task).getDeadline());
-        } else if (task instanceof Event) {
-          entry.put("from", ((Event) task).getFrom());
-          entry.put("to", ((Event) task).getTo());
-        } else if (!(task instanceof ToDo)) {
-          throw new IllegalStateException("Invalid task found, this should not happen");
-        }
-        toSave.add(entry);
-      }
-      gson.toJson(toSave, bw);
+      gson.toJson(this.tasks, bw);
     } catch (IOException e) {
       System.out.println("Failed to save tasks to data file");
       System.exit(0);

@@ -1,6 +1,10 @@
 package tasks;
 
+import com.google.gson.annotations.SerializedName;
+
 public class Event extends Task {
+  @SerializedName("type")
+  private final static String TYPE = "event";
   private final String from;
   private final String to;
 
@@ -8,14 +12,6 @@ public class Event extends Task {
     super(name);
     this.from = from;
     this.to = to;
-  }
-
-  public String getFrom() {
-    return this.from;
-  }
-
-  public String getTo() {
-    return this.to;
   }
 
   @Override
