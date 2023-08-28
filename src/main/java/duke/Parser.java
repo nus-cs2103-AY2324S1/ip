@@ -44,6 +44,9 @@ public class Parser {
             }
             tasks.addTask(newTask);
             break;
+        case "find":
+            tasks.findTask(userIn[1]);
+            break;
         case "delete":
             tasks.deleteTask(Integer.parseInt(userIn[1]) - 1);
             break;
