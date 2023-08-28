@@ -1,9 +1,9 @@
-package storage;
+package Bob.storage;
 
-import exception.BobException;
-import task.Task;
-import task.TaskList;
-import parser.Parser;
+import Bob.exception.BobException;
+import Bob.task.Task;
+import Bob.task.TaskList;
+import Bob.parser.Parser;
 
 import java.io.File;
 import java.io.FileNotFoundException;

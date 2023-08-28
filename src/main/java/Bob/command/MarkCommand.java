@@ -1,10 +1,10 @@
-package command;
+package Bob.command;
 
-import exception.BobException;
-import storage.StorageFile;
-import task.Task;
-import task.TaskList;
-import ui.TextUi;
+import Bob.exception.BobException;
+import Bob.storage.StorageFile;
+import Bob.task.Task;
+import Bob.task.TaskList;
+import Bob.ui.TextUi;
 
 public class MarkCommand extends Command{
     private int taskNumber;

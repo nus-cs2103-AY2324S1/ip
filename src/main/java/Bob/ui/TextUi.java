@@ -1,10 +1,10 @@
-package ui;
+package Bob.ui;
 
 import java.util.Scanner;
 
-import exception.BobInvalidTaskNumberException;
-import task.Task;
-import task.TaskList;
+import Bob.exception.BobInvalidTaskNumberException;
+import Bob.task.Task;
+import Bob.task.TaskList;
 public class TextUi {
     private static final String DIVIDER = "\n____________________________________________________________\n";
     private static final String LOGO =
