@@ -28,11 +28,10 @@ public class Duke {
         while (!isExit) {
             try {
                 String fullCommand = ui.readCommand();
-                ui.showLine(); 
                 System.out.println("Your command: " + fullCommand);
                 Command c = Parser.parse(fullCommand);
                 c.execute(tasks, ui, storage);
-                isExit = c.isExit();
+                isExit = c.canExit();
             } catch (DukeException e) {
                 ui.showError(e.getMessage());
             } finally {
