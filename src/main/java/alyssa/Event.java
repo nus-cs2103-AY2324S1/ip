@@ -5,8 +5,10 @@ package alyssa;
  * an end date/time.
  */
 public class Event extends Task {
-    protected String from;
-    protected String to;
+    /** The date/time this event starts from. */
+    private String from;
+    /** The date/time this event ends. */
+    private String to;
 
     /**
      * Constructor method for alyssa.Event.
@@ -23,9 +25,16 @@ public class Event extends Task {
     public String toString() {
         return "[E]" + super.toString() + " (from: " + from + " to: " + to + ")";
     }
+
+    /**
+     * Returns from of this event.
+     */
     public String getFrom() {
         return this.from;
     }
+    /**
+     * Returns to of this event.
+     */
     public String getTo() {
         return this.to;
     }

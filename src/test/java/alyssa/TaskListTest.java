@@ -14,6 +14,9 @@ import org.junit.jupiter.api.Test;
  */
 public class TaskListTest {
 
+    /**
+     * Verifies that adding a deadline with no /by field produces the correct Exception.
+     */
     @Test
     public void addDeadline_invalidRest_exceptionThrown() {
         try {
@@ -25,6 +28,9 @@ public class TaskListTest {
         }
     }
 
+    /**
+     * Verifies that adding a deadline with a wrongly formatted /by field produces the correct Exception.
+     */
     @Test
     public void addDeadline_invalidBy_exceptionThrown() {
         try {
@@ -36,6 +42,9 @@ public class TaskListTest {
         }
     }
 
+    /**
+     * Verifies that adding a deadline with the correct syntax works as expected.
+     */
     @Test
     public void addDeadline_validSyntax_success() {
         try {

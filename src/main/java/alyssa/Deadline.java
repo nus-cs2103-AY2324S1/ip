@@ -22,9 +22,16 @@ public class Deadline extends Task {
     public String toString() {
         return "[D]" + super.toString() + " (by: " + this.getBy() + ")";
     }
+
+    /**
+     * Returns the deadline's by in a different format: e.g. Jun 05 2001.
+     */
     public String getBy() {
         return by.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
     }
+    /**
+     * Returns the deadline's by in the format: 2001-06-05.
+     */
     public String getByForStorage() {
         return by.toString();
     }
