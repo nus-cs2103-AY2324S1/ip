@@ -1,14 +1,16 @@
 package duke;
 
-import duke.command.*;
-import duke.exception.*;
-import duke.task.*;
+import duke.command.Command;
+import duke.exception.DukeException;
+import duke.exception.DukeDatabaseException;
+import duke.exception.EmptyCommandException;
+import duke.task.TaskList;
 
 /**
  * Main class representing the chatbot.
  */
 public class Duke {
-    private static String DATAPATH = "./data/duke.txt";
+    private static final String DATAPATH = "./data/duke.txt";
     private Storage storage;
     private TaskList taskList;
     private Ui ui;
