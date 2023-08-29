@@ -7,10 +7,22 @@ import duke.task.TaskList;
 public class MarkCommand extends Command {
     private final int index;
 
+    /**
+     * Constructor for MarkCommand.
+     *
+     * @param index of the task to be marked.
+     */
     public MarkCommand(int index) {
         this.index = index;
     }
 
+    /**
+     * Marks a task as done and displays it as done.
+     *
+     * @param taskList list of tasks
+     * @param ui       user interface
+     * @param storage  storage
+     */
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) {
         taskList.markTask(index);

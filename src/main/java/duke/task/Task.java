@@ -8,12 +8,12 @@ public class Task {
     public static final String DATE_FORMAT = "MMM dd yyyy";
 
     /**
-     * duke.task.Task status.
+     * Task status.
      */
     private boolean isDone;
 
     /**
-     * Constructor for duke.task.Task.
+     * Constructor for Task.
      *
      * @param description of the task.
      */
@@ -37,7 +37,7 @@ public class Task {
     }
 
     /**
-     * Get the status icon of the task.
+     * Return the status of the task by a tick or X symbol.
      *
      * @return tick or X symbols.
      */
@@ -54,6 +54,11 @@ public class Task {
         return this.description;
     }
 
+    /**
+     * Get the file descriptor of the task for parsing when reloaded.
+     *
+     * @return file descriptor of the task.
+     */
     public String getFileDescriptor() {
         return String.format("%s | %s ", this.isDone, this.getDescription());
     }

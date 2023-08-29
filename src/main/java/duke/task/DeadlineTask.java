@@ -1,7 +1,5 @@
 package duke.task;
 
-import duke.DukeException;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
@@ -10,7 +8,7 @@ public class DeadlineTask extends Task {
 
 
     /**
-     * Constructor for duke.task.DeadlineTask.
+     * Constructor for DeadlineTask.
      *
      * @param description of the task.
      * @param by          deadline of the task.
@@ -26,9 +24,9 @@ public class DeadlineTask extends Task {
     }
 
     /**
-     * Get the deadline of the task.
+     * Returns the deadline of the task.
      *
-     * @return deadline of the task.
+     * @return deadline of the task in the format of MMM dd yyyy.
      */
     public String getBy() {
         return this.by.format(DateTimeFormatter.ofPattern(Task.DATE_FORMAT));

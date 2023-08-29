@@ -14,26 +14,33 @@ import duke.task.ToDoTask;
 import java.time.LocalDate;
 
 public class Parser {
+    /**
+     * Returns the Command from the user input.
+     *
+     * @param userInput user input.
+     * @return Command based on the user input.
+     * @throws DukeException if user input gives an invalid command.
+     */
     public static Command parse(String userInput) throws DukeException {
 
         String command = userInput.split(" ", 2)[0].toUpperCase();
         switch (command) {
-            case "BYE":
-                return new ExitCommand();
-            case "LIST":
-                return new ListCommand();
-            case "MARK":
-                return new MarkCommand(getTaskNumber(userInput));
-            case "UNMARK":
-                return new UnmarkCommand(getTaskNumber(userInput));
-            case "TODO":
-                return new AddCommand(parseTodo(userInput));
-            case "DEADLINE":
-                return new AddCommand(parseDeadline(userInput));
-            case "EVENT":
-                return new AddCommand(parseEvent(userInput));
-            case "DELETE":
-                return new DeleteCommand(getTaskNumber(userInput));
+        case "BYE":
+            return new ExitCommand();
+        case "LIST":
+            return new ListCommand();
+        case "MARK":
+            return new MarkCommand(getTaskNumber(userInput));
+        case "UNMARK":
+            return new UnmarkCommand(getTaskNumber(userInput));
+        case "TODO":
+            return new AddCommand(parseTodo(userInput));
+        case "DEADLINE":
+            return new AddCommand(parseDeadline(userInput));
+        case "EVENT":
+            return new AddCommand(parseEvent(userInput));
+        case "DELETE":
+            return new DeleteCommand(getTaskNumber(userInput));
         }
 
         throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");

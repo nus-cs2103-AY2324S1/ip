@@ -26,6 +26,10 @@ public class Duke {
         }
     }
 
+    /**
+     * Runs the program by waiting for user input and responding to it.
+     * If user input is "bye", the program will exit.
+     */
     public void run() {
         ui.printWelcome();
         Scanner scanner = new Scanner(System.in);
@@ -49,7 +53,6 @@ public class Duke {
     public static void main(String[] args) {
         new Duke(DUKE_FILEPATH).run();
     }
-
 
     /**
      * Display ordered list of tasks.

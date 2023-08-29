@@ -2,7 +2,6 @@ package duke.task;
 
 public class ToDoTask extends Task {
 
-
     /**
      * Constructor for duke.task.Task.
      *
@@ -11,6 +10,7 @@ public class ToDoTask extends Task {
     public ToDoTask(String description) {
         super(description);
     }
+
 
     @Override
     public String getFileDescriptor() {

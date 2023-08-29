@@ -5,11 +5,23 @@ import duke.Ui;
 import duke.task.TaskList;
 
 public class ExitCommand extends Command {
+    /**
+     * Displays the bye message.
+     *
+     * @param taskList list of tasks.
+     * @param ui       user interface.
+     * @param storage  storage.
+     */
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) {
         ui.bye();
     }
 
+    /**
+     * Returns true as this is an exit command.
+     *
+     * @return true as this is an exit command.
+     */
     @Override
     public boolean isExit() {
         return true;
