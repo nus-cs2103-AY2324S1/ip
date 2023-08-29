@@ -64,5 +64,6 @@ public class Kevin{
         String bye = line + "\n"
                 + "Bye. Hope to see you again soon!\n"
                 + line;
+        System.out.println(bye);
     }
 }
