@@ -44,6 +44,7 @@ public class DateTimeParser extends JukeObject {
      *
      * @param datetime Input date/datetime string
      * @return {@code LocalDateTime} object representing the input datetime
+     * @throws JukeDateFormatParseException if the DateTime string cannot be parsed
      */
     public static LocalDateTime parse(String datetime) {
         // strip the datetime first to avoid any errors
@@ -77,7 +78,7 @@ public class DateTimeParser extends JukeObject {
     public static LocalDateTime fromDateTimeString(String dateTimeString) {
         try {
             return LocalDateTime.parse(dateTimeString);
-        } catch (DateTimeParseException ex) {
+        } catch (DateTimeParseException | JukeDateFormatParseException ex) {
             throw new JukeDateFormatParseException("Oh no! I cannot understand the date format you have given me!"
                                                            + "\nEnsure that datetimes are given as such: "
                                                            + "YYYY-MM-DDTHH:MM");

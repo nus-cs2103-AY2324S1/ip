@@ -14,7 +14,7 @@ public class ParserTest {
      * Tests for the {@code parseBySpace} method with valid inputs.
      */
     @Test
-    public void parseBySpace_normal_success() {
+    public void parseBySpace_valid_success() {
         String[] parsed = Parser.parseBySpace("test command");
         assertEquals(parsed.length, 2);
         assertEquals(parsed[0], "test");
@@ -44,10 +44,10 @@ public class ParserTest {
     }
 
     /**
-     * Tests for the {@code parseBySpace} method with gibberish inputs.
+     * Tests for the {@code parseBySpace} method with malformed inputs.
      */
     @Test
-    public void parseBySpace_gibberish_failure() {
+    public void parseBySpace_malformed_failure() {
         String[] parsed = Parser.parseBySpace("thisshouldnotwork");
         assertEquals(parsed.length, 1);
         assertEquals(parsed[0], "thisshouldnotwork");
@@ -57,7 +57,7 @@ public class ParserTest {
      * Tests for the {@code parseByByString} method with valid inputs.
      */
     @Test
-    public void parseByByString_normal_success() {
+    public void parseByByString_valid_success() {
         String[] parsed = Parser.parseByByString("string /by time");
         assertEquals(parsed.length, 2);
         assertEquals(parsed[0], "string");
@@ -88,10 +88,10 @@ public class ParserTest {
     }
 
     /**
-     * Tests for the {@code parseByByString} method with gibberish inputs.
+     * Tests for the {@code parseByByString} method with malformed inputs.
      */
     @Test
-    public void parseByByString_gibberish_failure() {
+    public void parseByByString_malformed_failure() {
         String[] parsed = Parser.parseByByString("string/bytime");
         assertEquals(parsed.length, 1);
         assertEquals(parsed[0], "string/bytime");
@@ -101,7 +101,7 @@ public class ParserTest {
      * Tests for the {@code parseByFromToString} method with valid inputs.
      */
     @Test
-    public void parseByFromToString_normal_success() {
+    public void parseByFromToString_valid_success() {
         String[] parsed = Parser.parseByFromToString("string /from now /to later");
         assertEquals(parsed.length, 3);
         assertEquals(parsed[0], "string");
@@ -135,57 +135,141 @@ public class ParserTest {
     }
 
     /**
-     * Tests for the {@code parseByFromToString} method with gibberish inputs.
+     * Tests for the {@code parseByFromToString} method with malformed inputs.
      */
     @Test
-    public void parseByFromToString_gibberish_failure() {
+    public void parseByFromToString_malformed_failure() {
         String[] parsed = Parser.parseByFromToString("string/fromnow/tolater");
         assertEquals(parsed.length, 1);
         assertEquals(parsed[0], "string/fromnow/tolater");
     }
 
     /**
-     * Tests for the {@code isMatchByString} method with valid inputs.
+     * Tests for the {@code isMatchByString} method with valid input combination one.
      */
     @Test
-    public void isMatchByString_normal_success() {
+    public void isMatchByString_validCombinationOne_success() {
         assertTrue(Parser.isMatchByString("testing /by test"));
+    }
+
+    /**
+     * Tests for the {@code isMatchByString} method with valid input combination two.
+     */
+    @Test
+    public void isMatchByString_validCombinationTwo_success() {
         assertTrue(Parser.isMatchByString("testing /by test more than one item"));
+    }
+
+    /**
+     * Tests for the {@code isMatchByString} method with valid input combination three.
+     */
+    @Test
+    public void isMatchByString_validCombinationThree_success() {
         assertTrue(Parser.isMatchByString("testing more than one argument /by test"));
     }
 
     /**
-     * Tests for the {@code isMatchByString} method with gibberish inputs.
+     * Tests for the {@code isMatchByString} method with malformed by input combination one.
      */
     @Test
-    public void isMatchByString_gibberish_failure() {
+    public void isMatchByString_malformedCombinationOne_failure() {
         assertFalse(Parser.isMatchByString("testing/bytest"));
+    }
+
+    /**
+     * Tests for the {@code isMatchByString} method with malformed by input combination two.
+     */
+    @Test
+    public void isMatchByString_malformedCombinationTwo_failure() {
         assertFalse(Parser.isMatchByString("testing/by test"));
+    }
+
+    /**
+     * Tests for the {@code isMatchByString} method with malformed by input combination three.
+     */
+    @Test
+    public void isMatchByString_malformedCombinationThree_failure() {
         assertFalse(Parser.isMatchByString("testing /bytest"));
     }
 
     /**
-     * Tests for the {@code isMatchFromToString} method with valid inputs.
+     * Tests for the {@code isMatchFromToString} method with valid input combination one.
      */
     @Test
-    public void isMatchFromToString_normal_success() {
+    public void isMatchFromToString_validCombinationOne_success() {
         assertTrue(Parser.isMatchFromToString("testing /from testdate /to enddate"));
+    }
+
+    /**
+     * Tests for the {@code isMatchFromToString} method with valid input combination two.
+     */
+    @Test
+    public void isMatchFromToString_validCombinationTwo_success() {
         assertTrue(Parser.isMatchFromToString("testing more than one arg /from testdate /to enddate"));
+    }
+
+    /**
+     * Tests for the {@code isMatchFromToString} method with valid input combination three.
+     */
+    @Test
+    public void isMatchFromToString_validCombinationThree_success() {
         assertTrue(Parser.isMatchFromToString("testing /from testdate more than one /to enddate"));
+    }
+
+    /**
+     * Tests for the {@code isMatchFromToString} method with valid input combination four.
+     */
+    @Test
+    public void isMatchFromToString_validCombinationFour_success() {
         assertTrue(Parser.isMatchFromToString("testing /from testdate /to enddate more than one"));
+    }
+
+    /**
+     * Tests for the {@code isMatchFromToString} method with valid input combination five.
+     */
+    @Test
+    public void isMatchFromToString_validCombinationFive_success() {
         assertTrue(Parser.isMatchFromToString("testing /from testdate more than one  /to enddate more "
                                                       + "than one"));
     }
 
     /**
-     * Tests for the {@code isMatchFromToString} method with gibberish inputs.
+     * Tests for the {@code isMatchFromToString} method with malformed to-from input combination one.
      */
     @Test
-    public void isMatchFromToString_gibberish_failure() {
+    public void isMatchFromToString_malformedCombinationOne_failure() {
         assertFalse(Parser.isMatchFromToString("testing/fromtestdate/toenddate"));
+    }
+
+    /**
+     * Tests for the {@code isMatchFromToString} method with malformed to-from input combination two.
+     */
+    @Test
+    public void isMatchFromToString_malformedCombinationTwo_failure() {
         assertFalse(Parser.isMatchFromToString("testing/from testdate/toenddate"));
+    }
+
+    /**
+     * Tests for the {@code isMatchFromToString} method with malformed to-from input combination three.
+     */
+    @Test
+    public void isMatchFromToString_malformedCombinationThree_failure() {
         assertFalse(Parser.isMatchFromToString("testing/fromtestdate/to enddate"));
+    }
+
+    /**
+     * Tests for the {@code isMatchFromToString} method with malformed to-from input combination four.
+     */
+    @Test
+    public void isMatchFromToString_malformedCombinationFour_failure() {
         assertFalse(Parser.isMatchFromToString("testing/fromtestdate /to enddate"));
+    }
+
+    /**
+     * Tests for the {@code isMatchFromToString} method with malformed to-from input combination five.
+     */
+    @Test
+    public void isMatchFromToString_malformedCombinationFive_failure() {
         assertFalse(Parser.isMatchFromToString("testing /from testdate/toenddate"));
     }
 }
