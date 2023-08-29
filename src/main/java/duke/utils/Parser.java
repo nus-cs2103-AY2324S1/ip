@@ -1,9 +1,6 @@
 package duke.utils;
 
-import duke.Command;
-import duke.DukeException;
-import duke.DukeMissingArgumentException;
-import duke.DukeMissingTaskException;
+import duke.*;
 import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Task;
@@ -11,6 +8,7 @@ import duke.task.Todo;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -20,7 +18,7 @@ public class Parser {
         this.inputArray = Arrays.asList(input.split(" "));
     }
     public Parser() {
-
+        this.inputArray = new ArrayList<>();
     }
 
     public Command getCommand() {
@@ -86,7 +84,7 @@ public class Parser {
         }
     }
 
-    public Task parseTask(String line) {
+    public Task parseTask(String line) throws DukeException {
         String[] split = line.split("\\|");
         String type = split[0];
         boolean isDone = split[1].equals("1");
@@ -114,6 +112,8 @@ public class Parser {
                 if (isDone) task.markAsDone();
                 break;
             }
+            default:
+                throw new DukeInvalidCommandException();
         }
         return task;
     }

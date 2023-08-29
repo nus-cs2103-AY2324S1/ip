@@ -39,9 +39,7 @@ public class TaskList {
             Task task = tasks.get(taskNumber - 1);
             task.markAsUndone();
             return task;
-        } catch (NumberFormatException e) {
-            throw new DukeMissingArgumentException("The task number must be an integer.");
-        } catch (NullPointerException e) {
+        } catch (IndexOutOfBoundsException e) {
             throw new DukeMissingTaskException();
         }
     }
@@ -55,28 +53,26 @@ public class TaskList {
             Task task = tasks.get(taskNumber - 1);
             task.markAsDone();
             return task;
-        } catch (NumberFormatException e) {
-            throw new DukeMissingArgumentException("The task number must be an integer.");
-        } catch (NullPointerException e) {
+        } catch (IndexOutOfBoundsException e) {
             throw new DukeMissingTaskException();
         }
     }
 
-    public Todo addTodo(String description) throws DukeException {
+    public Todo addTodo(String description) {
         Todo todo = new Todo(description);
         tasks.add(todo);
 
         return todo;
     }
 
-    public Deadline addDeadline(String description, LocalDateTime dateTime) throws DukeException {
+    public Deadline addDeadline(String description, LocalDateTime dateTime) {
         Deadline deadline = new Deadline(description, dateTime);
         tasks.add(deadline);
 
         return deadline;
     }
 
-    public Event addEvent(String description, LocalDateTime start, LocalDateTime end) throws DukeException {
+    public Event addEvent(String description, LocalDateTime start, LocalDateTime end) {
         Event event = new Event(description, start, end);
         tasks.add(event);
 
@@ -88,9 +84,7 @@ public class TaskList {
             Task task = tasks.get(taskNumber - 1);
             tasks.remove(taskNumber - 1);
             return task;
-        } catch (NumberFormatException e) {
-            throw new DukeMissingArgumentException("The task number must be an integer.");
-        } catch (NullPointerException e) {
+        } catch (IndexOutOfBoundsException e) {
             throw new DukeMissingTaskException();
         }
     }
