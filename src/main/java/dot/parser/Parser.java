@@ -9,6 +9,7 @@ import dot.commands.Command;
 import dot.commands.DeadlineCommand;
 import dot.commands.DeleteCommand;
 import dot.commands.EventCommand;
+import dot.commands.FindCommand;
 import dot.commands.HelpCommand;
 import dot.commands.ListCommand;
 import dot.commands.MarkCommand;
@@ -102,6 +103,10 @@ public class Parser {
             }
             LocalDateTime parsedLocalDateTime = Parser.parseDateInputIntoDateTime(restOfString);
             return new WhatsgoingonCommand(parsedLocalDateTime, dotTaskList);
+        } else if (Validation.isValidCommand(input, "find")) {
+            String restOfString = Validation.getDescIfValidCommandSpaceDesc(input,
+                    "find", "query string", TaskError.ERR_USING_FIND);
+            return new FindCommand(restOfString, dotTaskList);
         } else if (input.equals("help")) {
             return new HelpCommand();
         }

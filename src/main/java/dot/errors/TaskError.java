@@ -27,7 +27,9 @@ public enum TaskError {
     ERR_READING_FILE("..o.o..beep..Error reading file"),
     ERR_WRITING_FILE("..o.o..beep..Error writing to file"),
     ERR_USING_WHATSGOINGON("..o.o..beep..Error using command 'whatsgoingon', "
-            + "use: \"whatsgoingon <dd/MM/yyyy>\"");
+            + "use: \"whatsgoingon <dd/MM/yyyy>\""),
+    ERR_USING_FIND("..o.o..beep..Error using command 'find', "
+            + "use: \"find <query>\"");
 
 
     private final String errorMessage;

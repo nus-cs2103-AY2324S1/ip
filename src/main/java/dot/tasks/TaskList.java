@@ -158,6 +158,24 @@ public class TaskList {
     }
 
     /**
+     * Returns the display list for all queried tasks.
+     *
+     * @param query This is the query string for the tasks.
+     * @return A list of lines to be displayed.
+     */
+    public ArrayList<String> getDisplayForQueriedTasks(String query) {
+        int count = 1;
+        ArrayList<String> outputList = new ArrayList<>();
+        outputList.add("Here are the matching tasks in your list:");
+        for (Task currTask : this.tasks) {
+            if (currTask.isQueriedTask(query)) {
+                outputList.add(String.format("%d.%s", count++, currTask));
+            }
+        }
+        return outputList;
+    }
+
+    /**
      * This method invokes the saveTasks method of the storage object,
      * which saves all task to the data file.
      *
