@@ -37,7 +37,6 @@ public class Storage {
             while (sc.hasNext()) {
                 String current = sc.nextLine();
                 String[] splitted = current.split(" \\| ", 4);
-                System.out.println(Arrays.toString(splitted));
                 switch (splitted[0]) {
                     case "T": {
                         Task toDo = new ToDo(splitted[2], splitted[1].equals("1"));
