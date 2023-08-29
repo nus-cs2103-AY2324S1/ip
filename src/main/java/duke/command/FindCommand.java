@@ -6,6 +6,9 @@ import duke.storage.Storage;
 
 import java.util.ArrayList;
 
+/**
+ * Represents a command to find specific task based on the keyword
+ */
 public class FindCommand extends Command {
     private final String keyword;
 
@@ -13,6 +16,13 @@ public class FindCommand extends Command {
         this.keyword = keyword;
     }
 
+    /**
+     * Finds tasks based on the specified keyword.
+     *
+     * @param tasks   The list of tasks.
+     * @param keyword The keyword to search for.
+     * @return A list of tasks containing the keyword.
+     */
     public ArrayList<Task> findTasks(ArrayList<Task> tasks, String keyword) {
         ArrayList<Task> matchingTasks = new ArrayList<>();
         for (Task task : tasks) {
@@ -23,7 +33,13 @@ public class FindCommand extends Command {
         return matchingTasks;
     }
 
-
+    /**
+     * Executes the doCommand, searching for tasks.
+     *
+     * @param tasks   The list of tasks.
+     * @param ui      The user interface.
+     * @param storage The data storage.
+     */
     @Override
     public void doCommand(ArrayList<Task> tasks, Ui ui, Storage storage) {
         ArrayList<Task> matchingTasks = findTasks(tasks, keyword);
