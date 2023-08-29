@@ -11,13 +11,13 @@
 
 	____________________________________________________________
 	 Got it. I've added this task:
-		[D][ ] return book  (by: June 6th)
+		[D][ ] return book  (by: Sep 02 2019 18:00)
 	Now you have 2 tasks in the list.
 	____________________________________________________________
 
 	____________________________________________________________
 	 Got it. I've added this task:
-		[E][ ] project meeting (from: Mon 2pm to: 4pm)
+		[E][ ] project meeting (from: Sep 02 2019 18:00 to: Sep 02 2019 19:00)
 	Now you have 3 tasks in the list.
 	____________________________________________________________
 
@@ -30,44 +30,44 @@
 	____________________________________________________________
 	 Here are the tasks in your list:
 	 1.[T][ ] read book
-	 2.[D][ ] return book  (by: June 6th)
-	 3.[E][ ] project meeting (from: Mon 2pm to: 4pm)
+	 2.[D][ ] return book  (by: Sep 02 2019 18:00)
+	 3.[E][ ] project meeting (from: Sep 02 2019 18:00 to: Sep 02 2019 19:00)
 	 4.[T][ ] join sports club
 	____________________________________________________________
 
 	____________________________________________________________
-	 Nice! I've marked this task as done:
-		[E][X] project meeting (from: Mon 2pm to: 4pm)
+	 OK, I've marked this task as done yet:
+		[E][X] project meeting (from: Sep 02 2019 18:00 to: Sep 02 2019 19:00)
 	____________________________________________________________
 
 	____________________________________________________________
-	 Nice! I've marked this task as done:
-		[D][X] return book  (by: June 6th)
+	 OK, I've marked this task as done yet:
+		[D][X] return book  (by: Sep 02 2019 18:00)
 	____________________________________________________________
 
 	____________________________________________________________
 	 Here are the tasks in your list:
 	 1.[T][ ] read book
-	 2.[D][X] return book  (by: June 6th)
-	 3.[E][X] project meeting (from: Mon 2pm to: 4pm)
+	 2.[D][X] return book  (by: Sep 02 2019 18:00)
+	 3.[E][X] project meeting (from: Sep 02 2019 18:00 to: Sep 02 2019 19:00)
 	 4.[T][ ] join sports club
 	____________________________________________________________
 
 	____________________________________________________________
 	 OK, I've marked this task as not done yet:
-		[E][ ] project meeting (from: Mon 2pm to: 4pm)
+		[E][ ] project meeting (from: Sep 02 2019 18:00 to: Sep 02 2019 19:00)
 	____________________________________________________________
 
 	____________________________________________________________
-	 Invalid unmark task
+	 OOPS!!! Invalid task to be unmarked!
 	____________________________________________________________
 
 	____________________________________________________________
-	 OOPS!!! The description of a todo cannot be empty.
+	 OOPS!!! The description of todo cannot be empty.
 	____________________________________________________________
 
 	____________________________________________________________
-	 OOPS!!! The description of a deadline cannot be empty.
+	 OOPS!!! The description of deadline cannot be empty.
 	____________________________________________________________
 
 	____________________________________________________________
@@ -76,18 +76,18 @@
 
 	____________________________________________________________
 	 Noted. I've removed this task:
-		[E][ ] project meeting (from: Mon 2pm to: 4pm)
+		[E][ ] project meeting (from: Sep 02 2019 18:00 to: Sep 02 2019 19:00)
 	Now you have 3 tasks in the list.
 	____________________________________________________________
 
 	____________________________________________________________
-	 Invalid task index to be deleted
+	 OOPS!!! Invalid index to be deleted!
 	____________________________________________________________
 
 	____________________________________________________________
 	 Here are the tasks in your list:
 	 1.[T][ ] read book
-	 2.[D][X] return book  (by: June 6th)
+	 2.[D][X] return book  (by: Sep 02 2019 18:00)
 	 3.[T][ ] join sports club
 	____________________________________________________________
 
