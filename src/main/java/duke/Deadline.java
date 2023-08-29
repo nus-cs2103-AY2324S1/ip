@@ -3,6 +3,10 @@ package duke;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * This class represents a task that has to completed by a certain point in time.
+ */
+
 public class Deadline extends Task {
 
     protected LocalDate by;
@@ -12,6 +16,10 @@ public class Deadline extends Task {
         this.by = LocalDate.parse(by);
     }
 
+    /**
+     * Returns the deadline of this task in a specified String format.
+     * @return the deadline of this task.
+     */
     public String getBy() {
         return this.by.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
     }

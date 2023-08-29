@@ -2,6 +2,10 @@ package duke;
 
 import java.util.ArrayList;
 
+/**
+ * This class handles the input from the user and parses them and calls the
+ * appropriate methods based on the user input,.
+ */
 public class Parser {
 
     public static void parse(String input, ArrayList<duke.Task> taskList) {
