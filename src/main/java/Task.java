@@ -102,6 +102,20 @@ public abstract class Task implements Comparable<Task> {
         }
     }
 
+    public static Task addSavedTask(int id, boolean mark, String description) {
+        switch (id) {
+        case (1):
+            return new ToDo(description, mark);
+        case (2):
+            String[] parts = description.split("/", 2);
+            return new Deadline(parts[0], parts[1], mark);
+        default:
+            String[] message = description.split("/", 3);
+            return new Event(message[0], message[1], message[2], mark);
+        }
+    }
+
+    public abstract String writeToFile();
 
     @Override
     public abstract String toString();
