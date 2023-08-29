@@ -1,3 +1,2 @@
-T|0| sleep
-D|0| cs3210| wed
-T|0| eat
+T|0| career fair
+D|0| sleep|2023-10-12

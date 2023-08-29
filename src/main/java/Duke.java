@@ -25,7 +25,7 @@ public class Duke {
                     fw.write(String.format("%s|%d|%s%n", newTask.generalTag(), isDoneValue, newTask.getDescription()));
                 } else if (Objects.equals(newTask.tag, "D")) {
                     Deadline deadlineTask = (Deadline) newTask;
-                    fw.write(String.format("%s|%d|%s|%s%n", deadlineTask.generalTag(), isDoneValue, deadlineTask.getDescription(), deadlineTask.byString()));
+                    fw.write(String.format("%s|%d|%s|%s%n", deadlineTask.generalTag(), isDoneValue, deadlineTask.getDescription(), deadlineTask.getDeadline()));
                 } else if (Objects.equals(newTask.tag, "E")) {
                     Event eventTask = (Event) newTask;
                     fw.write(String.format("%s|%d|%s|%s|%s%n", eventTask.generalTag(), isDoneValue, eventTask.getDescription(), eventTask.getFrom(), eventTask.getTo()));
@@ -131,7 +131,14 @@ public class Duke {
 
                             String deadline = "";
                             for (int i = by + 1; i < words.length; i++) {
-                                deadline += " " + words[i];
+                                deadline += words[i] + (i == words.length - 1 ? "": " ");
+                            }
+
+                            String datePattern = "\\d{4}-\\d{2}-\\d{2}";
+                            String dateTimePattern = "\\d{4}-\\d{2}-\\d{2} \\d{4}";
+
+                            if (!deadline.matches(datePattern) && !deadline.matches(dateTimePattern)) {
+                                throw new DukeException("Please specify the deadline in the format 'yyyy-MM-dd' or 'yyyy-MM-dd HHmm'.");
                             }
 
                             Task newTask = new Deadline(taskDescription, deadline);
