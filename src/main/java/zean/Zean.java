@@ -17,6 +17,11 @@ public class Zean {
     private TaskList tasks;
     private Storage storage;
 
+    /**
+     * Constructor for the chatbot zean.
+     *
+     * @param filePath The filepath of the data to be retrieved or written.
+     */
     public Zean(String filePath) {
         this.ui = new Ui();
         try {
@@ -34,7 +39,7 @@ public class Zean {
     }
 
     /**
-     * Handles the input provided and outputs corresponding messages.
+     * Runs the chatbot.
      */
     public void run() {
         this.ui.greet("Zean");

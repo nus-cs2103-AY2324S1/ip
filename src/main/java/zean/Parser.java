@@ -11,13 +11,15 @@ import zean.task.Todo;
 
 /**
  * The class that provides the parser of the input.
+ *
+ * @author Zhong Han
  */
 public class Parser {
 
     private static final Pattern DATE_PATTERN = Pattern.compile("\\d\\d\\d\\d-\\d\\d-\\d\\d");
 
     /**
-     * Parses the input and prints the corresponding output.
+     * Parses the input and calls the corresponding methods.
      *
      * @param input The input from the user.
      * @param tasks The taskList object to store the tasks.
@@ -136,6 +138,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses the formatted text read from the file and adds the created task to the ArrayList.
+     *
+     * @param arrList The ArrayList to contain the tasks.
+     * @param text The formatted text read from the file.
+     * @return The number of tasks added successfully to the ArrayList.
+     */
     public static int parseToTask(ArrayList<Task> arrList, String text) {
         String[] textArr = text.split(" \\| ");
         int count = 0;

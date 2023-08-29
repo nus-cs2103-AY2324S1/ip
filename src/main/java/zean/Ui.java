@@ -1,7 +1,7 @@
 package zean;
 
 /**
- * The class with methods called by the main class.
+ * The class which deals with interactions with the user.
  *
  * @author Zhong Han
  */
@@ -34,6 +34,9 @@ public class Ui {
         printDivider();
     }
 
+    /**
+     * Prints the normal horizontal divider.
+     */
     public void printDivider() {
         System.out.println(Ui.DIVIDER);
     }
@@ -48,6 +51,11 @@ public class Ui {
         System.out.println(logo);
     }
 
+    /**
+     * Prints the error message with a horizontal error divider.
+     *
+     * @param msg The error message to be printed.
+     */
     public void showError(String msg) {
         System.out.println(msg);
         System.out.println(ERROR_DIVIDER);

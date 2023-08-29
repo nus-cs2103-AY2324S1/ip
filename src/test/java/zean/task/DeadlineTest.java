@@ -10,15 +10,15 @@ import zean.exception.DukeException;
 public class DeadlineTest {
     @Test
     public void invalidDateTest1() {
-        Exception exception = assertThrows(DukeException.class,
-                () -> new Deadline("invalid date", "2023-02-29"));
+        Exception exception = assertThrows(DukeException.class, () ->
+                new Deadline("invalid date", "2023-02-29"));
         assertEquals("\tThe date is invalid!", exception.getMessage());
     }
 
     @Test
     public void invalidDateTest2() {
-        Exception exception = assertThrows(DukeException.class,
-                () -> new Deadline("invalid date", "2023-13-29"));
+        Exception exception = assertThrows(DukeException.class, () ->
+                new Deadline("invalid date", "2023-13-29"));
         assertEquals("\tThe date is invalid!", exception.getMessage());
     }
 
