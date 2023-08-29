@@ -1,4 +1,7 @@
-import java.io.File;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -90,6 +93,7 @@ public class Duke {
             messages.add(String.format("  %s",targetTask.toString()));
 
             Duke.respond(messages);
+            Duke.storeTasks();
         } catch (NumberFormatException e) {
             throw new DukeException(String.format("Task number provided \"%s\" is not a number.\n     "
                                                   + "Please retry with a valid task number.", taskIndexString));
@@ -130,6 +134,7 @@ public class Duke {
             messages.add(String.format("  %s",targetTask.toString()));
 
             Duke.respond(messages);
+            Duke.storeTasks();
         } catch (NumberFormatException e) {
             throw new DukeException(String.format("Task number provided \"%s\" is not a number.\n     "
                                                   + "Please retry with a valid task number.", taskIndexString));
@@ -171,6 +176,7 @@ public class Duke {
             messages.add(String.format("Now you have %d tasks in the list.", tasks.size()));
 
             Duke.respond(messages);
+            Duke.storeTasks();
         } catch (NumberFormatException e) {
             throw new DukeException(String.format("Task number provided \"%s\" is not a number.\n     "
                                                   + "Please retry with a valid task number.", taskIndexString));
@@ -263,6 +269,12 @@ public class Duke {
                         messages.add(String.format("Now you have %d tasks in the list.", tasks.size()));
                         Duke.respond(messages);
                     }
+
+                    try {
+                        Duke.storeTasks();
+                    } catch (DukeException e) {
+                        Duke.respond(e);
+                    }
                 }
             );
         } catch (DukeException e) {
@@ -271,21 +283,95 @@ public class Duke {
     }
 
     private static void loadTasks() throws DukeException{
+        Path taskFilePath = Path.of("./data/duke.txt");
+
         try {
-            File storedTasks = new File("./data/duke.txt");
-            if (storedTasks.exists()) {
-                 Scanner scanner = new Scanner(storedTasks);
-                while (scanner.hasNextLine()) {
-                    String taskData = scanner.nextLine();
-                    // TODO: Parse task data and add to tasks
-                }
-                scanner.close();
-            } else {
-                storedTasks.getParentFile().mkdirs();
-                storedTasks.createNewFile();
+            if (!Files.exists(taskFilePath)) {
+                Files.createDirectories(taskFilePath.getParent());
+                Files.createFile(taskFilePath);
             }
-        } catch (Exception e) { 
-            throw new DukeException(String.format("Unable to load tasks from file as %s", e.getMessage()));
+
+            BufferedReader reader = Files.newBufferedReader(taskFilePath);
+            reader.lines().forEach(line -> {
+                String[] taskData = line.split(" \\| ");
+                
+                // Handles case where empty line is read
+                if (taskData.length == 0) {
+                    return;
+                }
+
+                switch (taskData[0]) {
+                case "T":
+                    // Ensures there is completion status and description
+                    if (taskData.length < 3) {
+                        return;
+                    }
+
+                    boolean todoCompletion = taskData[1].equals("1");
+                    String todoDescription = taskData[2];
+
+                    Duke.addTask(TaskType.TODO, todoDescription, todoCompletion, true);
+                    break;
+                case "D":
+                    // Ensure there is completion status, description and deadline
+                    if (taskData.length < 4) {
+                        return;
+                    }
+
+                    boolean deadlineCompletion = taskData[1].equals("1");
+                    String deadlineDescription = taskData[2];
+                    String deadlineDueDate = taskData[3];
+
+                    Duke.addTask(TaskType.DEADLINE,
+                                 String.format("%s /by %s", deadlineDescription, deadlineDueDate),
+                                 deadlineCompletion,
+                                 true);
+                    break;
+                case "E":
+                    // Ensure there is completion status, description, start and end date
+                    if (taskData.length < 5) {
+                        return;
+                    }
+
+                    boolean eventCompletion = taskData[1].equals("1");
+                    String eventDescription = taskData[2];
+                    String eventStartDate = taskData[3];
+                    String eventEndDate = taskData[4];
+
+                    Duke.addTask(TaskType.EVENT,
+                                 String.format("%s /from %s /to %s", eventDescription, eventStartDate, eventEndDate),
+                                 eventCompletion,
+                                 true);
+                    break;
+                }
+            });
+        } catch (Exception e) {
+            throw new DukeException("Unable to load previously saved tasks.");
+        }
+    }
+
+    private static void storeTasks() throws DukeException{
+        Path taskFilePath = Path.of("./data/duke.txt");
+        
+        try {
+            Files.deleteIfExists(taskFilePath);
+        } catch (Exception e) {
+            throw new DukeException("Unable to save task data.");
+        }
+
+        try {
+            BufferedWriter writer = Files.newBufferedWriter(taskFilePath);
+            for (Task task: tasks) {
+                 try {
+                    writer.write(task.getDataString());
+                    writer.newLine();
+                } catch (Exception e) {
+                    throw new DukeException("Unable to write task data.");
+                }
+            }
+            writer.close();
+        } catch (Exception e) {
+            throw new DukeException("Unable to open file.");
         }
     }
 
