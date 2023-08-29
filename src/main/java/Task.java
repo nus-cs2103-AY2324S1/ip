@@ -17,6 +17,15 @@ public abstract class Task {
     }
 
     /**
+     * Returns the status of the task.
+     * 
+     * @return true if done, false if not done.
+     */
+    public Boolean isDone() {
+        return isDone;
+    }
+
+    /**
      * Sets task to done.
      * 
      */
@@ -30,6 +39,15 @@ public abstract class Task {
      */
     public void setNotDone() {
         this.isDone = false;
+    }
+
+    /**
+     * Returns the decription of the task.
+     * 
+     * @return Desription of the task.
+     */
+    public String getDescription() {
+        return this.description;
     }
 
     /**
