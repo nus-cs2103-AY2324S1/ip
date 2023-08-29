@@ -1,9 +1,11 @@
+import java.time.LocalDate;
+
 public class Event extends Task {
 
-    private final String start;
-    private final String end;
+    private final LocalDate start;
+    private final LocalDate end;
 
-    public Event(String input, String name, String start, String end) {
+    public Event(String input, String name, LocalDate start, LocalDate end) {
         super(input, name);
         this.start = start;
         this.end = end;
@@ -17,6 +19,10 @@ public class Event extends Task {
      */
     @Override
     public String getTask() {
-        return String.format("[%s][E] %s (from: %s to: %s)", super.checkDone(), super.getName(), start, end);
+        return String.format("[%s][E] %s (from: %s to: %s)",
+                super.checkDone(),
+                super.getName(),
+                super.formatDate(start),
+                super.formatDate(end));
     }
 }
