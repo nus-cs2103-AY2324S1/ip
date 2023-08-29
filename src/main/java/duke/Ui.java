@@ -3,6 +3,8 @@ package duke;
 import duke.task.Task;
 import duke.task.TaskList;
 
+import java.util.ArrayList;
+
 public class Ui {
 
     private final String chatbotName = "Gobble Gobble";
@@ -48,5 +50,14 @@ public class Ui {
         System.out.println(Duke.lineSeparator);
         System.out.println("Here are the tasks in your list:");
         System.out.println(taskList);
+    }
+
+    public void printResultList(ArrayList<Task> list) {
+        System.out.println(Duke.lineSeparator);
+        System.out.println("Here are the matching tasks in your list:");
+        for (int i = 0; i < list.size(); i++) {
+            System.out.println((i + 1) + "." + list.get(i));
+        }
+        System.out.println(Duke.lineSeparator);
     }
 }

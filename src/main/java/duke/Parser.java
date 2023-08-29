@@ -18,25 +18,34 @@ public class Parser {
 
         String command = userInput.split(" ", 2)[0].toUpperCase();
         switch (command) {
-            case "BYE":
-                return new ExitCommand();
-            case "LIST":
-                return new ListCommand();
-            case "MARK":
-                return new MarkCommand(getTaskNumber(userInput));
-            case "UNMARK":
-                return new UnmarkCommand(getTaskNumber(userInput));
-            case "TODO":
-                return new AddCommand(parseTodo(userInput));
-            case "DEADLINE":
-                return new AddCommand(parseDeadline(userInput));
-            case "EVENT":
-                return new AddCommand(parseEvent(userInput));
-            case "DELETE":
-                return new DeleteCommand(getTaskNumber(userInput));
+        case "BYE":
+            return new ExitCommand();
+        case "LIST":
+            return new ListCommand();
+        case "MARK":
+            return new MarkCommand(getTaskNumber(userInput));
+        case "UNMARK":
+            return new UnmarkCommand(getTaskNumber(userInput));
+        case "TODO":
+            return new AddCommand(parseTodo(userInput));
+        case "DEADLINE":
+            return new AddCommand(parseDeadline(userInput));
+        case "EVENT":
+            return new AddCommand(parseEvent(userInput));
+        case "FIND":
+            return new FindCommand(getKeyword(userInput));
+        case "DELETE":
+            return new DeleteCommand(getTaskNumber(userInput));
         }
 
         throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+    }
+
+    private static String getKeyword(String userInput) throws DukeException {
+        if (userInput.split(" ").length < 2) {
+            throw new DukeException("☹ OOPS!!! The keyword cannot be empty.");
+        }
+        return userInput.split(" ", 2)[1];
     }
 
     public static ToDoTask parseTodo(String userInput) throws DukeException {
