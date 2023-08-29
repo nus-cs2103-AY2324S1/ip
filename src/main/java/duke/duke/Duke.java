@@ -1,7 +1,11 @@
 package duke.duke;
 
 import duke.exception.DukeException;
-import duke.task.*;
+import duke.task.Task;
+import duke.task.Todo;
+import duke.task.Deadline;
+import duke.task.Event;
+import duke.task.TaskList;
 import duke.util.Parser;
 import duke.util.Storage;
 
@@ -24,6 +28,7 @@ public class Duke {
             TaskList taskList = new TaskList(100);
             List<Task> list = taskList.getList();
             ui.showWelcomeMessage();
+
             // Load tasks from a file
             storage.loadTasksFromFile(list);
 
@@ -34,62 +39,70 @@ public class Duke {
                 String command = parser.getCommand();
                 String inputDetails = parser.getInputDetails();
                 switch (command) {
-                    case "bye":
-                        ui.showByeMessage();
-                        break label;
-                    case "list":
-                        taskList.showList();
-                        ui.showLine();
-                        break;
-                    case "mark": {
-                        if (!parser.checkInputDetailsPresent()) throw new DukeException("The task number to mark cannot be empty.");
-                        int taskNumber = Integer.parseInt(inputDetails);
-                        Task task = taskList.getTask(taskNumber);
-                        System.out.printf(task.markDone());
-                        break;
+                case "bye":
+                    ui.showByeMessage();
+                    break label;
+                case "list":
+                    taskList.showList();
+                    ui.showLine();
+                    break;
+                case "mark": {
+                    if (!parser.checkInputDetailsPresent()) {
+                        throw new DukeException("The task number to mark cannot be empty.");
                     }
-                    case "unmark": {
-                        if (!parser.checkInputDetailsPresent()) throw new DukeException("The task number to unmark cannot be empty.");
-                        int taskNumber = Integer.parseInt(inputDetails);
-                        Task task = taskList.getTask(taskNumber);
-                        System.out.printf(task.unMarkDone());
-                        break;
+                    int taskNumber = Integer.parseInt(inputDetails);
+                    Task task = taskList.getTask(taskNumber);
+                    System.out.printf(task.setDone());
+                    break;
+                }
+                case "unmark": {
+                    if (!parser.checkInputDetailsPresent()) {
+                        throw new DukeException("The task number to unmark cannot be empty.");
                     }
-                    case "todo": {
-                        if (!parser.checkInputDetailsPresent()) throw new DukeException("☹ OOPS!!! The description of a todo task cannot be empty.");
-                        Task task = new Todo(inputDetails);
-                        taskList.addTask(task);
-                        storage.saveTask(inputDetails);
-                        break;
+                    int taskNumber = Integer.parseInt(inputDetails);
+                    Task task = taskList.getTask(taskNumber);
+                    System.out.printf(task.unsetDone());
+                    break;
+                }
+                case "todo": {
+                    if (!parser.checkInputDetailsPresent()) {
+                        throw new DukeException("☹ OOPS!!! The description of a todo task cannot be empty.");
                     }
-                    case "deadline": {
-                        String[] deadlineInfo = parser.parseInputDetailsDeadline();
-                        String description = deadlineInfo[0];
-                        String deadline = deadlineInfo[1];
-                        Task task = new Deadline(description, deadline);
-                        taskList.addTask(task);
-                        storage.saveTask(description, deadline);
-                        break;
+                    Task task = new Todo(inputDetails);
+                    taskList.addTask(task);
+                    storage.saveTask(inputDetails);
+                    break;
+                }
+                case "deadline": {
+                    String[] deadlineInfo = parser.parseInputDetailsDeadline();
+                    String description = deadlineInfo[0];
+                    String deadline = deadlineInfo[1];
+                    Task task = new Deadline(description, deadline);
+                    taskList.addTask(task);
+                    storage.saveTask(description, deadline);
+                    break;
+                }
+                case "event": {
+                    String[] eventInfo = parser.parseInputDetailsEvent();
+                    String description = eventInfo[0];
+                    String from = eventInfo[1];
+                    String to = eventInfo[2];
+                    Task task = new Event(description, from, to);
+                    taskList.addTask(task);
+                    storage.saveTask(description, from, to);
+                    break;
+                }
+                case "delete": {
+                    if (!parser.checkInputDetailsPresent()) {
+                        throw new DukeException("The task number to mark cannot be empty.");
                     }
-                    case "event": {
-                        String[] eventInfo = parser.parseInputDetailsEvent();
-                        String description = eventInfo[0];
-                        String from = eventInfo[1];
-                        String to = eventInfo[2];
-                        Task task = new Event(description, from, to);
-                        taskList.addTask(task);
-                        storage.saveTask(description, from, to);
-                        break;
-                    }
-                    case "delete": {
-                        if (!parser.checkInputDetailsPresent()) throw new DukeException("The task number to mark cannot be empty.");
-                        int taskNumber = Integer.parseInt(inputDetails);
-                        taskList.removeTask(taskNumber);
-                        storage.deleteTaskFromFile(taskNumber);
-                        break;
-                    }
-                    default:
-                        throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+                    int taskNumber = Integer.parseInt(inputDetails);
+                    taskList.removeTask(taskNumber);
+                    storage.deleteTaskFromFile(taskNumber);
+                    break;
+                }
+                default:
+                    throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
                 }
             }
         } catch (Exception exception) {

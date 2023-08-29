@@ -1,7 +1,5 @@
 package duke.task;
 
-import duke.task.Task;
-
 import duke.exception.DukeException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -22,7 +20,9 @@ public class Event extends Task {
         try {
             this.from = LocalDate.parse(from);
             this.to = LocalDate.parse(to);
-            if (this.from.isAfter(this.to)) throw new DukeException("Start date cannot be after end date");
+            if (this.from.isAfter(this.to)) {
+                throw new DukeException("Start date cannot be after end date");
+            }
         } catch (Exception e) {
             throw new DukeException(e.getMessage());
         }

@@ -21,6 +21,7 @@ public class Storage {
     private final String filePath;
 
     public Storage(String filePath) {
+
         this.filePath = filePath;
     }
 
@@ -116,19 +117,25 @@ public class Storage {
                     switch (formattedLine[0]) {
                         case "T": {
                             Task task = new Todo(formattedLine[2]);
-                            if (formattedLine[1].equals("1")) task.markDone();
+                            if (formattedLine[1].equals("1")) {
+                                task.setDone();
+                            }
                             list.add(task);
                             break;
                         }
                         case "D": {
                             Task task = new Deadline(formattedLine[2], formattedLine[3]);
-                            if (formattedLine[1].equals("1")) task.markDone();
+                            if (formattedLine[1].equals("1")) {
+                                task.setDone();
+                            }
                             list.add(task);
                             break;
                         }
                         case "E": {
                             Task task = new Event(formattedLine[2], formattedLine[3], formattedLine[4]);
-                            if (formattedLine[1].equals("1")) task.markDone();
+                            if (formattedLine[1].equals("1")) {
+                                task.setDone();
+                            }
                             list.add(task);
                             break;
                         }

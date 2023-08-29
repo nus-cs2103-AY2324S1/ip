@@ -1,7 +1,6 @@
 package duke.task;
 
 import duke.exception.DukeException;
-import duke.task.Task;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +18,8 @@ public class TaskList {
     }
 
     public void showList() {
-        for (int i = 0; i < list.size(); i++) {
+        int i;
+        for (i = 0; i < list.size(); i++) {
             Task task = list.get(i);
             System.out.printf("%d.%s\n", i + 1, task);
         }
