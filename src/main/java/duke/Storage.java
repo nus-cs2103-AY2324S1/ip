@@ -15,9 +15,15 @@ import duke.task.Task;
 import duke.task.TaskList;
 import duke.task.Todo;
 
+/**
+ * Represents the object that stores the data created when using the chatbot.
+ */
 public class Storage {
     private final String filePath = "./data/duke.txt";
 
+    /**
+     * Creates the file to save the chatbot data.
+     */
     public void createFile() {
         File dataFile = new File(filePath);
         File dataDirectory = new File("./data");
@@ -29,7 +35,12 @@ public class Storage {
         }
     }
 
-    public void saveCommandsToFile(TaskList list) throws DukeException {
+    /**
+     * Saves the task list to file.
+     * @param list The tasks list
+     * @throws DukeException if unable to write to file
+     */
+    public void saveTasksToFile(TaskList list) throws DukeException {
         try {
             FileWriter writer = new FileWriter(filePath);
             writer.write(list.toLogString());
@@ -39,6 +50,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Returns an ArrayList of tasks loaded from the saved file.
+     * @return The ArrayList of tasks
+     * @throws DukeException if data in the saved file is corrupted
+     */
     public ArrayList<Task> loadFile() throws DukeException {
         File dataFile = new File(filePath);
         ArrayList<Task> taskList = new ArrayList<>();

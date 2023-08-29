@@ -5,9 +5,15 @@ import java.util.Scanner;
 import duke.task.Task;
 import duke.task.TaskList;
 
+/**
+ * Represents the object that displays output from the chatbot.
+ */
 public class UI {
     private Scanner scanner = new Scanner(System.in);
 
+    /**
+     * Display greetings to user.
+     */
     public void greet() {
         System.out.println("____________________________________________________________");
         String logo = "  __ _  ___ ___  _   _  _   _  \n" +
@@ -18,20 +24,35 @@ public class UI {
         System.out.println("____________________________________________________________");
     }
 
+    /**
+     * Displays bye to user.
+     */
     public void exit() {
         scanner.close();
         System.out.println("Bye");
         System.out.println("____________________________________________________________");
     }
 
+    /**
+     * Returns the next line of user input.
+     * @return The next line of user input
+     */
     public String readInput() {
         return scanner.nextLine();
     }
 
+    /**
+     * Returns whether there is still input.
+     * @return Whether there is still user input
+     */
     public boolean hasInput() {
         return scanner.hasNextLine();
     }
 
+    /**
+     * Displays the current tasks list.
+     * @param list The current tasks list
+     */
     public void displayList(TaskList list) {
         if (list.isEmpty()) {
             System.out.println("There are no tasks in the list");
@@ -40,6 +61,11 @@ public class UI {
         System.out.println("____________________________________________________________");
     }
 
+    /**
+     * Displays what task is added to the list.
+     * @param task The task to be added
+     * @param totalSize The total size of the list
+     */
     public void displayAddToList(Task task, int totalSize) {
         System.out.println("This task is added to the list");
         System.out.println(task);
@@ -47,6 +73,11 @@ public class UI {
         System.out.println("____________________________________________________________");
     }
 
+    /**
+     * Displays what task is removed from the list.
+     * @param task The task to be removed
+     * @param totalSize The total size of the list
+     */
     public void displayRemoveFromList(Task task, int totalSize) {
         System.out.println("This task is deleted from the list");
         System.out.println(task);
@@ -54,23 +85,39 @@ public class UI {
         System.out.println("____________________________________________________________");
     }
 
+    /**
+     * Displays what task is marked as done.
+     * @param task The task to be marked as done
+     */
     public void displayDoneTask(Task task) {
         System.out.println("This task is marked as done");
         System.out.println(task);
         System.out.println("____________________________________________________________");
     }
 
+    /**
+     * Displays what task is marked as not done.
+     * @param task The task to be marked as not done
+     */
     public void displayNotDoneTask(Task task) {
         System.out.println("This task is marked as not done");
         System.out.println(task);
         System.out.println("____________________________________________________________");
     }
 
+    /**
+     * Displays the tasks on a certain date.
+     * @param tasks The string representing the tasks on a certain date
+     */
     public void displayTasksOnDate(String tasks) {
         System.out.println(tasks);
         System.out.println("____________________________________________________________");
     }
 
+    /**
+     * Displays the DukeException
+     * @param exception The DukeException to be displayed
+     */
     public void displayException(DukeException exception) {
         System.out.println(exception.getMessage());
         System.out.println("____________________________________________________________");
