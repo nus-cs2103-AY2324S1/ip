@@ -1,4 +1,4 @@
-import tasks.TaskList;
+package duke;
 
 public class Parser {
     enum modifyStatus {

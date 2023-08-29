@@ -1,5 +1,4 @@
-import tasks.Task;
-import tasks.TaskList;
+package duke;
 
 public class Ui {
     private static final String BAR = "____________________________________________________________";

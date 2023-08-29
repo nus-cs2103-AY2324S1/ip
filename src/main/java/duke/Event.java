@@ -1,4 +1,4 @@
-package duke.task;
+package duke;
 
 class Event extends Task{
     private final char taskType = 'E';

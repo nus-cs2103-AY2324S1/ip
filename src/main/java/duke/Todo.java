@@ -1,4 +1,4 @@
-package duke.task;
+package duke;
 
 class Todo extends Task{
     private final char taskType = 'T';
