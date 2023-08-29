@@ -62,6 +62,11 @@ public class UI {
         System.out.println("____________________________________________________________");
     }
 
+    public void displayTasksOnDate(String tasks) {
+        System.out.println(tasks);
+        System.out.println("____________________________________________________________");
+    }
+
     public void displayException(DukeException exception) {
         System.out.println(exception.getMessage());
         System.out.println("____________________________________________________________");

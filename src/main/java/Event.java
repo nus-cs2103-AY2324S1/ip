@@ -1,10 +1,14 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 public class Event extends Task {
-    protected String dateFrom;
-    protected String dateTo;
-    public Event(String description, String dateFrom, String dateTo) {
+    protected LocalDate dateFrom;
+    protected LocalDate dateTo;
+    public Event(String description, String dateFrom, String dateTo) throws DateTimeParseException {
         super(description);
-        this.dateFrom = dateFrom;
-        this.dateTo = dateTo;
+        this.dateFrom = LocalDate.parse(dateFrom);
+        this.dateTo = LocalDate.parse(dateTo);
     }
 
     @Override
@@ -14,6 +18,9 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + String.format(" (from: %s to: %s)", dateFrom, dateTo);
+        String taskString = String.format(" (from: %s to: %s)",
+                dateFrom.format(DateTimeFormatter.ofPattern("MMM d yyyy")),
+                dateTo.format(DateTimeFormatter.ofPattern("MMM d yyyy")));
+        return "[E]" + super.toString() + taskString;
     }
 }
