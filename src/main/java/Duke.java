@@ -97,7 +97,7 @@ public class Duke {
                 String[] parts = input.split(" ");
                 int taskNumber = Integer.parseInt(parts[1]) - 1;
                 if (taskNumber > count) {
-                    System.out.println("☹ OOPS!!! Such a task doesn't exist :-(\n" + div);
+                    System.out.println("OOPS!!! Such a task doesn't exist :-(\n" + div);
                     input = scanner.nextLine();
                     continue;
                 }
@@ -109,7 +109,7 @@ public class Duke {
                 String[] parts = input.split(" ");
                 int taskNumber = Integer.parseInt(parts[1]) - 1;
                 if (taskNumber > count) {
-                    System.out.println("☹ OOPS!!! Such a task doesn't exist :-(\n" + div);
+                    System.out.println("OOPS!!! Such a task doesn't exist :-(\n" + div);
                     input = scanner.nextLine();
                     continue;
                 }
@@ -121,7 +121,7 @@ public class Duke {
                 String[] parts = input.split(" ");
                 int taskNumber = Integer.parseInt(parts[1]) - 1;
                 if (taskNumber > count) {
-                    System.out.println("☹ OOPS!!! Such a task doesn't exist :-(\n" + div);
+                    System.out.println("OOPS!!! Such a task doesn't exist :-(\n" + div);
                     input = scanner.nextLine();
                     continue;
                 }
@@ -158,7 +158,7 @@ public class Duke {
                 tasks.set(count, new Events(input, start, end));
             }
             else {
-                System.out.println("☹ OOPS!!! I'm sorry, but I don't know what that means :-(\n" + div);
+                System.out.println("OOPS!!! I'm sorry, but I don't know what that means :-(\n" + div);
                 input = scanner.nextLine();
                 continue;
             }
