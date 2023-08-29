@@ -1,3 +1,7 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 /**
  * An abstract class that represents a task.
  */
@@ -8,6 +12,10 @@ public abstract class Task {
 
     // Whether the task is done.
     private boolean isDone;
+
+    private static final DateTimeFormatter parseFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+
+    private static final DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("EEE dd MMM yyyy HH:mm");
 
     /**
      * Creates a new Task object.
@@ -42,6 +50,19 @@ public abstract class Task {
     }
 
     public abstract String getSaveFormat();
+
+    public static String parseDateInput(String input) throws DukeInvalidArgumentException {
+        try {
+            return LocalDateTime.parse(input, parseFormatter).format(parseFormatter);
+        } catch (DateTimeParseException e) {
+            throw new DukeInvalidArgumentException(
+                    "Your date seems to be formatted wrongly. Please follow this format: yyyy-MM-dd HH:mm.");
+        }
+    }
+
+    public static String getDateOutputString(String input) {
+        return LocalDateTime.parse(input, parseFormatter).format(outputFormatter);
+    }
 
     /**
      * Returns the string representation of the task.

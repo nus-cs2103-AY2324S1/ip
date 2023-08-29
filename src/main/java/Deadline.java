@@ -12,9 +12,9 @@ public class Deadline extends Task {
      * @param description The description of the deadline.
      * @param endTime     The date/time of the deadline.
      */
-    public Deadline(String description, String endTime) {
+    public Deadline(String description, String endTime) throws DukeInvalidArgumentException {
         super(description);
-        this.endTime = endTime;
+        this.endTime = Task.parseDateInput(endTime);
     }
 
     @Override
@@ -30,6 +30,6 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        return String.format("[D]%s (by: %s)", super.toString(), endTime);
+        return String.format("[D]%s (by: %s)", super.toString(), Task.getDateOutputString(endTime));
     }
 }

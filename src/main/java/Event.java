@@ -16,10 +16,10 @@ public class Event extends Task {
      * @param startTime   The start time of the event.
      * @param endTime     The end time of the event.
      */
-    public Event(String description, String startTime, String endTime) {
+    public Event(String description, String startTime, String endTime) throws DukeInvalidArgumentException {
         super(description);
-        this.startTime = startTime;
-        this.endTime = endTime;
+        this.startTime = Task.parseDateInput(startTime);
+        this.endTime = Task.parseDateInput(endTime);
     }
 
     @Override
@@ -35,6 +35,7 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        return String.format("[E]%s (from: %s to: %s)", super.toString(), startTime, endTime);
+        return String.format("[E]%s (from: %s to: %s)", super.toString(), Task.getDateOutputString(startTime),
+                Task.getDateOutputString(endTime));
     }
 }
