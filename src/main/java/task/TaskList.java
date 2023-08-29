@@ -21,6 +21,10 @@ public class TaskList {
     public int length() {
         return this.lst.size();
     }
+
+    public void delete(int idx) {
+        this.lst.remove(idx);
+    }
     
 
     public Iterator<Task> iterator() {

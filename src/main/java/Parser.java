@@ -6,7 +6,7 @@ public class Parser {
     private static final String SPLIT_AT_TO = " /to ";
 
     public static String[] getSplitAtSpace(String str) {
-        return str.split(Parser.SPLIT_AT_BY, 2);
+        return str.split(Parser.SPLIT_AT_SPACE, 2);
     }
 
     public static String[] getSplitAtBy(String str) {

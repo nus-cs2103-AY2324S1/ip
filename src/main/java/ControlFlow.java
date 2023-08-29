@@ -13,6 +13,7 @@ public class ControlFlow {
     private static final String EVENT = "event";
     private static final String DEADLINE = "deadline";
     private static final String TERMINATE = "bye";
+    private static final String DELETE = "delete";
 
     private final TaskList taskList;
 
@@ -51,18 +52,27 @@ public class ControlFlow {
                     throw new IncompleteBotException("OOPS!!! The description of a deadline cannot be empty.");
                 } else {
                     taskSplit = Parser.getSplitAtBy(remainder);
+                    if (taskSplit.length == 1) {
+                        throw new IncompleteBotException("OOPS!!! The timing of a deadline cannot be empty.");
+                    }
                     taskDetail = Parser.getLeftOfSplit(taskSplit);
                     timeline = Parser.getRightOfSplit(taskSplit);
                     return new DeadlineCommand(this.taskList, taskDetail, timeline);
                 }
             case ControlFlow.EVENT:
                 if (remainder.isBlank()) {
-                    throw new IncompleteBotException("OOPS!!! The description of a event cannot be empty.");
+                    throw new IncompleteBotException("OOPS!!! The description of an event cannot be empty.");
                 } else {
                     taskSplit = Parser.getSplitAtFrom(remainder);
+                    if (taskSplit.length == 1) {
+                        throw new IncompleteBotException("OOPS!!! The starting timing of an event cannot be empty.");
+                    }
                     taskDetail = Parser.getLeftOfSplit(taskSplit);
                     timeline = Parser.getRightOfSplit(taskSplit);
                     timelineArr = Parser.getSplitAtTo(timeline);
+                    if (timelineArr.length == 1) {
+                        throw new IncompleteBotException("OOPS!!! The ending timing of an event cannot be empty.");
+                    }
                     timeFrom = Parser.getLeftOfSplit(timelineArr);
                     timeTo = Parser.getRightOfSplit(timelineArr);
                     return new EventCommand(this.taskList, taskDetail, timeFrom, timeTo);
@@ -81,6 +91,12 @@ public class ControlFlow {
                 }
             case ControlFlow.LIST:
                 return new ListCommand(this.taskList);
+            case ControlFlow.DELETE:
+                if (remainder.isBlank()) {
+                    throw new IncompleteBotException("OOPS!!! The task number to unmark cannot be empty.");
+                } else {
+                    return new DeleteCommand(this.taskList, remainder);
+                }
             default:
                 return new ErrorCommand();
         }
