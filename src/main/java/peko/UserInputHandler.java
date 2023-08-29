@@ -1,8 +1,5 @@
-import java.awt.image.BufferedImage;
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStreamReader;
+package peko;
+
 import java.util.Scanner;
 
 public class UserInputHandler {

@@ -1,5 +1,4 @@
-import java.io.*;
-import java.util.Scanner;
+package peko;
 
 public class Peko {
     private UserInputHandler userInputHandler;
@@ -16,6 +15,7 @@ public class Peko {
                 break;
             }
         }
+        SaveHandler.saveTo();
         Output.exit();
 
     }

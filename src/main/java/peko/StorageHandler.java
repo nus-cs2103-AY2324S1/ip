@@ -1,3 +1,5 @@
+package peko;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
@@ -22,21 +24,29 @@ public class StorageHandler {
     }
     public static void addToArray(Task t) {
         todoList[size] = t;
-        System.out.println("Added: \n   " + todoList[size].toString() + "\nPeko!");
-        System.out.println("You have: " + (size+1) + " tasks now Peko");
+        System.out.println("Added: \n   " + todoList[size].toString() + "\npeko.Peko!");
+        System.out.println("You have: " + (size+1) + " tasks now peko.Peko");
         SaveHandler.saveTo();
     }
     public static void setMarkArray(int i) {
-        todoList[i-1].setMark();
-        System.out.println("Marked as done peko!");
-        System.out.println("    " + todoList[i-1]);
-        SaveHandler.saveTo();
+        try {
+            todoList[i-1].setMark();
+            System.out.println("Marked as done peko!");
+            System.out.println("    " + todoList[i-1]);
+            SaveHandler.saveTo();
+        } catch (NullPointerException e) {
+            System.out.println("You don't have that many Tasks Peko!");
+        }
     }
     public static void setUnmarkArray(int i) {
-        todoList[i-1].setUnmark();
-        System.out.println("You haven't done this yet peko?!");
-        System.out.println("    " + todoList[i-1]);
-        SaveHandler.saveTo();
+        try {
+            todoList[i-1].setUnmark();
+            System.out.println("You haven't done this yet peko?!");
+            System.out.println("    " + todoList[i-1]);
+            SaveHandler.saveTo();
+        } catch (NullPointerException e) {
+            System.out.println("You don't have that many Tasks Peko!");
+        }
     }
     public static void setDelete(int i) {
         i--;
