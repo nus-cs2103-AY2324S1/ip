@@ -1,11 +1,13 @@
-import duke.command.AddCommand;
 import duke.command.Command;
+import duke.command.AddCommand;
 import duke.command.DeleteCommand;
 import duke.command.MarkCommand;
 import duke.command.UnmarkCommand;
+import duke.command.FindCommand;
 import duke.storage.Storage;
 import duke.task.Task;
 import duke.ui.Ui;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -76,6 +78,10 @@ public class EchoBot {
                 int taskNum = Command.extractTaskNum(userInput, "delete");
                 Command deleteCommand = new DeleteCommand(taskNum);
                 deleteCommand.doCommand(tasks, ui, storage);
+            } else if (userInput.startsWith("find")) {
+                String keyword = Command.extractTaskDesc(userInput, "find");
+                Command findCommand = new FindCommand(keyword);
+                findCommand.doCommand(tasks, ui, storage);
             } else {
                 Ui.showHorizontalLine();
                 System.out.println("    OOPS!!! I'm sorry, but I don't know what that means :-(");
