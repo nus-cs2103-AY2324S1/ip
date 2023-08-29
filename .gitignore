@@ -13,5 +13,8 @@ src/main/resources/docs/
 *.iml
 bin/
 
+#files that should not be revision controlled
+*.class
+
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT

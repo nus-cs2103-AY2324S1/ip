@@ -1,0 +1,12 @@
+todo eat bread
+deadline finish work /by Friday
+event barbecue /from Friday 7pm /to 10pm
+todo read book
+list
+mark 1
+mark 3
+list
+unmark 3
+mark 2
+list
+bye
