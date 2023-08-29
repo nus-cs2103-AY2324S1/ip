@@ -4,6 +4,8 @@ import java.io.FileWriter;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.time.LocalDate;
+import java.time.LocalTime;
 
 public class Duke {
     public static final String HORIZONTAL_LINE = "        ____________________________________________________________\n";
@@ -81,10 +83,11 @@ public class Duke {
             throw new DukeException("OOPS!!! The format of an event task is " +
                     "event TASK_DESCRIPTION /from START /to END");
 
-        } else if (taskDescription.contains("deadline") && !taskDescription.matches("deadline .*/by .*")) {
+        } else if (taskDescription.contains("deadline") &&
+                    !taskDescription.matches("deadline .*/by \\d{1,2}/\\d{1,2}/\\d{4} \\d{4}")) {
             // Validate deadline task format
             throw new DukeException("OOPS!!! The format of a deadline task is " +
-                    "deadline TASK_DESCRIPTION /by DEADLINE");
+                    "deadline TASK_DESCRIPTION /by DD/MM/YYYY 24H_TIME");
 
         } else if (taskDescription.contains("todo") && !taskDescription.matches("todo .*")) {
             // Validate to do task format
@@ -122,7 +125,6 @@ public class Duke {
             }
             fw.close();
         } catch (IOException e) {
-//            System.out.println("there");
             System.out.println(INDENT + "Something went wrong: " + e.getMessage());
         }
     }
@@ -159,7 +161,10 @@ public class Duke {
                     } else if (splitCommand[0].equals("deadline")) {
                         // Add deadline task into task list
                         String[] taskParts = splitCommand[1].split(" /by ");
-                        tasks.add(new Deadline(taskParts[0], taskParts[1]));
+                        String[] dateAndTime = taskParts[1].split(" ");
+                        tasks.add(new Deadline(taskParts[0],
+                                                dateAndTime[0],
+                                                dateAndTime[1]));
                         printCommand(tasks.get(tasks.size() - 1), tasks.size());
 
                     } else if (splitCommand[0].equals("todo")) {
