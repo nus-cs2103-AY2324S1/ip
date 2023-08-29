@@ -38,21 +38,20 @@ public class TextFileHandler {
      * 
      * @param filePath Path of the file.
      * @param text     Text to be written in the file.
-     * @throws IOException if there is problem opening or creating the file.
+     * @throws IOException if file cannot be opened.
      */
     public static void writeText(String filePath, String text) throws IOException {
-        createFile(filePath);
         FileWriter writer = new FileWriter(filePath);
         writer.write(text);
         writer.close();
     }
 
     /**
-     * Returns the lines of the file.
+     * Returns the lines of the file, creates file if not present.
      * 
      * @param filePath Path of the file.
      * @return A array of string which are lines in the .txt file.
-     * @throws IOException
+     * @throws IOException if file cannot be opened.
      */
     public static String[] readLines(String filePath) throws IOException {
         Path path = Paths.get(filePath);
