@@ -1,5 +1,10 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
 import java.util.Objects;
 import java.util.Scanner;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 
 public class Duke {
 	/**
@@ -78,6 +83,7 @@ public class Duke {
 			return false;
 		}
 	}
+
 
 	/**
 	 * @throws DukeException
@@ -209,28 +215,36 @@ public class Duke {
 	void deadline(String query, TaskList taskList, Storage storage) throws DukeException {
 		if (query.split(" ").length == 1) {
 			throw new DukeException("☹ OOPS!!! The description of a deadline cannot be empty.\n" +
-							"Please enter a valid deadline - deadline return book /by 2pm");
+							"Please enter a valid deadline - deadline return book /by dd/MM/yy HHmm");
 		}
 		if (!query.contains("/by")) {
 			throw new DukeException("☹ OOPS!!! Please enter a valid deadline - deadline return book /by 2pm");
 		}
 		if (query.split("\\s+/by\\s+").length == 1) {
 			throw new DukeException("☹ OOPS!!! You added a /by but did not include a deadline!.\n" +
-							"Please enter a valid deadline - deadline return book /by 2pm");
+							"Please enter a valid deadline - deadline return book /by dd/MM/yy HHmm");
 		}
 		String[] splitted = query.split(" ", 2);
 		String[] parts = splitted[1].split("\\s*/by\\s+");
 		String taskName = parts[0];
 		if (taskName.equals("")) {
 			throw new DukeException("☹ OOPS!!! The description of a deadline cannot be empty.\n" +
-							"Please enter a valid deadline - deadline return book /by 2pm");
+							"Please enter a valid deadline - deadline return book /by dd/MM/yy HHmm");
 		}
 		String deadline = parts[1];
-		Task newTask = new Deadline(taskName, deadline);
-		taskList.addToList(newTask, storage);
+		try {
+			LocalDateTime deadlineDate = formatInputDate(deadline);
+			Task newTask = new Deadline(taskName, deadlineDate);
+			taskList.addToList(newTask, storage);
+		} catch (DateTimeParseException e) {
+			throw new DukeException("☹ OOPS!!! You entered an invalid date format!.\n" +
+							"Please enter a valid date format in the following format - dd/MM/yy HHmm");
+		}
 	}
 
 	/**
+	 * Event should be in the following format - event read book /from dd/MM/yy HHmm /to dd/MM/yy HHmm
+	 *
 	 * @param query
 	 * @param taskList
 	 * @param storage
@@ -239,41 +253,61 @@ public class Duke {
 	void event(String query, TaskList taskList, Storage storage) throws DukeException {
 		if (query.split(" ").length == 1) {
 			throw new DukeException("☹ OOPS!!! The description of an event cannot be empty.\n" +
-							"Please enter a valid event - event read book /from 2pm /to 4pm");
+							"Please enter a valid event - event read book /from dd/MM/yy HHmm /to dd/MM/yy HHmm");
 		}
 		if (!query.contains("/from") || !query.contains("/to")) {
 			throw new DukeException("☹ OOPS!!! Your query is missing the prefixes /from or /to\n" +
-							"Please enter a valid event - event read book /from 2pm /to 4pm");
+							"Please enter a valid event - event read book /from dd/MM/yy HHmm /to dd/MM/yy HHmm");
 		}
 		int fromIndex = query.indexOf("/from");
 		int toIndex = query.indexOf("/to");
 		if (fromIndex > toIndex) {
 			throw new DukeException("☹ OOPS!!! The /from prefix should come before the /to prefix.\n" +
-							"Please enter a valid event - event read book /from 2pm /to 4pm");
+							"Please enter a valid event - event read book /from dd/MM/yy HHmm /to dd/MM/yy HHmm");
 		}
 		if (query.split("\\s+/from\\s+").length == 1 || query.split("\\s+/to\\s+").length == 1) {
 			throw new DukeException("☹ OOPS!!! You added a /from or /to but did not include a time!.\n" +
-							"Please enter a valid event - event read book /from 2pm /to 4pm");
+							"Please enter a valid event - event read book /from dd/MM/yy HHmm /to dd/MM/yy HHmm");
 		}
 		String[] splitted = query.split(" ", 2); // Split into 2 parts: tasktype and the rest
 		String[] parts = splitted[1].split("\\s*/from\\s+|\\s*/to\\s+");
 		String taskName = parts[0];
 		if (Objects.equals(taskName, "")) {
 			throw new DukeException("☹ OOPS!!! The description of an event cannot be empty.\n" +
-							"Please enter a valid event - event read book /from 2pm /to 4pm");
+							"Please enter a valid event - event read book /from dd/MM/yy HHmm /to dd/MM/yy HHmm");
 		}
 		String from = parts[1];
 		if (from.length() == 0) {
 			throw new DukeException("☹ OOPS!!! You added a /from but did not include a time!.\n" +
-							"Please enter a valid event - event read book /from 2pm /to 4pm");
+							"Please enter a valid event - event read book /from dd/MM/yy HHmm /to dd/MM/yy HHmm");
 		}
 		String to = parts[2];
 		if (to.length() == 0) {
 			throw new DukeException("☹ OOPS!!! You added a /to but did not include a time!.\n" +
-							"Please enter a valid event - event read book /from 2pm /to 4pm");
+							"Please enter a valid event - event read book /from dd/MM/yy HHmm /to dd/MM/yy HHmm");
 		}
-		Task newTask = new Event(taskName, from, to);
-		taskList.addToList(newTask, storage);
+		try {
+			LocalDateTime fromDate = formatInputDate(from);
+			LocalDateTime toDate = formatInputDate(to);
+			if (fromDate.isBefore(toDate)) {
+				Task newTask = new Event(taskName, fromDate, toDate);
+				taskList.addToList(newTask, storage);
+			} else {
+				throw new DukeException("☹ OOPS!!! The start date cannot be after the end date!");
+			}
+		} catch (DateTimeParseException e) {
+			throw new DukeException("☹ OOPS!!! You entered an invalid date format!.\n" +
+							"Please enter a valid date format in the following format - dd/MM/yy HHmm");
+		}
+	}
+
+	/**
+	 * @param date
+	 * @return LocalDateTime
+	 */
+	LocalDateTime formatInputDate(String date) throws DateTimeParseException {
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yy HHmm");
+		return LocalDateTime.parse(date, formatter);
 	}
 
 	/**
@@ -282,5 +316,4 @@ public class Duke {
 	void exit() {
 		System.out.println("Bye. Hope to see you again soon!");
 	}
-
 }
