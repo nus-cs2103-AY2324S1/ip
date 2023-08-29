@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 public class Duck {
     public static void main(String[] args) {
@@ -19,7 +20,19 @@ public class Duck {
             if (input.startsWith("mark")) {
                 int index = Integer.parseInt(input.substring(5));
                 line();
-                list.mark(index - 1);
+                try{
+                    list.mark(index - 1);
+                } catch (IndexOutOfBoundsException e) {
+                    System.out.println("☹ OOPS!!! There is no task " + index + " in your list.");
+                    line();
+                    input = in.nextLine();
+                    continue;
+                } catch (IllegalArgumentException e) {
+                    System.out.println("☹ OOPS!!! Task " + index + " is already marked.");
+                    line();
+                    input = in.nextLine();
+                    continue;
+                }
                 line();
                 input = in.nextLine();
                 continue;
@@ -28,61 +41,40 @@ public class Duck {
             if (input.startsWith("unmark")) {
                 int index = Integer.parseInt(input.substring(7));
                 line();
-                list.unmark(index - 1);
-                line();
-                input = in.nextLine();
-                continue;
-            }
-
-            if (input.startsWith("todo")) {
-                String task;
+                
                 try {
-                    task = input.trim().substring(5);
-                } catch (StringIndexOutOfBoundsException e) {
+                    list.unmark(index - 1);
+                } catch (IndexOutOfBoundsException e) {
+                    System.out.println("☹ OOPS!!! There is no task " + index + " in your list.");
                     line();
-                    System.out.println("☹ OOPS!!! The description of a todo cannot be empty.");
+                    input = in.nextLine();
+                    continue;
+                } catch (IllegalArgumentException e) {
+                    System.out.println("☹ OOPS!!! Task " + index + " is already unmarked.");
                     line();
                     input = in.nextLine();
                     continue;
                 }
                 line();
-                list.addTodo(task);
-                line();
                 input = in.nextLine();
                 continue;
             }
 
-            if (input.startsWith("deadline")) {
-                String task;
+            if (input.startsWith("todo") || input.startsWith("deadline") || input.startsWith("event")) {
+                Task newTask;
                 try {
-                    task = input.trim().substring(9);
-                } catch (StringIndexOutOfBoundsException e) {
+                    newTask = list.addTask(input);
+                } catch (StringIndexOutOfBoundsException e ) {
                     line();
-                    System.out.println("☹ OOPS!!! The description of a deadline cannot be empty.");
+                    System.out.println("☹ OOPS!!! The description of a " + input + " cannot be empty.");
                     line();
                     input = in.nextLine();
                     continue;
-                }
+                } 
                 line();
-                list.addDeadline(task);
-                line();
-                input = in.nextLine();
-                continue;
-            }
-
-            if (input.startsWith("event")) {
-                String task;
-                try {
-                    task = input.trim().substring(6);
-                } catch (StringIndexOutOfBoundsException e) {
-                    line();
-                    System.out.println("☹ OOPS!!! The description of an event cannot be empty.");
-                    line();
-                    input = in.nextLine();
-                    continue;
-                }
-                line();
-                list.addEvent(task);
+                System.out.println("Got it. I've added this task:");
+                System.out.println(newTask);
+                System.out.println("Now you have " + list.getListSize() + " tasks in the list.");
                 line();
                 input = in.nextLine();
                 continue;
@@ -127,112 +119,137 @@ public class Duck {
 }
 
 class TaskList {
-    private String[] list;
-    private int currentIndex;
-    private boolean[] doneList;
-    private char[] typeList;
-    private String[] infoList;
+    private ArrayList<Task> list;
+    private int listSize;
 
     public TaskList() {
-        this.list = new String[100];
-        currentIndex = 0;
-        this.doneList = new boolean[100];
-        this.typeList = new char[100];
-        this.infoList = new String[100];
+        this.list = new ArrayList<Task>();
+        this.listSize = 0;
     }
 
-    public void add(String input) {
-        list[currentIndex] = input;
-        currentIndex++;
-        System.out.println("added: " + input);
+    public int getListSize() {
+        return this.listSize;
     }
 
-    public void addTodo(String input) {
-        list[currentIndex] = input;
-        typeList[currentIndex] = 'T';
-        System.out.println("Got it. I've added this task:");
-        System.out.println("[T][ ] " + input);
+    public Task addTask(String input) throws IllegalArgumentException, StringIndexOutOfBoundsException {
+        Task newTask;
+        if (input.startsWith("todo")) {
+            newTask = new TodoTask(input);
+        } else if (input.startsWith("deadline")) {
+            newTask = new DeadlineTask(input);
+        } else if (input.startsWith("event")) {
+            newTask = new EventTask(input);
+        } else {
+            throw new IllegalArgumentException();
+        }
 
-        currentIndex++;
-        System.out.println("Now you have " + currentIndex + " tasks in the list.");
-    }
-
-    public void addDeadline(String input) {
-        String name = input.substring(0, input.indexOf("/"));
-        list[currentIndex] = name;
-
-        String datetime = input.substring(input.indexOf("/by") + 4);
-        infoList[currentIndex] = " (by: " + datetime + ")";
-
-        typeList[currentIndex] = 'D';
-
-        System.out.println("Got it. I've added this task:");
-        System.out.println("[D][ ] " + name + infoList[currentIndex]);
-        
-        currentIndex++;
-        System.out.println("Now you have " + currentIndex + " tasks in the list.");
-    }
-
-    public void addEvent(String input) {
-        String name = input.substring(0, input.indexOf("/"));
-        list[currentIndex] = name;
-
-        String start = input.substring(input.indexOf("/from") + 6, input.indexOf("/to") - 1);
-        String end = input.substring(input.indexOf("/to") + 4);
-        infoList[currentIndex] = " (from: " + start + " to: " + end + ")";
-
-        typeList[currentIndex] = 'E';
-
-        System.out.println("Got it. I've added this task:");
-        System.out.println("[E][ ] " + name + infoList[currentIndex]);
-        
-        currentIndex++;
-        System.out.println("Now you have " + currentIndex + " tasks in the list.");
+        list.add(newTask);
+        listSize++;
+        return newTask;
     }
 
     public void listTasks() {
-        for (int i = 0; i < currentIndex; i++) {
-            char type = typeList[i] == 0 ? ' ' : typeList[i];
-            String output = i + 1 + "." + "[" + type + "]";
-            if (doneList[i]) {
-                output += "[X] ";
-            } else {
-                output += "[ ] ";
-            }
-            output += list[i];
-            String info = infoList[i] == null ? "" : infoList[i];
-            System.out.println(output + info);
+        if (listSize == 0) {
+            System.out.println("There are no tasks in your list.");
+            return;
+        }
+
+        System.out.println("Here are the tasks in your list:");
+        for (int i = 1; i <= listSize; i++) {
+            System.out.println("" + i + ". " + list.get(i - 1));
         }
     }
 
-    public void mark(int index) {
-        doneList[index] = true;
-        String prefix = typeList[index] == 0 ? " " : typeList[index] + "";
+    public void mark(int index) throws IndexOutOfBoundsException {
+        Task currTask = list.get(index);
+        currTask.mark();
         System.out.println("Nice! I've marked this task as done:");
-        System.out.println("[" + prefix + "][X] " + list[index]);
+        System.out.println(currTask);
     }
 
-    public void unmark(int index) {
-        doneList[index] = false;
-        String prefix = typeList[index] == 0 ? " " : typeList[index] + "";
-        System.out.println("OK, I've marked this task as not done yet:");
-        System.out.println("[" + prefix + "][ ] " + list[index]);
+    public void unmark(int index) throws IndexOutOfBoundsException{
+        Task currTask = list.get(index);
+        currTask.unmark();
+        System.out.println("OK, I've unmarked this task:");
+        System.out.println(currTask);
     }
 
     public void delete(int index) {
-        String prefix = typeList[index] == 0 ? " " : typeList[index] + "";
+        Task currTask = list.get(index);
+        list.remove(index);
+        listSize--;
 
         System.out.println("Noted. I've removed this task:");
-        System.out.println("[" + prefix + "][ ] " + list[index]);
-
-        for (int i = index; i < currentIndex - 1; i++) {
-            list[i] = list[i + 1];
-            doneList[i] = doneList[i + 1];
-            typeList[i] = typeList[i + 1];
-            infoList[i] = infoList[i + 1];
-        }
-        currentIndex--;
-
-        System.out.println("Now you have " + currentIndex + " tasks in the list.");
+        System.out.println(currTask);
+        System.out.println("Now you have " + listSize + " tasks in the list.");
     }
+}
+
+abstract class Task {
+    private String name;
+    private boolean isDone;
+    private TaskType type;
+    private String info;
+
+    public Task(String name, TaskType type, String info) {
+        this.name = name;
+        this.isDone = false;
+        this.type = type;
+        this.info = info;
+    }
+
+    public void mark() throws IllegalArgumentException {
+        if (this.isDone == true) {
+            throw new IllegalArgumentException();
+        } else {
+            this.isDone = true;
+        }
+    }
+
+    public void unmark() throws IllegalArgumentException {
+        if (this.isDone == false) {
+            throw new IllegalArgumentException();
+        } else {
+            this.isDone = false;
+        }
+    }
+
+    @Override
+    public String toString() {
+        char typeChar = this.type.toString().charAt(0);
+        char done = this.isDone ? 'X' : ' ';
+        String str = "[" + typeChar + "][" + done + "] " + name + info;
+        return str;
+    }
+}
+
+class TodoTask extends Task {
+    public TodoTask(String input) throws StringIndexOutOfBoundsException{
+        super(input.trim().substring(5), 
+                TaskType.Todo, 
+                "");
+    }
+}
+
+class DeadlineTask extends Task {
+    public DeadlineTask(String input) throws StringIndexOutOfBoundsException {
+        super(input.trim().substring(9, input.indexOf("/by") - 1), 
+                TaskType.Deadline, 
+                " (by: " + input.substring(input.indexOf("/by") + 4) + ")");
+    }
+}
+
+class EventTask extends Task {
+    public EventTask(String input) throws StringIndexOutOfBoundsException {
+        super(input.trim().substring(6, input.indexOf("/from") - 1), 
+                TaskType.Event, 
+                " (from: " + input.substring(input.indexOf("/from") + 6, input.indexOf("/to") - 1) + 
+                " to: " + input.substring(input.indexOf("/to") + 4) + ")");
+    }
+}
+
+enum TaskType {
+    Todo,
+    Deadline,
+    Event,
 }
