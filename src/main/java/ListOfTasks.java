@@ -22,13 +22,15 @@ public class ListOfTasks {
      *
      * @param task The Task object to be added.
      */
-    public void addTask(Task task) {
+    public void addTask(Task task, boolean isReadFromFile) {
         list.add(task);
         numOfTasks++;
 
-        System.out.println("Got it. I have added this task to do:");
-        System.out.println("  " + task.toString());
-        System.out.println("You now have " + numOfTasks + " task(s) in the list.");
+        if (!isReadFromFile) {
+            System.out.println("Got it. I have added this task to do:");
+            System.out.println("  " + task.toString());
+            System.out.println("You now have " + numOfTasks + " task(s) in the list.");
+        }
     }
 
     /**
@@ -36,12 +38,14 @@ public class ListOfTasks {
      *
      * @param taskNumber Number of task in list to be mark as completed.
      */
-    public void markTaskAsDone(int taskNumber) {
+    public void markTaskAsDone(int taskNumber, boolean isReadFromFile) {
         Task completedTask = list.get(taskNumber - 1);
         completedTask.markAsDone();
 
-        System.out.println("Good job! I've marked this task as completed:");
-        System.out.println("  " + completedTask);
+        if (!isReadFromFile) {
+            System.out.println("Good job! I've marked this task as completed:");
+            System.out.println("  " + completedTask);
+        }
     }
 
     /**
@@ -80,5 +84,12 @@ public class ListOfTasks {
         for (int i = 0; i < numOfTasks; i++) {
             System.out.println("  " + (i + 1) + "." + list.get(i).toString());
         }
+    }
+
+    /**
+     * Returns number of tasks in the list
+     */
+    public int getNumOfTasks() {
+        return this.numOfTasks;
     }
 }

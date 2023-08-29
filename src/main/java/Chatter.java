@@ -1,3 +1,10 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Scanner;
 
 /**
@@ -29,7 +36,7 @@ public class Chatter {
             if (input.length() < 6) {
                 throw new ChatterException("☹ OOPS!!! The description of a todo cannot be empty!");
             }
-            tasks.addTask(new ToDo(input.substring(5)));
+            tasks.addTask(new ToDo(input.substring(5)), false);
         } catch(ChatterException e) {
             System.out.println(e.getMessage());
         }
@@ -48,7 +55,7 @@ public class Chatter {
             }
 
             tasks.addTask(new Deadline(input.substring(9, deadlineIndex - 1),
-                    input.substring(deadlineIndex + 4)));
+                    input.substring(deadlineIndex + 4)), false);
         } catch(ChatterException e) {
             System.out.println(e.getMessage());
         } catch(Exception e) {
@@ -75,7 +82,7 @@ public class Chatter {
 
             tasks.addTask(new Event(input.substring(6, startIndex - 1),
                     input.substring(startIndex + 6, endIndex - 1),
-                    input.substring(endIndex + 4)));
+                    input.substring(endIndex + 4)), false);
         } catch(ChatterException e) {
             System.out.println(e.getMessage());
         } catch(Exception e) {
@@ -98,7 +105,7 @@ public class Chatter {
             if (userInput.equals("list")) {
                 tasks.listTasks();
             } else if (userInput.startsWith("mark")){
-                tasks.markTaskAsDone(Character.getNumericValue(userInput.charAt(5)));
+                tasks.markTaskAsDone(Character.getNumericValue(userInput.charAt(5)), false);
             } else if (userInput.startsWith("unmark")){
                 tasks.markTaskAsNotDone(Character.getNumericValue(userInput.charAt(7)));
             } else if (userInput.startsWith("delete")){
@@ -129,7 +136,46 @@ public class Chatter {
         System.out.println("Bye. Hope to see you again soon!");
     }
 
+    /**
+     * Creates new directory and file for data storage if they do not exist.
+     *
+     * @throws IOException Error thrown is file cannot be created.
+     */
+    public static void readFile() throws IOException {
+        File f = new File("./data/chatter.txt");
+        Path path = Paths.get("./data");
+        Files.createDirectories(path);
+        f.createNewFile();
+
+        Scanner s = new Scanner(f);
+        while (s.hasNext()) {
+            String[] input = s.nextLine().split(", ");
+
+            switch (input[0]) {
+            case("D"):
+                tasks.addTask(new Deadline(input[2], input[3]), true);
+                break;
+            case("T"):
+                tasks.addTask(new ToDo(input[2]), true);
+                break;
+            default:
+                tasks.addTask(new Event(input[2], input[3], input[4]), true);
+                break;
+            }
+
+            if (Boolean.parseBoolean(input[1])) {
+                tasks.markTaskAsDone(tasks.getNumOfTasks(), true);
+            }
+        }
+    }
+
     public static void main(String[] args) {
+        try {
+            readFile();
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+
         run();
     }
 }

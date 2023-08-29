@@ -33,4 +33,13 @@ public class Event extends Task {
     public String toString() {
         return "[E]" + super.toString() + " (from: " + this.start + " to: " + this.end + ")";
     }
+
+    /**
+     * Returns the string representation of the task to be stored in a local file.
+     *
+     * @return The storage string representation of the task.
+     */
+    public String toStorageString() {
+        return "E, " + isDone + ", " + description + ", " + start + ", " + end;
+    }
 }
