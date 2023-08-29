@@ -5,12 +5,17 @@ abstract class Task {
         this.description = description;
         this.marked = false;
     }
-    public String getStatusIcon() {
+    public String getStatusIconWithBracket() {
         return marked ? "[X]" : "[ ]";
     }
-
+    public String getStatusIcon() {
+        return marked ? "X" : "O";
+    }
     public void markAsDone() {
         this.marked = true;
+    }
+    public String getDescription() {
+        return this.description;
     }
 
     public void markAsUnDone() {
@@ -18,7 +23,11 @@ abstract class Task {
     }
     @Override
     public String toString() {
-        return this.getStatusIcon() + " " + description;
+        return this.getStatusIconWithBracket() + " " + description;
+    }
+
+    public String toFileString() {
+        return " | " + this.getStatusIcon() + " | " + this.getDescription();
     }
 
 }

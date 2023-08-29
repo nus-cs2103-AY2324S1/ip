@@ -2,6 +2,9 @@
    Hello! I'm zac
    What can I do for you?
    __________________________________________
+T | X | borrow book
+D | O | return book | Sunday
+E | X | project meeting | Mon 2pm-4pm
    __________________________________________
    Got it. I've added this task:
      [T][ ] borrow book
@@ -53,23 +56,30 @@
      [X] project meeting
    __________________________________________
    __________________________________________
+   Got it. I've added this task:
+     [T][ ] randomthing
+   Now you have 4 tasks in the list.
+   __________________________________________
+   __________________________________________
    Here are the tasks in your list:
    1.[T][X] borrow book
    2.[D][ ] return book (by: Sunday)
    3.[E][X] project meeting (from: Mon 2pm to: 4pm)
+   4.[T][ ] randomthing
    __________________________________________
    __________________________________________
    You are trying to access a Task that does not exist!
    __________________________________________
    __________________________________________
    Noted. I've removed this task:
-     [E][X] project meeting (from: Mon 2pm to: 4pm)
-   Now you have 2 tasks in the list.
+     [T][ ] randomthing
+   Now you have 3 tasks in the list.
    __________________________________________
    __________________________________________
    Here are the tasks in your list:
    1.[T][X] borrow book
    2.[D][ ] return book (by: Sunday)
+   3.[E][X] project meeting (from: Mon 2pm to: 4pm)
    __________________________________________
    __________________________________________
    Bye. Hope to see you again soon!
