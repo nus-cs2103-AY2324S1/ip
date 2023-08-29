@@ -1,5 +1,16 @@
+import java.io.*;
 import java.util.Scanner;
 import java.util.ArrayList;
+
+/**
+ * Duke
+ *
+ * CS2103T AY23/24 Semester 1
+ * iP - Individual Project
+ * Duke Project
+ *
+ * @author Freddy Chen You Ren
+ */
 public class Duke {
     static String HORIZONTAL_LINE = "    ____________________________________________________________"; //60 underscores.
     static String INDENT = "    "; //4 spaces.
@@ -39,7 +50,8 @@ public class Duke {
         System.out.println(HORIZONTAL_LINE);
     }
 
-    public static void deleteTask(String deleteInput) throws EmptyDescriptionException {
+    public static void deleteTask(String deleteInput)
+            throws EmptyDescriptionException, IOException {
         String[] words = deleteInput.split("\\s+"); // Split input by space, put into array
         //Check for valid length
         if (words.length <= 1) {
@@ -55,10 +67,10 @@ public class Duke {
                 Task removedTask = taskList.remove(deleteIndex); //Actual task can be todo, deadline, or event
                 System.out.println("     Noted. I've removed this task:");
                 System.out.printf("       %s\n", removedTask.toString());
-                System.out.printf("     Now you have %d tasks in the list.\n", taskList.size());
+                System.out.printf("     Now you have %d task(s) in the list.\n", taskList.size());
             } else {
                 System.out.println("     OOPS!!! The task index is invalid.\n");
-                System.out.printf("    You currently have %d Task(s).\n", taskList.size());
+                System.out.printf("    You currently have %d task(s).\n", taskList.size());
             }
             System.out.println(HORIZONTAL_LINE);
 
@@ -69,13 +81,15 @@ public class Duke {
             System.out.println("     This will remove Task 5 from your Task List, assuming you have at least 5 tasks.");
             System.out.println(HORIZONTAL_LINE);
         }
+        clearAllData();
+        updateData();
     }
 
     /**
      * Function to mark a given task as done.
      * @param taskIndex the index of the task to be marked as done.
      */
-    public static void markTask(int taskIndex) {
+    public static void markTask(int taskIndex) throws IOException {
         System.out.println(HORIZONTAL_LINE);
         if (taskIndex < 0 || taskIndex >= taskList.size()) {
             System.out.printf("     Invalid Index of Task. You currently have %d Task(s)\n", taskList.size());
@@ -86,13 +100,15 @@ public class Duke {
             System.out.printf("       [%s] %s\n", task.getStatusIcon(), task.description);
         }
         System.out.println(HORIZONTAL_LINE);
+        clearAllData();
+        updateData();
     }
 
     /**
      * Function to mark a given task as done.
      * @param taskIndex the index of the task to be marked as not done yet.
      */
-    public static void unmarkTask(int taskIndex) {
+    public static void unmarkTask(int taskIndex) throws IOException {
         System.out.println(HORIZONTAL_LINE);
         if (taskIndex < 0 || taskIndex >= taskList.size()) {
             System.out.printf("    Invalid Index of Task. You currently have %d Task(s)\n", taskList.size());
@@ -103,6 +119,8 @@ public class Duke {
             System.out.printf("       [%s] %s\n", task.getStatusIcon(), task.description);
         }
         System.out.println(HORIZONTAL_LINE);
+        clearAllData();
+        updateData();
     }
 
     /**
@@ -122,9 +140,116 @@ public class Duke {
         }
     }
 
-    public static void main(String[] args) throws InvalidCommandException {
+    /**
+     * Save a Task after it has been successfully inputted by user.
+     * @param task the Task that is to be saved.
+     * @param isAppend a Boolean to determine if we should add a new line in the saved text file.
+     */
+    public static void saveTask(Task task, boolean isAppend) throws IOException {
+        // Format of saving tasks follow CS2103T Website:
+        // T | 1 | read book
+        // D | 0 | return book | June 6th
+        // E | 0 | project meeting | Aug 6th 2pm | Aug 6th 4pm
+        FileOutputStream outputStream = new FileOutputStream("src/main/data/duke.txt", isAppend);
+        //Use a BufferedWriter
+        BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream));
+        String[] saved = new String[5]; // Cannot be more than 5 separate parts. 5th part is only for Event
+
+        //saved[0]
+        if (task instanceof Deadline) {
+            saved[0] = "D";
+            saved[3] = ((Deadline) task).getDueDate();
+        } else if (task instanceof Event) {
+            saved[0] = "E";
+            saved[3] = ((Event) task).getStartTime();
+            saved[4] = ((Event) task).getEndTime();
+        } else {
+            //Todo task
+            saved[0] = "T";
+        }
+
+        //saved[1] and saved[2]
+        saved[1] = task.isDone ? "1" : "0";
+        saved[2] = task.getDescription();
+
+        if (isAppend) {
+            bufferedWriter.newLine();
+        }
+        bufferedWriter.write(String.join(" | ", saved));
+        bufferedWriter.close();
+    }
+
+    /**
+     * Loads tasks saved previously from Hard Disk.
+     * @throws IOException throws an IO Exception if the file is corrupted or invalid.
+     */
+    private static void loadTasks() throws IOException {
+        //Use FileInputStream and BufferedReader, opposite of saveTask()
+        FileInputStream inputStream = new FileInputStream("src/main/data/duke.txt");
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader((inputStream)));
+        String currentLine;
+
+        //Recall delimiter "|" and get details of the tasks and add tasks
+        while ((currentLine = bufferedReader.readLine()) != null) {
+            String[] content = currentLine.split(" \\| ");
+            String taskDescription = content[2];
+            Task taskFromHardDisk;
+
+            // Now check which type of task it belongs to
+            // And create the task
+            // Then add task to taskList
+            switch(content[0]) {
+            case "E":
+                taskFromHardDisk = new Event(taskDescription, content[3], content[4]);
+                //Potential error for content[3]
+            case "D":
+                taskFromHardDisk = new Deadline(taskDescription, content[3]);
+                //Potential error for content[3]
+                break;
+            default:
+                taskFromHardDisk = new Todo(taskDescription);
+                break;
+            }
+
+            //Check if task is done
+            if (content[1].equals("1")) {
+                taskFromHardDisk.markAsDone();
+            } else {
+                taskFromHardDisk.markAsNotDone();
+            }
+            taskList.add(taskFromHardDisk);
+        }
+        bufferedReader.close();
+    }
+
+    /**
+     * Clears lines of task status in Hard Disk.
+     * @throws IOException throws IO Exception if file format is invalid or currupted.
+     */
+    private static void clearAllData() throws IOException {
+        FileOutputStream outputStream = new FileOutputStream("src/main/data/duke.txt");
+        BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter((outputStream)));
+        bufferedWriter.close();
+    }
+
+    /**
+     * Updates all lines of task status in Hard Disk.
+     * @throws IOException throws IO Exception if file format is invalid or currupted.
+     */
+    private static void updateData() throws IOException {
+        for (int i = 0; i < taskList.size(); i++) {
+            if (i != 0) {
+                saveTask(taskList.get(i), true);
+            } else {
+                saveTask(taskList.get(i), false);
+            } //BUG FOR EVENT TASK, End Time get erased, Type kept getting changed to Deadline
+        }
+    }
+
+    public static void main(String[] args) throws InvalidCommandException, IOException {
         Boolean repeatFlag = true;
         greet();
+        loadTasks();
         Scanner scanner = new Scanner(System.in);
 
         while (repeatFlag) {
@@ -175,6 +300,8 @@ public class Duke {
                 case UNKNOWN:
                     throw new InvalidCommandException("I'm sorry, but I don't know what that means :-(");
                 }
+            } catch (IOException e) {
+                System.err.println(HORIZONTAL_LINE + "\n" + e.toString() + HORIZONTAL_LINE);
             } catch (EmptyDescriptionException e) {
                 e.printExceptionMessage();
             } catch (InvalidCommandException e) {
