@@ -1,3 +1,4 @@
+package harvard;
 public class MarkCommand extends Command {
     private int index;
     /**

@@ -1,3 +1,4 @@
+package harvard;
 import java.util.Scanner;
 
 public class Ui {

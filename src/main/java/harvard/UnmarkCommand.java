@@ -1,4 +1,6 @@
-public class ExitCommand extends Command {
+package harvard;
+public class UnmarkCommand extends Command{
+    private int index;
     /**
      * Returns true if the command is an exit command.
      *
@@ -6,7 +8,10 @@ public class ExitCommand extends Command {
      */
     @Override
     public boolean isExit() {
-        return true;
+        return false;
+    }
+    public UnmarkCommand(int index) {
+        this.index = index;
     }
 
     /**
@@ -19,6 +24,12 @@ public class ExitCommand extends Command {
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
-        ui.displayBye();
+        if (index >= tasks.size() || index < 0) {
+            throw new DukeException("OOPS!!! The task number does not exist.");
+        }
+        Task task = tasks.get(index);
+        task.markAsUndone();
+        ui.showUndone(task);
+        storage.save(tasks);
     }
 }

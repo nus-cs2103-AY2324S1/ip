@@ -1,3 +1,4 @@
+package harvard;
 public abstract class Command {
     /**
      * Executes the command.

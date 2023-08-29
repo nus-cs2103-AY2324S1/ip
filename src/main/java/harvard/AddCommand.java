@@ -1,15 +1,17 @@
-public class DeleteCommand extends Command {
+package harvard;
+
+public class AddCommand extends Command {
     /**
-     * The index of the task to be deleted.
+     * The task to be added.
      */
-    private int index;
+    private Task task;
 
     /**
-     * Constructs a DeleteCommand object.
-     * @param index The index of the task to be deleted.
+     * Constructs an AddCommand object.
+     * @param task The task to be added.
      */
-    public DeleteCommand(int index) {
-        this.index = index;
+    public AddCommand(Task task) {
+        this.task = task;
     }
 
     /**
@@ -21,9 +23,8 @@ public class DeleteCommand extends Command {
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
-        Task task = tasks.get(index);
-        tasks.remove(index);
-        ui.showDelete(task, tasks);
+        tasks.add(task);
+        ui.showAddTask(task, tasks);
         storage.save(tasks);
     }
 
@@ -35,4 +36,5 @@ public class DeleteCommand extends Command {
     public boolean isExit() {
         return false;
     }
+
 }

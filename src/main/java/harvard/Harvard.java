@@ -1,7 +1,4 @@
-import java.io.File;
-import java.util.ArrayList;
-import java.util.Scanner;
-//write javacoc documentaion for the javadoc tool
+package harvard;
 public class Harvard {
     private Storage storage;
     private TaskList tasks;
