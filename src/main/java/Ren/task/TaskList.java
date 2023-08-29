@@ -109,7 +109,7 @@ public class TaskList {
     }
 
     /**
-     * Adds ren.task.Task into ren.task.TaskList.
+     * Adds task into TaskList.
      *
      * @param commandArr array of the command split by whitespace
      * @return the added task
@@ -126,7 +126,9 @@ public class TaskList {
         return taskDeleted;
     }
 
-
+    /**
+     * Declares number of tasks in TaskList.
+     */
     public String declareNumOfTasks() {
         return String.format("%d tasks in the list\n", tasks.size());
     }

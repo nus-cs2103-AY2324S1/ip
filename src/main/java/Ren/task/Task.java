@@ -10,6 +10,9 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
         @JsonSubTypes.Type(value = Event.class, name = "ren.task.Event")
 })
 
+/**
+ * Represents a task
+ */
 public class Task {
     enum TaskType {
         TODO,

@@ -11,7 +11,12 @@ public class RenParser {
             "todo", "deadline", "event"
     );
 
-
+    /**
+     * Parses the input string and executes the corresponding command.
+     *
+     * @param inputStr the input string
+     * @param tasks    the list of tasks
+     */
     public static void parseInputString(String inputStr, TaskList tasks) {
         String[] commandArr = inputStr.split(" ");
         if (commandArr[0].equals(Commands.LS_COMMAND.getValue())) {

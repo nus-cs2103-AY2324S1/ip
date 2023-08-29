@@ -10,6 +10,9 @@ import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Represents a deadline
+ */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Deadline extends Task {
     @JsonProperty("deadline")
