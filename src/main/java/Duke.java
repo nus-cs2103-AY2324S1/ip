@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
 import java.time.temporal.ChronoField;
+import java.util.Scanner;
 
 /**
  * Encapsulates the logic of a Chat bot
@@ -36,8 +37,7 @@ public class Duke {
     public void run() {
         ui.showWelcome();
         boolean isExit = false;
-
-        while (!isExit) {
+        while (!isExit && ui.checkForCommand()) { // need to check whether scanner has a next line
             try {
                 String fullCommand = ui.readCommand();
                 ui.showLine();

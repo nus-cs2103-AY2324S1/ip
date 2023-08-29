@@ -11,75 +11,80 @@ What can I do for you?
 _______________________________________
 _______________________________________
 Got it!. I've added this task:
- [T][ ] borrow book
+  [T][ ] borrow book
 Now you have 1 tasks in the list
 _______________________________________
 _______________________________________
-1. [T][ ] borrow book
+Here are your list of tasks:
+  1. [T][ ] borrow book
 _______________________________________
 _______________________________________
 Got it!. I've added this task:
- [D][ ] return book (by: Jan 1 2019 00:00)
+  [D][ ] return book (by: Jan 1 2019 00:00)
 Now you have 2 tasks in the list
 _______________________________________
 _______________________________________
 Got it!. I've added this task:
- [D][ ] return cup (by: Jan 1 2019 12:00)
+  [D][ ] return cup (by: Jan 1 2019 12:00)
 Now you have 3 tasks in the list
 _______________________________________
 _______________________________________
 Got it!. I've added this task:
- [E][ ] project meeting (from: Apr 4 2023 14:00 to Apr 5 2023 16:00)
+  [E][ ] project meeting (from: Apr 4 2023 14:00 to Apr 5 2023 16:00)
 Now you have 4 tasks in the list
 _______________________________________
 _______________________________________
-1. [T][ ] borrow book
-2. [D][ ] return book (by: Jan 1 2019 00:00)
-3. [D][ ] return cup (by: Jan 1 2019 12:00)
-4. [E][ ] project meeting (from: Apr 4 2023 14:00 to Apr 5 2023 16:00)
+Here are your list of tasks:
+  1. [T][ ] borrow book
+  2. [D][ ] return book (by: Jan 1 2019 00:00)
+  3. [D][ ] return cup (by: Jan 1 2019 12:00)
+  4. [E][ ] project meeting (from: Apr 4 2023 14:00 to Apr 5 2023 16:00)
 _______________________________________
 _______________________________________
 Great job completing the task! I've marked it as done.
-[T][X] borrow book
+  [T][X] borrow book
 _______________________________________
 _______________________________________
 Great job completing the task! I've marked it as done.
-[D][X] return book (by: Jan 1 2019 00:00)
+  [D][X] return book (by: Jan 1 2019 00:00)
 _______________________________________
 _______________________________________
 Oops... Did you mark it incorrectly?
-[T][ ] borrow book
+  [T][ ] borrow book
 _______________________________________
 _______________________________________
 Noted... I've removed this task:
- [D][X] return book (by: Jan 1 2019 00:00)
+  [D][X] return book (by: Jan 1 2019 00:00)
 Now you have 3 tasks in the list
 _______________________________________
 _______________________________________
-1. [T][ ] borrow book
-2. [D][ ] return cup (by: Jan 1 2019 12:00)
-3. [E][ ] project meeting (from: Apr 4 2023 14:00 to Apr 5 2023 16:00)
+Here are your list of tasks:
+  1. [T][ ] borrow book
+  2. [D][ ] return cup (by: Jan 1 2019 12:00)
+  3. [E][ ] project meeting (from: Apr 4 2023 14:00 to Apr 5 2023 16:00)
 _______________________________________
 _______________________________________
 Noted... I've removed this task:
- [T][ ] borrow book
+  [T][ ] borrow book
 Now you have 2 tasks in the list
 _______________________________________
 _______________________________________
-1. [D][ ] return cup (by: Jan 1 2019 12:00)
-2. [E][ ] project meeting (from: Apr 4 2023 14:00 to Apr 5 2023 16:00)
+Here are your list of tasks:
+  1. [D][ ] return cup (by: Jan 1 2019 12:00)
+  2. [E][ ] project meeting (from: Apr 4 2023 14:00 to Apr 5 2023 16:00)
 _______________________________________
 _______________________________________
 Noted... I've removed this task:
- [D][ ] return cup (by: Jan 1 2019 12:00)
+  [D][ ] return cup (by: Jan 1 2019 12:00)
 Now you have 1 tasks in the list
 _______________________________________
 _______________________________________
-1. [E][ ] project meeting (from: Apr 4 2023 14:00 to Apr 5 2023 16:00)
+Here are your list of tasks:
+  1. [E][ ] project meeting (from: Apr 4 2023 14:00 to Apr 5 2023 16:00)
 _______________________________________
 _______________________________________
 Noted... I've removed this task:
- [E][ ] project meeting (from: Apr 4 2023 14:00 to Apr 5 2023 16:00)
+  [E][ ] project meeting (from: Apr 4 2023 14:00 to Apr 5 2023 16:00)
 Now you have 0 tasks in the list
 _______________________________________
 _______________________________________

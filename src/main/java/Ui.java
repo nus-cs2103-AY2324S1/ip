@@ -5,6 +5,11 @@ public class Ui {
 
     private final String LINE = "_______________________________________";
     private final String INDENTATION = "  ";
+    private final Scanner scanner;
+
+    public Ui() {
+        this.scanner = new Scanner(System.in);
+    }
 
     public void showWelcome() {
         String logo = "                     _                 _      \n" +
@@ -22,8 +27,11 @@ public class Ui {
     }
 
     public String readCommand() {
-        Scanner scanner = new Scanner(System.in);
-        return scanner.nextLine();
+        return this.scanner.nextLine();
+    }
+
+    public boolean checkForCommand() {
+        return this.scanner.hasNext();
     }
 
     public void showLine() {
