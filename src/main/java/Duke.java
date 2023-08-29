@@ -1,7 +1,7 @@
-import java.sql.Array;
+import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Scanner;
+import java.io.File;
 
 // Solution below inspired by https://stackoverflow.com/questions/47150081/while-loop-for-multiple-inputs
 // Solution below inspired by ChatGPT, to solve the issue in the else block of incrementing the num_items counter to add
@@ -25,7 +25,16 @@ correct status icon, by creating a new task array of tasks instead of a string a
 // Solution below inspired from ChatGPT, seeked clarification if the enums have to be passed into the child classes of parent class Task's constructor
 
 public class Duke {
-    public static void main(String[] args) throws DukeException.NoSuchItemException, DukeException.ToDoException {
+
+    public static void main(String[] args) throws DukeException.NoSuchItemException, DukeException.ToDoException, IOException {
+        ArrayList<Task> tasks = new ArrayList<>();
+
+        try {
+            tasks = Saving.loadTasks(); // Load tasks from file
+        } catch (IOException e) {
+            System.out.println("Error loading tasks: " + e.getMessage());
+        }
+
         String separators = "____________________________________________________________";
         String text1 = " Hello! I'm Novo\n"
                 + " What can I do for you?\n" + separators
@@ -34,8 +43,7 @@ public class Duke {
         System.out.println(separators + "\n" + text1);
 
         Scanner sc = new Scanner(System.in);
-        ArrayList<Task> tasks = new ArrayList<>();
-        int num_items = 0;
+        int num_items = tasks.size();
 
         String user_text = sc.nextLine();
 
@@ -60,7 +68,7 @@ public class Duke {
                 } else if (user_text.equals("list")) {
                     System.out.println(separators);
                     System.out.println("Here are the tasks in your list:");
-                    for (int i = 0; i < num_items; i++) {
+                    for (int i = 0; i < tasks.size(); i++) {
                         System.out.println((i + 1) + "." + tasks.get(i).toString());
                     }
                     System.out.println(separators);
@@ -76,6 +84,7 @@ public class Duke {
                             System.out.println("Nice! I've marked this task as done:" + "\n"
                                     + tasks.get(index_toChange - 1).toString());
                             System.out.println(separators);
+                            Saving.saveTasks(tasks);
                         } else {
                             index_toChange = Integer.parseInt(split_commands[1]);
                             tasks.get(index_toChange - 1).markAsNotDone();
@@ -83,6 +92,7 @@ public class Duke {
                             System.out.println("OK, I've marked this task as not done yet:" + "\n"
                                     + tasks.get(index_toChange - 1).toString());
                             System.out.println(separators);
+                            Saving.saveTasks(tasks);
                         }
                     }
 
@@ -99,6 +109,7 @@ public class Duke {
                         num_items--;
                         System.out.println("Now you have " + num_items + " tasks in the list.");
                         System.out.println(separators);
+                        Saving.saveTasks(tasks);
                     }
 
                 } else if (user_text.contains("todo")) {
@@ -106,11 +117,13 @@ public class Duke {
                     String clean_text = user_text.replaceFirst("todo", "");
                     if (split_command[0].equals("todo")) {
                         tasks.add(new Todo(clean_text));
+                        Saving.saveTasks(tasks);
                         num_items++;
                         System.out.println(separators);
-                        System.out.println("Got it. I've added this task:" + "\n" + tasks.get(num_items - 1).toString());
+                        System.out.println("Got it. I've added this task:" + "\n" + tasks.get(num_items-1).toString());
                         System.out.println("Now you have " + num_items + " tasks in the list.");
                         System.out.println(separators);
+
                     }
 
                 } else if (user_text.contains("deadline")) {
@@ -121,6 +134,7 @@ public class Duke {
 
                     if (split_the_command[0].equals("deadline")) {
                         tasks.add(new Deadline(the_description, the_by.replaceFirst("by", "by:")));
+                        Saving.saveTasks(tasks);
                         num_items++;
                         System.out.println(separators);
                         System.out.println("Got it. I've added this task:" + "\n" + tasks.get(num_items - 1).toString());
@@ -136,14 +150,17 @@ public class Duke {
 
                     if (split_the_command[0].equals("event")) {
                         tasks.add(new Event(the_description, the_from, the_to));
+                        Saving.saveTasks(tasks);
                         num_items++;
                         System.out.println(separators);
                         System.out.println("Got it. I've added this task:" + "\n" + tasks.get(num_items - 1).toString());
                         System.out.println("Now you have " + num_items + " tasks in the list.");
                         System.out.println(separators);
+                        Saving.saveTasks(tasks);
                     }
                 } else {
                     tasks.add(new Task(user_text, Task.Type.OTHERS));
+                    Saving.saveTasks(tasks);
                     num_items++;
                     System.out.println(separators + "\n" + "added: " + user_text + "\n" + separators);
                 }
