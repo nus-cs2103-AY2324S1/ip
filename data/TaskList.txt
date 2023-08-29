@@ -1,1 +1,2 @@
-[D] | 0 | return book | Dec 15 2019
+[T] | 0 | read book
+[D] | 1 | return book | sunday

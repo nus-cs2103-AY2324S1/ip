@@ -12,4 +12,16 @@ public class ToDo extends Task {
     public String newFormat() {
         return this.symbol + " | " + this.getInt() + " | " + this.getName();
     }
+
+    @Override
+    public void execute(TaskList lst, Ui ui, Storage storage) {
+        lst.add(this);
+        this.confirmation(lst.size());
+        try {
+            storage.saveTasks(lst);
+        } catch (InvalidInputException e) {
+            ui.printException(e.getMessage());
+        }
+
+    }
 }

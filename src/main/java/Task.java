@@ -1,6 +1,8 @@
 abstract class Task {
     private String name;
     private boolean completed;
+    public static String doneCheckbox = "[X] ";
+    public static String undoneCheckbox = "[ ] ";
 
     public Task(String name) {
         this.name = name;
@@ -18,21 +20,17 @@ abstract class Task {
 
     public void setCompleted() {
         this.completed = true;
-        System.out.printf("Nice! I've marked this task as done: \n");
-        System.out.println(this.toString());
     }
 
     public void setUncompleted() {
         this.completed = false;
-        System.out.println("OK, I've marked this task as not done yet: ");
-        System.out.println(this.toString());
     }
 
     public String getCheckbox() {
         if (this.completed) {
-            return Duke.doneCheckbox;
+            return Task.doneCheckbox;
         } else {
-            return Duke.undoneCheckbox;
+            return Task.undoneCheckbox;
         }
     }
     abstract String newFormat();
@@ -49,8 +47,10 @@ abstract class Task {
         return s1 + this.toString() + "\n" + s2;
     }
 
-    public void removed() {
+    public String removed() {
         String s1 = "Noted. I've removed this task:";
-        System.out.println(s1 + "\n" + this.toString());
+        return(s1 + "\n" + this.toString());
     }
+
+    public void execute(TaskList lst, Ui ui, Storage storage) {};
 }

@@ -1,0 +1,94 @@
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+public class Storage {
+    private Ui ui = new Ui();
+    private String filePath;
+    private DateTimeFormatter timeFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+    public static String relativePath = "C:\\Users\\wenji\\OneDrive\\Desktop\\Y2S1\\CS2103T\\CS2103T projects\\ip\\data";
+    public Storage(String filePath) {
+        this.filePath = filePath;
+    }
+
+    public void saveTasks(TaskList lst) throws InvalidInputException {
+        try {
+            Path folderPath = Paths.get(relativePath);
+
+            if (!Files.exists(folderPath)) {
+                //file does not exist
+                System.out.println("Data folder does not exist, Creating one now");
+                try {
+                    Files.createDirectories(folderPath);
+                } catch (IOException e) {
+                    ui.printException(e.getMessage());
+                }
+            }
+
+            //folder does exist
+            Path filePath = Paths.get(relativePath , "TaskList.txt");
+            if (!Files.exists(filePath)) {
+                //file does not exist
+                System.out.println("File does not exist, Creating one now");
+                try {
+                    Files.createFile(filePath);
+                } catch (IOException e) {
+                    ui.printException(e.getMessage());
+                }
+            }
+            //file exists
+            File file = filePath.toFile();
+            FileWriter writer = new FileWriter(file, false);
+
+            for (int i = 0; i < lst.size(); i++) {
+                writer.write(lst.get(i).newFormat() + "\n");
+            }
+
+            writer.close();
+        } catch (IOException e) {
+            ui.printException(e.getMessage());
+        }
+    }
+
+    public List<Task> load() throws InvalidInputException {
+        List<Task> lst = new ArrayList<>();
+
+        try {
+            File file = new File(filePath);
+            Scanner sc = new Scanner(file);
+            while (sc.hasNext()) {
+                String info = sc.nextLine();
+                String[] taskDetails = info.split("\\|");
+                if (taskDetails[0].equals("[T]")) {
+                    Task tsk = new ToDo(taskDetails[2]);
+                    lst.add(tsk);
+                    if (taskDetails[1].equals("1")) {
+                        lst.get(lst.size() - 1).setCompleted();
+                    }
+                } else if (taskDetails[0].equals("[D]")) {
+                    lst.add(new Deadline(taskDetails[2], taskDetails[3]));
+                    if (taskDetails[1].equals("1")) {
+                        lst.get(lst.size() - 1).setCompleted();
+                    }
+                } else if (taskDetails[0].equals("[E]")) {
+                    lst.add(new Event(taskDetails[2], taskDetails[3], taskDetails[4]));
+                    if (taskDetails[1].equals("1")) {
+                        lst.get(lst.size() - 1).setCompleted();
+                    }
+                }
+            }
+            sc.close();
+        } catch (IOException e) {
+            ui.printException(e.getMessage());
+        }
+        return lst;
+    }
+
+}

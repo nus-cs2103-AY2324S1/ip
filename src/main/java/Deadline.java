@@ -1,4 +1,3 @@
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -32,4 +31,5 @@ public class Deadline extends Task {
     public String toString() {
         return this.symbol + this.getCheckbox() + this.getName() + " (by: " + deadline + ")";
     }
+
 }
