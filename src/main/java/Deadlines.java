@@ -1,9 +1,16 @@
-public class Deadlines extends Task{
-    protected String by;
+import java.time.LocalDate;
+import java.util.Objects;
 
-    public Deadlines(String description, String by) {
+public class Deadlines extends Task{
+    protected LocalDate by;
+
+    public Deadlines(String description, LocalDate by) {
         super(description);
         this.by = by;
+    }
+
+    public boolean isToday(LocalDate date) {
+        return (Objects.equals(this.by, date));
     }
 
     @Override
