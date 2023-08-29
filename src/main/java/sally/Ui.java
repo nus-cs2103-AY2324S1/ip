@@ -1,4 +1,4 @@
-package sally;// deals with interactions with the user
+package sally;
 
 import java.util.Scanner;
 
