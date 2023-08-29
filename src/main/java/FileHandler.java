@@ -1,6 +1,7 @@
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.Scanner;
 import java.io.FileWriter;
 import java.io.FileReader;
@@ -19,55 +20,48 @@ public class FileHandler {
     }
 
     // Checks for the data directory and alpha.txt. If one or both are not there, it creates them.
-    public void checkAndCreate(){
+    public void checkAndCreate() throws IOException {
         boolean directoryExists = java.nio.file.Files.exists(java.nio.file.Paths.get("data"));
         // Check if the file exists
         boolean dataExists = java.nio.file.Files.exists(java.nio.file.Paths.get("data", "alpha.txt"));
-        try {
-            if (!directoryExists) {
-                new File("data").mkdir();
-                created = alphaTxt.createNewFile();
-            } else if (!dataExists) {
-                created = alphaTxt.createNewFile();
-            }
-        } catch (IOException e) {
-            System.out.println("There was a problem reading data from the file.");
+        if (!directoryExists) {
+            new File("data").mkdir();
+            created = alphaTxt.createNewFile();
+        } else if (!dataExists) {
+            created = alphaTxt.createNewFile();
         }
     }
 
     // Reads information from file
-    public TaskList readFromFile() {
+    public TaskList readFromFile() throws FileNotFoundException {
         TaskList taskList = new TaskList();
         if (this.created) {
             return taskList;
         }
-        try {
-            Scanner sc = new Scanner(alphaTxt);
-            while (sc.hasNext()) {
-                String input = sc.nextLine();
-                String[] splitInput = input.split("\\|");
-                String type = splitInput[0];
-                String checked = splitInput[1];
-                String description = splitInput[2].trim();
-                Task task;
-                if (type.equals("T ")) {
-                    task = ToDo.makeToDo(description);
-                } else if (type.equals("D ")) {
-                    task = Deadline.makeDeadline(description, splitInput[3]);
-                } else {
-                    task = Event.makeEvent(description, splitInput[3], splitInput[4]);
-                }
-                if (checked.equals("X")) {
-                    assert task != null;
-                    task.mark();
-                }
-                taskList.add(task);
+        Scanner sc = new Scanner(alphaTxt);
+        while (sc.hasNext()) {
+            String input = sc.nextLine();
+            String[] splitInput = input.split("\\|");
+            String type = splitInput[0];
+            String checked = splitInput[1];
+            String description = splitInput[2];
+            Task task;
+            if (type.equals("T ")) {
+                task = ToDo.makeToDo(description);
+            } else if (type.equals("D ")) {
+                task = Deadline.makeDeadline(description, splitInput[3]);
+            } else {
+                task = Event.makeEvent(description, splitInput[3], splitInput[4]);
             }
-            return taskList;
-        } catch (FileNotFoundException e) {
-            System.out.println("The file could not be found");
-            return taskList;
+            if (checked.equals("X")) {
+                assert task != null;
+                task.mark();
+            }
+            if (task != null) {
+                taskList.add(task, true);
+            }
         }
+        return taskList;
     }
 
     // Saves Task to file whenever a Task is added
@@ -88,7 +82,7 @@ public class FileHandler {
             }
             this.writer.close();
         } catch (IOException e) {
-            System.out.println("I/O Exception");
+            System.out.println("Hello");
         }
     }
 
