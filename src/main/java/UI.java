@@ -56,4 +56,9 @@ public class UI {
         printLine();
         System.out.println(output);
     }
+
+    public void noFile() {
+        printLine();
+        System.out.println("OOPS!!! There is no file to load.");
+    }
 }

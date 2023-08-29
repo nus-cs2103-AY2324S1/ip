@@ -1,3 +1,5 @@
+import java.util.regex.Pattern;
+
 public class Task {
     protected String description;
     protected boolean isDone;
@@ -59,6 +61,30 @@ public class Task {
         } else {
             throw new UnknownCommandException("I'm sorry, but I don't know what that means :-C");
         }
+    }
+
+    public static Task createTaskFromSavedData(String data) {
+        String taskType = data.substring(2, 3);
+        String taskStatus = data.substring(6, 7);
+        String taskDescription = data.substring(10);
+        Task currentTask = null;
+        if (taskType.equals("T")) {
+            currentTask = new Todo(taskDescription);
+        } else if (taskType.equals("D")) {
+            String[] splittedData = taskDescription.split(Pattern.quote(" (by: "));
+            String taskEnd = splittedData[1].replace(")", "");
+            currentTask = new Deadlines(splittedData[0], taskEnd);
+        } else if (taskType.equals("E")) {
+            String[] splittedData = taskDescription.split(Pattern.quote(" (from: "));
+            String[] splittedDetails = splittedData[1].split(Pattern.quote(" to: "));
+            String taskStart = splittedDetails[0];
+            String taskEnd = splittedDetails[1].replace(")", "");
+            currentTask = new Events(splittedData[0], taskStart, taskEnd);
+        }
+        if (taskStatus.equals("x")) {
+            currentTask.markAsDone();
+        }
+        return currentTask;
     }
 
     @Override

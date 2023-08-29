@@ -1,23 +1,30 @@
 
 // fixing DukeException based on my understanding of exceptions 27/8/23
+import java.io.IOException;
 import java.util.Scanner;
 
 public class Duke {
     private UI helper;
     private TaskList tasks;
+    private Storage storage;
 
-    public Duke() {
+    public Duke(String filePath) {
         this.helper = new UI("DukeKing");
-        this.tasks = new TaskList();
+        try {
+            this.storage = new Storage(filePath);
+            this.tasks = new TaskList(storage.load());
+        } catch (Exception e) {
+            this.tasks = new TaskList();
+            helper.noFile();
+        }
     }
 
     public static void main(String[] args) {
-        new Duke().run();
+        new Duke("./dataTasks.txt").run();
     }
 
     public void run() {
         // welcome message
-
         helper.welcome();
 
         // setting up
@@ -98,6 +105,12 @@ public class Duke {
             }
             helper.printLine();
             string = sc.nextLine();
+        }
+        // saving the tasks
+        try {
+            storage.save(tasks);
+        } catch (IOException e) {
+            System.out.println("OOPS!!! There is no file to save.");
         }
         // end the program
         sc.close();
