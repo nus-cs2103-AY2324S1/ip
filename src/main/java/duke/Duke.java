@@ -2,11 +2,19 @@ package duke;
 
 import java.util.Scanner;
 
+/**
+ * Represents a chat bot that can keep track of tasks.
+ */
 public class Duke {
     private TaskList tasks;
     private final Storage storage;
     private final Ui ui;
 
+    /**
+     * Constructs a Duke object.
+     * Catches DukeException if there is an error loading the file.
+     * @param filePath Path to the file to be loaded.
+     */
     public Duke(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
@@ -18,6 +26,9 @@ public class Duke {
         }
     }
 
+    /**
+     * Runs the program.
+     */
     public void run() {
         // show introduction
         ui.showIntroduction();
@@ -116,6 +127,10 @@ public class Duke {
         }
     }
 
+    /**
+     * Provides the entry point for the program.
+     * @param args
+     */
     public static void main(String[] args) {
         // get new duke instance
         Duke duke = new Duke("data/tasks.txt");
