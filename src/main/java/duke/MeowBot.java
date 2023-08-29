@@ -8,12 +8,24 @@ import duke.helper.*;
 import duke.command.*;
 public class MeowBot {
 
-    enum TaskType {Event, Deadline, Todo};
-    String lines, filename;
-    FileWriter writer;
+    /**
+     * field filename is the place where the data txt file is located
+     * field storage is the class that handles with the storing and updating of the txt file
+     * field tasks is the class that stores the tasks
+     * field ui is the class that deals with the user interactions
+     */
+
+    String filename;
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
+
+    /**
+     *
+     * @param file location of the file where data is stored
+     * @throws DukeException when generating the tasks back from the data file
+     * @throws IOException when the data file cannot be found
+     */
 
     public MeowBot(String file) throws DukeException, IOException {
         this.ui = new Ui();
@@ -31,6 +43,11 @@ public class MeowBot {
         }
 
     }
+
+    /**
+     *
+     * @throws DukeException when the command is not valid or has wrong parameters
+     */
 
     public void run() throws DukeException {
         ui.greet();

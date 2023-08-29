@@ -4,23 +4,45 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class TaskList {
+
+    /**
+     * field tasklist stores the ArrayList of tasks
+     * field lines stores the String of lines
+     */
     ArrayList<Task> tasklist;
     String lines;
 
+    /**
+     * constructor for TaskList
+     */
     public TaskList() {
         this.lines = "______________________________";
     }
 
+    /**
+     *
+     * @param prevTasks loads the previous tasks from the txt file
+     */
     public TaskList(ArrayList<Task> prevTasks) {
         this.tasklist = prevTasks;
         this.lines = "______________________________";
     }
+
+    /**
+     *
+     * @param task takes in the task generated and stores into the ArrayList
+     */
     public void addTask(Task task) {
         tasklist.add(task);
         System.out.println("MEOW got it. I've added this task:\n   " + task);
         System.out.println("Now you have " + this.tasklist.size() + " meow-tasks in the list.");
         System.out.println(lines);
     }
+
+    /**
+     *
+     * @param tasknumber takes in the index of the task to be marked as completed
+     */
 
     public void markTask(int tasknumber) {
         Task wantedtask = this.tasklist.get(tasknumber - 1); //account for 0 indexing
@@ -30,6 +52,11 @@ public class TaskList {
         System.out.println(lines);
 
     }
+
+    /**
+     *
+     * @param tasknumber takes in the index of the tasknumber to be marked as uncompleted
+     */
     public void unmarkTask(int tasknumber) {
         Task wantedtask = this.tasklist.get(tasknumber - 1); //account for 0 indexing
         wantedtask.markUncompleted();
@@ -39,6 +66,11 @@ public class TaskList {
 
     }
 
+    /**
+     *
+     * @param tasknumber takes in the index of the tasknumber to be deleted
+     */
+
     public void deleteTask(int tasknumber) {
         Task wantedtask = this.tasklist.get(tasknumber - 1);
         this.removeTask(tasknumber - 1); //this would also be the line number to delete in the txt file
@@ -47,7 +79,9 @@ public class TaskList {
         System.out.println("Now you have " + this.tasklist.size() + " meow-tasks in the list.");
         System.out.println(lines);
     }
-
+    /**
+     * displays the tasks in a proper format for the String format
+     */
     public void display() {
         System.out.println(lines);
         System.out.println("Meoowww here are your tasks");
@@ -57,17 +91,27 @@ public class TaskList {
         System.out.println(lines);
     }
 
-    void removeTask(int taskNumber) {
+    /**
+     *
+     * @param taskNumber removes task at the given index
+     */
+
+    private void removeTask(int taskNumber) {
         this.tasklist.remove(taskNumber);
     }
 
-    public int size() {
-        return tasklist.size();
-    }
+//    public int size() {
+//        return tasklist.size();
+//    }
+//
+//    public Task get(int num) {
+//        return tasklist.get(num - 1);
+//    }
 
-    public Task get(int num) {
-        return tasklist.get(num - 1);
-    }
+    /**
+     *
+     * @return String format for the TaskList given
+     */
 
     public String totxtformat() {
         String res = "";
