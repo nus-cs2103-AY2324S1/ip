@@ -1,9 +1,13 @@
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+import java.util.stream.Collectors;
 
 public class Duke {
     private static final String INDENT = "    ";
@@ -11,7 +15,7 @@ public class Duke {
     private static final String FILE_PATH = "./data/duke.txt";
 
     private enum Command {
-        BYE, LIST, TODO, DEADLINE, EVENT, MARK, UNMARK, DELETE, UNKNOWN
+        BYE, LIST, TODO, DEADLINE, EVENT, MARK, UNMARK, DELETE, TASKS_ON_DATE, UNKNOWN
     }
 
     public static void printGreeting() {
@@ -65,6 +69,7 @@ public class Duke {
         if (input.startsWith("mark")) return Command.MARK;
         if (input.startsWith("unmark")) return Command.UNMARK;
         if (input.startsWith("delete")) return Command.DELETE;
+        if (input.startsWith("tasks on")) return Command.TASKS_ON_DATE;
         return Command.UNKNOWN;
     }
 
@@ -127,6 +132,19 @@ public class Duke {
         }
     }
 
+    private static void printTasksOnDate(List<Task> tasksOnDate, LocalDate date) {
+        printHorizontalLine();
+        if (tasksOnDate.isEmpty()) {
+            printIndented("No tasks on " + date);
+            return;
+        }
+        printIndented("Here are the tasks on " + date + ":");
+        for (Task task : tasksOnDate) {
+            printIndented(task.toString());
+        }
+        printHorizontalLine();
+    }
+
     public static void echoMessages() {
         Scanner scanner = new Scanner(System.in);
         String input;
@@ -172,7 +190,7 @@ public class Duke {
                     case EVENT:
                         String[] eventParts = input.substring(6).split(" /from ");
                         String[] timeParts = eventParts[1].split(" /to ");
-                        if (eventParts.length < 2 || timeParts.length < 2) {
+                        if (timeParts.length < 2) {
                             throw new DukeException("Event format is incorrect.");
                         }
                         Event event = new Event(eventParts[0], timeParts[0], timeParts[1]);
@@ -206,6 +224,16 @@ public class Duke {
                         saveTasks();
                         break;
 
+                    case TASKS_ON_DATE:
+                        LocalDate givenDate = getLocalDate(input);
+                        List<Task> tasksOnGivenDate = tasks.stream()
+                                .filter(task ->
+                                        (task instanceof Deadline && ((Deadline) task).getBy().toLocalDate().isEqual(givenDate)) ||
+                                                (task instanceof Event && isWithinEventDate((Event) task, givenDate)))
+                                .collect(Collectors.toList());
+                        printTasksOnDate(tasksOnGivenDate, givenDate);
+                        break;
+
                     default:
                         throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
                 }
@@ -215,6 +243,27 @@ public class Duke {
 
             printHorizontalLine();
         }
+    }
+
+    private static LocalDate getLocalDate(String input) throws DukeException {
+        String[] dateParts = input.split(" ");
+        if (dateParts.length < 3) {
+            throw new DukeException("Please provide a valid date in the format d/M/yyyy.");
+        }
+        LocalDate givenDate;
+        try {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy");
+            givenDate = LocalDate.parse(dateParts[2], formatter);
+        } catch (DateTimeParseException e) {
+            throw new DukeException("Invalid date format. Please use d/M/yyyy.");
+        }
+        return givenDate;
+    }
+
+    private static boolean isWithinEventDate(Event event, LocalDate date) {
+        LocalDate startDate = event.getFrom().toLocalDate();
+        LocalDate endDate = event.getTo().toLocalDate();
+        return (date.isEqual(startDate) || date.isEqual(endDate) || (date.isAfter(startDate) && date.isBefore(endDate)));
     }
 
     public static void main(String[] args) {

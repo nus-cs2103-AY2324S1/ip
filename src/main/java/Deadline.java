@@ -1,19 +1,33 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 public class Deadline extends Task {
-    private String by;
+    private LocalDateTime by;
 
     public Deadline(String description, String by) {
         super(description);
-        this.by = by;
+        try {
+            this.by = LocalDateTime.parse(by, DateTimeFormatter.ofPattern("d/M/yyyy HHmm"));
+        } catch (DateTimeParseException e) {
+            // Handle invalid date format exception here
+            System.out.println("Invalid date format provided. Please use the format d/M/yyyy HHmm.");
+        }
+    }
+
+    public LocalDateTime getBy() {
+        return by;
     }
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + by + ")";
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy, h:mm a");
+        return "[D]" + super.toString() + " (by: " + by.format(formatter) + ")";
     }
 
     @Override
     public String toFileString() {
-        return "D | " + (isDone ? "1" : "0") + " | " + description + " | " + by;
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
+        return "D | " + (isDone ? "1" : "0") + " | " + description + " | " + by.format(formatter);
     }
 }
-
