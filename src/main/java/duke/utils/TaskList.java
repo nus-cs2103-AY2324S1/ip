@@ -89,6 +89,16 @@ public class TaskList {
         }
     }
 
+    public TaskList filterTasks(String searchTerm) {
+        ArrayList<Task> filteredTasks = new ArrayList<>();
+        for (Task task : tasks) {
+            if (task.getDescription().contains(searchTerm)) {
+                filteredTasks.add(task);
+            }
+        }
+        return new TaskList(filteredTasks);
+    }
+
     @Override
     public String toString() {
         StringBuilder message = new StringBuilder();

@@ -84,6 +84,14 @@ public class Parser {
         }
     }
 
+    public String getSearchTerm() throws DukeException {
+        try {
+            return String.join(" ", this.inputArray.subList(1, this.inputArray.size()));
+        } catch (IndexOutOfBoundsException e) {
+            throw new DukeException();
+        }
+    }
+
     public Task parseTask(String line) throws DukeException {
         String[] split = line.split("\\|");
         String type = split[0];
