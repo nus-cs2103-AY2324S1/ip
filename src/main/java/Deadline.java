@@ -1,10 +1,14 @@
 package main.java;
+
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 /**
  * Represents a deadline task, which is a task that need to be done before a specific date/time.
  */
 public class Deadline extends Task {
-    private String by;
 
+    private LocalDate byDate;
 
     /**
      * Constructs a Deadline object with the specified description and deadline time.
@@ -14,21 +18,23 @@ public class Deadline extends Task {
      */
     public Deadline(String description, String by) {
         super(description);
-        this.by = by;
+        this.byDate = LocalDate.parse(by);
     }
     public Deadline(String description, String by, Boolean bool) {
         super(description, bool);
-        this.by = by;
+        this.byDate = LocalDate.parse(by);
     }
 
+    // Adapted from https://www.baeldung.com/java-8-date-time-intro
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + by + ")";
+        LocalDate tmp = this.byDate;
+        return "[D]" + super.toString() + " (by: " + tmp.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
     }
 
     @Override
     public String getSaveDescription() {
-        String tmp = "D " + super.getSaveDescription() + " | " + by + "\n";
+        String tmp = "D " + super.getSaveDescription() + " | " + this.byDate + "\n";
         return tmp;
     }
 }
