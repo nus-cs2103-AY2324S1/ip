@@ -31,6 +31,10 @@ public class Duke {
                 break;
             } else if (userInput.equalsIgnoreCase("list")) {
                 Ui.showList(taskList);
+            } else if (userInput.startsWith("find")) {
+                // Give users a way to find a task by searching for a keyword.
+                String keyword = userInput.substring("find".length()).trim();
+                taskList.findTasksByKeyword(keyword);
             } else {
                 Parser.parseAndAddTask(userInput, taskList);
             }

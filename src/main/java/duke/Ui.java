@@ -1,6 +1,7 @@
 package duke;
 
 import java.util.Scanner;
+import java.util.ArrayList;
 
 /**
  * Represents the user interface for interacting with the chatbot.
@@ -118,4 +119,19 @@ public class Ui {
         System.out.println("Bye. Hope to see you again soon!");
         System.out.println(LINE_SEPARATOR);
     }
+
+    /**
+     * Displays a list of tasks that match the given keyword to the user.
+     *
+     * @param matchingTasks The list of tasks that match the keyword.
+     */
+    public static void showMatchingTasks(ArrayList<Task> matchingTasks) {
+        System.out.println(LINE_SEPARATOR);
+        System.out.println("Here are the matching tasks in your list:");
+        for (int i = 0; i < matchingTasks.size(); i++) {
+            System.out.println(i + 1 + ". " + matchingTasks.get(i));
+        }
+        System.out.println(LINE_SEPARATOR);
+    }
+
 }

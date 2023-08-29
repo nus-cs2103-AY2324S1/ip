@@ -112,4 +112,22 @@ public class TaskList {
     public void setTasks(ArrayList<Task> taskList) {
         tasks.addAll(taskList);
     }
+
+    /**
+     * Finds tasks in the task list that match a given keyword and displays them to
+     * the user.
+     *
+     * @param keyword The keyword to search for in task descriptions.
+     */
+
+    public void findTasksByKeyword(String keyword) {
+        ArrayList<Task> matchingTasks = new ArrayList<>();
+        for (Task task : this.tasks) {
+            if (task.toSaveString().contains(keyword)) {
+                matchingTasks.add(task);
+            }
+        }
+
+        Ui.showMatchingTasks(matchingTasks);
+    }
 }
