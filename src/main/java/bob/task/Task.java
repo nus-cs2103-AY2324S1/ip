@@ -9,6 +9,10 @@ public class Task {
         this.name = name;
         this.done = false;
     }
+    
+    public String getName() {
+        return this.name;
+    }
 
     public void setDoneOrNot(boolean doneOrNot) {
         this.done = doneOrNot;
