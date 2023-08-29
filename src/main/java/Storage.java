@@ -2,6 +2,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -88,7 +89,8 @@ public class Storage {
                         this.tasks.add(newTodo);
                         break;
                     case "D":
-                        DeadlineTask newDeadline = new DeadlineTask(line[2], line[3]);
+                        LocalDate deadline = LocalDate.parse(line[3]);
+                        DeadlineTask newDeadline = new DeadlineTask(line[2], deadline);
                         if (taskIsDone) {
                             newDeadline.complete();
                         }
