@@ -95,8 +95,9 @@ public class Ui {
             output.append("\n").append(i).append(". ").append(val);
             i++;
         }
-
+        System.out.println(DIVIDER);
         System.out.println(output);
+        System.out.println(DIVIDER);
 
     }
     public void customReply() {
