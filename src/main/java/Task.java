@@ -1,12 +1,19 @@
+import java.io.FileWriter;
+import java.io.IOException;
+
 public abstract class Task {
 
     private String task;
-    private boolean isDone;
+    protected boolean isDone;
 
 
     public Task(String task) {
         this.task = task;
         this.isDone = false;
+    }
+    public Task(String task, boolean isDone) {
+        this.task = task;
+        this.isDone = isDone;
     }
 
     public String getStatusIcon() {
@@ -31,4 +38,10 @@ public abstract class Task {
         System.out.println("\tOk, I've marked this task as not done yet:\n\t\t" + this);
         Duke.printLine();
     }
+
+    public String getTask() {
+        return this.task;
+    }
+
+    public abstract void writeToFile(FileWriter fw) throws IOException;
 }
