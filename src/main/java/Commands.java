@@ -1,5 +1,3 @@
-package peko;
-
 public enum Commands {
 
         ECHO,

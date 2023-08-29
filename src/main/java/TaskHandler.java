@@ -1,5 +1,3 @@
-package peko;
-
 import java.io.FileNotFoundException;
 
 public class TaskHandler {
