@@ -29,6 +29,7 @@ public class ChatCommand {
         UnmarkComplete,
 
         List,
+        Search,
         Exit,
 
         Unknown
@@ -179,6 +180,10 @@ public class ChatCommand {
             case "unmark": return this.type = Operation.UnmarkComplete;
 
             case "list": return this.type = Operation.List;
+
+            case "find":
+            case "search":
+                return this.type = Operation.Search;
 
             case "bye":
             case "exit":
