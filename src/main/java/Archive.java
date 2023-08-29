@@ -9,6 +9,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -20,6 +22,7 @@ import java.util.Scanner;
 public class Archive {
     protected List<Task> list;
     private final String filePath = "data/saved.txt";
+    private final String dateFormat = "dd/MM/yyyy HH:mm";
     /**
      * Constructs a new Archive object with an empty task list.
      */
@@ -115,7 +118,7 @@ public class Archive {
      * @throws MissingTitleException  If a task is missing its title.
      * @throws InvalidInputException  If the input doesn't match any valid task format.
      */
-    public void addTask(String input) throws EmptyDeadlineException, EmptyTodoException, EmptyEventException,
+    public void addTask(String input) throws InvalidDateFormatException, EmptyDeadlineException, EmptyTodoException, EmptyEventException,
             MissingByException, MissingFromException, MissingToException, MissingTitleException, InvalidInputException {
         Task added = null;
         if (input.startsWith("todo")) {
@@ -137,7 +140,7 @@ public class Archive {
             }
             String title = input.substring(9, index - 1);
             String dueDate = input.substring(index + 4);
-            added = new Deadline(title, dueDate, false);
+            added = new Deadline(title, parseDate(dueDate), false);
         } else if (input.startsWith("event")) {
             if (input.length() < 7) {
                 throw new EmptyEventException();
@@ -156,7 +159,7 @@ public class Archive {
             }
             String from = input.substring(fromIndex + 6, toIndex - 1);
             String to = input.substring(toIndex + 4);
-            added = new Event(title, from, to, false);
+            added = new Event(title, parseDate(from), parseDate(to), false);
         }
         if (added != null) {
             list.add(added);
@@ -173,22 +176,26 @@ public class Archive {
         boolean isMarked;
         int markedIndex = input.indexOf("|");
         isMarked = input.charAt(markedIndex + 1) == 1;
-        int titleIndex = input.indexOf("|", markedIndex + 1) + 1;
-        if (input.startsWith("T")) {
-            String title = input.substring(titleIndex);
-            list.add(new Todo(title, isMarked));
-        } else if (input.startsWith("D")) {
-            int byIndex = input.indexOf("|", titleIndex);
-            String title = input.substring(titleIndex, byIndex);
-            String dueDate = input.substring(byIndex + 1);
-            list.add(new Deadline(title,dueDate,isMarked));
-        } else {
-            int fromIndex = input.indexOf("|", titleIndex);
-            String title = input.substring(titleIndex, fromIndex);
-            int toIndex = input.indexOf("|", fromIndex + 1);
-            String from = input.substring(fromIndex + 1, toIndex);
-            String to = input.substring( toIndex + 1);
-            list.add(new Event(title,from,to,isMarked));
+        int titleIndex = input.indexOf("|", markedIndex + 1) + 2;
+        try {
+            if (input.startsWith("T")) {
+                String title = input.substring(titleIndex);
+                list.add(new Todo(title, isMarked));
+            } else if (input.startsWith("D")) {
+                int byIndex = input.indexOf("|", titleIndex);
+                String title = input.substring(titleIndex, byIndex);
+                String dueDateString = input.substring(byIndex + 2);
+                list.add(new Deadline(title,parseDate(dueDateString),isMarked));
+            } else {
+                int fromIndex = input.indexOf("|", titleIndex);
+                String title = input.substring(titleIndex, fromIndex);
+                int toIndex = input.indexOf("|", fromIndex + 1);
+                String from = input.substring(fromIndex + 2, toIndex);
+                String to = input.substring( toIndex + 2);
+                list.add(new Event(title,parseDate(from),parseDate(to),isMarked));
+            }
+        } catch (DukeException e) {
+            System.out.println(e.getMessage());
         }
     }
     public void save() {
@@ -200,6 +207,16 @@ public class Archive {
             fw.close();
         } catch (IOException e) {
             System.out.println(e.getMessage());
+        }
+    }
+
+    public LocalDateTime parseDate(String input) throws InvalidDateFormatException{
+        try {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern(dateFormat);
+            LocalDateTime dateTime = LocalDateTime.parse(input, formatter);
+            return dateTime;
+        } catch (Exception e) {
+            throw new InvalidDateFormatException();
         }
     }
 }
