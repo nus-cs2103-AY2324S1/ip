@@ -9,13 +9,26 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 
+/**
+ * Contains methods to access data memory from the hard drive.
+ */
 public class Storage {
     private File file;
 
+    /**
+     * Constructor for Storage class.
+     *
+     * @param filePath The filepath of the data to be accessed.
+     */
     public Storage(String filePath) {
         this.file = new File(filePath);
     }
 
+    /**
+     * Loads a taskList with data from a task file.
+     *
+     * @param taskList The taskList to be loaded with data.
+     */
     public void loadTaskFile(TaskList taskList) {
         try {
             if (!new File("data").isFile()) {
@@ -32,6 +45,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Writes data from the task list to the task file storage.
+     *
+     * @param taskList The taskList containing data to be written into the task file.
+     */
     public void writeTaskFile(TaskList taskList) {
         try {
             FileWriter writer = new FileWriter(this.file.getAbsoluteFile());

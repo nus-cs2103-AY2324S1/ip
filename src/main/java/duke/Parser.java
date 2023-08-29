@@ -8,6 +8,9 @@ import duke.tasks.ToDo;
 import duke.Exceptions.IncompleteDescriptionException;
 import duke.Exceptions.UnknownCommandException;
 
+/**
+ * Parses string input from the user.
+ */
 public class Parser {
 
     private enum CommandHeaders {
@@ -21,6 +24,13 @@ public class Parser {
         EVENT;
     }
 
+    /**
+     * Returns a task object parsed from string data stored in the hard disk.
+     *
+     * @param data The string containing information of the task stored in the hard disk.
+     * @return A task object configured accoriding to the information in the data string.
+     * @throws IncompleteDescriptionException If data is corrupted.
+     */
     public static Task dataToTask(String data) throws IncompleteDescriptionException {
         String[] dataArr = data.split(" \\| ");
         Task t;
@@ -44,6 +54,14 @@ public class Parser {
         return t;
     }
 
+    /**
+     * Parses a string containing the full Command of the user into a command.
+     *
+     * @param fullCommand The string containing the full command of the user.
+     * @return A Command object encapsulating the command of the user.
+     * @throws UnknownCommandException If the string fullCommand is unable to be parsed and recognised as a command.
+     * @throws IncompleteDescriptionException If the fullCommand is unable to be parsed fully.
+     */
     public static Command cmdFromString(String fullCommand) throws UnknownCommandException, IncompleteDescriptionException {
         String[] tmp = fullCommand.split(" ", 2);
         String cmdHdrString = tmp[0];
