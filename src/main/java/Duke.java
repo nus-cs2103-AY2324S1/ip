@@ -31,6 +31,12 @@ public class Duke {
     }
 
     public static void main(String[] args) {
+        try {
+            tasks = FileHandler.read();
+        } catch (DukeException e) {
+            printError(e.toString());
+        }
+
         Scanner input = new Scanner(System.in);
         print(helloString);
         String response = "";
@@ -106,6 +112,13 @@ public class Duke {
                 printError(e.toString());
             }
         }
+
+        try {
+            FileHandler.write(tasks);
+        } catch (DukeException e) {
+            printError(e.toString());
+        }
+
         print(byeString);
         input.close();
     }

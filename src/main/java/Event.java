@@ -46,4 +46,9 @@ public class Event extends Task {
     public String toString() {
         return String.format("[E]%s (from: %s to: %s)", super.toString(), this.from, this.to);
     }
+
+    @Override
+    public String exportToText() {
+        return String.format("event %s /from %s /to %s", super.exportToText(), this.from, this.to);
+    }
 }
