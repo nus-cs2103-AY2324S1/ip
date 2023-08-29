@@ -5,9 +5,11 @@ import java.util.regex.Pattern;
 
 public class Dates {
 
-    public static boolean checkDateinput(String date) {
+    static final Pattern datepattern = Pattern.compile("^(0?[1-9]|[12][0-9]|3[01])/(0?[1-9]|1[0-2])/(\\d{4}) (\\d{4}$)");
+    static final Pattern dateStringPattern = Pattern.compile("\\d{1,2} (January|February|March|April|May|June|July|August|September|October|November|December) \\d{4} \\d{2}:\\d{2}");
 
-        Matcher matcher = Duke.datepattern.matcher(date);
+    public static boolean checkDateinput(String date) {
+        Matcher matcher = Dates.datepattern.matcher(date);
         return matcher.matches();
     }
 

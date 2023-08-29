@@ -28,16 +28,10 @@ public class Commands {
      * This method Run the Scanner to begin taking inputs from user, and check to see which commands to run.
      *
      */
-    public static void Run(File file) {
+    public static void Run(Storage storage) {
         Scanner sc = new Scanner(System.in);
-        ItemList items = new ItemList(file);
-        try {
-            items.loadAll();
-        } catch (FileNotFoundException e) {
-            System.out.println(Greeting.linebreak);
-            System.out.println("List not found, empty list will be created");
-            System.out.println(Greeting.linebreak);
-        }
+        ItemList items = storage.getItems();
+
         boolean isRunning = true;
         do {
             if(!sc.hasNextLine()) {
@@ -62,6 +56,8 @@ public class Commands {
                             String digitString = matcher.group(1);
                             int number = Integer.parseInt(digitString);
                             items.markDone(number);
+                        } else {
+                            UI.printMessage("Invalid mark input");
                         }
                         break;
                     case UNMARK:
@@ -71,6 +67,8 @@ public class Commands {
                             String digitString = matcher.group(1);
                             int number = Integer.parseInt(digitString);
                             items.markUndone(number);
+                        } else {
+                            UI.printMessage("Invalid unmark input");
                         }
                         break;
                     case DELETE:
@@ -80,6 +78,8 @@ public class Commands {
                             String digitString = matcher.group(1);
                             int number = Integer.parseInt(digitString);
                             items.delete(number);
+                        } else {
+                            UI.printMessage("Invalid delete input");
                         }
                         break;
                     case DEADLINE:
@@ -121,13 +121,9 @@ public class Commands {
 
                 }
             } catch (DukeException e) {
-                System.out.println(Greeting.linebreak);
-                System.out.println(e.toString());
-                System.out.println(Greeting.linebreak);
+                UI.printMessage(e.getMessage());
             } catch (IllegalArgumentException e) {
-                System.out.println(Greeting.linebreak);
-                System.out.println("Invalid input");
-                System.out.println(Greeting.linebreak);
+                UI.printMessage("Invalid input");
             }
 
 

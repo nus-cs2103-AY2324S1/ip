@@ -19,6 +19,12 @@ public class ItemList {
         this.len = 0;
         this.file = file;
     }
+
+    public ItemList(File file, int len, ArrayList<Task> items) {
+        this.file = file;
+        this.items = items;
+        this.len = len;
+    }
     /**
      * This method add a Deadline task to the item list.
      *
@@ -29,16 +35,12 @@ public class ItemList {
     public void addDeadline(String name, String by) {
 
         if (name.equals("")) {
-            System.out.println(Greeting.linebreak);
-            System.out.println("Please enter an item");
-            System.out.println(Greeting.linebreak);
+            UI.printMessage("Please enter an item");
             return;
         }
 
         if (by.equals("")) {
-            System.out.println(Greeting.linebreak);
-            System.out.println("Please enter an end date");
-            System.out.println(Greeting.linebreak);
+            UI.printMessage("Please enter an end date");
             return;
         }
         Deadline deadline;
@@ -55,16 +57,12 @@ public class ItemList {
             this.len++;
             this.saveAll();
             System.out.println(Greeting.linebreak);
-            System.out.println("Got it. I've added this task:");
-            System.out.println(items.get(this.len - 1).showTaskinList());
-            System.out.println("Now you have " + String.valueOf(len) + " tasks in this list");
-            System.out.println(Greeting.linebreak);
+            UI.printMessage("Got it. I've added this task:",this.items.get(this.len-1).showTaskinList(),
+                    "Now you have " + String.valueOf(len) + " tasks in this list");
         } catch (IOException e) {
             this.items = copy;
             this.len--;
-            System.out.println(Greeting.linebreak);
-            System.out.println("Something wrong with the list file");
-            System.out.println(Greeting.linebreak);
+            UI.printFileError();
         }
 
 
@@ -78,9 +76,7 @@ public class ItemList {
     @SuppressWarnings("unchecked")
     public void addTodo(String newitem) {
         if (newitem.equals("")) {
-            System.out.println(Greeting.linebreak);
-            System.out.println("Please enter an item");
-            System.out.println(Greeting.linebreak);
+            UI.printMessage("Please enter an item");
             return;
         }
         ArrayList<Task> copy = (ArrayList<Task>) this.items.clone();
@@ -88,18 +84,13 @@ public class ItemList {
             this.items.add(new ToDo(newitem));
             this.len++;
             this.saveAll();
-            System.out.println(Greeting.linebreak);
-            System.out.println("Got it. I've added this task:");
-            System.out.println(this.items.get(this.len-1).showTaskinList());
-            System.out.println("Now you have " + String.valueOf(len) + " tasks in this list");
-            System.out.println(Greeting.linebreak);
+            UI.printMessage("Got it. I've added this task:",this.items.get(this.len-1).showTaskinList(),
+                    "Now you have " + String.valueOf(len) + " tasks in this list");
+
         } catch (IOException e) {
             this.items = copy;
             this.len--;
-            System.out.println(e.getMessage());
-            System.out.println(Greeting.linebreak);
-            System.out.println("Something wrong with the list file");
-            System.out.println(Greeting.linebreak);
+            UI.printFileError();
         }
     }
     /**
@@ -113,23 +104,17 @@ public class ItemList {
     public void addEvent(String newitem, String from, String to) {
 
         if (newitem.equals("")) {
-            System.out.println(Greeting.linebreak);
-            System.out.println("Please enter an item");
-            System.out.println(Greeting.linebreak);
+            UI.printMessage("Please enter an item");
             return;
         }
 
         if (from.equals("")) {
-            System.out.println(Greeting.linebreak);
-            System.out.println("Please enter a start date");
-            System.out.println(Greeting.linebreak);
+            UI.printMessage("Please enter a start date");
             return;
         }
 
         if (to.equals("")) {
-            System.out.println(Greeting.linebreak);
-            System.out.println("Please enter a end date");
-            System.out.println(Greeting.linebreak);
+            UI.printMessage("Please enter an end date");
             return;
         }
         Event event;
@@ -143,17 +128,12 @@ public class ItemList {
             this.items.add(event);
             this.len++;
             this.saveAll();
-            System.out.println(Greeting.linebreak);
-            System.out.println("Got it. I've added this task:");
-            System.out.println(this.items.get(this.len-1).showTaskinList());
-            System.out.println("Now you have " + String.valueOf(len) + " tasks in this list");
-            System.out.println(Greeting.linebreak);
+            UI.printMessage("Got it. I've added this task:", this.items.get(this.len-1).showTaskinList()
+            ,"Now you have " + String.valueOf(len) + " tasks in this list");
         } catch (IOException e) {
             this.items = copy;
             this.len--;
-            System.out.println(Greeting.linebreak);
-            System.out.println("Something wrong with the list file");
-            System.out.println(Greeting.linebreak);
+            UI.printFileError();
         }
 
 
@@ -165,18 +145,10 @@ public class ItemList {
      */
     public void showitems() {
         if (this.len <= 0) {
-            System.out.println(Greeting.linebreak);
-            System.out.println("No item in the list.");
-            System.out.println(Greeting.linebreak);
+            UI.printMessage("No item in the list.");
             return;
         }
-        System.out.println(Greeting.linebreak);
-        System.out.println("Here are the tasks in your list:");
-        for(int i = 0; i < this.len; i++) {
-            String index = String.valueOf(i + 1);
-            System.out.println(index + ". " + this.items.get(i).showTaskinList());
-        }
-        System.out.println(Greeting.linebreak);
+        UI.printList(this.items);
     }
 
     /**
@@ -189,23 +161,16 @@ public class ItemList {
     public void markDone(int index) {
         int i = index - 1;
         if (i < 0 || i >= this.len) {
-            System.out.println(Greeting.linebreak);
-            System.out.println("No such Task");
-            System.out.println(Greeting.linebreak);
+            UI.NoSuchTaskError();
             return;
         }
         try {
             this.items.get(i).setDone();
             this.saveAll();
-            System.out.println(Greeting.linebreak);
-            System.out.println("Nice! I've marked this task as done:");
-            System.out.println(this.items.get(i).showTaskinList());
-            System.out.println(Greeting.linebreak);
+            UI.printMessage("Nice! I've marked this task as done:", this.items.get(i).showTaskinList());
         } catch (IOException e) {
             this.items.get(i).setUndone();
-            System.out.println(Greeting.linebreak);
-            System.out.println("Something wrong with the list file");
-            System.out.println(Greeting.linebreak);
+            UI.printFileError();
         }
 
     }
@@ -219,24 +184,18 @@ public class ItemList {
     public void markUndone(int index) {
         int i = index - 1;
         if (i < 0 || i >= this.len) {
-            System.out.println(Greeting.linebreak);
-            System.out.println("No such Task");
-            System.out.println(Greeting.linebreak);
+            UI.NoSuchTaskError();
             return;
         }
 
         try {
             this.items.get(i).setUndone();
             this.saveAll();
-            System.out.println(Greeting.linebreak);
-            System.out.println("OK, I've marked this task as not done yet:");
-            System.out.println(this.items.get(i).showTaskinList());
-            System.out.println(Greeting.linebreak);
+            UI.printMessage("OK, I've marked this task as not done yet:",this.items.get(i).showTaskinList());
         } catch (IOException e) {
             this.items.get(i).setDone();
-            System.out.println(Greeting.linebreak);
-            System.out.println("Something wrong with the list file");
-            System.out.println(Greeting.linebreak);
+            UI.printFileError();
+
         }
 
     }
@@ -249,9 +208,7 @@ public class ItemList {
     @SuppressWarnings("unchecked")
     public void delete(int index) {
         if(this.len <= 0) {
-            System.out.println(Greeting.linebreak);
-            System.out.println("Nothing to delete");
-            System.out.println(Greeting.linebreak);
+            UI.printMessage("Nothing to Delete");
             return;
         }
         ArrayList<Task> copy = (ArrayList<Task>) this.items.clone();
@@ -260,16 +217,11 @@ public class ItemList {
             this.items.remove(index-1);
             this.len--;
             this.saveAll();
-            System.out.println(Greeting.linebreak);
-            System.out.println("Noted. I've removed this task:");
-            System.out.println(todelete);
-            System.out.println(Greeting.linebreak);
+            UI.printMessage("Noted. I've removed this task:", todelete);
         } catch (IOException e) {
             this.items = copy;
             this.len++;
-            System.out.println(Greeting.linebreak);
-            System.out.println("Something wrong with the list file");
-            System.out.println(Greeting.linebreak);
+            UI.printFileError();
         }
 
 
@@ -289,63 +241,7 @@ public class ItemList {
             writer.close();
     }
 
-    public void loadAll() throws FileNotFoundException {
-        Scanner s = new Scanner(file);
-        while (s.hasNext()) {
-            String line = s.nextLine();
-            if (line.charAt(0) == 'T') {
-                String[] para = line.split(" | ");
-                String description = para[4];
-                ToDo newtask = new ToDo(description);
-                if (!para[2].equals("0")) {
-                    newtask.setDone();
-                }
-                this.items.add(newtask);
-                this.len++;
-                continue;
-            }
-            if (line.charAt(0) == 'D') {
-                String[] para = line.split(" \\| ", 4);
-                String description = para[2];
-                String by = para[3];
-                Deadline newtask;
-                if (Dates.checkDateString(by)) {
-                    newtask = new Deadline(description, Dates.createDateTime(by));
-                } else {
-                    newtask = new Deadline(description, by);
-                }
 
-                if (!para[1].equals("0")) {
-                    newtask.setDone();
-                }
-                this.items.add(newtask);
-                this.len++;
-                continue;
-            }
-
-
-            if(line.charAt(0) == 'E') {
-                String[] para = line.split(" \\| ", 4);
-                String description = para[2];
-                String block = para[3];
-                String[] fromTo = block.split(" to ", 2);
-                Event newtask;
-                if (Dates.checkDateString(fromTo[0]) && Dates.checkDateString(fromTo[1])) {
-                    newtask = new Event(description, Dates.createDateTime(fromTo[0]),
-                            Dates.createDateTime(fromTo[1]));
-                } else {
-                    newtask = new Event(description, fromTo[0],fromTo[1]);
-                }
-
-                if (!para[1].equals("0")) {
-                    newtask.setDone();
-                }
-                this.len++;
-                this.items.add(newtask);
-            }
-        }
-        s.close();
-    }
 
 
 
