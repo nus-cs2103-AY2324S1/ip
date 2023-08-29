@@ -90,11 +90,6 @@ public class Parser {
                         throw new DukeException("I apologise, sir. " +
                                 "But the description and deadline cannot be empty");
                     } else {
-                        try {
-                            storage.appendToFile( text + "\n");
-                        } catch (IOException e) {
-                            ui.sendMessage("Something went wrong: " + e.getMessage());
-                        }
 
                         String deadlineText = splitText[1].substring(3);
                         try{
@@ -111,9 +106,11 @@ public class Parser {
                         } catch (DateTimeParseException e) {
                         throw new DukeException("Invalid Date Format: should be YYYY-MM-DDTTime. " +
                                 "Example: 2023-12-12T06:30:00");
-                    }
-
-
+                    } try {
+                            storage.appendToFile( text + "\n");
+                        } catch (IOException e) {
+                            System.out.println("Something went wrong: " + e.getMessage());
+                        }
                     }
                 } else if (text.startsWith("event")) {
                     String[] splitText = text.split("/");
@@ -123,11 +120,6 @@ public class Parser {
                                 "But the description, start and end cannot be empty");
 
                     } else {
-                        try {
-                            storage.appendToFile( text + "\n");
-                        } catch (IOException e) {
-                            ui.sendMessage("Something went wrong: " + e.getMessage());
-                        }
                         String startText = splitText[1].trim().substring(5);
                         String endText = splitText[2].trim().substring(3);
 
@@ -149,6 +141,10 @@ public class Parser {
                         } catch (DateTimeParseException e) {
                             throw new DukeException("Invalid Date Format: should be YYYY-MM-DDTTime. " +
                                     "Example: 2023-12-12T06:30:00");
+                        } try {
+                            storage.appendToFile( text + "\n");
+                        } catch (IOException e) {
+                            System.out.println("Something went wrong: " + e.getMessage());
                         }
                     }
 
