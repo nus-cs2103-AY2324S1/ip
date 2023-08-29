@@ -1,4 +1,4 @@
-package Tasks;
+package Duke.Tasks;
 
 /**
  * Represents a todo task in the Duke application.
