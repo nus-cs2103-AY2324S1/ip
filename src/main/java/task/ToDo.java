@@ -14,6 +14,11 @@ public class ToDo extends Task {
         super(description);
     }
 
+    @Override
+    public String toDataRepresentation() {
+        return "T|" + super.toDataRepresentation();
+    }
+
     /**
      * A string representation of a task.ToDo.
      * Uses an extra [T] to represent a task.ToDo.

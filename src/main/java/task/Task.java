@@ -53,6 +53,18 @@ public abstract class Task {
     }
 
     /**
+     * The representation of the task to be used in the data.
+     * @return Data representation of the task
+     */
+    public String toDataRepresentation() {
+        if (this.isDone) {
+            return "1|" + this.description;
+        } else {
+            return "0|" + this.description;
+        }
+    }
+
+    /**
      * Shows the string representation of a task by its status and name.
      * @return the String representing the task
      */

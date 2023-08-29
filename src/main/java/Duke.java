@@ -5,6 +5,8 @@ import exceptions.DukeUnknownCommandException;
 
 import command.Command;
 
+import storage.Storage;
+
 import task.Deadline;
 import task.Event;
 import task.Task;
@@ -20,11 +22,7 @@ import java.util.Scanner;
  * @author Andrew Daniel Janong
  */
 public class Duke {
-
-    /**
-     * The array of tasks to keep track of the users' tasks.
-     */
-    private static final List<Task> tasks = new ArrayList<>();
+    private static Storage storage = new Storage();
 
     /**
      * A line used as a line break.
@@ -61,11 +59,7 @@ public class Duke {
             newTask = new Event(eventInfo[0], eventTime[0], eventTime[1]);
         }
 
-        Duke.tasks.add(newTask);
-
-        System.out.println("\t Got it. I've added this task:\n" +
-                "\t\t" + newTask + "\n" +
-                "\t Now you have " + Duke.tasks.size() + " tasks in your list. Good luck!");
+        Duke.storage.addTask(newTask);
     }
 
     /**
@@ -75,24 +69,13 @@ public class Duke {
      * @param taskIndex
      */
     private static void editTask (Command command, int taskIndex) {
-        Task task = Duke.tasks.get(taskIndex - 1);
 
         if (command == Command.DELETE) {
-            tasks.remove(taskIndex - 1);
-
-            System.out.println("\t Noted. I've removed this task:\n" +
-                    "\t\t" + task + "\n" +
-                    "\t Now you have " + Duke.tasks.size() + " tasks in your list. Good luck!");
+            Duke.storage.deleteTask(taskIndex);
         } else if (command == Command.MARK) {
-            task.markAsDone();
-
-            System.out.println("\t Nice job! I've marked this task as done:");
-            System.out.println("\t\t " + task);
+            Duke.storage.markTask(taskIndex);
         } else if (command == Command.UNMARK) {
-            task.markAsNotDone();
-
-            System.out.println("\t What happened? I've marked this task as not done yet:");
-            System.out.println("\t\t " + task);
+            Duke.storage.unmarkTask(taskIndex);
         }
     }
 
@@ -103,10 +86,7 @@ public class Duke {
      */
     private static void executeSingleCommand(Command command) {
         if (command == Command.LIST) {
-            System.out.println("\t Here are the tasks in your list:");
-            for (int i = 0; i < Duke.tasks.size(); i++) {
-                System.out.println("\t " + (i + 1) + "." + Duke.tasks.get(i));
-            }
+            System.out.println(Duke.storage);
         } else if (command == Command.BYE) {
             System.out.println("\t Bye. Hope to see you again soon!");
         }
@@ -146,11 +126,11 @@ public class Duke {
             }
 
             try {
-                if (Integer.parseInt(inputs[1]) <= 0 || Integer.parseInt(inputs[1]) > tasks.size()) {
-                    throw new DukeInvalidIndexException(Integer.toString(tasks.size()));
+                if (!Duke.storage.checkIndexValidity(Integer.parseInt(inputs[1]))) {
+                    throw new DukeInvalidIndexException(Integer.toString(Duke.storage.getTasksSize()));
                 }
             } catch (NumberFormatException e) {
-                throw new DukeInvalidIndexException(Integer.toString(tasks.size()));
+                throw new DukeInvalidIndexException(Integer.toString(Duke.storage.getTasksSize()));
             }
 
             Duke.editTask(Command.DELETE, Integer.parseInt(inputs[1]));
@@ -162,11 +142,11 @@ public class Duke {
             }
 
             try {
-                if (Integer.parseInt(inputs[1]) <= 0 || Integer.parseInt(inputs[1]) > tasks.size()) {
-                    throw new DukeInvalidIndexException(Integer.toString(tasks.size()));
+                if (!Duke.storage.checkIndexValidity(Integer.parseInt(inputs[1]))) {
+                    throw new DukeInvalidIndexException(Integer.toString(Duke.storage.getTasksSize()));
                 }
             } catch (NumberFormatException e) {
-                throw new DukeInvalidIndexException(Integer.toString(tasks.size()));
+                throw new DukeInvalidIndexException(Integer.toString(Duke.storage.getTasksSize()));
             }
 
             Duke.editTask(Command.MARK, Integer.parseInt(inputs[1]));
@@ -176,11 +156,11 @@ public class Duke {
             }
 
             try {
-                if (Integer.parseInt(inputs[1]) <= 0 || Integer.parseInt(inputs[1]) > tasks.size()) {
-                    throw new DukeInvalidIndexException(Integer.toString(tasks.size()));
+                if (!Duke.storage.checkIndexValidity(Integer.parseInt(inputs[1]))) {
+                    throw new DukeInvalidIndexException(Integer.toString(Duke.storage.getTasksSize()));
                 }
             } catch (NumberFormatException e) {
-                throw new DukeInvalidIndexException(Integer.toString(tasks.size()));
+                throw new DukeInvalidIndexException(Integer.toString(Duke.storage.getTasksSize()));
             }
 
             Duke.editTask(Command.UNMARK, Integer.parseInt(inputs[1]));
