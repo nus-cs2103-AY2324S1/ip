@@ -7,13 +7,18 @@ import java.io.FileReader;
 import java.io.BufferedReader;
 import java.io.File;
 
+import java.io.FileOutputStream;
+import java.io.ObjectOutputStream;
+import java.io.FileInputStream;
+import java.io.ObjectInputStream;
+
 import java.nio.file.Paths;
 
 public class Duke {
-    private static final ArrayList<Task> items = new ArrayList<>();
+    private static ArrayList<Task> items = new ArrayList<>();
     private static final String BAR = "____________________________________________________________";
 
-    private static final String DATA_PATH = "./data/duke.txt";
+    private static final String DATA_PATH = "./data/duke.ser";
 
     enum modifyStatus {
         MARK,
@@ -178,14 +183,12 @@ public class Duke {
         /*
         * Write data into DATA_PATH for CringeBot to store in
         * */
-        StringBuilder listOfTasks = new StringBuilder();
-        for (int i = 0; i < Duke.items.size(); i++) {
-            listOfTasks.append(String.format("%d.%s\n", i + 1, Duke.items.get(i)));
-        }
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(Duke.DATA_PATH))) {
-            writer.write(listOfTasks.toString());
+        try {
+            FileOutputStream fileOut = new FileOutputStream(Duke.DATA_PATH);
+            ObjectOutputStream objectOut = new ObjectOutputStream(fileOut);
+
+            objectOut.writeObject(Duke.items);
         } catch (IOException e) {
-            System.out.println("An error occurred while writing to the file.");
             e.printStackTrace();
         }
     }
@@ -201,59 +204,60 @@ public class Duke {
             if (!file.exists()) {
                 file.getParentFile().mkdirs();
                 file.createNewFile();
+                return;
             }
         } catch (IOException e) {
             System.out.println("An error occurred while creating the file.");
         }
 
-        // Reading the file
-        try (BufferedReader reader = new BufferedReader(new FileReader(Duke.DATA_PATH))) {
-            String line;
-            while ((line = reader.readLine()) != null) {
-                Duke.items.add(parseData(line));
-            }
-        } catch (IOException e) {
-            System.out.println("An error occurred while reading the file.");
-        } catch (DukeException e) {
-            System.out.println(e.getMessage());
+        // Loading the serialised object
+        try {
+            FileInputStream fileIn = new FileInputStream(Duke.DATA_PATH);
+            ObjectInputStream objectIn = new ObjectInputStream(fileIn);
+
+            @SuppressWarnings("unchecked")
+            ArrayList<Task> loadedList = (ArrayList<Task>) objectIn.readObject();
+            Duke.items = loadedList;
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
         }
     }
 
-    public static Task parseData(String content) throws DukeException {
-        /*
-          Extracts information from a line of content
-         */
-
-        content = content.split("\\.")[1];  // Removes the bullet point numbering
-        content = content.replaceAll("\\[", "");  // Removes the \\] character
-        String[] contentArray = content.split("]");  // Splits the content to extract data
-
-        if (contentArray.length <= 2) {
-            throw new DukeException("\u2639 OOPS!!! I'm sorry, but past chats cannot be loaded 1 :-(");
-        }
-        String taskType = contentArray[0];
-        boolean isMarked = contentArray[1].equals("X");
-        String taskContent = contentArray[2].strip();
-        Task newTask;
-
-        switch(taskType) {
-            case("T"):
-                newTask = new Todo(taskContent);
-                break;
-            case("E"):
-                newTask = new Event(taskContent);
-                break;
-            case("D"):
-                newTask = new Deadline(taskContent);
-                break;
-            default:
-                throw new DukeException("\u2639 OOPS!!! I'm sorry, but past chats cannot be loaded :-(");
-        }
-        if (isMarked) {
-            newTask.markTask();
-        }
-        return newTask;
-    }
+//    public static Task parseData(String content) throws DukeException {
+//        /*
+//          Extracts information from a line of content
+//         */
+//
+//        content = content.split("\\.")[1];  // Removes the bullet point numbering
+//        content = content.replaceAll("\\[", "");  // Removes the \\] character
+//        String[] contentArray = content.split("]");  // Splits the content to extract data
+//
+//        if (contentArray.length <= 2) {
+//            throw new DukeException("\u2639 OOPS!!! I'm sorry, but past chats cannot be loaded 1 :-(");
+//        }
+//        String taskType = contentArray[0];
+//        boolean isMarked = contentArray[1].equals("X");
+//        String taskContent = contentArray[2].strip();
+//        Task newTask;
+//
+//        switch(taskType) {
+//            case("T"):
+//                newTask = new Todo(taskContent);
+//                break;
+//            case("E"):
+//                newTask = new Event(taskContent);
+//                break;
+//            case("D"):
+//                newTask = new Deadline(taskContent);
+//                break;
+//            default:
+//                throw new DukeException("\u2639 OOPS!!! I'm sorry, but past chats cannot be loaded :-(");
+//        }
+//        if (isMarked) {
+//            newTask.markTask();
+//        }
+//        return newTask;
+//    }
 
     public static void main(String[] args) {
         Scanner scanObj = new Scanner(System.in);
