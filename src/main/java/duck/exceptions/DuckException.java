@@ -1,4 +1,4 @@
-package exceptions;
+package duck.exceptions;
 
 public class DuckException extends Exception {
 

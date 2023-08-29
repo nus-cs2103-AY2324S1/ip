@@ -1,10 +1,7 @@
-import duck.Parser;
-import duck.Storage;
-import duck.task.TaskList;
-import ui.Ui;
-import duck.IOHandler;
+package duck;
 
-import exceptions.DuckException;
+import duck.task.TaskList;
+import duck.ui.Ui;
 
 public class Duck {
     private Ui ui;

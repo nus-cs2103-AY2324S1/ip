@@ -1,7 +1,7 @@
 package duck;
 
 import duck.task.*;
-import exceptions.FileIOException;
+import duck.exceptions.FileIOException;
 
 
 import java.io.File;

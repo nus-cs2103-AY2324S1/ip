@@ -12,7 +12,7 @@ public class IOHandler {
 
     public void welcomeMessage() {
         divider();
-        System.out.println("Hello! I'm Duck");
+        System.out.println("Hello! I'm duck.Duck");
         System.out.println("What can I do for you?");
         divider();
     }

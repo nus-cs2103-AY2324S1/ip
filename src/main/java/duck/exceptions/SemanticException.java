@@ -1,4 +1,4 @@
-package exceptions;
+package duck.exceptions;
 
 public class SemanticException extends DuckException{
 

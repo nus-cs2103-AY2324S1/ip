@@ -1,4 +1,4 @@
-package ui;
+package duck.ui;
 
 public class Ui {
     public Ui() {}

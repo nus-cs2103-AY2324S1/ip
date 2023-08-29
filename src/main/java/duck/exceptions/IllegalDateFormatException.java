@@ -1,4 +1,4 @@
-package exceptions;
+package duck.exceptions;
 
 import java.time.format.DateTimeParseException;
 

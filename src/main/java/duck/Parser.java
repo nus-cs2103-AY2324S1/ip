@@ -1,10 +1,10 @@
 package duck;
 
 import duck.task.*;
-import exceptions.DuckException;
-import exceptions.IllegalDateFormatException;
-import exceptions.SemanticException;
-import exceptions.SyntaxException;
+import duck.exceptions.DuckException;
+import duck.exceptions.IllegalDateFormatException;
+import duck.exceptions.SemanticException;
+import duck.exceptions.SyntaxException;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
