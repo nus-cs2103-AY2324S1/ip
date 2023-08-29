@@ -16,7 +16,8 @@ public abstract class ShibaCommand {
         TODO,
         DEADLINE,
         EVENT,
-        DELETE
+        DELETE,
+        FIND
     }
 
     protected PersistentTaskList tasks;

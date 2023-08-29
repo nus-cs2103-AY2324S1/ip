@@ -2,6 +2,8 @@ package shiba.tasks;
 
 import shiba.exceptions.ShibaException;
 
+import java.util.List;
+
 /**
  * Interface for a persistent task list, that is, tasks can be saved between
  * runs of the program.
@@ -42,4 +44,12 @@ public interface PersistentTaskList {
      * @throws ShibaException If there is an error saving the tasks.
      */
     void save() throws ShibaException;
+
+    /**
+     * Finds tasks containing the specified keyword.
+     *
+     * @param keyword The keyword to search for.
+     * @return A list of tasks containing the specified keyword.
+     */
+    List<ShibaTask> findTasksWithKeyword(String keyword);
 }

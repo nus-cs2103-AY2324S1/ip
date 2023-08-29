@@ -37,7 +37,7 @@
     ____________________________________________________________
     ____________________________________________________________
      Woof! I've added this task:
-       [E][ ] VATSIM Ho Chih Minh - Singapore SeaLink (from: 23 Sep 2023 08:00PM to: 24 Sep 2023 12:00AM)
+       [E][ ] VATSIM Ho Chih Minh - Singapore SeaLink (from: 23 Sep 2023 8:00PM to: 24 Sep 2023 12:00AM)
      You now have 3 tasks in the list. Now gimme some treats.
     ____________________________________________________________
     ____________________________________________________________
@@ -54,7 +54,7 @@
     ____________________________________________________________
     ____________________________________________________________
      Woof! You have not done this task yet!
-       [E][ ] VATSIM Ho Chih Minh - Singapore SeaLink (from: 23 Sep 2023 08:00PM to: 24 Sep 2023 12:00AM)
+       [E][ ] VATSIM Ho Chih Minh - Singapore SeaLink (from: 23 Sep 2023 8:00PM to: 24 Sep 2023 12:00AM)
     ____________________________________________________________
     ____________________________________________________________
      Woof! Invalid task number! Please enter a positive integer.
@@ -68,7 +68,7 @@
     ____________________________________________________________
      1.[T][X] Do tutorials
      2.[D][ ] Prepare for CA1 (by: 14 Sep 2023)
-     3.[E][ ] VATSIM Ho Chih Minh - Singapore SeaLink (from: 23 Sep 2023 08:00PM to: 24 Sep 2023 12:00AM)
+     3.[E][ ] VATSIM Ho Chih Minh - Singapore SeaLink (from: 23 Sep 2023 8:00PM to: 24 Sep 2023 12:00AM)
     ____________________________________________________________
     ____________________________________________________________
      Woof! I don't know what that command is!
@@ -89,6 +89,16 @@
      Woof! I've deleted this task:
        [D][ ] Prepare for CA1 (by: 14 Sep 2023)
      You now have 2 tasks in the list. Some headpats please?
+    ____________________________________________________________
+    ____________________________________________________________
+     Woof! Please enter a keyword to search for!
+    ____________________________________________________________
+    ____________________________________________________________
+     Woof! Here are the tasks containing the keyword!
+     1.[T][X] Do tutorials
+    ____________________________________________________________
+    ____________________________________________________________
+     Woof! No tasks containing keyword found!
     ____________________________________________________________
     ____________________________________________________________
      Woof! Hope to bark at you again soon!
