@@ -1,5 +1,6 @@
 package duke;
 import duke.task.Task;
+import duke.ui.Ui;
 import java.util.ArrayList;
 /**
  * Represents a list of tasks in Duke. Provides methods to manipulate and access the tasks.
@@ -96,5 +97,21 @@ public class TaskList {
         Task tem = tasks.get(taskNum);
         tasks.remove(taskNum);
         return tem;
+    }
+
+    /**
+     * Finds tasks by keyword and displays them using the UI.
+     *
+     * @param keyword The search keyword.
+     * @param ui The UI object to display results.
+     */
+    public void findTasks(String keyword, Ui ui) {
+        ArrayList<Task> matchedTasks = new ArrayList<>();
+        for (Task task : tasks) {
+            if (task.getDescription().contains(keyword)) {
+                matchedTasks.add(task);
+            }
+        }
+        ui.showFoundTasks(matchedTasks);
     }
 }

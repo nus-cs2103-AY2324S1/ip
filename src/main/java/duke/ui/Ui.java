@@ -1,6 +1,7 @@
 package duke.ui;
 import duke.task.Task;
 import java.util.Scanner;
+import java.util.ArrayList;
 /**
  * Deals with interactions with the user
  * Return messages to user from Duke.
@@ -104,4 +105,15 @@ public class Ui {
         System.out.println("  " + task);
     }
 
+    /**
+     * Displays tasks that match the search keyword.
+     *
+     * @param tasks List of matched tasks.
+     */
+    public void showFoundTasks(ArrayList<Task> tasks) {
+        System.out.println("Here are the matching tasks in your list:");
+        for (int i = 0; i < tasks.size(); i++) {
+            System.out.println((i + 1) + "." + tasks.get(i).toString());
+        }
+    }
 }

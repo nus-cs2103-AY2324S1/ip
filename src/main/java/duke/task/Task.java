@@ -65,10 +65,12 @@ public class Task {
         this.isDone = false;
     }
 
-    // Commented code for getting DateTime.
-    // public String getDateTime() {
-    //     return dateTime.format(formatter);
-    // }
+    /**
+     * Gets the description
+     */
+    public String getDescription() {
+        return this.description;
+    }
 
     /**
      * Returns the string representation of the task.
