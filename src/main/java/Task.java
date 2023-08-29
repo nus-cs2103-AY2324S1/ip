@@ -1,7 +1,9 @@
+import java.io.Serializable;
+
 /**
  * Superclass that supports task methods
  */
-public class Task {
+public class Task implements Serializable {
     protected String description;
     protected boolean isDone;
 

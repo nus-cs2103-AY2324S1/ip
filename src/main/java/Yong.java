@@ -1,4 +1,4 @@
-import java.security.InvalidParameterException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -6,21 +6,25 @@ import java.util.Scanner;
 /**
  * Chatbot named YONG that responds to user input using CLI
  */
-public class Duke {
+public class Yong {
 
     static String termination_word = "BYE";
     static ArrayList<Task> history = new ArrayList<>();
 
+    static final String FILE_PATH = "./data/dataFile";
+
     public static void main(String[] args) {
+        Yong.createFile();
+        Yong.readFile();
         String action;
-        Duke.sayHi();
+        Yong.sayHi();
         Scanner reader = new Scanner(System.in);
         action = reader.nextLine().toString();
         String[] parts = action.split(" ");
         String check = parts[0].toUpperCase();
         while (!check.equals(termination_word)) {
             try {
-                Duke.actions(action);
+                Yong.actions(action);
             } catch (Exception e) {
                 System.out.println(e.getMessage());
             } finally {
@@ -30,7 +34,8 @@ public class Duke {
             }
 
         }
-        Duke.sayBye();
+        Yong.saveFile();
+        Yong.sayBye();
 
     }
 
@@ -63,40 +68,40 @@ public class Duke {
         String check = parts[0];
         String numberString = parts.length > 1 ? parts[1] : "";
         switch (check) {
-            case "BYE":
-                System.out.println();
-                break;
-            case "HI":
-                System.out.println("How are you doing today! \n");
-                break;
-            case "LIST":
-                Duke.list();
-                break;
-            case "MARK":
-                Duke.mark(numberString);
-                break;
-            case "UNMARK":
-                Duke.unmark(numberString);
-                break;
-            case "DELETE":
-                Duke.delete(numberString);
-                break;
-            case "TODO":
-                ToDo toDo = Duke.toDo(inp);
-                history.add(toDo);
-                System.out.println("Okay! Task added \n" + toDo + "\n");
-                break;
-            case "EVENT":
-                Event event = Duke.event(inp);
-                history.add(event);
-                System.out.println("Okay! Task added \n" + event + "\n");
-                break;
-            case "DEADLINE":
-                Deadline deadLine = Duke.deadline(inp);
-                history.add(deadLine);
-                System.out.println("Okay! Task added \n" + deadLine + "\n");
-            default:
-                throw new DukeException("I do not know what you are saying.");
+        case "BYE":
+            System.out.println();
+            break;
+        case "HI":
+            System.out.println("How are you doing today! \n");
+            break;
+        case "LIST":
+            Yong.list();
+            break;
+        case "MARK":
+            Yong.mark(numberString);
+            break;
+        case "UNMARK":
+            Yong.unmark(numberString);
+            break;
+        case "DELETE":
+            Yong.delete(numberString);
+            break;
+        case "TODO":
+            ToDo toDo = Yong.toDo(inp);
+            history.add(toDo);
+            System.out.println("Okay! Task added \n" + toDo + "\n");
+            break;
+        case "EVENT":
+            Event event = Yong.event(inp);
+            history.add(event);
+            System.out.println("Okay! Task added \n" + event + "\n");
+            break;
+        case "DEADLINE":
+            Deadline deadLine = Yong.deadline(inp);
+            history.add(deadLine);
+            System.out.println("Okay! Task added \n" + deadLine + "\n");
+        default:
+            throw new DukeException("I do not know what you are saying.");
         }
     }
 
@@ -200,5 +205,44 @@ public class Duke {
         }
     }
 
+    /**
+     * Creates file to save task list if file is not present
+     */
+    private static void createFile() {
+        File dataFile = new File(FILE_PATH);
+        try {
+            boolean hasFile = dataFile.createNewFile();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    private static void saveFile() {
+        try {
+            FileOutputStream dataFileStream = new FileOutputStream(FILE_PATH);
+            ObjectOutputStream objectStream = new ObjectOutputStream(dataFileStream);
+            objectStream.writeObject(history);
+            objectStream.close();
+        } catch (Exception e) {
+            System.out.println("File is not found! But this shouldn't happen LOL");
+        }
+    }
+
+    private static void readFile() {
+        try {
+            File dataFile = new File(FILE_PATH);
+            FileInputStream dataFileStream = new FileInputStream(dataFile);
+            if (dataFileStream.available() > 0) {
+                ObjectInputStream objectStream = new ObjectInputStream(dataFileStream);
+                history = (ArrayList<Task>) objectStream.readObject();
+                objectStream.close();
+            }
+        } catch (IOException e) {
+            System.out.println(e);
+            System.out.println("File is not found! But this shouldn't happen LOL");
+        } catch (Exception e) {
+            System.out.println("There is an error occurring, " + e.getMessage());
+        }
+    }
 
 }
