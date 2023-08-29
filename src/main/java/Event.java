@@ -1,5 +1,6 @@
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
+import java.util.Optional;
 
 public class Event extends Task {
   private LocalDateTime from;
@@ -25,6 +26,10 @@ public class Event extends Task {
 		} catch (DateTimeParseException e) {
 			throw new InvalidDatetimeFormatException("to", "event");
 		}
+
+		if(this.from.isAfter(this.to)) {
+			throw new DukeException("The from of an event must be before its to");
+		}
   }
 
   @Override
@@ -35,5 +40,10 @@ public class Event extends Task {
 	@Override
 	public String toCommand() {
 		return String.format("%s /from %s /to %s", super.toCommand(), DatetimeHelper.commandFormat(from), DatetimeHelper.commandFormat(to));
+	}
+
+	@Override
+	public boolean filter(Optional<LocalDateTime> before) {
+		return before.filter((datetime) -> datetime.isBefore(from)).isEmpty(); // if is empty return true
 	}
 }

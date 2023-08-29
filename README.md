@@ -27,7 +27,7 @@ Prerequisites: JDK 11, update Intellij to the most recent version.
 Notes:
  - commands are in format COMMAND NAME /ARGUMENT_NAME ARGUMENT
  - TIME is in format yyyy-mm-dd HHmm (2019-10-15 1330)
- - list
+ - list /before TIME
  - todo STRING
  - deadline STRING /by TIME
  - event STRING /from TIME /to TIME
@@ -41,6 +41,3 @@ Design:
  
 TODO:
  - add cs2103t specific rules to linter
- - add time test
- - add optional by argument for list 
- - add event time check

@@ -1,5 +1,6 @@
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
+import java.util.Optional;
 
 public class Deadline extends Task {
   private LocalDateTime by;
@@ -25,5 +26,10 @@ public class Deadline extends Task {
 	@Override
 	public String toCommand() {
 		return String.format("%s /by %s", super.toCommand(), DatetimeHelper.commandFormat(by));
+	}
+
+	@Override
+	public boolean filter(Optional<LocalDateTime> before) {
+		return before.filter((datetime) -> datetime.isBefore(by)).isEmpty(); // if is empty return true
 	}
 }

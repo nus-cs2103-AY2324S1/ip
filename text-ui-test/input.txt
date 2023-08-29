@@ -16,9 +16,16 @@ list
 todo
 deadline
 deadline return book
+deadline return book /by 
+deadline return book /by a
 event
 event project meeting
+event project meeting /from
+event project meeting /from a
 event project meeting /from 2023-08-06 1400
+event project meeting /from 2023-08-06 1400 /to 
+event project meeting /from 2023-08-06 1400 /to a
+event project meeting /from 2023-08-06 1400 /to 2023-08-06 1359
 mark
 mark a
 mark 0
@@ -27,4 +34,7 @@ delete
 delete a
 delete 0
 delete 3
+list
+list /before a
+list /before 2023-09-15 1200
 bye

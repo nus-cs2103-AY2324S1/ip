@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 public class Printer {
@@ -17,6 +18,10 @@ public class Printer {
 
 	public void print(DukeSideEffectException e) {
 		messages.add(String.format("%s %s", exceptionPrepend, e.getMessage()));
+	}
+
+	public void print(List<String> l) {
+		l.forEach((s) -> print(s));
 	}
 
 	public void flush() {

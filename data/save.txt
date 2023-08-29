@@ -1,0 +1,4 @@
+deadline one  /by 2015-06-06 0900
+deadline two  /by 2015-06-06 0901
+event three  /from 2015-06-06 0900 /to 2015-06-06 0901
+event four  /from 2015-06-06 0901 /to 2015-06-06 0901

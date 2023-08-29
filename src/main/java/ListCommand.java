@@ -1,15 +1,35 @@
-public class ListCommand extends Command {
-  public ListCommand(Printer out, TaskList taskList, FileIO file) {
-    super(out, taskList, file);
-  }
+import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
-  @Override
-  public void action() {
-    String toPrint[] = new String[taskList.size() + 1];
-    toPrint[0] = "Here are the tasks in your list:";
-    for (int i = 1; i <= taskList.size(); ++i) {
-      toPrint[i] = String.format("%d.%s", i, taskList.getTask(i).toString());
-    }
-    out.print(toPrint);
-  }
+public class ListCommand extends Command {
+	private String before;
+
+	public ListCommand(Printer out, TaskList taskList, FileIO file, String before) {
+		super(out, taskList, file);
+		this.before = before;
+	}
+
+	@Override
+	public void action() {
+		Optional<LocalDateTime> beforeTime = Optional.empty();
+		if (!before.equals("")) {
+			try {
+				beforeTime = Optional.of(DatetimeHelper.parse(before));
+			} catch (DateTimeParseException e) {
+				throw new InvalidDatetimeFormatException("before", "list");
+			}
+		}
+
+		List<String> toPrint = new ArrayList<>();
+		toPrint.add("Here are the tasks in your list:");
+		for (int i = 1; i <= taskList.size(); ++i) {
+			if (taskList.getTask(i).filter(beforeTime)) {
+				toPrint.add(String.format("%d.%s", toPrint.size(), taskList.getTask(i).toString()));
+			}
+		}
+		out.print(toPrint);
+	}
 }

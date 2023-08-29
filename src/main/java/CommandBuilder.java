@@ -49,7 +49,7 @@ public class CommandBuilder {
 	public Command toCommand(Printer out, TaskList taskList, FileIO savefile) {
 		switch (command) {
 			case Command.LIST:
-				return new ListCommand(out, taskList, savefile);
+				return new ListCommand(out, taskList, savefile, arguments.getOrDefault("before", ""));
 			case Command.MARK:
 				return new MarkCommand(out, taskList, savefile, name);
 			case Command.UNMARK:

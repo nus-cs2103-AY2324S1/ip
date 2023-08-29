@@ -1,4 +1,6 @@
+import java.time.LocalDateTime;
 import java.util.Map;
+import java.util.Optional;
 
 public abstract class Task {
   private boolean mark;
@@ -52,4 +54,8 @@ public abstract class Task {
         "%s %s %s",
         this.getClass().getSimpleName().toLowerCase(), description, mark ? "/mark" : "");
   }
+
+	public boolean filter(Optional<LocalDateTime> before) {
+		return before.isEmpty();
+	}
 }
