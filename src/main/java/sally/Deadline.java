@@ -3,14 +3,28 @@ package sally;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Represents a task with a specific deadline.
+ */
 public class Deadline extends Task {
     protected LocalDateTime by;
 
+    /**
+     * Constructs a Deadline object with the given task description and deadline.
+     *
+     * @param task The description of the deadline task.
+     * @param by   The specific deadline date and time.
+     */
     public Deadline(String task, LocalDateTime by) {
         super(task);
         this.by = by;
     }
 
+    /**
+     * Converts the Deadline object to a formatted string representation.
+     *
+     * @return A formatted string indicating the deadline task's status, description, and deadline.
+     */
     @Override
     public String toString() {
         String formattedDate;

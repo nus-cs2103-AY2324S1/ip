@@ -6,13 +6,27 @@ import java.io.IOException;
 import java.io.BufferedReader;
 import java.io.FileReader;
 
+/**
+ * Handles loading tasks from the file and saving tasks in the file.
+ */
 public class Storage {
-    private String filePath;
+    private final String filePath;
 
+    /**
+     * Constructs a Storage object with the specified file path.
+     *
+     * @param filePath The path to the file for storing tasks.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
+    /**
+     * Saves the tasks in the given TaskList to the file.
+     *
+     * @param tasks The TaskList containing tasks to be saved.
+     * @throws SallyException If there's an issue while saving the tasks.
+     */
     public void saveTasksToFile(TaskList tasks) throws SallyException {
         try {
             File file = new File(this.filePath);
@@ -30,6 +44,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Loads tasks from the file and returns a TaskList.
+     *
+     * @return The TaskList loaded from the file.
+     * @throws SallyException If there's an issue while loading the tasks.
+     */
     public TaskList loadTasksFromFile() throws SallyException {
         TaskList tasks = new TaskList();
         try {
