@@ -39,7 +39,7 @@
 
 > 
     Okie! I've added a new [0;32mTODO[0m:
-      [T][ ] revise basic Java concepts
+      [T][ ] revise basic Java concepts /by Friday
     Total no. of tasks stored: 2
 
 > 
@@ -65,39 +65,36 @@
 
 > 
     [0;31mErm... error :([0m
-    Looks like you're missing a date range:
-    <- Remember to include /from and /to ->
+    Looks like you're missing [35m/from[0m
     Try [35mevent[0m NUS carnival /from Aug 21st /to Aug 25th
 
 > 
     [0;31mErm... error :([0m
-    Looks like you're missing a date range:
-    <- Remember to include /from and /to ->
+    Looks like you're missing [35m/to[0m
     Try [35mevent[0m NUS carnival /from Aug 21st /to Aug 25th
 
 > 
     [0;31mErm... error :([0m
-    Looks like you're missing a date range:
-    <- Remember to include /from and /to ->
+    Looks like you're missing [35m/from[0m
     Try [35mevent[0m NUS carnival /from Aug 21st /to Aug 25th
 
 > 
     Okie! I've added a new [0;33mEVENT[0m:
-      [E][ ] NUS wellness week (from: Mon, 21th Aug to: Fri, 25th Aug)
+      [E][ ] NUS wellness week (from: Mon, 21th Aug  to: Fri, 25th Aug)
     Total no. of tasks stored: 4
 
 > 
     Okie! I've added a new [0;33mEVENT[0m:
-      [E][ ] NUS wellness week (from: Mon, 21th Aug to: Fri, 25th Aug)
+      [E][ ] NUS wellness week (from: Mon, 21th Aug  to: Fri, 25th Aug /bug me)
     Total no. of tasks stored: 5
 
 > 
     Here are the tasks in your list:
     1.[T][ ] revise basic Java concepts
-    2.[T][ ] revise basic Java concepts
+    2.[T][ ] revise basic Java concepts /by Friday
     3.[D][ ] watch CS2103T lecture (by: Friday)
-    4.[E][ ] NUS wellness week (from: Mon, 21th Aug to: Fri, 25th Aug)
-    5.[E][ ] NUS wellness week (from: Mon, 21th Aug to: Fri, 25th Aug)
+    4.[E][ ] NUS wellness week (from: Mon, 21th Aug  to: Fri, 25th Aug)
+    5.[E][ ] NUS wellness week (from: Mon, 21th Aug  to: Fri, 25th Aug /bug me)
 
 > 
     Nice, I've marked this task as done:
@@ -109,15 +106,15 @@
 
 > 
     Nice, I've marked this task as done:
-      [E][X] NUS wellness week (from: Mon, 21th Aug to: Fri, 25th Aug)
+      [E][X] NUS wellness week (from: Mon, 21th Aug  to: Fri, 25th Aug)
 
 > 
     Here are the tasks in your list:
     1.[T][X] revise basic Java concepts
-    2.[T][ ] revise basic Java concepts
+    2.[T][ ] revise basic Java concepts /by Friday
     3.[D][X] watch CS2103T lecture (by: Friday)
-    4.[E][X] NUS wellness week (from: Mon, 21th Aug to: Fri, 25th Aug)
-    5.[E][ ] NUS wellness week (from: Mon, 21th Aug to: Fri, 25th Aug)
+    4.[E][X] NUS wellness week (from: Mon, 21th Aug  to: Fri, 25th Aug)
+    5.[E][ ] NUS wellness week (from: Mon, 21th Aug  to: Fri, 25th Aug /bug me)
 
 > 
     Okie, I've marked this task as not done yet:
@@ -126,10 +123,10 @@
 > 
     Here are the tasks in your list:
     1.[T][ ] revise basic Java concepts
-    2.[T][ ] revise basic Java concepts
+    2.[T][ ] revise basic Java concepts /by Friday
     3.[D][X] watch CS2103T lecture (by: Friday)
-    4.[E][X] NUS wellness week (from: Mon, 21th Aug to: Fri, 25th Aug)
-    5.[E][ ] NUS wellness week (from: Mon, 21th Aug to: Fri, 25th Aug)
+    4.[E][X] NUS wellness week (from: Mon, 21th Aug  to: Fri, 25th Aug)
+    5.[E][ ] NUS wellness week (from: Mon, 21th Aug  to: Fri, 25th Aug /bug me)
 
 > 
     [0;31mErm... error :([0m
@@ -146,21 +143,21 @@
 
 > 
     Here are the tasks in your list:
-    1.[T][ ] revise basic Java concepts
+    1.[T][ ] revise basic Java concepts /by Friday
     2.[D][X] watch CS2103T lecture (by: Friday)
-    3.[E][X] NUS wellness week (from: Mon, 21th Aug to: Fri, 25th Aug)
-    4.[E][ ] NUS wellness week (from: Mon, 21th Aug to: Fri, 25th Aug)
+    3.[E][X] NUS wellness week (from: Mon, 21th Aug  to: Fri, 25th Aug)
+    4.[E][ ] NUS wellness week (from: Mon, 21th Aug  to: Fri, 25th Aug /bug me)
 
 > 
     Okie! I've deleted task 3:
-      [E][X] NUS wellness week (from: Mon, 21th Aug to: Fri, 25th Aug)
+      [E][X] NUS wellness week (from: Mon, 21th Aug  to: Fri, 25th Aug)
     Total no. of tasks stored: 3
 
 > 
     Here are the tasks in your list:
-    1.[T][ ] revise basic Java concepts
+    1.[T][ ] revise basic Java concepts /by Friday
     2.[D][X] watch CS2103T lecture (by: Friday)
-    3.[E][ ] NUS wellness week (from: Mon, 21th Aug to: Fri, 25th Aug)
+    3.[E][ ] NUS wellness week (from: Mon, 21th Aug  to: Fri, 25th Aug /bug me)
 
 > 
     Bye~ Come back soon :)

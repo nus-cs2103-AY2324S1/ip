@@ -70,45 +70,52 @@ public class Duke {
         // Ignore empty user input
         if (input.equals("")) return;
 
-        String[] parse = input.split("/");
-        String[] header = parse[0].strip().split(" ");
-        String command = header[0];
+        // Extract main command first
+        String[] parse = input.split(" ");
+        String command = parse[0];
 
-        if (parse[0].equals("list")) {
+        if (command.equals("list")) {
             this.listTasks();
         } 
         
         else if (command.equals("mark")) {
-            if (header.length < 2) {
+            if (parse.length < 2) {
                 throw new DukeException(new String[] {
                     "Looks like you're missing a number:",
                     "Try " + cTxt("mark", PURPLE) + " 1"
                 });
             }
-            this.markTask(header[1], true);
+            this.markTask(parse[1], true);
         } 
         
         else if (command.equals("unmark")) {
-            if (header.length < 2) {
+            if (parse.length < 2) {
                 throw new DukeException(new String[] {
                     "Looks like you're missing a number:",
                     "Try " + cTxt("unmark", PURPLE) + " 1"
                 });
             }          
-            this.markTask(header[1], false);
+            this.markTask(parse[1], false);
         } 
         
         else if (command.equals("todo")) {
-            if (header.length < 2) {
+            if (parse.length < 2) {
                 throw new DukeException(new String[] {
                     "Looks like you're missing a description:",
                     "Try " + cTxt("todo", PURPLE) + " read a book"
                 });
             }
-            this.addTodo(extractTail(header));
+            this.addTodo(extractTail(parse));
         } 
         
         else if (command.equals("deadline")) {
+            // Split by the "/by" to separate the first and second part. 
+            String[] dlParse = input.split("/by "); 
+
+            // Extract the header (command + description).
+            String[] header = dlParse[0].split(" ");
+            
+            // Check if task descripton exists.
             if (header.length < 2) {
                 throw new DukeException(new String[] {
                     "Looks like you're missing a description:",
@@ -116,54 +123,72 @@ public class Duke {
                 });
             }
             
-            String[] date;
-            if (parse.length < 2
-                    || (date = parse[1].split(" ")).length < 2) {
+            // Check if a date was provided and the "/by" delimiter was supplied.
+            if (dlParse.length < 2) {
                 throw new DukeException(new String[] {
                     "Looks like you're missing a date:",
                     "<- Remember to include /by ->",
                     "Try " + cTxt("deadline", PURPLE) + " submit essay /by Monday, 4pm"
                 });
             }
+
+            // Extract the date and add a new deadline to the task list.
+            String date = dlParse[1];
             this.addDeadline(
                 extractTail(header),
-                extractTail(date)
+                date
             );
         } 
         
         else if (command.equals("event")) {
+            // Split by "/from" to separate the first and (second + third) part. 
+            String[] evParse = input.split("/from ");
+
+            // Extract the header (command + description).
+            String[] header = evParse[0].split(" ");
+
+            // Check if task descripton exists.
             if (header.length < 2) {
                 throw new DukeException(new String[] {
                     "Looks like you're missing a description:",
                     "Try " + cTxt("event", PURPLE) + " NUS carnival /from Aug 21st /to Aug 25th"
                 });
-            } 
-            
-            String[] fromDate, toDate;
-            if (parse.length < 3
-                    || (fromDate = parse[1].split(" ")).length < 2
-                    || (toDate   = parse[2].split(" ")).length < 2) {
+            }
+
+            if (evParse.length < 2) {
                 throw new DukeException(new String[] {
-                    "Looks like you're missing a date range:",
-                    "<- Remember to include /from and /to ->",
+                    "Looks like you're missing " + cTxt("/from", PURPLE),
                     "Try " + cTxt("event", PURPLE) + " NUS carnival /from Aug 21st /to Aug 25th"
                 });
             }
+
+            // Split by "/to" to separate the second and third part. 
+            String[] dateParse = evParse[1].split("/to ");
+
+            if (dateParse.length < 2) {
+                throw new DukeException(new String[] {
+                    "Looks like you're missing " + cTxt("/to", PURPLE),
+                    "Try " + cTxt("event", PURPLE) + " NUS carnival /from Aug 21st /to Aug 25th"
+                });
+            }
+
+            String fromDate = dateParse[0];
+            String toDate = dateParse[1];
             this.addEvent(
                 extractTail(header), 
-                extractTail(fromDate),
-                extractTail(toDate)
+                fromDate,
+                toDate
             );
         } 
 
         else if (command.equals("delete")) {
-            if (header.length < 2) {
+            if (parse.length < 2) {
                 throw new DukeException(new String[] {
                     "Looks like you're missing a number:",
                     "Try " + cTxt("delete", PURPLE) + " 1"
                 });
             }
-            this.delete(header[1]);
+            this.delete(parse[1]);
         } 
         
         else {
