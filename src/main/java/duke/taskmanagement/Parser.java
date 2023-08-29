@@ -74,6 +74,11 @@ public class Parser {
                     System.out.println(exp.toString());
                 }
                 cmd = ui.readInCmd();
+            } else if (cmd.contains("find")) {
+                String[] parts = cmd.split(" ");
+                String keyword = parts[1];
+                ui.printFilterList(ls.find(keyword));
+                cmd = ui.readInCmd();
             } else {
                 DukeException exp = new DukeException("");
                 System.out.println(exp.nothing());
