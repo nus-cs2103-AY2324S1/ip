@@ -1,5 +1,4 @@
-import java.io.*;
-import java.util.Scanner;
+package peko;
 
 public class Peko {
     private UserInputHandler userInputHandler;

@@ -1,3 +1,5 @@
+package peko;
+
 public class Event extends Task{
     char type = 'E';
     DateTimeHandler startHandler;

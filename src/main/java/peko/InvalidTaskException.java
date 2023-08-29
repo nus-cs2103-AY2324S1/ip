@@ -1,3 +1,5 @@
+package peko;
+
 public class InvalidTaskException extends Exception{
 
     @Override
@@ -6,7 +8,7 @@ public class InvalidTaskException extends Exception{
     }
 
     public String errorToString() {
-        return "Something is wrong with this task Peko!\n" + errorMessage;
+        return "Something is wrong with this task peko.Peko!\n" + errorMessage;
     }
     String errorMessage;
 
