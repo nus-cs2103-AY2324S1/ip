@@ -16,6 +16,7 @@ public class MarkCommand extends Command {
      * @param taskIndex The index of the task to be marked as completed.
      */
     public MarkCommand(int taskIndex) {
+
         this.taskIndex = taskIndex;
     }
 
@@ -26,6 +27,7 @@ public class MarkCommand extends Command {
      */
     @Override
     public boolean isExit() {
+
         return false;
     }
 

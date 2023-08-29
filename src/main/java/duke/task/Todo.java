@@ -10,6 +10,7 @@ public class Todo extends Task {
      * @param description The description of the "to-do" task.
      */
     public Todo(String description) {
+
         super(description, TaskType.TODO);
     }
 
@@ -20,6 +21,7 @@ public class Todo extends Task {
      * @param isDone The completion status of the task.
      */
     public Todo(String name, boolean isDone) {
+
         super(name, TaskType.TODO, isDone);
     }
 
@@ -30,6 +32,7 @@ public class Todo extends Task {
      */
     @Override
     public String toString() {
+
         return "[T]" + super.toString();
     }
 }

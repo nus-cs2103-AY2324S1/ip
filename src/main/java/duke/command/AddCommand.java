@@ -22,6 +22,7 @@ public class AddCommand extends Command {
      * @param task The task to be added.
      */
     public AddCommand(Task task) {
+
         this.task = task;
     }
 
@@ -32,6 +33,7 @@ public class AddCommand extends Command {
      */
     @Override
     public boolean isExit() {
+
         return false;
     }
 

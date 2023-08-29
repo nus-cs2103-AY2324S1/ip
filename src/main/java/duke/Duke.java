@@ -70,6 +70,7 @@ public class Duke {
      * @param args Command line arguments (not used).
      */
     public static void main(String[] args) {
+
         new Duke(FILE_PATH).run();
     }
 }

@@ -23,6 +23,7 @@ public class Task {
     }
 
     public TaskType getType() {
+
         return this.type;
     }
     /**
@@ -44,6 +45,7 @@ public class Task {
      * @return "X" if the task is completed, else " ".
      */
     public String getStatusIcon() {
+
         return (isDone ? "X" : " "); // mark done task with X
     }
 
@@ -51,6 +53,7 @@ public class Task {
      * Marks the task as completed.
      */
     public void mark() {
+
         this.isDone = true;
     }
 
@@ -58,6 +61,7 @@ public class Task {
      * Marks the task as not completed.
      */
     public void unmark() {
+
         this.isDone = false;
     }
 
@@ -73,6 +77,7 @@ public class Task {
      */
     @Override
     public String toString() {
+
         return "[" + getStatusIcon() + "] " + description;
     }
 }

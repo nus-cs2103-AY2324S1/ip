@@ -19,6 +19,7 @@ public class UnMarkCommand extends Command {
      * @param taskIndex Index of the task in the task list to unmark as done.
      */
     public UnMarkCommand(int taskIndex) {
+
         this.taskIndex = taskIndex;
     }
 
@@ -29,6 +30,7 @@ public class UnMarkCommand extends Command {
      */
     @Override
     public boolean isExit() {
+
         return false;
     }
 

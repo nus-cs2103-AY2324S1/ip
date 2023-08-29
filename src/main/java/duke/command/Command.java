@@ -33,6 +33,7 @@ public abstract class Command {
      * @return true if Duke should exit, false otherwise.
      */
     public boolean isExit() {
+
         return this.isExit;
     }
 }

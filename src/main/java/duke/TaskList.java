@@ -11,6 +11,7 @@ public class TaskList {
      * Initializes an empty task list.
      */
     public TaskList() {
+
         tasks = new ArrayList<>();
     }
 
@@ -20,6 +21,7 @@ public class TaskList {
      * @param tasks An ArrayList of tasks.
      */
     public TaskList(ArrayList<Task> tasks) {
+
         this.tasks = tasks;
     }
 
@@ -29,6 +31,7 @@ public class TaskList {
      * @param taskIndex The index of the task in the list.
      */
     public void mark(int taskIndex) {
+
         tasks.get(taskIndex).mark();
     }
 
@@ -39,6 +42,7 @@ public class TaskList {
      * @return The Task object at the given index.
      */
     public Task getTask(int taskIndex) {
+
         return tasks.get(taskIndex);
     }
 
@@ -48,6 +52,7 @@ public class TaskList {
      * @return An integer representing the size of the list.
      */
     public int getSize() {
+
         return this.tasks.size();
     }
 
@@ -57,6 +62,7 @@ public class TaskList {
      * @return An ArrayList of Task objects.
      */
     public ArrayList<Task> getTasks() {
+
         return this.tasks;
     }
 
@@ -66,6 +72,7 @@ public class TaskList {
      * @param taskIndex The index of the task in the list.
      */
     public void unmark(int taskIndex) {
+
         tasks.get(taskIndex).unmark();
     }
 
@@ -75,6 +82,7 @@ public class TaskList {
      * @param task The Task object to be added.
      */
     public void addTask(Task task) {
+
         tasks.add(task);
     }
 

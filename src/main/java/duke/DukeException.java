@@ -10,6 +10,7 @@ public class DukeException extends Exception {
      * @param errorMessage The specific error message for this exception.
      */
     public DukeException(String errorMessage) {
+
         super(errorMessage);
     }
 
@@ -20,6 +21,7 @@ public class DukeException extends Exception {
      */
     @Override
     public String getMessage() {
+
         return "OOPS! :( " + super.getMessage();
     }
 }
