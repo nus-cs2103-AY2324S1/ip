@@ -183,7 +183,8 @@ public class Hong {
         String[] arrInput = newInput.split("/from ");
         String eventDetails = arrInput[0];
         String[] fromToArr = arrInput[1].split(" /to ");
-        Event newEvent = new Event(fromToArr[0], fromToArr[1], eventDetails);
+        Event newEvent = new Event(DateTimeParser.parseDateTime(fromToArr[0]),
+                DateTimeParser.parseDateTime(fromToArr[1]), eventDetails);
         tasks.add(newEvent);
         addedMessage(newEvent.toString());
     }
