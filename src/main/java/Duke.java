@@ -5,6 +5,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -133,7 +134,12 @@ public class Duke {
             }
 
             // Extract the date and add a new deadline to the task list.
-            String date = dlParse[1];
+            LocalDateTime date = DateParser.parseDateString(dlParse[1]);
+            if (date == null) {
+                throw new DukeException(
+                    "Oops, looks like your date is in an invalid format..."
+                );
+            }
             this.addDeadline(
                 extractTail(header),
                 date
@@ -240,7 +246,7 @@ public class Duke {
                 case "D":
                     if (parse.length < 4) break;
                     this.addTask(
-                        new Deadline(parse[2], parse[3], isDone)
+                        new Deadline(parse[2], DateParser.parseDateString(parse[3]), isDone)
                     );
                     break;
                 case "E":
@@ -332,7 +338,7 @@ public class Duke {
         this.updateSavedTasks();
     }
 
-    private void addDeadline(String description, String by) {
+    private void addDeadline(String description, LocalDateTime by) {
         Task deadline = new Deadline(description, by);
         this.addTask(deadline);
         this.speak(new String[] {
