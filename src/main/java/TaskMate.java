@@ -16,18 +16,26 @@ public class TaskMate {
         list, bye, todo, deadline, event, mark, unmark, delete
     }
 
-    public static void main(String[] args) throws InvalidCommandTypeException {
+    private Ui ui;
+    private TaskList tasks;
 
+    TaskMate() {
+        this.ui = new Ui(chatbotName);
+        this.tasks = new TaskList();
+    }
+
+    public static void main(String[] args) {
+        new TaskMate().run();
+    }
+
+    public void run() {
         // Load existing tasks from disk
         loadTasksFromDisk();
 
         // Greets user
-        String greetMessage = "Hello I'm " + chatbotName + "\nWhat can I do for you?";
-        printReply(greetMessage);
+        ui.greetUser();
 
-
-
-        // Echo user input
+        // Reading user input
         Scanner sc = new Scanner(System.in);
         String userInput;
         while (true) {
@@ -47,10 +55,10 @@ public class TaskMate {
                 try {
                     checkValidMarkOrUnmarkCommand(userInput);
                 } catch (InvalidCommandTypeException e) {
-                    printReply("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+                    ui.printInvalidCommandTypeExceptionResponse();
                     System.exit(0);
                 } catch (InvalidDescriptionException e) {
-                    printReply("☹ OOPS!!! The description of a mark/unmark must be between 1 and " + Task.getAllTasks().size() + ".");
+                    ui.printInvalidMarkOrUnmarkResponse(tasks.getNumTotalTasks());
                     System.exit(0);
                 }
                 processMarkUnmarkCommand(userInput);
@@ -58,10 +66,10 @@ public class TaskMate {
                 try {
                     checkValidTodoCommand(userInput);
                 } catch (InvalidCommandTypeException e) {
-                    printReply("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+                    ui.printInvalidCommandTypeExceptionResponse();
                     System.exit(0);
                 } catch (InvalidDescriptionException e) {
-                    printReply("☹ OOPS!!! The description of a todo cannot be empty.");
+                    ui.printEmptyTodoDescriptionResponse();
                     System.exit(0);
                 }
                 processAddTaskCommand(userInput);
@@ -75,10 +83,10 @@ public class TaskMate {
                 try {
                     checkValidDeleteCommand(userInput);
                 } catch (InvalidCommandTypeException e) {
-                    printReply("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+                    ui.printInvalidCommandTypeExceptionResponse();
                     System.exit(0);
                 } catch (InvalidDescriptionException e) {
-                    printReply("☹ OOPS!!! The description of a delete must be between 1 and " + Task.getAllTasks().size() + ".");
+                    ui.printInvalidDeleteResponse(tasks.getNumTotalTasks());
                     System.exit(0);
                 }
                 processDeleteCommand(userInput);
@@ -88,19 +96,16 @@ public class TaskMate {
 
         // Exit procedure
         // 1. Write incomplete tasks to disk
-        String saveTaskText = Task.formatAllTasksForSaving();
+        String saveTaskText = tasks.formatAllTasksForSaving();
         System.out.println(saveTaskText);
         try {
             writeToFile(saveTaskFilePath, saveTaskText);
         } catch (IOException e) {
-            System.out.println("Failed to write to " +
-                    System.getProperty("user.dir") +
-                    saveTaskFilePath.substring(1).replace("/", "\\")
-            );
+            ui.printSaveFailResponse(System.getProperty("user.dir") +
+                    saveTaskFilePath.substring(1).replace("/", "\\"));
         }
         // 2. Print exit message
-        String exitMessage = "Bye. Hope to see you again soon!";
-        printReply(exitMessage);
+        ui.farewellUser();
     }
 
     static void printReply(String text) {
@@ -111,7 +116,7 @@ public class TaskMate {
         System.out.println();
     }
 
-    static void checkValidMarkOrUnmarkCommand(String userInput) throws InvalidCommandTypeException, InvalidDescriptionException {
+    void checkValidMarkOrUnmarkCommand(String userInput) throws InvalidCommandTypeException, InvalidDescriptionException {
         // Checks if the user input command is a valid "mark" or "unmark" command
         // by checking if the command starts with "mark"/"unmark", followed by a whitespace,
         // followed by an integer from 1 to Task.getAllTasks().size()
@@ -128,7 +133,7 @@ public class TaskMate {
 
         if (!checkStringIsInteger(indexWithinList)) {
             throw new InvalidDescriptionException();
-        } else if (Integer.parseInt(indexWithinList) < 1 | Integer.parseInt(indexWithinList) > Task.getAllTasks().size()) {
+        } else if (Integer.parseInt(indexWithinList) < 1 | Integer.parseInt(indexWithinList) > tasks.getAllTasks().size()) {
             throw new InvalidDescriptionException();
         }
     }
@@ -143,7 +148,7 @@ public class TaskMate {
         }
     }
 
-    static void checkValidDeleteCommand(String userInput) throws InvalidCommandTypeException, InvalidDescriptionException {
+    void checkValidDeleteCommand(String userInput) throws InvalidCommandTypeException, InvalidDescriptionException {
         // Checks if the user input command is a valid "delete" command
         // by checking if the command starts with "delete", followed by a whitespace,
         // followed by an integer from 1 to Task.getAllTasks().size()
@@ -157,7 +162,7 @@ public class TaskMate {
 
         if (!checkStringIsInteger(indexWithinList)) {
             throw new InvalidDescriptionException();
-        } else if (Integer.parseInt(indexWithinList) < 1 | Integer.parseInt(indexWithinList) > Task.getAllTasks().size()) {
+        } else if (Integer.parseInt(indexWithinList) < 1 | Integer.parseInt(indexWithinList) > tasks.getAllTasks().size()) {
             throw new InvalidDescriptionException();
         }
     }
@@ -172,7 +177,7 @@ public class TaskMate {
         return true;
     }
 
-    static String getCommandType(String userInput) throws InvalidCommandTypeException {
+    static String getCommandType(String userInput) {
         // Returns the type of command input by the user
         // Possible values: "todo", "deadline", "event", "bye", "list", "mark", "unmark"
         for (CommandTypes type : CommandTypes.values()) {
@@ -181,33 +186,33 @@ public class TaskMate {
                 return typeString;
             }
         }
-        throw new InvalidCommandTypeException();
+        System.out.println("INVALID COMMAND TYPE: " + userInput);
+        return ""; // todo
     }
 
     static void checkInvalidCommandTypeException(String userInput) {
-        try {
-            String commandType = getCommandType(userInput);
-        } catch (InvalidCommandTypeException e) {
+        String commandType = getCommandType(userInput);
+        if (commandType.isEmpty()) {
             printReply("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
             System.exit(0);
         }
     }
 
-    static void processListCommand() {
+    void processListCommand() {
         // EDIT
         String allTasksString = "Here are the tasks in your list:\n";
-        for (int i = 0; i < Task.getAllTasks().size(); i++) {
-            Task newTask = Task.getAllTasks().get(i);
+        for (int i = 0; i < tasks.getAllTasks().size(); i++) {
+            Task newTask = tasks.getAllTasks().get(i);
             allTasksString += Integer.toString(i+1) + "." + newTask.toString() + "\n";
         }
         printReply(allTasksString);
     }
 
-    static void processMarkUnmarkCommand(String userInput) {
+    void processMarkUnmarkCommand(String userInput) {
         if (userInput.startsWith("mark")) {
             int indexToMark = Integer.parseInt(userInput.substring(CommandTypes.mark.toString().length()).trim());
             indexToMark -= 1;
-            Task taskToMark = Task.getAllTasks().get(indexToMark);
+            Task taskToMark = tasks.getAllTasks().get(indexToMark);
             taskToMark.markAsDone();
 
             // print message when marking as done
@@ -217,7 +222,7 @@ public class TaskMate {
         } else {
             int indexToUnmark = Integer.parseInt(userInput.substring(CommandTypes.unmark.toString().length()).trim());
             indexToUnmark -= 1;
-            Task taskToUnmark = Task.getAllTasks().get(indexToUnmark);
+            Task taskToUnmark = tasks.getAllTasks().get(indexToUnmark);
             taskToUnmark.markAsNotDone();
 
             // print message when unmarking as done
@@ -227,7 +232,7 @@ public class TaskMate {
         }
     }
 
-    static Task processAddTaskCommand(String userInput) {
+    void processAddTaskCommand(String userInput) {
         Task newTask;
         if (userInput.startsWith("todo ")) {
             newTask = new Todo(userInput.substring(CommandTypes.todo.toString().length()+1)); // +1 because we do not want the task name to start from the space character
@@ -247,16 +252,15 @@ public class TaskMate {
                     splitUserInput[2].replace("to ", "")
             );
         }
-
-        printReply("Got it. I've added this task:\n  " + newTask.toString() + "\nNow you have " + Task.getAllTasks().size() + " task(s) in the list.");
-        return newTask;
+        tasks.addTask(newTask);
+        printReply("Got it. I've added this task:\n  " + newTask.toString() + "\nNow you have " + tasks.getAllTasks().size() + " task(s) in the list.");
     }
 
-    static void processDeleteCommand(String userInput) {
+    void processDeleteCommand(String userInput) {
         int indexToDelete = Integer.parseInt(userInput.substring(CommandTypes.delete.toString().length()).trim());
         indexToDelete -= 1; // subtract 1 as the arraylist is zero-indexed
-        Task removedTask = Task.removeTask(indexToDelete);
-        printReply("Noted. I've removed this task:\n  " + removedTask.toString() + "\nNow you have " + Task.getAllTasks().size() + " task(s) in the list.");
+        Task removedTask = tasks.removeTask(indexToDelete);
+        printReply("Noted. I've removed this task:\n  " + removedTask.toString() + "\nNow you have " + tasks.getAllTasks().size() + " task(s) in the list.");
     }
 
     static void writeToFile(String filePath, String text) throws IOException {
@@ -270,7 +274,7 @@ public class TaskMate {
         return Files.readString(filePath);
     }
 
-    static void loadTasksFromDisk() {
+    void loadTasksFromDisk() {
         String unprocessedTasks = "";
         try {
             unprocessedTasks = readFromFile(saveTaskFilePath);
@@ -279,8 +283,14 @@ public class TaskMate {
             return;
         }
 
+        if (unprocessedTasks.isEmpty()) {
+            ui.printNoDataResponse();
+            return;
+        }
+
         String[] lines = unprocessedTasks.split("\\n");
         String taskType, taskIsDone, name, by, from, to, delimiter, delimiter2;
+        Task newTask;
         for (String line: lines) {
             taskType = line.substring(1,2);
             taskIsDone = line.substring(4,5);
@@ -288,14 +298,16 @@ public class TaskMate {
             if (taskType.equals("T")) {
                 // To-do task
                 name = line.substring(7);
-                new Todo(name);
+                newTask = new Todo(name);
+                tasks.addTask(newTask);
             } else if (taskType.equals("D")) {
                 // Deadline
                 delimiter = "(by: ";
                 int indexOfByParam = line.lastIndexOf(delimiter);
                 name = line.substring(7, indexOfByParam);
                 by = line.substring(indexOfByParam + delimiter.length(), line.length() - 1);
-                new Deadline(name, by);
+                newTask = new Deadline(name, by);
+                tasks.addTask(newTask);
             } else if (taskType.equals("E")) {
                 // Event
                 delimiter = "(from: ";
@@ -305,7 +317,8 @@ public class TaskMate {
                 name = line.substring(7, indexOfFromParam);
                 from = line.substring(indexOfFromParam + delimiter.length(), indexOfToParam);
                 to   = line.substring(indexOfToParam + delimiter2.length(), line.length() - 1);
-                new Event(name, from, to);
+                newTask = new Event(name, from, to);
+                tasks.addTask(newTask);
             } else {
                 // Invalid event
                 System.out.println("Invalid task: " + line);

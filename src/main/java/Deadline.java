@@ -24,11 +24,11 @@ public class Deadline extends Task {
 
     @Override
     public String toString() {
-        return "[D][" + (this.isDone() ? 'X' : ' ') + "] " + this.name + " (by: " + this.getByFormatted() + ")";
+        return "[D][" + (this.getIsDone() ? 'X' : ' ') + "] " + this.name + " (by: " + this.getByFormatted() + ")";
     }
 
     String formatTaskForSaving() {
-        return "[D][" + (this.isDone() ? 'X' : ' ') + "] " + this.name + " (by: " + this.getBy() + ")";
+        return "[D][" + (this.getIsDone() ? 'X' : ' ') + "] " + this.name + " (by: " + this.getBy() + ")";
     }
 
 

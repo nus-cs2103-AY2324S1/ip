@@ -35,10 +35,10 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return "[E][" + (this.isDone() ? 'X' : ' ') + "] " + this.name + " (from: " + this.getStartDatetimeFormatted() + " to: " + this.getEndDatetimeFormatted() + ")";
+        return "[E][" + (this.getIsDone() ? 'X' : ' ') + "] " + this.name + " (from: " + this.getStartDatetimeFormatted() + " to: " + this.getEndDatetimeFormatted() + ")";
     }
 
     String formatTaskForSaving() {
-        return "[E][" + (this.isDone() ? 'X' : ' ') + "] " + this.name + " (from: " + this.getStartDatetime() + " to: " + this.getEndDatetime() + ")";
+        return "[E][" + (this.getIsDone() ? 'X' : ' ') + "] " + this.name + " (from: " + this.getStartDatetime() + " to: " + this.getEndDatetime() + ")";
     }
 }
