@@ -1,3 +1,6 @@
+package task;
+import exception.InvalidEventException;
+
 /**
  * Event class
  */
@@ -21,6 +24,26 @@ public class Event extends Task {
         this.end = end;
     }
 
+    // Method
+
+    /**
+     * Method to get the start of the event
+     * 
+     * @return the start of the event
+     */
+    public String getStart() {
+        return this.start;
+    }
+
+    /**
+     * Method to get the end of the event
+     * 
+     * @return the end of the event
+     */
+    public String getEnd() {
+        return this.end;
+    }
+
     /**
      * Method to return the string representation of event
      * 
@@ -29,6 +52,16 @@ public class Event extends Task {
     @Override
     public String toString() {
         return "[E]" + super.toString() + " (from: " + start + " to: " + end + " )";
+    }
+
+    /**
+     * Method to return the string format of the event in the storage
+     * 
+     * @return the string format of the event in the storage
+     */
+    @Override
+    public String storeInString() {
+        return "E | " + (this.getMark() ? "1 | " : "0 | ") + this.getName() + " | " + this.start + " | " + this.end;
     }
 
     /**

@@ -1,3 +1,4 @@
+package exception;
 /**
  * The exception for invalid deadline command
  */

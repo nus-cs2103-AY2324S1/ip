@@ -1,3 +1,6 @@
+package task;
+import exception.InvalidDeadlineException;
+
 /**
  * Deadline class
  */
@@ -20,6 +23,15 @@ public class Deadline extends Task {
     // Method
 
     /**
+     * Method to return the deadline
+     * 
+     * @return the deadline
+     */
+    public String getDeadline() {
+        return this.deadline;
+    }
+
+    /**
      * Method to get the string representation of deadline
      * 
      * @return the string representation of deadline
@@ -27,6 +39,16 @@ public class Deadline extends Task {
     @Override
     public String toString() {
         return "[D]" + super.toString() + " (by: " + this.deadline + " )";
+    }
+
+    /**
+     * Method to return the string format of the deadline in the storage
+     * 
+     * @return the string format of the deadline in the storage
+     */
+    @Override
+    public String storeInString() {
+        return "D | " + (this.getMark() ? "1 | " : "0 | ") + this.getName() + " | " + this.deadline;
     }
 
     /**

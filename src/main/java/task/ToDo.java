@@ -1,3 +1,6 @@
+package task;
+import exception.InvalidToDoException;
+
 /**
  * Class for ToDo
  */
@@ -20,6 +23,16 @@ public class ToDo extends Task {
     @Override
     public String toString() {
         return "[T]" + super.toString();
+    }
+
+    /**
+     * Method to return the string format of the to do in the storage
+     * 
+     * @return the string format of the to do in the storage
+     */
+    @Override
+    public String storeInString() {
+        return "T | " + (this.getMark() ? "1 | " : "0 | ") + this.getName();
     }
 
     /**
