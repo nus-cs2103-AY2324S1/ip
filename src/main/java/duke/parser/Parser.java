@@ -1,3 +1,11 @@
+package duke.parser;
+
+import duke.command.Command;
+import duke.command.ExitCommand;
+import duke.command.ListCommand;
+import duke.command.AddCommand;
+import duke.command.MarkCommand;
+import duke.command.DeleteCommand;
 public class Parser {
     public static Command parse(String fullCommand) {
         String[] splittedCommand = fullCommand.split(" ");

@@ -1,12 +1,19 @@
+package duke.storage;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
-
+import duke.exception.DukeException;
+import duke.task.TaskList;
+import duke.task.Task;
+import duke.task.Deadline;
+import duke.task.Event;
+import duke.task.Todo;
 public class Storage {
     private File CURRENT_FILE;
-    public Storage() throws DukeException{
+    public Storage() throws DukeException {
         try {
             File directory = new File("./data");
             if (!directory.exists()) {

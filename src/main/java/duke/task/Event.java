@@ -1,11 +1,13 @@
+package duke.task;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-
+import duke.exception.DukeException;
+import duke.exception.InvalidTimeException;
 public class Event extends Task {
     protected LocalDate starting;
     protected LocalDate ending;
 
-    public Event(String description) throws DukeException{
+    public Event(String description) throws DukeException {
         super(description.substring(0, description.indexOf("/from") - 1));
         int fromIndex = description.indexOf("/from");
         String tempStarting = description.substring(fromIndex + 6, fromIndex + 16);

@@ -1,9 +1,12 @@
+import duke.parser.Parser;
+import duke.command.Command;
+import duke.storage.Storage;
+import duke.ui.Ui;
+import duke.exception.DukeException;
+import duke.task.TaskList;
 import java.util.ArrayList;
-import java.util.Scanner;
-import java.lang.NumberFormatException;
+
 public class Duke {
-    private int numofList;
-    private ArrayList<Task> list = new ArrayList<Task>();
     private Storage storage;
     private TaskList tasks;
     private Ui ui;

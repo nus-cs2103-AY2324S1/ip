@@ -1,12 +1,22 @@
-import java.time.format.DateTimeParseException;
+package duke.command;
 
+import java.time.format.DateTimeParseException;
+import duke.exception.DukeException;
+import duke.exception.InvalidInputException;
+import duke.task.TaskList;
+import duke.ui.Ui;
+import duke.storage.Storage;
+import duke.exception.InvalidTimeException;
+import duke.task.Deadline;
+import duke.task.Event;
+import duke.task.Todo;
 public class AddCommand extends Command {
     private String description;
     public AddCommand(String description) {
         this.description = description;
     }
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException{
+    public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
         int index = description.indexOf(" ");
         String taskDescription = description.substring(index + 1);
         if (index == -1) {

@@ -1,3 +1,10 @@
+package duke.command;
+
+import duke.exception.DukeException;
+import duke.task.TaskList;
+import duke.ui.Ui;
+import duke.storage.Storage;
+import duke.exception.TaskNotFoundException;
 public class MarkCommand extends Command {
     private final Integer taskIndex;
     private final boolean isMarked;
@@ -6,7 +13,7 @@ public class MarkCommand extends Command {
         this.taskIndex = taskIndex;
     }
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException{
+    public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
         if (taskIndex < 0 || taskIndex >= tasks.length()) {
             throw new TaskNotFoundException("Task Not Found :'(");
         }
