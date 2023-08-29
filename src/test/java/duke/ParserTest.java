@@ -1,30 +1,32 @@
 package duke;
 
-import exception.DukeException;
+import static org.junit.jupiter.api.Assertions.*;
+
 import org.junit.jupiter.api.Test;
+
+import exception.DukeException;
 import task.Task;
 
-import static org.junit.jupiter.api.Assertions.*;
 
 public class ParserTest {
 
     @Test
-    public void isValidDate_correctInput_Test() {
+    public void isValidDate_correctInput_test() {
         assertTrue(Parser.isValidDate("20/11/2000 1800"));
     }
 
     @Test
-    public void isValidDate_invalidInput1_Test() {
+    public void isValidDate_invalidInput1_test() {
         assertFalse(Parser.isValidDate("20-11-2000 1800"));
     }
 
     @Test
-    public void isValidDate_invalidInput2_Test() {
+    public void isValidDate_invalidInput2_test() {
         assertFalse(Parser.isValidDate("20/11/2000"));
     }
 
     @Test
-    public void replyUser_invalidInput_Test() {
+    public void replyUser_invalidInput_test() {
         TaskList taskListObj = new TaskList();
         Ui uiObj = new Ui();
         DukeException e = assertThrows(DukeException.class, () -> Parser.replyUser("", taskListObj, uiObj));
@@ -32,7 +34,7 @@ public class ParserTest {
     }
 
     @Test
-    public void replyUser_invalidInput2_Test() {
+    public void replyUser_invalidInput2_test() {
         TaskList taskListObj = new TaskList();
         taskListObj.addTask(new Task("buy book"));
         Ui uiObj = new Ui();

@@ -1,10 +1,5 @@
 package duke;
 
-import exception.DukeException;
-import task.Deadline;
-import task.Event;
-import task.Task;
-import task.ToDo;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -13,6 +8,17 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import exception.DukeException;
+import task.Deadline;
+import task.Event;
+import task.Task;
+import task.ToDo;
+
+/**
+ * Class that handle fetch of data from file and save data to file.
+ *
+ * @author syamfarh
+ */
 public class Storage {
 
     /**
@@ -50,6 +56,8 @@ public class Storage {
         case "E":
             tasks.add(new Event(task[1], task[3], task[4]));
             break;
+        default:
+            break;
         }
 
         if (task[2].equals("1")) {
@@ -61,7 +69,7 @@ public class Storage {
      * Write the task list to file.
      */
     public void save(ArrayList<Task> tasks) throws DukeException {
-        try{
+        try {
             FileWriter fw = new FileWriter("data/duke.txt");
             for (Task i : tasks) {
                 fw.write(i.fileFormat());

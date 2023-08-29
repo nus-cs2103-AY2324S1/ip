@@ -1,29 +1,30 @@
 package duke;
 
+import java.io.InputStream;
+import java.util.Scanner;
+
 import exception.DukeException;
 import task.Task;
 
-import java.io.InputStream;
-import java.util.Scanner;
 
 public class Ui {
 
     private static final String DIVIDER = "____________________________________________________________";
     private final Scanner in;
-    private boolean Exit;
+    private boolean exit;
 
     public Ui() {
         this(System.in);
     }
     public Ui(InputStream in) {
-        this.Exit = false;
+        this.exit = false;
         this.in = new Scanner(in);
     }
 
     public void handleUserInput(TaskList tasks) {
         try {
             Parser.replyUser(this.in.nextLine(), tasks, this);
-        } catch (DukeException e){
+        } catch (DukeException e) {
             this.showErrorMsg(e);
         }
     }
@@ -36,7 +37,7 @@ public class Ui {
     }
 
     public void exitGreeting() {
-        this.Exit = true;
+        this.exit = true;
         System.out.println(DIVIDER);
         System.out.println("Bye. Hope to see you again soon!");
         System.out.println(DIVIDER);
@@ -78,8 +79,8 @@ public class Ui {
 
     public void deleteSuccess(Task task, int size) {
         System.out.println(DIVIDER);
-        System.out.println("Noted. I've removed this task: \n" + task +
-                "\nNow you have " + size + " tasks in the list.");
+        System.out.println("Noted. I've removed this task: \n" + task
+                + "\nNow you have " + size + " tasks in the list.");
         System.out.println(DIVIDER);
     }
 
@@ -113,6 +114,6 @@ public class Ui {
     }
 
     public boolean isExit() {
-        return this.Exit;
+        return this.exit;
     }
 }
