@@ -1,8 +1,7 @@
 package duke;
 
 import duke.task.Task;
-
-import java.util.ArrayList;
+import duke.task.TaskList;
 
 public class Ui {
 
@@ -45,12 +44,9 @@ public class Ui {
                 + Duke.lineSeparator);
     }
 
-    public void printList(ArrayList<Task> list) {
+    public void printList(TaskList taskList) {
         System.out.println(Duke.lineSeparator);
         System.out.println("Here are the tasks in your list:");
-
-        for (int i = 0; i < list.size(); i++) {
-            System.out.printf("%d. %s \n", i + 1, list.get(i).toString());
-        }
+        System.out.println(taskList);
     }
 }
