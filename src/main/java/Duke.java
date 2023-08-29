@@ -1,5 +1,7 @@
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -67,6 +69,7 @@ public class Duke {
                     System.out.println(e.getMessage());
                 }
             } else if (input.equals("bye")) {
+                saveData(list, file);
                 System.out.println(exitMessage);
                 break;
             } else {
@@ -130,6 +133,50 @@ public class Duke {
                 }
             }
         }
+    }
+
+    private static void saveData(ArrayList<Task> list, File file) {
+        String newData = "";
+
+        for (int i = 0; i < list.size(); i++) {
+            String input = list.get(i).toString();
+            String taskType = String.valueOf(input.charAt(1));
+            String status = input.charAt(4) == 'X' ? "1" : "0";
+
+            newData += taskType + " | " + status + " | ";
+            if (taskType.equals("D")) {
+                int byIndex = input.indexOf("(by:");
+                int endIndex = input.indexOf(")", byIndex);
+
+                String description = input.substring(7, byIndex - 1);
+                String by = input.substring(byIndex + 5, endIndex);
+
+                newData += description + " | " + by;
+            } else if (taskType.equals("E")) {
+                int fromIndex = input.indexOf("(from:");
+                int toIndex = input.indexOf("to:", fromIndex);
+                int endIndex = input.indexOf(")", toIndex);
+
+                String description = input.substring(7, fromIndex - 1);
+                String from = input.substring(fromIndex + 7, toIndex - 1);
+                String to = input.substring(toIndex + 4, endIndex);
+
+                newData += description + " | " + from + " | " + to;
+            } else if (taskType.equals("T")) {
+                String description = input.substring(7);
+
+                newData += description;
+            }
+            newData += System.lineSeparator();
+        }
+        try {
+            FileWriter fw = new FileWriter(file);
+            fw.write(newData);
+            fw.close();
+        } catch (IOException e) {
+            System.out.println("Error: Unable to save list");
+        }
+
     }
 
     private static void printList(ArrayList<Task> list) {
