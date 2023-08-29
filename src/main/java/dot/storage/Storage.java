@@ -1,5 +1,11 @@
 package dot.storage;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Scanner;
+
 import dot.errors.DotException;
 import dot.errors.TaskError;
 import dot.tasks.Deadline;
@@ -7,13 +13,8 @@ import dot.tasks.Event;
 import dot.tasks.Task;
 import dot.tasks.Todo;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Scanner;
-
 public class Storage {
+
     // TODO: Handle the situation of the data file being corrupted
     private final String storageLocation;
 
@@ -93,4 +94,5 @@ public class Storage {
             throw new DotException("Error saving tasks", TaskError.ERR_WRITING_FILE);
         }
     }
+
 }

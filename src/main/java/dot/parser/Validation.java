@@ -16,10 +16,12 @@ public class Validation {
         return input.startsWith(command) && (
                 input.length() == commandLen || input.charAt(commandLen) == ' ');
     }
+
     /**
      * Validates whether input is in format: <code>{@literal <command> <integer>.}</code>
      * Assumes valid command.
-     * @param input from the user
+     *
+     * @param input          from the user
      * @param potentialError the TaskError that will handle potential exceptions
      * @return the argument <code>{@literal <integer>}</code>
      * @throws DotException if input is invalid
@@ -49,9 +51,10 @@ public class Validation {
      * Validates whether input is in format: <code>{@literal <command> <description>.}</code>
      * We require command parameter because we are not relying on String::split
      * Assumes that command is valid
-     * @param input from user
-     * @param command in format
-     * @param parameterDesc for error message
+     *
+     * @param input          from user
+     * @param command        in format
+     * @param parameterDesc  for error message
      * @param potentialError the TaskError that will handle potential exceptions
      * @return the argument <code>{@literal <description>}</code>
      * @throws DotException if input is invalid
@@ -69,6 +72,7 @@ public class Validation {
     /**
      * Validates whether input is in format: <code>{@literal deadline <desc> /by <deadline>}</code>
      * This is capable of spotting format dot.errors such as overflowing parameters
+     *
      * @param input from user
      * @return { description, deadline > if valid
      * @throws DotException if input is invalid
@@ -107,12 +111,13 @@ public class Validation {
         if (deadline.isEmpty()) {
             throw new DotException("No deadline description given", TaskError.ERR_USING_DEADLINE);
         }
-        return new String[] { description, deadline };
+        return new String[] {description, deadline};
     }
 
     /**
      * Validates whether input is in format: event
      * <code>{@literal <desc> /from <start> /to <end>}</code>
+     *
      * @param input from user
      * @return { desc, start, end } if input is valid
      * @throws DotException if input is invalid
@@ -131,7 +136,7 @@ public class Validation {
         String description = input.substring(6, indexOfFirstSlash - 1);
         String start = input.substring(indexOfFirstSlash + 5, indexOfFSecondSlash).strip();
         String end = input.substring(indexOfFSecondSlash + 4);
-        return new String[] { description, start, end };
+        return new String[] {description, start, end};
     }
 
 }

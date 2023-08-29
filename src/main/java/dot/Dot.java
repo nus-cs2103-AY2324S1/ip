@@ -8,8 +8,11 @@ import dot.tasks.TaskList;
 import dot.ui.Ui;
 
 public class Dot {
+
     private TaskList dotTaskList;
+
     private final Ui userInterface;
+
     private final Storage storage;
 
     public Dot(int maxSize) {
@@ -46,9 +49,11 @@ public class Dot {
         }
         Ui.displayGoodbye();
     }
+
     public static void main(String[] args) {
         Dot dotInstance;
         dotInstance = new Dot(100);
         dotInstance.run();
     }
+
 }

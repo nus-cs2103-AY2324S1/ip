@@ -1,11 +1,11 @@
 package dot.tasks;
 
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+
 import dot.errors.DotException;
 import dot.storage.Storage;
 import dot.ui.Ui;
-
-import java.time.LocalDateTime;
-import java.util.ArrayList;
 
 /**
  * TaskList class that contains an ArrayList of tasks, where
@@ -18,12 +18,15 @@ import java.util.ArrayList;
 public class TaskList {
 
     private final ArrayList<Task> tasks;
+
     private final int maxSize;
+
     private final Storage storage;
 
     /**
      * Protected constructor for an empty TaskList, used by
      * the newTaskList factory method
+     *
      * @param maxSize of TaskList
      * @param storage object for file read/write
      */
@@ -74,9 +77,9 @@ public class TaskList {
         return new TaskList(maxSize, taskList, storage);
     }
 
-    public void toggleTaskStatus(int position, boolean isCompleted) {
+    public void setTaskComplete(int position, boolean isCompleted) {
         if (position >= 0 && position < this.tasks.size()) {
-            this.tasks.get(position).toggleStatus(isCompleted);
+            this.tasks.get(position).setComplete(isCompleted);
         } else {
             Ui.wrapPrintWithHorizontalRules("Invalid position.");
         }
@@ -117,4 +120,5 @@ public class TaskList {
     public void saveTaskListToStorage() throws DotException {
         this.storage.saveTasks(this.tasks);
     }
+
 }

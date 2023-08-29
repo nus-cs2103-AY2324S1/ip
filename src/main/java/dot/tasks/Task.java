@@ -1,12 +1,13 @@
 package dot.tasks;
 
-import dot.ui.Ui;
-
 import java.time.LocalDateTime;
+
+import dot.ui.Ui;
 
 public abstract class Task {
 
-    private String description;
+    private final String description;
+
     private boolean isCompleted;
 
     public Task(String description) {
@@ -24,16 +25,16 @@ public abstract class Task {
 
     public String getFileFormat() {
         return String.format("%d | %s", this.isCompleted ? 1 : 0, this.description);
-    };
+    }
 
-    public void toggleStatus(boolean newStatus) {
-        if (this.isCompleted == newStatus) {
+    public void setComplete(boolean isCompleted) {
+        if (this.isCompleted == isCompleted) {
             // Already marked / unmarked
             Ui.wrapPrintWithHorizontalRules(this.isCompleted
-                                            ? "Already marked done."
-                                            : "Already unmarked.");
+                    ? "Already marked done."
+                    : "Already unmarked.");
         } else {
-            this.isCompleted = newStatus;
+            this.isCompleted = isCompleted;
             Ui.displayMarkOrUnmark(this.isCompleted, this.toString());
         }
     }
@@ -48,4 +49,5 @@ public abstract class Task {
     public String toString() {
         return String.format("[%c] %s", this.getStatus(), this.description);
     }
+
 }

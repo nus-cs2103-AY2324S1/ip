@@ -1,6 +1,7 @@
 package dot.errors;
 
 public class DotException extends Exception {
+
     private final TaskError taskError;
 
     public DotException(String message, TaskError taskError) {
@@ -16,5 +17,6 @@ public class DotException extends Exception {
     public void handleError() {
         this.taskError.printErrorMessage(this);
     }
+
 }
 

@@ -7,8 +7,10 @@ import dot.errors.DotException;
  */
 public abstract class Command {
 
-    public void execute() throws DotException { };
+    public void execute() throws DotException { }
+
     public boolean isTerminateCommand() {
         return false;
-    };
+    }
+
 }

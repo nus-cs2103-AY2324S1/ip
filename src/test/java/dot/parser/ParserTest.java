@@ -1,7 +1,7 @@
 package dot.parser;
 
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 import dot.commands.Command;
 import dot.errors.DotException;
 import dot.storage.Storage;
@@ -15,7 +15,7 @@ public class ParserTest {
             Storage storage = new Storage("./data/junit-test-data.txt");
             TaskList dotTaskList = TaskList.getNewTaskList(100, storage);
             Command cmd = Parser.parseInputToCommand("todo "
-                + " send email", dotTaskList);
+                    + " send email", dotTaskList);
             cmd.execute();
         } catch (DotException e) {
             Assertions.fail();
@@ -28,7 +28,7 @@ public class ParserTest {
             Storage storage = new Storage("./data/junit-test-data.txt");
             TaskList dotTaskList = TaskList.getNewTaskList(100, storage);
             Command cmd = Parser.parseInputToCommand("deadline cs2103t "
-                + "ip /by 30/8/2023 2359", dotTaskList);
+                    + "ip /by 30/8/2023 2359", dotTaskList);
             cmd.execute();
         } catch (DotException e) {
             Assertions.fail();
@@ -41,8 +41,8 @@ public class ParserTest {
             Storage storage = new Storage("./data/junit-test-data.txt");
             TaskList dotTaskList = TaskList.getNewTaskList(100, storage);
             Command cmd = Parser.parseInputToCommand("event carnival "
-                + "/from 12/3/2022 1800 /to 12/4/2022 1600",
-                dotTaskList);
+                            + "/from 12/3/2022 1800 /to 12/4/2022 1600",
+                    dotTaskList);
             cmd.execute();
         } catch (DotException e) {
             Assertions.fail();
@@ -55,11 +55,11 @@ public class ParserTest {
             Storage storage = new Storage("./data/junit-test-data.txt");
             TaskList dotTaskList = TaskList.getNewTaskList(100, storage);
             Command cmd = Parser.parseInputToCommand("deadline cs2103t "
-                + "ip /by", dotTaskList);
+                    + "ip /by", dotTaskList);
             cmd.execute();
         } catch (DotException e) {
             Assertions.assertEquals("No deadline description given.",
-                e.getMessage());
+                    e.getMessage());
         }
     }
 

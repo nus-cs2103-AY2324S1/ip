@@ -1,15 +1,26 @@
 package dot.parser;
 
-import dot.commands.*;
-import dot.errors.DotException;
-import dot.errors.TaskError;
-import dot.tasks.TaskList;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+import dot.commands.ByeCommand;
+import dot.commands.Command;
+import dot.commands.DeadlineCommand;
+import dot.commands.DeleteCommand;
+import dot.commands.EventCommand;
+import dot.commands.HelpCommand;
+import dot.commands.ListCommand;
+import dot.commands.MarkCommand;
+import dot.commands.TodoCommand;
+import dot.commands.UnmarkCommand;
+import dot.commands.WhatsgoingonCommand;
+import dot.errors.DotException;
+import dot.errors.TaskError;
+import dot.tasks.TaskList;
+
 public class Parser {
+
     /**
      * Parses a dateInput in the format dd/MM/yyyy into a LocalDateTime
      * We will standardise hhmmss as 000000. It is important to run
@@ -42,7 +53,6 @@ public class Parser {
             // This shouldn't happen, but will default to TimeDescription
             return displayDateTime;
         }
-
     }
 
     public static Command parseInputToCommand(String input,

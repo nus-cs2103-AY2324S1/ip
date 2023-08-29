@@ -6,6 +6,7 @@ import dot.tasks.TaskList;
 public class DeleteCommand extends Command {
 
     private final int position;
+
     private final TaskList dotTaskList;
 
     public DeleteCommand(int position, TaskList dotTaskList) {
@@ -18,7 +19,5 @@ public class DeleteCommand extends Command {
         dotTaskList.deleteTask(position - 1);
         dotTaskList.saveTaskListToStorage();
     }
-
-    ;
 
 }

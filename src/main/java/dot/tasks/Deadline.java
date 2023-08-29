@@ -1,11 +1,13 @@
 package dot.tasks;
 
-import dot.parser.Parser;
-
 import java.time.LocalDateTime;
 
+import dot.parser.Parser;
+
 public class Deadline extends Task {
-    private Dateable deadline;
+
+    private final Dateable deadline;
+
     public Deadline(String description, String deadline) {
         super(description);
         this.deadline = Dateable.of(deadline);
@@ -27,9 +29,11 @@ public class Deadline extends Task {
         // Event can either start or end on the date itself, or both
         return this.deadline.isAfterOrOn(startOfDay) && this.deadline.isBeforeOrOn(endOfDay);
     }
+
     @Override
     public String toString() {
         return "[D]" + super.toString()
-            + String.format(" (by: %s)", this.deadline);
+                + String.format(" (by: %s)", this.deadline);
     }
+
 }

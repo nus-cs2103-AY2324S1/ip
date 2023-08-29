@@ -24,10 +24,13 @@ public abstract class Dateable {
     public abstract boolean isAfterOrOn(LocalDateTime date);
 
     public static class DotDateTime extends Dateable {
-        private LocalDateTime dotDateTime;
+
+        private final LocalDateTime dotDateTime;
+
         DotDateTime(String input) {
             this.dotDateTime = LocalDateTime.parse(input);
         }
+
         @Override
         public boolean isBeforeOrOn(LocalDateTime date) {
             return this.dotDateTime.isBefore(date) || this.dotDateTime.isEqual(date);
@@ -42,10 +45,12 @@ public abstract class Dateable {
         public String toString() {
             return this.dotDateTime.format(DateTimeFormatter.ofPattern("MMM dd yyyy ha"));
         }
+
     }
 
     public static class TimeDescription extends Dateable {
-        private String timeDescription;
+
+        private final String timeDescription;
 
         TimeDescription(String input) {
             this.timeDescription = input;
@@ -65,7 +70,9 @@ public abstract class Dateable {
         public String toString() {
             return this.timeDescription;
         }
+
     }
+
     public static Dateable of(String input) {
         //(Only) regex inspired by ChatGPT
         //Prompt: Give me a regex crash course

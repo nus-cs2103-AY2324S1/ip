@@ -6,7 +6,9 @@ import dot.tasks.TaskList;
 import dot.tasks.Todo;
 
 public class TodoCommand extends Command {
+
     private final String description;
+
     private final TaskList dotTaskList;
 
     public TodoCommand(String description, TaskList dotTaskList) {
@@ -20,4 +22,5 @@ public class TodoCommand extends Command {
         dotTaskList.addTask(newTodoTask);
         dotTaskList.saveTaskListToStorage();
     }
+
 }

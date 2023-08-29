@@ -1,12 +1,14 @@
 package dot.tasks;
 
-import dot.parser.Parser;
-
 import java.time.LocalDateTime;
 
+import dot.parser.Parser;
+
 public class Event extends Task {
-    private Dateable start;
-    private Dateable end;
+
+    private final Dateable start;
+
+    private final Dateable end;
 
     public Event(String description, String start, String end) {
         super(description);
@@ -41,4 +43,5 @@ public class Event extends Task {
         return "[E]" + super.toString()
                 + String.format(" (from: %s to: %s)", start, end);
     }
+
 }
