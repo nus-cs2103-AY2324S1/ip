@@ -31,48 +31,56 @@ public class Parser {
                 if (splitInput.length == 1) {
                     throw new DukeIllegalArgumentsException("The description of a todo cannot be empty\n");
                 }
-                return new AddCommand(new Todo(splitInput[1]));
+                return new AddCommand(new Todo(splitInput[1].trim()));
             case "deadline":
-                if (splitInput.length == 1 || !splitInput[1].contains(" /by ")) {
-                    throw new DukeIllegalArgumentsException("The description of a deadline cannot be empty\n");
+                if (splitInput.length == 1) {
+                    throw new DukeIllegalArgumentsException("The description of an deadline cannot be empty\n");
                 }
 
-                String[] splitInputBy = splitInput[1].split(" /by ", 2);
-
-                if (splitInputBy.length == 1) {
-                    throw new DukeIllegalArgumentsException("A deadline must be specified! (after /by)\n");
+                String[] splitInputBy = fullCommand.split("/by", 2);
+                String[] splitDeadlineDescription = splitInputBy[0].split(" ", 2);
+                if (splitDeadlineDescription.length == 1 || splitDeadlineDescription[1].equals("")) {
+                    throw new DukeIllegalArgumentsException("The description of an deadline cannot be empty\n");
+                }
+                if (splitInputBy.length == 1 || splitInputBy[1].equals("")) {
+                    throw new DukeIllegalArgumentsException(
+                            "The deadline date must be specified! (after /by)\n");
                 }
 
                 try {
-                    return new AddCommand(
-                            new Deadline(splitInputBy[0], LocalDateTime.parse(splitInputBy[1], dateTimeFormat)));
+                    return new AddCommand(new Deadline(splitDeadlineDescription[1].trim(),
+                            LocalDateTime.parse(splitInputBy[1].trim(), dateTimeFormat)));
                 } catch (DateTimeParseException e) {
                     throw new DukeIllegalArgumentsException(
                             "The deadline date provided must be in the format: dd/mm/yyyy HHmm (in 24h format)\n");
                 }
             case "event":
-                if (splitInput.length == 1 || !splitInput[1].contains(" /from ")) {
+                if (splitInput.length == 1) {
                     throw new DukeIllegalArgumentsException("The description of an event cannot be empty\n");
                 }
 
-                String[] splitInputFrom = splitInput[1].split(" /from ", 2);
-
-                if (splitInputFrom.length == 1) {
+                String[] splitInputFrom = fullCommand.split("/from", 2);
+                String[] splitEventDescription = splitInputFrom[0].split(" ", 2);
+                if (splitEventDescription.length == 1 || splitEventDescription[1].equals("")) {
+                    throw new DukeIllegalArgumentsException("The description of an event cannot be empty\n");
+                }
+                if (splitInputFrom.length == 1 || splitInputFrom[1].equals("")) {
                     throw new DukeIllegalArgumentsException(
                             "The start time of the event must be specified! (after /from)\n");
                 }
 
-                String[] splitInputTo = splitInputFrom[1].split(" /to ", 2);
+                String[] splitInputTo = splitInputFrom[1].split("/to", 2);
 
-                if (splitInputTo.length == 1) {
+                if (splitInputTo.length == 1 || splitInputTo[1].equals("")) {
                     throw new DukeIllegalArgumentsException(
                             "The end time of the event must be specified! (after /to)\n");
                 }
 
                 try {
                     return new AddCommand(
-                            new Event(splitInputFrom[0], LocalDateTime.parse(splitInputTo[0], dateTimeFormat),
-                                    LocalDateTime.parse(splitInputTo[1], dateTimeFormat)));
+                            new Event(splitInputFrom[0].trim(),
+                                    LocalDateTime.parse(splitInputTo[0].trim(), dateTimeFormat),
+                                    LocalDateTime.parse(splitInputTo[1].trim(), dateTimeFormat)));
                 } catch (DateTimeParseException e) {
                     throw new DukeIllegalArgumentsException(
                             "The event dates provided must be in the format: dd/mm/yyyy HHmm (in 24h format)\n");
