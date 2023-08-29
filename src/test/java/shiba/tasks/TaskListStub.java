@@ -1,6 +1,7 @@
 package shiba.tasks;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class TaskListStub implements PersistentTaskList {
     private final ArrayList<ShibaTask> tasks = new ArrayList<>();
@@ -28,5 +29,10 @@ public class TaskListStub implements PersistentTaskList {
     @Override
     public void save() {
         // This stub will not save to file
+    }
+
+    @Override
+    public List<ShibaTask> findTasksWithKeyword(String keyword) {
+        return new ArrayList<>();
     }
 }

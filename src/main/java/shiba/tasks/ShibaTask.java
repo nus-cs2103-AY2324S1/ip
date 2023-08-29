@@ -117,6 +117,16 @@ public abstract class ShibaTask {
         return parsedTask;
     }
 
+    /**
+     * Checks if the task name contains the specified keyword.
+     *
+     * @param keyword The keyword to check for.
+     * @return True if the task name contains the keyword, else false.
+     */
+    public boolean containsKeyword(String keyword) {
+        return name.toLowerCase().contains(keyword.toLowerCase());
+    }
+
     @Override
     public String toString() {
         return getTaskLabel() + "[" + (isDone ? "X" : " ") + "] " + name;

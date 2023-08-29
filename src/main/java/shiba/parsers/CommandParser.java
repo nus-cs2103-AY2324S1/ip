@@ -48,6 +48,9 @@ public class CommandParser {
                 case DELETE:
                     shibaCommand = new DeleteCommand(tasks, input);
                     break;
+                case FIND:
+                    shibaCommand = new FindCommand(tasks, input);
+                    break;
                 case BYE:
                     return;
                 }
