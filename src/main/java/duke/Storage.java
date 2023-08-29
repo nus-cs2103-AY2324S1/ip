@@ -1,5 +1,6 @@
+package duke;
+
 import java.io.*;
-import java.util.ArrayList;
 
 public class Storage {
     public Storage(String filePath) throws DukeException {

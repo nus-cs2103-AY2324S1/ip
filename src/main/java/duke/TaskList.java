@@ -1,3 +1,5 @@
+package duke;
+
 import java.io.*;
 import java.util.ArrayList;
 
@@ -32,9 +34,10 @@ public class TaskList {
         return taskList.get(i);
     }
 
-    public void delete(Task task) {
+    public void delete(Task task) throws DukeException {
         System.out.println("Noted. I've removed this task:\n" + task.toString());
         taskList.remove(task);
+        writeToFile();
         System.out.println(this);
     }
 
