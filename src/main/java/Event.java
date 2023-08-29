@@ -10,6 +10,7 @@ public class Event extends Task {
     public Event(String name) throws DukeException {
         super(name.split("/")[0]);
         this.ogname = name;
+        this.type = "Event";
 
         this.inputs = name.split("/");
         if (this.inputs.length < 3) {

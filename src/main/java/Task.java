@@ -2,7 +2,7 @@ import java.util.HashMap;
 
 public class Task {
     boolean completed;
-    String name, ogname;
+    String name, ogname, type;
 
     HashMap<String, String> monthMap;
 
@@ -56,7 +56,7 @@ public class Task {
     @Override
     public String toString() {
         if (this.completed) {
-            return "[X] " + this.name;
+            return "[X]" + this.name;
         } else {
             return "[ ]" + this.name;
         }
