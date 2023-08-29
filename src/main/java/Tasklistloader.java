@@ -1,4 +1,6 @@
 
+import com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility;
+import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper.DefaultTyping;
 import com.fasterxml.jackson.databind.jsontype.BasicPolymorphicTypeValidator;
@@ -25,6 +27,7 @@ public class Tasklistloader {
         .allowIfSubType("Task")
         .build();
     this.taskMapper.activateDefaultTyping(ptv, DefaultTyping.NON_FINAL);
+    this.taskMapper.setVisibility(PropertyAccessor.FIELD, Visibility.ANY);
   }
 
   public void loadTasks() {
@@ -32,13 +35,16 @@ public class Tasklistloader {
     try {
       Path filePath = Paths.get("tasks.json");
       String content = new String(Files.readAllBytes(filePath));
-      ReceivedTasks kek = this.taskMapper.readValue(content, ReceivedTasks.class);
-      ArrayList<Task> wow = kek.tasks;
+      ReceivedTasks received = this.taskMapper.readValue(content, ReceivedTasks.class);
+      ArrayList<Task> tasks = received.tasks;
 
-      for (int i = 0; i < wow.size(); i++) {
-        Task curr = kek.tasks.get(i);
-        System.out.println(curr.getDescription());
-      }
+      System.out.println("loaded tasks!");
+      this.taskList.addAll(tasks);
+
+//      for (int i = 0; i < tasks.size(); i++) {
+//        Task curr = tasks.get(i);
+//        System.out.println(curr.getDescription());
+//      }
     } catch (IOException ex) {
       System.out.println(ex.getMessage());
     }
