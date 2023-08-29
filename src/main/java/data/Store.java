@@ -2,18 +2,41 @@ package data;
 
 import exception.DukeException;
 import exception.InvalidInputException;
+import java.io.FileWriter;
+import java.io.IOException;
+//import java.io.File;
+
 
 public class Store {
     private static Store store = new Store();
     Task[] tasks = new Task[100];
     int taskCount = 0;
+    //FileWriter fw;
+    //File file = new File("duke.txt");
+    
+        
 
-    private Store() {
-    }
+    private Store() {}
+      
 
     public static Store getInstance() {
         return store;
     }
+
+    private void write() {
+        
+        try {
+             FileWriter fw = new FileWriter("./src/main/java/data/duke.txt");
+            for (int i = 0; i < taskCount; i++) {
+                fw.write(tasks[i].toString() + "\n");
+                System.out.println("debug, line 45 is executed");   
+            }
+            fw.close();
+        } catch (IOException e) {
+            System.out.println("Something went wrong: " + e.getMessage());
+        }
+    }
+
 
     public void addTask(Task task) throws DukeException {
         if (taskCount == 100) {
@@ -21,6 +44,7 @@ public class Store {
         }
         tasks[taskCount] = task;
         taskCount++;
+        write();
     }
 
     public Task[] getTasks() {
@@ -42,6 +66,7 @@ public class Store {
             tasks[i] = tasks[i + 1];
         }
         taskCount--;
+        write();
     }
 
     public void mark(int index) throws DukeException {
@@ -49,6 +74,7 @@ public class Store {
            throw new InvalidInputException("index out of bounds");
         }
         tasks[index-1].mark();
+        write();
        
     }
 
@@ -58,13 +84,15 @@ public class Store {
         }
 
         tasks[index-1].unmark(); 
+        write();
     }
 
     public void updateDescription(int index, String description) throws DukeException{
         if (index > taskCount || index < 1) {
             throw new InvalidInputException("index out of bounds");
         }
-        tasks[index-1].setDescription(description);  
+        tasks[index-1].setDescription(description); 
+        write(); 
     }  
 
     public int getTaskCount() {
@@ -82,6 +110,16 @@ public class Store {
             result += (i + 1) + ". " + tasks[i] + "\n";
         }
         return result;
+    }
+
+    public static void main(String[] args) throws DukeException{
+       try {
+        FileWriter fw = new FileWriter("./src/main/java/data/duke.txt");
+        fw.write("hello");
+        fw.close();
+       } catch (IOException e) {
+           System.out.println("Something went wrong: " + e.getMessage());
+       }
     }
 }
 
