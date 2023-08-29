@@ -249,7 +249,7 @@ public class Duke {
         public String toString() {
             String rtnVal = "";
             if (this.list.size() == 0) {
-                rtnVal = "List is empty.";
+                rtnVal = "The list is empty.";
             } else {
                 for (int i = 0; i < this.list.size() - 1; i++) {
                     rtnVal += (i + 1 + ".") + this.list.get(i).toString() + "\n";
