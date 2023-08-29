@@ -7,9 +7,9 @@ import java.util.Map;
  * An abstraction for an instruction command derived from a chat message.
  *
  * <p>
- *     This class represents a simple command structure with name, data, parameters.
- *     It also provides convenience parser methods to automatically parse an instruction String into a command,
- *     and enum lookups for known command operation types.
+ * This class represents a simple command structure with name, data, parameters. It also provides convenience parser
+ * methods to automatically parse an instruction String into a command, and enum lookups for known command operation
+ * types.
  * </p>
  */
 public class ChatCommand {
@@ -21,18 +21,18 @@ public class ChatCommand {
      * A command operation, representing an identified operation for a command.
      */
     public enum Operation {
-        AddTodo,
-        AddDeadline,
-        AddEvent,
-        Delete,
+        ADD_TODO,
+        ADD_DEADLINE,
+        ADD_EVENT,
+        DELETE,
 
-        MarkComplete,
-        UnmarkComplete,
+        MARK_COMPLETE,
+        UNMARK_COMPLETE,
 
-        List,
-        Exit,
+        LIST,
+        EXIT,
 
-        Unknown
+        UNKNOWN
     }
 
     private final String name;
@@ -43,8 +43,8 @@ public class ChatCommand {
     /**
      * Constructs a command with the given properties.
      *
-     * @param name The name of the command. Cannot be null.
-     * @param data The data of the command. Cannot be null; supply empty string if no data.
+     * @param name   The name of the command. Cannot be null.
+     * @param data   The data of the command. Cannot be null; supply empty string if no data.
      * @param params The parameters of the command. May be null.
      */
     public ChatCommand(String name, String data, Map<String, String> params) {
@@ -64,7 +64,7 @@ public class ChatCommand {
      * Parses a string instruction as a command.
      *
      * <p>
-     *     This expects the format: "commandName Some long data text --key1 value1 --key2 value2".
+     * This expects the format: "commandName Some long data text --key1 value1 --key2 value2".
      * </p>
      *
      * @param instruction The string instruction to parse.
@@ -138,8 +138,8 @@ public class ChatCommand {
      * Parses a string instruction's command name.
      *
      * <p>
-     *     This expects the format: "commandName Some long data text --key1 value1 --key2 value2".
-     *     It only returns the commandName component, and does not attempt to read anything beyond that.
+     * This expects the format: "commandName Some long data text --key1 value1 --key2 value2". It only returns the
+     * commandName component, and does not attempt to read anything beyond that.
      * </p>
      *
      * @param instruction The string instruction to parse.
@@ -170,23 +170,30 @@ public class ChatCommand {
         }
 
         switch (this.name) {
-            case "todo": return this.type = Operation.AddTodo;
-            case "event": return this.type = Operation.AddEvent;
-            case "deadline": return this.type = Operation.AddDeadline;
+        case "todo":
+            return this.type = Operation.ADD_TODO;
+        case "event":
+            return this.type = Operation.ADD_EVENT;
+        case "deadline":
+            return this.type = Operation.ADD_DEADLINE;
 
-            case "delete": return this.type = Operation.Delete;
+        case "delete":
+            return this.type = Operation.DELETE;
 
-            case "mark": return this.type = Operation.MarkComplete;
-            case "unmark": return this.type = Operation.UnmarkComplete;
+        case "mark":
+            return this.type = Operation.MARK_COMPLETE;
+        case "unmark":
+            return this.type = Operation.UNMARK_COMPLETE;
 
-            case "list": return this.type = Operation.List;
+        case "list":
+            return this.type = Operation.LIST;
 
-            case "bye":
-            case "exit":
-                return this.type = Operation.Exit;
+        case "bye":
+        case "exit":
+            return this.type = Operation.EXIT;
         }
 
-        return this.type = Operation.Unknown;
+        return this.type = Operation.UNKNOWN;
     }
 
     /**

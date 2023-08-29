@@ -1,8 +1,7 @@
 package taskmanager.task;
 
 /**
- * A trivial task that represents to-dos.
- * It has a title and can be marked as completed.
+ * A trivial task that represents to-dos. It has a title and can be marked as completed.
  */
 public class Todo extends Task {
     /**

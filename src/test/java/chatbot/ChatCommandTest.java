@@ -1,7 +1,11 @@
 package chatbot;
 
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class ChatCommandTest {
 
@@ -12,19 +16,19 @@ public class ChatCommandTest {
         command = ChatCommand.parse("");
         assertEquals("", command.getName());
         assertEquals("", command.getData());
-        assertEquals(ChatCommand.Operation.Unknown, command.getOperation());
+        assertEquals(ChatCommand.Operation.UNKNOWN, command.getOperation());
         assertFalse(command.hasParams());
 
         command = ChatCommand.parse("bye");
         assertEquals("bye", command.getName());
         assertEquals("", command.getData());
-        assertEquals(ChatCommand.Operation.Exit, command.getOperation());
+        assertEquals(ChatCommand.Operation.EXIT, command.getOperation());
         assertFalse(command.hasParams());
 
         command = ChatCommand.parse("test abc 123--456");
         assertEquals("test", command.getName());
         assertEquals("abc 123--456", command.getData());
-        assertEquals(ChatCommand.Operation.Unknown, command.getOperation());
+        assertEquals(ChatCommand.Operation.UNKNOWN, command.getOperation());
         assertFalse(command.hasParams());
         assertFalse(command.hasParam("456"));
         assertFalse(command.hasParamWithUsefulValue("456"));
@@ -33,7 +37,7 @@ public class ChatCommandTest {
         command = ChatCommand.parse(" todo blabla\tblah blah\n123\n");
         assertEquals("todo", command.getName());
         assertEquals("blabla blah blah 123", command.getData());
-        assertEquals(ChatCommand.Operation.AddTodo, command.getOperation());
+        assertEquals(ChatCommand.Operation.ADD_TODO, command.getOperation());
         assertFalse(command.hasParams());
         assertFalse(command.hasParam("blah"));
         assertFalse(command.hasParamWithUsefulValue("blah"));
@@ -47,7 +51,7 @@ public class ChatCommandTest {
         command = ChatCommand.parse("--magic parameter");
         assertEquals("", command.getName());
         assertEquals("", command.getData());
-        assertEquals(ChatCommand.Operation.Unknown, command.getOperation());
+        assertEquals(ChatCommand.Operation.UNKNOWN, command.getOperation());
         assertTrue(command.hasParams());
         assertTrue(command.hasParam("magic"));
         assertTrue(command.hasParamWithUsefulValue("magic"));
@@ -56,7 +60,7 @@ public class ChatCommandTest {
         command = ChatCommand.parse("todo --missing");
         assertEquals("todo", command.getName());
         assertEquals("", command.getData());
-        assertEquals(ChatCommand.Operation.AddTodo, command.getOperation());
+        assertEquals(ChatCommand.Operation.ADD_TODO, command.getOperation());
         assertTrue(command.hasParams());
         assertTrue(command.hasParam("missing"));
         assertFalse(command.hasParamWithUsefulValue("missing"));
@@ -65,7 +69,7 @@ public class ChatCommandTest {
         command = ChatCommand.parse("deadline message 123--456 --by date part");
         assertEquals("deadline", command.getName());
         assertEquals("message 123--456", command.getData());
-        assertEquals(ChatCommand.Operation.AddDeadline, command.getOperation());
+        assertEquals(ChatCommand.Operation.ADD_DEADLINE, command.getOperation());
         assertTrue(command.hasParams());
         assertTrue(command.hasParam("by"));
         assertFalse(command.hasParam("456"));
@@ -75,7 +79,7 @@ public class ChatCommandTest {
         command = ChatCommand.parse("list something  nice\t--anything\n--at\tall\n");
         assertEquals("list", command.getName());
         assertEquals("something  nice", command.getData());
-        assertEquals(ChatCommand.Operation.List, command.getOperation());
+        assertEquals(ChatCommand.Operation.LIST, command.getOperation());
         assertTrue(command.hasParams());
         assertEquals("", command.getParam("anything"));
         assertFalse(command.hasParamWithUsefulValue("anything"));

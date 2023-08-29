@@ -14,8 +14,8 @@ public class InternalPath {
     private final String[] components;
 
     /**
-     * Constructs a new path with path components representing the internal relative path
-     * starting from the base directory.
+     * Constructs a new path with path components representing the internal relative path starting from the base
+     * directory.
      *
      * @param components The path components.
      */
@@ -24,12 +24,12 @@ public class InternalPath {
     }
 
     /**
-     * Constructs a new path with path components representing the internal relative path
-     * starting from the base directory.
+     * Constructs a new path with path components representing the internal relative path starting from the base
+     * directory.
      *
      * <p>
-     *     All components are separated by path separators automatically, do not supply them.
-     *     Instead, supply each component in the path as a separate argument.
+     * All components are separated by path separators automatically, do not supply them. Instead, supply each component
+     * in the path as a separate argument.
      * </p>
      *
      * @param components The path components.
@@ -39,8 +39,7 @@ public class InternalPath {
     }
 
     /**
-     * Returns the internal relative path components, representing the path if joined
-     * with a path separator.
+     * Returns the internal relative path components, representing the path if joined with a path separator.
      *
      * @return The internal relative path components.
      */
@@ -49,8 +48,7 @@ public class InternalPath {
     }
 
     /**
-     * Returns a new path relative to the configured base directory, while removing the last
-     * component in the path.
+     * Returns a new path relative to the configured base directory, while removing the last component in the path.
      *
      * @return The path after removing the last path component.
      * @throws NegativeArraySizeException if there are no more components in the path to strip.
@@ -61,8 +59,7 @@ public class InternalPath {
     }
 
     /**
-     * Returns a new path relative to the configured base directory, while adding the given last
-     * component to the path
+     * Returns a new path relative to the configured base directory, while adding the given last component to the path
      *
      * @param component The new component to append to the end of the path.
      * @return The path after adding the new last path component.
@@ -74,8 +71,8 @@ public class InternalPath {
     }
 
     /**
-     * Returns the given path's full path relative to the configured base directory, as a
-     * {@link java.nio.file.Path} instance.
+     * Returns the given path's full path relative to the configured base directory, as a {@link java.nio.file.Path}
+     * instance.
      *
      * @param basePath The Java NIO path to the base directory. May be null to use default.
      * @return The path for the given file as a {@link java.nio.file.Path} instance.

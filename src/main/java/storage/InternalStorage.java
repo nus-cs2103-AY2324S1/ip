@@ -15,6 +15,7 @@ import java.nio.file.Path;
 public class InternalStorage {
 
     private static InternalStorage sharedInstance = null;
+
     /**
      * Returns the global singleton for the storage manager with the default path.
      *
@@ -27,7 +28,7 @@ public class InternalStorage {
         return sharedInstance;
     }
 
-    private Path baseNioPath;
+    private final Path baseNioPath;
 
     /**
      * Constructs a new instance of an internal storage manager.
@@ -42,7 +43,7 @@ public class InternalStorage {
      * Saves the given String data into the given path, relative to the configured base directory.
      *
      * @param internalPath The path to save to.
-     * @param data The data to save in the file with.
+     * @param data         The data to save in the file with.
      * @throws IOException if the file cannot be written for any reason.
      */
     public void saveTo(InternalPath internalPath, String data) throws IOException {
@@ -65,7 +66,7 @@ public class InternalStorage {
      * @param internalPath The path to read from.
      * @return The resulting data read from the file.
      * @throws FileNotFoundException if the file does not exist.
-     * @throws IOException if the file cannot be read for any reason.
+     * @throws IOException           if the file cannot be read for any reason.
      */
     public String loadFrom(InternalPath internalPath) throws IOException {
 
