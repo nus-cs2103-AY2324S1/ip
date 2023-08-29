@@ -2,6 +2,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -74,21 +75,36 @@ public class Duke {
     }
 
     private class Deadline extends Task {
-        private String deadlineString;
+        private LocalDate deadline;
 
         public Deadline (String taskName, String deadline) {
             super(taskName);
-            this.deadlineString = deadline;
+            // assume deadline is of the format 2019-12-01
+            try {
+                this.deadline = LocalDate.parse(deadline);
+            } catch (java.time.format.DateTimeParseException e) {
+                System.out.println("Error: " + e.getMessage());
+            }
+        }
+
+        private String dateToString() {
+            // desired format is MMM dd yyyy
+            return this.deadline.format(java.time.format.DateTimeFormatter.ofPattern("MMM dd yyyy"));
+        }
+
+        private String parseDate() {
+            // convert deadline back to yyyy-mm-dd
+            return this.deadline.format(java.time.format.DateTimeFormatter.ofPattern("yyyy-MM-dd"));
         }
 
         @Override
         public String toString() {
-            return "[D]" + super.toString() + " (by: " + this.deadlineString + ")";
+            return "[D]" + super.toString() + " (by: " + dateToString() + ")";
         }
 
         @Override
         public String saveString() {
-            return "D | " + (this.getIsDone() ? "1" : "0") + " | " + this.getTaskName() + " | " + this.deadlineString;
+            return "D | " + (this.getIsDone() ? "1" : "0") + " | " + this.getTaskName() + " | " + parseDate();
         }
     }
 
