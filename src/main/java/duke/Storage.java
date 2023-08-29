@@ -9,6 +9,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -65,20 +66,40 @@ public class Storage {
             Task task;
 
             switch (taskType) {
-                case "TODO":
-                    task = new ToDoTask(taskDescription);
-                    break;
-                case "DEADLINE":
-                    String by = details[2].trim();
-                    task = new DeadlineTask(taskDescription, by);
-                    break;
-                case "EVENT":
-                    String from = details[2].trim();
-                    String to = details[3].trim();
-                    task = new EventTask(taskDescription, from, to);
-                    break;
-                default:
-                    throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what the loaded command is :-(");
+            case "TODO":
+                task = new ToDoTask(taskDescription);
+                break;
+            case "DEADLINE":
+                String by = details[2].trim();
+                LocalDate byDate;
+
+                try {
+                    byDate = LocalDate.parse(by);
+                } catch (Exception e) {
+                    throw new DukeException("Please enter a valid date in the format: yyyy-mm-dd");
+                }
+
+                task = new DeadlineTask(taskDescription, byDate);
+                break;
+            case "EVENT":
+                String from = details[2].trim();
+                String to = details[3].trim();
+
+                LocalDate fromDate;
+                LocalDate toDate;
+
+                try {
+                    // convert date string in the format of yyyy-mm-dd to LocalDate object
+                    fromDate = LocalDate.parse(from);
+                    // convert LocalDate object to MMM dd yyyy format
+                    toDate = LocalDate.parse(to);
+                } catch (Exception e) {
+                    throw new DukeException("Please enter a valid date in the format: yyyy-mm-dd");
+                }
+                task = new EventTask(taskDescription, fromDate, toDate);
+                break;
+            default:
+                throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what the loaded command is :-(");
             }
             if (isDone) {
                 task.mark();

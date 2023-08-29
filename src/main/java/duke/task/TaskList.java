@@ -42,4 +42,14 @@ public class TaskList {
         return this.list;
     }
 
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < list.size(); i++) {
+
+            sb.append(String.format("%d. %s \n", i + 1, list.get(i).toString()));
+        }
+        return sb.toString();
+    }
+
 }

@@ -11,6 +11,8 @@ import duke.task.DeadlineTask;
 import duke.task.EventTask;
 import duke.task.ToDoTask;
 
+import java.time.LocalDate;
+
 public class Parser {
     public static Command parse(String userInput) throws DukeException {
 
@@ -38,6 +40,9 @@ public class Parser {
     }
 
     public static ToDoTask parseTodo(String userInput) throws DukeException {
+        if (userInput.split(" ").length < 2) {
+            throw new DukeException("☹ OOPS!!! The description of a todo cannot be empty.");
+        }
         String description = userInput.split(" ", 2)[1];
         if (description.isEmpty()) {
             throw new DukeException("☹ OOPS!!! The description of a todo cannot be empty.");
@@ -50,12 +55,19 @@ public class Parser {
             throw new DukeException("☹ OOPS!!! The date of deadline cannot be empty.");
         }
         String by = userInput.split("/by")[1].trim();
+        LocalDate byDate;
 
+        try {
+            byDate = LocalDate.parse(by);
+        } catch (Exception e) {
+            throw new DukeException("Please enter a valid date in the format: yyyy-mm-dd");
+        }
         String description = userInput.split("/by")[0].trim().split(" ", 2)[1];
         if (description.isEmpty()) {
             throw new DukeException("☹ OOPS!!! The description of a deadline cannot be empty.");
         }
-        return new DeadlineTask(description, by);
+
+        return new DeadlineTask(description, byDate);
     }
 
     public static EventTask parseEvent(String userInput) throws DukeException {
@@ -64,7 +76,6 @@ public class Parser {
         }
 
         String date = userInput.split("/from")[1];
-
         String from = date.split("/to")[0].trim();
         if (from.isEmpty()) {
             throw new DukeException("☹ OOPS!!! The date of 'from' cannot be empty.");
@@ -75,12 +86,25 @@ public class Parser {
         }
         String to = date.split("/to")[1].trim();
 
+        LocalDate fromDate;
+        LocalDate toDate;
+
+        try {
+
+            // convert date string in the format of yyyy-mm-dd to LocalDate object
+            fromDate = LocalDate.parse(from);
+            // convert LocalDate object to MMM dd yyyy format
+            toDate = LocalDate.parse(to);
+        } catch (Exception e) {
+            throw new DukeException("Please enter a valid date in the format: yyyy-mm-dd");
+        }
+
         String description = userInput.split("/from")[0].trim().split(" ", 2)[1];
         if (description.isEmpty()) {
             throw new DukeException("☹ OOPS!!! The description of a event cannot be empty.");
         }
 
-        return new EventTask(description, from, to);
+        return new EventTask(description, fromDate, toDate);
     }
 
     private static int getTaskNumber(String userInput) throws DukeException {
