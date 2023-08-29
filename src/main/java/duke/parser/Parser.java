@@ -50,6 +50,13 @@ public class Parser {
             } else {
                 throw new DukeException("OOPS!!! Invalid index to be deleted!");
             }
+        } else if (userInput.contains("find") && userInput.substring(0, 4).equals("find")) {
+            if (!userInput.equals("find")) {
+                String searchItem = userInput.substring(5);
+                return new FindCommand(searchItem);
+            } else {
+                throw new DukeException("OOPS!!! The task to be found cannot be empty.");
+            }
         } else {
             if (userInput.contains("todo") && userInput.substring(0, 4).equals("todo")) {
                 // Add a task
