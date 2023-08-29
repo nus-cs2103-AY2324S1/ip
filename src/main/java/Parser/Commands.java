@@ -10,5 +10,3 @@ public enum Commands {
     DEADLINE,
     DELETE
 }
-
-//public static ArrayList

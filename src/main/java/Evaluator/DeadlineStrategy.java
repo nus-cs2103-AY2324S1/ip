@@ -2,7 +2,6 @@ package Evaluator;
 
 import Logger.Logger;
 import TaskList.TaskList;
-
 import java.util.ArrayList;
 
 public class DeadlineStrategy extends BaseStrategy {

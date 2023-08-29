@@ -3,7 +3,6 @@ package Evaluator;
 import Logger.Logger;
 import Parser.Commands;
 import Parser.QueryObject;
-import TaskList.Task;
 import TaskList.TaskList;
 
 import java.util.ArrayList;

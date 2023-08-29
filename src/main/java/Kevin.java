@@ -1,8 +1,7 @@
 import Evaluator.Evaluator;
-import TaskList.TaskList;
-import Parser.*;
-import Logger.*;
-import Evaluator.BaseStrategy;
+import Parser.Parser;
+import Parser.QueryObject;
+import Logger.Logger;
 import Exception.KevinException;
 
 import java.util.Scanner;

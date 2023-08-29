@@ -1,7 +1,6 @@
 package Evaluator;
 
 import TaskList.TaskList;
-
 import java.util.ArrayList;
 
 public class ByeStrategy extends BaseStrategy {
