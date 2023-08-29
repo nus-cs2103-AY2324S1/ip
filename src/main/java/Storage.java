@@ -1,3 +1,4 @@
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -46,7 +47,11 @@ public class Storage {
             Pattern p = Pattern.compile("(.+) /by (.+)");
             Matcher m = p.matcher(description);
             if (m.matches() && m.group(1).length() > 0 && m.group(2).length() > 0) {
-                this.tasks.add(new Deadline(m.group(1), m.group(2)));
+                try {
+                    this.tasks.add(new Deadline(m.group(1), m.group(2)));
+                } catch (DateTimeParseException e) {
+                    throw new DukeException("deadline error");
+                }
             } else {
                 throw new DukeException("deadline error");
             }

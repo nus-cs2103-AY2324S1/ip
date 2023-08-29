@@ -18,34 +18,34 @@ Task added:
 Now you have 2 tasks in total.
 "Be here now."
 Task added:
-[D][ ] project (by: tmr)
+[D][ ] project (by: Feb 10 2020 | morning)
 Now you have 3 tasks in total.
 "Be here now."
 Here are your tasks:
 1 [T][ ] write essays
 2 [E][ ] interviews (from: today 2pm | to: 3pm)
-3 [D][ ] project (by: tmr)
+3 [D][ ] project (by: Feb 10 2020 | morning)
 "One thing at a time."
 Here's your modified task:
-[D][X] project (by: tmr)
+[D][X] project (by: Feb 10 2020 | morning)
 "Keep moving forward."
 Here's your modified task:
 [E][X] interviews (from: today 2pm | to: 3pm)
 "Keep moving forward."
 Here's your modified task:
-[D][ ] project (by: tmr)
+[D][ ] project (by: Feb 10 2020 | morning)
 "Keep moving forward."
 ⚠ Oops! Cannot find the task:(
 ⚠ Sorry! I am not able to understand you. Try another language:D
 ⚠ Oops! Need description, from and to date for the event:(
-⚠ Oops! Need description and by date for the deadline:(
+⚠ Oops! Need description and formatted by date for the deadline:(
 I've successfully deleted this task:
 [T][ ] write essays
 Now you have 2 tasks in total.
 "Ride the waves."
 Here are your tasks:
 1 [E][X] interviews (from: today 2pm | to: 3pm)
-2 [D][ ] project (by: tmr)
+2 [D][ ] project (by: Feb 10 2020 | morning)
 "One thing at a time."
 Bye!
 "Beware the barrenness of a busy life."

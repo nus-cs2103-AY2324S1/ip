@@ -82,7 +82,7 @@ public class Duke {
                 } else if (message.equals("todo error")) {
                     System.out.println("⚠ Oops! Need description for the todo:(");
                 } else if (message.equals("deadline error")) {
-                    System.out.println("⚠ Oops! Need description and by date for the deadline:(");
+                    System.out.println("⚠ Oops! Need description and formatted by date for the deadline:(");
                 } else if (message.equals("event error")) {
                     System.out.println("⚠ Oops! Need description, from and to date for the event:(");
                 } else {

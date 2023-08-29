@@ -1,7 +1,7 @@
 hi
 todo write essays
 event interviews /from today 2pm /to 3pm
-deadline project /by tmr
+deadline project /by 2020-02-10 morning
 check list
 mark 3
 mark 2
