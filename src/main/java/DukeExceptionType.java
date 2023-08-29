@@ -27,6 +27,7 @@ public enum DukeExceptionType {
 "Invalid Argument: /from date time cannot be after /to date time"
     ),
     INVALID_RANGE("The task number you've entered is out of the valid range."),
+    NO_TASK_NUMBER("Please enter the task number."),
     TASK_ALREADY_MARKED("The task number you've entered is already marked as complete."),
     TASK_ALREADY_UNMARKED("The task number you've entered is already unmarked."),
     UNKNOWN_COMMAND("I'm sorry, I don't know what that means :-(");

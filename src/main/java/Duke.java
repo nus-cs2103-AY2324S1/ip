@@ -1,105 +1,52 @@
 import java.io.IOException;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
 public class Duke {
-    private static final int LINE_LENGTH = 100;
-    private boolean isRunning = true;
-    private final TaskRepository taskRepository;
-    private final ConsoleRenderer consoleRenderer;
+    private Parser parser;
+    private Storage storage;
+    private TaskList taskList;
+    private UI ui;
 
-    public Duke() {
-        this.taskRepository = new TaskRepository();
-        this.consoleRenderer = new ConsoleRenderer();
+    public Duke(String filePath) {
+        parser = new Parser();
+        storage = new Storage(filePath);
+        ui = new UI();
+        try {
+            taskList = new TaskList(storage.load());
+        } catch (DukeException | IOException e) {
+            ui.showLoadingError();
+            taskList = new TaskList();
+        }
     }
 
     public static void main(String[] args) {
-        Duke program = new Duke();
-        program.start();
+        new Duke("data/tasks.txt").run();
     }
 
-    private void start() {
-        // Attempt to load data from data/tasks.txt
-        try {
-            taskRepository.loadSaveData();
-        } catch (IOException | DukeException exception) {
-            consoleRenderer.printMessage(exception.getMessage());
-        }
-
-        Scanner scanner = new Scanner(System.in);
-
+    private void run() {
         // Welcome message
-        consoleRenderer.printMessage("Hello! I'm Skye, your personal task assistant.\n"
-                + "What can I do for you?");
-
+        ui.showWelcome();
+        boolean isExit = false;
         // Program only exits when user enters "bye" command
         do {
             try {
-                String userInput = scanner.nextLine();
+                String fullCommand = ui.readCommand();
                 System.out.println();
-                String[] tokens = userInput.split(" ", 2);
-                String command = !userInput.isEmpty() ? tokens[0] : "";
-
-                // Switch statement to check for command keywords in the first word
-                switch (command) {
-                case "bye":
-                    scanner.close();
-                    exit();
-                    break;
-
-                case "list":
-                    taskRepository.listTasks();
-                    break;
-
-                case "mark":
-                    int completedTaskNumber = tokens.length > 1 ? Integer.parseInt(tokens[1]) : 0;
-                    taskRepository.markTask(completedTaskNumber);
-                    break;
-
-                case "unmark":
-                    int incompleteTaskNumber = tokens.length > 1 ? Integer.parseInt(tokens[1]) : 0;
-                    taskRepository.unmarkTask(incompleteTaskNumber);
-                    break;
-
-                case "deadline":
-                    addDeadline(tokens);
-                    break;
-
-                case "event":
-                    addEvent(tokens);
-                    break;
-
-                case "todo":
-                    addToDo(tokens);
-                    break;
-
-                case "delete":
-                    int taskNumberToDelete = tokens.length > 1 ? Integer.parseInt(tokens[1]) : 0;
-                    taskRepository.deleteTask(taskNumberToDelete);
-                    break;
-
-                case "due":
-                    due(tokens);
-                    break;
-                default:
-                    throw new DukeException(DukeExceptionType.UNKNOWN_COMMAND);
-                }
+                Command command = parser.parse(fullCommand);
+                command.execute(taskList, ui, storage);
+                isExit = command.isExit();
             } catch (DukeException | IOException exception) {
-                consoleRenderer.printMessage(exception.getMessage());
+                ui.printMessage(exception.getMessage());
             } catch (NumberFormatException exception) {
-                consoleRenderer.printMessage("Error: Task number must be an integer.\n(example: mark 1)");
+                ui.printMessage("Error: Task number must be an integer.\n(example: mark 1)");
             } catch (DateTimeParseException exception) {
-                consoleRenderer.printMessage("Invalid Datetime Format: it should be dd-mm-yyyy hh:mm!");
+                ui.printMessage("Invalid Datetime Format: it should be dd-mm-yyyy hh:mm!");
             }
-        } while (isRunning);
-    }
-
-    private void exit() {
-        consoleRenderer.printMessage("Bye. Hope to see you again soon!");
-        isRunning = false;
-        System.exit(0);
+        } while (!isExit);
     }
 
     private String[] getEventParams(String[] tokens) throws DukeException {
@@ -139,7 +86,10 @@ public class Duke {
         LocalDateTime localDateTime = LocalDateTime.parse(by, formatter);
 
         // Add deadline to tasks
-        taskRepository.addTask(new Deadline(deadlineDescription, localDateTime));
+        Task task = new Deadline(deadlineDescription, localDateTime);
+        taskList.addTask(task);
+        storage.write(taskList.getTasks());
+        ui.showAddedTask(task, taskList.getTasks());
     }
 
     private void addEvent(String[] tokens) throws DukeException, IOException {
@@ -158,15 +108,17 @@ public class Duke {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
 
         // Add event to tasks
-        taskRepository.addTask(new Event(eventDescription, LocalDateTime.parse(from, formatter),
+        taskList.addTask(new Event(eventDescription, LocalDateTime.parse(from, formatter),
                 LocalDateTime.parse(to, formatter)));
+        storage.write(taskList.getTasks());
     }
 
     private void addToDo(String[] tokens) throws DukeException, IOException {
         if (tokens.length < 2) {
             throw new DukeException(DukeExceptionType.TODO_NO_DESCRIPTION);
         } else {
-            taskRepository.addTask(new ToDo(tokens[1]));
+            taskList.addTask(new ToDo(tokens[1]));
+            storage.write(taskList.getTasks());
         }
     }
 
@@ -174,7 +126,9 @@ public class Duke {
         if (tokens.length < 2) {
             throw new DukeException(DukeExceptionType.DUE_NO_DATE);
         } else {
-            taskRepository.dueOn(tokens[1]);
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+            LocalDate date = LocalDate.parse(tokens[1].trim(), formatter);
+            ui.showTasksDueOn(date, taskList.getTasks());
         }
     }
 }
