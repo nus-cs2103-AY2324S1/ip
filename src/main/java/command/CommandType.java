@@ -1,7 +1,7 @@
 package command;
 
 public enum CommandType {
-    LIST,
+    LIST, FIND,
     MARK, UNMARK,
     TODO, DEADLINE, EVENT,
     DELETE
