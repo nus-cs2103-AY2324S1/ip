@@ -139,7 +139,7 @@ public class GrumpyGordon {
                         }
                         String deadlineDescription = taskArgument.split(" /by ")[0];
                         String deadlineBy = taskArgument.split(" /by ")[1];
-                        gordon.tasks.add(new Deadline(deadlineDescription, deadlineBy, false));
+                        gordon.tasks.add(new Deadline(deadlineDescription, DateTimeParser.parse(deadlineBy), false));
                         gordon.taskCount++;
                         System.out.println("    ____________________________________________________________");
                         System.out.println("     Got it. I've added this task:");
@@ -164,9 +164,9 @@ public class GrumpyGordon {
                         if (taskArgument.split(" /from ")[0].contains(" /to ")) {
                             throw new DescriptionEmptyException("Invalid task description.");
                         }
-                        String eventFrom = taskArgument.split(" /from ")[0].split(" /to ")[0];
+                        String eventFrom = taskArgument.split(" /from ")[1].split(" /to ")[0];
                         String eventTo = taskArgument.split(" /to ")[1];
-                        gordon.tasks.add(new Event(eventDescription, eventFrom, eventTo, false));
+                        gordon.tasks.add(new Event(eventDescription, DateTimeParser.parse(eventFrom), DateTimeParser.parse(eventTo), false));
                         gordon.taskCount++;
                         System.out.println("    ____________________________________________________________");
                         System.out.println("     Got it. I've added this task:");
@@ -230,6 +230,7 @@ public class GrumpyGordon {
                 System.out.println("     Try again using this format:");
                 System.out.println("       mark <taskIndex>");
                 System.out.println("       unmark <taskIndex>");
+                System.out.println("       " + e.getMessage());
                 System.out.println("    ____________________________________________________________");
                 str = sc.nextLine();
             } catch (IllegalArgumentException e) {
@@ -266,6 +267,13 @@ public class GrumpyGordon {
                 System.out.println("     Are you an idiot sandwich?");
                 System.out.println("     YOU MUST TELL ME WHEN THIS EVENT ENDS!");
                 System.out.println("     Try again using this format: event <description> /from <datetime> /to <datetime>");
+                System.out.println("    ____________________________________________________________");
+                str = sc.nextLine();
+            } catch (DateTimeFormatException e) {
+                System.out.println("    ____________________________________________________________");
+                System.out.println("     Are you an idiot sandwich?");
+                System.out.println("     Your datetime format is wrong!");
+                System.out.println("     Try again using this format: yyyy-mm-dd HH:MM");
                 System.out.println("    ____________________________________________________________");
                 str = sc.nextLine();
             } catch (Exception e) {
