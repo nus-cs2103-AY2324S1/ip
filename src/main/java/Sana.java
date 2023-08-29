@@ -217,13 +217,17 @@ public class Sana {
 
         int lastDescId = userInput.indexOf('/');
         Task newEvent = getEvent(userInput, lastDescId);
-        tasksList.add(newEvent);
 
-        saveTasks("/Users/ariellacallista/Desktop", "/Users/ariellacallista/Desktop/SanaTasks.txt", newEvent);
+        if (newEvent != null) {
+            tasksList.add(newEvent);
 
-        System.out.println(divider + "Got it. I've added this task:\n" + newEvent + "\n"
-                + "Now you have " + tasksList.size() + (tasksList.size() <= 1 ? " task" : " tasks")
-                + " in the list\n" + divider);
+            saveTasks("/Users/ariellacallista/Desktop", "/Users/ariellacallista/Desktop/SanaTasks.txt", newEvent);
+
+            System.out.println(divider + "Got it. I've added this task:\n" + newEvent + "\n"
+                    + "Now you have " + tasksList.size() + (tasksList.size() <= 1 ? " task" : " tasks")
+                    + " in the list\n" + divider);
+        }
+
     }
 
     private static Task getEvent(String userInput, int lastDescId) throws SanaException {
@@ -240,8 +244,17 @@ public class Sana {
         }
         String from = userInput.substring(lastDescId + 6, lastFromId - 1);
         String to = userInput.substring(lastFromId + 4);
+        Task newEvent = null;
+
+        try {
+            LocalDate fromDate = LocalDate.parse(from);
+            LocalDate toDate = LocalDate.parse(to);
+            newEvent = new Event(desc, fromDate, toDate);
+        } catch (DateTimeParseException e) {
+            System.out.println(divider + "Invalid date format! Make sure it is yyyy-mm-dd\n" + divider);
+        }
         
-        Task newEvent = new Event(desc, from, to);
+
         return newEvent;
     }
 
@@ -273,7 +286,6 @@ public class Sana {
         }
 
         // write to file
-
         try {
             FileWriter writer = new FileWriter(Paths.get(filePath).toString(), true);
             writer.write(task.toString() + "\n");
