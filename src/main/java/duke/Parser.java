@@ -48,7 +48,7 @@ public class Parser {
                             new Deadline(splitInputBy[0], LocalDateTime.parse(splitInputBy[1], dateTimeFormat)));
                 } catch (DateTimeParseException e) {
                     throw new DukeIllegalArgumentsException(
-                            "The deadline must be in the format: dd/mm/yyyy HHmm (in 24h format)\n");
+                            "The deadline date provided must be in the format: dd/mm/yyyy HHmm (in 24h format)\n");
                 }
             case "event":
                 if (splitInput.length == 1 || !splitInput[1].contains(" /from ")) {
@@ -75,7 +75,7 @@ public class Parser {
                                     LocalDateTime.parse(splitInputTo[1], dateTimeFormat)));
                 } catch (DateTimeParseException e) {
                     throw new DukeIllegalArgumentsException(
-                            "The event must be in the format: dd/mm/yyyy HHmm (in 24h format)\n");
+                            "The event dates provided must be in the format: dd/mm/yyyy HHmm (in 24h format)\n");
                 }
             case "delete":
                 return new DeleteCommand(Integer.parseInt(splitInput[1]) - 1);
