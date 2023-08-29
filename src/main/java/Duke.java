@@ -1,4 +1,5 @@
 import java.io.IOException;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -13,7 +14,11 @@ public class Duke {
      * Default Welcome Message
      */
     private static final String WELCOME_MESSAGE = TAB + "Quack Quack! I am a duck named Quack\n"
-            + TAB + "What can I do for you?\n";
+            + TAB + "What can I do for you?\n" + TAB + "Quack will remember the Task you give quack!\n"
+            + TAB + "Quack understands these commands: list, mark, unmark, delete, todo, deadline, event\n"
+            + TAB + "For mark/unmark/delete please provide a number after, like such mark 2\n"
+            + TAB + "deadline requires the /by keyword and event requires the /from and /to keyword\n"
+            + TAB + "Please provide a valid date and time after the keyword with the following format: YYYY-MM-DD HH:MM\n";
 
     /**
      * Default Exit Message
@@ -195,6 +200,9 @@ public class Duke {
             } catch (NumberFormatException e) {
                 Duke.print("QUACK QUACK!! " + e.getMessage()
                         + ", quack only understand numbers, please input a numeric value!");
+            } catch (DateTimeParseException e) {
+                Duke.print("QUACK QUACK!! " + e.getMessage());
+                Duke.print("Quack only understands date in this format: YYYY-MM-DD HH:MM, do give the hours in 24hours format");
             }
             Duke.print(Duke.LINE_BREAK);
             input = scanner.nextLine();
@@ -314,14 +322,14 @@ public class Duke {
      */
     private void handleTask(Parser param, String input) throws DukeBadInputException {
         if (this.TASKS.size() >= 100) {
-            throw new DukeBadInputException("QUACK!! quack cannot remember any more tasks!!");
+            throw new DukeBadInputException("quack cannot remember any more tasks!!");
         }
 
         Task newTask = this.createTask(param, input);
 
 
         if (!this.storage.writeToFile(input)) {
-            Duke.print("QUACK QUACK! unable to write to storage");
+            Duke.print("QUACK QUACK! unexpected error unable to write to storage");
             return;
         }
         Duke.print("Quack! I have added this task:");
