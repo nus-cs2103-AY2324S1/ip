@@ -1,4 +1,4 @@
-T|1|read book
-D|0|return book|06/06/2020 1500
-E|0|project meeting|06/08/2020 1400|06/08/2020 1600
-T|1|join sports club
+T|1|drop CS2103T
+T|1|drop CS2103T
+T|0|kwekl
+D|0|kekes|14/05/2020 1800

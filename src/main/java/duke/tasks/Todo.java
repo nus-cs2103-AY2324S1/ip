@@ -1,5 +1,6 @@
+package duke.tasks;
+
 public class Todo extends Task {
-    protected String description;
     public Todo(String description) {
         super(description);
     }
@@ -7,6 +8,11 @@ public class Todo extends Task {
     @Override
     public String toString() {
         return "[T]" + super.toString();
+    }
+
+    @Override
+    public String makeFormat() {
+        return String.format("%s|%d|%s\n", "T", (isDone) ? 1 :0, description);
     }
 
 }

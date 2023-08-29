@@ -1,7 +1,8 @@
-import java.time.LocalDate;
+package duke.tasks;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.time.temporal.ChronoUnit;
+
 public class Deadline extends Task {
 
     private LocalDateTime by;
@@ -14,5 +15,10 @@ public class Deadline extends Task {
     public String toString() {
         return "[D]" + super.toString() + " (by: "
                 + by.format(DateTimeFormatter.ofPattern("dd MM yyyy HHmm")) + ")";
+    }
+    @Override
+    public String makeFormat() {
+        return String.format("%s|%d|%s|%s\n", "D", (isDone) ? 1 :0
+                ,description, this.by.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm")));
     }
 }

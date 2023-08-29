@@ -1,4 +1,6 @@
-public class Task {
+package duke.tasks;
+
+public abstract class Task {
     protected String description;
     protected boolean isDone;
 
@@ -17,18 +19,14 @@ public class Task {
         return res;
     }
 
-    public void mark() {
-        System.out.println("Nice! I've marked this task as done:");
-        this.isDone = true;
+    public abstract String makeFormat();
 
-        System.out.println(this.toString());
+    public void mark() {
+        this.isDone = true;
     }
 
     public void unmark() {
-        System.out.println("OK, I've marked this task as not done yet:");
         this.isDone = false;
-
-        System.out.println(this.toString());
     }
 
 
