@@ -33,6 +33,9 @@ public class Duke {
         Ui.showGoodbyeMessage();
     }
 
+    /**
+     * Constructs a Duke object.
+     */
     public Duke () {
         this.ui = new Ui(this.NAME);
         this.ui.showHelloMessage();

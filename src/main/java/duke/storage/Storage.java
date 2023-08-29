@@ -14,15 +14,24 @@ import java.util.ArrayList;
 import java.util.List;
 import java.nio.file.Path;
 
+/**
+ * Storage class to load and save data.
+ */
 public class Storage {
     private final Path FILE_PATH;
 
+    /**
+     * Constructor for Storage.
+     * @param filename The name of the file to load and save data.
+     */
     public Storage(String filename) {
         this.FILE_PATH = Paths.get(".", "data", filename);
     }
 
     /**
      * Loads the data from the file.
+     * @return The tasks loaded from the file.
+     * @throws IOException If an I/O error occurs.
      */
     public ArrayList<Task> load() throws IOException {
         Path directoryPath = FILE_PATH.getParent();
@@ -94,6 +103,7 @@ public class Storage {
     /**
      * Saves the data to the file.
      * @param tasks The tasks to save.
+     * @throws IOException If an I/O error occurs.
      */
     public void save(List<Task> tasks) throws IOException {
         Path directoryPath = FILE_PATH.getParent();
@@ -114,6 +124,7 @@ public class Storage {
 
     /**
      * Deletes the file.
+     * @throws IOException If an I/O error occurs.
      */
     public void delete() throws IOException {
         Files.delete(FILE_PATH);

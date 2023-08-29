@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test;
 public class DeadlineTest {
 
     @Test
-    public void testToString() {
+    public void testToString_shouldDisplayCorrectMessage() {
         LocalDateTime sampleDateTime = LocalDateTime.of(2023, 8, 30, 15, 0); // Example date and time
         Deadline deadline = new Deadline("Sample Deadline", sampleDateTime);
         String expectedToString = "[D][ ] Sample Deadline (by: 30-08-2023 15:00)";
@@ -17,7 +17,7 @@ public class DeadlineTest {
     }
 
     @Test
-    public void testToString2() {
+    public void testToString_shouldDisplayCorrectMessage2() {
         LocalDateTime sampleDateTime = LocalDateTime.of(2023, 9, 30, 15, 0); // Example date and time
         Deadline deadline = new Deadline("Sample Deadline", sampleDateTime);
         String expectedToString = "[D][ ] Sample Deadline (by: 30-09-2023 15:00)";
@@ -25,7 +25,7 @@ public class DeadlineTest {
     }
 
     @Test
-    public void testMarkAsDone() {
+    public void testMarkAsDone_shouldDisplayCorrectMessage() {
         LocalDateTime sampleDateTime = LocalDateTime.of(2023, 9, 30, 15, 0); // Example date and time
         Deadline deadline = new Deadline("Sample Deadline", sampleDateTime);
         assertFalse(deadline.isDone);
@@ -34,7 +34,7 @@ public class DeadlineTest {
     }
 
     @Test
-    public void testMarkAsUndone() {
+    public void testMarkAsUndone_shouldDisplayCorrectMessage() {
         LocalDateTime sampleDateTime = LocalDateTime.of(2023, 9, 30, 15, 0); // Example date and time
         Deadline deadline = new Deadline("Sample Deadline", sampleDateTime);
         deadline.markAsDone();

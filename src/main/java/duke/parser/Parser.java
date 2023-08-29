@@ -5,6 +5,9 @@ import duke.exception.DukeException;
 import duke.exception.UnknownCommandException;
 import duke.task.TaskList;
 
+/**
+ * Parser class to parse user's input.
+ */
 public class Parser {
 
     /**

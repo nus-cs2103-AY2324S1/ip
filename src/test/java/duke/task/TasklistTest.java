@@ -19,13 +19,13 @@ public class TaskListTest {
     }
 
     @Test
-    public void testAddTask_ValidTodo_ShouldDisplayCorrectMessage() {
+    public void testAddTask_validTodo_shouldDisplayCorrectMessage() {
         TaskList taskList = new TaskList("sample.txt");
         assertDoesNotThrow(() ->
                 taskList.addTask("todo This is a valid task"));
         String expectedOutput = "____________________________________________________________\n" +
                 "Got it. I've added this task:\n" +
-                "[T][ ] This is a valid task\n" + // Update based on your Task's toString()
+                "[T][ ] This is a valid task\n" +
                 "Now you have 1 task in the list.\n" +
                 "____________________________________________________________\n";
         assertEquals(expectedOutput, outContent.toString());
@@ -35,13 +35,12 @@ public class TaskListTest {
 
 
     @Test
-    public void testAddTask_ValidEvent_ShouldDisplayCorrectMessage() {
+    public void testAddTask_validEvent_shouldDisplayCorrectMessage() {
         TaskList taskList = new TaskList("sample.txt");
         assertDoesNotThrow(() ->
                 taskList.addTask("event valid event /from 2023-08-30 10:00 /to 2023-08-31 12:00"));
         String expectedOutput = "____________________________________________________________\n" +
                 "Got it. I've added this task:\n" +
-                // Update this line based on your Event's toString()
                 "[E][ ] valid event (from: 30-08-2023 10:00 to: 31-08-2023 12:00)\n" +
                 "Now you have 1 task in the list.\n" +
                 "____________________________________________________________\n";
@@ -51,12 +50,11 @@ public class TaskListTest {
     }
 
     @Test
-    public void testAddTask_ValidDeadline_ShouldDisplayCorrectMessage() {
+    public void testAddTask_validDeadline_shouldDisplayCorrectMessage() {
         TaskList taskList = new TaskList("sample.txt");
         assertDoesNotThrow(() -> taskList.addTask("deadline valid deadline /by 2023-08-30 12:00"));
         String expectedOutput = "____________________________________________________________\n" +
                 "Got it. I've added this task:\n" +
-                // Update this line based on your Deadline's toString()
                 "[D][ ] valid deadline (by: 30-08-2023 12:00)\n" +
                 "Now you have 1 task in the list.\n" +
                 "____________________________________________________________\n";
@@ -65,7 +63,7 @@ public class TaskListTest {
     }
 
     @Test
-    public void testMarkAsDone_InvalidIndex_ShouldThrowException() {
+    public void testMarkAsDone_invalidIndex_shouldThrowException() {
         TaskList taskList = new TaskList("sample.txt");
         assertThrows(IllegalTaskIndexException.class, () -> taskList.markAsDone(1));
         taskList.deleteAllTasks();
@@ -73,7 +71,7 @@ public class TaskListTest {
     }
 
     @Test
-    public void testAddTask_InvalidTaskType_ShouldThrowException() {
+    public void testAddTask_invalidTaskType_shouldThrowException() {
         TaskList taskList = new TaskList("sample.txt");
         assertThrows(InvalidArgumentException.class, () -> taskList.addTask("invalidTaskType some details"));
         taskList.deleteAllTasks();
