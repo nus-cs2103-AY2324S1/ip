@@ -7,6 +7,7 @@ import duke.Ui;
 import duke.exceptions.DukeException;
 import duke.task.Deadline;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
@@ -46,6 +47,11 @@ public class AddDeadlineCommand extends Command {
             throw new DukeException("Invalid date format");
         }
         tasks.add(deadline);
+        try {
+            storage.writeToFile(tasks);
+        } catch (IOException e) {
+            throw new DukeException("Error writing to file");
+        }
         ui.addToList(deadline, tasks.getSize());
     }
 }

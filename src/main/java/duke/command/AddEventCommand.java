@@ -7,6 +7,7 @@ import duke.Ui;
 import duke.exceptions.DukeException;
 import duke.task.Event;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
@@ -48,6 +49,11 @@ public class AddEventCommand extends Command{
             throw new DukeException("Invalid date format");
         }
         tasks.add(event);
+        try {
+            storage.writeToFile(tasks);
+        } catch (IOException e) {
+            throw new DukeException("Error writing to file");
+        }
         ui.addToList(event, tasks.getSize());
     }
 }

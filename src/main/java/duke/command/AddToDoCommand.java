@@ -6,6 +6,8 @@ import duke.Ui;
 import duke.exceptions.DukeException;
 import duke.task.ToDo;
 
+import java.io.IOException;
+
 /**
  * The AddToDoCommand class represents a command to add a new ToDo task to the list.
  */
@@ -37,6 +39,11 @@ public class AddToDoCommand extends Command {
             throw new DukeException("Invalid Todo format");
         }
         tasks.add(todo);
+        try {
+            storage.writeToFile(tasks);
+        } catch (IOException e) {
+            throw new DukeException("Error writing to file");
+        }
         ui.addToList(todo, tasks.getSize());
     }
 }
