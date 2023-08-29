@@ -4,10 +4,18 @@ import duke.Parser;
 
 import java.time.LocalDateTime;
 
+/**
+ * Class for Deadline task.
+ */
 public class Deadline extends Task {
 
     protected LocalDateTime limit;
 
+    /**
+     * Constructor for Deadline object.
+     * @param title Description of task.
+     * @param limit Deadline of task as a LocalDateTime object.
+     */
     public Deadline(String title, LocalDateTime limit) {
         super(title);
         this.limit = limit;

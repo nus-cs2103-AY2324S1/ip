@@ -15,6 +15,9 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.FileNotFoundException;
 
+/**
+ * Contains methods to create and edit file directory for storing and loading chatbot data.
+ */
 public class Storage {
 
     private static final String FILE_NAME = "TaskData.txt";
@@ -22,13 +25,18 @@ public class Storage {
     private final String fileDirectory;
     private final String fileLocation;
 
+    /**
+     * Constructor for Storage object, containing location of data tile.
+     * @param fileDirectory File location of data file.
+     */
     public Storage(String fileDirectory) {
         this.fileDirectory = fileDirectory;
         this.fileLocation = fileDirectory + "/" + FILE_NAME;
     }
 
     /**
-     * Creates directory and txt file for storing task data if they do not exist, else does nothing.
+     * Creates directory and txt file for storing task data if they do not exist.
+     * @return True if directory and txt file exist/created successfully.
      */
     private boolean openFile() {
         File directory = new File(fileDirectory);
@@ -61,6 +69,7 @@ public class Storage {
 
     /**
      * Loads task data from txt file to chatbot.
+     * @return True when file data loaded to chatbot successfully.
      */
     public boolean loadData(TaskList taskList) {
         if (!this.openFile()) {
