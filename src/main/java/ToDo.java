@@ -21,4 +21,13 @@ public class ToDo extends Task {
     public String toString() {
         return "[T]" + super.toString();
     }
+
+    /**
+     * Returns the String representation of the ToDo to be saved in the hard disk.
+     * @return A String representing the ToDo.
+     */
+    @Override
+    public String taskToString() {
+        return "T | " + super.taskToString();
+    }
 }

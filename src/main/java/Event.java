@@ -33,6 +33,15 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + from + " to:" + to + ")";
+        return "[E]" + super.toString() + " (from: " + from + " to: " + to + ")";
+    }
+
+    /**
+     * Returns the String representation of the event to be saved in the hard disk.
+     * @return A String representing the event.
+     */
+    @Override
+    public String taskToString() {
+        return "E | " + super.taskToString() + " | " + from + " | " + to;
     }
 }

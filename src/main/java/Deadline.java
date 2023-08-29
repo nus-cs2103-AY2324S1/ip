@@ -28,4 +28,13 @@ public class Deadline extends Task {
     public String toString() {
         return "[D]" + super.toString() + " (by: " + by + ")";
     }
+
+    /**
+     * Returns the String representation of the deadline to be saved in the hard disk.
+     * @return A String representing the deadline.
+     */
+    @Override
+    public String taskToString() {
+        return "D | " + super.taskToString() + " | " + by;
+    }
 }

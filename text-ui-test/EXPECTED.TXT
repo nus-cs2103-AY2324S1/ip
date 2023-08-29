@@ -18,7 +18,7 @@
     ______________________________________________
     ______________________________________________
     Got it. I've added this task:
-      [E][ ] project meeting (from: Mon 2pm to:4pm)
+      [E][ ] project meeting (from: Mon 2pm to: 4pm)
     Number of tasks: 3
     ______________________________________________
     ______________________________________________
@@ -29,7 +29,7 @@
     Here are the tasks in your list:
     1.[T][ ] borrow book
     2.[D][X] return book (by: Sunday)
-    3.[E][ ] project meeting (from: Mon 2pm to:4pm)
+    3.[E][ ] project meeting (from: Mon 2pm to: 4pm)
     ______________________________________________
     ______________________________________________
     Nice! I've marked this task as done:
@@ -52,8 +52,29 @@
     ______________________________________________
     Here are the tasks in your list:
     1.[D][ ] return book (by: Sunday)
-    2.[E][ ] project meeting (from: Mon 2pm to:4pm)
+    2.[E][ ] project meeting (from: Mon 2pm to: 4pm)
     3.[T][ ] eat
+    ______________________________________________
+    ______________________________________________
+    Noted. I've removed this task:
+      [D][ ] return book (by: Sunday)
+    Number of tasks: 2
+    ______________________________________________
+    ______________________________________________
+    Noted. I've removed this task:
+      [E][ ] project meeting (from: Mon 2pm to: 4pm)
+    Number of tasks: 1
+    ______________________________________________
+    ______________________________________________
+    Noted. I've removed this task:
+      [T][ ] eat
+    Number of tasks: 0
+    ______________________________________________
+    ______________________________________________
+    Task does not exist.
+    ______________________________________________
+    ______________________________________________
+    Task does not exist.
     ______________________________________________
     ______________________________________________
     Bye. Hope to see you again soon!

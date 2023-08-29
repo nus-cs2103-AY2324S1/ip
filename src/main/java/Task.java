@@ -53,4 +53,12 @@ public class Task {
     public String toString() {
         return String.format("[%s] " + this.description, this.getStatusIcon());
     }
+
+    /**
+     * Returns the String representation of the task to be saved in the hard disk.
+     * @return A String representing the task to be saved in the hard disk.
+     */
+    public String taskToString() {
+        return String.format("%s | " + this.description, (isDone ? "Y" : "N"));
+    }
 }
