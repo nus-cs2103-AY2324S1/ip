@@ -5,7 +5,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -109,7 +108,7 @@ public class Storage {
      * @return true if carried out successfully
      * @throws IOException if there is an IOException
      */
-    public boolean rewriteAll(ArrayList<Task> tasks) throws IOException {
+    public boolean rewriteAll(Task[] tasks) throws IOException {
 
         this.writer.flush();
         BufferedWriter tmpWriter = Files.newBufferedWriter(this.path, StandardOpenOption.WRITE, StandardOpenOption.TRUNCATE_EXISTING);

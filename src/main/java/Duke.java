@@ -1,67 +1,13 @@
 import java.io.IOException;
 import java.time.format.DateTimeParseException;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 public class Duke {
 
     /**
-     * Default tab spacing
+     * Instance handling all the user interface
      */
-    private static final String TAB = "     ";
-    /**
-     * Default Welcome Message
-     */
-    private static final String WELCOME_MESSAGE = TAB + "Quack Quack! I am a duck named Quack\n"
-            + TAB + "What can I do for you?\n" + TAB + "Quack will remember the Task you give quack!\n"
-            + TAB + "Quack understands these commands: list, mark, unmark, delete, todo, deadline, event\n"
-            + TAB + "For mark/unmark/delete please provide a number after, like such mark 2\n"
-            + TAB + "deadline requires the /by keyword and event requires the /from and /to keyword\n"
-            + TAB + "Please provide a valid date and time after the keyword with the following format: YYYY-MM-DD HH:MM\n";
-
-    /**
-     * Default Exit Message
-     */
-    private static final String GOODBYE_MESSAGE = TAB + "Quack Quack! Quack hopes to see you again soon!\n";
-
-    /**
-     * Line Break
-     */
-    private static final String LINE_BREAK = "    ____________________________________________________________\n";
-
-    /**
-     * App LOGO
-     */
-    private static final String LOGO = "\n░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░\n"
-            +
-            "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░\n" +
-            "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░██████████░░░░░░░░░░░░░░░░░░░░░░\n" +
-            "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░██░░░░░░░░░░██░░░░░░░░░░░░░░░░░░░░\n" +
-            "░░░░░░░░░░░░░░░░░░░░░░░░░░░██░░░░░░░░░░░░░░██░░░░░░░░░░░░░░░░░░\n" +
-            "░░░░░░░░░░░░░░░░░░░░░░░░░░░██░░░░░░░░████░░██████████░░░░░░░░░░\n" +
-            "░░░░░░░░░░░░░░░██░░░░░░░░░░██░░░░░░░░████░░██▒▒▒▒▒▒██░░░░░░░░░░\n" +
-            "░░░░░░░░░░░░░██░░██░░░░░░░░██░░░░░░░░░░░░░░██▒▒▒▒▒▒██░░░░░░░░░░\n" +
-            "░░░░░░░░░░░░░██░░░░██░░░░░░██░░░░░░░░░░░░░░████████░░░░░░░░░░░░\n" +
-            "░░░░░░░░░░░██░░░░░░░░██░░░░░░██░░░░░░░░░░░░██░░░░░░░░░░░░░░░░░░\n" +
-            "░░░░░░░░░░░██░░░░░░░░████████████░░░░░░░░██░░░░░░░░░░░░░░░░░░░░\n" +
-            "░░░░░░░░░░░██░░░░░░░░██░░░░░░░░░░░░░░░░░░░░██░░░░░░░░░░░░░░░░░░\n" +
-            "░░░░░░░░░░░██░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░██░░░░░░░░░░░░░░░░\n" +
-            "░░░░░░░░░░░██░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░██░░░░░░░░░░░░░░░░\n" +
-            "░░░░░░░░░░░██░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░██░░░░░░░░░░░░░░░░\n" +
-            "░░░░░░░░░░░██░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░██░░░░░░░░░░░░░░░░\n" +
-            "░░░░░░░░░░░██░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░██░░░░░░░░░░░░░░░░\n" +
-            "░░░░░░░░░░░██░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░██░░░░░░░░░░░░░░░░░░\n" +
-            "░░░░░░░░░░░░░██░░░░░░░░░░░░░░░░░░░░░░░░░░██░░░░░░░░░░░░░░░░░░░░\n" +
-            "░░░░░░░░░░░░░░░██████░░░░░░░░░░░░░░░░████░░░░░░░░░░░░░░░░░░░░░░\n" +
-            "░░░░░░░░░░░░░░░░░░░░░████████████████░░░░░░░░░░░░░░░░░░░░░░░░░░\n" +
-            "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░\n" +
-            "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░";
-
-    /**
-     * Quacks memory
-     */
-    private final ArrayList<Task> TASKS = new ArrayList<>();
+    private final Ui ui;
 
     /**
      * Path to the storage, default is ./data/data.txt
@@ -69,24 +15,30 @@ public class Duke {
     private Storage storage;
 
     /**
+     * Instance handling the tasks state
+     */
+    private final TaskList taskList;
+
+    /**
      * Construct a new Duke object which uses filePath as the storage
      *
      * @param filePath - path to the storage file
      */
     public Duke(String filePath) {
-        print(Duke.LOGO);
-        print(Duke.LINE_BREAK + Duke.WELCOME_MESSAGE + Duke.LINE_BREAK);
+        this.ui = new Ui();
+        this.ui.welcomeMessage();
+        this.taskList = new TaskList(null);
 
         // try to establish a connection to the file
         // set this.storage to null if not possible
         try {
             this.storage = new Storage(filePath);
         } catch (IOException e) {
-            Duke.print("QUACK QUACK! Quack has some internal problem and is unable to help you today, please contact quacks mum");
-            Duke.print(e.getMessage());
+            this.ui.errorMessage("has some internal problem and is unable to help you today, please contact quacks mum");
+            this.ui.println(e.getMessage());
             this.storage = null;
         } catch (DukeBadInputException e) {
-            Duke.print("QUACK QUACK! " + filePath + " is not a text file, please provide a file!");
+            this.ui.errorMessage(filePath + " is not a text file, please provide a file!");
             this.storage = null;
         }
     }
@@ -95,32 +47,25 @@ public class Duke {
         new Duke("data/data.txt").run();
     }
 
-    /**
-     * Handles the formatting of string being printed
-     *
-     * @param string - the string being printed
-     */
-    public static void print(String string) {
-        if (string.startsWith(Duke.LINE_BREAK)) {
-            System.out.println(string);
-            return;
-        }
-        System.out.println(Duke.TAB + string);
-    }
 
     /**
      * Entry point of the software
      */
     private void run() {
+        // prints out a preview of current tasks
+        this.handleList();
+        this.ui.lineBreak();
+
         if (this.storage != null) {
             this.loadStorage();
             this.collectCommand();
             this.storage.close();
         }
         // Goodbye Message
-        print(Duke.LINE_BREAK + Duke.GOODBYE_MESSAGE + Duke.LINE_BREAK);
+        this.ui.goodbyeMessage();
     }
 
+    // TODO
     private void loadStorage() {
         List<String> storedInput;
 
@@ -128,10 +73,9 @@ public class Duke {
         try {
             storedInput = this.storage.readFile();
         } catch (IOException e) {
-            Duke.print("QUACK QUACK, unexpected error: " + e.getMessage());
+            this.ui.unexpectedError(e.getMessage());
             return;
         }
-
         // parse and store data while looking out for data corruption
         boolean corrupted = false;
         for (String s : storedInput) {
@@ -139,36 +83,35 @@ public class Duke {
                 this.createTask(new Parser(s), s);
             } catch (DukeBadInputException e) {
                 corrupted = true;
-                Duke.print(e.getMessage());
+                this.ui.println(e.getMessage());
             }
         }
 
         if (corrupted) {
-            Duke.print("QUACK QUACK, some of quack's memory are corrupted, please contact quack's mum if this continuously happens ");
-
             // refresh memory to only include non-corrupted tasks
             try {
-                if (!this.storage.rewriteAll(this.TASKS)) {
-                    Duke.print("QUACK QUACK, not all tasks were successfully written, please contact my mother :( ");
+                if (!this.storage.rewriteAll(this.taskList.getAllTask())) {
+                    this.ui.unexpectedError("not all tasks were successfully written, please contact my mother :( ");
                 }
             } catch (IOException e) {
-                Duke.print("QUACK QUACK, unexpected error when rewriting to storage: " + e.getMessage());
+                this.ui.unexpectedError("error when rewriting to storage: " + e.getMessage());
             }
+            this.ui.unexpectedError("some of quack's memory are corrupted, please contact quack's mum if this continuously happens ");
+
         }
 
         // prints to the user an overview of stored tasks
         this.handleList();
-        Duke.print(Duke.LINE_BREAK);
+        this.ui.lineBreak();
     }
 
     /**
      * Handles the collection and execution of the command
      */
     private void collectCommand() {
-        Scanner scanner = new Scanner(System.in);
-        String input = scanner.nextLine();
+        String input = this.ui.readCommand();
         while (!input.equalsIgnoreCase("bye")) {
-            print(Duke.LINE_BREAK);
+            this.ui.lineBreak();
             try {
                 Parser command = new Parser(input);
                 switch (command.getCommand()) {
@@ -189,39 +132,41 @@ public class Duke {
                         this.handleTask(command, input);
                         break;
                     case UNRECOGNISED:
-                        Duke.print("Quack does not understand your command!!");
-                        Duke.print(
+                        this.ui.println("Quack does not understand your command!!");
+                        this.ui.println(
                                 "Quack only understands these commands: list, mark, unmark, delete, todo, deadline, event");
                         break;
 
                 }
             } catch (DukeBadInputException e) {
-                Duke.print("QUACK QUACK!! " + e.getMessage());
+                this.ui.errorMessage(e.getMessage());
             } catch (NumberFormatException e) {
-                Duke.print("QUACK QUACK!! " + e.getMessage()
+                this.ui.errorMessage(e.getMessage()
                         + ", quack only understand numbers, please input a numeric value!");
             } catch (DateTimeParseException e) {
-                Duke.print("QUACK QUACK!! " + e.getMessage());
-                Duke.print("Quack only understands date in this format: YYYY-MM-DD HH:MM, do give the hours in 24hours format");
+                this.ui.errorMessage(e.getMessage());
+                this.ui.println("Quack only understands date in this format: YYYY-MM-DD HH:MM, do give the hours in 24hours format");
+            } finally {
+                this.ui.lineBreak();
+                input = this.ui.readCommand();
             }
-            Duke.print(Duke.LINE_BREAK);
-            input = scanner.nextLine();
+
         }
-        scanner.close();
+        this.ui.close();
     }
 
     /**
      * Handles the execution of list
      */
     private void handleList() {
-        if (this.TASKS.size() == 0) {
-            Duke.print("Quack Quack, you have not entered any tasks yet!");
-            Duke.print("Create new tasks with the todo, deadline or event command");
+        if (this.taskList.length() == 0) {
+            this.ui.println("Quack Quack, you have not entered any tasks yet!");
+            this.ui.println("Create new tasks with the todo, deadline or event command");
             return;
         }
-        Duke.print("Quack Quack, here are the tasks in quack's memory:");
-        for (int i = 0; i < this.TASKS.size(); i++) {
-            Duke.print((i + 1) + "." + this.TASKS.get(i));
+        this.ui.println("Quack Quack, here are the tasks in quack's memory:");
+        for (int i = 0; i < this.taskList.length(); i++) {
+            this.ui.println((i + 1) + "." + this.taskList.get(i));
         }
     }
 
@@ -235,15 +180,15 @@ public class Duke {
     private int validateIndex(int index) throws DukeBadInputException {
 
         // validate input
-        if (this.TASKS.size() == 0) {
+        if (this.taskList.length() == 0) {
             throw new DukeBadInputException(
                     "Quack currently has no task remembered and cannot execute your command, add one now??");
         }
 
         // validate input
-        if (index >= this.TASKS.size()) {
-            throw new DukeBadInputException("Quack does not remember having a task: " + (index + 1) + "\n" + Duke.TAB +
-                    "Quack only remember till task " + (this.TASKS.size()));
+        if (index >= this.taskList.length()) {
+            throw new DukeBadInputException("Quack does not remember having a task: " + (index + 1) +
+                    " Quack only remember till task " + (this.taskList.length()));
         }
         return index;
     }
@@ -254,17 +199,17 @@ public class Duke {
      * @param index the index of the task being deleted
      */
     private void handleDeletion(int index) {
-        Task removed = this.TASKS.remove(index);
+        Task removed = this.taskList.remove(index);
         try {
-            if (!this.storage.rewriteAll(this.TASKS)) {
-                Duke.print("QUACK QUACK, not all tasks were successfully written, please contact my mother :( ");
+            if (!this.storage.rewriteAll(this.taskList.getAllTask())) {
+                this.ui.unexpectedError("not all tasks were successfully written, please contact my mother :( ");
             }
         } catch (IOException e) {
-            Duke.print("QUACK QUACK, unexpected error when writing to storage: " + e.getMessage());
+            this.ui.unexpectedError("error when writing to storage: " + e.getMessage());
         }
-        Duke.print("Quack! I have removed this task:");
-        Duke.print(removed.toString());
-        Duke.print("Quack! Quack is currently remembering " + this.TASKS.size() + " tasks.");
+        this.ui.println("Quack! I have removed this task:");
+        this.ui.println(removed.toString());
+        this.ui.println("Quack! Quack is currently remembering " + this.taskList.length() + " tasks.");
 
     }
 
@@ -275,7 +220,7 @@ public class Duke {
      * @param index - index of the task in question
      */
     private void handleMark(boolean mark, int index) {
-        Task task = this.TASKS.get(index);
+        Task task = this.taskList.get(index);
         // only toggle if mark != completed as if they are the same then there is no
         // effect
         String resp;
@@ -286,8 +231,8 @@ public class Duke {
             resp = mark ? "Quack! This task is already done QUACK!"
                     : "Quack! you cant unmark something that isn't done yet!!";
         }
-        Duke.print(resp);
-        Duke.print(task.toString());
+        this.ui.println(resp);
+        this.ui.println(task.toString());
     }
 
     /**
@@ -309,7 +254,7 @@ public class Duke {
         } else {
             newTask = new Event(param.getFlag("/from"), param.getFlag("/to"), param.getParam(), input);
         }
-        this.TASKS.add(newTask);
+        this.taskList.add(newTask);
         return newTask;
     }
 
@@ -321,7 +266,7 @@ public class Duke {
      * @throws DukeBadInputException if quack cannot remember anymore tasks
      */
     private void handleTask(Parser param, String input) throws DukeBadInputException {
-        if (this.TASKS.size() >= 100) {
+        if (this.taskList.length() >= 100) {
             throw new DukeBadInputException("quack cannot remember any more tasks!!");
         }
 
@@ -329,12 +274,12 @@ public class Duke {
 
 
         if (!this.storage.writeToFile(input)) {
-            Duke.print("QUACK QUACK! unexpected error unable to write to storage");
+            this.ui.unexpectedError("unable to write to storage");
             return;
         }
-        Duke.print("Quack! I have added this task:");
-        Duke.print(newTask.toString());
-        Duke.print("Quack! Quack is currently remembering " + this.TASKS.size() + " tasks.");
+        this.ui.println("Quack! I have added this task:");
+        this.ui.println(newTask.toString());
+        this.ui.println("Quack! Quack is currently remembering " + this.taskList.length() + " tasks.");
 
     }
 }

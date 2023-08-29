@@ -159,15 +159,17 @@ public class Parser {
      */
     private int[] find(String[] arr, String[] items) throws DukeBadInputException {
         int[] ret = new int[items.length + 1];
-        // initialise values
+
+        // initialise values, these values will contain the index
         for (int i = 0; i < items.length + 1; i++) {
-            // to capture all text in the flag
+            // set last item as the length to demarcate the end
             if (i == items.length) {
                 ret[i] = arr.length;
                 continue;
             }
             ret[i] = -1;
         }
+
         for (int i = 0; i < arr.length; i++) {
             for (int j = 0; j < items.length; j++) {
                 if (arr[i].equals(items[j])) {
