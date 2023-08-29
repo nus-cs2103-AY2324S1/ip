@@ -5,6 +5,17 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.InvalidPathException;
+import java.nio.file.Paths;
+import java.sql.Date;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;  
+import java.io.FileWriter;  
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.InvalidPathException;
@@ -53,15 +64,6 @@ public class Duke {
             super(message);
         }
         public LoadListException() {
-            super();
-        }
-    }
-
-    private static class TaskCreationException extends IllegalArgumentException {
-        public TaskCreationException(String message) {
-            super(message);
-        }
-        public TaskCreationException() {
             super();
         }
     }
@@ -119,8 +121,8 @@ public class Duke {
          * Encapsulates an event with a start and end time/date.
          */
         private static class Event extends Item {
-            private LocalDateTime from;
-            private LocalDateTime to;
+            private String from;
+            private String to;
 
             /**
              * Creates a new event
@@ -128,7 +130,7 @@ public class Duke {
              * @param from Start time/date.
              * @param to End time/date.
              */
-            public Event(String name, LocalDateTime from, LocalDateTime to) {
+            public Event(String name, String from, String to) {
                 super(name);
                 this.from = from;
                 this.to = to;
@@ -142,16 +144,16 @@ public class Duke {
                 } else {
                     rtnVal += "[E][ ] ";
                 }
-                return rtnVal + super.name + " (from: " + OUTPUT_FORMATTER.format(this.from) + " to: " + OUTPUT_FORMATTER.format(this.to) + ")";
+                return rtnVal + super.name + " (from: " + this.from + " to: " + this.to + ")";
             }
         }
         /**
          * Encapsulates a deadline with a do-by time/date.
          */
         private static class Deadline extends Item {
-            private LocalDateTime by;
+            private String by;
 
-            public Deadline(String input, LocalDateTime by) {
+            public Deadline(String input, String by) {
                 super(input);
                 this.by = by;
             }
@@ -164,7 +166,7 @@ public class Duke {
                 } else {
                     rtnVal += "[D][ ] ";
                 }
-                return rtnVal + super.name + " (by: " + OUTPUT_FORMATTER.format(this.by) + ")";
+                return rtnVal + super.name + " (by: " + this.by + ")";
             }
         }
         /**
@@ -218,12 +220,7 @@ public class Duke {
                                 "Please use this syntax:\n" +
                                 "event <desc> /from <start> /to <end>");
                     }
-                    LocalDateTime from =  LocalDateTime.parse(secondSplit[0], FORMATTER1);
-                    LocalDateTime to = LocalDateTime.parse(secondSplit[1], FORMATTER1);
-                    if (to.isBefore(from)) {
-                        throw new IllegalChatBotListArgumentException("☹ OOPS!!! Your event's end date/time is before its start date/time!");
-                    }
-                    this.list.add(new Event(firstSplit[0], from, to));
+                    this.list.add( new Event(firstSplit[0], secondSplit[0], secondSplit[1]));
                     writeToSave();
                     break;
                 case DEADLINE:
@@ -233,7 +230,7 @@ public class Duke {
                                 "Please use this syntax:\n" +
                                 "deadline <desc> /by <deadline>");
                     }
-                    this.list.add(new Deadline(splitInput[0], LocalDateTime.parse(splitInput[1], FORMATTER1)));
+                    this.list.add(new Deadline(splitInput[0], splitInput[1]));
                     writeToSave();
                     break;
                 case TODO:
@@ -243,7 +240,7 @@ public class Duke {
                 default:
                     break;
             }
-            return this.list.get(this.list.size() - 1).toString();
+            return this.list.get(this.list.size()-1).toString();
         }
 
         /**
@@ -312,15 +309,15 @@ public class Duke {
                             data.indexOf("(from: ");
                             data.indexOf(" to: ");
                             this.list.add(new Event(data.substring(data.indexOf("[") + 7, data.indexOf(" (from: ")), 
-                                    LocalDateTime.parse(data.substring(data.indexOf("(from: ") + 7, data.indexOf(" to: ")), OUTPUT_FORMATTER),
-                                    LocalDateTime.parse(data.substring(data.indexOf("to: ") + 4, data.length() - 1), OUTPUT_FORMATTER)));
+                                    data.substring(data.indexOf("(from: ") + 7, data.indexOf(" to: ")),
+                                    data.substring(data.indexOf("to: ") + 4, data.length() - 1)));
                             if (data.substring(data.indexOf("[") + 4, data.indexOf("[") + 5).equals("X")) {
                                 this.markItem(this.getLength());
                             }
                             break;
                         case "[D]":
                             this.list.add(new Deadline(data.substring(data.indexOf("[") + 7, data.indexOf(" (by: ")),
-                                    LocalDateTime.parse(data.substring(data.indexOf("(by: ") + 5, data.length()-1), OUTPUT_FORMATTER)));
+                                    data.substring(data.indexOf("(by: ") + 5, data.length()-1)));
                             if (data.substring(data.indexOf("[") + 4, data.indexOf("[") + 5).equals("X")) {
                                 this.markItem(this.getLength());
                             }
@@ -330,15 +327,8 @@ public class Duke {
                 }
                 listReader.close();
             } catch (FileNotFoundException e) {
-                try {
-                    Files.createDirectories(Paths.get(DATA_FOLDER));
-                } catch (IOException e2) {
-                    System.out.println(e2.getMessage());
-                }
                 this.list = new ArrayList<Item>();
             } catch (LoadListException e) {
-                this.list = new ArrayList<Item>();
-            } catch (DateTimeParseException e) {
                 this.list = new ArrayList<Item>();
             }
         }
@@ -420,23 +410,19 @@ public class Duke {
                             System.out.println("Now you have " + list.getLength() + " tasks in the list.");
                         } catch (IllegalChatBotListArgumentException e) {
                             System.out.println(e.getMessage());
-                        } catch (DateTimeParseException e) {
-                            System.out.println("☹ OOPS!!! Please input your dates and times in this format \"yyyy-MM-dd HHmm\" in 24hr time.");
                         }
                     }
                 } else if (splitInput[0].equals("deadline")) {
                     if (splitInput.length < 2) {
                         System.out.println("☹ OOPS!!! The description of a deadline cannot be empty.\nPlease use this syntax:\n"+
                                 "deadline <desc> /by <deadline>");
-                    } else {    
+                    } else {
                         try {
                             String taskStr = list.addToList(splitInput[1], ChatBotList.taskType.DEADLINE);
                             System.out.println("Got it. I've added this task:\n" + taskStr);
                             System.out.println("Now you have " + list.getLength() + " tasks in the list.");
                         } catch (IllegalChatBotListArgumentException e) {
                             System.out.println(e.getMessage());
-                        } catch (DateTimeParseException e) {
-                            System.out.println("☹ OOPS!!! Please input your date and time in this format \"yyyy-MM-dd HHmm\" in 24hr time.");
                         }
                     }
                 } else if (splitInput[0].equals("todo")) {
