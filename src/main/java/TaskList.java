@@ -5,9 +5,6 @@ import java.util.ArrayList;
  */
 public class TaskList {
 
-    // The divider is used to separate the user's input from LilBro's output.
-    private static final String DIVIDER = "____________________________________________________________";
-
     // The list is used to store the user's tasks.
     private ArrayList<Task> list;
 
@@ -67,11 +64,8 @@ public class TaskList {
             throw new DukeInvalidArgumentException("I'm gonna be honest, no idea what you're saying.");
         }
 
-        System.out.println(DIVIDER);
-        System.out.println("Got it. I've added this task:");
-        System.out.println(this.list.get(this.list.size() - 1));
-        System.out.println("Now you have " + this.list.size() + " tasks in the list.");
-        System.out.println(DIVIDER);
+        Ui.printlns(new String[] { "Got it. I've added this task:", this.list.get(this.list.size() - 1).toString(),
+                "Now you have " + this.list.size() + " tasks in the list." });
     }
 
     /**
@@ -87,10 +81,7 @@ public class TaskList {
         }
 
         this.list.get(index - 1).markDone();
-        System.out.println(DIVIDER);
-        System.out.println("Nice! I've marked this task as done:");
-        System.out.println(this.list.get(index - 1));
-        System.out.println(DIVIDER);
+        Ui.printlns(new String[] { "Nice! I've marked this task as done:", this.list.get(index - 1).toString() });
     }
 
     /**
@@ -106,10 +97,7 @@ public class TaskList {
         }
 
         this.list.get(index - 1).unmarkDone();
-        System.out.println(DIVIDER);
-        System.out.println("OK, I've marked this task as not done yet:");
-        System.out.println(this.list.get(index - 1));
-        System.out.println(DIVIDER);
+        Ui.printlns(new String[] { "OK, I've marked this task as not done yet:", this.list.get(index - 1).toString() });
     }
 
     /**
@@ -124,10 +112,7 @@ public class TaskList {
                     "You've specified an invalid task number. Check your task list again with the \"list\" command.");
         }
 
-        System.out.println(DIVIDER);
-        System.out.println("Noted. I've removed this task:");
-        System.out.println(this.list.get(index - 1));
-        System.out.println(DIVIDER);
+        Ui.printlns(new String[] { "Noted. I've removed this task:", this.list.get(index - 1).toString() });
         this.list.remove(index - 1);
     }
 
@@ -135,17 +120,16 @@ public class TaskList {
      * Lists all tasks.
      */
     public void listTasks() {
-        System.out.println(DIVIDER);
         if (this.list.isEmpty()) {
-            System.out.println("You have no tasks so far.");
+            Ui.println("You have no tasks so far.");
         } else {
-            System.out.println("Here are the tasks in your list:");
+            String[] lines = new String[1 + this.list.size()];
+            lines[0] = "Here are the tasks in your list:";
             for (int i = 0; i < this.list.size(); i++) {
-                System.out.println((i + 1) + ". " + this.list.get(i));
+                lines[i + 1] = (i + 1) + ". " + this.list.get(i);
             }
+            Ui.printlns(lines);
         }
-
-        System.out.println(DIVIDER);
     }
 
     public int size() {

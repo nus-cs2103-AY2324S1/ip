@@ -7,9 +7,6 @@ import java.util.Scanner;
  */
 public class Duke {
 
-    // The divider is used to separate the user's input from LilBro's output.
-    private static final String DIVIDER = "____________________________________________________________";
-
     // The task list is used to store the user's tasks.
     private static final TaskList list = new TaskList();
 
@@ -61,8 +58,8 @@ public class Duke {
      * @param args The command line arguments.
      */
     public static void main(String[] args) {
-        Duke.greet();
-        Duke.echo("Checking for a save file...");
+        Ui.greet();
+        Ui.println("Checking for a save file...");
 
         String projectRoot = System.getProperty("user.dir");
         String path = Path.of(projectRoot, "data/duke.txt").toString();
@@ -70,9 +67,9 @@ public class Duke {
         try {
             storage.load(Duke.list);
         } catch (DukeException e) {
-            Duke.echo(e.getMessage());
+            Ui.println(e.getMessage());
         }
-        Duke.echo("OK, ready to roll.");
+        Ui.println("OK, ready to roll");
 
         Scanner scanner = new Scanner(System.in);
         while (true) {
@@ -84,47 +81,15 @@ public class Duke {
                 if (!Duke.executeCommand(command, commandArgs)) {
                     break;
                 }
-            } catch (DukeException de) {
-                System.out.println(DIVIDER);
-                System.out.println(de.getMessage());
-                System.out.println(DIVIDER);
+            } catch (DukeException e) {
+                Ui.println(e.getMessage());
             }
         }
 
         scanner.close();
-        System.out.println("Before you go, let me save your tasks...");
+        Ui.println("Before you go, let me save your tasks...");
         storage.save(Duke.list);
-        Duke.exit();
-    }
-
-    /**
-     * Greets the user.
-     */
-    public static void greet() {
-        System.out.println(DIVIDER);
-        System.out.println("Hello! I'm LilBro!");
-        System.out.println("What can I do for you?");
-        System.out.println(DIVIDER);
-    }
-
-    /**
-     * Bids goodbye to the user.
-     */
-    public static void exit() {
-        System.out.println(DIVIDER);
-        System.out.println("Bye. Hope to see you again soon!");
-        System.out.println(DIVIDER);
-    }
-
-    /**
-     * Echoes the given input.
-     * 
-     * @param input The input to echo.
-     */
-    public static void echo(String input) {
-        System.out.println(DIVIDER);
-        System.out.println(input);
-        System.out.println(DIVIDER);
+        Ui.bye();
     }
 
     /**
