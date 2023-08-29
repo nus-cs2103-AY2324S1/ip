@@ -5,6 +5,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper.DefaultTyping;
 import com.fasterxml.jackson.databind.jsontype.BasicPolymorphicTypeValidator;
 import com.fasterxml.jackson.databind.jsontype.PolymorphicTypeValidator;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -21,6 +22,7 @@ public class Tasklistloader {
   public Tasklistloader(ArrayList<Task> tasks) {
     this.taskList = tasks;
     this.taskMapper = new ObjectMapper();
+    this.taskMapper.registerModule(new JavaTimeModule());
     PolymorphicTypeValidator ptv = BasicPolymorphicTypeValidator.builder()
         .allowIfSubType("java.util.ArrayList")
         .allowIfSubType("ReceivedTasks")
