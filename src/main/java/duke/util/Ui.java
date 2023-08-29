@@ -1,7 +1,11 @@
+package duke.util;
+
+import duke.task.Task;
+
 import java.util.ArrayList;
 
 /**
- * Ui class that deals with interactions with the user.
+ * duke.util.Ui class that deals with interactions with the user.
  *
  * @author Pearlynn
  */

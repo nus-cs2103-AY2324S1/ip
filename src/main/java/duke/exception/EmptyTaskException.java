@@ -1,5 +1,7 @@
+package duke.exception;
+
 /**
- * Represents an EmptyTaskException.
+ * Represents an duke.exception.EmptyTaskException.
  *
  * @author Pearlynn
  */
@@ -7,7 +9,7 @@
 public class EmptyTaskException extends Exception {
 
     /**
-     * Constructor for EmptyTaskException class.
+     * Constructor for duke.exception.EmptyTaskException class.
      *
      * @param command The command with the empty task.
      */

@@ -1,3 +1,5 @@
+package duke.task;
+
 /**
  * Represents a task.
  *
@@ -17,7 +19,7 @@ public abstract class Task {
     protected boolean isDone;
 
     /**
-     * Constructor for Task class.
+     * Constructor for duke.task.Task class.
      *
      * @param description The description of the task.
      */
@@ -27,7 +29,7 @@ public abstract class Task {
     }
 
     /**
-     * Constructor for Task class.
+     * Constructor for duke.task.Task class.
      *
      * @param description The description of the task.
      * @param isDone The status of the task.

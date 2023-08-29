@@ -1,3 +1,5 @@
+package duke.task;
+
 /**
  * Represents a todo.
  *
@@ -7,7 +9,7 @@
 public class Todo extends Task {
 
     /**
-     * Constructor for Todo class.
+     * Constructor for duke.task.Todo class.
      *
      * @param description The description of the todo.
      */
@@ -16,7 +18,7 @@ public class Todo extends Task {
     }
 
     /**
-     * Constructor for Todo class.
+     * Constructor for duke.task.Todo class.
      *
      * @param description The description of the todo.
      * @param isDone The status of the todo.

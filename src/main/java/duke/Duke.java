@@ -1,10 +1,17 @@
+package duke;
+
+import duke.task.TaskList;
+import duke.util.Parser;
+import duke.util.Storage;
+import duke.util.Ui;
+
+import java.util.Scanner;
+
 /**
- * Duke class that encapsulates a personal assistant chatbot.
+ * duke.Duke class that encapsulates a personal assistant chatbot.
  *
  * @author Pearlynn
  */
-
-import java.util.Scanner;
 
 public class Duke {
     public static boolean isExit = false;
@@ -20,7 +27,7 @@ public class Duke {
     }
 
     private void run() {
-        //Duke.ui.showWelcome();
+        //duke.Duke.ui.showWelcome();
         Scanner sc = new Scanner(System.in);
         while(!Duke.isExit) {
             String command = sc.nextLine();

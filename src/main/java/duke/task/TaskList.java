@@ -1,8 +1,13 @@
+package duke.task;
+
+import duke.Duke;
+import duke.exception.*;
+
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
 /**
- * TaskList class that contains the task list.
+ * duke.task.TaskList class that contains the task list.
  *
  * @author Pearlynn
  */
@@ -11,7 +16,7 @@ public class TaskList {
     private ArrayList<Task> list;
 
     /**
-     * Constructor for TaskList class.
+     * Constructor for duke.task.TaskList class.
      *
      * @param list The array list of tasks.
      */

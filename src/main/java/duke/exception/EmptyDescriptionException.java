@@ -1,5 +1,7 @@
+package duke.exception;
+
 /**
- * Represents an EmptyDescriptionException.
+ * Represents an duke.exception.EmptyDescriptionException.
  *
  * @author Pearlynn
  */
@@ -7,7 +9,7 @@
 public class EmptyDescriptionException extends Exception {
 
     /**
-     * Constructor for EmptyDescriptionException class.
+     * Constructor for duke.exception.EmptyDescriptionException class.
      *
      * @param task The task with the empty description.
      */
