@@ -19,6 +19,10 @@ public class TaskList extends ArrayList<Task> {
         this.add(task);
     }
 
+    public Task deleteTask(int taskNumber) {
+        return this.remove(taskNumber - 1);
+    }
+
     public void printList() {
         System.out.println("Here are the tasks in your list:");
         for (int length = 1; length < this.size() + 1; length += 1) {

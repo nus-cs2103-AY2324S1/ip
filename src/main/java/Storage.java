@@ -20,7 +20,6 @@ public class Storage {
     }
 
     public void save(TaskList taskList) throws IOException {
-
         FileWriter fw = new FileWriter(filePath);
         for (Task task : taskList) {
             fw.write(task.toString() + "\n");
