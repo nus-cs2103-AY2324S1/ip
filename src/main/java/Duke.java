@@ -16,7 +16,14 @@ public class Duke {
         List<Task> tasks = new ArrayList<>();
 
         // Load tasks
-        loadTasksFromFile(tasks);
+        try {
+            loadTasksFromFile(tasks);
+        } catch (DukeException e) {
+            System.out.println("Error loading file:" + e.getMessage());
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+
 
         // Start command loop
         while (true) {
@@ -64,7 +71,7 @@ public class Duke {
         System.out.println("Task saved successfully");
     }
 
-    private static void loadTasksFromFile(List<Task> tasks) {
+    private static void loadTasksFromFile(List<Task> tasks) throws DukeException {
         System.out.println("Loading tasks...");
         try (BufferedReader reader = new BufferedReader(new FileReader("./data/duke.txt"))) {
             String line;
@@ -78,7 +85,7 @@ public class Duke {
         System.out.println("Tasks loaded successfully, see 'list' to view all tasks");
     }
 
-    private static Task parseTaskFromFileString(String lineFromFile) {
+    private static Task parseTaskFromFileString(String lineFromFile) throws DukeException {
         Task task;
         String[] lineParts = lineFromFile.split(" \\| ");
         String taskType = lineParts[0];

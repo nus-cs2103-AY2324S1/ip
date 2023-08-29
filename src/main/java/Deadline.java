@@ -1,19 +1,25 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 public class Deadline extends Task {
-    private String deadline;
-    public Deadline(String description) {
+    private LocalDate deadline;
+    public Deadline(String description) throws DukeException {
+        // TODO: Date.now() when "today" is entered
         super(description);
         // Split the input string by "/by" to separate description and deadline
         String[] splitString = description.split("/by", 2);
         // Should throw error if there are multiple "/by" or no "/by"
         if (splitString.length >=2) {
             this.description = splitString[0].trim();
-            this.deadline = splitString[1].trim();
+            String deadlineString = splitString[1].trim();
+            this.deadline = super.parseDate(deadlineString);
         }
     }
 
-    public Deadline(String description, String deadline) {
+    public Deadline(String description, String deadlineString) {
         super(description);
-        this.deadline = deadline;
+        // deadline will be in default yyyy-MM-dd format which can be parsed by LocalDate
+        this.deadline = LocalDate.parse(deadlineString);
     }
 
     @Override
@@ -24,11 +30,12 @@ public class Deadline extends Task {
     @Override
     public String toString() {
         if (deadline == null) return super.toString();
-        return super.toString() + String.format(" (by: %s)",deadline);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d MMM yyyy");
+        return super.toString() + String.format(" (by: %s)",deadline.format(formatter));
     }
 
     @Override
     public String toFileString() {
-        return "D | " + super.toFileString() + (deadline == null ? "" : " | " + deadline);
+        return "D | " + super.toFileString() + (deadline == null ? "" : " | " + deadline.toString());
     }
 }
