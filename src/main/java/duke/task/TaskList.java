@@ -3,6 +3,8 @@ package duke.task;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Hashtable;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 import duke.DukeException;
 
@@ -107,6 +109,25 @@ public class TaskList {
     }
 
     /**
+     * Returns the string of tasks with a certain description.
+     * @param description The description to search for
+     * @return The string of tasks
+     */
+    public String findTasks(String description) throws DukeException {
+        if (description.isBlank()) {
+            throw new DukeException("!!!: Please provide a description to search for");
+        }
+        ArrayList<Task> taskList = list.stream()
+                .filter(task -> task.description.contains(description))
+                .collect(Collectors.toCollection(ArrayList::new));
+        if (taskList.isEmpty()) {
+            return "No tasks with this description";
+        } else {
+            return taskListToString(taskList);
+        }
+    }
+
+    /**
      * Marks a task in the list as done.
      * @param options The index of the task to be marked as done
      * @return The task marked as done
@@ -152,13 +173,13 @@ public class TaskList {
 
     /**
      * Adds a Todo task to the list.
-     * @param taskName The name of the Todo task
+     * @param description The description of the Todo task
      * @return The Todo task
-     * @throws DukeException if name is empty
+     * @throws DukeException if description is empty
      */
-    public Task addTodoToList(String taskName) throws DukeException {
-        if (taskName.isBlank()) throw new DukeException("!!!: Please provide a task name");
-        Task task = new Todo(taskName);
+    public Task addTodoToList(String description) throws DukeException {
+        if (description.isBlank()) throw new DukeException("!!!: Please provide a task description");
+        Task task = new Todo(description);
         list.add(task);
         size++;
         return task;
@@ -166,20 +187,20 @@ public class TaskList {
 
     /**
      * Adds a Deadline task to the list.
-     * @param line The string containing the name and due date of the task
+     * @param line The string containing the description and due date of the task
      * @return The Deadline task
-     * @throws DukeException if name or dueDate is empty or date is not in the correct format
+     * @throws DukeException if description or dueDate is empty or date is not in the correct format
      */
     public Task addDeadlineToList(String line) throws DukeException {
-        if (line.indexOf("/by") == 0) throw new DukeException("!!!: Please provide a task name");
+        if (line.indexOf("/by") == 0) throw new DukeException("!!!: Please provide a task description");
         if (!line.contains(" /by ")) throw new DukeException("!!!: Please provide a by date using format \"/by YYYY-MM-DD\"");
-        String taskName = line.substring(0, line.indexOf("/by") - 1);
-        if (taskName.isBlank()) throw new DukeException("!!!: Please provide a task name");
+        String description = line.substring(0, line.indexOf("/by") - 1);
+        if (description.isBlank()) throw new DukeException("!!!: Please provide a task description");
         String dueDate = line.substring(line.indexOf("/by") + 4);
         if (dueDate.isBlank()) throw new DukeException("!!!: Please provide a due date");
         Deadline task;
         try {
-            task = new Deadline(taskName, dueDate);
+            task = new Deadline(description, dueDate);
         } catch (DateTimeParseException e) {
             throw new DukeException("Date is not in the correct format YYYY-MM-DD");
         }
@@ -191,23 +212,23 @@ public class TaskList {
 
     /**
      * Adds an Event task to the list.
-     * @param line The string containing the name, dateFrom and dateTo of the task
+     * @param line The string containing the description, dateFrom and dateTo of the task
      * @return The Event task
-     * @throws DukeException if name, dateFrom or dateTo is empty or dates are not in the correct format
+     * @throws DukeException if description, dateFrom or dateTo is empty or dates are not in the correct format
      */
     public Task addEventToList(String line) throws DukeException {
-        if (line.indexOf("/from") == 0) throw new DukeException("!!!: Please provide a task name");
+        if (line.indexOf("/from") == 0) throw new DukeException("!!!: Please provide a task description");
         if (!line.contains(" /from ")) throw new DukeException("!!!: Please provide a from date using \"/from from_date\"");
         if (!line.contains(" /to ")) throw new DukeException("!!!: Please provide a to date using \"/to to_date\"");
-        String taskName = line.substring(0, line.indexOf("/from") - 1);
-        if (taskName.isBlank()) throw new DukeException("!!!: Please provide a task name");
+        String description = line.substring(0, line.indexOf("/from") - 1);
+        if (description.isBlank()) throw new DukeException("!!!: Please provide a task description");
         String dateFrom = line.substring(line.indexOf("/from") + 6, line.indexOf("/to") - 1);
         if (dateFrom.isBlank()) throw new DukeException("!!!: Please provide a from date");
         String dateTo = line.substring(line.indexOf("/to") + 4);
         if (dateTo.isBlank()) throw new DukeException("!!!: Please provide a to date");
         Event task;
         try {
-            task = new Event(taskName, dateFrom, dateTo);
+            task = new Event(description, dateFrom, dateTo);
         } catch (DateTimeParseException e) {
             throw new DukeException("Date is not in the correct format YYYY-MM-DD");
         }
