@@ -26,8 +26,8 @@ public class Parser {
      * @throws DukeException if user does not give any options
      */
     public static String parseOptions(String line) throws DukeException {
-        String command = line.split(" ", 2)[1];
         try {
+            String command = line.split(" ", 2)[1];
             return command;
         } catch (ArrayIndexOutOfBoundsException e) {
             throw new DukeException("Input is not complete");

@@ -106,10 +106,10 @@ public class UI {
     }
 
     /**
-     * Displays the tasks on a certain date.
-     * @param tasks The string representing the tasks on a certain date
+     * Displays a specified list of tasks.
+     * @param tasks The string representing the specified list of tasks
      */
-    public void displayTasksOnDate(String tasks) {
+    public void displayTasks(String tasks) {
         System.out.println(tasks);
         System.out.println("____________________________________________________________");
     }
