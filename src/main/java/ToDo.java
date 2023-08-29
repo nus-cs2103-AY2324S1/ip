@@ -8,4 +8,9 @@ public class ToDo extends Task{
     public String toString() {
         return "[T]" + super.toString().substring(3);
     }
+
+    public String type() {
+        return "T";
+    }
+
 }

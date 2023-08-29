@@ -1,5 +1,6 @@
 import java.io.File;
 import java.io.FileWriter;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -13,8 +14,11 @@ public class DuckBot {
     private final String name = "Duck";
     private final String exitMessage = "bye";
 
-    protected List<Task> list = new ArrayList<>();
-    private Task task = new Task();
+    private final FileHandler fileHandler = new FileHandler();
+
+
+    protected List<Task> list = fileHandler.readFromFile();
+//    private Task task = new Task();
 
     public void welcomeMessage() {
         divider();
@@ -58,16 +62,22 @@ public class DuckBot {
                     display();
                 } else if (checkUnMark(str)) {
                     setUndone(str);
+                    fileHandler.saveInFile(list);
                 } else if (checkMark(str)) {
                     setDone(str);
+                    fileHandler.saveInFile(list);
                 } else if (checkDeadline(str)) {
                     setDeadline(str.substring(8));
+                    fileHandler.saveInFile(list);
                 } else if (checkEvent(str)) {
                     setEvent(str.substring(5));
+                    fileHandler.saveInFile(list);
                 } else if(checkToDo(str)) {
                     setToDo(str.substring(4));
+                    fileHandler.saveInFile(list);
                 } else if (checkDelete(str)) {
                     deleteTask(str);
+                    fileHandler.saveInFile(list);
                 } else {
                     throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
                 }
@@ -95,8 +105,16 @@ public class DuckBot {
         divider();
     }
 
+    public int getIndexOfMark(String str) {
+        return Integer.parseInt(str.substring(5));
+    }
+
+    public int getIndexOfUnmark(String str) {
+        return Integer.parseInt(str.substring(7));
+    }
+
     public void setDone(String str) {
-        int index = task.getIndexOfMark(str);
+        int index = getIndexOfMark(str);
         list.get(index).markAsDone();
         divider();
         System.out.println("Nice! I've marked this task as done:");
@@ -105,7 +123,7 @@ public class DuckBot {
     }
 
     public void setUndone(String str) {
-        int index = task.getIndexOfUnmark(str);
+        int index = getIndexOfUnmark(str);
         list.get(index).markUndone();
         divider();
         System.out.println("Nice! I've marked this task as done:");
@@ -148,7 +166,7 @@ public class DuckBot {
     }
 
     public void setToDo(String str)
-    throws DukeException{
+            throws DukeException{
         String[] todo = str.split("todo ?+");
         try {
             if (todo.length > 0) {
@@ -175,6 +193,8 @@ public class DuckBot {
         numberOfTasks();
         divider();
     }
+
+
     public static void main(String[] args) {
         DuckBot duck = new DuckBot();
         duck.welcomeMessage();
