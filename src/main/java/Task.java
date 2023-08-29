@@ -3,9 +3,9 @@ public class Task {
     protected boolean isDone;
     protected static int total = 0;
 
-    public Task(String description) {
+    public Task(String description, boolean isDone) {
         this.description = description;
-        this.isDone = false;
+        this.isDone = isDone;
         Task.total += 1;
     }
 
@@ -31,5 +31,9 @@ public class Task {
 
     public void remove() {
         Task.total -= 1;
+    }
+
+    public String toSaveString() {
+        return "";
     }
 }
