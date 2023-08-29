@@ -1,9 +1,9 @@
 package duke;
 
+import java.util.Scanner;
+
 import duke.exception.DukeException;
 import duke.task.Task;
-
-import java.util.Scanner;
 
 /**
  * Represents the user interface of the Duke chat-bot.

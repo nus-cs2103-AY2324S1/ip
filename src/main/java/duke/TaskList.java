@@ -1,10 +1,10 @@
 package duke;
 
-import duke.task.Task;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import duke.task.Task;
 
 /**
  * Represents a list of tasks to be used by the Duke chat-bot.

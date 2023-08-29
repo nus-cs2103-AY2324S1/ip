@@ -11,8 +11,8 @@ import java.nio.file.Paths;
  */
 public class Duke {
     private final Storage storage;
-    private TaskList tasks;
     private final Ui ui;
+    private TaskList tasks;
 
     /**
      * Creates a Duke chat-bot object.
