@@ -1,3 +1,9 @@
+package Command;
+
+import Exception.*;
+import Helper.*;
+import Task.*;
+
 public class UnmarkCommand extends Command {
     public static final String COMMAND_WORD = "unmark";
 

@@ -1,8 +1,9 @@
+package Task;
+
 import java.io.IOException;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 
-class Task {
+public class Task {
     protected String description;
     protected boolean isDone;
 
@@ -40,7 +41,7 @@ class Task {
 
             Task task = new Event(description, time[0].trim(), time[1].trim());
             task.toggleIsDone(isCompleted);
-            
+
             return task;
         } else {
             throw new IOException("Corrupted File. What you doin' bruh...");

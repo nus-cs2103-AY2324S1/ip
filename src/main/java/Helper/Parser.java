@@ -1,6 +1,11 @@
+package Helper;
+
 import Command.Command;
 
 import java.time.LocalDate;
+
+import Exception.*;
+import Command.*;
 
 public class Parser {
     public static Command parse(String fullCommand) throws WrongUseOfCommandException, MissingIndexException, InvalidCommandException, MissingTaskException {

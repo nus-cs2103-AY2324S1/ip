@@ -1,11 +1,13 @@
+package Task;
+
 import java.io.*;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import Exception.*;
 
-class TaskList {
+public class TaskList {
     private String filePath = "./data/tasks.txt";
     private List<Task> list;
 
