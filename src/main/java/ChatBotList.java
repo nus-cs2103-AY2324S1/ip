@@ -5,6 +5,9 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.nio.file.InvalidPathException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
 /**
  * Abstracts a list. Note that items in the list cannot be removed as yet.
  */
@@ -54,8 +57,8 @@ public class ChatBotList {
      * Encapsulates an event with a start and end time/date.
      */
     private static class Event extends Item {
-        private String from;
-        private String to;
+        private LocalDateTime from;
+        private LocalDateTime to;
 
         /**
          * Creates a new event
@@ -63,7 +66,7 @@ public class ChatBotList {
          * @param from Start time/date.
          * @param to End time/date.
          */
-        public Event(String name, String from, String to) {
+        public Event(String name, LocalDateTime from, LocalDateTime to) {
             super(name);
             this.from = from;
             this.to = to;
@@ -77,16 +80,16 @@ public class ChatBotList {
             } else {
                 rtnVal += "[E][ ] ";
             }
-            return rtnVal + super.name + " (from: " + this.from + " to: " + this.to + ")";
+            return rtnVal + super.name + " (from: " + DukeEnvironmentConstants.OUTPUT_FORMATTER.format(this.from) + " to: " + DukeEnvironmentConstants.OUTPUT_FORMATTER.format(this.to) + ")";
         }
     }
     /**
      * Encapsulates a deadline with a do-by time/date.
      */
     private static class Deadline extends Item {
-        private String by;
+        private LocalDateTime by;
 
-        public Deadline(String input, String by) {
+        public Deadline(String input, LocalDateTime by) {
             super(input);
             this.by = by;
         }
@@ -99,7 +102,7 @@ public class ChatBotList {
             } else {
                 rtnVal += "[D][ ] ";
             }
-            return rtnVal + super.name + " (by: " + this.by + ")";
+            return rtnVal + super.name + " (by: " + DukeEnvironmentConstants.OUTPUT_FORMATTER.format(this.by) + ")";
         }
     }
     /**
@@ -130,44 +133,25 @@ public class ChatBotList {
     public int getLength() {
         return this.list.size();
     }
+
     /**
-     * Adds Item to List. Able to specify type.
-     *
-     * @param s    Substring of the input string, with the type removed.
-     *             e.g. The user inputs "event a /from 2 /to 2". s will be "a /from 2 to 2"
-     * @param type The type of item*
-     * @return The toString() of the Item added.
+     * Adds a task to the list
+     * @param queries An array of required fields for the task to add
+     * @param type The type of task to add
+     * @return The toString of the task
      */
-    public String addToList(String s, DukeEnvironmentConstants.taskType type) throws IllegalChatBotListArgumentException{
+    public String addToList(String[] queries, DukeEnvironmentConstants.taskType type) {
         switch (type) {
             case EVENT:
-                String[] firstSplit = s.split(" +/from +");
-                if (firstSplit.length != 2) {
-                    throw new IllegalChatBotListArgumentException("Incorrect syntax!\n" +
-                            "Please use this syntax:\n" +
-                            "event <desc> /from <start> /to <end>");
-                }
-                String[] secondSplit = firstSplit[1].split(" +/to +");
-                if (secondSplit.length != 2) {
-                    throw new IllegalChatBotListArgumentException("Incorrect syntax!\n" +
-                            "Please use this syntax:\n" +
-                            "event <desc> /from <start> /to <end>");
-                }
-                this.list.add( new Event(firstSplit[0], secondSplit[0], secondSplit[1]));
+                this.list.add(new Event(queries[0], LocalDateTime.parse(queries[1],DukeEnvironmentConstants.FORMATTER1), LocalDateTime.parse(queries[2],DukeEnvironmentConstants.FORMATTER1)));
                 writeToSave();
                 break;
             case DEADLINE:
-                String[] splitInput = s.split(" +/by +", 2);
-                if (splitInput.length != 2) {
-                    throw new IllegalChatBotListArgumentException("Incorrect syntax!\n" +
-                            "Please use this syntax:\n" +
-                            "deadline <desc> /by <deadline>");
-                }
-                this.list.add(new Deadline(splitInput[0], splitInput[1]));
+                this.list.add(new Deadline(queries[0], LocalDateTime.parse(queries[1], DukeEnvironmentConstants.FORMATTER1)));
                 writeToSave();
                 break;
             case TODO:
-                this.list.add(new Todo(s));
+                this.list.add(new Todo(queries[0]));
                 writeToSave();
                 break;
             default:
@@ -175,7 +159,6 @@ public class ChatBotList {
         }
         return this.list.get(this.list.size()-1).toString();
     }
-
     /**
      * Marks item at index given by user as completed.  
      *
@@ -246,8 +229,8 @@ public class ChatBotList {
                         data.indexOf("(from: ");
                         data.indexOf(" to: ");
                         this.list.add(new Event(data.substring(data.indexOf("[") + 7, data.indexOf(" (from: ")), 
-                                data.substring(data.indexOf("(from: ") + 7, data.indexOf(" to: ")),
-                                data.substring(data.indexOf("to: ") + 4, data.length() - 1)));
+                                LocalDateTime.parse(data.substring(data.indexOf("(from: ") + 7, data.indexOf(" to: ")), DukeEnvironmentConstants.OUTPUT_FORMATTER),
+                                LocalDateTime.parse(data.substring(data.indexOf("to: ") + 4, data.length() - 1), DukeEnvironmentConstants.OUTPUT_FORMATTER)));
                         if (data.substring(data.indexOf("[") + 4, data.indexOf("[") + 5).equals("X")) {
                             try {
                                 this.markItem(this.getLength());
@@ -258,7 +241,7 @@ public class ChatBotList {
                         break;
                     case "[D]":
                         this.list.add(new Deadline(data.substring(data.indexOf("[") + 7, data.indexOf(" (by: ")),
-                                data.substring(data.indexOf("(by: ") + 5, data.length()-1)));
+                                LocalDateTime.parse(data.substring(data.indexOf("(by: ") + 5, data.length()-1), DukeEnvironmentConstants.OUTPUT_FORMATTER)));
                         if (data.substring(data.indexOf("[") + 4, data.indexOf("[") + 5).equals("X")) {
                             try {
                                 this.markItem(this.getLength());
@@ -273,9 +256,11 @@ public class ChatBotList {
             listReader.close();
         } catch (FileNotFoundException e) {
             this.list = new ArrayList<Item>();
-        } catch (LoadListException e) {
+        } catch (DateTimeParseException e) {
             this.list = new ArrayList<Item>();
-        }
+        }catch (LoadListException e) {
+            this.list = new ArrayList<Item>();
+        } 
     }
 
     private void writeToSave() {
