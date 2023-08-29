@@ -11,7 +11,7 @@ import java.time.format.DateTimeParseException;
 
 public class Parser {
 
-    public static void processInput(String userInput, int taskListSize)
+    public static String processInput(String userInput, int taskListSize)
             throws UnknownCommandException,
             InvalidIndexException,
             InvalidTodoException,
@@ -26,25 +26,25 @@ public class Parser {
         switch(command) {
         case "list":
             Duke.listTasks();
-            break;
+            return "list";
         case "mark":
             parseMark(userInput, taskListSize);
-            break;
+            return "mark";
         case "unmark":
             parseUnmark(userInput, taskListSize);
-            break;
+            return "unmark";
         case "delete":
             parseDelete(userInput, taskListSize);
-            break;
+            return "delete";
         case "todo":
             parseTodo(userInput);
-            break;
+            return "todo";
         case "deadline":
             parseDeadline(userInput);
-            break;
+            return "deadline";
         case "event":
             parseEvent(userInput);
-            break;
+            return "event";
         default:
             throw new UnknownCommandException();
         }
