@@ -17,6 +17,9 @@ public class Duke {
         Scanner sc = new Scanner(System.in);
 
         String command = "";
+
+        // Test comment
+
         ArrayList<Task> list = new ArrayList<Task>();
 
         System.out.println("Greetings, puny mortal. This is \n" + logo
