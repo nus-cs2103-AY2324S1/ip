@@ -7,9 +7,7 @@ import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
 public class Parser {
-
-    public static void parse(String text, UI ui, TaskList list, Storage storage) throws DukeException{
-
+    public static void parse(String text, UI ui, TaskList list, Storage storage) throws DukeException {
                 if (text.length() > 3 && text.substring(0, 4).equals("list")) {
                     ui.printline();
 
@@ -167,7 +165,6 @@ public class Parser {
                 } else {
                     throw new DukeException("I apologise, sir. But I do not understand what you mean.");
                 }
-
             }
         }
 

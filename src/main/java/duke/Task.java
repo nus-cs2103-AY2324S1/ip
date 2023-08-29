@@ -14,14 +14,14 @@ public class Task {
         return (isCompleted? "X" : " ");
     }
 
-    public void markAsComplete(){
+    public void markAsComplete() {
         this.isCompleted = true;
     }
     public void markAsIncomplete() {
         this.isCompleted = false;
     }
     @Override
-    public String toString(){
+    public String toString() {
         return description;
     }
 }
