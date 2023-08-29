@@ -1,7 +1,7 @@
-package Duke;
+package Duke.message;
 
-import Task.Task;
-import Task.TaskList;
+import Duke.task.Task;
+import Duke.tasklist.TaskList;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,23 +41,6 @@ public class Message {
     public static Message OnTaskUncomplete(Task task) {
         return new Message("OK, I've marked this task as not done yet:\n" + task.toString());
     }
-
-    public static Message OnInvalidTaskNo(String inputComponent) {
-        return new Message( "Sorry, " + inputComponent + "isn't a number.");
-    }
-
-    public static Message NoCommandFound() {
-        return new Message( "Sorry, I don't know what that means!");
-    }
-
-    public static Message EmptyTaskName() {
-        return new Message ( "Sorry, a task needs a name!");
-    }
-
-    public static Message OnTaskIndexOutOfRange() {
-        return new Message ( "Sorry, that task index is not in range!");
-    }
-
     public static Message OnTaskDelete(Task task) {
         return new Message ("I've removed this task: \n" + task.toString());
     }
@@ -65,20 +48,11 @@ public class Message {
     public static Message NumberOfTasks(TaskList tasks) {
         return new Message ("There are " + tasks.Size() + " tasks in the list.");
     }
-
-    public static Message OnInvalidTaskFormat() {
-        return new Message ("This isn't the right format for this type of task!");
-    }
-
-    public static Message OnLoadingError() {
-        return new Message("The file couldn't be loaded.");
-    }
-
     public Message ChainTo(Message message, String splitString) {
         return new Message(this.content + splitString + message.content);
     }
 
-    public static Message ChainList(List<? extends Message> messages, String splitString){
+    public static Message AccumulateList(List<? extends Message> messages, String splitString){
         Message chainedMessage = new Message("");
         if(messages.size() > 0){
             chainedMessage = messages.get(0);

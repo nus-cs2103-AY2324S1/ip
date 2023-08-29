@@ -1,10 +1,31 @@
-package Task;
+package Duke.task;
 
-import DukeException.*;
+import Duke.exception.DukeException;
+import Duke.exception.EmptyTaskDescException;
+import Duke.exception.NoCommandFoundException;
 
 public abstract class Task {
     final private String name;
     private boolean completed = false;
+
+    public static Task Parse(String line)
+            throws EmptyTaskDescException, NoCommandFoundException {
+        String[] components = line.split(":", 2);
+        TaskType taskType = components[0].equals("todo") ? TaskType.TODO
+                          : components[0].equals("deadline") ? TaskType.DEADLINE
+                          : TaskType.EVENT;
+        String content = components[1];
+        switch (taskType) {
+        case TODO:
+            return Todo.ParseContent(content);
+        case DEADLINE:
+            return Deadline.ParseContent(content);
+        case EVENT:
+            return Event.ParseContent(content);
+        default:
+            throw new NoCommandFoundException(taskType.name());
+        }
+    }
 
     public enum TaskType {
         TODO,
@@ -21,7 +42,8 @@ public abstract class Task {
         this.name = name;
     }
 
-    public static Task Of(String task, TaskType taskType) throws EmptyTaskDescException, InvalidTaskFormatException {
+    public static Task Of(String task, TaskType taskType)
+            throws DukeException {
         switch (taskType) {
             case TODO:
                 return new Todo(task);
@@ -30,7 +52,7 @@ public abstract class Task {
             case EVENT:
                 return new Event(task);
             default:
-                return null;
+                throw new NoCommandFoundException(taskType.name());
         }
     }
     public void SetCompleted(){

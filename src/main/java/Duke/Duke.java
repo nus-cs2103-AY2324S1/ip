@@ -1,37 +1,32 @@
 package Duke;
 
-import DukeException.*;
-import Task.TaskList;
-
-import java.io.IOException;
-import java.util.Scanner;
+import Duke.exception.DukeException;
+import Duke.message.Message;
+import Duke.parser.Ui;
+import Duke.storage.Storage;
+import Duke.tasklist.TaskList;
 
 public class Duke {
-    private  String name = "Iris";
-    private TaskList taskList;
-    private Storage storage;
+    @SuppressWarnings("FieldCanBeLocal")
+    private final String name = "Iris";
     private Ui ui;
     private boolean awake = true;
     public Duke(String filePath) {
         try {
-            storage = new Storage(filePath);
-            taskList = storage.LoadTaskList();
-            ui = new Ui(this, taskList);
+            Storage storage = new Storage(filePath);
+            TaskList taskList = new TaskList(storage);
+            ui = new Ui(taskList);
         } catch (DukeException e) {
-            taskList = new TaskList(storage);
-            ui = new Ui(this, taskList);
-            ui.ShowMessage(Message.OnLoadingError());
+            e.printStackTrace();
         }
     }
     public void run() {
-        Scanner scanner = new Scanner(System.in);
-        Message.OnGreeting(name).Print();
+        ui.ShowMessage(Message.OnGreeting(name));
         while(awake){
-            if(scanner.hasNext()) {
-                ui.HandleLine(scanner.nextLine());
-            }
+            ui.HandleLine();
         }
     }
+
     public static void main(String[] args) {
         new Duke("C:\\Users\\ortt2\\Documents\\ip\\src\\data\\tasks.txt").run();
     }
