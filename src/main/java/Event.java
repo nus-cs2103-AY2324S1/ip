@@ -1,15 +1,17 @@
+import java.time.LocalDateTime;
+
 public class Event extends Task {
 
-    protected String from;
-    protected String to;
+    protected LocalDateTime from;
+    protected LocalDateTime to;
 
-    public Event(String description, String from, String to) {
+    public Event(String description, LocalDateTime from, LocalDateTime to) {
         super(description);
         this.from = from;
         this.to = to;
     }
 
-    public Event(String description, String from, String to, boolean isDone) {
+    public Event(String description, LocalDateTime from, LocalDateTime to, boolean isDone) {
         super(description, isDone);
         this.from = from;
         this.to = to;
@@ -17,10 +19,11 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + from + " to: " + to + ")";
+        return "[E]" + super.toString() + " (from: " + super.localDateTimeToString(from) + " to: " +
+                super.localDateTimeToString(to) + ")";
     }
 
     public String toFile() {
-        return "E" + super.toFile() + this.from + "-" + this.to;
+        return "E" + super.toFile() +   this.from + "--" + this.to;
     }
 }

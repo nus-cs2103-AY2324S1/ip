@@ -2,7 +2,10 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Storage {
@@ -34,6 +37,7 @@ public class Storage {
             while (sc.hasNext()) {
                 String current = sc.nextLine();
                 String[] splitted = current.split(" \\| ", 4);
+                System.out.println(Arrays.toString(splitted));
                 switch (splitted[0]) {
                     case "T": {
                         Task toDo = new ToDo(splitted[2], splitted[1].equals("1"));
@@ -41,14 +45,14 @@ public class Storage {
                         break;
                     }
                     case "D": {
-                        Task deadline = new Deadline(splitted[2], splitted[3], splitted[1].equals("1"));
+                        Task deadline = new Deadline(splitted[2], formatInputDate(splitted[3]), splitted[1].equals("1"));
                         savedTasks.add(deadline);
                         break;
                     }
                     case "E": {
-                        String[] timeline = splitted[3].split("-");
-                        String from = timeline[0];
-                        String to = timeline[1];
+                        String[] timeline = splitted[3].split("--");
+                        LocalDateTime from = formatInputDate(timeline[0]);
+                        LocalDateTime to = formatInputDate(timeline[1]);
                         Task event = new Event(splitted[2], from, to, splitted[1].equals("1"));
                         savedTasks.add(event);
                         break;
@@ -76,5 +80,11 @@ public class Storage {
         } catch (IOException err) {
             System.out.println(err);
         }
+    }
+
+    public LocalDateTime formatInputDate(String date) {
+        DateTimeFormatter formatter = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
+        LocalDateTime localDateTime = LocalDateTime.parse(date, formatter);
+        return localDateTime;
     }
 }

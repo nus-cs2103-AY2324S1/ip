@@ -1,3 +1,4 @@
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 /**
@@ -40,7 +41,7 @@ public class DukeList {
      * This method adds a deadline task to the tasklist
      * @param description description of the task
      */
-    public void addDeadline(String description, String by) {
+    public void addDeadline(String description, LocalDateTime by) {
         Deadline newDeadline = new Deadline(description, by);
         dukeList.add(newDeadline);
         printAddList(newDeadline);
@@ -50,7 +51,7 @@ public class DukeList {
      * This method adds an event task to the tasklist
      * @param description description of the task
      */
-    public void addEvent(String description, String from, String to) {
+    public void addEvent(String description, LocalDateTime from, LocalDateTime to) {
         Event newEvent = new Event(description, from, to);
         dukeList.add(newEvent);
         printAddList(newEvent);
