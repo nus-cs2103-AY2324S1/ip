@@ -10,9 +10,27 @@ public class Event extends Task {
     }
 
     /**
-     * Returns a string representation of Deadline
+     * Returns the starting time of the event.
+     * 
+     * @return The starting time of the event.
+     */
+    public String getStartTime() {
+        return this.from;
+    }
+
+    /**
+     * Returns the ending time of the event.
+     * 
+     * @return The ending time of the event.
+     */
+    public String getEndTime() {
+        return this.to;
+    }
+
+    /**
+     * Returns a string representation of Event.
      *
-     * @return A string representation of Deadline
+     * @return A string representation of Event.
      */
     @Override
     public String toString() {

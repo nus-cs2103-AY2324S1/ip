@@ -1,22 +1,30 @@
+import exceptions.*;
 import java.util.Scanner;
 import java.util.Map;
+import java.io.IOException;
 import java.util.ArrayList;
-import exceptions.InvalidCommandException;
-import exceptions.InvalidIndexException;
-import exceptions.MissingDescriptionException;
-import exceptions.ThorndikeException;
+import utility.TextFileHandler;
 
 public class Thorndike {
-    Scanner scanner;
-    ArrayList<Task> list;
-    int index;
-    Boolean running;
+    private Scanner scanner;
+    private ArrayList<Task> taskList;
+    private int index;
+    private Boolean running;
+    public static final String TASK_FILE_PATH = "data/tasks.txt";
+    public static final String TASK_FILE_SEPARATOR = "-";
 
     public Thorndike() {
         this.scanner = new Scanner(System.in);
-        this.list = new ArrayList<>();
+        this.taskList = new ArrayList<>();
         this.index = 0;
         this.running = true;
+
+        try {
+            TextFileHandler.createFile(TASK_FILE_PATH);
+            readTasksFromFile();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -55,12 +63,12 @@ public class Thorndike {
         }
 
         if (command.equals("mark")) {
-            int idx = getIndex(description);
+            int idx = getIndexFromUser(description);
             markDone(idx);
             return;
         }
         if (command.equals("unmark")) {
-            int idx = getIndex(description);
+            int idx = getIndexFromUser(description);
             markNotDone(idx);
             return;
         }
@@ -90,7 +98,7 @@ public class Thorndike {
         }
 
         if (command.equals("delete")) {
-            int idx = getIndex(description);
+            int idx = getIndexFromUser(description);
             deleteTask(idx);
             return;
         }
@@ -106,8 +114,9 @@ public class Thorndike {
      */
     private void markDone(int idx) {
         echo("Meow! I've marked this task as done:");
-        list.get(idx - 1).setDone();
-        echo(list.get(idx - 1).toString());
+        taskList.get(idx - 1).setDone();
+        echo(taskList.get(idx - 1).toString());
+        writeTasksToFile();
     }
 
     /**
@@ -118,8 +127,9 @@ public class Thorndike {
      */
     private void markNotDone(int idx) {
         echo("Meow! I've marked this task as not done yet:");
-        list.get(idx - 1).setNotDone();
-        echo(list.get(idx - 1).toString());
+        taskList.get(idx - 1).setNotDone();
+        echo(taskList.get(idx - 1).toString());
+        writeTasksToFile();
     }
 
     /**
@@ -129,11 +139,12 @@ public class Thorndike {
      * 
      */
     private void addTask(Task task) {
-        this.list.add(task);
+        this.taskList.add(task);
         this.index++;
         echo("Got it. I've added this task:");
         echo(task.toString());
         echo(String.format("Now you have %d tasks in the list.", index));
+        writeTasksToFile();
     }
 
     /**
@@ -143,12 +154,13 @@ public class Thorndike {
      * 
      */
     private void deleteTask(int index) {
-        Task deleted = this.list.get(index - 1);
-        this.list.remove(index - 1);
+        Task deleted = this.taskList.get(index - 1);
+        this.taskList.remove(index - 1);
         this.index--;
         echo("Meow. I've removed this task:");
         echo(deleted.toString());
         echo(String.format("Now you have %d tasks in the list.", this.index));
+        writeTasksToFile();
     }
 
     /**
@@ -158,7 +170,7 @@ public class Thorndike {
     private void list() {
         echo("Here are the tasks in your list:");
         for (int i = 1; i < this.index + 1; i++) {
-            Task task = this.list.get(i - 1);
+            Task task = this.taskList.get(i - 1);
             echo(String.format("%d. %s", i, task.toString()));
         }
     }
@@ -189,21 +201,97 @@ public class Thorndike {
     }
 
     /**
-     * Checks if the index has
+     * Gets index from a string.
      * 
-     * @param idx Index to check.
+     * @param idx String to parse index.
      */
-    private int getIndex(String index) throws ThorndikeException {
+    private int getIndexFromUser(String index) throws ThorndikeException {
         int idx = -1;
+
         try {
             idx = Integer.parseInt(index);
         } catch (Exception e) {
             throw new InvalidIndexException();
         }
+
         if (idx < 1 || idx > this.index) {
             throw new InvalidIndexException();
         }
+
         return idx;
+    }
+
+    public void readTasksFromFile() {
+        try {
+            String[] lines = TextFileHandler.readLines(TASK_FILE_PATH);
+            for (String line : lines) {
+                String[] task = line.split(TASK_FILE_SEPARATOR);
+                String taskType = task[2];
+                String status = task[1];
+                String description = task[0];
+
+                if (taskType.equals("T")) {
+                    addTaskSilent(new Todo(description));
+                } else if (taskType.equals("D")) {
+                    String time = task[3];
+                    addTaskSilent(new Deadline(description, time));
+                } else if (taskType.equals("E")) {
+                    String from = task[3];
+                    String to = task[4];
+                    addTaskSilent(new Event(description, from, to));
+                }
+
+                if (status.equals("1")) {
+                    markDoneSilent(this.index);
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void writeTasksToFile() {
+        String output = "";
+
+        for (int i = 0; i < taskList.size(); i++) {
+            Task task = taskList.get(i);
+            output += task.getDescription();
+
+            if (task.isDone()) {
+                output += TASK_FILE_SEPARATOR + "1";
+            } else {
+                output += TASK_FILE_SEPARATOR + "0";
+            }
+
+            if (task instanceof Todo) {
+                output += TASK_FILE_SEPARATOR + "T";
+            } else if (task instanceof Deadline) {
+                output += TASK_FILE_SEPARATOR + "D";
+                Deadline deadline = (Deadline) task;
+                output += TASK_FILE_SEPARATOR + deadline.getCompleteBy();
+            } else if (task instanceof Event) {
+                output += TASK_FILE_SEPARATOR + "E";
+                Event event = (Event) task;
+                output += TASK_FILE_SEPARATOR + event.getStartTime();
+                output += TASK_FILE_SEPARATOR + event.getEndTime();
+            }
+            output += System.lineSeparator();
+        }
+
+        try {
+            TextFileHandler.writeText(TASK_FILE_PATH, output);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void addTaskSilent(Task task) {
+        this.taskList.add(task);
+        this.index++;
+    }
+
+    private void markDoneSilent(int idx) {
+        taskList.get(idx - 1).setDone();
     }
 
     public static void main(String[] args) {

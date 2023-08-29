@@ -8,6 +8,15 @@ public class Deadline extends Task {
     }
 
     /**
+     * Returns the time when the deadline is due.
+     * 
+     * @return Time when the deadline is due.
+     */
+    public String getCompleteBy() {
+        return this.by;
+    }
+
+    /**
      * Returns a string representation of Deadline
      *
      * @return A string representation of Deadline
