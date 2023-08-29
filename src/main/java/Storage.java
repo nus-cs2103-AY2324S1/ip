@@ -1,12 +1,11 @@
 import java.io.*;
 
-public class Save {
-    protected String pathToSave = "Data";
+public class Storage {
     protected String fileName = "userData.txt";
     protected File file;
 
-    public Save() {
-        this.file = new File(pathToSave, fileName);
+    public Storage(String filePath) {
+        this.file = new File(filePath, fileName);
         //Making a new dir if the specified one does not exit
         if (!file.getParentFile().exists()) {
             file.getParentFile().mkdirs();
