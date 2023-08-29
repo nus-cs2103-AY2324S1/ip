@@ -1,3 +1,4 @@
+package duke;
 public class Duke {
     private String name;
     private TaskList taskList;
