@@ -1,10 +1,23 @@
 package duke.util;
 
 import duke.task.Task;
-import duke.util.TaskList;
+
+import java.util.Scanner;
 
 public class Ui {
+    private Scanner sc;
     private static final String HORIZONTAL_LINE = "____________________________________________________________\n";
+
+    public Ui () {
+        this.sc = new Scanner(System.in);
+    }
+
+    public String nextCommand() {
+        if (!sc.hasNextLine()) {
+            return "";
+        }
+        return sc.nextLine();
+    }
 
     public void printEntryMessage() {
         String entryMessage = HORIZONTAL_LINE
