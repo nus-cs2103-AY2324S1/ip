@@ -1,0 +1,4 @@
+[T][ ] something
+[D][X] two (by: time)
+[E][ ] three (from: here and there to: later)
+[T][ ] something else
