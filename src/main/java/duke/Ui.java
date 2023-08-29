@@ -1,3 +1,7 @@
+package duke;
+
+import duke.task.Task;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -12,17 +16,17 @@ public class Ui {
         System.out.println("What can I do for you?\n" + partition);
     }
 
-    void addToListSuccess(Task task, int size) {
+    public void addToListSuccess(Task task, int size) {
         System.out.println(partition + "\nadded:\n" + task + "\n" +
         "You have " + size + " tasks in the list.\n" + partition);
     }
 
-    void deleteFromListSuccess(Task task, int size) {
+    public void deleteFromListSuccess(Task task, int size) {
         System.out.println(partition + "\nOK, I've deleted the task:\n" 
         + task + "\nNow you have " + size + " tasks in the list.");
     }
 
-    void printList(ArrayList<Task> taskList) {
+    public void printList(ArrayList<Task> taskList) {
         System.out.println(partition + "\nHere are the tasks in your list:");
         for (int i = 0; i < taskList.size(); i++) {
             int index = i + 1;
@@ -31,24 +35,24 @@ public class Ui {
         System.out.println(partition);
     }
 
-    void printExitMessage() {
+    public void printExitMessage() {
         String exitMsg = "Bye. Hope to see you again soon!";
         printMessage(exitMsg);
     }
 
-    void printError(String message) {
+    public void printError(String message) {
         printMessage(message);
     }
 
-    void showLoadingError(String error) {
+    public void showLoadingError(String error) {
         printMessage("OOPS! An error occurred during file loading " + error);
     }
 
-    void printMessage(String message) {
+    public void printMessage(String message) {
         System.out.println(partition + "\n" + message + "\n" + partition);
     }
 
-    String nextCommand() {
+    public String nextCommand() {
         return sc.nextLine();
     }
 }

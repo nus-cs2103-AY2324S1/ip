@@ -1,12 +1,19 @@
+package duke.command;
+
+import duke.DukeException;
+import duke.TaskList;
+import duke.Ui;
+import duke.Storage;
+
 public class UnMarkCommand extends Command {
     private int index;
 
-    UnMarkCommand(int index) {
+    public UnMarkCommand(int index) {
         this.index = index - 1;
     }
 
     @Override
-    void execute(TaskList taskList, Ui ui, Storage storage) throws DukeException {
+    public void execute(TaskList taskList, Ui ui, Storage storage) throws DukeException {
         if (index < 0 || index >= taskList.size()) {
             throw new DukeException("OOPS! The index to unmark is invalid!");
         }
