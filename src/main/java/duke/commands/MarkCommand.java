@@ -39,7 +39,7 @@ public class MarkCommand extends Command {
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
         // Check if index is invalid or the task is already marked
-        if (tasks.size() <= index || tasks.getTask(index - 1).isCompleted() == flag) {
+        if (tasks.size() < index || tasks.getTask(index - 1).isCompleted() == flag) {
             throw new DukeException("The task you are trying to mark either doesnt exist, or is already marked");
         }
 

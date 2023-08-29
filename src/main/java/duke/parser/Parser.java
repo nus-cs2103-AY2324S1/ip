@@ -1,6 +1,13 @@
 package duke.parser;
 
-import duke.commands.*;
+import duke.commands.AddCommand;
+import duke.commands.IncorrectCommand;
+import duke.commands.ListCommand;
+import duke.commands.ExitCommand;
+import duke.commands.Command;
+import duke.commands.FindCommand;
+import duke.commands.MarkCommand;
+import duke.commands.DeleteCommand;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -26,31 +33,30 @@ public class Parser {
         Command c = null;
 
         switch(split[0]) {
-            case "bye":
-                c = validateExit(split);
-                break;
-            case "list":
-                c = validateList(split);
-                break;
-            case "mark":
-            case "unmark":
-                c = validateIndex(split, true);
-                break;
-            case "todo":
-            case "deadline":
-            case "event":
-                c = validateTask(split);
-                break;
-            case "delete":
-                c = validateIndex(split, false);
-                break;
-            case "find":
-                c = validateFind(split);
-                break;
-            default:
-                c = new IncorrectCommand("I'm sorry, I couldn't understand that. Please try again!");
+        case "bye":
+            c = validateCommand(split, true);
+            break;
+        case "list":
+            c = validateCommand(split, false);
+            break;
+        case "mark":
+        case "unmark":
+            c = validateIndex(split, true);
+            break;
+        case "todo":
+        case "deadline":
+        case "event":
+            c = validateTask(split);
+            break;
+        case "delete":
+            c = validateIndex(split, false);
+            break;
+        case "find":
+            c = validateFind(split);
+            break;
+        default:
+            c = new IncorrectCommand("I'm sorry, I couldn't understand that. Please try again!");
         }
-
         return c;
     }
 
@@ -61,11 +67,12 @@ public class Parser {
         }
 
         // Check if mark is not receiving a number.
-        if (!Character.isDigit(split[1].charAt(0))) {
+        int index;
+        try {
+            index = Integer.parseInt(split[1]);
+        } catch (NumberFormatException exp) {
             return new IncorrectCommand("I cannot mark a character! Please enter a number.");
         }
-
-        int index = Character.getNumericValue(split[1].charAt(0));
 
         // Check if index is greater than 0.
         if (index <= 0) {
@@ -141,18 +148,11 @@ public class Parser {
         }
     }
 
-    private static Command validateList(String[] split) {
+    private static Command validateCommand(String[] split, boolean flag) {
         if (split.length != 1) {
             return new IncorrectCommand("Please enter a valid command!");
         }
-        return new ListCommand();
-    }
-
-    private static Command validateExit(String[] split) {
-        if (split.length != 1) {
-            return new IncorrectCommand("Please enter a valid command!");
-        }
-        return new ExitCommand();
+        return flag ? new ExitCommand() : new ListCommand();
     }
 
     public static Command validateFind(String[] split) {

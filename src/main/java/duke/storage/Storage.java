@@ -121,22 +121,22 @@ public class Storage {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM d yyyy hh:mm a");
 
         switch(type) {
-            case "T":
-                task = new Todo(action, status);
-                break;
-            case "D":
-                task = new Deadline(action, LocalDateTime.parse(split[3], formatter), status);
-                break;
-            case "E":
-                String[] interval = split[3].split(" - ", 2);
-                if (interval.length < 2) {
-                    task = null;
-                } else {
-                    task = new Event(action, LocalDateTime.parse(interval[0], formatter),  LocalDateTime.parse(interval[1], formatter), status);
-                }
-                break;
-            default:
+        case "T":
+            task = new Todo(action, status);
+            break;
+        case "D":
+            task = new Deadline(action, LocalDateTime.parse(split[3], formatter), status);
+            break;
+        case "E":
+            String[] interval = split[3].split(" - ", 2);
+            if (interval.length < 2) {
                 task = null;
+            } else {
+                task = new Event(action, LocalDateTime.parse(interval[0], formatter),  LocalDateTime.parse(interval[1], formatter), status);
+            }
+            break;
+        default:
+            task = null;
         }
 
         return task;

@@ -11,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class StorageTest {
 
     @Test
-    public void testFileDoesntExistCreation() {
+    public void file_fileDoesntExist_createNewFile() {
         String path = "data/test.txt";
         File file = new File(path);
         assertFalse(file.exists());
@@ -20,7 +20,7 @@ public class StorageTest {
     }
 
     @Test
-    public void testDirectoryDoesntExistCreation() {
+    public void file_folderDoesntExist_createNewFolder() {
         String path = "testdata/test.txt";
         File folder = new File("testdata");
         assertFalse(folder.isDirectory());
@@ -29,7 +29,7 @@ public class StorageTest {
     }
 
     @Test
-    public void testReadFileTodo() {
+    public void file_readFile_correctTodo() {
         String path = "testdata/tasks.txt";
         Storage storage = new Storage(path);
         Task t = storage.stringToTask("T | O | do unit test");
@@ -37,7 +37,7 @@ public class StorageTest {
     }
 
     @Test
-    public void testReadFileDeadline() {
+    public void file_readFile_correctDeadline() {
         String path = "testdata/tasks.txt";
         Storage storage = new Storage(path);
         Task t = storage.stringToTask("D | O | study unit test | Aug 15 2023 02:30 PM");
@@ -45,7 +45,7 @@ public class StorageTest {
     }
 
     @Test
-    public void testReadFileEvent() {
+    public void file_readFile_correctEvent() {
         String path = "testdata/tasks.txt";
         Storage storage = new Storage(path);
         Task t = storage.stringToTask("E | O | give CS2103T test | Aug 27 2023 07:00 PM - Aug 27 2023 08:00 PM");

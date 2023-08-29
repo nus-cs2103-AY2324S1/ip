@@ -1,4 +1,2 @@
-T | O | hi
 T | O | drive car
 D | O | study | Aug 15 2023 02:30 PM
-E | O | study hard | Aug 27 2023 07:00 PM - Aug 27 2023 08:00 PM

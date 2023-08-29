@@ -6,14 +6,14 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TodoTest {
     @Test
-    public void toStringTest(){
+    public void toString_correctOuput() {
         Task task = new Todo("Play Basketball");
         task.completeTask();
         assertEquals("[Todo] [X] Play Basketball", task.toString());
     }
 
     @Test
-    public void toFileTest(){
+    public void toFile_correctOuput() {
         Task task = new Todo("Drive Car");
         assertEquals("T | O | Drive Car", task.toFile());
     }
