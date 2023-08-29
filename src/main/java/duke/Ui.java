@@ -1,3 +1,8 @@
+package duke;
+
+import exception.DukeException;
+import task.Task;
+
 import java.io.InputStream;
 import java.util.Scanner;
 

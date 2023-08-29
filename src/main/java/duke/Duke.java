@@ -1,10 +1,13 @@
+package duke;
+
+import exception.DukeException;
 
 public class Duke {
 
     /** name of ChatBot */
     private final String name = "Ken";
 
-    /** store user Input in Task array */
+    /** store user Input in task.Task array */
     private TaskList tasks;
 
     private Ui ui;
@@ -21,6 +24,7 @@ public class Duke {
             this.tasks = new TaskList(storage.load());
         } catch (DukeException e) {
             System.out.println(e.getMessage());
+            this.tasks = new TaskList();
         }
     }
 

@@ -1,9 +1,11 @@
-public class Deadline extends Task{
+package task;
+
+public class Deadline extends Task {
 
     /** deadline type String */
     protected String by;
     /**
-     * Initialize Task object with task name and task is not done.
+     * Initialize task.Task object with task name and task is not done.
      *
      * @param description type String;
      * @param by type String;

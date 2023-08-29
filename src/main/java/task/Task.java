@@ -1,3 +1,5 @@
+package task;
+
 public class Task {
     /** task name description */
     protected String description;
@@ -5,7 +7,7 @@ public class Task {
     protected boolean isDone;
 
     /**
-     * Initialize Task object with task name and task is not done.
+     * Initialize task.Task object with task name and task is not done.
      *
      * @param description type String;
      */
@@ -42,7 +44,7 @@ public class Task {
 
     /**
      * Output String format to be written in file.
-     * Format : Task description|isDone
+     * Format : task.Task description|isDone
      *
      * @return formatted String
      */
