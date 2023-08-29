@@ -4,6 +4,9 @@ import duke.Exceptions.InvalidTaskIndexException;
 import duke.Storage;
 import duke.TaskList;
 
+/**
+ * Command to unmark a task in the task list.
+ */
 public class UnmarkCommand extends Command {
     private int unmarkIdx;
 

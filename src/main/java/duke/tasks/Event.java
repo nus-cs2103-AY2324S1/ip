@@ -6,6 +6,9 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * A class encapsulating information of a task of Event type.
+ */
 public class Event extends Task {
     private String from;
     private String to;
@@ -22,6 +25,13 @@ public class Event extends Task {
         this.to = to;
     }
 
+    /**
+     * Factory method for the event class.
+     *
+     * @param taskDesc Description of the event task.
+     * @return An Event task object.
+     * @throws IncompleteDescriptionException If the task name or the task description is blank or incomplete.
+     */
     public static Event create(String taskDesc) throws IncompleteDescriptionException {
         String[] tmp = taskDesc.split(" /from ");
         if (tmp.length <= 1) throw new IncompleteDescriptionException();

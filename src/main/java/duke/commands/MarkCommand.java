@@ -3,6 +3,9 @@ import duke.Exceptions.InvalidTaskIndexException;
 import duke.Storage;
 import duke.TaskList;
 
+/**
+ * Command to mark a task as done.
+ */
 public class MarkCommand extends Command {
     private int markIdx;
 

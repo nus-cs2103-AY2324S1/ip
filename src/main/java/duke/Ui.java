@@ -1,5 +1,8 @@
 package duke;
 
+/**
+ * Class containing string constants to be printed to the console.
+ */
 public final class Ui {
 
     public static final String divider = "____________________________________________________________";
