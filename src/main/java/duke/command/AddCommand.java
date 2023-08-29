@@ -8,16 +8,33 @@ import duke.ui.Ui;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+
+/**
+ * Represents a command to add tasks to the task list in the Duke application.
+ */
 public class AddCommand extends Command {
     private String fullCommand;
     char type;
 
-
+    /**
+     * Constructs an AddCommand object with full command and task type.
+     *
+     * @param fullCommand The full command input provided by the user.
+     * @param type The type of task being added ('T' for Todo, 'D' for Deadline, 'E' for Event).
+     */
     public AddCommand(String fullCommand, char type) {
         this.fullCommand = fullCommand;
         this.type = type;
     }
 
+    /**
+     * Executes the add task command, adding the specified task to the task list and updating the storage.
+     *
+     * @param taskList The list of tasks.
+     * @param ui The user interface to interact with the user.
+     * @param storage The storage to update the tasks in the file.
+     * @throws DukeException If there's an error while parsing the user input or updating the storage.
+     */
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) throws DukeException {
         switch (type) {
@@ -69,6 +86,13 @@ public class AddCommand extends Command {
             break;
         }
     }
+
+    /**
+     * Indicates whether this command is an exit command.
+     * AddCommand is not an exit command, so this method returns false.
+     *
+     * @return False.
+     */
     @Override
     public boolean isExit() {
         return false;

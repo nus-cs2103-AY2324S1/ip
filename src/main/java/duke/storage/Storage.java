@@ -12,8 +12,17 @@ import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Manages the reading and updating of tasks from/to a file.
+ */
 public class Storage {
     protected String filePath;
+
+    /**
+     * Constructs a Storage object with the specified file path.
+     *
+     * @param filePath The path to the file used for storage.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
@@ -25,6 +34,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Loads tasks from the file and returns them as an ArrayList.
+     *
+     * @return An ArrayList of Task objects loaded from the file.
+     * @throws DukeException If there's an error while loading tasks.
+     */
     public ArrayList<Task> load() throws DukeException {
         File f = new File(this.filePath);
         try {
@@ -75,6 +90,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Updates the contents of the file with the tasks from the provided TaskList.
+     *
+     * @param taskList The TaskList containing tasks to be updated in the file.
+     */
     public void updateFileContents(TaskList taskList) {
         try {
             FileWriter file = new FileWriter(filePath);

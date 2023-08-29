@@ -6,12 +6,21 @@ import duke.storage.Storage;
 import duke.task.TaskList;
 import duke.ui.Ui;
 
+/**
+ * Represents the main class of the Duke application.
+ * Duke is a chatbot that helps manage tasks.
+ */
 public class Duke {
 
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
 
+    /**
+     * Constructs a Duke object.
+     *
+     * @param filePath The path to the file used for storage.
+     */
     public Duke(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
@@ -23,6 +32,9 @@ public class Duke {
         }
     }
 
+    /**
+     * Runs the Duke application.
+     */
     public void run() {
         ui.showWelcome();
         boolean isExit = false;
@@ -38,7 +50,12 @@ public class Duke {
         }
     }
 
-
+    /**
+     * The main method to start the Duke application.
+     * Creates a Duke object and starts the application.
+     *
+     * @param args Command-line arguments.
+     */
     public static void main(String[] args) {
         new Duke("data/tasks.txt").run();
     }

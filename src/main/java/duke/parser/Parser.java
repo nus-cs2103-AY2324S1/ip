@@ -3,8 +3,19 @@ package duke.parser;
 import duke.DukeException;
 import duke.command.*;
 
+/**
+ * Parses user input and generates the appropriate Command objects for the Duke application.
+ * This class is responsible for converting user input strings into executable commands.
+ */
 public class Parser {
 
+    /**
+     * Parses the user input string and generates a corresponding Command object.
+     *
+     * @param userInput The input string provided by the user.
+     * @return A Command object representing the action to be executed.
+     * @throws DukeException If there's an error while parsing the user input or generating a Command.
+     */
     public static Command parse(String userInput) throws DukeException {
         if (userInput.equals("bye")) {
             return new ExitCommand();
