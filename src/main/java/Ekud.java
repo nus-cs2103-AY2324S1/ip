@@ -5,7 +5,7 @@ import java.util.Scanner;
 
 public class Ekud {
     // Basic UI & messages for the chatbot to print to console
-    private static final String HORIZONTALLINE = "-~-~-~-~-~-~-~-~--~-~-~-~-~-~-~-~-";
+    private static final String HORIZONTAL_LINE = "-~-~-~-~-~-~-~-~--~-~-~-~-~-~-~-~-";
     private static final String INTRO = "Hello there! I'm Ekud. :)\n" +
             "What can I do for you? :O";
     private static final String OUTRO = "Goodbye, have a nice day! :p";
@@ -18,9 +18,9 @@ public class Ekud {
      */
     public static void echo(String message) {
         System.out.println(String.format("%s\n%s\n%s",
-                HORIZONTALLINE,
+                HORIZONTAL_LINE,
                 message,
-                HORIZONTALLINE));
+                HORIZONTAL_LINE));
     }
     /**
      * Represents a fixed set of input command strings which can be assigned to the

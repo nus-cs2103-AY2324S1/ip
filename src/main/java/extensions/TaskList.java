@@ -8,7 +8,7 @@ import java.util.List;
  */
 public class TaskList {
     // Same Horizontal Line as Ekud so TaskList can print outputs in a similar UI style
-    private final String HORIZONTALLINE = "-~-~-~-~-~-~-~-~--~-~-~-~-~-~-~-~-";
+    private final String HORIZONTAL_LINE = "-~-~-~-~-~-~-~-~--~-~-~-~-~-~-~-~-";
     // Actual list storing the tasks
     private List<Task> tasks;
     // Constructor for TaskList
@@ -22,21 +22,21 @@ public class TaskList {
      */
     public void echo(String message) {
         System.out.println(String.format("%s\n%s\n%s",
-                HORIZONTALLINE,
+                HORIZONTAL_LINE,
                 message,
-                HORIZONTALLINE));
+                HORIZONTAL_LINE));
     }
     /**
      * Prints this TaskList to the console.
      */
     public void showTasks() {
-        System.out.println(HORIZONTALLINE);
+        System.out.println(HORIZONTAL_LINE);
         System.out.println("Here is your to-do list:");
         int len = tasks.size();
         for (int i = 0; i < len; i++) {
             System.out.println(String.format("%d. %s", i + 1, tasks.get(i).toString()));
         }
-        System.out.println(HORIZONTALLINE);
+        System.out.println(HORIZONTAL_LINE);
     }
     /**
      * Marks a specific task as done.
