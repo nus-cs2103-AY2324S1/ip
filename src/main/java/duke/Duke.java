@@ -57,6 +57,15 @@ public class Duke {
         Ui.list(Duke.taskList);
     }
 
+    /**
+     * Prints list of filtered tasks.
+     *
+     * @param keyword String of list of filtered tasks.
+     */
+    public static void listFilteredTasks(String keyword) {
+        Ui.printMessage(Duke.taskList.getMatchingTasks(keyword));
+    }
+
     public static void run(String filename) {
         Storage storage = new Storage(filename);
         Duke.storage = storage;
