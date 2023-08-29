@@ -31,4 +31,12 @@ public class ToDo extends Task{
     public String toString() {
         return "[T]" + super.toString();
     }
+
+    /**
+     * Returns a string formatted in the way it is to be saved
+     * @return Formatted string to be written into file
+     */
+    public String toSaveFormat() {
+        return "T | " + (this.isDone ? 1 : 0) + " | " + this.description;
+    }
 }

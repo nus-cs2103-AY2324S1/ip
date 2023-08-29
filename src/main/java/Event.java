@@ -29,4 +29,13 @@ public class Event extends Task{
         return "[E]" + super.toString() +
                 " (from: " + this.from + " to: " + this.to + ")";
     }
+
+    /**
+     * Returns a string formatted in the way it is to be saved
+     * @return Formatted string to be written into file
+     */
+    public String toSaveFormat() {
+        return "E | " + (this.isDone ? 1 : 0) + " | " + this.description + " | "
+                + this.from + "-" + this.to;
+    }
 }

@@ -23,4 +23,13 @@ public class Deadline extends Task{
     public String toString() {
         return "[D]" + super.toString() + " (by: " + by + ")" ;
     }
+
+    /**
+     * Returns a string formatted in the way it is to be saved
+     * @return Formatted string to be written into file
+     */
+    public String toSaveFormat() {
+        return "D | " + (this.isDone ? 1 : 0) + " | " + this.description + " | "
+                + this.by;
+    }
 }
