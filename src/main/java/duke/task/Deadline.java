@@ -1,3 +1,5 @@
+package duke.task;
+
 import java.time.LocalDateTime;
 
 public class Deadline extends Task {
@@ -15,7 +17,7 @@ public class Deadline extends Task {
 
     @Override
     public String toString() {
-        return String.format("[D]%s (by: %s)", super.toString(), this.by.format(Task.DATE_TIME_FORMAT));
+        return String.format("[D]%s (by: %s)", super.toString(), this.by.format(DATE_TIME_FORMAT));
     }
 
     @Override

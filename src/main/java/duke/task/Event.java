@@ -1,3 +1,5 @@
+package duke.task;
+
 import java.time.LocalDateTime;
 
 public class Event extends Task {
@@ -19,7 +21,7 @@ public class Event extends Task {
     @Override
     public String toString() {
         return String.format("[E]%s (from: %s | to: %s)", super.toString(),
-                this.from.format(Task.DATE_TIME_FORMAT), this.to.format(Task.DATE_TIME_FORMAT));
+                this.from.format(DATE_TIME_FORMAT), this.to.format(DATE_TIME_FORMAT));
     }
 
     @Override

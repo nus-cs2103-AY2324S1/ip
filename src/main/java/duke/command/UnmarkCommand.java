@@ -1,14 +1,21 @@
-public class MarkCommand extends Command {
+package duke.command;
+
+import duke.exception.DukeTaskNotFoundException;
+import duke.Storage;
+import duke.TaskList;
+import duke.Ui;
+
+public class UnmarkCommand extends Command {
     private final int taskIndex;
 
-    public MarkCommand(int taskIndex) {
+    public UnmarkCommand(int taskIndex) {
         this.taskIndex = taskIndex;
     }
 
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeTaskNotFoundException {
         try {
-            ui.showDoneMessage(tasks.getTask(taskIndex).markAsDone());
+            ui.showUndoneMessage(tasks.getTask(taskIndex).markAsUndone());
         } catch (IndexOutOfBoundsException e) {
             throw new DukeTaskNotFoundException();
         }
