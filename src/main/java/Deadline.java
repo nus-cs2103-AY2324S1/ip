@@ -12,6 +12,10 @@ public class Deadline extends Task {
     this.deadDate = deaddate;
   }
 
+  Deadline() {
+    super("");
+  }
+
   public String getDeadDate() {
     return this.deadDate;
   }

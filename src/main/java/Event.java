@@ -16,6 +16,10 @@ public class Event extends Task {
 
   }
 
+  Event() {
+    super("");
+  }
+
   public String getStartDate() {
     return this.startDate;
   }
