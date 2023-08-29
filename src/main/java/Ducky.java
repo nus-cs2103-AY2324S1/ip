@@ -14,18 +14,20 @@ public class Ducky {
     }
 
     public void run() {
+        this.storage.load(this.taskList);
+        this.ui.showWelcome();
         boolean isExit = false;
         while (!isExit) {
             try {
-                String userInput = ui.readCommand();
-                ui.showLine();
+                String userInput = this.ui.readCommand();
+                this.ui.showLine();
                 Command c = Parser.parse(userInput);
                 c.execute(this.taskList, this.ui, this.storage);
                 isExit = c.isExit();
             } catch (DuckyException e) {
-                ui.showError(e.getMessage());
+                this.ui.showError(e.getMessage());
             } finally {
-                ui.showLine();
+                this.ui.showLine();
             }
         }
     }

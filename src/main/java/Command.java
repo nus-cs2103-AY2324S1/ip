@@ -1,18 +1,7 @@
-public class Command {
+public abstract class Command {
 
-    private final CommandType type;
-    private final String[] args;
-
-    public Command(CommandType type, String[] args) {
-        this.type = type;
-        this.args = args;
+    public boolean isExit() {
+        return false;
     }
-
-    public CommandType getType() {
-        return type;
-    }
-
-    public String[] getArgs() {
-        return args;
-    }
+    public abstract void execute(TaskList taskList, UserInterface ui, Storage storage) throws DuckyException;
 }
