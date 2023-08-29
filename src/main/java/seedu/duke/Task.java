@@ -111,6 +111,8 @@ public abstract class Task {
     }
 
     /**
+     * {@inheritDoc}
+     *
      * Returns a string representation of this
      * task when it is printed.
      *
