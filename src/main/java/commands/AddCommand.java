@@ -8,19 +8,35 @@ import tasks.TaskList;
 import tasks.TodoTask;
 import ui.Ui;
 
-
+/**
+ * Represents a command to add a task to the list of tasks.
+ */
 public class AddCommand extends Command {
 
+    /**
+     * Constructor for AddCommand
+     * @param command The command to be executed
+     */
     public AddCommand(String command) {
         super(command);
     }
 
+    /**
+     * Enum for the different types of tasks
+     */
     public enum TaskType {
         TODO,
         DEADLINE,
         EVENT
     }
 
+    /**
+     * Executes the AddCommand, adding the task to the list of tasks.
+     * @param taskList The TaskList object that stores the list of tasks
+     * @param ui The Ui object that handles the user interface
+     * @param storage The Storage object that handles the saving and loading of tasks
+     * @throws DukeException If the command is invalid
+     */
     public void execute(TaskList taskList, Ui ui, Storage storage) throws DukeException {
         String input = getCommand();
         String[] inputArray = input.split(" ");
