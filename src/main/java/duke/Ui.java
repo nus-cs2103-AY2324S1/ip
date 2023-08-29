@@ -67,9 +67,9 @@ public class Ui {
         System.out.print(HORIZONTAL_LINE);
     }
 
-    public static void printError(String errorMessage) {
+    public static void printMessage(String message) {
         System.out.print(HORIZONTAL_LINE);
-        System.out.println(errorMessage);
+        System.out.println(message);
         System.out.print(HORIZONTAL_LINE);
     }
 
