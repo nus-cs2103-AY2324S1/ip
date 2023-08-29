@@ -1,11 +1,22 @@
 package services.tasklist.tasks;
 
-public class Deadline extends Task {
-    private String endTime;
+import services.bizerrors.InvalidArgumentException;
 
-    public Deadline(String description, String endTime) {
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
+public class Deadline extends Task {
+    private LocalDateTime endTime;
+    private DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+    private DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm");
+
+    public Deadline(String description, String endTime) throws InvalidArgumentException {
         super(description);
-        this.endTime = endTime;
+        try {
+            this.endTime = LocalDateTime.parse(endTime, inputFormatter);
+        } catch (Exception e) {
+            throw new InvalidArgumentException("deadline");
+        }
     }
 
     @Override
@@ -15,6 +26,6 @@ public class Deadline extends Task {
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + endTime + ")";
+        return "[D]" + super.toString() + " (by: " + endTime.format(outputFormatter) + ")";
     }
 }

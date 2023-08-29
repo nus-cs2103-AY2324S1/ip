@@ -1,13 +1,22 @@
 package services.tasklist.tasks;
 
-public class Event extends Task {
-    private String startTime;
-    private String endTime;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
-    public Event(String description, String startTime, String endTime) {
+public class Event extends Task {
+    private LocalDateTime startTime;
+    private LocalDateTime endTime;
+    private DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+    private DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm");
+
+    public Event(String description, String startTime, String endTime) throws IllegalArgumentException {
         super(description);
-        this.startTime = startTime;
-        this.endTime = endTime;
+        try {
+            this.startTime = LocalDateTime.parse(startTime, inputFormatter);
+            this.endTime = LocalDateTime.parse(endTime, inputFormatter);
+        } catch (Exception e) {
+            throw new IllegalArgumentException("event");
+        }
     }
 
     @Override
@@ -17,6 +26,8 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + startTime + " to: " + endTime + ")";
+        return "[E]" + super.toString()
+                + " (from: " + startTime.format(outputFormatter)
+                + " to: " + endTime.format(outputFormatter) + ")";
     }
 }
