@@ -1,8 +1,11 @@
 import java.io.*;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 public class Sana {
 
@@ -188,14 +191,21 @@ public class Sana {
 
         String desc = userInput.substring(0, lastDescId - 1);
         String by = userInput.substring(lastDescId + 4);
-        Task newDeadline = new Deadline(desc, by);
-        tasksList.add(newDeadline);
 
-        saveTasks("/Users/ariellacallista/Desktop", "/Users/ariellacallista/Desktop/SanaTasks.txt", newDeadline);
+        try {
+            LocalDate byDate = LocalDate.parse(by);
+            Task newDeadline = new Deadline(desc, byDate);
+            tasksList.add(newDeadline);
+            saveTasks("/Users/ariellacallista/Desktop",
+                    "/Users/ariellacallista/Desktop/SanaTasks.txt", newDeadline);
+            System.out.println(divider + "Got it. I've added this task:\n" + newDeadline + "\n"
+                    + "Now you have " + tasksList.size() + (tasksList.size() <= 1 ? " task" : " tasks")
+                    + " in the list\n" + divider);
+        } catch (DateTimeParseException e) {
+            System.out.println(divider + "Invalid date format! Make sure it is yyyy-mm-dd\n" + divider);
+        }
 
-        System.out.println(divider + "Got it. I've added this task:\n" + newDeadline + "\n"
-                + "Now you have " + tasksList.size() + (tasksList.size() <= 1 ? " task" : " tasks")
-                + " in the list\n" + divider);
+
     }
 
 
@@ -230,7 +240,7 @@ public class Sana {
         }
         String from = userInput.substring(lastDescId + 6, lastFromId - 1);
         String to = userInput.substring(lastFromId + 4);
-
+        
         Task newEvent = new Event(desc, from, to);
         return newEvent;
     }
