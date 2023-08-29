@@ -2,11 +2,17 @@ package duke;
 
 import duke.task.TaskList;
 
+/**
+ * Represents the Duke chatbot.
+ */
 public class Duke {
     private UI ui;
     private TaskList list;
     private Storage storage;
 
+    /**
+     * Constructor for Duke.
+     */
     public Duke() {
         this.ui = new UI();
         this.storage = new Storage();
@@ -60,7 +66,7 @@ public class Duke {
                     ui.displayTasksOnDate(list.getEventEndDateTasks(Parser.parseOptions(line)));
                     break;
                 case BYE:
-                    storage.saveCommandsToFile(list);
+                    storage.saveTasksToFile(list);
                     ui.exit();
                     return;
                 }
