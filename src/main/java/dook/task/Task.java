@@ -14,7 +14,23 @@ public abstract class Task {
         this.isDone = isDone;
     }
 
+
     public abstract String getSaveableString();
+
+    /**
+     * Checks if description contains query.
+     * @param query String to be queried for.
+     * @return Whether description contains the word.
+     */
+    public boolean descriptionContains(String query) {
+        String[] split = this.description.split(" ");
+        for (String word : split) {
+            if (word.equals(query)) {
+                return true;
+            }
+        }
+        return false;
+    }
 
     public String getStatusIcon() {
         return (isDone ? "X" : " "); // mark done task with X

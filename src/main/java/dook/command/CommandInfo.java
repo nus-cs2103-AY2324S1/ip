@@ -7,7 +7,7 @@ public enum CommandInfo {
         event("Adds a task with a start and end time."), delete("Deletes selected task from list."),
         save("Saves the current task list to a file"), before("Displays all tasks before a certain date."),
         after("Displays all tasks after a certain date."), during("Displays all tasks during a certain date."),
-        invalid("You entered an invalid command.");
+        find("Searches for a task with matching keyword."), invalid("You entered an invalid command.");
 
         private final String desc;
 

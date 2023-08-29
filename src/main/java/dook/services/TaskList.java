@@ -51,8 +51,11 @@ public class TaskList {
 
     public String filterTasks(Function<Task, Boolean> f) {
         StringBuilder result = new StringBuilder();
-        for (Task task : taskList) {
-            if (f.apply(task)) result.append(task).append("\n");
+        for (int i = 0; i < taskList.size(); i++) {
+            Task task = taskList.get(i);
+            if (f.apply(task)) {
+                result.append(String.format("%d. %s\n", i + 1, task));
+            }
         }
         return result.toString();
     }
