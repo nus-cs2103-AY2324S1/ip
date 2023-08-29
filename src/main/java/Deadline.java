@@ -1,7 +1,9 @@
-public class Deadline extends Task {
-    private final String end;
+import java.time.LocalDate;
 
-    public Deadline(String input, String name, String end) {
+public class Deadline extends Task {
+    private final LocalDate end;
+
+    public Deadline(String input, String name, LocalDate end) {
         super(input, name);
         this.end = end;
     }
@@ -14,6 +16,6 @@ public class Deadline extends Task {
      */
     @Override
     public String getTask() {
-        return String.format("[%s][D] %s (by: %s)", super.checkDone(), super.getName(), end);
+        return String.format("[%s][D] %s (by: %s)", super.checkDone(), super.getName(), super.formatDate(end));
     }
 }

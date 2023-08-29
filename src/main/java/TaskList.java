@@ -4,8 +4,10 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.nio.file.Paths;
+import java.time.LocalDate;
 
 /**
  * The List class represents a collection of tasks managed by the ChatterChicken task manager.
@@ -96,7 +98,7 @@ public class TaskList {
         if (name.isEmpty() || end.isEmpty()) {
             throw new CCException("OOPS!!! Empty field for deadline detected.");
         }
-        return new Deadline(input, name, end);
+        return new Deadline(input, name, parseDate(end));
     }
 
     /**
@@ -123,7 +125,16 @@ public class TaskList {
         if (name.isEmpty() || start.isEmpty() || end.isEmpty()) {
             throw new CCException("OOPS!!! Empty field for event detected.");
         }
-        return new Event(input, name, start, end);
+        return new Event(input, name, parseDate(start), parseDate(end));
+    }
+
+    private LocalDate parseDate(String date) {
+        try {
+            return LocalDate.parse(date);
+        } catch (DateTimeParseException e) {
+            System.out.println("Error parsing date: " + e.getMessage());
+        }
+        return null;
     }
 
     /**
