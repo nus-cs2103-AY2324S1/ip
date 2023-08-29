@@ -16,14 +16,26 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Represents the storage file management system of the task list.
+ */
 public class Storage {
 
     private final String filePath;
 
+    /**
+     * Constructs the storage system.
+     * @param filePath File path of the storage system.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
+    /**
+     * Saves task(to-do) into file.
+     * @param description Description of task.
+     * @throws DukeException Error saving file.
+     */
     public void saveTask(String description) throws DukeException {
         try {
             String taskToSave = String.format("T | 0 | %s", description);
@@ -33,6 +45,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Saves task(deadline) into file.
+     * @param description Description of task.
+     * @param deadline Deadline of task.
+     * @throws DukeException Error saving file.
+     */
     public void saveTask(String description, String deadline) throws DukeException {
         try {
             String taskToSave = String.format("D | 0 | %s | %s", description, deadline);
@@ -42,6 +60,13 @@ public class Storage {
         }
     }
 
+    /**
+     * Saves task(event) into file.
+     * @param description Description of task.
+     * @param from Start date of task.
+     * @param to End date of task.
+     * @throws DukeException Error saving file.
+     */
     public void saveTask(String description, String from, String to) throws DukeException {
         try {
             String taskToSave = String.format("E | 0 | %s | %s | %s", description, from, to);
@@ -51,6 +76,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Saves the task straight to the file (lower-level)
+     * @param task String of task to save.
+     * @throws DukeException Error saving file.
+     */
     public void saveTaskToFile(String task) throws DukeException {
         String fileName = filePath;
         Path filePath = Paths.get(fileName);
@@ -72,6 +102,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Deletes task from file.
+     * @param taskNumber Index of task to delete.
+     * @throws DukeException Error modifying file.
+     */
     public void deleteTaskFromFile(Integer taskNumber) throws DukeException {
         String fileName = filePath;
         List<String> lines = new ArrayList<>();
@@ -98,6 +133,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Load tasks from file into list.
+     * @param list List for file to populate.
+     * @return List of tasks from file.
+     * @throws DukeException Error reading from file.
+     */
     public List<Task> loadTasksFromFile(List<Task> list) throws DukeException {
         String fileName = filePath;
         Path filePath = Paths.get(fileName);

@@ -6,6 +6,9 @@ import duke.exception.DukeException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Represents the event task.
+ */
 public class Event extends Task {
 
     protected LocalDate from;
