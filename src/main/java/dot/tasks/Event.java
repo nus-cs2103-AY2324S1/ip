@@ -1,7 +1,8 @@
 package dot.tasks;
-import dot.parser.Parser;
 
 import java.time.LocalDateTime;
+
+import dot.parser.Parser;
 
 /**
  * The Event class implements the Event Task which instances

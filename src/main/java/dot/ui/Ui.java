@@ -3,6 +3,9 @@ package dot.ui;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * The Ui class is responsible for most of the UI interaction with user.
+ */
 public class Ui {
 
     private static final String HORIZONTAL_RULE = "_".repeat(80) + "\n";
@@ -32,7 +35,7 @@ public class Ui {
     }
 
     /**
-     * Displays help message with descriptions of all commands
+     * Displays help message with descriptions of all commands.
      */
     public static void displayHelpMessage() {
         String helpMessage = "Welcome to the help menu, DonT worry ^o^!\n"
@@ -68,6 +71,14 @@ public class Ui {
                 HORIZONTAL_RULE, msg, HORIZONTAL_RULE);
     }
 
+    /**
+     * This method displays a message after a mark or unmark command
+     * is successfully executed.
+     *
+     * @param isMarking If true, the mark command is the one being run,
+     *                  else it is the unmark command.
+     * @param task      The task's string representation to display.
+     */
     public static void displayMarkOrUnmark(boolean isMarking, String task) {
         if (isMarking) {
             wrapPrintWithHorizontalRules(String.format(
@@ -80,9 +91,9 @@ public class Ui {
     }
 
     /**
-     * Displays an ArrayList of Strings to the UI
+     * Displays an ArrayList of Strings to the UI.
      *
-     * @param displayList list of strings (usually tasks) to display
+     * @param displayList list of strings (usually tasks) to display.
      */
     public static void displayArrayList(ArrayList<String> displayList) {
         StringBuilder sb = new StringBuilder();
@@ -92,6 +103,11 @@ public class Ui {
         Ui.wrapPrintWithHorizontalRules(sb.toString().strip());
     }
 
+    /**
+     * Reads the next line from System.in.
+     *
+     * @return The next line from System.in.
+     */
     public String readNextLine() {
         return this.sc.nextLine();
     }

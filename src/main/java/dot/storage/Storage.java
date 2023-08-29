@@ -92,6 +92,8 @@ public class Storage {
                     Task eventTask = new Event(description, items[3], items[4], isCompleted);
                     taskList.add(eventTask);
                     break;
+                default:
+                    break;
                 }
             }
             return taskList;
