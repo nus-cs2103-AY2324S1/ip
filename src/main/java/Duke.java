@@ -1,6 +1,8 @@
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.io.File;
 import java.nio.file.Path;
@@ -20,7 +22,7 @@ public class Duke {
         this.l = new ArrayList<>();
     }
 
-    private void restore(String entry) throws DukeException {
+    private void restore(String entry) throws DukeException { //E|1|descr|12/4/2020 1600|12/4/2020 1700
         String[] arr = entry.split("\\|");
         Task t;
         switch (arr[0]) {
@@ -28,10 +30,17 @@ public class Duke {
                 t = new Todo(arr[2]);
                 break;
             case "E":
-                t = new Events(arr[2], arr[3], arr[4]);
+                LocalDateTime a = LocalDateTime.parse(arr[3].trim(),
+                        DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm"));
+
+                LocalDateTime a2 = LocalDateTime.parse(arr[4].trim(),
+                        DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm"));
+                t = new Events(arr[2], a, a2);
                 break;
             case "D":
-                t = new Deadline(arr[2], arr[3]);
+                LocalDateTime a3 = LocalDateTime.parse(arr[3].trim(),
+                        DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm"));
+                t = new Deadline(arr[2], a3);
                 break;
             default:
                 throw new DukeException("No such type of Task");
@@ -156,7 +165,9 @@ public class Duke {
                     if (temp.length < 2) {
                         throw new DukeException("OOPS!!! The description of a deadline must have a deadline.");
                     }
-                    Deadline d = new Deadline(temp[0], temp[1].trim());
+                    LocalDateTime tt = LocalDateTime.parse(temp[1].trim(),
+                            DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"));
+                    Deadline d = new Deadline(temp[0], tt);
                     this.l.add(d);
                     added(d);
                     break;
@@ -181,7 +192,11 @@ public class Duke {
                     if (temp2.length < 3) {
                         throw new DukeException("OOPS!!! The description of a event must have from and to.");
                     }
-                    Events e = new Events(temp2[0], temp2[1].substring(4).trim(), temp2[2].substring(2).trim());
+                    LocalDateTime tt2 = LocalDateTime.parse(temp2[1].substring(4).trim(),
+                            DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm"));
+                    LocalDateTime tt3 = LocalDateTime.parse(temp2[2].substring(2).trim(),
+                            DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm"));
+                    Events e = new Events(temp2[0], tt2, tt3);
                     this.l.add(e);
                     added(e);
                     break;
