@@ -7,10 +7,19 @@ import java.time.temporal.ChronoUnit;
 import java.util.AbstractMap.SimpleEntry;
 import java.util.Map;
 
+/**
+ * Task with an end date.
+ */
 public class Deadline extends Task implements Comparable<Deadline> {
 
     protected LocalDate by;
 
+    /**
+     * Constructor for Deadline.
+     * 
+     * @param description The user's description of the task.
+     * @param by The end date of the task.
+     */
     public Deadline(String description, LocalDate by) {
         super(description);
         this.by = by;

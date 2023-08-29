@@ -8,14 +8,22 @@ import java.io.File;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Command to list all current tasks.
+ */
 public class ListCommand extends Command {
 
+    /**
+     * Constructor for ListCommand.
+     * 
+     * @param args The arguments entered by the user.
+     */
     public ListCommand(Map<String, Object> args) {
         super("list", args);
     }
 
     @Override
-    public List<CommandElement> getCommandElements() {
+    protected List<CommandElement> getCommandElements() {
         return List.of();
     }
 

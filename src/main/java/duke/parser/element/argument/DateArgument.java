@@ -4,8 +4,16 @@ import duke.exception.InvalidDateException;
 import java.time.format.DateTimeParseException;
 import java.time.LocalDate;
 
+/**
+ * Input must be a date.
+ */
 public class DateArgument extends Argument {
 
+    /**
+     * Constructor for DateArgument.
+     * 
+     * @param text The name of the input field.
+     */
     public DateArgument(String text) {
         super(text);
     }

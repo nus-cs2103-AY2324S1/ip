@@ -2,8 +2,16 @@ package duke.parser.element.argument;
 
 import duke.exception.InvalidIndexException;
 
+/**
+ * Input must be an index.
+ */
 public class IndexArgument extends Argument {
-    
+
+    /**
+     * Constructor for IndexArgument.
+     * 
+     * @param text The name of the input field.
+     */
     public IndexArgument(String text) {
         super(text);
     }

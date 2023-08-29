@@ -4,8 +4,16 @@ import duke.command.task.ToDoCommand;
 import java.util.AbstractMap.SimpleEntry;
 import java.util.Map;
 
+/**
+ * Task without any date requirements.
+ */
 public class ToDo extends Task {
 
+    /**
+     * Constructor for ToDo.
+     * 
+     * @param description The user's description of the task.
+     */
     public ToDo(String description) {
         super(description);
     }

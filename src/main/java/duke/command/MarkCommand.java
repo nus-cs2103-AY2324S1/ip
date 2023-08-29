@@ -10,14 +10,22 @@ import java.io.File;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Command to mark a task as complete.
+ */
 public class MarkCommand extends Command {
 
+    /**
+     * Constructor for MarkCommand.
+     * 
+     * @param args The arguments entered by the user.
+     */
     public MarkCommand(Map<String, Object> args) {
         super("mark", args);
     }
 
     @Override
-    public List<CommandElement> getCommandElements() {
+    protected List<CommandElement> getCommandElements() {
         return List.of(new IndexArgument("index"));
     }
 

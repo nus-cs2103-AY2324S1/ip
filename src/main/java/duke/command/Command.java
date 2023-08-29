@@ -13,11 +13,20 @@ import java.util.Map;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
+/**
+ * Actionable representing a command input by the user.
+ */
 public abstract class Command {
 
     protected final String commandName;
     protected Map<String, Object> args;
 
+    /**
+     * Constructor for command.
+     * 
+     * @param commandName The name of the command.
+     * @param args The arguments entered by the user.
+     */
     public Command(String commandName, Map<String, Object> args) {
         this.commandName = commandName;
         this.args = args;
@@ -25,10 +34,20 @@ public abstract class Command {
 
     protected abstract List<CommandElement> getCommandElements();
 
+    /**
+     * Generates regex pattern expected for command.
+     * 
+     * @return Regex pattern expected for command.
+     */
     public Pattern getPattern() {
         return Pattern.compile(String.join("", this.getCommandElements().stream().map(e -> e.getRegexForm()).collect(Collectors.toList())));
     }
 
+    /**
+     * Generates readable expected structure for command.
+     * 
+     * @return Readable expected structure for command.
+     */
     public String getStructure() {
         List<String> struct = new ArrayList<>();
         struct.add(commandName);
@@ -53,6 +72,11 @@ public abstract class Command {
         return String.join(" ", commandList);
     }
 
+    /**
+     * Generates list of arguments expected from command.
+     * 
+     * @return List of arguments expected from command.
+     */
     public List<Argument> getArguments() {
         List<Argument> argsList = new ArrayList<>();
         argsList.add(null);
@@ -66,8 +90,21 @@ public abstract class Command {
         return argsList;
     }
 
+    /**
+     * Get command to act.
+     * 
+     * @param tasks The list of tasks to act on.
+     * @param ui The Ui to interact with the user.
+     * @param storage The Storage to update data.
+     * @throws DukeException When the execution fails.
+     */
     public abstract void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException;
 
+    /**
+     * Returns whether the command is to terminate the program.
+     * 
+     * @return Whether the command is to terminate the program.
+     */
     public abstract boolean isExit();
 
 }

@@ -2,12 +2,20 @@ package duke.ui;
 
 import java.util.Scanner;
 
+/**
+ * A Ui that reads inputs from the user and prints to the user.
+ */
 public class VerboseUi extends Ui {
 
     private static final String HORIZONTAL_LINE = "_".repeat(60);
 
     private String name;
 
+    /**
+     * Constructor for VerboseUi.
+     * 
+     * @param name Name used when greeting users.
+     */
     public VerboseUi(String name) {
         super(new Scanner(System.in));
         this.name = name;

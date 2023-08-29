@@ -6,22 +6,50 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * Interface that reads in inputs and displays outputs.
+ */
 public abstract class Ui {
 
-    Scanner sc;
+    protected Scanner sc;
 
+    /**
+     * Constructor for Ui.
+     * 
+     * @param sc The scanner from which inputs are read.
+     */
     public Ui(Scanner sc) {
         this.sc = sc;
     }
 
+    /**
+     * Method to display message.
+     * 
+     * @param msg Message to be displayed.
+     */
     public abstract void print(String msg);
 
+    /**
+     * Display default greeting.
+     */
     public abstract void greet();
 
+    /**
+     * Shared default message for counting tasks.
+     * 
+     * @param n Number of tasks.
+     * @return The default message for that number of tasks.
+     */
     public static String getTaskCount(int n) {
         return String.format("You have %d task%s in the list now.", n, n == 1 ? "" : "s");
     }
 
+    /**
+     * Converts list to be displayed as a string.
+     * 
+     * @param arr List converted.
+     * @return The list as a string.
+     */
     public static <T> String stringifyList(List<T> arr) {
         List<String> enumArr = new ArrayList<>();
         int i = 1;
@@ -31,18 +59,37 @@ public abstract class Ui {
         return String.join("\n", enumArr);
     }
 
+    /**
+     * Converts date to be displayed as a string.
+     * 
+     * @param date Date converted.
+     * @return The date as a string.
+     */
     public static String stringifyDate(LocalDate date) {
         return date.format(DateTimeFormatter.ofPattern("d MMM yyyy"));
     }
 
+    /**
+     * Returns next line read in.
+     * 
+     * @return The line read in.
+     */
     public String readCommand() {
         return sc.nextLine().replaceAll("\n", "").trim();
     }
 
+    /**
+     * Returns whether or not there is more user input.
+     * 
+     * @return Whether or not there is more user input.
+     */
     public boolean hasNext() {
         return sc.hasNext();
     }
 
+    /**
+     * Stop monitoring input.
+     */
     public void close() {
         sc.close();
     }

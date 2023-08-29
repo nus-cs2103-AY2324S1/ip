@@ -2,8 +2,16 @@ package duke.parser.element.argument;
 
 import duke.exception.EmptyArgException;
 
+/**
+ * Input must be a string.
+ */
 public class StringArgument extends Argument {
 
+    /**
+     * Constructor for StringArgument.
+     * 
+     * @param text The name of the input field.
+     */
     public StringArgument(String text) {
         super(text);
     }

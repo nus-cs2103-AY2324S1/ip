@@ -13,14 +13,22 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Command to list all events on a given date.
+ */
 public class OngoingCommand extends Command {
 
+    /**
+     * Constructor for OngoingCommand.
+     * 
+     * @param args The arguments entered by the user.
+     */
     public OngoingCommand(Map<String, Object> args) {
         super("ongoing", args);
     }
 
     @Override
-    public List<CommandElement> getCommandElements() {
+    protected List<CommandElement> getCommandElements() {
         return List.of(new DateArgument("date"));
     }
 

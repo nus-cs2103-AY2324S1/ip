@@ -11,19 +11,27 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Command to add a new event.
+ */
 public class EventCommand extends TaskCommand {
 
+    /**
+     * Constructor for EventCommand.
+     * 
+     * @param args The arguments entered by the user.
+     */
     public EventCommand(Map<String, Object> args) {
         super("event", args);
     }
 
     @Override
-    public List<CommandElement> getCommandElements() {
+    protected List<CommandElement> getCommandElements() {
         return List.of(new StringArgument("description"), new Field("/from"), new DateArgument("from"), new Field("/to"), new DateArgument("to"));
     }
 
     @Override
-    public Event makeTask() throws DateRangeException {
+    protected Event makeTask() throws DateRangeException {
         return new Event((String) this.args.get("description"), (LocalDate) this.args.get("from"), (LocalDate) this.args.get("to"));
     }
 

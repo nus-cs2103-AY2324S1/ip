@@ -7,11 +7,22 @@ import java.time.LocalDate;
 import java.util.AbstractMap.SimpleEntry;
 import java.util.Map;
 
+/**
+ * Task with a start and end date.
+ */
 public class Event extends Task {
 
     protected LocalDate from;
     protected LocalDate to;
 
+    /**
+     * Constructor for Event.
+     * 
+     * @param description The user's description of the task.
+     * @param from The start date of the task.
+     * @param to The end date of the task.
+     * @throws DateRangeException When the start date is after the end date.
+     */
     public Event(String description, LocalDate from, LocalDate to) throws DateRangeException {
         super(description);
         if (to.isBefore(from)) {
@@ -32,6 +43,12 @@ public class Event extends Task {
                 + "\n" + super.toCommand(idx) + "\n";
     }
 
+    /**
+     * Returns whether the event is happening on a given date.
+     * 
+     * @param date The date one is checking.
+     * @return Whether the event is happening on that date.
+     */
     public boolean isOngoing(LocalDate date) {
         return !(date.isBefore(this.from) || date.isAfter(this.to));
     }

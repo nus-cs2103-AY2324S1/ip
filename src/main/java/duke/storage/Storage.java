@@ -17,6 +17,9 @@ import java.util.List;
 import java.util.regex.Pattern;
 import java.util.Scanner;
 
+/**
+ * Writes data to and retrieves data from storage file.
+ */
 public class Storage {
 
     private static final List<String> storagePath = List.of("data");
@@ -25,6 +28,12 @@ public class Storage {
     private List<String> dirPath;
     private File dataFile;
 
+    /**
+     * Constructor for storage object.
+     * 
+     * @param projectName The name of the root directory.
+     * @param mainFile A file in the root directory.
+     */
     public Storage(String projectName, File mainFile) {
         this.dirPath = new ArrayList<>(Arrays.asList(mainFile.getPath().split(Pattern.quote(File.separator))));
         while (!this.dirPath.get(this.dirPath.size() - 1).equals(projectName)) {
@@ -46,6 +55,11 @@ public class Storage {
         return opFile;
     }
 
+    /**
+     * Generates TaskList from stored data.
+     * 
+     * @return TaskList from stored data.
+     */
     public TaskList loadTasks() {
         TaskList tasks = new TaskList();
         Ui ui;
@@ -71,6 +85,11 @@ public class Storage {
         return tasks;
     }
 
+    /**
+     * Saves TaskList to file.
+     * 
+     * @param tasks TaskList to be saved.
+     */
     public void save(TaskList tasks) {
         try {
             FileWriter writer = new FileWriter(dataFile, false);

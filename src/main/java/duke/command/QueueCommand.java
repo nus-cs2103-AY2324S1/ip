@@ -11,14 +11,22 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Command to list all deadlines in sorted order.
+ */
 public class QueueCommand extends Command {
 
+    /**
+     * Constructor for QueueCommand.
+     * 
+     * @param args The arguments entered by the user.
+     */
     public QueueCommand(Map<String, Object> args) {
         super("queue", args);
     }
 
     @Override
-    public List<CommandElement> getCommandElements() {
+    protected List<CommandElement> getCommandElements() {
         return List.of();
     }
 

@@ -10,14 +10,22 @@ import java.io.File;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Command to mark a task as incomplete.
+ */
 public class UnmarkCommand extends Command {
 
+    /**
+     * Constructor for UnmarkCommand.
+     * 
+     * @param args The arguments entered by the user.
+     */
     public UnmarkCommand(Map<String, Object> args) {
         super("unmark", args);
     }
 
     @Override
-    public List<CommandElement> getCommandElements() {
+    protected List<CommandElement> getCommandElements() {
         return List.of(new IndexArgument("index"));
     }
 

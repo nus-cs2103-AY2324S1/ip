@@ -10,10 +10,19 @@ import java.io.File;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Command to add a new task.
+ */
 public abstract class TaskCommand extends Command {
 
-    public TaskCommand(String name, Map<String, Object> args) {
-        super(name, args);
+    /**
+     * Constructor for TaskCommand.
+     * 
+     * @param commandName The name of the command.
+     * @param args The arguments entered by the user.
+     */
+    public TaskCommand(String commandName, Map<String, Object> args) {
+        super(commandName, args);
     }
 
     protected abstract Task makeTask() throws DukeException;

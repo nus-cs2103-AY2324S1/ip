@@ -10,18 +10,31 @@ import duke.ui.VerboseUi;
 import java.io.File;
 import java.util.List;
 
+/**
+ * The main chatbot.
+ */
 public class Duke {
     
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
 
+    /**
+     * Constructor for Duke.
+     * 
+     * @param name Name of the bot.
+     * @param projectName Directory name of the project folder.
+     * @param mainFile The file that runs the main function.
+     */
     public Duke(String name, String projectName, File mainFile) {
         this.storage = new Storage(projectName, mainFile);
         this.tasks = this.storage.loadTasks();
         this.ui = new VerboseUi(name);
     }
 
+    /**
+     * Runs the chatbot, receiving commands and terminating only on bye.
+     */
     public void run() {
         ui.greet();
         boolean isExit = false;

@@ -10,14 +10,22 @@ import java.io.File;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Command to remove an task from the list.
+ */
 public class RemoveCommand extends Command {
 
+    /**
+     * Constructor for RemoveCommand.
+     * 
+     * @param args The arguments entered by the user.
+     */
     public RemoveCommand(Map<String, Object> args) {
         super("remove", args);
     }
 
     @Override
-    public List<CommandElement> getCommandElements() {
+    protected List<CommandElement> getCommandElements() {
         return List.of(new IndexArgument("index"));
     }
 
