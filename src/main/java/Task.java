@@ -4,7 +4,7 @@
  * @author Anthony Tamzil
  * @version CS2103T Individual Project AY2023/24 Semester 1
  */
-public class Task {
+public abstract class Task {
     /** A string description of the Task object. */
     protected String description;
     /** A boolean status of whether the Task is done. */
@@ -64,4 +64,11 @@ public class Task {
                 ? "[X] "
                 : "[ ] ";
     }
+
+    /**
+     * Returns the string representation of the task to be stored in a local file.
+     *
+     * @return The storage string representation of the task.
+     */
+    public abstract String toStorageString();
 }

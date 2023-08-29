@@ -40,6 +40,6 @@ public class Event extends Task {
      * @return The storage string representation of the task.
      */
     public String toStorageString() {
-        return "E, " + isDone + ", " + description + ", " + start + ", " + end;
+        return "E, " + this.isDone + ", " + this.description + ", " + this.start + ", " + this.end;
     }
 }

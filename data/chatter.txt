@@ -1,3 +1,4 @@
-D, false, submit homework, tmr
-E, true, work, 2023, 2024
-T, false, return book
+D, true, do, tmr
+E, false, help, now, tmr
+T, true, return book
+T, false, die

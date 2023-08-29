@@ -1,3 +1,6 @@
+import java.io.FileWriter;
+import java.io.IOException;
+
 import java.util.ArrayList;
 
 /**
@@ -27,6 +30,14 @@ public class ListOfTasks {
         numOfTasks++;
 
         if (!isReadFromFile) {
+            try {
+                FileWriter fw = new FileWriter("./data/chatter.txt", true);
+                fw.write("\n" + task.toStorageString());
+                fw.close();
+            } catch (IOException e) {
+                System.out.println("Got error");
+            }
+
             System.out.println("Got it. I have added this task to do:");
             System.out.println("  " + task.toString());
             System.out.println("You now have " + numOfTasks + " task(s) in the list.");
@@ -43,6 +54,8 @@ public class ListOfTasks {
         completedTask.markAsDone();
 
         if (!isReadFromFile) {
+            saveFile();
+
             System.out.println("Good job! I've marked this task as completed:");
             System.out.println("  " + completedTask);
         }
@@ -61,6 +74,7 @@ public class ListOfTasks {
         System.out.println("You now have " + numOfTasks + " task(s) in the list.");
 
         list.remove(taskNumber - 1);
+        saveFile();
     }
 
     /**
@@ -71,6 +85,7 @@ public class ListOfTasks {
     public void markTaskAsNotDone(int taskNumber) {
         Task unmarkedTask = list.get(taskNumber - 1);
         unmarkedTask.markAsNotDone();
+        saveFile();
 
         System.out.println("OK! I've marked this task as not done yet:");
         System.out.println("  " + unmarkedTask);
@@ -91,5 +106,23 @@ public class ListOfTasks {
      */
     public int getNumOfTasks() {
         return this.numOfTasks;
+    }
+
+    public void saveFile() {
+        ArrayList<Task> listOfStorageStrings = list;
+        StringBuilder storageString = new StringBuilder();
+        listOfStorageStrings.forEach((Task::toStorageString));
+
+        for (Task listOfStorageString : listOfStorageStrings) {
+            storageString.append(listOfStorageString.toStorageString()).append("\n");
+        }
+
+        try {
+            FileWriter fw = new FileWriter("./data/chatter.txt");
+            fw.write(storageString.toString());
+            fw.close();
+        } catch (IOException e) {
+            System.out.println("Got error");
+        }
     }
 }
