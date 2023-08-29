@@ -1,6 +1,5 @@
 package duke.command;
 
-import duke.DukeException;
 import duke.storage.Storage;
 import duke.task.TaskList;
 import duke.ui.Ui;
@@ -8,13 +7,13 @@ import duke.ui.Ui;
 public class ListCommand implements Command{
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
-        String output = "Here are the tasks in your list:";
+        StringBuilder output = new StringBuilder("Here are the tasks in your list:");
         for (int i = 0; i < tasks.size(); i++) {
             if (tasks.get(i) != null) {
-                output += "\n" + (i + 1) + "." + tasks.get(i).toString();
+                output.append("\n").append(i + 1).append(".").append(tasks.get(i).toString());
             }
         }
-        ui.sendMessage(output);
+        ui.sendMessage(output.toString());
     }
 
     @Override

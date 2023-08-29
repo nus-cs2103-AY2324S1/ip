@@ -17,6 +17,10 @@ public abstract class Task {
         this.isComplete = false;
     }
 
+    public boolean getComplete() {
+        return isComplete;
+    }
+
     public String toSave() {
         return "";
     }

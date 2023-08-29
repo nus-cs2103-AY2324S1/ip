@@ -31,7 +31,7 @@ public class DeadlineCommand implements Command{
     @Override
     public void loadTask(TaskList tasks) {
         String[] partDeadline = details.split("/by");
-        Task curr = new Deadline(partDeadline[0], partDeadline[1]);
+        Task curr = new Deadline(partDeadline[0], partDeadline[1].trim());
         tasks.add(curr);
     }
 
