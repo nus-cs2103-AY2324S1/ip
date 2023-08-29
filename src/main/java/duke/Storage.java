@@ -23,9 +23,9 @@ public class Storage {
     ArrayList<Task> taskList = new ArrayList<Task>();
     // check whether directory exists from filePath given
     // check the directory until the file name from the file path
-    // if directory doesn't exist, create directory
-    directory = new File(filePath.substring(0, filePath.lastIndexOf("/")));
-    file = new File(filePath);
+    // if directory doesn't exist, create directory 
+    this.directory = new File(filePath.substring(0, filePath.lastIndexOf("/")));
+    this.file = new File(filePath);
     if (directory.exists() && file.exists()) {
       // load the data into taskList
       try {
@@ -43,9 +43,12 @@ public class Storage {
   }
 
   public void save(TaskList tasks) throws DukeException {
+
     if (!directory.exists()) {
-      directory.mkdir();
+      directory.mkdirs();
     }
+
+    this.file = new File(filePath);
     if (!file.exists()) {
       try {
         file.createNewFile();
