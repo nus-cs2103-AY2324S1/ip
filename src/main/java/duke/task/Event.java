@@ -12,7 +12,11 @@ public class Event extends Task {
     }
 
     public LocalDateTime getTime() {
-        return time;
+        return this.time;
+    }
+
+    public String getDescription() {
+        return this.description;
     }
 
     @Override
