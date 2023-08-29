@@ -1,8 +1,8 @@
 public class Deadline extends Task {
     private final String end;
 
-    public Deadline(String name, String end) {
-        super(name);
+    public Deadline(String input, String name, String end) {
+        super(input, name);
         this.end = end;
     }
 
@@ -15,10 +15,5 @@ public class Deadline extends Task {
     @Override
     public String getTask() {
         return String.format("[%s][D] %s (by: %s)", super.checkDone(), super.getName(), end);
-    }
-
-    @Override
-    public String getTaskType() {
-        return "deadline";
     }
 }

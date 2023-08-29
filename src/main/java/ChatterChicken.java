@@ -8,7 +8,7 @@ public class ChatterChicken {
 
     public static final String PATH = "src/main/data/task-list.txt";
 
-    private static List tasks;
+    private static TaskList tasks;
 
     /**
      * Displays a greeting message to the user to introduce ChatterChicken.
@@ -44,25 +44,25 @@ public class ChatterChicken {
             action = input.substring(0, input.indexOf(' '));
         }
         switch (action) {
-        case "list":
-            tasks.printList();
-            break;
-        case "mark":
-            tasks.markTask(input);
-            break;
-        case "unmark":
-            tasks.unmarkTask(input);
-            break;
-        case "delete":
-            tasks.deleteTask(input);
-            break;
-        case "todo":
-        case "deadline":
-        case "event":
-            tasks.addTask(action, input);
-            break;
-        default:
-            throw new CCException("OOPS!!! I'm sorry, but I don't know what that means :<");
+            case "list":
+                tasks.printList();
+                break;
+            case "mark":
+                tasks.markTask(input);
+                break;
+            case "unmark":
+                tasks.unmarkTask(input);
+                break;
+            case "delete":
+                tasks.deleteTask(input);
+                break;
+            case "todo":
+            case "deadline":
+            case "event":
+                tasks.addTask(action, input);
+                break;
+            default:
+                throw new CCException("OOPS!!! I'm sorry, but I don't know what that means :<");
         }
     }
 
@@ -73,7 +73,7 @@ public class ChatterChicken {
      */
     private void run() {
         try (Scanner sc = new Scanner(System.in)) {
-            tasks = new List();
+            tasks = new TaskList();
             greet();
             String input = sc.nextLine();
             while (!input.equals("bye")) {
