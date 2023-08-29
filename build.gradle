@@ -28,15 +28,16 @@ test {
 }
 
 application {
-    mainClass.set("Duke")
+    mainClass.set("sally.Sally")
 }
 
 shadowJar {
-    archiveBaseName = "duke"
+    archiveBaseName = "sally"
     archiveClassifier = null
     dependsOn("distZip", "distTar")
 }
 
-run{
+run {
     standardInput = System.in
+    enableAssertions = true;
 }
