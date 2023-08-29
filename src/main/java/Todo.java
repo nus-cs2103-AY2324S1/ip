@@ -1,6 +1,5 @@
 import java.io.IOException;
-//Imaginary bug line to test branching in SourceTree.
-
+// Attempt to solve Merge Conflict 30 Aug 12:25am. This was only a difference in comments in the same line under different branches.
 public class Todo extends Task {
 
     public Todo(String description) {
