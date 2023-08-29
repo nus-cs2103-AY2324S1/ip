@@ -29,12 +29,8 @@ public class Ui {
         scanner.close();
     }
 
-    public void showErrorMessage(String description, Exception e) {
-        outputMessage(String.format("☹ OOPS!!! %s: %s\n", description, e.getMessage()));
-    }
-
-    public void showErrorMessage(String description) {
-        outputMessage(String.format("☹ OOPS!!! %s\n", description));
+    public void showErrorMessage(DukeException e) {
+        outputMessage(e.getMessage());
     }
 
     public void listTasks(TaskList tasks) {

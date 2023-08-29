@@ -14,13 +14,18 @@ public class Storage {
         this.filePath = filePath;
     }
 
-    private void createFile(File file) throws IOException {
-        if (!file.getParentFile().mkdirs() && !file.createNewFile() && !file.exists()) {
-            System.out.println("Something went wrong with creating the store of tasks.");
+    private void createFile(File file) throws DukeStorageException {
+        try {
+            boolean isCreated = file.getParentFile().mkdirs() && file.createNewFile();
+            if (!isCreated && !file.exists()) {
+                throw new DukeStorageException("Something went wrong with creating the store of tasks.");
+            }
+        } catch (IOException e) {
+            throw new DukeStorageException("Something went wrong with creating the store of tasks.");
         }
     }
 
-    public List<Task> loadData() throws IOException {
+    public List<Task> loadData() throws DukeStorageException {
         File file = new File(filePath);
         List<Task> tasks = new ArrayList<>();
 
@@ -49,9 +54,11 @@ public class Storage {
         return tasks;
     }
 
-    public void saveData(TaskList tasks) throws IOException {
+    public void saveData(TaskList tasks) throws DukeStorageException {
         try (FileWriter fw = new FileWriter(filePath)) {
             fw.write(tasks.stringifyTasks());
+        } catch (IOException e) {
+            throw new DukeStorageException("Something went wrong with saving the tasks");
         }
     }
 }

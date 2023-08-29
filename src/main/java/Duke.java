@@ -1,4 +1,3 @@
-import java.io.IOException;
 import java.nio.file.Paths;
 
 public class Duke {
@@ -11,8 +10,8 @@ public class Duke {
         this.ui = new Ui();
         try {
             this.tasks = new TaskList(storage.loadData());
-        } catch (IOException e) {
-            ui.showErrorMessage("Something went wrong with loading the tasks", e);
+        } catch (DukeStorageException e) {
+            ui.showErrorMessage(e);
             this.tasks = new TaskList();
         }
     }
@@ -26,9 +25,13 @@ public class Duke {
         }
 
         while (isRunning) {
-            Command command = Parser.parse(ui.readInput());
-            command.execute(tasks, ui, storage);
-            isRunning = !command.isExit();
+            try {
+                Command command = Parser.parse(ui.readInput());
+                command.execute(tasks, ui, storage);
+                isRunning = !command.isExit();
+            } catch (DukeException e) {
+                ui.showErrorMessage(e);
+            }
         }
     }
 

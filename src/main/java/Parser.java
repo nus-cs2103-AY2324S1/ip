@@ -4,7 +4,7 @@ import java.time.format.DateTimeFormatter;
 public class Parser {
     private static final DateTimeFormatter dateTimeFormat = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
 
-    public static Command parse(String fullCommand) {
+    public static Command parse(String fullCommand) throws DukeException {
         String[] splitInput = fullCommand.split(" ", 2);
         String commandWord = splitInput[0];
         switch (commandWord) {
@@ -17,10 +17,9 @@ public class Parser {
             case "unmark":
                 return new UnmarkCommand(Integer.parseInt(splitInput[1]) - 1);
             case "todo":
-//                if (splitInput.length == 1) {
-//                    ui.showErrorMessage("The description of a todo cannot be empty\n");
-//                    break;
-//                }
+                if (splitInput.length == 1) {
+                    throw new DukeIllegalArgumentsException("The description of a todo cannot be empty\n");
+                }
                 return new AddCommand(new Todo(splitInput[1]));
             case "deadline":
                 String[] splitInputBy = splitInput[1].split(" /by ", 2);
@@ -35,8 +34,7 @@ public class Parser {
             case "delete":
                 return new DeleteCommand(Integer.parseInt(splitInput[1]) - 1);
             default:
-                return new ExitCommand(); // TODO add exception
-//                ui.showErrorMessage("I'm sorry, but I don't know what that means :-(\n");
+                throw new DukeUnknownCommandException();
         }
     }
 }
