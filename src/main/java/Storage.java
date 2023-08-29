@@ -68,7 +68,7 @@ public class Storage {
                         task = new Event(description, from, to);
                         break;
                     default:
-                        throw new DukeException("Invalid format found in ./data/duke.txt," +
+                        throw new DukeException("Invalid format found in ./data/tasks.txt," +
                                 " please ensure data is in correct format");
                 }
                 if (isDone) {
