@@ -63,4 +63,13 @@ public class Task {
     public void markUndone() {
         this.isDone = false;
     }
+
+    /**
+     * Returns the done status of the task.
+     *
+     * @return A boolean value that corresponds to whether the task is done or not.
+     */
+    public boolean getIsDone() {
+        return this.isDone;
+    }
 }
