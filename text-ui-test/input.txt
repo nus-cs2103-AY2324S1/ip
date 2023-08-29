@@ -6,16 +6,20 @@ todo
 todo   read book
 deadline
 deadline /by 
-deadline   /by today
+deadline   /by 2023-08-29
 deadline return book /by      
 deadline          what        /by         yes         
-deadline return book /by June 6th
+deadline return book /by 2023-29-29
+deadline return book /by 2023-29-08
+deadline return book /by 2023-08-29
+deadline return book /by 2023-08-29 11:11
 event
 event X /from Y
 event X /to Y
 event /from X /to Y
 event    bruh   /from    today    /to   ytd
 event project meeting /from Aug 6th 2pm /to 4pm
+event project meeting /from 2023-08-29 11:11 /to 2023-08-30 11:11
 todo join sports club
 todo borrow book
 mark 1
