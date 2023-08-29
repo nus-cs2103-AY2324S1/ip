@@ -13,6 +13,7 @@ public class ToDoTask extends Task {
         super(description);
     }
 
+
     @Override
     public String getFileDescriptor() {
         return super.getFileDescriptor() + String.format("| %s ", TaskType.TODO);
