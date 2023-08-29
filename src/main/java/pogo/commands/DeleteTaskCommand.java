@@ -1,14 +1,16 @@
 package pogo.commands;
 
 import pogo.common.Messages;
+import pogo.tasks.Task;
 
 public class DeleteTaskCommand extends Command {
     public static final String COMMAND_WORD = "delete";
-    private static final String DELETE_TASK_SUCCESS = "Noted. I've removed this task:\nThere are now %s tasks left.";
+    private static final String DELETE_TASK_SUCCESS = "Noted. I've removed this task:\n";
     private final int index;
 
     /**
      * Creates a DeleteTaskCommand object.
+     *
      * @param index The index of the task to be deleted.
      */
     public DeleteTaskCommand(int index) {
@@ -21,7 +23,9 @@ public class DeleteTaskCommand extends Command {
             return new CommandResult(Messages.INVALID_INDEX);
         }
 
-        tasks.remove(index);
-        return new CommandResult(String.format(DELETE_TASK_SUCCESS, tasks.size()));
+        Task task = tasks.remove(index);
+        String tasksLeftMessage = String.format("There are %s tasks left.", tasks.size());
+        return new CommandResult(DELETE_TASK_SUCCESS + task.getStatusMessage() + "\n"
+                + tasksLeftMessage);
     }
 }

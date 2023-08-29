@@ -52,7 +52,7 @@ public class TextStorage implements Storage {
             fw.write(formatTasks(tasks));
             fw.close();
         } catch (IOException e) {
-            System.out.println("Error saving pogo.tasks");
+            System.out.println("Error saving tasks");
         }
     }
 

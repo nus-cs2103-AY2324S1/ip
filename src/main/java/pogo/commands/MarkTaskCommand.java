@@ -1,5 +1,6 @@
 package pogo.commands;
 
+import pogo.common.Messages;
 import pogo.tasks.Task;
 
 public class MarkTaskCommand extends Command {
@@ -17,7 +18,7 @@ public class MarkTaskCommand extends Command {
     @Override
     public CommandResult execute() {
         if (index < 0 || index >= tasks.size()) {
-            return new CommandResult("Please enter a valid index.");
+            return new CommandResult(Messages.INVALID_INDEX);
         }
 
         Task task = tasks.get(index);

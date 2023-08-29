@@ -1,5 +1,6 @@
 package pogo.commands;
 
+import pogo.common.Messages;
 import pogo.tasks.Task;
 
 public class UnmarkTaskCommand extends Command {
@@ -17,7 +18,7 @@ public class UnmarkTaskCommand extends Command {
     @Override
     public CommandResult execute() {
         if (index < 0 || index >= tasks.size()) {
-            return new CommandResult("Please enter a valid index.");
+            return new CommandResult(Messages.INVALID_INDEX);
         }
 
         Task task = tasks.get(index);
@@ -26,6 +27,6 @@ public class UnmarkTaskCommand extends Command {
         }
 
         task.markAsUndone();
-        return new CommandResult("Nice! I've marked this task as not done:\n" + task.getStatusMessage());
+        return new CommandResult("Ok, I've marked this task as not done yet.\n" + task.getStatusMessage());
     }
 }
