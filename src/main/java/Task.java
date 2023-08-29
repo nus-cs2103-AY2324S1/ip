@@ -16,26 +16,31 @@ class Task {
             String[] parts = line.split("\\|");
             boolean isCompleted = parts[1].trim().equals("1");
             String description = parts[2].trim();
+
             Task task = new ToDo(description);
             task.toggleIsDone(isCompleted);
+
             return task;
         } else if (line.startsWith("D")) {
             String[] parts = line.split("\\|");
             boolean isCompleted = parts[1].trim().equals("1");
             String description = parts[2].trim();
             String by = parts[3].trim();
-            System.out.println(by);
             LocalDate date = LocalDate.parse(by);
+
             Task task = new Deadline(description, date);
             task.toggleIsDone(isCompleted);
+
             return task;
         } else if (line.startsWith("E")) {
             String[] parts = line.split("\\|");
             boolean isCompleted = parts[1].trim().equals("1");
             String description = parts[2].trim();
             String[] time = parts[3].trim().split("-");
+
             Task task = new Event(description, time[0].trim(), time[1].trim());
             task.toggleIsDone(isCompleted);
+            
             return task;
         } else {
             throw new IOException("Corrupted File. What you doin' bruh...");
