@@ -1,9 +1,19 @@
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.io.FileWriter;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.FileReader;
+import java.io.BufferedReader;
+import java.io.File;
+
+import java.nio.file.Paths;
 
 public class Duke {
     private static final ArrayList<Task> items = new ArrayList<>();
-    private static final String bar = "____________________________________________________________";
+    private static final String BAR = "____________________________________________________________";
+
+    private static final String DATA_PATH = "./data/duke.txt";
 
     enum modifyStatus {
         MARK,
@@ -27,7 +37,7 @@ public class Duke {
     }
 
     public static void printWrapped(String input) {
-        System.out.printf("%s\n%s\n%s%n", Duke.bar, input, Duke.bar);
+        System.out.printf("%s\n%s\n%s%n", Duke.BAR, input, Duke.BAR);
     }
 
     public static String getFirstWord(String input) {
@@ -49,11 +59,11 @@ public class Duke {
     }
 
     public static void printItems() {
-        String sayWord = "Here are the tasks in your list:";
+        StringBuilder sayWord = new StringBuilder("Here are the tasks in your list:");
         for (int i = 0; i < Duke.items.size(); i++) {
-            sayWord += String.format("\n%d.%s", i + 1, Duke.items.get(i));
+            sayWord.append(String.format("\n%d.%s", i + 1, Duke.items.get(i)));
         }
-        printWrapped(sayWord);
+        printWrapped(sayWord.toString());
     }
 
     public static int getIndex(String input) {
@@ -128,6 +138,7 @@ public class Duke {
                 + Duke.items.size()
                 + " tasks in the list.";
         printWrapped(sayWord);
+        writeData();
     }
 
     public static void modifyStatus(modifyStatus status, String input) throws DukeException {
@@ -143,8 +154,9 @@ public class Duke {
                 printMarkedOrUnmarked(index, "OK, I've marked this task as not done yet:");
                 break;
             default:
-                throw new DukeException("\u2639 OOPS!!! I'm sorry, but an error occured when modifying your task :-(");
+                throw new DukeException("\u2639 OOPS!!! I'm sorry, but an error occurred when modifying your task :-(");
         }
+        writeData();
     }
 
     public static void deleteItem(String input) throws DukeException {
@@ -158,11 +170,94 @@ public class Duke {
                     + Duke.items.size()
                     + " tasks in the list.";
             printWrapped((sayWord));
+            writeData();
         }
+    }
+
+    public static void writeData() {
+        /*
+        * Write data into DATA_PATH for CringeBot to store in
+        * */
+        StringBuilder listOfTasks = new StringBuilder();
+        for (int i = 0; i < Duke.items.size(); i++) {
+            listOfTasks.append(String.format("%d.%s\n", i + 1, Duke.items.get(i)));
+        }
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(Duke.DATA_PATH))) {
+            writer.write(listOfTasks.toString());
+        } catch (IOException e) {
+            System.out.println("An error occurred while writing to the file.");
+            e.printStackTrace();
+        }
+    }
+
+    public static void readData() {
+        /*
+        * Reads data from DATA_PATH for CringeBot to use
+        * */
+
+        // Creating a new dir and file if it doesnt exist
+        try {
+            File file = new File(Duke.DATA_PATH);
+            if (!file.exists()) {
+                file.getParentFile().mkdirs();
+                file.createNewFile();
+            }
+        } catch (IOException e) {
+            System.out.println("An error occurred while creating the file.");
+        }
+
+        // Reading the file
+        try (BufferedReader reader = new BufferedReader(new FileReader(Duke.DATA_PATH))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                Duke.items.add(parseData(line));
+            }
+        } catch (IOException e) {
+            System.out.println("An error occurred while reading the file.");
+        } catch (DukeException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public static Task parseData(String content) throws DukeException {
+        /*
+          Extracts information from a line of content
+         */
+
+        content = content.split("\\.")[1];  // Removes the bullet point numbering
+        content = content.replaceAll("\\[", "");  // Removes the \\] character
+        String[] contentArray = content.split("]");  // Splits the content to extract data
+
+        if (contentArray.length <= 2) {
+            throw new DukeException("\u2639 OOPS!!! I'm sorry, but past chats cannot be loaded 1 :-(");
+        }
+        String taskType = contentArray[0];
+        boolean isMarked = contentArray[1].equals("X");
+        String taskContent = contentArray[2].strip();
+        Task newTask;
+
+        switch(taskType) {
+            case("T"):
+                newTask = new Todo(taskContent);
+                break;
+            case("E"):
+                newTask = new Event(taskContent);
+                break;
+            case("D"):
+                newTask = new Deadline(taskContent);
+                break;
+            default:
+                throw new DukeException("\u2639 OOPS!!! I'm sorry, but past chats cannot be loaded :-(");
+        }
+        if (isMarked) {
+            newTask.markTask();
+        }
+        return newTask;
     }
 
     public static void main(String[] args) {
         Scanner scanObj = new Scanner(System.in);
+        readData();
         greetUser();
         while(true) {
             String nextLine = scanObj.nextLine();
