@@ -5,11 +5,15 @@
  * @since 2023-08-24
  */
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import java.util.Locale;
 import java.util.Scanner;
 public class Duke {
     public static void main(String[] args) {
@@ -125,41 +129,85 @@ public class Duke {
     }
 
     /**
+     * Checks if the format of the string is the expected DateTime format.
+     * The expected format is yyyy-mm-dd HH:mm.
+     *
+     * @param input The dateTime string input from the user.
+     * @return The boolean value representing if string matches expected DateTime format.
+     */
+    private static boolean isIsoDateTime(String input) {
+        String isoDatePattern = "^\\d{4}-\\d{2}-\\d{2}\\s([01]\\d|2[0-3]):[0-5]\\d$";
+
+        Pattern pattern = Pattern.compile(isoDatePattern);
+        Matcher matcher = pattern.matcher(input);
+
+        return matcher.matches();
+    }
+
+    /**
+     * Return the string representing the dateTime input in MMM d yyyy h.mma format.
+     *
+     * @param input The dateTime string input from the user.
+     * @return The string of the formatted DateTime input.
+     */
+    private static String printIsoDateTime(String input) {
+        String[] dateTime = input.split(" ",2);
+        String dateTimeFormat = dateTime[0] + "T" + dateTime[1] + ":00";
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM d yyyy h.mma", Locale.ENGLISH);
+
+        LocalDateTime deadline = LocalDateTime.parse(dateTimeFormat);
+        return deadline.format(formatter);
+    }
+
+    /**
      * Creates a Task and adds it to the task list.
      *
      * @param taskList The list of task created by user.
-     * @param cmd The input command from user.
+     * @param input The input command from user.
      * @throws InvalidCommandException Handles missing or wrong input commands by user.
      * @throws InvalidDescriptionException Handle empty task descriptions.
      */
-    private static void addTask(ArrayList<Task> taskList, String[] cmd)
+    private static void addTask(ArrayList<Task> taskList, String[] input)
             throws InvalidCommandException, InvalidDescriptionException {
 
-        if (cmd[0].equals("todo")) {
-            if (cmd.length == 1 || cmd[1].equals("")) {
+        String cmd = input[0];
+
+        switch (cmd) {
+        case "todo":
+            if (input.length == 1 || input[1].equals("")) {
                 throw new InvalidDescriptionException("todo");
             }
 
-            taskList.add(new ToDo(cmd[1].trim()));
-        } else if (cmd[0].equals("deadline")) {
+            taskList.add(new ToDo(input[1].trim()));
+            break;
 
-            if (cmd.length == 1 || cmd[1].equals("") || cmd[1].trim().charAt(0) == '/') {
+        case "deadline":
+            if (input.length == 1 || input[1].equals("") || input[1].trim().charAt(0) == '/') {
                 throw new InvalidDescriptionException("deadline");
             }
 
-            String[] task = cmd[1].split("/by ", 2);
+            String[] task = input[1].split("/by ", 2);
+            String taskDesc = task[0].trim();
+
             if (task.length == 1 || task[1].equals("")) {
                 throw new InvalidCommandException("☹ OOPS!!! Need to include /by date for deadline.");
             }
 
-            taskList.add(new Deadline(task[0].trim(), task[1].trim()));
-        } else if (cmd[0].equals("event")) {
+            String dateTime = task[1].trim();
 
-            if (cmd.length == 1 || cmd[1].equals("") || cmd[1].trim().charAt(0) == '/') {
+            if (isIsoDateTime(dateTime)) {
+                taskList.add(new Deadline(taskDesc, printIsoDateTime(dateTime)));
+            } else {
+                throw new InvalidCommandException("Invalid date time format. Format is yyyy-mm-dd HH:mm");
+            }
+            break;
+
+        case "event":
+            if (input.length == 1 || input[1].equals("") || input[1].trim().charAt(0) == '/') {
                 throw new InvalidDescriptionException("description");
             }
 
-            String[] event = cmd[1].split("/from ", 2);
+            String[] event = input[1].split("/from ", 2);
 
             if (event.length == 1 || event[1].equals("")) {
                 throw new InvalidCommandException("☹ OOPS!!! Need to include /from date for an event.");
@@ -171,8 +219,20 @@ public class Duke {
                 throw new InvalidCommandException("☹ OOPS!!! Need to include /to date for an event.");
             }
 
-            taskList.add(new Event(event[0].trim(), dates[0].trim(), dates[1].trim()));
-        } else {
+            String fromDate = dates[0].trim();
+            String toDate = dates[1].trim();
+
+            if (isIsoDateTime(fromDate) && isIsoDateTime(toDate)) {
+                taskList.add(new Event(event[0].trim(), printIsoDateTime(fromDate),
+                        printIsoDateTime(toDate)));
+            } else {
+                throw new InvalidCommandException("Invalid date time format. " +
+                        "Both /from and /to format is yyyy-mm-dd HH:mm");
+            }
+
+            break;
+
+        default:
             throw new InvalidCommandException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
 
