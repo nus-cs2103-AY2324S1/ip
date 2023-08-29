@@ -9,6 +9,7 @@ import main.java.exception.EmptyTodoException;
 import main.java.exception.UnknownCommandException;
 import main.java.exception.EmptyChoiceException;
 import main.java.parser.Parser;
+import main.java.storage.Storage;
 import main.java.tasklist.TaskList;
 import main.java.ui.Ui;
 
@@ -19,11 +20,14 @@ public class Botty {
     private TaskList taskList;
     private Ui ui;
     private Parser parser;
+    private Storage storage;
 
     public Botty() {
         this.ui = new Ui();
         this.taskList = new TaskList();
         this.parser = new Parser();
+        this.storage = new Storage("./storage.txt");
+        this.storage.loadTaskList(this.taskList);
     }
     public static void main(String[] args) {
         new Botty().run();
@@ -32,6 +36,7 @@ public class Botty {
     public void run() {
         String name = "Botty";
         String tmp = "";
+        this.taskList.loadData(this.storage);
         Scanner scanner = new Scanner(System.in);
         this.ui.greet(name);
         while (true) {
@@ -42,6 +47,7 @@ public class Botty {
                 try {
                     Command command = this.parser.parseInstruction(tmp);
                     command.execute(this.taskList, this.ui);
+                    this.storage.saveTaskList(this.taskList);
                 } catch (UnknownCommandException e) {
                     System.out.println(e.getMessage());
                 } catch (EmptyTodoException e) {

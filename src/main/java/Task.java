@@ -1,5 +1,5 @@
 package main.java;
-public class Task {
+public abstract class Task {
     private String description;
     private boolean isDone;
 
@@ -7,8 +7,18 @@ public class Task {
         this.description = description;
         this.isDone = false;
     }
+
+    public Task(String description, Boolean bool) {
+        this.description = description;
+        this.isDone = bool;
+    }
     public String getStatusIcon() {
         return (isDone ? "X" : " "); // mark done task with X
+    }
+    public String getSaveDescription() {
+        return (this.isDone
+                ? "| 1 | " + this.description
+                : "| 0 | " + this.description);
     }
     public void markUndone() {
         this.isDone = false;

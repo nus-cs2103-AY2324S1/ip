@@ -1,9 +1,5 @@
 package main.java.parser;
 
-import main.java.Deadline;
-import main.java.Event;
-import main.java.Task;
-import main.java.Todo;
 import main.java.command.*;
 import main.java.exception.EmptyChoiceException;
 import main.java.exception.EmptyTodoException;
