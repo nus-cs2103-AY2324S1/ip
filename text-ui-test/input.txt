@@ -2,21 +2,27 @@ todo
 todo play games
 deadline
 deadline watch Tv /by
-deadline /by 7pm
-deadline watch TV /by 7pm
+deadline /by 2222/11/11 2100
+deadline watch TV /by 2222/11/11 2100
 event
-event sleep /from /to 7am
-event sleep /from 1am /to
-event /from 1am /to 7am
-event sleep /from 1am /to 7am
+event sleep /from /to 2222/11/11 2100
+event sleep /from 2222/11/11 2100 /to
+event /from 2222/11/11 2100 /to 2222/11/11 2100
+event sleep /from 2222/11/11 2100 /to 2222/11/11 2100
 list
 mark 1
 mark 2
-unmark 1
+unmark 2
 list
 delete 1
 list
-delete 2
+delete 1
 list
 w
+deadline play /by 2222/11/11
+deadline play /by 1111/1/11
+deadline play /by 1111/11/11 1111
+event die /from 9999/09/11 /to 99999/09/11
+event die /from 9999/09/11 /to 9999/09/11 1100
+list
 bye

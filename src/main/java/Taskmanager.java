@@ -1,3 +1,4 @@
+import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 import java.util.ArrayList;
 
@@ -112,8 +113,8 @@ public class Taskmanager {
                             default:
                                 throw new IllegalArgumentException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
                         }
-                    } catch (IllegalArgumentException e) {
-                        System.out.println(e.getMessage());
+                    } catch (IllegalArgumentException | DateTimeParseException e) {
+                        System.out.println(e.getMessage() + "\nTry again: ");
                     }
             }
             input = sn.nextLine();
@@ -148,8 +149,8 @@ public class Taskmanager {
         counter += 1;
         System.out.println("Got it. I've added this task:\n  " + t + "\nNow you have " + counter + " tasks in the list.");
         saveTask(t);
-        System.out.println("--------The following task has been successfully saved!--------");
-        readTask(t.getSavingFormat());
+        //System.out.println("--------The following task has been successfully saved!--------");
+        //readTask(t.getSavingFormat()); //testing reading task
     }
 
     public void removeTask(int index) {

@@ -10,6 +10,6 @@ public class ToDos extends Task{
     }
     @Override
     public String toString() {
-        return "[T][" + getStatusIcon() + "]" + description;
+        return "[T][" + getStatusIcon() + "] " + description;
     }
 }

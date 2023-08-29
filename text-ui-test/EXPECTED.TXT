@@ -2,46 +2,73 @@ Hello! I'm LimBay.
 What can I do for you?
 
 ☹ OOPS!!! The description of a todo cannot be empty.
+Try again:
 Got it. I've added this task:
-  [T][ ]play games
+  [T][ ] play games
 Now you have 1 tasks in the list.
 ☹ OOPS!!! The description of a deadline cannot be empty.
+Try again:
 ☹ OOPS!!! The time/date of a deadline cannot be empty.
+Try again:
 ☹ OOPS!!! The description of a deadline cannot be empty.
+Try again:
 Got it. I've added this task:
-  [D][ ] watch TV  (by: 7pm )
+  [D][ ] watch TV  (by: 11-11-2222 21:00)
 Now you have 2 tasks in the list.
 ☹ OOPS!!! The description of an event cannot be empty.
+Try again:
 ☹ OOPS!!! The starting time of an event cannot be empty.
+Try again:
 ☹ OOPS!!! The ending time of an event cannot be empty.
+Try again:
 ☹ OOPS!!! The description of an event cannot be empty.
+Try again:
 Got it. I've added this task:
-  [E][ ] sleep  (from: 1am  to: 7am )
+  [E][ ] sleep  (from: 11-11-2222 21:00, to: 11-11-2222 21:00)
 Now you have 3 tasks in the list.
 Here are the tasks in your list:
-1.[T][ ]play games
-2.[D][ ] watch TV  (by: 7pm )
-3.[E][ ] sleep  (from: 1am  to: 7am )
+1.[T][ ] play games
+2.[D][ ] watch TV  (by: 11-11-2222 21:00)
+3.[E][ ] sleep  (from: 11-11-2222 21:00, to: 11-11-2222 21:00)
 Nice! I've marked this task as done:
-  [T][X]play games
+  [T][X] play games
 Nice! I've marked this task as done:
-  [D][X] watch TV  (by: 7pm )
+  [D][X] watch TV  (by: 11-11-2222 21:00)
 OK, I've marked this task as not done yet:
-  [T][ ]play games
+  [D][ ] watch TV  (by: 11-11-2222 21:00)
 Here are the tasks in your list:
-1.[T][ ]play games
-2.[D][X] watch TV  (by: 7pm )
-3.[E][ ] sleep  (from: 1am  to: 7am )
+1.[T][X] play games
+2.[D][ ] watch TV  (by: 11-11-2222 21:00)
+3.[E][ ] sleep  (from: 11-11-2222 21:00, to: 11-11-2222 21:00)
 Noted. I've removed this task:
-[T][ ]play games
+[T][X] play games
 Now you have 2 tasks in the list.
 Here are the tasks in your list:
-1.[D][X] watch TV  (by: 7pm )
-2.[E][ ] sleep  (from: 1am  to: 7am )
+1.[D][ ] watch TV  (by: 11-11-2222 21:00)
+2.[E][ ] sleep  (from: 11-11-2222 21:00, to: 11-11-2222 21:00)
 Noted. I've removed this task:
-[E][ ] sleep  (from: 1am  to: 7am )
+[D][ ] watch TV  (by: 11-11-2222 21:00)
 Now you have 1 tasks in the list.
 Here are the tasks in your list:
-1.[D][X] watch TV  (by: 7pm )
+1.[E][ ] sleep  (from: 11-11-2222 21:00, to: 11-11-2222 21:00)
 ☹ OOPS!!! I'm sorry, but I don't know what that means :-(
+Try again:
+Got it. I've added this task:
+  [D][ ] play  (by: 11-11-2222)
+Now you have 2 tasks in the list.
+Text '1111/1/11' could not be parsed at index 5
+Try again:
+Got it. I've added this task:
+  [D][ ] play  (by: 11-11-1111 11:11)
+Now you have 3 tasks in the list.
+Text '99999/09/11' could not be parsed at index 0
+Try again:
+Got it. I've added this task:
+  [E][ ] die  (from: 09-11-9999, to: 09-11-9999 11:00)
+Now you have 4 tasks in the list.
+Here are the tasks in your list:
+1.[E][ ] sleep  (from: 11-11-2222 21:00, to: 11-11-2222 21:00)
+2.[D][ ] play  (by: 11-11-2222)
+3.[D][ ] play  (by: 11-11-1111 11:11)
+4.[E][ ] die  (from: 09-11-9999, to: 09-11-9999 11:00)
 Bye. Hope to see you again soon!
