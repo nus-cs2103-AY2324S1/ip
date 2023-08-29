@@ -1,6 +1,9 @@
+<<<<<<< HEAD
 import java.io.IOException;
 import java.util.Scanner;
 
+=======
+>>>>>>> ec37909504f93cf729e50892f63c5b4e0743882d
 // The Chatbot Aplha!
 public class Alpha {
     public static void main(String[] args) throws IOException {
