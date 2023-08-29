@@ -57,4 +57,8 @@ public class Task {
         return (new UnmarkCommand(indexMap)).toString();
     }
 
+    public boolean isRelated(String key) {
+        return this.description.contains(key);
+    }
+
 }

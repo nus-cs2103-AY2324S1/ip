@@ -31,8 +31,8 @@ public abstract class TaskCommand extends Command {
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
         Task newTask = this.makeTask();
         tasks.add(newTask);
-        ui.print(String.format("Got it. I've added this task:\n    %s\n%s",
-                tasks.get(tasks.size()).toString(), ui.getTaskCount(tasks.size())));;
+        ui.print(String.format("Got it. I've added this task:\n  %s\n%s",
+                tasks.get(tasks.size()).toString(), ui.getTaskCount(tasks.size())));
     }
 
     @Override

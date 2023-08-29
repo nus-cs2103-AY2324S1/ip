@@ -93,8 +93,8 @@ public class Storage {
     public void save(TaskList tasks) {
         try {
             FileWriter writer = new FileWriter(dataFile, false);
-            for (int i = 1; i <= tasks.size(); i++) {
-                writer.append(tasks.get(i).toCommand(i));
+            for (int i = 0; i < tasks.size(); i++) {
+                writer.append(tasks.get(i).toCommand(i + 1));
             }
             writer.flush();
             writer.close();
