@@ -79,6 +79,15 @@ public class Task {
         return String.format("X | %d | %s", isDone ? 1 : 0, description);
     }
 
+    /**
+     * Returns the description of the task.
+     * 
+     * @return Description of the task.
+     */
+    public String getDescription() {
+        return this.description;
+    }
+
     @Override
     public String toString() {
         return "[" + this.getStatusIcon() + "] " + this.description; 

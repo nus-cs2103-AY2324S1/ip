@@ -9,6 +9,7 @@ import duke.command.MarkCommand;
 import duke.command.UnMarkCommand;
 import duke.command.ExitCommand;
 import duke.command.ListCommand;
+import duke.command.FindCommand;
 
 import java.time.format.DateTimeParseException;
 import java.time.LocalDateTime;
@@ -63,6 +64,10 @@ public class Parser {
             String input = command.replaceFirst("delete", "").trim();
             int index = validateDeleteIndex(input);
             return new DeleteCommand(index);
+        } else if (isFindCommand(command)) {
+            String keyword = command.replace("find", "").trim();
+            validateFindInput(keyword);
+            return new FindCommand(keyword);
         } else {
             throw new DukeException("OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
@@ -203,6 +208,18 @@ public class Parser {
     }
 
     /**
+     * Checks if the input is valid.
+     * 
+     * @param input The keyword to be found.
+     * @throws DukeException If there is no keyword.
+     */
+    private static void validateFindInput(String input) throws DukeException {
+        if (input.isEmpty()) {
+            throw new DukeException("OOPS!! The filter is not supposed to be empty!");
+        }
+    }
+
+    /**
      * Returns a boolean that represents whether the command is an exit command.
      * 
      * @param input Command to be checked.
@@ -280,5 +297,15 @@ public class Parser {
      */
     private static boolean isUnMarkCommand(String input) {
         return input.startsWith("unmark");
+    }
+
+    /**
+     * Returns a boolean that represents whether the command is a find command.
+     * 
+     * @param input Command to be checked.
+     * @return True if it is a find command, false if otherwise.
+     */
+    private static boolean isFindCommand(String input) {
+        return input.startsWith("find");
     }
 }
