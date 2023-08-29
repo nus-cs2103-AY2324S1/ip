@@ -1,9 +1,9 @@
 package services.tasklist.tasks;
 
-public class Task {
-    private String description;
-    private boolean isDone;
-    private String checkBox;
+public abstract class Task {
+    protected String description;
+    protected boolean isDone;
+    protected String checkBox;
 
     public Task(String description) {
         this.description = description;
@@ -20,6 +20,8 @@ public class Task {
         this.isDone = false;
         this.checkBox = "[ ]";
     }
+
+    public abstract String encode();
 
     @Override
     public String toString() {

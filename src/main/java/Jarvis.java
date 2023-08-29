@@ -1,6 +1,7 @@
 import command.CommandResolver;
-import services.Basics;
+import services.Ui;
 import services.bizerrors.JarvisException;
+import services.tasklist.ListManager;
 
 import java.util.Scanner;
 
@@ -38,23 +39,28 @@ public class Jarvis {
             "                                                                 ";
 
     public static void main(String[] args) {
+        try {
+            ListManager.initialize();
+        } catch (JarvisException e) {
+            System.out.println(e);
+            return;
+        }
+
         System.out.println(jarvisLogo);
-        Basics.greet();
+        Ui.greet();
 
         String userInput = scanner.nextLine();
 
         while (!userInput.equals("exit")) {
-            String command = userInput.split(" ")[0];
-            String arguments = userInput.replaceFirst(command, "").strip();
             try {
-                CommandResolver.resolve(command, arguments);
+                CommandResolver.resolve(userInput);
             } catch (JarvisException e) {
                 System.out.print(e);
             }
             userInput = scanner.nextLine();
         }
 
-        Basics.exit();
+        Ui.exit();
     }
 
 
