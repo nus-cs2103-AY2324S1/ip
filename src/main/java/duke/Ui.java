@@ -25,6 +25,10 @@ public class Ui {
         printWrapped(sayWord.toString());
     }
 
+    public static void printFound(String foundItems) {
+        printWrapped(String.format("%s%s", "Here are the matching tasks in your list:", foundItems));
+    }
+
     public static void deleteItem(int taskSize, Task deletedTask) {
         String sayWord = "Noted. I've removed this task:\n"
                 + deletedTask

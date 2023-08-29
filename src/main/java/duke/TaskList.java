@@ -65,6 +65,22 @@ public class TaskList implements Serializable {
         Ui.printWrapped(sayWord);
     }
 
+    /**
+     * Find all items with the keyword from the list, then prints them.
+     *
+     * @param input input from the user
+     */
+    public void findItems(String input) {
+        String keyword = input.split(" ")[1].strip();
+        StringBuilder tasksFound = new StringBuilder();
+        for (int i = 0; i < this.tasks.size(); i++) {
+            if (this.tasks.get(i).toString().contains(keyword)) {
+                tasksFound.append(String.format("\n%d.%s", i + 1, this.tasks.get(i)));
+            }
+        }
+        Ui.printFound(tasksFound.toString());
+    }
+
     public void modifyStatus(Parser.modifyStatus status, String input) throws DukeException {
         int index = getIndex(input) - 1;
         this.checkOutOfBounds(index);

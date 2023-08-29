@@ -40,6 +40,9 @@ public class Parser {
                 case "todo":
                     tasks.addItem(taskType.TODO, nextLine);
                     break;
+                case "find":
+                    tasks.findItems(nextLine);
+                    break;
                 default:
                     throw new DukeException("\u2639 OOPS!!! I'm sorry, but I don't know what that means :-(");
             }
