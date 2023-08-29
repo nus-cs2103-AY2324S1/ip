@@ -1,7 +1,6 @@
-package exceptions;
+package exceptions.syntax;
 
-public abstract class KniazSyntaxException extends  KniazRuntimeException {
-
+public class KniazInvalidArgsException extends KniazSyntaxException {
     /**
      * Constructor for an exception, which constructs it with a non-user facing message, a user-facing message and
      * a cause
@@ -10,8 +9,7 @@ public abstract class KniazSyntaxException extends  KniazRuntimeException {
      * @param userMessage the message that IS meant to be seen as user feedback
      * @param cause       what caused this, see java.Exceptions for more details
      */
-    public KniazSyntaxException(String message, String userMessage, Throwable cause) {
-        super(message, userMessage, cause);
-
+    public KniazInvalidArgsException() {
+        super();
     }
 }

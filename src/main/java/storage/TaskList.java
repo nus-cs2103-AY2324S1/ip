@@ -1,4 +1,6 @@
-package task;
+package storage;
+
+import task.Task;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -37,19 +39,23 @@ public class TaskList extends ArrayList<Task> implements Serializable {
     /**
      * Marks a given task specified by index as done
      * @param index the index of the task to mark as done
+     * @return the task that was unmarked
      */
-    public void markAsUndone(int index) {
+    public Task markAsUndone(int index) {
 
         this.get(index).markAsUndone();
+        return this.get(index);
     }
 
     /**
      * Marks the given task specified by index as not done
      * @param index the index of the task marked as not done
+     * @return the task that was marked
      */
-    public void markAsDone(int index) {
+    public Task markAsDone(int index) {
 
         this.get(index).markAsDone();
+        return this.get(index);
     }
 
 

@@ -1,6 +1,6 @@
-package save;
+package storage.save;
 
-import task.TaskList;
+import storage.TaskList;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -13,7 +13,7 @@ import java.io.ObjectInputStream;
 public class KniazLoader {
 
     /**
-     * The default path KniazLoader will try to save to
+     * The default path KniazLoader will try to storage.save to
      */
     public static final String DEFAULT_PATH = KniazSaver.DEFAULT_PATH;
 
@@ -24,7 +24,7 @@ public class KniazLoader {
 
     /**
      * Constructor for class. Makes a KniazLoader that will try to load from the provided path.
-     * @param path the path to save files to
+     * @param path the path to storage.save files to
      */
     public KniazLoader(String path) {
         this.saveFile = new File(path);

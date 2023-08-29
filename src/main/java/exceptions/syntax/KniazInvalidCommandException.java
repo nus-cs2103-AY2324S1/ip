@@ -1,4 +1,4 @@
-package exceptions;
+package exceptions.syntax;
 
 public class KniazInvalidCommandException extends  KniazSyntaxException{
     /**
@@ -9,8 +9,8 @@ public class KniazInvalidCommandException extends  KniazSyntaxException{
      * @param userMessage the message that IS meant to be seen as user feedback
      * @param cause       what caused this, see java.Exceptions for more details
      */
-    public KniazInvalidCommandException(String message, String userMessage, Throwable cause) {
-        super(message, userMessage, cause);
+    public KniazInvalidCommandException() {
+        super();
         //TODO : figure out more specific behaviour for invalid command exception. Should be for invalid commands
     }
 }

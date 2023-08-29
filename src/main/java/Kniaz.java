@@ -4,13 +4,14 @@ import java.io.IOException;
 import java.util.Scanner;
 
 import exceptions.KniazRuntimeException;
-import logic.taskhandling.*;
+import commandhandling.*;
+import commandhandling.commandhandling.*;
 import ui.inputparser.InstructionType;
-import ui.inputparser.KniazCommand;
+import ui.inputparser.commands.CommandFactory;
 import ui.inputparser.KniazParser;
-import save.KniazLoader;
-import save.KniazSaver;
-import task.TaskList;
+import storage.save.KniazLoader;
+import storage.save.KniazSaver;
+import storage.TaskList;
 
 public class Kniaz {
 
@@ -71,7 +72,7 @@ public class Kniaz {
             System.out.println(e.getMessage());
         }
 
-        KniazCommand nextCommand; //Initialise the input
+        CommandFactory nextCommand; //Initialise the input
         while (true) { // I find this a bit icky but we rely on guard clauses to break instead
 
             try {
@@ -178,19 +179,19 @@ public class Kniaz {
 
             try {
                 kniazSaver.save(taskList);
-                // Every time a command is entered, save.
+                // Every time a command is entered, storage.save.
                 // This is because the list can only ever be updated via command.
             } catch (IOException e) {
-                // When something goes wrong in trying to save with regards to IO
+                // When something goes wrong in trying to storage.save with regards to IO
                 // Should not happen in usual operation
-                System.out.println("Something went wrong trying to save, I won't remember your tasks on reload!");
+                System.out.println("Something went wrong trying to storage.save, I won't remember your tasks on reload!");
                 System.out.println(e.getMessage());
                 break;
 
             } catch (SecurityException e) {
-                // When the security manager doesn't let us save
+                // When the security manager doesn't let us storage.save
                 // Complain back to the user
-                System.out.println("I couldn't save because I wasn't allowed!");
+                System.out.println("I couldn't storage.save because I wasn't allowed!");
                 System.out.println(e.getMessage());
                 break;
             }

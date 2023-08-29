@@ -34,7 +34,7 @@ public abstract class TaskDateTime implements Serializable {
     /**
      * Factory method for TaskDateTime, instantiates instance by trying to parse the provided string.
      * Will parse if and only if is in ISO-8601 format, such as
-     * 2007-12-03T10:15:30, otherwise will not parse and save entire string as a timing.
+     * 2007-12-03T10:15:30, otherwise will not parse and storage.save entire string as a timing.
      *
      * @param dateTimeAsString the date-time as a string
      * @return the TaskDateTime object that was created with the provided string
@@ -89,7 +89,7 @@ public abstract class TaskDateTime implements Serializable {
     private static class UnparseableTaskDateTime extends  TaskDateTime {
 
         /**
-         * The entire string provided. Could not parse, so save the whole string instead
+         * The entire string provided. Could not parse, so storage.save the whole string instead
          */
         private String dateTimeAsString;
 

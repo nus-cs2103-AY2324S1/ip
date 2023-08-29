@@ -1,4 +1,4 @@
-package exceptions;
+package exceptions.syntax;
 
 public class KniazFormatException extends  KniazSyntaxException{
     /**
@@ -11,8 +11,8 @@ public class KniazFormatException extends  KniazSyntaxException{
      */
 
 
-    public KniazFormatException(String message, String userMessage, Throwable cause) {
-        super(message, userMessage, cause);
+    public KniazFormatException() {
+        super();
         //TODO : fill out for format exception. Should be when user input is formatted wrongly
     }
 
