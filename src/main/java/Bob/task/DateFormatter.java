@@ -4,8 +4,20 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Formats dates into different patterns.
+ */
 public class DateFormatter {
     public static final String DEFAULT_FORMAT = "MMM d yyyy";
+
+    /**
+     * Formats input String into required pattern if input String abides by
+     * Java LocalDate format. Otherwise, returns original input String.
+     *
+     * @param inputString
+     * @param format
+     * @return Date of required pattern, original String may be returned (based on input)
+     */
     public static String format(String inputString, String format) {
         LocalDate date = LocalDate.now();
         try {

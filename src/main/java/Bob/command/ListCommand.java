@@ -5,6 +5,10 @@ import Bob.storage.StorageFile;
 import Bob.task.TaskList;
 import Bob.ui.TextUi;
 
+/**
+ * The ListCommand encapsulates logic to be executed to print out
+ * the tasks within the current task list.
+ */
 public class ListCommand extends Command {
 
     @Override

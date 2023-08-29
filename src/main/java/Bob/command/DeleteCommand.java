@@ -6,9 +6,18 @@ import Bob.task.Task;
 import Bob.task.TaskList;
 import Bob.ui.TextUi;
 
+/**
+ * The DeleteCommand class encapsulates logic that can be executed
+ * to delete tasks from the current task list.
+ */
 public class DeleteCommand extends Command {
     private int taskNumber;
 
+    /**
+     * Constructor of the DeleteCommand Class.
+     *
+     * @param taskNumber
+     */
     public DeleteCommand(int taskNumber) {
         this.taskNumber = taskNumber;
     }

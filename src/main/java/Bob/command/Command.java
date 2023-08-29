@@ -5,7 +5,26 @@ import Bob.storage.StorageFile;
 import Bob.task.TaskList;
 import Bob.ui.TextUi;
 
+/**
+ * A command encapsulates logic that can be executed to interact with the application.
+ * It can be stored an executed at a later instance or be reused.
+ */
 public abstract class Command {
+    /**
+     * Executes the current command and can modify the current state of the task list or
+     * print out messages.
+     *
+     * @param taskList
+     * @param storageFile
+     * @param ui
+     * @throws BobException if the command is constructed with invalid arguments
+     */
     public abstract void execute(TaskList taskList, StorageFile storageFile, TextUi ui) throws BobException;
+
+    /**
+     * Represents whether the current command should terminate the current application.
+     *
+     * @return a boolean signifying whether to terminate the program
+     */
     public abstract boolean isExit();
 }

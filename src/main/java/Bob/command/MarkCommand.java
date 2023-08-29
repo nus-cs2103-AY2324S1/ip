@@ -6,14 +6,25 @@ import Bob.task.Task;
 import Bob.task.TaskList;
 import Bob.ui.TextUi;
 
+/**
+ * The MarkCommand encapsulates logic to be executed to modify the
+ * completion status of a specific task.
+ */
 public class MarkCommand extends Command{
     private int taskNumber;
     private boolean isDone;
 
+    /**
+     * Constructor of the MarkCommand Class.
+     *
+     * @param taskNumber
+     * @param isDone
+     */
     public MarkCommand(int taskNumber, boolean isDone) {
         this.taskNumber = taskNumber;
         this.isDone = isDone;
     }
+
     @Override
     public void execute(TaskList taskList, StorageFile storageFile, TextUi ui) throws BobException {
         Task task = taskList.getTask(taskNumber - 1);
