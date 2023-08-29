@@ -20,6 +20,11 @@ public class Task {
         return this.checkDone() + " " + this.description;
     }
 
+
+
+    public String toStringWithDateTime() {
+        return this.toString();
+    }
     public void markDone() {
         this.isDone = true;
     }
