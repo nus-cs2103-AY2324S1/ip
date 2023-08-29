@@ -1,24 +1,22 @@
 public class UnmarkCommand extends Command {
   private String s;
-  private SaveFile saveFile;
 
-  public UnmarkCommand(Printer out, TaskList taskList, String s, SaveFile saveFile) {
-    super(out, taskList);
+  public UnmarkCommand(Printer out, TaskList taskList, FileIO savefile, String s) {
+    super(out, taskList, savefile);
     this.s = s;
-    this.saveFile = saveFile;
   }
 
   @Override
-  public void execute() {
+  public void action() {
     Task task;
     try {
       task = taskList.getTask(Integer.parseInt(s));
     } catch (NumberFormatException e) {
-      throw new DukeException(String.format(DukeException.ARGUMENT_MUST_BE_NUM, UNMARK));
+			throw new ArgumentMustBeNumException(UNMARK);
     }
     task.unmark();
 
-    out.print("Ok, I've marked this task as not done yet", task);
-    saveFile.saveToSaveFile(taskList);
+    out.print("Ok, I've marked this task as not done yet", task.toString());
+		save();
   }
 }

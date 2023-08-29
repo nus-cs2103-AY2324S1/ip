@@ -13,7 +13,7 @@ public class Deadline extends Task {
 		try {
 			this.by = DatetimeHelper.parse(by);
 		} catch (DateTimeParseException e) {
-			throw new DukeException(String.format(DukeException.DATETIME_FORMAT_INVALID, "by", "deadline"));
+			throw new InvalidDatetimeFormatException("by", "deadline");
 		}
   }
 

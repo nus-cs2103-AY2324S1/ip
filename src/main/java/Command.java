@@ -1,3 +1,4 @@
+import java.io.IOException;
 
 public abstract class Command {
   static final String LIST = "list";
@@ -10,11 +11,41 @@ public abstract class Command {
 
   protected Printer out;
   protected TaskList taskList;
+	private FileIO savefile;
 
-  public Command(Printer out, TaskList taskList) {
+	private boolean saveAfterAction = false;
+
+  public Command(Printer out, TaskList taskList, FileIO savefile) {
     this.out = out;
     this.taskList = taskList;
+		this.savefile = savefile;
   }
 
-  public abstract void execute();
+	public final void save() {
+		this.saveAfterAction = true;
+	}
+
+	public final void execute() {
+		try {
+			action();
+		} catch(DukeException e) {
+			out.print(e);
+			out.flush();
+			return;
+		} catch(DukeSideEffectException e) {
+			out.print(e);
+		}
+
+		if(saveAfterAction) {
+			try {
+				savefile.write(taskList.toString());
+			} catch (IOException e) {
+				out.print(new DukeSideEffectException(String.format("Unable to write to savefile %s", savefile.getFilename())));
+			}
+		}
+
+		out.flush();
+	}
+
+  public abstract void action();
 }

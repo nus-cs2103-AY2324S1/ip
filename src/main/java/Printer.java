@@ -1,18 +1,41 @@
+import java.util.ArrayList;
+import java.util.Optional;
+
 public class Printer {
-  public void print(Object... toPrint) {
-    printLine();
-    for (Object o : toPrint) {
-      print(o);
-    }
-    printLine();
-  }
+	private static final String exceptionPrepend = "☹ OOPS!!!";
 
-  private void print(Object s) {
-    System.out.printf("    %s\n", s);
-  }
+	ArrayList<String> messages = new ArrayList<>();
+	Optional<String> error = Optional.empty();
 
-  private void printLine() {
-    String line = "  ____________________________________________________________";
-    System.out.println(line);
-  }
+	public void print(String... arr) {
+		for(Object o: arr) messages.add(o.toString());
+	}
+
+	public void print(DukeException e) {
+		error = Optional.of(String.format("%s %s", exceptionPrepend, e.getMessage()));
+	}
+
+	public void print(DukeSideEffectException e) {
+		messages.add(String.format("%s %s", exceptionPrepend, e.getMessage()));
+	}
+
+	public void flush() {
+		String line = "  ____________________________________________________________";
+		System.out.println(line);
+		error.ifPresentOrElse((s) -> {
+			System.out.println(String.format("    %s", s));
+		}, () -> {
+			messages.forEach((s) -> {
+				System.out.printf("    %s\n", s);
+			});
+		});
+		System.out.println(line);
+
+		reset();
+	}
+
+	private void reset() {
+		messages.clear();
+		error = Optional.empty();
+	}
 }

@@ -12,7 +12,7 @@ public class TaskList {
     try {
       return tasks.get(i - 1);
     } catch (IndexOutOfBoundsException e) {
-      throw new DukeException(String.format(DukeException.OUT_OF_BOUNDS_TASK_LIST, i));
+			throw new TaskListOutOfBoundsException(i);
     }
   }
 
@@ -29,7 +29,7 @@ public class TaskList {
     try {
       tasks.remove(i - 1);
     } catch (IndexOutOfBoundsException e) {
-      throw new DukeException(String.format(DukeException.OUT_OF_BOUNDS_TASK_LIST, i));
+			throw new TaskListOutOfBoundsException(i);
     }
   }
 
@@ -37,7 +37,8 @@ public class TaskList {
     return tasks.size();
   }
 
-  public String getTasksAsCommands() {
+	@Override
+  public String toString() {
     StringBuilder sb = new StringBuilder();
     tasks.forEach(
         (task) -> {

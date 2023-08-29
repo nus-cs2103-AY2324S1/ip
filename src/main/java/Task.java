@@ -31,7 +31,7 @@ public abstract class Task {
           arguments.getOrDefault("from", ""),
           arguments.getOrDefault("to", ""));
     }
-    throw new RuntimeException();
+		throw new DukeException(String.format("%s is not an task type", type));
   }
 
   public void mark() {

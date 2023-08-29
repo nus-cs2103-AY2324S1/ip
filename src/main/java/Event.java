@@ -14,7 +14,7 @@ public class Event extends Task {
 		try {
 			this.from = DatetimeHelper.parse(from);
 		} catch (DateTimeParseException e) {
-			throw new DukeException(String.format(DukeException.DATETIME_FORMAT_INVALID, "from", "event"));
+			throw new InvalidDatetimeFormatException("from", "event");
 		}
 
     if (to.isEmpty()) {
@@ -23,7 +23,7 @@ public class Event extends Task {
 		try {
 			this.to = DatetimeHelper.parse(to);
 		} catch (DateTimeParseException e) {
-			throw new DukeException(String.format(DukeException.DATETIME_FORMAT_INVALID, "to", "event"));
+			throw new InvalidDatetimeFormatException("to", "event");
 		}
   }
 
