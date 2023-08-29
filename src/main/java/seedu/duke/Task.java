@@ -26,14 +26,14 @@ public abstract class Task {
 
     public void mark() {
         this.setDone();
-        System.out.println("     Nice! I've marked this task as done:");
-        System.out.println("       " + this);
+        System.out.println(Ui.i5 + "Nice! I've marked this task as done:");
+        System.out.println(Ui.i7 + this);
     }
 
     public void unmark() {
         this.setUndone();
-        System.out.println("     OK, I've marked this task as not done yet:");
-        System.out.println("       " + this);
+        System.out.println(Ui.i5 + "OK, I've marked this task as not done yet:");
+        System.out.println(Ui.i7 + this);
     }
 
     public String toStringForSave() {
