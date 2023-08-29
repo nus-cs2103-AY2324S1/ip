@@ -1,10 +1,10 @@
 package duke;
 
 import duke.exception.DukeException;
-import duke.task.Deadline;
-import duke.task.Event;
 import duke.task.Task;
 import duke.task.TaskList;
+import duke.task.Deadline;
+import duke.task.Event;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
