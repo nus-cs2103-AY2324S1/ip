@@ -134,8 +134,7 @@ public class Duchess {
                     int index = Parser.parseMarkTaskCommand(userInput);
                     index -= 1; // 1-indexing for user-facing side
                     Duchess.markTask(index);
-                }
-                catch (DuchessException e) {
+                } catch (DuchessException e) {
                     Ui.duchessPrint(e.getMessage());
                     Ui.duchessPrint("(／°▽°)／Try something like this!!");
                     Ui.duchessPrint("mark [task number]");
@@ -149,8 +148,7 @@ public class Duchess {
                     int index = Parser.parseUnmarkTaskCommand(userInput);
                     index -= 1; // 1-indexing for user-facing side
                     Duchess.unmarkTask(index);
-                }
-                catch (DuchessException e) {
+                } catch (DuchessException e) {
                     Ui.duchessPrint(e.getMessage());
                     Ui.duchessPrint("(／°▽°)／Try something like this!!");
                     Ui.duchessPrint("unmark [task number]");
@@ -164,8 +162,7 @@ public class Duchess {
                     int index = Parser.parseDeleteTaskCommand(userInput);
                     index -= 1; // 1-indexing for user-facing side
                     Duchess.deleteTask(index);
-                }
-                catch (DuchessException e) {
+                } catch (DuchessException e) {
                     Ui.duchessPrint(e.getMessage());
                     Ui.duchessPrint("(／°▽°)／Try something like this!!");
                     Ui.duchessPrint("delete [task number]");
@@ -178,8 +175,7 @@ public class Duchess {
                 try {
                     ToDo todo = Parser.parseToDoCommand(userInput);
                     Duchess.addTask(todo);
-                }
-                catch (DuchessException e) {
+                } catch (DuchessException e) {
                     Ui.duchessPrint(e.getMessage());
                     Ui.duchessPrint("(／°▽°)／Try something like this!!");
                     Ui.duchessPrint("todo [name]");
@@ -192,8 +188,7 @@ public class Duchess {
                 try {
                     Deadline deadline = Parser.parseDeadlineCommand(userInput);
                     Duchess.addTask(deadline);
-                }
-                catch(DuchessException e) {                    
+                } catch (DuchessException e) {
                     Ui.duchessPrint(e.getMessage());
                     Ui.duchessPrint("(／°▽°)／Try something like this!!");
                     Ui.duchessPrint("deadline [name] /by [year-month-date]");
@@ -206,8 +201,7 @@ public class Duchess {
                 try {
                     Event event = Parser.parseEventCommand(userInput);
                     Duchess.addTask(event);
-                }
-                catch(DuchessException e) {
+                } catch (DuchessException e) {
                     Ui.duchessPrint(e.getMessage());
                     Ui.duchessPrint("(／°▽°)／Try something like this!!");
                     Ui.duchessPrint("event [name] /from [time] /to [time]");
@@ -219,7 +213,7 @@ public class Duchess {
         }
 
         sc.close();
-        
+
         // Save the tasks.
         Storage.saveTasksToFile(Duchess.storedTasks);
 
