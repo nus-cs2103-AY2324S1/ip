@@ -130,6 +130,10 @@ public class TaskList {
         reply.printDialog(dialog.toString());
     }
 
+    /**
+     * Finds all tasks which contains the keyword and prints it
+     * @param keyword
+     */
     public void findTask(String keyword) {
         StringBuilder dialog = new StringBuilder("Here are the matching tasks in your list with its correct " +
                 "corresponding index numbers: \n     ");

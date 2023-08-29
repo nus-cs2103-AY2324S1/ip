@@ -35,26 +35,25 @@ public class Evan {
         while(true) {
             try {
                 String input = scanner.nextLine().toLowerCase();
-                String firstWord = CommandParser.getFirstWord(input);
 
-                if (firstWord.equals(Command.BYE.getCommand())) {
+                if (input.equals(Command.BYE.getCommand())) {
                     reply.printDialog("Bye. Hope to see you again soon!");
                     return;
-                } else if (firstWord.equals(Command.LIST.getCommand())) {
+                } else if (input.equals(Command.LIST.getCommand())) {
                     tasks.printTasks();
-                } else if (firstWord.equals(Command.TODO.getCommand())) {
+                } else if (input.equals(Command.TODO.getCommand())) {
                     ToDoCommand.start();
-                } else if (firstWord.equals(Command.DEADLINE.getCommand())) {
+                } else if (input.equals(Command.DEADLINE.getCommand())) {
                     DeadlineCommand.start();
-                } else if (firstWord.equals(Command.EVENT.getCommand())) {
+                } else if (input.equals(Command.EVENT.getCommand())) {
                     EventCommand.start();
-                } else if (firstWord.equals(Command.DELETE.getCommand())) {
+                } else if (input.startsWith(Command.DELETE.getCommand())) {
                     DeleteCommand.start(input);
-                } else if (firstWord.equals(Command.MARK.getCommand())) {
+                } else if (input.startsWith(Command.MARK.getCommand())) {
                     MarkCommand.start(input);
-                } else if (firstWord.equals(Command.UNMARK.getCommand())) {
+                } else if (input.startsWith(Command.UNMARK.getCommand())) {
                     UnmarkCommand.start(input);
-                } else if (firstWord.equals(Command.FIND.getCommand())) {
+                } else if (input.startsWith(Command.FIND.getCommand())) {
                     FindCommand.start(input);
                 } else {
                     throw new InvalidCommandException();
