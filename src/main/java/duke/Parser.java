@@ -17,7 +17,7 @@ public class Parser {
                         if (list.get(i) == null) {
                             break;
                         } else {
-                            System.out.println(String.format("%d. [%s] [%s] %s", i + 1, list.get(i).tag,
+                            ui.sendMessage(String.format("%d. [%s] [%s] %s", i + 1, list.get(i).tag,
                                     list.get(i).getStatusIcon(), list.get(i)));
                         }
                     }
@@ -27,15 +27,15 @@ public class Parser {
                     try {
                         storage.appendToFile(text + "\n");
                     } catch (IOException e) {
-                        System.out.println("Something went wrong: " + e.getMessage());
+                        ui.sendMessage("Something went wrong: " + e.getMessage());
                     }
                     String[] splitText = text.split(" ");
                     int numToUnmark = Integer.parseInt(splitText[1]) - 1;
                     list.get(numToUnmark).markAsIncomplete();
 
                     ui.printline();
-                    System.out.println("Alright! I'll uncheck this task for you: ");
-                    System.out.println(String.format("\t [%s] [%s] %s", list.get(numToUnmark).tag,
+                    ui.sendMessage("Alright! I'll uncheck this task for you: ");
+                    ui.sendMessage(String.format("\t [%s] [%s] %s", list.get(numToUnmark).tag,
                             list.get(numToUnmark).getStatusIcon(), list.get(numToUnmark)));
                     ui.printline();
 
@@ -43,21 +43,21 @@ public class Parser {
                     try {
                         storage.appendToFile(text + "\n");
                     } catch (IOException e) {
-                        System.out.println("Something went wrong: " + e.getMessage());
+                        ui.sendMessage("Something went wrong: " + e.getMessage());
                     }
                     String[] splitText = text.split(" ");
                     int numToMark = Integer.parseInt(splitText[1]) - 1;
                     list.get(numToMark).markAsComplete();
 
                     ui.printline();
-                    System.out.println("Alright! I'll check this task as complete for you: ");
-                    System.out.println(String.format("\t [%s] [%s] %s", list.get(numToMark).tag,
+                    ui.sendMessage("Alright! I'll check this task as complete for you: ");
+                    ui.sendMessage(String.format("\t [%s] [%s] %s", list.get(numToMark).tag,
                             list.get(numToMark).getStatusIcon(), list.get(numToMark)));
                     ui.printline();
 
                 } else if (text.equals("bye")) {
                     ui.printline();
-                    System.out.println("Goodbye. Hope to be of service again soon!");
+                    ui.sendMessage("Goodbye. Hope to be of service again soon!");
                     ui.printline();
 
                 } else if (text.startsWith("todo")) {
@@ -69,16 +69,16 @@ public class Parser {
                         try {
                             storage.appendToFile( text + "\n");
                         } catch (IOException e) {
-                            System.out.println("Something went wrong: " + e.getMessage());
+                            ui.sendMessage("Something went wrong: " + e.getMessage());
                         }
                         Todo todo = new Todo(description.trim());
                         list.add(todo);
 
                         ui.printline();
-                        System.out.println("Noted Sir. I've added this task to your list: ");
-                        System.out.println(String.format("\t [%s] [%s] %s", todo.tag,
+                        ui.sendMessage("Noted Sir. I've added this task to your list: ");
+                        ui.sendMessage(String.format("\t [%s] [%s] %s", todo.tag,
                                 todo.getStatusIcon(), todo.toString()));
-                        System.out.println(String.format("As of now, you have %d tasks on the agenda.",
+                        ui.sendMessage(String.format("As of now, you have %d tasks on the agenda.",
                                 list.size()));
                         ui.printline();
                     }
@@ -93,7 +93,7 @@ public class Parser {
                         try {
                             storage.appendToFile( text + "\n");
                         } catch (IOException e) {
-                            System.out.println("Something went wrong: " + e.getMessage());
+                            ui.sendMessage("Something went wrong: " + e.getMessage());
                         }
 
                         String deadlineText = splitText[1].substring(3);
@@ -102,10 +102,10 @@ public class Parser {
                             Deadline dl = new Deadline(description.trim(), deadline);
                             list.add(dl);
                             ui.printline();
-                            System.out.println("Noted Sir. I've added this task to your list: ");
-                            System.out.println(String.format("\t [%s] [%s] %s", dl.tag, dl.getStatusIcon(),
+                            ui.sendMessage("Noted Sir. I've added this task to your list: ");
+                            ui.sendMessage(String.format("\t [%s] [%s] %s", dl.tag, dl.getStatusIcon(),
                                     dl.toString()));
-                            System.out.println(String.format("As of now, you have %d tasks on the agenda.",
+                            ui.sendMessage(String.format("As of now, you have %d tasks on the agenda.",
                                     list.size()));
                             ui.printline();
                         } catch (DateTimeParseException e) {
@@ -126,7 +126,7 @@ public class Parser {
                         try {
                             storage.appendToFile( text + "\n");
                         } catch (IOException e) {
-                            System.out.println("Something went wrong: " + e.getMessage());
+                            ui.sendMessage("Something went wrong: " + e.getMessage());
                         }
                         String startText = splitText[1].trim().substring(5);
                         String endText = splitText[2].trim().substring(3);
@@ -139,11 +139,11 @@ public class Parser {
 
 
                             ui.printline();
-                            System.out.println("Noted Sir. I've added this task to your list: ");
-                            System.out.println(String.format("\t [%s] [%s] %s", event.tag,
+                            ui.sendMessage("Noted Sir. I've added this task to your list: ");
+                            ui.sendMessage(String.format("\t [%s] [%s] %s", event.tag,
                                     event.getStatusIcon(),
                                     event.toString()));
-                            System.out.println(String.format("As of now, you have %d tasks on the agenda.",
+                            ui.sendMessage(String.format("As of now, you have %d tasks on the agenda.",
                                     list.size()));
                             ui.printline();
                         } catch (DateTimeParseException e) {
@@ -156,18 +156,18 @@ public class Parser {
                     try {
                         storage.appendToFile( text + "\n");
                     } catch (IOException e) {
-                        System.out.println("Something went wrong: " + e.getMessage());
+                        ui.sendMessage("Something went wrong: " + e.getMessage());
                     }
                     String[] splitText = text.split(" ");
                     int numToDelete = Integer.parseInt(splitText[1]) - 1;
 
 
                     ui.printline();
-                    System.out.println("Alright Sir, I have removed this task from the list for you.");
-                    System.out.println(String.format("\t [%s] [%s] %s", list.get(numToDelete).tag,
+                    ui.sendMessage("Alright Sir, I have removed this task from the list for you.");
+                    ui.sendMessage(String.format("\t [%s] [%s] %s", list.get(numToDelete).tag,
                             list.get(numToDelete).getStatusIcon(), list.get(numToDelete).toString()));
                     list.remove(numToDelete);
-                    System.out.println(String.format("Now you have %d tasks left.", list.size()));
+                    ui.sendMessage(String.format("Now you have %d tasks left.", list.size()));
                 } else {
                     throw new DukeException("I apologise, sir. But I do not understand what you mean.");
                 }
