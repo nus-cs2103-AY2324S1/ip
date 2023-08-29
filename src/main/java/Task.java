@@ -14,6 +14,8 @@ public abstract class Task {
 
     public abstract String getTask();
 
+    public abstract String getTaskType();
+
     public void setDone(boolean isDone) {
         this.isDone = isDone;
     }

@@ -19,4 +19,9 @@ public class Event extends Task {
     public String getTask() {
         return String.format("[%s][E] %s (from: %s to: %s)", super.checkDone(), super.getName(), start, end);
     }
+
+    @Override
+    public String getTaskType() {
+        return "event";
+    }
 }

@@ -6,6 +6,8 @@ public class ChatterChicken {
     public static final String INDENT = "      ";
     public static final String INDENT_BIG = "        ";
 
+    public static final String PATH = "src/main/data/task-list.txt";
+
     private static List tasks;
 
     /**
