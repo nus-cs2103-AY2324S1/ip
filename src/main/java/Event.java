@@ -1,3 +1,5 @@
+import java.time.LocalDate;
+
 /**
  * Represents a task that has a start and end time.
  *
@@ -6,9 +8,13 @@
  */
 public class Event extends Task {
     /** A string indicating start date / time of task */
-    protected String start;
+    protected String altStart;
+    /** A localDate indicating start date / time of task */
+    protected LocalDate start;
     /** A string indicating end date / time of task */
-    protected String end;
+    protected String altEnd;
+    /** A localDate indicating end date / time of task */
+    protected LocalDate end;
 
     /**
      * A constructor to initialize the Event class.
@@ -19,8 +25,20 @@ public class Event extends Task {
      */
     public Event(String description, String start, String end) {
         super(description);
-        this.start = start;
-        this.end = end;
+
+        try {
+            this.start = LocalDate.parse(start);
+            this.altStart = "";
+        } catch (Exception e) {
+            this.altStart = start;
+        }
+
+        try {
+            this.end = LocalDate.parse(end);
+            this.altEnd = "";
+        } catch (Exception e) {
+            this.altEnd = end;
+        }
     }
 
     /**
@@ -31,7 +49,8 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + this.start + " to: " + this.end + ")";
+        return "[E]" + super.toString() + " (from: " + this.altStart + convertDateToString(this.start)
+                + " to: " + this.altEnd + convertDateToString(this.end) + ")";
     }
 
     /**
@@ -40,6 +59,7 @@ public class Event extends Task {
      * @return The storage string representation of the task.
      */
     public String toStorageString() {
-        return "E, " + this.isDone + ", " + this.description + ", " + this.start + ", " + this.end;
+        return "E, " + this.isDone + ", " + this.description + ", " + this.altStart +
+                convertDateToStorageString(this.start)+ ", " + this.altEnd + convertDateToStorageString(this.end);
     }
 }

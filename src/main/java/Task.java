@@ -1,3 +1,6 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 /**
  * Represents a singular general task.
  *
@@ -52,6 +55,35 @@ public abstract class Task {
      */
     public void markAsNotDone() {
         this.isDone = false;
+    }
+
+    /**
+     * Converts localDate item to string format of dd/mm/yyyy else returns nothing.
+     *
+     * @param date The localDate object to be converted to string.
+     * @return String of the localDate object or nothing.
+     */
+    public String convertDateToString(LocalDate date) {
+        if (date != null) {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+            return date.format(formatter);
+        } else {
+            return "";
+        }
+    }
+
+    /**
+     * Converts localDate item to storage string of original format else returns nothing.
+     *
+     * @param date The localDate object to be converted to string.
+     * @return String of the localDate object or nothing.
+     */
+    public String convertDateToStorageString(LocalDate date) {
+        if (date != null) {
+            return date.toString();
+        } else {
+            return "";
+        }
     }
 
     /**

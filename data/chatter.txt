@@ -3,3 +3,9 @@ E, false, help, now, tmr
 T, true, return book
 T, false, die
 D, true, test date, 2019-10-15
+D, false, normal, tmr
+D, false, date, 2020-12-24
+E, false, normal, now, tmr
+E, false, normal2, 2020-02-24, tmr
+E, false, normal3, tmr, 2020-02-24
+E, false, normal4, 2020-02-24, 2020-02-24

@@ -21,8 +21,10 @@ public class Deadline extends Task {
      */
     public Deadline(String description, String by) {
         super(description);
+
         try {
             this.by = LocalDate.parse(by);
+            this.altBy = "";
         } catch (Exception e) {
             this.altBy = by;
         }
@@ -37,15 +39,7 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-
-        if (this.by != null) {
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-            String dateString = this.by.format(formatter);
-            return "[D]" + super.toString() + " (by: " + dateString + ")";
-        } else {
-            return "[D]" + super.toString() + " (by: " + this.altBy + ")";
-        }
-
+        return "[D]" + super.toString() + " (by: " + this.altBy + convertDateToString(this.by) + ")";
     }
 
     /**
@@ -54,6 +48,6 @@ public class Deadline extends Task {
      * @return The storage string representation of the task.
      */
     public String toStorageString() {
-        return "D, " + this.isDone + ", " + this.description + ", " + this.by;
+        return "D, " + this.isDone + ", " + this.description + ", " + this.altBy + convertDateToStorageString(this.by);
     }
 }

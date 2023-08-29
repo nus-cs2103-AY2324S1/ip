@@ -59,6 +59,7 @@ public class Chatter {
         } catch(ChatterException e) {
             System.out.println(e.getMessage());
         } catch(Exception e) {
+            System.out.println(e.getMessage());
             System.out.println("Please enter a valid description or deadline.");
         }
     }
