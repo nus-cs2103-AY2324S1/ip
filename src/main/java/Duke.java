@@ -42,6 +42,7 @@ public class Duke {
         String type = Input.substring(0, index);
         if (type.equalsIgnoreCase("todo")) {
             list.add(new Todo(taskDescription));
+            System.out.println("haha");
         } else if (type.equalsIgnoreCase("deadline")) {
             int byIndex = taskDescription.indexOf("/by");
             if (byIndex == -1) {
