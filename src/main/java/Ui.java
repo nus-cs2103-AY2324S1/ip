@@ -15,6 +15,7 @@ public class Ui {
         System.out.println("Hello. I am Luxion. \n" +
                 "What can I do for you?");
     }
+    
 
     public void exit() {
         System.out.println("Bye. See you soon.");
