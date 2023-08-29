@@ -2,61 +2,69 @@
      Hello! I'm Sara
      What can I do for you?
     ____________________________________________________________
+todo borrow book
     ____________________________________________________________
      Got it. I've added this task:
      [T][ ] borrow book
      Now you have 1 tasks in the list.
     ____________________________________________________________
+list
     ____________________________________________________________
      Here are the tasks in your list:
      1.[T][ ] borrow book
     ____________________________________________________________
+deadline return book /by 17/02/2024 1200
     ____________________________________________________________
      Got it. I've added this task:
-     [D][ ] return book(by: Sunday)
+     [D][ ] return book (by: Feb 17 2024 12:00)
      Now you have 2 tasks in the list.
     ____________________________________________________________
-    ____________________________________________________________
-     Got it. I've added this task:
-     [E][ ] project meeting(from: Mon 2pmto: 4pm)
-     Now you have 3 tasks in the list.
-    ____________________________________________________________
-    ____________________________________________________________
-     Got it. I've added this task:
-     [D][ ] do homework(by: no idea :-p)
-     Now you have 4 tasks in the list.
-    ____________________________________________________________
+event project meeting /from 13/08/2024 1400 /to 15/08/2024 2300
+    Got it. I've added this event:
+      [E][ ] project meeting (from: Aug 13 2024 14:00 to: Aug 15 2024 23:00)
+    Now you have 3 tasks in the list.
+todo
     ____________________________________________________________
      ☹ OOPS!!! The description of a todo cannot be empty.
     ____________________________________________________________
+blah
     ____________________________________________________________
      ☹ OOPS!!! I'm sorry, but I don't know what that means :-(
     ____________________________________________________________
-     Nice! I've marked this task as done:
-       [D][X] return book(by: Sunday)
+deadline happy
     ____________________________________________________________
-     Nice! I've marked this task as done:
-       [D][X] do homework(by: no idea :-p)
+     ☹ OOPS!!! An unexpected error occurred.
     ____________________________________________________________
+java.lang.ArrayIndexOutOfBoundsException: Index 1 out of bounds for length 1
+	at Chatbot.handleDeadline(Chatbot.java:95)
+	at Chatbot.run(Chatbot.java:30)
+	at Chatbot.main(Chatbot.java:147)
+mark 1
+     Nice! I've marked this task as done:
+       [T][X] borrow book
+    ____________________________________________________________
+mark 3
+     Nice! I've marked this task as done:
+       [E][X] project meeting (from: Aug 13 2024 14:00 to: Aug 15 2024 23:00)
+    ____________________________________________________________
+unmark 1
      OK, I've marked this task as not done yet:
-       [D][ ] return book(by: Sunday)
+       [T][ ] borrow book
     ____________________________________________________________
-    ____________________________________________________________
-     Got it. I've added this task:
-     [D][ ] do homework(by: 2pm)
-     Now you have 5 tasks in the list.
-    ____________________________________________________________
+delete 2
     ____________________________________________________________
      Noted. I've removed this task:
-       [D][ ] do homework(by: 2pm)
-     Now you have 4 tasks in the list.
+       [D][ ] return book (by: Feb 17 2024 12:00)
+     Now you have 2 tasks in the list.
     ____________________________________________________________
+list
     ____________________________________________________________
      Here are the tasks in your list:
      1.[T][ ] borrow book
-     2.[D][ ] return book(by: Sunday)
-     3.[E][ ] project meeting(from: Mon 2pmto: 4pm)
-     4.[D][X] do homework(by: no idea :-p)
+     2.[E][X] project meeting (from: Aug 13 2024 14:00 to: Aug 15 2024 23:00)
     ____________________________________________________________
+bye
      Bye. Hope to see you again soon!
     ____________________________________________________________
+
+Process finished with exit code 0

@@ -11,6 +11,7 @@ public class Chatbot {
     public Chatbot() {
         this.taskManager = new TaskManager();
         this.scanner = new Scanner(System.in);
+        taskManager.loadFromFile();
     }
 
 
@@ -34,6 +35,7 @@ public class Chatbot {
                         // Other non-task specific commands can be handled here.
                         if ("bye".equalsIgnoreCase(userInput)) {
                             farewellUser();
+                            taskManager.saveToFile();
                             isRunning = false;
                             break;
                         } else if ("list".equalsIgnoreCase(userInput)) {
@@ -46,11 +48,18 @@ public class Chatbot {
                         } else if (userInput.startsWith("delete")) {
                             int index = Integer.parseInt(userInput.split(" ")[1]);
                             taskManager.deleteTask(index);
+                            taskManager.saveToFile();
+                        } else if (userInput.startsWith("task on")) {
+                            String date = userInput.split(" ")[1];
+                            taskManager.printTasksOnDate(date);
                         } else {
                             throw new ChatbotException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
                         }
                     }
                 }
+
+                taskManager.saveToFile();
+
             } catch (ChatbotException e) {
                 System.out.println("    ____________________________________________________________");
                 System.out.println("     " + e.getMessage());
@@ -82,10 +91,25 @@ public class Chatbot {
 
     private void handleDeadline(String userInput) throws ChatbotException {
         String[] parts = userInput.substring(9).split("/by");
+
+        if (parts.length < 2) {
+            throw new ChatbotException("☹ OOPS!!! The date for a deadline cannot be empty.");
+        }
+
         String taskDescription = parts[0].trim();
         String date = parts[1].trim();
+
+        if (taskDescription.isEmpty()) {
+            throw new ChatbotException("☹ OOPS!!! The description of a deadline cannot be empty.");
+        }
+
+        if (date.isEmpty()) {
+            throw new ChatbotException("☹ OOPS!!! The date for a deadline cannot be empty.");
+        }
+
         taskManager.addDeadlines(taskDescription, date);
     }
+
 
     private void handleEvent(String userInput) throws ChatbotException {
         String[] parts = userInput.substring(6).split("/from|/to");
