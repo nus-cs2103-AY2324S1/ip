@@ -1,4 +1,5 @@
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.List;
 import java.nio.file.*;
 import java.io.*;
@@ -39,15 +40,15 @@ class TaskFile {
                             ? "1"
                             : "0";
                     String desc = task.description;
-                    String from = ((Event) task).from;
-                    String to = ((Event) task).to;
+                    LocalDate from = ((Event) task).from;
+                    LocalDate to = ((Event) task).to;
                     text = "E|" + done + "|" + desc + "|" + from + "|" + to;
                 } else if (task instanceof Deadline) {
                     String done = task.isDone
                             ? "1"
                             : "0";
                     String desc = task.description;
-                    String by = ((Deadline) task).by;
+                    LocalDate by = ((Deadline) task).by;
                     text = "D|" + done + "|" + desc + "|" + by;
                 }
                 fileWriter.write(text + "\n");

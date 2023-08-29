@@ -1,23 +1,33 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
+import java.time.format.DateTimeFormatter;
+
+
 class Event extends Task {
-    final String from;
-    final String to;
+    final LocalDate from;
+    final LocalDate to;
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMMM yyyy");
+
     public Event(boolean done, String desc) throws DukeException {
         super(done, desc.substring(6, desc.indexOf("/from")));
         int fromIndex = desc.indexOf("/from");
         int toIndex = desc.indexOf("/to");
+
         try {
-            this.from = desc.substring(fromIndex + 6, toIndex);
-            this.to = desc.substring(toIndex + 4);
+            String fromString = desc.substring(fromIndex + 6, toIndex).replace(" ", "");
+            String toString = desc.substring(toIndex + 4).replace(" ", "");
+
+            this.from = LocalDate.parse(fromString);
+            this.to = LocalDate.parse(toString);
         } catch (StringIndexOutOfBoundsException e) {
             throw new DukeException("You didn't enter the event in the correct format!");
-        }
-        if (from.isEmpty() || to.isEmpty()) {
-            throw new DukeException("One of the fields are empty!");
+        } catch (DateTimeParseException e) {
+            throw new DukeException("Incorrect date format! Use eg.2019-12-02");
         }
     }
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + "(from: " + this.from + "to: " + this.to + ")";
+        return "[E]" + super.toString() + "(from: " + this.from.format(formatter) + " to: " + this.to.format(formatter) + ")";
     }
 }

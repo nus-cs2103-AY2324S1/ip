@@ -15,8 +15,10 @@ public class Duke {
         while (!next.equals("bye")) {
             try {
                 tasks = TaskFile.loadTasks();
-                System.out.println("next[0] : " + nextParts[0]);
-                switch (nextParts[0]) {
+                if (nextParts.length <= 1 && !nextParts[0].toLowerCase().equals("list")) {
+                    throw new DukeException("You forgot to write the task");
+                }
+                switch (nextParts[0].toLowerCase()) {
                     case "list": {
                         for (int i = 0; i < tasks.size(); i++) {
                             System.out.println((i + 1) + "." + tasks.get(i));
@@ -42,7 +44,6 @@ public class Duke {
                             throw new DukeException("You forgot to specify when the deadline ends!");
                         }
                         Task nextTask = new Deadline(false, next);
-                        // writeToFile(taskFile, nextTask);
                         tasks.add(nextTask);
                         System.out.println("Got it. I've added this task: \n" + nextTask + "\nnow you have "
                                 + tasks.size() + " tasks in the list");
@@ -79,6 +80,9 @@ public class Duke {
                         System.out.println("Noted. I've removed this task:\n" + deleted + "\nNow you have "
                                 + tasks.size() + " tasks in the list");
                         break;
+                    }
+                    default : {
+                        throw new DukeException("I can't identify your command!");
                     }
                 }
                     TaskFile.saveTask(tasks);
