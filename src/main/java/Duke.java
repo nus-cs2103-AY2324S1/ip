@@ -18,33 +18,42 @@ import java.nio.file.Paths;
  * @author Freddy Chen You Ren
  */
 public class Duke {
-    static String HORIZONTAL_LINE = "    ____________________________________________________________"; //60 underscores.
-    static String INDENT = "    "; //4 spaces.
+
+    //To be removed HORIZONTAL_LINE
+    public static String HORIZONTAL_LINE = "    ____________________________________________________________"; //60 underscores.
+
+    // TaskList
     static ArrayList<Task> taskList = new ArrayList<>(100);
+
+    // Parser
     enum Command {
         BYE, LIST, MARK, UNMARK, DELETE, DEADLINE, TODO, EVENT, UNKNOWN
     }
 
-    /**
-     * Function to greet the User.
-     */
-    public static void greet() {
-        System.out.println("\nStarting SeeWhyAre Bot...");
-        System.out.println(HORIZONTAL_LINE);
-        System.out.println("    Hello! I'm SeeWhyAre Bot!");
-        System.out.println("    What can I do for you?");
-        System.out.println(HORIZONTAL_LINE);
-    }
+    private static Ui ui;
+    private static Storage storage;
 
-    /**
-     * Function to say goodbye to the User and end the program.
-     */
-    public static void farewell() {
-        System.out.println(HORIZONTAL_LINE);
-        System.out.println("    You are closing the SeeWhyAre chat bot.");
-        System.out.println("    Bye bye. Please use me again soon!");
-        System.out.println(HORIZONTAL_LINE);
-    }
+    // Ui
+//    /**
+//     * Function to greet the User.
+//     */
+//    public static void greet() {
+//        System.out.println("\nStarting SeeWhyAre Bot...");
+//        System.out.println(HORIZONTAL_LINE);
+//        System.out.println("    Hello! I'm SeeWhyAre Bot!");
+//        System.out.println("    What can I do for you?");
+//        System.out.println(HORIZONTAL_LINE);
+//    }
+
+//    /**
+//     * Function to say goodbye to the User and end the program.
+//     */
+//    public static void farewell() {
+//        System.out.println(HORIZONTAL_LINE);
+//        System.out.println("    You are closing the SeeWhyAre chat bot.");
+//        System.out.println("    Bye bye. Please use me again soon!");
+//        System.out.println(HORIZONTAL_LINE);
+//    }
 
     /**
      * Function to add any given input into our taskList.
@@ -57,6 +66,7 @@ public class Duke {
         System.out.println(HORIZONTAL_LINE);
     }
 
+    // TaskList
     public static void deleteTask(String deleteInput)
             throws EmptyDescriptionException, IOException {
         String[] words = deleteInput.split("\\s+"); // Split input by space, put into array
@@ -92,6 +102,7 @@ public class Duke {
         updateData();
     }
 
+    // TaskList
     /**
      * Function to mark a given task as done.
      * @param taskIndex the index of the task to be marked as done.
@@ -111,8 +122,9 @@ public class Duke {
         updateData();
     }
 
+    // TaskList
     /**
-     * Function to mark a given task as done.
+     * Function to mark a given task as NOT done.
      * @param taskIndex the index of the task to be marked as not done yet.
      */
     public static void unmarkTask(int taskIndex) throws IOException {
@@ -130,6 +142,7 @@ public class Duke {
         updateData();
     }
 
+    // TaskList
     /**
      * Function to list out all tasks.
      */
@@ -148,6 +161,7 @@ public class Duke {
         }
     }
 
+    // Storage
     /**
      * Save a Task after it has been successfully inputted by user.
      * @param task the Task that is to be saved.
@@ -187,6 +201,7 @@ public class Duke {
         bufferedWriter.close();
     }
 
+    // Storage
     /**
      * Loads tasks saved previously from Hard Disk.
      * @throws IOException throws an IO Exception if the file is corrupted or invalid.
@@ -284,6 +299,7 @@ public class Duke {
         }
     }
 
+    // TaskList
     public static boolean isValidTaskLine(String line) {
         String[] tokens = line.split("\\|");
 
@@ -298,6 +314,7 @@ public class Duke {
         return false; // Line is not valid
     }
 
+    // TaskList
     public static boolean isValidDate(String testDate) {
         SimpleDateFormat simpleDate = new SimpleDateFormat("yyyy-MM-dd");
         simpleDate.setLenient(false);
@@ -309,6 +326,7 @@ public class Duke {
         return true;
     }
 
+    // Storage
     /**
      * Clears lines of task status in Hard Disk.
      * @throws IOException throws IO Exception if file format is invalid or currupted.
@@ -319,6 +337,7 @@ public class Duke {
         bufferedWriter.close();
     }
 
+    // Storage
     /**
      * Updates all lines of task status in Hard Disk.
      * @throws IOException throws IO Exception if file format is invalid or currupted.
@@ -335,9 +354,10 @@ public class Duke {
 
     public static void main(String[] args)
             throws InvalidCommandException, IOException, InvalidDateException {
-        Boolean repeatFlag = true;
+        boolean repeatFlag = true;
         loadTasks();
-        greet();
+        Ui ui = new Ui();
+        ui.greet();
         Scanner scanner = new Scanner(System.in);
 
         while (repeatFlag) {
@@ -346,6 +366,7 @@ public class Duke {
                 String userInput = scanner.nextLine();
                 //Level-4 Inrement: Use userInput.startWith() to check first word before splitting
 
+                //A-OOP Here
                 String[] words = userInput.split("\\s+"); // Split input by space, put into array
                 String formattedInput = userInput.toLowerCase();
                 String firstWord = words[0].toUpperCase();
@@ -360,7 +381,7 @@ public class Duke {
                 //A-Enum: Use switch-case instead of if-else for neater code
                 switch (command) {
                 case BYE:
-                    farewell();
+                    ui.farewell();
                     repeatFlag = false;
                     break;
                 case LIST:
