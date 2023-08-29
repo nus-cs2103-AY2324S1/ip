@@ -7,11 +7,11 @@ public class Task {
         this.isCompleted = false;
     }
 
-    public void Mark() {
+    public void mark() {
         isCompleted = true;
     }
 
-    public void Unmark() {
+    public void unmark() {
         isCompleted = false;
     }
 
