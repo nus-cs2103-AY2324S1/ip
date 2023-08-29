@@ -39,18 +39,13 @@ public class Command {
             if (input.equals(command.bye.toString())) {
                 String exit = "Bye. Hope to see you again soon!";
                 System.out.println(exit);
-            } else
-
-            if (input.equals(command.list.toString())) {
-
+            } else if (input.equals(command.list.toString())) {
                 System.out.println("Here are the tasks in your list:");
                 for (int i = 0; i < tasks.getSize(); i++) {
                     System.out.println(i + 1 + "." + tasks.getTask(i));
                 }
 
-            } else
-
-            if (input.contains(command.unmark.toString())) {
+            } else if (input.contains(command.unmark.toString())) {
                 if (tasks.isTaskListEmpty()) {
                     throw new DukeException("0 tasks in the list");
                 }
@@ -60,9 +55,7 @@ public class Command {
                 System.out.println("OK, I've marked this task as not done yet:\n" + selTask);
                 dF.editFileAtLineN(selected, '0');
 
-            } else
-
-            if (input.contains(command.mark.toString())) {
+            } else if (input.contains(command.mark.toString())) {
                 if (tasks.isTaskListEmpty()) {
                     throw new DukeException("0 tasks in the list");
                 }
@@ -72,9 +65,7 @@ public class Command {
                 System.out.println("Nice! I've marked this task as done:\n" + selTask);
                 dF.editFileAtLineN(selected, '1');
 
-            } else
-
-            if (input.contains(command.deadline.toString())) {
+            } else if (input.contains(command.deadline.toString())) {
                 if (input.equals(command.deadline.toString())) {
                     throw new DukeException("Empty deadline");
                 }
@@ -96,9 +87,7 @@ public class Command {
 
                 dF.writeToFile(dl);
 
-            } else
-
-            if (input.contains(command.event.toString())) {
+            } else if (input.contains(command.event.toString())) {
                 if (input.equals(command.event.toString())) {
                     throw new DukeException("Empty event");
                 }
@@ -114,14 +103,11 @@ public class Command {
                 Task event = new Event(texts.get(0),
                         cD.strToDateTime(texts.get(1)), cD.strToDateTime(texts.get(2)));
                 tasks.addTask(event);
-
                 System.out.println("Got it. I've added this task:\n" + event +
                         "\nNow you have " + tasks.getSize()  + " tasks in the list.");
                 dF.writeToFile(event);
 
-            } else
-
-            if (input.contains(command.todo.toString())) {
+            } else if (input.contains(command.todo.toString())) {
                 if (input.equals(command.todo.toString())) {
                     throw new DukeException("Empty todo");
                 }
@@ -139,9 +125,7 @@ public class Command {
                         "\nNow you have " + tasks.getSize()  + " tasks in the list.");
                 dF.writeToFile(todo);
 
-            } else
-
-            if (input.contains(command.delete.toString())) {
+            } else if (input.contains(command.delete.toString())) {
                 int selected = Integer.parseInt(input.substring(input.indexOf("delete") + 7)) - 1;
                 Task task = tasks.remTask(selected);
                 System.out.println("Noted. I've removed this task:\n" + task +
@@ -149,7 +133,6 @@ public class Command {
                 dF.deleteTaskFromFile(selected);
 
             } else {
-
                 throw new DukeException("Invalid command");
             }
         } catch (DukeException e) {
