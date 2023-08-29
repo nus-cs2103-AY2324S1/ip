@@ -1,19 +1,25 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 /**
  * Encapsulates an Event task that can be added to the task manager.
  *
  * @author Teo Kai Sheng
  */
+
 public class Event extends Task {
+
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d-MMM-yyyy");
 
     /**
      * Starting date of the event.
      */
-    protected String from;
+    protected LocalDate from;
 
     /**
      * Ending date of the event.
      */
-    protected String to;
+    protected LocalDate to;
 
     /**
      * Constructor to create an Event.
@@ -21,7 +27,7 @@ public class Event extends Task {
      * @param from Starting date of the event.
      * @param to Ending date of the event.
      */
-    public Event(String description, String from, String to) {
+    public Event(String description, LocalDate from, LocalDate to) {
         super(description);
         this.from = from;
         this.to = to;
@@ -33,7 +39,7 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + from + " to: " + to + ")";
+        return "[E]" + super.toString() + " (from: " + formatter.format(from) + " to: " + formatter.format(to) + ")";
     }
 
     /**

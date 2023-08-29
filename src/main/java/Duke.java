@@ -1,3 +1,4 @@
+import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.io.BufferedReader;
@@ -6,6 +7,8 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 /**
  * Program to run a task manager that can add, delete and mark tasks.
@@ -170,9 +173,9 @@ public class Duke {
             String from = s2[0].strip();
             String to = s2[1].strip();
             if (desc.equals("") || from.equals("") || to.equals("")) {
-                throw new DukeException("    Format: event description /from time /to time");
+                throw new DukeException("    Format: event description /from yyyy-mm-dd /to yyyy-mm-dd");
             }
-            Event e = new Event(desc, from, to);
+            Event e = new Event(desc, LocalDate.parse(from), LocalDate.parse(to));
             list.add(e);
             System.out.println("    Got it. I've added this task:");
             System.out.println("      " + e.toString());
@@ -180,18 +183,20 @@ public class Duke {
         } catch (DukeException e) {
             System.out.println(e.getMessage());
         } catch (IndexOutOfBoundsException e) {
-            System.out.println("    Format: event description /from time /to time");
+            System.out.println("    Format: event description /from yyyy-mm-dd /to yyyy-mm-dd");
+        } catch (DateTimeParseException e) {
+            System.out.println("    Enter valid date yyyy-mm-dd");
         }
     }
     public static void addDeadline(String input[]) {
         try {
             String[] s = input[1].split("/by", 2);
             String desc = s[0].strip();
-            String deadline = s[1].strip();
+            String deadline= s[1].strip();
             if (desc.equals("") || deadline.equals("")) {
-                throw new DukeException("    Format: deadline description /by time");
+                throw new DukeException("    Format: deadline description /by yyyy-mm-dd");
             }
-            Deadline d = new Deadline(desc, deadline);
+            Deadline d = new Deadline(desc, LocalDate.parse(deadline));
             list.add(d);
             System.out.println("    Got it. I've added this task:");
             System.out.println("      " + d.toString());
@@ -199,7 +204,9 @@ public class Duke {
         } catch (DukeException e) {
             System.out.println(e.getMessage());
         } catch (IndexOutOfBoundsException e) {
-            System.out.println("    Format: deadline description /by time");
+            System.out.println("    Format: deadline description /by yyyy-mm-dd");
+        } catch (DateTimeParseException e) {
+            System.out.println("    Enter valid date yyyy-mm-dd");
         }
     }
     public static void addToDo(String input[]) {
@@ -228,9 +235,10 @@ public class Duke {
             if (type.equals("T")) {
                 t = new ToDo(details[2].strip());
             } else if (type.equals("D")) {
-                t = new Deadline(details[2].strip(), details[3].strip());
+                t = new Deadline(details[2].strip(), LocalDate.parse(details[3].strip()));
             } else if (type.equals("E")) {
-                t = new Event(details[2].strip(), details[3].strip(), details[4].strip());
+                t = new Event(details[2].strip(),
+                        LocalDate.parse(details[3].strip()), LocalDate.parse(details[4].strip()));
             } else {
                 throw new DukeException("    Data file corrupted.");
             }
