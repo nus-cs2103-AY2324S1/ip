@@ -61,8 +61,7 @@ public class Duke {
 
                         storage.writeFile(tasks.retrieveForStorage());
 
-                        System.out.println("Bye. Hope to see you again soon!");
-                        System.out.println(LINE);
+                        ui.showOutro();
                         break;
                     }
 
@@ -73,7 +72,7 @@ public class Duke {
                             throw new EmptyTaskListException();
                         }
 
-                        tasks.printTasks();
+                        ui.printTasks(tasks);
                         continue;
                     }
 
@@ -124,10 +123,7 @@ public class Duke {
 
                         Task task = new ToDo(desc);
                         tasks.add(task);
-                        System.out.println("Got it!. I've added this task:");
-                        System.out.println(" " + task);
-                        System.out.printf("Now you have %d tasks in the list%n", tasks.size());
-                        System.out.println(LINE);
+                        ui.showAddMessage(task, tasks.size());
                         continue;
                     }
 
@@ -148,10 +144,7 @@ public class Duke {
                         Task task = new Deadline(strings[0],
                                 LocalDateTime.parse(strings[1], FORMATTER));
                         tasks.add(task);
-                        System.out.println("Got it!. I've added this task:");
-                        System.out.println(" " + task);
-                        System.out.printf("Now you have %d tasks in the list%n", tasks.size());
-                        System.out.println(LINE);
+                        ui.showAddMessage(task, tasks.size());
                         continue;
                     }
 
@@ -178,10 +171,7 @@ public class Duke {
 
                         Task task = new Event(desc_time[0], start, end);
                         tasks.add(task);
-                        System.out.println("Got it!. I've added this task:");
-                        System.out.println(" " + task);
-                        System.out.printf("Now you have %d tasks in the list%n", tasks.size());
-                        System.out.println(LINE);
+                        ui.showAddMessage(task, tasks.size());
                         continue;
                     }
 
@@ -208,7 +198,7 @@ public class Duke {
                     // check for tasks on a day
                     if (command.equals(Command.CHECK.name())) {
                         String content = input.replaceAll("^\\s*check\\s*", "");
-                        tasks.printScheduledTasks(LocalDateTime.parse(content, FORMATTER));
+                        ui.printScheduledTasks(tasks, LocalDateTime.parse(content, FORMATTER));
                         continue;
                     }
 
