@@ -1,3 +1,4 @@
+import java.io.FileWriter;
 import java.util.ArrayList;
 
 public class DukeList {
@@ -16,6 +17,13 @@ public class DukeList {
         this.listOfTexts.add(task);
         System.out.printf("Got it. I've added this task:%n %s%nNow you have %d tasks in the list.%n",
                 task.printTask(), this.listOfTexts.size());
+    }
+
+    public void addItemFromStorage(Task task, String isDone) {
+        this.listOfTexts.add(task);
+        if (isDone.equals("1 ")) {
+            task.toggleDoneFromStorage("mark");
+        }
     }
 
     /**
@@ -45,5 +53,17 @@ public class DukeList {
         Task task = this.listOfTexts.remove(id - 1);
         System.out.printf("Noted. I've removed this task:%n %s%nNow you have %d tasks in the list.%n"
                 , task.printTask(), this.listOfTexts.size());
+    }
+
+    public void saveList() {
+        try {
+            FileWriter fileWriter = new FileWriter("./data/duke.txt");
+            for (int i = 0; i < this.listOfTexts.size(); i++) {
+                fileWriter.write(this.listOfTexts.get(i).addToStorage());
+            }
+            fileWriter.close();
+        } catch (Exception e) {
+            e.getStackTrace();
+        }
     }
 }

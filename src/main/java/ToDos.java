@@ -7,4 +7,9 @@ public class ToDos extends Task {
     public String printTask() {
         return String.format("[T]%s", super.printTask());
     }
+
+    @Override
+    public String addToStorage() {
+        return String.format("T %s%n", super.addToStorage());
+    }
 }

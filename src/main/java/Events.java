@@ -28,4 +28,12 @@ public class Events extends Task {
     public String printTask() {
         return String.format("[E]%s%s", super.printTask(), this.printDetails());
     }
+
+    public String addDetailsToStorage() {
+        return String.format("| from %s| to %s", this.from, this.to);
+    }
+    @Override
+    public String addToStorage() {
+        return String.format("E %s%s%n", super.addToStorage(), this.addDetailsToStorage());
+    }
 }
