@@ -1,14 +1,9 @@
-import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.Scanner;
+import java.util.*;
 import java.io.IOException;
-import java.util.stream.Collectors;
 
 
 public class Barbie {
@@ -23,23 +18,25 @@ public class Barbie {
         PARTY,
         LIST,
         BYE,
-        SAVE,
-        NAME,
     }
+
+
     public static void main(String[] args) {
+        // CONSTANTS
+        String line = "______________________________\n";
+        Scanner scanner = new Scanner(System.in);
+        String logo = " ____             _\n"
+                + "|  _ \\           | |\n"
+                + "| |_| |_____,_ ,_| |,___  _  ___\n"
+                + "|  _ /|  _  | ` _|  __\\ \\ |/ _  \\\n"
+                + "| |_| | |_| | |  | |__/ /| |  ___/\n"
+                + "|____/ \\__,_|_|  |_|\\__/ |_|\\___/\n";
+        ArrayList<Task> list = getLastList();
+        Path path = Paths.get("barbie.txt");
+        int indexNumber = list.size(); // Starting from 1 reduces the need to subtract and add 1 for usability.
 
-            // CONSTANTS
-            String line = "______________________________\n";
-            Scanner scanner = new Scanner(System.in);
-            String logo = " ____             _\n"
-                    + "|  _ \\           | |\n"
-                    + "| |_| |_____,_ ,_| |,___  _  ___\n"
-                    + "|  _ /|  _  | ` _|  __\\ \\| |/ _  \\\n"
-                    + "| |_| | |_| | |  | |__/ /| |  ___/\n"
-                    + "|____/ \\__,_|_|  |_|\\__/ |_|\\___/\n";
-            ArrayList<Task> list = new ArrayList<>();
 
-            // Intro
+        // Intro
             System.out.println(line
                     + "Hi Barbie! Hi Ken!\n"
                     + "\nI'm\n"
@@ -48,9 +45,6 @@ public class Barbie {
                     line);
             System.out.println("[you]:");
 
-
-
-            int indexNumber = 0; // Starting from 1 reduces the need to subtract and add 1 for usability.
 
             loop:
             while (true) {
@@ -68,7 +62,6 @@ public class Barbie {
                         case UNMARK:
                         case DEL:
 
-
                             String desc = parts[1];
                             int taskNumber;
                             try {
@@ -81,18 +74,19 @@ public class Barbie {
                                 case MARK:
                                     // Editing variables
                                     list.get(taskNumber).mark();
+                                    changeLineStatus(path, "1", taskNumber);
 
                                     // Output
                                     System.out.println("\t Nice! I've marked this task as done:\n"
                                             + "\t " + list.get(taskNumber) + "\n"
                                             + "\t" + line);
-
                                     break;
 
                                 case UNMARK:
                                     // Editing variables
                                     taskNumber = Integer.parseInt(desc);
                                     list.get(taskNumber).unmark();
+                                    changeLineStatus(path, "2", taskNumber);
 
                                     // Output
                                     System.out.println("\t Alright! I've marked this task as not done yet:\n"
@@ -104,6 +98,7 @@ public class Barbie {
                                     // Editing variables
                                     list.remove(taskNumber);
                                     indexNumber -= 1;
+                                    deleteLine(path, taskNumber);
 
                                     // Output
                                     System.out.println("\t Deletion success! I've deleted this task off your list.");
@@ -128,6 +123,7 @@ public class Barbie {
                                     desc = parts2[0];
                                     String by = parts2[1];
                                     list.add(indexNumber, new Deadlines(desc, by));
+                                    addToList(path, "D", desc, by);
 
                                     break;
 
@@ -139,10 +135,12 @@ public class Barbie {
                                     String from = parts2[1];
                                     String to = parts2[2];
                                     list.add(indexNumber, new Party(desc, from, to));
+                                    addToList(path, "P", desc, from, to);
                                     break;
 
                                 default:
                                     list.add(indexNumber, new Todo(desc));
+                                    addToList(path, "T", desc);
                                     break;
 
                             }
@@ -154,40 +152,7 @@ public class Barbie {
 
                         case LIST:
                             // No variables to edit, only output (refer to listTasks func)
-                            if (parts.length < 2) {
-                                listTasks(list, indexNumber);
-                            } else {
-                                Path path = Paths.get(parts[1] + ".txt");
-                                if (Files.exists(path)) {
-                                    Files.lines(path).forEach(x -> System.out.println("\t" + x));
-                                } else {
-                                    throw new BarbieNoListNameException();
-                                }
-                            }
-                            break;
-
-                        case SAVE:
-                            // Editing variables,
-                            String listString = list
-                                    .stream()
-                                    .map(Objects::toString)
-                                    .collect(Collectors.joining("\n"));
-
-                            // Writing to files
-                            if (parts.length < 2) {
-                                throw new BarbieNoListNameException();
-                            }
-
-                            Path path = Paths.get(parts[1] + ".txt");
-                            if (!Files.exists(path)) {
-                                Files.createFile(path);
-                            }
-                            Files.write(path, (listString + "\n").getBytes(), StandardOpenOption.APPEND);
-
-                            //Output
-                            System.out.println("\tGot you Barbie! This list has been saved to your Barbie handbook!");
-                            Files.lines(path).forEach(x -> System.out.println("\t" + x));
-
+                            listTasks(list, indexNumber);
                             break;
 
                         case BYE:
@@ -233,5 +198,105 @@ public class Barbie {
         }
     }
 
+    protected static ArrayList<Task> getLastList() {
+        ArrayList<Task> finalList = new ArrayList<>();
 
+        try {
+            Path path = Paths.get("barbie.txt");
+
+            if (!Files.exists(path)) {
+                Files.createFile(path);
+                System.out.println("[A new list created for current user]");
+            } else {
+                System.out.println("[A current list is being used for current user]");
+                Files.readAllLines(path).forEach(x -> {
+
+                    String[] taskParts = x.split(",");
+                    String taskType = taskParts[0];
+                    String taskStatus = taskParts[1];
+                    String desc = taskParts[2];
+                    Task task;
+
+                    if (Objects.equals(taskType, "T")) {
+                        task = new Todo(desc);
+                    } else if (Objects.equals(taskType, "D")) {
+                        task = new Deadlines(desc, taskParts[3]);
+                    } else if (Objects.equals(taskType, "P")) {
+                        task = new Party(desc, taskParts[3], taskParts[4]);
+                    } else {
+                        task = new Task(desc);
+                    }
+                    if (Integer.parseInt( taskStatus) == 1) { task.mark(); }
+                    finalList.add(task);
+                    System.out.println(finalList);
+                });
+
+            }
+
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return finalList;
+
+    }
+
+    protected static void deleteLine(Path path, int lineToDelete) {
+        try {
+            List<String> lines = Files.readAllLines(path);
+
+            if (lineToDelete >= 0 && lineToDelete < lines.size()) {
+                lines.remove(lineToDelete);
+                Files.write(path, lines);
+            } else {
+                throw new IllegalArgumentException("Invalid line number to delete.");
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    protected static void addToList(Path path, String type, String desc) {
+        String line = type + "," + 0 + "," + desc + "\n";
+        try {
+            Files.write(path, line.getBytes(), StandardOpenOption.APPEND);
+        } catch (IOException e) {
+            System.out.println(e);
+        }
+    }
+
+    protected static void addToList(Path path, String type, String desc, String deadline) {
+        String line = type + "," + 0 + "," + desc + "," + deadline + "\n";
+        try {
+            Files.write(path, line.getBytes(), StandardOpenOption.APPEND);
+        } catch (IOException e) {
+            System.out.println(e);
+        }
+    }
+
+    protected static void addToList(Path path, String type, String desc, String from, String to) {
+        String line = type + "," + 0 + "," + desc + "," + from + "," + to + "\n";
+        try {
+            Files.write(path, line.getBytes(), StandardOpenOption.APPEND);
+        } catch (IOException e) {
+            System.out.println(e);
+        }
+    }
+
+    protected static void changeLineStatus(Path path, String status, int lineToChange) {
+        try {
+            List<String> lines = Files.readAllLines(path);
+
+            if (lineToChange >= 0 && lineToChange < lines.size()) {
+                String[] newContent = lines.get(lineToChange).split(",");
+                newContent[1] = status;
+                lines.set(lineToChange, Arrays.stream(newContent).reduce("", (x, acc) -> x + acc));
+                Files.write(path, lines);
+            } else {
+                throw new IllegalArgumentException("Invalid line number to change.");
+            }
+        } catch (IOException e) {
+            System.out.println(e);
+        }
+    }
 }
