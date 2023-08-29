@@ -17,4 +17,5 @@ deadline return book
 event return book
 delete 2
 list
+find book
 bye
