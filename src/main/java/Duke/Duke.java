@@ -1,4 +1,5 @@
-import Exceptions.DukeException;
+package Duke;
+import Duke.Exceptions.DukeException;
 
 /**
  * Main class for the Duke application.

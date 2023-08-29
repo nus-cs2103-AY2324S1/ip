@@ -1,4 +1,4 @@
-package Tasks;
+package Duke.Tasks;
 
 /**
  * Abstract base class representing a task in the Duke application.

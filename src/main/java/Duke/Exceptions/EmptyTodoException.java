@@ -1,4 +1,4 @@
-package Exceptions;
+package Duke.Exceptions;
 
 /**
  * Custom exception class for empty todo entries in the Duke application.
