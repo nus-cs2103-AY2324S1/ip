@@ -17,8 +17,8 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        String from = start.format(displayFormat);
-        String to = end.format(displayFormat);
+        String from = start.format(DISPLAY_FORMAT);
+        String to = end.format(DISPLAY_FORMAT);
         String time = String.format(" (from: %s to: %s)", from, to);
         return "[E]" + super.toString() + time;
     }
@@ -29,7 +29,7 @@ public class Event extends Task {
      */
     @Override
     public String toFileString() {
-        String period = String.format(" | %s | %s", Parser.dateFormat(start), Parser.dateFormat(end));
+        String period = String.format(" | %s | %s", Parser.formatDate(start), Parser.formatDate(end));
         return "E" + super.toFileString() + period;
     }
 }

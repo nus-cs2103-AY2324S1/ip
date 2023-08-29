@@ -78,6 +78,7 @@ public class Storage {
                 String data = reader.nextLine();
                 String[] splitInput = data.split(" \\| ");
                 boolean isDone = splitInput[1].equals("X");
+
                 // Data is in format [type, isDone, title, from/by, to], from/by/to are only present depending on type.
                 switch(splitInput[0]) {
                 case "T":

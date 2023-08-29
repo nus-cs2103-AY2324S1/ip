@@ -27,7 +27,7 @@ public class TaskListTest {
     }
 
     @Test
-    public void addTask_changeStatus_listToStringData_correctOutput() {
+    public void changeStatus_listToStringData_correctOutput() {
         TaskList tasks = new TaskList();
         task1.changeStatus(true);
         tasks.addTask(task1, false);
@@ -35,8 +35,8 @@ public class TaskListTest {
         tasks.addTask(task3, false);
 
         String expected = "T | X | Buy food\n"
-                        + "D |   | Finish homework | 12.04.2020 1530\n"
-                        + "E |   | Japan trip | 12.04.2020 1530 | 12.04.2020 1530\n";
+                + "D |   | Finish homework | 12.04.2020 1530\n"
+                + "E |   | Japan trip | 12.04.2020 1530 | 12.04.2020 1530\n";
 
         assertEquals(expected, tasks.listToStringData());
     }

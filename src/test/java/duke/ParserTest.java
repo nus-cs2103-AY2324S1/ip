@@ -10,7 +10,7 @@ public class ParserTest {
 
 
     @Test
-    public void parseDate_exceptionThrown() {
+    public void parseDate_exceptionThrown_success() {
         try {
             Parser.parseDate("idk");
         } catch (DateTimeParseException e) {
