@@ -7,6 +7,11 @@ class Event extends Task{
         super(name);
     }
 
+    /**
+     * returns string representation, with task type, marked, content and period.
+     *
+     * @return String representation of the Event.
+     */
     @Override
     public String toString() {
         String checkBox;

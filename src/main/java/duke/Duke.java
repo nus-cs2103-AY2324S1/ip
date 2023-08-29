@@ -15,7 +15,11 @@ public class Duke {
         }
     }
 
+    /**
+     * Runs the program.
+     */
     public void run() {
+
         Ui.greetUser();
         Scanner scanObj = new Scanner(System.in);
         while(true) {
@@ -24,6 +28,11 @@ public class Duke {
         }
     }
 
+    /**
+     * Creates a new instance of CringeBot.
+     *
+     * @param args Command line args.
+     */
     public static void main(String[] args) {
         new Duke("./data/data.ser").run();
     }

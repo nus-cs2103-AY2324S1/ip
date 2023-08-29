@@ -19,6 +19,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Loads the taskList stored in the file.
+     *
+     * @return ArrayList representing the taskList.
+     * @throws DukeException Duke exception to let the user know what went wrong.
+     */
     public ArrayList<Task> load() throws DukeException {
         // Loading the serialised object
         try {
@@ -33,6 +39,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Writes the current list of task into the storage file.
+     *
+     * @param tasks list of task to be written.
+     * @throws DukeException Lets the user know what went wrong.
+     */
     public void write(TaskList tasks) throws DukeException {
         try {
             FileOutputStream fileOut = new FileOutputStream(this.filePath);

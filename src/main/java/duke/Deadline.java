@@ -20,6 +20,11 @@ class Deadline extends Task {
         }
     }
 
+    /**
+     * Returns string representation of deadline, including marked or not, date of deadline and contents.
+     *
+     * @return String representation of the deadline.
+     */
     @Override
     public String toString() {
         String checkBox = super.isMarked() ? "[X]" : "[ ]";
