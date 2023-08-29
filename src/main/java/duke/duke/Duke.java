@@ -12,16 +12,26 @@ import duke.util.Storage;
 import java.util.Scanner;
 import java.util.List;
 
+/**
+ * The main class that executes the Duke bot.
+ */
 public class Duke {
 
     private final Storage storage;
     private final Ui ui;
 
+    /**
+     * Constructs a Duke object with the specified file path.
+     * @param filePath The file path to the data storage file.
+     */
     public Duke(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
     }
 
+    /**
+     * Runs the duke bot.
+     */
     public void run() {
         try {
             Scanner reader = new Scanner(System.in);
