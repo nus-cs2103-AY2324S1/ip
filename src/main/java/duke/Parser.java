@@ -147,6 +147,9 @@ public class Parser {
                 case ("delete"):
                     modifyTask(ModifyTask.DELETE, input);
                     break;
+                case("find"):
+                    tasks.findTasks(inputSplit[1]);
+                    break;
                 default:
                     throw new DukeException("I'm sorry, but I don't know what that means :-(");
                 }
