@@ -1,3 +1,6 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Arrays;
 import java.util.HashMap;
 
@@ -7,9 +10,17 @@ import java.util.HashMap;
 public class Parser {
 
     /**
+     * Formatter to output date time
+     */
+    public static final DateTimeFormatter OUTPUT_FORMAT = DateTimeFormatter.ofPattern("EEE hh:mma, MMM yyyy ");
+    /**
+     * Formatter to parse date time
+     */
+    private static final DateTimeFormatter PARSE_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+    /**
      * Hashmap to map the flags to its corresponding string
      */
-    private final HashMap<String, String> FLAG = new HashMap<>();
+    private final HashMap<String, LocalDateTime> FLAG = new HashMap<>();
 
     /**
      * type of command
@@ -92,15 +103,24 @@ public class Parser {
      *
      * @param splitInputs - input string that has been split into words
      * @param flags       - the flags that needs to be found
-     * @throws DukeBadInputException - if the flags cannot be found or without a
-     *                               description
+     * @throws DukeBadInputException  - if the flags cannot be found or without a
+     *                                description
+     * @throws DateTimeParseException - if the value cannot be parsed
      */
-    private void findFlags(String[] splitInputs, String... flags) throws DukeBadInputException {
+    private void findFlags(String[] splitInputs, String... flags) throws DukeBadInputException, DateTimeParseException {
 
         int[] flagIndex = this.find(splitInputs, flags);
 
+        // Check first for a valid description
+        this.param = String.join(" ", Arrays.copyOfRange(splitInputs, 1, flagIndex[0]));
+        if (this.param.isBlank()) {
+            throw new DukeBadInputException(
+                    "Quack doesn't understand an empty description, please provide one!!");
+        }
+
         for (int i = 0; i < flagIndex.length - 1; i++) {
 
+            // Check for the presence of the flag
             if (flagIndex[i] == -1) {
                 throw new DukeBadInputException(
                         "Quack cant find the required " + flags[i] + " flags, please provide quack with one please");
@@ -112,19 +132,20 @@ public class Parser {
                                 + " flags, please provide quack with one please");
             }
 
+            // Check for the description of flag
             String value = String.join(" ", Arrays.copyOfRange(splitInputs, flagIndex[i] + 1, flagIndex[i + 1]));
             if (value.isBlank()) {
                 throw new DukeBadInputException(
                         "Please provide quack a description for the " + flags[i] + " flag");
             }
-            this.FLAG.put(splitInputs[flagIndex[i]], value);
+
+            // check the format of the flag
+            LocalDateTime val = LocalDateTime.parse(value, Parser.PARSE_FORMAT);
+
+            this.FLAG.put(splitInputs[flagIndex[i]], val);
 
         }
-        this.param = String.join(" ", Arrays.copyOfRange(splitInputs, 1, flagIndex[0]));
-        if (this.param.isBlank()) {
-            throw new DukeBadInputException(
-                    "Quack doesn't understand an empty description, please provide one!!");
-        }
+
     }
 
     /**
@@ -178,7 +199,7 @@ public class Parser {
      * @return the value associated with the key
      */
     public String getFlag(String key) {
-        return this.FLAG.get(key);
+        return Parser.OUTPUT_FORMAT.format(this.FLAG.get(key));
     }
 
     /**
