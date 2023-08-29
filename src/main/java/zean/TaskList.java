@@ -1,12 +1,12 @@
 package zean;
 
+import java.util.ArrayList;
+
 import zean.exception.DukeException;
 import zean.task.Deadline;
 import zean.task.Event;
 import zean.task.Task;
 import zean.task.Todo;
-
-import java.util.ArrayList;
 
 public class TaskList {
     private ArrayList<Task> tasks;

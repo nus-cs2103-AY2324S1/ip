@@ -1,14 +1,14 @@
 package zean;
 
-import zean.exception.DukeException;
-import zean.task.Task;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import zean.exception.DukeException;
+import zean.task.Task;
 
 /**
  * The class that provides the storage for the tasks.
@@ -27,7 +27,7 @@ public class Storage {
      * Reads the present content in the file into the ArrayList.
      */
     public Storage(String filePath) throws FileNotFoundException, IOException {
-        this.filePath  = filePath;
+        this.filePath = filePath;
 
         File dir = new File("./data");
         if (!dir.exists()) {
