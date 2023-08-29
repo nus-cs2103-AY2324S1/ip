@@ -1,11 +1,12 @@
+package task;
+
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.time.LocalTime;
-import java.time.temporal.ChronoUnit;
 import java.time.format.DateTimeParseException;
+import dukeException.DukeException;
 public class Deadline extends Task {
 
     protected String by;
@@ -31,7 +32,7 @@ public class Deadline extends Task {
             boolean hasBy = false;
 
             if (splitCommand.length == 1) {
-                throw new DukeException("Deadline Argument Empty");
+                throw new DukeException("task.Deadline Argument Empty");
             }
 
             for (int i = 0; i < splitCommand.length; i++) {
