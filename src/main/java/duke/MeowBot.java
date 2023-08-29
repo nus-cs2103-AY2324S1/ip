@@ -65,7 +65,7 @@ public class MeowBot {
         ui.bye();
     }
 
-    public static void main(String[] args) throws DukeException, IOException{
+    public static void main(String[] args) throws DukeException, IOException {
         new MeowBot("src/main/data/meowbot.txt").run();
     }
 
