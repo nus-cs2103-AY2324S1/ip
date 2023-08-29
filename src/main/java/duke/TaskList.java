@@ -56,7 +56,7 @@ public class TaskList {
      * mark task as done, then set the task as the
      * writes back to the file to update the file of the changes
      * @param taskNumber string of the task number
-     * @return output string for printing in command line
+     * @return output string for printing
      * @throws DukeException if taskNumber is not a number or there is no task with that number
      */
     public String mark(String taskNumber) throws DukeException {
@@ -72,7 +72,7 @@ public class TaskList {
      * mark task as undone, then set the task as the
      * writes back to the file to update the file of the changes
      * @param taskNumber string of the task number
-     * @return output string for printing in command line
+     * @return output string for printing
      * @throws DukeException if taskNumber is not a number or there is no task with that number
      */
     public String unMark(String taskNumber) throws DukeException {
@@ -88,7 +88,7 @@ public class TaskList {
      * delete the task from the ArrayList of tasks
      * writes back to the file to update the file of the changes
      * @param taskNumber string of the task number
-     * @return output string for printing in command line
+     * @return output string for printing
      * @throws DukeException if taskNumber is not a number or there is no task with that number
      */
     public String delete(String taskNumber) throws DukeException {
@@ -103,6 +103,11 @@ public class TaskList {
 
     }
 
+    /**
+     * returns output string for printing to user
+     * @param keyword words or letters to match with tasklist
+     * @return output string for printing
+     */
     public String find(String keyword) {
         String output = "Here are the matching tasks in your list:\n";
         int matchNum = 1;
