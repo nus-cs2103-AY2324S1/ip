@@ -1,72 +1,78 @@
+import java.io.IOException;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Duke {
-    public static final String horizontalLine = "        ____________________________________________________________\n";
+    public static final String HORIZONTAL_LINE = "        ____________________________________________________________\n";
+    public static final String FILE_PATH = "data/duke.txt";
+    public static final String INDENT = "        ";
     public static void greet() {
-        System.out.println(horizontalLine
-                            + "        " + "Hello! I'm Glenda!\n"
-                            + "        " + "What can I do for you?\n"
-                            + horizontalLine);
+        System.out.println(HORIZONTAL_LINE
+                            + INDENT + "Hello! I'm Glenda!\n"
+                            + INDENT + "What can I do for you?\n"
+                            + HORIZONTAL_LINE);
     }
     public static void exit() {
-        System.out.println(horizontalLine
-                            + "        " + "Bye. Hope to see you again soon!\n"
-                            + horizontalLine);
+        System.out.println(HORIZONTAL_LINE
+                            + INDENT + "Bye. Hope to see you again soon!\n"
+                            + HORIZONTAL_LINE);
     }
 
     public static void printCommand(Task task, int numberOfTasks) {
-        System.out.print(horizontalLine);
-        System.out.println("        " + "Got it. I've added this task to the list:");
+        System.out.print(HORIZONTAL_LINE);
+        System.out.println(INDENT + "Got it. I've added this task to the list:");
         System.out.println("          " + task.toString());
-        System.out.println("        " + "Now you have " + numberOfTasks + " task(s) in the list.");
-        System.out.println(horizontalLine);
+        System.out.println(INDENT + "Now you have " + numberOfTasks + " task(s) in the list.");
+        System.out.println(HORIZONTAL_LINE);
     }
 
     public static void printTasks(ArrayList<Task> tasks) {
-        System.out.print(horizontalLine);
+        System.out.print(HORIZONTAL_LINE);
 
         if (tasks.isEmpty()) {
             // Case where there is no tasks to be displayed
-            System.out.println("        " + "No tasks added. ");
+            System.out.println(INDENT + "No tasks added. ");
         } else {
-            System.out.println("        " + "Here are the task(s) in your list:");
+            System.out.println(INDENT + "Here are the task(s) in your list:");
 
             for (Task task: tasks) {
-                System.out.println("        " + (tasks.indexOf(task) + 1) + ". " + task.toString());
+                System.out.println(INDENT + (tasks.indexOf(task) + 1) + ". " + task.toString());
             }
         }
-        System.out.println(horizontalLine);
+        System.out.println(HORIZONTAL_LINE);
     }
 
     public static void markTaskAsDone(Task task) {
-        System.out.print(horizontalLine);
-        System.out.println("        " + "Great! I've completed this task!");
+        System.out.print(HORIZONTAL_LINE);
+        System.out.println(INDENT + "Great! I've completed this task!");
         task.markAsDone();
-        System.out.println("        " + task.toString());
-        System.out.println(horizontalLine);
+        System.out.println(INDENT + task.toString());
+        System.out.println(HORIZONTAL_LINE);
     }
 
     public static void markTaskAsUnDone(Task task) {
-        System.out.print(horizontalLine);
-        System.out.println("        " + "Okay, I have not yet completed this task:");
+        System.out.print(HORIZONTAL_LINE);
+        System.out.println(INDENT + "Okay, I have not yet completed this task:");
         task.markAsUndone();
-        System.out.println("        " + task.toString());
-        System.out.println(horizontalLine);
+        System.out.println(INDENT + task.toString());
+        System.out.println(HORIZONTAL_LINE);
     }
 
     public static void deleteTask(Task task, int numberOfTasks) {
-        System.out.print(horizontalLine);
-        System.out.println("        " + "Okay, I've removed this task:");
+        System.out.print(HORIZONTAL_LINE);
+        System.out.println(INDENT + "Okay, I've removed this task:");
         System.out.println("          " + task.toString());
-        System.out.println("        " + "Now you have " + numberOfTasks + " task(s) in the list.");
-        System.out.println(horizontalLine);
+        System.out.println(INDENT + "Now you have " + numberOfTasks + " task(s) in the list.");
+        System.out.println(HORIZONTAL_LINE);
     }
 
     public static void invalidCommand(String errorMessage) {
-        System.out.println(horizontalLine
-                            + "        " + errorMessage + "\n"
-                            + horizontalLine);
+        System.out.println(HORIZONTAL_LINE
+                            + INDENT + errorMessage + "\n"
+                            + HORIZONTAL_LINE);
     }
 
     public static void validateTask(String taskDescription, int numberOfTasks) throws DukeException {
@@ -81,7 +87,7 @@ public class Duke {
                     "deadline TASK_DESCRIPTION /by DEADLINE");
 
         } else if (taskDescription.contains("todo") && !taskDescription.matches("todo .*")) {
-            // Validate todo task format
+            // Validate to do task format
             throw new DukeException("OOPS!!! The description of a todo cannot be empty.");
 
         } else if ((taskDescription.contains("mark") && taskDescription.matches("mark \\d+")) ||
@@ -92,6 +98,32 @@ public class Duke {
             if (taskNumber > numberOfTasks) {
                 throw new DukeException("OOPS!!! Task " + taskNumber + " does not exist.");
             }
+        }
+    }
+
+    private static void saveFileToDisk(ArrayList<Task> tasks) throws IOException {
+        File f = new File(FILE_PATH);
+
+        if (!f.exists()) {
+            try {
+                // Create folder and file
+                boolean isDirectoryCreated = f.getParentFile().mkdir();
+                boolean isFileCreated = f.createNewFile();
+            } catch (FileNotFoundException e) {
+                System.out.println(INDENT + "Something went wrong: " + e.getMessage());
+            }
+        }
+
+        FileWriter fw = new FileWriter(FILE_PATH);
+        try {
+            // Write tasks into hard disk
+            for (Task task: tasks) {
+                fw.write(task.fileDescription());
+            }
+            fw.close();
+        } catch (IOException e) {
+//            System.out.println("there");
+            System.out.println(INDENT + "Something went wrong: " + e.getMessage());
         }
     }
 
@@ -155,6 +187,7 @@ public class Duke {
                         // Non-existent task functions
                         throw new DukeException();
                     }
+                    saveFileToDisk(tasks);
 
                 } catch (DukeException error) {
                     invalidCommand(error.getMessage());
@@ -164,5 +197,7 @@ public class Duke {
                 }
             }
         }
+
+
     }
 }

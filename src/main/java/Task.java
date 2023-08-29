@@ -23,4 +23,12 @@ public class Task {
     public String toString() {
         return "[" + getStatusIcon() + "] " + this.description;
     }
+
+    public String fileDescription() {
+        if (this.isDone) {
+            return " | 0 | " + this.description;
+        } else {
+            return " | 1 | " + this.description;
+        }
+    }
 }
