@@ -1,3 +1,6 @@
+import java.time.format.DateTimeFormatter;
+import java.time.LocalDateTime;
+
 /**
  * Represents a deadline.
  *
@@ -9,7 +12,7 @@ public class Deadline extends Task{
     /**
      * The deadline of the task.
      */
-    protected String by;
+    protected LocalDateTime by;
 
     /**
      * Constructor for Deadline class.
@@ -19,7 +22,8 @@ public class Deadline extends Task{
      */
     public Deadline(String description, String by) {
         super(description);
-        this.by = by;
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+        this.by = LocalDateTime.parse(by, formatter);
     }
 
     /**
@@ -31,7 +35,8 @@ public class Deadline extends Task{
      */
     public Deadline(String description, boolean isDone, String by) {
         super(description, isDone);
-        this.by = by;
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+        this.by = LocalDateTime.parse(by, formatter);
     }
 
     /**
@@ -42,7 +47,8 @@ public class Deadline extends Task{
     @Override
     public String taskStringify() {
         int status = super.isDone ? 1 : 0;
-        return "D | " + status + " | " + super.description + " | " + this.by;
+        String byFormat = this.by.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
+        return "D | " + status + " | " + super.description + " | " + byFormat;
     }
 
     /**
@@ -52,6 +58,7 @@ public class Deadline extends Task{
      */
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + this.by + ")";
+        String byFormat = this.by.format(DateTimeFormatter.ofPattern("MMM dd yyyy HHmm"));
+        return "[D]" + super.toString() + " (by: " + byFormat + ")";
     }
 }

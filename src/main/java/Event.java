@@ -1,3 +1,6 @@
+import java.time.format.DateTimeFormatter;
+import java.time.LocalDateTime;
+
 /**
  * Represents an event.
  *
@@ -9,12 +12,12 @@ public class Event extends Task {
     /**
      * The start date/time of the event.
      */
-    protected String from;
+    protected LocalDateTime from;
 
     /**
      * The end date/time of the event.
      */
-    protected String to;
+    protected LocalDateTime to;
 
     /**
      * Constructor for Event class.
@@ -25,8 +28,9 @@ public class Event extends Task {
      */
     public Event (String description, String from, String to) {
         super(description);
-        this.from = from;
-        this.to = to;
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+        this.from = LocalDateTime.parse(from, formatter);
+        this.to = LocalDateTime.parse(to, formatter);
     }
 
     /**
@@ -39,8 +43,9 @@ public class Event extends Task {
      */
     public Event(String description, boolean isDone, String from, String to) {
         super(description, isDone);
-        this.from = from;
-        this.to = to;
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+        this.from = LocalDateTime.parse(from, formatter);
+        this.to = LocalDateTime.parse(to, formatter);
     }
 
     /**
@@ -51,7 +56,9 @@ public class Event extends Task {
     @Override
     public String taskStringify() {
         int status = super.isDone ? 1 : 0;
-        return "E | " + status + " | " + super.description + " | " + this.from + "-" + this.to;
+        String fromFormat = this.from.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
+        String toFormat = this.to.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
+        return "E | " + status + " | " + super.description + " | " + fromFormat + " - " + toFormat;
     }
 
     /**
@@ -61,6 +68,8 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + this.from + " to: " + this.to + ")";
+        String fromFormat = this.from.format(DateTimeFormatter.ofPattern("MMM dd yyyy HHmm"));
+        String toFormat = this.to.format(DateTimeFormatter.ofPattern("MMM dd yyyy HHmm"));
+        return "[E]" + super.toString() + " (from: " + fromFormat + " to: " + toFormat + ")";
     }
 }

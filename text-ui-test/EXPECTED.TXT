@@ -2,6 +2,7 @@
 	 Hello! I'm Violet
 	 What can I do for you?
 	____________________________________________________________
+No file found.
 	____________________________________________________________
 	 ☹ OOPS!!! You don't have any task in your list. Pls add a task.
 	____________________________________________________________
@@ -17,14 +18,14 @@
 	____________________________________________________________
 	____________________________________________________________
 	 Got it. I've added this task:
-		[D][ ] return book (by: Sunday)
+		[D][ ] return book (by: Sep 01 2023 1200)
 	 Now you have 3 tasks in the list.
 	____________________________________________________________
 	____________________________________________________________
 	 Here are the tasks in your list:
 	 1.[T][ ] borrow book
 	 2.[T][ ] read book
-	 3.[D][ ] return book (by: Sunday)
+	 3.[D][ ] return book (by: Sep 01 2023 1200)
 	____________________________________________________________
 	____________________________________________________________
 	 EmptyTaskException: ☹ OOPS!!! Pls select a task to mark.
@@ -48,23 +49,23 @@
 	 Here are the tasks in your list:
 	 1.[T][X] borrow book
 	 2.[T][X] read book
-	 3.[D][ ] return book (by: Sunday)
+	 3.[D][ ] return book (by: Sep 01 2023 1200)
 	____________________________________________________________
 	____________________________________________________________
 	 Nice! I've marked this task as done:
-		[D][X] return book (by: Sunday)
+		[D][X] return book (by: Sep 01 2023 1200)
 	____________________________________________________________
 	____________________________________________________________
 	 Got it. I've added this task:
-		[E][ ] project meeting (from: Mon 2pm to: 4pm)
+		[E][ ] project meeting (from: Aug 30 2023 1400 to: Aug 30 2023 1600)
 	 Now you have 4 tasks in the list.
 	____________________________________________________________
 	____________________________________________________________
 	 Here are the tasks in your list:
 	 1.[T][X] borrow book
 	 2.[T][X] read book
-	 3.[D][X] return book (by: Sunday)
-	 4.[E][ ] project meeting (from: Mon 2pm to: 4pm)
+	 3.[D][X] return book (by: Sep 01 2023 1200)
+	 4.[E][ ] project meeting (from: Aug 30 2023 1400 to: Aug 30 2023 1600)
 	____________________________________________________________
 	____________________________________________________________
 	 EmptyTaskException: ☹ OOPS!!! Pls select a task to unmark.
@@ -74,14 +75,14 @@
 	____________________________________________________________
 	____________________________________________________________
 	 OK, I've marked this task as not done yet:
-		[D][ ] return book (by: Sunday)
+		[D][ ] return book (by: Sep 01 2023 1200)
 	____________________________________________________________
 	____________________________________________________________
 	 Here are the tasks in your list:
 	 1.[T][X] borrow book
 	 2.[T][X] read book
-	 3.[D][ ] return book (by: Sunday)
-	 4.[E][ ] project meeting (from: Mon 2pm to: 4pm)
+	 3.[D][ ] return book (by: Sep 01 2023 1200)
+	 4.[E][ ] project meeting (from: Aug 30 2023 1400 to: Aug 30 2023 1600)
 	____________________________________________________________
 	____________________________________________________________
 	 EmptyDescriptionException: ☹ OOPS!!! The description of a todo cannot be empty.
@@ -105,14 +106,14 @@
 	 NoSpaceBeforeException: ☹ OOPS!!! Pls add a space before typing /by.
 	____________________________________________________________
 	____________________________________________________________
-	 DukeException: ☹ OOPS!!! The date/time for the deadline cannot be empty
+	 DukeException: ☹ OOPS!!! The date/time for the deadline cannot be empty.
 	____________________________________________________________
 	____________________________________________________________
 	 NoSpaceAfterException: ☹ OOPS!!! Pls add a space after typing /by.
 	____________________________________________________________
 	____________________________________________________________
 	 Got it. I've added this task:
-		[D][ ] math hw (by: monday)
+		[D][ ] math hw (by: Aug 28 2023 1000)
 	 Now you have 5 tasks in the list.
 	____________________________________________________________
 	____________________________________________________________
@@ -131,7 +132,7 @@
 	 DukeException: ☹ OOPS!!! Pls provide an end date/time for the event.
 	____________________________________________________________
 	____________________________________________________________
-	 DukeException: ☹ OOPS!!! The start date/time for the event cannot be empty
+	 DukeException: ☹ OOPS!!! The start date/time for the event cannot be empty.
 	____________________________________________________________
 	____________________________________________________________
 	 NoSpaceAfterException: ☹ OOPS!!! Pls add a space after typing /from.
@@ -140,14 +141,14 @@
 	 NoSpaceBeforeException: ☹ OOPS!!! Pls add a space before typing /to.
 	____________________________________________________________
 	____________________________________________________________
-	 DukeException: ☹ OOPS!!! The end date/time for the event cannot be empty
+	 DukeException: ☹ OOPS!!! The end date/time for the event cannot be empty.
 	____________________________________________________________
 	____________________________________________________________
 	 NoSpaceAfterException: ☹ OOPS!!! Pls add a space after typing /to.
 	____________________________________________________________
 	____________________________________________________________
 	 Got it. I've added this task:
-		[E][ ] bday dinner (from: Sat 7pm to: 8pm)
+		[E][ ] bday dinner (from: Sep 02 2023 1900 to: Sep 02 2023 2000)
 	 Now you have 6 tasks in the list.
 	____________________________________________________________
 	____________________________________________________________
@@ -157,10 +158,10 @@
 	 Here are the tasks in your list:
 	 1.[T][X] borrow book
 	 2.[T][X] read book
-	 3.[D][ ] return book (by: Sunday)
-	 4.[E][ ] project meeting (from: Mon 2pm to: 4pm)
-	 5.[D][ ] math hw (by: monday)
-	 6.[E][ ] bday dinner (from: Sat 7pm to: 8pm)
+	 3.[D][ ] return book (by: Sep 01 2023 1200)
+	 4.[E][ ] project meeting (from: Aug 30 2023 1400 to: Aug 30 2023 1600)
+	 5.[D][ ] math hw (by: Aug 28 2023 1000)
+	 6.[E][ ] bday dinner (from: Sep 02 2023 1900 to: Sep 02 2023 2000)
 	____________________________________________________________
 	____________________________________________________________
 	 EmptyTaskException: ☹ OOPS!!! Pls select a task to delete.
@@ -170,16 +171,19 @@
 	____________________________________________________________
 	____________________________________________________________
 	 Noted. I've removed this task:
-		[D][ ] math hw (by: monday)
+		[D][ ] math hw (by: Aug 28 2023 1000)
 	 Now you have 5 tasks in the list.
 	____________________________________________________________
 	____________________________________________________________
 	 Here are the tasks in your list:
 	 1.[T][X] borrow book
 	 2.[T][X] read book
-	 3.[D][ ] return book (by: Sunday)
-	 4.[E][ ] project meeting (from: Mon 2pm to: 4pm)
-	 5.[E][ ] bday dinner (from: Sat 7pm to: 8pm)
+	 3.[D][ ] return book (by: Sep 01 2023 1200)
+	 4.[E][ ] project meeting (from: Aug 30 2023 1400 to: Aug 30 2023 1600)
+	 5.[E][ ] bday dinner (from: Sep 02 2023 1900 to: Sep 02 2023 2000)
+	____________________________________________________________
+	____________________________________________________________
+	 ☹ OOPS!!! Invalid date format. Pls provide a date in the format yyyy-MM-dd HHmm.
 	____________________________________________________________
 	____________________________________________________________
 	 Bye. Hope to see you again soon!

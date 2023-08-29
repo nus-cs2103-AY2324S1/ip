@@ -1,7 +1,7 @@
 delete 1
 todo borrow book
 todo read book
-deadline return book /by Sunday
+deadline return book /by 2023-09-01 1200
 list
 mark
 mark1
@@ -10,7 +10,7 @@ mark 2
 mark 10
 list
 mark 3
-event project meeting /from Mon 2pm /to 4pm
+event project meeting /from 2023-08-30 1400 /to 2023-08-30 1600
 list
 unmark
 unmark3
@@ -24,23 +24,24 @@ deadlinemath hw
 deadline math hw
 deadline math hw/by
 deadline math hw /by
-deadline math hw /bymonday
-deadline math hw /by monday
+deadline math hw /by2023-08-28 1000
+deadline math hw /by 2023-08-28 1000
 event
 eventbday dinner
 event bday dinner
 event bday dinner/from
 event bday dinner /from
 event bday dinner /from /to
-event bday dinner /fromSat 7pm /to
-event bday dinner /from Sat 7pm/to
-event bday dinner /from Sat 7pm /to
-event bday dinner /from Sat 7pm /to8pm
-event bday dinner /from Sat 7pm /to 8pm
+event bday dinner /from2023-09-02 1900 /to
+event bday dinner /from 2023-09-02 1900/to
+event bday dinner /from 2023-09-02 1900 /to
+event bday dinner /from 2023-09-02 1900 /to2023-09-02 2000
+event bday dinner /from 2023-09-02 1900 /to 2023-09-02 2000
 blah
 list
 delete
 delete5
 delete 5
 list
+deadline proposal /by 30/8/23 1000
 bye
