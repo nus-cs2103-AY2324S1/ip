@@ -2,10 +2,14 @@ package command;
 
 import exception.InvalidDateException;
 import exception.InvalidTimeException;
+
 import enums.Command;
+
 import parser.Time;
+
 import task.Events;
 import task.TaskList;
+
 import ui.Reply;
 
 import java.util.Scanner;
@@ -29,6 +33,7 @@ public class EventCommand {
 
         reply.printDialog("So you want to add a event task. Tell me what's the task.");
         String desc = scanner.nextLine();
+
         reply.printDialog("Now indicate the start date.");
         String from = scanner.nextLine();
         try {
@@ -37,6 +42,7 @@ public class EventCommand {
             reply.printDialog(e.toString());
             return;
         }
+
         reply.printDialog("Indicate a start time in ranging from 0000 - 2359. You may enter 'Skip' to not indicate a time");
         String fromTime = scanner.nextLine();
         if (!fromTime.toLowerCase().equals(Command.SKIP.getCommand())) {
@@ -50,6 +56,7 @@ public class EventCommand {
                 return;
             }
         }
+
         reply.printDialog("Now indicate the end date.");
         String to = scanner.nextLine();
         try {
@@ -58,6 +65,7 @@ public class EventCommand {
             reply.printDialog(e.toString());
             return;
         }
+
         reply.printDialog("Indicate a start time in ranging from 0000 - 2359. You may enter 'Skip' to not indicate a time");
         String toTime = scanner.nextLine();
         if (!toTime.toLowerCase().equals(Command.SKIP.getCommand())) {
@@ -71,6 +79,7 @@ public class EventCommand {
                 return;
             }
         }
+
         tasks.addTask(new Events(desc, from, to));
     }
 }

@@ -19,6 +19,7 @@ public class Time {
      * @throws InvalidDateException if no appropriate date format is found
      */
     private static DateTimeFormatter findDateFormat(String date) throws InvalidDateException {
+
         DateTimeFormatter[] formats = new DateTimeFormatter[]{
                 DateTimeFormatter.ofPattern("MMM-d-yyyy"),
                 DateTimeFormatter.ofPattern("MMM-dd-yyyy"),
@@ -119,6 +120,7 @@ public class Time {
                 return format;
             }
         }
+
         throw new InvalidDateException();
     }
 
@@ -158,12 +160,16 @@ public class Time {
      * @throws InvalidDateException if date is not a valid date
      */
     public static String formatTime(String date, String time) throws InvalidTimeException, InvalidDateException {
+
         DateTimeFormatter stdFormat = DateTimeFormatter.ofPattern("dd-MMM-yyyy HHmm");
         DateTimeFormatter currentFormat = findDateFormat(date);
+
         LocalDate lDate = LocalDate.parse(date, currentFormat);
+
         int intTime = Integer.parseInt(time);
         int hour = (int) Math.floor(intTime / 100.0);
         int minute = intTime - (hour * 100);
+
         return lDate.atTime(hour, minute).format(stdFormat);
     }
 }

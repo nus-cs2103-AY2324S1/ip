@@ -1,9 +1,9 @@
 package parser;
 
 import enums.Command;
+
 import exception.MissingArgumentException;
 import exception.InvalidCommandException;
-import exception.MissingTaskArgumentException;
 
 /**
  * Class to help parse complex strings from user input
@@ -31,15 +31,16 @@ public class CommandParser {
         }
 
         String args = input.substring(command.getCommandStringLength());
-
         if (args.isBlank()) {
             switch (command) {
-                case MARK:
-                case UNMARK:
-                case DELETE:
-                    throw new MissingTaskArgumentException();
-                default:
-                    throw new InvalidCommandException();
+            case MARK:
+                throw new MissingArgumentException("task index number");
+            case UNMARK:
+                throw new MissingArgumentException("task index number");
+            case DELETE:
+                    throw new MissingArgumentException("task index number");
+            default:
+                throw new InvalidCommandException();
             }
         } else {
             return args.substring(1);
@@ -52,6 +53,7 @@ public class CommandParser {
      * @return the first word of the string
      */
     public static String getFirstWord(String input) {
+
         int spaceIndex = input.indexOf(' ');
         if (spaceIndex == -1) {
             return input;

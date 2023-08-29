@@ -42,8 +42,10 @@ public class Database {
      * @return list of tasks saved in the text file
      */
     public static ArrayList<Task> loadData() {
+
         File file = new File("data/tasklist.txt");
         ArrayList<Task> list = new ArrayList<>();
+
         try {
             FileReader fileReader = new FileReader(file);
             BufferedReader fileToRead = new BufferedReader(fileReader);
@@ -62,6 +64,7 @@ public class Database {
                 }
                 nextLine = fileToRead.readLine();
             }
+
             fileReader.close();
             fileToRead.close();
 

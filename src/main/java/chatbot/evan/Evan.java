@@ -2,12 +2,21 @@ package chatbot.evan;
 
 import java.util.Scanner;
 
-import command.*;
+import command.ToDoCommand;
+import command.UnmarkCommand;
+import command.DeleteCommand;
+import command.DeadlineCommand;
+import command.MarkCommand;
+import command.EventCommand;
+
 import enums.Command;
+
 import exception.InvalidInputException;
 import exception.InvalidCommandException;
 import exception.MissingArgumentException;
+
 import task.TaskList;
+
 import ui.Reply;
 
 /**
@@ -26,6 +35,7 @@ public class Evan {
     public static void main(String[] args) {
         //Start user interaction
         Scanner scanner = new Scanner(System.in);
+
         while(true) {
             try {
                 String input = scanner.nextLine();

@@ -2,6 +2,7 @@ package command;
 
 import task.TaskList;
 import task.ToDo;
+
 import ui.Reply;
 
 import java.util.Scanner;
@@ -19,9 +20,12 @@ public class ToDoCommand {
      * Prompts user to enter the task name before adding it to the list.
      */
     public static void start() {
+
         Scanner scanner = new Scanner(System.in);
+
         reply.printDialog("So you want to add a ToDo task. Tell me what's the task.");
         String desc = scanner.nextLine();
+
         tasks.addTask(new ToDo(desc));
     }
 }

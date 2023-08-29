@@ -1,6 +1,7 @@
 package task;
 
 import ui.Reply;
+
 import storage.Database;
 
 import java.util.ArrayList;
@@ -54,6 +55,7 @@ public class TaskList {
     public void printTasks() {
         Task[] tasks = list.toArray(new Task[0]);
         StringBuilder dialog = new StringBuilder("Here are the tasks in your list:\n     ");
+
         for (int i = 0; i < tasks.length; i++) {
             int listIndex = i + 1;
             Task task = tasks[i];
@@ -67,6 +69,7 @@ public class TaskList {
                 dialog.append(task);
             }
         }
+
         reply.printDialog(dialog.toString());
     }
 
@@ -75,10 +78,12 @@ public class TaskList {
      * @param index index of the task
      */
     public void markDone(int index) {
-        StringBuilder dialog = new StringBuilder();
         Task element = list.get(index - 1);
         element.markAsDone();
+
         Database.save(list);
+
+        StringBuilder dialog = new StringBuilder();
         dialog.append("Nice! I've marked this task as done:\n")
                 .append("       ")
                 .append(element);
@@ -90,10 +95,12 @@ public class TaskList {
      * @param index index of the task
      */
     public void unmarkDone(int index) {
-        StringBuilder dialog = new StringBuilder();
         Task element = list.get(index - 1);
         element.markAsNotDone();
+
         Database.save(list);
+
+        StringBuilder dialog = new StringBuilder();
         dialog.append("OK! I've marked this task as not done yet:\n")
                 .append("       ")
                 .append(element);
@@ -105,10 +112,13 @@ public class TaskList {
      * @param index index of the task
      */
     public void deleteTask(int index) {
-        StringBuilder dialog = new StringBuilder();
+
         Task element = list.get(index - 1);
         list.remove(index - 1);
+
         Database.save(list);
+
+        StringBuilder dialog = new StringBuilder();
         dialog.append("Noted. I've removed this task:\n")
                 .append("       ")
                 .append(element)

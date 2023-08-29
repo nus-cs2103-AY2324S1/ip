@@ -1,14 +1,26 @@
 package exception;
 
 /**
- * Abstract Exception for the event where user input has missing arguments.
+ * Exception for the event where user input has missing arguments.
  */
-public abstract class MissingArgumentException extends Exception{
+public class MissingArgumentException extends Exception{
+
+    String missingArgument;
+
+    /**
+     * Constructor for MissingArgumentException
+     * @param missingArgument a string depicting arguments that are missing from user input
+     */
+    public MissingArgumentException(String missingArgument) {
+        this.missingArgument = missingArgument;
+    }
 
     /**
      * Returns a string to inform users of the exception
      * @return string information to inform user of exception
      */
     @Override
-    public abstract String toString();
+    public String toString() {
+        return "the following information is missing: " + missingArgument;
+    }
 }

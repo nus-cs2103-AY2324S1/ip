@@ -1,11 +1,14 @@
 package command;
 
-import task.TaskList;
-import ui.Reply;
-import parser.Time;
-import task.Deadlines;
 import exception.InvalidDateException;
 import exception.InvalidTimeException;
+
+import task.TaskList;
+import task.Deadlines;
+
+import ui.Reply;
+
+import parser.Time;
 
 import java.util.Scanner;
 
@@ -23,12 +26,14 @@ public class DeadlineCommand {
      * Returns to homepage otherwise.
      */
     public static void start() {
+
         Scanner scanner = new Scanner(System.in);
+
         reply.printDialog("So you want to add a task with deadline. Tell me what's the task.");
         String desc = scanner.nextLine();
+
         reply.printDialog("Now indicate the deadline date.");
         String date = scanner.nextLine();
-
         try {
             date = Time.formatDate(date);
         } catch (InvalidDateException e) {
@@ -49,6 +54,7 @@ public class DeadlineCommand {
                 return;
             }
         }
+
         tasks.addTask(new Deadlines(desc, date));
     }
 }
