@@ -1,4 +1,4 @@
-public class Event extends Task{
+public class Event extends Task {
     private String from;
     private String to;
 
@@ -6,6 +6,13 @@ public class Event extends Task{
         super(description);
         this.from = from;
         this.to = to;
+    }
+
+    public String getFrom() {
+        return this.from;
+    }
+    public String getTo() {
+        return this.to;
     }
 
     @Override

@@ -12,6 +12,16 @@ public class Task {
         return (isDone ? "X" : " "); // mark done task with X
     }
 
+    public String getNumber() {
+        return (isDone ? "1" : "0"); // mark done task with X
+    }
+    public String getDescription() {
+        return description;
+    }
+
+    public void silentMark() {
+        this.isDone = true;
+    }
 
     public void markAsDone() {
         this.isDone = true;

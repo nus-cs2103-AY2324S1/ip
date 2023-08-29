@@ -1,14 +1,29 @@
 import org.w3c.dom.ls.LSOutput;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.Scanner;
 
 public class Duke {
     public static void main(String[] args) {
+        //check if ./data/duke.txt exists
+        File input = new File("./data/duke.txt");
+        try {
+            if (!input.exists()) {
+                input.createNewFile();
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        //Initializers
         Scanner sc = new Scanner(System.in);
         String horizontal = "____________________________________________________________";
 
         Bob bob = new Bob();
         bob.greet();
+        //reads the existing file for existing tasks written in the txt file.
+        bob.fRead("./data/duke.txt");
 
         while (true) {
             try {
@@ -23,12 +38,15 @@ public class Duke {
                 } else if (words.length > 1 && firstWord.equalsIgnoreCase("mark")) {
                     int index = Integer.parseInt(words[1]);
                     bob.markTask(index - 1);
+                    bob.rewriteFile();
                 } else if (words.length > 1 && firstWord.equalsIgnoreCase("unmark")) {
                     int index = Integer.parseInt(words[1]);
                     bob.unmarkTask(index - 1);
+                    bob.rewriteFile();
                 } else if (firstWord.equalsIgnoreCase("delete")) {
                     int index = Integer.parseInt(words[1]);
                     bob.deleteTask(index - 1);
+                    bob.rewriteFile();
                 } else if (firstWord.equalsIgnoreCase("todo")) {
                     bob.addTodo(words);
                 } else if (firstWord.equalsIgnoreCase("deadline")) {
@@ -42,6 +60,8 @@ public class Duke {
                 }
             } catch(IllegalChatBotExceptions e) {
                 System.out.println(e.getMessage());
+            } catch (IOException e) {
+                throw new RuntimeException(e);
             }
         }
 
