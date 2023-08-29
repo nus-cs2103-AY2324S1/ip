@@ -16,16 +16,16 @@ import java.time.format.DateTimeParseException;
 
 public class Parser {
 
-    private TaskList tasks;
+    private TaskArray tasks;
     private Ui ui;
     private boolean isExit;
-    public Parser(TaskList tasks, Ui ui) {
+    public Parser(TaskArray tasks, Ui ui) {
         this.tasks = tasks;
         this.ui = ui;
         this.isExit = false;
     }
 
-    public Parser(TaskList tasks) {
+    public Parser(TaskArray tasks) {
         this.tasks = tasks;
         this.ui = null;
         this.isExit = false;
@@ -141,7 +141,7 @@ public class Parser {
      * @param x Details of the task.
      */
     private void addEvent(String x) {
-        if (x == null || x.equals(" ") || x.startsWith("/from") || x.startsWith(" /from")) {
+        if (x == null || x.equals(" ") || x.startsWith("/from") || x.startsWith(" /from") || x.startsWith("/to") || x.startsWith(" /to")) {
             throw new LackDescriptionException("event");
         }
         String[] s = x.split(" /from ");
@@ -263,7 +263,7 @@ public class Parser {
         } catch (NumberFormatException e) {
             throw new InvalidMarkingException("Please provide a valid index");
         }
-        if (j-1 > tasks.size()-1) {
+        if (j-1 > tasks.size()-1 || j-1 < 0) {
             throw new InvalidMarkingException("There is no corresponding task in the list");
         }
         Task t = tasks.get(j-1);
