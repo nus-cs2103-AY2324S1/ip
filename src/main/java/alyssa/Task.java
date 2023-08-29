@@ -1,5 +1,7 @@
+package alyssa;
+
 /**
- * Task represents a task created by a user. It can be either
+ * alyssa.Task represents a task created by a user. It can be either
  * done or undone.
  */
 public class Task {
@@ -7,7 +9,7 @@ public class Task {
     protected boolean isDone;
 
     /**
-     * Constructor method for Task.
+     * Constructor method for alyssa.Task.
      * @param description A brief description of the task.
      */
     public Task(String description) {

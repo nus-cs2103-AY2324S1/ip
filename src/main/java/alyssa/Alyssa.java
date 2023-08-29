@@ -1,9 +1,9 @@
-package src.main.java;
+package alyssa;
 
 import java.io.IOException;
 import java.util.Scanner;
 
-import Exceptions.AlyssaArgumentException;
+import alyssa.Exceptions.AlyssaArgumentException;
 
 /**
  * This class represents the main program.

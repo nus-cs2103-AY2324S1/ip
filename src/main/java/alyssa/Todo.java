@@ -1,5 +1,6 @@
+package alyssa;
 /**
- * A Todo is a task without a date/time attached to it.
+ * A alyssa.Todo is a task without a date/time attached to it.
  */
 public class Todo extends Task {
     public Todo(String description) {

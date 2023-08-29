@@ -1,3 +1,5 @@
+package alyssa;
+
 /**
  * This class helps Alyssa interact with the user.
  */

@@ -1,5 +1,7 @@
+package alyssa;
+
 /**
- * The Parser class processes commands.
+ * The alyssa.Parser class processes commands.
  */
 public class Parser {
     protected String[] parseCommand(String command) {

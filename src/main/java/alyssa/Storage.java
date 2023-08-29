@@ -1,3 +1,5 @@
+package alyssa;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -8,9 +10,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import Exceptions.AlyssaArgumentException;
-import Exceptions.AlyssaException;
-
+import alyssa.Exceptions.AlyssaArgumentException;
+import alyssa.Exceptions.AlyssaException;
 /**
  * This class deals with loading tasks from ./data/alyssa.txt and saving tasks in one file.
  */
@@ -20,7 +21,7 @@ public class Storage {
     protected File saveFile;
     private Parser parser;
     /**
-     * Constructor method for the Storage class.
+     * Constructor method for the alyssa.Storage class.
      * @param filePath The relative path of alyssa.txt.
      */
     public Storage(String filePath, String dirPath) {

@@ -1,3 +1,5 @@
+package alyssa;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
@@ -8,7 +10,7 @@ public class Deadline extends Task {
     protected LocalDate by;
 
     /**
-     * Deadline constructor method.
+     * alyssa.Deadline constructor method.
      * @param description A description for the deadline task.
      * @param by When the deadline should be completed by.
      */
