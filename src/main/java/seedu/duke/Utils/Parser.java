@@ -1,14 +1,14 @@
-package Duke.Utils;
+package seedu.duke.Utils;
 
-import Duke.Exceptions.EmptyDescriptionException;
-import Duke.Exceptions.TaskException;
-import Duke.Exceptions.NotIntegerException;
-import Duke.Exceptions.InvalidCommandException;
-import Duke.Exceptions.MissingKeywordException;
-import Duke.Tasks.Deadline;
-import Duke.Tasks.Task;
-import Duke.Tasks.Todo;
-import Duke.Tasks.Event;
+import seedu.duke.Exceptions.EmptyDescriptionException;
+import seedu.duke.Exceptions.TaskException;
+import seedu.duke.Exceptions.NotIntegerException;
+import seedu.duke.Exceptions.InvalidCommandException;
+import seedu.duke.Exceptions.MissingKeywordException;
+import seedu.duke.Tasks.Deadline;
+import seedu.duke.Tasks.Task;
+import seedu.duke.Tasks.Todo;
+import seedu.duke.Tasks.Event;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;

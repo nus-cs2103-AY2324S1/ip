@@ -1,8 +1,8 @@
-package Duke;
+package seedu.duke;
 
-import Duke.Utils.Parser;
-import Duke.Utils.Storage;
-import Duke.Utils.TaskList;
+import seedu.duke.Utils.Parser;
+import seedu.duke.Utils.Storage;
+import seedu.duke.Utils.TaskList;
 
 import java.io.IOException;
 

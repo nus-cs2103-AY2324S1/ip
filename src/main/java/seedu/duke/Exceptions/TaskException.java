@@ -1,4 +1,4 @@
-package Duke.Exceptions;
+package seedu.duke.Exceptions;
 
 public class TaskException extends Exception {
     public TaskException(String message) {

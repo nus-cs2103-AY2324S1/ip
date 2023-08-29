@@ -1,6 +1,6 @@
-package Duke;
+package seedu.duke;
 
-import Duke.Tasks.Task;
+import seedu.duke.Tasks.Task;
 
 import java.util.List;
 import java.util.Scanner;

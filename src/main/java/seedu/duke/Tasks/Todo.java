@@ -1,16 +1,13 @@
-package Duke.Tasks;
-
-import Duke.Tasks.Task;
+package seedu.duke.Tasks;
 
 public class Todo extends Task {
     public Todo(String description, boolean isMarked) {
-        super(description); // initializes its task
-        super.isMarked = isMarked;
+        super(description, isMarked); // initializes its task
     }
 
     public String writeFormat() {
         int isDone = 0;
-        if (isMarked) {
+        if (super.isMarked()) {
             isDone = 1;
         }
         return "T" + " | " + isDone + " | " + super.description;

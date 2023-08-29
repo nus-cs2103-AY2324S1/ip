@@ -1,4 +1,4 @@
-package Duke.Tasks;
+package seedu.duke.Tasks;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -6,15 +6,14 @@ import java.time.format.DateTimeFormatter;
 public class Event extends Task {
     private LocalDateTime from, to;
     public Event(String description, LocalDateTime from, LocalDateTime to, boolean isMarked) {
-        super(description); // initializes its task
+        super(description, isMarked); // initializes its task
         this.from = from;
         this.to = to;
-        super.isMarked = isMarked;
     }
 
     public String writeFormat() {
         int isDone = 0;
-        if (isMarked) {
+        if (super.isMarked()) {
             isDone = 1;
         }
 //        String formattedDateFrom = from.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));

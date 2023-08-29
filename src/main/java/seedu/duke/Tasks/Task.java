@@ -1,4 +1,4 @@
-package Duke.Tasks;
+package seedu.duke.Tasks;
 
 import java.time.format.DateTimeFormatter;
 
@@ -6,11 +6,11 @@ public abstract class Task {
     public final DateTimeFormatter timeFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
     public String description;
-    public boolean isMarked;
+    private boolean isMarked;
 
-    public Task(String description) {
+    public Task(String description, boolean isMarked) {
         this.description = description;
-        this.isMarked = false;
+        this.isMarked = isMarked;
     }
 
     private String getStatusIcon() {
@@ -18,6 +18,14 @@ public abstract class Task {
     }
 
     abstract public String writeFormat();
+
+    public void mark() {
+        isMarked = !isMarked;
+    }
+
+    public boolean isMarked() {
+        return isMarked;
+    }
 
     @Override
     public String toString() {

@@ -1,4 +1,4 @@
-package Duke.Tasks;
+package seedu.duke.Tasks;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -7,13 +7,12 @@ import java.time.format.DateTimeFormatter;
 public class Deadline extends Task {
     private LocalDateTime byDate;
     public Deadline(String description, LocalDateTime byDate, boolean isMarked) {
-        super(description);
+        super(description, isMarked);
         this.byDate = byDate;
-        super.isMarked = isMarked;
     }
 
     public String writeFormat() {
-        int isDone = isMarked ? 1 : 0;
+        int isDone = super.isMarked() ? 1 : 0;
 //        String formattedDate = byDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
         String formattedDate = byDate.format(super.timeFormat);
         return "D" + " | " + isDone + " | " + super.description + " | " + formattedDate;

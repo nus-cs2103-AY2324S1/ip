@@ -1,4 +1,4 @@
-package Duke.Exceptions;
+package seedu.duke.Exceptions;
 
 public class InvalidCommandException extends Exception {
     public InvalidCommandException() {

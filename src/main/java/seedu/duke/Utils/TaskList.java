@@ -1,11 +1,11 @@
-package Duke.Utils;
+package seedu.duke.Utils;
 
-import Duke.Exceptions.TaskException;
-import Duke.Ui;
+import seedu.duke.Exceptions.TaskException;
+import seedu.duke.Ui;
 
-import Duke.Tasks.Task;
-import Duke.Tasks.Deadline;
-import Duke.Tasks.Event;
+import seedu.duke.Tasks.Task;
+import seedu.duke.Tasks.Deadline;
+import seedu.duke.Tasks.Event;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -51,9 +51,10 @@ public class TaskList {
             throw new TaskException("Invalid task index. Valid indexes from 1 to " + taskList.size());
         }
         Task taskToMark = taskList.get(i - 1);
-        boolean beforeMarking = taskToMark.isMarked;
-        if (!taskToMark.isMarked) {
-            taskToMark.isMarked = true;
+        boolean beforeMarking = taskToMark.isMarked();
+        if (!taskToMark.isMarked()) {
+            taskToMark.mark();
+//            taskToMark.isMarked = true;
         }
         ui.printMarkTask(taskToMark, beforeMarking);
     }
@@ -63,9 +64,10 @@ public class TaskList {
             throw new TaskException("Invalid task index. Valid indexes from 1 to " + taskList.size());
         }
         Task taskToMark = taskList.get(i - 1);
-        boolean beforeMarking = taskToMark.isMarked;
-        if (taskToMark.isMarked) {
-            taskToMark.isMarked = false;
+        boolean beforeMarking = taskToMark.isMarked();
+        if (taskToMark.isMarked()) {
+//            taskToMark.isMarked = false;
+            taskToMark.mark();
         }
         ui.printUnMarkTask(taskToMark, beforeMarking);
     }
