@@ -1,6 +1,8 @@
+package tasks;
+
 public class Task {
-    protected String desc;
-    protected boolean isCompleted;
+    private final String desc;
+    private boolean isCompleted;
 
     public Task(String desc) {
         this.desc = desc;
