@@ -43,7 +43,7 @@ public class Storage {
                         break;
                 }
             }
-        } catch (FileNotFoundException _e) {
+        } catch (FileNotFoundException e) {
             createFile(file);
         }
         return tasks;

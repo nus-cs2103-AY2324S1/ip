@@ -10,11 +10,14 @@ abstract public class Task {
         this.isDone = isDone;
     }
 
-    public void markAsDone() {
+    public Task markAsDone() {
         this.isDone = true;
+        return this;
     }
-    public void markAsUndone() {
+
+    public Task markAsUndone() {
         this.isDone = false;
+        return this;
     }
 
     public abstract String encodeTask();
