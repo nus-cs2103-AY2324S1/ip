@@ -51,6 +51,10 @@ public abstract class Task {
         return task;
     }
 
+    public boolean ifDescriptionContains(String keyword) {
+        return this.description.contains(keyword);
+    }
+
     @Override
     public String toString() {
         return String.format("[%s] %s", getStatusIcon(), description);

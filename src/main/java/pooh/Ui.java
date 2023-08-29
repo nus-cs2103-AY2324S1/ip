@@ -54,6 +54,29 @@ public class Ui {
         System.out.println(HORIZONTAL_LINE);
     }
 
+    public static void printKeywordTasksMsg(TaskList taskList) {
+        StringBuilder todoListString = new StringBuilder();
+        for (int i = 0; i < taskList.getSize(); i++) {
+            String task;
+            try {
+                task = String.format("      %d. ", i + 1) + taskList.getTask(i) + "\n";
+            } catch (InvalidTaskException e) {
+                throw new RuntimeException(e);
+            }
+            todoListString.append(task);
+        }
+        System.out.println(HORIZONTAL_LINE);
+        System.out.println("      Here are the matching tasks in your list:");
+        System.out.println(todoListString.toString().stripTrailing());
+        System.out.println(HORIZONTAL_LINE);
+    }
+
+    public static void printNoKeywordTasksFound() {
+        System.out.println(HORIZONTAL_LINE);
+        System.out.println("      No matching tasks found.");
+        System.out.println(HORIZONTAL_LINE);
+    }
+
     public static void taskDoneMsg(Task task) {
         System.out.println(HORIZONTAL_LINE);
         System.out.println("      Nice! I've marked this task as done:\n      " + task);

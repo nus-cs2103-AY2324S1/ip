@@ -1,5 +1,6 @@
 package pooh;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class TaskList {
@@ -63,5 +64,15 @@ public class TaskList {
         String delTaskMessage = String.format("      Noted. I've removed this task:\n          %s\n      Now you have" +
                 " %d tasks in the list", task, taskList.getSize());
         Ui.generalRespond(delTaskMessage);
+    }
+
+    public TaskList getTasksWithKeyword(String keyword) {
+        List<Task> keywordTasks = new ArrayList<Task>();
+        for (Task task : taskList) {
+            if (task.ifDescriptionContains(keyword)) {
+                keywordTasks.add(task);
+            }
+        }
+        return new TaskList(keywordTasks);
     }
 }

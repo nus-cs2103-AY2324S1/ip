@@ -13,7 +13,7 @@ public class Parser {
                 Ui.printTasksMsg(taskList);
             case "bye":
                 Ui.exitMsg();
-                System.exit(1);
+                System.exit(0);
             case "mark":
                 int markIndex = Integer.parseInt(userInput.split(" ")[1]) - 1;
                 Task markTask = taskList.getTask(markIndex);
@@ -38,6 +38,15 @@ public class Parser {
             case "delete":
                 int delIndex = Integer.parseInt(userInput.split(" ")[1]) - 1;
                 TaskList.deleteTask(taskList, delIndex);
+                break;
+            case "find":
+                String keyword = userInput.split(" ")[1];
+                TaskList keywordTaskList = taskList.getTasksWithKeyword(keyword);
+                if (keywordTaskList.getSize() >= 1) {
+                    Ui.printKeywordTasksMsg(keywordTaskList);
+                } else {
+                    Ui.printNoKeywordTasksFound();
+                }
                 break;
             default:
                 throw new UnrecognizedCommandException();
