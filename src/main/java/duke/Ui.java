@@ -1,5 +1,8 @@
 package duke;
 
+/**
+ * This class handles the UI on the terminal.
+ */
 public class Ui {
 
     private static final String LINE_SEPARATOR = "____________________________________________________________";
@@ -11,14 +14,23 @@ public class Ui {
             + "Bye. Hope to see you again soon!\n"
             + LINE_SEPARATOR;
 
+    /**
+     * Prints the introductory message onto the terminal.
+     */
     public void printIntroMsg() {
         System.out.println(GREETING_MESSAGE);
     }
 
+    /**
+     * Prints the outro message onto the terminal.
+     */
     public void printOutroMsg() {
         System.out.println(GOODBYE_MESSAGE);
     }
 
+    /**
+     * Prints the line separators onto the terminal.
+     */
     public void printSeparator() {
         System.out.println(LINE_SEPARATOR);
     }

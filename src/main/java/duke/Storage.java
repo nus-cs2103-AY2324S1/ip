@@ -3,11 +3,20 @@ package duke;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * This class handles the creation, writing, and loading from a txt file.
+ */
 public class Storage {
 
+    /**
+     * This method loads pre-existing tasks from the file by converting text to Task objects,
+     * or creates the file if it does not yet exist.
+     * @param taskList
+     */
     public static void loadTasksFromFile(ArrayList<Task> taskList) {
         try {
             File file = new File("duke.txt");
@@ -32,6 +41,10 @@ public class Storage {
         }
     }
 
+    /**
+     * This method updates the file by converting the Tasks into text.
+     * @param taskList
+     */
     public static void updateTasksFile(ArrayList<Task> taskList) {
         try {
             FileWriter writer = new FileWriter("duke.txt");

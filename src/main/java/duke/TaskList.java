@@ -2,8 +2,15 @@ package duke;
 
 import java.util.ArrayList;
 
+/**
+ * This class handles any actions/commands that are to be done to the Task objects.
+ */
 public class TaskList {
 
+    /**
+     * This method prints out the Tasks that are inside the ArrayList.
+     * @param taskList
+     */
     public static void listTasks(ArrayList<Task> taskList) {
         int count = 1;
         for (Task task : taskList) {
@@ -15,6 +22,12 @@ public class TaskList {
         }
     }
 
+    /**
+     * This method marks the Task at the specified index as done.
+     * @param inputParts
+     * @param taskList
+     * @param markAsDone
+     */
     public static void markTask(String[] inputParts, ArrayList<Task> taskList, boolean markAsDone) {
         int index = Integer.parseInt(inputParts[1]) - 1;
         Task task = taskList.get(index);
@@ -27,6 +40,11 @@ public class TaskList {
         }
     }
 
+    /**
+     * This method deletes the Task at the specified index.
+     * @param inputParts
+     * @param taskList
+     */
     public static void deleteTask(String[] inputParts, ArrayList<Task> taskList) {
         try {
             int index = Integer.parseInt(inputParts[1]) - 1;
@@ -41,6 +59,11 @@ public class TaskList {
         }
     }
 
+    /**
+     * This method adds a Task to the given ArrayList.
+     * @param inputParts
+     * @param taskList
+     */
     public static void addTask(String[] inputParts, ArrayList<Task> taskList) {
         try {
             Task newTask;
