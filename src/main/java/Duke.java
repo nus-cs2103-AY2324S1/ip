@@ -149,12 +149,12 @@ public class Duke {
                         continue;
                     }
 
-                    String[] moreStrings = str.split("/");
-                    String[] pullStrings = moreStrings[0].split(" ", 2);
+                    String[] moreStrings = str.split("/", 2);
+                    String[] getDescription = moreStrings[0].split(" ", 2);
 
-                    String returnBy = moreStrings[1].substring(2);
+                    String returnBy = moreStrings[1].substring(3);
 
-                    Task deadline = new Deadline(pullStrings[1], returnBy);
+                    Task deadline = new Deadline(getDescription[1], returnBy);
                     taskForce.add(deadline);
 
                     System.out.println("Got it. I've added this task:");
