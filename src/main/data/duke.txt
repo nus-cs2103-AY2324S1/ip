@@ -1,5 +1,6 @@
 T | 1 | read book
-D | 0 | return book | June 6th
-E | 0 | project meeting | Aug 6th 2pm | Aug 6th 6pm
+D | 0 | return book | 06-03-2007 13:44
+E | 0 | project meeting | 06-03-2007 13:44 | 06-03-2007 13:45
 T | 1 | join sports club
 T | 0 | hello
+D | 0 | hello | 06-03-2007 13:44

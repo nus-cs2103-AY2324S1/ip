@@ -1,19 +1,23 @@
+import java.time.LocalDateTime;
+
 public class Event extends Task {
-    private final String to;
-    private final String from;
+    private LocalDateTime to;
+    private LocalDateTime from;
 
     public Event(String name, String from, String to) {
         super(name);
-        this.from = from;
-        this.to = to;
+        this.from = DateParser.convertStringToDateTime(from);
+        this.to = DateParser.convertStringToDateTime(to);
     }
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from:" + this.from + " to: " + this.to + ")";
+        return "[E]" + super.toString() + " (from:" + DateParser.convertDateTimeToString(this.from)
+                + " to: " + DateParser.convertDateTimeToString(this.to) + ")";
     }
 
     public String convertTaskToString() {
-        return "E | " + (super.isDone() ? "1" : "0") + " | " + super.getName() + " | " + this.from + " | " + this.to;
+        return "E | " + (super.isDone() ? "1" : "0") + " | " + super.getName() + " | " + DateParser.convertDateTimeToString(this.from)
+                + " | " + DateParser.convertDateTimeToString(this.to);
     }
 }
