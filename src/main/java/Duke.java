@@ -129,52 +129,52 @@ public class Duke {
         }
 
         switch (command) {
-            case EXIT:
-                Duke.exit();
-                return false;
+        case EXIT:
+            Duke.exit();
+            return false;
 
-            case LIST_TASKS:
-                Duke.list.listTasks();
-                break;
+        case LIST_TASKS:
+            Duke.list.listTasks();
+            break;
 
-            case MARK_TASK:
-                try {
-                    Duke.list.markTaskDone(Integer.parseInt(args));
-                } catch (NumberFormatException e) {
-                    throw new DukeInvalidArgumentException("Stop trolling me bro. Please enter a numeric index.");
-                }
-                break;
+        case MARK_TASK:
+            try {
+                Duke.list.markTaskDone(Integer.parseInt(args));
+            } catch (NumberFormatException e) {
+                throw new DukeInvalidArgumentException("Stop trolling me bro. Please enter a numeric index.");
+            }
+            break;
 
-            case UNMARK_TASK:
-                try {
-                    Duke.list.unmarkTaskDone(Integer.parseInt(args));
-                } catch (NumberFormatException e) {
-                    throw new DukeInvalidArgumentException("Stop trolling me bro. Please enter a numeric index.");
-                }
-                break;
+        case UNMARK_TASK:
+            try {
+                Duke.list.unmarkTaskDone(Integer.parseInt(args));
+            } catch (NumberFormatException e) {
+                throw new DukeInvalidArgumentException("Stop trolling me bro. Please enter a numeric index.");
+            }
+            break;
 
-            case ADD_TODO:
-                Duke.list.addTask(TaskType.TODO, args);
-                break;
+        case ADD_TODO:
+            Duke.list.addTask(TaskType.TODO, args);
+            break;
 
-            case ADD_DEADLINE:
-                Duke.list.addTask(TaskType.DEADLINE, args);
-                break;
+        case ADD_DEADLINE:
+            Duke.list.addTask(TaskType.DEADLINE, args);
+            break;
 
-            case ADD_EVENT:
-                Duke.list.addTask(TaskType.EVENT, args);
-                break;
+        case ADD_EVENT:
+            Duke.list.addTask(TaskType.EVENT, args);
+            break;
 
-            case DELETE_TASK:
-                try {
-                    Duke.list.deleteTask(Integer.parseInt(args));
-                } catch (NumberFormatException e) {
-                    throw new DukeInvalidArgumentException("Stop trolling me bro. Please enter a numeric index.");
-                }
-                break;
+        case DELETE_TASK:
+            try {
+                Duke.list.deleteTask(Integer.parseInt(args));
+            } catch (NumberFormatException e) {
+                throw new DukeInvalidArgumentException("Stop trolling me bro. Please enter a numeric index.");
+            }
+            break;
 
-            default:
-                throw new DukeInvalidCommandException("I'm gonna be honest, no idea what you're saying.");
+        default:
+            throw new DukeInvalidCommandException("I'm gonna be honest, no idea what you're saying.");
         }
 
         return true;
