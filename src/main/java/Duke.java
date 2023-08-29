@@ -70,7 +70,8 @@ public class Duke {
             } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
                 throw new DukeException("☹ OOPS!!! Invalid number");
             }
-        } else if (command.startsWith("todo") || command.startsWith("deadline") || command.startsWith("event")) {
+        } else if (command.startsWith("todo") || command.startsWith("deadline") || command.startsWith("event")
+        || command.startsWith("delete")) {
             if (command.startsWith("todo")) {
                 try {
                     String description = command.substring(5);
@@ -124,8 +125,12 @@ public class Duke {
             } else {
                 throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
             }
-            System.out.println(" I've added this task:" + "\n" + "   " + tasks.get(tasks.size() - 1).toString()
-                    + "\n" + " Now you have " + tasks.size() + " tasks in the list.");
+            if (command.startsWith("delete")) {
+                System.out.println(" Now you have " + tasks.size() + " tasks in the list.");
+            } else {
+                System.out.println(" I've added this task:" + "\n" + "   " + tasks.get(tasks.size() - 1).toString()
+                        + "\n" + " Now you have " + tasks.size() + " tasks in the list.");
+            }
         } else {
             throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
