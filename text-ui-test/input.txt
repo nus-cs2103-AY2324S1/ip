@@ -1,16 +1,22 @@
 todo Todo1
 list
-event Event1 test /by 123 /to 321
+todo
 list
-deadline Deadline1 test /by 123
+event Event1 test /by 2023-08-23 11:30 /to 2023-08-24 23:59
 list
+deadline Deadline1 test /by 2023-08-23 11:30
+list
+deadline /by 2023-08-23 11:30
 deadline Deadline no by
 list
-event Event no by /to 321
 list
-event Event no to /by 12312
+event Event no by /to 2023-08-23 11:30
+list
+event Event no to /by 2023-08-23 11:30
 list
 event Event no both
+list
+event /by 2023-08-23 11:30 /to 2023-08-23 11:30
 list
 mark 0
 list
