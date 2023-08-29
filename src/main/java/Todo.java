@@ -6,7 +6,6 @@ public class Todo extends Tasks {
 
 
 
-
     @Override
     public String toString() {
         if (isMarked) {

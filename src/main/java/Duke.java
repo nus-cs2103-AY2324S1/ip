@@ -1,5 +1,7 @@
+import java.rmi.activation.UnknownObjectException;
 import java.util.Scanner;
 import java.util.ArrayList;
+
 public class Duke {
     public static void main(String[] args) {
         String name = "Johnnythesnake";
@@ -40,65 +42,89 @@ public class Duke {
 
 
             } else if (command.startsWith("todo")) {
-                String description = command.substring(5);
-                Todo todo = new Todo(description, false);
-                System.out.println();
-                tasksList.add(todo);
-                System.out.println("Got it. I've added this task:");
-                System.out.println("  " + todo);
-                System.out.println("Now you have " + tasksList.size() + " tasks in the list");
+                String description = command.substring(4).trim(); // Trim any leading/trailing spaces
 
+                try {
+                    if (description.isEmpty()) {
+                        throw new EmptyTodoException();
+                    }
+
+                    Todo todo = new Todo(description, false);
+                    tasksList.add(todo);
+
+                    System.out.println("Got it. I've added this task:");
+                    System.out.println("  " + todo);
+                    System.out.println("Now you have " + tasksList.size() + " tasks in the list");
+                } catch (EmptyTodoException e) {
+                    System.out.println(e.getMessage());
+                }
             } else if (command.startsWith("deadline")) {
                 // Split the input
-                String descriptionDeadline = command.substring(9).trim(); // Remove "deadline" and leading spaces
-
-                // Find the index of the deadline separator "/"
-                int separatorIndex = descriptionDeadline.indexOf('/');
-
-                if (separatorIndex != -1) { // Ensure the separator exists in the input
-                    // Extract the task description and deadline
-                    String description = descriptionDeadline.substring(0, separatorIndex).trim();
-                    String deadline = descriptionDeadline.substring(separatorIndex + 4).trim();
-
-                    // Create a new Deadline object
-                    Deadline deadlineTask = new Deadline(description, false, deadline);
-                    tasksList.add(deadlineTask);
-
-                    System.out.println("Got it. I've added this deadline:");
-                    System.out.println("  " + deadlineTask);
-                    System.out.println("Now you have " + tasksList.size() + " tasks in the list");
+                String descriptionDeadline = command.substring(8).trim(); // Remove "deadline" and leading spaces
+                if (descriptionDeadline.isEmpty()) {
+                    try {
+                        throw new EmptyDeadlineException();
+                    } catch (EmptyDeadlineException e) {
+                        System.out.println(e.getMessage());
+                    }
                 } else {
-                    System.out.println("Invalid input format for deadline command.");
+                    // Find the index of the deadline separator "/"
+                    int separatorIndex = descriptionDeadline.indexOf('/');
+
+                    if (separatorIndex != -1) { // Ensure the separator exists in the input
+                        // Extract the task description and deadline
+                        String description = descriptionDeadline.substring(0, separatorIndex).trim();
+                        String deadline = descriptionDeadline.substring(separatorIndex + 4).trim();
+
+                        // Create a new Deadline object
+                        Deadline deadlineTask = new Deadline(description, false, deadline);
+                        tasksList.add(deadlineTask);
+
+                        System.out.println("Got it. I've added this deadline:");
+                        System.out.println("  " + deadlineTask);
+                        System.out.println("Now you have " + tasksList.size() + " tasks in the list");
+                    } else {
+                        System.out.println("Invalid input format for deadline command.");
+                    }
                 }
             } else if (command.startsWith("event")) {
                 // split the input
-                String descriptionStartEndTime = command.substring(6).trim(); // Remove "event" and leading spaces
-
-                // Find the indices of the time separators
-                int fromIndex = descriptionStartEndTime.indexOf("/from");
-                int toIndex = descriptionStartEndTime.indexOf("/to");
-
-                if (fromIndex != -1 && toIndex != -1) {
-                    // Extract the task description, startTime, and endTime
-                    String description = descriptionStartEndTime.substring(0, fromIndex).trim();
-                    String startTime = descriptionStartEndTime.substring(fromIndex + 5, toIndex).trim();
-                    String endTime = descriptionStartEndTime.substring(toIndex + 3).trim();
-
-                    // Create a new Event object
-                    Event eventTask = new Event(description, false, startTime, endTime);
-                    tasksList.add(eventTask);
-
-                    // Print confirmation message
-                    System.out.println("Got it. I've added this task:");
-                    System.out.println("  " + eventTask);
-                    System.out.println("Now you have " + tasksList.size() + " tasks in the list");
+                String descriptionStartEndTime = command.substring(5).trim(); // Remove "event" and leading spaces
+                if (descriptionStartEndTime.isEmpty()) {
+                    try {
+                        throw new EmptyEventException();
+                    } catch (EmptyEventException e) {
+                        System.out.println(e.getMessage());
+                    }
                 } else {
-                    System.out.println("Invalid input format for event command.");
+                    // Find the indices of the time separators
+                    int fromIndex = descriptionStartEndTime.indexOf("/from");
+                    int toIndex = descriptionStartEndTime.indexOf("/to");
+
+                    if (fromIndex != -1 && toIndex != -1) {
+                        // Extract the task description, startTime, and endTime
+                        String description = descriptionStartEndTime.substring(0, fromIndex).trim();
+                        String startTime = descriptionStartEndTime.substring(fromIndex + 5, toIndex).trim();
+                        String endTime = descriptionStartEndTime.substring(toIndex + 3).trim();
+
+                        // Create a new Event object
+                        Event eventTask = new Event(description, false, startTime, endTime);
+                        tasksList.add(eventTask);
+
+                        // Print confirmation message
+                        System.out.println("Got it. I've added this task:");
+                        System.out.println("  " + eventTask);
+                        System.out.println("Now you have " + tasksList.size() + " tasks in the list");
+                    } else {
+                        System.out.println("Invalid input format for event command.");
+                    }
                 }
             } else {
-                System.out.println("added: " + command);
-                tasksList.add(new Tasks(command,false));
-
+                try {
+                    throw new UnknownInputException();
+                } catch (UnknownInputException e) {
+                    System.out.println(e.getMessage());
+                }
             }
 
         }
