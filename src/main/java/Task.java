@@ -19,16 +19,6 @@ public abstract class Task {
 
     public void mark(boolean val, boolean isRestoring) {
         this.isDone = val;
-        if (!isRestoring) {
-            System.out.println(line);
-            if (val) {
-                System.out.println("    Nice! I've marked this task as done:");
-            } else {
-                System.out.println("    OK, I've marked this task as not done yet:");
-            }
-            System.out.println("      " + this);
-            System.out.println(line);
-        }
     }
 
     public void save(String filepath) {
