@@ -12,7 +12,7 @@ import cyrus.ui.Ui;
 import java.util.Scanner;
 
 public class Duke {
-  private final static IStorage storage = new FileStorage();
+  private final static IStorage storage = new FileStorage("data/data.json");
   private final static TaskList taskList = new TaskList(storage);
   private final static Parser parser = new Parser();
 

@@ -22,17 +22,21 @@ import java.util.function.Consumer;
 import static java.lang.Boolean.parseBoolean;
 
 public class FileStorage implements IStorage {
-  private static final String DATA_FILE_PATH = "data/data.json";
   private static final Gson gson =
       new GsonBuilder()
           .excludeFieldsWithModifiers(Modifier.TRANSIENT)
           .setPrettyPrinting()
           .registerTypeAdapter(LocalDate.class, new LocalDateAdapter())
           .create();
+  private final String dataFilePath;
+
+  public FileStorage(String dataFilePath) {
+    this.dataFilePath = dataFilePath;
+  }
 
   @Override
   public List<Task> load() {
-    try (BufferedReader br = new BufferedReader(new FileReader(DATA_FILE_PATH))) {
+    try (BufferedReader br = new BufferedReader(new FileReader(dataFilePath))) {
       Type listType = new TypeToken<List<HashMap<String, String>>>() {
       }.getType();
       List<HashMap<String, String>> jsonTasks = gson.fromJson(br, listType);
@@ -85,7 +89,7 @@ public class FileStorage implements IStorage {
 
   @Override
   public void save(List<Task> tasks) {
-    try (BufferedWriter bw = new BufferedWriter(new FileWriter(DATA_FILE_PATH))) {
+    try (BufferedWriter bw = new BufferedWriter(new FileWriter(dataFilePath))) {
       gson.toJson(tasks, bw);
     } catch (IOException e) {
       System.out.println("Failed to save cyrus.tasks to data file");
@@ -94,8 +98,8 @@ public class FileStorage implements IStorage {
   }
 
 
-  private static void createDataFile() {
-    File file = new File(DATA_FILE_PATH);
+  private void createDataFile() {
+    File file = new File(dataFilePath);
     try {
       file.getParentFile().mkdirs();
       file.createNewFile();
@@ -105,7 +109,7 @@ public class FileStorage implements IStorage {
     }
   }
 
-  private static void enforceFields(HashMap<String, String> map) {
+  private void enforceFields(HashMap<String, String> map) {
     String[] mandatoryKeys = {"type", "status", "name"};
     Consumer<String[]> checkKeys = (keys) -> {
       for (String key : keys) {
