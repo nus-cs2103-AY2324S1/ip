@@ -1,4 +1,5 @@
 package duke.util;
+<<<<<<< HEAD
 
 import duke.command.Command;
 import duke.command.AddDeadlineCommand;
@@ -9,6 +10,8 @@ import duke.command.AddTodoCommand;
 import duke.command.ListCommand;
 import duke.command.MarkCommand;
 import duke.command.UnmarkCommand;
+import duke.command.FindCommand;
+
 import duke.exception.DukeException;
 import duke.exception.EmptyTaskException;
 import duke.exception.InvalidDateTimeException;
@@ -89,6 +92,8 @@ public class Parser {
                 throw new EmptyTaskException(TaskType.EVENT, "to");
             }
             return new AddEventCommand(argument, DateParser.transformDateTimeFormat(from), DateParser.transformDateTimeFormat(to));
+        case "find":
+            return new FindCommand(argument);
         default:
             throw new DukeException();
         }
