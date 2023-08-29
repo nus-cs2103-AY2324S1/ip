@@ -1,5 +1,3 @@
-package peko;
-
 import java.io.FileNotFoundException;
 
 public class TaskHandler {
@@ -37,10 +35,13 @@ public class TaskHandler {
         System.out.println(lineBreak);
     }
     private void unmark(String s) {
-        int i = Integer.parseInt(s);
-        StorageHandler.setUnmarkArray(i);
+        try {
+            int i = Integer.parseInt(s);
+            StorageHandler.setUnmarkArray(i);
+        } catch (NumberFormatException e) {
+            System.out.println("That's not a number Bakatare!");
+        }
         System.out.println(lineBreak);
-
     }
     private void todo(String s) throws InvalidTaskException{
         Task t = new ToDos(description);

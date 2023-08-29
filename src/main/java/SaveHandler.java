@@ -1,6 +1,5 @@
-package peko;
-
 import java.io.*;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class SaveHandler {
@@ -53,6 +52,7 @@ public class SaveHandler {
     }
 
     public static Task[] loadFrom() {
+
         try {
             int pos = 0;
             Scanner scanner = new Scanner(file.getAbsoluteFile());
