@@ -23,6 +23,8 @@ public class Parser {
             return Commands.DEADLINE;
         } else if (input.startsWith("event")) {
             return Commands.EVENT;
+        } else if (input.startsWith("find")) {
+            return Commands.FIND;
         }
         return Commands.DEFAULT;
     }
@@ -170,5 +172,19 @@ public class Parser {
         }
 
         return new Event(input.substring(6, fromIndex - 1), from, to);
+    }
+
+    public String find(String input) throws DukeException {
+        if (input.length() == 4) {
+            throw new DukeException(Ui.i5 + "☹ OOPS!!! Please specify a task to find.");
+        }
+        if (input.charAt(4) != ' ') {
+            throw new DukeException(Ui.i5 + "☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+        }
+        if (input.length() == 5) {
+            throw new DukeException(Ui.i5 + "☹ OOPS!!! Please specify a task to find.");
+        }
+        String toFind = input.substring(5);
+        return toFind;
     }
 }

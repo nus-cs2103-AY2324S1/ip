@@ -67,4 +67,8 @@ public class Ui {
     public Task event() throws DukeException {
         return this.parser.event(this.input);
     }
+
+    public String find() throws DukeException {
+        return this.parser.find(this.input);
+    }
 }

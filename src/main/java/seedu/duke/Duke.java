@@ -64,6 +64,10 @@ public class Duke {
             case EVENT:
                 task = this.ui.event();
                 break;
+            case FIND:
+                String toFind = this.ui.find();
+                this.taskList.find(toFind);
+                break;
             default:
                 throw new DukeException(Ui.i5 + "☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
             }

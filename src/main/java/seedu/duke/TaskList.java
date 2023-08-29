@@ -56,4 +56,15 @@ public class TaskList {
         System.out.println(Ui.i5 + "Now you have " + this.list.size() + " tasks in the list.");
         this.storage.updateHardDisk(this.list);
     }
+
+    public void find(String toFind) {
+        System.out.println(Ui.i5 + "Here are the matching tasks in your list:");
+        for (int i = 0, j = 0; j < this.list.size(); j++) {
+            String currInput = this.list.get(j).toString();
+            if (!currInput.contains(toFind)) {
+                continue;
+            }
+            System.out.println(Ui.i5 + (++i) + "." + currInput);
+        }
+    }
 }
