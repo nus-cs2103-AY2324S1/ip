@@ -1,8 +1,8 @@
-import java.io.FileNotFoundException;
+package java.cammands;
+
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.io.File;
 
 /**
  * The Command Class encapsulates the functions to check the input string with the available commands.
