@@ -1,5 +1,6 @@
 package duke.task;
 
+import duke.enums.TaskType;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
@@ -20,7 +21,7 @@ public class DeadlineTask extends Task {
 
     @Override
     public String getFileDescriptor() {
-        return super.getFileDescriptor() + String.format("| %s | %s", this.by.toString(), "DEADLINE");
+        return super.getFileDescriptor() + String.format("| %s | %s", this.by.toString(), TaskType.DEADLINE);
     }
 
     /**
