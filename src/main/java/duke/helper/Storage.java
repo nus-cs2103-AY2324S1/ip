@@ -76,7 +76,7 @@ public class Storage {
         String folderpath = "src/main/data";
         File folder = new File(folderpath);
         File file = new File(filePath);
-        folder.mkdir();
+        folder.mkdirs();
         file.createNewFile();
         System.out.println("Meow gotchu! Making local storage to remember your taskzz!");
 

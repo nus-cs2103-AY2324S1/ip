@@ -1,4 +1,5 @@
 package duke;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -20,11 +21,10 @@ public class MeowBot {
         this.filename = file;
         try {
             this.tasks = new TaskList(storage.load());
-        } catch (FileNotFoundException e) {
-//            System.out.println("Meow?? I cant find your data");
+        } catch (IOException e) {
            System.out.println("Meow???? I cant find your data");
            storage.createNewFile();
-
+           this.tasks = new TaskList(storage.load());
         } catch (DukeException e) {
             ui.showLoadingError();
             throw new DukeException("Meow???? I cannot write to your files :(");
@@ -48,7 +48,7 @@ public class MeowBot {
         ui.bye();
     }
 
-    public static void main(String[] args) throws DukeException, IOException {
+    public static void main(String[] args) throws DukeException, IOException{
         new MeowBot("src/main/data/meowbot.txt").run();
     }
 
