@@ -1,15 +1,21 @@
-import java.util.ArrayList;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.Objects;
 import java.util.Scanner;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class Ben {
-    private static final String HORIZONTAL_LINE = "------------------------------------------";
+    public static final String HORIZONTAL_LINE = "------------------------------------------";
     private boolean isActive = true;
     private final Scanner user = new Scanner(System.in);
-    private ArrayList<Task> tasks = new ArrayList<Task>();
+    private final TaskList tasks = new TaskList();
+    private final File f;
+
+    public Ben(String filePath) {
+        f = new File(filePath);
+    }
 
     public void greeting() {
         System.out.println(HORIZONTAL_LINE + "\nWhat's up! I'm Ben\nWhat can I do for you?\n" + HORIZONTAL_LINE);
@@ -19,12 +25,34 @@ public class Ben {
         System.out.println(HORIZONTAL_LINE + "\nBye. For now\n" + HORIZONTAL_LINE);
     }
 
-    public void addSuccessMessage(Task task) {
-        System.out.println(HORIZONTAL_LINE + "\nGot It! This task has been added:\n" + task +
-                "\nNow you have " + tasks.size() + " items in the list\n" + HORIZONTAL_LINE);
+    public void saveTasks(File f) throws IOException {
+        FileWriter writer = new FileWriter(f);
+        writer.write(tasks.saveTasks());
+        writer.close();
     }
 
-    public void add(String message) {
+    public void loadTasks(File f) throws FileNotFoundException{
+        Scanner s = new Scanner(f);
+        while (s.hasNext()) {
+            String line = s.nextLine();
+            String[] words = line.split("[|]");
+            String command = words[0];
+
+            switch (command.toLowerCase()) {
+                case "t":
+                    tasks.add(new ToDos(words[2], Boolean.parseBoolean(words[1])), false);
+                    break;
+                case "d":
+                    tasks.add(new Deadlines(words[2], Boolean.parseBoolean(words[1]), words[3]), false);
+                    break;
+                case "e":
+                    tasks.add(new Events(words[2], Boolean.parseBoolean(words[1]), words[3], words[4]), false);
+                    break;
+            }
+        }
+
+    }
+    public void parser(String message) {
         String[] words = message.split("\\s+");
         Task task;
         try {
@@ -34,9 +62,8 @@ public class Ben {
                     throw new EmptyDescriptionException("Description cannot be empty");
                 }
 
-                task = new ToDos(description);
-                tasks.add(task);
-                addSuccessMessage(task);
+                task = new ToDos(description, false);
+                tasks.add(task, true);
                 return;
 
             } else if (words[0].toLowerCase().contains("deadline")) {
@@ -63,10 +90,8 @@ public class Ben {
                     throw new EmptyDescriptionException("/by cannot be empty");
                 }
 
-                task = new Deadlines(description, by);
-                tasks.add(task);
-
-                addSuccessMessage(task);
+                task = new Deadlines(description, false, by);
+                tasks.add(task, true);
                 return;
 
             } else if (words[0].toLowerCase().contains("event")) {
@@ -103,10 +128,8 @@ public class Ben {
                     throw new EmptyDescriptionException("/to cannot be empty");
                 }
 
-                task = new Events(description, from, to);
-                tasks.add(task);
-
-                addSuccessMessage(task);
+                task = new Events(description, false, from, to);
+                tasks.add(task, true);
                 return;
 
             }
@@ -120,80 +143,41 @@ public class Ben {
         isActive = false;
     }
 
-    public void listToString() {
-        String message = "";
-        for (int i = 1; i <= tasks.size(); i++) {
-            message += i + ". " + tasks.get(i - 1).toString() + "\n";
-        }
-        System.out.println(HORIZONTAL_LINE + "\n" + message + HORIZONTAL_LINE);
-    }
-
-    public void mark(Task task) {
-        task.Mark();
-        System.out.println(HORIZONTAL_LINE + "\n" + "Nice! This task is completed\n" + task + "\n" + HORIZONTAL_LINE);
-    }
-
-    public void unmark(Task task) {
-        task.Unmark();
-        System.out.println(HORIZONTAL_LINE + "\n" + "Okay! This task is not completed\n" + task + "\n" + HORIZONTAL_LINE);
-    }
-
-    public void delete(Task task) {
-        tasks.remove(task);
-        System.out.println(HORIZONTAL_LINE + "\n" + "Sure thing! This task has been removed\n" + task +
-                "\nNow you have " + tasks.size() + " tasks left\n" + HORIZONTAL_LINE);
-    }
-
-    public boolean isEditList(String message) {
-        Pattern pattern = Pattern.compile("(unmark|mark|delete)\\s*(-?\\d+)");
-        Matcher matcher = pattern.matcher(message.toLowerCase());
-
-        if (matcher.find()) {
-            // extract command
-            String command = matcher.group(1);
-
-            // extract task number
-            String TaskNumber = matcher.group(2);
-            int num = Integer.parseInt(TaskNumber) - 1;
-
-            // check whether number is valid
-            if (num < 0 || num >= tasks.size()) {
-                System.out.println(HORIZONTAL_LINE + "\n" + "Please input a valid task number" + "\n" + HORIZONTAL_LINE);
-                return true;
-            }
-
-            // if valid, mark or unmark the task
-            if (Objects.equals(command, "mark")) {
-                mark(tasks.get(num));
-            } else if ((Objects.equals(command, "delete"))) {
-                delete(tasks.get(num));
-            } else {
-                unmark(tasks.get(num));
-            }
-            return true;
-        }
-        return false;
-    }
 
     public void run() {
+        // Load tasks from data.txt
+        try {
+            loadTasks(f);
+        } catch (FileNotFoundException e) {
+            System.out.println(e.getMessage());
+        }
+
         greeting();
+
         while (isActive) {
             String message = user.nextLine();
             if (Objects.equals(message.toLowerCase(), "bye")) {
                 deactivate();
             } else if (Objects.equals(message.toLowerCase(), "list")) {
-                listToString();
+                System.out.println(HORIZONTAL_LINE + "\n" + tasks + HORIZONTAL_LINE);
             } else {
-                if (!isEditList(message)) {
-                    add(message);
+                if (!tasks.isEditListCommand(message)) {
+                    parser(message);
                 }
             }
         }
-        bye();
+
+        try {
+            saveTasks(f);
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        } finally {
+            bye();
+        }
     }
 
     public static void main(String[] args) {
-        Ben ben = new Ben();
+        Ben ben = new Ben("src/main/java/data/ben.txt");
         ben.run();
     }
 }

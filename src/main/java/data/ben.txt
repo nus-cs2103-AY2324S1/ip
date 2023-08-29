@@ -1,0 +1,4 @@
+T|true|hello
+T|false|hello3
+E|true|hello4 323|hello|helllw d
+D|true|hello|klk d
