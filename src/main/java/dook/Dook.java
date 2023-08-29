@@ -1,12 +1,19 @@
+package dook;
+
+import dook.command.Command;
+import dook.services.Parser;
+import dook.services.Storage;
+import dook.services.TaskList;
+import dook.services.UiDisplay;
+
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
 public class Dook {
-    public static final String name = "Dook";
     public static final String FILEPATH = "./data/dook.txt";
     private final Storage storage;
     private final Parser parser;
-    private UiDisplay uiDisplay = new UiDisplay();
+    private final UiDisplay uiDisplay;
 
     public TaskList taskList = new TaskList(null);
 
@@ -23,11 +30,10 @@ public class Dook {
     private void run() {
         uiDisplay.greetUser();
         readSavedList();
-        Scanner sc = new Scanner(System.in);
-        String input;
+
         boolean isExit = false;
         while (!isExit) {
-            input = sc.nextLine();
+            String input = uiDisplay.readCommand();
             try {
                 Command c = parser.parseFullInput(input);
                 c.execute(storage, uiDisplay, taskList);

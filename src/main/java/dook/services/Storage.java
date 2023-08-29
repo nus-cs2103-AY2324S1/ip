@@ -1,3 +1,11 @@
+package dook.services;
+
+import dook.DookException;
+import dook.task.Deadline;
+import dook.task.Event;
+import dook.task.Task;
+import dook.task.Todo;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -26,7 +34,7 @@ public class Storage {
      * @return A list of saved tasks.
      * @throws FileNotFoundException, DookException
      */
-    public ArrayList<Task> load() throws FileNotFoundException, DookException{
+    public ArrayList<Task> load() throws FileNotFoundException, DookException {
 
         Scanner sc = new Scanner(file);
         ArrayList<Task> result = new ArrayList<>();
@@ -54,7 +62,7 @@ public class Storage {
     }
 
     /**
-     * Parses plaintext and converts it into a Task.
+     * Parses plaintext and converts it into a dook.task.Task.
      *
      * @param str
      * @return The converted Task.

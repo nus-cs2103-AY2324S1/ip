@@ -1,6 +1,20 @@
+package dook.services;
+
+import dook.command.CommandInfo;
+
+import java.util.Scanner;
+
 public class UiDisplay {
+    private final Scanner sc;
+
+    public UiDisplay() {
+        this.sc = new Scanner(System.in);
+    }
+    public String readCommand() {
+        return sc.nextLine();
+    }
     public void greetUser() {
-        printMessage(String.format("Dook here.\nWhat can I do for you?"));
+        printMessage("Dook here.\nWhat can I do for you?");
     }
     public void printMessage(String msg) {
         printDivider();
