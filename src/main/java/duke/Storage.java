@@ -12,6 +12,8 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -67,13 +69,27 @@ public class Storage {
                     if (line.startsWith("D")) {
                         String[] inputs = line.split(" \\| ", 4);
                         boolean isDone = inputs[1].equals("1");
-                        Deadline deadline = new Deadline(inputs[2], isDone, inputs[3]);
+                        LocalDate b;
+                        try {
+                            b = DateParserService.parseDate(inputs[3]);
+                        } catch (DateTimeParseException e) {
+                            throw new DukeException("Invalid date format");
+                        }
+                        Deadline deadline = new Deadline(inputs[2], isDone, b);
                         dukeList.add(deadline);
                     }
                     if (line.startsWith("E")) {
                         String[] inputs = line.split(" \\| ", 5);
                         boolean isDone = inputs[1].equals("1");
-                        Event event = new Event(inputs[2], isDone, inputs[3], inputs[4]);
+                        LocalDate f;
+                        LocalDate t;
+                        try {
+                            f = DateParserService.parseDate(inputs[3]);
+                            t = DateParserService.parseDate(inputs[4]);
+                        } catch (DateTimeParseException e) {
+                            throw new DukeException("Invalid date format");
+                        }
+                        Event event = new Event(inputs[2], isDone, f, t);
                         dukeList.add(event);
                     }
                 }

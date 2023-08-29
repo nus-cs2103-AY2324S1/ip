@@ -1,10 +1,14 @@
 package duke.command;
 
+import duke.DateParserService;
 import duke.DukeList;
 import duke.Storage;
 import duke.Ui;
 import duke.exceptions.DukeException;
 import duke.task.Deadline;
+
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 
 /**
  * The AddDeadlineCommand class represents a command to add a new Deadline task to the list.
@@ -33,9 +37,13 @@ public class AddDeadlineCommand extends Command {
         Deadline deadline;
         try {
             String[] by = inputs[1].split("/by", 2);
-            deadline = new Deadline(by[0], by[1]);
-        } catch (ArrayIndexOutOfBoundsException e) {
-            throw new DukeException("Invalid Deadline format");
+            LocalDate b = DateParserService.parseDate(by[1]);
+            deadline = new Deadline(by[0], b);
+        } catch (ArrayIndexOutOfBoundsException | DateTimeParseException e) {
+            if (e instanceof ArrayIndexOutOfBoundsException) {
+                throw new DukeException("Invalid Deadline format");
+            }
+            throw new DukeException("Invalid date format");
         }
         tasks.add(deadline);
         ui.addToList(deadline, tasks.getSize());

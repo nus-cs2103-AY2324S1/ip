@@ -1,10 +1,14 @@
 package duke.command;
 
+import duke.DateParserService;
 import duke.DukeList;
 import duke.Storage;
 import duke.Ui;
 import duke.exceptions.DukeException;
 import duke.task.Event;
+
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 
 /**
  * The AddEventCommand class represents a command to add a new Event task to the list.
@@ -34,9 +38,14 @@ public class AddEventCommand extends Command{
         try {
             String[] from = inputs[1].split("/from", 2);
             String[] to = from[1].split("/to", 2);
-            event = new Event(from[0], to[0], to[1]);
-        } catch (ArrayIndexOutOfBoundsException e) {
-            throw new DukeException("Invalid Event format");
+            LocalDate f = DateParserService.parseDate(to[0]);
+            LocalDate t = DateParserService.parseDate(to[1]);
+            event = new Event(from[0], f, t);
+        } catch (ArrayIndexOutOfBoundsException | DateTimeParseException e) {
+            if (e instanceof ArrayIndexOutOfBoundsException) {
+                throw new DukeException("Invalid Event format");
+            }
+            throw new DukeException("Invalid date format");
         }
         tasks.add(event);
         ui.addToList(event, tasks.getSize());

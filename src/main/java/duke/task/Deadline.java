@@ -1,5 +1,9 @@
 package duke.task;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
+
 /**
  * The Deadline class represents a task with a specific due date.
  * It inherits from the Task class and adds a due date field.
@@ -8,7 +12,7 @@ public class Deadline extends Task {
     /**
      * The due date of the task.
      */
-    private final String by;
+    private final LocalDate by;
 
     /**
      * Constructs a new Deadline object with the specified description, completion status, and due date.
@@ -17,7 +21,7 @@ public class Deadline extends Task {
      * @param isDone      The completion status of the Deadline task.
      * @param deadline    The due date of the task.
      */
-    public Deadline(String description, boolean isDone, String deadline) {
+    public Deadline(String description, boolean isDone, LocalDate deadline) {
         super(description, isDone);
         this.by = deadline;
     }
@@ -29,7 +33,7 @@ public class Deadline extends Task {
      * @param description The description of the Deadline task.
      * @param deadline    The due date of the task.
      */
-    public Deadline(String description, String deadline) {
+    public Deadline(String description, LocalDate deadline) {
         super(description);
         this.by = deadline;
     }
@@ -41,7 +45,8 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        return "[D] " + super.toString() + " (by: " + this.by + ")";
+        String b = this.by.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG));
+        return "[D] " + super.toString() + " (by: " + b + ")";
     }
 
     /**
