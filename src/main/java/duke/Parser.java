@@ -42,6 +42,9 @@ public class Parser {
         case "list":
             Duke.listTasks();
             return "list";
+        case "find":
+            parseFilter(userInput);
+            return "find";
         case "mark":
             parseMark(userInput, taskListSize);
             return "mark";
@@ -63,6 +66,15 @@ public class Parser {
         default:
             throw new UnknownCommandException();
         }
+    }
+
+    private static void parseFilter(String userInput)
+            throws DukeException {
+        String restOfInput = userInput.trim().substring(4).trim();
+        if (restOfInput.equals("")) {
+            throw new DukeException("No keyword was provided, please enter again.");
+        }
+        Duke.listFilteredTasks(restOfInput);
     }
 
     private static void parseMark(String userInput, int taskListSize)

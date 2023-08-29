@@ -149,10 +149,36 @@ public class TaskList {
     }
 
     /**
+<<<<<<< HEAD
      * Returns string representation of task list.
      *
      * @return String representation of task list.
      */
+=======
+     * Returns list of tasks containing given keyword.
+     *
+     * @param keyword Keyword for searching.
+     * @return List of tasks containing given keyword.
+     */
+    public String getMatchingTasks(String keyword) {
+        ArrayList<Task> filteredTasks = new ArrayList<>();
+        for (Task task : this.tasks) {
+            if (task.desc.contains(keyword)) {
+                filteredTasks.add(task);
+            }
+        }
+        if (filteredTasks.size() == 0) {
+            return "No task matches the given keyword.";
+        }
+
+        StringBuilder str = new StringBuilder("Here are the matching tasks in your list:\n");
+        for (int i = 1; i <= filteredTasks.size(); i++) {
+            str.append(i + ". " + filteredTasks.get(i-1).toString() + "\n");
+        }
+        return str.toString();
+    }
+
+>>>>>>> branch-Level-9
     @Override
     public String toString() {
         StringBuilder str = new StringBuilder();
