@@ -12,4 +12,8 @@ public class Todo extends Task {
     public String toString() {
         return "[T][" + (this.isDone() ? 'X' : ' ') + "] " + this.name;
     }
+
+    String formatTaskForSaving() {
+        return this.toString();
+    }
 }

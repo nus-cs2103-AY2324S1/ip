@@ -260,8 +260,7 @@ public class TaskMate {
     }
 
     static void writeToFile(String filePath, String text) throws IOException {
-        File f = new File(filePath);
-        FileWriter fw = new FileWriter(filePath, f.exists());
+        FileWriter fw = new FileWriter(filePath);
         fw.write(text);
         fw.close();
     }
@@ -277,7 +276,7 @@ public class TaskMate {
             unprocessedTasks = readFromFile(saveTaskFilePath);
         } catch (IOException e) {
             System.out.println("Saved task file not found.");
-            System.exit(0);
+            return;
         }
 
         String[] lines = unprocessedTasks.split("\\n");
@@ -287,7 +286,7 @@ public class TaskMate {
             taskIsDone = line.substring(4,5);
 
             if (taskType.equals("T")) {
-                // Todo task
+                // To-do task
                 name = line.substring(7);
                 new Todo(name);
             } else if (taskType.equals("D")) {

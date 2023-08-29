@@ -55,11 +55,14 @@ public abstract class Task {
     static String formatAllTasksForSaving() {
         String returnString = "";
         for (Task t : getAllTasks()) {
-            returnString += t.toString();
+            returnString += t.formatTaskForSaving();
             returnString += "\n";
         }
         return returnString;
     }
+
+    abstract String formatTaskForSaving();
+    // String format to save the task to disk
 
 
 

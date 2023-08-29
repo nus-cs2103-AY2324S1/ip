@@ -14,12 +14,20 @@ public class Deadline extends Task {
         return "Deadline";
     }
 
-    String getBy() {
+    String getByFormatted() {
         return this.by.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
+    }
+
+    String getBy() {
+        return this.by.toString();
     }
 
     @Override
     public String toString() {
+        return "[D][" + (this.isDone() ? 'X' : ' ') + "] " + this.name + " (by: " + this.getByFormatted() + ")";
+    }
+
+    String formatTaskForSaving() {
         return "[D][" + (this.isDone() ? 'X' : ' ') + "] " + this.name + " (by: " + this.getBy() + ")";
     }
 
