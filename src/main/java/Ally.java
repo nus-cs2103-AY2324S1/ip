@@ -1,4 +1,9 @@
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Scanner;
+import java.io.File;
+import java.io.FileWriter;
 public class Ally {
 
     private static final String line = "____________________________________________________________";
@@ -31,9 +36,15 @@ public class Ally {
 //                + "| |_| | |_| |   <  __/\n"
 //                + "|____/ \\__,_|_|\\_\\___|\n";
         
-
+        String filePath = "./data/ally.txt";
         Scanner scanner = new Scanner(System.in);
         AllyList ally = new AllyList();
+        ArrayList<Task> tasks;
+        try {
+            tasks = readData(filePath);
+        } catch (FileNotFoundException e) {
+            tasks = new ArrayList<>();
+        }
         start();
         String ipt;
         while(true) {
@@ -117,5 +128,66 @@ public class Ally {
         scanner.close();
 
 
+    }
+    public static Task constructTaskFromFile(String line) {
+        String type = line.substring(1, 2);
+        String doneString = line.substring(4, 5);
+        String text = line.substring(7);
+
+        String description;
+        Task newTask = new Task("");
+
+        switch (type) {
+            case "T":
+                description = text;
+                newTask = new Todo(text);
+                break;
+
+            case "D":
+                int OpenBracketIndex = text.indexOf("(by: ");
+                description = text.substring(0, OpenBracketIndex - 1);
+                String by = text.substring(OpenBracketIndex + 5, text.length() - 1);
+                newTask = new Deadline(description, by);
+                break;
+
+            case "E":
+                int fromIndex = text.indexOf("(from: ");
+                int toIndex = text.indexOf("to: ");
+
+                description = text.substring(0, fromIndex - 1);
+                String from = text.substring(fromIndex + 7, toIndex - 1);
+                String to = text.substring(toIndex + 4, text.length() - 1);
+                newTask = new Event(description, from, to);
+                break;
+        }
+
+        boolean done = doneString.equals("X");
+        newTask.setMarked();
+        return newTask;
+    }
+        public static ArrayList<Task> readData(String filePath) throws FileNotFoundException {
+            File f = new File(filePath);
+            Scanner s = new Scanner(f);
+            ArrayList<Task> tasks = new ArrayList<>();
+            while (s.hasNext()) {
+                String line = s.nextLine();
+                tasks.add(constructTaskFromFile(line));
+            }
+            return tasks;
+        }
+    public static void writeToFile(ArrayList<Task> tasks, String filepath) throws IOException {
+        File file = new File(filepath);
+        System.out.println(System.getProperty("user.dir"));
+        if (!file.getParentFile().exists()) {
+            System.out.println("FILE does not exists");
+            file.getParentFile().mkdir();
+        }
+
+        FileWriter fileWriter = new FileWriter(filepath);
+        for (Task task : tasks) {
+            String line = task.toString() + "\n";
+            fileWriter.write(line);
+        }
+        fileWriter.close();
     }
 }
