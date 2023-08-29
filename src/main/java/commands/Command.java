@@ -33,7 +33,7 @@ public abstract class Command {
 
     /**
      * Returns true if command is terminal.
-     * @return
+     * @return isExit
      */
     public boolean isExit() {
         return this.isExit;
@@ -48,7 +48,7 @@ public abstract class Command {
 
     /**
      * Returns the command.
-     * @return
+     * @return fullCommand
      */
     public String getCommand() {
         return this.fullCommand;

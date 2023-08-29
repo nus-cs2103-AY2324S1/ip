@@ -1,4 +1,5 @@
 package io;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -13,13 +14,26 @@ import tasks.Task;
 import tasks.TaskList;
 import tasks.TodoTask;
 
+/**
+ * Represents a storage object that handles the saving and loading of tasks.
+ */
 public class Storage {
+    /** The filepath to load and save the file */
     private String FILEPATH = "data/tasks.txt";
 
+    /**
+     * Constructor for Storage.
+     * @param filePath
+     */
     public Storage(String filePath) {
         this.FILEPATH = filePath;
     }
 
+    /**
+     * Loads the tasks from the file.
+     * @return ArrayList<Task> The list of tasks
+     * @throws DukeException
+     */
     public ArrayList<Task> load() throws DukeException {
         ArrayList<Task> userTasks = new ArrayList<Task>();
         String fileString = "";
@@ -60,11 +74,21 @@ public class Storage {
         return userTasks;
     }
 
+    /**
+     * Loads the tasks from the file and sets it to the taskList.
+     * @param taskList
+     * @throws DukeException
+     */
     public void load(TaskList taskList) throws DukeException {
         ArrayList<Task> userTasks = this.load();
         taskList.setTasks(userTasks);
     }
 
+    /**
+     * Saves the tasks to the file.
+     * @param taskList
+     * @throws DukeException
+     */
     public void save(TaskList taskList) throws DukeException {
         try {
             File file = new File(FILEPATH);

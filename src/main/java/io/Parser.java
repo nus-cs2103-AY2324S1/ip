@@ -1,4 +1,5 @@
 package io;
+
 import commands.AddCommand;
 import commands.Command;
 import commands.DeleteCommand;
@@ -11,13 +12,16 @@ import commands.SaveCommand;
 import commands.ScheduleCommand;
 import commands.UnmarkCommand;
 
+/**
+ * Represents a parser that parses the user input.
+ */
 public class Parser {
-    private Command command;
 
-    public Parser(Command command) {
-        this.command = command;
-    }
-
+    /**
+     * Parses the user input and returns the corresponding command.
+     * @param fullCommand
+     * @return Command
+     */
     public static Command parse(String fullCommand) {
         String[] commandArray = fullCommand.split(" ");
         String commandType = commandArray[0];
