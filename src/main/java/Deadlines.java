@@ -10,6 +10,11 @@ public class Deadlines extends Task {
     }
 
     @Override
+    public String getSavingFormat() {
+        return "[D] | [" + getStatusIcon() + "] | " + description + " | " + date;
+    }
+
+    @Override
     public String toString() {
         return "[D][" + getStatusIcon() + "] " + description + " (by: " + date + ")";
     }
