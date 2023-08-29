@@ -7,7 +7,8 @@ public enum Commands {
     UNMARK,
     TODO,
     EVENT,
-    DEADLINE
+    DEADLINE,
+    DELETE
 }
 
 //public static ArrayList
