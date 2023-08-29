@@ -1,7 +1,7 @@
 package services.tasklist;
 
 import command.CommandType;
-import services.Format;
+import services.Ui;
 import services.bizerrors.EmptyArgumentException;
 import services.bizerrors.IndexOutOfRangeException;
 import services.bizerrors.JarvisException;
@@ -56,7 +56,7 @@ public class ListManager {
         } catch (IOException e) {
             throw new JarvisException("Error adding task to repository." + e);
         }
-        Format.print("added: " + newTask + "\n" + taskCount + " more tasks to do, Sir.");
+        Ui.print("added: " + newTask + "\n" + taskCount + " more tasks to do, Sir.");
     }
 
     public static void delete(int taskNumber) throws JarvisException {
@@ -71,7 +71,7 @@ public class ListManager {
         } catch (IOException e) {
             throw new JarvisException("Error deleting task from repository." + e);
         }
-        Format.print("removed: " + deletedTask + "\n" + taskCount + " tasks left, Sir.");
+        Ui.print("removed: " + deletedTask + "\n" + taskCount + " tasks left, Sir.");
     }
 
     public static void markDone(int taskNumber) throws JarvisException {
@@ -85,7 +85,7 @@ public class ListManager {
         } catch (IOException e) {
             throw new JarvisException("Error marking task as done in repository." + e);
         }
-        Format.print("Check.\n\t" + task + "\n" + "Way to go, sir.");
+        Ui.print("Check.\n\t" + task + "\n" + "Way to go, sir.");
     }
 
     public static void markUndone(int taskNumber) throws JarvisException {
@@ -99,12 +99,12 @@ public class ListManager {
         } catch (IOException e) {
             throw new JarvisException("Error marking task as undone in repository." + e);
         }
-        Format.print("As you wish, sir.\n\t" + task);
+        Ui.print("As you wish, sir.\n\t" + task);
     }
 
     public static void show() {
         if (taskCount == 0) {
-            Format.print("Sir, there are no tasks on your calendar.");
+            Ui.print("Sir, there are no tasks on your calendar.");
             return;
         }
         String result = "Sir, there are " + taskCount + " tasks on your calendar:\n";
@@ -112,6 +112,6 @@ public class ListManager {
             result += i + ". " + taskList.get(i - 1) + "\n";
         }
         result += taskCount + ". " + taskList.get(taskCount - 1);
-        Format.print(result);
+        Ui.print(result);
     }
 }

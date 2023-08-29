@@ -1,9 +1,8 @@
 import command.CommandResolver;
-import services.Basics;
+import services.Ui;
 import services.bizerrors.JarvisException;
 import services.tasklist.ListManager;
 
-import java.io.IOException;
 import java.util.Scanner;
 
 public class Jarvis {
@@ -48,7 +47,7 @@ public class Jarvis {
         }
 
         System.out.println(jarvisLogo);
-        Basics.greet();
+        Ui.greet();
 
         String userInput = scanner.nextLine();
 
@@ -61,7 +60,7 @@ public class Jarvis {
             userInput = scanner.nextLine();
         }
 
-        Basics.exit();
+        Ui.exit();
     }
 
 
