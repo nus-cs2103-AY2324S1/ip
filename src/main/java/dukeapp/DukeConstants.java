@@ -1,3 +1,5 @@
+package dukeapp;
+
 /**
  * Stores constants of the application, such as string messages.
  */

@@ -1,3 +1,5 @@
+package dukeapp.tasks;
+
 /**
  * Represents a task containing a description, and the due time.
  */

@@ -1,3 +1,7 @@
+package dukeapp;
+
+import dukeapp.tasks.Task;
+
 import java.util.ArrayList;
 
 /**
@@ -48,7 +52,7 @@ public class DukeState {
     /**
      * Deletes task based on index.
      *
-     * @param index The index of the item to be Delete.
+     * @param index The index of the item to be deleted.
      */
     public void deleteTask(int index) {
         Task task = this.tasks.remove(index);

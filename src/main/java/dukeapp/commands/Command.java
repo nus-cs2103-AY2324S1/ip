@@ -1,3 +1,5 @@
+package dukeapp.commands;
+
 /**
  * Represents a generic command interface with a run method defining the
  * behaviour of the command.

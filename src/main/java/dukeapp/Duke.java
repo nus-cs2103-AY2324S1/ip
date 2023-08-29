@@ -1,7 +1,11 @@
+package dukeapp;
+
+import dukeapp.exceptions.UnknownCommandException;
+
 import java.util.Scanner;
 
 /**
- * Serves as the point to run the application.
+ * Serves as the entry point to run the application.
  */
 public class Duke {
     public static void main(String[] args) {

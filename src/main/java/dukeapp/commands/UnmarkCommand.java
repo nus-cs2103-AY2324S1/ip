@@ -1,3 +1,9 @@
+package dukeapp.commands;
+
+import dukeapp.DukeConstants;
+import dukeapp.DukeState;
+import dukeapp.tasks.Task;
+
 /**
  * Unmarks a task.
  */

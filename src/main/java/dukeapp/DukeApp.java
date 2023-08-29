@@ -1,3 +1,15 @@
+package dukeapp;
+
+import dukeapp.commands.Command;
+import dukeapp.commands.DeleteCommand;
+import dukeapp.commands.ExitCommand;
+import dukeapp.commands.InsertCommand;
+import dukeapp.commands.ListCommand;
+import dukeapp.commands.MarkCommand;
+import dukeapp.commands.UnmarkCommand;
+
+import dukeapp.exceptions.UnknownCommandException;
+
 import java.util.HashMap;
 
 /**
@@ -53,7 +65,8 @@ public class DukeApp {
         if (command != null) {
             command.run(input);
         } else {
-            throw new UnknownCommandException(DukeConstants.UNKNOWN_COMMAND_ERROR_MESSAGE);
+            throw new UnknownCommandException(
+                    DukeConstants.UNKNOWN_COMMAND_ERROR_MESSAGE);
         }
     }
 }

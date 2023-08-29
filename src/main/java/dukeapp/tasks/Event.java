@@ -1,3 +1,5 @@
+package dukeapp.tasks;
+
 /**
  * Represents a task containing the start and end time.
  */

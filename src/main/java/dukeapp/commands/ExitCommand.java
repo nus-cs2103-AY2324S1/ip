@@ -1,3 +1,7 @@
+package dukeapp.commands;
+
+import dukeapp.DukeConstants;
+
 /**
  * Terminates the program.
  */

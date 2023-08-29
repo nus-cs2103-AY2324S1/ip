@@ -1,3 +1,5 @@
+package dukeapp.tasks;
+
 /**
  * Represents a task with a description.
  */

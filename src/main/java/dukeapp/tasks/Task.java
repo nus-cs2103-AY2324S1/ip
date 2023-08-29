@@ -1,3 +1,8 @@
+package dukeapp.tasks;
+
+import dukeapp.DukeConstants;
+import dukeapp.exceptions.InsufficientArgumentsException;
+
 import java.util.Objects;
 
 /**
