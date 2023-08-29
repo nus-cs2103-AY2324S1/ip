@@ -6,8 +6,12 @@ public class UnmarkCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
-        ui.showUndoneMessage(tasks.getTask(taskIndex).markAsUndone());
+    public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeTaskNotFoundException {
+        try {
+            ui.showUndoneMessage(tasks.getTask(taskIndex).markAsUndone());
+        } catch (IndexOutOfBoundsException e) {
+            throw new DukeTaskNotFoundException();
+        }
     }
 
     @Override

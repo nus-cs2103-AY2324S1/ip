@@ -6,8 +6,12 @@ public class MarkCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
-        ui.showDoneMessage(tasks.getTask(taskIndex).markAsDone());
+    public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeTaskNotFoundException {
+        try {
+            ui.showDoneMessage(tasks.getTask(taskIndex).markAsDone());
+        } catch (IndexOutOfBoundsException e) {
+            throw new DukeTaskNotFoundException();
+        }
     }
 
     @Override
