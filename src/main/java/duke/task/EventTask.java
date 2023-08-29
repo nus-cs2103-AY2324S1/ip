@@ -15,17 +15,10 @@ public class EventTask extends Task {
      *
      * @param description of the task.
      */
-    public EventTask(String description, String from, String to) throws DukeException {
+    public EventTask(String description, LocalDate from, LocalDate to) throws DukeException {
         super(description);
-        try {
-
-            // convert date string in the format of yyyy-mm-dd to LocalDate object
-            this.from = LocalDate.parse(from);
-            // convert LocalDate object to MMM dd yyyy format
-            this.to = LocalDate.parse(to);
-        } catch (Exception e) {
-            throw new DukeException("Please enter a valid date in the format: yyyy-mm-dd");
-        }
+        this.from = from;
+        this.to = to;
     }
 
     public String getFrom() {
@@ -34,7 +27,6 @@ public class EventTask extends Task {
     }
 
     public String getTo() {
-
         return this.to.format(DateTimeFormatter.ofPattern(Task.DATE_FORMAT));
     }
 

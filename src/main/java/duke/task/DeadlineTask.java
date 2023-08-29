@@ -15,14 +15,9 @@ public class DeadlineTask extends Task {
      * @param description of the task.
      * @param by          deadline of the task.
      */
-    public DeadlineTask(String description, String by) throws DukeException {
+    public DeadlineTask(String description, LocalDate by) {
         super(description);
-        try {
-
-            this.by = LocalDate.parse(by);
-        } catch (Exception e) {
-            throw new DukeException("Please enter a valid date in the format: yyyy-mm-dd");
-        }
+        this.by = by;
     }
 
     @Override
