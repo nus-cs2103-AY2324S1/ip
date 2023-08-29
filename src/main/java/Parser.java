@@ -13,9 +13,9 @@ public class Parser {
             case "list":
                 return new ListCommand();
             case "mark":
-                return new MarkCommand(Integer.parseInt(splitInput[1]));
+                return new MarkCommand(Integer.parseInt(splitInput[1]) - 1);
             case "unmark":
-                return new UnmarkCommand(Integer.parseInt(splitInput[1]));
+                return new UnmarkCommand(Integer.parseInt(splitInput[1]) - 1);
             case "todo":
 //                if (splitInput.length == 1) {
 //                    ui.showErrorMessage("The description of a todo cannot be empty\n");
@@ -33,7 +33,7 @@ public class Parser {
                         new Event(splitInputFrom[0], LocalDateTime.parse(splitInputTo[0], dateTimeFormat),
                                 LocalDateTime.parse(splitInputTo[1], dateTimeFormat)));
             case "delete":
-                return new DeleteCommand(Integer.parseInt(splitInput[1]));
+                return new DeleteCommand(Integer.parseInt(splitInput[1]) - 1);
             default:
                 return new ExitCommand(); // TODO add exception
 //                ui.showErrorMessage("I'm sorry, but I don't know what that means :-(\n");
