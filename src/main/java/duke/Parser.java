@@ -35,22 +35,24 @@ public class Parser {
         String[] dataArr = data.split(" \\| ");
         Task t;
         switch (dataArr[0]) {
-            case "T":
-                if (dataArr.length != 3) throw new IncompleteDescriptionException();
-                t = new ToDo(dataArr[2]);
-                break;
-            case "D":
-                if (dataArr.length != 4) throw new IncompleteDescriptionException();
-                t = new Deadline(dataArr[2], dataArr[3]);
-                break;
-            case "E" :
-                if (dataArr.length != 5) throw new IncompleteDescriptionException();
-                t = new Event(dataArr[2], dataArr[3], dataArr[4]);
-                break;
-            default:
-                throw new IncompleteDescriptionException();
+        case "T":
+            if (dataArr.length != 3) throw new IncompleteDescriptionException();
+            t = new ToDo(dataArr[2]);
+            break;
+        case "D":
+            if (dataArr.length != 4) throw new IncompleteDescriptionException();
+            t = new Deadline(dataArr[2], dataArr[3]);
+            break;
+        case "E" :
+            if (dataArr.length != 5) throw new IncompleteDescriptionException();
+            t = new Event(dataArr[2], dataArr[3], dataArr[4]);
+            break;
+        default:
+            throw new IncompleteDescriptionException();
         }
-        if (dataArr[1].equals("1")) t.markDone();
+        if (dataArr[1].equals("1")) {
+            t.markDone();
+        }
         return t;
     }
 

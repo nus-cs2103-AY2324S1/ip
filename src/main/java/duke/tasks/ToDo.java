@@ -19,7 +19,9 @@ public class ToDo extends Task {
      * @throws IncompleteDescriptionException If the task name is left blank.
      */
     public static ToDo create(String taskName) throws IncompleteDescriptionException {
-        if (taskName.isBlank()) throw new IncompleteDescriptionException();
+        if (taskName.isBlank()) {
+            throw new IncompleteDescriptionException();
+        }
         return new ToDo(taskName);
     }
 

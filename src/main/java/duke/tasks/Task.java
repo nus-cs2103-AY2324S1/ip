@@ -16,7 +16,9 @@ abstract public class Task {
      * @throws IncompleteDescriptionException If the task name is left blank.
      */
     protected Task(String taskName) throws IncompleteDescriptionException {
-        if (taskName.isBlank()) throw new IncompleteDescriptionException();
+        if (taskName.isBlank()) {
+            throw new IncompleteDescriptionException();
+        }
         isDone = false;
         this.taskName = taskName;
     }

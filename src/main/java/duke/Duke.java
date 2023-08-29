@@ -12,10 +12,11 @@ public class Duke {
 
         TaskList taskList = new TaskList();
         Storage storage = new Storage("data/duke.txt");
+        storage.loadTaskFile(taskList);
+
+        System.out.println(Ui.opening);
 
         Scanner sc = new Scanner(System.in);
-        storage.loadTaskFile(taskList);
-        System.out.println(Ui.opening);
 
         while (true) {
             String input = sc.nextLine();

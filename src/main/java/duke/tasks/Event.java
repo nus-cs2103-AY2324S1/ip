@@ -34,13 +34,19 @@ public class Event extends Task {
      */
     public static Event create(String taskDesc) throws IncompleteDescriptionException {
         String[] tmp = taskDesc.split(" /from ");
-        if (tmp.length <= 1) throw new IncompleteDescriptionException();
+        if (tmp.length <= 1) {
+            throw new IncompleteDescriptionException();
+        }
         String taskName = tmp[0];
         String[] tmp2 = tmp[1].split(" /to ");
-        if (tmp2.length <= 1) throw new IncompleteDescriptionException();
+        if (tmp2.length <= 1) {
+            throw new IncompleteDescriptionException();
+        }
         String from = tmp2[0];
         String to = tmp2[1];
-        if (taskName.isBlank() || from.isBlank() || to.isBlank()) throw new IncompleteDescriptionException();
+        if (taskName.isBlank() || from.isBlank() || to.isBlank()) {
+            throw new IncompleteDescriptionException();
+        }
         return new Event(taskName, from, to);
     }
 
