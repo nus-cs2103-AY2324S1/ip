@@ -11,10 +11,8 @@ import java.util.ArrayList;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.time.LocalDate;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.time.format.TextStyle;
 import java.util.Locale;
 import java.util.Scanner;
 public class Duke {
@@ -165,26 +163,30 @@ public class Duke {
      * Creates a Task and adds it to the task list.
      *
      * @param taskList The list of task created by user.
-     * @param cmd The input command from user.
+     * @param input The input command from user.
      * @throws InvalidCommandException Handles missing or wrong input commands by user.
      * @throws InvalidDescriptionException Handle empty task descriptions.
      */
-    private static void addTask(ArrayList<Task> taskList, String[] cmd)
+    private static void addTask(ArrayList<Task> taskList, String[] input)
             throws InvalidCommandException, InvalidDescriptionException {
 
-        if (cmd[0].equals("todo")) {
-            if (cmd.length == 1 || cmd[1].equals("")) {
+        String cmd = input[0];
+
+        switch (cmd) {
+        case "todo":
+            if (input.length == 1 || input[1].equals("")) {
                 throw new InvalidDescriptionException("todo");
             }
 
-            taskList.add(new ToDo(cmd[1].trim()));
-        } else if (cmd[0].equals("deadline")) {
+            taskList.add(new ToDo(input[1].trim()));
+            break;
 
-            if (cmd.length == 1 || cmd[1].equals("") || cmd[1].trim().charAt(0) == '/') {
+        case "deadline":
+            if (input.length == 1 || input[1].equals("") || input[1].trim().charAt(0) == '/') {
                 throw new InvalidDescriptionException("deadline");
             }
 
-            String[] task = cmd[1].split("/by ", 2);
+            String[] task = input[1].split("/by ", 2);
             String taskDesc = task[0].trim();
 
             if (task.length == 1 || task[1].equals("")) {
@@ -198,14 +200,14 @@ public class Duke {
             } else {
                 throw new InvalidCommandException("Invalid date time format. Format is yyyy-mm-dd HH:mm");
             }
+            break;
 
-        } else if (cmd[0].equals("event")) {
-
-            if (cmd.length == 1 || cmd[1].equals("") || cmd[1].trim().charAt(0) == '/') {
+        case "event":
+            if (input.length == 1 || input[1].equals("") || input[1].trim().charAt(0) == '/') {
                 throw new InvalidDescriptionException("description");
             }
 
-            String[] event = cmd[1].split("/from ", 2);
+            String[] event = input[1].split("/from ", 2);
 
             if (event.length == 1 || event[1].equals("")) {
                 throw new InvalidCommandException("☹ OOPS!!! Need to include /from date for an event.");
@@ -227,7 +229,10 @@ public class Duke {
                 throw new InvalidCommandException("Invalid date time format. " +
                         "Both /from and /to format is yyyy-mm-dd HH:mm");
             }
-        } else {
+
+            break;
+
+        default:
             throw new InvalidCommandException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
 
