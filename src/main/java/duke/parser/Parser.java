@@ -5,8 +5,6 @@ import duke.commands.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.util.Date;
-import java.util.Locale;
 
 public class Parser {
     public static Command parse(String fullCommand) {
@@ -32,6 +30,9 @@ public class Parser {
                 break;
             case "delete":
                 c = validateIndex(split, false);
+                break;
+            case "find":
+                c = validateFind(split);
                 break;
             default:
                 c = new IncorrectCommand("I'm sorry, I couldn't understand that. Please try again!");
@@ -139,6 +140,13 @@ public class Parser {
             return new IncorrectCommand("Please enter a valid command!");
         }
         return new ExitCommand();
+    }
+
+    public static Command validateFind(String[] split) {
+        if (split.length <= 1) {
+            return new IncorrectCommand("Please enter a valid command!");
+        }
+        return new FindCommand(split[1]);
     }
 
 }
