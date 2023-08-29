@@ -1,3 +1,7 @@
+package duke.tasks;
+
+import duke.exceptions.DukeInvalidArgumentException;
+
 /**
  * Represents a task that needs to be done before a specific date/time.
  */
@@ -8,7 +12,7 @@ public class Deadline extends Task {
 
     /**
      * Creates a new Deadline object.
-     * 
+     *
      * @param description The description of the deadline.
      * @param endTime     The date/time of the deadline.
      */
@@ -25,7 +29,7 @@ public class Deadline extends Task {
 
     /**
      * Returns the string representation of the deadline.
-     * 
+     *
      * @return The string representation of the deadline.
      */
     @Override

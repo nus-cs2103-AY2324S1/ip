@@ -1,4 +1,9 @@
+package duke.tasks;
+
 import java.util.ArrayList;
+
+import duke.exceptions.DukeInvalidArgumentException;
+import duke.ui.Ui;
 
 /**
  * The task list is used to store the user's tasks.
@@ -21,7 +26,7 @@ public class TaskList {
 
     /**
      * Adds a new task to the list.
-     * 
+     *
      * @param type       The type of task to be added.
      * @param taskString Information about the task to be added.
      * @throws DukeInvalidArgumentException If the given taskString is invalid.
@@ -70,7 +75,7 @@ public class TaskList {
 
     /**
      * Marks specified task as done.
-     * 
+     *
      * @param index The index of the task to be marked as done.
      * @throws DukeInvalidArgumentException If the index is invalid.
      */
@@ -86,7 +91,7 @@ public class TaskList {
 
     /**
      * Unmarks specified task as not done.
-     * 
+     *
      * @param index The index of the task to be unmarked as not done.
      * @throws DukeInvalidArgumentException If the index is invalid.
      */
@@ -102,7 +107,7 @@ public class TaskList {
 
     /**
      * Deletes specified task.
-     * 
+     *
      * @param index The index of the task to be deleted.
      * @throws DukeInvalidArgumentException If the index is invalid.
      */

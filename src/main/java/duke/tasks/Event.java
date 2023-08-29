@@ -1,3 +1,7 @@
+package duke.tasks;
+
+import duke.exceptions.DukeInvalidArgumentException;
+
 /**
  * A task that starts at a specific time and ends at a specific time.
  */
@@ -11,7 +15,7 @@ public class Event extends Task {
 
     /**
      * Creates a new Event object.
-     * 
+     *
      * @param description The description of the event.
      * @param startTime   The start time of the event.
      * @param endTime     The end time of the event.
@@ -30,7 +34,7 @@ public class Event extends Task {
 
     /**
      * Returns the string representation of the event.
-     * 
+     *
      * @return The string representation of the event.
      */
     @Override

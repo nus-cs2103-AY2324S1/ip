@@ -1,3 +1,7 @@
+package duke.commands;
+
+import duke.tasks.TaskList;
+
 public class ExitCommand extends Command {
 
     public ExitCommand(CommandType commandType, TaskList taskList, String args) {
