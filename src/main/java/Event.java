@@ -1,9 +1,10 @@
-import java.security.DigestException;
+import java.time.DateTimeException;
+import java.time.LocalDateTime;
 
 public class Event extends Task{
 
-    private String startTime;
-    private String endTime;
+    private LocalDateTime startTime;
+    private LocalDateTime endTime;
     public static Event create(String rawLine) throws DukeException {
         if (rawLine.length() == 0) {
             throw new DukeException("Err: Empty Description");
@@ -16,9 +17,24 @@ public class Event extends Task{
         if (timeLine.length != 2) {
             throw new DukeException("Err: No end time given. Format is in event <desc> /from <time> /to <time>");
         }
-        return new Event(instructions[0], timeLine[0], timeLine[1]);
+
+        LocalDateTime startDate, endDate;
+
+        try {
+            startDate = LocalDateTime.parse(timeLine[0], Task.standardDateTimeParser);
+        } catch (DateTimeException e) {
+            throw new DukeException.DukeDateTimeException(timeLine[0]);
+        }
+
+        try {
+            endDate = LocalDateTime.parse(timeLine[1], Task.standardDateTimeParser);
+        } catch (DateTimeException e) {
+            throw new DukeException.DukeDateTimeException(timeLine[1]);
+        }
+
+        return new Event(instructions[0], startDate, endDate);
     }
-    public Event(String description, String startTime, String endTime) {
+    public Event(String description, LocalDateTime startTime, LocalDateTime endTime) {
         super(description);
         this.startTime = startTime;
         this.endTime = endTime;
