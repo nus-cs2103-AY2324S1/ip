@@ -1,3 +1,7 @@
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.io.File;
@@ -43,12 +47,21 @@ public class Duke {
 
     private static String addDeadline(String description) {
         String descriptionText = description.substring(0, description.indexOf("/by"));
-        String date = description.substring(description.indexOf("/by") + 4);
+        String dateTime = description.substring(description.indexOf("/by") + 4).trim();
+        Deadline deadline = null;
+        try {
+            DateTimeFormatter altInputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+            LocalDateTime byDateTime = LocalDateTime.parse(dateTime, altInputFormatter);
+            deadline = new Deadline(descriptionText, byDateTime);
+        } catch (DateTimeParseException e) {
+            System.out.println("Invalid Date Time: " + e.getMessage());
+        }
 
-        Deadline deadline = new Deadline(descriptionText, date);
         taskArr.add(deadline);
         return deadline.toString();
+
     }
+
 
     private static String addEvent(String description) {
         int indexFrom = description.indexOf("/from");
@@ -58,7 +71,9 @@ public class Duke {
         String startTime = description.substring(indexFrom + "/from".length(), indexTo).trim();
         String endTime = description.substring(indexTo + "/to".length()).trim();
 
-        Event eventTask = new Event(eventDescription, startTime, endTime);
+        Event eventTask = new Event(eventDescription,
+                LocalDateTime.parse(startTime, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")),
+                LocalDateTime.parse(endTime, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")));
         taskArr.add(eventTask);
 
         return eventTask.toString();
@@ -99,7 +114,7 @@ public class Duke {
                         }
                         break;
                     case "E":
-                        String[] time = task[3].split("-");
+                        String[] time = task[3].split(" to ");
                         addEvent(task[2] + " /from " + time[0] + " /to " + time[1]);
                         if (task[1].equals("1")) {
                             markTaskAsDone(count);
@@ -113,12 +128,6 @@ public class Duke {
         }
     }
 
-    private static void appendToFile(String filePath, String textToAppend) throws IOException {
-        FileWriter fw = new FileWriter(filePath, true);
-        fw.write(textToAppend);
-        fw.close();
-    }
-
     private static void updateFileContents(String filePath) throws IOException {
         FileWriter file = new FileWriter(filePath);
         file.write("");
@@ -127,27 +136,27 @@ public class Duke {
             if (task instanceof Todo) {
                 String taskType = task.toString().substring(1, 2);  // Extract "T"
                 String taskStatus = task.toString().substring(4, 5); // Extract " "
-                String description = task.toString().substring(7);    // Extract "read book"
+                String description = task.toString().substring(7);
                 String convertedTask = taskType + " | " + (taskStatus.equals(" ") ? "0" : "1") + " | " + description;
                 fw.write(convertedTask + "\n");
             } else if (task instanceof Deadline) {
-                String originalTask = "[D][X] return book   (by: June 6th)";
+                String originalTask = task.writeFileString();
                 String taskType = originalTask.substring(1, 2);  // Extract "D"
                 String taskStatus = originalTask.substring(4, 5); // Extract "X"
-                String description = originalTask.substring(7, originalTask.indexOf(" (by:")); // Extract "return book"
-                String date = originalTask.substring(originalTask.indexOf("(by: ") + 5, originalTask.indexOf(")")); // Extract "June 6th"
+                String description = originalTask.substring(7, originalTask.indexOf(" (by:"));
+                String date = originalTask.substring(originalTask.indexOf("(by: ") + 5, originalTask.indexOf(")"));
 
                 String convertedTask = taskType + " | " + (taskStatus.equals("X") ? "1" : "0") + " | " + description + " | " + date;
                 fw.write(convertedTask + "\n");
             } else if (task instanceof Event) {
-                String originalTask = "[E][ ] project meeting (from: Mon 2pm to: 4pm)";
+                String originalTask = task.writeFileString();
                 String taskType = originalTask.substring(1, 2);  // Extract "E"
                 String taskStatus = originalTask.substring(4, 5); // Extract " "
-                String description = originalTask.substring(7, originalTask.indexOf(" (from:")); // Extract "project meeting"
-                String startTime = originalTask.substring(originalTask.indexOf("(from: ") + 7, originalTask.indexOf(" to:")); // Extract "Mon 2pm"
-                String endTime = originalTask.substring(originalTask.indexOf("to: ") + 4, originalTask.indexOf(")")); // Extract "4pm"
+                String description = originalTask.substring(7, originalTask.indexOf(" (from:"));
+                String startTime = originalTask.substring(originalTask.indexOf("(from: ") + 7, originalTask.indexOf(" to:"));
+                String endTime = originalTask.substring(originalTask.indexOf("to: ") + 4, originalTask.indexOf(")"));
 
-                String convertedTask = taskType + " | " + (taskStatus.equals(" ") ? "0" : "1") + " | " + description + " | " + startTime + "-" + endTime;
+                String convertedTask = taskType + " | " + (taskStatus.equals(" ") ? "0" : "1") + " | " + description + " | " + startTime + " to " + endTime;
                 fw.write(convertedTask + "\n");
             }
         }
