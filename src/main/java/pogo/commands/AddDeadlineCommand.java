@@ -9,19 +9,19 @@ import pogo.tasks.Task;
 public class AddDeadlineCommand extends Command {
     public static final String COMMAND_WORD = "deadline";
 
-    /** Message to show if the command format is invalid. */
-    private static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a deadline task to the task list. "
-            + "Parameters: DESCRIPTION /by DEADLINE\n"
-            + "Example: " + COMMAND_WORD
-            + " Eat eggs /by 2023-09-18 2359";
+    /**
+     * Message to show if the command format is invalid.
+     */
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a deadline task to the task list. " + "Parameters: DESCRIPTION /by DEADLINE" + System.lineSeparator() + "Example: " + COMMAND_WORD + " Eat eggs /by 2023-09-18 2359";
 
     private final String description;
     private final String by;
 
     /**
      * Creates an AddDeadlineCommand to add a deadline task.
+     *
      * @param description Description of the deadline task.
-     * @param by Deadline of the task.
+     * @param by          Deadline of the task.
      */
     public AddDeadlineCommand(String description, String by) {
         this.description = description;
@@ -30,6 +30,7 @@ public class AddDeadlineCommand extends Command {
 
     /**
      * Creates a deadline task and adds it to the task list.
+     *
      * @return CommandResult containing a success message for the task.
      */
     @Override

@@ -10,7 +10,8 @@ import pogo.tasks.ToDo;
 public class AddToDoCommand extends Command {
     public static final String COMMAND_WORD = "todo";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a ToDo task to the task list. "
-            + "Parameters: DESCRIPTION\n"
+            + "Parameters: DESCRIPTION"
+            + System.lineSeparator()
             + "Example: " + COMMAND_WORD
             + " Eat eggs";
 

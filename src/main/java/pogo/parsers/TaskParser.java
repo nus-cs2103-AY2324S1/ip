@@ -24,18 +24,27 @@ public class TaskParser {
     /**
      * Parses a deadline command.
      * A valid deadline command has the format "deadline <description> /by <by>".
+     * Returns an InvalidCommand if the command is invalid.
+     *
      * @param input The input string.
-     * @return The AddDeadlineCommand object.
-     * @throws PogoInvalidTaskException If the input string is invalid.
+     * @return The AddDeadlineCommand if the command is valid.
      */
-    public static AddDeadlineCommand parseDeadlineCommand(String input) throws PogoInvalidTaskException {
+    public static Command parseDeadlineCommand(String input) throws PogoInvalidTaskException {
         final Pattern DEADLINE_PATTERN = Pattern.compile("(?<description>.*) /by (?<by>.*)");
         final Matcher matcher = DEADLINE_PATTERN.matcher(input);
+
+        InvalidCommand ic =
+                new InvalidCommand(Messages.INVALID_TASK
+                        + System.lineSeparator()
+                        + AddDeadlineCommand.MESSAGE_USAGE);
         if (!matcher.matches()) {
-            throw new PogoInvalidTaskException();
+            return ic;
         }
 
         String description = matcher.group("description");
+        if (description.equals("")) {
+            return ic;
+        }
         String by = matcher.group("by");
         return new AddDeadlineCommand(description, by);
     }
@@ -43,36 +52,54 @@ public class TaskParser {
     /**
      * Parses a todo command.
      * A valid todo command has the format "todo <description>".
+     * Returns an InvalidCommand if the command is invalid.
+     *
      * @param input The input string.
-     * @return The AddToDoCommand object.
-     * @throws PogoInvalidTaskException If the input string is invalid.
+     * @return The AddToDoCommand if the command is valid.
      */
-    public static AddToDoCommand parseToDoCommand(String input) throws PogoInvalidTaskException {
+    public static Command parseToDoCommand(String input) throws PogoInvalidTaskException {
         final Pattern TODO_PATTERN = Pattern.compile("(?<description>.*)");
         final Matcher matcher = TODO_PATTERN.matcher(input);
+        InvalidCommand ic =
+                new InvalidCommand(Messages.INVALID_TASK
+                        + System.lineSeparator()
+                        + AddToDoCommand.MESSAGE_USAGE);
         if (!matcher.matches()) {
-            throw new PogoInvalidTaskException();
+            return ic;
         }
 
         String description = matcher.group("description");
+        if (description.equals("")) {
+            return ic;
+        }
         return new AddToDoCommand(description);
     }
 
     /**
      * Parses an event command.
      * A valid event command has the format "event <description> /from <from> /to <to>".
+     * Returns an InvalidCommand if the command is invalid.
+     *
      * @param input The input string.
-     * @return The AddEventCommand object.
-     * @throws PogoInvalidTaskException If the input string is invalid.
+     * @return The AddEventCommand if the command is valid.
      */
-    public static AddEventCommand parseEventCommand(String input) throws PogoInvalidTaskException {
+    public static Command parseEventCommand(String input) throws PogoInvalidTaskException {
         final Pattern EVENT_PATTERN = Pattern.compile("(?<description>.*) /from (?<from>.*) /to (?<to>.*)");
         final Matcher matcher = EVENT_PATTERN.matcher(input);
+
+        InvalidCommand ic =
+                new InvalidCommand(Messages.INVALID_TASK
+                        + System.lineSeparator()
+                        + AddEventCommand.MESSAGE_USAGE);
         if (!matcher.matches()) {
-            throw new PogoInvalidTaskException();
+            return ic;
         }
 
         String description = matcher.group("description");
+        if (description.equals("")) {
+            return ic;
+        }
+
         String from = matcher.group("from");
         String to = matcher.group("to");
         return new AddEventCommand(description, from, to);
@@ -80,6 +107,7 @@ public class TaskParser {
 
     /**
      * Parses the index of a task.
+     *
      * @param input The input string.
      * @return The index of the task.
      */
@@ -99,7 +127,8 @@ public class TaskParser {
 
     /**
      * Parses a "mark task as done" command.
-     * @param input The input string.
+     *
+     * @param input  The input string.
      * @param isMark Whether the command is a mark command or an unmark command.
      */
     public static Command parseMarkCommand(String input, boolean isMark) {
@@ -117,6 +146,7 @@ public class TaskParser {
 
     /**
      * Parses a "delete task" command.
+     *
      * @param input The input string.
      * @return The DeleteTaskCommand object.
      */

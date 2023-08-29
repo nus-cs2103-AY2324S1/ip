@@ -6,7 +6,7 @@ package pogo.common;
 public class Messages {
     public static final String MESSAGE_INVALID_COMMAND = "Invalid command.";
     public static final String ADD_TASK_SUCCESS = "Got it. I've added this task:\n%1$s";
-    public static final String INVALID_TASK = "Invalid task: %s";
+    public static final String INVALID_TASK = "Please enter a valid task:";
     public static final String INVALID_INDEX = "Please enter a valid index.";
     public static final String TASK_LOAD_SUCCESS = "Loaded %1$s tasks from file.";
     public static final String TASK_LOAD_FAILURE = "Failed to load tasks from file.";
