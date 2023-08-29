@@ -1,5 +1,8 @@
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
+
 /**
  * Duke is a class in-charge of task management.
  * It allows users to add, delete, mark, unmark, specify, and list tasks.
@@ -14,8 +17,8 @@ public class Duke {
     public static void main(String[] args) throws DukeException {
         System.out.println("Hello! I'm Chatty\n" + "What can I do for you?");
         Scanner scanner = new Scanner(System.in);
-        ArrayList<Task> taskList = new ArrayList<>();
-
+        ArrayList<Task> taskList = readData();
+        
         while (true) {
             String userInput = scanner.nextLine();
             try {
@@ -134,6 +137,83 @@ public class Duke {
 
                 newTask = new Event(a[0], fromto[0], fromto[1]);
             }
+        }
+
+        return newTask;
+    }
+
+    private static ArrayList<Task> readData() throws DukeException {
+        String filePath = "./src/main/java/data/duke.txt";
+        ArrayList<String> dataArray = new ArrayList<>();
+        ArrayList<Task> taskList = new ArrayList<>();
+
+        try {
+            File file = new File(filePath);
+
+            Scanner scanner = new Scanner(file);
+            while (scanner.hasNextLine()) {
+                String input = scanner.nextLine();
+                dataArray.add(input);
+            }
+
+            scanner.close();
+            String[] data = dataArray.toArray(new String[dataArray.size()]);
+
+            for (String item : data) {
+                taskList.add(loadData(item));
+            }
+
+        } catch (FileNotFoundException e) {
+            System.out.println("Working Directory = " + System.getProperty("user.dir"));
+            System.out.println("File not found: " + filePath);
+        } catch (DukeException e) {
+            System.out.println(e.getMessage());
+        }
+
+        return taskList;
+    }
+
+    private static Task loadData(String dataInput) throws DukeException {
+        Task newTask;
+        String[] arr = dataInput.split("\\|");
+
+        for (int i = 0; i < arr.length; i++) {
+            arr[i] = arr[i].trim();
+        }
+
+
+        if (arr[0].equals("T")) {
+            if (arr.length < 3 || arr[2].isEmpty()) {
+                throw new EmptyTaskException("todo");
+            }
+
+            newTask = new ToDo(arr[2]);
+        } else if (arr[0].equals("D")) {
+            if (arr.length < 3 || arr[2].isEmpty()) {
+                throw new EmptyTaskException("deadline");
+            }
+            if (arr.length != 4|| arr[3].isEmpty()) {
+                throw new EmptyDateException("deadline");
+            }
+
+            newTask = new Deadline(arr[2], arr[3]);
+        } else {
+            if (arr.length < 3 || arr[2].isEmpty()) {
+                throw new EmptyTaskException("event");
+            }
+            if (arr.length < 4 || arr[3].isEmpty()) {
+                throw new EmptyDateException("event");
+            }
+            if (arr.length != 5 || arr[4].isEmpty()) {
+                throw new NoEndDateException("☹ OOPS!!! Please provide a end date for your event.");
+            }
+
+            newTask = new Event(arr[2], arr[3], arr[4]);
+        }
+
+        // mark as done
+        if (arr[1].equals("1")) {
+            newTask.markAsDone();
         }
 
         return newTask;
