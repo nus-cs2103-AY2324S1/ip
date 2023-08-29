@@ -1,12 +1,13 @@
 /**
  * Encapsulates a task. All tasks have a description and status (marked or unmarked).
  */
-public class Task {
-    protected String description;
-    protected boolean isDone;
+public abstract class Task {
+    private String description;
+    private boolean isDone;
 
     /**
      * Constructor for a task object.
+     *
      * @param description the task description
      */
     public Task(String description) {
@@ -16,6 +17,7 @@ public class Task {
 
     /**
      * Returns status icon depending on whether task has been marked as done or not.
+     *
      * @return Status icon as a string.
      */
     private String getStatusIcon() {
@@ -38,10 +40,21 @@ public class Task {
 
     /**
      * Returns the string representation of a task with its status.
+     *
      * @return String representation of task.
      */
     @Override
     public String toString() {
         return "[" + getStatusIcon() + "] " + this.description;
+    }
+
+    /**
+     * Returns the string representation of the task to be stored.
+     *
+     * @return String representing task to be stored.
+     */
+    public String toStore() {
+        String statusNumber = isDone ? "1" : "0";
+        return statusNumber + " | " + this.description;
     }
 }
