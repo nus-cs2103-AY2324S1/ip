@@ -1,9 +1,13 @@
+package duke.task.deadline;
+
 import java.time.LocalDateTime;
+
+import duke.task.Task;
 
 /**
  * Deadline class is a task that contains a name and an end date
  */
-public class Deadline extends Task{
+public class Deadline extends Task {
 
     private String by;
 

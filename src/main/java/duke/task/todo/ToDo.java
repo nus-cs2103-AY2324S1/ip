@@ -1,7 +1,11 @@
+package duke.task.todo;
+
+import duke.task.Task;
+
 /**
  * ToDo class is a task that contains a name only without any dates
  */
-public class ToDo extends Task{
+public class ToDo extends Task {
     public ToDo(String name) {
         super(name);
     }

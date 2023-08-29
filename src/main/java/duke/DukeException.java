@@ -1,3 +1,4 @@
+package duke;
 /**
  * The DukeException Class is used when user does not follow any input format.
  */

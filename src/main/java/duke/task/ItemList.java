@@ -1,3 +1,4 @@
+package duke.task;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -6,6 +7,13 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+
+import duke.dates.Dates;
+import duke.task.event.Event;
+import duke.task.todo.ToDo;
+import duke.ui.UI;
+import duke.task.deadline.*;
+import duke.Greeting;
 /**
  * This class encapsulates the items being that are added by the users, and
  * the functions used to list them out, mark them add and delete items from it
@@ -57,7 +65,6 @@ public class ItemList {
             this.items.add(deadline);
             this.len++;
             this.saveAll();
-            System.out.println(Greeting.linebreak);
             UI.printMessage("Got it. I've added this task:",this.items.get(this.len-1).showTaskinList(),
                     "Now you have " + String.valueOf(len) + " tasks in this list");
         } catch (IOException e) {

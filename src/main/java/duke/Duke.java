@@ -1,13 +1,18 @@
+package duke;
+
+import duke.Commands;
+
 import java.util.*;
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;
 import java.io.File;
+import duke.storage.Storage;
 
 /**
  * Duke is entry point of our program
  */
 public class Duke {
-    static final String LISTPATH = "./data/list.txt";
+    public static final String LISTPATH = "./data/list.txt";
 
     private Storage storage;
 

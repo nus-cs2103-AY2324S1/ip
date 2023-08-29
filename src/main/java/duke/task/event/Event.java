@@ -1,9 +1,12 @@
+package duke.task.event;
+import duke.task.Task;
+
 import java.time.LocalDateTime;
 
 /**
  * Event class is a task that contains a name and an end date and a start date
  */
-public class Event extends Task{
+public class Event extends Task {
     private String from;
     private String to;
     private LocalDateTime fromDateTime;

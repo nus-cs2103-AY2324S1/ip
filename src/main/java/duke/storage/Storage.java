@@ -1,3 +1,14 @@
+package duke.storage;
+
+import duke.task.*;
+import duke.task.deadline.*;
+import duke.task.event.*;
+import duke.task.todo.*;
+import duke.dates.Dates;
+import duke.*;
+import duke.ui.UI;
+
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -11,9 +22,7 @@ public class Storage {
             this.items = loadAll();
         } catch (FileNotFoundException e) {
             this.items = new ItemList(new File(Duke.LISTPATH));
-            System.out.println(Greeting.linebreak);
-            System.out.println("List not found, empty list will be created");
-            System.out.println(Greeting.linebreak);
+            UI.printMessage("List not found, empty list will be created");
         }
     };
 

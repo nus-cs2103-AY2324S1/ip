@@ -1,7 +1,11 @@
+package duke.task.todo;
+
+import duke.DukeException;
+
 /**
  * The ToDoException Class is used when user does not follow Event input format.
  */
-public class ToDoException extends DukeException{
+public class ToDoException extends DukeException {
     public ToDoException() {
         super();
     }

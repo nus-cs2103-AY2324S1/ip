@@ -1,8 +1,15 @@
-package java.cammands;
+package duke;
 
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import duke.storage.*;
+import duke.task.ItemList;
+import duke.ui.UI;
+import duke.task.deadline.DeadlineException;
+import duke.task.event.EventException;
+import duke.task.todo.ToDoException;
+
 
 /**
  * The Command Class encapsulates the functions to check the input string with the available commands.

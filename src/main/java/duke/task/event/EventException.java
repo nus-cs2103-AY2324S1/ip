@@ -1,7 +1,11 @@
+package duke.task.event;
+
+import duke.DukeException;
+
 /**
  * The EventException Class is used when user does not follow Event input format.
  */
-public class EventException extends DukeException{
+public class EventException extends DukeException {
 
     public EventException() {
         super();
