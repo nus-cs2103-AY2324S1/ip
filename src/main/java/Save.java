@@ -10,7 +10,6 @@ public class Save {
         //Making a new dir if the specified one does not exit
         if (!file.getParentFile().exists()) {
             file.getParentFile().mkdirs();
-            System.out.println("Directory does not exist. New directory created!");
         }
     }
 
