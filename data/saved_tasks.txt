@@ -1,4 +1,4 @@
 [T][ ] say hi
-[D][ ] say bye (by: 5minutes)
-[E][ ] wave (from: now to: 5 minutes)
+[D][ ] say bye (by: 2019-10-15)
+[E][ ] wave (from: 2023-01-01 to: 2024-01-01)
 [T][ ] say hi again
