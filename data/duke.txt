@@ -4,3 +4,4 @@ D | 0 | do homework | 2020-02-20
 D | 0 | assignment | Mar 23 2022
 T | 0 | play game
 D | 0 | submission | Feb 23 2022
+T | 0 | read
