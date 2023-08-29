@@ -28,6 +28,12 @@ public class Deadline extends Task {
         return new String[] {taskSplit[0], dueDate};
     }
 
+    /**
+     * Initialize Deadline object that models a deadline
+     * @param task the deadline task name with a "/by" separating the description and the deadline
+     * @throws DukeException If the description or deadline is empty or there is no "/by" or
+     * the datetime format is wrong (not YYYY-MM-DD)
+     */
     public Deadline(String task) throws DukeException {
         super(parseDeadline(task)[0]);
         try {
@@ -38,20 +44,33 @@ public class Deadline extends Task {
 
     }
 
-    public Deadline(String task, boolean isDone, LocalDate deadlineDate) {
+    private Deadline(String task, boolean isDone, LocalDate deadlineDate) {
         super(task, isDone);
         this.deadlineDate = deadlineDate;
     }
 
+    /**
+     * Returns new Deadline object that is marked
+     * @return Deadline object that is marked
+     */
     @Override
     public Deadline done() {
         return new Deadline(super.getTask(), true, this.deadlineDate);
     }
+
+    /**
+     * Returns new Deadline object that is unmarked
+     * @return Deadline object that is unmarked
+     */
     @Override
     public Deadline undone() {
         return new Deadline(super.getTask(), false, this.deadlineDate);
     }
 
+    /**
+     * Returns format of string to be stored in hard disk
+     * @return string
+     */
     @Override
     public String storageText() {
         String end = deadlineDate.toString();

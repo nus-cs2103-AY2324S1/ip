@@ -8,6 +8,10 @@ public class CommandProcessor {
 
     private static final Storage storage = new Storage();
 
+    /**
+     * initialize command processor
+     * Load list of tasks from storage (if any)
+     */
     public CommandProcessor() {
         this.tasks = new TaskList(storage.loadFromFile());
     }
@@ -35,7 +39,12 @@ public class CommandProcessor {
     }
 
 
-    //processCommand is a method that process the command and prints the relevant output
+    /**
+     * Returns a string that is the output for the command given.
+     * Process mark, unmark, delete, find, event, todo, deadline
+     * @param command the command given by the user
+     * @return the string that is the output string for the command given.
+     */
     public String processCommand(String command) {
 
         try {
