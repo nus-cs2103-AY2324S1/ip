@@ -1,12 +1,86 @@
+import java.io.*;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Dre {
-    private final ArrayList<Task> list;
+    private List<Task> list;
+    private final String dataFilePath = "./data/dre.txt";
 
     public Dre() {
+
         list = new ArrayList<>();
+        loadTasks();
     }
+
+    public void saveTasks() {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(dataFilePath))) {
+            for (Task task : list) {
+                // Write task details to the file
+                writer.write(task.toString());
+                writer.newLine();
+            }
+        } catch (IOException e) {
+            System.out.println("Error saving tasks to the file.");
+        }
+    }
+
+    public void loadTasks() {
+        try {
+            File file = new File(dataFilePath);
+            if (file.exists()) {
+                try (BufferedReader reader = new BufferedReader(new FileReader(dataFilePath))) {
+                    String line;
+                    while ((line = reader.readLine()) != null) {
+                        parseTask(line);
+                    }
+                } catch (IOException e) {
+                    System.out.println("Error reading tasks from file.");
+                }
+            } else {
+                System.out.println("No saved tasks found.");
+            }
+        } catch (SecurityException e) {
+            System.out.println("Access to file is denied.");
+        }
+    }
+
+    private void parseTask(String line) {
+        String type = line.substring(1, 2);
+        boolean isDone = line.charAt(4) == 'X';
+
+        String description = line.substring(7);
+        Task task = null;
+
+        switch (type) {
+            case "T":
+                task = new ToDo(description);
+                break;
+            case "D":
+                description = description.substring(0, description.indexOf('(') - 1);
+                String additionalInfo = line.substring(line.indexOf('(') + 1, line.indexOf(')'));
+                String[] deadlineInfo = additionalInfo.split(": ");
+                String by = deadlineInfo[1];
+                task = new Deadline(description, by);
+                break;
+            case "E":
+                description = description.substring(0, description.indexOf('(') - 1);
+                String addInfo = line.substring(line.indexOf('(') + 1, line.indexOf(')'));
+                String[] eventInfo = addInfo.split(":");
+                String from = eventInfo[1].substring(0, eventInfo[1].length() - 2).trim();
+                String to = eventInfo[2].trim();
+                task = new Event(description, from, to);
+                break;
+        }
+
+        if (task != null) {
+            if (isDone) {
+                task.done();
+            }
+            list.add(task);
+        }
+    }
+
     public void greet() {
         System.out.println("____________________________________________________________");
         System.out.println("Hello! I'm Dre");
@@ -150,6 +224,7 @@ public class Dre {
             next = sc.nextLine();
         }
         sc.close();
+        dre.saveTasks();
         dre.exit();
     }
 }
