@@ -5,6 +5,7 @@ import duke.Task;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 public class Event extends Task {
     private final LocalDate deadlineDate;
@@ -41,8 +42,13 @@ public class Event extends Task {
     }
     public Event(String task) throws DukeException {
         super(parseEvent(task)[0]);
-        this.deadlineDate = LocalDate.parse(parseEvent(task)[2]);
-        this.startDate = LocalDate.parse(parseEvent(task)[1]);
+        try {
+            this.deadlineDate = LocalDate.parse(parseEvent(task)[2]);
+            this.startDate = LocalDate.parse(parseEvent(task)[1]);
+        } catch (DateTimeParseException e) {
+            throw new DukeException("wrong date time format: Use YYYY-MM-DD\n");
+        }
+
     }
 
     public Event(String task, boolean isDone, LocalDate deadlineDate, LocalDate startDate) {

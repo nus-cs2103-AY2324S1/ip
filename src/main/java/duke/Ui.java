@@ -20,7 +20,4 @@ public class Ui {
 
     }
 
-    public void setAnswerBorder() {
-        System.out.println(ANSWER_BORDER);
-    }
 }
