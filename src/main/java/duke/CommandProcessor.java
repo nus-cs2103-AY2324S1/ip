@@ -60,35 +60,32 @@ public class CommandProcessor {
 
             String taskName = splitCommand[1];
 
-            // process command types: mark, unmark
-            if (commandType.equals("mark")) {
+
+            switch (commandType) {
+            case "mark":
                 return tasks.mark(taskName);
-
-            } else if (commandType.equals("unmark")) {
+            case "unmark":
                 return tasks.unMark(taskName);
-            }
 
-            if (commandType.equals("delete")) {
+            case "delete":
                 return tasks.delete(taskName);
-            }
 
-            if (commandType.equals("find")) {
+            case "find":
                 return tasks.find(taskName);
-            }
 
-            // process commands involving tasks (todo, deadline, event)
-            if (commandType.equals("todo")) {
+            case "todo":
                 Task task = new Todo(taskName);
                 storage.writeToFile(task.storageText());
                 return tasks.addToList(task);
 
-            } else if (commandType.equals("deadline")) {
-                Task task = new Deadline(taskName);
+            case "deadline":
+                task = new Deadline(taskName);
                 storage.writeToFile(task.storageText());
                 return tasks.addToList(task);
 
-            } else if (commandType.equals("event")) {
-                Task task = new Event(taskName);
+
+            case "event":
+                task = new Event(taskName);
                 storage.writeToFile(task.storageText());
                 return tasks.addToList(task);
             }
