@@ -1,3 +1,5 @@
+package duke;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -20,7 +22,7 @@ public class Parser {
 	private final Ui ui;
 
 	/**
-	 * Constructor for Parser
+	 * Constructor for duke.Parser
 	 *
 	 * @param taskList
 	 * @param storage
@@ -223,7 +225,7 @@ public class Parser {
 	}
 
 	/**
-	 * Deadline should be in the following format - deadline return book /by dd/MM/yy HHmm
+	 * duke.Deadline should be in the following format - deadline return book /by dd/MM/yy HHmm
 	 *
 	 * @param query    the query from the user
 	 * @param taskList the list of tasks
@@ -261,7 +263,7 @@ public class Parser {
 	}
 
 	/**
-	 * Event should be in the following format - event read book /from dd/MM/yy HHmm /to dd/MM/yy HHmm
+	 * duke.Event should be in the following format - event read book /from dd/MM/yy HHmm /to dd/MM/yy HHmm
 	 *
 	 * @param query    the query from the user
 	 * @param taskList the list of tasks
