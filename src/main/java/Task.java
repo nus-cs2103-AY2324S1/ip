@@ -1,3 +1,5 @@
+import java.time.LocalDate;
+
 public class Task {
     /* The name of this task */
     String name;
@@ -29,7 +31,7 @@ public class Task {
      * @param time Task deadline
      * @return A deadline instance
      */
-    public static Task of(String name, String time) {
+    public static Task of(String name, LocalDate time) {
         return new Deadline(name, time);
     }
 
@@ -40,7 +42,7 @@ public class Task {
      * @param endTime Task end time
      * @return An event instance
      */
-    public static Task of(String name, String startTime, String endTime) {
+    public static Task of(String name, LocalDate startTime, LocalDate endTime) {
         return new Event(name, startTime, endTime);
     }
 

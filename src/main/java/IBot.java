@@ -1,9 +1,11 @@
+import java.time.DateTimeException;
 import java.util.ArrayList;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 import java.util.Objects;
+import java.time.LocalDate;
 
 
 /**
@@ -46,9 +48,11 @@ public class IBot {
         if (n == 2) {
             t = Task.of(temp[1]);
         } else if (n == 3) {
-            t = Task.of(temp[1], temp[2]);
+            t = Task.of(temp[1], LocalDate.parse(temp[2]));
         } else {
-            t = Task.of(temp[1], temp[2], temp[3]);
+            t = Task.of(temp[1],
+                    LocalDate.parse(temp[2]),
+                    LocalDate.parse(temp[3]));
         }
 
         if (Objects.equals(temp[0], "1")) {t.mark();}
@@ -65,7 +69,7 @@ public class IBot {
         System.out.println("  " + t);
         System.out.println("Now you have " + lst.size() + " tasks in the list.\n");
         FileWriter fw = new FileWriter(filePath, true);
-        fw.write(t.getText());
+        fw.write(t.getText() + "\n");
         fw.close();
     }
 
@@ -94,15 +98,22 @@ public class IBot {
     private void deadline(String cmd) throws DukeException, IOException {
         if (cmd.isEmpty() || cmd.equals(" ")) {
             throw new DukeException("☹ OOPS!!! The description of a deadline cannot be empty.\n");
-        }else if(!cmd.matches(" \\S.*\\s/by\\s\\S.*")){
+        }else if(!cmd.matches(" \\S.*\\s/by\\s\\d.*")){
             throw new DukeException(
                     "☹ OOPS!!! Please follow the following pattern to add a task:\n  " +
                             "deadline <task name> /by <deadline>\n");
         }else {
             String[] temp = cmd.split(" /by ");
-            addTask(Task.of(
-                    temp[0].substring(1),
-                    temp[1]));
+            try {
+                LocalDate d = LocalDate.parse(temp[1]);
+                addTask(Task.of(
+                        temp[0].substring(1),
+                        d));
+            } catch (DateTimeException e) {
+                throw new DukeException(
+                        "☹ OOPS!!! Please follow the following pattern to input the time:\n  " +
+                        "deadline <task name> /by <yyyy-mm-dd>\n");
+            }
         }
     }
 
@@ -116,16 +127,25 @@ public class IBot {
     private void event(String cmd) throws DukeException, IOException {
         if (cmd.isEmpty() || cmd.equals(" ")) {
             throw new DukeException("☹ OOPS!!! The description of a event cannot be empty.\n");
-        }else if(!cmd.matches(" \\S.*\\s/from\\s\\S.*\\s/to\\s\\S.*")){
+        }else if(!cmd.matches(" \\S.*\\s/from\\s\\d.*\\s/to\\s\\d.*")){
             throw new DukeException(
                     "☹ OOPS!!! Please follow the following pattern to add a task:\n  " +
                             "event <task name> /from <begin time> /to <end time>\n");
         }else {
             String[] temp = cmd.split(" /");
-            addTask(Task.of(
-                    temp[0].substring(1),
-                    temp[1].substring(5),
-                    temp[2].substring(3)));
+            try {
+                LocalDate dFrom = LocalDate.parse(temp[1].substring(5));
+                LocalDate dTo = LocalDate.parse(temp[2].substring(3));
+                addTask(Task.of(
+                        temp[0].substring(1),
+                        dFrom,
+                        dTo));
+            } catch (DateTimeException e) {
+                throw new DukeException(
+                        "☹ OOPS!!! Please follow the following pattern to input the time:\n  " +
+                                "event <task name> /from <yyyy-mm-dd> /to <yyyy-mm-dd>\n");
+            }
+
         }
     }
 
