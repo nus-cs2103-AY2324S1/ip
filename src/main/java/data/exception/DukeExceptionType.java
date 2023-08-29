@@ -1,3 +1,5 @@
+package data.exception;
+
 public enum DukeExceptionType {
     DEADLINE_NO_DESCRIPTION(
 "The description of a deadline cannot be empty.\n" +

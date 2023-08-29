@@ -1,3 +1,9 @@
+package commands;
+
+import data.TaskList;
+import storage.Storage;
+import ui.UI;
+
 public class ByeCommand extends Command{
     public static final String COMMAND_WORD = "bye";
 

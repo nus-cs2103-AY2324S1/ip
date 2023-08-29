@@ -1,3 +1,10 @@
+package data;
+
+import data.exception.DukeException;
+import data.exception.DukeExceptionType;
+import data.task.Deadline;
+import data.task.Task;
+
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
