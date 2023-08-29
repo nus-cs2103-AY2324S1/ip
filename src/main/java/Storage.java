@@ -21,8 +21,8 @@ public class Storage {
                 if (taskType.equals("T")) {
                     tasks.add(new ToDo(description, isDone));
                 } else if (taskType.equals("D")) {
-                    String by = values[3].trim();
-                    tasks.add(new Deadline(description, isDone, by));
+                    String byDateAndTime = values[3].trim();
+                    tasks.add(new Deadline(description, isDone, byDateAndTime));
                 } else if (taskType.equals("E")) {
                     String from = values[3].trim();
                     String to = values[4].trim();

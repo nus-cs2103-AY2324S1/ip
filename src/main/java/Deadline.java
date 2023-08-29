@@ -1,19 +1,56 @@
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 public class Deadline extends Task {
+    protected LocalDate byDate;
+    protected LocalTime byTime;
+    protected String byDateTimeString;
 
-    protected String by;
-
-    public Deadline(String description, boolean isDone, String by) {
+    public Deadline(String description, boolean isDone, String byDateAndTime) {
         super(description, isDone);
-        this.by = by;
+        parseDateTime(byDateAndTime);
+        this.byDateTimeString = byDateAndTime;
+    }
+
+    public boolean isValidDate(String dateTimeString) {
+        try {
+            String[] parts = dateTimeString.split(" ");
+            LocalDate.parse(parts[0], DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+            LocalTime.parse(parts[1], DateTimeFormatter.ofPattern("HHmm"));
+            return true;
+        } catch (DateTimeParseException e) {
+            return false;
+        }
+    }
+
+    public void parseDateTime(String dateTime) {
+        if (isValidDate(dateTime)) {
+            String[] parts = dateTime.split(" ");
+            byDate = LocalDate.parse(parts[0], DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+            byTime = LocalTime.parse(parts[1], DateTimeFormatter.ofPattern("HHmm"));
+        }
+
     }
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + by + ")";
+        if (byDate != null) {
+            return "[D]" + super.toString() + " (by: " + byDate.format(DateTimeFormatter.ofPattern("MMM d yyyy"))
+                    + " " + byTime.format(DateTimeFormatter.ofPattern("h:mm a")) + ")";
+        } else {
+            return "[D]" + super.toString() + " (by: " + byDateTimeString + ")";
+        }
+
     }
 
-    @Override
     public String toSaveString() {
-        return "D," + isDone + "," + description + "," + by;
+        if (byDate != null) {
+            return "D," + (isDone ? "1" : "0") + "," + description + "," + byDate + " " + byTime;
+        } else {
+            return "D," + (isDone ? "1" : "0") + "," + description + "," + byDateTimeString;
+        }
+
     }
 }

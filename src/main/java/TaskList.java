@@ -1,3 +1,4 @@
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
 public class TaskList {
@@ -7,8 +8,8 @@ public class TaskList {
         tasks = new ArrayList<>();
     }
 
-    public void addDeadline(String description, boolean isDone, String by) {
-        Deadline deadline = new Deadline(description, isDone, by);
+    public void addDeadline(String description, boolean isDone, String byDateAndTime) {
+        Deadline deadline = new Deadline(description, isDone, byDateAndTime);
         tasks.add(deadline);
         Ui.showAddConfirmation(deadline, this.getTotalTasks());
     }
@@ -52,8 +53,6 @@ public class TaskList {
     }
 
     public void setTasks(ArrayList<Task> taskList) {
-        for (int i = 0; i < taskList.size(); i++) {
-            tasks.add(taskList.get(i));
-        }
+        tasks.addAll(taskList);
     }
 }
