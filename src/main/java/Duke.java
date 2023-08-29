@@ -7,221 +7,6 @@ import java.util.ArrayList;
 public class Duke {
     public Scanner sc = new Scanner(System.in).useDelimiter("[\\s,\\s/]+");
     public static ArrayList<Task> taskArr = new ArrayList<>();
-    public class Task {
-        /**
-         * Description of the specific task.
-         */
-        protected String description;
-        /**
-         * Whether the task is completed or not.
-         */
-        protected boolean isDone;
-
-        /**
-         * Constructor for the Task object.
-         * @param description The description of what the task is about
-         */
-        public Task(String description) {
-            this.description = description;
-            this.isDone = false;
-        }
-
-        /**
-         * Task's completion status.
-         * @return An "X" if the task is completed and a blank space otherwise
-         */
-        public String getStatusIcon() {
-            return (isDone ? "X" : " ");
-        }
-
-        /**
-         * Mark the task as done.
-         */
-        public void mark() {
-            this.isDone = true;
-            System.out.println("Nice! I've marked this task as done:\n"
-            + "[X] " + this.desc());
-        }
-
-        /**
-         * Unmark a task as not done yet.
-         */
-        public void unmark() {
-            this.isDone = false;
-            System.out.println("OK, I've marked this task as not done yet:\n"
-            + "[ ] " + this.desc());
-        }
-
-        /**
-         * Returns the description of the task.
-         * @return Description of the task in a String
-         */
-        public String desc() {
-            return this.description;
-        }
-    }
-
-    /**
-     * Special kind of task that only has a description
-     */
-    public class Todo extends Task {
-        /**
-         * Signifies the specific type of task.
-         */
-        protected String type = "T";
-
-        /**
-         * Constructor for the Todo task type.
-         * @param description String describing what the Todo task is about
-         */
-        public Todo(String description) {
-            super(description);
-        }
-
-        /**
-         * Mark this Todo task as done.
-         */
-        @Override
-        public void mark() {
-            this.isDone = true;
-            System.out.println("Nice! I've marked this task as done:\n"
-                    + this);
-        }
-
-        /**
-         * Unmark this Todo task as not done yet.
-         */
-        @Override
-        public void unmark() {
-            this.isDone = false;
-            System.out.println("OK, I've marked this task as not done yet:\n"
-                    + this);
-        }
-
-        /**
-         * Description of this Todo task.
-         * @return String containing all relevant information about this Todo task
-         */
-        @Override
-        public String toString() {
-            return "[" + this.type + "]" + "[" + this.getStatusIcon() + "]" + this.description;
-        }
-    }
-
-    /**
-     * Special kind of task that has a description and a deadline
-     */
-    public class Deadline extends Task {
-        /**
-         * Signifies the specific type of task.
-         */
-        protected String type = "D";
-        /**
-         * The date where the task should be completed by.
-         */
-        protected String date;
-
-        /**
-         * Constructor for the Deadline class.
-         * @param description Describes the task
-         * @param date When the task should be completed by
-         */
-        public Deadline(String description, String date) {
-            super(description);
-            this.date = date;
-        }
-
-        /**
-         * Mark this Deadline task as done.
-         */
-        @Override
-        public void mark() {
-            this.isDone = true;
-            System.out.println("Nice! I've marked this task as done:\n"
-            + this);
-        }
-
-        /**
-         * Unmark this Deadline task as not done yet.
-         */
-        @Override
-        public void unmark() {
-            this.isDone = false;
-            System.out.println("OK, I've marked this task as not done yet:\n"
-            + this);
-        }
-
-        /**
-         * Description of this Deadline task.
-         * @return String containing the all the information of this Deadline task
-         */
-        @Override
-        public String toString() {
-            return "[" + this.type + "]" + "[" + this.getStatusIcon() + "] " + this.description
-                    + " (by:" + this.date + ")";
-        }
-    }
-
-    /**
-     * Special type of task that has a description, 'from' date and 'to' date.
-     */
-    public class Event extends Task {
-        /**
-         * Signifies the 'Event' task.
-         */
-        protected String type = "E";
-        /**
-         * Starting date of this task.
-         */
-        protected String from;
-        /**
-         * Ending date of this task.
-         */
-        protected String to;
-
-        /**
-         * Constructor for Event class.
-         * @param description Describes the event
-         * @param from Start of the event
-         * @param to End of the event
-         */
-        public Event(String description, String from, String to) {
-            super(description);
-            this.from = from;
-            this.to = to;
-        }
-
-        /**
-         * Mark this Event task as done.
-         */
-        @Override
-        public void mark() {
-            this.isDone = true;
-            System.out.println("Nice! I've marked this task as done:\n"
-                    + this);
-        }
-
-        /**
-         * Unmark this Event task as not done yet.
-         */
-        @Override
-        public void unmark() {
-            this.isDone = false;
-            System.out.println("OK, I've marked this task as not done yet:\n"
-                    + this);
-        }
-
-        /**
-         * Description of this Event task.
-         * @return String containing all the relevant information of this Event task
-         */
-        @Override
-        public String toString() {
-            return "[" + this.type + "]" + "[" + this.getStatusIcon() + "] " + this.description
-                    + " (from: " + this.from + " to:" + this.to + ")";
-        }
-    }
-
     /**
      * Special exceptions that could be encountered by the chatbot.
      */
@@ -234,33 +19,7 @@ public class Duke {
             super(errorMessage);
         }
 
-        /**
-         * Exception when no description is found.
-         */
-        public static class EmptyDescription extends DukeException {
-            /**
-             * Constructor for the EmptyDescription class.
-             */
-            public EmptyDescription() {
-                super("-------------------------------\n"
-                        + "☹ OOPS!!! The description of a todo cannot be empty.\n"
-                        + "-------------------------------\n");
-            }
-        }
 
-        /**
-         * Exception when an illegal argument is found.
-         */
-        public static class WrongInput extends DukeException {
-            /**
-             * Constructor for the WrongInput class.
-             */
-            public WrongInput() {
-                super("-------------------------------\n"
-                      +  "☹ OOPS!!! I'm sorry, but I don't know what that means :-(\n"
-                      +  "-------------------------------\n");
-            }
-        }
     }
 
     /**
@@ -371,25 +130,25 @@ public class Duke {
                     bot.listOut();
                 } else if (str.equals("mark")) {
                     if (!bot.sc.hasNextInt()) {
-                        throw new DukeException.WrongInput();
+                        throw new WrongInput();
                     } else {
                         int num = bot.sc.nextInt();
                         bot.taskArr.get(num - 1).mark();
                     }
                 } else if (str.equals("unmark")) {
                     if (!bot.sc.hasNextInt()) {
-                        throw new DukeException.WrongInput();
+                        throw new WrongInput();
                     } else {
                         int num = bot.sc.nextInt();
                         bot.taskArr.get(num - 1).unmark();
                     }
                 } else if (str.equals("delete")) {
                     if (!bot.sc.hasNextInt()) {
-                        throw new DukeException.WrongInput();
+                        throw new WrongInput();
                     } else {
                         int num = bot.sc.nextInt();
                         if (num > taskArr.size()) {
-                            throw new DukeException.WrongInput();
+                            throw new WrongInput();
                         } else {
                             bot.delete(num - 1);
                         }
@@ -399,7 +158,7 @@ public class Duke {
                     if (str.equals("todo")) {
                         String desc = bot.sc.nextLine();
                         if (desc.equals("") || desc.equals(" ")) {
-                            throw new DukeException.EmptyDescription();
+                            throw new EmptyDescription();
                         } else {
                             bot.addTodo(desc);
                         }
@@ -440,12 +199,12 @@ public class Duke {
                         }
                         bot.addEvent(desc, from, to);
                     } else {
-                        throw new DukeException.WrongInput();
+                        throw new WrongInput();
                     }
                 }
-            } catch (DukeException.EmptyDescription e) {
+            } catch (EmptyDescription e) {
                     System.out.println(e.getMessage());
-            } catch (DukeException.WrongInput e) {
+            } catch (WrongInput e) {
                     System.out.println(e.getMessage());
             }
         }
