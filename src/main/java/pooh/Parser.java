@@ -30,19 +30,19 @@ public class Parser {
             case "list":
                 Ui.printTasksMsg(taskList);
             case "bye":
-                Ui.exitMsg();
+                Ui.printExitMsg();
                 System.exit(1);
             case "mark":
                 int markIndex = Integer.parseInt(userInput.split(" ")[1]) - 1;
                 Task markTask = taskList.getTask(markIndex);
                 markTask.markAsDone();
-                Ui.taskDoneMsg(markTask);
+                Ui.printTaskDoneMsg(markTask);
                 break;
             case "unmark":
                 int unmarkIndex = Integer.parseInt(userInput.split(" ")[1]) - 1;
                 Task unmarkTask = taskList.getTask(unmarkIndex);
                 unmarkTask.markAsUndone();
-                Ui.taskUndoneMsg(unmarkTask);
+                Ui.printTaskUndoneMsg(unmarkTask);
                 break;
             case "todo":
             case "event":
@@ -50,7 +50,7 @@ public class Parser {
                 try {
                     TaskList.addTask(taskList, userAction, userInput);
                 } catch (EmptyTaskDescriptorsException ex) {
-                    Ui.generalRespond(ex.toString());
+                    Ui.respond(ex.toString());
                 }
                 break;
             case "delete":

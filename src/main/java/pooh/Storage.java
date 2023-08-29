@@ -44,7 +44,7 @@ public class Storage {
 
                 fileReader.close();
             } else {
-                Ui.generalRespond(
+                Ui.respond(
                         "      Looks like this is the first time here! Say hi to POOH!\n      No worries, Pooh will " +
                                 "save your tasks to pooh.txt");
                 boolean fileCreated = file.createNewFile();

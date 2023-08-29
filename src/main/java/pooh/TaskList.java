@@ -96,7 +96,7 @@ public class TaskList {
         taskList.add(task);
         String addTaskMessage = String.format("      Got it. I've added this task:\n          %s\n      Now you have " +
                 "%d tasks in the list", task, taskList.getSize());
-        Ui.generalRespond(addTaskMessage);
+        Ui.respond(addTaskMessage);
     }
 
     /**
@@ -111,6 +111,6 @@ public class TaskList {
         taskList.remove(index);
         String delTaskMessage = String.format("      Noted. I've removed this task:\n          %s\n      Now you have" +
                 " %d tasks in the list", task, taskList.getSize());
-        Ui.generalRespond(delTaskMessage);
+        Ui.respond(delTaskMessage);
     }
 }
