@@ -157,7 +157,6 @@ public class Parser {
                     String[] splitText = text.split(" ");
                     int numToDelete = Integer.parseInt(splitText[1]) - 1;
 
-
                     ui.printline();
                     ui.sendMessage("Alright Sir, I have removed this task from the list for you.");
                     ui.sendMessage(String.format("\t [%s] [%s] %s", list.get(numToDelete).tag,
