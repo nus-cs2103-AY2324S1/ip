@@ -2,5 +2,5 @@ T | 0 | go home
 D | 0 | return book | 2019-10-15
 E | 0 | project meeting | Mon 2pm | 4pm
 T | 0 | do hw
-T | 0 | go sch
+
 
