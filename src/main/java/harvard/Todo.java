@@ -1,3 +1,4 @@
+package harvard;
 public class Todo extends Task{
     /**
      * The type of the task.
