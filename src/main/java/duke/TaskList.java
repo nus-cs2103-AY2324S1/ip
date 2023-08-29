@@ -125,6 +125,12 @@ public class TaskList {
         return stringBuilder.toString();
     }
 
+    /**
+     * Find the tasks with a keyword.
+     *
+     * @param keyword to search.
+     * @return The list format of the task that contains the keyword.
+     */
     public String find(String keyword) {
         StringBuilder stringBuilder = new StringBuilder();
         for (int i = 0; i < tasks.size(); i++) {

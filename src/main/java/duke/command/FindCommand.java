@@ -4,6 +4,9 @@ import duke.TaskList;
 import duke.Ui;
 import duke.exception.DukeException;
 
+/**
+ * FindCommand to search for a task in the taskList.
+ */
 public class FindCommand implements Command{
     @Override
     public boolean execute(TaskList tasks, Ui ui) throws DukeException {
