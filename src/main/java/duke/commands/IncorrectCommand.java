@@ -21,4 +21,8 @@ public class IncorrectCommand extends Command {
     public boolean isExit() {
         return false;
     }
+
+    public String getMessage() {
+        return this.message;
+    }
 }

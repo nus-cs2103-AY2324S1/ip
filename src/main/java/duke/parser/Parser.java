@@ -1,20 +1,24 @@
 package duke.parser;
 
 import duke.commands.*;
-import duke.exceptions.DukeException;
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.util.Date;
 
 public class Parser {
-    public static Command parse(String fullCommand) throws DukeException {
+    public static Command parse(String fullCommand) {
 
         String[] split = fullCommand.split(" ", 2);
         Command c = null;
 
         switch(split[0]) {
             case "bye":
-                c = new ExitCommand();
+                c = validateExit(split);
                 break;
             case "list":
-                c = new ListCommand();
+                c = validateList(split);
                 break;
             case "mark":
             case "unmark":
@@ -70,11 +74,16 @@ public class Parser {
 
             String[] task = split[1].split(" /by ", 2);
 
-            if (task.length <= 1 || task[1].isBlank()) {
+            if (task.length <= 1 || task[1].isBlank() || task[0].isBlank()) {
                 return new IncorrectCommand("Please enter a valid task and/or deadline.");
             }
 
-            return new AddCommand(task[0], task[1]);
+            try {
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yy HHmm");
+                return new AddCommand(task[0], LocalDateTime.parse(task[1], formatter));
+            } catch (DateTimeParseException e) {
+                return new IncorrectCommand("Please enter the date & time in a valid format! (DD/MM/YY HHMM)");
+            }
 
         } else if (split[0].equals("event")) {
 
@@ -85,7 +94,7 @@ public class Parser {
             String[] task = split[1].split(" /from ", 2);
 
             // Check if task entered is empty
-            if (task.length <= 1 || task[1].isBlank()) {
+            if (task.length <= 1 || task[1].isBlank() || task[0].isBlank()) {
                 return new IncorrectCommand("Please enter a valid task.");
             }
 
@@ -100,11 +109,30 @@ public class Parser {
                 return new IncorrectCommand("Please enter valid to & from dates");
             }
 
-            return new AddCommand(task[0], to[0], to[1]);
+            try {
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yy HHmm");
+                return new AddCommand(task[0], LocalDateTime.parse(to[0], formatter), LocalDateTime.parse(to[1], formatter));
+            } catch (DateTimeParseException e) {
+                return new IncorrectCommand("Please enter the date & time in a valid format! (DD/MM/YY HHMM)");
+            }
 
         } else {
             return new AddCommand(split[1]);
         }
+    }
+
+    public static Command validateList(String[] split) {
+        if (split.length != 1) {
+            return new IncorrectCommand("Please enter a valid command!");
+        }
+        return new ListCommand();
+    }
+
+    public static Command validateExit(String[] split) {
+        if (split.length != 1) {
+            return new IncorrectCommand("Please enter a valid command!");
+        }
+        return new ExitCommand();
     }
 
 }

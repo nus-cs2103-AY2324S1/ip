@@ -2,8 +2,6 @@ package duke.ui;
 
 import duke.tasks.Task;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
 public class Ui {
@@ -84,17 +82,6 @@ public class Ui {
         } else {
             System.out.println("Tasks displayed. Your guidance is requested.");
         }
-    }
-
-    public void throwException(String message) {
-        this.showLine();
-        System.out.println(message);
-        this.showLine();
-    }
-
-    public LocalDateTime formatInputDate(String date) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yy HHmm");
-        return LocalDateTime.parse(date, formatter);
     }
 
 }

@@ -1,16 +1,15 @@
 package duke.commands;
 
-import duke.commands.Command;
 import duke.storage.Storage;
 import duke.tasks.*;
 import duke.ui.Ui;
 
-import java.time.format.DateTimeParseException;
+import java.time.LocalDateTime;
 
 public class AddCommand extends Command {
     private String description;
-    private String till;
-    private String from;
+    private LocalDateTime till;
+    private LocalDateTime from;
     private String type;
 
     // ToDo Constructor
@@ -20,14 +19,14 @@ public class AddCommand extends Command {
     }
 
     // duke.tasks.Deadline Constructor
-    public AddCommand(String description, String till) {
+    public AddCommand(String description, LocalDateTime till) {
         this.description = description;
         this.till = till;
         this.type = "deadline";
     }
 
     // duke.tasks.Event Constructor
-    public AddCommand(String description, String from, String till) {
+    public AddCommand(String description, LocalDateTime from, LocalDateTime till) {
         this.description = description;
         this.till = till;
         this.from = from;
@@ -36,36 +35,21 @@ public class AddCommand extends Command {
 
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
+        Task task = null;
         switch (this.type) {
             case "todo":
-                Task task1 = new Todo(this.description);
-                tasks.add(task1);
-                ui.showAdd(tasks.size(), task1);
-                storage.writeData(tasks.getAllTasks());
+                task = new Todo(this.description);
                 break;
             case "deadline":
-                try {
-                    Task task2 = new Deadline(this.description, ui.formatInputDate(this.till));
-                    tasks.add(task2);
-                    ui.showAdd(tasks.size(), task2);
-                    storage.writeData(tasks.getAllTasks());
-                } catch (DateTimeParseException exp) {
-                    ui.showLine();
-                    System.out.println("Please enter the date & time in a valid format! (DD/MM/YY HHMM)");
-                    ui.showLine();
-                }
+                task = new Deadline(this.description,this.till);
+                break;
             case "event":
-                try {
-                    Task task3 = new Event(this.description, ui.formatInputDate(this.from), ui.formatInputDate(this.till));
-                    tasks.add(task3);
-                    ui.showAdd(tasks.size(), task3);
-                    storage.writeData(tasks.getAllTasks());
-                } catch (DateTimeParseException exc) {
-                    ui.showLine();
-                    System.out.println("Enter the date & time in a valid format! (DD/MM/YY HHMM)");
-                    ui.showLine();
-                }
+                task = new Event(this.description, this.from, this.till);
+                break;
         }
+        tasks.add(task);
+        ui.showAdd(tasks.size(), task);
+        storage.writeData(tasks.getAllTasks());
     }
 
     @Override

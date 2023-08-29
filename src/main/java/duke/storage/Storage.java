@@ -16,7 +16,6 @@ import java.util.Scanner;
 public class Storage {
     private File folder;
     private File file;
-    private final String PATH = System.getProperty("user.dir");
 
     public Storage(String filePath) {
         String[] folder = filePath.split("/");
@@ -34,11 +33,11 @@ public class Storage {
         }
     }
 
-    void createDirectory() {
+    public void createDirectory() {
         this.folder.mkdir();
     }
 
-    void createFile() {
+    public void createFile() {
         try {
             this.file.createNewFile();
         } catch (IOException err) {
@@ -46,7 +45,7 @@ public class Storage {
         }
     }
 
-    boolean fileExists() {
+    public boolean fileExists() {
         return this.file.exists();
     }
 
@@ -78,7 +77,7 @@ public class Storage {
         }
     }
 
-    Task stringToTask(String line) {
+    public Task stringToTask(String line) {
         String[] split = line.split(" \\| ", 4);
 
         // Corrupted File
