@@ -13,28 +13,21 @@ public class TaskList {
     public void addTask(Task task) {
         this.tasks.add(task);
         db.saveTask(tasks);
-        System.out.println("Got it. I've added this task:");
-        System.out.println(task.toString());
-        System.out.println("Now you have " + this.tasks.size() + " tasks in the list.");
+        Ui.addTask(task, this.tasks.size());
     }
 
     public void deleteTask(int taskNumber) throws DukeException {
         if (taskNumber > tasks.size() || taskNumber < 1) {
             throw new DukeException("Please enter a valid task number.");
         }
-        Task deletedTask = this.tasks.get(taskNumber - 1);
+
+        Ui.deleteTask(this.tasks.get(taskNumber - 1), this.tasks.size());
         this.tasks.remove(taskNumber - 1);
         db.saveTask(tasks);
-        System.out.println("Noted. I've removed this task:");
-        System.out.println(deletedTask.toString());
-        System.out.println("Now you have " + this.tasks.size() + " tasks in the list.");
     }
 
     public void listAllTasks() {
-        System.out.println("Here are the tasks in your list:");
-        for (int i = 0; i < this.tasks.size(); i++) {
-            System.out.println((i + 1) + ". " + this.tasks.get(i).toString());
-        }
+        Ui.lsitAllTasks(tasks);
     }
 
     public void markTaskAsDone(int taskNumber) throws DukeException{
@@ -42,19 +35,19 @@ public class TaskList {
             throw new DukeException("Please enter a valid task number.");
         }
 
-        this.tasks.get(taskNumber - 1).markAsDone();
+        Task tsk = this.tasks.get(taskNumber - 1);
+        tsk.markAsDone();
         db.saveTask(tasks);
-        System.out.println("Nice! I've marked this task as done:");
-        System.out.println(this.tasks.get(taskNumber - 1).toString());
+        Ui.markAsDone(tsk);
     }
 
     public void markTaskAsUndone(int taskNumber) throws DukeException{
         if (taskNumber > this.tasks.size() || taskNumber < 1) {
             throw new DukeException("Please enter a valid task number.");
         }
-        this.tasks.get(taskNumber - 1).markAsUndone();
+        Task tsk = this.tasks.get(taskNumber - 1);
+        tsk.markAsUndone();
         db.saveTask(tasks);
-        System.out.println("OK, I've marked this task as not done yet:");
-        System.out.println(this.tasks.get(taskNumber - 1).toString());
+        Ui.markAsUndone(tsk);
     }
 }
