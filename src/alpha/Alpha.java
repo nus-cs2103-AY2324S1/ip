@@ -1,4 +1,4 @@
-import java.io.IOException;
+package src.alpha;
 
 // The Chatbot Aplha!
 public class Alpha {

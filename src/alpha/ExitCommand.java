@@ -1,3 +1,4 @@
+package src.alpha;
 public class ExitCommand extends Command{
 
     public ExitCommand(TaskList taskList, FileHandler fh, UI ui) {

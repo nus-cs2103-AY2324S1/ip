@@ -1,3 +1,4 @@
+package src.alpha;
 // Class to handle exceptions with entering tasks
 public abstract class TaskException extends AlphaException{
     public enum TaskType {

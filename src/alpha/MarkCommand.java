@@ -1,3 +1,4 @@
+package src.alpha;
 public class MarkCommand extends Command{
 
     private int index;

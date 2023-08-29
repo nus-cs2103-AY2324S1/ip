@@ -1,3 +1,4 @@
+package src.alpha;
 public class UnmarkCommand extends Command{
 
     private int index;

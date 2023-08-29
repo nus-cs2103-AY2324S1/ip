@@ -1,4 +1,4 @@
-
+package src.alpha;
 public class Parser {
 
     private static String END = "bye";
