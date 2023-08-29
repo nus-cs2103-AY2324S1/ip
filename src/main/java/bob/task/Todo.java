@@ -1,6 +1,7 @@
 package bob.task;
 
 public class Todo extends Task {
+
     public Todo(String name) {
         super(name);
     }
@@ -24,8 +25,10 @@ public class Todo extends Task {
      */
     public static Todo parseTodo(String str) throws IndexOutOfBoundsException {
         String[] strSplit = str.split(" \\| ", 2);
+
         boolean isDone = strSplit[0].equals("1");
         String name = strSplit[1];
+
         return new Todo(name, isDone);
     }
 

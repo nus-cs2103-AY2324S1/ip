@@ -4,6 +4,7 @@ import bob.*;
 import bob.exception.*;
 
 public class DeleteCommand extends Command {
+
     public DeleteCommand(String input) {
         super.input = input;
         super.isExit = false;
@@ -15,14 +16,17 @@ public class DeleteCommand extends Command {
             if (deleteIndex.length == 1) {
                 throw new MissingIndexException();
             }
+
             int index = 0;
             try {
                 index = Integer.parseInt(deleteIndex[1]);
             } catch (NumberFormatException e) {
                 throw new MissingIndexException();
             }
+
             ui.stringFormat(tasks.deleteTask(index));
             storage.write(tasks.lst);
+
         } catch (IOException e) {
             ui.showLoadingError();
         } catch (MissingIndexException e) {

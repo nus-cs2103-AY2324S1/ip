@@ -1,6 +1,7 @@
 package bob.task;
 
 public class Task {
+
     protected String name;
     protected boolean done;
 
@@ -9,7 +10,7 @@ public class Task {
         this.done = false;
     }
 
-    public void SetDoneOrNot(boolean doneOrNot) {
+    public void setDoneOrNot(boolean doneOrNot) {
         this.done = doneOrNot;
     }
 
@@ -21,18 +22,19 @@ public class Task {
      */
     public static Task parse(String description) throws IndexOutOfBoundsException {
         String[] split = description.split(" \\| ", 2);
+
         String type = split[0];
         String details = split[1];
 
         switch (Enum.valueOf(TaskType.class, type)) {
-            case todo:
-                return Todo.parseTodo(details);
-            case event:
-                return Event.parseEvent(details);
-            case deadline:
-                return Deadline.parseDeadline(details);
-            default:
-                throw new IndexOutOfBoundsException();
+        case todo:
+            return Todo.parseTodo(details);
+        case event:
+            return Event.parseEvent(details);
+        case deadline:
+            return Deadline.parseDeadline(details);
+        default:
+            throw new IndexOutOfBoundsException();
         }
     }
 
