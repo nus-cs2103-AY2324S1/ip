@@ -1,11 +1,13 @@
+package task;
+
 /**
  * Represents a task without any date/time attached to it.
  *
  * @author Andrew Daniel Janong
  */
-public class ToDo extends Task{
+public class ToDo extends Task {
     /**
-     * A public constructor for the ToDo.
+     * A public constructor for the task.ToDo.
      * @param description
      */
     public ToDo(String description) {
@@ -13,9 +15,9 @@ public class ToDo extends Task{
     }
 
     /**
-     * A string representation of a ToDo.
-     * Uses an extra [T] to represent a ToDo.
-     * @return the string representation of the ToDo
+     * A string representation of a task.ToDo.
+     * Uses an extra [T] to represent a task.ToDo.
+     * @return the string representation of the task.ToDo
      */
     @Override
     public String toString() {

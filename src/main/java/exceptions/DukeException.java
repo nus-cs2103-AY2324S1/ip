@@ -1,3 +1,5 @@
+package exceptions;
+
 /**
  * Represents an exception that might happen in the chatbot.
  *

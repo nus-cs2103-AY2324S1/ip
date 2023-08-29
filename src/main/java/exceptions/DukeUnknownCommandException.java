@@ -1,3 +1,5 @@
+package exceptions;
+
 /**
  * Represents an exception where the command is unknown
  *

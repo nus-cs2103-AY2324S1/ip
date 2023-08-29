@@ -1,9 +1,11 @@
+package task;
+
 /**
  * Represents a task that starts at a specific date/time and ends at a specific date/time.
  *
  * @author Andrew Daniel Janong
  */
-public class Event extends Task{
+public class Event extends Task {
     /**
      * The start time of the event.
      */
@@ -15,7 +17,7 @@ public class Event extends Task{
     protected String endTime;
 
     /**
-     * A public constructor for the Event.
+     * A public constructor for the task.Event.
      * @param description
      * @param startTime
      * @param endTime
@@ -27,9 +29,9 @@ public class Event extends Task{
     }
 
     /**
-     * A string representation of a Event.
-     * Uses an extra [E] to represent a Event, start time, and end time.
-     * @return the string representation of the Event
+     * A string representation of a task.Event.
+     * Uses an extra [E] to represent a task.Event, start time, and end time.
+     * @return the string representation of the task.Event
      */
     @Override
     public String toString() {

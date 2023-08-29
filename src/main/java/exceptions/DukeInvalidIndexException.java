@@ -1,3 +1,5 @@
+package exceptions;
+
 /**
  * Represents an exception where the index of the task is invalid.
  *
