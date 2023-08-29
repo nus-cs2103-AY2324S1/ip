@@ -9,6 +9,12 @@ import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Scanner;
 
+import duke.task.Deadline;
+import duke.task.Event;
+import duke.task.Task;
+import duke.task.TaskList;
+import duke.task.Todo;
+
 public class Storage {
     private final String filePath = "./data/duke.txt";
 

@@ -1,8 +1,10 @@
-package duke;
+package duke.task;
 
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Hashtable;
+
+import duke.DukeException;
 
 public class TaskList {
     private ArrayList<Task> list = new ArrayList<>();

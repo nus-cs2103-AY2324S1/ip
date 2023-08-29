@@ -1,4 +1,4 @@
-package duke;
+package duke.task;
 
 public class Task {
     protected String description;
@@ -9,11 +9,11 @@ public class Task {
         this.isDone = false;
     }
 
-    protected void markDone() {
+    public void markDone() {
         this.isDone = true;
     }
 
-    protected void unmarkDone() {
+    public void unmarkDone() {
         this.isDone = false;
     }
 
