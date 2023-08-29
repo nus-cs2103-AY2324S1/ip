@@ -1,11 +1,9 @@
 import java.util.Scanner;
-import java.util.ArrayList;
 
 import static java.lang.Integer.parseInt;
 public class Haste {
     public static final String LINE = "＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿";
     public static final String INDENT = "    ";
-    public static ArrayList<Task> taskList = new ArrayList<>();
 
     public static void main(String[] args) {
         greet();
@@ -19,7 +17,7 @@ public class Haste {
                 online = false;
             } else if (cmd.equals("list")) {
                 // print list
-                Task.printList();
+                TaskList.printList();
             } else if (cmd.startsWith("mark")) {
                 mark(cmd);
             } else if (cmd.startsWith("unmark")) {
@@ -29,7 +27,7 @@ public class Haste {
             } else {
                 // add task to list
                 try {
-                    Task.addTask(cmd);
+                    TaskList.addTask(cmd);
 
                 } catch(EmptyTaskException e) {
                     e.printStackTrace();
@@ -56,7 +54,7 @@ public class Haste {
 
     public static void mark(String cmd) {
         int id = parseInt(cmd.split(" ")[1]) - 1;
-        Task currTask = Task.taskList.get(id);
+        Task currTask = TaskList.taskList.get(id);
         currTask.markDone();
         printLine();
         System.out.println(INDENT + "Nice! I've marked this task as done!:");
@@ -66,7 +64,7 @@ public class Haste {
 
     public static void unmark(String cmd) {
         int id = parseInt(cmd.split(" ")[1]) - 1;
-        Task currTask = Task.taskList.get(id);
+        Task currTask = TaskList.taskList.get(id);
         currTask.markUndone();
         printLine();
         System.out.println(INDENT + "Okay, I've marked this task as not done:");
@@ -78,10 +76,11 @@ public class Haste {
         int id = parseInt(cmd.split(" ")[1]) - 1;
 
         printLine();
+        // to do : fix order (delete task to be in front?)
         System.out.println(INDENT + "Noted. I've removed this task");
-        System.out.println(INDENT + Task.taskList.get(id));
-        Task.deleteTask(id);
-        System.out.println(INDENT + "Now you have " + Task.numOfTasks + " tasks in the list");
+        System.out.println(INDENT + TaskList.taskList.get(id));
+        TaskList.deleteTask(id);
+        System.out.println(INDENT + "Now you have " + TaskList.getNumOfTasks() + " tasks in the list");
         printLine();
     }
 
@@ -89,6 +88,7 @@ public class Haste {
     public static void printLine() {
         System.out.println(INDENT + LINE);
     }
+
 
 
 }
