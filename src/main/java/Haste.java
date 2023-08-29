@@ -49,7 +49,7 @@ public class Haste {
         printLine();
         System.out.println(INDENT + "Hello! I'm HASTE\n" + INDENT + "What can I do for you?");
         printLine();
-        // read file and update tasklist
+        // read file and update task list
         TaskList.read();
     }
 
@@ -57,7 +57,6 @@ public class Haste {
         printLine();
         System.out.println(INDENT + "Bye. Hope to see you again!");
         printLine();
-        // add functionality: call tasklist method to save data in a textfile
         TaskList.save();
     }
 

@@ -68,18 +68,22 @@ public class TaskList {
 
     // read method
     public static void read() {
+        File file = new File("./Data.txt");
+        if (!file.exists()) {
+            try {
+                file.createNewFile();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
         try {
-            File file = new File("./Data.txt");
             Scanner scanner = new Scanner(file);
-
             while (scanner.hasNextLine()) {
                 String cmd = scanner.nextLine();
                 addTask(cmd);
             }
             file.delete();
-
         } catch (FileNotFoundException e) {
-            // if file not found, just continue
             e.printStackTrace();
         } catch (InvalidCommand e) {
             e.printStackTrace();
