@@ -24,10 +24,8 @@ public class Duke {
                 break;
             }
 
-            ui.setAnswerBorder();
             // process the command
-            commandProcessor.processCommand(command);
-            ui.setAnswerBorder();
+            ui.message(commandProcessor.processCommand(command));
 
 
         }

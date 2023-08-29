@@ -9,11 +9,14 @@ import java.util.ArrayList;
 public class TaskList {
     private ArrayList<Task> tasklist;
     private static final Storage STORAGE = new Storage();
-
+    // create a list of tasks
     public TaskList() {
         this.tasklist = new ArrayList<Task>();
     }
 
+    public TaskList(ArrayList<Task> tasks) {
+        this.tasklist = tasks;
+    }
 
     private static boolean isInteger(String taskNumber) {
         for (int i = 0; i < taskNumber.length(); i++) {
@@ -24,29 +27,16 @@ public class TaskList {
         return true;
     }
 
-
-
-
-    public void add(Task task) {
-        this.tasklist.add(task);
-    }
-
-    public int size() {
-        return this.tasklist.size();
-    }
-
-
-
-
     // adding task into tasklist and output the relevant information
-    public void addToList(Task task) {
+    public String addToList(Task task) {
         this.tasklist.add(task);
-        System.out.println("Got it. I've added this task:\n"
+        return ("Got it. I've added this task:\n"
                 + task.toString() + "\nNow you have "
-                + tasklist.size() + " tasks in the list.");
+                + tasklist.size() + " tasks in the list.\n");
 
     }
-    // getTaskIndex checks if the input is valid and
+
+    // check if the input is valid and
     // returns the index of the task to be marked or unmarked
     private int getTaskIndex(String taskNumber) throws DukeException {
         if (!isInteger(taskNumber)) {
@@ -60,45 +50,46 @@ public class TaskList {
         }
         return taskIndex;
     }
-    public void mark(String taskNumber) throws DukeException {
+
+    // mark a task given the task number and store it
+    public String mark(String taskNumber) throws DukeException {
         int taskIndex = getTaskIndex(taskNumber);
         Task markedTask = this.tasklist.get(taskIndex).done();
-        System.out.println("Nice! I've marked this task as done:\n" + markedTask.toString());
         tasklist.set(taskIndex, markedTask);
         STORAGE.writeAllToFile(tasklist);
+        return ("Nice! I've marked this task as done:\n" + markedTask.toString() + "\n");
     }
 
-    public void mark(int taskIndex) {
-        Task markedTask = this.tasklist.get(taskIndex).done();
-        tasklist.set(taskIndex, markedTask);
-    }
 
-    public void unMark(String taskNumber) throws DukeException {
+    public String unMark(String taskNumber) throws DukeException {
         int taskIndex = getTaskIndex(taskNumber);
         Task unmarkedTask = this.tasklist.get(taskIndex).undone();
-        System.out.println("OK, I've marked this task as not done yet:\n" + unmarkedTask.toString());
         tasklist.set(taskIndex, unmarkedTask);
         STORAGE.writeAllToFile(tasklist);
+        return ("OK, I've marked this task as not done yet:\n" + unmarkedTask.toString() + "\n");
     }
 
-    public void delete(String taskNumber) throws DukeException {
+    public String delete(String taskNumber) throws DukeException {
         int taskIndex = getTaskIndex(taskNumber);
         Task removedTask = tasklist.remove(taskIndex);
-        System.out.println("Noted. I've removed this task:\n"
+        STORAGE.writeAllToFile(tasklist);
+        return ("Noted. I've removed this task:\n"
                 + removedTask.toString()
                 + "\nNow you have " + tasklist.size()
-                + " tasks in the list.");
+                + " tasks in the list.\n");
 
-        STORAGE.writeAllToFile(tasklist);
+
     }
 
-    public void listContent() {
+    public String listContent() {
+        String listOfContents = "";
         if (tasklist.isEmpty()) {
-            System.out.println("Oops! It seems you do not have anything in your task list");
+            return ("Oops! It seems you do not have anything in your task list");
         }
         for (int i = 0; i < tasklist.size(); i++) {
-            System.out.println((i + 1) + ": " + tasklist.get(i).toString());
+            listOfContents = listOfContents + ((i + 1) + ": " + tasklist.get(i).toString() + "\n");
         }
+        return listOfContents;
     }
 
 }
