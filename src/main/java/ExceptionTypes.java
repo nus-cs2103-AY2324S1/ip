@@ -1,7 +1,7 @@
 public enum ExceptionTypes {
-    INVALIDCOMMANDEVENT("OOPS!!! Invalid command. The command for an event should be:\nevent <task> /from <start date/time> /to <end date/time>"),
+    INVALIDCOMMANDEVENT("OOPS!!! Invalid command. The command for an event should be:\nevent <task> /from yyyy-mm-dd hh:mm /to yyyy-mm-dd hh:mm"),
     INCOMPLETECOMMANDEVENT("OOPS!!! The description of an event cannot be empty and the start and end time/date cannot be empty."),
-    INVALIDCOMMANDDEADLINE("OOPS!!! Invalid command. The command for a deadline should be:\ndeadline <task> /by <deadline>"),
+    INVALIDCOMMANDDEADLINE("OOPS!!! Invalid command. The command for a deadline should be:\ndeadline <task> /by yyyy-mm-dd hh:mm"),
     INCOMPLETECOMMANDDEADLINE("OOPS!!! The description of a deadline cannot be empty and the deadline for the deadline cannot be empty."),
     INCOMPLETECOMMANDTODO("OOPS!!! The description of a todo cannot be empty."),
     INVALIDTASKNUMBER("OOPS!! Invalid task number. The task number has to be from one to the number of tasks in the list."),

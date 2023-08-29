@@ -1,7 +1,5 @@
 /**
  * Represents a task of type todo
- *
- * @author Celestine
  */
 public class Todo extends Task {
 
@@ -19,6 +17,7 @@ public class Todo extends Task {
         return "[T]" + super.toString();
     }
 
+    @Override
     public String toFileFormat() {
         return "T | " + this.isDone + " | " + this.description;
     }

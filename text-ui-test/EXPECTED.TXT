@@ -9,17 +9,19 @@ Got it. I've added this task:
  [T][ ] sleep
 Now you have 1 task(s) in the list.
 OOPS!!! The description of an event cannot be empty and the start and end time/date cannot be empty.
+Invalid start and end date/time. The format should be yyyy-mm-dd hh:mm
 Got it. I've added this task:
- [E][ ] meeting (from: 2pm to: 4pm)
+ [E][ ] meeting (from: Oct 10 2023 02:00 PM to: Oct 10 2023 04:00 PM)
 Now you have 2 task(s) in the list.
 OOPS!!! The description of a deadline cannot be empty and the deadline for the deadline cannot be empty.
+Invalid start and end date/time. The format should be yyyy-mm-dd hh:mm
 Got it. I've added this task:
- [D][ ] lecture quiz (by: 9pm)
+ [D][ ] lecture quiz (by: Oct 05 2023 11:59 PM)
 Now you have 3 task(s) in the list.
 Here are the tasks in your list:
 1.[T][ ] sleep
-2.[E][ ] meeting (from: 2pm to: 4pm)
-3.[D][ ] lecture quiz (by: 9pm)
+2.[E][ ] meeting (from: Oct 10 2023 02:00 PM to: Oct 10 2023 04:00 PM)
+3.[D][ ] lecture quiz (by: Oct 05 2023 11:59 PM)
 OOPS!! Task number cannot empty. Please indicate a task number from one to the number of tasks in the list.
 Nice! I've marked this task as done:
 [T][X] sleep
@@ -35,8 +37,8 @@ Noted. I've removed this task:
 Now you have 2 task(s) in the list.
 OOPS!!! Invalid command. Try the following commands instead:
 > todo <task>
-> deadline <task> /by <deadline>
-> event <task> /from <start date/time> /to <end date/time>
+> deadline <task> /by yyyy-mm-dd hh:mm
+> event <task> /from yyyy-mm-dd hh:mm /to yyyy-mm-dd hh:mm
 > list
 > mark <task number>
 > unmark <task number>

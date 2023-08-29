@@ -6,8 +6,10 @@ todo
 todo sleep
 event
 event meeting /from 2pm /to 4pm
+event meeting /from 2023-10-10 14:00 /to 2023-10-10 16:00
 deadline
 deadline lecture quiz /by 9pm
+deadline lecture quiz /by 2023-10-05 23:59
 list
 mark
 mark 1
