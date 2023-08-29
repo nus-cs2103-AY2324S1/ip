@@ -1,9 +1,17 @@
 public class Duke {
+    private Ui ui;
+
+    public Duke() {
+        ui = new Ui();
+    }
+
+    public void run(String filePath) {
+        this.ui.sayhi();
+        Taskmanager.manageTasks(filePath);
+        this.ui.saybye();
+    }
+
     public static void main(String[] args) {
-        Scripts script = new Scripts();
-        script.sayhi();
-        Taskmanager tm = new Taskmanager();
-        tm.manageTasks();
-        script.saybye();
+        new Duke().run("Data");
     }
 }
