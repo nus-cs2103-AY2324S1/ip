@@ -162,12 +162,18 @@ public class Duke {
     }
 
     public void run() throws IllegalCommandException {
-        System.out.println(TextFormat.botReply(greet)); // print greet message
         loadFile();
         try {
             readFile();
         } catch (FileNotFoundException e) {
             System.out.println(e.getMessage());
+        }
+        if (Task.numberOfTasks != 0) {
+            greet = greet + "Welcome back! You had these tasks last time!\n";
+            System.out.println(TextFormat.botReply(greet)); // print greet message
+            list();
+        } else {
+            System.out.println(TextFormat.botReply(greet)); // print greet message
         }
         this.processInput();                            // function to run the chatbot
         try {
