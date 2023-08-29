@@ -4,6 +4,6 @@ package duke;
  * Represents the possible commands for the chatbot.
  */
 public enum CommandType {
-    BYE, LIST, MARK, UNMARK, DELETE, CHECK, TODAY,
+    BYE, LIST, MARK, UNMARK, DELETE, CHECK, TODAY, FIND,
     TODO, DEADLINE, EVENT,
 }

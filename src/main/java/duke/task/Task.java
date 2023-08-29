@@ -28,6 +28,10 @@ public abstract class Task {
      */
     public abstract String toFileString();
 
+    public String getDescription() {
+        return this.description;
+    }
+
     /**
      * Returns the string indicating the task's status (done or not done).
      */
