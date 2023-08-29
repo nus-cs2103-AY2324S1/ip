@@ -1,5 +1,12 @@
+package pogo.tasks;
+
+import pogo.tasks.exceptions.PogoInvalidTaskException;
+
+/**
+ * Represents a generic task to be done.
+ */
 public class ToDo extends Task {
-    public ToDo (String description) {
+    public ToDo(String description) throws PogoInvalidTaskException {
         super(description);
     }
 
@@ -8,9 +15,13 @@ public class ToDo extends Task {
         return "[T]" + super.getStatusMessage();
     }
 
-    @Override
-    public String toFormattedString() {
-        return String.format("T | %s", super.toFormattedString());
+    /**
+     * Accepts a visitor that performs an action on the task.
+     *
+     * @param visitor Visitor to perform an action on the task.
+     */
+    public void accept(TaskVisitor visitor) {
+        visitor.visit(this);
     }
 
     public static ToDo fromFormattedString(String input) throws PogoInvalidTaskException {
