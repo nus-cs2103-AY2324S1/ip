@@ -22,5 +22,12 @@ public class Task {
     public void markAsUndone() {
         this.isDone = false;
     }
+    public String toStorageString() {
+        return "  // " + this.getStatusIcon() + " // " + this.description;
+    }
+    public String toString() {
+        return "[ ]" + "[" + this.getStatusIcon() + "] " + this.description;
+    }
+
 
 }

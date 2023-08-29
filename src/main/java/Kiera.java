@@ -1,7 +1,13 @@
 import java.util.ArrayList;
+import java.util.Scanner;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.FileNotFoundException;
+import java.util.stream.Collectors;
 
 public class Kiera {
-    protected static String name = "Kiera";
+    protected static String name = "kiera";
     protected static String line = "   ---------------------------------------------";
     protected static String hello = line
                 + "\n"
@@ -16,124 +22,164 @@ public class Kiera {
                 + "muaks! <3\n"
                 + line;
     
-    protected static ArrayList<Task> store = new ArrayList<Task>();
-    protected static int index = 0;
+    protected static ArrayList<Task> store = new ArrayList<>();
+    protected static String filePath = "./data/storage.txt";
 
-
-    public static String list() {
+    public static void readFile(String filePath) throws KieraException {
+        File f = new File(filePath);
         String result = "";
-        if (index == 0) {
-            return line + "\n    nothing for you to do yet! \n" + result + line;
-        }
-        for (int i = 0; i < index; i++) {
-            Task t = store.get(i);
+        try {
+            Scanner s = new Scanner(f);
 
-            result = result +  "    " + (i + 1) + ". " + t.toString() +  "\n";
+            while (s.hasNext()) {
+                Task t;
+                String next = s.nextLine();
+                String[] r = next.split(" // ");
+                String type = r[0];
+                String done = r[1];
+                String desc = r[2];
+                if (type.equals("T")) {
+                    System.out.println(desc);
+                    t = new Todo(desc);
+                } else if (type.equals("D")) {
+                    t = new Deadline(desc);
+                } else {
+                    t = new Event(desc);
+                }
+                if (done.equals("X")) {
+                    t.markAsDone();
+                } else {
+                    t.markAsUndone();
+                }
+                store.add(t);
 
+            }
+
+        } catch (FileNotFoundException e) {
+            throw new KieraException("no previous data found; starting with an empty list!");
         }
-        return line + "\n    you need to get these done today:\n" + result + line;
+        System.out.println(result);
+    }
+    public static void writeToFile(String filePath, String text) throws KieraException {
+        try {
+            FileWriter fw = new FileWriter(filePath);
+            fw.write(text);
+            fw.close();
+        } catch (IOException e) {
+            throw new KieraException("data not saved..." + e);
+        }
     }
 
-    public static String mark(String input) {
+    public static void list() {
+        String result = "";
+        if (store.isEmpty()) {
+            System.out.println(line + "\n    nothing for you to do yet! \n" + result + line);
+            return;
+        }
+        for (int i = 0; i < store.size(); i++) {
+            Task t = store.get(i);
+
+            result = result +  "    " + (i + 1) + ". " + t +  "\n";
+
+        }
+        System.out.println(line + "\n    you need to get these done today:\n" + result + line);
+    }
+
+    public static void mark(String input) {
         try {
-            int unchecked = Integer.valueOf(input.replace("mark ", "")) - 1;
+            int unchecked = Integer.parseInt(input.replace("mark ", "")) - 1;
             Task t = store.get(unchecked);
 
             t.markAsDone();
-
-            return line
-                + "    \n    yay, one task down: \n"
-                + "     "
-                + t.toString()
-                + "\n"
-                + line;
+            System.out.println(line
+                    + "    \n    yay, one task down: \n"
+                    + "     "
+                    + t
+                    + "\n"
+                    + line);
         } catch (IndexOutOfBoundsException e) {
             throw new KieraException("your task number is not in the task list!");
         }
-        
+
     }
 
-    public static String unmark(String input) {
+    public static void unmark(String input) {
         try {
-            int checked = Integer.valueOf(input.replace("unmark ", "")) - 1;
+            int checked = Integer.parseInt(input.replace("unmark ", "")) - 1;
             Task t = store.get(checked);
 
             t.markAsUndone();
 
-            return line
-                + "    \n    ok, this task is not done yet: \n"
-                + "     "
-                + t.toString()
-                + "\n"
-                + line;
+            System.out.println(line
+                    + "    \n    ok, this task is not done yet: \n"
+                    + "     "
+                    + t
+                    + "\n"
+                    + line);
         } catch (IndexOutOfBoundsException e) {
             throw new KieraException("your task number is not in the task list!");
         }
         
     }
 
-    public static String addTask(String input, String type) throws KieraException {
+
+    public static void addTask(String input, String type) throws KieraException {
         Task t;
-        if (type == "todo") {
-            if (input == "") {
+        if (type.equals("todo")) {
+            if (input.isEmpty()) {
                 throw new KieraException( "todo can't be empty! follow the format: todo (task).");
             }
             t = new Todo(input);
-        } else if (type == "deadline") {
-            if (input == "") {
-                throw new KieraException( "deadline can't be empty! follow the format: deadline (task).");
+        } else if (type.equals("deadline")) {
+            if (input.isEmpty()) {
+                throw new KieraException("deadline can't be empty! follow the format: deadline (task) /by (date).");
             }
-            String deadline = input.split("/")[1].replace("by ", "");
-            String desc = input.split("/")[0];
-            t = new Deadline(desc, deadline);
+            t = new Deadline(input);
         } else {
-            if (input == "") {
-                throw new KieraException( "deadline can't be empty! follow the format: event (task).");
+            if (input.isEmpty()) {
+                throw new KieraException( "event can't be empty! follow the format: event (task) /from (start) /to (end).");
             }
-            String end = input.split("/")[2].replace("to ", "");
-            String start = input.split("/")[1].replace("from ", "");
-            String desc = input.split("/")[0];
-            t = new Event(desc, start, end);
+            t = new Event(input);
         }
         
         store.add(t);
-        index ++;
-        String plural = index == 1 ? "task" : "tasks";
-            
-        return line 
-            + "\n    " 
-            + "alright, one more task has been added: \n"
-            + "      "
-            + t.toString()
-            + "\n    "
-            + (index) 
-            + " more "
-            + plural
-            + " to go! \n"
-            + line;
+
+        String plural = store.size() == 1 ? "task" : "tasks";
+
+        System.out.println(line
+                + "\n    "
+                + "alright, one more task has been added: \n"
+                + "      "
+                + t
+                + "\n    "
+                + (store.size())
+                + " more "
+                + plural
+                + " to go! \n"
+                + line);
     }
 
-    public static String delete(String input) {
+    public static void delete(String input) {
         try {
-             int deleted = Integer.valueOf(input.replace("delete ", "")) - 1;
+            int deleted = Integer.parseInt(input.replace("delete ", "")) - 1;
             Task t = store.get(deleted);
 
             store.remove(deleted);
-            index --;
 
-            String plural = index == 0 ? "task" : "tasks";
 
-            return line 
-                + "\n    " 
-                + "alright, this task is gone: \n"
-                + "      "
-                + t.toString()
-                + "\n    "
-                + (index) 
-                + " more "
-                + plural
-                + " left! \n"
-                + line;
+            String plural = store.size() == 0 ? "task" : "tasks";
+
+            System.out.println(line
+                    + "\n    "
+                    + "alright, this task is gone: \n"
+                    + "      "
+                    + t.toString()
+                    + "\n    "
+                    + store.size()
+                    + " more "
+                    + plural
+                    + " left! \n"
+                    + line);
 
         } catch (IndexOutOfBoundsException e) {
             throw new KieraException("your task number is not in the task list!");
@@ -141,43 +187,53 @@ public class Kiera {
        
     }
     public static void main(String[] args) {
-        
+        try {
+            readFile(filePath);
+        } catch (KieraException e) {
+            System.out.println(e);
+        }
 
+        Scanner in = new Scanner(System.in);
         System.out.println(hello);
 
         while (true) {
-            String input = System.console().readLine();
+            String input = in.nextLine();
+            if (input == null) {
+                continue;
+            }
             if (input.equals("bye")) {
+                String text = store.stream().map(task -> task.toStorageString() + "\n").collect(Collectors.joining());
+                writeToFile(filePath, text);
                 break;
             }
 
             if (input.startsWith("mark")) {
-                System.out.println(mark(input));
+                mark(input);
                 continue;
             } else if (input.startsWith("unmark")){
-                System.out.println(unmark(input));
+                unmark(input);
                 continue;
             }
 
             if (input.equals("list")) {
-                System.out.println(list());
+                list();
                 continue;
             }
 
             if (input.startsWith("delete")) {
-                System.out.println(delete(input));
+                delete(input);
                 continue;
             }
             
             if (input.startsWith("todo")) {
                 String desc = input.replace("todo ", "");
-                System.out.println(addTask(desc, "todo"));
+                addTask(desc, "todo");
             } else if (input.startsWith("deadline")) {
                 String desc = input.replace("deadline ", "");
-                System.out.println(addTask(desc, "deadline"));
+                addTask(desc, "deadline");
             } else if (input.startsWith("event")) {
                 String desc = input.replace("event ", "");
-                System.out.println(addTask(desc, "event"));
+                addTask(desc, "event");
             } else {
                 System.out.println(line + "\n    sorry, i don't know what this means... \n" + line);
             }
