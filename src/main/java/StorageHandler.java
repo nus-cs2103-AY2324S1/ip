@@ -1,5 +1,6 @@
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class StorageHandler {
@@ -28,16 +29,24 @@ public class StorageHandler {
         SaveHandler.saveTo();
     }
     public static void setMarkArray(int i) {
-        todoList[i-1].setMark();
-        System.out.println("Marked as done peko!");
-        System.out.println("    " + todoList[i-1]);
-        SaveHandler.saveTo();
+        try {
+            todoList[i-1].setMark();
+            System.out.println("Marked as done peko!");
+            System.out.println("    " + todoList[i-1]);
+            SaveHandler.saveTo();
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println("You don't have that many Tasks Peko!");
+        }
     }
     public static void setUnmarkArray(int i) {
-        todoList[i-1].setUnmark();
-        System.out.println("You haven't done this yet peko?!");
-        System.out.println("    " + todoList[i-1]);
-        SaveHandler.saveTo();
+        try {
+            todoList[i-1].setUnmark();
+            System.out.println("You haven't done this yet peko?!");
+            System.out.println("    " + todoList[i-1]);
+            SaveHandler.saveTo();
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println("You don't have that many Tasks Peko!");
+        }
     }
     public static void setDelete(int i) {
         i--;
