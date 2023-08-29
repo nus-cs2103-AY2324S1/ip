@@ -119,8 +119,19 @@ public class TaskList {
         for (int i = 0; i < tasks.size(); i++) {
             if (tasks.get(i).onDate(targetDate)) {
                 stringBuilder.append(i + 1).append(".").append(tasks.get(i).toString());
+                stringBuilder.append("\n");
             }
-            stringBuilder.append("\n");
+        }
+        return stringBuilder.toString();
+    }
+
+    public String find(String keyword) {
+        StringBuilder stringBuilder = new StringBuilder();
+        for (int i = 0; i < tasks.size(); i++) {
+            if (tasks.get(i).contains(keyword)) {
+                stringBuilder.append(i + 1).append(".").append(tasks.get(i).toString());
+                stringBuilder.append("\n");
+            }
         }
         return stringBuilder.toString();
     }

@@ -83,4 +83,8 @@ public abstract class Task {
     public boolean onDate(LocalDate date) {
         return false;
     }
+
+    public boolean contains(String keyword) {
+        return this.description.contains(keyword);
+    }
 }

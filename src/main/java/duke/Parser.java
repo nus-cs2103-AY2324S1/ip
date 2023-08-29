@@ -31,6 +31,8 @@ public class Parser {
             return new AddCommand();
         case "delete":
             return new DeleteCommand();
+        case "find":
+            return new FindCommand();
         default:
             throw new DukeException("Unknown Command!");
         }
