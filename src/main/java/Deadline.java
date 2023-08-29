@@ -2,25 +2,12 @@ public class Deadline extends Task {
     protected String by;
 
     public Deadline(String description, String by) {
-        super(description);
+        super(description, false);
         this.by = by;
-    }
-
-    public Deadline(String status, String description, String by) {
-        super(description);
-        this.by = by;
-        if (status.equals("1")) {
-            this.isDone = true;
-        }
     }
 
     @Override
     public String toString() {
         return "[D]" + super.toString() + " (by: " + this.by + ")";
-    }
-
-    @Override
-    public String toStringForFile() {
-        return "D | " + super.toStringForFile() + " | " + this.by;
     }
 }
