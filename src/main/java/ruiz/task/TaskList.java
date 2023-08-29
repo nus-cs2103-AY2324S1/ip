@@ -1,3 +1,9 @@
+package ruiz.task;
+
+import ruiz.Parser;
+import ruiz.Ui;
+import ruiz.exception.BotException;
+
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -5,19 +11,23 @@ public class TaskList {
     private ArrayList<Task> taskList;
     private Parser parser;
     private Ui ui;
-    public  TaskList(ArrayList<Task> taskList) {
+
+    public TaskList(ArrayList<Task> taskList) {
         this.taskList = taskList;
         this.parser = new Parser();
         this.ui = new Ui();
     }
+
     public TaskList() {
         this.taskList = new ArrayList<>();
         this.parser = new Parser();
         this.ui = new Ui();
     }
+
     public ArrayList<Task> getTaskList() {
         return this.taskList;
     }
+
     public int getTaskListSize() {
         return this.taskList.size();
     }
