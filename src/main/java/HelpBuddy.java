@@ -1,3 +1,8 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -6,11 +11,22 @@ import java.util.Scanner;
  */
 
 public class HelpBuddy {
+    private static String DIR = "./data";
+    private static String FILENAME = "helpbuddy.txt";
+    private static String DATAPATH = String.valueOf(Paths.get(HelpBuddy.DIR, HelpBuddy.FILENAME));
+
     /** A string that produces a line to segment messages produced. */
     private final static String horizontal = "    ____________________________________________________________";
     /** An ArrayList that holds everything the user has typed into the chatbot. */
     private ArrayList<Task> userInput = new ArrayList<>(100);
 
+    public HelpBuddy() {
+        try {
+            loadData();
+        } catch (IOException e) {
+            System.out.println("Something went wrong: " + e.getMessage());
+        }
+    }
     /**
      * @return hello message.
      */
@@ -103,13 +119,75 @@ public class HelpBuddy {
         printMessageBlock(error);
     }
 
+    private void loadData() throws IOException {
+        try {
+            File data = new File(DATAPATH);
+            Scanner fileReader = new Scanner(data);
+            while (fileReader.hasNextLine()) {
+                String entry = fileReader.nextLine();
+                readEntry(entry);
+            }
+            fileReader.close();
+        } catch (FileNotFoundException e) {
+            this.createDatabase();
+        } catch (HelpBuddyException e) {
+            printErrorMessage(e.getMessage());
+        }
+    }
+
+    private void readEntry(String entry) throws HelpBuddyException {
+        String[] fields = entry.split("\\|");
+        Task taskToAdd;
+
+        switch (fields[0]) {
+        case "T":
+            taskToAdd = new ToDo(fields[2]);
+            break;
+        case "D":
+            taskToAdd = new Deadline(fields[2], fields[3]);
+            break;
+        case "E":
+            String[] fromToFields = fields[3].split("to");
+            taskToAdd = new Event(fields[2], fromToFields[0], fromToFields[1]);
+            break;
+        default:
+            throw new HelpBuddyException("Invalid data input in data file!");
+        }
+
+        if (Integer.parseInt(fields[1]) == 1) {
+            taskToAdd.updateDone();
+        }
+
+        this.userInput.add(taskToAdd);
+    }
+
+    private void createDatabase() throws IOException {
+        File data = new File(DATAPATH);
+        File dataDir = new File(DIR);
+        dataDir.mkdir();
+        data.createNewFile();
+    }
+
+    private void saveData() throws IOException {
+        FileWriter fw = new FileWriter(DATAPATH);
+        userInput.forEach(task -> {
+            try {
+                fw.write(task.stringifyTask());
+                fw.write(System.lineSeparator());
+            } catch (IOException e) {
+                System.out.println("Error when saving data!");
+            }
+        });
+        fw.close();
+    }
+
     /**
      * A method that displays to users HelpBuddy's response to their input.
      *
      * @param sc A scanner to read user inputs
      * @throws HelpBuddyException If the command entered by user is invalid
      */
-    public void outputMessage(Scanner sc) throws HelpBuddyException {
+    public void outputMessage(Scanner sc)  {
         printMessageBlock(HelpBuddy.printHelloMessage());
 
         String markPattern = "^mark.*";
@@ -165,6 +243,7 @@ public class HelpBuddy {
                     }
                     printMessageBlock(outputMessage);
                 } else if (inputMessage.equalsIgnoreCase("bye")) {
+                    this.saveData();
                     printMessageBlock(HelpBuddy.printByeMessage());
                     break;
                 } else {
@@ -215,9 +294,10 @@ public class HelpBuddy {
                     output += t + "\n    Now you have " + numOfTasks + " tasks in this list.\n";
                     printMessageBlock(output);
                 }
-            }
-            catch (HelpBuddyException e) {
+            } catch (HelpBuddyException e) {
                 printErrorMessage(e.getMessage());
+            } catch (IOException e) {
+                System.out.println("Something went wrong: " + e.getMessage());
             }
             inputMessage = sc.nextLine();
         }
