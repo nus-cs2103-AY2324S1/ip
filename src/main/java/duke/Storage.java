@@ -74,7 +74,7 @@ public class Storage {
                     newTask = new Event(commandArray[2], commandArray[3], commandArray[4]);
                     break;
                 default:
-                    throw new DukeException("Something is wrong with the data file, delete the data file to reset");
+                    throw new DukeException("Data file is corrupted, cannot load from file");
                 }
                 if (Objects.equals(commandArray[1], "X")) {
                     newTask.markDone();
