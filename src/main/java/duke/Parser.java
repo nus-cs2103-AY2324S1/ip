@@ -52,11 +52,11 @@ public class Parser {
     }
 
     private static void addEventTask(String args, TaskList taskList) {
-        String[] parts = args.split(" /at ");
-        if (parts.length != 3 || parts[0].isEmpty() || parts[1].isEmpty() || parts[2].isEmpty()) {
-            throw new IllegalArgumentException("☹ OOPS!!! Invalid event format.");
-        }
-        taskList.addEvent(parts[0], false, parts[1], parts[2]);
+        String[] parts = args.split(" /from ");
+        String from = parts[1].split(" /to ")[0];
+        String to = parts[1].split(" /to ")[1];
+
+        taskList.addEvent(parts[0], false, from, to);
     }
 
     private static void parseMarkTask(String args, TaskList taskList) {

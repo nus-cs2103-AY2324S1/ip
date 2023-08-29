@@ -38,4 +38,8 @@ public class Task {
     public String toSaveString() {
         return "";
     }
+
+    public boolean isDone() {
+        return isDone;
+    }
 }

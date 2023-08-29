@@ -22,7 +22,7 @@ public class Deadline extends Task {
             LocalDate.parse(parts[0], DateTimeFormatter.ofPattern("yyyy-MM-dd"));
             LocalTime.parse(parts[1], DateTimeFormatter.ofPattern("HHmm"));
             return true;
-        } catch (DateTimeParseException e) {
+        } catch (Exception e) {
             return false;
         }
     }

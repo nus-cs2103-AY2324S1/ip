@@ -17,7 +17,7 @@ public class Storage {
             while ((line = reader.readLine()) != null) {
                 String[] values = line.split(",");
                 String taskType = values[0].trim();
-                boolean isDone = values[1].trim().equals("1");
+                boolean isDone = values[1].trim().equals("true");
                 String description = values[2].trim();
 
                 if (taskType.equals("T")) {
