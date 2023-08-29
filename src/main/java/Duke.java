@@ -1,10 +1,17 @@
+import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 public class Duke {
+    private static final String SAVED_TASKS_FILEPATH = "./data/savedTasks.txt";
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
         greet();
+        try {
+            Task.readSavedTasks(SAVED_TASKS_FILEPATH);
+        } catch (LukeException e) {
+            Util.displayMessage(e.getMessage());
+        }
 
         String input = sc.nextLine();
         while (!input.equals("bye")) {
@@ -16,6 +23,11 @@ public class Duke {
             input = sc.nextLine();
         }
 
+        try {
+            Task.saveTasksToFile(SAVED_TASKS_FILEPATH);
+        } catch (LukeException e) {
+            Util.displayMessage(e.getMessage());
+        }
         bye();
     }
 
