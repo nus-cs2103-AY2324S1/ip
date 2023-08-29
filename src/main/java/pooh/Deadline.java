@@ -12,7 +12,6 @@ public class Deadline extends Task {
         super(description);
         this.deadlineString = deadlineString;
         this.deadlineDateTime = parseDateTime(deadlineString);
-
     }
 
     public String writeTaskToFile() {

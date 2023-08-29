@@ -17,25 +17,25 @@ public class Pooh {
         try {
             taskList = new TaskList(taskStorage.loadTasks());
         } catch (LoadTasksException ex) {
-            Ui.generalRespond(ex.toString());
+            Ui.respond(ex.toString());
             List<Task> listOfTasks = new ArrayList<Task>();
             taskList = new TaskList(listOfTasks);
         }
     }
 
     public void run() {
-        Ui.welcomeMsg();
+        Ui.printWelcomeMsg();
         Scanner userInput = new Scanner(System.in);
         while (userInput.hasNextLine()) {
             try {
                 String userCmd = userInput.nextLine();
                 cmdParser.parseInput(taskStorage, taskList, userCmd);
             } catch (UnrecognizedCommandException ex) {
-                Ui.generalRespond(ex.toString());
+                Ui.respond(ex.toString());
             } catch (WriteTasksException ex) {
-                Ui.generalRespond(ex.toString());
+                Ui.respond(ex.toString());
             } catch (InvalidTaskException ex) {
-                Ui.generalRespond(ex.toString());
+                Ui.respond(ex.toString());
             }
         }
     }
