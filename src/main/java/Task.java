@@ -1,7 +1,10 @@
+import java.io.FileWriter;
+import java.io.IOException;
+
 public abstract class Task {
 
     private String task;
-    private boolean isDone;
+    protected boolean isDone;
 
 
     public Task(String task) {
@@ -31,4 +34,10 @@ public abstract class Task {
         System.out.println("\tOk, I've marked this task as not done yet:\n\t\t" + this);
         Duke.printLine();
     }
+
+    public String getTask() {
+        return this.task;
+    }
+
+    public abstract void writeToFile(FileWriter fw) throws IOException;
 }
