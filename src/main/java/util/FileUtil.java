@@ -49,7 +49,7 @@ public class FileUtil {
             return tl;
         }
         catch (Exception e){
-            Main.getInstance().say("Unable to read tasks from file: " + e.getMessage());
+            System.out.println("Warning: Unable to read tasks from file. " + e.getMessage());
             return new TaskList();
         }
     }
