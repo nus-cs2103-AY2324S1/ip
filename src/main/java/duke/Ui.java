@@ -38,19 +38,11 @@ public class Ui {
                 + lines);
     }
 
-    public static void markErr() {
-        System.out.println(lines + "\n          Please say which task to mark (⋟﹏⋞)\n" + lines);
-    }
-
     public static void markMsg(String description) {
         System.out.println(lines
                     + "\n        Nice! I've marked this task as done:\n          "
                     + description + "\n"
                     + lines);
-    }
-
-    public static void unmarkErr() {
-        System.out.println(lines + "\n          Please say which task to unmark (⋟﹏⋞)\n" + lines);
     }
 
     public static void unmarkMsg(String description) {
@@ -60,21 +52,9 @@ public class Ui {
                     + lines);
     }
 
-    public static void noDescription(String type) {
-        System.out.println(lines + "\n          Please add a description for the " + type + "! (⋟﹏⋞)\n" + lines);
-    }
-
-    public static void noTime(String type) {
-        System.out.println(lines + "\n          Please add a " + type + "! (⋟﹏⋞)\n" + lines);
-    }
-
     public static void successfulAdd(String type, String description, Integer size) {
         System.out.println(lines + "\n         Got it. I've added this new " + type + ":\n            "
                 + description + "\n         Now you have " + size + " tasks in the list.\n" + lines);
-    }
-
-    public static void deleteErr() {
-        System.out.println(lines + "\n          Please say which task to delete! (⋟﹏⋞)\n" + lines);
     }
 
     public static void successfulDelete(String description, Integer size) {

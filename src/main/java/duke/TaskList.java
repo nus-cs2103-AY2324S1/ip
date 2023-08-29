@@ -6,7 +6,7 @@ public class TaskList {
     protected static ArrayList<Task> toDo;
 
     public TaskList() {
-        this.toDo = new ArrayList<>();
+        toDo = new ArrayList<>();
     }
 
     public static void add(Task task, String type) {
@@ -32,7 +32,7 @@ public class TaskList {
         }
     }
 
-    public static void mark(Integer task_no) {
+    public static void mark(Integer task_no) throws DukeException {
         if (task_no <= toDo.size()) {
             Task target = toDo.get(task_no - 1);
             target.mark();
@@ -40,11 +40,11 @@ public class TaskList {
             Ui.markMsg(description);
             Storage.save();
         } else {
-            Ui.tasksNumberError();
+            throw new DukeException("You do not have that many tasks! (⋟﹏⋞)");
         }
     }
 
-    public static void unmark(Integer taskNo) {
+    public static void unmark(Integer taskNo) throws DukeException {
         if (taskNo <= toDo.size()) {
             Task target = toDo.get(taskNo - 1);
             target.unmark();
@@ -52,7 +52,7 @@ public class TaskList {
             Ui.unmarkMsg(description);
             Storage.save();
         } else {
-            Ui.tasksNumberError();
+            throw new DukeException("You do not have that many tasks! (⋟﹏⋞)");
         }
     }
 
@@ -60,7 +60,7 @@ public class TaskList {
         for (int i = 0; i < toDo.size(); i++) {
             Task currTask = toDo.get(i);
             String description = currTask.getDescription();
-            System.out.println("        " + Integer.toString(i + 1) + "." + description);
+            System.out.println("        " + (i + 1) + "." + description);
         }
     }
 

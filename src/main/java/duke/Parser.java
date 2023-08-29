@@ -7,7 +7,7 @@ public class Parser {
         this.userCommand = command;
     }
 
-    public void parseAndRespond() {
+    public void parseAndRespond() throws DukeException {
         String[] splitted = userCommand.split(" ", 2);
         switch (splitted[0]) {
             case "list":
@@ -15,7 +15,7 @@ public class Parser {
                 break;
             case "mark":
                 if (splitted.length <= 1) {
-                    Ui.markErr();
+                    throw new DukeException("Please indicate which task to mark!");
                 } else {
                     int task_no = Integer.parseInt(splitted[1]);
                     TaskList.mark(task_no);
@@ -24,7 +24,7 @@ public class Parser {
                 break;
             case "unmark":
                 if (splitted.length <= 1) {
-                    Ui.unmarkErr();
+                    throw new DukeException("Please indicate which task to unmark!");
                 } else {
                     int taskNo = Integer.parseInt(splitted[1]);
                     TaskList.unmark(taskNo);
@@ -33,7 +33,7 @@ public class Parser {
                 break;
             case "todo":
                 if (splitted.length <= 1) {
-                    Ui.noDescription("todo");
+                    throw new DukeException("Please provide a description for this todo! (⋟﹏⋞)");
                 } else {
                     String todoTask = splitted[1];
                     Todo newTodo = new Todo(todoTask);
@@ -42,11 +42,11 @@ public class Parser {
                 break;
             case "deadline":
                 if (splitted.length <= 1) {
-                    Ui.noDescription("deadline");
+                    throw new DukeException("Please provide a description for this deadline! (⋟﹏⋞)");
                 } else {
                     String[] deadTask = splitted[1].split("/by");
                     if (deadTask.length == 1) {
-                        Ui.noTime("deadline");
+                        throw new DukeException("Please provide a deadline! (⋟﹏⋞)");
                     } else {
                         String deadDescription = deadTask[0];
                         String deadTime = deadTask[1];
@@ -58,16 +58,16 @@ public class Parser {
                 break;
             case "event":
                 if (splitted.length <= 1) {
-                    Ui.noDescription("event");
+                    throw new DukeException("Please provide a description for this deadline! (⋟﹏⋞)");
                 } else {
                     String[] eventTask = splitted[1].split("/from");
                     if (eventTask.length == 1) {
-                        Ui.noTime("start time");
+                        throw new DukeException("Please provide a start time! (⋟﹏⋞)");
                     } else {
                         String eventDescription = eventTask[0];
                         String[] startEnd = eventTask[1].split("/to");
                         if (startEnd.length == 1) {
-                            Ui.noTime("end time");
+                            throw new DukeException("Please provide an end time! (⋟﹏⋞)");
                         } else {
                             String eventStart = startEnd[0];
                             String eventEnd = startEnd[1];
@@ -79,7 +79,7 @@ public class Parser {
                 break;
             case "delete":
                 if (splitted.length <= 1) {
-                    Ui.deleteErr();
+                    throw new DukeException("You do not have that much tasks! (⋟﹏⋞)");
                 } else {
                     int target = Integer.parseInt(splitted[1]);
                     TaskList.delete(target);
@@ -87,6 +87,7 @@ public class Parser {
                 break;
             default:
                 Ui.noCommand();
+
         }
     }
 }

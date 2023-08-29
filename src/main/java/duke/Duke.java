@@ -11,7 +11,7 @@ public class Duke {
         toDo = new TaskList();
     }
 
-    public void run() {
+    public void run() throws DukeException {
         Scanner sc = new Scanner(System.in);
         String userCommand;
         storage.load();
@@ -26,7 +26,7 @@ public class Duke {
 
         ui.goodbyeMsg();
     }
-    public static void main(String[] args) {
+    public static void main(String[] args) throws DukeException {
         Duke dukey = new Duke("duke.txt");
         dukey.run();
     }
