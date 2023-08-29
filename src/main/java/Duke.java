@@ -2,6 +2,9 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 
 /**
  * Duke is a class in-charge of task management.
@@ -90,6 +93,39 @@ public class Duke {
         System.out.println("Bye. Hope to see you again soon!");
     }
 
+    private static String getDate(String inputDate) {
+        String[] dateTime = inputDate.split(" ");
+        if (!dateTime[0].isEmpty()) {
+            DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("[M/d/yyyy][MM/dd/yyyy][yyyy-MM-dd]");
+            DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy");
+            if (dateTime[0].contains("-") || dateTime[0].contains("/")) {
+                LocalDate date = LocalDate.parse(dateTime[0], inputFormatter);
+                dateTime[0] = date.format(outputFormatter);
+                inputDate = dateTime[0];
+            }
+        }
+
+        // Time
+        if (dateTime.length == 2 && !dateTime[1].isEmpty()) {
+            inputDate = dateTime[0] + " " + getTime(dateTime[1]);
+        }
+
+        return inputDate;
+    }
+
+    private static String getTime(String time) {
+
+        // check if is integer
+        if (time.matches("^-?\\d+$")) {
+            DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("HHmm");
+            DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("ha");
+            LocalTime outputTime = LocalTime.parse(time, inputFormatter);
+            time = outputTime.format(outputFormatter);
+        }
+
+        return time;
+    }
+
     /**
      * Checks if the user input is a valid task type.
      *
@@ -123,7 +159,7 @@ public class Duke {
                 if (a.length != 2 || a[1].isEmpty()) {
                     throw new EmptyDateException(arr[0]);
                 }
-                newTask = new Deadline(a[0], a[1]);
+                newTask = new Deadline(a[0], getDate(a[1]));
             } else {
                 String[] a = arr[1].split(" /from ");
                 if (a.length != 2 || a[1].isEmpty()) {
@@ -135,7 +171,7 @@ public class Duke {
                     throw new NoEndDateException("☹ OOPS!!! Please provide a end date for your event.");
                 }
 
-                newTask = new Event(a[0], fromto[0], fromto[1]);
+                newTask = new Event(a[0], getDate(fromto[0]), getTime(fromto[1]));
             }
         }
 

@@ -2,9 +2,11 @@ todo
 todo borrow book
 deadline finish work /by
 deadline return book /by Sunday
+deadline return book /by 2/12/2019 1800
 event project meeting /from
 event project meeting /from Mon 2pm /to
 event project meeting /from Mon 2pm /to 4pm
+event project meeting /from 2019-10-15 1400 /to 4pm
 list
 mark 2
 mark 4
