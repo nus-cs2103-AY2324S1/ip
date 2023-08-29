@@ -1,5 +1,5 @@
 /**
- * Deadline is a task containing a description, and the due time.
+ * Represents a task containing a description, and the due time.
  */
 public class Deadline extends Task {
 

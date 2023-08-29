@@ -1,7 +1,8 @@
 import java.util.HashMap;
 
 /**
- * The Application object responsible for storing and executing commands.
+ * Represents the Application object responsible for storing and executing
+ * commands.
  */
 public class DukeApp {
     /**
@@ -38,7 +39,8 @@ public class DukeApp {
      * Executes a command given an input.
      *
      * @param input The input of the user.
-     * @throws UnknownCommandException If no known command can be found from the input.
+     * @throws UnknownCommandException If no known command can be found from
+     *                                 the input.
      */
     public void executeCommand(String input) throws UnknownCommandException {
         System.out.println("\t" + DukeConstants.HORIZONTAL_LINE);

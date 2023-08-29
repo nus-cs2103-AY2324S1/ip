@@ -1,5 +1,5 @@
 /**
- * Mark a task.
+ * Marks a task.
  */
 public class MarkCommand implements Command {
     private final DukeState state;
@@ -9,7 +9,7 @@ public class MarkCommand implements Command {
     }
 
     /**
-     * Set a given task to be marked.
+     * Sets a given task to be marked.
      *
      * @param input The user input of the task to be marked.
      */

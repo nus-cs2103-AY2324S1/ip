@@ -1,6 +1,6 @@
 /**
- * The generic command interface with a run method defining the behaviour
- * of the command.
+ * Represents a generic command interface with a run method defining the
+ * behaviour of the command.
  */
 public interface Command {
     /**

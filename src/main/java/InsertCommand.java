@@ -1,5 +1,5 @@
 /**
- * Insert item into application state.
+ * Inserts item into application state.
  */
 public class InsertCommand implements Command {
     private final DukeState state;
@@ -9,7 +9,7 @@ public class InsertCommand implements Command {
     }
 
     /**
-     * Add an item to the application state.
+     * Adds an item to the application state.
      *
      * @param input The user input of the item to add.
      */

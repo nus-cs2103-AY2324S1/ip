@@ -1,5 +1,5 @@
 /**
- * Delete a task.
+ * Deletes a task.
  */
 public class DeleteCommand implements Command {
     private final DukeState state;
@@ -9,7 +9,7 @@ public class DeleteCommand implements Command {
     }
 
     /**
-     * Delete a task from the application.
+     * Deletes a task from the application.
      *
      * @param input The user input of the task to be deleted.
      */

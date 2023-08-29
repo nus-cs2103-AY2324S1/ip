@@ -1,5 +1,5 @@
 /**
- * Generic class to represent Duke errors.
+ * Represents Duke errors.
  */
 public abstract class DukeException extends Exception {
     public DukeException(String message) {

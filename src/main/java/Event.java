@@ -1,5 +1,5 @@
 /**
- * Deadline is a task containing the start and end time.
+ * Represents a task containing the start and end time.
  */
 public class Event extends Task {
     protected String from;

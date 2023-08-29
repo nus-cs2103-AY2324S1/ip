@@ -1,5 +1,5 @@
 /**
- * Unmark a task.
+ * Unmarks a task.
  */
 public class UnmarkCommand implements Command {
     private final DukeState state;
@@ -9,7 +9,7 @@ public class UnmarkCommand implements Command {
     }
 
     /**
-     * Set a given task to be unmarked.
+     * Sets a given task to be unmarked.
      *
      * @param input The user input of the task to be unmarked.
      */

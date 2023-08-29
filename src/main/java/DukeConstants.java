@@ -1,9 +1,9 @@
 /**
- * Constants of the application, such as string messages.
+ * Stores constants of the application, such as string messages.
  */
 public class DukeConstants {
 
-    // REGULAR MESSAGES
+    // Regular messages
     public static final String HORIZONTAL_LINE =
             "____________________________________________________________";
     public static final String GREETING_MESSAGE = "\t" +
@@ -19,7 +19,8 @@ public class DukeConstants {
             "\t   %s\n\t" +
             HORIZONTAL_LINE;
 
-    public static final String INSERT_MESSAGE = "\t Got it. I've added this task:\n" +
+    public static final String INSERT_MESSAGE = "\t Got it. I've added this " +
+            "task:\n" +
             "\t   %s\n\t Now you have %d %s in the list.\n\t" + HORIZONTAL_LINE;
     public static final String UNMARKED_MESSAGE = "\t" +
             " OK, I've marked this task as not done yet:\n" +
@@ -34,8 +35,11 @@ public class DukeConstants {
     public static final String EXIT_MESSAGE =
             "\t Bye. Hope to see you again soon!\n\t" + HORIZONTAL_LINE;
 
-    // ERROR MESSAGES
-    public static final String ERROR_MESSAGE = "\t ☹ OOPS!!! %s\n\t" + HORIZONTAL_LINE;
-    public static final String INSUFFICIENT_ARGUMENTS_ERROR_MESSAGE = "The %s of a %s cannot be empty.";
-    public static final String UNKNOWN_COMMAND_ERROR_MESSAGE = "I'm sorry, but I don't know what that means :-(";
+    // Error messages
+    public static final String ERROR_MESSAGE =
+            "\t ☹ OOPS!!! %s\n\t" + HORIZONTAL_LINE;
+    public static final String INSUFFICIENT_ARGUMENTS_ERROR_MESSAGE = "The %s" +
+            " of a %s cannot be empty.";
+    public static final String UNKNOWN_COMMAND_ERROR_MESSAGE = "I'm sorry, " +
+            "but I don't know what that means :-(";
 }

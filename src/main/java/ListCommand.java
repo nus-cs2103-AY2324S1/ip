@@ -1,5 +1,5 @@
 /**
- * List items from application state.
+ * Lists items from application state.
  */
 public class ListCommand implements Command {
     private final DukeState state;
@@ -9,7 +9,7 @@ public class ListCommand implements Command {
     }
 
     /**
-     * List all the items in the application state.
+     * Lists all the items in the application state.
      *
      * @param input The user input.
      */

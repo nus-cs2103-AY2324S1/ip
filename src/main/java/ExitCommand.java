@@ -1,9 +1,9 @@
 /**
- * Exit command which terminates the program.
+ * Terminates the program.
  */
 public class ExitCommand implements Command {
     /**
-     * Print an exit message and exit the application.
+     * Prints an exit message and exit the application.
      *
      * @param input The user input.
      */
