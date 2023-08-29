@@ -2,12 +2,13 @@ import java.util.Scanner;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class Cheese {
     private List<Task> CheeseStack = new ArrayList<Task>();
@@ -18,6 +19,14 @@ public class Cheese {
         DEADLINE,
         EVENT
     }
+
+    /**
+     * Speak method for Cheese
+     * Adds tasks to the list
+     * Prints out the list
+     * Accepts commands
+     *
+     */
     public void speak() {
         loadTask();
         Scanner myObj = new Scanner(System.in);
@@ -39,6 +48,10 @@ public class Cheese {
         System.out.println("\t-----------------------------------------");
     }
 
+    /**
+     * Loads tasks from save file
+     * 
+     */
     private void loadTask() {
     try {
       File file = new File(FILE_PATH);
@@ -101,7 +114,12 @@ public class Cheese {
       System.out.println("☹ OOPS!!! File not found.");
     }
   }
-
+  
+  /**
+   * Saves tasks to save file after bye command
+   *
+   * @throws IOException If an input or output exception occurred
+   */
   private void saveTasks() {
     try {
       File file = new File(FILE_PATH);
@@ -120,7 +138,13 @@ public class Cheese {
       System.out.println("☹ OOPS!!! Something went wrong: " + e.getMessage());
     }
   }
-
+ 
+    /**
+     * Checks if input is a command
+     *
+     * @param input Input from user
+     * @return true if input is a command, false otherwise
+     */
     private boolean isCommand(String input) {
         String[] inputSplit = input.split(" ");
         switch(inputSplit[0]) {
@@ -137,6 +161,13 @@ public class Cheese {
         }
     }
 
+    /**
+     * Add items to list
+     *
+     * @param input Input from user
+     * @throws IllegalArgumentException If input is invalid
+     * 
+     */
     private void addToList(String input) {
         String[] inputSplit = input.split(" ", 2);
         String command = inputSplit[0];
@@ -192,6 +223,14 @@ public class Cheese {
             System.out.println("\t-----------------------------------------");
         }
     }
+
+    /**
+     * Gives response to each command
+     *
+     * @param input Input from user
+     * @throws IllegalArgumentException If input is invalid
+     *
+     */
     private void commandResponse(String input) {
         String inputSplit[] = input.split(" ");
         switch(inputSplit[0]) {
@@ -219,16 +258,27 @@ public class Cheese {
                 break;
         }
     }
-
+    
+    /**
+     * Mark item as done
+     *
+     * @param index Index of item to be marked as done
+     */
     private void markItem(int index) {
         if (index >= 0 && index < CheeseStack.size()) {
             Task task = CheeseStack.get(index);
             task.markAsDone();
         }
     }
+
+    /**
+     * Delete item from list
+     *
+     * @param index Index of item to be deleted
+     */
     private void deleteItem(int index) {
         if (index >= 0 && index < CheeseStack.size()) {
-            Task task = CheeseStack.get(index);
+            //Task task = CheeseStack.get(index);
             CheeseStack.remove(index);
         }
     }
@@ -265,11 +315,18 @@ public class Cheese {
             this.dateTime2 = dateTime2;
             this.isDone = false;
         }
-
+          
+        /**
+         * Mark task as done
+         */
         public void markAsDone() {
             this.isDone = true;
         }
-
+        
+        /**
+         * Returns string representation of task
+         * @return String representation of task
+         */
         @Override
         public String toString() {
             StringBuilder sb = new StringBuilder();
