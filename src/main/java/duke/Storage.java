@@ -13,13 +13,29 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
+/**
+ * Represents the storage class that handles loading and saving the tasks in a list.
+ */
 public class Storage {
+    /** The specified file path to be checked and stored in. */
     private String filePath;
 
+    /**
+     * Constructor for a Storage object.
+     * 
+     * @param filePath Specified file path to check and store tasks.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
+    /**
+     * Returns an array list of tasks after loading the cached list.
+     * Otherwise, returns an empty array list.
+     * 
+     * @return Array list of tasks from reading the list.
+     * @throws DukeException If the cached list is invalid.
+     */
     public ArrayList<Task> loadList() throws DukeException {
         ArrayList<Task> taskList = new ArrayList<>();
         try {
@@ -68,6 +84,12 @@ public class Storage {
         return taskList;
     }
 
+    /**
+     * Saves the list in the memory after inputting into the chatbot.
+     * 
+     * @param taskList Task List to be saved in the memory.
+     * @throws DukeException If IOException has occurred.
+     */
     public void saveList(ArrayList<Task> taskList) throws DukeException {
         try {
             File file = new File(filePath);

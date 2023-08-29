@@ -8,16 +8,34 @@ import duke.Storage;
 
 import java.time.LocalDateTime;
 
+/**
+ * Represents the command to add deadlines.
+ */
 public class AddDeadlineCommand extends Command {
+    /** Description of the deadline task. */
     private String description;
+    /** String that represents the deadline due date. */
     private String deadlineString;
+    /** Deadline date of the task. */
     private LocalDateTime deadlineDate;
 
+    /**
+     * Constructor used when the date is still a String.
+     * 
+     * @param description Description of the Deadline task.
+     * @param deadline String representation of the deadline date.
+     */
     public AddDeadlineCommand(String description, String deadline) {
         this.description = description;
         this.deadlineString = deadline;
     }
 
+    /**
+     * Constructor used when the date is represented in LocalDateTime.
+     * 
+     * @param description Description of the Deadline task.
+     * @param deadlineDate Date for the deadline.
+     */
     public AddDeadlineCommand(String description, LocalDateTime deadlineDate) {
         this.description = description;
         this.deadlineDate = deadlineDate;

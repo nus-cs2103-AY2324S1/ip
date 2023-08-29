@@ -6,9 +6,18 @@ import duke.Ui;
 import duke.Storage;
 import duke.task.Task;
 
+/**
+ * Represents the command to delete tasks from the task list.
+ */
 public class DeleteCommand extends Command {
+    /** Index of the task to be deleted. */
     private int index;
 
+    /**
+     * Constructor for the delete command.
+     * 
+     * @param index Index to be zero based to fit Array List indexing.
+     */
     public DeleteCommand(int index) {
         this.index = index - 1;
     }

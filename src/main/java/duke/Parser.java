@@ -14,8 +14,18 @@ import java.time.format.DateTimeParseException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Represents the part of the chatbot that deals with making sense of the command.
+ */
 public class Parser {
-    static Command parse(String command) throws DukeException {
+    /**
+     * Returns a command that is specified in the user input.
+     * 
+     * @param command Command that the user keys in.
+     * @return the specified command in the user's input.
+     * @throws DukeException  If input is invalid.
+     */
+    public static Command parse(String command) throws DukeException {
         if (isExitCommand(command)) {
             return new ExitCommand();
         } else if (isListCommand(command)) {
@@ -58,6 +68,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Returns the date in the form of a LocalDateTime.
+     * 
+     * @param date Date of the specific Event or Deadline.
+     * @return Date in the form of LocalDateTime.
+     * @throws DukeException If date is invalid.
+     */
     private static LocalDateTime parseDate(String date) throws DukeException {
         try {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
@@ -67,6 +84,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Returns a boolean that represents if the input is a date.
+     * 
+     * @param input Date that user keyed in.
+     * @return True if it is a date, false if otherwise.
+     */
     private static boolean isDate(String input) {
         String[] splitInput = input.split("-");
         if (splitInput.length != 3 || isNotNumeric(splitInput[0]) || isNotNumeric(splitInput[1])) {
@@ -81,14 +104,35 @@ public class Parser {
         return true;
     }
 
+    /**
+     * Returns the index to be marked.
+     * 
+     * @param markInput The index to be checked if it is valid.
+     * @return The index to be marked.
+     * @throws DukeException If index is invalid.
+     */
     private static int validateMarkIndex(String markInput) throws DukeException {
         return validateMarkOrDeleteIndex(markInput);
     }
 
+    /**
+     * Return the index to be deleted.
+     * 
+     * @param deleteInput The index to be checked if it is valid.
+     * @return The index to be deleted.
+     * @throws DukeException If index is invalid.
+     */
     private static int validateDeleteIndex(String deleteInput) throws DukeException {
         return validateMarkOrDeleteIndex(deleteInput);
     }
 
+    /**
+     * Returns the index in the form of an integer.
+     * 
+     * @param input The index to be changed into an integer.
+     * @return Integer that represents the index.
+     * @throws DukeException If input is invalid.
+     */
     private static int validateMarkOrDeleteIndex(String input) throws DukeException {
         if (input.isEmpty() || isNotNumeric(input)) {
             throw new DukeException("OOPS!! The index to edit is not valid!");
@@ -96,16 +140,35 @@ public class Parser {
         return Integer.parseInt(input);
     }
 
+    /**
+     * Returns a boolean representing if the input is a number.
+     * 
+     * @param input Input to check if it is a number.
+     * @return True if input is not a number, false if otherwise.
+     */
     private static boolean isNotNumeric(String input) {
         return !input.matches("-?\\d+(\\.\\d+)?");
     }
 
+    /**
+     * Checks if ToDo task is valid.
+     * 
+     * @param todoString Description of the ToDo.
+     * @throws DukeException If Description is incomplete.
+     */
     private static void validateToDo(String todoString) throws DukeException {
         if (todoString.isEmpty()) {
             throw new DukeException("OOPS!! The description of a ToDo cannot be empty!");
         }
     }
 
+    /**
+     * Returns an array of String representing the various components of an Event.
+     * 
+     * @param input String input of the event.
+     * @return an array of String objects that represent an Event.
+     * @throws DukeException If input is invalid or missing details.
+     */
     private static String[] validateEvent(String input) throws DukeException {
         String description = input.replace("event ", "");
         String[] details = description.split(" /");
@@ -120,6 +183,13 @@ public class Parser {
         return details;
     }
 
+    /**
+     * Returns an array of String objects that represents a Deadline task.
+     * 
+     * @param input Input for a Deadline.
+     * @return an array of String objects that represents a Deadline.
+     * @throws DukeException If input is invalid or incomplete.
+     */
     private static String[] validateDeadline(String input) throws DukeException {
         if (input.equals("deadline")) {
             throw new DukeException("OOPS!! You need to include the deadline!");
@@ -132,34 +202,82 @@ public class Parser {
         return details;
     }
 
+    /**
+     * Returns a boolean that represents whether the command is an exit command.
+     * 
+     * @param input Command to be checked.
+     * @return True if it is an exit command, false if otherwise.
+     */
     private static boolean isExitCommand(String input) {
         return input.equals("bye");
     }
 
+    /**
+     * Returns a boolean that represents whether the command is a list command.
+     * 
+     * @param input Command to be checked.
+     * @return True if it is a list command, false if otherwise.
+     */
     private static boolean isListCommand(String input) {
         return input.equals("list");
     }
 
+    /**
+     * Returns a boolean that represents whether the command is a mark command.
+     * 
+     * @param input Command to be checked.
+     * @return True if it is a mark command, false if otherwise.
+     */
     private static boolean isMarkCommand(String input) {
         return input.startsWith("mark");
     }
 
+    /**
+     * Returns a boolean that represents whether the command is a add ToDo command.
+     * 
+     * @param input Command to be checked.
+     * @return True if it is a add ToDo command, false if otherwise.
+     */
     private static boolean isAddToDoCommand(String input) {
         return input.startsWith("todo");
     }
 
+    /**
+     * Returns a boolean that represents whether the command is an add deadline command.
+     * 
+     * @param input Command to be checked.
+     * @return True if it is an add deadline command, false if otherwise.
+     */
     private static boolean isAddDeadlineCommand(String input) {
         return input.startsWith("deadline");
     }
 
+    /**
+     * Returns a boolean that represents whether the command is an add event command.
+     * 
+     * @param input Command to be checked.
+     * @return True if it is an add event command, false if otherwise.
+     */
     private static boolean isAddEventCommand(String input) {
         return input.startsWith("event");
     }
 
+    /**
+     * Returns a boolean that represents whether the command is a delete command.
+     * 
+     * @param input Command to be checked.
+     * @return True if it is a delete command, false if otherwise.
+     */
     private static boolean isDeleteCommand(String input) {
         return input.startsWith("delete");
     }
 
+    /**
+     * Returns a boolean that represents whether the command is an unmark command.
+     * 
+     * @param input Command to be checked.
+     * @return True if it is an unmark command, false if otherwise.
+     */
     private static boolean isUnMarkCommand(String input) {
         return input.startsWith("unmark");
     }

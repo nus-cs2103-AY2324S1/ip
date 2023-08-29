@@ -5,9 +5,18 @@ import duke.TaskList;
 import duke.Ui;
 import duke.Storage;
 
+/**
+ * Represents the command to mark tasks in the task list.
+ */
 public class MarkCommand extends Command {
+    /** Index of the task to be marked. */
     private int index;
 
+    /**
+     * Constructor for the mark command.
+     * 
+     * @param index Index to be zero based to fit the Array List indexing.
+     */
     public MarkCommand(int index) {
         this.index = index - 1;
     }

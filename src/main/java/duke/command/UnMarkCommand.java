@@ -5,9 +5,18 @@ import duke.TaskList;
 import duke.Ui;
 import duke.Storage;
 
+/**
+ * Represents the command to unmark a task in the task list.
+ */
 public class UnMarkCommand extends Command {
+    /** Index of the task to be unmarked. */
     private int index;
 
+    /**
+     * Constructor for creating the unmark command.
+     * 
+     * @param index Index of the task to be zero based.
+     */
     public UnMarkCommand(int index) {
         this.index = index - 1;
     }
