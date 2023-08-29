@@ -1,3 +1,4 @@
+Creation of File in process, please be patient
 ________________________________________
 Hello! I'm DukeKing
 What can I do for you?
@@ -10,69 +11,68 @@ OOPS!!! The description of a todo cannot be empty.
 ________________________________________
 ________________________________________
 Got it. I've added this task:
-  [T][ ] read book
+  | T |   | read book
 Now you have 1 tasks in the list.
 ________________________________________
 ________________________________________
 Got it. I've added this task:
-  [D][ ] return book (by: June 6th)
+  | D |   | return book (by: June 6th)
 Now you have 2 tasks in the list.
 ________________________________________
 ________________________________________
 Got it. I've added this task:
-  [E][ ] project meeting (from: Aug 6th 2pm to: 4pm)
+  | E |   | project meeting (from: Aug 6th 2pm to: 4pm)
 Now you have 3 tasks in the list.
 ________________________________________
 ________________________________________
 Got it. I've added this task:
-  [T][ ] join sports club
+  | T |   | join sports club
 Now you have 4 tasks in the list.
 ________________________________________
 ________________________________________
 Nice! I've marked this task as done:
-[T][x] read book
+| T | x | read book
 ________________________________________
 ________________________________________
 Nice! I've marked this task as done:
-[T][x] join sports club
+| T | x | join sports club
 ________________________________________
 ________________________________________
 Got it. I've added this task:
-  [T][ ] borrow book
+  | T |   | borrow book
 Now you have 5 tasks in the list.
 ________________________________________
 ________________________________________
 Here are the tasks in your list:
-1.[T][x] read book
-2.[D][ ] return book (by: June 6th)
-3.[E][ ] project meeting (from: Aug 6th 2pm to: 4pm)
-4.[T][x] join sports club
-5.[T][ ] borrow book
+1.| T | x | read book
+2.| D |   | return book (by: June 6th)
+3.| E |   | project meeting (from: Aug 6th 2pm to: 4pm)
+4.| T | x | join sports club
+5.| T |   | borrow book
 ________________________________________
 ________________________________________
 Noted. I've removed this task:
-  [T][x] join sports club
+  | T | x | join sports club
 Now you have 4 tasks in the list.
 ________________________________________
 ________________________________________
 Here are the tasks in your list:
-1.[T][x] read book
-2.[D][ ] return book (by: June 6th)
-3.[E][ ] project meeting (from: Aug 6th 2pm to: 4pm)
-4.[T][ ] borrow book
+1.| T | x | read book
+2.| D |   | return book (by: June 6th)
+3.| E |   | project meeting (from: Aug 6th 2pm to: 4pm)
+4.| T |   | borrow book
 ________________________________________
 ________________________________________
 Got it. I've added this task:
-  [D][ ] return book (by: Sunday)
+  | D |   | return book (by: Sunday)
 Now you have 5 tasks in the list.
 ________________________________________
 ________________________________________
 Got it. I've added this task:
-  [E][ ] project meeting (from: Mon 2pm to: 4pm)
+  | E |   | project meeting (from: Mon 2pm to: 4pm)
 Now you have 6 tasks in the list.
 ________________________________________
 ________________________________________
 Bye. Hope to see you again soon!
 ________________________________________
-
 
