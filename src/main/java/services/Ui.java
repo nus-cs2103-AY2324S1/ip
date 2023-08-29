@@ -1,25 +1,20 @@
 package services;
 
 public class Ui {
-    private final static String horizontalLine = "_________________________________________________________________________\n";
+    private final static String HORIZONTAL_LINE = "_________________________________________________________________________\n";
 
-    public static void greet() {
-        String greetMessage = "At your service, sir.";
-        Ui.print(greetMessage);
-    }
-
-    public static void exit() {
+    public void exit() {
         String exitMessage = "Goodbye, sir.\n" + "Shutting down...";
-        Ui.print(exitMessage);
+        new Ui().print(exitMessage);
     }
 
-    public static void print(String message) {
-        String messageWithHorizontalLine = horizontalLine + message + "\n" + horizontalLine;
+    public void print(String message) {
+        String messageWithHorizontalLine = HORIZONTAL_LINE + message + "\n" + HORIZONTAL_LINE;
         System.out.print(messageWithHorizontalLine);
     }
 
-    public static String format(String formattedMessage, Object... args) {
-        String messageWithHorizontalLine = horizontalLine + formattedMessage + "\n" + horizontalLine;
-        return String.format(messageWithHorizontalLine, args);
+    public void greet() {
+        String greetMessage = "At your service, sir.";
+        print(greetMessage);
     }
 }

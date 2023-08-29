@@ -14,22 +14,20 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ListManager {
-    private static List<Task> taskList = new ArrayList<>();
-    private static Storage repo;
-    private static int taskCount = 0;
+public class TaskList {
+    private List<Task> taskList;
+    private Storage repo;
+    private int taskCount;
+    private Ui ui;
 
-    public static void initialize() throws JarvisException {
-        try {
-            repo = new Storage();
-            taskList = repo.load();
-            taskCount = taskList.size();
-        } catch (IOException e) {
-            throw new JarvisException("Error initializing repository." + e);
-        }
+    public TaskList(String dataFilePath, Ui ui) throws JarvisException {
+        this.ui = ui;
+        repo = new Storage(dataFilePath);
+        taskList = repo.load();
+        taskCount = taskList.size();
     }
 
-    public static void add(String description, CommandType taskType, String... args) throws JarvisException {
+    public void add(String description, CommandType taskType, String... args) throws JarvisException {
         Task newTask;
         // this if block is unnecessary currently (is never reached), but it may be useful in the future.
         if (description.isEmpty()) {
@@ -51,60 +49,44 @@ public class ListManager {
         }
         taskList.add(newTask);
         taskCount++;
-        try {
-            repo.save(taskList);
-        } catch (IOException e) {
-            throw new JarvisException("Error adding task to repository." + e);
-        }
-        Ui.print("added: " + newTask + "\n" + taskCount + " more tasks to do, Sir.");
+        repo.save(taskList);
+        ui.print("added: " + newTask + "\n" + taskCount + " more tasks to do, Sir.");
     }
 
-    public static void delete(int taskNumber) throws JarvisException {
+    public void delete(int taskNumber) throws JarvisException {
         if (taskNumber <= 0 || taskNumber > taskCount) {
             throw new IndexOutOfRangeException(taskNumber, taskCount);
         }
         Task deletedTask = taskList.get(taskNumber - 1);
         taskList.remove(taskNumber - 1);
         taskCount--;
-        try {
-            repo.save(taskList);
-        } catch (IOException e) {
-            throw new JarvisException("Error deleting task from repository." + e);
-        }
-        Ui.print("removed: " + deletedTask + "\n" + taskCount + " tasks left, Sir.");
+        repo.save(taskList);
+        ui.print("removed: " + deletedTask + "\n" + taskCount + " tasks left, Sir.");
     }
 
-    public static void markDone(int taskNumber) throws JarvisException {
+    public void markDone(int taskNumber) throws JarvisException {
         if (taskNumber <= 0 || taskNumber > taskCount) {
             throw new IndexOutOfRangeException(taskNumber, taskCount);
         }
         Task task = taskList.get(taskNumber - 1);
         task.setDone();
-        try {
-            repo.save(taskList);
-        } catch (IOException e) {
-            throw new JarvisException("Error marking task as done in repository." + e);
-        }
-        Ui.print("Check.\n\t" + task + "\n" + "Way to go, sir.");
+        repo.save(taskList);
+        ui.print("Check.\n\t" + task + "\n" + "Way to go, sir.");
     }
 
-    public static void markUndone(int taskNumber) throws JarvisException {
+    public void markUndone(int taskNumber) throws JarvisException {
         if (taskNumber <= 0 || taskNumber > taskCount) {
             throw new IndexOutOfRangeException(taskNumber, taskCount);
         }
         Task task = taskList.get(taskNumber - 1);
         task.setUndone();
-        try {
-            repo.save(taskList);
-        } catch (IOException e) {
-            throw new JarvisException("Error marking task as undone in repository." + e);
-        }
-        Ui.print("As you wish, sir.\n\t" + task);
+        repo.save(taskList);
+        ui.print("As you wish, sir.\n\t" + task);
     }
 
-    public static void show() {
+    public void show() {
         if (taskCount == 0) {
-            Ui.print("Sir, there are no tasks on your calendar.");
+            ui.print("Sir, there are no tasks on your calendar.");
             return;
         }
         String result = "Sir, there are " + taskCount + " tasks on your calendar:\n";
@@ -112,6 +94,6 @@ public class ListManager {
             result += i + ". " + taskList.get(i - 1) + "\n";
         }
         result += taskCount + ". " + taskList.get(taskCount - 1);
-        Ui.print(result);
+        ui.print(result);
     }
 }

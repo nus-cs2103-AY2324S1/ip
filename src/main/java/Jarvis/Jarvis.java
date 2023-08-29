@@ -1,14 +1,14 @@
-import command.CommandResolver;
+package Jarvis;
+
+import command.Parser;
 import services.Ui;
 import services.bizerrors.JarvisException;
-import services.tasklist.ListManager;
+import services.tasklist.TaskList;
 
 import java.util.Scanner;
 
 public class Jarvis {
-
-    public final static Scanner scanner = new Scanner(System.in);
-    public final static String jarvisLogo = "                                                                 \n" +
+    public final static String JARVIS_LOGO = "                                                                 \n" +
             "                          .::^^^^^^::.                           \n" +
             "                     .^!??????777??????7~:                       \n" +
             "                  .~?J?7!~^:::::::::^^~!?JJ7:                    \n" +
@@ -38,30 +38,44 @@ public class Jarvis {
             "     .YYYYJ: :5Y.   :5? ^P~  .YY:    ?PY.   .5?  7YYYYYJ:        \n" +
             "                                                                 ";
 
+    private final Ui ui;
+    private TaskList taskList;
+    private Parser parser;
+
+
     public static void main(String[] args) {
+        String dataFilePath = "src/main/resources/jarvislist.txt";
+        new Jarvis(dataFilePath).run();
+    }
+
+    public Jarvis(String dataFilePath) {
+        ui = new Ui();
         try {
-            ListManager.initialize();
+            taskList = new TaskList(dataFilePath);
+            parser = new Parser(taskList);
         } catch (JarvisException e) {
-            System.out.println(e);
-            return;
+            ui.print(e.toString());
         }
+    }
 
-        System.out.println(jarvisLogo);
-        Ui.greet();
+    public void run() {
+        System.out.println(JARVIS_LOGO);
+        ui.greet();
 
+        Scanner scanner = new Scanner(System.in);
         String userInput = scanner.nextLine();
 
         while (!userInput.equals("exit")) {
             try {
-                CommandResolver.resolve(userInput);
+                parser.parseAndExecute(userInput);
             } catch (JarvisException e) {
-                System.out.print(e);
+                ui.print(e.toString());
             }
             userInput = scanner.nextLine();
         }
 
-        Ui.exit();
+        scanner.close();
+        ui.exit();
     }
-
 
 }

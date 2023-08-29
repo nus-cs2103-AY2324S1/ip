@@ -20,7 +20,7 @@ then
 fi
 
 # run the program, feed commands from input.txt file and redirect the output to the ACTUAL.TXT
-# Note that the chatbot name has changed from Duke to Jarvis
+# Note that the chatbot name has changed from Duke to Jarvis.Jarvis
 java -classpath ../bin Jarvis < input.txt > ACTUAL.TXT
 
 # convert to UNIX format
