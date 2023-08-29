@@ -1,16 +1,9 @@
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.util.Scanner;
 
 public class Duke {
     private static final int INDENT_SIZE = 4;
     private static final String NAME = "Jimmy";
-    private static final Path TASKS_CACHE_PATH = Path.of(".duke-cache");
+    private static final String TASKS_CACHE_PATH = ".duke-cache";
     private static TaskList tasks;
 
     private static String indent(String s) {
@@ -193,46 +186,16 @@ public class Duke {
         }
     }
 
-    private static void load() {
-        if (Files.notExists(TASKS_CACHE_PATH)) {
-            say("No existing tasks found, initializing an empty task list...");
-            tasks = new TaskList();
-        } else {
-            try {
-                FileInputStream fileInputStream = new FileInputStream(TASKS_CACHE_PATH.toString());
-                ObjectInputStream objInputStream = new ObjectInputStream(fileInputStream);
-
-                tasks = (TaskList) objInputStream.readObject();
-
-                objInputStream.close();
-                fileInputStream.close();
-                say(String.format("Loaded existing tasks from %s", TASKS_CACHE_PATH));
-            } catch (IOException | ClassNotFoundException e) {
-                say(String.format("Something went wrong loading existing tasks from %s, initializing an empty task list...", TASKS_CACHE_PATH));
-                tasks = new TaskList();
-                try {
-                    Files.delete(TASKS_CACHE_PATH);
-                } catch (IOException ignored) {
-                }
-            }
-        }
-    }
-
-    private static void save() {
-        try {
-            FileOutputStream fileOutputStream = new FileOutputStream(TASKS_CACHE_PATH.toString());
-            ObjectOutputStream objOutputStream = new ObjectOutputStream(fileOutputStream);
-
-            objOutputStream.writeObject(tasks);
-
-            objOutputStream.close();
-            fileOutputStream.close();
-        } catch (IOException ignored) {
-        }
-    }
-
     public static void main(String[] args) {
-        load();
+        Storage storage = new Storage(TASKS_CACHE_PATH);
+        try {
+            tasks = storage.load();
+            say(String.format("Loaded existing tasks from %s", TASKS_CACHE_PATH));
+        } catch (DukeException e) {
+            say(String.format("%s. Initializing empty task list...", e.getMessage()));
+            tasks = new TaskList();
+        }
+
         greet();
 
         boolean shouldTerminate = false;
@@ -256,33 +219,35 @@ public class Duke {
                         break;
                     case TODO:
                         addTodo(commandArgs);
-                        save();
+                        storage.save(tasks);
                         break;
                     case DEADLINE:
                         addDeadline(commandArgs);
-                        save();
+                        storage.save(tasks);
                         break;
                     case EVENT:
                         addEvent(commandArgs);
-                        save();
+                        storage.save(tasks);
                         break;
                     case MARK:
                         mark(commandArgs);
-                        save();
+                        storage.save(tasks);
                         break;
                     case UNMARK:
                         unmark(commandArgs);
-                        save();
+                        storage.save(tasks);
                         break;
                     case DELETE:
                         delete(commandArgs);
-                        save();
+                        storage.save(tasks);
                         break;
                 }
             } catch (DukeException e) {
                 say(e.getMessage());
             }
         }
+        
+        storage.save(tasks);
     }
 
     enum Command {
