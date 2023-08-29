@@ -1,3 +1,5 @@
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -15,9 +17,13 @@ public class Duke {
                 + "Bye. Hope to see you again soon!\n"
                 + HORIZONTAL_LINE;
 
+        ArrayList<Task> list = new ArrayList<>();
+        File file = new File("./data/duke.txt");
+
+        loadData(list, file);
+
         Scanner scanner = new Scanner(System.in);
         String input = "";
-        ArrayList<Task> list = new ArrayList<>();
 
         System.out.println(entryMessage);
         while (scanner.hasNextLine()) {
@@ -70,6 +76,60 @@ public class Duke {
             }
         }
         scanner.close();
+    }
+
+    private static void loadData(ArrayList<Task> list, File file) {
+        Scanner sc = null;
+
+        try {
+            sc = new Scanner(file);
+        } catch (FileNotFoundException e) {
+            System.out.print(HORIZONTAL_LINE);
+            System.out.println("Error: File not found");
+            System.out.println(HORIZONTAL_LINE);
+        }
+
+        while (sc != null && sc.hasNextLine()) {
+            String input = sc.nextLine();
+
+            if (input.charAt(0) == 'D') {
+                int byIndex = input.indexOf('|', 7);
+
+                String description = input.substring(8, byIndex - 1);
+                String by = input.substring(byIndex + 2);
+
+                Deadline deadline = new Deadline(description, by);
+                list.add(deadline);
+
+                if (input.charAt(4) == '1') {
+                    deadline.markAsDone();
+                }
+            } else if (input.charAt(0) == 'E') {
+                int fromIndex = input.indexOf('|', 7);
+                int toIndex = input.indexOf('|', fromIndex + 1);
+
+                String description = input.substring(8, fromIndex - 1);
+                String from = input.substring(fromIndex + 2, toIndex - 1);
+                String to = input.substring(toIndex + 2);
+
+                Event event = new Event(description, from, to);
+                list.add(event);
+
+                if (input.charAt(4) == '1') {
+                    event.markAsDone();
+                }
+
+            } else if (input.charAt(0) == 'T') {
+                String description = input.substring(8);
+
+                ToDo todo = new ToDo(description);
+                list.add(todo);
+
+                if (input.charAt(4) == '1') {
+                    todo.markAsDone();
+                }
+            }
+        }
     }
 
     private static void printList(ArrayList<Task> list) {
