@@ -1,5 +1,6 @@
 package duke;
 
+
 public class Todo extends Task {
     private static String parseTodo(String task) throws DukeException {
         String todoTask = task.trim();
@@ -9,22 +10,42 @@ public class Todo extends Task {
 
         return todoTask;
     }
+
+    /**
+     * Initialize Todo object that models a todo
+     * @param task todo description
+     * @throws DukeException if description is empty
+     */
     public Todo(String task) throws DukeException {
         super(parseTodo(task));
     }
 
-    public Todo(String task, boolean isDone) {
+    private Todo(String task, boolean isDone) {
         super(task, isDone);
     }
+
+    /**
+     * Returns new Todo object that is marked
+     * @return Todo object that is marked
+     */
     @Override
     public Todo done() {
         return new Todo(super.getTask(), true);
     }
+
+    /**
+     * Returns new Todo object that is unmarked
+     * @return Todo object that is unmarked
+     */
     @Override
     public Todo undone() {
         return new Todo(super.getTask(), false);
     }
 
+    /**
+     * Returns format of string to be stored in hard disk
+     * @return string
+     */
     @Override
     public String storageText() {
         return this.toString();

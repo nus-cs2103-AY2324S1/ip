@@ -1,8 +1,5 @@
 package duke;
 
-import duke.DukeException;
-import duke.Task;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -40,6 +37,13 @@ public class Event extends Task {
 
         return new String[] {eventInfoString, parseTimeRange[0].trim(), parseTimeRange[1].trim()};
     }
+
+    /**
+     * Initialize Event object that models an event
+     * @param task the deadline task name with a "/from" and "/to" separating the description and the start and end date
+     * @throws DukeException If the description, start date or end date is empty or there is no "/from" or "/to"
+     * the datetime format is wrong (not YYYY-MM-DD)
+     */
     public Event(String task) throws DukeException {
         super(parseEvent(task)[0]);
         try {
@@ -51,20 +55,34 @@ public class Event extends Task {
 
     }
 
-    public Event(String task, boolean isDone, LocalDate deadlineDate, LocalDate startDate) {
+    private Event(String task, boolean isDone, LocalDate deadlineDate, LocalDate startDate) {
         super(task, isDone);
         this.deadlineDate = deadlineDate;
         this.startDate = startDate;
     }
+
+    /**
+     * Returns new Event object that is marked
+     * @return Event object that is marked
+     */
     @Override
     public Event done() {
         return new Event(super.getTask(), true, this.deadlineDate, this.startDate);
     }
+
+    /**
+     * Returns new Event object that is unmarked
+     * @return Event object that is unmarked
+     */
     @Override
     public Event undone() {
         return new Event(super.getTask(), false, this.deadlineDate, this.startDate);
     }
 
+    /**
+     * Returns format of string to be stored in hard disk
+     * @return string
+     */
     @Override
     public String storageText() {
         String start = startDate.toString();

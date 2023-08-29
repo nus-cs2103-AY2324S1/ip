@@ -4,7 +4,8 @@ import java.util.Arrays;
 
 public class CommandProcessor {
     private final TaskList tasks;
-    private static final String[] VALIDCOMMANDS = {"mark", "unmark", "list", "todo", "event", "deadline", "delete"};
+    private static final String[] VALIDCOMMANDS = {"mark", "unmark", "list", "todo"
+            , "event", "deadline", "delete", "find"};
 
     private static final Storage storage = new Storage();
 
@@ -69,6 +70,10 @@ public class CommandProcessor {
 
             if (commandType.equals("delete")) {
                 return tasks.delete(taskName);
+            }
+
+            if (commandType.equals("find")) {
+                return tasks.find(taskName);
             }
 
             // process commands involving tasks (todo, deadline, event)
