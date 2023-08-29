@@ -123,6 +123,14 @@ public class Parser {
             }
             tasks.add(description, from, to);
             break;
+        case "find":
+            description = input.substring(4);
+            System.out.println(description);
+            if (description.isBlank()) {
+                throw new DukeException("\tPlease provide the keyword for me to search.");
+            }
+            tasks.find(description);
+            break;
         default:
             throw new DukeException("\tOOPS!!! I'm sorry, but I don't understand what that means :-(");
         }

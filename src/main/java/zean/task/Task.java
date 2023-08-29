@@ -66,4 +66,8 @@ public class Task {
             return "0 | " + this.description;
         }
     }
+
+    public String getDescription() {
+        return this.description;
+    }
 }

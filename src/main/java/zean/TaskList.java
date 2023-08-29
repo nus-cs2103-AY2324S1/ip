@@ -149,4 +149,26 @@ public class TaskList {
         printNumOfTasks();
         this.storage.rewriteToDisk(this.tasks);
     }
+
+    /**
+     * Prints the list of tasks that matches the search string.
+     *
+     * @param description The search string.
+     */
+    public void find(String description) {
+        ArrayList<Task> subList = new ArrayList<>();
+        this.tasks.forEach((task) -> {
+            if (task.getDescription().toLowerCase().contains(description.trim().toLowerCase())) {
+                subList.add(task);
+            }
+        });
+        if (subList.isEmpty()) {
+            System.out.println("\tThere are no matching tasks in your list.");
+        } else {
+            System.out.println("\tHere are the matching tasks in your list:");
+            for (int i = 0; i < subList.size(); i++) {
+                System.out.printf("\t%d.%s\n", i + 1, subList.get(i));
+            }
+        }
+    }
 }
