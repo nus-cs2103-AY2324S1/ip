@@ -13,9 +13,9 @@ src/main/resources/docs/
 *.iml
 bin/
 
-/text-ui-test/ACTUAL.TXT
-text-ui-test/EXPECTED-UNIX.TXT
-text-ui-test/data/dot.txt
+/text-dot.ui-test/ACTUAL.TXT
+text-dot.ui-test/EXPECTED-UNIX.TXT
+text-dot.ui-test/data/dot.txt
 
 # JUnit test text file
 data/junit-test-data.txt
