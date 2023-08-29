@@ -2,6 +2,9 @@ package pogo.tasks;
 
 import pogo.tasks.exceptions.PogoInvalidTaskException;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 /**
  * Represents a task with a deadline.
  */
@@ -9,12 +12,11 @@ public class Deadline extends Task {
     /**
      * Deadline of the task.
      */
-    protected String by;
+    protected LocalDateTime by;
 
-    public Deadline(String description, String by) throws PogoInvalidTaskException {
+    public Deadline(String description, LocalDateTime by) throws PogoInvalidTaskException {
         super(description);
-
-        if (by.equals("")) {
+        if (by == null) {
             throw new PogoInvalidTaskException("Deadline cannot be empty");
         }
         this.by = by;
@@ -22,47 +24,33 @@ public class Deadline extends Task {
 
     @Override
     public String getStatusMessage() {
-        return "[D]" + super.getStatusMessage() + " (by: " + this.by + ")";
+        return "[D]" + super.getStatusMessage() + " (by: " + this.getDeadline() + ")";
     }
 
 
     /**
      * Returns the deadline of the task.
+     *
      * @return Deadline of the task.
      */
     public String getDeadline() {
-        return this.by;
+        return this.by.format(Task.DATETIME_FORMAT);
     }
 
     /**
      * Accepts a visitor that performs an action on the task.
+     *
      * @param visitor Visitor to perform an action on the task.
      */
     public void accept(TaskVisitor visitor) {
         visitor.visit(this);
     }
 
-    public static Deadline fromFormattedString(String input) throws PogoInvalidTaskException {
-        String[] split = input.split(" \\| ");
-        if (split.length != 4) {
-            throw new PogoInvalidTaskException();
-        }
-
-        if (!split[0].equals("D")) {
-            throw new PogoInvalidTaskException();
-        }
-
-        if (!split[1].equals("1") && !split[1].equals("0")) {
-            throw new PogoInvalidTaskException();
-        }
-
-        boolean isDone = split[1].equals("1");
-
-        Deadline deadline = new Deadline(split[2], split[3]);
-        if (isDone) {
-            deadline.markAsDone();
-        }
-
-        return deadline;
+    /**
+     * Checks if the deadline for the task is between a specified date.
+     */
+    @Override
+    public boolean isBetween(LocalDateTime start, LocalDateTime end) {
+        return this.by.isAfter(start) && this.by.isBefore(end);
     }
 }

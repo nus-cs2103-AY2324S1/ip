@@ -10,8 +10,8 @@ public class Messages {
     public static final String INVALID_INDEX = "Please enter a valid index.";
     public static final String TASK_LOAD_SUCCESS = "Loaded %1$s tasks from file.";
     public static final String TASK_LOAD_FAILURE = "Failed to load tasks from file.";
-    public static final String HORIZONTAL_DIVIDER = "-".repeat(40);
     public static final String STARTUP_MESSAGE = "Hello! I'm Pogo." + System.lineSeparator()
             + "What can I do for you?" + System.lineSeparator();
     public static final String EXIT_MESSAGE = "Bye. Hope to see you again soon!";
+    public static final String INVALID_DATE_RANGE = "Please enter a valid date range.";
 }

@@ -2,6 +2,8 @@ package pogo.tasks;
 
 import pogo.tasks.exceptions.PogoInvalidTaskException;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,13 +27,7 @@ public class TaskTextEncoder implements TaskEncoder, TaskVisitor {
      */
     @Override
     public void visit(Deadline deadline) {
-        String deadlineString = String.join(
-                SEPARATOR_ENCODING,
-                ID_DEADLINE,
-                deadline.isDone() ? "1" : "0",
-                deadline.getDescription(),
-                deadline.getDeadline()
-        );
+        String deadlineString = String.join(SEPARATOR_ENCODING, ID_DEADLINE, deadline.isDone() ? "1" : "0", deadline.getDescription(), deadline.getDeadline());
         tasksOut.append(deadlineString).append(System.lineSeparator());
     }
 
@@ -44,14 +40,7 @@ public class TaskTextEncoder implements TaskEncoder, TaskVisitor {
      */
     @Override
     public void visit(Event event) {
-        String eventString = String.join(
-                SEPARATOR_ENCODING,
-                ID_EVENT,
-                event.isDone() ? "1" : "0",
-                event.getDescription(),
-                event.getFrom(),
-                event.getTo()
-        );
+        String eventString = String.join(SEPARATOR_ENCODING, ID_EVENT, event.isDone() ? "1" : "0", event.getDescription(), event.getFrom(), event.getTo());
         tasksOut.append(eventString).append(System.lineSeparator());
     }
 
@@ -64,12 +53,7 @@ public class TaskTextEncoder implements TaskEncoder, TaskVisitor {
      */
     @Override
     public void visit(ToDo toDo) {
-        String toDoString = String.join(
-                SEPARATOR_ENCODING,
-                ID_TODO,
-                toDo.isDone() ? "1" : "0",
-                toDo.getDescription()
-        );
+        String toDoString = String.join(SEPARATOR_ENCODING, ID_TODO, toDo.isDone() ? "1" : "0", toDo.getDescription());
         tasksOut.append(toDoString).append(System.lineSeparator());
     }
 
@@ -103,13 +87,16 @@ public class TaskTextEncoder implements TaskEncoder, TaskVisitor {
             if (split.length != 4) {
                 throw new PogoInvalidTaskException("Error parsing deadline task");
             }
-            task = new Deadline(split[2], split[3]);
+            LocalDateTime by = LocalDateTime.parse(split[3], Task.DATETIME_FORMAT);
+            task = new Deadline(split[2], by);
             break;
         case ID_EVENT:
             if (split.length != 5) {
                 throw new PogoInvalidTaskException("Error parsing event task");
             }
-            task = new Event(split[2], split[3], split[4]);
+            LocalDateTime from = LocalDateTime.parse(split[3], Task.DATETIME_FORMAT);
+            LocalDateTime to = LocalDateTime.parse(split[4], Task.DATETIME_FORMAT);
+            task = new Event(split[2], from, to);
             break;
         case ID_TODO:
             if (split.length != 3) {
@@ -145,6 +132,8 @@ public class TaskTextEncoder implements TaskEncoder, TaskVisitor {
                 tasks.add(task);
             } catch (PogoInvalidTaskException e) {
                 System.out.println(e.getMessage());
+            } catch (DateTimeParseException e) {
+                System.out.println("Error parsing date");
             }
         }
 
