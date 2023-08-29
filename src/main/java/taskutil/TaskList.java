@@ -59,6 +59,22 @@ public class TaskList {
     }
 
     /**
+     * Returns list of all tasks matching input query.
+     * @param query String to match tasks with.
+     * @return Numbered list of all tasks matching query.
+     */
+    public String queryList(String query) {
+        StringBuilder allTasks = new StringBuilder("These tasks match your query:");
+        int i = 1;
+        for (Task task: taskList) {
+            if (task.contains(query)) {
+                allTasks.append(String.format("\n     %d.%s", i++, task));
+            }
+        }
+        return allTasks.toString();
+    }
+
+    /**
      * Converts ArrayList of tasks to a formatted string suited for storing in data file.
      * @return Formatted string of tasks to store in data file.
      */

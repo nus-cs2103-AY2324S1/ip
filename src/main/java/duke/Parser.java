@@ -44,7 +44,7 @@ public class Parser {
      * @return boolean to determine if chatbot should wait for next command.
      */
     public static boolean parseCommand(String userInput, TaskList taskList) {
-        String[] splitInput = userInput.split(" ", 2);
+        String[] splitInput = userInput.split(" ", 2); // Limit 2 to only separate out command word.
         switch (splitInput[0]) {
         case "mark":
             try {
@@ -112,6 +112,9 @@ public class Parser {
                 Ui.output("Try the date format [dd.mm.yyyy tttt]:"
                         + "\n       eg. [05.08.2020 1500] for 5 Aug 2020, 3PM");
             }
+            break;
+        case "find":
+            Ui.output(taskList.queryList(splitInput[1]));
             break;
         case "list":
             Ui.output(taskList.listToString());
