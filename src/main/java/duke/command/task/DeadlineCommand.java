@@ -22,7 +22,7 @@ public class DeadlineCommand extends TaskCommand {
     }
 
     @Override
-    public Task makeTask() {
+    public Deadline makeTask() {
         return new Deadline((String) this.args.get("description"), (LocalDate) this.args.get("by"));
     }
 

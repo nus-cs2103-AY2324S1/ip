@@ -1,6 +1,5 @@
 package duke.parser.element.argument;
 
-import duke.exception.DukeException;
 import duke.exception.InvalidIndexException;
 
 public class IndexArgument extends Argument {
@@ -10,7 +9,7 @@ public class IndexArgument extends Argument {
     }
 
     @Override
-    public Object formatInput(String input) throws DukeException {
+    public Integer formatInput(String input) throws InvalidIndexException {
         int idx;
         try {
             idx = Integer.parseInt(input);

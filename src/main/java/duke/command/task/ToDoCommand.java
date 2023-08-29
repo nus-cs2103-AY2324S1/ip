@@ -21,7 +21,7 @@ public class ToDoCommand extends TaskCommand {
     }
 
     @Override
-    public Task makeTask() {
+    public ToDo makeTask() {
         return new ToDo((String) this.args.get("description"));
     }
 

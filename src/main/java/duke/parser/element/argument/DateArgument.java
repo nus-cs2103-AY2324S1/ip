@@ -1,6 +1,5 @@
 package duke.parser.element.argument;
 
-import duke.exception.DukeException;
 import duke.exception.InvalidDateException;
 import java.time.format.DateTimeParseException;
 import java.time.LocalDate;
@@ -12,7 +11,7 @@ public class DateArgument extends Argument {
     }
 
     @Override
-    public Object formatInput(String input) throws DukeException {
+    public LocalDate formatInput(String input) throws InvalidDateException {
         try {
             return LocalDate.parse(input);
         } catch (DateTimeParseException e) {

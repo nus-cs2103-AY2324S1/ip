@@ -1,6 +1,6 @@
 package duke.command.task;
 
-import duke.exception.DukeException;
+import duke.exception.DateRangeException;
 import duke.object.task.Event;
 import duke.object.task.Task;
 import duke.parser.element.argument.DateArgument;
@@ -23,7 +23,7 @@ public class EventCommand extends TaskCommand {
     }
 
     @Override
-    public Task makeTask() throws DukeException {
+    public Event makeTask() throws DateRangeException {
         return new Event((String) this.args.get("description"), (LocalDate) this.args.get("from"), (LocalDate) this.args.get("to"));
     }
 

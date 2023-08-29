@@ -1,6 +1,5 @@
 package duke.parser.element.argument;
 
-import duke.exception.DukeException;
 import duke.exception.EmptyArgException;
 
 public class StringArgument extends Argument {
@@ -10,7 +9,7 @@ public class StringArgument extends Argument {
     }
 
     @Override
-    public Object formatInput(String input) throws DukeException {
+    public String formatInput(String input) throws EmptyArgException {
         if (input == null || input.equals("")) {
             throw new EmptyArgException(this.toString());
         }

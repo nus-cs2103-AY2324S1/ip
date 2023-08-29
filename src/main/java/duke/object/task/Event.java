@@ -2,7 +2,6 @@ package duke.object.task;
 
 import duke.command.task.EventCommand;
 import duke.exception.DateRangeException;
-import duke.exception.DukeException;
 import duke.ui.Ui;
 import java.time.LocalDate;
 import java.util.AbstractMap.SimpleEntry;
@@ -13,7 +12,7 @@ public class Event extends Task {
     protected LocalDate from;
     protected LocalDate to;
 
-    public Event(String description, LocalDate from, LocalDate to) throws DukeException {
+    public Event(String description, LocalDate from, LocalDate to) throws DateRangeException {
         super(description);
         if (to.isBefore(from)) {
             throw new DateRangeException();
