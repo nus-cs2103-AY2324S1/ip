@@ -37,4 +37,16 @@ public class TaskList {
         return tasks.size();
     }
 
+    /**
+     * Finds tasks that match the specified keyword.
+     *
+     * @param keyword The keyword to search for.
+     * @return A task list containing tasks that match the specified keyword.
+     */
+    public TaskList findTasks(String keyword) {
+        return new TaskList(tasks.stream()
+                .filter(task -> task.matchDescription(keyword))
+                .collect(Collectors.toList()));
+    }
+
 }

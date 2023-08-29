@@ -12,6 +12,16 @@ abstract public class Task {
         this.isDone = isDone;
     }
 
+    /**
+     * Checks if the task description matches the specified keyword.
+     *
+     * @param keyword The keyword to search for.
+     * @return True if the task description matches the specified keyword, false otherwise.
+     */
+    public boolean matchDescription(String keyword) {
+        return this.description.contains(keyword);
+    }
+
     public Task markAsDone() {
         this.isDone = true;
         return this;

@@ -69,4 +69,16 @@ public class Ui {
                 " Noted. I've removed this task:\n  %s\n Now you have %d task%s in the list.\n",
                 task, taskSize, taskSize == 1 ? "" : "s"));
     }
+
+    public void showNoMatchingTasksMessage() {
+        outputMessage(" There are no matching tasks in your list!\n");
+    }
+
+    public void showMatchingTasksMessage(TaskList matchingTasks) {
+        StringBuilder tasksString = new StringBuilder();
+        for (int i = 0; i < matchingTasks.getSize(); i++) {
+            tasksString.append(String.format("  %d. %s\n", i + 1, matchingTasks.getTask(i).toString()));
+        }
+        outputMessage(String.format(" Here are the matching tasks in your list:\n%s", tasksString));
+    }
 }
