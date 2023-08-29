@@ -3,6 +3,7 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
@@ -128,9 +129,9 @@ public class Monke {
         String description = tmp[0];
         String date = tmp[1];
         try {
-            return new Deadline(description, LocalDate.parse(date));
+            return new Deadline(description, date);
         } catch (DateTimeParseException e) {
-            throw new MonkeException("Format your deadline in yyyy-mm-dd format");
+            throw new MonkeException("Format your deadline in yyyy-MM-dd HHmm format");
         }
     }
 
@@ -201,7 +202,7 @@ public static void deleteFromList(int n) throws MonkeException, IOException {
             break;
         case "D":
             String date = tmp[3];
-            task = new Deadline(description, LocalDate.parse(date));
+            task = new Deadline(description, date);
             break;
         case "E":
             String start = tmp[3];
