@@ -21,8 +21,11 @@ public class Deadline extends Task{
         return "D | " + super.toStringFile() + "/by " + by;
     }
 
+    @Override
+    public String getType() { return "Deadline"; }
 
-    public static void addDeadline(String description, ArrayList<Task> list) throws DukeException {
+
+    public static Deadline addDeadline(String description, ArrayList<Task> list) throws DukeException {
         String[] deadline = description.stripTrailing().split("/by ", 2);
         if (deadline[0].isEmpty()) {
             throw new DukeException("☹ OOPS!!! The description of a deadline cannot be empty.");
@@ -31,20 +34,17 @@ public class Deadline extends Task{
             throw new DukeException("☹ OOPS!!! Please provide a valid deadline");
         }
 
+        Deadline newTask = null;
         try {
             LocalDate endDate = LocalDate.parse(deadline[1]);
-            Deadline newTask = new Deadline(deadline[0], endDate);
+            newTask = new Deadline(deadline[0], endDate);
             list.add(newTask);
-            System.out.println(line);
-            System.out.println("Got it. I've added the Deadline:\n\t" + newTask.toString());
-            System.out.println("Now you have " + list.size() + " tasks in the list.");
-            System.out.println(line);
 
         } catch (DateTimeParseException e) {
             System.out.println("Your date should be formatted as YYYY-MM-DD");
         }
 
-
+        return newTask;
 
     }
 

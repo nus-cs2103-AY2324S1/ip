@@ -14,17 +14,16 @@ public class ToDo extends Task {
     public String toStringFile() {
         return "T | " + super.toStringFile();
     }
+    @Override
+    public String getType() { return "TODO"; }
 
-    public static void addTodo(String description, ArrayList<Task> list) throws DukeException{
+    public static ToDo addTodo(String description, ArrayList<Task> list) throws DukeException{
         if (description.isBlank()) {
             throw new DukeException("☹ OOPS!!! The description of a todo cannot be empty.");
         }
         ToDo newTask = new ToDo(description);
         list.add(newTask);
-        System.out.println(line);
-        System.out.println("Okay! I added a new TODO:\n\t" + newTask.toString());
-        System.out.println("Now you have " + list.size() + " tasks in the list.");
-        System.out.println(line);
+        return newTask;
 
     }
 

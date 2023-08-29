@@ -32,13 +32,13 @@ public class Task {
 
     public void mark() {
         this.isDone = true;
-        System.out.println("Nice! I have marked this task as done:\n" + this.toString());
     }
 
     public void unMark() {
         this.isDone = false;
-        System.out.println("Okay! I have marked this task as not done yet\n" + this.toString());
     }
+
+    public String getType() { return "Task"; }
 
     public void markFromRead(String isMarked) {
         if (isMarked.equals("1")) this.isDone = true;
