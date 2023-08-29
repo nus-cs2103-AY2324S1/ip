@@ -57,6 +57,15 @@ public class Parser {
                 int delIndex = Integer.parseInt(userInput.split(" ")[1]) - 1;
                 TaskList.deleteTask(taskList, delIndex);
                 break;
+            case "find":
+                String keyword = userInput.split(" ")[1];
+                TaskList keywordTaskList = taskList.getTasksWithKeyword(keyword);
+                if (keywordTaskList.getSize() >= 1) {
+                    Ui.printKeywordTasksMsg(keywordTaskList);
+                } else {
+                    Ui.printNoKeywordTasksFound();
+                }
+                break;
             default:
                 throw new UnrecognizedCommandException();
             }

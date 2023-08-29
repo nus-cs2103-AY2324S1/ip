@@ -95,6 +95,10 @@ public abstract class Task {
         return task;
     }
 
+    public boolean ifDescriptionContains(String keyword) {
+        return this.description.contains(keyword);
+    }
+
     /**
      * Converts the task to a user-friendly string representation.
      *
