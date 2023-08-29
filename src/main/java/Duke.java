@@ -1,6 +1,11 @@
 import java.util.Scanner;
 import java.util.ArrayList;
 
+/**
+ * Program to run a task manager that can add, delete and mark tasks.
+ *
+ * @author Teo Kai Sheng
+ */
 public class Duke {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
