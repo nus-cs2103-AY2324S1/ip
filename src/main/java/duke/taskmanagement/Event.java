@@ -1,5 +1,5 @@
 package duke.taskmanagement;
-public class Event extends Task{
+public class Event extends Task {
     protected String from;
     protected String till;
 
@@ -11,7 +11,7 @@ public class Event extends Task{
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         return "[E]" + super.toString() + " (from: " + from + " to: " + till + ")";
     }
 
@@ -19,7 +19,7 @@ public class Event extends Task{
         return super.isDone ? "1" : "0";
     }
     @Override
-    public String saveToFileString(){
+    public String saveToFileString() {
         return "E | " +  convertIsDone() + " | " + description + " | " + this.from + " | " + this.till +"\n";
     }
 }
