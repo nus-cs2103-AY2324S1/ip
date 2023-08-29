@@ -56,4 +56,14 @@ public class TaskList {
         db.saveTask(tasks);
         Ui.markAsUndone(tsk);
     }
+
+    public void findTasks(String keyword) {
+        ArrayList<Task> foundTasks = new ArrayList<Task>();
+        for (Task tsk : this.tasks) {
+            if (tsk.getDescription().contains(keyword)) {
+                foundTasks.add(tsk);
+            }
+        }
+        Ui.findTasks(foundTasks);
+    }
 }
