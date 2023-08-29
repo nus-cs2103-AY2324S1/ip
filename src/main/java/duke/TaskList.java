@@ -55,21 +55,11 @@ public class TaskList {
     public void markTasks(String[] input, int taskNum) throws DukeException {
         try {
             if (input[0].equals("mark")) {
-               /* if (this.taskArray.get(taskNum - 1).isDone) {
-                    System.out.println("WEEYA! Task was already marked as done!");
-                } else {
-                    System.out.println("GOTCHYA! I've marked this task as done!");*/
                 Ui.taskAlreadyMarked(this.taskArray.get(taskNum - 1).isDone);
                 this.taskArray.get(taskNum - 1).markDone();
-               // }
             } else {
-               /* if (!this.taskArray.get(taskNum - 1).isDone) {
-                    System.out.println("OOPSIE! Task was already marked as not done!");
-                } else {
-                    System.out.println("HONKHONK! I've marked this task as not done yet!");*/
                 Ui.taskAlreadyNotMarked(!this.taskArray.get(taskNum - 1).isDone);
                 this.taskArray.get(taskNum - 1).markNotDone();
-               // }
             }
             Ui.print(this.taskArray.get(taskNum - 1).toString());
         } catch (NullPointerException | IndexOutOfBoundsException e) {
