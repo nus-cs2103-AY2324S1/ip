@@ -4,7 +4,7 @@ package alyssa;
  * This is an enum containing the possible commands given by the user.
  */
 public enum Command {
-    BYE, LIST, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, INVALID;
+    BYE, LIST, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, FIND, INVALID;
 
     /**
      * Assigns a given command string with its enum counterpart.
@@ -29,6 +29,8 @@ public enum Command {
             return Command.DEADLINE;
         case "delete":
             return Command.DELETE;
+        case "find":
+            return Command.FIND;
         default:
             return Command.INVALID;
         }
