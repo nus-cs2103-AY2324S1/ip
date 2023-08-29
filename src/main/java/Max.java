@@ -1,3 +1,7 @@
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -182,6 +186,35 @@ public class Max {
     public static enum Command {
         LIST, MARK, UNMARK, BYE, ADD, DELETE, UNKNOWN
     }
+    public static void writeToFile() {
+        // Save the task list to the system upon change
+        File file = new File("./data/max.txt");
+
+
+        File dataDirectory = new File("./data/");
+
+        // Handle case where the data file doesn't exist at the start
+        if (!dataDirectory.exists()) {
+            dataDirectory.mkdirs(); // Create the directory if it doesn't exist
+        }
+
+        try {
+
+            FileWriter fileWriter = new FileWriter(file);
+            BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+
+            // Write tasks to file
+            for (int i = 0; i < numOfItems; i++) {
+                int index = i + 1;
+                bufferedWriter.write(index + ". " + myList.get(i));
+            }
+
+            // Close the writer
+            bufferedWriter.close();
+        } catch (IOException e) {
+            System.err.println("Uh oh! There was an error writing to file: " + e.getMessage());
+        }
+    }
     public static void main(String[] args) {
         Max.greet();
 
@@ -242,6 +275,9 @@ public class Max {
                     default:
                         break;
                 }
+
+                writeToFile();
+
             } catch (MaxException e) {
                 System.out.println(e.getMessage());
                 System.out.println(Max.line);
