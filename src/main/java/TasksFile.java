@@ -1,12 +1,24 @@
 
-import java.io.FileNotFoundException;
+import java.io.*;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.util.Date;
 import java.util.Objects;
 import java.util.Scanner;
 public class TasksFile {
+
+    public static Date fileDateParser(String dateString) throws DukeException {
+
+        SimpleDateFormat sdf = new SimpleDateFormat("dd MMM yyyy h a");
+
+        try {
+            Date date = sdf.parse(dateString);
+            return date;
+        } catch (Exception e) {
+            System.out.println(e);
+           throw new DukeException("Cannot read time from file");
+        }
+    }
 
     private static final String FILE_PATH = "tasks.txt";
 
@@ -58,10 +70,10 @@ public class TasksFile {
                         tasks.add(todo);
                     }
                     else if (data.charAt(1)=='D'){
-                        String dates = data.split(":")[1];
+                        String dates = data.split(":",2)[1];
                         String desc = data.split("\\(")[0];
-
-                        Deadline deadline = new Deadline(desc.substring(7), dates.substring(1,dates.length()-1));
+                        Date date = fileDateParser(dates.substring(1,dates.length()-1));
+                        Deadline deadline = new Deadline(desc.substring(7), date);
                         if (data.charAt(4) == 'X'){
                             deadline.setAction("mark");
                         }
@@ -70,7 +82,12 @@ public class TasksFile {
                     else if (data.charAt(1) == 'E'){
                         String[] dates = data.split(":");
                         String desc = data.split("\\(")[0];
-                        Event event = new Event(desc.substring(7), dates[1].substring(1,dates[1].length()-2),dates[2].substring(1,dates[2].length()-1));
+
+                        Date from = fileDateParser(dates[1].substring(1,dates[1].length()-2));
+                        Date to = fileDateParser(dates[2].substring(1,dates[2].length()-1));
+
+                        Event event = new Event(desc.substring(7), from,to);
+
                         if (data.charAt(4) == 'X'){
                             event.setAction("mark");
                         }

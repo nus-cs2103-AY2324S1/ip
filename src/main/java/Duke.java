@@ -1,6 +1,10 @@
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Scanner;
 import java.util.ArrayList;
-
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 public class Duke {
 
     /***
@@ -13,6 +17,24 @@ public class Duke {
 
         if (str.length <2 ) {
             throw new DukeException("☹ OOPS!!! The description of a " +task+ " cannot be empty.");
+        }
+    }
+
+    public static Date dateParser(String str) throws DukeException{
+
+        if (str.length() < 15){
+            throw new DukeException("invalid date, must be of the form dd/mm/yyyy hhmm");
+        }
+        String newStr = str.substring(0,13) +":" + str.substring(13);
+        System.out.println(newStr);
+        DateFormat df = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+        try {
+            Date d1 = df.parse(newStr);
+            return d1;
+        }
+        catch (Exception e){
+            System.out.println(e);
+            throw new DukeException("invalid date");
         }
     }
     public static void main(String[] args) throws DukeException {
@@ -58,9 +80,10 @@ public class Duke {
             else if (splitStr[0].equals("deadline")){
                 try{
                     inputChecker(splitStr, "deadline");
-                    String[] deadline = input.split("/");
-                    inputChecker(deadline, "deadline");
-                    Deadline d = new Deadline(deadline[0].substring(9), deadline[1].substring(3));
+                    String[] deadlineArr = input.split("/by ");
+                    Date deadline = dateParser(deadlineArr[1]);
+
+                    Deadline d = new Deadline(deadlineArr[0].substring(9), deadline);
                     tasks.add(d);
                     TasksFile.saveTasks(tasks);
                 }
@@ -73,10 +96,13 @@ public class Duke {
             else if (splitStr[0].equals("event")){
                 try{
                     inputChecker(splitStr, "event");
-                    String[] event = input.split("/");
-                    inputChecker(event, "deadline");
+                    int startIndex = input.indexOf("/from ");
+                    int endIndex = input.indexOf("/to");
 
-                    Event e = new Event(event[0].substring(6),event[1].substring(5), event[2].substring(3));
+                    Date from = dateParser(input.substring(startIndex + 6, endIndex-1));
+                    Date to = dateParser(input.substring(endIndex+4));
+
+                    Event e = new Event(input.substring(6,startIndex),from, to);
                     tasks.add(e);
                     TasksFile.saveTasks(tasks);
                 }
