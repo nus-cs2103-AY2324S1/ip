@@ -1,15 +1,18 @@
 /**
- * CS2103T iP Week 2
+ * CS2103T iP Week 3
  * AY23/24 Semester 1
  * A product named Eva (Originally Duke), a Personal Assistant Chatbot that helps a person
  * to keep track of various things.
  *
  * @author bhnuka, Bhanuka Bandara Ekanayake (AXXX7875J), G01
- * @version v1.0 CS2103T AY 23/24 Sem 1
+ * @version 21.0 CS2103T AY 23/24 Sem 1
  */
 
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.io.FileWriter;
+import java.io.FileReader;
+import java.io.IOException;
 
 /**
  * All the sourcecode behind the chatbot, Eva
@@ -34,7 +37,8 @@ public class Eva {
         System.out.println("\t____________________________________________________________");
 
         ArrayList<Task> tasks = new ArrayList<>(); // Use ArrayList to store tasks
-        int taskCount = 0; // Counter for tasks
+        loadTasksFromFile(tasks); // Load tasks from file
+        int taskCount = tasks.size(); // Counter for tasks
 
         // Set of cases that the chatbot considers, namely: bye, list, mark, unmark,
         // todo, deadline, event & delete
@@ -84,7 +88,7 @@ public class Eva {
                     if (input.length() <= 5) {
                         throw new DukeException("\t ☹ OOPS!!! The description of a todo cannot be empty.");
                     }
-                    tasks.add(new Todo(input.substring(5)));
+                    tasks.add(new Todo(input.substring(5), false));
                     taskCount++;
                     System.out.println("\t____________________________________________________________");
                     System.out.println("\t Got it. I've added this task: ");
@@ -108,7 +112,7 @@ public class Eva {
                         throw new DukeException("☹ OOPS!!! The deadline description cannot be empty.");
                     }
                     String by = input.substring(byIndex + 3).trim();
-                    tasks.add(new Deadline(description, by));
+                    tasks.add(new Deadline(description, false, by));
                     taskCount++;
                     System.out.println("\t____________________________________________________________");
                     System.out.println("\t Got it. I've added this task: ");
@@ -135,7 +139,7 @@ public class Eva {
                     }
                     String from = input.substring(fromIndex + 5, toIndex).trim();
                     String to = input.substring(toIndex + 3).trim();
-                    tasks.add(new Event(description, from, to));
+                    tasks.add(new Event(description, false, from, to));
                     taskCount++;
                     System.out.println("\t____________________________________________________________");
                     System.out.println("\t Got it. I've added this task: ");
@@ -177,7 +181,79 @@ public class Eva {
                 System.out.println("\t____________________________________________________________");
             }
         }
+        saveTasksToFile(tasks); // Before exiting, save tasks to file
         scanner.close();
+    }
+
+    /**
+     * Loads task from duke.txt
+     *
+     * @param tasks ArrayList of tasks
+     */
+    private static void loadTasksFromFile(ArrayList<Task> tasks) {
+        try {
+            FileReader fileReader = new FileReader("./data/duke.txt");
+            Scanner scanner = new Scanner(fileReader);
+
+            while (scanner.hasNext()) {
+                String line = scanner.nextLine();
+                String[] parts = line.split(" \\| ");
+                String taskType = parts[0];
+                boolean isDone = parts[1].equals("1");
+                String description = parts[2];
+
+                switch (taskType) {
+                    case "T":
+                        tasks.add(new Todo(description, isDone));
+                        break;
+                    case "D":
+                        String by = parts[3];
+                        tasks.add(new Deadline(description, isDone, by));
+                        break;
+                    case "E":
+                        String from = parts[3];
+                        String to = parts[4];
+                        tasks.add(new Event(description, isDone, from, to));
+                        break;
+                }
+            }
+
+            fileReader.close();
+        } catch (IOException e) {
+            // Handle file not found or other errors
+            System.out.println("No saved tasks found.");
+        }
+    }
+
+    /**
+     * Saves tasks to duke.txt
+     *
+     * @param tasks ArrayList of tasks
+     */
+    private static void saveTasksToFile(ArrayList<Task> tasks) {
+        try {
+            FileWriter fileWriter = new FileWriter("./data/duke.txt");
+            for (Task task : tasks) {
+                String taskType = "";
+                String dateInfo = "";
+
+                if (task instanceof Todo) {
+                    taskType = "T";
+                } else if (task instanceof Deadline) {
+                    taskType = "D";
+                    dateInfo = ((Deadline) task).getBy();
+                } else if (task instanceof Event) {
+                    taskType = "E";
+                    dateInfo = ((Event) task).getFrom() + " - " + ((Event) task).getTo();
+                }
+
+                fileWriter.write(taskType + " | " + (task.getDone() ? "1" : "0") + " | " + task.getDescription() + " | " + dateInfo + "\n");
+            }
+            fileWriter.close();
+        } catch (IOException e) {
+            // Handle write errors
+            System.out.println("Error saving tasks.");
+        }
     }
 
     /**
@@ -211,9 +287,9 @@ public class Eva {
          * @param description the given description of the task
          * @param type        the given type of the task
          */
-        public Task(String description, TaskType type) {
+        public Task(String description, boolean isDone, TaskType type) {
             this.description = description;
-            this.isDone = false;
+            this.isDone = isDone;
             this.type = type;
         }
 
@@ -230,6 +306,16 @@ public class Eva {
         public void markUndone() {
             isDone = false;
         }
+
+        /**
+         * Returns whether task is done
+         */
+        public boolean getDone() { return this.isDone; }
+
+        /**
+         * Returns description of task
+         */
+        public String getDescription() { return this.description; }
 
         /**
          * Returns String representing the task
@@ -251,9 +337,11 @@ public class Eva {
          * Constructs todo with the given description
          *
          * @param description the given description of the todo
+         * @param isDone whether the todo is done
+         *
          */
-        public Todo(String description) {
-            super(description, TaskType.TODO);
+        public Todo(String description, boolean isDone) {
+            super(description, isDone, TaskType.TODO);
         }
 
         /**
@@ -277,12 +365,20 @@ public class Eva {
          * Constructs deadline with the given description
          *
          * @param description the given description of the deadline
+         * @param isDone      whether the deadline is done
          * @param by          the date by which the deadline is
          */
-        public Deadline(String description, String by) {
-            super(description, TaskType.DEADLINE);
+        public Deadline(String description, boolean isDone, String by) {
+            super(description, isDone, TaskType.DEADLINE);
             this.by = by;
         }
+
+        /**
+         * Returns the do by date
+         *
+         * @return String representing do by date
+         */
+        public String getBy() { return this.by; }
 
         /**
          * Returns String representing the deadline
@@ -306,14 +402,29 @@ public class Eva {
          * Constructs deadline with the given description
          *
          * @param description the given description of the deadline
+         * @param isDone      whether the event is done
          * @param from        the time at which the event starts
          * @param to          the time at which the event ends
          */
-        public Event(String description, String from, String to) {
-            super(description, TaskType.EVENT);
+        public Event(String description, boolean isDone, String from, String to) {
+            super(description, isDone, TaskType.EVENT);
             this.from = from;
             this.to = to;
         }
+
+        /**
+         * Returns the do by date
+         *
+         * @return String representing start from date
+         */
+        public String getFrom() { return this.from; }
+
+        /**
+         * Returns the do by date
+         *
+         * @return String representing end at date
+         */
+        public String getTo() { return this.to; }
 
         /**
          * Returns String representing the event
