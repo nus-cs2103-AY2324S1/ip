@@ -12,9 +12,19 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Represents a parser for the Duke chat-bot that parses the user input and returns the corresponding command.
+ */
 public class Parser {
     private static final DateTimeFormatter dateTimeFormat = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
 
+    /**
+     * Parses the user input and returns the corresponding command.
+     *
+     * @param fullCommand The user input.
+     * @return The corresponding command.
+     * @throws DukeException If the user input is invalid.
+     */
     public static Command parse(String fullCommand) throws DukeException {
         String[] splitInput = fullCommand.split(" ", 2);
         String commandWord = splitInput[0];

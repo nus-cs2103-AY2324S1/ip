@@ -15,13 +15,28 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * Represents a storage for the Duke chat-bot that stores the tasks in a file.
+ * This serves to allow the tasks to be saved and loaded on the hard drive when Duke starts and exits.
+ */
 public class Storage {
     private final String filePath;
 
+    /**
+     * Creates a Storage object.
+     *
+     * @param filePath The path to the file to store the tasks.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
+    /**
+     * Creates the file that stores the tasks if it does not exist.
+     *
+     * @param file The file to be created.
+     * @throws DukeStorageException If the file cannot be created, or some other IOException is thrown.
+     */
     private void createFile(File file) throws DukeStorageException {
         try {
             boolean isCreated = file.getParentFile().mkdirs() && file.createNewFile();
@@ -33,6 +48,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Loads the tasks from the file provided by the filepath when Duke first starts.
+     *
+     * @return The list of tasks.
+     * @throws DukeStorageException If the file cannot be created, or some other IOException is thrown.
+     */
     public List<Task> loadData() throws DukeStorageException {
         File file = new File(filePath);
         List<Task> tasks = new ArrayList<>();
@@ -62,6 +83,12 @@ public class Storage {
         return tasks;
     }
 
+    /**
+     * Saves the tasks to the file provided by the filepath after Duke exits.
+     *
+     * @param tasks The list of tasks.
+     * @throws DukeStorageException If the file cannot be created, or some other IOException is thrown.
+     */
     public void saveData(TaskList tasks) throws DukeStorageException {
         try (FileWriter fw = new FileWriter(filePath)) {
             fw.write(tasks.stringifyTasks());
