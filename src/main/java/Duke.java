@@ -76,6 +76,10 @@ public class Duke {
             } catch (Exception f) {
                 System.out.println("Error creating new file.");
             }
+        } catch (DateTimeParseException e) {
+            System.out.println("Error parsing date.");
+        } catch (Exception e) {
+            System.out.println("Error reading from file.");
         }
 
         String command = "";
@@ -168,6 +172,8 @@ public class Duke {
                     System.out
                             .println("Congratulations, your pile of tasks has swelled to a whopping " + list.size()
                                     + ".");
+                } catch (DateTimeParseException e) {
+                    System.out.println("Error parsing date.");
                 } catch (Exception e) {
                     System.out.println(e.getMessage());
                 } finally {
@@ -203,6 +209,8 @@ public class Duke {
                     System.out
                             .println("Congratulations, your pile of tasks has swelled to a whopping " + list.size()
                                     + ".");
+                } catch (DateTimeParseException e) {
+                    System.out.println("Error parsing date.");
                 } catch (Exception e) {
                     System.out.println(e.getMessage());
                 } finally {
