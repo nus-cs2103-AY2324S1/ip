@@ -10,14 +10,23 @@ import task.Task;
 import java.util.List;
 
 /**
- * Abstract class containing logic of marking a task as done.
+ * Handles the mark command, by marking the specified task as done
  */
 public class MarkHandler implements CommandHandler {
 
     private static final String[] ARG_ORDER = new String[]{""};
+    // argument not expected to have prefix, just an index
 
+    /**
+     * Handles the mark command by marking the specified task as done, returning the user-facing string representation
+     * of the marked task
+     * @param session the linked KniazSession that this command is to execute in
+     * @param args the arguments to this command
+     * @return the user-facing string representation of the marked task
+     * @throws KniazInvalidArgsException when the arguments are invalid, like when the index is out of bounds
+     */
     @Override
-    public String handle(KniazSession session, String[] args) {
+    public String handle(KniazSession session, String[] args) throws KniazInvalidArgsException{
 
         String[] sortedArgs = ArgSorter.sortArgsByStarting(args,ARG_ORDER);
         // appears redundant but acts as another gatekeeper to make sure the arg syntax is right

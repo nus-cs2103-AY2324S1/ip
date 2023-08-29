@@ -29,12 +29,7 @@ public abstract class CommandFactory {
             ));
 
     public static KniazCommand<? extends CommandHandler> parseCommand(InstructionType instruction,
-                                                                      String... args) throws KniazInvalidArgsException,
-                                            KniazInvalidCommandException {
-        if (instruction == InstructionType.INVALID) {
-            throw new KniazInvalidCommandException();
-        }
-
+                                                                      String... args) throws KniazInvalidArgsException {
         if (instruction.numArgs != args.length) {
             throw new KniazInvalidArgsException();
         }

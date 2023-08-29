@@ -1,29 +1,31 @@
 package commandhandling;
 
 import commandhandling.argsorting.ArgSorter;
-import exceptions.KniazRuntimeException;
+import exceptions.syntax.KniazInvalidArgsException;
 import main.KniazSession;
-import task.Deadline;
 import task.Event;
 import task.Task;
-import storage.TaskList;
-
-
-import java.util.List;
 
 /**
- * Encapsulation of an abstract class that handles the logic and input validation
- * of Event(see task.Event) creation
- * Includes handling of arguments into Event construction
+ * Handles the event command, by creating a new Event object.
  */
 public class EventHandler implements CommandHandler {
 
-    private static final String[] ARGORDER = new String[]{"","/from","/to"};
+    // the expected order of arguments to this command
+    private static final String[] ARG_ORDER = new String[]{"","/from","/to"};
+
+    /**
+     * Handles the event command by creating a new Event
+     * @param session the linked KniazSession that this command is to execute in
+     * @param args the arguments to this command
+     * @return the user-facing string representation of the event that was created
+     * @throws KniazInvalidArgsException when the arguments are invalid, like when a "/to {TIME}"is missing as an argument
+     */
     @Override
-    public String handle(KniazSession session, String[] args) {
+    public String handle(KniazSession session, String[] args) throws KniazInvalidArgsException {
 
 
-        String[] sortedArgs = ArgSorter.sortArgsByStarting(args,ARGORDER);
+        String[] sortedArgs = ArgSorter.sortArgsByStarting(args, ARG_ORDER);
 
         String taskName = sortedArgs[0];
         String taskFrom = sortedArgs[1];

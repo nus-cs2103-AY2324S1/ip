@@ -8,7 +8,7 @@ import commandhandling.*;
 import commandhandling.commandhandling.*;
 import ui.inputparser.InstructionType;
 import ui.inputparser.commands.CommandFactory;
-import ui.inputparser.KniazParser;
+import ui.inputparser.KniazLineParser;
 import storage.save.KniazLoader;
 import storage.save.KniazSaver;
 import storage.TaskList;
@@ -76,7 +76,7 @@ public class Kniaz {
         while (true) { // I find this a bit icky but we rely on guard clauses to break instead
 
             try {
-                nextCommand = KniazParser.parseCommand(input.nextLine());
+                nextCommand = KniazLineParser.parseCommand(input.nextLine());
                 // We try to parse...
 
             } catch (KniazRuntimeException e) {

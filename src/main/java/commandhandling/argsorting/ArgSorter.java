@@ -6,6 +6,18 @@ import java.util.*;
 import java.util.stream.Stream;
 
 public abstract class ArgSorter {
+    /**
+     * Sorts a list of arguments according to the substring they start with, output will match
+     * order of startingOrder. Will match greedily, i.e. taking the first match as the match in the final order.
+     * I.e. if args = ["second_bla_bla","first_bla_bla"], startingOrder = ["first","second"],
+     * will return ["first_bla_bla, "second_bla_bla"]
+     *
+     * @param args the list of arguments to sort
+     * @param startingOrder the order to sort, based on the leading substring
+     * @return the sorted list
+     * @throws KniazInvalidArgsException if either : args and startingOrder have length mismatch,
+     * or this method was unable to match a startingOrder substring.
+     */
     public static String[] sortArgsByStarting(String[] args, String[] startingOrder) throws KniazInvalidArgsException {
 
         if (args.length != startingOrder.length) {
@@ -25,6 +37,7 @@ public abstract class ArgSorter {
                     outAsList.add(removeLeadingSubstr(currArg,starting));
                     break;
                 }
+
 
             }
 
