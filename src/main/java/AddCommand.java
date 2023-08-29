@@ -10,4 +10,9 @@ public class AddCommand extends Command {
         tasks.addTask(task);
         ui.showAddMessage(tasks.getSize(), task);
     }
+
+    @Override
+    public boolean isExit() {
+        return false;
+    }
 }

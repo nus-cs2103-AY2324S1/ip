@@ -9,4 +9,9 @@ public class UnmarkCommand extends Command {
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         ui.showUndoneMessage(tasks.getTask(taskIndex).markAsUndone());
     }
+
+    @Override
+    public boolean isExit() {
+        return false;
+    }
 }

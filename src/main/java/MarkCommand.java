@@ -9,4 +9,9 @@ public class MarkCommand extends Command {
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         ui.showDoneMessage(tasks.getTask(taskIndex).markAsDone());
     }
+
+    @Override
+    public boolean isExit() {
+        return false;
+    }
 }

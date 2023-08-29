@@ -11,4 +11,9 @@ public class DeleteCommand extends Command {
         tasks.removeTask(taskIndex);
         ui.showDeleteMessage(tasks.getSize(), task);
     }
+
+    @Override
+    public boolean isExit() {
+        return false;
+    }
 }
