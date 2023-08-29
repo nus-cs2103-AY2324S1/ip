@@ -39,12 +39,12 @@ public class Ui {
     }
 
     private void printLogo() {
-        String logo = "\t++      ++      ++\n" +
-                "\t||      ||      ||\n" +
-                "\t| +----+ |      ||\n" +
-                "\t| +----+ |      ||\n" +
-                "\t||      ||      ||\n" +
-                "\t++      ++      ++\n";
+        String logo = "\t++      ++      ++\n"
+                + "\t||      ||      ||\n"
+                + "\t| +----+ |      ||\n"
+                + "\t| +----+ |      ||\n"
+                + "\t||      ||      ||\n"
+                + "\t++      ++      ++\n";
         System.out.println(logo);
     }
 
