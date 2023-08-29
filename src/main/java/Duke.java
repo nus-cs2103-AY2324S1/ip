@@ -132,6 +132,9 @@ public class Duke {
             }
             String str = command.substring(9);
             int byIndex = str.indexOf("/by");
+            if (byIndex < 0) {
+                throw new InvalidInputException();
+            }
             String description = str.substring(0, byIndex - 1);
             String by = str.substring(byIndex + 4);
             Task task = new Deadline(description, by);
@@ -150,6 +153,9 @@ public class Duke {
             String str = command.substring(6);
             int fromIndex = str.indexOf("/from");
             int toIndex = str.indexOf("/to");
+            if (fromIndex < 0 || toIndex < 0) {
+                throw new InvalidInputException();
+            }
             String description = str.substring(0, fromIndex - 1);
             String from = str.substring(fromIndex + 6, toIndex - 1);
             String to = str.substring(toIndex + 4);
