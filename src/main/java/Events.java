@@ -1,7 +1,9 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 public class Events extends Task {
 
-    private String from;
-    private String to;
+    private LocalDate from;
+    private LocalDate to;
     
     public Events(String task, String from, String to) throws DukeException {
         super(task);
@@ -16,12 +18,14 @@ public class Events extends Task {
             throw new DukeException("☹ OOPS!!! There are missing details for the event.");
         }
 
-        this.from = from.substring(5);
-        this.to = to.substring(3);
+        this.from = LocalDate.parse(from.substring(5));
+        this.to = LocalDate.parse(to.substring(3));
     }
     
     public String printDetails() {
-        return String.format("(from: %sto: %s)", this.from, this.to);
+        return String.format("(from: %sto: %s)",
+                this.from.format(DateTimeFormatter.ofPattern("dd MMMM yyyy")),
+                this.to.format(DateTimeFormatter.ofPattern("dd MMMM yyyy")));
     }
 
     @Override

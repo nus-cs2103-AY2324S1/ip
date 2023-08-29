@@ -1,6 +1,9 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 public class Deadlines extends Task {
 
-    private String by;
+    private LocalDate by;
 
     public Deadlines(String task, String details) throws DukeException {
         super(task);
@@ -14,13 +17,12 @@ public class Deadlines extends Task {
         if (details.substring(3).isEmpty()) {
             throw new DukeException("☹ OOPS!!! There are missing details for the deadline.");
         }
-        
-        this.by = details.substring(3);
+        this.by = LocalDate.parse(details.substring(3));
 
     }
 
     public String printDetails() {
-        return String.format("(by: %s)", this.by);
+        return String.format("(by: %s)", this.by.format(DateTimeFormatter.ofPattern("dd MMMM yyyy")));
     }
     
     @Override
