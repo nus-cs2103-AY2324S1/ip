@@ -25,7 +25,7 @@ public class UnmarkCommand extends Command {
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
         int idx = (int) ((Integer) this.args.get("index"));
         tasks.unmark(idx);
-        ui.print(String.format("OK, I've marked this task as not done yet:\n    %s", tasks.access(idx).toString()));
+        ui.print(String.format("OK, I've marked this task as not done yet:\n  %s", tasks.access(idx).toString()));
     }
 
     @Override

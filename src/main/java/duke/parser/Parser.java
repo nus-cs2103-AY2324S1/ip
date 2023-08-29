@@ -2,6 +2,7 @@ package duke.parser;
 
 import duke.command.ByeCommand;
 import duke.command.Command;
+import duke.command.FindCommand;
 import duke.command.ListCommand;
 import duke.command.MarkCommand;
 import duke.command.OngoingCommand;
@@ -26,6 +27,7 @@ public class Parser {
 
     private static final Map<String, Function<Map<String, Object>, Command>> commands = Map.ofEntries(
             new SimpleEntry<>("list", x -> new ListCommand(x)),
+            new SimpleEntry<>("find", x -> new FindCommand(x)),
             new SimpleEntry<>("queue", x -> new QueueCommand(x)),
             new SimpleEntry<>("ongoing", x -> new OngoingCommand(x)),
             new SimpleEntry<>("mark", x -> new MarkCommand(x)),
