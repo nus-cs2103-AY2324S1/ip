@@ -3,6 +3,9 @@ package tasks;
 import java.time.format.DateTimeFormatter;
 import java.time.LocalDateTime;
 
+/**
+ * A deadline task.
+ */
 public class DeadlineTask extends Task {
 
     protected final DateTimeFormatter INPUT_FORMAT

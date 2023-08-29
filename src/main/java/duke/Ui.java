@@ -3,6 +3,9 @@ package duke;
 import tasks.Task;
 import tasks.TaskList;
 
+/**
+ * Prints out all the relevant content for the user interface.
+ */
 public class Ui {
 
     private static final String HORIZONTAL_LINE = "_____________________________________________________\n";
@@ -17,14 +20,26 @@ public class Ui {
             "Bye. Hope to see you again soon!\n" +
             HORIZONTAL_LINE;
 
+    /**
+     * Prints the intro message.
+     */
     public static void intro() {
         System.out.print(INTRO_MESSAGE);
     }
 
+    /**
+     * Prints the outro message.
+     */
     public static void outro() {
         System.out.print(OUTRO_MESSAGE);
     }
 
+    /**
+     * Prints the message of when a new task is added.
+     *
+     * @param task Task that was added.
+     * @param taskListSize Size of task list after the task was added.
+     */
     public static void addTask(Task task, int taskListSize) {
         System.out.print(HORIZONTAL_LINE);
         System.out.println("Got it. I've added this task:\n" +
@@ -36,6 +51,12 @@ public class Ui {
         System.out.print(HORIZONTAL_LINE);
     }
 
+    /**
+     * Prints the message of when a task is deleted.
+     *
+     * @param task Task that was deleted.
+     * @param taskListSize Size of task list after the task was deleted.
+     */
     public static void deleteTask(Task task, int taskListSize) {
         System.out.print(HORIZONTAL_LINE);
         System.out.println(String.format("Noted. I've removed this task:\n" +
@@ -45,6 +66,11 @@ public class Ui {
         System.out.print(HORIZONTAL_LINE);
     }
 
+    /**
+     * Prints the message of when a task is marked as done.
+     *
+     * @param task Task that was marked as done.
+     */
     public static void mark(Task task) {
         System.out.print(HORIZONTAL_LINE);
         System.out.println("Nice! I've marked this task as done:\n" +
@@ -53,6 +79,11 @@ public class Ui {
         System.out.print(HORIZONTAL_LINE);
     }
 
+    /**
+     * Prints the message of when a task is marked as not done.
+     *
+     * @param task Task that was marked as not done.
+     */
     public static void unmark(Task task) {
         System.out.print(HORIZONTAL_LINE);
         System.out.println("OK, I've marked this task as not done yet:\n" +
@@ -61,12 +92,22 @@ public class Ui {
         System.out.print(HORIZONTAL_LINE);
     }
 
+    /**
+     * Lists out all current tasks to the user.
+     *
+     * @param taskList Latest task list of tasks.
+     */
     public static void list(TaskList taskList) {
         System.out.print(HORIZONTAL_LINE);
         System.out.println(taskList);
         System.out.print(HORIZONTAL_LINE);
     }
 
+    /**
+     * Prints out the indicated error message to the user.
+     *
+     * @param errorMessage Error message to be printed.
+     */
     public static void printError(String errorMessage) {
         System.out.print(HORIZONTAL_LINE);
         System.out.println(errorMessage);

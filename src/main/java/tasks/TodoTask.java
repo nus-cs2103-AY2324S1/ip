@@ -1,5 +1,8 @@
 package tasks;
 
+/**
+ * A todo task.
+ */
 public class TodoTask extends Task {
 
     public TodoTask(String desc, int isMarked) {

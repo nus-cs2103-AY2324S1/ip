@@ -9,19 +9,27 @@ import java.util.Scanner;
 
 import tasks.TaskList;
 
+/**
+ * Saves and retrieves tasks created by the user.
+ */
 public class Storage {
-
-    /*
-        file format:
-        <tasktype>|<isMarked>|<desc>|<end>|<start>
-    */
 
     private final String FILENAME;
 
+    /**
+     * Constructor, initializes the file name indicated by the user.
+     *
+     * @param filename Name of file to read or write task data to or from.
+     */
     public Storage(String filename) {
         this.FILENAME = filename;
     }
 
+    /**
+     * Obtains saved task data from data file and updates Duke with it.
+     *
+     * @return A TaskList containing all the previously saved tasks.
+     */
     public TaskList retrieveSavedData() {
         try {
             ArrayList<String> arr = new ArrayList<>();
@@ -45,6 +53,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Parses stored task data and populates a TaskList with it.
+     *
+     * @param arr An array of tasks in the stored string format.
+     * @return A TaskList of the said tasks.
+     */
     private TaskList populate(ArrayList<String> arr) {
         TaskList taskList = new TaskList();
 
@@ -75,6 +89,13 @@ public class Storage {
         return taskList;
     }
 
+    /**
+     * Creates a new data file or opens the existing one to update it with the latest tasks.
+     * The format of the task string is "<tasktype>|<isMarked>|<desc>|<end>|<start>".
+     * Task type is T/D/E and isMarked is 0 for false and 1 for true.
+     *
+     * @param taskList The TaskList containing the latest tasks.
+     */
     public void saveChanges(TaskList taskList) {
         try {
             File directory = new File("data");

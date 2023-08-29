@@ -3,6 +3,9 @@ package tasks;
 import java.time.format.DateTimeFormatter;
 import java.time.LocalDateTime;
 
+/**
+ * An event task.
+ */
 public class EventTask extends Task {
 
     protected final DateTimeFormatter INPUT_FORMAT

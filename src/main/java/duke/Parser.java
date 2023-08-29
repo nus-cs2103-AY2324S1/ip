@@ -9,8 +9,23 @@ import exceptions.UnknownCommandException;
 
 import java.time.format.DateTimeParseException;
 
+/**
+ * Parses user input and instructs Duke to act on the relevant command.
+ */
 public class Parser {
 
+    /**
+     * Parses the user input and asks Duke to invoke the relevant functions.
+     *
+     * @param userInput The command and argument that the user enters.
+     * @param taskListSize The current size of the task list.
+     * @return The command of the user input, if valid.
+     * @throws UnknownCommandException If the command doesn't match any of Duke's commands.
+     * @throws InvalidIndexException If the index provided is out of range, where relevant.
+     * @throws InvalidTodoException If the user input is invalid (e.g. no description).
+     * @throws InvalidDeadlineException If the user input is invalid (e.g. no deadline).
+     * @throws InvalidEventException If the user input is invalid (e.g. no start).
+     */
     public static String processInput(String userInput, int taskListSize)
             throws UnknownCommandException,
             InvalidIndexException,

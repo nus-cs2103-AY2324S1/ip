@@ -1,5 +1,9 @@
 package tasks;
 
+/**
+ * Abstract class representing a task.
+ * All specific tasks will be its child classes.
+ */
 public abstract class Task {
     protected String desc;
     protected boolean isDone;
