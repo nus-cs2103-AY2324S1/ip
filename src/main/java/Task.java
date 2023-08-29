@@ -3,6 +3,7 @@ import java.util.ArrayList;
 
 public abstract class Task {
     static ArrayList<Task> allTasks = new ArrayList<Task>();
+    static int numIncompleteTasks = 0;
 
     String name;
     boolean isDone;
@@ -11,6 +12,7 @@ public abstract class Task {
         allTasks.add(this);
         this.name = name;
         this.isDone = false;
+        Task.numIncompleteTasks++;
     }
 
     static ArrayList<Task> getAllTasks() {
@@ -26,11 +28,13 @@ public abstract class Task {
 
     boolean markAsDone() {
         this.isDone = true;
+        Task.numIncompleteTasks--;
         return getDone();
     }
 
     boolean markAsNotDone() {
         this.isDone = false;
+        Task.numIncompleteTasks++;
         return getDone();
     }
 
@@ -43,15 +47,9 @@ public abstract class Task {
         return this.name;
     }
 
-//    static int getNumIncompleteTasks() {
-//        int totalCount = 0;
-//        for (Task t : allTasks) {
-//            if (!t.getDone()) {
-//                totalCount++;
-//            }
-//        }
-//        return totalCount;
-//    }
+    static int getNumIncompleteTasks() {
+        return Task.numIncompleteTasks;
+    }
 
     abstract String getTaskType();
 }
