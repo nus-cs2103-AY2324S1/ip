@@ -1,5 +1,7 @@
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;
+
+import records.ChatRecord;
 import task.*;
 
 public class ChatView {

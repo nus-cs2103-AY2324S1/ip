@@ -1,3 +1,8 @@
+package records;
+
+import parser.TaskParser;
+import parser.TimeParser;
+import storage.SaveData;
 import task.*;
 
 import java.util.ArrayList;
@@ -8,6 +13,10 @@ public class ChatRecord {
     public ChatRecord() {
         chatRecords = SaveData.loadData();
         counter = chatRecords.size();
+    }
+
+    public void addTask(Task task) {
+        chatRecords.add(task);
     }
 
     public Task addTodo(String name) {
@@ -58,14 +67,16 @@ public class ChatRecord {
         return counter;
     }
 
-    public void setMark(int n) {
-        chatRecords.get(n - 1).mark();
+    public Task setMark(int n) {
+        Task task = chatRecords.get(n - 1).mark();
         saveChat();
+        return task;
     }
 
-    public void setUnmark(int n) {
-        chatRecords.get(n - 1).unmark();
+    public Task setUnmark(int n) {
+        Task task = chatRecords.get(n - 1).unmark();
         saveChat();
+        return task;
     }
 
     public String getTask(int n) {

@@ -1,9 +1,11 @@
+package storage;
+
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Optional;
 import java.util.Scanner;
 import task.*;
-import task.TaskParser;
+import parser.TaskParser;
 
 public class SaveData {
     private static final String SAVE_FILE_LOCATION = "./SaveFile.txt";

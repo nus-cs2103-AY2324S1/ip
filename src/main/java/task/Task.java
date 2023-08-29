@@ -7,12 +7,14 @@ public abstract class Task {
 
     protected static String DISCRIMINATOR = " || ";
 
-    public void mark() {
+    public Task mark() {
         this.status = true;
+        return this;
     }
 
-    public void unmark() {
+    public Task unmark() {
         this.status = false;
+        return this;
     }
 
     @Override

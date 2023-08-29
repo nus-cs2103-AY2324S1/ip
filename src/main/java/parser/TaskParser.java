@@ -1,4 +1,9 @@
-package task;
+package parser;
+
+import task.Deadline;
+import task.Event;
+import task.Task;
+import task.Todo;
 
 import java.util.Optional;
 
@@ -14,7 +19,7 @@ public class TaskParser {
     }
 
     public static Optional<Task> parseSave(String saveLine) {
-        String[] splitArray = saveLine.split(Task.DISCRIMINATOR.replace("|", "\\|"));
+        String[] splitArray = saveLine.split("\\|\\|");
         Optional<Task> ret = Optional.empty();
         switch (splitArray[0]) {
             case "T": {
