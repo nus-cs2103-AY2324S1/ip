@@ -108,6 +108,34 @@ public class Parser {
     }
 
     /**
+     * Returns true if the command is recognized as an "search for task" command.
+     *
+     *
+     * @param s - the command to check for "search for task" command.
+     * @return    whether the command is an search for task command.
+     */
+    public static boolean isSearchTaskCommand(String s) {
+        return Utility.matchesRegex(s, "^find");
+    }
+
+    /**
+     * Parses a search task command, returning the index of the tasks that are found.
+     *
+     * @param s - the command to parse for "search task" command.
+     * @return    a string describing the term to search for.
+     */
+    public static String parseSearchTaskCommand(String s) throws DuchessException {
+        Matcher m = Utility.parseRegex(s, "^find( [A-Za-z0-9_ ]+)?$");
+
+        if (m.group(1) == null) {
+            throw new DuchessException("(´；ω；`) Sorry, I don't know which task to delete... ;-;");
+        }
+
+        return m.group(1).trim();
+    }
+
+
+    /**
      * Returns true if the command is recognized as a "todo" command.
      *
      * @param s - the command to check for "todo" command.
@@ -125,7 +153,7 @@ public class Parser {
      * @throws DuchessException   if any essential arguments to this command are missing.
      */
     public static ToDo parseToDoCommand(String s) throws DuchessException {
-        Matcher m = Utility.parseRegex(s, "^todo( [A-Za-z0-9 ]+)?$");
+        Matcher m = Utility.parseRegex(s, "^todo( [A-Za-z0-9_ ]+)?$");
 
         if (m.group(1) == null) {
             throw new DuchessException("(´；ω；`) Sorry, todo names cannot be empty... ;-;");
@@ -153,7 +181,7 @@ public class Parser {
      * @throws DuchessException   if any essential arguments to this command are missing.
      */
     public static Deadline parseDeadlineCommand(String s) throws DuchessException {
-        Matcher m = Utility.parseRegex(s, "^deadline( [A-Za-z0-9 ]+)?( /by ([0-9\\-]+)?)?$");
+        Matcher m = Utility.parseRegex(s, "^deadline( [A-Za-z0-9_ ]+)?( /by ([0-9\\-]+)?)?$");
 
         if (m.group(1) == null) {
             throw new DuchessException("(´；ω；`) Sorry, deadline names cannot be empty... ;-;");
@@ -183,7 +211,7 @@ public class Parser {
      * @throws DuchessException   if any essential arguments to this command are missing.
      */
     public static Event parseEventCommand(String s) throws DuchessException {
-        Matcher m = Utility.parseRegex(s, "^event( [A-Za-z0-9 ]+)?( /from( [A-Za-z0-9 ]+)?)?( /to( [A-Za-z0-9 ]+)?)?$");
+        Matcher m = Utility.parseRegex(s, "^event( [A-Za-z0-9_ ]+)?( /from( [A-Za-z0-9_ ]+)?)?( /to( [A-Za-z0-9_ ]+)?)?$");
 
         if (m.group(1) == null) {
             throw new DuchessException("(´；ω；`) Sorry, event names cannot be empty... ;-;");
