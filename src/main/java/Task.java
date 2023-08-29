@@ -20,4 +20,8 @@ public abstract class Task {
     public void changeStatus(boolean isDone) {
         this.isDone = isDone;
     }
+
+    public String toFileString() {
+        return this.type + " | " + (isDone ? "1" : "0") + " | " + description;
+    }
 }
