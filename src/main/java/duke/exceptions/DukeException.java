@@ -1,3 +1,5 @@
+package duke.exceptions;
+
 /**
  * Custom exception class for Duke application.
  * This class extends the built-in
