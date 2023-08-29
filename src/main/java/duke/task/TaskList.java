@@ -1,3 +1,7 @@
+package duke.task;
+
+import duke.DukeException;
+
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.regex.Matcher;
@@ -50,7 +54,7 @@ public class TaskList {
         }
         int size = this.tasks.size();
         String taskInTotal = size > 1 ? " tasks in total." : " task in total.";
-        return "Task added:\n" + this.tasks.get(size - 1) + "\nNow you have " + size + taskInTotal + "\n\"Be here now.\"";
+        return "duke.task.Task added:\n" + this.tasks.get(size - 1) + "\nNow you have " + size + taskInTotal + "\n\"Be here now.\"";
     }
 
     public String getTasks() {

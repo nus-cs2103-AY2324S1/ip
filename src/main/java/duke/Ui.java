@@ -1,3 +1,5 @@
+package duke;
+
 import java.util.Scanner;
 
 public class Ui {
@@ -38,7 +40,7 @@ public class Ui {
                 "What can I do for you today?");
         while (scanner.hasNextLine()) {
             try {
-                p.parse(scanner.nextLine());
+                System.out.println(p.parse(scanner.nextLine()));
                 if (!p.isRunning()) {
                     break;
                 }
