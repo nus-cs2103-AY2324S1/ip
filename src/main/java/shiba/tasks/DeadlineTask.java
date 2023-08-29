@@ -28,7 +28,8 @@ public class DeadlineTask extends ShibaTask {
             return new DeadlineTask(matcher1.group(1), matcher1.group(2));
         }
 
-        throw new InvalidCommandException("Invalid deadline format! Deadline name, /by parameter must be present and not empty.");
+        throw new InvalidCommandException("Invalid deadline format! Deadline name,"
+                + " /by parameter must be present and not empty.");
     }
 
     private final DateOptionalTime deadline;

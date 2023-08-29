@@ -28,7 +28,8 @@ public class DateOptionalTime {
         try {
             date = LocalDate.parse(dateOptionalTime);
         } catch (DateTimeParseException e) {
-            throw new InvalidCommandException("Invalid date format! Date must be in the format YYYY-MM-DD or YYYY-MM-DD HH:mm.");
+            throw new InvalidCommandException("Invalid date format! Date must be in the format"
+                    + " YYYY-MM-DD or YYYY-MM-DD HH:mm.");
         }
     }
 
