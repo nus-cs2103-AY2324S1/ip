@@ -32,6 +32,14 @@ public class Task {
     }
 
     /**
+     * Checks if task title contains input query.
+     * @return True if task contains query.
+     */
+    public boolean contains(String query) {
+        return this.title.contains(query);
+    }
+
+    /**
      * Converts a task to a formatted string.
      * @return Status and title of task in string.
      */

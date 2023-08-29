@@ -14,6 +14,7 @@ unmark 2
 unmark three
 todo
 list
+find h
 delete task 1
 delete 2
 delete 3
