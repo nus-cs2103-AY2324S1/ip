@@ -2,6 +2,8 @@ import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Scanner;
 public class Duke {
@@ -18,7 +20,8 @@ public class Duke {
     public static void main(String[] args) {
         printIntro();
 
-        ArrayList<Task> throwExceptionIfFileFormatIncorrect = loadDataFromFile();
+//        ArrayList<Task> throwExceptionIfFileFormatIncorrect = loadDataFromFile();
+
 
         Scanner sc = new Scanner(System.in);
         // Get user command
@@ -54,16 +57,16 @@ public class Duke {
 
                     String taskName = taskWithDeadline.split("/", 2)[0];
                     String deadlineDescription = taskWithDeadline.split("/", 2)[1];
-//                    String deadlineDay = checkedDeadline(deadlineDescription);
-//                    if (deadlineDay == "") {
-//                        throw new InvalidDeadlineException(deadlineDescription);
-//                    }
 
-                    // Assumes that deadlineDescription starts with a "by"
-                    Task deadline = new Deadline(taskName, deadlineDescription.split(" ", 2)[1]);
-//                    list.add(deadline);
-                    appendTaskToFile(deadline);
-                    printAddTaskMessage(deadline);
+
+                    try {
+                        Task deadline = new Deadline(taskName, checkDeadline(deadlineDescription));
+                        appendTaskToFile(deadline);
+                        printAddTaskMessage(deadline);
+                    } catch(Exception e) {
+                        System.out.println(e.getMessage());
+                    }
+
                 } else if (type.equals("event")) {
                     if (descriptionIsEmpty(cmd)) {
                         throw new InvalidDescriptionException("event");
@@ -88,7 +91,7 @@ public class Duke {
 //                        throw new InvalidDurationException(duration);
 //                    }
 
-                    // Assumes that starting and ending both start with "from" and "to" respectively
+// Assumes that starting and ending both start with "from" and "to" respectively
                     Task event = new Event(taskName, starting.split(" ", 2)[1].trim(), ending.split(" ", 2)[1].trim());
 //                    list.add(event);
                     appendTaskToFile(event);
@@ -262,12 +265,11 @@ public class Duke {
             // Throws StreamCorruptedException when data format is unserializable
             ObjectInputStream inputStream = new ObjectInputStream(new FileInputStream(filePath));
             tasks = (ArrayList<Task>) inputStream.readObject();
-            System.out.println("Tasks loaded from file.");
 
             // Throws exception if data in duke.txt is not an ArrayList<Task>
             if (tasks instanceof ArrayList<?>) {
                 tasks = (ArrayList<Task>) tasks;
-                System.out.println("Tasks loaded from file.");
+
             } else {
                 throw new InvalidDataFormatException();
             }
@@ -416,6 +418,7 @@ public class Duke {
 //        } else if (deadlineDescription.split(" ").length == 3) {
 //            System.out.println("Deadline description has 3 terms: " + deadlineDescription);
 //            String capitalisedMonth = deadlineDescription.split(" ")[0];
+
 //            System.out.println("The capitalised month is: " + capitalisedMonth);
 //            int date = -1;
 //            try {
@@ -474,7 +477,7 @@ public class Duke {
 //            return false;
 //        }
 //
-//        return timeOfDay.equals("pm") || timeOfDay.equals("am");
+//        return timeOfDay.equals("pm")  timeOfDay.equals("am");
 //    }
 //
 //    // Checks if the inputted string matches any value in the Day Enum
@@ -489,10 +492,10 @@ public class Duke {
 //
 //    // Checks if the inputted month and day form a valid date. Note that February assumes there are only 28 days
 //    public static boolean isValidDate(String month, int day) {
-//        if (month.equals("Jan") || month.equals("March") || month.equals("May") || month.equals("July")
-//                || month.equals("August") || month.equals("October") || month.equals("December")) {
+//        if (month.equals("Jan")  month.equals("March")  month.equals("May")  month.equals("July")
+//                 month.equals("August")  month.equals("October")  month.equals("December")) {
 //            return day >= 1 && day <= 31;
-//        } else if (month.equals("Apr") || month.equals("June") || month.equals("Sept") || month.equals("Nov")) {
+//        } else if (month.equals("Apr")  month.equals("June")  month.equals("Sept")  month.equals("Nov")) {
 //            return day >=1 && day <= 31;
 //        } else if (month.equals("Feb")) {
 //            return day >= 1 && day <= 28;
@@ -527,8 +530,62 @@ public class Duke {
         return taskWithDeadline.split("/").length == 1;
     }
 
+    public static LocalDateTime checkDeadline(String deadline) throws InvalidDeadlineException {
+        String[] parts = deadline.split(" ");
+        // If there isn't exactly three components in the deadline, return false
+        if (parts.length != 3) {
+            throw new InvalidDeadlineException(deadline);
+        }
+        String by = parts[0];
+        String date = parts[1];
+        String time = parts[2];
+
+        // If the first word is not "by", return false
+        if (!by.equals("by")) {
+            throw new InvalidDeadlineException(deadline);
+        }
+
+        try {
+            String[] dateParts = date.split("/");
+            // If the date does not have three components, return false
+            if (dateParts.length != 3) {
+                throw new InvalidDeadlineException(deadline);
+            }
+            int day = Integer.parseInt(dateParts[0]);
+            int month = Integer.parseInt(dateParts[1]);
+            int year = Integer.parseInt(dateParts[2]);
+
+            // If time is not a four digit number, return false
+            if (time.length() != 4) {
+                throw new InvalidDeadlineException(deadline);
+            }
+
+            int hour = Integer.parseInt(time.substring(0, 2));
+            int min = Integer.parseInt(time.substring(2, 4));
+
+            return LocalDateTime.of(year, month, day, hour, min);
+        } catch (Exception e) {
+            throw new InvalidDeadlineException(deadline);
+        }
+    }
+
     public static boolean isValidTaskNumber(int number) {
         int listSize = loadDataFromFile().size();
         return number > 0 && number <= listSize;
     }
+
+//    public static LocalDateTime createDateAndTime(String dateAndTime) {
+//        System.out.println(dateAndTime);
+//        String date = dateAndTime.split(" ")[0];
+//        String time = dateAndTime.split(" ")[1];
+//        String[] dates = date.split("/");
+//
+//        int day = Integer.parseInt(dates[0]);
+//        int month = Integer.parseInt(dates[1]);
+//        int year = Integer.parseInt(dates[2]);
+//        int hour = Integer.parseInt(time.substring(0, 2));
+//        int min = Integer.parseInt(time.substring(2, 4));
+//
+//        return LocalDateTime.of(year, month, day, hour, min);
+//    }
 }
