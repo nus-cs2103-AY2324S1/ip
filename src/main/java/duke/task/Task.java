@@ -49,6 +49,15 @@ public abstract class Task {
     }
 
     /**
+     * Returns a description of the event
+     *
+     * @return a string representing the description of the event
+     */
+    public String getDescription() {
+        return description;
+    }
+
+    /**
      * Returns if task is before given date.
      *
      * @param date given date to check against
