@@ -1,4 +1,4 @@
-package data;
+package data.task.builder;
 
 import exception.DukeException;
 

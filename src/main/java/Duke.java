@@ -1,14 +1,15 @@
 import java.util.Scanner;
-
 import command.List;
 import command.Mark;
 import command.Unmark;
+import data.task.builder.DeadlineBuilder;
+import data.task.builder.EventBuilder;
+import data.task.builder.TodoBuilder;
 import command.AddTask;
 import command.DeleteCommand;
-import data.TodoBuilder;
-import data.DeadlineBuilder;
-import data.EventBuilder;
 import exception.DukeException;
+import ui.Invoker;
+
 public class Duke {
     private Invoker invoker = new Invoker();
     public static void main(String[] args) {

@@ -1,4 +1,4 @@
-package data;
+package data.task;
 
 public abstract class Task {
     protected Description description;

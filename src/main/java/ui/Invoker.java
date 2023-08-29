@@ -1,3 +1,5 @@
+package ui;
+
 import java.util.HashMap;
 import command.Command;
 import exception.DukeException;

@@ -2,7 +2,7 @@ package command;
 
 import java.util.regex.Pattern;
 
-import data.Store;
+import data.storage.Store;
 import exception.DukeException;
 import exception.InvalidInputException;
 public class Mark implements Command{

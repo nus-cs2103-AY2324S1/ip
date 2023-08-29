@@ -1,4 +1,4 @@
-package data;
+package data.task;
 
 public class Todo extends Task {
     @Override

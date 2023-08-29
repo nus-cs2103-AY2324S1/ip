@@ -1,4 +1,4 @@
-package data;
+package data.task;
 
 public class Event extends Task{
     private From  from;

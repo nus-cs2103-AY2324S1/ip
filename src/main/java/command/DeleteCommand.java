@@ -1,8 +1,8 @@
 package command;
 import java.util.regex.Pattern;
 
-import data.Store;
-import data.Task;
+import data.storage.Store;
+import data.task.Task;
 import exception.DukeException;
 import exception.InvalidInputException;
 

@@ -1,6 +1,6 @@
 package command;
 
-import data.Store;
+import data.storage.Store;
 
 public class List implements Command{
     @Override

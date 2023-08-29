@@ -1,18 +1,19 @@
-package data;
+package data.storage;
 
 import exception.DukeException;
-import exception.InvalidInputException;
 
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 //import java.io.File;
 
+import data.task.Task;
+import data.task.taskList.TaskList;
+
 
 public class Store {
     private static Store store = new Store();
-    Task[] tasks = new Task[100];
-    int taskCount = 0;
+    TaskList tasks = new TaskList();
     String fileName = "duke.txt";
 
     //FileWriter fw;
@@ -37,13 +38,10 @@ public class Store {
         return store;
     }
 
-    private void write() {
-        
+    private void write() {   
         try {
              FileWriter fw = new FileWriter(fileName);
-            for (int i = 0; i < taskCount; i++) {
-                fw.write(tasks[i].toString() + "\n");
-            }
+             fw.write(tasks.toString());
             fw.close();
         } catch (IOException e) {
             System.out.println("Something went wrong: " + e.getMessage());
@@ -52,79 +50,50 @@ public class Store {
 
 
     public void addTask(Task task) throws DukeException {
-        if (taskCount == 100) {
-            throw new DukeException("task list is full");
-        }
-        tasks[taskCount] = task;
-        taskCount++;
+        tasks.addTask(task);
         write();
     }
 
     public Task[] getTasks() {
-        return tasks;
+        return tasks.getTasks();
     }
 
     public Task getTask(int index) throws DukeException{
-        if (index > taskCount || index < 1) {
-            throw new DukeException("index out of bounds when calling getTask from store");
-        }
-        return tasks[index - 1];
+         return tasks.getTask(index);
     }
 
     public void deleteTask(int index) throws DukeException{
-        if (index > taskCount || index < 1) {
-            throw new InvalidInputException("index out of bounds");
-        }
-        for (int i = index - 1; i < taskCount - 1; i++) {
-            tasks[i] = tasks[i + 1];
-        }
-        taskCount--;
+        tasks.deleteTask(index);
         write();
     }
 
     public void mark(int index) throws DukeException {
-        if (index > taskCount || index < 1) {
-           throw new InvalidInputException("index out of bounds");
-        }
-        tasks[index-1].mark();
+        tasks.mark(index);
         write();
        
     }
 
     public void unmark(int index) throws DukeException {
-        if (index > taskCount || index < 1) {
-            throw new InvalidInputException("index out of bounds");
-        }
-
-        tasks[index-1].unmark(); 
+        tasks.unmark(index);
         write();
     }
 
     public void updateDescription(int index, String description) throws DukeException{
-        if (index > taskCount || index < 1) {
-            throw new InvalidInputException("index out of bounds");
-        }
-        tasks[index-1].setDescription(description); 
+        tasks.updateDescription(index, description);
         write(); 
     }  
 
     public int getTaskCount() {
-        return taskCount;
+        return tasks.getTaskCount();
     }
 
     public boolean hasTaskAtIndex(int index) {
-        return index <= taskCount && index > 0;
+        return tasks.hasTaskAtIndex(index);
     }
 
     @Override
     public String toString() {
-        String result = "";
-        for (int i = 0; i < taskCount; i++) {
-            result += (i + 1) + ". " + tasks[i] + "\n";
-        }
-        return result;
-    }
-
-   
+        return tasks.toString();
+    } 
 }
 

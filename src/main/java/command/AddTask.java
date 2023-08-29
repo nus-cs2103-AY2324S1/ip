@@ -1,8 +1,8 @@
 package command;
 
-import data.Builder;
-import data.Task;
-import data.Store;
+import data.storage.Store;
+import data.task.Task;
+import data.task.builder.Builder;
 import exception.DukeException;
 
 
