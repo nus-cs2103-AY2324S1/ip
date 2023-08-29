@@ -7,36 +7,61 @@ Hello from
 Hello! I am Roo!!
 What can I do for you ah?
 
-"[T][ ] borrow book" added :)
+All tasks cleared
+
+"[T][ ]  borrow book" added :)
 Now got 1 task liao T_T
 
-"[T][ ] drink water" added :)
+"[T][ ]  drink water" added :)
 Now got 2 task liao T_T
 
-"[E][ ] st1131 (from: 1000 to: 1200)" added :)
+"[E][ ]  st1131 from: 29 Aug 2023 12:34 PM to: 30 Aug 2023 12:00 PM" added :)
 Now got 3 task liao T_T
 
-"[D][ ] cs2103t (by: thurs 2359)" added :)
+"[D][ ]  cs2103t by: 28 Aug 2023 12:44 PM" added :)
 Now got 4 task liao T_T
 
 Although I dunwan to list... But here is your list:
-1. [T][ ] borrow book
-2. [T][ ] drink water
-3. [E][ ] st1131 (from: 1000 to: 1200)
-4. [D][ ] cs2103t (by: thurs 2359)
- 
-Yay! "[T][x] borrow book" done liao!!
+1. [T][ ]  borrow book
+2. [T][ ]  drink water
+3. [E][ ]  st1131 from: 29 Aug 2023 12:34 PM to: 30 Aug 2023 12:00 PM
+4. [D][ ]  cs2103t by: 28 Aug 2023 12:44 PM
 
-Yay! "[E][x] st1131 (from: 1000 to: 1200)" done liao!!
+Yay! "[T][x]  borrow book" done liao!!
 
-Hmm... Why just now don't mark "[E][ ] st1131 (from: 1000 to: 1200)" as done properly...
+Yay! "[E][x]  st1131 from: 29 Aug 2023 12:34 PM to: 30 Aug 2023 12:00 PM" done liao!!
 
-Yay! "[T][x] drink water" done liao!!
+Hmm... Why just now don't mark "[E][ ]  st1131 from: 29 Aug 2023 12:34 PM to: 30 Aug 2023 12:00 PM" as done properly...
+
+Yay! "[T][x]  drink water" done liao!!
 
 Although I dunwan to list... But here is your list:
-1. [T][x] borrow book
-2. [T][x] drink water
-3. [E][ ] st1131 (from: 1000 to: 1200)
-4. [D][ ] cs2103t (by: thurs 2359)
- 
+1. [T][x]  borrow book
+2. [T][x]  drink water
+3. [E][ ]  st1131 from: 29 Aug 2023 12:34 PM to: 30 Aug 2023 12:00 PM
+4. [D][ ]  cs2103t by: 28 Aug 2023 12:44 PM
+
+"[E][ ]  123456 from: 29 Aug 2023 01:56 PM to: 30 Aug 2023 12:00 AM" added :)
+Now got 5 task liao T_T
+
+Okay!! Task "[T][x]  borrow book" removed :)
+You still have 4 tasks in the list
+
+"[D][ ]  abcde by: 29 Aug 2023 12:44 PM" added :)
+Now got 5 task liao T_T
+
+Yay! "[D][x]  abcde by: 29 Aug 2023 12:44 PM" done liao!!
+
+You need to do...
+- [E][ ]  st1131 from: 29 Aug 2023 12:34 PM to: 30 Aug 2023 12:00 PM
+- [E][ ]  123456 from: 29 Aug 2023 01:56 PM to: 30 Aug 2023 12:00 AM
+- [D][x]  abcde by: 29 Aug 2023 12:44 PM
+
+Although I dunwan to list... But here is your list:
+1. [T][x]  drink water
+2. [E][ ]  st1131 from: 29 Aug 2023 12:34 PM to: 30 Aug 2023 12:00 PM
+3. [D][ ]  cs2103t by: 28 Aug 2023 12:44 PM
+4. [E][ ]  123456 from: 29 Aug 2023 01:56 PM to: 30 Aug 2023 12:00 AM
+5. [D][x]  abcde by: 29 Aug 2023 12:44 PM
+
 Ciao! Hope to see you soon yorr!!
