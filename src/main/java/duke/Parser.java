@@ -118,7 +118,7 @@ public class Parser {
      * @param input of String type
      * @return true if it is a valid date format
      */
-    private static boolean isValidDate(String input) {
+    public static boolean isValidDate(String input) {
         String[] splitInput = input.split("/");
 
         if (splitInput.length != 3) {
