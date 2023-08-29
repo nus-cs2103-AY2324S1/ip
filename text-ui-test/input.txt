@@ -1,0 +1,18 @@
+todo Buy groceries
+todo Clean room
+todo Study for exam
+deadline Submit assignment /by Sunday
+deadline Pay bills /by 15th
+event Birthday party /from 3pm /to 7pm
+event Team meeting /from 10am /to 11am
+mark 1
+mark 2
+mark 3
+list
+unmark 2
+list
+delete 1
+list
+delete 2
+list
+bye

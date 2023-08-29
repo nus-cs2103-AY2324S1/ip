@@ -66,7 +66,7 @@ public class DevyBot {
             printMessage("Currently no tasks available.");
             return;
         }
-        String outpString = "";
+        String outpString = "Here are the tasks in your list:\n";
         for (int i = 0; i < taskList.size(); i++) {
             outpString += (i + 1) + ". " + taskList.get(i).toString() + "\n";
         }
