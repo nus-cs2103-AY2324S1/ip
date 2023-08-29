@@ -1,31 +1,27 @@
 package commands;
 
+import parser.ParseInfo;
 import tasks.TaskList;
-import utility.PrintUtility;
+import ui.Ui;
 
-import java.util.List;
+public class MarkTaskCommand extends Command {
+  public MarkTaskCommand(TaskList taskList, ParseInfo parseInfo) {
+    super(taskList, parseInfo);
+  }
 
-public class MarkTaskCommand implements ICommand {
   @Override
-  public void execute(List<String> parts) {
-    if (parts.size() == 1) {
-      PrintUtility.printText("Invalid index given");
-      return;
-    }
-
-    TaskList tasks = TaskList.getInstance();
+  public void execute() throws CommandError {
+    if (this.parseInfo.hasNoArgument()) throw new CommandError("Missing task index");
 
     try {
-      int i = Integer.parseInt(parts.get(1));
-      if ((i - 1) < 0 || (i - 1) >= tasks.size()) {
-        PrintUtility.printText("Invalid index given");
-        return;
-      }
-      tasks.setTaskStatus(i - 1, true);
-      PrintUtility.printText("Nice! I've marked this task as done:",
-          tasks.getTask(i - 1).toString());
+      int i = Integer.parseInt(this.parseInfo.getArgument());
+      this.taskList.setTaskStatus(i - 1, true);
+      Ui.printText("Nice! I've marked this task as done:",
+          this.taskList.getTask(i - 1).toString());
     } catch (NumberFormatException e) {
-      PrintUtility.printText("Invalid index given");
+      throw new CommandError("Invalid task index: must be integer");
+    } catch (IndexOutOfBoundsException e) {
+      throw new CommandError("Invalid task index: index out of bounds");
     }
   }
 }

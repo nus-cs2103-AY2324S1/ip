@@ -1,37 +1,31 @@
 package commands;
 
+import parser.ParseInfo;
 import tasks.Task;
 import tasks.TaskList;
-import utility.PrintUtility;
+import ui.Ui;
 
-import java.util.List;
+public class DeleteTaskCommand extends Command {
+  public DeleteTaskCommand(TaskList taskList, ParseInfo parseInfo) {
+    super(taskList, parseInfo);
+  }
 
-public class DeleteTaskCommand implements ICommand {
   @Override
-  public void execute(List<String> parts) {
-
-    if (parts.size() == 1) {
-      PrintUtility.printText("Missing task index");
-      return;
-    }
-
-    TaskList tasks = TaskList.getInstance();
-
+  public void execute() throws CommandError {
+    if (this.parseInfo.hasNoArgument()) throw new CommandError("Missing task index");
     try {
-      int i = Integer.parseInt(parts.get(1));
-      if ((i - 1) < 0 || (i - 1) >= tasks.size()) {
-        PrintUtility.printText("Missing task index");
-        return;
-      }
-      Task task = tasks.getTask(i - 1);
-      tasks.removeTask(i - 1);
-      PrintUtility.printText(
+      int i = Integer.parseInt(this.parseInfo.getArgument());
+      Task task = this.taskList.getTask(i - 1);
+      this.taskList.removeTask(i - 1);
+      Ui.printText(
           "Noted. I've removed this task:",
           task.toString(),
-          String.format("Now you have %d tasks in the list.", tasks.size())
+          String.format("Now you have %d tasks in the list.", this.taskList.size())
       );
     } catch (NumberFormatException e) {
-      PrintUtility.printText("Invalid task index");
+      throw new CommandError("Invalid task index: must be integer");
+    } catch (IndexOutOfBoundsException e) {
+      throw new CommandError("Invalid task index: index out of bounds");
     }
   }
 }

@@ -1,14 +1,16 @@
 package commands;
 
+import parser.ParseInfo;
 import tasks.TaskList;
-import utility.PrintUtility;
+import ui.Ui;
 
-import java.util.List;
+public class ListTasksCommand extends Command {
+  public ListTasksCommand(TaskList taskList, ParseInfo parseInfo) {
+    super(taskList, parseInfo);
+  }
 
-public class ListTasksCommand implements ICommand {
   @Override
-  public void execute(List<String> parts) {
-    TaskList tasks = TaskList.getInstance();
-    PrintUtility.printText(tasks.toString());
+  public void execute() {
+    Ui.printText(this.taskList.toString());
   }
 }

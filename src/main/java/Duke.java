@@ -1,58 +1,39 @@
-import commands.*;
+import commands.Command;
+import commands.CommandType;
+import parser.ParseInfo;
+import parser.Parser;
+import storage.FileStorage;
+import storage.IStorage;
 import tasks.TaskList;
-import utility.PrintUtility;
+import ui.Ui;
 
-import java.util.List;
 import java.util.Scanner;
 
 public class Duke {
-  private static ICommand dispatchCommand(String command) {
-    switch (command) {
-      case "todo":
-        return new AddTodoCommand();
-      case "deadline":
-        return new AddDeadlineCommand();
-      case "event":
-        return new AddEventCommand();
-      case "mark":
-        return new MarkTaskCommand();
-      case "unmark":
-        return new UnmarkTaskCommand();
-      case "list":
-        return new ListTasksCommand();
-      case "delete":
-        return new DeleteTaskCommand();
-      default:
-        return new UnknownCommand();
-    }
-  }
+  private final static IStorage storage = new FileStorage();
+  private final static TaskList taskList = new TaskList(storage);
+  private final static Parser parser = new Parser();
 
   public static void main(String[] args) {
-    // This loads the tasks from the data file by forcing TaskList to be instantiated at the very
-    // beginning
-    // TODO: Handle if file reading has error
-    TaskList.getInstance();
-
-    PrintUtility.printText("Hello! I'm Cyrus", "What can I do for you?");
+    Ui.printText("Hello! I'm Cyrus", "What can I do for you?");
     String input;
     Scanner sc = new Scanner(System.in);
     while (true) {
-      input = sc.nextLine().trim();
+      input = sc.nextLine();
+      ParseInfo parseInfo = parser.parse(input);
 
       // Handle empty inputs
-      if (input.equals("")) {
-        PrintUtility.printText("Enter a command please!");
+      if (parseInfo == ParseInfo.EMPTY) {
+        Ui.printText("Enter a command please!");
         continue;
       }
 
-      List<String> parts = List.of(input.split(" "));
-      String command = parts.get(0);
-      if (command.equals("bye")) break;
+      if (parseInfo.commandType == CommandType.BYE) break;
 
-      ICommand commandToRun = dispatchCommand(command);
-      commandToRun.execute(parts);
+      Command commandToRun = parser.dispatchCommand(taskList, parseInfo);
+      commandToRun.run();
     }
 
-    PrintUtility.printText("Bye. Hope to see you again soon!");
+    Ui.printText("Bye. Hope to see you again soon!");
   }
 }
