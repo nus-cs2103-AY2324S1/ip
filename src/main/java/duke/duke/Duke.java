@@ -111,6 +111,13 @@ public class Duke {
                     storage.deleteTaskFromFile(taskNumber);
                     break;
                 }
+                case "find": {
+                    if (!parser.checkInputDetailsPresent()) {
+                        throw new DukeException("The keyword to find cannot be empty");
+                    }
+                    taskList.findTasks(inputDetails);
+                    break;
+                }
                 default:
                     throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
                 }
