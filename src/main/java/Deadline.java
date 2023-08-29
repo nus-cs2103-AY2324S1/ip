@@ -16,4 +16,9 @@ public class Deadline extends Task {
     public String getTask() {
         return String.format("[%s][D] %s (by: %s)", super.checkDone(), super.getName(), end);
     }
+
+    @Override
+    public String getTaskType() {
+        return "deadline";
+    }
 }

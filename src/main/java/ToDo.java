@@ -14,4 +14,9 @@ public class ToDo extends Task {
     public String getTask() {
         return String.format("[%s][T] %s", super.checkDone(), super.getName());
     }
+
+    @Override
+    public String getTaskType() {
+        return "todo";
+    }
 }

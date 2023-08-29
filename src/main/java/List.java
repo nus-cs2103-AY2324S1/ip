@@ -1,4 +1,11 @@
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.nio.file.Paths;
 
 /**
  * The List class represents a collection of tasks managed by the ChatterChicken task manager.
@@ -11,6 +18,7 @@ public class List {
 
     public List() {
         this.list = new ArrayList<>();
+        loadTasksFromFile();
     }
 
     /**
@@ -23,24 +31,30 @@ public class List {
      * @throws CCException If there is an error in parsing the input or adding the task.
      */
     public void addTask(String type, String input) throws CCException {
-        Task task = null;
-        switch (type) {
-        case "todo":
-            task = parseToDo(input);
-            break;
-        case "deadline":
-            task = parseDeadline(input);
-            break;
-        case "event":
-            task = parseEvent(input);
-            break;
-        }
+        Task task = parseInput(type, input);
         list.add(task);
+        saveTaskToFile(task);
         System.out.println(ChatterChicken.LINE
                 + ChatterChicken.INDENT + "Got it. I've added this task:\n"
                 + ChatterChicken.INDENT_BIG + task.getTask() + "\n"
                 + ChatterChicken.INDENT + "Now you have " + list.size() + " tasks in the list."
                 + ChatterChicken.LINE);
+    }
+
+    private Task parseInput (String type, String input) throws CCException {
+        Task task = null;
+        switch (type) {
+            case "todo":
+                task = parseToDo(input);
+                break;
+            case "deadline":
+                task = parseDeadline(input);
+                break;
+            case "event":
+                task = parseEvent(input);
+                break;
+        }
+        return task;
     }
 
     /**
@@ -199,5 +213,46 @@ public class List {
             System.out.println(ChatterChicken.INDENT_BIG + (i + 1) + "." + list.get(i).getTask());
         }
         System.out.println(ChatterChicken.LINE);
+    }
+
+    private void loadTasksFromFile() {
+        try {
+            File dataFile = Paths.get(ChatterChicken.PATH).toAbsolutePath().toFile();
+            if (!dataFile.exists()) {
+                dataFile.createNewFile(); //TODO: HANDLE ERROR
+            } else {
+                BufferedReader reader = new BufferedReader(new FileReader(dataFile));
+                String currLine = reader.readLine();
+                ArrayList<Task> list = new ArrayList<>();
+                while (currLine != null) {
+                    String taskType = currLine.substring(0, currLine.indexOf(' '));
+                    Task task = parseInput(taskType, currLine.substring(7));
+                    list.add(task);
+                    currLine = reader.readLine();
+                }
+                reader.close();
+                this.list = list;
+            }
+        } catch (IOException e) {
+            System.err.println("An error occurred while loading tasks from file: " + e.getMessage());
+        } catch (CCException e) {
+            System.err.println("An error occurred while adding tasks: " + e.getMessage());
+        }
+    }
+
+    private void saveTaskToFile(Task task) {
+        try {
+            File dataFile = Paths.get(ChatterChicken.PATH).toAbsolutePath().toFile();
+            BufferedWriter writer = new BufferedWriter(new FileWriter(dataFile, true));
+            if (task == null) {
+                System.out.println("NULL");
+            } else {
+                System.out.println("NOT NULL");
+            }
+            writer.append(task.getTaskType() + " " + task.getTask() + "\n");
+            writer.close();
+        } catch (IOException e) {
+            System.err.println("An error occurred while saving tasks to file: " + e.getMessage());
+        }
     }
 }
