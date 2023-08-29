@@ -13,6 +13,7 @@ import ui.Ui;
 
 public class ScheduleCommand extends Command {
     protected static final DateTimeFormatter DATE_FORMAT_OUTPUT = DateTimeFormatter.ofPattern("d/M/yyyy");
+    public String output = "";
 
     public ScheduleCommand(String command) {
         super(command);
@@ -27,7 +28,7 @@ public class ScheduleCommand extends Command {
         } catch (DateTimeException e) {
             throw new DukeException("Date should follow the format d/M/yyyy");
         }
-        String output = "";
+        // String output = "";
         for (int i = 0; i < taskList.size(); i++) {
             Task task = taskList.get(i);
             if (task instanceof DeadlineTask) {
