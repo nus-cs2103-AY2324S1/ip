@@ -1,9 +1,10 @@
 import java.util.ArrayList;
 
 
-public class ReceivedTasks  {
+public class ReceivedTasks {
 
-  ReceivedTasks(){}
+  ReceivedTasks() {
+  }
 
   public ArrayList<Task> tasks;
 
