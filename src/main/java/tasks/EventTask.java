@@ -12,8 +12,8 @@ public class EventTask extends Task {
     public EventTask(String description, String startDate, String endDate) throws DukeException {
         super(description);
         try {
-            this.startDate = LocalDateTime.parse(startDate, Task.DATE_FORMAT);
-            this.endDate = LocalDateTime.parse(endDate, Task.DATE_FORMAT);
+            this.startDate = LocalDateTime.parse(startDate, Task.getDateFormat());
+            this.endDate = LocalDateTime.parse(endDate, Task.getDateFormat());
         } catch (DateTimeException e) {
             throw new DukeException("Date should follow the format d/M/yyyy HHmm");
         }
@@ -25,7 +25,8 @@ public class EventTask extends Task {
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + startDate.format(Task.DATE_FORMAT_OUTPUT) + " to: " + endDate.format(Task.DATE_FORMAT_OUTPUT) + ")";
+        return "[E]" + super.toString() + " (from: " + startDate.format(Task.getDateFormatOutput())
+                + " to: " + endDate.format(Task.getDateFormatOutput()) + ")";
     }
 
     public LocalDateTime getStartDate() {
@@ -37,16 +38,17 @@ public class EventTask extends Task {
     }
 
     public String toFileString() {
-        return "E | "  + super.getStatusIcon() + " | " + description + " | " + startDate.format(Task.DATE_FORMAT) + " | " + endDate.format(Task.DATE_FORMAT);
+        return "E | " + super.getStatusIcon() + " | " + getDescription() + " | "
+                + startDate.format(Task.getDateFormat()) + " | " + endDate.format(Task.getDateFormat());
     }
 
     public void fromFileString(String fileString) throws DukeException {
         String[] fileStringArray = fileString.split(" \\| ");
         this.setStatusIcon(fileStringArray[1]);
-        this.description = fileStringArray[2];
+        this.setDescription(fileStringArray[2]);
         try {
-            this.startDate = LocalDateTime.parse(fileStringArray[3], Task.DATE_FORMAT);
-            this.endDate = LocalDateTime.parse(fileStringArray[4], Task.DATE_FORMAT);
+            this.startDate = LocalDateTime.parse(fileStringArray[3], Task.getDateFormat());
+            this.endDate = LocalDateTime.parse(fileStringArray[4], Task.getDateFormat());
         } catch (DateTimeException e) {
             throw new DukeException("Date should follow the format d/M/yyyy HHmm");
         }

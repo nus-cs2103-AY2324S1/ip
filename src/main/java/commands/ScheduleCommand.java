@@ -3,23 +3,23 @@ import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-import tasks.Task;
-import tasks.TaskList;
 import exceptions.DukeException;
 import io.Storage;
 import tasks.DeadlineTask;
 import tasks.EventTask;
+import tasks.Task;
+import tasks.TaskList;
 import ui.Ui;
 
 public class ScheduleCommand extends Command {
     protected static final DateTimeFormatter DATE_FORMAT_OUTPUT = DateTimeFormatter.ofPattern("d/M/yyyy");
-    public String output = "";
+    private String output = "";
 
     public ScheduleCommand(String command) {
         super(command);
     }
 
-    public void execute(TaskList taskList, Ui ui, Storage storage) throws DukeException{
+    public void execute(TaskList taskList, Ui ui, Storage storage) throws DukeException {
         String input = getCommand();
         LocalDate queryDateTime;
         System.out.println(input.substring(9));
@@ -28,7 +28,6 @@ public class ScheduleCommand extends Command {
         } catch (DateTimeException e) {
             throw new DukeException("Date should follow the format d/M/yyyy");
         }
-        // String output = "";
         for (int i = 0; i < taskList.size(); i++) {
             Task task = taskList.get(i);
             if (task instanceof DeadlineTask) {
@@ -38,11 +37,15 @@ public class ScheduleCommand extends Command {
                 }
             } else if (task instanceof EventTask) {
                 EventTask event = (EventTask) task;
-                if (!event.getStartDate().toLocalDate().isAfter(queryDateTime) & !event.getEndDate().toLocalDate().isBefore(queryDateTime)) {
+                if (!event.getStartDate().toLocalDate().isAfter(queryDateTime)
+                        & !event.getEndDate().toLocalDate().isBefore(queryDateTime)) {
                     output += (i + 1) + ". " + event.toString() + "\n";
                 }
             }
         }
         ui.showSchedule(output);
+    }
+    public String getOutput() {
+        return output;
     }
 }

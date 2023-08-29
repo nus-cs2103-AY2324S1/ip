@@ -5,16 +5,13 @@ import tasks.Task;
 import tasks.TaskList;
 
 public class Ui {
-    protected Scanner scanner;
-    
+    private Scanner scanner;
     public Ui() {
         this.scanner = new Scanner(System.in);
     }
-    
     public void showLoadingError() {
         System.out.println("Error loading file");
     }
-
     public void showWelcome() {
         String botName = "Dude";
         System.out.println("Hello! I'm " + botName);
