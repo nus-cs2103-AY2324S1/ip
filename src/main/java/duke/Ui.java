@@ -38,7 +38,6 @@ public class Ui {
     }
 
     public void addTaskOutputText(Task newTask, int taskListSize) {
-        // TODO: remember to do addToTaskList(newTask);
         System.out.println("\tGot it. I've added this task:");
         // can use -1 because we just added it
         System.out.println("\t\t" + newTask.toString());
