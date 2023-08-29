@@ -29,6 +29,22 @@ public class Events extends Task {
         this.endDate = endDate;
     }
 
+    public Events(String description, String startDate, String endDate, boolean completed) throws DukeException {
+        super(description);
+        if (description == null || description.trim().isEmpty()) {
+            throw new DukeException("description of event cannot be empty");
+        }
+        if (startDate == null || startDate.trim().isEmpty()) {
+            throw new DukeException("start date of event cannot be empty");
+        }
+        if (endDate == null || endDate.trim().isEmpty()) {
+            throw new DukeException("end date of event cannot be empty");
+        }
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.completed = completed;
+    }
+
     /**
      * Retrieves the start date of the event.
      *

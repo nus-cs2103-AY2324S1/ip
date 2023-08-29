@@ -2,7 +2,7 @@
  * Represents a general task with a description and completion status.
  */
 public abstract class Task {
-    private boolean completed;
+    protected boolean completed;
     private final String description;
 
     /**
@@ -13,6 +13,11 @@ public abstract class Task {
     public Task(String description) {
         this.description = description;
         this.completed = false;  // Tasks are uncompleted by default
+    }
+
+    public Task(String description, boolean completed) {
+        this.description = description;
+        this.completed = completed;
     }
 
     /**
