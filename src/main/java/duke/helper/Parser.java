@@ -1,5 +1,7 @@
+package duke.helper;
 import java.util.Scanner;
-
+import duke.command.*;
+import duke.task.DukeException;
 public class Parser {
     static Scanner scan;
 

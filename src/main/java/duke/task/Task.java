@@ -1,3 +1,4 @@
+package duke.task;
 import java.util.HashMap;
 
 public class Task {

@@ -1,10 +1,11 @@
+package duke.command;
+import duke.task.*;
+import duke.helper.*;
 import java.io.IOException;
 
 public class AddCommand extends Command{
 
     Task task;
-
-
 
 
 
@@ -19,7 +20,7 @@ public class AddCommand extends Command{
 
     }
     @Override
-    void execute(TaskList tasks, Ui ui, Storage store) throws DukeException {
+    public void execute(TaskList tasks, Ui ui, Storage store) throws DukeException {
         try {
             tasks.addTask(task);
             store.save(tasks);
