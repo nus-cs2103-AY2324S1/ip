@@ -1,3 +1,0 @@
-T | 0 | gabriel
-E | 0 | convert | 6pm | 8pm
-D | 0 | homework | 1920-12-20

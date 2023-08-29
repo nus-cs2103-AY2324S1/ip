@@ -116,14 +116,25 @@ public class Duke {
             ui.printDeleteMessage(tasks.taskToString(taskIndex), taskIndex, tasks.size());
             tasks.deleteTask(taskIndex);
             break;
+        case "find":
+            String keyword = inputString.substring(5);
+            String outputString = "";
+            for (int i = 0; i < tasks.size(); i++) {
+                if (tasks.taskToString(i).contains(keyword)) {
+                    outputString += tasks.taskToString(i) + "\n";
+                }
+            }
+            ui.printTaskList(outputString);
+            break;
         default:
-            ui.showErrorMessage("\t☹ OOPS!!! I'm sorry, but I don't know what that means. Try again using either mark <index>, unmark <index>, todo <task>, deadline <task /by ..>, event <task /from .. /to ..>, or bye.");
+            ui.showErrorMessage(
+                    "\t☹ OOPS!!! I'm sorry, but I don't know what that means. Try again using either mark <index>, unmark <index>, todo <task>, deadline <task /by ..>, event <task /from .. /to ..>, or bye.");
         }
         ui.printDivider();
         try {
             storage.save(tasks);
         } catch (DukeException e) {
-            ui.showErrorMessage("\tError saving file.");
+            ui.showErrorMessage("\tError saving file." + " " + e.getMessage());
         }
     }
 
