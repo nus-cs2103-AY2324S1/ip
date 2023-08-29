@@ -6,7 +6,7 @@ import ren.task.TaskList;
 public class RenUi {
     private static final String LINE_BREAK = "____________________________________________________________\n";
     private static String welcomeMsg = LINE_BREAK +
-            " Hello! I'm Ren.Ren\n" +
+            " Hello! I'm Ren.\n" +
             " What can I do for you?\n" +
             LINE_BREAK;
     private static String goodbyeMsg = LINE_BREAK +
@@ -51,7 +51,11 @@ public class RenUi {
 
     public static void listTasks(TaskList tasks) {
         System.out.println(LINE_BREAK);
-        tasks.listTasks();
+        try {
+            tasks.listTasks();
+        } catch (NullPointerException e) {
+            System.out.println("No tasks to list!");
+        }
         System.out.println(LINE_BREAK);
     }
 

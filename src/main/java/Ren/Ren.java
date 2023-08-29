@@ -7,13 +7,8 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Ren {
-    public static void run() {
 
-    }
-
-    public static void main(String[] args) throws InvalidRenCommand {
-
-
+    public static void main(String[] args) {
         RenObjectMapper objectMapper = new RenObjectMapper();
         TaskList tasks;
         try {
