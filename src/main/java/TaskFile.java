@@ -1,8 +1,4 @@
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.ObjectOutputStream;
-import java.io.ObjectInputStream;
-import java.io.FileInputStream;
 import java.util.List;
 import java.nio.file.*;
 import java.io.*;
@@ -11,18 +7,24 @@ import java.util.Scanner;
 
 class TaskFile {
     final static String fileName = "./data/duke.txt";
-    public static void saveTask(List<Task> tasks) {
+
+    static void checkFileExists() {
         Path path = Paths.get(fileName);
         try {
             if (!Files.exists(path)) {
+                System.out.println("data file not found, creating a new one");
                 Path dirPath = Paths.get("./data");
                 Files.createDirectories(dirPath);
                 File file = new File(fileName);
+                file.createNewFile();
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
 
+    public static void saveTask(List<Task> tasks) {
+        checkFileExists();
         try (FileWriter fileWriter = new FileWriter(fileName)) {
             for (Task task : tasks) {
                 String text = "";
@@ -57,6 +59,7 @@ class TaskFile {
 
 
     public static ArrayList<Task> loadTasks() throws DukeException{
+        checkFileExists();
         ArrayList<Task> tasks = new ArrayList<>();
         try {
             Scanner sc = new Scanner(new File(fileName));
@@ -65,7 +68,8 @@ class TaskFile {
             }
             return tasks;
         } catch (IOException e) {
-            return null;
+            System.out.println(e.getMessage());
+            throw new DukeException("There are no tasks");
         }
     }
 }
