@@ -1,4 +1,5 @@
 import java.util.Scanner;
+
 public class Duke {
     static Scanner scanner = new Scanner(System.in);
     private String name;
@@ -7,6 +8,12 @@ public class Duke {
     public Duke(String name) {
         this.name = name;
         this.taskList = new TaskList();
+        Storage.loadTasks(this.taskList);
+    }
+
+    public static void main(String[] args) {
+        Duke duke = new Duke("Duke");
+        duke.run();
     }
 
     public void echo(String line) {
@@ -17,6 +24,7 @@ public class Duke {
         System.out.println();
         formatPrintMessage("Hello! I'm " + this.name + "\nWhat can I do for you?");
     }
+
     public void exit() {
         System.out.println();
         formatPrintMessage("Bye. Hope to see you again soon!");
@@ -27,41 +35,41 @@ public class Duke {
         System.out.println();
     }
 
-    public void handleInput(String input){
+    public void handleInput(String input) {
         String[] inputArr = input.split(" ");
         String command = inputArr[0];
 
         try {
             switch (command) {
-                case "list":
-                    this.taskList.showAllTasks();
-                    break;
-                case "mark":
-                    int taskNumber = Integer.parseInt(inputArr[1]);
-                    this.taskList.markTaskAsDone(taskNumber);
-                    break;
-                case "unmark":
-                    int taskNumber2 = Integer.parseInt(inputArr[1]);
-                    this.taskList.unmarkTaskAsDone(taskNumber2);
-                    break;
-                case "todo":
-                    String description = validateToDoCommand(input);
-                    this.taskList.addTask(description);
-                    break;
-                case "deadline":
-                    String description2 = validateDeadlineCommand(input);
-                    this.taskList.addTask(description2);
-                    break;
-                case "event":
-                    String description3 = validateEventCommand(input);
-                    this.taskList.addTask(description3);
-                    break;
-                case "delete":
-                    int taskNumber3 = Integer.parseInt(inputArr[1]);
-                    this.taskList.deleteTask(taskNumber3);
-                    break;
-                default:
-                    throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+            case "list":
+                this.taskList.showAllTasks();
+                break;
+            case "mark":
+                int taskNumber = Integer.parseInt(inputArr[1]);
+                this.taskList.markTaskAsDone(taskNumber);
+                break;
+            case "unmark":
+                int taskNumber2 = Integer.parseInt(inputArr[1]);
+                this.taskList.unmarkTaskAsDone(taskNumber2);
+                break;
+            case "todo":
+                String description = validateToDoCommand(input);
+                this.taskList.addTask(description);
+                break;
+            case "deadline":
+                String description2 = validateDeadlineCommand(input);
+                this.taskList.addTask(description2);
+                break;
+            case "event":
+                String description3 = validateEventCommand(input);
+                this.taskList.addTask(description3);
+                break;
+            case "delete":
+                int taskNumber3 = Integer.parseInt(inputArr[1]);
+                this.taskList.deleteTask(taskNumber3);
+                break;
+            default:
+                throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
             }
         } catch (DukeException e) {
             System.out.println();
@@ -128,19 +136,15 @@ public class Duke {
         return input.replace("event", "");
     }
 
-    public void run(){
+    public void run() {
         greet();
         String line = scanner.nextLine();
         while (!line.equals("bye")) {
             handleInput(line);
             line = scanner.nextLine();
         }
+        scanner.close();
         exit();
-    }
-
-    public static void main(String[] args) {
-        Duke duke = new Duke("Duke");
-        duke.run();
     }
 
 }

@@ -29,8 +29,13 @@ public class TaskList {
             return;
         }
         this.tasks.add(task);
+        Storage.saveTask(task);
         formatPrintMessage("Got it. I've added this task:\n  " + task + "\nNow you have " + this.tasks.size() + " task(s) in the list.");
 
+    }
+
+    public void addTask(Task task) {
+        this.tasks.add(task);
     }
 
     public void deleteTask(int taskNumber) {
@@ -41,6 +46,7 @@ public class TaskList {
 
         Task task = this.tasks.get(taskNumber - 1);
         this.tasks.remove(task);
+        Storage.deleteTask(taskNumber);
         formatPrintMessage("Noted. I've removed this task:\n  " + task + "\nNow you have " + this.tasks.size() + " task(s) in the list.");
     }
 
@@ -67,7 +73,8 @@ public class TaskList {
         }
 
         Task task = this.tasks.get(taskNumber - 1);
-        task.markAsDone();
+        task.markAsDone(true);
+        Storage.modifyTask(taskNumber, task);
     }
 
     public void unmarkTaskAsDone(int taskNumber) {
@@ -77,6 +84,7 @@ public class TaskList {
         }
 
         Task task = this.tasks.get(taskNumber - 1);
-        task.unmarkAsDone();
+        task.unmarkAsDone(true);
+        Storage.modifyTask(taskNumber, task);
     }
 }
