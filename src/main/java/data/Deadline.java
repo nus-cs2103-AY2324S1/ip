@@ -1,9 +1,11 @@
 package data;
 
+import exception.InvalidInputException;
+
 public class Deadline extends Task {
     private By by;
 
-    public void setBy(String by) {
+    public void setBy(String by) throws InvalidInputException {
         this.by = new By(by);
     }
 

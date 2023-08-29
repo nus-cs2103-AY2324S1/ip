@@ -2,6 +2,8 @@ package data;
 
 import exception.DukeException;
 import exception.InvalidInputException;
+
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 //import java.io.File;
@@ -11,12 +13,24 @@ public class Store {
     private static Store store = new Store();
     Task[] tasks = new Task[100];
     int taskCount = 0;
+    String fileName = "duke.txt";
+
     //FileWriter fw;
     //File file = new File("duke.txt");
     
         
 
-    private Store() {}
+    private Store() {
+        // detect whetehr duke.txt exists, and create it if it doesn't
+        File file = new File(fileName);
+        if (!file.exists()) {
+            try {
+                file.createNewFile();
+            } catch (IOException e) {
+                System.out.println("Something went wrong: " + e.getMessage());
+            }
+        }
+    }
       
 
     public static Store getInstance() {
@@ -26,10 +40,9 @@ public class Store {
     private void write() {
         
         try {
-             FileWriter fw = new FileWriter("./src/main/java/data/duke.txt");
+             FileWriter fw = new FileWriter(fileName);
             for (int i = 0; i < taskCount; i++) {
                 fw.write(tasks[i].toString() + "\n");
-                System.out.println("debug, line 45 is executed");   
             }
             fw.close();
         } catch (IOException e) {
@@ -112,14 +125,6 @@ public class Store {
         return result;
     }
 
-    public static void main(String[] args) throws DukeException{
-       try {
-        FileWriter fw = new FileWriter("./src/main/java/data/duke.txt");
-        fw.write("hello");
-        fw.close();
-       } catch (IOException e) {
-           System.out.println("Something went wrong: " + e.getMessage());
-       }
-    }
+   
 }
 
