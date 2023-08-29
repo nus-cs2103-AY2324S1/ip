@@ -1,11 +1,11 @@
-/**
- * Represents the user interface for managing input and output to the console.
- * Provides methods to show welcome and exit messages, get user input, and display a horizontal line.
- */
 package duke.util;
 
 import java.util.Scanner;
 
+/**
+ * Represents the user interface for managing input and output to the console.
+ * Provides methods to show welcome and exit messages, get user input, and display a horizontal line.
+ */
 public class Ui {
 
     /** The horizontal line used for formatting output */

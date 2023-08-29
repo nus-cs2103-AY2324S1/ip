@@ -6,15 +6,13 @@ import duke.exception.DukeException;
 import duke.exception.EmptyTaskException;
 import duke.exception.InvalidDateTimeException;
 import duke.exception.InvalidIndexException;
-
 import duke.tasks.TaskList;
 import duke.tasks.Task;
-
 import duke.util.Ui;
 import duke.util.Storage;
 import duke.util.Parser;
-
 import duke.command.Command;
+
 public class Duke {
 
     private Storage storage;
