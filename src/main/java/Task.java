@@ -11,8 +11,8 @@ public class Task {
         return (isDone ? "X" : " "); // mark done task with X
     }
 
-    public boolean getStatus(Task task) {
-        return task.isDone;
+    public boolean getStatus() {
+        return this.isDone;
     }
 
     public String toString() {

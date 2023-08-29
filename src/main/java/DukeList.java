@@ -3,8 +3,16 @@ import java.util.ArrayList;
 public class DukeList {
     ArrayList<Task> arr;
 
+    public DukeList(ArrayList<Task> dukelist) {
+        this.arr = dukelist;
+    }
+
     public DukeList() {
-        arr = new ArrayList<>(100);
+        this.arr = new ArrayList<>(100);
+    }
+
+    public ArrayList<Task> getList() {
+        return this.arr;
     }
 
     public void showList (Task task) {
@@ -17,6 +25,7 @@ public class DukeList {
         Task chosenTask = arr.get(number);
         System.out.println("Noted. I've removed this task:");
         System.out.println("\t" + chosenTask.toString());
+
         arr.remove(number);
         System.out.println("Now you have " + arr.size() +  " tasks in the list");
 
@@ -39,8 +48,6 @@ public class DukeList {
         arr.add(event);
         showList(event);
     }
-
-
 
     public void printList() {
         System.out.println("Here are the tasks in your list:");
