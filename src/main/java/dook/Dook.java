@@ -49,7 +49,7 @@ public class Dook {
     private void readSavedList() {
         try {
             taskList = new TaskList(storage.load());
-        }  catch (DookException d) {
+        } catch (DookException d) {
             uiDisplay.printMessage(d.getMessage());
             taskList = new TaskList(new ArrayList<>());
         }

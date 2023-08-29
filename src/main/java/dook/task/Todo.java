@@ -1,5 +1,8 @@
 package dook.task;
 
+/**
+ * Simple task with a description.
+ */
 public class Todo extends Task {
 
     public Todo(String description) {

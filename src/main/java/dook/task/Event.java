@@ -6,6 +6,9 @@ import java.time.format.DateTimeParseException;
 
 import dook.services.TimeProcessor;
 
+/**
+ * Task with a start and end date.
+ */
 public class Event extends Task implements TimedTask {
 
     protected String from;

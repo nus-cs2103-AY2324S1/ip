@@ -5,6 +5,9 @@ import java.time.format.DateTimeParseException;
 
 import dook.services.TimeProcessor;
 
+/**
+ * Task with a deadline.
+ */
 public class Deadline extends Task implements TimedTask {
     protected String by;
     protected LocalDate byDateTime;

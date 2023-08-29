@@ -1,5 +1,8 @@
 package dook.task;
 
+/**
+ * Abstract class representing data and operations concerning tasks.
+ */
 public abstract class Task {
     protected String description;
     protected boolean isDone;
@@ -13,7 +16,6 @@ public abstract class Task {
         this.description = description;
         this.isDone = isDone;
     }
-
 
     public abstract String getSaveableString();
 

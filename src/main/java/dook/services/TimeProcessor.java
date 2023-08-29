@@ -7,11 +7,11 @@ import java.time.format.DateTimeFormatterBuilder;
 /**
  * This class contains utilities for manipulating local dates and strings.
  */
-/**
- * Allows for parsing of multiple date formats.
- */
 public class TimeProcessor {
     public static final DateTimeFormatter DEFAULT_PATTERN = DateTimeFormatter.ofPattern("[dd-MM-yyyy]");
+    /**
+     * Allows for parsing of multiple date formats.
+     */
     private static final DateTimeFormatterBuilder dateTimeFormatterBuilder = new DateTimeFormatterBuilder()
             .append(DateTimeFormatter.ofPattern(
                     "[MM/dd/yyyy]" + "[dd-MM-yyyy]" + "[yyyy-MM-dd]"
