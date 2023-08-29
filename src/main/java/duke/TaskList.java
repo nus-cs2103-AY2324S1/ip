@@ -70,4 +70,15 @@ public class TaskList {
         }
     }
 
+    public static void findTasks(String[] inputParts, ArrayList<Task> taskList) {
+        String keyword = inputParts[1].toLowerCase();
+        int count = 1;
+        System.out.println("Here are the matching tasks in your list:");
+
+        for (Task task : taskList) {
+            if (task.getDescription().toLowerCase().contains(keyword)) {
+                System.out.println(count++ + ". " + task);
+            }
+        }
+    }
 }

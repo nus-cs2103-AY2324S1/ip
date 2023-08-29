@@ -21,6 +21,9 @@ public class Parser {
         case "delete":
             TaskList.deleteTask(inputParts, taskList);
             break;
+        case "find":
+            TaskList.findTasks(inputParts, taskList);
+            break;
         default:
             TaskList.addTask(inputParts, taskList);
             break;
