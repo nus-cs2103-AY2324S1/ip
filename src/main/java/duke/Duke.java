@@ -23,6 +23,10 @@ public class Duke {
         }
     }
 
+    /**
+     * Runs the program by waiting for user input and responding to it.
+     * If user input is "bye", the program will exit.
+     */
     public void run() {
         ui.showWelcomeMessage();
         Scanner scanner = new Scanner(System.in);

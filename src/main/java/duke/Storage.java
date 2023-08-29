@@ -16,10 +16,20 @@ import java.util.Scanner;
 public class Storage {
     private final String filePath;
 
+    /**
+     * Constructor for Storage.
+     *
+     * @param filePath path to duke.txt.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
+    /**
+     * Saves list to disk in a formatted version.
+     *
+     * @param taskList list of tasks.
+     */
     public void saveListToDisk(ArrayList<Task> taskList) {
         createFile(this.filePath);
 
@@ -34,6 +44,7 @@ public class Storage {
             System.out.println("Something went wrong: " + e.getMessage());
         }
     }
+
 
     /**
      * Creates a file if it does not exist.
@@ -52,7 +63,12 @@ public class Storage {
             }
         }
     }
-
+    /**
+     * Loads list from disk and then converts it to tasks with their details.
+     *
+     * @return list of tasks.
+     * @throws DukeException if error loading a file.
+     */
     public ArrayList<Task> load() throws DukeException {
         ArrayList<Task> taskList = new ArrayList<>();
 

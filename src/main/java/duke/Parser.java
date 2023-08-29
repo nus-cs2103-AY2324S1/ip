@@ -14,6 +14,13 @@ import duke.task.ToDoTask;
 import java.time.LocalDate;
 
 public class Parser {
+    /**
+     * Returns the Command from the user input.
+     *
+     * @param userInput user input.
+     * @return Command based on the user input.
+     * @throws DukeException if user input gives an invalid command.
+     */
     public static Command parse(String userInput) throws DukeException {
 
         String command = userInput.split(" ", 2)[0].toUpperCase();
