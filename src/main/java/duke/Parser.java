@@ -7,11 +7,30 @@ public class Parser {
 
     public static void parse(String command, TaskList list, Storage storage, Ui ui) {
         if (command.toLowerCase().startsWith("delete")) {
-            int number = Integer.parseInt(command.split(" ")[1]) - 1;
-            Task removedTask = list.delete(number);
+            String[] sub = command.split(" ");
 
-            // print
-            ui.removeTask(list, removedTask);
+            if (sub.length == 2) {
+                int number = Integer.parseInt(sub[1]) - 1;
+
+                if (number < list.getSize() && number >= 0) {
+                    Task removedTask = list.delete(number);
+
+                    // print
+                    ui.removeTask(list, removedTask);
+                } else {
+                    try {
+                        throw new DukeException("OOPS!!! The task you entered is not in the list");
+                    } catch (DukeException e) {
+                        System.out.println(e.getMessage());
+                    }
+                }
+            } else {
+                try {
+                    throw new DukeException("OOPS!!! Please fill in the task I need to delete");
+                } catch (DukeException e) {
+                    System.out.println(e.getMessage());
+                }
+            }
 
             // list tasks
         } else if (command.equalsIgnoreCase("list")) {
@@ -19,19 +38,56 @@ public class Parser {
 
             // mark task as done
         } else if (command.toLowerCase().startsWith("mark")) {
-            int number = Integer.parseInt(command.split(" ")[1]) - 1;
-            list.getTask(number).markAsDone();
+            String[] sub = command.split(" ");
 
-            // print
-            ui.mark(list, number);
+            if (sub.length == 2) {
+                int number = Integer.parseInt(sub[1]) - 1;
 
+                if (number < list.getSize() && number >= 0) {
+                    list.getTask(number).markAsDone();
+
+                    // print
+                    ui.mark(list, number);
+                } else {
+                    try {
+                        throw new DukeException("OOPS!!! The task you entered is not in the list");
+                    } catch (DukeException e) {
+                        System.out.println(e.getMessage());
+                    }
+                }
+            } else {
+                try {
+                    throw new DukeException("OOPS!!! Please fill in the task I need to mark");
+                } catch (DukeException e) {
+                    System.out.println(e.getMessage());
+                }
+            }
             // unMark task
         } else if (command.toLowerCase().startsWith("unmark")) {
-            int number = Integer.parseInt(command.split(" ")[1]) - 1;
-            list.getTask(number).markAsNotDone();
+            String[] sub = command.split(" ");
 
-            // print
-            ui.unMark(list, number);
+            if (sub.length == 2) {
+                int number = Integer.parseInt(command.split(" ")[1]) - 1;
+
+                if (number < list.getSize() && number >= 0) {
+                    list.getTask(number).markAsNotDone();
+
+                    // print
+                    ui.unMark(list, number);
+                } else {
+                    try {
+                        throw new DukeException("OOPS!!! The task you entered is not in the list");
+                    } catch (DukeException e) {
+                        System.out.println(e.getMessage());
+                    }
+                }
+            } else {
+                try {
+                    throw new DukeException("OOPS!!! Please fill in the task I need to unmark");
+                } catch (DukeException e) {
+                    System.out.println(e.getMessage());
+                }
+            }
 
             // add todo
         } else if (command.toLowerCase().startsWith("todo")) {
@@ -64,14 +120,23 @@ public class Parser {
                 // separate the task and its deadline
                 String[] sub = deadline.split("/by");
 
-                String description = sub[0].trim();
-                String by = sub[1].trim();
+                if (sub.length == 2) {
 
-                Deadline newDeadline = new Deadline(description, by);
-                list.add(newDeadline);
+                    String description = sub[0].trim();
+                    String by = sub[1].trim();
 
-                // print
-                ui.addDeadline(list, newDeadline);
+                    Deadline newDeadline = new Deadline(description, by);
+                    list.add(newDeadline);
+
+                    // print
+                    ui.addDeadline(list, newDeadline);
+                } else {
+                    try {
+                        throw new DukeException("OOPS!!! Please fill in the deadline");
+                    } catch (DukeException e) {
+                        System.out.println(e.getMessage());
+                    }
+                }
             }
 
             // add event
@@ -87,19 +152,37 @@ public class Parser {
             } else {
                 // separate event and timing
                 String[] sub = event.split("/from");
-                String description = sub[0].trim();
-                String timing = sub[1].trim();
 
-                // separate start time and end time
-                String[] fromTo = timing.split("/to");
-                String from = fromTo[0].trim();
-                String to = fromTo[1].trim();
+                if (sub.length == 2) {
+                    String description = sub[0].trim();
+                    String timing = sub[1].trim();
 
-                Event newEvent = new Event(description, from, to);
-                list.add(newEvent);
+                    // separate start time and end time
+                    String[] fromTo = timing.split("/to");
 
-                // print
-                ui.addEvent(list, newEvent);
+                    if (fromTo.length == 2) {
+                        String from = fromTo[0].trim();
+                        String to = fromTo[1].trim();
+
+                        Event newEvent = new Event(description, from, to);
+                        list.add(newEvent);
+
+                        // print
+                        ui.addEvent(list, newEvent);
+                    } else {
+                        try {
+                            throw new DukeException("OOPS!!! Please fill in the time the event ends");
+                        } catch (DukeException e) {
+                            System.out.println(e.getMessage());
+                        }
+                    }
+                } else {
+                    try {
+                        throw new DukeException("OOPS!!! Please fill in the timings");
+                    } catch (DukeException e) {
+                        System.out.println(e.getMessage());
+                    }
+                }
             }
 
         } else {
