@@ -14,6 +14,10 @@ public abstract class Task {
         this.isDone = false;
     }
 
+    public String data() {
+        return this.isDone ? "1 " : "0 " + this.name;
+    }
+
     @Override
     public String toString() {
         return "[" + (this.isDone ? "X" : " ") + "] " + this.name;

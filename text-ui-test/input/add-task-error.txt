@@ -1,12 +1,12 @@
 todo do task 1
 event event tday
-event /from 9pm /to 11pm
-event /from/to 9pm
-event talk /from/to
-event talk /from 12am /to
+event  /from 9pm /to 11pm
+event  /from  /to 9pm
+event talk /from  /to 
+event talk /from 12am /to 
 list
-deadline /from 9pm
-deadline do sth /by
-deadline /by 9pm
+deadline  /from 9pm
+deadline do sth /by 
+deadline  /by 9pm
 list
 bye
