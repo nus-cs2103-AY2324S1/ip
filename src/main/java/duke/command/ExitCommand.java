@@ -5,18 +5,18 @@ import duke.util.Ui;
 import duke.util.Storage;
 
 /**
- * Represents a duke.command to exit the application.
+ * Represents a command to exit the application.
  * <p>
- * When executed, this duke.command displays an exit message to the user and indicates to the application
+ * When executed, this command displays an exit message to the user and indicates to the application
  * that it should terminate.
  * </p>
  */
 public class ExitCommand extends Command {
 
     /**
-     * Executes the exit duke.command, displaying an exit message to the user.
+     * Executes the exit command, displaying an exit message to the user.
      *
-     * @param tasks List of duke.tasks.
+     * @param tasks List of tasks.
      * @param ui User interface.
      * @param storage Storage system.
      */

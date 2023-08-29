@@ -6,9 +6,9 @@ import duke.util.Ui;
 import duke.util.Storage;
 
 /**
- * Represents a duke.command to unmark a task as completed.
+ * Represents a command to unmark a task as completed.
  * <p>
- * When executed, this duke.command will unmark the task at the specified index as completed.
+ * When executed, this command will unmark the task at the specified index as completed.
  * </p>
  */
 public class UnmarkCommand extends Command {
@@ -26,9 +26,9 @@ public class UnmarkCommand extends Command {
     }
 
     /**
-     * Executes the unmark duke.command, unmarking the task at the specified index as completed.
+     * Executes the unmark command, unmarking the task at the specified index as completed.
      *
-     * @param tasks List of duke.tasks.
+     * @param tasks List of tasks.
      * @param ui User interface.
      * @param storage Storage system.
      * @throws InvalidIndexException If the given index is out of bounds.

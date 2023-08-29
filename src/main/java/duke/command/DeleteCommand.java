@@ -6,9 +6,9 @@ import duke.util.Ui;
 import duke.util.Storage;
 
 /**
- * Represents a duke.command to delete a specific task from the task list.
+ * Represents a command to delete a specific task from the task list.
  * <p>
- * This duke.command deletes a task identified by its index from the provided task list.
+ * This command deletes a task identified by its index from the provided task list.
  * Once deleted, it also saves the updated list to storage.
  * </p>
  */
@@ -29,7 +29,7 @@ public class DeleteCommand extends Command {
     /**
      * Deletes the task from the task list based on its index and saves the updated list to storage.
      *
-     * @param tasks List of duke.tasks.
+     * @param tasks List of tasks.
      * @param ui User interface.
      * @param storage Storage system.
      * @throws InvalidIndexException If the provided index is not valid.

@@ -6,7 +6,7 @@ import duke.util.Ui;
 import duke.util.Storage;
 
 /**
- * Represents a duke.command to add a to-do task to the task list.
+ * Represents a command to add a to-do task to the task list.
  * <p>
  * The {@code AddTodoCommand} class encapsulates the details of the to-do,
  * specifically its description. When executed, the to-do is added to the
@@ -30,10 +30,10 @@ public class AddTodoCommand extends Command {
     }
 
     /**
-     * Executes the duke.command by adding a new to-do to the provided task list,
+     * Executes the command by adding a new to-do to the provided task list,
      * and saving the updated list using the provided storage.
      *
-     * @param tasks List of duke.tasks.
+     * @param tasks List of tasks.
      * @param ui User interface.
      * @param storage Storage system.
      */
@@ -44,9 +44,9 @@ public class AddTodoCommand extends Command {
     }
 
     /**
-     * Indicates that this duke.command doesn't terminate the application.
+     * Indicates that this command doesn't terminate the application.
      *
-     * @return {@code false} since this duke.command doesn't cause the application to exit.
+     * @return {@code false} since this command doesn't cause the application to exit.
      */
     @Override
     public boolean isExit() {

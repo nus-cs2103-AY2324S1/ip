@@ -5,19 +5,19 @@ import duke.util.Ui;
 import duke.util.Storage;
 
 /**
- * Represents a duke.command to list all duke.tasks in the application.
+ * Represents a command to list all tasks in the application.
  * <p>
- * When executed, this duke.command will display all duke.tasks in the task list to the user.
+ * When executed, this command will display all tasks in the task list to the user.
  * </p>
  */
 public class ListCommand extends Command {
 
     /**
-     * Executes the list duke.command, displaying all duke.tasks in the task list to the user.
+     * Executes the list command, displaying all tasks in the task list to the user.
      *
-     * @param tasks List of duke.tasks to be displayed.
+     * @param tasks List of tasks to be displayed.
      * @param ui User interface.
-     * @param storage Storage system (not used in this duke.command but retained for consistency).
+     * @param storage Storage system (not used in this command but retained for consistency).
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
