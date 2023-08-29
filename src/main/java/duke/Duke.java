@@ -1,3 +1,5 @@
+package duke;
+
 public class Duke {
     private final Parser parser;
     private final TaskList list;

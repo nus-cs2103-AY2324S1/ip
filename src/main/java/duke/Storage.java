@@ -1,3 +1,5 @@
+package duke;
+
 import java.io.*;
 import java.util.ArrayList;
 public class Storage {
@@ -21,7 +23,7 @@ public class Storage {
         try {
             FileInputStream fileIn = new FileInputStream(filePath);
             in = new ObjectInputStream(fileIn);
-            // Suppress warning as deserialised object is of ArrayList<Task>
+            // Suppress warning as deserialised object is of ArrayList<duke.Task>
             @SuppressWarnings("unchecked")
             ArrayList<Task> list = (ArrayList<Task>) in.readObject();
             return list;
