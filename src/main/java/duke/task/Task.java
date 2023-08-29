@@ -1,3 +1,5 @@
+package duke.task;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -16,7 +18,7 @@ public class Task {
     /**
      * Constructs a Task object with the specified description and sets its completion status to false.
      *
-     * @param detail The description of the task.
+     * @param detail The description of the duke.task.
      */
     public Task(String detail) {
         this.detail = detail;

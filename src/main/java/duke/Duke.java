@@ -1,3 +1,8 @@
+package duke;
+
+import duke.command.Command;
+import duke.task.TaskList;
+
 /**
  * The Duke class represents a task management application. It provides functionality
  * to interact with the user, manage tasks, and store task information.
@@ -6,9 +11,9 @@
  */
 public class Duke {
     /** Name of chatbot */
-    private static final String NAME = "Duke Prince";
+    private static final String NAME = "duke.Duke Prince";
 
-    /** Task list associated with this Duke object */
+    /** Task list associated with this duke.Duke object */
     private static TaskList taskList;
 
     /** Storage associated with this Duke object */

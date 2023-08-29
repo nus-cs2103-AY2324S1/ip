@@ -1,3 +1,5 @@
+package duke.task;
+
 /**
  * The Todo class represents a task without a specific due date or time.
  *
@@ -7,7 +9,7 @@ public class Todo extends Task {
     /**
      * Constructs a Todo object with the specified description.
      *
-     * @param detail The description of the todo task.
+     * @param detail The description of the task.
      */
     public Todo(String detail) {
         super(detail);
