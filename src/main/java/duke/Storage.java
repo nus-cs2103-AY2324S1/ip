@@ -16,10 +16,16 @@ public class Storage {
         <tasktype>|<isMarked>|<desc>|<end>|<start>
     */
 
-    public static TaskList retrieveSavedData() {
+    private final String FILENAME;
+
+    public Storage(String filename) {
+        this.FILENAME = filename;
+    }
+
+    public TaskList retrieveSavedData() {
         try {
             ArrayList<String> arr = new ArrayList<>();
-            File f = new File("data/duke.txt");
+            File f = new File("data/" + FILENAME);
             if (!f.exists()) {
                 return new TaskList();
             }
@@ -39,7 +45,7 @@ public class Storage {
         }
     }
 
-    private static TaskList populate(ArrayList<String> arr) {
+    private TaskList populate(ArrayList<String> arr) {
         TaskList taskList = new TaskList();
 
         for (String str : arr) {
@@ -69,14 +75,14 @@ public class Storage {
         return taskList;
     }
 
-    public static void saveChanges(TaskList taskList) {
+    public void saveChanges(TaskList taskList) {
         try {
             File directory = new File("data");
             if (!directory.exists()) {
                 directory.mkdirs();
             }
 
-            FileWriter fileWriter = new FileWriter("data/duke.txt");
+            FileWriter fileWriter = new FileWriter("data/" + FILENAME);
             fileWriter.write("");
             fileWriter.append(taskList.getTextFormattedString());
             fileWriter.close();
