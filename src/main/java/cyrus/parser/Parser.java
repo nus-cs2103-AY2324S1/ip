@@ -45,7 +45,7 @@ public class Parser {
     // Parse the argument first
     int i = 1;
     while (i < parts.length) {
-      if (parts[i].startsWith("/")) break;
+      if (parts[i].startsWith("/") && parts[i].length() != 1) break;
       argumentParts.add(parts[i++]);
     }
 
@@ -54,16 +54,16 @@ public class Parser {
     HashMap<String, String> options = new HashMap<>();
     while (i < parts.length) {
       String key = "";
-      StringBuilder acc = new StringBuilder();
-      if (parts[i].startsWith("/")) {
+      List<String> acc = new ArrayList<>();
+      if (parts[i].startsWith("/") && parts[i].length() != 1) {
         key = parts[i].substring(1);
       }
 
-      while (++i < parts.length && !parts[i].startsWith("/")) {
-        acc.append(parts[i]);
+      while (++i < parts.length && !(parts[i].startsWith("/") && parts[i].length() != 1)) {
+        acc.add(parts[i]);
       }
 
-      options.put(key, acc.toString());
+      options.put(key, String.join(" ", acc));
     }
 
     return new ParseInfo(CommandType.fromString(parts[0]), argument, options);
