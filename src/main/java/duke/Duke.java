@@ -22,15 +22,6 @@ public class Duke {
 
     private final Storage storage;
 
-    /**
-     * The main method is used to run the program.
-     *
-     * @param args The command line arguments.
-     */
-    public static void main(String[] args) {
-        new Duke("data/tasks.txt").run();
-    }
-
     public Duke(String path) {
         Ui.greet();
         Ui.println("Checking for a save file...");
@@ -43,6 +34,15 @@ public class Duke {
             Ui.println(e.getMessage());
         }
         Ui.println("OK, ready to roll");
+    }
+
+    /**
+     * The main method is used to run the program.
+     *
+     * @param args The command line arguments.
+     */
+    public static void main(String[] args) {
+        new Duke("data/tasks.txt").run();
     }
 
     public void run() {

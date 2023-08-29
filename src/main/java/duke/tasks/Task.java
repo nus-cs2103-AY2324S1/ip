@@ -11,15 +11,15 @@ import duke.exceptions.DukeInvalidArgumentException;
  */
 public abstract class Task {
 
+    private static final DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("EEE dd MMM yyyy HH:mm");
+
+    private static final DateTimeFormatter parseFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+
     // The description of the task.
     private String description;
 
     // Whether the task is done.
     private boolean isDone;
-
-    private static final DateTimeFormatter parseFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-
-    private static final DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("EEE dd MMM yyyy HH:mm");
 
     /**
      * Creates a new Task object.

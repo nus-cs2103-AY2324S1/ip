@@ -9,7 +9,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 
 import duke.exceptions.DukeException;
-import duke.exceptions.DukeIOException;
+import duke.exceptions.DukeIoException;
 import duke.tasks.TaskList;
 import duke.tasks.TaskType;
 import duke.ui.Ui;
@@ -28,7 +28,7 @@ public class Storage {
                 FileWriter writer = new FileWriter(file);
                 writer.close();
             } catch (IOException e) {
-                throw new DukeIOException("Error creating save file: " + e);
+                throw new DukeIoException("Error creating save file: " + e);
             }
         }
     }
@@ -55,7 +55,7 @@ public class Storage {
             }
             reader.close();
         } catch (IOException e) {
-            throw new DukeIOException("Error loading tasks from save file: " + e);
+            throw new DukeIoException("Error loading tasks from save file: " + e);
         }
     }
 
@@ -72,7 +72,7 @@ public class Storage {
             fileWriter.close();
             Ui.println("...Successfully saved your tasks!");
         } catch (IOException e) {
-            throw new DukeIOException("Error saving tasks to local disk: " + e);
+            throw new DukeIoException("Error saving tasks to local disk: " + e);
         }
     }
 

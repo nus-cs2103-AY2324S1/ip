@@ -35,8 +35,8 @@ public class TaskList {
         switch (type) {
         case TODO:
             if (taskString.equals("")) {
-                throw new DukeInvalidArgumentException("You didn't specify a task to do. " +
-                        "Check that you're doing \"todo {description}\".");
+                throw new DukeInvalidArgumentException("You didn't specify a task to do. "
+                        + "Check that you're doing \"todo {description}\".");
             }
             this.list.add(new ToDo(taskString));
             break;
@@ -47,8 +47,8 @@ public class TaskList {
                 this.list.add(new Deadline(deadlineParts[0].trim(), deadlineParts[1].trim()));
             } catch (IndexOutOfBoundsException e) {
                 throw new DukeInvalidArgumentException(
-                        "Your deadline seems to be formatted wrongly. " +
-                                "Check that you're doing: \"deadline {description} /by {yyyy-MM-dd HH:mm}\".");
+                        "Your deadline seems to be formatted wrongly. "
+                                + "Check that you're doing: \"deadline {description} /by {yyyy-MM-dd HH:mm}\".");
             }
             break;
 
@@ -60,8 +60,9 @@ public class TaskList {
                 this.list.add(new Event(description, eventTimeParts[0].trim(), eventTimeParts[1].trim()));
             } catch (IndexOutOfBoundsException e) {
                 throw new DukeInvalidArgumentException(
-                        "Your event seems to be formatted wrongly. " +
-                                "Check that you're doing: \"event {description} /from {yyyy-MM-dd HH:mm} /to {yyyy-MM-dd HH:mm}\".");
+                        "Your event seems to be formatted wrongly. "
+                                + "Check that you're doing: \"event {description} /from {yyyy-MM-dd HH:mm}"
+                                + "/to {yyyy-MM-dd HH:mm}\".");
             }
             break;
 
@@ -69,8 +70,11 @@ public class TaskList {
             throw new DukeInvalidArgumentException("I'm gonna be honest, no idea what you're saying.");
         }
 
-        Ui.printlns(new String[] { "Got it. I've added this task:", this.list.get(this.list.size() - 1).toString(),
-                "Now you have " + this.list.size() + " tasks in the list." });
+        Ui.printlns(new String[] {
+            "Got it. I've added this task:",
+            this.list.get(this.list.size() - 1).toString(),
+            "Now you have " + this.list.size() + " tasks in the list."
+        });
     }
 
     /**
