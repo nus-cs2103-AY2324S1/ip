@@ -6,6 +6,6 @@ public class CommandAddTaskHandler implements ICommandHandler {
 
     @Override
     public void execute(String command, String[] parameters) throws CommandException {
-        Main.getInstance().getTaskList().addTask(new Task(command));
+        Main.getInstance().getTaskList().addTaskAndSay(new Task(command));
     }
 }

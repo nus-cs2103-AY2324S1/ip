@@ -2,6 +2,7 @@ package main;
 
 import command.*;
 import task.*;
+import util.FileUtil;
 
 import java.util.HashMap;
 import java.util.Scanner;
@@ -15,7 +16,7 @@ public class Main {
     private TaskList taskList;
 
     public Main(){
-        this.taskList = new TaskList();
+        this.taskList = FileUtil.createTaskListFromFile();
         this.commands = new HashMap<String,ICommandHandler>();
         this.commands.put("intro", new CommandIntroHandler());
         this.commands.put("list", new CommandListHandler());
