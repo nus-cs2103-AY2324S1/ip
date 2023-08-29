@@ -1,8 +1,18 @@
-import Tasks.*;
+import tasks.TaskAbstract;
+import tasks.Todo;
+import tasks.Deadline;
+import tasks.Event;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.List;
+
+import java.nio.file.Paths;
+
+import java.io.PrintWriter;
+import java.io.File;
 
 enum taskTypes {
     todo,
@@ -19,7 +29,7 @@ public class Duke {
             "  \\_____|_|  |_/_/    \\_\\_____/ \\_____|_|      |_|   \n";
     static final String horizontal = "----------------------------------------------------------------------------" +
             "-----------";
-    static List<Task> taskList = new ArrayList<Task>();
+    static List<TaskAbstract> taskList = new ArrayList<TaskAbstract>();
     static int taskCounter = 0;
     enum validCommands {
         bye,
@@ -56,7 +66,7 @@ public class Duke {
         if (command.equals("list")) {
             System.out.println("ChadGPT: Here are your tasks: ");
             int counter = 0;
-            for (Task t : taskList) {
+            for (TaskAbstract t : taskList) {
                 System.out.print("    " + ++counter + ". ");
                 t.printStatus();
             }
@@ -84,19 +94,19 @@ public class Duke {
             taskList.remove(index).printStatus();
             taskCounter--;
         } else {
-            Task newTask = createTask(nextLine, strArray);
+            TaskAbstract newTask = createTask(nextLine, strArray);
             System.out.println("ChadGPT: added task '" + newTask.toString() + "'");
             System.out.println("You now have " + taskCounter + " tasks in the list.");
             taskList.add(newTask);
         }
     }
 
-   private static Task createTask(String nextLine, String[] strArr) {
+   private static TaskAbstract createTask(String nextLine, String[] strArr) {
         String[] delimited = nextLine.split("/");
         switch(strArr[0].toLowerCase()) {
             case "todo":
                 taskCounter++;
-                return new ToDo(nextLine.substring(5));
+                return new Todo(nextLine.substring(5));
             case "deadline":
                 taskCounter++;
                 return new Deadline(delimited[0].substring(9, delimited[0].length() - 1),
@@ -191,4 +201,18 @@ public class Duke {
         }
         return true;
    }
+
+   private static void readFile() {
+        try {
+            File myFile = new File("./data/duke.txt");
+            myFile.createNewFile();
+            Scanner sc = new Scanner(myFile);
+        } catch (IOException IOExcept) {
+            System.out.println("IO Exception occured");
+        }
+
+        while ()
+
+   }
+
 }

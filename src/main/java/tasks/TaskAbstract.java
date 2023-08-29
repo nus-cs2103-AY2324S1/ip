@@ -1,6 +1,6 @@
-package Tasks;
+package tasks;
 
-public abstract class Task {
+public abstract class TaskAbstract {
     protected String description;
     protected boolean isDone;
 
@@ -9,7 +9,7 @@ public abstract class Task {
      *
      * @param description - description of task
      */
-    public Task(String description) {
+    public TaskAbstract(String description) {
         this.description = description;
         this.isDone = false;
     }

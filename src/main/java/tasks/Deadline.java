@@ -1,6 +1,6 @@
-package Tasks;
+package tasks;
 
-public class Deadline extends Task {
+public class Deadline extends TaskAbstract {
     protected String deadline;
 
     public Deadline(String description, String deadline) {

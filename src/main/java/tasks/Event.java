@@ -1,6 +1,6 @@
-package Tasks;
+package tasks;
 
-public class Event extends Task {
+public class Event extends TaskAbstract {
     protected String start;
     protected String end;
 
