@@ -2,8 +2,6 @@ package ui.inputparser;
 
 
 import exceptions.syntax.KniazInvalidArgsException;
-import exceptions.syntax.KniazInvalidCommandException;
-import exceptions.syntax.KniazSyntaxException;
 import ui.inputparser.commands.CommandFactory;
 import ui.inputparser.commands.KniazCommand;
 
@@ -36,7 +34,7 @@ public class KniazLineParser {
             // empty list
             args = new String[]{};
         }
-        return CommandFactory.parseCommand(instruct,args);
+        return CommandFactory.makeCommand(instruct,args);
     }
 
     private static String[] tokenizeLine(String line) {

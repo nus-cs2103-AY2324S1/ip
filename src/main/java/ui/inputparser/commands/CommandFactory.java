@@ -1,10 +1,7 @@
 package ui.inputparser.commands;
 
 import commandhandling.*;
-import exceptions.syntax.KniazFormatException;
 import exceptions.syntax.KniazInvalidArgsException;
-import exceptions.syntax.KniazInvalidCommandException;
-import main.KniazSession;
 import ui.inputparser.InstructionType;
 
 import java.util.EnumMap;
@@ -28,8 +25,8 @@ public abstract class CommandFactory {
                     InstructionType.INVALID, new InvalidHandler()
             ));
 
-    public static KniazCommand<? extends CommandHandler> parseCommand(InstructionType instruction,
-                                                                      String... args) throws KniazInvalidArgsException {
+    public static KniazCommand<? extends CommandHandler> makeCommand(InstructionType instruction,
+                                                                     String... args) throws KniazInvalidArgsException {
         if (instruction.numArgs != args.length) {
             throw new KniazInvalidArgsException();
         }
@@ -37,18 +34,17 @@ public abstract class CommandFactory {
         for (String arg : args) {
             Matcher argPatternMatcher = instruction.argPattern.matcher(arg);
             if (!argPatternMatcher.matches()) {
-                throw new KniazFormatException();
+                throw new KniazInvalidArgsException();
             }
         }
 
+        CommandHandler handler = INSTRUCT_TO_HANDLER.get(instruction);
+
+        return new KniazCommand<CommandHandler>(handler, args);
+
         // Guaranteed at this point command is valid
 
-        return new KniazCommand<CommandHandler>() {
-            @Override
-            public String execute(CommandHandler handler, KniazSession session, String[] args) {
-                return handler.handle(session, args);
-            }
-        };
+
 
 
 
