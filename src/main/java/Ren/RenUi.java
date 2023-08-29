@@ -59,6 +59,13 @@ public class RenUi {
         System.out.println(LINE_BREAK);
     }
 
+    public static void displayFoundTasks(TaskList tasks, String query) {
+        System.out.println(LINE_BREAK);
+        System.out.println("Here is what I found:");
+        tasks.listMatchingTasks(query);
+        System.out.println(LINE_BREAK);
+    }
+
     public static void printException(Exception e) {
         System.out.println(LINE_BREAK);
         System.out.println(e.getMessage());

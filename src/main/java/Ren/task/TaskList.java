@@ -131,5 +131,11 @@ public class TaskList {
         return String.format("%d tasks in the list\n", tasks.size());
     }
 
+    public void listMatchingTasks(String query) {
+        this.tasks.stream()
+                .filter(task -> task.queryInDescription(query))
+                .forEach(task -> System.out.printf("%d %s\n%n", this.tasks.indexOf(task) + 1, task));
+    }
+
 
 }

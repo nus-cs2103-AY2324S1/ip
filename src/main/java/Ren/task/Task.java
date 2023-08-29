@@ -39,6 +39,10 @@ public class Task {
         return this.isDone;
     }
 
+    public boolean queryInDescription(String query) {
+        return this.description.contains(query);
+    }
+
     @Override
     public String toString() {
         return String.format("[%s] %s", this.isDone ? "X" : "", this.description);
