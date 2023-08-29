@@ -313,9 +313,3 @@ public class Duke {
         nextCommand(newCommand);
     }
 }
-
-class DukeException extends Exception {
-    public DukeException(String message) {
-        super(message);
-    }
-}
