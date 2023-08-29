@@ -3,17 +3,15 @@ import java.time.format.DateTimeParseException;
 import java.time.format.DateTimeFormatter;
 
 public class Deadline extends Task{
-    private DateTimeFormatter parseFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+    private final DateTimeFormatter parseFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
     private LocalDateTime deadline;
     public Deadline(String task, String deadline) {
         super(task);
         try {
-            LocalDateTime parsedDeadline = LocalDateTime.parse(deadline, parseFormatter);
-            this.deadline = parsedDeadline;
+            this.deadline = LocalDateTime.parse(deadline, parseFormatter);
         } catch (DateTimeParseException e) {
             System.out.println("Incorrect datetime format used, defaulting to current datetime");
-            LocalDateTime parsedDeadline = LocalDateTime.now();
-            this.deadline = parsedDeadline;
+            this.deadline = LocalDateTime.now();
         }
     }
 

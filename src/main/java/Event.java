@@ -3,26 +3,22 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 public class Event extends Task{
-    private DateTimeFormatter parseFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+    private final DateTimeFormatter parseFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
     private LocalDateTime start;
     private LocalDateTime deadline;
     public Event(String task, String start, String deadline) {
         super(task);
         try {
-            LocalDateTime parsedDeadline = LocalDateTime.parse(start, parseFormatter);
-            this.start = parsedDeadline;
+            this.start = LocalDateTime.parse(start, parseFormatter);
         } catch (DateTimeParseException e) {
             System.out.println("Incorrect datetime format used for /by, defaulting to current datetime");
-            LocalDateTime parsedDeadline = LocalDateTime.now();
-            this.start = parsedDeadline;
+            this.start = LocalDateTime.now();
         }
         try {
-            LocalDateTime parsedDeadline = LocalDateTime.parse(deadline, parseFormatter);
-            this.deadline = parsedDeadline;
+            this.deadline = LocalDateTime.parse(deadline, parseFormatter);
         } catch (DateTimeParseException e) {
             System.out.println("Incorrect datetime format used for /to, defaulting to current datetime");
-            LocalDateTime parsedDeadline = LocalDateTime.now();
-            this.deadline = parsedDeadline;
+            this.deadline = LocalDateTime.now();
         }
     }
 
