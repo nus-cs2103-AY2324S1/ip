@@ -46,7 +46,7 @@ public class TaskList {
             } catch (IndexOutOfBoundsException e) {
                 throw new DukeInvalidArgumentException(
                         "Your deadline seems to be formatted wrongly. " +
-                                "Check that you're doing: \"deadline {description} /by {date}\".");
+                                "Check that you're doing: \"deadline {description} /by {yyyy-MM-dd HH:mm}\".");
             }
             break;
 
@@ -59,7 +59,7 @@ public class TaskList {
             } catch (IndexOutOfBoundsException e) {
                 throw new DukeInvalidArgumentException(
                         "Your event seems to be formatted wrongly. " +
-                                "Check that you're doing: \"event {description} /from {start} /to {end}\".");
+                                "Check that you're doing: \"event {description} /from {yyyy-MM-dd HH:mm} /to {yyyy-MM-dd HH:mm}\".");
             }
             break;
 
