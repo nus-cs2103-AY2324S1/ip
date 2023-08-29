@@ -272,7 +272,7 @@ public class Chatbot extends EventEmitter<ChatMessage> {
      * @return `true` if the command was processed, `false` otherwise.
      * @throws ChatbotException if the data field does not have numeric data as input or any command-specific error.
      */
-    public boolean processCommandAssertNumericData(ChatCommand chatCommand) throws ChatbotException {
+    private boolean processCommandAssertNumericData(ChatCommand chatCommand) throws ChatbotException {
         switch (chatCommand.getOperation()) {
         case MARK_COMPLETE:
         case UNMARK_COMPLETE:
@@ -356,7 +356,7 @@ public class Chatbot extends EventEmitter<ChatMessage> {
      * @return `true` if the command was processed, `false` otherwise.
      * @throws ChatbotException if the data field in fact has data as input or any command-specific error.
      */
-    public boolean processCommandAssertNoData(ChatCommand chatCommand) throws ChatbotException {
+    private boolean processCommandAssertNoData(ChatCommand chatCommand) throws ChatbotException {
         switch (chatCommand.getOperation()) {
         case LIST:
         case EXIT:
@@ -410,7 +410,7 @@ public class Chatbot extends EventEmitter<ChatMessage> {
      * @return `true` if the command was processed, `false` otherwise.
      * @throws ChatbotException if the data field does not have data as input or any command-specific error.
      */
-    public boolean processCommandAssertHasData(ChatCommand chatCommand) throws ChatbotException {
+    private boolean processCommandAssertHasData(ChatCommand chatCommand) throws ChatbotException {
         switch (chatCommand.getOperation()) {
         case ADD_TODO:
         case ADD_DEADLINE:
