@@ -18,8 +18,8 @@ public class Event extends Task {
 
     @Override
     public String getDescription() {
-        String formattedStart = this.start.format(DateTimeFormatter.ofPattern("yyyy-mm-dd HHmm"));
-        String formattedEnd = this.end.format(DateTimeFormatter.ofPattern("yyyy-mm-dd HHmm"));
+        String formattedStart = this.start.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
+        String formattedEnd = this.end.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
         return super.toString() + " | " + formattedStart + " | " + formattedEnd;
     }
 
