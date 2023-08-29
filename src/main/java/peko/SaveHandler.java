@@ -25,32 +25,29 @@ public class SaveHandler {
             printWriter.write("");
             printWriter.close();
         } catch (FileNotFoundException e) {
-            try {
-                File temp = new File(file.getParentFile(), "List.txt");
-                file = temp;
+            File temp = new File(file.getParentFile(), "List.txt");
+            file = temp;
 
-
-            } finally {
-                for (Task t : tasks) {
-                    if (t == null) {
-                        break;
-                    }
-                    String toStore = t.toStore() + "\n";
-
-
-                    //System.out.println("toStore: " + toStore);
-
-
-                    try {
-                        Writer temp;
-                        temp = new BufferedWriter(new FileWriter("src/main/List.txt", true));
-                        temp.append(toStore);
-                        temp.close();
-                    } catch (IOException ex) {
-                        throw new RuntimeException(ex);
-                    }
-
+        } finally {
+            for (Task t : tasks) {
+                if (t == null) {
+                    break;
                 }
+                String toStore = t.toStore() + "\n";
+
+
+                //System.out.println("toStore: " + toStore);
+
+
+                try {
+                    Writer temp;
+                    temp = new BufferedWriter(new FileWriter("src/main/List.txt", true));
+                    temp.append(toStore);
+                    temp.close();
+                } catch (IOException ex) {
+                    throw new RuntimeException(ex);
+                }
+
             }
         }
     }
