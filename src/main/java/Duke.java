@@ -23,7 +23,7 @@ public class Duke {
       ParseInfo parseInfo = parser.parse(input);
 
       // Handle empty inputs
-      if (parseInfo == ParseInfo.EMPTY) {
+      if (parseInfo.equals(ParseInfo.EMPTY)) {
         Ui.printText("Enter a command please!");
         continue;
       }
