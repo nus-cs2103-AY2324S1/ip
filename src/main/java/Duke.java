@@ -1,4 +1,7 @@
 import java.sql.SQLOutput;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Arrays;
 import java.util.Scanner;
 
@@ -214,7 +217,15 @@ public class Duke {
         if (trimmedDeadline.equals("")) {
             throw new DukeException("You forgot to indicate a specific deadline");
         }
-        ItemList.addDeadline(deadline[0], deadline[1]);
+
+        try {
+            LocalDateTime by = formatInputDate(deadline[1].trim());
+            System.out.println(by);
+            ItemList.addDeadline(deadline[0], by);
+        } catch (DateTimeParseException err) {
+            System.out.println(err);
+            System.out.println("Your date is not in the dd/mm/yy format");
+        }
     }
 
     /**
@@ -243,7 +254,18 @@ public class Duke {
         if (trimmedFrom.equals("") || trimmedTo.equals("")) {
             throw new DukeException("You forgot to indicate either/both a from and to datetime");
         }
-        ItemList.addEvent(from[0], to[0], to[1]);
+        try {
+            LocalDateTime start = formatInputDate(to[0].trim());
+            LocalDateTime end = formatInputDate(to[1].trim());
+            ItemList.addEvent(from[0], start, end);
+        } catch (DateTimeParseException err) {
+            System.out.println("Your date is not in the d/MM/yyyy HHmm format");
+        }
+    }
+
+    public LocalDateTime formatInputDate(String date) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/MM/yyyy HHmm");
+        return LocalDateTime.parse(date, formatter);
     }
 
 }

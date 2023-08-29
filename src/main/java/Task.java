@@ -1,3 +1,6 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 /**
  * Represents a single task
  */
@@ -37,5 +40,33 @@ public class Task {
 
     public void setAsUndone() {
         this.isDone = false;
+    }
+
+    public  String localDateTimeToString(LocalDateTime dateTime) {
+        String dayOfMonth = dateTime.getDayOfMonth() + getDayOfMonthSuffix(dateTime.getDayOfMonth());
+        String month = dateTime.getMonth().toString();
+        month = month.substring(0,1).toUpperCase() + month.substring(1).toLowerCase();// Capitalize the month name
+        String year = String.valueOf(dateTime.getYear());
+        String hour = dateTime.format(DateTimeFormatter.ofPattern("h"));
+        String minute = dateTime.format(DateTimeFormatter.ofPattern("mm"));
+        String amPm = dateTime.format(DateTimeFormatter.ofPattern("a"));
+
+        return String.format("%s of %s %s, %s:%s%s", dayOfMonth, month, year, hour, minute, amPm);
+    }
+
+    public String getDayOfMonthSuffix(final int n) {
+        if (n >= 11 && n <= 13) {
+            return "th";
+        }
+        switch (n % 10) {
+            case 1:
+                return "st";
+            case 2:
+                return "nd";
+            case 3:
+                return "rd";
+            default:
+                return "th";
+        }
     }
 }
