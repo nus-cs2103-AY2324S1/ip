@@ -1,5 +1,6 @@
 package duke;
 
+import duke.command.Command;
 import duke.task.*;
 import duke.util.Parser;
 import duke.util.Storage;
@@ -26,74 +27,25 @@ public class Duke {
     }
 
     public void run() {
-        Scanner scanner = new Scanner(System.in);
         String input = "";
 
         this.ui.printEntryMessage();
+        boolean isExit = false;
 
-        while (scanner.hasNextLine()) {
-            input = scanner.nextLine();
-            if (input.equals("list")) {
-                this.ui.printList(this.tasks);
-            } else if (input.startsWith("mark")) {
-                try {
-                    Task task = tasks.mark(Parser.parseUserMark(input, tasks.size()));
-                    this.ui.printMark(task);
-                } catch (TaskException e) {
-                    this.ui.printError(e);
-                }
-            } else if (input.startsWith("unmark")) {
-                try {
-                    Task task = tasks.unmark(Parser.parseUserUnmark(input, tasks.size()));
-                    this.ui.printUnmark(task);
-                } catch (TaskException e) {
-                    this.ui.printError(e);
-                }
-            } else if (input.startsWith("delete")) {
-                try {
-                    Task task = tasks.remove(Parser.parseUserDelete(input, tasks.size()));
-                    this.ui.printDelete(task, tasks.size());
-                } catch (TaskException e) {
-                    this.ui.printError(e);
-                }
-            } else if (input.startsWith("deadline")) {
-                try {
-                    Deadline deadline = Parser.parseUserDeadline(input);
-                    this.tasks.add(deadline);
-                    this.ui.printAdd(deadline, tasks.size());
-                } catch (DeadlineException e) {
-                    this.ui.printError(e);
-                }
-            } else if (input.startsWith("event")) {
-                try {
-                    Event event = Parser.parseUserEvent(input);
-                    this.tasks.add(event);
-                    this.ui.printAdd(event, tasks.size());
-                } catch (EventException e) {
-                    this.ui.printError(e);
-                }
-            } else if (input.startsWith("todo")) {
-                try {
-                    ToDo todo = Parser.parseUserToDo(input);
-                    this.tasks.add(todo);
-                    this.ui.printAdd(todo, tasks.size());
-                } catch (ToDoException e) {
-                    this.ui.printError(e);
-                }
-            } else if (input.equals("bye")) {
-                this.storage.save(this.tasks);
-                this.ui.printExitMessage();
-                break;
-            } else {
-                this.ui.printCommandNotFound();
+        while (!isExit) {
+            try {
+                String fullCommand = ui.nextCommand();
+                Command c = Parser.parse(fullCommand);
+                c.execute(tasks, ui, storage);
+                isExit = c.isExit();
+            } catch (TaskException e) {
+                ui.printError(e);
             }
-        }
-        scanner.close();
+        };
     }
 
     public static void main(String[] args) {
         new Duke("data/duke.txt").run();
-
     }
 
 }
