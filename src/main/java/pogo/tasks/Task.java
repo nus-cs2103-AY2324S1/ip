@@ -2,6 +2,8 @@ package pogo.tasks;
 
 import pogo.tasks.exceptions.PogoInvalidTaskException;
 
+import java.time.format.DateTimeFormatter;
+
 /**
  * Task is an abstract class representing some kind of task, such as a deadline or todo.
  * A basic task contains a description and can be marked as done or not done.
@@ -16,6 +18,8 @@ public abstract class Task {
      * Whether the task is done.
      */
     protected boolean isDone;
+
+    public static DateTimeFormatter DATETIME_FORMAT = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
 
     /**
      * Constructor for a Task.

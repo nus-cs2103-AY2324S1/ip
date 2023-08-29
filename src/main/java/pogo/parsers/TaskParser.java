@@ -5,6 +5,7 @@ import pogo.common.Messages;
 import pogo.tasks.TaskType;
 import pogo.tasks.exceptions.PogoInvalidTaskException;
 
+import java.time.format.DateTimeParseException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -46,7 +47,11 @@ public class TaskParser {
             return ic;
         }
         String by = matcher.group("by");
-        return new AddDeadlineCommand(description, by);
+        try {
+            return new AddDeadlineCommand(description, DateTimeParser.parse(by));
+        } catch (DateTimeParseException e) {
+            return new InvalidCommand(e.getMessage());
+        }
     }
 
     /**
@@ -102,7 +107,11 @@ public class TaskParser {
 
         String from = matcher.group("from");
         String to = matcher.group("to");
-        return new AddEventCommand(description, from, to);
+        try {
+            return new AddEventCommand(description, DateTimeParser.parse(from), DateTimeParser.parse(to));
+        } catch (DateTimeParseException e) {
+            return new InvalidCommand(e.getMessage());
+        }
     }
 
     /**
