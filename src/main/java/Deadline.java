@@ -1,13 +1,14 @@
 import com.fasterxml.jackson.annotation.JsonTypeName;
+import java.time.LocalDate;
 
 @JsonTypeName("Deadline")
 public class Deadline extends Task {
 
   public static final String taskType = "D";
 
-  private String deadDate;
+  private LocalDate deadDate;
 
-  Deadline(String desc, String deaddate) {
+  Deadline(String desc, LocalDate deaddate) {
     super(desc);
     this.deadDate = deaddate;
   }
@@ -17,7 +18,7 @@ public class Deadline extends Task {
   }
 
   public String getDeadDate() {
-    return this.deadDate;
+    return this.deadDate.toString();
   }
 
 }
