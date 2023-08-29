@@ -8,4 +8,10 @@ public class Todo extends Task{
     public String toString() {
         return "[T]" + "[" + this.getStatusIcon() + "] " + super.description;
     }
+
+    @Override
+    public String stringInFile() {
+        int status = super.isDone ? 1 : 0;
+        return "T | " + status + " | " + this.description;
+    }
 }

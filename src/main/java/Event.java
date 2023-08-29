@@ -14,4 +14,10 @@ public class Event extends Task{
         String second = "(from: " + this.from + " to: " + this.to + ")";
         return first + second;
     }
+
+    @Override
+    public String stringInFile() {
+        int status = super.isDone ? 1 : 0;
+        return "E | " + status + " | " + this.description + "| " + this.from + "| " + this.to;
+    }
 }
