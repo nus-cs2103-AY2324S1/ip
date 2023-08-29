@@ -31,11 +31,11 @@ todo <description> – Add a todo task
 deadline <description> /by <deadline_description/datetime>
 event <description> /from <start_description/datetime> /to <start_description/datetime>
 list – List out all your tasks
-unmark <taskNo> – unmark task based on no. on the list
-mark <taskNo> – check off task based on no. on the list
-delete <taskNo> – delete task based on no. on the list
-whatsgoingon <date> – see what deadlines/events are ongoing for given date
-help – access this help menu
+unmark <taskNo> – Unmark task based on no. on the list
+mark <taskNo> – Check off task based on no. on the list
+delete <taskNo> – Delete task based on no. on the list
+whatsgoingon <date> – See what deadlines/events are ongoing for given date
+find <query> - List out all tasks that fit <query>help – access this help menu
 bye – close Dot
 ________________________________________________________________________________
 
@@ -168,6 +168,13 @@ ________________________________________________________________________________
 4.[D][X] cs2100 quiz (by: Aug 28 2023 11PM)
 5.[E][ ] career fair (from: Aug 29 2023 9AM to: Aug 30 2023 6PM)
 6.[E][ ] long (from: Jan 01 1999 12AM to: Feb 02 2222 12AM)
+________________________________________________________________________________
+
+________________________________________________________________________________
+Here are the matching tasks in your list:
+1.[T][ ] cs2103t lab
+2.[D][ ] cs2103t quiz (by: Monday 2359)
+3.[D][X] cs2100 quiz (by: Aug 28 2023 11PM)
 ________________________________________________________________________________
 
 ________________________________________________________________________________

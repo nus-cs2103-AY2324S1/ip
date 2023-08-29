@@ -23,4 +23,5 @@ whastgoingon 27/8/2023
 whatsgoingon 27/8/2023
 delete 6
 list
+find cs210
 bye
