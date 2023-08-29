@@ -18,7 +18,7 @@ public class ListCommand extends Command {
             }
             System.out.println(Ui.divider + "\n");
         } catch (InvalidTaskIndexException ex) {
-            System.out.println(ex);
+            System.out.println("Something went wrong.");
         }
     }
 }

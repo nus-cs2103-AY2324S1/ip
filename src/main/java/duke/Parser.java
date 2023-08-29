@@ -19,6 +19,7 @@ public class Parser {
         UNMARK,
         LIST,
         DELETE,
+        FIND,
         TODO,
         DEADLINE,
         EVENT;
@@ -81,6 +82,8 @@ public class Parser {
                 return new ListCommand();
             case DELETE:
                 return new DeleteCommand(Integer.parseInt(cmdDesc));
+            case FIND:
+                return new FindCommand(cmdDesc);
             case TODO:
                 return new TaskCommand(ToDo.create(cmdDesc));
             case DEADLINE:
