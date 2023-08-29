@@ -1,22 +1,35 @@
 package parser;
 
-import commands.*;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import commands.ByeCommand;
+import commands.Command;
+import commands.DeadlineCommand;
+import commands.DeleteCommand;
+import commands.EventCommand;
+import commands.HelpCommand;
+import commands.ListCommand;
+import commands.MarkCommand;
+import commands.TodoCommand;
+import commands.UnmarkCommand;
+import commands.WhatsgoingonCommand;
 import errors.DotException;
 import errors.TaskError;
 import tasks.TaskList;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
-
+/**
+ * This is the parser for Dot, which converts String inputs into
+ * formatted strings, or other desired objects.
+ */
 public class Parser {
     /**
      * Parses a dateInput in the format dd/MM/yyyy into a LocalDateTime
      * We will standardise hhmmss as 000000. It is important to run
-     * a Validation function on the input before using a Parser fn,
+     * a Validation function on the input before using a Parser fn.
      *
-     * @param dateInput in the format dd/MM/yyyy into a LocalDateTime
-     * @return corresponding LocalDateTime object
+     * @param dateInput in the format dd/MM/yyyy into a LocalDateTime.
+     * @return corresponding LocalDateTime object.
      */
     public static LocalDateTime parseDateInputIntoDateTime(String dateInput) {
         String[] dayMonthYear = dateInput.split("/");
@@ -25,12 +38,12 @@ public class Parser {
     }
 
     /**
-     * Parses from MMM dd yyyy HHmm to yyyy-MM-dd HHmm
+     * Parses from MMM dd yyyy HHmm to yyyy-MM-dd HHmm.
      * Reference: <a href="https://docs.oracle.com/en/java/javase/11/
-     * docs/api/java.base/java/time/format/DateTimeFormatter.html">...</a>
+     * docs/api/java.base/java/time/format/DateTimeFormatter.html">...</a>.
      *
-     * @param displayDateTime of format MMM dd yyyy ha
-     * @return String in format yyyy-MM-dd HHmm i.e. user input
+     * @param displayDateTime of format MMM dd yyyy ha.
+     * @return String in format yyyy-MM-dd HHmm i.e. user input.
      */
     public static String parseDisplayDatetimeToStorageDatetime(String displayDateTime) {
         try {
@@ -45,6 +58,15 @@ public class Parser {
 
     }
 
+    /**
+     * Parses the user's input into the appropriate command.
+     * Heavily utilises the sister class Validation.
+     *
+     * @param input       This is the user input.
+     * @param dotTaskList This is the TaskList which encapsulates the Task and operations.
+     * @return The appropriate Command.
+     * @throws DotException On detected error.
+     */
     public static Command parseInputToCommand(String input,
                                               TaskList dotTaskList) throws DotException {
         if (input.strip().equals("bye")) {

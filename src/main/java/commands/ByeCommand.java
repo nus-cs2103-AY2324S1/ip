@@ -1,11 +1,19 @@
 package commands;
 
+/**
+ * Command to display the goodbye message.
+ */
 public class ByeCommand extends Command {
-    public ByeCommand() { }
+    /**
+     * Constructor for the ByeCommand which does nothing.
+     */
+    public ByeCommand() {
+    }
+
     @Override
     public boolean isTerminateCommand() {
         return true;
-    };
+    }
 
 
 }

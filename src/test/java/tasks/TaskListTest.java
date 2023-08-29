@@ -3,13 +3,12 @@ package tasks;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
-
-import errors.DotException;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+import errors.DotException;
 import storage.Storage;
 
-public class TaskListTest  {
+public class TaskListTest {
     @Test
     public void getDisplayForTasksFallingOnDate_boundaryAndNormalDates_success() {
         try {
@@ -21,11 +20,11 @@ public class TaskListTest  {
             Deadline deadline2 = new Deadline("Test Deadline 2", "01/06/2021 2359");
             Deadline deadline3 = new Deadline("Test Deadline 3", "timeDescription");
 
-            Task[] tasks = new Task[] { testEvent1, testEvent2, testEvent3,
-                deadline1, deadline2, deadline3 };
+            Task[] tasks = new Task[] {testEvent1, testEvent2, testEvent3,
+                    deadline1, deadline2, deadline3};
             Storage storage = new Storage("./data/junit-test-data.txt");
             TaskList testTaskList = TaskList.taskListFromArrayList(100,
-                new ArrayList<>(Arrays.asList(tasks)), storage);
+                    new ArrayList<>(Arrays.asList(tasks)), storage);
 
             testTaskList.saveTaskListToStorage();
 

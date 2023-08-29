@@ -5,11 +5,20 @@ import storage.Storage;
 import tasks.TaskList;
 import ui.Ui;
 
+/**
+ * The Dot class, which integrates the high-level components together,
+ * to form a robust, helpful and cheerful to-do list chatbot.
+ */
 public class Dot {
     private TaskList dotTaskList;
     private final Ui userInterface;
     private final Storage storage;
 
+    /**
+     * Constructor for Dot.
+     *
+     * @param maxSize The maximum number of tasks Dot can handle
+     */
     public Dot(int maxSize) {
         String storageLocation = "./data/dot.txt";
         this.storage = new Storage(storageLocation);
@@ -26,6 +35,10 @@ public class Dot {
     // Inspired by tutorial sheet
     // The organisation was adapted, thus a similar looking run()
     // However, the deeper implementation were not adapted
+
+    /**
+     * This method starts the execution of Dot functionalities.
+     */
     public void run() {
         Ui.welcome();
 
@@ -44,6 +57,7 @@ public class Dot {
         }
         Ui.goodbye();
     }
+
     public static void main(String[] args) {
         Dot dotInstance;
         // DEPRECATED: If args[0] == "test", we enter Dot into testing mode
