@@ -1,3 +1,5 @@
+package duke;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -73,7 +75,7 @@ public class Parser {
             throw new DukeException("The second argument must be a digit");
         }
         if (Integer.parseInt(splitted[1]) > ItemList.getSize() || Integer.parseInt(splitted[1]) < 1) {
-            throw new DukeException("Task number lies beyond the range of the current task list");
+            throw new DukeException("duke.Task number lies beyond the range of the current task list");
         }
         int taskNum = Integer.parseInt(splitted[1]);
         ItemList.setTaskAsDone(taskNum);
@@ -98,7 +100,7 @@ public class Parser {
             throw new DukeException("The second argument must be a digit");
         }
         if (Integer.parseInt(splitted[1]) > ItemList.getSize() || Integer.parseInt(splitted[1]) < 1) {
-            throw new DukeException("Task number lies beyond the range of the current task list");
+            throw new DukeException("duke.Task number lies beyond the range of the current task list");
         }
         int taskNum = Integer.parseInt(splitted[1]);
         ItemList.setTaskAsUndone(taskNum);
@@ -127,7 +129,7 @@ public class Parser {
         }
 
         if (Integer.parseInt(splitted[1]) > ItemList.getSize() || Integer.parseInt(splitted[1]) < 1) {
-            throw new DukeException("Task number lies beyond the range of the current task list");
+            throw new DukeException("duke.Task number lies beyond the range of the current task list");
         }
 
         int taskNum = Integer.parseInt(splitted[1]);
