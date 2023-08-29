@@ -16,6 +16,8 @@ public class RenParser {
         String[] commandArr = inputStr.split(" ");
         if (commandArr[0].equals(Commands.LS_COMMAND.getValue())) {
             RenUi.listTasks(tasks);
+        } else if (commandArr[0].equals(Commands.FIND_COMMAND.getValue())) {
+            RenUi.displayFoundTasks(tasks, commandArr[1]);
         } else if (commandArr[0].equals(Commands.DELETE_COMMAND.getValue())) {
             try {
                 Task task = tasks.deleteTask(commandArr);
