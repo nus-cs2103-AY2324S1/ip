@@ -57,6 +57,12 @@ public class Task {
         return (new UnmarkCommand(indexMap)).toString();
     }
 
+    /**
+     * Returns whether a key is related to the task description.
+     * 
+     * @param key The key to search for.
+     * @return Whether the key is a substring of the task description.
+     */
     public boolean isRelated(String key) {
         return this.description.contains(key);
     }

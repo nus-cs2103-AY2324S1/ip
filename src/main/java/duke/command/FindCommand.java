@@ -12,8 +12,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Command to find all relevant tasks.
+ */
 public class FindCommand extends Command {
 
+    /**
+     * Constructor for ListCommand.
+     * 
+     * @param args The arguments entered by the user.
+     */
     public FindCommand(Map<String, Object> args) {
         super("find", args);
     }
