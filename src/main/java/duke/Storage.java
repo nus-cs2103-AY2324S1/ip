@@ -1,3 +1,10 @@
+package duke;
+
+import task.Deadline;
+import task.Event;
+import task.Task;
+import task.Todo;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -27,7 +34,7 @@ public class Storage {
             StringBuilder result = new StringBuilder();
             for (Task task : tasks) {
                 String str = String.format("%s | %s | %s\n", task.getType(),
-                        task.isDone ? 1 : 0, task.getDetails());
+                        task.isDone() ? 1 : 0, task.getDetails());
                 result.append(str);
             }
             FileWriter fw = new FileWriter(this.filePath);
@@ -72,7 +79,7 @@ public class Storage {
                                 " please ensure data is in correct format");
                 }
                 if (isDone) {
-                    task.isDone = true;
+                    task.setDone(true);
                 }
                 tasks.add(task);
             }

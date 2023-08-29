@@ -1,3 +1,10 @@
+package command;
+
+import duke.Storage;
+import duke.Ui;
+import task.TaskList;
+import task.Todo;
+
 public class TodoCommand extends Command {
     protected String description;
     public static final String COMMAND_WORD = "todo";
@@ -11,7 +18,7 @@ public class TodoCommand extends Command {
         Todo todo = new Todo(this.description);
         tasks.addTask(todo);
         storage.writeToFile(tasks.getList());
-        ui.showMessage(MESSAGE_SUCCESS + "     " + todo.toString()
+        ui.showMessage(MESSAGE_SUCCESS + "     " + todo
                 + "\n Now you have " + tasks.getSize() + " tasks in the list");
     }
 }
