@@ -5,7 +5,7 @@ import duke.task.TaskList;
 import duke.helper.Ui;
 import duke.helper.Storage;
 
-public class MarkCommand extends Command{
+public class MarkCommand extends Command {
     int tasknum;
     public MarkCommand(int tasknum) {
         this.tasknum = tasknum;

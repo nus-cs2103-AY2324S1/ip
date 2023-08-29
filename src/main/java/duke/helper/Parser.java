@@ -8,7 +8,7 @@ public class Parser {
     public Parser() {
         this.scan = new Scanner(System.in);
     }
-    public static Command parse(String command) throws DukeException{
+    public static Command parse(String command) throws DukeException {
             try {
                 Parser.getCommand(command);
                 if (command.equals("bye")) {
@@ -42,18 +42,15 @@ public class Parser {
             } catch (DukeException e) {
                 throw e;
             }
-
-
         return null;
     }
 
-    static boolean getCommand(String command) throws DukeException{
+    static boolean getCommand(String command) throws DukeException {
         String firstword = command.split(" ")[0];
         String[] commands = {"bye","list", "unmark","mark", "todo", "deadline", "event", "delete"};
         for (String c: commands) {
             if(c.equals(firstword)) return true;
         }
         throw new DukeException(" Invalid keyword! ");
-
     }
 }

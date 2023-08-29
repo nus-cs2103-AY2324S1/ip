@@ -3,11 +3,9 @@ import duke.task.*;
 import duke.helper.*;
 import java.io.IOException;
 
-public class AddCommand extends Command{
+public class AddCommand extends Command {
 
     Task task;
-
-
 
     public AddCommand(String command) throws DukeException {
         try {
@@ -31,6 +29,5 @@ public class AddCommand extends Command{
         } catch (IOException e) {
             throw new DukeException(" umable to locate local file!");
         }
-
     }
 }

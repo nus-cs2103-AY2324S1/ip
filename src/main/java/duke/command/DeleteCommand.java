@@ -2,8 +2,7 @@ package duke.command;
 import java.io.IOException;
 import duke.task.*;
 import duke.helper.*;
-public class DeleteCommand extends Command{
-
+public class DeleteCommand extends Command {
     int tasknum;
     public DeleteCommand(int tasknum) {
         this.tasknum = tasknum;

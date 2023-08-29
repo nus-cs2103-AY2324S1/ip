@@ -8,7 +8,6 @@ public class Ui {
     public Ui() {
         this.lines = "______________________________";
         this.scan = new Scanner(System.in);
-
     }
     public void showLoadingError() {
         System.out.println("Error! Initialising new storage");
