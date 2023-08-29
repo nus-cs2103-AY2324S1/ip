@@ -2,13 +2,13 @@ import java.time.LocalDate;
 import java.util.regex.Pattern;
 
 public class Parser {
-    static TaskList taskList;
+    TaskList taskList;
     private static final Pattern DATE_PATTERN_DASH = Pattern.compile("^\\d{4}-\\d{2}-\\d{2}$");
     private static final Pattern DATE_PATTERN_SLASH = Pattern.compile("^\\d{1,2}/\\d{1,2}/\\d{4} .*\\d{4}$");
     public Parser(TaskList taskList) {
         this.taskList = taskList;
     }
-    public static void createTask(String promptText) throws DukeException {
+    public void createTask(String promptText) throws DukeException {
         if (promptText.startsWith("todo")) {
             try {
                 Task todo = new Todo(promptText.substring(5));
@@ -84,7 +84,7 @@ public class Parser {
         }
     }
 
-    public static void markTask(String promptText) throws DukeException {
+    public void markTask(String promptText) throws DukeException {
         try {
             int i = Integer.parseInt(promptText.substring(promptText.length() - 1));
             Task t = taskList.get(i-1);

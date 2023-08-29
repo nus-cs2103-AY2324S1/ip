@@ -10,6 +10,7 @@ public class Ui {
     }
 
     public static void echo(TaskList tasks) throws DukeException {
+        Parser parser = new Parser(tasks);
         String promptText = prompt.nextLine();
         if (promptText.equals("bye")) {
             exit();
@@ -21,10 +22,10 @@ public class Ui {
             list(tasks);
         }
         else if (promptText.startsWith("todo") || promptText.startsWith("deadline") || promptText.startsWith("event")) {
-            Parser.createTask(promptText);
+            parser.createTask(promptText);
         }
         else if (promptText.startsWith("mark") || promptText.startsWith("unmark")){
-            Parser.markTask(promptText);
+            parser.markTask(promptText);
         }
         else if (promptText.startsWith("delete")) {
             deleteTask(tasks,Integer.valueOf(promptText.substring(7)) - 1);
