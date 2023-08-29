@@ -67,6 +67,6 @@ abstract public class Task {
     }
 
     public boolean contains(String name) {
-        return this.action.contains(name);
+        return this.description.contains(name);
     }
 }
