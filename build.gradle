@@ -1,7 +1,7 @@
 plugins {
     id 'java'
     id 'application'
-    id 'com.github.johnrengelman.shadow' version '7.1.2'
+    id 'checkstyle'
 }
 
 repositories {
@@ -28,13 +28,7 @@ test {
 }
 
 application {
-    mainClass.set("seedu.duke.Duke")
-}
-
-shadowJar {
-    archiveBaseName = "duke"
-    archiveClassifier = null
-    dependsOn("distZip", "distTar")
+    mainClass.set("dook.Dook")
 }
 
 run{
