@@ -52,7 +52,7 @@ public class TaskList {
                 newTask = createEvent(args);
                 break;
             default:
-                throw new DukeException("I can't create this duke.task type!");
+                throw new DukeException("I can't create this task type!");
             }
 
             this.tasks.add(newTask);
@@ -72,7 +72,7 @@ public class TaskList {
      */
     public Todo createTodo(String args) throws DukeException {
         if (args == null || args.isEmpty()) {
-            throw new DukeException("duke.task.Todo tasks should be created in this format: todo [name]");
+            throw new DukeException("Todo tasks should be created in this format: todo [name]");
         }
         return new Todo(args);
     }
@@ -89,7 +89,7 @@ public class TaskList {
         try {
             String[] detailsAndDeadline = args.split("/by", 2);
             if (detailsAndDeadline.length != 2) {
-                throw new DukeException("duke.task.Deadline tasks should be created in this format: deadline [name] /by [date]");
+                throw new DukeException("Deadline tasks should be created in this format: deadline [name] /by [date]");
             }
             String details = detailsAndDeadline[0].trim();
             String endDateTime = detailsAndDeadline[1].trim();
@@ -111,7 +111,7 @@ public class TaskList {
         DateTimeFormatter dateTimeFormat = DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm");
 
         try {
-            String eventMsg = "duke.task.Event tasks should be created in this format: event [name] /from [start time] /to [end time]";
+            String eventMsg = "Event tasks should be created in this format: event [name] /from [start time] /to [end time]";
             String[] detailsAndStartEnd = args.split("/from", 2);
             if (detailsAndStartEnd.length != 2) {
                 throw new DukeException(eventMsg);
@@ -150,7 +150,7 @@ public class TaskList {
             if (taskNumber <= 0) {
                 throw new DukeException("Number must be more 1 or more!");
             } else if (this.exceedsSizeOfTaskList(taskNumber)) {
-                throw new DukeException("Number is higher than current size of duke.task list!");
+                throw new DukeException("Number is higher than current size of task list!");
             }
 
             deletedTask = this.tasks.remove(taskNumber - 1);
@@ -158,7 +158,7 @@ public class TaskList {
 
             return deletedTask;
         } catch (NumberFormatException e) {
-            throw new DukeException("Deleting duke.task should be in this format: delete [duke.task number]");
+            throw new DukeException("Deleting task should be in this format: delete [task number]");
         }
     }
 
@@ -179,7 +179,7 @@ public class TaskList {
             if (taskNumber <= 0) {
                 throw new DukeException("Number must be more 1 or more!");
             } else if (this.exceedsSizeOfTaskList(taskNumber)) {
-                throw new DukeException("Number is higher than current size of duke.task list!");
+                throw new DukeException("Number is higher than current size of task list!");
             }
 
             Task taskToChange = this.tasks.get(taskNumber - 1);
@@ -191,7 +191,7 @@ public class TaskList {
             }
             return taskToChange;
         } catch (NumberFormatException e) {
-            throw new DukeException("Marking/unmarking tasks should be in this format: mark/unmark [duke.task number]");
+            throw new DukeException("Marking/unmarking tasks should be in this format: mark/unmark [task number]");
         } catch (DukeException e) {
             throw new DukeException(e.getMessage());
         }
@@ -202,7 +202,7 @@ public class TaskList {
      */
     public void displayTaskList() {
         if (this.numTasks == 0 || this.numTasks == 1) {
-            System.out.println("Here is the duke.task in your list:");
+            System.out.println("Here is the task in your list:");
         } else {
             System.out.println("Here are the tasks in your list:");
         }
