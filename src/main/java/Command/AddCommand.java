@@ -1,4 +1,11 @@
+package Command;
+
 import java.time.LocalDate;
+
+import Exception.*;
+import Helper.*;
+import Task.*;
+
 
 public class AddCommand extends Command {
     public static final String COMMAND_WORD = "add";

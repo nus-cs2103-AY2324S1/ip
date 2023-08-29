@@ -1,3 +1,5 @@
+package Helper;
+
 import java.util.Scanner;
 
 public class Ui {

@@ -1,3 +1,5 @@
 T | 1 | read book
-T | 0 | chores
-D | 1 | return book | 2023-08-29
+T | 1 | chores
+D | 0 | return book | 2023-08-29
+T | 0 | write
+D | 0 | todo | 2023-08-30

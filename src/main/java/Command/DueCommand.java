@@ -1,4 +1,10 @@
+package Command;
+
 import java.time.LocalDate;
+
+import Exception.*;
+import Helper.*;
+import Task.*;
 
 public class DueCommand extends Command {
     public static final String COMMAND_WORD = "due";
