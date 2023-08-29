@@ -9,3 +9,7 @@ D | 0 | ehqwoeqw | 2020-02-01 01:00
 T | 0 | hii
 E | 0 | go to conver | 2019-02-01 16:00 | 2019-02-01 20:00
 E | 0 | go to concert | 2019-02-01 16:00 | 2019-02-01 20:00
+T | 0 | read
+T | 0 | go to read that shit
+T | 0 | read tmr
+E | 0 | read that | 2019-02-01 12:00 | 2019-03-03 13:00

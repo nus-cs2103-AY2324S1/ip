@@ -48,7 +48,23 @@ public class Ui {
         if (taskList.isEmpty()) {
             System.out.println("You have no tasks.\n");
         } else {
-            System.out.println(taskList.size() + " task: ");
+            System.out.println(taskList.size() + " tasks: ");
+            for (int i = 0; i < taskList.size(); i++) {
+                Task task = taskList.get(i);
+                System.out.println((i + 1) + ". " + task);
+            }
+        }
+    }
+
+    /**
+     * prints Tasks with keyword
+     * @param taskList task list to print
+     */
+    public void printTasksWithKeyword(List<Task> taskList) {
+        if (taskList.isEmpty()) {
+            System.out.println("No task with matching keyword.\n");
+        } else {
+            System.out.println(taskList.size() + " tasks: ");
             for (int i = 0; i < taskList.size(); i++) {
                 Task task = taskList.get(i);
                 System.out.println((i + 1) + ". " + task);

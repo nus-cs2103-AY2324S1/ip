@@ -135,4 +135,21 @@ public class TaskList {
         }
         ui.printTasksOnDate(tasksOnDate);
     }
+
+    /**
+     * returns all tasks with keyword
+     *
+     * @param keyword keyword to check
+     * @param taskList tasklist to operate on
+     */
+    public void findTasks(String keyword, TaskList taskList) {
+        List<Task> tasksWithKeyword = new ArrayList<>();
+        for (Task task : taskList.returnTaskList()) {
+            String description = task.getDescription();
+            if (description.toLowerCase().contains(keyword.toLowerCase())) {
+                tasksWithKeyword.add(task);
+            }
+        }
+        ui.printTasksOnDate(tasksWithKeyword);
+    }
 }

@@ -35,7 +35,7 @@ public class Parser {
      * ENUMS
      */
     public enum Operation {
-        BYE, LIST, MARK, UNMARK, DELETE, TODO, DEADLINE, EVENT, CHECKDATE
+        BYE, LIST, MARK, UNMARK, DELETE, TODO, DEADLINE, EVENT, CHECKDATE, FIND
     }
 
     /**
@@ -79,6 +79,9 @@ public class Parser {
                 break;
             case CHECKDATE:
                 checkDate(userInput, taskList);
+                break;
+            case FIND:
+                find(userInput, taskList);
                 break;
             default:
                 throw new InvalidCommandException();
@@ -219,6 +222,18 @@ public class Parser {
         } catch (DateTimeParseException e) {
             System.out.println("Error: Invalid date format. Please use the format yyyy-MM-dd");
         }
+    }
+
+    /**
+     * Returns Tasks based on a specific user input keyword
+     *
+     * @param userInput user input
+     * @param taskList TaskList to operate on
+     * @throws EmptyDescriptionException exception
+     */
+    public void find(String userInput, TaskList taskList) throws EmptyDescriptionException {
+        String keyword = extractNoKeywordsDetails(userInput);
+        taskList.findTasks(keyword, taskList);
     }
 
     /**
