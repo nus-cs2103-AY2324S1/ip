@@ -24,7 +24,7 @@ public class TaskList {
             throw new DuckyInvalidTaskIndexException(index + 1, this.tasks.size());
         }
         Task toUnmark = this.tasks.get(index);
-        toUnmark.complete();
+        toUnmark.incomplete();
         return toUnmark;
     }
 
