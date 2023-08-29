@@ -4,6 +4,7 @@ todo do cs2103
 todo
 list
 deadline return book /by Sunday
+deadline return book /by 2023-08-29
 event project meeting /from Mon 2pm /to 4pm
 deadline
 mark 2

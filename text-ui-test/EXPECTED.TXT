@@ -11,8 +11,9 @@ OOPS!!! The description of a todo cannot be empty.
 Here are the tasks in your list:
 1.[T][ ] todo1
 2.[T][ ] do cs2103
+OOPS!!! Please provide date with the following format: YYYY-MM-DD
 Got it. I've added this task:
-  [D][ ] return book (by: Sunday)
+  [D][ ] return book (by: 29 Aug 2023)
 Now you have 3 tasks in the list.
 Got it. I've added this task:
   [E][ ] project meeting (from: Mon 2pm to: 4pm)
@@ -29,7 +30,7 @@ OK, I've marked this task as not done yet:
 OOPS!!! Invalid task index
 OOPS!!! Invalid task index
 Noted. I've removed this task:
-  [D][ ] return book (by: Sunday)
+  [D][ ] return book (by: 29 Aug 2023)
 Now you have 3 tasks in the list.
 Here are the tasks in your list:
 1.[T][ ] todo1
