@@ -1,3 +1,5 @@
+import org.w3c.dom.xpath.XPathResult;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -7,12 +9,14 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Storage {
+    Parser parser;
     String filePath;
     File textFile;
 
-    public Storage() {
-        this.filePath = "tasks.txt";
+    public Storage(String filePath) {
+        this.filePath = filePath;
         this.textFile = new File(filePath);
+        parser = new Parser();
     }
 
     public void saveTasks(ArrayList<Task> tasks) throws IOException {
@@ -29,7 +33,7 @@ public class Storage {
         ArrayList<Task> taskList = new ArrayList<>();
         while (s.hasNext()) {
             String taskContent = s.nextLine();
-            String[] input = taskContent.split(" \\| ");
+            String[] input = parser.splitInputFromFile(taskContent);
             String category = input[0];
             String marked = input[1];
             String description = input[2];
