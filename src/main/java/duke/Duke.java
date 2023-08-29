@@ -1,13 +1,8 @@
-import java.sql.SQLOutput;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
-import java.util.Arrays;
-import java.util.Scanner;
+package duke;
 
 
 /**
- * Duke class serves as the chatbot
+ * duke.Duke class serves as the chatbot
  */
 public class Duke {
 
