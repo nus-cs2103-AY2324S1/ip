@@ -1,4 +1,4 @@
-package Chatbot.alain;
+package chatbot.alain;
 
 /**
  * Represents a task with a name and completion status.

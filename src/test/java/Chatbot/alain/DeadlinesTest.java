@@ -1,7 +1,10 @@
-package Chatbot.alain;
+package chatbot.alain;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
+
+
 public class DeadlinesTest {
     @Test
     public void testToString() {

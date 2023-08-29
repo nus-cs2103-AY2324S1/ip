@@ -1,4 +1,4 @@
-package Chatbot.alain;
+package chatbot.alain;
 
 import java.util.ArrayList;
 

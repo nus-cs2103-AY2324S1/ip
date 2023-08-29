@@ -1,4 +1,4 @@
-package Chatbot.alain;
+package chatbot.alain;
 
 /**
  * Represents a task of type "To-Do" without a specific deadline or time.

@@ -1,4 +1,4 @@
-package Chatbot.alain;
+package chatbot.alain;
 
 /**
  * Custom exception class for handling specific exceptions in the Alain chatbot.

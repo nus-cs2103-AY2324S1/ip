@@ -1,9 +1,14 @@
-package Chatbot.alain;
+package chatbot.alain;
 
 /**
  * User interface class for displaying messages and interactions with the Alain chatbot.
  */
 public class Ui {
+    private String logo = "    _     __         _     _____   ___   __\n"
+            + "   / \\   | |        / \\   |_   _| | |\\\\  | |\n"
+            + "  / _ \\  | |       / _ \\    | |   | | \\\\ | |\n"
+            + " / /_\\_\\ | |____  / /_\\_\\  _| |_  | |  \\\\| |\n"
+            + "/_/   \\_\\|______|/ /   \\_\\|_____| |_|   \\__| \n";
 
     /**
      * Displays a line separator.
@@ -17,6 +22,7 @@ public class Ui {
      */
     public void showWelcome() {
         this.showlines();
+        System.out.print(logo + "\n");
         System.out.print("Hello! I'm Alain\nWhat can I do for you?\n");
         this.showlines();
     }

@@ -1,6 +1,11 @@
-package Chatbot.alain;
+package chatbot.alain;
 
-import java.io.*;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -48,10 +53,10 @@ public class Storage {
         if (!listFile.exists()) {
             listFile.createNewFile();
         }
-        FileWriter writer = new FileWriter(listFile);
+        FileWriter writer = new FileWriter(listFile, false);
         String filecontent = "";
         if (except) {
-            filecontent +="Oops! Seems like there is an exception detected in your input\n";
+            filecontent += "Oops! Seems like there is an exception detected in your input\n";
             filecontent += msg + "\n";
         } else {
             filecontent += "____________________________________________________________\n"
@@ -73,13 +78,13 @@ public class Storage {
      * @throws AlainException If an exception occurs during the transformation.
      */
     public static String stringToTimeString(String inputTime) throws AlainException {
-        if (Pattern.matches("\\d+-\\d+-\\d+",inputTime)) {
+        if (Pattern.matches("\\d+-\\d+-\\d+", inputTime)) {
             DateTimeFormatter inputPattern = DateTimeFormatter.ofPattern("yyyy-MM-dd");
             LocalDate date = LocalDate.from(LocalDate.parse(inputTime, inputPattern));
             DateTimeFormatter outputPattern = DateTimeFormatter.ofPattern("MMMM dd yyyy", Locale.ENGLISH);
             String transformedTime = date.format(outputPattern);
             return transformedTime.toString();
-        } else if (Pattern.matches("\\d+-\\d+-\\d+ .+",inputTime)) {
+        } else if (Pattern.matches("\\d+-\\d+-\\d+ .+", inputTime)) {
             String[] dateAndTime = inputTime.split(" ");
             String addMsg = "";
             for (int i = 1; i < dateAndTime.length; i++) {
@@ -104,7 +109,7 @@ public class Storage {
      * @return The task list loaded from the file.
      * @throws IOException If an I/O error occurs.
      */
-    public TaskList loadTasksFromFile() throws IOException {
+    public TaskList loadTasksFromFile() throws IOException, AlainException {
         ui.showWelcome();
         ArrayList<Task> tasks = new ArrayList<>();
         TaskList list = new TaskList(tasks);
@@ -146,7 +151,7 @@ public class Storage {
                         throw new AlainException("The description of a Todo cannot be empty.");
                     }
                     list.addTask(new ToDos(mission));
-                    ui.showAddTask(list.getTask(list.size() - 1),list);
+                    ui.showAddTask(list.getTask(list.size() - 1), list);
                     continue;
                 }
                 if (isDeadline) {
@@ -159,7 +164,7 @@ public class Storage {
                         throw new AlainException("The description of a Deadline is invalid");
                     }
                     list.addTask(new Deadlines(parts[0], stringToTimeString(parts[1])));
-                    ui.showAddTask(list.getTask(list.size() - 1),list);
+                    ui.showAddTask(list.getTask(list.size() - 1), list);
                     continue;
                 }
                 if (isEvent) {
@@ -171,14 +176,16 @@ public class Storage {
                     if (parts.length != 3) {
                         throw new AlainException("The description of a Event is invalid");
                     }
-                    list.addTask(new Events(parts[0], stringToTimeString(parts[1].substring(5)), stringToTimeString(parts[2].substring(3))));
-                    ui.showAddTask(list.getTask(list.size() - 1),list);
+                    list.addTask(new Events(parts[0], stringToTimeString(parts[1].substring(5)),
+                            stringToTimeString(parts[2].substring(3))));
+                    ui.showAddTask(list.getTask(list.size() - 1), list);
                     continue;
                 }
                 if (text.equals("bye")) {
                     this.alrBye = true;
                     ui.showList(list);
                     ui.showGoodbye();
+                    this.saveTasksToFile(list, "list.txt", false, null);
                     break;
                 } else if (isMatchMark) {
                     String numericPart = text.substring(5);

@@ -1,6 +1,8 @@
-package Chatbot.alain;
+package chatbot.alain;
 
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
@@ -20,13 +22,17 @@ public class ChatbotAlain {
      *
      * @param filePath The file path for loading tasks.
      */
-    public ChatbotAlain(String filePath) {
+    public ChatbotAlain(String filePath) throws AlainException {
         ui = new Ui();
         storage = new Storage(filePath);
         try {
-            tasks = storage.loadTasksFromFile();
-        } catch (IOException e) {
-            ui.showError("Error Occurs when loading tasks from file");
+            if (!Files.exists(Paths.get(filePath))) {
+                throw new AlainException("Error Occurs when loading tasks from file");
+            } else {
+                tasks = storage.loadTasksFromFile();
+            }
+        } catch (IOException | AlainException e) {
+            ui.showError(e.getMessage());
         }
     }
 
@@ -73,10 +79,15 @@ public class ChatbotAlain {
         if (this.storage.isBye()) {
             return;
         }
-        TaskList list = this.tasks;
+        TaskList list = null;
+        if (this.tasks == null) {
+            list = new TaskList();
+        } else {
+            list = this.tasks;
+        }
+        Scanner s = new Scanner(System.in);
         while (true) {
             try {
-                Scanner s = new Scanner(System.in);
                 String text = new String();
                 text = s.nextLine();
                 boolean isMatchMark = Pattern.matches("mark \\d+", text);
@@ -139,7 +150,8 @@ public class ChatbotAlain {
                     if (parts.length != 3) {
                         throw new AlainException("The description of a Event is invalid");
                     }
-                    list.addTask(new Events(parts[0], stringToTimeString(parts[1].substring(5)), stringToTimeString(parts[2].substring(3))));
+                    list.addTask(new Events(parts[0],
+                            stringToTimeString(parts[1].substring(5)), stringToTimeString(parts[2].substring(3))));
                     ui.showAddTask(list.getTask(list.size() - 1), list);
                     continue;
                 }
@@ -165,7 +177,7 @@ public class ChatbotAlain {
                 storage.saveTasksToFile(null, "list.txt", true, e.getMessage());
             }
         }
-
+        s.close();
         try {
             ui.showList(list);
             storage.saveTasksToFile(list, "list.txt", false, null);
