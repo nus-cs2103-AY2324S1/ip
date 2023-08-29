@@ -5,9 +5,13 @@ import java.util.Scanner;
 
 public class Storage {
 
-    public static void loadTasks(TaskList taskList) {
+    private String filePath;
+    public Storage(String filePath) {
+        this.filePath = filePath;
+    }
+    public void loadTasks(TaskList taskList) {
         try {
-            File file = new File("src/main/data/duke.txt");
+            File file = new File(filePath);
             Scanner scanner = new Scanner(file);
             System.out.println("Loading tasks...");
             while (scanner.hasNext()) {
@@ -28,7 +32,7 @@ public class Storage {
     }
 
     //convert this data into task
-    public static Task convertStringIntoTask(String dataString) throws DukeException {
+    public Task convertStringIntoTask(String dataString) throws DukeException {
         String[] dataArr = dataString.split(" \\| ");
         String taskType = dataArr[0];
         boolean isDone = dataArr[1].equals("1");
@@ -55,7 +59,7 @@ public class Storage {
         return task;
     }
 
-    public static void validateString(String dataString) throws DukeException {
+    public void validateString(String dataString) throws DukeException {
 
         String[] dataArr = dataString.split(" \\| ");
         int dataLength = dataArr.length;
@@ -90,9 +94,9 @@ public class Storage {
         return (taskType.equals("T") && taskFormatLength == 3) || (taskType.equals("D") && taskFormatLength == 4) || (taskType.equals("E") && taskFormatLength == 5);
     }
 
-    public static void saveTask(Task task) {
+    public void saveTask(Task task) {
         try {
-            File file = new File("src/main/data/duke.txt");
+            File file = new File(filePath);
             java.io.FileWriter fileWriter = new java.io.FileWriter(file, true);
             fileWriter.write(task.convertTaskToString() + "\n");
             fileWriter.close();
@@ -102,9 +106,9 @@ public class Storage {
         }
     }
 
-    public static void modifyTask(int taskNumber, Task newTask) {
+    public void modifyTask(int taskNumber, Task newTask) {
         try {
-            File file = new File("src/main/data/duke.txt");
+            File file = new File(filePath);
             Scanner scanner = new Scanner(file);
             StringBuilder newContents = new StringBuilder();
             int count = 0;
@@ -127,9 +131,9 @@ public class Storage {
         }
     }
 
-    public static void deleteTask(int taskNumber) {
+    public void deleteTask(int taskNumber) {
         try {
-            File file = new File("src/main/data/duke.txt");
+            File file = new File(filePath);
             Scanner scanner = new Scanner(file);
             StringBuilder newContents = new StringBuilder();
             int count = 0;
