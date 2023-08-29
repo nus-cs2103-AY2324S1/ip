@@ -1,0 +1,4 @@
+D | 1 | return book | June 6th
+T | 1 | Buy Book
+D | 0 | Read Book | 1 Sept
+E | 1 | Book Review Meeting | 2 Sept 2pm | 5pm

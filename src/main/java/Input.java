@@ -5,6 +5,12 @@ public class Input {
     private static Scanner scanner = new Scanner(System.in);
 
     public static void echo() {
+        try {
+            Storage.loadSave();
+        } catch (DukeException e) {
+            Printing.printError(e);
+        }
+
         while (Input.scanner.hasNext()) {
             try {
                 String input = Input.scanner.nextLine();
