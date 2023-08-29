@@ -18,28 +18,28 @@ public class Parser {
 
         String command = userInput.split(" ", 2)[0].toUpperCase();
         switch (command) {
-            case "BYE":
-                return new ExitCommand();
-            case "LIST":
-                return new ListCommand();
-            case "MARK":
-                return new MarkCommand(getTaskNumber(userInput));
-            case "UNMARK":
-                return new UnmarkCommand(getTaskNumber(userInput));
-            case "TODO":
-                return new AddCommand(parseTodo(userInput));
-            case "DEADLINE":
-                return new AddCommand(parseDeadline(userInput));
-            case "EVENT":
-                return new AddCommand(parseEvent(userInput));
-            case "DELETE":
-                return new DeleteCommand(getTaskNumber(userInput));
+        case "BYE":
+            return new ExitCommand();
+        case "LIST":
+            return new ListCommand();
+        case "MARK":
+            return new MarkCommand(getTaskNumber(userInput));
+        case "UNMARK":
+            return new UnmarkCommand(getTaskNumber(userInput));
+        case "TODO":
+            return new AddCommand(parseTodo(userInput));
+        case "DEADLINE":
+            return new AddCommand(parseDeadline(userInput));
+        case "EVENT":
+            return new AddCommand(parseEvent(userInput));
+        case "DELETE":
+            return new DeleteCommand(getTaskNumber(userInput));
         }
 
         throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
     }
 
-    public static ToDoTask parseTodo(String userInput) throws DukeException {
+    private static ToDoTask parseTodo(String userInput) throws DukeException {
         if (userInput.split(" ").length < 2) {
             throw new DukeException("☹ OOPS!!! The description of a todo cannot be empty.");
         }
@@ -50,7 +50,7 @@ public class Parser {
         return new ToDoTask(description);
     }
 
-    public static DeadlineTask parseDeadline(String userInput) throws DukeException {
+    private static DeadlineTask parseDeadline(String userInput) throws DukeException {
         if (userInput.split("/by").length < 2) {
             throw new DukeException("☹ OOPS!!! The date of deadline cannot be empty.");
         }
@@ -70,7 +70,7 @@ public class Parser {
         return new DeadlineTask(description, byDate);
     }
 
-    public static EventTask parseEvent(String userInput) throws DukeException {
+    private static EventTask parseEvent(String userInput) throws DukeException {
         if (userInput.split("/from").length < 2) {
             throw new DukeException("☹ OOPS!!! The date of event cannot be empty.");
         }
