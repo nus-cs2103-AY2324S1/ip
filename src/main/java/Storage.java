@@ -18,7 +18,7 @@ public class Storage {
                 file.getParentFile().mkdirs();
                 file.createNewFile();
             } catch (IOException e) {
-                System.out.println(new DukeException(e.getMessage()).toString());
+                Ui.printError(new DukeException(e.getMessage()));
             }
         }
     }
@@ -31,7 +31,7 @@ public class Storage {
             oos.close();
             fos.close();
         } catch (IOException e) {
-            System.out.println(e.getMessage());
+            Ui.printError(new DukeException(e.getMessage()));
         }
     }
 
