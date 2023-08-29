@@ -10,27 +10,27 @@ public class TaskList {
         this.tasks.add(t);
     }
 
-    public Task markTask(int index) throws InvalidTaskIndexException {
+    public Task markTask(int index) throws DuckyInvalidTaskIndexException {
         if (index < 0 || index >= this.tasks.size()) {
-            throw new InvalidTaskIndexException(index + 1, this.tasks.size());
+            throw new DuckyInvalidTaskIndexException(index + 1, this.tasks.size());
         }
         Task toMark = this.tasks.get(index);
         toMark.complete();
         return toMark;
     }
 
-    public Task unmarkTask(int index) throws InvalidTaskIndexException {
+    public Task unmarkTask(int index) throws DuckyInvalidTaskIndexException {
         if (index < 0 || index >= this.tasks.size()) {
-            throw new InvalidTaskIndexException(index + 1, this.tasks.size());
+            throw new DuckyInvalidTaskIndexException(index + 1, this.tasks.size());
         }
         Task toUnmark = this.tasks.get(index);
         toUnmark.complete();
         return toUnmark;
     }
 
-    public Task deleteTask(int index) throws InvalidTaskIndexException {
+    public Task deleteTask(int index) throws DuckyInvalidTaskIndexException {
         if (index < 0 || index >= this.tasks.size()) {
-            throw new InvalidTaskIndexException(index + 1, this.tasks.size());
+            throw new DuckyInvalidTaskIndexException(index + 1, this.tasks.size());
         }
         Task toDelete = this.tasks.get(index);
         this.tasks.remove(index);
