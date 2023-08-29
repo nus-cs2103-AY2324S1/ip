@@ -35,6 +35,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Creates a file if it does not exist.
+     *
+     * @param path of the file to be created.
+     */
     private void createFile(String path) {
         File file = new File(path);
         // checks if data folder and duke.txt exists, else create file
@@ -82,7 +87,7 @@ public class Storage {
             case "EVENT":
                 String from = details[2].trim();
                 String to = details[3].trim();
-                
+
                 task = createEventTask(taskDescription, from, to);
                 break;
             default:
@@ -97,6 +102,14 @@ public class Storage {
         return taskList;
     }
 
+    /**
+     * Creates a DeadlineTask object based on the description and by string.
+     *
+     * @param taskDescription of the task.
+     * @param by              deadline of the task.
+     * @return DeadlineTask object.
+     * @throws DukeException if the date is not in the format of yyyy-mm-dd.
+     */
     private DeadlineTask createDeadlineTask(String taskDescription, String by) throws DukeException {
         LocalDate byDate;
 
@@ -109,6 +122,15 @@ public class Storage {
         return new DeadlineTask(taskDescription, byDate);
     }
 
+    /**
+     * Creates an EventTask object based on the description, from and to string.
+     *
+     * @param taskDescription of the task.
+     * @param from            start date of the task.
+     * @param to              end date of the task.
+     * @return EventTask object.
+     * @throws DukeException if the date is not in the format of yyyy-mm-dd.
+     */
     private EventTask createEventTask(String taskDescription, String from, String to) throws DukeException {
         LocalDate fromDate;
         LocalDate toDate;
