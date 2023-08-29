@@ -1,11 +1,5 @@
 package duke;
 
-import duke.exception.DukeStorageException;
-import duke.task.Deadline;
-import duke.task.Event;
-import duke.task.Task;
-import duke.task.Todo;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -14,6 +8,12 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+
+import duke.exception.DukeStorageException;
+import duke.task.Deadline;
+import duke.task.Event;
+import duke.task.Task;
+import duke.task.Todo;
 
 public class Storage {
     private final String filePath;
@@ -44,16 +44,16 @@ public class Storage {
                 String description = fields[2];
                 boolean isDone = fields[1].equals("X");
                 switch (fields[0]) {
-                    case "T":
-                        tasks.add(new Todo(description, isDone));
-                        break;
-                    case "D":
-                        tasks.add(new Deadline(description, isDone, LocalDateTime.parse(fields[3])));
-                        break;
-                    case "E":
-                        tasks.add(new Event(description, isDone, LocalDateTime.parse(fields[3]),
-                                LocalDateTime.parse(fields[4])));
-                        break;
+                case "T":
+                    tasks.add(new Todo(description, isDone));
+                    break;
+                case "D":
+                    tasks.add(new Deadline(description, isDone, LocalDateTime.parse(fields[3])));
+                    break;
+                case "E":
+                    tasks.add(new Event(description, isDone, LocalDateTime.parse(fields[3]),
+                            LocalDateTime.parse(fields[4])));
+                    break;
                 }
             }
         } catch (FileNotFoundException e) {

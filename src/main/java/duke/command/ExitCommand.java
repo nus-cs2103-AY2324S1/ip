@@ -1,9 +1,9 @@
 package duke.command;
 
-import duke.exception.DukeStorageException;
 import duke.Storage;
 import duke.TaskList;
 import duke.Ui;
+import duke.exception.DukeStorageException;
 
 public class ExitCommand extends Command {
     @Override

@@ -1,15 +1,15 @@
 package duke;
 
+import java.nio.file.Paths;
+
 import duke.command.Command;
 import duke.exception.DukeException;
 import duke.exception.DukeStorageException;
 
-import java.nio.file.Paths;
-
 public class Duke {
     private final Storage storage;
-    private TaskList tasks;
     private final Ui ui;
+    private TaskList tasks;
 
     public Duke(String filePath) {
         this.storage = new Storage(filePath);
@@ -20,6 +20,10 @@ public class Duke {
             ui.showErrorMessage(e);
             this.tasks = new TaskList();
         }
+    }
+
+    public static void main(String[] args) {
+        new Duke(Paths.get("data", "duke.txt").toAbsolutePath().toString()).run();
     }
 
     public void run() {
@@ -39,9 +43,5 @@ public class Duke {
                 ui.showErrorMessage(e);
             }
         }
-    }
-
-    public static void main(String[] args) {
-        new Duke(Paths.get("data", "duke.txt").toAbsolutePath().toString()).run();
     }
 }

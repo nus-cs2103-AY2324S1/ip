@@ -1,9 +1,9 @@
 package duke.command;
 
-import duke.exception.DukeTaskNotFoundException;
 import duke.Storage;
 import duke.TaskList;
 import duke.Ui;
+import duke.exception.DukeTaskNotFoundException;
 
 public class MarkCommand extends Command {
     private final int taskIndex;

@@ -1,9 +1,9 @@
 package duke;
 
+import java.util.Scanner;
+
 import duke.exception.DukeException;
 import duke.task.Task;
-
-import java.util.Scanner;
 
 public class Ui {
     private static final String HORIZONTAL_LINE = "____________________________________________________________\n";
