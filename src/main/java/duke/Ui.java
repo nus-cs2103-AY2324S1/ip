@@ -19,7 +19,7 @@ public class Ui {
 
     /**
      * Prints the goodbye message.
-     */                           
+     */
     public void showByeMessage() {
         System.out.println("Bye. Hope to see you again soon!");
     }
@@ -89,11 +89,11 @@ public class Ui {
     }
 
     public void printResultList(ArrayList<Task> list) {
-        System.out.println(Duke.lineSeparator);
+        System.out.println(lineSeparator);
         System.out.println("Here are the matching tasks in your list:");
         for (int i = 0; i < list.size(); i++) {
             System.out.println((i + 1) + "." + list.get(i));
         }
-        System.out.println(Duke.lineSeparator);
+        System.out.println(lineSeparator);
     }
 }
