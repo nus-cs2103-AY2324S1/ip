@@ -2,6 +2,14 @@ package duke;
 
 import java.util.ArrayList;
 
+/**
+ * The Personal Assistant that keeps a todo list for the user.
+ * Users can input multiple commands to use this personal assistant.
+ *
+ * Different tasks can be input and stored into the list. This includes
+ * Todos, Deadlines and Events. Tasks can be marked and unmarked to
+ * indicate completion of such tasks.
+ */
 public class Duke {
 
     private Storage storage;

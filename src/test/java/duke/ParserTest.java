@@ -12,7 +12,7 @@ public class ParserTest {
             Parser.parse("deadline dance /by 12-12-2001-T0800", new UI("Alfred"), new TaskList(),
                     new Storage("src/main/java/duke/data/duke.txt"));
         } catch (DukeException e) {
-            assertEquals("Invalid Date Format: should be YYYY-MM-DDTTime. " +
+            assertEquals("Invalid Date Format: should be YYYY-MM-DDTHH:MM:SS. " +
                                                    "Example: 2023-12-12T06:30:00", e.getMessage());
         }
     }
