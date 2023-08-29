@@ -5,7 +5,7 @@
  * to keep track of various things.
  *
  * @author bhnuka, Bhanuka Bandara Ekanayake (AXXX7875J), G01
- * @version 21.0 CS2103T AY 23/24 Sem 1
+ * @version 2.0 CS2103T AY 23/24 Sem 1
  */
 
 import java.util.ArrayList;
@@ -13,6 +13,8 @@ import java.util.Scanner;
 import java.io.FileWriter;
 import java.io.FileReader;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 /**
  * All the sourcecode behind the chatbot, Eva
@@ -211,8 +213,10 @@ public class Eva {
                         tasks.add(new Deadline(description, isDone, by));
                         break;
                     case "E":
-                        String from = parts[3];
-                        String to = parts[4];
+                        String fromto = parts[3];
+                        String[] parts2 = parts[3].split(" - ");
+                        String from = parts2[0];
+                        String to = parts2[1];
                         tasks.add(new Event(description, isDone, from, to));
                         break;
                 }
@@ -359,7 +363,7 @@ public class Eva {
      * A Deadline class to represent deadline tasks
      */
     static class Deadline extends Task {
-        protected String by;
+        protected LocalDate by;
 
         /**
          * Constructs deadline with the given description
@@ -370,7 +374,7 @@ public class Eva {
          */
         public Deadline(String description, boolean isDone, String by) {
             super(description, isDone, TaskType.DEADLINE);
-            this.by = by;
+            this.by = LocalDate.parse(by, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
         }
 
         /**
@@ -378,7 +382,9 @@ public class Eva {
          *
          * @return String representing do by date
          */
-        public String getBy() { return this.by; }
+        public String getBy() {
+            return by.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        }
 
         /**
          * Returns String representing the deadline
@@ -387,7 +393,7 @@ public class Eva {
          */
         @Override
         public String toString() {
-            return "[D]" + super.toString() + " (by: " + by + ")";
+            return "[D]" + super.toString() + " (by: " + by.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + ")";
         }
     }
 
@@ -395,8 +401,8 @@ public class Eva {
      * An Event class to represent event tasks
      */
     static class Event extends Task {
-        protected String from;
-        protected String to;
+        protected LocalDate from;
+        protected LocalDate to;
 
         /**
          * Constructs deadline with the given description
@@ -408,8 +414,8 @@ public class Eva {
          */
         public Event(String description, boolean isDone, String from, String to) {
             super(description, isDone, TaskType.EVENT);
-            this.from = from;
-            this.to = to;
+            this.from = LocalDate.parse(from, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+            this.to = LocalDate.parse(to, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
         }
 
         /**
@@ -417,14 +423,18 @@ public class Eva {
          *
          * @return String representing start from date
          */
-        public String getFrom() { return this.from; }
+        public String getFrom() {
+            return from.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        }
 
         /**
          * Returns the do by date
          *
          * @return String representing end at date
          */
-        public String getTo() { return this.to; }
+        public String getTo() {
+            return to.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        }
 
         /**
          * Returns String representing the event
@@ -433,7 +443,7 @@ public class Eva {
          */
         @Override
         public String toString() {
-            return "[E]" + super.toString() + " (from: " + from + " to: " + to + ")";
+            return "[E]" + super.toString() + " (from: " + from.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + " to: " + to.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + ")";
         }
     }
 }
