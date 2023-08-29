@@ -45,7 +45,7 @@ public class ChatView {
                 break;
             case "todo":
                 try {
-                    out = chatRecord.addTask(commandSplit[1], TaskTypes.TODO);
+                    out = chatRecord.addTodo(commandSplit[1]);
                     System.out.println(beautifyString(String.format("Recorded to database: %s\nYou now have %d tasks in the list", out.toString(), chatRecord.getCount())));
                 } catch (ArrayIndexOutOfBoundsException e) {
                     System.out.println(beautifyString("ERROR!! The description of Todo cannot be empty!"));
@@ -61,7 +61,7 @@ public class ChatView {
                         break;
                     }
                     try {
-                        out = chatRecord.addTask(ddlSplit[0].trim(), TaskTypes.DEADLINE, ddlSplit[1].trim());
+                        out = chatRecord.addDeadline(ddlSplit[0].trim(), ddlSplit[1].trim());
                     } catch (ArrayIndexOutOfBoundsException e) {
                         System.out.println(beautifyString("ERROR!! The date of Deadline cannot be empty!"));
                         break;
@@ -87,7 +87,7 @@ public class ChatView {
                         System.out.println("ERROR!! The time period of event cannot be empty!");
                         break;
                     }
-                    out = chatRecord.addTask(evSplit[0].trim(), TaskTypes.EVENT, args);
+                    out = chatRecord.addEvent(evSplit[0].trim(), args);
                     System.out.println(beautifyString(String.format("Recorded to database: %s\nYou now have %d tasks in the list", out.toString(), chatRecord.getCount())));
                 } catch (ArrayIndexOutOfBoundsException e) {
                     System.out.println(beautifyString("ERROR!! The description of Event cannot be empty!"));
