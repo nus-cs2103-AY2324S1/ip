@@ -29,18 +29,26 @@ public class Commands {
         this.dateTime = dateTime;
     }
 
+    public COMMANDS getCommand() {
+        return this.state;
+    }
+
+    public void execute() {
+
+    }
+
     static class TwoCommands extends Commands {
         private COMMANDS state2;
         private String name2;
-        private Commands command2;
+        private Commands secondaryCommand;
         public TwoCommands(COMMANDS command, String str, COMMANDS command2, String str2) {
             super(command, str);
             this.state2 = command2;
             this.name2 = str2;
         }
-        public TwoCommands(COMMANDS command, String str, Commands command2) {
+        public TwoCommands(COMMANDS command, String str, Commands secondaryCommand) {
             super(command,str);
-            this.command2 = command2;
+            this.secondaryCommand = secondaryCommand;
         }
     }
 
@@ -49,12 +57,20 @@ public class Commands {
         private String name2;
         private COMMANDS state3;
         private String name3;
+        private Commands phaseTwo;
+        private Commands phaseThree;
         public ThreeCommands(COMMANDS command, String str, COMMANDS command2, String str2, COMMANDS command3, String str3) {
             super(command,str);
             this.state2 = command2;
             this.name2 = str2;
             this.state3 = command3;
             this.name3 = str3;
+        }
+
+        public ThreeCommands(COMMANDS command, String str, Commands phaseTwo, Commands phaseThree) {
+            super(command,str);
+            this.phaseTwo = phaseTwo;
+            this.phaseThree = phaseThree;
         }
     }
 }
