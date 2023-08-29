@@ -1,5 +1,11 @@
+package duke.util;
+
+import duke.Duke;
+import duke.exception.DukeException;
+import duke.task.TaskList;
+
 /**
- * Parser class that deals with making sense of the user command.
+ * duke.util.Parser class that deals with making sense of the user command.
  *
  * @author Pearlynn
  */

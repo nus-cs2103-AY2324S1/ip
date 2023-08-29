@@ -1,5 +1,7 @@
+package duke.exception;
+
 /**
- * Represents a DukeException.
+ * Represents a duke.exception.DukeException.
  *
  * @author Pearlynn
  */
@@ -7,7 +9,7 @@
 public class DukeException extends Exception {
 
     /**
-     * Constructor for DukeException class.
+     * Constructor for duke.exception.DukeException class.
      *
      * @param errorMessage The error message of the exception.
      */

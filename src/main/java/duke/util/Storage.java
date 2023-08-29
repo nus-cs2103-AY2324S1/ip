@@ -1,3 +1,12 @@
+package duke.util;
+
+import duke.Duke;
+import duke.exception.DukeException;
+import duke.task.Deadline;
+import duke.task.Event;
+import duke.task.Task;
+import duke.task.Todo;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -7,7 +16,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
- * Storage class that deals with loading tasks from the file and saving tasks in the file.
+ * duke.util.Storage class that deals with loading tasks from the file and saving tasks in the file.
  *
  * @author Pearlynn
  */
@@ -16,7 +25,7 @@ public class Storage {
     private final String pathname;
 
     /**
-     * Constructor for Storage class.
+     * Constructor for duke.util.Storage class.
      *
      * @param pathname The pathname of the file.
      */

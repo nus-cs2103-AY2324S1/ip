@@ -1,5 +1,7 @@
+package duke.exception;
+
 /**
- * Represents a NoSpaceBeforeException.
+ * Represents a duke.exception.NoSpaceBeforeException.
  *
  * @author Pearlynn
  */
@@ -7,7 +9,7 @@
 public class NoSpaceBeforeException extends Exception {
 
     /**
-     * Constructor for NoSpaceBeforeException class.
+     * Constructor for duke.exception.NoSpaceBeforeException class.
      *
      * @param word The word without a space before.
      */
