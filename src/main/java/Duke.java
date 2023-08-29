@@ -80,11 +80,7 @@ public class Duke {
         public Deadline (String taskName, String deadline) {
             super(taskName);
             // assume deadline is of the format 2019-12-01
-            try {
-                this.deadline = LocalDate.parse(deadline);
-            } catch (java.time.format.DateTimeParseException e) {
-                System.out.println("Error: " + e.getMessage());
-            }
+            this.deadline = LocalDate.parse(deadline);
         }
 
         private String dateToString() {
@@ -201,8 +197,14 @@ public class Duke {
                 String taskName = inputString.substring(9, inputString.indexOf("/by") - 1);
                 // get day
                 String deadline = inputString.substring(inputString.indexOf("/by") + 4);
-                Task newTask = new Deadline(taskName, deadline);
-                addTaskOutputText(newTask);
+                try {
+
+                    Task newTask = new Deadline(taskName, deadline);
+                    addTaskOutputText(newTask);
+                } catch (java.time.format.DateTimeParseException e) {
+                    // System.out.println("Error: " + e.getMessage());
+                    System.out.println("\tInvalid date format. Please use yyyy-mm-dd.");
+                }
             } catch (StringIndexOutOfBoundsException e) {
                 System.out.println("\t☹ OOPS!!! The description of a deadline cannot be empty.");
             }
