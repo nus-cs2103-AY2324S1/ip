@@ -1,4 +1,6 @@
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 /**
  * A class for Tasks.
@@ -62,23 +64,27 @@ public class Task {
         Task task = null;
 
         switch (type) {
-            case "T":
-                task = new ToDos(description);
-                break;
-            case "D":
-                String by = parts[2].trim();
+        case "T":
+            task = new ToDos(description);
+            break;
+        case "D":
+            String by = parts[3].trim();
 
-                // Parse the date and time
-                LocalDate deadlineDate = LocalDate.parse(by);
+            // Parse the date and time
+            LocalDate deadlineDate = LocalDate.parse(by, DateTimeFormatter.ofPattern("MMM d yyyy"));
 
-                task = new Deadlines(description, deadlineDate);
-                break;
-            case "E":
-                String from = parts[3].trim();
-                String to = parts[4].trim();
+            task = new Deadlines(description, deadlineDate);
+            break;
+        case "E":
+            String from = parts[3].trim();
+            String to = parts[4].trim();
 
-                task = new Events(description, from, to);
-                break;
+            task = new Events(description, from, to);
+            break;
+        }
+
+        if (task != null && isDone) {
+            task.markAsDone();
         }
 
         return task;
@@ -99,7 +105,6 @@ public class Task {
      */
     @Override
     public String toString() {
-
         return String.format("[%s] %s", this.getStatusIcon(), this.description);
     }
 }
