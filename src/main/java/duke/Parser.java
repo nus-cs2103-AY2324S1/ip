@@ -1,16 +1,10 @@
+package duke;
+
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 
 public class Parser {
-    public static void parseUserInput(String userInput, TaskList taskList, Storage storage) {
-        if (userInput.equals("bye")) {
-            // If user wants to quit
-            storage.saveTasks(taskList); // Save changes to list
-            Ui.showExit();
-            return;
-
-        } else if (userInput.equals("list")) {
+    public static void parseUserInput(String userInput, TaskList taskList) {
+        if (userInput.equals("list")) {
             // If user wants to check list
             Ui.showList(taskList);
 
