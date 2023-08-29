@@ -1,3 +1,7 @@
+package duke;
+
+import duke.task.Task;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -11,7 +15,7 @@ public class Storage {
     private File file;
     private String filePath;
 
-    Storage (String filePath) {
+    public Storage (String filePath) {
         this.filePath = filePath;
         file = new File(this.filePath);
     }

@@ -1,3 +1,7 @@
+package duke;
+
+import duke.task.Task;
+
 import java.time.LocalDate;
 import java.util.Scanner;
 
@@ -5,7 +9,7 @@ public class Ui {
     Scanner scanner;
     TaskList tasks;
 
-    Ui (TaskList tasks) {
+    public Ui (TaskList tasks) {
         this.tasks = tasks;
     }
 

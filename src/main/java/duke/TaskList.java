@@ -1,3 +1,7 @@
+package duke;
+
+import duke.task.Task;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 
@@ -5,7 +9,7 @@ public class TaskList {
     private final ArrayList<Task> data = new ArrayList<>();
     private final Storage storage;
 
-    TaskList (Storage storage) {
+    public TaskList (Storage storage) {
         this.storage = storage;
     }
 

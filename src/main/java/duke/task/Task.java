@@ -1,10 +1,13 @@
+package duke.task;
+
+import duke.DukeException;
 import java.time.LocalDateTime;
 
 public abstract class Task {
     private boolean finish;
     private String task;
 
-    public Task (String task) throws DukeException{
+    public Task (String task) throws DukeException {
         if (task.isEmpty() || task.equals(" ")) {
             throw new DukeException("Description is EMPTY!!!\n");
         }

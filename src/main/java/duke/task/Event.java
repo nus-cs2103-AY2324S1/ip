@@ -1,3 +1,7 @@
+package duke.task;
+
+import duke.DukeException;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -6,7 +10,7 @@ public class Event extends Task {
     private LocalDateTime start;
     private LocalDateTime end;
 
-    public Event(String task, String start, String end) throws DukeException{
+    public Event(String task, String start, String end) throws DukeException {
         super(task);
         if (start.isEmpty() || start.equals(" ")) {
             throw new DukeException("Missing time !!!\n");

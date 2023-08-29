@@ -1,3 +1,7 @@
+package duke.task;
+
+import duke.DukeException;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -5,7 +9,7 @@ import java.time.format.DateTimeParseException;
 public class Deadline extends Task {
     private LocalDateTime date;
 
-    public Deadline(String task, String date) throws DukeException{
+    public Deadline(String task, String date) throws DukeException {
         super(task);
         if (date.isEmpty() || date.equals(" ")) {
             throw new DukeException("What is your DEADLINE???\n");

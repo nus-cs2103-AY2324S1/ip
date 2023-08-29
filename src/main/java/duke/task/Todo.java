@@ -1,7 +1,11 @@
+package duke.task;
+
+import duke.DukeException;
+
 import java.time.LocalDateTime;
 
 public class Todo extends Task {
-    public Todo(String task) throws DukeException{
+    public Todo(String task) throws DukeException {
         super(task);
     }
 
