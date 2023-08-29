@@ -1,3 +1,6 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
@@ -109,9 +112,17 @@ public class Duke {
             int commandLength = commandString.length() + 1;
             String taskName = inputString.substring(commandLength);
             String[] parts = taskName.split("/by", 2);
+
+            // TODO: add in datetime parser here
             String name = parts[0];
             String endDate = parts[1];
-            Task curentTask = new Deadline(name, endDate);
+            endDate = endDate.replace(" ", "");
+
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+            System.out.println(endDate);
+            LocalDate date = LocalDate.parse(endDate, formatter);
+
+            Task curentTask = new Deadline(name, date);
             taskList.add(curentTask);
 
             System.out.println("added:\t" + uiFormatter.displayTask(curentTask));
@@ -120,6 +131,8 @@ public class Duke {
           } catch (StringIndexOutOfBoundsException ex) {
             System.out.println(
                 "Please enter a name, followed by a (/by) command, followed by a date");
+          } catch (DateTimeParseException ex){
+            System.out.println("Please enter a time format as dd/MM/yyyy");
           }
 
           break;
