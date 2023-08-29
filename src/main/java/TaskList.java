@@ -4,41 +4,21 @@ import Tasks.Event;
 import Tasks.Task;
 import Tasks.Todo;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 /**
  * Represents an archive of tasks in the Duke application.
  * This class provides methods to manage and manipulate tasks.
  */
-public class Archive {
+public class TaskList {
     protected List<Task> list;
-    private final String filePath = "data/saved.txt";
-    private final String dateFormat = "dd/MM/yyyy HH:mm";
     /**
      * Constructs a new Archive object with an empty task list.
      */
-    public Archive(){
-        try {
-            File f = new File(filePath);
-            Files.createDirectories(Paths.get("data"));
-            f.createNewFile();
-            Scanner s = new Scanner(f);
-            list = new ArrayList<Task>();
-            while (s.hasNext()) {
-                loadTask(s.nextLine());
-            }
-        } catch (IOException e) {
-            list = new ArrayList<Task>();
-        }
+    public TaskList(List<Task> list){
+        this.list = list;
     }
 
 
@@ -66,7 +46,6 @@ public class Archive {
         curr.mark();
         System.out.println("I HAVE MARKED THIS TASK:");
         System.out.println(curr);
-        save();
     }
 
     /**
@@ -84,7 +63,6 @@ public class Archive {
         curr.unmark();
         System.out.println("I HAVE UNMARKED THIS TASK:");
         System.out.println(curr);
-        save();
     }
 
     /**
@@ -99,7 +77,6 @@ public class Archive {
             throw new OutOfIndexException();
         }
         Task curr = list.remove(item);
-        save();
         System.out.println("I HAVE DELETED THE FOLLOWING TASK:");
         System.out.println(curr);
         System.out.println("NOW YOU HAVE " + list.size() + " TASKS LEFT");
@@ -166,53 +143,14 @@ public class Archive {
             System.out.println("I'VE ADDED THIS TASK:");
             System.out.println(added);
             System.out.println("YOU HAVE " + list.size() + " TASKS IN THE LIST");
-            save();
         } else {
             throw new InvalidInputException();
         }
     }
 
-    public void loadTask(String input) {
-        boolean isMarked;
-        int markedIndex = input.indexOf("|");
-        isMarked = input.charAt(markedIndex + 1) == 1;
-        int titleIndex = input.indexOf("|", markedIndex + 1) + 2;
-        try {
-            if (input.startsWith("T")) {
-                String title = input.substring(titleIndex);
-                list.add(new Todo(title, isMarked));
-            } else if (input.startsWith("D")) {
-                int byIndex = input.indexOf("|", titleIndex);
-                String title = input.substring(titleIndex, byIndex);
-                String dueDateString = input.substring(byIndex + 2);
-                list.add(new Deadline(title,parseDate(dueDateString),isMarked));
-            } else {
-                int fromIndex = input.indexOf("|", titleIndex);
-                String title = input.substring(titleIndex, fromIndex);
-                int toIndex = input.indexOf("|", fromIndex + 1);
-                String from = input.substring(fromIndex + 2, toIndex);
-                String to = input.substring( toIndex + 2);
-                list.add(new Event(title,parseDate(from),parseDate(to),isMarked));
-            }
-        } catch (DukeException e) {
-            System.out.println(e.getMessage());
-        }
-    }
-    public void save() {
-        try {
-            FileWriter fw = new FileWriter(filePath);
-            for (int i = 0; i < list.size(); i++) {
-                fw.write(list.get(i).toSave() + "\n");
-            }
-            fw.close();
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
-        }
-    }
-
     public LocalDateTime parseDate(String input) throws InvalidDateFormatException{
         try {
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern(dateFormat);
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
             LocalDateTime dateTime = LocalDateTime.parse(input, formatter);
             return dateTime;
         } catch (Exception e) {
