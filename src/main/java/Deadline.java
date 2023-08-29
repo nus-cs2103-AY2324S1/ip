@@ -28,4 +28,8 @@ public class Deadline extends Task {
         return new Deadline(desc, due);
     }
 
+    @Override
+    public String getCmd() {
+        return "deadline " + super.description + " /by " + this.by;
+    }
 }

@@ -19,7 +19,6 @@ public class Event extends Task {
 
         mt.find();
         String overall = mt.group(1);
-
         String desc = mt.group(3);
         String start = mt.group(5);
         String end = mt.group(7);
@@ -28,5 +27,10 @@ public class Event extends Task {
         }
         return new Event(desc, start, end);
 
+    }
+
+    @Override
+    public String getCmd() {
+        return "event " +  super.description + " /from " + this.start + " /to " + this.end;
     }
 }

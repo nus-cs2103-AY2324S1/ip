@@ -28,6 +28,11 @@ public class Haste {
                 // add task to list
                 try {
                     TaskList.addTask(cmd);
+                    Haste.printLine();
+                    System.out.println(Haste.INDENT + "Got it. I've added this task:");
+                    System.out.println(Haste.INDENT + TaskList.getTask(TaskList.getNumOfTasks() - 1));
+                    System.out.println(Haste.INDENT + "Now you have " + TaskList.getNumOfTasks() + " tasks in the list.");
+                    Haste.printLine();
 
                 } catch(EmptyTaskException e) {
                     e.printStackTrace();
@@ -44,12 +49,16 @@ public class Haste {
         printLine();
         System.out.println(INDENT + "Hello! I'm HASTE\n" + INDENT + "What can I do for you?");
         printLine();
+        // read file and update tasklist
+        TaskList.read();
     }
 
     public static void bye() {
         printLine();
         System.out.println(INDENT + "Bye. Hope to see you again!");
         printLine();
+        // add functionality: call tasklist method to save data in a textfile
+        TaskList.save();
     }
 
     public static void mark(String cmd) {
@@ -74,7 +83,6 @@ public class Haste {
 
     public static void delete(String cmd) {
         int id = parseInt(cmd.split(" ")[1]) - 1;
-
         printLine();
         // to do : fix order (delete task to be in front?)
         System.out.println(INDENT + "Noted. I've removed this task");

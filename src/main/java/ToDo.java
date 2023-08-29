@@ -21,5 +21,10 @@ public class ToDo extends Task {
         }
         return new ToDo(desc);
     }
+
+    @Override
+    public String getCmd() {
+        return "todo " + super.description;
+    }
 }
 

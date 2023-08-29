@@ -2,10 +2,9 @@ import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class Task {
+public abstract class Task {
     protected boolean isComplete;
     protected String description;
-    public static ArrayList<Task> taskList = new ArrayList<>();
 
     public Task(String description){
         this.description = description;
@@ -32,16 +31,6 @@ public class Task {
         return s == null || s.isBlank();
     }
 
-    public static void printList() {
-        Haste.printLine();
-        for (Task a : taskList) {
-            System.out.println(Haste.INDENT + (taskList.indexOf(a) + 1) + ". " + a);
-        }
-        Haste.printLine();
-    }
-
-
-
-
+    public abstract String getCmd();
 
 }
