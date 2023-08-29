@@ -51,8 +51,22 @@ public abstract class Task {
         return null;
     }
 
+    /**
+     * Changes this Task's status to the provided TaskStatus.
+     *
+     * @param newStatus - the new TaskStatus for this task's status to be changed to.
+     */
     public void changeStatus(TaskStatus newStatus) {
         this.status = newStatus;
+    }
+
+    /**
+     * Returns the name of this Task.
+     *
+     * @return the name of this Task.
+     */
+    public String getName() {
+        return this.name;
     }
 
     /**

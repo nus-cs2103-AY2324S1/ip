@@ -28,9 +28,9 @@ public class Duchess {
      */
     private static void listTasks() {
         Ui.duchessPrint("Here are the things you said!! ヽ(^o^)丿");
-        for (int i = 0; i < Duchess.storedTasks.size(); i++) {
-            Ui.duchessPrint(String.format("%d: %s", i + 1, Duchess.storedTasks.getTask(i).toString()));
-        }
+        Duchess.storedTasks.forEach((Task t, Integer index) -> {
+            Ui.duchessPrint(String.format("%d: %s", index + 1, Duchess.storedTasks.getTask(index).toString()));
+        });
     }
     /**
      * Marks a task.
@@ -97,6 +97,22 @@ public class Duchess {
         Ui.duchessPrint(String.format("Now you have %d task(s)!! ヽ(´▽`)/", Duchess.storedTasks.size()));
     }
 
+    /**
+     * Searches for all tasks by a specified string and prints the results.
+     *
+     * @param searchString - the term to search for.
+     */
+    private static void searchTasks(String searchString) {
+        TaskList newTaskList = Duchess.storedTasks.filterReplaceNull((Task t) -> t.getName().contains(searchString));
+
+        Ui.duchessPrint("Here are the things I found!! ヽ(^o^)丿");
+
+        newTaskList.forEach((Task t, Integer index) -> {
+            if (t != null) {
+                Ui.duchessPrint(String.format("%d: %s", index + 1, t.toString()));
+            }
+        });
+    }
 
 
     public static void main(String[] args) {
@@ -169,6 +185,20 @@ public class Duchess {
                     Ui.duchessPrint(e.getMessage());
                     Ui.duchessPrint("(／°▽°)／Try something like this!!");
                     Ui.duchessPrint("delete [task number]");
+                }
+                continue;
+            }
+
+            // Check if this command is an unmarked task command.
+            if (Parser.isSearchTaskCommand(userInput)) {
+                try {
+                    String searchQuery = Parser.parseSearchTaskCommand(userInput);
+                    Duchess.searchTasks(searchQuery);
+                }
+                catch (DuchessException e) {
+                    Ui.duchessPrint(e.getMessage());
+                    Ui.duchessPrint("(／°▽°)／Try something like this!!");
+                    Ui.duchessPrint("search [query]");
                 }
                 continue;
             }
