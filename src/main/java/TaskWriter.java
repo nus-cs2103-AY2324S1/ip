@@ -8,10 +8,11 @@ public class TaskWriter {
         this.filePath = filePath;
     }
 
-    public void write(ArrayList<Task> tasks) {
+    public void write(TaskList tasks) {
         try {
             FileWriter fw = new FileWriter(this.filePath);
-            for (Task task : tasks) {
+            for (int i = 0; i < tasks.size(); i++) {
+                Task task = tasks.get(i);
                 fw.write(task.toFileString() + "\n");
             }
             fw.close();
