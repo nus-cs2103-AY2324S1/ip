@@ -1,10 +1,11 @@
+package dook.services;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
-import java.time.temporal.ChronoUnit;
 
 public class TimeProcessor {
-    private static DateTimeFormatterBuilder dateTimeFormatterBuilder = new DateTimeFormatterBuilder()
+    private static final DateTimeFormatterBuilder dateTimeFormatterBuilder = new DateTimeFormatterBuilder()
             .append(DateTimeFormatter.ofPattern(
                     "[MM/dd/yyyy]" + "[dd-MM-yyyy]" + "[yyyy-MM-dd]" +
                     "[MM-dd-yyyy]" + "[dd/MM/yyyy]"+ "[yyyy/MM/dd]"));

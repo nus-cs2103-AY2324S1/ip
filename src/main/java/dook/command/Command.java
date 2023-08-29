@@ -1,3 +1,10 @@
+package dook.command;
+
+import dook.DookException;
+import dook.services.Storage;
+import dook.services.TaskList;
+import dook.services.UiDisplay;
+
 public abstract class Command{
     public boolean isExit = false;
     protected Storage storage;
