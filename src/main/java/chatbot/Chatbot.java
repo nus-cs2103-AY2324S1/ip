@@ -220,6 +220,7 @@ public class Chatbot extends EventEmitter<ChatMessage> {
             case ADD_TODO:
             case ADD_DEADLINE:
             case ADD_EVENT:
+            case SEARCH:
                 dataProcessed = this.processCommandAssertHasData(chatCommand);
                 break;
 
@@ -414,6 +415,7 @@ public class Chatbot extends EventEmitter<ChatMessage> {
         case ADD_TODO:
         case ADD_DEADLINE:
         case ADD_EVENT:
+        case SEARCH:
             break;
         default:
             return false;
@@ -427,10 +429,10 @@ public class Chatbot extends EventEmitter<ChatMessage> {
         }
 
         // Create the appropriate task
-        Task task = null;
+        Task newTask = null;
         switch (chatCommand.getOperation()) {
         case ADD_TODO:
-            task = new Todo(chatCommand.getData());
+            newTask = new Todo(chatCommand.getData());
             break;
 
         case ADD_DEADLINE:
@@ -452,7 +454,7 @@ public class Chatbot extends EventEmitter<ChatMessage> {
                 );
             }
 
-            task = new Deadline(
+            newTask = new Deadline(
                     chatCommand.getData(),
                     byTimestamp
             );
@@ -482,11 +484,32 @@ public class Chatbot extends EventEmitter<ChatMessage> {
                 );
             }
 
-            task = new Event(
+            newTask = new Event(
                     chatCommand.getData(),
                     startTimestamp,
                     endTimestamp
             );
+            break;
+
+        case SEARCH:
+            StringBuilder builder = new StringBuilder();
+
+            builder.append("Alright, here's the matching tasks I found:");
+
+            int count = 1;
+            for (Task task : this.taskManager.getTasks()) {
+                if (task.getTitle().toLowerCase().contains(chatCommand.getData().toLowerCase())) {
+                    builder.append("\n");
+                    builder.append(count);
+                    builder.append(". ");
+                    builder.append(task);
+                }
+                count++;
+            }
+
+            builder.append("\nThat's it!");
+
+            this.sendMessage(ChatMessage.SenderType.CHATBOT, builder.toString());
             break;
 
         default:
@@ -494,15 +517,17 @@ public class Chatbot extends EventEmitter<ChatMessage> {
         }
 
         // Add the task created
-        this.taskManager.addTask(task);
-        this.sendMessage(
-                ChatMessage.SenderType.CHATBOT,
-                String.format(
-                        "Got it. I've added this task:\n  %s\nYou have %d tasks in your list now! :)",
-                        task,
-                        this.taskManager.getTaskCount()
-                )
-        );
+        if (newTask != null) {
+            this.taskManager.addTask(newTask);
+            this.sendMessage(
+                    ChatMessage.SenderType.CHATBOT,
+                    String.format(
+                            "Got it. I've added this task:\n  %s\nYou have %d tasks in your list now! :)",
+                            newTask,
+                            this.taskManager.getTaskCount()
+                    )
+            );
+        }
 
         return true;
     }

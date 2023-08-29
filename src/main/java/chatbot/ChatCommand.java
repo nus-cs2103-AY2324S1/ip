@@ -30,6 +30,7 @@ public class ChatCommand {
         UNMARK_COMPLETE,
 
         LIST,
+        SEARCH,
         EXIT,
 
         UNKNOWN
@@ -187,6 +188,10 @@ public class ChatCommand {
 
         case "list":
             return this.type = Operation.LIST;
+
+        case "find":
+        case "search":
+            return this.type = Operation.SEARCH;
 
         case "bye":
         case "exit":
