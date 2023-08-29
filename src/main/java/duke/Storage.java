@@ -63,6 +63,7 @@ public class Storage {
         try {
             FileInputStream fis = new FileInputStream(this.filePath);
             ObjectInputStream ois = new ObjectInputStream(fis);
+            // Object is of type ArrayList<Task> hence it is possible to case directly
             @SuppressWarnings("unchecked")
             ArrayList<Task> tasks = (ArrayList<Task>) ois.readObject();
             ois.close();
