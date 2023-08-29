@@ -1,12 +1,13 @@
 package pogo.parsers;
 
-import pogo.commands.Command;
-import pogo.commands.ExitCommand;
-import pogo.commands.InvalidCommand;
-import pogo.commands.ListTasksCommand;
+import pogo.commands.*;
 import pogo.common.Messages;
 import pogo.tasks.exceptions.PogoInvalidTaskException;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeParseException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -32,21 +33,42 @@ public class Parser {
 
         try {
             switch (commandWord) {
-            case "list":
-                return new ListTasksCommand();
-            case "deadline":
+            case ListTasksCommand.COMMAND_WORD:
+                final Pattern LIST_PATTERN = Pattern.compile("/from (?<from>.*) /to (?<to>.*)");
+                final Matcher listMatcher = LIST_PATTERN.matcher(arguments);
+                // Set from and to encompass all dates
+                LocalDateTime from = LocalDateTime.of(LocalDate.MIN, LocalTime.MIN);
+                LocalDateTime to = LocalDateTime.of(LocalDate.MAX, LocalTime.MAX);
+
+                try {
+                    if (listMatcher.matches()) {
+                        String fromString = listMatcher.group("from");
+                        String toString = listMatcher.group("to");
+                        from = DateTimeParser.parse(fromString);
+                        to = DateTimeParser.parse(toString);
+
+                        if (from.isAfter(to)) {
+                            return new InvalidCommand(Messages.INVALID_DATE_RANGE);
+                        }
+                    }
+                } catch (DateTimeParseException e) {
+                    return new InvalidCommand(e.getMessage());
+                }
+
+                return new ListTasksCommand(from, to);
+            case AddDeadlineCommand.COMMAND_WORD:
                 return TaskParser.parseDeadlineCommand(arguments);
-            case "todo":
+            case AddToDoCommand.COMMAND_WORD:
                 return TaskParser.parseToDoCommand(arguments);
-            case "event":
+            case AddEventCommand.COMMAND_WORD:
                 return TaskParser.parseEventCommand(arguments);
-            case "mark":
+            case MarkTaskCommand.COMMAND_WORD:
                 return TaskParser.parseMarkCommand(arguments, true);
-            case "unmark":
+            case UnmarkTaskCommand.COMMAND_WORD:
                 return TaskParser.parseMarkCommand(arguments, false);
-            case "delete":
+            case DeleteTaskCommand.COMMAND_WORD:
                 return TaskParser.parseDeleteCommand(arguments);
-            case "bye":
+            case ExitCommand.COMMAND_WORD:
                 return new ExitCommand();
             }
         } catch (PogoInvalidTaskException e) {

@@ -62,4 +62,13 @@ public class Event extends Task {
     public void accept(TaskVisitor visitor) {
         visitor.visit(this);
     }
+
+    /**
+     * Checks if the event is between a specified date.
+     * The entire duration of the event must be between the specified date.
+     */
+    @Override
+    public boolean isBetween(LocalDateTime start, LocalDateTime end) {
+        return this.from.isAfter(start) && this.to.isBefore(end);
+    }
 }

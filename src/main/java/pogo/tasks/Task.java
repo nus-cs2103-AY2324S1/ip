@@ -2,6 +2,7 @@ package pogo.tasks;
 
 import pogo.tasks.exceptions.PogoInvalidTaskException;
 
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 /**
@@ -82,6 +83,18 @@ public abstract class Task {
      */
     public void accept(TaskVisitor visitor) {
         throw new UnsupportedOperationException("This task does not support visitors.");
+    }
+
+    /**
+     * Returns whether the task is between the given start and end dates.
+     * By default, returns true for all tasks without a deadline.
+     *
+     * @param start LocalDateTime to check if the task is between.
+     * @param end LocalDateTime to check if the task is between.
+     * @return boolean Whether the task is between the given start and end dates.
+     */
+    public boolean isBetween(LocalDateTime start, LocalDateTime end) {
+        return true;
     }
 
     @Override

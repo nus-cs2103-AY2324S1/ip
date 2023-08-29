@@ -45,4 +45,12 @@ public class Deadline extends Task {
     public void accept(TaskVisitor visitor) {
         visitor.visit(this);
     }
+
+    /**
+     * Checks if the deadline for the task is between a specified date.
+     */
+    @Override
+    public boolean isBetween(LocalDateTime start, LocalDateTime end) {
+        return this.by.isAfter(start) && this.by.isBefore(end);
+    }
 }
