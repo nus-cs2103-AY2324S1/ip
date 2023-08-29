@@ -1,14 +1,22 @@
 package duke.stub;
 
 import duke.TaskArray;
-import duke.TaskList;
 import duke.task.Task;
 import java.util.ArrayList;
 
+/**
+ * A stub for the TaskList class.
+ */
 public class TaskListStub implements TaskArray {
-
+    /** A list to store the tasks. */
     private ArrayList<Task> tasks;
 
+    /**
+     * Constructs a new TaskListStub.
+     *
+     * @param b If true, the list will be empty.
+     * @param unmarked If true, all the tasks in the list will be unmarked.
+     */
     public TaskListStub(boolean b, boolean unmarked) {
         if (b) {
             this.tasks = new ArrayList<>();
