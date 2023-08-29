@@ -28,6 +28,9 @@ public class Parser {
                 } else if (command.startsWith("delete")) {
                     String tasknum = command.split(" ")[1];
                     return new DeleteCommand(Integer.parseInt(tasknum));
+                } else if (command.startsWith("find")) {
+                    String keyword = command.split(" ")[1];
+                    return new FindCommand(keyword);
                 }
 
                 // solve what tasks are to be added here
@@ -49,7 +52,7 @@ public class Parser {
 
     static boolean getCommand(String command) throws DukeException{
         String firstword = command.split(" ")[0];
-        String[] commands = {"bye","list", "unmark","mark", "todo", "deadline", "event", "delete"};
+        String[] commands = {"bye","list", "unmark","mark", "todo", "deadline", "event", "delete", "find"};
         for (String c: commands) {
             if(c.equals(firstword)) return true;
         }

@@ -7,8 +7,6 @@ public class AddCommand extends Command{
 
     Task task;
 
-
-
     public AddCommand(String command) throws DukeException {
         try {
             int firstIndexSpace = command.indexOf(" ");
