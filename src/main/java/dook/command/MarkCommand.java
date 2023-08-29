@@ -5,7 +5,7 @@ import dook.services.Storage;
 import dook.services.TaskList;
 import dook.services.UiDisplay;
 
-public class MarkCommand extends Command{
+public class MarkCommand extends Command {
     private final int index;
     public MarkCommand(int index) {
         this.index = index;

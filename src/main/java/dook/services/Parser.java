@@ -1,5 +1,8 @@
 package dook.services;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
+
 import dook.DookException;
 import dook.command.*;
 import dook.task.Deadline;
@@ -7,14 +10,11 @@ import dook.task.Event;
 import dook.task.Task;
 import dook.task.Todo;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeParseException;
-
 public class Parser {
     private static CommandInfo parseKeyword(String keyword) {
         try {
             return CommandInfo.valueOf(keyword);
-        } catch (IllegalArgumentException e){
+        } catch (IllegalArgumentException e) {
             return CommandInfo.invalid;
         }
     }
@@ -82,13 +82,13 @@ public class Parser {
         String desc = tmp[0].trim();
         String by = tmp[1].trim();
         if (desc.isBlank() || by.isBlank()) {
-            throw new DookException("Some information is missing!\n" +
-                    "Usage: deadline [name] /by [time].");
+            throw new DookException("Some information is missing!\n"
+                    + "Usage: deadline [name] /by [time].");
         }
         Task task = new Deadline(desc, by, false);
         return new AddTaskCommand(task);
     }
-    private Command handleEvent(String body) throws DookException{
+    private Command handleEvent(String body) throws DookException {
         if (body.isBlank()) {
             throw new DookException("Usage: event [name] /from [start] /to [end].");
         }
@@ -106,14 +106,14 @@ public class Parser {
         String from = tmp2[0].trim();
         String to = tmp2[1].trim();
         if (desc.isBlank() || from.isBlank() || to.isBlank()) {
-            throw new DookException("Some information is missing!\n" +
-                    "Usage: event [name] /from [start] /to [end].");
+            throw new DookException("Some information is missing!\n"
+                    + "Usage: event [name] /from [start] /to [end].");
         }
 
         Task task = new Event(desc, from, to, false);
         return new AddTaskCommand(task);
     }
-    private Command handleDelete(String body) throws DookException{
+    private Command handleDelete(String body) throws DookException {
         int index;
         try {
             index = Integer.parseInt(body.split(" ", 2)[0]);
@@ -122,7 +122,7 @@ public class Parser {
         }
         return new DeleteTaskCommand(index);
     }
-    private Command handleBefore(String body) throws DookException{
+    private Command handleBefore(String body) throws DookException {
         LocalDate localDate;
         try {
             localDate = TimeProcessor.getLocalDateFromString(body.split(" ", 2)[0].trim());

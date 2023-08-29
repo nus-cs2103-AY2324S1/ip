@@ -9,7 +9,7 @@ public abstract class Task {
         this.isDone = false;
     }
 
-    public Task (String description, boolean isDone) {
+    public Task(String description, boolean isDone) {
         this.description = description;
         this.isDone = isDone;
     }
@@ -32,6 +32,5 @@ public abstract class Task {
     public String toString() {
         return String.format("[%s] %s", this.getStatusIcon(), this.description);
     }
-
 
 }

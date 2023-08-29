@@ -1,9 +1,9 @@
 package dook.task;
 
-import dook.services.TimeProcessor;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
+
+import dook.services.TimeProcessor;
 
 public class Deadline extends Task implements TimedTask {
     protected String by;

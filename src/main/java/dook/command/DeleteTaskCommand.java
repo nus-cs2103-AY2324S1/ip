@@ -5,7 +5,7 @@ import dook.services.Storage;
 import dook.services.TaskList;
 import dook.services.UiDisplay;
 
-public class DeleteTaskCommand extends Command{
+public class DeleteTaskCommand extends Command {
     private final int index;
     public DeleteTaskCommand(int index) {
         this.index = index;

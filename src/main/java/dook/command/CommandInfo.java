@@ -9,13 +9,13 @@ public enum CommandInfo {
         after("Displays all tasks after a certain date."), during("Displays all tasks during a certain date."),
         invalid("You entered an invalid command.");
 
-        private final String desc;
+    private final String desc;
 
-        CommandInfo(String desc) {
-            this.desc = desc;
-        }
-        @Override
-        public String toString() {
-            return this.name() + ": " + this.desc;
-        }
+    CommandInfo(String desc) {
+        this.desc = desc;
+    }
+    @Override
+    public String toString() {
+        return this.name() + ": " + this.desc;
+    }
 }
