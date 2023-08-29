@@ -29,36 +29,34 @@ public class Storage {
         ArrayList<Task> taskList = new ArrayList<>();
         while (s.hasNext()) {
             String taskContent = s.nextLine();
-            String category = taskContent.split(" \\| ")[0];
-            String marked = taskContent.split("\\|")[1];
+            String[] input = taskContent.split(" \\| ");
+            String category = input[0];
+            String marked = input[1];
+            String description = input[2];
+
             switch (category) {
             case "T":
-                ToDos todo = new ToDos(taskContent.split(" \\| ")[2]);
-                if (marked.equals("0")) {
-                    taskList.add(todo);
-                } else {
+                ToDos todo = new ToDos(description);
+                taskList.add(todo);
+                if (!marked.equals("0")) {
                     todo.mark();
-                    taskList.add(todo);
                 }
                 break;
             case "D":
-                Deadlines deadline = new Deadlines(taskContent.split(" \\| ")[2], taskContent.split(" \\| ")[3]);
-                if (marked.equals("0")) {
-                    taskList.add(deadline);
-                } else {
+                String by = input[3];
+                Deadlines deadline = new Deadlines(description, by);
+                taskList.add(deadline);
+                if (!marked.equals("0")) {
                     deadline.mark();
-                    taskList.add(deadline);
                 }
                 break;
             case "E":
-                Events event = new Events(taskContent.split(" \\| ")[2],
-                        taskContent.split(" \\| ")[3].split("-")[0],
-                        taskContent.split("-")[1]);
-                if (marked.equals("0")) {
-                    taskList.add(event);
-                } else {
+                String from = input[3];
+                String to = input[4];
+                Events event = new Events(description, from, to);
+                taskList.add(event);
+                if (!marked.equals("0")) {
                     event.mark();
-                    taskList.add(event);
                 }
                 break;
             }

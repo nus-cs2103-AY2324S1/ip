@@ -1,6 +1,7 @@
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 import java.util.ArrayList;
 
@@ -241,7 +242,13 @@ public class Ruiz {
             } catch (BotException e) {
                 System.out.println(e);
             } catch (IOException e) {
-                System.out.println("Unable to save task");
+                System.out.println("____________________________________________________________\n" +
+                        "Unable to save task" +
+                        "____________________________________________________________");
+            } catch (DateTimeParseException e) {
+                System.out.println("____________________________________________________________\n" +
+                        "Please input your date and time in the correct format: yyyy-MM-dd HHmm\n" +
+                        "____________________________________________________________");
             }
         }
     }
