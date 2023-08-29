@@ -5,20 +5,20 @@ import ren.task.TaskList;
 
 public class RenUi {
     private static final String LINE_BREAK = "____________________________________________________________\n";
-    private static String welcomeMsg = LINE_BREAK +
+    private static final String WELCOME_MSG = LINE_BREAK +
             " Hello! I'm Ren.\n" +
             " What can I do for you?\n" +
             LINE_BREAK;
-    private static String goodbyeMsg = LINE_BREAK +
+    private static final String GOODBYE_MSG = LINE_BREAK +
             " Bye! Pleasure speaking with you :) \n" +
             LINE_BREAK;
 
     public static void printWelcomeMsg() {
-        System.out.println(welcomeMsg);
+        System.out.println(WELCOME_MSG);
     }
 
     public static void printGoodbyeMsg() {
-        System.out.println(goodbyeMsg);
+        System.out.println(GOODBYE_MSG);
     }
 
     public static void requestProperCommand() {

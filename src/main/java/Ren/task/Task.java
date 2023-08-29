@@ -17,7 +17,7 @@ public class Task {
         EVENT
     }
 
-    protected final String description;
+    protected String description;
     protected boolean isDone;
     protected TaskType taskType;
 

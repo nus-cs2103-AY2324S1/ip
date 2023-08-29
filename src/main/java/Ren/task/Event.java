@@ -5,8 +5,8 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Event extends Task {
 
-    private final String startTime;
-    private final String endTime;
+    private final String START_TIME;
+    private final String END_TIME;
 
     public String getDescription() {
         return this.description;
@@ -20,39 +20,39 @@ public class Event extends Task {
         return this.taskType;
     }
 
-    public String getStartTime() {
-        return this.startTime;
+    public String getSTART_TIME() {
+        return this.START_TIME;
     }
 
-    public String getEndTime() {
-        return this.endTime;
+    public String getEND_TIME() {
+        return this.END_TIME;
     }
 
     public Event() {
         super();
-        this.startTime = "";
-        this.endTime = "";
+        this.START_TIME = "";
+        this.END_TIME = "";
         this.taskType = TaskType.EVENT;
     }
 
     public Event(String eventDesc, boolean isDone, String startTime, String endTime) {
         super(eventDesc, isDone);
         this.taskType = TaskType.EVENT;
-        this.startTime = startTime;
-        this.endTime = endTime;
+        this.START_TIME = startTime;
+        this.END_TIME = endTime;
     }
 
     public Event(String eventDesc, boolean isDone, TaskType taskType, String startTime, String endTime) {
         super(eventDesc, isDone);
         this.taskType = TaskType.EVENT;
-        this.startTime = startTime;
-        this.endTime = endTime;
+        this.START_TIME = startTime;
+        this.END_TIME = endTime;
     }
 
     @Override
     public String toString() {
         return "[E]" + super.toString() +
-                "from: " + this.startTime +
-                "to: " + this.endTime;
+                "from: " + this.START_TIME +
+                "to: " + this.END_TIME;
     }
 }
