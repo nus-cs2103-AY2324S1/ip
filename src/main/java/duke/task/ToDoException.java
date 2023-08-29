@@ -1,3 +1,5 @@
+package duke.task;
+
 public class ToDoException extends Exception {
     private static String HORIZONTAL_LINE = "____________________________________________________________\n";
 
