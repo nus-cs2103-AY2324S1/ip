@@ -36,6 +36,10 @@ public class Task {
         }
     }
 
+    /**
+     * Converts object to string, to be overridden
+     * @return string representation
+     */
     public String toTxt() {
         return "";
     }

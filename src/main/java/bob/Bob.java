@@ -3,11 +3,18 @@ import java.util.*;
 import java.io.IOException;
 import bob.command.*;
 
+/**
+ * Main class for Bob
+ */
 public class Bob {
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
 
+    /**
+     * Bob constructor, initialise storage, tasks and ui
+     * @param dataPath is path to bob.txt
+     */
     public Bob(String dataPath) {
         storage = new Storage(dataPath);
         ui = new Ui();

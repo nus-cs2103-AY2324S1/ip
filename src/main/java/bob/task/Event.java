@@ -9,6 +9,12 @@ public class Event extends Task {
     private LocalDate start;
     private LocalDate end;
 
+    /**
+     * Event constructor
+     * @param description in the form e.g."travelling /from 2022-01-01 /to 2023-01-01"
+     * @throws MissingDatesException
+     * @throws DateTimeParseException
+     */
     public Event(String description) throws MissingDatesException, DateTimeParseException {
         super(description.split(" /from ")[0]);
         try {
@@ -26,6 +32,10 @@ public class Event extends Task {
         this.end = LocalDate.parse(end);
     }
 
+    /**
+     * Converts object to string representation for user display
+     * @return string representation
+     */
     @Override
     public String toString() {
         String done = this.done ? "[X]" : "[ ]";
@@ -49,6 +59,10 @@ public class Event extends Task {
         return new Event(name, isDone, start, end);
     }
 
+    /**
+     * Converts object into string to be stored in bob.txt
+     * @return string representation
+     */
     @Override
     public String toTxt() {
         String separation = " | ";

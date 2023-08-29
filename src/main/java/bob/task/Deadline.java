@@ -9,6 +9,11 @@ import bob.exception.*;
 public class Deadline extends Task {
     private LocalDate due;
 
+    /**
+     * Deadline constructor
+     * @param description in the form e.g."submit task /by 2022-01-01"
+     * @throws MissingDatesException
+     */
     public Deadline(String description) throws MissingDatesException {
         super(description.split(" /by ")[0]);
         try {
@@ -24,6 +29,10 @@ public class Deadline extends Task {
         this.due = LocalDate.parse(due);
     }
 
+    /**
+     * Converts object to string representation for user display
+     * @return string representation
+     */
     @Override
     public String toString() {
         String done = this.done ? "[X]" : "[ ]";
@@ -45,6 +54,10 @@ public class Deadline extends Task {
         return new Deadline(name, isDone, due);
     }
 
+    /**
+     * Converts object into string to be stored in bob.txt
+     * @return string representation
+     */
     @Override
     public String toTxt() {
         String separation = " | ";
