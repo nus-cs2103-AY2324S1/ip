@@ -1,4 +1,8 @@
 import java.io.Serializable;
+import java.security.InvalidParameterException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 
 /**
  * Superclass that supports task methods
@@ -45,4 +49,29 @@ public class Task implements Serializable {
         String ret = "[" + getStatusIcon() + "] " + description;
         return ret;
     }
+
+    /**
+     * Parses date string into LocalDate objects, with dateString in the format yyyy-mm-dd
+     *
+     * @param dateString String format of the date parsed in yyyy-mm-dd
+     */
+    protected LocalDate parseDates(String dateString) throws InvalidParameterException {
+        try {
+            LocalDate date = LocalDate.parse(dateString);
+            return date;
+        } catch (Exception e) {
+            System.out.println("Wrong date format provided");
+            throw new InvalidParameterException();
+        }
+    }
+
+    /**
+     * Returns the string format of date objects
+     * @param date Date to be convereted to a string
+     * @return String format of the date in MMM dd yyyy format
+     */
+    protected String printDates(LocalDate date) {
+        return date.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
+    }
+
 }

@@ -1,6 +1,13 @@
-import java.io.*;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+
 
 
 /**
@@ -157,6 +164,8 @@ public class Yong {
 
     /**
      * Method to create a Todo task and add it to the list of tasks
+     * Input format should be "todo (task)"
+     *
      * @param inp User input of the entire string corresponding to the TODO task
      * @return ToDo object with the description provided
      */
@@ -173,6 +182,8 @@ public class Yong {
 
     /**
      * Method to create a Deadline task and add it to the list of tasks
+     * Input format should be "deadline (task) /by YYYY-MM-DD"
+     *
      * @param inp User input of the entire string corresponding to the Deadline task
      * @return Deadline object with the description provided
      */
@@ -190,6 +201,8 @@ public class Yong {
 
     /**
      * Method to create an Event task and add it to the list of tasks
+     * Input format should be "event (task) /from YYYY-MM-DD /to YYYY-MM-DD
+     *
      * @param inp User input of the entire string corresponding to the Event task
      * @return Event object with the description provided
      */
@@ -199,8 +212,11 @@ public class Yong {
             String[] type_description = parts[0].split(" ", 2);
             String type = type_description[0];
             String description = type_description[1];
-            return new Event(description, parts[1], parts[2]);
+            String from = parts[1].trim().split(" ")[1];
+            String to = parts[2].trim().split(" ")[1];
+            return new Event(description, from, to);
         } catch (Exception e) {
+            System.out.println(e);
             throw new DukeException("Please give a valid description for an Event task!");
         }
     }
@@ -217,6 +233,9 @@ public class Yong {
         }
     }
 
+    /**
+     * Saves the current history array to the file
+     */
     private static void saveFile() {
         try {
             FileOutputStream dataFileStream = new FileOutputStream(FILE_PATH);
@@ -228,6 +247,9 @@ public class Yong {
         }
     }
 
+    /**
+     * Reads the file to populate the history array
+     */
     private static void readFile() {
         try {
             File dataFile = new File(FILE_PATH);
@@ -244,5 +266,6 @@ public class Yong {
             System.out.println("There is an error occurring, " + e.getMessage());
         }
     }
+
 
 }
