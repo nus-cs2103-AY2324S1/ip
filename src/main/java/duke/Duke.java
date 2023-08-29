@@ -4,7 +4,7 @@ import duke.command.Command;
 import duke.exception.DukeException;
 
 /**
- * Main entry point of the bot
+ * Main entry point of the bot.
  */
 public class Duke {
 

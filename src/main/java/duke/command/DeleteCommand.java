@@ -6,7 +6,7 @@ import duke.TaskList;
 import duke.Ui;
 
 /**
- * duke.command.Command that deletes the task from the task list using index.
+ * Command that deletes the task from the task list using index.
  */
 public class DeleteCommand implements Command{
 

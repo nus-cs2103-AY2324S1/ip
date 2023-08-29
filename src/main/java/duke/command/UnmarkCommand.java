@@ -5,7 +5,7 @@ import duke.TaskList;
 import duke.Ui;
 
 /**
- * duke.command.Command that un-marks a specific task
+ * Command that un-marks a specific task.
  */
 public class UnmarkCommand implements Command{
 
