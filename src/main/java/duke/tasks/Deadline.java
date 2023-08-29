@@ -6,6 +6,9 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * A class encapsulating information of a task of Deadline type.
+ */
 public class Deadline extends Task {
 
     private String deadline;
@@ -19,12 +22,23 @@ public class Deadline extends Task {
         this.deadline = deadline;
     }
 
+    /**
+     * Factory method for the deadline class.
+     *
+     * @param taskDesc Description of the deadline task.
+     * @return A Deadline task object.
+     * @throws IncompleteDescriptionException If the task description or task name is empty.
+     */
     public static Deadline create(String taskDesc) throws IncompleteDescriptionException {
         String[] tmp = taskDesc.split(" /by ");
-        if (tmp.length <= 1) throw new IncompleteDescriptionException();
+        if (tmp.length <= 1) {
+            throw new IncompleteDescriptionException();
+        }
         String taskName = tmp[0];
         String deadline = tmp[1];
-        if (taskName.isBlank() || deadline.isBlank()) throw new IncompleteDescriptionException();
+        if (taskName.isBlank() || deadline.isBlank()) {
+            throw new IncompleteDescriptionException();
+        }
         return new Deadline(tmp[0], tmp[1]);
     }
 

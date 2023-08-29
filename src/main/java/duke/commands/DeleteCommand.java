@@ -1,4 +1,5 @@
 package duke.commands;
+
 import duke.Storage;
 import duke.TaskList;
 import duke.Ui;
@@ -7,6 +8,9 @@ import duke.tasks.Task;
 
 import duke.Exceptions.InvalidTaskIndexException;
 
+/**
+ * Command to delete a task from the task list.
+ */
 public class DeleteCommand extends Command {
     private int deleteIdx;
 

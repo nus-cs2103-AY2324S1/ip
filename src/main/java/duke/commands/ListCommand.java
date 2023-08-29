@@ -1,9 +1,13 @@
 package duke.commands;
+
 import duke.Exceptions.InvalidTaskIndexException;
 import duke.Storage;
 import duke.TaskList;
 import duke.Ui;
 
+/**
+ * Command to display the current tasks in the task list to the user.
+ */
 public class ListCommand extends Command {
     @Override
     public void execute(TaskList taskList, Storage storage) {
