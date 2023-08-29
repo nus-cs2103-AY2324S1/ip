@@ -1,9 +1,3 @@
-<<<<<<< Updated upstream:src/main/java/DateTimeHandler.java
-=======
-package peko;
-
-import java.time.DateTimeException;
->>>>>>> Stashed changes:src/main/java/peko/DateTimeHandler.java
 import java.time.LocalDateTime;
 
 public class DateTimeHandler {
