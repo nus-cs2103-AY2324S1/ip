@@ -7,11 +7,13 @@ import static rayshawn.chatbot.messages.Messages.WELCOME_MESSAGE;
 import static rayshawn.chatbot.messages.Messages.HELP_MESSAGE;
 import static rayshawn.chatbot.messages.Messages.GOODBYE_MESSAGE;
 import static rayshawn.chatbot.messages.Messages.INIT_FAILED_MESSAGE;
+import static rayshawn.chatbot.messages.Messages.VALID_LIST_MESSAGE;
 
 import java.io.InputStream;
 import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.Scanner;
 
 import rayshawn.chatbot.tasks.Task;
@@ -75,6 +77,11 @@ public class Ui {
     }
 
     public void showResultToUser(CommandResult result) {
+        final Optional<List<Task>> taskList = result.getTaskList();
+        if (taskList.isPresent()) {
+            showToUser(VALID_LIST_MESSAGE);
+            showTaskList(taskList.get());
+        }
         showToUser(result.feedbackToUser, LINE_BREAK);
     }
 

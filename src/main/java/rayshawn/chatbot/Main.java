@@ -9,7 +9,6 @@ import rayshawn.chatbot.commands.Command;
 import rayshawn.chatbot.commands.CommandResult;
 import rayshawn.chatbot.commands.ByeCommand;
 import rayshawn.chatbot.parser.Parser;
-import rayshawn.chatbot.exceptions.ChatBotException;
 
 public class Main {
     private Storage storage;

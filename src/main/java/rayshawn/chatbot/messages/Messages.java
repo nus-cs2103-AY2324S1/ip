@@ -9,5 +9,7 @@ public class Messages {
     public static final String INVALID_TASK_NUMBER_MESSAGE = "This task number is invalid!";
     public static final String INIT_FAILED_MESSAGE = "Failed to initialise chat bot application. Exiting...";
     public static final String LIST_HEADER_MESSAGE = "Here are the tasks in your list:";
-    public static final String LIST_COUNT_MESSAGE = "Now you have %d tasks in the list.";
+    public static final String LIST_COUNT_MESSAGE = "You have %d tasks in the list.";
+    public static final String VALID_LIST_MESSAGE = "Here are the tasks in your list:";
+
 }

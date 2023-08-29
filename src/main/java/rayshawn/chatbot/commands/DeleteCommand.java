@@ -9,7 +9,7 @@ public class DeleteCommand extends Command {
             ": Deletes the task identified by the index number used shown in the task listing. \n" +
             "Parameters: INDEX\n" +
             "Example: " + COMMAND_WORD + " 1";
-    public static final String MESSAGE_SUCCESS = "Noted. I've removed this task: %1$s";
+    public static final String MESSAGE_SUCCESS = "Noted. I've removed this task: \n %1$s";
 
     public DeleteCommand(int index) {
         super(index);
@@ -18,7 +18,7 @@ public class DeleteCommand extends Command {
     @Override
     public CommandResult execute() {
         try {
-            final Task target = super.getTask(super.getIndex());
+            final Task target = super.getTask(super.getIndex() - 1);
             taskList.removeTask(super.getIndex());
             return new CommandResult(String.format(MESSAGE_SUCCESS, target));
         } catch (IndexOutOfBoundsException e) {
