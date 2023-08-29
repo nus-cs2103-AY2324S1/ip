@@ -23,6 +23,10 @@ public class Storage {
         ArrayList<Task> loadedTasks = new ArrayList<>();
         File file = new File(this.filePath);
 
+        if (!file.exists()) {
+            throw new DukeDatabaseException();
+        }
+
         try {
             Scanner scanner = new Scanner(file);
             while (scanner.hasNext()) {
