@@ -10,7 +10,7 @@ public class Event extends Task {
         this.to = to;
     }
 
-    public static void setEvent(String userOutput, ArrayList<Task> inputList) throws EmptyException {
+    public static void setEvent(String userOutput, TaskList inputList) throws EmptyException {
         try {
             String newDes = userOutput.split("event")[1].split("/from")[0].strip();
             String newFrom = userOutput.split("/from")[1].split("/to")[0].strip();
@@ -23,6 +23,14 @@ public class Event extends Task {
         } catch (Exception e) {
             throw new EmptyException("event");
         }
+    }
+
+    public static void newEvent(String text, ArrayList<Task> tasks) {
+        String desc = text.split("\\(")[0].trim();
+        String from = text.split("from:")[1].split("to:")[0].strip();
+        String to = text.split("to:")[1].strip();
+        Event updatedEvent = new Event(desc, from, to);
+        tasks.add(updatedEvent);
     }
 
     @Override

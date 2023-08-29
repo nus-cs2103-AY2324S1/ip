@@ -2,7 +2,6 @@ import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.time.temporal.ChronoUnit;
 
 public class Deadline extends Task {
 
@@ -13,7 +12,7 @@ public class Deadline extends Task {
         this.by = by;
     }
 
-    public static void setDeadline(String userOutput, ArrayList<Task> inputList) throws Exception {
+    public static void setDeadline(String userOutput, TaskList inputList) throws Exception {
         try {
             String newDes = userOutput.split("deadline")[1].split("/by")[0].strip();
             String newBy = userOutput.split("/by")[1].strip();
@@ -28,6 +27,14 @@ public class Deadline extends Task {
         } catch (Exception e) {
             throw new EmptyException("deadline");
         }
+    }
+
+    public static void newDeadline(String text, ArrayList<Task> tasks) {
+        String desc = text.split("\\(")[0].trim();
+        String by = text.split("by:")[1].split("\\)")[0].trim();
+        LocalDate date = LocalDate.parse(by, DateTimeFormatter.ofPattern("MMM d yyyy"));
+        Deadline updatedDeadline = new Deadline(desc, date);
+        tasks.add(updatedDeadline);
     }
 
     @Override

@@ -5,7 +5,7 @@ public class Todo extends Task {
         super(description);
     }
 
-    public static void setTodo(String userOutput, ArrayList<Task> inputList) throws EmptyException {
+    public static void setTodo(String userOutput, TaskList inputList) throws EmptyException {
         try {
             Todo newTodo = new Todo(userOutput.split("todo")[1].strip());
             inputList.add(newTodo);
@@ -15,6 +15,11 @@ public class Todo extends Task {
         } catch (Exception e) {
             throw new EmptyException("todo");
         }
+    }
+
+    public static void newTodo(String text, ArrayList<Task> tasks) {
+        Todo updatedTodo = new Todo(text);
+        tasks.add(updatedTodo);
     }
 
     @Override
