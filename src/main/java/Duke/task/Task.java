@@ -9,7 +9,7 @@ public abstract class Task {
     private boolean completed = false;
 
     public static Task Parse(String line)
-            throws EmptyTaskDescException, NoCommandFoundException {
+            throws DukeException {
         String[] components = line.split(":", 2);
         TaskType taskType = components[0].equals("todo") ? TaskType.TODO
                           : components[0].equals("deadline") ? TaskType.DEADLINE
@@ -31,9 +31,6 @@ public abstract class Task {
         TODO,
         DEADLINE,
         EVENT
-    }
-    protected String insertColonInTime(String time) {
-        return time.replaceFirst(" ", ": ");
     }
     public Task(String name) throws EmptyTaskDescException {
         if(name.isBlank()) {
