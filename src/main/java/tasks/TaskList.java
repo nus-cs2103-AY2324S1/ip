@@ -6,6 +6,7 @@ import ui.Ui;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.concurrent.atomic.AtomicReferenceArray;
 
 /**
  * TaskList class that contains an ArrayList of tasks, where
@@ -110,6 +111,24 @@ public class TaskList {
         }
         if (!hasTaskToday) {
             outputList.add("Like a tiny dot in the sky, you're schedule is empty! ^o^");
+        }
+        return outputList;
+    }
+
+    /**
+     * Returns the display list for all queried tasks.
+     *
+     * @param query This is the query string for the tasks.
+     * @return A list of lines to be displayed.
+     */
+    public ArrayList<String> getDisplayForQueriedTasks(String query) {
+        int count = 1;
+        ArrayList<String> outputList = new ArrayList<>();
+        outputList.add("Here are the matching tasks in your list:");
+        for (Task currTask : this.tasks) {
+            if (currTask.isQueriedTask(query)) {
+                outputList.add(String.format("%d.%s", count++, currTask));
+            }
         }
         return outputList;
     }

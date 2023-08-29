@@ -45,6 +45,16 @@ public abstract class Task {
         return this.completed ? 'X' : ' ';
     }
 
+    /**
+     * Returns whether the description of the task matches the query.
+     *
+     * @param query This is the query for the task.
+     * @return true if description contains query, else false.
+     */
+    public boolean isQueriedTask(String query) {
+        return this.description.contains(query);
+    }
+
     public String toString() {
         return String.format("[%c] %s", this.getStatus(), this.description);
     }
