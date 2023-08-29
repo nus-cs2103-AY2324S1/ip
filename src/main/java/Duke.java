@@ -82,10 +82,11 @@ public class Duke {
                 continue;
             }
             if (userInput.equals(DEADLINE_PHRASE)) {
+                userInput = myObj.nextLine();
                 if (userInput.equals("")) {
                     throw new DukeException("☹ OOPS!!! The description of a deadline cannot be empty.");
                 }
-                userInput = myObj.nextLine();
+                System.out.println("To be done by?");
                 String by = myObj.nextLine();
                 toDoList.add(new Deadlines(userInput, by));
                 System.out.println("Got it. I've added this task: ");
@@ -96,11 +97,13 @@ public class Duke {
                 continue;
             }
             if (userInput.equals(EVENT_PHRASE)) {
+                userInput = myObj.nextLine();
                 if (userInput.equals("")) {
                     throw new DukeException("☹ OOPS!!! The description of an event cannot be empty.");
                 }
-                userInput = myObj.nextLine();
+                System.out.println("From?");
                 String from = myObj.nextLine();
+                System.out.println("To?");
                 String to = myObj.nextLine();
 
                 toDoList.add(new Events(userInput, from, to));
