@@ -1,5 +1,18 @@
+package task;
+
 import java.util.ArrayList;
 import java.util.regex.Pattern;
+import dukeException.DukeException;
+import java.io.IOException;
+import java.io.FileWriter;
+import java.io.File;  // Import the File class
+import java.io.FileNotFoundException;  // Import this class to handle errors
+import java.util.Scanner; // Import the Scanner class to read text files
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileReader;
+
+
 public class Task {
     protected String description;
     protected boolean isDone;
@@ -95,6 +108,34 @@ public class Task {
         Task taskToRemove = list.get(indexToRemove);
         System.out.println(taskToRemove);
         list.remove(indexToRemove);
+        try {
+            File myObj = new File("./src/main/data/tmpDuke.txt");
+            myObj.createNewFile();
+            int currLine = 0;
+            File currFile = new File("./src/main/data/duke.txt");
+            Scanner myReader = new Scanner(currFile);
+            while (myReader.hasNextLine()) {
+                if (indexToRemove == currLine) {
+                    String data = myReader.nextLine();
+                    currLine++;
+                    continue;
+                }
+                currLine++;
+                String data = myReader.nextLine();
+                if (data.equals("")) { break; }
+                FileWriter myWriter = new FileWriter("./src/main/data/tmpDuke.txt", true);
+                myWriter.write(data + "\n");
+                myWriter.close();
+            }
+            myReader.close();
+            new File("./src/main/data/tmpDuke.txt").renameTo(currFile);
+        } catch (FileNotFoundException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+        } catch (IOException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+        }
         System.out.println("Now you have " + list.size() + " tasks in the list." );
         printHorizontalLine();
     }

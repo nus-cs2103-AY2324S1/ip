@@ -1,6 +1,9 @@
+package task;
+
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import dukeException.DukeException;
 
 public class Event extends Task {
 
@@ -22,7 +25,7 @@ public class Event extends Task {
             boolean hasTo = false;
 
             if (splitCommand.length == 1) {
-                throw new DukeException("Event Argument Empty");
+                throw new DukeException("task.Event Argument Empty");
             }
 
             for (int i = 0; i < splitCommand.length; i++) {

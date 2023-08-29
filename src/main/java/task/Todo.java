@@ -1,9 +1,9 @@
+package task;
+
 import java.util.ArrayList;
-import java.io.File;
 import java.io.IOException;
 import java.io.FileWriter;
-import java.io.FileNotFoundException;
-
+import dukeException.DukeException;
 public class Todo extends Task {
 
     public Todo(String description) {
