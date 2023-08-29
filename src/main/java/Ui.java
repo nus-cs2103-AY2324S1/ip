@@ -1,4 +1,5 @@
 import java.time.LocalDateTime;
+import java.util.Scanner;
 
 public class Ui {
 
@@ -20,6 +21,15 @@ public class Ui {
         System.out.println(LINE);
     }
 
+    public String readCommand() {
+        Scanner scanner = new Scanner(System.in);
+        return scanner.nextLine();
+    }
+
+    public void showLine() {
+        System.out.println(LINE);
+    }
+
     public void showOutro() {
         System.out.println("Bye. Hope to see you again soon!");
         System.out.println(LINE);
@@ -29,6 +39,25 @@ public class Ui {
         System.out.println("Got it!. I've added this task:");
         System.out.println(INDENTATION + task);
         System.out.printf("Now you have %d tasks in the list%n", size);
+        System.out.println(LINE);
+    }
+
+    public void showDeleteMessage(Task task, int size) {
+        System.out.println("Noted... I've removed this task:");
+        System.out.println(INDENTATION + task);
+        System.out.printf("Now you have %d tasks in the list%n", size);
+        System.out.println(LINE);
+    }
+
+    public void showMarkMessage(Task task) {
+        System.out.println("Great job completing the task! I've marked it as done.");
+        System.out.println(INDENTATION + task);
+        System.out.println(LINE);
+    }
+
+    public void showUnmarkMessage(Task task) {
+        System.out.println("Oops... Did you mark it incorrectly?");
+        System.out.println(INDENTATION + task);
         System.out.println(LINE);
     }
 

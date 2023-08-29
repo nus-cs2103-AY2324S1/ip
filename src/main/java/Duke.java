@@ -43,14 +43,13 @@ public class Duke {
         Storage storage = new Storage(DIR_NAME + File.separator + FILE_NAME);
         TaskList tasks = new TaskList(storage.loadTasksFromStorage());
         Ui ui = new Ui();
-        Scanner scanner = new Scanner(System.in);
 
         ui.showWelcome();
 
         try {
             while (true) {
-                String input = scanner.nextLine();
-                System.out.println(LINE);
+                String input = ui.readCommand();
+                ui.showLine();
 
                 // Use Regex to extract the first word even with preceding whitespace
                 String command = input.replaceAll("^\\W*\\b(\\w+).*", "$1").toUpperCase();
@@ -89,9 +88,7 @@ public class Duke {
 
                         Task task = tasks.get(index - 1);
                         task.markDone();
-                        System.out.println("Great job completing the task! I've marked it as done.");
-                        System.out.println(task);
-                        System.out.println(LINE);
+                        ui.showMarkMessage(task);
                         continue;
                     }
 
@@ -108,9 +105,7 @@ public class Duke {
 
                         Task task = tasks.get(index - 1);
                         task.markUndone();
-                        System.out.println("Oops... Did you mark it incorrectly?");
-                        System.out.println(task);
-                        System.out.println(LINE);
+                        ui.showUnmarkMessage(task);
                         continue;
                     }
 
@@ -188,10 +183,7 @@ public class Duke {
                         }
                         Task task = tasks.get(index - 1);
                         tasks.remove(index - 1);
-                        System.out.println("Noted... I've removed this task:");
-                        System.out.println(" " + task);
-                        System.out.printf("Now you have %d tasks in the list%n", tasks.size());
-                        System.out.println(LINE);
+                        ui.showDeleteMessage(task, tasks.size());
                         continue;
                     }
 
