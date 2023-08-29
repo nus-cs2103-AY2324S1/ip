@@ -59,7 +59,7 @@ public class Duke {
                 for (int i = 0; i < length; i++) {
                     if (lists[i] != null) {
                         Task t = lists[i];
-                        s.append((curr++) + ". " + t.getStatus());
+                        s.append((curr++) + ". " + t.getStatus() + "\n");
                     }
                 }
                 writeToFile(filename, s.toString());

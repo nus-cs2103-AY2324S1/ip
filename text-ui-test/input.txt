@@ -1,5 +1,5 @@
 todo Poop
-deadline Study /By monday
+deadline return book /by 02/12/2019 1800
 event Supernova /from Mon 2pm /to Tue 2pm
 mark 2
 list
