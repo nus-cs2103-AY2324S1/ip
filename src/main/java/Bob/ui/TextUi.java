@@ -143,7 +143,7 @@ public class TextUi {
     /**
      * Reads the user input in the Command Line Interface as a whole line.
      *
-     * @return A String representing user inpu
+     * @return A String representing user input
      */
     public String readTextInput() {
         return scanner.nextLine();
