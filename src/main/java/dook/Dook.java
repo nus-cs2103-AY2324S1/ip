@@ -11,6 +11,10 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+/**
+ *  Class containing the main execution function.
+ */
 public class Dook {
     public static final Path PROPER_PATH = Paths.get("dook.txt");
     private final Storage storage;
@@ -48,10 +52,7 @@ public class Dook {
     private void readSavedList() {
         try {
             taskList = new TaskList(storage.load());
-        } catch (FileNotFoundException e) {
-            uiDisplay.printMessage("Failed to load file from text. Creating a new file.");
-            taskList = new TaskList(new ArrayList<>());
-        } catch (DookException d) {
+        }  catch (DookException d) {
             uiDisplay.printMessage(d.getMessage());
             taskList = new TaskList(new ArrayList<>());
         }
