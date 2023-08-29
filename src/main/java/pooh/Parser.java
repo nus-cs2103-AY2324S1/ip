@@ -31,7 +31,7 @@ public class Parser {
                 Ui.printTasksMsg(taskList);
             case "bye":
                 Ui.printExitMsg();
-                System.exit(1);
+                System.exit(0);
             case "mark":
                 int markIndex = Integer.parseInt(userInput.split(" ")[1]) - 1;
                 Task markTask = taskList.getTask(markIndex);
