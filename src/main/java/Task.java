@@ -24,4 +24,12 @@ public class Task {
         }
         return String.format("[ ] %s", this.description);
     }
+
+    public String getSaveFormat() {
+        return String.format(
+                "%d | %s",
+                this.completed ? 1 : 0,
+                this.description
+        );
+    }
 }
