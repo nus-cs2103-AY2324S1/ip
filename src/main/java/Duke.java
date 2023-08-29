@@ -20,7 +20,7 @@ public class Duke {
 
         System.out.println("Hello! I'm Mikhil" + '\n' + "What can I do for you");
         boolean flag = true;
-        ArrayList<Task> tasks = new ArrayList<>();
+        ArrayList<Task> tasks = TasksFile.readTasks();
         Scanner userInput = new Scanner(System.in);
 
         while (flag == true) {
@@ -47,6 +47,7 @@ public class Duke {
                     inputChecker(splitStr, "todo");
                     Todo t = new Todo(input.substring(5));
                     tasks.add(t);
+                    TasksFile.saveTasks(tasks);
                 }
                 catch (DukeException e){
                     System.out.println(e.getMessage());
@@ -61,6 +62,7 @@ public class Duke {
                     inputChecker(deadline, "deadline");
                     Deadline d = new Deadline(deadline[0].substring(9), deadline[1].substring(3));
                     tasks.add(d);
+                    TasksFile.saveTasks(tasks);
                 }
                 catch (DukeException e){
                     System.out.println(e.getMessage());
@@ -76,6 +78,7 @@ public class Duke {
 
                     Event e = new Event(event[0].substring(6),event[1].substring(5), event[2].substring(3));
                     tasks.add(e);
+                    TasksFile.saveTasks(tasks);
                 }
                 catch (DukeException e){
                     System.out.println(e.getMessage());
@@ -89,6 +92,7 @@ public class Duke {
                     int index = Integer.parseInt(splitStr[1]);
                     Task item = tasks.get(index - 1);
                     item.setAction(splitStr[0]);
+                    TasksFile.saveTasks(tasks);
                 }
                 catch (DukeException e){
                     System.out.println(e.getMessage());
@@ -103,6 +107,7 @@ public class Duke {
                     int index = Integer.parseInt(splitStr[1]);
                     Task item = tasks.remove(index - 1);
                     item.delete();
+                    TasksFile.saveTasks(tasks);
                 }
                 catch (DukeException e){
                     System.out.println(e.getMessage());
