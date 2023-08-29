@@ -17,9 +17,13 @@ public class Duke {
     private static String PURPLE = "\u001B[35m";
     private static String RED = "\033[0;31m";
 
-    private static String SAVE_TASKS_DIR = "./data/data.txt"; 
-
     private ArrayList<Task> tasks = new ArrayList<Task>();
+    private Storage storage;
+
+    public Duke(String filePath, String fileDir) {
+        this.storage = new Storage(filePath, fileDir);
+        this.tasks = this.storage.load();
+    }
 
     private static String extractTail(String[] item) {
         return String.join(" ",
@@ -34,10 +38,6 @@ public class Duke {
     }
 
     public void start() throws IOException {
-        this.speak("Initalizing... Please be patient");
-        // Load tasks from local file (if it exists)
-        this.readTasksFromFile();
-
         this.speak(new String[] {
             "Hi. I'm " + cTxt("Bryan", PURPLE),
             "What can I do for you?"
@@ -230,85 +230,6 @@ public class Duke {
         this.speak(formatTasks);
     }
 
-    private void readTasksFromFile() {
-        try {
-            BufferedReader br = new BufferedReader(
-                new FileReader(SAVE_TASKS_DIR)
-            );
-
-            String line;
-            while((line = br.readLine()) != null) {
-                String[] parse = line.strip().split("\\|");
-                // Shortest length is 3 for any task type
-                if (parse.length < 3) continue;
-                String taskType = parse[0];
-                boolean isDone = parse[1].equals("1");
-
-                // Add task based on type given
-                switch(taskType) {
-                case "T":
-                    this.addTask(
-                        new Todo(parse[2], isDone)
-                    );
-                    break;
-                case "D":
-                    if (parse.length < 4) break;
-                    this.addTask(
-                        new Deadline(
-                            parse[2], 
-                            DateParser.parseDateString(parse[3]), 
-                            isDone
-                    ));
-                    break;
-                case "E":
-                    if (parse.length < 5) break;
-                    this.addTask(
-                        new Event(
-                            parse[2], 
-                            DateParser.parseDateString(parse[3]), 
-                            DateParser.parseDateString(parse[4]), 
-                            isDone
-                    ));
-                    break;
-                default:
-                    break;
-                }
-            }
-            this.speak("Tasks successfully loaded!"); 
-            // Close the reader after parsing the file
-            br.close();
-        } catch (FileNotFoundException f) {
-            // Create a new data directory if it cannot be found
-            if (new File("./data").mkdir()) {
-                this.speak(
-                    "I've created a new folder to store your tasks :)"
-                );
-            }
-        } catch (IOException e) {
-            this.error(
-                "Oops, there was an issue retrieving your saved tasks"
-            );
-        }
-    }
-
-    private String taskListToString() {
-        String taskListString = "";
-        for (Task task : this.tasks) {
-            taskListString += task.toFileFormatString() + "\n";
-        }
-        return taskListString.strip();
-    }
-
-    private void updateSavedTasks() {
-        try {
-            FileWriter fw = new FileWriter(SAVE_TASKS_DIR);
-            fw.write(this.taskListToString());
-            fw.close();
-        } catch (IOException e) {
-            this.error("Sorry error with saving tasks!");
-        }
-    }
-
     private void delete(String taskCount) throws DukeException {
         int index;
         try {
@@ -339,10 +260,10 @@ public class Duke {
         });
 
         // Write modified task list to file
-        this.updateSavedTasks();
+        this.storage.update(this.tasks);
     }
 
-    private void addTodo(String description) {
+    private void addTodo(String description) throws DukeException {
         Task todo = new Todo(description);
         this.addTask(todo);
         this.speak(new String[] {
@@ -350,10 +271,10 @@ public class Duke {
             "  " + todo.toString(),
             "Total no. of tasks stored: " + tasks.size()
         });
-        this.updateSavedTasks();
+        this.storage.update(this.tasks);
     }
 
-    private void addDeadline(String description, LocalDateTime by) {
+    private void addDeadline(String description, LocalDateTime by) throws DukeException {
         Task deadline = new Deadline(description, by);
         this.addTask(deadline);
         this.speak(new String[] {
@@ -361,10 +282,10 @@ public class Duke {
             "  " + deadline.toString(),
             "Total no. of tasks stored: " + tasks.size()
         });
-        this.updateSavedTasks();
+        this.storage.update(this.tasks);
     }
 
-    private void addEvent(String description, LocalDateTime start, LocalDateTime end) {
+    private void addEvent(String description, LocalDateTime start, LocalDateTime end) throws DukeException {
         Task event = new Event(description, start, end);
         this.addTask(event);
         this.speak(new String[] {
@@ -372,7 +293,7 @@ public class Duke {
             "  " + event.toString(),
             "Total no. of tasks stored: " + tasks.size()
         });
-        this.updateSavedTasks();
+        this.storage.update(this.tasks);
     }
 
     private void addTask(Task task) {
@@ -414,7 +335,7 @@ public class Duke {
             "  " + task.toString()
         });
 
-        this.updateSavedTasks();
+        this.storage.update(tasks);
     }
 
     private void speak(String text) {
@@ -451,7 +372,10 @@ public class Duke {
     // }
 
     public static void main(String[] args) throws IOException {
-        Duke chatbot = new Duke();
+        Duke chatbot = new Duke(
+            "./data/data.txt", 
+            "./data"
+        );
         chatbot.start();
     }
 }
