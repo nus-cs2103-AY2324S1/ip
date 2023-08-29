@@ -149,16 +149,9 @@ public class TaskList {
     }
 
     /**
-<<<<<<< HEAD
-     * Returns string representation of task list.
+     * Returns string representation of filtered task list.
      *
-     * @return String representation of task list.
-     */
-=======
-     * Returns list of tasks containing given keyword.
-     *
-     * @param keyword Keyword for searching.
-     * @return List of tasks containing given keyword.
+     * @return String representation of filtered task list.
      */
     public String getMatchingTasks(String keyword) {
         ArrayList<Task> filteredTasks = new ArrayList<>();
@@ -178,7 +171,11 @@ public class TaskList {
         return str.toString();
     }
 
->>>>>>> branch-Level-9
+    /**
+     * Returns string representation of task list.
+     *
+     * @return String representation of task list.
+     */
     @Override
     public String toString() {
         StringBuilder str = new StringBuilder();
