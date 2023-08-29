@@ -1,34 +1,36 @@
+import java.time.LocalDateTime;
+
 /**
  * Class to encapsulate the logic of an event in a todo list
  */
-public class Event extends Task {
+public class EventTask extends Task {
 
     /**
      * The starting time of the event
      */
-    private final String from;
+    private LocalDateTime from;
 
     /**
      * The ending time of the event
      */
-    private final String to;
+    private LocalDateTime to;
 
     /**
-     * constructor for Event
+     * constructor for EventTask
      * Stored as EVENT,{marked}{task description},{from},{to}
      *
      * @param from - the starting time of the event
      * @param to   - the ending time of the event
      * @param task - the description of the task created
      */
-    public Event(String from, String to, String task) {
+    public EventTask(LocalDateTime from, LocalDateTime to, String task) {
         super(task);
         this.from = from;
         this.to = to;
     }
 
     /**
-     * constructor for Event from storage
+     * constructor for EventTask from storage
      * Stored as EVENT,{marked}{task description},{from},{to}
      *
      * @param from      - the starting time of the event
@@ -36,7 +38,7 @@ public class Event extends Task {
      * @param task      - the description of the task created
      * @param completed - if completed
      */
-    public Event(String from, String to, String task, boolean completed) {
+    public EventTask(LocalDateTime from, LocalDateTime to, String task, boolean completed) {
         super(task);
         this.from = from;
         this.to = to;
@@ -47,7 +49,7 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + String.format(" (from: %s to: %s)", this.from, this.to);
+        return "[E]" + super.toString() + String.format(" (from: %s to: %s)", Task.formatDate(this.from), Task.formatDate(this.to));
     }
 
     /**
@@ -58,6 +60,6 @@ public class Event extends Task {
      */
     @Override
     public String getStored() {
-        return String.join(Task.SEP, new String[]{"EVENT", this.getTask(), this.isCompleted() ? "1" : "0", this.isCompleted() ? "1" : "0", this.from, this.to});
+        return String.join(Task.SEP, new String[]{"EVENT", this.getTask(), this.isCompleted() ? "1" : "0", this.isCompleted() ? "1" : "0", this.from.toString(), this.to.toString()});
     }
 }

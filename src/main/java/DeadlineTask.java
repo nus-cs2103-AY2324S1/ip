@@ -1,29 +1,31 @@
-public class Deadline extends Task {
+import java.time.LocalDateTime;
+
+public class DeadlineTask extends Task {
 
     /**
      * The deadline of the task
      */
-    private final String by;
+    private LocalDateTime by;
 
     /**
-     * constructor for Deadline
+     * constructor for DeadlineTask
      *
      * @param by   - the deadline of the task
      * @param task - the description of the task created
      */
-    public Deadline(String by, String task) {
+    public DeadlineTask(LocalDateTime by, String task) {
         super(task);
         this.by = by;
     }
 
     /**
-     * constructor for Deadline from storage
+     * constructor for DeadlineTask from storage
      *
      * @param by        - the deadline of the task
      * @param task      - the description of the task created
      * @param completed - if completed
      */
-    public Deadline(String by, String task, boolean completed) {
+    public DeadlineTask(LocalDateTime by, String task, boolean completed) {
         super(task);
         this.by = by;
         if (completed) {
@@ -33,7 +35,7 @@ public class Deadline extends Task {
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + this.by + ")";
+        return "[D]" + super.toString() + " (by: " + Task.formatDate(this.by) + ")";
     }
 
     /**
@@ -44,7 +46,7 @@ public class Deadline extends Task {
      */
     @Override
     public String getStored() {
-        return String.join(Task.SEP, new String[]{"DEADLINE", this.getTask(), this.isCompleted() ? "1" : "0", this.by});
+        return String.join(Task.SEP, new String[]{"DEADLINE", this.getTask(), this.isCompleted() ? "1" : "0", this.by.toString()});
     }
 
 }
