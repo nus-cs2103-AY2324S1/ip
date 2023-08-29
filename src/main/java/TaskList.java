@@ -88,7 +88,7 @@ class Task {
 }
 
 class ListOfTask {
-    private static ArrayList<Task> listOfTask = new ArrayList<>();
+    private ArrayList<Task> listOfTask = new ArrayList<>();
 
     protected int size() {
         return listOfTask.size();

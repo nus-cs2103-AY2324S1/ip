@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 
 public class Parser {
+
     private String command;
     private String[] initialParse;
     private String[] phaseParse;
@@ -26,12 +27,12 @@ public class Parser {
         }
 
         if (cmd == Commands.COMMANDS.BY || cmd == Commands.COMMANDS.FROM || cmd == Commands.COMMANDS.TO) {
-            String restOfCommand = this.secondWord();
+            String restOfCommand = this.secondWord().trim();
             try {
                 LocalDateTime dateTime = LocalDateTime.parse(restOfCommand, Duke.FORMAT);
                 return new Commands(cmd, dateTime);
             } catch (DateTimeParseException e) {
-                System.out.println("The format for dates&time is 'dd-MM-yyyy hhmm'");
+                System.out.println(cmd + ": The format for dates&time is 'dd-MM-yyyy hhmm'");
             }
         }
 
@@ -45,29 +46,45 @@ public class Parser {
         }
 
         if (cmd == Commands.COMMANDS.DEADLINE) {
-            String task = this.phaseParse();
-            String command2 = this.phaseTwo();
-            if (task != null) {
-                Parser phaseTwo = new Parser(command2);
-                Commands c = phaseTwo.parse();
-                if (c.getCommand() == Commands.COMMANDS.BY) {
-                    return new Commands.TwoCommands(Commands.COMMANDS.DEADLINE, task,c);
+            try {
+                String task = this.phaseParse();
+                String command2 = this.phaseTwo();
+                if (task != null) {
+                    Parser phaseTwo = new Parser(command2);
+                    Commands c = phaseTwo.parse();
+                    if (c.getCommand() == Commands.COMMANDS.BY) {
+                        return new Commands.TwoCommands(Commands.COMMANDS.DEADLINE, task, c);
+                    }
+                } else {
+                    System.out.println("Please add the task name");
                 }
+            } catch (NullPointerException e) {
+                System.out.println("The format for the command is: deadline task /by date&time");
             }
         }
 
         if (cmd == Commands.COMMANDS.EVENT) {
-            String task = this.phaseParse();
-            String command2 = this.phaseTwo();
-            String command3 = this.phaseThree();
-            if (task != null) {
-                Parser phaseTwo = new Parser(command2);
-                Commands c1 = phaseTwo.parse();
-                Parser phaseThree = new Parser(command3);
-                Commands c2 = phaseThree.parse();
-                if (c1.getCommand() == Commands.COMMANDS.FROM && c2.getCommand() == Commands.COMMANDS.TO) {
-                    return new Commands.ThreeCommands(Commands.COMMANDS.EVENT, task, c1, c2);
+            try {
+                String task = this.phaseParse();
+                String command2 = this.phaseTwo();
+                String command3 = this.phaseThree();
+                if (task != null) {
+                    Parser phaseTwo = new Parser(command2);
+                    Commands c1 = phaseTwo.parse();
+                    Parser phaseThree = new Parser(command3);
+                    Commands c2 = phaseThree.parse();
+                    if (c1.getCommand() == Commands.COMMANDS.FROM && c2.getCommand() == Commands.COMMANDS.TO) {
+                        if (c1.compareTime(c2)) {
+                            return new Commands.ThreeCommands(Commands.COMMANDS.EVENT, task, c1, c2);
+                        } else {
+                            System.out.println("From must be earlier than To");
+                        }
+                    }
+                } else {
+                    System.out.println("Please add the task name");
                 }
+            } catch (NullPointerException e) {
+                System.out.println("The format for the command is: event task /from startDayDateTime /to endDayDateTime");
             }
         }
         return new Commands(Commands.COMMANDS.UNKNOWN);
