@@ -103,11 +103,16 @@ public class ListOfTasks {
 
     /**
      * Returns number of tasks in the list
+     *
+     * @return The number of tasks in the list.
      */
     public int getNumOfTasks() {
         return this.numOfTasks;
     }
 
+    /**
+     * Saves the list of tasks to the local data file in the appropriate format.
+     */
     public void saveFile() {
         ArrayList<Task> listOfStorageStrings = list;
         StringBuilder storageString = new StringBuilder();
