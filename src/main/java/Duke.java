@@ -41,15 +41,17 @@ public class Duke {
 
             while (loader.hasNextLine()) {
                 String[] fields = loader.nextLine().split(";");
+                String description = fields[2];
+                boolean isDone = fields[1].equals("X");
                 switch (fields[0]) {
                 case "T":
-                    tasks.add(new Todo(fields[2], fields[1].equals("X")));
+                    tasks.add(new Todo(description, isDone));
                     break;
                 case "D":
-                    tasks.add(new Deadline(fields[2], fields[1].equals("X"), LocalDateTime.parse(fields[3])));
+                    tasks.add(new Deadline(description, isDone, LocalDateTime.parse(fields[3])));
                     break;
                 case "E":
-                    tasks.add(new Event(fields[2], fields[1].equals("X"), LocalDateTime.parse(fields[3]),
+                    tasks.add(new Event(description, isDone, LocalDateTime.parse(fields[3]),
                             LocalDateTime.parse(fields[4])));
                     break;
                 }
