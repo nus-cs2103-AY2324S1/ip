@@ -3,6 +3,7 @@ import commands.AddCommand;
 import commands.Command;
 import commands.DeleteCommand;
 import commands.ExitCommand;
+import commands.FindCommand;
 import commands.InvalidCommand;
 import commands.ListCommand;
 import commands.LoadCommand;
