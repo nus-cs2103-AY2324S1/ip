@@ -1,3 +1,4 @@
+package ruiz.task;
 public class Task {
     private boolean completed;
     private String description, type;

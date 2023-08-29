@@ -1,3 +1,8 @@
+package ruiz;
+
+import ruiz.command.Command;
+import ruiz.exception.BotException;
+
 public class Parser {
     public Command getCommand(String input) {
         String[] words = input.split(" ");

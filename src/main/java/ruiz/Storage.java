@@ -1,11 +1,15 @@
-import org.w3c.dom.xpath.XPathResult;
+package ruiz;
+
+import ruiz.task.Deadlines;
+import ruiz.task.Events;
+import ruiz.task.Task;
+import ruiz.task.ToDos;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 public class Storage {

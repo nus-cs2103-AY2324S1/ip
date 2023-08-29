@@ -1,3 +1,7 @@
+package ruiz;
+
+import ruiz.task.Task;
+
 import java.util.ArrayList;
 
 public class Ui {
@@ -38,6 +42,7 @@ public class Ui {
                 "Unable to save task" +
                 "____________________________________________________________");
     }
+
     public void wrongFormat() {
         System.out.println("____________________________________________________________\n" +
                 "Please input your date and time in the correct format: yyyy-MM-dd HHmm\n" +
@@ -53,6 +58,7 @@ public class Ui {
                 "File cannot be loaded\n" +
                 "____________________________________________________________");
     }
+
     public void addedNewTaskMsg(Task task, int taskListSize) {
         System.out.println("____________________________________________________________\n" +
                 "Got it. I've added this task:\n" +
@@ -68,6 +74,7 @@ public class Ui {
         System.out.println("Now you have " + taskListSize + " this.taskList in the list.\n" +
                 "____________________________________________________________");
     }
+
     public void unmarkTask(Task task) {
         System.out.println("____________________________________________________________\n" +
                 "OK, I've marked this task as not done yet\n" +
@@ -75,6 +82,7 @@ public class Ui {
                 "\n" +
                 "____________________________________________________________\n");
     }
+
     public void markTask(Task task) {
         System.out.println("____________________________________________________________\n" +
                 "Nice! I've marked this task as done\n" +
