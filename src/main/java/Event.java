@@ -1,3 +1,7 @@
+
+import com.fasterxml.jackson.annotation.JsonTypeName;
+
+@JsonTypeName("Event")
 public class Event extends Task {
 
   public static final String taskType = "E";
@@ -10,6 +14,10 @@ public class Event extends Task {
     this.startDate = startDate;
     this.endDate = endDate;
 
+  }
+
+  Event() {
+    super("");
   }
 
   public String getStartDate() {

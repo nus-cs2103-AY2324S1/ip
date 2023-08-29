@@ -5,19 +5,20 @@ public class UiFormatter {
     String answer = "";
 
     if (task instanceof Todo) {
-      answer = "[" + Todo.taskType + "]" + "[" + task.getDoneIcon() + "] " + task.description;
+      answer = "[" + Todo.taskType + "]" + "[" + task.getDoneIcon() + "] " + task.getDescription();
     } else if (task instanceof Deadline) {
       Deadline deadTask = (Deadline) task;
 
       answer =
-          "[" + Deadline.taskType + "]" + "[" + task.getDoneIcon() + "] " + task.description + "("
+          "[" + Deadline.taskType + "]" + "[" + task.getDoneIcon() + "] " + task.getDescription()
+              + "("
               + deadTask.getDeadDate() + ")";
 
     } else if (task instanceof Event) {
       Event eventTask = (Event) task;
 
       answer =
-          "[" + Event.taskType + "]" + "[" + task.getDoneIcon() + "] " + task.description + "("
+          "[" + Event.taskType + "]" + "[" + task.getDoneIcon() + "] " + task.getDescription() + "("
               + eventTask.getStartDate() + " to " + eventTask.getEndDate() + ")";
     }
 
