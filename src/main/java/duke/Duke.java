@@ -8,29 +8,32 @@ import duke.tasks.TaskList;
 import duke.ui.Ui;
 
 /**
- * The duke.Duke class contains the code for interacting
- * with Jarvis, a task manager bot.
+ * Represents the Duke Class.
  *
- * @author: Shishir
- **/
+ * @author Shishir
+ */
 public class Duke {
-    /** Contains the list of all tasks. **/
+
+    /** Task List of all tasks. */
     private TaskList tasks;
 
-    /** Contains the stored data for duke.Duke Class. **/
+    /** Storage of all tasks. */
     private Storage storage;
 
-    /** Contains the UI for duke.Duke Class **/
+    /** UI for chatting and interacting with the bot. */
     private Ui ui;
 
-    /** Constructor for duke.Duke Class. **/
+    /**
+     * Constructs the Duke Object.
+     * @param filePath Path of the text file with stored tasks.
+     */
     public Duke(String filePath) {
         this.storage = new Storage(filePath);
         this.tasks = new TaskList(this.storage.readData());
         this.ui = new Ui();
     }
 
-    /** The function where user interacts with Jarvis using Scanner. **/
+    /** Provides interaction with the user. */
     public void interact() {
         this.ui.greet();
         boolean isExit = false;
@@ -48,9 +51,10 @@ public class Duke {
         }
     }
 
-    /** The main function where Jarvis is initialised.
+    /**
+     * Initialises J.A.R.V.I.S
      * @param args Input args.
-     **/
+     */
     public static void main(String[] args) {
         Duke bot = new Duke("data/tasks.txt");
         bot.interact();

@@ -6,26 +6,50 @@ import duke.ui.Ui;
 
 import java.time.LocalDateTime;
 
+/**
+ * Represents the AddCommand Class.
+ * Responsible for addition operations.
+ *
+ * @author Shishir
+ */
 public class AddCommand extends Command {
+    /** Description of the task. */
     private String description;
+
+    /** Due date of the task. */
     private LocalDateTime till;
+
+    /** Start date of the task. */
     private LocalDateTime from;
+
+    /** Type of the task. */
     private String type;
 
-    // ToDo Constructor
+    /**
+     * Constructs the AddCommand Object.
+     * @param description Description of the task.
+     */
     public AddCommand(String description) {
         this.description = description;
         this.type = "todo";
     }
 
-    // duke.tasks.Deadline Constructor
+    /**
+     * Constructs the AddCommand Object.
+     * @param description Description of the task.
+     */
     public AddCommand(String description, LocalDateTime till) {
         this.description = description;
         this.till = till;
         this.type = "deadline";
     }
 
-    // duke.tasks.Event Constructor
+    /**
+     * Constructs the AddCommand Object.
+     * @param description Description of the task.
+     * @param from Start date of the task.
+     * @param till End date of the task.
+     */
     public AddCommand(String description, LocalDateTime from, LocalDateTime till) {
         this.description = description;
         this.till = till;
@@ -33,6 +57,12 @@ public class AddCommand extends Command {
         this.type = "event";
     }
 
+    /**
+     * Executes the required command.
+     * @param tasks List of all the tasks.
+     * @param ui Ui for interacting with the user.
+     * @param storage Storage of the tasks.
+     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         Task task = null;
@@ -52,6 +82,10 @@ public class AddCommand extends Command {
         storage.writeData(tasks.getAllTasks());
     }
 
+    /**
+     * Returns the exit status of the command.
+     * @return Exit status of the command.
+     */
     @Override
     public boolean isExit() {
         return false;

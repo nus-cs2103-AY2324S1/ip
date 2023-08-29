@@ -1,35 +1,43 @@
 package duke.tasks;
 
 /**
- * The duke.tasks.Todo class containing
- * tasks with no time limits.
- * @author: Shishir
- **/
+ * Represents the Todo task class.
+ *
+ * @author Shishir
+ */
 public class Todo extends Task {
 
-    /** The constructor.
+    /**
+     * Constructs a new Todo task.
      * @param description The description of the task.
-     **/
+     */
     public Todo(String description) {
         super(description);
     }
 
-    /** The constructor.
+    /**
+     * Constructs a new Todo task.
      * @param description The description of the task.
      * @param status The status of completion.
-     **/
+     */
     public Todo(String description, String status) {
         super(description, status);
     }
 
-    /** The string representation of the task.
-     * @return The string representation
-     * **/
+    /**
+     * Returns the string representation of the todo task.
+     * @return String representation of the todo task.
+     */
     @Override
     public String toString() {
         return "[Todo] " + super.toString();
     }
 
+    /**
+     * Returns the string representation in the file format.
+     * @return String representation.
+     */
+    @Override
     public String toFile() {
         return "T" + super.toFile();
     }

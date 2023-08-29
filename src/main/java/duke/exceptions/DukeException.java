@@ -1,26 +1,28 @@
 package duke.exceptions;
 
 /**
- * The duke.exceptions.DukeException class contains the error
- * handling for duke.Duke.
+ * Represents the DukeException Class.
  *
- * @author: Shishir
- **/
+ * @author Shishir
+ */
 public class DukeException extends Exception {
-    /** The error message. **/
+
+    /** Exception message. */
     private String message;
 
-    /** The constructor.
+    /**
+     * The constructor.
      * @param message The description of the error message.
-     **/
+     */
     public DukeException(String message) {
         super(message);
         this.message = message;
     }
 
-    /** The string representation of the task.
-     * @return The string representation
-     * **/
+    /**
+     * Returns the string representation of the exception.
+     * @return String representation of the exception.
+     */
     @Override
     public String toString() {
         return this.message;

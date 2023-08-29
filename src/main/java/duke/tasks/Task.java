@@ -1,58 +1,67 @@
 package duke.tasks;
 
 /**
- * The Abstract duke.tasks.Task class containing tasks
- * of three types: duke.tasks.Event, duke.tasks.Deadline and duke.tasks.Todo
- * @author: Shishir
- **/
+ * Represents the Abstract Task Class.
+ * Has three subclasses Event, Todo and Deadline.
+ *
+ * @author Shishir
+ */
 abstract public class Task {
 
-    /** The description of the task. **/
-    private String action;
+    /** Description of the task. */
+    private String description;
 
-    /** The completion status of the task. **/
+    /** Completion status of the task. */
     private boolean completed;
 
-    /** The constructor
-     * @param action The description of the task.
-     * **/
+    /**
+     * Constructs the task class.
+     * @param action Description of the task.
+     */
     public Task(String action) {
-        this.action = action;
+        this.description = action;
         this.completed = false;
     }
 
-    /** The overloaded constructor
-     * @param action The description of the task
-     * @param status The status of completion of the task
-     * **/
+    /**
+     * Constructs the task class.
+     * @param action Description of the task.
+     * @param status Status of completion of the task.
+     */
     public Task(String action, String status) {
-        this.action = action;
+        this.description = action;
         this.completed = status.equals("X");
     }
 
-    /** The string representation of the task.
-     * @return The string representation
-     * **/
+    /**
+     * Returns the string representation of the task.
+     * @return Required string representation.
+     */
     @Override
     public String toString() {
-        return "[" + (this.completed ? "X" : " ") + "] " + this.action;
+        return "[" + (this.completed ? "X" : " ") + "] " + this.description;
     }
 
+    /**
+     * Returns the string representation in the file format.
+     * @return Required string representation in file format.
+     */
     public String toFile() {
-        return " | " + (this.completed ? "X" : "O") + " | " + this.action;
+        return " | " + (this.completed ? "X" : "O") + " | " + this.description;
     }
 
-    /** The function to complete a task. **/
+    /** Sets the completion status of the task to true. */
     public void completeTask() {
         this.completed = true;
     }
 
-    /** The function to check status of a task.
-     * @return The status of completion.
-     **/
+    /**
+     * Returns the status of a task.
+     * @return Status of completion.
+     */
     public boolean isCompleted() { return this.completed; }
 
-    /**The function to revert a task. **/
+    /** Sets the completion status of the task to false. */
     public void revertTask() {
         this.completed = false;
     }
