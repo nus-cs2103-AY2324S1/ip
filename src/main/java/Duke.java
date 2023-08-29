@@ -8,7 +8,18 @@ import java.util.Scanner;
 public class Duke {
 
     // The task list is used to store the user's tasks.
-    private static final TaskList list = new TaskList();
+    private final TaskList list = new TaskList();
+
+    private final Storage storage;
+
+    /**
+     * The main method is used to run the program.
+     *
+     * @param args The command line arguments.
+     */
+    public static void main(String[] args) {
+        new Duke("data/tasks.txt").run();
+    }
 
     /**
      * The command enum is used to store the valid commands that LilBro can
@@ -52,25 +63,21 @@ public class Duke {
         }
     }
 
-    /**
-     * The main method is used to run the program.
-     * 
-     * @param args The command line arguments.
-     */
-    public static void main(String[] args) {
+    public Duke(String path) {
         Ui.greet();
         Ui.println("Checking for a save file...");
-
         String projectRoot = System.getProperty("user.dir");
-        String path = Path.of(projectRoot, "data/duke.txt").toString();
-        Storage storage = new Storage(path);
+        String fullPath = Path.of(projectRoot, path).toString();
+        this.storage = new Storage(fullPath);
         try {
-            storage.load(Duke.list);
+            storage.load(this.list);
         } catch (DukeException e) {
             Ui.println(e.getMessage());
         }
         Ui.println("OK, ready to roll");
+    }
 
+    public void run() {
         Scanner scanner = new Scanner(System.in);
         while (true) {
             String input = scanner.nextLine();
@@ -78,7 +85,7 @@ public class Duke {
             Command command = Command.fromString(parts[0]);
             String commandArgs = parts.length > 1 ? parts[1].trim() : "";
             try {
-                if (!Duke.executeCommand(command, commandArgs)) {
+                if (!this.executeCommand(command, commandArgs)) {
                     break;
                 }
             } catch (DukeException e) {
@@ -88,7 +95,7 @@ public class Duke {
 
         scanner.close();
         Ui.println("Before you go, let me save your tasks...");
-        storage.save(Duke.list);
+        storage.save(this.list);
         Ui.bye();
     }
 
@@ -101,7 +108,7 @@ public class Duke {
      * @throws DukeInvalidArgumentException If the arguments are invalid.
      * @return True if the command was executed successfully, false otherwise.
      */
-    private static boolean executeCommand(Command command, String args)
+    private boolean executeCommand(Command command, String args)
             throws DukeInvalidCommandException, DukeInvalidArgumentException {
         if (command == null) {
             throw new DukeInvalidCommandException(
@@ -113,12 +120,12 @@ public class Duke {
             return false;
 
         case LIST_TASKS:
-            Duke.list.listTasks();
+            this.list.listTasks();
             break;
 
         case MARK_TASK:
             try {
-                Duke.list.markTaskDone(Integer.parseInt(args));
+                this.list.markTaskDone(Integer.parseInt(args));
             } catch (NumberFormatException e) {
                 throw new DukeInvalidArgumentException("Stop trolling me bro. Please enter a numeric index.");
             }
@@ -126,27 +133,27 @@ public class Duke {
 
         case UNMARK_TASK:
             try {
-                Duke.list.unmarkTaskDone(Integer.parseInt(args));
+                this.list.unmarkTaskDone(Integer.parseInt(args));
             } catch (NumberFormatException e) {
                 throw new DukeInvalidArgumentException("Stop trolling me bro. Please enter a numeric index.");
             }
             break;
 
         case ADD_TODO:
-            Duke.list.addTask(TaskType.TODO, args);
+            this.list.addTask(TaskType.TODO, args);
             break;
 
         case ADD_DEADLINE:
-            Duke.list.addTask(TaskType.DEADLINE, args);
+            this.list.addTask(TaskType.DEADLINE, args);
             break;
 
         case ADD_EVENT:
-            Duke.list.addTask(TaskType.EVENT, args);
+            this.list.addTask(TaskType.EVENT, args);
             break;
 
         case DELETE_TASK:
             try {
-                Duke.list.deleteTask(Integer.parseInt(args));
+                this.list.deleteTask(Integer.parseInt(args));
             } catch (NumberFormatException e) {
                 throw new DukeInvalidArgumentException("Stop trolling me bro. Please enter a numeric index.");
             }
