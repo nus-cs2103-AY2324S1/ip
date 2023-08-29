@@ -1,4 +1,9 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Monke {
@@ -11,6 +16,8 @@ public class Monke {
         EVENT,
         DELETE
     }
+
+    private static String dataPath = "./data/monke.txt";
 
     private static ArrayList<Task> list = new ArrayList<>();
 
@@ -35,7 +42,7 @@ public class Monke {
         System.out.println();
     }
 
-    public static void execute(String command, String args) throws MonkeException{
+    public static void execute(String command, String args) throws MonkeException, IOException {
         Command cmd;
         try {
             cmd = Command.valueOf(command.toUpperCase());
@@ -51,6 +58,7 @@ public class Monke {
                 int n = Monke.getListNumber(args);
                 Task task = Monke.list.get(n - 1);
                 task.mark();
+                Monke.saveData(dataPath);
                 Monke.speak("Ooga booga! I've marked this task as done:");
                 Monke.speak("\t" + task);
                 break;
@@ -59,6 +67,7 @@ public class Monke {
                 int n = Monke.getListNumber(args);
                 Task task = Monke.list.get(n - 1);
                 task.unmark();
+                Monke.saveData(dataPath);
                 Monke.speak("Ooga booga! I've marked this task as done:");
                 Monke.speak("\t" + task);
                 break;
@@ -136,18 +145,22 @@ public class Monke {
         return new Event(description, start, end);
     }
 
-    public static void addToList(Task task) {
+    public static void addToList(Task task) throws MonkeException, IOException {
         Monke.speak("Got it. I've added this task:");
         Monke.speak("\t" + task);
         Monke.list.add(task);
+        Monke.saveData(dataPath);
         Monke.speak("Now you have " + Monke.list.size() + " tasks in the list.");
     }
-
-    public static void deleteFromList(int n) {
+public static void deleteFromList(int n) throws MonkeException, IOException {
         Task task = Monke.list.get(n - 1);
+        if (n <= 0 || n > Monke.list.size()) {
+            throw new MonkeException("Choose a number from the list!!");
+        }
         Monke.speak("Noted. I've removed this task:");
         Monke.speak("\t" + task);
         Monke.list.remove(n - 1);
+        Monke.saveData(dataPath);
         Monke.speak("Now you have " + Monke.list.size() + " tasks in the list.");
     }
 
@@ -157,9 +170,65 @@ public class Monke {
         }
     }
 
+    public static <T> void loadFileToList(String filepath, List<T> lst) throws FileNotFoundException {
+        File f = new File(filepath);
+        Scanner s = new Scanner(f);
+        while (s.hasNext()) {
+            try {
+                Task task = parseTaskData(s.nextLine());
+                Monke.list.add(task);
+            } catch (MonkeException e) {
+                Monke.speak(e.getMessage());
+            }
+        }
+    }
+
+    public static Task parseTaskData(String data) throws MonkeException {
+        String[] tmp = data.split(" \\| ");
+        String taskType = tmp[0];
+        String isDone = tmp[1];
+        String description = tmp[2];
+        Task task;
+        switch (taskType) {
+        case "T":
+            task = new Todo(description);
+            break;
+        case "D":
+            String date = tmp[3];
+            task = new Deadline(description, date);
+            break;
+        case "E":
+            String start = tmp[3];
+            String end = tmp[4];
+            task = new Event(description, start, end);
+            break;
+        default:
+            throw new MonkeException("Invalid file data");
+        }
+        if (isDone.equals("1")) {
+            task.mark();
+        }
+        return task;
+    }
+
+    public static void saveData(String filepath) throws IOException {
+        FileWriter fw = new FileWriter(filepath);
+        StringBuilder textToAdd = new StringBuilder();
+        for (Task task: Monke.list) {
+            textToAdd.append(task.formatData());
+        }
+        fw.write(textToAdd.toString());
+        fw.close();
+    }
+
     public static void main(String[] args) {
         Monke.printHorizontalLine();
         Monke.greet();
+        try {
+            Monke.loadFileToList(dataPath, Monke.list);
+        } catch (IOException e) {
+            File f = new File(dataPath);
+        }
 
         Scanner sc = new Scanner(System.in);
         while (true) {
@@ -177,6 +246,9 @@ public class Monke {
                 Monke.execute(command, commandArgs);
             } catch (MonkeException e) {
                 Monke.speak(e.getMessage());
+            } catch (IOException e) {
+                Monke.speak(e.getMessage());
+                break;
             }
 
             Monke.printHorizontalLine();
