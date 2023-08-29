@@ -1,6 +1,6 @@
-package ui;
+package cyrus.ui;
 
-import tasks.Task;
+import cyrus.tasks.Task;
 
 import java.util.Arrays;
 import java.util.List;
@@ -30,7 +30,7 @@ public class Ui {
     printText(
         "Got it. I've added this task:",
         task.toString(),
-        String.format("Now you have %d tasks in the list.", taskListSize)
+        String.format("Now you have %d cyrus.tasks in the list.", taskListSize)
     );
   }
 }

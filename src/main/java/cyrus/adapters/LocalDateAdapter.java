@@ -1,9 +1,9 @@
-package adapters;
+package cyrus.adapters;
 
 import com.google.gson.TypeAdapter;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
-import utility.DateUtility;
+import cyrus.utility.DateUtility;
 
 import java.io.IOException;
 import java.time.LocalDate;

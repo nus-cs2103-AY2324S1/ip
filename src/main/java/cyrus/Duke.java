@@ -1,11 +1,13 @@
-import commands.Command;
-import commands.CommandType;
-import parser.ParseInfo;
-import parser.Parser;
-import storage.FileStorage;
-import storage.IStorage;
-import tasks.TaskList;
-import ui.Ui;
+package cyrus;
+
+import cyrus.commands.Command;
+import cyrus.commands.CommandType;
+import cyrus.parser.ParseInfo;
+import cyrus.parser.Parser;
+import cyrus.storage.FileStorage;
+import cyrus.storage.IStorage;
+import cyrus.tasks.TaskList;
+import cyrus.ui.Ui;
 
 import java.util.Scanner;
 

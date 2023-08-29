@@ -3,22 +3,22 @@
     What can I do for you?
     --------------------------------------------------------------------------------
     --------------------------------------------------------------------------------
-    You do not have any tasks, use todo, deadline, or event to add new ones!
+    You do not have any cyrus.tasks, use todo, deadline, or event to add new ones!
     --------------------------------------------------------------------------------
     --------------------------------------------------------------------------------
     Got it. I've added this task:
     [T] [ ] read book
-    Now you have 1 tasks in the list.
+    Now you have 1 cyrus.tasks in the list.
     --------------------------------------------------------------------------------
     --------------------------------------------------------------------------------
     Got it. I've added this task:
     [T] [ ] buy groceries
-    Now you have 2 tasks in the list.
+    Now you have 2 cyrus.tasks in the list.
     --------------------------------------------------------------------------------
     --------------------------------------------------------------------------------
     Got it. I've added this task:
     [D] [ ] finish assignment (by: Next Monday)
-    Now you have 3 tasks in the list.
+    Now you have 3 cyrus.tasks in the list.
     --------------------------------------------------------------------------------
     --------------------------------------------------------------------------------
     Deadline is missing a body!
@@ -27,7 +27,7 @@
     Invalid deadline format: missing /by
     --------------------------------------------------------------------------------
     --------------------------------------------------------------------------------
-    Here are the tasks in your list:
+    Here are the cyrus.tasks in your list:
     1. [T] [ ] read book
     2. [T] [ ] buy groceries
     3. [D] [ ] finish assignment (by: Next Monday)
@@ -38,10 +38,10 @@
     --------------------------------------------------------------------------------
     Got it. I've added this task:
     [E] [ ] school interviews (from: Monday to: Friday)
-    Now you have 4 tasks in the list.
+    Now you have 4 cyrus.tasks in the list.
     --------------------------------------------------------------------------------
     --------------------------------------------------------------------------------
-    Here are the tasks in your list:
+    Here are the cyrus.tasks in your list:
     1. [T] [ ] read book
     2. [T] [ ] buy groceries
     3. [D] [ ] finish assignment (by: Next Monday)
@@ -62,7 +62,7 @@
     [D] [X] finish assignment (by: Next Monday)
     --------------------------------------------------------------------------------
     --------------------------------------------------------------------------------
-    Here are the tasks in your list:
+    Here are the cyrus.tasks in your list:
     1. [T] [ ] read book
     2. [T] [ ] buy groceries
     3. [D] [X] finish assignment (by: Next Monday)
@@ -75,7 +75,7 @@
     --------------------------------------------------------------------------------
     Noted. I've removed this task:
     [D] [X] finish assignment (by: Next Monday)
-    Now you have 3 tasks in the list.
+    Now you have 3 cyrus.tasks in the list.
     --------------------------------------------------------------------------------
     --------------------------------------------------------------------------------
     Missing task index

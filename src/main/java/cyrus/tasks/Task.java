@@ -1,4 +1,4 @@
-package tasks;
+package cyrus.tasks;
 
 import com.google.gson.annotations.SerializedName;
 

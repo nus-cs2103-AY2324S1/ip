@@ -1,14 +1,14 @@
-package storage;
+package cyrus.storage;
 
-import adapters.LocalDateAdapter;
+import cyrus.adapters.LocalDateAdapter;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
-import tasks.Deadline;
-import tasks.Event;
-import tasks.Task;
-import tasks.ToDo;
-import utility.DateUtility;
+import cyrus.tasks.Deadline;
+import cyrus.tasks.Event;
+import cyrus.tasks.Task;
+import cyrus.tasks.ToDo;
+import cyrus.utility.DateUtility;
 
 import java.io.*;
 import java.lang.reflect.Modifier;
@@ -76,7 +76,7 @@ public class FileStorage implements IStorage {
     } catch (FileNotFoundException e) {
       createDataFile();
     } catch (IOException e) {
-      System.out.println("Failed to read tasks from data file");
+      System.out.println("Failed to read cyrus.tasks from data file");
       System.exit(0);
     }
 
@@ -88,7 +88,7 @@ public class FileStorage implements IStorage {
     try (BufferedWriter bw = new BufferedWriter(new FileWriter(DATA_FILE_PATH))) {
       gson.toJson(tasks, bw);
     } catch (IOException e) {
-      System.out.println("Failed to save tasks to data file");
+      System.out.println("Failed to save cyrus.tasks to data file");
       System.exit(0);
     }
   }

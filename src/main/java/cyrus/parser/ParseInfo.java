@@ -1,6 +1,6 @@
-package parser;
+package cyrus.parser;
 
-import commands.CommandType;
+import cyrus.commands.CommandType;
 
 import java.util.HashMap;
 

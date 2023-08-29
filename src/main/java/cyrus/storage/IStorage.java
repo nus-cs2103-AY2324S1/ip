@@ -1,6 +1,6 @@
-package storage;
+package cyrus.storage;
 
-import tasks.Task;
+import cyrus.tasks.Task;
 
 import java.util.List;
 

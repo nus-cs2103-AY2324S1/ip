@@ -1,7 +1,7 @@
-package commands;
+package cyrus.commands;
 
-import parser.ParseInfo;
-import tasks.TaskList;
+import cyrus.parser.ParseInfo;
+import cyrus.tasks.TaskList;
 
 public class UnknownCommand extends Command {
   public UnknownCommand(TaskList taskList, ParseInfo parseInfo) {
