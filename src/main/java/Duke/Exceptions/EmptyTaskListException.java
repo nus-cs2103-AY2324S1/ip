@@ -1,5 +1,7 @@
+package Duke.Exceptions;
+
 /**
- * Represents an EmptyTaskListException.
+ * Represents an Duke.Exceptions.EmptyTaskListException.
  *
  * @author Rayson
  */

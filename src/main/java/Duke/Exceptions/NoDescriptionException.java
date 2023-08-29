@@ -1,5 +1,7 @@
+package Duke.Exceptions;
+
 /**
- * Represents a NoDescriptionException.
+ * Represents a Duke.Exceptions.NoDescriptionException.
  *
  * @author Rayson
  */

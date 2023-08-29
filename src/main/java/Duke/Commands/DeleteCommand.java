@@ -1,6 +1,14 @@
-public class UnmarkCommand extends Command {
+package Duke.Commands;
 
-    public UnmarkCommand(String fullCommand) {
+import Duke.Exceptions.NoIndexException;
+import Duke.Tools.Storage;
+import Duke.Tasks.Task;
+import Duke.Tools.TaskList;
+import Duke.Tools.Ui;
+
+public class DeleteCommand extends Command {
+
+    public DeleteCommand(String fullCommand) {
         super(fullCommand);
     }
 
@@ -11,12 +19,12 @@ public class UnmarkCommand extends Command {
             throw new NoIndexException("No Index");
         }
         int index = Integer.parseInt(desc);
+
         if (tasks.size() < index || index < 1) {
             throw new NoIndexException(Integer.toString(index));
         }
-
         Task task = tasks.get(index - 1);
-        task.markUndone();
-        ui.showUnmarkMessage(task);
+        tasks.remove(index - 1);
+        ui.showDeleteMessage(task, tasks.size());
     }
 }

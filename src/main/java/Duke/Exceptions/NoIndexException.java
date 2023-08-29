@@ -1,3 +1,5 @@
+package Duke.Exceptions;
+
 public class NoIndexException extends Exception {
 
     public NoIndexException(String message) {

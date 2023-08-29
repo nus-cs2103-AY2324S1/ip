@@ -1,8 +1,10 @@
+package Duke.Tasks;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 /**
- * Encapsulates an Event.
+ * Encapsulates an Duke.Tasks.Event.
  * Tasks that start at a specific date/time and
  * ends at a specific date/time.
  *

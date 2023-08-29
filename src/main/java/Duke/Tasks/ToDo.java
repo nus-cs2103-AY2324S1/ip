@@ -1,3 +1,5 @@
+package Duke.Tasks;
+
 /**
  * Encapsulates a Todo in the chat bot.
  * Tasks without any date/time attached.
