@@ -1,11 +1,19 @@
-import java.util.Scanner;
+import javax.swing.*;
 import java.util.ArrayList;
+import java.util.Scanner;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.FileNotFoundException;
+
 
 public class Hong {
     private static ArrayList<Task> tasks = new ArrayList<Task>();
+
     private static final String line = "---------------------------------------------------------";
     public static void main(String[] args) {
         sayHello();
+        readTasks();
         Scanner myObj = new Scanner(System.in);
         while (true) {
             String userInput = myObj.nextLine();
@@ -16,22 +24,97 @@ public class Hong {
                 printTasks();
             } else if (userInput.startsWith("mark")) {
                 handleMark(userInput);
+                storeTasks();
             } else if (userInput.startsWith("deadline")) {
                 createDeadline(userInput);
+                storeTasks();
             } else if (userInput.startsWith("event")) {
                 createEvent(userInput);
+                storeTasks();
             } else if (userInput.startsWith("todo")) {
                 createTodo(userInput);
+                storeTasks();
             } else if (userInput.startsWith("delete")) {
                 deleteTask(userInput);
+                storeTasks();
             } else {
                 Task currentTask = new Task(userInput);
                 String currentMessage = line + "\n" + "added: " + userInput + "\n" + line;
                 System.out.println(currentMessage);
                 tasks.add(currentTask);
+                storeTasks();
             }
         }
         sayBye();
+    }
+
+    private static void readTasks() {
+        try {
+            File myObj = new File("./src/main/storage/writtenStorage.txt");
+            Scanner myReader = new Scanner(myObj);
+            int taskIndex = 0;
+            while (myReader.hasNextLine()) {
+                String data = myReader.nextLine();
+                char taskType = data.charAt(1);
+                boolean isComplete = data.charAt(4) == 'X';
+                String taskDescription = data.substring(7);
+                String[] arrTaskSplit;
+                String constructorInput;
+
+                switch (taskType) {
+                case 'T':
+                    Todo newTodo = new Todo(taskDescription);
+                    tasks.add(newTodo);
+                    break;
+                case 'D':
+                    arrTaskSplit = taskDescription.split("\\(by: ");
+                    Deadline newDeadline = new Deadline(arrTaskSplit[1].substring(0, arrTaskSplit[1].length() - 1),
+                            arrTaskSplit[0]);
+                    tasks.add(newDeadline);
+                    break;
+                case 'E':
+                    arrTaskSplit = taskDescription.split("\\(from: ");
+//                    constructorInput = "event " + arrTaskSplit[0] + " /from ";
+                    String[] arrStartEndSplit = arrTaskSplit[1].split(" to: ");
+//                    constructorInput += arrStartEndSplit[0] + " /to " +
+//                            arrStartEndSplit[1].substring(0, arrStartEndSplit[1].length() - 1);
+//                    createEvent(constructorInput);
+                    Event newEvent = new Event(arrStartEndSplit[0],
+                            arrStartEndSplit[1].substring(0, arrStartEndSplit[1].length() - 1), arrTaskSplit[0]);
+                    tasks.add(newEvent);
+                    break;
+                }
+                if (isComplete) {
+                    Task currentTask = tasks.get(taskIndex);
+                    currentTask.markDone();
+                }
+                taskIndex += 1;
+            }
+            myReader.close();
+        } catch (FileNotFoundException ignored) {
+        }
+    }
+    private static void storeTasks() {
+        try {
+            File myObj = new File("./src/main/storage/writtenStorage.txt");
+            myObj.createNewFile();
+        } catch (IOException e) {
+            System.out.println("Error creating file");
+        }
+
+        try {
+            String toWrite = "";
+            for (int i = 0; i < tasks.size(); i++) {
+                Task currentTask = tasks.get(i);
+                String currentItem = currentTask.toString();
+                toWrite += currentItem +"\n";
+            }
+            FileWriter myWriter = new FileWriter("./src/main/storage/writtenStorage.txt");
+            myWriter.write(toWrite);
+            myWriter.close();
+        } catch (IOException e) {
+            System.out.println("Error writing file");
+        }
     }
     private static void sayHello() {
         String firstMessage = line + "\nHello! I'm Hong\nWhat can I do for you?\n" + line;
