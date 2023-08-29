@@ -1,7 +1,9 @@
-class Event extends Task{
-    private final char taskType = 'E';
+package duke.task;
 
-    public Event(String name) {
+class Todo extends Task{
+    private final char taskType = 'T';
+
+    public Todo(String name) {
         super(name);
     }
 

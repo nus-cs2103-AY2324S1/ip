@@ -1,3 +1,6 @@
+import tasks.Task;
+import tasks.TaskList;
+
 public class Ui {
     private static final String BAR = "____________________________________________________________";
 
