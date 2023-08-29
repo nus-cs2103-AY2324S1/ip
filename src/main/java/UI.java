@@ -39,10 +39,10 @@ public class UI {
         System.out.println(output);
     }
 
-    public void deleteTask(ArrayList<Task> list, int taskNumber) {
+    public void deleteTask(TaskList list, int taskNumber) {
         String deletingTask = "Noted. I've removed this task:";
         int taskInArray = list.size() - 1;
-        Task removedTask = list.remove(taskNumber - 1);
+        Task removedTask = list.deleteTask(taskNumber);
         String numberOfTask = "Now you have " + taskInArray + " tasks in the list.";
         String output = String.format("%s\n  %s\n%s", deletingTask, removedTask, numberOfTask);
         printLine();
