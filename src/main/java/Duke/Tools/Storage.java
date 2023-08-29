@@ -66,6 +66,7 @@ public class Storage {
                     System.out.println("Sorry, file does not exist. Creating now...");
                 }
             } catch (Exception error) {
+                System.out.println(error);
                 System.out.println("Error... Unable to create files");
             }
 
