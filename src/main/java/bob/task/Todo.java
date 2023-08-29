@@ -10,6 +10,10 @@ public class Todo extends Task {
         super.done = done;
     }
 
+    /**
+     * Converts object to string representation for user display
+     * @return string representation
+     */
     @Override
     public String toString() {
         String done = this.done ? "[X]" : "[ ]";
@@ -29,6 +33,10 @@ public class Todo extends Task {
         return new Todo(name, isDone);
     }
 
+    /**
+     * Converts object into string to be stored in bob.txt
+     * @return string representation
+     */
     @Override
     public String toTxt() {
         String separation = " | ";
