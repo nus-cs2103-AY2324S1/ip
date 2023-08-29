@@ -1,3 +1,4 @@
+import java.nio.file.Path;
 import java.util.Scanner;
 
 /**
@@ -61,6 +62,17 @@ public class Duke {
      */
     public static void main(String[] args) {
         Duke.greet();
+        Duke.echo("Checking for a save file...");
+
+        String projectRoot = System.getProperty("user.dir");
+        String path = Path.of(projectRoot, "data/duke.txt").toString();
+        Storage storage = new Storage(path);
+        try {
+            storage.load(Duke.list);
+        } catch (DukeException e) {
+            Duke.echo(e.getMessage());
+        }
+        Duke.echo("OK, ready to roll.");
 
         Scanner scanner = new Scanner(System.in);
         while (true) {
@@ -80,6 +92,9 @@ public class Duke {
         }
 
         scanner.close();
+        System.out.println("Before you go, let me save your tasks...");
+        storage.save(Duke.list);
+        Duke.exit();
     }
 
     /**
@@ -130,7 +145,6 @@ public class Duke {
 
         switch (command) {
         case EXIT:
-            Duke.exit();
             return false;
 
         case LIST_TASKS:
@@ -179,4 +193,5 @@ public class Duke {
 
         return true;
     }
+
 }

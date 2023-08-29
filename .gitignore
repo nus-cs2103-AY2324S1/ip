@@ -20,3 +20,6 @@ text-ui-test/EXPECTED-UNIX.TXT
 /.settings/
 .classpath
 .project
+
+# Persist data in disk
+data/

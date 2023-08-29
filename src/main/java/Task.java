@@ -33,6 +33,16 @@ public abstract class Task {
         this.isDone = false;
     }
 
+    public String getDescription() {
+        return this.description;
+    }
+
+    public boolean getIsDone() {
+        return this.isDone;
+    }
+
+    public abstract String getSaveFormat();
+
     /**
      * Returns the string representation of the task.
      * 

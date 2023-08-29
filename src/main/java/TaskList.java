@@ -18,6 +18,10 @@ public class TaskList {
         this.list = new ArrayList<>();
     }
 
+    public Task getTask(int index) {
+        return this.list.get(index);
+    }
+
     /**
      * Adds a new task to the list.
      * 
