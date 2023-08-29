@@ -1,19 +1,15 @@
 package duke;
 
-import duke.DukeException;
-
 import java.util.ArrayList;
-
-
 
 public class TaskList {
     private ArrayList<Task> tasklist;
     private static final Storage STORAGE = new Storage();
-    // create a list of tasks
-    public TaskList() {
-        this.tasklist = new ArrayList<Task>();
-    }
 
+    /**
+     * initialize TaskList object
+     * @param tasks ArrayList of tasks
+     */
     public TaskList(ArrayList<Task> tasks) {
         this.tasklist = tasks;
     }
@@ -27,7 +23,12 @@ public class TaskList {
         return true;
     }
 
-    // adding task into tasklist and output the relevant information
+    /**
+     * returns string for output
+     * adds the input task to the ArrayList of tasks
+     * @param task task to be added to TaskList
+     * @return string for output
+     */
     public String addToList(Task task) {
         this.tasklist.add(task);
         return ("Got it. I've added this task:\n"
@@ -36,8 +37,7 @@ public class TaskList {
 
     }
 
-    // check if the input is valid and
-    // returns the index of the task to be marked or unmarked
+
     private int getTaskIndex(String taskNumber) throws DukeException {
         if (!isInteger(taskNumber)) {
             throw new DukeException("Number not found: Please enter a valid task number");
@@ -51,7 +51,14 @@ public class TaskList {
         return taskIndex;
     }
 
-    // mark a task given the task number and store it
+    /**
+     * returns output string for printing to the user
+     * mark task as done, then set the task as the
+     * writes back to the file to update the file of the changes
+     * @param taskNumber string of the task number
+     * @return output string for printing in command line
+     * @throws DukeException if taskNumber is not a number or there is no task with that number
+     */
     public String mark(String taskNumber) throws DukeException {
         int taskIndex = getTaskIndex(taskNumber);
         Task markedTask = this.tasklist.get(taskIndex).done();
@@ -60,7 +67,14 @@ public class TaskList {
         return ("Nice! I've marked this task as done:\n" + markedTask.toString() + "\n");
     }
 
-
+    /**
+     * returns output string for printing to the user
+     * mark task as undone, then set the task as the
+     * writes back to the file to update the file of the changes
+     * @param taskNumber string of the task number
+     * @return output string for printing in command line
+     * @throws DukeException if taskNumber is not a number or there is no task with that number
+     */
     public String unMark(String taskNumber) throws DukeException {
         int taskIndex = getTaskIndex(taskNumber);
         Task unmarkedTask = this.tasklist.get(taskIndex).undone();
@@ -69,6 +83,14 @@ public class TaskList {
         return ("OK, I've marked this task as not done yet:\n" + unmarkedTask.toString() + "\n");
     }
 
+    /**
+     * returns output string for printing to the user
+     * delete the task from the ArrayList of tasks
+     * writes back to the file to update the file of the changes
+     * @param taskNumber string of the task number
+     * @return output string for printing in command line
+     * @throws DukeException if taskNumber is not a number or there is no task with that number
+     */
     public String delete(String taskNumber) throws DukeException {
         int taskIndex = getTaskIndex(taskNumber);
         Task removedTask = tasklist.remove(taskIndex);
@@ -81,6 +103,24 @@ public class TaskList {
 
     }
 
+    public String find(String keyword) {
+        String output = "Here are the matching tasks in your list:\n";
+        int matchNum = 1;
+
+        for (int i = 0; i < tasklist.size(); i++) {
+            if (tasklist.get(i).getTask().contains(keyword)) {
+                output = output + matchNum
+                        + ". " + tasklist.get(i).toString() + "\n";
+                matchNum++;
+            }
+        }
+        return output;
+    }
+
+    /**
+     * returns string of all the tasks in the ArrayList of tasks
+     * @return string of all the task in the ArrayList of tasks
+     */
     public String listContent() {
         String listOfContents = "";
         if (tasklist.isEmpty()) {

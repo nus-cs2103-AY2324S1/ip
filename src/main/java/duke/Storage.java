@@ -1,7 +1,5 @@
 package duke;
 
-import duke.*;
-
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -12,6 +10,13 @@ public class Storage {
     private static final String DATA_FILE_PATH = "\\data\\duke.txt";
     private static final String DIRECTORY_PATH = "\\data";
 
+    /**
+     * writes to hard disk
+     * textToAdd is the storage text that was created by the tasks
+     * method creates a text in the next line in the .txt file.
+     * @param textToAdd text to be added to .txt file.
+     * @throws DukeException if file is corrupted
+     */
     public void writeToFile(String textToAdd) throws DukeException {
         try {
             File theDir = new File(DIRECTORY_PATH);
@@ -34,6 +39,13 @@ public class Storage {
             throw new DukeException(e.getMessage());
         }
     }
+
+    /**
+     * reads from duke.txt file and store the information as task into an array list of tasks.
+     * method uses a scanner to read from duke.txt file, then adds the description into the task object.
+     * Task object is then added into the array list of tasks
+     * @return Arraylist of tasks that have been stored previously.
+     */
     public ArrayList<Task> loadFromFile() {
         try {
             File dataFile = new File(DATA_FILE_PATH);
@@ -79,6 +91,11 @@ public class Storage {
         return new ArrayList<Task>();
     }
 
+    /**
+     * Updates the .txt file using an arraylist of tasks.
+     * @param tasklist arraylist of tasks
+     * @throws DukeException if file is corrupted
+     */
     public void writeAllToFile(ArrayList<Task> tasklist) throws DukeException {
         try {
             File file = new File(DATA_FILE_PATH);

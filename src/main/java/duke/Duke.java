@@ -3,12 +3,12 @@ public class Duke {
 
     private final CommandProcessor commandProcessor;
     private final Ui ui;
-    private final Parser parser;
+    private final InputReceiver inputReceiver;
 
     public Duke() {
         commandProcessor = new CommandProcessor();
         ui = new Ui();
-        parser = new Parser();
+        inputReceiver = new InputReceiver();
     }
 
     public void run() {
@@ -16,7 +16,7 @@ public class Duke {
 
         while (true) {
             // getting the input command
-            String command = parser.getInput();
+            String command = inputReceiver.getInput();
 
             //break out of the loop when it is "bye"
             if (command.equals("bye")) {
@@ -30,7 +30,7 @@ public class Duke {
 
         }
 
-        parser.closeParser();
+        inputReceiver.closeParser();
     }
 
 
