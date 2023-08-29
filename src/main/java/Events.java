@@ -1,6 +1,10 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 public class Events extends Task{
-    protected String from;
-    protected String to;
+    protected LocalDateTime from;
+    protected LocalDateTime to;
 
     /**
      * A constructor the public Events class
@@ -10,13 +14,16 @@ public class Events extends Task{
      */
     public Events(String description, String from, String to) {
         super(description);
-        this.from = from;
-        this.to = to;
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+        try {
+            this.from = LocalDateTime.parse(from, formatter);
+            this.to = LocalDateTime.parse(to, formatter);
+        } catch (DateTimeParseException e) {
+            System.out.println("Please input your date and time in the correct format: yyyy-MM-dd HHmm");
+        }
+
     }
-    @Override
-    public String saveTaskString() {
-        return "E" + super.saveTaskString() + " | " + this.from + "-" + this.to;
-    }
+
     /**
      * This method converts the value of an Event into a String type.
      * @return the String representation of the event with its type, completion status,
@@ -24,6 +31,7 @@ public class Events extends Task{
      */
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + from + " to: " + to + ")";
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy HHmm");
+        return "[E]" + super.toString() + " (from: " + from.format(formatter) + " to: " + to.format(formatter) + ")";
     }
 }
