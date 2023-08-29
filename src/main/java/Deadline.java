@@ -1,3 +1,6 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 /**
  * Represents a task that has a deadline.
  *
@@ -5,8 +8,10 @@
  * @version CS2103T Individual Project AY2023/24 Semester 1
  */
 public class Deadline extends Task {
-    /** A string indicating deadline of task */
-    protected String by;
+    /** A string indicating deadline of task in localDate form. */
+    protected LocalDate by;
+    /** A string indicating deadline of task not in local date format. */
+    protected String altBy;
 
     /**
      * A constructor to initialize the Deadline class.
@@ -16,7 +21,14 @@ public class Deadline extends Task {
      */
     public Deadline(String description, String by) {
         super(description);
-        this.by = by;
+
+        try {
+            this.by = LocalDate.parse(by);
+            this.altBy = "";
+        } catch (Exception e) {
+            this.altBy = by;
+        }
+
     }
 
     /**
@@ -27,7 +39,7 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + this.by + ")";
+        return "[D]" + super.toString() + " (by: " + this.altBy + convertDateToString(this.by) + ")";
     }
 
     /**
@@ -36,6 +48,6 @@ public class Deadline extends Task {
      * @return The storage string representation of the task.
      */
     public String toStorageString() {
-        return "D, " + isDone + ", " + description + ", " + by;
+        return "D, " + this.isDone + ", " + this.description + ", " + this.altBy + convertDateToStorageString(this.by);
     }
 }
