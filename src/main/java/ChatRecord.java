@@ -59,10 +59,12 @@ public class ChatRecord {
 
     public void setMark(int n) {
         chatRecords.get(n - 1).mark();
+        saveChat();
     }
 
     public void setUnmark(int n) {
         chatRecords.get(n - 1).unmark();
+        saveChat();
     }
 
     public String getTask(int n) {

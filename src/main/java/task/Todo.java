@@ -2,11 +2,15 @@ package task;
 
 public class Todo extends Task {
     public Todo(String name) {
-        super(name, TaskTypes.TODO);
+        this.name = name;
+        this.status = false;
+        this.type = TaskTypes.TODO;
     }
 
     public Todo(String name, boolean status) {
-        super(name, TaskTypes.TODO, status);
+        this.name = name;
+        this.status = status;
+        this.type = TaskTypes.TODO;
     }
 
     @Override
@@ -17,6 +21,6 @@ public class Todo extends Task {
 
     @Override
     public String toSave() {
-        return String.format("T%s%s%s%d", DISCRIMINATOR, name, DISCRIMINATOR, Boolean.compare(status, false));
+        return String.format("T%s%s%s%d", DISCRIMINATOR, name, DISCRIMINATOR, Boolean.compare(this.status, false));
     }
 }

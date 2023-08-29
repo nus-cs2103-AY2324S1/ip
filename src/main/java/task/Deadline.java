@@ -6,12 +6,14 @@ public class Deadline extends Task {
         this.name = name;
         this.date = date;
         this.status = false;
+        this.type = TaskTypes.DEADLINE;
     }
 
     public Deadline(String name, boolean status, String date) {
         this.name = name;
         this.date = date;
         this.status = status;
+        this.type = TaskTypes.DEADLINE;
     }
 
     @Override

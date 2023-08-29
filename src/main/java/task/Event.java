@@ -7,6 +7,7 @@ public class Event extends Task {
         this.status = false;
         this.startDate = startDate;
         this.endDate = endDate;
+        this.type = TaskTypes.EVENT;
     }
 
     public Event(String name, boolean status, String startDate, String endDate) {
@@ -14,6 +15,7 @@ public class Event extends Task {
         this.status = status;
         this.startDate = startDate;
         this.endDate = endDate;
+        this.type = TaskTypes.EVENT;
     }
 
     @Override
