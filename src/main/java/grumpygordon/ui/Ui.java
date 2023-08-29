@@ -1,3 +1,11 @@
+package grumpygordon.ui;
+
+import grumpygordon.storage.Storage;
+import grumpygordon.tasks.*;
+import grumpygordon.exceptions.*;
+import grumpygordon.commands.*;
+import grumpygordon.parser.*;
+
 import java.util.Scanner;
 
 public class Ui {

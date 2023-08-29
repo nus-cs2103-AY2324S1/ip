@@ -1,5 +1,7 @@
+package grumpygordon.exceptions;
+
 /**
- * Represents a TaskIndexOfOutBoundsException.
+ * Represents a grumpygordon.exceptions.TaskIndexOfOutBoundsException.
  */
 public class TaskIndexOfOutBoundsException extends Exception {
     public TaskIndexOfOutBoundsException(String message) {

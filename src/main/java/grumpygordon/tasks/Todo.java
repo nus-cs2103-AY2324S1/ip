@@ -1,10 +1,12 @@
+package grumpygordon.tasks;
+
 /**
- * Represents a Todo object.
+ * Represents a grumpygordon.tasks.Todo object.
  */
 public class Todo extends Task {
 
     /**
-     * Constructor to create a Todo object.
+     * Constructor to create a grumpygordon.tasks.Todo object.
      * @param description Description of task
      */
     public Todo(String description, boolean isDone) {
@@ -12,8 +14,8 @@ public class Todo extends Task {
     }
 
     /**
-     * Returns a String representation of a Todo object.
-     * @return String representation of a Todo object.
+     * Returns a String representation of a grumpygordon.tasks.Todo object.
+     * @return String representation of a grumpygordon.tasks.Todo object.
      */
     @Override
     public String toString() {

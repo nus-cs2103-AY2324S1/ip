@@ -1,5 +1,7 @@
+package grumpygordon.exceptions;
+
 /**
- * Represents a DeadlineByMissingException.
+ * Represents a grumpygordon.exceptions.DeadlineByMissingException.
  */
 public class DeadlineByMissingException extends Exception {
     public DeadlineByMissingException(String message) {
