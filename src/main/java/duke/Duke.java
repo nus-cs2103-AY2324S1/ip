@@ -12,20 +12,21 @@ public class Duke {
 
         Storage.loadTasksFromFile(taskList);
 
-        Ui.printIntroMsg();
+        Ui ui = new Ui();
+        ui.printIntroMsg();
 
         input = scanner.nextLine();
 
         while (!input.equals("bye")) {
-            Ui.printSeparator();
+            ui.printSeparator();
             Parser.parse(input, taskList);
             Storage.updateTasksFile(taskList);
-            Ui.printSeparator();
+            ui.printSeparator();
             input = scanner.nextLine();
         }
 
         scanner.close();
-        Ui.printOutroMsg();
+        ui.printOutroMsg();
     }
 
 }

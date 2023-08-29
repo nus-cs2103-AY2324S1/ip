@@ -28,10 +28,17 @@ public class TaskList {
     }
 
     public static void deleteTask(String[] inputParts, ArrayList<Task> taskList) {
-        int index = Integer.parseInt(inputParts[1]) - 1;
-        Task removedTask = taskList.remove(index);
-        System.out.println("Noted. I've removed this task:\n" + removedTask);
-        System.out.println("Now you have " + taskList.size() + " tasks in the list.");
+        try {
+            int index = Integer.parseInt(inputParts[1]) - 1;
+            if (index > taskList.size()) {
+                throw new DukeException("☹ OOPS!!! Unable to delete non-existent task");
+            }
+            Task removedTask = taskList.remove(index);
+            System.out.println("Noted. I've removed this task:\n" + removedTask);
+            System.out.println("Now you have " + taskList.size() + " tasks in the list.");
+        } catch (DukeException e) {
+            System.out.println(e);
+        }
     }
 
     public static void addTask(String[] inputParts, ArrayList<Task> taskList) {

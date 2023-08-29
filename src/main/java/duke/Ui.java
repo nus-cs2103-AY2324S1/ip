@@ -11,15 +11,15 @@ public class Ui {
             + "Bye. Hope to see you again soon!\n"
             + LINE_SEPARATOR;
 
-    public static void printIntroMsg() {
+    public void printIntroMsg() {
         System.out.println(GREETING_MESSAGE);
     }
 
-    public static void printOutroMsg() {
+    public void printOutroMsg() {
         System.out.println(GOODBYE_MESSAGE);
     }
 
-    public static void printSeparator() {
+    public void printSeparator() {
         System.out.println(LINE_SEPARATOR);
     }
 
