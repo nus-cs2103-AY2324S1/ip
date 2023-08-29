@@ -11,21 +11,39 @@ import duke.task.Todo;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
+/**
+ * Represents a list of tasks.
+ */
 public class TaskList {
-    private ArrayList<Task> tasks;
+    private final ArrayList<Task> tasks;
 
+    /**
+     * Creates a TaskList object.
+     * @param tasks The list of tasks.
+     */
     public TaskList(ArrayList<Task> tasks) {
         this.tasks = tasks;
     }
 
+    /**
+     * Creates a TaskList object.
+     */
     public TaskList() {
         this.tasks = new ArrayList<>();
     }
 
+    /**
+     * Returns the list of tasks.
+     * @return The list of tasks.
+     */
     public ArrayList<Task> getTasks() {
         return this.tasks;
     }
 
+    /**
+     * Returns the size of the list of tasks.
+     * @return The size of the list of tasks.
+     */
     public int getSize() {
         return this.tasks.size();
     }
@@ -58,6 +76,11 @@ public class TaskList {
         }
     }
 
+    /**
+     * Adds a todo to the list of tasks.
+     * @param description The description of the todo.
+     * @return The todo that is added to the list of tasks.
+     */
     public Todo addTodo(String description) {
         Todo todo = new Todo(description);
         tasks.add(todo);
@@ -65,6 +88,12 @@ public class TaskList {
         return todo;
     }
 
+    /**
+     * Adds a deadline to the list of tasks.
+     * @param description The description of the deadline.
+     * @param dateTime The deadline of the deadline.
+     * @return The deadline that is added to the list of tasks.
+     */
     public Deadline addDeadline(String description, LocalDateTime dateTime) {
         Deadline deadline = new Deadline(description, dateTime);
         tasks.add(deadline);
@@ -72,6 +101,13 @@ public class TaskList {
         return deadline;
     }
 
+    /**
+     * Adds an event to the list of tasks.
+     * @param description The description of the event.
+     * @param start The start of the event.
+     * @param end The end of the event.
+     * @return The event that is added to the list of tasks.
+     */
     public Event addEvent(String description, LocalDateTime start, LocalDateTime end) {
         Event event = new Event(description, start, end);
         tasks.add(event);
@@ -79,6 +115,12 @@ public class TaskList {
         return event;
     }
 
+    /**
+     * Deletes a task from the list of tasks.
+     * @param taskNumber The task number of the task to be deleted.
+     * @return The task that is deleted from the list of tasks.
+     * @throws DukeException If the task number is not an integer or if the task number is out of bounds.
+     */
     public Task deleteTask(int taskNumber) throws DukeException {
         try {
             Task task = tasks.get(taskNumber - 1);
@@ -89,6 +131,10 @@ public class TaskList {
         }
     }
 
+    /**
+     * Returns the list of tasks that contains the keyword.
+     * @return The list of tasks that contains the keyword.
+     */
     @Override
     public String toString() {
         StringBuilder message = new StringBuilder();

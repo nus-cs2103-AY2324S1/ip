@@ -15,23 +15,26 @@ import java.util.Scanner;
  * Duke is a simple task management chatbot that allows users to manager their tasks.
  */
 public class Duke {
-    private Storage storage;
+    private final Storage storage;
     private TaskList tasks;
-    private Ui ui;
+    private final Ui ui;
 
+    /**
+     * Creates a Duke object.
+     * @param filePath The path to the file where the tasks are stored.
+     */
     public Duke(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
         try {
             tasks = new TaskList(storage.loadTasks());
         } catch (DukeException e) {
-//            this.ui.showLoadingError();
             tasks = new TaskList();
         }
     }
 
     /**
-     * Simulates the chatbot.
+     * Runs the Duke chatbot.
      */
     public void run() {
         this.ui.printGreeting();
@@ -98,6 +101,11 @@ public class Duke {
             }
         }
     }
+
+    /**
+     * The main method of the Duke chatbot.
+     * @param args The command line arguments.
+     */
     public static void main(String[] args) {
         new Duke("./duke.txt").run();
     }
