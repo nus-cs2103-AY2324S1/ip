@@ -6,10 +6,10 @@ public class Duke {
     private final static String CHATBOT_NAME = "Fluke";
     private final static String LOGO =
             "    ________      __\n" +
-            "   / ____/ /_  __/ /_____\n" +
-            "  / /_  / / / / / //_/ _ \\\n" +
-            " / __/ / / /_/ / ,< /  __/\n" +
-            "/_/   /_/\\__,_/_/|_|\\___/";
+                    "   / ____/ /_  __/ /_____\n" +
+                    "  / /_  / / / / / //_/ _ \\\n" +
+                    " / __/ / / /_/ / ,< /  __/\n" +
+                    "/_/   /_/\\__,_/_/|_|\\___/";
     private static ArrayList<Task> listOfTasks = new ArrayList<>();
 
     private enum Command {
@@ -31,33 +31,33 @@ public class Duke {
                 String nextCommand = scanner.nextLine();
                 Command commandType = parseCommand(nextCommand);
                 switch (commandType) {
-                    case BYE:
-                        waitingForInput = false;
-                        sayBye();
-                        break;
-                    case LIST:
-                        list();
-                        break;
-                    case MARK:
-                        markTaskAsDone(nextCommand);
-                        break;
-                    case UNMARK:
-                        markTaskAsUndone(nextCommand);
-                        break;
-                    case DELETE:
-                        deleteTask(nextCommand);
-                        break;
-                    case TODO:
-                        addTodo(nextCommand);
-                        break;
-                    case DEADLINE:
-                        addDeadline(nextCommand);
-                        break;
-                    case EVENT:
-                        addEvent(nextCommand);
-                        break;
-                    default:
-                        throw new InvalidInputException();
+                case BYE:
+                    waitingForInput = false;
+                    sayBye();
+                    break;
+                case LIST:
+                    list();
+                    break;
+                case MARK:
+                    markTaskAsDone(nextCommand);
+                    break;
+                case UNMARK:
+                    markTaskAsUndone(nextCommand);
+                    break;
+                case DELETE:
+                    deleteTask(nextCommand);
+                    break;
+                case TODO:
+                    addTodo(nextCommand);
+                    break;
+                case DEADLINE:
+                    addDeadline(nextCommand);
+                    break;
+                case EVENT:
+                    addEvent(nextCommand);
+                    break;
+                default:
+                    throw new InvalidInputException();
                 }
             } catch (DukeException d) {
                 printError(d.getMessage());
@@ -91,7 +91,7 @@ public class Duke {
     private static void greet() {
         System.out.println(
                 "Hello! I'm " + CHATBOT_NAME + ", everything I do is down to luck!" + "\n" +
-                "Feeling lucky today?"
+                        "Feeling lucky today?"
         );
     }
 
