@@ -1,4 +1,7 @@
-package main.java;
+package main.java.Parser;
+
+import main.java.Command.Commands;
+import main.java.Duke;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
@@ -124,7 +127,7 @@ public class Parser {
         }
     }
 
-    protected String secondWord() {
+    public String secondWord() {
         try {
             if (this.initialParse[1].equals("")) {
                 return null;
@@ -136,7 +139,7 @@ public class Parser {
         }
     }
 
-    protected String phaseParse() {
+    public String phaseParse() {
         try {
             this.phaseParse = this.initialParse[1].split("/");
             return phaseParse[0];
@@ -145,7 +148,7 @@ public class Parser {
         }
     }
 
-    protected String phaseTwo() {
+    public String phaseTwo() {
         try {
             return this.phaseParse[1];
         } catch (NullPointerException | ArrayIndexOutOfBoundsException e) {
@@ -153,7 +156,7 @@ public class Parser {
         }
     }
 
-    protected String phaseThree() {
+    public String phaseThree() {
         try {
             return this.phaseParse[2];
         } catch (NullPointerException | ArrayIndexOutOfBoundsException e) {

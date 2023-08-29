@@ -1,9 +1,12 @@
-package main.java;
+package main.java.Command;
+
+import main.java.Task.ListOfTask;
+import main.java.Ui.Ui;
 
 import java.time.LocalDateTime;
 
 public class Commands {
-    enum COMMANDS {BYE, LIST, TODO, DEADLINE, EVENT, MARK, UNMARK, DELETE, BY, FROM, TO, SORT, FIND, UNKNOWN}
+    public enum COMMANDS {BYE, LIST, TODO, DEADLINE, EVENT, MARK, UNMARK, DELETE, BY, FROM, TO, SORT, FIND, UNKNOWN}
 
     private COMMANDS state;
     private String name;
@@ -81,7 +84,7 @@ public class Commands {
         return false;
     }
 
-    static class TwoCommands extends Commands {
+    public static class TwoCommands extends Commands {
         private COMMANDS state2;
         private String name2;
         private Commands secondaryCommand;
@@ -106,7 +109,7 @@ public class Commands {
         }
     }
 
-    static class ThreeCommands extends Commands {
+    public static class ThreeCommands extends Commands {
         private COMMANDS state2;
         private String name2;
         private COMMANDS state3;

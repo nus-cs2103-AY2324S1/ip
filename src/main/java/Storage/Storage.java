@@ -1,4 +1,10 @@
-package main.java;
+package main.java.Storage;
+
+import main.java.Command.Commands;
+import main.java.Duke;
+import main.java.Parser.Parser;
+import main.java.Task.ListOfTask;
+import main.java.Task.Task;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -61,7 +67,7 @@ public class Storage {
         }
     }
 
-    protected static void quickLoad(String command, ListOfTask taskList) {
+    public static void quickLoad(String command, ListOfTask taskList) {
         Parser cmd = new Parser(command);
         Commands.COMMANDS firstWord = cmd.mainCommand();
 
@@ -80,7 +86,7 @@ public class Storage {
                     String dayDate = cmd.phaseTwo();
                     Parser parseDayDate = new Parser(dayDate);
                     if (parseDayDate.mainCommand().equals(Commands.COMMANDS.BY)) {
-                        LocalDateTime date = LocalDateTime.parse(parseDayDate.secondWord().trim(),Duke.FORMAT);
+                        LocalDateTime date = LocalDateTime.parse(parseDayDate.secondWord().trim(), Duke.FORMAT);
                         taskList.loadTask(task, date);
                     }
                 } catch (NullPointerException | DateTimeParseException e) {
