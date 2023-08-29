@@ -1,4 +1,6 @@
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 class Task {
     protected String description;
@@ -22,7 +24,9 @@ class Task {
             boolean isCompleted = parts[1].trim().equals("1");
             String description = parts[2].trim();
             String by = parts[3].trim();
-            Task task = new Deadline(description, by);
+            System.out.println(by);
+            LocalDate date = LocalDate.parse(by);
+            Task task = new Deadline(description, date);
             task.toggleIsDone(isCompleted);
             return task;
         } else if (line.startsWith("E")) {

@@ -1,6 +1,8 @@
 import java.io.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 class TaskList {
@@ -19,6 +21,7 @@ class TaskList {
         System.out.println(task.toString());
         System.out.println("Yeaboi only " + list.size() + " in the list.");
         System.out.println(divider);
+        updateFile();
     }
 
     public void mark(int idx) throws DukeException {
@@ -61,6 +64,22 @@ class TaskList {
         System.out.println(task.toString());
         System.out.println(divider);
         updateFile();
+    }
+
+    public void dueOn(LocalDate due) {
+        List<Task> dueList = list.stream()
+                .filter(task -> (task instanceof Deadline))
+                .filter(deadline -> ((Deadline) deadline).by.equals(due))
+                .collect(Collectors.toList());
+
+        if (dueList.isEmpty()) {
+            System.out.println("Nothing to see here...");
+        } else {
+            System.out.println("ALERT!! Due on " + due);
+            for (Task t : dueList) {
+                System.out.println(t.toString());
+            }
+        }
     }
 
     public void print() {

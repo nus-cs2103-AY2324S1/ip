@@ -1,4 +1,7 @@
 import java.io.*;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -86,8 +89,9 @@ public class Duke {
                         String[] parts = input.split("deadline", 2);
                         description = parts[1].split("/by", 2)[0].strip();
                         String by = parts[1].split("/by", 2)[1].strip();
+                        LocalDate date = LocalDate.parse(by);
 
-                        taskList.add(new Deadline(description, by));
+                        taskList.add(new Deadline(description, date));
                         break;
                     case EVENT:
                         parts = input.split("event", 2);
@@ -97,6 +101,10 @@ public class Duke {
                         String to = time.split("/to", 2)[1].strip();
 
                         taskList.add(new Event(description, from, to));
+                        break;
+                    case DUE:
+                        LocalDate dueDate = LocalDate.parse(input.split("due", 2)[1].strip());
+                        taskList.dueOn(dueDate);
                         break;
                     case INVALID:
                         System.out.println("Invalid Command Bruh");
@@ -110,8 +118,10 @@ public class Duke {
                 }
             } catch (DukeException e) {
                 System.out.println(e.getMessage());
+            } catch (DateTimeParseException e) {
+                System.out.println("DATES only in this format: '2023-02-01'. NOT THIS: " + e.getMessage());
             }
-            
+
             input = scanner.nextLine();
         }
     }

@@ -7,7 +7,8 @@ public enum Command {
     EVENT,
     BYE,
     DELETE,
-    INVALID;
+    INVALID,
+    DUE;
 
     public static Command parseCommand(String command) throws InvalidCommandException, WrongUseOfCommandException,
             MissingTaskException, MissingIndexException {
@@ -27,7 +28,8 @@ public enum Command {
             throw new WrongUseOfCommandException();
         }
 
-        if (command.startsWith("mark") || command.startsWith("unmark") || command.startsWith("delete")) {
+        if (command.startsWith("mark") || command.startsWith("unmark") ||
+                command.startsWith("delete") || command.startsWith("due")) {
             try {
                 String res = command.split(" ", 2)[0];
 
