@@ -1,9 +1,11 @@
-import commands.Command;
-import errors.DotException;
-import parser.Parser;
-import storage.Storage;
-import tasks.TaskList;
-import ui.Ui;
+package dot;
+
+import dot.commands.Command;
+import dot.errors.DotException;
+import dot.parser.Parser;
+import dot.storage.Storage;
+import dot.tasks.TaskList;
+import dot.ui.Ui;
 
 public class Dot {
     private TaskList dotTaskList;
@@ -14,11 +16,11 @@ public class Dot {
         String storageLocation = "./data/dot.txt";
         this.storage = new Storage(storageLocation);
         try {
-            this.dotTaskList = TaskList.taskListFromArrayList(maxSize,
+            this.dotTaskList = TaskList.getTaskListFromArrayList(maxSize,
                     this.storage.getTasks(), this.storage);
         } catch (DotException e) {
             e.handleError();
-            this.dotTaskList = TaskList.newTaskList(100, this.storage);
+            this.dotTaskList = TaskList.getNewTaskList(100, this.storage);
         }
         this.userInterface = new Ui();
     }
@@ -27,7 +29,7 @@ public class Dot {
     // The organisation was adapted, thus a similar looking run()
     // However, the deeper implementation were not adapted
     public void run() {
-        Ui.welcome();
+        Ui.displayWelcome();
 
         while (true) {
             try {
@@ -42,11 +44,10 @@ public class Dot {
                 e.handleError();
             }
         }
-        Ui.goodbye();
+        Ui.displayGoodbye();
     }
     public static void main(String[] args) {
         Dot dotInstance;
-        // DEPRECATED: If args[0] == "test", we enter Dot into testing mode
         dotInstance = new Dot(100);
         dotInstance.run();
     }

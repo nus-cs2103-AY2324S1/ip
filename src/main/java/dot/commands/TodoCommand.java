@@ -1,9 +1,9 @@
-package commands;
+package dot.commands;
 
-import errors.DotException;
-import tasks.Task;
-import tasks.TaskList;
-import tasks.Todo;
+import dot.errors.DotException;
+import dot.tasks.Task;
+import dot.tasks.TaskList;
+import dot.tasks.Todo;
 
 public class TodoCommand extends Command {
     private final String description;

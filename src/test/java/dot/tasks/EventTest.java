@@ -1,4 +1,4 @@
-package tasks;
+package dot.tasks;
 
 import java.time.LocalDateTime;
 import org.junit.jupiter.api.Test;

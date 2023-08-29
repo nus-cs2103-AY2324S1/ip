@@ -1,7 +1,7 @@
-package commands;
+package dot.commands;
 
-import errors.DotException;
-import tasks.TaskList;
+import dot.errors.DotException;
+import dot.tasks.TaskList;
 
 public class MarkCommand extends Command {
     private final int position;

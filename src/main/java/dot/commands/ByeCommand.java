@@ -1,4 +1,4 @@
-package commands;
+package dot.commands;
 
 public class ByeCommand extends Command {
     public ByeCommand() { }

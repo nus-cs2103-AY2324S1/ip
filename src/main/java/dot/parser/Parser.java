@@ -1,9 +1,9 @@
-package parser;
+package dot.parser;
 
-import commands.*;
-import errors.DotException;
-import errors.TaskError;
-import tasks.TaskList;
+import dot.commands.*;
+import dot.errors.DotException;
+import dot.errors.TaskError;
+import dot.tasks.TaskList;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -52,26 +52,26 @@ public class Parser {
         } else if (input.strip().equals("list") || input.strip().equals("ls")) {
             return new ListCommand(dotTaskList);
         } else if (Validation.isValidCommand(input, "mark")) {
-            int position = Validation.intIfValidCommandSpaceNumber(input, TaskError.ERR_USING_MARK);
+            int position = Validation.getIntIfValidCommandSpaceNumber(input, TaskError.ERR_USING_MARK);
             return new MarkCommand(position, dotTaskList);
         } else if (Validation.isValidCommand(input, "unmark")) {
-            int position = Validation.intIfValidCommandSpaceNumber(input, TaskError.ERR_USING_UNMARK);
+            int position = Validation.getIntIfValidCommandSpaceNumber(input, TaskError.ERR_USING_UNMARK);
             return new UnmarkCommand(position, dotTaskList);
         } else if (Validation.isValidCommand(input, "todo")) {
-            String restOfString = Validation.descIfValidCommandSpaceDesc(input, "todo",
+            String restOfString = Validation.getDescIfValidCommandSpaceDesc(input, "todo",
                     "task description", TaskError.ERR_USING_TODO);
             return new TodoCommand(restOfString, dotTaskList);
         } else if (Validation.isValidCommand(input, "deadline")) {
-            String[] args = Validation.argsIfValidDeadlineFormat(input);
+            String[] args = Validation.getArgsIfValidDeadlineFormat(input);
             return new DeadlineCommand(args[0], args[1], dotTaskList);
         } else if (Validation.isValidCommand(input, "event")) {
-            String[] args = Validation.argsIfValidEventFormat(input);
+            String[] args = Validation.getArgsIfValidEventFormat(input);
             return new EventCommand(args[0], args[1], args[2], dotTaskList);
         } else if (Validation.isValidCommand(input, "delete")) {
-            int position = Validation.intIfValidCommandSpaceNumber(input, TaskError.ERR_DELETING_TASK);
+            int position = Validation.getIntIfValidCommandSpaceNumber(input, TaskError.ERR_DELETING_TASK);
             return new DeleteCommand(position, dotTaskList);
         } else if (Validation.isValidCommand(input, "whatsgoingon")) {
-            String restOfString = Validation.descIfValidCommandSpaceDesc(input,
+            String restOfString = Validation.getDescIfValidCommandSpaceDesc(input,
                     "whatsgoingon", "date", TaskError.ERR_USING_WHATSGOINGON);
             if (!(Validation.isValidDate(restOfString))) {
                 throw new DotException("Incorrect format for data, use dd/MM/yyyy",

@@ -1,7 +1,7 @@
-package parser;
+package dot.parser;
 
-import errors.DotException;
-import errors.TaskError;
+import dot.errors.DotException;
+import dot.errors.TaskError;
 
 public class Validation {
 
@@ -24,8 +24,8 @@ public class Validation {
      * @return the argument <code>{@literal <integer>}</code>
      * @throws DotException if input is invalid
      */
-    public static int intIfValidCommandSpaceNumber(String input,
-                                                   TaskError potentialError) throws DotException {
+    public static int getIntIfValidCommandSpaceNumber(String input,
+                                                      TaskError potentialError) throws DotException {
         // If position is returned, this value will definitely be overridden
         int position = 1;
 
@@ -56,8 +56,8 @@ public class Validation {
      * @return the argument <code>{@literal <description>}</code>
      * @throws DotException if input is invalid
      */
-    public static String descIfValidCommandSpaceDesc(String input, String command, String parameterDesc,
-                                                     TaskError potentialError) throws DotException {
+    public static String getDescIfValidCommandSpaceDesc(String input, String command, String parameterDesc,
+                                                        TaskError potentialError) throws DotException {
         int commandLen = command.length();
         if (input.strip().length() <= commandLen) {
             throw new DotException(String.format("No %s given", parameterDesc),
@@ -68,12 +68,12 @@ public class Validation {
 
     /**
      * Validates whether input is in format: <code>{@literal deadline <desc> /by <deadline>}</code>
-     * This is capable of spotting format errors such as overflowing parameters
+     * This is capable of spotting format dot.errors such as overflowing parameters
      * @param input from user
      * @return { description, deadline > if valid
      * @throws DotException if input is invalid
      */
-    public static String[] argsIfValidDeadlineFormat(String input) throws DotException {
+    public static String[] getArgsIfValidDeadlineFormat(String input) throws DotException {
         if (input.length() <= 9) {
             throw new DotException("No task description given", TaskError.ERR_USING_DEADLINE);
         }
@@ -117,7 +117,7 @@ public class Validation {
      * @return { desc, start, end } if input is valid
      * @throws DotException if input is invalid
      */
-    public static String[] argsIfValidEventFormat(String input) throws DotException {
+    public static String[] getArgsIfValidEventFormat(String input) throws DotException {
         // .+ enforces at least one character, but disallows empty string
         // Regex below inspired by
         // https://stackoverflow.com/questions/2912894/how-to-match-any-

@@ -1,13 +1,13 @@
-package tasks;
+package dot.tasks;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import errors.DotException;
+import dot.errors.DotException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Assertions;
-import storage.Storage;
+import dot.storage.Storage;
 
 public class TaskListTest  {
     @Test
@@ -24,7 +24,7 @@ public class TaskListTest  {
             Task[] tasks = new Task[] { testEvent1, testEvent2, testEvent3,
                 deadline1, deadline2, deadline3 };
             Storage storage = new Storage("./data/junit-test-data.txt");
-            TaskList testTaskList = TaskList.taskListFromArrayList(100,
+            TaskList testTaskList = TaskList.getTaskListFromArrayList(100,
                 new ArrayList<>(Arrays.asList(tasks)), storage);
 
             testTaskList.saveTaskListToStorage();

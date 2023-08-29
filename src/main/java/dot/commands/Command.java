@@ -1,6 +1,6 @@
-package commands;
+package dot.commands;
 
-import errors.DotException;
+import dot.errors.DotException;
 
 /**
  * Responsible for execution of the app's logic

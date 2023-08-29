@@ -1,11 +1,11 @@
-package parser;
+package dot.parser;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Assertions;
-import commands.Command;
-import errors.DotException;
-import storage.Storage;
-import tasks.TaskList;
+import dot.commands.Command;
+import dot.errors.DotException;
+import dot.storage.Storage;
+import dot.tasks.TaskList;
 
 public class ParserTest {
 
@@ -13,7 +13,7 @@ public class ParserTest {
     public void parseInputToCommand_validTodoCommand_success() {
         try {
             Storage storage = new Storage("./data/junit-test-data.txt");
-            TaskList dotTaskList = TaskList.newTaskList(100, storage);
+            TaskList dotTaskList = TaskList.getNewTaskList(100, storage);
             Command cmd = Parser.parseInputToCommand("todo "
                 + " send email", dotTaskList);
             cmd.execute();
@@ -26,7 +26,7 @@ public class ParserTest {
     public void parseInputToCommand_validDeadlineCommand_success() {
         try {
             Storage storage = new Storage("./data/junit-test-data.txt");
-            TaskList dotTaskList = TaskList.newTaskList(100, storage);
+            TaskList dotTaskList = TaskList.getNewTaskList(100, storage);
             Command cmd = Parser.parseInputToCommand("deadline cs2103t "
                 + "ip /by 30/8/2023 2359", dotTaskList);
             cmd.execute();
@@ -39,7 +39,7 @@ public class ParserTest {
     public void parseInputToCommand_validEventCommand_success() {
         try {
             Storage storage = new Storage("./data/junit-test-data.txt");
-            TaskList dotTaskList = TaskList.newTaskList(100, storage);
+            TaskList dotTaskList = TaskList.getNewTaskList(100, storage);
             Command cmd = Parser.parseInputToCommand("event carnival "
                 + "/from 12/3/2022 1800 /to 12/4/2022 1600",
                 dotTaskList);
@@ -53,7 +53,7 @@ public class ParserTest {
     public void parseInputToCommand_invalidDeadlineCommand_exceptionThrown() {
         try {
             Storage storage = new Storage("./data/junit-test-data.txt");
-            TaskList dotTaskList = TaskList.newTaskList(100, storage);
+            TaskList dotTaskList = TaskList.getNewTaskList(100, storage);
             Command cmd = Parser.parseInputToCommand("deadline cs2103t "
                 + "ip /by", dotTaskList);
             cmd.execute();

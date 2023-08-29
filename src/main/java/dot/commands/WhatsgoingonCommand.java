@@ -1,8 +1,8 @@
-package commands;
+package dot.commands;
 
-import errors.DotException;
-import tasks.TaskList;
-import ui.Ui;
+import dot.errors.DotException;
+import dot.tasks.TaskList;
+import dot.ui.Ui;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;

@@ -1,4 +1,4 @@
-package ui;
+package dot.ui;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -22,7 +22,7 @@ public class Ui {
     /**
      * Displays the welcome message for the user.
      */
-    public static void welcome() {
+    public static void displayWelcome() {
         System.out.printf("%s%sHello! I'm Dot, "
                 + "let me help you finish your tasks on the dot!\n"
                 + "Datetime format for deadline/events: dd/MM/yyyy hhmm (e.g. 13/01/2020 1800)\n"
@@ -55,7 +55,7 @@ public class Ui {
     /**
      * Displays the exit message for the user.
      */
-    public static void goodbye() {
+    public static void displayGoodbye() {
         System.out.printf("%sBye! DOnT forget to finish your tasks!\n%s",
             HORIZONTAL_RULE, HORIZONTAL_RULE);
     }

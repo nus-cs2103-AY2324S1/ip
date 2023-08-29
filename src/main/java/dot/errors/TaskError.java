@@ -1,7 +1,7 @@
-package errors;
+package dot.errors;
 
 
-import ui.Ui;
+import dot.ui.Ui;
 
 /**
  *  This contains the main logic of error handling.

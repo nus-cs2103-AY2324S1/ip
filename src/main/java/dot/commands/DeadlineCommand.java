@@ -1,9 +1,9 @@
-package commands;
+package dot.commands;
 
-import errors.DotException;
-import tasks.Deadline;
-import tasks.Task;
-import tasks.TaskList;
+import dot.errors.DotException;
+import dot.tasks.Deadline;
+import dot.tasks.Task;
+import dot.tasks.TaskList;
 
 public class DeadlineCommand extends Command {
     private final String description;

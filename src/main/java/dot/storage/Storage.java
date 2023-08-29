@@ -1,11 +1,11 @@
-package storage;
+package dot.storage;
 
-import errors.DotException;
-import errors.TaskError;
-import tasks.Deadline;
-import tasks.Event;
-import tasks.Task;
-import tasks.Todo;
+import dot.errors.DotException;
+import dot.errors.TaskError;
+import dot.tasks.Deadline;
+import dot.tasks.Event;
+import dot.tasks.Task;
+import dot.tasks.Todo;
 
 import java.io.File;
 import java.io.FileWriter;

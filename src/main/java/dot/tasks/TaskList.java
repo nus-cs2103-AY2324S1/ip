@@ -1,8 +1,8 @@
-package tasks;
+package dot.tasks;
 
-import errors.DotException;
-import storage.Storage;
-import ui.Ui;
+import dot.errors.DotException;
+import dot.storage.Storage;
+import dot.ui.Ui;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -66,11 +66,11 @@ public class TaskList {
      *
      * @return new TaskList
      */
-    public static TaskList newTaskList(int maxSize, Storage storage) {
+    public static TaskList getNewTaskList(int maxSize, Storage storage) {
         return new TaskList(maxSize, storage);
     }
 
-    public static TaskList taskListFromArrayList(int maxSize, ArrayList<Task> taskList, Storage storage) {
+    public static TaskList getTaskListFromArrayList(int maxSize, ArrayList<Task> taskList, Storage storage) {
         return new TaskList(maxSize, taskList, storage);
     }
 

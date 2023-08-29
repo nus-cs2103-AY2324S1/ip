@@ -1,6 +1,6 @@
-package tasks;
+package dot.tasks;
 
-import parser.Parser;
+import dot.parser.Parser;
 
 import java.time.LocalDateTime;
 

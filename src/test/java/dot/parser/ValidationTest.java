@@ -1,17 +1,15 @@
-package parser;
+package dot.parser;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Assertions;
-import commands.Command;
-import errors.DotException;
-import errors.TaskError;
-import tasks.TaskList;
+import dot.errors.DotException;
+import dot.errors.TaskError;
 
 public class ValidationTest {
     @Test
     public void intIfValidCommandSpaceNumber_invalidCommand_exceptionThrown() {
         try {
-            int number = Validation.intIfValidCommandSpaceNumber("mark a",
+            int number = Validation.getIntIfValidCommandSpaceNumber("mark a",
                 TaskError.ERR_USING_MARK);
         } catch (DotException e) {
             Assertions.assertEquals("Invalid number given",

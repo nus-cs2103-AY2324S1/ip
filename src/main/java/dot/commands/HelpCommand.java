@@ -1,7 +1,7 @@
-package commands;
+package dot.commands;
 
-import errors.DotException;
-import ui.Ui;
+import dot.errors.DotException;
+import dot.ui.Ui;
 
 public class HelpCommand extends Command {
     public HelpCommand() { }

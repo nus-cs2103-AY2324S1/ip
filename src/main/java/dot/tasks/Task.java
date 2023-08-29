@@ -1,6 +1,6 @@
-package tasks;
+package dot.tasks;
 
-import ui.Ui;
+import dot.ui.Ui;
 
 import java.time.LocalDateTime;
 

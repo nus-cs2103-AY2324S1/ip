@@ -1,9 +1,9 @@
-package commands;
+package dot.commands;
 
-import errors.DotException;
-import tasks.Event;
-import tasks.Task;
-import tasks.TaskList;
+import dot.errors.DotException;
+import dot.tasks.Event;
+import dot.tasks.Task;
+import dot.tasks.TaskList;
 
 public class EventCommand extends Command {
     private final String description;

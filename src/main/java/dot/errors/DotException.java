@@ -1,4 +1,4 @@
-package errors;
+package dot.errors;
 
 public class DotException extends Exception {
     private final TaskError taskError;
