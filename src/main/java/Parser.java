@@ -6,26 +6,43 @@ import java.util.Scanner;
 
 public class Parser {
 
+	/**
+	 * The storage to read and write to the file
+	 */
 	private final Storage storage;
+	/**
+	 * The tasklist to store the tasks
+	 */
 	private final TaskList taskList;
+	/**
+	 * The ui to print the messages
+	 */
+	private final Ui ui;
 
-	public Parser(TaskList taskList, Storage storage) {
+	/**
+	 * Constructor for Parser
+	 *
+	 * @param taskList
+	 * @param storage
+	 * @param ui
+	 */
+	public Parser(TaskList taskList, Storage storage, Ui ui) {
 		this.storage = storage;
 		this.taskList = taskList;
+		this.ui = ui;
 	}
 
-	void printLine() {
-		System.out.println("____________________________________________________________");
-	}
-
+	/**
+	 * The main function where the program starts
+	 */
 	void queryBot() {
 		Scanner input = new Scanner(System.in);
 		while (input.hasNextLine()) {
 			try {
 				String query = input.nextLine();  // Read user input
-				printLine();
+				ui.printLine();
 				if (query.equals("bye")) {
-					exit();
+					ui.exit();
 					break;
 				} else if (query.equals("list")) {
 					list(taskList);
@@ -44,12 +61,13 @@ public class Parser {
 				} else {
 					throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
 				}
-				printLine();
+				ui.printLine();
 			} catch (DukeException e) {
 				System.out.println(e.getMessage());
-				printLine();
+				ui.printLine();
 			}
 		}
+		ui.printLine();
 	}
 
 	/**
@@ -73,7 +91,10 @@ public class Parser {
 
 
 	/**
-	 * @throws DukeException
+	 * Prints the list of tasks
+	 *
+	 * @param taskList the list of tasks
+	 * @throws DukeException if the list is empty
 	 */
 	void list(TaskList taskList) throws DukeException {
 		if (taskList.length() <= 0) {
@@ -83,10 +104,12 @@ public class Parser {
 	}
 
 	/**
-	 * @param query
-	 * @param taskList
-	 * @param storage
-	 * @throws DukeException
+	 * Deletes the task from the list at the specified index
+	 *
+	 * @param query    the query from the user
+	 * @param taskList the list of tasks
+	 * @param storage  the storage to read and write to the file
+	 * @throws DukeException if the query is not in the correct format
 	 */
 	void delete(String query, TaskList taskList, Storage storage) throws DukeException {
 		if (query.split(" ").length == 1) {
@@ -114,10 +137,12 @@ public class Parser {
 	}
 
 	/**
-	 * @param query
-	 * @param taskList
-	 * @param storage
-	 * @throws DukeException
+	 * Marks the task from the list at the specified index
+	 *
+	 * @param query    the query from the user
+	 * @param taskList the list of tasks
+	 * @param storage  the storage to read and write to the file
+	 * @throws DukeException if the query is not in the correct format
 	 */
 	void mark(String query, TaskList taskList, Storage storage) throws DukeException {
 		if (query.split(" ").length == 1) {
@@ -146,10 +171,12 @@ public class Parser {
 	}
 
 	/**
-	 * @param query
-	 * @param taskList
-	 * @param storage
-	 * @throws DukeException
+	 * Unmarks the task from the list at the specified index
+	 *
+	 * @param query    the query from the user
+	 * @param taskList the list of tasks
+	 * @param storage  the storage to read and write to the file
+	 * @throws DukeException if the query is not in the correct format
 	 */
 	void unmark(String query, TaskList taskList, Storage storage) throws DukeException {
 		if (query.split(" ").length == 1) {
@@ -178,10 +205,12 @@ public class Parser {
 	}
 
 	/**
-	 * @param query
-	 * @param taskList
-	 * @param storage
-	 * @throws DukeException
+	 * todo should be in the following format - todo read book
+	 *
+	 * @param query    the query from the user
+	 * @param taskList the list of tasks
+	 * @param storage  the storage to read and write to the file
+	 * @throws DukeException if the query is not in the correct format
 	 */
 	void todo(String query, TaskList taskList, Storage storage) throws DukeException {
 		if (query.split(" ").length == 1) {
@@ -194,10 +223,12 @@ public class Parser {
 	}
 
 	/**
-	 * @param query
-	 * @param taskList
-	 * @param storage
-	 * @throws DukeException
+	 * Deadline should be in the following format - deadline return book /by dd/MM/yy HHmm
+	 *
+	 * @param query    the query from the user
+	 * @param taskList the list of tasks
+	 * @param storage  the storage to read and write to the file
+	 * @throws DukeException if the query is not in the correct format
 	 */
 	void deadline(String query, TaskList taskList, Storage storage) throws DukeException {
 		if (query.split(" ").length == 1) {
@@ -232,10 +263,10 @@ public class Parser {
 	/**
 	 * Event should be in the following format - event read book /from dd/MM/yy HHmm /to dd/MM/yy HHmm
 	 *
-	 * @param query
-	 * @param taskList
-	 * @param storage
-	 * @throws DukeException
+	 * @param query    the query from the user
+	 * @param taskList the list of tasks
+	 * @param storage  the storage to read and write to the file
+	 * @throws DukeException if the query is not in the correct format
 	 */
 	void event(String query, TaskList taskList, Storage storage) throws DukeException {
 		if (query.split(" ").length == 1) {
@@ -289,18 +320,14 @@ public class Parser {
 	}
 
 	/**
-	 * @param date
+	 * Formats the input date to the following format - dd/MM/yy HHmm
+	 *
+	 * @param date the input date
 	 * @return LocalDateTime
+	 * @throws DateTimeParseException if the date is not in the correct format
 	 */
 	LocalDateTime formatInputDate(String date) throws DateTimeParseException {
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yy HHmm");
 		return LocalDateTime.parse(date, formatter);
-	}
-
-	/**
-	 * Prints exit message
-	 */
-	void exit() {
-		System.out.println("Bye. Hope to see you again soon!");
 	}
 }
