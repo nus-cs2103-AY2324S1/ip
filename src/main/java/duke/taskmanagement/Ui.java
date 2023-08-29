@@ -13,15 +13,15 @@ public class Ui {
     public Ui() {
     }
 
-    public void greet(){
+    public void greet() {
         System.out.println("Hello! I'm JJ\n" +
                 "What can I do for you?\n" + "\n");
     }
 
-    public void bye(){
+    public void bye() {
         System.out.println("Bye. Hope to see you again soon!\n");
     }
-    public void printList(int size, List<Task> ls){
+    public void printList(int size, List<Task> ls) {
         System.out.println("Here are the tasks in your list: ");
         for(int i = 0; i < size;i++) {
             int j = i + 1;

@@ -1,15 +1,15 @@
 package duke.taskmanagement;
 import java.time.LocalDate;
-public class Deadline extends Task{
+public class Deadline extends Task {
     protected String by;
 
-    public Deadline(String description, String by, boolean isDone ) {
+    public Deadline(String description, String by, boolean isDone) {
         super(description, isDone);
         this.by = by;
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         return "[D]" + super.toString() + " (by: " + by + ")";
     }
 
@@ -17,7 +17,7 @@ public class Deadline extends Task{
         return super.isDone ? "1" : "0";
     }
     @Override
-    public String saveToFileString(){
+    public String saveToFileString() {
         return "D | " +  convertIsDone() + " | " + description + " | " + this.by+"\n";
     }
 }

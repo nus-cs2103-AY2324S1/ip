@@ -7,7 +7,7 @@ public class Parser {
     public Ui ui;
     public TaskList ls;
     //String cmd = ui.readInCmd();
-    public Parser(Ui ui, TaskList ls){
+    public Parser(Ui ui, TaskList ls) {
         this.ls = ls;
         this.ui = ui;
     }

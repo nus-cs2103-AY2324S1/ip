@@ -4,10 +4,10 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class TaskList {
-    String PATH = "/Users/jjtiong/Desktop/ip/data/duke.txt";
-    List<Task> ls = new ArrayList<>();
-    Storage storage;
-    Ui ui;
+    final String PATH = "/Users/jjtiong/Desktop/ip/data/duke.txt";
+    private List<Task> ls = new ArrayList<>();
+    private Storage storage;
+    private Ui ui;
 
     public TaskList(Ui ui, List<Task> ls, Storage storage) {
         this.ui = ui;

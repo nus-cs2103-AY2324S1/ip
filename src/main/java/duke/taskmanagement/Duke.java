@@ -1,17 +1,16 @@
 package duke.taskmanagement;
-import java.util.Scanner;
-import java.util.List;
-import java.util.ArrayList;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
 
 public class Duke {
     String PATH = "./data/duke.txt";
 
     private Ui ui = new Ui();
-    //private Storage storage = new Storage(PATH);
     private TaskList tasks;
     private Storage storage = new Storage(PATH);
 
