@@ -11,12 +11,12 @@ public class Duke {
     /**
      * User Interface for generating chats.
      */
-    private Ui ui = new Ui();
+    private final Ui ui = new Ui();
 
     /**
      * duke.task.Task list to store the tasks.
      */
-    private TaskList tasks = new TaskList();
+    private final TaskList tasks = new TaskList();
 
     /**
      * The main entry point of the application.
