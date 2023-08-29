@@ -4,10 +4,12 @@ import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Task;
 import duke.task.Todo;
+
 import duke.storage.Storage;
 import duke.ui.Ui;
 import duke.exception.DukeException;
 import duke.parser.Parser;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -71,6 +73,7 @@ public class AddCommand extends Command {
             }
 
             tasks.add(newTask);
+
             Ui.showHorizontalLine();
             System.out.println("    Got it. I've added this task:\n" + "     " + newTask);
             System.out.println("    Now you have " + tasks.size() + " tasks in the list.");
