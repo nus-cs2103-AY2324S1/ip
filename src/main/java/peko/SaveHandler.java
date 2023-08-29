@@ -1,3 +1,5 @@
+package peko;
+
 import java.io.*;
 import java.util.Arrays;
 import java.util.Scanner;
@@ -13,6 +15,8 @@ public class SaveHandler {
 
     //System.out.println("Gomen peko, something broke...");
     public static void saveTo() {
+
+        System.out.println(file.getAbsolutePath());
         PrintWriter printWriter;
 
         try {
@@ -53,6 +57,7 @@ public class SaveHandler {
 
     public static Task[] loadFrom() {
 
+        System.out.println(file.getAbsolutePath());
         try {
             int pos = 0;
             Scanner scanner = new Scanner(file.getAbsoluteFile());
