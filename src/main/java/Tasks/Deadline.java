@@ -1,12 +1,17 @@
 package Tasks;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 /**
  * Represents a task with a deadline in the Duke application.
  * This class extends the base class Task and includes the due date of the deadline.
  */
 public class Deadline extends Task {
 
-    private String dueDate;
+    private LocalDateTime dueDate;
+    private String printDateString;
+    private String saveDateString;
 
     /**
      * Constructs a new Deadline object with a title and due date.
@@ -14,9 +19,11 @@ public class Deadline extends Task {
      * @param title    The title of the deadline task.
      * @param dueDate  The due date of the deadline.
      */
-    public Deadline(String title, String dueDate, boolean isMarked) {
+    public Deadline(String title, LocalDateTime dueDate, boolean isMarked) {
         super(title, isMarked);
         this.dueDate = dueDate;
+        this.printDateString = this.dueDate.format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm"));
+        this.saveDateString = this.dueDate.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"));
     }
 
     /**
@@ -27,7 +34,7 @@ public class Deadline extends Task {
     @Override
     public String toString() {
         String mark = super.isMarked ? "[X] " : "[ ] ";
-        return "[D]" + mark + title + " (by: " + this.dueDate + ")";
+        return "[D]" + mark + title + " (by: " + this.printDateString + ")";
     }
 
     @Override
@@ -35,7 +42,7 @@ public class Deadline extends Task {
         String res = "D";
         res += (isMarked ? "| 1" : "| 0");
         res += "| " + title;
-        res += "| " + dueDate;
+        res += "| " + saveDateString;
         return res;
     }
 }
