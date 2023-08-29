@@ -10,18 +10,18 @@ public class Duke {
         while (true) {
             System.out.print("Enter a command: ");
             String command = scanner.nextLine();
-            if (command.equalsIgnoreCase("bye")) {
+            if (command.equalsIgnoreCase("bye")) { // bye exits the code
                 Exit exit = new Exit();
                 System.out.println(exit.exitMessage());
                 break;
-            } else if (command.equalsIgnoreCase("list")) {
+            } else if (command.equalsIgnoreCase("list")) { //list shows the task list
                 System.out.println("Here are the tasks in your list: ");
                 if (!tasksList.isEmpty()) {
                     for (int i = 1; i <= tasksList.size(); i++) {
                         System.out.println(i + "." + tasksList.get(i - 1));
                     }
                 }
-            } else if (command.contains("unmark")) {
+            } else if (command.startsWith("unmark")) { // unmark the task in question
                 int taskNumber = Integer.parseInt(command.substring(7)) - 1;
                 if (taskNumber < tasksList.size()) {
                     Tasks task = tasksList.get(taskNumber);
@@ -29,7 +29,7 @@ public class Duke {
                     tasksList.set(taskNumber, task);
                     System.out.println("OK, I've marked this task as not done yet:\n" + "  " + tasksList.get(taskNumber));
                 }
-            } else if (command.contains("mark")) {
+            } else if (command.startsWith("mark")) { // mark the task in question
                 int taskNumber = Integer.parseInt(command.substring(5)) - 1;
                 if (taskNumber < tasksList.size()) {
                     Tasks task = tasksList.get(taskNumber);
@@ -39,6 +39,62 @@ public class Duke {
                 }
 
 
+            } else if (command.startsWith("todo")) {
+                String description = command.substring(5);
+                Todo todo = new Todo(description, false);
+                System.out.println();
+                tasksList.add(todo);
+                System.out.println("Got it. I've added this task:");
+                System.out.println("  " + todo);
+                System.out.println("Now you have " + tasksList.size() + " tasks in the list");
+
+            } else if (command.startsWith("deadline")) {
+                // Split the input
+                String descriptionDeadline = command.substring(9).trim(); // Remove "deadline" and leading spaces
+
+                // Find the index of the deadline separator "/"
+                int separatorIndex = descriptionDeadline.indexOf('/');
+
+                if (separatorIndex != -1) { // Ensure the separator exists in the input
+                    // Extract the task description and deadline
+                    String description = descriptionDeadline.substring(0, separatorIndex).trim();
+                    String deadline = descriptionDeadline.substring(separatorIndex + 4).trim();
+
+                    // Create a new Deadline object
+                    Deadline deadlineTask = new Deadline(description, false, deadline);
+                    tasksList.add(deadlineTask);
+
+                    System.out.println("Got it. I've added this deadline:");
+                    System.out.println("  " + deadlineTask);
+                    System.out.println("Now you have " + tasksList.size() + " tasks in the list");
+                } else {
+                    System.out.println("Invalid input format for deadline command.");
+                }
+            } else if (command.startsWith("event")) {
+                // split the input
+                String descriptionStartEndTime = command.substring(6).trim(); // Remove "event" and leading spaces
+
+                // Find the indices of the time separators
+                int fromIndex = descriptionStartEndTime.indexOf("/from");
+                int toIndex = descriptionStartEndTime.indexOf("/to");
+
+                if (fromIndex != -1 && toIndex != -1) {
+                    // Extract the task description, startTime, and endTime
+                    String description = descriptionStartEndTime.substring(0, fromIndex).trim();
+                    String startTime = descriptionStartEndTime.substring(fromIndex + 5, toIndex).trim();
+                    String endTime = descriptionStartEndTime.substring(toIndex + 3).trim();
+
+                    // Create a new Event object
+                    Event eventTask = new Event(description, false, startTime, endTime);
+                    tasksList.add(eventTask);
+
+                    // Print confirmation message
+                    System.out.println("Got it. I've added this task:");
+                    System.out.println("  " + eventTask);
+                    System.out.println("Now you have " + tasksList.size() + " tasks in the list");
+                } else {
+                    System.out.println("Invalid input format for event command.");
+                }
             } else {
                 System.out.println("added: " + command);
                 tasksList.add(new Tasks(command,false));

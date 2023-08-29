@@ -1,6 +1,6 @@
 public class Tasks {
-    private String name;
-    private boolean isMarked;
+    protected String name;
+    protected boolean isMarked;
 
     public Tasks(String name, boolean isMarked) {
         this.name = name;
