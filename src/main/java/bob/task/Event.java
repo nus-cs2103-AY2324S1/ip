@@ -6,6 +6,7 @@ import java.time.format.DateTimeParseException;
 import bob.exception.*;
 
 public class Event extends Task {
+
     private LocalDate start;
     private LocalDate end;
 
@@ -17,6 +18,7 @@ public class Event extends Task {
      */
     public Event(String description) throws MissingDatesException, DateTimeParseException {
         super(description.split(" /from ")[0]);
+
         try {
             this.start = LocalDate.parse(description.split(" /from ")[1].split(" /to ")[0]);
             this.end = LocalDate.parse(description.split(" /from ")[1].split(" /to ")[1]);
@@ -52,10 +54,12 @@ public class Event extends Task {
      */
     public static Event parseEvent(String str) throws IndexOutOfBoundsException {
         String[] strSplit = str.split(" \\| ", 4);
+
         boolean isDone = strSplit[0].equals("1");
         String name = strSplit[1];
         String start = strSplit[2];
         String end = strSplit[3];
+
         return new Event(name, isDone, start, end);
     }
 

@@ -4,6 +4,7 @@ package bob;
  * Handles user interaction
  */
 public class Ui {
+
     /**
      * Formats string into nice display
      * @param strArray contains strings to be displayed on different lines
@@ -21,7 +22,9 @@ public class Ui {
     }
 
     public void greet() {
-        stringFormat(new String[]{"Hi there! I'm Bob", "How can I help?"});
+        stringFormat(new String[]{
+                "Hi there! I'm Bob", "How can I help?"
+        });
     }
 
     public void exit() {
@@ -33,6 +36,8 @@ public class Ui {
     }
 
     public void showLoadingError() {
-        stringFormat(new String[]{"Unable to load tasks. New list created!"});
+        stringFormat(new String[]{
+                "Unable to load tasks. New list created!"
+        });
     }
 }

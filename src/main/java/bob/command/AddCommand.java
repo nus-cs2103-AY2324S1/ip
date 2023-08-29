@@ -3,6 +3,7 @@ import java.io.IOException;
 import bob.*;
 
 public class AddCommand extends Command {
+
     public AddCommand(String input) {
         super.input = input;
         super.isExit = false;

@@ -7,6 +7,7 @@ import java.util.regex.PatternSyntaxException;
 import bob.exception.*;
 
 public class Deadline extends Task {
+
     private LocalDate due;
 
     /**
@@ -16,6 +17,7 @@ public class Deadline extends Task {
      */
     public Deadline(String description) throws MissingDatesException {
         super(description.split(" /by ")[0]);
+
         try {
             this.due = LocalDate.parse(description.split(" /by ")[1]);
         } catch (Exception e) {
@@ -37,7 +39,8 @@ public class Deadline extends Task {
     public String toString() {
         String done = this.done ? "[X]" : "[ ]";
         return "[D]" + done + " " + this.name
-                + " (by: " + this.due.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + ")";
+                + " (by: " + this.due.format(DateTimeFormatter.ofPattern("MMM dd yyyy"))
+                + ")";
     }
 
     /**
@@ -48,9 +51,11 @@ public class Deadline extends Task {
      */
     public static Deadline parseDeadline(String str) throws IndexOutOfBoundsException {
         String[] strSplit = str.split(" \\| ", 3);
+
         boolean isDone = strSplit[0].equals("1");
         String name = strSplit[1];
         String due = strSplit[2];
+
         return new Deadline(name, isDone, due);
     }
 

@@ -8,6 +8,7 @@ import bob.exception.*;
  * Contains list of tasks, and operations that alter it.
  */
 public class TaskList {
+
     public ArrayList<Task> lst;
 
     public TaskList() {
@@ -29,9 +30,11 @@ public class TaskList {
     public Task generateTask(String description)
             throws WrongInputException, MissingTaskException,
             MissingDatesException, DateTimeParseException {
+
         // Split by the first " " into type, and task details
         String[] task = description.split(" ", 2);
         TaskType taskType;
+
         try {
             taskType = Enum.valueOf(TaskType.class, task[0]);
         } catch (Exception e) {
@@ -64,7 +67,8 @@ public class TaskList {
             Task taskObj = generateTask(description);
             lst.add(taskObj);
             return new String[]{"New task added: ", "\t" + taskObj.toString(),
-                    "You now have " + lst.size() + (lst.size() == 1 ? " task!" : " tasks!")};
+                    "You now have " + lst.size()
+                            + (lst.size() == 1 ? " task!" : " tasks!")};
         } catch (WrongInputException e) {
             return new String[]{e.message};
         } catch (MissingTaskException e) {
@@ -82,6 +86,7 @@ public class TaskList {
      */
     public String[] displayList() {
         String[] tasks = new String[lst.size() + 1];
+
         if (lst.isEmpty()) {
             tasks[0] = "You currently have no tasks.";
         } else {
@@ -95,19 +100,21 @@ public class TaskList {
     }
 
     /**
-     * Marks Task as done or undone at a specified index. Writes modified lst to bob.txt.
+     * Marks Task as done or undone at a specified index.
+     * Writes modified lst to bob.txt.
      * @param index of Task to be marked
      * @param doneOrNot states whether the Task is done or not
      * @return message for marking a Task
      */
     public String[] markDoneOrNot(int index, boolean doneOrNot) {
-        lst.get(index - 1).SetDoneOrNot(doneOrNot);
+        lst.get(index - 1).setDoneOrNot(doneOrNot);
         String statement = doneOrNot ? "Nice! You completed a task!" : "... This is now undone.";
         return new String[]{statement, "\t" + lst.get(index - 1).toString()};
     }
 
     /**
-     * Deletes Task at specified index from list. Writes modified lst to bob.txt.
+     * Deletes Task at specified index from list.
+     * Writes modified lst to bob.txt.
      * @param index of Task to be deleted
      * @return message for deleting a Task
      */
