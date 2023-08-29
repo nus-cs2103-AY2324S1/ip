@@ -66,6 +66,23 @@ public class TaskList {
     public void unmarkTask(int index) {
         this.tasks.get(index).unmark();
     }
+  
+    /**
+     * Returns an ArrayList of tasks that contains the keyword
+     * being searched.
+     *
+     * @param keyword keyword to be searched for in the description.
+     * @return ArrayList of tasks that contains the keyword.
+     */
+    public ArrayList<Task> findTask(String keyword) {
+        ArrayList<Task> result = new ArrayList<>();
+        for (Task task : this.list) {
+            if (task.getDescription().contains(keyword)) {
+                result.add(task);
+            }
+        }
+        return result;
+    }
     
     /**
      * Returns the size of the list.

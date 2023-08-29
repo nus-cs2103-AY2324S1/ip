@@ -39,6 +39,10 @@ public class Parser {
             return new AddCommand(parseDeadline(userInput));
         case "EVENT":
             return new AddCommand(parseEvent(userInput));
+
+        case "FIND":
+            return new FindCommand(getKeyword(userInput));
+
         case "DELETE":
             return new DeleteCommand(getTaskNumber(userInput));
         }
@@ -46,7 +50,16 @@ public class Parser {
         throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
     }
 
+
+    private static String getKeyword(String userInput) throws DukeException {
+        if (userInput.split(" ").length < 2) {
+            throw new DukeException("☹ OOPS!!! The keyword cannot be empty.");
+        }
+        return userInput.split(" ", 2)[1];
+    }
+
     private static ToDoTask parseTodo(String userInput) throws DukeException {
+
         if (userInput.split(" ").length < 2) {
             throw new DukeException("☹ OOPS!!! The description of a todo cannot be empty.");
         }
