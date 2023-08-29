@@ -10,6 +10,10 @@ public class Event extends Task {
         this.to = to;
     }
 
+    public String toSaveFormatString() {
+        return "E | " + this.getStatusNumber() + " | " + this.message + " | " + from + " | " + to;
+    }
+
     public String toString() {
         return "[E]" + this.getStatusIcon() + " " + this.message
                 + " (from: " + from + " to: " + to + ")";

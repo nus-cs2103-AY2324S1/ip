@@ -1,4 +1,4 @@
-public class Task {
+public abstract class Task {
     protected String message;
     protected boolean isDone;
 
@@ -11,6 +11,10 @@ public class Task {
         return isDone ? "[X]" : "[ ]";
     }
 
+    public String getStatusNumber() {
+        return isDone ? "1" : "0";
+    }
+
     public void markAsDone() {
         this.isDone = true;
     }
@@ -19,7 +23,6 @@ public class Task {
         this.isDone = false;
     }
 
-    public String toString() {
-        return this.getStatusIcon() + " " + this.message;
-    }
+    public abstract String toSaveFormatString();
+    public abstract String toString();
 }

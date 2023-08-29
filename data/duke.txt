@@ -1,0 +1,4 @@
+T | 2 | error Test
+T | 1 | do something
+D | 0 | do assignment | 12pm tmr
+E | 1 | some | Thu 12pm | Fri 8pm

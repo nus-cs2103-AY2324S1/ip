@@ -1,9 +1,77 @@
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 import java.util.Scanner;
 
 public class Duke {
 
     public static ArrayList<Task> tasks = new ArrayList<>();
+
+    public static void processLine(String line) {
+        Task newTask;
+        String[] lineSeq = line.split(" \\| ");
+        if (line.startsWith("T") && lineSeq.length == 3
+                && (Objects.equals(lineSeq[1], "1") || Objects.equals(lineSeq[1], "0"))) {
+            newTask = new Todo(lineSeq[2]);
+            if (Objects.equals(lineSeq[1], "1")) newTask.markAsDone();
+            tasks.add(newTask);
+        } else if (line.startsWith("D") && lineSeq.length == 4
+                && (Objects.equals(lineSeq[1], "1") || Objects.equals(lineSeq[1], "0"))) {
+            newTask = new Deadline(lineSeq[2], lineSeq[3]);
+            if (Objects.equals(lineSeq[1], "1")) newTask.markAsDone();
+            tasks.add(newTask);
+        } else if (line.startsWith("E") && lineSeq.length == 5
+                && (Objects.equals(lineSeq[1], "1") || Objects.equals(lineSeq[1], "0"))) {
+            newTask = new Event(lineSeq[2], lineSeq[3], lineSeq[4]);
+            if (Objects.equals(lineSeq[1], "1")) newTask.markAsDone();
+            tasks.add(newTask);
+        } else {
+            // else do nothing, specifying that the task is invalid.
+            System.out.println("The task " + line + " is invalid and is ignored!");
+        }
+    }
+
+    public static void readInitialTasks() {
+        Path initialTasksPath = Paths.get("data", "duke.txt");
+        boolean fileExists = Files.exists(initialTasksPath);
+        try {
+            if (!fileExists) {
+                Files.createFile(initialTasksPath);
+            } else {
+                List<String> contents = Files.readAllLines(initialTasksPath);
+                for (String line : contents) {
+                    processLine(line);
+                }
+            }
+        } catch (IOException e) {
+            System.err.println("Cannot read initial tasks from file!");
+            e.printStackTrace();
+        }
+    }
+
+    public static void saveTasks() {
+        Path tasksPath = Paths.get("data", "duke.txt");
+        boolean fileExists = Files.exists(tasksPath);
+        try {
+            if (!fileExists) {
+                Files.createFile(tasksPath);
+            } else {
+                ArrayList<String> lines = new ArrayList<>();
+                for (Task task : tasks) {
+                    lines.add(task.toSaveFormatString());
+                }
+                Files.write(tasksPath, lines);
+            }
+        } catch (IOException e) {
+            System.err.println("Cannot write tasks to file!");
+            e.printStackTrace();
+        }
+    }
 
     public static void addTodo(String message) {
         Task newTask = new Todo(message);
@@ -13,6 +81,7 @@ public class Duke {
         System.out.println("\t   " + newTask.toString());
         System.out.println("\t Now you have " + tasks.size() + " tasks in the list.");
         System.out.println("\t____________________________________________________________");
+        saveTasks();
     }
 
     public static void addDeadline(String message, String deadline) {
@@ -23,6 +92,7 @@ public class Duke {
         System.out.println("\t   " + newTask.toString());
         System.out.println("\t Now you have " + tasks.size() + " tasks in the list.");
         System.out.println("\t____________________________________________________________");
+        saveTasks();
     }
 
     public static void addEvent(String message, String from, String to) {
@@ -33,6 +103,7 @@ public class Duke {
         System.out.println("\t   " + newTask.toString());
         System.out.println("\t Now you have " + tasks.size() + " tasks in the list.");
         System.out.println("\t____________________________________________________________");
+        saveTasks();
     }
 
     public static void deleteTask(int i) throws DukeException {
@@ -43,6 +114,7 @@ public class Duke {
             System.out.println("\t   " + deletedTask.toString());
             System.out.println("\t Now you have " + tasks.size() + " tasks in the list.");
             System.out.println("\t____________________________________________________________");
+            saveTasks();
         } else {
             throw new DukeException("Cannot delete a task that is out of range!");
         }
@@ -64,6 +136,7 @@ public class Duke {
             System.out.println("\t Nice! I've marked this task as done:");
             System.out.println("\t   " + tasks.get(i - 1).toString());
             System.out.println("\t____________________________________________________________");
+            saveTasks();
         } else {
             throw new DukeException("Cannot mark a task that is out of range!");
         }
@@ -76,12 +149,16 @@ public class Duke {
             System.out.println("\t OK, I've marked this task as not done yet:");
             System.out.println("\t   " + tasks.get(i - 1).toString());
             System.out.println("\t____________________________________________________________");
+            saveTasks();
         } else {
             throw new DukeException("Cannot unmark a task that is out of range!");
         }
     }
 
     public static void main(String[] args) {
+
+        readInitialTasks();
+
         String intro_message = "\t____________________________________________________________\n"
                 + "\t Hello! I'm Bob the Chatbot!\n"
                 + "\t What can I do for you?\n"
