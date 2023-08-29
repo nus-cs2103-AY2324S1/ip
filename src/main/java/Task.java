@@ -61,22 +61,28 @@ public abstract class Task {
         boolean isDone = parts[1].equals("1");
         String description = parts[2];
 
-        switch (type) {
-            case "T":
-                return new Todo(description, isDone);
-            case "D":
-                // Parse the saved format for Deadline (modify as needed)
-                // Example: "D | 1 | Buy groceries | 2023-08-31"
-                String deadlineBy = parts[3];
-                return new Deadline(description, deadlineBy, isDone);
-            case "E":
-                // Parse the saved format for Event (modify as needed)
-                // Example: "E | 0 | Team meeting | 2023-09-01 | 2023-09-02"
-                String eventFrom = parts[3];
-                String eventTo = parts[4];
-                return new Event(description, eventFrom, eventTo, isDone);
-            default:
-                return null; // Unknown type
+        try {
+            switch (type) {
+                case "T":
+                    return new Todo(description, isDone);
+                case "D":
+                    // Parse the saved format for Deadline (modify as needed)
+                    // Example: "D | 1 | Buy groceries | 2023-08-31 12:00"
+                    String deadlineBy = parts[3];
+                    return new Deadline(description, DateTimeParser.parse(deadlineBy), isDone);
+                case "E":
+                    // Parse the saved format for Event (modify as needed)
+                    // Example: "E | 0 | Team meeting | 2023-09-01 12:00 | 2023-09-02 14:00"
+                    String eventFrom = parts[3];
+                    String eventTo = parts[4];
+                    return new Event(description, DateTimeParser.parse(eventFrom), DateTimeParser.parse(eventTo), isDone);
+                default:
+                    return null;
+            }
+        } catch (DateTimeFormatException e) {
+            System.out.println("Datetime format in saved file error");
+        } finally {
+            return null;
         }
     };
 }

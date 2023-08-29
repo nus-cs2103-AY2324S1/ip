@@ -1,3 +1,6 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 /**
  * Represents an Event object.
  */
@@ -5,12 +8,12 @@ public class Event extends Task {
     /**
      * Start time of event.
      */
-    protected String from;
+    protected LocalDateTime from;
 
     /**
      * End time of event.
      */
-    protected String to;
+    protected LocalDateTime to;
 
     /**
      * Constructor to create an Event object.
@@ -18,7 +21,7 @@ public class Event extends Task {
      * @param from Start time of event
      * @param to End time of event
      */
-    public Event(String description, String from, String to, boolean isDone) {
+    public Event(String description, LocalDateTime from, LocalDateTime to, boolean isDone) {
         super(description, isDone);
         this.from = from;
         this.to = to;
@@ -30,7 +33,9 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        return "[E][" + this.getStatusIcon() + "] " + super.toString() + " (from: " + this.from + " to: " + this.to + ")";
+        return "[E][" + this.getStatusIcon() + "] " + super.toString()
+                + " (from: " + this.from.format(DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm"))
+                + " to: " + this.to.format(DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm")) + ")";
     }
 
     @Override

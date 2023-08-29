@@ -9,12 +9,12 @@
     ____________________________________________________________
     ____________________________________________________________
      Got it. I've added this task:
-       [E][ ] book presentation (from: Thu 3pm to: Thu 5pm)
+       [E][ ] book presentation (from: Oct 12 2023 15:00 to: Oct 12 2023 16:00)
      Now you have 2 tasks in the list.
     ____________________________________________________________
     ____________________________________________________________
      Got it. I've added this task:
-       [D][ ] return book (by: Fri 2pm)
+       [D][ ] return book (by: Oct 12 2023 18:00)
      Now you have 3 tasks in the list.
     ____________________________________________________________
     ____________________________________________________________
@@ -23,13 +23,13 @@
     ____________________________________________________________
     ____________________________________________________________
      Took you long enough!
-       [E][X] book presentation (from: Thu 3pm to: Thu 5pm)
+       [E][X] book presentation (from: Oct 12 2023 15:00 to: Oct 12 2023 16:00)
     ____________________________________________________________
     ____________________________________________________________
      Stop wasting time, go get it done!
      1.[T][X] borrow book
-     2.[E][X] book presentation (from: Thu 3pm to: Thu 5pm)
-     3.[D][ ] return book (by: Fri 2pm)
+     2.[E][X] book presentation (from: Oct 12 2023 15:00 to: Oct 12 2023 16:00)
+     3.[D][ ] return book (by: Oct 12 2023 18:00)
     ____________________________________________________________
     ____________________________________________________________
      My grandmother does it faster than you!
@@ -38,8 +38,8 @@
     ____________________________________________________________
      Stop wasting time, go get it done!
      1.[T][ ] borrow book
-     2.[E][X] book presentation (from: Thu 3pm to: Thu 5pm)
-     3.[D][ ] return book (by: Fri 2pm)
+     2.[E][X] book presentation (from: Oct 12 2023 15:00 to: Oct 12 2023 16:00)
+     3.[D][ ] return book (by: Oct 12 2023 18:00)
     ____________________________________________________________
     ____________________________________________________________
      Bye. Hope to never see you again.
