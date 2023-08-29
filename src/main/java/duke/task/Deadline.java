@@ -37,6 +37,11 @@ public class Deadline extends Task {
     }
 
     @Override
+    public boolean isOnDate(LocalDate date) {
+        return this.dateTime.toLocalDate().equals(date);
+    }
+
+    @Override
     public String toString() {
         DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd MMM yyyy");
         DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("h:mma"); // Print in 12-hour time format

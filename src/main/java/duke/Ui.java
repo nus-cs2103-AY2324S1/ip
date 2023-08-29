@@ -3,8 +3,6 @@ package duke;
 import duke.exception.DukeException;
 import duke.task.Task;
 import duke.task.TaskList;
-import duke.task.Deadline;
-import duke.task.Event;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -130,32 +128,21 @@ public class Ui {
      * Shows user the tasks for a specific date.
      *
      * @param date The date for which the tasks are displayed.
-     * @param taskList The list of tasks to search.
+     * @param matchingTasks An ArrayList of tasks that match the search criteria.
      */
-    public void showTasksOnDate(LocalDate date, TaskList taskList) {
+    public void showTasksOnDate(LocalDate date, ArrayList<Task> matchingTasks) {
         System.out.println(LINE);
         System.out.println("\t Tasks on " + date.format(DateTimeFormatter.ofPattern("dd MMM yyyy")) + ":");
 
-        boolean foundTasks = false;
+        boolean foundTasks = !matchingTasks.isEmpty();
+        int taskNumber = 1;
 
-        for (int i = 0; i < taskList.getLength(); i++) {
-            Task task = taskList.getTask(i);
-            if (task instanceof Deadline) {
-                Deadline deadline = (Deadline) task;
-                if (deadline.getDateTime().toLocalDate().equals(date)) {
-                    System.out.println("\t\t " + task);
-                    foundTasks = true;
-                }
-            } else if (task instanceof Event) {
-                Event event = (Event) task;
-                if (event.getDateTime().toLocalDate().equals(date)) {
-                    System.out.println("\t\t " + task);
-                    foundTasks = true;
-                }
+        if (foundTasks) {
+            for (Task task : matchingTasks) {
+                System.out.println("\t " + taskNumber + ". " + task);
+                taskNumber++;
             }
-        }
-
-        if (!foundTasks) {
+        } else {
             System.out.println("\t\t Yay! You have no tasks on "
                     + date.format(DateTimeFormatter.ofPattern("dd MMM yyyy")) + " :D");
         }
@@ -168,32 +155,21 @@ public class Ui {
      * Shows user the tasks for today.
      *
      * @param today The current date.
-     * @param taskList The list of tasks to search.
+     * @param matchingTasks An ArrayList of tasks that match the search criteria.
      */
-    public void showTasksForToday(LocalDate today, TaskList taskList) {
+    public void showTasksForToday(LocalDate today, ArrayList<Task> matchingTasks) {
         System.out.println(LINE);
         System.out.println("\t Tasks for today (" + today.format(DateTimeFormatter.ofPattern("dd MMM yyyy")) + "):");
 
-        boolean foundTasks = false;
+        boolean foundTasks = !matchingTasks.isEmpty();
+        int taskNumber = 1;
 
-        for (int i = 0; i < taskList.getLength(); i++) {
-            Task task = taskList.getTask(i);
-            if (task instanceof Deadline) {
-                Deadline deadline = (Deadline) task;
-                if (deadline.getDateTime().toLocalDate().equals(today)) {
-                    System.out.println("\t\t " + task);
-                    foundTasks = true;
-                }
-            } else if (task instanceof Event) {
-                Event event = (Event) task;
-                if (event.getDateTime().toLocalDate().equals(today)) {
-                    System.out.println("\t\t " + task);
-                    foundTasks = true;
-                }
+        if (foundTasks) {
+            for (Task task : matchingTasks) {
+                System.out.println("\t " + taskNumber + ". " + task);
+                taskNumber++;
             }
-        }
-
-        if (!foundTasks) {
+        } else {
             System.out.println("\t\t Yay! You have no tasks today :D");
         }
 
@@ -201,6 +177,11 @@ public class Ui {
         System.out.println();
     }
 
+    /**
+     * Shows user the list of matching tasks.
+     *
+     * @param matchingTasks An ArrayList of tasks that match the search criteria.
+     */
     public void showMatchingTasks(ArrayList<Task> matchingTasks) {
         System.out.println(LINE);
         if (matchingTasks.isEmpty()) {

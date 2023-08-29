@@ -3,11 +3,13 @@ package duke.command;
 import duke.Storage;
 import duke.Ui;
 import duke.exception.EmptyDescriptionException;
+import duke.task.Task;
 import duke.task.TaskList;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
 
 /**
  * Represents a command to check and display tasks on a specific date.
@@ -32,7 +34,16 @@ public class CheckCommand extends Command {
             }
 
             LocalDate date = LocalDate.parse(dateToCheck.trim(), DateTimeFormatter.ofPattern("d/M/yyyy"));
-            ui.showTasksOnDate(date, taskList);
+            ArrayList<Task> matchingTasks = new ArrayList<>();
+
+            for (int i = 0; i < taskList.getLength(); i++) {
+                Task task = taskList.getTask(i);
+                if (task.isOnDate(date)) {
+                    matchingTasks.add(task);
+                }
+            }
+
+            ui.showTasksOnDate(date, matchingTasks);
 
         } catch (EmptyDescriptionException e) {
             ui.showDukeException(e);

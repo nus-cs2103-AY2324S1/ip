@@ -11,6 +11,7 @@ import duke.command.AddEventCommand;
 import duke.command.DeleteCommand;
 import duke.command.CheckCommand;
 import duke.command.TodayCommand;
+import duke.command.FindCommand;
 
 import duke.exception.DukeException;
 import duke.exception.InvalidFormatException;

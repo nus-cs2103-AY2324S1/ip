@@ -1,5 +1,7 @@
 package duke.task;
 
+import java.time.LocalDate;
+
 /**
  * Represents a Todo task.
  */
@@ -22,6 +24,11 @@ public class Todo extends Task {
     @Override
     public String toFileString() {
         return "T | " + (isDone ? "1" : "0") + " | " + description;
+    }
+
+    @Override
+    public boolean isOnDate(LocalDate date) {
+        return false;
     }
 
     @Override

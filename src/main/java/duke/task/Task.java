@@ -1,5 +1,6 @@
 package duke.task;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -58,6 +59,7 @@ public abstract class Task {
         isDone = false;
     }
 
+    public abstract boolean isOnDate(LocalDate date);
     /**
      * Returns the string representation of the task.
      *
