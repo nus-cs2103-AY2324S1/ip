@@ -12,6 +12,10 @@ abstract public class Task {
         this.taskName = taskName;
     }
 
+    public String getTaskName() {
+        return this.taskName;
+    }
+
     public void markDone() {
         this.isDone = true;
     }
