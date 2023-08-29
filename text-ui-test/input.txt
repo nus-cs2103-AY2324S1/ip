@@ -1,7 +1,9 @@
 todo borrow book
 list
 deadline return book /by Sunday
-event project meeting /from Mon 2pm /to 4pm
+deadline return book /by 2023-08-11
+event project meeting /from 2023-08-11 /to 2023-08-19
+unmark 2
 mark 2
 list
 mark 1
