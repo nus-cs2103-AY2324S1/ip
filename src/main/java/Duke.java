@@ -221,7 +221,7 @@ public class Duke {
         }
 
         /**
-         * Marks item at index given by user as completed.
+         * Marks item at index given by user as completed.  
          *
          * @param index Raw index given by user.
          * @return The toString() of the item marked.
@@ -236,7 +236,7 @@ public class Duke {
         }
 
         /**
-         * Removes "completed" mark of item at index given by user.
+         * Removes "completed" mark of item at the index given by user.
          *
          * @param index Raw index given by user.
          * @return The toString() of the item marked.
