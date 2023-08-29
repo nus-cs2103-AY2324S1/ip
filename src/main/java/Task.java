@@ -1,9 +1,8 @@
 public class Task {
     protected String description;
     protected boolean isDone;
-    public Task(String description, boolean isDone) {
+    public Task(String description) {
         this.description = description;
-        this.isDone = isDone;
     }
 
     public String getStatusIcon() {
@@ -20,5 +19,9 @@ public class Task {
 
     public String toString() {
         return this.getStatusIcon() + " " + this.description;
+    }
+    public String toStringForFile() {
+        String status = isDone ? "1" : "0";
+        return status + " | " + this.description;
     }
 }
