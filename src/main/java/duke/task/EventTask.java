@@ -1,6 +1,7 @@
 package duke.task;
 
 import duke.DukeException;
+import duke.enums.TaskType;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -32,7 +33,7 @@ public class EventTask extends Task {
 
     @Override
     public String getFileDescriptor() {
-        return super.getFileDescriptor() + String.format("| %s | %s | %s", this.from.toString(), this.to.toString(), "EVENT");
+        return super.getFileDescriptor() + String.format("| %s | %s | %s", this.from.toString(), this.to.toString(), TaskType.EVENT);
     }
 
     @Override

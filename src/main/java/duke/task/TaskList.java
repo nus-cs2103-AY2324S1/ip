@@ -3,35 +3,36 @@ package duke.task;
 import java.util.ArrayList;
 
 public class TaskList {
-    private final ArrayList<Task> list;
+    private final ArrayList<Task> tasks;
 
     public TaskList() {
-        this.list = new ArrayList<>();
+        this.tasks = new ArrayList<>();
     }
 
     public TaskList(ArrayList<Task> list) {
-        this.list = list;
+        this.tasks = list;
     }
 
     public void addTask(Task task) {
-        this.list.add(task);
+        this.tasks.add(task);
     }
 
     public void deleteTask(int index) {
-        this.list.remove(index);
+        this.tasks.remove(index);
     }
 
     public Task getTask(int index) {
-        return this.list.get(index);
+        return this.tasks.get(index);
     }
 
     public void markTask(int index) {
-        this.list.get(index).mark();
+        this.tasks.get(index).mark();
     }
 
     public void unmarkTask(int index) {
-        this.list.get(index).unmark();
+        this.tasks.get(index).unmark();
     }
+
 
 
     /**
@@ -51,20 +52,20 @@ public class TaskList {
         return result;
     }
 
-    public int size() {
-        return this.list.size();
+    public int getSize() {
+        return this.tasks.size();
     }
 
-    public ArrayList<Task> getList() {
-        return this.list;
+    public ArrayList<Task> getTasks() {
+        return this.tasks;
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < list.size(); i++) {
+        for (int i = 0; i < tasks.size(); i++) {
 
-            sb.append(String.format("%d. %s \n", i + 1, list.get(i).toString()));
+            sb.append(String.format("%d. %s \n", i + 1, tasks.get(i).toString()));
         }
         return sb.toString();
     }

@@ -17,7 +17,7 @@ public class TaskListTest {
         TaskList taskList = new TaskList();
         taskList.addTask(new ToDoTask("test"));
         taskList.deleteTask(0);
-        assert taskList.size() == 0;
+        assert taskList.getSize() == 0;
     }
 
     @Test
@@ -47,14 +47,14 @@ public class TaskListTest {
     public void size_success() {
         TaskList taskList = new TaskList();
         taskList.addTask(new ToDoTask("test"));
-        assert taskList.size() == 1;
+        assert taskList.getSize() == 1;
     }
 
     @Test
     public void getList_success() {
         TaskList taskList = new TaskList();
         taskList.addTask(new ToDoTask("test"));
-        assert taskList.getList().get(0).getDescription().equals("test");
+        assert taskList.getTasks().get(0).getDescription().equals("test");
     }
 
     @Test
