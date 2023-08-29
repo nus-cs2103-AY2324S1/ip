@@ -38,17 +38,10 @@ public class Tasklistloader {
       ReceivedTasks received = this.taskMapper.readValue(content, ReceivedTasks.class);
       ArrayList<Task> tasks = received.tasks;
 
-      System.out.println("loaded tasks!");
       this.taskList.addAll(tasks);
-
-//      for (int i = 0; i < tasks.size(); i++) {
-//        Task curr = tasks.get(i);
-//        System.out.println(curr.getDescription());
-//      }
     } catch (IOException ex) {
       System.out.println(ex.getMessage());
     }
-
 
   }
 
@@ -64,7 +57,6 @@ public class Tasklistloader {
 
       String output =
           this.taskMapper.writeValueAsString(test);
-      System.out.println(output);
       Files.write(filePath, output.getBytes());
 
     } catch (JsonProcessingException ex) {
