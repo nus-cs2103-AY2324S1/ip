@@ -24,13 +24,14 @@ public class TaskParser {
             }
             case "D": {
                 boolean status = Integer.parseInt(splitArray[2]) >= 1;
-                ret = Optional.of(new Deadline(splitArray[1], status, splitArray[3]));
+                ret = Optional.of(new Deadline(splitArray[1], status, TimeParser.parseTime(splitArray[3])));
                 break;
             }
             case "E": {
                 boolean status = Integer.parseInt(splitArray[2]) >= 1;
                 String[] timeDescriptor = splitArray[3].split(" to ");
-                ret = Optional.of(new Event(splitArray[1], status, timeDescriptor[0], timeDescriptor[1]));
+                System.out.println(timeDescriptor[0] + " " + timeDescriptor[1]);
+                ret = Optional.of(new Event(splitArray[1], status, TimeParser.parseTime(timeDescriptor[0]), TimeParser.parseTime(timeDescriptor[1])));
                 break;
             }
         }

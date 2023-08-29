@@ -1,15 +1,17 @@
 package task;
 
+import java.time.LocalDateTime;
+
 public class Deadline extends Task {
-    private String date;
-    public Deadline(String name, String date) {
+    private LocalDateTime date;
+    public Deadline(String name, LocalDateTime date) {
         this.name = name;
         this.date = date;
         this.status = false;
         this.type = TaskTypes.DEADLINE;
     }
 
-    public Deadline(String name, boolean status, String date) {
+    public Deadline(String name, boolean status, LocalDateTime date) {
         this.name = name;
         this.date = date;
         this.status = status;
@@ -19,11 +21,11 @@ public class Deadline extends Task {
     @Override
     public String toString() {
         String statusMark = this.status ? "[✓]" : "[✕]";
-        return String.format("[D]%s %s (by: %s)", statusMark, name, date);
+        return String.format("[D]%s %s (by: %s)", statusMark, name, TimeParser.returnTime(date));
     }
 
     @Override
     public String toSave() {
-        return String.format("D%s%s%s%d%s%s", DISCRIMINATOR, name, DISCRIMINATOR, Boolean.compare(status, false), DISCRIMINATOR, date);
+        return String.format("D%s%s%s%d%s%s", DISCRIMINATOR, name, DISCRIMINATOR, Boolean.compare(status, false), DISCRIMINATOR, TimeParser.toSaveString(date));
     }
 }

@@ -1,15 +1,16 @@
 import task.*;
+
 import java.util.ArrayList;
 
 public class ChatRecord {
     private ArrayList<Task> chatRecords;
     private int counter;
     public ChatRecord() {
-         counter = 0;
-         chatRecords = SaveData.loadData();
+        chatRecords = SaveData.loadData();
+        counter = chatRecords.size();
     }
 
-    public Task addTask(String name, TaskTypes type) {
+    public Task addTodo(String name) {
         Task ret = new Todo(name);
         chatRecords.add(ret);
         counter++;
@@ -17,16 +18,16 @@ public class ChatRecord {
         return ret;
     }
 
-    public Task addTask(String name, TaskTypes type, String args) {
-        Task ret = new Deadline(name, args);
+    public Task addDeadline(String name, String args) {
+        Task ret = new Deadline(name, TimeParser.parseTime(args.trim()));
         chatRecords.add(ret);
         counter++;
         saveChat();
         return ret;
     }
 
-    public Task addTask(String name, TaskTypes type, String[] args) {
-        Task ret = new Event(name, args[0].trim(), args[1].trim());
+    public Task addEvent(String name, String[] args) {
+        Task ret = new Event(name, TimeParser.parseTime(args[0].trim()), TimeParser.parseTime(args[1].trim()));
         chatRecords.add(ret);
         counter++;
         saveChat();
