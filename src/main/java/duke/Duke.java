@@ -2,6 +2,11 @@ package duke;
 
 import exception.DukeException;
 
+/**
+ * Main class to run Duke chatbot.
+ *
+ * @author syamfarh
+ */
 public class Duke {
 
     /** name of ChatBot */
@@ -10,12 +15,14 @@ public class Duke {
     /** store user Input in task.Task array */
     private TaskList tasks;
 
+    /** Ui class that display out to user based on userInput */
     private Ui ui;
 
+    /** storage class that handle fetch/saving task list from file */
     private Storage storage;
 
     /**
-     * Initialize the fixed sized array.
+     * Initialize Duke and fetch task list from duke.txt file.
      */
     public Duke() {
         ui = new Ui();
@@ -28,6 +35,9 @@ public class Duke {
         }
     }
 
+    /**
+     * Run the Duke chatbot.
+     */
     private void run() {
         ui.printGreeting(this.name);
         while (!ui.isExit()) {
@@ -42,6 +52,9 @@ public class Duke {
         chatBot.exit();
     }
 
+    /**
+     * save the current TaskList to duke.txt file
+     */
     private void exit() {
         try {
             storage.save(tasks.getTasks());

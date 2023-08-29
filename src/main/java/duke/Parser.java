@@ -12,9 +12,11 @@ import java.time.format.DateTimeFormatter;
 public class Parser {
 
     /**
-     * Return specific String output based on user Input.
+     * parse UserInput and passed the result to ui to output the result.
      *
      * @param input User input from main.
+     * @param tasks current Tasklist from chatBot.
+     * @param ui ui that control output result to user.
      */
     public static void replyUser(String input, TaskList tasks, Ui ui) throws DukeException {
 
@@ -113,8 +115,9 @@ public class Parser {
 
     }
     /**
-     * check if the input is a valid Date.
+     * Dheck if the input is a valid Date.
      * valid date format: dd/MM/yyyy HHmm
+     *
      * @param input of String type
      * @return true if it is a valid date format
      */
