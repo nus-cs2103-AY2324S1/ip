@@ -100,7 +100,9 @@ public class Ui {
 
     }
     public void customReply() {
+        System.out.println(DIVIDER);
         System.out.println("Hi barbie!");
+        System.out.println(DIVIDER);
     }
 
     public void showErrorMsg(Exception e) {
