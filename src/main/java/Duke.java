@@ -1,7 +1,9 @@
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 public class Duke {
-    public static void main(String[] args) throws IOException{
+    public static void main(String[] args) throws IOException {
         /*
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
@@ -11,6 +13,7 @@ public class Duke {
         System.out.println("Hello from\n" + logo);
          */
         String start = "Hello! I'm ChatBot" + "\n" + "What can I do for you?" + "\n";
+        String fileName = "../data/duke.txt";
         System.out.println(start);
         ArrayList<Task> tdlist = new ArrayList<Task>();
         while (true) {
@@ -41,6 +44,7 @@ public class Duke {
                 int index = Integer.parseInt(parsed_str[1]) - 1;
                 Task curr = tdlist.get(index);
                 curr.markAsDone();
+                Helper.saveToFile(fileName, tdlist);
                 System.out.println((index + 1) + ". " + curr);
             } else if (parsed_str[0].equals("unmark")) {
                 if (parsed_str.length < 2) {
@@ -54,6 +58,7 @@ public class Duke {
                 int index = Integer.parseInt(parsed_str[1]) - 1;
                 Task curr = tdlist.get(index);
                 curr.markAsNotDone();
+                Helper.saveToFile(fileName, tdlist);
                 System.out.println((index + 1) + ". " + curr);
             } else if (str.equals("bye")) {
                 System.out.println("Bye. Hope to see you again soon!");
@@ -73,6 +78,7 @@ public class Duke {
                 Todo curr = new Todo(description);
                 tdlist.add(curr);
                 System.out.println(curr);
+                Helper.saveToFile(fileName, tdlist);
                 System.out.println("Now you have " + tdlist.size() + " tasks in the list.");
 
             } else if (parsed_str[0].equals("deadline")) {
@@ -103,6 +109,7 @@ public class Duke {
                 Deadline curr = new Deadline(description, by_date);
                 tdlist.add(curr);
                 System.out.println(curr);
+                Helper.saveToFile(fileName, tdlist);
                 System.out.println("Now you have " + tdlist.size() + " tasks in the list.");
             } else if (parsed_str[0].equals("event")) {
                 boolean reachFrom = false;
@@ -141,6 +148,7 @@ public class Duke {
                 Event curr = new Event(description, fromDate, toDate);
                 tdlist.add(curr);
                 System.out.println(curr);
+                Helper.saveToFile(fileName, tdlist);
                 System.out.println("Now you have " + tdlist.size() + " tasks in the list.");
 
             } else if (parsed_str[0].equals("delete")){
@@ -150,6 +158,7 @@ public class Duke {
                 Task curr = tdlist.get(index);
                 System.out.println(curr);
                 tdlist.remove(index);
+                Helper.saveToFile(fileName, tdlist);
                 System.out.println("Now you have " + tdlist.size() + " tasks in the list.");
 
             } else {
@@ -160,4 +169,5 @@ public class Duke {
 
     }
 }
-// fix the string formating for the bracket at the back
+
+//todo: error handling for filie

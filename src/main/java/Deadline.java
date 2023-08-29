@@ -13,4 +13,10 @@ public class Deadline extends Task {
         String second = "(by: " + this.by + ")";
         return first + second;
     }
+
+    @Override
+    public String stringInFile() {
+        int status = super.isDone ? 1 : 0;
+        return "D | " + status + " | " + this.description + "| " + this.by;
+    }
 }

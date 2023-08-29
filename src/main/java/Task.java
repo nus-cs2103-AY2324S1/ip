@@ -25,6 +25,11 @@ public class Task {
     public String toString() {
         return "[" + this.getStatusIcon() + "] " + this.description;
     }
+
+    public String stringInFile() {
+        //will not be called
+        return "";
+    }
 }
 
 
