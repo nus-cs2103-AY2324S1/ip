@@ -1,13 +1,9 @@
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-
 public class Deadline extends Task {
-    private String input;
-    private String time;
+    private String date;
 
-    public Deadline(String description, String input) {
+    public Deadline(String description, String date) {
         super(description);
-        this.input = input;
+        this.date = date;
     }
 
     @Override
@@ -17,14 +13,7 @@ public class Deadline extends Task {
 
     @Override
     public String getExtras() {
-        String[] dateDetails = input.split(" ", 2);
-
-        LocalDate localDate = LocalDate.parse(dateDetails[0]);
-        time = " " + dateDetails[1];
-
-        return "(by: " + 
-                    localDate.format(DateTimeFormatter.ofPattern("MMM d yyyy")) 
-                        + time + ")";
+        return "(by:" + date + ")";
     }
 
     @Override
