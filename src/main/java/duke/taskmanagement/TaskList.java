@@ -1,6 +1,7 @@
 package duke.taskmanagement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class TaskList {
     String PATH = "/Users/jjtiong/Desktop/ip/data/duke.txt";
@@ -61,6 +62,13 @@ public class TaskList {
         ui.printMarkDone(task.toString());
         storage.changeToDone(i);
         //storage.writeToFile_exceptionThrown(PATH, task.saveToFileString());
+    }
+
+    public List<Task> find(String str) {
+        List<Task> tmpList = new ArrayList<>();
+        tmpList = ls;
+        tmpList = tmpList.stream().filter(string -> string.contains(str)).collect(Collectors.toList());
+        return tmpList;
     }
 
     public List<Task> getList() {

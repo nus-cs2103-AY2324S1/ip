@@ -45,6 +45,13 @@ public class Ui {
         System.out.println("Got it. I've added this task:\n" + str + "\n" + "Now you have " + size + " tasks in the list.\n");
     }
 
+    public void printFilterList(List<Task> filteredList) {
+        System.out.println("Here are the matching tasks in your list: ");
+        for(int i = 0; i < filteredList.size() ;i++) {
+            int j = i + 1;
+            System.out.println(j + "." + filteredList.get(i));
+        }
+    }
     public void closeScanner() {
         sc.close();
     }

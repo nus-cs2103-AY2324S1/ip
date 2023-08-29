@@ -25,4 +25,8 @@ public class Task {
     public String saveToFileString() {
         return getStatusIcon() + " | " + this.isDone + " | " + this.description;
     }
+
+    public boolean contains(String str) {
+        return this.description.contains(str);
+    }
 }
