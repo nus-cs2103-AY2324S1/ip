@@ -1,7 +1,14 @@
 package taskutil;
 
+/**
+ * Class for To-do task.
+ */
 public class Todo extends Task {
 
+    /**
+     * Constructor for To-do object, using super constructor.
+     * @param title Description of task.
+     */
     public Todo(String title) {
         super(title);
     }

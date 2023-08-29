@@ -2,6 +2,9 @@ package taskutil;
 
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Class for Task objects and methods to modify.
+ */
 public class Task {
 
     // Format of date to be displayed to user.
@@ -10,6 +13,10 @@ public class Task {
     protected String title;
     protected Boolean isDone;
 
+    /**
+     * Constructor for general Task object, called in subclasses.
+     * @param title Description of task.
+     */
     public Task(String title) {
         this.title = title;
         this.isDone = false;

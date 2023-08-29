@@ -4,11 +4,20 @@ import duke.Parser;
 
 import java.time.LocalDateTime;
 
+/**
+ * Class for Event task.
+ */
 public class Event extends Task {
 
     protected LocalDateTime start;
     protected LocalDateTime end;
 
+    /**
+     * Constructor for Event task.
+     * @param title Description of task.
+     * @param start Start of Event as LocalDateTime object.
+     * @param end End of Event as LocalDateTime object.
+     */
     public Event(String title, LocalDateTime start, LocalDateTime end) {
         super(title);
         this.start = start;

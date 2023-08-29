@@ -5,11 +5,18 @@ import storage.Storage;
 
 import java.util.Scanner;
 
+/**
+ * Class to initialise and run the chatbot.
+ */
 public class Duke {
 
     private final Storage storage;
     private final TaskList taskList;
 
+    /**
+     * Constructor for a chatbot instance.
+     * @param fileDirectory Directory to store chatbot data.
+     */
     public Duke(String fileDirectory) {
         storage = new Storage(fileDirectory);
         taskList = new TaskList();

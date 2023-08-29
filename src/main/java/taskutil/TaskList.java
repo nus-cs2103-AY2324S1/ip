@@ -4,10 +4,16 @@ import duke.Ui;
 
 import java.util.ArrayList;
 
+/**
+ * Class for a list of tasks.
+ */
 public class TaskList {
 
     private final ArrayList<Task> taskList;
 
+    /**
+     * Constructor for TaskList using ArrayList.
+     */
     public TaskList() {
         taskList = new ArrayList<>(1);
     }

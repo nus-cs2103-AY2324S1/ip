@@ -10,6 +10,9 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Contains methods to read commands and dates from user input.
+ */
 public class Parser {
 
     // Format of date to be received as user input, saved to or read from data file.

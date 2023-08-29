@@ -2,6 +2,9 @@ package duke;
 
 import taskutil.Task;
 
+/**
+ * Contains methods to format text output for chatbot.
+ */
 public class Ui {
 
     /**
