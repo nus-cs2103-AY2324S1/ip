@@ -3,6 +3,10 @@ import java.util.ArrayList;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.time.temporal.ChronoUnit;
 
 public class Duke {
     public static void main(String[] args) {
@@ -19,11 +23,16 @@ public class Duke {
 
         Scanner sc = new Scanner(System.in);
 
+        // Date input format: dd/MM/yyyy HHmm
+        DateTimeFormatter displayFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
+
         ArrayList<Task> list = new ArrayList<Task>();
 
+        // Read from file
         try {
             File taskFile = new File("tasks.txt");
             Scanner taskScanner = new Scanner(taskFile);
+            DateTimeFormatter fileFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
 
             while (taskScanner.hasNextLine()) {
                 String task = taskScanner.nextLine();
@@ -31,6 +40,7 @@ public class Duke {
                 String taskType = taskComponents[0];
                 boolean taskStatus = taskComponents[1].equals("1");
                 String taskDescription = taskComponents[2];
+
                 switch (taskType) {
                     case "T":
                         ToDo todoTask = new ToDo(taskDescription);
@@ -38,14 +48,17 @@ public class Duke {
                         list.add(todoTask);
                         break;
                     case "D":
-                        String deadlineDate = taskComponents[3];
-                        Deadline deadlineTask = new Deadline(taskDescription, deadlineDate);
+                        LocalDateTime deadlineDateTime = LocalDateTime.parse(taskComponents[3], fileFormatter);
+                        Deadline deadlineTask = new Deadline(taskDescription, deadlineDateTime);
                         deadlineTask.changeStatus(taskStatus);
                         list.add(deadlineTask);
                         break;
                     case "E":
                         String[] taskDates = taskComponents[3].split(" - ");
-                        Event event = new Event(taskDescription, taskDates[0], taskDates[1]);
+                        LocalDateTime eventStartDateTime = LocalDateTime.parse(taskDates[0], fileFormatter);
+                        LocalDateTime eventEndDateTime = LocalDateTime.parse(taskDates[1], fileFormatter);
+
+                        Event event = new Event(taskDescription, eventStartDateTime, eventEndDateTime);
                         event.changeStatus(taskStatus);
                         list.add(event);
                         break;
@@ -63,6 +76,10 @@ public class Duke {
             } catch (Exception f) {
                 System.out.println("Error creating new file.");
             }
+        } catch (DateTimeParseException e) {
+            System.out.println("Error parsing date.");
+        } catch (Exception e) {
+            System.out.println("Error reading from file.");
         }
 
         String command = "";
@@ -149,11 +166,14 @@ public class Duke {
 
                     System.out.println(
                             "With your constant mediocrity, it is entirely unlikely that you will be able to meet this deadline I have just added: \n");
-                    list.add(new Deadline(deadlineTaskComponents[0], deadlineTaskComponents[1]));
+                    list.add(new Deadline(deadlineTaskComponents[0],
+                            LocalDateTime.parse(deadlineTaskComponents[1], displayFormatter)));
                     System.out.println(list.get(list.size() - 1).toString());
                     System.out
                             .println("Congratulations, your pile of tasks has swelled to a whopping " + list.size()
                                     + ".");
+                } catch (DateTimeParseException e) {
+                    System.out.println("Error parsing date.");
                 } catch (Exception e) {
                     System.out.println(e.getMessage());
                 } finally {
@@ -183,11 +203,14 @@ public class Duke {
 
                     System.out.println(
                             "Looks like I will have to slow time down myself if you wish to make it to this event I just added:\n");
-                    list.add(new Event(eventDescription, eventTaskDates[0], eventTaskDates[1]));
+                    list.add(new Event(eventDescription, LocalDateTime.parse(eventTaskDates[0], displayFormatter),
+                            LocalDateTime.parse(eventTaskDates[1], displayFormatter)));
                     System.out.println(list.get(list.size() - 1).toString());
                     System.out
                             .println("Congratulations, your pile of tasks has swelled to a whopping " + list.size()
                                     + ".");
+                } catch (DateTimeParseException e) {
+                    System.out.println("Error parsing date.");
                 } catch (Exception e) {
                     System.out.println(e.getMessage());
                 } finally {
