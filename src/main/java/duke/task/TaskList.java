@@ -1,3 +1,4 @@
+package duke.task;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -14,7 +15,7 @@ public class TaskList {
         this.tasklist = prevTasks;
         this.lines = "______________________________";
     }
-    void addTask(Task task) {
+    public void addTask(Task task) {
         tasklist.add(task);
         System.out.println("MEOW got it. I've added this task:\n   " + task);
         System.out.println("Now you have " + this.tasklist.size() + " meow-tasks in the list.");

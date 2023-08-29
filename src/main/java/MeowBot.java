@@ -1,10 +1,9 @@
-
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.File;
-import java.util.Scanner;
-import java.util.ArrayList;
+import duke.task.*;
+import duke.helper.*;
+import duke.command.*;
 public class MeowBot {
 
     enum TaskType {Event, Deadline, Todo};

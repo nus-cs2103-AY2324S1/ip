@@ -1,3 +1,4 @@
+package duke.task;
 public class Todo extends Task{
     String[] inputs;
     public Todo(String name) throws DukeException {

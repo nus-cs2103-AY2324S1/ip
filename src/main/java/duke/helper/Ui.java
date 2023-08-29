@@ -1,3 +1,4 @@
+package duke.helper;
 import java.util.ArrayList;
 import java.util.Scanner;
 
