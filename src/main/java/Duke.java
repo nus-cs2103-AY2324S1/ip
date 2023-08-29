@@ -1,14 +1,59 @@
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.io.File;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Scanner;
 public class Duke {
 
+    private static String DIRECTORY = "./data";
+    private static String PATH = "./data/duke.txt";
+//    Path filePath = Paths.get(DIR, FILENAME);
+//    String absolutePath =  filePath.toAbsolutePath().toString();
     private ArrayList<Task> l;
     private boolean isRunning = true;
 
     private Duke() {
+        //System.out.println(absolutePath);
         this.l = new ArrayList<>();
     }
+
+    private void restore(String entry) throws DukeException {
+        String[] arr = entry.split("\\|");
+        Task t;
+        switch (arr[0]) {
+            case "T":
+                t = new Todo(arr[2]);
+                break;
+            case "E":
+                t = new Events(arr[2], arr[3], arr[4]);
+                break;
+            case "D":
+                t = new Deadline(arr[2], arr[3]);
+                break;
+            default:
+                throw new DukeException("No such type of Task");
+        }
+        if (arr[1].equals("1")) {
+            t.mark();
+        }
+        this.l.add(t);
+    }
+
+    private void openfile() {
+        File db = new File(Duke.PATH);
+        File dir = new File(Duke.DIRECTORY);
+        dir.mkdir();
+        try {
+            db.createNewFile();
+        } catch (IOException e) {
+            System.out.println("Error making the file");
+        }
+    }
+
+
 
     private enum Command {
         LIST, BYE, MARK, UNMARK, DEADLINE, TODO, EVENT, DELETE, UNSPECIFIED
@@ -39,6 +84,18 @@ public class Duke {
 
     private void start() {
         hello();
+        try {
+            File f = new File(Duke.PATH);
+            Scanner Reader = new Scanner(f);
+            while (Reader.hasNextLine()) {
+                String nxt = Reader.nextLine();
+                System.out.println(nxt);
+                restore(nxt);
+            }
+            Reader.close();
+        } catch (FileNotFoundException e) {
+            this.openfile();
+        }
         Scanner sc = new Scanner(System.in);
         while(sc.hasNextLine() && this.isRunning) {
             String s = sc.nextLine();
@@ -145,6 +202,7 @@ public class Duke {
     }
 
     public static void main(String[] args) {
-        new Duke().start();
+       Duke duke = new Duke();
+       duke.start();
     }
 }
