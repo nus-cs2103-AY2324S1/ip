@@ -11,6 +11,7 @@ public class Event extends Task {
     }
 
     public String toString() {
-        return "[E]" + this.getStatusIcon() + " " + this.message + " (from: " + from + " to: " + to + ")";
+        return "[E]" + this.getStatusIcon() + " " + this.message
+                + " (from: " + from + " to: " + to + ")";
     }
 }

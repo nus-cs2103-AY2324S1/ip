@@ -102,7 +102,8 @@ public class Duke {
                 if (message.equals("list")) {
                     printList();
                 } else if (message.startsWith("mark")) {
-                    if (message.length() <= 5) throw new DukeException("You need to specify the index of the task to mark.");
+                    if (message.length() <= 5)
+                        throw new DukeException("You need to specify the index of the task to mark.");
                     try {
                         markAsDone(Integer.parseInt(message.substring(5)));
                     } catch (NumberFormatException e) {
@@ -125,17 +126,22 @@ public class Duke {
                         throw new DukeException("The index of the task to delete is not a valid integer.");
                     }
                 } else if (message.startsWith("todo")) {
-                    if (message.length() <= 5) throw new DukeException("The description of a todo cannot be empty.");
+                    if (message.length() <= 5)
+                        throw new DukeException("The description of a todo cannot be empty.");
                     addTodo(message.substring(5));
                 } else if (message.startsWith("deadline")) {
-                    if (message.length() <= 9) throw new DukeException("The description of a deadline cannot be empty.");
+                    if (message.length() <= 9)
+                        throw new DukeException("The description of a deadline cannot be empty.");
                     String[] deadline = message.substring(9).split(" /by ");
-                    if (deadline.length != 2) throw new DukeException("A deadline requires exactly 1 due date.");
+                    if (deadline.length != 2)
+                        throw new DukeException("A deadline requires exactly 1 due date.");
                     addDeadline(deadline[0], deadline[1]);
                 } else if (message.startsWith("event")) {
-                    if (message.length() <= 6) throw new DukeException("The description of a deadline cannot be empty.");
+                    if (message.length() <= 6)
+                        throw new DukeException("The description of a deadline cannot be empty.");
                     String[] event = message.substring(6).split(" /to | /from ");
-                    if (event.length != 3) throw new DukeException("An event requires exactly 2 from/to dates.");
+                    if (event.length != 3)
+                        throw new DukeException("An event requires exactly 2 from/to dates.");
                     addEvent(event[0], event[1], event[2]);
                 } else {
                     throw new DukeException("I'm sorry, but I don't know what that means :-(");
