@@ -1,3 +1,6 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 /**
  * The Task class contains a name and its status (if it is done or not done), and the functions to set it as
  * done/undone, and give the string representations of it, its status and it in a list
@@ -5,10 +8,14 @@
 public class Task {
     private String name;
     private boolean isDone;
+
+
     public Task(String name) {
         this.name = name;
         this.isDone = false;
     }
+
+
 
     /**
      * This method set this task as done
@@ -55,6 +62,12 @@ public class Task {
         } else {
             return "0 | " + this.showTask();
         }
+    }
+
+    public static String printDate(LocalDateTime dateTime) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMMM yyyy HH:mm");
+        String formattedDate = dateTime.format(formatter);
+        return formattedDate;
     }
 
 

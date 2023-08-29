@@ -83,11 +83,12 @@ public class Commands {
                         }
                         break;
                     case DEADLINE:
-                        Pattern deadlinepattern = Pattern.compile( "deadline (.*?)/by (.*)");
+                        Pattern deadlinepattern = Pattern.compile( "deadline (.*?) /by (.*)");
                         matcher = deadlinepattern.matcher(echo);
                         if(matcher.matches()) {
                             String task = matcher.group(1);
                             String by = matcher.group(2);
+
                             items.addDeadline(task, by);
                         } else {
                             throw new DeadlineException();
@@ -104,7 +105,7 @@ public class Commands {
                         }
                         break;
                     case EVENT:
-                        Pattern eventpattern = Pattern.compile( "event (.*?)/from (.*?) /to (.*)");
+                        Pattern eventpattern = Pattern.compile( "event (.*?) /from (.*?) /to (.*)");
                         matcher = eventpattern.matcher(echo);
                         if(matcher.matches()) {
                             String task = matcher.group(1);

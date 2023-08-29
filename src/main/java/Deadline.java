@@ -1,12 +1,22 @@
+import java.time.LocalDateTime;
+
 /**
  * Deadline class is a task that contains a name and an end date
  */
 public class Deadline extends Task{
 
     private String by;
+
+    private LocalDateTime bydateTime;
     public Deadline(String name, String by) {
         super(name);
         this.by = by;
+    }
+
+    public Deadline(String name, LocalDateTime bydateTime) {
+        super(name);
+        this.bydateTime = bydateTime;
+        this.by = Task.printDate(bydateTime);
     }
 
     /**

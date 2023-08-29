@@ -1,4 +1,2 @@
-T | 1 | dfwqf
-T | 0 | dwqfdqwf
-E | 0 | dfwqefq | fcwe to qwefqe
-D | 0 | ewf | dqecewcdqw
+D | 0 | fewqf | feqf
+E | 0 | efwf | fewfe to feqfq

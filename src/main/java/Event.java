@@ -1,13 +1,25 @@
+import java.time.LocalDateTime;
+
 /**
  * Event class is a task that contains a name and an end date and a start date
  */
 public class Event extends Task{
     private String from;
     private String to;
+    private LocalDateTime fromDateTime;
+    private LocalDateTime toDateTime;
     public Event (String name, String from, String to) {
         super(name);
         this.from = from;
         this.to = to;
+    }
+
+    public Event (String name, LocalDateTime fromDateTime, LocalDateTime toDateTime) {
+        super(name);
+        this.fromDateTime = fromDateTime;
+        this.toDateTime = toDateTime;
+        this.from = Task.printDate(fromDateTime);
+        this.to = Task.printDate(toDateTime);
     }
 
     /**

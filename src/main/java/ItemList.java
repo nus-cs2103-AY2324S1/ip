@@ -1,6 +1,10 @@
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 /**
  * This class encapsulates the items being that are added by the users, and
  * the functions used to list them out, mark them add and delete items from it
@@ -37,7 +41,13 @@ public class ItemList {
             System.out.println(Greeting.linebreak);
             return;
         }
-        Deadline deadline = new Deadline(name, by);
+        Deadline deadline;
+        if(Dates.checkDateinput(by)) {
+            deadline = new Deadline(name, Dates.convertToDateTime(by));
+        } else {
+            deadline = new Deadline(name, by);
+        }
+
 
         ArrayList<Task> copy = (ArrayList<Task>) this.items.clone();
         try {
@@ -75,8 +85,6 @@ public class ItemList {
         }
         ArrayList<Task> copy = (ArrayList<Task>) this.items.clone();
         try {
-
-
             this.items.add(new ToDo(newitem));
             this.len++;
             this.saveAll();
@@ -124,10 +132,15 @@ public class ItemList {
             System.out.println(Greeting.linebreak);
             return;
         }
-
+        Event event;
+        if(Dates.checkDateinput(from) && Dates.checkDateinput(to))  {
+            event = new Event(newitem, Dates.convertToDateTime(from), Dates.convertToDateTime(to));
+        } else {
+            event = new Event(newitem, from, to);
+        }
         ArrayList<Task> copy = (ArrayList<Task>) this.items.clone();
         try {
-            this.items.add(new Event(newitem, from ,to));
+            this.items.add(event);
             this.len++;
             this.saveAll();
             System.out.println(Greeting.linebreak);
@@ -295,7 +308,13 @@ public class ItemList {
                 String[] para = line.split(" \\| ", 4);
                 String description = para[2];
                 String by = para[3];
-                Deadline newtask = new Deadline(description, by);
+                Deadline newtask;
+                if (Dates.checkDateString(by)) {
+                    newtask = new Deadline(description, Dates.createDateTime(by));
+                } else {
+                    newtask = new Deadline(description, by);
+                }
+
                 if (!para[1].equals("0")) {
                     newtask.setDone();
                 }
@@ -310,7 +329,14 @@ public class ItemList {
                 String description = para[2];
                 String block = para[3];
                 String[] fromTo = block.split(" to ", 2);
-                Event newtask = new Event(description, fromTo[0], fromTo[1]);
+                Event newtask;
+                if (Dates.checkDateString(fromTo[0]) && Dates.checkDateString(fromTo[1])) {
+                    newtask = new Event(description, Dates.createDateTime(fromTo[0]),
+                            Dates.createDateTime(fromTo[1]));
+                } else {
+                    newtask = new Event(description, fromTo[0],fromTo[1]);
+                }
+
                 if (!para[1].equals("0")) {
                     newtask.setDone();
                 }
@@ -320,6 +346,8 @@ public class ItemList {
         }
         s.close();
     }
+
+
 
 
 
