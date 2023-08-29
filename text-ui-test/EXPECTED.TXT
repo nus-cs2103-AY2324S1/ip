@@ -9,74 +9,91 @@
 	 Now you have 1 tasks in the list.
 	____________________________________________________________
 	____________________________________________________________
-	 Got it. I've added this task:
-	   [D][ ] return book (by: June 6th)
-	 Now you have 2 tasks in the list.
+	 ? OOPS!!! Dates should be formatted yyyy-mm-ddThh:mm:ss,
+	 e.g. 2023-09-12T12:06:53
 	____________________________________________________________
+
 	____________________________________________________________
-	 Got it. I've added this task:
-	   [E][ ] project meeting (from: Aug 6th 2pm to: 4pm)
-	 Now you have 3 tasks in the list.
+	 ? OOPS!!! Dates should be formatted yyyy-mm-ddThh:mm:ss,
+	 e.g. 2023-09-12T12:06:53
 	____________________________________________________________
+
 	____________________________________________________________
 	 Got it. I've added this task:
 	   [T][ ] join sports club
-	 Now you have 4 tasks in the list.
+	 Now you have 2 tasks in the list.
 	____________________________________________________________
 	____________________________________________________________
 	 Nice! I've marked this task as done:
 	   [T][X] read book
 	____________________________________________________________
 	____________________________________________________________
-	 Nice! I've marked this task as done:
-	   [T][X] join sports club
+	 ? OOPS!!! Cannot mark a task that is out of range!
+	____________________________________________________________
+
+	____________________________________________________________
+	 Here are the tasks in your list:
+	 1.[T][X] read book
+	 2.[T][ ] join sports club
 	____________________________________________________________
 	____________________________________________________________
 	 Got it. I've added this task:
 	   [T][ ] borrow book
+	 Now you have 3 tasks in the list.
+	____________________________________________________________
+	____________________________________________________________
+	 Got it. I've added this task:
+	   [E][ ] some event (from: Sept 11 2023, 08:09:00 to: Sept 11 2023, 16:09:00)
+	 Now you have 4 tasks in the list.
+	____________________________________________________________
+	____________________________________________________________
+	 Got it. I've added this task:
+	   [D][ ] return book (by: Sept 01 2023, 09:09:00)
 	 Now you have 5 tasks in the list.
 	____________________________________________________________
 	____________________________________________________________
-	 Here are the tasks in your list:
-	 1.[T][X] read book
-	 2.[D][ ] return book (by: June 6th)
-	 3.[E][ ] project meeting (from: Aug 6th 2pm to: 4pm)
-	 4.[T][X] join sports club
-	 5.[T][ ] borrow book
+	 ? OOPS!!! Dates should be formatted yyyy-mm-ddThh:mm:ss,
+	 e.g. 2023-09-12T12:06:53
 	____________________________________________________________
+
 	____________________________________________________________
-	 Got it. I've added this task:
-	   [D][ ] return book (by: Sunday)
-	 Now you have 6 tasks in the list.
+	 ? OOPS!!! Dates should be formatted yyyy-mm-ddThh:mm:ss,
+	 e.g. 2023-09-12T12:06:53
 	____________________________________________________________
+
 	____________________________________________________________
-	 Got it. I've added this task:
-	   [E][ ] project meeting (from: Mon 2pm to: 4pm)
-	 Now you have 7 tasks in the list.
+	 ? OOPS!!! Dates should be formatted yyyy-mm-ddThh:mm:ss,
+	 e.g. 2023-09-12T12:06:53
 	____________________________________________________________
-	____________________________________________________________
-	 Here are the tasks in your list:
-	 1.[T][X] read book
-	 2.[D][ ] return book (by: June 6th)
-	 3.[E][ ] project meeting (from: Aug 6th 2pm to: 4pm)
-	 4.[T][X] join sports club
-	 5.[T][ ] borrow book
-	 6.[D][ ] return book (by: Sunday)
-	 7.[E][ ] project meeting (from: Mon 2pm to: 4pm)
-	____________________________________________________________
+
 	____________________________________________________________
 	 ? OOPS!!! The description of a todo cannot be empty.
 	____________________________________________________________
 
 	____________________________________________________________
+	 Here are the tasks in your list:
+	 1.[T][X] read book
+	 2.[T][ ] join sports club
+	 3.[T][ ] borrow book
+	 4.[E][ ] some event (from: Sept 11 2023, 08:09:00 to: Sept 11 2023, 16:09:00)
+	 5.[D][ ] return book (by: Sept 01 2023, 09:09:00)
+	____________________________________________________________
+	____________________________________________________________
 	 Noted. I've removed this task:
-	   [E][ ] project meeting (from: Aug 6th 2pm to: 4pm)
-	 Now you have 6 tasks in the list.
+	   [T][ ] borrow book
+	 Now you have 4 tasks in the list.
 	____________________________________________________________
 	____________________________________________________________
 	 ? OOPS!!! I'm sorry, but I don't know what that means :-(
 	____________________________________________________________
 
+	____________________________________________________________
+	 Here are the tasks in your list:
+	 1.[T][X] read book
+	 2.[T][ ] join sports club
+	 3.[E][ ] some event (from: Sept 11 2023, 08:09:00 to: Sept 11 2023, 16:09:00)
+	 4.[D][ ] return book (by: Sept 01 2023, 09:09:00)
+	____________________________________________________________
 	____________________________________________________________
 	 ? OOPS!!! Cannot delete a task that is out of range!
 	____________________________________________________________

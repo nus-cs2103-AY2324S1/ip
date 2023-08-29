@@ -1,8 +1,13 @@
 import java.io.IOException;
+
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -12,26 +17,33 @@ public class Duke {
 
     public static ArrayList<Task> tasks = new ArrayList<>();
 
+    public static final String DIVIDER = "\t____________________________________________________________";
+
     public static void processLine(String line) {
         Task newTask;
         String[] lineSeq = line.split(" \\| ");
-        if (line.startsWith("T") && lineSeq.length == 3
-                && (Objects.equals(lineSeq[1], "1") || Objects.equals(lineSeq[1], "0"))) {
-            newTask = new Todo(lineSeq[2]);
-            if (Objects.equals(lineSeq[1], "1")) newTask.markAsDone();
-            tasks.add(newTask);
-        } else if (line.startsWith("D") && lineSeq.length == 4
-                && (Objects.equals(lineSeq[1], "1") || Objects.equals(lineSeq[1], "0"))) {
-            newTask = new Deadline(lineSeq[2], lineSeq[3]);
-            if (Objects.equals(lineSeq[1], "1")) newTask.markAsDone();
-            tasks.add(newTask);
-        } else if (line.startsWith("E") && lineSeq.length == 5
-                && (Objects.equals(lineSeq[1], "1") || Objects.equals(lineSeq[1], "0"))) {
-            newTask = new Event(lineSeq[2], lineSeq[3], lineSeq[4]);
-            if (Objects.equals(lineSeq[1], "1")) newTask.markAsDone();
-            tasks.add(newTask);
-        } else {
-            // else do nothing, specifying that the task is invalid.
+        try {
+            if (line.startsWith("T") && lineSeq.length == 3
+                    && (Objects.equals(lineSeq[1], "1") || Objects.equals(lineSeq[1], "0"))) {
+                newTask = new Todo(lineSeq[2]);
+                if (Objects.equals(lineSeq[1], "1")) newTask.markAsDone();
+                tasks.add(newTask);
+            } else if (line.startsWith("D") && lineSeq.length == 4
+                    && (Objects.equals(lineSeq[1], "1") || Objects.equals(lineSeq[1], "0"))) {
+                newTask = new Deadline(lineSeq[2], LocalDateTime.parse(lineSeq[3]));
+                if (Objects.equals(lineSeq[1], "1")) newTask.markAsDone();
+                tasks.add(newTask);
+            } else if (line.startsWith("E") && lineSeq.length == 5
+                    && (Objects.equals(lineSeq[1], "1") || Objects.equals(lineSeq[1], "0"))) {
+                newTask = new Event(lineSeq[2], LocalDateTime.parse(lineSeq[3]), LocalDateTime.parse(lineSeq[4]));
+                if (Objects.equals(lineSeq[1], "1")) newTask.markAsDone();
+                tasks.add(newTask);
+            } else {
+                // else do nothing, specifying that the task is invalid.
+                System.out.println("The task " + line + " is invalid and is ignored!");
+            }
+        } catch (DateTimeParseException e) {
+            // do nothing, specifying that the task is invalid.
             System.out.println("The task " + line + " is invalid and is ignored!");
         }
     }
@@ -76,44 +88,54 @@ public class Duke {
     public static void addTodo(String message) {
         Task newTask = new Todo(message);
         tasks.add(newTask);
-        System.out.println("\t____________________________________________________________");
+        System.out.println(DIVIDER);
         System.out.println("\t Got it. I've added this task:");
-        System.out.println("\t   " + newTask.toString());
+        System.out.println("\t   " + newTask);
         System.out.println("\t Now you have " + tasks.size() + " tasks in the list.");
-        System.out.println("\t____________________________________________________________");
+        System.out.println(DIVIDER);
         saveTasks();
     }
 
-    public static void addDeadline(String message, String deadline) {
-        Task newTask = new Deadline(message, deadline);
-        tasks.add(newTask);
-        System.out.println("\t____________________________________________________________");
-        System.out.println("\t Got it. I've added this task:");
-        System.out.println("\t   " + newTask.toString());
-        System.out.println("\t Now you have " + tasks.size() + " tasks in the list.");
-        System.out.println("\t____________________________________________________________");
-        saveTasks();
+    public static void addDeadline(String message, String deadline) throws DukeException {
+        try {
+            Task newTask = new Deadline(message, LocalDateTime.parse(deadline));
+            tasks.add(newTask);
+            System.out.println(DIVIDER);
+            System.out.println("\t Got it. I've added this task:");
+            System.out.println("\t   " + newTask);
+            System.out.println("\t Now you have " + tasks.size() + " tasks in the list.");
+            System.out.println(DIVIDER);
+            saveTasks();
+        } catch (DateTimeParseException e) {
+            throw new DukeException("Dates should be formatted yyyy-mm-ddThh:mm:ss,\n" +
+                    "\t e.g. 2023-09-12T12:06:53");
+        }
     }
 
-    public static void addEvent(String message, String from, String to) {
-        Task newTask = new Event(message, from, to);
-        tasks.add(newTask);
-        System.out.println("\t____________________________________________________________");
-        System.out.println("\t Got it. I've added this task:");
-        System.out.println("\t   " + newTask.toString());
-        System.out.println("\t Now you have " + tasks.size() + " tasks in the list.");
-        System.out.println("\t____________________________________________________________");
-        saveTasks();
+    public static void addEvent(String message, String from, String to) throws DukeException {
+        try {
+            Task newTask = new Event(message, LocalDateTime.parse(from), LocalDateTime.parse(to));
+            tasks.add(newTask);
+            System.out.println(DIVIDER);
+            System.out.println("\t Got it. I've added this task:");
+            System.out.println("\t   " + newTask);
+            System.out.println("\t Now you have " + tasks.size() + " tasks in the list.");
+            System.out.println(DIVIDER);
+            saveTasks();
+        } catch (DateTimeParseException e) {
+            throw new DukeException("Dates should be formatted yyyy-mm-ddThh:mm:ss,\n" +
+                    "\t e.g. 2023-09-12T12:06:53");
+        }
     }
 
     public static void deleteTask(int i) throws DukeException {
         if (i >= 1 && i <= tasks.size()) {
             Task deletedTask = tasks.remove(i - 1);
-            System.out.println("\t____________________________________________________________");
+            System.out.println(DIVIDER);
             System.out.println("\t Noted. I've removed this task:");
             System.out.println("\t   " + deletedTask.toString());
             System.out.println("\t Now you have " + tasks.size() + " tasks in the list.");
-            System.out.println("\t____________________________________________________________");
+            System.out.println(DIVIDER);
             saveTasks();
         } else {
             throw new DukeException("Cannot delete a task that is out of range!");
@@ -121,21 +143,21 @@ public class Duke {
     }
 
     public static void printList() {
-        System.out.println("\t____________________________________________________________");
+        System.out.println(DIVIDER);
         System.out.println("\t Here are the tasks in your list:");
         for (int i = 0; i < tasks.size(); i++) {
             System.out.println("\t " + (i + 1) + "." + tasks.get(i).toString());
         }
-        System.out.println("\t____________________________________________________________");
+        System.out.println(DIVIDER);
     }
 
     public static void markAsDone(int i) throws DukeException {
         if (i >= 1 && i <= tasks.size()) {
             tasks.get(i - 1).markAsDone();
-            System.out.println("\t____________________________________________________________");
+            System.out.println(DIVIDER);
             System.out.println("\t Nice! I've marked this task as done:");
             System.out.println("\t   " + tasks.get(i - 1).toString());
-            System.out.println("\t____________________________________________________________");
+            System.out.println(DIVIDER);
             saveTasks();
         } else {
             throw new DukeException("Cannot mark a task that is out of range!");
@@ -145,10 +167,10 @@ public class Duke {
     public static void unmarkAsDone(int i) throws DukeException {
         if (i >= 1 && i <= tasks.size()) {
             tasks.get(i - 1).unmarkAsDone();
-            System.out.println("\t____________________________________________________________");
+            System.out.println(DIVIDER);
             System.out.println("\t OK, I've marked this task as not done yet:");
             System.out.println("\t   " + tasks.get(i - 1).toString());
-            System.out.println("\t____________________________________________________________");
+            System.out.println(DIVIDER);
             saveTasks();
         } else {
             throw new DukeException("Cannot unmark a task that is out of range!");
@@ -166,7 +188,7 @@ public class Duke {
 
         String bye_message = "\t____________________________________________________________\n"
                 + "\t Bye. Hope to see you again soon!\n"
-                + "\t____________________________________________________________";
+                + DIVIDER;
 
         System.out.println(intro_message);
         Scanner sc = new Scanner(System.in);

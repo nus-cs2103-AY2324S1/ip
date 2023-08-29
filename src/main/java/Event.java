@@ -1,10 +1,13 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 public class Event extends Task {
 
-    protected String from;
-    protected String to;
+    private LocalDateTime from;
+    private LocalDateTime to;
 
 
-    Event(String message, String from, String to) {
+    Event(String message, LocalDateTime from, LocalDateTime to) {
         super(message);
         this.from = from;
         this.to = to;
@@ -16,6 +19,7 @@ public class Event extends Task {
 
     public String toString() {
         return "[E]" + this.getStatusIcon() + " " + this.message
-                + " (from: " + from + " to: " + to + ")";
+                + " (from: " + from.format(DateTimeFormatter.ofPattern("MMM dd yyyy, HH:MM:SS"))
+                + " to: " + to.format(DateTimeFormatter.ofPattern("MMM dd yyyy, HH:MM:SS")) + ")";
     }
 }

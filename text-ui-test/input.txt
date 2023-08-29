@@ -4,13 +4,17 @@ event project meeting /from Aug 6th 2pm /to 4pm
 todo join sports club
 mark 1
 mark 4
+list
 todo borrow book
-list
-deadline return book /by Sunday
+event some event /from 2023-09-11T08:00:00 /to 2023-09-11T16:00:00
+deadline return book /by 2023-09-01T09:30:00
 event project meeting /from Mon 2pm /to 4pm
-list
+deadline return book /by 12 dec 2023
+event project meeting /from Mon 2pm /to 4pm
 todo
+list
 delete 3
 blah
+list
 delete 149
 bye
