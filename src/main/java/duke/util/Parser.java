@@ -1,5 +1,4 @@
 package duke.util;
-<<<<<<< HEAD
 
 import duke.command.Command;
 import duke.command.AddDeadlineCommand;
