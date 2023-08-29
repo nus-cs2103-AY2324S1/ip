@@ -1,6 +1,7 @@
 public class Ui {
 
     private final String chatbotName = "Gobble Gobble";
+    public final String lineSeparator = "____________________________________________________________";
 
 
     public void printWelcome() {
@@ -12,8 +13,8 @@ public class Ui {
         System.out.println("Bye. Hope to see you again soon!");
     }
 
-    public void showLoadingError() {
-        System.out.println("Something went wrong while loading your list.");
+    public void showLoadingError(String message) {
+        System.out.println(lineSeparator + "\n" + message + "\n" + lineSeparator);
     }
 
     public void mark(Task task) {
