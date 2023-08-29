@@ -10,5 +10,4 @@ import java.util.ArrayList;
  * Helps to add,remove and contain tasks.
  */
 public class TaskList extends ArrayList<Task> {
-
 }

@@ -41,7 +41,6 @@ public class Storage {
                     } else {
                         Todo todo = new Todo(description.trim());
                         list.add(todo);
-
                     }
                 } else if (text.startsWith("deadline")) {
                     String[] splitText = text.split("/", 2);

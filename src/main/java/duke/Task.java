@@ -31,11 +31,12 @@ public class Task {
         return (isCompleted? "X" : " ");
     }
 
+
     /**
      * Marks the task as complete.
      * Toggles the isCompleted field to true.
      */
-    public void markAsComplete(){
+    public void markAsComplete() {
         this.isCompleted = true;
     }
 
@@ -51,7 +52,7 @@ public class Task {
      * @inheritDoc
      */
     @Override
-    public String toString(){
+    public String toString() {
         return description;
     }
 }
