@@ -12,6 +12,10 @@ public class Alpha {
         FileHandler fh = new FileHandler();
         fh.checkAndCreate();
 
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> cb4c09e7b49931b4e4fa7e59677f9431e990efb0
         Scanner sc = new Scanner(System.in);
 
         //End trigger to end the program
@@ -149,6 +153,19 @@ public class Alpha {
             } finally {
                 input = sc.nextLine();
             }
+<<<<<<< HEAD
+=======
+=======
+    private void run() {
+        ui.introduce();
+        boolean isExit = false;
+        while(!isExit) {
+                String input = ui.read();
+                Command c = parser.parse(input);
+                c.execute();
+                isExit = c.isExit();
+>>>>>>> branch-A-MoreOOP
+>>>>>>> cb4c09e7b49931b4e4fa7e59677f9431e990efb0
         }
         System.out.println(end);
     }

@@ -2,7 +2,14 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.time.LocalTime;
+<<<<<<< HEAD
 import java.util.Arrays;
+=======
+<<<<<<< HEAD
+import java.util.Arrays;
+=======
+>>>>>>> branch-A-MoreOOP
+>>>>>>> cb4c09e7b49931b4e4fa7e59677f9431e990efb0
 
 // Class representation of a deadline which has an ending time
 
@@ -15,14 +22,28 @@ public class Deadline extends Task{
         this.dateBy = dateBy;
     }
 
+<<<<<<< HEAD
     private Deadline(String descritpion, LocalDate dateBy, LocalTime timeBy) {
         super(descritpion.trim());
+=======
+<<<<<<< HEAD
+    private Deadline(String descritpion, LocalDate dateBy, LocalTime timeBy) {
+        super(descritpion.trim());
+=======
+    private Deadline(String description, LocalDate dateBy, LocalTime timeBy) {
+        super(description.trim());
+>>>>>>> branch-A-MoreOOP
+>>>>>>> cb4c09e7b49931b4e4fa7e59677f9431e990efb0
         this.dateBy = dateBy;
         this.timeBy = timeBy;
     }
 
     public static Deadline makeDeadline(String description, String by) {
         try {
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> cb4c09e7b49931b4e4fa7e59677f9431e990efb0
             String trimmedBy = by.trim();
             String[] splitBy = trimmedBy.split(" ");
             if (splitBy.length > 2) {
@@ -36,6 +57,30 @@ public class Deadline extends Task{
         }
         return null;
         }
+<<<<<<< HEAD
+=======
+=======
+            String trimmedDescription = description.trim();
+            String trimmedBy = by.trim();
+            if (trimmedDescription.length() == 0) {
+                throw new InvalidFormatException("Missing a description.", TaskException.TaskType.DEADLINE);
+            }
+            String[] splitBy = trimmedBy.split(" ");
+            if (splitBy.length == 2) {
+                return new Deadline(trimmedDescription, LocalDate.parse(splitBy[0]),
+                        LocalTime.parse(splitBy[1], DateTimeFormatter.ofPattern("HHmm")));
+            } else {
+                return new Deadline(trimmedDescription, LocalDate.parse(splitBy[0]));
+            }
+        } catch (DateTimeParseException e1) {
+            System.out.println("The date is in an invalid format! Enter the date in the format YYYY-MM-DD");
+        } catch (InvalidFormatException e2) {
+            System.out.println(e2.getMessage() + " Please enter a description before the timing of the deadline.");
+        }
+        return null;
+    }
+>>>>>>> branch-A-MoreOOP
+>>>>>>> cb4c09e7b49931b4e4fa7e59677f9431e990efb0
 
 
     public String getDateBy() {

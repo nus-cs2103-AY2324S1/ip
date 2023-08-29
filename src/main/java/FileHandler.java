@@ -38,6 +38,10 @@ public class FileHandler {
         if (this.created) {
             return taskList;
         }
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> cb4c09e7b49931b4e4fa7e59677f9431e990efb0
         Scanner sc = new Scanner(alphaTxt);
         while (sc.hasNext()) {
             String input = sc.nextLine();
@@ -60,6 +64,37 @@ public class FileHandler {
             if (task != null) {
                 taskList.add(task, true);
             }
+<<<<<<< HEAD
+=======
+=======
+        try {
+            Scanner sc = new Scanner(alphaTxt);
+            while (sc.hasNext()) {
+                String input = sc.nextLine();
+                String[] splitInput = input.split("\\|");
+                String type = splitInput[0];
+                String checked = splitInput[1];
+                String description = splitInput[2].trim();
+                Task task;
+                if (type.equals("T ")) {
+                    task = ToDo.makeToDo(description);
+                } else if (type.equals("D ")) {
+                    task = Deadline.makeDeadline(description, splitInput[3]);
+                } else {
+                    task = Event.makeEvent(description, splitInput[3], splitInput[4]);
+                }
+                if (checked.equals("X")) {
+                    assert task != null;
+                    task.mark();
+                }
+                taskList.add(task);
+            }
+            return taskList;
+        } catch (FileNotFoundException e) {
+            System.out.println("The file could not be found");
+            return taskList;
+>>>>>>> branch-A-MoreOOP
+>>>>>>> cb4c09e7b49931b4e4fa7e59677f9431e990efb0
         }
         return taskList;
     }
