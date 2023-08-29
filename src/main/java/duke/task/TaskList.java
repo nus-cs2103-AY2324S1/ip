@@ -99,6 +99,22 @@ public class TaskList {
     private void removeTask(int taskNumber) {
         this.tasklist.remove(taskNumber);
     }
+    public void findTasks(String keyword) {
+        System.out.println(lines);
+        String res = "";
+        int foundcount = 0;
+        for (int i = 0; i < tasklist.size(); i ++) {
+            String check = tasklist.get(i).toString();
+            if (check.contains(keyword)) {
+                res += "\n";
+                res += (foundcount + ". " + check);
+                foundcount += 1;
+            }
+        }
+        if (foundcount == 0) System.out.println("Meow :( found no tasks with " + keyword);
+        else System.out.println("Meow Here are your matching tasks !\n" + res);
+        System.out.println(lines);
+    }
 
 //    public int size() {
 //        return tasklist.size();
