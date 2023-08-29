@@ -1,9 +1,9 @@
 import java.util.ArrayList;
 
-public class Storage {
+public class TaskList {
     private ArrayList<Task> tasks;
 
-    public Storage() {
+    public TaskList() {
         this.tasks = new ArrayList<>();
     }
 

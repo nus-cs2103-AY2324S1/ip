@@ -2,11 +2,11 @@ import java.util.Scanner;
 public class Duke {
     static Scanner scanner = new Scanner(System.in);
     private String name;
-    private Storage storage;
+    private TaskList taskList;
 
     public Duke(String name) {
         this.name = name;
-        this.storage = new Storage();
+        this.taskList = new TaskList();
     }
 
     public void echo(String line) {
@@ -34,31 +34,31 @@ public class Duke {
         try {
             switch (command) {
                 case "list":
-                    this.storage.showAllTasks();
+                    this.taskList.showAllTasks();
                     break;
                 case "mark":
                     int taskNumber = Integer.parseInt(inputArr[1]);
-                    this.storage.markTaskAsDone(taskNumber);
+                    this.taskList.markTaskAsDone(taskNumber);
                     break;
                 case "unmark":
                     int taskNumber2 = Integer.parseInt(inputArr[1]);
-                    this.storage.unmarkTaskAsDone(taskNumber2);
+                    this.taskList.unmarkTaskAsDone(taskNumber2);
                     break;
                 case "todo":
                     String description = validateToDoCommand(input);
-                    this.storage.addTask(description);
+                    this.taskList.addTask(description);
                     break;
                 case "deadline":
                     String description2 = validateDeadlineCommand(input);
-                    this.storage.addTask(description2);
+                    this.taskList.addTask(description2);
                     break;
                 case "event":
                     String description3 = validateEventCommand(input);
-                    this.storage.addTask(description3);
+                    this.taskList.addTask(description3);
                     break;
                 case "delete":
                     int taskNumber3 = Integer.parseInt(inputArr[1]);
-                    this.storage.deleteTask(taskNumber3);
+                    this.taskList.deleteTask(taskNumber3);
                     break;
                 default:
                     throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
