@@ -1,3 +1,8 @@
+package duke;
+
+import duke.Deadlines;
+import duke.Events;
+
 import java.time.format.DateTimeParseException;
 
 public abstract class Parser {

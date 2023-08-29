@@ -1,3 +1,6 @@
+import duke.Taskmanager;
+import duke.Ui;
+
 public class Duke {
     private Ui ui;
 
