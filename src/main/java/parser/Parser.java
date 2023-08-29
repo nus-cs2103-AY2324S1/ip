@@ -79,6 +79,10 @@ public class Parser {
             }
             LocalDateTime parsedLocalDateTime = Parser.parseDateInputIntoDateTime(restOfString);
             return new WhatsgoingonCommand(parsedLocalDateTime, dotTaskList);
+        } else if (Validation.isValidCommand(input, "find")) {
+            String restOfString = Validation.descIfValidCommandSpaceDesc(input,
+                    "find", "query string", TaskError.ERR_USING_FIND);
+            return new FindCommand(restOfString, dotTaskList);
         } else if (input.equals("help")) {
             return new HelpCommand();
         }
