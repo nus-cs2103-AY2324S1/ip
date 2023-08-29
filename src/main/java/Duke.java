@@ -1,12 +1,17 @@
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.Scanner;
 
 public class Duke {
     private static String LINE_SEPARATOR = "    ----------------------------------------------------------------------";
     private static ArrayList<Task> tasks = new ArrayList<Task>();
     private static Boolean programRunning = true;
+
+    private enum TaskType {
+        TODO, DEADLINE, EVENT
+    }
 
     private static <T> void respond(T message) {
         System.out.println(LINE_SEPARATOR);
@@ -172,81 +177,97 @@ public class Duke {
         }
     }
 
-    private static void respondWithAddedTask(Task newTask) {
-        ArrayList<String> messages = new ArrayList<String>();
-        messages.add("Got it. I've added this task:");
-        messages.add(String.format("  %s", newTask.toString()));
-        messages.add(String.format("Now you have %d tasks in the list.", tasks.size()));
-        Duke.respond(messages);
+    private static void addTask(TaskType taskType, String args) {
+        Duke.addTask(taskType, args, false, false);
     }
 
-    private static void addTodo(String description) throws DukeException{
-        if (description.trim().equals("")) {
-            throw new DukeException("No description specified. Please specify a description.");
-        }
-
-        Task newTodo = new Todo(description);
-        tasks.add(newTodo);
-        Duke.respondWithAddedTask(newTodo);
+    private static void addTask(TaskType taskType, String args, boolean completed) {
+        Duke.addTask(taskType, args, completed, false);
     }
 
-    private static void addDeadline(String args) throws DukeException {
-        String[] splitArguments = args.split("/");
+    private static void addTask(TaskType taskType, String args, boolean completed, boolean silent) {
+        try {
+            Optional<Task> taskToAdd = Optional.empty();
 
-        String description = splitArguments[0];
-        String dueDateTime = null;
 
-        for (int i = 1; i < splitArguments.length; i++) {
-            if (splitArguments[i].startsWith("by ")) {
-                dueDateTime = splitArguments[i].substring(3).trim();
+            switch (taskType) {
+            case TODO:
+                if (args.trim().equals("")) {
+                    throw new DukeException("No description specified. Please specify a description.");
+                }
+                taskToAdd = Optional.of(new Todo(args));
+                break;
+
+            case DEADLINE:
+                String[] deadlineArguments = args.split("/");
+                String deadlineDescription = deadlineArguments[0].trim();
+                String dueDateTime = null;
+
+                for (int i = 1; i < deadlineArguments.length; i++) {
+                    if (deadlineArguments[i].startsWith("by ")) {
+                        dueDateTime = deadlineArguments[i].substring(3).trim();
+                    }
+                }
+
+                if (deadlineDescription.equals("")) {
+                    throw new DukeException("No description specified. Please specify a description.");
+                }
+
+                if (dueDateTime == null || dueDateTime.equals("")) {
+                    throw new DukeException("No due date/time specified. Please specify a due date/time");
+                }
+
+                taskToAdd = Optional.of(new Deadline(deadlineDescription, dueDateTime));
+                break;
+
+            case EVENT:
+                String[] eventArguments = args.split("/");
+
+                String eventDescription = eventArguments[0].trim();
+                String startDatetime = null;
+                String endDatetime = null;
+                
+                for (int i = 1; i < eventArguments.length; i++) {
+                    if (eventArguments[i].startsWith("from ")) {
+                        startDatetime = eventArguments[i].substring(5).trim();
+                    }
+
+                    if (eventArguments[i].startsWith("to ")) {
+                        endDatetime = eventArguments[i].substring(3).trim();
+                    }
+                }
+
+                if (eventDescription.equals("")) {
+                    throw new DukeException("No description specified. Please specify a description.");
+                }
+                
+                if (startDatetime == null || startDatetime.equals("")) {
+                    throw new DukeException("No start date/time specified. Please specify a start date/time.");
+                }
+
+                if (endDatetime == null|| endDatetime.equals("")) {
+                    throw new DukeException("No end date/time specified. Please specify an end date/time.");
+                }
+
+                taskToAdd = Optional.of(new Event(eventDescription, startDatetime, endDatetime));
+                break;
             }
+
+            taskToAdd.ifPresent(
+                task -> {
+                    tasks.add(task);
+                    if (!silent) {
+                        ArrayList<String> messages = new ArrayList<String>();
+                        messages.add("Got it. I've added this task:");
+                        messages.add(String.format("  %s", task.toString()));
+                        messages.add(String.format("Now you have %d tasks in the list.", tasks.size()));
+                        Duke.respond(messages);
+                    }
+                }
+            );
+        } catch (DukeException e) {
+            Duke.respond(e);
         }
-
-        if (description.equals("")) {
-            throw new DukeException("No description specified. Please specify a description.");
-        }
-
-        if (dueDateTime == null || dueDateTime.equals("")) {
-            throw new DukeException("No due date/time specified. Please specify a due date/time");
-        }
-
-        Task newDeadline = new Deadline(description, dueDateTime);
-        tasks.add(newDeadline);
-        Duke.respondWithAddedTask(newDeadline);
-    }
-
-    private static void addEvent(String args) throws DukeException{
-        String[] splitArguments = args.split("/");
-
-        String description = splitArguments[0].trim();
-        String startDatetime = null;
-        String endDatetime = null;
-        
-        for (int i = 1; i < splitArguments.length; i++) {
-            if (splitArguments[i].startsWith("from ")) {
-                startDatetime = splitArguments[i].substring(5).trim();
-            }
-
-            if (splitArguments[i].startsWith("to ")) {
-                endDatetime = splitArguments[i].substring(3).trim();
-            }
-        }
-
-        if (description.equals("")) {
-            throw new DukeException("No description specified. Please specify a description.");
-        }
-        
-        if (startDatetime == null || startDatetime.equals("")) {
-            throw new DukeException("No start date/time specified. Please specify a start date/time.");
-        }
-
-        if (endDatetime == null|| endDatetime.equals("")) {
-            throw new DukeException("No end date/time specified. Please specify an end date/time.");
-        }
-
-        Task newEvent = new Event(description, startDatetime, endDatetime);
-        tasks.add(newEvent);
-        Duke.respondWithAddedTask(newEvent);
     }
 
     private static void loadTasks() throws DukeException{
@@ -306,13 +327,13 @@ public class Duke {
                     Duke.markTaskAsUndone(arguments);
                     break;
                 case "todo":
-                    Duke.addTodo(arguments);
+                    Duke.addTask(TaskType.TODO, arguments);
                     break;
                 case "deadline":
-                    Duke.addDeadline(arguments);
+                    Duke.addTask(TaskType.DEADLINE, arguments);
                     break;
                 case "event":
-                    Duke.addEvent(arguments);
+                    Duke.addTask(TaskType.EVENT, arguments);
                     break;
                 case "delete": 
                     Duke.deleteTask(arguments);
