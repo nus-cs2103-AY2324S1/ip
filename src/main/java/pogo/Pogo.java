@@ -7,6 +7,7 @@ import pogo.parsers.Parser;
 import pogo.storage.Storage;
 import pogo.storage.TextStorage;
 import pogo.tasks.Task;
+import pogo.ui.TextUi;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -23,13 +24,14 @@ public class Pogo {
      * Storage object to save and load tasks.
      */
     private static final Storage storage = TextStorage.of();
+    private static final TextUi ui = new TextUi();
 
     private static boolean handleInput(String input) {
         Command command = Parser.parseCommand(input);
         command.setData(tasks);
         CommandResult result = command.execute();
 
-        System.out.println(result.getFeedbackToUser());
+        ui.showCommandResultToUser(result);
 
         boolean isExit = result.getFeedbackToUser().equals(Messages.EXIT_MESSAGE);
         return isExit;
@@ -38,25 +40,21 @@ public class Pogo {
     public static void main(String[] args) {
         try {
             tasks = storage.load();
-            System.out.println(String.format(Messages.TASK_LOAD_SUCCESS, tasks.size()));
+            ui.showInitSuccessMessage(tasks.size());
         } catch (IOException e) {
-            System.out.println(Messages.TASK_LOAD_FAILURE);
+            ui.showInitFailureMessage();
             return;
         }
 
-        System.out.println(Messages.STARTUP_MESSAGE);
+        ui.showStartupMessage();
 
-        Scanner scanner = new Scanner(System.in);
         while (true) {
-            String input = scanner.nextLine();
-            System.out.println(Messages.HORIZONTAL_DIVIDER);
+            String input = ui.getUserInput();
 
             boolean isExit = Pogo.handleInput(input);
             if (isExit) {
                 storage.save(tasks);
                 break;
-            } else {
-                System.out.println(Messages.HORIZONTAL_DIVIDER);
             }
         }
     }
