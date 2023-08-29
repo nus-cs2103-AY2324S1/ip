@@ -19,4 +19,9 @@ public class Events extends Task {
         String description = String.format("%s (from: %s to: %s)", super.getName(), from, to);
         return description;
     }
+
+    @Override
+    public String toFileFormat() {
+        return super.toFileFormat() + " | " + from + " | " + to;
+    }
 }

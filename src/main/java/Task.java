@@ -30,4 +30,9 @@ public class Task {
     public String getSymbol() {
         return null;
     }
+    public String toFileFormat() {
+        // Base implementation for Task
+        return getSymbol() + " | " + (isDone ? "1" : "0") + " | " + name;
+    }
+
 }

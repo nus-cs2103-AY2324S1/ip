@@ -121,6 +121,7 @@ public class BouncyBob {
         database.add(newTask);
         System.out.println(TOP_BORDER);
         System.out.println("Added to database: " + newTask.getDescription());
+        TaskFileHandler.saveTasksToDisk(database);
         printTaskCount(database.size() - 1);  // Adjusted to size of ArrayList
         System.out.println(BOTTOM_BORDER);
     }

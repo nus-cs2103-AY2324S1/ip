@@ -16,4 +16,8 @@ public class Deadlines extends Task {
         return description;
     }
 
+    @Override
+    public String toFileFormat() {
+        return super.toFileFormat() + " | " + datetime;
+    }
 }
