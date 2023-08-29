@@ -40,7 +40,7 @@ public class Tasklistloader {
 
       this.taskList.addAll(tasks);
     } catch (IOException ex) {
-      System.out.println(ex.getMessage());
+      System.out.println(ex.getMessage()+ " not found! No list loaded!");
     }
 
   }
