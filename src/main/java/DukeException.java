@@ -1,22 +1,15 @@
 /**
- * This is the DukeException class for exceptions specific to the Duke program
- * @author Selwyn
+ * The DukeException class represents an exception specific to the Duke application.
+ *
+ * @author selwyn
  */
 public class DukeException extends Exception {
     /**
-     * Constructor for the DukeException class
-     * @param message
+     * Constructs a DukeException object with the specified error message.
+     *
+     * @param message The error message to be associated with the exception.
      */
     public DukeException(String message) {
         super(message);
-    }
-
-    /**
-     * Gets the exception message
-     * @return String Exception message
-     */
-    @Override
-    public String getMessage() {
-        return "OOPS! " + super.getMessage();
     }
 }

@@ -7,12 +7,26 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class DukeFileWriter {
+/**
+ * The Storage class handles file operations for saving and retrieving tasks to/from a file.
+ *
+ * @author Selwyn
+ */
+public class Storage {
+    /** The file used for storage. */
     private File file;
+
+    /** The full path of the file. */
     private String filePath;
 
-    public DukeFileWriter(String directoryPath, String fileName) {
-        this.filePath = directoryPath + "/" + fileName;
+    /**
+     * Constructs a Storage object with the specified directory path and file name.
+     *
+     * @param directoryPath The directory path where the file should be stored.
+     * @param fileName The name of the file.
+     */
+    public Storage(String directoryPath, String fileName) {
+        this.filePath = directoryPath + fileName;
 
         try {
             if (new File(directoryPath).mkdirs()) {
@@ -33,7 +47,12 @@ public class DukeFileWriter {
         }
     }
 
-    public void writeToFile(ArrayList<Task> tasks) {
+    /**
+     * Saves the given list of tasks to the file.
+     *
+     * @param tasks The list of tasks to be saved.
+     */
+    public void saveTasks(ArrayList<Task> tasks) {
         try {
             FileWriter fileWriter = new FileWriter(this.file);
             for (int i = 0; i < tasks.size(); i++) {
@@ -45,7 +64,13 @@ public class DukeFileWriter {
         }
     }
 
-    public ArrayList<Task> extractFromFile() throws FileNotFoundException, DukeException {
+    /**
+     * Retrieves tasks from the file and returns them as an ArrayList.
+     *
+     * @return An ArrayList of Task objects retrieved from the file.
+     * @throws DukeException If there is an issue with file retrieval or if the file is corrupted.
+     */
+    public ArrayList<Task> retrieveTasks() throws DukeException {
         ArrayList<Task> taskList = new ArrayList<>();
         DateTimeFormatter dateTimeFormat = DateTimeFormatter.ofPattern("dd MMM yyyy HH:mm");
 
@@ -97,7 +122,7 @@ public class DukeFileWriter {
         } catch (FileNotFoundException e) {
             System.out.println("File cannot be found!");
         } catch (DukeException e) {
-            System.out.println(e.getMessage());
+            throw new DukeException(e.getMessage());
         }
 
         return taskList;

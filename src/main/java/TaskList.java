@@ -1,51 +1,40 @@
-import java.io.FileNotFoundException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
 /**
- * This is the TaskList class
- * @author Selwyn
+ * The TaskList class manages a list of tasks and provides methods for adding, creating, deleting, and modifying tasks.
+ *
+ * @author selwyn
  */
 public class TaskList {
-    /**
-     * This is the Task arraylist
-     */
-    protected ArrayList<Task> tasks;
+    /** The list of tasks. */
+    private ArrayList<Task> tasks;
+
+    /** The number of tasks in the list. */
+    private int numTasks;
 
     /**
-     * This keeps track of the number of tasks in the list
+     * Constructs a TaskList object with the specified list of tasks.
+     *
+     * @param tasks The list of tasks to be managed.
      */
-    protected int numTasks;
-
-    protected final String dirPath = "./data";
-
-    protected final String fileName = "duke.txt";
-
-    protected DukeFileWriter dukeFileWriter = new DukeFileWriter(dirPath, fileName);
-
-    /**
-     * Constructor creates an array of size 100 when there is no argument provided
-     */
-    public TaskList(){
-        try {
-            this.tasks = dukeFileWriter.extractFromFile();
-            this.numTasks = this.tasks.size();
-        } catch (DukeException e) {
-            System.out.println("File is corrupted.");
-        } catch (FileNotFoundException e) {
-            System.out.println("File cannot be found.");
-        }
+    public TaskList(ArrayList<Task> tasks){
+        this.tasks = tasks;
+        this.numTasks = tasks.size();
     }
 
     /**
-     * This method will help to create a task and adds that task to the task arraylist
-     * @param taskType Enum TaskType representing the type of task to create
-     * @param args Details of the task to add
+     * Adds a new task of the specified type with the given arguments to the list.
+     *
+     * @param taskType The type of task to be added.
+     * @param args The arguments for creating the task.
+     * @return The added Task object.
+     * @throws DukeException If there is an issue with task creation or task type is unsupported.
      */
-    protected void addTask(TaskType taskType, String args) {
-        Task newTask;
+    public Task addTask(TaskType taskType, String args) throws DukeException {
+        Task newTask = null;
 
         try {
             switch (taskType) {
@@ -62,32 +51,22 @@ public class TaskList {
                 throw new DukeException("I can't create this task type!");
             }
 
-            System.out.println("Got it. I've added this task:");
-            System.out.print("   ");
-            System.out.println(newTask.toString());
-
             this.tasks.add(newTask);
             this.numTasks++;
-
-            if (numTasks == 1) {
-                System.out.println("Now you have " + numTasks + " task in the list.");
-            } else {
-                System.out.println("Now you have " + numTasks + " tasks in the list.");
-            }
         } catch (DukeException e) {
-            System.out.println(e.getMessage());
+            throw new DukeException(e.getMessage());
         }
-
-        dukeFileWriter.writeToFile(tasks);
+        return newTask;
     }
 
     /**
-     * This is the method to create a todo task
-     * @param args Details of the task
-     * @return A todo task
-     * @throws DukeException An exception related to the creation of a todo task
+     * Creates a new Todo task with the given description.
+     *
+     * @param args The description for the Todo task.
+     * @return The created Todo task.
+     * @throws DukeException If the description is missing.
      */
-    protected Todo createTodo(String args) throws DukeException{
+    public Todo createTodo(String args) throws DukeException{
         if (args == null || args.isEmpty()) {
             throw new DukeException("Todo tasks should be created in this format: todo [name]");
         }
@@ -95,12 +74,13 @@ public class TaskList {
     }
 
     /**
-     * This is the method to create a deadline task
-     * @param args Details of the task
-     * @return A deadline task
-     * @throws DukeException An exception related to the creation of a deadline task
+     * Creates a new Deadline task with the given description and end date and time.
+     *
+     * @param args The description and end date/time for the Deadline task.
+     * @return The created Deadline task.
+     * @throws DukeException If the format is incorrect or the end date/time is invalid.
      */
-    protected Deadline createDeadline(String args) throws DukeException {
+    public Deadline createDeadline(String args) throws DukeException {
         DateTimeFormatter dateTimeFormat = DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm");
         try {
             String[] detailsAndDeadline = args.split("/by", 2);
@@ -117,12 +97,13 @@ public class TaskList {
     }
 
     /**
-     * This is the method to create an event task
-     * @param args Details of the task
-     * @return An event task
-     * @throws DukeException An exception related to the creation of an event task
+     * Creates a new Event task with the given description and start/end date and time.
+     *
+     * @param args The description and start/end date/time for the Event task.
+     * @return The created Event task.
+     * @throws DukeException If the format is incorrect or the date/time is invalid.
      */
-    protected Event createEvent(String args) throws DukeException {
+    public Event createEvent(String args) throws DukeException {
         DateTimeFormatter dateTimeFormat = DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm");
 
         try {
@@ -149,12 +130,16 @@ public class TaskList {
     }
 
     /**
-     * This method deletes a certain task in the task list based on a task number given
-     * @param args Details regarding which task to delete
-     * @throws DukeException An exception related to the deletion of a task
+     * Deletes a task from the list based on the given task number.
+     *
+     * @param args The task number to be deleted.
+     * @return The deleted Task object.
+     * @throws DukeException If the task number is invalid or in an incorrect format.
      */
-    protected void deleteTask(String args) throws DukeException {
+    public Task deleteTask(String args) throws DukeException {
         int taskNumber;
+        Task deletedTask;
+
         try {
             taskNumber = Integer.parseInt(args);
 
@@ -164,33 +149,24 @@ public class TaskList {
                 throw new DukeException("Number is higher than current size of task list!");
             }
 
-            System.out.println("Noted. I've removed this task:");
-            System.out.print("   ");
-            System.out.println(this.tasks.get(taskNumber- 1).toString());
-
-            this.tasks.remove(taskNumber - 1);
+            deletedTask = this.tasks.remove(taskNumber - 1);
             this.numTasks--;
 
-            if (numTasks == 1 || numTasks == 0) {
-                System.out.println("Now you have " + numTasks + " task in the list.");
-            } else {
-                System.out.println("Now you have " + numTasks + " tasks in the list.");
-            }
-
+            return deletedTask;
         } catch (NumberFormatException e) {
             throw new DukeException("Deleting task should be in this format: delete [task number]");
         }
-
-        dukeFileWriter.writeToFile(tasks);
     }
 
     /**
-     * This method toggles the done status of a specific task
-     * @param args Details regarding which task to toggle
-     * @param state Done status of the specific task
-     * @throws DukeException An exception related to the toggling of a task
+     * Changes the done status of a task based on the given task number and state.
+     *
+     * @param args The task number to be marked/unmarked and the state.
+     * @param state The desired state (true for done, false for undone).
+     * @return The Task object with the modified done status.
+     * @throws DukeException If the task number is invalid or in an incorrect format.
      */
-    protected void changeTaskDoneStatus(String args, boolean state) throws DukeException {
+    public Task changeTaskDoneStatus(String args, boolean state) throws DukeException {
         int taskNumber;
 
         try {
@@ -202,25 +178,25 @@ public class TaskList {
                 throw new DukeException("Number is higher than current size of task list!");
             }
 
+            Task taskToChange = this.tasks.get(taskNumber - 1);
+
             if (state) {
-                this.tasks.get(taskNumber - 1).markDone();
-                System.out.println("Nice! I've marked this task done:");
+                taskToChange.markDone();
             } else {
-                this.tasks.get(taskNumber - 1).markUndone();
-                System.out.println("OK, I've marked this task as not done yet:");
+                taskToChange.markUndone();
             }
-            System.out.println(this.tasks.get(taskNumber - 1).toString());
+            return taskToChange;
         } catch (NumberFormatException e) {
             throw new DukeException("Marking/unmarking tasks should be in this format: mark/unmark [task number]");
+        } catch (DukeException e) {
+            throw new DukeException(e.getMessage());
         }
-
-        dukeFileWriter.writeToFile(tasks);
     }
 
     /**
-     * This method displays and prints all the tasks in the task list
+     * Displays the list of tasks to the console.
      */
-    protected void displayTaskList() {
+    public void displayTaskList() {
         if (this.numTasks == 0 || this.numTasks == 1) {
             System.out.println("Here is the task in your list:");
         } else {
@@ -234,11 +210,30 @@ public class TaskList {
     }
 
     /**
-     * This method checks if number provided exceeds size of task list
-     * @param index
-     * @return  Represents whether provided number exceeds size of task list
+     * Checks if the given index exceeds the size of the task list.
+     *
+     * @param index The index to be checked.
+     * @return True if the index exceeds the task list size, false otherwise.
      */
-    protected boolean exceedsSizeOfTaskList(int index) {
+    public boolean exceedsSizeOfTaskList(int index) {
         return index > numTasks;
+    }
+
+    /**
+     * Retrieves the list of tasks.
+     *
+     * @return The ArrayList of Task objects.
+     */
+    public ArrayList<Task> getTaskList() {
+        return this.tasks;
+    }
+
+    /**
+     * Retrieves the number of tasks in the list.
+     *
+     * @return The number of tasks.
+     */
+    public int getNumTasks() {
+        return this.numTasks;
     }
 }

@@ -2,37 +2,42 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 /**
- * This is a class representing a single task with fields to represent details and done state
- * @author Selwyn
+ * The Task class represents a task with a description and completion status.
+ *
+ * @author selwyn
  */
 public class Task {
-    /**
-     * Field representing details of the task
-     */
-    protected String detail;
+    /** The description of the task. */
+    private String detail;
+
+    /** The completion status of the task. */
+    private boolean isDone;
 
     /**
-     * Field representing whether the task is done or not
-     */
-    protected boolean isDone;
-
-    /**
-     * Constructor for a task
-     * @param detail
+     * Constructs a Task object with the specified description and sets its completion status to false.
+     *
+     * @param detail The description of the task.
      */
     public Task(String detail) {
         this.detail = detail;
         this.isDone = false;
     }
 
+    /**
+     * Returns a formatted display string of the provided LocalDateTime object.
+     *
+     * @param dateTime The LocalDateTime object to be formatted.
+     * @return A formatted date and time string.
+     */
     public String getDisplayDateTime(LocalDateTime dateTime) {
         DateTimeFormatter displayFormat = DateTimeFormatter.ofPattern("dd MMM yyyy HH:mm");
         return dateTime.format(displayFormat);
     }
 
     /**
-     * This method returns string representation of this task
-     * @return String representation of this task
+     * Returns a string representation of the Task object, including its completion status and description.
+     *
+     * @return A string representation of the Task object.
      */
     @Override
     public String toString() {
@@ -44,14 +49,14 @@ public class Task {
     }
 
     /**
-     * Mark the task as done
+     * Marks the task as done by setting its completion status to true.
      */
     public void markDone() {
         this.isDone = true;
     }
 
     /**
-     * Mark the task as undone
+     * Marks the task as undone by setting its completion status to false.
      */
     public void markUndone() {
         this.isDone = false;
