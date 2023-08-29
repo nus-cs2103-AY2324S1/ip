@@ -1,19 +1,21 @@
 package bob.task;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 import bob.exception.*;
 
 public class Event extends Task {
     private LocalDate start;
     private LocalDate end;
 
-    public Event(String description) throws MissingEventDatesException {
+    public Event(String description) throws MissingDatesException, DateTimeParseException {
         super(description.split(" /from ")[0]);
         try {
             this.start = LocalDate.parse(description.split(" /from ")[1].split(" /to ")[0]);
             this.end = LocalDate.parse(description.split(" /from ")[1].split(" /to ")[1]);
         } catch (Exception e) {
-            throw new MissingEventDatesException();
+            throw new MissingDatesException();
         }
     }
 

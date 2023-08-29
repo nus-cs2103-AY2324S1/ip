@@ -1,17 +1,20 @@
 package bob.task;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.util.regex.PatternSyntaxException;
+
 import bob.exception.*;
 
 public class Deadline extends Task {
     private LocalDate due;
 
-    public Deadline(String description) throws MissingDeadlineException {
+    public Deadline(String description) throws MissingDatesException {
         super(description.split(" /by ")[0]);
         try {
             this.due = LocalDate.parse(description.split(" /by ")[1]);
         } catch (Exception e) {
-            throw new MissingDeadlineException();
+            throw new MissingDatesException();
         }
     }
 

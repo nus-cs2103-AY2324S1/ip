@@ -39,6 +39,6 @@ public class Bob {
     }
 
     public static void main(String[] args) {
-        new Bob("./data/bob.txt").run();
+        new Bob("./bob.txt").run();
     }
 }

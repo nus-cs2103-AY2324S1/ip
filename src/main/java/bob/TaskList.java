@@ -1,4 +1,5 @@
 package bob;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import bob.task.*;
 import bob.exception.*;
@@ -23,11 +24,11 @@ public class TaskList {
      * @return the relevant Task
      * @throws WrongInputException for unrecognised input.
      * @throws MissingTaskException when task name is missing.
-     * @throws MissingDeadlineException when duedate of Deadline is missing.
-     * @throws MissingEventDatesException when start and end of Event is missing.
+     * @throws MissingDatesException when start and end of Event is missing.
      */
     public Task generateTask(String description)
-            throws WrongInputException, MissingTaskException, MissingDeadlineException, MissingEventDatesException {
+            throws WrongInputException, MissingTaskException,
+            MissingDatesException, DateTimeParseException {
         // Split by the first " " into type, and task details
         String[] task = description.split(" ", 2);
         TaskType taskType;
@@ -68,10 +69,10 @@ public class TaskList {
             return new String[]{e.message};
         } catch (MissingTaskException e) {
             return new String[]{e.message};
-        } catch (MissingDeadlineException e) {
+        } catch (MissingDatesException e) {
             return new String[]{e.message};
-        } catch (MissingEventDatesException e) {
-            return new String[]{e.message};
+        } catch (DateTimeParseException e) {
+            return new String[]{"Please input valid date!"};
         }
     }
 

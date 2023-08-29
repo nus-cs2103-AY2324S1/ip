@@ -1,3 +1,0 @@
-todo | 1 | read
-todo | 0 | hih
-todo | 0 | g out
