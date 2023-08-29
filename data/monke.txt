@@ -1,4 +1,2 @@
 T | 0 | kms
-D | 1 | finish iP | 9pm
-E | 0 | project meeting | tomorrow 1pm | 3pm
-D | 0 | finish iP again | next week
+D | 0 | finish ip | Dec 9 2024
