@@ -57,6 +57,7 @@ public class Parser {
                     ui.sendMessage("Goodbye. Hope to be of service again soon!");
                     ui.printline();
 
+
                 } else if (text.startsWith("todo")) {
                     String description = text.substring(4);
                     if (description.isEmpty()) {
@@ -160,6 +161,40 @@ public class Parser {
                             list.get(numToDelete).getStatusIcon(), list.get(numToDelete).toString()));
                     list.remove(numToDelete);
                     ui.sendMessage(String.format("Now you have %d tasks left.", list.size()));
+                } else if (text.startsWith("find")){
+                    String search = text.substring(5);
+                    if (search.isEmpty()) {
+                        throw new DukeException("I apologise, sir. " +
+                                "But the description of todo cannot be empty");
+                    } else if (list.size() == 0) {
+                        throw new DukeException("I apologise, sir." +
+                                "But your list is empty.");
+                    } else {
+                        boolean hasSearch = false;
+                        boolean isFirst = true;
+                        for (int i = 0; i < list.size(); i++) {
+                            if (list.get(i).toString().contains(search)) {
+                                hasSearch = true;
+                                if (hasSearch == true && isFirst == true) {
+                                    ui.printline();
+                                    ui.sendMessage("Here are the matching tasks in your list:");
+                                    ui.sendMessage(String.format("\t [%s] [%s] %s", list.get(i).tag,
+                                            list.get(i).getStatusIcon(), list.get(i).toString()));
+                                    isFirst = false;
+                                } else if (hasSearch == true && isFirst == false) {
+                                    ui.sendMessage(String.format("\t [%s] [%s] %s", list.get(i).tag,
+                                            list.get(i).getStatusIcon(), list.get(i).toString()));
+                                }
+                            }
+                        }
+
+                        if (hasSearch == false) {
+                            throw new DukeException("I apologise sir." +
+                                    "But " + search + " cannot be found in your list.");
+                        }
+                        ui.printline();
+                    }
+
                 } else {
                     throw new DukeException("I apologise, sir. But I do not understand what you mean.");
                 }

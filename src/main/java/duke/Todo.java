@@ -16,5 +16,10 @@ public class Todo extends Task {
         this.tag = Tag.T;
     }
 
+    @Override
+    public String toString(){
+        return this.description;
+    }
+
 
 }
