@@ -34,8 +34,7 @@ public class Parser {
             new SimpleEntry<>("deadline", x -> new DeadlineCommand(x)),
             new SimpleEntry<>("event", x -> new EventCommand(x)),
             new SimpleEntry<>("remove", x -> new RemoveCommand(x)),
-            new SimpleEntry<>("bye", x -> new ByeCommand(x))
-        );
+            new SimpleEntry<>("bye", x -> new ByeCommand(x)));
 
     public static Command parse(String input) throws DukeException {
         String[] commandParts = input.split(" ", 2);

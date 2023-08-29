@@ -17,7 +17,8 @@ public class ToDo extends Task {
 
     @Override
     public String toCommand(int idx) {
-        return (new ToDoCommand(Map.ofEntries(new SimpleEntry<>("description", this.description)))).toString()
+        return (new ToDoCommand(Map.ofEntries(
+                new SimpleEntry<>("description", this.description)))).toString()
                 + "\n" + super.toCommand(idx) + "\n";
     }
 

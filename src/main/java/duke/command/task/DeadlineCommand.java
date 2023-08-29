@@ -18,7 +18,8 @@ public class DeadlineCommand extends TaskCommand {
 
     @Override
     public List<CommandElement> getCommandElements() {
-        return List.of(new StringArgument("description"), new Field("/by"), new DateArgument("by"));
+        return List.of(new StringArgument("description"),
+                new Field("/by"), new DateArgument("by"));
     }
 
     @Override

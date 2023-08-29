@@ -26,7 +26,8 @@ public abstract class Command {
     protected abstract List<CommandElement> getCommandElements();
 
     public Pattern getPattern() {
-        return Pattern.compile(String.join("", this.getCommandElements().stream().map(e -> e.getRegexForm()).collect(Collectors.toList())));
+        return Pattern.compile(String.join("", this.getCommandElements().stream().map(
+                e -> e.getRegexForm()).collect(Collectors.toList())));
     }
 
     public String getStructure() {
