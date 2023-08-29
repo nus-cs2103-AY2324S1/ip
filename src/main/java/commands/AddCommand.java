@@ -25,17 +25,16 @@ public class AddCommand extends Command {
         String input = getCommand();
         String[] inputArray = input.split(" ");
         String taskType = inputArray[0];
-        String inputSplit[];
+        String[] inputSplit;
         Task newTask;
         switch (TaskType.valueOf(taskType.toUpperCase())) {
         case TODO:
             try {
-                newTask = new TodoTask (inputArray[1]);
+                newTask = new TodoTask(inputArray[1]);
                 taskList.add(newTask);
                 ui.showTaskAdded(newTask, taskList.size());
                 break;
-            }
-            catch (ArrayIndexOutOfBoundsException e) {
+            } catch (ArrayIndexOutOfBoundsException e) {
                 throw new DukeException("Description of todo cannot be empty.");
             }
         case DEADLINE:
@@ -51,17 +50,19 @@ public class AddCommand extends Command {
         case EVENT:
             try {
                 inputSplit = input.split(" /");
-                newTask = new EventTask(inputSplit[0].substring(6), inputSplit[1].substring(5), inputSplit[2].substring(3));
+                newTask = new EventTask(inputSplit[0].substring(6),
+                        inputSplit[1].substring(5),
+                        inputSplit[2].substring(3));
                 taskList.add(newTask);
                 ui.showTaskAdded(newTask, taskList.size());
                 break;
             } catch (StringIndexOutOfBoundsException | ArrayIndexOutOfBoundsException e) {
-                throw new DukeException("Event should follow the format event <description> /from <start date and time> /to <end date and time>");
+                throw new DukeException("Event should follow the format event <description> "
+                        + "/from <start date and time> /to <end date and time>");
             }
         default:
             throw new DukeException("Task type is not recognised. Please use todo, deadline or event.");
         }
-        
     }
 
 }

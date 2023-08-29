@@ -19,7 +19,7 @@ public abstract class Command {
         this.isExit = false;
     }
 
-    public boolean isExit() {
+    public boolean canExit() {
         return this.isExit;
     }
 

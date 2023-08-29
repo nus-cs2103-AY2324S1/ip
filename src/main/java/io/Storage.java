@@ -14,10 +14,10 @@ import tasks.TaskList;
 import tasks.TodoTask;
 
 public class Storage {
-    private String FILEPATH = "data/tasks.txt";
+    private String filepath = "data/tasks.txt";
 
     public Storage(String filePath) {
-        this.FILEPATH = filePath;
+        this.filepath = filePath;
     }
 
     public ArrayList<Task> load() throws DukeException {
@@ -25,7 +25,7 @@ public class Storage {
         String fileString = "";
         try {
             // check if file exists
-            File file = new File(FILEPATH);
+            File file = new File(filepath);
             if (!file.exists()) {
                 throw new DukeException("File does not exist.");
             }
@@ -67,13 +67,13 @@ public class Storage {
 
     public void save(TaskList taskList) throws DukeException {
         try {
-            File file = new File(FILEPATH);
+            File file = new File(filepath);
             if (!file.exists()) {
                 file.getParentFile().mkdirs();
                 file.createNewFile();
                 System.out.println("File created: " + file.getName());
             }
-            FileWriter fw = new FileWriter(FILEPATH);
+            FileWriter fw = new FileWriter(filepath);
             for (int i = 0; i < taskList.size(); i++) {
                 fw.write(taskList.get(i).toFileString() + "\n");
             }

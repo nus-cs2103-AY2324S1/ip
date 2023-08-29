@@ -5,17 +5,17 @@ import java.util.ArrayList;
 import exceptions.DukeException;
 
 public class TaskList {
+    private static final DateTimeFormatter DATE_FORMAT_OUTPUT = DateTimeFormatter.ofPattern("d/M/yyyy");
     private ArrayList<Task> userTasks;
-    protected static final DateTimeFormatter DATE_FORMAT_OUTPUT = DateTimeFormatter.ofPattern("d/M/yyyy");
-
     public TaskList() {
         this.userTasks = new ArrayList<Task>();
     }
-    
     public TaskList(ArrayList<Task> userTasks) {
         this.userTasks = userTasks;
     }
-
+    public static DateTimeFormatter getDateFormatOutput() {
+        return DATE_FORMAT_OUTPUT;
+    }
     public void setTasks(ArrayList<Task> userTasks) {
         this.userTasks = userTasks;
     }

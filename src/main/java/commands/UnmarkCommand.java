@@ -20,5 +20,4 @@ public class UnmarkCommand extends Command {
             throw new DukeException("Please ensure task exists.");
         }
     }
-    
 }

@@ -12,11 +12,6 @@ import commands.ScheduleCommand;
 import commands.UnmarkCommand;
 
 public class Parser {
-    private Command command;
-
-    public Parser(Command command) {
-        this.command = command;
-    }
 
     public static Command parse(String fullCommand) {
         String[] commandArray = fullCommand.split(" ");
