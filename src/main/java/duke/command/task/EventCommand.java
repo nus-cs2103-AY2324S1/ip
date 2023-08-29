@@ -27,7 +27,9 @@ public class EventCommand extends TaskCommand {
 
     @Override
     protected List<CommandElement> getCommandElements() {
-        return List.of(new StringArgument("description"), new Field("/from"), new DateArgument("from"), new Field("/to"), new DateArgument("to"));
+        return List.of(new StringArgument("description"),
+                new Field("/from"), new DateArgument("from"),
+                new Field("/to"), new DateArgument("to"));
     }
 
     @Override

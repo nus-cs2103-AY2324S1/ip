@@ -41,7 +41,8 @@ public class OngoingCommand extends Command {
                 filteredEvents.add(task);
             }
         }
-        ui.print(String.format("Here are the ongoing events on %s:\n%s", ui.stringifyDate(date), ui.stringifyList(filteredEvents)));
+        ui.print(String.format("Here are the ongoing events on %s:\n%s",
+                ui.stringifyDate(date), ui.stringifyList(filteredEvents)));
     }
 
     @Override

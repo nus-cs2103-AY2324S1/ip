@@ -40,7 +40,8 @@ public abstract class Command {
      * @return Regex pattern expected for command.
      */
     public Pattern getPattern() {
-        return Pattern.compile(String.join("", this.getCommandElements().stream().map(e -> e.getRegexForm()).collect(Collectors.toList())));
+        return Pattern.compile(String.join("", this.getCommandElements().stream().map(
+                e -> e.getRegexForm()).collect(Collectors.toList())));
     }
 
     /**

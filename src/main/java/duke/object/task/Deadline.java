@@ -32,7 +32,9 @@ public class Deadline extends Task implements Comparable<Deadline> {
 
     @Override
     public String toCommand(int idx) {
-        return (new DeadlineCommand(Map.ofEntries(new SimpleEntry<>("description", this.description), new SimpleEntry<>("by", this.by)))).toString()
+        return (new DeadlineCommand(Map.ofEntries(
+                new SimpleEntry<>("description", this.description),
+                new SimpleEntry<>("by", this.by)))).toString()
                 + "\n" + super.toCommand(idx) + "\n";
     }
 
