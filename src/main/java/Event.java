@@ -1,11 +1,14 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 /**
  * This class is a subclass of Task which defines an event task.
  */
 public class Event extends Task {
     /** A String containing start of event. */
-    private String from;
+    private LocalDateTime from;
     /** A String containing end of event. */
-    private String to;
+    private LocalDateTime to;
 
     /**
      * A constructor of event
@@ -14,15 +17,15 @@ public class Event extends Task {
      * @param to End of event
      * @throws HelpBuddyException If description, start and end time of event is empty.
      */
-    public Event(String description, String from, String to) throws HelpBuddyException {
+    public Event(String description, LocalDateTime from, LocalDateTime to) throws HelpBuddyException {
         super(description);
         this.from = from;
         this.to = to;
         if (description.isBlank()) {
             throw new HelpBuddyException("The description of a event cannot be empty.\n");
-        } else if (from.isBlank()) {
+        } else if (from == null) {
             throw new HelpBuddyException("Please enter a start time of event.\n");
-        } else if (to.isBlank()) {
+        } else if (to == null) {
             throw new HelpBuddyException("Please enter an end time of event.\n");
         }
     }
@@ -33,12 +36,14 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        return "[E]" + super.toString() + "(from:" + this.from + "to:" + this.to + ")";
+        String startTime = this.from.format(DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm"));
+        String endTime = this.to.format(DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm"));
+        return "[E]" + super.toString() + "(from: " + startTime + " to: " + endTime + ")";
     }
 
     @Override
     public String stringifyTask() {
-        return String.format("E|%d|%s|%s", this.isDone ? 1 : 0, this.description, this.from + " to" + this.to);
+        return String.format("E|%d|%s|%s", this.isDone ? 1 : 0, this.description, this.from + " to " + this.to);
     }
 
 }
