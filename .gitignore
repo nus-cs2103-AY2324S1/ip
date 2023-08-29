@@ -16,7 +16,12 @@ bin/
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT
 
-data/*.txt
+build.gradle
+data/tasklist.txt
+gradle/wrapper/gradle-wrapper.jar
+gradle/wrapper/gradle-wrapper.properties
+gradlew
+text-ui-test/runtest.bat
 
 # Class files
 src/main/java/*.class
