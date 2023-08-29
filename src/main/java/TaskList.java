@@ -6,9 +6,11 @@ import java.util.regex.Pattern;
 public class TaskList {
     ArrayList<Task> tasks = new ArrayList<>();
 
-    public void add(Task task) {
+    public void add(Task task, Boolean isDisplayMessage) {
         tasks.add(task);
-        addSuccessMessage(task);
+        if (isDisplayMessage) {
+            addSuccessMessage(task);
+        }
     }
     public void addSuccessMessage(Task task) {
         System.out.println(Ben.HORIZONTAL_LINE + "\nGot It! This task has been added:\n" + task +
@@ -58,6 +60,14 @@ public class TaskList {
             return true;
         }
         return false;
+    }
+
+    public String saveTasks() {
+        StringBuilder s = new StringBuilder();
+        for (Task task : tasks) {
+            s.append(task.saveString()).append("\n");
+        }
+        return s.toString();
     }
 
     @Override

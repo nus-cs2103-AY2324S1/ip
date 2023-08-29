@@ -1,10 +1,10 @@
 public class Task {
-    private String description;
+    private final String description;
     private Boolean isCompleted;
 
-    public Task(String description) {
+    public Task(String description, boolean isCompleted) {
         this.description = description;
-        this.isCompleted = false;
+        this.isCompleted = isCompleted;
     }
 
     public void mark() {
@@ -24,5 +24,9 @@ public class Task {
             marking = "[ ]";
         }
         return marking + " " + description;
+    }
+
+    public String saveString() {
+        return isCompleted.toString() + "|" + description;
     }
 }
