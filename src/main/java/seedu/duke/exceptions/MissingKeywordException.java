@@ -1,5 +1,8 @@
-package seedu.duke.Exceptions;
+package seedu.duke.exceptions;
 
+/**
+ * MissingKeywordException
+ */
 public class MissingKeywordException extends Exception {
     public MissingKeywordException(String message) {
         super("MissingKeywordException: " + message + "\n");

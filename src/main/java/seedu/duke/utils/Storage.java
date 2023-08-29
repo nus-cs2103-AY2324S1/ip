@@ -1,10 +1,4 @@
-package seedu.duke.Utils;
-
-import seedu.duke.Tasks.Deadline;
-import seedu.duke.Ui;
-import seedu.duke.Tasks.Task;
-import seedu.duke.Tasks.Todo;
-import seedu.duke.Tasks.Event;
+package seedu.duke.utils;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -14,14 +8,33 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
+import seedu.duke.Ui;
+import seedu.duke.tasks.Deadline;
+import seedu.duke.tasks.Event;
+import seedu.duke.tasks.Task;
+import seedu.duke.tasks.Todo;
+
+/**
+ * Storage
+ */
 public class Storage {
     private String filePath;
     private final DateTimeFormatter timeFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
+    /**
+     * constructor for Storage class
+     *
+     * @param filePath file path of duke.txt
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
+    /**
+     * Write the TaskList to file
+     *
+     * @param taskList TaskList to be written to duke.txt
+     */
     public void writeFile(TaskList taskList) {
         try {
             // don't have to handle case of file path not existing as
@@ -37,6 +50,13 @@ public class Storage {
         }
     }
 
+    /**
+     * Read from duke.txt file
+     *
+     * @param ui UI to display to users
+     * @return Tasklist
+     * @throws IOException throws any error
+     */
     public TaskList readFile(Ui ui) throws IOException {
         TaskList taskList = new TaskList(ui); // Create an empty task list
         try {
@@ -54,13 +74,20 @@ public class Storage {
         } catch (FileNotFoundException e) {
             if (new File("data").mkdir()) {
                 System.out.println("data folder does not exist, create now");
-            } else if (new File("data/duke.txt").createNewFile()){
+            } else if (new File("data/duke.txt").createNewFile()) {
                 System.out.println("duke.txt file not exist, create now");
             }
         }
         return taskList;
     }
 
+    /**
+     * helper function
+     *
+     * @param line line
+     * @param taskList tasklist
+     * @return Task
+     */
     private Task parseTaskFromLine(String line, TaskList taskList) {
         String[] parts = line.split(" \\| ");
         String taskType = parts[0];

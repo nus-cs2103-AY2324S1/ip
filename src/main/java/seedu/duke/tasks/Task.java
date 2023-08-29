@@ -1,13 +1,22 @@
-package seedu.duke.Tasks;
+package seedu.duke.tasks;
 
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Task class
+ */
 public abstract class Task {
     public final DateTimeFormatter timeFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
-    public String description;
+    private String description;
     private boolean isMarked;
 
+    /**
+     * Task constructor
+     *
+     * @param description user input
+     * @param isMarked is task is marked
+     */
     public Task(String description, boolean isMarked) {
         this.description = description;
         this.isMarked = isMarked;
@@ -17,7 +26,7 @@ public abstract class Task {
         return (isMarked ? "[X]" : "[ ]");
     }
 
-    abstract public String writeFormat();
+    public abstract String writeFormat();
 
     public void mark() {
         isMarked = !isMarked;
@@ -25,6 +34,10 @@ public abstract class Task {
 
     public boolean isMarked() {
         return isMarked;
+    }
+
+    public String getDescription() {
+        return description;
     }
 
     @Override

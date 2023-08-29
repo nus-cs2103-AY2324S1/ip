@@ -1,37 +1,53 @@
-package seedu.duke.Utils;
-
-import seedu.duke.Exceptions.EmptyDescriptionException;
-import seedu.duke.Exceptions.TaskException;
-import seedu.duke.Exceptions.NotIntegerException;
-import seedu.duke.Exceptions.InvalidCommandException;
-import seedu.duke.Exceptions.MissingKeywordException;
-import seedu.duke.Tasks.Deadline;
-import seedu.duke.Tasks.Task;
-import seedu.duke.Tasks.Todo;
-import seedu.duke.Tasks.Event;
+package seedu.duke.utils;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+import seedu.duke.exceptions.EmptyDescriptionException;
+import seedu.duke.exceptions.InvalidCommandException;
+import seedu.duke.exceptions.MissingKeywordException;
+import seedu.duke.exceptions.NotIntegerException;
+import seedu.duke.exceptions.TaskException;
+import seedu.duke.tasks.Deadline;
+import seedu.duke.tasks.Event;
+import seedu.duke.tasks.Task;
+import seedu.duke.tasks.Todo;
+
+/**
+ * Paraser class
+ */
 public class Parser {
     private Storage storage;
+    private final DateTimeFormatter timeFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+
+    /**
+     * constructor
+     *
+     * @param storage storage to use
+     */
     public Parser(Storage storage) {
         this.storage = storage;
     }
+
+    /**
+     * ENUMS
+     */
     public enum Operation {
         BYE, LIST, MARK, UNMARK, DELETE, TODO, DEADLINE, EVENT, CHECKDATE
     }
 
-    private final DateTimeFormatter timeFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-
-
-    // main functionality -> trying to make sense of the users command
+    /**
+     * Main functionality
+     *
+     * @param userInput user input
+     * @param taskList TaskList to operate on
+     * @return boolean to signal if it is the BYE opeartion or not
+     */
     public boolean parse(String userInput, TaskList taskList) {
         Operation operation;
         try {
-//            System.out.print("> ");
             try {
                 operation = Operation.valueOf(userInput.toUpperCase().split(" ")[0]);
             } catch (Exception e) {
@@ -75,6 +91,14 @@ public class Parser {
         return true;
     }
 
+    /**
+     * calls the deleteTask function in TaskList
+     *
+     * @param userInput user input
+     * @param taskList taskList to operate on
+     * @throws TaskException exception thrown
+     * @throws NotIntegerException exception thrown
+     */
     public void delete(String userInput, TaskList taskList) throws TaskException, NotIntegerException {
         String[] parts = userInput.split(" ", 2);
         if (!isInteger(parts[1])) {
@@ -86,6 +110,15 @@ public class Parser {
         taskList.deleteTask(taskIndex);
     }
 
+    /**
+     * calls the mark function in taskList
+     *
+     * @param userInput user input
+     * @param taskList tasklist
+     * @throws EmptyDescriptionException exception
+     * @throws NotIntegerException exception
+     * @throws TaskException exception
+     */
     public void mark(String userInput, TaskList taskList) throws EmptyDescriptionException,
             NotIntegerException, TaskException {
         String details = extractNoKeywordsDetails(userInput);
@@ -96,6 +129,15 @@ public class Parser {
         taskList.mark(taskIndex);
     }
 
+    /**
+     * calls the unmark function
+     *
+     * @param userInput user input
+     * @param taskList TL
+     * @throws EmptyDescriptionException exception
+     * @throws TaskException exception
+     * @throws NotIntegerException exception
+     */
     public void unmark(String userInput, TaskList taskList) throws EmptyDescriptionException,
             TaskException, NotIntegerException {
         String details = extractNoKeywordsDetails(userInput);
@@ -106,29 +148,30 @@ public class Parser {
         taskList.unMark(taskIndex);
     }
 
+    /**
+     * adds a Todo to taskList
+     *
+     * @param userInput user input
+     * @param taskList TaskList to operate on
+     * @throws EmptyDescriptionException exception
+     */
     public void todo(String userInput, TaskList taskList) throws EmptyDescriptionException {
         String details = extractNoKeywordsDetails(userInput);
         Task todoTask = new Todo(details, false);
         taskList.addTask(todoTask);
     }
 
+    /**
+     * adds a deadline to Task List
+     * @param userInput user input
+     * @param taskList TaskList to operate on
+     * @throws EmptyDescriptionException exception
+     * @throws MissingKeywordException exception
+     */
     public void deadline(String userInput, TaskList taskList) throws EmptyDescriptionException,
             MissingKeywordException {
         String details = extractTaskDetails(userInput, "deadline", "/by");
         String dateString = extractAfterKeyword(userInput, "/by");
-//        LocalDateTime date = null;
-//        String dateTimeFormat = null;
-//        // Try parsing the date using each format
-//        for (String format : Duke.dateFormats) {
-//            try {
-//                date = LocalDateTime.parse(dateString.trim(), DateTimeFormatter.ofPattern(format));
-//                dateTimeFormat = format;
-//                break;  // Stop once parsing succeeds
-//            } catch (DateTimeParseException ignored) {
-//                // Parsing failed, try the next format
-//            }
-//        }
-
         try {
             LocalDateTime date = LocalDateTime.parse(dateString.trim(), timeFormat);
             Task deadlineTask = new Deadline(details, date, false);
@@ -138,6 +181,14 @@ public class Parser {
         }
     }
 
+    /**
+     * adds an Event to the TaskList
+     *
+     * @param userInput user input
+     * @param taskList task list
+     * @throws EmptyDescriptionException exception
+     * @throws MissingKeywordException exception
+     */
     public void event(String userInput, TaskList taskList) throws EmptyDescriptionException,
             MissingKeywordException {
         String details = extractTaskDetails(userInput, "event", "/from");
@@ -153,6 +204,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Returns Tasks on a specific date. calls getTasksOnDate() from TaskList
+     *
+     * @param userInput user input
+     * @param taskList TaskList to operate on
+     * @throws EmptyDescriptionException exception
+     */
     public void checkDate(String userInput, TaskList taskList) throws EmptyDescriptionException {
         String details = extractNoKeywordsDetails(userInput);
         try {
@@ -163,7 +221,14 @@ public class Parser {
         }
     }
 
-    /*  helper functions */
+    /**
+     * Helper function to extract details for functions of:
+     * mark, unmark, Todo
+     *
+     * @param userInput user input
+     * @return details in string representation
+     * @throws EmptyDescriptionException if no details
+     */
     private String extractNoKeywordsDetails(String userInput) throws EmptyDescriptionException {
         String[] parts = userInput.toLowerCase().split(" ", 2);
         if (parts.length == 1 || parts[1].isBlank()) {

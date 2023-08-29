@@ -1,30 +1,39 @@
 package seedu.duke;
 
-import seedu.duke.Utils.Parser;
-import seedu.duke.Utils.Storage;
-import seedu.duke.Utils.TaskList;
-
 import java.io.IOException;
 
+import seedu.duke.utils.Parser;
+import seedu.duke.utils.Storage;
+import seedu.duke.utils.TaskList;
+
+/**
+ * main Duke class
+ */
 public class Duke {
     private Ui ui;
     private Storage storage;
     private TaskList taskList;
     private Parser parser;
 
+    /**
+     * Duke constructor
+     *
+     * @param filePath filepath to duke.txt
+     */
     public Duke(String filePath) {
         this.storage = new Storage(filePath);
         this.parser = new Parser(this.storage);
         this.ui = new Ui();
         try {
-            // make use of this storage info to make a new TaskList
-             this.taskList = storage.readFile(this.ui);
+            this.taskList = storage.readFile(this.ui);
         } catch (IOException e) {
-            // this error stems from error during creation of file
             System.out.println(e);
         }
     }
 
+    /**
+     * to run the bot
+     */
     private void run() {
         ui.printGreet();
         boolean ongoing = true;
@@ -35,7 +44,12 @@ public class Duke {
         ui.printExit();
     }
 
-    public static void main(String[] args) throws IOException{
+    /**
+     * main function
+     * @param args args
+     * @throws IOException exception thrown
+     */
+    public static void main(String[] args) throws IOException {
         Duke main = new Duke("data/duke.txt");
         main.run();
     }

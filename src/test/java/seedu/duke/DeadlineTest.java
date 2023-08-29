@@ -1,16 +1,17 @@
 package seedu.duke;
 
-import org.junit.jupiter.api.Test;
-import seedu.duke.Tasks.Deadline;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.junit.jupiter.api.Test;
+
+import seedu.duke.tasks.Deadline;
 
 public class DeadlineTest {
 
-    public static DateTimeFormatter validFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+    private static DateTimeFormatter validFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
     @Test
     public void deadlineMarkTest() {
@@ -25,5 +26,4 @@ public class DeadlineTest {
         String test = d.writeFormat();
         assertEquals("D | 0 | CS2103T due | 2021-08-22 17:19", test);
     }
-
 }
