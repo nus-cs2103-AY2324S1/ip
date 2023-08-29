@@ -1,3 +1,6 @@
+package duke.task;
+
+import duke.exception.TaskListOutOfBoundsException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,11 +11,11 @@ public class TaskList {
     tasks = new ArrayList<>();
   }
 
-  public Task getTask(int i) throws DukeException { // 1-indexed
+  public Task getTask(int i) { // 1-indexed
     try {
       return tasks.get(i - 1);
     } catch (IndexOutOfBoundsException e) {
-			throw new TaskListOutOfBoundsException(i);
+      throw new TaskListOutOfBoundsException(i);
     }
   }
 
@@ -25,11 +28,11 @@ public class TaskList {
         "Now you have %d task%s in the list.", tasks.size(), tasks.size() == 1 ? "" : "s");
   }
 
-  public void deleteTask(int i) throws DukeException {
+  public void deleteTask(int i) {
     try {
       tasks.remove(i - 1);
     } catch (IndexOutOfBoundsException e) {
-			throw new TaskListOutOfBoundsException(i);
+      throw new TaskListOutOfBoundsException(i);
     }
   }
 
@@ -37,7 +40,7 @@ public class TaskList {
     return tasks.size();
   }
 
-	@Override
+  @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
     tasks.forEach(

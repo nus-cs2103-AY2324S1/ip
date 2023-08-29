@@ -1,3 +1,11 @@
+package duke.command;
+
+import duke.exception.ArgumentMustBeNumException;
+import duke.io.FileIO;
+import duke.io.Printer;
+import duke.task.Task;
+import duke.task.TaskList;
+
 public class MarkCommand extends Command {
   private String s;
 
@@ -12,12 +20,12 @@ public class MarkCommand extends Command {
     try {
       task = taskList.getTask(Integer.parseInt(s));
     } catch (NumberFormatException e) {
-			throw new ArgumentMustBeNumException(MARK);
+      throw new ArgumentMustBeNumException(MARK);
     }
 
     task.mark();
 
     out.print("Nice! I've marked this task as done:", task.toString());
-		save();
+    save();
   }
 }

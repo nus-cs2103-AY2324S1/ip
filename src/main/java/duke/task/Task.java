@@ -1,3 +1,7 @@
+package duke.task;
+
+import duke.command.Command;
+import duke.exception.DukeException;
 import java.time.LocalDateTime;
 import java.util.Map;
 import java.util.Optional;
@@ -22,18 +26,18 @@ public abstract class Task {
 
   public static Task createTask(String type, String name, Map<String, String> arguments) {
     switch (type) {
-    case Command.TODO:
-      return new Todo(name, arguments.containsKey("mark"));
-    case Command.DEADLINE:
-      return new Deadline(name, arguments.containsKey("mark"), arguments.getOrDefault("by", ""));
-    case Command.EVENT:
-      return new Event(
-          name,
-          arguments.containsKey("mark"),
-          arguments.getOrDefault("from", ""),
-          arguments.getOrDefault("to", ""));
+      case Command.TODO:
+        return new Todo(name, arguments.containsKey("mark"));
+      case Command.DEADLINE:
+        return new Deadline(name, arguments.containsKey("mark"), arguments.getOrDefault("by", ""));
+      case Command.EVENT:
+        return new Event(
+            name,
+            arguments.containsKey("mark"),
+            arguments.getOrDefault("from", ""),
+            arguments.getOrDefault("to", ""));
     }
-		throw new DukeException(String.format("%s is not an task type", type));
+    throw new DukeException(String.format("%s is not an task type", type));
   }
 
   public void mark() {
@@ -55,7 +59,7 @@ public abstract class Task {
         this.getClass().getSimpleName().toLowerCase(), description, mark ? "/mark" : "");
   }
 
-	public boolean filter(Optional<LocalDateTime> before) {
-		return before.isEmpty();
-	}
+  public boolean filter(Optional<LocalDateTime> before) {
+    return before.isEmpty();
+  }
 }

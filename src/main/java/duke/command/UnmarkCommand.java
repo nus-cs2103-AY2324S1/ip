@@ -1,3 +1,11 @@
+package duke.command;
+
+import duke.exception.ArgumentMustBeNumException;
+import duke.io.FileIO;
+import duke.io.Printer;
+import duke.task.Task;
+import duke.task.TaskList;
+
 public class UnmarkCommand extends Command {
   private String s;
 
@@ -12,11 +20,11 @@ public class UnmarkCommand extends Command {
     try {
       task = taskList.getTask(Integer.parseInt(s));
     } catch (NumberFormatException e) {
-			throw new ArgumentMustBeNumException(UNMARK);
+      throw new ArgumentMustBeNumException(UNMARK);
     }
     task.unmark();
 
     out.print("Ok, I've marked this task as not done yet", task.toString());
-		save();
+    save();
   }
 }
