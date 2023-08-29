@@ -1,22 +1,24 @@
+import java.time.LocalDate;
+
 /**
  * Encapsulates an Event task. Event tasks have a start time, end time and description.
  */
 public class Event extends Task {
 
-    private String startTime;
-    private String endTime;
+    private LocalDate startDate;
+    private LocalDate endDate;
 
     /**
      * Constructor for a new event task object.
      *
-     * @param startTime   starting time of event
-     * @param endTime     ending time of event
+     * @param startDate   starting time of event
+     * @param endDate     ending time of event
      * @param description task description of event
      */
-    public Event(String startTime, String endTime, String description) {
+    public Event(LocalDate startDate, LocalDate endDate, String description) {
         super(description);
-        this.startTime = startTime;
-        this.endTime = endTime;
+        this.startDate = startDate;
+        this.endDate = endDate;
     }
 
     /**
@@ -26,7 +28,7 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + this.startTime + " to: " + this.endTime + ")";
+        return "[E]" + super.toString() + " (from: " + this.startDate + " to: " + this.endDate + ")";
     }
 
     /**
@@ -35,8 +37,8 @@ public class Event extends Task {
      * @return String representing event task to be stored.
      */
     @Override
-    public String toStore() {
-        return "E | " + super.toStore() + " | " + this.startTime + " | " + this.endTime;
+    public String toStored() {
+        return "E | " + super.toStored() + " | " + this.startDate + " | " + this.endDate;
     }
 
 }

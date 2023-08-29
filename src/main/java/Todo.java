@@ -29,8 +29,8 @@ public class Todo extends Task {
      * @return String representing todo task to be stored.
      */
     @Override
-    public String toStore() {
-        return "T | " + super.toStore();
+    public String toStored() {
+        return "T | " + super.toStored();
     }
 
 }

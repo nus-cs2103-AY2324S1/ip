@@ -53,7 +53,7 @@ public abstract class Task {
      *
      * @return String representing task to be stored.
      */
-    public String toStore() {
+    public String toStored() {
         String statusNumber = isDone ? "1" : "0";
         return statusNumber + " | " + this.description;
     }

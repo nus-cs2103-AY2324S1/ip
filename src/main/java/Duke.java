@@ -1,9 +1,11 @@
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -31,8 +33,33 @@ public class Duke {
     private static List<Task> list = new ArrayList<>();
     private final static String FILE_PATH = "./data/duke.txt";
 
-    public static Task storeToTask(String store) throws DukeException {
-        String[] words = store.split("\\s\\|\\s");
+    /**
+     * Converts the String input date to LocalDate.
+     *
+     * @param input String representation of date in YYYY-MM-DD format.
+     * @return LocalDate of date.
+     * @throws DukeException If the string input does not match the required format.
+     */
+    public static LocalDate stringToDate(String input) throws DukeException {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate date;
+        try {
+            date = LocalDate.parse(input, formatter);
+        } catch (DateTimeParseException e) {
+            throw new DukeException("Date input in wrong format. Please input as YYYY-MM-DD");
+        }
+        return date;
+    }
+
+    /**
+     * Converts the String stored in the file into a Task object.
+     *
+     * @param stored The String stored in the file.
+     * @return Task representation of the String stored.
+     * @throws DukeException If the string stored is not in the correct format.
+     */
+    public static Task storedToTask(String stored) throws DukeException {
+        String[] words = stored.split("\\s\\|\\s");
         String taskType = words[0];
         boolean done;
         if (words[1].equals("0")) {
@@ -56,14 +83,14 @@ public class Duke {
             if (words.length != 4) {
                 throw new DukeException("Incorrect Format for deadline task in file");
             } else {
-                t = new Deadline(words[3], words[2]);
+                t = new Deadline(stringToDate(words[3]), words[2]);
             }
             break;
         case "E":
             if (words.length != 5) {
                 throw new DukeException("Incorrect Format for event task in file");
             } else {
-                t = new Event(words[3], words[4], words[2]);
+                t = new Event(stringToDate(words[3]), stringToDate(words[4]), words[2]);
             }
             break;
         default:
@@ -76,6 +103,12 @@ public class Duke {
         return t;
     }
 
+    /**
+     * Reads the file and adds all the tasks in the file into the list.
+     *
+     * @throws IOException   If some error occurs with the reading process.
+     * @throws DukeException If any string stored in file is in the wrong format.
+     */
     public static void readFile() throws IOException, DukeException {
         // create data directory if it does not exist
         Files.createDirectories(Paths.get("./data"));
@@ -83,15 +116,20 @@ public class Duke {
         f.createNewFile();
         Scanner s = new Scanner(f);
         while (s.hasNext()) {
-            Task task = storeToTask(s.nextLine());
+            Task task = storedToTask(s.nextLine());
             list.add(task);
         }
     }
 
+    /**
+     * Writes all the tasks in the current list to the file.
+     *
+     * @throws IOException If some error occurs with the writing process.
+     */
     public static void writeToFile() throws IOException {
         FileWriter fw = new FileWriter(FILE_PATH);
         for (Task task : list) {
-            fw.write(task.toStore() + "\n");
+            fw.write(task.toStored() + "\n");
         }
         fw.close();
     }
@@ -348,9 +386,9 @@ public class Duke {
         // Check if the input string matches the pattern
         if (matcher.matches()) {
             String description = matcher.group(1); // Extract event name
-            String startTime = matcher.group(2); // Extract start time
-            String endTime = matcher.group(3);   // Extract end time
-            Task task = new Event(startTime, endTime, description);
+            LocalDate startDate = stringToDate(matcher.group(2)); // Extract start date
+            LocalDate endDate = stringToDate(matcher.group(3));   // Extract end date
+            Task task = new Event(startDate, endDate, description);
             addTask(task);
         } else {
             // User did not follow event format
@@ -375,7 +413,7 @@ public class Duke {
         // Check if the input string matches the pattern
         if (matcher.matches()) {
             String description = matcher.group(1); // Extract task description
-            String dueDate = matcher.group(2);  // Extract due date
+            LocalDate dueDate = stringToDate(matcher.group(2));  // Extract due date
             Task task = new Deadline(dueDate, description);
             addTask(task);
         } else {

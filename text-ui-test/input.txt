@@ -1,6 +1,6 @@
 todo borrow book
-deadline return book /by Sunday
-event project meeting /from Mon 2pm /to 4pm
+deadline return book /by 2023-03-28
+event project meeting /from 2023-04-21 /to 2023-04-22
 blah
 todo
 list
@@ -20,4 +20,6 @@ delete read book
 delete 6
 delete 4
 list
+deadline return book /by abc
+event project meeting /from 2023-21-04 /to 2023-04-22
 bye
