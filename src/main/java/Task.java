@@ -48,41 +48,9 @@ public abstract class Task {
         return this.description;
     }
 
+    public static Task fromSaveFormat(String line) throws GrumpyGordonException {
+        return Parser.parseStringToTask(line);
+    }
+
     public abstract String toSaveFormat();
-    public static Task fromSaveFormat(String line) {
-        String[] parts = line.split(" \\| ");
-
-        if (parts.length < 3) {
-            // Invalid format
-            return null;
-        }
-
-        String type = parts[0];
-        boolean isDone = parts[1].equals("1");
-        String description = parts[2];
-
-        try {
-            switch (type) {
-                case "T":
-                    return new Todo(description, isDone);
-                case "D":
-                    // Parse the saved format for Deadline (modify as needed)
-                    // Example: "D | 1 | Buy groceries | 2023-08-31 12:00"
-                    String deadlineBy = parts[3];
-                    return new Deadline(description, DateTimeParser.parse(deadlineBy), isDone);
-                case "E":
-                    // Parse the saved format for Event (modify as needed)
-                    // Example: "E | 0 | Team meeting | 2023-09-01 12:00 | 2023-09-02 14:00"
-                    String eventFrom = parts[3];
-                    String eventTo = parts[4];
-                    return new Event(description, DateTimeParser.parse(eventFrom), DateTimeParser.parse(eventTo), isDone);
-                default:
-                    return null;
-            }
-        } catch (DateTimeFormatException e) {
-            System.out.println("Datetime format in saved file error");
-        } finally {
-            return null;
-        }
-    };
 }
