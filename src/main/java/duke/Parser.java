@@ -12,6 +12,13 @@ public class Parser {
         TODO
     }
 
+    /**
+     * Takes in commands from the user and does an action based on the command.
+     *
+     * @param nextLine input from the user.
+     * @param tasks list of task stored.
+     * @param storage storage for the tasks to be housed.
+     */
     public static void parseCommands(String nextLine, TaskList tasks, Storage storage) {
         String firstWord = nextLine.split(" ")[0];
         try {

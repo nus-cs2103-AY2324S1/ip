@@ -7,6 +7,11 @@ class Todo extends Task{
         super(name);
     }
 
+    /**
+     * Return string representation of the todo task.
+     *
+     * @return String representation of the todo task.
+     */
     @Override
     public String toString() {
         String checkBox;

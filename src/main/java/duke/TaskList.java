@@ -14,6 +14,12 @@ public class TaskList implements Serializable {
         this.tasks = new ArrayList<>();
     }
 
+    /**
+     * Removes an item from the list of tasks.
+     *
+     * @param input input from the user.
+     * @throws DukeException Lets the user know if task cannot be removed.
+     */
     public void deleteItem(String input) throws DukeException {
         int index = this.getIndex(input) - 1;
         this.checkOutOfBounds(index);
@@ -23,6 +29,13 @@ public class TaskList implements Serializable {
         }
     }
 
+    /**
+     * Adds item to the list of tasks.
+     *
+     * @param task type of task.
+     * @param input input from the user.
+     * @throws DukeException Lets the user know if the task cannot be added.
+     */
     public void addItem(Parser.taskType task, String input) throws DukeException {
         String[] splitSentence = input.split(" /");
         String taskName = getRestOfSentence(splitSentence[0]).strip();
@@ -65,6 +78,13 @@ public class TaskList implements Serializable {
         Ui.printWrapped(sayWord);
     }
 
+    /**
+     * Marks/Un marks the task.
+     *
+     * @param status To mark of un mark the task.
+     * @param input input from the user.
+     * @throws DukeException Lets the user know if the task cannot be modified.
+     */
     public void modifyStatus(Parser.modifyStatus status, String input) throws DukeException {
         int index = getIndex(input) - 1;
         this.checkOutOfBounds(index);
@@ -82,6 +102,12 @@ public class TaskList implements Serializable {
         }
     }
 
+    /**
+     * Prints the status of the task.
+     *
+     * @param index index of the task.
+     * @param input string accompaniment for the print statement.
+     */
     public void printMarkedOrUnmarked(int index, String input) {
         if (index < this.tasks.size()) {
             String markedTask = String.format("%s\n%s", input, this.tasks.get(index));
@@ -89,18 +115,40 @@ public class TaskList implements Serializable {
         }
     }
 
+    /**
+     * Returns the task when given an index.
+     *
+     * @param index index of the task.
+     * @return task that has been found.
+     */
     public Task getTaskWithIndex(int index) {
         return tasks.get(index);
     }
 
+    /**
+     * Returns the size of the task.
+     *
+     * @return size of the task.
+     */
     public int size() {
         return tasks.size();
     }
 
+    /**
+     * Returns the list of task.
+     *
+     * @return List of tasks.
+     */
     public ArrayList<Task> getTasks() {
         return this.tasks;
     }
 
+    /**
+     * Gets the index given by from the user input.
+     *
+     * @param input Input from the user.
+     * @return Index given by the user.
+     */
     public int getIndex(String input) {
         String[] parts = input.split(" ");
 
@@ -111,18 +159,37 @@ public class TaskList implements Serializable {
         return -1;
     }
 
+    /**
+     * Checks of the index given exceeds the size of the list.
+     *
+     * @param index index to check.
+     * @throws DukeException Lets the user know if the index exceeds the list.
+     */
     public void checkOutOfBounds(int index) throws DukeException {
         if (index > this.tasks.size() - 1) {
             throw new DukeException("\u2639 OOPS!!! I'm sorry, but the index you have inputted is out of bounds :-(");
         }
     }
 
+    /**
+     * Checks if the input is empty.
+     *
+     * @param input input from the user.
+     * @param taskName content for the task.
+     * @throws DukeException Lets the user know if the description is invalid.
+     */
     public static void checkEmpty(String input, String taskName) throws DukeException {
         if (input.equals("")) {
             throw new DukeException(String.format("\u2639 OOPS!!! The description of a %s cannot be empty.", taskName));
         }
     }
 
+    /**
+     * Gets the rest of the sentence, excluding the first word.
+     *
+     * @param input Input from the user.
+     * @return rest of the sentence.
+     */
     public static String getRestOfSentence(String input) {
         String[] parts = input.split(" ");
         StringBuilder result = new StringBuilder();
