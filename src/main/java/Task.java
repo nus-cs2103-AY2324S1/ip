@@ -24,6 +24,25 @@ public abstract class Task {
     }
 
     /**
+     * Parses the save string in the input file. <br>
+     * The save string should have the following format: <br>
+     * {Task Flag} | {Mark Status} | {Description} | {Fields...}
+     * <ul>
+     *  <li>Task Flag represents the type of Task to create.</li>
+     *  <li>Mark Status is a 0/1 representation of the Checkmark status.</li>
+     *  <li>Description is the main body of the Task item to display.</li>
+     *  <li>Fields are the additional fields required by the Task, delimited by '|'.</li>
+     * </ul>
+     *
+     * @param saveStr The input save string, in the aforementioned format.
+     * @return The Task object from parsing the String.
+     */
+    public static Task parseSaveLine(String saveStr) {
+        // TODO: Implement after creating the Factory method for Task
+        return null;
+    }
+
+    /**
      * Helper function to determine the checkmark status of the Task.
      * @return "[X]" if the task is done, "[ ]" otherwise.
      */
