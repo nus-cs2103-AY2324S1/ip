@@ -6,11 +6,11 @@ public class TaskList {
         this.tasks = new ArrayList<>();
     }
 
-    public void add(Task t) {
-        tasks.add(t);
+    public void addTask(Task t) {
+        this.tasks.add(t);
     }
 
-    public Task mark(int index) throws InvalidTaskIndexException {
+    public Task markTask(int index) throws InvalidTaskIndexException {
         if (index < 0 || index >= this.tasks.size()) {
             throw new InvalidTaskIndexException(index + 1, this.tasks.size());
         }
@@ -19,7 +19,7 @@ public class TaskList {
         return toMark;
     }
 
-    public Task unmark(int index) throws InvalidTaskIndexException {
+    public Task unmarkTask(int index) throws InvalidTaskIndexException {
         if (index < 0 || index >= this.tasks.size()) {
             throw new InvalidTaskIndexException(index + 1, this.tasks.size());
         }
@@ -28,7 +28,7 @@ public class TaskList {
         return toUnmark;
     }
 
-    public Task delete(int index) throws InvalidTaskIndexException {
+    public Task deleteTask(int index) throws InvalidTaskIndexException {
         if (index < 0 || index >= this.tasks.size()) {
             throw new InvalidTaskIndexException(index + 1, this.tasks.size());
         }
@@ -41,7 +41,7 @@ public class TaskList {
         return this.tasks.size();
     }
 
-    public String list() {
+    public String getPrintableList() {
         StringBuilder builder = new StringBuilder();
         for (int i = 0; i < tasks.size(); i++) {
             if (i == tasks.size() - 1) {
@@ -51,5 +51,13 @@ public class TaskList {
             }
         }
         return builder.toString();
+    }
+
+    public String getSaveableList() {
+        StringBuilder text = new StringBuilder();
+        for (Task t : this.tasks) {
+            text.append(String.format("%s\n", t.getSaveFormat()));
+        }
+        return text.toString();
     }
 }

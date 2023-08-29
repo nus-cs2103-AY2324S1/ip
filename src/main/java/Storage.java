@@ -7,14 +7,15 @@ import java.util.Scanner;
 
 public class Storage {
 
+    private final String filePath;
+    public Storage(String filePath) {
+        this.filePath = filePath;
+    }
+
     public void save(TaskList taskList) {
         try {
-            FileWriter fw = new FileWriter("tasks.txt");
-            StringBuilder text = new StringBuilder();
-            for (Task t : taskList) {
-                text.append(String.format("%s\n", t.getSaveFormat()));
-            }
-            fw.write(text.toString());
+            FileWriter fw = new FileWriter(this.filePath);
+            fw.write(taskList.getSaveableList());
             fw.close();
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -23,7 +24,7 @@ public class Storage {
 
     public void load(TaskList taskList) {
         try {
-            File f = new File("tasks.txt");
+            File f = new File(this.filePath);
             Scanner s = new Scanner(f);
             while (s.hasNext()) {
                 String[] line = s.nextLine().trim().split(" \\| ");
@@ -34,7 +35,7 @@ public class Storage {
                         if (taskIsDone) {
                             newTodo.complete();
                         }
-                        this.tasks.add(newTodo);
+                        taskList.addTask(newTodo);
                         break;
                     case "D":
                         LocalDate deadline = LocalDate.parse(line[3]);
@@ -42,14 +43,14 @@ public class Storage {
                         if (taskIsDone) {
                             newDeadline.complete();
                         }
-                        this.tasks.add(newDeadline);
+                        taskList.addTask(newDeadline);
                         break;
                     case "E":
                         EventTask newEvent = new EventTask(line[2], line[3], line[4]);
                         if (taskIsDone) {
                             newEvent.complete();
                         }
-                        this.tasks.add(newEvent);
+                        taskList.addTask(newEvent);
                         break;
                 }
             }
