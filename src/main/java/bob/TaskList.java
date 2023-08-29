@@ -117,4 +117,20 @@ public class TaskList {
         return new String[]{"I've removed this task from list: ", "\t" + taskStr,
                     "You now have " + lst.size() + (lst.size() == 1 ? " task!" : " tasks!")};
     }
+
+    public String[] findTasks(String keyword) {
+        ArrayList<String> tasksFound = new ArrayList<>();
+        tasksFound.add("Here are the matching tasks: ");
+
+        int found = 0;
+        for (Task tsk : lst) {
+            if (tsk.getName().contains(keyword)) {
+                found++;
+                tasksFound.add(found + ". " + tsk.toString());
+            }
+        }
+        return found > 0
+                ? tasksFound.toArray(new String[0])
+                : new String[]{"There are no matching tasks..."};
+    }
 }

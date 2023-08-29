@@ -12,6 +12,8 @@ public class Parser {
             return new MarkCommand(nextLine);
         } else if (nextLine.contains("delete")) {
             return new DeleteCommand(nextLine);
+        } else if (nextLine.contains("find")) {
+            return new FindCommand(nextLine);
         } else if (nextLine.equals("bye")) {
             return new ExitCommand();
         } else { // if command is to add tasks
