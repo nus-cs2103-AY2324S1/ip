@@ -8,6 +8,11 @@ import zean.task.Event;
 import zean.task.Task;
 import zean.task.Todo;
 
+/**
+ * The class that contains the task list, with operations to add/delete tasks in the list.
+ *
+ * @author Zhong Han
+ */
 public class TaskList {
     private ArrayList<Task> tasks;
     private int count;
@@ -35,7 +40,7 @@ public class TaskList {
     }
 
     /**
-     * Adds a todo task to the array list and write to the disk.
+     * Adds a todo task to the array list and writes to the disk.
      *
      * @param description The description of the todo task.
      */
@@ -48,7 +53,7 @@ public class TaskList {
     }
 
     /**
-     * Adds a deadline task to the array list and write to the disk.
+     * Adds a deadline task to the array list and writes to the disk.
      *
      * @param description The description of the deadline task.
      * @param by The due date of the deadline task.
@@ -62,11 +67,11 @@ public class TaskList {
     }
 
     /**
-     * Adds an event task to the array list and write to the disk.
+     * Adds an event task to the array list and writes to the disk.
      *
      * @param description The description of the event task.
-     * @param from The start date/time of the event task.
-     * @param to The end date/time of the event task.
+     * @param from The start date of the event task.
+     * @param to The end date of the event task.
      */
     public void add(String description, String from, String to) {
         Event task = new Event(description, from, to);
@@ -82,7 +87,7 @@ public class TaskList {
     }
 
     /**
-     * Prints the list of tasks that the ArrayList holds.
+     * Prints the list of tasks that the list holds.
      */
     public void list() {
         if (this.count == 0) {
@@ -96,7 +101,7 @@ public class TaskList {
     }
 
     /**
-     * Marks the task corresponding to the index as done and write to the disk.
+     * Marks the task corresponding to the index as done and writes to the disk.
      *
      * @param index The index of the task seen by the user, which starts from 1.
      * @throws DukeException An exception related to the chatbot.
@@ -111,7 +116,7 @@ public class TaskList {
     }
 
     /**
-     * Marks the task corresponding to the index as not done and write to the disk.
+     * Marks the task corresponding to the index as not done and writes to the disk.
      *
      * @param index The index of the task seen by the user, which starts from 1.
      * @throws DukeException An exception related to the chatbot.
@@ -134,7 +139,7 @@ public class TaskList {
     }
 
     /**
-     * Deletes the task corresponding to the index and write to the disk.
+     * Deletes the task corresponding to the index and writes to the disk.
      *
      * @param index The index of the task seen by the user, which starts from 1.
      * @throws DukeException An exception related to the chatbot.
