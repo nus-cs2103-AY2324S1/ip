@@ -12,7 +12,8 @@ class Deadline extends Task {
     public Deadline(String name, String date) {
         super(name);
         try {
-            this.date = LocalDate.parse(date);
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd-yyyy");
+            this.date = LocalDate.parse(date.strip());
             this.hasDate = true;
         } catch (DateTimeParseException e) {
             super.editName(String.format(" (by: %s)", date));
