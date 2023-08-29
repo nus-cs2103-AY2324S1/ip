@@ -1,3 +1,7 @@
+package duke.commands;
+
+import duke.tasks.TaskList;
+
 public abstract class Command {
 
     protected final CommandType commandType;

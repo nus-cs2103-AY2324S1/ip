@@ -1,3 +1,8 @@
+package duke.commands;
+
+import duke.exceptions.DukeInvalidArgumentException;
+import duke.tasks.TaskList;
+
 public class DeleteTaskCommand extends Command {
 
     public DeleteTaskCommand(CommandType commandType, TaskList taskList, String args) {

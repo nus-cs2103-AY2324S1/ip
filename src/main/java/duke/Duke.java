@@ -1,5 +1,15 @@
+package duke;
+
 import java.nio.file.Path;
 import java.util.Scanner;
+
+import duke.commands.Command;
+import duke.commands.CommandType;
+import duke.exceptions.DukeException;
+import duke.parser.Parser;
+import duke.storage.Storage;
+import duke.tasks.TaskList;
+import duke.ui.Ui;
 
 /**
  * Duke is a chatbot that helps you keep track of your tasks.

@@ -1,3 +1,7 @@
+package duke.commands;
+
+import duke.exceptions.DukeInvalidCommandException;
+
 /**
  * The command enum is used to store the valid commands that LilBro can
  * understand.
