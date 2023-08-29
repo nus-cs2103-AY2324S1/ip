@@ -17,5 +17,5 @@ bin/
 text-ui-test/EXPECTED-UNIX.TXT
 text-ui-test/data/dot.txt
 
-# JUnit test text file
-data/junit-test-data.txt
+# JUnit test text file and all data files
+data/
