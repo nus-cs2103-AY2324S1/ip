@@ -146,11 +146,19 @@ public class DuckBot {
         divider();
     }
 
-    public void setDeadline(String str) {
+    public void setDeadline(String str) throws IllegalDateFormatException {
         String[] arr = str.split("/by ");
-        Deadline temp = new Deadline(arr[0], LocalDateTime.parse(arr[1], (DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"))));
+        Deadline temp = new Deadline(arr[0], parseDateTime(arr[1]));
         list.add(temp);
         echoAdd(temp);
+    }
+
+    public LocalDateTime parseDateTime(String dateTime) throws IllegalDateFormatException {
+        try {
+            return LocalDateTime.parse(dateTime, DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
+        } catch (DateTimeParseException e) {
+            throw new IllegalDateFormatException("Incorrect format", dateTime);
+        }
     }
 
     public void setEvent(String str) throws IllegalDateFormatException {
@@ -161,7 +169,7 @@ public class DuckBot {
            list.add(tmp);
            echoAdd(tmp);
        } catch (DateTimeParseException e) {
-           throw new IllegalDateFormatException("Wrong Format for the date kindly put in \nyyyy-MM-dd HHmm.");
+           throw new IllegalDateFormatException("Wrong Format for the date kindly put in \nyyyy-MM-dd HHmm.", str);
        }
     }
 

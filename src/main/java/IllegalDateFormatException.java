@@ -1,6 +1,8 @@
-public class IllegalDateFormatException extends Exception{
+import java.time.format.DateTimeParseException;
 
-    public IllegalDateFormatException(String mssg) {
-        super(mssg);
+public class IllegalDateFormatException extends DateTimeParseException {
+
+    public IllegalDateFormatException(String mssg, String parsedData) {
+        super(mssg, parsedData, 0);
     }
 }
