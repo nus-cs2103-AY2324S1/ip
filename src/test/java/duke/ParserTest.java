@@ -1,6 +1,5 @@
 package duke;
 
-
 import duke.command.Command;
 import duke.command.ExitCommand;
 import duke.command.ListCommand;
@@ -11,8 +10,14 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
+/**
+ * Represents the unit tests for the Parser class.
+ */
 public class ParserTest {
 
+    /**
+     * Tests the parsing of the 'bye' command.
+     */
     @Test
     public void byeTest() {
         try {
@@ -23,6 +28,9 @@ public class ParserTest {
         }
     }
 
+    /**
+     * Tests the parsing of the 'list' command.
+     */
     @Test
     public void listTest() {
         try {
@@ -33,6 +41,9 @@ public class ParserTest {
         }
     }
 
+    /**
+     * Tests the parsing of the 'mark' command.
+     */
     @Test
     public void markTest() {
         try {
@@ -43,7 +54,9 @@ public class ParserTest {
         }
     }
 
-
+    /**
+     * Tests the parsing of an invalid command.
+     */
     @Test
     public void invalidCommandTest() {
         try {
