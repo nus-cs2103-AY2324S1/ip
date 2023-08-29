@@ -115,4 +115,17 @@ public class Ui {
     public boolean isExit() {
         return this.Exit;
     }
+
+    public void findSuccess(TaskList tasks) {
+        StringBuilder output = new StringBuilder();
+        output.append("Here are the matching tasks in your list: ");
+        int i = 1;
+        for (Task val : tasks.getTasks()) {
+            output.append("\n").append(i).append(". ").append(val);
+            i++;
+        }
+        System.out.println(DIVIDER);
+        System.out.println(output);
+        System.out.println(DIVIDER);
+    }
 }

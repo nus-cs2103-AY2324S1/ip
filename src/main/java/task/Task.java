@@ -16,6 +16,10 @@ public class Task {
         this.isDone = false;
     }
 
+    public String getDescription() {
+        return this.description;
+    }
+
     /**
      * @return status icon of the task whether it is done or not.
      */
