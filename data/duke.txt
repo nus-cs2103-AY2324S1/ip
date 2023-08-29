@@ -1,0 +1,5 @@
+T | [ ] | read book
+D | [X] | return book | June 6th
+E | [ ] | project meeting | Aug 6th 2pm-4pm
+T | [ ] | join sports club
+D | [ ] | return book | Sunday

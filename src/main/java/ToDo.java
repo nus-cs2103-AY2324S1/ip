@@ -2,8 +2,8 @@ public class ToDo extends Task{
     protected String taskDescription;
     private String identifier;
 
-    public ToDo(String taskDescription) {
-        super(taskDescription);
+    public ToDo(String taskDescription, boolean isDone) {
+        super(taskDescription, isDone);
         this.identifier = "[T]";
     }
 

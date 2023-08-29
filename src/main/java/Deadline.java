@@ -3,8 +3,8 @@ public class Deadline extends Task {
     protected String by;
     private String identifier;
 
-    public Deadline(String taskDescription, String by) {
-        super(taskDescription);
+    public Deadline(String taskDescription, String by, boolean isDone) {
+        super(taskDescription, isDone);
         this.by = by;
         this.identifier = "[D]";
     }
