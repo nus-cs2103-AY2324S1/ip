@@ -2,6 +2,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -88,7 +90,12 @@ public class Alyssa {
         }
         String desc = parsed[0];
         String by = parsed[1];
-        Task newDeadline = new Deadline(desc, by);
+        Task newDeadline;
+        try {
+            newDeadline = new Deadline(desc, LocalDate.parse(by));
+        } catch (DateTimeParseException e) {
+            throw new AlyssaArgumentException("Invalid by. Syntax: yyyy-mm-dd");
+        }
         taskList.add(newDeadline);
         System.out.println(line);
         System.out.println("Got it. I've added this task:");
@@ -175,7 +182,13 @@ public class Alyssa {
                     taskList.add(newTodo);
                     break;
                 case "D":
-                    Deadline newDeadline = new Deadline(desc, parsedTask[3]);
+                    LocalDate by;
+                    try {
+                        by = LocalDate.parse(parsedTask[3]);
+                    } catch (DateTimeParseException e) {
+                        throw new AlyssaArgumentException("Invalid by. Syntax: yyyy-mm-dd");
+                    }
+                    Deadline newDeadline = new Deadline(desc, by);
                     if (taskSymbol.equals("X")) {
                         newDeadline.markAsDone();
                     }
@@ -218,7 +231,7 @@ public class Alyssa {
                 entry = "D ~ ";
                 entry += deadline.getStatusIcon() + " ~ ";
                 entry += deadline.getDescription() + " ~ ";
-                entry += deadline.getBy();
+                entry += deadline.getByForStorage();
             } else if (task instanceof Event) {
                 Event event = (Event) task;
                 entry = "E ~ ";
