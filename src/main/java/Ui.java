@@ -12,7 +12,7 @@ public class Ui {
         return this.scanner.nextLine();
     }
 
-    private static void outputMessage(String message) {
+    private void outputMessage(String message) {
         System.out.println(HORIZONTAL_LINE + message + HORIZONTAL_LINE);
     }
 
