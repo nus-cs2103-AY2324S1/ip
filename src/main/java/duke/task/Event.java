@@ -4,9 +4,20 @@ import java.time.format.DateTimeFormatter;
 
 public class Event extends Task {
 
+    /**
+     * field inputs to split the name of the command given
+     * field startDate stores the from date parsed into the Event
+     * field endDate stores the to date parsed into the Event
+     */
     String[] inputs;
     LocalDate startDate;
     LocalDate endDate;
+
+    /**
+     * constructor for the Event class
+     * @param name name of the event
+     * @throws DukeException error if the dates are placed wrongly
+     */
     public Event(String name) throws DukeException {
         super(name.split("/")[0]);
         this.ogname = name;
@@ -30,6 +41,9 @@ public class Event extends Task {
 
     }
 
+    /**
+     * @return String representation of the Event class
+     */
     @Override
     public String toString() {
         String fromDate = startDate.format(DateTimeFormatter.ofPattern("MMM d yyyy"));

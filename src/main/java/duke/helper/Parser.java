@@ -3,11 +3,25 @@ import java.util.Scanner;
 import duke.command.*;
 import duke.task.DukeException;
 public class Parser {
+
+    /**
+     * scan field to query for the next keyword from user
+     */
     static Scanner scan;
 
+    /**
+     * normal constructor for the Parser class
+     */
     public Parser() {
         this.scan = new Scanner(System.in);
     }
+
+    /**
+     *
+     * @param command takes in the first word given by the user
+     * @return Command returns the command that would be executed later
+     * @throws DukeException throws DukeException dependent on which command is parsed in
+     */
     public static Command parse(String command) throws DukeException{
             try {
                 Parser.getCommand(command);
@@ -46,6 +60,13 @@ public class Parser {
 
         return null;
     }
+
+    /**
+     * Checks if the command is valid by comparing a list of keywords
+     * @param command command parsed in by user
+     * @return boolean that indicates if the command is valid or not
+     * @throws DukeException indicates that the command is invalid if exception is thrown
+     */
 
     static boolean getCommand(String command) throws DukeException{
         String firstword = command.split(" ")[0];

@@ -3,8 +3,19 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 public class Deadline extends Task {
+
+    /**
+     * field inputs to split the name of the command
+     * field date stores the date placed into the Deadline
+     */
     String[] inputs;
     LocalDate date;
+
+    /**
+     * constructor for the Deadline class
+     * @param name takes in the command to be processed
+     * @throws DukeException when the input of the Deadline is wrong
+     */
 
     public Deadline(String name) throws DukeException {
         //consturctor will take in te "/by format also"
@@ -20,6 +31,11 @@ public class Deadline extends Task {
         }
         this.date = LocalDate.parse(dtime[0]);
     }
+
+    /**
+     *
+     * @return String format for the Deadline class
+     */
     @Override
     public String toString() {
         return "[D]" + super.toString() + " (by: " + date.format(DateTimeFormatter.ofPattern("MMM d yyyy"))+")";
