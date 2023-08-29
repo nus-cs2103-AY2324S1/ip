@@ -1,9 +1,27 @@
+import java.io.*;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Duke {
     public static void main(String[] args) throws DukeException {
+        java.nio.file.Path path = java.nio.file.Paths.get( "./","src", "main", "data", "duke.txt");
+        boolean fileExists = java.nio.file.Files.exists(path);
+        File f = new File(String.valueOf(path));
+        if (!fileExists) {
+            try {
+                boolean fileCreated = f.createNewFile();
+                if (fileCreated) {
+                    System.out.println("File created: " + path);
+                } else {
+                    System.out.println("Failed to create file.");
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+
+        }
         String EXIT_PHRASE = "bye";
         String LIST_PHRASE = "list";
         String TODO_PHRASE = "todo";
@@ -12,9 +30,14 @@ public class Duke {
         String DELETE_PHRASE = "delete";
 
         int LIMIT = 100;
-        ArrayList<Task> toDoList = new ArrayList<>();
-
         int i = 0;
+        ArrayList<Task> toDoList = new ArrayList<>();
+        if (fileExists) {
+            toDoList = loadTasksFromFile(String.valueOf(path));
+            i = toDoList.size(); // Set the list size to the loaded tasks count
+        }
+
+
         System.out.println(
                 "Hello! I'm Sunacchi!\n" +
                         "What can I do for you?\n"
@@ -116,7 +139,30 @@ public class Duke {
             }
             throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
+        saveTasksToFile(toDoList, String.valueOf(path));
         System.out.println("Bye. Hope to see you again soon!");
 
     }
+    public static void saveTasksToFile(ArrayList<Task> tasks, String filePath) {
+        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(filePath))) {
+            oos.writeObject(tasks);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static ArrayList<Task> loadTasksFromFile(String filePath) {
+        ArrayList<Task> tasks = new ArrayList<>();
+        File file = new File(filePath);
+        if (file.length() > 0) {
+            try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(filePath))) {
+                tasks = (ArrayList<Task>) ois.readObject();
+            } catch (IOException | ClassNotFoundException e) {
+                e.printStackTrace();
+            }
+        }
+        return tasks;
+    }
+
+
 }
