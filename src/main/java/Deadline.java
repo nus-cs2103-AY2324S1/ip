@@ -11,6 +11,7 @@ public class Deadline extends Task {
         this.ogname = name;
         String d = name.substring(name.indexOf("/") + 4); // 2/12/2019 1800
         this.inputs = name.split("/");
+        this.type = "Deadline";
         String[] dtime = d.split(" ");
 
         if (this.inputs.length < 2) {

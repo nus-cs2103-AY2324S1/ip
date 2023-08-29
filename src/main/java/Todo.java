@@ -3,6 +3,7 @@ public class Todo extends Task{
     public Todo(String name) throws DukeException {
         super(" " + name);
         this.ogname = name;
+        this.type = "Todo";
         if (name.isEmpty()) throw new DukeException("dont leave the description empty!");
     }
     @Override
