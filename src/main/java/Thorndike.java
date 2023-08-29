@@ -46,35 +46,56 @@ public class Thorndike {
 
         if (command.equals("list")) {
             list();
-        } else if (command.equals("bye")) {
+            return;
+        }
+
+        if (command.equals("bye")) {
             exit();
-        } else if (command.equals("mark")) {
+            return;
+        }
+
+        if (command.equals("mark")) {
             int idx = getIndex(description);
             markDone(idx);
-        } else if (command.equals("unmark")) {
+            return;
+        }
+        if (command.equals("unmark")) {
             int idx = getIndex(description);
             markNotDone(idx);
-        } else if (command.equals("todo")) {
+            return;
+        }
+
+        if (command.equals("todo")) {
             if (description.equals("")) {
                 throw new MissingDescriptionException("todo");
             }
             addTask(new Todo(description));
-        } else if (command.equals("deadline")) {
+            return;
+        }
+
+        if (command.equals("deadline")) {
             if (description.equals("")) {
                 throw new MissingDescriptionException("deadline");
             }
             addTask(new Deadline(description, args.get("by")));
-        } else if (command.equals("event")) {
+            return;
+        }
+
+        if (command.equals("event")) {
             if (description.equals("")) {
                 throw new MissingDescriptionException("event");
             }
             addTask(new Event(description, args.get("from"), args.get("to")));
-        } else if (command.equals("delete")) {
+            return;
+        }
+
+        if (command.equals("delete")) {
             int idx = getIndex(description);
             deleteTask(idx);
-        } else {
-            throw new InvalidCommandException();
+            return;
         }
+
+        throw new InvalidCommandException();
     }
 
     /**
@@ -102,7 +123,7 @@ public class Thorndike {
     }
 
     /**
-     * Add task to list.
+     * Adds task to list.
      * 
      * @param task The task.
      * 
