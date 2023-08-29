@@ -1,5 +1,6 @@
 package services.tasklist;
 
+import services.bizerrors.InvalidArgumentException;
 import services.tasklist.tasks.Deadline;
 import services.tasklist.tasks.Event;
 import services.tasklist.tasks.Task;
@@ -34,7 +35,7 @@ public class Storage {
         fileWriter.close();
     }
 
-    public List<Task> load() throws IOException {
+    public List<Task> load() throws IOException, InvalidArgumentException {
         Scanner scanner = new Scanner(dataFile);
         List<Task> taskList = new ArrayList<>();
         while (scanner.hasNextLine()) {
