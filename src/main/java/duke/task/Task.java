@@ -12,12 +12,12 @@ public class Task {
     public String getStatusIcon() {
         return (isDone ? "X": " ");
     }
-    public String markDone() {
+    public String setDone() {
         this.isDone = true;
         return String.format("Nice! I've marked this task as done:\n" +
                 "%s\n" + "----------\n", this);
     }
-    public String unMarkDone() {
+    public String unsetDone() {
         this.isDone = false;
         return String.format("OK, I've marked this task as not done yet:\n" +
                 "%s\n" + "----------\n", this);

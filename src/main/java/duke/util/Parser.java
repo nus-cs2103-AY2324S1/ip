@@ -10,7 +10,9 @@ public class Parser {
     public Parser(String input) {
         String[] parsedInput = this.parseCommand(input);
         this.command = parsedInput[0];
-        if (parsedInput.length > 1) this.inputDetails = parsedInput[1];
+        if (parsedInput.length > 1) {
+            this.inputDetails = parsedInput[1];
+        }
     }
     public String[] parseCommand(String command) {
         return command.split(" ", 2);
@@ -26,13 +28,23 @@ public class Parser {
 
     public String[] parseInputDetailsDeadline() throws DukeException {
         String[] deadlineInfo = inputDetails.split(" /by ");
-        if (deadlineInfo.length < 2) throw new DukeException("☹ OOPS!!! Missing description or deadline of deadline task. Valid Input Syntax: deadline desc /by date");
+        if (deadlineInfo.length < 2) {
+            throw new DukeException(
+                    "☹ OOPS!!! Missing description or deadline of deadline task. " +
+                            "Valid Input Syntax: deadline desc /by date"
+            );
+        }
         return deadlineInfo;
     }
 
     public String[] parseInputDetailsEvent() throws DukeException {
         String[] eventInfo = inputDetails.split(" /from | /to ");
-        if (eventInfo.length < 3) throw new DukeException("☹ OOPS!!! Missing description, start time or end time of deadline task. Valid Input Syntax: event desc /from date /to date");
+        if (eventInfo.length < 3) {
+            throw new DukeException(
+                    "☹ OOPS!!! Missing description, start time or end time of deadline task. " +
+                            "Valid Input Syntax: event desc /from date /to date"
+            );
+        }
         return eventInfo;
     }
 

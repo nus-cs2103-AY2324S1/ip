@@ -18,7 +18,4 @@ public class Ui {
         System.out.println(message);
     }
 
-    public void showLoadingError() {
-        System.out.println("Error loading tasks from file.");
-    }
 }
