@@ -1,8 +1,8 @@
-import java.util.Date;
-import java.text.SimpleDateFormat;
-import java.text.DateFormat;
+package task;
 
-public class Event extends Task{
+import task.Task;
+
+public class Event extends Task {
     private String startDateTime;
     private String endDateTime;
 

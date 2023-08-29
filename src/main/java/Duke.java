@@ -1,6 +1,10 @@
-import java.awt.*;
 import java.util.Scanner;
 import java.util.ArrayList;
+import exception.DukeException;
+import task.Event;
+import task.Task;
+import task.Todo;
+import task.Deadline;
 
 public class Duke {
     private Scanner sc = new Scanner(System.in);
@@ -14,10 +18,10 @@ public class Duke {
                 + "| |_| | |_| |   <  __/\n"
                 + "|____/ \\__,_|_|\\_\\___|\n";
         System.out.println("Hello from\n " + logo);
-        String chatbotName = "Duke";
+        String chatBotName = "Duke";
 
         String header = "____________________________________________________________\n" +
-                "Hello! I'm " + chatbotName +
+                "Hello! I'm " + chatBotName +
                 " \nWhat can I do for you?";
 
         System.out.println(header);
@@ -57,7 +61,7 @@ public class Duke {
                         System.out.println("OK, I've marked this task as not done yet:\n\t" +
                                 taskList.get(taskIndex).toString());
                     } else {
-                        System.out.println("☹ OOPS!!! Please provide a valid task index to unmark.");
+                        System.out.println("☹ OOPS!!! Please provide a valid task index to unmarked.");
                     }
                 } else if (userInput.startsWith("todo ")) {
                     String todoDescription = userInput.replace("todo ", "");
