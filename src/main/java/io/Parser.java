@@ -56,6 +56,9 @@ public class Parser {
         case "schedule":
             command = new ScheduleCommand(fullCommand);
             break;
+        case "find":
+            command = new FindCommand(fullCommand);
+            break;
         default:
             command = new InvalidCommand();
             break;
