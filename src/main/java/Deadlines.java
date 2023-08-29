@@ -1,9 +1,12 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 /**
  * Represents a deadline-based task.
  * A Deadlines object is a task with a deadline represented by a description and a date.
  */
 public class Deadlines extends Task {
-    private final String date;
+    private final LocalDateTime date;
 
     /**
      * Initializes a new instance of the Deadlines class with a given description and date.
@@ -12,23 +15,23 @@ public class Deadlines extends Task {
      * @param date Date of the deadline.
      * @throws DukeException if the provided description or date is null or empty.
      */
-    public Deadlines(String description, String date) throws DukeException {
+    public Deadlines(String description, LocalDateTime date) throws DukeException {
         super(description);
         if (description == null || description.trim().isEmpty()) {
             throw new DukeException("description of deadline cannot be empty");
         }
-        if (date == null || date.trim().isEmpty()) {
+        if (date == null) {
             throw new DukeException("date of deadline cannot be empty");
         }
         this.date= date;
     }
 
-    public Deadlines(String description, String date, boolean completed) throws DukeException {
+    public Deadlines(String description, LocalDateTime date, boolean completed) throws DukeException {
         super(description);
         if (description == null || description.trim().isEmpty()) {
             throw new DukeException("description of deadline cannot be empty");
         }
-        if (date == null || date.trim().isEmpty()) {
+        if (date == null) {
             throw new DukeException("date of deadline cannot be empty");
         }
         this.date= date;
@@ -40,7 +43,7 @@ public class Deadlines extends Task {
      *
      * @return The date of the deadline.
      */
-    public String getDate(){
+    public LocalDateTime getDate(){
         return this.date;
     }
 
@@ -63,7 +66,8 @@ public class Deadlines extends Task {
     public String toString() {
         String completed = this.isCompleted() ? "[X] " : "[ ] ";
         String taskType = "[" + this.getType() + "]";
-        String byMessage = "by: " + getDate();
+        DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy, hh:mm a");
+        String byMessage = "by: " + getDate().format(outputFormatter);
         return  taskType + completed + this.getDescription() + "(" + byMessage + ")";
     }
 }

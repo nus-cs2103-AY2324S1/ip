@@ -1,10 +1,13 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 /**
  * Represents an event task with a specified start and end date.
  * An Events object is described by a description, start date, and end date.
  */
 public class Events extends Task {
-    private final String startDate;
-    private final String endDate;
+    private final LocalDateTime startDate;
+    private final LocalDateTime endDate;
 
     /**
      * Initializes a new instance of the Events class with the given description, start date, and end date.
@@ -14,30 +17,30 @@ public class Events extends Task {
      * @param endDate End date of the event.
      * @throws DukeException if the provided description, start date, or end date is null or empty.
      */
-    public Events(String description, String startDate, String endDate) throws DukeException {
+    public Events(String description, LocalDateTime startDate, LocalDateTime endDate) throws DukeException {
         super(description);
         if (description == null || description.trim().isEmpty()) {
             throw new DukeException("description of event cannot be empty");
         }
-        if (startDate == null || startDate.trim().isEmpty()) {
+        if (startDate == null) {
             throw new DukeException("start date of event cannot be empty");
         }
-        if (endDate == null || endDate.trim().isEmpty()) {
+        if (endDate == null) {
             throw new DukeException("end date of event cannot be empty");
         }
         this.startDate = startDate;
         this.endDate = endDate;
     }
 
-    public Events(String description, String startDate, String endDate, boolean completed) throws DukeException {
+    public Events(String description, LocalDateTime startDate, LocalDateTime endDate, boolean completed) throws DukeException {
         super(description);
         if (description == null || description.trim().isEmpty()) {
             throw new DukeException("description of event cannot be empty");
         }
-        if (startDate == null || startDate.trim().isEmpty()) {
+        if (startDate == null) {
             throw new DukeException("start date of event cannot be empty");
         }
-        if (endDate == null || endDate.trim().isEmpty()) {
+        if (endDate == null) {
             throw new DukeException("end date of event cannot be empty");
         }
         this.startDate = startDate;
@@ -50,7 +53,7 @@ public class Events extends Task {
      *
      * @return Start date of the event.
      */
-    public String getStartDate() {
+    public LocalDateTime getStartDate() {
         return this.startDate;
     }
 
@@ -59,7 +62,7 @@ public class Events extends Task {
      *
      * @return End date of the event.
      */
-    public String getEndDate() {
+    public LocalDateTime getEndDate() {
         return this.endDate;
     }
 
@@ -82,8 +85,11 @@ public class Events extends Task {
     public String toString() {
         String completed = this.isCompleted() ? "[X] " : "[ ] ";
         String taskType = "[" + this.getType() + "]";
-        String fromMessage = "from: " + getStartDate();
-        String toMessage = "to: " + getEndDate();
+        DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy, hh:mm a");
+        String fromDateString = getStartDate().format(outputFormatter);
+        String fromMessage = "from: " + fromDateString;
+        String toDateString = getEndDate().format(outputFormatter);
+        String toMessage = "to: " + toDateString;
         return taskType + completed + this.getDescription() + "(" + fromMessage + " " + toMessage + ")";
     }
 }

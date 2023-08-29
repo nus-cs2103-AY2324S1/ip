@@ -3,6 +3,9 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -213,9 +216,9 @@ public class Duke {
         String taskType = parts[0];
         boolean completed = "1".equals(parts[1]);
         String description = parts[2];
-        String date = (parts.length == 4) ? parts[3] : null; 
-        String startDate = (parts.length == 5) ? parts[4] : null;
-        String endDate = (parts.length == 6) ? parts[5] : null; // Check if date/time part exists
+        LocalDateTime date = (parts.length >= 4 && !parts[3].isEmpty()) ? LocalDateTime.parse(parts[3]) : null; 
+        LocalDateTime startDate = (parts.length >= 5 && !parts[4].isEmpty()) ? LocalDateTime.parse(parts[4]) : null;
+        LocalDateTime endDate = (parts.length == 6 && !parts[5].isEmpty()) ? LocalDateTime.parse(parts[5]) : null;
         
         try {
             switch(taskType) {
@@ -401,7 +404,8 @@ public class Duke {
         try {
             String[] parts = userCommand.split(" ", 2);
             String description = "";
-            String date = "";
+            LocalDateTime date = null;
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
             String secondPart = "";
             if (parts.length >= 2 && !parts[1].trim().isEmpty()) {
                 secondPart = parts[1];
@@ -409,7 +413,7 @@ public class Duke {
             String[] finalParts = secondPart.split(" /by ", 2);
             if (finalParts.length >= 2) {
                 description = finalParts[0];
-                date = finalParts[1];
+                date = LocalDateTime.parse(finalParts[1], formatter);
             }
             Task currTask = new Deadlines(description, date);
             tasks.add(currTask);
@@ -417,6 +421,8 @@ public class Duke {
             System.out.println("Got it I have added this task:" + "\n" +  currTask);
             System.out.println(updateNumMessage(numTasks));
             System.out.println(horizontal_line);
+        } catch (DateTimeParseException e) {
+            System.out.println("The date format you provided is invalid. Please use the format /by yyyy-MM-dd HH:mm.");
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
@@ -432,15 +438,16 @@ public class Duke {
         try {
             String[] parts = userCommand.split(" ", 2);
             String description = "";
-            String fromDate = "";
-            String byDate = "";
+            LocalDateTime fromDate = null;
+            LocalDateTime byDate = null;
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
             if (parts.length >= 2) {
                 String[] secondPartSplits = parts[1].split(" /from ", 2);
                 if (secondPartSplits.length >= 2) {
                     String[] dates = secondPartSplits[1].split(" /to ", 2);
                     if (dates.length >= 2) {
-                        fromDate = dates[0].trim();
-                        byDate = dates[1].trim();
+                        fromDate = LocalDateTime.parse(dates[0], formatter);
+                        byDate = LocalDateTime.parse(dates[1], formatter);
                         description = secondPartSplits[0];
                     }
                 }
@@ -451,6 +458,8 @@ public class Duke {
             System.out.println("Got it I have added this task:" + "\n" +  currTask);
             System.out.println(updateNumMessage(numTasks));
             System.out.println(horizontal_line);
+        } catch (DateTimeParseException e) {
+            System.out.println("The date format you provided is invalid. Please use the format yyyy-MM-dd HH:mm.");    
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
