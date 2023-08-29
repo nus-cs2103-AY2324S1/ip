@@ -1,18 +1,13 @@
-import java.time.LocalDateTime;
-import java.time.format.DateTimeParseException;
-import java.util.Objects;
-import java.util.Scanner;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.time.temporal.ChronoUnit;
-
 public class Duke {
 	private final Storage storage;
 
 	private final TaskList taskList;
 
+	private final Ui ui;
+
 	public Duke(String filePath) {
 		this.storage = new Storage(filePath);
+		this.ui = new Ui();
 		this.taskList = this.storage.readFromFile();
 	}
 
@@ -22,26 +17,12 @@ public class Duke {
 	 * @param args input args
 	 */
 	public static void main(String[] args) {
-		Duke duke = new Duke("data/duke.txt");
-		duke.printLine();
-		System.out.println("Hello I'm RyamBot");
-		System.out.println("What can I do for you?");
-		duke.printLine();
-		// Interact with the user
-		duke.interact();
-		duke.printLine();
+		new Duke("data/duke.txt").run();
 	}
 
-	/**
-	 * Prints a line
-	 */
-	void printLine() {
-		System.out.println("____________________________________________________________");
-	}
-
-	public void interact() {
-		Parser parser = new Parser(this.taskList, this.storage);
+	public void run() {
+		Parser parser = new Parser(this.taskList, this.storage, this.ui);
+		ui.greet();
 		parser.queryBot();
 	}
-
 }
