@@ -1,4 +1,6 @@
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Manages the operation on the tasks
@@ -7,14 +9,31 @@ public class TaskList {
     /**
      * Stores all the task
      */
-    private final ArrayList<Task> TASKS = new ArrayList<>();
+    private ArrayList<Task> tasks;
 
 
     /**
-     * construct a new task list
+     * construct a new empty task list
      */
     public TaskList() {
+        this.tasks = new ArrayList<>();
+    }
 
+
+    public boolean loadTasks(List<String> storedInput) {
+
+
+        // parse and store data while looking out for data corruption
+        boolean corrupted = false;
+        for (String s : storedInput) {
+            try {
+                Task newTask = Parser.fromStorage(s);
+                this.tasks.add(newTask);
+            } catch (DukeLoadingException | DateTimeParseException e) {
+                corrupted = true;
+            }
+        }
+        return corrupted;
     }
 
     /**
@@ -23,7 +42,7 @@ public class TaskList {
      * @return task list length
      */
     public int length() {
-        return this.TASKS.size();
+        return this.tasks.size();
     }
 
     /**
@@ -32,7 +51,7 @@ public class TaskList {
      * @param task - the task being added
      */
     public void add(Task task) {
-        this.TASKS.add(task);
+        this.tasks.add(task);
     }
 
     /**
@@ -42,7 +61,7 @@ public class TaskList {
      * @return the task that was removed
      */
     public Task remove(int index) {
-        return this.TASKS.remove(index);
+        return this.tasks.remove(index);
     }
 
     /**
@@ -52,11 +71,11 @@ public class TaskList {
      * @return the element at the index
      */
     public Task get(int index) {
-        return this.TASKS.get(index);
+        return this.tasks.get(index);
     }
 
 
     public Task[] getAllTask() {
-        return this.TASKS.toArray(new Task[this.length()]);
+        return this.tasks.toArray(new Task[this.length()]);
     }
 }

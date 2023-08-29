@@ -13,79 +13,67 @@ public class Parser {
      * Formatter to output date time
      */
     public static final DateTimeFormatter OUTPUT_FORMAT = DateTimeFormatter.ofPattern("EEE hh:mma, MMM yyyy");
+
     /**
      * Formatter to parse date time
      */
     private static final DateTimeFormatter PARSE_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-    /**
-     * Hashmap to map the flags to its corresponding string
-     */
-    private final HashMap<String, LocalDateTime> FLAG = new HashMap<>();
 
     /**
-     * type of command
-     */
-    private final Commands COMMAND;
-
-    /**
-     * param that came with the command
-     */
-    private String param = "";
-
-    /**
-     * Index that came with the command
-     */
-    private int index = -1;
-
-
-    /**
-     * Constructor for the Parser
+     * Factory method to parse the input and output the respective command
      *
-     * @param input - the input string that needs to be parsed
+     * @param input- the input string that needs to be parsed
+     * @return a respective subclass of the command that can be executed
      * @throws DukeBadInputException - if the input cannot be parsed properly
      * @throws NumberFormatException - if the input cannot be converted to an int
      */
-    public Parser(String input) throws DukeBadInputException, NumberFormatException {
+    public static Command parse(String input) throws DukeBadInputException, NumberFormatException {
         String[] splitInput = input.split(" ");
-        switch (splitInput[0]) {
-            case "list":
-                this.COMMAND = Commands.LIST;
-                break;
-            case "mark":
-                this.COMMAND = Commands.MARK;
-                this.index = this.findIndex(splitInput);
-                break;
-            case "unmark":
-                this.COMMAND = Commands.UNMARK;
-                this.index = this.findIndex(splitInput);
-                break;
-            case "delete":
-                this.COMMAND = Commands.DELETE;
-                this.index = this.findIndex(splitInput);
-                break;
-            case "todo":
-                this.COMMAND = Commands.TODO;
-                this.param = input.replace("todo ", "");
-                if (this.param.equals("todo")) {
+        HashMap<String, LocalDateTime> flagMap = new HashMap<>();
+        switch (splitInput[0].toUpperCase()) {
+            case "BYE":
+                return new ExitCommand();
+            case "HELP":
+                return new HelpCommand();
+            case "LIST":
+                return new ListCommand();
+            case "MARK":
+                return new MarkCommand(true, findIndex(splitInput));
+            case "UNMARK":
+                return new MarkCommand(false, findIndex(splitInput));
+            case "DELETE":
+                return new DeleteCommand(findIndex(splitInput));
+            case "TODO":
+                String desc = input.replace("todo ", "");
+                if (desc.equals("todo")) {
                     throw new DukeBadInputException(
                             "Quack doesn't understand an empty todo description, please provide one!!");
                 }
-                break;
-            case "deadline":
-                this.COMMAND = Commands.DEADLINE;
-                this.findFlags(splitInput, "/by");
-                break;
-            case "event":
-                this.COMMAND = Commands.EVENT;
-                this.findFlags(splitInput, "/from", "/to");
-                break;
+                return new TodoCommand(desc);
+
+            case "DEADLINE":
+
+                desc = Parser.findFlags(flagMap, splitInput, "/by");
+                return new DeadlineCommand(flagMap.get("/by"), desc);
+            case "EVENT":
+                desc = Parser.findFlags(flagMap, splitInput, "/from", "/to");
+                return new EventCommand(flagMap.get("/from"), flagMap.get("/to"), desc);
             default:
-                this.COMMAND = Commands.UNRECOGNISED;
+                return new UnrecognisedCommand();
 
         }
     }
 
-    public static Task fromStorage(String storedStr) throws DukeLoadingException {
+    /**
+     * Load task from storage
+     *
+     * @param storedStr - the string representing the task from storage
+     * @return the instance of the class
+     * @throws DukeLoadingException   if there is an issue loading the task
+     * @throws DateTimeParseException if there is an issue parsing the date
+     */
+
+    public static Task fromStorage(String storedStr) throws DukeLoadingException, DateTimeParseException {
         String[] content = storedStr.split(Task.SEP);
         if (content.length < 3 || content.length > 6) {
             throw new DukeLoadingException(storedStr + ", this command cannot be read");
@@ -94,26 +82,34 @@ public class Parser {
         switch (content[0]) {
 
             case "TODO":
-                return new Todo(content[1], completed);
+                return new TodoTask(content[1], completed);
 
             case "DEADLINE":
                 if (content.length != 4) {
                     throw new DukeLoadingException(storedStr + ", this command cannot be read");
                 }
-                return new Deadline(content[3], content[1], completed);
+                return new DeadlineTask(LocalDateTime.parse(content[3]), content[1], completed);
 
             case "EVENT":
                 if (content.length != 5) {
                     throw new DukeLoadingException(storedStr + ", this command cannot be read");
                 }
-                return new Event(content[2], content[3], content[1], completed);
+                return new EventTask(LocalDateTime.parse(content[2]), LocalDateTime.parse(content[3]), content[1], completed);
 
             default:
                 throw new DukeLoadingException(storedStr + ", this command cannot be read");
         }
     }
 
-    private int findIndex(String[] splitInput) throws DukeBadInputException, NumberFormatException {
+    /**
+     * Find the index from the split input string
+     *
+     * @param splitInput - the split input string
+     * @return the index
+     * @throws DukeBadInputException throws an error if it is a negative number
+     * @throws NumberFormatException throws an error if it is not a number
+     */
+    private static int findIndex(String[] splitInput) throws DukeBadInputException, NumberFormatException {
         if (splitInput.length != 2) {
             throw new DukeBadInputException(
                     String.format("Quack requires exactly one number after the %s command", splitInput[0]));
@@ -129,19 +125,22 @@ public class Parser {
     /**
      * function to find the flags and update both the flags and param field
      *
+     * @param flagMap     - the place to store the flag
      * @param splitInputs - input string that has been split into words
      * @param flags       - the flags that needs to be found
+     * @return the desc of the command
      * @throws DukeBadInputException  - if the flags cannot be found or without a
      *                                description
      * @throws DateTimeParseException - if the value cannot be parsed
      */
-    private void findFlags(String[] splitInputs, String... flags) throws DukeBadInputException, DateTimeParseException {
+    private static String findFlags(HashMap<String, LocalDateTime> flagMap, String[] splitInputs, String... flags) throws DukeBadInputException, DateTimeParseException {
 
-        int[] flagIndex = this.find(splitInputs, flags);
+        int[] flagIndex = Parser.find(splitInputs, flags);
+        String desc;
 
         // Check first for a valid description
-        this.param = String.join(" ", Arrays.copyOfRange(splitInputs, 1, flagIndex[0]));
-        if (this.param.isBlank()) {
+        desc = String.join(" ", Arrays.copyOfRange(splitInputs, 1, flagIndex[0]));
+        if (desc.isBlank()) {
             throw new DukeBadInputException(
                     "Quack doesn't understand an empty description, please provide one!!");
         }
@@ -170,9 +169,10 @@ public class Parser {
             // check the format of the flag
             LocalDateTime val = LocalDateTime.parse(value, Parser.PARSE_FORMAT);
 
-            this.FLAG.put(splitInputs[flagIndex[i]], val);
+            flagMap.put(splitInputs[flagIndex[i]], val);
 
         }
+        return desc;
 
     }
 
@@ -185,7 +185,7 @@ public class Parser {
      * @throws DukeBadInputException - if the flags cannot be found or without a
      *                               description
      */
-    private int[] find(String[] arr, String[] items) throws DukeBadInputException {
+    private static int[] find(String[] arr, String[] items) throws DukeBadInputException {
         int[] ret = new int[items.length + 1];
 
         // initialise values, these values will contain the index
@@ -213,41 +213,5 @@ public class Parser {
         return ret;
     }
 
-    /**
-     * getter for the type of command
-     *
-     * @return the type of command
-     */
-    public Commands getCommand() {
-        return this.COMMAND;
-    }
-
-    /**
-     * getter for the value of the flag
-     *
-     * @param key - the flag
-     * @return the value associated with the key
-     */
-    public String getFlag(String key) {
-        return Parser.OUTPUT_FORMAT.format(this.FLAG.get(key));
-    }
-
-    /**
-     * getter for the param of the input
-     *
-     * @return param
-     */
-    public String getParam() {
-        return this.param;
-    }
-
-    /**
-     * getter for the index of the input
-     *
-     * @return index
-     */
-    public int getIndex() {
-        return this.index;
-    }
 
 }

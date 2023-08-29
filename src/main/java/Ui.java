@@ -10,15 +10,18 @@ public class Ui {
      */
     private static final String TAB = "     ";
     /**
-     * Default Welcome Message
+     * Default Help Message
      */
-    private static final String WELCOME_MESSAGE = TAB + "Quack Quack! I am a duck named Quack\n"
-            + TAB + "What can I do for you?\n" + TAB + "Quack will remember the Task you give quack!\n"
-            + TAB + "Quack understands these commands: list, mark, unmark, delete, todo, deadline, event\n"
+    private static final String HELP_MESSAGE = "Quack understands these commands: list, mark, unmark, delete, todo, deadline, event\n"
             + TAB + "For mark/unmark/delete please provide a number after, like such mark 2\n"
             + TAB + "deadline requires the /by keyword and event requires the /from and /to keyword\n"
             + TAB + "Please provide a valid date and time after the keyword with the following format: YYYY-MM-DD HH:MM\n";
-
+    /**
+     * Default Welcome Message
+     */
+    private static final String WELCOME_MESSAGE = TAB + "Quack Quack! I am a duck named Quack\n"
+            + TAB + "Quack will remember the Task you give quack!\n"
+            + TAB + Ui.HELP_MESSAGE;
     /**
      * Default Exit Message
      */
@@ -100,8 +103,17 @@ public class Ui {
      */
     public void welcomeMessage() {
         this.println(Ui.LOGO);
-        this.println(Ui.LINE_BREAK + Ui.WELCOME_MESSAGE + Ui.LINE_BREAK);
+        this.println(Ui.LINE_BREAK + Ui.WELCOME_MESSAGE);
+        System.out.println();
+        this.println("You can use the help command should be confused!!");
+        this.println(Ui.LINE_BREAK);
+    }
 
+    /**
+     * Prints the default help message
+     */
+    public void helpMessage() {
+        this.println(Ui.HELP_MESSAGE);
     }
 
     /**
