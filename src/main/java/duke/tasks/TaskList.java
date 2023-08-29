@@ -40,7 +40,7 @@ public class TaskList {
         store.add(task);
         System.out.println("Got it. I've added this task:");
         System.out.println("\t" + task);
-        System.out.println("Now you have " + store.size() + " duke.tasks in the list.");
+        System.out.println("Now you have " + store.size() + " tasks in the list.");
     }
 
     /**
@@ -57,14 +57,14 @@ public class TaskList {
         store.remove(index - 1);
         System.out.println("Noted. I've removed this task:");
         System.out.println("\t" + task);
-        System.out.println("Now you have " + store.size() + " duke.tasks in the list.");
+        System.out.println("Now you have " + store.size() + " tasks in the list.");
     }
 
     /**
      * Prints all the tasks currently in the list.
      */
     public void listTasks() {
-        System.out.println("Here are the duke.tasks in your list:");
+        System.out.println("Here are the tasks in your list:");
         int counter = 1;
         for(Task task: store) {
             System.out.println(counter + "." + task);
