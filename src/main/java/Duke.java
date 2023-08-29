@@ -17,7 +17,6 @@ public class Duke {
     public static void main(String[] args) {
         Path filePath = Paths.get(".", "data", "duke.txt");
         readListFromHardDisk(filePath);
-
         Scanner scanner = new Scanner(System.in);
         String line = "    ______________________________________________";
         System.out.println(line + "\n    Hello, I'm your task manager :)\n    What can I do for you?\n" + line);
