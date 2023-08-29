@@ -4,7 +4,6 @@
 public class AddToListCommand extends Command {
     private DukeEnvironmentConstants.taskType type;
     private String[] queries;
-    private AddToListCommand(){};
 
     public AddToListCommand(DukeEnvironmentConstants.taskType type, String[] queries) {
         this.type = type;
@@ -12,9 +11,10 @@ public class AddToListCommand extends Command {
     }
 
     @Override
-    public void execute(ChatBotList list, Ui ui) throws IllegalChatBotListArgumentException{
+    public void execute(ChatBotList list, Ui ui, Storage storage) throws IllegalChatBotListArgumentException{
         String res = list.addToList(queries, type);
-        System.out.println("Got it. I've added this task:\n" + res);
-                            System.out.println("Now you have " + list.getLength() + " tasks in the list.");
+        ui.print("Got it. I've added this task:\n" + res 
+                + "\nNow you have " + list.getLength() + " tasks in the list.");
+        storage.writeToSave(list);
     }
 }

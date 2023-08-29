@@ -13,8 +13,9 @@ public class Parser {
     private static final String EMPTY_TODO_DESC = "☹ OOPS!!! The description of a todo cannot be empty.\n";
     private static final String NO_VALID_COMMAND = "☹ OOPS!!! I'm sorry, but I don't know what that means :-(\n";
     private static final String INVALID_DATE_FORMAT = "☹ OOPS!!! Invalid date/time format.\nPlease format your start/end times as \"yyyy-MM-dd HHmm\" in 24 hr format";
+    private static final String INVALID_DATE_ORDER = "☹ OOPS!!! Your end date/time is before your start date/time!";
+    
     public Command parse(String s) throws ParserException {
-        
         String input = s.trim();
         if (input.equals("bye")) {
             return new ExitCommand();
@@ -57,8 +58,11 @@ public class Parser {
                                 "event <desc> /from <start> /to <end>");
                     }
                     try {
-                        LocalDateTime.parse(thirdSplit[0], DukeEnvironmentConstants.FORMATTER1);
-                        LocalDateTime.parse(thirdSplit[1],DukeEnvironmentConstants.FORMATTER1);
+                        LocalDateTime start = LocalDateTime.parse(thirdSplit[0], DukeEnvironmentConstants.FORMATTER1);
+                        LocalDateTime end =LocalDateTime.parse(thirdSplit[1],DukeEnvironmentConstants.FORMATTER1);
+                        if (end.isBefore(start)) {
+                            throw new ParserException(INVALID_DATE_ORDER);
+                        }
                     } catch (DateTimeParseException e) {
                         throw new ParserException(INVALID_DATE_FORMAT);
                     }

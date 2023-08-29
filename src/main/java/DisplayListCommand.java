@@ -3,7 +3,8 @@
  */
 public class DisplayListCommand extends Command{
     @Override
-    public void execute(ChatBotList list, Ui ui) {
+    public void execute(ChatBotList list, Ui ui, Storage storage) {
         ui.print(list.toString());
+        storage.writeToSave(list);
     }
 }
