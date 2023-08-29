@@ -1,14 +1,21 @@
+package com.mimi.main;
+
+import com.mimi.tasks.Task;
+
 import java.util.ArrayList;
 
 public class Storage {
+    Ui ui;
+
+    public Storage(Ui ui) {
+        this.ui = ui;
+    }
     private ArrayList<Task> previous_Commands= new ArrayList<>();
 
     public void add(Task task) {
         this.previous_Commands.add(task);
-        System.out.println(
-                String.format("Got it. I've added this task: %s\nNow you have %d tasks in the list.",
-                        task.toString(), previous_Commands.size())
-        );
+
+        ui.addTaskMessage(task, previous_Commands.size());
     }
 
     public void addWithoutPrinting(Task task) {
@@ -17,72 +24,63 @@ public class Storage {
 
     public void listItems() {
         System.out.println("Here are the tasks in your list:\n");
+
         for (int i = 0; i < this.previous_Commands.size(); ++i) {
             Task task = this.previous_Commands.get(i);
-            System.out.println(
-                    String.format("%d. %s",
-                            i + 1, task.toString()
-                    )
-            );
+
+            ui.listTask(i+1, task);
         }
     }
 
     public void mark(int taskNumber) {
         if (taskNumber > previous_Commands.size() || taskNumber <= 0) {
-            System.out.println("☹ OOPS!!! Such a task does not exist!");
+            ui.markUnmarkDeleteWrongTask();
             return;
         }
 
         Task task = previous_Commands.get(taskNumber - 1);
 
         if (task.isDone()) {
+            ui.taskAlreadyMarkedAsDone();
             return;
         }
 
         task.toggleDone();
-        System.out.println(
-                String.format(
-                        "Nice! I've marked this task as done: %s",
-                        task.toString()
-                        )
-        );
+        ui.markedDone(task);
     }
 
     public void unmark(int taskNumber) {
 
         if (taskNumber > previous_Commands.size() || taskNumber <= 0) {
-            System.out.println("☹ OOPS!!! Such a task does not exist!");
+            ui.markUnmarkDeleteWrongTask();
             return;
         }
 
         Task task = previous_Commands.get(taskNumber - 1);
 
         if (!task.isDone()) {
+            ui.taskAlreadyUnmarked();
             return;
         }
 
         task.toggleDone();
-        System.out.println(
-                String.format(
-                        "Ok, I've marked this task as not done yet: %s",
-                        task.toString()
-                )
-        );
+        ui.unmarkedDone(task);
+
     }
 
     public void delete(int taskNumber) {
         if (taskNumber > previous_Commands.size() || taskNumber <= 0) {
-            System.out.println("☹ OOPS!!! Such a task does not exist!");
+            ui.markUnmarkDeleteWrongTask();
             return;
         }
 
         Task task = previous_Commands.get(taskNumber -1);
         previous_Commands.remove(taskNumber -1);
 
-        System.out.println(String.format("Noted. I've removed this task: %s", task));
+        ui.deletedTask(task);
     }
 
-    public void updateALl(ReadWriteData writer) {
+    public void updateAll(ReadWriteData writer) {
         for (Task task: this.previous_Commands) {
             writer.write(task);
         }
