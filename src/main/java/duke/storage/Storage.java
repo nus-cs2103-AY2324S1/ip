@@ -15,10 +15,10 @@ import java.util.List;
 import java.nio.file.Path;
 
 public class Storage {
-    private static final Path DIRECTORY_PATH = Paths.get(".", "data");
-    private static final Path FILE_PATH = DIRECTORY_PATH.resolve("duke.txt");
+    private final Path FILE_PATH;
 
-    public Storage() {
+    public Storage(String filename) {
+        this.FILE_PATH = Paths.get(".", "data", filename);
     }
 
     /**
@@ -110,5 +110,12 @@ public class Storage {
             data.add(task.toString());
         }
         Files.write(FILE_PATH, data);
+    }
+
+    /**
+     * Deletes the file.
+     */
+    public void delete() throws IOException {
+        Files.delete(FILE_PATH);
     }
 }

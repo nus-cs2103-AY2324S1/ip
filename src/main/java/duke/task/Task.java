@@ -3,7 +3,7 @@ package duke.task;
 import java.time.format.DateTimeFormatter;
 
 /**
- * Represents a duke.task in the duke.task list.
+ * Represents a task in the task list.
  */
 public abstract class Task {
 

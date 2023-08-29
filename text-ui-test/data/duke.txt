@@ -8,3 +8,11 @@
 [T][ ] Go grocery shopping
 [D][ ] Finish project (by: 17-09-2023 23:59)
 [T][ ] Walk the dog
+[T][ ] Read book
+[T][ ] Go grocery shopping
+[D][ ] Finish project (by: 17-09-2023 23:59)
+[T][ ] Walk the dog
+[T][ ] Read book
+[T][ ] Go grocery shopping
+[D][ ] Finish project (by: 17-09-2023 23:59)
+[T][ ] Walk the dog

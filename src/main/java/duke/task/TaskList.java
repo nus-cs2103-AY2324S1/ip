@@ -82,9 +82,9 @@ public class TaskList {
     /**
      * Constructor for TaskList.
      */
-    public TaskList() {
+    public TaskList(String filePath) {
 //        this.tasks = new ArrayList<>();
-        this.storage = new Storage();
+        this.storage = new Storage(filePath);
         try {
             this.tasks = storage.load();
         } catch (IOException e) {
@@ -180,4 +180,15 @@ public class TaskList {
         }
     }
 
+    /**
+     * Delete all tasks from the list of tasks.
+     */
+    public void deleteAllTasks() {
+        tasks.clear();
+        try {
+            storage.save(tasks);
+        } catch (IOException e) {
+            Ui.showErrorSavingToFileMessage();
+        }
+    }
 }

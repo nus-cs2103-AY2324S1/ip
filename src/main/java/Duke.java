@@ -15,7 +15,7 @@ public class Duke {
     /**
      * Dynamic array of tasks.
      */
-    private final TaskList taskList = new TaskList();
+    private final TaskList taskList = new TaskList("duke.txt");
     private Ui ui;
 
     /**
