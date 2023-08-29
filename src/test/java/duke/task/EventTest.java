@@ -14,7 +14,7 @@ public class EventTest {
 
         assertEquals("Meeting", event.getDescription());
         assertFalse(event.isDone());
-        assertEquals(dateTime, event.getTime());
+        assertEquals(dateTime, event.getDateTime());
     }
 
     @Test

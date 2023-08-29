@@ -7,9 +7,17 @@ import duke.task.Task;
 import duke.task.TaskList;
 import java.io.IOException;
 
+/**
+ * Represents a command to mark a task as not done.
+ */
 public class UnmarkCommand extends Command {
     private final int taskIndex;
 
+    /**
+     * Constructs an UnmarkCommand with the provided task index.
+     *
+     * @param taskIndex The index of the task to be marked as not done.
+     */
     public UnmarkCommand(int taskIndex){
         this.taskIndex = taskIndex;
     }

@@ -6,9 +6,17 @@ import duke.exception.EmptyDescriptionException;
 import duke.task.TaskList;
 import duke.task.Todo;
 
+/**
+ * Represents a command to add a todo task to the task list.
+ */
 public class AddTodoCommand extends Command {
     private String description;
 
+    /**
+     * Constructs an AddTodoCommand with the provided description.
+     *
+     * @param description The description of the deadline task.
+     */
     public AddTodoCommand(String description) {
         this.description = description;
     }

@@ -13,7 +13,7 @@ public class DeadlineTest {
         Deadline deadline = new Deadline("Finish project", dateTime);
         assertEquals("Finish project", deadline.getDescription());
         assertFalse(deadline.isDone());
-        assertEquals(dateTime, deadline.getTime());
+        assertEquals(dateTime, deadline.getDateTime());
     }
 
     @Test

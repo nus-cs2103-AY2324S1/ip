@@ -4,17 +4,26 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Represents a Deadline task.
+ */
 public class Deadline extends Task {
 
-    protected LocalDateTime time;
+    protected LocalDateTime dateTime;
 
-    public Deadline(String description, LocalDateTime time) {
+    /**
+     * Constructs a Deadline task.
+     *
+     * @param description The description of the deadline task.
+     * @param dateTime The date and time of the deadline task.
+     */
+    public Deadline(String description, LocalDateTime dateTime) {
         super(description);
-        this.time = time;
+        this.dateTime = dateTime;
     }
 
-    public LocalDateTime getTime() {
-        return this.time;
+    public LocalDateTime getDateTime() {
+        return this.dateTime;
     }
 
     public String getDescription() {
@@ -24,16 +33,16 @@ public class Deadline extends Task {
     @Override
     public String toFileString() {
         return "D | " + (isDone ? "1" : "0") + " | " + description
-            + " | " + this.time.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+            + " | " + this.dateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
     }
 
     @Override
     public String toString() {
         DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd MMM yyyy");
         DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("h:mma"); // Print in 12-hour time format
-        String timeString = this.time.format(timeFormatter).toLowerCase();
+        String timeString = this.dateTime.format(timeFormatter).toLowerCase();
 
         return "[D]" + super.toString()
-            + " (by: " + this.time.format(dateFormatter) + " " + timeString + ")";
+            + " (by: " + this.dateTime.format(dateFormatter) + " " + timeString + ")";
     }
 }

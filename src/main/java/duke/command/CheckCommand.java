@@ -9,9 +9,17 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Represents a command to check and display tasks on a specific date.
+ */
 public class CheckCommand extends Command {
     private String dateToCheck;
 
+    /**
+     * Constructs a CheckCommand with the provided date.
+     *
+     * @param dateToCheck The date to check for tasks.
+     */
     public CheckCommand(String dateToCheck) {
         this.dateToCheck = dateToCheck;
     }

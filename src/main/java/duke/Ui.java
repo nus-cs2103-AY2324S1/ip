@@ -10,14 +10,25 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
+/**
+ * Represents the user interface for the chatbot.
+ */
 public class Ui {
     private static final String LINE = "\t____________________________________________________________";
     private Scanner input = new Scanner(System.in);
 
+    /**
+     * Reads the user input from the CLI.
+     *
+     * @return The user input;
+     */
     public String readInput() {
         return this.input.nextLine();
     }
 
+    /**
+     * Shows user the welcome message when chatbot is started.
+     */
     public void showWelcome() {
         System.out.println(LINE);
         System.out.println("\t Hello! I'm Bard.");
@@ -26,6 +37,9 @@ public class Ui {
         System.out.println();
     }
 
+    /**
+     * Shows user the exit message when chatbot is exited.
+     */
     public void showExit() {
         this.input.close();
         System.out.println(LINE);
@@ -33,6 +47,11 @@ public class Ui {
         System.out.println(LINE);
     }
 
+    /**
+     * Shows user the list of tasks.
+     *
+     * @param taskList The list of tasks to show.
+     */
     public void showList(TaskList taskList) {
         System.out.println(LINE);
         if (taskList.isEmpty()) {
@@ -51,6 +70,12 @@ public class Ui {
         System.out.println();
     }
 
+    /**
+     * Shows user a message when a task is added.
+     *
+     * @param task The added task.
+     * @param totalNumTask The total number of tasks in the list.
+     */
     public void showAdd(Task task, int totalNumTask) {
         System.out.println(LINE);
         System.out.println("\t Got it. I've added this task:\n" +
@@ -59,6 +84,12 @@ public class Ui {
         System.out.println();
     }
 
+    /**
+     * Shows user a message when a task is deleted.
+     *
+     * @param task The deleted task.
+     * @param totalNumTask The total number of tasks in the list.
+     */
     public void showDelete(Task task, int totalNumTask) {
         System.out.println(LINE);
         System.out.println("\t Noted. I've removed this task:\n" +
@@ -68,6 +99,11 @@ public class Ui {
         System.out.println();
     }
 
+    /**
+     * Shows user a message when a task is marked as done.
+     *
+     * @param task The task marked as done.
+     */
     public void showDone(Task task) {
         System.out.println(LINE);
         System.out.println("\t Nice! I've marked this task as done:\n" +
@@ -76,6 +112,11 @@ public class Ui {
         System.out.println();
     }
 
+    /**
+     * Shows user a message when a task is marked as not done.
+     *
+     * @param task The task marked as not done.
+     */
     public void showNotDone(Task task) {
         System.out.println(LINE);
         System.out.println("\t OK, I've marked this task as NOT done yet:\n" +
@@ -84,6 +125,12 @@ public class Ui {
         System.out.println();
     }
 
+    /**
+     * Shows user the tasks for a specific date.
+     *
+     * @param date The date for which the tasks are displayed.
+     * @param taskList The list of tasks to search.
+     */
     public void showTasksOnDate(LocalDate date, TaskList taskList) {
         System.out.println(LINE);
         System.out.println("\t Tasks on " + date.format(DateTimeFormatter.ofPattern("dd MMM yyyy")) + ":");
@@ -94,13 +141,13 @@ public class Ui {
             Task task = taskList.getTask(i);
             if (task instanceof Deadline) {
                 Deadline deadline = (Deadline) task;
-                if (deadline.getTime().toLocalDate().equals(date)) {
+                if (deadline.getDateTime().toLocalDate().equals(date)) {
                     System.out.println("\t\t " + task);
                     foundTasks = true;
                 }
             } else if (task instanceof Event) {
                 Event event = (Event) task;
-                if (event.getTime().toLocalDate().equals(date)) {
+                if (event.getDateTime().toLocalDate().equals(date)) {
                     System.out.println("\t\t " + task);
                     foundTasks = true;
                 }
@@ -116,6 +163,12 @@ public class Ui {
         System.out.println();
     }
 
+    /**
+     * Shows user the tasks for today.
+     *
+     * @param today The current date.
+     * @param taskList The list of tasks to search.
+     */
     public void showTasksForToday(LocalDate today, TaskList taskList) {
         System.out.println(LINE);
         System.out.println("\t Tasks for today (" + today.format(DateTimeFormatter.ofPattern("dd MMM yyyy")) + "):");
@@ -126,13 +179,13 @@ public class Ui {
             Task task = taskList.getTask(i);
             if (task instanceof Deadline) {
                 Deadline deadline = (Deadline) task;
-                if (deadline.getTime().toLocalDate().equals(today)) {
+                if (deadline.getDateTime().toLocalDate().equals(today)) {
                     System.out.println("\t\t " + task);
                     foundTasks = true;
                 }
             } else if (task instanceof Event) {
                 Event event = (Event) task;
-                if (event.getTime().toLocalDate().equals(today)) {
+                if (event.getDateTime().toLocalDate().equals(today)) {
                     System.out.println("\t\t " + task);
                     foundTasks = true;
                 }
@@ -147,6 +200,11 @@ public class Ui {
         System.out.println();
     }
 
+    /**
+     * Shows user an error message for Duke exceptions.
+     *
+     * @param e The Duke exception to display.
+     */
     public void showDukeException(DukeException e) {
         System.out.println(LINE);
         System.out.println("\t" + e.getMessage());
@@ -154,6 +212,9 @@ public class Ui {
         System.out.println();
     }
 
+    /**
+     * Shows user an error message for invalid date-time format.
+     */
     public void showInvalidDateTimeFormat() {
         System.out.println(LINE);
         System.out.println("\tPlease enter the time in the format of <d/M/yyyy HHmm>!");
@@ -161,6 +222,9 @@ public class Ui {
         System.out.println();
     }
 
+    /**
+     * Shows user an error message for invalid date format.
+     */
     public void showInvalidDateFormat() {
         System.out.println(LINE);
         System.out.println("\tPlease enter the date in the format of <d/M/yyyy>!");
@@ -168,6 +232,9 @@ public class Ui {
         System.out.println();
     }
 
+    /**
+     * Shows user an error message for saving tasks to data file.
+     */
     public void showSavingError() {
         System.out.println(LINE);
         System.out.println("\tError saving tasks to the data file.");
@@ -175,6 +242,9 @@ public class Ui {
         System.out.println();
     }
 
+    /**
+     * Shows user an error message for array index out of bounds.
+     */
     public void showArrayIndexOutOfBoundsException() {
         System.out.println(LINE);
         System.out.println("\t ☹ OOPS!!! Please provide a valid task number.");

@@ -4,12 +4,20 @@ import duke.command.*;
 import duke.exception.*;
 import duke.task.*;
 
+/**
+ * Main class representing the chatbot.
+ */
 public class Duke {
     private static String DATAPATH = "./data/duke.txt";
     private Storage storage;
     private TaskList taskList;
     private Ui ui;
 
+    /**
+     * Constructs a Duke instance.
+     *
+     * @param filePath The file path for storing task data.
+     */
     public Duke(String filePath) {
         this.storage = new Storage(filePath);
         this.ui = new Ui();
@@ -20,6 +28,9 @@ public class Duke {
         }
     }
 
+    /**
+     * Main execution method that runs the chatbot.
+     */
     private void run() {
         this.ui.showWelcome();
         boolean isExit = false;

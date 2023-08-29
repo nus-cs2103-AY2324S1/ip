@@ -6,9 +6,17 @@ import duke.exception.InvalidTaskIndexException;
 import duke.task.Task;
 import duke.task.TaskList;
 
+/**
+ * Represents a command to delete a task from the task list.
+ */
 public class DeleteCommand extends Command {
     private int taskIndex;
 
+    /**
+     * Constructs a DeleteCommand with the provided task index.
+     *
+     * @param taskIndex The index of the task to be deleted.
+     */
     public DeleteCommand(int taskIndex) {
         this.taskIndex = taskIndex;
     }

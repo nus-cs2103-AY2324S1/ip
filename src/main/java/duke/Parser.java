@@ -9,8 +9,18 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Parser for user input.
+ */
 public class Parser {
 
+    /**
+     * Parses the input and creates the corresponding Command object.
+     *
+     * @param input The user input.
+     * @return The Command object based on user input.
+     * @throws DukeException If there is an issue parsing the input or creating the Command.
+     */
     public static Command parseCommand(String input) throws DukeException {
         String[] parts = input.split(" ", 2);
         String command = parts[0].toUpperCase();
@@ -48,6 +58,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses the argument from a user input and returns it.
+     *
+     * @param parts The split user input.
+     * @return The argument portion of the user input.
+     */
     public static String parseArgument(String[] parts) {
         if (parts.length > 1) {
             return parts[1];
@@ -55,6 +71,13 @@ public class Parser {
         return "";
     }
 
+    /**
+     * Parses the argument to create an AddDeadlineCommand.
+     *
+     * @param argument The argument portion of the user input.
+     * @return The AddDeadlineCommand based on the argument.
+     * @throws InvalidFormatException If there is an issue with the argument format.
+     */
     private static AddDeadlineCommand parseAddDeadlineCommand(String argument) throws InvalidFormatException {
         try {
             String[] deadlineParts = argument.split("/by");
@@ -73,6 +96,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses the argument to create an AddEventCommand.
+     *
+     * @param argument The argument portion of the user input.
+     * @return The AddEventCommand based on the argument.
+     * @throws InvalidFormatException If there is an issue with the argument format.
+     */
     private static AddEventCommand parseAddEventCommand(String argument) throws InvalidFormatException {
         try {
             String[] eventParts = argument.split("/at");

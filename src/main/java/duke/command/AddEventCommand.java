@@ -9,10 +9,19 @@ import duke.task.TaskList;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Represents a command to add an event task to the task list.
+ */
 public class AddEventCommand extends Command {
     private String description;
     private LocalDateTime dateTime;
 
+    /**
+     * Constructs an AddEventCommand with the provided description and date-time.
+     *
+     * @param description The description of the deadline task.
+     * @param dateTime The date and time associated with the deadline task.
+     */
     public AddEventCommand(String description, LocalDateTime dateTime) {
         this.description = description;
         this.dateTime = dateTime;

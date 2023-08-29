@@ -3,16 +3,27 @@ package duke.task;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Represents an Event task.
+ */
 public class Event extends Task {
-    protected LocalDateTime time;
 
-    public Event(String description, LocalDateTime time) {
+
+    protected LocalDateTime dateTime;
+
+    /**
+     * Constructs an Event task.
+     *
+     * @param description The description of the event task.
+     * @param dateTime The date and time of the event task.
+     */
+    public Event(String description, LocalDateTime dateTime) {
         super(description);
-        this.time = time;
+        this.dateTime = dateTime;
     }
 
-    public LocalDateTime getTime() {
-        return this.time;
+    public LocalDateTime getDateTime() {
+        return this.dateTime;
     }
 
     public String getDescription() {
@@ -22,16 +33,16 @@ public class Event extends Task {
     @Override
     public String toFileString() {
         return "E | " + (isDone ? "1" : "0") + " | " + description
-            + " | " + this.time.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+            + " | " + this.dateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
     }
 
     @Override
     public String toString() {
         DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd MMM yyyy");
         DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("h:mma"); // Print in 12-hour time format
-        String timeString = this.time.format(timeFormatter).toLowerCase();
+        String timeString = this.dateTime.format(timeFormatter).toLowerCase();
 
         return "[E]" + super.toString()
-            + " (at: " + this.time.format(dateFormatter) + " " + timeString + ")";
+            + " (at: " + this.dateTime.format(dateFormatter) + " " + timeString + ")";
     }
 }

@@ -12,13 +12,27 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Handles the loading and storing tasks to a file.
+ */
 public class Storage {
     private String filePath;
 
+    /**
+     * Constructs a Storage instance with the specified file path.
+     *
+     * @param filePath The file path for storing task data.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
+    /**
+     * Loads tasks from teh specified file path.
+     *
+     * @return The list of tasks loaded.
+     * @throws DukeDatabaseException If there is a problem with creating the database.
+     */
     public ArrayList<Task> loadData() throws DukeDatabaseException {
         ArrayList<Task> loadedTasks = new ArrayList<>();
         File file = new File(this.filePath);
@@ -50,7 +64,12 @@ public class Storage {
         return new ArrayList<>();
     }
 
-    private void createFile() throws DukeDatabaseException{
+    /**
+     * Creates the storage txt file and its directory.
+     *
+     * @throws DukeDatabaseException If there is a problem with creating the file.
+     */
+    private void createFile() throws DukeDatabaseException {
         File file = new File(this.filePath);
         File directory = new File(file.getParent());
 
@@ -65,6 +84,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Reads the entry from the txt file and converts to a Task object.
+     *
+     * @param entry The entry to be read.
+     * @return The corresponding Task object read from the file.
+     */
     private Task readEntry(String entry) {
         String[] parts = entry.split(" \\| ");
         Task taskToAdd = null;
@@ -90,6 +115,12 @@ public class Storage {
         return taskToAdd;
     }
 
+    /**
+     * Saves the tasks from the TaskList to the storage txt file.
+     *
+     * @param taskList The TaskList containing the tasks to be saved.
+     * @throws IOException If there is an issue writing to the file.
+     */
     public void saveData(TaskList taskList) throws IOException {
         FileWriter fw = new FileWriter(filePath);
 
