@@ -23,6 +23,7 @@ import java.util.List;
  */
 public class TaskManager {
 
+    /** The default filename used to read and write tasks to. */
     private static final String DEFAULT_FILENAME = "tasks.json";
 
     private List<Task> taskList;
@@ -62,6 +63,7 @@ public class TaskManager {
 
     /**
      * Obtains the currently stored tasks as an immutable list.
+     *
      * @return The list of tasks.
      */
     public List<Task> getTasks() {
@@ -70,6 +72,7 @@ public class TaskManager {
 
     /**
      * Queries the number of tasks stored.
+     *
      * @return The number of tasks currently stored as an integer.
      */
     public int getTaskCount() {
@@ -87,7 +90,7 @@ public class TaskManager {
     }
 
     /**
-     * Gets an task from the task list with the corresponding index.
+     * Gets a task from the task list with the corresponding index.
      *
      * @param index The index to obtain.
      * @return The task in question at the specified index.
