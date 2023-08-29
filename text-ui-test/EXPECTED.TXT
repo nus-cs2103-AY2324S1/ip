@@ -38,19 +38,19 @@
     4. [T][ ] Doing yoga
     ____________________________________________________________
     ____________________________________________________________
-    ☹ OOPS!!! I'm sorry, but I don't know what that means :-()
+    ☹ OOPS!!! I'm sorry, but I don't know what that means :-(
     ____________________________________________________________
     ____________________________________________________________
-    ☹ OOPS!!! I'm sorry, but I don't know what that means :-()
+    ☹ OOPS!!! I'm sorry, but I don't know what that means :-(
     ____________________________________________________________
     ____________________________________________________________
-    ☹ OOPS!!! I'm sorry, but I don't know what that means :-()
+    ☹ OOPS!!! I'm sorry, but I don't know what that means :-(
     ____________________________________________________________
     ____________________________________________________________
     ☹ OOPS!!! I'm sorry, but the Deadline input is invalid :-(
     ____________________________________________________________
     ____________________________________________________________
-    ☹ OOPS!!! I'm sorry, but I don't know what that means :-()
+    ☹ OOPS!!! I'm sorry, but I don't know what that means :-(
     ____________________________________________________________
     ____________________________________________________________
     ☹ OOPS!!! I'm sorry, but the input ToDo is invalid :-(
@@ -63,16 +63,16 @@
     4. [T][ ] Doing yoga
     ____________________________________________________________
     ____________________________________________________________
-    ☹ OOPS!!! I'm sorry, but I don't know what that means :-()
+    ☹ OOPS!!! I'm sorry, but I don't know what that means :-(
     ____________________________________________________________
     ____________________________________________________________
     ☹ OOPS!!! I'm sorry, but I don't know what that means :-(
     ____________________________________________________________
     ____________________________________________________________
-    ☹ OOPS!!! I'm sorry, but I don't know what that means :-()
+    ☹ OOPS!!! I'm sorry, but I don't know what that means :-(
     ____________________________________________________________
     ____________________________________________________________
-    ☹ OOPS!!! I'm sorry, but I don't know what that means :-()
+    ☹ OOPS!!! I'm sorry, but I don't know what that means :-(
     ____________________________________________________________
     ____________________________________________________________
     Noted. I've removed this task:
@@ -86,7 +86,7 @@
     ____________________________________________________________
     ____________________________________________________________
     Here are the tasks in your list:
-    1. [D][X] Asssignment  (by: August 31st )
+    1. [T][X] CS2101 Presentation
     2. [E][ ] football match  (from:  Sep 1st 7pm  to: 8pm )
     3. [T][ ] Doing yoga
     4. [E][ ] project meeting  (from:  Mon 2pm  to: 4pm )

@@ -1,5 +1,14 @@
-import java.util.ArrayList;
 import java.util.Scanner;
+
+import exception.InvalidCommandException;
+import exception.InvalidDeadlineException;
+import exception.InvalidEventException;
+import exception.InvalidToDoException;
+import storage.Storage;
+import task.Deadline;
+import task.Event;
+import task.Task;
+import task.ToDo;
 
 /**
  * Chatbot class
@@ -12,13 +21,8 @@ public class Duke {
      */
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        ArrayList<Task> tasks = new ArrayList<Task>();
-        int numOfTasks = 0;
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
+        Storage storage = new Storage("./data", "storage.txt");
+        // ArrayList<Task> tasks = new ArrayList<Task>();
         String intro = "    ____________________________________________________________\n" +
                        "    Hello! I'm Not A ChatBot\n" + 
                        "    What can I do for you?\n" +
@@ -33,51 +37,49 @@ public class Duke {
                 System.out.println("    ____________________________________________________________");
                 if(message.equals("list")) {
                     System.out.println("    Here are the tasks in your list:");
-                    for(int i = 0; i < numOfTasks; i++) {
-                        System.out.println("    " + (i + 1) + ". " + tasks.get(i));
+                    for(int i = 0; i < storage.size(); i++) {
+                        System.out.println("    " + (i + 1) + ". " + storage.getTask(i));
                     }
                 } else if(message.split(" ")[0].equals("mark") && message.split(" ").length == 2 && isInt(message.split(" ")[1]) 
-                        && Integer.parseInt(message.split(" ")[1]) <= numOfTasks && Integer.parseInt(message.split(" ")[1]) > 0) {
-                    tasks.get(Integer.parseInt(message.split(" ")[1]) - 1).mark();
+                        && Integer.parseInt(message.split(" ")[1]) <= storage.size() && Integer.parseInt(message.split(" ")[1]) > 0) {
+                    storage.getTask(Integer.parseInt(message.split(" ")[1]) - 1).mark();
+                    storage.updateTask();
                     System.out.println("    Nice! I've marked this task as done:");
-                    System.out.println("    " + tasks.get(Integer.parseInt(message.split(" ")[1]) - 1));
+                    System.out.println("    " + storage.getTask(Integer.parseInt(message.split(" ")[1]) - 1));
                 } else if(message.split(" ")[0].equals("unmark") && message.split(" ").length == 2 && isInt(message.split(" ")[1]) 
-                        && Integer.parseInt(message.split(" ")[1]) <= numOfTasks && Integer.parseInt(message.split(" ")[1]) > 0) {
-                    tasks.get(Integer.parseInt(message.split(" ")[1]) - 1).unmark();
-                    System.out.println("    OK, I've marked this task as not done yet:");
-                    System.out.println("    " + tasks.get(Integer.parseInt(message.split(" ")[1]) - 1));
+                        && Integer.parseInt(message.split(" ")[1]) <= storage.size() && Integer.parseInt(message.split(" ")[1]) > 0) {
+                    storage.getTask(Integer.parseInt(message.split(" ")[1]) - 1).unmark();
+                    storage.updateTask();
+                    System.out.println("    OK, I've unmarked this task as not done yet:");
+                    System.out.println("    " + storage.getTask(Integer.parseInt(message.split(" ")[1]) - 1));
                 } else if(ToDo.isToDo(message)) {
-                    tasks.add(new ToDo(message.substring(5)));
-                    numOfTasks++;
+                    storage.addTask(new ToDo(message.substring(5)));
                     System.out.println("    Got it. I've added this task:");
-                    System.out.println("    " + tasks.get(numOfTasks - 1));
-                    System.out.println("    Now you have " + numOfTasks + " tasks in the list.");
+                    System.out.println("    " + storage.getTask(storage.size() - 1));
+                    System.out.println("    Now you have " + storage.size() + " tasks in the list.");
                 } else if(Deadline.isDeadline(message)) {
                     String name = message.substring(9, message.indexOf("/by "));
                     String deadline = message.substring(message.indexOf("/by ") + 4);
-                    tasks.add(new Deadline(name, deadline));
-                    numOfTasks++;
+                    storage.addTask(new Deadline(name, deadline));
                     System.out.println("    Got it. I've added this task:");
-                    System.out.println("    " + tasks.get(numOfTasks - 1));
-                    System.out.println("    Now you have " + numOfTasks + " tasks in the list.");
+                    System.out.println("    " + storage.getTask(storage.size() - 1));
+                    System.out.println("    Now you have " + storage.size() + " tasks in the list.");
                 } else if(Event.isEvent(message)) {
                     String name = message.substring(6, message.indexOf("/from "));
                     String afterFrom = message.substring(message.indexOf("/from ") + 5);
                     String start = afterFrom.substring(0, afterFrom.indexOf("/to "));
                     String endTime = afterFrom.substring(afterFrom.indexOf("/to ") + 4);
-                    tasks.add(new Event(name, start, endTime));
-                    numOfTasks++;
+                    storage.addTask(new Event(name, start, endTime));
                     System.out.println("    Got it. I've added this task:");
-                    System.out.println("    " + tasks.get(numOfTasks - 1));
-                    System.out.println("    Now you have " + numOfTasks + " tasks in the list.");
+                    System.out.println("    " + storage.getTask(storage.size() - 1));
+                    System.out.println("    Now you have " + storage.size() + " tasks in the list.");
                 } else if(message.split(" ")[0].equals("delete") && message.split(" ").length == 2 && isInt(message.split(" ")[1]) 
-                        && Integer.parseInt(message.split(" ")[1]) <= numOfTasks && Integer.parseInt(message.split(" ")[1]) > 0) {
-                    Task removed = tasks.get(numOfTasks - 1);
-                    tasks.remove(Integer.parseInt(message.split(" ")[1]));
-                    numOfTasks--;
+                        && Integer.parseInt(message.split(" ")[1]) <= storage.size() && Integer.parseInt(message.split(" ")[1]) > 0) {
+                    Task removed = storage.getTask(storage.size() - 1);
+                    storage.deleteTask(Integer.parseInt(message.split(" ")[1]) - 1);
                     System.out.println("    Noted. I've removed this task:");
                     System.out.println("    " + removed);
-                    System.out.println("    Now you have " + numOfTasks + " tasks in the list.");
+                    System.out.println("    Now you have " + storage.size() + " tasks in the list.");
                 } else {
                     throw new InvalidCommandException();
                 }
