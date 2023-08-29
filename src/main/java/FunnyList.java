@@ -1,6 +1,7 @@
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
-import java.io.FileWriter;
+import java.io.File;
+import java.util.Scanner;
 
 public class FunnyList {
 
@@ -8,6 +9,28 @@ public class FunnyList {
 
     public FunnyList() {
         this.taskList = new ArrayList<>();
+        File f = new File("./tasks.txt");
+        try {
+            Scanner s = new Scanner(f);
+            while (s.hasNext()) {
+                String[] row  = s.nextLine().split("\\|");
+                switch (row.length) {
+                    case 3:
+                        this.taskList.add(new ToDo(row[2], row[1].equals("1")));
+                        break;
+                    case 4:
+                        this.taskList.add(new Deadline(row[2], row[1].equals("1"), row[3]));
+                        break;
+                    case 5:
+                        this.taskList.add(new Event(row[2], row[1].equals("1"), row[3], row[4]));
+                        break;
+                    default:
+                        break;
+                }
+            }
+        } catch (FileNotFoundException e) {
+
+        }
     }
 
     public void displayList() {
