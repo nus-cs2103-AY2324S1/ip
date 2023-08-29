@@ -2,6 +2,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -101,7 +102,9 @@ public class Duke {
                 String description = input.substring(8, byIndex - 1);
                 String by = input.substring(byIndex + 2);
 
-                Deadline deadline = new Deadline(description, by);
+                LocalDate byDate = LocalDate.parse(by);
+
+                Deadline deadline = new Deadline(description, byDate);
                 list.add(deadline);
 
                 if (input.charAt(4) == '1') {
@@ -115,7 +118,10 @@ public class Duke {
                 String from = input.substring(fromIndex + 2, toIndex - 1);
                 String to = input.substring(toIndex + 2);
 
-                Event event = new Event(description, from, to);
+                LocalDate fromDate = LocalDate.parse(from);
+                LocalDate toDate = LocalDate.parse(to);
+
+                Event event = new Event(description, fromDate, toDate);
                 list.add(event);
 
                 if (input.charAt(4) == '1') {
@@ -249,7 +255,9 @@ public class Duke {
         String description = input.substring(9, byIndex - 1);
         String by = input.substring(byIndex + 4);
 
-        Deadline deadline = new Deadline(description, by);
+        LocalDate byDate = LocalDate.parse(by);
+
+        Deadline deadline = new Deadline(description, byDate);
         list.add(deadline);
 
         System.out.print(HORIZONTAL_LINE);
@@ -275,7 +283,10 @@ public class Duke {
         String from = input.substring(fromIndex + 6, toIndex - 1);
         String to = input.substring(toIndex + 4);
 
-        Event event = new Event(description, from, to);
+        LocalDate fromDate = LocalDate.parse(from);
+        LocalDate toDate = LocalDate.parse(to);
+
+        Event event = new Event(description, fromDate, toDate);
         list.add(event);
 
         System.out.print(HORIZONTAL_LINE);
