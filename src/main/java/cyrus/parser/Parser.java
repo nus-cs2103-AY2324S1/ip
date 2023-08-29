@@ -38,7 +38,7 @@ public class Parser {
    */
   public ParseInfo parse(String line) {
     String input = line.trim();
-    if (line.equals("")) return ParseInfo.EMPTY;
+    if (input.equals("")) return ParseInfo.EMPTY;
 
     String[] parts = input.split("\\s+");
     List<String> argumentParts = new ArrayList<>();
