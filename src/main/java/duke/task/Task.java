@@ -1,17 +1,19 @@
+package duke.task;
+
 public class Task {
     /**
-     * Task description.
+     * duke.task.Task description.
      */
     private final String description;
     public static final String DATE_FORMAT = "MMM dd yyyy";
 
     /**
-     * Task status.
+     * duke.task.Task status.
      */
     private boolean isDone;
 
     /**
-     * Constructor for Task.
+     * Constructor for duke.task.Task.
      *
      * @param description of the task.
      */

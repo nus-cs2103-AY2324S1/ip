@@ -1,3 +1,5 @@
+package duke.task;
+
 import java.util.ArrayList;
 
 public class TaskList {
@@ -31,14 +33,6 @@ public class TaskList {
         this.list.get(index).unmark();
     }
 
-    public void printList() {
-        System.out.println(Duke.lineSeparator);
-        System.out.println("Here are the tasks in your list:");
-
-        for (int i = 0; i < this.list.size(); i++) {
-            System.out.printf("%d. %s", i + 1, this.list.get(i).toString());
-        }
-    }
 
     public int size() {
         return this.list.size();

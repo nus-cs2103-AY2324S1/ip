@@ -1,3 +1,9 @@
+package duke;
+
+import duke.task.Task;
+
+import java.util.ArrayList;
+
 public class Ui {
 
     private final String chatbotName = "Gobble Gobble";
@@ -37,5 +43,14 @@ public class Ui {
         System.out.println(Duke.lineSeparator + "\n" + "Got it. I've added this task:" + "\n"
                 + task.toString() + "\n" + "Now you have " + (size) + " tasks in the list." + "\n"
                 + Duke.lineSeparator);
+    }
+
+    public void printList(ArrayList<Task> list) {
+        System.out.println(Duke.lineSeparator);
+        System.out.println("Here are the tasks in your list:");
+
+        for (int i = 0; i < list.size(); i++) {
+            System.out.printf("%d. %s \n", i + 1, list.get(i).toString());
+        }
     }
 }
