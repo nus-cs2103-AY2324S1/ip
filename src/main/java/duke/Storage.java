@@ -1,3 +1,8 @@
+package duke;
+
+import duke.exception.DukeBadInputException;
+import duke.task.Task;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -31,7 +36,7 @@ public class Storage {
 
 
     /**
-     * Constructs a new instance of a Storage object that reads and write to a specific file
+     * Constructs a new instance of a duke.Storage object that reads and write to a specific file
      *
      * @param fileName - the file which your reading/writing to
      * @throws IOException           - thrown when there is an IOException
@@ -74,7 +79,7 @@ public class Storage {
     /**
      * Reads and parse the storage file
      *
-     * @return a Parser array storing the parsed input
+     * @return a duke.Parser array storing the parsed input
      * @throws IOException thrown if the file cannot be open or read
      */
     public List<String> readFile() throws IOException {

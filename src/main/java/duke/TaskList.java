@@ -1,3 +1,8 @@
+package duke;
+
+import duke.exception.DukeLoadingException;
+import duke.task.Task;
+
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;

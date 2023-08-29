@@ -1,3 +1,11 @@
+package duke.command;
+
+import duke.Storage;
+import duke.TaskList;
+import duke.Ui;
+import duke.exception.DukeBadInputException;
+import duke.task.Task;
+
 import java.io.IOException;
 
 /**
@@ -16,7 +24,7 @@ public class MarkCommand extends Command {
     private int index;
 
     /**
-     * Constructor for the MarkCommand class
+     * Constructor for the duke.command.MarkCommand class
      *
      * @param mark  - true if mark command else unmark
      * @param index - index of the task in question
@@ -35,7 +43,7 @@ public class MarkCommand extends Command {
      * @throws DukeBadInputException - if the input cannot be used
      */
     @Override
-    void execute(TaskList taskList, Ui ui, Storage storage) throws DukeBadInputException {
+    public void execute(TaskList taskList, Ui ui, Storage storage) throws DukeBadInputException {
         Command.validateIndex(this.index, taskList.length());
         Task task = taskList.get(index);
         // only toggle if mark != completed as if they are the same then there is no
@@ -65,7 +73,7 @@ public class MarkCommand extends Command {
      * @return true if it is the exit command
      */
     @Override
-    boolean isExit() {
+    public boolean isExit() {
         return false;
     }
 }

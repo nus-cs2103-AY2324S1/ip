@@ -1,3 +1,5 @@
+package duke.task;
+
 import java.time.LocalDateTime;
 
 /**
@@ -16,7 +18,7 @@ public class EventTask extends Task {
     private LocalDateTime to;
 
     /**
-     * constructor for EventTask
+     * constructor for duke.task.EventTask
      * Stored as EVENT,{marked}{task description},{from},{to}
      *
      * @param from - the starting time of the event
@@ -30,7 +32,7 @@ public class EventTask extends Task {
     }
 
     /**
-     * constructor for EventTask from storage
+     * constructor for duke.task.EventTask from storage
      * Stored as EVENT,{marked}{task description},{from},{to}
      *
      * @param from      - the starting time of the event

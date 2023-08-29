@@ -1,3 +1,13 @@
+package duke;
+
+import duke.command.*;
+import duke.exception.DukeBadInputException;
+import duke.exception.DukeLoadingException;
+import duke.task.DeadlineTask;
+import duke.task.EventTask;
+import duke.task.Task;
+import duke.task.TodoTask;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;

@@ -1,7 +1,14 @@
+package duke.command;
+
+import duke.Storage;
+import duke.TaskList;
+import duke.Ui;
+import duke.exception.DukeBadInputException;
+
 /**
- * Represents the help command
+ * Represents a command that is not recognised
  */
-public class HelpCommand extends Command {
+public class UnrecognisedCommand extends Command {
     /**
      * Method to encapsulate the execution logic of the command
      *
@@ -11,8 +18,10 @@ public class HelpCommand extends Command {
      * @throws DukeBadInputException - if the input cannot be used
      */
     @Override
-    void execute(TaskList taskList, Ui ui, Storage storage) throws DukeBadInputException {
-        ui.helpMessage();
+    public void execute(TaskList taskList, Ui ui, Storage storage) throws DukeBadInputException {
+        ui.println("Quack does not understand your command!!");
+        ui.println(
+                "Quack only understands these commands: list, mark, unmark, delete, todo, deadline, event");
     }
 
     /**
@@ -21,7 +30,7 @@ public class HelpCommand extends Command {
      * @return true if it is the exit command
      */
     @Override
-    boolean isExit() {
+    public boolean isExit() {
         return false;
     }
 }

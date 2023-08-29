@@ -1,3 +1,10 @@
+package duke.command;
+
+import duke.Storage;
+import duke.TaskList;
+import duke.Ui;
+import duke.exception.DukeBadInputException;
+
 /**
  * Represents the list command
  */
@@ -11,7 +18,7 @@ public class ListCommand extends Command {
      * @throws DukeBadInputException - if the input cannot be used
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
+    public void execute(TaskList taskList, Ui ui, Storage storage) throws DukeBadInputException {
         if (taskList.length() == 0) {
             ui.println("Quack Quack, you have not entered any tasks yet!");
             ui.println("Create new tasks with the todo, deadline or event command");

@@ -1,36 +1,30 @@
-import java.time.LocalDateTime;
+package duke.command;
+
+import duke.Storage;
+import duke.TaskList;
+import duke.Ui;
+import duke.exception.DukeBadInputException;
+import duke.task.Task;
+import duke.task.TodoTask;
 
 /**
- * Represents the Event command
+ * Represents the Todo command
  */
-public class EventCommand extends Command {
+public class TodoCommand extends Command {
 
     /**
      * Stores the description of the task
      */
     private String desc;
 
-    /**
-     * Stores the end date of the event
-     */
-    private LocalDateTime to;
 
     /**
-     * Stores the start date of the event
-     */
-    private LocalDateTime from;
-
-    /**
-     * Constructor of the Event command
+     * Constructor of the todo command
      *
-     * @param from - the start date of the task
-     * @param to   - the end date of the event
-     * @param desc - desc of the task
+     * @param desc - the desc of the command
      */
-    public EventCommand(LocalDateTime from, LocalDateTime to, String desc) {
+    public TodoCommand(String desc) {
         this.desc = desc;
-        this.from = from;
-        this.to = to;
     }
 
     /**
@@ -42,11 +36,11 @@ public class EventCommand extends Command {
      * @throws DukeBadInputException - if the input cannot be used
      */
     @Override
-    void execute(TaskList taskList, Ui ui, Storage storage) throws DukeBadInputException {
+    public void execute(TaskList taskList, Ui ui, Storage storage) throws DukeBadInputException {
         if (taskList.length() >= 100) {
             throw new DukeBadInputException("quack cannot remember any more tasks!!");
         }
-        Task newTask = new EventTask(this.from, this.to, this.desc);
+        Task newTask = new TodoTask(desc);
         taskList.add(newTask);
         if (!storage.writeToFile(newTask.getStored())) {
             ui.unexpectedError("unable to write to storage");
@@ -64,7 +58,7 @@ public class EventCommand extends Command {
      * @return true if it is the exit command
      */
     @Override
-    boolean isExit() {
+    public boolean isExit() {
         return false;
     }
 }

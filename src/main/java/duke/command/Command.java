@@ -1,3 +1,10 @@
+package duke.command;
+
+import duke.Storage;
+import duke.TaskList;
+import duke.Ui;
+import duke.exception.DukeBadInputException;
+
 /**
  * create a command class to handle the execution of the command
  */
@@ -33,7 +40,7 @@ public abstract class Command {
      * @param storage  - the storage instance to allow the command to write to the storage
      * @throws DukeBadInputException - if the input cannot be used
      */
-    abstract void execute(TaskList taskList, Ui ui, Storage storage) throws DukeBadInputException;
+    public abstract void execute(TaskList taskList, Ui ui, Storage storage) throws DukeBadInputException;
 
 
     /**
@@ -41,5 +48,5 @@ public abstract class Command {
      *
      * @return true if it is the exit command
      */
-    abstract boolean isExit();
+    public abstract boolean isExit();
 }

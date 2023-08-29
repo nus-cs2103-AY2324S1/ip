@@ -1,3 +1,5 @@
+package duke.exception;
+
 /**
  * Signals when a user input is unable to be parsed or out of bound
  */

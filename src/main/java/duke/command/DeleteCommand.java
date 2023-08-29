@@ -1,3 +1,11 @@
+package duke.command;
+
+import duke.Storage;
+import duke.TaskList;
+import duke.Ui;
+import duke.exception.DukeBadInputException;
+import duke.task.Task;
+
 import java.io.IOException;
 
 /**
@@ -11,7 +19,7 @@ public class DeleteCommand extends Command {
     private int index;
 
     /**
-     * Constructor for the MarkCommand class
+     * Constructor for the duke.command.MarkCommand class
      *
      * @param index - the index of the task being deleted
      */
@@ -28,7 +36,7 @@ public class DeleteCommand extends Command {
      * @throws DukeBadInputException - if the input cannot be used
      */
     @Override
-    void execute(TaskList taskList, Ui ui, Storage storage) throws DukeBadInputException {
+    public void execute(TaskList taskList, Ui ui, Storage storage) throws DukeBadInputException {
         Command.validateIndex(this.index, taskList.length());
         Task removed = taskList.remove(index);
         try {
@@ -50,7 +58,7 @@ public class DeleteCommand extends Command {
      * @return true if it is the exit command
      */
     @Override
-    boolean isExit() {
+    public boolean isExit() {
         return false;
     }
 }
