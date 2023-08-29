@@ -34,12 +34,12 @@ public class Storage {
             throw new DukeException(e.getMessage());
         }
     }
-    public TaskList loadFromFile() {
+    public ArrayList<Task> loadFromFile() {
         try {
             File dataFile = new File(DATA_FILE_PATH);
             if (dataFile.exists()) {
                 Scanner sc = new Scanner(dataFile);
-                TaskList tasks = new TaskList();
+                ArrayList<Task> tasks = new ArrayList<Task>();
                 while (sc.hasNext()) {
                     String taskInfo = sc.nextLine();
                     String taskName = taskInfo.substring(7);
@@ -47,29 +47,36 @@ public class Storage {
 
                     if (taskInfo.charAt(1) == 'T') {
                         Task task = new Todo(taskName);
+                        if (marked) {
+                            task = task.done();
+                        }
                         tasks.add(task);
                     } else if (taskInfo.charAt(1) == 'D') {
                         Task task = new Deadline(taskName);
+                        if (marked) {
+                            task = task.done();
+                        }
                         tasks.add(task);
                     } else if (taskInfo.charAt(1) == 'E') {
                         Task task = new Event(taskName);
+                        if (marked) {
+                            task = task.done();
+                        }
                         tasks.add(task);
                     }
 
-                    if (marked) {
-                        tasks.mark(tasks.size() - 1);
-                    }
+
                 }
                 sc.close();
 
                 return tasks;
             }
-            return new TaskList();
+            return new ArrayList<Task>();
         } catch(Exception e) {
             System.out.println(e.getMessage());
         }
 
-        return new TaskList();
+        return new ArrayList<Task>();
     }
 
     public void writeAllToFile(ArrayList<Task> tasklist) throws DukeException {
