@@ -1,5 +1,7 @@
-import chatbot.ChatMessage;
-import chatbot.Chatbot;
+package todoify;
+
+import todoify.chatbot.ChatMessage;
+import todoify.chatbot.Chatbot;
 
 import java.util.Scanner;
 
@@ -7,8 +9,8 @@ import java.util.Scanner;
  * The chatbot CLI entry-point, which provides an interactive input prompt via the CLI.
  *
  * <p>
- * The default name for the chatbot is specified at {@link chatbot.Chatbot#DEFAULT_NAME}. Custom names can be set by
- * modifying the {@link MainCLI#main} implementation here.
+ * The default name for the chatbot is specified at {@link todoify.chatbot.Chatbot#DEFAULT_NAME}. Custom names can be
+ * set by modifying the {@link MainCLI#main} implementation here.
  * </p>
  */
 public class MainCLI {

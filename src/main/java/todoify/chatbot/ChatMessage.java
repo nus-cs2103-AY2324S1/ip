@@ -1,4 +1,4 @@
-package chatbot;
+package todoify.chatbot;
 
 import java.time.Instant;
 
@@ -23,7 +23,7 @@ public class ChatMessage {
      * Constructor for a chat message with the current time.
      *
      * @param senderType The type of the sender.
-     * @param message The message sent by the sender.
+     * @param message    The message sent by the sender.
      */
     public ChatMessage(SenderType senderType, String message) {
         this.timestamp = Instant.now().getEpochSecond();

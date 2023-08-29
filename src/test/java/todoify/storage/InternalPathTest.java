@@ -1,4 +1,4 @@
-package storage;
+package todoify.storage;
 
 import org.junit.jupiter.api.Test;
 

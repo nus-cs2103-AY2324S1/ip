@@ -1,4 +1,4 @@
-package taskmanager.task;
+package todoify.taskmanager.task;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
@@ -16,7 +16,9 @@ import java.lang.reflect.Field;
  */
 public abstract class Task {
 
-    /** Title for the task in question. */
+    /**
+     * Title for the task in question.
+     */
     private final String title;
 
     /**

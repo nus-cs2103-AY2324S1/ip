@@ -1,4 +1,4 @@
-package chatbot;
+package todoify.chatbot;
 
 import org.junit.jupiter.api.Test;
 

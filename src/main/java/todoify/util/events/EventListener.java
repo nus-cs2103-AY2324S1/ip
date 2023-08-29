@@ -1,4 +1,4 @@
-package util.events;
+package todoify.util.events;
 
 /**
  * An interface capable of listening to certain utils.events.

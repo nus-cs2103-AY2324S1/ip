@@ -1,6 +1,6 @@
-package taskmanager.task;
+package todoify.taskmanager.task;
 
-import util.EpochConverter;
+import todoify.util.EpochConverter;
 
 /**
  * A deadline task. It tracks a title and a deadline associated with it, and can be marked as completed.

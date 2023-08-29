@@ -1,4 +1,4 @@
-package taskmanager.task;
+package todoify.taskmanager.task;
 
 /**
  * A trivial task that represents to-dos. It has a title and can be marked as completed.

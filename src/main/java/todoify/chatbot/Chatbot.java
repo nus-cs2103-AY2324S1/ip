@@ -1,14 +1,14 @@
-package chatbot;
+package todoify.chatbot;
 
-import chatbot.exception.ChatbotException;
-import chatbot.exception.ChatbotRuntimeException;
-import taskmanager.TaskManager;
-import taskmanager.task.Deadline;
-import taskmanager.task.Event;
-import taskmanager.task.Task;
-import taskmanager.task.Todo;
-import util.EpochConverter;
-import util.events.EventEmitter;
+import todoify.chatbot.exception.ChatbotException;
+import todoify.chatbot.exception.ChatbotRuntimeException;
+import todoify.taskmanager.TaskManager;
+import todoify.taskmanager.task.Deadline;
+import todoify.taskmanager.task.Event;
+import todoify.taskmanager.task.Task;
+import todoify.taskmanager.task.Todo;
+import todoify.util.EpochConverter;
+import todoify.util.events.EventEmitter;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;

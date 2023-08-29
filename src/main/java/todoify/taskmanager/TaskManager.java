@@ -1,16 +1,16 @@
-package taskmanager;
+package todoify.taskmanager;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import com.google.gson.JsonSyntaxException;
-import storage.InternalPath;
-import storage.InternalStorage;
-import taskmanager.task.Deadline;
-import taskmanager.task.Event;
-import taskmanager.task.Task;
-import taskmanager.task.Todo;
+import todoify.storage.InternalPath;
+import todoify.storage.InternalStorage;
+import todoify.taskmanager.task.Deadline;
+import todoify.taskmanager.task.Event;
+import todoify.taskmanager.task.Task;
+import todoify.taskmanager.task.Todo;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -23,7 +23,9 @@ import java.util.List;
  */
 public class TaskManager {
 
-    /** The default filename used to read and write tasks to. */
+    /**
+     * The default filename used to read and write tasks to.
+     */
     private static final String DEFAULT_FILENAME = "tasks.json";
 
     private List<Task> taskList;
@@ -31,11 +33,11 @@ public class TaskManager {
     private final InternalStorage storageHandler;
 
     /**
-     * Constructs a task manager, managing a list of items representing "tasks",
-     * with a custom storage location and storage handler.
+     * Constructs a task manager, managing a list of items representing "tasks", with a custom storage location and
+     * storage handler.
      *
      * @param storageLocation The storage location.
-     * @param storageHandler The handler for processing storage operations.
+     * @param storageHandler  The handler for processing storage operations.
      */
     public TaskManager(InternalPath storageLocation, InternalStorage storageHandler) {
         this.taskList = new ArrayList<>();
@@ -44,8 +46,8 @@ public class TaskManager {
     }
 
     /**
-     * Constructs a task manager, managing a list of items representing "tasks",
-     * with a custom storage location and default storage handler.
+     * Constructs a task manager, managing a list of items representing "tasks", with a custom storage location and
+     * default storage handler.
      *
      * @param storageLocation Path
      */
@@ -54,8 +56,8 @@ public class TaskManager {
     }
 
     /**
-     * Constructor for a task manager, managing a list of items representing "tasks",
-     * with the default storage location and default storage handler.
+     * Constructor for a task manager, managing a list of items representing "tasks", with the default storage location
+     * and default storage handler.
      */
     public TaskManager() {
         this(InternalPath.of(DEFAULT_FILENAME));
@@ -125,8 +127,8 @@ public class TaskManager {
      * Loads and replaces the task list in memory with the one currently in storage.
      *
      * <p>
-     *     This method will load the data from storage and replace all in-memory contents.
-     *     Any unrecognized, incompatible tasks may be omitted entirely.
+     * This method will load the data from storage and replace all in-memory contents. Any unrecognized, incompatible
+     * tasks may be omitted entirely.
      * </p>
      *
      * @throws IOException if there were any issues retrieving the data.
@@ -143,14 +145,14 @@ public class TaskManager {
             // Prepare a new set of classes, from most specific to least specific.
             // This ordering is required to match the provided JSON to a class that's as specific as possible.
             @SuppressWarnings("unchecked")
-            Class<Task>[] availClasses = new Class[]{ Event.class, Deadline.class, Todo.class };
+            Class<Task>[] availClasses = new Class[] { Event.class, Deadline.class, Todo.class };
 
             // Iterate through the items in the JSON array.
-            for (JsonElement item: array) {
+            for (JsonElement item : array) {
                 Task task = null;
 
                 // Iterate through possible classes and attempt to get them.
-                for (Class<Task> cls: availClasses) {
+                for (Class<Task> cls : availClasses) {
                     try {
                         task = Task.fromJsonRepresentation(item, cls);
                     } catch (JsonSyntaxException | IllegalArgumentException e) {

@@ -1,4 +1,4 @@
-package chatbot.exception;
+package todoify.chatbot.exception;
 
 /**
  * A runtime exception caused by chatbot processing.

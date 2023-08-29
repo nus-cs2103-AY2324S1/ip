@@ -1,4 +1,4 @@
-package util;
+package todoify.util;
 
 import java.time.Instant;
 import java.time.LocalDate;

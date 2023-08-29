@@ -1,4 +1,4 @@
-package chatbot;
+package todoify.chatbot;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -14,7 +14,9 @@ import java.util.Map;
  */
 public class ChatCommand {
 
-    /** The prefix used to denote a parameter. */
+    /**
+     * The prefix used to denote a parameter.
+     */
     public static final String PARAMETER_PREFIX = "--";
 
     /**

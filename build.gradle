@@ -29,12 +29,12 @@ test {
 }
 
 application {
-    mainClass.set("MainCLI")
+    mainClass.set("todoify.MainCLI")
 }
 
 shadowJar {
     archiveBaseName = "todoify"
-    archiveVersion = "0.0.1"
+    archiveVersion = "0.0.2"
     dependsOn("distZip", "distTar")
 }
 

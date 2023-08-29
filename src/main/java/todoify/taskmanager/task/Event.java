@@ -1,6 +1,6 @@
-package taskmanager.task;
+package todoify.taskmanager.task;
 
-import util.EpochConverter;
+import todoify.util.EpochConverter;
 
 /**
  * An event task. It tracks a title and the range associated with the event (from date-time to date-time), and can be
