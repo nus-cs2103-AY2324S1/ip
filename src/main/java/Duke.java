@@ -2,9 +2,9 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.lang.NumberFormatException;
 public class Duke {
-    private int numofList = 0;
+    private int numofList;
     private ArrayList<Task> list = new ArrayList<Task>();
-
+    private Storage storage;
     private void displayList() {
         System.out.println("____________________________________________________________");
         for (int i = 0; i < numofList; i++) {
@@ -42,6 +42,7 @@ public class Duke {
         String type = Input.substring(0, index);
         if (type.equalsIgnoreCase("todo")) {
             list.add(new Todo(taskDescription));
+
         } else if (type.equalsIgnoreCase("deadline")) {
             int byIndex = taskDescription.indexOf("/by");
             if (byIndex == -1) {
@@ -69,39 +70,49 @@ public class Duke {
         System.out.println("____________________________________________________________");
     }
     private void run() {
-        Scanner scanner = new Scanner(System.in);
-        String Input = scanner.nextLine();
-        while(!Input.equalsIgnoreCase("bye")) {
-            try {
-                String[] splittedInput = Input.split(" ");
-                if (Input.equals("list")) {
-                    displayList();
-                } else if (splittedInput[0].equalsIgnoreCase("mark") && splittedInput.length == 2 &&
-                        isInteger((splittedInput[1]))) {
-                    if (Integer.parseInt(splittedInput[1]) <= 0 || Integer.parseInt(splittedInput[1]) > numofList) {
-                        throw new TaskNotFoundException("Task Not Found :'(");
+        try {
+            this.storage = new Storage();
+            this.list = this.storage.getTaskList();
+            this.numofList = this.list.size();
+            Scanner scanner = new Scanner(System.in);
+            String Input = scanner.nextLine();
+            while (!Input.equalsIgnoreCase("bye")) {
+                try {
+                    String[] splittedInput = Input.split(" ");
+                    if (Input.equals("list")) {
+                        displayList();
+                    } else if (splittedInput[0].equalsIgnoreCase("mark") && splittedInput.length == 2 &&
+                            isInteger((splittedInput[1]))) {
+                        if (Integer.parseInt(splittedInput[1]) <= 0 || Integer.parseInt(splittedInput[1]) > numofList) {
+                            throw new TaskNotFoundException("Task Not Found :'(");
+                        }
+                        list.get(Integer.parseInt(splittedInput[1]) - 1).mark();
+                    } else if (splittedInput[0].equalsIgnoreCase("unmark") && splittedInput.length == 2 &&
+                            isInteger((splittedInput[1]))) {
+                        if (Integer.parseInt(splittedInput[1]) <= 0 || Integer.parseInt(splittedInput[1]) > numofList) {
+                            throw new TaskNotFoundException("Task Not Found :'(");
+                        }
+                        list.get(Integer.parseInt(splittedInput[1]) - 1).unmark();
+                    } else if (splittedInput[0].equalsIgnoreCase("delete") && splittedInput.length == 2 &&
+                            isInteger((splittedInput[1]))) {
+                        delete(Integer.parseInt(splittedInput[1]));
+                    } else {
+                        addList(Input);
                     }
-                    list.get(Integer.parseInt(splittedInput[1]) - 1).mark();
-                } else if (splittedInput[0].equalsIgnoreCase("unmark") && splittedInput.length == 2 &&
-                        isInteger((splittedInput[1]))) {
-                    if (Integer.parseInt(splittedInput[1]) <= 0 || Integer.parseInt(splittedInput[1]) > numofList) {
-                        throw new TaskNotFoundException("Task Not Found :'(");
-                    }
-                    list.get(Integer.parseInt(splittedInput[1]) - 1).unmark();
-                } else if (splittedInput[0].equalsIgnoreCase("delete") && splittedInput.length == 2 &&
-                        isInteger((splittedInput[1]))) {
-                    delete(Integer.parseInt(splittedInput[1]));
-                } else {
-                    addList(Input);
+                    this.storage.writeFile(this.list);
+                } catch (DukeException e) {
+                    System.out.println("____________________________________________________________");
+                    System.out.println(" ☹ OOPS!!! " + e.getMessage());
+                    System.out.println("____________________________________________________________");
                 }
-            }
-            catch (DukeException e) {
-                System.out.println("____________________________________________________________");
-                System.out.println(" ☹ OOPS!!! " + e.getMessage());
-                System.out.println("____________________________________________________________");
-            }
 
-            Input = scanner.nextLine();
+                Input = scanner.nextLine();
+            }
+        }
+        catch (DukeException e) {
+            System.out.println("____________________________________________________________");
+            System.out.println(" ☹ OOPS!!! " + e.getMessage());
+            System.out.println("____________________________________________________________");
         }
     }
     private boolean isInteger(String str) {
@@ -113,6 +124,7 @@ public class Duke {
             return false;
         }
     }
+
     public static void main(String[] args) {
         Duke duke = new Duke();
         String logo = " ____        _        \n"

@@ -1,6 +1,7 @@
 public class Event extends Task {
     protected String starting;
     protected String ending;
+
     public Event(String description){
         super(description.substring(0, description.indexOf("/from")));
         int fromIndex = description.indexOf("/from");

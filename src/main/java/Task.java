@@ -26,6 +26,9 @@ public class Task {
         System.out.println("   " + this);
         System.out.println("____________________________________________________________");
     }
+    public void markDone() {
+        isDone = true;
+    }
     @Override
     public String toString() {
         return " [" + this.getStatusIcon() + "] " + this.description;
