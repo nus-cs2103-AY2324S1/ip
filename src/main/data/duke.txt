@@ -1,5 +1,5 @@
-T | 1 | Todo try | null | null
-D | 0 | Deadline Task yo | ASAP | null
+T | 1 | Todo try | null | null \esrftgyhuj |yrfvftgbyhn | gybuhj | corrupted line
+D | 0 | Deadline Task yo | ASAP | null | null | null | corrupted line
 E | 0 | event test | 1pm | yeet
 T | 1 | new new new todo | null | null
 D | 0 | new deadline | deadth | null

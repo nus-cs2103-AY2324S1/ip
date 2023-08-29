@@ -1,6 +1,9 @@
 import java.io.*;
+import java.nio.file.Path;
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 /**
  * Duke
@@ -23,6 +26,7 @@ public class Duke {
      * Function to greet the User.
      */
     public static void greet() {
+        System.out.println("\nStarting SeeWhyAre Bot...");
         System.out.println(HORIZONTAL_LINE);
         System.out.println("    Hello! I'm SeeWhyAre Bot!");
         System.out.println("    What can I do for you?");
@@ -167,17 +171,6 @@ public class Duke {
             //Todo task
             saved[0] = "T";
         }
-//        if (task.getTaskType().equals("D")) {
-//            saved[0] = "D";
-//            saved[3] = ((Deadline) task).getDueDate();
-//        } else if (task.getTaskType().equals("E")) {
-//            saved[0] = "E";
-//            saved[3] = ((Event) task).getStartTime();
-//            saved[4] = ((Event) task).getEndTime();
-//        } else {
-//            //Todo task
-//            saved[0] = "T";
-//        }
 
         //saved[1] and saved[2]
         saved[1] = task.isDone ? "1" : "0";
@@ -196,44 +189,92 @@ public class Duke {
      */
     private static void loadTasks() throws IOException {
         //Use FileInputStream and BufferedReader, opposite of saveTask()
-        FileInputStream inputStream = new FileInputStream("src/main/data/duke.txt");
-        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader((inputStream)));
-        String currentLine;
-
-        //Recall delimiter "|" and get details of the tasks and add tasks
-        while ((currentLine = bufferedReader.readLine()) != null) {
-            String[] content = currentLine.split(" \\| ");
-            //System.out.printf("Content: %s", content);
-            String taskDescription = content[2];
-            //System.out.printf("Event details: %s\n", currentLine);
-            Task taskFromHardDisk;
-
-            // Now check which type of task it belongs to
-            // And create the task
-            // Then add task to taskList
-            switch(content[0]) {
-            case "E":
-                taskFromHardDisk = new Event(taskDescription, content[3], content[4]);
-                //Potential error for content[3]
-                break;
-            case "D":
-                taskFromHardDisk = new Deadline(taskDescription, content[3]);
-                //Potential error for content[3]
-                break;
-            default:
-                taskFromHardDisk = new Todo(taskDescription);
-                break;
+        // try-catch to check if file exists or if file is correct format
+        try {
+            Path directory = Path.of("./data");
+            if (!Files.exists(directory)) {
+                System.out.println("System Message: Directory 'data' does not exist. Creating one...");
+                Files.createDirectories(directory); // Create the directory if it doesn't exist
             }
+            System.out.println("System Message: Directory 'data' exists!");
 
-            //Check if task is done
-            if (content[1].equals("1")) {
-                taskFromHardDisk.markAsDone();
-            } else {
-                taskFromHardDisk.markAsNotDone();
+            Path file = Path.of("./data/duke.txt");
+            if (!Files.exists(file)) {
+                System.out.println("System Message: File 'duke.txt' does not exist. Creating one...");
+                Files.createFile(file); // Create the file if it doesn't exist
             }
-            taskList.add(taskFromHardDisk);
+            System.out.println("System Message: File 'duke.txt' exists! Loading past data...");
+
+            FileInputStream inputStream = new FileInputStream("src/main/data/duke.txt");
+            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader((inputStream)));
+            String currentLine;
+
+            try {
+                //Recall delimiter "|" and get details of the tasks and add tasks
+                while ((currentLine = bufferedReader.readLine()) != null) {
+                    if (isValidTaskLine(currentLine)) {
+                        // Parse the line and create tasks
+                        String[] content = currentLine.split(" \\| ");
+                        //System.out.printf("Content: %s", content);
+                        String taskDescription = content[2];
+                        //System.out.printf("Event details: %s\n", currentLine);
+                        Task taskFromHardDisk;
+
+                        // Now check which type of task it belongs to
+                        // Create the task and add task to taskList
+                        switch(content[0]) {
+                        case "E":
+                            taskFromHardDisk = new Event(taskDescription, content[3], content[4]);
+                            //Potential error for content[3]
+                            break;
+                        case "D":
+                            taskFromHardDisk = new Deadline(taskDescription, content[3]);
+                            //Potential error for content[3]
+                            break;
+                        default:
+                            taskFromHardDisk = new Todo(taskDescription);
+                            break;
+                        }
+
+                        //Check if task is done
+                        if (content[1].equals("1")) {
+                            taskFromHardDisk.markAsDone();
+                        } else {
+                            taskFromHardDisk.markAsNotDone();
+                        }
+                        taskList.add(taskFromHardDisk);
+
+                    } else {
+                        System.out.printf("Skipping corrupted line: %s\n", currentLine);
+                    }
+
+
+                }
+            } catch (IOException e) {
+                // Handle exception while reading the file
+                System.out.printf("Error while reading file: %s", e.getMessage());
+            }
+            bufferedReader.close();
+        } catch (IOException e) {
+            // Handle exception while creating directory or file
+            System.out.printf("Error while creating directory: %s", e.getMessage());
         }
-        bufferedReader.close();
+    }
+
+    public static boolean isValidTaskLine(String line) {
+        String[] tokens = line.split("\\|");
+
+        if (tokens.length >= 3 && tokens.length <= 5) { // Valid number of segments: 3-5 (Todo-Event)
+            String taskType = tokens[0].trim();
+            String completionStatus = tokens[1].trim();
+            String description = tokens[2].trim();
+
+            if (taskType.matches("[TDE]") && completionStatus.matches("[01]") && !description.isEmpty()) {
+                return true; // Line matches expected format
+            }
+        }
+
+        return false; // Line is not valid
     }
 
     /**
@@ -262,12 +303,13 @@ public class Duke {
 
     public static void main(String[] args) throws InvalidCommandException, IOException {
         Boolean repeatFlag = true;
-        greet();
         loadTasks();
+        greet();
         Scanner scanner = new Scanner(System.in);
 
         while (repeatFlag) {
             try {
+                System.out.println("Enter Command: ");
                 String userInput = scanner.nextLine();
                 //Level-4 Inrement: Use userInput.startWith() to check first word before splitting
 
