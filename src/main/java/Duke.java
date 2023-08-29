@@ -1,8 +1,12 @@
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;  // Import the Scanner class
+
 public class Duke {
     static ArrayList<Task> list = new ArrayList<Task>(); // List to be returned when input is "list"
     static int counter = 0; // Items in list
+    File saveFile = new File("./data/duke.txt"); // Loads the save file
+
     public static enum Type {
         LIST,
         MARK,
@@ -22,7 +26,7 @@ public class Duke {
         return "Goodbye and have a nice day.";
     }
 
-    public static String command(String input) throws DukeException { // Checks the input
+    public static String command(String input) throws DukeException, IOException { // Checks the input
         if (input.startsWith("list")) { // list command
             return enumCommand(Type.LIST, input);
         } else if (input.startsWith("mark ")) { // mark command
@@ -42,7 +46,7 @@ public class Duke {
         }
     }
 
-    public static String enumCommand(Type command, String input) throws DukeException {
+    public static String enumCommand(Type command, String input) throws DukeException, IOException {
         Type type = command;
 
         switch (type) {
@@ -102,16 +106,16 @@ public class Duke {
         }
     }
 
-    public static void addTask(Task task) throws DukeException {
+    public static void addTask(Task task) throws DukeException, IOException {
         list.add(task); // Adds task to the list
+        counter += 1;
     }
 
-    public static String todo(String input) throws DukeException {
+    public static String todo(String input) throws DukeException, IOException {
         String task = input.substring(5);
         if (task != "") {
             Task item = new Todo(task);
             addTask(item);
-            counter += 1;
             String response = "Understood, I will add the following todo to your list:\n" + item.toString();
             String listLength = "Please note that there are " + counter + " tasks in the list.";
             return response + "\n" + listLength + "\n";
@@ -122,14 +126,13 @@ public class Duke {
         }
     }
 
-    public static String deadline(String input) throws DukeException {
+    public static String deadline(String input) throws DukeException, IOException {
         String desc = input.substring(9);
         String task = desc.split(" /by ")[0];
         String by = desc.split(" /by ")[1];
         if (task != "" && by != "") {
             Task item = new Deadline(task, by);
             addTask(item);
-            counter += 1;
             String response = "Understood, I will add the following deadline to your list:\n" + item.toString();
             String listLength = "Please note that there are " + counter + " tasks in the list.";
             return response + "\n" + listLength + "\n";
@@ -140,7 +143,7 @@ public class Duke {
         }
     }
 
-    public static String event(String input) throws DukeException {
+    public static String event(String input) throws DukeException, IOException {
         String desc = input.substring(6);
         String[] eventTime = desc.split(" /from ");
         String task = eventTime[0];
@@ -150,7 +153,6 @@ public class Duke {
         if (task != "" && from != "" && to != "") {
             Task item = new Event(task, from, to);
             addTask(item);
-            counter += 1;
             String response = "Understood, I will add the following event to your list:\n" + item.toString();
             String listLength = "Please note that there are " + counter + " tasks in the list.";
             return response + "\n" + listLength + "\n";
@@ -161,12 +163,13 @@ public class Duke {
         }
     }
 
-    public static String delete(String input) throws DukeException {
+    public static String delete(String input) throws DukeException, IOException {
         int index = Integer.valueOf(input.substring(7)) - 1;
         if (index >= 0 && index < counter) {
             Task task = list.get(index);
             list.remove(index);
             counter -= 1;
+            save();
             String response = "Understood, I will remove the following task from your list:\n" + task.toString();
             String listLength = "Please note that there are " + counter + " tasks in the list.";
             return response + "\n" + listLength + "\n";
@@ -176,23 +179,87 @@ public class Duke {
         }
     }
 
-    public static void main(String[] args) throws DukeException {
+    public static void load() throws DukeException, IOException {
+        try {
+            File save = new File("./data/duke.txt");
+            boolean saveExist = save.exists();
+            if (!saveExist) {
+                File path = new File("./data");
+                boolean pathExist = path.exists();
+                if (!pathExist) {
+                    path.mkdir();
+                }
+                save.createNewFile();
+            } else {
+                Scanner input = new Scanner(save);
+                while (input.hasNextLine()) {
+                    String details = input.nextLine();
+                    String[] data = details.split(" \\| ");
+                    String type = data[0];
+                    String isCompleted = data[1];
+                    String task = data[2];
+                    if (type.equals("T")) {
+                        addTask(new Todo(task));
+                        if (isCompleted == "1") {
+                            list.get(counter - 1).setDone();
+                        }
+                    }
+                    if (type.equals("D")) {
+                        addTask(new Deadline(task, data[3]));
+                        if (isCompleted == "1") {
+                            list.get(counter - 1).setDone();
+                        }
+                    }
+                    if (type.equals("E")) {
+                        addTask(new Event(task, data[3], data[4]));
+                        if (isCompleted == "1") {
+                            list.get(counter - 1).setDone();
+                        }
+                    }
+                }
+            }
+        } catch (IOException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+        }
+    }
 
-        Scanner myObj = new Scanner(System.in);  // Create a Scanner object
+    public static void save() throws DukeException, IOException {
+        try (FileWriter save = new FileWriter("./data/duke.txt")) {
+            String str = "";
+            for (int i = 0; i < counter; i++) {
+                str += list.get(i).write() + "\n";
+            }
+            save.write(str);
+        }
+    }
 
-        System.out.println(greet()); // Greets user
-
-        String echo = myObj.nextLine(); // Reads user input
-
-        while (!echo.equals("bye")) {
+    public static void main(String[] args) throws DukeException, FileNotFoundException {
+        try (Scanner myObj = new Scanner(System.in)) {
             try {
-                System.out.println(command(echo)); // Checks input
-            } catch (DukeException ex) {
-                System.err.println(ex); // Prints error
-            } finally {
-                echo = myObj.nextLine(); // Scan for next input
+                load();
+                System.out.println(greet()); // Greets user
+
+                String echo = myObj.nextLine(); // Reads user input
+
+                while (!echo.equals("bye")) {
+                    try {
+                        System.out.println(command(echo)); // Checks input
+                    } catch (DukeException ex) {
+                        System.err.println(ex); // Prints error
+                    } finally {
+                        save();
+                        echo = myObj.nextLine(); // Scan for next input
+                    }
+                }
+
+                System.out.println(thank()); // Exits the bot
+            
+            } catch (IOException ex) {
+                System.err.println(ex);
             }
         }
-        System.out.println(thank()); // Exits the bot
+
+  
     }
 }
