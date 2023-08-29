@@ -1,4 +1,4 @@
-// deals with interactions with the user
+package sally;// deals with interactions with the user
 
 import java.util.Scanner;
 
@@ -14,7 +14,7 @@ public class Ui {
     }
 
     public void showWelcomeMessage() {
-        System.out.println("Hello! It's Sally here!");
+        System.out.println("Hello! It's sally.Sally here!");
         System.out.println("How can I help you today?");
     }
 

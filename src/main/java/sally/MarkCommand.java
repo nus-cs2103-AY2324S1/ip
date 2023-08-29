@@ -1,3 +1,5 @@
+package sally;
+
 public class MarkCommand implements Command {
 
     private final int taskIndex;

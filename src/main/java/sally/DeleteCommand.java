@@ -1,3 +1,7 @@
+package sally;
+
+import sally.Command;
+
 public class DeleteCommand implements Command {
     private final int taskIndex;
 

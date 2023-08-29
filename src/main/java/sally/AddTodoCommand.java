@@ -1,3 +1,5 @@
+package sally;
+
 public class AddTodoCommand implements Command {
     private String description;
 

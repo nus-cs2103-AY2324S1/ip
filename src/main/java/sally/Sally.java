@@ -1,4 +1,4 @@
-import java.util.Scanner;
+package sally;
 
 public class Sally {
     private Storage storage;

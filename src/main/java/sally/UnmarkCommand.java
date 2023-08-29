@@ -1,3 +1,5 @@
+package sally;
+
 public class UnmarkCommand implements Command {
     private final int taskIndex;
 
