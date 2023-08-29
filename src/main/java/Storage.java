@@ -11,6 +11,10 @@ public class Storage {
         this.saveFilePath = filePath;
     }
 
+    String getSaveFilePath() {
+        return this.saveFilePath;
+    }
+
     String readFromFile() throws IOException {
         Path filePath = Path.of(saveFilePath);
         return Files.readString(filePath);

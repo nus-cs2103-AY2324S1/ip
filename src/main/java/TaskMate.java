@@ -22,12 +22,32 @@ public class TaskMate {
         this.ui = new Ui(chatbotName);
         this.storage = new Storage(filePath);
         this.tasks = new TaskList();
+
+        // Load existing tasks from disk
+        try {
+            String fileContents = storage.readFromFile();
+            this.tasks = new TaskList(fileContents);
+        } catch (IOException e) {
+            ui.printFileNotFoundResponse(storage.getSaveFilePath());
+        } catch (NoDataException e) {
+            ui.printNoDataResponse();
+        }
     }
 
     TaskMate() {
         this.ui = new Ui(chatbotName);
         this.storage = new Storage(defaultSaveTaskFilePath);
         this.tasks = new TaskList();
+
+        // Load existing tasks from disk
+        try {
+            String fileContents = storage.readFromFile();
+            this.tasks = new TaskList(fileContents);
+        } catch (IOException e) {
+            ui.printFileNotFoundResponse(storage.getSaveFilePath());
+        } catch (NoDataException e) {
+            ui.printNoDataResponse();
+        }
     }
 
     public static void main(String[] args) {
@@ -35,8 +55,6 @@ public class TaskMate {
     }
 
     public void run() {
-        // Load existing tasks from disk
-        loadTasksFromDisk();
 
         // Greets user
         ui.greetUser();
@@ -270,56 +288,4 @@ public class TaskMate {
         printReply("Noted. I've removed this task:\n  " + removedTask.toString() + "\nNow you have " + tasks.getAllTasks().size() + " task(s) in the list.");
     }
 
-    void loadTasksFromDisk() {
-        String unprocessedTasks;
-        try {
-            unprocessedTasks = storage.readFromFile();
-        } catch (IOException e) {
-            System.out.println("Saved task file not found.");
-            return;
-        }
-
-        if (unprocessedTasks.isEmpty()) {
-            ui.printNoDataResponse();
-            return;
-        }
-
-        String[] lines = unprocessedTasks.split("\\n");
-        String taskType, name, by, from, to, delimiter, delimiter2;
-        boolean taskIsDone;
-        Task newTask;
-        for (String line: lines) {
-            taskType = line.substring(1,2);
-            taskIsDone = line.charAt(4) == 'X';
-
-            if (taskType.equals("T")) {
-                // To-do task
-                name = line.substring(7);
-                newTask = new Todo(name, taskIsDone);
-                tasks.addTask(newTask, taskIsDone);
-            } else if (taskType.equals("D")) {
-                // Deadline
-                delimiter = "(by: ";
-                int indexOfByParam = line.lastIndexOf(delimiter);
-                name = line.substring(7, indexOfByParam);
-                by = line.substring(indexOfByParam + delimiter.length(), line.length() - 1);
-                newTask = new Deadline(name, by, taskIsDone);
-                tasks.addTask(newTask, taskIsDone);
-            } else if (taskType.equals("E")) {
-                // Event
-                delimiter = "(from: ";
-                delimiter2 = " to: ";
-                int indexOfFromParam = line.lastIndexOf(delimiter);
-                int indexOfToParam = line.lastIndexOf(delimiter2);
-                name = line.substring(7, indexOfFromParam);
-                from = line.substring(indexOfFromParam + delimiter.length(), indexOfToParam);
-                to   = line.substring(indexOfToParam + delimiter2.length(), line.length() - 1);
-                newTask = new Event(name, from, to, taskIsDone);
-                tasks.addTask(newTask, taskIsDone);
-            } else {
-                // Invalid event
-                System.out.println("Invalid task: " + line);
-            }
-        }
-    }
 }

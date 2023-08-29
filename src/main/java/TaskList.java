@@ -7,7 +7,50 @@ public class TaskList {
     int numIncompleteTasks = 0;
 
     TaskList() {
+    }
 
+    TaskList(String contentsFromDisk) throws NoDataException {
+        if (contentsFromDisk.isEmpty()) {
+            throw new NoDataException();
+        }
+
+        String[] lines = contentsFromDisk.split("\\n");
+        String taskType, name, by, from, to, delimiter, delimiter2;
+        boolean taskIsDone;
+        Task newTask;
+        for (String line: lines) {
+            taskType = line.substring(1,2);
+            taskIsDone = line.charAt(4) == 'X';
+
+            if (taskType.equals("T")) {
+                // To-do task
+                name = line.substring(7);
+                newTask = new Todo(name, taskIsDone);
+                this.addTask(newTask, taskIsDone);
+            } else if (taskType.equals("D")) {
+                // Deadline
+                delimiter = "(by: ";
+                int indexOfByParam = line.lastIndexOf(delimiter);
+                name = line.substring(7, indexOfByParam);
+                by = line.substring(indexOfByParam + delimiter.length(), line.length() - 1);
+                newTask = new Deadline(name, by, taskIsDone);
+                this.addTask(newTask, taskIsDone);
+            } else if (taskType.equals("E")) {
+                // Event
+                delimiter = "(from: ";
+                delimiter2 = " to: ";
+                int indexOfFromParam = line.lastIndexOf(delimiter);
+                int indexOfToParam = line.lastIndexOf(delimiter2);
+                name = line.substring(7, indexOfFromParam);
+                from = line.substring(indexOfFromParam + delimiter.length(), indexOfToParam);
+                to   = line.substring(indexOfToParam + delimiter2.length(), line.length() - 1);
+                newTask = new Event(name, from, to, taskIsDone);
+                this.addTask(newTask, taskIsDone);
+            } else {
+                // Invalid event
+                System.out.println("Invalid task: " + line);
+            }
+        }
     }
 
     void addTask(Task t) {

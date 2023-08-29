@@ -38,8 +38,15 @@ public class Ui {
         printMessage("☹ OOPS!!! The description of a delete must be between 1 and " + numTotalTasks + ".");
     }
 
+    void printFileNotFoundResponse(String filePath) {
+        printMessage("No previous datafile found in " + filePath + ". Creating new task list for you!");
+    }
+
     void printNoDataResponse() {
-        printMessage("No previous data found. Creating new task list for you!");
+        /*
+        Prints message for when the file exists in the user's data directory. However, no data is found there.
+         */
+        printMessage("Datafile located. However, it is empty. Creating a new task list for you!");
     }
 
     void printSaveFailResponse(String savePath) {
