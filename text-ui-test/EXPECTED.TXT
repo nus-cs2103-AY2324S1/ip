@@ -14,14 +14,14 @@
 
     _____________________________________________________________________________
       Got it. I've added this task:
-        [ ][D] return book (by: sunday)
+        [ ][D] return book (by: 09/01/2023)
       Now you have 2 tasks in the list.
     _____________________________________________________________________________
 
 
     _____________________________________________________________________________
       Got it. I've added this task:
-        [ ][E] project meeting (from: monday 2pm to: monday 4pm)
+        [ ][E] holiday (from: 02/12/2023 to: 25/12/2023)
       Now you have 3 tasks in the list.
     _____________________________________________________________________________
 
@@ -29,8 +29,8 @@
     _____________________________________________________________________________
       Here are the tasks in your list:
         1.[ ][T] read book
-        2.[ ][D] return book (by: sunday)
-        3.[ ][E] project meeting (from: monday 2pm to: monday 4pm)
+        2.[ ][D] return book (by: 09/01/2023)
+        3.[ ][E] holiday (from: 02/12/2023 to: 25/12/2023)
 
     _____________________________________________________________________________
 
@@ -44,8 +44,8 @@
     _____________________________________________________________________________
       Here are the tasks in your list:
         1.[X][T] read book
-        2.[ ][D] return book (by: sunday)
-        3.[ ][E] project meeting (from: monday 2pm to: monday 4pm)
+        2.[ ][D] return book (by: 09/01/2023)
+        3.[ ][E] holiday (from: 02/12/2023 to: 25/12/2023)
 
     _____________________________________________________________________________
 
@@ -59,15 +59,15 @@
     _____________________________________________________________________________
       Here are the tasks in your list:
         1.[ ][T] read book
-        2.[ ][D] return book (by: sunday)
-        3.[ ][E] project meeting (from: monday 2pm to: monday 4pm)
+        2.[ ][D] return book (by: 09/01/2023)
+        3.[ ][E] holiday (from: 02/12/2023 to: 25/12/2023)
 
     _____________________________________________________________________________
 
 
     _____________________________________________________________________________
       Noted. I've removed this task:
-        [ ][D] return book (by: sunday)
+        [ ][D] return book (by: 09/01/2023)
       Now you have 2 tasks in your list.
     _____________________________________________________________________________
 
@@ -75,7 +75,7 @@
     _____________________________________________________________________________
       Here are the tasks in your list:
         1.[ ][T] read book
-        2.[ ][E] project meeting (from: monday 2pm to: monday 4pm)
+        2.[ ][E] holiday (from: 02/12/2023 to: 25/12/2023)
 
     _____________________________________________________________________________
 

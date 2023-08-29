@@ -1,3 +1,6 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 public abstract class Task {
 
     private final String input;
@@ -26,5 +29,10 @@ public abstract class Task {
 
     protected String checkDone() {
         return isDone ? "X" : " ";
+    }
+
+    public String formatDate(LocalDate date) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        return date.format(formatter);
     }
 }
