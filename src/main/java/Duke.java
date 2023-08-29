@@ -118,7 +118,7 @@ public class Duke {
 
 
             Task targetTask = tasks.get(taskIndex);
-            targetTask.markAsDone();
+            targetTask.markAsUndone();
 
             ArrayList<String> messages = new ArrayList<String>();
             messages.add("OK, I've marked this task as not done yet:");
