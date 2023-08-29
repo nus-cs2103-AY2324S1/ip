@@ -6,6 +6,7 @@ import java.time.temporal.ChronoUnit;
 public class Event extends Task {
     protected LocalDateTime startTime;
     protected LocalDateTime endTime;
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM d yyyy HH:mm");
 
     public Event(String description, LocalDateTime startTime, LocalDateTime endTime) {
         super(description, "E");
@@ -14,9 +15,7 @@ public class Event extends Task {
     }
 
     public String toString() {
-        return super.toString() + " (from: " + startTime.format(DateTimeFormatter.ofPattern("MMM d yyyy HH:mm"))
-                + " to "
-                + endTime.format(DateTimeFormatter.ofPattern("MMM d yyyy HH:mm")) + ")";
+        return super.toString() + " (from: " + startTime.format(formatter) + " to " + endTime.format(formatter) + ")";
     }
 
     public String toFileString() {

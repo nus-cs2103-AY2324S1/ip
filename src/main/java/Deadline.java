@@ -5,6 +5,7 @@ import java.time.temporal.ChronoUnit;
 
 public class Deadline extends Task {
     protected LocalDateTime deadlineDate;
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM d yyyy HH:mm");
 
     public Deadline(String description, LocalDateTime deadlineDate) {
         super(description, "D");
@@ -12,7 +13,7 @@ public class Deadline extends Task {
     }
 
     public String toString() {
-        return super.toString() + " (by: " + deadlineDate.format(DateTimeFormatter.ofPattern("MMM d yyyy HH:mm")) + ")";
+        return super.toString() + " (by: " + deadlineDate.format(formatter) + ")";
     }
 
     public String toFileString() {
