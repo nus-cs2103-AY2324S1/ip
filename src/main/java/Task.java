@@ -21,4 +21,9 @@ public class Task {
     public String toString() {
         return "[" + getStatusIcon() + "] " + this.description;
     }
+
+    public String write() {
+        String complete = isDone ? "1" : "0";
+        return complete + " | " + this.description;
+    }
 }
