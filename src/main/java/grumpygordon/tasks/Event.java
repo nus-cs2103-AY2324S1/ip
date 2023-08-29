@@ -1,8 +1,10 @@
+package grumpygordon.tasks;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 /**
- * Represents an Event object.
+ * Represents an grumpygordon.tasks.Event object.
  */
 public class Event extends Task {
     /**
@@ -16,7 +18,7 @@ public class Event extends Task {
     protected LocalDateTime to;
 
     /**
-     * Constructor to create an Event object.
+     * Constructor to create an grumpygordon.tasks.Event object.
      * @param description Description of event
      * @param from Start time of event
      * @param to End time of event
@@ -28,8 +30,8 @@ public class Event extends Task {
     }
 
     /**
-     * Returns a String representation of an Event.
-     * @return String representation of an Event.
+     * Returns a String representation of an grumpygordon.tasks.Event.
+     * @return String representation of an grumpygordon.tasks.Event.
      */
     @Override
     public String toString() {

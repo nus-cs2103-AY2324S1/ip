@@ -1,5 +1,7 @@
+package grumpygordon.exceptions;
+
 /**
- * Represents a GrumpyGordonInitialisationException.
+ * Represents a grumpygordon.exceptions.GrumpyGordonInitialisationException.
  */
 public class GrumpyGordonInvalidCommandException extends GrumpyGordonException {
     public GrumpyGordonInvalidCommandException(String message) {

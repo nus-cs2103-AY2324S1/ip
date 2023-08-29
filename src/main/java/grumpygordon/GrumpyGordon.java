@@ -1,4 +1,9 @@
-import java.util.*;
+package grumpygordon;
+
+import grumpygordon.storage.Storage;
+import grumpygordon.tasks.*;
+import grumpygordon.ui.*;
+import grumpygordon.exceptions.*;
 
 /**
  * GrumpyGordon Chatbot

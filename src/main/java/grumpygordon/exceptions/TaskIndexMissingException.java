@@ -1,5 +1,7 @@
+package grumpygordon.exceptions;
+
 /**
- * Represents a TaskIndexMissingException.
+ * Represents a grumpygordon.exceptions.TaskIndexMissingException.
  */
 public class TaskIndexMissingException extends Exception {
     public TaskIndexMissingException(String message) {

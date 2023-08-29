@@ -10,12 +10,12 @@
     ____________________________________________________________
      Got it. I've added this task:
        [E][ ] book presentation (from: Oct 12 2023 15:00 to: Oct 12 2023 16:00)
-     Now you have 2 tasks in the list.
+     Now you have 2 grumpygordon.tasks in the list.
     ____________________________________________________________
     ____________________________________________________________
      Got it. I've added this task:
        [D][ ] return book (by: Oct 12 2023 18:00)
-     Now you have 3 tasks in the list.
+     Now you have 3 grumpygordon.tasks in the list.
     ____________________________________________________________
     ____________________________________________________________
      Took you long enough!

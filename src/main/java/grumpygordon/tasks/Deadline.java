@@ -1,9 +1,10 @@
+package grumpygordon.tasks;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 /**
- * Represents a Deadline object.
+ * Represents a grumpygordon.tasks.Deadline object.
  */
 public class Deadline extends Task {
     /**
@@ -12,7 +13,7 @@ public class Deadline extends Task {
     protected LocalDateTime by;
 
     /**
-     * Constructor to create a Deadline object.
+     * Constructor to create a grumpygordon.tasks.Deadline object.
      * @param description Description of event
      * @param by End time of event
      */
@@ -22,8 +23,8 @@ public class Deadline extends Task {
     }
 
     /**
-     * Returns a String representation of a Deadline.
-     * @return String representation of a Deadline.
+     * Returns a String representation of a grumpygordon.tasks.Deadline.
+     * @return String representation of a grumpygordon.tasks.Deadline.
      */
     @Override
     public String toString() {

@@ -1,3 +1,9 @@
+package grumpygordon.parser;
+
+import grumpygordon.tasks.*;
+import grumpygordon.exceptions.*;
+import grumpygordon.commands.*;
+
 import java.time.LocalDateTime;
 import java.util.regex.Pattern;
 
@@ -43,16 +49,16 @@ public class Parser {
         try {
             switch (type) {
                 case "T":
-                    // Parse the saved format for Deadline
+                    // Parse the saved format for grumpygordon.tasks.Deadline
                     // Example: "T | 0 | Sleep"
                     return new Todo(description, isDone);
                 case "D":
-                    // Parse the saved format for Deadline
+                    // Parse the saved format for grumpygordon.tasks.Deadline
                     // Example: "D | 1 | Buy groceries | 2023-08-31 12:00"
                     String deadlineBy = parts[3];
                     return new Deadline(description, parseDateTime(deadlineBy), isDone);
                 case "E":
-                    // Parse the saved format for Event
+                    // Parse the saved format for grumpygordon.tasks.Event
                     // Example: "E | 0 | Team meeting | 2023-09-01 12:00 | 2023-09-02 14:00"
                     String eventFrom = parts[3];
                     String eventTo = parts[4];

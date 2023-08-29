@@ -1,3 +1,9 @@
+package grumpygordon.tasks;
+
+import grumpygordon.exceptions.*;
+
+import grumpygordon.parser.Parser;
+
 /**
  * Class that represents a task added by the user.
  */
@@ -40,8 +46,8 @@ public abstract class Task {
     }
 
     /**
-     * Returns a String representation of a Task.
-     * @return String representation of a Task.
+     * Returns a String representation of a grumpygordon.tasks.Task.
+     * @return String representation of a grumpygordon.tasks.Task.
      */
     @Override
     public String toString() {
