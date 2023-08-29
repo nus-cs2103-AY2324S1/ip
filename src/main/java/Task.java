@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public class Task {
     protected String description;
     protected boolean isDone;
@@ -17,6 +19,37 @@ public class Task {
 
     public void unmarkAsDone() {
         isDone = false;
+    }
+
+    public String storeText() {
+        return " ";
+    }
+
+    public void markedChecker(String string) {
+        if (string.equals("false")) {
+            return;
+        } else {
+            this.markAsDone();
+        }
+    }
+
+    public static void readTaskFromFile(String[] task, ArrayList taskList) {
+
+        if (task[0].equals("T")) {
+            Task task1 = new Todo(task[2]);
+            task1.markedChecker(task[1]);
+            taskList.add(task1);
+        } else if (task[0].equals("D")) {
+            Task task1 = new Deadline(task[2]);
+            task1.markedChecker(task[1]);
+            taskList.add(task1);
+        } else if (task[0].equals("E")) {
+            Task task1 = new Event(task[2]);
+            task1.markedChecker(task[1]);
+            taskList.add(task1);
+        } else {
+            return;
+        }
     }
 
     @Override

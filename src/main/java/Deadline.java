@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public class Deadline extends Task{
 
     protected String time;
@@ -10,6 +12,12 @@ public class Deadline extends Task{
 
     public String type() {
         return "D";
+    }
+
+
+    @Override
+    public String storeText() {
+        return String.format("%s|%s|%s /by %s", this.type(), this.isDone, this.description, this.time);
     }
 
     @Override

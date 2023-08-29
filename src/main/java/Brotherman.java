@@ -1,6 +1,11 @@
 import java.awt.*;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.ArrayDeque;
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.io.PrintWriter;
+
 
 
 public class Brotherman {
@@ -43,6 +48,35 @@ public class Brotherman {
         }
         return true;
     }
+
+    public static void saveToFile(ArrayList<Task> list) {
+
+        File folder = new File("./data/");
+        if(!folder.exists()) folder.mkdirs();
+
+        try (PrintWriter output = new PrintWriter("./data/brotherman.txt")){
+            for (Task listItems : list) {
+                output.println(listItems.storeText());
+            }
+        } catch(Exception e){
+            e.getStackTrace();
+        }
+
+    }
+
+    public static void readFromFile(ArrayList<Task> array) {
+
+        try (Scanner sc = new Scanner(new File("./data/brotherman.txt"))) {
+            while (sc.hasNextLine()) {
+                String taskString = sc.nextLine();
+                String[] arr = taskString.split("\\|");
+                Task.readTaskFromFile(arr, array);
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println("Welcome to Brotherman!");
+        }
+
+    }
     public static void main(String[] args) {
 
         Scanner input = new Scanner(System.in);
@@ -56,6 +90,7 @@ public class Brotherman {
                 + "What can I do for you?\n"
                 + "____________________________________________________________\n");
 
+        readFromFile(userList);
         String userCommand = input.nextLine();
 
 
@@ -160,6 +195,8 @@ public class Brotherman {
             userCommand = input.nextLine();
 
         }
+
+        saveToFile(userList);
         System.out.println(
                 "___________________________________________________________\n"
                 + "Bye, see you again Brotherman!\n"

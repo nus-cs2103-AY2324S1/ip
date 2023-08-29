@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public class Todo extends Task{
     public Todo (String description) {
         super(description);
@@ -7,6 +9,12 @@ public class Todo extends Task{
         return "T";
     }
 
+
+
+    @Override
+    public String storeText() {
+        return String.format("%s|%s|%s", this.type(), this.isDone, this.description);
+    }
     @Override
     public String toString() {
         String type = this.type();
