@@ -2,15 +2,12 @@ package tasks;
 
 public class TodoTask extends Task {
 
-<<<<<<< HEAD
-    public TodoTask(String description) {
-=======
+
     /**
      * Constructor for TodoTask.
      * @param description
      */
-    public TodoTask (String description) {
->>>>>>> branch-A-JavaDoc
+    public TodoTask(String description) {
         super(description);
     }
 
@@ -20,14 +17,7 @@ public class TodoTask extends Task {
     public TodoTask() {
         super("");
     }
-<<<<<<< HEAD
-=======
-    
-    /**
-     * Returns the string representation of the todo task.
-     * @return String
-     */
->>>>>>> branch-A-JavaDoc
+
     @Override
     public String toString() {
         return "[T]" + super.toString();

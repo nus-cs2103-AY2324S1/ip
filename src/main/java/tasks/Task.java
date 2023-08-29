@@ -8,29 +8,21 @@ import exceptions.DukeException;
  * Represents a task.
  */
 public abstract class Task {
-<<<<<<< HEAD
-    private static final DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
-    private static final DateTimeFormatter DATE_FORMAT_OUTPUT = DateTimeFormatter.ofPattern("MMM dd yyyy HHmm");
-    private String description;
-    private boolean isDone;
-=======
-    /** Description of the task */
-    protected String description;
-
-    /** Indicator if task is done */
-    protected boolean isDone;
-
     /** Datetime format for storage and input */
     protected static final DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
 
     /** Datetime format for output */
     protected static final DateTimeFormatter DATE_FORMAT_OUTPUT = DateTimeFormatter.ofPattern("MMM dd yyyy HHmm");
+    /** Description of the task */
+    private String description;
+
+    /** Indicator if task is done */
+    private boolean isDone;
 
     /**
      * Constructor for Task.
      * @param description
      */
->>>>>>> branch-A-JavaDoc
     public Task(String description) {
         this.description = description;
         this.isDone = false;
@@ -51,19 +43,14 @@ public abstract class Task {
     public void setStatusIcon(String statusIcon) {
         this.isDone = statusIcon.equals("X");
     }
-<<<<<<< HEAD
-=======
-    
     /**
      * Returns the description of the task.
      * @return String description
      */
->>>>>>> branch-A-JavaDoc
     public String getDescription() {
         return description;
     }
 
-<<<<<<< HEAD
     public void setDescription(String description) {
         this.description = description;
     }
@@ -75,11 +62,9 @@ public abstract class Task {
         return DATE_FORMAT_OUTPUT;
     }
 
-=======
     /**
      * Marks task as done.
      */
->>>>>>> branch-A-JavaDoc
     public void markAsDone() {
         isDone = true;
     }

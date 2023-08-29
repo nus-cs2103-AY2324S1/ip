@@ -8,19 +8,6 @@ import exceptions.DukeException;
  * Represents a list of tasks.
  */
 public class TaskList {
-<<<<<<< HEAD
-    private static final DateTimeFormatter DATE_FORMAT_OUTPUT = DateTimeFormatter.ofPattern("d/M/yyyy");
-    private ArrayList<Task> userTasks;
-    public TaskList() {
-        this.userTasks = new ArrayList<Task>();
-    }
-    public TaskList(ArrayList<Task> userTasks) {
-        this.userTasks = userTasks;
-    }
-    public static DateTimeFormatter getDateFormatOutput() {
-        return DATE_FORMAT_OUTPUT;
-    }
-=======
     /** List of tasks */
     private ArrayList<Task> userTasks;
 
@@ -43,7 +30,6 @@ public class TaskList {
      * Set the list of tasks.
      * @param userTasks
      */
->>>>>>> branch-A-JavaDoc
     public void setTasks(ArrayList<Task> userTasks) {
         this.userTasks = userTasks;
     }
