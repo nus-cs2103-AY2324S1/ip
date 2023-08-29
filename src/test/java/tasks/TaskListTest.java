@@ -80,10 +80,10 @@ public class TaskListTest {
             taskList.markTaskAsDone(3);
             fail();
         } catch (Exception e) {
-            String expected = "Invalid index format.\n" +
-                    "Format should be: mark <task index> OR unmark <task index> " +
-                    "OR delete <task index>\n" +
-                    "where index is from 1 to 1.";
+            String expected = "Invalid index format.\n"
+                    + "Format should be: mark <task index> OR unmark <task index> "
+                    + "OR delete <task index>\n"
+                    + "where index is from 1 to 1.";
             assertEquals(expected, e.getMessage());
         }
     }
