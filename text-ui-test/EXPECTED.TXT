@@ -2,122 +2,89 @@
 Hello! I'm YJ's Chatbot
 What can I do for you?
 -------------------------------
-Got it. I've added this task:
+Got it! I've added this task:
 [T][ ] Todo1
+There are now 1 tasks in the list
 -------------------------------
-Now you have 1 tasks in the list.
 0.[T][ ] Todo1
 -------------------------------
-Now you have 1 tasks in the list.
-The description of a todo cannot be empty!
+Failed to add task because: Task description cannot be empty!
 -------------------------------
--------------------------------
-Now you have 1 tasks in the list.
 0.[T][ ] Todo1
 -------------------------------
-Now you have 1 tasks in the list.
-Got it. I've added this task:
+Got it! I've added this task:
 [E][ ] Event1 test (from: 23 Aug 2023 11:30 AM to: 24 Aug 2023 11:59 PM)
+There are now 2 tasks in the list
 -------------------------------
-Now you have 2 tasks in the list.
 0.[T][ ] Todo1
 1.[E][ ] Event1 test (from: 23 Aug 2023 11:30 AM to: 24 Aug 2023 11:59 PM)
 -------------------------------
-Now you have 2 tasks in the list.
-Got it. I've added this task:
+Got it! I've added this task:
 [D][ ] Deadline1 test (by: 23 Aug 2023 11:30 AM)
+There are now 3 tasks in the list
 -------------------------------
-Now you have 3 tasks in the list.
 0.[T][ ] Todo1
 1.[E][ ] Event1 test (from: 23 Aug 2023 11:30 AM to: 24 Aug 2023 11:59 PM)
 2.[D][ ] Deadline1 test (by: 23 Aug 2023 11:30 AM)
 -------------------------------
-Now you have 3 tasks in the list.
-Got it. I've added this task:
-The task description and deadline cannot be empty!
+Failed to add task because: Description and /by cannot be empty!
 -------------------------------
-Now you have 3 tasks in the list.
-A deadline must contain a description and end specified with `/by`!
+Failed to add task because: Description and /by cannot be empty!
 -------------------------------
-Now you have 3 tasks in the list.
 0.[T][ ] Todo1
 1.[E][ ] Event1 test (from: 23 Aug 2023 11:30 AM to: 24 Aug 2023 11:59 PM)
 2.[D][ ] Deadline1 test (by: 23 Aug 2023 11:30 AM)
 -------------------------------
-Now you have 3 tasks in the list.
 0.[T][ ] Todo1
 1.[E][ ] Event1 test (from: 23 Aug 2023 11:30 AM to: 24 Aug 2023 11:59 PM)
 2.[D][ ] Deadline1 test (by: 23 Aug 2023 11:30 AM)
 -------------------------------
-Now you have 3 tasks in the list.
-An event must contain a description, start and end specified with `/by` and `/to`!
+Failed to add task because: An event must contain a description, start and end specified with `/by` and `/to`!
 -------------------------------
-Now you have 3 tasks in the list.
 0.[T][ ] Todo1
 1.[E][ ] Event1 test (from: 23 Aug 2023 11:30 AM to: 24 Aug 2023 11:59 PM)
 2.[D][ ] Deadline1 test (by: 23 Aug 2023 11:30 AM)
 -------------------------------
-Now you have 3 tasks in the list.
-An event must contain a description, start and end specified with `/by` and `/to`!
+Failed to add task because: An event must contain a description, start and end specified with `/by` and `/to`!
 -------------------------------
-Now you have 3 tasks in the list.
 0.[T][ ] Todo1
 1.[E][ ] Event1 test (from: 23 Aug 2023 11:30 AM to: 24 Aug 2023 11:59 PM)
 2.[D][ ] Deadline1 test (by: 23 Aug 2023 11:30 AM)
 -------------------------------
-Now you have 3 tasks in the list.
-An event must contain a description, start and end specified with `/by` and `/to`!
+Failed to add task because: An event must contain a description, start and end specified with `/by` and `/to`!
 -------------------------------
-Now you have 3 tasks in the list.
 0.[T][ ] Todo1
 1.[E][ ] Event1 test (from: 23 Aug 2023 11:30 AM to: 24 Aug 2023 11:59 PM)
 2.[D][ ] Deadline1 test (by: 23 Aug 2023 11:30 AM)
 -------------------------------
-Now you have 3 tasks in the list.
-Got it. I've added this task:
-[E][ ] event (from: 23 Aug 2023 11:30 AM to: 23 Aug 2023 11:30 AM)
+Failed to add task because: An event must contain a description, start and end specified with `/by` and `/to`!
 -------------------------------
-Now you have 4 tasks in the list.
 0.[T][ ] Todo1
 1.[E][ ] Event1 test (from: 23 Aug 2023 11:30 AM to: 24 Aug 2023 11:59 PM)
 2.[D][ ] Deadline1 test (by: 23 Aug 2023 11:30 AM)
-3.[E][ ] event (from: 23 Aug 2023 11:30 AM to: 23 Aug 2023 11:30 AM)
 -------------------------------
-Now you have 4 tasks in the list.
 Nice! I've marked this task as done:
 [T][X] Todo1
 -------------------------------
--------------------------------
-Now you have 4 tasks in the list.
 0.[T][X] Todo1
 1.[E][ ] Event1 test (from: 23 Aug 2023 11:30 AM to: 24 Aug 2023 11:59 PM)
 2.[D][ ] Deadline1 test (by: 23 Aug 2023 11:30 AM)
-3.[E][ ] event (from: 23 Aug 2023 11:30 AM to: 23 Aug 2023 11:30 AM)
 -------------------------------
-Now you have 4 tasks in the list.
 Nice! I've marked this task as done:
 [T][ ] Todo1
 -------------------------------
--------------------------------
-Now you have 4 tasks in the list.
 0.[T][ ] Todo1
 1.[E][ ] Event1 test (from: 23 Aug 2023 11:30 AM to: 24 Aug 2023 11:59 PM)
 2.[D][ ] Deadline1 test (by: 23 Aug 2023 11:30 AM)
-3.[E][ ] event (from: 23 Aug 2023 11:30 AM to: 23 Aug 2023 11:30 AM)
 -------------------------------
-Now you have 4 tasks in the list.
-Noted. I've removed this task:
+Got it! I've deleted this task:
 [T][ ] Todo1
+There are now 2 tasks in the list
 -------------------------------
-Now you have 3 tasks in the list.
 0.[E][ ] Event1 test (from: 23 Aug 2023 11:30 AM to: 24 Aug 2023 11:59 PM)
 1.[D][ ] Deadline1 test (by: 23 Aug 2023 11:30 AM)
-2.[E][ ] event (from: 23 Aug 2023 11:30 AM to: 23 Aug 2023 11:30 AM)
 -------------------------------
-Now you have 3 tasks in the list.
+Invalid command!
 -------------------------------
-Unknown command given :<
--------------------------------
-Now you have 3 tasks in the list.
-Bye. Hope to see you soon!
+Bye! Hope to see you soon!
 -------------------------------
