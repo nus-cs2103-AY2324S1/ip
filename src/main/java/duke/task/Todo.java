@@ -5,7 +5,7 @@ public class Todo extends Task{
         super(" " + name);
         this.ogname = name;
         this.type = "Todo";
-        if (name.isEmpty()) throw new DukeException("dont leave the description empty!");
+        if (name.isEmpty()) throw new DukeException(" No Description given!");
     }
     @Override
     public String toString() {

@@ -1,4 +1,5 @@
-package duke;
+package duke.task;
 
 public class TodoTest {
+
 }

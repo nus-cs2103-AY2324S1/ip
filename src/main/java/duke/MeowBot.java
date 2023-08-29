@@ -1,3 +1,4 @@
+package duke;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -48,10 +49,6 @@ public class MeowBot {
     }
 
     public static void main(String[] args) throws DukeException, IOException {
-//        MeowBot meowBot = new MeowBot();
-//        meowBot.greet();
-//        meowBot.processCommand();
-//        meowBot.bye();
         new MeowBot("src/main/data/meowbot.txt").run();
     }
 
