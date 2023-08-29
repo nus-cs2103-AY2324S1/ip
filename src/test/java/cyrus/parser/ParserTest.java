@@ -43,4 +43,12 @@ public class ParserTest {
       assertEquals(entry.getValue(), options.getOrDefault(entry.getKey(), "invalid"));
     }
   }
+
+  @Test
+  public void testParseWithoutOptions() {
+    ParseInfo info = parser.parse("todo this is a todo");
+    assertEquals(CommandType.ADD_TODO, info.commandType);
+    assertEquals("this is a todo", info.getArgument());
+    assertEquals(0, info.getOptions().size());
+  }
 }
