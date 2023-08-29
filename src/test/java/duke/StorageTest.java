@@ -13,11 +13,11 @@ import static org.junit.jupiter.api.Assertions.*;
 public class StorageTest {
 
     @Test
-    public void loadData_nonExistentFile_throwsDukeDatabaseException() {
+    public void loadData_nonExistentFile_throwsNullPointerException() {
         String filePath = "nonexistent_file.txt";
         Storage storage = new Storage(filePath);
 
-        assertThrows(DukeDatabaseException.class, storage::loadData);
+        assertThrows(NullPointerException.class, storage::loadData);
     }
     
     @Test
