@@ -137,12 +137,12 @@ public class Alyssa {
     private static void checkSaveFile() {
         File dataDir = new File("./data");
         if (!dataDir.exists()) {
-            System.out.println("data directory doesn't exist");
+            //System.out.println("data directory doesn't exist");
             dataDir.mkdir();
         }
         saveFile = new File(saveFilePath);
         if (!saveFile.exists()) {
-            System.out.println("savefile doesn't exist");
+            //System.out.println("savefile doesn't exist");
             try {
                 saveFile.createNewFile();
                 saveFile.setReadable(true);
