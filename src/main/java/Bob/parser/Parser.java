@@ -46,6 +46,8 @@ public class Parser {
             return Parser.parseEventCommand(commandType, argument);
         case DELETE:
             return Parser.parseDeleteCommand(argument);
+        case FIND:
+            return Parser.parseFindCommand(argument);
         case INVALID:
             throw new BobInvalidCommandException("I'm sorry! I don't understand the command :(");
         default:
@@ -107,6 +109,11 @@ public class Parser {
             throw new BobInvalidTaskNumberException();
         }
     }
+
+    private static Command parseFindCommand(String argument) {
+        return new FindCommand(argument);
+    }
+
     private static CommandType strToCommandType(String s) {
         try {
             return CommandType.valueOf(s);
@@ -114,7 +121,6 @@ public class Parser {
             return CommandType.INVALID;
         }
     }
-
 
     /**
      * Returns an instance of a Task after processing a String in stored format.

@@ -79,4 +79,24 @@ public class TaskList {
                     "Use the command: \"list\" to find out what tasks you have.");
         }
     }
+
+    /**
+     * Creates a new TaskList by filtering existing TaskList
+     * with provided keyword.
+     *
+     * @param keyword Keyword used to filter task descriptions
+     * @return A filtered TaskList
+     */
+    public TaskList keywordFilter(String keyword) {
+        TaskList filteredTasklist = new TaskList();
+        if (keyword.isBlank()) {
+            return this;
+        }
+        for (Task currentTask : this.tasks) {
+            if (currentTask.containsKeyword(keyword)) {
+                filteredTasklist.addTask(currentTask);
+            }
+        }
+        return filteredTasklist;
+    }
 }

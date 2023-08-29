@@ -48,6 +48,8 @@ public class Bob {
                 isExit = c.isExit();
             } catch (BobException e) {
                 textUi.printErrorMessage(e);
+            } finally {
+                textUi.printDivider();
             }
         }
     }

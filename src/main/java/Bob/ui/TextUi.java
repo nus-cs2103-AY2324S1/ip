@@ -54,7 +54,6 @@ public class TextUi {
     public void printGoodbyeMessage() {
         String goodbyeMessage = "Goodbye! Bob signing out!";
         System.out.println(goodbyeMessage);
-        printDivider();
     }
 
     /**
@@ -73,7 +72,6 @@ public class TextUi {
                 System.out.printf("\nNow you have %d tasks in your list!%n", numOfTasks);
             }
         }
-        printDivider();
     }
 
     /**
@@ -83,19 +81,16 @@ public class TextUi {
      */
     public void printErrorMessage(Exception e) {
         System.out.println(e.getMessage());
-        printDivider();
     }
 
     /**
      * Prints out the list of currently saved tasks to standard output.
      *
      * @param taskList
-     * @throws BobInvalidTaskNumberException if an error occurs when accessing a task
+     * @throws BobInvalidTaskNumberException If an error occurs when accessing a task
      */
     public void printListMessage(TaskList taskList) throws BobInvalidTaskNumberException {
-        for (int i = 0; i < taskList.size(); i++) {
-            System.out.println((i + 1) + ". " + taskList.getTask(i).toString());
-        }
+        printRawList(taskList);
         printListEndMessage(taskList);
     }
 
@@ -113,7 +108,6 @@ public class TextUi {
         } else {
             System.out.println("No worries! I will help you unmark this task:\n" + task.toString());
         }
-        printDivider();
     }
 
     /**
@@ -125,7 +119,6 @@ public class TextUi {
     public void printDeleteMessage(Task task) {
         System.out.println("Foosh! Let it be gone! I've helped delete the task:\n" +
                 task.toString());
-        printDivider();
     }
 
     /**
@@ -137,7 +130,24 @@ public class TextUi {
     public void printAddMessage(Task task) {
         String displayMessage = "I gotchu. New task added to the list:\n";
         System.out.println(displayMessage + task.toString());
-        printDivider();
+    }
+
+    /**
+     * Prints a list of filtered tasks after find command is executed.
+     *
+     * @param taskList List of filtered tasks
+     * @throws BobInvalidTaskNumberException If an error occurs when trying to access a task
+     */
+    public void printFindMessage(TaskList taskList) throws BobInvalidTaskNumberException {
+        String displayMessage = "These are the matching tasks in your list:\n";
+        System.out.println(displayMessage);
+        printRawList(taskList);
+    }
+
+    private void printRawList(TaskList taskList) throws BobInvalidTaskNumberException {
+        for (int i = 0; i < taskList.size(); i++) {
+            System.out.println((i + 1) + ". " + taskList.getTask(i).toString());
+        }
     }
 
     /**
