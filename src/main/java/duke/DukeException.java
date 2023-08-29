@@ -1,3 +1,5 @@
+package duke;
+
 /**
  * Used to handle exceptions specific to Duke.
  *

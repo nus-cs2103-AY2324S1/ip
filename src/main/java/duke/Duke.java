@@ -1,14 +1,10 @@
-import java.time.format.DateTimeParseException;
+package duke;
+
+import duke.task.Task;
 import java.util.Scanner;
 import java.util.ArrayList;
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.IOException;
-import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 
 /**
  * Program to run a task manager that can add, delete and mark tasks.

@@ -1,3 +1,5 @@
+package duke.task;
+
 /**
  * Encapsulates a task that can be added to the task manager.
  *

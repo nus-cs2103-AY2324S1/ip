@@ -1,9 +1,14 @@
+package duke;
+
+import duke.task.Task;
+import duke.task.ToDo;
+import duke.task.Deadline;
+import duke.task.Event;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
