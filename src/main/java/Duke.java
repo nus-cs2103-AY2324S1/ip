@@ -1,4 +1,3 @@
-import java.io.IOException;
 import java.util.Scanner;
 
 public class Duke  {
@@ -8,7 +7,6 @@ public class Duke  {
         MYBot.openGreeting();
 
         Scanner scanner = new Scanner(System.in);
-
         while(true){
             String input = scanner.nextLine();
             if(input.equals("bye")) {

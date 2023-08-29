@@ -11,20 +11,12 @@ public class Task {
         return (isDone ? "X" : " "); // mark done task with X
     }
 
-    private String fileGetStatusIcon(){
-        return (isDone ? "Y" : "N");
-    }
-
     private String getDescription(){
         return description;
     }
 
     public void taskDone(){
         isDone = true;
-    }
-
-    public void taskStatusFromFile(boolean status){
-        isDone = status;
     }
 
     public void undoTask() {
@@ -34,9 +26,5 @@ public class Task {
     @Override
     public String toString(){
         return " [" + getStatusIcon() + "] " + getDescription();
-    }
-
-    public String toFileString(){
-        return "|" + fileGetStatusIcon() + "|" + getDescription();
     }
 }

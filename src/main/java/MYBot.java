@@ -1,4 +1,3 @@
-import java.io.IOException;
 import java.util.List;
 
 public class MYBot {
@@ -6,19 +5,16 @@ public class MYBot {
     private String bot_Name;
     private TaskList task_List;
 
-    private String FILE_NAME = "src/main/MYBOT.txt";
-
     public MYBot(String bot_Name){
         this.bot_Name = bot_Name;
         this.task_List = new TaskList();
     }
 
-    public void openGreeting() throws MYBotExceptions {
+    public void openGreeting(){
         System.out.println("____________________________________________________________");
         System.out.println("Hello! I'm " + bot_Name + ":)");
         System.out.println("What can I do for you?");
         System.out.println("____________________________________________________________");
-        task_List.loadTaskFromFile(FILE_NAME);
     }
 
     public void closeGreeting(){
@@ -142,7 +138,6 @@ public class MYBot {
             if (task_number > 0 && task_List.getTask(task_number) != null) {
                 Task taskTobeMarked = task_List.getTask(task_number);
                 taskTobeMarked.taskDone();
-                task_List.saveTasksToFile(FILE_NAME);
 
                 System.out.println("Good job completing! I've marked these task as done:):");
                 System.out.println(taskTobeMarked.toString());
@@ -164,7 +159,6 @@ public class MYBot {
             if (task_number > 0 && task_List.getTask(task_number) != null) {
                 Task taskTobeMarked = task_List.getTask(task_number);
                 taskTobeMarked.undoTask();
-                task_List.saveTasksToFile(FILE_NAME);
 
                 System.out.println("OK, I've marked this task as not done yet:");
                 System.out.println(taskTobeMarked.toString());
@@ -186,8 +180,6 @@ public class MYBot {
             if (task_number >= 0 && task_number <= task_List.getTask_Count()) {
                 Task taskToBeRemoved = task_List.getTask(task_number);
                 task_List.removeTask(task_number);
-                task_List.saveTasksToFile(FILE_NAME);
-
                 System.out.println("Noted. I've removed this task:\n  " + taskToBeRemoved.toString());
                 System.out.println("Now you have " + task_List.getTask_Count() + " tasks in the list.");
             } else {
