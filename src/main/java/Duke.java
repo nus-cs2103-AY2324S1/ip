@@ -1,7 +1,13 @@
 import java.util.Scanner;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
 public class Duke {
+    static String FILE_NAME = "./data/duke.txt";
     public enum CommandType {
         LIST,
         TODO,
@@ -11,6 +17,13 @@ public class Duke {
         MARK,
         UNMARK,
         BYE,
+        UNKNOWN
+    }
+
+    public enum TaskType {
+        TODO,
+        DEADLINE,
+        EVENT,
         UNKNOWN
     }
     static String horizontal_line = "____________________________________________________________\n";
@@ -23,7 +36,7 @@ public class Duke {
      * @param args Command line arguments.
      */
     public static void main(String[] args) {
-        List<Task> tasks = new ArrayList<>();
+        List<Task> tasks = loadData();
         handleStart();
         Scanner scanner = new Scanner(System.in);
         boolean isRunning = true;
@@ -36,6 +49,7 @@ public class Duke {
                     break;
                 case BYE:
                     handleBye(scanner);
+                    updateData(tasks);
                     isRunning = false;
                     break;
                 case DELETE:
@@ -91,6 +105,145 @@ public class Duke {
         }
     }
 
+    public static List<Task> loadData() {
+        List<Task> tasks;
+        try {
+            tasks = loadFromFile(FILE_NAME);
+        } catch (FileNotFoundException e) {
+            tasks = new ArrayList<>();
+        }
+        return tasks;
+    }
+
+    public static void updateData(List<Task> tasks) {
+        try {
+            saveToFile(tasks);
+        } catch (IOException e) {
+            System.out.println("An error occured while saving tasks.");
+        }
+    }
+
+    public static void saveToFile(List<Task> tasks) throws IOException{
+        File directory = new File("./data");
+        if (!directory.exists()) {
+            directory.mkdirs();
+        }
+
+        try (FileWriter writer = new FileWriter(FILE_NAME)) {  // Using try-with-resources for automatic closure of writer
+            for (Task task : tasks) {
+                writer.write(taskToFileString(task) + "\n");  // Convert each task to its file string representation
+            }
+        }
+    }
+
+    public static String taskToFileString(Task task) {
+        StringBuilder sb = new StringBuilder();
+    
+        if (task instanceof ToDos) {
+            sb.append("T | ");
+        } else if (task instanceof Deadlines) {
+            sb.append("D | ");
+        } else if (task instanceof Events) {
+            sb.append("E | ");
+        }
+    
+        sb.append(task.isCompleted() ? "1" : "0").append(" | ");
+        sb.append(task.getDescription());
+    
+        if (task instanceof Deadlines) {
+            sb.append(" | ").append(((Deadlines) task).getDate());
+        } else if (task instanceof Events) {
+            sb.append(" | ").append(((Events) task).getStartDate()).append(" | ").append(((Events) task).getEndDate());
+        }
+    
+        return sb.toString();
+    }
+
+    public static List<Task> loadFromFile(String filename) throws FileNotFoundException {
+        List<Task> tasks = new ArrayList<>();
+    
+        try {
+            Scanner scanner = new Scanner(new File(filename));
+            while (scanner.hasNext()) {
+                String line = scanner.nextLine();
+                
+                if (!isValidFormat(line)) {
+                    throw new DukeException("Data file is corrupted. Line not in expected format: " + line);
+                }
+
+                Task task = parseTask(line);
+                tasks.add(task);
+            }
+            scanner.close();
+        } catch (DukeException e) {
+            System.out.println(e.getMessage());
+        } catch (FileNotFoundException e) {
+            System.out.println("Data file not found. Starting with an empty task list.");
+        }
+        return tasks;
+
+    }
+
+    public static boolean isValidFormat(String line) {
+        return line.matches("^[TDE] \\| [01] \\| .+");
+    }
+
+    public TaskType getTaskType(String str) {
+        if (str.startsWith("T")) {
+            return TaskType.TODO;
+        } else if (str.startsWith("D")) {
+            return TaskType.DEADLINE;
+        } else if (str.startsWith("E")) {
+            return TaskType.EVENT;
+        } else {
+            return TaskType.UNKNOWN;
+        }
+    }
+    
+    public static Task parseTask(String line) throws DukeException{
+        String[] parts = line.split("\\|");
+    
+        // Trim spaces for each part
+        for (int i = 0; i < parts.length; i++) {
+            parts[i] = parts[i].trim();
+        }
+        
+        // Extract fields
+        Task task = null;
+        String taskType = parts[0];
+        boolean completed = "1".equals(parts[1]);
+        String description = parts[2];
+        String date = (parts.length == 4) ? parts[3] : null; 
+        String startDate = (parts.length == 5) ? parts[4] : null;
+        String endDate = (parts.length == 6) ? parts[5] : null; // Check if date/time part exists
+        
+        try {
+            switch(taskType) {
+            case "T":
+                task = new ToDos(description, completed);
+                break;
+        
+            case "D":
+                task = new Deadlines(description, date, completed);
+                break;
+        
+            case "E":
+                task = new Events(description, startDate, endDate, completed);
+                break;
+            }
+        } catch (DukeException e) {
+            System.out.println(e.getMessage());
+        }
+
+        if (task == null) {
+            throw new DukeException("Invalid task format.");
+        }
+
+        return task;
+    }
+    
+    
+    
     /**
      * Generates a message showing number of tasks in the list.
      *

@@ -23,6 +23,18 @@ public class Deadlines extends Task {
         this.date= date;
     }
 
+    public Deadlines(String description, String date, boolean completed) throws DukeException {
+        super(description);
+        if (description == null || description.trim().isEmpty()) {
+            throw new DukeException("description of deadline cannot be empty");
+        }
+        if (date == null || date.trim().isEmpty()) {
+            throw new DukeException("date of deadline cannot be empty");
+        }
+        this.date= date;
+        this.completed = completed;
+    }
+
     /**
      * Gets the date of the deadline.
      *

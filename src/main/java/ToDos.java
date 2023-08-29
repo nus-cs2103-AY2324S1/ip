@@ -17,6 +17,14 @@ public class ToDos extends Task {
         }
     }
 
+    public ToDos(String description, boolean completed) throws DukeException {
+        super(description);
+        if (description == null || description.trim().isEmpty()) {
+            throw new DukeException("OOPS! The description of ToDo cannot be empty!");
+        }
+        this.completed = completed;
+    }
+
     /**
      * Indicates that this task is of type "T".
      *
