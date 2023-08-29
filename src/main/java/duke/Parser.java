@@ -32,7 +32,7 @@ public class Parser {
         case "delete":
             return new DeleteCommand();
         default:
-            throw new DukeException("Unknown duke.command.Command!");
+            throw new DukeException("Unknown Command!");
         }
     }
 }

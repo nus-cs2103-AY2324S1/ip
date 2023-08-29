@@ -29,7 +29,7 @@ public class Deadline extends Task {
         try {
             this.date = LocalDate.parse(date);
         } catch (DateTimeException e) {
-            throw new DukeException("Wrong date format. Please Use format YYYY-MM-DD");
+            throw new DukeException("Wrong date format. Please Use format YYYY-MM-DD.");
         }
     }
 
