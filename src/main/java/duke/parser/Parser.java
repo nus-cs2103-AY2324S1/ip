@@ -6,6 +6,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.Date;
+import java.util.Locale;
 
 public class Parser {
     public static Command parse(String fullCommand) {
@@ -111,7 +112,12 @@ public class Parser {
 
             try {
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yy HHmm");
-                return new AddCommand(task[0], LocalDateTime.parse(to[0], formatter), LocalDateTime.parse(to[1], formatter));
+                LocalDateTime from = LocalDateTime.parse(to[0], formatter);
+                LocalDateTime till = LocalDateTime.parse(to[1], formatter);
+                if (from.isAfter(till) || from.isEqual(till)) {
+                    return new IncorrectCommand("Please ensure that the date range is valid!");
+                }
+                return new AddCommand(task[0], from, till);
             } catch (DateTimeParseException e) {
                 return new IncorrectCommand("Please enter the date & time in a valid format! (DD/MM/YY HHMM)");
             }

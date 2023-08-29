@@ -109,4 +109,10 @@ public class ParserTest {
         assertFalse(c instanceof AddCommand);
     }
 
+    @Test
+    void test_validTask_invalidRange_event() {
+        Command c = Parser.parse("event meet friends /from 21/05/02 1100 /to 21/05/02 1000");
+        assertFalse(c instanceof AddCommand);
+    }
+
 }
