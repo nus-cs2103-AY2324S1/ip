@@ -1,9 +1,8 @@
-
 public class Task {
     /**
      * The description of the task
      */
-    private String task;
+    private final String task;
 
     /**
      * The state of the task
@@ -11,17 +10,24 @@ public class Task {
     private boolean completed = false;
 
     /**
-     * Constructor for the Task class
-     * 
-     * @param task - the description of the task created
+     * Input that generated the task
      */
-    public Task(String task) {
+    private final String input;
+
+    /**
+     * Constructor for the Task class
+     *
+     * @param task  - the description of the task created
+     * @param input - Input that generated the task
+     */
+    public Task(String task, String input) {
         this.task = task;
+        this.input = input;
     }
 
     /**
      * Accessor for the completed field
-     * 
+     *
      * @return true if completed is true
      */
     public boolean isCompleted() {
@@ -33,6 +39,10 @@ public class Task {
      */
     public void toggleCompleted() {
         this.completed = !this.completed;
+    }
+
+    public String getInput() {
+        return input;
     }
 
     @Override

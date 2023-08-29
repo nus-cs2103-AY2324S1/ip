@@ -3,16 +3,17 @@ public class Deadline extends Task {
     /**
      * The deadline of the task
      */
-    private String by;
+    private final String by;
 
     /**
      * constructor for Deadline
-     * 
-     * @param by   - the deadline of the task
-     * @param task - the description of the task created
+     *
+     * @param by    - the deadline of the task
+     * @param task  - the description of the task created
+     * @param input - Input that generated the task
      */
-    public Deadline(String by, String task) {
-        super(task);
+    public Deadline(String by, String task, String input) {
+        super(task, input);
         this.by = by;
     }
 
