@@ -4,6 +4,9 @@ import java.util.Scanner;
 
 public class Ui {
 
+    public Ui() {
+    }
+
     public static void printWelcomeMessage() {
         System.out.println("Hello! I'm BbabBBB");
         System.out.println("What can I do for you?");

@@ -19,26 +19,40 @@ public class Duke {
      * @param args Command-line arguments (not used).
      * @throws DukeException If an error occurs during user input processing.
      */
-
-    static int inputNum;
+    private Storage storage;
+    private TaskList tasks;
+    private Ui ui;
     static ArrayList<Task> taskArray = new ArrayList<>();
     static TaskList taskList =  new TaskList(taskArray);
+    public Duke(String filePath) {
+        ui = new Ui();
+        storage = new Storage(filePath);
+        try {
+            tasks = new TaskList(storage.load());
+        } catch (DukeException e) {
+            ui.printLoadingError();
+            tasks = new TaskList();
+        } catch (IOException e){
+            System.out.println("Something went wrong while loading saved task file.");
+        }
+    }
 
-    public static void main(String[] args) throws DukeException {
-        inputNum = 0;
+    public void run() {
         // Send welcome message
         Ui.printWelcomeMessage();
 
         try {
-            inputNum = taskList.loadTasksFromFile("tasks.txt");
-            if (taskList.listTasks(inputNum) == "") {
+            taskList = new TaskList(Storage.load());
+            if (taskList.listTasks() == "") {
                 System.out.println("There are no tasks in your list at the moment. Add some!");
             } else {
                 System.out.println("Here are the tasks in your list:");
-                System.out.println(taskList.listTasks(inputNum));
+                System.out.println(taskList.listTasks());
             }
         } catch (FileNotFoundException e) {
-            System.out.println("File not found, proceed to use bot normally.");
+            System.out.println("File not found.");
+        } catch (FileUnloadableException e) {
+            System.out.println("File cannot be loaded.");
         } catch (IOException e) {
             System.out.println("e.getMessage");
         }
@@ -56,14 +70,14 @@ public class Duke {
 
                 } else if (Objects.equals(userInput, "list")) {
                     System.out.println("Here are the tasks in your list:");
-                    System.out.println(TaskList.listTasks(inputNum));
+                    System.out.println(TaskList.listTasks());
 
                 } else if (userInput.startsWith("mark")) {
-                    taskList.markTask(userInput, inputNum);
+                    taskList.markTask(userInput);
                     taskList.updateTaskFile();
 
                 } else if (userInput.startsWith("unmark")) {
-                    taskList.unmarkTask(userInput, inputNum);
+                    taskList.unmarkTask(userInput);
                     taskList.updateTaskFile();
 
                 } else if (userInput.startsWith("todo")) {
@@ -71,8 +85,7 @@ public class Duke {
                         throw new EmptyTaskException("todo");
                     }
                     String taskName = userInput.substring("todo".length()).trim();
-                    taskList.makeToDo(taskName, inputNum);
-                    inputNum++;
+                    taskList.makeToDo(taskName);
                     taskList.updateTaskFile();
 
                 } else if (userInput.startsWith("deadline")) {
@@ -84,8 +97,7 @@ public class Duke {
                     String[] deadlineParts = taskList.getDeadlineParts(userInput);
                     String taskName = deadlineParts[0];
                     LocalDateTime by = Storage.saveAsDate(deadlineParts[1]);
-                    taskList.makeDeadline(taskName, by, inputNum);
-                    inputNum++;
+                    taskList.makeDeadline(taskName, by);
                     taskList.updateTaskFile();
 
                 } else if (userInput.startsWith("event")) {
@@ -96,13 +108,11 @@ public class Duke {
                     String taskName = eventParts[0];
                     LocalDateTime start = Storage.saveAsDate(eventParts[1]);
                     LocalDateTime end = Storage.saveAsDate(eventParts[2]);
-                    taskList.makeEvent(taskName, start, end, inputNum);
-                    inputNum++;
+                    taskList.makeEvent(taskName, start, end);
                     taskList.updateTaskFile();
 
                 } else if (userInput.startsWith("delete")) {
-                    taskList.deleteTask(userInput, inputNum);
-                    inputNum--;
+                    taskList.deleteTask(userInput);
                     taskList.updateTaskFile();
                 }
                 else {
@@ -113,5 +123,9 @@ public class Duke {
             }
         }
         scan.close();
+    }
+
+    public static void main(String[] args) {
+        new Duke("tasks.txt").run();
     }
 }

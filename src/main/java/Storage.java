@@ -1,7 +1,4 @@
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -10,7 +7,7 @@ import java.util.Scanner;
 
 
 public class Storage {
-    private String filePath;
+    private static String filePath = "tasks.txt";
 
     public Storage(String filePath) {
         this.filePath = filePath;
@@ -48,6 +45,50 @@ public class Storage {
     }
 
 
+    public static ArrayList<Task> load() throws IOException, FileUnloadableException {
+        ArrayList<Task> taskArray = new ArrayList<>();
+        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                Task task = parseTaskFromString(line);
+                taskArray.add(task);
+            }
+        }
+        return taskArray;
+    }
 
+    private static Task parseTaskFromString(String line) {
+        String[] parts = line.split("\\|");
+        String taskType = parts[0].trim();
+        boolean isDone = parts[1].trim().equals("1");
+        String taskDescription = parts[2].trim();
 
+        if (taskType.equals("T")) {
+            Task task = new ToDo(taskDescription);
+            setStatus(task, isDone);
+            return task;
+        } else if (taskType.equals("D")) {
+            LocalDateTime by = Storage.saveAsDate(parts[3].trim());
+            Task task = new Deadline(taskDescription, by);
+            setStatus(task, isDone);
+            return task;
+        } else if (taskType.equals("E")) {
+            LocalDateTime start = Storage.saveAsDate(parts[3].trim());
+            LocalDateTime end = Storage.saveAsDate(parts[4].trim());
+            Task task = new Event(taskDescription, start, end);
+            setStatus(task, isDone);
+            return task;
+        } else {
+            // Handle unrecognized task type
+            return null;
+        }
+    }
+
+    private static void setStatus(Task task, boolean isDone) {
+        if (isDone) {
+            task.markDone();
+        } else {
+            task.unmarkDone();
+        }
+    }
 }
