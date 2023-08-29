@@ -73,4 +73,25 @@ public class Printing {
         System.out.println("Sorry, you currently have no tasks on the list.");
         Printing.printBlock();
     }
+
+    public static void printNoSavedFile() {
+        Printing.printBlock();
+        System.out.println("No saved file found.");
+        Printing.printBlock();
+    }
+
+    public static void printSavedFileFound() {
+        Printing.printBlock();
+        System.out.println("Saved file found.");
+
+        ArrayList<Task> storage = Storage.getStorage();
+        int length = Storage.getLength();
+        System.out.println("Here are the tasks in your list:");
+        for (int i = 0; i < length; i++) {
+            System.out.println(String.format("%d. %s",
+                    i + 1, storage.get(i)));
+        }
+
+        Printing.printBlock();
+    }
 }
