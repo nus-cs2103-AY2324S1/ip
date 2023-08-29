@@ -1,3 +1,6 @@
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -46,6 +49,10 @@ public class Duke {
         public String toString() {
             return "[" + (this.isDone ? "X" : " ") + "] " + this.taskName;
         }
+
+        public String saveString() {
+            return "";
+        }
     }
 
     // Use inheritance
@@ -58,27 +65,49 @@ public class Duke {
         public String toString() {
             return "[T]" + super.toString();
         }
+
+        @Override
+        public String saveString() {
+            return "T | " + (this.getIsDone() ? "1" : "0") + " | " + this.getTaskName();
+        }
     }
 
     private class Deadline extends Task {
-        public Deadline (String taskName) {
+        private String deadlineString;
+
+        public Deadline (String taskName, String deadline) {
             super(taskName);
+            this.deadlineString = deadline;
         }
 
         @Override
         public String toString() {
-            return "[D]" + super.toString();
+            return "[D]" + super.toString() + " (by: " + this.deadlineString + ")";
+        }
+
+        @Override
+        public String saveString() {
+            return "D | " + (this.getIsDone() ? "1" : "0") + " | " + this.getTaskName() + " | " + this.deadlineString;
         }
     }
 
     private class Event extends Task {
-        public Event (String taskName) {
+        private String fromString;
+        private String toString;
+
+        public Event (String taskName, String from, String to) {
             super(taskName);
+            this.fromString = from;
+            this.toString = to;
         }
 
         @Override
         public String toString() {
-            return "[E]" + super.toString();
+            return "[E]" + super.toString() + " (from: " + this.fromString + " to: " + this.toString + ")";
+        }
+        @Override
+        public String saveString() {
+            return "E | " + (this.getIsDone() ? "1" : "0") + " | " + this.getTaskName() + " | " + this.fromString + " | " + this.toString;
         }
     }
 
@@ -138,8 +167,6 @@ public class Duke {
             taskList.get(taskIndex).unmarkAsDone();
             System.out.println("\tOK, I've marked this task as not done yet:");
             System.out.println("\t\t" + taskList.get(taskIndex));
-        // there are only 3 types of tasks.
-        // need override toString() method for each task type.
         } else if (inputString.startsWith("todo")) {
             try {
                 // this excludes the space after todo as well
@@ -155,7 +182,7 @@ public class Duke {
                 String taskName = inputString.substring(9, inputString.indexOf("/by") - 1);
                 // get day
                 String deadline = inputString.substring(inputString.indexOf("/by") + 4);
-                Task newTask = new Deadline(taskName + " (by: " + deadline + ")");
+                Task newTask = new Deadline(taskName, deadline);
                 addTaskOutputText(newTask);
             } catch (StringIndexOutOfBoundsException e) {
                 System.out.println("\t☹ OOPS!!! The description of a deadline cannot be empty.");
@@ -165,7 +192,7 @@ public class Duke {
                 String taskName = inputString.substring(6, inputString.indexOf("/from") - 1);
                 String from = inputString.substring(inputString.indexOf("/from") + 6, inputString.indexOf("/to") - 1);
                 String to = inputString.substring(inputString.indexOf("/to") + 4);
-                Task newTask = new Event(taskName + " (from: " + from + " to: " + to + ")");
+                Task newTask = new Event(taskName, from, to);
                 addTaskOutputText(newTask);
             } catch (StringIndexOutOfBoundsException e) {
                 System.out.println("\t☹ OOPS!!! The description of an event cannot be empty.");
@@ -184,6 +211,7 @@ public class Duke {
             System.out.println("\tI'm not quite sure what that means. Try again using either mark <index>, unmark <index>, todo <task>, deadline <task /by ..>, event <task /from .. /to ..>, or bye.");
         }
         System.out.println(DIVIDER);
+        saveTaskListHelper();
     }
 
     private void addTaskOutputText(Task newTask) {
@@ -199,5 +227,43 @@ public class Duke {
         System.out.println(DIVIDER);
         System.out.println(FAREWELL);
         System.out.println(DIVIDER);
+    }
+
+    private void saveTaskListHelper() {
+        try {
+            saveTaskList();
+        } catch (IOException e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+    }
+
+    // save the task list to file
+    private void saveTaskList() throws IOException {
+        // loop through the task list
+        // for each task, write to file
+        String filePath = "./data/duke.txt";
+        // if directory doesn't exist, create it
+        File directory = new File("./data");
+        if (!directory.exists()) {
+            directory.mkdir();
+        }
+        File file = new File(filePath);
+        if (!file.exists()) {
+            file.createNewFile();
+        }
+
+        FileWriter fWriter = new FileWriter(filePath);
+        for (int i = 0; i < taskListSize; i++) {
+            // write to file
+            // format liek so
+            /* 
+            T | 1 | read book
+            D | 0 | return book | June 6th
+            E | 0 | project meeting | Aug 6th 2-4pm
+            T | 1 | join sports club
+             */
+            fWriter.write(taskList.get(i).saveString() + "\n");
+        }
+        fWriter.close();
     }
 }

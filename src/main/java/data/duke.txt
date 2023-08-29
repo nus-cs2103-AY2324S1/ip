@@ -1,0 +1,4 @@
+T | 1 | read book
+D | 0 | return book | 6pm
+E | 0 | project | 5pm | 8pm
+T | 0 | join sports club
