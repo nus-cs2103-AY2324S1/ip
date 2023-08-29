@@ -43,10 +43,11 @@ public class Ui {
             + "deadline <description> /by <deadline_description/datetime>\n"
             + "event <description> /from <start_description/datetime> /to <start_description/datetime>\n"
             + "list – List out all your tasks\n"
-            + "unmark <taskNo> – unmark task based on no. on the list\n"
-            + "mark <taskNo> – check off task based on no. on the list\n"
-            + "delete <taskNo> – delete task based on no. on the list\n"
-            + "whatsgoingon <date> – see what deadlines/events are ongoing for given date\n"
+            + "unmark <taskNo> – Unmark task based on no. on the list\n"
+            + "mark <taskNo> – Check off task based on no. on the list\n"
+            + "delete <taskNo> – Delete task based on no. on the list\n"
+            + "whatsgoingon <date> – See what deadlines/events are ongoing for given date\n"
+            + "find <query> - List out all tasks that fit <query>"
             + "help – access this help menu\n"
             + "bye – close Dot";
         Ui.wrapPrintWithHorizontalRules(helpMessage);
