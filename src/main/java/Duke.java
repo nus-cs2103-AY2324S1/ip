@@ -1,6 +1,8 @@
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -30,7 +32,8 @@ public class Duke {
         System.out.println("Usage: \"list\" to see the list of text stored, \"bye\" to exit");
         System.out.println("\"mark [number]\" to mark task no. [number] to be done, "
                 + "\"unmark [number]\" to mark it as undone");
-        System.out.println("\"todo [description]\" to add todo, \"event [description] /from [date] /to[date]\""
+        System.out.println("\"todo [description]\" to add todo, \"event [description] /from "
+                + "[date] /to [date]\""
                 + " to add event, \"deadline [description] /by [date]\" to add deadline");
     }
 
@@ -49,7 +52,16 @@ public class Duke {
                 System.out.println("    Goodbye, Hope to see you again soon.");
                 return;
             } else if (cmd == Command.LIST) {
-                this.listTasks();
+                // if command also includes the date, list the tasks on that date
+                if (text.split(" ").length == 2) {
+                    try {
+                        this.findTasksOnDate(LocalDate.parse(text.split(" ")[1]));
+                    } catch (DateTimeParseException e) {
+                        System.out.println("Wrong date format! Please use yyyy-mm-dd format");
+                    }
+                } else {
+                    this.listTasks();
+                }
                 continue;
             } else if (cmd == Command.INVALID) {
                 System.out.println("    Command given is invalid! You must start with a "
@@ -101,8 +113,8 @@ public class Duke {
                                     + "Please enter in this format:\n"
                                     + "event [description] /from [date] /to [date]");
                         }
-                        String fromTime = parts[1].substring(5); // remove the "from "
-                        String toTime = parts[2].substring(3);  // remove the "to "
+                        String fromTime = parts[1].split(" ")[1]; // remove the "from "
+                        String toTime = parts[2].split(" ")[1];  // remove the "to "
                         task = new Event(parts[0], fromTime, toTime);
                         this.tasks.add(task);
                         System.out.println("    Added Event to the list of tasks:");
@@ -130,6 +142,8 @@ public class Duke {
             } catch (IndexOutOfBoundsException e) {  // for when task number is out of bounds
                 System.out.println("    The task number you are trying to mark/unmark/delete "
                         + "does not exist yet.");
+            } catch (DateTimeParseException e) {
+                System.out.println("Wrong date format! Please use yyyy-mm-dd format");
             } catch (RuntimeException e) {
                 System.out.println(e.getMessage());
             }
@@ -170,6 +184,18 @@ public class Duke {
         FileWriter fw = new FileWriter("data/tasks.txt");
         fw.write(content.toString());
         fw.close();
+    }
+
+    // takes in date input and prints the list of tasks on that date
+    // No todos will be printed, since there is no dates
+    // Events will be printed only if the input date is within the date range of Event
+    // Deadline will be printed if the deadline is the same as date input
+    private void findTasksOnDate(LocalDate date) {
+        for (int i = 0; i < this.tasks.size(); i++) {
+            if (this.tasks.get(i).isOnDate(date)) {
+                System.out.println("    " + (i + 1) + ". " + this.tasks.get(i));
+            }
+        }
     }
 
     public static void main(String[] args) {

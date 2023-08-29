@@ -1,3 +1,5 @@
+import java.time.LocalDate;
+
 public abstract class Task {
 
     protected final String task;
@@ -15,6 +17,8 @@ public abstract class Task {
     public void undoTask() {
         this.done = false;
     }
+
+    public abstract boolean isOnDate(LocalDate date);
 
     @Override
     public String toString() {
