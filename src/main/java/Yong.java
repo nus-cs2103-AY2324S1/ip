@@ -107,6 +107,7 @@ public class Yong {
             Deadline deadLine = Yong.deadline(inp);
             history.add(deadLine);
             System.out.println("Okay! Task added \n" + deadLine + "\n");
+            break;
         default:
             throw new DukeException("I do not know what you are saying.");
         }
