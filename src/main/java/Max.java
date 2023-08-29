@@ -2,8 +2,11 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.time.format.DateTimeParseException;
 
 import static java.lang.Integer.parseInt;
 
@@ -48,26 +51,26 @@ public class Max {
         }
     }
     public static class Deadline extends Task {
-        private String by;
-        public Deadline(String item, String by) {
+        private LocalDate byDate;
+        public Deadline(String item, LocalDate byDate) {
             super(item);
-            this.by = by;
+            this.byDate = byDate;
         }
         @Override
         public String toString() {
-            return "[D]" + super.toString() + " (by: " + by + ")";
+            return "[D]" + super.toString() + " (by: " + byDate.toString() + ")";
         }
     }
     public static class Event extends Task {
-        private String from, to;
-        public Event(String item, String from, String to) {
+        private LocalDate fromDate, toDate;
+        public Event(String item, LocalDate fromDate, LocalDate toDate) {
             super(item);
-            this.from = from;
-            this.to = to;
+            this.fromDate = fromDate;
+            this.toDate = toDate;
         }
         @Override
         public String toString() {
-            return "[E]" + super.toString() + " (from: " + from + " to: " + to +")";
+            return "[E]" + super.toString() + " (from: " + fromDate.toString() + " to: " + toDate.toString() +")";
         }
     }
     public static class MaxException extends Exception {
@@ -107,12 +110,14 @@ public class Max {
             String item = task.substring(8, byIndex - 1).trim();
             String by = task.substring(byIndex + 3).trim();
 
+            LocalDate byDate = LocalDate.parse(by);
+
             // Error checking: empty fields
             if (item.isEmpty() || by.isEmpty()) {
                 throw new MaxException("     Oops... Deadline item or 'by' date cannot be empty.");
             }
 
-            Max.myList.add(new Deadline(item, by));
+            Max.myList.add(new Deadline(item, byDate));
         } else if (task.startsWith("event")) {
             int fromIndex = task.indexOf("/from");
             int toIndex = task.indexOf("/to");
@@ -126,12 +131,16 @@ public class Max {
             String from = task.substring(fromIndex + 5, toIndex -1).trim();
             String to = task.substring(toIndex + 3).trim();
 
+
+            LocalDate fromDate = LocalDate.parse(from);
+            LocalDate toDate = LocalDate.parse(to);
+
             // Error checking: empty fields
             if (item.isEmpty() || from.isEmpty() || to.isEmpty()) {
                 throw new MaxException("     Oh no! Event item, 'from' date, or 'to' date cannot be empty.");
             }
 
-            Max.myList.add(new Event(item, from, to));
+            Max.myList.add(new Event(item, fromDate, toDate));
         }
 
         // Visual feedback from chatbot
@@ -281,6 +290,8 @@ public class Max {
             } catch (MaxException e) {
                 System.out.println(e.getMessage());
                 System.out.println(Max.line);
+            } catch (DateTimeParseException e) {
+                System.out.println("Please use yyyy-mm-dd format!");
             }
         }
 
