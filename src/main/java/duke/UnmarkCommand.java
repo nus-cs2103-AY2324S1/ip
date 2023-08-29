@@ -1,3 +1,4 @@
+package duke;
 public class UnmarkCommand extends Command{
     private int idx;
     private UnmarkCommand(){};

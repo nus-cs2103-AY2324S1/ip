@@ -1,3 +1,4 @@
+package duke;
 /**
  * Encapsulates commands.
  */

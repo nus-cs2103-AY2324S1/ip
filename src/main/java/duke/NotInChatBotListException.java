@@ -1,3 +1,4 @@
+package duke;
 /**
  * Exception when the task the user is attempting to access does not exist.
 */

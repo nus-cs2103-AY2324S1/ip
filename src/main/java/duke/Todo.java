@@ -1,3 +1,4 @@
+package duke;
 /**
  * Encapsulates a t0d0 task without time/date dependencies.
  */

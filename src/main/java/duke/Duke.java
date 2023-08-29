@@ -1,4 +1,5 @@
-import java.util.Scanner;
+package duke;
+
 import java.io.File;
 
 public class Duke {

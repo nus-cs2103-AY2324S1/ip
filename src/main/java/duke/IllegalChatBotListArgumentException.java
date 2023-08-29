@@ -1,3 +1,4 @@
+package duke;
 /**
  * Exception when a wrong task query string is supplied to ChatBotList.
  */
