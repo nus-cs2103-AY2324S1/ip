@@ -14,24 +14,54 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * An object that deals with making sense of user commands.
+ */
 public class Parser {
-
+    /** The TaskArray that the parser will be adding tasks into. */
     private TaskArray tasks;
+    /** The Ui that helps the parser to print messages. */
     private Ui ui;
+    /** A boolean to indicate if the user wants to end the conversation. */
     private boolean isExit;
+
+    /**
+     * Constructs a new Parser that stores tasks into the given TaskArray and prints through the given Ui.
+     *
+     * @param tasks The TaskArray to store tasks.
+     * @param ui The Ui to interact with users.
+     */
     public Parser(TaskArray tasks, Ui ui) {
         this.tasks = tasks;
         this.ui = ui;
         this.isExit = false;
     }
 
+    /**
+     * Constructs a new Parser that stores tasks into the given TaskArray.
+     *
+     * @param tasks The TaskArray to store tasks.
+     */
     public Parser(TaskArray tasks) {
         this.tasks = tasks;
         this.ui = null;
         this.isExit = false;
     }
 
-    // throws error when parsing failed. handled in duke. does not print anything
+    /**
+     * Returns true is the user wants to end the conversation.
+     */
+    public boolean isExit() {
+        return this.isExit;
+    }
+
+    /**
+     * Reads the command given and executes them.
+     * Throws exceptions when fail to comprehend the command.
+     *
+     * @param s The command line.
+     * @throws DateTimeParseException If the input format of the dates is invalid.
+     */
     public void parse(String s) throws DateTimeParseException {
         String[] stringList = s.split(" ", 2);
         String first = stringList[0];
@@ -74,7 +104,61 @@ public class Parser {
     }
 
     /**
-     * Prints out the tasks in the list.
+     * Reads the inputs passed from a file and adds the tasks into the TaskArray.
+     *
+     * @param s The input line.
+     */
+    public void parseFromFile(String s) {
+        String[] chars = s.split(" / ");
+        String type = chars[0];
+        boolean isDone = chars[1].equals("1");
+        DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("HH:mm");
+        Task t;
+        switch (type) {
+        case "[T]":
+            t = new Todo(chars[2]);
+            if (isDone) {
+                t.markDone();
+            }
+            tasks.add(t);
+            break;
+        case "[D]":
+            if (chars.length == 4) {
+                t = new Deadline(chars[2], LocalDate.parse(chars[3]));
+            } else {
+                t = new Deadline(chars[2], LocalDate.parse(chars[3]),
+                        LocalTime.parse(chars[4], dateFormat));
+            }
+            if (isDone) {
+                t.markDone();
+            }
+            tasks.add(t);
+            break;
+        case "[E]":
+            if (chars.length == 7) {
+                t = new Event(chars[2], LocalDate.parse(chars[3]), LocalTime.parse(chars[4], dateFormat),
+                        LocalDate.parse(chars[5]), LocalTime.parse(chars[6]));
+            } else if (chars.length == 5) {
+                t = new Event(chars[2], LocalDate.parse(chars[3]), LocalDate.parse(chars[4]));
+            } else {
+                if (chars[5].length() > 5) {
+                    t = new Event(chars[2], LocalDate.parse(chars[3]), LocalTime.parse(chars[4], dateFormat), //chars
+                            LocalDate.parse(chars[5]));
+                } else {
+                    t = new Event(chars[2], LocalDate.parse(chars[3]), LocalDate.parse(chars[4]),
+                            LocalTime.parse(chars[5], dateFormat));
+                }
+            }
+            if (isDone) {
+                t.markDone();
+            }
+            tasks.add(t);
+            break;
+        }
+    }
+
+    /**
+     * Prints out the tasks in the TaskArray.
      */
     private void printList() {
         if (tasks.isEmpty()) {
@@ -90,10 +174,11 @@ public class Parser {
         this.ui.farewell();
     }
 
-    public boolean isExit() {
-        return this.isExit;
-    }
-
+    /**
+     * Adds a todo task into the list.
+     *
+     * @param x Details of the task.
+     */
     private void addTodo(String x) {
         if (x == null) {
             throw new LackDescriptionException("todo");
@@ -271,54 +356,5 @@ public class Parser {
         this.ui.print("I've removed this task:");
         this.ui.print(t);
         this.ui.print("Now you have " + tasks.size() + (tasks.size() > 1 ? " tasks" : " task") + " in the list");
-    }
-
-    public void parseFromFile(String s) {
-        String[] chars = s.split(" / ");
-        String type = chars[0];
-        boolean isDone = chars[1].equals("1");
-        DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("HH:mm");
-        Task t;
-        switch (type) {
-        case "[T]":
-            t = new Todo(chars[2]);
-            if (isDone) {
-                t.markDone();
-            }
-            tasks.add(t);
-            break;
-        case "[D]":
-            if (chars.length == 4) {
-                t = new Deadline(chars[2], LocalDate.parse(chars[3]));
-            } else {
-                t = new Deadline(chars[2], LocalDate.parse(chars[3]),
-                        LocalTime.parse(chars[4], dateFormat));
-            }
-            if (isDone) {
-                t.markDone();
-            }
-            tasks.add(t);
-            break;
-        case "[E]":
-            if (chars.length == 7) {
-                t = new Event(chars[2], LocalDate.parse(chars[3]), LocalTime.parse(chars[4], dateFormat),
-                        LocalDate.parse(chars[5]), LocalTime.parse(chars[6]));
-            } else if (chars.length == 5) {
-                t = new Event(chars[2], LocalDate.parse(chars[3]), LocalDate.parse(chars[4]));
-            } else {
-                if (chars[5].length() > 5) {
-                    t = new Event(chars[2], LocalDate.parse(chars[3]), LocalTime.parse(chars[4], dateFormat), //chars
-                            LocalDate.parse(chars[5]));
-                } else {
-                    t = new Event(chars[2], LocalDate.parse(chars[3]), LocalDate.parse(chars[4]),
-                            LocalTime.parse(chars[5], dateFormat));
-                }
-            }
-            if (isDone) {
-                t.markDone();
-            }
-            tasks.add(t);
-            break;
-        }
     }
 }

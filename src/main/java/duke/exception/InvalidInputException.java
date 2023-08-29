@@ -1,12 +1,12 @@
 package duke.exception;
 
 /**
- * An exception that arises when the given instruction is not identifiable.
+ * An exception thrown when the given instruction is not identifiable.
  */
 public class InvalidInputException extends DukeException {
 
     /**
-     * Creates an duke.exception.InvalidInputException instance.
+     * Constructs an InvalidInputException instance.
      *
      * @param s Message of the exception.
      */

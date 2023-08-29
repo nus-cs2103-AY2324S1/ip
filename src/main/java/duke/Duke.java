@@ -5,15 +5,26 @@ import duke.exception.DukeException;
 import java.time.format.DateTimeParseException;
 
 /**
- * A class that creates a chatbot.
+ * A chatbot that interacts with users.
  */
 public class Duke {
     /** A list to keep track of the tasks. */
     private TaskList tasks;
+
+    /** The Storage that the Duke uses. */
     private Storage storage;
+
+    /** The Ui that the Duke uses. */
     private Ui ui;
+
+    /** The Parser that the Duke uses. */
     private Parser parser;
 
+    /**
+     * Constructs a new Duke that deals with the file at the corresponding path.
+     *
+     * @param filepath Path to the file.
+     */
     public Duke(String filepath) {
         this.ui = new Ui();
         try {
@@ -26,6 +37,9 @@ public class Duke {
         this.parser = new Parser(this.tasks, this.ui);
     }
 
+    /**
+     * Runs the chatbot.
+     */
     public void run() {
         ui.welcome();
         boolean isExit;
