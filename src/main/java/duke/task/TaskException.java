@@ -1,3 +1,5 @@
+package duke.task;
+
 public class TaskException extends Exception {
     private static String HORIZONTAL_LINE = "____________________________________________________________\n";
 
