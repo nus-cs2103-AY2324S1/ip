@@ -2,14 +2,26 @@ package duke.command;
 
 import duke.exception.DukeException;
 
+/**
+ * Parses user input and returns the corresponding command object.
+ */
 public class Parser {
 
+    /**
+     * An enumeration of all possible command types.
+     */
     public enum CommandType {
         TODO, DEADLINE, EVENT, LIST, MARK, UNMARK, DELETE, BYE
     }
 
+    /**
+     * Parses the given user input and returns the corresponding command object.
+     *
+     * @param fullCommand The user input to be parsed.
+     * @return The corresponding command object.
+     * @throws DukeException If an error occurs while parsing the input.
+     */
     public static Command parse(String fullCommand) throws DukeException {
-        // ... (existing code)
 
         String[] commandParts = fullCommand.split(" ", 2);
         String commandTypeStr = commandParts[0].toLowerCase();

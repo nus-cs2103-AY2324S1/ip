@@ -6,15 +6,33 @@ import duke.task.Deadline;
 import duke.task.TaskList;
 import duke.ui.Ui;
 
+/**
+ * Represents a command to add a deadline task.
+ * Inherits from the Command class.
+ */
 public class AddDeadlineCommand extends Command {
     private final String description;
     private final String by;
 
+    /**
+     * Constructs an AddDeadlineCommand object with the given description and deadline.
+     *
+     * @param description The description of the deadline task.
+     * @param by The deadline of the task.
+     */
     public AddDeadlineCommand(String description, String by) {
         this.description = description;
         this.by = by;
     }
 
+    /**
+     * Executes the AddDeadlineCommand by adding the deadline task to the task list.
+     *
+     * @param tasks The task list.
+     * @param ui The user interface.
+     * @param storage The storage component.
+     * @throws DukeException If an error occurs while executing the command.
+     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
         if (description.isEmpty() || by.isEmpty()) {
@@ -24,6 +42,11 @@ public class AddDeadlineCommand extends Command {
         ui.showTaskAddedMessage(tasks);
     }
 
+    /**
+     * Returns a boolean indicating whether the command is an exit command.
+     *
+     * @return A boolean indicating whether the command is an exit command.
+     */
     @Override
     public boolean isExit() {
         return false;

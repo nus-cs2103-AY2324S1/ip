@@ -9,13 +9,28 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Represents the storage component of the Duke chatbot.
+ * Handles loading and saving of tasks to a file.
+ */
 public class Storage {
     private final String filePath;
 
+    /**
+     * Constructs a Storage object with the given file path.
+     *
+     * @param filePath The file path of the file to be used for storage.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
+    /**
+     * Loads tasks from the file.
+     *
+     * @return An ArrayList of tasks loaded from the file.
+     * @throws DukeException If an error occurs while loading the tasks.
+     */
     public ArrayList<Task> load() throws DukeException {
         ArrayList<Task> tasks = new ArrayList<>();
         try {
@@ -39,6 +54,12 @@ public class Storage {
         return tasks;
     }
 
+    /**
+     * Saves tasks to the file.
+     *
+     * @param tasks The ArrayList of tasks to be saved.
+     * @throws DukeException If an error occurs while saving the tasks.
+     */
     public void save(ArrayList<Task> tasks) throws DukeException {
         try {
             File file = new File(filePath);
