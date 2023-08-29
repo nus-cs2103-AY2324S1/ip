@@ -1,3 +1,10 @@
+package duke;
+
+import duke.task.DeadlineTask;
+import duke.task.EventTask;
+import duke.task.TaskList;
+import duke.task.TodoTask;
+
 public class Parser {
 
     private static TaskList tasks = new TaskList();

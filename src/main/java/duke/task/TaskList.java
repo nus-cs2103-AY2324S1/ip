@@ -1,4 +1,10 @@
+package duke.task;
+
 import java.util.ArrayList;
+
+import duke.DukeException;
+import duke.Storage;
+import duke.Ui;
 
 public class TaskList {
     // change implementation to collections

@@ -1,3 +1,5 @@
+package duke.task;
+
 public class EventTask extends Task{
     String fromDate;
     String toDate;
