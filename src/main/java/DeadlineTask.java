@@ -11,14 +11,19 @@ public class DeadlineTask extends Task {
      * @param description of the task.
      * @param by          deadline of the task.
      */
-    public DeadlineTask(String description, String by) {
+    public DeadlineTask(String description, String by) throws DukeException {
         super(description);
-        this.by = LocalDate.parse(by);
+        try {
+
+            this.by = LocalDate.parse(by);
+        } catch (Exception e) {
+            throw new DukeException("Please enter a valid date in the format: yyyy-mm-dd");
+        }
     }
 
     @Override
     public String getFileDescriptor() {
-        return super.getFileDescriptor() + String.format("| %s | %s", this.getBy(), "DEADLINE");
+        return super.getFileDescriptor() + String.format("| %s | %s", this.by.toString(), "DEADLINE");
     }
 
     /**
