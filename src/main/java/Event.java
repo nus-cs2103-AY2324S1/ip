@@ -47,6 +47,9 @@ public class Event extends Task {
         String[] splitStart = trimmedStart.split(" ");
         String[] splitEnd = trimmedEnd.split(" ");
         try {
+            if (trimmedDescription.length() == 0) {
+                throw new InvalidFormatException("Missing a description!", TaskException.TaskType.EVENT);
+            }
             if (splitStart.length == 2 && splitEnd.length == 2) {
                 return new Event(trimmedDescription, LocalDate.parse(splitStart[0]), LocalTime.parse(splitStart[1],
                         DateTimeFormatter.ofPattern("HHmm")), LocalDate.parse(splitEnd[0]),
@@ -62,9 +65,13 @@ public class Event extends Task {
             } else {
                 return null;
             }
-        } catch (DateTimeParseException e) {
+        } catch (DateTimeParseException e1) {
             System.out.println("The date/time is in an invalid format! Enter" +
                     " the date in the format YYYY-MM-DD HHmm");
+            return null;
+        } catch (InvalidFormatException e2) {
+            System.out.println(e2.getMessage() + " Please enter a description between " +
+                    "the start and end timings of the event.");
             return null;
         }
     }
@@ -91,11 +98,9 @@ public class Event extends Task {
         return "";
     }
 
-
     @Override
     public String toString() {
         String output = "[E]" + super.toString();
-
         String startDate = " (from: " + this.startDate.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
         String startTime = (this.startTime != null) ? " " + this.startTime.format(DateTimeFormatter.ofPattern("HH:mm")) : "";
         String endDate = " to: " + this.endDate.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
