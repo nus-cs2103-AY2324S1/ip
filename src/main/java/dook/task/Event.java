@@ -1,9 +1,10 @@
 package dook.task;
 
-import dook.services.TimeProcessor;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
+
+import dook.services.TimeProcessor;
 
 public class Event extends Task implements TimedTask {
 
@@ -11,6 +12,19 @@ public class Event extends Task implements TimedTask {
     protected String to;
     protected LocalDate fromDateTime = null;
     protected LocalDate toDateTime = null;
+    public Event(String description, String from, String to) {
+        super(description);
+        this.from = from;
+        this.to = to;
+        processDateTimes();
+    }
+
+    public Event(String description, String from, String to, boolean isDone) {
+        super(description, isDone);
+        this.from = from;
+        this.to = to;
+        processDateTimes();
+    }
 
     @Override
     public void processDateTimes() {
@@ -26,8 +40,8 @@ public class Event extends Task implements TimedTask {
     @Override
     public boolean isDuring(LocalDate dateTime) {
         try {
-            return (fromDateTime.isEqual(dateTime) || fromDateTime.isBefore(dateTime)) &&
-                    (toDateTime.isEqual(dateTime) || toDateTime.isAfter(dateTime));
+            return (fromDateTime.isEqual(dateTime) || fromDateTime.isBefore(dateTime))
+                   && (toDateTime.isEqual(dateTime) || toDateTime.isAfter(dateTime));
         } catch (NullPointerException e) {
             return false;
         }
@@ -47,19 +61,6 @@ public class Event extends Task implements TimedTask {
         } catch (NullPointerException e) {
             return false;
         }
-    }
-    public Event(String description, String from, String to) {
-        super(description);
-        this.from = from;
-        this.to = to;
-        processDateTimes();
-    }
-
-    public Event(String description, String from, String to, boolean isDone) {
-        super(description, isDone);
-        this.from = from;
-        this.to = to;
-        processDateTimes();
     }
 
     @Override

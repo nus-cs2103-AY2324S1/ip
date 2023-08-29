@@ -1,17 +1,17 @@
 package dook.services;
 
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.ArrayList;
+
 import dook.DookException;
 import dook.task.Deadline;
 import dook.task.Event;
 import dook.task.Task;
 import dook.task.Todo;
 
-import java.io.*;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.Files;
-import java.util.ArrayList;
-import java.util.Scanner;
+
 
 
 /**
@@ -53,16 +53,18 @@ public class Storage {
     }
 
     private void verifyFileExists() {
-        if (Files.exists(path)) return;
-         try {
-             Files.createFile(path);
-         } catch (IOException e) {
-             return;
-         }
+        if (Files.exists(path)) {
+            return;
+        }
+        try {
+            Files.createFile(path);
+        } catch (IOException e) {
+            return;
+        }
     }
 
 
-    public String save(TaskList taskList) throws DookException{
+    public String save(TaskList taskList) throws DookException {
         String toSave = taskList.getSaveableString();
         try {
             writeToFile(toSave);
@@ -84,19 +86,19 @@ public class Storage {
      * @param str
      * @return The converted Task.
      */
-    private Task getTaskFromString(String str) throws DookException{
+    private Task getTaskFromString(String str) throws DookException {
         String[] params = str.split("//");
         String taskCode = params[0];
         boolean isDone = params[1].equals("X");
         switch (taskCode) {
-            case "T":
-                return new Todo(params[2].trim(), isDone);
-            case "D":
-                return new Deadline(params[2].trim(), params[3].trim(), isDone);
-            case "E":
-                return new Event(params[2].trim(), params[3].trim(), params[4].trim(), isDone);
-            default:
-                throw new DookException("Failed to read from file correctly.");
+        case "T":
+            return new Todo(params[2].trim(), isDone);
+        case "D":
+            return new Deadline(params[2].trim(), params[3].trim(), isDone);
+        case "E":
+            return new Event(params[2].trim(), params[3].trim(), params[4].trim(), isDone);
+        default:
+            throw new DookException("Failed to read from file correctly.");
         }
     }
 

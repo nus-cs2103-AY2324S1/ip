@@ -1,12 +1,12 @@
 package dook.services;
 
-import dook.DookException;
-import dook.task.Task;
-import dook.task.TimedTask;
-
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.function.Function;
+
+import dook.DookException;
+import dook.task.Task;
+import dook.task.TimedTask;
 
 public class TaskList {
     private ArrayList<Task> taskList;
@@ -52,7 +52,9 @@ public class TaskList {
     public String filterTasks(Function<Task, Boolean> f) {
         StringBuilder result = new StringBuilder();
         for (Task task : taskList) {
-            if (f.apply(task)) result.append(task).append("\n");
+            if (f.apply(task)) {
+                result.append(task).append("\n");
+            }
         }
         return result.toString();
     }
@@ -78,7 +80,7 @@ public class TaskList {
             if (curr instanceof TimedTask) {
                 timedTask = (TimedTask) curr;
             }
-            if(timedTask != null &&  timedTask.isAfter(localDate)) {
+            if (timedTask != null && timedTask.isAfter(localDate)) {
                 result.append(String.format("%d. %s\n", i + 1, taskList.get(i)));
             }
         }
@@ -92,7 +94,7 @@ public class TaskList {
             if (curr instanceof TimedTask) {
                 timedTask = (TimedTask) curr;
             }
-            if(timedTask != null && timedTask.isDuring(localDate)) {
+            if (timedTask != null && timedTask.isDuring(localDate)) {
                 result.append(String.format("%d. %s\n", i + 1, taskList.get(i)));
             }
         }

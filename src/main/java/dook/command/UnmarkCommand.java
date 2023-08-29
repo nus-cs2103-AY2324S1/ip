@@ -5,7 +5,7 @@ import dook.services.Storage;
 import dook.services.TaskList;
 import dook.services.UiDisplay;
 
-public class UnmarkCommand extends Command{
+public class UnmarkCommand extends Command {
     private final int index;
     public UnmarkCommand(int index) {
         this.index = index;

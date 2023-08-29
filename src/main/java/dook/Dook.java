@@ -1,23 +1,23 @@
 package dook;
 
+import java.io.FileNotFoundException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+
 import dook.command.Command;
 import dook.services.Parser;
 import dook.services.Storage;
 import dook.services.TaskList;
 import dook.services.UiDisplay;
 
-import java.io.FileNotFoundException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.Scanner;
+
 public class Dook {
     public static final Path PROPER_PATH = Paths.get("dook.txt");
     private final Storage storage;
     private final Parser parser;
     private final UiDisplay uiDisplay;
-
-    public TaskList taskList = new TaskList(null);
+    private TaskList taskList = new TaskList(null);
 
     public Dook(Path filePath) {
         this.storage = new Storage(filePath);
@@ -38,7 +38,7 @@ public class Dook {
             String input = uiDisplay.readCommand();
             try {
                 Command c = parser.parseFullInput(input);
-                isExit = c.isExit;
+                isExit = c.getIsExit();
                 c.execute(storage, uiDisplay, taskList);
             } catch (DookException e) {
                 uiDisplay.printMessage(e.getMessage());

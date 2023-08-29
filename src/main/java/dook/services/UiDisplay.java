@@ -1,8 +1,8 @@
 package dook.services;
 
-import dook.command.CommandInfo;
-
 import java.util.Scanner;
+
+import dook.command.CommandInfo;
 
 public class UiDisplay {
     private final Scanner sc;
