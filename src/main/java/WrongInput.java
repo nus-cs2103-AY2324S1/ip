@@ -1,7 +1,7 @@
 /**
  * Exception when an illegal argument is found.
  */
-public class WrongInput extends DukeException {
+class WrongInput extends DukeException {
     /**
      * Constructor for the WrongInput class.
      */

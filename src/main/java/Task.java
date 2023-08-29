@@ -1,7 +1,9 @@
+import java.io.Serializable;
+
 /**
  * Class representing a task to be completed.
  */
-public class Task {
+class Task implements Serializable {
     /**
      * Description of the specific task.
      */

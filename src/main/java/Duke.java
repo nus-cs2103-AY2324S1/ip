@@ -1,32 +1,41 @@
+import java.io.*;
 import java.util.Scanner;
 import java.util.ArrayList;
 
 /**
  * Class for the ChatBot
  */
-public class Duke {
-    public Scanner sc = new Scanner(System.in).useDelimiter("[\\s,\\s/]+");
+class Duke implements Serializable {
+    /**
+     * Scanner to read user input.
+     */
+    public static Scanner sc = new Scanner(System.in).useDelimiter("[\\s,/]+");
+    /**
+     * An array of Tasks.
+     */
     public static ArrayList<Task> taskArr = new ArrayList<>();
     /**
-     * Special exceptions that could be encountered by the chatbot.
+     * Name of the text file.
      */
-    public static class DukeException extends Exception {
-        /**
-         * Constructor for the DukeException class.
-         * @param errorMessage Message about the error.
-         */
-        public DukeException(String errorMessage) {
-            super(errorMessage);
-        }
-
-
-    }
-
+    public static String filename = "duke.txt";
+    /**
+     * Greeting from the bot when user launches the program.
+     */
+    public static String greeting = "-------------------------------\n"
+            + "Hello! I'm Skog.\n"
+            + "What can I do for you?\n"
+            + "-------------------------------\n";
+    /**
+     * Exit message when user exits the bot.
+     */
+    public static String exit = "-------------------------------\n"
+            + "Bye. Hope to see you again soon!\n"
+            + "-------------------------------\n";
     /**
      * Creates a Todo task in taskArr.
      * @param desc Description of the Todo task
      */
-    public void addTodo(String desc) {
+    public static Todo addTodo(String desc) {
         Todo curr = new Todo(desc);
         taskArr.add(curr);
         System.out.println("-------------------------------\n"
@@ -34,14 +43,14 @@ public class Duke {
                 + curr.toString()
                 + totalTasks()
                 + "\n-------------------------------\n");
+        return curr;
     }
-
     /**
      * Creates a Deadline task in taskArr.
      * @param desc Description of the Deadline task
      * @param date Date to complete the Deadline task by
      */
-    public void addDeadline(String desc, String date) {
+    public static Deadline addDeadline(String desc, String date) {
         Deadline curr = new Deadline(desc, date);
         taskArr.add(curr);
         System.out.println("-------------------------------\n"
@@ -49,15 +58,15 @@ public class Duke {
                 + curr.toString()
                 + totalTasks()
                 + "\n-------------------------------\n");
+        return curr;
     }
-
     /**
      * Creates an Event task in taskArr.
      * @param desc Description of the Event task
      * @param from Date when the Event task starts
      * @param to Date when the Event tasks end
      */
-    public void addEvent(String desc, String from, String to) {
+    public static Event addEvent(String desc, String from, String to) {
         Event curr = new Event(desc, from, to);
         taskArr.add(curr);
         System.out.println("-------------------------------\n"
@@ -65,13 +74,14 @@ public class Duke {
                 + curr.toString()
                 + totalTasks()
                 + "\n-------------------------------\n");
+        return curr;
     }
 
     /**
      * Remove a task from taskArr.
      * @param num Indicates the task number to be deleted
      */
-    public void delete(int num) {
+    public static void delete(int num) {
         Task toRemove = taskArr.get(num);
         taskArr.remove(num);
         System.out.println("-------------------------------\n"
@@ -84,7 +94,7 @@ public class Duke {
     /**
      * Lists out all the tasks in taskArr.
      */
-    public void listOut() {
+    public static void listOut() {
         int size = taskArr.size();
         System.out.println("-------------------------------\n"
         + "Here are the tasks in your list:");
@@ -93,119 +103,163 @@ public class Duke {
         }
         System.out.println("-------------------------------\n");
     }
-
     /**
      * Number of tasks in taskArr currently.
      * @return String containing the number of tasks added to taskArr
      */
-    public String totalTasks() {
+    public static String totalTasks() {
         int size = taskArr.size();
         return "\nNow you have " + size + " tasks in the list.";
     }
+    public static void initiateArr() {
+        try {
+            FileInputStream fileIn = new FileInputStream("data.txt");
+            ObjectInputStream objIn = new ObjectInputStream(fileIn);
+            // can safely cast because all the methods to modify the array
+            // guarantee that the elements in the array are all sub-classes
+            // of Task, the array is type-safe
+            taskArr = (ArrayList<Task>) objIn.readObject();
+            objIn.close();
+        } catch (IOException ignored) {
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    public static void save() {
+        String dataFile = "data.txt";
+
+        try {
+            FileOutputStream fos = new FileOutputStream(dataFile);
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
+            oos.writeObject(taskArr);
+            oos.close();
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+
+    }
+    /**
+     * Saves all the tasks' information in a text file.
+     */
+    public static void writeToFile() {
+        try {
+            FileWriter fw = new FileWriter(filename);
+            BufferedWriter bw = new BufferedWriter(fw);
+            for (int i = 0; i < taskArr.size(); i++) {
+                bw.write(taskArr.get(i).toString());
+                bw.newLine();
+            }
+            bw.close();
+            fw.close();
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+    }
 
     public static void main(String[] args) {
-
-        Duke bot = new Duke();
-
-        String greeting = "-------------------------------\n"
-                + "Hello! I'm Skog.\n"
-                + "What can I do for you?\n"
-                + "-------------------------------\n";
-
-        String exit = "-------------------------------\n"
-                + "Bye. Hope to see you again soon!\n"
-                + "-------------------------------\n";
+        try {
+            File myFile = new File(filename);
+            if (myFile.createNewFile()) {
+                System.out.println("-------------------------------\n"
+                        + "Welcome! New text file created.");
+            } else {
+                // go straight into task control
+            }
+        } catch (IOException e) {
+            System.out.println("An error has occurred!");
+        }
 
         System.out.println(greeting);
-
-        while (bot.sc.hasNext()) {
+        new File("data.txt");
+        initiateArr();
+        while (Duke.sc.hasNext()) {
             try {
-                String str = bot.sc.next();
+                String str = Duke.sc.next();
                 if (str.equals("bye")) {
+                    writeToFile();
+                    save();
                     System.out.println(exit);
-                    taskArr.clear();
-                    bot.sc.close();
                     break;
                 } else if (str.equals("list")) {
-                    bot.listOut();
+                    listOut();
                 } else if (str.equals("mark")) {
-                    if (!bot.sc.hasNextInt()) {
+                    if (!Duke.sc.hasNextInt()) {
                         throw new WrongInput();
                     } else {
-                        int num = bot.sc.nextInt();
-                        bot.taskArr.get(num - 1).mark();
+                        int index = Duke.sc.nextInt() - 1;
+                        taskArr.get(index).mark();
                     }
                 } else if (str.equals("unmark")) {
-                    if (!bot.sc.hasNextInt()) {
+                    if (!Duke.sc.hasNextInt()) {
                         throw new WrongInput();
                     } else {
-                        int num = bot.sc.nextInt();
-                        bot.taskArr.get(num - 1).unmark();
+                        int index = Duke.sc.nextInt() - 1;
+                        taskArr.get(index).unmark();
                     }
                 } else if (str.equals("delete")) {
-                    if (!bot.sc.hasNextInt()) {
+                    if (!Duke.sc.hasNextInt()) {
                         throw new WrongInput();
                     } else {
-                        int num = bot.sc.nextInt();
-                        if (num > taskArr.size()) {
+                        int index = Duke.sc.nextInt();
+                        if (index > taskArr.size()) {
                             throw new WrongInput();
                         } else {
-                            bot.delete(num - 1);
+                            delete(index - 1);
                         }
                     }
                 } else {
                     // check for task type first
                     if (str.equals("todo")) {
-                        String desc = bot.sc.nextLine();
+                        String desc = Duke.sc.nextLine();
                         if (desc.equals("") || desc.equals(" ")) {
                             throw new EmptyDescription();
                         } else {
-                            bot.addTodo(desc);
+                            Todo curr = addTodo(desc);
                         }
                     } else if (str.equals("deadline")) {
-                        String desc = bot.sc.next();
+                        String desc = Duke.sc.next();
                         String date = null;
-                        while (bot.sc.hasNext()) {
-                            String next = bot.sc.next();
+                        while (Duke.sc.hasNext()) {
+                            String next = Duke.sc.next();
                             if (!next.equals("by")) {
                                 desc = desc + " " + next;
                             } else {
-                                date = bot.sc.nextLine();
+                                date = Duke.sc.nextLine();
                                 break;
                             }
                         }
-                        bot.addDeadline(desc, date);
+                        Deadline curr = addDeadline(desc, date);
                     } else if (str.equals("event")) {
-                        String desc = bot.sc.next();
+                        String desc = Duke.sc.next();
                         String from = null;
                         String to = null;
-                        while (bot.sc.hasNext()) {
-                            String next = bot.sc.next();
+                        while (Duke.sc.hasNext()) {
+                            String next = Duke.sc.next();
                             if (!next.equals("from")) {
                                 desc = desc + " " + next;
                             } else {
-                                from = bot.sc.next();
-                                while (bot.sc.hasNext()) {
-                                    String temp = bot.sc.next();
+                                from = Duke.sc.next();
+                                while (Duke.sc.hasNext()) {
+                                    String temp = Duke.sc.next();
                                     if (!temp.equals("to")) {
                                         from = from + " " + temp;
                                     } else {
-                                        to = bot.sc.nextLine();
+                                        to = Duke.sc.nextLine();
                                         break;
                                     }
                                 }
                                 break;
                             }
                         }
-                        bot.addEvent(desc, from, to);
+                        Event curr = addEvent(desc, from, to);
                     } else {
                         throw new WrongInput();
                     }
                 }
             } catch (EmptyDescription e) {
-                    System.out.println(e.getMessage());
+                System.out.println(e.getMessage());
             } catch (WrongInput e) {
-                    System.out.println(e.getMessage());
+                System.out.println(e.getMessage());
             }
         }
     }

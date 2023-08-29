@@ -1,7 +1,7 @@
 /**
  * Special type of task that has a description, 'from' date and 'to' date.
  */
-public class Event extends Task {
+class Event extends Task {
     /**
      * Signifies the 'Event' task.
      */
@@ -53,7 +53,8 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        return "[" + this.type + "]" + "[" + this.getStatusIcon() + "] " + this.description
-                + " (from: " + this.from + " to:" + this.to + ")";
+        return "[" + this.type + "]" + "[" + this.getStatusIcon() + "] "
+                + this.description + " (from: " + this.from
+                + " to:" + this.to + ")";
     }
 }

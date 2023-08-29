@@ -1,7 +1,7 @@
 /**
  * Exception when no description is found.
  */
-public class EmptyDescription extends DukeException {
+class EmptyDescription extends DukeException {
     /**
      * Constructor for the EmptyDescription class.
      */

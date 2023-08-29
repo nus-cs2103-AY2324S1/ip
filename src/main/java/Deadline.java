@@ -1,7 +1,7 @@
 /**
  * Special kind of task that has a description and a deadline
  */
-public class Deadline extends Task {
+class Deadline extends Task {
     /**
      * Signifies the specific type of task.
      */

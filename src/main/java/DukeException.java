@@ -1,4 +1,7 @@
-public class DukeException extends Exception {
+/**
+ * Special exceptions encountered by the chatbot.
+ */
+class DukeException extends Exception {
     /**
      * Constructor for the DukeException class.
      * @param errorMessage Message about the error.

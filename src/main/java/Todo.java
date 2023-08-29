@@ -1,7 +1,7 @@
 /**
  * Special kind of task that only has a description
  */
-public class Todo extends Task {
+class Todo extends Task {
     /**
      * Signifies the specific type of task.
      */
@@ -41,6 +41,7 @@ public class Todo extends Task {
      */
     @Override
     public String toString() {
-        return "[" + this.type + "]" + "[" + this.getStatusIcon() + "]" + this.description;
+        return "[" + this.type + "]" + "["
+                + this.getStatusIcon() + "]" + this.description;
     }
 }
