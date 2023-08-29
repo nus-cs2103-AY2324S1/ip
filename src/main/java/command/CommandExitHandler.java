@@ -5,7 +5,7 @@ public class CommandExitHandler implements ICommandHandler{
 
     @Override
     public void execute(String command, String[] parameters) {
-        Main.getInstance().say("Bye. Hope to see you again soon!");
+        Main.getInstance().getUi().say("Bye. Hope to see you again soon!");
         Main.getInstance().exit();
     }
 }

@@ -2,33 +2,33 @@ package main;
 
 import command.*;
 import task.*;
-import util.FileUtil;
+import util.Storage;
 
-import java.util.HashMap;
-import java.util.Scanner;
 
 public class Main {
     private static Main INSTANCE;
     private String name = "your girlfriend";
-    private HashMap<String, ICommandHandler> commands;
+    private Parser parser;
+    private Ui ui;
     private boolean isRunning;
 
     private TaskList taskList;
 
     public Main(){
-        this.taskList = FileUtil.createTaskListFromFile();
-        this.commands = new HashMap<String,ICommandHandler>();
-        this.commands.put("intro", new CommandIntroHandler());
-        this.commands.put("list", new CommandListHandler());
-        this.commands.put("add", new CommandAddTaskHandler());
-        this.commands.put("bye", new CommandExitHandler());
+        this.parser = new Parser();
+        this.ui = new Ui();
+        this.taskList = Storage.createTaskListFromFile();
+        this.parser.registerCommand("intro", new CommandIntroHandler());
+        this.parser.registerCommand("list", new CommandListHandler());
+        this.parser.registerCommand("add", new CommandAddTaskHandler());
+        this.parser.registerCommand("bye", new CommandExitHandler());
         CommandMarkUnmarkHandler temp = new CommandMarkUnmarkHandler();
-        this.commands.put("mark", temp);
-        this.commands.put("unmark", temp);
-        this.commands.put("todo", new CommandTodoHandler());
-        this.commands.put("deadline", new CommandDeadlineHandler());
-        this.commands.put("event", new CommandEventHandler());
-        this.commands.put("delete", new CommandDeleteHandler());
+        this.parser.registerCommand("mark", temp);
+        this.parser.registerCommand("unmark", temp);
+        this.parser.registerCommand("todo", new CommandTodoHandler());
+        this.parser.registerCommand("deadline", new CommandDeadlineHandler());
+        this.parser.registerCommand("event", new CommandEventHandler());
+        this.parser.registerCommand("delete", new CommandDeleteHandler());
     }
 
     public static void main(String[] args) {
@@ -37,41 +37,17 @@ public class Main {
     }
 
     private void run(){
-        this.executeCommand("intro");
+        this.parser.executeCommand("intro");
         this.isRunning = true;
-        Scanner sc = new Scanner(System.in);
         while(this.isRunning){
-            String input = sc.nextLine();
-            this.executeCommand(input);
+            this.ui.update();
         }
-        sc.close();
+        this.ui.dispose();
         return;
     }
 
     private static void initialize(){
         INSTANCE = new Main();
-    }
-    private void executeCommand(String command){
-        if(command.length() == 0){
-            this.say("You didn't say anything.");
-            return;
-        }
-        String[] splitedCommand = command.split(" ");
-        try{
-            if(command.equals("blah")){
-                throw new CommandException("OOPS!!! I'm sorry, but I don't know what that means :-(");
-            }
-            if(this.commands.containsKey(splitedCommand[0])){
-                this.commands.get(splitedCommand[0]).execute(command, splitedCommand);
-            }
-            else{
-                this.commands.get("add").execute(command, splitedCommand);
-            }
-        }
-        catch (CommandException e){
-            this.say("An exception happened when executing this command: " + e.getMessage());
-        }
-
     }
 
     public static Main getInstance(){
@@ -86,21 +62,15 @@ public class Main {
         this.isRunning = false;
     }
 
-    public void say(String content){
-        this.say(content, true,true);
-    }
-    public void say(String content, boolean outputUpperLine, boolean outputLowerLine){
-        if(outputUpperLine){
-            System.out.println("    ____________________________________________________________");
-        }
-        System.out.println("    " + content);
-        if(outputLowerLine){
-            System.out.println("    ____________________________________________________________");
-        }
-
-    }
 
     public TaskList getTaskList(){
         return this.taskList;
+    }
+    public Parser getParser(){
+        return this.parser;
+    }
+
+    public Ui getUi(){
+        return this.ui;
     }
 }

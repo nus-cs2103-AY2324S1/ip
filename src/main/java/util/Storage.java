@@ -6,7 +6,7 @@ import task.TaskList;
 
 import java.io.*;
 
-public class FileUtil {
+public class Storage {
     private static final String path = "data.bin";
     public static void saveTasksToFile(){
         try{
@@ -23,7 +23,7 @@ public class FileUtil {
             fos.close();
         }
         catch(Exception e){
-            Main.getInstance().say("Unable to save tasks to file: " + e.getMessage());
+            Main.getInstance().getUi().say("Unable to save tasks to file: " + e.getMessage());
         }
     }
 
