@@ -1,7 +1,6 @@
-package parser.commands;
+package commands;
 
 import records.ChatRecord;
-import task.Task;
 
 public abstract class Command {
     protected ChatRecord chatRecord;

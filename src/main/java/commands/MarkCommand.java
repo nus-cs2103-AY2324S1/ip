@@ -1,4 +1,4 @@
-package parser.commands;
+package commands;
 
 import records.ChatRecord;
 import task.Task;

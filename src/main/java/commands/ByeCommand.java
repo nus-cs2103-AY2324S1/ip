@@ -1,4 +1,4 @@
-package parser.commands;
+package commands;
 
 public class ByeCommand extends Command {
     public static String BYE_PHRASE = "";

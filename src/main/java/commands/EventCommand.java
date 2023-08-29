@@ -1,8 +1,7 @@
-package parser.commands;
+package commands;
 
 import records.ChatRecord;
 import task.Event;
-import task.Task;
 
 import java.time.LocalDateTime;
 

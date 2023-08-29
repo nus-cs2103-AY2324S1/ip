@@ -1,8 +1,7 @@
-package parser.commands;
+package commands;
 
 import records.ChatRecord;
 import task.Todo;
-import task.Task;
 
 public class TodoCommand extends Command {
     private String name;
