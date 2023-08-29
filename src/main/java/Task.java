@@ -1,4 +1,3 @@
-import java.sql.Array;
 import java.util.ArrayList;
 
 public abstract class Task {
@@ -29,16 +28,16 @@ public abstract class Task {
     boolean markAsDone() {
         this.isDone = true;
         Task.numIncompleteTasks--;
-        return getDone();
+        return isDone();
     }
 
     boolean markAsNotDone() {
         this.isDone = false;
         Task.numIncompleteTasks++;
-        return getDone();
+        return isDone();
     }
 
-    boolean getDone() {
+    boolean isDone() {
         return this.isDone;
     }
 
@@ -52,4 +51,16 @@ public abstract class Task {
     }
 
     abstract String getTaskType();
+
+    static String formatAllTasksForSaving() {
+        String returnString = "";
+        for (Task t : getAllTasks()) {
+            returnString += t.toString();
+            returnString += "\n";
+        }
+        return returnString;
+    }
+
+
+
 }

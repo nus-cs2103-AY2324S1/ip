@@ -10,6 +10,6 @@ public class Todo extends Task {
 
     @Override
     public String toString() {
-        return "[T][" + (this.getDone() ? 'X' : ' ') + "] " + this.name;
+        return "[T][" + (this.isDone() ? 'X' : ' ') + "] " + this.name;
     }
 }

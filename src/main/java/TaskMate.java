@@ -1,4 +1,8 @@
-import java.lang.reflect.Array;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -6,6 +10,7 @@ public class TaskMate {
 
     static String horizontalLine = "--------------------";
     static String chatbotName = "TaskMate";
+    static String saveTaskFilePath = "./data/saved_tasks.txt";
 
     static enum CommandTypes {
         list, bye, todo, deadline, event, mark, unmark, delete
@@ -13,9 +18,14 @@ public class TaskMate {
 
     public static void main(String[] args) throws InvalidCommandTypeException {
 
+        // Load existing tasks from disk
+        loadTasksFromDisk();
+
         // Greets user
         String greetMessage = "Hello I'm " + chatbotName + "\nWhat can I do for you?";
         printReply(greetMessage);
+
+
 
         // Echo user input
         Scanner sc = new Scanner(System.in);
@@ -76,7 +86,19 @@ public class TaskMate {
         }
 
 
-        // print exit message
+        // Exit procedure
+        // 1. Write incomplete tasks to disk
+        String saveTaskText = Task.formatAllTasksForSaving();
+        System.out.println(saveTaskText);
+        try {
+            writeToFile(saveTaskFilePath, saveTaskText);
+        } catch (IOException e) {
+            System.out.println("Failed to write to " +
+                    System.getProperty("user.dir") +
+                    saveTaskFilePath.substring(1).replace("/", "\\")
+            );
+        }
+        // 2. Print exit message
         String exitMessage = "Bye. Hope to see you again soon!";
         printReply(exitMessage);
     }
@@ -235,5 +257,61 @@ public class TaskMate {
         indexToDelete -= 1; // subtract 1 as the arraylist is zero-indexed
         Task removedTask = Task.removeTask(indexToDelete);
         printReply("Noted. I've removed this task:\n  " + removedTask.toString() + "\nNow you have " + Task.getAllTasks().size() + " task(s) in the list.");
+    }
+
+    static void writeToFile(String filePath, String text) throws IOException {
+        File f = new File(filePath);
+        FileWriter fw = new FileWriter(filePath, f.exists());
+        fw.write(text);
+        fw.close();
+    }
+
+    static String readFromFile(String fileName) throws IOException {
+        Path filePath = Path.of(fileName);
+        return Files.readString(filePath);
+    }
+
+    static void loadTasksFromDisk() {
+        String unprocessedTasks = "";
+        try {
+            unprocessedTasks = readFromFile(saveTaskFilePath);
+        } catch (IOException e) {
+            System.out.println("Saved task file not found.");
+            System.exit(0);
+        }
+
+        String[] lines = unprocessedTasks.split("\\n");
+        String taskType, taskIsDone, name, by, from, to, delimiter, delimiter2;
+        for (String line: lines) {
+            taskType = line.substring(1,2);
+            taskIsDone = line.substring(4,5);
+
+            if (taskType.equals("T")) {
+                // Todo task
+                name = line.substring(7);
+                new Todo(name);
+            } else if (taskType.equals("D")) {
+                // Deadline
+                delimiter = "(by: ";
+                int indexOfByParam = line.lastIndexOf(delimiter);
+                name = line.substring(7, indexOfByParam);
+                by = line.substring(indexOfByParam + delimiter.length(), line.length() - 1);
+                new Deadline(name, by);
+            } else if (taskType.equals("E")) {
+                // Event
+                delimiter = "(from: ";
+                delimiter2 = " to: ";
+                int indexOfFromParam = line.lastIndexOf(delimiter);
+                int indexOfToParam = line.lastIndexOf(delimiter2);
+                name = line.substring(7, indexOfFromParam);
+                from = line.substring(indexOfFromParam + delimiter.length(), indexOfToParam);
+                to   = line.substring(indexOfToParam + delimiter2.length(), line.length() - 1);
+                new Event(name, from, to);
+            } else {
+                // Invalid event
+                System.out.println("Invalid task: " + line);
+            }
+        }
+
     }
 }
