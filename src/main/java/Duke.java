@@ -7,6 +7,9 @@ import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 /**
  * The main class for Duke Chatbot
@@ -58,6 +61,12 @@ public class Duke {
         ois.close();
         return list;
     }
+
+	public static String formatDate(String strDeadline) throws DateTimeParseException {
+		LocalDate dateDeadline = LocalDate.parse(strDeadline);
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy");
+		return dateDeadline.format(formatter);
+	}
 
     public static void main(String[] args) {
         try {
@@ -136,7 +145,8 @@ public class Duke {
                         if (taskName.length() == 0) {
                             throw new MissingTaskNameException("Deadline task name cannot be empty");
                         }
-                        String deadline = taskDesc[1].trim();
+                        String strDeadline = taskDesc[1].trim();
+						String deadline = formatDate(strDeadline);
                         Deadline.printTaskAdded(taskName, deadline, list);
                         list.add(new Deadline(taskName, deadline));
                         overwriteTasksData(tasks, list);
@@ -158,8 +168,10 @@ public class Duke {
                         if (taskName.length() == 0) {
                             throw new MissingTaskNameException("Event task name cannot be empty");
                         }
-                        String start = fromAndTo[0].trim();
-                        String end = fromAndTo[1].trim();
+                        String strStart = fromAndTo[0].trim();
+                        String strEnd = fromAndTo[1].trim();
+						String start = formatDate(strStart);
+						String end = formatDate(strEnd);
                         Event.printTaskAdded(taskName, start, end, list);
                         list.add(new Event(taskName, start, end));
                         overwriteTasksData(tasks, list);
@@ -190,7 +202,9 @@ public class Duke {
                     System.out.println("!ERROR! " + exception);
                 } catch (EmptyListException exception) {
                     System.out.println("!ERROR! " + exception);
-                }
+                } catch (DateTimeParseException exception) {
+					System.out.println("!ERROR! Please input date with format yyyy-mm-dd!");
+				}
             }
 
             // Close the scanner
