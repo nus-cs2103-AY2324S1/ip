@@ -1,44 +1,60 @@
 import java.util.*;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 
 /**
  * GrumpyGordon Chatbot
  */
 public class GrumpyGordon {
+    protected ArrayList<Task> tasks;
+    protected int taskCount = 0;
+
+    protected static final String DIRECTORY_PATH = "./data";
+    protected static final String FILE_PATH = "./data/tasks.txt";
+    GrumpyGordon(ArrayList<Task> tasks) {
+        this.tasks = tasks;
+    }
+
     /**
      * Main loop for GrumpyGordon.
      *
      * @param args CLI Arguments
      */
     public static void main(String[] args) {
+        GrumpyGordon gordon = new GrumpyGordon(new ArrayList<>());
+        gordon.getTasks();
+
         System.out.println("    ____________________________________________________________");
         System.out.println("     Oi! I'm Grumpy Gordon.");
         System.out.println("     Why are you bothering me?");
         System.out.println("    ____________________________________________________________");
 
-        int taskIndex = 0;
         String taskArgument;
-        int taskCount = 0;
         Command command;
-        ArrayList<Task> tasks = new ArrayList<>(100);
+
+//        File f = new File(FILE_PATH);
+
+        int taskIndex = 0;
+
 
         Scanner sc = new Scanner(System.in);
         String str = sc.nextLine();
-
 
         while (!str.equals(Command.BYE.name().toLowerCase())) {
             try {
                 command = Command.valueOf(str.split(" ")[0].toUpperCase());
                 switch (command) {
                     case LIST:
-                        if (taskCount == 0) {
+                        if (gordon.taskCount == 0) {
                             System.out.println("    ____________________________________________________________");
                             System.out.println("     The list is empty, you donkey!");
                             System.out.println("    ____________________________________________________________");
                         } else {
                             System.out.println("    ____________________________________________________________");
                             System.out.println("     Stop wasting time, go get it done!");
-                            for (int i = 0; i < taskCount; i++) {
-                                System.out.println("     " + (i + 1) + "." + tasks.get(i).toString());
+                            for (int i = 0; i < gordon.taskCount; i++) {
+                                System.out.println("     " + (i + 1) + "." + gordon.tasks.get(i).toString());
                             }
                             System.out.println("    ____________________________________________________________");
                         }
@@ -49,14 +65,15 @@ public class GrumpyGordon {
                             throw new TaskIndexMissingException("Missing task index.");
                         }
                         taskIndex = Integer.parseInt(str.split(" ")[1]) - 1;
-                        if (taskIndex < 0 || taskIndex >= taskCount) {
+                        if (taskIndex < 0 || taskIndex >= gordon.taskCount) {
                             throw new TaskIndexOfOutBoundsException("Invalid task index.");
                         }
-                        tasks.get(taskIndex).markAsDone();
+                        gordon.tasks.get(taskIndex).markAsDone();
                         System.out.println("    ____________________________________________________________");
                         System.out.println("     Took you long enough!");
-                        System.out.println("       " + tasks.get(taskIndex).toString());
+                        System.out.println("       " + gordon.tasks.get(taskIndex).toString());
                         System.out.println("    ____________________________________________________________");
+                        gordon.saveTasks();
                         str = sc.nextLine();
                         break;
                     case UNMARK:
@@ -64,14 +81,15 @@ public class GrumpyGordon {
                             throw new TaskIndexMissingException("Missing task index.");
                         }
                         taskIndex = Integer.parseInt(str.split(" ")[1]) - 1;
-                        if (taskIndex < 0 || taskIndex >= taskCount) {
+                        if (taskIndex < 0 || taskIndex >= gordon.taskCount) {
                             throw new TaskIndexOfOutBoundsException("Invalid task index.");
                         }
-                        tasks.get(taskIndex).markAsUndone();
+                        gordon.tasks.get(taskIndex).markAsUndone();
                         System.out.println("    ____________________________________________________________");
                         System.out.println("     My grandmother does it faster than you!");
-                        System.out.println("       " + tasks.get(taskIndex).toString());
+                        System.out.println("       " + gordon.tasks.get(taskIndex).toString());
                         System.out.println("    ____________________________________________________________");
+                        gordon.saveTasks();
                         str = sc.nextLine();
                         break;
                     case DELETE:
@@ -79,16 +97,17 @@ public class GrumpyGordon {
                             throw new TaskIndexMissingException("Missing task index.");
                         }
                         taskIndex = Integer.parseInt(str.split(" ")[1]) - 1;
-                        if (taskIndex < 0 || taskIndex >= taskCount) {
+                        if (taskIndex < 0 || taskIndex >= gordon.taskCount) {
                             throw new TaskIndexOfOutBoundsException("Invalid task index.");
                         }
-                        taskCount--;
+                        gordon.taskCount--;
                         System.out.println("    ____________________________________________________________");
                         System.out.println("     Noted. I've removed this task:");
-                        System.out.println("       " + tasks.get(taskIndex).toString());
-                        System.out.println("     Now you have " + taskCount + (taskCount == 1 ? " task" : " tasks") + " in the list.");
+                        System.out.println("       " + gordon.tasks.get(taskIndex).toString());
+                        System.out.println("     Now you have " + gordon.taskCount + (gordon.taskCount == 1 ? " task" : " tasks") + " in the list.");
                         System.out.println("    ____________________________________________________________");
-                        tasks.remove(taskIndex);
+                        gordon.tasks.remove(taskIndex);
+                        gordon.saveTasks();
                         str = sc.nextLine();
                         break;
                     case TODO:
@@ -97,13 +116,14 @@ public class GrumpyGordon {
                         }
                         taskArgument = str.split(" ", 2)[1];
                         String todoDescription = taskArgument;
-                        tasks.add(new Todo(todoDescription));
-                        taskCount++;
+                        gordon.tasks.add(new Todo(todoDescription, false));
+                        gordon.taskCount++;
                         System.out.println("    ____________________________________________________________");
                         System.out.println("     Got it. I've added this task:");
-                        System.out.println("       " + tasks.get(taskCount - 1).toString());
-                        System.out.println("     Now you have " + taskCount + (taskCount > 1 ? " tasks" : " task") + " in the list.");
+                        System.out.println("       " + gordon.tasks.get(gordon.taskCount - 1).toString());
+                        System.out.println("     Now you have " + gordon.taskCount + (gordon.taskCount > 1 ? " tasks" : " task") + " in the list.");
                         System.out.println("    ____________________________________________________________");
+                        gordon.saveTasks();
                         str = sc.nextLine();
                         break;
                     case DEADLINE:
@@ -119,13 +139,14 @@ public class GrumpyGordon {
                         }
                         String deadlineDescription = taskArgument.split(" /by ")[0];
                         String deadlineBy = taskArgument.split(" /by ")[1];
-                        tasks.add(new Deadline(deadlineDescription, deadlineBy));
-                        taskCount++;
+                        gordon.tasks.add(new Deadline(deadlineDescription, deadlineBy, false));
+                        gordon.taskCount++;
                         System.out.println("    ____________________________________________________________");
                         System.out.println("     Got it. I've added this task:");
-                        System.out.println("       " + tasks.get(taskCount - 1).toString());
-                        System.out.println("     Now you have " + taskCount + (taskCount > 1 ? " tasks" : " task") + " in the list.");
+                        System.out.println("       " + gordon.tasks.get(gordon.taskCount - 1).toString());
+                        System.out.println("     Now you have " + gordon.taskCount + (gordon.taskCount > 1 ? " tasks" : " task") + " in the list.");
                         System.out.println("    ____________________________________________________________");
+                        gordon.saveTasks();
                         str = sc.nextLine();
                         break;
                     case EVENT:
@@ -145,13 +166,14 @@ public class GrumpyGordon {
                         }
                         String eventFrom = taskArgument.split(" /from ")[0].split(" /to ")[0];
                         String eventTo = taskArgument.split(" /to ")[1];
-                        tasks.add(new Event(eventDescription, eventFrom, eventTo));
-                        taskCount++;
+                        gordon.tasks.add(new Event(eventDescription, eventFrom, eventTo, false));
+                        gordon.taskCount++;
                         System.out.println("    ____________________________________________________________");
                         System.out.println("     Got it. I've added this task:");
-                        System.out.println("       " + tasks.get(taskCount - 1).toString());
-                        System.out.println("     Now you have " + taskCount + (taskCount > 1 ? " tasks" : " task") + " in the list.");
+                        System.out.println("       " + gordon.tasks.get(gordon.taskCount - 1).toString());
+                        System.out.println("     Now you have " + gordon.taskCount + (gordon.taskCount > 1 ? " tasks" : " task") + " in the list.");
                         System.out.println("    ____________________________________________________________");
+                        gordon.saveTasks();
                         str = sc.nextLine();
                         break;
                     default:
@@ -258,5 +280,43 @@ public class GrumpyGordon {
         System.out.println("    ____________________________________________________________");
         System.out.println("     Bye. Hope to never see you again.");
         System.out.println("    ____________________________________________________________");
+    }
+
+
+    void saveTasks() {
+        try {
+            FileWriter fw = new FileWriter(FILE_PATH);
+            for (Task task: tasks) {
+                fw.write(task.toSaveFormat() + "\n");
+            }
+            fw.close();
+        } catch (IOException e) {
+            System.out.println("Error saving tasks to file: " + e.getMessage());
+        }
+     }
+    void getTasks() {
+        File dataDirectory = new File(DIRECTORY_PATH);
+        if (!dataDirectory.exists()) {
+            dataDirectory.mkdir();
+        }
+        try {
+            File file = new File(FILE_PATH);
+            if (file.exists()) {
+                Scanner scanner = new Scanner(file);
+                while (scanner.hasNextLine()) {
+                    String line = scanner.nextLine();
+                    Task task = Task.fromSaveFormat(line);
+                    if (task != null) {
+                        tasks.add(task);
+                        taskCount++;
+                    }
+                }
+                scanner.close();
+            } else {
+                file.createNewFile();
+            }
+        } catch (IOException e) {
+            System.out.println("Error reading tasks from file: " + e.getMessage());
+        }
     }
 }

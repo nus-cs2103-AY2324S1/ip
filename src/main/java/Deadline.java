@@ -12,8 +12,8 @@ public class Deadline extends Task {
      * @param description Description of event
      * @param by End time of event
      */
-    public Deadline(String description, String by) {
-        super(description);
+    public Deadline(String description, String by, boolean isDone) {
+        super(description, isDone);
         this.by = by;
     }
 
@@ -24,5 +24,10 @@ public class Deadline extends Task {
     @Override
     public String toString() {
         return "[D][" + this.getStatusIcon() + "] " + super.toString() + " (by: " + this.by + ")";
+    }
+
+    @Override
+    public String toSaveFormat() {
+        return "D | " + (this.isDone ? "1" : "0") + " | " + super.toString() + " | " + this.by;
     }
 }

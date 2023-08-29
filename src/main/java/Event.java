@@ -18,8 +18,8 @@ public class Event extends Task {
      * @param from Start time of event
      * @param to End time of event
      */
-    public Event(String description, String from, String to) {
-        super(description);
+    public Event(String description, String from, String to, boolean isDone) {
+        super(description, isDone);
         this.from = from;
         this.to = to;
     }
@@ -31,5 +31,10 @@ public class Event extends Task {
     @Override
     public String toString() {
         return "[E][" + this.getStatusIcon() + "] " + super.toString() + " (from: " + this.from + " to: " + this.to + ")";
+    }
+
+    @Override
+    public String toSaveFormat() {
+        return "E | " + (this.isDone ? "1" : "0") + " | " + super.toString() + " | " + this.from + " | " + this.to;
     }
 }
