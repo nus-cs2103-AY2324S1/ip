@@ -1,3 +1,5 @@
+package duke;
+
 public class Parser {
     public static final String COMMAND_TODO = "todo";
     public static final String COMMAND_DEADLINE = "deadline";

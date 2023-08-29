@@ -1,9 +1,11 @@
+package duke;
+
 import java.util.ArrayList;
 
 public class Duke {
     public static void main(String[] args) {
         Ui ui = new Ui();
-        Storage storage = new Storage("src/main/java/data/duke.txt");
+        Storage storage = new Storage("src/main/java/duke/data/duke.txt");
         TaskList taskList = new TaskList();
 
         Ui.showGreeting();
