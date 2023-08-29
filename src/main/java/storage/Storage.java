@@ -1,13 +1,22 @@
+package storage;
+
+import data.exception.DukeException;
+import data.task.Deadline;
+import data.task.Event;
+import data.task.Task;
+import data.task.ToDo;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Paths;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+
+import parser.Parser;
 
 public class Storage {
     private static final String CURRENT_DIRECTORY = System.getProperty("user.dir");
@@ -27,7 +36,7 @@ public class Storage {
                 String taskType = data[0].trim();
                 switch (taskType) {
                     case "D":
-                        // Deadline
+                        // data.task.Deadline
                         if (data.length == 4) {
                             // Ensure deadline date is a Datetime object
                             LocalDateTime localDateTime =
@@ -41,7 +50,7 @@ public class Storage {
                         }
                         break;
                     case "E":
-                        // Event
+                        // data.task.Event
                         if (data.length == 5) {
                             // Ensure deadline date is a Datetime object
                             Task t = new Event(data[2].trim(),

@@ -1,8 +1,10 @@
+package ui;
+
+import data.task.Task;
+
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Scanner;
-import java.util.stream.Stream;
 
 public class UI {
     private static final int LINE_LENGTH = 100;
