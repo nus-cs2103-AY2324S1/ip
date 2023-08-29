@@ -289,25 +289,26 @@ public class TaskMate {
         }
 
         String[] lines = unprocessedTasks.split("\\n");
-        String taskType, taskIsDone, name, by, from, to, delimiter, delimiter2;
+        String taskType, name, by, from, to, delimiter, delimiter2;
+        boolean taskIsDone;
         Task newTask;
         for (String line: lines) {
             taskType = line.substring(1,2);
-            taskIsDone = line.substring(4,5);
+            taskIsDone = line.charAt(4) == 'X';
 
             if (taskType.equals("T")) {
                 // To-do task
                 name = line.substring(7);
-                newTask = new Todo(name);
-                tasks.addTask(newTask);
+                newTask = new Todo(name, taskIsDone);
+                tasks.addTask(newTask, taskIsDone);
             } else if (taskType.equals("D")) {
                 // Deadline
                 delimiter = "(by: ";
                 int indexOfByParam = line.lastIndexOf(delimiter);
                 name = line.substring(7, indexOfByParam);
                 by = line.substring(indexOfByParam + delimiter.length(), line.length() - 1);
-                newTask = new Deadline(name, by);
-                tasks.addTask(newTask);
+                newTask = new Deadline(name, by, taskIsDone);
+                tasks.addTask(newTask, taskIsDone);
             } else if (taskType.equals("E")) {
                 // Event
                 delimiter = "(from: ";
@@ -317,13 +318,12 @@ public class TaskMate {
                 name = line.substring(7, indexOfFromParam);
                 from = line.substring(indexOfFromParam + delimiter.length(), indexOfToParam);
                 to   = line.substring(indexOfToParam + delimiter2.length(), line.length() - 1);
-                newTask = new Event(name, from, to);
-                tasks.addTask(newTask);
+                newTask = new Event(name, from, to, taskIsDone);
+                tasks.addTask(newTask, taskIsDone);
             } else {
                 // Invalid event
                 System.out.println("Invalid task: " + line);
             }
         }
-
     }
 }

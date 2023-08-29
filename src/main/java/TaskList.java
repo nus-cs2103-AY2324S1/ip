@@ -16,6 +16,11 @@ public class TaskList {
         numIncompleteTasks++;
     }
 
+    void addTask(Task t, boolean isDone) {
+        this.tasks.add(t);
+        numTotalTasks++;
+    }
+
     Task removeTask(int i) {
         Task t = tasks.get(i);
         tasks.remove(i);

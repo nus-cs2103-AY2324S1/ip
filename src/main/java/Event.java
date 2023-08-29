@@ -12,6 +12,12 @@ public class Event extends Task {
         this.endDatetime = LocalDate.parse(endDatetime);
     }
 
+    Event(String name, String startDatetime, String endDatetime, boolean isDone) {
+        super(name, isDone);
+        this.startDatetime = LocalDate.parse(startDatetime);
+        this.endDatetime = LocalDate.parse(endDatetime);
+    }
+
     @Override
     String getTaskType() {
         return "Event";

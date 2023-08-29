@@ -12,6 +12,11 @@ public abstract class Task {
 //        Task.numIncompleteTasks++;
     }
 
+    Task(String name, boolean isDone) {
+        this.name = name;
+        this.isDone = isDone;
+    }
+
 //    static ArrayList<Task> getAllTasks() {
 //        return allTasks;
 //    }

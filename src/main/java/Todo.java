@@ -3,6 +3,10 @@ public class Todo extends Task {
         super(name);
     }
 
+    Todo(String name, boolean isDone) {
+        super(name, isDone);
+    }
+
     @Override
     String getTaskType() {
         return "Todo";
