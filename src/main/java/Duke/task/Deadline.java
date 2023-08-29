@@ -34,6 +34,6 @@ public class Deadline extends Task{
         return "[D]" + super.toString() + "(" + deadlineTime + ")";
     }
     public String toSaveFormat(){
-        return "deadline:" + deadlineTime + super.toSaveFormat();
+        return "deadline:" + deadlineTime + "|" + super.toSaveFormat();
     }
 }
