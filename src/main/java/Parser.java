@@ -1,6 +1,9 @@
 import java.util.Arrays;
 import java.util.HashMap;
 
+/**
+ * Handles making sense of the user command and outputing it in a programme readable way
+ */
 public class Parser {
 
     /**
@@ -23,14 +26,15 @@ public class Parser {
      */
     private int index = -1;
 
+
     /**
      * Constructor for the Parser
      *
      * @param input - the input string that needs to be parsed
-     * @throws BadInputException     - if the input cannot be parsed properly
+     * @throws DukeBadInputException - if the input cannot be parsed properly
      * @throws NumberFormatException - if the input cannot be converted to an int
      */
-    public Parser(String input) throws BadInputException, NumberFormatException {
+    public Parser(String input) throws DukeBadInputException, NumberFormatException {
         String[] splitInput = input.split(" ");
         switch (splitInput[0]) {
             case "list":
@@ -52,7 +56,7 @@ public class Parser {
                 this.COMMAND = Commands.TODO;
                 this.param = input.replace("todo ", "");
                 if (this.param.equals("todo")) {
-                    throw new BadInputException(
+                    throw new DukeBadInputException(
                             "Quack doesn't understand an empty todo description, please provide one!!");
                 }
                 break;
@@ -70,14 +74,14 @@ public class Parser {
         }
     }
 
-    private int findIndex(String[] splitInput) throws BadInputException, NumberFormatException {
+    private int findIndex(String[] splitInput) throws DukeBadInputException, NumberFormatException {
         if (splitInput.length != 2) {
-            throw new BadInputException(
+            throw new DukeBadInputException(
                     String.format("Quack requires exactly one number after the %s command", splitInput[0]));
         }
         int ret = Integer.parseInt(splitInput[1]);
         if (ret < 0) {
-            throw new BadInputException(
+            throw new DukeBadInputException(
                     "Quack requires a positive number to help you manage tasks!");
         }
         return ret;
@@ -88,29 +92,29 @@ public class Parser {
      *
      * @param splitInputs - input string that has been split into words
      * @param flags       - the flags that needs to be found
-     * @throws BadInputException - if the flags cannot be found or without a
-     *                           description
+     * @throws DukeBadInputException - if the flags cannot be found or without a
+     *                               description
      */
-    private void findFlags(String[] splitInputs, String... flags) throws BadInputException {
+    private void findFlags(String[] splitInputs, String... flags) throws DukeBadInputException {
 
         int[] flagIndex = this.find(splitInputs, flags);
 
         for (int i = 0; i < flagIndex.length - 1; i++) {
 
             if (flagIndex[i] == -1) {
-                throw new BadInputException(
+                throw new DukeBadInputException(
                         "Quack cant find the required " + flags[i] + " flags, please provide quack with one please");
             }
 
             if (flagIndex[i + 1] == -1) {
-                throw new BadInputException(
+                throw new DukeBadInputException(
                         "Quack cant find the required " + flags[i + 1]
                                 + " flags, please provide quack with one please");
             }
 
             String value = String.join(" ", Arrays.copyOfRange(splitInputs, flagIndex[i] + 1, flagIndex[i + 1]));
             if (value.isBlank()) {
-                throw new BadInputException(
+                throw new DukeBadInputException(
                         "Please provide quack a description for the " + flags[i] + " flag");
             }
             this.FLAG.put(splitInputs[flagIndex[i]], value);
@@ -118,7 +122,7 @@ public class Parser {
         }
         this.param = String.join(" ", Arrays.copyOfRange(splitInputs, 1, flagIndex[0]));
         if (this.param.isBlank()) {
-            throw new BadInputException(
+            throw new DukeBadInputException(
                     "Quack doesn't understand an empty description, please provide one!!");
         }
     }
@@ -129,10 +133,10 @@ public class Parser {
      * @param arr   - the array of strings that you want to find the flags from
      * @param items - the array of flags you want to find from the array
      * @return an array of the index of the flags
-     * @throws BadInputException - if the flags cannot be found or without a
-     *                           description
+     * @throws DukeBadInputException - if the flags cannot be found or without a
+     *                               description
      */
-    private int[] find(String[] arr, String[] items) throws BadInputException {
+    private int[] find(String[] arr, String[] items) throws DukeBadInputException {
         int[] ret = new int[items.length + 1];
         // initialise values
         for (int i = 0; i < items.length + 1; i++) {
@@ -147,7 +151,7 @@ public class Parser {
             for (int j = 0; j < items.length; j++) {
                 if (arr[i].equals(items[j])) {
                     if (ret[j] != -1) {
-                        throw new BadInputException(
+                        throw new DukeBadInputException(
                                 "There are too many of the " + items[j] + " flag, please just provide one");
                     }
                     ret[j] = i;
@@ -194,4 +198,5 @@ public class Parser {
     public int getIndex() {
         return this.index;
     }
+
 }
