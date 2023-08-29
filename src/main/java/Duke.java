@@ -1,3 +1,4 @@
+import java.time.DateTimeException;
 import java.util.Scanner;
 
 
@@ -79,6 +80,9 @@ public class Duke {
                 printLine();
                 System.out.println(new DukeException("Please specify the index of the task (Numbers only)"));
                 printLine();
+            } catch (DateTimeException e) {
+                printLine();
+                System.out.println(new DukeException("Please represent time in a proper time format of yyyy-mm-dd"));
             } finally {
                 input = scanner.nextLine().trim(); // Get next input
             }
