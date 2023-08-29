@@ -62,6 +62,13 @@ public class Duke {
         }
     }
 
+    private static void list() {
+        System.out.println("\t Here are the tasks in your list:");
+        for (int i = 0; i < list.size(); i++) {
+            System.out.println("\t " + (i + 1) + "." + list.get(i).toString());
+        }
+    }
+
     private static String getNumTasks(int num) {
         if (num == 1 || num == 0) {
             return "\t Now you have " + num + " task in the list.";
@@ -93,10 +100,7 @@ public class Duke {
                     System.out.println("\t Bye. Hope to see you again soon!");
                     exit = true;
                 } else if (command.equals("list")) {
-                    System.out.println("\t Here are the tasks in your list:");
-                    for (int i = 0; i < list.size(); i++) {
-                        System.out.println("\t " + (i + 1) + "." + list.get(i).toString());
-                    }
+                    list();
                 } else if (command.startsWith("mark")) {
                     String[] result = command.split(" ");
                     if (result.length == 1 && !command.startsWith("mark ") && command.length() > 4) {
