@@ -1,3 +1,6 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
 public class Input {
@@ -135,6 +138,15 @@ public class Input {
         try {
             int i = Integer.parseInt(strInt);
         } catch (NumberFormatException nfe) {
+            return false;
+        }
+        return true;
+    }
+
+    public static boolean isValidDate(String dateStr, DateTimeFormatter formatter) {
+        try {
+            LocalDateTime.parse(dateStr, formatter);
+        } catch (DateTimeParseException e) {
             return false;
         }
         return true;
