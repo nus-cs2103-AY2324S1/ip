@@ -3,6 +3,7 @@ import commands.AddCommand;
 import commands.Command;
 import commands.DeleteCommand;
 import commands.ExitCommand;
+import commands.FindCommand;
 import commands.InvalidCommand;
 import commands.ListCommand;
 import commands.LoadCommand;
@@ -55,6 +56,9 @@ public class Parser {
             break;
         case "schedule":
             command = new ScheduleCommand(fullCommand);
+            break;
+        case "find":
+            command = new FindCommand(fullCommand);
             break;
         default:
             command = new InvalidCommand();

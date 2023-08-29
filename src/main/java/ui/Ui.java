@@ -88,4 +88,9 @@ public class Ui {
     public void showLoad() {
         System.out.println("Tasks loaded from file.");
     }
+
+    public void showFind(String output) {
+        System.out.println("Here are the matching tasks in your list:");
+        System.out.println(output);
+    }
 }
