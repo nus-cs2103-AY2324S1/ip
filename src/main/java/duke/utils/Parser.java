@@ -12,6 +12,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * Represents a parser that parses user input.
+ */
 public class Parser {
     List<String> inputArray;
     public Parser(String input) {
@@ -21,6 +24,10 @@ public class Parser {
         this.inputArray = new ArrayList<>();
     }
 
+    /**
+     * Returns the command keyword.
+     * @return The command keyword.
+     */
     public Command getCommand() {
         Command keyword = Command.INVALID;
         try {
@@ -31,6 +38,11 @@ public class Parser {
         return keyword;
     }
 
+    /**
+     * Returns the task number.
+     * @return The task number.
+     * @throws DukeException If the task number is not an integer.
+     */
     public int getTaskNumber() throws DukeException {
         try {
             String input = String.join(" ", this.inputArray.subList(1, this.inputArray.size()));
@@ -42,6 +54,11 @@ public class Parser {
         }
     }
 
+    /**
+     * Returns the content of the todo.
+     * @return The content of the todo.
+     * @throws DukeException If the content of the todo is empty.
+     */
     public String getContentForTodo() throws DukeException {
         if (this.inputArray.size() <= 1) {
             throw new DukeMissingArgumentException("The description of a todo cannot be empty.");
@@ -49,6 +66,11 @@ public class Parser {
         return String.join(" ", this.inputArray.subList(1, this.inputArray.size()));
     }
 
+    /**
+     * Returns the content of the deadline.
+     * @return The content of the deadline.
+     * @throws DukeException If the content of the deadline is empty.
+     */
     public String[] getContentForDeadline() throws DukeException {
         if (this.inputArray.size() <= 1) {
             throw new DukeMissingArgumentException("The description of a deadline cannot be empty.");
@@ -57,6 +79,11 @@ public class Parser {
         return input.split(" /by ");
     }
 
+    /**
+     * Returns the content of the event.
+     * @return The content of the event.
+     * @throws DukeException If the content of the event is empty.
+     */
     public String[] getContentForEvent() throws DukeException {
         if (this.inputArray.size() <= 1) {
             throw new DukeMissingArgumentException("The description of an event cannot be empty.");
@@ -75,6 +102,12 @@ public class Parser {
         return new String[] {split[0], split2[0], split2[1]};
     }
 
+    /**
+     * Returns the date and time.
+     * @param dateTime The date and time.
+     * @return The date and time.
+     * @throws DukeException If the date and time is not in the correct format.
+     */
     public LocalDateTime parseDateTime(String dateTime) throws DukeException {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
         try {
@@ -84,6 +117,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Returns the task.
+     * @param line The task.
+     * @return The task.
+     * @throws DukeException If the task is not in the correct format.
+     */
     public Task parseTask(String line) throws DukeException {
         String[] split = line.split("\\|");
         String type = split[0];

@@ -1,5 +1,8 @@
 package duke;
 
+/**
+ * Represents the different commands that the user can input.
+ */
 public class DukeMissingArgumentException extends DukeException {
     private final String message;
     public DukeMissingArgumentException(String message) {
