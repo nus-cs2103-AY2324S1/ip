@@ -12,24 +12,31 @@
     1.[T][ ] borrow book
     ______________________________________________
     ______________________________________________
+    Enter valid date yyyy-mm-dd
+    ______________________________________________
+    ______________________________________________
     Got it. I've added this task:
-      [D][ ] return book (by: Sunday)
+      [D][ ] return book (by: 11-Aug-2023)
     Number of tasks: 2
     ______________________________________________
     ______________________________________________
     Got it. I've added this task:
-      [E][ ] project meeting (from: Mon 2pm to: 4pm)
+      [E][ ] project meeting (from: 11-Aug-2023 to: 19-Aug-2023)
     Number of tasks: 3
     ______________________________________________
     ______________________________________________
+    OK, I've marked this task as not done yet:
+      [D][ ] return book (by: 11-Aug-2023)
+    ______________________________________________
+    ______________________________________________
     Nice! I've marked this task as done:
-      [D][X] return book (by: Sunday)
+      [D][X] return book (by: 11-Aug-2023)
     ______________________________________________
     ______________________________________________
     Here are the tasks in your list:
     1.[T][ ] borrow book
-    2.[D][X] return book (by: Sunday)
-    3.[E][ ] project meeting (from: Mon 2pm to: 4pm)
+    2.[D][X] return book (by: 11-Aug-2023)
+    3.[E][ ] project meeting (from: 11-Aug-2023 to: 19-Aug-2023)
     ______________________________________________
     ______________________________________________
     Nice! I've marked this task as done:
@@ -37,7 +44,7 @@
     ______________________________________________
     ______________________________________________
     OK, I've marked this task as not done yet:
-      [D][ ] return book (by: Sunday)
+      [D][ ] return book (by: 11-Aug-2023)
     ______________________________________________
     ______________________________________________
     Got it. I've added this task:
@@ -51,18 +58,18 @@
     ______________________________________________
     ______________________________________________
     Here are the tasks in your list:
-    1.[D][ ] return book (by: Sunday)
-    2.[E][ ] project meeting (from: Mon 2pm to: 4pm)
+    1.[D][ ] return book (by: 11-Aug-2023)
+    2.[E][ ] project meeting (from: 11-Aug-2023 to: 19-Aug-2023)
     3.[T][ ] eat
     ______________________________________________
     ______________________________________________
     Noted. I've removed this task:
-      [D][ ] return book (by: Sunday)
+      [D][ ] return book (by: 11-Aug-2023)
     Number of tasks: 2
     ______________________________________________
     ______________________________________________
     Noted. I've removed this task:
-      [E][ ] project meeting (from: Mon 2pm to: 4pm)
+      [E][ ] project meeting (from: 11-Aug-2023 to: 19-Aug-2023)
     Number of tasks: 1
     ______________________________________________
     ______________________________________________
