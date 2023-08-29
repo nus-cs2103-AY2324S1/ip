@@ -5,7 +5,11 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.FileNotFoundException;
-
+import parsers.DateTimeParser;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class Hong {
     private static ArrayList<Task> tasks = new ArrayList<Task>();
@@ -159,7 +163,8 @@ public class Hong {
         if (arrInput.length != 2) {
             System.out.println("Error! There is an issue with the format of your message. ");
         } else {
-            Deadline newDeadline = new Deadline(arrInput[1], arrInput[0]);
+            LocalDateTime dateTime = DateTimeParser.parseDateTime(arrInput[1]);
+            Deadline newDeadline = new Deadline(dateTime, arrInput[0]);
             tasks.add(newDeadline);
             addedMessage(newDeadline.toString());
         }
