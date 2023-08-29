@@ -1,0 +1,4 @@
+0 todo eat apple
+1 deadline eat banana /by 2000-10-10 1800
+0 todo eat grapes
+0 event eat orange /from 2000-10-10 0000/to 2000-10-11 2359

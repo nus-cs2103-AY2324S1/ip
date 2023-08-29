@@ -34,13 +34,13 @@ public class Event extends Task {
     public String toSave() {
         String startToSave = start.toString().replace("T", " ").replace(":", "");
         String endToSave = end.toString().replace("T", " ").replace(":", "");
-        return (super.isComplete ? "1 " : "0 ") + "event " + super.name + "/from" + startToSave + "/to" + endToSave;
+        return (super.isComplete ? "1 " : "0 ") + "event " + super.name + "/from " + startToSave + " /to " + endToSave;
     }
 
     @Override
     public String toString() {
         return "[E]" + super.toString()
-                + "/from" + start.format(DateTimeFormatter.ofPattern("MMM dd yyyy HHmm"))
-                        + "/to" + end.format(DateTimeFormatter.ofPattern("MMM dd yyyy HHmm"));
+                + "/from " + start.format(DateTimeFormatter.ofPattern("MMM dd yyyy HHmm"))
+                        + " /to " + end.format(DateTimeFormatter.ofPattern("MMM dd yyyy HHmm"));
     }
 }
