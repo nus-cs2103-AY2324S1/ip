@@ -1,3 +1,12 @@
+package duke.command;
+
+import duke.Storage;
+import duke.TaskList;
+import duke.Ui;
+import duke.exception.DukeBadInputException;
+import duke.task.DeadlineTask;
+import duke.task.Task;
+
 import java.time.LocalDateTime;
 
 /**
@@ -17,7 +26,7 @@ public class DeadlineCommand extends Command {
 
 
     /**
-     * Constructor of the DeadlineTask command
+     * Constructor of the duke.task.DeadlineTask command
      *
      * @param by   - the due date of the task
      * @param desc - desc of the task
@@ -36,7 +45,7 @@ public class DeadlineCommand extends Command {
      * @throws DukeBadInputException - if the input cannot be used
      */
     @Override
-    void execute(TaskList taskList, Ui ui, Storage storage) throws DukeBadInputException {
+    public void execute(TaskList taskList, Ui ui, Storage storage) throws DukeBadInputException {
         if (taskList.length() >= 100) {
             throw new DukeBadInputException("quack cannot remember any more tasks!!");
         }
@@ -58,7 +67,7 @@ public class DeadlineCommand extends Command {
      * @return true if it is the exit command
      */
     @Override
-    boolean isExit() {
+    public boolean isExit() {
         return false;
     }
 }

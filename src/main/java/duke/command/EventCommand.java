@@ -1,21 +1,45 @@
+package duke.command;
+
+import duke.Storage;
+import duke.TaskList;
+import duke.Ui;
+import duke.exception.DukeBadInputException;
+import duke.task.EventTask;
+import duke.task.Task;
+
+import java.time.LocalDateTime;
+
 /**
- * Represents the Todo command
+ * Represents the Event command
  */
-public class TodoCommand extends Command {
+public class EventCommand extends Command {
 
     /**
      * Stores the description of the task
      */
     private String desc;
 
+    /**
+     * Stores the end date of the event
+     */
+    private LocalDateTime to;
 
     /**
-     * Constructor of the todo command
-     *
-     * @param desc - the desc of the command
+     * Stores the start date of the event
      */
-    public TodoCommand(String desc) {
+    private LocalDateTime from;
+
+    /**
+     * Constructor of the Event command
+     *
+     * @param from - the start date of the task
+     * @param to   - the end date of the event
+     * @param desc - desc of the task
+     */
+    public EventCommand(LocalDateTime from, LocalDateTime to, String desc) {
         this.desc = desc;
+        this.from = from;
+        this.to = to;
     }
 
     /**
@@ -31,7 +55,7 @@ public class TodoCommand extends Command {
         if (taskList.length() >= 100) {
             throw new DukeBadInputException("quack cannot remember any more tasks!!");
         }
-        Task newTask = new TodoTask(desc);
+        Task newTask = new EventTask(this.from, this.to, this.desc);
         taskList.add(newTask);
         if (!storage.writeToFile(newTask.getStored())) {
             ui.unexpectedError("unable to write to storage");

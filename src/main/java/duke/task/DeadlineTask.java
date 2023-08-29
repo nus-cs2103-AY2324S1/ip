@@ -1,3 +1,5 @@
+package duke.task;
+
 import java.time.LocalDateTime;
 
 public class DeadlineTask extends Task {
@@ -8,7 +10,7 @@ public class DeadlineTask extends Task {
     private LocalDateTime by;
 
     /**
-     * constructor for DeadlineTask
+     * constructor for duke.task.DeadlineTask
      *
      * @param by   - the deadline of the task
      * @param task - the description of the task created
@@ -19,7 +21,7 @@ public class DeadlineTask extends Task {
     }
 
     /**
-     * constructor for DeadlineTask from storage
+     * constructor for duke.task.DeadlineTask from storage
      *
      * @param by        - the deadline of the task
      * @param task      - the description of the task created

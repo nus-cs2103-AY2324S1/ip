@@ -1,3 +1,10 @@
+package duke.command;
+
+import duke.Storage;
+import duke.TaskList;
+import duke.Ui;
+import duke.exception.DukeBadInputException;
+
 /**
  * Represents the exit command
  */
@@ -11,7 +18,7 @@ public class ExitCommand extends Command {
      * @throws DukeBadInputException - if the input cannot be used
      */
     @Override
-    void execute(TaskList taskList, Ui ui, Storage storage) throws DukeBadInputException {
+    public void execute(TaskList taskList, Ui ui, Storage storage) throws DukeBadInputException {
 
     }
 
@@ -21,7 +28,7 @@ public class ExitCommand extends Command {
      * @return true if it is the exit command
      */
     @Override
-    boolean isExit() {
+    public boolean isExit() {
         return true;
     }
 }

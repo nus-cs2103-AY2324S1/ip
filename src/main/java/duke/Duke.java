@@ -1,3 +1,9 @@
+package duke;
+
+import duke.command.Command;
+import duke.command.ListCommand;
+import duke.exception.DukeBadInputException;
+
 import java.io.IOException;
 import java.time.format.DateTimeParseException;
 
@@ -17,7 +23,7 @@ public class Duke {
     private Storage storage;
 
     /**
-     * Construct a new Duke object which uses filePath as the storage
+     * Construct a new duke.Duke object which uses filePath as the storage
      *
      * @param filePath - path to the storage file
      */
@@ -69,7 +75,11 @@ public class Duke {
         }
 
         // Prints out the current items in the list
-        new ListCommand().execute(this.taskList, this.ui, this.storage);
+        try {
+            new ListCommand().execute(this.taskList, this.ui, this.storage);
+        } catch (DukeBadInputException e) {
+            this.ui.unexpectedError(e.getMessage());
+        }
         this.ui.lineBreak();
         this.ui.println("");
         this.collectCommand();
@@ -83,7 +93,6 @@ public class Duke {
      * Handles the collection and execution of the command
      */
     private void collectCommand() {
-
         while (true) {
 
             try {

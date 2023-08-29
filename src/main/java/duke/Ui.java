@@ -1,3 +1,5 @@
+package duke;
+
 import java.util.Scanner;
 
 /**
@@ -20,7 +22,7 @@ public class Ui {
      * Default Welcome Message
      */
     private static final String WELCOME_MESSAGE = TAB + "Quack Quack! I am a duck named Quack\n"
-            + TAB + "Quack will remember the Task you give quack!\n"
+            + TAB + "Quack will remember the duke.task.Task you give quack!\n"
             + TAB + Ui.HELP_MESSAGE;
     /**
      * Default Exit Message

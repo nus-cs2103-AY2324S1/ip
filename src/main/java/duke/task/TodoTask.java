@@ -1,9 +1,11 @@
+package duke.task;
+
 /**
  * Class to encapsulate the logic of an todo task
  */
 public class TodoTask extends Task {
     /**
-     * Constructor for the TodoTask class
+     * Constructor for the duke.task.TodoTask class
      * Stored as TODO,{task description},{1 if marked else 0}
      *
      * @param task - the description of the task created
@@ -13,7 +15,7 @@ public class TodoTask extends Task {
     }
 
     /**
-     * Constructor for the TodoTask class from storage
+     * Constructor for the duke.task.TodoTask class from storage
      * Stored as TODO,{task description},{1 if marked else 0}
      *
      * @param task      - the description of the task created

@@ -1,3 +1,5 @@
+package duke.task;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -23,7 +25,7 @@ public class Task {
     private boolean completed = false;
 
     /**
-     * Constructor for the Task class
+     * Constructor for the duke.task.Task class
      *
      * @param task - the description of the task created
      */
@@ -69,7 +71,7 @@ public class Task {
     /**
      * returns the stored form of the task
      *
-     * @return a string which Duke Parser could Parse
+     * @return a string which duke.Duke duke.Parser could Parse
      */
     public String getStored() {
         return "";
