@@ -8,7 +8,7 @@ import duke.task.Todo;
 import duke.ui.Ui;
 
 public class TodoCommand implements Command{
-    private String details;
+    private final String details;
 
     public TodoCommand(String details) {
         this.details = details;
@@ -16,13 +16,13 @@ public class TodoCommand implements Command{
 
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
-        if (details == "") {
+        if (details.equals("")) {
             throw new DukeException("OOPS!!! The description of a todo cannot be empty.\n");
         } else {
             Task curr = new Todo(details);
             tasks.add(curr);
-            ui.sendMessage("Got it. I've added this task:\n" + "\t" + curr.toString() + "\n"
-                    + "Now you have " + Integer.toString(tasks.size()) + " tasks in the list.");
+            ui.sendMessage("Got it. I've added this task:\n" + "\t" + curr + "\n"
+                    + "Now you have " + tasks.size() + " tasks in the list.");
             storage.editData(tasks);
         }
     }

@@ -3,7 +3,7 @@ package duke.ui;
 import java.util.Scanner;
 
 public class Ui {
-    private static Scanner scanner = new Scanner(System.in);
+    private static final Scanner scanner = new Scanner(System.in);
 
     private String addLine(String message) {
         String horizontal = "_____________________________________________________\n";

@@ -5,15 +5,14 @@ import duke.command.Command;
 import duke.parser.Parser;
 import duke.task.Task;
 import duke.task.TaskList;
-import duke.ui.Ui;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
-import java.io.IOException;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.FileWriter;
+import java.io.FileReader;
+import java.io.IOException;
 
 public class Storage {
     private final String filePath;
@@ -22,7 +21,7 @@ public class Storage {
         this.filePath = filePath;
     }
 
-    public void editData(TaskList taskList) {
+    public void editData(TaskList taskList) throws DukeException {
         try {
             BufferedWriter writer = new BufferedWriter(new FileWriter(filePath, false));
             for (Task t : taskList) {
@@ -30,7 +29,7 @@ public class Storage {
             }
             writer.close();
         } catch (IOException e) {
-            e.getMessage();
+            throw new DukeException("OOPS!! Unable to save data safely.");
         }
     }
 
@@ -51,7 +50,7 @@ public class Storage {
             }
             return loadedTask;
         } catch (FileNotFoundException e) {
-            File newFile = new File(filePath);
+            new File(filePath);
             return loadedTask;
         } catch (IOException e) {
             throw new DukeException("OOPS!! Unable to read saved data safely.");

@@ -7,7 +7,7 @@ import duke.task.TaskList;
 import duke.ui.Ui;
 
 public class MarkCommand implements Command{
-    private String details;
+    private final String details;
 
     public MarkCommand(String details) {
         this.details = details;
@@ -21,7 +21,7 @@ public class MarkCommand implements Command{
         } else {
             Task curr = tasks.get(markIndex);
             curr.taskDone();
-            ui.sendMessage("Nice! I've marked this task as done:\n" + "\t" + curr.toString());
+            ui.sendMessage("Nice! I've marked this task as done:\n" + "\t" + curr);
             storage.editData(tasks);
         }
     }

@@ -7,7 +7,7 @@ import duke.task.TaskList;
 import duke.ui.Ui;
 
 public class UnmarkCommand implements Command{
-    private String details;
+    private final String details;
 
     public UnmarkCommand(String details) {
         this.details = details;
@@ -21,7 +21,7 @@ public class UnmarkCommand implements Command{
         }
         Task curr = tasks.get(unmarkIndex);
         curr.taskUndone();
-        ui.sendMessage("OK, I've marked this task as not done yet:\n" + "\t" + curr.toString());
+        ui.sendMessage("OK, I've marked this task as not done yet:\n" + "\t" + curr);
         storage.editData(tasks);
     }
 
