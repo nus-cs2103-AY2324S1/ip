@@ -1,10 +1,10 @@
 public class Task {
     String taskName;
-    boolean status;
+    boolean isDone;
 
     public Task(Boolean status, String taskName) {
         this.taskName = taskName;
-        this.status = status;
+        this.isDone = status;
     }
 
     public String getName() {
@@ -12,16 +12,16 @@ public class Task {
     }
 
     public void mark() {
-        this.status = true;
+        this.isDone = true;
     }
 
     public void unMark() {
-        this.status = false;
+        this.isDone = false;
     }
 
     @Override
     public String toString() {
-        if (this.status) {
+        if (this.isDone) {
             return "[X] " + this.taskName;
         } else {
             return "[ ] " + this.taskName;
@@ -29,7 +29,7 @@ public class Task {
     }
 
     public String toStoreString() {
-        if (this.status) {
+        if (this.isDone) {
             return "1/@/" + this.taskName;
         } else {
             return  "0/@/" + this.taskName;

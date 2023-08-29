@@ -1,11 +1,11 @@
 public class ToDo extends Task {
-    public ToDo(boolean status, String taskName) {
-        super(status, taskName);
+    public ToDo(boolean isDone, String taskName) {
+        super(isDone, taskName);
     }
 
     @Override
     public String toString() {
-        if (this.status) {
+        if (this.isDone) {
             return "[T]" + "[X] " + this.taskName;
         } else {
             return "[T]" + "[ ] " + this.taskName;
@@ -14,7 +14,7 @@ public class ToDo extends Task {
 
     @Override
     public String toStoreString() {
-        if (this.status) {
+        if (this.isDone) {
             return "T/@/1/@/" + this.taskName;
         } else {
             return  "T/@/0/@/" + this.taskName;

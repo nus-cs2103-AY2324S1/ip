@@ -4,8 +4,8 @@ public class SystemText {
     private static final String SEPARATOR = "____________________________________________________________\n";
     private static final String GREETING = "Hello! I'm Bobi >.<, what can I do for you?\n";
     private static final String EXIT = "Bye! Hope you have a good day today :)\n";
-    private static final String TASK_ADDED = "New task added to your list:\n";
-    private static String TASK_COUNT;
+    private static final String ADD_TASK = "New task added to your list:\n";
+    private static String COUNT_TASK;
     private static final String LIST_TASKS = "Things you need to do: \n";
     private static final String UPDATE_TASK = "OK! Your task has now been updated to: \n";
     private static final String DELETE_TASK = "Alright! I have deleted this task from the list:\n";
@@ -33,8 +33,8 @@ public class SystemText {
 
     // add a task
     public String printAddTask(Task task) {
-        TASK_COUNT = "You currently have " + this.taskList.getLength() + " tasks to do.\n";
-        return SEPARATOR + TASK_ADDED + task.toString() + "\n" + TASK_COUNT + SEPARATOR;
+        COUNT_TASK = "You currently have " + this.taskList.getLength() + " tasks to do.\n";
+        return SEPARATOR + ADD_TASK + task.toString() + "\n" + COUNT_TASK + SEPARATOR;
     }
 
     // list out tasks
@@ -52,8 +52,8 @@ public class SystemText {
     }
 
     public String printDeleteTask(Task task) {
-        TASK_COUNT = "You currently have " + this.taskList.getLength() + " tasks to do.\n";
-        return SEPARATOR + DELETE_TASK + task.toString() + "\n" + TASK_COUNT + SEPARATOR;
+        COUNT_TASK = "You currently have " + this.taskList.getLength() + " tasks to do.\n";
+        return SEPARATOR + DELETE_TASK + task.toString() + "\n" + COUNT_TASK + SEPARATOR;
     }
 
     // exit message

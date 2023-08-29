@@ -1,15 +1,15 @@
 public class Event extends Task {
     private String start;
     private String end;
-    public Event(boolean status, String taskName, String start, String end) {
-        super(status, taskName);
+    public Event(boolean isDone, String taskName, String start, String end) {
+        super(isDone, taskName);
         this.start = start;
         this.end = end;
     }
 
     @Override
     public String toString() {
-        if (this.status) {
+        if (this.isDone) {
             return "[E]" + "[X] " + this.taskName + "(from:" + this.start + "to:" + this.end + ")";
         } else {
             return "[E]" + "[ ] " + this.taskName + "(from:" + this.start + "to:" + this.end + ")";
@@ -18,7 +18,7 @@ public class Event extends Task {
 
     @Override
     public String toStoreString() {
-        if (this.status) {
+        if (this.isDone) {
             return "E/@/1/@/" + this.taskName + "/@/" + this.start + "/@/" + this.end;
         } else {
             return  "E/@/0/@/" + this.taskName + "/@/" + this.start + "/@/" + this.end;
