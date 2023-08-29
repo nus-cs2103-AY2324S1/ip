@@ -89,6 +89,11 @@ public class TaskList {
         Ui.markAsUndone(tsk);
     }
 
+    /**
+     * Returns the list of tasks that contain the specified keyword.
+     * 
+     * @param keyword The keyword to be searched.
+     */
     public void findTasks(String keyword) {
         ArrayList<Task> foundTasks = new ArrayList<Task>();
         for (Task tsk : this.tasks) {
