@@ -1,18 +1,18 @@
 /**
- * A class that defines task objects written by users.
+ * An abstract class that defines task objects written by users.
  */
-public class Task {
+public abstract class Task {
     /** A string that indicates task name. */
-    private String name;
+    protected String description;
     /** A boolean that indicates whether task is completed by user. */
-    private boolean isDone;
+    protected boolean isDone;
 
     /**
      * A constructor of a task object.
-     * @param name A string that indicates task name.
+     * @param description A string that indicates task name.
      */
-    public Task(String name) {
-        this.name = name;
+    public Task(String description) {
+        this.description = description;
         this.isDone = false;
     }
 
@@ -35,25 +35,9 @@ public class Task {
      */
     @Override
     public String toString() {
-        return "[" + this.getStatusIcon() + "] " + this.name;
+        return "[" + this.getStatusIcon() + "] " + this.description;
     }
 
-    /**
-     *
-     * @param obj The object that is compared against this task.
-     * @return true if the tasks' names are equal; otherwise false.
-     */
-    @Override
-    public boolean equals(Object obj) {
-        if (obj == this) {
-            return true;
-        }
+    public abstract String stringifyTask();
 
-        if (obj instanceof Task) {
-            Task t = (Task) obj;
-            return this.name == t.name;
-        }
-
-        return false;
-    }
 }

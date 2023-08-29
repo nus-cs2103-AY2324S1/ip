@@ -4,7 +4,7 @@ import java.util.Scanner;
  * A class which runs the HelpBuddy chatbot.
  */
 public class Main {
-    public static void main(String[] args) throws HelpBuddyException {
+    public static void main(String[] args) {
         /** Create a scanner to read from standard input. */
         Scanner sc = new Scanner(System.in);
         /** Create a new chatbot to activate its service. */

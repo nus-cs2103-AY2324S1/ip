@@ -35,4 +35,10 @@ public class Event extends Task {
     public String toString() {
         return "[E]" + super.toString() + "(from:" + this.from + "to:" + this.to + ")";
     }
+
+    @Override
+    public String stringifyTask() {
+        return String.format("E|%d|%s|%s", this.isDone ? 1 : 0, this.description, this.from + " to" + this.to);
+    }
+
 }
