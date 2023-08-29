@@ -1,3 +1,10 @@
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -5,7 +12,8 @@ import java.util.Scanner;
 public class Duke {
     private static final int INDENT_SIZE = 4;
     private static final String NAME = "Jimmy";
-    private static final List<Task> tasks = new ArrayList<>();
+    private static final Path TASKS_CACHE_PATH = Path.of(".duke-cache");
+    private static List<Task> tasks;
 
     private static String indent(String s) {
         return String.format("%s%s", " ".repeat(INDENT_SIZE), s);
@@ -187,7 +195,46 @@ public class Duke {
         }
     }
 
+    private static void load() {
+        if (Files.notExists(TASKS_CACHE_PATH)) {
+            say("No existing tasks found, initializing an empty task list...");
+            tasks = new ArrayList<>();
+        } else {
+            try {
+                FileInputStream fileInputStream = new FileInputStream(TASKS_CACHE_PATH.toString());
+                ObjectInputStream objInputStream = new ObjectInputStream(fileInputStream);
+
+                tasks = (List<Task>) objInputStream.readObject();
+
+                objInputStream.close();
+                fileInputStream.close();
+                say(String.format("Loaded existing tasks from %s", TASKS_CACHE_PATH));
+            } catch (IOException | ClassNotFoundException e) {
+                say(String.format("Something went wrong loading existing tasks from %s, initializing an empty task list...", TASKS_CACHE_PATH));
+                tasks = new ArrayList<>();
+                try {
+                    Files.delete(TASKS_CACHE_PATH);
+                } catch (IOException ignored) {
+                }
+            }
+        }
+    }
+
+    private static void save() {
+        try {
+            FileOutputStream fileOutputStream = new FileOutputStream(TASKS_CACHE_PATH.toString());
+            ObjectOutputStream objOutputStream = new ObjectOutputStream(fileOutputStream);
+
+            objOutputStream.writeObject(tasks);
+
+            objOutputStream.close();
+            fileOutputStream.close();
+        } catch (IOException ignored) {
+        }
+    }
+
     public static void main(String[] args) {
+        load();
         greet();
 
         boolean shouldTerminate = false;
@@ -211,21 +258,27 @@ public class Duke {
                         break;
                     case TODO:
                         addTodo(commandArgs);
+                        save();
                         break;
                     case DEADLINE:
                         addDeadline(commandArgs);
+                        save();
                         break;
                     case EVENT:
                         addEvent(commandArgs);
+                        save();
                         break;
                     case MARK:
                         mark(commandArgs);
+                        save();
                         break;
                     case UNMARK:
                         unmark(commandArgs);
+                        save();
                         break;
                     case DELETE:
                         delete(commandArgs);
+                        save();
                         break;
                 }
             } catch (DukeException e) {
