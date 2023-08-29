@@ -1,12 +1,20 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 public class Event extends Task {
 
-    protected String from;
-    protected String to;
+    protected LocalDateTime from;
+    protected LocalDateTime to;
 
-    public Event(String description, String from, String to) {
+    public Event(String description, String from, String to) throws DukeException {
         super(description);
-        this.from = from;
-        this.to = to;
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+        if (!Input.isValidDate(from, formatter) || !Input.isValidDate(to, formatter)) {
+            throw new InvalidDateTimeException();
+        }
+        this.from = LocalDateTime.parse(from, formatter);
+        this.to = LocalDateTime.parse(to, formatter);
     }
 
     @Override
@@ -14,7 +22,7 @@ public class Event extends Task {
         return String.format("[E] [%s] %s (from: %s to: %s)",
                 this.getStatusIcon(),
                 super.toString(),
-                this.from,
-                this.to);
+                this.from.format(DateTimeFormatter.ofPattern("dd MMM yyyy HH:mm")),
+                this.to.format(DateTimeFormatter.ofPattern("dd MMM yyyy HH:mm")));
     }
 }

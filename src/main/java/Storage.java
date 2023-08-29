@@ -1,6 +1,7 @@
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Paths;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.io.File;
 import java.nio.file.Path;
@@ -12,8 +13,6 @@ public class Storage {
 
     public static void loadSave() throws DukeException {
         try {
-//            String home = System.getProperty("user.home");
-//            Path path = java.nio.file.Paths.get(home, "data", "anto.txt");
             String relativePath = "data/anto.txt";
             Path absolutePath = Paths.get(relativePath).toAbsolutePath();
             File antoFile = absolutePath.toFile();
@@ -67,10 +66,11 @@ public class Storage {
                 writer.write(String.format("\nT | %s | %s", newTask.isDone ? "1" : "0", newTask.description));
             } else if (newTask instanceof Deadline) {
                 writer.write(String.format("\nD | %s | %s | %s", newTask.isDone ? "1" : "0", newTask.description,
-                        ((Deadline) newTask).by));
+                        ((Deadline) newTask).by.format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm"))));
             } else if (newTask instanceof Event) {
                 writer.write(String.format("\nE | %s | %s | %s | %s", newTask.isDone ? "1" : "0", newTask.description,
-                        ((Event) newTask).from, ((Event) newTask).to));
+                        ((Event) newTask).from.format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm")),
+                        ((Event) newTask).to.format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm"))));
             }
             writer.close();
         } catch (IOException e) {

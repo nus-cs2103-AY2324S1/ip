@@ -1,10 +1,18 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 public class Deadline extends Task {
 
-    protected String by;
+    protected LocalDateTime by;
 
-    public Deadline(String description, String by) {
+    public Deadline(String description, String by) throws DukeException {
         super(description);
-        this.by = by;
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+        if (!Input.isValidDate(by, formatter)) {
+            throw new InvalidDateTimeException();
+        }
+        this.by = LocalDateTime.parse(by, formatter);
     }
 
     @Override
@@ -12,6 +20,6 @@ public class Deadline extends Task {
         return String.format("[D] [%s] %s (by: %s)",
                 this.getStatusIcon(),
                 super.toString(),
-                this.by);
+                this.by.format(DateTimeFormatter.ofPattern("dd MMM yyyy HH:mm")));
     }
 }
