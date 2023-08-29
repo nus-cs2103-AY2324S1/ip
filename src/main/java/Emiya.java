@@ -208,7 +208,7 @@ public class Emiya {
                         // throw new EmiyaException("Oh no! task.Deadline tasks cannot be empty! Please try again!");
                         throw new EmptyDeadlineException();
                     }
-                    String[] deadlineDetails = taskDetails.split(" /by", 2);
+                    String[] deadlineDetails = taskDetails.split(" /by ", 2);
                     if (deadlineDetails.length <= 1) {
                         // throw new EmiyaException("It seems like there's an error in your input! Did you remember to use /by in your input?");
                         throw new NoByException();

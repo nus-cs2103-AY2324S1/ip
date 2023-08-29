@@ -12,9 +12,9 @@ public class Deadline extends Task {
     @Override
     public String toString() {
         if (completed) {
-            return "[D][X] " + nameOfTask + " (by:" + dateOfDeadline + ")";
+            return "[D][X] " + nameOfTask + " (by: " + dateOfDeadline + ")";
         } else {
-            return "[D][ ] " + nameOfTask + " (by:" + dateOfDeadline + ")";
+            return "[D][ ] " + nameOfTask + " (by: " + dateOfDeadline + ")";
         }
     }
 
@@ -25,6 +25,6 @@ public class Deadline extends Task {
 
     @Override
     public String taskDetailsString() {
-        return super.nameOfTask + " |" + dateOfDeadline;
+        return super.nameOfTask + " |" + " " + dateOfDeadline;
     }
 }

@@ -27,6 +27,6 @@ public class Event extends Task {
 
     @Override
     public String taskDetailsString() {
-        return super.nameOfTask + " | " + start + " | " + end;
+        return super.nameOfTask + " |" + " " + start + " |" + " " + end;
     }
 }
