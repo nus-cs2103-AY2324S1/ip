@@ -7,13 +7,8 @@ public class TaskList {
         this.tasks = new ArrayList<>();
     }
 
-    public void formatPrintMessage(String message) {
-        System.out.println();
-        System.out.println(message);
-        System.out.println();
-    }
 
-    public void addTask(String taskDescription) {
+    public void addTask(String taskDescription, Storage storage, Ui ui) {
         Task task;
         String[] taskInformation = taskDescription.split(" /");
         String taskName = taskInformation[0].trim();
@@ -25,12 +20,13 @@ public class TaskList {
             task = new Event(taskName, taskInformation[1].replace("from",""),
                     taskInformation[2].replace("to ", ""));
         } else {
-            formatPrintMessage("Invalid task format");
+            ui.formatPrintMessage("Invalid task format");
             return;
         }
         this.tasks.add(task);
-        Storage.saveTask(task);
-        formatPrintMessage("Got it. I've added this task:\n  " + task + "\nNow you have " + this.tasks.size() + " task(s) in the list.");
+        storage.saveTask(task);
+        ui.formatPrintMessage("Got it. I've added this task:\n  " + task + "\nNow you have " + this.tasks.size()
+                + " task(s) in the list.");
 
     }
 
@@ -38,21 +34,22 @@ public class TaskList {
         this.tasks.add(task);
     }
 
-    public void deleteTask(int taskNumber) {
-        if (taskNumber > this.tasks.size()) {
-            formatPrintMessage("Task number does not exist");
+    public void deleteTask(int taskNumber, Storage storage, Ui ui) {
+        if (taskNumber > this.tasks.size() || taskNumber < 1) {
+            ui.formatPrintMessage("Task number does not exist");
             return;
         }
 
         Task task = this.tasks.get(taskNumber - 1);
         this.tasks.remove(task);
-        Storage.deleteTask(taskNumber);
-        formatPrintMessage("Noted. I've removed this task:\n  " + task + "\nNow you have " + this.tasks.size() + " task(s) in the list.");
+        storage.deleteTask(taskNumber);
+        ui.formatPrintMessage("Noted. I've removed this task:\n  " + task + "\nNow you have " + this.tasks.size()
+                + " task(s) in the list.");
     }
 
-    public void showAllTasks() {
+    public void showAllTasks(Ui ui) {
         if (this.tasks.size() == 0) {
-            formatPrintMessage("You have no tasks in your list.");
+            ui.formatPrintMessage("You have no tasks in your list.");
             return;
         }
 
@@ -66,25 +63,25 @@ public class TaskList {
         System.out.println();
     }
 
-    public void markTaskAsDone(int taskNumber) {
-        if (taskNumber > this.tasks.size()) {
-            formatPrintMessage("Task number does not exist");
+    public void markTaskAsDone(int taskNumber, Storage storage, Ui ui) {
+        if (taskNumber > this.tasks.size() || taskNumber < 1) {
+            ui.formatPrintMessage("Task number does not exist");
             return;
         }
 
         Task task = this.tasks.get(taskNumber - 1);
         task.markAsDone(true);
-        Storage.modifyTask(taskNumber, task);
+        storage.modifyTask(taskNumber, task);
     }
 
-    public void unmarkTaskAsDone(int taskNumber) {
-        if (taskNumber > this.tasks.size()) {
-            formatPrintMessage("Task number does not exist");
+    public void unmarkTaskAsDone(int taskNumber, Storage storage, Ui ui) {
+        if (taskNumber > this.tasks.size() || taskNumber < 1) {
+            ui.formatPrintMessage("Task number does not exist");
             return;
         }
 
         Task task = this.tasks.get(taskNumber - 1);
         task.unmarkAsDone(true);
-        Storage.modifyTask(taskNumber, task);
+        storage.modifyTask(taskNumber, task);
     }
 }
