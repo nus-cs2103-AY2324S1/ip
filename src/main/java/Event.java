@@ -1,4 +1,7 @@
-public class Event extends Task {
+import java.io.Serializable;
+
+public class Event extends Task implements Serializable {
+    private static final long serialVersionUID = 4L;
     protected String from;
     protected String to;
 
