@@ -2,6 +2,9 @@ package ren.task;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+/**
+ * Represents a todo
+ */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class ToDo extends Task {
     public String getDescription() {

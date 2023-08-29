@@ -2,6 +2,9 @@ package ren.task;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+/**
+ * Represents an event
+ */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Event extends Task {
 

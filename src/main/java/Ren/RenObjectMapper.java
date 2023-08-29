@@ -15,6 +15,9 @@ import java.util.NoSuchElementException;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 
+/**
+ * Handles the mapping of TaskList to JSON and vice versa.
+ */
 public final class RenObjectMapper {
     static ObjectMapper objectMapper = new ObjectMapper();
     private static String cacheFileAddress = "./src/main/resources/cacheTaskList.txt";
@@ -25,6 +28,11 @@ public final class RenObjectMapper {
         objectMapper.registerSubtypes(new NamedType(Event.class, "ren.task.Event"));
     }
 
+    /**
+     * Stores state of TaskList into cache file.
+     *
+     * @param taskList TaskList to be stored
+     */
     public static void storeIntoHarddisk(TaskList taskList) {
         try {
             String home = System.getProperty("user.home");
@@ -48,6 +56,11 @@ public final class RenObjectMapper {
         }
     }
 
+    /**
+     * Retrieves state of TaskList from cache file.
+     *
+     * @return TaskList retrieved from cache file
+     */
     public static TaskList retrieveFromHarddisk() {
         TaskList taskList = null;
         try {
