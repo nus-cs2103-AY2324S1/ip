@@ -17,6 +17,8 @@ public class Deadline extends Task {
 
     @Override
     public String toString() {
-        return "[D][" + (this.getDone() ? 'X' : ' ') + "] " + this.name + " (by: " + this.getBy() + ")";
+        return "[D][" + (this.isDone() ? 'X' : ' ') + "] " + this.name + " (by: " + this.getBy() + ")";
     }
+
+
 }

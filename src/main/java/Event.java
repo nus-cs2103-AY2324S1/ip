@@ -24,6 +24,8 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return "[E][" + (this.getDone() ? 'X' : ' ') + "] " + this.name + " (from: " + this.getStartDatetime() + " to: " + getEndDatetime() + ")";
+        return "[E][" + (this.isDone() ? 'X' : ' ') + "] " + this.name + " (from: " + this.getStartDatetime() + " to: " + getEndDatetime() + ")";
     }
+
+
 }

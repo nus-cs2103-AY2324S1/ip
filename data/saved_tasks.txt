@@ -1,0 +1,4 @@
+[T][ ] say hi
+[D][ ] say bye (by: 5minutes)
+[E][ ] wave (from: now to: 5 minutes)
+[T][ ] say hi again
