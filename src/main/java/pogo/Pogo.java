@@ -31,7 +31,6 @@ public class Pogo {
 
         System.out.println(result.getFeedbackToUser());
 
-        storage.save(tasks);
         boolean isExit = result.getFeedbackToUser().equals(Messages.EXIT_MESSAGE);
         return isExit;
     }
@@ -54,6 +53,7 @@ public class Pogo {
 
             boolean isExit = Pogo.handleInput(input);
             if (isExit) {
+                storage.save(tasks);
                 break;
             } else {
                 System.out.println(Messages.HORIZONTAL_DIVIDER);

@@ -2,6 +2,7 @@ package pogo.commands;
 
 import pogo.tasks.Deadline;
 import pogo.tasks.Task;
+import pogo.tasks.exceptions.PogoInvalidTaskException;
 
 /**
  * Represents a command to add a deadline task.
@@ -35,9 +36,13 @@ public class AddDeadlineCommand extends Command {
      */
     @Override
     public CommandResult execute() {
-        Task deadline = new Deadline(description, by);
-        tasks.add(deadline);
-        return new CommandResult("Got it. I've added this task:\n" + deadline.getStatusMessage());
+        try {
+            Task deadline = new Deadline(description, by);
+            tasks.add(deadline);
+            return new CommandResult("Got it. I've added this task:\n" + deadline.getStatusMessage());
+        } catch (PogoInvalidTaskException e) {
+            return new CommandResult(e.getMessage());
+        }
     }
 
 }

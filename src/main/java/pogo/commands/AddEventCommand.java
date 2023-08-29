@@ -3,6 +3,7 @@ package pogo.commands;
 import pogo.common.Messages;
 import pogo.tasks.Event;
 import pogo.tasks.Task;
+import pogo.tasks.exceptions.PogoInvalidTaskException;
 
 public class AddEventCommand extends Command {
     public static final String COMMAND_WORD = "event";
@@ -36,8 +37,12 @@ public class AddEventCommand extends Command {
      */
     @Override
     public CommandResult execute() {
-        Task event = new Event(description, from, to);
-        tasks.add(event);
-        return new CommandResult(String.format(Messages.ADD_TASK_SUCCESS, event.getStatusMessage()));
+        try {
+            Task event = new Event(description, from, to);
+            tasks.add(event);
+            return new CommandResult(String.format(Messages.ADD_TASK_SUCCESS, event.getStatusMessage()));
+        } catch (PogoInvalidTaskException e) {
+            return new CommandResult(e.getMessage());
+        }
     }
 }

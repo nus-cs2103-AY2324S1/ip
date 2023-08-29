@@ -3,6 +3,7 @@ package pogo.commands;
 import pogo.common.Messages;
 import pogo.tasks.Task;
 import pogo.tasks.ToDo;
+import pogo.tasks.exceptions.PogoInvalidTaskException;
 
 /**
  * Represents a command to add a ToDo task.
@@ -33,9 +34,13 @@ public class AddToDoCommand extends Command {
      */
     @Override
     public CommandResult execute() {
-        Task todo = new ToDo(description);
-        tasks.add(todo);
-        return new CommandResult(String.format(Messages.ADD_TASK_SUCCESS, todo.getStatusMessage()));
+        try {
+            Task todo = new ToDo(description);
+            tasks.add(todo);
+            return new CommandResult(String.format(Messages.ADD_TASK_SUCCESS, todo.getStatusMessage()));
+        } catch (PogoInvalidTaskException e) {
+            return new CommandResult(e.getMessage());
+        }
     }
 
 }

@@ -2,11 +2,21 @@ package pogo.tasks;
 
 import pogo.tasks.exceptions.PogoInvalidTaskException;
 
+/**
+ * Represents a task with a deadline.
+ */
 public class Deadline extends Task {
+    /**
+     * Deadline of the task.
+     */
     protected String by;
 
-    public Deadline(String description, String by) {
+    public Deadline(String description, String by) throws PogoInvalidTaskException {
         super(description);
+
+        if (by.equals("")) {
+            throw new PogoInvalidTaskException("Deadline cannot be empty");
+        }
         this.by = by;
     }
 
@@ -15,9 +25,21 @@ public class Deadline extends Task {
         return "[D]" + super.getStatusMessage() + " (by: " + this.by + ")";
     }
 
-    @Override
-    public String toFormattedString() {
-        return String.format("D | %s | %s", super.toFormattedString(), this.by);
+
+    /**
+     * Returns the deadline of the task.
+     * @return Deadline of the task.
+     */
+    public String getDeadline() {
+        return this.by;
+    }
+
+    /**
+     * Accepts a visitor that performs an action on the task.
+     * @param visitor Visitor to perform an action on the task.
+     */
+    public void accept(TaskVisitor visitor) {
+        visitor.visit(this);
     }
 
     public static Deadline fromFormattedString(String input) throws PogoInvalidTaskException {
