@@ -11,8 +11,8 @@ public class Deadline extends Task {
     /**
      * Constructor of the Deadline Class.
      *
-     * @param description
-     * @param by
+     * @param description Text description of Deadline Task
+     * @param by Due date of Deadline task
      */
     public Deadline(String description, String by) {
         super(description);
@@ -24,9 +24,9 @@ public class Deadline extends Task {
      * Instantiates an instance of a deadline and set its completion status
      * according to boolean value provided.
      *
-     * @param description
-     * @param by
-     * @param isDone
+     * @param description Text description of Deadline Task
+     * @param by Due date of Deadline task
+     * @param isDone Completion status of Deadline Task
      */
     public Deadline(String description, String by, boolean isDone) {
         super(description, isDone);

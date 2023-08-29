@@ -54,13 +54,13 @@ public class TextUi {
     public void printGoodbyeMessage() {
         String goodbyeMessage = "Goodbye! Bob signing out!";
         System.out.println(goodbyeMessage);
-        printDivider();
     }
 
     /**
      * Prints out a message to notify user how many tasks are left currently.
+     * Prints out lists of task with numbering based on order of creation.
      *
-     * @param taskList
+     * @param taskList List of tasks to be counted
      */
     public void printListEndMessage(TaskList taskList) {
         int numOfTasks = taskList.size();
@@ -73,29 +73,25 @@ public class TextUi {
                 System.out.printf("\nNow you have %d tasks in your list!%n", numOfTasks);
             }
         }
-        printDivider();
     }
 
     /**
      * Prints out an error message based on error occurred to standard output.
      *
-     * @param e
+     * @param e Exception caught
      */
     public void printErrorMessage(Exception e) {
         System.out.println(e.getMessage());
-        printDivider();
     }
 
     /**
      * Prints out the list of currently saved tasks to standard output.
      *
-     * @param taskList
-     * @throws BobInvalidTaskNumberException if an error occurs when accessing a task
+     * @param taskList Lists of tasks to be printed
+     * @throws BobInvalidTaskNumberException If an error occurs when accessing a task
      */
     public void printListMessage(TaskList taskList) throws BobInvalidTaskNumberException {
-        for (int i = 0; i < taskList.size(); i++) {
-            System.out.println((i + 1) + ". " + taskList.getTask(i).toString());
-        }
+        printRawList(taskList);
         printListEndMessage(taskList);
     }
 
@@ -103,8 +99,8 @@ public class TextUi {
      * Prints a message to notify the user that a task has been mark/unmark as done to
      * standard output.
      *
-     * @param task
-     * @param isDone
+     * @param task Task to be mark/unmark
+     * @param isDone Completion status of task
      */
     public void printMarkMessage(Task task, boolean isDone) {
         System.out.println();
@@ -113,31 +109,46 @@ public class TextUi {
         } else {
             System.out.println("No worries! I will help you unmark this task:\n" + task.toString());
         }
-        printDivider();
     }
 
     /**
      * Prints a message to standard output to notify the user when a task has
      * been successfully deleted.
      *
-     * @param task
+     * @param task Deleted task
      */
     public void printDeleteMessage(Task task) {
         System.out.println("Foosh! Let it be gone! I've helped delete the task:\n" +
                 task.toString());
-        printDivider();
     }
 
     /**
      * Prints a message to standard output notifying the user the required task
      * has been added to current list of tasks.
      *
-     * @param task
+     * @param task Added task
      */
     public void printAddMessage(Task task) {
         String displayMessage = "I gotchu. New task added to the list:\n";
         System.out.println(displayMessage + task.toString());
-        printDivider();
+    }
+
+    /**
+     * Prints a list of filtered tasks after find command is executed.
+     *
+     * @param taskList List of filtered tasks
+     * @throws BobInvalidTaskNumberException If an error occurs when trying to access a task
+     */
+    public void printFindMessage(TaskList taskList) throws BobInvalidTaskNumberException {
+        String displayMessage = "These are the matching tasks in your list:\n";
+        System.out.println(displayMessage);
+        printRawList(taskList);
+    }
+
+    private void printRawList(TaskList taskList) throws BobInvalidTaskNumberException {
+        for (int i = 0; i < taskList.size(); i++) {
+            System.out.println((i + 1) + ". " + taskList.getTask(i).toString());
+        }
     }
 
     /**

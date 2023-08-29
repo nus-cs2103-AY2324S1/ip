@@ -22,8 +22,8 @@ public class StorageFile {
     /**
      * Constructor of the StorageFile class.
      *
-     * @param fileDirectoryPath
-     * @param fileName
+     * @param fileDirectoryPath Relative path to directory containing save file
+     * @param fileName Name of save file
      */
     public StorageFile(String fileDirectoryPath, String fileName) {
         this.fileDirectoryPath = fileDirectoryPath;
@@ -34,8 +34,8 @@ public class StorageFile {
      * Saves the current state of tasks by writing into a .txt file based on relative
      * file path determined when current object instantiated.
      *
-     * @param taskList
-     * @throws BobException if there is error when accessing current state of task list
+     * @param taskList List of tasks to be written into save file
+     * @throws BobException If there is error when accessing current state of task list
      */
     public void saveTasks(TaskList taskList) throws BobException {
         this.checkDirectoryExists();

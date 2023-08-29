@@ -14,8 +14,8 @@ public class DateFormatter {
      * Formats input String into required pattern if input String abides by
      * Java LocalDate format. Otherwise, returns original input String.
      *
-     * @param inputString
-     * @param format
+     * @param inputString Raw String input
+     * @param format Required pattern for date format conversion
      * @return Date of required pattern, original String may be returned (based on input)
      */
     public static String format(String inputString, String format) {

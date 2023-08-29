@@ -17,9 +17,9 @@ public class Parser {
     /**
      * Returns an instance of a Command with specific user input to be executed.
      *
-     * @param input
+     * @param input Text input to be parsed
      * @return Executable command based on input
-     * @throws BobException if command given has invalid format
+     * @throws BobException If command given has invalid format
      */
     public static Command parse(String input) throws BobException {
         String[] inputSplit = input.split(" ", 2);
@@ -46,6 +46,8 @@ public class Parser {
             return Parser.parseEventCommand(commandType, argument);
         case DELETE:
             return Parser.parseDeleteCommand(argument);
+        case FIND:
+            return Parser.parseFindCommand(argument);
         case INVALID:
             throw new BobInvalidCommandException("I'm sorry! I don't understand the command :(");
         default:
@@ -107,6 +109,11 @@ public class Parser {
             throw new BobInvalidTaskNumberException();
         }
     }
+
+    private static Command parseFindCommand(String argument) {
+        return new FindCommand(argument);
+    }
+
     private static CommandType strToCommandType(String s) {
         try {
             return CommandType.valueOf(s);
@@ -115,13 +122,12 @@ public class Parser {
         }
     }
 
-
     /**
      * Returns an instance of a Task after processing a String in stored format.
      *
-     * @param inputString
+     * @param inputString Text input to be parsed
      * @return An instance of Task based on input string
-     * @throws BobException if input string has incorrect format
+     * @throws BobException If input string has incorrect format
      */
     public static Task parseStoredTask(String inputString) throws BobException {
         String[] split = inputString.split("\\|");
