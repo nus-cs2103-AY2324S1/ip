@@ -33,7 +33,7 @@ public class Parser {
      * @param dateTime LocalDateTime object to be parsed.
      * @return String in the DATE_FORMAT form.
      */
-    public static String dateFormat(LocalDateTime dateTime) {
+    public static String formatDate(LocalDateTime dateTime) {
         return dateTime.format(DATE_FORMAT);
     }
 

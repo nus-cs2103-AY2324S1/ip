@@ -21,7 +21,7 @@ public class TaskTest {
         task3.changeStatus(true);
         assertEquals("[T][ ] Buy food", task1.toString());
         assertEquals("[D][X] Finish homework (by: 12 Apr 2020, 03:30 PM)", task2.toString());
-        assertEquals("[E][X] Japan trip (from: 12 Apr 2020, 03:30 PM to: 12 Apr 2020, 03:30 PM)"
-                , task3.toString());
+        assertEquals("[E][X] Japan trip (from: 12 Apr 2020, 03:30 PM to: 12 Apr 2020, 03:30 PM)",
+                task3.toString());
     }
 }

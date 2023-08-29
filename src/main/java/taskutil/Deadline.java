@@ -23,7 +23,7 @@ public class Deadline extends Task {
 
     @Override
     public String toString() {
-        String time = String.format(" (by: %s)", limit.format(displayFormat));
+        String time = String.format(" (by: %s)", limit.format(DISPLAY_FORMAT));
         return "[D]" + super.toString() + time;
     }
 
@@ -33,6 +33,6 @@ public class Deadline extends Task {
      */
     @Override
     public String toFileString() {
-        return "D" + super.toFileString() + " | " + Parser.dateFormat(limit);
+        return "D" + super.toFileString() + " | " + Parser.formatDate(limit);
     }
 }

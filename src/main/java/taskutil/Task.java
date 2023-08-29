@@ -8,7 +8,7 @@ import java.time.format.DateTimeFormatter;
 public class Task {
 
     // Format of date to be displayed to user.
-    protected static final DateTimeFormatter displayFormat = DateTimeFormatter.ofPattern("dd MMM yyyy, hh:mm a");
+    protected static final DateTimeFormatter DISPLAY_FORMAT = DateTimeFormatter.ofPattern("dd MMM yyyy, hh:mm a");
 
     protected String title;
     protected Boolean isDone;
