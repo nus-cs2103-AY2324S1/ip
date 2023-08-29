@@ -1,30 +1,37 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+
 public class Duke {
     private final String line = "____________________________________________________________";
     private ArrayList<Task> tasks = new ArrayList<Task>();
+    private File fileToBeSaved;
+    private static final String PATH = "./data/tasks.txt";
 
-    public void greet() {
+    private void greet() {
         System.out.println(line);
         System.out.println("Hello! I'm Fong!");
         System.out.println("What can I do for you?");
         System.out.println(line);
     }
 
-    public void bye() {
+    private void bye() {
         System.out.println(line);
         System.out.println("Bye. Hope to see you again soon!");
         System.out.println(line);
     }
 
-    public void explainException(DukeException e) {
+    private void explainException(DukeException e) {
         System.out.println(line);
         System.out.println(e.getMessage());
         System.out.println(line);
     }
 
-    public void printTasks() {
+    private void printTasks() {
         System.out.println(line);
         System.out.println("Here are the tasks in your list:");
         for (int i = 0; i < tasks.size(); i++) {
@@ -35,7 +42,7 @@ public class Duke {
         System.out.println(line);
     }
 
-    public String handleTodo(String task) throws DukeException {
+    private String handleTodo(String task) throws DukeException {
         String[] preprocessedTask = task.split("todo ");
 
         if (preprocessedTask.length <= 1) {
@@ -48,7 +55,7 @@ public class Duke {
         return nextTodo.toString();
     }
 
-    public String handleDeadline(String task) throws DukeException {
+    private String handleDeadline(String task) throws DukeException {
         String[] temp = task.split("deadline ");
 
         if (temp.length <= 1) {
@@ -68,7 +75,7 @@ public class Duke {
         return nextDeadline.toString();
     }
 
-    public String handleEvent(String task) throws DukeException {
+    private String handleEvent(String task) throws DukeException {
         String[] temp = task.split("event ");
 
         if (temp.length <= 1) {
@@ -88,13 +95,13 @@ public class Duke {
         return nextEvent.toString();
     }
 
-    public void handleInvalid() {
+    private void handleInvalid() {
         System.out.println(line);
         System.out.println("You did not enter a valid task. Please enter either a todo, deadline or event.");
         System.out.println(line);
     }
 
-    public void handleTask(String task) throws DukeException {
+    private void handleTask(String task) throws DukeException {
         String nextTaskString = null;
 
         if (task.startsWith("todo")) {
@@ -118,7 +125,7 @@ public class Duke {
         return preprocessedTask;
     }
 
-    public void handleDelete(String nextTask) throws DukeException {
+    private void handleDelete(String nextTask) throws DukeException {
         String[] split = nextTask.split(" ");
 
         if (split.length <= 1) {
@@ -149,7 +156,7 @@ public class Duke {
         System.out.println(line);
     }
 
-    public void handleMark(String nextTask) throws DukeException {
+    private void handleMark(String nextTask) throws DukeException {
         String[] split = nextTask.split(" ");
 
         if (split.length <= 1) {
@@ -179,7 +186,7 @@ public class Duke {
         }
     }
 
-    public void markTask(int taskIndex) {
+    private void markTask(int taskIndex) {
         this.tasks.get(taskIndex).doTask();
 
         System.out.println(line);
@@ -188,7 +195,7 @@ public class Duke {
         System.out.println(line);
     }
 
-    public void unmarkTask(int taskIndex) {
+    private void unmarkTask(int taskIndex) {
         this.tasks.get(taskIndex).undoTask();
 
         System.out.println(line);
@@ -197,43 +204,42 @@ public class Duke {
         System.out.println(line);
     }
 
-    // CHECKSTYLE.OFF: Indentation
-    public void acceptTasks() {
+    private void acceptTasks() {
         Scanner scanner = new Scanner(System.in);
         String nextTask = scanner.nextLine();
         CommandEnum taskEnum = CommandEnum.assignEnum(nextTask);
 
         while (!taskEnum.equals(CommandEnum.BYE)) {
             switch (taskEnum) {
-                case LIST:
-                    this.printTasks();
-                    break;
-                case MARK:
-                case UNMARK:
-                    try {
-                        this.handleMark(nextTask);
-                    } catch (DukeException e) {
-                        this.explainException(e);
-                    }
-                    break;
-                case TODO:
-                case DEADLINE:
-                case EVENT:
-                    try {
-                        this.handleTask(nextTask);
-                    } catch (DukeException e) {
-                        this.explainException(e);
-                    }
-                    break;
-                case DELETE:
-                    try {
-                        this.handleDelete(nextTask);
-                    } catch (DukeException e) {
-                        this.explainException(e);
-                    }
-                    break;
-                default:
-                    this.handleInvalid();
+            case LIST:
+                this.printTasks();
+                break;
+            case MARK:
+            case UNMARK:
+                try {
+                    this.handleMark(nextTask);
+                } catch (DukeException e) {
+                    this.explainException(e);
+                }
+                break;
+            case TODO:
+            case DEADLINE:
+            case EVENT:
+                try {
+                    this.handleTask(nextTask);
+                } catch (DukeException e) {
+                    this.explainException(e);
+                }
+                break;
+            case DELETE:
+                try {
+                    this.handleDelete(nextTask);
+                } catch (DukeException e) {
+                    this.explainException(e);
+                }
+                break;
+            default:
+                this.handleInvalid();
             }
 
             nextTask = scanner.nextLine();
@@ -242,12 +248,109 @@ public class Duke {
 
         scanner.close();
 
+        try {
+            this.saveTasks();
+        } catch (IOException e) {
+            System.out.println("Unable to save your tasks to a file. Try Again.");
+        }
+
         this.bye();
     }
-    // CHECKSTYLE.ON: Indentation
+
+    /**
+     * Imports tasks from ./data/tasks.txt.
+     */
+    private void loadTasks() {
+        this.fileToBeSaved = new File(PATH);
+
+        try {
+            Scanner fileScanner = new Scanner(fileToBeSaved);
+
+            while (fileScanner.hasNextLine()) {
+                String nextTask = fileScanner.nextLine();
+                String[] processedTask = nextTask.split(" \\| ");
+                String typeOfTask = processedTask[0];
+                String taskCompletionStatus = processedTask[1];
+                String taskDescription = processedTask[2];
+
+                switch (typeOfTask) {
+                case "T":
+                    Todo newTodo = new Todo(taskDescription);
+                    this.tasks.add(newTodo);
+                    if (taskCompletionStatus.equals("X")) {
+                        newTodo.doTask();
+                    }
+                    break;
+                case "D":
+                    Deadline newDeadline = new Deadline(taskDescription, processedTask[3]);
+                    this.tasks.add(newDeadline);
+                    if (taskCompletionStatus.equals("X")) {
+                        newDeadline.doTask();
+                    }
+                    break;
+                case "E":
+                    Event newEvent = new Event(taskDescription, processedTask[3], processedTask[4]);
+                    this.tasks.add(newEvent);
+                    if (taskCompletionStatus.equals("X")) {
+                        newEvent.doTask();
+                    }
+                    break;
+                default:
+                    throw new DukeException("tasks.txt may have been corrupted.");
+                }
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println("No file found :(");
+        } catch (DukeException e) {
+            this.explainException(e);
+        }
+    }
+
+    /**
+     * Saves tasks to ./data/tasks.txt.
+     */
+    private void saveTasks() throws IOException {
+        FileWriter fw = new FileWriter(PATH);
+
+        for (Task currTask : tasks) {
+            StringBuilder currEntry = new StringBuilder();
+
+            if (currTask instanceof Todo) {
+                Todo todo = (Todo) currTask;
+                currEntry.append("T | ");
+                currEntry.append(todo.getMarkedIcon());
+                currEntry.append(" | ");
+                currEntry.append(todo.getTaskDescription());
+            } else if (currTask instanceof Deadline) {
+                Deadline deadline = (Deadline) currTask;
+                currEntry.append("D | ");
+                currEntry.append(deadline.getMarkedIcon());
+                currEntry.append(" | ");
+                currEntry.append(deadline.getTaskDescription());
+                currEntry.append(" | ");
+                currEntry.append(deadline.getDeadline());
+            } else if (currTask instanceof Event) {
+                Event event = (Event) currTask;
+                currEntry.append("E | ");
+                currEntry.append(event.getMarkedIcon());
+                currEntry.append(" | ");
+                currEntry.append(event.getTaskDescription());
+                currEntry.append(" | ");
+                currEntry.append(event.getStart());
+                currEntry.append(" | ");
+                currEntry.append(event.getEnd());
+            }
+
+            currEntry.append(System.lineSeparator());
+            fw.write(currEntry.toString());
+        }
+
+        fw.close();
+    }
 
     public static void main(String[] args) {
         Duke chatBot = new Duke();
+        chatBot.loadTasks();
         chatBot.greet();
         chatBot.acceptTasks();
     }
