@@ -22,6 +22,14 @@ public class Storage {
     private String filePath;
 
     /**
+     * Empty constructor for storage.
+     * For the purpose of testing.
+     */
+    public Storage() {
+
+    }
+
+    /**
      * Constructor for storage.
      * Creates the necessary directory and file if not present.
      * Reads the present content in the file into the ArrayList.

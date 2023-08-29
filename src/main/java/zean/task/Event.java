@@ -65,11 +65,11 @@ public class Event extends Task {
         return "E | " + super.toStringForFile() + " | " + this.from + " | " + this.to;
     }
 
-    private String getFrom() {
+    protected String getFrom() {
         return this.from.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
     }
 
-    private String getTo() {
+    protected String getTo() {
         return this.to.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
     }
 }
