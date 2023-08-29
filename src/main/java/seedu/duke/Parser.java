@@ -1,4 +1,4 @@
-package duke;
+package seedu.duke;
 
 public class Parser {
 
@@ -24,7 +24,6 @@ public class Parser {
         } else if (input.startsWith("event")) {
             return Commands.EVENT;
         }
-
         return Commands.DEFAULT;
     }
 
