@@ -7,10 +7,24 @@ import Bob.task.*;
 import Bob.ui.TextUi;
 import Bob.storage.StorageFile;
 
+/**
+ * The AddCommand Class encapsulates logic that can be executed
+ * to add a specific task to current task list.
+ */
 public class AddCommand extends Command {
 
     CommandType command;
     private String description, startDate, endDate;
+
+    /**
+     * Constructor of the AddCommand class.
+     *
+     * @param command
+     * @param description
+     * @param startDate
+     * @param endDate
+     * @throws BobInvalidCommandException if CommandType is not a valid add task command
+     */
     public AddCommand(CommandType command, String description, String startDate, String endDate) throws BobInvalidCommandException {
         if (command != CommandType.TODO && command != CommandType.DEADLINE && command != CommandType.EVENT) {
             throw new BobInvalidCommandException("You can only add tasks of type: Todo, Deadline and Event");

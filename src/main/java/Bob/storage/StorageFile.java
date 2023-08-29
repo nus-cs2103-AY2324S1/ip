@@ -12,13 +12,31 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Handles reading and writing save files from the system.
+ */
 public class StorageFile {
     private String fileDirectoryPath;
     private String fileName;
+
+    /**
+     * Constructor of the StorageFile class.
+     *
+     * @param fileDirectoryPath
+     * @param fileName
+     */
     public StorageFile(String fileDirectoryPath, String fileName) {
         this.fileDirectoryPath = fileDirectoryPath;
         this.fileName = fileName;
     }
+
+    /**
+     * Saves the current state of tasks by writing into a .txt file based on relative
+     * file path determined when current object instantiated.
+     *
+     * @param taskList
+     * @throws BobException if there is error when accessing current state of task list
+     */
     public void saveTasks(TaskList taskList) throws BobException {
         this.checkDirectoryExists();
         try {
@@ -32,6 +50,13 @@ public class StorageFile {
         }
     }
 
+    /**
+     * Reads from save file and changes current memory state of application, effective loading
+     * tasks stored in previous sessions.
+     *
+     * @return A TaskList of previously saved tasks
+     * @throws BobException if save file has lines with incorrect format
+     */
     public TaskList loadTasks() throws BobException {
         this.checkDirectoryExists();
         try {

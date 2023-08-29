@@ -8,8 +8,19 @@ import Bob.task.Event;
 import Bob.task.Task;
 import Bob.task.Todo;
 
+/**
+ * Processes user input or save files to executable commands.
+ */
 public class Parser {
 
+
+    /**
+     * Returns an instance of a Command with specific user input to be executed.
+     *
+     * @param input
+     * @return Executable command based on input
+     * @throws BobException if command given has invalid format
+     */
     public static Command parse(String input) throws BobException {
         String[] inputSplit = input.split(" ", 2);
 
@@ -104,6 +115,14 @@ public class Parser {
         }
     }
 
+
+    /**
+     * Returns an instance of a Task after processing a String in stored format.
+     *
+     * @param inputString
+     * @return An instance of Task based on input string
+     * @throws BobException if input string has incorrect format
+     */
     public static Task parseStoredTask(String inputString) throws BobException {
         String[] split = inputString.split("\\|");
         String commandType = split[0];
