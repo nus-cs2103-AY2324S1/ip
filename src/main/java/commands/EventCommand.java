@@ -6,14 +6,17 @@ import task.Event;
 import java.time.LocalDateTime;
 
 public class EventCommand extends Command{
-
+    public static final String COMMAND_PHRASE = "event";
     private String name;
     private LocalDateTime startDate, endDate;
 
-    public EventCommand(String name, LocalDateTime startDate, LocalDateTime endDate, ChatRecord records) {
+    public EventCommand(String name, LocalDateTime startDate, LocalDateTime endDate) {
         this.name = name;
         this.startDate = startDate;
         this.endDate = endDate;
+    }
+
+    public void init(ChatRecord records) {
         this.chatRecord = records;
     }
 

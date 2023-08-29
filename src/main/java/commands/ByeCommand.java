@@ -1,7 +1,8 @@
 package commands;
 
 public class ByeCommand extends Command {
-    public static String BYE_PHRASE = "";
+    public static final String COMMAND_PHRASE = "bye";
+    private static String BYE_PHRASE = "";
     public ByeCommand() { }
 
     @Override

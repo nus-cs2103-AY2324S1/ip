@@ -6,13 +6,16 @@ import task.Deadline;
 import java.time.LocalDateTime;
 
 public class DeadlineCommand extends Command{
-
+    public static final String COMMAND_PHRASE = "deadline";
     private String name;
     private LocalDateTime date;
 
-    public DeadlineCommand(String name, LocalDateTime date, ChatRecord records) {
+    public DeadlineCommand(String name, LocalDateTime date) {
         this.name = name;
         this.date = date;
+    }
+
+    public void init(ChatRecord records) {
         this.chatRecord = records;
     }
 
