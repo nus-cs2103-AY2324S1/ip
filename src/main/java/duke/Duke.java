@@ -1,4 +1,5 @@
-import javax.management.DynamicMBean;
+package duke;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
@@ -39,7 +40,15 @@ public class Duke {
 
         while (true) {
             String userInput = sc.nextLine();
-            Parser.parseUserInput(userInput, taskList, storage);
+
+            if (userInput.equals("bye")) {
+                // Exit the loop if the user types "bye"
+                storage.saveTasks(taskList);
+                Ui.showExit();
+                break;
+            }
+
+            Parser.parseUserInput(userInput, taskList);
         }
     }
 

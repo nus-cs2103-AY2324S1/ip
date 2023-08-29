@@ -1,7 +1,9 @@
+package duke;
+
 /**
  * A class for Events tasks.
  */
-public class Events extends Task{
+public class Events extends Task {
     /** Class field by that tells when the event is from. */
     protected String from;
     /** Class field by that tells until when the event is done. */
