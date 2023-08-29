@@ -1,6 +1,15 @@
+package commands;
 import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+
+import tasks.Task;
+import tasks.TaskList;
+import exceptions.DukeException;
+import io.Storage;
+import tasks.DeadlineTask;
+import tasks.EventTask;
+import ui.Ui;
 
 public class ScheduleCommand extends Command {
     protected static final DateTimeFormatter DATE_FORMAT_OUTPUT = DateTimeFormatter.ofPattern("d/M/yyyy");
@@ -23,12 +32,12 @@ public class ScheduleCommand extends Command {
             Task task = taskList.get(i);
             if (task instanceof DeadlineTask) {
                 DeadlineTask deadline = (DeadlineTask) task;
-                if (deadline.by.toLocalDate().equals(queryDateTime)) {
+                if (deadline.getBy().toLocalDate().equals(queryDateTime)) {
                     output += (i + 1) + ". " + deadline.toString() + "\n";
                 }
             } else if (task instanceof EventTask) {
                 EventTask event = (EventTask) task;
-                if (!event.startDate.toLocalDate().isAfter(queryDateTime) & !event.endDate.toLocalDate().isBefore(queryDateTime)) {
+                if (!event.getStartDate().toLocalDate().isAfter(queryDateTime) & !event.getEndDate().toLocalDate().isBefore(queryDateTime)) {
                     output += (i + 1) + ". " + event.toString() + "\n";
                 }
             }

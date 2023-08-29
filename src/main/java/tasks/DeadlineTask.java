@@ -1,5 +1,8 @@
+package tasks;
 import java.time.DateTimeException;
 import java.time.LocalDateTime;
+
+import exceptions.DukeException;
 
 public class DeadlineTask extends Task {
 
@@ -21,6 +24,14 @@ public class DeadlineTask extends Task {
     @Override
     public String toString() {
         return "[D]" + super.toString() + " (by: " + this.by.format(DATE_FORMAT_OUTPUT) + ")";
+    }
+
+    public LocalDateTime getBy() {
+        return this.by;
+    }
+
+    public void setBy(LocalDateTime by) {
+        this.by = by;
     }
 
     public String toFileString() {
