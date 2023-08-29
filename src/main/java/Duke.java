@@ -1,16 +1,12 @@
-import java.io.*;
-import java.util.EnumSet;
-import java.util.Scanner;
-
 public class Duke {
-    private Storage storage;
+    private final Storage storage;
     private TaskList tasks;
-    private Ui ui;
+    private final Ui ui;
     private Parser parser;
 
     public Duke(String saveLocation) {
-        storage = new Storage(saveLocation);
         ui = new Ui();
+        storage = new Storage(saveLocation, ui);
         try {
             tasks = new TaskList(storage.loadSavedTasks(), ui);
             parser = new Parser(ui, tasks);
@@ -32,6 +28,7 @@ public class Duke {
         String cmd = ui.readCmd();
         while (parser.parseCommand(cmd)) {
             cmd = ui.readCmd();
+            storage.saveTasks(tasks);
         }
         ui.closeScanner();
     }

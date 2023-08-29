@@ -1,8 +1,8 @@
 import java.util.EnumSet;
 
 public class Parser {
-    private TaskList taskList;
-    private Ui ui;
+    private final TaskList taskList;
+    private final Ui ui;
 
     public Parser(Ui ui, TaskList taskList) {
         this.ui = ui;
@@ -68,7 +68,7 @@ public class Parser {
     private String getTaskInfo(String input) {
         for (Command cmd : Command.taskTypes()) {
             if (input.startsWith(cmd.toString())) {
-                return input.replace(cmd.toString() + " ", "");
+                return input.replace(cmd + " ", "");
             }
         }
         // Will never happen

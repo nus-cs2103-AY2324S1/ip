@@ -1,8 +1,9 @@
+import java.io.IOException;
 import java.util.Scanner;
 
 public class Ui {
 
-    private Scanner scanner;
+    private final Scanner scanner;
 
     public Ui() {
         this.scanner = new Scanner(System.in);
@@ -74,9 +75,13 @@ public class Ui {
 
     public void showInvalidCommandError() {
         System.out.println("Invalid command!");
-        showLine();;
+        showLine();
     }
 
+    public void showSaveTasksError(IOException e) {
+        System.out.println("Failed to save tasks to drive: " + e.getMessage());
+        showLine();
+    }
     public String readCmd() {
         // Read user input
         return scanner.nextLine();

@@ -3,13 +3,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Storage {
-    private String saveLocation;
+    private final String saveLocation;
+    private final Ui ui;
 
-    public Storage(String saveLocation) {
+    public Storage(String saveLocation, Ui ui) {
         this.saveLocation = saveLocation;
+        this.ui = ui;
     }
 
-    private void saveTasks(TaskList taskList) throws IOException {
+    public void saveTasks(TaskList taskList) {
         File saveFile = new File(saveLocation);
         saveFile.mkdirs();
         if (saveFile.exists()) {
@@ -18,15 +20,19 @@ public class Storage {
                 System.out.println("Failed to delete previous save file!");
             }
         }
-        boolean createNewFileSuccess = saveFile.createNewFile();
-        if (!createNewFileSuccess) {
-            System.out.println("Failed to create save file!");
-        } else {
-            BufferedWriter writer = new BufferedWriter(new FileWriter(saveLocation, true));
-            for (Task task : taskList.getTasks()) {
-                writer.append(task.saveString()).append("\n");
+        try {
+            boolean createNewFileSuccess = saveFile.createNewFile();
+            if (!createNewFileSuccess) {
+                System.out.println("Failed to create save file!");
+            } else {
+                BufferedWriter writer = new BufferedWriter(new FileWriter(saveLocation, true));
+                for (Task task : taskList.getTasks()) {
+                    writer.append(task.saveString()).append("\n");
+                }
+                writer.close();
             }
-            writer.close();
+        } catch (IOException e) {
+            ui.showSaveTasksError(e);
         }
     }
 
