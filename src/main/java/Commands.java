@@ -11,7 +11,7 @@ public class Commands {
     /**
      * The Enum Class encapsulates all the available commands.
      */
-    enum CommandType {
+    public enum CommandType {
         MARK,
         UNMARK,
         LIST,
@@ -38,9 +38,10 @@ public class Commands {
                 break;
             }
             try {
-                String echo = sc.nextLine();
-                String command = echo.split(" ")[0];
-                CommandType given = CommandType.valueOf(command.toUpperCase());
+                String line = sc.nextLine();
+                Parser parser = new Parser(line);
+                String command = parser.getCommand();
+                CommandType given = CommandType.valueOf(command);
 
                 switch(given) {
                     case BYE:
@@ -50,71 +51,22 @@ public class Commands {
                         items.showitems();
                         break;
                     case MARK:
-                        Pattern markpattern = Pattern.compile("mark (\\d+).*");
-                        Matcher matcher = markpattern.matcher(echo);
-                        if(matcher.matches()) {
-                            String digitString = matcher.group(1);
-                            int number = Integer.parseInt(digitString);
-                            items.markDone(number);
-                        } else {
-                            UI.printMessage("Invalid mark input");
-                        }
+                        parser.parseMark(items);
                         break;
                     case UNMARK:
-                        Pattern unmarkpattern = Pattern.compile("unmark (\\d+).*");
-                        matcher = unmarkpattern.matcher(echo);
-                        if(matcher.matches()) {
-                            String digitString = matcher.group(1);
-                            int number = Integer.parseInt(digitString);
-                            items.markUndone(number);
-                        } else {
-                            UI.printMessage("Invalid unmark input");
-                        }
+                        parser.parseUnmark(items);
                         break;
                     case DELETE:
-                        Pattern deletepattern = Pattern.compile("delete (\\d+).*");
-                        matcher = deletepattern.matcher(echo);
-                        if(matcher.matches()) {
-                            String digitString = matcher.group(1);
-                            int number = Integer.parseInt(digitString);
-                            items.delete(number);
-                        } else {
-                            UI.printMessage("Invalid delete input");
-                        }
+                        parser.parseDelete(items);
                         break;
                     case DEADLINE:
-                        Pattern deadlinepattern = Pattern.compile( "deadline (.*?) /by (.*)");
-                        matcher = deadlinepattern.matcher(echo);
-                        if(matcher.matches()) {
-                            String task = matcher.group(1);
-                            String by = matcher.group(2);
-
-                            items.addDeadline(task, by);
-                        } else {
-                            throw new DeadlineException();
-                        }
+                        parser.parseDeadline(items);
                         break;
                     case TODO:
-                        Pattern todopattern = Pattern.compile( "todo (.*)");
-                        matcher = todopattern.matcher(echo);
-                        if(matcher.matches()) {
-                            String task = matcher.group(1);
-                            items.addTodo(task);
-                        } else {
-                            throw new ToDoException();
-                        }
+                        parser.parseTodo(items);
                         break;
                     case EVENT:
-                        Pattern eventpattern = Pattern.compile( "event (.*?) /from (.*?) /to (.*)");
-                        matcher = eventpattern.matcher(echo);
-                        if(matcher.matches()) {
-                            String task = matcher.group(1);
-                            String from = matcher.group(2);
-                            String to = matcher.group(3);
-                            items.addEvent(task, from, to);
-                        } else {
-                            throw new EventException();
-                        }
+                        parser.parseEvent(items);
                         break;
                     default:
                         throw new DukeException();
