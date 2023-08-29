@@ -6,6 +6,11 @@ public class ToDo extends Task{
         super(description);
     }
 
+    public ToDo(String description, boolean isDone) {
+        // Constructor for Load
+        super(description, isDone);
+    }
+
     @Override
     public String getTaskAsString() {
         String message = String.format("%s[%s] %s", this.TaskIcon,this.getStatusIcon(), this.getDescription());

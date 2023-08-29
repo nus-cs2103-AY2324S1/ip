@@ -27,17 +27,17 @@ public class Save {
         }
 
         for (int i=0; i<taskList.size(); i++) {
-            String message = String.format("%d. %s", i+1, taskList.get(i).getTaskAsString());
+            String message = String.format("%s", taskList.get(i).getTaskAsString());
             try {
                 addFileContents(tempFilePath, message);
-                System.out.println(message + " added ");
+                // System.out.println(message + " added ");  // For debugging
             } catch (IOException e) {
                 System.out.println("Something went wrong");
             }
         };
 
         Files.copy( Paths.get(tempFilePath), Paths.get(saveFilePath), StandardCopyOption.REPLACE_EXISTING);
-        Files.delete(Paths.get(tempFilePath));
+        //Files.delete(Paths.get(tempFilePath));
 
     }
 
