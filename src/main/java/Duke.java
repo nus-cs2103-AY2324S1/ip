@@ -4,8 +4,6 @@ import java.io.FileWriter;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.time.LocalDate;
-import java.time.LocalTime;
 
 public class Duke {
     public static final String HORIZONTAL_LINE = "        ____________________________________________________________\n";
@@ -81,13 +79,13 @@ public class Duke {
         if (taskDescription.contains("event") && !taskDescription.matches("event .*/from .* /to .*")) {
             // Validate event task format
             throw new DukeException("OOPS!!! The format of an event task is " +
-                    "event TASK_DESCRIPTION /from START /to END");
+                    "\"event TASK_DESCRIPTION /from START /to END\"");
 
         } else if (taskDescription.contains("deadline") &&
                     !taskDescription.matches("deadline .*/by \\d{1,2}/\\d{1,2}/\\d{4} \\d{4}")) {
             // Validate deadline task format
             throw new DukeException("OOPS!!! The format of a deadline task is " +
-                    "deadline TASK_DESCRIPTION /by DD/MM/YYYY 24H_TIME");
+                    "\"deadline TASK_DESCRIPTION /by DD/MM/YYYY 24H_TIME\"");
 
         } else if (taskDescription.contains("todo") && !taskDescription.matches("todo .*")) {
             // Validate to do task format
