@@ -1,3 +1,5 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
 public class TaskList {
@@ -60,18 +62,25 @@ public class TaskList {
     }
 
     public Task addDeadlineToList(String line) throws DukeException {
-        if (!line.contains(" /by ")) throw new DukeException("!!!: Please provide a by date using \"/by by_date\"");
+        if (line.indexOf("/by") == 0) throw new DukeException("!!!: Please provide a task name");
+        if (!line.contains(" /by ")) throw new DukeException("!!!: Please provide a by date using format \"/by YYYY-MM-DD\"");
         String taskName = line.substring(0, line.indexOf("/by") - 1);
         if (taskName.isBlank()) throw new DukeException("!!!: Please provide a task name");
         String dueDate = line.substring(line.indexOf("/by") + 4);
         if (dueDate.isBlank()) throw new DukeException("!!!: Please provide a due date");
-        Task task = new Deadline(taskName, dueDate);
+        Task task;
+        try {
+            task = new Deadline(taskName, dueDate);
+        } catch (DateTimeParseException e) {
+            throw new DukeException("Date is not in the correct format YYYY-MM-DD");
+        }
         list.add(task);
         size++;
         return task;
     }
 
     public Task addEventToList(String line) throws DukeException {
+        if (line.indexOf("/from") == 0) throw new DukeException("!!!: Please provide a task name");
         if (!line.contains(" /from ")) throw new DukeException("!!!: Please provide a from date using \"/from from_date\"");
         if (!line.contains(" /to ")) throw new DukeException("!!!: Please provide a to date using \"/to to_date\"");
         String taskName = line.substring(0, line.indexOf("/from") - 1);
@@ -80,7 +89,12 @@ public class TaskList {
         if (dateFrom.isBlank()) throw new DukeException("!!!: Please provide a from date");
         String dateTo = line.substring(line.indexOf("/to") + 4);
         if (dateTo.isBlank()) throw new DukeException("!!!: Please provide a to date");
-        Task task = new Event(taskName, dateFrom, dateTo);
+        Task task;
+        try {
+            task = new Event(taskName, dateFrom, dateTo);
+        } catch (DateTimeParseException e) {
+            throw new DukeException("Date is not in the correct format YYYY-MM-DD");
+        }
         list.add(task);
         size++;
         return task;
