@@ -6,11 +6,19 @@ import duke.exception.DukeStorageException;
 
 import java.nio.file.Paths;
 
+/**
+ * Represents a Duke chat-bot which can store and manage tasks.
+ */
 public class Duke {
     private final Storage storage;
     private TaskList tasks;
     private final Ui ui;
 
+    /**
+     * Creates a Duke chat-bot object.
+     *
+     * @param filePath The path to the file to store the tasks.
+     */
     public Duke(String filePath) {
         this.storage = new Storage(filePath);
         this.ui = new Ui();
@@ -22,6 +30,9 @@ public class Duke {
         }
     }
 
+    /**
+     * Runs the Duke chat-bot.
+     */
     public void run() {
         boolean isRunning = true;
 
