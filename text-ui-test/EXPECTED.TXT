@@ -28,10 +28,10 @@ No file found.
 	 3.[D][ ] return book (by: Sep 01 2023 1200)
 	____________________________________________________________
 	____________________________________________________________
-	 EmptyTaskException: ☹ OOPS!!! Pls select a task to mark.
+	 ☹ OOPS!!! Pls select a task to mark.
 	____________________________________________________________
 	____________________________________________________________
-	 NoSpaceAfterException: ☹ OOPS!!! Pls add a space after typing mark.
+	 ☹ OOPS!!! Pls add a space after typing mark.
 	____________________________________________________________
 	____________________________________________________________
 	 Nice! I've marked this task as done:
@@ -68,10 +68,10 @@ No file found.
 	 4.[E][ ] project meeting (from: Aug 30 2023 1400 to: Aug 30 2023 1600)
 	____________________________________________________________
 	____________________________________________________________
-	 EmptyTaskException: ☹ OOPS!!! Pls select a task to unmark.
+	 ☹ OOPS!!! Pls select a task to unmark.
 	____________________________________________________________
 	____________________________________________________________
-	 NoSpaceAfterException: ☹ OOPS!!! Pls add a space after typing unmark.
+	 ☹ OOPS!!! Pls add a space after typing unmark.
 	____________________________________________________________
 	____________________________________________________________
 	 OK, I've marked this task as not done yet:
@@ -85,31 +85,31 @@ No file found.
 	 4.[E][ ] project meeting (from: Aug 30 2023 1400 to: Aug 30 2023 1600)
 	____________________________________________________________
 	____________________________________________________________
-	 EmptyDescriptionException: ☹ OOPS!!! The description of a todo cannot be empty.
+	 ☹ OOPS!!! The description of a todo cannot be empty.
 	____________________________________________________________
 	____________________________________________________________
-	 NoSpaceAfterException: ☹ OOPS!!! Pls add a space after typing todo.
+	 ☹ OOPS!!! Pls add a space after typing todo.
 	____________________________________________________________
 	____________________________________________________________
-	 NoSpaceAfterException: ☹ OOPS!!! Pls add a space after typing todo.
+	 ☹ OOPS!!! Pls add a space after typing todo.
 	____________________________________________________________
 	____________________________________________________________
-	 EmptyDescriptionException: ☹ OOPS!!! The description of a deadline cannot be empty.
+	 ☹ OOPS!!! The description of a deadline cannot be empty.
 	____________________________________________________________
 	____________________________________________________________
-	 NoSpaceAfterException: ☹ OOPS!!! Pls add a space after typing deadline.
+	 ☹ OOPS!!! Pls add a space after typing deadline.
 	____________________________________________________________
 	____________________________________________________________
-	 DukeException: ☹ OOPS!!! Pls provide a date/time for the deadline.
+	 ☹ OOPS!!! Pls provide a date/time for the deadline.
 	____________________________________________________________
 	____________________________________________________________
-	 NoSpaceBeforeException: ☹ OOPS!!! Pls add a space before typing /by.
+	 ☹ OOPS!!! Pls add a space before typing /by.
 	____________________________________________________________
 	____________________________________________________________
-	 DukeException: ☹ OOPS!!! The date/time for the deadline cannot be empty.
+	 ☹ OOPS!!! The date/time for the deadline cannot be empty.
 	____________________________________________________________
 	____________________________________________________________
-	 NoSpaceAfterException: ☹ OOPS!!! Pls add a space after typing /by.
+	 ☹ OOPS!!! Pls add a space after typing /by.
 	____________________________________________________________
 	____________________________________________________________
 	 Got it. I've added this task:
@@ -117,34 +117,34 @@ No file found.
 	 Now you have 5 tasks in the list.
 	____________________________________________________________
 	____________________________________________________________
-	 EmptyDescriptionException: ☹ OOPS!!! The description of a event cannot be empty.
+	 ☹ OOPS!!! The description of a event cannot be empty.
 	____________________________________________________________
 	____________________________________________________________
-	 NoSpaceAfterException: ☹ OOPS!!! Pls add a space after typing event.
+	 ☹ OOPS!!! Pls add a space after typing event.
 	____________________________________________________________
 	____________________________________________________________
-	 DukeException: ☹ OOPS!!! Pls provide a start date/time for the event.
+	 ☹ OOPS!!! Pls provide a start date/time for the event.
 	____________________________________________________________
 	____________________________________________________________
-	 NoSpaceBeforeException: ☹ OOPS!!! Pls add a space before typing /from.
+	 ☹ OOPS!!! Pls add a space before typing /from.
 	____________________________________________________________
 	____________________________________________________________
-	 DukeException: ☹ OOPS!!! Pls provide an end date/time for the event.
+	 ☹ OOPS!!! Pls provide an end date/time for the event.
 	____________________________________________________________
 	____________________________________________________________
-	 DukeException: ☹ OOPS!!! The start date/time for the event cannot be empty.
+	 ☹ OOPS!!! The start date/time for the event cannot be empty.
 	____________________________________________________________
 	____________________________________________________________
-	 NoSpaceAfterException: ☹ OOPS!!! Pls add a space after typing /from.
+	 ☹ OOPS!!! Pls add a space after typing /from.
 	____________________________________________________________
 	____________________________________________________________
-	 NoSpaceBeforeException: ☹ OOPS!!! Pls add a space before typing /to.
+	 ☹ OOPS!!! Pls add a space before typing /to.
 	____________________________________________________________
 	____________________________________________________________
-	 DukeException: ☹ OOPS!!! The end date/time for the event cannot be empty.
+	 ☹ OOPS!!! The end date/time for the event cannot be empty.
 	____________________________________________________________
 	____________________________________________________________
-	 NoSpaceAfterException: ☹ OOPS!!! Pls add a space after typing /to.
+	 ☹ OOPS!!! Pls add a space after typing /to.
 	____________________________________________________________
 	____________________________________________________________
 	 Got it. I've added this task:
@@ -152,7 +152,7 @@ No file found.
 	 Now you have 6 tasks in the list.
 	____________________________________________________________
 	____________________________________________________________
-	 DukeException: ☹ OOPS!!! I'm sorry, but I don't know what that means :-(
+	 ☹ OOPS!!! I'm sorry, but I don't know what that means :-(
 	____________________________________________________________
 	____________________________________________________________
 	 Here are the tasks in your list:
@@ -164,10 +164,10 @@ No file found.
 	 6.[E][ ] bday dinner (from: Sep 02 2023 1900 to: Sep 02 2023 2000)
 	____________________________________________________________
 	____________________________________________________________
-	 EmptyTaskException: ☹ OOPS!!! Pls select a task to delete.
+	 ☹ OOPS!!! Pls select a task to delete.
 	____________________________________________________________
 	____________________________________________________________
-	 NoSpaceAfterException: ☹ OOPS!!! Pls add a space after typing delete.
+	 ☹ OOPS!!! Pls add a space after typing delete.
 	____________________________________________________________
 	____________________________________________________________
 	 Noted. I've removed this task:
