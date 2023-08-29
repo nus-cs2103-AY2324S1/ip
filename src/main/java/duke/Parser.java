@@ -1,9 +1,11 @@
 package duke;
 
-import duke.exception.InvalidInputException;
-import duke.exception.InvalidMarkingException;
+import duke.exception.InvalidFindingException;
 import duke.exception.LackDescriptionException;
 import duke.exception.LackInformationException;
+import duke.exception.InvalidInputException;
+import duke.exception.InvalidMarkingException;
+
 import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Task;
@@ -64,6 +66,9 @@ public class Parser {
             break;
         case "delete":
             delete(second);
+            break;
+        case "find":
+            find(second);
             break;
         default:
             throw new InvalidInputException("OOPS! I do not know what " + first + " means. Please try again :)");
@@ -319,6 +324,27 @@ public class Parser {
             }
             tasks.add(t);
             break;
+        }
+    }
+
+    private void find(String x) {
+        if (x == null || x.equals(" ")) {
+            throw new InvalidFindingException("Missing keyword");
+        }
+
+        int counter = 1;
+        for (int i = 0; i < tasks.size(); i++) {
+            Task t = tasks.get(i);
+            if (t.toString().contains(x)) {
+                this.ui.print(counter + " " + t);
+                counter += 1;
+            }
+        }
+
+        if (counter == 1) {
+            this.ui.print("No matching found");
+        } else {
+            this.ui.print("You have " + (counter-1) + " matching tasks in your list");
         }
     }
 }
