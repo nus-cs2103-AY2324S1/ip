@@ -1,20 +1,27 @@
+package duck;
+
+import duck.task.*;
+import exceptions.FileIOException;
+
+
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class FileHandler {
+public class Storage {
+    private File FILE;
 
-    private static final File FILE = new File("./data/duck.txt");
-
-    public FileHandler() {
+    public Storage(String filePath) {
+        this.FILE = new File(filePath);
     }
 
-    public void create() throws FileIOException {
+    private void create() throws FileIOException {
         try {
             File parent = FILE.getParentFile();
             if (parent != null && !parent.exists() && !parent.mkdirs()) {
@@ -26,7 +33,7 @@ public class FileHandler {
         }
     }
 
-    protected void saveInFile(List<Task> list) throws FileIOException {
+    public void saveInFile(TaskList list) throws FileIOException {
         try {
             if (!FILE.exists()) {
                 create();
@@ -37,20 +44,20 @@ public class FileHandler {
                switch (task.type()) {
                    case "D":
                        Deadline deadline = (Deadline) task;
-                       fw.write(deadline.type() + "| " + (deadline.getStatusIcon().isBlank() ? "0" : "1") + "| " +
-                               deadline.description + "| " +
+                       fw.write(deadline.type() + " | " + (deadline.getStatusIcon().isBlank() ? "0" : "1") + " | " +
+                               deadline.getDescription() + " | " +
                                deadline.getBy());
                        break;
                    case "E":
                        Events events = (Events) task;
-                       fw.write(events.type() + "| " + (events.getStatusIcon().isBlank() ? "0" : "1") + "| " +
-                               events.description + "| " +
+                       fw.write(events.type() + " | " + (events.getStatusIcon().isBlank() ? "0" : "1") + " | " +
+                               events.getDescription() + " | " +
                                events.getDate());
                        break;
                    case "T":
                        ToDo toDo = (ToDo) task;
-                       fw.write(toDo.type() + "| " + (toDo.getStatusIcon().isBlank() ? "0" : "1") + "| " +
-                               toDo.description);
+                       fw.write(toDo.type() + " | " + (toDo.getStatusIcon().isBlank() ? "0" : "1") + " | " +
+                               toDo.getDescription());
                        break;
                }
                fw.write("\n");
@@ -61,7 +68,7 @@ public class FileHandler {
         }
     }
 
-    protected List<Task> readFromFile() {
+    public List<Task> load() {
         List<Task> list = new ArrayList<>();
         try {
             if (!FILE.exists()) {
@@ -71,10 +78,10 @@ public class FileHandler {
             Scanner sc = new Scanner(fr);
             while(sc.hasNext()) {
                 String line = sc.nextLine();
-                String[] split = line.split("\\| ");
+                String[] split = line.split(" \\| ");
                 switch (split[0]) {
                     case "D":
-                        Deadline tempDeadline = new Deadline(split[2], LocalDateTime.parse(split[3]));
+                        Deadline tempDeadline = new Deadline(split[2], LocalDateTime.parse(split[3], DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm")));
                         if (split[1].equals("1")) {
                             tempDeadline.markAsDone();
                         }
@@ -82,7 +89,7 @@ public class FileHandler {
                         break;
                     case "E":
                         String[] start_end = split[3].split("-");
-                        Events tempEvent = new Events(LocalDateTime.parse(start_end[0]), LocalDateTime.parse(start_end[1]), split[2]);
+                        Events tempEvent = new Events(LocalDateTime.parse(start_end[0], DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm")), LocalDateTime.parse(start_end[1], DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm")), split[2]);
                         if (split[1].equals("1")) {
                             tempEvent.markAsDone();
                         }

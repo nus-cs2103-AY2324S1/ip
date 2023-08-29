@@ -13,8 +13,8 @@ IF ERRORLEVEL 1 (
     exit /b 1
 )
 REM no error here, errorlevel == 0
-
+rmdir /s /q "./data"
 REM run the program, feed commands from input.txt file and redirect the output to the ACTUAL.TXT
-java -classpath ..\bin DuckBot < input.txt > ACTUAL.TXT
+java -classpath ..\bin Duck < input.txt > ACTUAL.TXT
 REM compare the output to the expected output
-FC ACTUAL.TXT EXPECTED.TXT
+FC /w ACTUAL.TXT EXPECTED.TXT
