@@ -10,6 +10,10 @@ import dook.task.Event;
 import dook.task.Task;
 import dook.task.Todo;
 
+/**
+ * Responsible for parsing plaintext commands and returning appropriate
+ * Command objects.
+ */
 public class Parser {
     private static CommandInfo parseKeyword(String keyword) {
         try {
@@ -18,6 +22,15 @@ public class Parser {
             return CommandInfo.invalid;
         }
     }
+
+    /**
+     * Takes a string input and parses it, generating the correct Command
+     * object type with the relevant data from user input.
+     *
+     * @param input The raw string input from the user.
+     * @return Command object parsed out from the input.
+     * @throws DookException Exception thrown by Dook.
+     */
     public Command parseFullInput(String input) throws DookException {
         String[] tmp = input.split(" ", 2);
         CommandInfo command = parseKeyword(tmp[0].trim());

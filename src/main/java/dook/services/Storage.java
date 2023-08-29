@@ -11,13 +11,8 @@ import dook.task.Event;
 import dook.task.Task;
 import dook.task.Todo;
 
-
-
-
 /**
  * Responsible for loading saved task list from/writing updated task list to plaintext file.
- * FORMAT: [Type]/[isDone]/[description]/[time]
- *
  */
 public class Storage {
     private File file;
@@ -32,12 +27,13 @@ public class Storage {
     }
 
     /**
-     * Loads task list from file.
+     * Loads task list from file, creating a new text file in the same directory if
+     * not found.
      *
      * @return A list of saved tasks.
-     * @throws FileNotFoundException, DookException
+     * @throws DookException Exception thrown by Dook.
      */
-    public ArrayList<Task> load() throws FileNotFoundException, DookException {
+    public ArrayList<Task> load() throws DookException {
         ArrayList<Task> result = new ArrayList<>();
         verifyFileExists();
         try {
@@ -47,7 +43,7 @@ public class Storage {
                 result.add(getTaskFromString(line));
             }
         } catch (IOException e) {
-            throw new DookException("File can't be read.");
+            throw new DookException("File can't be read. This session can't be saved.");
         }
         return result;
     }
@@ -64,6 +60,12 @@ public class Storage {
     }
 
 
+    /**
+     * Saves task list to file.
+     *
+     * @return The confirmation message to be displayed to the user.
+     * @throws DookException Exception thrown by Dook.
+     */
     public String save(TaskList taskList) throws DookException {
         String toSave = taskList.getSaveableString();
         try {
@@ -81,9 +83,9 @@ public class Storage {
     }
 
     /**
-     * Parses plaintext and converts it into a dook.task.Task.
+     * Parses plaintext and converts it into a Task.
      *
-     * @param str
+     * @param str Raw string representing a task.
      * @return The converted Task.
      */
     private Task getTaskFromString(String str) throws DookException {

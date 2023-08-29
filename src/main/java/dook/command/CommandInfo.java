@@ -1,5 +1,8 @@
 package dook.command;
 
+/**
+ * Enum containing a list of all commands and their descriptions.
+ */
 public enum CommandInfo {
         bye("Exits the program."), list("Displays the current tasks"),
         mark("Marks selected task as done."), unmark("Marks selected task as undone."),
