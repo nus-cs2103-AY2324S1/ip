@@ -15,9 +15,9 @@ public class DeadlineTask extends Task{
      * @param description The description of the deadline task.
      * @param date The deadline of the task.
      */
-    public DeadlineTask(String description, String date) {
+    public DeadlineTask(String description, LocalDate date) {
         super(description);
-        this.date = LocalDate.parse(date);
+        this.date = date;
     }
 
     /** 

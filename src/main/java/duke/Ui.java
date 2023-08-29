@@ -88,6 +88,11 @@ public class Ui {
         System.out.println(tsk.toString());
     }
 
+    /**
+     * Finds the tasks that contain the specified keyword.
+     * 
+     * @param tsk The list of tasks that contain the specified keyword.
+     */
     public static void findTasks(ArrayList<Task> tsk) {
         System.out.println("Here are the matching tasks in your list:");
         for (Task task : tsk) {

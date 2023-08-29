@@ -1,9 +1,12 @@
 package duke;
 
+import java.time.LocalDate;
+
 import duke.task.DeadlineTask;
 import duke.task.EventTask;
 import duke.task.TaskList;
 import duke.task.TodoTask;
+
 
 /**
  * Represents a parser that parses user input.
@@ -45,12 +48,15 @@ public class Parser {
             try {
                 String deadlineDescription = input.substring(9);
                 String[] deadlineSplit = deadlineDescription.split(" /by ");
-                DeadlineTask deadlineTask = new DeadlineTask(deadlineSplit[0], deadlineSplit[1]);
+                DeadlineTask deadlineTask = 
+                        new DeadlineTask(deadlineSplit[0], LocalDate.parse(deadlineSplit[1]));
                 tasks.addTask(deadlineTask);
             } catch(StringIndexOutOfBoundsException e) {
                 throw new DukeException("The description of a deadline cannot be empty.");
             } catch(ArrayIndexOutOfBoundsException e) {
-                throw new DukeException("The deadline of a deadline cannot be empty.");
+                throw new DukeException("The task of a deadline cannot be empty.");
+            } catch (java.time.format.DateTimeParseException e) {
+                throw new DukeException("Please enter a valid date in the format yyyy-mm-dd.");
             }
             break;
         case EVENT:
