@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Manages the operation on the tasks
@@ -13,10 +12,8 @@ public class TaskList {
 
     /**
      * construct a new task list
-     *
-     * @param storedInput stored state of duke
      */
-    public TaskList(List<String> storedInput) {
+    public TaskList() {
 
     }
 
@@ -60,7 +57,6 @@ public class TaskList {
 
 
     public Task[] getAllTask() {
-        // type casting is safe as it is a string
-        return (Task[]) this.TASKS.toArray();
+        return this.TASKS.toArray(new Task[this.length()]);
     }
 }

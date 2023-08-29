@@ -5,14 +5,14 @@ import java.util.Arrays;
 import java.util.HashMap;
 
 /**
- * Handles making sense of the user command and outputing it in a programme readable way
+ * Handles making sense of the user command and output it in a programme readable way
  */
 public class Parser {
 
     /**
      * Formatter to output date time
      */
-    public static final DateTimeFormatter OUTPUT_FORMAT = DateTimeFormatter.ofPattern("EEE hh:mma, MMM yyyy ");
+    public static final DateTimeFormatter OUTPUT_FORMAT = DateTimeFormatter.ofPattern("EEE hh:mma, MMM yyyy");
     /**
      * Formatter to parse date time
      */
@@ -82,6 +82,34 @@ public class Parser {
             default:
                 this.COMMAND = Commands.UNRECOGNISED;
 
+        }
+    }
+
+    public static Task fromStorage(String storedStr) throws DukeLoadingException {
+        String[] content = storedStr.split(Task.SEP);
+        if (content.length < 3 || content.length > 6) {
+            throw new DukeLoadingException(storedStr + ", this command cannot be read");
+        }
+        boolean completed = content[2].equals("1");
+        switch (content[0]) {
+
+            case "TODO":
+                return new Todo(content[1], completed);
+
+            case "DEADLINE":
+                if (content.length != 4) {
+                    throw new DukeLoadingException(storedStr + ", this command cannot be read");
+                }
+                return new Deadline(content[3], content[1], completed);
+
+            case "EVENT":
+                if (content.length != 5) {
+                    throw new DukeLoadingException(storedStr + ", this command cannot be read");
+                }
+                return new Event(content[2], content[3], content[1], completed);
+
+            default:
+                throw new DukeLoadingException(storedStr + ", this command cannot be read");
         }
     }
 

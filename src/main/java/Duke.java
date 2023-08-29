@@ -8,16 +8,14 @@ public class Duke {
      * Instance handling all the user interface
      */
     private final Ui ui;
-
-    /**
-     * Path to the storage, default is ./data/data.txt
-     */
-    private Storage storage;
-
     /**
      * Instance handling the tasks state
      */
     private final TaskList taskList;
+    /**
+     * Path to the storage, default is ./data/data.txt
+     */
+    private Storage storage;
 
     /**
      * Construct a new Duke object which uses filePath as the storage
@@ -27,7 +25,7 @@ public class Duke {
     public Duke(String filePath) {
         this.ui = new Ui();
         this.ui.welcomeMessage();
-        this.taskList = new TaskList(null);
+        this.taskList = new TaskList();
 
         // try to establish a connection to the file
         // set this.storage to null if not possible
@@ -52,20 +50,22 @@ public class Duke {
      * Entry point of the software
      */
     private void run() {
-        // prints out a preview of current tasks
+        if (this.storage == null) {
+            this.ui.goodbyeMessage();
+            return;
+        }
+
+        this.loadStorage();
         this.handleList();
         this.ui.lineBreak();
+        this.collectCommand();
+        this.storage.close();
 
-        if (this.storage != null) {
-            this.loadStorage();
-            this.collectCommand();
-            this.storage.close();
-        }
         // Goodbye Message
         this.ui.goodbyeMessage();
     }
 
-    // TODO
+    // TODO oop it
     private void loadStorage() {
         List<String> storedInput;
 
@@ -79,9 +79,11 @@ public class Duke {
         // parse and store data while looking out for data corruption
         boolean corrupted = false;
         for (String s : storedInput) {
+
             try {
-                this.createTask(new Parser(s), s);
-            } catch (DukeBadInputException e) {
+                Task newTask = Parser.fromStorage(s);
+                this.taskList.add(newTask);
+            } catch (DukeLoadingException e) {
                 corrupted = true;
                 this.ui.println(e.getMessage());
             }
@@ -97,12 +99,7 @@ public class Duke {
                 this.ui.unexpectedError("error when rewriting to storage: " + e.getMessage());
             }
             this.ui.unexpectedError("some of quack's memory are corrupted, please contact quack's mum if this continuously happens ");
-
         }
-
-        // prints to the user an overview of stored tasks
-        this.handleList();
-        this.ui.lineBreak();
     }
 
     /**
@@ -233,6 +230,13 @@ public class Duke {
         }
         this.ui.println(resp);
         this.ui.println(task.toString());
+        try {
+            if (!this.storage.rewriteAll(this.taskList.getAllTask())) {
+                this.ui.unexpectedError("not all tasks were successfully written, please contact my mother :( ");
+            }
+        } catch (IOException e) {
+            this.ui.unexpectedError("error when writing to storage: " + e.getMessage());
+        }
     }
 
     /**
@@ -248,11 +252,11 @@ public class Duke {
             throw new DukeBadInputException("Quack must have some memory issue, unable to recall this task: " + input);
         }
         if (type == Commands.TODO) {
-            newTask = new Todo(param.getParam(), input);
+            newTask = new Todo(param.getParam());
         } else if (type == Commands.DEADLINE) {
-            newTask = new Deadline(param.getFlag("/by"), param.getParam(), input);
+            newTask = new Deadline(param.getFlag("/by"), param.getParam());
         } else {
-            newTask = new Event(param.getFlag("/from"), param.getFlag("/to"), param.getParam(), input);
+            newTask = new Event(param.getFlag("/from"), param.getFlag("/to"), param.getParam());
         }
         this.taskList.add(newTask);
         return newTask;
@@ -273,7 +277,7 @@ public class Duke {
         Task newTask = this.createTask(param, input);
 
 
-        if (!this.storage.writeToFile(input)) {
+        if (!this.storage.writeToFile(newTask.getStored())) {
             this.ui.unexpectedError("unable to write to storage");
             return;
         }

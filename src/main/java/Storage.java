@@ -117,7 +117,7 @@ public class Storage {
         boolean noError = true;
         for (Task t : tasks) {
             try {
-                tmpWriter.write(t.getInput());
+                tmpWriter.write(t.getStored());
                 tmpWriter.newLine();
             } catch (IOException e) {
                 System.out.println(e.getMessage());

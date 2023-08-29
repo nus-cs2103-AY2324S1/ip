@@ -1,4 +1,9 @@
 public class Task {
+
+    /**
+     * Separator used
+     */
+    public static String SEP = "#";
     /**
      * The description of the task
      */
@@ -10,19 +15,12 @@ public class Task {
     private boolean completed = false;
 
     /**
-     * Input that generated the task
-     */
-    private final String input;
-
-    /**
      * Constructor for the Task class
      *
-     * @param task  - the description of the task created
-     * @param input - Input that generated the task
+     * @param task - the description of the task created
      */
-    public Task(String task, String input) {
+    public Task(String task) {
         this.task = task;
-        this.input = input;
     }
 
     /**
@@ -41,8 +39,22 @@ public class Task {
         this.completed = !this.completed;
     }
 
-    public String getInput() {
-        return input;
+    /**
+     * Getter for tasks
+     *
+     * @return task string
+     */
+    public String getTask() {
+        return task;
+    }
+
+    /**
+     * returns the stored form of the task
+     *
+     * @return a string which Duke Parser could Parse
+     */
+    public String getStored() {
+        return "";
     }
 
     @Override
