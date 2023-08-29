@@ -15,11 +15,12 @@ public class Duke {
         String start = "Hello! I'm ChatBot" + "\n" + "What can I do for you?" + "\n";
         String fileName = "../data/duke.txt";
         System.out.println(start);
-        ArrayList<Task> tdlist = new ArrayList<Task>();
+        ArrayList<Task> tdlist = Helper.readFromFile();
         while (true) {
             BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
             String str = bf.readLine();
-            String parsed_str[] = str.split(" ");
+            //regex detect all space
+            String parsed_str[] = str.split("\\s+");
             if (parsed_str[0].equals("list")) {
                 //print out the list
                 int size = tdlist.size();
@@ -135,7 +136,7 @@ public class Duke {
                     }
                 }
                 if (description.equals("")) {
-                    System.out.println("Please input the name of the deadline task");
+                    System.out.println("Please input the name of the event");
                     continue;
                 } else if (fromDate.equals("")) {
                     System.out.println("Please specify start time");
