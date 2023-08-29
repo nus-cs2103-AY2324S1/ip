@@ -4,7 +4,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -16,7 +16,7 @@ public class Duke {
     private String filePath;
 
     private enum Command {
-        LIST, UNMARK, MARK, DELETE, TODO, DEADLINE, EVENT, END, DATE, UNKNOWN
+        LIST, UNMARK, MARK, DELETE, TODO, DEADLINE, EVENT, END, DATE, CLEAR, UNKNOWN
     }
 
     private void greet() {
@@ -70,12 +70,12 @@ public class Duke {
         }
     }
 
-    private void dateList(LocalDateTime date) {
+    private void dateList(LocalDate date) {
         System.out.println("You need to do...");
         for (int i = 0; i < data.size(); i++) {
             Task dt = data.get(i);
-            if (dt.getDate().getDayOfMonth() == date.getDayOfMonth()) {
-                System.out.println((i + 1) + ". " + dt.toString());
+            if (dt.getDate() != null && dt.getDate().getDayOfMonth() == date.getDayOfMonth()) {
+                System.out.println("- " + dt.toString());
             }
         }
         System.out.println(" ");
@@ -100,6 +100,19 @@ public class Duke {
         System.out.println("You still have " + data.size() + " tasks in the list\n");
     }
 
+    private void clear() {
+        try {
+            Files.delete(Paths.get(filePath));
+            this.file = new File(this.filePath);
+            if (!file.createNewFile()) {
+                this.readFileContents();
+            }
+            System.out.println("All tasks cleared\n");
+        } catch (IOException err) {
+            System.err.println("Error clearing " + err.getMessage());
+        }
+    }
+
     private void print(String input, Scanner sc) {
         boolean loop = true;
 
@@ -119,8 +132,10 @@ public class Duke {
                 c = Command.DEADLINE;
             } else if (input.startsWith("event")) {
                 c = Command.EVENT;
-            } else if (input.startsWith("date")) {
+            } else if (input.startsWith("check")) {
                 c = Command.DATE;
+            } else if (input.startsWith("clear")) {
+                c = Command.CLEAR;
             } else if (input.startsWith("end")) {
                 c = Command.END;
             } else {
@@ -133,14 +148,19 @@ public class Duke {
                     input = sc.nextLine();
                     break;
 
+                case CLEAR:
+                    this.clear();
+                    input = sc.nextLine();
+                    break;
+
                 case DATE:
                     try {
-                        if (input.length() < 6) {
+                        if (input.length() < 7) {
                             throw new DukeException("Which day u want oh?? Give in dd-MM-yyyy ahhh\n");
                         }
                         String date = input.substring(6);
                         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-                        this.dateList(LocalDateTime.parse(date, formatter));
+                        this.dateList(LocalDate.parse(date, formatter));
                     } catch (DukeException e) {
                         System.err.println(e);
                     } finally {
@@ -281,9 +301,9 @@ public class Duke {
             } else if (str.startsWith("[D]")) {
                 int sub = str.indexOf("by: ");
                 if (str.contains("[x]")) {
-                    return new Deadline(str.substring(8, sub - 1), str.substring(sub + 2), true);
+                    return new Deadline(str.substring(8, sub - 1), str.substring(sub + 4), true);
                 } else if (str.contains("[ ]")) {
-                    return new Deadline(str.substring(8, sub - 1), str.substring(sub + 2), false);
+                    return new Deadline(str.substring(8, sub - 1), str.substring(sub + 4), false);
                 }
             } else if (str.startsWith("[E]")) {
                 int sub1 = str.indexOf("from: ");
