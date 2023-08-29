@@ -1,3 +1,7 @@
+package ducky.command;
+
+import ducky.DuckyException;
+
 public class DuckyInvalidCommandException extends DuckyException {
 
     public DuckyInvalidCommandException() {

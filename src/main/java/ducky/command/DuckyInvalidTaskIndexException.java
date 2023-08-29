@@ -1,3 +1,7 @@
+package ducky.command;
+
+import ducky.DuckyException;
+
 public class DuckyInvalidTaskIndexException extends DuckyException {
 
     public DuckyInvalidTaskIndexException(int index, int size) {

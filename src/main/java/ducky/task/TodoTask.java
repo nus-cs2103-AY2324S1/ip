@@ -1,3 +1,5 @@
+package ducky.task;
+
 public class TodoTask extends Task {
 
     public TodoTask(String desc) {

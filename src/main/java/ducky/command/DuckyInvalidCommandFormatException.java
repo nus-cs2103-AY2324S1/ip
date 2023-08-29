@@ -1,3 +1,7 @@
+package ducky.command;
+
+import ducky.DuckyException;
+
 public class DuckyInvalidCommandFormatException extends DuckyException {
 
     public DuckyInvalidCommandFormatException(String message) {

@@ -1,3 +1,8 @@
+package ducky;
+
+import ducky.command.DuckyInvalidTaskIndexException;
+import ducky.task.Task;
+
 import java.util.ArrayList;
 
 public class TaskList {

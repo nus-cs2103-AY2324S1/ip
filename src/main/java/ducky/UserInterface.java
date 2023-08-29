@@ -1,3 +1,5 @@
+package ducky;
+
 import java.util.Scanner;
 
 public class UserInterface {
