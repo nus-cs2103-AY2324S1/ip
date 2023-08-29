@@ -42,4 +42,20 @@ public class Task {
             System.out.println(this.printTask());
         }
     }
+
+    public void toggleDoneFromStorage(String keyword) {
+        if (keyword.equals("mark")) {
+            this.done = true;
+        } else {
+            this.done = false;
+        }
+    }
+
+    public String addToStorage() {
+        if (this.done) {
+            return String.format("| 1 | %s", this.task);
+        } else {
+            return String.format("| 0 | %s", this.task);
+        }
+    }
 }

@@ -27,4 +27,12 @@ public class Deadlines extends Task {
     public String printTask() {
         return String.format("[D]%s%s", super.printTask(), this.printDetails());
     }
+
+    public String addDetailsToStorage() {
+        return String.format("| by %s", this.by);
+    }
+    @Override
+    public String addToStorage() {
+        return String.format("D %s%s%n", super.addToStorage(), this.addDetailsToStorage());
+    }
 }
