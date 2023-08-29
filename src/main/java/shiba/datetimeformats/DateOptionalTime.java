@@ -34,7 +34,7 @@ public class DateOptionalTime {
 
     /**
      * Gets a readable string representation (day month year hour min am/pm)
-     * of a LocalDateTime object for display.
+     * of a DateOptionalTime object for display.
      *
      * @return The string representation of the DateOptionalTime object.
      */

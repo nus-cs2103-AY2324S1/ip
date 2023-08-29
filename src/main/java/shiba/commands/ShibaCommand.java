@@ -63,6 +63,7 @@ public abstract class ShibaCommand {
      * Adds a task to the list.
      *
      * @param task The task to be added.
+     * @throws ShibaException If there is an error saving the task after adding it.
      */
     protected void addTask(ShibaTask task) throws ShibaException {
         tasks.addTask(task);

@@ -9,6 +9,7 @@ public class TodoTask extends ShibaTask {
      *
      * @param cmd The command to be parsed.
      * @return The TodoTask parsed from the command, or null if the command is invalid.
+     * @throws InvalidCommandException If the command is invalid.
      */
     public static TodoTask fromCmd(String cmd) throws InvalidCommandException {
         String[] cmdSplit = cmd.split(" ", 2);

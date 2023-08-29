@@ -16,6 +16,7 @@ public class EventTask extends ShibaTask {
      *
      * @param cmd The command to be parsed.
      * @return The EventTask parsed from the command, or null if the command is invalid.
+     * @throws InvalidCommandException If the command is invalid.
      */
     public static EventTask fromCmd(String cmd) throws InvalidCommandException {
         String[] cmdSplit = cmd.split(" ", 2);

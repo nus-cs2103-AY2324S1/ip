@@ -6,6 +6,9 @@ import shiba.ui.Replier;
 
 import java.util.ArrayList;
 
+/**
+ * Implementation of a persistent task list that saves tasks to a file.
+ */
 public class FilePersistentTaskList implements PersistentTaskList {
     private final ArrayList<ShibaTask> tasks = new ArrayList<>();
     private final Storage storage;
