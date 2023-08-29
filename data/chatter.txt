@@ -2,3 +2,4 @@ D, true, do, tmr
 E, false, help, now, tmr
 T, true, return book
 T, false, die
+D, true, test date, 2019-10-15
