@@ -21,6 +21,10 @@ public class Task {
         return markedIcon;
     }
 
+    public String getTaskDescription() {
+        return this.taskDescription;
+    }
+
     @Override
     public String toString() {
         String markedIcon = getMarkedIcon();
