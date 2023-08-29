@@ -19,13 +19,16 @@ public class Task {
             }
         } else if (category.equals("deadline")) {
             this.category = Type.Deadline;
+
             String[] s =description.split("/", 4);
+
             try {
                 String date = s[1].substring( 3).length() == 1 ? "0" + s[1].substring( 3) : s[1].substring( 3);
+
                 String endDate = s[3]+"-"+s[2]+"-" + date;
                 String formattedDate = LocalDate.parse(endDate)
                         .format(DateTimeFormatter.ofPattern("MMM d yyyy"));
-                System.out.println(formattedDate);
+
                 this.description = s[0] + "("+ formattedDate + ")";
             } catch(Exception e) {
                 System.out.println("OOPS!!! The description of a deadline cannot be empty.");
