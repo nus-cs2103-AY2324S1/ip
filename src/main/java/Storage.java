@@ -1,10 +1,26 @@
 import java.io.*;
 import java.util.Scanner;
 
+/**
+ * Represents the text database that stores the data.
+ * Contains methods that interacts with the database and current task list during program run.
+ */
 public class Storage {
+    /**
+     * Each Storage object has a file field storing the file to read and write from.
+     */
     private final File file;
+    /**
+     * This is the instance of Storage singleton object that is always used.
+     */
     private static Storage instance;
 
+    /**
+     * This private constructor is called only by getInstance(String filepath).
+     * Creates the file should it not exist.
+     * Stores the file in this.file field of the class, for easy reference by other methods.
+     * @param filePath The filepath used to find the text file for storing task data.
+     */
     private Storage(String filePath) {
         try {
             File f = new File(filePath);
@@ -17,19 +33,31 @@ public class Storage {
         }
     }
 
+    /**
+     * Acts as an overloaded constructor of the Storage class, only called upon startup of the chatbot.
+     * Returns a new Storage object based on the filepath given as the database text location.
+     * Stores this object in the static singleton field for global access.
+     * @param filepath Text database location.
+     * @return A Storage object.
+     */
     public static Storage getInstance(String filepath) {
-        if (instance != null) {
-            return instance;
-        } else {
-            instance = new Storage(filepath);
-            return instance;
-        }
+        instance = new Storage(filepath);
+        return instance;
     }
 
+    /**
+     * Acts as an overloaded constructor of the Storage class, called by all methods except Cheems.main().
+     * Retrieves the singleton Storage object from static field instance.
+     * @return A Storage object.
+     */
     public static Storage getInstance() {
         return instance;
     }
 
+    /**
+     * Reads tasks from database file.
+     * Calls Tasklist.addTask() to add these into the tasklist maintained during chatbot run.
+     */
     public void loadData() {
         try (Scanner s = new Scanner(this.file)){
             String input;
@@ -45,6 +73,10 @@ public class Storage {
         }
     }
 
+    /**
+     * Saves a new task to the database text.
+     * @param taskLine The line to be written to the database, formatted based on database specification.
+     */
     public void saveData(String taskLine) {
         try {
             FileWriter fw = new FileWriter(this.file.getPath(), true);
@@ -55,6 +87,10 @@ public class Storage {
         }
     }
 
+    /**
+     * Deletes a task from the database.
+     * @param lineToDelete The index of the line that should be deleted.
+     */
     public void delete(int lineToDelete) {
         try {
             BufferedReader reader = new BufferedReader(new FileReader(this.file));
@@ -80,6 +116,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Marks a task as done or undone, based on the parameter done.
+     * @param lineToModify The index of the line that should be updated.
+     * @param done A true value indicates marking the task done, otherwise undone.
+     */
     public void mark(int lineToModify, boolean done) {
         try {
             BufferedReader reader = new BufferedReader(new FileReader(this.file));

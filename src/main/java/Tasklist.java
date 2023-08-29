@@ -1,10 +1,18 @@
 import tasks.*;
 import java.util.ArrayList;
 
+/**
+ * Represents a task list directly interacts with the user.
+ * Interacts with Storage class as well to retrieve and update information to the text database.
+ */
 public class Tasklist {
     private static final ArrayList<Task> list = new ArrayList<>();
     private static int total = 0;  // total also indicates the first free slot
 
+    /**
+     * Adds the task to the task list.
+     * @param params An array of strings used to create a new task.
+     */
     public static void addTask(String... params) {
         boolean done = params[0].equals("1");
         Keyword keyword = Keyword.valueOf(params[1]);
@@ -23,6 +31,11 @@ public class Tasklist {
         total++;
     }
 
+    /**
+     * Adds a new task the user specified to the task list.
+     * Updates the database to include this task.
+     * @param params An array of strings used to create a new task.
+     */
     public static void addSaveTask(String... params) {
         Keyword keyword = Keyword.valueOf(params[0]);
         Task task = new Todo(params[1]);
@@ -45,6 +58,9 @@ public class Tasklist {
     }
 
 
+    /**
+     * Prints all tasks in the current task list.
+     */
     public static void displayData() {
         String resp = "";
         if (total == 0) {
@@ -62,6 +78,10 @@ public class Tasklist {
     }
 
 
+    /**
+     * Marks the task at index in the task list as done.
+     * @param index The index of task to be marked done.
+     */
     public static void markAsDone(int index) {
         // check for range of index
         if (index >= total) {
@@ -77,6 +97,10 @@ public class Tasklist {
         UI.printWithFormat(resp);
     }
 
+    /**
+     * Marks the task at index in the task list as undone.
+     * @param index The index of task to be marked undone.
+     */
     public static void markAsNotDone(int index) {
         // check for range of index
         if (index >= total) {
@@ -92,6 +116,10 @@ public class Tasklist {
         UI.printWithFormat(resp);
     }
 
+    /**
+     * Deletes the task at index in the task list and updates the database.
+     * @param index The index of task to be deleted.
+     */
     public static void delete(int index) {
         // check for range of index
         if (index >= total) {

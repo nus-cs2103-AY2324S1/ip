@@ -1,3 +1,6 @@
+/**
+ * Represents different commands recognised by the chatbot.
+ */
 public enum Keyword {
     MARK,
     UNMARK,

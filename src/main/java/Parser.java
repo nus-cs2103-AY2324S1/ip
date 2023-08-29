@@ -1,6 +1,15 @@
 import exceptions.*;
 
+/**
+ * Parser parses the input from the user and execute corresponding actions.
+ * Exceptions are thrown should the input be invalid.
+ */
 public class Parser {
+    /**
+     * Parses the given input and tells Tasklist the action to take.
+     * Exceptions are thrown should the input be invalid.
+     * @param input User input.
+     */
     public static void parseAndExecute(String input) {
         if (!input.isEmpty()) {
             String[] words = input.split(" ", 2);
