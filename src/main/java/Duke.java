@@ -46,6 +46,15 @@ public class Duke {
                 case DELETE:
                     ui.displayRemoveFromList(list.deleteFromList(Parser.parseOptions(line)), list.getSize());
                     break;
+                case DEADLINEBY:
+                    ui.displayTasksOnDate(list.getDeadlineDateTasks(Parser.parseOptions(line)));
+                    break;
+                case EVENTFROM:
+                    ui.displayTasksOnDate(list.getEventStartDateTasks(Parser.parseOptions(line)));
+                    break;
+                case EVENTTO:
+                    ui.displayTasksOnDate(list.getEventEndDateTasks(Parser.parseOptions(line)));
+                    break;
                 case BYE:
                     storage.saveCommandsToFile(list);
                     ui.exit();
