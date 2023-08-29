@@ -1,18 +1,17 @@
 package dook.services;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.function.BiFunction;
 import java.util.function.Function;
 
 import dook.DookException;
 import dook.task.Task;
-import dook.task.TimedTask;
 
 /**
  * Wrapper class for the task list containing methods to manipulate the tasks within.
  */
 public class TaskList {
-    private ArrayList<Task> taskList;
+    private final ArrayList<Task> taskList;
 
     public TaskList(ArrayList<Task> taskList) {
         this.taskList = taskList;
@@ -66,9 +65,8 @@ public class TaskList {
         } else {
             curr.unmarkAsDone();
         }
-        String message = String.format("I have marked this task as %s:\n   %s",
+        return String.format("I have marked this task as %s:\n   %s",
                 value ? "done" : "not done yet", curr);
-        return message;
     }
 
     /**
@@ -91,22 +89,26 @@ public class TaskList {
     }
 
     /**
-     * Converts the task list into a saveable string format.
-     * @return All tasks formatted to be saved by storage.
+     * Accumulates task list to a result of type T.
+     * @param acc Given accumulator function.
+     * @param identity Identity value of result.
+     * @return The accumulated result.
+     * @param <T> Type of result.
      */
-    public String getSaveableString() {
-        StringBuilder result = new StringBuilder();
+    public <T> T accumulateTasks(BiFunction<? super Task, ? super T, ? extends T> acc, T identity) {
+        T result = identity;
         for (Task task : taskList) {
-            result.append(task.getSaveableString()).append("\n");
+            result = acc.apply(task, result);
         }
-        return result.toString();
+        return result;
     }
+
     @Override public String toString() {
         StringBuilder result = new StringBuilder();
         for (int i = 0; i < taskList.size(); i++) {
             result.append(String.format("%d. %s\n", i + 1, taskList.get(i)));
         }
-        return (result.toString() + String.format("You have %d %s in the list.",
+        return (result + String.format("You have %d %s in the list.",
                 taskList.size(),
                 taskList.size() == 1 ? "task" : "tasks"));
     }

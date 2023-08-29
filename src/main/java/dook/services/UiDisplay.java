@@ -47,6 +47,7 @@ public class UiDisplay {
      */
     public void bidFarewell() {
         printMessage("Goodbye.");
+        sc.close();
     }
 
     /**

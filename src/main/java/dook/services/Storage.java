@@ -15,13 +15,8 @@ import dook.task.Todo;
  * Responsible for loading saved task list from/writing updated task list to plaintext file.
  */
 public class Storage {
-    private File file;
 
-    private Path path;
-
-    public Storage(String filePath) {
-        this.file = new File(filePath);
-    }
+    private final Path path;
     public Storage(Path filePath) {
         this.path = filePath;
     }
@@ -67,7 +62,8 @@ public class Storage {
      * @throws DookException Exception thrown by Dook.
      */
     public String save(TaskList taskList) throws DookException {
-        String toSave = taskList.getSaveableString();
+        String toSave = taskList.accumulateTasks((task, str) ->
+                str + (task.getSaveableString() + "\n"), "");
         try {
             writeToFile(toSave);
         } catch (IOException e) {
