@@ -1,18 +1,20 @@
+import java.time.LocalDate;
+
 /**
  * Encapsulates a Deadline task. Deadline tasks have an end time and description.
  */
 public class Deadline extends Task {
-    private String endTime;
+    private LocalDate endDate;
 
     /**
      * Constructor for a deadline task.
      *
-     * @param endTime     ending time for deadline task
+     * @param endDate     The deadline for deadline task
      * @param description task description
      */
-    public Deadline(String endTime, String description) {
+    public Deadline(LocalDate endDate, String description) {
         super(description);
-        this.endTime = endTime;
+        this.endDate = endDate;
     }
 
     /**
@@ -22,7 +24,7 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + this.endTime + ")";
+        return "[D]" + super.toString() + " (by: " + this.endDate + ")";
     }
 
     /**
@@ -31,7 +33,7 @@ public class Deadline extends Task {
      * @return String representing deadline task to be stored.
      */
     @Override
-    public String toStore() {
-        return "D | " + super.toStore() + " | " + this.endTime;
+    public String toStored() {
+        return "D | " + super.toStored() + " | " + this.endDate;
     }
 }
