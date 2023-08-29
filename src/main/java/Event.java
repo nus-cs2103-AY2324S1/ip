@@ -11,4 +11,8 @@ public class Event extends Task {
     public String toString() {
         return super.toString() + " (from: " + startTime + " to " + endTime + ")";
     }
+
+    public String toFileString() {
+        return super.toFileString() + " | " + startTime + " - " + endTime;
+    }
 }
