@@ -60,11 +60,9 @@ public class TaskMate {
         ui.greetUser();
 
         // Reading user input
-        // todo
-        Scanner sc = new Scanner(System.in);
         String userInput;
         while (true) {
-            userInput = sc.nextLine();
+            userInput = ui.nextLine();
 
             // Checks if user input is correct (Error handling)
             checkInvalidCommandTypeException(userInput);

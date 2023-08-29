@@ -1,9 +1,17 @@
+import java.util.Scanner;
+
 public class Ui {
     static String horizontalLine = "--------------------";
     String chatbotName;
+    Scanner sc;
 
     Ui(String chatbotName) {
         this.chatbotName = chatbotName;
+        this.sc = new Scanner(System.in);
+    }
+
+    String nextLine() {
+        return sc.nextLine();
     }
 
     void greetUser() {
