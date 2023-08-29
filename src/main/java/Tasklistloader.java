@@ -4,14 +4,12 @@ import com.fasterxml.jackson.databind.ObjectMapper.DefaultTyping;
 import com.fasterxml.jackson.databind.jsontype.BasicPolymorphicTypeValidator;
 import com.fasterxml.jackson.databind.jsontype.PolymorphicTypeValidator;
 import java.io.IOException;
-import java.lang.reflect.Type;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import java.util.List;
 
 public class Tasklistloader {
 
@@ -22,7 +20,6 @@ public class Tasklistloader {
     this.taskList = tasks;
     this.taskMapper = new ObjectMapper();
     PolymorphicTypeValidator ptv = BasicPolymorphicTypeValidator.builder()
-//        .allowIfSubType("com.baeldung.jackson.inheritance")
         .allowIfSubType("java.util.ArrayList")
         .allowIfSubType("ReceivedTasks")
         .allowIfSubType("Task")
@@ -42,9 +39,6 @@ public class Tasklistloader {
         Task curr = kek.tasks.get(i);
         System.out.println(curr.getDescription());
       }
-
-//      System.out.println(content);
-
     } catch (IOException ex) {
       System.out.println(ex.getMessage());
     }
