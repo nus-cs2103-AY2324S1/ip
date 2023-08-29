@@ -6,12 +6,23 @@ public class Parser {
 
     public Ui ui;
     public TaskList ls;
-    //String cmd = ui.readInCmd();
-    public Parser(Ui ui, TaskList ls) {
+
+    /**
+     * Constructor for Parser class.
+     * @param ui The ui object.
+     * @param ls The TaskList object.
+     */
+    public Parser(Ui ui, TaskList ls){
         this.ls = ls;
         this.ui = ui;
     }
 
+    /**
+     * To read the command from user input and
+     * parse it to Ui object to print statement.
+     * @param ls The tasklist object to handle the tasks.
+     * @param cmd The string input by user.
+     */
     public void readCmd(TaskList ls, String cmd) {
         while (true) {
             if (cmd.equals("bye")) {

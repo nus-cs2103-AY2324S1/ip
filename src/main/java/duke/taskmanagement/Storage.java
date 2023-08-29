@@ -11,16 +11,32 @@ public class Storage {
 
     private String filePath;
     private List<Task> ls = new ArrayList<>();
+
+    /**
+     * Constructor for Storage class.
+     * @param filePath The path where you wish to store the text.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
+    /**
+     * To write string into file
+     * @param filePath The path of the file where you wish to write into.
+     * @param textToAdd The String you wish to write into the file.
+     * @throws IOException If the path is not available.
+     */
     public void writeToFile(String filePath, String textToAdd) throws IOException {
         FileWriter fw = new FileWriter(filePath, true);
         fw.write(textToAdd);
         fw.close();
     }
 
+    /**
+     * To handle the exception when using writeToFile method.
+     * @param filePath The path of the file where you wish to write into.
+     * @param textToAdd The String you wish to write into the file.
+     */
     public void writeToFile_exceptionThrown(String filePath, String textToAdd) {
         try {
             writeToFile(filePath, textToAdd);
@@ -29,7 +45,12 @@ public class Storage {
         }
     }
 
-    public List<Task> loadData() {
+    /**
+     * To load the text line by line from the file
+     * and store it into a List<Task>
+     * @return The List<Task> which each element is loaded from the text file.
+     */
+    public List<Task> loadData(){
         try {
             BufferedReader reader = new BufferedReader(new FileReader(filePath));
             String line;
@@ -62,6 +83,11 @@ public class Storage {
         return ls;
     }
 
+    /**
+     * To delete a certain line in the text file
+     * @param lineIndexToDelete The index of the line (task) you
+     *                          want to delete.
+     */
     public void deleteLine(int lineIndexToDelete) {
         List<String> lines = new ArrayList<>();
         try {
@@ -88,6 +114,12 @@ public class Storage {
         }
     }
 
+    /**
+     * To modify the text file as the user modify the
+     * status of the task to 'done'.
+     * @param index The index of task you wish to
+     *              change the status to done.
+     */
     public void changeToDone(int index) {
                 List<String> lines = new ArrayList<>();
 
@@ -128,6 +160,12 @@ public class Storage {
                 }
             }
 
+    /**
+     * To modify the text file as the user modify the
+     * status of the task to 'undone'.
+     * @param index The index of task you wish to
+     *              change the status to undone.
+     */
     public void changeToUnDone(int index) {
         List<String> lines = new ArrayList<>();
 
