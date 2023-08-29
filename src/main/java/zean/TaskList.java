@@ -15,9 +15,18 @@ public class TaskList {
     private Storage storage;
 
     /**
-     * Constructor for storage.
-     * Creates the necessary directory and file if not present.
-     * Reads the present content in the file into the ArrayList.
+     * An empty constructor for TaskList.
+     * For the purpose of testing.
+     */
+    public TaskList() {
+        this.tasks = new ArrayList<>();
+    }
+
+    /**
+     * Constructor for TaskList.
+     * Loads the tasks from storage.
+     *
+     * @param storage The storage object that reads and write data from the file.
      */
     public TaskList(Storage storage) {
         this.storage = storage;
@@ -26,7 +35,7 @@ public class TaskList {
     }
 
     /**
-     * Adds a todo task to the array list.
+     * Adds a todo task to the array list and write to the disk.
      *
      * @param description The description of the todo task.
      */
@@ -39,7 +48,7 @@ public class TaskList {
     }
 
     /**
-     * Adds a deadline task to the array list.
+     * Adds a deadline task to the array list and write to the disk.
      *
      * @param description The description of the deadline task.
      * @param by The due date of the deadline task.
@@ -53,7 +62,7 @@ public class TaskList {
     }
 
     /**
-     * Adds an event task to the array list.
+     * Adds an event task to the array list and write to the disk.
      *
      * @param description The description of the event task.
      * @param from The start date/time of the event task.
@@ -73,7 +82,7 @@ public class TaskList {
     }
 
     /**
-     * Prints the list of tasks that the storage holds.
+     * Prints the list of tasks that the ArrayList holds.
      */
     public void list() {
         if (this.count == 0) {
@@ -87,7 +96,7 @@ public class TaskList {
     }
 
     /**
-     * Marks the task corresponding to the index as done.
+     * Marks the task corresponding to the index as done and write to the disk.
      *
      * @param index The index of the task seen by the user, which starts from 1.
      * @throws DukeException An exception related to the chatbot.
@@ -102,7 +111,7 @@ public class TaskList {
     }
 
     /**
-     * Marks the task corresponding to the index as not done.
+     * Marks the task corresponding to the index as not done and write to the disk.
      *
      * @param index The index of the task seen by the user, which starts from 1.
      * @throws DukeException An exception related to the chatbot.
@@ -125,7 +134,7 @@ public class TaskList {
     }
 
     /**
-     * Deletes the task corresponding to the index.
+     * Deletes the task corresponding to the index and write to the disk.
      *
      * @param index The index of the task seen by the user, which starts from 1.
      * @throws DukeException An exception related to the chatbot.

@@ -58,7 +58,7 @@ public class Deadline extends Task {
         return "D | " + super.toStringForFile() + " | " + this.by;
     }
 
-    private String getDeadline() {
+    protected String getDeadline() {
         return this.by.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
     }
 }
