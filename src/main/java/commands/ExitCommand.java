@@ -1,3 +1,9 @@
+package commands;
+import exceptions.DukeException;
+import io.Storage;
+import tasks.TaskList;
+import ui.Ui;
+
 public class ExitCommand extends Command {
     public ExitCommand() {
         super("bye");

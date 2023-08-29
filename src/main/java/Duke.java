@@ -1,3 +1,10 @@
+import commands.Command;
+import exceptions.DukeException;
+import io.Parser;
+import io.Storage;
+import tasks.TaskList;
+import ui.Ui;
+
 public class Duke {
 
     private Storage storage;
@@ -22,6 +29,7 @@ public class Duke {
             try {
                 String fullCommand = ui.readCommand();
                 ui.showLine(); 
+                System.out.println("Your command: " + fullCommand);
                 Command c = Parser.parse(fullCommand);
                 c.execute(tasks, ui, storage);
                 isExit = c.isExit();

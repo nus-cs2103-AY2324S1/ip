@@ -1,3 +1,13 @@
+event lsjlk\
+deadline kjlkjl
+todo for
+asdas
 event asdlkj /from 20/12/2020 1800 /to 5/5/2023 1900
 deadline  asad /by 20/12/2020 1800
 schedule 31/12/2020
+schedule 20/12/2020
+mark 1
+save
+load
+list
+bye

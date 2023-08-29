@@ -1,6 +1,15 @@
+package ui;
 import java.util.Scanner;
 
+import tasks.Task;
+import tasks.TaskList;
+
 public class Ui {
+    protected Scanner scanner;
+    
+    public Ui() {
+        this.scanner = new Scanner(System.in);
+    }
     
     public void showLoadingError() {
         System.out.println("Error loading file");
@@ -17,7 +26,6 @@ public class Ui {
     }
 
     public String readCommand() {
-        Scanner scanner = new Scanner(System.in);
         return scanner.nextLine();
     }
 

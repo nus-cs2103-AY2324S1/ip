@@ -1,5 +1,8 @@
+package tasks;
 import java.time.DateTimeException;
 import java.time.LocalDateTime;
+
+import exceptions.DukeException;
 
 public class EventTask extends Task {
 
@@ -23,6 +26,14 @@ public class EventTask extends Task {
     @Override
     public String toString() {
         return "[E]" + super.toString() + " (from: " + startDate.format(Task.DATE_FORMAT_OUTPUT) + " to: " + endDate.format(Task.DATE_FORMAT_OUTPUT) + ")";
+    }
+
+    public LocalDateTime getStartDate() {
+        return this.startDate;
+    }
+
+    public LocalDateTime getEndDate() {
+        return this.endDate;
     }
 
     public String toFileString() {
