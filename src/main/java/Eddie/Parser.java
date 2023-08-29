@@ -4,8 +4,15 @@ import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.util.Scanner;
 
+/**
+ * Represents a parser which makes sense of the user input.
+ */
 public class Parser {
-    public static void execute() throws DukeException {
+    /**
+     * Main control flow for recognizing commands and what to do with commands.
+     * @throws DukeException Thrown when commands are not inputted correctly.
+     */
+    private static void execute() throws DukeException {
         Scanner sc = new Scanner(System.in);
         while (true) {
 
@@ -95,6 +102,9 @@ public class Parser {
         }
     }
 
+    /**
+     * Method to be used to start parsing of user input.
+     */
     public static void parse() {
         try {
             Parser.execute();

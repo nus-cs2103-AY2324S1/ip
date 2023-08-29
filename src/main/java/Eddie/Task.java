@@ -1,5 +1,8 @@
 package Eddie;
 
+/**
+ * Represents a task which can be created and listed.
+ */
 public class Task {
     private boolean done;
     private String name;

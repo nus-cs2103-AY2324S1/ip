@@ -8,8 +8,15 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
+/**
+ * Class to handle storing and loading of past data saved on the hard disk.
+ */
 public class Storage {
-    public static void writeToFile () throws IOException {
+    /**
+     * Writes to the txt file for saving data.
+     * @throws IOException Thrown if input is not correct.
+     */
+    private static void writeToFile () throws IOException {
         FileWriter eddieTaskList = new FileWriter("EddieTaskList.txt");
         for (int i = 0; i < TaskList.size(); i++) {
             Task t = TaskList.get(i);
@@ -26,6 +33,9 @@ public class Storage {
         eddieTaskList.close();
     }
 
+    /**
+     * Read the file and extract its contents into the Tasklist.
+     */
     public static void readFile() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM d yyyy");
         try {
@@ -68,6 +78,9 @@ public class Storage {
         }
     }
 
+    /**
+     * Public method used to write to hard disk.
+     */
     public static void write() {
         try {
             writeToFile();
