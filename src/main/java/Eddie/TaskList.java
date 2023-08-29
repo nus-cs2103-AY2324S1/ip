@@ -2,6 +2,9 @@ package Eddie;
 
 import java.util.ArrayList;
 
+/**
+ * Represents the tasklist which holds all the tasks.
+ */
 public class TaskList {
     private static ArrayList<Task> tasks = new ArrayList<>();
 

@@ -1,5 +1,8 @@
 package Eddie;
 
+/**
+ * An exception which can be thrown by duke processes.
+ */
 public class DukeException extends Exception {
 
     public DukeException() {}
