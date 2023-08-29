@@ -1,10 +1,35 @@
 package duke.util;
 
+import duke.command.*;
 import duke.task.*;
 
 import java.time.LocalDate;
 
 public class Parser {
+    public static Command parse(String input) throws TaskException {
+        if (input.equals("list")) {
+            return new PrintListCommand();
+        } else if (input.startsWith("mark")) {
+            return new MarkCommand(Parser.parseUserMark(input));
+        } else if (input.startsWith("unmark")) {
+            return new UnmarkCommand(Parser.parseUserUnmark(input));
+        } else if (input.startsWith("delete")) {
+            return new DeleteCommand(Parser.parseUserDelete(input));
+        } else if (input.startsWith("deadline")) {
+            Deadline deadline = Parser.parseUserDeadline(input);
+            return new AddCommand(deadline);
+        } else if (input.startsWith("event")) {
+            Event event = Parser.parseUserEvent(input);
+            return new AddCommand(event);
+        } else if (input.startsWith("todo")) {
+            ToDo todo = Parser.parseUserToDo(input);
+            return new AddCommand(todo);
+        } else if (input.equals("bye")) {
+            return new ExitCommand();
+        } else {
+            return new UnknownCommand();
+        }
+    }
     public static Deadline parseLoadDeadline(String input) {
         int byIndex = input.indexOf('|', 7);
 
@@ -53,13 +78,13 @@ public class Parser {
         return todo;
     }
 
-    public static Deadline parseUserDeadline(String input) throws DeadlineException {
+    public static Deadline parseUserDeadline(String input) throws TaskException {
         int byIndex = input.indexOf("/by");
 
         if (input.length() <= 9) {
-            throw new DeadlineException();
+            throw new TaskException();
         } else if (byIndex == -1) {
-            throw new DeadlineException();
+            throw new TaskException();
         }
 
         String description = input.substring(9, byIndex - 1);
@@ -71,16 +96,16 @@ public class Parser {
         return deadline;
     }
 
-    public static Event parseUserEvent(String input) throws EventException {
+    public static Event parseUserEvent(String input) throws TaskException {
         int fromIndex = input.indexOf("/from");
         int toIndex = input.indexOf("/to");
 
         if (input.length() <= 6) {
-            throw new EventException();
+            throw new TaskException();
         } else if (fromIndex == -1 || toIndex == -1) {
-            throw new EventException();
+            throw new TaskException();
         } else if (fromIndex > toIndex) {
-            throw new EventException();
+            throw new TaskException();
         }
 
         String description = input.substring(6, fromIndex - 1);
@@ -94,45 +119,39 @@ public class Parser {
         return event;
     }
 
-    public static ToDo parseUserToDo(String input) throws ToDoException {
+    public static ToDo parseUserToDo(String input) throws TaskException {
         if (input.length() <= 5) {
-            throw new ToDoException();
+            throw new TaskException();
         }
 
         ToDo todo = new ToDo(input.substring(5));
         return todo;
     }
 
-    public static int parseUserMark(String input, int size) throws TaskException {
+    public static int parseUserMark(String input) throws TaskException {
         int index = Integer.valueOf(input.substring(5)) - 1;
 
         if (input.length() <= 5) {
             throw new TaskException();
-        } else if (index >= size) {
+        }
+
+        return index;
+    }
+
+    public static int parseUserUnmark(String input) throws TaskException {
+        int index = Integer.valueOf(input.substring(7)) - 1;
+
+        if (input.length() <= 7) {
             throw new TaskException();
         }
 
         return index;
     }
 
-    public static int parseUserUnmark(String input, int size) throws TaskException {
+    public static int parseUserDelete(String input) throws TaskException {
         int index = Integer.valueOf(input.substring(7)) - 1;
 
         if (input.length() <= 7) {
-            throw new TaskException();
-        } else if (index >= size) {
-            throw new TaskException();
-        }
-
-        return index;
-    }
-
-    public static int parseUserDelete(String input, int size) throws TaskException {
-        int index = Integer.valueOf(input.substring(7)) - 1;
-
-        if (input.length() <= 7) {
-            throw new TaskException();
-        } else if (index >= size) {
             throw new TaskException();
         }
 
