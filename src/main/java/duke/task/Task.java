@@ -22,6 +22,9 @@ public class Task {
         return String.format("OK, I've marked this task as not done yet:\n" +
                 "%s\n" + "----------\n", this);
     }
+    public boolean match(String keyword) {
+        return description.contains(keyword);
+    }
     @Override
     public String toString() {
         return String.format("[%s] %s", this.getStatusIcon(), this.description);

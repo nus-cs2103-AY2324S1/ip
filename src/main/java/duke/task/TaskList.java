@@ -9,13 +9,18 @@ import java.util.List;
 public class TaskList {
 
     private List<Task> list;
+    private Integer capacity;
 
     public TaskList(Integer capacity) {
         this.list = new ArrayList<>(capacity);
+        this.capacity = capacity;
     }
 
     public List<Task> getList() {
         return this.list;
+    }
+    public boolean isEmpty() {
+        return (list.size() == 0);
     }
 
     public void showList() {
@@ -49,5 +54,20 @@ public class TaskList {
         System.out.printf("Got it. I've added this task:\n" +
                 "%s\n" + "Now you have %d tasks in the list.\n" +
                 "----------\n", task, list.size());
+    }
+
+    public void findTasks(String keyword) {
+        TaskList tasks = new TaskList(this.capacity);
+        for (Task task: list) {
+            if (task.match(keyword)) {
+                tasks.list.add(task);
+            }
+        }
+        if (tasks.isEmpty()) {
+            System.out.println("There are no matching tasks in your list.");
+        } else {
+            System.out.println("Here are the matching tasks in your list:");
+            tasks.showList();
+        }
     }
 }
