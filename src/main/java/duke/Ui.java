@@ -88,6 +88,11 @@ public class Ui {
         System.out.println(taskList);
     }
 
+    /**
+     * Prints the result list.
+     *
+     * @param list list of tasks.
+     */
     public void printResultList(ArrayList<Task> list) {
         System.out.println(lineSeparator);
         System.out.println("Here are the matching tasks in your list:");
