@@ -15,7 +15,6 @@ public class Duke {
         Scanner sc = new Scanner(System.in);
         String userCommand;
         storage.load();
-
         ui.helloMsg();
         userCommand = sc.nextLine();
 
