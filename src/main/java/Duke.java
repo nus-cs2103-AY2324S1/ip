@@ -1,11 +1,17 @@
 import java.util.Arrays;
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;  
+
 
 public class Duke {
     private static String GREETINGS = "Hello! I'm AChatBot\n" +
             "What can I do for you?";
     private static String FAREWELL = "Bye. Hope to see you again soon!";
+    private static String FILE_PATH = "./data/duke.txt";
 
     /**
      * Exception when a wrong task query string is supplied to ChatBotList.
@@ -26,6 +32,15 @@ public class Duke {
             super(message);
         }
         public NotInChatBotListException() {
+            super();
+        }
+    }
+
+    private static class LoadListException extends IllegalArgumentException {
+        public LoadListException(String message) {
+            super(message);
+        }
+        public LoadListException() {
             super();
         }
     }
@@ -183,6 +198,7 @@ public class Duke {
                                 "event <desc> /from <start> /to <end>");
                     }
                     this.list.add( new Event(firstSplit[0], secondSplit[0], secondSplit[1]));
+                    writeToSave();
                     break;
                 case DEADLINE:
                     String[] splitInput = s.split(" +/by +", 2);
@@ -192,9 +208,11 @@ public class Duke {
                                 "deadline <desc> /by <deadline>");
                     }
                     this.list.add(new Deadline(splitInput[0], splitInput[1]));
+                    writeToSave();
                     break;
                 case TODO:
                     this.list.add(new Todo(s));
+                    writeToSave();
                     break;
                 default:
                     break;
@@ -213,6 +231,7 @@ public class Duke {
                 throw new NotInChatBotListException();
             }
             this.list.get(index - 1).markCompleted();
+            writeToSave();
             return this.list.get(index - 1).toString();
         }
 
@@ -227,6 +246,7 @@ public class Duke {
                 throw new NotInChatBotListException();
             }
             this.list.get(index - 1).unmarkCompleted();
+            writeToSave();
             return this.list.get(index - 1).toString();
         }
 
@@ -242,9 +262,63 @@ public class Duke {
             }
             Item itemToRemove = this.list.get(index - 1);
             this.list.remove(index - 1);
+            writeToSave();
             return itemToRemove.toString();
         }
 
+        /**
+         * Loads the list from the given file
+         */
+        public void loadList() {
+            this.list = new ArrayList<Item>();
+            try {
+                Scanner listReader = new Scanner(new File(FILE_PATH));
+                while (listReader.hasNextLine()) {
+                    String data = listReader.nextLine();
+                    switch (data.substring(data.indexOf("["), data.indexOf("]") + 1)) {
+                        case "[T]":
+                            this.list.add(new Todo(data.substring(data.indexOf("[") + 7)));
+                            if (data.substring(data.indexOf("[") + 4, data.indexOf("[") + 5).equals("X")) {
+                                this.markItem(this.getLength());
+                            }
+                            break;
+                        case "[E]":
+                            data.indexOf("(from: ");
+                            data.indexOf(" to: ");
+                            this.list.add(new Event(data.substring(data.indexOf("[") + 7, data.indexOf(" (from: ")), 
+                                    data.substring(data.indexOf("(from: ") + 7, data.indexOf(" to: ")),
+                                    data.substring(data.indexOf("to: ") + 4, data.length() - 1)));
+                            if (data.substring(data.indexOf("[") + 4, data.indexOf("[") + 5).equals("X")) {
+                                this.markItem(this.getLength());
+                            }
+                            break;
+                        case "[D]":
+                            this.list.add(new Deadline(data.substring(data.indexOf("[") + 7, data.indexOf(" (by: ")),
+                                    data.substring(data.indexOf("(by: ") + 5, data.length()-1)));
+                            if (data.substring(data.indexOf("[") + 4, data.indexOf("[") + 5).equals("X")) {
+                                this.markItem(this.getLength());
+                            }
+                            break;
+                        default: throw new LoadListException();
+                    }
+                }
+                listReader.close();
+            } catch (FileNotFoundException e) {
+                this.list = new ArrayList<Item>();
+            } catch (LoadListException e) {
+                this.list = new ArrayList<Item>();
+            }
+        }
+
+        private void writeToSave() {
+            try {
+                BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_PATH));
+                writer.write(this.toString());
+                writer.close();
+            } catch (java.io.IOException e) {
+                System.out.println(e.getMessage());
+            }
+        }
         @Override
         public String toString() {
             String rtnVal = "";
@@ -267,6 +341,8 @@ public class Duke {
     public static void main(String[] args) {
         Scanner s = new Scanner(System.in);
         ChatBotList list = new ChatBotList();
+        list.loadList();
+        System.out.println(new File(FILE_PATH));
         System.out.println(GREETINGS);
         while (true) {
             String input = s.nextLine().trim();
