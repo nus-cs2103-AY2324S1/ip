@@ -1,15 +1,14 @@
-package commandhandling;
+package main.logic.handler;
 
-import commandhandling.argsorting.ArgSorter;
-import exceptions.KniazRuntimeException;
+
 import exceptions.syntax.KniazInvalidArgsException;
 import main.KniazSession;
 import storage.TaskList;
-import task.Deadline;
 import task.Task;
-import ui.inputparser.InstructionType;
+
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Handles the delete command, by deleting the specified task.
@@ -19,20 +18,13 @@ public class DeleteHandler implements CommandHandler {
     // the expected order of arguments to this command
     private static final String[] ARG_ORDER = new String[]{""};
 
-    /**
-     * Executes the deletion of a Task from the KniazSession's Tasklist.
-     * @param session the linked KniazSession that this command is to execute in
-     * @param args the arguments to this command
-     * @return the user-facing string representation of the deleted task
-     * @throws KniazInvalidArgsException when the argument is invalid, like the index being out of bounds
-     */
+
+
     @Override
-    public String handle(KniazSession session, String[] args) throws KniazInvalidArgsException{
-
-        String[] sortedArgs = ArgSorter.sortArgsByStarting(args,ARG_ORDER);
-        // appears redundant but acts as another gatekeeper to make sure the arg syntax is right
-
-        String indexAsString = args[0];
+    public String handle(KniazSession session,
+                         List<? extends String> unnamedArgs,
+                         Map<? extends String, ? extends String> namedArgs) throws KniazInvalidArgsException {
+        String indexAsString = unnamedArgs.get(0);
         int index = Integer.parseInt(indexAsString) - 1;
 
         TaskList sessionTaskList = session.getTaskList();
@@ -45,6 +37,7 @@ public class DeleteHandler implements CommandHandler {
 
         return deletedTask.toPrintString();
     }
+}
 
     /**
      * Deletes a task, and also performs input validation and checks if the operation makes sense.
@@ -95,5 +88,5 @@ public class DeleteHandler implements CommandHandler {
 //            throw new KniazRuntimeException(e.getMessage(), userMessage, e);
 //
 //        }
-}
+
 

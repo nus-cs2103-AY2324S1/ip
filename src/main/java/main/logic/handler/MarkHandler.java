@@ -1,13 +1,13 @@
-package commandhandling;
+package main.logic.handler;
 
-import commandhandling.argsorting.ArgSorter;
-import exceptions.KniazRuntimeException;
+
 import exceptions.syntax.KniazInvalidArgsException;
 import main.KniazSession;
 import storage.TaskList;
 import task.Task;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Handles the mark command, by marking the specified task as done
@@ -20,18 +20,22 @@ public class MarkHandler implements CommandHandler {
     /**
      * Handles the mark command by marking the specified task as done, returning the user-facing string representation
      * of the marked task
-     * @param session the linked KniazSession that this command is to execute in
-     * @param args the arguments to this command
+     *
+     * @param session     the linked KniazSession that this command is to execute in
+     * @param unnamedArgs the arguments to this command
+     * @param namedArgs
      * @return the user-facing string representation of the marked task
      * @throws KniazInvalidArgsException when the arguments are invalid, like when the index is out of bounds
      */
     @Override
-    public String handle(KniazSession session, String[] args) throws KniazInvalidArgsException{
+    public String handle(KniazSession session,
+                         List<? extends String> unnamedArgs,
+                         Map<? extends String, ? extends String> namedArgs) throws KniazInvalidArgsException {
 
-        String[] sortedArgs = ArgSorter.sortArgsByStarting(args,ARG_ORDER);
+
         // appears redundant but acts as another gatekeeper to make sure the arg syntax is right
 
-        String indexAsString = args[0];
+        String indexAsString = unnamedArgs.get(0);
         int index = Integer.parseInt(indexAsString) - 1;
 
         TaskList sessionTaskList = session.getTaskList();
@@ -40,7 +44,7 @@ public class MarkHandler implements CommandHandler {
             throw new KniazInvalidArgsException();
         }
 
-        Task markedTask = session.getTaskList().markAsUndone(index);
+        Task markedTask = session.getTaskList().markAsDone(index);
 
         return markedTask.toPrintString();
     }

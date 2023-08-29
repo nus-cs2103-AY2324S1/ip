@@ -1,18 +1,21 @@
-package ui.inputparser.commands;
+package main.logic.command;
 
-import commandhandling.*;
+
 import exceptions.syntax.KniazInvalidArgsException;
+
+import main.logic.handler.*;
 import ui.inputparser.InstructionType;
 
 import java.util.EnumMap;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
-import java.util.regex.Matcher;
 
 /**
  * Class encapsulating a command given to Kniaz, should only be instantiated via KniazParser when it parses a command
  */
 public abstract class CommandFactory {
-    private static final EnumMap<InstructionType,CommandHandler> INSTRUCT_TO_HANDLER =
+    private static final EnumMap<InstructionType, CommandHandler> INSTRUCT_TO_HANDLER =
             new EnumMap<>(Map.of(
                     InstructionType.TODO, new ToDoHandler(),
                     InstructionType.DEADLINE, new DeadlineHandler(),
@@ -25,22 +28,14 @@ public abstract class CommandFactory {
                     InstructionType.INVALID, new InvalidHandler()
             ));
 
-    public static KniazCommand<? extends CommandHandler> makeCommand(InstructionType instruction,
-                                                                     String... args) throws KniazInvalidArgsException {
-        if (instruction.numArgs != args.length) {
-            throw new KniazInvalidArgsException();
-        }
+    public static KniazCommand makeCommand(InstructionType instruction,
+                                           List<String> unnamedArgs,
+                                           Map<? extends String, ? extends  String> namedArgs){
 
-        for (String arg : args) {
-            Matcher argPatternMatcher = instruction.argPattern.matcher(arg);
-            if (!argPatternMatcher.matches()) {
-                throw new KniazInvalidArgsException();
-            }
-        }
 
         CommandHandler handler = INSTRUCT_TO_HANDLER.get(instruction);
 
-        return new KniazCommand<CommandHandler>(handler, args);
+        return new KniazCommand(handler, unnamedArgs, namedArgs);
 
         // Guaranteed at this point command is valid
 

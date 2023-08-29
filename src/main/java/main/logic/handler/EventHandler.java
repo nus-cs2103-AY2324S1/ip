@@ -1,10 +1,13 @@
-package commandhandling;
+package main.logic.handler;
 
-import commandhandling.argsorting.ArgSorter;
+
 import exceptions.syntax.KniazInvalidArgsException;
 import main.KniazSession;
 import task.Event;
 import task.Task;
+
+import java.util.List;
+import java.util.Map;
 
 /**
  * Handles the event command, by creating a new Event object.
@@ -16,20 +19,24 @@ public class EventHandler implements CommandHandler {
 
     /**
      * Handles the event command by creating a new Event
-     * @param session the linked KniazSession that this command is to execute in
-     * @param args the arguments to this command
+     *
+     * @param session     the linked KniazSession that this command is to execute in
+     * @param unnamedArgs the arguments to this command
+     * @param namedArgs
      * @return the user-facing string representation of the event that was created
      * @throws KniazInvalidArgsException when the arguments are invalid, like when a "/to {TIME}"is missing as an argument
      */
     @Override
-    public String handle(KniazSession session, String[] args) throws KniazInvalidArgsException {
+    public String handle(KniazSession session,
+                         List<? extends String> unnamedArgs,
+                         Map<? extends String, ? extends String> namedArgs)
+            throws KniazInvalidArgsException {
 
 
-        String[] sortedArgs = ArgSorter.sortArgsByStarting(args, ARG_ORDER);
 
-        String taskName = sortedArgs[0];
-        String taskFrom = sortedArgs[1];
-        String taskTo = sortedArgs[2];
+        String taskName = unnamedArgs.get(0);
+        String taskFrom = namedArgs.get("from");
+        String taskTo = namedArgs.get("to");
 
 
         Task taskToAdd = new Event(taskName,taskFrom,taskTo);

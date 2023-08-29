@@ -1,10 +1,13 @@
-package commandhandling;
+package main.logic.handler;
 
-import commandhandling.argsorting.ArgSorter;
+
 import exceptions.syntax.KniazInvalidArgsException;
 import main.KniazSession;
 import task.Deadline;
 import task.Task;
+
+import java.util.List;
+import java.util.Map;
 
 /**
  * Encapsulates the execution of a deadline commmand, creating a new Deadline.
@@ -12,23 +15,27 @@ import task.Task;
 public class DeadlineHandler implements CommandHandler {
 
     // the expected order of arguments to this command
-    private static final String[] ARG_ORDER = new String[]{"","/by"};
+    private static final String BY_NAME = "by";
 
     /**
      * Executes the command to create a new Deadline
-     * @param session the linked KniazSession that this command is to execute in
-     * @param args    the arguments to this command
+     *
+     * @param session     the linked KniazSession that this command is to execute in
+     * @param unnamedArgs the arguments to this command
+     * @param namedArgs
      * @return the user-facing string representation of the created Deadline
-     * @throws  KniazInvalidArgsException when the arguments are invalid, such as not having a "/by {TIME}" argument
+     * @throws KniazInvalidArgsException when the arguments are invalid, such as not having a "/by {TIME}" argument
      */
     @Override
-    public String handle(KniazSession session, String[] args) throws KniazInvalidArgsException {
+    public String handle(KniazSession session,
+                         List<? extends String> unnamedArgs,
+                         Map<? extends String, ? extends String> namedArgs) throws KniazInvalidArgsException {
 
 
-        String[] sortedArgs = ArgSorter.sortArgsByStarting(args,ARG_ORDER);
 
-        String taskName = sortedArgs[0];
-        String taskBy = sortedArgs[1];
+
+        String taskName = unnamedArgs.get(0);
+        String taskBy = namedArgs.get(BY_NAME);
 
 
         Task taskToAdd = new Deadline(taskName,taskBy);

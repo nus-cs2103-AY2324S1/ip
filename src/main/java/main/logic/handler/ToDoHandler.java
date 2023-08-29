@@ -1,14 +1,14 @@
-package commandhandling;
+package main.logic.handler;
 
-import commandhandling.argsorting.ArgSorter;
+
 import exceptions.KniazRuntimeException;
 import exceptions.syntax.KniazInvalidArgsException;
 import main.KniazSession;
 import task.Task;
-import storage.TaskList;
 import task.ToDo;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Handles "todo" command by instantiating a new "todo".
@@ -19,16 +19,20 @@ public  class ToDoHandler implements CommandHandler {
     private static final String[] ARG_ORDER = new String[]{""};
     /**
      * Handles todo command by making a new ToDo
-     * @param session the linked KniazSession that this command is to execute in
-     * @param args the arguments to this command
+     *
+     * @param session     the linked KniazSession that this command is to execute in
+     * @param unnamedArgs the arguments to this command
+     * @param namedArgs
      * @return the user-facing string representation of the newly made Task
      * @throws KniazInvalidArgsException
      */
     @Override
-    public String handle(KniazSession session, String[] args) throws KniazInvalidArgsException {
+    public String handle(KniazSession session,
+                         List<? extends String> unnamedArgs,
+                         Map<? extends String, ? extends String> namedArgs) throws KniazInvalidArgsException {
 
-        String[] sortedArgs = ArgSorter.sortArgsByStarting(args,ARG_ORDER);
-        String toDoName = sortedArgs[0];
+
+        String toDoName = unnamedArgs.get(0);
         Task taskToAdd = new ToDo(toDoName);
 
         session.getTaskList().add(taskToAdd);
