@@ -4,6 +4,10 @@ public class ToDo extends Task {
         super(des);
     }
 
+    public ToDo(String des, boolean mark) {
+        super(des, mark);
+    }
+
     @Override
     public String toString() {
         return "[T]" + super.toString();

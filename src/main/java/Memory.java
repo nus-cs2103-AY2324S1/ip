@@ -1,7 +1,10 @@
 import java.util.ArrayList;
 public class Memory {
-    private final static ArrayList<Task> ls = new ArrayList<>();
-    private final static ArrayList<Boolean> markList = new ArrayList<>();
+    private static ArrayList<Task> ls = new ArrayList<>();
+
+    public Memory(ArrayList<Task> al) {
+        this.ls = al;
+    }
 
     public void add(Task task) {
         if (task == null) {
