@@ -41,3 +41,5 @@ Design:
  
 TODO:
  - add cs2103t specific rules to linter
+ - add gradle support for linter
+ - add gradle support for junit tests
