@@ -23,6 +23,21 @@ public abstract class Task {
         this.isDone = false;
     }
 
+    // TODO: Create the Factory method.
+    public static Task of(String type, String... args) {
+        switch (type) {
+        case "1":
+            System.out.println("1");
+            break;
+        case "2":
+            System.out.println("2");
+            break;
+        default:
+            break;
+        }
+        return null;
+    }
+
     /**
      * Parses the save string in the input file. <br>
      * The save string should have the following format: <br>
