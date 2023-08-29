@@ -136,9 +136,12 @@ public class Duke {
             // Extract the date and add a new deadline to the task list.
             LocalDateTime date = DateParser.parseDateString(dlParse[1]);
             if (date == null) {
-                throw new DukeException(
-                    "Oops, looks like your date is in an invalid format..."
-                );
+                throw new DukeException(new String[] {
+                    "Oops, looks like your date is in an invalid format...",
+                    "Here are some valid formats:",
+                    "2023-10-20, 20-10-2023, 2023/10/20, 20/10/2023, Oct 10 2023, 10 Oct 2023",
+                    "You can provide a timing as well: 2023-10-20 1800"
+                });
             }
             this.addDeadline(
                 extractTail(header),
