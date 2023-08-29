@@ -1,9 +1,19 @@
 package pooh;
 
+/**
+ * Handles all the user interactions in the application.
+ * <p>
+ * This class is responsible for showing a welcome message,
+ * an exit message, and any other general messages.
+ * </p>
+ */
 public class Ui {
     private static final String HORIZONTAL_LINE = "      " +
             "_______________________________________________________________________________";
 
+    /**
+     * Prints the welcome message when the chatbot starts.
+     */
     public static void welcomeMsg() {
         String logo = "      .----------------.  .----------------.  .----------------.  .----------------.\n" +
                 "      | .--------------. || .--------------. || .--------------. || .--------------. |\n" +
@@ -24,6 +34,9 @@ public class Ui {
         System.out.println(HORIZONTAL_LINE);
     }
 
+    /**
+     * Prints the exit message when the user terminates the chatbot.
+     */
     public static void exitMsg() {
         String byeMessage = "      How lucky I am to have something that makes saying goodbye so hard. Bye!";
         System.out.println(HORIZONTAL_LINE);
@@ -31,12 +44,22 @@ public class Ui {
         System.out.println(HORIZONTAL_LINE);
     }
 
+    /**
+     * Prints a general response message.
+     *
+     * @param message The message to be displayed.
+     */
     public static void generalRespond(String message) {
         System.out.println(HORIZONTAL_LINE);
         System.out.println(message);
         System.out.println(HORIZONTAL_LINE);
     }
 
+    /**
+     * Prints the list of tasks.
+     *
+     * @param taskList The list of tasks.
+     */
     public static void printTasksMsg(TaskList taskList) {
         StringBuilder todoListString = new StringBuilder();
         for (int i = 0; i < taskList.getSize(); i++) {
@@ -54,12 +77,22 @@ public class Ui {
         System.out.println(HORIZONTAL_LINE);
     }
 
+    /**
+     * Prints a message indicating a task has been marked as done.
+     *
+     * @param task The task that has been marked as done.
+     */
     public static void taskDoneMsg(Task task) {
         System.out.println(HORIZONTAL_LINE);
         System.out.println("      Nice! I've marked this task as done:\n      " + task);
         System.out.println(HORIZONTAL_LINE);
     }
 
+    /**
+     * Prints a message indicating a task has been marked as not done.
+     *
+     * @param task The task that has been marked as not done.
+     */
     public static void taskUndoneMsg(Task task) {
         System.out.println(HORIZONTAL_LINE);
         System.out.println("      OK, I've marked this task as not done yet:\n      " + task);
