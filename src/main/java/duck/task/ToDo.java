@@ -1,6 +1,8 @@
-public class ToDo extends Task{
+package duck.task;
 
-    ToDo(String str) {
+public class ToDo extends Task {
+
+    public ToDo(String str) {
         super(str);
     }
 

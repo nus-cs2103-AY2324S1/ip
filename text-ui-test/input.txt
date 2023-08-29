@@ -1,8 +1,11 @@
+list
+delete 3 fnwlfkn
+delete 3
 todo project
 deadline return book /by sunday
+deadline return book /by 2034-03-09 1200
 event project meeting /from Mon 2pm /to 4pm
-mark 0
-unmark 0
-list
-delete 1
+event project meeting /from 2032-09-08 1230 /by 2032-09-08 1230
+event project meeting /from 2032-09-08 1230 /to 2032-09-08 1230
+delete 0
 bye

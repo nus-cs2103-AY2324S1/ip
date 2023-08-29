@@ -1,12 +1,14 @@
+package duck.task;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-public class Events extends Task{
+public class Events extends Task {
 
     private LocalDateTime start;
     private LocalDateTime end;
 
-    Events(LocalDateTime start, LocalDateTime end, String description) {
+    public Events(LocalDateTime start, LocalDateTime end, String description) {
         super(description);
         this.start = start;
         this.end = end;
@@ -36,6 +38,6 @@ public class Events extends Task{
         return "E";
     }
     public String getDate() {
-        return this.start + "-" + this.end;
+        return this.start.format(DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm")) + "-" + this.end.format(DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm"));
     }
 }

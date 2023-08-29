@@ -1,22 +1,16 @@
+package duck.task;
+
 public class Task {
-    protected String description;
-    protected boolean isDone;
+    private String description;
+    private boolean isDone;
 
     public Task(String description) {
         this.description = description.strip();
         this.isDone = false;
     }
 
-    public Task() {
-
-    }
-
-    public String doneMessage() {
-        return "Nice! I've marked this task as done:";
-    }
-
-    public String undoneMessage() {
-        return "OK, I've marked this task as not done yet:";
+    public String getDescription() {
+        return this.description;
     }
 
     public String getStatusIcon() {
