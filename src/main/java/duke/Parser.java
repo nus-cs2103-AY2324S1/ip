@@ -22,7 +22,6 @@ public class Parser {
                         }
                     }
                     ui.printline();
-
                 } else if (text.startsWith("unmark")) {
                     try {
                         storage.appendToFile(text + "\n");
@@ -96,6 +95,7 @@ public class Parser {
                             LocalDateTime deadline = LocalDateTime.parse(deadlineText);
                             Deadline dl = new Deadline(description.trim(), deadline);
                             list.add(dl);
+
                             ui.printline();
                             ui.sendMessage("Noted Sir. I've added this task to your list: ");
                             ui.sendMessage(String.format("\t [%s] [%s] %s", dl.tag, dl.getStatusIcon(),
@@ -104,7 +104,7 @@ public class Parser {
                                     list.size()));
                             ui.printline();
                         } catch (DateTimeParseException e) {
-                        throw new DukeException("Invalid Date Format: should be YYYY-MM-DDTTime. " +
+                        throw new DukeException("Invalid Date Format: should be YYYY-MM-DDTHH:MM:SS. " +
                                 "Example: 2023-12-12T06:30:00");
                     } try {
                             storage.appendToFile( text + "\n");
@@ -129,7 +129,6 @@ public class Parser {
                             Event event = new Event(description.trim(), start, end);
                             list.add(event);
 
-
                             ui.printline();
                             ui.sendMessage("Noted Sir. I've added this task to your list: ");
                             ui.sendMessage(String.format("\t [%s] [%s] %s", event.tag,
@@ -139,7 +138,7 @@ public class Parser {
                                     list.size()));
                             ui.printline();
                         } catch (DateTimeParseException e) {
-                            throw new DukeException("Invalid Date Format: should be YYYY-MM-DDTTime. " +
+                            throw new DukeException("Invalid Date Format: should be YYYY-MM-DDTHH:MM:SS. " +
                                     "Example: 2023-12-12T06:30:00");
                         } try {
                             storage.appendToFile( text + "\n");
