@@ -6,10 +6,10 @@ import dook.task.Event;
 import dook.task.Task;
 import dook.task.Todo;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -20,12 +20,15 @@ import java.util.Scanner;
  *
  */
 public class Storage {
-    private String filePath;
     private File file;
 
+    private Path path;
+
     public Storage(String filePath) {
-        this.filePath = filePath;
         this.file = new File(filePath);
+    }
+    public Storage(Path filePath) {
+        this.path = filePath;
     }
 
     /**
@@ -35,19 +38,34 @@ public class Storage {
      * @throws FileNotFoundException, DookException
      */
     public ArrayList<Task> load() throws FileNotFoundException, DookException {
-
-        Scanner sc = new Scanner(file);
         ArrayList<Task> result = new ArrayList<>();
-        while (sc.hasNext()) {
-            result.add(getTaskFromString(sc.nextLine()));
+        verifyFileExists();
+        try {
+            BufferedReader reader = Files.newBufferedReader(path);
+            while (reader.ready()) {
+                String line = reader.readLine();
+                result.add(getTaskFromString(line));
+            }
+        } catch (IOException e) {
+            throw new DookException("File can't be read.");
         }
         return result;
     }
 
+    private void verifyFileExists() {
+        if (Files.exists(path)) return;
+         try {
+             Files.createFile(path);
+         } catch (IOException e) {
+             return;
+         }
+    }
+
+
     public String save(TaskList taskList) throws DookException{
         String toSave = taskList.getSaveableString();
         try {
-            writeToFile(filePath, toSave);
+            writeToFile(toSave);
         } catch (IOException e) {
             throw new DookException("File cannot be saved.");
         }
@@ -55,10 +73,9 @@ public class Storage {
 
     }
 
-    private static void writeToFile(String filePath, String textToAdd) throws IOException {
-        FileWriter fw = new FileWriter(filePath);
-        fw.write(textToAdd);
-        fw.close();
+    private void writeToFile(String textToAdd) throws IOException {
+        byte[] strToBytes = textToAdd.getBytes();
+        Files.write(this.path, strToBytes);
     }
 
     /**

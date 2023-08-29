@@ -2,10 +2,15 @@ plugins {
     id 'java'
     id 'application'
     id 'checkstyle'
+    id 'com.github.johnrengelman.shadow' version '7.1.2'
 }
 
 repositories {
     mavenCentral()
+}
+
+shadowJar {
+    archiveFileName = 'dook.jar'
 }
 
 dependencies {
