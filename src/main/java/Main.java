@@ -1,5 +1,4 @@
-package duke;
-
+import duke.Duke;
 import java.io.File;
 
 public class Main {
