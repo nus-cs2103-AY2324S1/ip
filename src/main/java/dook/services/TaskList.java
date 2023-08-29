@@ -91,64 +91,6 @@ public class TaskList {
     }
 
     /**
-     * Gets a string containing all tasks before a certain local date.
-     * @param localDate Local date to be compared with.
-     * @return Sublist string to be displayed to the user.
-     */
-    public String getTasksBefore(LocalDate localDate) {
-        StringBuilder result = new StringBuilder();
-        for (int i = 0; i < taskList.size(); i++) {
-            Task curr = taskList.get(i);
-            TimedTask timedTask = null;
-            if (curr instanceof TimedTask) {
-                timedTask = (TimedTask) curr;
-            }
-            if (timedTask != null && timedTask.isBefore(localDate)) {
-                result.append(String.format("%d. %s\n", i + 1, taskList.get(i)));
-            }
-        }
-        return result.toString();
-    }
-    /**
-     * Gets a string containing all tasks after a certain local date.
-     * @param localDate Local date to be compared with.
-     * @return Sublist string to be displayed to the user.
-     */
-    public String getTasksAfter(LocalDate localDate) {
-        StringBuilder result = new StringBuilder();
-        for (int i = 0; i < taskList.size(); i++) {
-            Task curr = taskList.get(i);
-            TimedTask timedTask = null;
-            if (curr instanceof TimedTask) {
-                timedTask = (TimedTask) curr;
-            }
-            if (timedTask != null && timedTask.isAfter(localDate)) {
-                result.append(String.format("%d. %s\n", i + 1, taskList.get(i)));
-            }
-        }
-        return result.toString();
-    }
-    /**
-     * Gets a string containing all tasks during a certain local date.
-     * @param localDate Local date to be compared with.
-     * @return Sublist string to be displayed to the user.
-     */
-    public String getTasksDuring(LocalDate localDate) {
-        StringBuilder result = new StringBuilder();
-        for (int i = 0; i < taskList.size(); i++) {
-            Task curr = taskList.get(i);
-            TimedTask timedTask = null;
-            if (curr instanceof TimedTask) {
-                timedTask = (TimedTask) curr;
-            }
-            if (timedTask != null && timedTask.isDuring(localDate)) {
-                result.append(String.format("%d. %s\n", i + 1, taskList.get(i)));
-            }
-        }
-        return result.toString();
-    }
-
-    /**
      * Converts the task list into a saveable string format.
      * @return All tasks formatted to be saved by storage.
      */

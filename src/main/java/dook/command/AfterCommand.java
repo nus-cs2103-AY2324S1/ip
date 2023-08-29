@@ -6,6 +6,7 @@ import dook.DookException;
 import dook.services.Storage;
 import dook.services.TaskList;
 import dook.services.UiDisplay;
+import dook.task.TimedTask;
 
 /**
  * Command for getting all tasks after a certain date.
@@ -26,6 +27,12 @@ public class AfterCommand extends Command {
      */
     @Override
     public void execute(Storage storage, UiDisplay uiDisplay, TaskList taskList) throws DookException {
-        uiDisplay.printMessage(taskList.getTasksAfter(localDate));
+        uiDisplay.printMessage(taskList.filterTasks((task) -> {
+            if (task instanceof TimedTask) {
+                TimedTask t = (TimedTask) task;
+                return t.isAfter(localDate);
+            }
+            return false;
+        }));
     }
 }
