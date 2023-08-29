@@ -26,6 +26,12 @@ java -classpath ../bin Duke < input.txt > ACTUAL.TXT
 cp EXPECTED.TXT EXPECTED-UNIX.TXT
 dos2unix ACTUAL.TXT EXPECTED-UNIX.TXT
 
+# clean up data folder created by script
+if [ -d "./data" ]
+then
+    rm -r ./data
+fi
+
 # compare the output to the expected output
 diff ACTUAL.TXT EXPECTED-UNIX.TXT
 if [ $? -eq 0 ]

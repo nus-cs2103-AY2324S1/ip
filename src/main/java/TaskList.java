@@ -18,6 +18,10 @@ public class TaskList {
         this.list = new ArrayList<>();
     }
 
+    public Task getTask(int index) {
+        return this.list.get(index);
+    }
+
     /**
      * Adds a new task to the list.
      * 
@@ -27,40 +31,40 @@ public class TaskList {
      */
     public void addTask(TaskType type, String taskString) throws DukeInvalidArgumentException {
         switch (type) {
-            case TODO:
-                if (taskString.equals("")) {
-                    throw new DukeInvalidArgumentException("You didn't specify a task to do. " +
-                            "Check that you're doing \"todo {description}\".");
-                }
-                this.list.add(new ToDo(taskString));
-                break;
+        case TODO:
+            if (taskString.equals("")) {
+                throw new DukeInvalidArgumentException("You didn't specify a task to do. " +
+                        "Check that you're doing \"todo {description}\".");
+            }
+            this.list.add(new ToDo(taskString));
+            break;
 
-            case DEADLINE:
-                try {
-                    String[] deadlineParts = taskString.split(" /by ", 2);
-                    this.list.add(new Deadline(deadlineParts[0].trim(), deadlineParts[1].trim()));
-                } catch (IndexOutOfBoundsException e) {
-                    throw new DukeInvalidArgumentException(
-                            "Your deadline seems to be formatted wrongly. " +
-                                    "Check that you're doing: \"deadline {description} \\by {date}\".");
-                }
-                break;
+        case DEADLINE:
+            try {
+                String[] deadlineParts = taskString.split(" /by ", 2);
+                this.list.add(new Deadline(deadlineParts[0].trim(), deadlineParts[1].trim()));
+            } catch (IndexOutOfBoundsException e) {
+                throw new DukeInvalidArgumentException(
+                        "Your deadline seems to be formatted wrongly. " +
+                                "Check that you're doing: \"deadline {description} /by {date}\".");
+            }
+            break;
 
-            case EVENT:
-                try {
-                    String[] eventParts = taskString.split(" /from ", 2);
-                    String description = eventParts[0].trim();
-                    String[] eventTimeParts = eventParts[1].trim().split(" /to ", 2);
-                    this.list.add(new Event(description, eventTimeParts[0].trim(), eventTimeParts[1].trim()));
-                } catch (IndexOutOfBoundsException e) {
-                    throw new DukeInvalidArgumentException(
-                            "Your event seems to be formatted wrongly. " +
-                                    "Check that you're doing: \"event {description} \\from {start} \\to {end}\".");
-                }
-                break;
+        case EVENT:
+            try {
+                String[] eventParts = taskString.split(" /from ", 2);
+                String description = eventParts[0].trim();
+                String[] eventTimeParts = eventParts[1].trim().split(" /to ", 2);
+                this.list.add(new Event(description, eventTimeParts[0].trim(), eventTimeParts[1].trim()));
+            } catch (IndexOutOfBoundsException e) {
+                throw new DukeInvalidArgumentException(
+                        "Your event seems to be formatted wrongly. " +
+                                "Check that you're doing: \"event {description} /from {start} /to {end}\".");
+            }
+            break;
 
-            default:
-                throw new DukeInvalidArgumentException("I'm gonna be honest, no idea what you're saying.");
+        default:
+            throw new DukeInvalidArgumentException("I'm gonna be honest, no idea what you're saying.");
         }
 
         System.out.println(DIVIDER);
@@ -142,5 +146,9 @@ public class TaskList {
         }
 
         System.out.println(DIVIDER);
+    }
+
+    public int size() {
+        return this.list.size();
     }
 }

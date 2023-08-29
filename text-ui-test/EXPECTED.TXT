@@ -3,6 +3,15 @@ Hello! I'm LilBro!
 What can I do for you?
 ____________________________________________________________
 ____________________________________________________________
+Checking for a save file...
+____________________________________________________________
+...No saved tasks found.
+Creating new save file for you...
+Save file empty, you're good to go.
+____________________________________________________________
+OK, ready to roll.
+____________________________________________________________
+____________________________________________________________
 Not sure what you're blabbering on about, please use a valid command.
 ____________________________________________________________
 ____________________________________________________________
@@ -23,16 +32,16 @@ Got it. I've added this task:
 Now you have 1 tasks in the list.
 ____________________________________________________________
 ____________________________________________________________
-Your deadline seems to be formatted wrongly. Check that you're doing: "deadline {description} \by {date}".
+Your deadline seems to be formatted wrongly. Check that you're doing: "deadline {description} /by {date}".
 ____________________________________________________________
 ____________________________________________________________
-Your deadline seems to be formatted wrongly. Check that you're doing: "deadline {description} \by {date}".
+Your deadline seems to be formatted wrongly. Check that you're doing: "deadline {description} /by {date}".
 ____________________________________________________________
 ____________________________________________________________
-Your deadline seems to be formatted wrongly. Check that you're doing: "deadline {description} \by {date}".
+Your deadline seems to be formatted wrongly. Check that you're doing: "deadline {description} /by {date}".
 ____________________________________________________________
 ____________________________________________________________
-Your deadline seems to be formatted wrongly. Check that you're doing: "deadline {description} \by {date}".
+Your deadline seems to be formatted wrongly. Check that you're doing: "deadline {description} /by {date}".
 ____________________________________________________________
 ____________________________________________________________
 Got it. I've added this task:
@@ -45,16 +54,16 @@ Got it. I've added this task:
 Now you have 3 tasks in the list.
 ____________________________________________________________
 ____________________________________________________________
-Your event seems to be formatted wrongly. Check that you're doing: "event {description} \from {start} \to {end}".
+Your event seems to be formatted wrongly. Check that you're doing: "event {description} /from {start} /to {end}".
 ____________________________________________________________
 ____________________________________________________________
-Your event seems to be formatted wrongly. Check that you're doing: "event {description} \from {start} \to {end}".
+Your event seems to be formatted wrongly. Check that you're doing: "event {description} /from {start} /to {end}".
 ____________________________________________________________
 ____________________________________________________________
-Your event seems to be formatted wrongly. Check that you're doing: "event {description} \from {start} \to {end}".
+Your event seems to be formatted wrongly. Check that you're doing: "event {description} /from {start} /to {end}".
 ____________________________________________________________
 ____________________________________________________________
-Your event seems to be formatted wrongly. Check that you're doing: "event {description} \from {start} \to {end}".
+Your event seems to be formatted wrongly. Check that you're doing: "event {description} /from {start} /to {end}".
 ____________________________________________________________
 ____________________________________________________________
 Got it. I've added this task:
@@ -133,6 +142,8 @@ Here are the tasks in your list:
 4. [E][X] bruh (from: today to: ytd)
 5. [T][ ] borrow book
 ____________________________________________________________
+Before you go, let me save your tasks...
+Successfully saved your tasks!
 ____________________________________________________________
 Bye. Hope to see you again soon!
 ____________________________________________________________

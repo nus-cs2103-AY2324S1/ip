@@ -10,17 +10,23 @@ public class Deadline extends Task {
      * Creates a new Deadline object.
      * 
      * @param description The description of the deadline.
-     * @param endTime The date/time of the deadline.
+     * @param endTime     The date/time of the deadline.
      */
     public Deadline(String description, String endTime) {
         super(description);
         this.endTime = endTime;
     }
 
+    @Override
+    public String getSaveFormat() {
+        return String.format("DEADLINE||%d||%s /by %s\n", this.getIsDone() ? 1 : 0, this.getDescription(),
+                this.endTime);
+    }
+
     /**
      * Returns the string representation of the deadline.
      * 
-     * @return The string representation of the deadline. 
+     * @return The string representation of the deadline.
      */
     @Override
     public String toString() {
