@@ -1,22 +1,44 @@
 package seedu.duke;
 
+/**
+ * Represents my version of a chatbot.
+ * It is mainly used for recording tasks like
+ * todos, deadlines and events.
+ *
+ * @author KAM JIA YUE
+ * @since 2023-08-29
+ */
 public class Duke {
 
     private TaskList taskList;
     private Ui ui;
 
+    /**
+     * The main constructor for this chatbot.
+     *
+     * @param name Name of this chatbot.
+     */
     public Duke(String name) {
         this.taskList = new TaskList();
         this.ui = new Ui(name);
     }
 
+    /**
+     * Start and set up the chatbot.
+     *
+     * @param filePath Path of the storage file.
+     */
     public void startUp(String filePath) {
         this.ui.greet();
         this.taskList.setHardDiskFilePath(filePath);
         this.taskList.loadData();
     }
 
-
+    /**
+     * Starts the service of interacting with the user.
+     *
+     * @throws DukeException If there are user input errors.
+     */
     public void startService() throws DukeException {
         boolean exceptionOccurs = false;
 
@@ -80,6 +102,12 @@ public class Duke {
         startService();
     }
 
+    /**
+     * This the main method which uses this chatbot.
+     *
+     * @param args Unused.
+     * @throws DukeException If there are any errors occured.
+     */
     public static void main(String[] args) throws DukeException {
         Duke bot = new Duke("Kam_BOT");
         bot.startUp("./data/duke.txt");

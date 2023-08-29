@@ -1,11 +1,28 @@
 package seedu.duke;
 
+/**
+ * Represents a parser.
+ * A parser is responsible for parsing and
+ * making sense of user inputs.
+ *
+ * @author KAM JIA YUE
+ * @since 2023-08-29
+ */
 public class Parser {
 
+    /**
+     * The main constructor of this Parser class.
+     */
     public Parser() {
 
     }
 
+    /**
+     * Parses user inputs into valid Commands.
+     *
+     * @param input Input from the user.
+     * @return A type of Commands enum to prevent erroneous inputs.
+     */
     public Commands parse(String input) {
         if (input.equals("bye")) {
             return Commands.BYE;
@@ -27,6 +44,13 @@ public class Parser {
         return Commands.DEFAULT;
     }
 
+    /**
+     * Marks a task as checked.
+     *
+     * @param input Input from the user.
+     * @return The task index of the task to be marked.
+     * @throws DukeException If there are user input errors.
+     */
     public int mark(String input) throws DukeException {
         if (input.length() == 4) {
             throw new DukeException(Ui.i5 + "☹ OOPS!!! Please specify a valid task number to be marked.");
@@ -45,6 +69,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Marks a task as unchecked.
+     *
+     * @param input Input from the user.
+     * @return The task index of the task to be unmarked.
+     * @throws DukeException If there are user input errors.
+     */
     public int unmark(String input) throws DukeException {
         if (input.length() == 6) {
             throw new DukeException(Ui.i5 + "☹ OOPS!!! Please specify a valid task number to be unmarked.");
@@ -63,6 +94,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Deletes a task from the task list.
+     *
+     * @param input Input from the user.
+     * @return The task index of the task to be deleted.
+     * @throws DukeException If there are user input errors.
+     */
     public int delete(String input) throws DukeException {
         if (input.length() == 6) {
             throw new DukeException(Ui.i5 + "☹ OOPS!!! Please specify a valid task number to be deleted.");
@@ -81,6 +119,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Instantiates a Todo task.
+     *
+     * @param input Input from the user.
+     * @return A Todo task.
+     * @throws DukeException If there are user input errors.
+     */
     public Task todo(String input) throws DukeException {
         if (input.length() == 4) {
             throw new DukeException(Ui.i5 + "☹ OOPS!!! The description of a todo cannot be empty.");
@@ -95,6 +140,13 @@ public class Parser {
         return new Todo(input.substring(5));
     }
 
+    /**
+     * Instantiates a Deadline task.
+     *
+     * @param input Input from the user.
+     * @return A Deadline task.
+     * @throws DukeException If there are user input errors.
+     */
     public Task deadline(String input) throws DukeException {
         if (input.length() == 8) {
             throw new DukeException(Ui.i5 + "☹ OOPS!!! The description of a deadline cannot be empty.");
@@ -124,6 +176,13 @@ public class Parser {
         return new Deadline(input.substring(9, slashIndex - 1), by);
     }
 
+    /**
+     * Instantiates an Event task.
+     *
+     * @param input Input from the user.
+     * @return An Event task.
+     * @throws DukeException If there are user input errors.
+     */
     public Task event(String input) throws DukeException {
         if (input.length() == 5) {
             throw new DukeException(Ui.i5 + "☹ OOPS!!! The description of an event cannot be empty.");
