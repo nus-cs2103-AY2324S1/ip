@@ -4,39 +4,54 @@ import duke.tasks.Task;
 
 import java.util.Scanner;
 
+/**
+ * Represents the Ui Class.
+ * Responsible for printing commands.
+ *
+ * @author Shishir
+ */
 public class Ui {
+
+    /** Scanner responsible for retrieving user input. */
     private Scanner input;
 
+    /** Constructs the Ui object. */
     public Ui() {
         this.input = new Scanner(System.in);
     }
 
+    /**
+     * Returns the user's input command.
+     * @return User's input.
+     */
     public String readCommand() {
         return this.input.nextLine();
     }
 
-    /** The command to provide the lines. **/
+    /** Prints a line. */
     public void showLine() {
         System.out.println("_______________________________________________________________");
     }
 
-    /** The command to greet the user. **/
+    /** Prints a greeting message. */
     public void greet() {
         this.showLine();
         System.out.println("Greetings, I am Jarvis. How may I assist you today?");
         this.showLine();
     }
 
-    /** The exit command when user types "bye" **/
+    /** Prints a farewell message. */
     public void leave() {
         this.showLine();
         System.out.println("I shall now take my leave. Farewell!");
         this.showLine();
     }
 
-    /** The command to show added tasks in the tasks list.
-     * @param size The index to mark
-     * **/
+    /**
+     * Prints an acknowledgment message on successful addition to the list.
+     * @param size Length of the list.
+     * @param task Newly added task.
+     */
     public void showAdd(int size, Task task) {
         this.showLine();
         System.out.println("Added the following task to the list.");
@@ -45,9 +60,11 @@ public class Ui {
         this.showLine();
     }
 
-    /** The command to mark tasks in the tasks list.
-     * @param index The index to mark
-     * **/
+    /**
+     * Prints an acknowledgment message on a successful mark.
+     * @param index Index of the newly marked task.
+     * @param task Newly marked task.
+     */
     public void showMark(int index, Task task) {
         this.showLine();
         System.out.println("The following task is marked as complete:");
@@ -56,9 +73,11 @@ public class Ui {
         this.showLine();
     }
 
-    /** The command to mark tasks in the tasks list.
-     * @param index The index to mark
-     * **/
+    /**
+     * Prints an acknowledgment message on a successful deletion of a task.
+     * @param index Index of the newly deleted task.
+     * @param task Newly deleted task.
+     */
     public void showDelete(int index, Task task) {
         this.showLine();
         System.out.println("The following task has been removed:");
@@ -67,6 +86,11 @@ public class Ui {
         this.showLine();
     }
 
+    /**
+     * Prints an acknowledgment message on a successful unmark.
+     * @param index Index of the newly unmarked task.
+     * @param task Newly unmarked task.
+     */
     public void showUnmark(int index, Task task) {
         this.showLine();
         System.out.println("The following task has been unmarked:");
@@ -75,6 +99,10 @@ public class Ui {
         this.showLine();
     }
 
+    /**
+     * Prints an acknowledgment message on request to display all the tasks.
+     * @param size Length of the list.
+     */
     public void showList(int size) {
         this.showLine();
         if (size == 0) {
