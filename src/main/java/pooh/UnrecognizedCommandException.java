@@ -1,3 +1,5 @@
+package pooh;
+
 public class UnrecognizedCommandException extends PoohException {
     @Override
     public String toString() {

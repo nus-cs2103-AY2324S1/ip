@@ -1,3 +1,5 @@
+package pooh;
+
 public class InvalidTaskException extends PoohException {
     @Override
     public String toString() {

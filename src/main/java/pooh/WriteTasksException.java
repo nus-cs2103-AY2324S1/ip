@@ -1,3 +1,5 @@
+package pooh;
+
 public class WriteTasksException extends PoohException {
     @Override
     public String toString() {

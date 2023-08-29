@@ -1,3 +1,5 @@
+package pooh;
+
 public class Event extends Task {
     private final String eventStartTime;
     private final String eventEndTime;

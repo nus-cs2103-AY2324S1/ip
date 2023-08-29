@@ -1,3 +1,5 @@
+package pooh;
+
 public class EmptyTaskDescriptorsException extends PoohException {
     @Override
     public String toString() {
