@@ -11,7 +11,7 @@ import duke.exception.DukeException;
 public class TaskList {
 
     /** List of Task objects, encapsulated in the class. */
-    private List<Task> taskList;
+    private final List<Task> taskList;
 
     public TaskList(List<Task> tasks) {
         this.taskList = tasks;
@@ -22,7 +22,7 @@ public class TaskList {
     }
 
     /**
-     * Getter for the list size.
+     * Gets list size.
      *
      * @return List size.
      */

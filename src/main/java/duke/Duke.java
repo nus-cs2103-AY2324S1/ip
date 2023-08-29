@@ -12,14 +12,14 @@ import duke.ui.Ui;
  */
 public class Duke {
     /** Represents the storage, task list and UI of the bot. */
-    private Storage storage;
+    private final Storage storage;
     private TaskList taskList;
-    private Ui ui;
+    private final Ui ui;
 
     /**
      * Constructor method.
      *
-     * @param filePath
+     * @param filePath Filepath to an external file.
      */
     public Duke(String filePath) {
         ui = new Ui();
