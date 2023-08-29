@@ -1,3 +1,9 @@
+package ducky.command;
+
+import ducky.Storage;
+import ducky.TaskList;
+import ducky.UserInterface;
+
 public class ExitCommand extends Command {
 
     public ExitCommand() {}

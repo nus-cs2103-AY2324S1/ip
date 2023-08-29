@@ -1,3 +1,5 @@
+package ducky.task;
+
 public class Task {
 
 

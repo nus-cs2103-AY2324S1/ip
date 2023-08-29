@@ -1,3 +1,9 @@
+package ducky;
+
+import ducky.task.DeadlineTask;
+import ducky.task.EventTask;
+import ducky.task.TodoTask;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -55,7 +61,7 @@ public class Storage {
                 }
             }
         } catch (FileNotFoundException e) {
-            System.out.println("Task file not created yet.");
+            System.out.println("ducky.task.Task file not created yet.");
         }
     }
 }

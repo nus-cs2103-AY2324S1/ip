@@ -1,3 +1,8 @@
+package ducky;
+
+import ducky.command.Command;
+import ducky.util.Parser;
+
 import java.util.Scanner;
 
 public class Ducky {

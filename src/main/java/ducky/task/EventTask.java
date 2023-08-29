@@ -1,3 +1,5 @@
+package ducky.task;
+
 public class EventTask extends Task {
     private final String startTime;
     private final String endTime;
