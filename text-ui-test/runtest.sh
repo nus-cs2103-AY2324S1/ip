@@ -15,6 +15,12 @@ then
     rm ./text-ui-test/ACTUAL.TXT
 fi
 
+# Remove the db first, comment out if trying to preserve db
+if [ -e "./data/data.ser" ]
+then
+    rm ./data/data.ser
+fi
+
 # compile the code into the bin folder, terminates if error occurred
 if ! javac -cp ./src/main/java -Xlint:none -d ./bin ./src/main/java/*.java
 then
@@ -27,7 +33,7 @@ java -classpath ./bin Duke < ./text-ui-test/input.txt > ./text-ui-test/ACTUAL.TX
 
 # convert to UNIX format
 cp ./text-ui-test/EXPECTED.TXT ./text-ui-test/EXPECTED-UNIX.TXT
-dos2unix ./text-ui-test/ACTUAL.TXT ./text-ui-test/EXPECTED-UNIX.TXT
+#dos2unix ./text-ui-test/ACTUAL.TXT ./text-ui-test/EXPECTED-UNIX.TXT
 
 # compare the output to the expected output
 diff ./text-ui-test/ACTUAL.TXT ./text-ui-test/EXPECTED-UNIX.TXT

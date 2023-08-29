@@ -5,20 +5,19 @@ public class Storage {
     private final String filePath;
     public Storage(String filePath) {
         this.filePath = filePath;
-    }
 
-    public ArrayList<Task> load() throws DukeException {
         try {
             File file = new File(this.filePath);
             if (!file.exists()) {
                 file.getParentFile().mkdirs();
                 file.createNewFile();
-                throw new DukeException("\u2639 OOPS!!! No file found, creating a new file!");
             }
         } catch (IOException e) {
-            throw new DukeException("\u2639 OOPS!!! An error occurred while creating the file.");
+            Ui.printWrapped("\u2639 OOPS!!! An error occurred while creating the file.");
         }
+    }
 
+    public ArrayList<Task> load() throws DukeException {
         // Loading the serialised object
         try {
             FileInputStream fileIn = new FileInputStream(this.filePath);

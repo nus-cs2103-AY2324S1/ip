@@ -12,16 +12,16 @@ public class TaskList implements Serializable {
         this.tasks = new ArrayList<>();
     }
 
-    public void deleteItem(String input, Ui ui) throws DukeException {
+    public void deleteItem(String input) throws DukeException {
         int index = this.getIndex(input) - 1;
         this.checkOutOfBounds(index);
         if (index <= this.tasks.size()) {
             Task deletedTask = this.tasks.remove(index);
-            ui.deleteItem(this.tasks.size(), deletedTask);
+            Ui.deleteItem(this.tasks.size(), deletedTask);
         }
     }
 
-    public void addItem(Duke.taskType task, String input, Ui ui) throws DukeException {
+    public void addItem(Parser.taskType task, String input) throws DukeException {
         String[] splitSentence = input.split(" /");
         String taskName = getRestOfSentence(splitSentence[0]).strip();
         Task newTask;
@@ -60,30 +60,30 @@ public class TaskList implements Serializable {
                 + "\nNow you have "
                 + this.tasks.size()
                 + " tasks in the list.";
-        ui.printWrapped(sayWord);
+        Ui.printWrapped(sayWord);
     }
 
-    public void modifyStatus(Duke.modifyStatus status, String input, Ui ui) throws DukeException {
+    public void modifyStatus(Parser.modifyStatus status, String input) throws DukeException {
         int index = getIndex(input) - 1;
         this.checkOutOfBounds(index);
         switch(status) {
             case MARK:
                 this.tasks.get(index).markTask();
-                printMarkedOrUnmarked(index, "Nice! I've marked this task as done:", ui);
+                printMarkedOrUnmarked(index, "Nice! I've marked this task as done:");
                 break;
             case UNMARK:
                 this.tasks.get(index).unMarkTask();
-                printMarkedOrUnmarked(index, "OK, I've marked this task as not done yet:", ui);
+                printMarkedOrUnmarked(index, "OK, I've marked this task as not done yet:");
                 break;
             default:
                 throw new DukeException("\u2639 OOPS!!! I'm sorry, but an error occurred when modifying your task :-(");
         }
     }
 
-    public void printMarkedOrUnmarked(int index, String input, Ui ui) {
+    public void printMarkedOrUnmarked(int index, String input) {
         if (index < this.tasks.size()) {
             String markedTask = String.format("%s\n%s", input, this.tasks.get(index));
-            ui.printWrapped(markedTask);
+            Ui.printWrapped(markedTask);
         }
     }
 
