@@ -1,7 +1,7 @@
 package duke.exception;
 
 /**
- * The duke.exception.EmptyDescriptionException Class extends duke.exception.DukeException and
+ * The EmptyDescriptionException Class extends DukeException and
  * is used to denote when a command has a missing description
  */
 public class EmptyDescriptionException extends DukeException {

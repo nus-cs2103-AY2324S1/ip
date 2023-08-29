@@ -5,7 +5,7 @@ import duke.task.Task;
 import java.util.ArrayList;
 
 /**
- * The duke.Storage class stores the tasks and performs
+ * The Storage class stores the tasks and performs
  * interactions with the tasks
  *
  * @author Zi Xiang
@@ -13,28 +13,25 @@ import java.util.ArrayList;
  */
 public class TaskList {
     // Initialising variables and objects
-    ArrayList<Task> storage;
-    UI ui;
+    private ArrayList<Task> storage;
 
     public TaskList() {
         this.storage = new ArrayList<>();
-        this.ui = new UI();
     }
 
-    public TaskList(ArrayList arrayList) {
+    public TaskList(ArrayList<Task> arrayList) {
         this.storage = arrayList;
-        this.ui = new UI();
     }
 
     /**
      * Adds a task to the storage
-     * @param t The task to be added
+     * @param t the task to be added
      */
     public void add(Task t) {
         this.storage.add(t);
     }
 
-    /** Displays Items in duke.TaskList */
+    /** Displays Items in TaskList */
     public void display() {
         System.out.println("Here are the tasks in your list:");
         for (int i = 0; i < this.storage.size(); i++) {
@@ -65,11 +62,10 @@ public class TaskList {
      * @param index the index of the task to be removed
      */
     public Task delete(int index) {
-        Task t = this.storage.remove(index - 1);
-        return t;
+        return (this.storage.remove(index - 1));
     }
 
-    public ArrayList getTasks() {
+    public ArrayList<Task> getTasks() {
         return this.storage;
     }
 

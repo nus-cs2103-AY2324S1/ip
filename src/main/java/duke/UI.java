@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
- * The duke.UI class contains methods that generate duke.UI elements
+ * The UI class contains methods that generate UI elements
  * such as line spaces
  *
  * @author Zi Xiang
@@ -124,6 +124,14 @@ public class UI {
         for (int i = 0; i < tasks.size(); i++) {
             System.out.println((i + 1) + ". " + tasks.get(i));
         }
+    }
+
+    /**
+     * Displays the time format error message
+     */
+    public void showTimeFormatError() {
+        System.out.println("The time format is wrong");
+
     }
 
 }

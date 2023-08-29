@@ -23,7 +23,7 @@ import java.util.Arrays;
 public class Parser {
     // Initialisation of objects and variables
     private static List<String> commands = Arrays.asList(
-            new String[]{"todo", "deadline", "event", "mark", "unmark", "delete"});;
+            new String[]{"todo", "deadline", "event", "mark", "unmark", "delete"});
 
     /**
      * Returns a corresponding Command from input.
@@ -74,7 +74,6 @@ public class Parser {
                     } else if (command.equals("event")) {
                         String[] items = temp[1].split(" /");
                         if (items.length == 3){
-                            // duke.task.Todo: More Error Catching to be done here
                             if (items[1].startsWith("from ") && items[2].startsWith("to ")) {
                                 return new AddCommand(new Event(items[0], items[1].substring(5), items[2].substring(3)));
                             } else {

@@ -35,7 +35,7 @@ public class Storage {
      */
     public ArrayList<Task> load() throws FileNotFoundException {
         File file = new File(filePath);
-        ArrayList<Task> tasks = new ArrayList<Task>();
+        ArrayList<Task> tasks = new ArrayList<>();
 
         Scanner s = new Scanner(file);
         while (s.hasNext()) {
@@ -73,7 +73,7 @@ public class Storage {
     /**
      * Adds a new task to the hard drive.
      *
-     * @param task The task to be added.
+     * @param task the task to be added.
      * @throws IOException If the file is corrupted.
      */
     public void append(Task task) throws IOException {

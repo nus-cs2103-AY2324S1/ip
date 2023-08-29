@@ -1,7 +1,7 @@
 package duke.task;
 
 /**
- * The duke.task.Event class extends duke.task.Task. An event has 2 extra fields
+ * The Event class extends Task. An event has 2 extra fields
  * of start and end time
  *
  * @author Zi Xiang
@@ -11,7 +11,7 @@ public class Event extends Task {
     protected String start;
     protected String end;
 
-    /** Constructor for duke.task.Event */
+    /** Constructor for Event */
     public Event(String done, String description, String start, String end) {
         super(description, done);
         this.start = start;

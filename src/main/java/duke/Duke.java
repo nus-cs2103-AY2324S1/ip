@@ -6,6 +6,7 @@ import duke.exception.DukeException;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.time.format.DateTimeParseException;
 
 /**
  * The Duke Program is a chatbot that takes in
@@ -51,8 +52,10 @@ public class Duke {
                 ui.showError(e.getMessage());
             } catch (IOException e){
                 ui.showIoError();
-            } catch (IndexOutOfBoundsException e){
+            } catch (IndexOutOfBoundsException e) {
                 ui.showOutOfBounds();
+            } catch (DateTimeParseException e) {
+                ui.showTimeFormatError();
             } finally {
                 ui.line();
             }

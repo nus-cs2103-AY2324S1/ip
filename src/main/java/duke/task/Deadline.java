@@ -3,7 +3,7 @@ package duke.task;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 /**
- * The duke.task.Deadline class extends duke.task.Task and has an additional field
+ * The Deadline class extends Task and has an additional field
  * to store when the task must be completed by
  *
  * @author Zi Xiang
@@ -13,7 +13,7 @@ public class Deadline extends Task {
 
     protected LocalDate by;
 
-    /** Constructor for duke.task.Deadline */
+    /** Constructor for Deadline */
     public Deadline(String done, String description, LocalDate by) {
         super(description, done);
         this.by = by;

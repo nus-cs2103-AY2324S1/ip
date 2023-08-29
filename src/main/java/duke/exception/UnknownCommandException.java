@@ -1,7 +1,7 @@
 package duke.exception;
 
 /**
- * The duke.exception.UnknownCommandException extends duke.exception.DukeException and is used
+ * The UnknownCommandException extends DukeException and is used
  * to denote that duke.Duke does not understand that particular command
  */
 public class UnknownCommandException extends DukeException {
