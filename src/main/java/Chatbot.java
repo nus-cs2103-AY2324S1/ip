@@ -1,4 +1,10 @@
+import java.time.LocalDateTime;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.Scanner;
+import java.time.format.DateTimeFormatter;
+import java.util.Arrays;
+import java.util.List;
 
 public class Chatbot {
     private TaskList taskList;
@@ -48,6 +54,38 @@ public class Chatbot {
         EVENT
     }
 
+    private LocalDateTime parseDate(String input) {
+        List<DateTimeFormatter> dateFormatters = Arrays.asList(
+                DateTimeFormatter.ofPattern("d/M/yyyy"),
+                DateTimeFormatter.ofPattern("d-M-yyyy"),
+                DateTimeFormatter.ofPattern("yyyy-M-d")
+        );
+
+        List<DateTimeFormatter> dateTimeFormatters = Arrays.asList(
+                DateTimeFormatter.ofPattern("d/M/yyyy HHmm"),
+                DateTimeFormatter.ofPattern("d-M-yyyy HHmm"),
+                DateTimeFormatter.ofPattern("yyyy-M-d HHmm")
+        );
+
+        for (DateTimeFormatter formatter : dateTimeFormatters) {
+            try {
+                return LocalDateTime.parse(input, formatter);
+            } catch (Exception e) {
+                // Try the next formatter if parsing fails
+            }
+        }
+
+        for (DateTimeFormatter formatter : dateFormatters) {
+            try {
+                return LocalDateTime.of(LocalDate.parse(input, formatter), LocalTime.MIDNIGHT);
+            } catch (Exception e) {
+                // Try the next formatter if parsing fails
+            }
+        }
+
+        throw new IllegalArgumentException("Invalid date format: " + input);
+    }
+
     public void processInput(String input) {
         try {
             String[] parts = input.split(" ", 2);
@@ -86,7 +124,8 @@ public class Chatbot {
                     if (deadlineParts.length != 2) {
                         throw new DukeException("☹ OOPS!!! Please provide a valid deadline description and date.");
                     }
-                    taskList.addTask(new Deadline(deadlineParts[0], deadlineParts[1]));
+                    LocalDateTime by = parseDate(deadlineParts[1]);
+                    taskList.addTask(new Deadline(deadlineParts[0], by));
                     break;
                 case EVENT:
                     if (parts.length <= 1) {
@@ -96,7 +135,9 @@ public class Chatbot {
                     if (eventParts.length != 3) {
                         throw new DukeException("☹ OOPS!!! Please provide a valid event description, start date, and end date.");
                     }
-                    taskList.addTask(new Event(eventParts[0], eventParts[1], eventParts[2]));
+                    LocalDateTime from = parseDate(eventParts[1]);
+                    LocalDateTime to = parseDate(eventParts[2]);
+                    taskList.addTask(new Event(eventParts[0], from, to));
                     break;
                 default:
                     throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");

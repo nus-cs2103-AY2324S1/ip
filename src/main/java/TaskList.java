@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.io.FileWriter;
 import java.io.FileReader;
 import java.io.BufferedReader;
+import java.time.LocalDateTime;
+
 public class TaskList {
     private ArrayList<Task> tasks;
     private final String FILE_PATH = "./data/duke.txt";
@@ -149,7 +151,8 @@ public class TaskList {
                 if (additionalInfo == null) {
                     throw new DukeException("☹ OOPS!!! Saved data not found due to corruption. \n Missing date. Corrupted deadline: " + line);
                 }
-                Deadline deadline = new Deadline(taskDescription, additionalInfo);
+                LocalDateTime by = LocalDateTime.parse(additionalInfo);
+                Deadline deadline = new Deadline(taskDescription, by);
                 if (isDone) {
                     deadline.markAsDone();
                 }
@@ -162,8 +165,8 @@ public class TaskList {
                 if (eventParts.length != 2) {
                     throw new DukeException("☹ OOPS!!!  Saved data not found due to corruption. \n Missing details. Corrupted event: " + line);
                 }
-                String from = eventParts[0];
-                String to = eventParts[1];
+                LocalDateTime from = LocalDateTime.parse(eventParts[0]);
+                LocalDateTime to = LocalDateTime.parse(eventParts[1]);
                 Event event = new Event(taskDescription, from, to);
                 if (isDone) {
                     event.markAsDone();

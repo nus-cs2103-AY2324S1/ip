@@ -14,20 +14,20 @@ Now you have 2 tasks in the list.
 ____________________________________________________________
 ____________________________________________________________
 Got it. I've added this task:
-  [D][ ] return book (by: Sunday)
+  [D][ ] return book (by: Oct 15 2019 12:00 am)
 Now you have 3 tasks in the list.
 ____________________________________________________________
 ____________________________________________________________
 Got it. I've added this task:
-  [E][ ] project meeting (from: Mon 2pm to: 4pm)
+  [E][ ] project meeting (from: Dec 2 2019 04:00 pm to: Dec 2 2019 06:00 pm)
 Now you have 4 tasks in the list.
 ____________________________________________________________
 ____________________________________________________________
 Here are the tasks in your list:
 1.[T][ ] go to the zoo
 2.[T][ ] borrow book
-3.[D][ ] return book (by: Sunday)
-4.[E][ ] project meeting (from: Mon 2pm to: 4pm)
+3.[D][ ] return book (by: Oct 15 2019 12:00 am)
+4.[E][ ] project meeting (from: Dec 2 2019 04:00 pm to: Dec 2 2019 06:00 pm)
 ____________________________________________________________
 ____________________________________________________________
 Nice! I've marked this task as done:
@@ -37,8 +37,8 @@ ____________________________________________________________
 Here are the tasks in your list:
 1.[T][ ] go to the zoo
 2.[T][X] borrow book
-3.[D][ ] return book (by: Sunday)
-4.[E][ ] project meeting (from: Mon 2pm to: 4pm)
+3.[D][ ] return book (by: Oct 15 2019 12:00 am)
+4.[E][ ] project meeting (from: Dec 2 2019 04:00 pm to: Dec 2 2019 06:00 pm)
 ____________________________________________________________
 ____________________________________________________________
 Nice! I've marked this task as done:
@@ -48,8 +48,8 @@ ____________________________________________________________
 Here are the tasks in your list:
 1.[T][X] go to the zoo
 2.[T][X] borrow book
-3.[D][ ] return book (by: Sunday)
-4.[E][ ] project meeting (from: Mon 2pm to: 4pm)
+3.[D][ ] return book (by: Oct 15 2019 12:00 am)
+4.[E][ ] project meeting (from: Dec 2 2019 04:00 pm to: Dec 2 2019 06:00 pm)
 ____________________________________________________________
 ____________________________________________________________
 OK, I've marked this task as not done yet:
@@ -59,8 +59,8 @@ ____________________________________________________________
 Here are the tasks in your list:
 1.[T][X] go to the zoo
 2.[T][ ] borrow book
-3.[D][ ] return book (by: Sunday)
-4.[E][ ] project meeting (from: Mon 2pm to: 4pm)
+3.[D][ ] return book (by: Oct 15 2019 12:00 am)
+4.[E][ ] project meeting (from: Dec 2 2019 04:00 pm to: Dec 2 2019 06:00 pm)
 ____________________________________________________________
 ____________________________________________________________
 ☹ OOPS!!! The description of a todo cannot be empty.
@@ -87,8 +87,8 @@ ____________________________________________________________
 Here are the tasks in your list:
 1.[T][X] go to the zoo
 2.[T][ ] borrow book
-3.[D][ ] return book (by: Sunday)
-4.[E][ ] project meeting (from: Mon 2pm to: 4pm)
+3.[D][ ] return book (by: Oct 15 2019 12:00 am)
+4.[E][ ] project meeting (from: Dec 2 2019 04:00 pm to: Dec 2 2019 06:00 pm)
 ____________________________________________________________
 ____________________________________________________________
 Noted. I've removed this task:
@@ -97,12 +97,12 @@ Now you have 3 tasks in the list.
 ____________________________________________________________
 ____________________________________________________________
 Noted. I've removed this task:
-  [E][ ] project meeting (from: Mon 2pm to: 4pm)
+  [E][ ] project meeting (from: Dec 2 2019 04:00 pm to: Dec 2 2019 06:00 pm)
 Now you have 2 tasks in the list.
 ____________________________________________________________
 ____________________________________________________________
 Noted. I've removed this task:
-  [D][ ] return book (by: Sunday)
+  [D][ ] return book (by: Oct 15 2019 12:00 am)
 Now you have 1 task in the list.
 ____________________________________________________________
 ____________________________________________________________
