@@ -1,3 +1,5 @@
+package seedu;
+
 public class Command {
     private String command;
     private Ui ui;

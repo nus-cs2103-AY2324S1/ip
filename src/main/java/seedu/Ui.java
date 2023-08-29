@@ -1,3 +1,5 @@
+package seedu;
+
 import java.io.PrintStream;
 import java.util.Scanner;
 

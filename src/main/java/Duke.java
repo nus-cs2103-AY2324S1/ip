@@ -1,10 +1,9 @@
 
-import java.util.ArrayList;
-import java.io.File;
+import seedu.*;
+
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Scanner;
+
 public class Duke {
     private Ui ui;
     private Storage storage;
