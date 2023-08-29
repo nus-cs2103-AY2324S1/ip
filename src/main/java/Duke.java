@@ -1,10 +1,12 @@
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.Arrays;
+
 public class Duke {
 
     Scanner userInput = new Scanner(System.in);
     ArrayList<Task> taskList = new ArrayList<Task>();
+
     public static void main(String[] args) {
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
@@ -16,6 +18,7 @@ public class Duke {
         duke.start();
 
     }
+
     private void line() {
         String line = "____________________________________________________________";
         System.out.println(line);
@@ -114,8 +117,7 @@ public class Duke {
         line();
         if (taskList.size() == 0) {
             System.out.println("There are no tasks in your list.");
-        }
-        else {
+        } else {
             System.out.println("Here are the tasks in your list:");
             for (int i = 0; i < taskList.size(); i++) {
                 int index = i + 1;
@@ -171,7 +173,7 @@ public class Duke {
 
         if (start.isEmpty()) {
             throw new DukeException("\"from\" time missing!");
-        } else if(end.isEmpty()) {
+        } else if (end.isEmpty()) {
             throw new DukeException("\"to\" time missing!");
         }
     }

@@ -9,41 +9,26 @@ ____________________________________________________________
  Hello! I'm JARVIS
 What can I do for you?
 ____________________________________________________________
-deadline return book /by Sunday
 Got it. I've added this task:
-[D][ ] return book  (by: Sunday)
+[D][ ] return book  (by: Tuesday)
 Now you have 1 tasks in the list.
 ____________________________________________________________
-list
 ____________________________________________________________
 Here are the tasks in your list:
-1.[D][ ] return book  (by: Sunday)
+1.[D][ ] return book  (by: Tuesday)
 ____________________________________________________________
-event project meeting /from Mon 2pm /to 4pm
 Got it. I've added this task:
-[E][ ] project meeting  (from: Mon 2pm  to: 4pm)
+[E][ ] IEX meeting  (from: Thurs 6pm  to: 10pm)
 Now you have 2 tasks in the list.
 ____________________________________________________________
-list
 ____________________________________________________________
 Here are the tasks in your list:
-1.[D][ ] return book  (by: Sunday)
-2.[E][ ] project meeting  (from: Mon 2pm  to: 4pm)
+1.[D][ ] return book  (by: Tuesday)
+2.[E][ ] IEX meeting  (from: Thurs 6pm  to: 10pm)
 ____________________________________________________________
-deadline do homework /by no idea :-p
+Nice! I've marked this task as done:
+[E][X] IEX meeting  (from: Thurs 6pm  to: 10pm)
 Got it. I've added this task:
 [D][ ] do homework  (by: no idea :-p)
 Now you have 3 tasks in the list.
-____________________________________________________________
-mark 2
-Nice! I've marked this task as done:
-[E][X] project meeting  (from: Mon 2pm  to: 4pm)
-mark 3
-Nice! I've marked this task as done:
-[D][X] do homework  (by: no idea :-p)
-unmark 2
-OK, I've marked this task as not done yet:
-[E][ ] project meeting  (from: Mon 2pm  to: 4pm)
-bye
-Bye. Hope to see you again soon!
 ____________________________________________________________
