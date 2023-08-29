@@ -1,4 +1,3 @@
 T | 1 | read book
-E | 0 | project meeting | Aug 6th 2-4pm
 T | 0 | chores
-D | 0 | return book | 2023-08-29
+D | 1 | return book | 2023-08-29

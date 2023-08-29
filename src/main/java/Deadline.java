@@ -19,7 +19,6 @@ class Deadline extends Task {
     @Override
     public String toFileString() {
         int bool = this.isDone ? 1 : 0;
-//        String date = by.format(DateTimeFormatter.ofPattern("MMM d YYYY"));
         return "D | " + bool + " | " + this.description + " | " + by + "\n";
     }
 }
