@@ -57,8 +57,6 @@ public class Duke {
             System.out.println(index + " " + uiFormatter.displayTask(selectedTask));
 
           }
-          // save tasks
-          tasklistloader.saveTasks();
           break;
         case "mark": {
           try {
@@ -176,6 +174,7 @@ public class Duke {
     }
 
     System.out.println(goodbye);
+    tasklistloader.saveTasks();
 
   }
 }
