@@ -27,5 +27,4 @@ public class Ui {
 	public void exit() {
 		System.out.println("I shall now take my leave. Farewell!");
 	}
-
 }

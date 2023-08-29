@@ -10,10 +10,20 @@ import java.util.Scanner;
 
 public class Storage {
 
+	/**
+	 * The file object
+	 */
 	private File file;
+	/**
+	 * The folder object
+	 */
 	private File folder;
 
-
+	/**
+	 * Constructor for Storage
+	 *
+	 * @param filePath the path to the file
+	 */
 	public Storage(String filePath) {
 		try {
 			String[] split = filePath.split("/");
@@ -30,6 +40,11 @@ public class Storage {
 		}
 	}
 
+	/**
+	 * Writes to the file
+	 *
+	 * @param tasks the task list
+	 */
 	public void writeToFile(TaskList tasks) {
 		try {
 			FileWriter fw = new FileWriter(this.file);
@@ -71,6 +86,17 @@ public class Storage {
 		return tasks;
 	}
 
+	/**
+	 * Creates a task based on the task type
+	 *
+	 * @param taskType    the task type
+	 * @param description the description of the task
+	 * @param splitted    the splitted string
+	 * @param count       the count of the line
+	 * @return Task a task
+	 * @throws DukeException           if the task type is invalid
+	 * @throws DateTimeParseException if the date format is invalid
+	 */
 	private Task createTask(String taskType, String description, String[] splitted, int count) throws DukeException, DateTimeParseException {
 		try {
 			Task task;

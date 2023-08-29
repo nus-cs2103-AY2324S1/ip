@@ -7,7 +7,6 @@ import java.util.Objects;
 import java.util.Scanner;
 
 public class Parser {
-
 	/**
 	 * The storage to read and write to the file
 	 */
