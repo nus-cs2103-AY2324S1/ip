@@ -29,8 +29,6 @@ class Deadline extends Task {
                     "%s%s %s (by: %s)",
                     taskType, checkBox, super.getName(), this.date.format(DateTimeFormatter.ofPattern("MMM d yyyy")));
         }
-        return String.format(
-                "%s%s %s",
-                taskType, checkBox, super.getName());
+        return String.format("%s%s %s", taskType, checkBox, super.getName());
     }
 }
