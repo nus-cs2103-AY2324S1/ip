@@ -51,7 +51,7 @@ public class Parser {
             case ("delete"):
                 return new DeleteCommand(Integer.parseInt(splits[1].trim()));
             default:
-                throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+                throw new DukeException("☹ I'm sorry, but I don't know what that means :-(");
         }
     }
 }
