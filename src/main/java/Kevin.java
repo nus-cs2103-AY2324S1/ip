@@ -2,6 +2,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+
 public class Kevin{
 
     private static final List<Task> taskList = new ArrayList<>();
@@ -32,12 +33,28 @@ public class Kevin{
                     break;
                 }
                 case "delete": {
-                    Kevin.deleteTask(splitMessage[1]);
+                    try {
+                        Kevin.deleteTask(splitMessage[1]);
+                    } catch (TaskListEmptyException e) {
+                        System.out.println(line);
+                        System.out.println(e.getMessage());
+                        System.out.println(line);
+                    }
                     break;
                 }
                 default:
                     // Add new tasks to the task list
-                    Kevin.addNewTask(userInput);
+                    try {
+                        Kevin.addNewTask(userInput);
+                    } catch (DescriptionIncompleteException e1) {
+                        System.out.println(line);
+                        System.out.println(e1.getMessage());
+                        System.out.println(line);
+                    } catch (IllegalCommandException e2) {
+                        System.out.println(line);
+                        System.out.println(e2.getMessage());
+                        System.out.println(line);
+                    }
             }
             userInput = scanner.nextLine();
         }
@@ -86,16 +103,29 @@ public class Kevin{
         System.out.println(line);
     }
 
-    public static void addNewTask(String userInput) {
+    public static void addNewTask(String userInput) throws DescriptionIncompleteException, IllegalCommandException{
         String[] splitMessage = userInput.split(" ", 2);
         String instruction = splitMessage[0];
-        Task task;
-        if (instruction.equals("todo")) {
-            task = Todo.createNewTodoTask(splitMessage[1]);
-        } else if (instruction.equals("deadline")) {
-            task = Deadline.createNewDeadlineTask(splitMessage[1]);
-        } else {
-            task = Event.createNewEventTask(splitMessage[1]);
+        Task task = null;
+
+        if (!(instruction.equals("todo")||instruction.equals("deadline")||instruction.equals("event"))) {
+            throw new IllegalCommandException("OOPS!!! I'm sorry, but I don't know what that means :-()");
+        }
+
+        if (splitMessage.length < 2) {
+            throw new DescriptionIncompleteException("OOPS!!! The description of an instruction cannot be empty.");
+        }
+
+        switch (instruction) {
+            case "todo":
+                task = Todo.createNewTodoTask(splitMessage[1]);
+                break;
+            case "deadline":
+                task = Deadline.createNewDeadlineTask(splitMessage[1]);
+                break;
+            case "Event":
+                task = Event.createNewEventTask(splitMessage[1]);
+                break;
         }
 
         taskList.add(task);
@@ -105,7 +135,10 @@ public class Kevin{
         System.out.println(line);
     }
 
-    public static void deleteTask(String taskNumber) {
+    public static void deleteTask(String taskNumber) throws TaskListEmptyException {
+        if (taskList.size() < 1) {
+            throw new TaskListEmptyException("OOPS!!! You cannot delete an empty list.");
+        }
         int number = Integer.parseInt(taskNumber);
         System.out.println(line);
         System.out.println("Noted. I've removed this task:");
