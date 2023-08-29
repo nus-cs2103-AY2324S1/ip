@@ -1,6 +1,8 @@
-public class ToDo extends Task{
+package task;
+
+public class ToDo extends Task {
     /**
-     * Initialize Task object with task name and task is not done.
+     * Initialize task.Task object with task name and task is not done.
      *
      * @param description type String;
      */

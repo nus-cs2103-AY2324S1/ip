@@ -1,4 +1,6 @@
-public class Event extends Task{
+package task;
+
+public class Event extends Task {
 
     /** start date type String */
     protected String from;
@@ -6,7 +8,7 @@ public class Event extends Task{
     protected String to;
 
     /**
-     * Initialize Task object with task name and task is not done.
+     * Initialize task.Task object with task name and task is not done.
      *
      * @param description type String;
      */
