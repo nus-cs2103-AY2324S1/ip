@@ -1,9 +1,5 @@
 import java.time.LocalDateTime;
-import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-import java.time.LocalTime;
 
 public class Deadline extends Task {
     protected LocalDateTime by;
