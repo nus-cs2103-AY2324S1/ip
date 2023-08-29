@@ -1,8 +1,13 @@
-import java.util.Scanner;
+import java.io.IOException;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Duke {
     private static final String HORIZONTAL_LINE = "____________________________________________________________";
+    private static final String TASK_FILENAME = "task-list.txt";
     private final String myName = "Quack-NKN";
     private final Scanner scanner = new Scanner(System.in);
     private final ArrayList<Task> taskList = new ArrayList<>();
@@ -15,10 +20,78 @@ public class Duke {
      * Invoked at the start of the interaction, to greet the user.
      */
     private void start() {
-        System.out.println(Duke.HORIZONTAL_LINE);
         System.out.print("Hello from ");
         System.out.println(this.myName);
         System.out.println("What can I do for you?");
+        System.out.println(Duke.HORIZONTAL_LINE);
+    }
+
+    /**
+     * Invoked at the start before interaction.
+     * Read data from file and save to the list of task.
+     * Report whether the program should continue or exit by the returned value.
+     * If there is an error in writing file, the program should not continue.
+     * @return whether the program can continue, true if it can, false otherwise.
+     */
+    private void readFromDisk() throws FileCorruptedException {
+        System.out.println(Duke.HORIZONTAL_LINE);
+        System.out.println("Loading data from hard disk ...");
+        File f = new File(Duke.TASK_FILENAME);
+        try {
+            Scanner fileScanner = new Scanner(f);
+            while (fileScanner.hasNext()) {
+                String[] line = fileScanner.nextLine().split(" ", 3);
+                if (line.length == 0 && !fileScanner.hasNext()) {
+                    break;
+                }
+                Task task;
+                switch (line[0]) {
+                    case "T":
+                        task = new ToDo(line[2]);
+                        break;
+                    case "D":
+                        String[] split = line[2].split(" /by ", 2);
+                        if (split.length != 2) {
+                            throw new FileCorruptedException();
+                        }
+                        task = new Deadline(split[0], split[1]);
+                        break;
+                    case "E":
+                        String[] separateByFrom = line[2].split(" /from ", 2);
+                        if (separateByFrom.length != 2) {
+                            throw new FileCorruptedException();
+                        }
+                        String[] separateByTo = separateByFrom[1].split(" /to ", 2);
+                        if (separateByTo.length != 2) {
+                            throw new FileCorruptedException();
+                        }
+                        task = new Event(separateByFrom[0], separateByTo[0], separateByTo[1]);
+                        break;
+                    default:
+                        throw new FileCorruptedException();
+                }
+                if (line[1].equals("1")) {
+                    task.markAsDone();
+                } else if (line[1].equals("0")) {
+                    task.markAsNotDone();
+                } else {
+                    throw new FileCorruptedException();
+                }
+                this.taskList.add(task);
+            }
+            fileScanner.close();
+        } catch (FileNotFoundException fileError) {
+            try {
+                f.createNewFile();
+            } catch (IOException ioError) {
+                System.out.println("Quack, an error has occurred while trying to save data to hard disk.");
+                System.out.println("Starting with an empty task list.");
+                this.taskList.clear();
+                return;
+            }
+        }
+
+        System.out.println("Done loading.");
         System.out.println(Duke.HORIZONTAL_LINE);
     }
 
@@ -43,6 +116,16 @@ public class Duke {
      * Error handling is done in the individual functions, not here.
      */
     private void interact() {
+        try {
+            readFromDisk();
+        } catch (FileCorruptedException e) {
+            System.out.println("Quack, memory was found to be corrupted!");
+            boolean isContinuing = this.handleFileCorrupted();
+            if (!isContinuing) {
+                return;
+            }
+        }
+
         this.start();
         label:
         while (true) {
@@ -93,6 +176,10 @@ public class Duke {
                     this.deleteTask(commandArgs);
                     break;
 
+                case "save":
+                    this.saveData();
+                    break;
+
                 // anything else
                 default:
                     this.echo(command);
@@ -139,7 +226,7 @@ public class Duke {
         }
 
         // /from keyword
-        String[] separateByFrom = commandArgs[1].split("/from", 2);
+        String[] separateByFrom = commandArgs[1].split(" /from ", 2);
         // no empty event
         if (separateByFrom[0].equals("")) {
             System.out.println("Quack, no empty event please!");
@@ -153,7 +240,7 @@ public class Duke {
         }
 
         // /to keyword
-        String[] separateByTo = separateByFrom[1].split("/to", 2);
+        String[] separateByTo = separateByFrom[1].split(" /to ", 2);
         // no empty start time
         if (separateByTo[0].equals("")) {
             System.out.println("Quack, no empty start time please!");
@@ -189,7 +276,7 @@ public class Duke {
             return;
         }
 
-        String[] separateByBy = commandArgs[1].split("/by", 2);
+        String[] separateByBy = commandArgs[1].split(" /by ", 2);
         // /by keyword must exist
         if (separateByBy.length != 2) {
             System.out.println("Quack, keyword '/by' not found." +
@@ -304,6 +391,49 @@ public class Duke {
         }
 
         return index - 1;
+    }
+
+    /**
+     * Save data to hard disk, with the current task list.
+     */
+    private void saveData() {
+        System.out.println("Saving data ...");
+        try {
+            FileWriter writer = new FileWriter(Duke.TASK_FILENAME);
+            for (Task task: this.taskList) {
+                writer.write(task.data());
+                writer.write("\n");
+            }
+            writer.close();
+            System.out.println("Done saving");
+        } catch (IOException e) {
+            System.out.println("An error has occurred while writing to hard disk!");
+        }
+    }
+
+    /**
+     * Ask the user on the course of action to take, when file is corrupted.
+     */
+    private boolean handleFileCorrupted() {
+        System.out.println("What do you wish to do?");
+        System.out.println("1. Quit, let me restore the data manually");
+        System.out.println("2. Continue with an empty task list");
+        System.out.print("Please indicate your option (1/2): ");
+
+        while (true) {
+            String response = this.scanner.nextLine();
+            System.out.println(Duke.HORIZONTAL_LINE);
+            switch (response) {
+                case "1":
+                    this.exit();
+                    return false;
+                case "2":
+                    this.taskList.clear();
+                    return true;
+                default:
+                    System.out.print("Quack, I do not understand your option, please indicate again (1/2): ");
+            }
+        }
     }
 
     /**
