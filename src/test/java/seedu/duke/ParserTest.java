@@ -24,4 +24,23 @@ public class ParserTest {
             assert e.getMessage().equals("☹ OOPS!!! The description of a todo cannot be empty.");
         }
     }
+
+    @Test
+    public void deadline_wrongDateFormat_exceptionThrown() {
+        try {
+            Parser.parse("deadline test /by 2020-13-10");
+            assert false;
+        } catch (DukeException e) {
+            assert e.getMessage().equals("Please enter a valid date in the format: yyyy-mm-dd");
+        }
+    }
+        @Test
+    public void event_wrongDateFormat_exceptionThrown() {
+        try {
+            Parser.parse("event test /from 2020-13-10 /to 2020-14-10");
+            assert false;
+        } catch (DukeException e) {
+            assert e.getMessage().equals("Please enter a valid date in the format: yyyy-mm-dd");
+        }
+    }
 }

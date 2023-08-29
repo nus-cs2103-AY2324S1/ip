@@ -4,22 +4,29 @@ import duke.DukeException;
 import duke.task.EventTask;
 import org.junit.jupiter.api.Test;
 
+import java.time.LocalDate;
+
 public class EventTest {
+
     @Test
-    public void event_create_success() throws DukeException {
-        EventTask newEvent = new EventTask("test", "2020-10-10", "2020-12-10");
-        assert newEvent.getDescription().equals("test");
-        assert newEvent.getFrom().equals("Oct 10 2020");
-        assert newEvent.getTo().equals("Dec 10 2020");
+    public void mark_success() {
+        try {
+            EventTask newEvent = new EventTask("test", LocalDate.parse("2020-10-10"), LocalDate.parse("2020-12-10"));
+            newEvent.mark();
+            assert newEvent.getStatusIcon().equals("\u2713");
+        } catch (DukeException e) {
+            assert false;
+        }
     }
 
     @Test
-    public void event_wrongDateFormat_exceptionThrown() {
+    public void unmark_success() {
         try {
-            EventTask newEvent = new EventTask("test", "2020-13-10", "2020-14-10");
-            assert false;
+            EventTask newEvent = new EventTask("test", LocalDate.parse("2020-10-10"), LocalDate.parse("2020-12-10"));
+            newEvent.unmark();
+            assert newEvent.getStatusIcon().equals("\u2718");
         } catch (DukeException e) {
-            assert e.getMessage().equals("Please enter a valid date in the format: yyyy-mm-dd");
+            assert false;
         }
     }
 }
