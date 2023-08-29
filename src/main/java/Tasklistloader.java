@@ -61,12 +61,6 @@ public class Tasklistloader {
       Path filePath = Paths.get("tasks.json");
       ReceivedTasks test = new ReceivedTasks();
       test.tasks = this.taskList;
-//      List<Task> test = this.taskList;
-//
-//      String output =
-//          this.taskMapper.writeValueAsString(test);
-//      String output =
-//          this.taskMapper.writeValueAsString(this.taskList);
 
       String output =
           this.taskMapper.writeValueAsString(test);
