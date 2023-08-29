@@ -36,6 +36,6 @@ public class CommandEventHandler implements ICommandHandler{
         if(from.equals("") || to.equals("")){
             throw new CommandException("Error: No from/to time is given.");
         }
-        Main.getInstance().getTaskList().addTask(new EventTask(taskName, from, to));
+        Main.getInstance().getTaskList().addTaskAndSay(new EventTask(taskName, from, to));
     }
 }

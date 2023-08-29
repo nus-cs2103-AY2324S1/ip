@@ -25,6 +25,6 @@ public class CommandDeadlineHandler implements ICommandHandler{
         if(deadline.equals("")){
             throw new CommandException("Error: No deadline time is given.");
         }
-        Main.getInstance().getTaskList().addTask(new DeadlineTask(taskName, deadline));
+        Main.getInstance().getTaskList().addTaskAndSay(new DeadlineTask(taskName, deadline));
     }
 }
