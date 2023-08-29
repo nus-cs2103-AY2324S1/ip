@@ -3,8 +3,8 @@
  */
 public class Event extends Task {
 
-    String startTime;
-    String endTime;
+    private String startTime;
+    private String endTime;
 
     /**
      * Constructor for a new event task object.
@@ -27,6 +27,16 @@ public class Event extends Task {
     @Override
     public String toString() {
         return "[E]" + super.toString() + " (from: " + this.startTime + " to: " + this.endTime + ")";
+    }
+
+    /**
+     * Returns the string representation of the event task to be stored.
+     *
+     * @return String representing event task to be stored.
+     */
+    @Override
+    public String toStore() {
+        return "E | " + super.toStore() + " | " + this.startTime + " | " + this.endTime;
     }
 
 }

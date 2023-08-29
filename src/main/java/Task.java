@@ -1,9 +1,9 @@
 /**
  * Encapsulates a task. All tasks have a description and status (marked or unmarked).
  */
-public class Task {
-    protected String description;
-    protected boolean isDone;
+public abstract class Task {
+    private String description;
+    private boolean isDone;
 
     /**
      * Constructor for a task object.
@@ -46,5 +46,15 @@ public class Task {
     @Override
     public String toString() {
         return "[" + getStatusIcon() + "] " + this.description;
+    }
+
+    /**
+     * Returns the string representation of the task to be stored.
+     *
+     * @return String representing task to be stored.
+     */
+    public String toStore() {
+        String statusNumber = isDone ? "1" : "0";
+        return statusNumber + " | " + this.description;
     }
 }

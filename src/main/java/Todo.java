@@ -22,4 +22,15 @@ public class Todo extends Task {
         return "[T]" + super.toString();
     }
 
+
+    /**
+     * Returns the string representation of the todo task to be stored.
+     *
+     * @return String representing todo task to be stored.
+     */
+    @Override
+    public String toStore() {
+        return "T | " + super.toStore();
+    }
+
 }

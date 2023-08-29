@@ -1,3 +1,9 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -23,10 +29,88 @@ enum Command {
  */
 public class Duke {
     private static List<Task> list = new ArrayList<>();
+    private final static String FILE_PATH = "./data/duke.txt";
+
+    public static Task storeToTask(String store) throws DukeException {
+        String[] words = store.split("\\s\\|\\s");
+        String taskType = words[0];
+        boolean done;
+        if (words[1].equals("0")) {
+            done = false;
+        } else if (words[1].equals("1")) {
+            done = true;
+        } else {
+            System.out.println(words[1]);
+            throw new DukeException("Field 2 incorrect format");
+        }
+        Task t;
+        switch (taskType) {
+        case "T":
+            if (words.length != 3) {
+                throw new DukeException("Incorrect Format for todo task in file");
+            } else {
+                t = new Todo(words[2]);
+            }
+            break;
+        case "D":
+            if (words.length != 4) {
+                throw new DukeException("Incorrect Format for deadline task in file");
+            } else {
+                t = new Deadline(words[3], words[2]);
+            }
+            break;
+        case "E":
+            if (words.length != 5) {
+                throw new DukeException("Incorrect Format for event task in file");
+            } else {
+                t = new Event(words[3], words[4], words[2]);
+            }
+            break;
+        default:
+            throw new DukeException("Field 1 Incorrect Format");
+        }
+
+        if (done) {
+            t.markAsDone();
+        }
+        return t;
+    }
+
+    public static void readFile() throws IOException, DukeException {
+        // create data directory if it does not exist
+        Files.createDirectories(Paths.get("./data"));
+        File f = new File(FILE_PATH);
+        f.createNewFile();
+        Scanner s = new Scanner(f);
+        while (s.hasNext()) {
+            Task task = storeToTask(s.nextLine());
+            list.add(task);
+        }
+    }
+
+    public static void writeToFile() throws IOException {
+        FileWriter fw = new FileWriter(FILE_PATH);
+        for (Task task : list) {
+            fw.write(task.toStore() + "\n");
+        }
+        fw.close();
+    }
 
     public static void main(String[] args) {
 
         printGreetings();
+
+        try {
+            readFile();
+        } catch (IOException e) {
+            System.out.println("\t-----------------------------------------------");
+            System.out.println("\tSomething went wrong reading the file.");
+            System.out.println("\t-----------------------------------------------");
+        } catch (DukeException e) {
+            System.out.println("\t-----------------------------------------------");
+            System.out.println(e.getMessage());
+            System.out.println("\t-----------------------------------------------");
+        }
         Scanner scanner = new Scanner(System.in);
 
         while (true) {
@@ -40,6 +124,7 @@ public class Duke {
                 case BYE:
                     // exit program
                     printExitMessage();
+
                     return;
                 case LIST:
                     printList();
@@ -67,9 +152,15 @@ public class Duke {
                     throw new DukeException("\t☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
                 }
 
+                writeToFile();
+
             } catch (DukeException e) {
                 System.out.println("\t-----------------------------------------------");
                 System.out.println(e.getMessage());
+                System.out.println("\t-----------------------------------------------");
+            } catch (IOException e) {
+                System.out.println("\t-----------------------------------------------");
+                System.out.println("\tSomething went wrong writing to the file.");
                 System.out.println("\t-----------------------------------------------");
             }
         }
