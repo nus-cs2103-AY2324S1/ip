@@ -16,9 +16,12 @@ import alyssa.Exceptions.AlyssaException;
  * This class deals with loading tasks from ./data/alyssa.txt and saving tasks in one file.
  */
 public class Storage {
-    protected String filePath;
-    protected String dirPath;
-    protected File saveFile;
+    /** The relative path to storage file. Usually ./data/alyssa.txt. */
+    private String filePath;
+    /** The relative path of the folder which the storage file is in. Usually ./data. */
+    private String dirPath;
+    /** The storage file. */
+    private File saveFile;
     private Parser parser;
     /**
      * Constructor method for the alyssa.Storage class.
@@ -53,6 +56,7 @@ public class Storage {
 
     /**
      * Imports tasks from ./data/alyssa.txt if there are any.
+     * @return a list of Tasks, used to instantiate the TaskList object.
      */
     protected List<Task> loadTasks() {
         List<Task> taskList = new ArrayList<>();
@@ -62,7 +66,7 @@ public class Storage {
             //each line read by fileScanner is a task!
             while (fileScanner.hasNextLine()) {
                 String nextTask = fileScanner.nextLine();
-                String[] parsedTask = parser.parserStoredTask(nextTask);
+                String[] parsedTask = parser.parseStoredTask(nextTask);
                 String typeOfTask = parsedTask[0];
                 String taskSymbol = parsedTask[1];
                 String desc = parsedTask[2];

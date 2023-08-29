@@ -87,6 +87,9 @@ public class Alyssa {
                 this.ui.printWithLines(e.getMessage());
             }
             break;
+        case FIND:
+            taskList.printRelevantTasks(rest);
+            break;
         default:
             ui.invalidTaskResponse();
         }

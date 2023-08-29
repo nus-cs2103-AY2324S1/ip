@@ -1,13 +1,13 @@
 package alyssa;
 
 /**
- * The alyssa.Parser class processes commands.
+ * The Parser class processes commands.
  */
 public class Parser {
     protected String[] parseCommand(String command) {
         return command.split(" ", 2);
     }
-    protected String[] parserStoredTask(String storedTask) {
+    protected String[] parseStoredTask(String storedTask) {
         return storedTask.split(" ~ ", 5);
     }
 }
