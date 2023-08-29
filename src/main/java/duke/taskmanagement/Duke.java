@@ -12,17 +12,18 @@ public class Duke {
 
     private Ui ui = new Ui();
     //private Storage storage = new Storage(PATH);
-    private TaskList tasks = new TaskList(this.ui);
+    private TaskList tasks;
+    private Storage storage = new Storage(PATH);
 
 
     public void run() {
         ui.greet();
+        tasks = new TaskList(this.ui, storage.loadData(), storage);
         String cmd = this.ui.readInCmd();
         Parser parser = new Parser(this.ui, this.tasks);
         parser.readCmd(this.tasks, cmd);
     }
     public static void main(String[] args) {
         new Duke().run();
-
     }
 }

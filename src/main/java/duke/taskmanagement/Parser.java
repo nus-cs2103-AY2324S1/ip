@@ -41,7 +41,7 @@ public class Parser {
                     String deadline = parts[1].trim();
                     LocalDate d1 = LocalDate.parse(deadline);
                     String formattedDate = d1.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
-                    Task task = new Deadline(description, formattedDate);
+                    Task task = new Deadline(description, formattedDate, false);
                     ls.addDeadlineTask(task);
                 } else {
                     DukeException exp = new DukeException("deadline");
@@ -52,7 +52,7 @@ public class Parser {
                 String[] parts = cmd.split(" ", 2);
                 if (parts.length == 2) {
                     String desc = parts[1].trim();
-                    Task task = new ToDo(desc);
+                    Task task = new ToDo(desc, false);
                     ls.addToDoTask(task);
                 } else {
                     DukeException exp = new DukeException("todo");
@@ -67,7 +67,7 @@ public class Parser {
                     String[] restParts = rest.split("/to");
                     String from = restParts[0].trim();
                     String till = restParts[1].trim();
-                    Task task = new Event(desc, from, till);
+                    Task task = new Event(desc, from, till, false);
                     ls.addEventTask(task);
                 } else {
                     DukeException exp = new DukeException("event");

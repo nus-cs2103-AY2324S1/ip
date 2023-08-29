@@ -5,12 +5,13 @@ import java.util.List;
 public class TaskList {
     String PATH = "/Users/jjtiong/Desktop/ip/data/duke.txt";
     List<Task> ls = new ArrayList<>();
-    Storage storage = new Storage(PATH);
+    Storage storage;
     Ui ui;
 
-    public TaskList(Ui ui) {
-        //this.ls = ls;
+    public TaskList(Ui ui, List<Task> ls, Storage storage) {
         this.ui = ui;
+        this.ls = ls;
+        this.storage = storage;
     }
 
     public void deleteTask(int i) {
@@ -18,6 +19,7 @@ public class TaskList {
         ls.remove(i - 1);
         int size = ls.size();
         ui.printRemoveTask(task.toString(), size);
+        storage.deleteLine(i);
     }
 
     public void addToDoTask(Task task) {
@@ -47,7 +49,8 @@ public class TaskList {
         task.unmark();
         ls.add(i-1, task);
         ui.printMarkUndone(task.toString());
-        storage.writeToFile_exceptionThrown(PATH, task.saveToFileString());
+        storage.changeToUnDone(i);
+        //storage.writeToFile_exceptionThrown(PATH, task.saveToFileString());
     }
 
     public void mark(int i) {
@@ -56,7 +59,8 @@ public class TaskList {
         task.markAsDone();
         ls.add(i-1, task);
         ui.printMarkDone(task.toString());
-        storage.writeToFile_exceptionThrown(PATH, task.saveToFileString());
+        storage.changeToDone(i);
+        //storage.writeToFile_exceptionThrown(PATH, task.saveToFileString());
     }
 
     public List<Task> getList() {

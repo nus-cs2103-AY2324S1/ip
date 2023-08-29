@@ -3,8 +3,9 @@ public class Event extends Task{
     protected String from;
     protected String till;
 
-    public Event(String description, String from, String till) {
-        super(description);
+
+    public Event(String description, String from, String till, boolean isDone) {
+        super(description, isDone);
         this.from = from;
         this.till = till;
     }
@@ -19,6 +20,6 @@ public class Event extends Task{
     }
     @Override
     public String saveToFileString(){
-        return "T | " +  convertIsDone() + " | " + description + " | " + this.from + " " + this.till +"\n";
+        return "E | " +  convertIsDone() + " | " + description + " | " + this.from + " | " + this.till +"\n";
     }
 }

@@ -22,6 +22,7 @@ public class Ui {
         System.out.println("Bye. Hope to see you again soon!\n");
     }
     public void printList(int size, List<Task> ls){
+        System.out.println("Here are the tasks in your list: ");
         for(int i = 0; i < size;i++) {
             int j = i + 1;
             System.out.println(j + "." + ls.get(i));
