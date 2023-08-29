@@ -1,3 +1,9 @@
+import java.io.File;
+import java.io.FileWriter;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -65,9 +71,9 @@ public class DuckBot {
                 } else {
                     throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
                 }
-            } catch (DukeException e) {
+            } catch (DukeException | IllegalDateFormatException e) {
                 divider();
-                System.out.println(e.getMessage());
+                System.out.println("ERROR : " + e.getMessage());
                 divider();
             }
             str = sc.nextLine();
@@ -124,16 +130,21 @@ public class DuckBot {
 
     public void setDeadline(String str) {
         String[] arr = str.split("/by ");
-        Deadline temp = new Deadline(arr[0], arr[1]);
+        Deadline temp = new Deadline(arr[0], LocalDateTime.parse(arr[1], (DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"))));
         list.add(temp);
         echoAdd(temp);
     }
 
-    public void setEvent(String str) {
-        String[] event =  str.split("/from | /to ");
-        Events tmp = new Events(event[1], event[2], event[0]);
-        list.add(tmp);
-        echoAdd(tmp);
+    public void setEvent(String str) throws IllegalDateFormatException {
+       try {
+           String[] event = str.split("/from | /to ");
+           Events tmp = new Events(LocalDateTime.parse(event[1], DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm")),
+                   LocalDateTime.parse(event[2], DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm")), event[0]);
+           list.add(tmp);
+           echoAdd(tmp);
+       } catch (DateTimeParseException e) {
+           throw new IllegalDateFormatException("Wrong Format for the date kindly put in \nyyyy-MM-dd HHmm.");
+       }
     }
 
     public void setToDo(String str)
