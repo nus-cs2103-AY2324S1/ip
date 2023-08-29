@@ -1,6 +1,14 @@
-public class DeleteCommand extends Command {
+package Duke.Commands;
 
-    public DeleteCommand(String fullCommand) {
+import Duke.Exceptions.NoIndexException;
+import Duke.Tools.Storage;
+import Duke.Tasks.Task;
+import Duke.Tools.TaskList;
+import Duke.Tools.Ui;
+
+public class MarkCommand extends Command {
+
+    public MarkCommand(String fullCommand) {
         super(fullCommand);
     }
 
@@ -11,12 +19,12 @@ public class DeleteCommand extends Command {
             throw new NoIndexException("No Index");
         }
         int index = Integer.parseInt(desc);
-
         if (tasks.size() < index || index < 1) {
             throw new NoIndexException(Integer.toString(index));
         }
+
         Task task = tasks.get(index - 1);
-        tasks.remove(index - 1);
-        ui.showDeleteMessage(task, tasks.size());
+        task.markDone();
+        ui.showMarkMessage(task);
     }
 }

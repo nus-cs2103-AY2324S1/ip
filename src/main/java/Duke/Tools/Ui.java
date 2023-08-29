@@ -1,3 +1,7 @@
+package Duke.Tools;
+
+import Duke.Tasks.Task;
+
 import java.time.LocalDateTime;
 import java.util.Scanner;
 

@@ -1,3 +1,5 @@
+package Duke.Exceptions;
+
 public class UnrecognisedFormatException extends Exception {
 
     public UnrecognisedFormatException() {

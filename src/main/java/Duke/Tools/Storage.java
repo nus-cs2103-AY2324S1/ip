@@ -1,3 +1,11 @@
+package Duke.Tools;
+
+import Duke.Exceptions.UnrecognisedFormatException;
+import Duke.Tasks.Deadline;
+import Duke.Tasks.Event;
+import Duke.Tasks.Task;
+import Duke.Tasks.ToDo;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -38,9 +46,9 @@ public class Storage {
 
                 if (segments[0].equals("T")) { // To do task
                     tasks.add(new ToDo(segments[2], isDone));
-                } else if (segments[0].equals("D")) { // Deadline task
+                } else if (segments[0].equals("D")) { // Duke.Tasks.Deadline task
                     tasks.add(new Deadline(segments[2], LocalDateTime.parse(segments[3]), isDone));
-                } else { // Event task
+                } else { // Duke.Tasks.Event task
                     String[] times = segments[3].split("--");
                     tasks.add(new Event(segments[2],
                             LocalDateTime.parse(times[0]),
@@ -58,6 +66,7 @@ public class Storage {
                     System.out.println("Sorry, file does not exist. Creating now...");
                 }
             } catch (Exception error) {
+                System.out.println(error);
                 System.out.println("Error... Unable to create files");
             }
 

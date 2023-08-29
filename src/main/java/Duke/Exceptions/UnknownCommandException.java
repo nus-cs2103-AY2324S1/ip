@@ -1,5 +1,7 @@
+package Duke.Exceptions;
+
 /**
- * Represents an UnknownCommandException.
+ * Represents an Duke.Exceptions.UnknownCommandException.
  *
  * @author Rayson
  */

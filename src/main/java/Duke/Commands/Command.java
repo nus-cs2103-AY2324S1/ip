@@ -1,3 +1,9 @@
+package Duke.Commands;
+
+import Duke.Tools.Storage;
+import Duke.Tools.TaskList;
+import Duke.Tools.Ui;
+
 abstract public class Command {
 
     protected String fullCommand;

@@ -1,7 +1,9 @@
+package Duke.Tasks;
+
 import java.time.LocalDateTime;
 
 /**
- * Encapsulates a Task in the Chat bot.
+ * Encapsulates a Duke.Tasks.Task in the Chat bot.
  *
  * @author Rayson
  */

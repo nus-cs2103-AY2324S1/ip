@@ -1,6 +1,14 @@
-public class MarkCommand extends Command {
+package Duke.Commands;
 
-    public MarkCommand(String fullCommand) {
+import Duke.Exceptions.NoIndexException;
+import Duke.Tools.Storage;
+import Duke.Tasks.Task;
+import Duke.Tools.TaskList;
+import Duke.Tools.Ui;
+
+public class UnmarkCommand extends Command {
+
+    public UnmarkCommand(String fullCommand) {
         super(fullCommand);
     }
 
@@ -16,7 +24,7 @@ public class MarkCommand extends Command {
         }
 
         Task task = tasks.get(index - 1);
-        task.markDone();
-        ui.showMarkMessage(task);
+        task.markUndone();
+        ui.showUnmarkMessage(task);
     }
 }

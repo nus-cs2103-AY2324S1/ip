@@ -1,3 +1,5 @@
+package Duke.Exceptions;
+
 public class BackwardsTimeException extends Exception {
 
     public BackwardsTimeException() {

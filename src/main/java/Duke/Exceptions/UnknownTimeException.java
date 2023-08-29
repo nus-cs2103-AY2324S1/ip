@@ -1,5 +1,7 @@
+package Duke.Exceptions;
+
 /**
- * Represents an UnknownTimeException.
+ * Represents an Duke.Exceptions.UnknownTimeException.
  *
  * @author Rayson
  */

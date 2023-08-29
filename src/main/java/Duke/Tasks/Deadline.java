@@ -1,8 +1,10 @@
+package Duke.Tasks;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 /**
- * Encapsulates a Deadline.
+ * Encapsulates a Duke.Tasks.Deadline.
  * Deadlines are tasks that need to be done
  * before a specific date/time.
  *
