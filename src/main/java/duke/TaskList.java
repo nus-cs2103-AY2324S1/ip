@@ -1,15 +1,15 @@
 package duke;
 
 import duke.task.Task;
-
 import java.util.ArrayList;
 
 public class TaskList implements TaskArray {
-    public ArrayList<Task> tasks;
+    private ArrayList<Task> tasks;
 
     public TaskList() {
         this.tasks = new ArrayList<>();
     }
+
     public TaskList(ArrayList<String> strings) {
         this.tasks = new ArrayList<>();
         Parser parser = new Parser(this);
@@ -17,6 +17,7 @@ public class TaskList implements TaskArray {
             parser.parseFromFile(s);
         }
     }
+
     public boolean isEmpty() {
         return this.tasks.isEmpty();
     }

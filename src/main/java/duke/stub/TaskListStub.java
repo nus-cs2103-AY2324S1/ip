@@ -1,12 +1,11 @@
 package duke.stub;
 
 import duke.TaskArray;
-import duke.TaskList;
 import duke.task.Task;
+
 import java.util.ArrayList;
 
 public class TaskListStub implements TaskArray {
-
     private ArrayList<Task> tasks;
 
     public TaskListStub(boolean b, boolean unmarked) {
@@ -47,6 +46,7 @@ public class TaskListStub implements TaskArray {
     public void add(Task t) {
         tasks.add(t);
     }
+
     @Override
     public void remove(int i) {
         tasks.remove(i);

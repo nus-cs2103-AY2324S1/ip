@@ -4,6 +4,7 @@ import duke.exception.InvalidInputException;
 import duke.exception.InvalidMarkingException;
 import duke.exception.LackDescriptionException;
 import duke.exception.LackInformationException;
+
 import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Task;
@@ -15,10 +16,10 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 public class Parser {
-
     private TaskArray tasks;
     private Ui ui;
     private boolean isExit;
+
     public Parser(TaskArray tasks, Ui ui) {
         this.tasks = tasks;
         this.ui = ui;
@@ -31,7 +32,6 @@ public class Parser {
         this.isExit = false;
     }
 
-    // throws error when parsing failed. handled in duke. does not print anything
     public void parse(String s) throws DateTimeParseException {
         String[] stringList = s.split(" ", 2);
         String first = stringList[0];
@@ -66,7 +66,8 @@ public class Parser {
             delete(second);
             break;
         default:
-            throw new InvalidInputException("OOPS! I do not know what " + first + " means. Please try again :)");
+            throw new InvalidInputException("OOPS! I do not know what " + first
+                    + " means. Please try again :)");
         }
         if (first.equals("bye")) {
             ending();
@@ -85,6 +86,7 @@ public class Parser {
             }
         }
     }
+
     private void ending() {
         this.isExit = true;
         this.ui.farewell();
@@ -112,6 +114,7 @@ public class Parser {
         if (x == null || x.equals(" ") || x.startsWith("/by") || x.startsWith(" /by")) {
             throw new LackDescriptionException("deadline");
         }
+
         String[] s = x.split(" /by ");
         String description = s[0];
         String deadline;
@@ -120,6 +123,7 @@ public class Parser {
         } catch (IndexOutOfBoundsException e) {
             throw new LackInformationException("\"/by\"");
         }
+
         String[] dateTime = deadline.split(" ");
         LocalDate date = LocalDate.parse(dateTime[0]);
         LocalTime time;
@@ -131,6 +135,7 @@ public class Parser {
         } else {
             d = new Deadline(description, date);
         }
+
         tasks.add(d);
         addedTask(description);
     }
@@ -141,9 +146,11 @@ public class Parser {
      * @param x Details of the task.
      */
     private void addEvent(String x) {
-        if (x == null || x.equals(" ") || x.startsWith("/from") || x.startsWith(" /from") || x.startsWith("/to") || x.startsWith(" /to")) {
+        if (x == null || x.equals(" ") || x.startsWith("/from")
+                || x.startsWith(" /from") || x.startsWith("/to") || x.startsWith(" /to")) {
             throw new LackDescriptionException("event");
         }
+
         String[] s = x.split(" /from ");
         String description = s[0];
         String fromto;
@@ -173,6 +180,7 @@ public class Parser {
         } catch (IndexOutOfBoundsException e) {
             throw new LackInformationException("\"/to\"");
         }
+
         LocalDate endDate;
         LocalTime endTime = null;
         String[] ends = to.split(" ");
@@ -193,13 +201,15 @@ public class Parser {
         } else {
             e = new Event(description, startDate, startTime, endDate, endTime);
         }
+
         tasks.add(e);
         addedTask(description);
     }
 
     private void addedTask(String x) {
         this.ui.print("Added to list: " + x);
-        this.ui.print("Now you have " + tasks.size() + (tasks.size() == 1 ? " task " : " tasks ") + "in the list");
+        this.ui.print("Now you have " + tasks.size()
+                + (tasks.size() == 1 ? " task " : " tasks ") + "in the list");
     }
 
     /**
@@ -211,17 +221,21 @@ public class Parser {
         if (x == null) {
             throw new InvalidMarkingException("Missing index");
         }
+
         int j;
         try {
             j = Integer.parseInt(x);
         } catch (NumberFormatException e) {
             throw new InvalidMarkingException("Please provide a valid index");
         }
+
         if (j-1 > tasks.size()-1 || j-1<0) {
             throw new InvalidMarkingException("There is no corresponding task in the list");
         }
+
         Task t = tasks.get(j-1);
         t.markDone();
+
         this.ui.print("Task marked as done.");
     }
 
@@ -234,17 +248,21 @@ public class Parser {
         if (x == null) {
             throw new InvalidMarkingException("Missing index");
         }
+
         int j;
         try {
             j = Integer.parseInt(x);
         } catch (NumberFormatException e) {
             throw new InvalidMarkingException("Please provide a valid index");
         }
+
         if (j-1 > tasks.size()-1 || j-1<0) {
             throw new InvalidMarkingException("There is no corresponding task in the list");
         }
+
         Task t = tasks.get(j-1);
         t.markUndone();
+
         this.ui.print("Task marked as undone.");
     }
 
@@ -257,20 +275,25 @@ public class Parser {
         if (x == null) {
             throw new InvalidMarkingException("Missing index");
         }
+
         int j;
         try {
             j = Integer.parseInt(x);
         } catch (NumberFormatException e) {
             throw new InvalidMarkingException("Please provide a valid index");
         }
+
         if (j-1 > tasks.size()-1 || j-1 < 0) {
             throw new InvalidMarkingException("There is no corresponding task in the list");
         }
+
         Task t = tasks.get(j-1);
         tasks.remove(j-1);
+
         this.ui.print("I've removed this task:");
         this.ui.print(t);
-        this.ui.print("Now you have " + tasks.size() + (tasks.size() > 1 ? " tasks" : " task") + " in the list");
+        this.ui.print("Now you have " + tasks.size() + (tasks.size() > 1 ? " tasks" : " task")
+                + " in the list");
     }
 
     public void parseFromFile(String s) {
@@ -279,6 +302,7 @@ public class Parser {
         boolean isDone = chars[1].equals("1");
         DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("HH:mm");
         Task t;
+
         switch (type) {
         case "[T]":
             t = new Todo(chars[2]);
@@ -307,7 +331,7 @@ public class Parser {
                 t = new Event(chars[2], LocalDate.parse(chars[3]), LocalDate.parse(chars[4]));
             } else {
                 if (chars[5].length() > 5) {
-                    t = new Event(chars[2], LocalDate.parse(chars[3]), LocalTime.parse(chars[4], dateFormat), //chars
+                    t = new Event(chars[2], LocalDate.parse(chars[3]), LocalTime.parse(chars[4], dateFormat),
                             LocalDate.parse(chars[5]));
                 } else {
                     t = new Event(chars[2], LocalDate.parse(chars[3]), LocalDate.parse(chars[4]),

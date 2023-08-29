@@ -1,7 +1,6 @@
 package duke;
 
 import duke.exception.DukeException;
-
 import java.time.format.DateTimeParseException;
 
 /**
@@ -30,6 +29,7 @@ public class Duke {
         ui.welcome();
         boolean isExit;
         String command = ui.readCommand();
+
         while (!command.isEmpty()) {
             try {
                 parser.parse(command);
@@ -53,5 +53,4 @@ public class Duke {
     public static void main(String[] args) {
         new Duke("./duke.txt").run();
     }
-
 }

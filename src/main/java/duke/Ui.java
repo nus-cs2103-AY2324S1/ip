@@ -1,17 +1,17 @@
 package duke;
 
 import duke.task.Task;
-
 import java.util.Scanner;
 
 public class Ui {
-
     public void welcome() {
         System.out.println("Hello! I'm BoxBox\nWhat can I do for you?");
     }
+
     public void farewell() {
         System.out.println("Bye! Hope to see you again!");
     }
+
     public void print(String s) {
         System.out.println(s);
     }
