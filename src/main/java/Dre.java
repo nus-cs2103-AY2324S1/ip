@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Dre {
-    private ArrayList<Task> list;
+    private final ArrayList<Task> list;
 
     public Dre() {
         list = new ArrayList<>();
@@ -31,7 +31,7 @@ public class Dre {
             list.add(task);
 
             System.out.println("Got it. I've added this task:");
-            System.out.println(task.toString());
+            System.out.println(task);
         } else if (next.startsWith("deadline")) {
             String desc = next.substring(9, next.lastIndexOf('/') - 1);
             String by = next.substring(next.lastIndexOf("/by") + 4);
@@ -76,13 +76,6 @@ public class Dre {
     }
 
     public void mark(String next) {
-//        int start = next.lastIndexOf(' ');
-//        int taskIndex = Integer.parseInt(next.substring(start + 1));
-//        //error handling for non integer
-//        Task currTask = list.get(taskIndex - 1);
-//        currTask.done();
-//        System.out.println("Nice! I've marked this task as done:");
-//        System.out.println(currTask.toString());
         int start = next.lastIndexOf(' ');
         try {
             int taskIndex = Integer.parseInt(next.substring(start + 1));
@@ -100,7 +93,7 @@ public class Dre {
         }
     }
 
-    public void unmark(String next) {
+    public void unmark (String next) {
         int start = next.lastIndexOf(' ');
         try {
             int taskIndex = Integer.parseInt(next.substring(start + 1));
