@@ -10,7 +10,7 @@ import Bob.storage.StorageFile;
 public class AddCommand extends Command {
 
     CommandType command;
-    String description, startDate, endDate;
+    private String description, startDate, endDate;
     public AddCommand(CommandType command, String description, String startDate, String endDate) throws BobInvalidCommandException {
         if (command != CommandType.TODO && command != CommandType.DEADLINE && command != CommandType.EVENT) {
             throw new BobInvalidCommandException("You can only add tasks of type: Todo, Deadline and Event");
