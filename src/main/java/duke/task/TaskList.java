@@ -12,7 +12,7 @@ public class TaskList {
     private Storage db;
 
     public TaskList() {
-        db = new Storage("data/duke.txt");
+        db = new Storage("data/duke.ser");
         this.tasks = db.loadTask();
     }
 
