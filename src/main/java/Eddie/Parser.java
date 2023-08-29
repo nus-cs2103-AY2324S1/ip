@@ -86,6 +86,9 @@ public class Parser {
 
             } else if (command.equals("clear")){
                 Duke.clear();
+            } else if (command.equals("find")) {
+                String restOfString = sc.next();
+                Duke.find(restOfString);
             } else {
                 throw new NoSuchCommandException();
             }

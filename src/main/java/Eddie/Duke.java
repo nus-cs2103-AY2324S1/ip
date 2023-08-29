@@ -50,6 +50,23 @@ public class Duke {
 
     }
 
+    public static void find(String s) {
+        System.out.println("Search for tasks with:<" + s + ">");
+
+        int size = TaskList.size();
+        for (int i = 0; i < size; i++) {
+            Task t = TaskList.get(i);
+            String taskName = t.getName();
+            int inName = taskName.indexOf(s);
+            if (inName >= 0) {
+                int num = i + 1;
+                System.out.println(num + ". " + t.toString());
+            }
+        }
+
+
+    }
+
 
     public static void main(String[] args) {
 
