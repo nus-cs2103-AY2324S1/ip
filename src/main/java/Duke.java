@@ -178,8 +178,13 @@ public class Duke {
                 });
             }
 
-            String fromDate = dateParse[0];
-            String toDate = dateParse[1];
+            LocalDateTime fromDate = DateParser.parseDateString(dateParse[0].strip());
+            LocalDateTime toDate = DateParser.parseDateString(dateParse[1].strip());
+            if (fromDate == null || toDate == null) {
+                throw new DukeException(
+                    "Oops, looks like your date is in an invalid format..."
+                );
+            }
             this.addEvent(
                 extractTail(header), 
                 fromDate,
@@ -246,14 +251,21 @@ public class Duke {
                 case "D":
                     if (parse.length < 4) break;
                     this.addTask(
-                        new Deadline(parse[2], DateParser.parseDateString(parse[3]), isDone)
-                    );
+                        new Deadline(
+                            parse[2], 
+                            DateParser.parseDateString(parse[3]), 
+                            isDone
+                    ));
                     break;
                 case "E":
                     if (parse.length < 5) break;
                     this.addTask(
-                        new Event(parse[2], parse[3], parse[4], isDone)
-                    );
+                        new Event(
+                            parse[2], 
+                            DateParser.parseDateString(parse[3]), 
+                            DateParser.parseDateString(parse[4]), 
+                            isDone
+                    ));
                     break;
                 default:
                     break;
@@ -349,7 +361,7 @@ public class Duke {
         this.updateSavedTasks();
     }
 
-    private void addEvent(String description, String start, String end) {
+    private void addEvent(String description, LocalDateTime start, LocalDateTime end) {
         Task event = new Event(description, start, end);
         this.addTask(event);
         this.speak(new String[] {

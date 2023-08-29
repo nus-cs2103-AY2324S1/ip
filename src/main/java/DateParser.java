@@ -20,7 +20,6 @@ public class DateParser {
             ))
             .optionalStart()
             .appendPattern("[ HHmm][ Hmm]['T'HH:mm]")
-            // .appendPattern("['T'HH:mm]")
             .optionalEnd()
             .parseDefaulting(ChronoField.HOUR_OF_DAY, 0)
             .parseDefaulting(ChronoField.MINUTE_OF_HOUR, 0)
@@ -29,7 +28,8 @@ public class DateParser {
     
     private static final DateTimeFormatter displayFormat = 
         DateTimeFormatter.ofPattern(
-            "dd-MM-yyyy h:mma"
+            "MMM dd yyyy h:mma",
+            Locale.ENGLISH
         );
 
     public static LocalDateTime parseDateString(String date) {

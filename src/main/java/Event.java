@@ -1,14 +1,16 @@
-public class Event extends Task {
-    private String from;
-    private String to;
+import java.time.LocalDateTime;
 
-    public Event(String detail, String from, String to) {
+public class Event extends Task {
+    private LocalDateTime from;
+    private LocalDateTime to;
+
+    public Event(String detail, LocalDateTime from, LocalDateTime to) {
         super(detail);
         this.from = from;
         this.to = to;
     }
 
-    public Event(String detail, String from, String to, boolean isDone) {
+    public Event(String detail, LocalDateTime from, LocalDateTime to, boolean isDone) {
         super(detail, isDone);
         this.from = from;
         this.to = to;
@@ -19,8 +21,8 @@ public class Event extends Task {
         return String.format(
             "[E]%s (from: %s to: %s)",
             super.toString(), 
-            this.from, 
-            this.to
+            DateParser.toDisplayString(this.from), 
+            DateParser.toDisplayString(this.to)
         );
     }
 
@@ -29,8 +31,8 @@ public class Event extends Task {
         return String.format(
             "E|%s|%s|%s",
             super.toFileFormatString(),
-            this.from, 
-            this.to
+            DateParser.toFileString(this.from), 
+            DateParser.toFileString(this.to)
         );
     }
 }
