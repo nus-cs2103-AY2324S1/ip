@@ -115,6 +115,12 @@ public class TaskList {
         Ui.respond(delTaskMessage);
     }
 
+    /**
+     * Filters tasks in the list based on a keyword.
+     *
+     * @param keyword The keyword to search for in the task descriptions.
+     * @return A new TaskList containing tasks whose descriptions contain the keyword.
+     */
     public TaskList getTasksWithKeyword(String keyword) {
         List<Task> keywordTasks = new ArrayList<Task>();
         for (Task task : taskList) {

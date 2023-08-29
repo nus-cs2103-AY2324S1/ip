@@ -70,6 +70,12 @@ public class Ui {
         System.out.println(HORIZONTAL_LINE);
     }
 
+    /**
+     * Prints tasks from a given TaskList that match a specific keyword.
+     * Outputs a formatted string to the console, where each task starts with an index number.
+     *
+     * @param taskList The TaskList containing tasks that match the keyword.
+     */
     public static void printKeywordTasksMsg(TaskList taskList) {
         StringBuilder todoListString = new StringBuilder();
         for (int i = 0; i < taskList.getSize(); i++) {
@@ -87,6 +93,9 @@ public class Ui {
         System.out.println(HORIZONTAL_LINE);
     }
 
+    /**
+     * Prints a message to the console indicating that no tasks matching the specified keyword were found.
+     */
     public static void printNoKeywordTasksFound() {
         System.out.println(HORIZONTAL_LINE);
         System.out.println("      No matching tasks found.");
