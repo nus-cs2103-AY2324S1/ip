@@ -9,6 +9,7 @@ import java.time.LocalDateTime;
 public class Todo extends Task {
     /**
      * Constructor for Todo.
+     *
      * @param description This is the description for the Task.
      */
     public Todo(String description) {
@@ -17,8 +18,9 @@ public class Todo extends Task {
 
     /**
      * This is the overloaded Constructor for Todo.
+     *
      * @param description This is the description for the Task.
-     * @param completed This is the boolean representing the completeness of the Todo
+     * @param completed   This is the boolean representing the completeness of the Todo.
      */
     public Todo(String description, boolean completed) {
         super(description, completed);
@@ -33,6 +35,7 @@ public class Todo extends Task {
     public boolean isOnDate(LocalDateTime startOfDay, LocalDateTime endOfDay) {
         return false;
     }
+
     @Override
     public String toString() {
         return "[T]" + super.toString();

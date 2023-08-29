@@ -12,7 +12,8 @@ public class ListCommand extends Command {
 
     /**
      * Constructor for ListCommand.
-     * @param dotTaskList This is the TaskList which encapsulates the Task and operations
+     *
+     * @param dotTaskList This is the TaskList which encapsulates the Task and operations.
      */
     public ListCommand(TaskList dotTaskList) {
         this.dotTaskList = dotTaskList;
@@ -20,10 +21,12 @@ public class ListCommand extends Command {
 
     /**
      * Lists out all the tasks in dotTaskList.
-     * @throws DotException On detected error
+     *
+     * @throws DotException On detected error.
      */
     @Override
     public void execute() throws DotException {
         this.dotTaskList.list();
-    };
+    }
+
 }

@@ -14,20 +14,20 @@ import java.time.format.DateTimeFormatter;
 public abstract class Dateable {
 
     /**
-     * Check if stored date is before or on given date
+     * Checks if stored date is before or on given date
      * TimeDescription must return false for this method.
      *
-     * @param date from user input
-     * @return true if before or on, else false
+     * @param date from user input.
+     * @return true if before or on, else false.
      */
     public abstract boolean isBeforeOrOn(LocalDateTime date);
 
     /**
-     * Check if stored date is after or on given date
+     * Checks if stored date is after or on given date
      * TimeDescription must return false for this method.
      *
-     * @param date from user input
-     * @return true if after or on, else false
+     * @param date from user input.
+     * @return true if after or on, else false.
      */
     public abstract boolean isAfterOrOn(LocalDateTime date);
 
@@ -36,7 +36,8 @@ public abstract class Dateable {
      * which stores a LocalDateTime.
      */
     public static class DotDateTime extends Dateable {
-        private LocalDateTime dotDateTime;
+        private final LocalDateTime dotDateTime;
+
         DotDateTime(String input) {
             this.dotDateTime = LocalDateTime.parse(input);
         }
@@ -62,7 +63,7 @@ public abstract class Dateable {
      * which stores a String describing the date-time.
      */
     public static class TimeDescription extends Dateable {
-        private String timeDescription;
+        private final String timeDescription;
 
         TimeDescription(String input) {
             this.timeDescription = input;
@@ -85,11 +86,12 @@ public abstract class Dateable {
     }
 
     /**
-     * The factory method for Dateable. It validates that input is of the
-     * correct date-time input format accepted, and then returns the appropriate
-     * Dateable object.
-     * @param input This is the user input
-     * @return A DotDateTime if input is of format, else a TimeDescription
+     * Validates that input is of the correct date-time input format accepted,
+     *  and then returns the appropriate Dateable object.
+     *  This is the factory method for Dateable.
+     *
+     * @param input This is the user input.
+     * @return A DotDateTime if input is of format, else a TimeDescription.
      */
     public static Dateable of(String input) {
         //(Only) regex inspired by ChatGPT

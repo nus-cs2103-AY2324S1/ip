@@ -1,11 +1,10 @@
 package tasks;
 
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import errors.DotException;
 import storage.Storage;
 import ui.Ui;
-
-import java.time.LocalDateTime;
-import java.util.ArrayList;
 
 /**
  * TaskList class that contains an ArrayList of tasks, where
@@ -23,9 +22,10 @@ public class TaskList {
 
     /**
      * Protected constructor for an empty TaskList, used by
-     * the newTaskList factory method
-     * @param maxSize of TaskList
-     * @param storage object for file read/write
+     * the newTaskList factory method.
+     *
+     * @param maxSize of TaskList.
+     * @param storage object for file read/write.
      */
     protected TaskList(int maxSize, Storage storage) {
         this.tasks = new ArrayList<>();
@@ -40,7 +40,8 @@ public class TaskList {
     }
 
     /**
-     * This method adds the given task to the TaskList.
+     * Adds the given task to the TaskList.
+     *
      * @param newTask New task to add.
      */
     public void addTask(Task newTask) {
@@ -55,7 +56,7 @@ public class TaskList {
     }
 
     /**
-     * This method lists out all tasks in the TaskList.
+     * Lists out all tasks in the TaskList.
      */
     public void list() {
         ArrayList<String> linesToBePrinted = new ArrayList<>();
@@ -70,9 +71,10 @@ public class TaskList {
      * Factory method allows for future flexibility.
      * For instance, if they are multiple empty TaskLists,
      * we are able to use a singleton.
-     * @param maxSize This is the limit of items the TaskList can store
-     * @param storage This is the storage object which handles fileIO
-     * @return The new TaskList
+     *
+     * @param maxSize This is the limit of items the TaskList can store.
+     * @param storage This is the storage object which handles fileIO.
+     * @return The new TaskList.
      */
     public static TaskList newTaskList(int maxSize, Storage storage) {
         return new TaskList(maxSize, storage);
@@ -82,21 +84,23 @@ public class TaskList {
      * Factory method for TaskList that allows the user to pass in
      * an existing <code>{@literal ArrayList<Task>}</code>, and
      * return a TaskList.
-     * @param maxSize This is the limit of items the TaskList can store
-     * @param taskList This is the input task list
-     * @param storage This is the storage object which handles fileIO
-     * @return The new TaskList
+     *
+     * @param maxSize  This is the limit of items the TaskList can store.
+     * @param taskList This is the input task list.
+     * @param storage  This is the storage object which handles fileIO.
+     * @return The new TaskList.
      */
     public static TaskList taskListFromArrayList(int maxSize, ArrayList<Task> taskList, Storage storage) {
         return new TaskList(maxSize, taskList, storage);
     }
 
     /**
-     * This method changes the taskStatus of the Task as position
+     * Changes the taskStatus of the Task as position
      * to boolean isCompleted.
-     * @param position This is the position which Task resides
-     *                 as shown in ListCommand
-     * @param isCompleted This is the done status of the Task
+     *
+     * @param position    This is the position which Task resides
+     *                    as shown in ListCommand.
+     * @param isCompleted This is the done status of the Task.
      */
     public void toggleTaskStatus(int position, boolean isCompleted) {
         if (position >= 0 && position < this.tasks.size()) {
@@ -107,9 +111,10 @@ public class TaskList {
     }
 
     /**
-     * This method deletes the Task at a given position.
+     * Deletes the Task at a given position.
+     *
      * @param position This is the position which Task resides
-     *                 as shown in ListCommand
+     *                 as shown in ListCommand.
      */
     public void deleteTask(int position) {
         if (position >= 0 && position < this.tasks.size()) {
@@ -122,8 +127,9 @@ public class TaskList {
 
     /**
      * This method displays all the tasks falling on the given LocalDateTime.
-     * @param dateTime The queried date-time
-     * @return An ArrayList of lines for the caller to display using Ui package
+     *
+     * @param dateTime The queried date-time.
+     * @return An ArrayList of lines for the caller to display using Ui package.
      */
     public ArrayList<String> getDisplayForTasksFallingOnDate(LocalDateTime dateTime) {
         // Deadline must be within the day
@@ -151,7 +157,8 @@ public class TaskList {
     /**
      * This method invokes the saveTasks method of the storage object,
      * which saves all task to the data file.
-     * @throws DotException On detected error
+     *
+     * @throws DotException On detected error.
      */
     public void saveTaskListToStorage() throws DotException {
         this.storage.saveTasks(this.tasks);

@@ -8,9 +8,10 @@ public class DotException extends Exception {
 
     /**
      * Constructor for DotException.
-     * @param message This is the sub-message which the DotException hopes to display.
+     *
+     * @param message   This is the sub-message which the DotException hopes to display.
      * @param taskError This is the TaskError enum value which represents the category to
-     *                  which this DotException belongs to
+     *                  which this DotException belongs to.
      */
     public DotException(String message, TaskError taskError) {
         super(message);
@@ -20,7 +21,8 @@ public class DotException extends Exception {
     /**
      * Overrides the toString method of object.
      * This method is extensible to further customise the error message in the future.
-     * @return String version of DotException
+     *
+     * @return String version of DotException.
      */
     @Override
     public String toString() {

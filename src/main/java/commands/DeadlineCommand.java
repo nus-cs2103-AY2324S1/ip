@@ -10,6 +10,7 @@ import tasks.TaskList;
  */
 public class DeadlineCommand extends Command {
     private final String description;
+
     /**
      * Deadline as String as this is still the command layer.
      */
@@ -18,9 +19,10 @@ public class DeadlineCommand extends Command {
 
     /**
      * Constructor for DeadlineCommand.
-     * @param description This is the description for the deadline task
-     * @param deadline This is the description of the deadline as a String
-     * @param dotTaskList This is the TaskList which encapsulates the Task and operations
+     *
+     * @param description This is the description for the deadline task.
+     * @param deadline    This is the description of the deadline as a String.
+     * @param dotTaskList This is the TaskList which encapsulates the Task and operations.
      */
     public DeadlineCommand(String description, String deadline, TaskList dotTaskList) {
         this.description = description;
@@ -29,8 +31,9 @@ public class DeadlineCommand extends Command {
     }
 
     /**
-     * Creates and inserts the Deadline into dotTaskList
-     * @throws DotException On detected error
+     * Creates and inserts the Deadline into dotTaskList.
+     *
+     * @throws DotException On detected error.
      */
     @Override
     public void execute() throws DotException {

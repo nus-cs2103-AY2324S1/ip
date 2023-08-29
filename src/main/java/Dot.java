@@ -16,6 +16,7 @@ public class Dot {
 
     /**
      * Constructor for Dot.
+     *
      * @param maxSize The maximum number of tasks Dot can handle
      */
     public Dot(int maxSize) {
@@ -56,6 +57,7 @@ public class Dot {
         }
         Ui.goodbye();
     }
+
     public static void main(String[] args) {
         Dot dotInstance;
         // DEPRECATED: If args[0] == "test", we enter Dot into testing mode

@@ -15,11 +15,12 @@ public class EventCommand extends Command {
     private final TaskList dotTaskList;
 
     /**
-     * Constructor for EventCommand
-     * @param description This is the description of the event
-     * @param start This is the description of datetime of the start of the event
-     * @param end This is the description of datetime of the end of the event
-     * @param dotTaskList This is the TaskList which encapsulates the Task and operations
+     * Constructor for EventCommand.
+     *
+     * @param description This is the description of the event.
+     * @param start       This is the description of datetime of the start of the event.
+     * @param end         This is the description of datetime of the end of the event.
+     * @param dotTaskList This is the TaskList which encapsulates the Task and operations.
      */
     public EventCommand(String description, String start, String end,
                         TaskList dotTaskList) {
@@ -30,13 +31,15 @@ public class EventCommand extends Command {
     }
 
     /**
-     * Creates and inserts the Event into dotTaskList
-     * @throws DotException On detected error
+     * Creates and inserts the Event into dotTaskList.
+     *
+     * @throws DotException On detected error.
      */
     @Override
     public void execute() throws DotException {
         Task newEventTask = new Event(this.description, this.start, this.end);
         dotTaskList.addTask(newEventTask);
         dotTaskList.saveTaskListToStorage();
-    };
+    }
+
 }

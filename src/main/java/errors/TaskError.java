@@ -4,14 +4,14 @@ package errors;
 import ui.Ui;
 
 /**
- *  This contains the main logic of error handling.
- *  Each enum value has an associated method and
- *  error message. The method `printErrorMessage`
- *  takes in an Exception as an argument, and
- *  prints the exception message as a sub-error
- *  message. As such we are able to combine Dot's
- *  own error messages, and Java's exception messages,
- *  in the case of a built-in runtime error.
+ * This contains the main logic of error handling.
+ * Each enum value has an associated method and
+ * error message. The method `printErrorMessage`
+ * takes in an Exception as an argument, and
+ * prints the exception message as a sub-error
+ * message. As such we are able to combine Dot's
+ * own error messages, and Java's exception messages,
+ * in the case of a built-in runtime error.
  */
 public enum TaskError {
     ERR_USING_MARK("..o.o..beep..Invalid use of mark, use: \"mark <task number>\""),
@@ -31,6 +31,7 @@ public enum TaskError {
 
 
     private final String errorMessage;
+
     TaskError(String errorMessage) {
         this.errorMessage = errorMessage;
     }
@@ -38,9 +39,10 @@ public enum TaskError {
     /**
      * Attaches the main errorMessage to the exception's sub-message,
      * and displays it to the user.
+     *
      * @param e This is the DotException (or any other exception),
      *          which is passed along with the TaskError enum, to be
-     *          handled
+     *          handled.
      */
     public void printErrorMessage(Exception e) {
         if (e instanceof NumberFormatException) {

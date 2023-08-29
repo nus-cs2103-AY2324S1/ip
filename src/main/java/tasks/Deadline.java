@@ -1,20 +1,20 @@
 package tasks;
 
-import parser.Parser;
-
 import java.time.LocalDateTime;
+import parser.Parser;
 
 /**
  * The Deadline class implements the Deadline Task which instances
- * can be inserted into a TaskList with a Dateable deadline
+ * can be inserted into a TaskList with a Dateable deadline.
  */
 public class Deadline extends Task {
-    private Dateable deadline;
+    private final Dateable deadline;
 
     /**
      * Constructor for Deadline.
-     * @param description This is the description for the Task
-     * @param deadline This is the deadline for the Task
+     *
+     * @param description This is the description for the Task.
+     * @param deadline    This is the deadline for the Task.
      */
     public Deadline(String description, String deadline) {
         super(description);
@@ -23,9 +23,10 @@ public class Deadline extends Task {
 
     /**
      * This is the overloaded Constructor for Deadline.
-     * @param description This is the description for the Task
-     * @param deadline This is the deadline for the Task
-     * @param completed This is the boolean representing the completeness of the Deadline
+     *
+     * @param description This is the description for the Task.
+     * @param deadline    This is the deadline for the Task.
+     * @param completed   This is the boolean representing the completeness of the Deadline.
      */
 
     public Deadline(String description, String deadline, boolean completed) {
@@ -44,9 +45,10 @@ public class Deadline extends Task {
         // Event can either start or end on the date itself, or both
         return this.deadline.isAfterOrOn(startOfDay) && this.deadline.isBeforeOrOn(endOfDay);
     }
+
     @Override
     public String toString() {
         return "[D]" + super.toString()
-            + String.format(" (by: %s)", this.deadline);
+                + String.format(" (by: %s)", this.deadline);
     }
 }

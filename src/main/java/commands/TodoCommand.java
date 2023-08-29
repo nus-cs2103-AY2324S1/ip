@@ -14,8 +14,9 @@ public class TodoCommand extends Command {
 
     /**
      * Constructor for TodoCommand.
-     * @param description This is the description of the Todo Task
-     * @param dotTaskList This is the TaskList which encapsulates the Task and operations
+     *
+     * @param description This is the description of the Todo Task.
+     * @param dotTaskList This is the TaskList which encapsulates the Task and operations.
      */
     public TodoCommand(String description, TaskList dotTaskList) {
         this.description = description;
@@ -23,8 +24,9 @@ public class TodoCommand extends Command {
     }
 
     /**
-     * Creates and inserts the Deadline into dotTaskList
-     * @throws DotException On detected error
+     * Creates and inserts the Deadline into dotTaskList.
+     *
+     * @throws DotException On detected error.
      */
     @Override
     public void execute() throws DotException {

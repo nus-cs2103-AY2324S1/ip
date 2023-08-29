@@ -1,22 +1,22 @@
 package tasks;
 
-import parser.Parser;
-
 import java.time.LocalDateTime;
+import parser.Parser;
 
 /**
  * The Event class implements the Event Task which instances
  * can be inserted into a TaskList with a Dateable start and end.
  */
 public class Event extends Task {
-    private Dateable start;
-    private Dateable end;
+    private final Dateable start;
+    private final Dateable end;
 
     /**
      * Constructor for Event.
+     *
      * @param description This is the description for the Task.
-     * @param start This is the start of the Task.
-     * @param end This is the end of the Task.
+     * @param start       This is the start of the Task.
+     * @param end         This is the end of the Task.
      */
     public Event(String description, String start, String end) {
         super(description);
@@ -26,10 +26,11 @@ public class Event extends Task {
 
     /**
      * This is the overloaded Constructor for Event.
+     *
      * @param description This is the description for the Task.
-     * @param start This is the start of the Task.
-     * @param end This is the end of the Task.
-     * @param completed This is the boolean representing the completeness of the Event
+     * @param start       This is the start of the Task.
+     * @param end         This is the end of the Task.
+     * @param completed   This is the boolean representing the completeness of the Event.
      */
     public Event(String description, String start, String end, boolean completed) {
         super(description, completed);

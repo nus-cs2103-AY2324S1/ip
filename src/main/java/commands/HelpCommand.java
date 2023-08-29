@@ -10,11 +10,13 @@ public class HelpCommand extends Command {
     /**
      * Constructor of HelperCommand, which does nothing.
      */
-    public HelpCommand() { }
+    public HelpCommand() {
+    }
 
     /**
      * Displays the help message.
-     * @throws DotException On detected error
+     *
+     * @throws DotException On detected error.
      */
     @Override
     public void execute() throws DotException {

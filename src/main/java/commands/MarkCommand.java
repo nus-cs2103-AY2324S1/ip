@@ -12,8 +12,9 @@ public class MarkCommand extends Command {
 
     /**
      * Constructor for MarkCommand.
-     * @param position This is the position of the task as listed by ListCommand
-     * @param dotTaskList This is the TaskList which encapsulates the Task and operations
+     *
+     * @param position    This is the position of the task as listed by ListCommand.
+     * @param dotTaskList This is the TaskList which encapsulates the Task and operations.
      */
     public MarkCommand(int position, TaskList dotTaskList) {
         this.position = position;
@@ -22,7 +23,8 @@ public class MarkCommand extends Command {
 
     /**
      * Marks the task as done and saves all tasks to storage.
-     * @throws DotException On detected error
+     *
+     * @throws DotException On detected error.
      */
     @Override
     public void execute() throws DotException {

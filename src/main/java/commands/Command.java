@@ -8,21 +8,20 @@ import errors.DotException;
 public abstract class Command {
 
     /**
-     * Default implementation is to do nothing,
-     * which is only utilised by ByeCommand.
+     * Executes the operations of the command.
      *
-     * @throws DotException passing the buck
+     * @throws DotException passing the buck.
      */
-    public void execute() throws DotException { };
+    public void execute() throws DotException {
+    }
 
     /**
-     * Default implementation is to return false,
-     * as all commands except for ByeCommand are
-     * non-terminating.
+     * Returns true if Command should terminate the program.
      *
-     * @return false unless overridden
+     * @return false unless overridden.
      */
     public boolean isTerminateCommand() {
         return false;
-    };
+    }
+
 }

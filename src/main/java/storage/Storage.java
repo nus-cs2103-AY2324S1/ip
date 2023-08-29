@@ -1,17 +1,16 @@
 package storage;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Scanner;
 import errors.DotException;
 import errors.TaskError;
 import tasks.Deadline;
 import tasks.Event;
 import tasks.Task;
 import tasks.Todo;
-
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Scanner;
 
 /**
  * The Storage class is responsible for fileIO.
@@ -21,8 +20,9 @@ public class Storage {
     private final String storageLocation;
 
     /**
+     * Constructor for Storage.
      * Current Storage is only designed to handle path names in the
-     * following format: <code>{@literal ./<directory>/<filename>}</code>
+     * following format: <code>{@literal ./<directory>/<filename>}</code>.
      *
      * @param storageLocation Pathname in format <code>{@literal 。/<directory>/<filename>}</code>
      */
@@ -31,10 +31,11 @@ public class Storage {
     }
 
     /**
-     * This method attempts to create the given directory and file,
+     * Attempts to create the given directory and file,
      * if they do not exist. Then, it returns a File object.
-     * @return File object in the given pathname, subject to format
-     * @throws DotException On detected error
+     *
+     * @return File object in the given pathname, subject to format.
+     * @throws DotException On detected error.
      */
     public File getFile() throws DotException {
         try {
@@ -54,10 +55,11 @@ public class Storage {
     }
 
     /**
-     * This method access the file using getFile, reads it
-     * and parse it into an ArrayList of Tasks to return
-     * @return An ArrayList of Tasks from the fil =e
-     * @throws DotException On detected error
+     * Accesses the file using getFile, reads it
+     * and parse it into an ArrayList of Tasks to return.
+     *
+     * @return An ArrayList of Tasks from the file.
+     * @throws DotException On detected error.
      */
     public ArrayList<Task> getTasks() throws DotException {
         try {
@@ -97,10 +99,11 @@ public class Storage {
     }
 
     /**
-     * This method access the data file using getFile and writes
+     * Accesses the data file using getFile and writes
      * the given taskList to it.
-     * @param taskList This is the TaskList to write
-     * @throws DotException On detected error
+     *
+     * @param taskList This is the TaskList to write.
+     * @throws DotException On detected error.
      */
     public void saveTasks(ArrayList<Task> taskList) throws DotException {
         try {
