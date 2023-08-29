@@ -1,5 +1,7 @@
 import jdk.jfr.Event;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
 public class UserInterface {
@@ -63,7 +65,8 @@ public class UserInterface {
                         System.out.printf("Now you have %d tasks in the list.%n", this.store.getStorageSize());
                         break;
                     case DEADLINE:
-                        DeadlineTask newDeadline = new DeadlineTask(c.getArgs()[0], c.getArgs()[1]);
+                        LocalDate deadline = LocalDate.parse(c.getArgs()[1]);
+                        DeadlineTask newDeadline = new DeadlineTask(c.getArgs()[0], deadline);
                         this.store.add(newDeadline);
                         this.store.save();
                         System.out.println("Got it. I've added this task:");
@@ -81,6 +84,8 @@ public class UserInterface {
                 }
             } catch (NumberFormatException nfe) {
                 System.out.println("That is not an integer!");
+            } catch (DateTimeParseException dtpe) {
+                System.out.println("Could not parse date! Please use yyyy-mm-dd.");
             } catch (Exception e) {
                 System.out.println(e.getMessage());
             }
