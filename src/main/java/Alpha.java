@@ -1,5 +1,3 @@
-import java.io.IOException;
-
 // The Chatbot Aplha!
 public class Alpha {
 
