@@ -19,4 +19,8 @@ public abstract class Task {
     public String toString() {
         return String.format("[%s] %s", this.isDone ? "X" : " ", this.name);
     }
+
+    public String exportToText() {
+        return this.name;
+    }
 }

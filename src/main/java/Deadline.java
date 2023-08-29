@@ -40,4 +40,9 @@ public class Deadline extends Task {
         }
         return String.format("[D]%s (by: %s)", super.toString(), this.deadline);
     }
+
+    @Override
+    public String exportToText() {
+        return String.format("deadline %s /by %s", super.exportToText(), this.deadline);
+    }
 }
