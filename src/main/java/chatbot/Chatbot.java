@@ -34,7 +34,7 @@ public class Chatbot extends EventEmitter<ChatMessage> {
     private final String name;
     private final ArrayList<ChatMessage> convoList;
     private final TaskManager taskManager;
-    private boolean closed;
+    private boolean isClosed;
 
 
     /**
@@ -48,7 +48,7 @@ public class Chatbot extends EventEmitter<ChatMessage> {
         this.name = name == null ? DEFAULT_NAME : name;
         this.convoList = new ArrayList<>();
         this.taskManager = taskManager == null ? new TaskManager() : taskManager;
-        this.closed = true;
+        this.isClosed = true;
     }
 
     /**
@@ -57,7 +57,7 @@ public class Chatbot extends EventEmitter<ChatMessage> {
      * @return An iterable of messages for the current conversation in chronological order.
      */
     public Iterable<ChatMessage> getConversation() {
-        return convoList;
+        return this.convoList;
     }
 
     /**
@@ -73,10 +73,10 @@ public class Chatbot extends EventEmitter<ChatMessage> {
      * Starts the chatbot conversation. Messages may be sent to the chatbot after this.
      */
     public void openConversation() {
-        if (!this.closed) {
+        if (!this.isClosed) {
             return;
         }
-        this.closed = false;
+        this.isClosed = false;
 
         this.sendMessage(
                 ChatMessage.SenderType.CHATBOT,
@@ -126,10 +126,10 @@ public class Chatbot extends EventEmitter<ChatMessage> {
      * Ends the chatbot conversation. No new messages may be sent after this.
      */
     public void closeConversation() {
-        if (this.closed) {
+        if (this.isClosed) {
             return;
         }
-        this.closed = true;
+        this.isClosed = true;
         this.sendMessage(ChatMessage.SenderType.CHATBOT, "Bye! Hope to see you again soon! ^-^");
     }
 
@@ -139,7 +139,7 @@ public class Chatbot extends EventEmitter<ChatMessage> {
      * @return true if the conversation is open, false otherwise.
      */
     public boolean isConversationOpen() {
-        return !this.closed;
+        return !this.isClosed;
     }
 
     /**
@@ -148,7 +148,7 @@ public class Chatbot extends EventEmitter<ChatMessage> {
      * @return true if the conversation is closed, false otherwise.
      */
     public boolean isConversationClosed() {
-        return this.closed;
+        return this.isClosed;
     }
 
     /**
@@ -159,7 +159,7 @@ public class Chatbot extends EventEmitter<ChatMessage> {
      * @throws ChatbotRuntimeException if the conversation is closed.
      */
     public ChatMessage sendMessageFromUser(String message) {
-        if (this.closed) {
+        if (this.isClosed) {
             throw new ChatbotRuntimeException("Conversations are not open, so no messages may be sent!");
         }
 
@@ -175,7 +175,7 @@ public class Chatbot extends EventEmitter<ChatMessage> {
      */
     private ChatMessage sendMessage(ChatMessage.SenderType sender, String message) {
         ChatMessage msg = new ChatMessage(sender, message);
-        convoList.add(msg);
+        this.convoList.add(msg);
         this.processMessage(msg);
         return msg;
     }
@@ -211,24 +211,24 @@ public class Chatbot extends EventEmitter<ChatMessage> {
         try {
             boolean dataProcessed = false;
             switch (chatCommand.getOperation()) {
-            case MarkComplete:
-            case UnmarkComplete:
-            case Delete:
+            case MARK_COMPLETE:
+            case UNMARK_COMPLETE:
+            case DELETE:
                 dataProcessed = this.processCommandAssertNumericData(chatCommand);
                 break;
 
-            case AddTodo:
-            case AddDeadline:
-            case AddEvent:
+            case ADD_TODO:
+            case ADD_DEADLINE:
+            case ADD_EVENT:
                 dataProcessed = this.processCommandAssertHasData(chatCommand);
                 break;
 
-            case List:
-            case Exit:
+            case LIST:
+            case EXIT:
                 dataProcessed = this.processCommandAssertNoData(chatCommand);
                 break;
 
-            case Unknown:
+            case UNKNOWN:
             default:
                 break;
             }
@@ -273,9 +273,9 @@ public class Chatbot extends EventEmitter<ChatMessage> {
      */
     public boolean processCommandAssertNumericData(ChatCommand chatCommand) throws ChatbotException {
         switch (chatCommand.getOperation()) {
-        case MarkComplete:
-        case UnmarkComplete:
-        case Delete:
+        case MARK_COMPLETE:
+        case UNMARK_COMPLETE:
+        case DELETE:
             break;
         default:
             return false;
@@ -304,7 +304,7 @@ public class Chatbot extends EventEmitter<ChatMessage> {
         }
 
         // Let's see what we should do!
-        if (chatCommand.getOperation() == ChatCommand.Operation.Delete) {
+        if (chatCommand.getOperation() == ChatCommand.Operation.DELETE) {
 
             // Delete the task accordingly. We already checked the index so it should be correct.
             this.taskManager.removeTask(index);
@@ -322,24 +322,24 @@ public class Chatbot extends EventEmitter<ChatMessage> {
         } else {
 
             // Mark the task as done or not accordingly
-            boolean completed = chatCommand.getOperation() == ChatCommand.Operation.MarkComplete;
+            boolean completed = chatCommand.getOperation() == ChatCommand.Operation.MARK_COMPLETE;
             if (task.isCompleted() == completed) {
                 throw new ChatbotException(
                         completed ? "The task was already done!" : "The task was already not done!"
                 );
             }
-            task.markCompleted(completed);
+            task.setCompleted(completed);
 
             // Send an appropriate reply
             if (completed) {
                 this.sendMessage(
                         ChatMessage.SenderType.CHATBOT,
-                        String.format("Nice! I've marked this task as done:\n   %s", task.toString())
+                        String.format("Nice! I've marked this task as done:\n   %s", task)
                 );
             } else {
                 this.sendMessage(
                         ChatMessage.SenderType.CHATBOT,
-                        String.format("OK, I've marked this task as not done yet:\n   %s", task.toString())
+                        String.format("OK, I've marked this task as not done yet:\n   %s", task)
                 );
             }
 
@@ -357,8 +357,8 @@ public class Chatbot extends EventEmitter<ChatMessage> {
      */
     public boolean processCommandAssertNoData(ChatCommand chatCommand) throws ChatbotException {
         switch (chatCommand.getOperation()) {
-        case List:
-        case Exit:
+        case LIST:
+        case EXIT:
             break;
         default:
             return false;
@@ -372,7 +372,7 @@ public class Chatbot extends EventEmitter<ChatMessage> {
         }
 
         switch (chatCommand.getOperation()) {
-        case List:
+        case LIST:
             StringBuilder builder = new StringBuilder();
 
             if (this.taskManager.getTaskCount() > 0) {
@@ -393,7 +393,7 @@ public class Chatbot extends EventEmitter<ChatMessage> {
             this.sendMessage(ChatMessage.SenderType.CHATBOT, builder.toString());
             break;
 
-        case Exit:
+        case EXIT:
             this.closeConversation();
             break;
         }
@@ -411,9 +411,9 @@ public class Chatbot extends EventEmitter<ChatMessage> {
      */
     public boolean processCommandAssertHasData(ChatCommand chatCommand) throws ChatbotException {
         switch (chatCommand.getOperation()) {
-        case AddTodo:
-        case AddDeadline:
-        case AddEvent:
+        case ADD_TODO:
+        case ADD_DEADLINE:
+        case ADD_EVENT:
             break;
         default:
             return false;
@@ -429,11 +429,11 @@ public class Chatbot extends EventEmitter<ChatMessage> {
         // Create the appropriate task
         Task task = null;
         switch (chatCommand.getOperation()) {
-        case AddTodo:
+        case ADD_TODO:
             task = new Todo(chatCommand.getData());
             break;
 
-        case AddDeadline:
+        case ADD_DEADLINE:
             if (!chatCommand.hasParamWithUsefulValue("by")) {
                 throw new ChatbotException(String.format(
                         "The 'deadline' command requires supplying '%sby <deadline>'!",
@@ -458,7 +458,7 @@ public class Chatbot extends EventEmitter<ChatMessage> {
             );
             break;
 
-        case AddEvent:
+        case ADD_EVENT:
             if (!chatCommand.hasParamWithUsefulValue("from") ||
                     !chatCommand.hasParamWithUsefulValue("to")) {
 

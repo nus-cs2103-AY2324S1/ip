@@ -15,7 +15,7 @@ public class Deadline extends Task {
      * the value as missing.
      * </p>
      */
-    private Long deadline;
+    private final Long deadline;
 
     /**
      * Constructor for a deadline task.

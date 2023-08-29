@@ -7,7 +7,7 @@ import java.util.List;
  * A class capable of emitting utils.events to event listeners.
  */
 public class EventEmitter<T> {
-    private List<EventListener<? super T>> eventListeners = new ArrayList<>();
+    private final List<EventListener<? super T>> eventListeners = new ArrayList<>();
 
     /**
      * Fires a new event to all event listeners listening to this instance.
@@ -15,7 +15,7 @@ public class EventEmitter<T> {
      * @param event The event to fire.
      */
     protected void fireEvent(T event) {
-        for (var l : eventListeners) {
+        for (var l : this.eventListeners) {
             l.eventFired(event);
         }
     }
@@ -26,7 +26,7 @@ public class EventEmitter<T> {
      * @param listener The listener to add.
      */
     public void addEventListener(EventListener<? super T> listener) {
-        eventListeners.add(listener);
+        this.eventListeners.add(listener);
     }
 
     /**
@@ -35,6 +35,6 @@ public class EventEmitter<T> {
      * @param listener The listener to remove.
      */
     public void removeEventListener(EventListener<? super T> listener) {
-        eventListeners.remove(listener);
+        this.eventListeners.remove(listener);
     }
 }

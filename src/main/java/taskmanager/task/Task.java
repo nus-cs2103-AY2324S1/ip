@@ -2,7 +2,6 @@ package taskmanager.task;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
-import com.google.gson.JsonSyntaxException;
 
 import java.lang.reflect.Field;
 
@@ -17,8 +16,19 @@ import java.lang.reflect.Field;
  */
 public abstract class Task {
 
-    private String title;
+    /** Title for the task in question. */
+    private final String title;
+
+    /**
+     * Whether the task is completed.
+     *
+     * <p>
+     * This is intentionally called "completed" instead of "isComplete" as Task and its subclasses utilise Gson to
+     * construct the JSON file, which uses these variable names as JSON keys.
+     * </p>
+     */
     private boolean completed = false;
+
 
     /**
      * Initializes a task.
@@ -50,10 +60,10 @@ public abstract class Task {
     /**
      * Marks the task as completed or incomplete.
      *
-     * @param completed Whether to mark it as complete (true) or incomplete (false).
+     * @param isCompleted Whether to mark it as complete (true) or incomplete (false).
      */
-    public void markCompleted(boolean completed) {
-        this.completed = completed;
+    public void setCompleted(boolean isCompleted) {
+        this.completed = isCompleted;
     }
 
     /**

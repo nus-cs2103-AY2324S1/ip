@@ -16,7 +16,7 @@ public class Event extends Task {
      * the value as missing.
      * </p>
      */
-    private Long startTimestamp;
+    private final Long startTimestamp;
 
     /**
      * Ending timestamp of the event as Unix epoch in seconds.
@@ -26,7 +26,7 @@ public class Event extends Task {
      * the value as missing.
      * </p>
      */
-    private Long endTimestamp;
+    private final Long endTimestamp;
 
     /**
      * Constructor for an Event task.

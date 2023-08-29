@@ -26,8 +26,8 @@ public class TaskManager {
     private static final String DEFAULT_FILENAME = "tasks.json";
 
     private List<Task> taskList;
-    private InternalPath storageLocation;
-    private InternalStorage storageHandler;
+    private final InternalPath storageLocation;
+    private final InternalStorage storageHandler;
 
     /**
      * Constructs a task manager, managing a list of items representing "tasks",

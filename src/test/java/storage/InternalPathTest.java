@@ -4,7 +4,8 @@ import org.junit.jupiter.api.Test;
 
 import java.nio.file.Path;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class InternalPathTest {
 
@@ -23,7 +24,10 @@ public class InternalPathTest {
 
         path2 = InternalPath.of("456", "789", "012");
 
-        assertArrayEquals(new String[] { "456" }, path2.excludingLastComponent().excludingLastComponent().getComponents());
+        assertArrayEquals(
+                new String[] { "456" },
+                path2.excludingLastComponent().excludingLastComponent().getComponents()
+        );
     }
 
     @Test

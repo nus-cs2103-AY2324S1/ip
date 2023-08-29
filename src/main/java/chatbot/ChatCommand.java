@@ -20,18 +20,18 @@ public class ChatCommand {
      * A command operation, representing an identified operation for a command.
      */
     public enum Operation {
-        AddTodo,
-        AddDeadline,
-        AddEvent,
-        Delete,
+        ADD_TODO,
+        ADD_DEADLINE,
+        ADD_EVENT,
+        DELETE,
 
-        MarkComplete,
-        UnmarkComplete,
+        MARK_COMPLETE,
+        UNMARK_COMPLETE,
 
-        List,
-        Exit,
+        LIST,
+        EXIT,
 
-        Unknown
+        UNKNOWN
     }
 
     private final String name;
@@ -170,29 +170,29 @@ public class ChatCommand {
 
         switch (this.name) {
         case "todo":
-            return this.type = Operation.AddTodo;
+            return this.type = Operation.ADD_TODO;
         case "event":
-            return this.type = Operation.AddEvent;
+            return this.type = Operation.ADD_EVENT;
         case "deadline":
-            return this.type = Operation.AddDeadline;
+            return this.type = Operation.ADD_DEADLINE;
 
         case "delete":
-            return this.type = Operation.Delete;
+            return this.type = Operation.DELETE;
 
         case "mark":
-            return this.type = Operation.MarkComplete;
+            return this.type = Operation.MARK_COMPLETE;
         case "unmark":
-            return this.type = Operation.UnmarkComplete;
+            return this.type = Operation.UNMARK_COMPLETE;
 
         case "list":
-            return this.type = Operation.List;
+            return this.type = Operation.LIST;
 
         case "bye":
         case "exit":
-            return this.type = Operation.Exit;
+            return this.type = Operation.EXIT;
         }
 
-        return this.type = Operation.Unknown;
+        return this.type = Operation.UNKNOWN;
     }
 
     /**

@@ -28,7 +28,7 @@ public class InternalStorage {
         return sharedInstance;
     }
 
-    private Path baseNioPath;
+    private final Path baseNioPath;
 
     /**
      * Constructs a new instance of an internal storage manager.
