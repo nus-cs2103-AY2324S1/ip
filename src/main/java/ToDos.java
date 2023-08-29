@@ -7,6 +7,11 @@ public class ToDos extends Task{
         super(description);
     }
 
+    @Override
+    public String saveTaskString() {
+        return "T" + super.saveTaskString();
+    }
+
     /**
      * This method converts the value of an Event into a String type.
      * @return the String representation of the ToDo with its type and completion status.

@@ -10,7 +10,10 @@ public class Deadlines  extends Task{
         super(description);
         this.by = by;
     }
-
+    @Override
+    public String saveTaskString() {
+        return "D" + super.saveTaskString() + " | " + this.by;
+    }
     /**
      * This method converts the value of the deadline into a String type.
      * @return the String representation of the deadline with its type, completion status and completion time.

@@ -1,8 +1,11 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Scanner;
 import java.util.ArrayList;
 
 public class Ruiz {
-    private ArrayList<Task> tasks = new ArrayList<>();
+    private static ArrayList<Task> tasks = new ArrayList<>();
 
     /**
      * This method prints out the list of tasks currently
@@ -17,6 +20,7 @@ public class Ruiz {
 
     /**
      * This method marks the given task in the input.
+     *
      * @param input The string that consists of the keyWord "mark" and task index being input by the user.
      * @throws BotException if the input is not a valid one.
      */
@@ -45,6 +49,7 @@ public class Ruiz {
 
     /**
      * This method unmarks the specified task in the string input.
+     *
      * @param input The string that consists of the keyWord "unmark" and task index being input by the user.
      * @throws BotException if the input is not a valid one.
      */
@@ -73,6 +78,7 @@ public class Ruiz {
 
     /**
      * This method deletes the specified task from its index from the list of tasks.
+     *
      * @param input The string that contains the keyWord "delete" and the index of the task.
      * @throws BotException if the input of the user is not a valid one.
      */
@@ -100,6 +106,7 @@ public class Ruiz {
 
     /**
      * This method creates a todo and adds it to the list of tasks.
+     *
      * @param input contains the keyWord "todo" and the description of the todo.
      * @throws BotException if the input is not in the format of a valid todo.
      */
@@ -119,11 +126,12 @@ public class Ruiz {
 
     /**
      * This method creates a deadline and adds it to the list of tasks.
+     *
      * @param input contains the keyWord "deadline" and the description of the deadline
      *              with the time it needs to be completed by.
      * @throws BotException if the input is not in the valid format of a deadline.
      */
-    public void addDeadline(String input) throws BotException {
+    public void addDeadline(String input) throws BotException, IOException {
         if (input.split("/by", 2).length <= 1) {
             throw new BotException("OOPS!!! The description the deadline is incomplete");
         }
@@ -142,11 +150,12 @@ public class Ruiz {
 
     /**
      * This method creates an event and adds it to the list of tasks.
+     *
      * @param input contains the keyWord "event" and the description of the event
      *              with the time it takes place from and ends by.
      * @throws BotException if the input is not in the form a valid event.
      */
-    public void addEvent(String input) throws BotException {
+    public void addEvent(String input) throws BotException, IOException {
         if (input.split("/").length <= 2) {
             throw new BotException("OOPS!!! The description the event is incomplete.");
         }
@@ -187,41 +196,52 @@ public class Ruiz {
     public static void main(String[] args) {
         Scanner inputObj = new Scanner(System.in);
         Ruiz bot = new Ruiz();
+        Storage fe = new Storage();
+        try {
+            Ruiz.tasks = fe.loadTasks();
+        } catch (FileNotFoundException e) {
+            System.out.println("____________________________________________________________\n" +
+                    "File cannot be loaded\n" +
+                    "____________________________________________________________\n");
+        }
         bot.greet();
         while (true) {
             try {
                 String input = inputObj.nextLine();
                 String keyWord = input.split(" ")[0];
                 switch (keyWord) {
-                    case "bye":
-                        bot.bye();
-                        return;
-                    case "list":
-                        bot.getTasks();
-                        break;
-                    case "mark":
-                        bot.markTask(input);
-                        break;
-                    case "unmark":
-                        bot.unmarkTask(input);
-                        break;
-                    case "delete":
-                        bot.deleteTask(input);
-                        break;
-                    case "deadline":
-                        bot.addDeadline(input);
-                        break;
-                    case "todo":
-                        bot.addTodo(input);
-                        break;
-                    case "event":
-                        bot.addEvent(input);
-                        break;
-                    default:
-                        throw new BotException("OOPS!!! I'm sorry, but I don't know what that means :-(");
+                case "bye":
+                    bot.bye();
+                    return;
+                case "list":
+                    bot.getTasks();
+                    break;
+                case "mark":
+                    bot.markTask(input);
+                    break;
+                case "unmark":
+                    bot.unmarkTask(input);
+                    break;
+                case "delete":
+                    bot.deleteTask(input);
+                    break;
+                case "deadline":
+                    bot.addDeadline(input);
+                    break;
+                case "todo":
+                    bot.addTodo(input);
+                    break;
+                case "event":
+                    bot.addEvent(input);
+                    break;
+                default:
+                    throw new BotException("OOPS!!! I'm sorry, but I don't know what that means :-(");
                 }
+                fe.saveTasks(Ruiz.tasks);
             } catch (BotException e) {
                 System.out.println(e);
+            } catch (IOException e) {
+                System.out.println("Unable to save task");
             }
         }
     }
