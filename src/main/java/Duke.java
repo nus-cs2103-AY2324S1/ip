@@ -9,6 +9,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
 public class Duke {
@@ -33,19 +34,23 @@ public class Duke {
         String taskType = data[0];
         boolean isDone = Integer.parseInt(data[1]) == 1;
         String description = data[2];
-        switch (taskType) {
-            case "T":
-                list.add(new Todo(description, isDone));
-                break;
-            case "D":
-                list.add(new Deadline(description, isDone, data[3]));
-                break;
-            case "E":
-                String[] time = data[3].split("-");
-                list.add(new Event(description, isDone, time[0], time[1]));
-                break;
-            default:
-                System.out.println("\t ☹ OOPS!!! Invalid task type.");
+        try {
+            switch (taskType) {
+                case "T":
+                    list.add(new Todo(description, isDone));
+                    break;
+                case "D":
+                    list.add(new Deadline(description, isDone, data[3]));
+                    break;
+                case "E":
+                    String[] time = data[3].split(" - ");
+                    list.add(new Event(description, isDone, time[0], time[1]));
+                    break;
+                default:
+                    System.out.println("\t ☹ OOPS!!! Invalid task type.");
+            }
+        } catch (DateTimeParseException e) {
+            System.out.println("\t ☹ OOPS!!! Invalid date format. Pls provide a date in the format yyyy-MM-dd HHmm.");
         }
     }
 
@@ -153,7 +158,7 @@ public class Duke {
                     } else if (!command.contains(" /by")) {
                         throw new NoSpaceBeforeException("/by");
                     } else if (result2.length == 1 || result2[1].isBlank()) {
-                        throw new DukeException("☹ OOPS!!! The date/time for the deadline cannot be empty");
+                        throw new DukeException("☹ OOPS!!! The date/time for the deadline cannot be empty.");
                     } else if (!command.contains("/by ")) {
                         throw new NoSpaceAfterException("/by");
                     }
@@ -181,13 +186,13 @@ public class Duke {
                         throw new DukeException("☹ OOPS!!! Pls provide an end date/time for the event.");
                     } else if (command.contains("/from ") && command.contains("/to") &&
                             textBtwnWords(command, "/from", "/to").isBlank()) {
-                        throw new DukeException("☹ OOPS!!! The start date/time for the event cannot be empty");
+                        throw new DukeException("☹ OOPS!!! The start date/time for the event cannot be empty.");
                     } else if (!command.contains("/from ")) {
                         throw new NoSpaceAfterException("/from");
                     } else if (!command.contains(" /to")) {
                         throw new NoSpaceBeforeException("/to");
                     } else if (result2.length == 1 || result2[1].isBlank()) {
-                        throw new DukeException("☹ OOPS!!! The end date/time for the event cannot be empty");
+                        throw new DukeException("☹ OOPS!!! The end date/time for the event cannot be empty.");
                     } else if (!command.contains("/to ")) {
                         throw new NoSpaceAfterException("/to");
                     }
@@ -222,6 +227,8 @@ public class Duke {
                 } else {
                     System.out.println("\t ☹ OOPS!!! Pls select a task number between 1 and " + list.size());
                 }
+            } catch (DateTimeParseException e) {
+                System.out.println("\t ☹ OOPS!!! Invalid date format. Pls provide a date in the format yyyy-MM-dd HHmm.");
             } catch (NoSpaceAfterException | NoSpaceBeforeException | EmptyTaskException | EmptyDescriptionException |
                     DukeException e) {
                 System.out.println("\t " + e.toString());
