@@ -5,7 +5,6 @@ public class Parser {
     private String type = "";
 
     public Parser(){
-
     }
 
     public Parser(String type) {
