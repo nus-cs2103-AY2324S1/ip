@@ -14,8 +14,7 @@ public class Storage {
         this.path = path;
         File file = new File(path);
         if (!file.exists()) {
-            System.out.println("...No saved tasks found.");
-            System.out.println("Creating new save file for you...");
+            Ui.printlns(new String[] { "...No saved tasks found.", "Creating new save file for you..." });
             try {
                 file.getParentFile().mkdirs();
                 FileWriter writer = new FileWriter(file);
@@ -30,11 +29,11 @@ public class Storage {
         try {
             boolean isEmpty = Files.size(Path.of(path)) == 0;
             if (isEmpty) {
-                System.out.println("Save file empty, you're good to go.");
+                Ui.println("Save file empty, you're good to go.");
                 return;
             }
 
-            System.out.println("Found some old tasks, replaying some commands...");
+            Ui.println("Found some old tasks, replaying some commands...");
             BufferedReader reader = new BufferedReader(new FileReader(path));
             String line;
             while ((line = reader.readLine()) != null) {
@@ -63,7 +62,7 @@ public class Storage {
 
             fileWriter.write(content);
             fileWriter.close();
-            System.out.println("Successfully saved your tasks!");
+            Ui.println("...Successfully saved your tasks!");
         } catch (IOException e) {
             throw new DukeIOException("Error saving tasks to local disk: " + e);
         }
