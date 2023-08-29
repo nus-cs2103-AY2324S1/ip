@@ -1,11 +1,12 @@
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class Deadline extends Task {
 
-    protected LocalDate by;
+    protected LocalDateTime by;
 
-    public Deadline(String description, LocalDate by) {
+    public Deadline(String description, LocalDateTime by) {
         super(description);
         this.by = by;
     }
@@ -17,11 +18,12 @@ public class Deadline extends Task {
 
     @Override
     public String getDescription() {
-        return super.toString() + " | " + by ;
+        String formattedBy = this.by.format(DateTimeFormatter.ofPattern("yyyy-mm-dd HHmm"));
+        return super.toString() + " | " + formattedBy ;
     }
 
     public String getByFormatted() {
-        return this.by.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
+        return this.by.format(DateTimeFormatter.ofPattern("d MMM yyyy h:mma"));
     }
 
     @Override

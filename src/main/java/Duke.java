@@ -1,4 +1,5 @@
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.time.temporal.ChronoUnit;
@@ -94,7 +95,7 @@ public class Duke {
                     }
                     String[] deadlineParts = getDeadlineParts(userInput);
                     String taskName = deadlineParts[0];
-                    LocalDate by = saveAsDate(deadlineParts[1]);
+                    LocalDateTime by = saveAsDate(deadlineParts[1]);
                     makeDeadline(taskName, by, inputNum);
                     inputNum++;
                     updateTaskFile();
@@ -105,8 +106,8 @@ public class Duke {
                     }
                     String[] eventParts = getEventParts(userInput);
                     String taskName = eventParts[0];
-                    LocalDate start = saveAsDate(eventParts[1]);
-                    LocalDate end = saveAsDate(eventParts[2]);
+                    LocalDateTime start = saveAsDate(eventParts[1]);
+                    LocalDateTime end = saveAsDate(eventParts[2]);
                     makeEvent(taskName, start, end, inputNum);
                     inputNum++;
                     updateTaskFile();
@@ -126,9 +127,15 @@ public class Duke {
         scan.close();
     }
 
-    private static LocalDate saveAsDate(String by) throws DateTimeParseException {
-        LocalDate date = LocalDate.parse(by);
-        return date;
+    private static LocalDateTime saveAsDate(String by) throws DateTimeParseException {
+        try {
+            // Try to parse the input as "yyyy-MM-dd" format
+            return LocalDateTime.parse(by, DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
+        } catch (DateTimeParseException e) {
+            by += " 0000";
+            // If parsing as "yyyy-MM-dd" format fails, try to parse as "yyyy-MM-dd HHmm" format
+            return LocalDateTime.parse(by, DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
+        }
     }
 
     /**
@@ -247,7 +254,7 @@ public class Duke {
      * @param by        The due date of the Deadline task.
      * @param inputNum  The number of tasks entered.
      */
-    private static void makeDeadline(String taskName, LocalDate by, int inputNum) {
+    private static void makeDeadline(String taskName, LocalDateTime by, int inputNum) {
         taskArray.add(new Deadline(taskName, by));
         System.out.println(
                 "    ____________________________________________________________\n" +
@@ -285,7 +292,7 @@ public class Duke {
      * @param end       The end date of the Event task.
      * @param inputNum  The number of tasks entered.
      */
-    private static void makeEvent(String taskName, LocalDate start, LocalDate end, int inputNum) {
+    private static void makeEvent(String taskName, LocalDateTime start, LocalDateTime end, int inputNum) {
         taskArray.add(new Event(taskName, start, end));
         System.out.println("    ____________________________________________________________\n" +
                 "     Got it. I've added this task:\n" +
@@ -356,13 +363,13 @@ public class Duke {
             setStatus(task, isDone);
             return task;
         } else if (taskType.equals("D")) {
-            LocalDate by = LocalDate.parse(parts[3].trim());
+            LocalDateTime by = saveAsDate(parts[3].trim());
             Task task = new Deadline(taskDescription, by);
             setStatus(task, isDone);
             return task;
         } else if (taskType.equals("E")) {
-            LocalDate start = LocalDate.parse(parts[3].trim());
-            LocalDate end = LocalDate.parse(parts[4].trim());
+            LocalDateTime start = saveAsDate(parts[3].trim());
+            LocalDateTime end = saveAsDate(parts[4].trim());
             Task task = new Event(taskDescription, start, end);
             setStatus(task, isDone);
             return task;
