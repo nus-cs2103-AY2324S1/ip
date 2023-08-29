@@ -3,6 +3,9 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Paths;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -138,17 +141,20 @@ public class HelpBuddy {
     private void readEntry(String entry) throws HelpBuddyException {
         String[] fields = entry.split("\\|");
         Task taskToAdd;
+        DateTimeFormatter formatter = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
 
         switch (fields[0]) {
         case "T":
             taskToAdd = new ToDo(fields[2]);
             break;
         case "D":
-            taskToAdd = new Deadline(fields[2], fields[3]);
+            taskToAdd = new Deadline(fields[2], LocalDateTime.parse(fields[3], formatter));
             break;
         case "E":
-            String[] fromToFields = fields[3].split("to");
-            taskToAdd = new Event(fields[2], fromToFields[0], fromToFields[1]);
+            String[] fromToFields = fields[3].split(" to ");
+            taskToAdd = new Event(fields[2],
+                    LocalDateTime.parse(fromToFields[0], formatter),
+                    LocalDateTime.parse(fromToFields[1], formatter));
             break;
         default:
             throw new HelpBuddyException("Invalid data input in data file!");
@@ -251,40 +257,53 @@ public class HelpBuddy {
                     if (inputMessage.matches(deadlinePattern)) {
                         String taskDetails = inputMessage.replaceAll("deadline", "");
                         if (taskDetails.isBlank()) {
-                            t = new Deadline("", "");
+                            t = new Deadline("", null);
                         }
                         String[] taskDetailArray = taskDetails.split("/by");
                         if (taskDetailArray.length == 1) {
                             String[] taskDetailErrorArray = taskDetailArray[0].split("/");
                             if (taskDetailErrorArray.length == 1) {
-                                t = new Deadline(taskDetails, "");
+                                t = new Deadline(taskDetails, null);
                             } else {
                                 throw new HelpBuddyException("Please use /by to indicate deadline.\n");
                             }
                         }
-                        t = new Deadline(taskDetailArray[0], taskDetailArray[1]);
+                        String by = taskDetailArray[1];
+                        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(" dd/MM/yy HH:mm");
+                        LocalDateTime deadline = LocalDateTime.parse(by, formatter);
+                        t = new Deadline(taskDetailArray[0], deadline);
                     } else if (inputMessage.matches(toDoPattern)) {
                         String taskDetails = inputMessage.replaceAll("todo", "");
                         t = new ToDo(taskDetails);
                     } else if (inputMessage.matches(eventPattern)) {
                         String taskDetails = inputMessage.replaceAll("event", "");
                         if (taskDetails.isBlank()) {
-                            t = new Event("", "", "");
+                            t = new Event("", null, null);
                         }
                         String[] taskDetailArray = taskDetails.split("/from");
                         String[] taskDetailErrorArray = taskDetails.split("/");
                         if (taskDetailArray.length == 1) {
                             if (taskDetailErrorArray.length == 1) {
-                                t = new Event(taskDetails, "", "");
+                                t = new Event(taskDetails, null, null);
                             } else {
                                 throw new HelpBuddyException("Please enter and use /from for start time first then\n    /to for end time for event.\n");
                             }
                         }
-                        String[] timeFromTo = taskDetailArray[1].split("/to");
+                        String[] timeFromTo = taskDetailArray[1].split(" /to");
+                        String from = timeFromTo[0];
+                        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(" dd/MM/yy HH:mm");
+                        LocalDateTime startTime = LocalDateTime.parse(from, formatter);
                         if (timeFromTo.length == 1) {
-                            t = new Event(taskDetails, timeFromTo[0], "");
+                            t = new Event(taskDetails, startTime, null);
                         }
-                        t = new Event(taskDetailArray[0], timeFromTo[0], timeFromTo[1]);
+                        String to = timeFromTo[1];
+                        LocalDateTime endTime = LocalDateTime.parse(to, formatter);
+                        if (startTime.isAfter(endTime)) {
+                            throw new HelpBuddyException("End time must be after the start time!\n");
+                        } else if  (startTime.isEqual(endTime)) {
+                            throw new HelpBuddyException("Both start and end time are the same, please check!\n");
+                        }
+                        t = new Event(taskDetailArray[0], startTime, endTime);
                     } else {
                         throw new HelpBuddyException("I'm sorry, but I don't know what that means.\n");
                     }
@@ -298,6 +317,8 @@ public class HelpBuddy {
                 printErrorMessage(e.getMessage());
             } catch (IOException e) {
                 System.out.println("Something went wrong: " + e.getMessage());
+            } catch (DateTimeParseException e) {
+                printErrorMessage("Please enter the start/end time in the format of <DD/MM/YY HH:MM>!\n");
             }
             inputMessage = sc.nextLine();
         }

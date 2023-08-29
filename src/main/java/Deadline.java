@@ -1,9 +1,12 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 /**
  * This class is a subclass of Task which defines tasks with deadline.
  */
 public class Deadline extends Task {
     /** A String that indicates deadline of task. */
-    private String by;
+    private LocalDateTime by;
 
     /**
      * A constructor for tasks with deadline
@@ -11,12 +14,12 @@ public class Deadline extends Task {
      * @param by Deadline of task to be completed by.
      * @throws HelpBuddyException If description or deadline is empty.
      */
-    public Deadline(String description, String by) throws HelpBuddyException {
+    public Deadline(String description, LocalDateTime by) throws HelpBuddyException {
         super(description);
         this.by = by;
         if (description.isBlank()) {
             throw new HelpBuddyException("The description of a deadline cannot be empty.\n");
-        } else if (by.isBlank()) {
+        } else if (by == null) {
             throw new HelpBuddyException("Please enter a deadline.\n");
         }
     }
@@ -27,7 +30,8 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        return "[D]" + super.toString() + "(by:" + by + ")";
+        String deadline = this.by.format(DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm"));
+        return "[D]" + super.toString() + "(by: " + deadline + ")";
     }
 
     @Override
