@@ -1,3 +1,4 @@
+package duke;
 /**
  * Encapsulates the command to add items to the list.
  */

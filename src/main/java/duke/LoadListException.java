@@ -1,3 +1,4 @@
+package duke;
 /**
  * Exception when the ChatBotList is unable to load list.
  */

@@ -1,3 +1,4 @@
+package duke;
 /**
  * Encapsulates the command for displaying the list
  */

@@ -1,3 +1,4 @@
+package duke;
 /**
  * Encapsulates an item in the list
  */

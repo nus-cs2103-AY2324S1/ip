@@ -1,3 +1,4 @@
+package duke;
 import java.time.LocalDateTime;
 /**
  * Encapsulates an event with a start and end time/date.

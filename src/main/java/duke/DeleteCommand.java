@@ -1,3 +1,4 @@
+package duke;
 /**
  * Encapsulates the command to delete an item from the list.
  */
