@@ -20,7 +20,7 @@ public class DeadlineCommand implements Command{
             throw new DukeException("OOPS!!! The description of a deadline cannot be empty.\n");
         } else {
             String[] partDeadline = details.split("/by");
-            Task curr = new Deadline(partDeadline[0], partDeadline[1]);
+            Task curr = new Deadline(partDeadline[0], partDeadline[1].trim());
             tasks.add(curr);
             ui.sendMessage("Got it. I've added this task:\n" + "\t" + curr.toString() + "\n"
                     + "Now you have " + Integer.toString(tasks.size()) + " tasks in the list.");

@@ -2,7 +2,6 @@ package duke.command;
 
 import duke.DukeException;
 import duke.storage.Storage;
-import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Task;
 import duke.task.TaskList;
@@ -22,7 +21,7 @@ public class EventCommand implements Command{
         } else {
             String[] partFrom = details.split("/from");
             String[] partTo = partFrom[1].split("/to");
-            Task curr = new Event(partFrom[0], partTo[0], partTo[1]);
+            Task curr = new Event(partFrom[0], partTo[0].trim(), partTo[1].trim());
             tasks.add(curr);
             ui.sendMessage("Got it. I've added this task:\n" + "\t" + curr.toString() + "\n"
                     + "Now you have " + Integer.toString(tasks.size()) + " tasks in the list.");

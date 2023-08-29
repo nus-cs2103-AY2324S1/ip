@@ -6,10 +6,12 @@ import duke.storage.Storage;
 import duke.task.TaskList;
 import duke.ui.Ui;
 
+import java.time.DateTimeException;
+
 public class Duke {
-    private Storage storage;
-    private TaskList tasks = new TaskList();
-    private Ui ui;
+    private final Storage storage;
+    private TaskList tasks;
+    private final Ui ui;
 
     public Duke(String filePath) {
         this.ui = new Ui();
@@ -31,7 +33,7 @@ public class Duke {
                 Command c = Parser.parse(fullCommand);
                 c.execute(tasks, ui, storage);
                 isExit = c.isExit();
-            } catch (DukeException e) {
+            } catch (DukeException | DateTimeException e) {
                 ui.showError(e.getMessage());
             }
         }

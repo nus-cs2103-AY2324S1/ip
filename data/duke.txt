@@ -1,2 +1,0 @@
-1 todo a
-0 deadline c /by Monday
