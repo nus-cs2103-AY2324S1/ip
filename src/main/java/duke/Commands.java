@@ -3,6 +3,8 @@ package duke;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import duke.parser.Parser;
 import duke.storage.*;
 import duke.task.ItemList;
 import duke.ui.UI;
