@@ -5,7 +5,7 @@ import duke.TaskList;
 import duke.Ui;
 
 /**
- * duke.command.Command that marks a specific task
+ * Command that marks a specific task.
  */
 public class MarkCommand implements Command{
     /**

@@ -4,7 +4,7 @@ import duke.TaskList;
 import duke.Ui;
 
 /**
- * duke.command.Command use to end the program.
+ * Command use to end the program.
  */
 public class ExitCommand implements Command{
 

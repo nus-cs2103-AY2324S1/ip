@@ -8,7 +8,7 @@ import duke.task.Task;
 import duke.task.Todo;
 
 /**
- * duke.command.Command that adds the task to the task list.
+ * Command that adds the task to the task list.
  */
 public class AddCommand implements Command{
 
