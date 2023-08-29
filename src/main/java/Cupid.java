@@ -1,3 +1,4 @@
+import java.io.IOException;
 import java.util.Scanner;
 import java.util.ArrayList;
 
@@ -71,6 +72,13 @@ public class Cupid {
                 System.out.println("Oops!!! I'm sorry but I don't know what that means :-(");
                 System.out.println("Please use one of the following commands: list, mark, unmark, todo, deadline, event, bye");
             }
+        }
+
+        try {
+            Save save = new Save(taskList);
+            System.out.println("Save successful");
+        } catch (IOException e) {
+            System.out.println("Save unsuccessful");
         }
 
         System.out.println("____________________________________________________________");
