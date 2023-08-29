@@ -16,21 +16,24 @@ public class Parser {
     public static Instruction parse(String userInput, TaskList taskList) throws DukeException {
         
         String[] formattedUserInput = userInput.split(" ", 2);
-
-        switch (formattedUserInput[0]) {
-        case "bye":
+        InstructionEnum instruction = InstructionEnum.getInstructionEnum(formattedUserInput[0]);
+        if (instruction == null) {
+            throw new DukeException("Unrecognized instruction. Try again.");
+        }
+        switch (instruction) {
+        case BYE:
             if (formattedUserInput.length > 1 && !formattedUserInput[1].isEmpty()) {
                 throw new DukeException("The description of bye must be empty. Try again.");
             } else {
                 return new Instruction.Exit();
             }
-        case "list":
+        case LIST:
             if (formattedUserInput.length > 1 && !formattedUserInput[1].trim().isEmpty()) {
                 throw new DukeException("The description of list must be empty. Try again.");
             } else {
                 return new Instruction.List(taskList);
             }
-        case "mark":
+        case MARK:
             if (formattedUserInput.length == 1 || formattedUserInput[1].isEmpty()) {
                 throw new DukeException("The description of mark cannot be empty. Try again.");
             } else {
@@ -45,7 +48,7 @@ public class Parser {
                     throw new DukeException("The index is not a valid index. Try again.");
                 }
             }
-        case "unmark":
+        case UNMARK:
             if (formattedUserInput.length == 1 || formattedUserInput[1].isEmpty()) {
                 throw new DukeException("The description of unmark cannot be empty. Try again.");
             } else {
@@ -60,7 +63,7 @@ public class Parser {
                     throw new DukeException("The index is not a valid index. Try again.");
                 }
             }
-        case "delete":
+        case DELETE:
             if (formattedUserInput.length == 1 || formattedUserInput[1].isEmpty()) {
                 throw new DukeException("The description of delete cannot be empty. Try again.");
             } else {
@@ -75,13 +78,13 @@ public class Parser {
                     throw new DukeException("The index is not a valid index. Try again.");
                 }
             }
-        case "todo":
+        case TODO:
             if(formattedUserInput.length == 1 || formattedUserInput[1].isEmpty()){
                 throw new DukeException("The description of a todo cannot be empty. Try again.");
             } else {
                 return new Instruction.Add(new Todo(formattedUserInput[1]), taskList);
             }
-        case "deadline":
+        case DEADLINE:
             if (formattedUserInput.length == 1 || formattedUserInput[1].isEmpty()) {
                 throw new DukeException("The description of a deadline cannot be empty. Try again.");
             } else {
@@ -92,7 +95,7 @@ public class Parser {
                     return new Instruction.Add(new Deadline(temp[0], temp[1]), taskList);
                 }
             }
-        case "event":
+        case EVENT:
             if (formattedUserInput.length ==1 || formattedUserInput[1].isEmpty()) {
                 throw new DukeException("The description of an event cannot be empty. Try again.");
             } else {
@@ -109,7 +112,9 @@ public class Parser {
                 }
             }
         default:
-            throw new DukeException("Unrecognized instruction. Try again.");
+            //program will not reach here.
+            return null;
         }
+
     }
 }
