@@ -1,4 +1,0 @@
-T | 1 | hello
-E | 0 | hi  |  hi  |  hi
-T | 0 | hello
-D | 1 | hello  |  hi
