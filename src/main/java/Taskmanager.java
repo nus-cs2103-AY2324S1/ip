@@ -4,7 +4,9 @@ import java.util.ArrayList;
 public class Taskmanager {
     int counter = 0;
     //private Task[] tasks = new Task[100];
-    private ArrayList<Task> tasks = new ArrayList<>();
+    protected ArrayList<Task> tasks = new ArrayList<>();
+    protected Save storage;
+
 
     public void manageTasks() {
         Scanner sn = new Scanner(System.in);
@@ -145,6 +147,9 @@ public class Taskmanager {
         tasks.add(t);
         counter += 1;
         System.out.println("Got it. I've added this task:\n  " + t + "\nNow you have " + counter + " tasks in the list.");
+        saveTask(t);
+        System.out.println("--------The following task has been successfully saved!--------");
+        readTask(t.getSavingFormat());
     }
 
     public void removeTask(int index) {
@@ -152,5 +157,20 @@ public class Taskmanager {
         tasks.remove(index-1);
         counter -= 1;
         System.out.println("Noted. I've removed this task:\n" + temp + "\nNow you have " + counter + " tasks in the list.");
+    }
+
+    public void saveTask(Task t) {
+        if (this.storage == null) {
+            this.storage = new Save();
+        }
+        storage.write(t.getSavingFormat());
+    }
+
+    public void readTask(String key) {
+        if (this.storage == null) {
+            System.out.println("There is no previously saved task!");
+        } else {
+            System.out.println(storage.read(key));
+        }
     }
 }

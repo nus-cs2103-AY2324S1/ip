@@ -22,10 +22,14 @@ public class Task {
     }
 
     public String getTaskType() {
-        return "";
+        return "[ ]";
     }
 
     public String toString() {
         return getTaskType() + "[" + getStatusIcon() + "] " + description;
+    }
+
+    public String getSavingFormat() {
+        return getTaskType() + " [" + getStatusIcon() + "] " + description;
     }
 }

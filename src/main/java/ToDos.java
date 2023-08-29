@@ -5,6 +5,10 @@ public class ToDos extends Task{
     }
 
     @Override
+    public String getSavingFormat() {
+        return "[T] | [" + getStatusIcon() + "] | " + description;
+    }
+    @Override
     public String toString() {
         return "[T][" + getStatusIcon() + "]" + description;
     }

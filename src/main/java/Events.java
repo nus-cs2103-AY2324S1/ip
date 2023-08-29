@@ -12,6 +12,11 @@ public class Events extends Task {
     }
 
     @Override
+    public String getSavingFormat() {
+        return "[E] | [" + getStatusIcon() + "] | " + description + " | " + start + " | " + end;
+    }
+
+    @Override
     public String toString() {
         return "[E][" + getStatusIcon() + "] " + description + " (from: " + start + " to: " + end + ")";
     }
