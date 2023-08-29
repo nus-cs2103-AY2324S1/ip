@@ -1,14 +1,21 @@
 package duke;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 import exception.DukeException;
 import task.Deadline;
 import task.Event;
 import task.Task;
 import task.ToDo;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
+
+/**
+ * Class that handles userInput and return appropriate action.
+ *
+ * @author syamfarh
+ */
 public class Parser {
 
     /**
@@ -39,12 +46,12 @@ public class Parser {
                 } catch (NumberFormatException err) {
                     throw new DukeException("☹ OOPS!!! The number input does not exist.", err);
                 }
-            } else if(input.startsWith("unmark ")) {
+            } else if (input.startsWith("unmark ")) {
                 try {
                     int i = Integer.parseInt(input.substring(7));
                     tasks.markTaskUndone(i - 1);
                     ui.unMarkSuccess(tasks.getTasks(i - 1));
-                } catch (NumberFormatException err){
+                } catch (NumberFormatException err) {
                     throw new DukeException("☹ OOPS!!! The number input does not exist.", err);
                 }
             } else {
@@ -66,11 +73,11 @@ public class Parser {
                         } else {
                             date = input.substring(index + 4);
                         }
-                        tasks.addTask(new Deadline(input.substring(9,index - 1), date));
+                        tasks.addTask(new Deadline(input.substring(9, index - 1), date));
                         ui.deadLineSuccess(tasks.getTasks(tasks.getSize() - 1), tasks.getSize());
                     } catch (StringIndexOutOfBoundsException err) {
-                        throw new DukeException("☹ OOPS!!! The deadline format is incorrect! \n" +
-                                "follow the format: deadline description /by end date", err);
+                        throw new DukeException("☹ OOPS!!! The deadline format is incorrect! \n"
+                                + "follow the format: deadline description /by end date", err);
                     }
 
                 } else if (input.startsWith("event ")) {
@@ -78,10 +85,10 @@ public class Parser {
                         int indexFrom = input.indexOf("/from");
                         int indexTo = input.indexOf("/to");
                         String dateFrom;
-                        if (isValidDate(input.substring(indexFrom + 6,indexTo - 1))) {
-                            dateFrom = parseDate(input.substring(indexFrom + 6,indexTo - 1));
+                        if (isValidDate(input.substring(indexFrom + 6, indexTo - 1))) {
+                            dateFrom = parseDate(input.substring(indexFrom + 6, indexTo - 1));
                         } else {
-                            dateFrom = input.substring(indexFrom + 6,indexTo - 1);
+                            dateFrom = input.substring(indexFrom + 6, indexTo - 1);
                         }
                         String dateTo;
                         if (isValidDate(input.substring(indexTo + 4))) {
@@ -89,20 +96,20 @@ public class Parser {
                         } else {
                             dateTo = input.substring(indexTo + 4);
                         }
-                        tasks.addTask(new Event(input.substring(6,indexFrom - 1),
+                        tasks.addTask(new Event(input.substring(6, indexFrom - 1),
                                 dateFrom,
                                 dateTo));
                         ui.eventSuccess(tasks.getTasks(tasks.getSize() - 1), tasks.getSize());
-                    } catch (StringIndexOutOfBoundsException err){
-                        throw new DukeException("☹ OOPS!!! The event format is incorrect! \n" +
-                                "follow the format: event description /from start date /to end date", err);
+                    } catch (StringIndexOutOfBoundsException err) {
+                        throw new DukeException("☹ OOPS!!! The event format is incorrect! \n"
+                                + "follow the format: event description /from start date /to end date", err);
                     }
                 } else if (input.startsWith("delete ")) {
                     try {
                         int i = Integer.parseInt(input.substring(7));
                         Task removedTask = tasks.removeTask(i - 1);
                         ui.deleteSuccess(removedTask, tasks.getSize());
-                    } catch (NumberFormatException err){
+                    } catch (NumberFormatException err) {
                         throw new DukeException("☹ OOPS!!! The number input does not exist.", err);
                     }
                 } else {
@@ -171,7 +178,7 @@ public class Parser {
      * @return true if the str only contain numeric characters.
      */
     public static boolean isNumeric(String str) {
-        return str.matches("-?\\d+(\\.\\d+)?");  //match a number with optional '-' and decimal.
+        return str.matches("-?\\d+(\\.\\d+)?"); //match a number with optional '-' and decimal.
     }
 
 }

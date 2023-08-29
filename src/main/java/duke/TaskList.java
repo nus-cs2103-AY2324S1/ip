@@ -1,10 +1,16 @@
 package duke;
 
-import exception.DukeException;
-import task.Task;
 
 import java.util.ArrayList;
 
+import exception.DukeException;
+import task.Task;
+
+/**
+ * Class that handle lists of tasks saved in ArrayList.
+ *
+ * @author syamfarh
+ */
 public class TaskList {
 
     /** store tasks in an ArrayList */

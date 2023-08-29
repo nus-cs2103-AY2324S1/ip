@@ -15,13 +15,13 @@ public class Ui {
     private final Scanner in;
 
     /** Indicator to terminate the chatBot */
-    private boolean Exit;
+    private boolean exit;
 
     public Ui() {
         this(System.in);
     }
     public Ui(InputStream in) {
-        this.Exit = false;
+        this.exit = false;
         this.in = new Scanner(in);
     }
 
@@ -54,7 +54,7 @@ public class Ui {
      * Output the greeting before chatBot terminates.
      */
     public void exitGreeting() {
-        this.Exit = true;
+        this.exit = true;
         System.out.println(DIVIDER);
         System.out.println("Bye. Hope to see you again soon!");
         System.out.println(DIVIDER);
@@ -167,6 +167,6 @@ public class Ui {
      * @return {@link this.exit}
      */
     public boolean isExit() {
-        return this.Exit;
+        return this.exit;
     }
 }

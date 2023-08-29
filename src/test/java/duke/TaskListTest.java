@@ -1,15 +1,16 @@
 package duke;
 
-import exception.DukeException;
-import org.junit.jupiter.api.Test;
-import task.Task;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import org.junit.jupiter.api.Test;
+
+import exception.DukeException;
+import task.Task;
+
 public class TaskListTest {
     @Test
-    public void getTasks_zeroBasedIndex_Test(){
+    public void getTasks_zeroBasedIndex_test() {
         TaskList testObj = new TaskList();
         Task taskObj = new Task("buy book");
         testObj.addTask(taskObj);
@@ -17,7 +18,7 @@ public class TaskListTest {
     }
 
     @Test
-    public void removeTask_returnRemovedTask_Test() throws DukeException {
+    public void removeTask_returnRemovedTask_test() throws DukeException {
         TaskList testObj = new TaskList();
         Task taskObj = new Task("buy book");
         testObj.addTask(taskObj);
@@ -25,7 +26,7 @@ public class TaskListTest {
     }
 
     @Test
-    public void removeTask_returnDukeExceptionOutOfBoundIndex_Test() {
+    public void removeTask_returnDukeExceptionOutOfBoundIndex_test() {
         TaskList testObj = new TaskList();
         Task taskObj = new Task("buy book");
         testObj.addTask(taskObj);
