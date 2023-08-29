@@ -1,3 +1,8 @@
+package duke;
+
+import duke.Deadline;
+import duke.DukeException;
+
 public class Parser {
 
     public static void parse(String command, TaskList list, Storage storage, Ui ui) {
