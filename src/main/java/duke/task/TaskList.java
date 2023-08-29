@@ -66,17 +66,7 @@ public class TaskList {
     public void unmarkTask(int index) {
         this.tasks.get(index).unmark();
     }
-
-
-  
-    public int size() {
-        return this.list.size();
-    }
-
     
-    public ArrayList<Task> getList() {
-        return this.list;
-
     /**
      * Returns the size of the list.
      *
