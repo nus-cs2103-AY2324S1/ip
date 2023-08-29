@@ -233,7 +233,7 @@ public class ParserTest {
         System.setOut(new PrintStream(outContent));
 
         parser.parse("list");
-        assertEquals("1 [ ] task1\n" + "2 [ ] task2\n" + "3 [ ] task3\n" + "4 [T][ ] read books\n", outContent.toString());
+        assertEquals("1 [ ] task1\n" + "2 [ ] task2\n" + "3 [ ] task3\n" + "4 [T] [ ] read books\n", outContent.toString());
     }
 
     @Test

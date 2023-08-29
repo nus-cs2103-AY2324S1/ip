@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Storage {
-    File f;
+    private File f;
     public Storage(String filepath) {
         this.f = new File(filepath);
         try {
@@ -18,7 +18,6 @@ public class Storage {
             throw new DukeFileNotFoundException();
         }
     }
-
     public ArrayList<String> load() {
         Scanner sc;
         ArrayList<String> lines = new ArrayList<>();

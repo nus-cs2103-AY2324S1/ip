@@ -31,7 +31,7 @@ public class Parser {
         this.isExit = false;
     }
 
-    // throws error when parsing failed. handled in duke
+    // throws error when parsing failed. handled in duke. does not print anything
     public void parse(String s) throws DateTimeParseException {
         String[] stringList = s.split(" ", 2);
         String first = stringList[0];
