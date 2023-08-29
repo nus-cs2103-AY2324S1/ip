@@ -5,8 +5,8 @@ import duke.tasks.TaskList;
 
 public class DeleteTaskCommand extends Command {
 
-    public DeleteTaskCommand(CommandType commandType, TaskList taskList, String args) {
-        super(commandType, taskList, args);
+    public DeleteTaskCommand(TaskList taskList, String args) {
+        super(CommandType.DELETE_TASK, taskList, args);
     }
 
     @Override

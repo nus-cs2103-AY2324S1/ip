@@ -5,8 +5,8 @@ import duke.tasks.TaskType;
 
 public class AddToDoCommand extends Command {
 
-    public AddToDoCommand(CommandType commandType, TaskList taskList, String args) {
-        super(commandType, taskList, args);
+    public AddToDoCommand(TaskList taskList, String args) {
+        super(CommandType.ADD_TODO, taskList, args);
     }
 
     @Override

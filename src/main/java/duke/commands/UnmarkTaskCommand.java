@@ -5,8 +5,8 @@ import duke.tasks.TaskList;
 
 public class UnmarkTaskCommand extends Command {
 
-    public UnmarkTaskCommand(CommandType commandType, TaskList taskList, String args) {
-        super(commandType, taskList, args);
+    public UnmarkTaskCommand(TaskList taskList, String args) {
+        super(CommandType.UNMARK_TASK, taskList, args);
     }
 
     @Override

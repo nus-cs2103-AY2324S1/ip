@@ -5,8 +5,8 @@ import duke.tasks.TaskType;
 
 public class AddDeadlineCommand extends Command {
 
-    public AddDeadlineCommand(CommandType commandType, TaskList taskList, String args) {
-        super(commandType, taskList, args);
+    public AddDeadlineCommand(TaskList taskList, String args) {
+        super(CommandType.ADD_DEADLINE, taskList, args);
     }
 
     @Override

@@ -4,8 +4,8 @@ import duke.tasks.TaskList;
 
 public class ListTasksCommand extends Command {
 
-    public ListTasksCommand(CommandType commandType, TaskList taskList, String args) {
-        super(commandType, taskList, args);
+    public ListTasksCommand(TaskList taskList, String args) {
+        super(CommandType.LIST_TASKS, taskList, args);
     }
 
     @Override

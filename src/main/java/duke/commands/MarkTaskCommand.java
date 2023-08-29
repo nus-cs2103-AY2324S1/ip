@@ -5,8 +5,8 @@ import duke.tasks.TaskList;
 
 public class MarkTaskCommand extends Command {
 
-    public MarkTaskCommand(CommandType commandType, TaskList taskList, String args) {
-        super(commandType, taskList, args);
+    public MarkTaskCommand(TaskList taskList, String args) {
+        super(CommandType.MARK_TASK, taskList, args);
     }
 
     @Override

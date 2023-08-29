@@ -28,28 +28,28 @@ public class Parser {
 
         switch (commandType) {
         case EXIT:
-            return new ExitCommand(CommandType.EXIT, this.taskList, commandArgs);
+            return new ExitCommand(this.taskList, commandArgs);
 
         case LIST_TASKS:
-            return new ListTasksCommand(CommandType.LIST_TASKS, this.taskList, commandArgs);
+            return new ListTasksCommand(this.taskList, commandArgs);
 
         case ADD_TODO:
-            return new AddToDoCommand(CommandType.ADD_TODO, this.taskList, commandArgs);
+            return new AddToDoCommand(this.taskList, commandArgs);
 
         case ADD_DEADLINE:
-            return new AddDeadlineCommand(CommandType.ADD_DEADLINE, this.taskList, commandArgs);
+            return new AddDeadlineCommand(this.taskList, commandArgs);
 
         case ADD_EVENT:
-            return new AddEventCommand(CommandType.ADD_EVENT, this.taskList, commandArgs);
+            return new AddEventCommand(this.taskList, commandArgs);
 
         case MARK_TASK:
-            return new MarkTaskCommand(CommandType.MARK_TASK, this.taskList, commandArgs);
+            return new MarkTaskCommand(this.taskList, commandArgs);
 
         case UNMARK_TASK:
-            return new UnmarkTaskCommand(CommandType.UNMARK_TASK, this.taskList, commandArgs);
+            return new UnmarkTaskCommand(this.taskList, commandArgs);
 
         case DELETE_TASK:
-            return new DeleteTaskCommand(CommandType.DELETE_TASK, this.taskList, commandArgs);
+            return new DeleteTaskCommand(this.taskList, commandArgs);
 
         default:
             throw new DukeInvalidCommandException("I'm gonna be honest, no idea what you're saying.");

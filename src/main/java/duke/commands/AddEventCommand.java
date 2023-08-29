@@ -5,8 +5,8 @@ import duke.tasks.TaskType;
 
 public class AddEventCommand extends Command {
 
-    public AddEventCommand(CommandType commandType, TaskList taskList, String args) {
-        super(commandType, taskList, args);
+    public AddEventCommand(TaskList taskList, String args) {
+        super(CommandType.ADD_EVENT, taskList, args);
     }
 
     @Override
