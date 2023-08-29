@@ -1,14 +1,24 @@
 import java.io.IOException;
-import java.util.Scanner;
 
 // The Chatbot Aplha!
 public class Alpha {
-    public static void main(String[] args) throws IOException {
 
+    private UI ui;
+    private FileHandler fh;
 
-        FileHandler fh = new FileHandler();
+    private TaskList taskList;
+
+    private Parser parser;
+
+    public Alpha() {
+        ui = new UI();
+        fh = new FileHandler();
+        taskList = fh.readFromFile();
+        parser = new Parser(fh, taskList, ui);
         fh.checkAndCreate();
+    }
 
+<<<<<<< HEAD
         Scanner sc = new Scanner(System.in);
 
         //End trigger to end the program
@@ -146,7 +156,21 @@ public class Alpha {
             } finally {
                 input = sc.nextLine();
             }
+=======
+    private void run() {
+        ui.introduce();
+        boolean isExit = false;
+        while(!isExit) {
+                String input = ui.read();
+                Command c = parser.parse(input);
+                c.execute();
+                isExit = c.isExit();
+>>>>>>> branch-A-MoreOOP
         }
-        System.out.println(end);
+        ui.goodbye();
+    }
+
+    public static void main(String[] args) {
+        new Alpha().run();
     }
 }

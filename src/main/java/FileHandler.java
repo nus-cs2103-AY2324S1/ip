@@ -20,24 +20,29 @@ public class FileHandler {
     }
 
     // Checks for the data directory and alpha.txt. If one or both are not there, it creates them.
-    public void checkAndCreate() throws IOException {
+    public void checkAndCreate(){
         boolean directoryExists = java.nio.file.Files.exists(java.nio.file.Paths.get("data"));
         // Check if the file exists
         boolean dataExists = java.nio.file.Files.exists(java.nio.file.Paths.get("data", "alpha.txt"));
-        if (!directoryExists) {
-            new File("data").mkdir();
-            created = alphaTxt.createNewFile();
-        } else if (!dataExists) {
-            created = alphaTxt.createNewFile();
+        try {
+            if (!directoryExists) {
+                new File("data").mkdir();
+                created = alphaTxt.createNewFile();
+            } else if (!dataExists) {
+                created = alphaTxt.createNewFile();
+            }
+        } catch (IOException e) {
+            System.out.println("There was a problem reading data from the file.");
         }
     }
 
     // Reads information from file
-    public TaskList readFromFile() throws FileNotFoundException {
+    public TaskList readFromFile() {
         TaskList taskList = new TaskList();
         if (this.created) {
             return taskList;
         }
+<<<<<<< HEAD
         Scanner sc = new Scanner(alphaTxt);
         while (sc.hasNext()) {
             String input = sc.nextLine();
@@ -60,8 +65,35 @@ public class FileHandler {
             if (task != null) {
                 taskList.add(task, true);
             }
+=======
+        try {
+            Scanner sc = new Scanner(alphaTxt);
+            while (sc.hasNext()) {
+                String input = sc.nextLine();
+                String[] splitInput = input.split("\\|");
+                String type = splitInput[0];
+                String checked = splitInput[1];
+                String description = splitInput[2].trim();
+                Task task;
+                if (type.equals("T ")) {
+                    task = ToDo.makeToDo(description);
+                } else if (type.equals("D ")) {
+                    task = Deadline.makeDeadline(description, splitInput[3]);
+                } else {
+                    task = Event.makeEvent(description, splitInput[3], splitInput[4]);
+                }
+                if (checked.equals("X")) {
+                    assert task != null;
+                    task.mark();
+                }
+                taskList.add(task);
+            }
+            return taskList;
+        } catch (FileNotFoundException e) {
+            System.out.println("The file could not be found");
+            return taskList;
+>>>>>>> branch-A-MoreOOP
         }
-        return taskList;
     }
 
     // Saves Task to file whenever a Task is added
@@ -82,7 +114,7 @@ public class FileHandler {
             }
             this.writer.close();
         } catch (IOException e) {
-            System.out.println("Hello");
+            System.out.println("I/O Exception");
         }
     }
 
