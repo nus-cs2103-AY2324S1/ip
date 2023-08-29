@@ -10,6 +10,7 @@ public class DeadlineTask extends Task{
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + DateTimeFormatter.ofPattern("MMM d yyyy") + ")";
+        return "[D]" + super.toString() + " (by: " + 
+                date.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
     }
 }
