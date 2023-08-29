@@ -4,3 +4,5 @@ E | 0 | event test | 1pm | yeet
 T | 1 | new new new todo | null | null
 D | 0 | new deadline | deadth | null
 E | 0 | second event | from | totototo
+D | 0 | test dates correct deadline | 2023-10-21 | null
+E | 0 | correct event timings | 2222-11-11 | 2222-11-13

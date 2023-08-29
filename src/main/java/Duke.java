@@ -1,5 +1,8 @@
 import java.io.*;
 import java.nio.file.Path;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.nio.file.Files;
@@ -137,6 +140,7 @@ public class Duke {
             System.out.println(HORIZONTAL_LINE);
         } else {
             System.out.println(HORIZONTAL_LINE);
+            System.out.println("    Your current task list:");
             for (int i = 0; i < taskList.size(); i++) {
                 System.out.printf("     %d.%s\n", i + 1, taskList.get(i).toString());
             }
@@ -162,11 +166,11 @@ public class Duke {
         //saved[0]
         if (task instanceof Deadline) {
             saved[0] = "D";
-            saved[3] = ((Deadline) task).getDueDate();
+            saved[3] = ((Deadline) task).getDueDate().toString();
         } else if (task instanceof Event) {
             saved[0] = "E";
-            saved[3] = ((Event) task).getStartTime();
-            saved[4] = ((Event) task).getEndTime();
+            saved[3] = ((Event) task).getStartTime().toString();
+            saved[4] = ((Event) task).getEndTime().toString();
         } else {
             //Todo task
             saved[0] = "T";
@@ -187,7 +191,7 @@ public class Duke {
      * Loads tasks saved previously from Hard Disk.
      * @throws IOException throws an IO Exception if the file is corrupted or invalid.
      */
-    private static void loadTasks() throws IOException {
+    private static void loadTasks() throws IOException, InvalidDateException {
         //Use FileInputStream and BufferedReader, opposite of saveTask()
         // try-catch to check if file exists or if file is correct format
         try {
@@ -224,31 +228,50 @@ public class Duke {
                         // Create the task and add task to taskList
                         switch(content[0]) {
                         case "E":
-                            taskFromHardDisk = new Event(taskDescription, content[3], content[4]);
-                            //Potential error for content[3]
+                            if (!isValidDate(content[3]) || !isValidDate(content[4])) {
+                                System.out.printf("Skipping line with invalid date: %s\n", currentLine);
+                            } else {
+                                taskFromHardDisk = new Event(taskDescription, LocalDate.parse(content[3]), LocalDate.parse(content[4]));
+                                //Check if task is done
+                                if (content[1].equals("1")) {
+                                    taskFromHardDisk.markAsDone();
+                                } else {
+                                    taskFromHardDisk.markAsNotDone();
+                                }
+                                taskList.add(taskFromHardDisk);
+                                //Potential error for content[3]
+                            }
                             break;
                         case "D":
-                            taskFromHardDisk = new Deadline(taskDescription, content[3]);
-                            //Potential error for content[3]
+                            if (!isValidDate(content[3])) {
+                                System.out.printf("Skipping line with invalid date: %s\n", currentLine);
+                            } else {
+                                taskFromHardDisk = new Deadline(taskDescription, LocalDate.parse(content[3]));
+                                //Check if task is done
+                                if (content[1].equals("1")) {
+                                    taskFromHardDisk.markAsDone();
+                                } else {
+                                    taskFromHardDisk.markAsNotDone();
+                                }
+                                taskList.add(taskFromHardDisk);
+                                //Potential error for content[3]
+                            }
                             break;
                         default:
                             taskFromHardDisk = new Todo(taskDescription);
+                            //Check if task is done
+                            if (content[1].equals("1")) {
+                                taskFromHardDisk.markAsDone();
+                            } else {
+                                taskFromHardDisk.markAsNotDone();
+                            }
+                            taskList.add(taskFromHardDisk);
                             break;
                         }
-
-                        //Check if task is done
-                        if (content[1].equals("1")) {
-                            taskFromHardDisk.markAsDone();
-                        } else {
-                            taskFromHardDisk.markAsNotDone();
-                        }
-                        taskList.add(taskFromHardDisk);
 
                     } else {
                         System.out.printf("Skipping corrupted line: %s\n", currentLine);
                     }
-
-
                 }
             } catch (IOException e) {
                 // Handle exception while reading the file
@@ -269,12 +292,21 @@ public class Duke {
             String completionStatus = tokens[1].trim();
             String description = tokens[2].trim();
 
-            if (taskType.matches("[TDE]") && completionStatus.matches("[01]") && !description.isEmpty()) {
-                return true; // Line matches expected format
-            }
+            return taskType.matches("[TDE]") && completionStatus.matches("[01]") && !description.isEmpty(); // Line matches expected format
         }
 
         return false; // Line is not valid
+    }
+
+    public static boolean isValidDate(String testDate) {
+        SimpleDateFormat simpleDate = new SimpleDateFormat("yyyy-MM-dd");
+        simpleDate.setLenient(false);
+        try {
+            simpleDate.parse(testDate);
+        } catch (ParseException pe) {
+            return false;
+        }
+        return true;
     }
 
     /**
@@ -301,7 +333,8 @@ public class Duke {
         }
     }
 
-    public static void main(String[] args) throws InvalidCommandException, IOException {
+    public static void main(String[] args)
+            throws InvalidCommandException, IOException, InvalidDateException {
         Boolean repeatFlag = true;
         loadTasks();
         greet();

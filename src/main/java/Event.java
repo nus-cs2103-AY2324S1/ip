@@ -1,11 +1,13 @@
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 public class Event extends Task {
 
-    protected String startTime;
-    protected String endTime;
+    protected LocalDate startTime;
+    protected LocalDate endTime;
 
-    public Event(String description, String startTime, String endTime) {
+    public Event(String description, LocalDate startTime, LocalDate endTime) {
         super(description);
         this.startTime = startTime;
         this.endTime = endTime;
@@ -13,14 +15,17 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + startTime + " to: " + endTime + ")";
+//        return "[E]" + super.toString() + " (from: " + startTime + " to: " + endTime + ")";
+        return String.format("[E]%s (from: %s to: %s)", super.toString(),
+                getStartTime().format(DateTimeFormatter.ofPattern("MMM d yyy")),
+                getEndTime().format(DateTimeFormatter.ofPattern("MMM d yyy")));
     }
 
-    public String getStartTime() {
+    public LocalDate getStartTime() {
         return this.startTime;
     }
 
-    public String getEndTime() {
+    public LocalDate getEndTime() {
         return this.endTime;
     }
     public String getSchedule() {
@@ -38,16 +43,31 @@ public class Event extends Task {
             String taskDescription = details[0].trim().replaceFirst("event", "").trim();
             String startTime = details[1].trim();
             String endTime = details[2].trim();
-            Event eventTask = new Event(taskDescription, startTime, endTime);
-            Duke.saveTask(eventTask, true);
-            Duke.taskList.add(eventTask); //Deadline <: Task
 
-            //Print details in the console
-            System.out.println(Duke.HORIZONTAL_LINE);
-            System.out.println("     Got it. I've added this task:");
-            System.out.printf("       %s\n", eventTask.toString());
-            System.out.printf("     Now you have %d tasks in the list.\n", Duke.taskList.size());
-            System.out.println(Duke.HORIZONTAL_LINE);
+            //Check if input date is valid.
+            try {
+                if (Duke.isValidDate(startTime)) {
+                    Event eventTask = new Event(taskDescription,
+                            LocalDate.parse(startTime),
+                            LocalDate.parse(endTime));
+
+                    Duke.saveTask(eventTask, true);
+                    Duke.taskList.add(eventTask); //Deadline <: Task
+
+                    //Print details in the console
+                    System.out.println(Duke.HORIZONTAL_LINE);
+                    System.out.println("     Got it. I've added this task:");
+                    System.out.printf("       %s\n", eventTask.toString());
+                    System.out.printf("     Now you have %d tasks in the list.\n", Duke.taskList.size());
+                    System.out.println(Duke.HORIZONTAL_LINE);
+                } else {
+                    throw new InvalidDateException();
+                }
+            } catch (InvalidDateException e) {
+                System.out.println(e.toString());
+            }
+
+
 
         } else {
             System.out.println(Duke.HORIZONTAL_LINE);
