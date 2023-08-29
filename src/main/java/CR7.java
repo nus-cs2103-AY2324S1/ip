@@ -1,3 +1,7 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Scanner;
 import java.util.ArrayList;
 public class CR7 {
@@ -8,6 +12,63 @@ public class CR7 {
         }
         System.out.println(); // Move to the next line
     }
+    private static void loadFiles(String filepath, ArrayList<Task> tasks) throws CR7Exception, FileNotFoundException {
+        File f = new File(filepath);
+        Scanner s = new Scanner(f);
+        while(s.hasNext()) {
+            createTask(s.nextLine(), tasks);
+        }
+    }
+
+    private static void writeToFile(String filePath, String textToAdd) throws IOException {
+        FileWriter fw = new FileWriter(filePath);
+        fw.write(textToAdd);
+        fw.close();
+    }
+    private static void saveFiles(String filepath, ArrayList<Task> tasks) throws IOException {
+        int i = tasks.size();
+        String taskList = "";
+        for (int j = 0; j < i; j++) {
+            if (j == i - 1) {
+                taskList += tasks.get(j).toString();
+            } else {
+                taskList += tasks.get(j).toString() + System.lineSeparator();
+            }
+        }
+        writeToFile(filepath, taskList);
+    }
+
+    private static void createTask(String input, ArrayList<Task> tasks) throws CR7Exception {
+        if (input.startsWith("[D]")) {
+            int y = input.indexOf("(by: ");
+            String desc = input.substring(7, y - 1);
+            int end = input.indexOf(")");
+            String by = input.substring(y + 5, end);
+            Task t = new Deadline(desc, by);
+            tasks.add(t);
+            if (input.substring(3, 5).equals("[X]")) {
+                t.markAsDone();
+            }
+        } else if (input.startsWith("[T]")) {
+            String desc = input.substring(7);
+            Task t = new ToDo(desc);
+            tasks.add(t);
+            if (input.substring(3, 5).equals("[X]")) {
+                t.markAsDone();
+            }
+        } else if (input.startsWith("[E]")) {
+            int fromIndex = input.indexOf("(from: ");
+            int toIndex = input.indexOf("to: ");
+            String desc = input.substring(7, input.indexOf("(") - 1);
+            String start = input.substring(fromIndex + 7, toIndex - 1).trim();
+            String end = input.substring(toIndex + 4, input.indexOf(")")).trim();
+            Task t = new Event(desc, start, end);
+            tasks.add(t);
+            if (input.substring(3, 5).equals("[X]")) {
+                t.markAsDone();
+            }
+        }
+    }
 
     public static class CR7Exception extends Throwable {}
 
@@ -17,81 +78,19 @@ public class CR7 {
 
     public static class EmptyTimingException extends CR7Exception {}
 
-    public static class Task {
-        protected String description;
-        protected boolean isDone;
-
-        public Task(String description) {
-            this.description = description;
-            this.isDone = false;
-        }
-
-        public String getStatusIcon() {
-            return (isDone ? "X" : " "); // mark done task with X
-        }
-
-        public void markAsDone() {
-            isDone = true;
-        }
-
-        public void unmarkAsDone() {
-            isDone = false;
-        }
-
-        public String toString() {
-            return "[" + this.getStatusIcon() + "] " + this.description;
-        }
-    }
-
-    public static class ToDo extends Task {
-        public ToDo(String description) {
-            super(description);
-        }
-        @Override
-        public String toString() {
-            return "[T]" + super.toString();
-        }
-    }
-
-    public static class Event extends Task {
-
-        protected String start;
-        protected String end;
-
-        public Event(String description, String start, String end) {
-            super(description);
-            this.start = start;
-            this.end = end;
-        }
-
-        @Override
-        public String toString() {
-            return "[E]" + super.toString() + " (from: " + start + " to: " + end + ")";
-        }
-    }
-
-    public static class Deadline extends Task {
-
-        protected String by;
-
-        public Deadline(String description, String by) {
-            super(description);
-            this.by = by;
-        }
-
-        @Override
-        public String toString() {
-            return "[D]" + super.toString() + " (by: " + by + ")";
-        }
-    }
-
-
     public static void main(String[] args) {
             printHorizontalLine();
             System.out.println("Hello! I'm CR7\n" + "What can I do for you?\n");
             String input = "";
             Scanner myObj = new Scanner(System.in);
             ArrayList<Task> tasks = new ArrayList<>();
+            try {
+                loadFiles("src/main/data/CR7.txt", tasks);
+            } catch (CR7Exception error) {
+                System.out.println("Your File has been corrupted! SIUUUU!");
+            } catch (FileNotFoundException error) {
+                System.out.println("Unable to load data");
+            }
             while (!input.equals("bye")) {
                 try {
                     input = myObj.nextLine();
@@ -121,6 +120,7 @@ public class CR7 {
                             System.out.println("  " + k.toString());
                             System.out.println("Now you have " + tasks.size() + " tasks in the list.\n");
                             printHorizontalLine();
+                            saveFiles("src/main/data/CR7.txt", tasks);
                         } else if (first.equals("mark")) {
                             int s = Integer.valueOf(words[1]);
                             Task k = tasks.get(s-1);
@@ -129,6 +129,7 @@ public class CR7 {
                             System.out.println("Nice! I've marked this task as done:");
                             System.out.println("  " + k.toString() + "\n");
                             printHorizontalLine();
+                            saveFiles("src/main/data/CR7.txt", tasks);
                         } else if (first.equals("unmark")) {
                             int s = Integer.valueOf(words[1]);
                             Task k = tasks.get(s-1);
@@ -137,6 +138,7 @@ public class CR7 {
                             System.out.println("OK, I've marked this task as not done yet:");
                             System.out.println("  " + k.toString() + "\n");
                             printHorizontalLine();
+                            saveFiles("src/main/data/CR7.txt", tasks);
                         } else if (first.equals("todo")) {
                             if (input.length() <= 5) {
                                 throw new EmptyDescriptionException();
@@ -149,6 +151,7 @@ public class CR7 {
                                 System.out.println("  " + t.toString());
                                 System.out.println("Now you have " + tasks.size() + " tasks in the list\n");
                                 printHorizontalLine();
+                                saveFiles("src/main/data/CR7.txt", tasks);
                             }
                         } else if (first.equals("deadline")) {
                             if (input.length() <= 9) {
@@ -167,6 +170,7 @@ public class CR7 {
                                     System.out.println("  " + t.toString());
                                     System.out.println("Now you have " + tasks.size() + " tasks in the list\n");
                                     printHorizontalLine();
+                                    saveFiles("src/main/data/CR7.txt", tasks);
                                 }
                             }
                         } else if (first.equals("event")) {
@@ -188,6 +192,7 @@ public class CR7 {
                                     System.out.println("  " + t.toString());
                                     System.out.println("Now you have " + tasks.size() + " tasks in the list\n");
                                     printHorizontalLine();
+                                    saveFiles("src/main/data/CR7.txt", tasks);
                                 }
                             }
                         } else {
@@ -209,6 +214,8 @@ public class CR7 {
                     System.out.println("OOPS!!! Please enter the start and end time" +
                             " of the task in the correct format.\n");
                     printHorizontalLine();
+                } catch (IOException e) {
+                    System.out.println("SIUUUUU");
                 }
             }
     }
