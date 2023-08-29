@@ -38,6 +38,9 @@ public class Parser {
     }
 
     public static ToDoTask parseTodo(String userInput) throws DukeException {
+        if (userInput.split(" ").length < 2) {
+            throw new DukeException("☹ OOPS!!! The description of a todo cannot be empty.");
+        }
         String description = userInput.split(" ", 2)[1];
         if (description.isEmpty()) {
             throw new DukeException("☹ OOPS!!! The description of a todo cannot be empty.");
