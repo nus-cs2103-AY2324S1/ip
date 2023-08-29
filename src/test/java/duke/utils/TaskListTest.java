@@ -1,7 +1,6 @@
 package duke.utils;
 
 import duke.DukeException;
-import duke.task.Todo;
 
 import org.junit.jupiter.api.Test;
 
