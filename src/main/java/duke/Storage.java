@@ -51,7 +51,6 @@ public class Storage {
                     Deadline dl = new Deadline(description.trim(), deadline);
                     list.add(dl);
 
-
                 } else if (text.startsWith("event")) {
                     String[] splitText = text.split("/", 3);
                     String description = splitText[0].substring(5);
