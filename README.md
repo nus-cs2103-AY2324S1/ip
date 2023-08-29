@@ -22,3 +22,27 @@ Prerequisites: JDK 11, update Intellij to the most recent version.
    | |_| | |_| |   <  __/
    |____/ \__,_|_|\_\___|
    ```
+<<<<<<< Updated upstream
+=======
+
+
+Notes:
+ - commands are in format COMMAND NAME /ARGUMENT_NAME ARGUMENT
+ - TIME is in format yyyy-mm-dd HHmm (2019-10-15 1330)
+ - list /before TIME
+ - todo STRING
+ - deadline STRING /by TIME
+ - event STRING /from TIME /to TIME
+ - delete NUMBER
+ - mark NUMBER
+ - unmark NUMBER
+
+Design:
+ - only command / duke touches everything
+ - the rest should be self
+ 
+TODO:
+ - add cs2103t specific rules to linter
+ - add gradle support for linter
+ - add gradle support for junit tests
+>>>>>>> Stashed changes
