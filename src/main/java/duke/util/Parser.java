@@ -1,5 +1,6 @@
 package duke.util;
 import duke.command.*;
+import duke.command.FindCommand;
 import duke.exception.DukeException;
 import duke.exception.EmptyTaskException;
 import duke.exception.InvalidDateTimeException;
@@ -80,6 +81,8 @@ public class Parser {
                 throw new EmptyTaskException(TaskType.EVENT, "to");
             }
             return new AddEventCommand(argument, DateParser.transformDateTimeFormat(from), DateParser.transformDateTimeFormat(to));
+        case "find":
+            return new FindCommand(argument);
         default:
             throw new DukeException();
         }

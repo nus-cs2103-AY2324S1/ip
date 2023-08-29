@@ -112,4 +112,18 @@ public class TaskList {
     public ArrayList<Task> getTasks() {
         return store;
     }
+
+    public void findTasks(String keyword) {
+        System.out.println("Here are the matching tasks in your list:");
+        boolean found = false;
+        for (int i = 0; i < store.size(); i++) {
+            if (store.get(i).getDescription().contains(keyword)) {
+                found = true;
+                System.out.println(i + 1 + "." + store.get(i));
+            }
+        }
+        if (!found) {
+            System.out.println("No matching tasks found.");
+        }
+    }
 }
