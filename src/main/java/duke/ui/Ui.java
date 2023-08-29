@@ -3,7 +3,7 @@ package duke.ui;
 import java.util.Scanner;
 
 public class Ui {
-    String CHATBOTNAME = "Carl";
+    private String ChatBotName = "Carl";
     Scanner SC;
 
     public Ui() {
@@ -27,7 +27,7 @@ public class Ui {
     }
 
     public void showWelcome() {
-        System.out.println(messageCard("Hello! I'm " + CHATBOTNAME
+        System.out.println(messageCard("Hello! I'm " + ChatBotName
                 + "\n\t What can I do for you?"));
     }
 

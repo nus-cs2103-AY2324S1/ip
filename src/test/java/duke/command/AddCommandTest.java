@@ -1,6 +1,6 @@
 package duke.command;
-import org.junit.jupiter.api.Test;
 
+import org.junit.jupiter.api.Test;
 import duke.DukeException;
 import duke.storage.Storage;
 import duke.task.*;

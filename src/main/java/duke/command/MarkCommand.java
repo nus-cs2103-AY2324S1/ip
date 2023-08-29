@@ -17,8 +17,8 @@ public class MarkCommand extends Command {
             throw new DukeException("OOPS!!! Invalid task to be marked!");
         } else {
             taskList.mark(index);
-            ui.sendMessage("OK, I've marked this task as done yet:\n\t\t" +
-                    taskList.getPrint(index));
+            ui.sendMessage("OK, I've marked this task as done yet:\n\t\t"
+                    + taskList.getPrint(index));
             storage.updateFileContents(taskList);
         }
     }

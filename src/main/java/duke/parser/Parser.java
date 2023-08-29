@@ -1,11 +1,11 @@
 package duke.parser;
 
-import duke.command.*;
 import duke.DukeException;
+import duke.command.*;
 
 public class Parser {
 
-    public static Command parse(String userInput) throws DukeException{
+    public static Command parse(String userInput) throws DukeException {
         if (userInput.equals("bye")) {
             return new ExitCommand();
         } else if (userInput.equals("list")) {
@@ -56,7 +56,8 @@ public class Parser {
                 }
             } else if (userInput.contains("event") && userInput.substring(0, 5).equals("event")) {
                 // Add an event
-                if (userInput.equals("event") || !userInput.contains("/from") || !userInput.contains("/to")) { // checks if description is invalid
+                if (userInput.equals("event") || !userInput.contains("/from")
+                        || !userInput.contains("/to")) { // checks if description is invalid
                     throw new DukeException("OOPS!!! The description of event cannot be empty.");
                 } else {
                     return new AddCommand(userInput, 'E');

@@ -36,37 +36,37 @@ public class Storage {
                 String str = s.nextLine();
                 String[] task = str.split(" \\| ");
                 switch (task[0]) {
-                    case "T":
-                        Todo todo = new Todo(task[2]);
+                case "T":
+                    Todo todo = new Todo(task[2]);
                         if (task[1].equals("1")) {
                             todo.markAsDone();
                         }
-                        taskArr.add(todo);
-                        break;
-                    case "D":
-                        Deadline deadline;
-                        try {
-                            DateTimeFormatter altInputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-                            LocalDateTime byDateTime = LocalDateTime.parse(task[3], altInputFormatter);
-                            deadline = new Deadline(task[2], byDateTime);
-                            if (task[1].equals("1")) {
-                                deadline.markAsDone();
-                            }
-                            taskArr.add(deadline);
-                        } catch (DateTimeParseException e) {
-                            System.out.println("Invalid Date Time: " + e.getMessage());
-                        }
-                        break;
-                    case "E":
-                        String[] time = task[3].split(" to ");
-                        Event eventTask = new Event(task[2],
-                                LocalDateTime.parse(time[0], DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")),
-                                LocalDateTime.parse(time[1], DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")));
+                    taskArr.add(todo);
+                    break;
+                case "D":
+                    Deadline deadline;
+                    try {
+                        DateTimeFormatter altInputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+                        LocalDateTime byDateTime = LocalDateTime.parse(task[3], altInputFormatter);
+                        deadline = new Deadline(task[2], byDateTime);
                         if (task[1].equals("1")) {
-                            eventTask.markAsDone();
+                            deadline.markAsDone();
                         }
-                        taskArr.add(eventTask);
-                        break;
+                        taskArr.add(deadline);
+                    } catch (DateTimeParseException e) {
+                        System.out.println("Invalid Date Time: " + e.getMessage());
+                    }
+                    break;
+                case "E":
+                    String[] time = task[3].split(" to ");
+                    Event eventTask = new Event(task[2],
+                            LocalDateTime.parse(time[0], DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")),
+                            LocalDateTime.parse(time[1], DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")));
+                    if (task[1].equals("1")) {
+                        eventTask.markAsDone();
+                    }
+                    taskArr.add(eventTask);
+                    break;
                 }
             }
             return taskArr;

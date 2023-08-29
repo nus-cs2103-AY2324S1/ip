@@ -6,7 +6,7 @@ import duke.task.TaskList;
 import duke.ui.Ui;
 
 public class UnmarkCommand extends Command {
-    int index;
+    private int index;
 
     public UnmarkCommand(int index) {
         this.index = index;
@@ -18,8 +18,8 @@ public class UnmarkCommand extends Command {
             throw new DukeException("OOPS!!! Invalid task to be unmarked!");
         } else {
             taskList.unmark(index);
-            ui.sendMessage("OK, I've marked this task as not done yet:\n\t\t" +
-                    taskList.getPrint(index));
+            ui.sendMessage("OK, I've marked this task as not done yet:\n\t\t"
+                    + taskList.getPrint(index));
             storage.updateFileContents(taskList);
         }
     }
