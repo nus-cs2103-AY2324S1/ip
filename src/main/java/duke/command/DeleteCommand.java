@@ -20,8 +20,8 @@ public class DeleteCommand extends Command {
                 throw new InvalidTaskIndexException(taskIndex + 1);
             }
 
-            Task removedTask = taskList.get(taskIndex);
-            taskList.delete(taskIndex);
+            Task removedTask = taskList.getTask(taskIndex);
+            taskList.deleteTask(taskIndex);
             ui.showDelete(removedTask, taskList.getLength());
 
         } catch (InvalidTaskIndexException e) {

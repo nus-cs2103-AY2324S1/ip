@@ -44,7 +44,7 @@ public class Ui {
 
         System.out.println("\t Here are the tasks in your list:");
         for (int i = 0; i < taskList.getLength(); i++) {
-            System.out.println("\t " + (i + 1) + ". " + taskList.get(i));
+            System.out.println("\t " + (i + 1) + ". " + taskList.getTask(i));
         }
 
         System.out.println(LINE);
@@ -91,7 +91,7 @@ public class Ui {
         boolean foundTasks = false;
 
         for (int i = 0; i < taskList.getLength(); i++) {
-            Task task = taskList.get(i);
+            Task task = taskList.getTask(i);
             if (task instanceof Deadline) {
                 Deadline deadline = (Deadline) task;
                 if (deadline.getTime().toLocalDate().equals(date)) {
@@ -123,7 +123,7 @@ public class Ui {
         boolean foundTasks = false;
 
         for (int i = 0; i < taskList.getLength(); i++) {
-            Task task = taskList.get(i);
+            Task task = taskList.getTask(i);
             if (task instanceof Deadline) {
                 Deadline deadline = (Deadline) task;
                 if (deadline.getTime().toLocalDate().equals(today)) {

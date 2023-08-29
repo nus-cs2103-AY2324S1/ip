@@ -9,15 +9,15 @@ public class TaskList {
         this.list.addAll(tasks);
     }
 
-    public void add(Task task) {
+    public void addTask(Task task) {
         this.list.add(task);
     }
 
-    public void delete(int taskIndex) {
+    public void deleteTask(int taskIndex) {
         this.list.remove(taskIndex);
     }
 
-    public Task get(int taskIndex) {
+    public Task getTask(int taskIndex) {
         return this.list.get(taskIndex);
     }
 

@@ -26,7 +26,7 @@ public class AddDeadlineCommand extends Command {
             }
 
             Deadline newDeadline = new Deadline(description, dateTime);
-            taskList.add(newDeadline);
+            taskList.addTask(newDeadline);
             ui.showAdd(newDeadline, taskList.getLength());
 
         } catch (EmptyDescriptionException e) {

@@ -26,7 +26,7 @@ public class AddEventCommand extends Command {
             }
 
             Event newEvent = new Event(description, dateTime);
-            taskList.add(newEvent);
+            taskList.addTask(newEvent);
             ui.showAdd(newEvent, taskList.getLength());
 
         } catch (EmptyDescriptionException e) {

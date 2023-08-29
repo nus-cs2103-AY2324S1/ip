@@ -21,7 +21,7 @@ public class UnmarkCommand extends Command {
                 throw new InvalidTaskIndexException(taskIndex + 1);
             }
 
-            Task task = taskList.get(taskIndex);
+            Task task = taskList.getTask(taskIndex);
             task.markAsNotDone();
             ui.showNotDone(task);
             storage.saveData(taskList);

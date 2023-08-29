@@ -21,7 +21,7 @@ public class AddTodoCommand extends Command {
             }
 
             Todo newTodo = new Todo(description);
-            taskList.add(newTodo);
+            taskList.addTask(newTodo);
             ui.showAdd(newTodo, taskList.getLength());
         } catch (EmptyDescriptionException e) {
             ui.showDukeException(e);
