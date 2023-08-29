@@ -29,4 +29,13 @@ public class Deadline extends Task {
     public String toString() {
         return "[D]" + super.toString() + " (by: " + this.by + ")";
     }
+
+    /**
+     * Returns the string representation of the task to be stored in a local file.
+     *
+     * @return The storage string representation of the task.
+     */
+    public String toStorageString() {
+        return "D, " + isDone + ", " + description + ", " + by;
+    }
 }

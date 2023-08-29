@@ -24,4 +24,13 @@ public class ToDo extends Task {
     public String toString() {
         return "[T]" + super.toString();
     }
+
+    /**
+     * Returns the string representation of the task to be stored in a local file.
+     *
+     * @return The storage string representation of the task.
+     */
+    public String toStorageString() {
+        return "T, " + isDone + ", " + description;
+    }
 }

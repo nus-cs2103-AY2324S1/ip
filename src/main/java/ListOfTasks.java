@@ -1,3 +1,6 @@
+import java.io.FileWriter;
+import java.io.IOException;
+
 import java.util.ArrayList;
 
 /**
@@ -22,13 +25,23 @@ public class ListOfTasks {
      *
      * @param task The Task object to be added.
      */
-    public void addTask(Task task) {
+    public void addTask(Task task, boolean isReadFromFile) {
         list.add(task);
         numOfTasks++;
 
-        System.out.println("Got it. I have added this task to do:");
-        System.out.println("  " + task.toString());
-        System.out.println("You now have " + numOfTasks + " task(s) in the list.");
+        if (!isReadFromFile) {
+            try {
+                FileWriter fw = new FileWriter("./data/chatter.txt", true);
+                fw.write("\n" + task.toStorageString());
+                fw.close();
+            } catch (IOException e) {
+                System.out.println("Got error");
+            }
+
+            System.out.println("Got it. I have added this task to do:");
+            System.out.println("  " + task.toString());
+            System.out.println("You now have " + numOfTasks + " task(s) in the list.");
+        }
     }
 
     /**
@@ -36,12 +49,16 @@ public class ListOfTasks {
      *
      * @param taskNumber Number of task in list to be mark as completed.
      */
-    public void markTaskAsDone(int taskNumber) {
+    public void markTaskAsDone(int taskNumber, boolean isReadFromFile) {
         Task completedTask = list.get(taskNumber - 1);
         completedTask.markAsDone();
 
-        System.out.println("Good job! I've marked this task as completed:");
-        System.out.println("  " + completedTask);
+        if (!isReadFromFile) {
+            saveFile();
+
+            System.out.println("Good job! I've marked this task as completed:");
+            System.out.println("  " + completedTask);
+        }
     }
 
     /**
@@ -57,6 +74,7 @@ public class ListOfTasks {
         System.out.println("You now have " + numOfTasks + " task(s) in the list.");
 
         list.remove(taskNumber - 1);
+        saveFile();
     }
 
     /**
@@ -67,6 +85,7 @@ public class ListOfTasks {
     public void markTaskAsNotDone(int taskNumber) {
         Task unmarkedTask = list.get(taskNumber - 1);
         unmarkedTask.markAsNotDone();
+        saveFile();
 
         System.out.println("OK! I've marked this task as not done yet:");
         System.out.println("  " + unmarkedTask);
@@ -79,6 +98,31 @@ public class ListOfTasks {
         System.out.println("These are all the task(s) in your list:");
         for (int i = 0; i < numOfTasks; i++) {
             System.out.println("  " + (i + 1) + "." + list.get(i).toString());
+        }
+    }
+
+    /**
+     * Returns number of tasks in the list
+     */
+    public int getNumOfTasks() {
+        return this.numOfTasks;
+    }
+
+    public void saveFile() {
+        ArrayList<Task> listOfStorageStrings = list;
+        StringBuilder storageString = new StringBuilder();
+        listOfStorageStrings.forEach((Task::toStorageString));
+
+        for (Task listOfStorageString : listOfStorageStrings) {
+            storageString.append(listOfStorageString.toStorageString()).append("\n");
+        }
+
+        try {
+            FileWriter fw = new FileWriter("./data/chatter.txt");
+            fw.write(storageString.toString());
+            fw.close();
+        } catch (IOException e) {
+            System.out.println("Got error");
         }
     }
 }
