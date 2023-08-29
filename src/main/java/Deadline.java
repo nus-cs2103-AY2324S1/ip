@@ -1,3 +1,6 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 /**
  * Encapsulates a Deadline task that can be added to the task manager.
  *
@@ -5,17 +8,19 @@
  */
 public class Deadline extends Task {
 
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d-MMM-yyyy");
+
     /**
      * Deadline of the task.
      */
-    protected String by;
+    protected LocalDate by;
 
     /**
      * Constructor to create a Deadline.
      * @param description Description of the deadline.
      * @param by Deadline of the task.
      */
-    public Deadline(String description, String by) {
+    public Deadline(String description, LocalDate by) {
         super(description);
         this.by = by;
     }
@@ -26,7 +31,7 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + by + ")";
+        return "[D]" + super.toString() + " (by: " + formatter.format(by) + ")";
     }
 
     /**
