@@ -1,32 +1,17 @@
-public class SingleTask {
-    String description;
-    boolean done;
-
+public abstract class SingleTask {
+    protected  String description;
+    protected Boolean isDone;
     public SingleTask(String s) {
         this.description = s;
-        this.done = false;
+        this.isDone = false;
     }
 
-    public void mark() {
-        this.done = true;
-        System.out.println("Ok boy i mark for you already \n" +
-                "[" +this.getStatusIcon() +"] " + this.description);
+    public abstract void mark();
+    public abstract String getStatusIcon();
 
-    }
+    public abstract void unmark();
+    public abstract String listString();
 
-    public void unmark() {
-        this.done = false;
-        System.out.println("Ok boy I unmark for you already \n" +
-                "[" +this.getStatusIcon() +"] " + this.description);
-    }
-    public String getStatusIcon() {
-        return (this.done ? "X" : " ");
-    }
-    public String listString() {
-        return "";
-    }
-
-    public String remove () {
-        return "";
-    }
+    public abstract String remove ();
+    public abstract String toSaveString();
 }
