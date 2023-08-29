@@ -1,3 +1,7 @@
+package duke.task;
+
+import duke.DukeException;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
@@ -7,7 +11,7 @@ public class EventTask extends Task {
     private final LocalDate to;
 
     /**
-     * Constructor for Task.
+     * Constructor for duke.task.Task.
      *
      * @param description of the task.
      */

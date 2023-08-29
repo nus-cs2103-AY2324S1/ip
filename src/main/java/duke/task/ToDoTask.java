@@ -1,8 +1,10 @@
+package duke.task;
+
 public class ToDoTask extends Task {
 
 
     /**
-     * Constructor for Task.
+     * Constructor for duke.task.Task.
      *
      * @param description of the task.
      */

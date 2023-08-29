@@ -1,3 +1,7 @@
+package duke.task;
+
+import duke.DukeException;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
@@ -6,7 +10,7 @@ public class DeadlineTask extends Task {
 
 
     /**
-     * Constructor for DeadlineTask.
+     * Constructor for duke.task.DeadlineTask.
      *
      * @param description of the task.
      * @param by          deadline of the task.
