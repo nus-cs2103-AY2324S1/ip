@@ -5,6 +5,7 @@ public enum CommandType {
   ADD_EVENT,
   ADD_DEADLINE,
   BYE,
+  FIND_TASK,
   DELETE_TASK,
   LIST_TASKS,
   MARK_TASK,
@@ -29,6 +30,8 @@ public enum CommandType {
         return MARK_TASK;
       case "unmark":
         return UNMARK_TASK;
+      case "find":
+        return FIND_TASK;
       default:
         return UNKNOWN;
     }

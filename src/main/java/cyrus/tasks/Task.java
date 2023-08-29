@@ -3,7 +3,7 @@ package cyrus.tasks;
 import com.google.gson.annotations.SerializedName;
 
 public class Task {
-  private final String name;
+  public final String name;
   @SerializedName("status")
   private boolean done;
 
