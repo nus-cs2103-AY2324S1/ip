@@ -1,3 +1,8 @@
+package duke.storage;
+
+import duke.DukeException;
+import duke.task.*;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -75,7 +80,8 @@ public class Storage {
             FileWriter file = new FileWriter(filePath);
             file.write("");
             FileWriter fw = new FileWriter(filePath);
-            for (Task task : taskList.arrTask) {
+            for (int i = 0; i < taskList.size(); i++) {
+                Task task = taskList.get(i);
                 if (task instanceof Todo) {
                     String taskType = task.toString().substring(1, 2);  // Extract "T"
                     String taskStatus = task.toString().substring(4, 5); // Extract " "

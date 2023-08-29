@@ -1,3 +1,5 @@
+package duke.task;
+
 import java.util.ArrayList;
 
 public class TaskList {
@@ -33,5 +35,9 @@ public class TaskList {
 
     public void deleteTask(int index) {
         this.arrTask.remove(index);
+    }
+
+    public Task get(int index) {
+        return this.arrTask.get(index);
     }
 }
