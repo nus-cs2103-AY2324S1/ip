@@ -92,6 +92,11 @@ public class Duke {
                             "\nNow you have " + this.tasks.getSize() + " tasks in the list.");
                     break;
                 }
+                case FIND: {
+                    TaskList filteredTasks = this.tasks.filterTasks(parser.getSearchTerm());
+                    this.ui.printTasks(filteredTasks);
+                    break;
+                }
                 default:
                     throw new DukeInvalidCommandException();
                 }

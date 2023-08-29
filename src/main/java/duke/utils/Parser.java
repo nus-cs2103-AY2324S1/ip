@@ -117,6 +117,14 @@ public class Parser {
         }
     }
 
+    public String getSearchTerm() throws DukeException {
+        try {
+            return String.join(" ", this.inputArray.subList(1, this.inputArray.size()));
+        } catch (IndexOutOfBoundsException e) {
+            throw new DukeException();
+        }
+    }
+
     /**
      * Returns the task.
      * @param line The task.

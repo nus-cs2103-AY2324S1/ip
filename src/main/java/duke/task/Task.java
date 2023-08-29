@@ -28,8 +28,12 @@ public class Task {
     }
 
     /**
-     * Returns the description of the task that is to be saved by Storage.
+     * Returns the description of the task.
      */
+    public String getDescription() {
+        return this.description;
+    }
+
     public void markAsDone() {
         this.isDone = true;
     }
