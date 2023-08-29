@@ -1,6 +1,6 @@
-import java.util.Arrays;
+package duke;
+
 import java.util.Objects;
-import java.util.Scanner;
 
 public class Parser {
 

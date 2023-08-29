@@ -1,10 +1,12 @@
+package duke;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.time.temporal.Temporal;
 
-public class Deadline extends Task{
+public class Deadline extends Task {
 
     protected Temporal by;
     protected String deadline;
