@@ -5,10 +5,21 @@ import duke.commands.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.util.Date;
-import java.util.Locale;
 
+
+/**
+ * Represents the Parser Class.
+ * Responsible for parsing user input.
+ *
+ * @author Shishir
+ */
 public class Parser {
+
+    /**
+     * Returns a command based on user input.
+     * @param fullCommand String representation of user input.
+     * @return Command based on user input.
+     */
     public static Command parse(String fullCommand) {
 
         String[] split = fullCommand.split(" ", 2);
@@ -33,6 +44,9 @@ public class Parser {
             case "delete":
                 c = validateIndex(split, false);
                 break;
+            case "find":
+                c = validateFind(split);
+                break;
             default:
                 c = new IncorrectCommand("I'm sorry, I couldn't understand that. Please try again!");
         }
@@ -40,7 +54,7 @@ public class Parser {
         return c;
     }
 
-    public static Command validateIndex(String[] split, boolean flag) {
+    private static Command validateIndex(String[] split, boolean flag) {
         // Check if mark is receiving any input or receiving extra input
         if (split.length != 2 || split[1].isBlank()) {
             return new IncorrectCommand("Please enter a valid mark command!");
@@ -61,7 +75,7 @@ public class Parser {
         return flag ? new MarkCommand(index, split[0]) : new DeleteCommand(index);
     }
 
-    public static Command validateTask(String[] split) {
+    private static Command validateTask(String[] split) {
 
         if (split.length == 1 || split[1].isBlank()) {
             return new IncorrectCommand("Please enter a valid task.");
@@ -127,18 +141,25 @@ public class Parser {
         }
     }
 
-    public static Command validateList(String[] split) {
+    private static Command validateList(String[] split) {
         if (split.length != 1) {
             return new IncorrectCommand("Please enter a valid command!");
         }
         return new ListCommand();
     }
 
-    public static Command validateExit(String[] split) {
+    private static Command validateExit(String[] split) {
         if (split.length != 1) {
             return new IncorrectCommand("Please enter a valid command!");
         }
         return new ExitCommand();
+    }
+
+    public static Command validateFind(String[] split) {
+        if (split.length <= 1) {
+            return new IncorrectCommand("Please enter a valid command!");
+        }
+        return new FindCommand(split[1]);
     }
 
 }

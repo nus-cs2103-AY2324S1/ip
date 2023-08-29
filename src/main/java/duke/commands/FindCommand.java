@@ -5,12 +5,23 @@ import duke.tasks.TaskList;
 import duke.ui.Ui;
 
 /**
- * Represents the ExitCommand Class.
- * Responsible for handling exit operations.
+ * Represents the FindCommand Class
+ * Responsible for handling the find operation.
  *
  * @author Shishir
  */
-public class ExitCommand extends Command {
+public class FindCommand extends Command {
+
+    /** String entered by user. */
+    String find;
+
+    /**
+     * Constructs the FindCommand object.
+     * @param find Keyword to find.
+     */
+    public FindCommand(String find) {
+        this.find = find;
+    }
 
     /**
      * Executes the respective command.
@@ -18,8 +29,9 @@ public class ExitCommand extends Command {
      * @param ui Ui for interacting with the user.
      * @param storage Storage of the tasks.
      */
+    @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
-        ui.leave();
+        ui.showFind(tasks.filterByName(this.find));
     }
 
     /**
@@ -28,7 +40,7 @@ public class ExitCommand extends Command {
      */
     @Override
     public boolean isExit() {
-        return true;
+        return false;
     }
 
 }

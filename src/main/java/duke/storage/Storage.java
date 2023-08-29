@@ -13,10 +13,25 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+/**
+ * Represents the Storage Class.
+ * Responsible for File I/O Operations.
+ *
+ * @author Shishir
+ */
 public class Storage {
+
+    /** Folder containing the required text file. */
     private File folder;
+
+    /** File containing the list of all tasks. */
     private File file;
 
+    /**
+     * Constructs a file and folder with the given path.
+     * @param filePath Path of required text file.
+     */
     public Storage(String filePath) {
         String[] folder = filePath.split("/");
         this.file = new File(filePath);
@@ -28,15 +43,17 @@ public class Storage {
         }
 
         // File doesn't exist
-        if (!this.fileExists()) {
+        if (!this.file.exists()) {
             this.createFile();
         }
     }
 
+    /** Creates a new folder. */
     public void createDirectory() {
         this.folder.mkdir();
     }
 
+    /** Creates a new file. */
     public void createFile() {
         try {
             this.file.createNewFile();
@@ -45,10 +62,10 @@ public class Storage {
         }
     }
 
-    public boolean fileExists() {
-        return this.file.exists();
-    }
-
+    /**
+     * Returns the list of all tasks by reading from the text file.
+     * @return List of all tasks present in the text file.
+     */
     public ArrayList<Task> readData() {
         ArrayList<Task> data = new ArrayList<>();
         try {
@@ -65,6 +82,10 @@ public class Storage {
         return data;
     }
 
+    /**
+     * Updates the text file with the given list of tasks.
+     * @param tasks List of all tasks.
+     */
     public void writeData(ArrayList<Task> tasks) {
         try {
             FileWriter writer = new FileWriter(this.file);
@@ -77,6 +98,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Converts the given string into a task object.
+     * @param line String representation of the task object.
+     * @return Task object.
+     */
     public Task stringToTask(String line) {
         String[] split = line.split(" \\| ", 4);
 

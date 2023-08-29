@@ -4,45 +4,47 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 /**
- * The duke.tasks.Event class contains the tasks
- * with to and from date/time inputs.
+ * Represents the Event Class.
  *
- * @author: Shishir
- **/
+ * @author Shishir
+ */
 public class Event extends Task {
 
-    /** The from date/time **/
+    /** Start date and time of the event. */
     private LocalDateTime from;
 
-    /** The to date/time **/
+    /** End date and time of the event. */
     private LocalDateTime to;
 
-    /** The constructor.
-     * @param description The description of the task.
-     * @param from The from date/time
-     * @param to The to date/time
-     **/
+    /**
+     * Constructs the event class.
+     * @param description Description of the task.
+     * @param from Start date and time.
+     * @param to End date and time.
+     */
     public Event(String description, LocalDateTime from, LocalDateTime to) {
         super(description);
         this.from = from;
         this.to = to;
     }
 
-    /** The constructor.
-     * @param description The description of the task.
-     * @param status The status of completion.
-     * @param from The from date/time.
-     * @param to The to date/time.
-     **/
+    /**
+     * Constructs the event class.
+     * @param description Description of the task.
+     * @param status Status of completion.
+     * @param from Start date and time.
+     * @param to End date and time.
+     */
     public Event(String description, LocalDateTime from, LocalDateTime to, String status) {
         super(description, status);
         this.from = from;
         this.to = to;
     }
 
-    /** The string representation of the task.
-     * @return The string representation
-     * **/
+    /**
+     * Returns the string representation of the event.
+     * @return String representation of the event.
+     */
     @Override
     public String toString() {
         return "[Event] " + super.toString()
@@ -50,6 +52,11 @@ public class Event extends Task {
                 + " to: " + this.to.format(DateTimeFormatter.ofPattern("MMM d yyyy hh:mm a")) + ")";
     }
 
+    /**
+     * Returns the string representation of the event in file format.
+     * @return String representation of the event in file format.
+     */
+    @Override
     public String toFile() {
         return "E" + super.toFile() + " | "
                 + this.from.format(DateTimeFormatter.ofPattern("MMM d yyyy hh:mm a"))
