@@ -33,12 +33,22 @@ public class Task {
         return output;
     }
 
-    public String showDetails() {
+    public String getDetails() {
         return details;
     }
 
     public void setTaskType(String type) {
         taskType = type;
+    }
+
+    public String getTaskType() {
+        return taskType;
+    }
+
+    public String saveFormat() {
+        String output;
+        output = taskType + " / " + showMarked() + "/ " + details;
+        return output;
     }
 
     @Override

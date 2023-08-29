@@ -9,6 +9,13 @@ public class Event extends Task {
     }
 
     @Override
+    public String saveFormat() {
+        String output;
+        output = super.saveFormat() + "/ " + byTime;
+        return output;
+    }
+
+    @Override
     public String toString() {
         String output;
         output = super.toString() + "(" + byTime + ")";

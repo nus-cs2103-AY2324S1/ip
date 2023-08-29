@@ -19,7 +19,8 @@ public class Duke {
         System.out.println(logo + "Hello, I am your chatbot Kora!\nHow can I help you today?");
         System.out.println("------------------------------");
 
-        taskList = new TaskList();
+
+        taskList = new TaskList("./data/savedtask.txt");
 
         while (!isExit) {
             Scanner scanner = new Scanner(System.in);

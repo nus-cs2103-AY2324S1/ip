@@ -1,0 +1,3 @@
+T / [ ] / lecture
+T / [ ] / hw
+T / [ ] / cs
