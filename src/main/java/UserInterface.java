@@ -32,18 +32,21 @@ public class UserInterface {
                     case MARK:
                         int mark_index = Integer.parseInt(c.getArgs()[0]) - 1;
                         Task markedTask = this.store.mark(mark_index);
+                        this.store.save();
                         System.out.println("Nice! I've marked this task as done:");
                         System.out.println(markedTask);
                         break;
                     case UNMARK:
                         int unmark_index = Integer.parseInt(c.getArgs()[0]) - 1;
                         Task unmarkedTask = this.store.unmark(unmark_index);
+                        this.store.save();
                         System.out.println("OK, I've marked this task as not done yet:");
                         System.out.println(unmarkedTask);
                         break;
                     case DELETE:
                         int delete_index = Integer.parseInt(c.getArgs()[0]) - 1;
                         Task deletedTask = this.store.delete(delete_index);
+                        this.store.save();
                         System.out.println("Noted. I've removed this task:");
                         System.out.println(deletedTask);
                         System.out.printf("Now you have %d tasks in the list.%n", this.store.getStorageSize());
@@ -54,6 +57,7 @@ public class UserInterface {
                     case TODO:
                         TodoTask newTodo = new TodoTask(c.getArgs()[0]);
                         this.store.add(newTodo);
+                        this.store.save();
                         System.out.println("Got it. I've added this task:");
                         System.out.println(newTodo);
                         System.out.printf("Now you have %d tasks in the list.%n", this.store.getStorageSize());
@@ -61,6 +65,7 @@ public class UserInterface {
                     case DEADLINE:
                         DeadlineTask newDeadline = new DeadlineTask(c.getArgs()[0], c.getArgs()[1]);
                         this.store.add(newDeadline);
+                        this.store.save();
                         System.out.println("Got it. I've added this task:");
                         System.out.println(newDeadline);
                         System.out.printf("Now you have %d tasks in the list.%n", this.store.getStorageSize());
@@ -68,6 +73,7 @@ public class UserInterface {
                     case EVENT:
                         EventTask newEvent = new EventTask(c.getArgs()[0], c.getArgs()[1], c.getArgs()[2]);
                         this.store.add(newEvent);
+                        this.store.save();
                         System.out.println("Got it. I've added this task:");
                         System.out.println(newEvent);
                         System.out.printf("Now you have %d tasks in the list.%n", this.store.getStorageSize());
