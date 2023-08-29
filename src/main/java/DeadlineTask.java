@@ -1,6 +1,8 @@
+import java.time.LocalDate;
+
 public class DeadlineTask extends Task {
-    private final String deadline;
-    public DeadlineTask(String desc, String deadline) {
+    private final LocalDate deadline;
+    public DeadlineTask(String desc, LocalDate deadline) {
         super(desc);
         this.deadline = deadline;
     }
