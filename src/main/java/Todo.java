@@ -7,8 +7,8 @@ public class Todo extends Task {
      * Constructor to create a Todo object.
      * @param description Description of task
      */
-    public Todo(String description) {
-        super(description);
+    public Todo(String description, boolean isDone) {
+        super(description, isDone);
     }
 
     /**
@@ -18,5 +18,10 @@ public class Todo extends Task {
     @Override
     public String toString() {
         return "[T][" + this.getStatusIcon() + "] " + super.toString();
+    }
+
+    @Override
+    public String toSaveFormat() {
+        return "T | " + (this.isDone ? "1" : "0") + " | " + super.toString();
     }
 }
