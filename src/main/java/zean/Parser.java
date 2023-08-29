@@ -76,7 +76,8 @@ public class Parser {
             int indexOfBy = input.indexOf("/by");
 
             if (indexOfBy == -1) {
-                throw new DukeException("\tOOPS!!! You forgot to specify the deadline.\n\tUse \"/by\" to do so.");
+                throw new DukeException("\tOOPS!!! You forgot to specify the deadline."
+                        + "\n\tUse \"/by\" to do so.");
             }
 
             description = input.substring(8, indexOfBy);
@@ -89,7 +90,8 @@ public class Parser {
                 throw new DukeException("\tOOPS!!! You forgot to specify the deadline.");
             }
             if (!DATE_PATTERN.matcher(deadline).matches()) {
-                throw new DukeException("\tHmm, I don't understand the date. Use this format: YYYY-MM-DD");
+                throw new DukeException("\tHmm, I don't understand the date. "
+                        + "Use this format: YYYY-MM-DD");
             }
 
             tasks.add(description, deadline);
@@ -102,7 +104,8 @@ public class Parser {
                         + "\n\tUse \"/from\" to do so.");
             }
             if (indexOfTo == -1) {
-                throw new DukeException("\tOOPS!!! You forgot to specify the ending date.\n\tUse \"/to\" to do so.");
+                throw new DukeException("\tOOPS!!! You forgot to specify the ending date."
+                        + "\n\tUse \"/to\" to do so.");
             }
 
             description = input.substring(5, indexOfFrom);
@@ -121,7 +124,8 @@ public class Parser {
             }
 
             if (!DATE_PATTERN.matcher(from).matches() || !DATE_PATTERN.matcher(to).matches()) {
-                throw new DukeException("\tHmm, I don't understand the date. Use this format: YYYY-MM-DD");
+                throw new DukeException("\tHmm, I don't understand the date. "
+                        + "Use this format: YYYY-MM-DD");
             }
             tasks.add(description, from, to);
             break;
