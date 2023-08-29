@@ -39,15 +39,15 @@ public class AddCommand extends Command {
     public void execute(TaskList taskList, StorageFile storageFile, TextUi ui) throws BobException {
         Task task = null;
         switch (command) {
-            case TODO:
-                task = new Todo((this.description));
-                break;
-            case DEADLINE:
-                task = new Deadline(this.description, this.endDate);
-                break;
-            case EVENT:
-                task = new Event(this.description, this.startDate, this.endDate);
-                break;
+        case TODO:
+            task = new Todo((this.description));
+            break;
+        case DEADLINE:
+            task = new Deadline(this.description, this.endDate);
+            break;
+        case EVENT:
+            task = new Event(this.description, this.startDate, this.endDate);
+            break;
         }
         taskList.addTask(task);
         assert task != null;

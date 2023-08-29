@@ -31,25 +31,25 @@ public class Parser {
         }
 
         switch (commandType) {
-            case BYE:
-                return new ExitCommand();
-            case LIST:
-                return new ListCommand();
-            case MARK:
-            case UNMARK:
-                return Parser.parseMarkCommand(commandType, argument);
-            case TODO:
-                return Parser.parseTodoCommand(commandType, argument);
-            case DEADLINE:
-                return Parser.parseDeadlineCommand(commandType, argument);
-            case EVENT:
-                return Parser.parseEventCommand(commandType, argument);
-            case DELETE:
-                return Parser.parseDeleteCommand(argument);
-            case INVALID:
-                throw new BobInvalidCommandException("I'm sorry! I don't understand the command :(");
-            default:
-                throw new BobInvalidCommandException("I'm sorry! Something went wrong when processing your command :(");
+        case BYE:
+            return new ExitCommand();
+        case LIST:
+            return new ListCommand();
+        case MARK:
+        case UNMARK:
+            return Parser.parseMarkCommand(commandType, argument);
+        case TODO:
+            return Parser.parseTodoCommand(commandType, argument);
+        case DEADLINE:
+            return Parser.parseDeadlineCommand(commandType, argument);
+        case EVENT:
+            return Parser.parseEventCommand(commandType, argument);
+        case DELETE:
+            return Parser.parseDeleteCommand(argument);
+        case INVALID:
+            throw new BobInvalidCommandException("I'm sorry! I don't understand the command :(");
+        default:
+            throw new BobInvalidCommandException("I'm sorry! Something went wrong when processing your command :(");
         }
     }
 
@@ -129,12 +129,12 @@ public class Parser {
 
         try {
             switch (commandType) {
-                case "T":
-                    return new Todo(split[2], Integer.parseInt(split[1]) == 1);
-                case "D":
-                    return new Deadline(split[2], split[3], Integer.parseInt(split[1]) == 1);
-                case "E":
-                    return new Event(split[2], split[3], split[4], Integer.parseInt(split[1]) == 1);
+            case "T":
+                return new Todo(split[2], Integer.parseInt(split[1]) == 1);
+            case "D":
+                return new Deadline(split[2], split[3], Integer.parseInt(split[1]) == 1);
+            case "E":
+                return new Event(split[2], split[3], split[4], Integer.parseInt(split[1]) == 1);
             }
             return null;
         } catch (Exception e) {
