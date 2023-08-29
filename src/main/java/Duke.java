@@ -6,28 +6,33 @@ import java.util.Scanner;
 
 public class Duke {
 
-  private static final String BOT_NAME = "GOAT";
-  private static final String FILEPATH = "data/";
-  private static final String SAVEFILE_NAME = "save.txt";
+  private final String BOT_NAME = "GOAT";
+  private final String FILEPATH = "data/";
+  private final String SAVEFILE_NAME = "save.txt";
 
-  private static final Scanner in = new Scanner(System.in);
-  private static final TaskList taskList = new TaskList();
-  private static final Printer out = new Printer();
-	private static final FileIO savefile = new FileIO(FILEPATH, SAVEFILE_NAME, "savefile");
+  private final Scanner in = new Scanner(System.in);
+  private final TaskList taskList = new TaskList();
+  private final Printer out = new Printer();
+	private final FileIO savefile = new FileIO(FILEPATH, SAVEFILE_NAME, "savefile");
 
   public static void main(String[] args) {
-    initialize();
-    while (true) {
-      String input = in.nextLine().trim();
-      if (input.equals("bye")) {
+		(new Duke()).run();
+  }
+
+	public void run() {
+		initialize();
+		while(true) {
+			String input = in.nextLine().trim();
+			if(input.equals("bye")) {
 				break;
 			}
 			CommandBuilder.parse(input).toCommand(out, taskList, savefile).execute();
-    }
-    sayBye();
-  }
+		}
+		sayBye();
+	}
 
-  static void initialize() {
+
+  void initialize() {
     String logo =
         "        ______    ___        _    _________ \n"
             + "      .' ___  | .'   `.     / \\  |  _   _  |\n"
@@ -46,7 +51,7 @@ public class Duke {
 		out.flush();
   }
 
-	static void readFromSaveFile() {
+	void readFromSaveFile() {
 		List<Task> tasks = new ArrayList<>();
 		try {
 			String input = savefile.read();
@@ -69,7 +74,7 @@ public class Duke {
 		taskList.populate(tasks);
 	}
 
-  static void sayBye() {
+  void sayBye() {
     out.print("Bye. Hope to see you again soon!");
 		out.flush();
 	}
