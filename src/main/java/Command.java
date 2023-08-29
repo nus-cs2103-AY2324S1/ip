@@ -1,13 +1,6 @@
-/**
- * Represents an enum of commands.
- */
-public enum Command {
-    BYE,
-    LIST,
-    MARK,
-    UNMARK,
-    TODO,
-    DEADLINE,
-    EVENT,
-    DELETE
+public abstract class Command {
+    public abstract void execute(TaskList taskList, Ui ui, Storage storage);
+    public boolean isExit() {
+        return this instanceof ByeCommand;
+    }
 }

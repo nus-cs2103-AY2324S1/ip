@@ -1,0 +1,145 @@
+import java.time.LocalDateTime;
+import java.util.regex.Pattern;
+
+public class Parser {
+    private static final String SAVED_FORMAT_SEPARATOR_REGEX = " \\| ";
+    private static final String SPACE_REGEX = " ";
+    private static final String MARK_REGEX = "mark\\s([0-9]+)$";
+    private static final String UNMARK_REGEX = "unmark\\s([0-9]+)$";
+    private static final String DELETE_REGEX = "delete\\s([0-9]+)$";
+    private static final String DEADLINE_INFO_REGEX = ".*\\s+/by\\s+.*";
+    private static final String EVENT_INFO_REGEX = ".*\\s+/from\\s+.*\\s+/to\\s+.*";
+    private static final String DATETIME_REGEX = "\\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12]\\d|3[01]) \\d{2}:\\d{2}";
+    public static boolean isValidDateTime(String datetime) {
+        datetime = datetime.strip();
+        return Pattern.matches(DATETIME_REGEX, datetime);
+    }
+    public static LocalDateTime parseDateTime(String datetime) throws GrumpyGordonException {
+        if (isValidDateTime(datetime)) {
+            datetime = datetime.strip();
+            String[] arr = datetime.split(" ");
+            String[] date = arr[0].split("-");
+            String[] time = arr[1].split(":");
+            return LocalDateTime.of(
+                    Integer.parseInt(date[0]),
+                    Integer.parseInt(date[1]),
+                    Integer.parseInt(date[2]),
+                    Integer.parseInt(time[0]),
+                    Integer.parseInt(time[1]));
+        }
+        throw new GrumpyGordonDateTimeFormatException("     Error: Incorrect datetime format.\n");
+    }
+    public static Task parseStringToTask(String line) throws GrumpyGordonException {
+        String[] parts = line.split(SAVED_FORMAT_SEPARATOR_REGEX);
+
+        if (parts.length < 3) {
+            throw new GrumpyGordonInitialisationException("     Error: Saved data is corrupted.\n");
+        }
+
+        String type = parts[0];
+        boolean isDone = parts[1].equals("1");
+        String description = parts[2];
+
+        try {
+            switch (type) {
+                case "T":
+                    // Parse the saved format for Deadline
+                    // Example: "T | 0 | Sleep"
+                    return new Todo(description, isDone);
+                case "D":
+                    // Parse the saved format for Deadline
+                    // Example: "D | 1 | Buy groceries | 2023-08-31 12:00"
+                    String deadlineBy = parts[3];
+                    return new Deadline(description, parseDateTime(deadlineBy), isDone);
+                case "E":
+                    // Parse the saved format for Event
+                    // Example: "E | 0 | Team meeting | 2023-09-01 12:00 | 2023-09-02 14:00"
+                    String eventFrom = parts[3];
+                    String eventTo = parts[4];
+                    return new Event(description, parseDateTime(eventFrom), parseDateTime(eventTo), isDone);
+                default:
+                    throw new GrumpyGordonInitialisationException("     Error: Saved data cannot be parsed.\n");
+            }
+        } catch (GrumpyGordonDateTimeFormatException e) {
+            throw new GrumpyGordonDateTimeFormatException("     Error: Incorrect datetime format in saved data.\n");
+        }
+    }
+
+    public static String[] parseDeadlineInfo(String deadlineInfo) {
+        String desc = deadlineInfo.split(" /by ")[0];
+        String by = deadlineInfo.split(" /by ")[1];
+        return new String[] {desc, by};
+    }
+
+    public static String[] parseEventInfo(String eventInfo) {
+        String desc = eventInfo.split(" /from ")[0];
+        String from = eventInfo.split(" /from ")[1].split(" /to ")[0];
+        String to = eventInfo.split(" /from ")[1].split(" /to ")[1];
+        return new String[] {desc, from, to};
+    }
+    public static Command parseCommand(String userInput) throws GrumpyGordonException {
+        userInput = userInput.strip();
+        String[] parts = userInput.split(SPACE_REGEX, 2);
+
+        String command = parts[0].toLowerCase();
+        int taskIndex;
+        String[] args;
+
+        try {
+            switch (command) {
+                case "bye":
+                    return new ByeCommand();
+                case "list":
+                    return new ListCommand();
+                case "mark":
+                    if (!Pattern.matches(MARK_REGEX, userInput)) {
+                        throw new GrumpyGordonInvalidCommandException("     Error: Invalid command.\n"
+                                                                        + "     mark <task number>\n");
+                    }
+                    taskIndex = Integer.parseInt(parts[1]) - 1;
+                    return new MarkCommand(taskIndex);
+                case "unmark":
+                    if (!Pattern.matches(UNMARK_REGEX, userInput)) {
+                        throw new GrumpyGordonInvalidCommandException("     Error: Invalid command.\n"
+                                                                        + "     umark <task number>\n");
+                    }
+                    taskIndex = Integer.parseInt(parts[1]) - 1;
+                    return new UnmarkCommand(taskIndex);
+                case "delete":
+                    if (!Pattern.matches(DELETE_REGEX, userInput)) {
+                        throw new GrumpyGordonInvalidCommandException("     Error: Invalid command.\n"
+                                                                        + "     delete <task number>\n");
+                    }
+                    taskIndex = Integer.parseInt(parts[1]) - 1;
+                    return new DeleteCommand(taskIndex);
+                case "todo":
+                    String todoInfo = parts[1];
+                    if (todoInfo.strip().isEmpty()) {
+                        throw new GrumpyGordonInvalidCommandException("     Error: Invalid command.\n"
+                                                                        + "     todo <description>\n");
+                    }
+                    return new TodoCommand(todoInfo);
+                case "deadline":
+                    String deadlineInfo = parts[1];
+                    if (!Pattern.matches(DEADLINE_INFO_REGEX, deadlineInfo)) {
+                        throw new GrumpyGordonInvalidCommandException("     Error: Invalid command.\n"
+                                + "     deadline <description> /by <yyyy-mm-dd hh:mm>\n");
+                    }
+                    args = Parser.parseDeadlineInfo(deadlineInfo);
+                    return new DeadlineCommand(args[0], parseDateTime(args[1]));
+                case "event":
+                    String eventInfo = parts[1];
+                    if (!Pattern.matches(EVENT_INFO_REGEX, eventInfo)) {
+                        throw new GrumpyGordonInvalidCommandException("     Error: Invalid command.\n"
+                                + "     event <description /from <yyyy-mm-dd hh:mm> /to <yyyy-mm-dd hh:mm>\n");
+                    }
+                    args = Parser.parseEventInfo(eventInfo);
+                    return new EventCommand(args[0], parseDateTime(args[1]), parseDateTime(args[2]));
+                default:
+                    throw new GrumpyGordonInvalidCommandException("     Error: Invalid command.\n");
+            }
+        } catch (GrumpyGordonException e) {
+            throw e;
+        }
+    }
+}
