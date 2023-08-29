@@ -10,7 +10,7 @@ public class TaskList {
         this.tasks.add(t);
     }
 
-    public Task markTask(int index) throws DuckyInvalidTaskIndexException {
+    public Task markTaskAsComplete(int index) throws DuckyInvalidTaskIndexException {
         if (index < 0 || index >= this.tasks.size()) {
             throw new DuckyInvalidTaskIndexException(index + 1, this.tasks.size());
         }
@@ -19,7 +19,7 @@ public class TaskList {
         return toMark;
     }
 
-    public Task unmarkTask(int index) throws DuckyInvalidTaskIndexException {
+    public Task markTaskAsIncomplete(int index) throws DuckyInvalidTaskIndexException {
         if (index < 0 || index >= this.tasks.size()) {
             throw new DuckyInvalidTaskIndexException(index + 1, this.tasks.size());
         }
@@ -37,12 +37,11 @@ public class TaskList {
         return toDelete;
     }
 
-    public int getStorageSize() {
-        return this.tasks.size();
-    }
-
     public String getPrintableList() {
-        StringBuilder builder = new StringBuilder();
+        if (this.tasks.isEmpty()) {
+            return "There are no tasks in your list.";
+        }
+        StringBuilder builder = new StringBuilder("Here are the tasks in your list:\n");
         for (int i = 0; i < tasks.size(); i++) {
             if (i == tasks.size() - 1) {
                 builder.append(String.format("%d.%s", i + 1, this.tasks.get(i)));
@@ -59,5 +58,15 @@ public class TaskList {
             text.append(String.format("%s\n", t.getSaveFormat()));
         }
         return text.toString();
+    }
+
+    public String getListLengthStatus() {
+        if (this.tasks.isEmpty()) {
+            return "There are no tasks in your list.";
+        } else if (this.tasks.size() == 1) {
+            return "There is now 1 task in your list.";
+        } else {
+            return String.format("There are now %d tasks in your list.", this.tasks.size());
+        }
     }
 }
