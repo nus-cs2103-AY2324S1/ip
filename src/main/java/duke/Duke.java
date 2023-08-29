@@ -3,6 +3,10 @@ package duke;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Where the chatBot begins and ends. Uses has-a relationship
+ * with other classes.
+ */
 public class Duke {
 
     public static void main(String[] args) {
