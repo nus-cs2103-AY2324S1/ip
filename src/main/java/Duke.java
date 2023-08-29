@@ -1,13 +1,24 @@
+
 import java.util.ArrayList;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Scanner;
 public class Duke {
+    private static void writeToFile(String filePath, String textToAdd) throws IOException {
+        FileWriter fw = new FileWriter(filePath);
+        fw.write(textToAdd);
+        fw.close();
+    }
+
     public static void main(String[] args) {
         String logo = "Bacon Pancake";
         System.out.println(" Hello from " + logo + "\n What can I do for you? \n" + "---------------------------------- \n");
         ArrayList<Task> lists = new ArrayList<>();
         Scanner sc = new Scanner(System.in);
-
+        String filename = "src/save.txt";
+        File f = new File(filename);
         while(true) {
             System.out.println("Enter your input : ");
             String input = sc.nextLine();
@@ -23,7 +34,6 @@ public class Duke {
                         Task t = lists.get(i);
                         System.out.println((curr++) + ". " + t.getStatus());
                     }
-
                 }
             } else if (input.startsWith("delete ")) {
                 String[] s = input.split(" ");
@@ -60,7 +70,19 @@ public class Duke {
                     System.out.println("OOPS!!! I'm sorry, but I don't know what that means :-(");
                 }
             }
-
+            try {
+                int curr = 1;
+                StringBuilder s = new StringBuilder();
+                for (int i = 0; i < lists.size(); i++) {
+                    if (lists.get(i) != null) {
+                        Task t = lists.get(i);
+                        s.append((curr++) + ". " + t.getStatus());
+                    }
+                }
+                writeToFile(filename, s.toString());
+            } catch(IOException e) {
+                System.out.println("Something went wrong: " + e.getMessage());
+            }
         }
 
     }
