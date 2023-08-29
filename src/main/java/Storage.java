@@ -64,7 +64,7 @@ public class Storage {
 
             while ((line = reader.readLine()) != null) {
                 if (currentLine != lineToDelete + 1) {
-                    content += line + System.lineSeparator();;
+                    content += line + System.lineSeparator();
                 }
                 currentLine++;
             }
@@ -103,31 +103,6 @@ public class Storage {
             writer.close();
 
             System.out.println("Task udpated successfully from storage.");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void deleteTask(int lineToDelete) {
-        try {
-            BufferedReader reader = new BufferedReader(new FileReader(this.file));
-            String content = "";
-            int currentLine = 1;
-            String line;
-
-            while ((line = reader.readLine()) != null) {
-                if (currentLine != lineToDelete + 1) {
-                    content += line + System.lineSeparator();
-                }
-                currentLine++;
-            }
-            reader.close();
-
-            BufferedWriter writer = new BufferedWriter(new FileWriter(this.file));
-            writer.write(content);
-            writer.close();
-
-            System.out.println("First character modified successfully.");
         } catch (IOException e) {
             e.printStackTrace();
         }
