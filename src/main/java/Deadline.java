@@ -7,6 +7,11 @@ class Deadline extends Task{
     }
 
     @Override
+    public String getText() {
+        return super.getText() + " | " + time;
+    }
+
+    @Override
     public String toString() {
         return "[D]" + super.toString()
                 +  " (by: " + time + ")";
