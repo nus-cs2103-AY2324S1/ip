@@ -1,59 +1,46 @@
 import Exceptions.DukeException;
 
-import java.util.Scanner;
-
 /**
  * Main class for the Duke application.
  * This class handles user interactions and manages tasks using the Archive class.
  */
 public class Duke {
+    private Storage storage;
+    private TaskList tasks;
+    private UI ui;
 
-    private static Archive archive;
+    public Duke(String filePath) {
+        ui = new UI();
+        storage = new Storage(filePath);
+        tasks = new TaskList(storage.load());
+    }
 
-    public static void main(String[] args) {
-        archive = new Archive();
-        String logo = "       ___\n" +
-                "    . -^   `--,\n" +
-                "   /# =========`-_\n" +
-                "  /# (--====___====\\\n" +
-                " /#   .- --.  . --.|\n" +
-                "/##   |  * ) (   * ),\n" +
-                "|##   \\    /\\ \\   / |\n" +
-                "|###   ---   \\ ---  |\n" +
-                "|####      ___)    #|\n" +
-                "|######           ##|\n" +
-                " \\##### ---------- /\n" +
-                "  \\####           (\n" +
-                "   `\\###          |\n" +
-                "     \\###         |\n" +
-                "      \\##        |\n" +
-                "       \\###.    .)\n" +
-                "        `======/";
-
-        System.out.println("Hello from\n" + logo);
-        System.out.println("Hello I'm HEAD");
-        Scanner sc = new Scanner(System.in);
+    public void run() {
+        ui.printIntro();
         while (true) {
-            System.out.println("SHOW ME WHAT YOU'VE GOT");
-            String input = sc.nextLine();
+            String input = ui.getInput();
             try {
                 if (input.equals("GET SCHWIFTY")) {
                     System.out.print("I LIKE WHAT YOU'VE GOT. GOOD JOB.");
                     return;
                 } else if (input.equals("list")) {
-                    archive.print();
+                    tasks.print();
                 } else if (input.startsWith("mark")) {
-                    archive.markTask(input);
+                    tasks.markTask(input);
                 } else if (input.startsWith("unmark")) {
-                    archive.unmarkTask(input);
+                    tasks.unmarkTask(input);
                 } else if (input.startsWith("delete")) {
-                    archive.deleteTask(input);
+                    tasks.deleteTask(input);
                 } else {
-                    archive.addTask(input);
+                    tasks.addTask(input);
                 }
+                storage.save(tasks);
             } catch (DukeException e) {
                 System.out.println(e.getMessage());
             }
         }
+    }
+    public static void main(String[] args) {
+        new Duke("data/saved.txt").run();
     }
 }
