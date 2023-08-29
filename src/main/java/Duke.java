@@ -148,28 +148,36 @@ public class Duke {
                 System.out.println("Got it. I've added this task:");
                 String afterCommand = input.replaceFirst("deadline ", "");
                 String[] split = afterCommand.split(" /by ");
-                Deadline deadline = new Deadline(split[0], split[1]);
-                tasks.add(deadline);
-                System.out.println(deadline);
+                if (split.length < 2) {
+                    System.out.println("The task description and deadline cannot be empty!");
+                } else {
+                    Deadline deadline = new Deadline(split[0], split[1]);
+                    tasks.add(deadline);
+                    System.out.println(deadline);
+                }
             }
         } else if (cmd.equals(Command.event)) {
-            if (!input.matches(".*\\b /by \\b.*") || !input.matches(".*\\b/to \\b.*")) {
+            if (!input.matches(".*\\b /by \\b.*") || !input.matches(".*\\b /to \\b.*")) {
                 System.out.println("An event must contain a description," +
                         " start and end specified with `/by` and `/to`!");
             } else {
-                System.out.println("Got it. I've added this task:");
                 String afterCommand = input.replaceFirst("deadline ", "");
                 // In case the user does /to before /by, split /by and /to and vice versa to get by and to
-                String by = afterCommand.split(" /by ")[1];
-                by = by.split(" /to ")[0];
-                String to = afterCommand.split(" /to ")[1];
-                to = to.split(" /by ")[0];
-                // Get index 0 to get before the /by and /to, so either way you'll get only the task
-                String task = input.split(" /to ")[0].split(" /by ")[0];
-                task = task.replaceFirst("event ", "");
-                Event event = new Event(task, by, to);
-                tasks.add(event);
-                System.out.println(event);
+                try {
+                    String by = afterCommand.split(" /by ")[1];
+                    by = by.split(" /to ")[0];
+                    String to = afterCommand.split(" /to ")[1];
+                    to = to.split(" /by ")[0];
+                    // Get index 0 to get before the /by and /to, so either way you'll get only the task
+                    String task = input.split(" /to ")[0].split(" /by ")[0];
+                    task = task.replaceFirst("event ", "");
+                    Event event = new Event(task, by, to);
+                    tasks.add(event);
+                    System.out.println("Got it. I've added this task:");
+                    System.out.println(event);
+                } catch (IndexOutOfBoundsException e) {
+                    System.out.println("Description, /by and /to cannot be empty!");
+                }
             }
         }
     }
