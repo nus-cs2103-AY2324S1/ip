@@ -2,6 +2,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
 public class Storage {
@@ -41,6 +43,7 @@ public class Storage {
 
 	public TaskList readFromFile() {
 		TaskList tasks = new TaskList();
+		int count = 1;
 		try {
 			Scanner s = new Scanner(this.file);
 			while (s.hasNext()) {
@@ -49,7 +52,7 @@ public class Storage {
 				String taskType = splitted[0];
 				String isDone = splitted[1];
 				String description = splitted[2];
-				Task currTask = createTask(taskType, description, splitted);
+				Task currTask = createTask(taskType, description, splitted, count++);
 				if (isDone.equals("1")) {
 					currTask.mark();
 				}
@@ -61,21 +64,31 @@ public class Storage {
 		return tasks;
 	}
 
-	private Task createTask(String taskType, String description, String[] splitted) throws DukeException {
-		Task task;
-		switch (taskType) {
-			case "T":
-				task = new ToDo(description);
-				break;
-			case "D":
-				task = new Deadline(description, splitted[3]);
-				break;
-			case "E":
-				task = new Event(description, splitted[3], splitted[4]);
-				break;
-			default:
-				throw new DukeException("Invalid task type: " + taskType);
+	private Task createTask(String taskType, String description, String[] splitted, int count) throws DukeException, DateTimeParseException {
+		try {
+			Task task;
+			switch (taskType) {
+				case "T":
+					task = new ToDo(description);
+					break;
+				case "D":
+					LocalDateTime deadline = LocalDateTime.parse(splitted[3]);
+					task = new Deadline(description, deadline);
+					break;
+				case "E":
+					LocalDateTime from = LocalDateTime.parse(splitted[3]);
+					LocalDateTime to = LocalDateTime.parse(splitted[4]);
+					if (from.isAfter(to)) {
+						throw new DukeException("Invalid date format: from date is after to date!! Please check your duke.txt at line " + count);
+					}
+					task = new Event(description, from, to);
+					break;
+				default:
+					throw new DukeException("Invalid task type: " + taskType);
+			}
+			return task;
+		} catch (DateTimeParseException e) {
+			throw new DukeException("Invalid date format: " + e.getMessage());
 		}
-		return task;
 	}
 }

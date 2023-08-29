@@ -1,4 +1,3 @@
-T | 1 | sfdfjdfkd
-T | 0 | sdkdjdg
-E | 1 | sdsjdsjsf | sdsdsd | sdsdsd
-D | 1 | sdsdsds | sdsds
+T | 0 | suck thumb
+D | 0 | eat | 2023-09-20T09:00
+E | 0 | eat me | 2008-02-20T13:00 | 2030-09-23T12:00
