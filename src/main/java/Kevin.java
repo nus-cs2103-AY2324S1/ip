@@ -31,6 +31,10 @@ public class Kevin{
                     Kevin.unmarkTaskDone(splitMessage[1]);
                     break;
                 }
+                case "delete": {
+                    Kevin.deleteTask(splitMessage[1]);
+                    break;
+                }
                 default:
                     // Add new tasks to the task list
                     Kevin.addNewTask(userInput);
@@ -42,9 +46,9 @@ public class Kevin{
 
     public static void printGreetMessage() {
         String greet = line + "\n"
-                + "Hello! I'm Kevin\n"
-                + "What can I do  for you?\n"
-                + line + "\n";
+                + "Hello! I'm Kevin.\n"
+                + "What can I do for you?\n"
+                + line;
         System.out.println(greet);
     }
 
@@ -97,6 +101,16 @@ public class Kevin{
         taskList.add(task);
         System.out.println(line);
         System.out.println("Got it. I've added this task:\n" + task);
+        System.out.println("Now you have " + taskList.size() + " tasks in the list.");
+        System.out.println(line);
+    }
+
+    public static void deleteTask(String taskNumber) {
+        int number = Integer.parseInt(taskNumber);
+        System.out.println(line);
+        System.out.println("Noted. I've removed this task:");
+        System.out.println(taskList.get(number - 1));
+        taskList.remove(number - 1);
         System.out.println("Now you have " + taskList.size() + " tasks in the list.");
         System.out.println(line);
     }
