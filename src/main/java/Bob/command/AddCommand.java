@@ -19,11 +19,11 @@ public class AddCommand extends Command {
     /**
      * Constructor of the AddCommand class.
      *
-     * @param command
-     * @param description
-     * @param startDate
-     * @param endDate
-     * @throws BobInvalidCommandException if CommandType is not a valid add task command
+     * @param command Type of AddCommand
+     * @param description Text description of task
+     * @param startDate Start date of task, potentially null
+     * @param endDate End date of task, potentially null
+     * @throws BobInvalidCommandException If CommandType is not a valid add task command
      */
     public AddCommand(CommandType command, String description, String startDate, String endDate) throws BobInvalidCommandException {
         if (command != CommandType.TODO && command != CommandType.DEADLINE && command != CommandType.EVENT) {

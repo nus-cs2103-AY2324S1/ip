@@ -17,9 +17,9 @@ public class Parser {
     /**
      * Returns an instance of a Command with specific user input to be executed.
      *
-     * @param input
+     * @param input Text input to be parsed
      * @return Executable command based on input
-     * @throws BobException if command given has invalid format
+     * @throws BobException If command given has invalid format
      */
     public static Command parse(String input) throws BobException {
         String[] inputSplit = input.split(" ", 2);
@@ -125,9 +125,9 @@ public class Parser {
     /**
      * Returns an instance of a Task after processing a String in stored format.
      *
-     * @param inputString
+     * @param inputString Text input to be parsed
      * @return An instance of Task based on input string
-     * @throws BobException if input string has incorrect format
+     * @throws BobException If input string has incorrect format
      */
     public static Task parseStoredTask(String inputString) throws BobException {
         String[] split = inputString.split("\\|");

@@ -11,9 +11,9 @@ public class Event extends Task {
     /**
      * Constructor of the Event Class.
      *
-     * @param description
-     * @param startDateTime
-     * @param endDateTime
+     * @param description Text description of Event task
+     * @param startDateTime Start Time of Event Task
+     * @param endDateTime End Time of Event task
      */
     public Event(String description, String startDateTime, String endDateTime) {
         super(description);
@@ -25,10 +25,10 @@ public class Event extends Task {
      * Constructor of the Event Class.
      * Instantiates the event and marks its completion status based on boolean provided.
      *
-     * @param description
-     * @param startDateTime
-     * @param endDateTime
-     * @param isDone
+     * @param description Text description of Event task
+     * @param startDateTime Start Time of Event Task
+     * @param endDateTime End Time of Event task
+     * @param isDone Completion status of event task
      */
     public Event(String description, String startDateTime, String endDateTime, boolean isDone) {
         super(description, isDone);

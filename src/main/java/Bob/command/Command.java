@@ -14,9 +14,9 @@ public abstract class Command {
      * Executes the current command and can modify the current state of the task list or
      * print out messages.
      *
-     * @param taskList
-     * @param storageFile
-     * @param ui
+     * @param taskList Current list of tasks
+     * @param storageFile Storage file reader and writer
+     * @param ui User Interface reader and writer
      * @throws BobException if the command is constructed with invalid arguments
      */
     public abstract void execute(TaskList taskList, StorageFile storageFile, TextUi ui) throws BobException;

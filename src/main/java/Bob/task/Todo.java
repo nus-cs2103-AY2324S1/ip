@@ -9,7 +9,7 @@ public class Todo extends Task {
     /**
      * Constructor of Todo Class.
      *
-     * @param description
+     * @param description Test description of Todo Task
      */
     public Todo(String description) {
         super(description);
@@ -20,8 +20,8 @@ public class Todo extends Task {
      * Instantiates an instance of Todo class with a string description and
      * a boolean indicating whether the task is done.
      *
-     * @param description
-     * @param isDone
+     * @param description Text description of Todo Task
+     * @param isDone Completion status of Todo Task
      */
     public Todo(String description, boolean isDone) {
         super(description, isDone);

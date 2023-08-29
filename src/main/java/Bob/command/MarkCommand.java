@@ -17,8 +17,8 @@ public class MarkCommand extends Command{
     /**
      * Constructor of the MarkCommand Class.
      *
-     * @param taskNumber
-     * @param isDone
+     * @param taskNumber Index of task to mark/unmark
+     * @param isDone Completion status of task
      */
     public MarkCommand(int taskNumber, boolean isDone) {
         this.taskNumber = taskNumber;

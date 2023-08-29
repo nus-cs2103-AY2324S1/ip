@@ -12,7 +12,7 @@ public class Task {
      * Constructor of the Task Class.
      * Instantiates an instance of a task that has not been completed.
      *
-     * @param description
+     * @param description Text description of task
      */
     public Task(String description) {
         this.description = description;
@@ -24,8 +24,8 @@ public class Task {
      * Instantiates an instance of a task based on provided description and
      * sets the completion status of the class based on provided boolean.
      *
-     * @param description
-     * @param isDone
+     * @param description Text description of task
+     * @param isDone Completions status of task
      */
     public Task(String description, boolean isDone) {
         this.description = description;

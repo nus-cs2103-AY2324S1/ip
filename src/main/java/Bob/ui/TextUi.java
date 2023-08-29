@@ -58,8 +58,9 @@ public class TextUi {
 
     /**
      * Prints out a message to notify user how many tasks are left currently.
+     * Prints out lists of task with numbering based on order of creation.
      *
-     * @param taskList
+     * @param taskList List of tasks to be counted
      */
     public void printListEndMessage(TaskList taskList) {
         int numOfTasks = taskList.size();
@@ -77,7 +78,7 @@ public class TextUi {
     /**
      * Prints out an error message based on error occurred to standard output.
      *
-     * @param e
+     * @param e Exception caught
      */
     public void printErrorMessage(Exception e) {
         System.out.println(e.getMessage());
@@ -86,7 +87,7 @@ public class TextUi {
     /**
      * Prints out the list of currently saved tasks to standard output.
      *
-     * @param taskList
+     * @param taskList Lists of tasks to be printed
      * @throws BobInvalidTaskNumberException If an error occurs when accessing a task
      */
     public void printListMessage(TaskList taskList) throws BobInvalidTaskNumberException {
@@ -98,8 +99,8 @@ public class TextUi {
      * Prints a message to notify the user that a task has been mark/unmark as done to
      * standard output.
      *
-     * @param task
-     * @param isDone
+     * @param task Task to be mark/unmark
+     * @param isDone Completion status of task
      */
     public void printMarkMessage(Task task, boolean isDone) {
         System.out.println();
@@ -114,7 +115,7 @@ public class TextUi {
      * Prints a message to standard output to notify the user when a task has
      * been successfully deleted.
      *
-     * @param task
+     * @param task Deleted task
      */
     public void printDeleteMessage(Task task) {
         System.out.println("Foosh! Let it be gone! I've helped delete the task:\n" +
@@ -125,7 +126,7 @@ public class TextUi {
      * Prints a message to standard output notifying the user the required task
      * has been added to current list of tasks.
      *
-     * @param task
+     * @param task Added task
      */
     public void printAddMessage(Task task) {
         String displayMessage = "I gotchu. New task added to the list:\n";

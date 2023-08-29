@@ -8,7 +8,7 @@ import Bob.task.*;
 import Bob.ui.TextUi;
 
 /**
- * A Chatbot that helps the user note down todos, deadlines and events.
+ * A ChatBot that helps the user note down todos, deadlines and events.
  * It can be interacted with via the Command Line Interface
  */
 public class Bob {
@@ -19,8 +19,8 @@ public class Bob {
     /**
      * Constructor of the Bob Class.
      *
-     * @param fileDirectoryPath
-     * @param fileName
+     * @param fileDirectoryPath Relative path to directory containing save file
+     * @param fileName Name of save file
      */
     public Bob(String fileDirectoryPath, String fileName) {
         textUi = new TextUi();
@@ -34,7 +34,7 @@ public class Bob {
     }
 
     /**
-     * Main entry point of the Chatbot. Terminates when
+     * Main entry point of the ChatBot. Terminates when
      * an exit command is called.
      */
     public void run() {
