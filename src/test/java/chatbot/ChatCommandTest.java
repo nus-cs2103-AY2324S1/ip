@@ -21,9 +21,9 @@ public class ChatCommandTest {
         assertEquals(ChatCommand.Operation.Exit, command.getOperation());
         assertFalse(command.hasParams());
 
-        command = ChatCommand.parse("test abc 123/456");
+        command = ChatCommand.parse("test abc 123--456");
         assertEquals("test", command.getName());
-        assertEquals("abc 123/456", command.getData());
+        assertEquals("abc 123--456", command.getData());
         assertEquals(ChatCommand.Operation.Unknown, command.getOperation());
         assertFalse(command.hasParams());
         assertFalse(command.hasParam("456"));
@@ -44,7 +44,7 @@ public class ChatCommandTest {
     public void parse_instructionWithParameters_correctComponents() {
         ChatCommand command;
 
-        command = ChatCommand.parse("/magic parameter");
+        command = ChatCommand.parse("--magic parameter");
         assertEquals("", command.getName());
         assertEquals("", command.getData());
         assertEquals(ChatCommand.Operation.Unknown, command.getOperation());
@@ -53,7 +53,7 @@ public class ChatCommandTest {
         assertTrue(command.hasParamWithUsefulValue("magic"));
         assertEquals("parameter", command.getParam("magic"));
 
-        command = ChatCommand.parse("todo /missing");
+        command = ChatCommand.parse("todo --missing");
         assertEquals("todo", command.getName());
         assertEquals("", command.getData());
         assertEquals(ChatCommand.Operation.AddTodo, command.getOperation());
@@ -62,9 +62,9 @@ public class ChatCommandTest {
         assertFalse(command.hasParamWithUsefulValue("missing"));
         assertEquals("", command.getParam("missing"));
 
-        command = ChatCommand.parse("deadline message 123/456 /by date part");
+        command = ChatCommand.parse("deadline message 123--456 --by date part");
         assertEquals("deadline", command.getName());
-        assertEquals("message 123/456", command.getData());
+        assertEquals("message 123--456", command.getData());
         assertEquals(ChatCommand.Operation.AddDeadline, command.getOperation());
         assertTrue(command.hasParams());
         assertTrue(command.hasParam("by"));
@@ -72,7 +72,7 @@ public class ChatCommandTest {
         assertTrue(command.hasParamWithUsefulValue("by"));
         assertEquals("date part", command.getParam("by"));
 
-        command = ChatCommand.parse("list something  nice\t/anything\n/at\tall\n");
+        command = ChatCommand.parse("list something  nice\t--anything\n--at\tall\n");
         assertEquals("list", command.getName());
         assertEquals("something  nice", command.getData());
         assertEquals(ChatCommand.Operation.List, command.getOperation());
