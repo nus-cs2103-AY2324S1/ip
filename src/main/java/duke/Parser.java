@@ -86,8 +86,7 @@ public class Parser {
                 }
                 break;
             default:
-                Ui.noCommand();
-
+                throw new DukeException("Huhhhhhhh??? (o_O) ? Please use one of the command words: todo, event, deadline, list, mark, unmark, delete, bye");
         }
     }
 }

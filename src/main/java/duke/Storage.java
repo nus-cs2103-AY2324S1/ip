@@ -23,7 +23,7 @@ public class Storage {
         this.filepath = filepath;
     }
 
-    public static void load() {
+    public static void load() throws DukeException {
         try {
             Scanner s = new Scanner(taskList);
             String savedStrings;

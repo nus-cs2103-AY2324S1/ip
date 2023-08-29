@@ -62,10 +62,4 @@ public class Ui {
                 + description + "\n         Now you have " + size + " tasks in the list"
                 + "\n" + lines);
     }
-
-    public static void noCommand() {
-        System.out.println(lines
-                    + "\n        Huhhhhhhh??? (o_O) ? Please use one of the command words: todo, event, deadline, list, mark, unmark, delete, bye\n"
-                    + lines);
-    }
 }
