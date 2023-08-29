@@ -6,7 +6,6 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-import java.util.stream.Collectors;
 
 public class Storage {
     private final String filePath;
@@ -50,9 +49,9 @@ public class Storage {
         return tasks;
     }
 
-    public void saveData(List<Task> tasks) throws IOException {
+    public void saveData(TaskList tasks) throws IOException {
         try (FileWriter fw = new FileWriter(filePath)) {
-            fw.write(tasks.stream().map(Task::encodeTask).collect(Collectors.joining("\n")));
+            fw.write(tasks.stringifyTasks());
         }
     }
 }
