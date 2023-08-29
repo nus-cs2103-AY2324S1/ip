@@ -111,4 +111,14 @@ public class TaskList {
             throw new DukeException("☹ OOPS!!! The number input does not exist.", new IndexOutOfBoundsException());
         }
     }
+
+    public TaskList findTasks(String desc) {
+        TaskList returnList = new TaskList();
+        for (Task i : this.tasks) {
+            if (i.getDescription().contains(desc)) {
+                returnList.addTask(i);
+            }
+        }
+        return returnList;
+    }
 }

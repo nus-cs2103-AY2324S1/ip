@@ -54,6 +54,14 @@ public class Parser {
                 } catch (NumberFormatException err) {
                     throw new DukeException("☹ OOPS!!! The number input does not exist.", err);
                 }
+            } else if(input.startsWith("find ")) {
+                String desc = input.substring(5);
+                if (desc.length() == 0) {
+                    throw new DukeException("☹ OOPS!!! The description of find cannot be empty.",
+                            new RuntimeException());
+                } else {
+                    ui.findSuccess(tasks.findTasks(desc));
+                }
             } else {
                 if (input.startsWith("todo ")) {
                     String desc = input.substring(5);
