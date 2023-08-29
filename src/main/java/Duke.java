@@ -1,18 +1,70 @@
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Objects;
 import java.util.Scanner;
+import java.io.File;
+import java.io.FileNotFoundException;
 
 public class Duke {
     private static final String chatbot = "War Room";
     private static ArrayList<Task> userData = new ArrayList<>(100);
-    private static int index = 0;
 
     public static String[] validStartingCommands = {"todo", "deadline", "event"};
 
     public static String[] validMarkingCommands = {"mark", "unmark", "delete"};
+    
+    private static void rewriteFile(ArrayList<Task> newData) throws IOException, FileNotFoundException {
+        try {
+            FileWriter fw = new FileWriter("src/main/data/duke.txt");
+            for (int i = 0; i < newData.size(); i++) {
+                Task newTask = newData.get(i);
+                int isDoneValue = newTask.isDone ? 1 : 0;
+                if (Objects.equals(newTask.tag, "T")) {
+                    fw.write(String.format("%s|%d|%s%n", newTask.generalTag(), isDoneValue, newTask.getDescription()));
+                } else if (Objects.equals(newTask.tag, "D")) {
+                    Deadline deadlineTask = (Deadline) newTask;
+                    fw.write(String.format("%s|%d|%s|%s%n", deadlineTask.generalTag(), isDoneValue, deadlineTask.getDescription(), deadlineTask.byString()));
+                } else if (Objects.equals(newTask.tag, "E")) {
+                    Event eventTask = (Event) newTask;
+                    fw.write(String.format("%s|%d|%s|%s|%s%n", eventTask.generalTag(), isDoneValue, eventTask.getDescription(), eventTask.getFrom(), eventTask.getTo()));
+                }
 
-    public static void main(String[] args) throws DukeException {
+            }
+            fw.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void main(String[] args) throws DukeException, FileNotFoundException, IOException {
+        try {
+            File f = new File("src/main/data/duke.txt");
+            Scanner s = new Scanner(f);
+            while (s.hasNext()) {
+                String[] parts = s.nextLine().split("\\|");
+                String event = parts[0];
+                int mark = Integer.parseInt(parts[1]);
+                String description = parts[2];
+                if (Objects.equals(event, "T")) {
+                    Task newTask = new Todo(description);
+                    newTask.isDone = mark == 1;
+                    userData.add(newTask);
+                } else if (Objects.equals(event, "D")) {
+                    Task newTask = new Deadline(description, parts[3]);
+                    newTask.isDone = mark == 1;
+                    userData.add(newTask);
+                } else if (Objects.equals(event, "E")) {
+                    Task newTask = new Event(description, parts[3], parts[4]);
+                    newTask.isDone = mark == 1;
+                    userData.add(newTask);
+                }
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+
         System.out.println("Hello! I'm " + chatbot);
         System.out.println("What can I do for you?");
         Scanner scanner = new Scanner(System.in);
@@ -25,7 +77,7 @@ public class Duke {
                 try {
                     if (Objects.equals(words[0], "list")) {
                         System.out.println("Here are the tasks in your list:");
-                        for (int i = 0; i < index; i++) {
+                        for (int i = 0; i < userData.size(); i++) {
                             Task currentTask = userData.get(i);
                             System.out.println((i + 1) + "." + currentTask.toString());
                         }
@@ -67,10 +119,10 @@ public class Duke {
                     if (Objects.equals(words[0], "todo")) {
                         Task newTask = new Todo(taskDescription);
                         userData.add(newTask);
-                        index++;
+                        rewriteFile(userData);
                         System.out.println("Got it. I've added this task:");
                         System.out.println(newTask.toString());
-                        System.out.println("Now you have " + index + " tasks in the list.");
+                        System.out.println("Now you have " + userData.size() + " tasks in the list.");
                     } else if (Objects.equals(words[0], "deadline")) {
                         try {
                             if (Objects.equals(by, 99999)) {
@@ -84,10 +136,10 @@ public class Duke {
 
                             Task newTask = new Deadline(taskDescription, deadline);
                             userData.add(newTask);
-                            index++;
+                            rewriteFile(userData);
                             System.out.println("Got it. I've added this task:");
                             System.out.println(newTask.toString());
-                            System.out.println("Now you have " + index + " tasks in the list.");
+                            System.out.println("Now you have " + userData.size() + " tasks in the list.");
                         } catch (DukeException DE){
                             System.out.println(DE.getMessage());
                         }
@@ -119,11 +171,10 @@ public class Duke {
 
                             Task newTask = new Event(taskDescription, fromChar, toChar);
                             userData.add(newTask);
-                            index++;
-
+                            rewriteFile(userData);
                             System.out.println("Got it. I've added this task:");
                             System.out.println(newTask.toString());
-                            System.out.println("Now you have " + index + " tasks in the list.");
+                            System.out.println("Now you have " + userData.size()  + " tasks in the list.");
                         } catch (DukeException DE) {
                             System.out.println(DE.getMessage());
                         }
@@ -144,7 +195,7 @@ public class Duke {
                             throw new DukeException("Mark/UnMark/Delete commands can only take numbers as a parameter");
                         }
 
-                        if (Integer.parseInt(words[1]) <= 0 || Integer.parseInt(words[1]) > index) {
+                        if (Integer.parseInt(words[1]) <= 0 || Integer.parseInt(words[1]) > userData.size()) {
                             throw new DukeException("Please input a valid number!");
                         }
 
@@ -152,20 +203,22 @@ public class Duke {
                         if (Objects.equals(words[0], "mark")) {
                             Task currentTask = userData.get(referenceIndex - 1);
                             currentTask.isDone = true;
+                            rewriteFile(userData);
                             System.out.println("Nice! I've marked this task as done:");
                             System.out.println(currentTask.toString());
                         } else if (Objects.equals(words[0], "unmark")) {
                             Task currentTask = userData.get(referenceIndex - 1);
                             currentTask.isDone = false;
+                            rewriteFile(userData);
                             System.out.println("OK, I've marked this task as not done yet:");
                             System.out.println(currentTask.toString());
                         } else {
                             Task removedTask = userData.get(referenceIndex - 1);
                             userData.remove(referenceIndex - 1);
-                            index--;
+                            rewriteFile(userData);
                             System.out.println("Noted. I've removed this task:");
                             System.out.println(removedTask.toString());
-                            System.out.println(String.format("Now you have %d tasks in the list.", index));
+                            System.out.println(String.format("Now you have %d tasks in the list.", userData.size()));
                         }
                     } catch (DukeException DE) {
                         System.out.println(DE.getMessage());
