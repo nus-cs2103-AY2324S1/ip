@@ -11,7 +11,7 @@ public class Parser {
         BYE, LIST, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, CHECK,
     }
 
-    private final DateTimeFormatter FORMATTER = new DateTimeFormatterBuilder()
+    private static final DateTimeFormatter FORMATTER = new DateTimeFormatterBuilder()
             .appendPattern("yyyy-MM-dd")
             .optionalStart().appendPattern(" HH:mm").optionalEnd()
             .optionalStart().appendPattern(" HHmm").optionalEnd()
@@ -19,7 +19,7 @@ public class Parser {
             .parseDefaulting(ChronoField.MINUTE_OF_HOUR, 0)
             .toFormatter();
 
-    public Command parse(String fullCommand) throws UnknownCommandException {
+    public static Command parse(String fullCommand) throws UnknownCommandException {
         // Use Regex to extract the first word even with preceding whitespace
         Operations command = Operations.valueOf(fullCommand.replaceAll("^\\W*\\b(\\w+).*", "$1").toUpperCase());
 
