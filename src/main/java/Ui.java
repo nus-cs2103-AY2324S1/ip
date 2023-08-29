@@ -82,4 +82,13 @@ public class Ui {
         System.out.println(LINE);
     }
 
+    public void showErrorMessage(Exception e) {
+        System.out.println(e.getMessage());
+        System.out.println(LINE);
+    }
+
+    public void showLoadingError() {
+        System.out.println("Respironix has encountered an issue; exiting");
+    }
+
 }

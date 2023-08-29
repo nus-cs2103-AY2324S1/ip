@@ -3,7 +3,6 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
 import java.time.temporal.ChronoField;
-import java.util.Scanner;
 
 /**
  * Encapsulates the logic of a Chat bot
@@ -198,15 +197,13 @@ public class Duke {
 
                 } catch (UnknownTimeException | UnknownCommandException | EmptyTaskListException |
                          NoDescriptionException | NoIndexException | BackwardsTimeException e) {
-                    System.out.println(e.getMessage());
-                    System.out.println(LINE);
+                    ui.showErrorMessage(e);
                 }
 
 
             }
         } catch (Exception e) {
-            System.out.println(e);
-            System.out.println("Respironix has encountered an issue; exiting");
+            ui.showLoadingError();
         }
     }
 }
