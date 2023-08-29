@@ -1,9 +1,10 @@
 package duke;
 
-import duke.exception.InvalidInputException;
-import duke.exception.InvalidMarkingException;
+import duke.exception.InvalidFindingException;
 import duke.exception.LackDescriptionException;
 import duke.exception.LackInformationException;
+import duke.exception.InvalidInputException;
+import duke.exception.InvalidMarkingException;
 
 import duke.task.Deadline;
 import duke.task.Event;
@@ -95,6 +96,9 @@ public class Parser {
             break;
         case "delete":
             delete(second);
+            break;
+        case "find":
+            find(second);
             break;
         default:
             throw new InvalidInputException("OOPS! I do not know what " + first
@@ -369,16 +373,37 @@ public class Parser {
             throw new InvalidMarkingException("Please provide a valid index");
         }
 
-        if (j-1 > tasks.size()-1 || j-1 < 0) {
+        if (j - 1 > tasks.size() - 1 || j - 1 < 0) {
             throw new InvalidMarkingException("There is no corresponding task in the list");
         }
 
-        Task t = tasks.get(j-1);
-        tasks.remove(j-1);
+        Task t = tasks.get(j - 1);
+        tasks.remove(j - 1);
 
         this.ui.print("I've removed this task:");
         this.ui.print(t);
         this.ui.print("Now you have " + tasks.size() + (tasks.size() > 1 ? " tasks" : " task")
                 + " in the list");
+    }
+
+    private void find(String x) {
+        if (x == null || x.equals(" ")) {
+            throw new InvalidFindingException("Missing keyword");
+        }
+
+        int counter = 1;
+        for (int i = 0; i < tasks.size(); i++) {
+            Task t = tasks.get(i);
+            if (t.toString().contains(x)) {
+                this.ui.print(counter + " " + t);
+                counter += 1;
+            }
+        }
+
+        if (counter == 1) {
+            this.ui.print("No matching found");
+        } else {
+            this.ui.print("You have " + (counter-1) + " matching tasks in your list");
+        }
     }
 }

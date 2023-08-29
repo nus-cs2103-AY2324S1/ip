@@ -29,7 +29,7 @@ public class TaskList implements TaskArray {
             parser.parseFromFile(s);
         }
     }
-    
+
     /**
      * Returns true if this list contains no elements.
      */
