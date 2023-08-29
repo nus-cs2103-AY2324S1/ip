@@ -42,4 +42,14 @@ public class TaskList {
         return this.tasks;
     }
 
+    public ArrayList<Task> filterByName(String name) {
+        ArrayList<Task> filtered = new ArrayList<>();
+        for (Task t : this.tasks) {
+            if (t.contains(name)) {
+                filtered.add(t);
+            }
+        }
+        return filtered;
+    }
+
 }

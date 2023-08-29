@@ -56,4 +56,8 @@ abstract public class Task {
     public void revertTask() {
         this.completed = false;
     }
+
+    public boolean contains(String name) {
+        return this.action.contains(name);
+    }
 }

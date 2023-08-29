@@ -1,7 +1,9 @@
 package duke.ui;
 
+import duke.parser.Parser;
 import duke.tasks.Task;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Ui {
@@ -84,4 +86,20 @@ public class Ui {
         }
     }
 
+    /**
+     * Prints out the list of tasks which match with the keyword.
+     * @param tasks List of Filtered Tasks.
+     */
+    public void showFind(ArrayList<Task> tasks) {
+        this.showLine();
+        if (tasks.size() == 0) {
+            System.out.println("There are no matching tasks with your entered task!");
+        } else {
+            System.out.println("The following tasks match with your entered task!");
+            for (int i = 0; i < tasks.size(); i++) {
+                System.out.println((i + 1) + ") " + tasks.get(i).toString());
+            }
+        }
+        this.showLine();
+    }
 }
