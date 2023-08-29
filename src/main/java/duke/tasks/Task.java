@@ -86,4 +86,31 @@ public class Task {
         }
         return printType + " | " + this.done + " | " + this.description;
     }
+
+    /**
+     * Returns the type of this task.
+     *
+     * @return A {@code TaskType} representing the type of the task.
+     */
+    public TaskType getTaskType() {
+        return this.type;
+    }
+
+    /**
+     * Returns the description of this task.
+     *
+     * @return A {@code String} representing the description of the task.
+     */
+    public String getDescription() {
+        return this.description;
+    }
+
+    /**
+     * Returns the completion of this task.
+     *
+     * @return A {@code boolean} representing the completion of the task.
+     */
+    public boolean isDone() {
+        return this.done;
+    }
 }

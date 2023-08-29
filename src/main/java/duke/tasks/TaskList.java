@@ -5,27 +5,27 @@ import java.util.ArrayList;
 import duke.exception.InvalidIndexException;
 
 /**
- * Represents a list of duke.tasks, allowing for various operations such as
- * adding, deleting, marking duke.tasks as done, and unmarking duke.tasks.
+ * Represents a list of tasks, allowing for various operations such as
+ * adding, deleting, marking tasks as done, and unmarking tasks.
  *
  * <p> The TaskList class provides a comprehensive set of methods to manage and manipulate
- * a list of duke.tasks. Each task in the list can be accessed by its index.
+ * a list of tasks. Each task in the list can be accessed by its index.
  * Methods throw {@link InvalidIndexException} if operations are attempted on invalid indices. </p>
  */
 public class TaskList {
     private ArrayList<Task> store;
 
     /**
-     * Initializes an empty list of duke.tasks.
+     * Initializes an empty list of tasks.
      */
     public TaskList() {
         store = new ArrayList<>();
     }
 
     /**
-     * Initializes a task list with a given list of duke.tasks.
+     * Initializes a task list with a given list of tasks.
      *
-     * @param tasks An ArrayList of duke.tasks to be added to the task list.
+     * @param tasks An ArrayList of tasks to be added to the task list.
      */
     public TaskList(ArrayList<Task> tasks) {
         store = tasks;
@@ -61,7 +61,7 @@ public class TaskList {
     }
 
     /**
-     * Prints all the duke.tasks currently in the list.
+     * Prints all the tasks currently in the list.
      */
     public void listTasks() {
         System.out.println("Here are the duke.tasks in your list:");
@@ -105,9 +105,9 @@ public class TaskList {
     }
 
     /**
-     * Retrieves the current list of duke.tasks.
+     * Retrieves the current list of tasks.
      *
-     * @return An ArrayList containing all the duke.tasks.
+     * @return An ArrayList containing all the tasks.
      */
     public ArrayList<Task> getTasks() {
         return store;

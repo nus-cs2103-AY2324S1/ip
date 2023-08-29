@@ -39,4 +39,13 @@ public class Deadline extends Task {
     public String transformFormat() {
         return super.transformFormat() + " | " + this.by;
     }
+
+    /**
+     * Returns the deadline of this task.
+     *
+     * @return A {@code String} representing the deadline of the task.
+     */
+    public String getBy() {
+        return this.by;
+    }
 }

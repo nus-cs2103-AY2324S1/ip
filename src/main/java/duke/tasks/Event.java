@@ -42,4 +42,22 @@ public class Event extends Task {
     public String transformFormat() {
         return super.transformFormat() + " | " + this.from + " | " + this.to;
     }
+
+    /**
+     * Returns the start of this task.
+     *
+     * @return A {@code String} representing the start of the task.
+     */
+    public String getFrom() {
+        return this.from;
+    }
+
+    /**
+     * Returns the end of this task.
+     *
+     * @return A {@code String} representing the end of the task.
+     */
+    public String getTo() {
+        return this.to;
+    }
 }
