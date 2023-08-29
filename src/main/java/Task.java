@@ -14,7 +14,7 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
 public class Task {
 
   private String description;
-  private boolean done;
+  private Boolean done;
 
   public Task(String desc) {
     this.description = desc;
