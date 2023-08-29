@@ -1,26 +1,32 @@
-import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class TaskMate {
 
     static String horizontalLine = "--------------------";
     static String chatbotName = "TaskMate";
-    static String saveTaskFilePath = "./data/saved_tasks.txt";
+    static String defaultSaveTaskFilePath = "./data/saved_tasks.txt";
 
-    static enum CommandTypes {
+    enum CommandTypes {
         list, bye, todo, deadline, event, mark, unmark, delete
     }
 
     private Ui ui;
+    private Storage storage;
     private TaskList tasks;
+
+    TaskMate(String filePath) {
+        this.ui = new Ui(chatbotName);
+        this.storage = new Storage(filePath);
+        this.tasks = new TaskList();
+    }
 
     TaskMate() {
         this.ui = new Ui(chatbotName);
+        this.storage = new Storage(defaultSaveTaskFilePath);
         this.tasks = new TaskList();
     }
 
@@ -36,6 +42,7 @@ public class TaskMate {
         ui.greetUser();
 
         // Reading user input
+        // todo
         Scanner sc = new Scanner(System.in);
         String userInput;
         while (true) {
@@ -99,10 +106,10 @@ public class TaskMate {
         String saveTaskText = tasks.formatAllTasksForSaving();
         System.out.println(saveTaskText);
         try {
-            writeToFile(saveTaskFilePath, saveTaskText);
+            storage.writeToFile(saveTaskText);
         } catch (IOException e) {
             ui.printSaveFailResponse(System.getProperty("user.dir") +
-                    saveTaskFilePath.substring(1).replace("/", "\\"));
+                    defaultSaveTaskFilePath.substring(1).replace("/", "\\"));
         }
         // 2. Print exit message
         ui.farewellUser();
@@ -203,7 +210,7 @@ public class TaskMate {
         String allTasksString = "Here are the tasks in your list:\n";
         for (int i = 0; i < tasks.getAllTasks().size(); i++) {
             Task newTask = tasks.getAllTasks().get(i);
-            allTasksString += Integer.toString(i+1) + "." + newTask.toString() + "\n";
+            allTasksString += (i + 1) + "." + newTask.toString() + "\n";
         }
         printReply(allTasksString);
     }
@@ -253,7 +260,7 @@ public class TaskMate {
             );
         }
         tasks.addTask(newTask);
-        printReply("Got it. I've added this task:\n  " + newTask.toString() + "\nNow you have " + tasks.getAllTasks().size() + " task(s) in the list.");
+        printReply("Got it. I've added this task:\n  " + newTask + "\nNow you have " + tasks.getAllTasks().size() + " task(s) in the list.");
     }
 
     void processDeleteCommand(String userInput) {
@@ -263,21 +270,10 @@ public class TaskMate {
         printReply("Noted. I've removed this task:\n  " + removedTask.toString() + "\nNow you have " + tasks.getAllTasks().size() + " task(s) in the list.");
     }
 
-    static void writeToFile(String filePath, String text) throws IOException {
-        FileWriter fw = new FileWriter(filePath);
-        fw.write(text);
-        fw.close();
-    }
-
-    static String readFromFile(String fileName) throws IOException {
-        Path filePath = Path.of(fileName);
-        return Files.readString(filePath);
-    }
-
     void loadTasksFromDisk() {
-        String unprocessedTasks = "";
+        String unprocessedTasks;
         try {
-            unprocessedTasks = readFromFile(saveTaskFilePath);
+            unprocessedTasks = storage.readFromFile();
         } catch (IOException e) {
             System.out.println("Saved task file not found.");
             return;
