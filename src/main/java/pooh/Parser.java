@@ -26,7 +26,7 @@ public class Parser {
         if (userAction.equalsIgnoreCase("list")) {
             Ui.printTasksMsg(taskList);
         } else {
-            switch (userAction) {
+            switch (userAction.toLowerCase()) {
             case "list":
                 Ui.printTasksMsg(taskList);
             case "bye":
