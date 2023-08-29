@@ -11,8 +11,8 @@ public class Deadline extends Task {
         this.deadline = Dateable.of(deadline);
     }
 
-    public Deadline(String description, String deadline, boolean completed) {
-        super(description, completed);
+    public Deadline(String description, String deadline, boolean isCompleted) {
+        super(description, isCompleted);
         this.deadline = Dateable.of(deadline);
     }
 

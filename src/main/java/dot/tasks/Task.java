@@ -7,34 +7,34 @@ import java.time.LocalDateTime;
 public abstract class Task {
 
     private String description;
-    private boolean completed;
+    private boolean isCompleted;
 
     public Task(String description) {
         this.description = description;
-        this.completed = false;
+        this.isCompleted = false;
     }
 
-    public Task(String description, boolean completed) {
+    public Task(String description, boolean isCompleted) {
         this.description = description;
-        this.completed = completed;
+        this.isCompleted = isCompleted;
     }
 
     // Abstract methods
     public abstract boolean isOnDate(LocalDateTime startOfDay, LocalDateTime endOfDay);
 
     public String getFileFormat() {
-        return String.format("%d | %s", this.completed ? 1 : 0, this.description);
+        return String.format("%d | %s", this.isCompleted ? 1 : 0, this.description);
     };
 
     public void toggleStatus(boolean newStatus) {
-        if (this.completed == newStatus) {
+        if (this.isCompleted == newStatus) {
             // Already marked / unmarked
-            Ui.wrapPrintWithHorizontalRules(this.completed
+            Ui.wrapPrintWithHorizontalRules(this.isCompleted
                                             ? "Already marked done."
                                             : "Already unmarked.");
         } else {
-            this.completed = newStatus;
-            Ui.displayMarkOrUnmark(this.completed, this.toString());
+            this.isCompleted = newStatus;
+            Ui.displayMarkOrUnmark(this.isCompleted, this.toString());
         }
     }
 
@@ -42,7 +42,7 @@ public abstract class Task {
     //https://nus-cs2103-ay2324s1.github.io/website/schedule/week2/project.html
     //Only refers to the getStatus method
     public char getStatus() {
-        return this.completed ? 'X' : ' ';
+        return this.isCompleted ? 'X' : ' ';
     }
 
     public String toString() {

@@ -14,8 +14,8 @@ public class Event extends Task {
         this.end = Dateable.of(end);
     }
 
-    public Event(String description, String start, String end, boolean completed) {
-        super(description, completed);
+    public Event(String description, String start, String end, boolean isCompleted) {
+        super(description, isCompleted);
         this.start = Dateable.of(start);
         this.end = Dateable.of(end);
     }
