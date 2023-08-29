@@ -8,11 +8,20 @@ import duke.ui.Ui;
 
 import java.time.DateTimeException;
 
+/**
+ * The main class for the chatbot application.
+ * Duke is a chatbot that help to manage tasks;
+ */
 public class Duke {
     private final Storage storage;
     private TaskList tasks;
     private final Ui ui;
 
+    /**
+     * Constructs a Duke instance with the provided file path.
+     *
+     * @param filePath The file path for storing task data.
+     */
     public Duke(String filePath) {
         this.ui = new Ui();
         this.storage = new Storage(filePath);
@@ -24,6 +33,9 @@ public class Duke {
         }
     }
 
+    /**
+     * Runs the chatbot, displaying welcome messages and processing user commands.
+     */
     public void run() {
         ui.showWelcome();
         boolean isExit = false;
@@ -39,6 +51,11 @@ public class Duke {
         }
     }
 
+    /**
+     * The entry point for starting the Duke chatbot.
+     *
+     * @param args Command-line arguments.
+     */
     public static void main(String[] args) {
         new Duke("data/duke.txt").run();
     }

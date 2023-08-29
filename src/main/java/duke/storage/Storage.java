@@ -14,13 +14,28 @@ import java.io.FileWriter;
 import java.io.FileReader;
 import java.io.IOException;
 
+/**
+ * Handles the loading and saving of task data for chatbot.
+ * Manages reading from and writing to a specified file.
+ */
 public class Storage {
     private final String filePath;
 
+    /**
+     * Constructs a Storage instance with the specified file path.
+     *
+     * @param filePath The file path where task data is stored.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
+    /**
+     * Edits and saves task data to the specified file.
+     *
+     * @param taskList The TaskList containing tasks to be saved.
+     * @throws DukeException If there is an issue saving the data.
+     */
     public void editData(TaskList taskList) throws DukeException {
         try {
             BufferedWriter writer = new BufferedWriter(new FileWriter(filePath, false));
@@ -33,6 +48,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Loads task data from the specified file and returns a TaskList.
+     *
+     * @return The TaskList containing the loaded tasks.
+     * @throws DukeException If there is an issue loading the data.
+     */
     public TaskList loadData() throws DukeException {
         TaskList loadedTask = new TaskList();
         try {
