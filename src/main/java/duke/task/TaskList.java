@@ -5,23 +5,40 @@ import java.util.ArrayList;
 import duke.DukeException;
 import duke.Storage;
 import duke.Ui;
-
+/**
+ * Represents a list of tasks.
+ */
 public class TaskList {
-    // change implementation to collections
+    /** Represents the list of tasks. */
     private ArrayList<Task> tasks;
+    /** Represents the database that stores the list of tasks. */
     private Storage db;
 
+    /**
+     * Constructs a TaskList object with an empty list of tasks.
+     */
     public TaskList() {
         db = new Storage("data/duke.ser");
         this.tasks = db.loadTask();
     }
 
+    /**
+     * Adds a Task object to the specified list of tasks.
+     * 
+     * @param tasks The list of tasks.
+     */
     public void addTask(Task task) {
         this.tasks.add(task);
         db.saveTask(tasks);
         Ui.addTask(task, this.tasks.size());
     }
 
+    /**
+     * Deletes a Task object from the specified list of tasks.
+     * 
+     * @param taskNumber The index of the task to be deleted.
+     * @throws DukeException If the task number is invalid.
+     */
     public void deleteTask(int taskNumber) throws DukeException {
         if (taskNumber > tasks.size() || taskNumber < 1) {
             throw new DukeException("Please enter a valid task number.");
@@ -32,10 +49,20 @@ public class TaskList {
         db.saveTask(tasks);
     }
 
+    /**
+     * Returns the list of tasks.
+     * 
+     * @return The method is returning the list of tasks.
+     */
     public void listAllTasks() {
         Ui.lsitAllTasks(tasks);
     }
 
+    /**
+     * Returns the list of tasks that contain the specified keyword.
+     * 
+     * @param keyword The keyword to be searched.
+     */
     public void markTaskAsDone(int taskNumber) throws DukeException{
         if (taskNumber > this.tasks.size() || taskNumber < 1) {
             throw new DukeException("Please enter a valid task number.");
@@ -47,6 +74,11 @@ public class TaskList {
         Ui.markAsDone(tsk);
     }
 
+    /**
+     * Returns the list of tasks that contain the specified keyword.
+     * 
+     * @param keyword The keyword to be searched.
+     */
     public void markTaskAsUndone(int taskNumber) throws DukeException{
         if (taskNumber > this.tasks.size() || taskNumber < 1) {
             throw new DukeException("Please enter a valid task number.");

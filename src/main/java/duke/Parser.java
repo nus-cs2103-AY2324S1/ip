@@ -5,17 +5,31 @@ import duke.task.EventTask;
 import duke.task.TaskList;
 import duke.task.TodoTask;
 
+/**
+ * Represents a parser that parses user input.
+ */
 public class Parser {
 
+    /** Represents the list of tasks. */
     private static TaskList tasks = new TaskList();
 
+    /** Represents the type of task. */
     private enum TaskType {
         TODO, DEADLINE, EVENT
     }
+
+    /** Represents the type of modification to be made. */
     private enum ModifyTask {
         MARK, UNMARK, DELETE
     }
 
+    /**
+     * Adds a Task object to the specified list of tasks.
+     * 
+     * @param tsk The type of task to be added.
+     * @param input The user input.
+     * @throws DukeException If the user input is invalid.
+     */
     private static void addTask(TaskType tsk, String input) throws DukeException{
         switch (tsk) {
         case TODO:
@@ -58,6 +72,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Modifies a Task object in the specified list of tasks.
+     * 
+     * @param mod The type of modification to be made.
+     * @param input The user input.
+     * @throws DukeException If the user input is invalid.
+     */
     private static void modifyTask(ModifyTask mod, String input) throws DukeException {
         String[] inputSplit = input.split(" ");
         switch (mod) {
@@ -96,6 +117,11 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses the user input and calls the appropriate method.
+     * 
+     * @param input The user input.
+     */
     public static void parseCommands(String input) {
         if (input.equals("list")) {
             tasks.listAllTasks();  

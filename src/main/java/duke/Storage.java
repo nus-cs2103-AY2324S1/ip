@@ -10,9 +10,19 @@ import java.util.ArrayList;
 
 import duke.task.Task;
 
+/**
+ * Represents a storage that stores the list of tasks.
+ */
 public class Storage {
+
+    /** Represents the path of the file that stores the list of tasks. */
     private String filePath;
 
+    /**
+     * Constructs a Storage object with the specified file path.
+     * 
+     * @param filePath The path of the file that stores the list of tasks.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
 
@@ -27,6 +37,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Saves the list of tasks to the file.
+     * 
+     * @param tasks The list of tasks.
+     */
     public void saveTask(ArrayList<Task> tasks) {
         try {
             FileOutputStream fos = new FileOutputStream(this.filePath);
@@ -39,6 +54,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Loads the list of tasks from the file.
+     * 
+     * @return The method is returning the list of tasks.
+     */
     public ArrayList<Task> loadTask() {
         try {
             FileInputStream fis = new FileInputStream(this.filePath);
