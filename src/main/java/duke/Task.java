@@ -1,3 +1,5 @@
+package duke;
+
 abstract public class Task {
     protected String task;
     protected Boolean completed = false;
