@@ -104,13 +104,13 @@ public class Ui {
     }
 
     /**
-     * Prints out the indicated error message to the user.
+     * Prints out the indicated  message to the user.
      *
-     * @param errorMessage Error message to be printed.
+     * @param message Message to be printed.
      */
-    public static void printError(String errorMessage) {
+    public static void printMessage(String message) {
         System.out.print(HORIZONTAL_LINE);
-        System.out.println(errorMessage);
+        System.out.println(message);
         System.out.print(HORIZONTAL_LINE);
     }
 

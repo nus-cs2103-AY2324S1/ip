@@ -120,7 +120,7 @@ public class Duke {
             try {
                 Parser.processInput(userInput, Duke.taskList.getSize());
             } catch (RuntimeException e) {
-                Ui.printError(e.getMessage());
+                Ui.printMessage(e.getMessage());
             } finally {
                 userInput = scanner.nextLine();
             }

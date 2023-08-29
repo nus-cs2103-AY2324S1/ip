@@ -108,7 +108,7 @@ public class Storage {
             fileWriter.append(taskList.getTextFormattedString());
             fileWriter.close();
         } catch (IOException e) {
-            Ui.printError(e.getMessage());
+            Ui.printMessage(e.getMessage());
         }
     }
 

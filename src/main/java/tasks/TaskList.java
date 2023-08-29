@@ -15,13 +15,13 @@ import exceptions.InvalidIndexException;
 public class TaskList {
     protected static final DateTimeFormatter DATETIME_FORMAT
             = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
-    protected ArrayList<Task> list;
+    protected ArrayList<Task> tasks;
 
     /**
      * Constructor, initializes array list.
      */
     public TaskList() {
-        this.list = new ArrayList<>();
+        this.tasks = new ArrayList<>();
     }
 
     /**
@@ -33,7 +33,7 @@ public class TaskList {
      */
     public Task addTodo(String desc, int isMarked) {
         Task task = new TodoTask(desc, isMarked);
-        this.list.add(task);
+        this.tasks.add(task);
         return task;
     }
 
@@ -50,7 +50,7 @@ public class TaskList {
             throws DateTimeParseException {
         LocalDateTime dateTime = LocalDateTime.parse(deadline, DATETIME_FORMAT);
         Task task = new DeadlineTask(desc, dateTime, isMarked);
-        this.list.add(task);
+        this.tasks.add(task);
         return task;
     }
 
@@ -69,7 +69,7 @@ public class TaskList {
         LocalDateTime dateTimeStart = LocalDateTime.parse(start, DATETIME_FORMAT);
         LocalDateTime dateTimeEnd = LocalDateTime.parse(end, DATETIME_FORMAT);
         Task task = new EventTask(desc, dateTimeStart, dateTimeEnd, isMarked);
-        this.list.add(task);
+        this.tasks.add(task);
         return task;
     }
 
@@ -80,13 +80,13 @@ public class TaskList {
      * @return Task which was marked done.
      */
     public Task markTaskAsDone(int i) {
-        if (this.list.size() < 1) {
+        if (this.tasks.size() < 1) {
             throw new DukeException("The task list is empty.");
         }
-        if (i < 1 || i > this.list.size()) {
-            throw new InvalidIndexException(this.list.size());
+        if (i < 1 || i > this.tasks.size()) {
+            throw new InvalidIndexException(this.tasks.size());
         }
-        Task task = this.list.get(i-1);
+        Task task = this.tasks.get(i-1);
         task.markAsDone();
         return task;
     }
@@ -98,13 +98,13 @@ public class TaskList {
      * @return Task which was marked not done.
      */
     public Task unmarkTask(int i) {
-        if (this.list.size() < 1) {
+        if (this.tasks.size() < 1) {
             throw new DukeException("The task list is empty.");
         }
-        if (i < 1 || i > this.list.size()) {
-            throw new InvalidIndexException(this.list.size());
+        if (i < 1 || i > this.tasks.size()) {
+            throw new InvalidIndexException(this.tasks.size());
         }
-        Task task = this.list.get(i-1);
+        Task task = this.tasks.get(i-1);
         task.unmark();
         return task;
     }
@@ -116,13 +116,13 @@ public class TaskList {
      * @return The deleted task.
      */
     public Task deleteTask(int i) {
-        if (this.list.size() < 1) {
+        if (this.tasks.size() < 1) {
             throw new DukeException("The task list is empty.");
         }
-        if (i < 1 || i > this.list.size()) {
-            throw new InvalidIndexException(this.list.size());
+        if (i < 1 || i > this.tasks.size()) {
+            throw new InvalidIndexException(this.tasks.size());
         }
-        Task task = this.list.remove(i-1);
+        Task task = this.tasks.remove(i-1);
         return task;
     }
 
@@ -132,7 +132,7 @@ public class TaskList {
      * @return Size of task list.
      */
     public int getSize() {
-        return this.list.size();
+        return this.tasks.size();
     }
 
     /**
@@ -142,7 +142,7 @@ public class TaskList {
      */
     public String getTextFormattedString() {
         StringBuilder str = new StringBuilder();
-        for (Task task : this.list) {
+        for (Task task : this.tasks) {
             str.append(task.getTextFormattedString() + "\n");
         }
         return str.toString();
@@ -156,15 +156,15 @@ public class TaskList {
     @Override
     public String toString() {
         StringBuilder str = new StringBuilder();
-        int len = this.list.size();
+        int len = this.tasks.size();
         if (len == 0) {
             return "The task list is empty.";
         }
         str.append("Here are the tasks in your list:\n");
         for (int i = 1; i < len; i++) {
-            str.append(i + ". " + this.list.get(i-1) + "\n");
+            str.append(i + ". " + this.tasks.get(i-1) + "\n");
         }
-        str.append(len + ". " + this.list.get(len-1));
+        str.append(len + ". " + this.tasks.get(len-1));
         return str.toString();
     }
 
