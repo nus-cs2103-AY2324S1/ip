@@ -52,6 +52,7 @@ public class Chatbot extends EventEmitter<ChatMessage> {
 
     /**
      * Returns an iterable representing the current full conversation.
+     *
      * @return An iterable of messages for the current conversation in chronological order.
      */
     public Iterable<ChatMessage> getConversation() {
@@ -60,6 +61,7 @@ public class Chatbot extends EventEmitter<ChatMessage> {
 
     /**
      * Returns the name of the chatbot.
+     *
      * @return The name of the chatbot as a String.
      */
     public String getName() {
@@ -251,6 +253,7 @@ public class Chatbot extends EventEmitter<ChatMessage> {
 
     /**
      * Internal method to process commands with numeric data as input.
+     *
      * @param chatCommand The command to process.
      * @throws ChatbotException if the data field does not have numeric data as input or any command-specific error.
      * @return `true` if the command was processed, `false` otherwise.
@@ -334,6 +337,7 @@ public class Chatbot extends EventEmitter<ChatMessage> {
 
     /**
      * Internal method to process commands with no data nor parameters as input.
+     *
      * @param chatCommand The command to process.
      * @throws ChatbotException if the data field in fact has data as input or any command-specific error.
      * @return `true` if the command was processed, `false` otherwise.
@@ -387,6 +391,7 @@ public class Chatbot extends EventEmitter<ChatMessage> {
 
     /**
      * Internal method to process commands that contain some data as input.
+     *
      * @param chatCommand The command to process.
      * @throws ChatbotException if the data field does not have data as input or any command-specific error.
      * @return `true` if the command was processed, `false` otherwise.

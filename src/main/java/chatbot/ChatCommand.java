@@ -14,6 +14,7 @@ import java.util.Map;
  */
 public class ChatCommand {
 
+    /** The prefix used to denote a parameter. */
     public static final String PARAMETER_PREFIX = "--";
 
     /**
