@@ -16,7 +16,7 @@ public class Deadline extends Task {
         String[] dtime = d.split(" ");
 
         if (this.inputs.length < 2) {
-            throw new DukeException("deadline has no end date!");
+            throw new DukeException(" Deadline has no end date!");
         }
         this.date = LocalDate.parse(dtime[0]);
     }
