@@ -34,7 +34,8 @@ public class EventTask extends ShibaTask {
             return new EventTask(matcher2.group(1), matcher2.group(3), matcher2.group(2));
         }
 
-        throw new InvalidCommandException("Invalid event format! Event name, /from and /to parameters must be present and not empty.");
+        throw new InvalidCommandException("Invalid event format! Event name, /from and"
+                + " /to parameters must be present and not empty.");
     }
 
     private final DateOptionalTime startTime;

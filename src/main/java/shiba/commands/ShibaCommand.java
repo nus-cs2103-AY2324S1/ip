@@ -72,7 +72,8 @@ public abstract class ShibaCommand {
         Replier.printWithLevel2Indent("Woof! I've added this task:");
         Replier.printWithLevel3Indent(task.toString());
         String taskWord = tasks.size() == 1 ? " task" : " tasks";
-        Replier.printWithLevel2Indent("You now have " + tasks.size() + taskWord + " in the list. Now gimme some treats.");
+        Replier.printWithLevel2Indent("You now have " + tasks.size() + taskWord
+                + " in the list. Now gimme some treats.");
         Replier.printHorizontalLine();
         tasks.save();
     }
