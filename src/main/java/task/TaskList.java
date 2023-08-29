@@ -5,6 +5,7 @@ import ui.Reply;
 import storage.Database;
 
 import java.util.ArrayList;
+import java.util.function.Consumer;
 
 /**
  * Class for manipulating the list of tasks
@@ -126,6 +127,26 @@ public class TaskList {
                 .append("     Now you have ")
                 .append(list.size())
                 .append(" tasks in the list.");
+        reply.printDialog(dialog.toString());
+    }
+
+    public void findTask(String keyword) {
+        StringBuilder dialog = new StringBuilder("Here are the matching tasks in your list with its correct " +
+                "corresponding index numbers: \n     ");
+
+        Task[] tasks = list.toArray(new Task[0]);
+
+        for (int i = 0; i < tasks.length; i++) {
+            Task task = tasks[i];
+            int listIndex = i + 1;
+
+            if (task.description.contains(keyword)) {
+                dialog.append(listIndex)
+                        .append(".")
+                        .append(task)
+                        .append("\n     ");
+            }
+        }
         reply.printDialog(dialog.toString());
     }
 }

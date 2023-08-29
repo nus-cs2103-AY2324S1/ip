@@ -20,8 +20,7 @@ public class DeadlineCommand {
     private static TaskList tasks = TaskList.init();
 
     /**
-     * Main process of Deadline Command. The choice of keeping the commands static is because there is no need for multiple
-     * instances of commands
+     * Main process of Deadline Command.
      * Prompts user to enter the task and deadline date and time before validating and adding it to the list.
      * Returns to homepage otherwise.
      */

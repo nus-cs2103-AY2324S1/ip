@@ -20,8 +20,7 @@ public class UnmarkCommand {
     private static TaskList tasks = TaskList.init();
 
     /**
-     * Main process of Unmark Command. The choice of keeping the command methods static is because there is no need
-     * for multiple instances of commands
+     * Main process of Unmark Command.
      * Validates the input after the unmark keyword in the string. Unmarks the task if it's a valid input.
      * Returns to homepage otherwise.
      * @param input String input containing the command and its arguments

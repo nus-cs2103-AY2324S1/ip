@@ -15,8 +15,7 @@ public class ToDoCommand {
     private static TaskList tasks = TaskList.init();
 
     /**
-     * Main process of todo Command. The choice of keeping the commands static is because there is no need for multiple
-     * instances of commands
+     * Main process of todo Command.
      * Prompts user to enter the task name before adding it to the list.
      */
     public static void start() {

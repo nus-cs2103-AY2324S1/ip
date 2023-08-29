@@ -22,8 +22,7 @@ public class EventCommand {
     private static TaskList tasks = TaskList.init();
 
     /**
-     * Main process of Event Command. The choice of keeping the commands static is because there is no need for multiple
-     * instances of commands
+     * Main process of Event Command.
      * Prompts user to enter the task, start and end date/time before validating and adding it to the list.
      * Returns to homepage otherwise.
      */

@@ -12,9 +12,7 @@ public enum Command {
     DEADLINE("deadline"),
     TODO("todo"),
     EVENT("event"),
-    BY("by"),
-    FROM("from"),
-    TO("to"),
+    FIND("find"),
     SKIP("skip");
 
     private String cmd;

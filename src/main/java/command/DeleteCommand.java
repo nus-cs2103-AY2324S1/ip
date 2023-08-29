@@ -18,8 +18,7 @@ public class DeleteCommand {
     private static TaskList tasks = TaskList.init();
 
     /**
-     * Main process of Delete Command. The choice of keeping the command methods static is because there is no need
-     * for multiple instances of commands
+     * Main process of Delete Command.
      * Validates the input after the delete keyword in the string. Deletes the task if it's a vlid input.
      * Returns to homepage otherwise.
      * @param input String input containing the command and its arguments
