@@ -1,12 +1,15 @@
 package commands;
 
-import utility.PrintUtility;
+import parser.ParseInfo;
+import tasks.TaskList;
 
-import java.util.List;
+public class UnknownCommand extends Command {
+  public UnknownCommand(TaskList taskList, ParseInfo parseInfo) {
+    super(taskList, parseInfo);
+  }
 
-public class UnknownCommand implements ICommand {
   @Override
-  public void execute(List<String> parts) {
-    PrintUtility.printText("I'm sorry, I don't know what that means :(");
+  public void execute() throws CommandError {
+    throw new CommandError("I'm sorry, I don't know what that means :(");
   }
 }

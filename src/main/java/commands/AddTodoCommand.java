@@ -1,24 +1,21 @@
 package commands;
 
+import parser.ParseInfo;
 import tasks.TaskList;
 import tasks.ToDo;
-import utility.PrintUtility;
+import ui.Ui;
 
-import java.util.List;
+public class AddTodoCommand extends Command {
+  public AddTodoCommand(TaskList taskList, ParseInfo parseInfo) {
+    super(taskList, parseInfo);
+  }
 
-public class AddTodoCommand implements ICommand {
   @Override
-  public void execute(List<String> parts) {
-    TaskList tasks = TaskList.getInstance();
-
-    // TODO: Handle this with error instead
-    if (parts.size() == 1) {
-      PrintUtility.printText("ToDo is missing a body!");
-      return;
-    }
-    String content = String.join(" ", parts.subList(1, parts.size()));
+  public void execute() throws CommandError {
+    if (this.parseInfo.hasNoArgument()) throw new CommandError("ToDo is missing a body!");
+    String content = String.join(" ", this.parseInfo.getArgument());
     ToDo todo = new ToDo(content);
-    tasks.addTask(todo);
-    PrintUtility.printAddTask(todo);
+    this.taskList.addTask(todo);
+    Ui.printAddTask(todo, this.taskList.size());
   }
 }

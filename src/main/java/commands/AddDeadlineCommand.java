@@ -1,41 +1,36 @@
 package commands;
 
+import parser.ParseInfo;
 import tasks.Deadline;
 import tasks.Task;
 import tasks.TaskList;
+import ui.Ui;
 import utility.DateUtility;
-import utility.PrintUtility;
 
 import java.time.LocalDate;
-import java.util.List;
+import java.util.HashMap;
 
-public class AddDeadlineCommand implements ICommand {
+public class AddDeadlineCommand extends Command {
+  public AddDeadlineCommand(TaskList taskList, ParseInfo parseInfo) {
+    super(taskList, parseInfo);
+  }
+
   @Override
-  public void execute(List<String> parts) {
-    TaskList tasks = TaskList.getInstance();
+  public void execute() throws CommandError {
+    if (this.parseInfo.hasNoArgument()) throw new CommandError("Deadline is missing a body!");
 
-    if (parts.size() == 1) {
-      PrintUtility.printText("Deadline is missing a body!");
-      return;
-    }
+    HashMap<String, String> options = this.parseInfo.getOptions();
+    if (!options.containsKey("by")) throw new CommandError("Invalid deadline format: missing /by");
 
-    int byIdx = parts.indexOf("/by");
-    if (byIdx == -1) {
-      PrintUtility.printText("Invalid deadline format: missing /by");
-      return;
-    }
-
-    String deadlineName = String.join(" ", parts.subList(1, byIdx));
-    String deadlineBy = String.join(" ", parts.subList(byIdx + 1, parts.size()));
-
+    String deadlineName = this.parseInfo.getArgument();
+    String deadlineBy = this.parseInfo.getOptions().get("by");
     LocalDate deadlineDate = DateUtility.parse(deadlineBy);
     if (deadlineDate == null) {
-      PrintUtility.printText("Invalid deadline format: invalid date string, must be format " +
-          "dd/MM/yyyy");
-      return;
+      throw new CommandError("Invalid deadline format: invalid by string, must be format dd/MM/yyyy");
     }
+
     Task deadline = new Deadline(deadlineName, deadlineDate);
-    tasks.addTask(deadline);
-    PrintUtility.printAddTask(deadline);
+    this.taskList.addTask(deadline);
+    Ui.printAddTask(deadline, this.taskList.size());
   }
 }

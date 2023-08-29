@@ -1,14 +1,13 @@
-package utility;
+package ui;
 
 import tasks.Task;
-import tasks.TaskList;
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public class PrintUtility {
+public class Ui {
   private final static String delimiter = "-".repeat(80);
   private final static int indentation = 4;
 
@@ -27,12 +26,11 @@ public class PrintUtility {
     System.out.printf("%s%s\n", frontPadding, delimiter);
   }
 
-  public static void printAddTask(Task task) {
-    TaskList tasks = TaskList.getInstance();
+  public static void printAddTask(Task task, int taskListSize) {
     printText(
         "Got it. I've added this task:",
         task.toString(),
-        String.format("Now you have %d tasks in the list.", tasks.size())
+        String.format("Now you have %d tasks in the list.", taskListSize)
     );
   }
 }

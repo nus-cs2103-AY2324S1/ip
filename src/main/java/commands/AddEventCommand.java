@@ -1,61 +1,47 @@
 package commands;
 
+import parser.ParseInfo;
 import tasks.Event;
 import tasks.Task;
 import tasks.TaskList;
+import ui.Ui;
 import utility.DateUtility;
-import utility.PrintUtility;
 
 import java.time.LocalDate;
-import java.util.List;
+import java.util.HashMap;
 
-public class AddEventCommand implements ICommand {
+public class AddEventCommand extends Command {
+  public AddEventCommand(TaskList taskList, ParseInfo parseInfo) {
+    super(taskList, parseInfo);
+  }
+
   @Override
-  public void execute(List<String> parts) {
-    TaskList tasks = TaskList.getInstance();
+  public void execute() throws CommandError {
+    if (this.parseInfo.hasNoArgument()) throw new CommandError("Event is missing a body!");
 
-    if (parts.size() == 1) {
-      PrintUtility.printText("Event is missing a body!");
-      return;
-    }
+    HashMap<String, String> options = this.parseInfo.getOptions();
+    if (!options.containsKey("from")) throw new CommandError("Invalid event format: missing /from");
+    if (!options.containsKey("to")) throw new CommandError("Invalid event format: missing /to");
 
-    int fromIdx = parts.indexOf("/from");
-    if (fromIdx == -1) {
-      PrintUtility.printText("Invalid event format: missing /from");
-      return;
-    }
-
-    int toIdx = parts.indexOf("/to");
-    if (toIdx == -1) {
-      PrintUtility.printText("Invalid event format: missing /to");
-      return;
-    }
-
-    if (toIdx < fromIdx) {
-      PrintUtility.printText("/from should come before /to");
-      return;
-    }
-
-    String eventName = String.join(" ", parts.subList(1, fromIdx));
-    String eventFrom = String.join(" ", parts.subList(fromIdx + 1, toIdx));
-    String eventTo = String.join(" ", parts.subList(toIdx + 1, parts.size()));
+    String eventName = this.parseInfo.getArgument();
+    String eventFrom = options.get("from");
+    String eventTo = options.get("to");
 
     LocalDate eventFromDate = DateUtility.parse(eventFrom);
-    if (eventFromDate == null) {
-      PrintUtility.printText("Invalid event format: invalid from string, must be format " +
-          "dd/MM/yyyy");
-      return;
+    LocalDate eventToDate = DateUtility.parse(eventTo);
+
+    if (eventFrom == null) {
+      throw new CommandError("Invalid event format: invalid from string, must be format" +
+          " dd/MM/yyyy");
     }
 
-    LocalDate eventToDate = DateUtility.parse(eventTo);
     if (eventToDate == null) {
-      PrintUtility.printText("Invalid event format: invalid to string, must be format " +
-          "dd/MM/yyyy");
-      return;
+      throw new CommandError("Invalid event format: invalid to string, must be format" +
+          " dd/MM/yyyy");
     }
 
     Task event = new Event(eventName, eventFromDate, eventToDate);
-    tasks.addTask(event);
-    PrintUtility.printAddTask(event);
+    this.taskList.addTask(event);
+    Ui.printAddTask(event, this.taskList.size());
   }
 }
