@@ -21,16 +21,8 @@ public class Storage {
     }
 
     public void saveListToDisk(ArrayList<Task> taskList) {
-        File data = new File(filePath);
-        // checks if data folder and duke.txt exists, else create file
-        if (!data.exists()) {
-            try {
-                data.getParentFile().mkdirs();
-                data.createNewFile();
-            } catch (IOException e) {
-                System.out.println("Something went wrong: " + e.getMessage());
-            }
-        }
+        createFile(this.filePath);
+
         try {
             FileWriter fw = new FileWriter(filePath);
             System.out.println("Saving list to disk...");
@@ -43,11 +35,25 @@ public class Storage {
         }
     }
 
+    private void createFile(String path) {
+        File file = new File(path);
+        // checks if data folder and duke.txt exists, else create file
+        if (!file.exists()) {
+            try {
+                file.getParentFile().mkdirs();
+                file.createNewFile();
+            } catch (IOException e) {
+                System.out.println("Something went wrong: " + e.getMessage());
+            }
+        }
+    }
+
     public ArrayList<Task> load() throws DukeException {
         ArrayList<Task> taskList = new ArrayList<>();
 
         File f = new File(filePath);
         Scanner s = new Scanner(filePath);
+
         try {
             s = new Scanner(f);
         } catch (FileNotFoundException e) {
@@ -71,32 +77,13 @@ public class Storage {
                 break;
             case "DEADLINE":
                 String by = details[2].trim();
-                LocalDate byDate;
-
-                try {
-                    byDate = LocalDate.parse(by);
-                } catch (Exception e) {
-                    throw new DukeException("Please enter a valid date in the format: yyyy-mm-dd");
-                }
-
-                task = new DeadlineTask(taskDescription, byDate);
+                task = createDeadlineTask(taskDescription, by);
                 break;
             case "EVENT":
                 String from = details[2].trim();
                 String to = details[3].trim();
-
-                LocalDate fromDate;
-                LocalDate toDate;
-
-                try {
-                    // convert date string in the format of yyyy-mm-dd to LocalDate object
-                    fromDate = LocalDate.parse(from);
-                    // convert LocalDate object to MMM dd yyyy format
-                    toDate = LocalDate.parse(to);
-                } catch (Exception e) {
-                    throw new DukeException("Please enter a valid date in the format: yyyy-mm-dd");
-                }
-                task = new EventTask(taskDescription, fromDate, toDate);
+                
+                task = createEventTask(taskDescription, from, to);
                 break;
             default:
                 throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what the loaded command is :-(");
@@ -108,5 +95,33 @@ public class Storage {
         }
 
         return taskList;
+    }
+
+    private DeadlineTask createDeadlineTask(String taskDescription, String by) throws DukeException {
+        LocalDate byDate;
+
+        try {
+            byDate = LocalDate.parse(by);
+        } catch (Exception e) {
+            throw new DukeException("Please enter a valid date in the format: yyyy-mm-dd");
+        }
+
+        return new DeadlineTask(taskDescription, byDate);
+    }
+
+    private EventTask createEventTask(String taskDescription, String from, String to) throws DukeException {
+        LocalDate fromDate;
+        LocalDate toDate;
+
+        try {
+            // convert date string in the format of yyyy-mm-dd to LocalDate object
+            fromDate = LocalDate.parse(from);
+            // convert LocalDate object to MMM dd yyyy format
+            toDate = LocalDate.parse(to);
+        } catch (Exception e) {
+            throw new DukeException("Please enter a valid date in the format: yyyy-mm-dd");
+        }
+
+        return new EventTask(taskDescription, fromDate, toDate);
     }
 }
