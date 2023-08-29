@@ -5,6 +5,8 @@ import java.util.ArrayList;
 public class TaskList {
     private ArrayList<Task> l = new ArrayList<>();
 
+    public TaskList() {};
+
     public TaskList(ArrayList<Task> list) {
         this.l = list;
     }
