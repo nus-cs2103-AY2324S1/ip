@@ -2,10 +2,12 @@ package Duke.storage;
 
 import Duke.exception.FileNotFoundException;
 import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Storage {
     String filePath;
-    private final File file;
+    private File file;
     private BufferedWriter bufferedWriter;
 
     public Storage(String filePath) throws FileNotFoundException {
@@ -47,28 +49,28 @@ public class Storage {
 
 
     public void RemoveLine(int lineIndex) {
-        File tempFile;
         try {
-            tempFile = new File("C:\\Users\\ortt2\\Documents\\ip\\src\\data\\temp.txt");
-            BufferedWriter tempWriter = new BufferedWriter(new FileWriter(tempFile, false));
+            List<String> lines = new ArrayList<>();
             BufferedReader bufferedReader = new BufferedReader(new FileReader(file));
             String line;
             int currentLine = 1;
             while ((line = bufferedReader.readLine()) != null) {
                 if (currentLine != lineIndex) {
-                    tempWriter.write(line);
-                    tempWriter.newLine();
+                    lines.add(line);
                 }
                 currentLine++;
             }
-            tempWriter.close();
             bufferedWriter.close();
             bufferedReader.close();
-            if (!tempFile.renameTo(file)) {
-                System.err.println("Could not rename temp file.");
-            }
+
+            file = new File(filePath);
+
             bufferedWriter = new BufferedWriter(new FileWriter(file));
-            System.out.println("Line deleted successfully.");
+            for (String lineToAdd : lines) {
+                bufferedWriter.write(lineToAdd);
+                bufferedWriter.newLine();
+            }
+            bufferedWriter.flush();
         } catch (IOException e) {
             e.printStackTrace();
         }
