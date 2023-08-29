@@ -9,7 +9,7 @@ import ren.task.Event;
 import ren.task.TaskList;
 import ren.task.ToDo;
 
-import java.io.*;
+import java.io.File;
 import java.nio.file.Path;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
@@ -44,13 +44,13 @@ public final class RenObjectMapper {
                 java.nio.file.Files.createDirectories(path.getParent());
                 java.nio.file.Files.createFile(path);
             }
-            FileWriter myWriter = new FileWriter(path.toString());
+            java.io.FileWriter myWriter = new java.io.FileWriter(path.toString());
             myWriter.write(json);
             myWriter.close();
         } catch (JsonProcessingException e) {
             System.out.println("An JSON error occurred.");
             e.printStackTrace();
-        } catch (IOException e) {
+        } catch (java.io.IOException e) {
             System.out.println("An IO error occurred.");
             e.printStackTrace();
         }
@@ -81,15 +81,15 @@ public final class RenObjectMapper {
             System.out.println("Successfully read from the file.");
             sc.close();
             return taskList;
-        } catch (FileNotFoundException e) {
-            try (InputStream inputStream = RenObjectMapper.class.getResourceAsStream("/cacheTaskList.txt");
-                 BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream))) {
+        } catch (java.io.FileNotFoundException e) {
+            try (java.io.InputStream inputStream = RenObjectMapper.class.getResourceAsStream("/cacheTaskList.txt");
+                 java.io.BufferedReader reader = new java.io.BufferedReader(new java.io.InputStreamReader(inputStream))) {
                 String contents = reader.lines()
                         .collect(Collectors.joining(System.lineSeparator()));
                 taskList = objectMapper.readValue(contents, TaskList.class);
                 System.out.println("Successfully read from the file.");
                 return taskList;
-            } catch (IOException ioException) {
+            } catch (java.io.IOException ioException) {
                 System.out.println("Can't read from cache file");
                 ioException.printStackTrace();
             }
@@ -102,7 +102,7 @@ public final class RenObjectMapper {
         } catch (NoSuchElementException e) {
             System.out.println("No Cache");
             taskList = new TaskList();
-        } catch (IOException e) {
+        } catch (java.io.IOException e) {
             System.out.println("An IO error occurred.");
             e.printStackTrace();
         }
