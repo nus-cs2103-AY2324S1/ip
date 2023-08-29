@@ -1,5 +1,7 @@
-import Commands.*;
-import Task.TaskList;
+import command.*;
+import exception.IllegalExpressionBotException;
+import exception.IncompleteBotException;
+import task.TaskList;
 
 import java.util.Scanner;
 
@@ -18,19 +20,23 @@ public class Ui {
         this.taskLst = taskLst;
     }
 
-    public void start() {
+    public void start() throws IllegalExpressionBotException, IncompleteBotException {
         System.out.println(Ui.INTRO);
         this.begin();
     }
 
-    private void begin() {
+    private void begin() throws IncompleteBotException, IllegalExpressionBotException {
         String str;
         ControlFlow control = new ControlFlow(taskLst);
-        Command command;
+        Command command = null;
         do {
             str = sc.nextLine();
-            command = control.execute(str);
-            command.execute();
+            try {
+                command = control.execute(str);
+                command.execute();
+            } catch (IncompleteBotException | IllegalExpressionBotException e) {
+                System.out.println(e);
+            }
         } while (!(command instanceof TerminateCommand));
     }
 

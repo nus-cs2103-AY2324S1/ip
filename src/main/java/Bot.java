@@ -1,4 +1,6 @@
-import Task.TaskList;
+import exception.IllegalExpressionBotException;
+import exception.IncompleteBotException;
+import task.TaskList;
 
 import java.util.Scanner;
 
@@ -12,7 +14,7 @@ public class Bot {
         this.ui = new Ui(new Scanner(System.in), this.taskLst);
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IllegalExpressionBotException, IncompleteBotException {
         Bot bot = new Bot();
         bot.start();
 //        String str = sc.nextLine();
@@ -51,7 +53,7 @@ public class Bot {
 //                "____________________________________________________________");
     }
 
-    public void start() {
+    public void start() throws IllegalExpressionBotException, IncompleteBotException {
         this.ui.start();
     }
 }

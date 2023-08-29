@@ -1,4 +1,4 @@
-package Task;
+package task;
 
 public abstract class Task {
     private static final String COMPLETE = "[X] ";

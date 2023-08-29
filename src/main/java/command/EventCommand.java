@@ -1,7 +1,7 @@
-package Commands;
+package command;
 
-import Task.TaskList;
-import Task.Event;
+import task.TaskList;
+import task.Event;
 
 public class EventCommand extends Command {
 

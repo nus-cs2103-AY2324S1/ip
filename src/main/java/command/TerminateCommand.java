@@ -1,4 +1,4 @@
-package Commands;
+package command;
 
 public class TerminateCommand extends Command {
     private static final String MESSAGE = "____________________________________________________________\n" +

@@ -1,4 +1,4 @@
-package Task;
+package task;
 
 public class Todo extends Task {
     private static final String TASK_HEADER = "[T] ";

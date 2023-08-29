@@ -1,20 +1,20 @@
-package Commands;
+package command;
 
-import Task.TaskList;
-import Task.Todo;
+import task.TaskList;
+import task.Deadline;
 
-public class TodoCommand extends Command {
+public class DeadlineCommand extends Command {
 
     private final TaskList taskList;
-    private final Todo todo;
+    private final Deadline deadline;
 
-    public TodoCommand(TaskList taskList, String taskDetail) {
+    public DeadlineCommand(TaskList taskList, String taskDetail, String dueDate) {
         this.taskList = taskList;
-        this.todo = new Todo(taskDetail);
+        this.deadline = new Deadline(taskDetail, dueDate);
     }
 
     public void execute() {
-        this.taskList.add(this.todo);
+        this.taskList.add(this.deadline);
         System.out.println(this);
     }
 
@@ -23,16 +23,15 @@ public class TodoCommand extends Command {
         if (this.taskList.length() <= 1) {
             return Command.SPACER + "\n" +
                     "Got it. I've added this task:\n" +
-                    this.todo + "\n" +
+                    this.deadline + "\n" +
                     "Now you have " + this.taskList.length() + " task in the list.\n" +
                     Command.SPACER;
         } else {
             return Command.SPACER + "\n" +
                     "Got it. I've added this task:\n" +
-                    this.todo + "\n" +
+                    this.deadline + "\n" +
                     "Now you have " + this.taskList.length() + " tasks in the list.\n" +
                     Command.SPACER;
         }
     }
-
 }

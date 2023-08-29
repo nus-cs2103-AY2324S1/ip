@@ -1,25 +1,25 @@
-package Commands;
+package command;
 
-import Task.TaskList;
-import Task.Task;
+import task.TaskList;
+import task.Task;
 
-public class UnmarkCommand extends Command {
+public class MarkCommand extends Command {
     private final Task task;
 
 
-    public UnmarkCommand(TaskList taskList, String taskDetail) {
+    public MarkCommand(TaskList taskList, String taskDetail) {
         this.task = taskList.get(Integer.parseInt(taskDetail) - 1);
     }
 
     public void execute() {
-        this.task.setIncomplete();
+        this.task.setComplete();
         System.out.println(this);
     }
 
     @Override
     public String toString() {
         return Command.SPACER + "\n" +
-                "OK, I've marked this task as not done yet:\n" +
+                "Nice! I've marked this task as done:\n" +
                 this.task + "\n" +
                 Command.SPACER;
     }
