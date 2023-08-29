@@ -1,4 +1,4 @@
-public class Task {
+public abstract class Task {
 
     private String name;
     private boolean done;
@@ -8,14 +8,18 @@ public class Task {
         this.done = false;
     }
 
-    public void markAsDone() {
+    public void markAsDone(boolean display) {
         this.done = true;
-        System.out.println("\nNice! I've marked this task as done:\n  " + this + "\n");
+        if (display) {
+            System.out.println("\nNice! I've marked this task as done:\n  " + this + "\n");
+        }
     }
 
-    public void unmarkAsDone() {
+    public void unmarkAsDone(boolean display) {
         this.done = false;
-        System.out.println("\nNice! I've unmarked this task as done:\n  " + this + "\n");
+        if (display) {
+            System.out.println("\nNice! I've unmarked this task as done:\n  " + this + "\n");
+        }
     }
 
     @Override
@@ -23,5 +27,15 @@ public class Task {
         char markDone = this.done ? 'X' : ' ';
         return "[" + markDone + "] " + this.name;
     }
+
+    public String getName() {
+        return this.name;
+    }
+
+    public boolean isDone() {
+        return this.done;
+    }
+
+    abstract String convertTaskToString();
 
 }

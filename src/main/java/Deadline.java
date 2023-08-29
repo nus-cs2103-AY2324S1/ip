@@ -10,4 +10,8 @@ public class Deadline extends Task{
     public String toString() {
         return "[D]" + super.toString() + " (by: " + this.by + ")";
     }
+
+    public String convertTaskToString() {
+        return "D | " + (super.isDone() ? "1" : "0") + " | " + super.getName() + " | " + this.by;
+    }
 }
