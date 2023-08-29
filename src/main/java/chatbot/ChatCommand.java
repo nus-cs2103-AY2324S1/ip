@@ -7,9 +7,9 @@ import java.util.Map;
  * An abstraction for an instruction command derived from a chat message.
  *
  * <p>
- *     This class represents a simple command structure with name, data, parameters.
- *     It also provides convenience parser methods to automatically parse an instruction String into a command,
- *     and enum lookups for known command operation types.
+ * This class represents a simple command structure with name, data, parameters. It also provides convenience parser
+ * methods to automatically parse an instruction String into a command, and enum lookups for known command operation
+ * types.
  * </p>
  */
 public class ChatCommand {
@@ -42,8 +42,8 @@ public class ChatCommand {
     /**
      * Constructs a command with the given properties.
      *
-     * @param name The name of the command. Cannot be null.
-     * @param data The data of the command. Cannot be null; supply empty string if no data.
+     * @param name   The name of the command. Cannot be null.
+     * @param data   The data of the command. Cannot be null; supply empty string if no data.
      * @param params The parameters of the command. May be null.
      */
     public ChatCommand(String name, String data, Map<String, String> params) {
@@ -63,7 +63,7 @@ public class ChatCommand {
      * Parses a string instruction as a command.
      *
      * <p>
-     *     This expects the format: "commandName Some long data text --key1 value1 --key2 value2".
+     * This expects the format: "commandName Some long data text --key1 value1 --key2 value2".
      * </p>
      *
      * @param instruction The string instruction to parse.
@@ -137,8 +137,8 @@ public class ChatCommand {
      * Parses a string instruction's command name.
      *
      * <p>
-     *     This expects the format: "commandName Some long data text --key1 value1 --key2 value2".
-     *     It only returns the commandName component, and does not attempt to read anything beyond that.
+     * This expects the format: "commandName Some long data text --key1 value1 --key2 value2". It only returns the
+     * commandName component, and does not attempt to read anything beyond that.
      * </p>
      *
      * @param instruction The string instruction to parse.
@@ -169,20 +169,27 @@ public class ChatCommand {
         }
 
         switch (this.name) {
-            case "todo": return this.type = Operation.AddTodo;
-            case "event": return this.type = Operation.AddEvent;
-            case "deadline": return this.type = Operation.AddDeadline;
+        case "todo":
+            return this.type = Operation.AddTodo;
+        case "event":
+            return this.type = Operation.AddEvent;
+        case "deadline":
+            return this.type = Operation.AddDeadline;
 
-            case "delete": return this.type = Operation.Delete;
+        case "delete":
+            return this.type = Operation.Delete;
 
-            case "mark": return this.type = Operation.MarkComplete;
-            case "unmark": return this.type = Operation.UnmarkComplete;
+        case "mark":
+            return this.type = Operation.MarkComplete;
+        case "unmark":
+            return this.type = Operation.UnmarkComplete;
 
-            case "list": return this.type = Operation.List;
+        case "list":
+            return this.type = Operation.List;
 
-            case "bye":
-            case "exit":
-                return this.type = Operation.Exit;
+        case "bye":
+        case "exit":
+            return this.type = Operation.Exit;
         }
 
         return this.type = Operation.Unknown;

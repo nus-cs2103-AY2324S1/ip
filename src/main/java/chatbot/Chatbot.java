@@ -19,13 +19,15 @@ import java.util.ArrayList;
  * A chatbot to interact with.
  *
  * <p>
- *     This class is an abstraction over a chatbot that also supplies methods to allow
- *     users to easily interact with the bot, and for UI clients to subscribe to chat messages.
+ * This class is an abstraction over a chatbot that also supplies methods to allow users to easily interact with the
+ * bot, and for UI clients to subscribe to chat messages.
  * </p>
  */
 public class Chatbot extends EventEmitter<ChatMessage> {
 
-    /** The default name of the chatbot. */
+    /**
+     * The default name of the chatbot.
+     */
     public final static String DEFAULT_NAME = "Todoify";
 
 
@@ -35,12 +37,11 @@ public class Chatbot extends EventEmitter<ChatMessage> {
     private boolean closed;
 
 
-
     /**
-     * Creates a new chatbot with the given custom name.
-     * To start talking with it, call {@link Chatbot#openConversation()}.
+     * Creates a new chatbot with the given custom name. To start talking with it, call
+     * {@link Chatbot#openConversation()}.
      *
-     * @param name The name of the chatbot. Uses the default if null.
+     * @param name        The name of the chatbot. Uses the default if null.
      * @param taskManager The task manager the chatbot should utilise. Uses the default if null.
      */
     public Chatbot(String name, TaskManager taskManager) {
@@ -52,6 +53,7 @@ public class Chatbot extends EventEmitter<ChatMessage> {
 
     /**
      * Returns an iterable representing the current full conversation.
+     *
      * @return An iterable of messages for the current conversation in chronological order.
      */
     public Iterable<ChatMessage> getConversation() {
@@ -60,6 +62,7 @@ public class Chatbot extends EventEmitter<ChatMessage> {
 
     /**
      * Returns the name of the chatbot.
+     *
      * @return The name of the chatbot as a String.
      */
     public String getName() {
@@ -132,6 +135,7 @@ public class Chatbot extends EventEmitter<ChatMessage> {
 
     /**
      * Returns whether a conversation with the chatbot is open, which means messages can be sent.
+     *
      * @return true if the conversation is open, false otherwise.
      */
     public boolean isConversationOpen() {
@@ -140,6 +144,7 @@ public class Chatbot extends EventEmitter<ChatMessage> {
 
     /**
      * Returns whether the conversation has clased, which means messages can no longer be sent.
+     *
      * @return true if the conversation is closed, false otherwise.
      */
     public boolean isConversationClosed() {
@@ -148,6 +153,7 @@ public class Chatbot extends EventEmitter<ChatMessage> {
 
     /**
      * Method to send a message to the chatbot from the user.
+     *
      * @param message The message string to send.
      * @return The resulting message sent.
      * @throws ChatbotRuntimeException if the conversation is closed.
@@ -161,10 +167,9 @@ public class Chatbot extends EventEmitter<ChatMessage> {
     }
 
 
-
-
     /**
      * Internal method to send a message.
+     *
      * @param message The message to send.
      * @return The resulting message sent.
      */
@@ -177,6 +182,7 @@ public class Chatbot extends EventEmitter<ChatMessage> {
 
     /**
      * Internal method to process newly received messages.
+     *
      * @param message The message to process.
      */
     private void processMessage(ChatMessage message) {
@@ -196,6 +202,7 @@ public class Chatbot extends EventEmitter<ChatMessage> {
 
     /**
      * Internal method to process newly received commands.
+     *
      * @param chatCommand The command to process.
      */
     private void processCommand(ChatCommand chatCommand) {
@@ -204,26 +211,26 @@ public class Chatbot extends EventEmitter<ChatMessage> {
         try {
             boolean dataProcessed = false;
             switch (chatCommand.getOperation()) {
-                case MarkComplete:
-                case UnmarkComplete:
-                case Delete:
-                    dataProcessed = this.processCommandAssertNumericData(chatCommand);
-                    break;
+            case MarkComplete:
+            case UnmarkComplete:
+            case Delete:
+                dataProcessed = this.processCommandAssertNumericData(chatCommand);
+                break;
 
-                case AddTodo:
-                case AddDeadline:
-                case AddEvent:
-                    dataProcessed = this.processCommandAssertHasData(chatCommand);
-                    break;
+            case AddTodo:
+            case AddDeadline:
+            case AddEvent:
+                dataProcessed = this.processCommandAssertHasData(chatCommand);
+                break;
 
-                case List:
-                case Exit:
-                    dataProcessed = this.processCommandAssertNoData(chatCommand);
-                    break;
+            case List:
+            case Exit:
+                dataProcessed = this.processCommandAssertNoData(chatCommand);
+                break;
 
-                case Unknown:
-                default:
-                    break;
+            case Unknown:
+            default:
+                break;
             }
             if (!dataProcessed) {
                 throw new ChatbotException(FAILURE_MESSAGE_REPLY);
@@ -234,7 +241,11 @@ public class Chatbot extends EventEmitter<ChatMessage> {
             e.printStackTrace();
             this.sendMessage(
                     ChatMessage.SenderType.CHATBOT,
-                    String.format("Oh no, something's wrong! [%s] %s", e.getClass().getSimpleName(), e.getLocalizedMessage())
+                    String.format(
+                            "Oh no, something's wrong! [%s] %s",
+                            e.getClass().getSimpleName(),
+                            e.getLocalizedMessage()
+                    )
             );
         }
 
@@ -244,25 +255,30 @@ public class Chatbot extends EventEmitter<ChatMessage> {
             this.sendMessage(
                     ChatMessage.SenderType.CHATBOT,
                     "Oops! I'm having problems saving your data to storage. Your data may not be preserved." +
-                            String.format("The error was: [%s] %s", e.getClass().getSimpleName(), e.getLocalizedMessage())
+                            String.format(
+                                    "The error was: [%s] %s",
+                                    e.getClass().getSimpleName(),
+                                    e.getLocalizedMessage()
+                            )
             );
         }
     }
 
     /**
      * Internal method to process commands with numeric data as input.
+     *
      * @param chatCommand The command to process.
-     * @throws ChatbotException if the data field does not have numeric data as input or any command-specific error.
      * @return `true` if the command was processed, `false` otherwise.
+     * @throws ChatbotException if the data field does not have numeric data as input or any command-specific error.
      */
     public boolean processCommandAssertNumericData(ChatCommand chatCommand) throws ChatbotException {
         switch (chatCommand.getOperation()) {
-            case MarkComplete:
-            case UnmarkComplete:
-            case Delete:
-                break;
-            default:
-                return false;
+        case MarkComplete:
+        case UnmarkComplete:
+        case Delete:
+            break;
+        default:
+            return false;
         }
 
         int index;
@@ -334,17 +350,18 @@ public class Chatbot extends EventEmitter<ChatMessage> {
 
     /**
      * Internal method to process commands with no data nor parameters as input.
+     *
      * @param chatCommand The command to process.
-     * @throws ChatbotException if the data field in fact has data as input or any command-specific error.
      * @return `true` if the command was processed, `false` otherwise.
+     * @throws ChatbotException if the data field in fact has data as input or any command-specific error.
      */
     public boolean processCommandAssertNoData(ChatCommand chatCommand) throws ChatbotException {
         switch (chatCommand.getOperation()) {
-            case List:
-            case Exit:
-                break;
-            default:
-                return false;
+        case List:
+        case Exit:
+            break;
+        default:
+            return false;
         }
 
         if (!chatCommand.getData().isBlank() || chatCommand.hasParams()) {
@@ -355,30 +372,30 @@ public class Chatbot extends EventEmitter<ChatMessage> {
         }
 
         switch (chatCommand.getOperation()) {
-            case List:
-                StringBuilder builder = new StringBuilder();
+        case List:
+            StringBuilder builder = new StringBuilder();
 
-                if (this.taskManager.getTaskCount() > 0) {
-                    builder.append("Here are your tasks, glhf! :)");
-                } else {
-                    builder.append("Oh nice! You have no tasks! :>");
-                }
+            if (this.taskManager.getTaskCount() > 0) {
+                builder.append("Here are your tasks, glhf! :)");
+            } else {
+                builder.append("Oh nice! You have no tasks! :>");
+            }
 
-                int count = 1;
-                for (Task task : this.taskManager.getTasks()) {
-                    builder.append("\n");
-                    builder.append(count);
-                    builder.append(". ");
-                    builder.append(task.toString());
-                    count++;
-                }
+            int count = 1;
+            for (Task task : this.taskManager.getTasks()) {
+                builder.append("\n");
+                builder.append(count);
+                builder.append(". ");
+                builder.append(task.toString());
+                count++;
+            }
 
-                this.sendMessage(ChatMessage.SenderType.CHATBOT, builder.toString());
-                break;
+            this.sendMessage(ChatMessage.SenderType.CHATBOT, builder.toString());
+            break;
 
-            case Exit:
-                this.closeConversation();
-                break;
+        case Exit:
+            this.closeConversation();
+            break;
         }
 
         return true;
@@ -387,18 +404,19 @@ public class Chatbot extends EventEmitter<ChatMessage> {
 
     /**
      * Internal method to process commands that contain some data as input.
+     *
      * @param chatCommand The command to process.
-     * @throws ChatbotException if the data field does not have data as input or any command-specific error.
      * @return `true` if the command was processed, `false` otherwise.
+     * @throws ChatbotException if the data field does not have data as input or any command-specific error.
      */
     public boolean processCommandAssertHasData(ChatCommand chatCommand) throws ChatbotException {
         switch (chatCommand.getOperation()) {
-            case AddTodo:
-            case AddDeadline:
-            case AddEvent:
-                break;
-            default:
-                return false;
+        case AddTodo:
+        case AddDeadline:
+        case AddEvent:
+            break;
+        default:
+            return false;
         }
 
         if (chatCommand.getData().isBlank()) {
@@ -411,68 +429,68 @@ public class Chatbot extends EventEmitter<ChatMessage> {
         // Create the appropriate task
         Task task = null;
         switch (chatCommand.getOperation()) {
-            case AddTodo:
-                task = new Todo(chatCommand.getData());
-                break;
+        case AddTodo:
+            task = new Todo(chatCommand.getData());
+            break;
 
-            case AddDeadline:
-                if (!chatCommand.hasParamWithUsefulValue("by")) {
-                    throw new ChatbotException(String.format(
-                            "The 'deadline' command requires supplying '%sby <deadline>'!",
-                            ChatCommand.PARAMETER_PREFIX
-                    ));
-                }
+        case AddDeadline:
+            if (!chatCommand.hasParamWithUsefulValue("by")) {
+                throw new ChatbotException(String.format(
+                        "The 'deadline' command requires supplying '%sby <deadline>'!",
+                        ChatCommand.PARAMETER_PREFIX
+                ));
+            }
 
-                long byTimestamp;
-                try {
-                    byTimestamp = EpochConverter.getEpochFromISODateString(chatCommand.getParam("by"));
-                } catch (DateTimeParseException e) {
-                    throw new ChatbotException(
-                            "The deadline supplied is invalid! It must be a correct date and follow the " +
-                                    "ISO8601 date format (yyyy-MM-dd or yyyy-MM-ddThh:mm).\n" +
-                                    "For example, 2023-01-31T12:34 is one such valid date."
-                    );
-                }
-
-                task = new Deadline(
-                        chatCommand.getData(),
-                        byTimestamp
+            long byTimestamp;
+            try {
+                byTimestamp = EpochConverter.getEpochFromISODateString(chatCommand.getParam("by"));
+            } catch (DateTimeParseException e) {
+                throw new ChatbotException(
+                        "The deadline supplied is invalid! It must be a correct date and follow the " +
+                                "ISO8601 date format (yyyy-MM-dd or yyyy-MM-ddThh:mm).\n" +
+                                "For example, 2023-01-31T12:34 is one such valid date."
                 );
-                break;
+            }
 
-            case AddEvent:
-                if (!chatCommand.hasParamWithUsefulValue("from") ||
-                        !chatCommand.hasParamWithUsefulValue("to")) {
+            task = new Deadline(
+                    chatCommand.getData(),
+                    byTimestamp
+            );
+            break;
 
-                    throw new ChatbotException(String.format(
-                            "The 'event' command requires supplying both '%sfrom <date>' and '%sto <date>'!",
-                            ChatCommand.PARAMETER_PREFIX,
-                            ChatCommand.PARAMETER_PREFIX
-                    ));
-                }
+        case AddEvent:
+            if (!chatCommand.hasParamWithUsefulValue("from") ||
+                    !chatCommand.hasParamWithUsefulValue("to")) {
 
-                long startTimestamp;
-                long endTimestamp;
-                try {
-                    startTimestamp = EpochConverter.getEpochFromISODateString(chatCommand.getParam("from"));
-                    endTimestamp = EpochConverter.getEpochFromISODateString(chatCommand.getParam("to"));
-                } catch (DateTimeParseException e) {
-                    throw new ChatbotException(
-                            "The date range supplied is invalid! They must be correct dates and follow the " +
-                                    "ISO8601 date format (yyyy-MM-dd or yyyy-MM-ddThh:mm:ss).\n" +
-                                    "For example, 2023-01-31T12:34 is one such valid date."
-                    );
-                }
+                throw new ChatbotException(String.format(
+                        "The 'event' command requires supplying both '%sfrom <date>' and '%sto <date>'!",
+                        ChatCommand.PARAMETER_PREFIX,
+                        ChatCommand.PARAMETER_PREFIX
+                ));
+            }
 
-                task = new Event(
-                        chatCommand.getData(),
-                        startTimestamp,
-                        endTimestamp
+            long startTimestamp;
+            long endTimestamp;
+            try {
+                startTimestamp = EpochConverter.getEpochFromISODateString(chatCommand.getParam("from"));
+                endTimestamp = EpochConverter.getEpochFromISODateString(chatCommand.getParam("to"));
+            } catch (DateTimeParseException e) {
+                throw new ChatbotException(
+                        "The date range supplied is invalid! They must be correct dates and follow the " +
+                                "ISO8601 date format (yyyy-MM-dd or yyyy-MM-ddThh:mm:ss).\n" +
+                                "For example, 2023-01-31T12:34 is one such valid date."
                 );
-                break;
+            }
 
-            default:
-                throw new ChatbotException("Unexpected internal error: task type was not implemented.");
+            task = new Event(
+                    chatCommand.getData(),
+                    startTimestamp,
+                    endTimestamp
+            );
+            break;
+
+        default:
+            throw new ChatbotException("Unexpected internal error: task type was not implemented.");
         }
 
         // Add the task created

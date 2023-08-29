@@ -10,10 +10,9 @@ import java.lang.reflect.Field;
  * A task that the task manager can keep in its task list.
  *
  * <p>
- * This is an abstract class which should be inherited by custom task types.
- * It contains basic properties for a task, which can be extended as needed.
- * All subclasses must also ensure they conform to compatibility with GSON
- * and do not allow any null fields.
+ * This is an abstract class which should be inherited by custom task types. It contains basic properties for a task,
+ * which can be extended as needed. All subclasses must also ensure they conform to compatibility with GSON and do not
+ * allow any null fields.
  * </p>
  */
 public abstract class Task {

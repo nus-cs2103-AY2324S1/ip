@@ -3,8 +3,8 @@ package taskmanager.task;
 import util.EpochConverter;
 
 /**
- * An event task. It tracks a title and the range associated with the
- * event (from date-time to date-time), and can be marked as completed.
+ * An event task. It tracks a title and the range associated with the event (from date-time to date-time), and can be
+ * marked as completed.
  */
 public class Event extends Task {
 
@@ -12,8 +12,8 @@ public class Event extends Task {
      * Starting timestamp of the event as Unix epoch in seconds.
      *
      * <p>
-     * This is intentionally using the object instead of the primitive type
-     * to allow for Gson to set to null, flagging the value as missing.
+     * This is intentionally using the object instead of the primitive type to allow for Gson to set to null, flagging
+     * the value as missing.
      * </p>
      */
     private Long startTimestamp;
@@ -22,8 +22,8 @@ public class Event extends Task {
      * Ending timestamp of the event as Unix epoch in seconds.
      *
      * <p>
-     * This is intentionally using the object instead of the primitive type
-     * to allow for Gson to set to null, flagging the value as missing.
+     * This is intentionally using the object instead of the primitive type to allow for Gson to set to null, flagging
+     * the value as missing.
      * </p>
      */
     private Long endTimestamp;
@@ -65,7 +65,9 @@ public class Event extends Task {
                 "<E> %s %s (from: %s, to: %s)",
                 this.getCompletedIndicatorString(),
                 this.getTitle(),
-                this.startTimestamp == null ? null : EpochConverter.getUserReadableStringFromEpoch(this.getStartTimestamp()),
+                this.startTimestamp == null
+                        ? null
+                        : EpochConverter.getUserReadableStringFromEpoch(this.getStartTimestamp()),
                 this.endTimestamp == null ? null : EpochConverter.getUserReadableStringFromEpoch(this.getEndTimestamp())
         );
     }

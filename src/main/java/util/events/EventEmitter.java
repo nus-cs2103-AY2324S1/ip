@@ -11,16 +11,18 @@ public class EventEmitter<T> {
 
     /**
      * Fires a new event to all event listeners listening to this instance.
+     *
      * @param event The event to fire.
      */
     protected void fireEvent(T event) {
-        for (var l: eventListeners) {
+        for (var l : eventListeners) {
             l.eventFired(event);
         }
     }
 
     /**
      * Adds an event listener to listen to utils.events by this instance.
+     *
      * @param listener The listener to add.
      */
     public void addEventListener(EventListener<? super T> listener) {
@@ -29,6 +31,7 @@ public class EventEmitter<T> {
 
     /**
      * Removes an event listener to remove it from listening to utils.events by this instance.
+     *
      * @param listener The listener to remove.
      */
     public void removeEventListener(EventListener<? super T> listener) {

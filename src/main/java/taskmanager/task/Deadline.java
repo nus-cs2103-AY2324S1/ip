@@ -3,8 +3,7 @@ package taskmanager.task;
 import util.EpochConverter;
 
 /**
- * A deadline task. It tracks a title and a deadline associated
- * with it, and can be marked as completed.
+ * A deadline task. It tracks a title and a deadline associated with it, and can be marked as completed.
  */
 public class Deadline extends Task {
 
@@ -12,8 +11,8 @@ public class Deadline extends Task {
      * Deadline timestamp of the event as Unix epoch in seconds.
      *
      * <p>
-     * This is intentionally using the object instead of the primitive type
-     * to allow for Gson to set to null, flagging the value as missing.
+     * This is intentionally using the object instead of the primitive type to allow for Gson to set to null, flagging
+     * the value as missing.
      * </p>
      */
     private Long deadline;
