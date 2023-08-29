@@ -1,4 +1,5 @@
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -18,7 +19,7 @@ public class Duke {
     private ArrayList<Task> taskList = new ArrayList<Task>();
     // private String[] taskList = new String[100];
     // private boolean[] taskListCompletion = new boolean[100];
-    private int taskListSize = 0;
+    // private int taskList.size() = 0;
 
     private class Task{
         private String taskName;
@@ -115,6 +116,9 @@ public class Duke {
         // get new duke instance
         Duke duke = new Duke();
 
+        // load task list
+        duke.loadTaskList();
+
         // introduction
         System.out.println("\n\tWelcome to Chatty.\n" + duke.LOGO);
         duke.sendGreeting();
@@ -134,9 +138,8 @@ public class Duke {
     }
 
     private void addToTaskList(Task task) {
-        if (taskListSize < 100) {
+        if (taskList.size() < 100) {
             taskList.add(task);
-            taskListSize++;
         } else {
             System.out.println("Error: List is full.");
         }
@@ -153,7 +156,7 @@ public class Duke {
         // handle key logic here.
         if (inputString.equals("list")) {
             System.out.println("\tHere are the tasks in your list:");
-            for (int i = 0; i < taskListSize; i++) {
+            for (int i = 0; i < taskList.size(); i++) {
                 System.out.println("\t" + (i + 1) + ". " + taskList.get(i));
             }
         } else if (inputString.startsWith("mark")) {
@@ -204,9 +207,8 @@ public class Duke {
             System.out.println("\t\t" + taskList.get(taskIndexToDelete));
             // have to place here before it's removed for the output to be correct
             taskList.remove(taskIndexToDelete);
-            taskListSize--;
-            String taskWord = taskListSize == 1 ? "task" : "tasks";
-            System.out.println("\tNow you have " + taskListSize + " " + taskWord + " in your list.");
+            String taskWord = taskList.size() == 1 ? "task" : "tasks";
+            System.out.println("\tNow you have " + taskList.size() + " " + taskWord + " in your list.");
         } else {
             System.out.println("\tI'm not quite sure what that means. Try again using either mark <index>, unmark <index>, todo <task>, deadline <task /by ..>, event <task /from .. /to ..>, or bye.");
         }
@@ -218,9 +220,9 @@ public class Duke {
         addToTaskList(newTask);
         System.out.println("\tGot it. I've added this task:");
         // can use -1 because we just added it
-        System.out.println("\t\t" + taskList.get(taskListSize - 1));
-        String taskWord = taskListSize == 1 ? "task" : "tasks";
-        System.out.println("\tNow you have " + taskListSize + " " + taskWord + " in your list.");
+        System.out.println("\t\t" + taskList.get(taskList.size() - 1));
+        String taskWord = taskList.size() == 1 ? "task" : "tasks";
+        System.out.println("\tNow you have " + taskList.size() + " " + taskWord + " in your list.");
     }
 
     private void sendFarewell() {
@@ -253,7 +255,7 @@ public class Duke {
         }
 
         FileWriter fWriter = new FileWriter(filePath);
-        for (int i = 0; i < taskListSize; i++) {
+        for (int i = 0; i < taskList.size(); i++) {
             // write to file
             // format liek so
             /* 
@@ -265,5 +267,62 @@ public class Duke {
             fWriter.write(taskList.get(i).saveString() + "\n");
         }
         fWriter.close();
+    }
+
+    private void loadTaskList() {
+        // read from file if it exists
+        String filePath = "./data/duke.txt";
+        File directory = new File("./data");
+        // We'll skip if directory or file doesn't exist
+        if (!directory.exists()) {
+            return;
+        }
+
+        File file = new File(filePath);
+        if (!file.exists()) {
+            return;
+        }
+
+        // load the data into taskList
+        try {
+            Scanner s = new Scanner(file);
+            while (s.hasNext()) {
+                // save to taskList
+                taskList.add(parseTask(s.nextLine()));
+            }
+            s.close();
+        } catch (FileNotFoundException e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+
+    }
+
+    private Task parseTask(String data) {
+        // T | 1 | read book
+        // D | 0 | return book | June 6th
+        // E | 0 | project meeting | Aug 6th | Aug 8th
+        String[] dataArr = data.split(" \\| ");
+        for (int i = 0; i < dataArr.length; i++) {
+            System.out.println(dataArr[i]);
+        }
+        String taskType = dataArr[0];
+        boolean isDone = dataArr[1].equals("1");
+        // each task has at least 3 elements
+        String taskName = dataArr[2];
+        Task newTask;
+        // todo
+        if (taskType.equals("T")) {
+            newTask = new ToDo(taskName);
+        // deadline
+        } else if (taskType.equals("D")) {
+            newTask = new Deadline(taskName, dataArr[3]);
+        // event
+        } else {
+            newTask = new Event(taskName, dataArr[3], dataArr[4]);
+        }
+        if (isDone) {
+            newTask.markAsDone();
+        }
+        return newTask;
     }
 }
