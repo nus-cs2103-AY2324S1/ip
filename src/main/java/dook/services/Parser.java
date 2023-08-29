@@ -60,6 +60,8 @@ public class Parser {
             return handleBefore(body);
         case during:
             return handleDuring(body);
+        case find:
+            return handleFind(body);
         default:
             return new InvalidCommand();
         }
@@ -163,5 +165,13 @@ public class Parser {
             throw new DookException("Improper date format.");
         }
         return new DuringCommand(localDate);
+    }
+
+    private Command handleFind(String body) throws DookException {
+        if (body.isBlank()) {
+            throw new DookException("Usage: find [query]");
+        }
+        String keyword = body.split(" ")[0].trim();
+        return new FindCommand(keyword);
     }
 }
