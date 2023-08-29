@@ -31,6 +31,8 @@ public class Todo extends Task {
     }
 
     /**
+     * {@inheritDoc}
+     *
      * Returns a string representation of this
      * Todo task when it is printed.
      *

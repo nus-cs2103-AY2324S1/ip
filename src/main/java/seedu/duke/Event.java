@@ -43,6 +43,8 @@ public class Event extends Task {
     }
 
     /**
+     * {@inheritDoc}
+     *
      * Returns a string representation of this
      * Event task when it is printed.
      *

@@ -37,6 +37,8 @@ public class Deadline extends Task {
     }
 
     /**
+     * {@inheritDoc}
+     *
      * Returns a string representation of this
      * Deadline task when it is printed.
      *
