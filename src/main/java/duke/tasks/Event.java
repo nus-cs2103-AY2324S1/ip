@@ -1,3 +1,5 @@
+package duke.tasks;
+
 import java.io.Serializable;
 
 public class Event extends Task implements Serializable {

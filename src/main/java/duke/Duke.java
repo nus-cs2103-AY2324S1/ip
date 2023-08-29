@@ -1,3 +1,12 @@
+package duke;
+
+import duke.commands.Command;
+import duke.storage.Storage;
+import duke.tasks.Deadline;
+import duke.tasks.Event;
+import duke.tasks.Task;
+import duke.tasks.Todo;
+
 import java.util.Scanner;
 
 public class Duke {
@@ -125,7 +134,7 @@ public class Duke {
 
             Task task = tasks.get(idx - 1);
 
-            if (task.isDone) {
+            if (task.isDone()) {
                 throw new DukeException("Task has already been done!");
             }
 
@@ -150,7 +159,7 @@ public class Duke {
 
             Task task = tasks.get(idx - 1);
 
-            if (!task.isDone) {
+            if (!task.isDone()) {
                 throw new DukeException("Task has not been done yet!");
             }
 
@@ -246,11 +255,7 @@ public class Duke {
                 say(e.getMessage());
             }
         }
-        
-        storage.save(tasks);
-    }
 
-    enum Command {
-        BYE, LIST, TODO, DEADLINE, EVENT, MARK, UNMARK, DELETE
+        storage.save(tasks);
     }
 }

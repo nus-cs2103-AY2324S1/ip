@@ -1,3 +1,5 @@
+package duke.tasks;
+
 import java.io.Serializable;
 
 public class Deadline extends Task implements Serializable {

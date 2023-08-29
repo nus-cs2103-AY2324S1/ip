@@ -1,3 +1,8 @@
+package duke.storage;
+
+import duke.DukeException;
+import duke.TaskList;
+
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -9,7 +14,7 @@ import java.nio.file.Path;
 public class Storage {
     private final Path path;
 
-    Storage(String path) {
+    public Storage(String path) {
         this.path = Path.of(path);
     }
 
