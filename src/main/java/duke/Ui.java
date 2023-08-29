@@ -8,6 +8,7 @@ import duke.task.TaskList;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Ui {
@@ -143,6 +144,20 @@ public class Ui {
             System.out.println("\t\t Yay! You have no tasks today :D");
         }
 
+        System.out.println(LINE);
+        System.out.println();
+    }
+
+    public void showMatchingTasks(ArrayList<Task> matchingTasks) {
+        System.out.println(LINE);
+        if (matchingTasks.isEmpty()) {
+            System.out.println("\t There are no matching tasks in your list.");
+        } else {
+            System.out.println("\t Here are the matching tasks in your list:");
+            for (int i = 0; i < matchingTasks.size(); i++) {
+                System.out.println("\t " + (i + 1) + ". " + matchingTasks.get(i));
+            }
+        }
         System.out.println(LINE);
         System.out.println();
     }

@@ -39,6 +39,8 @@ public class Parser {
             return parseAddEventCommand(parseArgument(parts));
         case DELETE:
             return new DeleteCommand(Integer.parseInt(parseArgument(parts)) - 1);
+        case FIND:
+            return new FindCommand(parseArgument(parts));
         case CHECK:
             return new CheckCommand(Parser.parseArgument(parts));
         case TODAY:
