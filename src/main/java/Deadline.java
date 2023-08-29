@@ -23,6 +23,6 @@ public class Deadline extends Task {
     @Override
     public String formatData() {
         return String.format("D | %d | %s | %s\n", this.isDone ? 1 : 0,
-                this.description, this.date);
+                this.description, this.date.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm")));
     }
 }
