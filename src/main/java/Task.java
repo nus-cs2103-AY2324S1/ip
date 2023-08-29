@@ -1,8 +1,21 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 public class Task {
+
+    /**
+     * Formatter to output date time
+     */
+    public static final DateTimeFormatter OUTPUT_FORMAT = DateTimeFormatter.ofPattern("EEE hh:mma, MMM yyyy");
+    /**
+     * Separator used
+     */
+    public static String SEP = "#";
+
     /**
      * The description of the task
      */
-    private final String task;
+    private String task;
 
     /**
      * The state of the task
@@ -10,19 +23,22 @@ public class Task {
     private boolean completed = false;
 
     /**
-     * Input that generated the task
-     */
-    private final String input;
-
-    /**
      * Constructor for the Task class
      *
-     * @param task  - the description of the task created
-     * @param input - Input that generated the task
+     * @param task - the description of the task created
      */
-    public Task(String task, String input) {
+    public Task(String task) {
         this.task = task;
-        this.input = input;
+    }
+
+    /**
+     * Format data according to current format
+     *
+     * @param time - the local date time to format
+     * @return formatted string according to the format
+     */
+    public static String formatDate(LocalDateTime time) {
+        return Task.OUTPUT_FORMAT.format(time);
     }
 
     /**
@@ -41,8 +57,22 @@ public class Task {
         this.completed = !this.completed;
     }
 
-    public String getInput() {
-        return input;
+    /**
+     * Getter for tasks
+     *
+     * @return task string
+     */
+    public String getTask() {
+        return task;
+    }
+
+    /**
+     * returns the stored form of the task
+     *
+     * @return a string which Duke Parser could Parse
+     */
+    public String getStored() {
+        return "";
     }
 
     @Override
