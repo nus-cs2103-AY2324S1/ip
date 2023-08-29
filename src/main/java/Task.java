@@ -17,7 +17,7 @@ public abstract class Task {
     }
 
     /**
-     * Set task to done.
+     * Sets task to done.
      * 
      */
     public void setDone() {
@@ -25,7 +25,7 @@ public abstract class Task {
     }
 
     /**
-     * Set task to not done.
+     * Sets task to not done.
      * 
      */
     public void setNotDone() {
@@ -33,7 +33,7 @@ public abstract class Task {
     }
 
     /**
-     * Get the string representation of the task.
+     * Gets the string representation of the task.
      * 
      * @return String representation of the task.
      */
