@@ -1,3 +1,7 @@
+package duke;
+
+import duke.*;
+
 public class Parser {
 
     //use this class to process the input

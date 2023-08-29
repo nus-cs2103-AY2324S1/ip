@@ -1,3 +1,7 @@
+package duke;
+
+import duke.Command;
+
 public class ExitTask extends Command {
 
     @Override

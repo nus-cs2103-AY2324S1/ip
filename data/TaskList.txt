@@ -1,2 +1,1 @@
 [T] | 0 | read book
-[D] | 1 | return book | sunday

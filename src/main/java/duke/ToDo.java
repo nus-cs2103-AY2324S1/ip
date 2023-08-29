@@ -1,3 +1,9 @@
+package duke;
+
+import duke.InvalidInputException;
+import duke.Storage;
+import duke.Task;
+
 public class ToDo extends Task {
     private String symbol = "[T]";
     public ToDo(String name) {

@@ -1,4 +1,8 @@
-public class DeleteTask extends Command{
+package duke;
+
+import duke.Command;
+
+public class DeleteTask extends Command {
     private int indexToDelete;
 
     public DeleteTask(int indexToDelete) {

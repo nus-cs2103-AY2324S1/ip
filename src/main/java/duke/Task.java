@@ -1,3 +1,5 @@
+package duke;
+
 abstract class Task {
     private String name;
     private boolean completed;

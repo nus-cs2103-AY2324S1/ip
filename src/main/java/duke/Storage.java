@@ -1,3 +1,9 @@
+package duke;
+
+import duke.Deadline;
+import duke.Event;
+import duke.InvalidInputException;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
