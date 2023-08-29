@@ -1,3 +1,4 @@
+import java.time.LocalDate;
 import java.util.regex.Pattern;
 
 public class Task {
@@ -85,6 +86,18 @@ public class Task {
             currentTask.markAsDone();
         }
         return currentTask;
+    }
+
+    public static LocalDate convertDatePlease(String sDate) {
+        for (FormatterDate formatterDate : FormatterDate.values()) {
+            try {
+                return LocalDate.parse(sDate, formatterDate.formatter);
+            } catch (Exception e) {
+                continue;
+            }
+        }
+        System.out.println("Why is it invalid??!!??!");
+        return null;
     }
 
     @Override
