@@ -2,10 +2,9 @@ package task;
 
 import command.CommandException;
 import main.Main;
-import util.FileUtil;
+import util.Storage;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.function.BiConsumer;
 
 public class TaskList {
@@ -32,10 +31,10 @@ public class TaskList {
             throw new CommandException("Error: A task with name '" + newTask.getName() + "' already exists.");
         }
         this.tasks.add(newTask);
-        Main.getInstance().say("Got it. I've added this task:", true, false);
-        Main.getInstance().say("  " + newTask.toString(), false, false);
-        Main.getInstance().say("Now you have " + Main.getInstance().getTaskList().getCount() +" tasks in the list.", false, true);
-        FileUtil.saveTasksToFile();
+        Main.getInstance().getUi().say("Got it. I've added this task:", true, false);
+        Main.getInstance().getUi().say("  " + newTask.toString(), false, false);
+        Main.getInstance().getUi().say("Now you have " + Main.getInstance().getTaskList().getCount() +" tasks in the list.", false, true);
+        Storage.saveTasksToFile();
     }
 
     public void addTask(Task newTask){
@@ -44,7 +43,7 @@ public class TaskList {
 
     public Task removeTask(int index){
         Task removedTask = this.tasks.remove(index);
-        FileUtil.saveTasksToFile();
+        Storage.saveTasksToFile();
         return removedTask;
     }
 

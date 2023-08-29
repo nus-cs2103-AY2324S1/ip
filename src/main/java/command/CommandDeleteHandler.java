@@ -18,8 +18,8 @@ public class CommandDeleteHandler implements ICommandHandler{
             throw new CommandException("Input number out of range.");
         }
         Task removedTask = Main.getInstance().getTaskList().removeTask(number - 1);
-        Main.getInstance().say("Noted. I've removed this task:", true, false);
-        Main.getInstance().say("  " + removedTask.toString(), false, false);
-        Main.getInstance().say("Now you have " + Main.getInstance().getTaskList().getCount() +" tasks in the list.", false, true);
+        Main.getInstance().getUi().say("Noted. I've removed this task:", true, false);
+        Main.getInstance().getUi().say("  " + removedTask.toString(), false, false);
+        Main.getInstance().getUi().say("Now you have " + Main.getInstance().getTaskList().getCount() +" tasks in the list.", false, true);
     }
 }

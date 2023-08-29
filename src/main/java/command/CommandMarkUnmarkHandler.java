@@ -16,8 +16,8 @@ public class CommandMarkUnmarkHandler implements ICommandHandler {
             throw new CommandException("Error: Can not find any task with name '" +taskName + "'.");
         }
         task.setIsDone(mark);
-        Main.getInstance().say("Nice! I've marked this task as " + (mark ? "done" : "not done yet") + ":", true, false);
-        Main.getInstance().say("  " + Main.getInstance().getTaskList().findTaskByName(taskName).toString(),false, true);
+        Main.getInstance().getUi().say("Nice! I've marked this task as " + (mark ? "done" : "not done yet") + ":", true, false);
+        Main.getInstance().getUi().say("  " + Main.getInstance().getTaskList().findTaskByName(taskName).toString(),false, true);
     }
 
 
