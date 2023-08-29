@@ -1,7 +1,6 @@
 package duke;
 
 import duke.task.Task;
-
 import java.util.ArrayList;
 
 /**
@@ -9,7 +8,7 @@ import java.util.ArrayList;
  */
 public class TaskList implements TaskArray {
     /** A list to store the tasks. */
-    public ArrayList<Task> tasks;
+    private ArrayList<Task> tasks;
 
     /**
      * Constructs a new TaskList that have an empty list.
@@ -30,7 +29,7 @@ public class TaskList implements TaskArray {
             parser.parseFromFile(s);
         }
     }
-
+    
     /**
      * Returns true if this list contains no elements.
      */

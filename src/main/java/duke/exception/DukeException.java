@@ -4,7 +4,6 @@ package duke.exception;
  * An exception pertaining to Duke.
  */
 public class DukeException extends RuntimeException{
-
     /**
      * Constructs a Duke Exception instance.
      *

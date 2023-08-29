@@ -4,7 +4,6 @@ package duke.exception;
  * An exception thrown when the marking of task cannot be done.
  */
 public class InvalidMarkingException extends DukeException {
-
     /**
      * Creates an InvalidMarkingException instance.
      *
