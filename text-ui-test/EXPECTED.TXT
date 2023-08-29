@@ -1,6 +1,6 @@
-⚠ Oops! Cannot initialize myself:(
+Generating new chat session...
 Greetings from
- _
+ _ 
 | |
 | |
 | |___
@@ -11,4 +11,3 @@ Hi! This is your intelligent friend L.
 What can I do for you today?
 Bye!
 "Beware the barrenness of a busy life."
-⚠ Oops! Something wrong when closing:(

@@ -13,7 +13,11 @@ public class Storage {
     }
 
     public ArrayList<Task> load() throws FileNotFoundException {
-        File f = new File(filePath);
+        File folder = new File("data");
+        if (!folder.exists()) {
+            folder.mkdir();
+        }
+        File f = new File(folder, "duke.txt");
         Scanner s = new Scanner(f);
         ArrayList<Task> tasks = new ArrayList<>();
         while (s.hasNext()) {
@@ -44,6 +48,11 @@ public class Storage {
 
     //TODO: update the file after each task creation/modification
     public void save(TaskList taskList) throws IOException {
+        String txt = taskList.getTasksTxt();
+        if (txt.isEmpty()) {
+            return;
+        }
+        new File(filePath).createNewFile();
         FileWriter fw = new FileWriter(filePath);
         fw.write(taskList.getTasksTxt());
         fw.close();

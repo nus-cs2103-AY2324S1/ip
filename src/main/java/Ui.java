@@ -2,7 +2,7 @@ import java.util.Scanner;
 
 public class Ui {
     public void showLoadingError() {
-        System.out.println("⚠ Oops! Cannot initialize myself:(");
+        System.out.println("Generating new chat session...");
     }
 
     public void showSavingError() {
