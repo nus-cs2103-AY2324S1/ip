@@ -27,19 +27,18 @@ public class Storage {
             Scanner sc = new Scanner(CURRENT_FILE);
             while (sc.hasNextLine()) {
                 String input = sc.nextLine();
-                String type = input.substring(1, 2);
-                String done = input.substring(5, 6);
-                String description = input.substring(8).replaceAll("from:", "/from")
-                        .replaceAll("by:", "/by"). replaceAll("to:", "/to").replaceAll("[()]", "");
+                String type = input.substring(0, 1);
+                String done = input.substring(4, 5);
+                String description = input.substring(8);
                 if (type.equalsIgnoreCase("T")) {
                     taskList.add(new Todo(description));
                 } else if (type.equalsIgnoreCase("D")) {
-                    taskList.add(new Deadline(description));
+                    taskList.add(new Deadline(description.replaceFirst("\\|", "/by")));
                 } else if (type.equalsIgnoreCase("E")) {
-                    taskList.add(new Event(description));
+                    taskList.add(new Event(description.replaceFirst("\\|", "/from").replaceFirst("\\|", "/to")));
                 }
                 if (done.equalsIgnoreCase("X")) {
-                    taskList.get(taskList.size() - 1).markDone();
+                    taskList.get(taskList.size() - 1).mark();
                 }
 
             }
@@ -49,12 +48,11 @@ public class Storage {
             throw new DukeException("Cannot Read File :'(");
         }
     }
-    public void writeFile(ArrayList<Task> taskList) throws DukeException {
+    public void writeFile(TaskList tasks) throws DukeException {
         try {
             FileWriter fileWriter = new FileWriter(this.CURRENT_FILE);
-            for (int i = 0; i < taskList.size(); i++) {
-                Task task = taskList.get(i);
-                fileWriter.write(task.toString() + "\n");
+            for (int i = 0; i < tasks.length(); i++) {
+                fileWriter.write(tasks.getTaskInput(i) + "\n");
             }
             fileWriter.close();
         }

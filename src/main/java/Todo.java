@@ -4,6 +4,10 @@ public class Todo extends Task {
     }
 
     @Override
+    public String getInput() {
+        return "T | " + this.getStatusIcon() + " | " + this.description;
+    }
+    @Override
     public String toString() {
         return "[T] [" + this.getStatusIcon() + "] " + this.description;
     }
