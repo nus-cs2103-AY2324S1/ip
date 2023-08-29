@@ -93,6 +93,11 @@ public class TaskList {
         }
     }
 
+    /**
+     * This method lists out the tasks in the list of tasks that contain the target string.
+     * @param inputParts
+     * @param taskList
+     */
     public static void findTasks(String[] inputParts, ArrayList<Task> taskList) {
         String keyword = inputParts[1].toLowerCase();
         int count = 1;
