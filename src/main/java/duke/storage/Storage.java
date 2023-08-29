@@ -55,7 +55,7 @@ public class Storage {
 
     public void writeData(ArrayList<Task> items) throws DukeException {
         try {
-            BufferedWriter writer = new BufferedWriter(new FileWriter("ip/src/data/duke.txt"));
+            BufferedWriter writer = new BufferedWriter(new FileWriter(filePath));
             for (Task t : items) {
                 writer.write(t.toDataString());
                 writer.newLine();
