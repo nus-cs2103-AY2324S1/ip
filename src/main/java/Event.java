@@ -9,7 +9,6 @@ public class Event extends Task {
         super(description);
         this.startTime = startTime;
         this.endTime = endTime;
-
     }
 
     @Override

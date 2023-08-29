@@ -167,6 +167,17 @@ public class Duke {
             //Todo task
             saved[0] = "T";
         }
+//        if (task.getTaskType().equals("D")) {
+//            saved[0] = "D";
+//            saved[3] = ((Deadline) task).getDueDate();
+//        } else if (task.getTaskType().equals("E")) {
+//            saved[0] = "E";
+//            saved[3] = ((Event) task).getStartTime();
+//            saved[4] = ((Event) task).getEndTime();
+//        } else {
+//            //Todo task
+//            saved[0] = "T";
+//        }
 
         //saved[1] and saved[2]
         saved[1] = task.isDone ? "1" : "0";
@@ -192,7 +203,9 @@ public class Duke {
         //Recall delimiter "|" and get details of the tasks and add tasks
         while ((currentLine = bufferedReader.readLine()) != null) {
             String[] content = currentLine.split(" \\| ");
+            //System.out.printf("Content: %s", content);
             String taskDescription = content[2];
+            //System.out.printf("Event details: %s\n", currentLine);
             Task taskFromHardDisk;
 
             // Now check which type of task it belongs to
@@ -202,6 +215,7 @@ public class Duke {
             case "E":
                 taskFromHardDisk = new Event(taskDescription, content[3], content[4]);
                 //Potential error for content[3]
+                break;
             case "D":
                 taskFromHardDisk = new Deadline(taskDescription, content[3]);
                 //Potential error for content[3]
