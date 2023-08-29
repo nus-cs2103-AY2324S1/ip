@@ -1,7 +1,6 @@
 package duke.command;
 
 import duke.exception.DukeException;
-import duke.exception.OutOfBoundsException;
 import duke.object.TaskList;
 import duke.parser.element.CommandElement;
 import duke.parser.element.argument.IndexArgument;
@@ -25,11 +24,8 @@ public class MarkCommand extends Command {
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
         int idx = (int) ((Integer) this.args.get("index"));
-        if (idx >= tasks.size()) {
-            throw new OutOfBoundsException(idx, tasks.size());
-        }
         tasks.mark(idx);
-        ui.print(String.format("Nice! I've marked this task as done:\n    %s", tasks.get(idx).toString()));
+        ui.print(String.format("Nice! I've marked this task as done:\n    %s", tasks.access(idx).toString()));
     }
 
     @Override

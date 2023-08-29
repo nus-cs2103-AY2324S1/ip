@@ -1,7 +1,6 @@
 package duke.command;
 
 import duke.exception.DukeException;
-import duke.exception.OutOfBoundsException;
 import duke.object.TaskList;
 import duke.parser.element.CommandElement;
 import duke.parser.element.argument.IndexArgument;
@@ -25,10 +24,7 @@ public class RemoveCommand extends Command {
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
         int idx = (int) ((Integer) this.args.get("index"));
-        if (idx >= tasks.size()) {
-            throw new OutOfBoundsException(idx, tasks.size());
-        }
-        ui.print(String.format("Noted. I've removed this task:\n    %s\n%s", tasks.remove(idx).toString(), ui.getTaskCount(tasks.size())));
+        ui.print(String.format("Noted. I've removed this task:\n    %s\n%s", tasks.delete(idx).toString(), ui.getTaskCount(tasks.size())));
     }
 
     @Override

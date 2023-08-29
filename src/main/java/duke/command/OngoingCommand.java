@@ -27,7 +27,7 @@ public class OngoingCommand extends Command {
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         LocalDate date = (LocalDate) this.args.get("date");
-        TaskList filteredEvents = new TaskList();
+        List<Task> filteredEvents = new ArrayList<>();
         for (Task task : tasks) {
             if ((task instanceof Event) && ((Event) task).isOngoing(date)) {
                 filteredEvents.add(task);
