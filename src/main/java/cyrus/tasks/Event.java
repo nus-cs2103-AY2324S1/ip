@@ -1,7 +1,7 @@
-package tasks;
+package cyrus.tasks;
 
 import com.google.gson.annotations.SerializedName;
-import utility.DateUtility;
+import cyrus.utility.DateUtility;
 
 import java.time.LocalDate;
 

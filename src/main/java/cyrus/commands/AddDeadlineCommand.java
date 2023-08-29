@@ -1,11 +1,11 @@
-package commands;
+package cyrus.commands;
 
-import parser.ParseInfo;
-import tasks.Deadline;
-import tasks.Task;
-import tasks.TaskList;
-import ui.Ui;
-import utility.DateUtility;
+import cyrus.parser.ParseInfo;
+import cyrus.tasks.Deadline;
+import cyrus.tasks.Task;
+import cyrus.tasks.TaskList;
+import cyrus.ui.Ui;
+import cyrus.utility.DateUtility;
 
 import java.time.LocalDate;
 import java.util.HashMap;

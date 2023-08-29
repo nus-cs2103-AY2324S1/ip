@@ -1,7 +1,7 @@
-package parser;
+package cyrus.parser;
 
-import commands.*;
-import tasks.TaskList;
+import cyrus.commands.*;
+import cyrus.tasks.TaskList;
 
 import java.util.ArrayList;
 import java.util.HashMap;

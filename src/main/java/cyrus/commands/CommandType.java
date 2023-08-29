@@ -1,4 +1,4 @@
-package commands;
+package cyrus.commands;
 
 public enum CommandType {
   ADD_TODO,

@@ -1,9 +1,9 @@
-package commands;
+package cyrus.commands;
 
-import parser.ParseInfo;
-import tasks.Task;
-import tasks.TaskList;
-import ui.Ui;
+import cyrus.parser.ParseInfo;
+import cyrus.tasks.Task;
+import cyrus.tasks.TaskList;
+import cyrus.ui.Ui;
 
 public class DeleteTaskCommand extends Command {
   public DeleteTaskCommand(TaskList taskList, ParseInfo parseInfo) {
@@ -20,7 +20,7 @@ public class DeleteTaskCommand extends Command {
       Ui.printText(
           "Noted. I've removed this task:",
           task.toString(),
-          String.format("Now you have %d tasks in the list.", this.taskList.size())
+          String.format("Now you have %d cyrus.tasks in the list.", this.taskList.size())
       );
     } catch (NumberFormatException e) {
       throw new CommandError("Invalid task index: must be integer");

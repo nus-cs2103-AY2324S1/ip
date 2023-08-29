@@ -1,8 +1,8 @@
-package commands;
+package cyrus.commands;
 
-import parser.ParseInfo;
-import tasks.TaskList;
-import ui.Ui;
+import cyrus.parser.ParseInfo;
+import cyrus.tasks.TaskList;
+import cyrus.ui.Ui;
 
 public class UnmarkTaskCommand extends Command {
   public UnmarkTaskCommand(TaskList taskList, ParseInfo parseInfo) {

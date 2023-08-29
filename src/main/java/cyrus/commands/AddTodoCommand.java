@@ -1,9 +1,9 @@
-package commands;
+package cyrus.commands;
 
-import parser.ParseInfo;
-import tasks.TaskList;
-import tasks.ToDo;
-import ui.Ui;
+import cyrus.parser.ParseInfo;
+import cyrus.tasks.TaskList;
+import cyrus.tasks.ToDo;
+import cyrus.ui.Ui;
 
 public class AddTodoCommand extends Command {
   public AddTodoCommand(TaskList taskList, ParseInfo parseInfo) {
