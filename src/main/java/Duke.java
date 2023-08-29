@@ -82,7 +82,6 @@ public class Duke {
                         helper.printLine();
                         System.out.println("OOPS!!! You chose air.");
                     }
-                    // if task is a todo
                 } else if (string.startsWith(Commands.delete.name())) {
                     String[] splittedInput = string.split(" ");
                     int taskNumber = Integer.parseInt(splittedInput[1]);
