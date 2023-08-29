@@ -24,10 +24,10 @@ public class FindCommand extends Command {
     }
 
     /**
-     *
-     * @param tasks
-     * @param ui
-     * @param storage
+     * Executes the respective command.
+     * @param tasks List of all the tasks.
+     * @param ui Ui for interacting with the user.
+     * @param storage Storage of the tasks.
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
@@ -35,8 +35,8 @@ public class FindCommand extends Command {
     }
 
     /**
-     *
-     * @return
+     * Returns the exit status of the command.
+     * @return Exit status of the command.
      */
     @Override
     public boolean isExit() {

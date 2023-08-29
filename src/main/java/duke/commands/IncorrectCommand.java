@@ -18,7 +18,7 @@ public class IncorrectCommand extends Command {
 
     /**
      * Constructs the IncorrectCommand Class.
-     * @param message
+     * @param message Description of the incorrect operation.
      */
     public IncorrectCommand(String message) {
         this.message = message;

@@ -1,6 +1,5 @@
 package duke.ui;
 
-import duke.parser.Parser;
 import duke.tasks.Task;
 
 import java.util.ArrayList;
@@ -103,14 +102,17 @@ public class Ui {
 
     /**
      * Prints an acknowledgment message on request to display all the tasks.
-     * @param size Length of the list.
+     * @param tasks List of all tasks.
      */
-    public void showList(int size) {
+    public void showList(ArrayList<Task> tasks) {
         this.showLine();
-        if (size == 0) {
+        if (tasks.size() == 0) {
             System.out.println("Your task list is empty! Add a task to view it here.");
         } else {
             System.out.println("Tasks displayed. Your guidance is requested.");
+            for (int i = 0; i < tasks.size(); i++) {
+                System.out.println((i + 1) + ") " + tasks.get(i).toString());
+            }
         }
     }
 

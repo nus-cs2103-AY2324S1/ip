@@ -44,13 +44,6 @@ public class TaskList {
         this.tasks.get(index).revertTask();
     }
 
-    /** Prints the list of all tasks. */
-    public void list() {
-        for (int i = 0; i < this.tasks.size(); i++) {
-            System.out.println((i + 1) + ") " + this.tasks.get(i).toString());
-        }
-    }
-
     /**
      * Deletes the task with the given index.
      * @param index Index of the task to be deleted.
