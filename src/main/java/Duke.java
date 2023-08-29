@@ -1,3 +1,5 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.io.FileWriter;
@@ -111,9 +113,8 @@ public class Duke {
                 if (splitSentence.length < 2 || !splitSentence[1].contains("by")) {
                     throw new DukeException("\u2639 OOPS!!! Please indicate a deadline with the /by keyword");
                 }
-                String date = splitSentence[1].replaceAll("by", "by:");
-                taskName = String.format("%s (%s)", taskName, date);
-                newTask = new Deadline(taskName);
+                String date = splitSentence[1].replaceAll("by", "").strip();
+                newTask = new Deadline(taskName, date);
                 break;
             case EVENT:
                 checkEmpty(taskName, "event");
@@ -222,42 +223,6 @@ public class Duke {
             e.printStackTrace();
         }
     }
-
-//    public static Task parseData(String content) throws DukeException {
-//        /*
-//          Extracts information from a line of content
-//         */
-//
-//        content = content.split("\\.")[1];  // Removes the bullet point numbering
-//        content = content.replaceAll("\\[", "");  // Removes the \\] character
-//        String[] contentArray = content.split("]");  // Splits the content to extract data
-//
-//        if (contentArray.length <= 2) {
-//            throw new DukeException("\u2639 OOPS!!! I'm sorry, but past chats cannot be loaded 1 :-(");
-//        }
-//        String taskType = contentArray[0];
-//        boolean isMarked = contentArray[1].equals("X");
-//        String taskContent = contentArray[2].strip();
-//        Task newTask;
-//
-//        switch(taskType) {
-//            case("T"):
-//                newTask = new Todo(taskContent);
-//                break;
-//            case("E"):
-//                newTask = new Event(taskContent);
-//                break;
-//            case("D"):
-//                newTask = new Deadline(taskContent);
-//                break;
-//            default:
-//                throw new DukeException("\u2639 OOPS!!! I'm sorry, but past chats cannot be loaded :-(");
-//        }
-//        if (isMarked) {
-//            newTask.markTask();
-//        }
-//        return newTask;
-//    }
 
     public static void main(String[] args) {
         Scanner scanObj = new Scanner(System.in);

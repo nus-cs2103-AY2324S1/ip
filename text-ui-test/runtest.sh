@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 
+# Run script from ./text-ui-test first
 cd ..
 
 # create bin directory if it doesn't exist

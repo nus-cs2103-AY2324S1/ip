@@ -1,7 +1,7 @@
 import java.io.Serializable;
 
 public class Task implements Serializable {
-    private final String name;
+    private String name;
     private boolean marked = false;
 
     public Task(String name) {
@@ -22,5 +22,9 @@ public class Task implements Serializable {
 
     public String getName() {
         return this.name;
+    }
+
+    public void editName(String addition) {
+        this.name += addition;
     }
 }
