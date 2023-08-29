@@ -1,9 +1,11 @@
 public abstract class Task {
 
+    private final String input;
     private final String name;
     private boolean isDone;
 
-    public Task(String name) {
+    public Task(String input, String name) {
+        this.input = input;
         this.name = name;
         this.isDone = false;
     }
@@ -14,7 +16,9 @@ public abstract class Task {
 
     public abstract String getTask();
 
-    public abstract String getTaskType();
+    public String getTaskInput() {
+        return this.input;
+    }
 
     public void setDone(boolean isDone) {
         this.isDone = isDone;

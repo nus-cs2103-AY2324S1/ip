@@ -13,11 +13,11 @@ import java.nio.file.Paths;
  * the list of tasks along with their respective indexes.
  * Tasks can be of different types: ToDo, Deadline, and Event.
  */
-public class List {
-    private ArrayList<Task> list;
+public class TaskList {
+    private ArrayList<Task> taskList;
 
-    public List() {
-        this.list = new ArrayList<>();
+    public TaskList() {
+        this.taskList = new ArrayList<>();
         loadTasksFromFile();
     }
 
@@ -32,12 +32,12 @@ public class List {
      */
     public void addTask(String type, String input) throws CCException {
         Task task = parseInput(type, input);
-        list.add(task);
+        taskList.add(task);
         saveTaskToFile(task);
         System.out.println(ChatterChicken.LINE
                 + ChatterChicken.INDENT + "Got it. I've added this task:\n"
                 + ChatterChicken.INDENT_BIG + task.getTask() + "\n"
-                + ChatterChicken.INDENT + "Now you have " + list.size() + " tasks in the list."
+                + ChatterChicken.INDENT + "Now you have " + taskList.size() + " tasks in the list."
                 + ChatterChicken.LINE);
     }
 
@@ -70,7 +70,7 @@ public class List {
         if (input.equals("todo")) {
             throw new CCException("OOPS!!! The description of a todo cannot be empty.");
         }
-        return new ToDo(input.substring("todo".length()).trim());
+        return new ToDo(input, input.substring("todo".length()).trim());
     }
 
     /**
@@ -96,7 +96,7 @@ public class List {
         if (name.isEmpty() || end.isEmpty()) {
             throw new CCException("OOPS!!! Empty field for deadline detected.");
         }
-        return new Deadline(name, end);
+        return new Deadline(input, name, end);
     }
 
     /**
@@ -123,7 +123,7 @@ public class List {
         if (name.isEmpty() || start.isEmpty() || end.isEmpty()) {
             throw new CCException("OOPS!!! Empty field for event detected.");
         }
-        return new Event(name, start, end);
+        return new Event(input, name, start, end);
     }
 
     /**
@@ -137,14 +137,14 @@ public class List {
      */
     public void markTask(String input) throws CCException {
         try {
-            Task task = list.get(getIndex(input));
+            Task task = taskList.get(getIndex(input));
             task.setDone(true);
             System.out.println(ChatterChicken.LINE
                     + ChatterChicken.INDENT + "Nice! I've marked this task as done:\n"
                     + ChatterChicken.INDENT_BIG + task.getTask()
                     + ChatterChicken.LINE);
         } catch (IndexOutOfBoundsException e) {
-            throw new CCException("Invalid input for marking list of length " + list.size());
+            throw new CCException("Invalid input for marking list of length " + taskList.size());
         }
     }
 
@@ -159,14 +159,14 @@ public class List {
      */
     public void unmarkTask(String input) throws CCException {
         try {
-            Task task = list.get(getIndex(input));
+            Task task = taskList.get(getIndex(input));
             task.setDone(false);
             System.out.println(ChatterChicken.LINE
                     + ChatterChicken.INDENT + "OK, I've marked this task as not done yet:\n"
                     + ChatterChicken.INDENT_BIG + task.getTask()
                     + ChatterChicken.LINE);
         } catch (IndexOutOfBoundsException e) {
-            throw new CCException("Invalid input for list of length " + list.size());
+            throw new CCException("Invalid input for list of length " + taskList.size());
         }
     }
 
@@ -182,15 +182,15 @@ public class List {
     public void deleteTask(String input) throws CCException {
         try {
             int index = getIndex(input);
-            Task task = list.get(index);
-            list.remove(index);
+            Task task = taskList.get(index);
+            taskList.remove(index);
             System.out.println(ChatterChicken.LINE
                     + ChatterChicken.INDENT + "Noted. I've removed this task:\n"
                     + ChatterChicken.INDENT_BIG + task.getTask() + "\n"
-                    + ChatterChicken.INDENT + "Now you have " + list.size() + " tasks in your list."
+                    + ChatterChicken.INDENT + "Now you have " + taskList.size() + " tasks in your list."
                     + ChatterChicken.LINE);
         } catch (IndexOutOfBoundsException e) {
-            throw new CCException("Invalid input for list of length " + list.size());
+            throw new CCException("Invalid input for list of length " + taskList.size());
         }
     }
 
@@ -209,12 +209,17 @@ public class List {
      */
     public void printList() {
         System.out.println(ChatterChicken.LINE + ChatterChicken.INDENT + "Here are the tasks in your list:");
-        for (int i = 0; i < list.size(); i++) {
-            System.out.println(ChatterChicken.INDENT_BIG + (i + 1) + "." + list.get(i).getTask());
+        for (int i = 0; i < taskList.size(); i++) {
+            System.out.println(ChatterChicken.INDENT_BIG + (i + 1) + "." + taskList.get(i).getTask());
         }
         System.out.println(ChatterChicken.LINE);
     }
 
+    /**
+     * Loads tasks from the data file and populates the task list with them.
+     * If the data file doesn't exist, a new file is created.
+     * Any errors during loading or task addition are caught and handled.
+     */
     private void loadTasksFromFile() {
         try {
             File dataFile = Paths.get(ChatterChicken.PATH).toAbsolutePath().toFile();
@@ -226,12 +231,12 @@ public class List {
                 ArrayList<Task> list = new ArrayList<>();
                 while (currLine != null) {
                     String taskType = currLine.substring(0, currLine.indexOf(' '));
-                    Task task = parseInput(taskType, currLine.substring(7));
+                    Task task = parseInput(taskType, currLine);
                     list.add(task);
                     currLine = reader.readLine();
                 }
                 reader.close();
-                this.list = list;
+                this.taskList = list;
             }
         } catch (IOException e) {
             System.err.println("An error occurred while loading tasks from file: " + e.getMessage());
@@ -240,16 +245,16 @@ public class List {
         }
     }
 
+    /**
+     * Saves the provided task to the data file in its original user input format.
+     *
+     * @param task The task to be saved to the data file.
+     */
     private void saveTaskToFile(Task task) {
         try {
             File dataFile = Paths.get(ChatterChicken.PATH).toAbsolutePath().toFile();
             BufferedWriter writer = new BufferedWriter(new FileWriter(dataFile, true));
-            if (task == null) {
-                System.out.println("NULL");
-            } else {
-                System.out.println("NOT NULL");
-            }
-            writer.append(task.getTaskType() + " " + task.getTask() + "\n");
+            writer.append(task.getTaskInput() + "\n");
             writer.close();
         } catch (IOException e) {
             System.err.println("An error occurred while saving tasks to file: " + e.getMessage());
