@@ -25,4 +25,8 @@ public class Task {
     public String toStorageString() {
         return " | " + ( this.isDone ? 1 : 0 ) + " | " + this.description;
     }
+
+    public String getDescription() {
+        return this.description;
+    }
 }

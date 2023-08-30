@@ -2,6 +2,7 @@ package duke.util;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import duke.exceptions.DukeException;
 import duke.tasks.Task;
@@ -46,6 +47,13 @@ public class TaskList {
 
     public List<Task> getTasks() {
         return tasks;
+    }
+
+    public TaskList filter(String keyword) {
+        List<Task> filtered = tasks.stream()
+                .filter(task -> task.getDescription().contains(keyword))
+                .collect(Collectors.toList());
+        return new TaskList(filtered);
     }
     
 }

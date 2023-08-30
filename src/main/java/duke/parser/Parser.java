@@ -17,6 +17,8 @@ public class Parser {
             return Duke.CommandType.DEADLINE;
         } else if (command.startsWith("event")) {
             return Duke.CommandType.EVENT;
+        } else if (command.startsWith("find")) {
+            return Duke.CommandType.FIND;
         }
         else {
             return Duke.CommandType.UNKNOWN;

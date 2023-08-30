@@ -16,7 +16,7 @@ import duke.exceptions.DukeException;
 public class Duke {
     
     public enum CommandType {
-        LIST, MARK, DELETE, TODO, DEADLINE, EVENT, UNKNOWN
+        LIST, MARK, DELETE, TODO, DEADLINE, EVENT, UNKNOWN, FIND
     }
 
     private Storage storage;
@@ -77,10 +77,20 @@ public class Duke {
         case EVENT:
             addTask(command);
             break;
+        case FIND:
+            handleFind(command);
+            break;
         case UNKNOWN:
             ui.printErrorMessage(new DukeException("I'm sorry, but I don't know what that means :-("));
             break;
         }
+    }
+
+    private void handleFind(String command) {
+        ui.printFindMessage();
+        String keyword = command.split(" ")[1];
+        TaskList filtered = tasks.filter(keyword);
+        ui.printList(filtered.getTasks());
     }
 
     private void addTask(String task) {
