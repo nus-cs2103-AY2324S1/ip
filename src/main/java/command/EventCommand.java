@@ -8,7 +8,8 @@ import task.Event;
 
 public class EventCommand extends Command {
     private String taskDetails;
-    private String timeDetails;
+    private String startTimeDetails;
+    private String endTimeDetails;
 
     private Task currentTask;
     public EventCommand(String[] details) throws KoraException {
@@ -18,7 +19,9 @@ public class EventCommand extends Command {
         taskDetails = details[0].replace("event ", "");
         String startTime = details[1].replace("from ", "");
         String endTime = details[2].replace("to ", "");
-        timeDetails = "from: " + startTime + "to: " + endTime;
+        //timeDetails = "from: " + startTime + "to: " + endTime;
+        startTimeDetails = startTime;
+        endTimeDetails = endTime;
     }
     String commandMessage = "";
     @Override
@@ -27,7 +30,7 @@ public class EventCommand extends Command {
     }
     @Override
     public void execute(TaskList taskList) {
-        currentTask = new Event(taskDetails, timeDetails);
+        currentTask = new Event(taskDetails, startTimeDetails, endTimeDetails);
         taskList.addTask(currentTask);
         commandMessage = "Okay! I have added this task" + "\n" +
                 currentTask.toString() + "\n" +

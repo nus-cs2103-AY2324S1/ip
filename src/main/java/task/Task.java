@@ -1,5 +1,8 @@
 package task;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 public class Task {
     //private int num;
     private String details;
@@ -8,11 +11,17 @@ public class Task {
 
     private String taskType;
 
+    protected LocalDateTime byTime;
+
     public Task(String info) {
         //num = index;
         details = info;
         isMarked = false;
         //taskType = type;
+    }
+
+    public String getTime() {
+        return byTime.format(DateTimeFormatter.ofPattern("E, MMM dd yyyy"));
     }
 
     public void setMarked() {

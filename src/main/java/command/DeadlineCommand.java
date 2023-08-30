@@ -13,7 +13,7 @@ public class DeadlineCommand extends Command {
             throw new KoraException("Deadline needs to have a due date!");
         }
         taskDetails = details[0].replace("deadline ", "");
-        timeDetails = "by: " + details[1].replace("by ", "");
+        timeDetails = details[1].replace("by ", "");
     }
     String commandMessage = "";
     @Override
