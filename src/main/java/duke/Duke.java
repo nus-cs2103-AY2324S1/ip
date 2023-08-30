@@ -1,11 +1,5 @@
 package duke;
 
-import duke.Commands;
-
-import java.util.*;
-import java.util.regex.Pattern;
-import java.util.regex.Matcher;
-import java.io.File;
 import duke.storage.Storage;
 
 /**
@@ -20,9 +14,13 @@ public class Duke {
         this.storage = new Storage();
     }
 
+
+    /**
+     * Start duke program
+     */
     public void run() {
         Greeting.greet();
-        Commands.Run(this.storage);
+        Commands.run(this.storage);
     }
 
 

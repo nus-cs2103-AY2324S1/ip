@@ -1,16 +1,16 @@
 package duke;
 
-import java.util.Scanner;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
+import java.util.Scanner;
 import duke.parser.Parser;
-import duke.storage.*;
+import duke.storage.Storage;
 import duke.task.ItemList;
 import duke.ui.UI;
-import duke.task.deadline.DeadlineException;
-import duke.task.event.EventException;
-import duke.task.todo.ToDoException;
+
+
+
+
+
 
 
 /**
@@ -21,29 +21,21 @@ public class Commands {
      * The Enum Class encapsulates all the available commands.
      */
     public enum CommandType {
-        MARK,
-        UNMARK,
-        LIST,
-        EVENT,
-        DEADLINE,
-        TODO,
-        BYE,
-        DELETE,
+        MARK, UNMARK, LIST, EVENT, DEADLINE, TODO, BYE, DELETE, FIND
 
     }
 
 
     /**
      * This method Run the Scanner to begin taking inputs from user, and check to see which commands to run.
-     *
      */
-    public static void Run(Storage storage) {
+    public static void run(Storage storage) {
         Scanner sc = new Scanner(System.in);
         ItemList items = storage.getItems();
 
         boolean isRunning = true;
         do {
-            if(!sc.hasNextLine()) {
+            if (!sc.hasNextLine()) {
                 break;
             }
             try {
@@ -52,7 +44,7 @@ public class Commands {
                 String command = parser.getCommand();
                 CommandType given = CommandType.valueOf(command);
 
-                switch(given) {
+                switch (given) {
                     case BYE:
                         isRunning = false;
                         break;
@@ -77,12 +69,15 @@ public class Commands {
                     case EVENT:
                         parser.parseEvent(items);
                         break;
+                    case FIND:
+                        parser.parseFind(items);
+                        break;
                     default:
                         throw new DukeException();
 
                 }
             } catch (DukeException e) {
-                UI.printMessage(e.getMessage());
+                UI.printMessage(e.toString());
             } catch (IllegalArgumentException e) {
                 UI.printMessage("Invalid input");
             }

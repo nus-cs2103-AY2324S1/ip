@@ -17,7 +17,7 @@ public class EventException extends DukeException {
      * @return The String representation of an EventException
      */
     @Override
-    public String toString(){
+    public String toString() {
         return "☹ This is not a valid event input";
     }
 }

@@ -16,7 +16,7 @@ public class DeadlineException extends DukeException {
      * @return The String representation of an DeadlineException
      */
     @Override
-    public String toString(){
+    public String toString() {
         return "☹ This is not a valid Deadline input";
     }
 }

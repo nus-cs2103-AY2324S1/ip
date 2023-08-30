@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.stream.Collectors;
+
 import duke.dates.Dates;
 import duke.task.deadline.Deadline;
 import duke.task.event.Event;
@@ -48,7 +50,7 @@ public class ItemList {
             return;
         }
         Deadline deadline;
-        if(Dates.checkDateinput(by)) {
+        if (Dates.checkDateinput(by)) {
             deadline = new Deadline(name, Dates.convertToDateTime(by));
         } else {
             deadline = new Deadline(name, by);
@@ -60,7 +62,7 @@ public class ItemList {
             this.items.add(deadline);
             this.len++;
             this.saveAll();
-            UI.printMessage("Got it. I've added this task:",this.items.get(this.len-1).showTaskinList(),
+            UI.printMessage("Got it. I've added this task:", this.items.get(this.len - 1).showTaskinList(),
                     "Now you have " + String.valueOf(len) + " tasks in this list");
         } catch (IOException e) {
             this.items = copy;
@@ -87,7 +89,7 @@ public class ItemList {
             this.items.add(new ToDo(newitem));
             this.len++;
             this.saveAll();
-            UI.printMessage("Got it. I've added this task:",this.items.get(this.len-1).showTaskinList(),
+            UI.printMessage("Got it. I've added this task:", this.items.get(this.len - 1).showTaskinList(),
                     "Now you have " + String.valueOf(len) + " tasks in this list");
 
         } catch (IOException e) {
@@ -121,7 +123,7 @@ public class ItemList {
             return;
         }
         Event event;
-        if(Dates.checkDateinput(from) && Dates.checkDateinput(to))  {
+        if (Dates.checkDateinput(from) && Dates.checkDateinput(to)) {
             event = new Event(newitem, Dates.convertToDateTime(from), Dates.convertToDateTime(to));
         } else {
             event = new Event(newitem, from, to);
@@ -131,8 +133,8 @@ public class ItemList {
             this.items.add(event);
             this.len++;
             this.saveAll();
-            UI.printMessage("Got it. I've added this task:", this.items.get(this.len-1).showTaskinList()
-            ,"Now you have " + String.valueOf(len) + " tasks in this list");
+            UI.printMessage("Got it. I've added this task:", this.items.get(this.len - 1).showTaskinList(),
+                 "Now you have " + String.valueOf(len) + " tasks in this list");
         } catch (IOException e) {
             this.items = copy;
             this.len--;
@@ -164,7 +166,7 @@ public class ItemList {
     public void markDone(int index) {
         int i = index - 1;
         if (i < 0 || i >= this.len) {
-            UI.NoSuchTaskError();
+            UI.noSuchTaskError();
             return;
         }
         try {
@@ -187,14 +189,14 @@ public class ItemList {
     public void markUndone(int index) {
         int i = index - 1;
         if (i < 0 || i >= this.len) {
-            UI.NoSuchTaskError();
+            UI.noSuchTaskError();
             return;
         }
 
         try {
             this.items.get(i).setUndone();
             this.saveAll();
-            UI.printMessage("OK, I've marked this task as not done yet:",this.items.get(i).showTaskinList());
+            UI.printMessage("OK, I've marked this task as not done yet:", this.items.get(i).showTaskinList());
         } catch (IOException e) {
             this.items.get(i).setDone();
             UI.printFileError();
@@ -210,14 +212,14 @@ public class ItemList {
      */
     @SuppressWarnings("unchecked")
     public void delete(int index) {
-        if(this.len <= 0) {
+        if (this.len <= 0) {
             UI.printMessage("Nothing to Delete");
             return;
         }
         ArrayList<Task> copy = (ArrayList<Task>) this.items.clone();
         try {
             String todelete = this.items.get(index - 1).showTaskinList();
-            this.items.remove(index-1);
+            this.items.remove(index - 1);
             this.len--;
             this.saveAll();
             UI.printMessage("Noted. I've removed this task:", todelete);
@@ -231,17 +233,27 @@ public class ItemList {
 
     }
 
-    public void saveAll() throws IOException{
-            FileWriter writer = new FileWriter(file);
-            for (int i = 0; i < this.items.size(); i++) {
-                if(i == this.items.size() - 1) {
-                    writer.write(this.items.get(i).printList());
-                } else {
-                    writer.write(this.items.get(i).printList() + "\n");
-                }
-
+    public void saveAll() throws IOException {
+        FileWriter writer = new FileWriter(file);
+        for (int i = 0; i < this.items.size(); i++) {
+            if (i == this.items.size() - 1) {
+                writer.write(this.items.get(i).printList());
+            } else {
+                writer.write(this.items.get(i).printList() + "\n");
             }
-            writer.close();
+        }
+        writer.close();
+    }
+
+    public void find(String key) {
+        ArrayList<Task> filteredTasks = this.items.stream()
+                .filter(task -> task.showTask().contains(key))
+                .collect(Collectors.toCollection(ArrayList::new));
+        if (filteredTasks.isEmpty()) {
+            UI.printMessage("No matched item");
+        } else {
+            UI.printFound(filteredTasks);
+        }
     }
 
 

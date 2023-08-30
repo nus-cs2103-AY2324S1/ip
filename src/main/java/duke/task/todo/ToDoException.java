@@ -16,7 +16,7 @@ public class ToDoException extends DukeException {
      * @return The String representation of an ToDoException
      */
     @Override
-    public String toString(){
+    public String toString() {
         return "☹ This is not a valid Todo input";
     }
 

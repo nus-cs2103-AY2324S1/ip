@@ -1,23 +1,26 @@
 package duke.storage;
 
-import duke.task.*;
-import duke.task.deadline.*;
-import duke.task.event.*;
-import duke.task.todo.*;
-import duke.dates.Dates;
-import duke.*;
-import duke.ui.UI;
-
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import duke.Duke;
+import duke.dates.Dates;
+import duke.task.ItemList;
+import duke.task.Task;
+import duke.task.deadline.Deadline;
+import duke.task.event.Event;
+import duke.task.todo.ToDo;
+import duke.ui.UI;
+
+/**
+ * Storage class loads the local data into the program, and into a. ItemList.
+ */
 public class Storage {
     private ItemList items;
 
-    public Storage(){
+    public Storage() {
         try {
             this.items = loadAll();
         } catch (FileNotFoundException e) {
@@ -26,7 +29,12 @@ public class Storage {
         }
     };
 
-    public ItemList getItems(){
+
+    /**
+     * returns the Items being stored in Storage
+     * @return the items stored that is loaded from local storage
+     */
+    public ItemList getItems() {
         return this.items;
     }
     private static ItemList loadAll() throws FileNotFoundException {
@@ -67,7 +75,7 @@ public class Storage {
             }
 
 
-            if(line.charAt(0) == 'E') {
+            if (line.charAt(0) == 'E') {
                 String[] para = line.split(" \\| ", 4);
                 String description = para[2];
                 String block = para[3];
@@ -77,7 +85,7 @@ public class Storage {
                     newtask = new Event(description, Dates.createDateTime(fromTo[0]),
                             Dates.createDateTime(fromTo[1]));
                 } else {
-                    newtask = new Event(description, fromTo[0],fromTo[1]);
+                    newtask = new Event(description, fromTo[0], fromTo[1]);
                 }
 
                 if (!para[1].equals("0")) {
