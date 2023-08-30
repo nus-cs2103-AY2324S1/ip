@@ -88,7 +88,7 @@ public class MarkCommand extends Command {
     public boolean equals(Object other) {
         if (other instanceof MarkCommand) {
             MarkCommand command = (MarkCommand) other;
-            return this.index == command.index;
+            return this.index == command.index && this.isMark == command.isMark;
         }
         return false;
     }

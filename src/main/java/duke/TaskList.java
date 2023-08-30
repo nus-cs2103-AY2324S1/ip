@@ -25,7 +25,6 @@ public class TaskList {
 
     /**
      * Loads the list of task from the storage into the task list instance
-     * 
      * @param storedInput - the list of task obtained from storage
      * @return true if all task loaded successfully else false
      */
