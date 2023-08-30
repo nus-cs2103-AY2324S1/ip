@@ -5,7 +5,7 @@ import java.util.Optional;
 
 import rayshawn.chatbot.tasks.Task;
 public class CommandResult {
-    private final String feedbackToUser;
+    public final String feedbackToUser;
     private final List<Task> tasks;
 
     public CommandResult(String feedbackToUser) {
@@ -16,10 +16,6 @@ public class CommandResult {
     public CommandResult(String feedbackToUser, List<Task> tasks) {
         this.feedbackToUser = feedbackToUser;
         this.tasks = tasks;
-    }
-
-    public String getFeedbackToUser() {
-        return this.feedbackToUser;
     }
 
     public Optional<List<Task>> getTaskList() {

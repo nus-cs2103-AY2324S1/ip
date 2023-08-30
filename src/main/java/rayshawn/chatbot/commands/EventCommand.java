@@ -14,7 +14,7 @@ public class EventCommand extends Command {
     private static final String MESSAGE_SUCCESS = "Got it. I've added this task: \n %1$s \n";
 
 
-    private final Task toAdd;
+    public final Task toAdd;
 
     public EventCommand(String description, String start, String end) throws ChatBotException {
         String[] temp = start.split(" ");
