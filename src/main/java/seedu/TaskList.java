@@ -94,6 +94,19 @@ public class TaskList {
         } catch(Exception e) {
             throw new Exception("Something wrong with the given input");
         }
+    }
 
+    public ArrayList<Task> find(String keyword) throws Exception {
+        ArrayList<Task> foundWords = new ArrayList<>();
+        try {
+            for(Task t : this.lists) {
+                if(t.description.contains(keyword)) {
+                    foundWords.add(t);
+                }
+            }
+            return foundWords;
+        } catch(Exception e) {
+            throw new Exception("Keyword not found");
+        }
     }
 }

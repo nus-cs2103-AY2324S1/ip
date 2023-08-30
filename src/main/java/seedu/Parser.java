@@ -13,6 +13,8 @@ public class Parser {
         } else if (command.startsWith("mark ")) {
             int current = Integer.parseInt(command.substring(5)) - 1;
             return new Command("mark", ui, storage, tasks, current);
+        } else if (command.startsWith("find ")) {
+            return new Command(command, ui, storage, tasks);
         } else {
             return new Command(command, ui, storage, tasks);
         }

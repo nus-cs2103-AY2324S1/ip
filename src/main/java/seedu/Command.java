@@ -1,5 +1,7 @@
 package seedu;
 
+import java.util.ArrayList;
+
 public class Command {
     private String command;
     private Ui ui;
@@ -36,10 +38,13 @@ public class Command {
             } else if (command.equals("mark")) {
                 this.tasks.mark(this.index);
                 this.ui.showMarked();
+            } else if (command.startsWith("find")) {
+                String keyword = command.substring(4).trim();
+                ArrayList<Task> foundWords = this.tasks.find(keyword);
+                this.ui.showFoundWords(foundWords);
             } else {
                 Task curr = new Task(command.substring(command.indexOf(" ")),
                         command.substring(0, command.indexOf(" ")));
-
                 this.ui.addTask(curr);
                 this.tasks.add(curr);
             }

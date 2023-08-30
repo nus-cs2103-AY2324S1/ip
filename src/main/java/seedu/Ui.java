@@ -2,6 +2,7 @@ package seedu;
 
 import java.io.PrintStream;
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Ui {
     private Scanner sc;
@@ -58,6 +59,12 @@ public class Ui {
 
     public void addTask(Task curr) {
         out.println("Bacon Pancake : \n Added : " + curr.description);
+    }
+
+    public void showFoundWords(ArrayList<Task> tasks) {
+        for(Task task : tasks) {
+            System.out.println(task.getStatus());
+        }
     }
 
 }
