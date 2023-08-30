@@ -8,11 +8,6 @@ import duke.task.ItemList;
 import duke.ui.UI;
 
 
-
-
-
-
-
 /**
  * The Command Class encapsulates the functions to check the input string with the available commands.
  */
