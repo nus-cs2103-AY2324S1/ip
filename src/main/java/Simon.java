@@ -111,7 +111,7 @@ public class Simon {
             case EVENT:
                 String[] eventParts = inData.split("event ");
                 if (eventParts.length <= 1 || !inData.contains("/from ") || !inData.contains("/to ")) {
-                    throw new SimonException("☹ OOPS!!! The format for event is incorrect. Expected format: 'event [event description] /from [start date] /to [end date]'.");
+                    throw new SimonException("☹ OOPS!!! The format for event is incorrect. Expected format: 'event [event description] /from [dd/mm/yyyy HHmm]] /to [dd/mm/yyyy HHmm]'.");
                 }
 
                 String[] fromToParts = eventParts[1].split("/from ");
@@ -214,7 +214,7 @@ public class Simon {
                     writer.println("D | " + (task.isDone ? "1" : "0") + " | " + task.taskName + " | " + deadline.endDateTime.format(DateTimeFormatter.ofPattern("d/M/yyyy HHmm")));
                 } else if (task instanceof Event) {
                     Event event = (Event) task;
-                    writer.println("E | " + (task.isDone ? "1" : "0") + " | " + task.taskName + " | " + event.startDate + " | " + event.endDate);
+                    writer.println("E | " + (task.isDone ? "1" : "0") + " | " + task.taskName + " | " + event.startDateTime.format(DateTimeFormatter.ofPattern("d/M/yyyy HHmm")) + " | " + event.endDateTime.format(DateTimeFormatter.ofPattern("d/M/yyyy HHmm")));
                 }
             }
             writer.close();
@@ -243,6 +243,7 @@ public class Simon {
 
         try {
             Scanner scanner = new Scanner(file);
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
             while (scanner.hasNextLine()) {
                 String data = scanner.nextLine();
                 String[] parts = data.split(" \\| ");
@@ -255,7 +256,6 @@ public class Simon {
                         tasks.add(todo);
                         break;
                     case "D":
-                        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
                         LocalDateTime endDateTime = LocalDateTime.parse(parts[3], formatter);
                         Deadline deadline = new Deadline(parts[2], endDateTime.format(formatter));
                         if (parts[1].equals("1")) {
@@ -264,7 +264,11 @@ public class Simon {
                         tasks.add(deadline);
                         break;
                     case "E":
-                        Event event = new Event(parts[2], parts[3], parts[4]);
+                        String startDateTimeStr = parts[3];
+                        String endDateTimeStr = parts[4];
+                        LocalDateTime startDateTime = LocalDateTime.parse(startDateTimeStr, formatter);
+                        LocalDateTime endDateTime2 = LocalDateTime.parse(endDateTimeStr, formatter);
+                        Event event = new Event(parts[2], startDateTime.format(formatter), endDateTime2.format(formatter));
                         if (parts[1].equals("1")) {
                             event.markAsDone();
                         }
