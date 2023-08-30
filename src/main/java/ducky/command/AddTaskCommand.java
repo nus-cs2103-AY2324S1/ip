@@ -13,15 +13,32 @@ import ducky.util.Parser;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Represents a command that adds a task to Ducky's task list.
+ */
 public class AddTaskCommand extends Command {
 
     private final TaskType type;
     private final String[] args;
 
+    /**
+     * Constructs a command that adds the specified type of task with additional arguments.
+     * @param type Type of task.
+     * @param args Arguments specific to the given type of task.
+     */
     public AddTaskCommand(TaskType type, String... args) {
         this.type = type;
         this.args = args;
     }
+
+    /**
+     * Adds the task to Ducky's task list, saves the state to file system,
+     * then reflects changes to user interface.
+     * @param taskList TaskList of Ducky chatbot instance.
+     * @param ui UserInterface of Ducky chatbot instance.
+     * @param storage Storage module of Ducky chatbot instance.
+     * @throws DuckyException If exceptions specific to Ducky are raised.
+     */
     @Override
     public void execute(TaskList taskList, UserInterface ui, Storage storage) throws DuckyException {
         switch (this.type) {

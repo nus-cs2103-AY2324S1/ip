@@ -5,34 +5,64 @@ import ducky.task.Task;
 
 import java.util.ArrayList;
 
+/**
+ * Represents a list of tasks.
+ */
 public class TaskList {
     private final ArrayList<Task> tasks;
+
+    /**
+     * Constructs a TaskList.
+     */
     public TaskList() {
         this.tasks = new ArrayList<>();
     }
 
+
+    /**
+     * Adds the specified task into the list.
+     * @param t Task to be added into the list.
+     */
     public void addTask(Task t) {
         this.tasks.add(t);
     }
 
+    /**
+     * Marks the task in the list with the specified index as complete.
+     * @param index Index of completed task in the list.
+     * @return Task to be marked as complete.
+     * @throws DuckyInvalidTaskIndexException If specified index does not exist.
+     */
     public Task markTaskAsComplete(int index) throws DuckyInvalidTaskIndexException {
         if (index < 0 || index >= this.tasks.size()) {
             throw new DuckyInvalidTaskIndexException(index + 1, this.tasks.size());
         }
         Task toMark = this.tasks.get(index);
-        toMark.complete();
+        toMark.setComplete();
         return toMark;
     }
 
+    /**
+     * Marks the task in the list with the specified index as incomplete.
+     * @param index Index of incomplete task in the list.
+     * @return Task to be marked as incomplete.
+     * @throws DuckyInvalidTaskIndexException If specified index does not exist.
+     */
     public Task markTaskAsIncomplete(int index) throws DuckyInvalidTaskIndexException {
         if (index < 0 || index >= this.tasks.size()) {
             throw new DuckyInvalidTaskIndexException(index + 1, this.tasks.size());
         }
         Task toUnmark = this.tasks.get(index);
-        toUnmark.incomplete();
+        toUnmark.setIncomplete();
         return toUnmark;
     }
 
+    /**
+     * Deletes the task in the list with the specified index.
+     * @param index Index of task to be deleted.
+     * @return Task to be deleted.
+     * @throws DuckyInvalidTaskIndexException If specified index does not exist.
+     */
     public Task deleteTask(int index) throws DuckyInvalidTaskIndexException {
         if (index < 0 || index >= this.tasks.size()) {
             throw new DuckyInvalidTaskIndexException(index + 1, this.tasks.size());
@@ -42,6 +72,10 @@ public class TaskList {
         return toDelete;
     }
 
+    /**
+     * Returns a string representation of the list for printing to user interface.
+     * @return Representation of the list meant for printing.
+     */
     public String getPrintableList() {
         if (this.tasks.isEmpty()) {
             return "There are no tasks in your list.";
@@ -57,6 +91,10 @@ public class TaskList {
         return builder.toString();
     }
 
+    /**
+     * Returns a string representation of the list for saving to file system.
+     * @return Representation of the file meant for saving.
+     */
     public String getSaveableList() {
         StringBuilder text = new StringBuilder();
         for (Task t : this.tasks) {
@@ -65,6 +103,10 @@ public class TaskList {
         return text.toString();
     }
 
+    /**
+     * Returns a string representation of the number of tasks in the list.
+     * @return Representation of task count.
+     */
     public String getListLengthStatus() {
         if (this.tasks.isEmpty()) {
             return "There are no tasks in your list.";

@@ -12,7 +12,7 @@ public class TodoTaskTest {
 
     @BeforeEach
     public void setTodoTask2ToCompleted() {
-        todoTask2.complete();
+        todoTask2.setComplete();
     }
     @Test
     public void todoTask_toString() {

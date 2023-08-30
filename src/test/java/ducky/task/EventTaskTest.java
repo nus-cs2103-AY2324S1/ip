@@ -12,7 +12,7 @@ public class EventTaskTest {
 
     @BeforeEach
     public void setEventTask2ToCompleted() {
-        eventTask2.complete();
+        eventTask2.setComplete();
     }
 
 
