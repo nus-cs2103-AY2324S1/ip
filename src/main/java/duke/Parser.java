@@ -3,6 +3,8 @@ package duke;
 import duke.Deadline;
 import duke.DukeException;
 
+import java.util.ArrayList;
+
 public class Parser {
 
     public static void parse(String command, TaskList list, Storage storage, Ui ui) {
@@ -37,6 +39,12 @@ public class Parser {
             ui.printList(list);
 
             // mark task as done
+        } else if (command.toLowerCase().startsWith("find")) {
+            String keyword = command.substring(5).trim();
+            ArrayList<Task> matchingTasks = list.find(keyword);
+
+            ui.printMatchingTasks(matchingTasks);
+
         } else if (command.toLowerCase().startsWith("mark")) {
             String[] sub = command.split(" ");
 

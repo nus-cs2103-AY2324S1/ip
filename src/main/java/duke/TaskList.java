@@ -5,34 +5,47 @@ import duke.Task;
 
 import java.util.ArrayList;
 public class TaskList {
-    private ArrayList<Task> tasks;
+    private ArrayList<Task> list;
 
-    public TaskList(ArrayList<Task> tasks) throws DukeException {
-        if (tasks == null) {
+    public TaskList(ArrayList<Task> list) throws DukeException {
+        if (list == null) {
             throw new DukeException("Empty taskList");
         } else {
-            this.tasks = tasks;
+            this.list = list;
         }
     }
 
     public TaskList() {
-        this.tasks = new ArrayList<Task>();
+        this.list = new ArrayList<Task>();
     };
 
     public void add(Task task) {
-        tasks.add(task);
+        list.add(task);
     }
 
     public Task delete(int index) {
-        Task removedTask = tasks.remove(index);
+        Task removedTask = list.remove(index);
         return removedTask;
     }
 
     public Task getTask(int index) {
-        return tasks.get(index);
+        return list.get(index);
     }
 
     public int getSize() {
-        return tasks.size();
+        return list.size();
     }
+
+    public ArrayList<Task> find(String keyword) {
+        ArrayList<Task> matchingTasks = new ArrayList<>();
+
+        for (Task task : list) {
+            if (task.getDescription().contains(keyword)) {
+                matchingTasks.add(task);
+            }
+        }
+
+        return matchingTasks;
+    }
+
 }
