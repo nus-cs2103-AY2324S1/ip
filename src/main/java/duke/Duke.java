@@ -1,7 +1,5 @@
-import duke.DukeException;
-import duke.Parser;
-import duke.Storage;
-import duke.Ui;
+package duke;
+
 import duke.command.Command;
 import duke.task.TaskList;
 
