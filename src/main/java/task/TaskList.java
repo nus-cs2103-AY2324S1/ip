@@ -9,8 +9,16 @@ public class TaskList {
         this.tasks = new ArrayList<>();
     }
 
-    public void addTask(Task task) {
-        tasks.add(task);
+    public void addTodo(String description) {
+        tasks.add(new ToDo(description));
+    }
+
+    public void addDeadline(String description, String dueDate) {
+        tasks.add(new Deadline(description, dueDate));
+    }
+
+    public void addEvent(String description, String start, String end) {
+        tasks.add(new Event(description, start, end));
     }
 
     public String markTaskAsDone(int index) {
@@ -34,9 +42,9 @@ public class TaskList {
     public String displayTasks() {
         StringBuilder sb = new StringBuilder("Here are the tasks in your list:\n");
         for (int i = 0; i < tasks.size(); i++) {
-            sb.append(tasks.get(i).toString()).append("\n");
+            sb.append((i + 1) + "." + tasks.get(i).toString()).append("\n");
         }
+        sb.append("Now you have " + tasks.size() + " tasks in your list\n");
         return sb.toString();
     }
-
 }

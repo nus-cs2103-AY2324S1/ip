@@ -2,7 +2,6 @@ package chatengine;
 
 import io.IOHandler;
 import io.ConsoleIO;
-import task.Task;
 import task.TaskList;
 
 public class ChatEngine {
@@ -39,10 +38,20 @@ public class ChatEngine {
         } else if ("list".equalsIgnoreCase(command)) {
             String taskListString = taskList.displayTasks();
             ioHandler.writeOutput(taskListString);
+        } else if ("todo".equalsIgnoreCase(command)) {
+            taskList.addTodo(parts[1]);
+            ioHandler.writeOutput("Added new ToDo: " + parts[1]);
+        } else if ("deadline".equalsIgnoreCase(command)) {
+            String[] deadlineParts = parts[1].split(" /by ", 2);
+            taskList.addDeadline(deadlineParts[0], deadlineParts[1]);
+            ioHandler.writeOutput("Added new Deadline: " + deadlineParts[0] + " by " + deadlineParts[1]);
+        } else if ("event".equalsIgnoreCase(command)) {
+            String[] eventParts = parts[1].split(" /from | /to ", 3);
+            taskList.addEvent(eventParts[0], eventParts[1], eventParts[2]);
+            ioHandler.writeOutput("Added new Event: " + eventParts[0] + " from " + eventParts[1] + " to " + eventParts[2]);
         } else {
-            Task newTask = new Task(command);
-            taskList.addTask(newTask);
-            ioHandler.writeOutput("Added new task: " + command);
+            // Handle unknown commands
+            ioHandler.writeOutput("Unknown command: " + command);
         }
     }
 }
