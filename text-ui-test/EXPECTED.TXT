@@ -2,78 +2,108 @@ ____________________________________________________________
 Hello! I'm Bob
 What can I do for you?
 ____________________________________________________________
+todo read book
 ____________________________________________________________
 Got it. I've added this task:
 [T][ ] read book
-Now you have 1 tasks in the list.
+Now you have 5 tasks in the list.
 ____________________________________________________________
-____________________________________________________________
-Got it. I've added this task:
-[D][ ] complete this level (by: June 6th)
-Now you have 2 tasks in the list.
-____________________________________________________________
+deadline complete this level /by 2021-12-06 1800
 ____________________________________________________________
 Got it. I've added this task:
-[E][ ] project meeting (from: Thursday 2pm to: 4pm)
-Now you have 3 tasks in the list.
+[D][ ] complete this level (by: Dec 06 2021, 6:00pm)
+Now you have 6 tasks in the list.
 ____________________________________________________________
+event project meeting /from 2021-12-06 1800 /to 2021-12-12 1300
+____________________________________________________________
+Got it. I've added this task:
+[E][ ] project meeting (from: Dec 06 2021, 6:00pm to: Dec 12 2021, 1:00pm)
+Now you have 7 tasks in the list.
+____________________________________________________________
+todo sleep
 ____________________________________________________________
 Got it. I've added this task:
 [T][ ] sleep
-Now you have 4 tasks in the list.
+Now you have 8 tasks in the list.
 ____________________________________________________________
+list
 ____________________________________________________________
 Here are the tasks in your list:
 1. [T][ ] read book
-2. [D][ ] complete this level (by: June 6th)
-3. [E][ ] project meeting (from: Thursday 2pm to: 4pm)
-4. [T][ ] sleep
+2. [D][X] go school (by: Aug 29 2023, 10:00am)
+3. [E][ ] project meeting (from: Dec 06 2021, 6:00pm to: Dec 12 2021, 1:00pm)
+4. [T][X] sleep
+5. [T][ ] read book
+6. [D][ ] complete this level (by: Dec 06 2021, 6:00pm)
+7. [E][ ] project meeting (from: Dec 06 2021, 6:00pm to: Dec 12 2021, 1:00pm)
+8. [T][ ] sleep
 ____________________________________________________________
+mark 3
 ____________________________________________________________
 Nice! I've marked this task as done:
 [X] project meeting
 ____________________________________________________________
+mark 1
 ____________________________________________________________
 Nice! I've marked this task as done:
 [X] read book
 ____________________________________________________________
+list
 ____________________________________________________________
 Here are the tasks in your list:
 1. [T][X] read book
-2. [D][ ] complete this level (by: June 6th)
-3. [E][X] project meeting (from: Thursday 2pm to: 4pm)
-4. [T][ ] sleep
+2. [D][X] go school (by: Aug 29 2023, 10:00am)
+3. [E][X] project meeting (from: Dec 06 2021, 6:00pm to: Dec 12 2021, 1:00pm)
+4. [T][X] sleep
+5. [T][ ] read book
+6. [D][ ] complete this level (by: Dec 06 2021, 6:00pm)
+7. [E][ ] project meeting (from: Dec 06 2021, 6:00pm to: Dec 12 2021, 1:00pm)
+8. [T][ ] sleep
 ____________________________________________________________
+unmark 3
 ____________________________________________________________
 OK, I've marked this task as not done yet:
 [ ] project meeting
 ____________________________________________________________
+unmark 7
 ____________________________________________________________
-The current number of tasks is 4, so you can't unmark task 7!!.
+OOPS!!! You did not mark this task.
 ____________________________________________________________
+todo
 ____________________________________________________________
 ☹ OOPS!!! The description of a todo cannot be empty.
 ____________________________________________________________
+deadline
 ____________________________________________________________
 ☹ OOPS!!! The description of a deadline cannot be empty.
 ____________________________________________________________
+blah
 ____________________________________________________________
 ☹ OOPS!!! I'm sorry, but I don't know what that means :-(
 ____________________________________________________________
+delete 3
 ____________________________________________________________
 Noted. I've removed this task:
-[E][ ] project meeting (from: Thursday 2pm to: 4pm)
-Now you have 3 tasks in the list.
+[E][ ] project meeting (from: Dec 06 2021, 6:00pm to: Dec 12 2021, 1:00pm)
+Now you have 7 tasks in the list.
 ____________________________________________________________
+delete 6
 ____________________________________________________________
-The current number of tasks is 3, so you can't delete task 6!!.
+Noted. I've removed this task:
+[E][ ] project meeting (from: Dec 06 2021, 6:00pm to: Dec 12 2021, 1:00pm)
+Now you have 6 tasks in the list.
 ____________________________________________________________
+list
 ____________________________________________________________
 Here are the tasks in your list:
 1. [T][X] read book
-2. [D][ ] complete this level (by: June 6th)
-3. [T][ ] sleep
+2. [D][X] go school (by: Aug 29 2023, 10:00am)
+3. [T][X] sleep
+4. [T][ ] read book
+5. [D][ ] complete this level (by: Dec 06 2021, 6:00pm)
+6. [T][ ] sleep
 ____________________________________________________________
+bye
 ____________________________________________________________
 Bye. Hope to see you again soon!
 ____________________________________________________________
