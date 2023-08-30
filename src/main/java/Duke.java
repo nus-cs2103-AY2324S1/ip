@@ -157,11 +157,9 @@ public class Duke {
             break;
           }
           try {
-            int index = Integer.parseInt(inputTokens[1]);
-            index--;
             // remove the current task
-            Task selectedTask = taskList.get(index);
-            taskList.remove(index);
+            Task selectedTask = taskList.get(parser.getIndex());
+            taskList.remove(parser.getIndex());
             System.out.println("Deleting selected task!");
             System.out.println(uiFormatter.displayTask(selectedTask));
           } catch (IndexOutOfBoundsException ex) {
