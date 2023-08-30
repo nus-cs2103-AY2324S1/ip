@@ -10,7 +10,13 @@ import exception.InvalidInputException;
 
 public class TodoBuilder implements Builder<Task> {
     private String pattern = "todo\\s+(.*)";
-
+    
+    /**
+     * Builds a Todo object from a string.
+     * @param input String input from user in the format "todo <description>".
+     * @return Todo object.
+     * @throws DukeException If input is invalid.
+     */
     @Override
     public Todo buildFromString(String input) throws DukeException {
         Pattern p = Pattern.compile(pattern);

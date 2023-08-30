@@ -10,7 +10,13 @@ import exception.InvalidInputException;
 
 public class DeadlineBuilder implements Builder<Task> {
     private String pattern = "deadline\\s+(.*?)\\s+/by\\s+(.*)";
-
+    
+    /**
+     * Builds a Deadline object from a string.
+     * @param input String input from user in the format "deadline <description> /by YYYY-MM-DD HH:MM".
+     * @return Deadline object.
+     * @throws DukeException If input is invalid.
+     */
     @Override
     public Task buildFromString(String input) throws DukeException {
         Pattern p = Pattern.compile(pattern);

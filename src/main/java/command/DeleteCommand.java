@@ -7,6 +7,14 @@ import data.task.Task;
 import exception.DukeException;
 import exception.InvalidInputException;
 
+
+
+/**
+ * Deletes a task from the task list.
+ * @param input String input from user in the format "delete <index>".
+ * @throws DukeException If input is invalid.
+ */
+
 public class DeleteCommand implements Command {
 
     @Override

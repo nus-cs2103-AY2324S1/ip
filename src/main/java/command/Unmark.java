@@ -5,8 +5,13 @@ import java.util.regex.Pattern;
 import data.storage.Store;
 import exception.DukeException;
 import exception.InvalidInputException;
+public class Unmark implements Command{
 
-public class Unmark implements Command {
+    /**
+     * Marks a task as not done.
+     * @param input String input from user in the format "unmark <index>".
+     * @throws DukeException If input is invalid.
+     */
     @Override
     public void execute(String input) throws DukeException {
         Pattern pattern = Pattern.compile("unmark \\d+");
