@@ -15,6 +15,6 @@ public class MissingTaskException extends DukeException {
      */
     @Override
     public String getMessage() {
-        return "Tasks.Task cannot be found :(";
+        return "Task cannot be found :(";
     }
 }
