@@ -30,4 +30,14 @@ public class DeleteCommand extends Command {
         ui.printOutput(taskManager.deleteTask(index));
         diskManager.saveToDisk(taskManager);
     }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other instanceof DeleteCommand) {
+            DeleteCommand temp = (DeleteCommand) other;
+            return temp.index == this.index;
+        }
+
+        return false;
+    }
 }

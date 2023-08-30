@@ -39,4 +39,15 @@ public class EventCommand extends Command {
         ui.printOutput(taskManager.addTask(new Event(description, start, end)));
         diskManager.saveToDisk(taskManager);
     }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other instanceof EventCommand) {
+            EventCommand temp = (EventCommand) other;
+            return temp.description.equals(this.description)
+                    && temp.start.equals(this.start)
+                    && temp.end.equals(this.end);
+        }
+        return false;
+    }
 }

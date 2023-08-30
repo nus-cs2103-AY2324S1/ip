@@ -17,4 +17,9 @@ public class EmptyCommand extends Command {
     public void execute(TaskManager taskManager, DiskManager diskManager, Ui ui) {
 
     }
+
+    @Override
+    public boolean equals(Object other) {
+        return other instanceof EmptyCommand;
+    }
 }

@@ -17,4 +17,9 @@ public class ExitCommand extends Command {
     public void execute(TaskManager taskManager, DiskManager diskManager, Ui ui) {
         ui.closeUi();
     }
+
+    @Override
+    public boolean equals(Object other) {
+        return other instanceof ExitCommand;
+    }
 }
