@@ -1,27 +1,33 @@
 package core;
 
-import core.Duke;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.io.PrintStream;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
+/**
+ * The DukeTest class contains JUnit test methods to test the behavior of the Duke class.
+ */
 public class DukeTest {
 
   private final InputStream sysInBackup = System.in;
   private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
   private final PrintStream originalOut = System.out;
 
+  /**
+   * Sets up the streams to capture output for testing.
+   */
   @BeforeEach
   public void setUpStreams() {
     System.setOut(new PrintStream(outContent));
   }
 
+  /**
+   * Tests the behavior of the list command.
+   */
   @Test
   public void testListCommand() {
     ByteArrayInputStream in = new ByteArrayInputStream("list".getBytes());
@@ -32,6 +38,9 @@ public class DukeTest {
     assertEquals(expectedOutput, outContent.toString());
   }
 
+  /**
+   * Tests the behavior of the todo command.
+   */
   @Test
   public void testTodoCommand() {
     ByteArrayInputStream in = new ByteArrayInputStream("todo hi".getBytes());
