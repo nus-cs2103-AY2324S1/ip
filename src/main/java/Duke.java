@@ -1,8 +1,15 @@
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 import java.util.ArrayList;
+
 public class Duke {
+    private static final String DATETIME_INPUT_FORMAT = "yyyy-MM-dd HHmm";
+    private static final DateTimeFormatter dateTimeInputFormatter
+            = DateTimeFormatter.ofPattern(DATETIME_INPUT_FORMAT);
     public static void main(String[] args) {
         ArrayList<Task> tasks;
         Scanner scanner = new Scanner(System.in);
@@ -108,14 +115,18 @@ public class Duke {
                     if(splitTask.length < 2) {
                         throw new InvalidArgumentException("deadline");
                     } else {
-                        String deadline = taskWithDeadline[1].split(" ", 2)[1];
-                        Deadline t = new Deadline(c, deadline);
-                        tasks.add(t);
-                        System.out.println(HORIZONTAL);
-                        System.out.println("Got it. I've added this task:");
-                        System.out.println(t);
-                        System.out.println("Now you have " + tasks.size() + " in the list.");
-                        System.out.println(HORIZONTAL);
+                        try {
+                            LocalDateTime deadline = LocalDateTime.parse(splitTask[1], dateTimeInputFormatter);
+                            Deadline t = new Deadline(c, deadline);
+                            tasks.add(t);
+                            System.out.println(HORIZONTAL);
+                            System.out.println("Got it. I've added this task:");
+                            System.out.println(t);
+                            System.out.println("Now you have " + tasks.size() + " in the list.");
+                            System.out.println(HORIZONTAL);
+                        } catch(DateTimeParseException e) {
+                            throw new InvalidDateException();
+                        }
                     }
                 }
             } else if (words[0].equals("event")) {
@@ -136,15 +147,19 @@ public class Duke {
                                 || splitDeadline[1].split(" ", 2).length < 2) {
                             throw new InvalidArgumentException("event");
                         } else {
-                            String from = splitDeadline[0].split(" ", 2)[1];
-                            String to = splitDeadline[1].split(" ", 2)[1];
-                            Event t = new Event(c, from, to);
-                            tasks.add(t);
-                            System.out.println(HORIZONTAL);
-                            System.out.println("Got it. I've added this task:");
-                            System.out.println(t);
-                            System.out.println("Now you have " + tasks.size() + " in the list.");
-                            System.out.println(HORIZONTAL);
+                            try {
+                                LocalDateTime from = LocalDateTime.parse(splitDeadline[0].split(" ", 2)[1].strip(), dateTimeInputFormatter);
+                                LocalDateTime to = LocalDateTime.parse(splitDeadline[1].split(" ", 2)[1].strip(), dateTimeInputFormatter);
+                                Event t = new Event(c, from, to);
+                                tasks.add(t);
+                                System.out.println(HORIZONTAL);
+                                System.out.println("Got it. I've added this task:");
+                                System.out.println(t);
+                                System.out.println("Now you have " + tasks.size() + " in the list.");
+                                System.out.println(HORIZONTAL);
+                            } catch(DateTimeParseException e) {
+                                throw new InvalidDateException();
+                            }
                         }
                     }
                 }
@@ -166,7 +181,7 @@ public class Duke {
             } else {
                 throw new InvalidTaskException();
             }
-        } catch(InvalidTaskException | InvalidArgumentException e) {
+        } catch(DukeException e) {
             System.out.println(HORIZONTAL);
             System.out.println(e.getMessage());
             System.out.println(HORIZONTAL);

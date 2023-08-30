@@ -1,14 +1,16 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 public class Deadline extends Task {
-    private String deadline;
+    private LocalDateTime deadline;
 
-    public Deadline(String description, String deadline) {
+    public Deadline(String description, LocalDateTime deadline) {
         super(description);
         this.deadline = deadline;
     }
 
     public static Deadline readFromFile(String[] components) {
         boolean isDone = components[1].equals("1");
-        Deadline deadline = new Deadline(components[2], components[3]);
+        Deadline deadline = new Deadline(components[2], LocalDateTime.parse(components[3]));
         if(isDone) {
             deadline.markDone();
         }
@@ -23,7 +25,7 @@ public class Deadline extends Task {
         return "[D] "
                 + super.toString()
                 + "(by: "
-                + this.deadline
+                + this.deadline.format(DateTimeFormatter.ofPattern("MMM d yyyy HHmm"))
                 + ")";
     }
 }

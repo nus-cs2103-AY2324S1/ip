@@ -1,7 +1,10 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 public class Event extends Task {
-    private String start;
-    private String end;
-    public Event(String description, String start, String end) {
+    private LocalDateTime start;
+    private LocalDateTime end;
+    public Event(String description, LocalDateTime start, LocalDateTime end) {
         super(description);
         this.start = start;
         this.end = end;
@@ -9,7 +12,8 @@ public class Event extends Task {
 
     public static Event readFromFile(String[] components) {
         boolean isDone = components[1].equals("1");
-        Event event = new Event(components[2], components[3], components[4]);
+        Event event = new Event(components[2], LocalDateTime.parse(components[3]),
+                LocalDateTime.parse(components[4]));
         if(isDone) {
             event.markDone();
         }
@@ -25,9 +29,9 @@ public class Event extends Task {
         return "[E] "
                 + super.toString()
                 + "(from: "
-                + this.start
+                + this.start.format(DateTimeFormatter.ofPattern("MMM d yyyy HHmm"))
                 + " to: "
-                + this.end
+                + this.end.format(DateTimeFormatter.ofPattern("MMM d yyyy HHmm"))
                 + ")";
     }
 }
