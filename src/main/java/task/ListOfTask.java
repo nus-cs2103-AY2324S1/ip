@@ -81,7 +81,7 @@ public class ListOfTask {
         try {
             Task removed = listOfTask.remove(index - 1);
             if (print) {
-                System.out.println(removed + " has been removed");
+                System.out.println(removed + " has been deleted");
             }
             Storage.save(listOfTask);
         } catch (IndexOutOfBoundsException e) {

@@ -1,5 +1,7 @@
 package command;
 
+import dukeExceptions.DukeNumberFormatException;
+import dukeExceptions.DukeUnknownCommandException;
 import dukeExceptions.LoadException;
 import task.ListOfTask;
 import dukeExceptions.DukeException;
@@ -10,10 +12,10 @@ import java.time.LocalDateTime;
 public class Commands {
     public enum COMMANDS {BYE, LIST, TODO, DEADLINE, EVENT, MARK, UNMARK, DELETE, BY, FROM, TO, SORT, FIND, UNKNOWN}
 
-    private COMMANDS state;
-    private String name;
-    private int index;
-    private LocalDateTime dateTime;
+    COMMANDS state;
+    String name;
+    int index;
+    LocalDateTime dateTime;
 
     public Commands(COMMANDS command) {
         this.state = command;
@@ -38,12 +40,11 @@ public class Commands {
         return this.state;
     }
 
-    public int execute(ListOfTask taskList, Ui ui, int lineNumber, String error) {
+    public int execute(ListOfTask taskList, Ui ui, int lineNumber, String error) throws DukeException {
         boolean load = true;
         if (lineNumber == 0 && error == null) {
             load = false;
         }
-        try {
             switch (this.state) {
 
             case BYE:
@@ -92,16 +93,7 @@ public class Commands {
                     taskList.delete(this.index, false);
                 }
                 break;
-
-            case UNKNOWN:
-                throw new DukeException("line corrupted");
-
-            default:
-                throw new DukeException("line corrupted " + this.state + " is not a primary command");
             }
-        } catch (DukeException e) {
-            System.out.println(new LoadException(e.getMessage(), lineNumber, error).getMessage());
-        }
         return 1;
     }
 
@@ -141,7 +133,7 @@ public class Commands {
         }
 
         @Override
-        public int execute(ListOfTask taskList, Ui ui, int lineNumber, String error) {
+        public int execute(ListOfTask taskList, Ui ui, int lineNumber, String error) throws DukeException {
             boolean load = true;
             if (lineNumber == 0 && error == null) {
                 load = false;
@@ -196,7 +188,7 @@ public class Commands {
         }
 
         @Override
-        public int execute(ListOfTask taskList, Ui ui, int lineNumber, String error) {
+        public int execute(ListOfTask taskList, Ui ui, int lineNumber, String error) throws DukeException {
             boolean load = true;
             if (lineNumber == 0 && error == null) {
                 load = false;

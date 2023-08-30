@@ -1,18 +1,19 @@
 package storage;
 
-import task.ListOfTask;
+import task.ListOfTaskStud;
 import task.Task;
 
 import java.util.ArrayList;
 
 public class StorageStud {
     public static void save(ArrayList<Task> listOfTask) {
+
     }
 
-    public static boolean load(ListOfTask taskList) {
+    public static boolean load(ListOfTaskStud taskList) {
         return true;
     }
 
-    public static void quickLoad(String command, ListOfTask taskList) {
+    public static void quickLoad(String command, ListOfTaskStud taskList) {
     }
 }

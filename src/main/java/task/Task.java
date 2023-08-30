@@ -1,12 +1,12 @@
 package task;
 
 import duke.Duke;
-
 import java.time.LocalDateTime;
+
 
 public class Task {
 
-    private String taskName;
+    String taskName;
     private Boolean done;
     private LocalDateTime dateAdded;
 
@@ -83,7 +83,7 @@ public class Task {
         }
 
         public String write() {
-            return "event " + super.taskName + "/from " + this.startDayDateTime.format(Duke.FORMAT) + "/to " + this.endDayDateTime.format(Duke.FORMAT) + "\n";
+            return "event " + super.taskName + "/from " + this.startDayDateTime.format(Duke.FORMAT) + " /to " + this.endDayDateTime.format(Duke.FORMAT) + "\n";
         }
     }
 }

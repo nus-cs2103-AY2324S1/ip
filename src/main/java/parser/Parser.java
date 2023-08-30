@@ -2,7 +2,7 @@ package parser;
 
 import command.Commands;
 import duke.Duke;
-import dukeExceptions.DukeException;
+import dukeExceptions.*;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
@@ -36,7 +36,7 @@ public class Parser {
                 LocalDateTime dateTime = LocalDateTime.parse(restOfCommand, Duke.FORMAT);
                 return new Commands(cmd, dateTime);
             } catch (DateTimeParseException e) {
-                throw new DukeException(cmd + ": The format for dates&time is 'dd-MM-yyyy hhmm'");
+                throw new DukeDateTimeParseException(cmd + ": The format for dates&time is 'dd-MM-yyyy hhmm'");
             }
         }
 
@@ -45,7 +45,7 @@ public class Parser {
                 int index = Integer.parseInt(this.secondWord());
                 return new Commands(cmd, index);
             } catch (NumberFormatException e) {
-                throw new DukeException("Place a number after the command");
+                throw new DukeNumberFormatException("Place a number after the command");
             }
         }
 
@@ -62,8 +62,10 @@ public class Parser {
                 } else {
                     throw new DukeException("Please add the task name");
                 }
+            } catch (DukeUnknownCommandException e) {
+                throw new DukeNullPointerException("The format for the command is: deadline task /by date&time");
             } catch (NullPointerException e) {
-                throw new DukeException("The format for the command is: deadline task /by date&time");
+                throw new DukeNullPointerException("The format for the command is: deadline task /by date&time");
             }
         }
 
@@ -81,20 +83,23 @@ public class Parser {
                         if (c1.compareTime(c2)) {
                             return new Commands.ThreeCommands(Commands.COMMANDS.EVENT, task, c1, c2);
                         } else {
-                            throw new DukeException("From must be earlier than To");
+                            throw new DukeFromEarlierThanToException("From must be earlier than To");
                         }
+                    } else {
+                        throw new DukeNullPointerException("The format for the command is: event task /from startDayDateTime /to endDayDateTime");
                     }
                 } else {
                     throw new DukeException("Please add the task name");
                 }
+            } catch (DukeUnknownCommandException e) {
+                throw new DukeNullPointerException("The format for the command is: event task /from startDayDateTime /to endDayDateTime");
             } catch (NullPointerException e) {
-                throw new DukeException("The format for the command is: event task /from startDayDateTime /to endDayDateTime");
+                throw new DukeNullPointerException("The format for the command is: event task /from startDayDateTime /to endDayDateTime");
             }
         }
 
-        return new Commands(Commands.COMMANDS.UNKNOWN);
+        throw new DukeUnknownCommandException("Unknown command");
     }
-
     public Commands.COMMANDS mainCommand() {
         this.initialParse = command.split(" ",2);
         switch (initialParse[0]) {
