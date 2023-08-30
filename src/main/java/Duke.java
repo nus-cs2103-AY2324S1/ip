@@ -31,7 +31,8 @@ public class Duke {
     public static void listAllTask() {
 
         System.out.println(dash);
-        System.out.println("\tHere " + (taskList.size() > 1 ? "are" : "is") + " the " + (taskList.size() > 1 ? "tasks" : "task") + " in your list: ");
+        System.out.println("\tHere " + (taskList.size() > 1 ? "are" : "is") +
+                " the " + (taskList.size() > 1 ? "tasks" : "task") + " in your list: ");
         if (taskList.size() > 0) {
             for (int i = 1; i < taskList.size() + 1; i++) {
                 System.out.println("\t" + i + "." + taskList.get(i - 1).toString());
@@ -61,19 +62,11 @@ public class Duke {
         System.out.println(dash);
     }
 
-    public static void addTodo(String message) throws EmptyDescriptionException, UnmatchedArgumentException, NoSuchCommandException {
+    public static void addTodo(String message) throws UnmatchedArgumentException {
 
-        if (message.length() > 4 && message.charAt(4) != ' ') {
-            throw new NoSuchCommandException();
-        }
-        String s = " ";
-        if (message.substring(4, message.length()).equals(s.repeat(message.length() - 4))) {
-            throw new EmptyDescriptionException("todo");
-        }
         System.out.println(dash);
         System.out.println("\tGot it. I've added this task: ");
-        String taskDetail = message.substring(5);
-        Task todo = new Todo(taskDetail);
+        Task todo = new Todo(message);
         taskList.add(todo);
         System.out.println("\t  " + todo);
         System.out.println("\tNow you have " + taskList.size() + (taskList.size() > 1 ? " tasks" : " task") + " in the list.");
@@ -81,21 +74,13 @@ public class Duke {
         System.out.println(dash);
     }
 
-    public static void addDeadline(String message) throws EmptyDescriptionException, UnmatchedArgumentException, NoSuchCommandException {
+    public static void addDeadline(String message) throws UnmatchedArgumentException {
 
-        if (message.length() > 8 && message.charAt(8) != ' ') {
-            throw new NoSuchCommandException();
-        }
-        String s = " ";
-        if (message.substring(8, message.length()).equals(s.repeat(message.length() - 8))) {
-            throw new EmptyDescriptionException("deadline");
-        }
-        String taskDetail = message.substring(9);
-        String[] arr = taskDetail.split("/");
+        String[] arr = message.split("/");
         if (arr.length < 2) {
             throw new UnmatchedArgumentException(arr.length, 2);
         }
-        Deadline dl = new Deadline(arr[0], arr[1].substring(3)); //here
+        Deadline dl = new Deadline(arr[0], arr[1].substring(3));
         taskList.add(dl);
         System.out.println(dash);
         System.out.println("\tGot it. I've added this task: ");
@@ -105,17 +90,9 @@ public class Duke {
         System.out.println(dash);
     }
 
-    public static void addEvent(String message) throws EmptyDescriptionException, UnmatchedArgumentException, NoSuchCommandException {
+    public static void addEvent(String message) throws UnmatchedArgumentException {
 
-        if (message.length() > 5 && message.charAt(5) != ' ') {
-            throw new NoSuchCommandException();
-        }
-        String s = " ";
-        if (message.substring(5, message.length()).equals(s.repeat(message.length() - 5))) {
-            throw new EmptyDescriptionException("event");
-        }
-        String taskDetail = message.substring(6);
-        String[] arr = taskDetail.split("/");
+        String[] arr = message.split("/");
         if (arr.length < 3) {
             throw new UnmatchedArgumentException(arr.length, 3);
         }
@@ -145,64 +122,68 @@ public class Duke {
         welcomeMessage();
         Scanner sc = new Scanner(System.in);
         String message = sc.nextLine();
+        String[] splitted = message.split(" ", 2);
 
-        while (!message.equals("bye")) {
+        while (!splitted[0].equals("bye")) {
 
             try {
-                if (message.equals("list")) {
+                if (splitted[0].equals("list")) {
                     listAllTask();
-                } else if (message.length() >= 4 && message.substring(0, 4).equals("mark")) {
+                } else if (splitted[0].equals("mark")) {
 
-                    if (message.length() > 4 && message.charAt(4) != ' ') {
-                        throw new NoSuchCommandException();
-                    }
-                    String s = " ";
-                    if (message.substring(4, message.length()).equals(s.repeat(message.length() - 4))) {
-                        throw new InvalidIndexException();
-                    }
-                    int index = Integer.parseInt(message.substring(5));
-                    if (index > 0 && index <= taskList.size()) {
-                        mark(index);
+                    if (splitted.length > 1) {
+                        int index = Integer.parseInt(splitted[1]);
+                        if (index > 0 && index <= taskList.size()) {
+                            mark(index);
+                        } else {
+                            throw new InvalidIndexException();
+                        }
                     } else {
                         throw new InvalidIndexException();
                     }
-                } else if (message.length() >= 6 && message.substring(0, 6).equals("delete")) {
+                } else if (splitted[0].equals("delete")) {
 
-                        if (message.length() > 6 && message.charAt(6) != ' ') {
-                            throw new NoSuchCommandException();
-                        }
-                        String s = " ";
-                        if (message.substring(6, message.length()).equals(s.repeat(message.length() - 6))) {
-                            throw new InvalidIndexException();
-                        }
-                        int index = Integer.parseInt(message.substring(7));
+                    if (splitted.length > 1) {
+                        int index = Integer.parseInt(splitted[1]);
                         if (index > 0 && index <= taskList.size()) {
                             delete(index);
                         } else {
                             throw new InvalidIndexException();
                         }
-                } else if (message.length() >= 6 && message.substring(0, 6).equals("unmark")) {
-
-                    if (message.length() > 6 && message.charAt(6) != ' ') {
-                        throw new NoSuchCommandException();
-                    }
-                    String s = " ";
-                    if (message.substring(6, message.length()).equals(s.repeat(message.length() - 6))) {
-                        throw new InvalidIndexException();
-                    }
-                    int index = Integer.parseInt(message.substring(7));
-                    if (index > 0 && index <= taskList.size()) {
-                        unmark(index);
                     } else {
                         throw new InvalidIndexException();
                     }
-                    // can use enum here, as for now just use 3 different methods
-                } else if (message.length() >= 4 && message.substring(0, 4).equals("todo")) {
-                    addTodo(message);
-                } else if (message.length() >= 8 && message.substring(0, 8).equals("deadline")) {
-                    addDeadline(message);
-                } else if (message.length() >= 5 && message.substring(0, 5).equals("event")) {
-                    addEvent(message);
+                } else if (splitted[0].equals("unmark")) {
+
+                    if (splitted.length > 1) {
+                        int index = Integer.parseInt(splitted[1]);
+                        if (index > 0 && index <= taskList.size()) {
+                            unmark(index);
+                        } else {
+                            throw new InvalidIndexException();
+                        }
+                    } else {
+                        throw new InvalidIndexException();
+                    }
+                } else if (splitted[0].equals("todo")) {
+
+                    if (splitted.length > 1) {
+                        addTodo(splitted[1]);
+                    } else {
+                        throw new EmptyDescriptionException("todo");
+                    }
+                } else if (splitted[0].equals("deadline")) {
+                    if (splitted.length > 1) {
+                        addDeadline(splitted[1]);
+                    } else {
+                        throw new EmptyDescriptionException("deadline");
+                    }
+                } else if (splitted[0].equals("event")) {
+                    if (splitted.length > 1) {
+                        addEvent(splitted[1]);
+                    } else {
+                        throw new EmptyDescriptionException("event");
+                    }
                 } else {
                     throw new NoSuchCommandException();
                 }
@@ -217,6 +198,7 @@ public class Duke {
             }
             System.out.println();
             message = sc.nextLine();
+            splitted = message.split(" ", 2);
         }
         farewell();
     }
