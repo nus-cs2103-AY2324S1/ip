@@ -1,4 +1,5 @@
 import java.io.*;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -46,6 +47,26 @@ public class FileStorage {
         }
     }
 
+    public LocalDateTime setDate(String date) {
+        try {
+            String[] dateParts = date.split("-");
+            String[] timePart = dateParts[2].split(" ");
+            int day = Integer.parseInt(dateParts[0]);
+            int month = Integer.parseInt(dateParts[1]);
+            int year = Integer.parseInt(timePart[0]);
+            int timeHour = Integer.parseInt(timePart[1].substring(0, 2));
+            int timeMin = Integer.parseInt(timePart[1].substring(2, 4));
+
+            return LocalDateTime.of(year, month, day, timeHour, timeMin);
+        } catch (NumberFormatException e) {
+            System.out.println("Wrong format for the date and/or time");
+            return null;
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println("Wrong format for the date and/or time");
+            return null;
+        }
+    }
+
     // To load all tasks in a file when the chatbot starts up
     public ArrayList<Task> loadFiles() throws FileLoadException {
         File file = new File(filePath);
@@ -71,13 +92,13 @@ public class FileStorage {
                     if (split.length > 4) {
                         throw new FileCorruptedException("Invalid record saved");
                     }
-                    tempList.add(new Deadline(split[2], split[3], isDone));
+                    tempList.add(new Deadline(split[2], setDate(split[3]), isDone));
                     break;
                 case "E":
                     if (split.length > 5) {
                         throw new FileCorruptedException("Invalid record saved");
                     }
-                    tempList.add(new Event(split[2], split[3], split[4], isDone));
+                    tempList.add(new Event(split[2], setDate(split[3]), setDate(split[4]), isDone));
                     break;
                 default:
                     System.out.println("Not a valid input: " + line);
@@ -87,8 +108,7 @@ public class FileStorage {
             System.out.println(tempList);
             return tempList;
         } catch (FileNotFoundException e) {
-            System.out.println("There are no existing tasks, please use the commands to add new tasks!" +
-                    "\n" + e.getMessage());
+            System.out.println("There are no existing tasks, please use the commands to add new tasks!");
             File newFile = new File(filePath);
             newFile.mkdirs();
             return new ArrayList<>();

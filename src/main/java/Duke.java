@@ -1,22 +1,24 @@
 import java.io.File;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 public class Duke {
     private TaskList fullList;
     private final FileStorage fileStorage;
     private String chatbot = "chuababyy chatbot";
-    public void line() {
-        System.out.println(line);
-    }
     private static String line = "------------------------------------";
     private static String filePath = "./data/duke.txt";
+    private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm");
 
     private static final String commands =
             line + "\n"
             + "List of commands\n"
             + "1. todo [description]\n"
-            + "2. deadline [description] /by [deadline]\n"
-            + "3. event [description] /from [start date] /to [end date]\n"
+            + "2. deadline [description] /by [deadline in DD-MM-YYYY TIME]\n"
+            + "3. event [description] /from [start date in DD-MM-YYYY TIME] /to [end date in DD-MM-YYYY TIME]\n"
             + "4. mark [item_number]\n"
             + "5. unmark [item_number]\n"
             + "6. delete [item_number]\n"
@@ -24,12 +26,16 @@ public class Duke {
             + "8. bye\n"
             + line ;
 
+    public void line() {
+        System.out.println(line);
+    }
+
     public enum CommandType {
         TODO, DEADLINE, EVENT, MARK,
         UNMARK, DELETE, LIST, BYE, UNKNOWN, EMPTY
     }
 
-    public static CommandType parseCommand(String input) {
+    public CommandType parseCommand(String input) {
         if (input.equals("list")) {
             return CommandType.LIST;
         } else if (input.equals("mark")) {
@@ -66,6 +72,15 @@ public class Duke {
         } catch (FileLoadException e) {
             System.out.println("Error when reading saved tasks. Please start adding new tasks");
             this.fullList = new TaskList();
+        }
+    }
+
+    public LocalDateTime setDate(String date) {
+        try {
+            return LocalDateTime.parse(date, formatter);
+        } catch (DateTimeParseException e) {
+            System.out.println("Invalid date input. Reverting to current date and time");
+            return LocalDateTime.now();
         }
     }
 
@@ -148,7 +163,7 @@ public class Duke {
                         continue;
                     }
 
-                    String by = details[1].trim();
+                    LocalDateTime by = setDate(details[1].trim());
                     Deadline deadline = new Deadline(description, by);
                     fullList.addToList(deadline);
                     continue;
@@ -166,11 +181,17 @@ public class Duke {
                     }
 
                     String descr = det[0].trim();
-                    String from = dateParts[0].trim();
-                    String to = dateParts[1].trim();
+                    LocalDateTime from = setDate(dateParts[0].trim());
+                    LocalDateTime to = setDate(dateParts[1].trim());
 
                     Event event = new Event(descr, from, to);
-                    fullList.addToList(event);
+                    if (event.isStartDateBefore(from, to)) {
+                        fullList.addToList(event);
+                    } else {
+                        line();
+                        System.out.println("Invalid date format. Start date is after end date");
+                        line();
+                    }
                     continue;
 
                 case DELETE:
