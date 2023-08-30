@@ -30,8 +30,8 @@ public class Storage {
             fw.write(data);
             fw.close();
         } catch (IOException e) {
-            System.out.println(e.getMessage());
-            System.out.println("Write failure!");
+//            System.out.println(e.getMessage());
+            System.out.println("Could not save data to storage!");
         }
     }
 
