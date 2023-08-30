@@ -196,14 +196,12 @@ public class Task {
         LocalDateTime now = LocalDateTime.now();
         int defaultDay = DEFAULT_DATE.getDayOfWeek().getValue();
         int timeDay = time.getDayOfWeek().getValue();
-        int daysElapsed = timeDay - defaultDay;
+        int daysElapsed = timeDay >= defaultDay ? timeDay - defaultDay : 7 - defaultDay + timeDay;
         // update the current date by the number of days
         LocalDateTime res = now.plusDays(daysElapsed);
         if (time.getHour() == 0 && time.getMinute() == 0) {
             return addTime(res);
         }
-        System.out.println(time.getHour());
-        System.out.println(time.getMinute());
         return res.withHour(time.getHour()).withMinute(time.getMinute());
     }
 

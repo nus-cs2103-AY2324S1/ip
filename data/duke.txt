@@ -1,0 +1,2 @@
+t false penguin
+d false eat by Sep 1 23:59 2023
