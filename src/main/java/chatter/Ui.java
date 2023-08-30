@@ -1,8 +1,8 @@
 package chatter;
 
-import chatter.task.Task;
-
 import java.util.Scanner;
+
+import chatter.task.Task;
 
 /**
  * Represents a UI class to handle user interactions.
@@ -84,6 +84,12 @@ public class Ui {
         System.out.println("  " + task);
     }
 
+    /**
+     * Prints out deleted task message.
+     *
+     * @param task Task to be deleted.
+     * @param numOfTasks Number of tasks left in the list after deletion.
+     */
     public void showDeletedTask(Task task, int numOfTasks) {
         System.out.println("Noted! I have removed this task:");
         System.out.println("  " + task);

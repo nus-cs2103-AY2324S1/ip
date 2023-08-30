@@ -1,8 +1,8 @@
 package chatter;
 
-import chatter.command.Command;
-
 import java.io.IOException;
+
+import chatter.command.Command;
 
 /**
  * Represents chatter.Chatter the chatbot.
@@ -23,7 +23,6 @@ public class Chatter {
         this.storage = new Storage(filepath);
         try {
             this.tasks = new TaskList(storage.readFile());
-//            System.out.println(tasks.getTask(0));
         } catch (IOException e) {
             ui.showLoadingError();
             this.tasks = new TaskList();
@@ -38,7 +37,7 @@ public class Chatter {
     private void run() {
         this.ui.showWelcome();
         boolean isExit = false;
-        while(!isExit) {
+        while (!isExit) {
             String fullCommand = ui.readCommand();
             try {
                 if (fullCommand.isBlank()) {

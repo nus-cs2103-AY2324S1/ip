@@ -1,12 +1,12 @@
 package chatter.command;
 
 import chatter.Storage;
-import chatter.task.Task;
 import chatter.TaskList;
 import chatter.Ui;
+import chatter.task.Task;
 
 /**
- * Represents a chatter.command.Command class that is responsible for adding a chatter.task.Task object to chatter.TaskList.
+ * Represents a Command class that is responsible for adding a chatter.task.Task object to TaskList.
  *
  * @author Anthony Tamzil
  * @version CS2103T Individual Project AY2023/24 Semester 1

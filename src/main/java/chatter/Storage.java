@@ -1,10 +1,5 @@
 package chatter;
 
-import chatter.task.Deadline;
-import chatter.task.Event;
-import chatter.task.Task;
-import chatter.task.ToDo;
-
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -13,6 +8,11 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import chatter.task.Deadline;
+import chatter.task.Event;
+import chatter.task.Task;
+import chatter.task.ToDo;
 
 /**
  * Represents a storage that stores the list of tasks locally
@@ -76,7 +76,7 @@ public class Storage {
     /**
      * Saves the list of tasks to the local data file in the appropriate format.
      *
-     * @param list ArrayList of chatter.task.Task objects to be saved to the local data file.
+     * @param storageString String of Task objects to be saved to the local data file.
      */
     public void saveFile(String storageString) {
         try {

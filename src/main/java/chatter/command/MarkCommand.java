@@ -35,7 +35,7 @@ public class MarkCommand extends Command {
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         if (isDone) {
-            tasks.markTaskAsDone(taskNumber );
+            tasks.markTaskAsDone(taskNumber);
             ui.showMarkedTask(tasks.getTask(taskNumber - 1));
         } else {
             tasks.markTaskAsNotDone(taskNumber);

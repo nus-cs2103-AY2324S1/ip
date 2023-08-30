@@ -1,6 +1,11 @@
 package chatter;
 
-import chatter.command.*;
+import chatter.command.AddCommand;
+import chatter.command.Command;
+import chatter.command.DeleteCommand;
+import chatter.command.ExitCommand;
+import chatter.command.ListCommand;
+import chatter.command.MarkCommand;
 import chatter.task.Deadline;
 import chatter.task.Event;
 import chatter.task.ToDo;
@@ -27,6 +32,13 @@ public class Parser {
         this.keyword = input.split(" ", 2)[0];
     }
 
+    /**
+     * Parses the user's input and returns the corresponding Command to be executed.
+     *
+     * @param fullCommand Raw string of input from the user.
+     * @return Command corresponding to user input to be executed.
+     * @throws ChatterException Error thrown if there are invalid fields or inputs.
+     */
     public Command parse(String fullCommand) throws ChatterException {
         switch (this.keyword) {
         case("list"):
@@ -67,8 +79,8 @@ public class Parser {
         case("bye"):
             return new ExitCommand();
         default:
-            throw new ChatterException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(" +
-                    "\nPlease enter a valid command!");
+            throw new ChatterException("☹ OOPS!!! I'm sorry, but I don't know what that means :-("
+                    + "\nPlease enter a valid command!");
         }
     }
 }

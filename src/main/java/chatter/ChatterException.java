@@ -6,7 +6,7 @@ package chatter;
  * @author Anthony Tamzil
  * @version CS2103T Individual Project AY2023/24 Semester 1
  */
-public class ChatterException extends Exception{
+public class ChatterException extends Exception {
     /**
      * A constructor to initialize the chatter.ChatterException class.
      *

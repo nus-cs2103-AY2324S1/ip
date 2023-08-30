@@ -1,8 +1,8 @@
 package chatter;
 
-import chatter.task.Task;
-
 import java.util.ArrayList;
+
+import chatter.task.Task;
 
 /**
  * Represents a list of tasks.

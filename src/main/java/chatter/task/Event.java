@@ -61,7 +61,7 @@ public class Event extends Task {
      * @return The storage string representation of the task.
      */
     public String toStorageString() {
-        return "E, " + this.isDone + ", " + this.description + ", " + this.altStart +
-                convertDateToStorageString(this.start)+ ", " + this.altEnd + convertDateToStorageString(this.end);
+        return "E, " + this.isDone + ", " + this.description + ", " + this.altStart
+                + convertDateToStorageString(this.start) + ", " + this.altEnd + convertDateToStorageString(this.end);
     }
 }

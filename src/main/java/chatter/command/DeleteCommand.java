@@ -5,7 +5,7 @@ import chatter.TaskList;
 import chatter.Ui;
 
 /**
- * Represents a chatter.command.Command class that is responsible for deleting a chatter.task.Task object from chatter.TaskList.
+ * Represents a Command class that is responsible for deleting a Task object from TaskList.
  *
  * @author Anthony Tamzil
  * @version CS2103T Individual Project AY2023/24 Semester 1
