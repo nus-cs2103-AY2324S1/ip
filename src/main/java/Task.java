@@ -7,8 +7,17 @@ public class Task {
         this.isDone = false;
     }
 
+    public Task(String description, boolean isDone) {
+        this.description = description;
+        this.isDone = isDone;
+    }
+
     public String getStatusIcon() {
-        return (isDone ? "X" : " "); // mark done task with X
+        return (this.isDone ? "X" : " "); // mark done task with X
+    }
+
+    public int getStatusNumerical() {
+        return (this.isDone ? 1 : 0);
     }
 
     public void mark() {
@@ -17,6 +26,10 @@ public class Task {
 
     public void unmark() {
         this.isDone = false;
+    }
+
+    public String getTextRepresentation() {
+        return this.getStatusNumerical() + " | " + this.description;
     }
 
     @Override
