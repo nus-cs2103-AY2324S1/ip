@@ -9,14 +9,23 @@ import java.util.ArrayList;
  * @author Anthony Tamzil
  * @version CS2103T Individual Project AY2023/24 Semester 1
  */
-public class ListOfTasks {
+public class TaskList {
     private ArrayList<Task> list;
     private int numOfTasks = 0;
 
     /**
-     * A constructor to initialize the ListOfTasks class.
+     * A constructor to initialize the TaskList class.
+     *
+     * @param list ArrayList of Task objects from reading local data file.
      */
-    public ListOfTasks() {
+    public TaskList(ArrayList<Task> list) {
+        this.list = list;
+    }
+
+    /**
+     * A constructor to initialize the TaskList class.
+     */
+    public TaskList() {
         this.list = new ArrayList<>();
     }
 
@@ -37,10 +46,6 @@ public class ListOfTasks {
             } catch (IOException e) {
                 System.out.println("Got error");
             }
-
-            System.out.println("Got it. I have added this task to do:");
-            System.out.println("  " + task.toString());
-            System.out.println("You now have " + numOfTasks + " task(s) in the list.");
         }
     }
 
@@ -49,16 +54,12 @@ public class ListOfTasks {
      *
      * @param taskNumber Number of task in list to be mark as completed.
      */
-    public void markTaskAsDone(int taskNumber, boolean isReadFromFile) {
+    public void markTaskAsDone(int taskNumber) {
         Task completedTask = list.get(taskNumber - 1);
         completedTask.markAsDone();
 
-        if (!isReadFromFile) {
-            saveFile();
-
-            System.out.println("Good job! I've marked this task as completed:");
-            System.out.println("  " + completedTask);
-        }
+        System.out.println("Good job! I've marked this task as completed:");
+        System.out.println("  " + completedTask);
     }
 
     /**
@@ -74,7 +75,6 @@ public class ListOfTasks {
         System.out.println("You now have " + numOfTasks + " task(s) in the list.");
 
         list.remove(taskNumber - 1);
-        saveFile();
     }
 
     /**
@@ -85,7 +85,6 @@ public class ListOfTasks {
     public void markTaskAsNotDone(int taskNumber) {
         Task unmarkedTask = list.get(taskNumber - 1);
         unmarkedTask.markAsNotDone();
-        saveFile();
 
         System.out.println("OK! I've marked this task as not done yet:");
         System.out.println("  " + unmarkedTask);
@@ -111,23 +110,18 @@ public class ListOfTasks {
     }
 
     /**
-     * Saves the list of tasks to the local data file in the appropriate format.
+     * Returns a string of the list of Task objects in storage string format.
+     *
+     * @return String of list of Task objects.
      */
-    public void saveFile() {
-        ArrayList<Task> listOfStorageStrings = list;
+    public String toStorageString() {
         StringBuilder storageString = new StringBuilder();
-        listOfStorageStrings.forEach((Task::toStorageString));
+        list.forEach((Task::toStorageString));
 
-        for (Task listOfStorageString : listOfStorageStrings) {
+        for (Task listOfStorageString : list) {
             storageString.append(listOfStorageString.toStorageString()).append("\n");
         }
 
-        try {
-            FileWriter fw = new FileWriter("./data/chatter.txt");
-            fw.write(storageString.toString());
-            fw.close();
-        } catch (IOException e) {
-            System.out.println("Got error");
-        }
+        return storageString.toString();
     }
 }
