@@ -11,6 +11,7 @@ import rayshawn.chatbot.commands.Command;
 import rayshawn.chatbot.commands.DeadlineCommand;
 import rayshawn.chatbot.commands.DeleteCommand;
 import rayshawn.chatbot.commands.EventCommand;
+import rayshawn.chatbot.commands.FindCommand;
 import rayshawn.chatbot.commands.HelpCommand;
 import rayshawn.chatbot.commands.IncorrectCommand;
 import rayshawn.chatbot.commands.ListCommand;
@@ -74,6 +75,9 @@ public class Parser {
 
         case EventCommand.COMMAND_WORD:
             return prepareEvent(arguments);
+
+        case FindCommand.COMMAND_WORD:
+            return new FindCommand(arguments.trim());
 
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();

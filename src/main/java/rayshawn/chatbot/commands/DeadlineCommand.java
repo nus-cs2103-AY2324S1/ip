@@ -31,6 +31,7 @@ public class DeadlineCommand extends Command {
     @Override
     public CommandResult execute() {
         taskList.addTask(toAdd);
-        return new CommandResult(String.format(MESSAGE_SUCCESS + getTaskListCount(), toAdd, taskList.getAllTasks()));
+        return new CommandResult(String.format(MESSAGE_SUCCESS + getTaskListCount(taskList.getAllTasks()),
+                toAdd, taskList.getAllTasks()));
     }
 }

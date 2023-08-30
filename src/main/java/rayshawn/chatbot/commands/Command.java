@@ -2,6 +2,8 @@ package rayshawn.chatbot.commands;
 
 import static rayshawn.chatbot.messages.Messages.LIST_COUNT_MESSAGE;
 
+import java.util.List;
+
 import rayshawn.chatbot.tasks.Task;
 import rayshawn.chatbot.tasks.TaskList;
 
@@ -62,7 +64,7 @@ public class Command {
      *
      * @return String representation of the number of tasks
      */
-    public String getTaskListCount() {
-        return String.format(LIST_COUNT_MESSAGE, taskList.count());
+    public String getTaskListCount(List<? extends Task> list) {
+        return String.format(LIST_COUNT_MESSAGE, list.size());
     }
 }
