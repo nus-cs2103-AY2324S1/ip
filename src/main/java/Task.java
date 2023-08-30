@@ -1,3 +1,6 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 /**
  * A Task is an object with a name and toggleable status
  */
@@ -10,6 +13,10 @@ public abstract class Task {
      * Whether the task is done
      */
     protected boolean isDone;
+    /**
+     * Formatter for parsing date times
+     */
+    static final DateTimeFormatter DATETIME_FORMAT = DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm");
 
     /**
      * Constructs a new Task with description
@@ -66,4 +73,12 @@ public abstract class Task {
      * @return String representation written to file
      */
     public abstract String generateSaveString();
+
+    /**
+     * Returns whether the task occurs on a given date
+     * @param date Date specified
+     */
+    public boolean isOccurringOnDate(LocalDate date) {
+        return false;
+    }
 }

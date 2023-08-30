@@ -1,0 +1,2 @@
+T | true | read book
+T | true | join sports club

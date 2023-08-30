@@ -4,6 +4,9 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.InputStreamReader;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -15,7 +18,7 @@ public class Duke {
     // Chatbot's name
     static final String NAME = "Atlas";
     // Task list save directory
-    static final String LIST_DIRECTORY = "./../data/";
+    static final String LIST_DIRECTORY = "./data/";
     // Task list file name
     static final String LIST_FILENAME = "duke.txt";
     // Task list
@@ -126,6 +129,9 @@ public class Duke {
                     case "delete":
                         deleteTask(args);
                         break;
+                    case "date":
+                        printTaskOnDate(args);
+                        break;
                     default:
                         throw new UnknownCommandException(command);
                 }
@@ -133,7 +139,8 @@ public class Duke {
                 System.out.println(e.getMessage());
                 System.out.println("Here's what I can do though: I can create ToDos (todo),\n"
                         + "Deadlines (deadline), Events (event), print them out (list),\n"
-                        + "as well as check (mark) and uncheck (unmark) them!");
+                        + "print tasks occurring on a specific date (date) as well as \n"
+                        + "check (mark) and uncheck (unmark) them!");
             } catch (IOException e) {
                 System.out.println("Unable to read command, exiting");
                 printHorizontalLine();
@@ -179,6 +186,8 @@ public class Duke {
             System.out.printf("I think you missed something! %s\n", e.getMessage());
         } catch (UnsupportedTaskType e) {
             System.out.printf("I can't handle this task type: %s\n", e.getTaskType());
+        } catch (DateTimeParseException e) {
+            System.out.println("All date times must be of format dd-MM-yyyy HHmm");
         }
     }
 
@@ -411,5 +420,26 @@ public class Duke {
     protected static void printTaskCount() {
         System.out.printf("Now you have %d %s in the list.\n", tasks.size(),
                 tasks.size() == 1 ? "task" : "tasks");
+    }
+
+    /**
+     * Prints all tasks occurring on a particular date
+     * @param dateInput String containing date with format dd-MM-yyyy
+     */
+    protected static void printTaskOnDate(String dateInput) {
+        final String DATE_FORMAT = "dd-MM-yyyy";
+        final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern(DATE_FORMAT);
+        try {
+            LocalDate date = LocalDate.parse(dateInput, DATE_FORMATTER);
+            System.out.printf("These tasks in your list occur on %s:\n", date);
+            for (Task t : tasks) {
+                if (t.isOccurringOnDate(date)) {
+                    System.out.println(t);
+                }
+            }
+        } catch (DateTimeParseException e) {
+            System.out.println("Invalid date input, dates must be of format " + DATE_FORMAT);
+        }
+
     }
 }
