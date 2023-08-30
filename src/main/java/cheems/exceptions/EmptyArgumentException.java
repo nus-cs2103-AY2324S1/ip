@@ -1,4 +1,4 @@
-package exceptions;
+package cheems.exceptions;
 
 public class EmptyArgumentException extends RuntimeException {
     public EmptyArgumentException(String keyword) {

@@ -1,3 +1,5 @@
+package cheems;
+
 import java.util.Scanner;
 
 public class Cheems {

@@ -1,4 +1,6 @@
-import exceptions.*;
+package cheems;
+
+import cheems.exceptions.*;
 
 public class Parser {
     public static void parseAndExecute(String input) {
@@ -39,7 +41,7 @@ public class Parser {
                             throw new NumberFormatException(errMsg);
                         }
 
-                        // input of tasks are assumed to be in correct format
+                        // input of cheems.tasks are assumed to be in correct format
                     case TODO:
                         Tasklist.addSaveTask("TODO", words[1]);
                         break;

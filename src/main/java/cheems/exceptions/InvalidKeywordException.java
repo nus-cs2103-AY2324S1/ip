@@ -1,4 +1,4 @@
-package exceptions;
+package cheems.exceptions;
 
 public class InvalidKeywordException extends RuntimeException {
     public InvalidKeywordException() {

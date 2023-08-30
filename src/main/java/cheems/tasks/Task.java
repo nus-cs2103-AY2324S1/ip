@@ -1,4 +1,4 @@
-package tasks;
+package cheems.tasks;
 
 public abstract class Task {
     protected String description;

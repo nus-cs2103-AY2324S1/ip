@@ -1,4 +1,6 @@
-import tasks.*;
+package cheems;
+
+import cheems.tasks.*;
 import java.util.ArrayList;
 
 public class Tasklist {
@@ -39,7 +41,7 @@ public class Tasklist {
 
         String resp = "I have added this task for you!\n" + task;
         resp += total > 1
-                ? String.format("\nNow you have %d tasks in your list!", total)
+                ? String.format("\nNow you have %d cheems.tasks in your list!", total)
                 : String.format("\nNow you have %d task in your list!", total);
         UI.printWithFormat(resp);
     }
@@ -66,7 +68,7 @@ public class Tasklist {
         // check for range of index
         if (index >= total) {
             String errMsg = String.format("Sorry you do not have task #%d, " +
-                    "try \"list\" to check your current list of tasks!", index + 1);
+                    "try \"list\" to check your current list of cheems.tasks!", index + 1);
             throw new IndexOutOfBoundsException(errMsg);
         }
 
@@ -81,7 +83,7 @@ public class Tasklist {
         // check for range of index
         if (index >= total) {
             String errMsg = String.format("Sorry you do not have task #%d, " +
-                    "try \"list\" to check your current list of tasks!", index + 1);
+                    "try \"list\" to check your current list of cheems.tasks!", index + 1);
             throw new IndexOutOfBoundsException(errMsg);
         }
 
@@ -96,7 +98,7 @@ public class Tasklist {
         // check for range of index
         if (index >= total) {
             String errMsg = String.format("Sorry you do not have task #%d, " +
-                    "try \"list\" to check your current list of tasks!", index + 1);
+                    "try \"list\" to check your current list of cheems.tasks!", index + 1);
             throw new IndexOutOfBoundsException(errMsg);
         }
 
@@ -107,7 +109,7 @@ public class Tasklist {
 
         String resp = "Noted. I've removed this task:\n" +
                         t +
-                        String.format("\nNow you have %d tasks in your list!", total);
+                        String.format("\nNow you have %d cheems.tasks in your list!", total);
         UI.printWithFormat(resp);
     }
 }

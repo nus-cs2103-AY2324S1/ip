@@ -1,3 +1,5 @@
+package cheems;
+
 import java.io.*;
 import java.util.Scanner;
 
@@ -13,7 +15,7 @@ public class Storage {
             }
             this.file = f;
         } catch (IOException e) {
-            throw new exceptions.IOException("Failed to create a new data file!");
+            throw new cheems.exceptions.IOException("Failed to create a new data file!");
         }
     }
 
@@ -40,8 +42,8 @@ public class Storage {
             }
         } catch (FileNotFoundException e) {
             String msg = String.format("I cannot find %s! May be accidental deletion, " +
-                    "try restart Cheems!", file.getName());
-            throw new exceptions.IOException(msg);
+                    "try restart cheems.Cheems!", file.getName());
+            throw new cheems.exceptions.IOException(msg);
         }
     }
 
@@ -51,7 +53,7 @@ public class Storage {
             fw.write(taskLine + System.lineSeparator());
             fw.close();
         } catch (IOException e) {
-            throw new exceptions.IOException("I cannot open the file for writing!");
+            throw new cheems.exceptions.IOException("I cannot open the file for writing!");
         }
     }
 

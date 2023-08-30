@@ -1,4 +1,4 @@
-package tasks;
+package cheems.tasks;
 
 public class Todo extends Task {
 
