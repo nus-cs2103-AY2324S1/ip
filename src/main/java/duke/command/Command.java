@@ -1,3 +1,7 @@
+package duke.command;
+import duke.tasklist.*;
+import duke.tasks.*;
+import duke.exception.*;
 /**
  * Represents a command given by the user. Parent class with abstract execute() method.
  */

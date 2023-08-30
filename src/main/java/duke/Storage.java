@@ -1,8 +1,13 @@
+package duke;
+
+import duke.tasklist.TaskList;
+import duke.tasks.Task;
+
 import java.io.*;
 import java.util.ArrayList;
 
 /**
- * Storage class to handle file storage, creation and reading of saved file.
+ * duke.Storage class to handle file storage, creation and reading of saved file.
  */
 public class Storage {
 
@@ -11,7 +16,7 @@ public class Storage {
     TaskList taskList;
 
     /**
-     * Contructor of the Storage class.
+     * Contructor of the duke.Storage class.
      *
      * @param taskList TaskList object being used to maintain the list of tasks in the chatbot.
      */

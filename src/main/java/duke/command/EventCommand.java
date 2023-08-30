@@ -1,3 +1,9 @@
+package duke.command;
+import duke.tasklist.*;
+import duke.tasks.*;
+import duke.exception.*;
+
+
 /**
  * Represents the actions needed if the user inputs an event task
  */
@@ -18,7 +24,7 @@ public class EventCommand extends Command {
 
     /**
      * Method to be executed when this command is called.
-     * Initializes a new Event object and adds it to the taskList.
+     * Initializes a Event object and adds it to the taskList.
      */
     @Override
     public void execute() {

@@ -1,10 +1,14 @@
+package duke.tasks;
+
+import duke.tasks.Task;
+
 /**
- * ToDo class representing a task and description
+ * duke.tasks.ToDo class representing a task and description
  */
-public class ToDo extends Task{
+public class ToDo extends Task {
 
     /**
-     * Constructor for the ToDo class
+     * Constructor for the duke.tasks.ToDo class
      * @param description Description of the task
      */
     public ToDo(String description) {
@@ -12,7 +16,7 @@ public class ToDo extends Task{
     }
 
     /**
-     * String representation of the ToDo task
+     * String representation of the duke.tasks.ToDo task
      * @return Information of event
      */
     @Override

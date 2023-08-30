@@ -1,7 +1,11 @@
-import java.util.function.ToDoubleBiFunction;
+package duke;
+
+import duke.command.*;
+import duke.exception.DukeException;
+import duke.tasklist.TaskList;
 
 /**
- * Parser class to decipher the input of the chatbot and call the correct command.
+ * duke.Parser class to decipher the input of the chatbot and call the correct command.
  */
 public class Parser {
 
