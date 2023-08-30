@@ -165,6 +165,8 @@ public class Duke {
         sc.close();
         System.out.println("\nBye. Hope to see you again soon!");
         System.out.println("- - - - - - - - - - - - - - - - - - - - - - - - -");
+
+        //Before you exit, save the changes to the file
         saveTasksToFile(tasklist);
     }
 }
