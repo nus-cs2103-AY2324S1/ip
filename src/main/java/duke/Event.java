@@ -2,6 +2,9 @@ package duke;
 
 import java.util.ArrayList;
 
+/**
+ * Event in the task list.
+ */
 public class Event extends Task {
     protected String from;
     protected String to;
@@ -12,6 +15,13 @@ public class Event extends Task {
         this.to = to;
     }
 
+    /**
+     * Prints out new Event in the task list.
+     *
+     * @param userOutput User command.
+     * @param inputList  List of tasks.
+     * @throws EmptyException If command is invalid.
+     */
     public static void setEvent(String userOutput, TaskList inputList) throws EmptyException {
         try {
             String newDes = userOutput.split("event")[1].split("/from")[0].strip();
@@ -27,6 +37,12 @@ public class Event extends Task {
         }
     }
 
+    /**
+     * Updates the storage with new Event.
+     *
+     * @param text  Event from the storage.
+     * @param tasks Task list stored in the storage.
+     */
     public static void newEvent(String text, ArrayList<Task> tasks) {
         String desc = text.split("\\(")[0].trim();
         String from = text.split("from:")[1].split("to:")[0].strip();

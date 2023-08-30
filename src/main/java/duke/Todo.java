@@ -2,11 +2,21 @@ package duke;
 
 import java.util.ArrayList;
 
+/**
+ * Todo in the task list.
+ */
 public class Todo extends Task {
     public Todo(String description) {
         super(description);
     }
 
+    /**
+     * Prints out new Todo in the task list.
+     *
+     * @param userOutput User command.
+     * @param inputList  List of tasks.
+     * @throws EmptyException If command is invalid.
+     */
     public static void setTodo(String userOutput, TaskList inputList) throws EmptyException {
         try {
             String todoCommand = userOutput.split("todo")[1].strip();
@@ -23,6 +33,12 @@ public class Todo extends Task {
         }
     }
 
+    /**
+     * Updates the storage with new Todo.
+     *
+     * @param text  Todo from the storage.
+     * @param tasks Task list stored in the storage.
+     */
     public static void newTodo(String text, ArrayList<Task> tasks) {
         Todo updatedTodo = new Todo(text);
         tasks.add(updatedTodo);
