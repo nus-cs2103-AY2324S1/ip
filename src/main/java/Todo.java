@@ -20,4 +20,16 @@ public class Todo extends Task {
     public String toString() {
         return String.format("[T]%s", super.toString());
     }
+
+    /**
+     * Get a formatted string of the Todo task to add to the save file.
+     *
+     * @return A formatted string with the relevant information for the save file.
+     */
+    @Override
+    public String getSaveString() {
+        return String.format("T | %d | %s",
+                this.isDone ? 1 : 0,
+                this.description);
+    }
 }
