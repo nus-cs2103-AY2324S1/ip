@@ -275,6 +275,28 @@ class TaskList {
         list.remove(index);
         listSize--;
 
+        ArrayList<String> history = new ArrayList<>();
+        try {
+            Scanner fileScanner = new Scanner(new File("data/duck.txt"));
+            int lineCounter = 0;
+            while (fileScanner.hasNextLine()) {
+                if (lineCounter == index) {
+                    System.out.println("removed: " + fileScanner.nextLine());
+                    lineCounter++;
+                    continue;
+                }
+                history.add(fileScanner.nextLine());
+            }
+
+            FileWriter writer = new FileWriter("data/duck.txt");
+            while (history.size() > 0) {
+                writer.write(history.remove(0) + "\n");
+            }
+            writer.close();
+        } catch (IOException e) {
+            System.out.println("Error - unable to access history file");
+        }
+
         System.out.println("Noted. I've removed this task:");
         System.out.println(currTask);
         System.out.println("Now you have " + listSize + " tasks in the list.");
