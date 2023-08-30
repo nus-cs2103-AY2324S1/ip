@@ -1,8 +1,67 @@
 import java.util.Scanner;
 import java.util.ArrayList; // import the ArrayList class
-
+import java.io.File;
+import java.io.FileWriter;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
 
 public class Duke{
+
+    public static void saveTasksToFile(ArrayList<Task> tasks, String dir){
+        FileWriter fileWriter;
+        BufferedWriter bufferedWriter;
+        try {
+            File outputFile = new File(dir);
+            outputFile.createNewFile();
+            fileWriter = new FileWriter(outputFile);
+            bufferedWriter = new BufferedWriter((fileWriter));
+            for (Task t: tasks) {
+                bufferedWriter.write(t.toSaveString());
+                bufferedWriter.newLine();
+            }
+            bufferedWriter.flush();
+            bufferedWriter.close();
+        } catch (IOException e){
+            System.out.println("An error occured" + e.getMessage());
+        }
+    }
+    public static ArrayList<Task> loadSaveFile(String dir){
+        FileReader fileReader;
+        BufferedReader bufferedReader;
+        ArrayList<Task> input = new ArrayList<Task>();
+        try {
+            File outputFile = new File(dir);
+            if (!outputFile.exists()) {
+                outputFile.createNewFile();
+            }
+            fileReader = new FileReader(dir);
+            bufferedReader = new BufferedReader((fileReader));
+            String nextLine;
+            nextLine = bufferedReader.readLine();
+            while (nextLine != null) {
+                String[] splitted = nextLine.split(" \\| ");
+                switch (splitted[0]) {
+                case "T":
+                    input.add(new ToDo(splitted[2], (splitted[1] == "1")));
+                    break;
+                case "E":
+                    input.add(new Event(splitted[2], splitted[3], splitted[4], (splitted[1] == "1")));
+                    break;
+                case "D":
+                    input.add(new Deadline(splitted[2], splitted[3], (splitted[1] == "1")));
+                    break;
+                }
+                nextLine = bufferedReader.readLine();
+            }
+            bufferedReader.close();
+        } catch (IOException e){
+            System.out.println("An error occured");
+        }
+
+        return input;
+    }
 
     public static void main(String[] args) {
 
@@ -24,6 +83,9 @@ public class Duke{
 
         Scanner myScanner = new Scanner(System.in);
         ArrayList<Task> myList = new ArrayList<Task>(); // Create an ArrayList object
+        String saveFileDir = "./data/duke.txt";
+        myList = loadSaveFile(saveFileDir);
+
         while(myScanner.hasNext()){
             String inValue = myScanner.next();
             Task item;
@@ -33,6 +95,7 @@ public class Duke{
                     System.out.println("____________________________________________________________");
                     System.out.println("Bye. Hope to see you again soon!");
                     System.out.println("____________________________________________________________");
+                    saveTasksToFile(myList, saveFileDir);
                     return;
 
                 case "list":
@@ -55,6 +118,7 @@ public class Duke{
                     System.out.println("Nice! I've marked this task as done:");
                     System.out.println(item.toString());
                     System.out.println("____________________________________________________________");
+                    saveTasksToFile(myList, saveFileDir);
                     break;
 
                 case "unmark":
@@ -65,6 +129,7 @@ public class Duke{
                     System.out.println("OK, I've marked this task as not done yet:");
                     System.out.println(item.toString());
                     System.out.println("____________________________________________________________");
+                    saveTasksToFile(myList, saveFileDir);
                     break;
 
                 case "delete":
@@ -76,6 +141,7 @@ public class Duke{
                     System.out.println(item.toString());
                     System.out.println("Now you have "+ String.valueOf(myList.size()) + " tasks in the list.");
                     System.out.println("____________________________________________________________");
+                    saveTasksToFile(myList, saveFileDir);
                     break;
 
                 case "todo":
@@ -96,6 +162,7 @@ public class Duke{
                     System.out.println(t.toString());
                     System.out.println("Now you have "+ String.valueOf(myList.size()) + " tasks in the list.");
                     System.out.println("____________________________________________________________");
+                    saveTasksToFile(myList, saveFileDir);
                     break;
                 case "deadline":
                     inValue = myScanner.nextLine();
@@ -107,8 +174,9 @@ public class Duke{
                         System.out.println("____________________________________________________________");
                         break;
                         //throw new DukeException("☹ OOPS!!! The description of a deadline cannot be empty.");
+
                     }
-                    String[] toBeSplit = inValue.split("/");
+                    String[] toBeSplit = inValue.split(" /");
                     Deadline d = new Deadline(toBeSplit[0], toBeSplit[1].replace("by ", ""));
                     myList.add(d);
                     System.out.println("____________________________________________________________");
@@ -116,6 +184,7 @@ public class Duke{
                     System.out.println(d.toString());
                     System.out.println("Now you have "+ String.valueOf(myList.size()) + " tasks in the list.");
                     System.out.println("____________________________________________________________");
+                    saveTasksToFile(myList, saveFileDir);
                     break;
                 case "event":
                     inValue = myScanner.nextLine();
@@ -128,7 +197,7 @@ public class Duke{
                         break;
                         //throw new DukeException("☹ OOPS!!! The description of an event cannot be empty.");
                     }
-                    String[] to_Split = inValue.split("/");
+                    String[] to_Split = inValue.split(" /");
                     Event e = new Event(to_Split[0], to_Split[1].replace("from ", ""), to_Split[2].replace("to ", ""));
                     myList.add(e);
                     System.out.println("____________________________________________________________");
@@ -136,6 +205,7 @@ public class Duke{
                     System.out.println(e.toString());
                     System.out.println("Now you have "+ String.valueOf(myList.size()) + " tasks in the list.");
                     System.out.println("____________________________________________________________");
+                    saveTasksToFile(myList, saveFileDir);
                     break;
 
                 default:

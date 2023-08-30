@@ -1,14 +1,13 @@
 public class Task {
     protected String description;
-    protected boolean isDone;
+    protected boolean isDone = false;
 
     public Task(String description) {
         this.description = description;
-        this.isDone = false;
     }
 
     public String getStatusIcon() {
-        return (isDone ? "X" : " "); // mark done task with X
+        return (this.isDone ? "X" : " "); // mark done task with X
     }
 
     public String get() {
@@ -23,9 +22,21 @@ public class Task {
         this.isDone = false; // mark done task with X
     }
 
+    public int isDoneInt(){
+        return this.isDone ? 1 : 0;
+    }
+
+
     public String toString() {
         return "[" + this.getStatusIcon() + "]" + " " + this.get();
     }
+
+    public String toSaveString(){
+        String divider = " | ";
+        return String.valueOf(this.isDoneInt()) + divider + this.description;
+    }
+
+
 
     //...
 }
