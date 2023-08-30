@@ -3,18 +3,18 @@ package duke;
 import duke.task.Task;
 import duke.task.TaskList;
 import static org.junit.jupiter.api.Assertions.*;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+/**
+ * Test class for the TaskList class.
+ */
 public class TaskListTest {
 
     private TaskList taskList;
 
-    @BeforeEach
-    public void setUp() {
-        taskList = new TaskList();
-    }
-
+    /**
+     * Test adding a task to the task list.
+     */
     @Test
     public void testAddTask() {
         int initialTaskCount = taskList.taskCount();
@@ -23,6 +23,9 @@ public class TaskListTest {
         assertEquals(initialTaskCount + 1, taskList.taskCount());
     }
 
+    /**
+     * Test marking a task as done in the task list.
+     */
     @Test
     public void testMarkTask() {
         Task task = new Task("Sample Task");
@@ -31,6 +34,9 @@ public class TaskListTest {
         assertTrue(taskList.getTask(0).isDone());
     }
 
+    /**
+     * Test marking a task as not done in the task list.
+     */
     @Test
     public void testUnMarkTask() {
         Task task = new Task("Sample Task");
@@ -41,6 +47,9 @@ public class TaskListTest {
         assertFalse(taskList.getTask(0).isDone());
     }
 
+    /**
+     * Test deleting a task from the task list.
+     */
     @Test
     public void testDeleteTask() {
         Task task = new Task("Sample Task");
@@ -50,7 +59,9 @@ public class TaskListTest {
         assertEquals(initialTaskCount - 1, taskList.taskCount());
     }
 
-    // You can add more tests as needed
+    /**
+     * Test getting the count of tasks in the task list.
+     */
     @Test
     public void testTaskCount() {
         int initialTaskCount = taskList.taskCount();
@@ -61,6 +72,9 @@ public class TaskListTest {
         assertEquals(initialTaskCount + 2, taskList.taskCount());
     }
 
+    /**
+     * Test getting a specific task from the task list.
+     */
     @Test
     public void testGetTask() {
         int initialTaskCount = taskList.taskCount();
