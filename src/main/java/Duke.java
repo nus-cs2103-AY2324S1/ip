@@ -1,8 +1,14 @@
-import java.util.*;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Duke {
     static boolean isEnd = false;
-    static List<Task> taskList = new ArrayList<>();
+    private final ArrayList<Task> taskList = new ArrayList<>();
     static String greeting = "______________________________________\n"
             + "Hi, I'm Chatty\n"
             + "What do you need to do today?\n"
@@ -11,7 +17,7 @@ public class Duke {
             + "Bye. Don't come back!\n"
             + "______________________________________";
 
-    static void removeFromList(int index) throws DukeException {
+    private void removeFromList(int index) throws DukeException {
         if (index < 0 || index > taskList.size()-1) {
             throw new DukeException("Wow, deleting a nonexistent task? Check your tasks again with 'list'.");
         }
@@ -25,7 +31,7 @@ public class Duke {
         System.out.println(returnLine);
     }
 
-    static void addToList(String str) throws DukeException {
+    private void addToList(String str) throws DukeException {
         Task t = null;
         if (str.startsWith("todo")) {
             if (str.length() <= 5) {
@@ -67,7 +73,7 @@ public class Duke {
         }
     }
 
-    static void listTasks() {
+    private void listTasks() {
         System.out.println("______________________________________");
         for (int i=1; i<=taskList.size(); i++) {
             Task t = taskList.get((i-1));
@@ -76,7 +82,7 @@ public class Duke {
         System.out.println("______________________________________\n");
     }
 
-    static boolean awaitCommand(String command) {
+    private boolean awaitCommand(String command) {
         try {
             if (command.equals("bye")) {
                 isEnd = true;
@@ -99,23 +105,70 @@ public class Duke {
                 removeFromList(index-1);
             } else {
                 addToList(command);
+                this.writeData();
             }
             return true;
         } catch (DukeException e) {
             System.out.println("______________________________________\n");
             e.printMessage();
             System.out.println("______________________________________\n");
+        } catch (IOException e) {
+            System.out.println(e);
         } finally {
             return true;
         }
     }
 
+    private void loadData() throws IOException {
+        Scanner sc = new Scanner(new File("data/duke.txt"));
+        while (sc.hasNext()) {
+            String[] line = sc.nextLine().split("\\|");
+            for (int i = 0; i < line.length; i++) {
+                line[i] = line[i].strip();
+            }
+
+            switch (line[0]) {
+                case "T":
+                    taskList.add(new ToDo(line[2]));
+                    break;
+                case "D":
+                    taskList.add(new Deadline(line[2], line[3]));
+                    break;
+                case "E":
+                    taskList.add(new Event(line[2], line[3], line[4]));
+                    break;
+            }
+        }
+    }
+
+    private void writeData() throws IOException {
+        FileWriter fw = new FileWriter("data/duke.txt");
+        for (Task t: taskList) {
+            fw.write(t.toWriteString()+"\n");
+        }
+        fw.close();
+    }
+
     public static void main(String[] args) {
+        Duke duke = new Duke();
+        try {
+            if (!Files.isDirectory(Paths.get("data/"))) {
+                Files.createDirectories(Paths.get("data/"));
+            }
+
+            if (!Files.exists(Paths.get("data/duke.txt"))) {
+                Files.createFile(Paths.get("data/duke.txt"));
+                System.out.println("new file created");
+            }
+            duke.loadData();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         System.out.println(greeting);
         Scanner sc = new Scanner(System.in);
         while (isEnd == false) {
             String command = sc.nextLine();
-            awaitCommand(command);
+            duke.awaitCommand(command);
         }
         System.out.println(goodbye);
     }
