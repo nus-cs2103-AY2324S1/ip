@@ -7,6 +7,15 @@ import duke.task.TaskList;
 import duke.task.Todo;
 
 public class Parser {
+
+    /**
+     * Reads and processes the user command.
+     * If it is modifying a task, perform it straight away, else, call addTask.
+     *
+     * @param command The user command.
+     * @param tasklist The task list to perform actions on.
+     * @throws DukeException If there's an issue with the command or task processing.
+     */
     public static void readTask(String command, TaskList tasklist) throws DukeException {
         String[] commandSplit = command.split(" ");
         if (command.equals("list")) {
@@ -48,6 +57,13 @@ public class Parser {
             }
         }
 
+    /**
+     * Add task to the task list based on the command.
+     *
+     * @param command The user command.
+     * @param tasklist The task list to perform actions on.
+     * @throws DukeException If there's an issue with the command or task processing.
+     */
     private static void addTask(String command, TaskList tasklist) throws DukeException {
         if (command.startsWith("todo")) {
             try {
