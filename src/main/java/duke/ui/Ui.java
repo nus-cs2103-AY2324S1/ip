@@ -5,6 +5,9 @@ import duke.parser.Parser;
 import duke.task.Task;
 import duke.task.TaskList;
 
+/**
+ * Represents the client facing UI to handle inputs and displays.
+ */
 public class Ui {
     /**
      * Adds task to TaskList and displays added task info to user.

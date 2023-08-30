@@ -9,6 +9,9 @@ import java.util.Arrays;
 import java.util.List;
 import java.time.LocalDate;
 
+/**
+ * Provides static methods to parse user queries and data file.
+ */
 public class Parser {
     private static String emptyDeadlineDate = "Please specify deadline date using /by\n" +
         "e.g. deadline report /by 2023-12-31";

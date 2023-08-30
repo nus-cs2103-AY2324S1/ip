@@ -6,6 +6,9 @@ import java.time.DateTimeException;
 import java.time.format.DateTimeFormatter;
 import java.time.LocalDate;
 
+/**
+ * Represents a deadline inherits from a Task.
+ */
 public class Deadline extends Task {
     private LocalDate deadline;
     private static String invalidDate = "Please provide date with the following format: YYYY-MM-DD";

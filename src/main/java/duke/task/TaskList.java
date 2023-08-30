@@ -4,6 +4,9 @@ import duke.DukeException;
 
 import java.util.ArrayList;
 
+/**
+ * Represents a list of Tasks inherits from ArrayList of Task to contain user tasks.
+ */
 public class TaskList extends ArrayList<Task> {
     public TaskList() {
         super();
