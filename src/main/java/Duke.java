@@ -1,10 +1,17 @@
-import java.sql.Array;
-import java.sql.SQLOutput;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Scanner;
 
 public class Duke {
+    /**
+     * array of task
+     */
+    private static ArrayList<Task> arrayList = new ArrayList<>();
+
+    private static String pathFile = "src/main/TaskStorage.txt";
 
     /**
      * method to run the code
@@ -12,7 +19,7 @@ public class Duke {
      * @return boolean to check bye or not
      * @throws DukeException throws DukeException
      */
-    public static boolean runProgram(ArrayList<Task> arrayList) throws DukeException {
+    private static boolean runProgram(ArrayList<Task> arrayList) throws Exception {
         Scanner in = new Scanner(System.in);
         String s = in.nextLine();
 
@@ -109,23 +116,93 @@ public class Duke {
 
             System.out.println(response);
             s = null;
+            writeFile();
             return true;
         }
     }
 
-    public static void main(String[] args) {
-        /**
-         * array of task
-         */
-        //Task[] arrayList = new Task[100];
-        ArrayList<Task> arrayList = new ArrayList<>();
+    private static void readFile() throws Exception {
+        File file = new File(Duke.pathFile);
+        Scanner sc = new Scanner(file);
 
-        String greet = "   ____________________________________________________________\n" +
-                "    Hello! I'm Siri\n" +
-                "    What can I do for you?\n" +
-                "   ____________________________________________________________\n";
+        while (sc.hasNextLine()) {
+            String scanned = sc.nextLine();
+            String[] singleTaskArray = scanned.split(" / ");
+
+            //do a checking <------
+
+            Task task;
+            switch (singleTaskArray[0]) {
+            case "T":
+                task  = new Todo(singleTaskArray[2]);
+                break;
+            case "D":
+                task = new Deadline(singleTaskArray[2], singleTaskArray[3]);
+                break;
+            case "E":
+                task = new Event(singleTaskArray[2], singleTaskArray[3], singleTaskArray[4]);
+                break;
+            default:
+                throw new DukeNotTaskException(singleTaskArray[0]);
+            }
+
+            if (singleTaskArray[1].equals("1")) {
+                task.mark();
+            }
+
+            arrayList.add(task);
+        }
+
+
+
+    }
+
+    private static void writeFile() throws Exception {
+        String newData = Duke.arrayToDataString();
+
+        try {
+            FileWriter fileWriter = new FileWriter(pathFile, false);
+            BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+
+            bufferedWriter.write(newData);
+
+            bufferedWriter.close();
+            fileWriter.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    private static void checkFile() throws Exception {
+        try {
+            File file = new File(pathFile);
+            if (!file.exists()) {
+                boolean created = file.createNewFile();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static String arrayToDataString() {
+        String dataString = "";
+
+        for (int i = 0; i < arrayList.size(); i++) {
+            dataString += arrayList.get(i).toDataString() + "\n";
+        }
+        return dataString;
+    }
+
+    public static void main(String[] args) throws Exception {
+        checkFile();
+        readFile();
+
+        String greet = "    ____________________________________________________________\n" +
+                "     Hello! I'm Siri\n" +
+                "     What can I do for you?\n" +
+                "    ____________________________________________________________\n";
         System.out.println(greet);
-
 
         while (true) {
             try {
@@ -135,8 +212,7 @@ public class Duke {
             } catch (DukeException e) {
                 System.out.println(e.getMessage());
             }
-
-
         }
+        writeFile();
     }
 }

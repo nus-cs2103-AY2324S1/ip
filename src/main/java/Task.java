@@ -89,5 +89,13 @@ public class Task {
     public String toString() {
         return "[" + this.getStatusIcon() + "] " + description;
     }
+
+    public String toDataString() {
+        if (this.isDone) {
+            return "1 / " + this.description;
+        } else {
+            return "0 / " + this.description;
+        }
+    }
 }
 
