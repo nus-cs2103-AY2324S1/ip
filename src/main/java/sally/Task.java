@@ -3,27 +3,52 @@ package sally;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Represents a general task with task description and completion status.
+ */
 public class Task {
     protected String task;
     protected boolean toBeDone;
 
+    /**
+     * Constructs a Task object with the given task description and sets it as not done by default.
+     *
+     * @param task The description of the task.
+     */
     public Task(String task) {
         this.task = task;
         this.toBeDone = true;
     }
 
+    /**
+     * Marks the task as done.
+     */
     public void mark() {
         toBeDone = false;
     }
 
+    /**
+     * Unmarks the task as done, setting its completion status to not done.
+     */
     public void unmark() {
         toBeDone = true;
     }
 
+    /**
+     * Returns the status icon indicating whether the task is done or not done.
+     *
+     * @return The status icon as a string.
+     */
     public String getStatusIcon() {
         return (toBeDone ? "[ ]" : "[X]");
     }
 
+    /**
+     * Returns a string representation of the task formatted for storage in a file.
+     * If the task is an instance of Todo, Event, or Deadline, returns their specific string representations.
+     *
+     * @return The string representation of the task for storage.
+     */
     public String toFileString() {
         if (this instanceof Todo) {
             Todo todo = (Todo) this;
@@ -39,15 +64,25 @@ public class Task {
         }
     }
 
+    /**
+     * Converts a string representation of date and time to a LocalDateTime object.
+     *
+     * @param input The input string representing date and time.
+     * @return The LocalDateTime object parsed from the input string.
+     */
     private static LocalDateTime convertToDateTime(String input) {
         DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy, h:mm a");
-        LocalDateTime dateTime = LocalDateTime.parse(input, inputFormatter);
-        return dateTime;
+        return LocalDateTime.parse(input, inputFormatter);
     }
 
+    /**
+     * Converts a string representation of a task from a file to a Task object.
+     *
+     * @param fileString The string representation of the task from the file.
+     * @return The Task object created from the file string.
+     */
     public static Task fromFileString(String fileString) {
-        String target =  fileString;
-        String[] split = target.split("]\\[");
+        String[] split = fileString.split("]\\[");
         String splitOne = split[0]; // [D
         String[] toGetTaskType = splitOne.split("\\[");
         String taskType = toGetTaskType[1]; // D
@@ -93,6 +128,11 @@ public class Task {
         return newTask;
     }
 
+    /**
+     * Returns a string representation of the task for display.
+     *
+     * @return The string representation of the task.
+     */
     @Override
     public String toString() {
         return getStatusIcon() + " " + task;

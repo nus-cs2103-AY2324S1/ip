@@ -1,10 +1,20 @@
 package sally;
 
+/**
+ * Represents the main class that interacts with the user and coordinates the program execution.
+ */
 public class Sally {
-    private Storage storage;
+    private final Storage storage;
     private TaskList tasks;
-    private Ui ui;
+    private final Ui ui;
 
+    /**
+     * Constructs a Sally object.
+     * Initializes the user interface, storage, and task list.
+     * Load tasks from the specified file path if available.
+     *
+     * @param filePath The file path for storing and loading tasks.
+     */
     public Sally(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
@@ -16,6 +26,11 @@ public class Sally {
         }
     }
 
+    /**
+     * Starts the main program loop.
+     * Shows a welcome message to the user.
+     * Reads and processes user commands until the user types "bye".
+     */
     public void run() {
         ui.showWelcomeMessage();
 
@@ -35,6 +50,12 @@ public class Sally {
         }
     }
 
+    /**
+     * Main method to start the program.
+     * Creates a Sally instance with the specified file path and runs it.
+     *
+     * @param args The command-line arguments (not used).
+     */
     public static void main(String[] args) {
         new Sally("data/sally.txt").run();
     }
