@@ -2,7 +2,18 @@ package duke.command;
 
 import duke.exception.DukeException;
 
+/**
+ * A utility class containing common methods for executing the commands .
+ */
 public class CommonMethods {
+
+    /**
+     * Retrieves the index of a task from the user input command.
+     *
+     * @param cmd The user input command containing the task number.
+     * @return The index of the task specified in the command.
+     * @throws DukeException If there is an error while extracting the task index.
+     */
     static int getIndex(String cmd) throws DukeException {
         if (cmd.isEmpty() || cmd.equals(" ")) {
             throw new DukeException(

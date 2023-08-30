@@ -13,13 +13,29 @@ import java.util.Collection;
 import java.util.Objects;
 import java.util.Scanner;
 
+/**
+ * Manages the storage of task data in the Duke application.
+ * This class handles loading tasks from and saving tasks to a file.
+ */
 public class Storage {
     private final String filePath;
     private String home = System.getProperty("user.home");
+
+    /**
+     * Constructs a Storage object with the specified file path.
+     *
+     * @param filePath The file path for storing task data.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
+    /**
+     * Loads tasks from the file and returns them as a collection.
+     *
+     * @return A collection of tasks loaded from the file.
+     * @throws DukeException If there is an error while loading tasks.
+     */
     public Collection<Task> load() throws DukeException {
         boolean directoryExists = new java.io.File(home + "\\Documents\\ip\\data").exists();
         if (!directoryExists) {
@@ -49,6 +65,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Creates a Task object based on the provided data string.
+     *
+     * @param s The data string representing a task.
+     * @return A Task object based on the data string.
+     */
     private Task existTasks(String s) {
         String[] temp = s.split(" \\| ");
         int n = temp.length;
@@ -67,8 +89,12 @@ public class Storage {
         return t;
     }
 
-
-
+    /**
+     * Writes the tasks from the task list to the file.
+     *
+     * @param lst The task list containing tasks to be saved.
+     * @throws IOException If there is an error while writing to the file.
+     */
     public void changeFile(TaskList lst) throws IOException {
         FileWriter fw = new FileWriter(filePath);
         fw.write("");
@@ -79,6 +105,12 @@ public class Storage {
         fw.close();
     }
 
+    /**
+     * Adds a task to the file.
+     *
+     * @param t The task to be added to the file.
+     * @throws DukeException If there is an error while adding the task to the file.
+     */
     public void addToFile(Task t) throws DukeException {
         try {
             FileWriter fw = new FileWriter(filePath, true);

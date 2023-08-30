@@ -6,12 +6,21 @@ import duke.parser.Parser;
 import duke.storage.Storage;
 import duke.taskList.TaskList;
 
-
+/**
+ * The main class that manages the Duke application.
+ * This class handles the initialization, execution, and termination of the application.
+ */
 public class Duke {
     private final Storage storage;
     private TaskList tasks;
     private final UI ui;
 
+    /**
+     * Constructs a Duke object with the specified file path.
+     * Initializes the UI, storage, and tasks based on loaded data or an empty list.
+     *
+     * @param filePath The file path for storing and loading task data.
+     */
     public Duke(String filePath) {
         ui = new UI();
         storage = new Storage(filePath);
@@ -23,6 +32,11 @@ public class Duke {
         }
     }
 
+    /**
+     * Runs the Duke application.
+     * Displays a welcome message, reads and processes user input in a loop,
+     * and handles exceptions and command execution.
+     */
     public void run() {
         ui.showWelcome();
         boolean isExit = false;
@@ -41,6 +55,11 @@ public class Duke {
         }
     }
 
+    /**
+     * The main method that starts the Duke application.
+     *
+     * @param args Command-line arguments (not used in this application).
+     */
     public static void main(String[] args) {
         new Duke("data/duke.txt").run();
     }

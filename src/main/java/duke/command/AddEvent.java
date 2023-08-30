@@ -10,11 +10,32 @@ import java.io.IOException;
 import java.time.DateTimeException;
 import java.time.LocalDate;
 
+/**
+ * Command for adding an event task.
+ * This command parses the input and adds a new event task to the task list.
+ */
 public class AddEvent extends Command {
+
+    /**
+     * Constructs an AddEvent command with the given input string.
+     *
+     * @param s The input string containing the task description and event time.
+     */
     public AddEvent(String s) {
         super(s);
     }
 
+
+    /**
+     * Executes the AddEvent command.
+     * Parses the input string, adds a new event task to the task list,
+     * and updates the user interface and storage accordingly.
+     *
+     * @param lst The task list to which the new task will be added.
+     * @param io The UI handling input and output.
+     * @param storage The storage handler for taking and storing task data.
+     * @throws DukeException If there is an error while executing the command.
+     */
     @Override
     public void execute(TaskList lst, UI io, Storage storage) throws DukeException{
         if (s.isEmpty() || s.equals(" ")) {

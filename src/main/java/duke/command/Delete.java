@@ -8,12 +8,32 @@ import duke.taskList.TaskList;
 
 import java.io.IOException;
 
+
+/**
+ * Represents a command to delete a task.
+ * This command allows deleting a task from the task list.
+ */
 public class Delete extends Command{
 
+    /**
+     * Constructs a Delete command with the given input string.
+     *
+     * @param s The input string containing the task number.
+     */
     public Delete(String s) {
         super(s);
     }
 
+    /**
+     * Executes the Delete command.
+     * Deletes a task from the task list, updates the user interface,
+     * and updates the storage accordingly.
+     *
+     * @param lst The task list containing the tasks.
+     * @param io The user interface handling input and output.
+     * @param storage The storage handler for storing task data.
+     * @throws DukeException If there is an error while executing the command.
+     */
     @Override
     public void execute(TaskList lst, UI io, Storage storage) throws DukeException {
         int index = CommonMethods.getIndex(s);
