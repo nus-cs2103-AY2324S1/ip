@@ -30,6 +30,7 @@ public class Ui {
      * Prints the exit message.
      */
     public void exit() {
+        printDivider();
         System.out.println("\tBye. Have a nice day!");
         printDivider();
     }
@@ -57,7 +58,22 @@ public class Ui {
      * @param msg The error message to be printed.
      */
     public void showError(String msg) {
+        System.out.println(ERROR_DIVIDER);
         System.out.println(msg);
         System.out.println(ERROR_DIVIDER);
+    }
+
+    /**
+     * Prints the input String in the console enclosed in two horizontal dividers.
+     *
+     * @param msg The message to be printed.
+     */
+    public void printOutput(String msg) {
+        if (msg.isBlank()) {
+            return;
+        }
+        this.printDivider();
+        System.out.println(msg);
+        this.printDivider();
     }
 }
