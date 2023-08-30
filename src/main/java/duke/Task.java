@@ -25,7 +25,6 @@ public class Task {
         this.isDone = false;
     }
 
-    // to generate a format to save in file
     public String saveTask() {
         if (this.isDone) {
             return "1" + " | " + this.description;
@@ -34,7 +33,6 @@ public class Task {
         }
     }
 
-    // return tasks from file
     public static Task loadData(String savedTasks) {
         String[] parts = savedTasks.split(" \\| ");
         String type = parts[0];

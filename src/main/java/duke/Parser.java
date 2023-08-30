@@ -31,12 +31,11 @@ public class Parser {
                     System.out.println(e.getMessage());
                 }
             }
-
-            // list tasks
+        // list tasks
         } else if (command.equalsIgnoreCase("list")) {
             ui.printList(list);
 
-            // mark task as done
+        // mark task as done
         } else if (command.toLowerCase().startsWith("mark")) {
             String[] sub = command.split(" ");
 
@@ -62,7 +61,8 @@ public class Parser {
                     System.out.println(e.getMessage());
                 }
             }
-            // unMark task
+
+        // unmark task
         } else if (command.toLowerCase().startsWith("unmark")) {
             String[] sub = command.split(" ");
 
@@ -89,7 +89,7 @@ public class Parser {
                 }
             }
 
-            // add todo
+        // add todo
         } else if (command.toLowerCase().startsWith("todo")) {
             String todo = command.substring(4).trim();
             if (todo.isEmpty()) {
@@ -106,7 +106,7 @@ public class Parser {
                 ui.addTodo(list, newTodo);
             }
 
-            // add deadline
+        // add deadline
         } else if (command.toLowerCase().startsWith("deadline")) {
             String deadline = command.substring(8).trim();
 
@@ -139,7 +139,7 @@ public class Parser {
                 }
             }
 
-            // add event
+        // add event
         } else if (command.toLowerCase().startsWith("event")) {
             String event = command.substring(5).trim();
 
