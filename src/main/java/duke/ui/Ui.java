@@ -53,6 +53,26 @@ public class Ui {
         System.out.println("Bye. Hope to see you again soon!");
     }
 
+
+    /**
+     * Displays a message indicating matching tasks found based on the keyword search.
+     *
+     * @param matchingTasks The list of matching tasks to display.
+     */
+    public void showMatchingTasks(TaskList matchingTasks) throws DukeException {
+        System.out.println("Here are the matching tasks in your list:");
+        for (int i = 0; i < matchingTasks.size(); i++) {
+            System.out.println((i + 1) + "." + matchingTasks.get(i));
+        }
+    }
+
+    /**
+     * Displays a message indicating no matching tasks were found based on the keyword search.
+     */
+    public void showNoMatchingTasks() {
+        System.out.println("No matching tasks found.");
+    }
+
     /**
      * Displays the list of tasks to the user.
      *
