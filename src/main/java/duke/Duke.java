@@ -31,22 +31,31 @@ public class Duke {
         // setting up
         Scanner sc = new Scanner(System.in);
         String string = sc.nextLine();
-        boolean done = false;
+        boolean isDone = false;
+        String commandType = "";
 
         // looping in the program
-        while (done != true) {
+        while (true) {
             // end the program
             try {
-                done = Parser.parse(string, tasks, helper, storage);
+                isDone = Parser.parse(string, tasks, helper, storage);
             } catch (DukeException e) {
                 System.out.println(e.getMessage());
             } finally {
+                if (isDone) {
+                    commandType = "bye";
+                }
+                if (commandType.equals("bye")) {
+                    break;
+                }
                 helper.printLine();
                 string = sc.nextLine();
             }
         }
         // end the program
         sc.close();
-        helper.bye();
+        if (commandType.equals("bye")) {
+            helper.bye();
+        }
     }
 }
