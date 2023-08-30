@@ -5,6 +5,10 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 
+/**
+ * Encapsulates the Deadline class.
+ * Deadlines are tasks with a given deadline.
+ */
 public class Deadline extends Task {
     protected String type = "D";
     protected LocalDateTime dateAndTime;
@@ -13,11 +17,21 @@ public class Deadline extends Task {
         this.dateAndTime = dateAndTime;
     }
 
+    /**
+     * Obtains the task type in square brackets.
+     *
+     * @return A string containing the task type in square brackets.
+     */
     @Override
     public String getTaskType() {
         return "[" + this.type + "]";
     }
 
+    /**
+     * Obtains the deadline in a string format.
+     *
+     * @return A string containing the deadline information.
+     */
     @Override
     public String getTimeInfo() {
         // Format month in words

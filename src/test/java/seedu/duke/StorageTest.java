@@ -1,4 +1,4 @@
-package seedu.duke;  //same package as the class being tested
+package seedu.duke;
 
 import org.junit.jupiter.api.Test;
 
@@ -9,7 +9,15 @@ import java.util.ArrayList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
+/**
+ * Encapsulates the StorageTest class.
+ * The StorageTest class contains unit tests for methods in the Storage class.
+ */
 public class StorageTest {
+
+    /**
+     * Tests the save method in Storage.
+     */
     @Test
     public void save_normalTaskArrayList_success(){
         ArrayList<Task> taskList = new ArrayList<>();
@@ -45,6 +53,9 @@ public class StorageTest {
         }
     }
 
+    /**
+     * Tests the load method in Storage.
+     */
     @Test
     public void load_normalTaskArrayList_success(){
         ArrayList<Task> taskList = new ArrayList<>();

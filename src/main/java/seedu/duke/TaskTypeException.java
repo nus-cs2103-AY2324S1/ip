@@ -1,4 +1,8 @@
 package seedu.duke;
+
+/**
+ * Encapsulates the exception where the task identifier command by the user is not specified.
+ */
 public class TaskTypeException extends DukeException {
     public TaskTypeException() {
         super("____________________________________________________________\n" +

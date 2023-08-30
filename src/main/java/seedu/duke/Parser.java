@@ -1,4 +1,10 @@
 package seedu.duke;
+
+/**
+ * Encapsulates the Parser class.
+ * The Parser deals with the control flow of the program depending on the user's input command.
+ */
+
 import java.io.StreamCorruptedException;
 import java.time.LocalDateTime;
 
@@ -13,7 +19,11 @@ public class Parser {
         this.ui = ui;
     }
 
-    // Takes a command and executes it accordingly
+    /**
+     * Executes the necessary processes based on the command inputted by the user.
+     *
+     * @param cmd The command inputted by the user.
+     */
     public void parse(String cmd) {
         // Exit if command is "bye"
             try {
@@ -137,19 +147,33 @@ public class Parser {
             }
     }
 
-    // Checks if an input task has a task title
+    /**
+     * Checks whether the task description has been specified.
+     *
+     * @param cmd The command inputted by the user.
+     * @return True if there is no task description specified.
+     */
     public boolean descriptionIsEmpty(String cmd) {
         return cmd.split(" ").length == 1;
     }
 
-    // Checks whether the input task has no deadline
-    // A task has no deadline if there is no "/" followed by at least one character
+    /**
+     * Checks whether the input task has no deadline.
+     * A task has no deadline if there is no "/" followed by at least one character.
+     *
+     * @param taskWithDeadline The task name and deadline given by the user.
+     * @return True if the task has no specified deadline.
+     */
     public boolean hasNoDeadline(String taskWithDeadline) {
         return taskWithDeadline.split("/").length == 1;
     }
 
-    // Checks whether the input deadline is a proper date and time
-    // Returns a LocalDateTime containing the date and time given
+    /**
+     * Checks whether the input deadline is a proper date and time.
+     *
+     * @param deadline The deadline specified by the user.
+     * @return A LocalDateTime object containing the date and time given, if it is a valid deadline. Else, return null.
+     */
     public LocalDateTime checkDeadline(String deadline) {
         String[] parts = deadline.split(" ");
         try {
@@ -190,7 +214,13 @@ public class Parser {
         }
     }
 
-    // Checks whether a task with the given task number argument exists
+    /**
+     * Checks whether a task with the given task number argument exists.
+     *
+     * @param number The integer specified by the user.
+     * @return True if a task with that task number exists.
+     */
+    //
     public boolean isValidTaskNumber(int number) {
         try {
             int listSize = storage.load().size();

@@ -1,12 +1,11 @@
 package seedu.duke;
 
-import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.Scanner;
+
+/**
+ * Encapsulates the Duke class
+ * Duke is the chatbot that runs the program.
+ */
 public class Duke {
     private Storage storage;
     private TaskList tasks;
@@ -25,6 +24,9 @@ public class Duke {
         }
     }
 
+    /**
+     * Executes the chatbot program.
+     */
     public void run() {
         ui.printIntro();
 

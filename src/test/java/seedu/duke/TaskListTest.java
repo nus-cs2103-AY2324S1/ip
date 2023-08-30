@@ -3,13 +3,20 @@ package seedu.duke;
 import org.junit.jupiter.api.Test;
 
 import java.io.*;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
+/**
+ * Encapsulates the TaskListTest class.
+ * The TaskListTest class contains unit tests for methods in the TaskList class.
+ */
 public class TaskListTest {
+
+    /**
+     * Tests the addTask method in TaskList.
+     */
     @Test
     public void addTask_normalTask_success() {
         TaskList taskList = new TaskList();
@@ -38,6 +45,9 @@ public class TaskListTest {
         }
     }
 
+    /**
+     * Tests the markOrDelete method in TaskList.
+     */
     @Test
     public void markOrDelete_markOne_success() {
         ArrayList<Task> tasks = new ArrayList<>();
