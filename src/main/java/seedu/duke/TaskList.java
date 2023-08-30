@@ -46,4 +46,21 @@ public class TaskList {
             return deletedTask;
         }
     }
+
+    /**
+     * Finds tasks in the accumulated tasks that contain the keyword specified.
+     *
+     * @param keyword The string to be matched with the accumulated tasks.
+     * @return An ArrayList<Task> containing the tasks that contain the keyword.
+     */
+    public ArrayList<Task> find(String keyword) {
+        ArrayList<Task> results = new ArrayList<>();
+
+        for (int i = 0; i < tasks.size(); i++) {
+            if (tasks.get(i).name.contains(keyword)) {
+                results.add(tasks.get(i));
+            }
+        }
+        return results;
+    }
 }
