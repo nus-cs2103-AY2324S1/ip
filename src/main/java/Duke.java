@@ -2,8 +2,10 @@ import java.io.IOException;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.time.DateTimeException;
 
 public class Duke {
     private static final String HORIZONTAL_LINE = "____________________________________________________________";
@@ -54,7 +56,12 @@ public class Duke {
                         if (split.length != 2) {
                             throw new FileCorruptedException();
                         }
-                        task = new Deadline(split[0], split[1]);
+                        try {
+                            LocalDateTime dateTime = DateTimeManager.inputToDate(split[1]);
+                            task = new Deadline(split[0], dateTime);
+                        } catch (DateParseException | DateTimeException e) {
+                            throw new FileCorruptedException();
+                        }
                         break;
                     case "E":
                         String[] separateByFrom = line[2].split(" /from ", 2);
@@ -65,7 +72,13 @@ public class Duke {
                         if (separateByTo.length != 2) {
                             throw new FileCorruptedException();
                         }
-                        task = new Event(separateByFrom[0], separateByTo[0], separateByTo[1]);
+                        try {
+                            LocalDateTime startTime = DateTimeManager.inputToDate(separateByTo[0]);
+                            LocalDateTime endTime = DateTimeManager.inputToDate(separateByTo[1]);
+                            task = new Event(separateByFrom[0], startTime, endTime);
+                        } catch (DateParseException | DateTimeException e) {
+                            throw new FileCorruptedException();
+                        }
                         break;
                     default:
                         throw new FileCorruptedException();
@@ -137,6 +150,7 @@ public class Duke {
 
             // exit
             switch (commandArgs[0]) {
+                case "exit":
                 case "bye":
                     break label;
 
@@ -176,6 +190,7 @@ public class Duke {
                     this.deleteTask(commandArgs);
                     break;
 
+                // save data to hard disk
                 case "save":
                     this.saveData();
                     break;
@@ -258,7 +273,15 @@ public class Duke {
             return;
         }
 
-        Task newTask = new Event(separateByFrom[0], separateByTo[0], separateByTo[1]);
+        Task newTask;
+        try {
+            LocalDateTime startTime = DateTimeManager.inputToDate(separateByTo[0]);
+            LocalDateTime endTime = DateTimeManager.inputToDate(separateByTo[0]);
+            newTask = new Event(separateByFrom[0], startTime, endTime);
+        } catch (DateParseException | DateTimeException e) {
+            System.out.println("Quack, I do not understand your datetime.");
+            return;
+        }
         this.taskList.add(newTask);
         System.out.println("Got it. I've added this task:");
         System.out.println(newTask);
@@ -294,7 +317,14 @@ public class Duke {
             return;
         }
 
-        Task newTask = new Deadline(separateByBy[0], separateByBy[1]);
+        Task newTask;
+        try {
+            LocalDateTime dateTime = DateTimeManager.inputToDate(separateByBy[1]);
+            newTask = new Deadline(separateByBy[0], dateTime);
+        } catch (DateParseException | DateTimeException e) {
+            System.out.println("Quack, I do not understand your datetime.");
+            return;
+        }
         this.taskList.add(newTask);
         System.out.println("Got it. I've added this task:");
         System.out.println(newTask);
