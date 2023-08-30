@@ -6,6 +6,14 @@ public class ToDo extends Task {
         super(description);
     }
 
+    public ToDo(int status, String description) {
+        super(description, status != 0);     //if 0, return false, else return true
+    }
+
+    @Override
+    public String storeToDisk() {
+        return "T" + "|" + this.getStatus() + "|" + this.getDescription();
+    }
     @Override
     public String toString() {
         return "[T]" + super.toString();
