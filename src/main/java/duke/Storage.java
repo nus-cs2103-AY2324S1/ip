@@ -19,12 +19,26 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * The Storage class handles loading and saving tasks from/to a file.
+ */
 public class Storage {
     private String filePath;
-    public Storage(String filePath){
+
+    /**
+     * Constructs a Storage instance with the specified file path.
+     *
+     * @param filePath The file path to store task data.
+     */
+    public Storage(String filePath) {
         this.filePath = filePath;
     }
 
+    /**
+     * Loads tasks from the file specified in the constructor.
+     *
+     * @return A list of tasks loaded from the file.
+     */
     public List<Task> load() {
         List<Task> list = new ArrayList<>();
         try {
@@ -42,6 +56,12 @@ public class Storage {
         return list;
     }
 
+    /**
+     * Loads a task from the input string and adds it to the provided list.
+     *
+     * @param input The input string representing the task.
+     * @param list  The list to which the task will be added.
+     */
     public void loadTask(String input, List<Task> list) {
         boolean isMarked;
         int markedIndex = input.indexOf("|");
@@ -55,14 +75,14 @@ public class Storage {
                 int byIndex = input.indexOf("|", titleIndex);
                 String title = input.substring(titleIndex, byIndex);
                 String dueDateString = input.substring(byIndex + 2);
-                list.add(new Deadline(title,parseDate(dueDateString),isMarked));
-            } else if (input.startsWith("E")){
+                list.add(new Deadline(title, parseDate(dueDateString), isMarked));
+            } else if (input.startsWith("E")) {
                 int fromIndex = input.indexOf("|", titleIndex);
                 String title = input.substring(titleIndex, fromIndex);
                 int toIndex = input.indexOf("|", fromIndex + 1);
                 String from = input.substring(fromIndex + 2, toIndex);
-                String to = input.substring( toIndex + 2);
-                list.add(new Event(title,parseDate(from),parseDate(to),isMarked));
+                String to = input.substring(toIndex + 2);
+                list.add(new Event(title, parseDate(from), parseDate(to), isMarked));
             } else {
                 throw new InvalidInputException();
             }
@@ -70,6 +90,12 @@ public class Storage {
             System.out.println(e.getMessage());
         }
     }
+
+    /**
+     * Saves tasks from the provided TaskList instance to the file specified in the constructor.
+     *
+     * @param tasks The TaskList instance containing tasks to be saved.
+     */
     public void save(TaskList tasks) {
         try {
             FileWriter fw = new FileWriter(filePath);
@@ -81,6 +107,14 @@ public class Storage {
             System.out.println(e.getMessage());
         }
     }
+
+    /**
+     * Parses a date-time string into a LocalDateTime instance.
+     *
+     * @param input The input date-time string.
+     * @return A LocalDateTime instance parsed from the input string.
+     * @throws InvalidDateFormatException If the input string has an invalid date-time format.
+     */
     public LocalDateTime parseDate(String input) throws InvalidDateFormatException {
         try {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");

@@ -11,7 +11,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+
+/**
+ * Test class for the Storage class.
+ * Contains test cases for the loadTask method.
+ */
 public class StorageTest {
+    /**
+     * Test loading a Todo task with valid input.
+     * Verifies that the task is created and added to the list correctly.
+     */
     @Test
     public void loadTask_Todo_ValidInput_TaskCreatedAndAddedToList() {
         List<Task> list = new ArrayList<>();
@@ -26,6 +35,10 @@ public class StorageTest {
         assertEquals(true, list.get(0).getIsMarked());
     }
 
+    /**
+     * Test loading a Deadline task with valid input.
+     * Verifies that the task is created and added to the list correctly.
+     */
     @Test
     public void loadTask_Deadline_ValidInput_TaskCreatedAndAddedToList() {
         List<Task> list = new ArrayList<>();
@@ -41,6 +54,10 @@ public class StorageTest {
         assertEquals(LocalDateTime.of(2023, 1, 1, 14, 0), ((Deadline) list.get(0)).getDueDate());
     }
 
+    /**
+     * Test loading an Event task with valid input.
+     * Verifies that the task is created and added to the list correctly.
+     */
     @Test
     public void loadTask_Event_ValidInput_TaskCreatedAndAddedToList() {
         List<Task> list = new ArrayList<>();
@@ -56,6 +73,10 @@ public class StorageTest {
         assertEquals(LocalDateTime.of(2023, 1, 1, 16, 0), ((Event) list.get(0)).getTo());
     }
 
+    /**
+     * Test loading with invalid input.
+     * Verifies that no task is added to the list.
+     */
     @Test
     public void loadTask_InvalidInput_NoTaskAddedToList() {
         List<Task> list = new ArrayList<>();

@@ -1,4 +1,5 @@
 package duke;
+
 import duke.Exceptions.DukeException;
 import duke.Tasks.Task;
 import duke.Tasks.Todo;
@@ -9,10 +10,17 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+/**
+ * Test class for the TaskList class.
+ * Contains test cases for the markTask method.
+ */
 public class TaskListTest {
+    /**
+     * Test marking a task with an input index greater than the list size.
+     * Verifies that an exception is thrown.
+     */
     @Test
     public void markTask_inputMoreThanSize_exceptionThrown() {
-        assertEquals(true, true);
         List<Task> temp = new ArrayList<>();
         for (int i = 0; i < 3; i++) {
             temp.add(new Todo("foo", false));
@@ -24,6 +32,11 @@ public class TaskListTest {
             assertEquals("You have provided a number out of index of the stored tasks", e.getMessage());
         }
     }
+
+    /**
+     * Test marking a task with a negative input index.
+     * Verifies that an exception is thrown.
+     */
     @Test
     public void markTask_inputLessThanZero_exceptionThrown() {
         List<Task> temp = new ArrayList<>();
@@ -37,6 +50,11 @@ public class TaskListTest {
             assertEquals("You have provided a number out of index of the stored tasks", e.getMessage());
         }
     }
+
+    /**
+     * Test marking a task with a non-integer input index.
+     * Verifies that the task's marked status is not changed.
+     */
     @Test
     public void markTask_inputNonInteger_success() {
         List<Task> temp = new ArrayList<>();
@@ -50,6 +68,11 @@ public class TaskListTest {
             assertEquals("You have provided a number out of index of the stored tasks", e.getMessage());
         }
     }
+
+    /**
+     * Test marking a task with an input index within the valid range.
+     * Verifies that the task's marked status is changed to true.
+     */
     @Test
     public void markTask_inputWithinRange_success() {
         List<Task> temp = new ArrayList<>();
@@ -63,6 +86,11 @@ public class TaskListTest {
             assertEquals("You have provided a number out of index of the stored tasks", e.getMessage());
         }
     }
+
+    /**
+     * Test marking an already marked task.
+     * Verifies that the task's marked status remains true.
+     */
     @Test
     public void markTask_markAlreadyMarkedTask_success() {
         List<Task> temp = new ArrayList<>();

@@ -18,6 +18,7 @@ public class Deadline extends Task {
      *
      * @param title    The title of the deadline task.
      * @param dueDate  The due date of the deadline.
+     * @param isMarked The marking status of the deadline.
      */
     public Deadline(String title, LocalDateTime dueDate, boolean isMarked) {
         super(title, isMarked);
@@ -37,6 +38,11 @@ public class Deadline extends Task {
         return "[D]" + mark + title + " (by: " + this.printDateString + ")";
     }
 
+    /**
+     * Generates a formatted string to represent the Deadline object for saving.
+     *
+     * @return A formatted string for saving the Deadline object.
+     */
     @Override
     public String toSave() {
         String res = "D";
@@ -46,8 +52,12 @@ public class Deadline extends Task {
         return res;
     }
 
+    /**
+     * Retrieves the due date of the deadline.
+     *
+     * @return The due date of the deadline.
+     */
     public LocalDateTime getDueDate() {
         return this.dueDate;
     }
 }
-

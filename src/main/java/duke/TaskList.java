@@ -17,7 +17,9 @@ import java.util.List;
 public class TaskList {
     protected List<Task> list;
     /**
-     * Constructs a new Archive object with an empty task list.
+     * Constructs a new TaskList object with the specified list of tasks.
+     *
+     * @param list The initial list of tasks to be managed.
      */
     public TaskList(List<Task> list){
         this.list = list;
@@ -150,6 +152,13 @@ public class TaskList {
         }
     }
 
+    /**
+     * Parses a date-time string into a LocalDateTime instance.
+     *
+     * @param input The input date-time string.
+     * @return A LocalDateTime instance parsed from the input string.
+     * @throws InvalidDateFormatException If the input string has an invalid date-time format.
+     */
     public LocalDateTime parseDate(String input) throws InvalidDateFormatException{
         try {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");

@@ -1,4 +1,5 @@
 package duke;
+
 import duke.Exceptions.DukeException;
 
 /**
@@ -10,12 +11,20 @@ public class Duke {
     private TaskList tasks;
     private UI ui;
 
+    /**
+     * Constructs a Duke instance with the specified file path.
+     *
+     * @param filePath The file path for storing task data.
+     */
     public Duke(String filePath) {
         ui = new UI();
         storage = new Storage(filePath);
         tasks = new TaskList(storage.load());
     }
 
+    /**
+     * Runs the Duke application, handling user interactions and task management.
+     */
     public void run() {
         ui.printIntro();
         while (true) {
@@ -41,6 +50,12 @@ public class Duke {
             }
         }
     }
+
+    /**
+     * The entry point for running the Duke application.
+     *
+     * @param args The command-line arguments.
+     */
     public static void main(String[] args) {
         new Duke("data/saved.txt").run();
     }

@@ -9,7 +9,8 @@ public class Todo extends Task {
     /**
      * Constructs a new Todo object with a title.
      *
-     * @param title The title of the todo task.
+     * @param title    The title of the todo task.
+     * @param isMarked The marking status of the todo task.
      */
     public Todo(String title, boolean isMarked) {
         super(title, isMarked);
@@ -26,6 +27,11 @@ public class Todo extends Task {
         return "[T]" + mark + title;
     }
 
+    /**
+     * Generates a formatted string to represent the Todo object for saving.
+     *
+     * @return A formatted string for saving the Todo object.
+     */
     @Override
     public String toSave() {
         String res = "T";
