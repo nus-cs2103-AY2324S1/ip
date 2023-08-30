@@ -15,60 +15,46 @@ public class TaskList {
         tasks.add(task);
     }
 
-    public void markTask(String inData, boolean markAsDone) throws SimonException {
-        String[] split = inData.split(" ");
-
-        int index;
-        try {
-            index = Integer.parseInt(split[1]) - 1;
-        } catch (NumberFormatException e) {
-            throw new SimonException("Please provide a valid task number.");
-        } catch (ArrayIndexOutOfBoundsException e) {
-            throw new SimonException("Please provide a task number.");
-        }
-
-        if (this.tasks.isEmpty()) {
-            throw new SimonException("There are no tasks to mark.");
-        }
-        if (index < 0 || index >= tasks.size()) {
-            throw new SimonException("Invalid task number. Choose a number between 1 and " + tasks.size() + ".");
-        }
+    public Task markTask(String inData, boolean markAsDone) throws SimonException {
+        int index = parseIndex(inData);
+        validateIndex(index);
 
         if (markAsDone) {
             tasks.get(index).markAsDone();
-            saveTasksToFile();
-            System.out.println("Nice! I've marked this task as done:\n[X] " + tasks.get(index) + Simon.NSPACE);
         } else {
             tasks.get(index).markAsUndone();
-            saveTasksToFile();
-            System.out.println("OK, I've marked this task as not done yet:\n[ ] " + tasks.get(index) + Simon.NSPACE);
         }
+        return tasks.get(index);
     }
 
-    private void deleteTask(String inData) throws SimonException {
+    public Task deleteTask(String inData) throws SimonException {
+        int index = parseIndex(inData);
+        validateIndex(index);
+
+        Task task = tasks.get(index);
+        tasks.remove(index);
+        return task;
+    }
+
+    private int parseIndex(String inData) throws SimonException {
         String[] split = inData.split(" ");
 
-        int index = 0;
         try {
-            index = Integer.parseInt(split[1]) - 1;
+            return Integer.parseInt(split[1]) - 1;
         } catch (NumberFormatException e) {
             throw new SimonException("Please provide a valid task number.");
         } catch (ArrayIndexOutOfBoundsException e) {
             throw new SimonException("Please provide a task number.");
         }
+    }
 
+    private void validateIndex(int index) throws SimonException {
         if (this.tasks.isEmpty()) {
-            throw new SimonException("There are no tasks to delete.");
+            throw new SimonException("There are no tasks to modify.");
         }
         if (index < 0 || index >= this.tasks.size()) {
             throw new SimonException("Invalid task number. Choose a number between 1 and " + tasks.size() + ".");
         }
-
-        Task task = tasks.get(index);
-        tasks.remove(index);
-        saveTasksToFile();
-        System.out.println("Noted. I've removed this task:\n" + task + String.format("\nNow you have %d %s in the list.",
-                tasks.size(), tasks.size() - 1 > 1 ? "tasks" : "task") + Simon.NSPACE);
     }
 
 }
