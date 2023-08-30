@@ -17,7 +17,7 @@ public class Ui {
     /**
      * Separator for responses.
      */
-    private static final String SEPARATOR = "    ___________________________________________________________________________________\n";
+    public static final String SEPARATOR = "    ___________________________________________________________________________________\n";
 
     /**
      * Indentation for responses.

@@ -15,6 +15,7 @@ public class Parser {
     private static final String MARK_REGEX = "mark\\s([0-9]+)$";
     private static final String UNMARK_REGEX = "unmark\\s([0-9]+)$";
     private static final String DELETE_REGEX = "delete\\s([0-9]+)$";
+    private static final String FIND_REGEX = "find\\s.*$";
     private static final String DEADLINE_INFO_REGEX = ".*\\s+/by\\s+.*";
     private static final String EVENT_INFO_REGEX = ".*\\s+/from\\s+.*\\s+/to\\s+.*";
     private static final String DATETIME_REGEX = "\\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12]\\d|3[01]) \\d{2}:\\d{2}";
@@ -103,82 +104,88 @@ public class Parser {
         String[] args;
 
         switch (command) {
-            case "bye":
-                return new ByeCommand();
-            case "list":
-                return new ListCommand();
-            case "mark":
-                if (!Pattern.matches(MARK_REGEX, userInput)) {
-                    throw new GrumpyGordonInvalidCommandException("Command syntax for mark is incorrect.\n");
-                }
+        case "bye":
+            return new ByeCommand();
+        case "list":
+            return new ListCommand();
+        case "mark":
+            if (!Pattern.matches(MARK_REGEX, userInput)) {
+                throw new GrumpyGordonInvalidCommandException("Command syntax for mark is incorrect.\n");
+            }
 
-                try {
-                    taskIndex = Integer.parseInt(parts[1]) - 1;
-                } catch (NumberFormatException e) {
-                    throw new GrumpyGordonInvalidCommandException("Task number is invalid.\n");
-                }
+            try {
+                taskIndex = Integer.parseInt(parts[1]) - 1;
+            } catch (NumberFormatException e) {
+                throw new GrumpyGordonInvalidCommandException("Task number is invalid.\n");
+            }
 
-                if (taskIndex < 0 || taskIndex > tasks.size() - 1) {
-                    throw new GrumpyGordonInvalidCommandException("Task number is invalid.\n");
-                }
+            if (taskIndex < 0 || taskIndex > tasks.size() - 1) {
+                throw new GrumpyGordonInvalidCommandException("Task number is invalid.\n");
+            }
 
-                return new MarkCommand(taskIndex);
-            case "unmark":
-                if (!Pattern.matches(UNMARK_REGEX, userInput)) {
-                    throw new GrumpyGordonInvalidCommandException("Command syntax for unmark is incorrect.\n");
-                }
+            return new MarkCommand(taskIndex);
+        case "unmark":
+            if (!Pattern.matches(UNMARK_REGEX, userInput)) {
+                throw new GrumpyGordonInvalidCommandException("Command syntax for unmark is incorrect.\n");
+            }
 
-                try {
-                    taskIndex = Integer.parseInt(parts[1]) - 1;
-                } catch (NumberFormatException e) {
-                    throw new GrumpyGordonInvalidCommandException("Task number is invalid.\n");
-                }
+            try {
+                taskIndex = Integer.parseInt(parts[1]) - 1;
+            } catch (NumberFormatException e) {
+                throw new GrumpyGordonInvalidCommandException("Task number is invalid.\n");
+            }
 
-                if (taskIndex < 0 || taskIndex > tasks.size() - 1) {
-                    throw new GrumpyGordonInvalidCommandException("Task number is invalid.\n");
-                }
+            if (taskIndex < 0 || taskIndex > tasks.size() - 1) {
+                throw new GrumpyGordonInvalidCommandException("Task number is invalid.\n");
+            }
 
-                return new UnmarkCommand(taskIndex);
-            case "delete":
-                if (!Pattern.matches(DELETE_REGEX, userInput)) {
-                    throw new GrumpyGordonInvalidCommandException("Command syntax for delete is incorrect.\n");
-                }
+            return new UnmarkCommand(taskIndex);
+        case "delete":
+            if (!Pattern.matches(DELETE_REGEX, userInput)) {
+                throw new GrumpyGordonInvalidCommandException("Command syntax for delete is incorrect.\n");
+            }
 
-                try {
-                    taskIndex = Integer.parseInt(parts[1]) - 1;
-                } catch (NumberFormatException e) {
-                    throw new GrumpyGordonInvalidCommandException("Task number is invalid.\n");
-                }
+            try {
+                taskIndex = Integer.parseInt(parts[1]) - 1;
+            } catch (NumberFormatException e) {
+                throw new GrumpyGordonInvalidCommandException("Task number is invalid.\n");
+            }
 
-                if (taskIndex < 0 || taskIndex > tasks.size() - 1) {
-                    throw new GrumpyGordonInvalidCommandException("Task number is invalid.\n");
-                }
+            if (taskIndex < 0 || taskIndex > tasks.size() - 1) {
+                throw new GrumpyGordonInvalidCommandException("Task number is invalid.\n");
+            }
 
-                return new DeleteCommand(taskIndex);
-            case "todo":
-                String todoInfo = parts[1];
+            return new DeleteCommand(taskIndex);
+        case "find":
+            if (!Pattern.matches(FIND_REGEX, userInput)) {
+                throw new GrumpyGordonInvalidCommandException("Command syntax for find is incorrect.\n");
+            }
+            String pattern = userInput.split(" ", 2)[1];
+            return new FindCommand(pattern);
+        case "todo":
+            String todoInfo = parts[1];
 
-                if (todoInfo.strip().isEmpty()) {
-                    throw new GrumpyGordonInvalidCommandException("Command syntax for todo is incorrect.\n");
-                }
+            if (todoInfo.strip().isEmpty()) {
+                throw new GrumpyGordonInvalidCommandException("Command syntax for todo is incorrect.\n");
+            }
 
-                return new TodoCommand(todoInfo);
-            case "deadline":
-                String deadlineInfo = parts[1];
-                if (!Pattern.matches(DEADLINE_INFO_REGEX, deadlineInfo)) {
-                    throw new GrumpyGordonInvalidCommandException("Command syntax for deadline is incorrect.\n");
-                }
-                args = Parser.parseDeadlineInfo(deadlineInfo);
-                return new DeadlineCommand(args[0], parseDateTime(args[1]));
-            case "event":
-                String eventInfo = parts[1];
-                if (!Pattern.matches(EVENT_INFO_REGEX, eventInfo)) {
-                    throw new GrumpyGordonInvalidCommandException("Command syntax for event is incorrect.\n");
-                }
-                args = Parser.parseEventInfo(eventInfo);
-                return new EventCommand(args[0], parseDateTime(args[1]), parseDateTime(args[2]));
-            default:
-                break;
+            return new TodoCommand(todoInfo);
+        case "deadline":
+            String deadlineInfo = parts[1];
+            if (!Pattern.matches(DEADLINE_INFO_REGEX, deadlineInfo)) {
+                throw new GrumpyGordonInvalidCommandException("Command syntax for deadline is incorrect.\n");
+            }
+            args = Parser.parseDeadlineInfo(deadlineInfo);
+            return new DeadlineCommand(args[0], parseDateTime(args[1]));
+        case "event":
+            String eventInfo = parts[1];
+            if (!Pattern.matches(EVENT_INFO_REGEX, eventInfo)) {
+                throw new GrumpyGordonInvalidCommandException("Command syntax for event is incorrect.\n");
+            }
+            args = Parser.parseEventInfo(eventInfo);
+            return new EventCommand(args[0], parseDateTime(args[1]), parseDateTime(args[2]));
+        default:
+            break;
         }
         throw new GrumpyGordonInvalidCommandException("Invalid command.\n");
     }
