@@ -1,3 +1,0 @@
-todo borrow book,false
-todo last,true
-deadline return book /by 2019-10-15,true
