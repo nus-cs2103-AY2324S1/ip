@@ -1,10 +1,19 @@
-public class DeleteCommand extends Command{
+package duke.command;
+import duke.TaskList;
+import duke.Ui;
+import duke.DukeException;
+import duke.task.Task;
+import duke.messages.ErrorMessages;
+
+import duke.command.Command;
+
+public class DeleteCommand extends Command {
     protected int taskNumber;
 
     public DeleteCommand(int taskNumber){
         this.taskNumber = taskNumber ;
     }
-    public void execute (TaskList taskList, Ui ui) throws DukeException{
+    public void execute (TaskList taskList, Ui ui) throws DukeException {
         try{
             Task taskToBeDeleted = taskList.getTask(this.taskNumber);
             taskList.removeTask(this.taskNumber);

@@ -1,11 +1,20 @@
-public class UnmarkCommand extends Command{
+package duke.command;
+import duke.TaskList;
+import duke.Ui;
+import duke.DukeException;
+import duke.task.Task;
+import duke.messages.ErrorMessages;
+
+import duke.command.Command;
+
+public class UnmarkCommand extends Command {
     protected int taskNumber;
 
     public UnmarkCommand(int taskNumber){
         this.taskNumber = taskNumber;
     }
 
-    public void execute(TaskList taskList, Ui ui) throws DukeException{
+    public void execute(TaskList taskList, Ui ui) throws DukeException {
         try {
             Task taskToBeUnmarked = taskList.getTask(this.taskNumber);
             if (!taskToBeUnmarked.isTaskCompleted()){
