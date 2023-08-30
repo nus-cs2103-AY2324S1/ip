@@ -1,4 +1,4 @@
-
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -7,6 +7,124 @@ import java.util.Scanner;
  * and list tasks.
  */
 public class JavAI {
+
+    public static ArrayList<Task> taskListReader() {
+
+        File file = new File("./src/main/txtFolder/JavAI.txt");
+        ArrayList<Task> tasks = new ArrayList<>();
+
+        if (!file.exists()) {
+            try {
+                file.getParentFile().mkdirs();
+                file.createNewFile();
+            } catch (Exception e) {
+                System.out.println("Something went wrong: " + e.getMessage());
+            }
+        }
+
+        else {
+
+            try {
+                Scanner sc = new Scanner(file);
+                while (sc.hasNext()) {
+                    String load = sc.nextLine();
+                    String taskType = load.substring(1, 2);
+                    String completionType = load.substring(4, 5);
+                    String description = "";
+                    String[] words = load.substring(7).split(" ");
+                    int iterator = 0;
+
+                    if (taskType.equals("T")) {
+                        while (iterator < words.length) {
+                            description += words[iterator] + " ";
+                            iterator++;
+                        }
+                        Todo todo = new Todo(description);
+                        if (completionType.equals("X")) {
+                            todo.markAsDone();
+                        }
+                        tasks.add(todo);
+                    } else if (taskType.equals("D")) {
+                        String by = "";
+                        while (!words[iterator].equals("by:")) {
+                            if (!words[iterator].equals("(")) {
+                                description += words[iterator] + " ";
+                                iterator++;
+                            } else {
+                                iterator++;
+                            }
+                        }
+                        iterator++;
+                        while (iterator < words.length) {
+                            if (!words[iterator].equals(")")) {
+                                by += words[iterator] + " ";
+                                iterator++;
+                            } else {
+                                iterator++;
+                            }
+                        }
+                        Deadline deadline = new Deadline(description, by);
+                        if (completionType.equals("X")) {
+                            deadline.markAsDone();
+                        }
+                        tasks.add(deadline);
+                    } else if (taskType.equals("E")) {
+                        String from = "";
+                        String to = "";
+                        while (!words[iterator].equals("from:")) {
+                            if (!words[iterator].equals("(")) {
+                                description += words[iterator] + " ";
+                                iterator++;
+                            } else {
+                                iterator++;
+                            }
+                        }
+                        iterator++;
+                        while (!words[iterator].equals("to:")) {
+                            from += words[iterator] + " ";
+                            iterator++;
+                        }
+                        iterator++;
+                        while (iterator < words.length) {
+                            if (words[iterator].equals(")")) {
+                                iterator++;
+                            } else {
+                                to += words[iterator] + " ";
+                                iterator++;
+                            }
+                        }
+                        Event event = new Event(description, from, to);
+                        if (completionType.equals("X")) {
+                            event.markAsDone();
+                        }
+                        tasks.add(event);
+                    }
+                }
+            } catch (FileNotFoundException e) {
+                System.out.println("Something went wrong: " + e.getMessage());
+            } catch (IOException e) {
+                System.out.println(e.getMessage());
+            }
+
+        }
+        return tasks;
+    }
+
+    public static void taskListWriter(ArrayList<Task> tasks) {
+
+        File file = new File("./src/main/txtFolder/JavAI.txt");
+
+        try {
+            FileWriter fw = new FileWriter(file);
+            for (int i = 0; i < tasks.size(); i++) {
+                fw.write(tasks.get(i).toString() + "\n");
+            }
+            fw.close();
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+
+    }
 
     /**
      * The main method that starts the JavAI chatbot.
@@ -17,8 +135,8 @@ public class JavAI {
      */
     public static void main(String[] args) throws JavAIException, Exception {
 
-        ArrayList<Task> arr = new ArrayList<>();
-        int counter = 0;
+        ArrayList<Task> arr = taskListReader();
+        int counter = arr.size();
         Scanner sc = new Scanner(System.in);
         String line = "     ____________________________________________________________";
 
@@ -107,10 +225,10 @@ public class JavAI {
                 try {
 
                     int iden = Integer.parseInt(words[1]) - 1;
-                        arr.get(iden).markAsDone();
-                        System.out.println(line + "\n" + "     " + "  Nice! I've marked this task as done:");
-                        System.out.println("       " + arr.get(iden).toString());
-                        System.out.println(line);
+                    arr.get(iden).markAsDone();
+                    System.out.println(line + "\n" + "     " + "  Nice! I've marked this task as done:");
+                    System.out.println("       " + arr.get(iden).toString());
+                    System.out.println(line);
 
                 } catch (ArrayIndexOutOfBoundsException e) {
                     System.out.println("☹ OOPS!!! Please input a valid numerical value after 'mark'.");
@@ -165,7 +283,7 @@ public class JavAI {
             }
             output = sc.nextLine();
         }
-
+        taskListWriter(arr);
         System.out.println(line + "\n" + "      Bye. Hope to see you again soon!\n" + line);
 
     }
