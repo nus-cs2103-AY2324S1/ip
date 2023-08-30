@@ -16,7 +16,7 @@ public class AddTodo extends Command {
     @Override
     public void execute(TaskList lst, UI io, Storage storage) throws DukeException {
         if (s.isEmpty() || s.equals(" ")) {
-            throw new DukeException("☹ OOPS!!! The description of a todo cannot be empty.");
+            throw new DukeException("OOPS!!! The description of a todo cannot be empty.");
         } else {
             Task newTask = lst.addTask(s);
             io.addTask(newTask, lst);

@@ -42,6 +42,9 @@ public abstract class Task {
         return state == 1 ? "[X]" : "[ ]";
     }
 
+    public boolean isMatch(String s) {
+        return name.contains(s);
+    }
 
     public String getText() {
         return state + " | " + name;

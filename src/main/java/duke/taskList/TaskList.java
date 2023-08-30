@@ -6,7 +6,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
 
-public class TaskList extends ArrayList<Task>{
+public class TaskList extends ArrayList<Task> {
 
     public TaskList(Collection<Task> load) {
         super(load);
@@ -40,10 +40,10 @@ public class TaskList extends ArrayList<Task>{
             if (t.mark()) {
                 return t;
             }else {
-                throw new DukeException("☹ OOPS!!! This task has already be marked!\n");
+                throw new DukeException("OOPS!!! This task has already be marked!\n");
             }
         } catch (IndexOutOfBoundsException e) {
-            throw new DukeException("☹ OOPS!!! There is no such a task\n");
+            throw new DukeException("OOPS!!! There is no such a task\n");
         }
     }
 
@@ -53,10 +53,10 @@ public class TaskList extends ArrayList<Task>{
             if (t.unmark()) {
                 return t;
             }else {
-                throw new DukeException("☹ OOPS!!! This task hasn't be marked yet!\n");
+                throw new DukeException("OOPS!!! This task hasn't be marked yet!\n");
             }
         } catch (IndexOutOfBoundsException e) {
-            throw new DukeException("☹ OOPS!!! There is no such a task\n");
+            throw new DukeException("OOPS!!! There is no such a task\n");
         }
     }
 
@@ -66,7 +66,23 @@ public class TaskList extends ArrayList<Task>{
             remove(index - 1);
             return t;
         } catch (IndexOutOfBoundsException e) {
-            throw new DukeException("☹ OOPS!!! There is no such a task\n");
+            throw new DukeException("OOPS!!! There is no such a task\n");
         }
+    }
+
+    /**
+     * Searches the task list for tasks that match the given search query.
+     *
+     * @param s The search query to match against task names.
+     * @return An ArrayList containing tasks that match the search query.
+     */
+    public ArrayList<Task> find(String s) {
+        ArrayList<Task> res = new ArrayList<>();
+        forEach(x -> {
+            if (x.isMatch(s)) {
+                res.add(x);
+            }
+        });
+        return res;
     }
 }

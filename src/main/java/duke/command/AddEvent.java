@@ -18,10 +18,10 @@ public class AddEvent extends Command {
     @Override
     public void execute(TaskList lst, UI io, Storage storage) throws DukeException{
         if (s.isEmpty() || s.equals(" ")) {
-            throw new DukeException("☹ OOPS!!! The description of a deadline cannot be empty.");
+            throw new DukeException("OOPS!!! The description of a deadline cannot be empty.");
         }else if(!s.matches(" \\S.*\\s/from\\s\\d.*\\s/to\\s\\d.*")){
             throw new DukeException(
-                    "☹ OOPS!!! Please follow the following pattern to add a task:\n  " +
+                    "OOPS!!! Please follow the following pattern to add a task:\n  " +
                             "deadline <task name> /by <deadline>\n");
         }else {
             String[] temp = s.split(" /");
@@ -33,7 +33,7 @@ public class AddEvent extends Command {
                 storage.addToFile(newTask);
             } catch (DateTimeException e) {
                 throw new DukeException(
-                        "☹ OOPS!!! Please follow the following pattern to input the time:\n  " +
+                        "OOPS!!! Please follow the following pattern to input the time:\n  " +
                                 "event <task name> /from <yyyy-mm-dd> /to <yyyy-mm-dd>\n");
             }
 
