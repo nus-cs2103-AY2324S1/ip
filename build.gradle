@@ -33,9 +33,7 @@ application {
 }
 
 shadowJar {
-    archiveBaseName = "bruno"
-    archiveClassifier = null
-    dependsOn("distZip", "distTar")
+    archiveFileName = "bruno.jar"
 }
 
 checkstyle {
