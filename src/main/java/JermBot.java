@@ -3,11 +3,14 @@ import java.util.Scanner;
 
 public class JermBot {
     public static void main(String[] args) {
-        System.out.println("Hello! I'm JermBot");
-        System.out.println("What can I do for you?");
+        // Load hard disk
+        HardDiskManager manager = new HardDiskManager("data/list.txt");
+        ArrayList<Task> storage = manager.getTasks();
 
-        ArrayList<Task> storage = new ArrayList<>();
-        int numOfItems = 0;
+        System.out.println("I'm JermBot...");
+        System.out.println("What you want?");
+
+        int numOfItems = storage.size();
         Scanner sc = new Scanner(System.in);
         String currStr = sc.nextLine();
         while (true) {
@@ -29,11 +32,11 @@ public class JermBot {
                             int itemNumber = Integer.parseInt(splitStr[1]);
                             if (splitStr[0].equals("mark")) {
                                 storage.get(itemNumber - 1).markDone();
-                                System.out.println("Nice! I've marked this task as done:");
+                                System.out.println("Ok good job lor you finished this task:");
                                 System.out.println("   " + storage.get(itemNumber - 1).toString());
                             } else {
                                 storage.get(itemNumber - 1).markUndone();
-                                System.out.println("Ok, I've marked this task as not done yet:");
+                                System.out.println("Wah why you never do this task:");
                                 System.out.println("   " + storage.get(itemNumber - 1).toString());
                             }
                         } catch (NumberFormatException e) {
@@ -42,10 +45,10 @@ public class JermBot {
                     } else if (splitStr.length == 2 && splitStr[0].equals("delete")) {
                         try {
                             int itemNumber = Integer.parseInt(splitStr[1]);
-                            System.out.println("Noted. I've removed this task:");
+                            System.out.println("Ok slacker I've removed this task:");
                             System.out.println("   " + storage.get(itemNumber - 1).toString());
                             storage.remove(itemNumber - 1);
-                            System.out.println("Now you have " + storage.size() + " tasks in the list.");
+                            System.out.println("Now you have " + storage.size() + " tasks in the list. Happy anot.");
                             numOfItems--;
                         } catch (NumberFormatException e) {
                             throw new WrongInputException();
@@ -73,7 +76,7 @@ public class JermBot {
                         }
                         storage.add(addedTask);
                         numOfItems++;
-                        System.out.printf("Got it. I've added this task:\n   %s\nNow you have %d tasks in the list.\n", addedTask, numOfItems);
+                        System.out.printf("Haha now you have this task to do:\n   %s\nNow you have %d things to do.\n", addedTask, numOfItems);
                     } else {
                         throw new WrongInputException();
                     }
@@ -84,7 +87,10 @@ public class JermBot {
             currStr = sc.nextLine();
         }
 
-        System.out.println("Bye. Hope to see you again soon!");
+        System.out.println("Good riddance.");
         sc.close();
+
+        // Update hard disk
+        manager.updateTasks(storage);
     }
 }
