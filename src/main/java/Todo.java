@@ -8,6 +8,7 @@ public class Todo extends Task {
         if (!this.getDone()) {
             return "T |" + " 0 | " + this.getName();
         } else {
+            System.out.println("a");
             return "T |" + " 1 | " + this.getName();
         }
     }

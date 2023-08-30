@@ -6,7 +6,6 @@ import java.util.List;
 public class Tasks {
     private int size;
     private List<Task> tasks;
-    private static String filepath;
 
     public Tasks(int size, List<Task> tasks) {
         this.size = size;
@@ -29,6 +28,7 @@ public class Tasks {
         String date = arr2[1];
         Task deadline = new Deadline(arr3[1], date);
         tasks.add(deadline);
+        saveTasks(tasks);
         System.out.println("Got it. I've added this task:\n" + deadline + "\n"
                 + "Now you have " + tasks.size() + " tasks in the list.");
     }
@@ -43,6 +43,7 @@ public class Tasks {
             System.out.println("Got it. I've added this task:\n" + todo + "\n" +
                     "Now you have " + tasks.size() + " tasks in the list.");
         }
+        saveTasks(tasks);
     }
 
     public static void handleEvent(String input, List<Task> tasks) {
@@ -51,6 +52,7 @@ public class Tasks {
         String[] arr3 = arr1[0].split("event ");
         Task event = new Event(arr3[1], arr2[0], arr2[1]);
         tasks.add(event);
+        saveTasks(tasks);
         System.out.println("Got it. I've added this task:\n" + event + "\n" +
                 "Now you have " + tasks.size() + " tasks in the list.");
     }
@@ -62,7 +64,8 @@ public class Tasks {
                 int index = Integer.parseInt(parts[1]);
                     Task thisTask = tasks.get(index - 1);
                     tasks.get(index - 1).toggleDone();
-                    if (thisTask.getDone()) {
+                    saveTasks(tasks);
+                if (thisTask.getDone()) {
                         System.out.println("Nice! I've marked this task as done:" + "\n" + thisTask);
                     } else {
                         System.out.println("OK, I've marked this task as not done yet:" + "\n" + thisTask);
@@ -80,10 +83,12 @@ public class Tasks {
         int index = Integer.parseInt(parts1[1]);
         String deleted = String.valueOf(tasks.get(index - 1));
         tasks.remove(index - 1);
+        saveTasks(tasks);
         System.out.println("Noted. I've removed this task:\n" + deleted + "\n"
                 + "Now you have " + tasks.size() + " tasks in the list.");
     }
     public static void saveTasks(List<Task> tasks) {
+        String filepath = "./data/duke.txt";
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filepath))) {
             writer.write(""); // Clear the file by writing an empty string
         } catch (IOException e) {

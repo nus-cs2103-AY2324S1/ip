@@ -10,7 +10,6 @@ public class Duke {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         List<Task> tasks = new ArrayList<>();
-        String filepath = "data/duke.txt";
         greetings();
         while (true) {
             String input = scanner.nextLine();
@@ -42,7 +41,6 @@ public class Duke {
                 continue;
             }
             System.out.println("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
-            Tasks.saveTasks(tasks);
         }
         System.out.println("Bye. Hope to see you again soon!");
     }

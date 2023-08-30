@@ -29,7 +29,7 @@ public class Task {
     public void save(String filepath) {
         try {
             FileWriter myWriter = new FileWriter(filepath, true);
-            myWriter.write(this.getTaskDesc());
+            myWriter.write(this.getTaskDesc() + "\n");
             myWriter.close();
         } catch (IOException ex) {
             System.out.println("    Error saving to file");
