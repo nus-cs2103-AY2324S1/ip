@@ -1,3 +1,5 @@
+package duke;
+
 import java.io.IOException;
 
 public class Parser {
@@ -23,10 +25,10 @@ public class Parser {
                 try {
                     int taskNumber = Integer.parseInt(splittedCommand[1]);
                     Task task = taskList.get(taskNumber - 1);
-                    if (!task.isDone) {
+                    if (!task.isItDone()) {
                         task.markAsDone();
                         helper.markTask(task);
-                    } else if (task.isDone) {
+                    } else if (task.isItDone()) {
                         helper.printLine();
                         throw new WrongMarkException("This task is already done.");
                     }
@@ -42,7 +44,7 @@ public class Parser {
                 try {
                     int taskNumber = Integer.parseInt(splittedCommand[1]);
                     Task task = taskList.get(taskNumber - 1);
-                    if (task.isDone) {
+                    if (task.isItDone()) {
                         task.markAsUndone();
                         helper.unMarkTask(task);
                     } else {

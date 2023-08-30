@@ -1,3 +1,5 @@
+package duke;
+
 import java.time.format.DateTimeFormatter;
 
 public enum FormatterDate {
@@ -5,7 +7,7 @@ public enum FormatterDate {
     slashInput("dd/MM/yyyy"),
     basicOutput("MMM dd yyyy");
 
-    DateTimeFormatter formatter;
+    public DateTimeFormatter formatter;
 
     FormatterDate(String pattern) {
         this.formatter = DateTimeFormatter.ofPattern(pattern);

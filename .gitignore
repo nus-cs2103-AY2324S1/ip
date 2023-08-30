@@ -3,6 +3,7 @@
 /out/
 /*.iml
 *.class
+dataTask.txt
 
 # Gradle build files
 /.gradle/
