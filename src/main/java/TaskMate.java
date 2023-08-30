@@ -6,7 +6,6 @@ import java.util.Scanner;
 
 public class TaskMate {
 
-    static String horizontalLine = "--------------------";
     static String chatbotName = "TaskMate";
     static String defaultSaveTaskFilePath = "./data/saved_tasks.txt";
 
@@ -79,7 +78,7 @@ public class TaskMate {
                 System.out.println(e); // todo: Remove for production code
                 continue;
             } catch (InvalidDescriptionException e) {
-                ui.printInvalidCommandTypeExceptionResponse();
+                ui.printInvalidCommandTypeExceptionResponse(); // todo: Add new message for chatbot
                 System.out.println(e); // todo: Remove for production code
                 continue;
             } catch (EmptyByException e) {
