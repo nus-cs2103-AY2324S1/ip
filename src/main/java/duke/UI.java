@@ -2,9 +2,11 @@ package duke;
 
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class UI {
     private String name;
+    private Scanner scanner;
     private static final String DATETIME_INPUT_FORMAT = "yyyy-MM-dd HHmm";
     public static final DateTimeFormatter dateTimeInputFormatter = DateTimeFormatter.ofPattern(DATETIME_INPUT_FORMAT);
 
@@ -15,6 +17,17 @@ public class UI {
      */
     public UI(String name) {
         this.name = name;
+        this.scanner = new Scanner(System.in);
+    }
+
+    /**
+     * Reads and returns user input.
+     *
+     * @return User input.
+     */
+    public String readCommand() {
+        String line = scanner.nextLine();
+        return line;
     }
 
     /**
@@ -104,6 +117,13 @@ public class UI {
      */
     public void printLoadingErrorMessage() {
         System.out.println("Stored data could not be loaded");
+    }
+
+    /**
+     * Closes scanner object used to read input
+     */
+    public void closeUi() {
+        this.scanner.close();
     }
 
     /**

@@ -28,14 +28,13 @@ public class Duke {
     }
 
     public void run() {
-        Scanner in = new Scanner(System.in);
-
         ui.printWelcomeMessage();
+        String input;
 
         while (true) {
-            String line = in.nextLine();
+            input = ui.readCommand();
             try {
-                ArrayList<String> parsedInput = Parser.parseUserInput(line);
+                ArrayList<String> parsedInput = Parser.parseUserInput(input);
                 String command = parsedInput.get(0);
 
                 if (command.equals(Command.MARK.getCommand())) {
@@ -58,6 +57,7 @@ public class Duke {
                 }
                 if (command.equals(Command.BYE.getCommand())) {
                     ui.printGoodbyeMessage();
+                    ui.closeUi();
                     break;
                 }
                 if (command.equals(Command.TODO.getCommand())) {
@@ -107,7 +107,6 @@ public class Duke {
                 System.out.println(e.getMessage());
             }
         }
-        in.close();
     }
 
     public static void main(String[] args) {
