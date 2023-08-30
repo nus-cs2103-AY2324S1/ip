@@ -1,3 +1,0 @@
-T|Y|sleep
-T|N|eat
-D|N|sleep|29 Dec 2020, Monday, 4.00PM

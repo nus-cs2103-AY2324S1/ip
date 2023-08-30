@@ -73,7 +73,9 @@ public class Task {
                 } catch (Exception ignored) {
                 }
             }
-        throw new IllegalArgumentException("Unrecognised date format: " + date);
+        System.out.println("Unrecognised date format: " + date +
+                "\nPlease key in date in format D/MM/YYYY");
+        return null;
     }
 
     public DayOfWeek convertStringToDay(String day) {
@@ -83,7 +85,10 @@ public class Task {
             } catch (Exception ignored) {
             }
         }
-        throw new IllegalArgumentException("Unrecognised day format: " + day);
+        System.out.println("Unrecognised day format: " + day +
+                "\nPlease key in day in format Mon OR Monday " +
+                "\nThe task has been stored without a dueday, remove task and key in correct format to make changes \n");
+        return null;
     }
 
     public LocalTime convertStringToTime(String time) {
@@ -93,7 +98,29 @@ public class Task {
             } catch (Exception ignored) {
             }
         }
-        throw new IllegalArgumentException("Unrecognised time format: " + time);
+        System.out.println("Unrecognised time format: " + time +
+                "\nPlease key in time in format Hr.MinAM/PM " +
+                "\nThe task has been stored without a due time, remove task and key in correct format to make changes \n");
+        return null;
+    }
+
+    public String dateToString(LocalDate date) {
+        return date.format(DateTimeFormatter.ofPattern("dd MMM yyyy"));
+    }
+    public String dayToString(DayOfWeek day) {
+        if(day!=null) {
+            return ", " + day.name().substring(0,1) + day.name().substring(1).toLowerCase() ;
+        } else {
+            return "";
+        }
+    }
+
+    public String timeToString(LocalTime time) {
+        if(time!=null) {
+            return ", " + time.format(DateTimeFormatter.ofPattern("h.mma")).toUpperCase();
+        } else {
+            return "";
+        }
     }
     @Override
     public String toString(){

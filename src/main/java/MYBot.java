@@ -20,6 +20,7 @@ public class MYBot {
         System.out.println("____________________________________________________________");
         System.out.println("Hello! I'm " + bot_Name + ":)");
         System.out.println("What can I do for you?");
+        System.out.println("(if you are entering a deadline/event time please enter in the format date,day,time)");
         System.out.println("____________________________________________________________");
         task_List.loadTaskFromFile(FILE_NAME);
     }
@@ -69,7 +70,7 @@ public class MYBot {
                 if (!description.isBlank()) {
                     Task task = new Todo(description);
                     task_List.addTask(task);
-                    System.out.println("Got it. I've added this task:");
+                    System.out.println("I've added this task:");
                     System.out.println(task.toString());
                 } else {
                     throw new MYBotExceptions.EmptyDetailsException("description", "todo");
@@ -90,7 +91,7 @@ public class MYBot {
                 } else {
                     Task task = new Deadline(description, by);
                     task_List.addTask(task);
-                    System.out.println("Got it. I've added this task:");
+                    System.out.println("I've added this task:");
                     System.out.println(task.toString());
                 }
             } else if ((input.startsWith("event "))) {
@@ -115,7 +116,7 @@ public class MYBot {
                 } else {
                     Task task = new Event(description, from, to);
                     task_List.addTask(task);
-                    System.out.println("Got it. I've added this task:");
+                    System.out.println("I've added this task:");
                     System.out.println(task.toString());
                 }
             }

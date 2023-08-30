@@ -49,43 +49,17 @@ public class Deadline extends Task {
 
     @Override
     public String toString() {
-
-        String date = this.date.format(DateTimeFormatter.ofPattern("dd MMM yyyy"));
-        String day;
-        String time;
-
-        if(this.day!=null) {
-            day = ", " + this.day.name().substring(0,1) + this.day.name().substring(1).toLowerCase() ;
-        } else {
-            day = "";
-        }
-
-        if(this.time!=null) {
-            time = ", " + this.time.format(DateTimeFormatter.ofPattern("h.mma")).toUpperCase();
-        } else {
-            time = "";
-        }
+        String date = dateToString(this.date);
+        String day = dayToString(this.day);
+        String time = timeToString(this.time);
         return "[D]" + super.toString() + " (by:" + date + day + time + ")";
     }
 
     @Override
     public String toFileString(){
-
-        String date = this.date.format(DateTimeFormatter.ofPattern("dd MMM yyyy"));
-        String day;
-        String time;
-
-        if(this.day!=null) {
-            day = ", " + this.day.name().substring(0,1) + this.day.name().substring(1).toLowerCase() ;
-        } else {
-            day = "";
-        }
-
-        if(this.time!=null) {
-            time = ", " + this.time.format(DateTimeFormatter.ofPattern("h.mma")).toUpperCase();
-        } else {
-            time = "";
-        }
+        String date = dateToString(this.date);
+        String day = dayToString(this.day);
+        String time = timeToString(this.time);
         return "D" + super.toFileString() + "|" + date + day + time;
     }
 }
