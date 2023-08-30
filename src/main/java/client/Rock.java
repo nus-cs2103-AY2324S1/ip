@@ -1,5 +1,13 @@
+package client;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+
+import commands.Commands;
+import io.Invoker;
+import io.Ui;
+import storage.Storage;
+import storage.StorageException;
+import tasks.TaskList;
 /**
  * Rock is the name of and the main program used
  * to run the chatbot for ip.
@@ -14,16 +22,17 @@ public class Rock {
     private Commands commands;
     private boolean isTerminated = false;
 
-
     public Rock(Path path) {
         this.taskList = new TaskList();
         this.ui = new Ui();
         this.commands = new Commands(this);
         this.ui.startup();
-        this.storage = new Storage(path, this.taskList);
-
+        try {
+            this.storage = new Storage(path.toAbsolutePath().toFile(), this.taskList, this);
+        } catch (StorageException e) {
+            System.out.println(e.getMessage());
+        }
     }
-
     public void run() {
         Invoker invoker = new Invoker(this.commands);
         while (!isTerminated) {

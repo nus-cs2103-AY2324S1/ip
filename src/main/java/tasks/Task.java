@@ -1,3 +1,4 @@
+package tasks;
 import java.io.Serializable;
 import java.time.LocalDate;
 /**
@@ -17,7 +18,7 @@ public abstract class Task implements Serializable{
      * Creates a task with the given name
      * @param taskName Name of task
      */
-    Task(String taskName) {
+    public Task(String taskName) {
         this.taskName = taskName;
         completed = false;
     }

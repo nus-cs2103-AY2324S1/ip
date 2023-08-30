@@ -1,3 +1,4 @@
+package io;
 import java.util.Dictionary;
 import java.util.Hashtable;
 import java.util.NoSuchElementException;
@@ -19,7 +20,7 @@ public class Parser {
      * 
      * @param input
      */
-    Parser(String input) {
+    public Parser(String input) {
         taggedInputs = new Hashtable<>();
         String[] phrases = input.split("/");
         this.defaultInput = phrases[0];

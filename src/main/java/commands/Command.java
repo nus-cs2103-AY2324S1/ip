@@ -1,4 +1,7 @@
+package commands;
 import java.util.function.Consumer;
+import client.Rock;
+import io.Parser;
 /**
  * Representation of a command
  * that can be issued to the chatbot.
@@ -7,7 +10,7 @@ import java.util.function.Consumer;
  */
 public abstract class Command implements Consumer<Parser> {
     Rock client;
-    Command(Rock client) {
+    public Command(Rock client) {
         this.client = client;
     }
     /** Code to be run when command is called. */

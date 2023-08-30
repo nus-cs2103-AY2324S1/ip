@@ -1,4 +1,12 @@
+package commands;
+
 import java.util.NoSuchElementException;
+
+import client.Rock;
+import io.Parser;
+import tasks.TaskDeadline;
+import tasks.TaskEvent;
+import tasks.TaskTodo;
 /**
  * Representation of possible types 
  * of tasks that can be created.
@@ -21,7 +29,7 @@ public class CommandTaskCreate extends Command {
      * the specified task type.
      * @param taskType Type of task that the created command should create.
      */
-    CommandTaskCreate(Rock client, TaskTypes taskType) {
+    public CommandTaskCreate(Rock client, TaskTypes taskType) {
         super(client);
         this.taskType = taskType;
     }    
@@ -59,5 +67,6 @@ public class CommandTaskCreate extends Command {
                     throw new IllegalArgumentException("No start or end time given. Indicate with /from and /to.");
                 }                   
         }
+        this.client.storage.saveSaveFile();
     }
 }

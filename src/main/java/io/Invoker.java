@@ -1,4 +1,8 @@
+package io;
 import java.util.function.Consumer;
+
+import client.RockException;
+import commands.Commands;
 /**
  * Used to handle input given by chatbot
  * and call the appropriate commands with
@@ -8,7 +12,7 @@ import java.util.function.Consumer;
  */
 public class Invoker {
     Commands commands;
-    Invoker(Commands commands) {
+    public Invoker(Commands commands) {
         this.commands = commands;
     }
     /**

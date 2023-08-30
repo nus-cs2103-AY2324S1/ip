@@ -1,3 +1,10 @@
+package commands;
+
+import client.Rock;
+import io.Parser;
+import storage.StorageException;
+import tasks.TaskList;
+
 /**
  * Representation of a command
  * to mark or unmark a task
@@ -8,7 +15,7 @@
 public class CommandTaskMark extends Command {
     /** Represents whether this command marks or unmarks a task. */
     boolean isMarking;
-    CommandTaskMark(Rock client, boolean isMarking) {
+    public CommandTaskMark(Rock client, boolean isMarking) {
         super(client);
         this.isMarking = isMarking;
     }
