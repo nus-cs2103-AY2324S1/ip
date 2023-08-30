@@ -24,18 +24,39 @@ public abstract class Task {
         return(isDone ? "X" : " "); // mark done task with X
     }
 
+
+    // Mark a task as done
     public void markAsDone() {
         this.isDone = true;
     }
 
+    // Mark a task as not done
     public void markAsNotDone() {
         this.isDone = false;
     }
 
+    /**
+     * Return the string representation of the task.
+     *
+     * @return the string representation
+     */
     @Override
     public String toString() {
         return "[" + this.getStatusIcon() + "] " + this.description;
     }
 
+    /**
+     * Return the string representation of the task
+     * in the file format.
+     *
+     * @return the string representation in the file format
+     */
     abstract String toFileFormat();
+
+    /**
+     * Return the type of the task.
+     *
+     * @return the type of the task
+     */
+    abstract String getTaskType();
 }
