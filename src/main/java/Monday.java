@@ -6,6 +6,8 @@ import java.util.Scanner;
  * delete, keep track of the tasks they have.
  */
 public class Monday {
+    private static TaskList TaskList;
+
     /**
      * An enumeration of available commands.
      */
@@ -24,8 +26,9 @@ public class Monday {
      * Starts Monday application.
      * Initialises necessary components, greets the user, handle user input and handle errors.
      */
-    private static void startMonday() {
+    private static void startMonday(String filepath) {
         Scanner scanner = new Scanner(System.in);
+        TaskList = new TaskList(filepath);
         boolean running = true;
 
         printSeparator();
@@ -71,7 +74,7 @@ public class Monday {
                 exit();
                 return false;
             case LIST:
-                Storage.displayList();
+                TaskList.displayList();
                 break;
             case MARK: {
                 if (content == null) {
@@ -79,7 +82,7 @@ public class Monday {
                 }
                 int index = Integer.parseInt(content);
 
-                Storage.mark(index);
+                TaskList.mark(index);
                 break;
             }
             case UNMARK: {
@@ -89,7 +92,7 @@ public class Monday {
 
                 int index = Integer.parseInt(content);
 
-                Storage.unMark(index);
+                TaskList.unMark(index);
                 break;
             }
             case TODO:
@@ -98,7 +101,7 @@ public class Monday {
                             "Usage: todo (task)");
                 }
 
-                Storage.addToTask(new ToDos(content));
+                TaskList.addToTask(new ToDos(content));
                 break;
             case DEADLINE:
                 try {
@@ -111,7 +114,7 @@ public class Monday {
                     String description = taskDetails[0];
                     String date = taskDetails[1];
 
-                    Storage.addToTask(new Deadlines(description.trim(), date.trim()));
+                    TaskList.addToTask(new Deadlines(description.trim(), date.trim()));
                 } catch (ArrayIndexOutOfBoundsException e) {
                     throw new IllegalArgumentException("Invalid Format. " +
                             "Usage: deadline (task) /by (time)");
@@ -130,7 +133,7 @@ public class Monday {
                     String start = taskTiming[0];
                     String end = taskTiming[1];
 
-                    Storage.addToTask(new Events(description.trim(),
+                    TaskList.addToTask(new Events(description.trim(),
                             start.trim(),
                             end.trim()));
                 } catch (ArrayIndexOutOfBoundsException e) {
@@ -144,7 +147,7 @@ public class Monday {
                 }
                 int index = Integer.parseInt(content);
 
-                Storage.delete(index);
+                TaskList.delete(index);
                 break;
             default:
                 throw new MondayExceptions("Sorry, I do not understand what that means.\n" +
@@ -181,6 +184,6 @@ public class Monday {
      * @param args Command line arguments
      */
     public static void main(String[] args) {
-        startMonday();
+        startMonday("./data/duke.txt");
     }
 }
