@@ -1,6 +1,7 @@
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -265,6 +266,12 @@ public class ChatBuddy {
                     printHorizontalLine();
                     System.out.println("     " + e.toString());
                     printHorizontalLine();
+                } catch (DateTimeParseException e) {
+                    printHorizontalLine();
+                    System.out.println("     Error parsing date/datetime string: " +
+                            "Please input dates for deadlines in the format dd/MM/yyyy and " +
+                            "date time for events in the format dd/MM/yyyy HHmm");
+                    printHorizontalLine();
                 }
                 userInput = scanner.nextLine();
             }
@@ -281,6 +288,12 @@ public class ChatBuddy {
         } catch (IOException e) {
             printHorizontalLine();
             System.out.println("     Error loading data: " + e);
+            printHorizontalLine();
+        } catch (DateTimeParseException e) {
+            printHorizontalLine();
+            System.out.println("     Error parsing date/datetime string: " +
+                    "Please input dates for deadlines in the format dd/MM/yyyy and " +
+                    "date time for events in the format dd/MM/yyyy HHmm");
             printHorizontalLine();
         }
     }

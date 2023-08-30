@@ -1,16 +1,22 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 public class Deadline extends Task {
 
-    protected String by;
+    protected LocalDate by;
+    private static final DateTimeFormatter DATE_INPUT_FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+    private static final DateTimeFormatter DATE_OUTPUT_FORMATTER = DateTimeFormatter.ofPattern("dd MMM yyyy");
+
 
     /**
      * Constructor to create a Deadline object.
      *
      * @param description The task description.
-     * @param by The deadline of the task.
+     * @param by The deadline of the task in the format dd/MM/yyyy.
      */
     public Deadline(String description, String by) {
         super(description);
-        this.by = by;
+        this.by = LocalDate.parse(by, DATE_INPUT_FORMATTER);
     }
 
     /**
@@ -20,7 +26,7 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + by + ")";
+        return "[D]" + super.toString() + " (by: " + this.by.format(DATE_OUTPUT_FORMATTER) + ")";
     }
 
     /**
@@ -31,6 +37,6 @@ public class Deadline extends Task {
      */
     @Override
     public String getInformationForSaving() {
-        return "D | " + super.getInformationForSaving() + " | " + this.by;
+        return "D | " + super.getInformationForSaving() + " | " + this.by.format(DATE_INPUT_FORMATTER);
     }
 }
