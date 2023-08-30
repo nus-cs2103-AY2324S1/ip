@@ -3,7 +3,7 @@ public class Task {
     private String task;
     private boolean done;
 
-    public Task(String task) throws DukeException {
+    public Task(String task, String done) throws DukeException {
 
         // Throws error if there is no task description.
         if (task.isEmpty()) {
@@ -11,7 +11,7 @@ public class Task {
         }
 
         this.task = task;
-        this.done = false;
+        this.done = done.equals("1 ");
     }
 
     /**
@@ -31,24 +31,9 @@ public class Task {
      * Function to toggle done or undone, depending on parameter.
      * @param keyword
      */
-    public void toggleDone(String keyword) {
-        if (keyword.equals("mark")) {
-            this.done = true;
-            System.out.println("Nice! I've marked this task as done:");
-            System.out.println(this.printTask());
-        } else {
-            this.done = false;
-            System.out.println("OK, I've marked this task as not done yet:");
-            System.out.println(this.printTask());
-        }
-    }
-
-    public void toggleDoneFromStorage(String keyword) {
-        if (keyword.equals("mark")) {
-            this.done = true;
-        } else {
-            this.done = false;
-        }
+    public void toggleDone(String keyword, Ui ui) {
+        this.done = keyword.equals("mark");
+        ui.toggleDone(this, keyword);
     }
 
     public String addToStorage() {

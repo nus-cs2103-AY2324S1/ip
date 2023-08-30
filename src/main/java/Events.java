@@ -1,29 +1,26 @@
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 public class Events extends Task {
 
     private LocalDate from;
     private LocalDate to;
-    
-    public Events(String task, String from, String to) throws DukeException {
-        super(task);
 
-        // Throws error if format is incorrect.
-        if (!from.startsWith("from") || !to.startsWith("to")) {
-            throw new DukeException("☹ OOPS!!! Please use the proper format for the event.");
-        }
-
-        // Throws error if no 'from' and 'to' details are given.
-        if (from.substring(5).isEmpty() || to.substring(3).isEmpty()) {
+    public Events(String task, String from, String to, String done) throws DukeException {
+        super(task, done);
+        try {
+            this.from = LocalDate.parse(from.substring(5).replaceAll("\\s", ""));
+            this.to = LocalDate.parse(to.substring(3));
+        } catch (IndexOutOfBoundsException e) {
             throw new DukeException("☹ OOPS!!! There are missing details for the event.");
+        } catch (DateTimeParseException e) {
+            throw new DukeException("☹ OOPS!!! Please use the proper format for the deadline (YYYY-MM-DD).");
         }
-
-        this.from = LocalDate.parse(from.substring(5));
-        this.to = LocalDate.parse(to.substring(3));
     }
     
     public String printDetails() {
-        return String.format("(from: %sto: %s)",
+        return String.format("(from: %s to: %s)",
                 this.from.format(DateTimeFormatter.ofPattern("dd MMMM yyyy")),
                 this.to.format(DateTimeFormatter.ofPattern("dd MMMM yyyy")));
     }
@@ -34,7 +31,7 @@ public class Events extends Task {
     }
 
     public String addDetailsToStorage() {
-        return String.format("| from %s| to %s", this.from, this.to);
+        return String.format("| from %s | to %s", this.from, this.to);
     }
     @Override
     public String addToStorage() {

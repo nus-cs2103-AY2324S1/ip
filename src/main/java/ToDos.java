@@ -1,6 +1,7 @@
 public class ToDos extends Task {
-    public ToDos(String task) throws DukeException {
-        super(task);
+
+    public ToDos(String task, String done) throws DukeException {
+        super(task, done);
     }
 
     @Override
