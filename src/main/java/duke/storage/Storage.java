@@ -22,7 +22,7 @@ public class Storage {
     private DateTimeFormatter storeTimeFormatter = DateTimeFormatter.ofPattern("dd MMMM yyyy HH:mm");
     DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
-    Storage(String filePath) {
+    public Storage(String filePath) {
         this.filePath = filePath;
     }
 
