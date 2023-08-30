@@ -1,8 +1,9 @@
-package commands;
+package jerma.commands;
 
-import tasks.Task;
-import utils.TaskList;
-import utils.Ui;
+import jerma.tasks.Task;
+
+import jerma.utils.TaskList;
+import jerma.utils.Ui;
 
 public class Delete extends Command {
   private Task task;

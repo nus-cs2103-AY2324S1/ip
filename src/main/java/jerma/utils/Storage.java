@@ -1,17 +1,16 @@
-package utils;
+package jerma.utils;
 
 import java.io.IOException;
-
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
 import java.util.List;
 
-import tasks.Deadline;
-import tasks.Event;
-import tasks.Task;
-import tasks.Todo;
+import jerma.tasks.Deadline;
+import jerma.tasks.Todo;
+import jerma.tasks.Event;
+import jerma.tasks.Task;
 
 public class Storage {
   private static final Path SAVE_FOLDER = Paths.get(".", "data");

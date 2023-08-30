@@ -1,10 +1,10 @@
-package commands;
+package jerma.commands;
 
 import java.io.IOException;
 
-import utils.Storage;
-import utils.TaskList;
-import utils.Ui;
+import jerma.utils.Storage;
+import jerma.utils.TaskList;
+import jerma.utils.Ui;
 
 public class Bye extends Command {
   private Boolean[] running;

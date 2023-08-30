@@ -1,16 +1,17 @@
-package utils;
+package jerma.utils;
 
-import commands.AddTask;
-import commands.Bye;
-import commands.Command;
-import commands.Delete;
-import commands.List;
-import commands.Mark;
-import commands.Unmark;
-import tasks.Deadline;
-import tasks.Event;
-import tasks.Task;
-import tasks.Todo;
+import jerma.commands.AddTask;
+import jerma.commands.Bye;
+import jerma.commands.Command;
+import jerma.commands.Delete;
+import jerma.commands.List;
+import jerma.commands.Mark;
+import jerma.commands.Unmark;
+
+import jerma.tasks.Deadline;
+import jerma.tasks.Event;
+import jerma.tasks.Task;
+import jerma.tasks.Todo;
 
 enum Keywords {
   LIST, BYE, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE;
