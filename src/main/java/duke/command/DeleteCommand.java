@@ -1,7 +1,14 @@
-public class MarkCommand extends Command {
+package duke.command;
+
+import duke.exception.DukeException;
+import duke.task.TaskList;
+import duke.storage.Storage;
+import duke.ui.Ui;
+
+public class DeleteCommand extends Command {
     private final int taskNumber;
 
-    public MarkCommand(int taskNumber) {
+    public DeleteCommand(int taskNumber) {
         this.taskNumber = taskNumber;
     }
 
@@ -10,7 +17,8 @@ public class MarkCommand extends Command {
         if (taskNumber > taskList.getNumberOfTasks()) {
             throw new DukeException("OOPS!!! Task " + taskNumber + " does not exist.");
         }
-        ui.showTaskMarkedAsDone(taskList.getTask(taskNumber));
+        ui.showDeletedTask(taskList.getTask(taskNumber), taskNumber);
+        taskList.remove(taskNumber);
         storage.save(taskList.getList(), ui);
     }
 }

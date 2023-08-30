@@ -1,7 +1,14 @@
-public class UnmarkCommand extends Command {
-    private int taskNumber;
+package duke.command;
 
-    public UnmarkCommand(int taskNumber) {
+import duke.exception.DukeException;
+import duke.task.TaskList;
+import duke.storage.Storage;
+import duke.ui.Ui;
+
+public class MarkCommand extends Command {
+    private final int taskNumber;
+
+    public MarkCommand(int taskNumber) {
         this.taskNumber = taskNumber;
     }
 
@@ -10,7 +17,7 @@ public class UnmarkCommand extends Command {
         if (taskNumber > taskList.getNumberOfTasks()) {
             throw new DukeException("OOPS!!! Task " + taskNumber + " does not exist.");
         }
-        ui.showTaskMarkedAsUndone(taskList.getTask(taskNumber));
+        ui.showTaskMarkedAsDone(taskList.getTask(taskNumber));
         storage.save(taskList.getList(), ui);
     }
 }
