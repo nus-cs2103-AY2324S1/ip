@@ -10,6 +10,13 @@ public class StorageTest {
 
     private static final String TEST_FILE_PATH = "testData/testTasks.txt";
 
+    /**
+     * Tests the saveFile method of the Storage class.
+     * It saves a sample task list to a file, then reads the file to verify
+     * the contents match the sample task list.
+     *
+     * @throws IOException if there's an error reading or writing to the test file.
+     */
     @Test
     public void testSaveFile() throws IOException {
         Storage storage = new Storage(TEST_FILE_PATH);
