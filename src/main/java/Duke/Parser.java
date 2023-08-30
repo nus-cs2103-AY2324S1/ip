@@ -11,7 +11,8 @@ public class Parser {
         UNMARK,
         TODO,
         DEADLINE,
-        EVENT
+        EVENT,
+        HELP
     }
 
     public static Command parse(String input, TaskList taskList, Storage storage,  Ui ui) {
@@ -35,6 +36,8 @@ public class Parser {
                     return new DeadlineCommand(input, taskList, storage, ui);
                 case EVENT:
                     return new EventCommand(input, taskList, storage, ui);
+                case HELP:
+                    return new HelpCommand();
                 default:
                     return new ErrorCommand("I do not understand. Either I am wrong, or you are wrong, so you are wrong", ui);
             }

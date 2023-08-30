@@ -9,7 +9,7 @@ import java.util.Scanner;
  */
 public class Ui {
     protected static Scanner sc;
-    private String br =  "____________________________________________________________\n";
+    protected String br =  "____________________________________________________________\n";
 
     public Ui() {
         this.sc = new Scanner(System.in);
@@ -18,18 +18,19 @@ public class Ui {
     /**
      * Prints the message hello when program starts
      */
-    public void printHello() {
+    public String printHello() {
         String output = br +
                         "Hello! I'm Jose Mourinho, a task planning bot that will record your tasks.\n" +
                         "If you require help, type \"help\"\n" +
                         br;
         System.out.println(output);
+        return output;
     }
 
     /**
      * Prints the message goodbye when program ends
      */
-    public void printGoodBye() {
+    public String printGoodBye() {
         String[] famousQuotes = {"Football is a game about feelings and intelligence.",
                 "I enjoy the work, I enjoy every minute of my professional life.",
                 "I hate to speak about individuals. Players don't win you trophies, teams win trophies, squads win trophies.",
@@ -49,6 +50,7 @@ public class Ui {
                 "I have top players and, I’m sorry, we have a top manager."};
         String output = br + famousQuotes[(int) Math.floor(Math.random() * famousQuotes.length)] + "\n" + br;
         System.out.println(output);
+        return output;
     }
 
     /**
@@ -57,9 +59,10 @@ public class Ui {
      * @param taskList The tasklist that the task will be added to
      * @param index The index of task to be deleted
      */
-    public void printDeleteTask(TaskList taskList, int index) {
+    public String printDeleteTask(TaskList taskList, int index) {
         String output = "There is no excuse for you to be lazy. You should work hard and do your tasks:" + taskList.getTask(index);
         System.out.println(output);
+        return output;
     }
 
     /**
@@ -68,10 +71,11 @@ public class Ui {
      * @param taskList The tasklist that the task will be added to
      * @param task The task to be added
      */
-    public void printAddTask(TaskList taskList, Task task) {
+    public String printAddTask(TaskList taskList, Task task) {
         String output = br + "You must train hard and complete your task:\n" + task +
                 "\nYou now have " + taskList.size() + " tasks to complete.";
         System.out.println(output);
+        return output;
     }
 
     /**
@@ -80,10 +84,11 @@ public class Ui {
      * @param taskList The list of tasks
      * @param index The index of task to be marked
      */
-    public void printMarkedDone(TaskList taskList, int index) {
+    public String printMarkedDone(TaskList taskList, int index) {
         String output = "I have noticed you have been working hard," +
                 "Good job on completing your task:\n" + taskList.getTask(index).toString();
         System.out.println(output);
+        return output;
     }
 
     /**
@@ -92,9 +97,10 @@ public class Ui {
      * @param taskList The list of tasks
      * @param index The index of task to be marked
      */
-    public void printMarkedUnDone(TaskList taskList, int index) {
+    public String printMarkedUnDone(TaskList taskList, int index) {
         String output = "You want to skip training? Go and run 10 rounds around the field:\n" + taskList.getTask(index).toString();
         System.out.println(output);
+        return output;
     }
 
     /**
@@ -102,20 +108,20 @@ public class Ui {
      *
      * @param taskList The taskList of tasks
      */
-    public void printList(TaskList taskList) {
+    public String printList(TaskList taskList) {
         if (taskList.taskList.isEmpty()) {
-            System.out.println(br+ "Hard work beats talent. Your list is empty. You should train more.\n" + br);
-            return;
+            String output = br+ "Hard work beats talent. Your list is empty. You should train more.\n" + br;
+            System.out.println(output);
+            return output;
         }
 
         String output = br + "If you want to be the best in the world, work hard and follow me:\n";
-        System.out.println(output);
         for (int i = 0; i < taskList.size(); i++) {
-//            output += String.format("%d. %s \n", i+1, taskList.getTask(i).toString());
-            System.out.println(String.format("%d. %s ", i+1, taskList.getTask(i).toString()));
+            output += String.format("%d. %s \n", i+1, taskList.getTask(i).toString());
         }
-        System.out.println(br);
-//        System.out.println(output + br);
+        output += br;
+        System.out.println(output);
+        return output;
     }
 
     /**
@@ -123,15 +129,18 @@ public class Ui {
      *
      * @param message The error received from try catch
      */
-    public void printError(String message) {
+    public String printError(String message) {
         String output = br + message + "\n" + br;
         System.out.println(output);
+        return output;
     }
 
     /**
      * Prints special error when time to parse is invalid
      */
-    public void printInvalidTimeError() {
-        System.out.println(br + "\n Your timing is wrong. This is unacceptable \n"+ br);
+    public String printInvalidTimeError() {
+        String output = br + "\n Your timing is wrong. This is unacceptable \n"+ br;
+        System.out.println(output);
+        return output;
     }
 }
