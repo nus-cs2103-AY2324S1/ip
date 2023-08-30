@@ -1,3 +1,8 @@
+package brotherman.storage;
+
+import brotherman.tasks.*;
+import brotherman.parser.*;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;

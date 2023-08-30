@@ -1,3 +1,9 @@
+package brotherman.parser;
+
+import brotherman.commands.*;
+import brotherman.tasks.*;
+import brotherman.exceptions.*;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -53,7 +59,7 @@ public class Parser {
         return new ListCommand();
     }
 
-    public static boolean isValidCommands(String command) throws BrothermanException{
+    public static boolean isValidCommands(String command) throws BrothermanException {
         if (command.equals("list")) {
             return true;
         }

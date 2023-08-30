@@ -1,3 +1,9 @@
+package brotherman.commands;
+
+import brotherman.storage.*;
+import brotherman.tasks.*;
+import brotherman.ui.*;
+
 public class MarkDoneCommand extends Command {
     private int taskNum;
     public MarkDoneCommand(int taskNum) {

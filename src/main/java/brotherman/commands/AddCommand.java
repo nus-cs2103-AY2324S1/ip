@@ -1,3 +1,9 @@
+package brotherman.commands;
+
+import brotherman.storage.*;
+import brotherman.tasks.*;
+import brotherman.ui.*;
+
 public class AddCommand extends Command {
 
     private Task task;
