@@ -2,6 +2,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -104,7 +105,8 @@ public class Bob {
             if (taskName.isBlank()) {
                 throw new BobException("OOPS!!! The description of a deadline cannot be empty.");
             } else {
-                Deadline thisTask = new Deadline(taskName, by);
+                LocalDate d1 = LocalDate.parse(by);
+                Deadline thisTask = new Deadline(taskName, d1);
                 addTask(thisTask);
             }
 
@@ -140,7 +142,9 @@ public class Bob {
             if (taskName.isBlank()) {
                 throw new BobException("OOPS!!! The description of a event cannot be empty.");
             } else {
-                Event thisTask = new Event(taskName, from, to);
+                LocalDate d1 = LocalDate.parse(from);
+                LocalDate d2 = LocalDate.parse(to);
+                Event thisTask = new Event(taskName, d1, d2);
                 addTask(thisTask);
             }
 
@@ -220,9 +224,12 @@ public class Bob {
                     if (charArray[0] == 'T') {
                         list.add(new Todo(taskName));
                     } else if (charArray[0] == 'D') {
-                        list.add(new Deadline(taskName, dateOne));
+                        LocalDate d1 = LocalDate.parse(dateOne);
+                        list.add(new Deadline(taskName, d1));
                     } else if (charArray[0] == 'E') {
-                        list.add(new Event(taskName, dateOne, dateTwo));
+                        LocalDate d1 = LocalDate.parse(dateOne);
+                        LocalDate d2 = LocalDate.parse(dateTwo);
+                        list.add(new Event(taskName, d1, d2));
                     }
 
                     if (charArray[2] == '1') {
