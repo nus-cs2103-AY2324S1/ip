@@ -3,6 +3,7 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.*;
+import java.time.LocalDateTime;
 
 public class Puke {
     public static String separator = "____________________________________________________________";
@@ -99,7 +100,7 @@ public class Puke {
                 DataHandler.writeToDatabase(list);
             } else if (command.equals("deadline")) {
                 try {
-                    list.add(new Deadline(sc.nextLine().split("/")));
+                    list.add(new Deadline(sc.nextLine().split(" /")));
                 } catch (Exception e) {
                     System.out.println(errorMessage);
                     System.out.println(separator);
@@ -113,7 +114,7 @@ public class Puke {
                 DataHandler.writeToDatabase(list);
             } else if (command.equals("event")) {
                 try {
-                    list.add(new Event(sc.nextLine().split("/")));
+                    list.add(new Event(sc.nextLine().split(" /")));
                 } catch (Exception e) {
                     System.out.println(errorMessage);
                     System.out.println(separator);
@@ -146,6 +147,17 @@ public class Puke {
                         "As of this current moment, there are a total of " + list.size() + " occurrences of tasks in your list.");
                 System.out.println(separator);
                 DataHandler.writeToDatabase(list);
+            } else if (command.equals("clearall")) {
+                if (!sc.nextLine().isEmpty()) {
+                    System.out.println(errorMessage);
+                    System.out.println(separator);
+                    continue;
+                }
+                list = new ArrayList<Task>(100);
+                DataHandler.clearAll();
+                System.out.println("Well I certainly hope you had meant to do that because I am not going too ask for your confirmation. As per the aforementioned instructions, I shall now" +
+                        "purge all of the tasks that you have previously recorded and designated as requiring attention.");
+                System.out.println(separator);
             } else {
                 System.out.println("Unfortunately, the circumstances preceding this has necessitated that I issue and apology for the input that I have received is unrecognised.");
                 System.out.println(separator);
@@ -205,12 +217,13 @@ class ToDo extends Task {
 
 class Deadline extends Task {
     private final static String tag = "[D]";
-    private final String date;
+    private final LocalDateTime date;
 
     public Deadline(String[] all) throws PukeException {
         super(tag, all[0]);
-        this.date = all[1].split("by ")[1];
-        if (this.date.isEmpty()) {
+        try {
+            this.date = LocalDateTime.parse(all[1].split("by ")[1]);
+        } catch (Exception DateTimeParseException) {
             throw new PukeException();
         }
     }
@@ -228,20 +241,22 @@ class Deadline extends Task {
     }
 
     public String toString() {
-        return super.toString() + "(by: " + this.date + ")";
+        return super.toString() + " (by: " + this.date + ")";
     }
 }
 
 class Event extends Task {
     private static final String tag = "[E]";
-    private final String from;
-    private final String to;
+    private final LocalDateTime from;
+    private final LocalDateTime to;
 
     public Event(String[] all) throws PukeException {
         super(tag, all[0]);
-        this.from = all[1].split("from ")[1];
-        this.to = all[2].split("to ")[1];
-        if (this.from.isEmpty() || this.to.isEmpty()) {
+        try {
+            this.from = LocalDateTime.parse(all[1].split("from ")[1]);
+            this.to = LocalDateTime.parse(all[2].split("to ")[1]);
+        } catch (Exception DateTimeParseException) {
+            System.out.println(all[1].split("from ")[1]);
             throw new PukeException();
         }
     }
@@ -260,7 +275,7 @@ class Event extends Task {
     }
 
     public String toString() {
-        return super.toString() + "(from: " + this.from + " " +
+        return super.toString() + " (from: " + this.from + " " +
                 "to: " + this.to + ")";
     }
 }
@@ -308,7 +323,6 @@ class DataHandler {
 
     public static ArrayList<Task> loadDatabase() throws FileNotFoundException {
         Scanner sc = new Scanner(new File("ListData.txt"));
-        System.out.println("File loaded");
         ArrayList<Task> output = new ArrayList<Task>();
         while (sc.hasNext()) {
             try {
@@ -318,5 +332,11 @@ class DataHandler {
             }
         }
         return output;
+    }
+
+    public static void clearAll() throws IOException {
+        FileWriter fw = new FileWriter("ListData.txt");
+        fw.write("");
+        fw.close();
     }
 }
