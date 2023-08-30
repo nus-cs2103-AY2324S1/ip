@@ -1,17 +1,22 @@
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.time.format.FormatStyle;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Deadline extends Task {
     private static Pattern createCommand =
             Pattern.compile("^deadline ?(?<taskName>.*?)? ?(/by (?<finishByTime>.*))?$");
-    private String finishByTime;
-    Deadline(String name, String finishByTime) {
+    private LocalDate finishByTime;
+    Deadline(String name, LocalDate finishByTime) {
         super(name);
-        this.finishByTime = finishByTime.trim();
+        this.finishByTime = finishByTime;
     }
-    Deadline(boolean isDone, String name, String finishByTime) {
+    Deadline(boolean isDone, String name, LocalDate finishByTime) {
         super(name, isDone);
-        this.finishByTime = finishByTime.trim();
+        this.finishByTime = finishByTime;
     }
 
     public static Deadline createDeadline(String command) throws LukeException {
@@ -27,15 +32,22 @@ public class Deadline extends Task {
             throw new LukeException("The due date (/by ...) of a deadline cannot be empty.");
         }
 
-        return new Deadline(taskName, finishByTime);
+        try {
+            return new Deadline(taskName, LocalDate.parse(finishByTime));
+        } catch (DateTimeParseException e) {
+            throw new LukeException("Invalid date format");
+        }
     }
 
     public static Deadline createDeadline(String[] args, boolean isDone) throws LukeException {
         if (args.length != 2) {
             throw new LukeException("Error creating Deadline: Incorrect number of arguments");
         }
-
-        return new Deadline(isDone, args[0], args[1]);
+        try {
+            return new Deadline(isDone, args[0], LocalDate.parse(args[1]));
+        } catch (DateTimeParseException e) {
+            throw new LukeException("Error creating Deadline: Invalid date format");
+        }
     }
 
     @Override
@@ -47,6 +59,7 @@ public class Deadline extends Task {
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + finishByTime + ")";
+        return "[D]" + super.toString()
+                + " (by: " + finishByTime.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG)) + ")";
     }
 }

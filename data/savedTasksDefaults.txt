@@ -1,3 +1,3 @@
 T | Not Done | task1
-D | Done | task2 | some time
+D | Done | task2 | 2019-12-12
 E | Not Done | task3 | time1 | time2

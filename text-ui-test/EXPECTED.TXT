@@ -15,14 +15,14 @@ Hello from
     ＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿
     ＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿
 	1. [T][ ] task1
-	2. [D][x] task2 (by: some time)
+	2. [D][x] task2 (by: December 12, 2019)
 	3. [E][ ] task3 (from: time1 to: time2)
     ＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿
     ＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿
 	added : [T][ ] newly added task
     ＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿
     ＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿
-	added : [D][ ] another new deadline (by: some time)
+	added : [D][ ] new deadline (by: September 11, 2011)
     ＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿
     ＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿
 	added : [E][ ] yet another new event (from: time1 to: time2)
@@ -34,14 +34,17 @@ Hello from
 	☹ OOPS!!! The due date (/by ...) of a deadline cannot be empty.
     ＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿
     ＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿
+	☹ OOPS!!! Invalid date format
+    ＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿
+    ＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿
 	☹ OOPS!!! The start time (/from ...) of an event cannot be empty.
     ＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿
     ＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿
 	1. [T][ ] task1
-	2. [D][x] task2 (by: some time)
+	2. [D][x] task2 (by: December 12, 2019)
 	3. [E][ ] task3 (from: time1 to: time2)
 	4. [T][ ] newly added task
-	5. [D][ ] another new deadline (by: some time)
+	5. [D][ ] new deadline (by: September 11, 2011)
 	6. [E][ ] yet another new event (from: time1 to: time2)
     ＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿
     ＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿
@@ -54,10 +57,10 @@ Hello from
     ＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿
     ＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿
 	1. [T][x] task1
-	2. [D][x] task2 (by: some time)
+	2. [D][x] task2 (by: December 12, 2019)
 	3. [E][ ] task3 (from: time1 to: time2)
 	4. [T][x] newly added task
-	5. [D][ ] another new deadline (by: some time)
+	5. [D][ ] new deadline (by: September 11, 2011)
 	6. [E][ ] yet another new event (from: time1 to: time2)
     ＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿
     ＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿
@@ -69,10 +72,10 @@ Hello from
     ＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿
     ＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿
 	1. [T][ ] task1
-	2. [D][x] task2 (by: some time)
+	2. [D][x] task2 (by: December 12, 2019)
 	3. [E][ ] task3 (from: time1 to: time2)
 	4. [T][x] newly added task
-	5. [D][ ] another new deadline (by: some time)
+	5. [D][ ] new deadline (by: September 11, 2011)
 	6. [E][ ] yet another new event (from: time1 to: time2)
     ＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿
     ＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿
