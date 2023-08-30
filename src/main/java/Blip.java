@@ -13,7 +13,7 @@ public class Blip {
             File fileDirectory = file.getParentFile();
 
             if (!fileDirectory.exists()) {
-                fileDirectory.mkdir();
+                fileDirectory.mkdirs();
             }
             FileWriter fileWriter = new FileWriter(file);
 
@@ -29,27 +29,19 @@ public class Blip {
 
     private static ArrayList<Task> loadFile()  {
         ArrayList<Task> tasks = new ArrayList<>();
-        File file = new File(FILE_PATH);
-        File fileDirectory = file.getParentFile();
-
-        if (!fileDirectory.exists()) {
-                fileDirectory.mkdir();
-        }
-
         try {
-            if (!file.exists()) {
-                return tasks;
-            }
-                FileReader fileReader = new FileReader(file);
-                BufferedReader finalReader = new BufferedReader(fileReader);
-                String lineToRead;
-                while ((lineToRead = finalReader.readLine()) != null) {
-                    Task task = Task.loadTaskFromFile(lineToRead);
-                    tasks.add(task);
-                }
-                    finalReader.close();
-        } catch (FileNotFoundException e1) {
-            System.out.println("Error loading file: " + e1.getMessage());
+        File file = new File(FILE_PATH);
+        if (!file.exists()) {
+            return tasks;
+        }
+        FileReader fileReader = new FileReader(file);
+        BufferedReader finalReader = new BufferedReader(fileReader);
+        String lineToRead;
+        while ((lineToRead = finalReader.readLine()) != null) {
+            Task task = Task.loadTaskFromFile(lineToRead);
+            tasks.add(task);
+        }
+        finalReader.close();
         } catch (IOException e2) {
             System.out.println("Error reading line: " + e2.getMessage());
         }
@@ -223,6 +215,7 @@ public class Blip {
                         ToDo newToDoTask = new ToDo(test[1], false);
                         tasks.add(newToDoTask);
                         saveToFile(tasks);
+                        // if tasks = null then assign tasks = new ArrayList<Task>()
                         System.out.println("Alright! I've added this task:\n " + newToDoTask.toString()
                                 + "\nNow you have " + tasks.size() + " tasks in the list.");
                         userInput = scanIn.nextLine();

@@ -9,7 +9,7 @@ public class Deadline extends Task {
 
     @Override
     public String saveToFileString(){
-        return "D " + (super.isDone ? "| 1 | " : " | 0 | ") + super.toString() + " | " + deadline;
+        return "D " + (super.isDone ? "| 1 | " : "| 0 | ") + super.toString() + " | " + deadline;
     }
 
     @Override

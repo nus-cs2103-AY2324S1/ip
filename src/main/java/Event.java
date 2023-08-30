@@ -10,7 +10,7 @@ public class Event extends Task {
 
     @Override
     public String saveToFileString(){
-        return "E " + (super.isDone ? "| 1 | " : " | 0 | ") + super.toString() + " | " + eventStart
+        return "E " + (super.isDone ? "| 1 | " : "| 0 | ") + super.toString() + " | " + eventStart
                 + " | " + eventEnd;
     }
 

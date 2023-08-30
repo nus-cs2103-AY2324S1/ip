@@ -6,7 +6,7 @@ public class ToDo extends Task{
 
     @Override
     public String saveToFileString(){
-        return "T " + (super.isDone ? "| 1 | " : " | 0 | ") + super.toString();
+        return "T " + (super.isDone ? "| 1 | " : "| 0 | ") + super.toString();
     }
 
     @Override
