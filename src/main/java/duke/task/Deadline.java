@@ -1,7 +1,7 @@
-package task;
+package duke.task;
 
-import exceptions.TimeParsingException;
-import time.Time;
+import duke.exceptions.TimeParsingException;
+import duke.time.Time;
 
 import java.time.LocalDate;
 

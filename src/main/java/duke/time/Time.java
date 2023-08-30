@@ -1,6 +1,6 @@
-package time;
+package duke.time;
 
-import exceptions.TimeParsingException;
+import duke.exceptions.TimeParsingException;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;

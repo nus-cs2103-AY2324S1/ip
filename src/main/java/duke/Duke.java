@@ -1,11 +1,13 @@
-import commands.Command;
-import exceptions.CommandNotRecognizedException;
-import exceptions.NoCommandDetailException;
-import exceptions.StorageException;
-import exceptions.TimeParsingException;
-import storage.Storage;
-import task.TaskList;
-import ui.Ui;
+package duke;
+
+import duke.commands.Command;
+import duke.exceptions.CommandNotRecognizedException;
+import duke.exceptions.NoCommandDetailException;
+import duke.exceptions.StorageException;
+import duke.exceptions.TimeParsingException;
+import duke.storage.Storage;
+import duke.task.TaskList;
+import duke.ui.Ui;
 
 public class Duke {
     private static final String DATA_FILE_PATH = "./data/duke.txt";

@@ -1,11 +1,13 @@
-import commands.*;
-import exceptions.CommandNotRecognizedException;
-import exceptions.NoCommandDetailException;
-import exceptions.TimeParsingException;
-import task.Deadline;
-import task.Event;
-import task.Task;
-import task.ToDo;
+package duke;
+
+import duke.commands.*;
+import duke.exceptions.CommandNotRecognizedException;
+import duke.exceptions.NoCommandDetailException;
+import duke.exceptions.TimeParsingException;
+import duke.task.Deadline;
+import duke.task.Event;
+import duke.task.Task;
+import duke.task.ToDo;
 
 
 public class Parser {

@@ -4,17 +4,17 @@ Hello! I'm Kevin
 What can I do for you?
 
 --------------------------------------------------
-Got it. I've added this task:
+Got it. I've added this Duke.task:
 [E][ ] dating her (from: Jun 14 2004 to: Jul 14 2004)
 Now you have 1 tasks in the list.
 --------------------------------------------------
 --------------------------------------------------
-Got it. I've added this task:
+Got it. I've added this Duke.task:
 [D][ ] finish CS2103 homework (by: Jun 14 2004)
 Now you have 2 tasks in the list.
 --------------------------------------------------
 --------------------------------------------------
-Got it. I've added this task:
+Got it. I've added this Duke.task:
 [T][ ] listen to the lecture
 Now you have 3 tasks in the list.
 --------------------------------------------------
@@ -25,15 +25,15 @@ Here are the tasks in your list:
 3.[T][ ] listen to the lecture
 --------------------------------------------------
 --------------------------------------------------
-Nice! I've marked this task as done:
+Nice! I've marked this Duke.task as done:
 [D][ ] finish CS2103 homework (by: Jun 14 2004)
 --------------------------------------------------
 --------------------------------------------------
-Nice! I've marked this task as undone:
+Nice! I've marked this Duke.task as undone:
 [D][X] finish CS2103 homework (by: Jun 14 2004)
 --------------------------------------------------
 --------------------------------------------------
-Noted. I've removed this task:
+Noted. I've removed this Duke.task:
 [T][ ] listen to the lecture
 Now you have 2 tasks in the list.
 --------------------------------------------------

@@ -1,4 +1,4 @@
-package exceptions;
+package duke.exceptions;
 
 public class CommandNotRecognizedException extends ChatException {
     public CommandNotRecognizedException(String message) {

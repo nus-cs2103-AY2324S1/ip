@@ -1,7 +1,7 @@
-package ui;
+package duke.ui;
 
-import task.Task;
-import task.TaskList;
+import duke.task.Task;
+import duke.task.TaskList;
 
 import java.util.Scanner;
 
@@ -41,28 +41,28 @@ public class Ui {
     }
 
     public void showTimeParsingError() {
-        System.out.println("OOPS!!! Please enter the date and time in the format: yyyy-mm-dd");
+        System.out.println("OOPS!!! Please enter the date and Duke.time in the format: yyyy-mm-dd");
     }
 
     public void showAddTask(TaskList tasks, Task task) {
-        System.out.println("Got it. I've added this task:");
+        System.out.println("Got it. I've added this Duke.task:");
         System.out.println(task);
         System.out.println("Now you have " + tasks.size() + " tasks in the list.");
     }
 
     public void showDelete(TaskList tasks, int index) {
-        System.out.println("Noted. I've removed this task:");
+        System.out.println("Noted. I've removed this Duke.task:");
         System.out.println(tasks.getTask(index));
         System.out.println("Now you have " + tasks.size() + " tasks in the list.");
     }
 
     public void showMark(TaskList tasks, int index) {
-        System.out.println("Nice! I've marked this task as done:");
+        System.out.println("Nice! I've marked this Duke.task as done:");
         System.out.println(tasks.getTask(index));
     }
 
     public void showUnmark(TaskList tasks, int index) {
-        System.out.println("Nice! I've marked this task as undone:");
+        System.out.println("Nice! I've marked this Duke.task as undone:");
         System.out.println(tasks.getTask(index));
     }
 

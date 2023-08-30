@@ -1,8 +1,8 @@
-package storage;
+package duke.storage;
 
-import exceptions.StorageException;
-import exceptions.TimeParsingException;
-import task.*;
+import duke.exceptions.StorageException;
+import duke.exceptions.TimeParsingException;
+import duke.task.*;
 
 import java.io.*;
 
@@ -68,9 +68,9 @@ public class Storage {
 //            try (BufferedReader br = new BufferedReader(new FileReader(file))) {
 //                String line;
 //                while ((line = br.readLine()) != null) {
-//                    Task task = parseTask(line);
-//                    if (task != null) {
-//                        tasks.add(task);
+//                    Task Duke.task = parseTask(line);
+//                    if (Duke.task != null) {
+//                        tasks.add(Duke.task);
 //                    }
 //                }
 //            } catch (IOException e) {
