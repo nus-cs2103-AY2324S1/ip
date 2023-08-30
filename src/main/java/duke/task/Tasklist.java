@@ -125,4 +125,17 @@ public class Tasklist {
             bw.newLine();
         }
     }
+
+    @Override
+    public String toString() {
+        StringBuilder s = new StringBuilder();
+        int i = 1;
+        for (Task task : this.todolist) {
+            s.append(i++);
+            s.append(". ");
+            s.append(task.toString());
+            s.append("\n");
+        }
+        return s.toString();
+    }
 }

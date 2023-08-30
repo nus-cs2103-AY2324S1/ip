@@ -15,14 +15,14 @@ public class Event extends Task {
 
     @Override
     public String stringifyTask() {
-        return String.format("E|%d|%s|from %s to %s", this.done ? 1 : 0, this.name
+        return String.format("E|%d|%s|%s|%s", this.done ? 1 : 0, this.name
                 , from.format(DateTimeFormatter.ofPattern("MMM d yyyy HH:mm"))
                 , to.format(DateTimeFormatter.ofPattern("MMM d yyyy HH:mm")));
     }
 
     @Override
     public String toString() {
-        return type + super.toString() + "(from: " + from.format(DateTimeFormatter.ofPattern("MMM d yyyy HH:mm"))
+        return type + super.toString() + " (from: " + from.format(DateTimeFormatter.ofPattern("MMM d yyyy HH:mm"))
                 + " to: " + to.format(DateTimeFormatter.ofPattern("MMM d yyyy HH:mm")) +  ")";
     }
 }
