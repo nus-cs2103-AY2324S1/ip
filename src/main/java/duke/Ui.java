@@ -39,9 +39,10 @@ public class Ui {
      * Prints the task list to the console.
      *
      * @param taskList The task list to be displayed.
+     * @param isMatching Determines which statements to print (true for matching tasks, false for all tasks)
      */
-    public void printTaskList(TaskList taskList) {
-        taskList.displayTaskList();
+    public void printTaskList(TaskList taskList, boolean isMatching) {
+        taskList.displayTaskList(isMatching);
     }
 
     /**
