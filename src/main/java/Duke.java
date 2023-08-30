@@ -1,3 +1,4 @@
+import java.time.LocalDate;
 import java.util.Scanner;
 
 import exception.InvalidCommandException;
@@ -59,17 +60,21 @@ public class Duke {
                     System.out.println("    Now you have " + storage.size() + " tasks in the list.");
                 } else if(Deadline.isDeadline(message)) {
                     String name = message.substring(9, message.indexOf("/by "));
-                    String deadline = message.substring(message.indexOf("/by ") + 4);
-                    storage.addTask(new Deadline(name, deadline));
+                    String deadlineString = message.substring(message.indexOf("/by ") + 4);
+                    LocalDate deadlineDate = LocalDate.parse(deadlineString);
+                    storage.addTask(new Deadline(name, deadlineDate));
                     System.out.println("    Got it. I've added this task:");
                     System.out.println("    " + storage.getTask(storage.size() - 1));
                     System.out.println("    Now you have " + storage.size() + " tasks in the list.");
                 } else if(Event.isEvent(message)) {
                     String name = message.substring(6, message.indexOf("/from "));
-                    String afterFrom = message.substring(message.indexOf("/from ") + 5);
-                    String start = afterFrom.substring(0, afterFrom.indexOf("/to "));
-                    String endTime = afterFrom.substring(afterFrom.indexOf("/to ") + 4);
-                    storage.addTask(new Event(name, start, endTime));
+                    int fromIndex = message.indexOf("/from ");
+                    int toIndex = message.indexOf(" /to ", fromIndex);
+                    String fromString = message.substring(fromIndex + 6, toIndex);
+                    String toString = message.substring(toIndex + 5);
+                    LocalDate fromDate = LocalDate.parse(fromString);
+                    LocalDate toDate = LocalDate.parse(toString);
+                    storage.addTask(new Event(name, fromDate, toDate));
                     System.out.println("    Got it. I've added this task:");
                     System.out.println("    " + storage.getTask(storage.size() - 1));
                     System.out.println("    Now you have " + storage.size() + " tasks in the list.");

@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 import task.Deadline;
@@ -68,8 +69,8 @@ public class Storage {
             Task currentTask = type.equals("T") 
                 ? new ToDo(description) 
                 : type.equals("D") 
-                ? new Deadline(description, lineSplit[3]) 
-                : new Event(description, lineSplit[3], lineSplit[4]);
+                ? new Deadline(description, LocalDate.parse(lineSplit[3])) 
+                : new Event(description, LocalDate.parse(lineSplit[3]), LocalDate.parse(lineSplit[4]));
             if(mark.equals("1")) currentTask.mark();
             loadedTasks.add(currentTask);
             line = reader.readLine();

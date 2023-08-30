@@ -1,22 +1,37 @@
-deadline Asssignment /by August 31st
+todo
 todo CS2101 Presentation
-event football match /from Sep 1st 7pm /to 8pm
-todo Doing yoga
 mark 1
+unmark 1
+list
+deadline
+deadline without by
+deadline with /by but invalid date
+list
+deadline invalid date /by 2023-13-01
+deadline CS2103 Individual Project /by 2023-09-01
+list
 mark 2
+list
+event
+event without date
+event with /from but invalid date
+event with only /from 2023-01-09
+event with /from and /to
+event with /from 2023-01-09 /to invalid date
+list
+event invalid date /from 2023-09-01 /to 2023-09-31
+event September /from 2023-09-01 /to 2023-09-30
+unmark 3
 list
 mark my words
 mark -9
-unmark 1
-deadline without by
+mark 0
+mark 999
+mark 1
 unmark my words
-todo
-list
-blah
-event invalid event
-delete test
-delete 99
-delete 1
-event project meeting /from Mon 2pm /to 4pm
+unmark -9
+unmark 0
+unmark 999
+unmark 1
 list
 bye
