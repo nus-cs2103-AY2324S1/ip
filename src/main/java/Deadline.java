@@ -1,4 +1,3 @@
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -17,7 +16,7 @@ public class Deadline extends Task{
     }
     @Override
     public String getTypeCheckedText(){
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm MMM dd yyyy");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy");
         String formattedDateTime = dueDate.format(formatter);
 
 
