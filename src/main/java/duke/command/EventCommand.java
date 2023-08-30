@@ -1,13 +1,13 @@
 package duke.command;
 
+import java.time.LocalDateTime;
+
 import duke.Storage;
 import duke.TaskList;
 import duke.Ui;
 import duke.exception.DukeBadInputException;
 import duke.task.EventTask;
 import duke.task.Task;
-
-import java.time.LocalDateTime;
 
 /**
  * Represents the Event command

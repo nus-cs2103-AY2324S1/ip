@@ -1,6 +1,21 @@
 package duke;
 
-import duke.command.*;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.util.Arrays;
+import java.util.HashMap;
+
+import duke.command.Command;
+import duke.command.DeadlineCommand;
+import duke.command.DeleteCommand;
+import duke.command.EventCommand;
+import duke.command.ExitCommand;
+import duke.command.HelpCommand;
+import duke.command.ListCommand;
+import duke.command.MarkCommand;
+import duke.command.TodoCommand;
+import duke.command.UnrecognisedCommand;
 import duke.exception.DukeBadInputException;
 import duke.exception.DukeLoadingException;
 import duke.task.DeadlineTask;
@@ -8,14 +23,9 @@ import duke.task.EventTask;
 import duke.task.Task;
 import duke.task.TodoTask;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
-import java.util.Arrays;
-import java.util.HashMap;
-
 /**
- * Handles making sense of the user command and output it in a programme readable way
+ * Handles making sense of the user command and output it in a programme
+ * readable way
  */
 public class Parser {
 
@@ -32,7 +42,7 @@ public class Parser {
     /**
      * Factory method to parse the input and output the respective command
      *
-     * @param input- the input string that needs to be parsed
+     * @param input - the input string that needs to be parsed
      * @return a respective subclass of the command that can be executed
      * @throws DukeBadInputException - if the input cannot be parsed properly
      * @throws NumberFormatException - if the input cannot be converted to an int
@@ -60,9 +70,7 @@ public class Parser {
                             "Quack doesn't understand an empty todo description, please provide one!!");
                 }
                 return new TodoCommand(desc);
-
             case "DEADLINE":
-
                 desc = Parser.findFlags(flagMap, splitInput, "/by");
                 return new DeadlineCommand(flagMap.get("/by"), desc);
             case "EVENT":
@@ -88,23 +96,23 @@ public class Parser {
         if (content.length < 3 || content.length > 6) {
             throw new DukeLoadingException(storedStr + ", this command cannot be read");
         }
-        boolean completed = content[2].equals("1");
+        boolean isCompleted = content[2].equals("1");
         switch (content[0]) {
-
             case "TODO":
-                return new TodoTask(content[1], completed);
+                return new TodoTask(content[1], isCompleted);
 
             case "DEADLINE":
                 if (content.length != 4) {
                     throw new DukeLoadingException(storedStr + ", this command cannot be read");
                 }
-                return new DeadlineTask(LocalDateTime.parse(content[3]), content[1], completed);
+                return new DeadlineTask(LocalDateTime.parse(content[3]), content[1], isCompleted);
 
             case "EVENT":
                 if (content.length != 5) {
                     throw new DukeLoadingException(storedStr + ", this command cannot be read");
                 }
-                return new EventTask(LocalDateTime.parse(content[2]), LocalDateTime.parse(content[3]), content[1], completed);
+                return new EventTask(LocalDateTime.parse(content[2]),
+                        LocalDateTime.parse(content[3]), content[1], isCompleted);
 
             default:
                 throw new DukeLoadingException(storedStr + ", this command cannot be read");
@@ -143,7 +151,9 @@ public class Parser {
      *                                description
      * @throws DateTimeParseException - if the value cannot be parsed
      */
-    private static String findFlags(HashMap<String, LocalDateTime> flagMap, String[] splitInputs, String... flags) throws DukeBadInputException, DateTimeParseException {
+    private static String findFlags(HashMap<String, LocalDateTime> flagMap,
+            String[] splitInputs, String... flags)
+            throws DukeBadInputException, DateTimeParseException {
 
         int[] flagIndex = Parser.find(splitInputs, flags);
         String desc;
@@ -222,6 +232,5 @@ public class Parser {
         }
         return ret;
     }
-
 
 }

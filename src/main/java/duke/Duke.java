@@ -1,12 +1,16 @@
 package duke;
 
+import java.io.IOException;
+import java.time.format.DateTimeParseException;
+
 import duke.command.Command;
 import duke.command.ListCommand;
 import duke.exception.DukeBadInputException;
 
-import java.io.IOException;
-import java.time.format.DateTimeParseException;
 
+/**
+ * A task manager duke
+ */
 public class Duke {
 
     /**
@@ -37,7 +41,9 @@ public class Duke {
         try {
             this.storage = new Storage(filePath);
         } catch (IOException e) {
-            this.ui.errorMessage("has some internal problem and is unable to help you today, please contact quacks mum");
+            this.ui.errorMessage(
+                    "has some internal problem and is unable to help you today, please contact quacks mum"
+            );
             this.ui.println(e.getMessage());
             this.storage = null;
         } catch (DukeBadInputException e) {
@@ -51,7 +57,9 @@ public class Duke {
                 // check for corrupted files
                 if (this.taskList.loadTasks(this.storage.readFile())) {
                     if (!this.storage.rewriteAll(this.taskList.getAllTask())) {
-                        this.ui.unexpectedError("not all tasks were successfully written, please contact my mother :( ");
+                        this.ui.unexpectedError(
+                                "not all tasks were successfully written, please contact my mother :( "
+                        );
                     }
                 }
             } catch (IOException e) {
@@ -110,7 +118,10 @@ public class Duke {
                         + ", quack only understand numbers, please input a numeric value!");
             } catch (DateTimeParseException e) {
                 this.ui.errorMessage(e.getMessage());
-                this.ui.println("Quack only understands date in this format: YYYY-MM-DD HH:MM, do give the hours in 24hours format");
+                this.ui.println(
+                        "Quack only understands date in this format: "
+                                + "YYYY-MM-DD HH:MM, do give the hours in 24hours format"
+                );
             }
             this.ui.lineBreak();
             this.ui.println("");

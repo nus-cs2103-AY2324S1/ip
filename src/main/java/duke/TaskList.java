@@ -1,11 +1,11 @@
 package duke;
 
-import duke.exception.DukeLoadingException;
-import duke.task.Task;
-
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
+
+import duke.exception.DukeLoadingException;
+import duke.task.Task;
 
 /**
  * Manages the operation on the tasks
@@ -16,7 +16,6 @@ public class TaskList {
      */
     private ArrayList<Task> tasks;
 
-
     /**
      * construct a new empty task list
      */
@@ -24,21 +23,25 @@ public class TaskList {
         this.tasks = new ArrayList<>();
     }
 
-
+    /**
+     * Loads the list of task from the storage into the task list instance
+     * 
+     * @param storedInput - the list of task obtained from storage
+     * @return true if all task loaded successfully else false
+     */
     public boolean loadTasks(List<String> storedInput) {
 
-
         // parse and store data while looking out for data corruption
-        boolean corrupted = false;
+        boolean isCorrupted = false;
         for (String s : storedInput) {
             try {
                 Task newTask = Parser.fromStorage(s);
                 this.tasks.add(newTask);
             } catch (DukeLoadingException | DateTimeParseException e) {
-                corrupted = true;
+                isCorrupted = true;
             }
         }
-        return corrupted;
+        return isCorrupted;
     }
 
     /**
@@ -78,7 +81,6 @@ public class TaskList {
     public Task get(int index) {
         return this.tasks.get(index);
     }
-
 
     public Task[] getAllTask() {
         return this.tasks.toArray(new Task[this.length()]);

@@ -35,23 +35,24 @@ public class EventTask extends Task {
      * constructor for duke.task.EventTask from storage
      * Stored as EVENT,{marked}{task description},{from},{to}
      *
-     * @param from      - the starting time of the event
-     * @param to        - the ending time of the event
-     * @param task      - the description of the task created
-     * @param completed - if completed
+     * @param from       - the starting time of the event
+     * @param to         - the ending time of the event
+     * @param task       - the description of the task created
+     * @param isComplete - if completed
      */
-    public EventTask(LocalDateTime from, LocalDateTime to, String task, boolean completed) {
+    public EventTask(LocalDateTime from, LocalDateTime to, String task, boolean isComplete) {
         super(task);
         this.from = from;
         this.to = to;
-        if (completed) {
+        if (isComplete) {
             this.toggleCompleted();
         }
     }
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + String.format(" (from: %s to: %s)", Task.formatDate(this.from), Task.formatDate(this.to));
+        return "[E]" + super.toString() + String.format(" (from: %s to: %s)",
+                Task.formatDate(this.from), Task.formatDate(this.to));
     }
 
     /**
@@ -62,6 +63,8 @@ public class EventTask extends Task {
      */
     @Override
     public String getStored() {
-        return String.join(Task.SEP, new String[]{"EVENT", this.getTask(), this.isCompleted() ? "1" : "0", this.isCompleted() ? "1" : "0", this.from.toString(), this.to.toString()});
+        return String.join(Task.SEP, new String[] { "EVENT", this.getTask(),
+                this.isComplete() ? "1" : "0", this.isComplete() ? "1" : "0",
+                this.from.toString(), this.to.toString() });
     }
 }

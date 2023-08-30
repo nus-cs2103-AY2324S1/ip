@@ -1,8 +1,5 @@
 package duke;
 
-import duke.exception.DukeBadInputException;
-import duke.task.Task;
-
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -13,6 +10,11 @@ import java.nio.file.StandardOpenOption;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import duke.exception.DukeBadInputException;
+import duke.task.Task;
+
+
 
 /**
  * Handles the loading of tasks from the file and saving tasks in the file
@@ -116,21 +118,20 @@ public class Storage {
     public boolean rewriteAll(Task[] tasks) throws IOException {
 
         this.writer.flush();
-        BufferedWriter tmpWriter = Files.newBufferedWriter(this.path, StandardOpenOption.WRITE, StandardOpenOption.TRUNCATE_EXISTING);
-
-
-        boolean noError = true;
+        BufferedWriter tmpWriter = Files.newBufferedWriter(this.path,
+                StandardOpenOption.WRITE, StandardOpenOption.TRUNCATE_EXISTING);
+        boolean isSuccessful = true;
         for (Task t : tasks) {
             try {
                 tmpWriter.write(t.getStored());
                 tmpWriter.newLine();
             } catch (IOException e) {
                 System.out.println(e.getMessage());
-                noError = false;
+                isSuccessful = false;
             }
         }
         tmpWriter.close();
-        return noError;
+        return isSuccessful;
     }
 
 

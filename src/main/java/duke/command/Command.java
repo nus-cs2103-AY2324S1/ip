@@ -27,8 +27,8 @@ public abstract class Command {
 
         // validate input
         if (index >= len) {
-            throw new DukeBadInputException("Quack does not remember having a task: " + (index + 1) +
-                    " Quack only remember till task " + (len));
+            throw new DukeBadInputException("Quack does not remember having a task: " + (index + 1)
+                    + " Quack only remember till task " + (len));
         }
     }
 

@@ -1,12 +1,12 @@
 package duke.command;
 
+import java.io.IOException;
+
 import duke.Storage;
 import duke.TaskList;
 import duke.Ui;
 import duke.exception.DukeBadInputException;
 import duke.task.Task;
-
-import java.io.IOException;
 
 /**
  * Represents the delete command

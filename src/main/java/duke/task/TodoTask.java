@@ -18,12 +18,12 @@ public class TodoTask extends Task {
      * Constructor for the duke.task.TodoTask class from storage
      * Stored as TODO,{task description},{1 if marked else 0}
      *
-     * @param task      - the description of the task created
-     * @param completed - if completed
+     * @param task       - the description of the task created
+     * @param isComplete - if completed
      */
-    public TodoTask(String task, boolean completed) {
+    public TodoTask(String task, boolean isComplete) {
         super(task);
-        if (completed) {
+        if (isComplete) {
             this.toggleCompleted();
         }
     }
@@ -41,6 +41,6 @@ public class TodoTask extends Task {
      */
     @Override
     public String getStored() {
-        return String.join(Task.SEP, new String[]{"TODO", this.getTask(), this.isCompleted() ? "1" : "0"});
+        return String.join(Task.SEP, new String[] { "TODO", this.getTask(), this.isComplete() ? "1" : "0" });
     }
 }

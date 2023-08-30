@@ -2,6 +2,9 @@ package duke.task;
 
 import java.time.LocalDateTime;
 
+/**
+ * Represents a deadline task
+ */
 public class DeadlineTask extends Task {
 
     /**
@@ -23,14 +26,14 @@ public class DeadlineTask extends Task {
     /**
      * constructor for duke.task.DeadlineTask from storage
      *
-     * @param by        - the deadline of the task
-     * @param task      - the description of the task created
-     * @param completed - if completed
+     * @param by         - the deadline of the task
+     * @param task       - the description of the task created
+     * @param isComplete - if completed
      */
-    public DeadlineTask(LocalDateTime by, String task, boolean completed) {
+    public DeadlineTask(LocalDateTime by, String task, boolean isComplete) {
         super(task);
         this.by = by;
-        if (completed) {
+        if (isComplete) {
             this.toggleCompleted();
         }
     }
@@ -48,7 +51,8 @@ public class DeadlineTask extends Task {
      */
     @Override
     public String getStored() {
-        return String.join(Task.SEP, new String[]{"DEADLINE", this.getTask(), this.isCompleted() ? "1" : "0", this.by.toString()});
+        return String.join(Task.SEP, new String[] { "DEADLINE",
+                this.getTask(), this.isComplete() ? "1" : "0", this.by.toString() });
     }
 
 }

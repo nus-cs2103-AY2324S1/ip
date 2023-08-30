@@ -1,12 +1,12 @@
 package duke.command;
 
+import java.io.IOException;
+
 import duke.Storage;
 import duke.TaskList;
 import duke.Ui;
 import duke.exception.DukeBadInputException;
 import duke.task.Task;
-
-import java.io.IOException;
 
 /**
  * Represents the mark/unmark command
@@ -16,7 +16,7 @@ public class MarkCommand extends Command {
     /**
      * true if mark command else unmark
      */
-    private boolean mark;
+    private boolean isMark;
 
     /**
      * index of the task being marked/unmarked
@@ -30,16 +30,17 @@ public class MarkCommand extends Command {
      * @param index - index of the task in question
      */
     public MarkCommand(boolean mark, int index) {
-        this.mark = mark;
+        this.isMark = mark;
         this.index = index - 1;
     }
 
     /**
      * Method to encapsulate the execution logic of the command
      *
-     * @param taskList - the task list instance  of the current duke
+     * @param taskList - the task list instance of the current duke
      * @param ui       - the ui instance of DUKE
-     * @param storage  - the storage instance to allow the command to write to the storage
+     * @param storage  - the storage instance to allow the command to write to the
+     *                 storage
      * @throws DukeBadInputException - if the input cannot be used
      */
     @Override
@@ -49,11 +50,12 @@ public class MarkCommand extends Command {
         // only toggle if mark != completed as if they are the same then there is no
         // effect
         String resp;
-        if (mark != task.isCompleted()) {
+        if (isMark != task.isComplete()) {
             task.toggleCompleted();
-            resp = mark ? "Quack! Congrats for finishing the task!" : "Quack, I've marked this task as not done yet :(";
+            resp = isMark ? "Quack! Congrats for finishing the task!"
+                    : "Quack, I've marked this task as not done yet :(";
         } else {
-            resp = mark ? "Quack! This task is already done QUACK!"
+            resp = isMark ? "Quack! This task is already done QUACK!"
                     : "Quack! you cant unmark something that isn't done yet!!";
         }
         ui.println(resp);

@@ -3,6 +3,9 @@ package duke.task;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Implementation of the task logic
+ */
 public class Task {
 
     /**
@@ -12,7 +15,7 @@ public class Task {
     /**
      * Separator used
      */
-    public static String SEP = "#";
+    public static final String SEP = "#";
 
     /**
      * The description of the task
@@ -22,7 +25,7 @@ public class Task {
     /**
      * The state of the task
      */
-    private boolean completed = false;
+    private boolean isComplete = false;
 
     /**
      * Constructor for the duke.task.Task class
@@ -48,15 +51,15 @@ public class Task {
      *
      * @return true if completed is true
      */
-    public boolean isCompleted() {
-        return this.completed;
+    public boolean isComplete() {
+        return this.isComplete;
     }
 
     /**
      * Toggles the complete field
      */
     public void toggleCompleted() {
-        this.completed = !this.completed;
+        this.isComplete = !this.isComplete;
     }
 
     /**
@@ -79,6 +82,6 @@ public class Task {
 
     @Override
     public String toString() {
-        return String.format("[%s] %s", completed ? "X" : " ", this.task);
+        return String.format("[%s] %s", isComplete ? "X" : " ", this.task);
     }
 }
