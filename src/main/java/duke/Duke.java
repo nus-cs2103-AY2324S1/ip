@@ -3,13 +3,18 @@ package duke;
 import java.util.Scanner;
 
 import duke.parser.Parser;
+
 import duke.storage.Storage;
+
 import duke.tasks.Deadline;
 import duke.tasks.Event;
 import duke.tasks.Task;
 import duke.tasks.ToDo;
+
 import duke.ui.Ui;
+
 import duke.util.TaskList;
+
 import duke.exceptions.DukeException;
 
 
