@@ -1,8 +1,12 @@
+package duke;
+
+import duke.exceptions.DukeException;
+
 import java.time.format.DateTimeFormatter;
 
 public class Duke {
 
-    public static final DateTimeFormatter TIME_FORMAT = DateTimeFormatter.ofPattern("dd MMM yyyy - HHmm");
+    public static final DateTimeFormatter TIME_FORMAT = DateTimeFormatter.ofPattern("dd MMM yyyy - HH:mm");
     private Ui ui;
     private TaskList taskList;
     private Storage storage;

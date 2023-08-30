@@ -1,3 +1,14 @@
+package duke;
+
+import duke.exceptions.DukeDateTimeParseException;
+import duke.exceptions.DukeException;
+import duke.exceptions.DukeParseException;
+import duke.tasks.Deadline;
+import duke.tasks.Event;
+import duke.tasks.Task;
+import duke.tasks.Todo;
+
+import java.time.DateTimeException;
 import java.time.LocalDateTime;
 
 public class Parser {
@@ -20,7 +31,7 @@ public class Parser {
         String description = userInput.substring(userInput.indexOf(' ') + 1);
 
         if (description.isEmpty() || description.equals("todo")) {
-            throw new DukeException("OOPS!!! The description of a todo cannot be empty");
+            throw new DukeParseException("todo");
         }
 
         return new Todo(description);
@@ -32,7 +43,9 @@ public class Parser {
             String by = userInput.substring(userInput.indexOf("/by") + 4);
             return new Deadline(description, LocalDateTime.parse(by, Duke.TIME_FORMAT));
         } catch (StringIndexOutOfBoundsException e) {
-            throw new DukeException("OOPS!!! Missing parameters in deadline");
+            throw new DukeParseException("deadline");
+        } catch (DateTimeException e) {
+            throw new DukeDateTimeParseException();
         }
     }
 
@@ -44,7 +57,9 @@ public class Parser {
             return new Event(description, LocalDateTime.parse(from, Duke.TIME_FORMAT),
                     LocalDateTime.parse(to, Duke.TIME_FORMAT));
         } catch (StringIndexOutOfBoundsException e) {
-            throw new DukeException("OOPS!!! Missing parameters in event");
+            throw new DukeParseException("event");
+        } catch (DateTimeException e) {
+            throw new DukeDateTimeParseException();
         }
     }
 }
