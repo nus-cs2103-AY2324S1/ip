@@ -1,5 +1,6 @@
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -54,7 +55,6 @@ public class Duke {
     private static final String corruptFileMessage = "Great heavens! The data file is corrupted!\n"
             + "Starting with new task list...\n";
 
-    private static final String directoryPath = "./data/";
     private static final String filePath = "./data/duke.txt";
 
     /**
@@ -109,19 +109,17 @@ public class Duke {
     }
 
     public static ArrayList<Task> loadTasks() throws DukeException {
-        File directory = new File(directoryPath);
-        if (!directory.exists()) {
-            try {
-                Files.createDirectory(Paths.get(directoryPath));
-            } catch (IOException e) {
-                throw new DukeException(line + e.getMessage() + line);
-            }
+        Path path = Paths.get(filePath);
+        try {
+            Files.createDirectories(path.getParent());
+        } catch (IOException e) {
+            throw new DukeException(line + e.getMessage() + line);
         }
 
         File file = new File(filePath);
         if (!file.exists()) {
             try {
-                Files.createFile(Paths.get(filePath));
+                Files.createFile(path);
             } catch (IOException e) {
                 throw new DukeException(line + e.getMessage() + line);
             }
@@ -202,19 +200,17 @@ public class Duke {
     }
 
     public static void saveTasks(ArrayList<Task> tasks) throws DukeException {
-        File directory = new File(directoryPath);
-        if (!directory.exists()) {
-            try {
-                Files.createDirectory(Paths.get(directoryPath));
-            } catch (IOException e) {
-                throw new DukeException(line + e.getMessage() + line);
-            }
+        Path path = Paths.get(filePath);
+        try {
+            Files.createDirectories(path.getParent());
+        } catch (IOException e) {
+            throw new DukeException(line + e.getMessage() + line);
         }
 
         File file = new File(filePath);
         if (!file.exists()) {
             try {
-                Files.createFile(Paths.get(filePath));
+                Files.createFile(path);
             } catch (IOException e) {
                 throw new DukeException(line + e.getMessage() + line);
             }
