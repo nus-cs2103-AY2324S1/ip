@@ -1,3 +1,9 @@
+package duke;
+
+import duke.storage.*;
+import duke.ui.*;
+import duke.task.*;
+
 
 
 public class Duke {

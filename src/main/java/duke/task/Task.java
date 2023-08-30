@@ -1,4 +1,4 @@
-
+package duke.task;
 public class Task {
     private String text;
     private String type = "";

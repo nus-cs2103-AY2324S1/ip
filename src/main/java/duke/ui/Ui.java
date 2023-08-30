@@ -1,3 +1,8 @@
+package duke.ui;
+
+import duke.Duke;
+import duke.task.*;
+import duke.parser.*;
 
 import java.util.Scanner;
 
