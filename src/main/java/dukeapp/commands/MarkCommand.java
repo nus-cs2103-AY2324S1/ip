@@ -1,8 +1,6 @@
 package dukeapp.commands;
 
-import dukeapp.DukeConstants;
 import dukeapp.DukeState;
-import dukeapp.tasks.Task;
 
 /**
  * Marks a task.
@@ -24,8 +22,6 @@ public class MarkCommand implements Command {
         String[] args = input.split(" ", 2);
         String indexString = args[1];
         int index = Integer.parseInt(indexString) - 1;
-        Task task = this.state.getTask(index);
-        task.mark();
-        System.out.printf((DukeConstants.MARKED_MESSAGE) + "%n", task);
+        this.state.markTask(index);
     }
 }

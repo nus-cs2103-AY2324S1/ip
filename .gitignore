@@ -16,5 +16,8 @@ bin/
 # Java class files
 *.class
 
+# Application data
+/data/
+
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT
