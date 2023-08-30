@@ -1,9 +1,10 @@
+import java.time.LocalDateTime;
 /**
  * Deadline class representing a task and description
  */
 public class Deadline extends Task{
 
-    protected String dueBy;
+    protected LocalDateTime dueBy;
 
     /**
      * Constructor for the deadline class
@@ -12,7 +13,7 @@ public class Deadline extends Task{
      */
     public Deadline(String description, String dueBy) {
         super(description);
-        this.dueBy = dueBy.split(" ", 2)[1];
+        this.dueBy = parseDateTime(dueBy.split(" ", 2)[1]);
     }
 
     /**
@@ -21,7 +22,7 @@ public class Deadline extends Task{
      */
     @Override
     public String toString() {
-        String ret = "[D] " + super.toString() + " (by: " + this.dueBy + ")" ;
+        String ret = "[D] " + super.toString() + " (by: " + printDateTime(this.dueBy) + ")" ;
         return ret;
     }
 }

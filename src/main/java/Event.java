@@ -1,10 +1,12 @@
+import java.time.LocalDateTime;
+
 /**
  * Event class representing a task and description
  */
 public class Event extends Task{
 
-    protected String from;
-    protected String to;
+    protected LocalDateTime from;
+    protected LocalDateTime to;
 
     /**
      * Constructor for the Event class
@@ -14,8 +16,10 @@ public class Event extends Task{
      */
     public Event(String description, String from, String to) {
         super(description);
-        this.from = from.split(" ", 2)[1];
-        this.to = to.split(" ", 2)[1];
+        System.out.println(from);
+        System.out.println(to);
+        this.from = parseDateTime(from);
+        this.to = parseDateTime(to);
     }
 
     /**
@@ -24,7 +28,7 @@ public class Event extends Task{
      */
     @Override
     public String toString() {
-        String ret = "[E] " + super.toString() + " (from: " + this.from + " to: " + this.to + ")" ;
+        String ret = "[E] " + super.toString() + " (from: " + printDateTime(this.from) + " to: " + printDateTime(this.to) + ")" ;
         return ret;
     }
 }
