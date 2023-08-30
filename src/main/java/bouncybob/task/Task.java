@@ -1,3 +1,5 @@
+package bouncybob.task;
+
 public class Task {
     private String name;
     private boolean isDone;
@@ -31,7 +33,7 @@ public class Task {
         return null;
     }
     public String toFileFormat() {
-        // Base implementation for Task
+        // Base implementation for bouncybob.task.Task
         return getSymbol() + " | " + (isDone ? "1" : "0") + " | " + name;
     }
 
