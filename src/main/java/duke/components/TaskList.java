@@ -56,16 +56,16 @@ public class TaskList {
         return tasks.size();
     }
 
-    public static String list() throws DukeException {
-        String result = "";
+    public static String list() {
+        String result = "Here are the tasks in your list:\n";
         for (int i = 0; i < tasks.size(); i++) { // Generates the String representation of the list
             result += i + 1 + ". " + tasks.get(i) + "\n";
         }
-        if (result != "") {
+        if (result != "Here are the tasks in your list:\n") {
             return result;
         } else { // Empty list
-            throw new DukeException("There is nothing on your list currently. " +
-                    "Perhaps you might want to add a new task?");
+            return "There is nothing on your list currently. " +
+                    "Perhaps you might want to add a new task?";
         }
     }
 

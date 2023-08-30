@@ -27,7 +27,7 @@ public class ModifyCommand extends Command{
                     tasks.mark(index);
                     ui.showTaskCompleted(task);
                 } else if (type.equals("U")) {
-                    tasks.mark(index);
+                    tasks.unmark(index);
                     ui.showTaskUnmarked(task);
                 } else if (type.equals("D")) {
                     tasks.delete(index);
@@ -43,5 +43,13 @@ public class ModifyCommand extends Command{
     @Override
     public boolean isExit() {
         return isExit;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public int getIndex() {
+        return index;
     }
 }

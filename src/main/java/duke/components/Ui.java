@@ -51,7 +51,6 @@ public class Ui {
     }
 
     public void showList(TaskList taskList) throws DukeException {
-        System.out.println("Here are the tasks in your list:");
         System.out.println(taskList.list());
     }
 }

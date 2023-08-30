@@ -22,11 +22,14 @@ public class DeadlineTest {
     public void testToString() {
         LocalDateTime by = LocalDateTime.of(2023, 9, 1, 14, 0);
 
+
         Deadline deadline = new Deadline("Submit report", by);
         assertEquals("[D][ ] Submit report (by: Sep 1 2023, 2:00 PM)", deadline.toString());
 
         Deadline completedDeadline = new Deadline("Finish project", by, true);
         assertEquals("[D][X] Finish project (by: Sep 1 2023, 2:00 PM)", completedDeadline.toString());
+
+        LocalDateTime wrongTime = LocalDateTime.of(2023, 9, 1, 14, 0);
     }
 
     @Test
