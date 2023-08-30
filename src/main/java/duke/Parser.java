@@ -3,6 +3,8 @@ package duke;
 import duke.Deadline;
 import duke.DukeException;
 
+import java.util.ArrayList;
+
 /**
  * Deals with making sense of the user's command.
  * 
@@ -47,6 +49,13 @@ public class Parser {
         // list tasks
         } else if (command.equalsIgnoreCase("list")) {
             ui.printList(list);
+
+        // find task
+        } else if (command.toLowerCase().startsWith("find")) {
+            String keyword = command.substring(5).trim();
+            ArrayList<Task> matchingTasks = list.find(keyword);
+
+            ui.printMatchingTasks(matchingTasks);
 
         // mark task as done
         } else if (command.toLowerCase().startsWith("mark")) {

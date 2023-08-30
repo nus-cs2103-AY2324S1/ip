@@ -4,23 +4,24 @@ import duke.DukeException;
 import duke.Task;
 
 import java.util.ArrayList;
+
 /**
  * Represents a list of tasks.
  */
 public class TaskList {
-    private ArrayList<Task> tasks;
+    private ArrayList<Task> list;
 
     /**
      * Creates a new TaskList instance with the provided list of tasks.
      *
-     * @param tasks The initial list of tasks for the TaskList.
+     * @param list The initial list of tasks for the TaskList.
      * @throws DukeException If the provided list of tasks is null.
      */
-    public TaskList(ArrayList<Task> tasks) throws DukeException {
-        if (tasks == null) {
+    public TaskList(ArrayList<Task> list) throws DukeException {
+        if (list == null) {
             throw new DukeException("Empty taskList");
         } else {
-            this.tasks = tasks;
+            this.list = list;
         }
     }
 
@@ -28,7 +29,7 @@ public class TaskList {
      * Creates an empty TaskList instance.
      */
     public TaskList() {
-        this.tasks = new ArrayList<Task>();
+        this.list = new ArrayList<Task>();
     };
 
     /**
@@ -37,7 +38,7 @@ public class TaskList {
      * @param task The task to be added to the TaskList.
      */
     public void add(Task task) {
-        tasks.add(task);
+        list.add(task);
     }
 
     /**
@@ -47,7 +48,7 @@ public class TaskList {
      * @return The task that was removed from the TaskList.
      */
     public Task delete(int index) {
-        Task removedTask = tasks.remove(index);
+        Task removedTask = list.remove(index);
         return removedTask;
     }
 
@@ -58,7 +59,7 @@ public class TaskList {
      * @return The task at the specified index.
      */
     public Task getTask(int index) {
-        return tasks.get(index);
+        return list.get(index);
     }
 
     /**
@@ -67,6 +68,19 @@ public class TaskList {
      * @return The number of tasks in the TaskList.
      */
     public int getSize() {
-        return tasks.size();
+        return list.size();
     }
+
+    public ArrayList<Task> find(String keyword) {
+        ArrayList<Task> matchingTasks = new ArrayList<>();
+
+        for (Task task : list) {
+            if (task.getDescription().contains(keyword)) {
+                matchingTasks.add(task);
+            }
+        }
+
+        return matchingTasks;
+    }
+
 }
