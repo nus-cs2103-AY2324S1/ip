@@ -3,7 +3,8 @@ package cheems;
 import cheems.exceptions.*;
 
 public class Parser {
-    public static void parseAndExecute(String input) {
+    public static void parseAndExecute(String input)
+            throws InvalidKeywordException, EmptyArgumentException, NumberFormatException {
         if (!input.isEmpty()) {
             String[] words = input.split(" ", 2);
 

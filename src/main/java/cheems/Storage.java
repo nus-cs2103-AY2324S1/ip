@@ -2,12 +2,13 @@ package cheems;
 
 import java.io.*;
 import java.util.Scanner;
+import cheems.exceptions.InputOutputException;
 
 public class Storage {
     private final File file;
     private static Storage instance;
 
-    private Storage(String filePath) {
+    private Storage(String filePath) throws InputOutputException {
         try {
             File f = new File(filePath);
             if (!f.exists()) {
@@ -15,7 +16,7 @@ public class Storage {
             }
             this.file = f;
         } catch (IOException e) {
-            throw new cheems.exceptions.IOException("Failed to create a new data file!");
+            throw new InputOutputException("Failed to create a new data file!");
         }
     }
 
@@ -32,7 +33,7 @@ public class Storage {
         return instance;
     }
 
-    public void loadData() {
+    public void loadData() throws InputOutputException {
         try (Scanner s = new Scanner(this.file)){
             String input;
             while (s.hasNextLine()) {
@@ -43,21 +44,21 @@ public class Storage {
         } catch (FileNotFoundException e) {
             String msg = String.format("I cannot find %s! May be accidental deletion, " +
                     "try restart cheems.Cheems!", file.getName());
-            throw new cheems.exceptions.IOException(msg);
+            throw new InputOutputException(msg);
         }
     }
 
-    public void saveData(String taskLine) {
+    public void saveData(String taskLine) throws InputOutputException {
         try {
             FileWriter fw = new FileWriter(this.file.getPath(), true);
             fw.write(taskLine + System.lineSeparator());
             fw.close();
         } catch (IOException e) {
-            throw new cheems.exceptions.IOException("I cannot open the file for writing!");
+            throw new InputOutputException("I cannot open the file for writing!");
         }
     }
 
-    public void delete(int lineToDelete) {
+    public void delete(int lineToDelete) throws InputOutputException {
         try {
             BufferedReader reader = new BufferedReader(new FileReader(this.file));
             String content = "";
@@ -78,11 +79,11 @@ public class Storage {
 
             System.out.println("Task deleted successfully from storage.");
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new InputOutputException("Sorry, I cannot update the text file!");
         }
     }
 
-    public void mark(int lineToModify, boolean isDone) {
+    public void mark(int lineToModify, boolean isDone) throws InputOutputException {
         try {
             BufferedReader reader = new BufferedReader(new FileReader(this.file));
             String content = "";
@@ -107,7 +108,7 @@ public class Storage {
 
             System.out.println("Task udpated successfully from storage.");
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new InputOutputException("Sorry, I cannot update the text file!");
         }
     }
 }

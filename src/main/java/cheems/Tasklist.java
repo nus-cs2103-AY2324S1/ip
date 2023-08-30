@@ -64,7 +64,7 @@ public class Tasklist {
     }
 
 
-    public static void markAsDone(int index) {
+    public static void markAsDone(int index) throws IndexOutOfBoundsException {
         // check for range of index
         if (index >= total) {
             String errMsg = String.format("Sorry you do not have task #%d, " +
@@ -79,7 +79,7 @@ public class Tasklist {
         UI.printWithFormat(resp);
     }
 
-    public static void markAsNotDone(int index) {
+    public static void markAsNotDone(int index) throws IndexOutOfBoundsException {
         // check for range of index
         if (index >= total) {
             String errMsg = String.format("Sorry you do not have task #%d, " +
@@ -94,7 +94,7 @@ public class Tasklist {
         UI.printWithFormat(resp);
     }
 
-    public static void delete(int index) {
+    public static void delete(int index) throws IndexOutOfBoundsException {
         // check for range of index
         if (index >= total) {
             String errMsg = String.format("Sorry you do not have task #%d, " +
