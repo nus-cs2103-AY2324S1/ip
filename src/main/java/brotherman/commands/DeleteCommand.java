@@ -1,4 +1,10 @@
-public class DeleteCommand extends Command{
+package brotherman.commands;
+
+import brotherman.storage.*;
+import brotherman.tasks.*;
+import brotherman.ui.*;
+
+public class DeleteCommand extends Command {
     private int taskNum;
     public DeleteCommand(int taskNum) {
         super(false);

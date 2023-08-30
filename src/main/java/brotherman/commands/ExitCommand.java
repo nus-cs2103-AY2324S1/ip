@@ -1,5 +1,8 @@
-import java.io.File;
-import java.io.PrintWriter;
+package brotherman.commands;
+
+import brotherman.storage.*;
+import brotherman.tasks.*;
+import brotherman.ui.*;
 
 public class ExitCommand extends Command {
     public ExitCommand() {
@@ -7,7 +10,7 @@ public class ExitCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks,Ui ui, Storage storage) {
+    public void execute(TaskList tasks, Ui ui, Storage storage) {
         storage.saveToFile(tasks.list());
         ui.showGoodbyMessage();
     }
