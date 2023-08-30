@@ -1,10 +1,10 @@
-package fileHandler;
+package Duke.fileHandler;
 
-import exceptions.DukeException;
-import tasks.Deadline;
-import tasks.Event;
-import tasks.Task;
-import tasks.Todo;
+import Duke.exceptions.DukeException;
+import Duke.tasks.Deadline;
+import Duke.tasks.Event;
+import Duke.tasks.Task;
+import Duke.tasks.Todo;
 
 import java.io.*;
 import java.text.SimpleDateFormat;
@@ -54,7 +54,7 @@ public class Storage {
 
 
         } catch (IOException e) {
-            throw new DukeException(" Error saving tasks to file");
+            throw new DukeException(" Error saving Duke.tasks to file");
         }
     }
 

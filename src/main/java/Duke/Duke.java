@@ -1,9 +1,10 @@
+package Duke;
 
-import exceptions.DukeException;
-import fileHandler.Storage;
-import parsers.InputParser;
-import tasks.Task;
-import ui.Ui;
+import Duke.exceptions.DukeException;
+import Duke.fileHandler.Storage;
+import Duke.parsers.InputParser;
+import Duke.tasks.Task;
+import Duke.ui.Ui;
 
 import java.util.ArrayList;
 public class Duke {
@@ -30,7 +31,7 @@ public class Duke {
     }
     public static void main(String[] args) throws DukeException {
 
-        new Duke("tasks.txt").run();
+        new Duke("Duke.tasks.txt").run();
 
         }
     }

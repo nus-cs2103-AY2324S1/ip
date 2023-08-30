@@ -1,12 +1,12 @@
-package parsers;
+package Duke.parsers;
 
 
-import exceptions.DukeException;
-import fileHandler.Storage;
-import tasks.Deadline;
-import tasks.Event;
-import tasks.Task;
-import tasks.Todo;
+import Duke.exceptions.DukeException;
+import Duke.fileHandler.Storage;
+import Duke.tasks.Deadline;
+import Duke.tasks.Event;
+import Duke.tasks.Task;
+import Duke.tasks.Todo;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -70,9 +70,9 @@ public class InputParser {
                 System.out.println("Bye. Hope to see you again soon!");
             }
 
-            //list out each task from tasks ArrayList
+            //list out each task from Duke.tasks ArrayList
             else if (input.equals("list")) {
-                System.out.println("  Here are the tasks in your list:");
+                System.out.println("  Here are the Duke.tasks in your list:");
                 for (int i = 0; i < Task.getSize(); i++) {
                     int index = i + 1;
                     System.out.println("  " + index + "." + tasks.get(i).toString());
@@ -138,7 +138,7 @@ public class InputParser {
 
             }
 
-            //delete task from tasks ArrayList
+            //delete task from Duke.tasks ArrayList
             else if (splitStr[0].equals("delete")) {
                 try {
                     inputChecker(splitStr, "delete");

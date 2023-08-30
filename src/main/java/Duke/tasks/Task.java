@@ -1,4 +1,4 @@
-package tasks;
+package Duke.tasks;
 
 
 /***
@@ -8,7 +8,7 @@ public class Task {
     protected String description;
     protected boolean isDone;
 
-    //total number of tasks
+    //total number of Duke.tasks
     protected static int size = 0;
 
 
@@ -47,13 +47,13 @@ public class Task {
     }
 
     /***
-     * reduce size of tasks and print remaining number
+     * reduce size of Duke.tasks and print remaining number
      */
     public void delete(){
         size = size -1;
         System.out.println("Noted. I've removed this task:");
         System.out.println("  " + this);
-        System.out.println("Now you have " + size + " tasks in the list.");
+        System.out.println("Now you have " + size + " Duke.tasks in the list.");
 
     }
     @Override
