@@ -1,15 +1,23 @@
 import exceptions.*;
 
 import java.util.Scanner;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class DevyBot {
     private static ArrayList<Task> taskList = new ArrayList<>();
+
     public enum CommandType {
         TODO, DEADLINE, EVENT, MARK, UNMARK, DELETE, LIST, BYE, UNKNOWN
     }
 
     public static void main(String[] args) {
+
+        loadTasksFromFile();
+
         Scanner scanner = new Scanner(System.in);
 
         printMessage("Hello! I'm DevyBot\nWhat can I do for you?");
@@ -54,11 +62,80 @@ public class DevyBot {
                     default:
                         throw new UnknownCommandException();
                 }
+                saveTasksToFile();
             } catch (DevyBotException e) {
                 printMessage(e.getMessage());
             }
         }
         scanner.close();
+    }
+
+    private static void loadTasksFromFile() {
+        try {
+            File file = new File("./data/devybot.txt");
+            Scanner scanner = new Scanner(file);
+            while (scanner.hasNextLine()) {
+                String taskString = scanner.nextLine();
+                String[] taskParts = taskString.split(" \\| ");
+
+                String taskType = taskParts[0].trim();
+                String taskStatus = taskParts[1].trim();
+                String taskDescription = taskParts[2].trim();
+                Task loadedTask;
+
+                try {
+                    switch (taskType) {
+                        case "T":
+                            loadedTask = new TodoTask(taskDescription);
+                            if (taskStatus.equals("1")) {
+                                loadedTask.markTask();
+                            }
+                            break;
+                        case "D":
+                            String taskBy = taskParts[3].trim();
+                            loadedTask = new DeadlineTask(taskDescription, taskBy);
+                            if (taskStatus.equals("1")) {
+                                loadedTask.markTask();
+                            }
+                            break;
+                        case "E":
+                            String taskFrom = taskParts[3].trim();
+                            String taskTo = taskParts[4].trim();
+                            loadedTask = new EventTask(taskDescription, taskFrom, taskTo);
+                            if (taskStatus.equals("1")) {
+                                loadedTask.markTask();
+                            }
+                            break;
+                        default:
+                            throw new UnknownCommandException();
+
+                    }
+                    taskList.add(loadedTask);
+                } catch (DevyBotException e) {
+                    printMessage(e.getMessage());
+                }
+            }
+            scanner.close();
+        } catch (FileNotFoundException e) {
+            printMessage("No existing tasks file found. Starting with an empty task list.");
+        }
+    }
+
+    private static void saveTasksToFile() {
+        try {
+            File dataDir = new File("./data");
+            if (!dataDir.exists()) {
+                dataDir.mkdir(); // Create the directory if it doesn't exist
+            }
+
+            FileWriter fileWriter = new FileWriter("./data/devybot.txt");
+            for (Task task : taskList) {
+                fileWriter.write(task.toFileString() + "\n");
+            }
+            fileWriter.close();
+        } catch (IOException e) {
+            System.out.println("An error occurred while saving tasks.");
+        }
     }
 
     public static void listTasks() {
@@ -177,7 +254,7 @@ public class DevyBot {
         printMessage(outpString);
     }
 
-    public static int getIndex(String[] wordsArray) throws EmptyDescriptionException, NonIntegerInputException{
+    public static int getIndex(String[] wordsArray) throws EmptyDescriptionException, NonIntegerInputException {
         try {
             if (wordsArray.length <= 1) {
                 throw new EmptyDescriptionException(wordsArray[0].toString());

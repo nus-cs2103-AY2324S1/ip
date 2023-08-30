@@ -25,4 +25,9 @@ public class Task {
         return status + " " + description;
     }
 
+    public String toFileString() {
+        String status = isDone ? "1" : "0";
+        return status + " | " + description;
+    }
+
 }
