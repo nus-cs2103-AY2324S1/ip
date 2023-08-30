@@ -1,24 +1,27 @@
 public class Task {
-    private boolean completed;
-    private String task_name;
+    public boolean isCompleted;
+    public String task_name;
 
+    public Task() {
+        isCompleted = false;
+    }
     //Constructor
     public Task(String name) {
-        task_name = name;
-        completed = false;
+        this.task_name = name;
+        isCompleted = false;
     }
 
     public void mark_as_completed() {
-        completed = true;
+        isCompleted = true;
     }
 
     public void mark_as_incomplete() {
-        completed = false;
+        isCompleted = false;
     }
     @Override
     public String toString() {
         String indicator = " ";
-        if(completed) {
+        if(isCompleted) {
             indicator = "X";
         }
         return "[" + indicator + "] " + task_name;
