@@ -5,8 +5,20 @@ import main.java.exception.EmptyChoiceException;
 import main.java.exception.EmptyTodoException;
 import main.java.exception.UnknownCommandException;
 
+/**
+ * The Parser class is responsible for parsing user input and generating corresponding commands.
+ */
 public class Parser {
 
+    /**
+     * Parses the user input and returns a command object based on the input.
+     *
+     * @param input The user's input.
+     * @return A command object corresponding to the parsed input.
+     * @throws UnknownCommandException If the input does not match any recognized command.
+     * @throws EmptyTodoException      If the input for todo command is empty.
+     * @throws EmptyChoiceException    If the input for mark or unmark command is missing the task number.
+     */
     public Command parseInstruction(String input) throws UnknownCommandException, EmptyTodoException, EmptyChoiceException {
         String[] stringArray = input.split(" ", 2);
         switch (stringArray[0]) {

@@ -1,8 +1,4 @@
 package main.java;
-/**
- * The Duke class is responsible for responding to user's input.
- * It provides functionalities to add, mark, unmark, and delete tasks.
- */
 
 import main.java.command.Command;
 import main.java.exception.EmptyChoiceException;
@@ -12,9 +8,13 @@ import main.java.parser.Parser;
 import main.java.storage.Storage;
 import main.java.tasklist.TaskList;
 import main.java.ui.Ui;
-
 import java.util.Scanner;
 
+/**
+ * The Botty class represents the main class responsible for interacting with the user and managing tasks.
+ * It initializes the user interface, task list, parser, and storage components.
+ * The class reads user input, processes commands, and handles task operations.
+ */
 public class Botty {
 
     private TaskList taskList;
@@ -22,6 +22,10 @@ public class Botty {
     private Parser parser;
     private Storage storage;
 
+    /**
+     * Constructs a new `Botty` instance, initializing user interface, task list, parser, and storage components.
+     * The constructor also loads the task list from storage.
+     */
     public Botty() {
         this.ui = new Ui();
         this.taskList = new TaskList();
@@ -33,6 +37,10 @@ public class Botty {
         new Botty().run();
     }
 
+    /**
+     * Runs the main application loop, interacting with the user, processing commands, and managing tasks.
+     * The loop continues until the user enters the "bye" command.
+     */
     public void run() {
         String name = "Botty";
         String tmp = "";

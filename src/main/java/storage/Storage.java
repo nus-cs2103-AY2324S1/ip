@@ -15,9 +15,19 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Scanner;
 
+/**
+ * The Storage class handles data storage and retrieval for tasks using files.
+ */
 public class Storage {
     private final Path directory;
     private File file;
+
+    /**
+     * Constructs a new Storage instance with the specified file path.
+     * Initializes the storage directory and creates the file if it doesn't exist.
+     *
+     * @param filePath The file path within the storage directory.
+     */
     public Storage(String filePath) {
         this.directory = Paths.get(System.getProperty("user.dir"), "./ip/src/main/java/storage");
         if (!Files.exists(directory)) {
@@ -36,6 +46,12 @@ public class Storage {
             }
         }
     }
+
+    /**
+     * Saves the task list's data to the storage file.
+     *
+     * @param taskList The task list containing tasks to be saved.
+     */
     public void saveTaskList(TaskList taskList) {
         try (FileWriter fileWriter = new FileWriter(this.file)) {
             for (int i = 0; i < taskList.numOfTasks(); i++) {
@@ -48,6 +64,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Loads task data from the storage file into the task list.
+     *
+     * @param taskList The task list to populate with loaded tasks.
+     */
     public void loadTaskList(TaskList taskList) {
         try (Scanner sc = new Scanner(this.file)) {
             while (sc.hasNextLine()) {
@@ -74,5 +95,3 @@ public class Storage {
         }
     }
 }
-
-
