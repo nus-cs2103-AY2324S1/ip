@@ -15,6 +15,9 @@ public class Parser {
         this.isRunning = true;
     }
 
+    /**
+     * Returns whether the parser is still running.
+     */
     public boolean isRunning() {
         return this.isRunning;
     }
