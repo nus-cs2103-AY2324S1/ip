@@ -1,3 +1,5 @@
+package duke;
+
 public class Duke {
     private static final String SAVED_TASKS_FILEPATH = "./data/savedTasks.txt";
 
