@@ -2,7 +2,7 @@ import java.util.Scanner;
 
 public class Chatbot {
     private TaskManager taskManager;
-    private Scanner scanner;
+    private Ui ui;
 
     public enum TaskType {
         TODO, DEADLINE, EVENT, UNKNOWN
@@ -10,69 +10,42 @@ public class Chatbot {
 
     public Chatbot() {
         this.taskManager = new TaskManager();
-        this.scanner = new Scanner(System.in);
-        taskManager.loadFromFile();
+        this.ui = new Ui();
     }
 
 
     public void run() {
-        greetUser();
+        ui.showGreeting();
         boolean isRunning = true;
 
         while (isRunning) {
             try {
-                String userInput = scanner.nextLine().trim();
+                String userInput = ui.readCommand();
                 TaskType taskType = determineTasktype(userInput);
 
                 switch (taskType) {
-                    case TODO : handleTodo(userInput);
-                    break;
-                    case DEADLINE : handleDeadline(userInput);
-                    break;
-                    case EVENT : handleEvent(userInput);
-                    break;
-                    case UNKNOWN : {
-                        // Other non-task specific commands can be handled here.
-                        if ("bye".equalsIgnoreCase(userInput)) {
-                            farewellUser();
-                            taskManager.saveToFile();
-                            isRunning = false;
-                            break;
-                        } else if ("list".equalsIgnoreCase(userInput)) {
-                            taskManager.printTasks();
-
-                        } else if (userInput.startsWith("mark")) {
-                            handleMark(userInput);
-                        } else if (userInput.startsWith("unmark")) {
-                            handleUnmark(userInput);
-                        } else if (userInput.startsWith("delete")) {
-                            int index = Integer.parseInt(userInput.split(" ")[1]);
-                            taskManager.deleteTask(index);
-                            taskManager.saveToFile();
-                        } else if (userInput.startsWith("task on")) {
-                            String date = userInput.split(" ")[1];
-                            taskManager.printTasksOnDate(date);
-                        } else {
-                            throw new ChatbotException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
-                        }
-                    }
+                    case TODO:
+                        handleTodo(userInput);
+                        break;
+                    case DEADLINE:
+                        handleDeadline(userInput);
+                        break;
+                    case EVENT:
+                        handleEvent(userInput);
+                        break;
+                    case UNKNOWN:
+                        isRunning = handleUnknownCommand(userInput);  // Returns false if 'bye'
+                        break;
                 }
 
-                taskManager.saveToFile();
-
             } catch (ChatbotException e) {
-                System.out.println("    ____________________________________________________________");
-                System.out.println("     " + e.getMessage());
-                System.out.println("    ____________________________________________________________");
+                ui.showError(e.getMessage());
             } catch (Exception e) {
-                System.out.println("    ____________________________________________________________");
-                System.out.println("     ☹ OOPS!!! An unexpected error occurred.");
-                System.out.println("    ____________________________________________________________");
-                e.printStackTrace();
+                ui.showError("☹ OOPS!!! An unexpected error occurred.");
             }
         }
-        scanner.close();
     }
+
 
     private TaskType determineTasktype(String userInput) {
         if (userInput.startsWith("todo")) return TaskType.TODO;
@@ -119,18 +92,6 @@ public class Chatbot {
         taskManager.addEvents(taskDescription, start, end);
     }
 
-    private void greetUser() {
-        System.out.println("    ____________________________________________________________");
-        System.out.println("     Hello! I'm Sara");
-        System.out.println("     What can I do for you?");
-        System.out.println("    ____________________________________________________________");
-    }
-
-    private void farewellUser() {
-        System.out.println("     Bye. Hope to see you again soon!");
-        System.out.println("    ____________________________________________________________");
-    }
-
     private void handleMark(String userInput) {
         try {
             int index = Integer.parseInt(userInput.split(" ")[1]);
@@ -156,6 +117,29 @@ public class Chatbot {
             System.out.println("    ____________________________________________________________");
         }
     }
+
+    private boolean handleUnknownCommand(String userInput) throws ChatbotException {
+        if ("bye".equalsIgnoreCase(userInput)) {
+            ui.showFarewell();
+            return false;
+        } else if ("list".equalsIgnoreCase(userInput)) {
+            taskManager.printTasks();
+        } else if (userInput.startsWith("mark")) {
+            handleMark(userInput);
+        } else if (userInput.startsWith("unmark")) {
+            handleUnmark(userInput);
+        } else if (userInput.startsWith("delete")) {
+            int index = Integer.parseInt(userInput.split(" ")[1]);
+            taskManager.deleteTask(index);
+        } else if (userInput.startsWith("task on")) {
+            String date = userInput.split(" ")[2];  // Changed from 1 to 2
+            taskManager.printTasksOnDate(date);
+        } else {
+            throw new ChatbotException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+        }
+        return true;
+    }
+
 
     public static void main(String[] args) {
         Chatbot Sara = new Chatbot();

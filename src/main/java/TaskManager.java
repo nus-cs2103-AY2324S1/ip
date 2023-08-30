@@ -4,29 +4,15 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
-import java.io.*;
 
 public class TaskManager {
     private List<Task> tasks;
-    private final String FILEPATH;
+    private Storage storage;
 
     public TaskManager(){
         this.tasks = new ArrayList<Task>();
-        FILEPATH = "./data/chatbot.txt";
-
-        File directory = new File("./data");
-        if (!directory.exists()) {
-            directory.mkdir();
-        }
-
-        File file = new File(FILEPATH);
-        if (!file.exists()) {
-            try {
-                file.createNewFile();
-            } catch (IOException e) {
-                System.out.println("Error initializing file: " + e.getMessage());
-            }
-        }
+        this.storage = new Storage( "./data/chatbot.txt");
+        this.tasks = storage.loadFromFile();
 
     }
     public void addTodo(String t) throws ChatbotException {
@@ -35,6 +21,7 @@ public class TaskManager {
         }
         Task task = new Todos(t);
         tasks.add(task);
+        storage.saveToFile(tasks);
         System.out.println("    ____________________________________________________________");
         System.out.println("     Got it. I've added this task:");
         System.out.println("     " + task.toString());
@@ -54,6 +41,7 @@ public class TaskManager {
 
             Task task = new Deadlines(t, dateTime);
             tasks.add(task);
+            storage.saveToFile(tasks);
             System.out.println("    ____________________________________________________________");
             System.out.println("     Got it. I've added this task:");
             System.out.println("     " + task.toString());
@@ -80,6 +68,7 @@ public class TaskManager {
 
             Events newEvent = new Events(t, startDateTime, endDateTime);
             tasks.add(newEvent);
+            storage.saveToFile(tasks);
 
             System.out.println("    Got it. I've added this event:");
             System.out.println("      " + newEvent);
@@ -104,6 +93,7 @@ public class TaskManager {
         Task task = getTask(index);
         if (task != null) {
             task.markAsDone();
+            storage.saveToFile(tasks);
         }
     }
 
@@ -111,6 +101,7 @@ public class TaskManager {
         Task task = getTask(index);
         if (task != null) {
             task.unMark();
+            storage.saveToFile(tasks);
         }
     }
     public void printTasks() {
@@ -125,6 +116,7 @@ public class TaskManager {
     public void deleteTask(int index) throws ChatbotException {
         try {
             Task removedTask = tasks.remove(index - 1); // Subtracting 1 because ArrayList is 0-based.
+            storage.saveToFile(tasks);
             System.out.println("    ____________________________________________________________");
             System.out.println("     Noted. I've removed this task:");
             System.out.println("       " + removedTask);
@@ -135,45 +127,9 @@ public class TaskManager {
         }
     }
 
-    public void saveToFile() {
-        try {
-            FileWriter fileWriter = new FileWriter(FILEPATH);
-            BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
 
-            for (Task task : tasks) {
-                bufferedWriter.write(task.toFileFormat());
-                bufferedWriter.newLine();
-            }
 
-            bufferedWriter.close();
-            fileWriter.close();
-        } catch (IOException e) {
-            System.out.println("Error writing to file: " + e.getMessage());
-        }
-    }
 
-    public void loadFromFile() {
-        try {
-            FileReader fileReader = new FileReader(FILEPATH);
-            BufferedReader bufferedReader = new BufferedReader(fileReader);
-
-            String line;
-            while ((line = bufferedReader.readLine()) != null) {
-                Task task = Task.fromFileFormat(line);
-                if (task != null) {
-                    tasks.add(task);
-                } else {
-                    // Handle corrupted line here for stretch goal
-                    System.out.println("Warning: Corrupted line skipped in file");
-                }
-            }
-
-            bufferedReader.close();
-            fileReader.close();
-        } catch (IOException e) {
-            System.out.println("Error reading from file: " + e.getMessage());
-        }
-    }
 
     public void printTasksOnDate(String date) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
