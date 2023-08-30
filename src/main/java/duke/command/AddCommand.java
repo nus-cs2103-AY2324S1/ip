@@ -1,7 +1,19 @@
+package duke.command;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.temporal.TemporalAccessor;
 import java.util.stream.Stream;
+
+import duke.core.DukeException;
+import duke.core.Parser;
+import duke.core.Storage;
+import duke.core.Ui;
+import duke.task.Deadline;
+import duke.task.Event;
+import duke.task.Task;
+import duke.task.TaskList;
+import duke.task.Todo;
 
 public class AddCommand extends Command {
     private TaskType taskType;
