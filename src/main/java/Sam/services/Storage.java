@@ -55,17 +55,13 @@ public class Storage {
      *
      * @throws IOException if there were errors reading and/or converting data from file.
      */
-    public void loadTasksFromFile(TaskList tasks) throws IOException {
+    public void loadTasksFromFile(TaskList tasks) throws IOException, DukeException {
         File file = createHardDisk();
 
         List<String> list = Files.readAllLines(file.toPath());
         for (String taskString : list) {
-            try {
-                Task task = FileParser.parseTaskFromString(taskString);
-                tasks.addTask(task);
-            } catch (DukeException e) {
-                System.out.println(e.getMessage());
-            }
+            Task task = FileParser.parseTaskFromString(taskString);
+            tasks.addTask(task);
         }
     }
 }

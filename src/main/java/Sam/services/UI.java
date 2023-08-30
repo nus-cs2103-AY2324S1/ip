@@ -7,10 +7,10 @@ import java.util.Scanner;
 /**
  * Text UI of the application.
  */
-public class UI {
+public class Ui {
     private final Scanner scanner;
 
-    public UI() {
+    public Ui() {
         this.scanner = new Scanner(System.in);
     }
 
@@ -25,7 +25,8 @@ public class UI {
      * Generates and prints the divider.
      */
     public void showLine() {
-        System.out.println("____________________________________________________________\n");
+        System.out.println("______________________________________________________" +
+                "______\n");
     }
 
     /**

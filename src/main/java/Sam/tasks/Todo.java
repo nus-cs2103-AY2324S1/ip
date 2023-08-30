@@ -1,10 +1,10 @@
 package sam.tasks;
 
 /**
- * Represents a Todo in the Task list.
+ * Represents a ToDo in the Task list.
  */
-public class Todo extends Task {
-    public Todo(String description) {
+public class ToDo extends Task {
+    public ToDo(String description) {
         super(description);
     }
 

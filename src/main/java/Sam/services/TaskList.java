@@ -117,7 +117,7 @@ public class TaskList {
      *
      * @return the total number of tasks left in the list
      */
-    public String taskCountSummary() {
+    public String getTaskCountSummary() {
         int size = tasks.size();
         if (size == 1) {
             return ("Now you have " + size + " task in the list.");

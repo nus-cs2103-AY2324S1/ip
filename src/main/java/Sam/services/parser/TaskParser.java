@@ -1,6 +1,10 @@
 package sam.services.parser;
 
-import sam.commands.*;
+import sam.commands.AddDeadlineCommand;
+import sam.commands.AddToDoCommand;
+import sam.commands.Command;
+import sam.commands.IncorrectCommand;
+import sam.commands.AddEventCommand;
 
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;
@@ -20,13 +24,13 @@ public class TaskParser {
         final Matcher matcher = TODO_TASK_PATTERN.matcher(args);
         // Validate arg string format
         if (!matcher.matches()) {
-            return new IncorrectCommand(String.format(INVALID_COMMAND_FORMAT, AddTodoCommand.MESSAGE_USAGE));
+            return new IncorrectCommand(String.format(INVALID_COMMAND_FORMAT, AddToDoCommand.MESSAGE_USAGE));
         }
         String description = matcher.group("description").trim();
         if (description.equals("")) {
-            return new IncorrectCommand(String.format(INVALID_COMMAND_FORMAT, AddTodoCommand.MESSAGE_USAGE));
+            return new IncorrectCommand(String.format(INVALID_COMMAND_FORMAT, AddToDoCommand.MESSAGE_USAGE));
         }
-        return new AddTodoCommand(description);
+        return new AddToDoCommand(description);
     }
 
     /**

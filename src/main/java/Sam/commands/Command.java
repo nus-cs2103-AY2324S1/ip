@@ -2,7 +2,7 @@ package sam.commands;
 
 import sam.services.Storage;
 import sam.services.TaskList;
-import sam.services.UI;
+import sam.services.Ui;
 
 /**
  * Represents an executable command.
@@ -13,7 +13,7 @@ public abstract class Command {
     /**
      * Executes the command and returns the result.
      */
-    public abstract void execute(TaskList tasks, UI ui, Storage storage);
+    public abstract void execute(TaskList tasks, Ui ui, Storage storage);
 
     /**
      * Flag that it is the end of the conversation.

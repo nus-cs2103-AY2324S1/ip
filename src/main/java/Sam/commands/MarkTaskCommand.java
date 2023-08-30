@@ -4,7 +4,7 @@ import sam.constants.Message;
 import sam.exceptions.DukeException;
 import sam.services.Storage;
 import sam.services.TaskList;
-import sam.services.UI;
+import sam.services.Ui;
 
 import java.io.IOException;
 
@@ -25,7 +25,7 @@ public class MarkTaskCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, UI ui, Storage storage) {
+    public void execute(TaskList tasks, Ui ui, Storage storage) {
         try {
             tasks.markTaskAsDone(index);
             ui.printMessage(Message.MARK_TASK, "\t" + tasks.getTask(index));

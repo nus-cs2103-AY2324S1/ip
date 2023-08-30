@@ -1,6 +1,16 @@
 package sam.services.parser;
 
-import sam.commands.*;
+import sam.commands.AddEventCommand;
+import sam.commands.Command;
+import sam.commands.HelpCommand;
+import sam.commands.IncorrectCommand;
+import sam.commands.AddDeadlineCommand;
+import sam.commands.AddToDoCommand;
+import sam.commands.DeleteTaskCommand;
+import sam.commands.MarkTaskCommand;
+import sam.commands.UnmarkTaskCommand;
+import sam.commands.ListCommand;
+import sam.commands.ExitCommand;
 import sam.exceptions.DukeException;
 
 import java.util.regex.Pattern;
@@ -39,14 +49,13 @@ public class Parser {
         final String arguments = matcher.group("arguments");
 
         switch (commandWord) {
+        case AddEventCommand.COMMAND_WORD:
+            return prepareAddEvent(arguments);
 
-            case AddEventCommand.COMMAND_WORD:
-                return prepareAddEvent(arguments);
+        case AddDeadlineCommand.COMMAND_WORD:
+            return prepareAddDeadline(arguments);
 
-            case AddDeadlineCommand.COMMAND_WORD:
-                return prepareAddDeadline(arguments);
-
-        case AddTodoCommand.COMMAND_WORD:
+        case AddToDoCommand.COMMAND_WORD:
             return prepareAddTodo(arguments);
 
         case DeleteTaskCommand.COMMAND_WORD:
@@ -67,6 +76,7 @@ public class Parser {
         case FindCommand.COMMAND_WORD:
             return prepareFind(arguments);
 
+
         case HelpCommand.COMMAND_WORD: // Fallthrough
         default:
             return new HelpCommand();
@@ -85,7 +95,8 @@ public class Parser {
             final int targetIndex = parseArgsAsDisplayedIndex(args);
             return new DeleteTaskCommand(targetIndex);
         } catch (DukeException pe) {
-            return new IncorrectCommand(String.format(INVALID_COMMAND_FORMAT + "\n" + pe.getMessage(), DeleteTaskCommand.MESSAGE_USAGE));
+            return new IncorrectCommand(String.format(INVALID_COMMAND_FORMAT + "\n" + pe.getMessage(),
+                    DeleteTaskCommand.MESSAGE_USAGE));
         }
     }
 
@@ -100,7 +111,8 @@ public class Parser {
             final int targetIndex = parseArgsAsDisplayedIndex(args);
             return new MarkTaskCommand(targetIndex);
         } catch (DukeException pe) {
-            return new IncorrectCommand(String.format(INVALID_COMMAND_FORMAT + "\n" + pe.getMessage(), MarkTaskCommand.MESSAGE_USAGE));
+            return new IncorrectCommand(String.format(INVALID_COMMAND_FORMAT + "\n" + pe.getMessage(),
+                    MarkTaskCommand.MESSAGE_USAGE));
         }
     }
 
@@ -115,7 +127,8 @@ public class Parser {
             final int targetIndex = parseArgsAsDisplayedIndex(args);
             return new UnmarkTaskCommand(targetIndex);
         } catch (DukeException pe) {
-            return new IncorrectCommand(String.format(INVALID_COMMAND_FORMAT + "\n" + pe.getMessage(), UnmarkTaskCommand.MESSAGE_USAGE));
+            return new IncorrectCommand(String.format(INVALID_COMMAND_FORMAT + "\n" + pe.getMessage(),
+                    UnmarkTaskCommand.MESSAGE_USAGE));
         }
     }
 
