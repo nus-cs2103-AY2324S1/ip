@@ -10,7 +10,7 @@ import duke.task.TaskType;
  */
 public class Parser {
     /**
-     * Parses the user input to generate the appropriate duke.command.
+     * Parses the user input to generate the appropriate command.
      *
      * @param userInput The input provided by the user.
      * @return A Command object representing the parsed command.
@@ -39,6 +39,8 @@ public class Parser {
             return new MarkCommand(args, false);
         case "delete":
             return new DeleteCommand(args);
+        case "find":
+            return new FindCommand(args);
         default:
             throw new DukeException("I don't understand what you are saying!\n"
                     + "Available commands are list, todo, deadline, event, mark, unmark, delete, bye.");

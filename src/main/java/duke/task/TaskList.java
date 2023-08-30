@@ -167,11 +167,11 @@ public class TaskList {
      * Changes the done status of a task based on the given task number and state.
      *
      * @param args The task number to be marked/unmarked and the state.
-     * @param state The desired state (true for done, false for undone).
+     * @param toBeDone The desired state (true for done, false for undone).
      * @return The Task object with the modified done status.
      * @throws DukeException If the task number is invalid or in an incorrect format.
      */
-    public Task changeTaskDoneStatus(String args, boolean state) throws DukeException {
+    public Task changeTaskDoneStatus(String args, boolean toBeDone) throws DukeException {
         int taskNumber;
 
         try {
@@ -185,7 +185,7 @@ public class TaskList {
 
             Task taskToChange = this.tasks.get(taskNumber - 1);
 
-            if (state) {
+            if (toBeDone) {
                 taskToChange.markDone();
             } else {
                 taskToChange.markUndone();
@@ -200,18 +200,47 @@ public class TaskList {
 
     /**
      * Displays the list of tasks to the console.
+     *
+     * @param isMatching Determine which statements to print (true for matching tasks, false for all tasks)
      */
-    public void displayTaskList() {
-        if (this.numTasks == 0 || this.numTasks == 1) {
-            System.out.println("Here is the task in your list:");
+    public void displayTaskList(boolean isMatching) {
+        if (isMatching) {
+            if (this.numTasks == 0 || this.numTasks == 1) {
+                System.out.println("Here is the matching task in your list:");
+            } else {
+                System.out.println("Here are the matching tasks in your list:");
+            }
         } else {
-            System.out.println("Here are the tasks in your list:");
+            if (this.numTasks == 0 || this.numTasks == 1) {
+                System.out.println("Here is the task in your list:");
+            } else {
+                System.out.println("Here are the tasks in your list:");
+            }
         }
+
         for (int i = 0; i < this.numTasks; i++) {
             int bullet = i + 1;
             System.out.print(bullet + ". ");
             System.out.println(this.tasks.get(i).toString());
         }
+    }
+
+    /**
+     * Finds the tasks which details contains the given string parameter
+     *
+     * @param taskToFindDetails The details of the task to find
+     * @return The ArrayList of tasks that match the string parameter
+     */
+    public ArrayList<Task> findTasks(String taskToFindDetails) {
+        ArrayList<Task> foundTasks = new ArrayList<>();
+        for (int i = 0; i < this.tasks.size(); i ++) {
+            Task taskInFocus = this.tasks.get(i);
+            if (taskInFocus.toString().contains(taskToFindDetails)) {
+                foundTasks.add(taskInFocus);
+            }
+        }
+
+        return foundTasks;
     }
 
     /**
