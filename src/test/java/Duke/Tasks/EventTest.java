@@ -10,9 +10,9 @@ import java.time.temporal.ChronoField;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class DeadlineTest {
+public class EventTest {
 
-    private Deadline deadline;
+    private Event event;
 
     private static final DateTimeFormatter FORMATTER = new DateTimeFormatterBuilder()
             .appendPattern("yyyy-MM-dd")
@@ -25,33 +25,35 @@ public class DeadlineTest {
 
     @BeforeEach
     public void init() {
-        this.deadline = new Deadline("return book", LocalDateTime.parse("2023-08-30 22:19", FORMATTER));
+        this.event = new Event("do cs2103t",
+                LocalDateTime.parse("2023-08-30 22:19", FORMATTER),
+                LocalDateTime.parse("2023-09-20", FORMATTER));
     }
 
     @Test
     public void testStringConversion() {
-        assertEquals("[D][ ] return book (by: Aug 30 2023 22:19)", this.deadline.toString());
+        assertEquals("[E][ ] do cs2103t (from: Aug 30 2023 22:19 to Sep 20 2023 00:00)", this.event.toString());
     }
 
     @Test
     public void testStorageFileConversion() {
-        assertEquals("D | 0 | return book | 2023-08-30T22:19", this.deadline.formatForStorage());
+        assertEquals("E | 0 | do cs2103t | 2023-08-30T22:19--2023-09-20T00:00", this.event.formatForStorage());
     }
 
     @Test
     public void testMarkDone() {
-        this.deadline.markDone();
-        assertEquals("[D][X] return book (by: Aug 30 2023 22:19)", this.deadline.toString());
+        this.event.markDone();
+        assertEquals("[E][X] do cs2103t (from: Aug 30 2023 22:19 to Sep 20 2023 00:00)", this.event.toString());
     }
 
     @Test
     public void testWithinDateRange_success() {
-        assertTrue(this.deadline.isWithinDateRange(LocalDateTime.parse("2023-08-30", FORMATTER)));
+        assertTrue(this.event.isWithinDateRange(LocalDateTime.parse("2023-09-02", FORMATTER)));
     }
 
     @Test
     public void testWithinDateRange_failure() {
-        assertFalse(this.deadline.isWithinDateRange(LocalDateTime.parse("2023-01-01", FORMATTER)));
+        assertFalse(this.event.isWithinDateRange(LocalDateTime.parse("2023-01-01", FORMATTER)));
     }
 
 }
