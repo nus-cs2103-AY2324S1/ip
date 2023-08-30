@@ -2,7 +2,7 @@ package duke;
 /**
  * The DukeException Class is used when user does not follow any input format.
  */
-public class DukeException extends Exception{
+public class DukeException extends Exception {
     public DukeException() {
         super();
     }
@@ -13,7 +13,7 @@ public class DukeException extends Exception{
      * @return The String representation of an DukeException
      */
     @Override
-    public String toString(){
+    public String toString() {
         return "☹ This is not a valid input";
     }
 

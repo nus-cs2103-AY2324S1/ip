@@ -1,10 +1,12 @@
 package duke;
 
+
+import duke.ui.UI;
+
 /**
  * This class encapsulates the functions used to print statements when user enters and exits the program.
  *
  */
-import duke.ui.UI;
 public class Greeting {
 
     /**
