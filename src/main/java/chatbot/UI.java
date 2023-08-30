@@ -4,8 +4,7 @@ import java.util.List;
 
 public class UI {
     private static final String MESSAGE_GOODBYE = "Bye. Hope to see you again soon!";
-    private static final String MESSAGE_WELCOME = "Hello! I'm Afro\n" 
-                                                    + "What can I do for you?\n";
+    private static final String MESSAGE_WELCOME = "Hello! I'm Afro\n" + "What can I do for you?\n";
     private static final String MESSAGE_UNMARK = "OK, I've marked this task as not done yet:";
     private static final String MESSAGE_MARK = "OK, I've marked this task as done:";
     private static final String MESSAGE_ADD = "Got it. I've added this task:";
@@ -49,9 +48,9 @@ public class UI {
         System.out.println("Now you have " + size + " tasks in the list.");
     }
 
-    public void printStorageList(List<Task> taskForce) {
-        for (Task task : taskForce) {
-            int index = taskForce.indexOf(task) + 1;
+    public void printStorageList(List<Task> tasks) {
+        for (Task task : tasks) {
+            int index = tasks.indexOf(task) + 1;
             System.out.println(index + ":" + task);
         }
     }

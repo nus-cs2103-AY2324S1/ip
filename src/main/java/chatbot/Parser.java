@@ -22,8 +22,8 @@ public class Parser {
             return 1;
 
         } else if (input.equals("list")) {
-            ui.printStorageList(taskHandler.taskForce);
-            storage.write(taskHandler.taskForce);
+            ui.printStorageList(taskHandler.tasks);
+            storage.write(taskHandler.tasks);
             return 0;
 
         } else if (input.startsWith("unmark")) {
@@ -70,14 +70,14 @@ public class Parser {
             Task task = taskHandler.retrieveTask(index);
             taskHandler.delete(index);
 
-            int size = taskHandler.taskForce.size();
+            int size = taskHandler.getSize();
 
             ui.deleteTask(task, size);
             return 0;
 
         } else {
             if (!(input.startsWith("todo") || input.startsWith("event") 
-                        || input.startsWith("deadline"))) {
+                    || input.startsWith("deadline"))) {
                 ui.invalidInput();
             } else if (input.startsWith("todo")) {
                 try {
@@ -91,7 +91,7 @@ public class Parser {
 
                 Task todo = new Todo(moreStrings[1]);
                 taskHandler.add(todo);
-                int index = taskHandler.taskForce.size();
+                int index = taskHandler.getSize();
 
                 ui.addTask(todo, index);
             } else if (input.startsWith("deadline")) {
@@ -109,7 +109,7 @@ public class Parser {
 
                 Task deadline = new Deadline(getDescription[1], returnBy);
                 taskHandler.add(deadline);
-                int index = taskHandler.taskForce.size();
+                int index = taskHandler.getSize();
                 
                 ui.addTask(deadline, index);
             } else if (input.startsWith("event")) {
@@ -128,7 +128,7 @@ public class Parser {
 
                 Task event = new Event(pullStrings[1], from, to);
                 taskHandler.add(event);
-                int index = taskHandler.taskForce.size();
+                int index = taskHandler.getSize();
 
                 ui.addTask(event, index);
             }
