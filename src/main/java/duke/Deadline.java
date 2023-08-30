@@ -34,4 +34,7 @@ public class Deadline extends Task {
         return this.symbol + this.getCheckbox() + this.getName() + " (by: " + deadline + ")";
     }
 
+    public String getDeadline() {
+        return this.deadline;
+    }
 }

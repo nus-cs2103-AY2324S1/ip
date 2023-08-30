@@ -26,7 +26,7 @@ public class Duke {
                 String input = ui.getCommand();
 
                 //handle the input from user
-                Command command = Parser.parse(input, tasks);
+                Command command = Parser.parse(input);
                 command.execute(tasks, ui, storage);
                 if (command.isExit()) {
                     break;

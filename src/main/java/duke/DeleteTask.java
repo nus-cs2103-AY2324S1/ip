@@ -23,4 +23,19 @@ public class DeleteTask extends Command {
     public boolean isExit() {
         return false;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        } else if (this == null || obj == null) {
+            return false;
+        } else {
+            if (obj instanceof DeleteTask) {
+                DeleteTask deletetask = (DeleteTask) obj;
+                return this.indexToDelete == deletetask.indexToDelete;
+            }
+            return false;
+        }
+    }
 }

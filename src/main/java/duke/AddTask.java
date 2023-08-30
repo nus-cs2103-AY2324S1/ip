@@ -22,4 +22,8 @@ public class AddTask extends Command {
             ui.printException(e.getMessage());
         }
     }
+    @Override
+    public String toString() {
+        return this.task.toString();
+    }
 }
