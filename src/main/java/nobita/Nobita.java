@@ -30,7 +30,7 @@ public class Nobita {
             try {
                 String fullCommand = ui.readCommand();
                 System.out.println(fullCommand);
-                ui.showLine(); // show the divider line ("_______")
+                ui.showLine();
                 Command c = Parser.parse(fullCommand);
                 c.execute(tasks, ui, storage);
                 isExit = c.isExit();
