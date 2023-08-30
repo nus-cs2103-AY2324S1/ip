@@ -1,2 +1,6 @@
 T|N|read book
-T|N|write book
+T|Y|write book
+T|Y|run 
+D|Y|report |2000-12-09
+D|Y|homeowrk |2002-07-22
+E|Y|dance |2000-12-09|2002-07-22
