@@ -1,7 +1,7 @@
 package duke.exception;
 
 /**
- * Represents an duke.exception.EmptyDescriptionException.
+ * Represents a duke.exception.EmptyDescriptionException.
  *
  * @author Pearlynn
  */

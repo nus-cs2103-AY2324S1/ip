@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import duke.Duke;
 import duke.exception.DukeException;
 import duke.exception.EmptyDescriptionException;
+import duke.exception.EmptyKeywordException;
 import duke.exception.EmptyTaskException;
 import duke.exception.NoSpaceAfterException;
 import duke.exception.NoSpaceBeforeException;
@@ -246,6 +247,32 @@ public class TaskList {
         } catch (IndexOutOfBoundsException e) {
             Duke.getUi().printIndexOutOfBoundsException(getList());
         } catch (NoSpaceAfterException | EmptyTaskException e) {
+            Duke.getUi().showError(e.getMessage());
+        }
+    }
+
+    /**
+     * Finds the task.
+     *
+     * @param command The command given by the user.
+     */
+    public void find(String command) {
+        try {
+            String[] result = command.split(" ");
+            if (result.length == 1 && !command.startsWith("find ") && command.length() > 4) {
+                throw new NoSpaceAfterException("find");
+            } else if (result.length == 1) {
+                throw new EmptyKeywordException();
+            }
+            String keyword = command.substring(5);
+            ArrayList<Task> matchList = new ArrayList<>();
+            for (Task t : this.list) {
+                if (t.getDescription().contains(keyword)) {
+                    matchList.add(t);
+                }
+            }
+            Duke.getUi().printFindTask(matchList);
+        } catch (NoSpaceAfterException | EmptyKeywordException e) {
             Duke.getUi().showError(e.getMessage());
         }
     }

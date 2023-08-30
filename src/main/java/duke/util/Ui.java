@@ -116,6 +116,18 @@ public class Ui {
     }
 
     /**
+     * Prints the task list containing the tasks with the keyword.
+     *
+     * @param list The task list containing the tasks with the keyword.
+     */
+    public void printFindTask(ArrayList<Task> list) {
+        System.out.println("\t Here are the matching tasks in your list:");
+        for (int i = 0; i < list.size(); i++) {
+            System.out.println("\t " + (i + 1) + "." + list.get(i).toString());
+        }
+    }
+
+    /**
      * Prints the error message when an IndexOutOfBoundsException occurs.
      *
      * @param list The task list.

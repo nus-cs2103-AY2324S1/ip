@@ -1,7 +1,7 @@
 package duke.exception;
 
 /**
- * Represents an duke.exception.EmptyTaskException.
+ * Represents a duke.exception.EmptyTaskException.
  *
  * @author Pearlynn
  */
