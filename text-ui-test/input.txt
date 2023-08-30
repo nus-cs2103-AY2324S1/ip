@@ -1,9 +1,10 @@
 list
 todo newly added task
-deadline another new deadline /by some time
+deadline new deadline /by 2011-09-11
 event yet another new event /from time1 /to time2
 don't add this
 deadline dont add this too
+deadline bad date deadline /by some time
 event dont add this too
 list
 mark 1
