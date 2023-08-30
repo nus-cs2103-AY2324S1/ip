@@ -11,8 +11,14 @@ import duke.task.Event;
  * Inherits from the Command class.
  */
 public class AddEventCommand extends Command {
+
+    /** The description of the event to add */
     private final String description;
+
+    /** The start time of the event to add */
     private final String from;
+
+    /** The end time of the event to add */
     private final String to;
 
     /**

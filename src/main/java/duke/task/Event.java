@@ -8,7 +8,11 @@ import java.time.format.DateTimeFormatter;
  * Inherits from the Task class.
  */
 public class Event extends Task {
+
+    /** The start time of the event */
     protected LocalDateTime from;
+
+    /** The end time of the event */
     protected LocalDateTime to;
 
     /**

@@ -10,6 +10,8 @@ import duke.ui.Ui;
  * Inherits from the Command class.
  */
 public class MarkAsUndoneCommand extends Command {
+
+    /** The index of the task to mark as undone */
     private final int taskIndex;
 
     /**

@@ -10,6 +10,8 @@ import duke.ui.Ui;
  * Inherits from the Command class.
  */
 public class MarkAsDoneCommand extends Command {
+
+    /** The index of the task to mark as done */
     private final int taskIndex;
 
     /**

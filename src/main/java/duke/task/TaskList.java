@@ -8,6 +8,8 @@ import java.util.ArrayList;
  * Represents a list of tasks.
  */
 public class TaskList {
+
+    /** The tasks in the task list */
     private final ArrayList<Task> tasks;
 
     /**

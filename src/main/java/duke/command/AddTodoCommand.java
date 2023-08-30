@@ -11,6 +11,8 @@ import duke.ui.Ui;
  * Inherits from the Command class.
  */
 public class AddTodoCommand extends Command {
+
+    /** The description of the todo to add */
     private final String description;
 
     /**

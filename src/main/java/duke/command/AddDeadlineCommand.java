@@ -11,7 +11,11 @@ import duke.ui.Ui;
  * Inherits from the Command class.
  */
 public class AddDeadlineCommand extends Command {
+
+    /** The description of the deadline to add */
     private final String description;
+
+    /** The deadline of the deadline to add */
     private final String by;
 
     /**

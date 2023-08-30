@@ -11,6 +11,8 @@ import duke.ui.Ui;
  * Inherits from the Command class.
  */
 public class DeleteCommand extends Command {
+
+    /** The index of the task to delete */
     private final int taskIndex;
 
     /**

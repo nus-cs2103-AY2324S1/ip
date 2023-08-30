@@ -8,6 +8,8 @@ import java.time.format.DateTimeFormatter;
  * Inherits from the Task class.
  */
 public class Deadline extends Task {
+
+    /** The deadline of the task */
     protected LocalDateTime by;
 
     /**
