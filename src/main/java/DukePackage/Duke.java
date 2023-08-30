@@ -1,3 +1,9 @@
+package DukePackage;
+
+import ToolsPackage.Storage;
+import ToolsPackage.TaskList;
+import ToolsPackage.Ui;
+import ToolsPackage.Parser;
 import java.util.Scanner;
 
 public class Duke {

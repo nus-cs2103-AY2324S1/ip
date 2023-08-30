@@ -1,3 +1,7 @@
+package TaskPackage;
+
+import DukePackage.DukeException;
+
 public class ToDos extends Task {
 
     public ToDos(String task, String done) throws DukeException {
