@@ -13,12 +13,25 @@ import java.util.Objects;
 
 public class Storage {
 
+    /** The file path to store, read and save all tasks within the program. */
     private Path filePath;
 
+    /**
+     * Creates a new Storage object with the given filePath.
+     *
+     * @param filePath The file path to store, read and save all tasks within the program.
+     */
     public Storage(Path filePath) {
         this.filePath = filePath;
     }
 
+    /**
+     * Processes a line of the file retrieved from the hard disk, and adds the corresponding task into a specified
+     * TaskList if the line is valid.
+     *
+     * @param line The line of the file to be parsed and added into the TaskList.
+     * @param tasks The TaskList to store any new Task parsed into.
+     */
     public void processLine(String line, TaskList tasks) {
         Task newTask;
         String[] lineSeq = line.split(" \\| ");
@@ -48,6 +61,13 @@ public class Storage {
         }
     }
 
+    /**
+     * Loads all tasks from the file in the hard disk, and returns the TaskList containing all tasks processed from the
+     * file.
+     *
+     * @return TaskList containing all valid tasks processed from the file; else empty TaskList if any error in reading
+     * the file occurs.
+     */
     public TaskList load() {
         TaskList tasks = new TaskList();
         boolean fileExists = Files.exists(filePath);
@@ -67,6 +87,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Saves all tasks in the chatbot into the file in the hard disk.
+     *
+     * @param tasks The list of tasks to be saved into the file.
+     */
     public void saveTasks(TaskList tasks) {
         boolean fileExists = Files.exists(filePath);
         try {
