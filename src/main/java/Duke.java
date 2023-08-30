@@ -1,7 +1,3 @@
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -10,11 +6,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Scanner;
+import java.util.stream.Stream;
 
 public class Duke {
     private static String LINE_SEPARATOR = "    ----------------------------------------------------------------------";
     private static ArrayList<Task> tasks = new ArrayList<Task>();
     private static Boolean programRunning = true;
+
+    Storage storage;
 
     private enum TaskType {
         TODO, DEADLINE, EVENT
@@ -330,17 +329,11 @@ public class Duke {
     }
 
     private static void loadTasks() throws DukeException{
-        Path taskFilePath = Path.of("./data/duke.txt");
+        Stream<String> taskDataStream = Storage.readFile("tasks.txt");
 
         try {
-            if (!Files.exists(taskFilePath)) {
-                Files.createDirectories(taskFilePath.getParent());
-                Files.createFile(taskFilePath);
-            }
-
-            BufferedReader reader = Files.newBufferedReader(taskFilePath);
             DateTimeFormatter parser = DateTimeFormatter.ofPattern("dd-MM-yyyy[ HHmm]");
-            reader.lines().forEach(line -> {
+            taskDataStream.forEach(line -> {
                 String[] taskData = line.split(" \\| ");
                 
                 // Handles case where empty line is read
@@ -409,28 +402,11 @@ public class Duke {
         }
     }
 
-    private static void storeTasks() throws DukeException{
-        Path taskFilePath = Path.of("./data/duke.txt");
-        
+    private static void storeTasks() throws DukeException {
         try {
-            Files.deleteIfExists(taskFilePath);
-        } catch (Exception e) {
-            throw new DukeException("Unable to save task data.");
-        }
-
-        try {
-            BufferedWriter writer = Files.newBufferedWriter(taskFilePath);
-            for (Task task: tasks) {
-                 try {
-                    writer.write(task.getDataString());
-                    writer.newLine();
-                } catch (Exception e) {
-                    throw new DukeException("Unable to write task data.");
-                }
-            }
-            writer.close();
-        } catch (Exception e) {
-            throw new DukeException("Unable to open file.");
+            Storage.writeFile("tasks.txt", tasks.stream().map(task -> task.getDataString()));
+        } catch (DukeException e) {
+            Duke.respond(e);
         }
     }
 
