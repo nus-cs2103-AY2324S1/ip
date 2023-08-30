@@ -3,4 +3,6 @@ deadline / 0 / return book / 2023-06-06 1200
 event / 0 / project meeting / 2023-08-06 1400 / 2023-08-06 1600
 todo / 1 / join sports club
 event / 0 / tutorial / 2023-08-27 1200 / 2023-08-27 1400
-deadline / 0 / chem homework / 2023-08-06 2200
+deadline / 0 / chem homework / 2023-08-06 1600
+todo / 1 / run
+event / 0 / marathon / 2023-08-06 0500 / 2023-08-06 0700
