@@ -13,7 +13,7 @@ public abstract class Task {
     /**
      * Boolean to track whether the task has been marked as done.
      */
-    private boolean done;
+    private boolean isDone;
 
     /**
      * format of output.
@@ -33,21 +33,21 @@ public abstract class Task {
      */
     public Task(String name) {
         this.taskName = name;
-        this.done = false;
+        this.isDone = false;
     }
 
     /**
      * Marks the task as done.
      */
     public void markAsDone() {
-        this.done = true;
+        this.isDone = true;
     }
 
     /**
      * Marks the task as undone.
      */
     public void markAsUndone() {
-        this.done = false;
+        this.isDone = false;
     }
 
     /**
@@ -57,7 +57,7 @@ public abstract class Task {
      */
     @Override
     public String toString() {
-        if (this.done) {
+        if (this.isDone) {
             return "[X] " + taskName;
         } else {
             return "[ ] " + taskName;
@@ -77,7 +77,7 @@ public abstract class Task {
      * @return A boolean representation of whether the task is done.
      */
     public boolean getDone() {
-        return this.done;
+        return this.isDone;
     }
 
     /**
