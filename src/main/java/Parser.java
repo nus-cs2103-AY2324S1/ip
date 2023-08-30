@@ -37,6 +37,13 @@ public class Parser {
     }
   }
 
+  public String getTaskName() {
+    String commandString = this.getCommandString();
+    int commandLength = commandString.length() + 1;
+    return inputString.substring(commandLength);
+
+  }
+
 
   private String inputString;
   private String[] inputTokens;

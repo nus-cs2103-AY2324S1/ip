@@ -90,9 +90,7 @@ public class Duke {
         }
         case "todo": {
           try {
-            int commandLength = commandString.length() + 1;
-            String taskName = inputString.substring(commandLength);
-            Task curentTask = new Todo(taskName);
+            Task curentTask = new Todo(parser.getTaskName());
             taskList.add(curentTask);
 
             System.out.println("added:\t" + uiFormatter.displayTask(curentTask));
