@@ -23,10 +23,9 @@ public class Parser {
     public Command parse(String fullCommand) throws ChatterException {
         switch (this.keyword) {
         case("list"):
-            this.
-            break;
+            return new ListCommand();
         case("mark"):
-            break;
+            return new MarkCommand(true, Character.getNumericValue(this.input.charAt(5)));
         case("unmark"):
             break;
         case("delete"):

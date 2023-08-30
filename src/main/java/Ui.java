@@ -60,4 +60,34 @@ public class Ui {
         System.out.println("  " + task.toString());
         System.out.println("You now have " + numOfTasks + " task(s) in the list.");
     }
+
+    /**
+     * Prints completed task string.
+     *
+     * @param task Task that is being marked done.
+     */
+    public void showMarkedTask(Task task) {
+        System.out.println("Good job! I've marked this task as completed:");
+        System.out.println("  " + task);
+    }
+
+    /**
+     * Prints unmarked task string.
+     *
+     * @param task Task that is being unmarked.
+     */
+    public void showUnmarkedTask(Task task) {
+        System.out.println("OK! I've marked this task as not done yet:");
+        System.out.println("  " + task);
+    }
+
+    /**
+     * Prints out list of tasks to display to the user.
+     */
+    public void listTasks(TaskList tasks, int numOfTasks) {
+        System.out.println("These are all the task(s) in your list:");
+        for (int i = 0; i < numOfTasks; i++) {
+            System.out.println("  " + (i + 1) + "." + tasks.getTask(i).toString());
+        }
+    }
 }

@@ -52,14 +52,11 @@ public class TaskList {
     /**
      * Marks specific Task in list as completed.
      *
-     * @param taskNumber Number of task in list to be mark as completed.
+     * @param taskNumber Index number of task in list to be mark as completed.
      */
     public void markTaskAsDone(int taskNumber) {
         Task completedTask = list.get(taskNumber - 1);
         completedTask.markAsDone();
-
-        System.out.println("Good job! I've marked this task as completed:");
-        System.out.println("  " + completedTask);
     }
 
     /**
@@ -85,19 +82,6 @@ public class TaskList {
     public void markTaskAsNotDone(int taskNumber) {
         Task unmarkedTask = list.get(taskNumber - 1);
         unmarkedTask.markAsNotDone();
-
-        System.out.println("OK! I've marked this task as not done yet:");
-        System.out.println("  " + unmarkedTask);
-    }
-
-    /**
-     * Prints out list of tasks to display to the user.
-     */
-    public void listTasks() {
-        System.out.println("These are all the task(s) in your list:");
-        for (int i = 0; i < numOfTasks; i++) {
-            System.out.println("  " + (i + 1) + "." + list.get(i).toString());
-        }
     }
 
     /**
@@ -123,5 +107,14 @@ public class TaskList {
         }
 
         return storageString.toString();
+    }
+
+    /**
+     * Returns a specific Task object at the specified index.
+     *
+     * @return Task object at the specified index.
+     */
+    public Task getTask(int index) {
+        return list.get(index);
     }
 }

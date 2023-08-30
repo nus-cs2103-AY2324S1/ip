@@ -1,19 +1,19 @@
 /**
- * Represents a Command class that is responsible for exiting the chatbot.
+ * Represents a Command class that is responsible for listing the tasks in the list of tasks.
  *
  * @author Anthony Tamzil
  * @version CS2103T Individual Project AY2023/24 Semester 1
  */
-public class ExitCommand extends Command{
+public class ListCommand extends Command{
     /**
-     * Constructor for the ExitCommand class for users to exit the chatbot.
+     * Constructor for the ListCommand class for users to list all the tasks.
      */
-    public ExitCommand() {
+    public ListCommand() {
         super();
     }
 
     /**
-     * Changes isExit boolean to true and closes the Scanner object in Ui class.
+     * Lists all the tasks.
      *
      * @param tasks TaskList class storing an ArrayList of Task objects.
      * @param ui Ui class to handle user interactions.
@@ -21,7 +21,6 @@ public class ExitCommand extends Command{
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
-        this.setExit();
-        ui.showExit();
+        ui.listTasks(tasks, tasks.getNumOfTasks());
     }
 }
