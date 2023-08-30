@@ -1,9 +1,4 @@
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
-
+Unable to Load
 Hello! I'm Chad. 
 What can I do for you?
 
