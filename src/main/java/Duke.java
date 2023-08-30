@@ -7,6 +7,9 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 public class Duke {
     private static final String name = "Bot";
@@ -87,7 +90,7 @@ public class Duke {
         } else {
             try {
                 addtolist(s);
-            } catch (InputMismatchException e) {
+            } catch (DukeMissingArgumentException | DukeInvalidArgumentException e) {
                 System.out.println(e.toString());
             }
             return true;
@@ -105,7 +108,7 @@ public class Duke {
         System.out.println("OK, I've marked this task as not done yet:");
         System.out.println(todolist.get(i - 1).toString());
     }
-    private void addtolist(String s) {
+    private void addtolist(String s) throws DukeMissingArgumentException, DukeInvalidArgumentException {
         StringBuilder str = new StringBuilder(s);
         String check1 = "";
         String check2 = "";
@@ -121,7 +124,7 @@ public class Duke {
         }
         if (check1.equals("todo")) {
             if (s.length() <= 5) {
-                throw new InputMismatchException("task blank");
+                throw new DukeMissingArgumentException();
             } else {
                 System.out.println("Got it. I've added this task:");
                 Todo t = new Todo(str.substring(5, str.length()).toString());
@@ -130,29 +133,50 @@ public class Duke {
             }
         } else if (check2.equals("deadline")) {
             if (s.length() <= 9) {
-                throw new InputMismatchException("task blank");
+                throw new DukeMissingArgumentException();
             } else {
-                System.out.println("Got it. I've added this task:");
-                String t = str.substring(9, str.length()).toString();
-                String[] arr = t.split("/by ");
-                Deadline d = new Deadline(arr[0], arr[1]);
-                todolist.add(d);
-                System.out.println(d.toString());
+                try {
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yy HH:mm");
+                    String t = str.substring(9, str.length()).toString();
+                    String[] arr = t.split("/by ");
+                    LocalDateTime deadline = LocalDateTime.parse(arr[1], formatter);
+                    Deadline d = new Deadline(arr[0], deadline);
+                    todolist.add(d);
+                    System.out.println("Got it. I've added this task:");
+                    System.out.println(d.toString());
+                } catch (IndexOutOfBoundsException e) {
+                    throw new DukeMissingArgumentException();
+                } catch (DateTimeParseException e) {
+                    System.out.println("Please enter the start/end time in the format of <DD/MM/YY HH:MM>!");
+                }
             }
         } else if (check3.equals("event")) {
             if (s.length() <= 6) {
-                throw new InputMismatchException("task blank");
+                throw new DukeMissingArgumentException();
             } else {
-                System.out.println("Got it. I've added this task:");
-                String t = str.substring(6, str.length()).toString();
-                String[] arr = t.split("/from ");
-                String[] arrr = arr[1].split("/to ");
-                Event e = new Event(arr[0], arrr[0], arrr[1]);
-                todolist.add(e);
-                System.out.println(e.toString());
+                try {
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yy HH:mm");
+                    String t = str.substring(6, str.length()).toString();
+                    String[] arr = t.split("/from ");
+                    String[] times = arr[1].split(" /to ");
+                    LocalDateTime startTime = LocalDateTime.parse(times[0], formatter);
+                    LocalDateTime endTime = LocalDateTime.parse(times[1], formatter);
+                    if (startTime.isAfter(endTime)) {
+                        System.out.println("\tEnd time must be after the start time!\n");
+                        return;
+                    }
+                    Event e = new Event(arr[0], startTime, endTime);
+                    todolist.add(e);
+                    System.out.println("Got it. I've added this task:");
+                    System.out.println(e.toString());
+                } catch (IndexOutOfBoundsException e) {
+                    throw new DukeMissingArgumentException();
+                } catch (DateTimeParseException e) {
+                    System.out.println("Please enter the start/end time in the format of <DD/MM/YY HH:MM>!");
+                }
             }
         } else {
-            throw new InputMismatchException("invalid input");
+            throw new DukeInvalidArgumentException();
         }
         System.out.println("Now you have " + todolist.size() + " tasks in the list.");
 

@@ -1,2 +1,1 @@
-T|1|eat shit
-T|0|sleep
+E|0|project meeting |from 2011-10-11T00:00 to 2011-10-11T11:00
