@@ -1,15 +1,75 @@
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Duke {
-//    private static Task[] items = new Task[100];
     private static ArrayList<Task> items = new ArrayList<>();
     private static int itemsCount = 0;
+    private static File taskListFile = null;
+
+    public static void initialiseTaskListFile() {
+        try {
+            // Load existing file
+            System.out.println("Trying to load existing task list in ./data/duke.txt...");
+            File f = new File("./data/duke.txt");
+
+            // Load file contents into items array
+            Scanner s = new Scanner(f);
+            while (s.hasNext()) {
+                Task task = Task.createTaskFromEntry(s.nextLine());
+                if (task != null) {
+                    items.add(task);
+                    itemsCount++;
+                }
+            }
+
+            taskListFile = f;
+            printTasks();
+        } catch (FileNotFoundException e) {
+            // No file, create new one
+            System.out.println("No existing task list found, creating a new file ./data/duke.txt");
+
+            try {
+                File dataDir = new File("./data");
+                if (!dataDir.exists()) {
+                    dataDir.mkdir();
+                }
+
+                File f = new File("./data/duke.txt");
+                f.createNewFile();
+                System.out.println("File created.");
+
+                taskListFile = f;
+            } catch (IOException e1) {
+                System.out.println("Something went wrong: " + e.getMessage());
+            }
+        }
+    }
+
+    public static void updateTaskListFile() {
+        try {
+            FileWriter fw = new FileWriter("./data/duke.txt");
+            StringBuilder tasksString = new StringBuilder();
+            for (int i = 0; i < itemsCount; i++) {
+                String task = items.get(i).toTaskListEntry();
+                tasksString.append(task + "\n");
+            }
+
+            fw.write(tasksString.toString());
+            fw.close();
+        } catch (IOException e) {
+            System.out.println("Something went wrong while updating file: " + e.getMessage());
+        }
+    }
 
     public static void addTask(Task t) {
-//        items[itemsCount] = t;
         items.add(t);
         itemsCount++;
+        updateTaskListFile();
 
         System.out.println("Got it. I've added this task:");
         System.out.println(t);
@@ -19,15 +79,40 @@ public class Duke {
     public static void removeTask(Task t) {
         items.remove(t);
         itemsCount--;
+        updateTaskListFile();
 
         System.out.println("Noted. I've removed this task:");
         System.out.println(t);
         System.out.println("Now you have " + itemsCount + " task(s) in the list.");
     }
 
+    public static void markTask(Task t, boolean isDone) {
+        if (isDone) {
+            t.markAsDone();
+        } else {
+            t.markAsUndone();
+        }
+        updateTaskListFile();
+    }
+
+    public static void printTasks() {
+        System.out.println("List of items:");
+        for (int i = 0; i < itemsCount; i++) {
+            int index = i + 1;
+            System.out.println(index + "." + items.get(i));
+        }
+    }
+
     public static void main(String[] args) {
         // Greeting
-        System.out.println("Hello! I'm Eepy\nWhat can I do for you?");
+        System.out.println("Hello! I'm Eepy 😸");
+
+        // Initialise file
+        initialiseTaskListFile();
+        if (taskListFile == null) {
+            // No file found / created
+            return;
+        }
 
         // Get input and store it
         Scanner in = new Scanner(System.in);
@@ -44,30 +129,27 @@ public class Duke {
                     break;
                 } else if (s.equals("list")) {
                     // List out all items
-                    System.out.println("List of items:");
-                    for (int i = 0; i < itemsCount; i++) {
-                        int index = i + 1;
-                        System.out.println(index + "." + items.get(i));
-                    }
+                    printTasks();
                 } else if (s.startsWith("mark")) {
                     // Mark item as done
                     try {
-                        int index = Integer.parseInt(s.substring(4).trim());
+                        int index = Integer.parseInt(s.substring(4).trim()) - 1;
                         if (index <= 0 || index >= itemsCount) {
                             throw new DukeException("Index out of range!");
                         }
-                        items.get(index - 1).markAsDone();
+
+                        markTask(items.get(index - 1), true);
                     } catch (NumberFormatException e) {
                         throw new DukeException("Please enter a valid number!");
                     }
                 } else if (s.startsWith("unmark")) {
                     // Mark item as done
                     try {
-                        int index = Integer.parseInt(s.substring(6).trim());
+                        int index = Integer.parseInt(s.substring(6).trim()) - 1;
                         if (index <= 0 || index >= itemsCount) {
                             throw new DukeException("Index out of range!");
                         }
-                        items.get(index - 1).markAsUndone();
+                        markTask(items.get(index - 1), false);
                     } catch (NumberFormatException e) {
                         throw new DukeException("Please enter a valid number!");
                     }
@@ -84,7 +166,7 @@ public class Duke {
                     int byIndex = s.indexOf("/by");
                     if (byIndex == -1) {
                         // "/by" not found
-                        throw new DukeException("Please include when the deadline is! (`deadline name \\by date`)");
+                        throw new DukeException("Please include when the deadline is! (`deadline name /by date`)");
                     }
 
                     String name = s.substring(8, byIndex).trim();
@@ -92,7 +174,7 @@ public class Duke {
 
                     if (name.equals("") || by.equals("")) {
                         // No name or deadline
-                        throw new DukeException("Please include name and deadline! (`deadline name \\by date`)");
+                        throw new DukeException("Please include name and deadline! (`deadline name /by date`)");
                     }
 
                     addTask(new Deadline(name, by));
@@ -103,7 +185,8 @@ public class Duke {
                     int toIndex = s.indexOf("/to");
                     if (fromIndex == -1 || toIndex == -1) {
                         // "/from" or "/to" not found
-                        throw new DukeException("Please include when the event is from and to! (`event name \\from date \\to date`)");
+                        throw new DukeException("Please include when the event is from and to!"
+                                + "(`event name /from date /to date`)");
                     }
 
                     String name = s.substring(5, fromIndex).trim();
@@ -111,15 +194,15 @@ public class Duke {
                     String to = s.substring(toIndex + 3).trim();
                     if (name.equals("") || from.equals("") || to.equals("")) {
                         // No name, from or to
-                        throw new DukeException("Please include the name of the event" +
-                                "and when the event is from and to! (`event name \\from date \\to date`)");
+                        throw new DukeException("Please include the name of the event"
+                                + "and when the event is from and to! (`event name /from date /to date`)");
                     }
 
                     addTask(new Event(name, from, to));
                 } else if (s.startsWith("delete")) {
                     // Delete item
                     try {
-                        int index = Integer.parseInt(s.substring(6).trim());
+                        int index = Integer.parseInt(s.substring(6).trim()) - 1;
                         if (index <= 0 || index >= itemsCount) {
                             throw new DukeException("Index out of range!");
                         }
