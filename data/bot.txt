@@ -1,3 +1,2 @@
-T|0|codeforces
-T|0|sleep
-E|1|enter the speed force |Nov 22 2012 00:15|Nov 22 2012 00:16
+T|0|wallah
+E|0|enter the codeforce |Nov 22 2012 00:15|Nov 22 2012 00:16

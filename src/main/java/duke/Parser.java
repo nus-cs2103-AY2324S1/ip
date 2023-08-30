@@ -1,8 +1,16 @@
 package duke;
 
-import java.util.ArrayList;
-
+/**
+ * Provides functionality to parse user input and determine the command type.
+ */
 public class Parser {
+
+    /**
+     * Parses the user input to identify the command type.
+     *
+     * @param s The input string provided by the user.
+     * @return The identified command type as a string, or null if no recognized command type is found.
+     */
     public static String parseCommand(String s) {
         StringBuilder str = new StringBuilder(s);
         String check1 = "";

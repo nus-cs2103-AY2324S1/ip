@@ -11,7 +11,7 @@ public class TasklistTest {
     public void markTest() {
         Tasklist list = new Tasklist();
         try {
-            list.addtolist("todo sleep");
+            list.addToList("todo sleep");
             list.mark(1);
         } catch (DukeException e) {
             // do nothing
@@ -23,9 +23,9 @@ public class TasklistTest {
     public void deleteTest() {
         Tasklist list = new Tasklist();
         try {
-            list.addtolist("todo sleep");
-            list.addtolist("todo go home");
-            list.addtolist("todo codeforces");
+            list.addToList("todo sleep");
+            list.addToList("todo go home");
+            list.addToList("todo codeforces");
             list.delete(2);
         } catch (DukeException e) {
             // do nothing

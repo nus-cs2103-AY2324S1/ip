@@ -12,32 +12,61 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
+/**
+ * Represents a list of tasks with functionality to add, delete, mark, and unmark tasks.
+ */
 public class Tasklist {
-    private ArrayList<Task> todolist;
 
+    /**
+     * The actual list storing the tasks.
+     */
+    private ArrayList<Task> todoList;
+
+    /**
+     * Initializes an empty task list.
+     */
     public Tasklist() {
-        this.todolist = new ArrayList<>();
+        this.todoList = new ArrayList<>();
     }
+
+    /**
+     * Marks a task as done based on the index provided.
+     *
+     * @param i Index of the task in the list.
+     */
     public void mark(int i) {
-        if (i > todolist.size() || i <= 0) {
+        if (i > todoList.size() || i <= 0) {
             System.out.println("Please mark something in the list");
             return;
         }
-        todolist.get(i - 1).mark();
-        Task t = todolist.get(i - 1);
+        todoList.get(i - 1).mark();
+        Task t = todoList.get(i - 1);
         Ui.mark(t);
     }
 
+    /**
+     * Unmarks a task based on the index provided.
+     *
+     * @param i Index of the task in the list.
+     */
     public void unmark(int i) {
-        if (i > todolist.size() || i <= 0) {
+        if (i > todoList.size() || i <= 0) {
             System.out.println("Please unmark something in the list");
             return;
         }
-        todolist.get(i - 1).unmark();
-        Task t = todolist.get(i - 1);
+        todoList.get(i - 1).unmark();
+        Task t = todoList.get(i - 1);
         Ui.unmark(t);
     }
-    public void addtolist(String s) throws DukeMissingArgumentException, DukeInvalidArgumentException {
+
+    /**
+     * Adds a task to the list based on the provided command string.
+     *
+     * @param s Command string to parse and add the task.
+     * @throws DukeMissingArgumentException If the required arguments for a task are missing.
+     * @throws DukeInvalidArgumentException  If the provided arguments for a task are invalid.
+     */
+    public void addToList(String s) throws DukeMissingArgumentException, DukeInvalidArgumentException {
         StringBuilder str = new StringBuilder(s);
         String cmd = Parser.parseCommand(s);
         Task task = null;
@@ -49,7 +78,7 @@ public class Tasklist {
                 throw new DukeMissingArgumentException();
             } else {
                 Todo t = new Todo(str.substring(5, str.length()).toString());
-                todolist.add(t);
+                todoList.add(t);
                 task = t;
             }
         } else if (cmd.equals("deadline")) {
@@ -62,7 +91,7 @@ public class Tasklist {
                     String[] arr = t.split("/by ");
                     LocalDateTime deadline = LocalDateTime.parse(arr[1], formatter);
                     Deadline d = new Deadline(arr[0], deadline);
-                    todolist.add(d);
+                    todoList.add(d);
                     task = d;
                 } catch (IndexOutOfBoundsException e) {
                     throw new DukeMissingArgumentException();
@@ -87,7 +116,7 @@ public class Tasklist {
                         return;
                     }
                     Event e = new Event(arr[0], startTime, endTime);
-                    todolist.add(e);
+                    todoList.add(e);
                     task = e;
                 } catch (IndexOutOfBoundsException e) {
                     throw new DukeMissingArgumentException();
@@ -99,28 +128,43 @@ public class Tasklist {
         } else {
             throw new DukeInvalidArgumentException();
         }
-        Ui.add(task, todolist.size());
+        Ui.add(task, todoList.size());
     }
 
+    /**
+     * Deletes a task from the list based on the provided index.
+     *
+     * @param i Index of the task to delete.
+     */
     public void delete(int i) {
-        if (i > todolist.size() || i <= 0) {
+        if (i > todoList.size() || i <= 0) {
             System.out.println("Please delete something in the list");
             return;
         }
-        Task t = todolist.get(i - 1);
-        todolist.remove(i - 1);
-        Ui.delete(t, todolist.size());
+        Task t = todoList.get(i - 1);
+        todoList.remove(i - 1);
+        Ui.delete(t, todoList.size());
     }
 
-    public void printlist() {
-        for (int i = 1; i <= this.todolist.size(); ++i) {
-            Task t =  this.todolist.get(i - 1);
+
+    /**
+     * Prints all tasks in the list to the console.
+     */
+    public void printList() {
+        for (int i = 1; i <= this.todoList.size(); ++i) {
+            Task t =  this.todoList.get(i - 1);
             System.out.println(i + ". " + t.toString());
         }
     }
 
-    public void savelist(BufferedWriter bw) throws IOException {
-        for (Task task : this.todolist) {
+    /**
+     * Saves the current list of tasks to a file using a BufferedWriter.
+     *
+     * @param bw BufferedWriter to write the tasks to.
+     * @throws IOException If an error occurs during writing.
+     */
+    public void saveList(BufferedWriter bw) throws IOException {
+        for (Task task : this.todoList) {
             bw.write(task.stringifyTask());
             bw.newLine();
         }
@@ -129,7 +173,7 @@ public class Tasklist {
     public String find(String arg) {
         StringBuilder s = new StringBuilder();
         int i = 1;
-        for (Task task : this.todolist) {
+        for (Task task : this.todoList) {
             if (task.find(arg)) {
                 s.append(i++);
                 s.append(". ");
@@ -140,11 +184,17 @@ public class Tasklist {
         return s.toString();
     }
 
+    /**
+     * Converts the task list to a string representation.
+     *
+     * @return String representation of the task list.
+     */
+
     @Override
     public String toString() {
         StringBuilder s = new StringBuilder();
         int i = 1;
-        for (Task task : this.todolist) {
+        for (Task task : this.todoList) {
             s.append(i++);
             s.append(". ");
             s.append(task.toString());
