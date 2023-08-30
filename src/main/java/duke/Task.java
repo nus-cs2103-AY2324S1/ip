@@ -53,6 +53,13 @@ public abstract class Task {
         return this.taskName;
     }
 
+    public boolean containsKeyword(String keyword) {
+        if (this.taskName.contains(keyword)) {
+            return true;
+        }
+        return false;
+    }
+
     public abstract boolean isOnDate(LocalDate date);
 
     public static String[] processInput(String[] splitInput) throws InvalidTaskException {

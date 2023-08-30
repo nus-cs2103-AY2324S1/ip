@@ -50,6 +50,13 @@ public class UI {
         }
     }
 
+    public void printTasksMatching(ArrayList<Task> tasks) {
+        System.out.println("Here are the matching tasks in your list:");
+        for (int i = 0; i < tasks.size(); i++) {
+            System.out.println((i + 1) + "." + tasks.get(i));
+        }
+    }
+
     public void printLoadingErrorMessage() {
         System.out.println("Stored data could not be loaded");
     }
