@@ -10,10 +10,6 @@ import java.util.ArrayList;
  */
 class Duke {
     /**
-     * An array of Tasks.
-     */
-    public static ArrayList<Task> taskArr = new ArrayList<>();
-    /**
      * Name of the text file.
      */
     public static String textFile = "duke.txt";
@@ -58,8 +54,8 @@ class Duke {
 
                 if (type.equals("bye")) {
                     ui.end();
-                    storage.writeToFile();
-                    storage.save();
+                    storage.writeToFile(tasks);
+                    storage.save(tasks);
                     System.out.println(exit);
                     break;
                 } else if (type.equals("list")) {
@@ -94,9 +90,7 @@ class Duke {
                         throw new WrongInput();
                     }
                 }
-            } catch (EmptyDescription e) {
-                System.out.println(e.getMessage());
-            } catch (WrongInput e) {
+            } catch (EmptyDescription | WrongInput e) {
                 System.out.println(e.getMessage());
             }
         }
@@ -119,6 +113,6 @@ class Duke {
 
 
     public static void main(String[] args) {
-        new Duke("duke.txt").run();
+        new Duke(textFile).run();
     }
 }

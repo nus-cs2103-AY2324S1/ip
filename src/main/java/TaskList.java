@@ -131,7 +131,7 @@ class TaskList {
      * @param arr Array of words from the user input
      * @return Description of the task specified by user input
      */
-    public static String getDescription(String[] arr) {
+    public String getDescription(String[] arr) {
         String result = null;
 
         // can safely ignore the first element as we have already
@@ -157,7 +157,7 @@ class TaskList {
      * @param arr Array of Strings after using delimiter
      * @return Final String to be passed in to parse
      */
-    public static String getDeadline(String[] arr) {
+    public String getDeadline(String[] arr) {
         String input = null;
 
         for (int i = 0; i < arr.length; i++) {
@@ -171,7 +171,7 @@ class TaskList {
 
         return result;
     }
-    public static String getEventTimeline(String[] arr) {
+    public String getEventTimeline(String[] arr) {
         String fromInput = null;
         String toInput = null;
         for (int i = 0; i < arr.length; i++) {
@@ -183,5 +183,8 @@ class TaskList {
         String from = LocalDate.parse(fromInput).format(DateTimeFormatter.ofPattern("MMM d yyyy"));
         String to = LocalDate.parse(toInput).format(DateTimeFormatter.ofPattern("MMM d yyyy"));
         return from + " - " + to;
+    }
+    public ArrayList<Task> retrieveArray() {
+        return this.taskArr;
     }
 }

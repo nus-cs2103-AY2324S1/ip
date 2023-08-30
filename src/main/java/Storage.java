@@ -29,12 +29,13 @@ class Storage {
     /**
      * Saves all the tasks' information in a text file.
      */
-    public void writeToFile() {
+    public void writeToFile(TaskList tasks) {
         try {
+            ArrayList<Task> arr = tasks.retrieveArray();
             FileWriter fw = new FileWriter(textFile);
             BufferedWriter bw = new BufferedWriter(fw);
-            for (int i = 0; i < taskArr.size(); i++) {
-                bw.write(taskArr.get(i).toString());
+            for (int i = 0; i < arr.size(); i++) {
+                bw.write(arr.get(i).toString());
                 bw.newLine();
             }
             bw.close();
@@ -43,11 +44,11 @@ class Storage {
             System.out.println(e.getMessage());
         }
     }
-    public void save() {
+    public void save(TaskList tasks) {
         try {
             FileOutputStream fos = new FileOutputStream(dataFile);
             ObjectOutputStream oos = new ObjectOutputStream(fos);
-            oos.writeObject(taskArr);
+            oos.writeObject(tasks.retrieveArray());
             oos.close();
         } catch (IOException e) {
             System.out.println(e.getMessage());
