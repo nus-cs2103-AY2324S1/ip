@@ -1,2 +1,3 @@
-1.[D][ ] sgrfbwr vefgbewb hwrhrgb ( (by: Oct 11 2022 21:10)
-2.[E][X] beewrb rbwbr bwbrg ( (from: Oct 11 2022 21:10 to: Oct 11 2022 21:10)
+1.[T][ ] borrow 
+2.[T][ ] return 
+3.[D][X] gwba (by: Oct 10 2022)
