@@ -42,6 +42,14 @@ public class Parser {
                 Storage.save();
             }
             break;
+        case "find" :
+            if (splitted.length <= 1) {
+                throw new DukeException("Please provide a term to search for! (⋟﹏⋞)");
+            } else {
+                String searchTerm = splitted[1];
+                TaskList.searchFor(searchTerm);
+            }
+            break;
         case "todo":
             if (splitted.length <= 1) {
                 throw new DukeException("Please provide a description for this todo! (⋟﹏⋞)");

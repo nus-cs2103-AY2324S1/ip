@@ -27,8 +27,8 @@ public class Event extends Task{
     @Override
     public String getDescription() {
         return "[E] " + super.getDescription()
-                + " (from: " + this.startTime
-                + " to: " + this.endTime + ")";
+                + " (from:" + this.startTime
+                + " to:" + this.endTime + ")";
     }
 
     /**

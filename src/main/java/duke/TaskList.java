@@ -1,6 +1,8 @@
 package duke;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Represents a task list.
@@ -98,4 +100,21 @@ public class TaskList {
         }
     }
 
+    /**
+     * Searches for a task in the task list.
+     * @param searchTerm the term to search for in the task list.
+     */
+    public static void searchFor(String searchTerm) {
+        List<Task> result = toDo.stream()
+                .filter(task -> task.checkTerm(searchTerm))
+                .collect(Collectors.toList());
+        System.out.println("        ____________________________________________________________"
+                + "\n        Here are the matching tasks in your list:");
+        for (int i = 0; i < result.size(); i++) {
+            Task currTask = result.get(i);
+            String description = currTask.getDescription();
+            System.out.println("        " + (i + 1) + "." + description);
+        }
+        System.out.println("        ____________________________________________________________");
+    }
 }

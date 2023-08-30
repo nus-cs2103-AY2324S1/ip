@@ -46,4 +46,13 @@ public class Task {
         String status = this.isDone ? "1" : "0";
         return "| " + status + " | " + this.description;
     }
+
+    /**
+     * Checks if a search term is in the description of a task.
+     * @param term the term to check for in the task description.
+     * @return returns true if the term is in the task description and false if the term is not in the task description
+     */
+    public boolean checkTerm(String term) {
+        return this.description.toLowerCase().contains(term.toLowerCase());
+    }
 }

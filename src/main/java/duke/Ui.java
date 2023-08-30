@@ -1,5 +1,6 @@
 package duke;
-import java.util.ArrayList;
+
+import java.util.List;
 
 /**
  * Deals with user interactions.
