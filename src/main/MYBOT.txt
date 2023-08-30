@@ -1,2 +1,3 @@
-T|Y|sleep
-T|N|eat
+T|N|sleep
+D|N|slp|28 Dec 2020, Monday
+D|N|slp|28 Dec 2020, Monday, 4.30PM

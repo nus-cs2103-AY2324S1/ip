@@ -1,5 +1,8 @@
 import java.io.IOException;
 import java.util.List;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 
 public class MYBot {
 
@@ -78,7 +81,7 @@ public class MYBot {
                 }
 
                 String description = input.substring(9, input.indexOf(" /by "));
-                String by = input.substring(input.indexOf(" /by ") + 4);
+                String by = (input.substring(input.indexOf(" /by ") + 4)).substring(1);
 
                 if (description.isBlank()) {
                     throw new MYBotExceptions.EmptyDetailsException("description", "deadline");
@@ -99,8 +102,9 @@ public class MYBot {
                 }
 
                 String description = input.substring(6, input.indexOf(" /from "));
-                String from = input.substring(input.indexOf(" /from ") + 6, input.indexOf(" /to"));
-                String to = input.substring(input.indexOf(" /to ") + 4);
+                String from = (input.substring(input.indexOf(" /from ") + 6, input.indexOf(" /to"))).substring(1);
+                String to = (input.substring(input.indexOf(" /to ") + 4)).substring(1);
+                System.out.println(from + "\n" + to);
 
                 if (description.isBlank()) {
                     throw new MYBotExceptions.EmptyDetailsException("description", "event");
