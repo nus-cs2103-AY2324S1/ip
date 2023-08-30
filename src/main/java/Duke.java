@@ -1,14 +1,17 @@
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Scanner;
+
 public class Duke {
 
     //private static final Task[] tasks = new Task[100];
     private static final ArrayList<Task> tasks = new ArrayList<>();
     private static int count = 0;
     private static boolean terminate = false;
+    private static final FileHandler duke = new FileHandler();
     private static final String separation = "____________________________________________";
 
     // A greeting display everytime entering the program
-    private static void OnEnter () {
+    private static void OnEnter() {
         System.out.println(separation);
         System.out.println("Hello! I am YOU");
         System.out.println("What can I do for you?");
@@ -39,19 +42,20 @@ public class Duke {
     private static void displayInfo(String msg) {
         Task task;
         System.out.println(separation);
-        try{
+        try {
             if (msg.startsWith("todo")) {
                 task = new ToDo(msg);
                 addTasks(task);
-            } else if(msg.startsWith("deadline")) {
+            } else if (msg.startsWith("deadline")) {
                 task = new Deadline(msg);
                 addTasks(task);
-            } else if(msg.startsWith("event")){
+            } else if (msg.startsWith("event")) {
                 task = new Event(msg);
                 addTasks(task);
             } else {
                 throw new DukeUnknownInstruction();
             }
+            duke.writeFile(task.toString());
             System.out.println("Now you have "
                     + Duke.count
                     + (count <= 1 ? " task" : " tasks")
@@ -62,14 +66,15 @@ public class Duke {
         }
     }
 
-    private static void deleteTask(int index){
+    private static void deleteTask(int index) {
         Task delete = tasks.remove(index);
-        count --;
+        count--;
         System.out.println(separation);
         System.out.println("Noted. I've removed this task:");
         System.out.println("    " + delete.toString());
         System.out.println("Now you have " + Duke.count + " tasks in the list.");
         System.out.println(separation);
+        duke.DeleteLine(delete.toString());
     }
 
     private static void readInputs(String msg) {
@@ -85,21 +90,22 @@ public class Duke {
                 String[] part = msg.split("\\s+");
                 int ind = Integer.parseInt(part[1]) - 1;
                 switch (part[0]) {
-                    case "mark":
-                        tasks.get(ind).MarkAsDone();
-                        break;
-                    case "unmark":
-                        tasks.get(ind).MarkAsUnDone();
-                        break;
-                    case "delete":
-                        deleteTask(ind);
-                        break;
+                case "mark":
+                    tasks.get(ind).MarkAsDone(duke);
+                    break;
+                case "unmark":
+                    tasks.get(ind).MarkAsUnDone(duke);
+                    break;
+                case "delete":
+                    deleteTask(ind);
+                    break;
                 }
             } else {
                 displayInfo(msg);
             }
         }
     }
+
 
     public static void main(String[] args) {
         String logo = " ____        _        \n"
@@ -110,6 +116,8 @@ public class Duke {
         System.out.println("Hello from\n" + logo);
 
         OnEnter();
+        duke.fileCreate(tasks);
+        count = tasks.size();
 
         Scanner sc = new Scanner(System.in);
         while (!Duke.terminate && sc.hasNextLine()) {

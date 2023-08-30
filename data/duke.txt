@@ -1,0 +1,3 @@
+[D][X] return book (by: June 6th)
+[D][X] return book (by: Sunday)
+[E][ ] project meeting (from: Mon 2pm to: 4pm)

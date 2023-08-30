@@ -19,6 +19,11 @@ public class Deadline extends Task{
         System.out.println("    " + this);
     }
 
+    public Deadline(String content, boolean isDone) {
+        super(content);
+        this.isDone = isDone;
+    }
+
     public String toString() {
         return "[D]" + super.toString();
     }

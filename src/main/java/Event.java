@@ -4,17 +4,21 @@ public class Event extends Task{
         if (Description.split("\\s+").length == 1) {
             throw new DukeNoDescriptionException("Event");
         }
-        int index = Description.indexOf("/");
-        String content = Description.substring(6, index);
-        String time = getTime(Description, index);
-        this.Description = content + "(" + time + ")";
+
+        this.Description = getContent(Description);
         System.out.println("Got it. I've added this task:");
         System.out.println("    " + this);
     }
 
-    private String getTime(String Description, int index) throws DukeNoDateException {
-        String time;
+    public Event(String content, boolean isDone) {
+        super(content);
+        this.isDone = isDone;
+    }
 
+    private String getContent(String Description) throws DukeNoDateException {
+        String time;
+        int index = Description.indexOf("/");
+        String content = Description.substring(6, index);
         int lastIndex = Description.substring(index + 1).indexOf("/");
         if (lastIndex != -1) {
             lastIndex += (index + 1);
@@ -30,7 +34,7 @@ public class Event extends Task{
                 + ":"
                 + Description.substring(lastIndex + 3);
         time = startTime + endTime;
-        return time;
+        return content + "(" + time + ")";
     }
 
     public String toString() {
