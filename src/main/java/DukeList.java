@@ -1,3 +1,4 @@
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public class DukeList {
@@ -37,13 +38,13 @@ public class DukeList {
             showList(todo);
     }
 
-    public void addDeadline(String input, String by) {
+    public void addDeadline(String input, LocalDateTime by) {
         Deadline deadline = new Deadline(input, by);
         arr.add(deadline);
         showList(deadline);
     }
 
-    public void addEvent(String input, String start, String end) {
+    public void addEvent(String input, LocalDateTime start, LocalDateTime end) {
         Event event = new Event(input, start, end);
         arr.add(event);
         showList(event);

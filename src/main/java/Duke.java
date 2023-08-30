@@ -1,7 +1,3 @@
-import java.util.ArrayList;
-import java.util.Scanner;
-import java.io.*;
-
 public class Duke {
     private DukeList dukelist;
     private Ui ui;
@@ -25,7 +21,7 @@ public class Duke {
     public void froggie() {
         this.ui.hello();
         Parser parser = new Parser();
-        parser.parse(storage, dukelist, ui);
+        parser.parse(this.storage, dukelist, ui);
     }
 
 }

@@ -1,8 +1,9 @@
-import javax.imageio.IIOException;
 import java.io.File;
 import java.io.*;
-import java.lang.reflect.Array;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Locale;
 import java.util.Scanner;
 
 public class Storage {
@@ -66,7 +67,8 @@ public class Storage {
                 if (splited[2].equals("[D]")) {
                     String[] desc = splited[5].split("\\(by:", 2);
                     String time = desc[1].split("\\)", 2)[0];
-                    Task deadline = new Deadline(desc[0], time);
+                    LocalDateTime by = formatData(time);
+                    Task deadline = new Deadline(desc[0], by);
                     oldTasks.add(deadline);
                     if (splited[0].equals("1")) {
                         deadline.markDone();
@@ -78,7 +80,9 @@ public class Storage {
                     String[] description = splited[5].split("\\(from:");
                     String start = description[1].split("to:", 2)[0];
                     String end = description[1].split("to:", 2)[1];
-                    Task event = new Event(description[0], start, end);
+                    LocalDateTime from = formatData(start);
+                    LocalDateTime to = formatData(end);
+                    Task event = new Event(description[0], from, to);
                     oldTasks.add(event);
                     if (splited[0].equals("1")) {
                         event.markDone();
@@ -108,5 +112,11 @@ public class Storage {
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
+    }
+
+    public LocalDateTime formatData(String data) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d 'of' MMMM uuuu, h:mma", Locale.ENGLISH);
+        LocalDateTime localDateTime = LocalDateTime.parse(data, formatter);
+        return localDateTime;
     }
 }
