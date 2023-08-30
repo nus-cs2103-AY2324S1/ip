@@ -39,12 +39,14 @@ public class TaskList {
         }
     }
 
-    public void printTasksOn(LocalDate date) {
+    public ArrayList<Task> getTasksOn(LocalDate date) {
+        ArrayList<Task> tasksOn = new ArrayList<>();
         for (int i = 0; i < this.tasks.size(); i++) {
             if (this.tasks.get(i).isOnDate(date)) {
-                System.out.println((i + 1) + "." + this.tasks.get(i));
+                tasksOn.add(this.tasks.get(i));
             }
         }
+        return tasksOn;
     }
 
     public Task mark(int index) throws InvalidCommandException {

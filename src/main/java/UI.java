@@ -1,3 +1,4 @@
+import java.lang.reflect.Array;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
@@ -40,6 +41,12 @@ public class UI {
     public void printTaskUnmarkedMessage(Task task) {
         System.out.println("OK, I've marked this task as not done yet:");
         System.out.println(task);
+    }
+
+    public void printTasksOn(ArrayList<Task> tasks) {
+        for (int i = 0; i < tasks.size(); i++) {
+            System.out.println((i + 1) + "." + tasks.get(i));
+        }
     }
 
     private void printTaskCount(int taskCount) {

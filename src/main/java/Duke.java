@@ -73,7 +73,8 @@ public class Duke {
                 }
                 if (command.equals(Command.ON.getCommand())) {
                     LocalDate date = LocalDate.parse(parsedInput.get(1));
-                    tasks.printTasksOn(date);
+                    ArrayList<Task> tasksOnDate = tasks.getTasksOn(date);
+                    ui.printTasksOn(tasksOnDate);
                     continue;
                 }
                 throw new InvalidCommandException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
