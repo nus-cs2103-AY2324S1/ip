@@ -1,5 +1,10 @@
+package joe.commands;
+
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+import joe.Storage;
+import joe.TaskList;
+import joe.Ui;
+import joe.tasks.DeadlineTask;
 
 public class DeadlineCommand extends Command {
   private final String taskDetails;

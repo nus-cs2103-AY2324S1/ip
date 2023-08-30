@@ -1,4 +1,10 @@
+package joe.commands;
+
 import java.time.LocalDateTime;
+import joe.Storage;
+import joe.TaskList;
+import joe.Ui;
+import joe.tasks.EventTask;
 
 public class EventCommand extends Command {
   private final String taskDetails;

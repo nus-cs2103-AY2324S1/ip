@@ -1,3 +1,5 @@
+No saved task list was found.
+
 Hello! I'm Joe
 What can i do for you?
 
@@ -84,11 +86,11 @@ Please follow: mark <task_num>
 Invalid arguments for unmark
 Please follow: unmark <task_num>
 
-Invalid Input
-Commands: list, todo, deadline, event, mark, unmark, delete, bye
+Invalid Command Keyword!
+Here is a list of valid commands: list, todo, deadline, event, mark, unmark, delete, bye
 
-Invalid Input
-Commands: list, todo, deadline, event, mark, unmark, delete, bye
+Invalid Command Keyword!
+Here is a list of valid commands: list, todo, deadline, event, mark, unmark, delete, bye
 
 Invalid arguments for mark
 Please follow: mark <task_num>
@@ -96,11 +98,11 @@ Please follow: mark <task_num>
 Invalid arguments for unmark
 Please follow: unmark <task_num>
 
-Invalid Input
-Commands: list, todo, deadline, event, mark, unmark, delete, bye
+Invalid Command Keyword!
+Here is a list of valid commands: list, todo, deadline, event, mark, unmark, delete, bye
 
-Invalid Input
-Commands: list, todo, deadline, event, mark, unmark, delete, bye
+Invalid Command Keyword!
+Here is a list of valid commands: list, todo, deadline, event, mark, unmark, delete, bye
 
 Nice! I've marked this task as done:
  [T][X] borrow book
@@ -152,8 +154,8 @@ Here are your tasks:
 4.[E][ ] many      spaces      (from: 22 Aug 2500 11:11 to: 22 Aug 2800 22:22)
 5.[T][ ] spaces
 
-Invalid Input
-Commands: list, todo, deadline, event, mark, unmark, delete, bye
+Invalid Command Keyword!
+Here is a list of valid commands: list, todo, deadline, event, mark, unmark, delete, bye
 
 Invalid arguments for delete
 Please follow: delete <task_num>
@@ -185,9 +187,11 @@ Please follow: event <task> /from <d/M/yyyy HHmm> /to <d/M/yyyy HHmm>
 Invalid arguments for event
 Please follow: event <task> /from <d/M/yyyy HHmm> /to <d/M/yyyy HHmm>
 
-Failed to parse datetime.
+Failed to parse the date.
+Please ensure it is a valid datetime following the format <d/M/yyyy HHmm>
 
-Failed to parse datetime.
+Failed to parse the date.
+Please ensure it is a valid datetime following the format <d/M/yyyy HHmm>
 
 Bye. Hope to see you again soon!
 

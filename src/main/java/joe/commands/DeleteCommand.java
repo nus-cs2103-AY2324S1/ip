@@ -1,3 +1,11 @@
+package joe.commands;
+
+import joe.Storage;
+import joe.TaskList;
+import joe.Ui;
+import joe.exceptions.JoeIndexOutOfBoundsException;
+import joe.tasks.Task;
+
 public class DeleteCommand extends Command {
   private final int idx;
 

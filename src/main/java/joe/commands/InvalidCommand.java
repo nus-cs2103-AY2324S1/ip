@@ -1,3 +1,9 @@
+package joe.commands;
+
+import joe.Storage;
+import joe.TaskList;
+import joe.Ui;
+
 public class InvalidCommand extends Command {
   private final String msg;
 
