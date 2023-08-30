@@ -1,0 +1,5 @@
+toDo one
+deadline two /by Friday
+Event three /from saturday /to sun
+list
+bye
