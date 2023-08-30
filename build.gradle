@@ -28,6 +28,8 @@ test {
     }
 }
 
+mainClassName = 'duke.Duke'
+
 application {
     mainClass.set("duke.Duke")
 }
@@ -39,6 +41,7 @@ checkstyle {
 shadowJar {
     archiveBaseName = "duke"
     archiveClassifier = null
+    archiveFileName = 'duke.jar'
     dependsOn("distZip", "distTar")
 }
 
