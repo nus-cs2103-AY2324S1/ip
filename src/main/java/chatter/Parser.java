@@ -17,21 +17,6 @@ import chatter.task.ToDo;
  * @version CS2103T Individual Project AY2023/24 Semester 1
  */
 public class Parser {
-    /** String containing the raw user input. */
-    private String input;
-    /** String containing the first word of the user input. */
-    private String keyword;
-
-    /**
-     * Constructor for chatter.Parser class.
-     *
-     * @param input User input.
-     */
-    public Parser(String input) {
-        this.input = input;
-        this.keyword = input.split(" ", 2)[0];
-    }
-
     /**
      * Parses the user's input and returns the corresponding Command to be executed.
      *
@@ -39,43 +24,43 @@ public class Parser {
      * @return Command corresponding to user input to be executed.
      * @throws ChatterException Error thrown if there are invalid fields or inputs.
      */
-    public Command parse(String fullCommand) throws ChatterException {
-        switch (this.keyword) {
+    public static Command parse(String fullCommand) throws ChatterException {
+        switch (fullCommand.split(" ", 2)[0]) {
         case("list"):
             return new ListCommand();
         case("mark"):
-            return new MarkCommand(true, Character.getNumericValue(this.input.charAt(5)));
+            return new MarkCommand(true, Character.getNumericValue(fullCommand.charAt(5)));
         case("unmark"):
-            return new MarkCommand(false, Character.getNumericValue(this.input.charAt(7)));
+            return new MarkCommand(false, Character.getNumericValue(fullCommand.charAt(7)));
         case("delete"):
-            return new DeleteCommand(Character.getNumericValue(this.input.charAt(7)));
+            return new DeleteCommand(Character.getNumericValue(fullCommand.charAt(7)));
         case("todo"):
-            if (input.length() < 6) {
+            if (fullCommand.length() < 6) {
                 throw new ChatterException("☹ OOPS!!! The description of a todo cannot be empty!");
             }
-            return new AddCommand(new ToDo(input.substring(5)));
+            return new AddCommand(new ToDo(fullCommand.substring(5)));
         case("deadline"):
-            int deadlineIndex = input.indexOf("/by");
+            int deadlineIndex = fullCommand.indexOf("/by");
             if (deadlineIndex == -1) {
                 throw new ChatterException("Please add a '/by' statement with the deadline.");
             }
 
-            return new AddCommand(new Deadline(input.substring(9, deadlineIndex - 1),
-                    input.substring(deadlineIndex + 4)));
+            return new AddCommand(new Deadline(fullCommand.substring(9, deadlineIndex - 1),
+                    fullCommand.substring(deadlineIndex + 4)));
         case("event"):
-            int startIndex = input.indexOf("/from");
+            int startIndex = fullCommand.indexOf("/from");
             if (startIndex == -1) {
                 throw new ChatterException("Please add a '/from' statement with the start time / date.");
             }
 
-            int endIndex = input.indexOf("/to");
+            int endIndex = fullCommand.indexOf("/to");
             if (endIndex == -1) {
                 throw new ChatterException("Please add a '/to' statement with the end time / date.");
             }
 
-            return new AddCommand(new Event(input.substring(6, startIndex - 1),
-                    input.substring(startIndex + 6, endIndex - 1),
-                    input.substring(endIndex + 4)));
+            return new AddCommand(new Event(fullCommand.substring(6, startIndex - 1),
+                    fullCommand.substring(startIndex + 6, endIndex - 1),
+                    fullCommand.substring(endIndex + 4)));
         case("bye"):
             return new ExitCommand();
         default:
