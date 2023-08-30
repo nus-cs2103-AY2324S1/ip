@@ -1,8 +1,11 @@
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.io.FileWriter;
+import java.io.IOException;
 public class Duke {
     private static final String LINE = "_".repeat(60);
     private static ArrayList<Task> tasks;
+    private static final String FILE_PATH = "data/duke.txt";
 
     enum Instruction {
         bye,
@@ -93,6 +96,9 @@ public class Duke {
             } catch (IllegalArgumentException exception) {
                 System.out.println("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
                 System.out.println(LINE);
+            } catch (IOException exception) {
+                System.out.println("☹ OOPS!!! " + exception.getMessage());
+                System.out.println(LINE);
             } catch (DukeException exception) {
                 System.out.println(exception.getMessage());
                 System.out.println(LINE);
@@ -100,8 +106,9 @@ public class Duke {
         }
     }
 
-    private static void createNewTask(Task task) {
+    private static void createNewTask(Task task) throws IOException {
         tasks.add(task);
+        appendToFile(FILE_PATH, task.toWrite());
         System.out.println("Got it. I've added this task:");
         System.out.println(task);
         System.out.println("Now you have " + tasks.size() + " tasks in the list.");
@@ -117,7 +124,7 @@ public class Duke {
         System.out.println(LINE);
     }
 
-    private static void markTaskDone(int taskID, boolean done) throws DukeException {
+    private static void markTaskDone(int taskID, boolean done) throws DukeException, IOException {
         if (taskID <= 0 || taskID > tasks.size()) {
             throw new DukeException("☹ OOPS!!! I'm sorry, but task not found.");
         }
@@ -132,6 +139,7 @@ public class Duke {
             task.markAsNotDone();
             System.out.println("OK, I've marked this task as not done yet:");
         }
+        rewriteFile(FILE_PATH, tasks);
         System.out.println(task);
         System.out.println(LINE);
     }
@@ -150,5 +158,18 @@ public class Duke {
     private static void exit() {
         System.out.println("Bye. Hope to see you again soon!");
         System.out.println(LINE);
+    }
+
+    private static void appendToFile(String filePath, String textToAdd) throws IOException {
+        FileWriter fw = new FileWriter(filePath);
+        fw.write(textToAdd);
+        fw.close();
+    }
+
+    private static void rewriteFile(String filePath, ArrayList<Task> tasks) throws IOException {
+        FileWriter fw = new FileWriter(filePath);
+        for (Task task: tasks)
+            fw.write(task.toWrite());
+        fw.close();
     }
 }
