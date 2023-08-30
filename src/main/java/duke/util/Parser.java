@@ -78,13 +78,13 @@ public class Parser {
         return todo;
     }
 
-    public static Deadline parseUserDeadline(String input) throws TaskException {
+    public static Deadline parseUserDeadline(String input) throws DeadlineException {
         int byIndex = input.indexOf("/by");
 
         if (input.length() <= 9) {
-            throw new TaskException();
+            throw new DeadlineException();
         } else if (byIndex == -1) {
-            throw new TaskException();
+            throw new DeadlineException();
         }
 
         String description = input.substring(9, byIndex - 1);
@@ -96,16 +96,16 @@ public class Parser {
         return deadline;
     }
 
-    public static Event parseUserEvent(String input) throws TaskException {
+    public static Event parseUserEvent(String input) throws EventException {
         int fromIndex = input.indexOf("/from");
         int toIndex = input.indexOf("/to");
 
         if (input.length() <= 6) {
-            throw new TaskException();
+            throw new EventException();
         } else if (fromIndex == -1 || toIndex == -1) {
-            throw new TaskException();
+            throw new EventException();
         } else if (fromIndex > toIndex) {
-            throw new TaskException();
+            throw new EventException();
         }
 
         String description = input.substring(6, fromIndex - 1);
@@ -119,9 +119,9 @@ public class Parser {
         return event;
     }
 
-    public static ToDo parseUserToDo(String input) throws TaskException {
+    public static ToDo parseUserToDo(String input) throws ToDoException {
         if (input.length() <= 5) {
-            throw new TaskException();
+            throw new ToDoException();
         }
 
         ToDo todo = new ToDo(input.substring(5));
@@ -132,7 +132,7 @@ public class Parser {
         int index = Integer.valueOf(input.substring(5)) - 1;
 
         if (input.length() <= 5) {
-            throw new TaskException();
+            throw new TaskException("mark (task number)");
         }
 
         return index;
@@ -142,7 +142,7 @@ public class Parser {
         int index = Integer.valueOf(input.substring(7)) - 1;
 
         if (input.length() <= 7) {
-            throw new TaskException();
+            throw new TaskException("unmark (task number)");
         }
 
         return index;
@@ -152,7 +152,7 @@ public class Parser {
         int index = Integer.valueOf(input.substring(7)) - 1;
 
         if (input.length() <= 7) {
-            throw new TaskException();
+            throw new TaskException("delete (task number)");
         }
 
         return index;
