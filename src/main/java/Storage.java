@@ -22,7 +22,7 @@ public class Storage {
     public LocalDateTime dateTimeParser(String dateTime) throws DateTimeParseException {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
 
-        if (dateTime.length() < 10) {
+        if (dateTime.length() <= 10) {
             return LocalDateTime.parse(dateTime + " 2359", formatter);
         }
         return LocalDateTime.parse(dateTime, formatter);
