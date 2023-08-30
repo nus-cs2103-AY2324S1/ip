@@ -11,7 +11,12 @@ import exception.InvalidInputException;
 public class EventBuilder implements Builder<Task> {
     private String pattern = "event\\s+(.*?)\\s+/from\\s+(.*?)\\s+/to\\s+(.*)";
     
-
+    /**
+     * Builds an Event object from a string.
+     * @param input String input from user in the format "event <description> /from <start> /to <end>".
+     * @return Event object.
+     * @throws DukeException If input is invalid.
+     */
     @Override
     public Task buildFromString(String input) throws DukeException {
         Pattern p = Pattern.compile(pattern);

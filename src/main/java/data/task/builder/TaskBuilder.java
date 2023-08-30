@@ -9,7 +9,12 @@ public class TaskBuilder implements Builder<Task> {
     private EventBuilder eventBuilder = new EventBuilder();
     private TodoBuilder todoBuilder = new TodoBuilder();
     
-
+    /**
+     * Builds a Task object from a string.
+     * @param input String input from user in the format "todo <description>" or "deadline <description> /by <by>" or "event <description> /from <start> /to <end>".
+     * @return Task object.
+     * @throws DukeException If input is invalid.
+     */
     @Override
     public Task buildFromString(String input) throws DukeException {
        String type = input.split(" ")[0];

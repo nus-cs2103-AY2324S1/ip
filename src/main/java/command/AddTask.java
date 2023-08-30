@@ -11,7 +11,11 @@ public class AddTask implements Command {
     public AddTask (Builder<Task> taskBuilder) {
         this.taskBuilder = taskBuilder;
     }
-
+    /**
+     * Adds a task to the task list.
+     * @param input String input from user that contains the task details.
+     * @throws DukeException If input is invalid.
+     */
     @Override
     public void execute(String input) throws DukeException {
         Store s = Store.getInstance();

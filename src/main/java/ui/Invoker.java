@@ -11,11 +11,21 @@ public class Invoker {
     public Invoker() {
         this.commands = new HashMap<String, Command>();
     }
-
+    
+    /**
+     * Adds a command to the invoker.
+     * @param commandName Name of the command.
+     * @param command Command object.
+     */
     public void setCommand(String commandName, Command command) {
         this.commands.put(commandName, command);
     }
-
+    
+    /**
+     * Executes a command.
+     * @param input String input from user.
+     * @throws DukeException If input is invalid.
+     */
     public void execute(String input) throws DukeException {
         String commandName = input.split(" ")[0];
         if (this.commands.get(commandName) == null) {
