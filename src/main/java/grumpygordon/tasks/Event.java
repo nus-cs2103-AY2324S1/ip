@@ -4,9 +4,10 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 /**
- * Represents an grumpygordon.tasks.Event object.
+ * Represents an Event task.
  */
 public class Event extends Task {
+
     /**
      * Start time of event.
      */
@@ -18,10 +19,11 @@ public class Event extends Task {
     protected LocalDateTime to;
 
     /**
-     * Constructor to create an grumpygordon.tasks.Event object.
+     * Constructor to create an Event task.
      * @param description Description of event
      * @param from Start time of event
      * @param to End time of event
+     * @param isDone Boolean that represents whether the event is done
      */
     public Event(String description, LocalDateTime from, LocalDateTime to, boolean isDone) {
         super(description, isDone);
@@ -30,8 +32,8 @@ public class Event extends Task {
     }
 
     /**
-     * Returns a String representation of an grumpygordon.tasks.Event.
-     * @return String representation of an grumpygordon.tasks.Event.
+     * Returns a String representation of an Event task.
+     * @return String representation of an Event task
      */
     @Override
     public String toString() {
@@ -40,6 +42,10 @@ public class Event extends Task {
                 + " to: " + this.to.format(DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm")) + ")";
     }
 
+    /**
+     * Returns the format in which an Event task will be saved.
+     * @return String representation of the save format of an Event task.
+     */
     @Override
     public String toSaveFormat() {
         return "E | " + (this.isDone ? "1" : "0") + " | " + super.toString() + " | " + this.from + " | " + this.to;

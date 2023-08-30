@@ -17,7 +17,7 @@ public class DeadlineCommand extends Command {
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         tasks.addTask(new Deadline(this.description, this.by, false));
-        ui.showCommandMessage("     grumpygordon.tasks.Deadline task added to list\n     "
+        ui.showCommandMessage("     Deadline task added to list\n     "
                 + tasks.getTask(tasks.size() - 1).toString() + "\n");
         storage.saveTasks(tasks);
     }
