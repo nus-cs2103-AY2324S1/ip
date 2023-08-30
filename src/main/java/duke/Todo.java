@@ -28,8 +28,8 @@ public class Todo extends Task{
      * @return String representation of the <code>Todo</code> object to save to file.
      */
     @Override
-    public String savedString() {
-        return "T " + super.savedString();
+    public String getSavedString() {
+        return "T " + super.getSavedString();
     }
 
 }

@@ -42,7 +42,7 @@ public class Task {
      * Gets the description of the task to be saved to the hard disk.
      * @return String representation of the task to be saved.
      */
-    public String savedString() {
+    public String getSavedString() {
         String status = this.isDone ? "1" : "0";
         return "| " + status + " | " + this.description;
     }

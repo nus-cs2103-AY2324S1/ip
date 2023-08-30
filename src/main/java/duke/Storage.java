@@ -47,33 +47,33 @@ public class Storage {
                 }
                 String taskType = arr[0];
                 switch (taskType) {
-                    case "T":
-                        Todo t = new Todo(arr[2]);
-                        if (arr[1].equals("1")) {
-                            t.mark();
-                        }
-                        TaskList.add(t);
-                        break;
-                    case "D":
-                        Deadline d = new Deadline(arr[2], arr[3]);
-                        if (arr[1].equals("1")) {
-                            d.mark();
-                        }
-                        TaskList.add(d);
-                        break;
-                    case"E":
-                        String startEnd = arr[3];
-                        String[] duration = startEnd.split("-");
-                        String start = duration[0];
-                        String end = duration[1];
-                        Event e = new Event(arr[2], start, end);
-                        if (arr[1].equals("1")) {
-                            e.mark();
-                        }
-                        TaskList.add(e);
-                        break;
-                    default:
-                        System.out.println("Wrong input recognised :((");
+                case "T":
+                    Todo t = new Todo(arr[2]);
+                    if (arr[1].equals("1")) {
+                        t.mark();
+                    }
+                    TaskList.add(t);
+                    break;
+                case "D":
+                    Deadline d = new Deadline(arr[2], arr[3]);
+                    if (arr[1].equals("1")) {
+                        d.mark();
+                    }
+                    TaskList.add(d);
+                    break;
+                case"E":
+                    String startEnd = arr[3];
+                    String[] duration = startEnd.split("-");
+                    String start = duration[0];
+                    String end = duration[1];
+                    Event e = new Event(arr[2], start, end);
+                    if (arr[1].equals("1")) {
+                        e.mark();
+                    }
+                    TaskList.add(e);
+                    break;
+                default:
+                    System.out.println("Wrong input recognised :((");
                 }
             }
         } catch (FileNotFoundException e) {
@@ -88,7 +88,7 @@ public class Storage {
         try {
             FileWriter writer = new FileWriter(filepath);
             for (Task t : TaskList.toDo) {
-                writer.write(t.savedString() + "\n");
+                writer.write(t.getSavedString() + "\n");
             }
             writer.close();
         } catch (IOException e) {
