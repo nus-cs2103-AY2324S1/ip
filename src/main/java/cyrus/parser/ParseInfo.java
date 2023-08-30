@@ -6,6 +6,9 @@ import java.util.HashMap;
 
 /**
  * Packet of information about the parsing response.
+ *
+ * <p>Modelled after CLI applications where the {@code argument} is the text before any options
+ * and an {@code option} is the values of "flags".</p>
  */
 public class ParseInfo {
   /**

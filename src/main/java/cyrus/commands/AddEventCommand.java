@@ -10,11 +10,22 @@ import cyrus.utility.DateUtility;
 import java.time.LocalDate;
 import java.util.HashMap;
 
+/**
+ * Command to add an {@code Event} to the given {@code TaskList}.
+ */
 public class AddEventCommand extends Command {
   public AddEventCommand(TaskList taskList, ParseInfo parseInfo) {
     super(taskList, parseInfo);
   }
 
+  /**
+   * To add an {@code Event}, must ensure that the event has an argument (i.e. name of the
+   * deadline) and it contains a {@code from} and {@code to} option which corresponds to a valid
+   * {@code LocalDate} format which is {@code dd/MM/yyyy}.
+   *
+   * @throws CommandError if no arguments are present, no {@code from} or {@code to} option is
+   * provided, or date formats are invalid.
+   */
   @Override
   public void execute() throws CommandError {
     if (this.parseInfo.hasNoArgument()) throw new CommandError("Event is missing a body!");

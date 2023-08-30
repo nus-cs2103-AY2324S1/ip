@@ -5,11 +5,20 @@ import cyrus.tasks.Task;
 import cyrus.tasks.TaskList;
 import cyrus.ui.Ui;
 
+/**
+ * Command to delete a {@code Task} from the given {@code TaskList}.
+ */
 public class DeleteTaskCommand extends Command {
   public DeleteTaskCommand(TaskList taskList, ParseInfo parseInfo) {
     super(taskList, parseInfo);
   }
 
+  /**
+   * Deletes the {@code Task} corresponding to the command's argument.
+   *
+   * @throws CommandError if no argument is present or if the value given is out of index or not
+   *                      a number.
+   */
   @Override
   public void execute() throws CommandError {
     if (this.parseInfo.hasNoArgument()) throw new CommandError("Missing task index");
