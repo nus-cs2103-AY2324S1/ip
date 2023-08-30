@@ -6,25 +6,16 @@ class Event extends Task {
      * Signifies the 'Event' task.
      */
     protected String type = "E";
-    /**
-     * Starting date of this task.
-     */
-    protected String from;
-    /**
-     * Ending date of this task.
-     */
-    protected String to;
+    protected String timeline;
 
     /**
      * Constructor for Event class.
      * @param description Describes the event
-     * @param from Start of the event
-     * @param to End of the event
+     * @param timeline Timeline of the event
      */
-    public Event(String description, String from, String to) {
+    public Event(String description, String timeline) {
         super(description);
-        this.from = from;
-        this.to = to;
+        this.timeline = timeline;
     }
 
     /**
@@ -53,8 +44,7 @@ class Event extends Task {
      */
     @Override
     public String toString() {
-        return "[" + this.type + "]" + "[" + this.getStatusIcon() + "] "
-                + this.description + " (from: " + this.from
-                + " to:" + this.to + ")";
+        return this.type + " | " + this.getStatusIcon() + " | "
+                + this.description + " | " + this.timeline;
     }
 }

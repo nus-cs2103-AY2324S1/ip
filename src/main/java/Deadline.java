@@ -47,7 +47,7 @@ class Deadline extends Task {
      */
     @Override
     public String toString() {
-        return "[" + this.type + "]" + "[" + this.getStatusIcon() + "] " + this.description
-                + " (by:" + this.date + ")";
+        return this.type + " | " + this.getStatusIcon() + " | " + this.description
+                + " | " + this.date;
     }
 }

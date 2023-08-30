@@ -18,6 +18,7 @@ class Duke implements Serializable {
      * Name of the text file.
      */
     public static String filename = "duke.txt";
+    public static String delim = " ";
     /**
      * Greeting from the bot when user launches the program.
      */
@@ -63,11 +64,10 @@ class Duke implements Serializable {
     /**
      * Creates an Event task in taskArr.
      * @param desc Description of the Event task
-     * @param from Date when the Event task starts
-     * @param to Date when the Event tasks end
+     * @param timeline Start and End date of the Event task
      */
-    public static Event addEvent(String desc, String from, String to) {
-        Event curr = new Event(desc, from, to);
+    public static Event addEvent(String desc, String timeline) {
+        Event curr = new Event(desc, timeline);
         taskArr.add(curr);
         System.out.println("-------------------------------\n"
                 + "Got it. I've added this task:\n"
@@ -155,6 +155,52 @@ class Duke implements Serializable {
             System.out.println(e.getMessage());
         }
     }
+    /**
+     * Extracts the deadline from the String.
+     * @param arr Array of Strings after using delimiter
+     * @return Final String to be passed in to parse
+     */
+    public static String getDeadline(String[] arr) {
+        String result = null;
+        for (int i = 0; i < arr.length; i++) {
+            if (arr[i].equals("/by")) {
+                result = arr[i + 1];
+            }
+        }
+        System.out.println("deadline (line 172): " + result);
+        return result;
+    }
+    public static String getDescription(String[] arr) {
+        String result = null;
+        // can safely ignore the first element as we have already
+        // checked for the task type in main logic
+        for (int i = 1; i < arr.length; i++) {
+            if (arr[i].equals("/by")) {
+                break;
+            } else if (arr[i].equals("/from")) {
+                break;
+            } else {
+                if (result == null) {
+                    result = arr[i];
+                } else {
+                    result += " " + arr[i];
+                }
+            }
+        }
+        System.out.println("description (line 192): " + result);
+        return result;
+    }
+    public static String getEventTimeline(String[] arr) {
+        String from = null;
+        String to = null;
+        for (int i = 0; i < arr.length; i++) {
+            if (arr[i].equals("/from")) {
+                from = arr[i + 1];
+                to = arr[i + 3];
+            }
+        }
+        return from + "-" + to;
+    }
 
     public static void main(String[] args) {
         try {
@@ -170,89 +216,89 @@ class Duke implements Serializable {
         }
 
         System.out.println(greeting);
+
         new File("data.txt");
+
         initiateArr();
+
         while (Duke.sc.hasNext()) {
             try {
-                String str = Duke.sc.next();
-                if (str.equals("bye")) {
+
+                String[] arr = Duke.sc.nextLine().split(delim);
+                String type = arr[0];
+
+                if (type.equals("bye")) {
                     writeToFile();
                     save();
                     System.out.println(exit);
                     break;
-                } else if (str.equals("list")) {
+                } else if (type.equals("list")) {
                     listOut();
-                } else if (str.equals("mark")) {
-                    if (!Duke.sc.hasNextInt()) {
+                } else if (type.equals("mark")) {
+                    if (arr.length == 1) {
                         throw new WrongInput();
-                    } else {
-                        int index = Duke.sc.nextInt() - 1;
-                        taskArr.get(index).mark();
+                    } else  {
+                        try {
+                            int index = Integer.parseInt(arr[1]);
+                            if (index > taskArr.size()) {
+                                throw new WrongInput();
+                            } else {
+                                taskArr.get(index - 1).mark();
+                            }
+                        } catch (NumberFormatException e) {
+                            System.out.println("An error occurred in the mark portion.");
+                        }
                     }
-                } else if (str.equals("unmark")) {
-                    if (!Duke.sc.hasNextInt()) {
+                } else if (type.equals("unmark")) {
+                    if (arr.length == 1) {
                         throw new WrongInput();
-                    } else {
-                        int index = Duke.sc.nextInt() - 1;
-                        taskArr.get(index).unmark();
+                    } else  {
+                        try {
+                            int index = Integer.parseInt(arr[1]);
+                            if (index > taskArr.size()) {
+                                throw new WrongInput();
+                            } else {
+                                taskArr.get(index - 1).unmark();
+                            }
+                        } catch (NumberFormatException e) {
+                            System.out.println("An error occurred in the unmark portion.");
+                        }
                     }
-                } else if (str.equals("delete")) {
-                    if (!Duke.sc.hasNextInt()) {
+                } else if (type.equals("delete")) {
+                    if (arr.length == 1) {
                         throw new WrongInput();
                     } else {
-                        int index = Duke.sc.nextInt();
-                        if (index > taskArr.size()) {
-                            throw new WrongInput();
-                        } else {
-                            delete(index - 1);
+                        try {
+                            int index = Integer.parseInt(arr[1]);
+                            if (index > taskArr.size()) {
+                                throw new WrongInput();
+                            } else {
+                                delete(index - 1);
+                            }
+                        } catch (NumberFormatException e) {
+                            System.out.println("An error occurred in the delete portion.");
                         }
                     }
                 } else {
                     // check for task type first
-                    if (str.equals("todo")) {
-                        String desc = Duke.sc.nextLine();
-                        if (desc.equals("") || desc.equals(" ")) {
+                    if (type.equals("todo")) {
+                        if (arr.length == 1) {
                             throw new EmptyDescription();
                         } else {
-                            Todo curr = addTodo(desc);
+                            String desc = getDescription(arr);
+                            addTodo(desc);
                         }
-                    } else if (str.equals("deadline")) {
-                        String desc = Duke.sc.next();
-                        String date = null;
-                        while (Duke.sc.hasNext()) {
-                            String next = Duke.sc.next();
-                            if (!next.equals("by")) {
-                                desc = desc + " " + next;
-                            } else {
-                                date = Duke.sc.nextLine();
-                                break;
-                            }
-                        }
-                        Deadline curr = addDeadline(desc, date);
-                    } else if (str.equals("event")) {
-                        String desc = Duke.sc.next();
-                        String from = null;
-                        String to = null;
-                        while (Duke.sc.hasNext()) {
-                            String next = Duke.sc.next();
-                            if (!next.equals("from")) {
-                                desc = desc + " " + next;
-                            } else {
-                                from = Duke.sc.next();
-                                while (Duke.sc.hasNext()) {
-                                    String temp = Duke.sc.next();
-                                    if (!temp.equals("to")) {
-                                        from = from + " " + temp;
-                                    } else {
-                                        to = Duke.sc.nextLine();
-                                        break;
-                                    }
-                                }
-                                break;
-                            }
-                        }
-                        Event curr = addEvent(desc, from, to);
-                    } else {
+                    } else if (type.equals("deadline")) {
+                        String desc = getDescription(arr);
+                        String date = getDeadline(arr);
+                        addDeadline(desc, date);
+                    }
+                    else if (type.equals("event")) {
+                        String desc = getDescription(arr);
+                        String timeline = getEventTimeline(arr);
+                        addEvent(desc, timeline);
+                    }
+                else {
                         throw new WrongInput();
                     }
                 }

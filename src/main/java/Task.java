@@ -26,8 +26,8 @@ class Task implements Serializable {
      * Task's completion status.
      * @return An "X" if the task is completed and a blank space otherwise
      */
-    public String getStatusIcon() {
-        return (isDone ? "X" : " ");
+    public int getStatusIcon() {
+        return (isDone ? 1 : 0);
     }
 
     /**
@@ -36,7 +36,7 @@ class Task implements Serializable {
     public void mark() {
         this.isDone = true;
         System.out.println("Nice! I've marked this task as done:\n"
-                + "[X] " + this.desc());
+                + this.desc());
     }
 
     /**
@@ -45,7 +45,7 @@ class Task implements Serializable {
     public void unmark() {
         this.isDone = false;
         System.out.println("OK, I've marked this task as not done yet:\n"
-                + "[ ] " + this.desc());
+                + this.desc());
     }
 
     /**
