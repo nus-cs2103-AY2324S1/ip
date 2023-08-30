@@ -114,7 +114,9 @@ public class Duke {
             return;
         }
 
+
         // Get input and store it
+        System.out.println("What can I do for you?");
         Scanner in = new Scanner(System.in);
 
         while (true) {
