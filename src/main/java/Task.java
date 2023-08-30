@@ -18,6 +18,10 @@ public class Task {
     public void unmark() {
         this.isDone = false;
     }
+
+    public String saveString() {
+        return String.format(" | %s | %s", isDone ? 1 : 0, description);
+    }
     @Override
     public String toString() {
         return String.format("[%s] %s", getStatusIcon(), this.description);
