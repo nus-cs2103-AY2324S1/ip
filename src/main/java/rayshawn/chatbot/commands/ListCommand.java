@@ -15,6 +15,6 @@ public class ListCommand extends Command {
         if (taskList.count() == 0) {
             return new CommandResult(MESSAGE_EMPTY_LIST);
         }
-        return new CommandResult(getTaskListCount(), taskList.getAllTasks());
+        return new CommandResult(getTaskListCount(taskList.getAllTasks()), taskList.getAllTasks());
     }
 }

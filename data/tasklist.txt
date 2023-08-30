@@ -1,2 +1,3 @@
 T |   | Homework
 T |   | lunch
+D |   | lunch | 2023-08-30
