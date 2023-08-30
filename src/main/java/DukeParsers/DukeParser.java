@@ -6,6 +6,11 @@ import DukeUIClasses.DukeUI;
 
 import java.util.Scanner;
 
+/**
+ * Encapsulates a class that parses input.
+ *
+ * @author Tan Kerway
+ */
 public class DukeParser {
     private final DukeUI ui;
     private final DukeTaskList taskList;

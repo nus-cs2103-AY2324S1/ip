@@ -13,6 +13,11 @@ import DukeUIClasses.DukeUI;
 import java.io.IOException;
 import java.util.ArrayList;
 
+/**
+ * Encapsulates a class which supports the manipulation of the task list.
+ *
+ * @author Tan Kerway
+ */
 public class DukeTaskList {
     private ArrayList<Task> tasks;
     private final DukeErrorUI errorUI;

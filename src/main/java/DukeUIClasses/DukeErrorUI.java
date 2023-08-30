@@ -2,6 +2,11 @@ package DukeUIClasses;
 
 import DukeExceptions.*;
 
+/**
+ * Encapsulates a class which will help to print UI messages.
+ *
+ * @author Tan Kerway
+ */
 public class DukeErrorUI {
 
     /**

@@ -12,6 +12,11 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Encapsulates a class which manipulates the database.
+ *
+ * @author Tan Kerway
+ */
 public class DukeStorageDatabase {
     // hardcoded file paths
     private static final String DIR_PATH = System.getProperty("user.dir") + "/data";

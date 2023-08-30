@@ -6,7 +6,7 @@ import DukeUIClasses.DukeUI;
 import java.io.IOException;
 
 /**
- * This class encapsulates the skeleton of the nyanbot.
+ * This class encapsulates the nyanbot.
  *
  * @author Tan Kerway
  */

@@ -4,6 +4,11 @@ import DukeTasks.Task;
 
 import java.util.ArrayList;
 
+/**
+ * Encapsulates a class which will print out normal UI operations.
+ *
+ * @author Tan Kerway
+ */
 public class DukeUI {
     /**
      * When called, the chatbot will greet the user.

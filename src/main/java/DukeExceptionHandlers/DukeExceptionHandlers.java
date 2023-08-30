@@ -3,6 +3,11 @@ package DukeExceptionHandlers;
 import DukeExceptions.DukeException;
 import DukeExceptions.DukeInvalidTimeException;
 
+/**
+ * Encapsulates a class which is designed to handle exceptions.
+ *
+ * @author Tan Kerway
+ */
 public class DukeExceptionHandlers {
 
     /**
