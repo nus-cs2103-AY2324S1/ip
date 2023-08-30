@@ -6,11 +6,16 @@ public class Event extends Task {
 
     protected LocalDate startTime;
     protected LocalDate endTime;
+    protected static String HORIZONTAL_LINE = "    ____________________________________________________________"; //60 underscores.
 
     public Event(String description, LocalDate startTime, LocalDate endTime) {
         super(description);
         this.startTime = startTime;
         this.endTime = endTime;
+    }
+
+    protected static void printHorizontalLine() {
+        System.out.println(HORIZONTAL_LINE);
     }
 
     @Override
@@ -36,7 +41,7 @@ public class Event extends Task {
      * Otherwise, print an error message in the console.
      * @param userInput a valid user input for an Event Task.
      */
-    public static void handleEventTask(String userInput) throws IOException {
+    protected static void handleEventTask(String userInput) throws IOException {
         String[] details = userInput.split("/from | /to");
         //details[0] contains "deadline" plus task description, need to erase "deadline". details[1] contains String deadline timing
         if (details.length == 3) {
@@ -46,20 +51,20 @@ public class Event extends Task {
 
             //Check if input date is valid.
             try {
-                if (Duke.isValidDate(startTime)) {
+                if (TaskList.isValidDate(startTime)) {
                     Event eventTask = new Event(taskDescription,
                             LocalDate.parse(startTime),
                             LocalDate.parse(endTime));
 
-                    Duke.saveTask(eventTask, true);
-                    Duke.taskList.add(eventTask); //Deadline <: Task
+                    Storage.saveTask(eventTask, true);
+                    Storage.taskList.add(eventTask); //Deadline <: Task
 
                     //Print details in the console
-                    System.out.println(Duke.HORIZONTAL_LINE);
+                    printHorizontalLine();
                     System.out.println("     Got it. I've added this task:");
                     System.out.printf("       %s\n", eventTask.toString());
-                    System.out.printf("     Now you have %d tasks in the list.\n", Duke.taskList.size());
-                    System.out.println(Duke.HORIZONTAL_LINE);
+                    System.out.printf("     Now you have %d tasks in the list.\n", Storage.taskList.size());
+                    printHorizontalLine();
                 } else {
                     throw new InvalidDateException();
                 }
@@ -67,14 +72,12 @@ public class Event extends Task {
                 System.out.println(e.toString());
             }
 
-
-
         } else {
-            System.out.println(Duke.HORIZONTAL_LINE);
+            printHorizontalLine();
             System.out.println("     Invalid Event Task input.\n"
                     + "     Please input in the following format:\n"
                     + "     event <Task Description> /from <start time> /to <end time>");
-            System.out.println(Duke.HORIZONTAL_LINE);
+            printHorizontalLine();
         }
     }
 }

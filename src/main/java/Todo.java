@@ -25,14 +25,14 @@ public class Todo extends Task {
             throw new EmptyDescriptionException("The description of a todo cannot be empty.");
         } else {
             Todo todoTask = new Todo(taskDescription);
-            Duke.saveTask(todoTask, true);
-            Duke.taskList.add(todoTask); //Todo <: Task
+            Storage.saveTask(todoTask, true);
+            Storage.taskList.add(todoTask); //Todo <: Task
 
             //Print details in the console
             System.out.println(Duke.HORIZONTAL_LINE);
             System.out.println("     Got it. I've added this task:");
             System.out.printf("       %s\n", todoTask.toString());
-            System.out.printf("     Now you have %d tasks in the list.\n", Duke.taskList.size());
+            System.out.printf("     Now you have %d tasks in the list.\n", Storage.taskList.size());
             System.out.println(Duke.HORIZONTAL_LINE);
         }
     }

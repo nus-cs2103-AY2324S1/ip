@@ -21,7 +21,7 @@ public class Parser {
         return line.trim().split("\\s+")[0].toUpperCase();
     }
 
-    protected void parseInput(String userInput)
+    protected void parseInput(String userInput, boolean isFinished)
             throws IOException, EmptyDescriptionException, InvalidCommandException {
         try {
             String firstWord = getCommand(userInput);
@@ -37,6 +37,7 @@ public class Parser {
             switch (command) {
             case BYE:
                 ui.farewell();
+                Duke.isFinished = true;
                 break;
             case LIST:
                 taskList.listAllTasks();

@@ -2,12 +2,11 @@ import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
-import java.util.List;
 import java.time.LocalDate;
 
 public class Storage {
-    protected String filePath;
-    protected ArrayList<Task> taskList;
+    protected static String filePath;
+    protected static ArrayList<Task> taskList;
 
     Storage(String filePath) {
         this.filePath = filePath;
@@ -15,13 +14,13 @@ public class Storage {
     }
 
     /**
-     * Save a Task after it has been successfully inputted by user.
+     * Save a Task into Hard Disk after it has been successfully inputted by user.
      * @param task the Task that is to be saved.
      * @param isAppend a Boolean to determine if we should add a new line in the saved text file.
      */
-    protected void saveTask(Task task, boolean isAppend) throws IOException {
+    protected static void saveTask(Task task, boolean isAppend) throws IOException {
 
-        FileOutputStream outputStream = new FileOutputStream(new File(this.filePath), isAppend);
+        FileOutputStream outputStream = new FileOutputStream(new File(filePath), isAppend);
         //Use a BufferedWriter
         BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream));
         String[] saved = new String[5]; // Cannot be more than 5 separate parts. 5th part is only for Event
@@ -60,17 +59,21 @@ public class Storage {
         try {
             Path directory = Path.of("./data");
             if (!Files.exists(directory)) {
-                System.out.println("System Message: Directory 'data' does not exist. Creating one...");
+                System.out.println("System Message: Directory 'data' does not exist. Creating one..." +
+                        "You can view it under root directory after exiting the program this time.");
                 Files.createDirectories(directory); // Create the directory if it doesn't exist
+            } else {
+                System.out.println("System Message: Directory 'data' exists!");
             }
-            System.out.println("System Message: Directory 'data' exists!");
 
             Path file = Path.of("./data/duke.txt");
             if (!Files.exists(file)) {
-                System.out.println("System Message: File 'duke.txt' does not exist. Creating one...");
+                System.out.println("System Message: File 'duke.txt' does not exist. Creating one..." +
+                        "You can view it under 'data' directory after exiting the program this time.");
                 Files.createFile(file); // Create the file if it doesn't exist
+            } else {
+                System.out.println("System Message: File 'duke.txt' exists! Loading past data...");
             }
-            System.out.println("System Message: File 'duke.txt' exists! Loading past data...");
 
             FileInputStream inputStream = new FileInputStream(new File(this.filePath));
             BufferedReader bufferedReader = new BufferedReader(new InputStreamReader((inputStream)));
@@ -81,26 +84,18 @@ public class Storage {
                 while ((currentLine = bufferedReader.readLine()) != null) {
                     if (TaskList.isValidTaskLine(currentLine)) {
                         // Parse the line and create tasks
-                        String[] content = currentLine.split(" \\| ");
-                        //System.out.printf("Content: %s", content);
-                        String taskDescription = content[2];
-                        //System.out.printf("Event details: %s\n", currentLine);
+                        String[] content = currentLine.split(" \\| "); // System.out.printf("Content: %s", content);
+                        String taskDescription = content[2]; // System.out.printf("Event details: %s\n", currentLine);
                         Task taskFromHardDisk;
 
-                        // Now check which type of task it belongs to
-                        // Create the task and add task to taskList
+                        // Now check which type of task it belongs to. Create the task and add task to taskList.
                         switch(content[0]) {
                         case "E":
                             if (!TaskList.isValidDate(content[3]) || !TaskList.isValidDate(content[4])) {
                                 System.out.printf("Skipping line with invalid date: %s\n", currentLine);
                             } else {
                                 taskFromHardDisk = new Event(taskDescription, LocalDate.parse(content[3]), LocalDate.parse(content[4]));
-                                //Check if task is done
-                                if (content[1].equals("1")) {
-                                    taskFromHardDisk.markAsDone();
-                                } else {
-                                    taskFromHardDisk.markAsNotDone();
-                                }
+                                checkCompletionStatus(taskFromHardDisk, content[1]);
                                 taskList.add(taskFromHardDisk);
                                 //Potential error for content[3]
                             }
@@ -110,24 +105,14 @@ public class Storage {
                                 System.out.printf("Skipping line with invalid date: %s\n", currentLine);
                             } else {
                                 taskFromHardDisk = new Deadline(taskDescription, LocalDate.parse(content[3]));
-                                //Check if task is done
-                                if (content[1].equals("1")) {
-                                    taskFromHardDisk.markAsDone();
-                                } else {
-                                    taskFromHardDisk.markAsNotDone();
-                                }
+                                checkCompletionStatus(taskFromHardDisk, content[1]);
                                 taskList.add(taskFromHardDisk);
                                 //Potential error for content[3]
                             }
                             break;
                         default:
                             taskFromHardDisk = new Todo(taskDescription);
-                            //Check if task is done
-                            if (content[1].equals("1")) {
-                                taskFromHardDisk.markAsDone();
-                            } else {
-                                taskFromHardDisk.markAsNotDone();
-                            }
+                            checkCompletionStatus(taskFromHardDisk, content[1]);
                             taskList.add(taskFromHardDisk);
                             break;
                         }
@@ -144,6 +129,19 @@ public class Storage {
         } catch (IOException e) {
             // Handle exception while creating directory or file
             System.out.printf("Error while creating directory: %s", e.getMessage());
+        }
+    }
+
+    /**
+     * Checks whether a Task has already been done.
+     * @param task The task whose completion status is to be checked.
+     * @param completionStatus The completion status read from memory. 0 means not done, 1 means done.
+     */
+    protected void checkCompletionStatus(Task task, String completionStatus) {
+        if (completionStatus.equals("1")) {
+            task.markAsDone();
+        } else {
+            task.markAsNotDone();
         }
     }
 
@@ -167,7 +165,7 @@ public class Storage {
                 saveTask(this.taskList.get(i), true);
             } else {
                 saveTask(this.taskList.get(i), false);
-            } //BUG FOR EVENT TASK, End Time get erased, Type kept getting changed to Deadline
+            }
         }
     }
 }

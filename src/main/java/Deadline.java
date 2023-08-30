@@ -39,16 +39,16 @@ public class Deadline extends Task {
 
             //Check if input date is valid.
             try {
-                if (Duke.isValidDate(deadline)) {
+                if (TaskList.isValidDate(deadline)) {
                     Deadline deadlineTask = new Deadline(taskDescription, LocalDate.parse(deadline));
-                    Duke.saveTask(deadlineTask, true);
-                    Duke.taskList.add(deadlineTask); //Deadline <: Task
+                    Storage.saveTask(deadlineTask, true);
+                    Storage.taskList.add(deadlineTask); //Deadline <: Task
 
                     //Print details in the console
                     System.out.println(Duke.HORIZONTAL_LINE);
                     System.out.println("     Got it. I've added this task:");
                     System.out.printf("       %s\n", deadlineTask.toString());
-                    System.out.printf("     Now you have %d tasks in the list.\n", Duke.taskList.size());
+                    System.out.printf("     Now you have %d tasks in the list.\n", Storage.taskList.size());
                     System.out.println(Duke.HORIZONTAL_LINE);
                 } else {
                     throw new InvalidDateException();

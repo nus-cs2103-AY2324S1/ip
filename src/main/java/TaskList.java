@@ -59,8 +59,8 @@ public class TaskList {
                 System.out.printf("       %s\n", removedTask.toString());
                 System.out.printf("     Now you have %d task(s) in the list.\n", taskList.size());
             } else {
-                System.out.println("     OOPS!!! The task index is invalid.\n");
-                System.out.printf("    You currently have %d task(s).\n", taskList.size());
+                System.out.println("     OOPS!!! The task index is invalid.");
+                System.out.printf("     You currently have %d task(s).\n", taskList.size());
             }
             printHorizontalLine();
 
