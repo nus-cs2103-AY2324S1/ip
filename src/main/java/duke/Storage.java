@@ -64,7 +64,7 @@ public class Storage {
      * @return The created duke.Task object.
      * @throws DukeException If the string representation does not meet task requirements.
      */
-    private static Task loadData(String dataInput) throws DukeException {
+    public Task loadData(String dataInput) throws DukeException {
         Task newTask;
         String[] arr = dataInput.split("\\|");
 
