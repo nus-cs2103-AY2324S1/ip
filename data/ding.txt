@@ -1,2 +1,5 @@
 [T][X] a
 [T][ ] b
+[D][X] assignment (by: 2023-09-04 23:59)
+[E][X] date (from: 2023-08-30 11:30 to: 2023-08-30 17:00)
+[D][ ] sleep and shower (by: 2023-08-30 22:00)

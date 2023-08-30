@@ -1,3 +1,6 @@
+import java.time.LocalDate;
+import java.time.LocalTime;
+
 /**
  * Represents a task with a specific deadline.
  * This class extends the Task class and adds a deadline to it.
@@ -7,16 +10,20 @@ public class Deadline extends Task {
      * The deadline for this task.
      */
     protected String by;
-
+    protected LocalDate byDate;
+    protected LocalTime byTime;
     /**
      * Constructs a Deadline object with the given description and deadline.
      *
      * @param description The description of the task.
-     * @param by The deadline for the task.
+     * @param byDate The date deadline for the task.
+     * @param byTime The time deadline for the task.
      */
-    public Deadline(String description, String by) {
+    public Deadline(String description, LocalDate byDate, LocalTime byTime) {
         super(description);
-        this.by = by;
+        this.byDate = byDate;
+        this.byTime = byTime;
+        this.by = byDate.toString() + " " + byTime.toString();
     }
 
     /**
