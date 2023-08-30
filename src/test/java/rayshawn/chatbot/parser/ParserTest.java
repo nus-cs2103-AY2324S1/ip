@@ -6,6 +6,8 @@ import static org.junit.jupiter.api.Assertions.fail;
 import static rayshawn.chatbot.messages.Messages.INVALID_COMMAND_FORMAT_MESSAGE;
 import static rayshawn.chatbot.messages.Messages.INVALID_TASK_NUMBER_MESSAGE;
 
+import java.time.format.DateTimeParseException;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -21,8 +23,6 @@ import rayshawn.chatbot.commands.MarkCommand;
 import rayshawn.chatbot.commands.NoSuchCommand;
 import rayshawn.chatbot.commands.ToDoCommand;
 import rayshawn.chatbot.commands.UnmarkCommand;
-
-import java.time.format.DateTimeParseException;
 
 public class ParserTest {
     private Parser parser;
@@ -46,7 +46,7 @@ public class ParserTest {
     }
 
     @Test
-    public void parse_helpCommand_ParseCorrectly() {
+    public void parse_helpCommand_parseCorrectly() {
         final String input = "help";
         parseAndAssertCommandType(input, HelpCommand.class);
     }
@@ -139,9 +139,9 @@ public class ParserTest {
     @Test
     public void parse_toDoCommandArg_parsedCorrectly() {
         final String input = "todo homework";
-        final String expected_Output = "[T][ ] homework";
+        final String expectedOutput = "[T][ ] homework";
         final ToDoCommand result = parseAndAssertCommandType(input, ToDoCommand.class);
-        assertEquals(result.toAdd.toString(), expected_Output);
+        assertEquals(result.toAdd.toString(), expectedOutput);
     }
 
     @Test
@@ -175,9 +175,9 @@ public class ParserTest {
     @Test
     public void parse_deadlineCommandIncorrectDateArgs_throwsException() {
         final String[] inputs = {
-                "deadline homework /by 30 Aug",
-                "deadline homework /by 30-08-2023",
-                "deadline homework /by notADate"
+            "deadline homework /by 30 Aug",
+            "deadline homework /by 30-08-2023",
+            "deadline homework /by notADate"
         };
         for (String input : inputs) {
             parseAndAssertConstructingInvalidDateTimeThrowsException(input);
@@ -187,9 +187,9 @@ public class ParserTest {
     @Test
     public void parse_deadlineCommandArg_parsedCorrectly() {
         final String input = "deadline homework /by 2023-08-30";
-        final String expected_Output = "[D][ ] homework (by: Aug 30 2023)";
+        final String expectedOutput = "[D][ ] homework (by: Aug 30 2023)";
         final DeadlineCommand result = parseAndAssertCommandType(input, DeadlineCommand.class);
-        assertEquals(result.toAdd.toString(), expected_Output);
+        assertEquals(result.toAdd.toString(), expectedOutput);
     }
 
     @Test
@@ -216,10 +216,10 @@ public class ParserTest {
     @Test
     public void parse_eventCommandWrongDateFormats_errorMessage() {
         final String[] inputs = {
-                "event party /from 30 Aug",
-                "event party /from 30/08/2023",
-                "event party /from 30-08-2023",
-                "event party /from notADate"
+            "event party /from 30 Aug",
+            "event party /from 30/08/2023",
+            "event party /from 30-08-2023",
+            "event party /from notADate"
         };
         final String resultMessage = String.format(INVALID_COMMAND_FORMAT_MESSAGE, EventCommand.MESSAGE_USAGE);
         parseAndAssertIncorrectWithMessage(resultMessage, inputs);
@@ -228,10 +228,10 @@ public class ParserTest {
     @Test
     public void parse_eventCommandMissingTimeArgs_errorMessage() {
         final String[] inputs = {
-                "event party /from 2023-08-30",
-                "event party /from 2023-08-30 ",
-                "event party /from 2023-08-30 1PM /to",
-                "event party /from 2023-08-30 1PM /to " ,
+            "event party /from 2023-08-30",
+            "event party /from 2023-08-30 ",
+            "event party /from 2023-08-30 1PM /to",
+            "event party /from 2023-08-30 1PM /to " ,
         };
         final String resultMessage = String.format(INVALID_COMMAND_FORMAT_MESSAGE, EventCommand.MESSAGE_USAGE);
         parseAndAssertIncorrectWithMessage(resultMessage, inputs);
@@ -240,12 +240,12 @@ public class ParserTest {
     @Test
     public void parse_eventCommandIncorrectTimeArgs_throwsException() {
         final String[] inputs = {
-                "event party /from 2023-08-30 1.30PM /to 2PM",
-                "event party /from 2023-08-30 1300 /to 2PM",
-                "event party /from 2023-08-30 13:00 /to 2PM",
-                "event party /from 2023-08-30 1PM /to 2.30PM",
-                "event party /from 2023-08-30 1PM /to 1400",
-                "event party /from 2023-08-30 1PM /to 14:00"
+            "event party /from 2023-08-30 1.30PM /to 2PM",
+            "event party /from 2023-08-30 1300 /to 2PM",
+            "event party /from 2023-08-30 13:00 /to 2PM",
+            "event party /from 2023-08-30 1PM /to 2.30PM",
+            "event party /from 2023-08-30 1PM /to 1400",
+            "event party /from 2023-08-30 1PM /to 14:00"
         };
         for (String input : inputs) {
             parseAndAssertConstructingInvalidDateTimeThrowsException(input);
@@ -255,9 +255,9 @@ public class ParserTest {
     @Test
     public void parse_eventCommandArg_parsedCorrectly() {
         final String input = "event party /from 2023-08-30 1PM /to 2PM";
-        final String expected_Output = "[E][ ] party (from: 2023-08-30 1 PM to: 2 PM)";
+        final String expectedOutput = "[E][ ] party (from: 2023-08-30 1 PM to: 2 PM)";
         final EventCommand result = parseAndAssertCommandType(input, EventCommand.class);
-        assertEquals(result.toAdd.toString(), expected_Output);
+        assertEquals(result.toAdd.toString(), expectedOutput);
     }
 
     private void parseAndAssertIncorrectWithMessage(String feedbackMessage, String... inputs) {
@@ -287,3 +287,4 @@ public class ParserTest {
         fail(error);
     }
 }
+

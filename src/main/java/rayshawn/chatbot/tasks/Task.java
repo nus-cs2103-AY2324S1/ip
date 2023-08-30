@@ -19,11 +19,11 @@ public class Task {
         this.type = type;
     }
 
-    public boolean checkDone() {
+    public boolean isDone() {
         return this.done;
     }
     public void markDone() {
-            this.done = true;
+        this.done = true;
     }
 
     public void unmarkDone() {
@@ -40,7 +40,7 @@ public class Task {
 
     @Override
     public String toString() {
-        return String.format("[%s][%s] %s",this.type , done ? "X" : " ", this.description);
+        return String.format("[%s][%s] %s", this.type, done ? "X" : " ", this.description);
     }
 
 }

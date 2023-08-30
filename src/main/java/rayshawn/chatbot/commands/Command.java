@@ -63,6 +63,6 @@ public class Command {
      * @return String representation of the number of tasks
      */
     public String getTaskListCount() {
-        return String.format(LIST_COUNT_MESSAGE ,taskList.count());
+        return String.format(LIST_COUNT_MESSAGE, taskList.count());
     }
 }

@@ -1,8 +1,9 @@
 package rayshawn.chatbot.commands;
 
 import rayshawn.chatbot.exceptions.ChatBotException;
-import rayshawn.chatbot.tasks.Task;
 import rayshawn.chatbot.tasks.Event;
+import rayshawn.chatbot.tasks.Task;
+
 
 /**
  * Adds an event task to the tasklist.
@@ -10,10 +11,10 @@ import rayshawn.chatbot.tasks.Event;
 public class EventCommand extends Command {
     public static final String COMMAND_WORD = "event";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD +
-            ": Adds a Event task to the task list.\n" +
-            "Parameters: Description /from YYYY-MM-DD HH(AM/PM) /to HH(AM/PM)\n" +
-            "Example: " + COMMAND_WORD + " birthday party /from 2023-08-28 06PM /to 10PM";
+    public static final String MESSAGE_USAGE = COMMAND_WORD
+            + ": Adds a Event task to the task list.\n"
+            + "Parameters: Description /from YYYY-MM-DD HH(AM/PM) /to HH(AM/PM)\n"
+            + "Example: " + COMMAND_WORD + " birthday party /from 2023-08-28 06PM /to 10PM";
     private static final String MESSAGE_SUCCESS = "Got it. I've added this task: \n %1$s \n";
 
 

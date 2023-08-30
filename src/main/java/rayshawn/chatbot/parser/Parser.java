@@ -8,7 +8,6 @@ import java.util.regex.Pattern;
 
 import rayshawn.chatbot.commands.ByeCommand;
 import rayshawn.chatbot.commands.Command;
-import rayshawn.chatbot.commands.ToDoCommand;
 import rayshawn.chatbot.commands.DeadlineCommand;
 import rayshawn.chatbot.commands.DeleteCommand;
 import rayshawn.chatbot.commands.EventCommand;
@@ -17,6 +16,7 @@ import rayshawn.chatbot.commands.IncorrectCommand;
 import rayshawn.chatbot.commands.ListCommand;
 import rayshawn.chatbot.commands.MarkCommand;
 import rayshawn.chatbot.commands.NoSuchCommand;
+import rayshawn.chatbot.commands.ToDoCommand;
 import rayshawn.chatbot.commands.UnmarkCommand;
 import rayshawn.chatbot.exceptions.ChatBotException;
 
@@ -32,13 +32,13 @@ public class Parser {
 
     public static final Pattern TODO_TASK_ARGS_FORMAT = Pattern.compile("(?<description>[^/]+)");
     public static final Pattern DEADLINE_TASK_ARGS_FORMAT =
-            Pattern.compile("(?<description>[^/]+)" +
-                    " /by (?<date>[^/]+)"
+            Pattern.compile("(?<description>[^/]+)"
+                    + " /by (?<date>[^/]+)"
             );
     public static final Pattern EVENT_TASK_ARGS_FORMAT =
-            Pattern.compile("(?<description>[^/]+)" +
-                    " /from (?<start>[^/]+)" +
-                    " /to (?<end>[^/]+)"
+            Pattern.compile("(?<description>[^/]+)"
+                    + " /from (?<start>[^/]+)"
+                    + " /to (?<end>[^/]+)"
             );
 
     /**
@@ -96,7 +96,7 @@ public class Parser {
 
     private Command prepareDeadline(String args) {
         final Matcher matcher = DEADLINE_TASK_ARGS_FORMAT.matcher(args.trim());
-        if(!matcher.matches()) {
+        if (!matcher.matches()) {
             return new IncorrectCommand(String.format(INVALID_COMMAND_FORMAT_MESSAGE, DeadlineCommand.MESSAGE_USAGE));
         }
 
@@ -123,7 +123,7 @@ public class Parser {
 
     private Command prepareEvent(String args) {
         final Matcher matcher = EVENT_TASK_ARGS_FORMAT.matcher(args.trim());
-        if(!matcher.matches()) {
+        if (!matcher.matches()) {
             return new IncorrectCommand(String.format(INVALID_COMMAND_FORMAT_MESSAGE, EventCommand.MESSAGE_USAGE));
         }
 
@@ -151,7 +151,7 @@ public class Parser {
 
     private Command prepareToDo(String args) {
         final Matcher matcher = TODO_TASK_ARGS_FORMAT.matcher(args.trim());
-        if(!matcher.matches()) {
+        if (!matcher.matches()) {
             return new IncorrectCommand(String.format(INVALID_COMMAND_FORMAT_MESSAGE, ToDoCommand.MESSAGE_USAGE));
         }
 

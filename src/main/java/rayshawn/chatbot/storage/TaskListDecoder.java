@@ -23,11 +23,11 @@ public class TaskListDecoder {
     private static final Pattern DEADLINE_FORMAT =
             Pattern.compile("(?<type>[^/]+)" + " \\| (?<description>[^/]+)" + " \\| (?<date>[^/]+)");
     private static final Pattern EVENT_FORMAT =
-            Pattern.compile("(?<type>[^/]+)" +
-                    " \\| (?<description>[^/]+)" +
-                    " \\| (?<date>[^/]+)" +
-                    " \\| (?<start>[^/]+)" +
-                    " \\| (?<end>[^/]+)");
+            Pattern.compile("(?<type>[^/]+)"
+                    + " \\| (?<description>[^/]+)"
+                    + " \\| (?<date>[^/]+)"
+                    + " \\| (?<start>[^/]+)"
+                    + " \\| (?<end>[^/]+)");
 
     /**
      * Decodes the task list from storage file.

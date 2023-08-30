@@ -1,7 +1,7 @@
 package rayshawn.chatbot.tasks;
 
-import java.time.format.DateTimeFormatter;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 /**
  * Represents deadline task in tasklist.
@@ -20,9 +20,9 @@ public class Deadline extends Task {
         this.date = LocalDate.parse(date);
     }
 
-   public String getDate() {
+    public String getDate() {
         return this.date.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-   }
+    }
 
     @Override
     public String toString() {
