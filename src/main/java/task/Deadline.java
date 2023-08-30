@@ -1,25 +1,95 @@
 package task;
+import exception.DukeException;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Deadline extends Task {
-    private final String deadlineBy;
+
+    private String deadlineBy;
+
+    private LocalDate deadlineDate;
+
+    private LocalDateTime deadlineDateTime;
 
     public Deadline(String description, String deadlineBy) {
         super(description);
+        this.deadlineDate = parseDate(deadlineBy);
+        this.deadlineDateTime = parseDateTime(deadlineBy);
         this.deadlineBy = deadlineBy;
-    }
-    public String getDeadlineBy() {
-        return deadlineBy;
     }
 
     @Override
     public String toFileString() {
-        // Format: [Type] | [DoneStatus] | [Description] | [Deadline]
-        // Example: D | 0 | Submit report | 2023-09-01
         String type = "D";
-        return type + " | " + (getIsDone() ? "1" : "0") + " | " + getDescription() + " | " + deadlineBy;
+        if (deadlineDate != null) {
+            return type + " | " + (getIsDone() ? "1" : "0") + " | " + this.description + " | " + this.deadlineDate;
+        } else if (deadlineDateTime != null) {
+            return type + " | " + (getIsDone() ? "1" : "0") + " | " + this.description + " | " + this.deadlineDateTime;
+        }
+        return type + " | " + (getIsDone() ? "1" : "0") + " | " + this.description + " | " + this.deadlineBy;
     }
+
+
     @Override
     public String toString() {
-        return String.format("[D]%s (by: %s)", super.toString(), deadlineBy);
+        if (deadlineDate != null) {
+            String formattedDate = deadlineDate.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
+            return String.format("[D]%s (by: %s)", super.toString(), formattedDate);
+        } else if (deadlineDateTime != null) {
+            String formattedDate = deadlineDateTime.format(DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm"));
+            return String.format("[D]%s (by: %s)", super.toString(), formattedDate);
+        } else {
+            return String.format("[D]%s (by: %s)", super.toString(), deadlineBy);
+        }
+
+    }
+
+    //parse LocalDate Object
+    private LocalDate parseDate(String date) {
+
+        List<DateTimeFormatter> formatters = new ArrayList<>();
+        //List of accepted data formats
+        formatters.add(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        formatters.add(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+        formatters.add(DateTimeFormatter.ofPattern("MM/dd/yyyy"));
+        formatters.add(DateTimeFormatter.ofPattern("d/M/yyyy"));
+
+        for (DateTimeFormatter formatter : formatters) {
+            try {
+                return LocalDate.parse(date, formatter);
+            } catch (DateTimeParseException ignore){
+
+            }
+        }
+
+        return null;
+
+    }
+
+    //parse LocalDateTime Object
+    private LocalDateTime parseDateTime(String date) {
+
+        List<DateTimeFormatter> formatters = new ArrayList<>();
+        //List of accepted data formats
+        formatters.add(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
+        formatters.add(DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm")); //format from reading file
+        formatters.add(DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm"));
+        formatters.add(DateTimeFormatter.ofPattern("MM/dd/yyyy HHmm"));
+        formatters.add(DateTimeFormatter.ofPattern("d/M/yyyy HHmm"));
+
+        for (DateTimeFormatter formatter : formatters) {
+            try {
+                return LocalDateTime.parse(date, formatter);
+            } catch (DateTimeParseException ignore) {
+
+            }
+        }
+        return null;
+
     }
 }

@@ -1,22 +1,22 @@
 package task;
-
-import task.Task;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 public class Event extends Task {
-    private String startDateTime;
-    private String endDateTime;
+    private LocalDate startDateTime;
+    private LocalDate endDateTime;
 
-    public Event(String description, String startDateTime,String endDateTime) {
+    public Event(String description, String startDateTimeStr,String endDateTimeStr) {
         super(description);
-        this.startDateTime = startDateTime;
-        this.endDateTime = endDateTime;
+        this.startDateTime = LocalDate.parse(startDateTimeStr);
+        this.endDateTime = LocalDate.parse(endDateTimeStr);
 
     }
 
-    public String getStartDateTime() {
+    public LocalDate getStartDateTime() {
         return startDateTime;
     }
-    public String getEndDateTime() {
+    public LocalDate getEndDateTime() {
         return endDateTime;
     }
 

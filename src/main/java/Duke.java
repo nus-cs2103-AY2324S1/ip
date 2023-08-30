@@ -1,13 +1,26 @@
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
+import java.util.Date;
 import java.util.Scanner;
 import java.util.ArrayList;
-import exception.DukeException;
+import java.util.List;
+
 import task.Event;
 import task.Task;
 import task.Todo;
 import task.Deadline;
+
+import exception.DukeException;
 
 public class Duke {
     private Scanner sc = new Scanner(System.in);
@@ -31,13 +44,18 @@ public class Duke {
 
         System.out.println(header);
         Duke duke = new Duke();
-        duke.loadTasksFromFile();
         duke.executeDuke();
-        duke.saveTasksToFile();
 
     }
 
     private void executeDuke() {
+
+        try {
+            loadTasksFromFile();
+        } catch (DukeException e) {
+            System.out.println(e.getMessage());
+        }
+
         while (true) {
             System.out.println("____________________________________________________________\n");
             String userInput = sc.nextLine();
@@ -101,6 +119,7 @@ public class Duke {
                 } else {
                     throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
                 }
+                saveTasksToFile();
 
             } catch (DukeException e) {
                 System.out.println("\t" + e.getMessage());
@@ -110,7 +129,7 @@ public class Duke {
         }
     }
 
-    private void loadTasksFromFile() {
+    private void loadTasksFromFile() throws DukeException{
         try {
             File file = new File(DATA_FILE_PATH);
             if (!file.exists()) {
@@ -151,10 +170,10 @@ public class Duke {
 
             }
         } catch (IOException e) {
-            System.out.println("Error loading tasks from file: " + e.getMessage());
+            throw new DukeException("Error loading file: IOException occurred.");
         }
     }
-    private void saveTasksToFile() {
+    private void saveTasksToFile() throws DukeException {
         try {
             FileWriter fileWriter = new FileWriter(DATA_FILE_PATH);
             for (Task task: taskList) {
@@ -163,7 +182,7 @@ public class Duke {
             fileWriter.close();
 
         } catch (IOException e) {
-            System.out.println("Error while saving tasks to file: " + e.getMessage());
+            throw new DukeException("Error saving file: IOException occured.");
         }
     }
 
@@ -213,9 +232,6 @@ public class Duke {
 
         return new String[]{description, startDateTime, endDateTime};
     }
-
-
-
 
 
     private void displayCompletionMessage(Task task) {
