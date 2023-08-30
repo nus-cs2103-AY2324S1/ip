@@ -21,6 +21,30 @@ public class Task {
         return (isDone ? "X" : " ");
     }
 
+    public int getStatusInt() {
+        return isDone? 1 : 0;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public String getTaskType() {
+        return "";
+    }
+
+    public String getBy() {
+        return "";
+    }
+
+    public String getFrom() {
+        return "";
+    }
+
+    public String getTo() {
+        return "";
+    }
+
     /**
      * Returns the string representation of this task, including its completion status & description
      *

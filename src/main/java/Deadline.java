@@ -12,6 +12,16 @@ public class Deadline extends Task{
         this.by = by;
     }
 
+    @Override
+    public String getBy() {
+        return by;
+    }
+
+    @Override
+    public String getTaskType() {
+        return "D";
+    }
+
     /**
      * Returns the string representation of this deadline, including its type of task, completion status,
      * description, and due date
