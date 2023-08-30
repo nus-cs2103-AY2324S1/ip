@@ -26,6 +26,7 @@ class Event extends Task {
 
     /**
      * Returns the name of task with start and end times.
+     *
      * @return Task to be done
      */
     @Override

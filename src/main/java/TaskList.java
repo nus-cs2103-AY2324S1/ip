@@ -13,6 +13,7 @@ class TaskList {
 
     /**
      * Returns a new task list with added task.
+     *
      * @param task Task to be added
      * @return Task list with added task
      */
@@ -24,6 +25,7 @@ class TaskList {
 
     /**
      * Returns a new task list after deleting task.
+     *
      * @param task Task to be removed
      * @return Task list after removing task
      */
@@ -35,6 +37,7 @@ class TaskList {
 
     /**
      * Returns a task based on the specified task number.
+     *
      * @param taskNumber Task to be added
      * @return Task of the specified number
      */
@@ -44,6 +47,7 @@ class TaskList {
 
     /**
      * Returns a new task list with marked task.
+     *
      * @param numberToMark Integer of task to be marked.
      * @return Task list updated with marked task
      */
@@ -58,6 +62,7 @@ class TaskList {
 
     /**
      * Returns a new task list with unmarked task.
+     *
      * @param numberToUnmark Integer of task to be unmarked.
      * @return Task list updated with unmarked task
      */
@@ -76,9 +81,10 @@ class TaskList {
     public int size() {
         return this.tasks.size();
     }
-    
+
     /**
      * Returns the list of tasks to be done.
+     *
      * @return List of tasks to be done
      */
     @Override

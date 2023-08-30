@@ -6,8 +6,8 @@ import exceptions.InvalidSyntaxException;
 import java.util.Scanner;
 
 public class Bocchi {
+    private static final int EXPECTED_TOKENS_IN_EVENT = 3;
     private static final String LINE_BREAK = "___________________________________________________";
-    static final int EXPECTED_TOKENS_IN_EVENT = 3;
 
     /**
      * Outputs greeting message.
@@ -30,6 +30,7 @@ public class Bocchi {
 
     /**
      * Adds the task to the current task list.
+     *
      * @param input Remaining input string excluding action
      * @param taskList Current list of tasks
      * @return Updated task list
@@ -38,29 +39,29 @@ public class Bocchi {
             throws InvalidSyntaxException {
         Task task;
         switch (action) {
-            case "deadline":
-                if (!input.contains("/by")) {
-                    throw new InvalidSyntaxException("deadline");
-                }
-                // Further tokenize into action and deadline
-                String[] deadlineTokens = input.split("\\s*/by\\s*");
-                task = new Deadline(deadlineTokens[0], deadlineTokens[1]);
-                break;
-            case "event":
-                if (!input.contains("/from") || !input.contains("/to")) {
-                    throw new InvalidSyntaxException("event");
-                }
-                // Further tokenize into action, start time and end time
-                // Regex identified by /to OR /from
-                String[] eventTokens = input.split(
-                        "\\s*/to\\s*|\\s*/from\\s*",
-                        EXPECTED_TOKENS_IN_EVENT
-                );
-                task = new Event(eventTokens[0], eventTokens[1], eventTokens[2]);
-                break;
-            // Todo is the default case
-            default:
-                task = new Todo(input);
+        case "deadline":
+            if (!input.contains("/by")) {
+                throw new InvalidSyntaxException("deadline");
+            }
+            // Further tokenize into action and deadline
+            String[] deadlineTokens = input.split("\\s*/by\\s*");
+            task = new Deadline(deadlineTokens[0], deadlineTokens[1]);
+            break;
+        case "event":
+            if (!input.contains("/from") || !input.contains("/to")) {
+                throw new InvalidSyntaxException("event");
+            }
+            // Further tokenize into action, start time and end time
+            // Regex identified by /to OR /from
+            String[] eventTokens = input.split(
+                    "\\s*/to\\s*|\\s*/from\\s*",
+                    EXPECTED_TOKENS_IN_EVENT
+            );
+            task = new Event(eventTokens[0], eventTokens[1], eventTokens[2]);
+            break;
+        // Todo is the default case
+        default:
+            task = new Todo(input);
         }
         System.out.println(LINE_BREAK);
         TaskList newTaskList = taskList.addTask(task);
@@ -83,6 +84,7 @@ public class Bocchi {
 
     /**
      * Marks the indicated task.
+     *
      * @param taskNumber Task number
      * @param taskList Current list of tasks
      * @return Updated task list
@@ -98,6 +100,7 @@ public class Bocchi {
 
     /**
      * Unmarks the indicated task.
+     *
      * @param taskNumber Task number
      * @param taskList Current list of tasks
      * @return Updated task list
@@ -113,6 +116,7 @@ public class Bocchi {
 
     /**
      * Outputs the current list of tasks to be done.
+     *
      * @param taskList Current list of tasks
      */
     private static void displayTasks(TaskList taskList) {
@@ -121,7 +125,6 @@ public class Bocchi {
         System.out.println(LINE_BREAK);
     }
 
-    /**
     /**
      * Main method.
      */
@@ -136,29 +139,29 @@ public class Bocchi {
         while (!action.equals("bye")) {
             try {
                 switch (action) {
-                    case "list":
-                        displayTasks(taskList);
-                        break;
-                    case "mark":
-                        taskList = markTask(Integer.parseInt(tokens[1]), taskList);
-                        break;
-                    case "unmark":
-                        taskList = unmarkTask(Integer.parseInt(tokens[1]), taskList);
-                        break;
-                    case "delete":
-                        taskList = deleteTask(Integer.parseInt(tokens[1]), taskList);
-                        break;
-                    case "todo":
-                    case "deadline":
-                    case "event":
-                        // tokens[1] which is the remaining input is parsed based on the action
-                        if (tokens.length == 1) {
-                            throw new EmptyTaskException(action);
-                        }
-                        taskList = addTask(tokens[1], action, taskList);
-                        break;
-                    default:
-                        throw new InvalidInputException();
+                case "list":
+                    displayTasks(taskList);
+                    break;
+                case "mark":
+                    taskList = markTask(Integer.parseInt(tokens[1]), taskList);
+                    break;
+                case "unmark":
+                    taskList = unmarkTask(Integer.parseInt(tokens[1]), taskList);
+                    break;
+                case "delete":
+                    taskList = deleteTask(Integer.parseInt(tokens[1]), taskList);
+                    break;
+                case "todo":
+                case "deadline":
+                case "event":
+                    // tokens[1] which is the remaining input is parsed based on the action
+                    if (tokens.length == 1) {
+                        throw new EmptyTaskException(action);
+                    }
+                    taskList = addTask(tokens[1], action, taskList);
+                    break;
+                default:
+                    throw new InvalidInputException();
                 }
             } catch (BocchiException e) {
                 System.out.println(LINE_BREAK);

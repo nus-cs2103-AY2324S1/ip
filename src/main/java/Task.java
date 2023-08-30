@@ -13,18 +13,21 @@ abstract class Task {
 
     /**
      * Mark the task.
+     *
      * @return Returns a marked Task
      */
     abstract Task mark();
 
     /**
      * Unmark the task.
+     *
      * @return Returns an unmarked task
      */
     abstract Task unmark();
 
     /**
      * Returns the name of task to be done.
+     *
      * @return Name of task to be done
      */
     @Override

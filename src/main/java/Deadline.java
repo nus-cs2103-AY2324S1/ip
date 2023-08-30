@@ -24,6 +24,7 @@ class Deadline extends Task {
 
     /**
      * Returns the name of task with deadline.
+     *
      * @return Task to be done
      */
     @Override

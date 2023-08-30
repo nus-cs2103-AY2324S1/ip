@@ -19,6 +19,7 @@ class Todo extends Task {
 
     /**
      * Returns the name of task to be done.
+     *
      * @return Name of task to be done
      */
     @Override
