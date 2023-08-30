@@ -1,11 +1,21 @@
-import java.io.File;
-import java.io.FileNotFoundException;
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Bongo {
+    String pathname = "data/bongo.txt";
     ArrayList<Task> tasks;
     Scanner inputScanner;
+    enum FileAction {
+        MARK_TASK,
+        UNMARK_TASK,
+        ADD_TASK,
+        DELETE_TASK
+    }
 
     public Bongo() {
         this.tasks = new ArrayList<>();
@@ -29,7 +39,7 @@ public class Bongo {
     }
 
     public void loadTasksFromStorage() throws FileNotFoundException {
-        File file = new File("data/bongo.txt");
+        File file = new File(this.pathname);
         Scanner fileScanner = new Scanner(file);
         while (fileScanner.hasNextLine()) {
             String line = fileScanner.nextLine();
@@ -37,19 +47,91 @@ public class Bongo {
             for (int i = 0; i < arr.length; i++) {
                 arr[i] = arr[i].trim();
             }
+            boolean isTaskMarkedDone = arr[1].equals("1");
             switch (arr[0]) {
                 case "T":
-                    tasks.add(new Todo(arr[2], arr[1].equals("1")));
+                    tasks.add(new Todo(arr[2], isTaskMarkedDone));
                     break;
                 case "D":
-                    tasks.add(new Deadline(arr[2], arr[1].equals("1"), arr[3]));
+                    tasks.add(new Deadline(arr[2], isTaskMarkedDone, arr[3]));
                     break;
                 case "E":
-                    tasks.add(new Event(arr[2], arr[1].equals("1"), arr[3], arr[4]));
+                    tasks.add(new Event(arr[2], isTaskMarkedDone, arr[3], arr[4]));
                     break;
             }
         }
         fileScanner.close();
+    }
+
+    public void appendToTextFile(Task newTask) {
+        try {
+            File file = new File(this.pathname);
+            FileWriter fw = new FileWriter(this.pathname,true);
+            String newLine = "";
+            String isTaskMarkedDone = newTask.isDone ? "1" : "0";
+            if (newTask instanceof Todo) {
+                newLine = String.join(" | ", "T", isTaskMarkedDone, newTask.description);
+            } else if (newTask instanceof Deadline) {
+                Deadline newDeadline = (Deadline) newTask;
+                newLine = String.join(" | ", "D", isTaskMarkedDone, newDeadline.description, newDeadline.deadline);
+            } else if (newTask instanceof Event) {
+                Event newEvent = (Event) newTask;
+                newLine = String.join(" | ", "E", isTaskMarkedDone, newEvent.description, newEvent.to, newEvent.from);
+            }
+            if (file.length() != 0) {
+                fw.write(String.format("\n%s", newLine));
+            } else {
+                fw.write(newLine);
+            }
+
+            fw.close();
+        } catch(IOException ioe) {
+            System.err.println("IOException: " + ioe.getMessage());
+        }
+    }
+
+    public void editTextFile(FileAction action, int taskNumber) {
+        try {
+            File file = new File(this.pathname);
+            BufferedReader fileReader = new BufferedReader(new FileReader(file));
+            StringBuilder stringBuilder = new StringBuilder();
+            String line;
+            int currentLine = 1;
+            while ((line = fileReader.readLine()) != null) {
+                if (currentLine == taskNumber) {
+                    String[] lineWordsArr = line.split("\\|");
+                    for (int i = 0; i < lineWordsArr.length; i++) {
+                        lineWordsArr[i] = lineWordsArr[i].trim();
+                    }
+                    switch (action) {
+                        case MARK_TASK:
+                            lineWordsArr[1] = "1";
+                            stringBuilder.append(String.join(" | ", lineWordsArr)).append("\n");
+                            break;
+                        case UNMARK_TASK:
+                            lineWordsArr[1] = "0";
+                            stringBuilder.append(String.join(" | ", lineWordsArr)).append("\n");
+                            break;
+                        case DELETE_TASK:
+                            currentLine++;
+                            continue;
+                    }
+                } else {
+                    stringBuilder.append(line).append("\n");
+                }
+                currentLine++;
+            }
+            fileReader.close();
+
+            // Write the modified content back to the file
+            FileWriter fileWriter = new FileWriter(file);
+            fileWriter.write(stringBuilder.toString().trim());
+            fileWriter.close();
+
+        } catch (Exception e) {
+            System.out.println("Problem editing the file.");
+            e.printStackTrace();
+        }
     }
 
     public void listAllTasks() {
@@ -104,28 +186,35 @@ public class Bongo {
                 String.format(" Now you have %d tasks in the list.\n", tasks.size()) +
                 "____________________________________________________________";
         System.out.println(echoMessage);
+        appendToTextFile(newTask);
     }
 
-    public void markTaskDone(Task chosenTask) {
+    public void markTaskDone(int taskIndex) {
+        Task chosenTask = tasks.get(taskIndex);
         chosenTask.markAsDone();
         String taskStatusMessage = " Nice! I've marked this task as done:\n" +
                 String.format("  %s\n", chosenTask);
         printTaskUpdateMessage(taskStatusMessage);
+        editTextFile(FileAction.MARK_TASK, taskIndex + 1);
     }
 
-    public void markTaskUndone(Task chosenTask) {
+    public void markTaskUndone(int taskIndex) {
+        Task chosenTask = tasks.get(taskIndex);
         chosenTask.markAsUndone();
         String taskStatusMessage = " OK, I've marked this task as not done yet:\n" +
                 String.format("  %s\n", chosenTask);
         printTaskUpdateMessage(taskStatusMessage);
+        editTextFile(FileAction.UNMARK_TASK, taskIndex + 1);
     }
 
-    public void deleteTask(int taskIndex, Task chosenTask) {
+    public void deleteTask(int taskIndex) {
+        Task chosenTask = tasks.get(taskIndex);
         tasks.remove(taskIndex);
         String taskStatusMessage = " Noted. I've removed this task:\n" +
                 String.format("  %s\n", chosenTask) +
                 String.format(" Now you have %d tasks in the list.\n", tasks.size());
         printTaskUpdateMessage(taskStatusMessage);
+        editTextFile(FileAction.DELETE_TASK, taskIndex + 1);
     }
 
     public void printTaskUpdateMessage(String taskStatusMessage) {
@@ -155,13 +244,12 @@ public class Bongo {
                         int taskIndex = Integer.parseInt(input[1]) - 1;
                         if (taskIndex < 0 || taskIndex >= tasks.size())
                             throw new BongoException("OOPS!!! Task does not exist.");
-                        Task chosenTask = tasks.get(taskIndex);
                         if (input[0].equals("mark")) {
-                            this.markTaskDone(chosenTask);
+                            this.markTaskDone(taskIndex);
                         } else if (input[0].equals("unmark")) {
-                            this.markTaskUndone(chosenTask);
+                            this.markTaskUndone(taskIndex);
                         } else {
-                            this.deleteTask(taskIndex, chosenTask);
+                            this.deleteTask(taskIndex);
                         }
                         continue;
                     case "todo":
