@@ -9,9 +9,9 @@ import java.util.Scanner;
 
 public class Simon {
     private static final ArrayList<Task> tasks = new ArrayList<>();
-    private static final String SPACE = "____________________________________________________________";
-    private static final String NSPACE = "\n____________________________________________________________";
-    private static final String SPACEN = "____________________________________________________________\n";
+    protected static final String SPACE = "____________________________________________________________";
+    protected static final String NSPACE = "\n____________________________________________________________";
+    protected static final String SPACEN = "____________________________________________________________\n";
 
     enum Command {
         TODO, DEADLINE, EVENT, LIST, MARK, UNMARK, DELETE, BYE, UNKNOWN
