@@ -30,4 +30,6 @@ public class Messages {
             + "Usage: event <description> /from <start> /to <end>\n";
     public static final String INVALID_DELETE_MESSAGE = "Great heavens! The index of delete cannot be empty!\n"
             + "Usage: delete <index>\n";
+    public static final String CORRUPT_FILE_MESSAGE = "Great heavens! The data file is corrupted!\n"
+            + "Starting with new task list...\n";
 }
