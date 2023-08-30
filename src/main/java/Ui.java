@@ -1,4 +1,4 @@
-public class Util {
+public class Ui {
     private static final String LINEBREAK = "    ＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿";
 
     /**
@@ -6,7 +6,7 @@ public class Util {
      *
      * @param msg String to output
      */
-    public static void displayMessage(String msg) {
+    public void displayMessage(String msg) {
         System.out.println(LINEBREAK);
         System.out.println(indent(msg));
         System.out.println(LINEBREAK);
