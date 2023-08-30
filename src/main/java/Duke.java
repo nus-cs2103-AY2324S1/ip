@@ -5,46 +5,33 @@ import java.util.Scanner;
 public class Duke {
 
     private final String name = "Paimon";
-    private List<Task> tasks = new ArrayList<>();
 
-    public void listTasks() {
-        System.out.println(" Here are the tasks in your list:");
-        for (int i = 0; i < this.tasks.size(); i++) {
-            System.out.println(" " + (i + 1) + "." + this.tasks.get(i).toString());
-        }
-    }
-
-    public void readTask(String command) throws DukeException {
+    public void readTask(String command, User user) throws DukeException {
         String[] commandSplit = command.split(" ");
         if (command.equals("list")) {
-            this.listTasks();
+            user.listTasks();
         } else {
             if (command.startsWith("todo") ||
                     command.startsWith("deadline") ||
                     command.startsWith("event")) {
-                this.addTask(command);
+                this.addTask(command, user);
             } else if (command.startsWith("mark") ||
                     command.startsWith("unmark") ||
                     command.startsWith("delete")) {
                 try {
-                    if (commandSplit.length > 2 || Integer.parseInt(commandSplit[1]) > tasks.size()) {
+                    if (commandSplit.length > 2 || Integer.parseInt(commandSplit[1]) > user.taskCount()) {
                         throw new DukeException("Please enter a valid number");
                     }
-                    int markTask = Integer.parseInt(commandSplit[1]);
+                    int index = Integer.parseInt(commandSplit[1]) - 1;
                     if (command.startsWith("mark")) {
-                        this.tasks.get(markTask - 1).markAsDone();
-                        System.out.println(" Nice! I've marked this task as done:");
+                        user.markTask(index);
                     } else if (command.startsWith("unmark")) {
-                        this.tasks.get(markTask - 1).markAsNotDone();
-                        System.out.println(" OK, I've marked this task as not done yet:");
+                        user.unMarkTask(index);
                     } else {
-                        System.out.println(" Noted. I've removed this task:");
-                        System.out.println("   " + this.tasks.get(markTask - 1).toString());
-                        this.tasks.remove(markTask - 1);
-                        System.out.println(" Now you have " + this.tasks.size() + " tasks in the list.");
+                        user.deleteTask(index);
                         return;
                     }
-                    System.out.println("   " + this.tasks.get(markTask - 1).toString());
+                    user.taskToPrint(index);
                 } catch (NumberFormatException e) {
                     throw new DukeException("Please enter a valid number");
                 } catch (ArrayIndexOutOfBoundsException e) {
@@ -56,7 +43,7 @@ public class Duke {
         }
     }
 
-    public void addTask(String command) throws DukeException {
+    public void addTask(String command, User user) throws DukeException {
         if (command.startsWith("todo")) {
             try {
                 String taskDescription = command.substring(5);
@@ -64,7 +51,7 @@ public class Duke {
                     throw new DukeException("The description of a todo cannot be empty.");
                 }
                 Task t = new Todo(taskDescription);
-                this.tasks.add(t);
+                user.addTask(t);
                 System.out.println(" Got it. I've added this task:");
                 System.out.println("   " + t.toString());
             } catch (StringIndexOutOfBoundsException e) {
@@ -77,7 +64,7 @@ public class Duke {
                     throw new DukeException("The description of a deadline cannot be empty.");
                 }
                 Task t = new Deadline(taskAndDeadline[0], taskAndDeadline[1]);
-                this.tasks.add(t);
+                user.addTask(t);
                 System.out.println(" Got it. I've added this task:");
                 System.out.println("   " + t.toString());
             } catch (StringIndexOutOfBoundsException e) {
@@ -92,7 +79,7 @@ public class Duke {
                     throw new DukeException("The description of a todo cannot be empty.");
                 }
                 Task t = new Event(taskAndDate[0], taskAndDate[1], taskAndDate[2]);
-                this.tasks.add(t);
+                user.addTask(t);
                 System.out.println(" Got it. I've added this task:");
                 System.out.println("   " + t.toString());
             } catch (StringIndexOutOfBoundsException e) {
@@ -103,7 +90,7 @@ public class Duke {
         } else {
             throw new DukeException("I'm sorry, but I don't know what that means :-(");
         }
-        System.out.println(" Now you have " + this.tasks.size() + " tasks in the list.");
+        System.out.println(" Now you have " + user.taskCount() + " tasks in the list.");
     }
 
     public void greetAndFarewell() {
@@ -111,6 +98,7 @@ public class Duke {
         System.out.println(" Hello! I'm " + name);
         System.out.println(" What can I do for you?");
         System.out.println("---------------------------------------------------------------");
+        User user = new User("data/duke.txt");
 
         Scanner scanner = new Scanner(System.in);
         String command = scanner.nextLine();
@@ -118,7 +106,7 @@ public class Duke {
         while (!command.equals("bye")) {
             System.out.println("---------------------------------------------------------------");
             try {
-                this.readTask(command);
+                this.readTask(command, user);
             } catch (DukeException e) {
                 System.out.println(e.toString());
             }
