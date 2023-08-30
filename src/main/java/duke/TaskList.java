@@ -19,7 +19,7 @@ public class TaskList {
         } else if (taskInformation.length == 2) {
             task = new Deadline(taskName, taskInformation[1].replace("by ", ""));
         } else if (taskInformation.length == 3) {
-            task = new Event(taskName, taskInformation[1].replace("from", ""), taskInformation[2].replace("to ", ""));
+            task = new Event(taskName, taskInformation[1].replace("from ", ""), taskInformation[2].replace("to ", ""));
         } else {
             ui.formatPrintMessage("Invalid task format");
             return;
@@ -83,4 +83,13 @@ public class TaskList {
         task.unmarkAsDone(true);
         storage.modifyTask(taskNumber, task);
     }
+
+    public int getTaskListSize() {
+        return this.tasks.size();
+    }
+
+    public Task getTask(int taskNumber) {
+        return this.tasks.get(taskNumber);
+    }
+
 }

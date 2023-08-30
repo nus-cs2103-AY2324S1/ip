@@ -1,8 +1,11 @@
 package duke;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Scanner;
 
 public class Storage {
@@ -28,17 +31,20 @@ public class Storage {
     public void loadTasks(TaskList taskList) {
         try {
             File file = new File(filePath);
-            Scanner scanner = new Scanner(file);
             System.out.println("Loading tasks...");
-            while (scanner.hasNext()) {
-                String taskDescription = scanner.nextLine();
-                validateString(taskDescription);
-                Task task = convertStringIntoTask(taskDescription);
+            BufferedReader reader = new BufferedReader(new FileReader(file));
+            String line;
+            while ((line = reader.readLine()) != null) {
+                validateString(line);
+                Task task = convertStringIntoTask(line);
                 taskList.addTask(task);
             }
-            scanner.close();
+            reader.close();
         } catch (FileNotFoundException e) {
             System.out.println("File not found. Please create duke.txt in the data folder");
+            System.exit(1);
+        } catch (IOException e) {
+            System.out.println("An error has occured during file loading. Plese check duke.txt in the data folder");
             System.exit(1);
         } catch (DukeException e) {
             System.out.println(e.getMessage());
@@ -47,7 +53,6 @@ public class Storage {
         System.out.println("Tasks loaded successfully!");
     }
 
-    //convert this data into task
     public Task convertStringIntoTask(String dataString) throws DukeException {
         String[] dataArr = dataString.split(" \\| ");
         String taskType = dataArr[0];
@@ -138,17 +143,16 @@ public class Storage {
     public void deleteTask(int taskNumber) {
         try {
             File file = new File(filePath);
-            Scanner scanner = new Scanner(file);
+            BufferedReader reader = new BufferedReader(new FileReader(file));
             StringBuilder newContents = new StringBuilder();
             int count = 0;
-            while (scanner.hasNext()) {
-                String dataString = scanner.nextLine();
+            String line;
+            while ((line = reader.readLine()) != null) {
                 if (count != taskNumber - 1) {
-                    newContents.append(dataString + "\n");
+                    newContents.append(line + "\n");
                 }
                 count++;
             }
-            scanner.close();
             FileWriter fileWriter = new FileWriter(file, false);
             fileWriter.write(newContents.toString());
             fileWriter.close();
