@@ -1,15 +1,30 @@
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
+
+
 public class Duke {
     private static final ArrayList<Task> lst = new ArrayList<>();
 
+    private static File f;
+
     public static void main(String[] args) {
+
+        accessFile();
         Scanner scanner = new Scanner(System.in);
+
         System.out.println(
                 "____________________________________________________________\n"
-                + "Hello! I'm ET\n"
-                + "What can I do for you?\n"
-                + "____________________________________________________________\n"
+                        + "Hello! I'm ET\n"
+                        + "What can I do for you?\n"
+                        + "____________________________________________________________\n"
         );
 
         String input = scanner.nextLine();
@@ -19,6 +34,7 @@ public class Duke {
             input = scanner.nextLine();
         }
 
+        saveToFile();
         System.out.println("____________________________________________________________\n"
                 + "Bye. Hope to see you again soon!\n"
                 + "____________________________________________________________\n"
@@ -67,7 +83,6 @@ public class Duke {
                         + "____________________________________________________________\n"
                 );
             } else {
-                System.out.println("im addlist");
                 addList(str);
             }
         } catch (Exception e) {
@@ -76,8 +91,8 @@ public class Duke {
     }
 
     public static void addList(String str) throws InvalidInputException, IncompleteInputException {
-         if (str.startsWith("todo ")) {
-             if (str.length() < 6) throw new IncompleteInputException("todo");
+        if (str.startsWith("todo ")) {
+            if (str.length() < 6) throw new IncompleteInputException("todo");
             String des = str.substring(5);
             Todo todo = new Todo(des);
             lst.add(todo);
@@ -106,9 +121,9 @@ public class Duke {
 
         } else if (str.startsWith("event ")) {
             String[] words = str.split("/");
-             if (words.length != 3 || words[0].length() < 7 || words[1].length() < 6 || words[2].length() < 4) {
-                 throw new IncompleteInputException("deadline");
-             }
+            if (words.length != 3 || words[0].length() < 7 || words[1].length() < 6 || words[2].length() < 4) {
+                throw new IncompleteInputException("deadline");
+            }
             String des = words[0].substring(6);
             String from = words[1].substring(5);
             String to = words[2].substring(3);
@@ -124,4 +139,82 @@ public class Duke {
             throw new InvalidInputException();
         }
     }
+
+    public static void accessFile() {
+        try {
+            f = new File("./src/main/data/duke.txt");
+            if (!f.createNewFile()) {
+                readFile();
+            }
+        } catch (IOException e) {
+            System.out.println("Something went wrong: " + e.getMessage());
+        }
+    }
+
+    public static void printFile() {
+        try {
+            int count = 1;
+            File f = new File("./src/main/data/duke.txt");
+            Scanner fScanner = new Scanner(f);
+            while (fScanner.hasNextLine()) {
+                System.out.println(count + ". " + fScanner.nextLine());
+            }
+            fScanner.close();
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found");
+        }
+    }
+
+    private static void writeToFile(String pathname, String textToAdd) {
+        try {
+            FileWriter fw = new FileWriter(pathname, true);
+            fw.write(textToAdd + System.lineSeparator());
+            fw.close();
+        } catch (IOException e) {
+            System.out.println("Something went wrong: " + e.getMessage());
+        }
+    }
+
+    public static void readFile() {
+        try {
+            File f = new File("./src/main/data/duke.txt");
+            Scanner fScanner = new Scanner(f);
+            while (fScanner.hasNextLine()) {
+                String s = fScanner.nextLine();
+                String[] arr = s.split("--");
+                if (arr[0].equals("T")) {
+                    Todo t = new Todo(arr[2]);
+                    if (arr[1].equals("1")) {
+                        t.markAsDone();
+                    }
+                    lst.add(t);
+                } else if (arr[0].equals("D")) {
+                    Deadline dl = new Deadline(arr[2], arr[3]);
+                    if (arr[1].equals("1")) {
+                        dl.markAsDone();
+                    }
+                    lst.add(dl);
+                } else if (arr[0].equals("E")){
+                    Event e = new Event(arr[2], arr[3], arr[4]);
+                    if (arr[1].equals("1")) {
+                        e.markAsDone();
+                    }
+                    lst.add(e);
+                }
+            }
+            fScanner.close();
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found");
+        }
+    }
+
+    public static void saveToFile(){
+            f.delete();
+            f = new File("./src/main/data/duke.txt");
+            for (int i = 1; i <= lst.size(); i++) {
+                Task t = lst.get(i - 1);
+                writeToFile("./src/main/data/duke.txt", t.toFileString());
+            }
+    }
+
 }
