@@ -36,8 +36,8 @@ public class Ui {
                 + "| |___\n"
                 + "|_____|\n";
         System.out.println("Greetings from\n" + logo);
-        System.out.println("Hi! This is your intelligent friend L.\n\"Dream big.\"\n" +
-                "What can I do for you today?");
+        System.out.println("Hi! This is your intelligent friend L.\n\"Dream big.\"\n"
+                + "What can I do for you today?");
         while (scanner.hasNextLine()) {
             try {
                 System.out.println(p.parse(scanner.nextLine()));

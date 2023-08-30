@@ -1,7 +1,6 @@
 package duke.task;
 
 import duke.DukeException;
-
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.regex.Matcher;
@@ -44,8 +43,8 @@ public class TaskList {
         default:
             Pattern pattern = Pattern.compile("(.+) /from (.+) /to (.+)");
             Matcher matcher = pattern.matcher(description);
-            if (matcher.matches() && !matcher.group(1).isEmpty() && !matcher.group(2).isEmpty() &&
-                    !matcher.group(3).isEmpty()) {
+            if (matcher.matches() && !matcher.group(1).isEmpty() && !matcher.group(2).isEmpty()
+                    && !matcher.group(3).isEmpty()) {
                 this.tasks.add(new Event(matcher.group(1), matcher.group(2), matcher.group(3)));
             } else {
                 throw new DukeException("event error");
@@ -54,7 +53,8 @@ public class TaskList {
         }
         int size = this.tasks.size();
         String taskInTotal = size > 1 ? " tasks in total." : " task in total.";
-        return "duke.task.Task added:\n" + this.tasks.get(size - 1) + "\nNow you have " + size + taskInTotal + "\n\"Be here now.\"";
+        return "duke.task.Task added:\n" + this.tasks.get(size - 1) + "\nNow you have "
+                + size + taskInTotal + "\n\"Be here now.\"";
     }
 
     public String getTasks() {
@@ -94,7 +94,8 @@ public class TaskList {
             tasks.remove(taskIndex - 1);
             int size = this.tasks.size();
             String taskInTotal = size > 1 ? " tasks in total." : " task in total.";
-            return "I've successfully deleted this task:\n" + task + "\nNow you have " + size + taskInTotal + "\n\"Ride the waves.\"";
+            return "I've successfully deleted this task:\n" + task + "\nNow you have " + size + taskInTotal
+                    + "\n\"Ride the waves.\"";
         }
     }
 }

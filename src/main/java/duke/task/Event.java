@@ -27,5 +27,4 @@ public class Event extends Task {
     public String toTxt() {
         return super.toTxt() + this.description + " | " + this.from + " | " + this.to;
     }
-
 }

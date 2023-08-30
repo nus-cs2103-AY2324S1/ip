@@ -6,7 +6,6 @@ import duke.task.Task;
 import duke.task.TaskList;
 import duke.task.TaskType;
 import duke.task.ToDo;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;

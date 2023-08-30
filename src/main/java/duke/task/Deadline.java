@@ -31,12 +31,14 @@ public class Deadline extends Task {
 
     @Override
     public String toString() {
-        return this.by != null ? "[D]" + super.toString() + " (by: " + this.by.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + " |" + this.byDescription + ")"
+        return this.by != null ? "[D]" + super.toString() + " (by: "
+                + this.by.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + " |" + this.byDescription + ")"
                 : "[D]" + super.toString() + " (by: " + this.byDescription + ")";
     }
 
     @Override
     public String toTxt() {
-        return this.by != null ? super.toTxt() + this.description + " | " + this.by + this.byDescription : super.toTxt() + this.description + " | " + this.byDescription;
+        return this.by != null ? super.toTxt() + this.description + " | " + this.by + this.byDescription : super.toTxt()
+                + this.description + " | " + this.byDescription;
     }
 }
