@@ -4,12 +4,12 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 public class Parser {
-    private ArrayList<Task> myList;
+    private TaskList tasks;
     private Ui Ui;
     private Storage storage;
     private Scanner myScanner;
-    Parser(ArrayList<Task> myList, Ui Ui, Storage storage, Scanner myScanner) {
-        this.myList = myList;
+    Parser(TaskList tasks, Ui Ui, Storage storage, Scanner myScanner) {
+        this.tasks = tasks;
         this.Ui = Ui;
         this.storage = storage;
         this.myScanner = myScanner;
@@ -20,36 +20,36 @@ public class Parser {
         switch(inValue) {
         case "bye":
             Ui.goodbye();
-            storage.saveTasksToFile(myList);
+            storage.saveTasksToFile(tasks);
             System.exit(0);
             return;
 
         case "list":
-            Ui.tasksInList(myList);
+            Ui.tasksInList(tasks);
             break;
 
         case "mark":
             int number = myScanner.nextInt();
-            item = myList.get(number-1);
+            item = tasks.get(number);
             item.set();
             Ui.taskDone(item);
-            storage.saveTasksToFile(myList);
+            storage.saveTasksToFile(tasks);
             break;
 
         case "unmark":
             int numero = myScanner.nextInt();
-            item = myList.get(numero-1);
+            item = tasks.get(numero);
             item.unset();
             Ui.taskUndone(item);
-            storage.saveTasksToFile(myList);
+            storage.saveTasksToFile(tasks);
             break;
 
         case "delete":
             int numbero = myScanner.nextInt();
-            item = myList.get(numbero - 1);
-            myList.remove(numbero-1);
-            Ui.taskDelete(item, myList);
-            storage.saveTasksToFile(myList);
+            item = tasks.get(numbero);
+            tasks.delete(numbero);
+            Ui.taskDelete(item, tasks);
+            storage.saveTasksToFile(tasks);
             break;
 
         case "todo":
@@ -62,9 +62,9 @@ public class Parser {
                 break;
             }
             ToDo t =  new ToDo(inValue);
-            myList.add(t);
-            Ui.taskAdd(t, myList);
-            storage.saveTasksToFile(myList);
+            tasks.add(t);
+            Ui.taskAdd(t, tasks);
+            storage.saveTasksToFile(tasks);
             break;
         case "deadline":
             inValue = myScanner.nextLine();
@@ -85,9 +85,9 @@ public class Parser {
             else{
                 d = new Deadline(toBeSplit[0], LocalDate.parse(toBeSplit[1], DateTimeFormatter.ofPattern("yyyy/MM/dd")));
             }
-            myList.add(d);
-            Ui.taskAdd(d, myList);
-            storage.saveTasksToFile(myList);
+            tasks.add(d);
+            Ui.taskAdd(d, tasks);
+            storage.saveTasksToFile(tasks);
             break;
         case "event":
             inValue = myScanner.nextLine();
@@ -101,9 +101,9 @@ public class Parser {
             String[] to_Split = inValue.split(" /from ");
             String[] second_Split = to_Split[1].split(" /to ");
             Event e = new Event(to_Split[0], second_Split[0], second_Split[1]);
-            myList.add(e);
-            Ui.taskAdd(e, myList);
-            storage.saveTasksToFile(myList);
+            tasks.add(e);
+            Ui.taskAdd(e, tasks);
+            storage.saveTasksToFile(tasks);
             break;
 
         default:

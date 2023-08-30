@@ -10,10 +10,10 @@ public class Duke{
         Ui Ui = new Ui();
         Storage storage = new Storage(saveFileDir);
         ArrayList<Task> myList = new ArrayList<Task>(); // Create an ArrayList object
-        myList = storage.loadSaveFile();
+        TaskList tasks = new TaskList(storage.loadSaveFile());
         Ui.hello();
         Scanner myScanner = new Scanner(System.in);
-        Parser parser = new Parser(myList, Ui, storage, myScanner);
+        Parser parser = new Parser(tasks, Ui, storage, myScanner);
 
         while(myScanner.hasNext()){
             String inValue = myScanner.next();

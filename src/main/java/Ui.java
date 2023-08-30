@@ -39,11 +39,11 @@ public class Ui {
     }
     public void goodbye() { System.out.println("Bye. Hope to see you again soon!");}
 
-    public void tasksInList(ArrayList<Task> myList) {
+    public void tasksInList(TaskList tasks) {
         this.printLines();
         System.out.println("Here are the tasks in your list:");
         int i = 1;
-        for (Task t: myList){
+        for (Task t: tasks.getList()){
             System.out.println(String.valueOf(i) + "." + t.toString());
             i++;
         }
@@ -63,18 +63,18 @@ public class Ui {
         this.printLines();
     }
 
-    public void taskAdd(Task item, ArrayList<Task> myList){
+    public void taskAdd(Task item, TaskList tasks){
         this.printLines();
         System.out.println("Got it. I've added this task:");
         System.out.println(item.toString());
-        System.out.println("Now you have "+ String.valueOf(myList.size()) + " tasks in the list.");
+        System.out.println("Now you have "+ String.valueOf(tasks.getList().size()) + " tasks in the list.");
         this.printLines();
     }
-    public void taskDelete(Task item, ArrayList<Task> myList){
+    public void taskDelete(Task item, TaskList tasks){
         this.printLines();
         System.out.println("Noted. I've removed this task:");
         System.out.println(item.toString());
-        System.out.println("Now you have "+ String.valueOf(myList.size()) + " tasks in the list.");
+        System.out.println("Now you have "+ String.valueOf(tasks.getList().size()) + " tasks in the list.");
         this.printLines();
     }
 

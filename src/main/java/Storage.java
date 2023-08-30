@@ -15,7 +15,7 @@ public class Storage {
         this.dir = dir;
     }
 
-    public void saveTasksToFile(ArrayList<Task> tasks){
+    public void saveTasksToFile(TaskList tasks){
         FileWriter fileWriter;
         BufferedWriter bufferedWriter;
         try {
@@ -24,7 +24,7 @@ public class Storage {
             outputFile.createNewFile();
             fileWriter = new FileWriter(outputFile);
             bufferedWriter = new BufferedWriter((fileWriter));
-            for (Task t: tasks) {
+            for (Task t: tasks.getList()) {
                 bufferedWriter.write(t.toSaveString());
                 bufferedWriter.newLine();
             }
