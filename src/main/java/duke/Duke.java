@@ -1,3 +1,11 @@
+package duke;
+
+import duke.exception.DukeException;
+import duke.task.CommandEnum;
+import duke.task.Task;
+import duke.task.TaskList;
+import duke.util.Storage;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;

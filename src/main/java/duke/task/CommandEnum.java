@@ -1,3 +1,5 @@
+package duke.task;
+
 public enum CommandEnum {
     LIST, BYE, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, INVALID;
 

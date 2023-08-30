@@ -1,3 +1,8 @@
+package duke;
+
+import duke.exception.DukeException;
+
+
 /**
  * This class represents the UI that interacts with the user.
  */
