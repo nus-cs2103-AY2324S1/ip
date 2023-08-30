@@ -11,6 +11,9 @@ import cyrus.ui.Ui;
 
 import java.util.Scanner;
 
+/**
+ * Entry point of Cyrus interface.
+ */
 public class Duke {
   private final static IStorage storage = new FileStorage("data/data.json");
   private final static TaskList taskList = new TaskList(storage);
@@ -30,7 +33,7 @@ public class Duke {
         continue;
       }
 
-      if (parseInfo.commandType == CommandType.BYE) break;
+      if (parseInfo.getCommandType() == CommandType.BYE) break;
 
       Command commandToRun = parser.dispatchCommand(taskList, parseInfo);
       commandToRun.run();

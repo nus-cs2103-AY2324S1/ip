@@ -19,7 +19,7 @@ public class ParserTest {
 
   @Test
   public void testParseWithUnknownCommand() {
-    assertEquals(CommandType.UNKNOWN, parser.parse("unknown hi this is unknown").commandType);
+    assertEquals(CommandType.UNKNOWN, parser.parse("unknown hi this is unknown").getCommandType());
   }
 
   @Test
@@ -47,7 +47,7 @@ public class ParserTest {
   @Test
   public void testParseWithoutOptions() {
     ParseInfo info = parser.parse("todo this is a todo");
-    assertEquals(CommandType.ADD_TODO, info.commandType);
+    assertEquals(CommandType.ADD_TODO, info.getCommandType());
     assertEquals("this is a todo", info.getArgument());
     assertEquals(0, info.getOptions().size());
   }

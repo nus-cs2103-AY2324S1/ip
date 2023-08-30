@@ -4,14 +4,20 @@ import cyrus.commands.CommandType;
 
 import java.util.HashMap;
 
+/**
+ * Packet of information about the parsing response.
+ */
 public class ParseInfo {
+  /**
+   * Default {@code ParseInfo} for an empty command.
+   */
   public final static ParseInfo EMPTY = new ParseInfo(
       CommandType.UNKNOWN,
       "",
       new HashMap<>()
   );
 
-  public final CommandType commandType;
+  private final CommandType commandType;
   private final String argument;
   private final HashMap<String, String> options;
 
@@ -21,10 +27,18 @@ public class ParseInfo {
     this.options = options;
   }
 
+  /**
+   * Returns if parsed command has no argument.
+   * @return true if parsed command has no arguments
+   */
   public boolean hasNoArgument() {
     return this.argument.equals("");
   }
 
+  /**
+   * Returns {@code argument} of the command.
+   * @return argument of command
+   */
   public String getArgument() {
     return this.argument;
   }
@@ -35,5 +49,13 @@ public class ParseInfo {
    */
   public HashMap<String, String> getOptions() {
     return new HashMap<>(this.options);
+  }
+
+  /**
+   * Returns {@code commandType} of the command.
+   * @return command type
+   */
+  public CommandType getCommandType() {
+    return this.commandType;
   }
 }

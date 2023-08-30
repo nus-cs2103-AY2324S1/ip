@@ -21,6 +21,9 @@ import java.util.function.Consumer;
 
 import static java.lang.Boolean.parseBoolean;
 
+/**
+ * Storage of task list using JSON files.
+ */
 public class FileStorage implements IStorage {
   private static final Gson gson =
       new GsonBuilder()
@@ -34,6 +37,15 @@ public class FileStorage implements IStorage {
     this.dataFilePath = dataFilePath;
   }
 
+  /**
+   * Loads a list of {@code Task} from a file, determined by {@code dataFilePath}.
+   * @return list of {@code Task} from file
+   * @throws IllegalStateException if task format is invalid as that means that the data file
+   * should be purged and retried
+   */
+  // TODO: Figure out a better way to handle file IO errors in the code
+  // Potentially just delete and re-create a blank file (but that means any existing data is
+  // immediately lost)
   @Override
   public List<Task> load() {
     try (BufferedReader br = new BufferedReader(new FileReader(dataFilePath))) {
@@ -80,19 +92,25 @@ public class FileStorage implements IStorage {
     } catch (FileNotFoundException e) {
       createDataFile();
     } catch (IOException e) {
-      System.out.println("Failed to read cyrus.tasks from data file");
+      // Prematurely end the program since there was an issue with closing the file so the state
+      // should be remedied before trying again.
+      System.out.println("Failed to read tasks from data file");
       System.exit(0);
     }
 
     return new ArrayList<>();
   }
 
+  /**
+   * Saves a list of tasks into a JSON file.
+   * @param tasks list of tasks to save
+   */
   @Override
   public void save(List<Task> tasks) {
     try (BufferedWriter bw = new BufferedWriter(new FileWriter(dataFilePath))) {
       gson.toJson(tasks, bw);
     } catch (IOException e) {
-      System.out.println("Failed to save cyrus.tasks to data file");
+      System.out.println("Failed to save tasks to data file");
       System.exit(0);
     }
   }
@@ -114,6 +132,8 @@ public class FileStorage implements IStorage {
     Consumer<String[]> checkKeys = (keys) -> {
       for (String key : keys) {
         if (!map.containsKey(key)) {
+          // We throw IllegalStateException to end the program prematurely so that the issue can
+          // rectified
           throw new IllegalStateException(
               String.format("All entries in data.json must contain \"%s\" field", key)
           );
