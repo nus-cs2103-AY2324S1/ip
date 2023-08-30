@@ -1,3 +1,10 @@
+package joe.commands;
+
+import joe.Storage;
+import joe.TaskList;
+import joe.Ui;
+import joe.exceptions.JoeIndexOutOfBoundsException;
+
 public class MarkCommand extends Command {
   private int idx;
 

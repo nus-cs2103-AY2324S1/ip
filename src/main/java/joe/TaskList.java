@@ -1,6 +1,9 @@
+package joe;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+import joe.tasks.Task;
 
 public class TaskList {
   private ArrayList<Task> tasks;

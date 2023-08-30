@@ -1,14 +1,16 @@
+package joe;
+
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.util.stream.Collectors;
+import joe.exceptions.JoeException;
+import joe.tasks.TodoTask;
 
 public class Storage {
   private final Path taskFilePath;
@@ -30,7 +32,7 @@ public class Storage {
       TodoTask newTask = new TodoTask(m.group(1));
       tasks.add(newTask);
     } else {
-      throw new JoeException("Todo Task file is corrupt");
+      throw new JoeException("Todo in task file is corrupt");
     }
   }
 
@@ -40,7 +42,7 @@ public class Storage {
       TodoTask newTask = new TodoTask(m.group(1));
       tasks.add(newTask);
     } else {
-      throw new JoeException("Deadline Task file is corrupt");
+      throw new JoeException("Deadline in task file is corrupt");
     }
   }
 
@@ -50,7 +52,7 @@ public class Storage {
       TodoTask newTask = new TodoTask(m.group(1));
       tasks.add(newTask);
     } else {
-      throw new JoeException("Event Task file is corrupt");
+      throw new JoeException("Event in task file is corrupt");
     }
   }
 

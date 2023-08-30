@@ -1,11 +1,14 @@
-import java.io.File;
+package joe;
+
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import joe.commands.Command;
+import joe.exceptions.JoeException;
 
 public class Joe {
   private TaskList tasks;
-  private Storage storage;
-  private Ui ui;
+  private final Storage storage;
+  private final Ui ui;
 
   public Joe(String filePath) {
     ui = new Ui();
