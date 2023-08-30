@@ -14,10 +14,10 @@ public class Task {
         this.isDone = false;
         if (category.equals("todo")) {
             this.category = Type.ToDo;
-            String[] s =description.split(" ", 2);
+            String[] splitWord =description.split(" ", 2);
             try {
-                this.title = s[1].trim();
-                this.description = s[0] + " " + title;
+                this.title = splitWord[1].trim();
+                this.description = splitWord[0].trim() + " " + title;
             } catch(Exception e) {
                 System.out.println("OOPS!!! The description of a todo cannot be empty.");
                 System.out.println("This is not in the correct format");
@@ -25,21 +25,22 @@ public class Task {
             }
         } else if (category.equals("deadline")) {
             this.category = Type.Deadline;
-            String[] s =description.split("/", 4);
+            String[] splitWord =description.split("/", 4);
             try {
-                if (s.length == 2) {
-                    this.title = s[0].trim();
-                    this.end = s[1].split("by ")[1].trim();
-                    this.description = title + "("+ s[1].split("by ")[1].trim() + ")";
+                if (splitWord.length == 2) {
+                    this.title = splitWord[0].trim();
+                    this.end = splitWord[1].split("by ")[1].trim();
+                    this.description = title + "("+ splitWord[1].split("by ")[1].trim() + ")";
                 } else {
-                    String date = s[1].substring( 3).length() == 1 ? "0" + s[1].substring( 3) : s[1].substring( 3);
+                    String date = splitWord[1].substring( 3).length() == 1 ? "0"
+                            + splitWord[1].substring( 3) : splitWord[1].substring( 3);
 
-                    String endDate = s[3]+"-"+s[2]+"-" + date;
+                    String endDate = splitWord[3]+"-"+splitWord[2]+"-" + date;
                     String formattedDate = LocalDate.parse(endDate)
                             .format(DateTimeFormatter.ofPattern("MMM d yyyy"));
-                    this.title = s[0];
+                    this.title = splitWord[0];
                     this.end = formattedDate;
-                    this.description = s[0] + "("+ formattedDate + ")";
+                    this.description = splitWord[0] + "("+ formattedDate + ")";
                 }
 
             } catch(Exception e) {
@@ -49,13 +50,13 @@ public class Task {
             }
 
         } else if (category.equals("event")) {
-            String[] s = description.split("/(from|to)", 3);
+            String[] splitWord = description.split("/(from|to)", 3);
             this.category = Type.Event;
             try {
-                this.title = s[0];
-                this.start = s[1];
-                this.end = s[2];
-                this.description = s[0] + "(From : " + s[1] + " To : " + s[2] + ")";
+                this.title = splitWord[0].trim();
+                this.start = splitWord[1].trim();
+                this.end = splitWord[2].trim();
+                this.description = title + "(From : " + start + " To : " + end + ")";
             } catch(Exception e) {
                 System.out.println("OOPS!!! The description of a event cannot be empty.");
                 System.out.println("This is not in the correct format");
@@ -67,7 +68,7 @@ public class Task {
     }
 
     public String getStatusIcon() {
-        return (isDone ? "X" : " "); // mark done task with X
+        return (isDone ? "X" : " ");
     }
 
     public String getStatus() {
@@ -75,14 +76,17 @@ public class Task {
         return "[" + cat +"]" + "["+ this.getStatusIcon() + "] " + this.description.trim();
     }
 
+
     public void setDescription(String desc) {
         this.description = desc;
     }
+
 
     public String mark() {
         this.isDone = true;
         return "["+ this.getStatusIcon() + "] " + this.description;
     }
+
 
     @Override
     public String toString() {
