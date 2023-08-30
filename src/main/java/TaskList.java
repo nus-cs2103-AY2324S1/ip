@@ -1,6 +1,6 @@
 import java.util.ArrayList;
-
 public class TaskList {
+
     private ArrayList<Task> listOfTasks = new ArrayList<>();
 
     public void addTask(Task task) {
@@ -11,7 +11,7 @@ public class TaskList {
     }
 
     public void deleteTask(int index) {
-        Task removedTask = listOfTasks.remove(index);
+        Task removedTask = listOfTasks.remove(index - 1);
         System.out.println("Noted. I've removed this task: ");
         System.out.println(removedTask.toString());
         System.out.println("Now you have " + listOfTasks.size() + " tasks in the list.");
@@ -29,22 +29,16 @@ public class TaskList {
     }
 
     public void markAsDone(int i) {
-        if (i >= 0 && i < listOfTasks.size()) {
-            listOfTasks.get(i).markDone();
-            System.out.println("Nice! I've marked this task as done:\n " + listOfTasks.get(i));
-        } else {
-            System.out.println("This is an invalid task index, please check. ");
-        }
+        listOfTasks.get(i - 1).markDone();
+        System.out.println("Nice! I've marked this task as done:\n " + listOfTasks.get(i - 1));
     }
 
     public void markAsUndone(int i) {
-        if (i >= 0 && i < listOfTasks.size()) {
-            listOfTasks.get(i).markUndone();
-            System.out.println("OK, I've marked this task as not done yet:\n " + listOfTasks.get(i));
-        } else {
-            System.out.println("This is an invalid task index, please check. ");
-        }
+        listOfTasks.get(i - 1).markUndone();
+        System.out.println("OK, I've marked this task as not done yet:\n " + listOfTasks.get(i - 1));
     }
 
-
+    public int numOfTasks() {
+        return listOfTasks.size();
+    }
 }
