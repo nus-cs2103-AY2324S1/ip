@@ -6,6 +6,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 /**
  * Tasklist is a class in-charge of task list.
@@ -185,6 +186,30 @@ public class TaskList {
         }
 
     }
+
+    /**
+     * Finds tasks that contains a given keyword.
+     *
+     * @param keyword The keyword to search for.
+     * @return The string representation of the matching task list.
+     */
+    public String findTasks(String keyword) {
+        ArrayList<Task> matchingTasks = new ArrayList<>(
+                tasks.stream()
+                        .filter(task -> task.getDescription().contains(keyword))
+                        .collect(Collectors.toList()));
+
+        // String representation of matching task
+        String taskList = "Here are the matching tasks in your list:";
+        for (int j = 0; j < matchingTasks.size(); j++) {
+            int index = j + 1;
+            taskList += ("\n" + index + "." + matchingTasks.get(j).toString());
+        }
+
+        return taskList;
+    }
+
+
 
     /**
      * Returns a string representation of the task list.

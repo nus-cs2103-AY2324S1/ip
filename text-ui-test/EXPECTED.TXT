@@ -1,5 +1,6 @@
 Hello! I'm Chatty
 What can I do for you?
+? OOPS!!! The description of a todo cannot be empty.
 Got it. I've added this task:
  [T][ ] borrow book
 Now you have 5 tasks in the list.
@@ -64,6 +65,13 @@ Now you have 8 tasks in the list.
 Noted. I've removed this task:
  [T][ ] join sports club
 Now you have 7 tasks in the list.
+? OOPS!!! I'm sorry, please provide a keyword to search.
+? OOPS!!! I'm sorry, please provide a keyword to search.
+Here are the matching tasks in your list:
+Here are the matching tasks in your list:
+1.[E][ ] project meeting (from: Aug 6th 2pm to: 4pm)
+2.[E][ ] project meeting (from: Mon 2pm to: 4pm)
+3.[E][ ] project meeting (from: Oct 15 2019 2pm to: 4pm)
 Here are the tasks in your list:
 1.[T][X] read book
 2.[E][ ] project meeting (from: Aug 6th 2pm to: 4pm)
