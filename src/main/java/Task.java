@@ -22,6 +22,6 @@ public class Task {
     }
     public String toStringForFile() {
         String status = isDone ? "1" : "0";
-        return status + " | " + this.description;
+        return status + " | " + description;
     }
 }
