@@ -1,6 +1,10 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
 public class Duke {
+
+    public static final DateTimeFormatter TIME_FORMAT = DateTimeFormatter.ofPattern("dd MMM yyyy - HHmm");
 
     public static void main(String[] args) {
         greet();
@@ -83,6 +87,7 @@ public class Duke {
     @SuppressWarnings("DuplicateExpressions")
     private static Task getTask(String userInput) throws DukeException {
         Task add;
+
         if (userInput.startsWith("todo")) {
             String description = userInput.substring(userInput.indexOf(' ') + 1);
 
@@ -95,7 +100,7 @@ public class Duke {
             try {
                 String description = userInput.substring(userInput.indexOf(' ') + 1, userInput.indexOf('/') - 1);
                 String by = userInput.substring(userInput.indexOf("/by") + 4);
-                add = new Deadline(description, by);
+                add = new Deadline(description, LocalDateTime.parse(by, TIME_FORMAT));
             } catch (StringIndexOutOfBoundsException e) {
                 throw new DukeException("OOPS!!! Missing parameters in deadline");
             }
@@ -105,7 +110,8 @@ public class Duke {
                 String description = userInput.substring(userInput.indexOf(' ') + 1, userInput.indexOf('/') - 1);
                 String from = userInput.substring(userInput.indexOf("/from") + 6, userInput.indexOf("/to") - 1);
                 String to = userInput.substring(userInput.indexOf("/to") + 4);
-                add = new Event(description, from, to);
+                add = new Event(description, LocalDateTime.parse(from, TIME_FORMAT),
+                        LocalDateTime.parse(to, TIME_FORMAT));
             } catch (StringIndexOutOfBoundsException e) {
                 throw new DukeException("OOPS!!! Missing parameters in event");
             }
