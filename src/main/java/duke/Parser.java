@@ -56,4 +56,11 @@ public class Parser {
         }
         return Integer.parseInt(words[1]);
     }
+
+    public String getSearchKeyword() throws DukeException {
+        if (this.words.length == 1 || this.words[1].isBlank()) {
+            throw new DukeException(ExceptionTypes.EMPTYKEYWORD);
+        }
+        return this.words[1];
+    }
 }

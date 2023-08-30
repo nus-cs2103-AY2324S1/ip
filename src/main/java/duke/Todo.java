@@ -23,4 +23,14 @@ public class Todo extends Task {
     public String toFileFormat() {
         return "T | " + this.isDone + " | " + this.description;
     }
+
+    /**
+     * Return the type of the task.
+     *
+     * @return the type of the task
+     */
+    @Override
+    public String getTaskType() {
+        return "todo";
+    }
 }

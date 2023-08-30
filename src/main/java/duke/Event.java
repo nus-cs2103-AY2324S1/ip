@@ -37,4 +37,14 @@ public class Event extends Task {
         return "E | " + this.isDone + " | " + this.description + " | " + this.from.format(formatter) +
                 " | " + this.to.format(formatter);
     }
+
+    /**
+     * Return the type of the task.
+     *
+     * @return the type of the task
+     */
+    @Override
+    public String getTaskType() {
+        return "event";
+    }
 }

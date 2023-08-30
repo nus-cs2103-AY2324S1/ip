@@ -38,4 +38,6 @@ public abstract class Task {
     }
 
     abstract String toFileFormat();
+
+    abstract String getTaskType();
 }
