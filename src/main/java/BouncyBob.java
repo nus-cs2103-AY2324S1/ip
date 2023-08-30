@@ -1,5 +1,6 @@
 import jdk.jfr.Event;
 
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.regex.Pattern;
@@ -204,6 +205,12 @@ public class BouncyBob {
         System.out.println("Oops! " + e.getMessage());
         System.out.println(BOTTOM_BORDER);
     }
+
+    private static void printDateTimeParseException() {
+        System.out.println(TOP_BORDER);
+        System.out.println("Date must be in yyyy-mm-dd format!");
+        System.out.println(BOTTOM_BORDER);
+    }
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         ArrayList<Task> database = new ArrayList<>();
@@ -232,6 +239,8 @@ public class BouncyBob {
                     addTaskAndPrint(parts, database);
                 } catch (IllegalArgumentException e) {
                     printIllegalArgumentException(e);
+                } catch (DateTimeParseException e) {
+                    printDateTimeParseException();
                 }
             }
         }
