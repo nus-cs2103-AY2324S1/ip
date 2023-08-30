@@ -6,7 +6,7 @@ import Tasks.ToDos;
 import java.util.ArrayList;
 
 public class Commands {
-    String name = "Nichbot";
+    String name = "Jose Mourinho Bot";
 
     // task list to store tasks
     ArrayList<Task> tasks;
@@ -20,8 +20,8 @@ public class Commands {
         String greet = String.format(
 
                         "____________________________________________________________\n" +
-                         "Hello! I'm %s, a task planning bot that will help you record your tasks.\n" +
-                         "If you require help on the commands you can key in, type \"help\"\n" +
+                         "Hello! I'm %s, a task planning bot that will record your tasks.\n" +
+                         "If you require help, type \"help\"\n" +
                                  "____________________________________________________________\n"
                          , name);
         System.out.println(greet);
@@ -57,6 +57,62 @@ public class Commands {
         System.out.println("____________________________________________________________");
     }
 
+    public static String getDescription(String task, String input) throws DukeException {
+        if (task.equalsIgnoreCase("todo")) {
+
+            // check that string contains task to prevent indexOutOfBoundsException
+            if (input.length() < 5) {
+                throw new DukeException("You are missing the task to do. This is unacceptable.");
+            }
+            String description = input.substring(5);
+            return description;
+        } else if (task.equalsIgnoreCase("deadline")) {
+            int endIndex = input.indexOf("/by");
+            if (input.length() < 9 || endIndex == -1) {
+                throw new DukeException("You are missing the deadline. This is unacceptable.");
+            }
+            String description = input.substring(9, endIndex);
+            return description;
+        }else if (task.equalsIgnoreCase("event")) {
+            int endIndex = input.indexOf("/from");
+            if (input.length() < 6 || endIndex == -1) {
+                throw new DukeException("You are missing the event. This is unacceptable.");
+            }
+            String description = input.substring(6, endIndex);
+            return description;
+        } else {
+            throw new DukeException("You are missing the task. This is unacceptable.");
+        }
+    }
+    public static String getStartDate(String input) throws DukeException {
+        String startWord = "/from";
+        String endWord = "/to";
+        int startIndex = input.indexOf(startWord) + startWord.length() + 1;
+        int endIndex = input.indexOf(endWord);
+                
+        if (startIndex == input.length()) {
+            throw new DukeException("You are missing the keyword " + startWord + ". This is unacceptable.");
+        } else if (startIndex > input.length()) {
+            throw new DukeException("You are missing the start date. This is unacceptable.");
+        } else if (endIndex == -1) {
+            throw new DukeException("You are missing the keyword " + endWord + ". This is unacceptable.");
+        } else if (startIndex > endIndex) {
+            throw new DukeException("You are missing the end date. This is unacceptable.");
+        }
+        return input.substring(startIndex, endIndex);
+    }
+
+    public static String getEndDate(String task, String input) throws DukeException {
+        String startWord = task.equalsIgnoreCase("deadline") ? "/by" : "/to";
+        int startIndex = input.indexOf(startWord) + startWord.length() + 1;
+                
+        if (startIndex > input.length()) {
+            throw new DukeException("You are missing the end date. This is unacceptable.");
+        }
+        return input.substring(startIndex);
+    }
+
+
     //    Level-2, Add, list
     public void addList(String input) throws DukeException {
         Task newTask = null;
@@ -67,66 +123,19 @@ public class Commands {
 
         try {
             if (firstWord.equalsIgnoreCase("todo")) {
-                String taskToDo = input.substring(5);
-
-                // check that string is not empty after substring to remove todo;
-                if (taskToDo.isEmpty()) {
-                    throw new DukeException("oops. I do not know what task you are referring to.");
-                }
-                newTask = new ToDos(taskToDo);
-
-            }
-            if (firstWord.equalsIgnoreCase("deadline")) {
-                String[] parts = input.split("/");
-
-                /*
-                split input array into description and deadline.
-                "deadline return book /by Sunday" -> parts[0] = deadline return book  and parts[1] = by Sunday
-                using substring, deadline return book -> return book
-                throws exception if / not used properly, leading to error in either access in values or
-                fixing the deadline
-                */
-                if (parts.length != 2) {
-                    throw new DukeException("Invalid input entered. ");
-                }
-
-                String description = parts[0].substring(9);
-                // check that string is not empty after substring to remove todo;
-                if (description.isEmpty()) {
-                    throw new DukeException("Invalid input entered.");
-                }
-
-                String deadline = parts[1];
-                newTask = new Deadlines(description, deadline);
+                newTask = new ToDos(getDescription("todo", input));
+            } else if (firstWord.equalsIgnoreCase("deadline")) {
+                String task = "deadline";
+                newTask = new Deadlines(getDescription(task, input), getEndDate(task, input));
+            } else if (firstWord.equalsIgnoreCase("event")) {
+                String task = "event";
+                newTask = new Events(getDescription(task, input), getStartDate(input), getEndDate(task, input));
             }
 
-            if (firstWord.equalsIgnoreCase("event")) {
-                String[] parts = input.split("/");
-                /*
-                similar logic as above. additionally, splits input into start and end time.
-                Throws exception if / is not used properly, leading to error in start / end time.
-                 */
-
-                if (parts.length != 3) {
-                    throw new DukeException("Invalid input entered.");
-                }
-
-                String description = parts[0].substring(6);
-                String startTime = parts[1];
-                String endTime = parts[2];
-
-                // Ensure that start, end and description are all filled in
-                if (startTime.isEmpty() || endTime.isEmpty() || description.isEmpty()) {
-                    throw new DukeException("Invalid input entered.");
-                }
-
-                newTask = new Events(description, startTime, endTime);
-            }
-
-            if (newTask == null) throw new DukeException("Invalid input entered.");
+            if (newTask == null) throw new DukeException("You are missing the task. This is unacceptable.");
             tasks.add(newTask);
             System.out.println("____________________________________________________________\n" +
-                    "I have added this task to your list\n" +
+                    "This task has been added to your list\n" +
                     String.format("[%s]", newTask.getTaskType()) + "[ ]" + newTask.getDescription() + "\n" +
                     String.format("You now have %d tasks in your list.", tasks.size()));
             System.out.println("____________________________________________________________\n");
@@ -147,9 +156,9 @@ public class Commands {
             String current = String.format("%d: [%c][%s] %s ", i+1, taskType, tasks.get(i).getStatusIcon(),tasks.get(i));
 
             if (tasks.get(i) instanceof Deadlines) {
-                current += (String.format("(%s)", ((Deadlines) tasks.get(i)).getDeadline()));
+                current += (String.format("(by: %s)", ((Deadlines) tasks.get(i)).getDeadline()));
             } else if (tasks.get(i) instanceof Events) {
-                current += (String.format("(%s, %s)", ((Events) tasks.get(i)).getStartTime(), ((Events) tasks.get(i)).getEndTime()));
+                current += (String.format("(from: %s to: %s)", ((Events) tasks.get(i)).getStartDate(), ((Events) tasks.get(i)).getEndDate()));
             }
 
             System.out.println(current);

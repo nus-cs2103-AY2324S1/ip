@@ -2,21 +2,21 @@ package Tasks;
 
 public class Events extends Task {
     // additional start and end time fields for events
-    String startTime;
-    String endTime;
-    public Events(String description, String startTime, String endTime) {
+    String startDate;
+    String endDate;
+    public Events(String description, String startDate, String endDate) {
         super(description);
         super.taskType = 'T';
-        this.startTime = startTime;
-        this.endTime = endTime;
+        this.startDate = startDate;
+        this.endDate = endDate;
     }
 
     // getters for start and end times
-    public String getStartTime() {
-        return this.startTime;
+    public String getStartDate() {
+        return this.startDate;
     }
 
-    public String getEndTime() {
-        return this.endTime;
+    public String getEndDate() {
+        return this.endDate;
     }
 }
