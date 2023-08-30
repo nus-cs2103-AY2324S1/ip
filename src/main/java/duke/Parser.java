@@ -1,3 +1,8 @@
+package duke;
+
+import duke.command.*;
+import duke.task.TaskType;
+
 /**
  * The Parser class is responsible for parsing user input and generating the corresponding commands.
  *
@@ -5,7 +10,7 @@
  */
 public class Parser {
     /**
-     * Parses the user input to generate the appropriate command.
+     * Parses the user input to generate the appropriate duke.command.
      *
      * @param userInput The input provided by the user.
      * @return A Command object representing the parsed command.

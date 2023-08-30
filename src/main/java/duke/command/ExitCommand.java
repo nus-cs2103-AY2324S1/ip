@@ -1,3 +1,9 @@
+package duke.command;
+
+import duke.Storage;
+import duke.Ui;
+import duke.task.TaskList;
+
 /**
  * The ExitCommand class represents a command to exit the Duke application.
  *

@@ -1,3 +1,10 @@
+package duke.command;
+
+import duke.DukeException;
+import duke.Storage;
+import duke.Ui;
+import duke.task.TaskList;
+
 /**
  * The Command class represents a command that can be executed in the Duke application.
  *
@@ -13,12 +20,12 @@ public abstract class Command {
      * @param taskList The TaskList object containing the list of tasks.
      * @param ui The Ui object handling user interface interactions.
      * @param storage The Storage object handling storage-related operations.
-     * @throws DukeException If there is an issue executing the command.
+     * @throws DukeException If there is an issue executing the duke.command.
      */
     public abstract void execute(TaskList taskList, Ui ui, Storage storage) throws DukeException;
 
     /**
-     * Toggles the exit status of the command.
+     * Toggles the exit status of the duke.command.
      */
     public void changeExitStatus() {
         this.isExit = !this.isExit;

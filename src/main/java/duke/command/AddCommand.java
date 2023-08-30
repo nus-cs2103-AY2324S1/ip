@@ -1,3 +1,12 @@
+package duke.command;
+
+import duke.DukeException;
+import duke.Storage;
+import duke.Ui;
+import duke.task.Task;
+import duke.task.TaskList;
+import duke.task.TaskType;
+
 /**
  * The AddCommand class represents a command to add a new task to the task list.
  *
@@ -7,14 +16,14 @@ public class AddCommand extends Command {
     /** The type of task to be added. */
     private TaskType taskType;
 
-    /** The details for creating the task. */
+    /** The details for creating the duke.task. */
     private String addCommandDetails;
 
     /**
      * Constructs an AddCommand object with the specified task type and details.
      *
      * @param taskType The type of task to be added.
-     * @param args The arguments for creating the task.
+     * @param args The arguments for creating the duke.task.
      */
     public AddCommand(TaskType taskType, String args) {
         this.taskType = taskType;

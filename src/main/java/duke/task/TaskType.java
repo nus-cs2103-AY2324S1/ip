@@ -1,3 +1,5 @@
+package duke.task;
+
 /**
  * This is the TaskType enum
  * @author Selwyn

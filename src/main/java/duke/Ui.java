@@ -1,3 +1,8 @@
+package duke;
+
+import duke.task.Task;
+import duke.task.TaskList;
+
 import java.util.Scanner;
 
 /**
@@ -46,12 +51,12 @@ public class Ui {
      * @param noOfTasksAfterAdding The number of tasks after adding the new task.
      */
     public void printAddedTask(Task addedTask, int noOfTasksAfterAdding) {
-        System.out.println("Got it. I've added this task:");
+        System.out.println("Got it. I've added this duke.task:");
         System.out.print("   ");
         System.out.println(addedTask.toString());
 
         if (noOfTasksAfterAdding == 1) {
-            System.out.println("Now you have " + noOfTasksAfterAdding + " task in the list.");
+            System.out.println("Now you have " + noOfTasksAfterAdding + " duke.task in the list.");
         } else {
             System.out.println("Now you have " + noOfTasksAfterAdding + " tasks in the list.");
         }
@@ -65,9 +70,9 @@ public class Ui {
      */
     public void printChangeTaskDoneStatus(Task taskToChange, boolean isDone) {
         if (isDone) {
-            System.out.println("Nice! I've marked this task done:");
+            System.out.println("Nice! I've marked this duke.task done:");
         } else {
-            System.out.println("OK, I've marked this task as not done yet:");
+            System.out.println("OK, I've marked this duke.task as not done yet:");
         }
 
         System.out.println(taskToChange.toString());
@@ -80,12 +85,12 @@ public class Ui {
      * @param numOfTasksLeft The number of tasks remaining after deletion.
      */
     public void printDeletedTask(Task deletedTask, int numOfTasksLeft) {
-        System.out.println("Noted. I've removed this task:");
+        System.out.println("Noted. I've removed this duke.task:");
         System.out.print("   ");
         System.out.println(deletedTask.toString());
 
         if (numOfTasksLeft == 1 || numOfTasksLeft == 0) {
-            System.out.println("Now you have " + numOfTasksLeft + " task in the list.");
+            System.out.println("Now you have " + numOfTasksLeft + " duke.task in the list.");
         } else {
             System.out.println("Now you have " + numOfTasksLeft + " tasks in the list.");
         }

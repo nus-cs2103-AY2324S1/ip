@@ -1,3 +1,11 @@
+package duke.command;
+
+import duke.DukeException;
+import duke.Storage;
+import duke.Ui;
+import duke.task.Task;
+import duke.task.TaskList;
+
 /**
  * The MarkCommand class represents a command to mark or unmark a task as done in the task list.
  *
