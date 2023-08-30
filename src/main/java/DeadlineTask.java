@@ -1,14 +1,41 @@
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.time.format.FormatStyle;
+import java.time.LocalDate;
+
 public class DeadlineTask extends Task{
     public static String type = "D";
-    private String deadline;
+    private LocalDate deadline;
+    private String deadlineString;
+
+    private void initDeadline(String deadline) {
+        if (deadline.matches("\\d{4}-\\d{2}-\\d{2}")) {
+            try {
+                this.deadline = LocalDate.parse(deadline);
+            } catch (DateTimeParseException e) {
+                this.deadlineString = deadline;
+            }
+        } else {
+            this.deadlineString = deadline;
+        }
+    }
+
     public DeadlineTask(String name, String deadline) {
         super(name);
-        this.deadline = deadline;
+        initDeadline(deadline);
     }
 
     public DeadlineTask(String name, boolean isDone, String deadline) {
         super(name, isDone);
-        this.deadline = deadline;
+        initDeadline(deadline);
+    }
+
+    private String parseLocalDate(LocalDate date) {
+        try {
+            return date.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG));
+        } catch (DateTimeParseException e) {
+            return date.toString();
+        }
     }
 
     @Override
@@ -17,6 +44,8 @@ public class DeadlineTask extends Task{
                 this.type,
                 this.checkIsDone() ? "X" : " ",
                 this.getName(),
-                this.deadline);
+                this.deadline != null
+                        ? parseLocalDate(this.deadline)
+                        : this.deadlineString);
     }
 }
