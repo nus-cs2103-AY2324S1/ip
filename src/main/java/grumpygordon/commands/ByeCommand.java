@@ -2,11 +2,19 @@ package grumpygordon.commands;
 
 import grumpygordon.storage.Storage;
 import grumpygordon.ui.Ui;
-import grumpygordon.tasks.*;
+import grumpygordon.tasks.TaskList;
 
+/**
+ * Represents a command to exit the program.
+ */
 public class ByeCommand extends Command {
-    public ByeCommand() {
-    }
+
+    /**
+     * Executes the bye command.
+     * @param tasks The list of tasks
+     * @param ui The ui of the program
+     * @param storage The storage of the program
+     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         ui.showOutroMessage();
