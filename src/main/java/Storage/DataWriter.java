@@ -1,11 +1,13 @@
+package Storage;
+
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TaskWriter {
+public class DataWriter {
     private String filePath;
 
-    public TaskWriter(String filePath) {
+    public DataWriter(String filePath) {
         this.filePath = filePath;
     }
 

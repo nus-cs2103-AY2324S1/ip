@@ -1,10 +1,15 @@
+package core;
+
+import Parser.TaskParser;
+import TaskList.TaskList;
+
 import java.util.Scanner;
 public class Duke {
     private static final String botName = "cc";
 
     private static final TaskParser parser = new TaskParser();
 
-    private static final Memory memory = new Memory();
+    private static final TaskList memory = new TaskList();
 
     private static void greet() {
         System.out.println("Hello! I'm " + botName);

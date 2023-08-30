@@ -1,9 +1,16 @@
+package Storage;
+
+import Tasks.Deadline;
+import Tasks.Event;
+import Tasks.Task;
+import Tasks.ToDo;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class TaskReader {
+public class DataReader {
 
     public static ArrayList<Task> readTasksFromFile(String fileName) {
         ArrayList<Task> tasks = new ArrayList<>();
