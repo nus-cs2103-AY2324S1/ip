@@ -3,6 +3,9 @@ package Task;
 import java.io.IOException;
 import java.time.LocalDate;
 
+/**
+ * Represents a Task that a User can see in a TaskList.
+ */
 public class Task {
     protected String description;
     protected boolean isDone;
@@ -12,6 +15,12 @@ public class Task {
         this.isDone = false;
     }
 
+    /**
+     * Takes in a String that was read through a .txt file and wraps in a Task object.
+     * @param line
+     * @return a Task
+     * @throws IOException
+     */
     public static Task fromString(String line) throws IOException {
         if (line.startsWith("T")) {
             String[] parts = line.split("\\|");
@@ -48,19 +57,35 @@ public class Task {
         }
     }
 
+    /**
+     * Sets the Task isDone boolean to be isDone.
+     * @param isDone
+     */
     public void toggleIsDone(boolean isDone) {
         this.isDone = isDone;
     }
 
+    /**
+     * Returns a String representation of the isDone of the Task.
+     * @return a String representation
+     */
     public String getStatusIcon() {
         return (isDone ? "X" : " "); // mark done task with X
     }
 
+    /**
+     * Returns a String representation of the Task.
+     * @return a String representation
+     */
     @Override
     public String toString() {
         return "[" + this.getStatusIcon() + "] " + this.description;
     }
 
+    /**
+     * Returns a String representation of the Task for the .txt file.
+     * @return a String representation
+     */
     public String toFileString() {
         return description;
     }

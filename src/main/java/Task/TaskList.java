@@ -7,6 +7,9 @@ import java.util.stream.Collectors;
 
 import Exception.*;
 
+/**
+ * Represents a list of Tasks a User can interact with.
+ */
 public class TaskList {
     private String filePath = "./data/tasks.txt";
     private List<Task> list;
@@ -15,6 +18,12 @@ public class TaskList {
         this.list = list;
     }
 
+    /**
+     * Adds a Task to the list and writes the change into the local .txt file.
+     * Returns a message to be printed by the UI.
+     * @param task
+     * @return message
+     */
     public String add(Task task) {
         list.add(task);
         updateFile();
@@ -23,6 +32,14 @@ public class TaskList {
 
     }
 
+    /**
+     * Marks a Task as completed in the list and writes the change into the local .txt file.
+     * Returns a message to be printed by the UI.
+     * Throws a DukeException if index is out of bounds.
+     * @param idx
+     * @return message
+     * @throws DukeException
+     */
     public String mark(int idx) throws DukeException {
         if (idx > this.list.size()) {
             throw new DukeException("Out of bounds..");
@@ -35,6 +52,14 @@ public class TaskList {
         return "Noice! I've marked this task as donezo:\n" + task.toString();
     }
 
+    /**
+     * Deletes a Task in the list and writes the change into the local .txt file.
+     * Returns a message to be printed by the UI.
+     * Throws a DukeException if index is out of bounds.
+     * @param idx
+     * @return message
+     * @throws DukeException
+     */
     public String delete(int idx) throws DukeException {
         if (idx > this.list.size()) {
             throw new DukeException("Out of bounds..");
@@ -46,6 +71,14 @@ public class TaskList {
         return "Task remove UwU:\n" + task.toString();
     }
 
+    /**
+     * Marks a Task as uncompleted in the list and writes the change into the local .txt file.
+     * Returns a message to be printed by the UI.
+     * Throws a DukeException if index is out of bounds.
+     * @param idx
+     * @return message
+     * @throws DukeException
+     */
     public String unmark(int idx) throws DukeException {
         if (idx > this.list.size()) {
             throw new DukeException("Out of bounds..");
@@ -58,6 +91,12 @@ public class TaskList {
         return "OK, I've marked this task as not done yet bruh:\n" + task.toString();
     }
 
+    /**
+     * Returns a String representation of the list of Task due on the
+     * LocalDate specified by the User.
+     * @param due
+     * @return a String representation of the list of Task due
+     */
     public String dueOn(LocalDate due) {
         List<Task> dueList = list.stream()
                 .filter(task -> (task instanceof Deadline))
@@ -76,6 +115,10 @@ public class TaskList {
         }
     }
 
+    /**
+     * Returns a String representation of the Tasks in the list.
+     * @return a String representation of the TaskList.
+     */
     public String print() {
         StringBuilder s = new StringBuilder("");
         s.append("Here yo tasks in your list my g:");
@@ -86,6 +129,10 @@ public class TaskList {
         return s.toString();
     }
 
+    /**
+     * Returns a String representation of the TaskList for the .txt file.
+     * @return a String representation
+     */
     public String toFileString() {
         StringBuilder res = new StringBuilder("");
         for (Task t : list) {
@@ -94,6 +141,11 @@ public class TaskList {
         return res.toString();
     }
 
+    /**
+     * Writes the current String representation of the TaskList
+     * into the local .txt file.
+     * Throws an IOException if it fails.
+     */
     public void updateFile() {
         try {
             FileWriter fileWriter = new FileWriter(filePath);

@@ -6,7 +6,9 @@ import Exception.*;
 import Helper.*;
 import Task.*;
 
-
+/**
+ * Represents a Command that specifically adds a Task to the TaskList.
+ */
 public class AddCommand extends Command {
     public static final String COMMAND_WORD = "add";
     private String task;
@@ -16,6 +18,12 @@ public class AddCommand extends Command {
         this.task = task;
     }
 
+    /**
+     * Takes in the input given by the User and wraps the task details in
+     * a Task Object.
+     * @param input
+     * @return a Task
+     */
     private Task parseTask(String input) {
         if (input.startsWith("todo")) {
             String description = input.split("todo", 2)[1].strip();
@@ -39,6 +47,13 @@ public class AddCommand extends Command {
         }
     }
 
+    /**
+     * Add a Task to the TaskList and prints a message through the UI.
+     * @param list
+     * @param ui
+     * @param storage
+     * @throws DukeException
+     */
     @Override
     public void execute(TaskList list, Ui ui, Storage storage) throws DukeException {
         String message = list.add(parseTask(this.task));
