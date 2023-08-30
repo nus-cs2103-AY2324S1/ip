@@ -12,6 +12,21 @@ then
     rm ./text-ui-test/ACTUAL.TXT
 fi
 
+# Rename saveTasks data
+if [ -e "./data/savedTasks.txt" ]
+then
+  mv ./data/savedTasks.txt ./data/savedTasksTmp.txt
+fi
+
+# Ensure existence of defaults saved tasks to use
+if ! [ -e "./data/savedTasksDefaults.txt" ]
+then
+  echo "************ BUILD FAILURE: Cannot load default savedTasks ************"
+fi
+
+# Create copy of defaults to be used for the test
+cp ./data/savedTasksDefaults.txt ./data/savedTasks.txt
+
 # compile the code into the bin folder, terminates if error occurred
 if ! javac -cp ./src/main/java -Xlint:none -d ./bin ./src/main/java/*.java
 then
@@ -21,6 +36,15 @@ fi
 
 # run the program, feed commands from input.txt file and redirect the output to the ACTUAL.TXT
 java -classpath ./bin Duke < ./text-ui-test/input.txt > ./text-ui-test/ACTUAL.TXT
+
+# Remove duplicated savedTasks
+rm ./data/savedTasks.txt
+
+# Restore previous savedTask (if any)
+if [ -e "./data/savedTasksTmp.txt" ]
+then
+  mv ./data/savedTasksTmp.txt ./data/savedTasks.txt
+fi
 
 # convert to UNIX format
 cp ./text-ui-test/EXPECTED.TXT ./text-ui-test/EXPECTED-UNIX.TXT
