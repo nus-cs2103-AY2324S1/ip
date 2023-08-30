@@ -14,3 +14,12 @@ deadline
 event
 list
 bye
+
+deadline return book /by 2/12/2019
+deadline return book /by 2/12/2019 1800
+deadline return book /by 2019-10-15
+deadline return book /by 2019-10-15 1800
+event return book /from 2019-10-15 1800 /to 2019-10-15 2000
+event return book /from 2/12/2019 1800 /to 2/12/2019 2000
+event return book /from 2/12/2019  /to 2/12/2019
+event return book /from 2/12/2019 2500 /to 2/12/2019 2000

@@ -2,6 +2,7 @@ Hello from
 Dong
 What can I do for you?
 
+the file is corrupted, deleting the content
 ____________________________________________________________
 Got it. I've added this task:
    [T][ ] task
@@ -69,3 +70,13 @@ Here are the tasks in your list:
 ____________________________________________________________
 ____________________________________________________________
 Bye. Hope to see you again soon!
+T, | 0 | task
+
+T, | 0 | task
+T, | 0 | borrow book
+
+T, | 0 | task
+T, | 0 | borrow book
+E, | 0 | project meeting  | Mon 2pm | 4pm
+
+An error occurred.

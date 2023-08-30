@@ -8,4 +8,11 @@ public class ToDo extends Task{
     public String getDetails(){
         return "";
     }
+
+    @Override
+    public String getDBString() {
+        return String.format("%s | %s | %s",
+                "T",this.isDone() ? "1" : "0",
+                this.description);
+    }
 }

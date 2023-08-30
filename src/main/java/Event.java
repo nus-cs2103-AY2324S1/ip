@@ -1,14 +1,26 @@
+import java.time.LocalDateTime;
+
 public class Event extends Task {
-    protected String start;
-    protected String end;
-    public Event(String description, String start, String end) {
+    protected LocalDateTime start;
+    protected LocalDateTime end;
+    public Event(String description, String start, String end) throws InvalidDateTimeException {
         super(description, "E");
-        this.start = start;
-        this.end = end;
+        this.start = DateTimeUtils.stringToLocalDateTime(start);
+        this.end = DateTimeUtils.stringToLocalDateTime(end);
         this.addedTaskDescription();
     }
     @Override
     public String getDetails(){
-        return String.format(" (from: %s to: %s)", start, end);
+        return String.format(" (from: %s to: %s)",
+                DateTimeUtils.localDateTimeToString(start),
+                DateTimeUtils.localDateTimeToString(end));
+    }
+
+    public String getDBString() {
+        return String.format("%s | %s | %s | %s | %s",
+                "E",this.isDone() ? "1" : "0",
+                this.description,
+                DateTimeUtils.localDateTimeToString(this.start),
+                DateTimeUtils.localDateTimeToString(this.end));
     }
 }

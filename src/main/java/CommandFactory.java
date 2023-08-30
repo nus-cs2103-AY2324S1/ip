@@ -1,4 +1,13 @@
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Scanner;
+
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 /**
@@ -17,7 +26,71 @@ public class CommandFactory {
         MARK,
         UNMARK,
         LIST,
-        DELETE
+        DELETE,
+        CLEAR
+    }
+
+
+    public static ArrayList<Task> readFromDB() {
+        try {
+            ArrayList<Task> tasklists = new ArrayList<>();
+            File f = new File("./data/duke.txt");
+            Scanner s = new Scanner(f);
+            while (s.hasNext()) {
+                String[] taskParts = s.nextLine().split("\\|");
+                System.out.println(taskParts.length);
+                Task newTask = null;
+                if (taskParts.length == 3) {
+                    // its task
+                    newTask = new ToDo(taskParts[2].trim());
+                } else if (taskParts.length == 4) {
+                    // deadline
+                    newTask = new Deadline(taskParts[2].trim(),
+                            taskParts[3].trim());
+                } else if (taskParts.length == 5) {
+                    // event
+                    newTask = new Event(taskParts[2].trim(),
+                            taskParts[3].trim(),
+                            taskParts[4].trim());
+
+                }
+                if (taskParts[1].trim().contains("1")) {
+                    newTask.markAsDone();
+                } else {
+                    newTask.markAsNotDone();
+                }
+                tasklists.add(newTask);
+            }
+            return tasklists;
+        }
+//        catch (FileNotFoundException e) {
+//            try {
+//                FileWriter fw = new FileWriter("./data/duke.txt");
+//            } catch (Exception error) {
+//                System.out.println("Error");
+//            }
+//        }
+        catch (Exception error) {
+            System.out.println("the file is corrupted, deleting the content");
+            return new ArrayList<>();
+        }
+    }
+
+    public static void writeToDB(ArrayList<Task> taskList) {
+        try {
+            Path path = Paths.get("./data/duke.txt");
+            String content = "";
+            for (Task newTask : taskList) {
+                content += newTask.getDBString();
+                content += "\n";
+                System.out.println(content);
+            }
+            Files.write(path, content.getBytes());
+            System.out.println("Successfully wrote to the file.");
+        } catch (IOException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -25,7 +98,8 @@ public class CommandFactory {
      */
     public static void CommandActions() {
         Scanner scanner = new Scanner(System.in);
-        ArrayList<Task> tasklists = new ArrayList<>();
+        // read from duke.txt into classes
+        ArrayList<Task> tasklists = readFromDB();;
         while (true) {
             String input = scanner.nextLine().trim();
             System.out.println("____________________________________________________________");
@@ -59,6 +133,7 @@ public class CommandFactory {
                             System.out.println("Bye. Hope to see you again soon!");
                             break;
                         case DELETE:
+                            // update duke.txt
                             oldtask.deleteTask();
                             tasklists.remove(number-1);
                             break;
@@ -71,14 +146,17 @@ public class CommandFactory {
                             break;
 
                         case UNMARK:
+                            // update duke.txt
                             oldtask.markAsNotDone();
                             break;
 
                         case MARK:
+                            // update duke.txt
                             oldtask.markAsDone();
                             break;
 
                         case TODO:
+                            // update duke.txt
                             if (details[0].trim().length() == 4) {
                                 throw new InvalidToDoException();
                             } else {
@@ -88,24 +166,30 @@ public class CommandFactory {
                             break;
 
                         case DEADLINE:
+                            // update duke.txt
                             if (details[0].trim().length() == 8) {
                                 throw new InvalidDeadlineException();
                             } else {
                                 newTask = new Deadline(details[0].split("/")[0].substring(9),
-                                        details[1].split("by ")[1].trim());
+                                        input.split("by")[1].trim());
                                 tasklists.add(newTask);
                             }
                             break;
 
                         case EVENT:
+                            // update duke.txt
                             if (details[0].trim().length() == 5) {
                                 throw new InvalidEventException();
                             } else {
                                 newTask = new Event(details[0].split("/")[0].substring(6),
-                                        details[1].split("from ")[1].trim(),
-                                        details[2].split("to ")[1].trim());
+                                        input.split("from")[1].split("/to")[0].trim(),
+                                        input.split("to")[1].trim());
                                 tasklists.add(newTask);
                             }
+                            break;
+                        case CLEAR:
+                            tasklists.clear();
+                            Task.clear();
                             break;
 
                         default:
@@ -113,6 +197,7 @@ public class CommandFactory {
                     }
                 }
                 if (command == Command.BYE) {
+                    writeToDB(tasklists);
                     break;
                 }
             } catch (DukeException e){

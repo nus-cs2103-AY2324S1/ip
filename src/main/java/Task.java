@@ -16,6 +16,9 @@ public abstract class Task {
      */
     public abstract String getDetails();
 
+    public abstract String getDBString();
+
+
     /**
      * Constructor to initialize a Task object.
      *
@@ -27,6 +30,10 @@ public abstract class Task {
         this.isDone = false;
         this.type = type;
         Task.taskCount += 1;
+    }
+
+    public static void clear() {
+        Task.taskCount = 0;
     }
 
     /**
@@ -99,4 +106,11 @@ public abstract class Task {
 
     }
 
+    public boolean isDone() {
+        return this.isDone;
+    }
+
+    public String String() {
+        return this.description;
+    }
 }
