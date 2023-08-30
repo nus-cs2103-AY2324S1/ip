@@ -10,11 +10,11 @@ public class Parser {
                     + "([^/]*[^/\\s])?\\s*"                             // match chars that are not / after command
                     + "(?:(/by|/from)\\s+([^/]*[^/\\s]))?\\s*"          // match /by or /from command and argument
                     + "(?:(/to)\\s+([^/]*[^/\\s]))?\\s*";               // match /to command and argument
-    Pattern pattern = Pattern.compile(regexPattern);
+    private static final Pattern pattern = Pattern.compile(regexPattern);
 
     public Parser() {};
 
-    public Command parse(String command) throws DukeException {
+    public static Command parse(String command) throws DukeException {
         Matcher matcher = pattern.matcher(command);
 
         if (!matcher.matches()) {
