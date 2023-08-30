@@ -14,6 +14,7 @@ public class Duke{
         BufferedWriter bufferedWriter;
         try {
             File outputFile = new File(dir);
+            outputFile.getParentFile().mkdirs();
             outputFile.createNewFile();
             fileWriter = new FileWriter(outputFile);
             bufferedWriter = new BufferedWriter((fileWriter));
@@ -33,6 +34,7 @@ public class Duke{
         ArrayList<Task> input = new ArrayList<Task>();
         try {
             File outputFile = new File(dir);
+            outputFile.getParentFile().mkdirs();
             if (!outputFile.exists()) {
                 outputFile.createNewFile();
             }
