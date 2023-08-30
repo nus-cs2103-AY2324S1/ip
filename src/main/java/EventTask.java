@@ -5,19 +5,25 @@ import java.time.format.DateTimeParseException;
 public class EventTask extends Task {
     private LocalDateTime startDate;
     private LocalDateTime endDate;
+    private DateTimeFormatter formatter;
 
-    public EventTask(String description, String startDate, String endDate) {
+    public EventTask(String description, String startDate, String endDate) throws DukeException {
         super(description);
         try {
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
+            this.formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
             // time should be in format dd/mm/yyyy HHMM(24h)
-            this.startDate = LocalDateTime.parse(startDate, formatter);
-            this.endDate = LocalDateTime.parse(endDate, formatter);
+            LocalDateTime start = LocalDateTime.parse(startDate, formatter);
+            LocalDateTime end = LocalDateTime.parse(endDate, formatter);
+            if (start.isBefore(end)) {
+                this.startDate = start;
+                this.endDate = end;
+            } else {
+                throw new DukeException("Your start date is either the same or after your end date!");
+            }
         } catch (DateTimeParseException e) {
             System.out.println("There was an error parsing the date given.");
             e.printStackTrace();
         }
-
     }
 
     public String getType() {
@@ -25,11 +31,13 @@ public class EventTask extends Task {
     }
 
     public String getDateTime() {
-        return this.startDate + "," + this.endDate;
+        return formatter.format(this.startDate) + "," + formatter.format(this.endDate);
     }
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + this.startDate + " to: " + this.endDate + ")";
+        DateTimeFormatter stringFormatter = DateTimeFormatter.ofPattern("dd MMM yyyy HH:mm a");
+        return "[E]" + super.toString() + " (from: " + stringFormatter.format(this.startDate) +
+                " to: " + stringFormatter.format(this.endDate) + ")";
     }
 }
