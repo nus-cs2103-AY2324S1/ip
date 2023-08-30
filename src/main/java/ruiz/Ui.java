@@ -55,7 +55,7 @@ public class Ui {
 
     public void unableToLoadFile() {
         System.out.println("____________________________________________________________\n" +
-                "File cannot be loaded\n" +
+                "There is no pre-existing list\n" +
                 "____________________________________________________________");
     }
 
