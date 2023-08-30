@@ -5,6 +5,9 @@ import cyrus.utility.DateUtility;
 
 import java.time.LocalDate;
 
+/**
+ * Deadline task that contains the name of the deadline and the due date (i.e. {@code deadline}.
+ */
 public class Deadline extends Task {
   @SerializedName("type")
   private final static String TYPE = "deadline";

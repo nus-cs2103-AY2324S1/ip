@@ -7,10 +7,19 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+/**
+ * Utility to handle CLI text printing to ensure uniform output.
+ */
 public class Ui {
   private final static String delimiter = "-".repeat(80);
   private final static int indentation = 4;
 
+  /**
+   * Print multiple lines of text with delimiters above and below.
+   *
+   * <p>If a line contains {@code \n}, then it splits up the text by {@code \n}.</p>
+   * @param lines list of lines to display
+   */
   public static void printText(String... lines) {
     String frontPadding = " ".repeat(indentation);
     // If there are newlines in text, we want to convert those to separate lines
@@ -26,6 +35,11 @@ public class Ui {
     System.out.printf("%s%s\n", frontPadding, delimiter);
   }
 
+  /**
+   * Helper method to print that a task is added along with task details.
+   * @param task added task
+   * @param taskListSize size of the current task list after addition
+   */
   public static void printAddTask(Task task, int taskListSize) {
     printText(
         "Got it. I've added this task:",

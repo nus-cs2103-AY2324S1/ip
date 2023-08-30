@@ -1,5 +1,8 @@
 package cyrus.commands;
 
+/**
+ * Types of commands available to the bot.
+ */
 public enum CommandType {
   ADD_TODO,
   ADD_EVENT,
@@ -12,6 +15,11 @@ public enum CommandType {
   UNMARK_TASK,
   UNKNOWN;
 
+  /**
+   * Maps a {@code String} input to a {@code CommandType}.
+   * @param input input to map
+   * @return mapped {@code CommandType}
+   */
   public static CommandType fromString(String input) {
     switch (input) {
       case "bye":

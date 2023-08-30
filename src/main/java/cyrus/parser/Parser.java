@@ -7,9 +7,20 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+/**
+ * Parses user input into a command format. See {@code ParseInfo} for more information about the
+ * parsed form.
+ */
 public class Parser {
+  /**
+   * Dispatches {@code Command} given a {@code taskList} and {@code parseInfo} about the incoming
+   * string command.
+   * @param taskList {@code TaskList} of tasks to provide to the command when running
+   * @param parseInfo {@code ParseInfo} parsed from command
+   * @return appropriate {@code Command}
+   */
   public Command dispatchCommand(TaskList taskList, ParseInfo parseInfo) {
-    switch (parseInfo.commandType) {
+    switch (parseInfo.getCommandType()) {
       case ADD_TODO:
         return new AddTodoCommand(taskList, parseInfo);
       case ADD_EVENT:

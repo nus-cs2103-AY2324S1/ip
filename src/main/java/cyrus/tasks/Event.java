@@ -5,6 +5,10 @@ import cyrus.utility.DateUtility;
 
 import java.time.LocalDate;
 
+/**
+ * Event task that contains the name of the event as well as when the event starts (i.e. {@code
+ * from}) and ends (i.e. {@code to}).
+ */
 public class Event extends Task {
   @SerializedName("type")
   private final static String TYPE = "event";
