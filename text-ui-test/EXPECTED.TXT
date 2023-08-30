@@ -12,77 +12,83 @@ ____________________________________________________________
 ____________________________________________________________
 Got it. I've added this task:
   [T][ ] borrow book
-Now you have 1 task in the list.
+Now you have 6 tasks in the list.
 ____________________________________________________________
+The date and time format is incorrect. Expected format: d/M/yyyy [HHmm].
 ____________________________________________________________
-Got it. I've added this task:
-  [D][ ] return book  (by: Sunday)
-Now you have 2 tasks in the list.
+The date and time format is incorrect. Expected format: d/M/yyyy [HHmm].
 ____________________________________________________________
-☹ OOPS!!! The format for event is missing 'to' information.
+The date and time format is incorrect. Expected format: d/M/yyyy [HHmm].
 ____________________________________________________________
-____________________________________________________________
-Got it. I've added this task:
-  [D][ ] do homework  (by: no idea :-p)
-Now you have 3 tasks in the list.
-____________________________________________________________
-1. [T][ ] borrow book
-2. [D][ ] return book  (by: Sunday)
-3. [D][ ] do homework  (by: no idea :-p)
+1. [T][X] This is a very long description just to test Simon's ability to handle long inputs without breaking or malfunctioning in any way
+2. [T][X] This is a very long description just to test Simon's ability to handle long inputs without breaking or malfunctioning in any way
+3. [T][ ] This is a very long description just to test Simon's ability to handle long inputs without breaking or malfunctioning in any way
+4. [T][ ] This is a very long description just to test Simon's ability to handle long inputs without breaking or malfunctioning in any way
+5. [T][ ] This is a very long description just to test Simon's ability to handle long inputs without breaking or malfunctioning in any way
+6. [T][ ] borrow book
 ____________________________________________________________
 ☹ OOPS!!! I'm sorry, but I don't know what that means :-(
 ____________________________________________________________
-Invalid task number. Choose a number between 1 and 3.
+Nice! I've marked this task as done:
+[X]  [T][X] This is a very long description just to test Simon's ability to handle long inputs without breaking or malfunctioning in any way
 ____________________________________________________________
-Invalid task number. Choose a number between 1 and 3.
+OK, I've marked this task as not done yet:
+[ ]  [T][ ] This is a very long description just to test Simon's ability to handle long inputs without breaking or malfunctioning in any way
+____________________________________________________________
+Noted. I've removed this task:
+ [T][X] This is a very long description just to test Simon's ability to handle long inputs without breaking or malfunctioning in any way
+Now you have 5 tasks in the list.
+____________________________________________________________
+1. [T][X] This is a very long description just to test Simon's ability to handle long inputs without breaking or malfunctioning in any way
+2. [T][ ] This is a very long description just to test Simon's ability to handle long inputs without breaking or malfunctioning in any way
+3. [T][ ] This is a very long description just to test Simon's ability to handle long inputs without breaking or malfunctioning in any way
+4. [T][ ] This is a very long description just to test Simon's ability to handle long inputs without breaking or malfunctioning in any way
+5. [T][ ] borrow book
 ____________________________________________________________
 Noted. I've removed this task:
  [T][ ] borrow book
-Now you have 2 task in the list.
-____________________________________________________________
-1. [D][ ] return book  (by: Sunday)
-2. [D][ ] do homework  (by: no idea :-p)
-____________________________________________________________
-Invalid task number. Choose a number between 1 and 2.
+Now you have 4 tasks in the list.
 ____________________________________________________________
 ☹ OOPS!!! The description of a todo cannot be empty.
 ____________________________________________________________
-☹ OOPS!!! The format for deadline is incorrect. Expected format: 'deadline [task description] /by [deadline]'.
+☹ OOPS!!! The format for deadline is incorrect. Expected format: 'deadline [task description] /by [dd/mm/yyyy HHmm]'. Time(HHmm) is optional.
 ____________________________________________________________
-☹ OOPS!!! The format for event is incorrect. Expected format: 'event [event description] /from [start date] /to [end date]'.
+☹ OOPS!!! The format for event is incorrect. Expected format: 'event [event description] /from [dd/mm/yyyy HHmm] /to [dd/mm/yyyy HHmm]'. The time(HHmm) is optional.
 ____________________________________________________________
 Please provide a valid task number.
 ____________________________________________________________
 ____________________________________________________________
 Got it. I've added this task:
   [T][ ] This is a very long description just to test Simon's ability to handle long inputs without breaking or malfunctioning in any way
-Now you have 3 tasks in the list.
+Now you have 5 tasks in the list.
 ____________________________________________________________
 Nice! I've marked this task as done:
-[X]  [D][X] do homework  (by: no idea :-p)
+[X]  [T][X] This is a very long description just to test Simon's ability to handle long inputs without breaking or malfunctioning in any way
 ____________________________________________________________
 OK, I've marked this task as not done yet:
 [ ]  [T][ ] This is a very long description just to test Simon's ability to handle long inputs without breaking or malfunctioning in any way
 ____________________________________________________________
 ☹ OOPS!!! The description of a deadline cannot be empty.
 ____________________________________________________________
-☹ OOPS!!! The format for event is incorrect. Expected format: 'event [event description] /from [start date] /to [end date]'.
+☹ OOPS!!! The format for event is incorrect. Expected format: 'event [event description] /from [dd/mm/yyyy HHmm] /to [dd/mm/yyyy HHmm]'. The time(HHmm) is optional.
 ____________________________________________________________
 Please provide a valid task number.
 ____________________________________________________________
 Please provide a valid task number.
 ____________________________________________________________
-Invalid task number. Choose a number between 1 and 3.
+Invalid task number. Choose a number between 1 and 5.
 ____________________________________________________________
-Invalid task number. Choose a number between 1 and 3.
+Invalid task number. Choose a number between 1 and 5.
 ____________________________________________________________
-☹ OOPS!!! The format for deadline is incorrect. Expected format: 'deadline [task description] /by [deadline]'.
+☹ OOPS!!! The format for deadline is incorrect. Expected format: 'deadline [task description] /by [dd/mm/yyyy HHmm]'. Time(HHmm) is optional.
 ____________________________________________________________
 ☹ OOPS!!! The description of an event cannot be empty.
 ____________________________________________________________
-1. [D][ ] return book  (by: Sunday)
-2. [D][X] do homework  (by: no idea :-p)
+1. [T][X] This is a very long description just to test Simon's ability to handle long inputs without breaking or malfunctioning in any way
+2. [T][X] This is a very long description just to test Simon's ability to handle long inputs without breaking or malfunctioning in any way
 3. [T][ ] This is a very long description just to test Simon's ability to handle long inputs without breaking or malfunctioning in any way
+4. [T][ ] This is a very long description just to test Simon's ability to handle long inputs without breaking or malfunctioning in any way
+5. [T][ ] This is a very long description just to test Simon's ability to handle long inputs without breaking or malfunctioning in any way
 ____________________________________________________________
 Bye. Hope to see you again soon!
 ____________________________________________________________
