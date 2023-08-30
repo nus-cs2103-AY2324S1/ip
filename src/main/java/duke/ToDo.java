@@ -3,31 +3,43 @@ package duke;
 import java.time.LocalDate;
 
 public class ToDo extends Task{
+    /**
+     * Constructor for the ToDo class.
+     *
+     * @param name Name of the task.
+     */
     public ToDo(String name) {
         super(name);
     }
 
+    /**
+     * Returns a string representation of the task.
+     *
+     * @return A string representing the todo.
+     */
     @Override
     public String toString() {
         return "[T]" + super.toString();
     }
 
+    /**
+     * Returns a string representation of the task to be saved.
+     *
+     * @return A string representing the todo to be saved.
+     */
     @Override
     public String toSaveStateString() {
         String[] state = new String[]{ Command.TODO.getCommand(), this.getDone() ? "1" : "0", this.getTaskName() };
         return String.join(" / ", state);
     }
 
+    /**
+     * Returns whether the task is on a date.
+     *
+     * @return A boolean representation of whether the task is on a given date.
+     */
     @Override
     public boolean isOnDate(LocalDate date) {
         return false;
-    }
-
-    public static String[] processInput(String[] splitInput) throws InvalidTaskException {
-        splitInput = Task.processInput(splitInput);
-        if (splitInput[0] == "") {
-            throw new InvalidTaskException("☹ OOPS!!! The description of a todo cannot be empty.");
-        }
-        return splitInput;
     }
 }

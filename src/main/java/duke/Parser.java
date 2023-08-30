@@ -1,5 +1,6 @@
 package duke;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -8,6 +9,13 @@ public class Parser {
     private static final String DELIMITER_COMMAND = " ";
     private static final String DELIMITER_DATE = " /";
     private static final String DELIMITER_INPUT = " / ";
+
+    /**
+     * Returns parsed input from the user.
+     *
+     * @param input Input from user.
+     * @throws InvalidCommandException If the input is not of the recognised form.
+     */
     public static ArrayList<String> parseUserInput(String input) throws InvalidCommandException {
         ArrayList<String> parsedInput= new ArrayList<>();
 
@@ -39,6 +47,12 @@ public class Parser {
         return parsedInput;
     }
 
+    /**
+     * Returns parsed input from the file.
+     *
+     * @param input Input from file.
+     * @throws InvalidCommandException If the input is not of the recognised form.
+     */
     public static ArrayList<String> parseFileInput(String input) throws InvalidCommandException {
       ArrayList<String> parsedInput = new ArrayList<>();
       String[] split = input.split(DELIMITER_INPUT);
