@@ -12,6 +12,7 @@ public class Duke {
 
         try {
             File dataDirectory = new File("./data");
+            dataDirectory.mkdir();
             File taskFile = new File("./data/duke.txt");
             if (taskFile.createNewFile()) {
                 System.out.println("Created new file to store your tasks!");
