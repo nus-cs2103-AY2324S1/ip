@@ -13,14 +13,30 @@ import duke.commands.UnmarkTaskCommand;
 import duke.exceptions.DukeInvalidCommandException;
 import duke.tasks.TaskList;
 
+/**
+ * The parser is used to parse user input into commands.
+ */
 public class Parser {
 
+    /** The task list to be used by the parser. */
     private final TaskList taskList;
 
+    /**
+     * Creates a new Parser object.
+     *
+     * @param taskList The task list to be used by the parser.
+     */
     public Parser(TaskList taskList) {
         this.taskList = taskList;
     }
 
+    /**
+     * Parses the given input into a command.
+     *
+     * @param input The input to be parsed.
+     * @return The command that was parsed.
+     * @throws DukeInvalidCommandException If the given input is invalid.
+     */
     public Command parse(String input) throws DukeInvalidCommandException {
         String[] parts = input.split(" ", 2);
         CommandType commandType = CommandType.fromString(parts[0]);

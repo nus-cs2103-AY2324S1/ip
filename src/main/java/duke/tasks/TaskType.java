@@ -8,7 +8,7 @@ public enum TaskType {
     DEADLINE("deadline"),
     EVENT("event");
 
-    // The string representation of the command.
+    /** The string representation of the command. */
     private final String type;
 
     /**

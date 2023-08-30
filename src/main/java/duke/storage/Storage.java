@@ -14,10 +14,20 @@ import duke.tasks.TaskList;
 import duke.tasks.TaskType;
 import duke.ui.Ui;
 
+/**
+ * The storage is used to save and load tasks from the local disk.
+ */
 public class Storage {
 
+    /** The path to the save file. */
     private final String path;
 
+    /**
+     * Creates a new Storage object.
+     *
+     * @param path The path to the save file.
+     * @throws DukeException If there is an error creating the save file.
+     */
     public Storage(String path) throws DukeException {
         this.path = path;
         File file = new File(path);
@@ -33,6 +43,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Loads tasks from the save file into the given task list.
+     *
+     * @param tasklist The task list to be used.
+     * @throws DukeException If there is an error loading tasks from the save file.
+     */
     public void load(TaskList tasklist) throws DukeException {
         try {
             boolean isEmpty = Files.size(Path.of(path)) == 0;
@@ -59,6 +75,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Saves tasks from the given task list into the save file.
+     *
+     * @param tasklist The task list to be used.
+     * @throws DukeException If there is an error saving tasks to the save file.
+     */
     public void save(TaskList tasklist) {
         try {
             String content = "";
@@ -75,5 +97,4 @@ public class Storage {
             throw new DukeIoException("Error saving tasks to local disk: " + e);
         }
     }
-
 }

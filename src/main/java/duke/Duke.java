@@ -17,11 +17,17 @@ import duke.ui.Ui;
  */
 public class Duke {
 
-    // The task list is used to store the user's tasks.
+    /** The task list that is used to store the user's tasks. */
     private final TaskList taskList = new TaskList();
 
+    /** The storage that is used to save and load the user's tasks. */
     private final Storage storage;
 
+    /**
+     * Constructs a new Duke object.
+     *
+     * @param path The path to the save file.
+     */
     public Duke(String path) {
         Ui.greet();
         Ui.println("Checking for a save file...");
@@ -45,6 +51,9 @@ public class Duke {
         new Duke("data/tasks.txt").run();
     }
 
+    /**
+     * Runs the program to interact with the user.
+     */
     public void run() {
         Scanner scanner = new Scanner(System.in);
         Parser parser = new Parser(this.taskList);
