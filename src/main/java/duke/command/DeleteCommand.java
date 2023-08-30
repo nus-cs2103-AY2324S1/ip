@@ -24,7 +24,7 @@ public class DeleteCommand extends Command {
      * @param index - the index of the task being deleted
      */
     public DeleteCommand(int index) {
-        this.index = index;
+        this.index = index - 1;
     }
 
     /**
@@ -59,6 +59,20 @@ public class DeleteCommand extends Command {
      */
     @Override
     public boolean isExit() {
+        return false;
+    }
+
+    /**
+     * Checks if it is the exact same command
+     * @param other the other command in question
+     * @return true if there are equals
+     */
+    @Override
+    public boolean equals(Object other) {
+        if (other instanceof DeleteCommand) {
+            DeleteCommand command = (DeleteCommand) other;
+            return this.index == command.index;
+        }
         return false;
     }
 }

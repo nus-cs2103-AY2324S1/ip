@@ -43,4 +43,5 @@ public class TodoTask extends Task {
     public String getStored() {
         return String.join(Task.SEP, new String[] { "TODO", this.getTask(), this.isComplete() ? "1" : "0" });
     }
+
 }

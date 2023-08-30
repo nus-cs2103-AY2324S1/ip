@@ -7,7 +7,6 @@ import duke.command.Command;
 import duke.command.ListCommand;
 import duke.exception.DukeBadInputException;
 
-
 /**
  * A task manager duke
  */
@@ -35,15 +34,13 @@ public class Duke {
         this.ui = new Ui();
         this.ui.welcomeMessage();
 
-
         // try to establish a connection to the file
         // set this.storage to null if not possible
         try {
             this.storage = new Storage(filePath);
         } catch (IOException e) {
             this.ui.errorMessage(
-                    "has some internal problem and is unable to help you today, please contact quacks mum"
-            );
+                    "has some internal problem and is unable to help you today, please contact quacks mum");
             this.ui.println(e.getMessage());
             this.storage = null;
         } catch (DukeBadInputException e) {
@@ -56,10 +53,10 @@ public class Duke {
             try {
                 // check for corrupted files
                 if (this.taskList.loadTasks(this.storage.readFile())) {
+                    this.ui.unexpectedError("Some task are corrupted, attempting to recover uncorrupted tasks");
                     if (!this.storage.rewriteAll(this.taskList.getAllTask())) {
                         this.ui.unexpectedError(
-                                "not all tasks were successfully written, please contact my mother :( "
-                        );
+                                "not all tasks were successfully written, please contact my mother :( ");
                     }
                 }
             } catch (IOException e) {
@@ -71,7 +68,6 @@ public class Duke {
     public static void main(String[] args) {
         new Duke("data/data.txt").run();
     }
-
 
     /**
      * Entry point of the software
@@ -102,9 +98,11 @@ public class Duke {
      */
     private void collectCommand() {
         while (true) {
-
             try {
-                String input = this.ui.readCommand();
+                String input = this.ui.readCommand().trim();
+                if (input.isBlank()) {
+                    continue;
+                }
                 Command command = Parser.parse(input);
                 if (command.isExit()) {
                     break;
@@ -120,14 +118,12 @@ public class Duke {
                 this.ui.errorMessage(e.getMessage());
                 this.ui.println(
                         "Quack only understands date in this format: "
-                                + "YYYY-MM-DD HH:MM, do give the hours in 24hours format"
-                );
+                                + "YYYY-MM-DD HH:MM, do give the hours in 24hours format");
             }
             this.ui.lineBreak();
             this.ui.println("");
         }
         this.ui.close();
     }
-
 
 }

@@ -76,4 +76,20 @@ public class EventCommand extends Command {
     public boolean isExit() {
         return false;
     }
+
+    /**
+     * Checks if it is the exact same command
+     * @param other the other command in question
+     * @return true if there are equals
+     */
+    @Override
+    public boolean equals(Object other) {
+        if (other instanceof EventCommand) {
+            EventCommand command = (EventCommand) other;
+            return this.from.equals(command.from)
+                    && this.to.equals(command.to)
+                    && this.desc.equals(command.desc);
+        }
+        return false;
+    }
 }

@@ -84,4 +84,18 @@ public class Task {
     public String toString() {
         return String.format("[%s] %s", isComplete ? "X" : " ", this.task);
     }
+
+    /**
+     * Checks if it is the exact same TASK
+     * @param other the other command in question
+     * @return true if there are equals
+     */
+    @Override
+    public boolean equals(Object other) {
+        if (other instanceof Task) {
+            Task task = (Task) other;
+            return this.getStored().equals(task.getStored());
+        }
+        return false;
+    }
 }

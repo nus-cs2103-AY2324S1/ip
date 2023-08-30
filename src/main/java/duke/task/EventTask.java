@@ -64,7 +64,7 @@ public class EventTask extends Task {
     @Override
     public String getStored() {
         return String.join(Task.SEP, new String[] { "EVENT", this.getTask(),
-                this.isComplete() ? "1" : "0", this.isComplete() ? "1" : "0",
+                this.isComplete() ? "1" : "0",
                 this.from.toString(), this.to.toString() });
     }
 }
