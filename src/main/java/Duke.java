@@ -162,55 +162,55 @@ public class Duke {
     }
 
     public void run() throws IllegalCommandException {
-        loadFile();     // loads file
-        try {
-            readFile(); // reads loaded file
-        } catch (FileNotFoundException e) {
-            System.out.println(e.getMessage());
+            loadFile();     // loads file
+            try {
+                readFile(); // reads loaded file
+            } catch (FileNotFoundException e) {
+                System.out.println(e.getMessage());
+            }
+            if (Task.numberOfTasks != 0) {
+                // if there are saved task
+                greet = greet + "Welcome back! You had these tasks last time!\n";
+                System.out.println(TextFormat.botReply(greet)); // print greet message
+                list();
+            } else {
+                System.out.println(TextFormat.botReply(greet)); // print greet message
+            }
+            this.processInput();                            // function to run the chatbot
+            try {
+                this.writeFile();                           // write file with all tasks
+            } catch (IOException e) {
+                System.out.println(e.getMessage());
+            }
+            System.out.println(TextFormat.botReply(exit));  // exit message
         }
-        if (Task.numberOfTasks != 0) {
-            // if there are saved task
-            greet = greet + "Welcome back! You had these tasks last time!\n";
-            System.out.println(TextFormat.botReply(greet)); // print greet message
-            list();
-        } else {
-            System.out.println(TextFormat.botReply(greet)); // print greet message
-        }
-        this.processInput();                            // function to run the chatbot
-        try {
-            this.writeFile();                           // write file with all tasks
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
-        }
-        System.out.println(TextFormat.botReply(exit));  // exit message
-    }
 
-    public static boolean isInteger(String str) {
-        if (str == null) {
-            return false;
-        }
-        int length = str.length();
-        if (length == 0) {
-            return false;
-        }
-        int i = 0;
-        if (str.charAt(0) == '-') {
-            if (length == 1) {
+        public static boolean isInteger(String str) {
+            if (str == null) {
                 return false;
             }
-            i = 1;
-        }
-        for (; i < length; i++) {
-            char c = str.charAt(i);
-            if (c < '0' || c > '9') {
+            int length = str.length();
+            if (length == 0) {
                 return false;
             }
+            int i = 0;
+            if (str.charAt(0) == '-') {
+                if (length == 1) {
+                    return false;
+                }
+                i = 1;
+            }
+            for (; i < length; i++) {
+                char c = str.charAt(i);
+                if (c < '0' || c > '9') {
+                    return false;
+                }
+            }
+            return true;
         }
-        return true;
-    }
 
-    public static void main(String[] args) {
-        Duke duke = new Duke();
-        duke.run();
+        public static void main(String[] args) {
+            Duke duke = new Duke();
+            duke.run();
+        }
     }
-}
