@@ -1,6 +1,10 @@
 package duke;
 
-import duke.exception.*;
+import duke.exception.DukeException;
+import duke.exception.EmptyTaskException;
+import duke.exception.EmptyDateException;
+import duke.exception.NoEndDateException;
+import duke.exception.InvalidRangeException;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -93,7 +97,8 @@ public class TaskList {
     public String getDate(String inputDate) {
         String[] dateTime = inputDate.split(" ");
         if (!dateTime[0].isEmpty()) {
-            DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("[M/d/yyyy][MM/dd/yyyy][yyyy-MM-dd]");
+            DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern(
+                    "[M/d/yyyy][MM/dd/yyyy][yyyy-MM-dd]");
             DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy");
             if (dateTime[0].contains("-") || dateTime[0].contains("/")) {
                 LocalDate date = LocalDate.parse(dateTime[0], inputFormatter);
@@ -142,8 +147,8 @@ public class TaskList {
             return ("Noted. I've removed this task:\n " + deletedTask
                     + "\nNow you have " + this.tasks.size() + " tasks in the list.");
         } else {
-            throw new InvalidRangeException("Invalid task index. You have " +
-                    this.tasks.size() + " tasks in the list.");
+            throw new InvalidRangeException("Invalid task index. You have "
+                    + this.tasks.size() + " tasks in the list.");
         }
 
     }
@@ -161,8 +166,8 @@ public class TaskList {
             task.markAsDone();
             return ("Nice! I've marked this task as done:\n " + task);
         } else {
-            throw new InvalidRangeException("Invalid task index. You have " +
-                    this.tasks.size() + " tasks in the list.");
+            throw new InvalidRangeException("Invalid task index. You have "
+                    + this.tasks.size() + " tasks in the list.");
         }
 
     }
@@ -180,8 +185,8 @@ public class TaskList {
             task.markAsUndone();
             return ("OK, I've marked this task as not done yet:\n " + task);
         } else {
-            throw new InvalidRangeException("Invalid task index. You have " +
-                    this.tasks.size() + " tasks in the list.");
+            throw new InvalidRangeException("Invalid task index. You have "
+                    + this.tasks.size() + " tasks in the list.");
         }
 
     }
