@@ -135,4 +135,16 @@ public class Parser {
         }
         return new ToDo(name);
     }
+
+    public static String parseUserFind(List<String> queryList) throws DukeException {
+        if (queryList.size() < 2) {
+            throw new DukeException("What are you trying to find?");
+        }
+        String keyword = "";
+        for (int i = 1; i < queryList.size(); i++) {
+            keyword += i > 1 ? " " : "";
+            keyword += queryList.get(i);
+        }
+        return keyword;
+    }
 }

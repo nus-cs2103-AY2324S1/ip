@@ -28,6 +28,10 @@ public abstract class Task {
         return false;
     }
 
+    public boolean contains(String keyword) {
+        return this.name.contains(keyword);
+    }
+
     @Override
     public String toString() {
         return String.format("[%s] %s", this.isDone ? "X" : " ", this.name);

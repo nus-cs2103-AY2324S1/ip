@@ -86,6 +86,10 @@ public class Duke {
                 case "todo":
                     ui.addTask(tasks, Parser.parseUserToDo(queryList));
                     break;
+                case "find":
+                    String keyword = Parser.parseUserFind(queryList);
+                    ui.find(tasks, keyword);
+                    break;
                 default:
                     throw new DukeException("I'm sorry, but I don't know what that means :-(");
                 }

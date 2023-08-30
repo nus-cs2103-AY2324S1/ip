@@ -20,12 +20,12 @@ public class Ui {
     public void date(TaskList tasks, String date) throws DukeException {
         int idx = 0;
         String dmy = Parser.convertToDMY(date);
-        for (Task t: tasks) {
-            if (t.isToday(date)) {
+        for (Task task: tasks) {
+            if (task.isToday(date)) {
                 if (idx == 0) {
                     print(String.format("Here are the tasks on %s:", dmy));
                 }
-                print(String.format("%d.%s", ++idx, t.toString()));
+                print(String.format("%d.%s", ++idx, task.toString()));
             }
         }
         if (idx == 0) {
@@ -41,6 +41,21 @@ public class Ui {
         print("Noted. I've removed this task:");
         print(String.format("  %s\n", task.toString()));
         print(String.format("Now you have %d tasks in the list.", tasks.size()));
+    }
+
+    public void find(TaskList tasks, String keyword) {
+        int idx = 0;
+        for (Task task: tasks) {
+            if (task.contains(keyword)) {
+                if (idx == 0) {
+                    print("Here are the matching tasks in your list:");
+                }
+                print(String.format("%d.%s", ++idx, task.toString()));
+            }
+        }
+        if (idx == 0) {
+            print("There is no matching task with: " + keyword);
+        }
     }
 
     public void hello() {
