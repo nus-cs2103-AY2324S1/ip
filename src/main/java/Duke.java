@@ -17,7 +17,6 @@ public class Duke {
     }
     private static void bye() {
         String goodbye = line + "Until we meet once more in the near future, I bid you farewell." + "\n" + line;
-        File taskList = new File("./src/main/data/tasklist.txt");
         System.out.println(goodbye);
     }
 
@@ -25,6 +24,7 @@ public class Duke {
 
         ArrayList<Task> tasks = new ArrayList<>();
         File taskList = new File("./src/main/data/tasklist.txt");
+        taskList.deleteOnExit();
         int taskCount = 0;
         int taskId = 1;
         Scanner scanner = new Scanner(System.in);
@@ -115,7 +115,6 @@ public class Duke {
             userInput = scanner.nextLine();
         }
         bye();
-        taskList.delete();
         scanner.close();
     }
 
