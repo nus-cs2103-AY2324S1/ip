@@ -29,11 +29,11 @@ public class Task implements Serializable {
         return description;
     }
 
-    public void setNotDone() {
+    public void markNotDone() {
         isDone = false;
     }
 
-    public void setDone() {
+    public void markDone() {
         isDone = true;
     }
 
@@ -43,6 +43,6 @@ public class Task implements Serializable {
 
     @Override
     public String toString() {
-        return this.getDescription();
+        return String.format("[%s] %s",this.getStatusIcon(), this.getDescription());
     }
 }

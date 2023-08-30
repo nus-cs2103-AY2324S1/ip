@@ -9,13 +9,9 @@
         public Deadlines(String description, String deadline) {
             super(description, 'D');
 
-//            try {
-                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
-                LocalDateTime deadLineParsed = LocalDateTime.parse(deadline.trim(), formatter);
-                this.deadline = deadLineParsed;
-//            } catch (DateTimeParseException e) {
-//                System.out.println("Your Date and time does not follow the format. This is not acceptable");
-//            }
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
+            LocalDateTime deadLineParsed = LocalDateTime.parse(deadline.trim(), formatter);
+            this.deadline = deadLineParsed;
         }
 
         // getter for deadline
@@ -31,4 +27,9 @@
             return dayOfWeek + " " + dayOfMonth + " " + month + " " + year;
         }
 
+
+        @Override
+        public String toString() {
+            return "[D]" + super.toString() + String.format("(by:%s)", getDeadlineInWords());
+        }
     }

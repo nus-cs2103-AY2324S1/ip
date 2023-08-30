@@ -9,12 +9,11 @@ public class Events extends Duke.Tasks.Task {
     LocalDateTime endDate;
     public Events(String description, String startDate, String endDate) {
         super(description, 'T');
-
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
-            LocalDateTime startDateParsed = LocalDateTime.parse(startDate.trim(), formatter);
-            LocalDateTime endDateParsed = LocalDateTime.parse(endDate.trim(), formatter);
-            this.startDate = startDateParsed;
-            this.endDate = endDateParsed;
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
+        LocalDateTime startDateParsed = LocalDateTime.parse(startDate.trim(), formatter);
+        LocalDateTime endDateParsed = LocalDateTime.parse(endDate.trim(), formatter);
+        this.startDate = startDateParsed;
+        this.endDate = endDateParsed;
 
     }
 
@@ -41,5 +40,10 @@ public class Events extends Duke.Tasks.Task {
         String month = endDate.getMonth().toString();
         int year = endDate.getYear();
         return dayOfWeek + " " + dayOfMonth + " " + month + " " + year;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("[E] %s + (from: %s  to: %s",super.toString(),getStartDateInWords(), getEndDateInWords());
     }
 }

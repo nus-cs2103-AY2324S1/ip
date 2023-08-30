@@ -1,5 +1,7 @@
 package Duke;
 
+import Duke.Tasks.Task;
+
 import java.io.*;
 import java.util.ArrayList;
 
@@ -16,15 +18,15 @@ public class Storage {
      * @return TaskList
      * @throws IOException
      */
-    public ArrayList load() throws IOException {
+    public TaskList load() throws IOException {
         try {
             FileInputStream file = new FileInputStream(filepath);
             ObjectInputStream output = new ObjectInputStream(file);
-            ArrayList taskList = (ArrayList) output.readObject();
+            TaskList taskList = (TaskList) output.readObject();
             output.close();
             return taskList;
         } catch (Exception error) {
-            ArrayList taskList = new ArrayList();
+            TaskList taskList = new TaskList();
             return taskList;
         }
     }
@@ -37,7 +39,7 @@ public class Storage {
      *
      * @throws IOException
      */
-    public void save(ArrayList taskList) throws IOException{
+    public void save(TaskList taskList) throws IOException{
         FileOutputStream file = new FileOutputStream(filepath);
         ObjectOutputStream output = new ObjectOutputStream(file);
         output.writeObject(taskList);

@@ -1,50 +1,43 @@
 package Duke;
 
+import Duke.Commands.Command;
+
 import java.io.IOException;
 import java.util.Scanner;
 
 public class Duke {
-    private Commands taskManager;
+    private TaskList taskList;
     public Storage dataBase;
+    private Ui ui;
     private String filePath = "./tasklist.txt";
 
     public Duke() throws IOException {
+        ui = new Ui();
         this.dataBase = new Storage(filePath);
-        this.taskManager = new Commands(dataBase.load());
+        this.taskList = dataBase.load();
     }
 
-
-    public static void main (String[] args) throws DukeException, IOException {
+    public void run() throws DukeException, IOException {
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
                 + "| | | | | | | |/ / _ \\\n"
                 + "| |_| | |_| |   <  __/\n"
                 + "|____/ \\__,_|_|\\_\\___|\n";
         System.out.println("Hello from\n" + logo);
-        Duke bot = new Duke();
-        bot.taskManager.sayHello();
+
+        ui.printHello();
 
         Scanner sc = new Scanner(System.in);
         String userInput = "";
-
         do {
-            try {
-                    userInput = sc.nextLine();
+            userInput = sc.nextLine();
+            Command c = Parser.parse(userInput, this.taskList, this.dataBase, ui);
+            c.execute();
+        } while (!userInput.toLowerCase().equals("bye"));
+    }
 
-                    if (userInput.equals("")) {
-                        throw new DukeException("OOPS, input field cannot be empty. Try entering a task or a command");
-                    }
-
-                    bot.taskManager.handleInput(userInput);
-                } catch (DukeException error) {
-                    System.out.println("____________________________________________________________\n");
-                    System.out.println(error);
-                    System.out.println("____________________________________________________________\n");
-                }
-            } while (!userInput.toLowerCase().equals("bye"));
-
-            bot.dataBase.save(bot.taskManager.tasks);
-            bot.taskManager.sayGoodBye();
-        }
-
+    public static void main(String[] args) throws DukeException, IOException {
+        Duke bot = new Duke();
+        bot.run();
+    }
 }
