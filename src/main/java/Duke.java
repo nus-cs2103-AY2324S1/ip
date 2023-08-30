@@ -1,52 +1,10 @@
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 public class Duke {
     public static ArrayList<Task> taskList = new ArrayList<>();
-    public static String currentDirPath = System.getProperty("user.dir");
-    public static Path outputPath = Paths.get(currentDirPath, "output.txt");
-    public static void addTask(Task newTask) throws IOException {
-        taskList.add(newTask);
-        System.out.println("    Got it... I've added this task...");
-        System.out.println("      " + newTask.getStatus());
-        System.out.println("    Now you have " + (taskList.size()) + " tasks in the list...");
-        System.out.println("--------------------------------");
-        saveFile();
-    }
-    public static void deleteTask(int index) throws DukeIndexOutOfBoundsException, IOException {
-        if (taskList.size() < index) {
-            throw new DukeIndexOutOfBoundsException();
-        }
-        Task temp = taskList.get(index - 1);
-        taskList.remove(index - 1);
-        System.out.println("    Noted. I've removed this task...");
-        System.out.println("      " + temp.getStatus());
-        System.out.println("    Now you have " + (taskList.size()) + " tasks in the list...");
-        System.out.println("--------------------------------");
-        saveFile();
-    }
-    public static void markAsDone(int index) throws DukeIndexOutOfBoundsException, IOException {
-        if (taskList.size() < index) {
-            throw new DukeIndexOutOfBoundsException();
-        }
-        Task target = taskList.get(index - 1);
-        target.setDone(true);
-        System.out.println("    I've marked this as done...");
-        System.out.println("    " + target.getStatus());
-        System.out.println("--------------------------------");
-        saveFile();
-    }
-    /**
-     * Unmarks task in the taskList ArrayList.
-     * If the index is bigger than the size of the taskList, DukeIndexOutOfBoundsException is thrown.
-     * @param index Index of the task in taskList to unmark.
-     * @throws DukeIndexOutOfBoundsException If index > taskList.size()
-     */
-    public static void unmark(int index) throws DukeIndexOutOfBoundsException, IOException {
+
+    public static void unmark(int index) throws DukeIndexOutOfBoundsException{
         if (taskList.size() < index) {
             throw new DukeIndexOutOfBoundsException();
         }
@@ -55,9 +13,17 @@ public class Duke {
         System.out.println("    I've marked this task as not done yet...");
         System.out.println("    " + target.getStatus());
         System.out.println("--------------------------------");
-        saveFile();
     }
-
+    public static void markAsDone(int index) throws DukeIndexOutOfBoundsException{
+        if (taskList.size() < index) {
+            throw new DukeIndexOutOfBoundsException();
+        }
+        Task target = taskList.get(index - 1);
+        target.setDone(true);
+        System.out.println("    I've marked this as done...");
+        System.out.println("    " + target.getStatus());
+        System.out.println("--------------------------------");
+    }
     public static void listTask() {
         for (int i = 0; i < taskList.size(); i++) {
             Task target = taskList.get(i);
@@ -65,26 +31,23 @@ public class Duke {
         }
         System.out.println("--------------------------------");
     }
-    /**
-     *
-     * @throws IOException
-     */
-    public static void saveFile() throws IOException {
-        try {
-            if (!Files.exists(outputPath)) {
-                Files.createFile(outputPath);
-            }
-            String data = "";
-            for (Task task : taskList) {
-                data += task.getStatus() + "\n";
-            }
-            Files.write(outputPath, data.getBytes());
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
+    public static void addTask(Task newTask) {
+        taskList.add(newTask);
+        System.out.println("    Got it... I've added this task...");
+        System.out.println("      " + newTask.getStatus());
+        System.out.println("    Now you have " + (taskList.size()) + " tasks in the list...");
+        System.out.println("--------------------------------");
     }
-
-
+    public static void deleteTask(int index) throws DukeIndexOutOfBoundsException {
+        if (taskList.size() < index) {
+            throw new DukeIndexOutOfBoundsException();
+        }
+        Task temp = taskList.get(index - 1);
+        taskList.remove(index - 1);
+        System.out.println("    Noted. I've removed this task...");
+        System.out.println("      " + temp.getStatus());
+        System.out.println("    Now you have " + (taskList.size()) + " tasks in the list...");
+    }
     public static boolean continueOrNot(String[] input) {
         if (input[0].equals("bye")) {
             return false;
@@ -146,9 +109,6 @@ public class Duke {
                 }
             }
             catch (DukeException e) {
-                System.out.println(e.getMessage());
-            }
-            catch (Exception e) {
                 System.out.println(e.getMessage());
             }
             input = splitBy(input(sc), " ");
