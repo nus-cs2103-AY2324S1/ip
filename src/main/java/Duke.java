@@ -1,4 +1,3 @@
-
 import java.util.Scanner;
 import java.util.ArrayList;
 
@@ -54,7 +53,7 @@ public class Duke {
 
                     System.out.println("Got it. I've added this task:");
                     System.out.println("  " + todo);
-                    System.out.println("Now you have " + tasksList.size() + " tasks in the list");
+                    System.out.println("Now you have " + tasksList.size() + " tasks in the list.");
                 } catch (EmptyTodoException e) {
                     System.out.println(e.getMessage());
                 }
@@ -82,7 +81,7 @@ public class Duke {
 
                         System.out.println("Got it. I've added this deadline:");
                         System.out.println("  " + deadlineTask);
-                        System.out.println("Now you have " + tasksList.size() + " tasks in the list");
+                        System.out.println("Now you have " + tasksList.size() + " tasks in the list.");
                     } else {
                         System.out.println("Invalid input format for deadline command.");
                     }
@@ -114,11 +113,23 @@ public class Duke {
                         // Print confirmation message
                         System.out.println("Got it. I've added this task:");
                         System.out.println("  " + eventTask);
-                        System.out.println("Now you have " + tasksList.size() + " tasks in the list");
+                        System.out.println("Now you have " + tasksList.size() + " tasks in the list.");
                     } else {
                         System.out.println("Invalid input format for event command.");
                     }
                 }
+            } else if (command.startsWith("delete")) {
+                int taskNumber = Integer.parseInt(command.substring(7)) - 1;
+                if (taskNumber < tasksList.size()) {
+                    Tasks task = tasksList.get(taskNumber);
+                    tasksList.remove(taskNumber);
+
+                    System.out.println("Noted. I've removed this task: \n" + "  " + task);
+                    System.out.println("Now you have " + tasksList.size() + " tasks in the list.");
+                }
+
+
+
             } else {
                 try {
                     throw new UnknownInputException();
@@ -126,7 +137,6 @@ public class Duke {
                     System.out.println(e.getMessage());
                 }
             }
-
         }
     }
 }
