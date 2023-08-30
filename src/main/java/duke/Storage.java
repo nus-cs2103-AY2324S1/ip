@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Storage {
@@ -27,12 +28,25 @@ public class Storage {
      * @throws IOException If the named file exists but is a directory rather than a regular file, does not exist
      * but cannot be created, or cannot be opened for any other reason
      */
-    public void saveData(ArrayList<String> data) throws IOException {
-        FileWriter fw = new FileWriter(filePath);
-        for (int i = 0; i < data.size(); i++) {
-            fw.write(data.get(i) + "\n");
+    public void saveData(ArrayList<String> data) throws StorageException {
+        try {
+            String[] splitFilePath = filePath.split("/");
+            String directories = String.join("/", Arrays.copyOfRange(splitFilePath, 0,
+                    splitFilePath.length - 1));
+            File dir = new File(directories);
+            if (!dir.mkdirs()) {
+                throw new StorageException("Error Saving data");
+            }
+
+            FileWriter fw = new FileWriter(filePath);
+            for (int i = 0; i < data.size(); i++) {
+                fw.write(data.get(i) + "\n");
+            }
+            fw.close();
+        } catch (IOException e) {
+            throw new StorageException("Error Saving data");
         }
-        fw.close();
+
     }
 
     /**

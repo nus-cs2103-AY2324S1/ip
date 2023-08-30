@@ -150,8 +150,8 @@ public class TaskList {
             }
             storage.saveData(stringRepresentation);
             System.out.println("Sucessfully saved state");
-        } catch (IOException e) {
-            System.out.println("Failed to save state");
+        } catch (StorageException e) {
+            System.out.println(e.getMessage());
         }
     }
 
