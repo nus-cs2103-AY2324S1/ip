@@ -1,11 +1,18 @@
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
 public class Duke {
     private static final String LINE = "_".repeat(60);
     private static ArrayList<Task> tasks;
-    private static final String FILE_PATH = "data/duke.txt";
+    private static final String FILE_PATH = "data/";
+    private static final String FILE_NAME = "duke.txt";
 
     enum Instruction {
         bye,
@@ -23,6 +30,16 @@ public class Duke {
         Scanner scanner = new Scanner(System.in);
         String userInput;
         boolean loop = true;
+
+        try {
+            tasks = readFile();
+        } catch (FileNotFoundException exception) {
+            Path path = Paths.get(FILE_PATH);
+            if (!Files.exists(path))
+                createFolder(path);
+        } catch (DukeException exception) {
+            System.out.println(exception.getMessage());
+        }
 
         System.out.println(LINE + "\nHello! I'm Dommi\nWhat can I do for you?\n" + LINE);
 
@@ -108,10 +125,11 @@ public class Duke {
 
     private static void createNewTask(Task task) throws IOException {
         tasks.add(task);
-        appendToFile(FILE_PATH, task.toWrite());
+        appendToFile(task.toWrite());
         System.out.println("Got it. I've added this task:");
         System.out.println(task);
         System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+        System.out.println(LINE);
     }
 
     private static void displayList() {
@@ -139,7 +157,7 @@ public class Duke {
             task.markAsNotDone();
             System.out.println("OK, I've marked this task as not done yet:");
         }
-        rewriteFile(FILE_PATH, tasks);
+        rewriteFile(tasks);
         System.out.println(task);
         System.out.println(LINE);
     }
@@ -151,7 +169,7 @@ public class Duke {
         System.out.println("Noted. I've removed this task:");
         System.out.println(tasks.get(taskID - 1));
         tasks.remove(taskID - 1);
-        rewriteFile(FILE_PATH, tasks);
+        rewriteFile(tasks);
         System.out.println("Now you have " + tasks.size() + " tasks in the list.");
         System.out.println(LINE);
     }
@@ -161,16 +179,57 @@ public class Duke {
         System.out.println(LINE);
     }
 
-    private static void appendToFile(String filePath, String textToAdd) throws IOException {
-        FileWriter fw = new FileWriter(filePath);
+    private static void appendToFile(String textToAdd) throws IOException {
+        FileWriter fw = new FileWriter(FILE_PATH + FILE_NAME, true);
         fw.write(textToAdd);
         fw.close();
     }
 
-    private static void rewriteFile(String filePath, ArrayList<Task> tasks) throws IOException {
-        FileWriter fw = new FileWriter(filePath);
+    private static void rewriteFile(ArrayList<Task> tasks) throws IOException {
+        FileWriter fw = new FileWriter(FILE_PATH + FILE_NAME);
         for (Task task: tasks)
             fw.write(task.toWrite());
         fw.close();
+    }
+
+    private static ArrayList<Task> readFile() throws DukeException, FileNotFoundException {
+        File file = new File(FILE_PATH + FILE_NAME);
+        Scanner scanner = new Scanner(file);
+        while (scanner.hasNext()) {
+            String line = scanner.nextLine();
+            String[] task = line.split(" \\| ");
+            switch (task[0]) {
+                case "T":
+                    Todo todo = new Todo(task[2]);
+                    markAndAdd(todo, task[1]);
+                    break;
+                case "D":
+                    Deadline deadline = new Deadline(task[2], task[3]);
+                    markAndAdd(deadline, task[1]);
+                    break;
+                case "E":
+                    String[] duration = task[3].split("-");
+                    Event event = new Event(task[2], duration[0], duration[1]);
+                    markAndAdd(event, task[1]);
+                    break;
+                default:
+                    throw new DukeException("File is corrupted");
+            }
+        }
+        return tasks;
+    }
+
+    private static void markAndAdd(Task task, String toMark) {
+        if (toMark.equals("1"))
+            task.markAsDone();
+        tasks.add(task);
+    }
+
+    private static void createFolder(Path path) {
+        try {
+            Files.createDirectory(path);
+        } catch (IOException e) {
+            System.out.println("Failed to create directory!" + e.getMessage());
+        }
     }
 }
