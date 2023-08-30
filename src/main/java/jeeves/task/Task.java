@@ -26,6 +26,14 @@ public class Task {
         isDone = false;
     }
 
+    public Task(String desc, boolean isDone) {
+        // Increments the taskCount and uses the value as the unique ID for the current task
+        Task.taskCount += 1;
+        id = Task.taskCount;
+        this.desc = desc;
+        this.isDone = isDone;
+    }
+
     /**
      * Getter method for the global Task count.
      *
@@ -42,6 +50,16 @@ public class Task {
      */
     public String getDesc() {
         return desc;
+    }
+
+
+    /**
+     * Getter method for the Task status.
+     *
+     * @return Status of the task
+     */
+    public boolean isDone() {
+        return isDone;
     }
 
     /**
