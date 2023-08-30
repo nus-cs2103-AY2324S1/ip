@@ -55,6 +55,15 @@ public class Task {
     }
 
     /**
+     * Returns a boolean representing whether the task is due or an event starts within a week.
+     *
+     * @return true if task is due / starts within a week, false otherwise
+     */
+    public boolean isWithinAWeek() {
+        return false;
+    }
+
+    /**
      * Method to get the string representation of the task.
      *
      * @return The string representation of the task.

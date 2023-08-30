@@ -9,29 +9,29 @@
     ____________________________________________________________
     ____________________________________________________________
     Got it. I've added this task:
-      [D][ ] do homework (by: Monday)
+      [D][ ] do homework (by: 02 Sep 2023)
     Now you have 2 tasks in the list.
     ____________________________________________________________
     ____________________________________________________________
     Got it. I've added this task:
-      [E][ ] birthday party (from: Saturday 2pm to: 5pm)
+      [E][ ] birthday party (from: 03 Sep 2023 1400 to: 03 Sep 2023 1700)
     Now you have 3 tasks in the list.
     ____________________________________________________________
     ____________________________________________________________
     Got it. I've added this task:
-      [D][ ] make CCA poster (by: Aug 30th)
+      [D][ ] make CCA poster (by: 30 Aug 2023)
     Now you have 4 tasks in the list.
     ____________________________________________________________
     ____________________________________________________________
      Nice! I've marked this task as done:
-       [D][X] make CCA poster (by: Aug 30th)
+       [D][X] make CCA poster (by: 30 Aug 2023)
     ____________________________________________________________
     ____________________________________________________________
     Here are the tasks in your list:
     1.[T][ ] buy groceries
-    2.[D][ ] do homework (by: Monday)
-    3.[E][ ] birthday party (from: Saturday 2pm to: 5pm)
-    4.[D][X] make CCA poster (by: Aug 30th)
+    2.[D][ ] do homework (by: 02 Sep 2023)
+    3.[E][ ] birthday party (from: 03 Sep 2023 1400 to: 03 Sep 2023 1700)
+    4.[D][X] make CCA poster (by: 30 Aug 2023)
     ____________________________________________________________
     ____________________________________________________________
     Got it. I've added this task:
@@ -40,18 +40,18 @@
     ____________________________________________________________
     ____________________________________________________________
      OK, I've marked this task as not done yet:
-       [D][ ] make CCA poster (by: Aug 30th)
+       [D][ ] make CCA poster (by: 30 Aug 2023)
     ____________________________________________________________
     ____________________________________________________________
     Noted. I've removed this task:
-      [E][ ] birthday party (from: Saturday 2pm to: 5pm)
+      [E][ ] birthday party (from: 03 Sep 2023 1400 to: 03 Sep 2023 1700)
     Now you have 4 tasks in the list.
     ____________________________________________________________
     ____________________________________________________________
     Here are the tasks in your list:
     1.[T][ ] buy groceries
-    2.[D][ ] do homework (by: Monday)
-    3.[D][ ] make CCA poster (by: Aug 30th)
+    2.[D][ ] do homework (by: 02 Sep 2023)
+    3.[D][ ] make CCA poster (by: 30 Aug 2023)
     4.[T][ ] buy hand soap
     ____________________________________________________________
     ____________________________________________________________

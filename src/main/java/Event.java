@@ -1,19 +1,37 @@
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
+
 public class Event extends Task {
 
-    protected String from;
-    protected String to;
+    protected LocalDateTime from;
+    protected LocalDateTime to;
+
+    private static final DateTimeFormatter DATETIME_INPUT_FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
+    private static final DateTimeFormatter DATETIME_OUTPUT_FORMATTER = DateTimeFormatter.ofPattern("dd MMM yyyy HHmm");
 
     /**
      * Constructor to create an Event object.
      *
      * @param description The task description.
-     * @param from The task's start date/time.
-     * @param to The task's end date/time.
+     * @param from The task's start date/time in the format dd/MM/yyyy HHmm.
+     * @param to The task's end date/time in the format.
      */
     public Event(String description, String from, String to) {
         super(description);
-        this.from = from;
-        this.to = to;
+        this.from = LocalDateTime.parse(from, DATETIME_INPUT_FORMATTER);
+        this.to = LocalDateTime.parse(to, DATETIME_INPUT_FORMATTER);
+    }
+
+    /**
+     * Returns a boolean representing whether the event starts within a week.
+     *
+     * @return true if the event starts within a week, false otherwise
+     */
+    @Override
+    public boolean isWithinAWeek() {
+        return this.from.isBefore(LocalDateTime.now().plus(1, ChronoUnit.WEEKS));
     }
 
     /**
@@ -23,7 +41,12 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + this.from + " to: " + this.to + ")";
+        return String.format(
+                "[E]%1s (from: %2s to: %3s)",
+                super.toString(),
+                this.from.format(DATETIME_OUTPUT_FORMATTER),
+                this.to.format(DATETIME_OUTPUT_FORMATTER)
+        );
     }
 
     /**
@@ -34,6 +57,10 @@ public class Event extends Task {
      */
     @Override
     public String getInformationForSaving() {
-        return String.format("E | %1s | %2s | %3s", super.getInformationForSaving(), this.from, this.to);
+        return String.format(
+                "E | %1s | %2s | %3s",
+                super.getInformationForSaving(),
+                this.from.format(DATETIME_INPUT_FORMATTER),
+                this.to.format(DATETIME_INPUT_FORMATTER));
     }
 }
