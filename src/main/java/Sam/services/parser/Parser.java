@@ -10,6 +10,7 @@ import sam.commands.DeleteTaskCommand;
 import sam.commands.MarkTaskCommand;
 import sam.commands.UnmarkTaskCommand;
 import sam.commands.ListCommand;
+import sam.commands.FindCommand;
 import sam.commands.ExitCommand;
 import sam.exceptions.DukeException;
 

@@ -4,6 +4,7 @@ import sam.commands.AddDeadlineCommand;
 import sam.commands.AddToDoCommand;
 import sam.commands.Command;
 import sam.commands.IncorrectCommand;
+import sam.commands.FindCommand;
 import sam.commands.AddEventCommand;
 
 import java.util.regex.Pattern;

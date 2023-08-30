@@ -14,21 +14,21 @@ ____________________________________________________________
 ____________________________________________________________
 
 Got it. I've added this task:
-	[T][ ]  borrow book
+	[T][ ] borrow book
 Now you have 2 tasks in the list.
 ____________________________________________________________
 
 ____________________________________________________________
 
 Got it. I've added this task:
-	[D][ ]  return book (by: Oct 15 2019 12:00 am)
+	[D][ ] return book (by: Oct 15 2019 12:00 am)
 Now you have 3 tasks in the list.
 ____________________________________________________________
 
 ____________________________________________________________
 
 Got it. I've added this task:
-	[E][ ]  project meeting (from: Dec 2 2019 04:00 pm, to: Dec 2 2019 06:00 pm)
+	[E][ ] project meeting (from: Dec 2 2019 04:00 pm, to: Dec 2 2019 06:00 pm)
 Now you have 4 tasks in the list.
 ____________________________________________________________
 
@@ -36,9 +36,9 @@ ____________________________________________________________
 
 Here are the tasks in your list:
 	1.[T][ ] go to the zoo
-	2.[T][ ]  borrow book
-	3.[D][ ]  return book (by: Oct 15 2019 12:00 am)
-	4.[E][ ]  project meeting (from: Dec 2 2019 04:00 pm, to: Dec 2 2019 06:00 pm)
+	2.[T][ ] borrow book
+	3.[D][ ] return book (by: Oct 15 2019 12:00 am)
+	4.[E][ ] project meeting (from: Dec 2 2019 04:00 pm, to: Dec 2 2019 06:00 pm)
 
 ____________________________________________________________
 
@@ -51,16 +51,16 @@ ____________________________________________________________
 ____________________________________________________________
 
 Nice! I've marked this task as done:
-	[E][X]  project meeting (from: Dec 2 2019 04:00 pm, to: Dec 2 2019 06:00 pm)
+	[E][X] project meeting (from: Dec 2 2019 04:00 pm, to: Dec 2 2019 06:00 pm)
 ____________________________________________________________
 
 ____________________________________________________________
 
 Here are the tasks in your list:
 	1.[T][X] go to the zoo
-	2.[T][ ]  borrow book
-	3.[D][ ]  return book (by: Oct 15 2019 12:00 am)
-	4.[E][X]  project meeting (from: Dec 2 2019 04:00 pm, to: Dec 2 2019 06:00 pm)
+	2.[T][ ] borrow book
+	3.[D][ ] return book (by: Oct 15 2019 12:00 am)
+	4.[E][X] project meeting (from: Dec 2 2019 04:00 pm, to: Dec 2 2019 06:00 pm)
 
 ____________________________________________________________
 
@@ -73,21 +73,21 @@ ____________________________________________________________
 ____________________________________________________________
 
 Noted. I've removed this task:
-	[E][X]  project meeting (from: Dec 2 2019 04:00 pm, to: Dec 2 2019 06:00 pm)
+	[E][X] project meeting (from: Dec 2 2019 04:00 pm, to: Dec 2 2019 06:00 pm)
 Now you have 3 tasks in the list.
 ____________________________________________________________
 
 ____________________________________________________________
 
 Noted. I've removed this task:
-	[D][ ]  return book (by: Oct 15 2019 12:00 am)
+	[D][ ] return book (by: Oct 15 2019 12:00 am)
 Now you have 2 tasks in the list.
 ____________________________________________________________
 
 ____________________________________________________________
 
 Noted. I've removed this task:
-	[T][ ]  borrow book
+	[T][ ] borrow book
 Now you have 1 task in the list.
 ____________________________________________________________
 

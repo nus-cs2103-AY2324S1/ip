@@ -4,7 +4,7 @@ import sam.constants.Message;
 import sam.exceptions.DukeException;
 import sam.services.Storage;
 import sam.services.TaskList;
-import sam.services.UI;
+import sam.services.Ui;
 
 /**
  * List all tasks from the task list.
@@ -22,7 +22,7 @@ public class FindCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, UI ui, Storage storage) {
+    public void execute(TaskList tasks, Ui ui, Storage storage) {
         try {
             TaskList list = tasks.findTasks(search);
             ui.printMessage(Message.SEARCH_TASK_SUCCESS, list.listTasks());

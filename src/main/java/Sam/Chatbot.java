@@ -1,13 +1,10 @@
 package sam;
 
 import sam.commands.Command;
-import sam.exceptions.DukeException;
 import sam.services.Storage;
 import sam.services.TaskList;
 import sam.services.Ui;
 import sam.services.parser.Parser;
-
-import java.io.IOException;
 
 /**
  * Represents a Chatbot.
