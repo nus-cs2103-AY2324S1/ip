@@ -7,7 +7,11 @@ public class Task implements Serializable {
     protected boolean isDone;
     protected Character taskType;
 
-    // tasks have a tasktype field which should be edited based on the task type. otherwise, remains as '_'
+    /**
+     * Constructor for tasks with no categories
+     *
+     * @param description Description of task
+     */
     public Task(String description) {
         this.description = description;
         this.isDone = false;
@@ -20,23 +24,42 @@ public class Task implements Serializable {
         this.taskType = taskType;
     }
 
-    //getters and setters for the fields
+    /**
+     * Getter for status icon of task
+     *
+     * @return Status icon
+     */
     public String getStatusIcon() {
         return (isDone ? "X" : " "); // mark done task with X
     }
 
+    /**
+     * Getter for description of task
+     *
+     * @return Description
+     */
     public String getDescription() {
         return description;
     }
 
+    /**
+     * Setter to mark task as not completed
+     */
     public void markNotDone() {
         isDone = false;
     }
 
+    /**
+     * Setter to mark task as completed
+     */
     public void markDone() {
         isDone = true;
     }
 
+    /**
+     * Getter to get task type
+     * @return task type
+     */
     public Character getTaskType() {
         return this.taskType;
     }

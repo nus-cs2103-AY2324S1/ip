@@ -6,6 +6,13 @@
     public class Deadlines extends Task {
         // additional deadline given for deadline tasks
         private LocalDateTime deadline;
+
+        /**
+         * The constructor for deadline task
+         *
+         * @param description The string with the description of task
+         * @param deadline The string with deadline to complete task
+         */
         public Deadlines(String description, String deadline) {
             super(description, 'D');
 
@@ -14,11 +21,20 @@
             this.deadline = deadLineParsed;
         }
 
-        // getter for deadline
+        /**
+         * Getter for the deadline
+         *
+         * @return the deadline
+         */
         public LocalDateTime getDeadline() {
             return this.deadline;
         }
 
+        /**
+         * Converts the deadline from numbers to words
+         *
+         * @return The converted deadline
+         */
         public String getDeadlineInWords() {
             String dayOfWeek = deadline.getDayOfWeek().toString();
             int dayOfMonth = deadline.getDayOfMonth();
@@ -28,6 +44,9 @@
         }
 
 
+        /**
+         * To string method of the task
+         */
         @Override
         public String toString() {
             return "[D]" + super.toString() + String.format("(by:%s)", getDeadlineInWords());

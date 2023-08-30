@@ -145,10 +145,10 @@ public class Ui {
     }
 
     /**
+     * Prints the tasks that match the input
      *
-     * @param tasks
-     * @param input
-     * @return
+     * @param tasks The taskList that contains all tasks
+     * @param input The input keyword to filter with
      */
     public String findFilteredTasks(TaskList tasks, String input) {
         String output = br;

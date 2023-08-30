@@ -7,6 +7,14 @@ public class Events extends Duke.Tasks.Task {
     // additional start and end time fields for events
     LocalDateTime startDate;
     LocalDateTime endDate;
+
+    /**
+     * The event constructor
+     *
+     * @param description The string with description of task
+     * @param startDate The string with start date
+     * @param endDate The string with end date
+     */
     public Events(String description, String startDate, String endDate) {
         super(description, 'T');
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
@@ -17,15 +25,29 @@ public class Events extends Duke.Tasks.Task {
 
     }
 
-    // getters for start and end times
+    /**
+     * Getter for the start date
+     *
+     * @return the start date
+     */
     public LocalDateTime getStartDate() {
         return this.startDate;
     }
 
+    /**
+     * Getter for the end date
+     *
+     * @return the end date
+     */
     public LocalDateTime getEndDate() {
         return this.endDate;
     }
 
+    /**
+     * Converts the Start date from numbers to words
+     *
+     * @return The converted deadline
+     */
     public String getStartDateInWords() {
         String dayOfWeek = startDate.getDayOfWeek().toString();
         int dayOfMonth = startDate.getDayOfMonth();
@@ -34,6 +56,11 @@ public class Events extends Duke.Tasks.Task {
         return dayOfWeek + " " + dayOfMonth + " " + month + " " + year;
     }
 
+    /**
+     * Converts the end date from numbers to words
+     *
+     * @return The converted deadline
+     */
     public String getEndDateInWords() {
         String dayOfWeek = endDate.getDayOfWeek().toString();
         int dayOfMonth = endDate.getDayOfMonth();
