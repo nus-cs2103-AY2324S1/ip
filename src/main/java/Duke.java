@@ -137,6 +137,7 @@ public class Duke {
                     System.out.println("Now you have " + list.size() + " tasks in your list");
                     System.out.println("____________________________________________________________");
                 } else if (str.startsWith("delete ")) {
+                    
                     str = str.substring(7);
                     String val = str.replaceAll("[^0-9]", "");
                     int index = Integer.parseInt(val);
