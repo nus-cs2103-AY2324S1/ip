@@ -14,10 +14,12 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + DateParser.convertDateTimeToString(this.from) + " to: " + DateParser.convertDateTimeToString(this.to) + ")";
+        return "[E]" + super.toString() + " (from: " + DateParser.convertDateTimeToString(this.from) + " to: "
+                + DateParser.convertDateTimeToString(this.to) + ")";
     }
 
     public String convertTaskToString() {
-        return "E | " + (super.isDone() ? "1" : "0") + " | " + super.getName() + " | " + DateParser.convertDateTimeToString(this.from) + " | " + DateParser.convertDateTimeToString(this.to);
+        return "E | " + (super.isDone() ? "1" : "0") + " | " + super.getName() + " | "
+                + DateParser.convertDateTimeToString(this.from) + " | " + DateParser.convertDateTimeToString(this.to);
     }
 }
