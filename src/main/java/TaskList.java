@@ -1,12 +1,9 @@
-import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class TaskList {
     private ArrayList<Task> tasks = new ArrayList<>();
@@ -18,17 +15,21 @@ public class TaskList {
         loadState();
     }
 
-    public void add(Task task) {
-        this.tasks.add(task);
-        this.printTaskAddedMessages(task);
+    public int getTaskCount() {
+        return this.tasks.size();
     }
 
-    public void remove(int index) throws InvalidCommandException {
+    public Task add(Task task) {
+        this.tasks.add(task);
+        return task;
+    }
+
+    public Task remove(int index) throws InvalidCommandException {
         if (!isTaskValid(index)) {
             throw new InvalidCommandException("☹ OOPS!!! The task index in invalid");
         }
         Task task = this.tasks.remove(index);
-        this.printTaskDeletedMessage(task);
+        return task;
     }
 
     public void printContents() {
@@ -46,24 +47,22 @@ public class TaskList {
         }
     }
 
-    public void mark(int index) throws InvalidCommandException {
+    public Task mark(int index) throws InvalidCommandException {
         if (!isTaskValid(index)) {
             throw new InvalidCommandException("☹ OOPS!!! The task index in invalid");
         }
         Task task = this.tasks.get(index);
         task.markAsDone();
-        System.out.println("Nice! I've marked this task as done:");
-        System.out.println(task);
+        return task;
     }
 
-    public void unmark(int index) throws InvalidCommandException {
+    public Task unmark(int index) throws InvalidCommandException {
         if (!isTaskValid(index)) {
             throw new InvalidCommandException("☹ OOPS!!! The task index in invalid");
         }
         Task task = this.tasks.get(index);
         task.markAsUndone();
-        System.out.println("OK, I've marked this task as not done yet:");
-        System.out.println(task);
+        return task;
     }
 
     public void saveState() {
@@ -108,22 +107,5 @@ public class TaskList {
 
     private boolean isTaskValid(int index) {
         return index >= 0 && index < this.tasks.size();
-    }
-
-    private void printTaskAddedMessages(Task task) {
-        System.out.println("Got it. I've added this task:");
-        System.out.println(task);
-        this.printTaskCount();
-    }
-
-    private void printTaskDeletedMessage(Task task) {
-        System.out.println("Noted. I've removed this task:");
-        System.out.println(task);
-        this.printTaskCount();
-    }
-
-    private void printTaskCount() {
-        int tasksCount = this.tasks.size();
-        System.out.println("Now you have " + tasksCount + (tasksCount == 1 ? " task" : " tasks") + " in the list.");
     }
 }

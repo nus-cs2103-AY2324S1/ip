@@ -25,12 +25,14 @@ public class Duke {
 
                 if (command.equals(Command.MARK.getCommand())) {
                     int index = Integer.parseInt(parsedInput.get(1)) - 1;
-                    tasks.mark(index);
+                    Task task = tasks.mark(index);
+                    ui.printTaskMarkedMessage(task);
                     continue;
                 }
                 if (command.equals(Command.UNMARK.getCommand())) {
                     int index = Integer.parseInt(parsedInput.get(1)) - 1;
-                    tasks.unmark(index);
+                    Task task = tasks.unmark(index);
+                    ui.printTaskUnmarkedMessage(task);
                     continue;
                 }
                 if (command.equals(Command.LIST.getCommand())) {
@@ -44,25 +46,29 @@ public class Duke {
                 }
                 if (command.equals(Command.TODO.getCommand())) {
                     ToDo newTodo = new ToDo(parsedInput.get(1));
-                    tasks.add(newTodo);
+                    Task task = tasks.add(newTodo);
+                    ui.printTaskAddedMessage(task, tasks.getTaskCount());
                     continue;
                 }
                 if (command.equals(Command.DEADLINE.getCommand())) {
                     Deadline newDeadline = new Deadline(parsedInput.get(1),
                             LocalDateTime.parse(parsedInput.get(2), dateTimeInputFormatter));
-                    tasks.add(newDeadline);
+                    Task task = tasks.add(newDeadline);
+                    ui.printTaskAddedMessage(task, tasks.getTaskCount());
                     continue;
                 }
                 if (command.equals(Command.EVENT.getCommand())) {
                     Event newEvent = new Event(parsedInput.get(1),
                             LocalDateTime.parse(parsedInput.get(2), dateTimeInputFormatter),
                             LocalDateTime.parse(parsedInput.get(3), dateTimeInputFormatter));
-                    tasks.add(newEvent);
+                    Task task = tasks.add(newEvent);
+                    ui.printTaskAddedMessage(task, tasks.getTaskCount());
                     continue;
                 }
                 if (command.equals(Command.DELETE.getCommand())) {
                     int index = Integer.parseInt(parsedInput.get(1)) - 1;
-                    Duke.tasks.remove(index);
+                    Task task = Duke.tasks.remove(index);
+                    ui.printTaskDeletedMessage(task, tasks.getTaskCount());
                     continue;
                 }
                 if (command.equals(Command.ON.getCommand())) {

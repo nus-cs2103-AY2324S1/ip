@@ -10,10 +10,7 @@ public class UI {
         this.name = name;
     }
 
-    public void handleCommand(ArrayList<String> parsedInput, ArrayList<Task> taskList) {}
-
     public void printWelcomeMessage() {
-        String name = "Derek";
         System.out.println("Hello! I'm " + this.name);
         System.out.println("What can I do for you?");
     }
