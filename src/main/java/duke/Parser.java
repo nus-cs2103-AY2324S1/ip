@@ -42,7 +42,13 @@ public class Parser {
             }
             String deadlineInfo = input.substring(9);
             String[] stringInfo = deadlineInfo.split(" /by ");
-            Task deadline = new Deadline(stringInfo[0], stringInfo[1]);
+            String deadlineTime;
+            try {
+                deadlineTime = stringInfo[1];
+            } catch (IndexOutOfBoundsException e) {
+                throw new InvalidInputException("OOPS!!! Please provide a valid deadline");
+            }
+            Task deadline = new Deadline(stringInfo[0], deadlineTime);
             return new AddTask(deadline);
         case "event":
             try {
@@ -53,8 +59,28 @@ public class Parser {
             String eventInfo = input.substring(6);
             String[] eventDetails = eventInfo.split(" /from ");
             String[] timings = eventDetails[1].split(" /to ");
-            Task event = new Event(eventDetails[0], timings[0], timings[1]);
+            String startTime;
+            String endTime;
+            try {
+                startTime = timings[0];
+            } catch (IndexOutOfBoundsException e) {
+                throw new InvalidInputException("OOPS!!! Please provide a valid start time");
+            }
+            try {
+                endTime = timings[1];
+            } catch (IndexOutOfBoundsException e) {
+                throw new InvalidInputException("OOPS!!! Please provide a valid end time");
+            }
+            Task event = new Event(eventDetails[0], startTime, endTime);
             return new AddTask(event);
+        case "find":
+            String keyword;
+            try {
+                keyword = words[1];
+            } catch (IndexOutOfBoundsException e) {
+                throw new InvalidInputException("OOPS!!! Please specify what you want to find");
+            }
+            return new FindTask(keyword);
         default:
             throw new InvalidInputException("OOPS! I'm sorry I don't know what that means"
                     + "\nPlease insert a valid type first");

@@ -77,7 +77,7 @@ public class Ui {
      * @param lst TaskList containing all the tasks
      */
     public void addedMessage(Task tsk, TaskList lst) {
-        System.out.println(tsk.confirmation(lst.size()));
+        System.out.println(tsk.confirmation(lst.size() + 1));
     }
     public String getCommand() {
         return this.sc.nextLine();
@@ -89,4 +89,16 @@ public class Ui {
         return "Hello from \n " + this.name + "What can I do for you? ";
     }
 
+    /**
+     * To print the message for the tasks found based on keyword
+     * @param found TaskList of all the tasks with the keyword
+     */
+    public void foundMessage(TaskList found) {
+        String s1 = "Here are the matching tasks in your lists:";
+        for (int i = 0; i < found.size(); i++) {
+            Task task = found.get(i);
+            s1 = s1 + "\n" + String.valueOf(i + 1) + "." + task.toString();
+        }
+        System.out.println(s1);
+    }
 }
