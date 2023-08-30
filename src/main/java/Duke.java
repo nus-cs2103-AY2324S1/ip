@@ -1,10 +1,25 @@
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.io.File;
+import java.io.IOException;
+import java.io.FileNotFoundException;
 
 public class Duke {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         TaskList list = new TaskList();
+        try {
+            File dataDirectory = new File("./data");
+            File taskFile = new File("./data/duke.txt");
+            if (taskFile.createNewFile()) {
+                System.out.println("Created new file to store your tasks!");
+            } else {
+                System.out.println("Existing task file exists. ");
+            }
+        } catch (IOException e) {
+            System.out.println("Unable to create file.");
+            e.printStackTrace();
+        }
 
         System.out.println("Hello! I'm Bob");
         System.out.println("What can I do for you?");
