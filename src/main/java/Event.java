@@ -1,9 +1,11 @@
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.TemporalAccessor;
 public class Event extends Task {
     private static String SYMBOL = "E";
-    protected String startDatetime;
-    protected String endDatetime;
+    protected TemporalAccessor startDatetime;
+    protected TemporalAccessor endDatetime;
 
-    public Event(String description, String startDatetime, String endDatetime) {
+    public Event(String description, TemporalAccessor startDatetime, TemporalAccessor endDatetime) {
         super(description);
         this.startDatetime = startDatetime;
         this.endDatetime = endDatetime;
@@ -11,11 +13,19 @@ public class Event extends Task {
 
     @Override
     public String getDataString() {
-        return String.join(" | ", Event.SYMBOL, super.isDone ? "1" : "0", super.getDescription(), this.startDatetime, this.endDatetime);
+        DateTimeFormatter parser = DateTimeFormatter.ofPattern("dd-MM-yyyy[ HHmm]");
+        return String.join(" | ",
+                           Event.SYMBOL, super.isDone ? "1" : "0",
+                           super.getDescription(),
+                           parser.format(startDatetime),
+                           parser.format(endDatetime));
     }
 
     @Override
     public String toString() {
-        return String.format("[%s]%s (from: %s to: %s)", Event.SYMBOL, super.toString(), this.startDatetime, this.endDatetime);
+        return String.format("[%s]%s (from: %s to: %s)",
+                             Event.SYMBOL, super.toString(),
+                             super.formatDateTime(this.startDatetime),
+                             super.formatDateTime(this.endDatetime));
     }
 }
