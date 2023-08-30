@@ -12,6 +12,7 @@ event Event without start and end date
 event Event with only start date /from 01-02-2023 1222
 event Event with only end date /to 02-02-2023 1222
 event Event with wrong start and end date format /from start date /to end date
+event Event with both start date and end date /from 01-02-2023 1222 /to 01-03-2023 1222
 event Event with start date after end date /from 01-03-2023 1222 /to 01-02-2023 1222
 event Event with random argument specified /random argument
 list

@@ -4,11 +4,11 @@
     ----------------------------------------------------------------------
 >>> 
     ----------------------------------------------------------------------
-     There are no tasks in your list.
+     There are no tasks to list.
     ----------------------------------------------------------------------
 >>> 
     ----------------------------------------------------------------------
-     [31mError: No description specified. Please specify a description.[0m
+     [31mError: Please enter additional arguments.[0m
     ----------------------------------------------------------------------
 >>> 
     ----------------------------------------------------------------------
@@ -18,15 +18,15 @@
     ----------------------------------------------------------------------
 >>> 
     ----------------------------------------------------------------------
-     [31mError: No description specified. Please specify a description.[0m
+     [31mError: Please enter additional arguments.[0m
     ----------------------------------------------------------------------
 >>> 
     ----------------------------------------------------------------------
-     [31mError: No due date/time specified. Please specify a due date/time[0m
+     [31mError: No due date/time specified. Please specify a due date/time.[0m
     ----------------------------------------------------------------------
 >>> 
     ----------------------------------------------------------------------
-     [31mError: No due date/time specified. Please specify a due date/time[0m
+     [31mError: No due date/time specified. Please specify a due date/time.[0m
     ----------------------------------------------------------------------
 >>> 
     ----------------------------------------------------------------------
@@ -35,18 +35,18 @@
 >>> 
     ----------------------------------------------------------------------
      Got it. I've added this task:
-       [D][ ] Deadline with due date (by: 01 Feb 2023)
+       [D][ ] Deadline with due date  (by: 01 Feb 2023)
      Now you have 2 tasks in the list.
     ----------------------------------------------------------------------
 >>> 
     ----------------------------------------------------------------------
      Got it. I've added this task:
-       [D][ ] Deadline with due date and time (by: 01 Feb 2023, 00:22PM)
+       [D][ ] Deadline with due date and time  (by: 01 Feb 2023, 00:22PM)
      Now you have 3 tasks in the list.
     ----------------------------------------------------------------------
 >>> 
     ----------------------------------------------------------------------
-     [31mError: No description specified. Please specify a description.[0m
+     [31mError: Please enter additional arguments.[0m
     ----------------------------------------------------------------------
 >>> 
     ----------------------------------------------------------------------
@@ -66,6 +66,12 @@
     ----------------------------------------------------------------------
 >>> 
     ----------------------------------------------------------------------
+     Got it. I've added this task:
+       [E][ ] Event with both start date and end date  (from: 01 Feb 2023, 00:22PM to: 01 Mar 2023, 00:22PM)
+     Now you have 4 tasks in the list.
+    ----------------------------------------------------------------------
+>>> 
+    ----------------------------------------------------------------------
      [31mError: Start date cannot be after the end date[0m
     ----------------------------------------------------------------------
 >>> 
@@ -74,9 +80,10 @@
     ----------------------------------------------------------------------
 >>> 
     ----------------------------------------------------------------------
-     1. [T][ ] Todo
-     2. [D][ ] Deadline with due date (by: 01 Feb 2023)
-     3. [D][ ] Deadline with due date and time (by: 01 Feb 2023, 00:22PM)
+     [T][ ] Todo
+     [D][ ] Deadline with due date  (by: 01 Feb 2023)
+     [D][ ] Deadline with due date and time  (by: 01 Feb 2023, 00:22PM)
+     [E][ ] Event with both start date and end date  (from: 01 Feb 2023, 00:22PM to: 01 Mar 2023, 00:22PM)
     ----------------------------------------------------------------------
 >>> 
     ----------------------------------------------------------------------
@@ -86,7 +93,7 @@
 >>> 
     ----------------------------------------------------------------------
      Nice! I've marked this task as done:
-       [D][X] Deadline with due date and time (by: 01 Feb 2023, 00:22PM)
+       [D][X] Deadline with due date and time  (by: 01 Feb 2023, 00:22PM)
     ----------------------------------------------------------------------
 >>> 
     ----------------------------------------------------------------------
@@ -95,9 +102,10 @@
     ----------------------------------------------------------------------
 >>> 
     ----------------------------------------------------------------------
-     1. [T][X] Todo
-     2. [D][ ] Deadline with due date (by: 01 Feb 2023)
-     3. [D][X] Deadline with due date and time (by: 01 Feb 2023, 00:22PM)
+     [T][X] Todo
+     [D][ ] Deadline with due date  (by: 01 Feb 2023)
+     [D][X] Deadline with due date and time  (by: 01 Feb 2023, 00:22PM)
+     [E][ ] Event with both start date and end date  (from: 01 Feb 2023, 00:22PM to: 01 Mar 2023, 00:22PM)
     ----------------------------------------------------------------------
 >>> 
     ----------------------------------------------------------------------
@@ -112,24 +120,26 @@
 >>> 
     ----------------------------------------------------------------------
      OK, I've marked this task as not done yet:
-       [D][ ] Deadline with due date and time (by: 01 Feb 2023, 00:22PM)
+       [D][ ] Deadline with due date and time  (by: 01 Feb 2023, 00:22PM)
     ----------------------------------------------------------------------
 >>> 
     ----------------------------------------------------------------------
-     1. [T][ ] Todo
-     2. [D][ ] Deadline with due date (by: 01 Feb 2023)
-     3. [D][ ] Deadline with due date and time (by: 01 Feb 2023, 00:22PM)
+     [T][ ] Todo
+     [D][ ] Deadline with due date  (by: 01 Feb 2023)
+     [D][ ] Deadline with due date and time  (by: 01 Feb 2023, 00:22PM)
+     [E][ ] Event with both start date and end date  (from: 01 Feb 2023, 00:22PM to: 01 Mar 2023, 00:22PM)
     ----------------------------------------------------------------------
 >>> 
     ----------------------------------------------------------------------
      Noted. I've removed this task:
        [T][ ] Todo
-     Now you have 2 tasks in the list.
+     Now you have 3 tasks in the list.
     ----------------------------------------------------------------------
 >>> 
     ----------------------------------------------------------------------
-     1. [D][ ] Deadline with due date (by: 01 Feb 2023)
-     2. [D][ ] Deadline with due date and time (by: 01 Feb 2023, 00:22PM)
+     [D][ ] Deadline with due date  (by: 01 Feb 2023)
+     [D][ ] Deadline with due date and time  (by: 01 Feb 2023, 00:22PM)
+     [E][ ] Event with both start date and end date  (from: 01 Feb 2023, 00:22PM to: 01 Mar 2023, 00:22PM)
     ----------------------------------------------------------------------
 >>> 
     ----------------------------------------------------------------------
@@ -138,12 +148,14 @@
     ----------------------------------------------------------------------
 >>> 
     ----------------------------------------------------------------------
-     [31mError: Task 3 does not exist. Use a number between 1 and 2.[0m
+     Noted. I've removed this task:
+       [E][ ] Event with both start date and end date  (from: 01 Feb 2023, 00:22PM to: 01 Mar 2023, 00:22PM)
+     Now you have 2 tasks in the list.
     ----------------------------------------------------------------------
 >>> 
     ----------------------------------------------------------------------
-     1. [D][ ] Deadline with due date (by: 01 Feb 2023)
-     2. [D][ ] Deadline with due date and time (by: 01 Feb 2023, 00:22PM)
+     [D][ ] Deadline with due date  (by: 01 Feb 2023)
+     [D][ ] Deadline with due date and time  (by: 01 Feb 2023, 00:22PM)
     ----------------------------------------------------------------------
 >>> 
     ----------------------------------------------------------------------
