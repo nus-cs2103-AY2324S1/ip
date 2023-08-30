@@ -1,4 +1,4 @@
-package monke;
+package monke.tasks;
 
 public class Todo extends Task {
     public Todo(String description) {

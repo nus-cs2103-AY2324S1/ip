@@ -1,6 +1,7 @@
 package monke.commands;
 
 import monke.*;
+import monke.tasks.Task;
 
 public class UnmarkCommand extends Command {
     public static final String COMMAND_WORD = "unmark";

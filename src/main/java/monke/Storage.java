@@ -1,5 +1,7 @@
 package monke;
 
+import monke.tasks.Task;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;

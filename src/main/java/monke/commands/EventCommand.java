@@ -1,6 +1,7 @@
 package monke.commands;
 
 import monke.*;
+import monke.tasks.Event;
 
 public class EventCommand extends Command {
     public static final String COMMAND_WORD = "event";

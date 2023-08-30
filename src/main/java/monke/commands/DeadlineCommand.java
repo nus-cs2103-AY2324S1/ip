@@ -3,6 +3,7 @@ package monke.commands;
 import java.time.LocalDateTime;
 
 import monke.*;
+import monke.tasks.Deadline;
 
 public class DeadlineCommand extends Command {
     public static final String COMMAND_WORD = "deadline";

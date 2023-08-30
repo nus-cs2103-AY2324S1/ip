@@ -1,4 +1,4 @@
-package monke;
+package monke.tasks;
 
 public abstract class Task {
     protected String description;

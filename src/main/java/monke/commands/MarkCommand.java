@@ -1,6 +1,7 @@
 package monke.commands;
 
 import monke.*;
+import monke.tasks.Task;
 
 public class MarkCommand extends Command {
     public static final String COMMAND_WORD = "mark";

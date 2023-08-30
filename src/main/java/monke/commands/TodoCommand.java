@@ -3,7 +3,7 @@ package monke.commands;
 import monke.MonkeException;
 import monke.Storage;
 import monke.TaskList;
-import monke.Todo;
+import monke.tasks.Todo;
 import monke.Ui;
 
 public class TodoCommand extends Command {
