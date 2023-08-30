@@ -49,11 +49,11 @@ public class Sidtacphi {
         System.out.println("\n____________________________________________________________");
     }
 
-    private static Integer tryParse(String text) {
+    private static int tryParseInt(String text, int defaultVal) {
         try {
           return Integer.parseInt(text);
         } catch (NumberFormatException e) {
-          return null;
+          return defaultVal;
         }
     }
 
@@ -65,58 +65,34 @@ public class Sidtacphi {
         System.out.print("\nYou: ");
         String input = "";
         while (true) { 
-            input = scan.nextLine().trim();
-            if (Objects.equals(input, "bye")) {
-                stopBot();
-                break;
-            } else if (Objects.equals(input, "list")) {
-                showTaskList();
-            } else if (input.startsWith("mark")) {
-                try {
+            try {
+                input = scan.nextLine().trim();
+                if (Objects.equals(input, "bye")) {
+                    stopBot();
+                    break;
+                } else if (Objects.equals(input, "list")) {
+                    showTaskList();
+                } else if (input.startsWith("mark")) {
                     markTaskAs(true, input);
-                } catch (SidException e) {
-                    System.out.print("\n");
-                    System.out.println(e.getMessage());
-                }
-            } else if (input.startsWith("unmark")) {
-                try {;
+                } else if (input.startsWith("unmark")) {
                     markTaskAs(false, input);
-                } catch (SidException e) {
-                    System.out.print("\n");
-                    System.out.println(e.getMessage());
-                }
-            } else if (input.startsWith("todo")) {
-                try {
+                } else if (input.startsWith("todo")) {
                     addTask(TaskType.TODO, input);
-                } catch (SidException e) {
-                    System.out.print("\n");
-                    System.out.println(e.getMessage());
-                }
-            } else if (input.startsWith("event")) {
-                try {
+                } else if (input.startsWith("event")) {
                     addTask(TaskType.EVENT, input);
-                } catch (SidException e) {
-                    System.out.print("\n");
-                    System.out.println(e.getMessage());
-                }
-            } else if (input.startsWith("deadline")) {
-                try {
+                } else if (input.startsWith("deadline")) {
                     addTask(TaskType.DEADLINE, input);
-                } catch (SidException e) {
-                    System.out.print("\n");
-                    System.out.println(e.getMessage());
-                }
-            } else if (input.startsWith("delete")) {
-                try {
+                } else if (input.startsWith("delete")) {
                     deleteTask(input);
-                } catch (SidException e) {
+                } else {
+                    throw new SidException("\"" + input + "\" is not a valid command.");
+                }
+                System.out.print("\nYou: ");
+            } catch (SidException e) {
                     System.out.print("\n");
                     System.out.println(e.getMessage());
-                }
-            } else {
-                System.out.print("\nSidtacphi: \"" + input + "\" is not a valid command. \n");
+                    System.out.print("\nYou: ");
             }
-            System.out.print("\nYou: ");
         }
         scan.close();
     }
@@ -205,8 +181,8 @@ public class Sidtacphi {
                 throw new SidException("\"" + input + "\" is not a valid command.");
             } 
 
-            Integer taskId = tryParse(input.substring(7));
-            if (Objects.isNull(taskId)) {
+            int taskId = tryParseInt(input.substring(7), -1);
+            if (taskId > taskList.size() || taskId < 1) {
                 throw new SidInvalidIndexException("Invalid task ID.");
             }
             
@@ -224,8 +200,8 @@ public class Sidtacphi {
                 throw new SidException("\"" + input + "\" is not a valid command.");
             } 
 
-            Integer taskId = tryParse(input.substring(5));
-            if (Objects.isNull(taskId)) {
+            int taskId = tryParseInt(input.substring(5), -1);
+            if (taskId > taskList.size() || taskId < 1) {
                 throw new SidInvalidIndexException("Invalid task ID.");
             }
             
@@ -266,8 +242,8 @@ public class Sidtacphi {
             throw new SidException("\"" + input + "\" is not a valid command.");
         } 
 
-        Integer taskId = tryParse(input.substring(7));
-        if (Objects.isNull(taskId) || taskId > taskList.size() || taskId < 1) {
+        int taskId = tryParseInt(input.substring(7), -1);
+        if (taskId > taskList.size() || taskId < 1) {
             throw new SidInvalidIndexException("Invalid task ID.");
         }
 
