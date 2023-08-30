@@ -98,7 +98,7 @@ public class Duke {
         System.out.println(" Hello! I'm " + name);
         System.out.println(" What can I do for you?");
         System.out.println("---------------------------------------------------------------");
-        User user = new User("data/duke.txt");
+        User user = new User();
 
         Scanner scanner = new Scanner(System.in);
         String command = scanner.nextLine();

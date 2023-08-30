@@ -9,11 +9,9 @@ import java.util.ArrayList;
 
 public class User {
     private int taskNum = 0;
-    private String filePath;
     private ArrayList<Task> tasks = new ArrayList<>();
 
-    public User(String filePath) {
-        this.createFile(filePath);
+    public User() {
         try {
             this.loadTasks();
         } catch (FileNotFoundException e) {
@@ -37,22 +35,9 @@ public class User {
         }
     }
 
-    public void createFile(String filePath) {
-        this.filePath = filePath;
-        File file = new File(filePath);
-        if (!file.exists()) {
-            try {
-                file.getParentFile().mkdirs();
-                file.createNewFile();
-            } catch (IOException e) {
-                System.out.println(new DukeException(e.getMessage()).toString());
-            }
-        }
-    }
-
     public void saveTasks() {
         try {
-            FileOutputStream file = new FileOutputStream(this.filePath);
+            FileOutputStream file = new FileOutputStream("savedTasks.ser");
             ObjectOutputStream output = new ObjectOutputStream(file);
             output.writeObject(this.tasks);
             output.close();
@@ -64,7 +49,7 @@ public class User {
 
     private void loadTasks() throws FileNotFoundException {
         try {
-            FileInputStream file = new FileInputStream(this.filePath);
+            FileInputStream file = new FileInputStream("savedTasks.ser");
             @SuppressWarnings("unchecked")
             ObjectInputStream output = new ObjectInputStream(file);
             this.tasks = (ArrayList<Task>) output.readObject();
