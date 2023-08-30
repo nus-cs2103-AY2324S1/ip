@@ -1,170 +1,41 @@
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.*;
 import java.time.LocalDateTime;
 
 public class Puke {
-    public static String separator = "____________________________________________________________";
-    public static String errorMessage = "Unfortunately, the circumstances preceding this has necessitated that I issue and apology for the input that I have received is unrecognised.";
-    public static ArrayList<Task> list = new ArrayList<Task>(100);
-    public static void main(String[] args) throws IOException {
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| |_| | | | | |/ / _ \\\n"
-                + "| ___/| |_| |    | __/\n"
-                + "| |    \\__,_|_|\\_\\___|\n"
-                + "|_|";
-        Scanner sc = new Scanner(System.in);
-        System.out.println("Salutations! I hereby would like to inform you that my identity is that of\n" + logo +
-                "\nAn exceedingly verbose conversation simulation program.");
-        System.out.println(separator);
+    private TaskList tasks;
+    private Ui ui;
+    public Puke() throws IOException {
+        this.ui = new Ui();
         try {
-            list = DataHandler.loadDatabase();
-        } catch (Exception FileNotFoundException) {
+            tasks = new TaskList(DataHandler.loadDatabase());
+        } catch (PukeException e) {
             new File("ListData.txt").createNewFile();
         }
-        while (true) {
-            String command = sc.next();
-            System.out.println(separator);
-            if (command.equals("bye")) {
-                if (!sc.nextLine().isEmpty()) {
-                    System.out.println(errorMessage);
-                    System.out.println(separator);
-                    continue;
-                }
-                break;
-            } else if (command.equals("list")) {
-                if (!sc.nextLine().isEmpty()) {
-                    System.out.println(errorMessage);
-                    System.out.println(separator);
-                    continue;
-                }
-                System.out.println("Here is the collection of items, previously designated to be known as Tasks, that you have inputted over a previous unspecified period of time\n" +
-                        "that may or may not require urgent attention, but will nevertheless necessitate some level of action within an either\n" +
-                        "indicated or not indicated time period.");
-                int i = 1;
-                for (Task s : list) {
-                    System.out.println(String.format("%d. %s", i, s.toString()));
-                    i++;
-                }
-                System.out.println(separator);
-            } else if (command.equals("mark")) {
-                int index = sc.nextInt();
-                if (!sc.nextLine().isEmpty()) {
-                    System.out.println(errorMessage);
-                    System.out.println(separator);
-                    continue;
-                }
-                try {
-                    list.get(index - 1).mark();
-                } catch (Exception e) {
-                    System.out.println(errorMessage);
-                    continue;
-                }
-                System.out.println("I have been made aware of your desire to indicate that the task numbered " + index +
-                        " has been since been achieved as of the time at which you hve stipulated as so.");
-                System.out.println(separator);
-                DataHandler.writeToDatabase(list);
-            } else if (command.equals("unmark")) {
-                int index = sc.nextInt();
-                if (!sc.nextLine().isEmpty()) {
-                    System.out.println(errorMessage);
-                    System.out.println(separator);
-                    continue;
-                }
-                try {
-                    list.get(index - 1).unmark();
-                } catch (Exception e) {
-                    System.out.println(errorMessage);
-                    continue;
-                }
-                System.out.println("Very well. I have acknowledged your request to unmark the task of specified index as having been completed and\n" +
-                        "will now proceed to set said task of specified index to be considered as having not yet been completed.");
-                System.out.println(separator);
-                DataHandler.writeToDatabase(list);
-            } else if (command.equals("todo")) {
-                try {
-                    list.add(new ToDo(sc.nextLine()));
-                } catch (Exception e) {
-                    System.out.println(errorMessage);
-                    System.out.println(separator);
-                    continue;
-                }
-                System.out.println("Understood. I have hereby created a task known to require doing at a future time but with no such time being specified and inserted it into " +
-                        "the overall collection of said tasks that require action.\n" +
-                        "Here is a display of the added deadline task: " + list.get(list.size() - 1) + "\n" +
-                        "You now, in total, have " + list.size() + " of these tasks recorded within said collection.");
-                System.out.println(separator);
-                DataHandler.writeToDatabase(list);
-            } else if (command.equals("deadline")) {
-                try {
-                    list.add(new Deadline(sc.nextLine().split(" /")));
-                } catch (Exception e) {
-                    System.out.println(errorMessage);
-                    System.out.println(separator);
-                    continue;
-                }
-                System.out.println("Understood. I have hereby created a task known to require doing at a future time alongside the stipulated time that you have indicated and inserted it into " +
-                        "the overall collection of these tasks that require action.\n" +
-                        "Here is a display of the added deadline task: " + list.get(list.size() - 1) + "\n" +
-                        "You now, in total, have " + list.size() + " of these tasks recorded within said collection.");
-                System.out.println(separator);
-                DataHandler.writeToDatabase(list);
-            } else if (command.equals("event")) {
-                try {
-                    list.add(new Event(sc.nextLine().split(" /")));
-                } catch (Exception e) {
-                    System.out.println(errorMessage);
-                    System.out.println(separator);
-                    continue;
-                }
-                System.out.println("Understood. I have hereby created a task known to require participation for a set period of time alongside this stipulated duration that you have indicated and inserted it into " +
-                        "the overall collection of these tasks that require action.\n" +
-                        "Here is a display of the added deadline task: " + list.get(list.size() - 1) + "\n" +
-                        "You now, in total, have " + list.size() + " of these tasks recorded within said collection.");
-                System.out.println(separator);
-                DataHandler.writeToDatabase(list);
-            } else if (command.equals("delete")) {
-                Task hold;
-                try {
-                    int index = sc.nextInt();
-                    hold = list.get(index - 1);
-                    if (!sc.nextLine().isEmpty()) {
-                        System.out.println(errorMessage);
-                        System.out.println(separator);
-                        continue;
-                    }
-                    list.remove(index - 1);
-                } catch (Exception e) {
-                    System.out.println(errorMessage);
-                    continue;
-                }
-                System.out.println("I have acknowledged your request to have the task allocated to the specific index at which you have mentioned removed from the collection of all\n" +
-                        "such tasks, colloquially known as your To Do list.\n" +
-                        "The task in question that has been deleted is: " + hold + "\n" +
-                        "As of this current moment, there are a total of " + list.size() + " occurrences of tasks in your list.");
-                System.out.println(separator);
-                DataHandler.writeToDatabase(list);
-            } else if (command.equals("clearall")) {
-                if (!sc.nextLine().isEmpty()) {
-                    System.out.println(errorMessage);
-                    System.out.println(separator);
-                    continue;
-                }
-                list = new ArrayList<Task>(100);
-                DataHandler.clearAll();
-                System.out.println("Well I certainly hope you had meant to do that because I am not going too ask for your confirmation. As per the aforementioned instructions, I shall now" +
-                        "purge all of the tasks that you have previously recorded and designated as requiring attention.");
-                System.out.println(separator);
-            } else {
-                System.out.println("Unfortunately, the circumstances preceding this has necessitated that I issue and apology for the input that I have received is unrecognised.");
-                System.out.println(separator);
+    }
+
+    public void run() {
+        ui.startup();
+        boolean isExit = false;
+        while (!isExit) {
+            String command = ui.command();
+            String input = ui.input();
+            ui.line();
+            Command next;
+            try {
+                next = Parser.parse(command, input);
+            } catch (PukeException e) {
+                next = new ErrorCommand();
             }
+            next.execute(tasks, ui);
+            isExit = next.isExit();
         }
-        System.out.println("It appears that the user has decided to close the program as indicated by the command of which this is the function being issued and therefore,\n" +
-                "I shall bid thee farewell and wish thee great fortune in your future endeavors.");
+    }
+
+    public static void main(String[] args) throws IOException {
+        new Puke().run();
     }
 }
 
@@ -203,7 +74,7 @@ class Task {
         if (done) {
             status = "[X]";
         }
-        return String.format("%s%s%s", this.tag, status, this.description);
+        return String.format("%s%s %s", this.tag, status, this.description);
     }
 }
 
@@ -287,6 +158,7 @@ class PukeException extends Exception {
 }
 
 class DataHandler {
+
     public static Task translate(String input) throws PukeException {
         String[] split = input.split("/");
         Task output;
@@ -321,13 +193,18 @@ class DataHandler {
         fw.close();
     }
 
-    public static ArrayList<Task> loadDatabase() throws FileNotFoundException {
-        Scanner sc = new Scanner(new File("ListData.txt"));
+    public static ArrayList<Task> loadDatabase() throws PukeException {
+        Scanner sc;
+        try {
+            sc = new Scanner(new File("ListData.txt"));
+        } catch (Exception e) {
+            throw new PukeException();
+        }
         ArrayList<Task> output = new ArrayList<Task>();
         while (sc.hasNext()) {
             try {
                 output.add(DataHandler.translate(sc.nextLine()));
-            } catch (Exception PukeException) {
+            } catch (Exception e) {
                 continue;
             }
         }
@@ -381,8 +258,8 @@ class TaskList {
     Task delete(int index) throws PukeException {
         Task hold;
         try {
-            hold = list.get(index);
-            list.remove(index);
+            hold = list.get(index - 1);
+            list.remove(index - 1);
             return hold;
         } catch (Exception e) {
             throw new PukeException();
@@ -391,7 +268,7 @@ class TaskList {
 
     void mark(int index) throws PukeException {
         try {
-            list.get(index).mark();
+            list.get(index - 1).mark();
         } catch (Exception e) {
             throw new PukeException();
         }
@@ -399,7 +276,7 @@ class TaskList {
 
     void unmark(int index) throws PukeException {
         try {
-            list.get(index).unmark();
+            list.get(index - 1).unmark();
         } catch (Exception e) {
             throw new PukeException();
         }
@@ -488,11 +365,15 @@ class MarkCommand extends Command {
 }
 
 class UnmarkCommand extends Command {
-    private final int index;
+    private int index;
 
     UnmarkCommand(String rest) {
         super(false, true);
-        this.index = Integer.parseInt(rest);
+        try {
+            this.index = Integer.parseInt(rest.substring(1));
+        } catch (Exception e) {
+            this.index = -1;
+        }
     }
 
     void execute(TaskList tl, Ui ui) {
@@ -501,7 +382,7 @@ class UnmarkCommand extends Command {
             System.out.println(ui.unmark(this.index));
             System.out.println(Ui.separator);
             DataHandler.writeToDatabase(tl);
-        } catch (Exception PukeException) {
+        } catch (Exception e) {
             System.out.println(Ui.errorMessage);
             System.out.println(Ui.separator);
         }
@@ -616,33 +497,44 @@ class ClearCommand extends Command {
     }
 }
 
-class Parser {
-
-    Parser() {
+class ErrorCommand extends Command {
+    ErrorCommand() {
+        super(false, false);
     }
 
-    Command parse(String command, String line, TaskList tl) {
-        if (command.equals("bye")) {
-            return new ExitCommand(line);
-        } else if (command.equals("list")) {
-            return new ListCommand(line);
-        } else if (command.equals("mark")) {
-            return new MarkCommand(line);
-        } else if (command.equals("unmark")) {
-            return new UnmarkCommand(line);
-        } else if (command.equals("todo")) {
-            return new TodoCommand(line);
-        } else if (command.equals("deadline")) {
-            return new DeadlineCommand(line);
-        } else if (command.equals("event")) {
-            return new EventCommand(line);
-        } else if (command.equals("delete")) {
-            return new DeleteCommand(line);
-        } else if (command.equals("clearall")) {
-            return new ClearCommand(line);
-        } else {
-            System.out.println(Ui.errorMessage);
-            System.out.println(Ui.separator);
+    void execute(TaskList tl, Ui ui) {
+        System.out.println(Ui.errorMessage);
+        System.out.println(Ui.separator);
+    }
+}
+
+class Parser {
+
+    public static Command parse(String command, String line) throws PukeException {
+        try {
+            if (command.equals("bye")) {
+                return new ExitCommand(line);
+            } else if (command.equals("list")) {
+                return new ListCommand(line);
+            } else if (command.equals("mark")) {
+                return new MarkCommand(line.substring(1));
+            } else if (command.equals("unmark")) {
+                return new UnmarkCommand(line.substring(1));
+            } else if (command.equals("todo")) {
+                return new TodoCommand(line.substring(1));
+            } else if (command.equals("deadline")) {
+                return new DeadlineCommand(line.substring(1));
+            } else if (command.equals("event")) {
+                return new EventCommand(line.substring(1));
+            } else if (command.equals("delete")) {
+                return new DeleteCommand(line.substring(1));
+            } else if (command.equals("clearall")) {
+                return new ClearCommand(line);
+            } else {
+                return new ErrorCommand();
+            }
+        } catch (Exception e) {
+            throw new PukeException();
         }
     }
 }
@@ -650,8 +542,23 @@ class Parser {
 class Ui {
     public static String errorMessage = "Unfortunately, the circumstances preceding this has necessitated that I issue and apology for the input that I have received is unrecognised.";
     public static String separator = "____________________________________________________________";
+    private Scanner sc;
 
-    Ui() {}
+    Ui() {
+        this.sc = new Scanner(System.in);
+    }
+
+    String command() {
+        return sc.next();
+    }
+
+    String input() {
+        return sc.nextLine();
+    }
+
+    void line() {
+        System.out.println(Ui.separator);
+    }
 
     void startup() {
         String logo = " ____        _        \n"
