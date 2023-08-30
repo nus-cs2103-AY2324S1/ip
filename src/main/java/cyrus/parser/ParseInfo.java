@@ -31,6 +31,7 @@ public class ParseInfo {
 
   /**
    * Create a copy of the options to avoid accidentally modifying the current options map.
+   *
    * @return Copy of options hashmap.
    */
   public HashMap<String, String> getOptions() {

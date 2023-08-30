@@ -1,9 +1,9 @@
 package cyrus.storage;
 
-import cyrus.adapters.LocalDateAdapter;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
+import cyrus.adapters.LocalDateAdapter;
 import cyrus.tasks.Deadline;
 import cyrus.tasks.Event;
 import cyrus.tasks.Task;
