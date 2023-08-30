@@ -11,13 +11,14 @@ import java.time.LocalDateTime;
 
 public class Puke {
     private TaskList tasks;
-    private Ui ui;
+    private final Ui ui;
     public Puke() throws IOException {
         this.ui = new Ui();
         try {
             tasks = new TaskList(DataHandler.loadDatabase());
         } catch (PukeException e) {
             new File("ListData.txt").createNewFile();
+            tasks = new TaskList();
         }
     }
 
@@ -57,10 +58,16 @@ class Task {
         }
     }
 
+    /**
+     * Marks a task as done
+     */
     public void mark() {
         this.done = true;
     }
 
+    /**
+     * Unmarks a task as done
+     */
     public void unmark() {
         this.done = false;
     }
@@ -69,6 +76,12 @@ class Task {
         return description;
     }
 
+
+    /**
+     * Returns a String representation of the task that can be stored and read later when the program is initiated again.
+     *
+     * @return a String representation.
+     */
     public String write() {
         int checked = 0;
         if (this.done) {
@@ -77,6 +90,11 @@ class Task {
         return String.format("%s/%d/%s", this.tag, checked , this.description);
     }
 
+    /**
+     * Returns a String representation to be displayed in the to do list.
+     *
+     * @return a String representation.
+     */
     @Override
     public String toString() {
         String status = "[ ]";
@@ -90,6 +108,12 @@ class Task {
 class ToDo extends Task {
     private final static String tag = "[T]";
 
+    /**
+     * Creates a Task with no set deadline or time period.
+     *
+     * @param desc The description of the task
+     * @throws PukeException If an incorrect format is used.
+     */
     public ToDo(String desc) throws PukeException {
         super(tag, desc);
     }
@@ -99,6 +123,12 @@ class Deadline extends Task {
     private final static String tag = "[D]";
     private final LocalDateTime date;
 
+    /**
+     * Creates a Task with a set deadline.
+     *
+     * @param all All strings from the remainder of the input after being split
+     * @throws PukeException If an incorrect format is used.
+     */
     public Deadline(String[] all) throws PukeException {
         super(tag, all[0]);
         try {
@@ -108,6 +138,14 @@ class Deadline extends Task {
         }
     }
 
+    /**
+     * Creates a Deadline Task using input from the ListData.txt file.
+     *
+     * @param desc The description of the task.
+     * @param date The date of the deadline.
+     * @return The Deadline task.
+     * @throws PukeException If an incorrect format is detected e.g. the file is corrupted.
+     */
     public static Deadline construct(String desc, String date) throws PukeException {
         String[] container = new String[2];
         container[0] = desc;
@@ -115,11 +153,21 @@ class Deadline extends Task {
         return new Deadline(container);
     }
 
+    /**
+     * Returns a String representation of the Deadline task that is stored in the ListData.txt file.
+     *
+     * @return a String representation.
+     */
     @Override
     public String write() {
         return super.write() + "/" + this.date;
     }
 
+    /**
+     * Returns a String representation of the Deadline task that is used for Displaying in the to do list.
+     *
+     * @return a String representation
+     */
     public String toString() {
         return super.toString() + " (by: " + this.date + ")";
     }
@@ -130,6 +178,12 @@ class Event extends Task {
     private final LocalDateTime from;
     private final LocalDateTime to;
 
+    /**
+     * Creates a task with a start and end time
+     *
+     * @param all All Strings from the remainder of the input line after the command string.
+     * @throws PukeException If an incorrect format is used.
+     */
     public Event(String[] all) throws PukeException {
         super(tag, all[0]);
         try {
@@ -141,6 +195,15 @@ class Event extends Task {
         }
     }
 
+    /**
+     * Creates an Event task using data stored in the ListData.txt file.
+     *
+     * @param desc Description of the event
+     * @param from Start date and time of the event.
+     * @param to Ending date and time of the event.
+     * @return The Event task.
+     * @throws PukeException If an incorrect format is detected e.g. the file is corrupted.
+     */
     public static Event construct(String desc, String from, String to) throws PukeException {
         String[] container = new String[3];
         container[0] = desc;
@@ -149,11 +212,21 @@ class Event extends Task {
         return new Event(container);
     }
 
+    /**
+     * Returns a String representation of the Deadline task that is stored in the ListData.txt file.
+     *
+     * @return a String representation.
+     */
     @Override
     public String write() {
         return super.write() + "/" + this.from + "/" + this.to;
     }
 
+    /**
+     * Returns a String representation of the Deadline task that is used for Displaying in the to do list.
+     *
+     * @return a String representation.
+     */
     public String toString() {
         return super.toString() + " (from: " + this.from + " " +
                 "to: " + this.to + ")";
@@ -168,6 +241,13 @@ class PukeException extends Exception {
 
 class DataHandler {
 
+    /**
+     * Interprets a line from the ListData.txt file used to store events.
+     *
+     * @param input a line from the file
+     * @return a corresponding task.
+     * @throws PukeException If an invalid task is detected.
+     */
     public static Task translate(String input) throws PukeException {
         String[] split = input.split("/");
         Task output;
@@ -192,6 +272,12 @@ class DataHandler {
         return output;
     }
 
+    /**
+     * Updates the ListData.txt file with the latest list of tasks.
+     *
+     * @param taskList The task list.
+     * @throws IOException If an error occurs with the file writer.
+     */
     public static void writeToDatabase(TaskList taskList) throws IOException {
         FileWriter fw = new FileWriter("ListData.txt");
         StringBuilder output = new StringBuilder();
@@ -202,6 +288,13 @@ class DataHandler {
         fw.close();
     }
 
+    /**
+     * Loads the events stored in the ListData.txt file when the program is run.
+     * If an invalid line is detected, it is skipped.
+     *
+     * @return The Task List
+     * @throws PukeException If the file is not found.
+     */
     public static ArrayList<Task> loadDatabase() throws PukeException {
         Scanner sc;
         try {
@@ -220,6 +313,11 @@ class DataHandler {
         return output;
     }
 
+    /**
+     * Clears all stored tasks.
+     *
+     * @throws IOException If an error occurs with the FileWriter.
+     */
     public static void clearAll() throws IOException {
         FileWriter fw = new FileWriter("ListData.txt");
         fw.write("");
@@ -228,7 +326,7 @@ class DataHandler {
 }
 
 class TaskList {
-    private ArrayList<Task> list;
+    private final ArrayList<Task> list;
 
     TaskList() {
         this.list = new ArrayList<Task>(100);
@@ -310,10 +408,6 @@ class TaskList {
     void clear() {
         this.list.clear();
     }
-
-    boolean inRange(int i) {
-        return i > 0 && i <= this.size();
-    }
 }
 
 abstract class Command {
@@ -337,6 +431,14 @@ class ExitCommand extends Command {
     ExitCommand(String rest) {
         super(rest.isEmpty(), rest.isEmpty());
     }
+
+    /**
+     * Executes the command by printing out the corresponding message.
+     * If the command is in the wrong format.
+     *
+     * @param tl The task list.
+     * @param ui The UI.
+     */
     void execute(TaskList tl, Ui ui) {
         if (!super.isValid) {
             System.out.println(Ui.ERROR_MESSAGE);
@@ -346,6 +448,12 @@ class ExitCommand extends Command {
         }
     }
 
+    /**
+     * Returns a boolean indicating if the other object is an instance of ExitCommand.
+     *
+     * @param other Another object.
+     * @return a boolean.
+     */
     @Override
     public boolean equals(Object other) {
         return (other instanceof ExitCommand);
@@ -357,6 +465,14 @@ class ListCommand extends Command {
     ListCommand(String rest) {
         super(false, rest.isEmpty());
     }
+
+    /**
+     * Executes the command by printing out the corresponding message.
+     * If the command is in the wrong format.
+     *
+     * @param tl The task list.
+     * @param ui The UI.
+     */
     void execute(TaskList tl, Ui ui) {
         if (!super.isValid) {
             System.out.println(Ui.ERROR_MESSAGE);
@@ -367,6 +483,13 @@ class ListCommand extends Command {
             System.out.println(Ui.SEPARATOR);
         }
     }
+
+    /**
+     * Returns a boolean indicating if the other object is an instance of ListCommand.
+     *
+     * @param other Another object
+     * @return a boolean
+     */
     @Override
     public boolean equals(Object other) {
         return (other instanceof ListCommand);
@@ -381,6 +504,13 @@ class MarkCommand extends Command {
         this.index = Integer.parseInt(rest);
     }
 
+    /**
+     * Executes the command by printing out the corresponding message.
+     * If the command is in the wrong format or an index is out of bounds, prints an error message instead.
+     *
+     * @param tl The task list.
+     * @param ui The UI.
+     */
     void execute(TaskList tl, Ui ui) {
         try {
             tl.mark(this.index);
@@ -393,11 +523,22 @@ class MarkCommand extends Command {
         }
     }
 
+    /**
+     * Returns a boolean indicating if the other object has the same toString() and is an instance of MarkCommand.
+     *
+     * @param other Another object
+     * @return a boolean.
+     */
     @Override
     public boolean equals(Object other) {
         return (other instanceof MarkCommand && other.toString().equals(this.toString()));
     }
 
+    /**
+     * Returns a String representation of the command
+     *
+     * @return a String.
+     */
     @Override
     public String toString() {
         return "mark " + this.index;
@@ -416,10 +557,17 @@ class UnmarkCommand extends Command {
         }
     }
 
+    /**
+     * Executes the command by printing out the corresponding message.
+     * If the command is in the wrong format or an index is out of bounds, prints an error message instead.
+     *
+     * @param tl The task list.
+     * @param ui The UI.
+     */
     void execute(TaskList tl, Ui ui) {
         try {
             tl.unmark(this.index);
-            System.out.println(ui.unmark(this.index));
+            System.out.println(ui.unmark());
             System.out.println(Ui.SEPARATOR);
             DataHandler.writeToDatabase(tl);
         } catch (Exception e) {
@@ -428,11 +576,22 @@ class UnmarkCommand extends Command {
         }
     }
 
+    /**
+     * Returns a boolean indicating if the other object has the same toString() and is an instance of UnmarkCommand.
+     *
+     * @param other Another object
+     * @return a boolean.
+     */
     @Override
     public boolean equals(Object other) {
         return (other instanceof UnmarkCommand && other.toString().equals(this.toString()));
     }
 
+    /**
+     * Returns a String representation of the command
+     *
+     * @return a String.
+     */
     @Override
     public String toString() {
         return "unmark " + this.index;
@@ -447,6 +606,13 @@ class TodoCommand extends Command {
         this.desc = rest;
     }
 
+    /**
+     * Executes the command by printing out the corresponding message.
+     * If the command is in the wrong format, prints an error message instead.
+     *
+     * @param tl The task list.
+     * @param ui The UI.
+     */
     void execute(TaskList tl, Ui ui) {
         try {
             tl.add(new ToDo(this.desc));
@@ -459,11 +625,23 @@ class TodoCommand extends Command {
         }
     }
 
+    /**
+     * Returns a boolean indicating if the other object has the same toString as this command and is an instance of EventCommand.
+     *
+     * @param other Another object.
+     * @return A boolean.
+     */
     @Override
     public boolean equals(Object other) {
         return (other instanceof TodoCommand && other.toString().equals(this.toString()));
     }
 
+    /**
+     * Returns a String representation of this command.
+     *
+     * @return a String.
+     * @throws RuntimeException If an incorrect format is used
+     */
     @Override
     public String toString() {
         try {
@@ -482,6 +660,13 @@ class DeadlineCommand extends Command {
         this.rest = rest.split(" /");
     }
 
+    /**
+     * Executes the command by printing out the corresponding message.
+     * If the command is in the wrong format, prints an error message instead.
+     *
+     * @param tl The task list.
+     * @param ui The UI.
+     */
     void execute(TaskList tl, Ui ui) {
         try {
             tl.add(new Deadline(this.rest));
@@ -494,11 +679,23 @@ class DeadlineCommand extends Command {
         }
     }
 
+    /**
+     * Returns a boolean indicating if the other object has the same toString as this command and is an instance of EventCommand.
+     *
+     * @param other Another object.
+     * @return A boolean.
+     */
     @Override
     public boolean equals(Object other) {
         return (other instanceof DeadlineCommand && other.toString().equals(this.toString()));
     }
 
+    /**
+     * Returns a String representation of this command.
+     *
+     * @return a String.
+     * @throws RuntimeException If an incorrect format is used
+     */
     @Override
     public String toString() {
         try {
@@ -517,6 +714,13 @@ class EventCommand extends Command {
         this.rest = rest.split(" /");
     }
 
+    /**
+     * Executes the command by printing out the corresponding message.
+     * If the command is in the wrong format, prints an error message instead.
+     *
+     * @param tl The task list.
+     * @param ui The UI.
+     */
     void execute(TaskList tl, Ui ui) {
         try {
             tl.add(new Event(this.rest));
@@ -529,11 +733,23 @@ class EventCommand extends Command {
         }
     }
 
+    /**
+     * Returns a boolean indicating if the other object has the same toString as this command and is an instance of EventCommand.
+     *
+     * @param other Another object.
+     * @return A boolean.
+     */
     @Override
     public boolean equals(Object other) {
         return (other instanceof EventCommand && other.toString().equals(this.toString()));
     }
 
+    /**
+     * Returns a String representation of this command.
+     *
+     * @return a String.
+     * @throws RuntimeException If an incorrect format is used
+     */
     @Override
     public String toString() {
         try {
@@ -552,6 +768,13 @@ class DeleteCommand extends Command {
         this.index = Integer.parseInt(rest);
     }
 
+    /**
+     * Executes the command by printing out the corresponding message.
+     * If the command is invalid due to the index being out of bounds, prints an error message instead.
+     *
+     * @param tl The task list.
+     * @param ui The UI.
+     */
     void execute(TaskList tl, Ui ui) {
         try {
             Task hold = tl.delete(this.index);
@@ -564,11 +787,22 @@ class DeleteCommand extends Command {
         }
     }
 
+    /**
+     * Returns a boolean indicating if the other object has the same toString() as this one.
+     *
+     * @param other Another object.
+     * @return a boolean.
+     */
     @Override
     public boolean equals(Object other) {
         return (other instanceof DeleteCommand && other.toString().equals(this.toString()));
     }
 
+    /**
+     * Returns a string representing this command.
+     *
+     * @return a String
+     */
     @Override
     public String toString() {
         return "delete " + this.index;
@@ -580,6 +814,13 @@ class ClearCommand extends Command {
         super(false, rest.isEmpty());
     }
 
+    /**
+     * Executes the command by printing out the corresponding message.
+     * If the command is invalid, an error message is printed instead.
+     *
+     * @param tl The task list.
+     * @param ui The UI.
+     */
     void execute(TaskList tl, Ui ui) {
         if (!super.isValid) {
             System.out.println(Ui.ERROR_MESSAGE);
@@ -598,6 +839,13 @@ class ClearCommand extends Command {
         }
     }
 
+    /**
+     * Returns a boolean indicating if the other object is an instance of ClearCommand.
+     * Used in testing.
+     *
+     * @param other Another object.
+     * @return a boolean.
+     */
     @Override
     public boolean equals(Object other) {
         return (other instanceof ClearCommand);
@@ -609,11 +857,25 @@ class ErrorCommand extends Command {
         super(false, false);
     }
 
+
+    /**
+     * Executes the command by printing out the corresponding message.
+     *
+     * @param tl The task list.
+     * @param ui The UI.
+     */
     void execute(TaskList tl, Ui ui) {
         System.out.println(Ui.ERROR_MESSAGE);
         System.out.println(Ui.SEPARATOR);
     }
 
+    /**
+     * Returns the boolean representing whether another Object is an instance of an ErrorCommand.
+     * Used in testing.
+     *
+     * @param other Another object.
+     * @return boolean
+     */
     @Override
     public boolean equals(Object other) {
         return (other instanceof ErrorCommand);
@@ -631,16 +893,23 @@ class FindCommand extends Command {
         try {
             System.out.println(ui.find());
             System.out.println(tl.find(this.key));
-            System.out.println(Ui.separator);
+            System.out.println(Ui.SEPARATOR);
         } catch (Exception PukeException) {
-            System.out.println(Ui.errorMessage);
-            System.out.println(Ui.separator);
+            System.out.println(Ui.ERROR_MESSAGE);
+            System.out.println(Ui.SEPARATOR);
         }
     }
     }
 
 class Parser {
-
+    /**
+     * Parses the command string as input from the UI and returns its corresponding command
+     *
+     * @param command First token of input from the UI
+     * @param line Remaining input from the UI on the same line
+     * @return Corresponding command
+     * @throws PukeException If an invalid command or line is parsed
+     */
     public static Command parse(String command, String line) throws PukeException {
         try {
             if (command.equals("bye")) {
@@ -673,26 +942,44 @@ class Parser {
 }
 
 class Ui {
+
     public static String ERROR_MESSAGE = "Unfortunately, the circumstances preceding this has necessitated that I issue and apology for the input that I have received is unrecognised.";
     public static String SEPARATOR = "____________________________________________________________";
-    private Scanner sc;
+
+    private final Scanner sc;
 
     Ui() {
         this.sc = new Scanner(System.in);
     }
 
-    String command() {
+    /**
+     * Returns the first token from a line of input.
+     *
+     * @return Command string.
+     */
+    public String command() {
         return sc.next();
     }
 
-    String input() {
+    /**
+     * Returns the remainder of the line of input after the command string has been removed.
+     *
+     * @return Remainder of line.
+     */
+    public String input() {
         return sc.nextLine();
     }
 
-    void line() {
+    /**
+     * Prints the separator line.
+     */
+    public void line() {
         System.out.println(Ui.SEPARATOR);
     }
 
+    /**
+     * Prints the welcome logo and message.
+     */
     void startup() {
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
@@ -705,27 +992,55 @@ class Ui {
         System.out.println(SEPARATOR);
     }
 
+    /**
+     * Returns the exit message.
+     *
+     * @return The exit message.
+     */
     String exit() {
         return "It appears that the user has decided to close the program as indicated by the command of which this is the function being issued and therefore,\n" +
                 "I shall bid thee farewell and wish thee great fortune in your future endeavors.";
     }
 
+    /**
+     * Returns the message for listing tasks in the list.
+     *
+     * @return The message for listing tasks in the list.
+     */
     String list() {
         return "Here is the collection of items, previously designated to be known as Tasks, that you have inputted over a previous unspecified period of time\n" +
                 "that may or may not require urgent attention, but will nevertheless necessitate some level of action within an either\n" +
                 "indicated or not indicated time period.";
     }
 
+    /**
+     * Returns the message for marking a task as done.
+     *
+     * @param index Index of the task that has been marked.
+     * @return The message indicating that the task has been done.
+     */
     String mark(int index) {
         return "I have been made aware of your desire to indicate that the task numbered " + index +
                 " has been since been achieved as of the time at which you hve stipulated as so.";
     }
 
-    String unmark(int index) {
+    /**
+     * Returns the message for unmarking a task as done.
+     *
+     * @return The message indicating that that task has been unmarked.
+     */
+    String unmark() {
         return "Very well. I have acknowledged your request to unmark the task of specified index as having been completed and\n" +
                 "will now proceed to set said task of specified index to be considered as having not yet been completed.";
     }
 
+    /**
+     * Returns the message indicating that a new to do task has been added to the list.
+     *
+     * @param tl The task list.
+     * @return The message.
+     * @throws PukeException If the task or values used in the list are out of bounds.
+     */
     String toDo(TaskList tl) throws PukeException {
         return "Understood. I have hereby created a task known to require doing at a future time but with no such time being specified and inserted it into " +
                 "the overall collection of said tasks that require action.\n" +
@@ -733,6 +1048,13 @@ class Ui {
                 "You now, in total, have " + tl.size() + " of these tasks recorded within said collection.";
     }
 
+    /**
+     * Returns the message indicating that a new Deadline task has been added to the list.
+     *
+     * @param tl The task list.
+     * @return The message.
+     * @throws PukeException If the task or values used in the list are out of bounds.
+     */
     String deadline(TaskList tl) throws PukeException {
         return "Understood. I have hereby created a task known to require doing at a future time alongside the stipulated time that you have indicated and inserted it into " +
                 "the overall collection of these tasks that require action.\n" +
@@ -740,6 +1062,13 @@ class Ui {
                 "You now, in total, have " + tl.size() + " of these tasks recorded within said collection.";
     }
 
+    /**
+     * Returns the message indicating that a new Event task has been added to the list.
+     *
+     * @param tl The task list.
+     * @return The message.
+     * @throws PukeException If the task or values used in the list are out of bounds.
+     */
     String event(TaskList tl) throws PukeException {
         return "Understood. I have hereby created a task known to require participation for a set period of time alongside this stipulated duration that you have indicated and inserted it into " +
                 "the overall collection of these tasks that require action.\n" +
@@ -747,6 +1076,13 @@ class Ui {
                 "You now, in total, have " + tl.size() + " of these tasks recorded within said collection.";
     }
 
+    /**
+     * Returns the message indicating that a Task has been removed from the list
+     *
+     * @param hold The task that was removed.
+     * @param tl The task list.
+     * @return The message.
+     */
     String delete(Task hold, TaskList tl) {
         return "I have acknowledged your request to have the task allocated to the specific index at which you have mentioned removed from the collection of all\n" +
                 "such tasks, colloquially known as your To Do list.\n" +
@@ -754,6 +1090,11 @@ class Ui {
                 "As of this current moment, there are a total of " + tl.size() + " occurrences of tasks in your list.";
     }
 
+    /**
+     * Returns the message indicating that all tasks have been cleared from the list.
+     *
+     * @return The message.
+     */
     String clear() {
         return "Well I certainly hope you had meant to do that because I am not going too ask for your confirmation. As per the aforementioned instructions, I shall now" +
                 "purge all of the tasks that you have previously recorded and designated as requiring attention.";
