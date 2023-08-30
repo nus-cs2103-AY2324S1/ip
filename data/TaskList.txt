@@ -2,3 +2,9 @@ T | 0 | add
 D | 0 | return book | Sunday
 E | 0 | project meeting | Mon 2pm | 4pm
 D | 0 | do homework | no idea :-p
+D | 0 | sleep | later 2pm
+D | 0 | wake up | 04 Jun 6:50PM
+D | 0 | sleep againg | 04 Jun 2023 3:30PM
+D | 0 | sleep again | 04 Jun 2023 6:00PM
+E | 0 | sleep | 04 Jun 2023 6:00PM | 05 Jun 2023 6:00PM
+E | 1 | test | 23 Feb 2023 6:00PM | 23 Feb 2023 7:00PM
