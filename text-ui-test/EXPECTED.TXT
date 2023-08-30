@@ -22,6 +22,9 @@ Here are the tasks in your list:
 1.[T][ ] sleep
 2.[E][ ] meeting (from: Oct 10 2023 02:00 PM to: Oct 10 2023 04:00 PM)
 3.[D][ ] lecture quiz (by: Oct 05 2023 11:59 PM)
+OOPS!!! Please enter something to search.
+Here are the matching task(s) in your list:
+1. [T][ ] sleep
 OOPS!! Task number cannot empty. Please indicate a task number from one to the number of tasks in the list.
 Nice! I've marked this task as done:
 [T][X] sleep
@@ -33,7 +36,7 @@ OOPS!! Task number cannot empty. Please indicate a task number from one to the n
 OOPS!! Invalid task number. The task number has to be from one to the number of tasks in the list.
 OOPS!! Task number cannot empty. Please indicate a task number from one to the number of tasks in the list.
 Noted. I've removed this task:
- [E][ ] meeting (from: Oct 10 2023 02:00 PM to: Oct 10 2023 04:00 PM)
+ [T][ ] sleep
 Now you have 2 task(s) in the list.
 OOPS!!! Invalid command. Try the following commands instead:
 > todo <task>
@@ -43,5 +46,6 @@ OOPS!!! Invalid command. Try the following commands instead:
 > mark <task number>
 > unmark <task number>
 > delete <task number>
+> find <keyword>
 > bye
 Bye. Hope to see you again soon!

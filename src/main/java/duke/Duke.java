@@ -98,10 +98,18 @@ public class Duke {
                         System.out.println(exception.getMessage());
                     }
                     break;
-                // remove task
+                // Remove task
                 case "delete":
                     try {
                         this.tasks.removeTask(parser.getTaskNumber());
+                    } catch (DukeException exception) {
+                        System.out.println(exception.getMessage());
+                    }
+                    break;
+                // Find task
+                case "find":
+                    try {
+                        this.tasks.findTask(parser.getSearchKeyword());
                     } catch (DukeException exception) {
                         System.out.println(exception.getMessage());
                     }

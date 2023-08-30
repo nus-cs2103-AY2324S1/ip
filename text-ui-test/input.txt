@@ -11,6 +11,8 @@ deadline
 deadline lecture quiz /by 9pm
 deadline lecture quiz /by 2023-10-05 23:59
 list
+find
+find sleep
 mark
 mark 1
 mark -2

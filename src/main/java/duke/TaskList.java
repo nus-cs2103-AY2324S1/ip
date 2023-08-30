@@ -3,6 +3,7 @@ package duke;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -68,11 +69,11 @@ public class TaskList {
      *
      * @return the success message
      */
-    public String printRemoveTaskSuccessMessage(int index) {
+    public String printRemoveTaskSuccessMessage(Task task) {
         StringBuilder message = new StringBuilder();
         message.append("Noted. I've removed this task:\n");
         message.append(" ");
-        message.append(this.tasks.get(index).toString());
+        message.append(task.toString());
         message.append("\n");
         message.append("Now you have ");
         message.append(this.tasks.size());
@@ -131,8 +132,9 @@ public class TaskList {
         if (taskNumber > this.tasks.size() || taskNumber <= 0) {
             throw new DukeException(ExceptionTypes.INVALIDTASKNUMBER);
         }
-        this.tasks.remove(taskNumber - 1);
-        System.out.println(printRemoveTaskSuccessMessage(taskNumber - 1));
+        Task task = this.tasks.get(taskNumber - 1);
+        this.tasks.remove(task);
+        System.out.println(printRemoveTaskSuccessMessage(task));
     }
 
     /**
@@ -172,6 +174,26 @@ public class TaskList {
             break;
         default:
             throw new DukeException(ExceptionTypes.INVALIDCOMMAND);
+        }
+    }
+
+    public void findTask(String keyword) {
+        if (this.tasks.isEmpty()) {
+            System.out.println("There are no matching tasks in the list.");
+            return;
+        }
+        int count = 1;
+        for (Task task : this.tasks) {
+            if (task.toString().contains(keyword) || task.getTaskType().contains(keyword)) {
+                if (count == 1) {
+                    System.out.println("Here are the matching task(s) in your list:");
+                }
+                System.out.println(count + ". " + task.toString());
+                count++;
+            }
+        }
+        if (count == 1) {
+            System.out.println("There are no matching tasks in the list.");
         }
     }
 }
