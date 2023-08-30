@@ -10,15 +10,30 @@ import java.util.List;
 import rayshawn.chatbot.exceptions.ChatBotException;
 import rayshawn.chatbot.tasks.TaskList;
 
+/**
+ * Represents the file used to store task list data.
+ */
 public class Storage {
+
     public static final String DEFAULT_STORAGE_FILEPATH = "./data/tasklist.txt";
 
     public final Path path;
 
+    /**
+     * Constructor for Storage with default path.
+     *
+     * @throws InvalidStorageFilePathException if the default path is invalid
+     */
     public Storage() throws InvalidStorageFilePathException {
         this(DEFAULT_STORAGE_FILEPATH);
     }
 
+    /**
+     * Constructor for Storage with default path
+     *
+     * @param filePath filepath to store the task list
+     * @throws InvalidStorageFilePathException if the path specified is invalid
+     */
     public Storage(String filePath) throws InvalidStorageFilePathException {
         path = Paths.get(filePath);
         if (!isValidPath(path)) {
@@ -30,6 +45,12 @@ public class Storage {
         return filePath.toString().endsWith(".txt");
     }
 
+    /**
+     * Saves the task list data to storage file.
+     *
+     * @param tasklist list to be saved
+     * @throws StorageOperationException if there were any errors converting and/or storing data to file.
+     */
     public void save(TaskList tasklist) throws StorageOperationException {
         try {
             List<String> encodedTaskList = TaskListEncoder.encodeTaskList(tasklist);
@@ -39,6 +60,13 @@ public class Storage {
         }
     }
 
+    /**
+     * Loads the task list data from the storage file, and the returns it.
+     * Returns an empty task list if the file does not exist, or is not a regular file.
+     *
+     * @return task list from storage file
+     * @throws StorageOperationException if there were errors reading and/or converting data from file.
+     */
     public TaskList load() throws StorageOperationException {
         if (!Files.exists(path) || !Files.isRegularFile(path)) {
             return new TaskList();
@@ -59,12 +87,19 @@ public class Storage {
         return path.toString();
     }
 
+    /**
+     * Signals that the given file path does not fulfill the storage filepath constraints.
+     */
     public static class InvalidStorageFilePathException extends ChatBotException {
         public InvalidStorageFilePathException(String message) {
             super(message);
         }
     }
 
+    /**
+     * Signals that some error has occurred while trying to convert and read/write data between the application
+     * and the storage file.
+     */
     public static class StorageOperationException extends Exception {
         public StorageOperationException(String message) {
             super(message);

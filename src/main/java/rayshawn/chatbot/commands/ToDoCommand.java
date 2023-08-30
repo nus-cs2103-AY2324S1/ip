@@ -4,6 +4,9 @@ import rayshawn.chatbot.exceptions.ChatBotException;
 import rayshawn.chatbot.tasks.Task;
 import rayshawn.chatbot.tasks.ToDo;
 
+/**
+ * Adds a todo task to the tasklist.
+ */
 public class ToDoCommand extends Command {
     public static final String COMMAND_WORD = "todo";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a ToDo task to the task list. " +
@@ -12,8 +15,14 @@ public class ToDoCommand extends Command {
 
     public Task toAdd;
 
-    public ToDoCommand(String toDo) throws ChatBotException {
-        this.toAdd = new ToDo(toDo);
+    /**
+     * Constructor for ToDoCommand.
+     *
+     * @param description description of the task
+     * @throws ChatBotException if the data is invalid
+     */
+    public ToDoCommand(String description) throws ChatBotException {
+        this.toAdd = new ToDo(description);
     }
 
     @Override

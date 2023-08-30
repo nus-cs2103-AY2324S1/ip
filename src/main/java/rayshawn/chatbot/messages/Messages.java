@@ -1,5 +1,8 @@
 package rayshawn.chatbot.messages;
 
+/**
+ * Container for user visible messages
+ */
 public class Messages {
     public static final String LINE_BREAK = "------------------------------------------------------------";
     public static final String WELCOME_MESSAGE = "Hello! I'm Desolute";

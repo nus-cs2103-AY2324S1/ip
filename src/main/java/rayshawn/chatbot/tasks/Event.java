@@ -4,11 +4,22 @@ import java.time.format.DateTimeFormatter;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
+/**
+ * Represents event task in tasklist.
+ */
 public class Event extends Task {
     private LocalDate date;
     private LocalTime start;
     private LocalTime end;
 
+    /**
+     * Constructor for Event.
+     *
+     * @param task description of task
+     * @param date date of event
+     * @param start start time of event
+     * @param end end time of event
+     */
     public Event(String task, String date, String start, String end) {
         super(task, "E");
         this.date = LocalDate.parse(date);

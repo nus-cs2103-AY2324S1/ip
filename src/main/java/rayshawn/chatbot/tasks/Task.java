@@ -1,10 +1,19 @@
 package rayshawn.chatbot.tasks;
 
+/**
+ * Represents tasks in the task list
+ */
 public class Task {
     private String description;
     private String type;
     private boolean done = false;
 
+    /**
+     * Constructor for Task
+     *
+     * @param description description of task
+     * @param type type of task
+     */
     public Task(String description, String type) {
         this.description = description;
         this.type = type;

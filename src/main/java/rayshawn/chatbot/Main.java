@@ -10,6 +10,10 @@ import rayshawn.chatbot.storage.Storage.StorageOperationException;
 import rayshawn.chatbot.tasks.TaskList;
 import rayshawn.chatbot.ui.Ui;
 
+/**
+ * Entry point of the chatbot application.
+ * Initializes the application and starts the interaction with the user.
+ */
 public class Main {
     private Storage storage;
     private TaskList tasks;
@@ -19,12 +23,22 @@ public class Main {
         new Main().run(args);
     }
 
+    /**
+     * Runs the program until termination.
+     *
+     * @param args user keyed in commands
+     */
     public void run(String[] args) {
         start(args);
         runCommandLoopUntilByeCommand();
         exit();
     }
 
+    /**
+     * Sets up the required objects, loads up the data from the storage file, and prints welcome messages.
+     *
+     * @param args arguments supplied by the user at program launch
+     */
     public void start(String[] args) {
         try {
             this.ui = new Ui();
@@ -37,6 +51,9 @@ public class Main {
         }
     }
 
+    /**
+     * Prints goodbye message and exits.
+     */
     public void exit() {
         ui.showGoodbyeMessage();
         System.exit(0);

@@ -3,6 +3,9 @@ package rayshawn.chatbot.tasks;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Represents the entire task list. Contains the data of the tasklist.
+ */
 public class TaskList {
 
     private final List<Task> list;
