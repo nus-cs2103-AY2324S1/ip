@@ -60,7 +60,7 @@ public class Ui {
                 case "mark":
                     int markIndex = input.processMarkIndex();
                     if(markIndex >= 0) {
-                        taskArray.get(markIndex - 1).unmark();
+                        taskArray.get(markIndex - 1).mark();
                     }else{
                         continue;
                     }
