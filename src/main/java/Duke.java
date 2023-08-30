@@ -1,4 +1,7 @@
 import java.io.*;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Locale;
 import java.util.Scanner;
 import java.util.ArrayList;
 
@@ -99,7 +102,7 @@ class Duke implements Serializable {
         System.out.println("-------------------------------\n"
         + "Here are the tasks in your list:");
         for (int i = 0; i < size; i++) {
-            System.out.println(i + 1 + "." + taskArr.get(i).toString());
+            System.out.println(i + 1 + ". " + taskArr.get(i).toString());
         }
         System.out.println("-------------------------------\n");
     }
@@ -155,23 +158,9 @@ class Duke implements Serializable {
             System.out.println(e.getMessage());
         }
     }
-    /**
-     * Extracts the deadline from the String.
-     * @param arr Array of Strings after using delimiter
-     * @return Final String to be passed in to parse
-     */
-    public static String getDeadline(String[] arr) {
-        String result = null;
-        for (int i = 0; i < arr.length; i++) {
-            if (arr[i].equals("/by")) {
-                result = arr[i + 1];
-            }
-        }
-        System.out.println("deadline (line 172): " + result);
-        return result;
-    }
     public static String getDescription(String[] arr) {
         String result = null;
+
         // can safely ignore the first element as we have already
         // checked for the task type in main logic
         for (int i = 1; i < arr.length; i++) {
@@ -187,19 +176,40 @@ class Duke implements Serializable {
                 }
             }
         }
-        System.out.println("description (line 192): " + result);
+
+        return result;
+    }
+    /**
+     * Extracts the deadline from the String.
+     * @param arr Array of Strings after using delimiter
+     * @return Final String to be passed in to parse
+     */
+    public static String getDeadline(String[] arr) {
+        String input = null;
+
+        for (int i = 0; i < arr.length; i++) {
+            if (arr[i].equals("/by")) {
+                input = arr[i + 1];
+            }
+        }
+
+        String result = LocalDate.parse(input)
+                .format(DateTimeFormatter.ofPattern("MMM d yyyy"));
+
         return result;
     }
     public static String getEventTimeline(String[] arr) {
-        String from = null;
-        String to = null;
+        String fromInput = null;
+        String toInput = null;
         for (int i = 0; i < arr.length; i++) {
             if (arr[i].equals("/from")) {
-                from = arr[i + 1];
-                to = arr[i + 3];
+                fromInput = arr[i + 1];
+                toInput = arr[i + 3];
             }
         }
-        return from + "-" + to;
+        String from = LocalDate.parse(fromInput).format(DateTimeFormatter.ofPattern("MMM d yyyy"));
+        String to = LocalDate.parse(toInput).format(DateTimeFormatter.ofPattern("MMM d yyyy"));
+        return from + " - " + to;
     }
 
     public static void main(String[] args) {
@@ -279,7 +289,8 @@ class Duke implements Serializable {
                             System.out.println("An error occurred in the delete portion.");
                         }
                     }
-                } else {
+                }
+                else {
                     // check for task type first
                     if (type.equals("todo")) {
                         if (arr.length == 1) {
