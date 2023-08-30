@@ -23,6 +23,12 @@ public class Event extends Task {
         this.to = to;
     }
 
+    /**
+     * Checks if an event is happening on specified String date
+     * @param String date
+     * @return boolean whether an event is happening on specified String date
+     * @throws DukeException if invalid date
+     */
     public boolean isToday(String dateStr) throws DukeException {
         try {
             LocalDate date = LocalDate.parse(dateStr);

@@ -17,6 +17,12 @@ public class Parser {
     private static String invalidDate = "Please provide date with the following format: YYYY-MM-DD";
     private static String invalidEndDate = "Your end date is before start date";
 
+    /**
+     * Converts a String date from YYYY-MM-DD to d MMM yyyy format.
+     * @param dateStr String date of YYYY-MM-DD format
+     * @return String date of d MMM yyyy format
+     * @throws DukeException if invalid date
+     */
     public static String convertToDMY(String dateStr) throws DukeException {
         try {
             LocalDate date = LocalDate.parse(dateStr);
@@ -26,12 +32,24 @@ public class Parser {
         }
     }
 
+    /**
+     * Converts any string separated by white spaces to List<String>.
+     * @param s string separated by white spaces
+     * @return List<String> 
+     */
     public static List<String> convertToList(String s) {
         String[] queries = s.trim().split("\\s+");
         List<String> queryList = Arrays.asList(queries);
         return queryList;
     }
 
+    /**
+     * Parses each line of String in data file into Task.
+     * @param s Line of String in data file
+     * @return Task
+     * @throws DukeException if String cannot be parsed due to invalid 
+     * format or invalid date
+     */
     public static Task parseFile(String s) throws DukeException {
         String[] q = s.trim().split(",>");
         try {
@@ -49,6 +67,12 @@ public class Parser {
         throw new DukeException("Error parsing file data");
     }
     
+    /**
+     * Parses user query of deadline into a Deadline instance.
+     * @param queryList User query list
+     * @return Deadline instance
+     * @throws DukeException if no deadline description, invalid format, or invalid date
+     */
     public static Deadline parseUserDeadline(List<String> queryList) throws DukeException {
         if (queryList.size() < 2) {
             throw new DukeException("The description of a deadline cannot be empty.");
@@ -80,6 +104,12 @@ public class Parser {
         }
     }
     
+    /**
+     * Parses user query of event into an Event instance.
+     * @param queryList User query list
+     * @return Event instance
+     * @throws DukeException if no event description, invalid format, or invalid date
+     */
     public static Event parseUserEvent(List<String> queryList) throws DukeException {
         if (queryList.size() < 2) {
             throw new DukeException("The description of a event cannot be empty.");
@@ -124,6 +154,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses user query of todo into an ToDo instance.
+     * @param queryList User query list
+     * @return ToDo instance
+     * @throws DukeException if no todo description
+     */
     public static ToDo parseUserToDo(List<String> queryList) throws DukeException {
         if (queryList.size() < 2) {
             throw new DukeException("The description of a todo cannot be empty.");
@@ -136,6 +172,12 @@ public class Parser {
         return new ToDo(name);
     }
 
+    /**
+     * Parses user query list of Find command.
+     * @param queryList User query list
+     * @return Keyword of what user searches
+     * @throws DukeException if no keywoard given
+     */
     public static String parseUserFind(List<String> queryList) throws DukeException {
         if (queryList.size() < 2) {
             throw new DukeException("What are you trying to find?");
