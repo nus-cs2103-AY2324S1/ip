@@ -47,6 +47,9 @@ public class Storage<T extends Storable<T>> {
                 boolean success = file.createNewFile();
                 if (!success) {
                     System.err.println("An error occurred when creating file: " + file.getAbsolutePath());
+                } else {
+                    System.out.println("No previous data file found. Created a new data file at: " 
+                            + file.getAbsolutePath());
                 }
             }
         } catch (IOException e) {
