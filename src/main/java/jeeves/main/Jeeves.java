@@ -10,6 +10,7 @@ import jeeves.exception.MissingToException;
 import jeeves.exception.DeletedIdException;
 
 import java.io.IOException;
+import java.io.BufferedWriter;
 
 import jeeves.task.Task;
 import jeeves.task.Todo;
@@ -44,7 +45,7 @@ public class Jeeves {
      * array access position, index 0 will always be unused.
      * taskList is effectively 1-indexed
      */
-    private static ArrayList<Task> taskList = new ArrayList<Task>();
+    private static ArrayList<Task> taskList = new ArrayList<>();
 
     /**
      * Main process.
@@ -76,8 +77,6 @@ public class Jeeves {
                 // Do nothing if an error is encountered since the file existence is already checked
             }
         }
-        System.out.println(dataPath.toAbsolutePath());
-        System.out.println(Files.exists(dataPath));
         // Initialization step for task list, adds an empty object so the arraylist is 1-indexed
         taskList.add(null);
 
@@ -134,7 +133,7 @@ public class Jeeves {
                         System.out.println("    " + taskList.get(id).toString() + "\n");
                     }
                 } catch (MissingIdException | NotIntegerIdException | OutOfBoundIdException | DeletedIdException e) {
-                    System.out.println(e);
+                    System.out.println(e.getMessage());
                 }
             } else if (currentCommand.startsWith("unmark ")) {
                 // Gets the task ID that the user wish to unmark
@@ -166,7 +165,7 @@ public class Jeeves {
                         System.out.println("    " + taskList.get(id).toString() + "\n");
                     }
                 } catch (MissingIdException | NotIntegerIdException | OutOfBoundIdException | DeletedIdException e) {
-                    System.out.println(e);
+                    System.out.println(e.getMessage());
                 }
             } else if (currentCommand.startsWith("todo ")) {
                 // Checks if the user provided a description
@@ -184,7 +183,7 @@ public class Jeeves {
                             "    " + newTodo + "\n");
                     
                 } catch (MissingDescriptionException e) {
-                    System.out.println(e);
+                    System.out.println(e.getMessage());
                 }
             } else if (currentCommand.startsWith("deadline ")) {
                 // Checks if the user provided a proper description and "by" date/time.
@@ -209,7 +208,7 @@ public class Jeeves {
                             "    " + newDeadline + "\n");
                         
                 } catch (MissingDescriptionException | MissingByException e) {
-                    System.out.println(e);
+                    System.out.println(e.getMessage());
                 }
             } else if (currentCommand.startsWith("event ")) {
                 // Checks if the user provided a description
@@ -258,7 +257,7 @@ public class Jeeves {
                     System.out.println("Event added:\n" +
                             "    " + newEvent + "\n");
                 } catch (MissingDescriptionException | MissingFromException | MissingToException e) {
-                    System.out.println(e);
+                    System.out.println(e.getMessage());
                 }
             } else if (currentCommand.startsWith("delete ")) {
                 // Gets the task ID that the user wish to delete
@@ -290,9 +289,60 @@ public class Jeeves {
                         taskList.set(id, null);
                     }
                 } catch (MissingIdException | NotIntegerIdException | OutOfBoundIdException | DeletedIdException e) {
-                    System.out.println(e);
+                    System.out.println(e.getMessage());
                 }
             } else if (currentCommand.equals("bye")) {
+                // Before the actual termination of the program, writes the current task list to the external file.
+                // Starts by creating the text to write to the output file
+                StringBuilder sb = new StringBuilder();
+                for (Task currTask : taskList) {
+                    // If the task is already deleted from the list, (represented as null object)
+                    // don't write it to the file
+                    if (currTask != null) {
+                        // Determines what type of Task is being handled currently for printing purposes
+                        if (currTask instanceof Todo) {
+                            sb.append("T |");
+                        } else if (currTask instanceof Deadline) {
+                            sb.append("D |");
+                        } else {
+                            sb.append("E |");
+                        }
+                        
+                        // Writes the status of the task
+                        if (currTask.isDone()) {
+                            sb.append(" 1 | ");
+                        } else {
+                            sb.append(" 0 | ");
+                        }
+                        
+                        // Writes the description and other tracked data.
+                        if (currTask instanceof Todo) {
+                            sb.append(currTask.getDesc())
+                                    .append("\n");
+                        } else if (currTask instanceof Deadline) {
+                            sb.append(currTask.getDesc())
+                                    .append(" | ")
+                                    .append(((Deadline) currTask).getDeadline())
+                                    .append("\n");
+                        } else {
+                            sb.append(currTask.getDesc())
+                                    .append(" | ")
+                                    .append(((Event) currTask).getStartTime())
+                                    .append(" | ")
+                                    .append(((Event) currTask).getEndTime())
+                                    .append("\n");
+                        }
+                    }
+                }
+                // Writes the text to the output file
+                try {
+                    BufferedWriter bw = Files.newBufferedWriter(dataPath);
+                    bw.write(sb.toString());
+                    bw.flush();
+                    bw.close();
+                } catch(IOException ex){
+                    System.out.println(ex.getMessage());
+                }
                 // Displays the farewell message and terminates the application
                 System.out.println("I bid you farewell, Master");
                 System.exit(0);

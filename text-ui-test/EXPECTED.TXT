@@ -39,56 +39,56 @@ This is what I am tracking for you Master
 2. [D][ ] return stuff (by: Monday)
 3. [E][ ] project meeting (from: Tue 2pm to: 4pm)
 
-jeeves.exception.MissingIdException: I cannot do that as you have not provided me with a Task ID
+I cannot do that as you have not provided me with a Task ID
 
-jeeves.exception.NotIntegerIdException: I cannot do that as that is not a valid Task ID (ID provided is not an integer)
+I cannot do that as that is not a valid Task ID (ID provided is not an integer)
 
-jeeves.exception.OutOfBoundIdException: I cannot do that as that is not a valid Task ID (ID provided does not exist)
+I cannot do that as that is not a valid Task ID (ID provided does not exist)
 
-jeeves.exception.MissingIdException: I cannot do that as you have not provided me with a Task ID
+I cannot do that as you have not provided me with a Task ID
 
-jeeves.exception.NotIntegerIdException: I cannot do that as that is not a valid Task ID (ID provided is not an integer)
+I cannot do that as that is not a valid Task ID (ID provided is not an integer)
 
-jeeves.exception.OutOfBoundIdException: I cannot do that as that is not a valid Task ID (ID provided does not exist)
+I cannot do that as that is not a valid Task ID (ID provided does not exist)
 
-jeeves.exception.MissingDescriptionException: The description of a todo cannot be empty
+The description of a todo cannot be empty
 
-jeeves.exception.MissingByException: I cannot do that as the deadline has not been provided.
+I cannot do that as the deadline has not been provided.
 Please add ' /by <Time/Date>' after the task description
 
-jeeves.exception.MissingDescriptionException: The description of a deadline cannot be empty
+The description of a deadline cannot be empty
 
-jeeves.exception.MissingByException: I cannot do that as the deadline has not been provided.
+I cannot do that as the deadline has not been provided.
 Please add ' /by <Time/Date>' after the task description
 
-jeeves.exception.MissingFromException: I cannot do that as the start time has not been provided.
+I cannot do that as the start time has not been provided.
 Please add ' /from <Time/Date>' after the task description
 
-jeeves.exception.MissingToException: I cannot do that as the end time has not been provided.
+I cannot do that as the end time has not been provided.
 Please add ' /to <Time/Date>' after the task end date (after /from block)
 
-jeeves.exception.MissingDescriptionException: The description of a event cannot be empty
+The description of a event cannot be empty
 
-jeeves.exception.MissingFromException: I cannot do that as the start time has not been provided.
+I cannot do that as the start time has not been provided.
 Please add ' /from <Time/Date>' after the task description
 
-jeeves.exception.MissingToException: I cannot do that as the end time has not been provided.
+I cannot do that as the end time has not been provided.
 Please add ' /to <Time/Date>' after the task end date (after /from block)
 
-jeeves.exception.MissingIdException: I cannot do that as you have not provided me with a Task ID
+I cannot do that as you have not provided me with a Task ID
 
-jeeves.exception.NotIntegerIdException: I cannot do that as that is not a valid Task ID (ID provided is not an integer)
+I cannot do that as that is not a valid Task ID (ID provided is not an integer)
 
-jeeves.exception.OutOfBoundIdException: I cannot do that as that is not a valid Task ID (ID provided does not exist)
+I cannot do that as that is not a valid Task ID (ID provided does not exist)
 
 Understood, I have deleted the following task:
     1. [T][X] something
 
-jeeves.exception.DeletedIdException: I cannot do that as that is not a valid Task ID (ID provided belongs to a deleted task)
+I cannot do that as that is not a valid Task ID (ID provided belongs to a deleted task)
 
-jeeves.exception.DeletedIdException: I cannot do that as that is not a valid Task ID (ID provided belongs to a deleted task)
+I cannot do that as that is not a valid Task ID (ID provided belongs to a deleted task)
 
-jeeves.exception.DeletedIdException: I cannot do that as that is not a valid Task ID (ID provided belongs to a deleted task)
+I cannot do that as that is not a valid Task ID (ID provided belongs to a deleted task)
 
 This is what I am tracking for you Master
 2. [D][ ] return stuff (by: Monday)

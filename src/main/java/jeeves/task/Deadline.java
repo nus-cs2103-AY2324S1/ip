@@ -9,6 +9,15 @@ public class Deadline extends Task {
         this.by = by;
     }
 
+    /**
+     * Getter method for the Task deadline
+     *
+     * @return Deadline of the task
+     */
+    public String getDeadline() {
+        return by;
+    }
+
     @Override
     public String toString() {
         return String.format(this.id + ". [D]" + super.toString() + " (by: " + by + ")");

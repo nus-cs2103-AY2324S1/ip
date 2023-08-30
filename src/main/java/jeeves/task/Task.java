@@ -44,6 +44,16 @@ public class Task {
         return desc;
     }
 
+
+    /**
+     * Getter method for the Task status.
+     *
+     * @return Status of the task
+     */
+    public boolean isDone() {
+        return isDone;
+    }
+
     /**
      * Setter method for the Task status
      *
