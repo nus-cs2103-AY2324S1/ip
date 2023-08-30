@@ -3,7 +3,10 @@ package puke;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.*;
+
+import java.util.ArrayList;
+import java.util.Scanner;
+
 import java.time.LocalDateTime;
 
 public class Puke {
@@ -299,11 +302,11 @@ class TaskList {
 
 abstract class Command {
     private final boolean exit;
-    protected boolean valid;
+    protected boolean isValid;
 
     Command(boolean exit, boolean valid) {
         this.exit = exit;
-        this.valid = valid;
+        this.isValid = valid;
     }
     abstract void execute(TaskList tl, Ui ui);
 
@@ -319,9 +322,9 @@ class ExitCommand extends Command {
         super(rest.isEmpty(), rest.isEmpty());
     }
     void execute(TaskList tl, Ui ui) {
-        if (!super.valid) {
-            System.out.println(Ui.errorMessage);
-            System.out.println(Ui.separator);
+        if (!super.isValid) {
+            System.out.println(Ui.ERROR_MESSAGE);
+            System.out.println(Ui.SEPARATOR);
         } else {
             System.out.println(ui.exit());
         }
@@ -339,13 +342,13 @@ class ListCommand extends Command {
         super(false, rest.isEmpty());
     }
     void execute(TaskList tl, Ui ui) {
-        if (!super.valid) {
-            System.out.println(Ui.errorMessage);
-            System.out.println(Ui.separator);
+        if (!super.isValid) {
+            System.out.println(Ui.ERROR_MESSAGE);
+            System.out.println(Ui.SEPARATOR);
         } else {
             System.out.println(ui.list());
             System.out.println(tl.printOut());
-            System.out.println(Ui.separator);
+            System.out.println(Ui.SEPARATOR);
         }
     }
     @Override
@@ -366,11 +369,11 @@ class MarkCommand extends Command {
         try {
             tl.mark(this.index);
             System.out.println(ui.mark(this.index));
-            System.out.println(Ui.separator);
+            System.out.println(Ui.SEPARATOR);
             DataHandler.writeToDatabase(tl);
         } catch (Exception PukeException) {
-            System.out.println(Ui.errorMessage);
-            System.out.println(Ui.separator);
+            System.out.println(Ui.ERROR_MESSAGE);
+            System.out.println(Ui.SEPARATOR);
         }
     }
 
@@ -401,11 +404,11 @@ class UnmarkCommand extends Command {
         try {
             tl.unmark(this.index);
             System.out.println(ui.unmark(this.index));
-            System.out.println(Ui.separator);
+            System.out.println(Ui.SEPARATOR);
             DataHandler.writeToDatabase(tl);
         } catch (Exception e) {
-            System.out.println(Ui.errorMessage);
-            System.out.println(Ui.separator);
+            System.out.println(Ui.ERROR_MESSAGE);
+            System.out.println(Ui.SEPARATOR);
         }
     }
 
@@ -432,11 +435,11 @@ class TodoCommand extends Command {
         try {
             tl.add(new ToDo(this.desc));
             System.out.println(ui.toDo(tl));
-            System.out.println(Ui.separator);
+            System.out.println(Ui.SEPARATOR);
             DataHandler.writeToDatabase(tl);
         } catch (Exception PukeException) {
-            System.out.println(Ui.errorMessage);
-            System.out.println(Ui.separator);
+            System.out.println(Ui.ERROR_MESSAGE);
+            System.out.println(Ui.SEPARATOR);
         }
     }
 
@@ -467,11 +470,11 @@ class DeadlineCommand extends Command {
         try {
             tl.add(new Deadline(this.rest));
             System.out.println(ui.deadline(tl));
-            System.out.println(Ui.separator);
+            System.out.println(Ui.SEPARATOR);
             DataHandler.writeToDatabase(tl);
         } catch (Exception PukeException) {
-            System.out.println(Ui.errorMessage);
-            System.out.println(Ui.separator);
+            System.out.println(Ui.ERROR_MESSAGE);
+            System.out.println(Ui.SEPARATOR);
         }
     }
 
@@ -502,11 +505,11 @@ class EventCommand extends Command {
         try {
             tl.add(new Event(this.rest));
             System.out.println(ui.event(tl));
-            System.out.println(Ui.separator);
+            System.out.println(Ui.SEPARATOR);
             DataHandler.writeToDatabase(tl);
         } catch (Exception PukeException) {
-            System.out.println(Ui.errorMessage);
-            System.out.println(Ui.separator);
+            System.out.println(Ui.ERROR_MESSAGE);
+            System.out.println(Ui.SEPARATOR);
         }
     }
 
@@ -537,11 +540,11 @@ class DeleteCommand extends Command {
         try {
             Task hold = tl.delete(this.index);
             System.out.println(ui.delete(hold, tl));
-            System.out.println(Ui.separator);
+            System.out.println(Ui.SEPARATOR);
             DataHandler.writeToDatabase(tl);
         } catch (Exception PukeException) {
-            System.out.println(Ui.errorMessage);
-            System.out.println(Ui.separator);
+            System.out.println(Ui.ERROR_MESSAGE);
+            System.out.println(Ui.SEPARATOR);
         }
     }
 
@@ -562,19 +565,19 @@ class ClearCommand extends Command {
     }
 
     void execute(TaskList tl, Ui ui) {
-        if (!super.valid) {
-            System.out.println(Ui.errorMessage);
-            System.out.println(Ui.separator);
+        if (!super.isValid) {
+            System.out.println(Ui.ERROR_MESSAGE);
+            System.out.println(Ui.SEPARATOR);
         } else {
             try {
                 tl.clear();
                 DataHandler.clearAll();
                 System.out.println(ui.clear());
-                System.out.println(Ui.separator);
+                System.out.println(Ui.SEPARATOR);
             } catch (Exception e) {
                 tl.clear();
                 System.out.println(ui.clear());
-                System.out.println(Ui.separator);
+                System.out.println(Ui.SEPARATOR);
             }
         }
     }
@@ -591,8 +594,8 @@ class ErrorCommand extends Command {
     }
 
     void execute(TaskList tl, Ui ui) {
-        System.out.println(Ui.errorMessage);
-        System.out.println(Ui.separator);
+        System.out.println(Ui.ERROR_MESSAGE);
+        System.out.println(Ui.SEPARATOR);
     }
 
     @Override
@@ -633,8 +636,8 @@ class Parser {
 }
 
 class Ui {
-    public static String errorMessage = "Unfortunately, the circumstances preceding this has necessitated that I issue and apology for the input that I have received is unrecognised.";
-    public static String separator = "____________________________________________________________";
+    public static String ERROR_MESSAGE = "Unfortunately, the circumstances preceding this has necessitated that I issue and apology for the input that I have received is unrecognised.";
+    public static String SEPARATOR = "____________________________________________________________";
     private Scanner sc;
 
     Ui() {
@@ -650,7 +653,7 @@ class Ui {
     }
 
     void line() {
-        System.out.println(Ui.separator);
+        System.out.println(Ui.SEPARATOR);
     }
 
     void startup() {
@@ -662,7 +665,7 @@ class Ui {
                 + "|_|";
         System.out.println("Salutations! I hereby would like to inform you that my identity is that of\n" + logo +
                 "\nAn exceedingly verbose conversation simulation program.");
-        System.out.println(separator);
+        System.out.println(SEPARATOR);
     }
 
     String exit() {
