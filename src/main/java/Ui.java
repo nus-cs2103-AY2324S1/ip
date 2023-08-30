@@ -18,9 +18,7 @@ public class Ui {
     }
 
     public void showError(String msg) {
-        this.showLine();
         System.out.println(msg);
-        this.showLine();
     }
 
 }
