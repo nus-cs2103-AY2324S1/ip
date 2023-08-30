@@ -1,19 +1,26 @@
-public class Deadline extends Task{
-    private String dueDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
-    public Deadline (String text, String dueDate){
+public class Deadline extends Task{
+    private LocalDateTime dueDate;
+
+    public Deadline (String text, LocalDateTime dueDate){
         super(text);
         super.setType("D");
         this.dueDate = dueDate;
     }
-    public Deadline (String text, String dueDate,boolean checked){
+    public Deadline (String text, LocalDateTime dueDate,boolean checked){
         super(text,checked);
         super.setType("D");
         this.dueDate = dueDate;
     }
     @Override
     public String getTypeCheckedText(){
-        String result = getType() + getChecked() + " " + getText() + " (by: " + dueDate+")";
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy");
+        String formattedDateTime = dueDate.format(formatter);
+
+
+        String result = getType() + getChecked() + " " + getText() + " (by: " + formattedDateTime+")";
         return result;
     }
     @Override

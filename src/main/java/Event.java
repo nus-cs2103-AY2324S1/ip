@@ -1,8 +1,11 @@
-public class Event extends Task{
-    private String startDate;
-    private String endDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
-    public Event(String text, String startDate, String endDate){
+public class Event extends Task{
+    private LocalDateTime startDate;
+    private LocalDateTime endDate;
+
+    public Event(String text, LocalDateTime startDate, LocalDateTime endDate){
         super(text);
         super.getText();
         super.setType("E");
@@ -11,7 +14,11 @@ public class Event extends Task{
     }
     @Override
     public String getTypeCheckedText(){
-        String result = getType() + getChecked() + " " + getText() + " s(from: " + startDate + " to: "+endDate+")";
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy");
+        String formattedStartDateTime = startDate.format(formatter);
+        String formattedEndDateTime = endDate.format(formatter);
+
+        String result = getType() + getChecked() + " " + getText() + " (from: " + formattedStartDateTime + " to: "+formattedEndDateTime+")";
         return result;
     }
 

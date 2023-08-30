@@ -1,5 +1,7 @@
 import java.io.*;
 import java.lang.reflect.Array;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
@@ -22,6 +24,7 @@ public class Duke {
         String filePath = "./data/data.txt"; // Relative or absolute path to the file
 
         TaskArray taskArrayList = retrieveData(folderPath,filePath);
+        System.out.println("Note that all input date format will only accepted in format : \n 02/12/2019 1800 dd/MM/yyyy HHmm");
         System.out.println(horiLine);
 
         Scanner scanner = new Scanner(System.in);
@@ -88,19 +91,7 @@ public class Duke {
                     continue;
                 }
 
-                String dueDate = "";
-                String extractedTask = String.join(" ", Arrays.copyOfRange(inputArray, 1, inputArray.length));
-
-                for(int i = 0; i < inputArray.length; i++){
-                    if(inputArray[i].equals("/by")){
-                        dueDate = String.join(" ", Arrays.copyOfRange(inputArray, i+1, inputArray.length));
-                        extractedTask = String.join(" ", Arrays.copyOfRange(inputArray, 1, i));
-
-                        break;
-                    }
-                }
-
-                Task newTask = new Deadline(extractedTask,dueDate);
+                Task newTask = createDeadline(inputArray);
                 taskArrayList.add(newTask);
 
             }else if(firstInput.equals("event")) {
@@ -108,6 +99,7 @@ public class Duke {
                     System.out.println(horiLine);
                     System.out.println("☹ OOPS!!! The description of a event cannot be empty.");
                     System.out.println(horiLine);
+
                     input = scanner.nextLine();
                     inputArray= input.split(" ");
                     firstInput = inputArray[0];
@@ -115,24 +107,7 @@ public class Duke {
                     continue;
                 }
 
-                Integer startIndex = -1;
-                Integer endIndex = -1;
-                String extractedTask = String.join(" ", Arrays.copyOfRange(inputArray, 1, inputArray.length));
-
-                String endDate ="";
-                String startDate = "";
-                for(int i = 0; i < inputArray.length; i++){
-                    if(inputArray[i].equals("/from") && startIndex == -1){
-                        startIndex = i;
-                        extractedTask = String.join(" ", Arrays.copyOfRange(inputArray, 1, i ));
-                    }else if(inputArray[i].equals("/to") && startIndex != -1){
-                        endDate = String.join(" ", Arrays.copyOfRange(inputArray, i+1, inputArray.length));
-                        startDate = String.join(" ", Arrays.copyOfRange(inputArray, startIndex + 1, i));
-
-                    }
-                }
-
-                Task newTask = new Event(extractedTask,startDate,endDate);
+                Task newTask = createEvent(inputArray);
                 taskArrayList.add(newTask);
 
             }else{
@@ -257,14 +232,14 @@ public class Duke {
                     break;
 
                 case "E":
-                    String startDate = parts[3];
-                    String endDate = parts[4];
+                    LocalDateTime startDate = LocalDateTime.parse(parts[3]);
+                    LocalDateTime endDate = LocalDateTime.parse(parts[4]);
                     newTask = new Event(text,startDate,endDate);
                     arrayTask.add(newTask);
                     break;
 
                 case "D":
-                    String dueDate = parts[3];
+                    LocalDateTime dueDate = LocalDateTime.parse(parts[3]);
                     newTask = new Deadline(text,dueDate,checked);
                     arrayTask.add(newTask);
                     break;
@@ -299,4 +274,57 @@ public class Duke {
             e.printStackTrace();
         }
     }
+
+
+    public static LocalDateTime convertDateTime(String input){
+        //Using format given by textbook dd-mm-yyyy HHmm example :"02/12/2019 1800"
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
+        LocalDateTime dateTime = LocalDateTime.parse(input, formatter);
+
+        return dateTime;
+
+    }
+
+    public static Task createEvent(String[] inputArray){
+
+        Integer startIndex = -1;
+        Integer endIndex = -1;
+        String extractedTask = String.join(" ", Arrays.copyOfRange(inputArray, 1, inputArray.length));
+
+        String endDate ="";
+        String startDate = "";
+        for(int i = 0; i < inputArray.length; i++){
+            if(inputArray[i].equals("/from") && startIndex == -1){
+                startIndex = i;
+                extractedTask = String.join(" ", Arrays.copyOfRange(inputArray, 1, i ));
+            }else if(inputArray[i].equals("/to") && startIndex != -1){
+                endDate = String.join(" ", Arrays.copyOfRange(inputArray, i+1, inputArray.length));
+                startDate = String.join(" ", Arrays.copyOfRange(inputArray, startIndex + 1, i));
+
+            }
+        }
+
+        Task newTask = new Event(extractedTask,convertDateTime(startDate),convertDateTime(endDate));
+        return newTask;
+    }
+
+
+    public static Task createDeadline(String[] inputArray){
+        String dueDate = "";
+        String extractedTask = String.join(" ", Arrays.copyOfRange(inputArray, 1, inputArray.length));
+
+                    for(int i = 0; i < inputArray.length; i++){
+            if(inputArray[i].equals("/by")){
+                dueDate = String.join(" ", Arrays.copyOfRange(inputArray, i+1, inputArray.length));
+                extractedTask = String.join(" ", Arrays.copyOfRange(inputArray, 1, i));
+
+                break;
+            }
+        }
+
+        Task newTask = new Deadline(extractedTask,convertDateTime(dueDate));
+        return newTask;
+    }
+
+
 }
