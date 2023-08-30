@@ -4,6 +4,7 @@ package ducky.task;
  * Represents a task with a start time and end time.
  */
 public class EventTask extends Task {
+
     private final String startTime;
     private final String endTime;
 
