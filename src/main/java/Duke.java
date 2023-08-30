@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Locale;
 import java.util.Scanner;
 
 public class Duke {
@@ -68,7 +69,7 @@ public class Duke {
         return parts;
     }
 
-    public static void greeting() {
+    public static void greeting() throws Exception {
         System.out.println("Hello.. I'm ekuD..");
         System.out.println("I probably won't be much of a help.. But ask me something..");
         System.out.println("--------------------------------");
@@ -108,15 +109,16 @@ public class Duke {
                     throw new DukeUnknownCommandException();
                 }
             }
-            catch (DukeException e) {
+            catch (Exception e) {
                 System.out.println(e.getMessage());
-            }
+            }s
             input = splitBy(input(sc), " ");
         }
         System.out.println("    bye...");
         sc.close();
     }
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
+        Locale.setDefault(Locale.ENGLISH);
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
                 + "| | | | | | | |/ / _ \\\n"
