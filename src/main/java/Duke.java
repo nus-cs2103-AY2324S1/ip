@@ -132,7 +132,9 @@ public class Duke {
     }
 
     public void loadFile(){
-        savedList = new File("src/main/java/data/duke.txt");
+        savedList = new File("/Users/daniel/Desktop/CS2103T/iP/src/main/java/data/duke.txt");
+//        String userDirectory = new File("").getAbsolutePath();
+//        System.out.println(userDirectory);
         try {
             savedList.createNewFile();
         } catch (IOException e) {
@@ -152,8 +154,10 @@ public class Duke {
     }
 
     public void writeFile() throws IOException {
-        new FileWriter("src/main/java/data/duke.txt", false).close();
-        FileWriter fw = new FileWriter("src/main/java/data/duke.txt", true);
+        new FileWriter("/Users/daniel/Desktop/CS2103T/iP/src/main/java/data/duke.txt", false)
+                .close();
+        FileWriter fw = new FileWriter("/Users/daniel/Desktop/CS2103T/iP/src/main/java/data/duke.txt",
+                true);
         for (int i = 0; i < Task.numberOfTasks; i++) {
             String data = taskList.get(i).writeToFile();
             fw.write(data);
