@@ -1,3 +1,4 @@
+package tasks;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -5,7 +6,7 @@ import java.util.List;
 public class TaskList implements Serializable{
     ArrayList<Task> items;
 
-    TaskList() {
+    public TaskList() {
         this.items = new ArrayList<>();
     }
 

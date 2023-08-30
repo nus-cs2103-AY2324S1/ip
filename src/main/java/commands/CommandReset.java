@@ -1,5 +1,10 @@
+package commands;
+
+import client.Rock;
+import io.Parser;
+
 public class CommandReset extends Command{
-    CommandReset(Rock client) {
+    public CommandReset(Rock client) {
         super(client);
     }
     @Override

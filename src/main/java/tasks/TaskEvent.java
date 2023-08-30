@@ -1,3 +1,4 @@
+package tasks;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
@@ -16,7 +17,7 @@ public class TaskEvent extends Task{
      * @param startTime Start time of task
      * @param endTime End time of task
      */
-    TaskEvent(String taskName, String startTime, String endTime) throws IllegalArgumentException {
+    public TaskEvent(String taskName, String startTime, String endTime) throws IllegalArgumentException {
         super(taskName);
         super.oneLetterAbbrev = "E";
         try {

@@ -1,5 +1,9 @@
+package commands;
+
 import java.util.Dictionary;
 import java.util.Hashtable;
+
+import client.Rock;
 
 public class Commands {
     Dictionary<String, Command> commandList;

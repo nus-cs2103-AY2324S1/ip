@@ -1,3 +1,4 @@
+package io;
 import java.util.Scanner;
 
 public class Ui {

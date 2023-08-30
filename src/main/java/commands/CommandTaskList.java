@@ -1,3 +1,8 @@
+package commands;
+
+import client.Rock;
+import io.Parser;
+
 /**
  * Representation of a command
  * to list all tasks in list.
@@ -5,7 +10,7 @@
  * @author Alvis Ng (supermii2)
  */
 public class CommandTaskList extends Command {
-    CommandTaskList(Rock client) {
+    public CommandTaskList(Rock client) {
         super(client);
     }
     @Override

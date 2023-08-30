@@ -1,5 +1,6 @@
+package client;
 public class RockException extends Exception {
-    RockException(String message) {
+    public RockException(String message) {
         super(message);
     }
 }

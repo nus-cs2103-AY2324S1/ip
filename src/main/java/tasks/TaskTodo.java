@@ -1,3 +1,4 @@
+package tasks;
 import java.time.LocalDate;
 
 /**
@@ -15,7 +16,7 @@ public class TaskTodo extends Task {
      * Creates a todo task.
      * @param taskName Name of task
      */
-    TaskTodo(String taskName) {
+    public TaskTodo(String taskName) {
         super(taskName);
         super.oneLetterAbbrev = "T";
     }

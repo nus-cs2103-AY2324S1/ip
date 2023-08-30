@@ -1,3 +1,4 @@
+package tasks;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
@@ -15,7 +16,7 @@ public class TaskDeadline extends Task {
      * @param taskName Name of task
      * @param deadlineTime Deadline
      */
-    TaskDeadline(String taskName, String deadlineTime) throws IllegalArgumentException {
+    public TaskDeadline(String taskName, String deadlineTime) throws IllegalArgumentException {
         super(taskName);
         super.oneLetterAbbrev = "D";
         try {
