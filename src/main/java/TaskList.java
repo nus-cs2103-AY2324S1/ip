@@ -16,11 +16,11 @@ import java.time.LocalDate;
  * Tasks can be of different types: ToDo, Deadline, and Event.
  */
 public class TaskList {
+
     private ArrayList<Task> taskList;
 
     public TaskList() {
-        this.taskList = new ArrayList<>();
-        loadTasksFromFile();
+        this.taskList = Storage.loadTasksFromFile();
     }
 
     /**
@@ -32,10 +32,9 @@ public class TaskList {
      * @param input The input containing task details and information.
      * @throws CCException If there is an error in parsing the input or adding the task.
      */
-    public void addTask(String type, String input) throws CCException {
-        Task task = parseInput(type, input);
+    public void addTask(Task task) throws CCException {
         taskList.add(task);
-        saveTaskToFile(task);
+        Storage.saveTaskToFile(task);
         System.out.println(ChatterChicken.LINE
                 + ChatterChicken.INDENT + "Got it. I've added this task:\n"
                 + ChatterChicken.INDENT_BIG + task.getTask() + "\n"
@@ -43,99 +42,6 @@ public class TaskList {
                 + ChatterChicken.LINE);
     }
 
-    private Task parseInput (String type, String input) throws CCException {
-        Task task = null;
-        switch (type) {
-            case "todo":
-                task = parseToDo(input);
-                break;
-            case "deadline":
-                task = parseDeadline(input);
-                break;
-            case "event":
-                task = parseEvent(input);
-                break;
-        }
-        return task;
-    }
-
-    /**
-     * Parses the input string to create a new ToDo task.
-     * The method extracts the task description from the input and creates a new ToDo task.
-     *
-     * @param input The input string containing the todo description.
-     *              The input should be in the format "todo todo_description"
-     * @return A new ToDo task object created from the provided input.
-     * @throws CCException If the input string is empty or if there is an error in task creation.
-     */
-    private ToDo parseToDo (String input) throws CCException {
-        if (input.equals("todo")) {
-            throw new CCException("OOPS!!! The description of a todo cannot be empty.");
-        }
-        return new ToDo(input, input.substring("todo".length()).trim());
-    }
-
-    /**
-     * Parses the input string to create a new Deadline task.
-     * The method splits the input into fields, checks for the correct format, and extracts the task name
-     * and deadline information to create a new Deadline task.
-     *
-     * @param input The input string containing the deadline description and end time.
-     *              The input should be in the format "deadline deadline_description /by end_time"
-     * @return A new Deadline task object created from the provided input.
-     * @throws CCException If the input format is incorrect or if there are empty fields.
-     */
-    private Deadline parseDeadline(String input) throws CCException {
-        String[] fields = input.split("/");
-        if (fields.length != 2) {
-            throw new CCException("OOPS!!! Incorrect format for deadline.");
-        }
-        if (!fields[0].startsWith("deadline ") || !fields[1].startsWith("by ")) {
-            throw new CCException("OOPS!!! Incorrect format for deadline.");
-        }
-        String name = fields[0].substring("deadline".length()).trim();
-        String end = fields[1].substring("by".length()).trim();
-        if (name.isEmpty() || end.isEmpty()) {
-            throw new CCException("OOPS!!! Empty field for deadline detected.");
-        }
-        return new Deadline(input, name, parseDate(end));
-    }
-
-    /**
-     * Parses the input string to create a new Event task.
-     * The method splits the input into fields, checks for the correct format, and extracts the task name,
-     * start time, and end time information to create  a new Event task.
-     *
-     * @param input The input string containing the event description and start and end timings.
-     *              The input should be in the format "event event_description /from start_time /to end_time
-     * @return A new Event task object created from the provided input.
-     * @throws CCException If the input format is incorrect or if there are empty fields.
-     */
-    private Event parseEvent(String input) throws CCException{
-        String[] fields = input.split("/");
-        if (fields.length != 3) {
-            throw new CCException("OOPS!!! Incorrect format for event.");
-        }
-        if (!fields[0].startsWith("event ") || !fields[1].startsWith("from ") || !fields[2].startsWith("to ")) {
-            throw new CCException("OOPS!!! Incorrect format for event.");
-        }
-        String name = fields[0].substring("event".length()).trim();
-        String start = fields[1].substring("from".length()).trim();
-        String end = fields[2].substring("to".length()).trim();
-        if (name.isEmpty() || start.isEmpty() || end.isEmpty()) {
-            throw new CCException("OOPS!!! Empty field for event detected.");
-        }
-        return new Event(input, name, parseDate(start), parseDate(end));
-    }
-
-    private LocalDate parseDate(String date) {
-        try {
-            return LocalDate.parse(date);
-        } catch (DateTimeParseException e) {
-            System.out.println("Error parsing date: " + e.getMessage());
-        }
-        return null;
-    }
 
     /**
      * Marks a task as done based on the provided input.
@@ -224,51 +130,5 @@ public class TaskList {
             System.out.println(ChatterChicken.INDENT_BIG + (i + 1) + "." + taskList.get(i).getTask());
         }
         System.out.println(ChatterChicken.LINE);
-    }
-
-    /**
-     * Loads tasks from the data file and populates the task list with them.
-     * If the data file doesn't exist, a new file is created.
-     * Any errors during loading or task addition are caught and handled.
-     */
-    private void loadTasksFromFile() {
-        try {
-            File dataFile = Paths.get(ChatterChicken.PATH).toAbsolutePath().toFile();
-            if (!dataFile.exists()) {
-                dataFile.createNewFile(); //TODO: HANDLE ERROR
-            } else {
-                BufferedReader reader = new BufferedReader(new FileReader(dataFile));
-                String currLine = reader.readLine();
-                ArrayList<Task> list = new ArrayList<>();
-                while (currLine != null) {
-                    String taskType = currLine.substring(0, currLine.indexOf(' '));
-                    Task task = parseInput(taskType, currLine);
-                    list.add(task);
-                    currLine = reader.readLine();
-                }
-                reader.close();
-                this.taskList = list;
-            }
-        } catch (IOException e) {
-            System.err.println("An error occurred while loading tasks from file: " + e.getMessage());
-        } catch (CCException e) {
-            System.err.println("An error occurred while adding tasks: " + e.getMessage());
-        }
-    }
-
-    /**
-     * Saves the provided task to the data file in its original user input format.
-     *
-     * @param task The task to be saved to the data file.
-     */
-    private void saveTaskToFile(Task task) {
-        try {
-            File dataFile = Paths.get(ChatterChicken.PATH).toAbsolutePath().toFile();
-            BufferedWriter writer = new BufferedWriter(new FileWriter(dataFile, true));
-            writer.append(task.getTaskInput() + "\n");
-            writer.close();
-        } catch (IOException e) {
-            System.err.println("An error occurred while saving tasks to file: " + e.getMessage());
-        }
     }
 }

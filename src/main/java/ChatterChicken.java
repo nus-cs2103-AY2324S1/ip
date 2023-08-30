@@ -59,7 +59,7 @@ public class ChatterChicken {
             case "todo":
             case "deadline":
             case "event":
-                tasks.addTask(action, input);
+                tasks.addTask(Parser.parseInput(action, input));
                 break;
             default:
                 throw new CCException("OOPS!!! I'm sorry, but I don't know what that means :<");
