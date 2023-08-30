@@ -1,3 +1,5 @@
+package duke.tasks;
+
 /**
  * Encapsulates a task. All tasks have a description and status (marked or unmarked).
  */

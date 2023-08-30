@@ -1,3 +1,5 @@
+package duke;
+
 /**
  * Encapsulates some exceptions that are specific to adding tasks on the Duke bot.
  */
