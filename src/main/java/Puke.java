@@ -159,6 +159,14 @@ class Task {
         this.done = false;
     }
 
+    public String write() {
+        int checked = 0;
+        if (this.done) {
+            checked = 1;
+        }
+        return String.format("%s|%d|%s", this.tag, checked , this.description);
+    }
+
     @Override
     public String toString() {
         String status = "[ ]";
@@ -179,7 +187,7 @@ class ToDo extends Task {
 
 class Deadline extends Task {
     private final static String tag = "[D]";
-    private String date;
+    private final String date;
 
     public Deadline(String[] all) throws PukeException {
         super(tag, all[0]);
@@ -189,6 +197,18 @@ class Deadline extends Task {
         }
     }
 
+    public static Deadline construct(String desc, String date) throws PukeException {
+        String[] container = new String[2];
+        container[0] = desc;
+        container[1] = "by: " + date;
+        return new Deadline(container);
+    }
+
+    @Override
+    public String write() {
+        return super.write() + this.date;
+    }
+
     public String toString() {
         return super.toString() + "(by: " + this.date + ")";
     }
@@ -196,8 +216,8 @@ class Deadline extends Task {
 
 class Event extends Task {
     private static final String tag = "[E]";
-    private String from;
-    private String to;
+    private final String from;
+    private final String to;
 
     public Event(String[] all) throws PukeException {
         super(tag, all[0]);
@@ -206,6 +226,19 @@ class Event extends Task {
         if (this.from.isEmpty() || this.to.isEmpty()) {
             throw new PukeException();
         }
+    }
+
+    public static Event construct(String desc, String from, String to) throws PukeException {
+        String[] container = new String[3];
+        container[0] = desc;
+        container[1] = "from: " + from;
+        container[2] = "to: " + to;
+        return new Event(container);
+    }
+
+    @Override
+    public String write() {
+        return super.write() + this.from + "|" + this.to;
     }
 
     public String toString() {
@@ -217,5 +250,31 @@ class Event extends Task {
 class PukeException extends Exception {
     public PukeException() {
         super("Unfortunately, the circumstances preceding this has necessitated that I issue and apology for the input that I have received is unrecognised.");
+    }
+}
+
+class DataHandler {
+    public static Task translate(String input) throws PukeException {
+        String[] split = input.split("|");
+        Task output;
+        if (split[0].equals("T")) {
+            output = new ToDo(split[2]);
+        } else if (split[0].equals("D")) {
+            output = Deadline.construct(split[2], split[3]);
+        } else if (split[0].equals("E")) {
+            output = Event.construct(split[2], split[3], split[4]);
+        } else {
+            throw new PukeException();
+        }
+
+        if (split[1].equals("0")) {
+            output.unmark();
+        } else if (split[1].equals("1")) {
+            output.mark();
+        } else {
+            throw new PukeException();
+        }
+
+        return output;
     }
 }
