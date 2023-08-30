@@ -17,7 +17,7 @@ public class Event extends Task {
         sb.append("[E]");
         sb.append("[" + getStatusIcon() + "] ");
         sb.append(description);
-        sb.append(" (from: " + from + " to:" + to + ")");
+        sb.append(" (from: " + from + " to: " + to + ")");
         return sb.toString();
     }
 }

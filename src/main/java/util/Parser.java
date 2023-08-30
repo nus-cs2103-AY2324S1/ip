@@ -66,7 +66,7 @@ public class Parser {
                 Ui.bye();
                 break;
             case "list":
-                tasks.list();
+                System.out.println(tasks.list());
                 break;
             case "mark":
                 tasks.mark(getIndex(command));
@@ -87,10 +87,10 @@ public class Parser {
                 tasks.delete(getIndex(command));
                 break;
             case "overdue":
-                tasks.overdue();
+                System.out.println(tasks.overdue());
                 break;
             case "dueby":
-                tasks.dueBy(command);
+                System.out.println(tasks.dueBy(command));
                 break;
             case "save":
                 storage.save(tasks, removeCommandWord(command));

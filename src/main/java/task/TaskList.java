@@ -24,34 +24,38 @@ public class TaskList {
     /**
      * List out the task list
      */
-    public void list() {
+    public String list() {
         if (tasks.size() == 0) {
             System.out.println("The Mind sees no task");
         }
+        StringBuilder sb = new StringBuilder();
         for (int i = 0; i < tasks.size(); i++) {
-            StringBuilder sb = new StringBuilder();
             sb.append(i+1);
             sb.append(". ");
             sb.append(tasks.get(i).toString());
-            System.out.println(sb);
+            sb.append("\n");
         }
+        sb.deleteCharAt(sb.length() - 1);
+        return sb.toString();
     }
 
     /**
      * List out the task list when given an ArrayList of tasks
      * @param tasks ArrayList of task.Task
      */
-    public void list(List<Task> tasks) {
+    public String list(List<Task> tasks) {
         if (tasks.size() == 0) {
             System.out.println("The Mind sees no task");
         }
+        StringBuilder sb = new StringBuilder();
         for (int i = 0; i < tasks.size(); i++) {
-            StringBuilder sb = new StringBuilder();
             sb.append(i+1);
             sb.append(". ");
             sb.append(tasks.get(i).toString());
-            System.out.println(sb);
+            sb.append("\n");
         }
+        sb.deleteCharAt(sb.length() - 1);
+        return sb.toString();
     }
 
     /**
@@ -148,7 +152,7 @@ public class TaskList {
     /**
      * Displays all tasks that are overdue
      */
-    public void overdue() {
+    public String overdue() {
         List<Task> overdue = new ArrayList<>();
         for (Task task : tasks) {
             if (task.isDeadline()) {
@@ -159,13 +163,13 @@ public class TaskList {
             }
         }
         if (overdue.size() == 0) {
-            System.out.println("The Mind sees no overdue deadlines");
+            return "The Mind sees no overdue deadlines";
         } else {
-            list(overdue);
+            return list(overdue);
         }
     }
 
-    public void dueBy(String command) {
+    public String dueBy(String command) {
         String[] commandList = command.trim().toLowerCase().split(" ");
         if (commandList.length > 1) {
             String dateTimeString = commandList[1];
@@ -181,15 +185,15 @@ public class TaskList {
                     }
                 }
                 if (dueBy.size() == 0) {
-                    System.out.println("The Mind sees no deadlines due by that day");
+                    return "The Mind sees no deadlines due by that day";
                 } else {
-                    list(dueBy);
+                    return list(dueBy);
                 }
             } else {
-                System.out.println("The Mind does not sense a correct DateTime");
+                return "The Mind does not sense a correct DateTime";
             }
         } else {
-            System.out.println("The Mind sees no deadline");
+            return "The Mind sees no deadline";
         }
     }
 }

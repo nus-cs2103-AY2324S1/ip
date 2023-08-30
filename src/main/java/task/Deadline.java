@@ -104,11 +104,16 @@ public class Deadline extends Task {
 
     public boolean dueBy(LocalDateTime localDateTime) {
         if (isDateTime) {
-            if (deadlineDateTime.isAfter(localDateTime)) {
+            try {
+                if (deadlineDateTime.isAfter(localDateTime)) {
+                    return false;
+                } else {
+                    return true;
+                }
+            } catch (Exception e) {
                 return false;
-            } else {
-                return true;
             }
+
         } else {
             return false;
         }
