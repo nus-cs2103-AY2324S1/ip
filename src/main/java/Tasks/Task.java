@@ -13,12 +13,25 @@ public class Task {
         this.isDone = false;
     }
 
+    public Task(String description, boolean isDone) {
+        this.description = description;
+        this.isDone = isDone;
+    }
+
     public String getStatusIcon() {
         return (isDone ? "X" : " "); // mark done task with X
     }
 
     public String toString() {
         return "[" + getStatusIcon() + "] " + this.description;
+    }
+
+    public String addDataFormat() {
+        if (this.isDone) {
+            return "| 1 | " + this.description;
+        } else {
+            return "| 0 | " + this.description;
+        }
     }
     public void markAsDone() {
         this.isDone = true;
