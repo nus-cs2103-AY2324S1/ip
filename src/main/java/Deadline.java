@@ -1,23 +1,24 @@
+import java.time.LocalDateTime;
+
 public class Deadline extends Task {
+    protected LocalDateTime by;
 
-    protected String by;
-
-    public Deadline(String description, String by) {
+    public Deadline(String description, LocalDateTime by) {
         super(description);
         this.by = by;
     }
 
-    public Deadline(String description, boolean isDone, String by) {
+    public Deadline(String description, boolean isDone, LocalDateTime by) {
         super(description, isDone);
         this.by = by;
     }
 
     public String getTextRepresentation() {
-        return "D | " + super.getTextRepresentation() + " | " + this.by;
+        return "D | " + super.getTextRepresentation() + " | " + this.by.format(Duke.TIME_FORMAT);
     }
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + this.by + ")";
+        return "[D]" + super.toString() + " (by: " + this.by.format(Duke.TIME_FORMAT) + ")";
     }
 }

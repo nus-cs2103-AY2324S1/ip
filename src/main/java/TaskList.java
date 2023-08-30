@@ -1,3 +1,4 @@
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.io.File;
 import java.io.FileWriter;
@@ -35,17 +36,12 @@ public class TaskList {
 
             this.list = new ArrayList<>();
 
-            System.out.println("Scanning");
             while (s.hasNext()) {
                 String line = s.nextLine();
-                System.out.println(line);
                 if (line == null || line.equals("")) {
                     break;
                 }
                 String[] params = line.split(" \\| ");
-                for (String param: params) {
-                    System.out.println(params);
-                }
                 boolean isDone = params[1].equals("1");
                 switch (params[0]) {
                 case "T":
@@ -53,11 +49,12 @@ public class TaskList {
                     break;
 
                 case "D":
-                    this.addToList(new Deadline(params[2], isDone, params[3]));
+                    this.addToList(new Deadline(params[2], isDone, LocalDateTime.parse(params[3], Duke.TIME_FORMAT)));
                     break;
 
                 case "E":
-                    this.addToList(new Event(params[2], isDone, params[3], params[4]));
+                    this.addToList(new Event(params[2], isDone, LocalDateTime.parse(params[3], Duke.TIME_FORMAT),
+                            LocalDateTime.parse(params[4], Duke.TIME_FORMAT)));
                     break;
 
                 default:

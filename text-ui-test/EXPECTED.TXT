@@ -14,14 +14,14 @@ Now you have 1 tasks in the list.
 
 --------------------------------------------------
 Got it. I've added this task:
-[D][ ] return book (by: June 6th)
+[D][ ] return book (by: 06 Jun 2023 - 1600)
 Now you have 2 tasks in the list.
 
 --------------------------------------------------
 
 --------------------------------------------------
 Got it. I've added this task:
-[E][ ] project meeting (from: Aug 6th 2pm to: 4pm)
+[E][ ] project meeting (from: 06 Aug 2023 - 1400 to: 06 Aug 2023 - 1600)
 Now you have 3 tasks in the list.
 
 --------------------------------------------------
@@ -55,8 +55,8 @@ Now you have 5 tasks in the list.
 --------------------------------------------------
 Here are the tasks in your list:
 1.[T][X] read book
-2.[D][ ] return book (by: June 6th)
-3.[E][ ] project meeting (from: Aug 6th 2pm to: 4pm)
+2.[D][ ] return book (by: 06 Jun 2023 - 1600)
+3.[E][ ] project meeting (from: 06 Aug 2023 - 1400 to: 06 Aug 2023 - 1600)
 4.[T][X] join sports club
 5.[T][ ] borrow book
 
@@ -64,14 +64,14 @@ Here are the tasks in your list:
 
 --------------------------------------------------
 Got it. I've added this task:
-[D][ ] return another book (by: Sunday)
+[D][ ] return another book (by: 02 Sep 2023 - 1600)
 Now you have 6 tasks in the list.
 
 --------------------------------------------------
 
 --------------------------------------------------
 Got it. I've added this task:
-[E][ ] another project meeting (from: Mon 2pm to: 4pm)
+[E][ ] another project meeting (from: 30 Aug 2023 - 2100 to: 30 Aug 2023 - 2200)
 Now you have 7 tasks in the list.
 
 --------------------------------------------------
