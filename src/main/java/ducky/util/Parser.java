@@ -42,7 +42,7 @@ public class Parser {
             } catch (NumberFormatException e) {
                 throw new DuckyInvalidCommandFormatException("Did you enter a valid number?");
             }
-            return new ChangeTaskCompletionCommand(markInputIndex, true);
+            return new UpdateTaskCompletionCommand(markInputIndex, true);
         case "unmark":
             int unmarkInputIndex;
             try {
@@ -50,7 +50,7 @@ public class Parser {
             } catch (NumberFormatException e) {
                 throw new DuckyInvalidCommandFormatException("Did you enter a valid number?");
             }
-            return new ChangeTaskCompletionCommand(unmarkInputIndex, false);
+            return new UpdateTaskCompletionCommand(unmarkInputIndex, false);
         case "delete":
             return new DeleteCommand(Integer.parseInt(argumentString));
         case "todo":
