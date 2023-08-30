@@ -17,6 +17,13 @@ public class Deadline extends Task {
     public  String saveString() {
         return "D" + super.saveString() + " | " + this.deadline;
     }
+<<<<<<< HEAD
+=======
+    @Override
+    public  String saveString() {
+        return "D" + super.saveString() + " | " + this.deadline;
+    }
+>>>>>>> branch-Level-7
     @Override
     public String toString() {
         return String.format("[D] %s (by: %s)", super.toString(), this.deadline);

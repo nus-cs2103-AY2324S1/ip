@@ -7,6 +7,7 @@ public class Event extends Task {
     private String end;
     public Event(String description, String start, String end) {
         super(description);
+<<<<<<< HEAD
         try {
             LocalDate d1 = LocalDate.parse(start);
             LocalDate d2 = LocalDate.parse(end);
@@ -18,6 +19,10 @@ public class Event extends Task {
         }
 
 
+=======
+        this.start = start;
+        this.end = end;
+>>>>>>> branch-Level-7
     }
     @Override
     public  String saveString() {
