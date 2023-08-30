@@ -33,7 +33,8 @@ public class AddEventCommand implements Command {
     public void execute(TaskList tasks, Storage storage, Ui ui) throws SallyException {
         String[] parts = input.split("/from | /to ");
         if (parts.length < 3) {
-            throw new SallyException("OOPS! The description of an event cannot be incomplete, you need a '/from' and '/to'.");
+            throw new SallyException(
+                    "OOPS! The description of an event cannot be incomplete, you need a '/from' and '/to'.");
         }
 
         String taskDescription = parts[0];
@@ -43,7 +44,10 @@ public class AddEventCommand implements Command {
         if (convertToDateTime(fromDateTimeInput) == null || convertToDateTime(toDateTimeInput) == null) {
             throw new SallyException("OOPS! The date and time format is invalid.");
         } else {
-            Event newEvent = new Event(taskDescription, convertToDateTime(fromDateTimeInput), convertToDateTime(toDateTimeInput));
+            Event newEvent =
+                    new Event(taskDescription,
+                            convertToDateTime(fromDateTimeInput),
+                            convertToDateTime(toDateTimeInput));
             tasks.addTask(newEvent);
             storage.saveTasksToFile(tasks);
             ui.showAddedTask(newEvent, tasks.getSize());

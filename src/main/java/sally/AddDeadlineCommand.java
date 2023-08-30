@@ -34,7 +34,8 @@ public class AddDeadlineCommand implements Command {
     public void execute(TaskList tasks, Storage storage, Ui ui) throws SallyException {
         String[] parts = input.split("/by ");
         if (parts.length < 2) {
-            throw new SallyException("OOPS! The description of a deadline cannot be incomplete, you need a ' /by '.");
+            throw new SallyException(
+                    "OOPS! The description of a deadline cannot be incomplete, you need a ' /by '.");
         }
 
         String taskDescription = parts[0];

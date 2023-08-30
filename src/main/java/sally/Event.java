@@ -33,10 +33,12 @@ public class Event extends Task {
         String startDate;
         String endDate;
 
-        DateTimeFormatter outputFormatterFrom = DateTimeFormatter.ofPattern("MMM dd yyyy, h:mm a");
+        DateTimeFormatter outputFormatterFrom =
+                DateTimeFormatter.ofPattern("MMM dd yyyy, h:mm a");
         startDate = from.format(outputFormatterFrom);
 
-        DateTimeFormatter outputFormatterTo = DateTimeFormatter.ofPattern("MMM dd yyyy, h:mm a");
+        DateTimeFormatter outputFormatterTo =
+                DateTimeFormatter.ofPattern("MMM dd yyyy, h:mm a");
         endDate = to.format(outputFormatterTo);
 
         return "[E]" + super.toString() + " (from: " + startDate + " to: " + endDate + ")";

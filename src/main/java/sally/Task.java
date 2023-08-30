@@ -98,41 +98,27 @@ public class Task {
             isDone = true;
         }
 
-        String taskDescription = toGetStatusIcon[1]; // soc (by: sun)
+        String taskDescription = toGetStatusIcon[1];
 
         Task newTask;
 
-        switch (taskType) {
-            case "T":
-                newTask = new Todo(taskDescription);
-                break;
-            case "E": {
-                String[] toGetFromTo = taskDescription.split(" \\(from: | to: |\\)"); // soc (from: mon to: tues)
+        if (taskType.equals("T")) {
+            newTask = new Todo(taskDescription);
+        } else if (taskType.equals("E")) {
+            String[] toGetFromTo = taskDescription.split(" \\(from: | to: |\\)");
+            String task = toGetFromTo[0];
+            LocalDateTime from = convertToDateTime(toGetFromTo[1]);
+            LocalDateTime to = convertToDateTime(toGetFromTo[2]);
+            newTask = new Event(task, from, to);
 
-                String task = toGetFromTo[0]; // soc
+        } else if (taskType.equals("D")) {
+            String[] toGetBy = taskDescription.split(" \\(by: |\\)");
+            String task = toGetBy[0];
+            LocalDateTime by = convertToDateTime(toGetBy[1]);
+            newTask = new Deadline(task, by);
 
-                LocalDateTime from = convertToDateTime(toGetFromTo[1]); // mon
-
-                LocalDateTime to = convertToDateTime(toGetFromTo[2]); // tues
-
-                newTask = new Event(task, from, to);
-
-                break;
-            }
-            case "D": {
-                String[] toGetBy = taskDescription.split(" \\(by: |\\)"); // soc (by: sun)
-
-                String task = toGetBy[0]; // soc
-
-                LocalDateTime by = convertToDateTime(toGetBy[1]); // sun
-
-                newTask = new Deadline(task, by);
-
-                break;
-            }
-            default:
-                newTask = new Task(taskDescription);
-                break;
+        } else {
+            newTask = new Task(taskDescription);
         }
 
         if (isDone) {
