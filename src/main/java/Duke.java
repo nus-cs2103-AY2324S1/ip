@@ -1,22 +1,26 @@
 public class Duke {
-    public static void main(String[] args) {
 
-        Ui ui = new Ui();
+    private Storage storage;
 
-        Storage storage = new Storage(ui);
+    private TaskList list;
 
-        Parser parser = new Parser(ui);
+    private Ui ui;
 
-        TaskList list;
+    private Parser parser;
 
-        // Read from file
+    public Duke() {
+        ui = new Ui();
+        storage = new Storage(ui);
+        parser = new Parser(ui);
         try {
             list = new TaskList(storage.readFile());
         } catch (Exception e) {
             ui.showError("Error reading from file.");
             list = new TaskList();
         }
+    }
 
+    public void run() {
         ui.startMessage();
 
         Command command = new InvalidCommand();
@@ -31,5 +35,9 @@ public class Duke {
         } catch (Exception e) {
             ui.showError("Error writing to file.");
         }
+    }
+
+    public static void main(String[] args) {
+        new Duke().run();
     }
 }
