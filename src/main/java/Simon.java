@@ -2,6 +2,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -91,7 +93,7 @@ public class Simon {
             case DEADLINE:
                 String[] deadlineParts = inData.split("deadline ");
                 if (deadlineParts.length <= 1 || !inData.contains(" /by ")) {
-                    throw new SimonException("☹ OOPS!!! The format for deadline is incorrect. Expected format: 'deadline [task description] /by [deadline]'.");
+                    throw new SimonException("☹ OOPS!!! The format for deadline is incorrect. Expected format: 'deadline [task description] /by [dd/mm/yyyy HHmm]'. Time(HHmm) is optional.");
                 }
                 String nameDeadline = deadlineParts.length > 1 ? deadlineParts[1].split("/by ")[0] : "";
                 if (nameDeadline.trim().isEmpty()) {
@@ -109,7 +111,7 @@ public class Simon {
             case EVENT:
                 String[] eventParts = inData.split("event ");
                 if (eventParts.length <= 1 || !inData.contains("/from ") || !inData.contains("/to ")) {
-                    throw new SimonException("☹ OOPS!!! The format for event is incorrect. Expected format: 'event [event description] /from [start date] /to [end date]'.");
+                    throw new SimonException("☹ OOPS!!! The format for event is incorrect. Expected format: 'event [event description] /from [dd/mm/yyyy HHmm] /to [dd/mm/yyyy HHmm]'. The time(HHmm) is optional.");
                 }
 
                 String[] fromToParts = eventParts[1].split("/from ");
@@ -209,10 +211,10 @@ public class Simon {
                     writer.println("T | " + (task.isDone ? "1" : "0") + " | " + task.taskName);
                 } else if (task instanceof Deadline) {
                     Deadline deadline = (Deadline) task;
-                    writer.println("D | " + (task.isDone ? "1" : "0") + " | " + task.taskName + " | " + deadline.endDate);
+                    writer.println("D | " + (task.isDone ? "1" : "0") + " | " + task.taskName + " | " + deadline.endDateTime.format(DateTimeFormatter.ofPattern("d/M/yyyy HHmm")));
                 } else if (task instanceof Event) {
                     Event event = (Event) task;
-                    writer.println("E | " + (task.isDone ? "1" : "0") + " | " + task.taskName + " | " + event.startDate + " | " + event.endDate);
+                    writer.println("E | " + (task.isDone ? "1" : "0") + " | " + task.taskName + " | " + event.startDateTime.format(DateTimeFormatter.ofPattern("d/M/yyyy HHmm")) + " | " + event.endDateTime.format(DateTimeFormatter.ofPattern("d/M/yyyy HHmm")));
                 }
             }
             writer.close();
@@ -241,6 +243,7 @@ public class Simon {
 
         try {
             Scanner scanner = new Scanner(file);
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
             while (scanner.hasNextLine()) {
                 String data = scanner.nextLine();
                 String[] parts = data.split(" \\| ");
@@ -253,14 +256,19 @@ public class Simon {
                         tasks.add(todo);
                         break;
                     case "D":
-                        Deadline deadline = new Deadline(parts[2], parts[3]);
+                        LocalDateTime endDateTime = LocalDateTime.parse(parts[3], formatter);
+                        Deadline deadline = new Deadline(parts[2], endDateTime.format(formatter));
                         if (parts[1].equals("1")) {
                             deadline.markAsDone();
                         }
                         tasks.add(deadline);
                         break;
                     case "E":
-                        Event event = new Event(parts[2], parts[3], parts[4]);
+                        String startDateTimeStr = parts[3];
+                        String endDateTimeStr = parts[4];
+                        LocalDateTime startDateTime = LocalDateTime.parse(startDateTimeStr, formatter);
+                        LocalDateTime endDateTime2 = LocalDateTime.parse(endDateTimeStr, formatter);
+                        Event event = new Event(parts[2], startDateTime.format(formatter), endDateTime2.format(formatter));
                         if (parts[1].equals("1")) {
                             event.markAsDone();
                         }
@@ -271,6 +279,8 @@ public class Simon {
             scanner.close();
         } catch (FileNotFoundException e) {
             System.out.println("Data file not found. Starting with an empty task list.");
+        } catch (SimonException e) {
+            throw new RuntimeException(e);
         }
     }
 }
