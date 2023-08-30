@@ -1,4 +1,6 @@
 import java.io.Serializable;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 /**
  * This class is used to create Event objects that holds the description and when the event starts and ends
@@ -7,11 +9,11 @@ public class Events extends  Task implements Serializable {
     /**
      *  This variable holds the information on when this instance of an event object starts
      */
-    protected String from;
+    protected LocalDate from;
     /**
      *  This variable holds the information on when this instance of an event object ends
      */
-    protected String to;
+    protected LocalDate to;
 
     /**
      * this is a constructor to create an instance of an Event object
@@ -21,8 +23,8 @@ public class Events extends  Task implements Serializable {
      */
     public Events(String text, String from, String to){
         super(text);
-        this.from = from;
-        this.to = to;
+        this.from = LocalDate.parse(from);
+        this.to = LocalDate.parse(to);
     }
     /**
      * This is a toString method that has been Override to better suit the display of this class
@@ -30,6 +32,7 @@ public class Events extends  Task implements Serializable {
      */
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + from + " to: " + to + ")";
+        return "[E]" + super.toString() + " (from: " + from.format(DateTimeFormatter.ofPattern("MMM d yyyy"))
+                + " to: " + to.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
     }
 }

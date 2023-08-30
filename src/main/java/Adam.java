@@ -7,7 +7,7 @@ import java.util.Scanner;
  */
 public class Adam {
     String home = System.getProperty("user.home");
-    java.nio.file.Path path = java.nio.file.Paths.get(home, "Objtestdrive.txt");
+    java.nio.file.Path path = java.nio.file.Paths.get(home, "Pikachu.txt");
 
     boolean directoryExists = java.nio.file.Files.exists(path);
     /**
@@ -136,6 +136,9 @@ public class Adam {
                 break;
             case "deadline":
                 String[] by = item.split(" /by ");
+                if (by[0].equals("")) {
+                    throw new NoDescriptionException();
+                }
                 if (by.length != 2) {
                     throw new DeadlineException();
                 }
@@ -143,6 +146,9 @@ public class Adam {
                 break;
             case "event":
                 String[] divide1 = item.split(" /from ");
+                if (divide1[0].equals("")) {
+                    throw new NoDescriptionException();
+                }
                 if (divide1.length != 2) {
                     throw new EventsException();
                 }
