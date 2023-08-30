@@ -10,7 +10,7 @@ import java.time.format.DateTimeFormatter;
  *
  * @author Rayson
  */
-public class Deadline extends Task{
+public class Deadline extends Task {
 
     protected LocalDateTime deadline;
 
@@ -37,6 +37,6 @@ public class Deadline extends Task{
 
     @Override
     public boolean isWithinDateRange(LocalDateTime date) {
-        return this.deadline.equals(date);
+        return this.deadline.toLocalDate().equals(date.toLocalDate());
     }
 }
