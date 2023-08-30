@@ -1,0 +1,50 @@
+package bruno;
+
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import bruno.UI;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+public class UITest {
+
+    private UI ui = new UI();
+    private final PrintStream standardOut = System.out;
+    private final ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
+
+    @BeforeEach
+    void setUp() {
+        System.setOut(new PrintStream(outputStreamCaptor));
+    }
+
+    @Test
+    void testDisplayLines() {
+        ui.display_lines();
+        assertEquals("- - - - - - - - - - - - - - - - - - - -\n", outputStreamCaptor.toString());
+    }
+
+    @Test
+    void testDisplayGreeting() {
+        ui.displayGreeting();
+        String s = "                ;~~,__,\n" + ":-….,———-‘`----/   ._.*\n" + " `-,,,   BRUNO   ,’\n"
+                + "     ;   ,~.——;  /\n" + "     :  |     :  |\n" + "     `_ ’     `_ ‘\n"
+                + "Woof Woof! I'm Bruno \uD83D\uDC3E\n" + "How can I help you?\n";
+        assertEquals(s, outputStreamCaptor.toString());
+    }
+
+    @Test
+    void testDisplayBye() {
+        ui.displayBye();
+        assertEquals("\tBye Bye! Hope to see you again soon! \uD83D\uDC36\n", outputStreamCaptor.toString());
+    }
+
+    @Test
+    void testDisplayMessage() {
+        ui.displayMessage("testing");
+        assertEquals("testing\n", outputStreamCaptor.toString());
+    }
+}
