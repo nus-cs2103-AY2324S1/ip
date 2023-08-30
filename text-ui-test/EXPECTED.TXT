@@ -30,10 +30,10 @@ ____________________________________________________________
 ☹ OOPS!!! I'm sorry, but I don't know what that means :-(
 ____________________________________________________________
 Nice! I've marked this task as done:
-[X]  [T][X] This is a very long description just to test Simon's ability to handle long inputs without breaking or malfunctioning in any way
+  [T][X] This is a very long description just to test Simon's ability to handle long inputs without breaking or malfunctioning in any way
 ____________________________________________________________
 OK, I've marked this task as not done yet:
-[ ]  [T][ ] This is a very long description just to test Simon's ability to handle long inputs without breaking or malfunctioning in any way
+  [T][ ] This is a very long description just to test Simon's ability to handle long inputs without breaking or malfunctioning in any way
 ____________________________________________________________
 Noted. I've removed this task:
  [T][X] This is a very long description just to test Simon's ability to handle long inputs without breaking or malfunctioning in any way
@@ -63,10 +63,10 @@ Got it. I've added this task:
 Now you have 5 tasks in the list.
 ____________________________________________________________
 Nice! I've marked this task as done:
-[X]  [T][X] This is a very long description just to test Simon's ability to handle long inputs without breaking or malfunctioning in any way
+  [T][X] This is a very long description just to test Simon's ability to handle long inputs without breaking or malfunctioning in any way
 ____________________________________________________________
 OK, I've marked this task as not done yet:
-[ ]  [T][ ] This is a very long description just to test Simon's ability to handle long inputs without breaking or malfunctioning in any way
+  [T][ ] This is a very long description just to test Simon's ability to handle long inputs without breaking or malfunctioning in any way
 ____________________________________________________________
 ☹ OOPS!!! The description of a deadline cannot be empty.
 ____________________________________________________________
