@@ -4,12 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TaskList {
-<<<<<<< HEAD
-    /** Stores the tasks in a list. */
-    public List<Task> taskForce;
-=======
     public List<Task> tasks;
->>>>>>> branch-A-CodingStandard
 
     public TaskList() {
         tasks = new ArrayList<Task>();
@@ -67,18 +62,26 @@ public class TaskList {
         return tasks.get(index);
     }
 
+    /**
+     * Returns the size of the list
+     */
     public int getSize() {
         return tasks.size();
     }
 
+    /**
+     * Retrieves the filtered list according to the keyword.
+     * 
+     * @param keyword The word to filter the list.
+     * @return The filtered list.
+     */
     public List<Task> filterByWord(String keyword) {
         List<Task> filteredList = new ArrayList<Task>();
-
-        for (Task task : taskForce) {
+        for (Task task : tasks) {
             if (task.description.contains(keyword)) {
                 filteredList.add(task);
             }
-        } 
+        }
         return filteredList;
     }
 }

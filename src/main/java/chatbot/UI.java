@@ -79,20 +79,9 @@ public class UI {
         System.out.println("Now you have " + size + " tasks in the list.");
     }
 
-<<<<<<< HEAD
-    /**
-     * Prints the entirety of the list of tasks.
-     * 
-     *  @param taskForce The list of tasks to be printed.
-     */
-    public void printStorageList(List<Task> taskForce) {
-        for (Task task : taskForce) {
-            int index = taskForce.indexOf(task) + 1;
-=======
     public void printStorageList(List<Task> tasks) {
         for (Task task : tasks) {
             int index = tasks.indexOf(task) + 1;
->>>>>>> branch-A-CodingStandard
             System.out.println(index + ":" + task);
         }
     }
