@@ -183,7 +183,7 @@ public class Yong {
 
     /**
      * Method to create a Deadline task and add it to the list of tasks
-     * Input format should be "deadline (task) /by YYYY-MM-DD"
+     * Input format should be "deadline (task) /by YYYY-MM-DD HHmm"
      *
      * @param inp User input of the entire string corresponding to the Deadline task
      * @return Deadline object with the description provided
@@ -202,7 +202,7 @@ public class Yong {
 
     /**
      * Method to create an Event task and add it to the list of tasks
-     * Input format should be "event (task) /from YYYY-MM-DD /to YYYY-MM-DD
+     * Input format should be "event (task) /from YYYY-MM-DD HHmm /to YYYY-MM-DD HHmm"
      *
      * @param inp User input of the entire string corresponding to the Event task
      * @return Event object with the description provided
@@ -213,8 +213,8 @@ public class Yong {
             String[] type_description = parts[0].split(" ", 2);
             String type = type_description[0];
             String description = type_description[1];
-            String from = parts[1].trim().split(" ")[1];
-            String to = parts[2].trim().split(" ")[1];
+            String from = parts[1].trim().split(" ", 2)[1];
+            String to = parts[2].trim().split(" ", 2)[1];
             return new Event(description, from, to);
         } catch (Exception e) {
             System.out.println(e);

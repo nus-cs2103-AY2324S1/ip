@@ -1,6 +1,6 @@
 import java.io.Serializable;
 import java.security.InvalidParameterException;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 
@@ -51,14 +51,16 @@ public class Task implements Serializable {
     }
 
     /**
-     * Parses date string into LocalDate objects, with dateString in the format yyyy-mm-dd
+     * Parses date string into LocalDate objects, with dateString in the format yyyy-mm-dd HHmm
      *
-     * @param dateString String format of the date parsed in yyyy-mm-dd
+     * @param datetimeString String format of the date and or time parsed in yyyy-mm-dd HHmm
      */
-    protected LocalDate parseDates(String dateString) throws InvalidParameterException {
+    protected LocalDateTime parseDateTime(String datetimeString) throws InvalidParameterException {
         try {
-            LocalDate date = LocalDate.parse(dateString);
-            return date;
+            String pattern = "yyyy-MM-dd HHmm";
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern);
+            LocalDateTime datetime = LocalDateTime.parse(datetimeString, formatter);
+            return datetime;
         } catch (Exception e) {
             System.out.println("Wrong date format provided");
             throw new InvalidParameterException();
@@ -66,12 +68,12 @@ public class Task implements Serializable {
     }
 
     /**
-     * Returns the string format of date objects
-     * @param date Date to be convereted to a string
-     * @return String format of the date in MMM dd yyyy format
+     * Returns the string format of datetime objects
+     * @param date Date to be converted to a string
+     * @return String format of the date in MMM dd yyyy HHmm format
      */
-    protected String printDates(LocalDate date) {
-        return date.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
+    protected String printDateTime(LocalDateTime date) {
+        return date.format(DateTimeFormatter.ofPattern("MMM dd yyyy HHmm"));
     }
 
 }
