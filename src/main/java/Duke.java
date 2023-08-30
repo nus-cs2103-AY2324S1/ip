@@ -1,13 +1,15 @@
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.FileNotFoundException;
 
 public class Duke {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        TaskList list = new TaskList();
+        TaskList list = null;
+
         try {
             File dataDirectory = new File("./data");
             File taskFile = new File("./data/duke.txt");
@@ -16,6 +18,7 @@ public class Duke {
             } else {
                 System.out.println("Existing task file exists. ");
             }
+            list = new TaskList(taskFile);
         } catch (IOException e) {
             System.out.println("Unable to create file.");
             e.printStackTrace();
@@ -93,7 +96,7 @@ public class Duke {
                 input = scanner.nextLine();
             }
         }
-
+        list.close();
         System.out.println("Bye. Hope to see you again soon!");
     }
 
