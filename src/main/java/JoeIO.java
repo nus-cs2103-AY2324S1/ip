@@ -10,22 +10,11 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
-public class DukeIO {
+public class JoeIO {
   private final Path taskFilePath;
-  private final Path dukeDir;
 
-  public DukeIO(String fileName) {
-    String home = System.getProperty("user.home");
-    this.dukeDir = Paths.get(home, "duke");
-    this.taskFilePath = Paths.get(home, "duke", fileName);
-
-    if (!Files.exists(dukeDir)) {
-      try {
-        Files.createDirectories(dukeDir);
-      } catch (IOException e) {
-        System.out.println("Failed to create duke directory");
-      }
-    }
+  public JoeIO(String fileName) {
+    this.taskFilePath = Paths.get(fileName);
   }
 
   private static final Pattern taskPattern = Pattern.compile("^\\[([TDE])\\]\\[[X\\s]\\]\\s(.+)");
@@ -35,37 +24,37 @@ public class DukeIO {
   private static final Pattern eventPattern =
       Pattern.compile("^\\[E\\]\\[[X\\s]\\]\\s+(.+)\\s+\\(from:\\s+(.+)\\s+to:\\s+(.+)\\)$");
 
-  private void handleTodo(String input, ArrayList<Task> tasks) throws DukeException {
+  private void handleTodo(String input, ArrayList<Task> tasks) throws JoeException {
     Matcher m = todoPattern.matcher(input);
     if (m.find()) {
       TodoTask newTask = new TodoTask(m.group(1));
       tasks.add(newTask);
     } else {
-      throw new DukeException("Todo Task file is corrupt");
+      throw new JoeException("Todo Task file is corrupt");
     }
   }
 
-  private void handleDeadline(String input, ArrayList<Task> tasks) throws DukeException {
+  private void handleDeadline(String input, ArrayList<Task> tasks) throws JoeException {
     Matcher m = deadlinePattern.matcher(input);
     if (m.find()) {
       TodoTask newTask = new TodoTask(m.group(1));
       tasks.add(newTask);
     } else {
-      throw new DukeException("Deadline Task file is corrupt");
+      throw new JoeException("Deadline Task file is corrupt");
     }
   }
 
-  private void handleEvent(String input, ArrayList<Task> tasks) throws DukeException {
+  private void handleEvent(String input, ArrayList<Task> tasks) throws JoeException {
     Matcher m = eventPattern.matcher(input);
     if (m.find()) {
       TodoTask newTask = new TodoTask(m.group(1));
       tasks.add(newTask);
     } else {
-      throw new DukeException("Event Task file is corrupt");
+      throw new JoeException("Event Task file is corrupt");
     }
   }
 
-  public ArrayList<Task> readTasks() throws DukeException, IOException {
+  public ArrayList<Task> readTasks() throws JoeException, IOException {
     ArrayList<Task> tasks = new ArrayList<>();
     if (!Files.exists(taskFilePath)) {
       throw new FileNotFoundException();
@@ -74,7 +63,7 @@ public class DukeIO {
     for (String line : lines) {
       Matcher m = taskPattern.matcher(line);
       if (!m.find()) {
-        throw new DukeException("Task file is corrupt");
+        throw new JoeException("Task file is corrupt");
       }
       String type = m.group(1);
       switch (type) {
@@ -87,6 +76,8 @@ public class DukeIO {
         case "E":
           handleEvent(line, tasks);
           break;
+        default:
+          throw new JoeException("Task file is corrupt");
       }
     }
     return tasks;

@@ -5,12 +5,12 @@ import java.time.format.DateTimeParseException;
 public class DeadlineTask extends Task {
   private LocalDateTime deadline;
 
-  public DeadlineTask(String description, String deadline) throws DukeException {
+  public DeadlineTask(String description, String deadline) throws JoeException {
     super(description);
     try {
       this.deadline = LocalDateTime.parse(deadline, DateTimeFormatter.ofPattern("d/M/yyyy HHmm"));
     } catch (DateTimeParseException e) {
-      throw new DukeException("Failed to parse datetime.");
+      throw new JoeException("Failed to parse datetime.");
     }
   }
 

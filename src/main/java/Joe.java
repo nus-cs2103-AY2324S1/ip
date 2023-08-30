@@ -4,9 +4,9 @@ import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class Duke {
+public class Joe {
   private static ArrayList<Task> tasks;
-  private static DukeIO storage;
+  private static JoeIO storage;
   private static final Pattern commandPattern = Pattern.compile("^(\\S+)\\s*");
 
   enum Command {
@@ -58,7 +58,7 @@ public class Duke {
           default:
             handleInvalidCommands();
         }
-      } catch (IllegalArgumentException | DukeException e) {
+      } catch (IllegalArgumentException | JoeException e) {
         System.out.println(e.getMessage());
       }
 
@@ -79,7 +79,7 @@ public class Duke {
     }
   }
 
-  private static void handleMark(String input) throws DukeIOBException {
+  private static void handleMark(String input) throws JoeIOBException {
     Pattern validPattern = Pattern.compile("^mark\\s+(\\d+)$");
     if (!validPattern.matcher(input).find()) {
       throw new IllegalArgumentException(
@@ -87,7 +87,7 @@ public class Duke {
     }
     int idx = parseIndex(input);
     if (idx < 0 || idx > tasks.size()) {
-      throw new DukeIOBException(idx);
+      throw new JoeIOBException(idx);
     } else {
       tasks.get(idx - 1).markAsDone();
       System.out.printf("Nice! I've marked this task as done:%n %s%n", tasks.get(idx - 1));
@@ -95,7 +95,7 @@ public class Duke {
     storage.saveToFile(tasks);
   }
 
-  private static void handleUnmark(String input) throws DukeIOBException {
+  private static void handleUnmark(String input) throws JoeIOBException {
     Pattern validPattern = Pattern.compile("^unmark\\s+(\\d+)$");
     if (!validPattern.matcher(input).find()) {
       throw new IllegalArgumentException(
@@ -103,7 +103,7 @@ public class Duke {
     }
     int idx = parseIndex(input);
     if (idx <= 0 || idx > tasks.size()) {
-      throw new DukeIOBException(idx);
+      throw new JoeIOBException(idx);
     } else {
       tasks.get(idx - 1).markAsNotDone();
       System.out.printf("OK! I've marked this task as not done:%n %s%n", tasks.get(idx - 1));
@@ -111,7 +111,7 @@ public class Duke {
     storage.saveToFile(tasks);
   }
 
-  private static void handleDelete(String input) throws DukeIOBException {
+  private static void handleDelete(String input) throws JoeIOBException {
     Pattern validPattern = Pattern.compile("^delete\\s+(\\d+)$");
     if (!validPattern.matcher(input).find()) {
       throw new IllegalArgumentException(
@@ -119,7 +119,7 @@ public class Duke {
     }
     int idx = parseIndex(input);
     if (idx <= 0 || idx > tasks.size()) {
-      throw new DukeIOBException(idx);
+      throw new JoeIOBException(idx);
     } else {
       Task deletedTask = tasks.get(idx - 1);
       tasks.remove(idx - 1);
@@ -142,7 +142,7 @@ public class Duke {
     storage.saveToFile(tasks);
   }
 
-  private static void handleDeadline(String input) throws DukeException {
+  private static void handleDeadline(String input) throws JoeException {
     Pattern p = Pattern.compile("^deadline\\s+(\\S.+)\\s+/by\\s+(\\d{1,2}/\\d{1,2}/\\d{4} \\d{4})");
     Matcher m = p.matcher(input);
     if (!m.find()) {
@@ -154,7 +154,7 @@ public class Duke {
     storage.saveToFile(tasks);
   }
 
-  private static void handleEvent(String input) throws DukeException {
+  private static void handleEvent(String input) throws JoeException {
     Pattern p =
         Pattern.compile(
             "^event\\s+(\\S.+)\\s+/from\\s+(\\d{1,2}/\\d{1,2}/\\d{4} \\d{4})\\s+/to\\s+(\\d{1,2}/\\d{1,2}/\\d{4} \\d{4})");
@@ -172,7 +172,7 @@ public class Duke {
   }
 
   private static void init() {
-    storage = new DukeIO("duke.txt");
+    storage = new JoeIO("joe.txt");
     try {
       tasks = storage.readTasks();
     } catch (FileNotFoundException e) {
@@ -182,7 +182,7 @@ public class Duke {
       tasks = new ArrayList<Task>();
     }
 
-    System.out.println("Hello! I'm Duke\nWhat can i do for you?\n");
+    System.out.println("Hello! I'm Joe\nWhat can i do for you?\n");
   }
 
   private static void exit() {
