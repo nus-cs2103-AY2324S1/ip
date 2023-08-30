@@ -52,7 +52,8 @@ public class Storage {
 
   public static void save(TaskList tasks) throws IOException {
     Files.createDirectories(SAVE_FOLDER);
-    Files.createFile(SAVE_PATH);
+    if (!Files.exists(SAVE_PATH))
+      Files.createFile(SAVE_PATH);
 
     String saveString = "";
     for (Task task : tasks) {

@@ -5,10 +5,12 @@ import commands.Delete;
 import commands.List;
 import commands.Mark;
 import commands.Unmark;
+import commands.AddTask;
 import commands.Bye;
 
 import tasks.Deadline;
 import tasks.Event;
+import tasks.Task;
 import tasks.Todo;
 
 import utils.Storage;
@@ -63,7 +65,6 @@ public class Jerma {
         case MARK:
           int index = Integer.parseInt(inputArgs[1]);
           new Mark(ui, tasks, index).execute();
-          ;
           break;
         case UNMARK:
           index = Integer.parseInt(inputArgs[1]);
@@ -74,17 +75,16 @@ public class Jerma {
           new Delete(ui, tasks, index).execute();
           break;
         case TODO:
-          tasks.add(new Todo(inputArgs[1]));
-          System.out.println("added todo: " + inputArgs[1]);
+          Task task = new Todo(inputArgs[1]);
+          new AddTask(ui, tasks, task).execute();
           break;
         case DEADLINE:
           String[] split = inputArgs[1].split(" /by ", 2);
           String description = split[0];
           String by = split[1];
 
-          tasks.add(new Deadline(description, by));
-          System.out.println(
-              String.format("added deadline: %s by %s", description, by));
+          task = new Deadline(description, by);
+          new AddTask(ui, tasks, task).execute();
           break;
         case EVENT:
           String[] split1 = inputArgs[1].split(" /from ", 2);
@@ -93,9 +93,8 @@ public class Jerma {
           String from = split2[0];
           String to = split2[1];
 
-          tasks.add(new Event(description, from, to));
-          System.out.println(String.format("added event: %s from %s to %s",
-              description, from, to));
+          task = new Event(description, from, to);
+          new AddTask(ui, tasks, task).execute();
           break;
         }
       } catch (IndexOutOfBoundsException e) {

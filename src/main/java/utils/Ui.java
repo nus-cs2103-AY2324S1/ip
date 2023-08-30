@@ -20,7 +20,8 @@ public class Ui {
   }
 
   public void newTask(Task task) {
-    System.out.println(String.format("Added %s: %s", task.getClass(), task));
+    String type = task.getClass().getName().split("\\.")[1].toLowerCase();
+    System.out.println(String.format("Added %s: %s", type, task));
   }
 
   public void markTask(Task task) {
