@@ -12,7 +12,7 @@ public class Task {
         completed = true;
     }
 
-    public void mark_as_incompleted() {
+    public void mark_as_incomplete() {
         completed = false;
     }
     @Override

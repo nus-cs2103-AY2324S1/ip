@@ -28,7 +28,7 @@ public class Frenchie {
     }
 
     public void uncompleteTask(int index) {
-        tasks.get(index).mark_as_incompleted();
+        tasks.get(index).mark_as_incomplete();
     }
     public static void main(String[] args) {
         /*String logo = " ____        _        \n"
