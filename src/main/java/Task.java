@@ -27,6 +27,14 @@ public class Task {
         return counter;
     }
 
+    public TaskStatus getStatus() {
+        return this.status;
+    }
+
+    public String getTask() {
+        return this.task;
+    }
+
     public void printList() {
         int count = 0;
         System.out.println(Duke.horizontalLine + "Here are the tasks in your list:");

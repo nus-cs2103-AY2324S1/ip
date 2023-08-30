@@ -1,8 +1,33 @@
+import java.io.BufferedWriter;
+import java.io.PrintWriter;
 import java.util.Scanner;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.File;
+import java.util.ArrayList;
 
 public class Duke {
 
     public static String horizontalLine = "_".repeat(60) + "\n";
+    public static final String FILE_PATH = "src/main/data/duke.txt";
+
+    public static void saveTaskToFile(String task) {
+        try {
+//            File dir = new File("./data");
+//            if (!dir.exists()) {
+//                dir.mkdirs();
+//            }
+            FileWriter fw = new FileWriter(FILE_PATH, true);
+            BufferedWriter bw = new BufferedWriter(fw);
+            PrintWriter out = new PrintWriter(bw);
+            out.println(task);
+            out.flush();
+            out.close();
+        } catch (IOException e) {
+            System.err.println("Error saving task to file: " + e.getMessage());
+        }
+
+    }
     public static void main(String[] args) throws DukeException {
         Scanner sc = new Scanner(System.in);
         String task = "";

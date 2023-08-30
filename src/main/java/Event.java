@@ -6,6 +6,7 @@ public class Event extends Task{
         super(task);
         this.from = from;
         this.to = to;
+        saveToFile();
     }
 
     @Override
@@ -16,5 +17,11 @@ public class Event extends Task{
     public void print() {
         System.out.println(Duke.horizontalLine + "Got it. I've added this task:\n " + this.toString()+ "\n"
                 + "Now you have " + Task.getCounter() + " tasks in the list\n" + Duke.horizontalLine);
+    }
+
+    public void saveToFile() {
+        String taskString =  "E | " + (this.getStatus() == TaskStatus.DONE ? 1 : 0)
+                + " | " + this.getTask() + " | " + from + " | "+to;
+        Duke.saveTaskToFile(taskString);
     }
 }
