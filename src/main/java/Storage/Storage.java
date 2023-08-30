@@ -1,4 +1,4 @@
-package Utils;
+package Storage;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -7,13 +7,18 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class LocalFile {
+public class Storage {
 
-    private static String path = "src/main/java/Data/toothless.txt";
-    private static File tempFile = null;
+    private String path;
+    private File tempFile;
+
+    public Storage(String path) {
+        this.path = path;
+        this.tempFile = null;
+    }
 
 
-    public static List<String> readFile() {
+    public List<String> readFile() {
         List<String> output = new ArrayList<>();
         File f = new File(path);
         try {
@@ -31,12 +36,12 @@ public class LocalFile {
         }
 
     }
-    private static void writeToFile(FileWriter fw, String tasks) throws IOException {
+    private void writeToFile(FileWriter fw, String tasks) throws IOException {
         fw.write(tasks);
         fw.close();
     }
 
-    public static String saveToDisk(List<String> tasks) {
+    public String saveToDisk(List<String> tasks) {
         try {
             FileWriter fw = new FileWriter(path);
             String input = "";
