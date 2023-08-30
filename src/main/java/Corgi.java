@@ -1,3 +1,5 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -262,7 +264,13 @@ public class Corgi {
         if (deadlineInfos.length < 2) throw new InvalidDescFormatException();
 
         String deadlineDesc = deadlineInfos[0];
-        String by = deadlineInfos[1];
+        LocalDate by = null;
+
+        try {
+            by = LocalDate.parse(deadlineInfos[1], Task.DATE_INPUT_FORMATTER);
+        } catch (DateTimeParseException e) {
+            throw new InvalidDescFormatException();
+        }
 
         Task newTask = new Deadline(deadlineDesc, by);
 
@@ -289,8 +297,15 @@ public class Corgi {
 
         if (eventDuration.length < 2) throw new InvalidDescFormatException();
 
-        String from = eventDuration[0];
-        String to = eventDuration[1];
+        LocalDate from = null;
+        LocalDate to = null;
+
+        try {
+            from = LocalDate.parse(eventDuration[0], Task.DATE_INPUT_FORMATTER);
+            to = LocalDate.parse(eventDuration[1], Task.DATE_INPUT_FORMATTER);
+        } catch (DateTimeParseException e) {
+            throw new InvalidDescFormatException();
+        }
 
         Task newTask = new Event(eventDesc, from, to);
 
