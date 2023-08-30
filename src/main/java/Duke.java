@@ -3,6 +3,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.util.ArrayList;
+import java.util.MissingResourceException;
 import java.util.Scanner;
 import java.time.DateTimeException;
 import java.time.LocalDate;
@@ -14,7 +15,7 @@ public class Duke {
     private static final String TASK_FILENAME = "task-list.txt";
     private final String myName = "Quack-NKN";
     private final Scanner scanner = new Scanner(System.in);
-    private final ArrayList<Task> taskList = new ArrayList<>();
+    private TaskList taskList = new TaskList();
 
     public Duke() {
         interact();
@@ -42,6 +43,7 @@ public class Duke {
         System.out.println("Loading data from hard disk ...");
         File f = new File(Duke.TASK_FILENAME);
         try {
+            ArrayList<Task> taskList = new ArrayList<>();
             Scanner fileScanner = new Scanner(f);
             while (fileScanner.hasNext()) {
                 String[] line = fileScanner.nextLine().split(" ", 3);
@@ -92,8 +94,9 @@ public class Duke {
                 } else {
                     throw new FileCorruptedException();
                 }
-                this.taskList.add(task);
+                taskList.add(task);
             }
+            this.taskList = new TaskList(taskList);
             fileScanner.close();
         } catch (FileNotFoundException fileError) {
             try {
@@ -101,7 +104,6 @@ public class Duke {
             } catch (IOException ioError) {
                 System.out.println("Quack, an error has occurred while trying to save data to hard disk.");
                 System.out.println("Starting with an empty task list.");
-                this.taskList.clear();
                 return;
             }
         }
@@ -350,87 +352,65 @@ public class Duke {
 
     /**
      * Show the current list of tasks to user.
+     * @param commandArgs the list of arguments in the command
      */
     private void showList(String[] commandArgs) {
-        ArrayList<Task> taskList = (ArrayList<Task>) this.taskList.clone();
         if (commandArgs.length != 1) {
             String[] args = commandArgs[1].split(" ");
+            boolean isExcludingDone = false;
+            LocalDate date = null;
+            for (String arg: args) {
+                switch (arg) {
+                    case "todo":
+                    case "deadline":
+                    case "event":
+                        break;
+                    case "-d":
+                        isExcludingDone = true;
+                        break;
+                    default:
+                        try {
+                            date = DateTimeManager.parseDate(arg);
+                        } catch (DateParseException e) {
+                            System.out.println("Quack, unrecognised \"" + arg + "\"");
+                            return;
+                        }
+                }
+            }
             switch (args[0]) {
                 case "todo":
-                    taskList.removeIf(task -> !(task instanceof ToDo));
-                    try {
-                        System.out.println("Alright, here are the to-do tasks" +
-                            (args.length == 2
-                                    ? " " + Duke.handleThirdArgInShowList(args[0], args[1], taskList)
-                                    : "") + ":"
-                        );
-                    } catch (DateParseException e) {
-                        System.out.println("Quack, unrecognised " + commandArgs[2]);
-                        return;
-                    }
+                    System.out.println("Alright, here are your to-do tasks"
+                            + (isExcludingDone ? " not done" : "")
+                            + ":"
+                    );
+                    this.taskList.displayTodos(isExcludingDone);
                     break;
                 case "deadline":
-                    taskList.removeIf(task -> !(task instanceof Deadline));
-                    try {
-                        System.out.println("Alright, here are the deadlines" +
-                                (args.length == 2
-                                        ? " " + Duke.handleThirdArgInShowList(args[0], args[1], taskList)
-                                        : "") + ":"
-                        );
-                    } catch (DateParseException e) {
-                        System.out.println("Quack, unrecognised " + commandArgs[2]);
-                        return;
-                    }
+                    System.out.println("Alright, here are your deadlines"
+                            + (isExcludingDone ? " not done" : "")
+                            + (date == null ? "" : " before " + DateTimeManager.dateToDisplay(date))
+                    );
+                    this.taskList.displayDeadlines(isExcludingDone, date);
                     break;
                 case "event":
-                    taskList.removeIf(task -> !(task instanceof Event));
-                    try {
-                        System.out.println("Alright, here are the events" +
-                                (args.length == 2
-                                        ? " " + Duke.handleThirdArgInShowList(args[0], args[1], taskList)
-                                        : "") + ":"
-                        );
-                    } catch (DateParseException e) {
-                        System.out.println("Quack, unrecognised " + commandArgs[2]);
-                        return;
-                    }
+                    System.out.println("Alright, here are your events"
+                            + (isExcludingDone ? " not done" : "")
+                            + (date == null ? "" : " happening on " + DateTimeManager.dateToDisplay(date))
+                    );
+                    this.taskList.displayEvents(isExcludingDone, date);
                     break;
                 default:
-                    LocalDate date;
-                    try {
-                        date = DateTimeManager.parseDate(commandArgs[1]);
-                    } catch (DateParseException e) {
-                        System.out.println("Quack, I do not understand what list you want me to display");
-                        return;
-                    }
                     String displayString = DateTimeManager.dateToDisplay(date);
-                    taskList.removeIf(task -> !task.containsDate(date));
                     System.out.println("Alright, here are the deadlines before "
                         + displayString + " and events happening " + displayString
                     );
+                    this.taskList.displayTasks(isExcludingDone, date);
                     break;
             }
-        }
-
-        for (int i = 0; i < taskList.size(); i++) {
-            System.out.println((i + 1) + ". " + taskList.get(i));
-        }
-    }
-
-    private static String handleThirdArgInShowList(String type, String arg, ArrayList<Task> taskList) throws DateParseException {
-        String furtherFilter;
-        if (arg.equals("-d")) {
-            furtherFilter = "not done";
-            taskList.removeIf(Task::isDone);
         } else {
-            if (type.equals("todo")) {
-                return "";
-            }
-            LocalDate date = DateTimeManager.parseDate(arg);
-            furtherFilter = (type.equals("deadline") ? "before " : "happening on ") + DateTimeManager.dateToDisplay(date);
-            taskList.removeIf(task -> !task.containsDate(date));
+            System.out.println("Here is your list of tasks:");
+            this.taskList.displayTasks(false, null);
         }
-        return furtherFilter;
     }
 
     /**
@@ -442,9 +422,13 @@ public class Duke {
         if (index == -1) {
             return;
         }
-        this.taskList.get(index).markAsDone();
-        System.out.println("Nice! I've marked this task as done:");
-        System.out.println(this.taskList.get(index));
+        try {
+            Task task = this.taskList.markTaskAsDone(index);
+            System.out.println("Nice! I've marked this task as done:");
+            System.out.println(task);
+        } catch (TaskList.TaskIndexOutOfRange e) {
+            System.out.println("Quack, the task number you provide is too big!");
+        }
     }
 
     /**
@@ -456,9 +440,13 @@ public class Duke {
         if (index == -1) {
             return;
         }
-        this.taskList.get(index).markAsNotDone();
-        System.out.println("OK, I've marked this task as not done yet:");
-        System.out.println(this.taskList.get(index));
+        try {
+            Task task = this.taskList.markTaskAsNotDone(index);
+            System.out.println("OK, I've marked this task as not done yet:");
+            System.out.println(task);
+        } catch (TaskList.TaskIndexOutOfRange e) {
+            System.out.println("Quack, the task number you provide is too big!");
+        }
     }
 
     /**
@@ -470,11 +458,14 @@ public class Duke {
         if (index == -1) {
             return;
         }
-        Task taskToDelete = this.taskList.get(index);
-        this.taskList.remove(index);
-        System.out.println("Noted, I've removed this task:");
-        System.out.println(taskToDelete);
-        this.showTaskCount();
+        try {
+            Task taskDeleted = this.taskList.deleteTask(index);
+            System.out.println("Noted, I've removed this task:");
+            System.out.println(taskDeleted);
+            this.showTaskCount();
+        } catch (TaskList.TaskIndexOutOfRange e) {
+            System.out.println("Quack, the task number you provided is too big!");
+        }
     }
 
     /**
@@ -499,14 +490,7 @@ public class Duke {
             return -1;
         }
 
-        // check if index is in range
-        int index = Integer.parseInt(indexString);
-        if (index > this.taskList.size()) {
-            System.out.println("Quack, the task number you provide does not exist!");
-            return -1;
-        }
-
-        return index - 1;
+        return Integer.parseInt(indexString) - 1;
     }
 
     /**
@@ -515,13 +499,7 @@ public class Duke {
     private void saveData() {
         System.out.println("Saving data ...");
         try {
-            FileWriter writer = new FileWriter(Duke.TASK_FILENAME);
-            for (Task task: this.taskList) {
-                writer.write(task.data());
-                writer.write("\n");
-            }
-            writer.close();
-            System.out.println("Done saving");
+            this.taskList.saveData(Duke.TASK_FILENAME);
         } catch (IOException e) {
             System.out.println("An error has occurred while writing to hard disk!");
         }
@@ -544,7 +522,6 @@ public class Duke {
                     this.exit();
                     return false;
                 case "2":
-                    this.taskList.clear();
                     return true;
                 default:
                     System.out.print("Quack, I do not understand your option, please indicate again (1/2): ");
