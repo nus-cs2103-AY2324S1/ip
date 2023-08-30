@@ -13,6 +13,14 @@ public class EventCommand extends AddCommand {
         this.to = to;
     }
 
+    EventCommand(String name, String from, String to) {
+        this.commandType = "Event";
+        this.isExit = false;
+        this.name = name;
+        this.from = LocalDate.parse(from);
+        this.to = LocalDate.parse(to);
+    }
+
     void execute(TaskList tasks, Ui ui, Storage storage) {
         // 1. Create new deadline task
         Task newEventTask = new Event(name, from, to);

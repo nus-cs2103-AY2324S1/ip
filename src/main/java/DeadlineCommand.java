@@ -12,6 +12,13 @@ public class DeadlineCommand extends AddCommand {
         this.by = by;
     }
 
+    DeadlineCommand(String name, String by) {
+        this.commandType = "Deadline";
+        this.isExit = false;
+        this.name = name;
+        this.by = LocalDate.parse(by);
+    }
+
     void execute(TaskList tasks, Ui ui, Storage storage) {
         // 1. Create new deadline task
         Task newDeadlineTask = new Deadline(name, by);

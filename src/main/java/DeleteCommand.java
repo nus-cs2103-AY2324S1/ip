@@ -10,11 +10,16 @@ public class DeleteCommand extends Command {
     }
 
     void execute(TaskList tasks, Ui ui, Storage storage) {
+        try {
+            Task taskToMark = tasks.getTask(this.deleteIndex);
+            tasks.removeTask(this.deleteIndex);
 
-        Task taskToMark = tasks.getAllTasks().get(this.deleteIndex);
-        tasks.removeTask(this.deleteIndex);
+            // print message when deleting
+            ui.printSuccessfulDeleteResponse(taskToMark, tasks.getNumTotalTasks());
+        } catch (TaskNotFoundException e) {
+            ui.printTaskNotFoundExceptionResponse();
+            return;
+        }
 
-        // print message when deleting
-        ui.printSuccessfulDeleteResponse(taskToMark, tasks.getNumTotalTasks());
     }
 }

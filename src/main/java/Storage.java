@@ -15,6 +15,11 @@ public class Storage {
         return this.saveFilePath;
     }
 
+    String getAbsoluteSaveFilePath() {
+        return System.getProperty("user.dir") +
+                this.getSaveFilePath().substring(1).replace("/", "\\");
+    }
+
     String readFromFile() throws IOException {
         Path filePath = Path.of(saveFilePath);
         return Files.readString(filePath);

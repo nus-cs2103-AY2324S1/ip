@@ -64,24 +64,33 @@ public class TaskList {
         numTotalTasks++;
     }
 
-    Task removeTask(int i) {
+    void removeTask(int i) throws TaskNotFoundException {
+        if (i > tasks.size() | i < 0) {
+            throw new TaskNotFoundException();
+        }
         Task t = tasks.get(i);
         tasks.remove(i);
         if (t.getIsDone()) {
             numIncompleteTasks--;
         }
         numTotalTasks--;
-        return t;
     }
 
-    void markAsDone(Task t) {
+    void markAsDone(Task t) throws TaskNotFoundException {
+        if (!this.tasks.contains(t)) {
+            throw new TaskNotFoundException();
+        }
+
         if (!t.getIsDone()) {
             t.markAsDone();
             numIncompleteTasks--;
         }
     }
 
-    void markAsNotDone(Task t) {
+    void markAsNotDone(Task t) throws TaskNotFoundException {
+        if (!this.tasks.contains(t)) {
+            throw new TaskNotFoundException();
+        }
         if (t.getIsDone()) {
             t.markAsNotDone();
             numIncompleteTasks++;
@@ -98,6 +107,13 @@ public class TaskList {
 
     int getNumIncompleteTasks() {
         return this.numIncompleteTasks;
+    }
+
+    Task getTask(int i) throws TaskNotFoundException {
+        if (i >= tasks.size() | i < 0) {
+            throw new TaskNotFoundException();
+        }
+        return tasks.get(i);
     }
 
     String formatAllTasksForSaving() {

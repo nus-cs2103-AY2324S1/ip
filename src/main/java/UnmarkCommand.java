@@ -11,10 +11,15 @@ public class UnmarkCommand extends Command {
 
     void execute(TaskList tasks, Ui ui, Storage storage) {
 
-        Task taskToUnmark = tasks.getAllTasks().get(this.unmarkIndex);
-        tasks.markAsDone(taskToUnmark);
+        try {
+            Task taskToUnmark = tasks.getTask(this.unmarkIndex);
+            tasks.markAsNotDone(taskToUnmark);
 
-        // print message when unmarking
-        ui.printSuccessfulUnmarkResponse(taskToUnmark);
+            // print message when unmarking
+            ui.printSuccessfulUnmarkResponse(taskToUnmark);
+        } catch (TaskNotFoundException e) {
+            ui.printTaskNotFoundExceptionResponse();
+            return;
+        }
     }
 }

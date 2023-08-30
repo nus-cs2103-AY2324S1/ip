@@ -11,10 +11,16 @@ public class MarkCommand extends Command {
 
     void execute(TaskList tasks, Ui ui, Storage storage) {
 
-        Task taskToMark = tasks.getAllTasks().get(this.markIndex);
-        tasks.markAsDone(taskToMark);
+        try {
+            Task taskToMark = tasks.getTask(this.markIndex);
+            tasks.markAsDone(taskToMark);
 
-        // print message when marking
-        ui.printSuccessfulMarkResponse(taskToMark);
+            // print message when marking
+            ui.printSuccessfulMarkResponse(taskToMark);
+        } catch (TaskNotFoundException e) {
+            ui.printTaskNotFoundExceptionResponse();
+            return;
+        }
+
     }
 }
