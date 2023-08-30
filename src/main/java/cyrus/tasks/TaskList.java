@@ -7,7 +7,7 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 /**
- *
+ * Wrapper around the list of {@code Task}.
  */
 public class TaskList {
   private final List<Task> tasks;
@@ -18,25 +18,52 @@ public class TaskList {
     this.tasks = storage.load();
   }
 
+  /**
+   * Adds task and saves to file.
+   *
+   * @param task {@code Task} to add
+   */
   public void addTask(Task task) {
     this.tasks.add(task);
     this.saveTasks();
   }
 
+  /**
+   * Removes task by index and saves tto file.
+   *
+   * @param index index position of task to remove
+   */
   public void removeTask(int index) {
     this.tasks.remove(index);
     this.saveTasks();
   }
 
+  /**
+   * Updates {@code Task} at {@code index} to given {@code status}.
+   *
+   * @param index  index position of task to update
+   * @param status status to update to
+   */
   public void setTaskStatus(int index, boolean status) {
     this.tasks.get(index).setDone(status);
     this.saveTasks();
   }
 
+  /**
+   * Get size of current {@code TaskList}.
+   *
+   * @return size of {@code TaskList}
+   */
   public int size() {
     return this.tasks.size();
   }
 
+  /**
+   * Get {@code Task} given {@code index}.
+   *
+   * @param index index position of task to update
+   * @return {@code Task} corresponding to the {@code index}
+   */
   public Task getTask(int index) {
     return this.tasks.get(index);
   }
@@ -54,6 +81,9 @@ public class TaskList {
     return String.join("\n", formatted);
   }
 
+  /**
+   * Helper function to save the current list of tasks to the storage.
+   */
   private void saveTasks() {
     this.storage.save(this.tasks);
   }

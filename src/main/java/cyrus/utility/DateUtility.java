@@ -4,6 +4,9 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Utility to deal with {@code LocalDate}.
+ */
 public class DateUtility {
   private static final DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
   private static final DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("dd MMMM " +

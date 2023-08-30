@@ -7,6 +7,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+/**
+ * Parses user input into a command format. See {@code ParseInfo} for more information about the
+ * parsed form.
+ */
 public class Parser {
   /**
    * Dispatches {@code Command} given a {@code taskList} and {@code parseInfo} about the incoming
