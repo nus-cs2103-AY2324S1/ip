@@ -1,5 +1,5 @@
-event dating her /from Mon 10pm /to Tue 2am
-deadline finish CS2103 homework /by Mon 11pm
+event dating her /from 2004-06-14 /to 2004-07-14
+deadline finish CS2103 homework /by 2004-06-14
 todo listen to the lecture
 list
 mark 2

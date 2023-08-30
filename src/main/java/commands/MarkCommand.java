@@ -1,5 +1,6 @@
 package commands;
 
+import exceptions.StorageException;
 import storage.Storage;
 import task.TaskList;
 import ui.Ui;
@@ -7,15 +8,19 @@ import ui.Ui;
 public class MarkCommand extends Command {
     private final int index;
 
-    public MarkCommand(TaskList tasks, Ui ui, Storage storage, int index) {
-        super(tasks, ui, storage);
+    public MarkCommand(int index) {
         this.index = index;
     }
 
-    @Override
-    public void execute() {
+    public void execute(TaskList tasks, Ui ui, Storage storage) throws StorageException {
+        ui.showMark(tasks, index);
         tasks.markTask(index);
-        ui.showMarkedTask(tasks, index);
         storage.save(tasks);
+    }
+
+
+    @Override
+    public boolean isExit() {
+        return false;
     }
 }

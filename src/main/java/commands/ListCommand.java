@@ -5,12 +5,17 @@ import task.TaskList;
 import ui.Ui;
 
 public class ListCommand extends Command {
-    public ListCommand(TaskList tasks, Ui ui, Storage storage) {
-        super(tasks, ui, storage);
+
+    public ListCommand() {
     }
 
     @Override
-    public void execute() {
+    public void execute(TaskList tasks, Ui ui, Storage storage) {
         ui.showList(tasks);
+    }
+
+    @Override
+    public boolean isExit() {
+        return false;
     }
 }
