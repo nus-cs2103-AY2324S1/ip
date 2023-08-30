@@ -18,7 +18,6 @@ public class Event extends Task {
         this.to = to;
         this.identifier = "[E]";
     }
-    //System.out.println(dateTime.format(DateTimeFormatter.ofPattern("LLL dd yyyy Ka")));
 
     public String toString() {
         return this.identifier + super.toString() +
