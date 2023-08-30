@@ -29,7 +29,7 @@ public class TaskListEncoder {
         final StringBuilder encodedTaskBuilder = new StringBuilder();
         encodedTaskBuilder.append(task.getType() + " | ");
 
-        encodedTaskBuilder.append((task.checkDone() ? "X" : " ") + " | ");
+        encodedTaskBuilder.append((task.isDone() ? "X" : " ") + " | ");
 
         encodedTaskBuilder.append(task.getDescription());
 

@@ -8,10 +8,10 @@ import rayshawn.chatbot.tasks.Task;
  */
 public class DeleteCommand extends Command {
     public static final String COMMAND_WORD = "delete";
-    public static final String MESSAGE_USAGE = COMMAND_WORD +
-            ": Deletes the task identified by the index number used shown in the task listing. \n" +
-            "Parameters: INDEX\n" +
-            "Example: " + COMMAND_WORD + " 1";
+    public static final String MESSAGE_USAGE = COMMAND_WORD
+            + ": Deletes the task identified by the index number used shown in the task listing. \n"
+            + "Parameters: INDEX\n"
+            + "Example: " + COMMAND_WORD + " 1";
     private static final String MESSAGE_SUCCESS = "Noted. I've removed this task: \n %1$s";
 
     /**

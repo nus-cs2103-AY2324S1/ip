@@ -3,10 +3,11 @@ package rayshawn.chatbot.commands;
 import java.util.List;
 import java.util.Optional;
 
+import rayshawn.chatbot.tasks.Task;
+
 /**
  * Represents the result of a command execution.
  */
-import rayshawn.chatbot.tasks.Task;
 public class CommandResult {
     public final String feedbackToUser;
     private final List<Task> tasks;

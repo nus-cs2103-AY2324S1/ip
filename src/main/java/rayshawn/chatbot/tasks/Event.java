@@ -1,8 +1,8 @@
 package rayshawn.chatbot.tasks;
 
-import java.time.format.DateTimeFormatter;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 
 /**
  * Represents event task in tasklist.
@@ -42,9 +42,9 @@ public class Event extends Task {
     @Override
     public String toString() {
         DateTimeFormatter timeFormat = DateTimeFormatter.ofPattern("h a");
-        return super.toString() + " (from: " +
-                this.date.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")) +
-                " " + this.start.format(timeFormat) + " to: " + this.end.format(timeFormat) + ")";
+        return super.toString() + " (from: "
+                + this.date.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))
+                + " " + this.start.format(timeFormat) + " to: " + this.end.format(timeFormat) + ")";
 
     }
 }

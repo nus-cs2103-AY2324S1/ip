@@ -75,7 +75,7 @@ public class Main {
             CommandResult result = command.execute();
             storage.save(tasks);
             return result;
-        } catch (Exception e){
+        } catch (Exception e) {
             ui.showToUser(e.getMessage());
             throw new RuntimeException(e);
         }

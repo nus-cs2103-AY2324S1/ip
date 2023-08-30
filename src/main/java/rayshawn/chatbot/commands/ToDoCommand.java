@@ -9,11 +9,12 @@ import rayshawn.chatbot.tasks.ToDo;
  */
 public class ToDoCommand extends Command {
     public static final String COMMAND_WORD = "todo";
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a ToDo task to the task list. " +
-            "Parameters: Description\n" + "Example: " + COMMAND_WORD + " homework";
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a ToDo task to the task list. "
+            + "Parameters: Description\n"
+            + "Example: " + COMMAND_WORD + " homework";
     private static final String MESSAGE_SUCCESS = "Got it. I've added this task: \n %1$s \n";
 
-    public Task toAdd;
+    public final Task toAdd;
 
     /**
      * Constructor for ToDoCommand.
