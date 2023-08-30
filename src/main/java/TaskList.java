@@ -41,8 +41,9 @@ public class TaskList {
             } else if (eventType.equals("D")) {
                 String[] strSegments = currentLine.substring(10).split( " By: ");
                 String eventName = strSegments[0].trim();
-                int length = strSegments[1].length();
-                String date = strSegments[1].substring(0, length);
+//                int length = strSegments[1].length();
+//                String date = strSegments[1].substring(0, length);
+                String date = strSegments[1];
                 Deadline deadline = new Deadline(eventName, date, eventDone);
                 tempList.add(deadline);
             } else {
@@ -75,7 +76,7 @@ public class TaskList {
         try {
             appendToFile(FILE_PATH, string);
             System.out.println("Got it. I've added this task:");
-            System.out.println(task.toString());
+            System.out.println(task.displayableForm());
             System.out.println("Now you have " + this.index + " tasks in the list.");
 
             this.index++;
@@ -91,7 +92,7 @@ public class TaskList {
         System.out.println("Here are the tasks in your list:");
         for (int i = 0; i < this.taskList.size(); i++) {
             if (this.taskList.get(i) != null) {
-                System.out.println((i+1) + ". " + this.taskList.get(i).toString());
+                System.out.println((i+1) + ". " + this.taskList.get(i).displayableForm());
             }
         }
     }
@@ -108,7 +109,7 @@ public class TaskList {
             Task task = this.taskList.get(index - 1);
             task.setDone();
             System.out.println("Nice! I've marked this task as done:");
-            System.out.println(task);
+            System.out.println(task.displayableForm());
 
             writeToFile(FILE_PATH, "");
 
@@ -139,7 +140,7 @@ public class TaskList {
             Task task = this.taskList.get(index - 1);
             task.setNotDone();
             System.out.println("OK, I've marked this task as not done yet:");
-            System.out.println(task);
+            System.out.println(task.displayableForm());
 
             writeToFile(FILE_PATH, "");
 
@@ -169,7 +170,7 @@ public class TaskList {
             Task task = this.taskList.get(number - 1);
             this.taskList.remove(number - 1);
             System.out.println("Noted. I've removed this task:");
-            System.out.println(task);
+            System.out.println(task.displayableForm());
             System.out.println("Now you have " + (this.index - 1) + " tasks in the list.");
 
             writeToFile(FILE_PATH, "");
