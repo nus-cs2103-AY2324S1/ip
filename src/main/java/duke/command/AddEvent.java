@@ -19,7 +19,7 @@ public class AddEvent extends Command {
     public void execute(TaskList lst, UI io, Storage storage) throws DukeException{
         if (s.isEmpty() || s.equals(" ")) {
             throw new DukeException("☹ OOPS!!! The description of a deadline cannot be empty.");
-        }else if(!s.matches("\\S.*\\s/from\\s\\d.*\\s/to\\s\\d.*")){
+        }else if(!s.matches(" \\S.*\\s/from\\s\\d.*\\s/to\\s\\d.*")){
             throw new DukeException(
                     "☹ OOPS!!! Please follow the following pattern to add a task:\n  " +
                             "deadline <task name> /by <deadline>\n");
@@ -28,7 +28,7 @@ public class AddEvent extends Command {
             try {
                 LocalDate dFrom = LocalDate.parse(temp[1].substring(5));
                 LocalDate dTo = LocalDate.parse(temp[2].substring(3));
-                Task newTask = lst.addTask(temp[0], dFrom, dTo);
+                Task newTask = lst.addTask(temp[0].substring(1), dFrom, dTo);
                 io.addTask(newTask, lst);
                 storage.addToFile(newTask);
             } catch (DateTimeException e) {

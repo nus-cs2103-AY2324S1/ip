@@ -6,10 +6,11 @@ import duke.parser.Parser;
 import duke.storage.Storage;
 import duke.taskList.TaskList;
 
+
 public class Duke {
-    private Storage storage;
+    private final Storage storage;
     private TaskList tasks;
-    private UI ui;
+    private final UI ui;
 
     public Duke(String filePath) {
         ui = new UI();

@@ -9,11 +9,11 @@ public class Parser {
         case"":
             return new Unknown("☹ OOPS!!! You said nothing!\n");
         case "deadline":
-            return new AddDeadline(instr.substring(9));
+            return new AddDeadline(instr.substring(8));
         case "event":
-            return new AddEvent(instr.substring(6));
+            return new AddEvent(instr.substring(5));
         case "todo":
-            return new AddTodo(instr.substring(5));
+            return new AddTodo(instr.substring(4));
         case "mark":
             return new Remark(instr.substring(4),1);
         case "unmark":

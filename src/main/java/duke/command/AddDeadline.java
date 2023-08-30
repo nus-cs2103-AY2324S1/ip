@@ -15,11 +15,12 @@ public class AddDeadline extends Command {
         super(s);
     }
 
+    @SuppressWarnings("checkstyle:WhitespaceAround")
     @Override
     public void execute(TaskList lst, UI io, Storage storage) throws DukeException{
         if (s.isEmpty() || s.equals(" ")) {
             throw new DukeException("☹ OOPS!!! The description of a deadline cannot be empty.");
-        }else if(!s.matches("\\S.*\\s/by\\s\\d.*")){
+        }else if(!s.matches(" \\S.*\\s/by\\s\\d.*")){
             throw new DukeException(
                     "☹ OOPS!!! Please follow the following pattern to add a task:\n  " +
                             "deadline <task name> /by <deadline>\n");
@@ -27,7 +28,7 @@ public class AddDeadline extends Command {
             String[] temp = s.split(" /by ");
             try {
                 LocalDate d = LocalDate.parse(temp[1]);
-                Task newTask = lst.addTask(temp[0], d);
+                Task newTask = lst.addTask(temp[0].substring(1), d);
                 io.addTask(newTask, lst);
                 storage.addToFile(newTask);
             } catch (DateTimeException e) {

@@ -15,14 +15,14 @@ import java.util.Scanner;
 
 public class Storage {
     private final String filePath;
-    String home = System.getProperty("user.home");
+    private String home = System.getProperty("user.home");
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
-    public Collection<Task> load() throws DukeException{
+    public Collection<Task> load() throws DukeException {
         boolean directoryExists = new java.io.File(home + "\\Documents\\ip\\data").exists();
-        if(!directoryExists) {
+        if (!directoryExists) {
             java.nio.file.Path path = java.nio.file.Paths.get(home, "Documents", "ip", "data");
             directoryExists = java.nio.file.Files.exists(path);
             if (!directoryExists) {
@@ -33,14 +33,14 @@ public class Storage {
 
         try {
             ArrayList<Task> lst = new ArrayList<Task>();
-            if(f.exists()) {
+            if (f.exists()) {
                 Scanner s = new Scanner(f);
                 while (s.hasNext()) {
                     String temp = s.nextLine();
                     lst.add(existTasks(temp));
                 }
                 return lst;
-            }else {
+            } else {
                 f.createNewFile();
                 return lst;
             }
@@ -48,8 +48,6 @@ public class Storage {
             throw new DukeException(e.getMessage());
         }
     }
-
-
 
     private Task existTasks(String s) {
         String[] temp = s.split(" \\| ");
@@ -63,7 +61,9 @@ public class Storage {
             t = Task.of(temp[1], LocalDate.parse(temp[2]), LocalDate.parse(temp[3]));
         }
 
-        if (Objects.equals(temp[0], "1")) {t.mark();}
+        if (Objects.equals(temp[0], "1")) {
+            t.mark();
+        }
         return t;
     }
 
@@ -84,7 +84,7 @@ public class Storage {
             FileWriter fw = new FileWriter(filePath, true);
             fw.write(t.getText() + "\n");
             fw.close();
-        }catch (IOException iE) {
+        } catch (IOException iE) {
             throw new DukeException(iE.getMessage());
         }
     }
