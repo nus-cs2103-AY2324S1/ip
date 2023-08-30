@@ -31,8 +31,8 @@ public class FileManager {
      * Writes to a file when given the file path
      * @param filePath the path directory to the file
      * @param textToAdd the text to add to the file
-     * @return
-     * @throws IOException
+     * @return  true if the file is written successfully, false otherwise
+     * @throws IOException  if there is an error in writing the file
      */
     public boolean writeToFile(String filePath, String textToAdd) throws IOException {
         try {

@@ -1,18 +1,30 @@
 package duke;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Class to encapsulate the list of tasks
+ */
 public class TaskList {
     private File textFile;
     private ArrayList<Task> taskList;
 
+    /**
+     * Constructor for TaskList
+     * @param filePath
+     */
     public TaskList(String filePath) {
         this.textFile = textFile;
         this.createTaskList(filePath);
     }
 
+    /**
+     * Creates a list of tasks from the file
+     * @param filePath
+     */
     private void createTaskList(String filePath) {
         try {
             this.taskList = new ArrayList<>();
@@ -26,7 +38,7 @@ public class TaskList {
             scanner.close();
         } catch (FileNotFoundException e) {
             System.out.println("File not found, unable to create list of tasks");
-        } catch (WrongInputTask e) {
+        } catch (WrongInputException e) {
             System.out.println("Unable to create task from storage" + e.toString());
         }
     }
@@ -36,7 +48,7 @@ public class TaskList {
      * @param storedTextLine the string representing a line of text in the file to be parsed
      * @return a Task object of the right task type
      */
-    public static Task parseTask(String storedTextLine) throws WrongInputTask {
+    public static Task parseTask(String storedTextLine) throws WrongInputException {
         String[] splitString = storedTextLine.split(" \\| ");
         String taskType = splitString[0];
         boolean taskStatus = Boolean.parseBoolean(splitString[1]);
@@ -49,7 +61,7 @@ public class TaskList {
             String deadline = splitString[3];
             DateTime deadlineDateTime = DateTime.createDateTimeFromStorage(deadline);
             if (deadlineDateTime == null) {
-                throw new WrongInputTask("Stored deadline is invalid / corrupted",
+                throw new WrongInputException("Stored deadline is invalid / corrupted",
                         "Please clear the folder and restart the program");
             }
             return new Deadline(taskName, taskStatus, deadlineDateTime);
@@ -59,7 +71,7 @@ public class TaskList {
             DateTime fromDateTime = DateTime.createDateTimeFromStorage(from);
             DateTime toDateTime = DateTime.createDateTimeFromStorage(to);
             if (fromDateTime == null || toDateTime == null) {
-                throw new WrongInputTask("Stored event is invalid / corrupted",
+                throw new WrongInputException("Stored event is invalid / corrupted",
                         "Please clear the folder and restart the program");
             }
             return new Event(taskName, taskStatus, fromDateTime, toDateTime);

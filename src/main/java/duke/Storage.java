@@ -14,6 +14,11 @@ public class Storage {
     private final String filePath;
     private final File file;
 
+    /**
+     * Constructor for creating a Storage object
+     * @param filePath  the path of the file
+     * @param file  the file
+     */
     private Storage(String filePath, File file) {
         this.filePath = filePath;
         this.file = file;
@@ -66,7 +71,7 @@ public class Storage {
      * Creates a file if it does not exist
      * @param filePath
      * @return File object
-     * @throws IOException
+     * @throws IOException if the file could not be created
      */
     public static File createFile(String filePath)  {
         File file = new File(filePath);

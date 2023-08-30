@@ -8,6 +8,9 @@ public class Ui {
 
     private Scanner scanner;
 
+    /**
+     * Constructor for Ui
+     */
     public Ui() {
         this.scanner = new Scanner(System.in);
     }

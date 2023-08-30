@@ -8,6 +8,10 @@ public class SearchEngine {
 
     private Storage searchStorage;
 
+    /**
+     * Constructor for SearchEngine
+     * @param ui    the ui
+     */
     public SearchEngine(Ui ui) {
         this.ui = ui;
         this.searchStorage = Storage.createStorage("./data/search.txt");
@@ -37,13 +41,13 @@ public class SearchEngine {
      *  @param input    the input to be validated
      *  @return true if the input is valid
      */
-    public boolean searchValidator(String input) throws WrongInputTask {
+    public boolean searchValidator(String input) throws WrongInputException {
         if (input.split("find").length < 1) {
-            throw new WrongInputTask("find <text>", "type find followed by non-space characters");
+            throw new WrongInputException("find <text>", "type find followed by non-space characters");
         }
         String check = input.split("find")[0];
         if (check.trim().isEmpty()) {
-            throw new WrongInputTask("<text> cannot be empty", "type non-space characters");
+            throw new WrongInputException("<text> cannot be empty", "type non-space characters");
         }
         return true;
     }

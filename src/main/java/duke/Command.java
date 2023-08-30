@@ -8,7 +8,6 @@ public enum Command {
     MARK,
     UNMARK,
     BYE,
-    ADD,
     TODO,
     DEADLINE,
     EVENT,
