@@ -120,7 +120,7 @@ public class Puke {
                     System.out.println(separator);
                     continue;
                 }
-                System.out.println("Understood. I have hereby created a task known to require doing for a set period of time alongside this stipulated duration that you have indicated and inserted it into " +
+                System.out.println("Understood. I have hereby created a task known to require participation for a set period of time alongside this stipulated duration that you have indicated and inserted it into " +
                         "the overall collection of these tasks that require action.\n" +
                         "Here is a display of the added deadline task: " + list.get(list.size() - 1) + "\n" +
                         "You now, in total, have " + list.size() + " of these tasks recorded within said collection.");
@@ -311,10 +311,10 @@ class DataHandler {
         return output;
     }
 
-    public static void writeToDatabase(ArrayList<Task> taskList) throws IOException {
+    public static void writeToDatabase(TaskList taskList) throws IOException {
         FileWriter fw = new FileWriter("ListData.txt");
         StringBuilder output = new StringBuilder();
-        for (Task item:taskList) {
+        for (Task item:taskList.getList()) {
             output.append(item.write()).append("\n");
         }
         fw.write(output.toString());
@@ -370,6 +370,10 @@ class TaskList {
         }
     }
 
+    ArrayList<Task> getList() {
+        return this.list;
+    }
+
     void add(Task t) {
         this.list.add(t);
     }
@@ -415,14 +419,14 @@ class TaskList {
 }
 
 abstract class Command {
-    private boolean exit;
+    private final boolean exit;
     protected boolean valid;
 
     Command(boolean exit, boolean valid) {
         this.exit = exit;
         this.valid = valid;
     }
-    abstract void execute(Storage data, TaskList tl, Ui ui);
+    abstract void execute(TaskList tl, Ui ui);
 
     boolean isExit() {
         return this.exit;
@@ -435,10 +439,10 @@ class ExitCommand extends Command {
     ExitCommand(String rest) {
         super(rest.isEmpty(), rest.isEmpty());
     }
-    void execute(Storage data, TaskList tl, Ui ui) {
+    void execute(TaskList tl, Ui ui) {
         if (!super.valid) {
-            System.out.println(ui.errorMessage);
-            System.out.println(ui.separator);
+            System.out.println(Ui.errorMessage);
+            System.out.println(Ui.separator);
         } else {
             System.out.println(ui.exit());
         }
@@ -450,14 +454,14 @@ class ListCommand extends Command {
     ListCommand(String rest) {
         super(false, rest.isEmpty());
     }
-    void execute(Storage data, TaskList tl, Ui ui) {
+    void execute(TaskList tl, Ui ui) {
         if (!super.valid) {
-            System.out.println(ui.errorMessage);
-            System.out.println(ui.separator);
+            System.out.println(Ui.errorMessage);
+            System.out.println(Ui.separator);
         } else {
             System.out.println(ui.list());
             System.out.println(tl.printOut());
-            System.out.println(ui.separator);
+            System.out.println(Ui.separator);
         }
     }
 }
@@ -470,15 +474,15 @@ class MarkCommand extends Command {
         this.index = Integer.parseInt(rest);
     }
 
-    void execute(Storage data, TaskList tl, Ui ui) {
+    void execute(TaskList tl, Ui ui) {
         try {
             tl.mark(this.index);
             System.out.println(ui.mark(this.index));
-            System.out.println(ui.separator);
+            System.out.println(Ui.separator);
             DataHandler.writeToDatabase(tl);
         } catch (Exception PukeException) {
-            System.out.println(ui.errorMessage);
-            System.out.println(ui.separator);
+            System.out.println(Ui.errorMessage);
+            System.out.println(Ui.separator);
         }
     }
 }
@@ -491,15 +495,15 @@ class UnmarkCommand extends Command {
         this.index = Integer.parseInt(rest);
     }
 
-    void execute(Storage data, TaskList tl, Ui ui) {
+    void execute(TaskList tl, Ui ui) {
         try {
             tl.unmark(this.index);
             System.out.println(ui.unmark(this.index));
-            System.out.println(ui.separator);
+            System.out.println(Ui.separator);
             DataHandler.writeToDatabase(tl);
         } catch (Exception PukeException) {
-            System.out.println(ui.errorMessage);
-            System.out.println(ui.separator);
+            System.out.println(Ui.errorMessage);
+            System.out.println(Ui.separator);
         }
     }
 }
@@ -512,15 +516,15 @@ class TodoCommand extends Command {
         this.desc = rest;
     }
 
-    void execute(Storage data, TaskList tl, Ui ui) {
+    void execute(TaskList tl, Ui ui) {
         try {
             tl.add(new ToDo(this.desc));
             System.out.println(ui.toDo(tl));
-            System.out.println(ui.separator);
+            System.out.println(Ui.separator);
             DataHandler.writeToDatabase(tl);
         } catch (Exception PukeException) {
-            System.out.println(ui.errorMessage);
-            System.out.println(ui.separator);
+            System.out.println(Ui.errorMessage);
+            System.out.println(Ui.separator);
         }
     }
 }
@@ -533,15 +537,15 @@ class DeadlineCommand extends Command {
         this.rest = rest.split(" /");
     }
 
-    void execute(Storage data, TaskList tl, Ui ui) {
+    void execute(TaskList tl, Ui ui) {
         try {
             tl.add(new Deadline(this.rest));
             System.out.println(ui.deadline(tl));
-            System.out.println(ui.separator);
+            System.out.println(Ui.separator);
             DataHandler.writeToDatabase(tl);
         } catch (Exception PukeException) {
-            System.out.println(ui.errorMessage);
-            System.out.println(ui.separator);
+            System.out.println(Ui.errorMessage);
+            System.out.println(Ui.separator);
         }
     }
 }
@@ -554,15 +558,15 @@ class EventCommand extends Command {
         this.rest = rest.split(" /");
     }
 
-    void execute(Storage data, TaskList tl, Ui ui) {
+    void execute(TaskList tl, Ui ui) {
         try {
             tl.add(new Event(this.rest));
             System.out.println(ui.event(tl));
-            System.out.println(ui.separator);
+            System.out.println(Ui.separator);
             DataHandler.writeToDatabase(tl);
         } catch (Exception PukeException) {
-            System.out.println(ui.errorMessage);
-            System.out.println(ui.separator);
+            System.out.println(Ui.errorMessage);
+            System.out.println(Ui.separator);
         }
     }
 }
@@ -575,15 +579,15 @@ class DeleteCommand extends Command {
         this.index = Integer.parseInt(rest);
     }
 
-    void execute(Storage data, TaskList tl, Ui ui) {
+    void execute(TaskList tl, Ui ui) {
         try {
             Task hold = tl.delete(this.index);
-            System.out.println(ui.delete(hold));
-            System.out.println(ui.separator);
+            System.out.println(ui.delete(hold, tl));
+            System.out.println(Ui.separator);
             DataHandler.writeToDatabase(tl);
         } catch (Exception PukeException) {
-            System.out.println(ui.errorMessage);
-            System.out.println(ui.separator);
+            System.out.println(Ui.errorMessage);
+            System.out.println(Ui.separator);
         }
     }
 }
@@ -593,20 +597,20 @@ class ClearCommand extends Command {
         super(false, rest.isEmpty());
     }
 
-    void execute(Storage data, TaskList tl, Ui ui) {
+    void execute(TaskList tl, Ui ui) {
         if (!super.valid) {
-            System.out.println(ui.errorMessage);
-            System.out.println(ui.separator);
+            System.out.println(Ui.errorMessage);
+            System.out.println(Ui.separator);
         } else {
             try {
                 tl.clear();
                 DataHandler.clearAll();
                 System.out.println(ui.clear());
-                System.out.println(ui.separator);
+                System.out.println(Ui.separator);
             } catch (Exception e) {
                 tl.clear();
                 System.out.println(ui.clear());
-                System.out.println(ui.separator);
+                System.out.println(Ui.separator);
             }
         }
     }
@@ -637,8 +641,81 @@ class Parser {
         } else if (command.equals("clearall")) {
             return new ClearCommand(line);
         } else {
-            System.out.println(ui.errorMessage);
-            System.out.println(ui.separator);
+            System.out.println(Ui.errorMessage);
+            System.out.println(Ui.separator);
         }
+    }
+}
+
+class Ui {
+    public static String errorMessage = "Unfortunately, the circumstances preceding this has necessitated that I issue and apology for the input that I have received is unrecognised.";
+    public static String separator = "____________________________________________________________";
+
+    Ui() {}
+
+    void startup() {
+        String logo = " ____        _        \n"
+                + "|  _ \\ _   _| | _____ \n"
+                + "| |_| | | | | |/ / _ \\\n"
+                + "| ___/| |_| |    | __/\n"
+                + "| |    \\__,_|_|\\_\\___|\n"
+                + "|_|";
+        System.out.println("Salutations! I hereby would like to inform you that my identity is that of\n" + logo +
+                "\nAn exceedingly verbose conversation simulation program.");
+        System.out.println(separator);
+    }
+
+    String exit() {
+        return "It appears that the user has decided to close the program as indicated by the command of which this is the function being issued and therefore,\n" +
+                "I shall bid thee farewell and wish thee great fortune in your future endeavors.";
+    }
+
+    String list() {
+        return "Here is the collection of items, previously designated to be known as Tasks, that you have inputted over a previous unspecified period of time\n" +
+                "that may or may not require urgent attention, but will nevertheless necessitate some level of action within an either\n" +
+                "indicated or not indicated time period.";
+    }
+
+    String mark(int index) {
+        return "I have been made aware of your desire to indicate that the task numbered " + index +
+                " has been since been achieved as of the time at which you hve stipulated as so.";
+    }
+
+    String unmark(int index) {
+        return "Very well. I have acknowledged your request to unmark the task of specified index as having been completed and\n" +
+                "will now proceed to set said task of specified index to be considered as having not yet been completed.";
+    }
+
+    String toDo(TaskList tl) throws PukeException {
+        return "Understood. I have hereby created a task known to require doing at a future time but with no such time being specified and inserted it into " +
+                "the overall collection of said tasks that require action.\n" +
+                "Here is a display of the added deadline task: " + tl.get(tl.size() - 1) + "\n" +
+                "You now, in total, have " + tl.size() + " of these tasks recorded within said collection.";
+    }
+
+    String deadline(TaskList tl) throws PukeException {
+        return "Understood. I have hereby created a task known to require doing at a future time alongside the stipulated time that you have indicated and inserted it into " +
+                "the overall collection of these tasks that require action.\n" +
+                "Here is a display of the added deadline task: " + tl.get(tl.size() - 1) + "\n" +
+                "You now, in total, have " + tl.size() + " of these tasks recorded within said collection.";
+    }
+
+    String event(TaskList tl) throws PukeException {
+        return "Understood. I have hereby created a task known to require participation for a set period of time alongside this stipulated duration that you have indicated and inserted it into " +
+                "the overall collection of these tasks that require action.\n" +
+                "Here is a display of the added deadline task: " + tl.get(tl.size() - 1) + "\n" +
+                "You now, in total, have " + tl.size() + " of these tasks recorded within said collection.";
+    }
+
+    String delete(Task hold, TaskList tl) {
+        return "I have acknowledged your request to have the task allocated to the specific index at which you have mentioned removed from the collection of all\n" +
+                "such tasks, colloquially known as your To Do list.\n" +
+                "The task in question that has been deleted is: " + hold + "\n" +
+                "As of this current moment, there are a total of " + tl.size() + " occurrences of tasks in your list.";
+    }
+
+    String clear() {
+        return "Well I certainly hope you had meant to do that because I am not going too ask for your confirmation. As per the aforementioned instructions, I shall now" +
+                "purge all of the tasks that you have previously recorded and designated as requiring attention.";
     }
 }
