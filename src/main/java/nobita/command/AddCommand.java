@@ -1,3 +1,13 @@
+package nobita.command;
+
+import nobita.storage.Storage;
+import nobita.task.Deadline;
+import nobita.task.Event;
+import nobita.task.Task;
+import nobita.task.TaskList;
+import nobita.task.ToDo;
+import nobita.ui.Ui;
+
 public class AddCommand extends Command {
 
     private final Task task;

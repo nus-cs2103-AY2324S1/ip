@@ -1,9 +1,16 @@
+package nobita.storage;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Scanner;
+import nobita.task.TaskList;
+import nobita.task.Task;
+import nobita.task.ToDo;
+import nobita.task.Deadline;
+import nobita.task.Event;
 
 public class Storage {
     private final String fileName = "Nobita.txt";

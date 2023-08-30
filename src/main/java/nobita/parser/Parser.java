@@ -1,3 +1,8 @@
+package nobita.parser;
+
+import nobita.command.*;
+import nobita.exception.NobitaException;
+
 public class Parser {
     public static Command parse(String fullCommand)  throws NobitaException {
         String[] commands = fullCommand.split(" ", 2);

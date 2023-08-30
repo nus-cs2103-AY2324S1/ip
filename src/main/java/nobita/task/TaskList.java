@@ -1,42 +1,43 @@
+package nobita.task;
+
 import java.util.ArrayList;
-import java.util.Iterator;
 
 public class TaskList {
 
     ArrayList<Task> tasks;
-    protected TaskList() {
+    public TaskList() {
         this.tasks = new ArrayList<>();
     }
 
-    protected int getTotalTask() {
+    public int getTotalTask() {
         return this.tasks.size();
     }
 
-    protected void addTask(Task task) {
+    public void addTask(Task task) {
         this.tasks.add(task);
     }
 
-    protected Task deleteTask(int targetTask) {
+    public Task deleteTask(int targetTask) {
         return this.tasks.remove(targetTask);
     }
 
-    protected Task markComplete(int targetTask) {
+    public Task markComplete(int targetTask) {
         Task task = this.tasks.get(targetTask);
         task.markComplete();
         return task;
     }
 
-     protected Task markIncomplete(int targetTask) {
+     public Task markIncomplete(int targetTask) {
         Task task = this.tasks.get(targetTask);
         task.markIncomplete();
         return task;
     }
 
-    protected ArrayList<Task> getAllTasks() {
+    public ArrayList<Task> getAllTasks() {
         return this.tasks;
     }
 
-    protected void showAllTask() {
+    public void showAllTask() {
         int listNum = 1;
         for (Task task: tasks) {
             System.out.println(listNum + ". " + task);

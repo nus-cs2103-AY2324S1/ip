@@ -1,3 +1,5 @@
+package nobita.exception;
+
 public class NobitaException extends Exception {
     public NobitaException(String errorMessage) {
         super(errorMessage);

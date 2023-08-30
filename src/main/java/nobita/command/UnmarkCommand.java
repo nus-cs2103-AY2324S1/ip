@@ -1,3 +1,10 @@
+package nobita.command;
+
+import nobita.storage.Storage;
+import nobita.task.Task;
+import nobita.task.TaskList;
+import nobita.ui.Ui;
+
 public class UnmarkCommand extends Command{
     private final int index;
     public UnmarkCommand(int index) {

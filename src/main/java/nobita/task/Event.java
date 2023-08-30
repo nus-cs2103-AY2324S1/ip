@@ -1,3 +1,5 @@
+package nobita.task;
+
 import java.util.StringJoiner;
 
 public class Event extends Task {

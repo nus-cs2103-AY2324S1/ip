@@ -1,3 +1,10 @@
+package nobita.command;
+
+import nobita.storage.Storage;
+import nobita.task.Task;
+import nobita.task.TaskList;
+import nobita.ui.Ui;
+
 public class DeleteCommand extends Command{
     private final int index;
     public DeleteCommand(int index) {

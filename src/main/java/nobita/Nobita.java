@@ -1,5 +1,11 @@
-import java.util.Scanner;
-import java.util.StringJoiner;
+package nobita;
+
+import nobita.command.Command;
+import nobita.exception.NobitaException;
+import nobita.parser.Parser;
+import nobita.storage.Storage;
+import nobita.task.TaskList;
+import nobita.ui.Ui;
 
 public class Nobita {
 
