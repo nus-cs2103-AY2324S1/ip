@@ -18,7 +18,7 @@ public abstract class Task {
 
     public Task(String name, boolean isDone) {
         this.name = name;
-        this.isDone = true;
+        this.isDone = isDone;
     }
 
     /**
