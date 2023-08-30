@@ -1,3 +1,5 @@
+package monday.ui;
+
 public class Ui {
     /**
      * Prints a greeting message to the console.
