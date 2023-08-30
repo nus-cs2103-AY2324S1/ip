@@ -1,6 +1,5 @@
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -14,10 +13,11 @@ public class Ben {
     private boolean isActive = true;
     private final Scanner user = new Scanner(System.in);
     private final TaskList tasks = new TaskList();
-    private final File f;
+    private final Storage storage;
 
     public Ben(String filePath) {
-        f = new File(filePath);
+        File f = new File(filePath);
+        storage = new Storage(f);
     }
 
     public void greeting() {
@@ -28,36 +28,6 @@ public class Ben {
         System.out.println(HORIZONTAL_LINE + "\nBye. For now\n" + HORIZONTAL_LINE);
     }
 
-    public void saveTasks(File f) throws IOException {
-        FileWriter writer = new FileWriter(f);
-        writer.write(tasks.saveTasks());
-        writer.close();
-    }
-
-    public void loadTasks(File f) throws FileNotFoundException{
-        Scanner s = new Scanner(f);
-        while (s.hasNext()) {
-            String line = s.nextLine();
-            String[] words = line.split("[|]");
-            String command = words[0];
-
-            switch (command.toLowerCase()) {
-                case "t":
-                    tasks.add(new ToDos(words[2], Boolean.parseBoolean(words[1])), false);
-                    break;
-                case "d":
-                    tasks.add(new Deadlines(words[2],
-                            Boolean.parseBoolean(words[1]), dateTimeParser(words[3])), false);
-                    break;
-                case "e":
-                    tasks.add(new Events(words[2],
-                            Boolean.parseBoolean(words[1]), dateTimeParser(words[3]), dateTimeParser(words[4])),
-                            false);
-                    break;
-            }
-        }
-
-    }
     public void parser(String message) {
         String[] words = message.split("\\s+");
         Task task;
@@ -163,9 +133,10 @@ public class Ben {
 
 
     public void run() {
+
         // Load tasks from data.txt
         try {
-            loadTasks(f);
+            storage.loadTasks(tasks);
         } catch (FileNotFoundException e) {
             System.out.println(e.getMessage());
         }
@@ -186,7 +157,7 @@ public class Ben {
         }
 
         try {
-            saveTasks(f);
+            storage.saveTasks(tasks);
         } catch (IOException e) {
             System.out.println(e.getMessage());
         } finally {
