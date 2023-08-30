@@ -1,8 +1,13 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 public class Events extends Tasks {
 
     private String taskDesc;
     private String from;
     private String to;
+    private LocalDateTime fromDate;
+    private LocalDateTime toDate;
+
     public Events(String userInput) {
         try {
 
@@ -12,16 +17,30 @@ public class Events extends Tasks {
 
             String[] split_1 = userInput.split("/from");
             if (split_1.length < 2) {
-                throw new IllegalArgumentException("Hey! Please provide a time range for your event");
+                throw new IllegalArgumentException("Hey! Please provide a time range for your event in this format /from dd/MM/yyyy HHmm /to HHmm");
             }
 
             String[] split_2 = split_1[1].split("/to");
             if (split_2.length < 2)  {
                 throw new IllegalArgumentException("Hey! Please provide an end time for your event");
             } else {
+                DateTime dateTime = new DateTime();
+                String formattedStartTime = dateTime.formatDateTime(split_2[0].trim());
+                String formattedEndTime = dateTime.formatDateTime(split_2[1].trim());
+
                 this.taskDesc = split_1[0].trim().substring(5).trim();
-                this.from = split_2[0].trim();
-                this.to = split_2[1].trim();
+
+                if (formattedStartTime.equals("Invalid format")) {
+                    throw new IllegalArgumentException("Hey! Please provide a time range for your event in this format /from dd/MM/yyyy HHmm /to dd/MM/yyyy HHmm");
+                }
+                if (formattedEndTime.equals("Invalid format")) {
+                    throw new IllegalArgumentException("Hey! Please provide an end time for your event in this format dd/MM/yyyy HHmm!");
+                }
+
+                this.from = formattedStartTime;
+                this.fromDate = LocalDateTime.parse(formattedStartTime, DateTimeFormatter.ofPattern("dd MMM yyyy h:mma"));
+                this.to = formattedEndTime;
+                this.toDate = LocalDateTime.parse(formattedStartTime, DateTimeFormatter.ofPattern("dd MMM yyyy h:mma"));
             }
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());

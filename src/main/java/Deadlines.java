@@ -1,17 +1,28 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 public class Deadlines extends Tasks {
 
     private String taskDesc;
-    private String duedate;
+    private String dueDateStr;
+    private LocalDateTime dueDate;
     public Deadlines(String userInput) {
         try {
             String[] split = userInput.split("/by");
             if (userInput.equals("deadline")) {
                 throw new IllegalArgumentException("Hey! Please enter the task description or leave a space after the command!");
             } else if (split.length < 2) {
-                throw new IllegalArgumentException("Hey! Please provide a deadline for your task");
+                throw new IllegalArgumentException("Hey! Please provide a deadline for your task in this format dd/MM/yyyy HHmm!");
             } else {
+                DateTime dateTime = new DateTime();
+                String formattedDate = dateTime.formatDateTime(split[1].trim());
                 this.taskDesc = split[0].trim().substring(8).trim();
-                this.duedate = split[1].trim();
+
+                if (formattedDate.equals("Invalid format")) {
+                    throw new IllegalArgumentException("Hey! Please provide a deadline for your task in this format dd/MM/yyyy HHmm!");
+                } else {
+                    this.dueDateStr = formattedDate;
+                    this.dueDate = LocalDateTime.parse(formattedDate, DateTimeFormatter.ofPattern("dd MMM yyyy h:mma"));
+                }
             }
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
@@ -23,11 +34,11 @@ public class Deadlines extends Tasks {
         try {
             if (completion.equals("1")){
                 this.taskDesc = taskDesc.trim();
-                this.duedate = duedate.trim();
+                this.dueDateStr = duedate.trim();
                 this.markDone();
             } else {
                 this.taskDesc = taskDesc.trim();
-                this.duedate = duedate.trim();
+                this.dueDateStr = duedate.trim();
             }
         } catch (IllegalArgumentException e) {
             System.out.println("Hey! There is an invalid todo task in the task list!");
@@ -49,7 +60,7 @@ public class Deadlines extends Tasks {
         }
 
         String str1 = String.format("%s", x);
-        return "D | " + str1 + " | " + this.taskDesc + " | " + this.duedate;
+        return "D | " + str1 + " | " + this.taskDesc + " | " + this.dueDateStr;
     }
 
     @Override
@@ -61,7 +72,7 @@ public class Deadlines extends Tasks {
             x = " ";
         }
         String str1 = String.format("[%s] ", x);
-        String str2 = String.format(" (by: %s)", this.duedate);
+        String str2 = String.format(" (by: %s)", this.dueDateStr);
         return "[D]" + str1 + this.taskDesc + str2 ;
     }
 
