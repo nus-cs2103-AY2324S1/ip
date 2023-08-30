@@ -18,6 +18,8 @@ public class Parser {
         case "unmark":
             int j = Integer.parseInt(words[1]) - 1;
             return new UnmarkCommand(j);
+        case "find":
+            return new FindCommand(words[1].trim());
         case "delete":
             int k = Integer.parseInt(words[1]) - 1;
             return new DeleteCommand(k);
