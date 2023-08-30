@@ -1,7 +1,10 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 public class Events extends Task{
-    private final String start;
-    private final String end;
-    public Events(String task, String start, String end) {
+    private final LocalDate start;
+    private final LocalDate end;
+    public Events(String task, LocalDate start, LocalDate end) {
         super(task);
         this.start = start;
         this.end = end;
@@ -22,8 +25,8 @@ public class Events extends Task{
     @Override
     public String toString() {
         String checkbox = this.done ? "[X] " : "[ ] ";
-        String startTime = "(from: " + start.substring(5);
-        String endTime = "to: " + end.substring(3) + ")";
+        String startTime = "(from: " + start.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
+        String endTime = "to: " + end.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
         return "[E]" + checkbox + task + " " + startTime + " " + endTime;
     }
 }

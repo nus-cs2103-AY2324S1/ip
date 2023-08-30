@@ -1,9 +1,12 @@
 import java.io.File;
+import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 public class Duke {
     private static final String name = "Bartholomew Hamish Montgomery";
     private static final String line = "______________________________________________________________________________________\n";
@@ -21,12 +24,14 @@ public class Duke {
     }
 
     private static void startChat() {
-
         ArrayList<Task> tasks = new ArrayList<>();
+
         File taskList = new File("./src/main/data/tasklist.txt");
         taskList.deleteOnExit();
+
         int taskCount = 0;
         int taskId = 1;
+
         Scanner scanner = new Scanner(System.in);
         String userInput= scanner.nextLine();
 
@@ -77,13 +82,18 @@ public class Duke {
                         System.out.println("Something went wrong: " + e.getMessage());
                     }
                 } else if (userInput.startsWith("deadline ")) {
-                    String[] parts = userInput.split("/");
+                    String[] parts = userInput.split("/by ");
                     String nameOfTask = parts[0].trim().substring(9);
-                    Deadlines task = new Deadlines(nameOfTask, parts[1].trim());
-                    addToList(task, tasks, taskCount);
-                    if (taskCount < tasks.size()) {
-                        taskCount++;
-                        taskId++;
+                    try {
+                        LocalDate deadline = LocalDate.parse(parts[1].trim());
+                        Deadlines task = new Deadlines(nameOfTask, deadline);
+                        addToList(task, tasks, taskCount);
+                        if (taskCount < tasks.size()) {
+                            taskCount++;
+                            taskId++;
+                        }
+                    } catch (DateTimeParseException e) {
+                        System.out.println("Invalid Date Format! Follow: YYYY-MM-DD");
                     }
                     try {
                         writeToFile(taskList, displayList(tasks, taskCount));
@@ -91,15 +101,20 @@ public class Duke {
                         System.out.println("Something went wrong: " + e.getMessage());
                     }
                 } else if (userInput.startsWith("event ")) {
-                    String[] parts = userInput.split("/");
-                    String start = parts[1].trim();
-                    String end = parts[2].trim();
-                    String nameOfTask = parts[0].trim().substring(6);
-                    Events task = new Events(nameOfTask, start, end);
-                    addToList(task, tasks, taskCount);
-                    if (taskCount < tasks.size()) {
-                        taskCount++;
-                        taskId++;
+                    String[] taskAndTime = userInput.split("/from ");
+                    String[] fromAndTo = taskAndTime[1].split("/to ");
+                    try {
+                        LocalDate start = LocalDate.parse(fromAndTo[0].trim());
+                        LocalDate end = LocalDate.parse(fromAndTo[1].trim());
+                        String nameOfTask = taskAndTime[0].trim().substring(6);
+                        Events task = new Events(nameOfTask, start, end);
+                        addToList(task, tasks, taskCount);
+                        if (taskCount < tasks.size()) {
+                            taskCount++;
+                            taskId++;
+                        }
+                    } catch (DateTimeParseException e) {
+                        System.out.println("Invalid Date Format! Follow: YYYY-MM-DD");
                     }
                     try {
                         writeToFile(taskList, displayList(tasks, taskCount));
