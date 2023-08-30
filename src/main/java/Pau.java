@@ -18,7 +18,9 @@ public class Pau {
             "                         \n";
 
     private static String introduction = " HI! I'm " + botName + "\n" + "ENTERTAIN MEEE";
-    private static String exit = "byebye come play with me next time";
+    public static void exit() {
+        System.out.println("byebye come play with me next time");
+    }
 
     /**
      * Prints out a list of the tasks the user has.
@@ -184,7 +186,6 @@ public class Pau {
     }
 
     public static void main(String[] args) {
-
         System.out.println(Pau.introduction);
 
         String input;
@@ -195,8 +196,7 @@ public class Pau {
         while (true) {
             input = scan.nextLine();
             if (input.equals("bye")) {
-                System.out.println(Pau.exit);
-                Pau.saveTasksToFile(list);
+                Pau.exit();
                 break;
             } else if (input.equals("list")) {
                 Pau.checkList(list);
