@@ -1,1 +1,1 @@
-[D][X] read book          (by: 2023-01-01)
+[D][X] read book  (by: 2023-01-01)
