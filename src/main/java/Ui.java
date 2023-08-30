@@ -1,4 +1,4 @@
-public class UiFormatter {
+public class Ui {
 
 
   public String displayTask(Task task) {

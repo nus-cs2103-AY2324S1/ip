@@ -3,7 +3,6 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.NoSuchElementException;
-import java.util.Scanner;
 
 public class Duke {
 
@@ -15,7 +14,7 @@ public class Duke {
 
     ArrayList<Task> taskList = new ArrayList<>();
     Parser parser = new Parser();
-    UiFormatter uiFormatter = new UiFormatter();
+    Ui ui = new Ui();
     Storage storage = new Storage(taskList);
 
     storage.loadTasks();
@@ -57,7 +56,7 @@ public class Duke {
 
             String index = Integer.toString(i + 1);
             Task selectedTask = taskList.get(i);
-            System.out.println(index + " " + uiFormatter.displayTask(selectedTask));
+            System.out.println(index + " " + ui.displayTask(selectedTask));
 
           }
           break;
@@ -67,7 +66,7 @@ public class Duke {
             Task selectedTask = taskList.get(parser.getIndex());
             selectedTask.setDone();
             System.out.println("Marked selected task as done");
-            System.out.println(uiFormatter.displayTask(selectedTask));
+            System.out.println(ui.displayTask(selectedTask));
           } catch (IndexOutOfBoundsException ex) {
             System.out.println("Please enter a valid index!");
           }
@@ -81,7 +80,7 @@ public class Duke {
             Task selectedTask = taskList.get(parser.getIndex());
             System.out.println("Marked selected task as un-done desu");
             selectedTask.setUnDone();
-            System.out.println(uiFormatter.displayTask(selectedTask));
+            System.out.println(ui.displayTask(selectedTask));
           } catch (IndexOutOfBoundsException ex) {
             System.out.println("Please enter a valid index!");
           }
@@ -93,7 +92,7 @@ public class Duke {
             Task curentTask = new Todo(parser.getTaskName());
             taskList.add(curentTask);
 
-            System.out.println("added:\t" + uiFormatter.displayTask(curentTask));
+            System.out.println("added:\t" + ui.displayTask(curentTask));
           } catch (StringIndexOutOfBoundsException ex) {
 
             System.out.println("Please enter a name after the todo command!");
@@ -116,7 +115,7 @@ public class Duke {
             Task curentTask = new Deadline(name, date);
             taskList.add(curentTask);
 
-            System.out.println("added:\t" + uiFormatter.displayTask(curentTask));
+            System.out.println("added:\t" + ui.displayTask(curentTask));
           } catch (ArrayIndexOutOfBoundsException ex) {
             System.out.println("Please include a (/by) command, followed by a date");
           } catch (StringIndexOutOfBoundsException ex) {
@@ -141,7 +140,7 @@ public class Duke {
             Task curentTask = new Event(name, startDate, endDate);
             taskList.add(curentTask);
 
-            System.out.println("added:\t" + uiFormatter.displayTask(curentTask));
+            System.out.println("added:\t" + ui.displayTask(curentTask));
           } catch (StringIndexOutOfBoundsException ex) {
             System.out.println("The event command cannot be empty!");
           } catch (ArrayIndexOutOfBoundsException ex) {
@@ -161,7 +160,7 @@ public class Duke {
             Task selectedTask = taskList.get(parser.getIndex());
             taskList.remove(parser.getIndex());
             System.out.println("Deleting selected task!");
-            System.out.println(uiFormatter.displayTask(selectedTask));
+            System.out.println(ui.displayTask(selectedTask));
           } catch (IndexOutOfBoundsException ex) {
             System.out.println("Please enter a valid index!");
           }
