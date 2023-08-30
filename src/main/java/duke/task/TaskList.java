@@ -250,6 +250,14 @@ public class TaskList {
         }
     }
 
+    /**
+     * Returns a substring between two words.
+     *
+     * @param text The text to get the substring from.
+     * @param first The word before the substring.
+     * @param second The word after the substring.
+     * @return The substring between two words.
+     */
     private String textBtwnWords(String text, String first, String second) {
         return text.substring(text.indexOf(first) + first.length() + 1, text.indexOf(second));
     }
