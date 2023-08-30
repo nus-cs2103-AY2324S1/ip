@@ -28,11 +28,9 @@ public abstract class Task {
         return this.isDone;
     }
 
-    @Override
-    public String toString() {
+    public String getTaskName() {
         return this.name;
     }
-
 
     abstract String getTaskType();
 

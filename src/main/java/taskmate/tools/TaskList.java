@@ -71,8 +71,15 @@ public class TaskList {
     }
 
     public void addTask(Task t, boolean isDone) {
-        this.tasks.add(t);
-        numTotalTasks++;
+        this.addTask(t);
+        if (!isDone) {
+            return;
+        }
+        try {
+            this.markAsDone(t);
+        } catch (TaskNotFoundException e) {
+            System.out.println(e); // todo: Assert that t can be found within tasks so that can remove try catch
+        }
     }
 
     public void removeTask(int i) throws TaskNotFoundException {
