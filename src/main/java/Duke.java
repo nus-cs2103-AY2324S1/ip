@@ -1,7 +1,3 @@
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -9,8 +5,6 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.io.File;
-import java.io.FileWriter;
 
 /**
  * A chatbot that helps you keep track of tasks.
@@ -52,10 +46,7 @@ public class Duke {
     private static final String newTaskAddedMessage = "New task just dropped!\n";
     private static final String taskDeletedMessage = "Task went on vacation, never came back.\n";
     private static final String totalTaskCountMessage = "You now have %d tasks in the list!\n";
-    private static final String corruptFileMessage = "Great heavens! The data file is corrupted!\n"
-            + "Starting with new task list...\n";
 
-    private static final String filePath = "./data/duke.txt";
 
     /**
      * Helper method to print a message with horizontal lines above and below it.
@@ -108,134 +99,13 @@ public class Duke {
         System.out.print(line);
     }
 
-    public static ArrayList<Task> loadTasks() throws DukeException {
-        Path path = Paths.get(filePath);
-        try {
-            Files.createDirectories(path.getParent());
-        } catch (IOException e) {
-            throw new DukeException(line + e.getMessage() + line);
-        }
-
-        File file = new File(filePath);
-        if (!file.exists()) {
-            try {
-                Files.createFile(path);
-            } catch (IOException e) {
-                throw new DukeException(line + e.getMessage() + line);
-            }
-        }
-
-        String regexPattern = "([TDE])\\s\\|\\s"    // match type
-                + "([01])\\s\\|\\s"                 // match done or not done
-                + "([^/|]*[^/|\\s])"                // match description
-                + "(?:\\s\\|\\s([^/|]*[^/|\\s]))?"  // match /from or /by
-                + "(?:\\s\\|\\s([^/|]*[^/|\\s]))?"; // match /to
-        Pattern pattern = Pattern.compile(regexPattern);
-        ArrayList<Task> tasks = new ArrayList<>();
-
-        try {
-            Scanner sc = new Scanner(file);
-            while (sc.hasNextLine()) {
-                String str = sc.nextLine();
-                Matcher matcher = pattern.matcher(str);
-
-                if (!matcher.matches()) {
-                    throw new DukeException(line + corruptFileMessage + line);
-                }
-
-                switch (matcher.group(1)) {
-                    case "T":
-                        if (matcher.group(2) == null || matcher.group(3) == null) {
-                            throw new DukeException(line + corruptFileMessage + line);
-                        }
-
-                        Todo newTodo = new Todo(matcher.group(3));
-                        if (matcher.group(2).equals("1")) {
-                            newTodo.markAsDone();
-                        }
-                        tasks.add(newTodo);
-                        break;
-                    case "D":
-                        if (matcher.group(2) == null
-                                || matcher.group(3) == null
-                                || matcher.group(4) == null) {
-                            throw new DukeException(line + corruptFileMessage + line);
-                        }
-
-                        LocalDateTime parsedDate;
-                        try {
-                            parsedDate = LocalDateTime.parse(matcher.group(4),
-                                    DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
-                        } catch (DateTimeParseException e) {
-                            throw new DukeException(line + corruptFileMessage + line);
-                        }
-
-                        Deadline newDeadline = new Deadline(matcher.group(3), parsedDate);
-                        if (matcher.group(2).equals("1")) {
-                            newDeadline.markAsDone();
-                        }
-                        tasks.add(newDeadline);
-                        break;
-                    case "E":
-                        if (matcher.group(2) == null
-                                || matcher.group(3) == null
-                                || matcher.group(4) == null
-                                || matcher.group(5) == null) {
-                            throw new DukeException(line + corruptFileMessage + line);
-                        }
-
-                        Event newEvent = new Event(matcher.group(3), matcher.group(4), matcher.group(5));
-                        if (matcher.group(2).equals("1")) {
-                            newEvent.markAsDone();
-                        }
-                        tasks.add(newEvent);
-                        break;
-                }
-            }
-        } catch (IOException e) {
-            throw new DukeException(line + e.getMessage() + line);
-        }
-
-        return tasks;
-    }
-
-    public static void saveTasks(ArrayList<Task> tasks) throws DukeException {
-        Path path = Paths.get(filePath);
-        try {
-            Files.createDirectories(path.getParent());
-        } catch (IOException e) {
-            throw new DukeException(line + e.getMessage() + line);
-        }
-
-        File file = new File(filePath);
-        if (!file.exists()) {
-            try {
-                Files.createFile(path);
-            } catch (IOException e) {
-                throw new DukeException(line + e.getMessage() + line);
-            }
-        }
-
-        StringBuilder tempString = new StringBuilder();
-        for (Task task : tasks) {
-            tempString.append(task.getSaveString()).append(System.lineSeparator());
-        }
-
-        try {
-            FileWriter fileWriter = new FileWriter(filePath);
-            fileWriter.write(tempString.toString());
-            fileWriter.close();
-        } catch (IOException e) {
-            throw new DukeException(line + e.getMessage() + e);
-        }
-    }
-
     public static void main(String[] args) {
+        Storage storage = new Storage("./data/duke.txt");
         Scanner sc = new Scanner(System.in);
         Pattern pattern = Pattern.compile(regexPattern);
         ArrayList<Task> tasks;
         try {
-            tasks = loadTasks();
+            tasks = storage.loadTasks();
         } catch (DukeException e) {
             System.out.println(e.getMessage());
             tasks = new ArrayList<>();
@@ -277,7 +147,7 @@ public class Duke {
 
                         tasks.get(index - 1).markAsDone();
                         printWithLines(markDoneMessage + "  " + tasks.get(index - 1) + '\n');
-                        saveTasks(tasks);
+                        storage.saveTasks(tasks);
                         break;
                     case "unmark":
                         if (matcher.group(2) == null) {
@@ -292,7 +162,7 @@ public class Duke {
 
                         tasks.get(index - 1).markAsUndone();
                         printWithLines(markUndoneMessage + "  " + tasks.get(index - 1) + '\n');
-                        saveTasks(tasks);
+                        storage.saveTasks(tasks);
                         break;
                     case "todo":
                         if (matcher.group(2) == null) {
@@ -302,7 +172,7 @@ public class Duke {
                         newTask = new Todo(matcher.group(2));
                         tasks.add(newTask);
                         printTaskAdded(newTask, tasks.size());
-                        saveTasks(tasks);
+                        storage.saveTasks(tasks);
                         break;
                     case "deadline":
                         if (matcher.group(2) == null
@@ -323,7 +193,7 @@ public class Duke {
                         newTask = new Deadline(matcher.group(2), parsedDate);
                         tasks.add(newTask);
                         printTaskAdded(newTask, tasks.size());
-                        saveTasks(tasks);
+                        storage.saveTasks(tasks);
                         break;
                     case "event":
                         if (matcher.group(2) == null
@@ -339,7 +209,7 @@ public class Duke {
                         newTask = new Event(matcher.group(2), matcher.group(4), matcher.group(6));
                         tasks.add(newTask);
                         printTaskAdded(newTask, tasks.size());
-                        saveTasks(tasks);
+                        storage.saveTasks(tasks);
                         break;
                     case "delete":
                         if (matcher.group(2) == null) {
@@ -354,7 +224,7 @@ public class Duke {
 
                         Task removed = tasks.remove(index - 1);
                         printTaskDeleted(removed, tasks.size());
-                        saveTasks(tasks);
+                        storage.saveTasks(tasks);
                         break;
                     default:
                         throw new DukeException(line + invalidInputMessage + line);
