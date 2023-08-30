@@ -5,18 +5,21 @@ import duke.task.TaskList;
 import duke.helper.Ui;
 import duke.helper.Storage;
 
+/**
+ * MarkClass marks the task index specified as Completed
+ */
 public class MarkCommand extends Command{
     /**
      * Indicates the index to mark the task as completed
      */
-    int tasknum;
+    int taskNum;
 
     /**
      * Constructor to make the MarkCommand class
-     * @param tasknum indicates the index to mark the task as completed
+     * @param taskNum indicates the index to mark the task as completed
      */
-    public MarkCommand(int tasknum) {
-        this.tasknum = tasknum;
+    public MarkCommand(int taskNum) {
+        this.taskNum = taskNum;
     }
     /**
      * execute for ListCommand lists the tasks out
@@ -27,7 +30,7 @@ public class MarkCommand extends Command{
     @Override
     public void execute(TaskList tasks, Ui ui, Storage store) throws DukeException {
         try {
-            tasks.markTask(tasknum);
+            tasks.markTask(taskNum);
             store.save(tasks);
         } catch (IOException e) {
             throw new DukeException(" umable to locate local file!");

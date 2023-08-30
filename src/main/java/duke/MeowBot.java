@@ -56,7 +56,7 @@ public class MeowBot {
                 Command c = Parser.parse(fullCommand);
                 c.execute(tasks, ui, storage);
                 isExit = c.isExit();
-            }  catch (DukeException e){
+            }  catch (DukeException e) {
                 System.out.println(e);
             }
         }

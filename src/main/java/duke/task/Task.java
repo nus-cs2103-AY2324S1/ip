@@ -1,16 +1,19 @@
 package duke.task;
-import java.util.HashMap;
-import duke.task.DukeException;
+
+/**
+ * Task is the parent class that allows its Task subclass to inherit from, contains basic
+ * information for a task to be registeres such as name, ogName and type
+ */
 
 public class Task {
     /**
      * field completed indicates if the task should be marked
      * field name is the name of the task name
-     * field ogname is the original name of the task parsed in
+     * field ogName is the original name of the task parsed in
      * field type is the tyoe of Task parsed in
      */
     boolean completed;
-    String name, ogname, type;
+    String name, ogName, type;
 
     /**
      *
@@ -22,20 +25,16 @@ public class Task {
         this.name = name;
     }
 
-//
-//    public boolean getComplete() {
-//        return this.completed;
-//    }
 
     /**
-     * method to mark the task as completed
+     * Method to mark the task as completed
      */
     public void markCompleted() {
         this.completed = true;
     }
 
     /**
-     * method to unmark the task as not completed
+     * Method to unmark the task as not completed
      */
 
     public void markUncompleted() {
@@ -53,9 +52,6 @@ public class Task {
         } else {
             return "[ ]" + this.name;
         }
-
     }
-
-
 
 }

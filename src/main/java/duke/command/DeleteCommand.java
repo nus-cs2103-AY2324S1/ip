@@ -1,19 +1,27 @@
 package duke.command;
 import java.io.IOException;
-import duke.task.*;
-import duke.helper.*;
-public class DeleteCommand extends Command{
-    /**
-     * tasknum indicates the index in the TaskList class to delete
-     */
-    int tasknum;
+import duke.helper.Storage;
+import duke.helper.Ui;
+import duke.task.DukeException;
+import duke.task.TaskList;
+
+/**
+ * DeleteCommand class thatn deletes the wanted task from the TaskList
+ */
+
+public class DeleteCommand extends Command {
 
     /**
-     * Normal Constructor for the DeleteCommand
-     * @param tasknum indicates the index in the TaskList to delete
+     * taskNum indicates the index in the TaskList class to delete
      */
-    public DeleteCommand(int tasknum) {
-        this.tasknum = tasknum;
+    int taskNum;
+
+    /**
+     * Constructor for the DeleteCommand class that deletes the index in the TaskList
+     * @param taskNum indicates the index in the TaskList class to delete
+     */
+    public DeleteCommand(int taskNum) {
+        this.taskNum = taskNum;
     }
 
     /**
@@ -26,10 +34,9 @@ public class DeleteCommand extends Command{
     @Override
     public void execute(TaskList tasks, Ui ui, Storage store) throws DukeException {
         try {
-            tasks.deleteTask(tasknum);
+            tasks.deleteTask(taskNum);
             store.save(tasks);
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             throw new DukeException(" umable to locate local file!");
         }
     }

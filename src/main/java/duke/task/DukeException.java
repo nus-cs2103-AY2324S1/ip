@@ -1,5 +1,9 @@
 package duke.task;
-public class DukeException extends Exception{
+
+/**
+ * DukeException is the class that is thrown when an unexpected user input is met
+ */
+public class DukeException extends Exception {
     /**
      * field message would be the custom message for each type of error
      */

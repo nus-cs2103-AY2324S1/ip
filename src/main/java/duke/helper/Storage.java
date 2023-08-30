@@ -6,12 +6,20 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 import duke.task.DukeException;
-import duke.task.*;
+import duke.task.TaskList;
+import duke.task.Task;
+import duke.task.Event;
+import duke.task.Deadline;
+import duke.task.Todo;
 
+/**
+ * Storage is the local class that deals with the logic for storing and updating tasks data locally
+ */
 
 
 public class Storage {
     /**
+     * Storage is the local class that deals with the logic for storing tasks data locally
      * filePath stores where the actual file used for local storage is at
      * tempPath stores where the temporary file is at
      */
@@ -39,14 +47,14 @@ public class Storage {
         ArrayList<Task> lst = new ArrayList<>();
         Scanner sc = new Scanner(new File(this.FILEPATH));
         int count = 0;
-        while (sc.hasNextLine()){
+        while (sc.hasNextLine()) {
             Task generatedTask = generateTaskFromString(sc.nextLine());
             lst.add(generatedTask);
             count += 1;
         }
-        if (count == 0) System.out.println("Meow! A new User yay");
-
-        else {
+        if (count == 0) {
+            System.out.println("Meow! A new User yay");
+        } else {
             System.out.println("Meow! Successfully loaded " + count + " tasks from previous session");
         }
         return lst;
@@ -76,8 +84,12 @@ public class Storage {
         } else if (tasktype.equals("Todo")) {
             generatedTask = new Todo(ogname);
         }
-        if (mark.equals("1")) generatedTask.markCompleted();
-        else if (mark.equals("0")) generatedTask.markUncompleted();
+
+        if (mark.equals("1")) {
+            generatedTask.markCompleted();
+        } else if (mark.equals("0")) {
+            generatedTask.markUncompleted();
+        }
 
         return generatedTask;
 
@@ -104,8 +116,8 @@ public class Storage {
      * @throws IOException when unable to make the file at specified folder path
      */
     public void createNewFile() throws IOException {
-        String folderpath = "src/main/data";
-        File folder = new File(folderpath);
+        String folderPath = "src/main/data";
+        File folder = new File(folderPath);
         File file = new File(this.FILEPATH);
         folder.mkdirs();
         file.createNewFile();
