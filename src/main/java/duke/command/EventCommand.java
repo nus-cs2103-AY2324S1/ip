@@ -1,3 +1,12 @@
+package duke.command;
+
+import duke.DukeException;
+import duke.Storage;
+import duke.TaskList;
+import duke.Ui;
+import duke.task.Event;
+import duke.task.Task;
+
 import java.time.LocalDate;
 
 public class EventCommand extends Command {
@@ -15,7 +24,7 @@ public class EventCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) throws DukeException{
+    public void execute(TaskList taskList, Ui ui, Storage storage) throws DukeException {
         Task temp = new Event(description, from, to);
         taskList.addTask(temp);
         ui.printAddTaskMessage(temp, taskList);
