@@ -1,3 +1,4 @@
+import java.io.IOException;
 import java.util.Scanner;
 
 
@@ -32,6 +33,11 @@ public class Duke {
                     taskList.deleteTask(index);
                 } else {
                     throw new DukeException(messageWithSeparator("☹ OOPS!!! I'm sorry, but I don't know what that means :-("));
+                }
+                try {
+                    taskList.saveTasksToFile("./data/duke.txt");
+                } catch (IOException e) {
+                    System.out.println("Error saving tasks to file: " + e.getMessage());
                 }
             } catch (DukeException e) {
                 System.out.println(e.getMessage());

@@ -1,3 +1,5 @@
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class TaskList {
@@ -78,6 +80,17 @@ public class TaskList {
         }
         System.out.println(LINE_SEPARATOR);
     }
+
+    public void saveTasksToFile(String filePath) throws IOException {
+        FileWriter fileWriter = new FileWriter(filePath);
+
+        for (Task task : tasks) {
+            fileWriter.write(task.toFileString() + "\n");
+        }
+
+        fileWriter.close();
+    }
+
 
     private void printWithSeparator(String message) {
         System.out.println(LINE_SEPARATOR);
