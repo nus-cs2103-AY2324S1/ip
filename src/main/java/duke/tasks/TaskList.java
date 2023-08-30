@@ -1,6 +1,9 @@
 package duke.tasks;
 
+import duke.DukeException;
+
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 public class TaskList {
     private ArrayList<Task> l = new ArrayList<>();
@@ -58,5 +61,16 @@ public class TaskList {
             res.append(String.format("%d. %s\n" , i, l.get(i-1)));
         }
         return res.toString();
+    }
+
+    public TaskList filter(String s) {
+        ArrayList<Task> res = this.l.stream()
+                .filter(x -> x.description.contains(s))
+                .collect(Collectors.toCollection(ArrayList::new));
+        if (res.isEmpty()) {
+            throw new DukeException("List does not contain this word");
+        } else {
+            return new TaskList(res);
+        }
     }
 }

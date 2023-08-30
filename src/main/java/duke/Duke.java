@@ -187,6 +187,9 @@ public class Duke {
                     Task t5 = delTask(id3);
                     this.ui.showDel(t5, this.tasklist.getSize());
                     break;
+                case FIND:
+                    this.ui.displayList(this.tasklist.filter(Parser.doWhat(s)));
+                    break;
                 default:
                     throw new DukeException("OOPS!!! I'm sorry, but I don't know what that means :-(");
             }
