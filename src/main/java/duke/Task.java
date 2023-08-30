@@ -40,6 +40,14 @@ public class Task {
     }
 
     /**
+     * An accessor method to retrieve the description of the task.
+     *
+     */
+    public String getDescription() {
+        return this.description;
+    }
+
+    /**
      * Overides toString method from Object
      * returns a String representation of the task.
      *

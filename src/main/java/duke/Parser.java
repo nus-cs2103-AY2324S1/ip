@@ -3,6 +3,7 @@ package duke;
 import duke.exception.DukeException;
 import duke.exception.InvalidInputException;
 
+
 /**
  * The duke.Parser class is responsible for interpreting user commands and converting them into actions or tasks.
  */
@@ -58,6 +59,16 @@ public class Parser {
     }
 
     /**
+     * Checks if the user input is a find command.
+     *
+     * @param userInput The user's input.
+     * @return True if the input is a find command, false otherwise.
+     */
+    public static boolean isFindCommand(String userInput) {
+        return userInput.startsWith("find");
+    }
+
+    /**
      * Checks if the user input is a valid task type.
      *
      * @param userInput The user's input.
@@ -103,6 +114,12 @@ public class Parser {
         } else if (isExitCommand(userInput)) {
             ui.showBye();
             return false;
+        } else if (isFindCommand(userInput)) {
+            String keyword = userInput.replaceFirst("find", "").trim();
+            if (keyword.isEmpty()) {
+                throw new InvalidInputException("☹ OOPS!!! I'm sorry, please provide a keyword to search.");
+            }
+            ui.showMessage(tasks.findTasks(keyword));
         } else if (isValidCommand(userInput)) {
             ui.showMessage(tasks.addTask(userInput));
         } else {

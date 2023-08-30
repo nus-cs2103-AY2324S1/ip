@@ -1,3 +1,4 @@
+todo
 todo borrow book
 deadline finish work /by
 deadline return book /by Sunday
@@ -16,5 +17,9 @@ unmark 4
 list
 delete 2
 delete 3
+find
+find
+find sports
+find project meeting
 list
 bye
