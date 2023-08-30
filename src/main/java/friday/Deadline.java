@@ -10,18 +10,18 @@ import java.util.List;
  * Represents a deadline task in Friday.
  */
 public class Deadline extends Task {
-    protected String by;
+    protected String deadlineStr;
     protected LocalDate deadline;
 
     /**
      * Constructs a new Deadline task.
      *
      * @param description The description of the event.
-     * @param by The deadline of the event.
+     * @param deadlineStr The deadline of the event.
      */
-    public Deadline(String description, String by) {
+    public Deadline(String description, String deadlineStr) {
         super(description);
-        this.by = by;
+        this.deadlineStr = deadlineStr;
     }
 
     /**
@@ -36,13 +36,12 @@ public class Deadline extends Task {
         for (String pattern : validPatterns) {
             try {
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern);
-                deadline = LocalDate.parse(by.trim(), formatter);
+                deadline = LocalDate.parse(deadlineStr.trim(), formatter);
                 return deadline.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
             } catch (DateTimeParseException e) {
-                System.out.println("Unsupported date format: " + by);
             }
          }
-        throw new DateTimeParseException("Unsupported date format: " + by, by, 0);
+        throw new DateTimeParseException("Unsupported date format: " + deadlineStr, deadlineStr, 0);
     }
 
     @Override
