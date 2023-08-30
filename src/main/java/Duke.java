@@ -1,6 +1,7 @@
 import java.io.IOException;
 import java.io.File;
-import java.util.*;
+import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Duke {
     public static void main(String[] args) {
