@@ -3,70 +3,81 @@ import java.util.Scanner;
 
 public class Duke {
     private static final String SAVED_TASKS_FILEPATH = "./data/savedTasks.txt";
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
 
-        greet();
+    private Ui ui;
+    private Storage storage;
+    private TaskList tasks;
+
+    Duke(String filepath) {
+        ui = new Ui();
+        storage = new Storage(filepath);
         try {
-            Task.readSavedTasks(SAVED_TASKS_FILEPATH);
+            tasks = new TaskList(storage.load());
+            ui.displayMessage("Saved tasks successfully loaded from '" + filepath + "'");
         } catch (LukeException e) {
-            Util.displayMessage(e.getMessage());
+            ui.displayError(e.getMessage());
+            tasks = new TaskList();
         }
+    }
+    public static void main(String[] args) {
+        Duke luke = new Duke(SAVED_TASKS_FILEPATH);
+        luke.run();
+    }
 
+    private void run() {
+        greet();
+
+        Scanner sc = new Scanner(System.in);
         String input = sc.nextLine();
         while (!input.equals("bye")) {
             try {
                 processCommand(input);
             } catch (LukeException e) {
-                Util.displayMessage(e.getMessage());
+                ui.displayError(e.getMessage());
             }
             input = sc.nextLine();
         }
 
-        try {
-            Task.saveTasksToFile(SAVED_TASKS_FILEPATH);
-        } catch (LukeException e) {
-            Util.displayMessage(e.getMessage());
-        }
         bye();
+        try {
+            storage.save(tasks.getAll());
+            ui.displayMessage("Tasks successfully saved");
+        } catch (LukeException e) {
+            ui.displayError(e.getMessage());
+        }
     }
 
-    private static void processCommand(String command) throws LukeException {
-        Task task;
+    private void processCommand(String command) throws LukeException {
         switch(command.split(" ")[0]) {
             case "list":
-                Task.listTasks(command);
+                ui.list(tasks.getAll());
                 break;
             case "mark":
-                task = Task.markUnmarkTask(command);
-                Util.displayMessage("Nice! I've marked this task as done: \n" + task);
+                ui.displayMessage("Nice! I've marked this task as done: \n" + tasks.markAsDone(command));
                 break;
             case "unmark":
-                task = Task.markUnmarkTask(command);
-                Util.displayMessage("OK, I've marked this task as not done yet: \n" + task);
+                ui.displayMessage("OK, I've marked this task as not done yet: \n" + tasks.markAsUndone(command));
                 break;
             case "delete":
-                task = Task.deleteTask(command);
-                Util.displayMessage("Noted. I've removed this task: \n" + task);
+                ui.displayMessage("Noted. I've removed this task: \n" + tasks.delete(command));
                 break;
             case "todo":
                 // Fallthrough
             case "deadline":
                 // Fallthrough
             case "event":
-                task = Task.addTask(command);
-                Util.displayMessage("added : " + task);
+                ui.displayMessage("added : " + tasks.add(command));
                 break;
             default:
                 throw new LukeException("I'm sorry, but I don't know what that means :-(");
         }
     }
 
-    private static void bye() {
-        Util.displayMessage("Bye. Hope to see you again soon!");
+    private void bye() {
+        ui.displayMessage("Bye. Hope to see you again soon!");
     }
 
-    private static void greet() {
+    private void greet() {
         String logo = " _           _        \n"
                     + "| |    _   _| | _____ \n"
                     + "| |   | | | | |/ / _ \\\n"
@@ -76,7 +87,7 @@ public class Duke {
                         + "What can I do for you?\n";
 
         System.out.println("Hello from\n" + logo);
-        Util.displayMessage(greetingMsg);
+        ui.displayMessage(greetingMsg);
     }
 
 }
