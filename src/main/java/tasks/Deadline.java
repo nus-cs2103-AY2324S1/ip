@@ -1,5 +1,7 @@
 package tasks;
 
+import java.time.LocalDateTime;
+
 public class Deadline extends TaskAbstract {
     protected String deadline;
 

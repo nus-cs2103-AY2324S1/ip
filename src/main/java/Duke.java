@@ -12,6 +12,7 @@ import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.List;
 
+
 enum TaskTypes {
     todo,
     deadline,
@@ -184,7 +185,6 @@ public class Duke {
                 }
                 return true;
             case "deadline":
-                System.out.println(delimitedBySpace[1]);
                 try {
                     String information = delimitedBySlash[0].split(" ")[1];
                 } catch (IndexOutOfBoundsException indexExcept) {
@@ -197,7 +197,24 @@ public class Duke {
                     System.out.println("ChadGPT: Please ensure your deadline date is included.");
                     return false;
                 } catch (IndexOutOfBoundsException indexExcept) {
-                    System.out.println("ChadGPT: Please include the deadline date of your task after /by command.");
+                    System.out.println("ChadGPT: Please include the deadline date of your task after \"/by\" command.");
+                    return false;
+                }
+
+                try {
+                    String[] dates = nextLine.split("/by ")[1].split(" ");
+                    String endDate = dates[0];
+                    String year = endDate.substring(0, 4);
+                    String month = endDate.substring(5, 7);
+                    String day = endDate.substring(8, 10);
+                    if (dates.length > 1) {
+                        Integer.parseInt(dates[1]);
+                    }
+                } catch (IndexOutOfBoundsException indexExcept) {
+                    System.out.println("ChadGPT: Ensure that deadline date follows the following format: yyyy-mm-dd.");
+                    return false;
+                } catch (NumberFormatException numberExcept) {
+                    System.out.println("ChadGPT: Please ensure the time of your deadline is in numerical format.");
                     return false;
                 }
                 return true;
@@ -208,6 +225,7 @@ public class Duke {
                     System.out.println("ChadGPT: Please include information about the task you would like to add.");
                     return false;
                 }
+
                 try {
                     String startDate = delimitedBySlash[1].substring(5, delimitedBySlash[1].length() - 1);
                     String endDate = delimitedBySlash[2].substring(3);
@@ -218,6 +236,11 @@ public class Duke {
                     System.out.println("ChadGPT: Please verify you have included the start date after /from and " +
                             "end date after /to commands");
                     return false;
+                }
+
+                try {
+                    String dates = nextLine.split(" /from ")[1];
+                    String startDate = dates.split(" /to ")
                 }
         }
         return true;
