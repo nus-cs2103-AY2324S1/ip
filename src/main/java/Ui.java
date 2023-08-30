@@ -28,4 +28,14 @@ public class Ui {
         System.out.println("     " + message);
         System.out.println("    ____________________________________________________________");
     }
+
+    public void showTodo(Task t, int size) {
+        System.out.println("    ____________________________________________________________");
+        System.out.println("     Got it. I've added this task:");
+        System.out.println("     " + t.toString());
+        System.out.println("     Now you have " + size + " tasks in the list.");
+        System.out.println("    ____________________________________________________________");
+
+
+    }
 }

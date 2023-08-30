@@ -23,12 +23,12 @@ public class Storage {
         }
     }
 
-    public void saveToFile(List<Task> tasks) {
+    public void saveToFile(TaskList tasks) {
         try {
             FileWriter fileWriter = new FileWriter(FILEPATH);
             BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
 
-            for (Task task : tasks) {
+            for (Task task : tasks.getAllTasks()) {
                 bufferedWriter.write(task.toFileFormat());
                 bufferedWriter.newLine();
             }
@@ -40,8 +40,8 @@ public class Storage {
         }
     }
 
-    public List<Task> loadFromFile() {
-        List<Task> tasks = new ArrayList<>();
+    public TaskList loadFromFile() {
+        TaskList tasks = new TaskList();
         try {
             FileReader fileReader = new FileReader(FILEPATH);
             BufferedReader bufferedReader = new BufferedReader(fileReader);

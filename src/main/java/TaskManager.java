@@ -2,19 +2,27 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.util.ArrayList;
-import java.util.List;
 
 public class TaskManager {
-    private List<Task> tasks;
+    private TaskList tasks;
     private Storage storage;
 
     public TaskManager(){
-        this.tasks = new ArrayList<Task>();
+        this.tasks = new TaskList();
         this.storage = new Storage( "./data/chatbot.txt");
         this.tasks = storage.loadFromFile();
-
     }
+
+    private void addTask(Task task) {
+        tasks.add(task);
+        storage.saveToFile(tasks);
+    }
+
+    public Task getTask(int index) {
+        return tasks.getTask(index);
+    }
+
+
     public void addTodo(String t) throws ChatbotException {
         if (t == null || t.trim().isEmpty()) {
             throw new ChatbotException("☹ OOPS!!! The description of a todo cannot be empty.");
@@ -78,44 +86,38 @@ public class TaskManager {
         }
     }
 
-
-
-
-
-    public Task getTask(int index) {
-        if (index >= 1 && index <= tasks.size()) {
-            return tasks.get(index - 1);
-        }
-        return null;
-    }
-
     public void taskDone(int index) {
-        Task task = getTask(index);
-        if (task != null) {
-            task.markAsDone();
-            storage.saveToFile(tasks);
-        }
+       try {
+           tasks.markTaskDone(index);
+           storage.saveToFile(tasks);
+           System.out.println("     Nice! I've marked this task as done:");
+           System.out.println("       " + tasks.getTask(index));
+           System.out.println("    ____________________________________________________________");
+       } catch (NumberFormatException e) {
+           System.out.println("     Oops! Please enter a valid task number to mark.");
+           System.out.println("    ____________________________________________________________");
+       }
     }
 
-    public void unMarktask(int index){
-        Task task = getTask(index);
-        if (task != null) {
-            task.unMark();
+    public void unMarktask(int index) {
+        try {
+            tasks.unMarkTask(index);
             storage.saveToFile(tasks);
+            System.out.println("     OK, I've marked this task as not done yet:");
+            System.out.println("       " + tasks.getTask(index));
+            System.out.println("    ____________________________________________________________");
+        } catch (NumberFormatException e) {
+            System.out.println("     Oops! Please enter a valid task number to unmark.");
+            System.out.println("    ____________________________________________________________");
         }
     }
     public void printTasks() {
-        System.out.println("    ____________________________________________________________");
-        System.out.println("     Here are the tasks in your list:");
-        for (int i = 0; i < tasks.size(); i++) {
-            System.out.printf("     %d.%s\n", i + 1, tasks.get(i).toString());
-        }
-        System.out.println("    ____________________________________________________________");
+        tasks.printTasks();
     }
 
     public void deleteTask(int index) throws ChatbotException {
         try {
-            Task removedTask = tasks.remove(index - 1); // Subtracting 1 because ArrayList is 0-based.
+            Task removedTask = tasks.removeTask(index - 1); // Subtracting 1 because ArrayList is 0-based.
             storage.saveToFile(tasks);
             System.out.println("    ____________________________________________________________");
             System.out.println("     Noted. I've removed this task:");
@@ -125,6 +127,8 @@ public class TaskManager {
         } catch (IndexOutOfBoundsException e) {
             throw new ChatbotException("Please provide a valid task number to delete.");
         }
+
+
     }
 
 
@@ -134,7 +138,7 @@ public class TaskManager {
     public void printTasksOnDate(String date) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         LocalDate targetDate = LocalDate.parse(date, formatter);
-        for (Task task : tasks) {
+        for (Task task : tasks.getAllTasks()) {
             if (task instanceof Deadlines) {
                 Deadlines deadlineTask = (Deadlines) task;
                 if (targetDate.equals(deadlineTask.getDateTime().toLocalDate())) {
