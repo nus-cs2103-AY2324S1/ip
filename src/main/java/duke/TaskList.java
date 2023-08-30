@@ -3,7 +3,6 @@ package duke;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-
 import java.util.ArrayList;
 
 /**
@@ -12,10 +11,7 @@ import java.util.ArrayList;
 public class TaskList {
 
     protected final ArrayList<Task> taskArray;
-    private String[] dateFormats = {
-            "dd-MM-yyyy", "yyyy-MM-dd", "dd/MM/yyyy", "yyyy/MM/dd"
-    };
-
+    private String[] dateFormats = { "dd-MM-yyyy", "yyyy-MM-dd", "dd/MM/yyyy", "yyyy/MM/dd" };
     private String[] timeFormats = { "HHmm", "HH:mm" };
 
     /**
