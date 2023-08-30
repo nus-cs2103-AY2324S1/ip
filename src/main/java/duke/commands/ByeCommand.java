@@ -5,6 +5,7 @@ import duke.storage.Storage;
 import duke.ui.UI;
 
 public class ByeCommand extends Command{
+
     public static final String COMMAND_WORD = "bye";
 
     @Override

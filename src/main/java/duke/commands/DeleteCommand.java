@@ -9,8 +9,10 @@ import duke.ui.UI;
 import java.io.IOException;
 
 public class DeleteCommand extends Command {
+
     public static final String COMMAND_WORD = "delete";
     private final int taskNumber;
+
     public DeleteCommand(int taskNumber) {
         super();
         this.taskNumber = taskNumber;

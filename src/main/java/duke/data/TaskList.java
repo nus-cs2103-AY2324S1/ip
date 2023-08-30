@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class TaskList {
+
     private final List<Task> tasks;
 
     public TaskList() {
