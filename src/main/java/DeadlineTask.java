@@ -5,6 +5,14 @@ public class DeadlineTask extends Task {
         this.deadlineDate = deadlineDate;
     }
 
+    public String getType() {
+        return "Deadline";
+    }
+
+    public String getDateTime() {
+        return this.deadlineDate;
+    }
+
     @Override
     public String toString() {
         return "[D]" + super.toString() + " (by: " + this.deadlineDate + ")";
