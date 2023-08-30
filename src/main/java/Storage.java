@@ -6,7 +6,13 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Storage {
-    public static void saveData(ArrayList<String> data, String filePath) throws IOException {
+    private String filePath;
+
+    public Storage(String filePath) {
+        this.filePath = filePath;
+    }
+
+    public void saveData(ArrayList<String> data) throws IOException {
         FileWriter fw = new FileWriter(filePath);
         for (int i = 0; i < data.size(); i++) {
             fw.write(data.get(i) + "\n");
@@ -14,7 +20,7 @@ public class Storage {
         fw.close();
     }
 
-    public static ArrayList<String> loadData(String filePath) throws FileNotFoundException {
+    public ArrayList<String> loadData() throws FileNotFoundException {
         ArrayList<String> data = new ArrayList<>();
         File f = new File(filePath);
         Scanner s = new Scanner(f);

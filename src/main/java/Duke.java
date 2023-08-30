@@ -1,3 +1,4 @@
+import java.io.FileNotFoundException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -5,14 +6,26 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Duke {
-    private static TaskList tasks;
+    private TaskList tasks;
+    private Storage storage;
+    private UI ui;
     private static final String NAME = "DEREK";
-    private static UI ui = new UI(NAME);
     private static final String DATETIME_INPUT_FORMAT = "yyyy-MM-dd HHmm";
     public static final DateTimeFormatter dateTimeInputFormatter = DateTimeFormatter.ofPattern(DATETIME_INPUT_FORMAT);
 
-    public static void main(String[] args) {
-        Duke.tasks = new TaskList();
+    public Duke(String filePath) {
+        this.storage = new Storage(filePath);
+        this.ui = new UI(NAME);
+        try {
+            this.tasks = new TaskList(storage.loadData());
+        } catch (FileNotFoundException e) {
+            ui.printLoadingErrorMessage();
+            this.tasks = new TaskList();
+        }
+
+    }
+
+    public void run() {
         Scanner in = new Scanner(System.in);
 
         ui.printWelcomeMessage();
@@ -40,7 +53,7 @@ public class Duke {
                     continue;
                 }
                 if (command.equals(Command.BYE.getCommand())) {
-                    Duke.tasks.saveState();
+                    tasks.saveState(storage);
                     ui.printGoodbyeMessage();
                     break;
                 }
@@ -67,7 +80,7 @@ public class Duke {
                 }
                 if (command.equals(Command.DELETE.getCommand())) {
                     int index = Integer.parseInt(parsedInput.get(1)) - 1;
-                    Task task = Duke.tasks.remove(index);
+                    Task task = tasks.remove(index);
                     ui.printTaskDeletedMessage(task, tasks.getTaskCount());
                     continue;
                 }
@@ -83,5 +96,9 @@ public class Duke {
             }
         }
         in.close();
+    }
+
+    public static void main(String[] args) {
+        new Duke("./data/state.txt").run();
     }
 }

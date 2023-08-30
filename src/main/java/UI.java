@@ -49,6 +49,10 @@ public class UI {
         }
     }
 
+    public void printLoadingErrorMessage() {
+        System.out.println("Stored data could not be loaded");
+    }
+
     private void printTaskCount(int taskCount) {
         System.out.println("Now you have " + taskCount + (taskCount == 1 ? " task" : " tasks") + " in the list.");
     }

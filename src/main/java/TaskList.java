@@ -6,13 +6,17 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 public class TaskList {
-    private ArrayList<Task> tasks = new ArrayList<>();
-    private static final String FILE_PATH = "./data/state.txt";
+    private ArrayList<Task> tasks;
     private static final String DATETIME_INPUT_FORMAT = "yyyy-MM-dd HHmm";
     public static final DateTimeFormatter dateTimeInputFormatter = DateTimeFormatter.ofPattern(DATETIME_INPUT_FORMAT);
 
+    public TaskList(ArrayList<String> storedData) {
+        tasks = new ArrayList<>();
+        loadState(storedData);
+    }
+
     public TaskList() {
-        loadState();
+        tasks = new ArrayList<>();
     }
 
     public int getTaskCount() {
@@ -67,44 +71,39 @@ public class TaskList {
         return task;
     }
 
-    public void saveState() {
+    public void saveState(Storage storage) {
         try {
             ArrayList<String> stringRepresentation = new ArrayList<>();
             for (int i = 0; i < this.tasks.size(); i++) {
                 stringRepresentation.add(this.tasks.get(i).toSaveStateString());
             }
-            Storage.saveData(stringRepresentation, TaskList.FILE_PATH);
+            storage.saveData(stringRepresentation);
             System.out.println("Sucessfully saved state");
         } catch (IOException e) {
             System.out.println("Failed to save state");
         }
     }
 
-    private void loadState() {
-        try {
-            ArrayList<String> storedData = Storage.loadData(TaskList.FILE_PATH);
-            for (int i = 0; i < storedData.size(); i++) {
-                String[] taskArray = storedData.get(i).split(" / ");
-                Task task;
+    private void loadState(ArrayList<String> storedData) {
+        for (int i = 0; i < storedData.size(); i++) {
+            String[] taskArray = storedData.get(i).split(" / ");
+            Task task;
 
-                if (taskArray[0].equals(Command.TODO.getCommand())) {
-                    task = new ToDo(taskArray[2]);
-                } else if (taskArray[0].equals(Command.DEADLINE.getCommand())) {
-                    task = new Deadline(taskArray[2], LocalDateTime.parse(taskArray[3], dateTimeInputFormatter));
-                } else {
-                    task = new Event(taskArray[2], LocalDateTime.parse(taskArray[3], dateTimeInputFormatter),
-                            LocalDateTime.parse(taskArray[4], dateTimeInputFormatter));
-                }
-
-                if (taskArray[1].equals("1")) {
-                    task.markAsDone();
-                }
-                this.tasks.add(task);
+            if (taskArray[0].equals(Command.TODO.getCommand())) {
+                task = new ToDo(taskArray[2]);
+            } else if (taskArray[0].equals(Command.DEADLINE.getCommand())) {
+                task = new Deadline(taskArray[2], LocalDateTime.parse(taskArray[3], dateTimeInputFormatter));
+            } else {
+                task = new Event(taskArray[2], LocalDateTime.parse(taskArray[3], dateTimeInputFormatter),
+                        LocalDateTime.parse(taskArray[4], dateTimeInputFormatter));
             }
-            System.out.println("Successfully loaded saved state");
-        } catch (FileNotFoundException e) {
-            System.out.println("File to save state cannot be found");
+
+            if (taskArray[1].equals("1")) {
+                task.markAsDone();
+            }
+            this.tasks.add(task);
         }
+        System.out.println("Successfully loaded saved state");
     }
 
     private boolean isTaskValid(int index) {
