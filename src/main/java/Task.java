@@ -8,10 +8,12 @@ public class Task {
         this.description = description;
         this.status = false;
     }
-
-    public String getStatus() {
-        return this.status ? "X" : " ";
+    public Task(String description, boolean status) {
+        this.description = description;
+        this.status = status;
     }
+
+
 
     public String changeStatus(String userInput) {
         if (!this.status && userInput.equals("mark")) {
@@ -27,8 +29,27 @@ public class Task {
         }
     }
 
+    public int getStatus() {
+        return this.status ? 1 : 0;
+    }
+    public String getDescription() {
+        return this.description;
+    }
+
+    public void storeDescription(String description) {
+        this.description = description;
+    }
+
+    public String storeToDisk() {
+        return this.getStatus() + "|" + this.description;
+    }
+
     @Override
     public String toString() {
-        return "[" + this.getStatus() + "] " + this.description;
+        if (this.getStatus() == 1) {
+            return "[" + "X" + "] " + this.description;
+        } else {
+            return "[" + " " + "]" + this.description;
+        }
     }
 }
