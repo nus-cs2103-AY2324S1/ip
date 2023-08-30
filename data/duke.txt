@@ -1,3 +1,4 @@
-T | 0 | save file in duke.txt
-E | 1 | project meeting | Mon 2pm | 4pm
-D | 0 | return book | Sunday
+D | 0 | return book | 2019-12-02 1800
+D | 0 | return book | 2023-08-30
+D | 0 | adele | 2023-12-30 1900
+D | 0 | todo | 2023-10-10

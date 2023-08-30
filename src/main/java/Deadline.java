@@ -1,16 +1,28 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.Temporal;
+
 public class Deadline extends Task {
-    private String deadlineDateString;
-    public Deadline(String name, boolean isDone, String deadlineDateString) {
+    private Temporal deadlineTemporal;
+    private DateTimeFormatter printFormatter;
+    private DateTimeFormatter saveFormatter;
+    public Deadline(String name, boolean isDone, Temporal deadlineTemporal) {
         super(name, isDone);
-        this.deadlineDateString = deadlineDateString;
+        this.deadlineTemporal = deadlineTemporal;
+        this.printFormatter = deadlineTemporal instanceof LocalDateTime
+                ? DateTimeFormatter.ofPattern("HHmm, dd LLL, yyyy")
+                : DateTimeFormatter.ofPattern("dd LLL, yyyy");
+        this.saveFormatter = deadlineTemporal instanceof LocalDateTime
+                ? DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm")
+                : DateTimeFormatter.ofPattern("yyyy-MM-dd");
     }
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + String.format(" (by: %s)", this.deadlineDateString);
+        return "[D]" + super.toString() + String.format(" (by: %s)", printFormatter.format(this.deadlineTemporal));
     }
     public String toString(boolean isWritten) {
         String completionStr = super.isDone() ? "1" : "0";
-        return "D" + " | " + completionStr + " | " + super.getName() + " | " + this.deadlineDateString;
+        return "D" + " | " + completionStr + " | " + super.getName() + " | " + saveFormatter.format(this.deadlineTemporal);
     }
 }

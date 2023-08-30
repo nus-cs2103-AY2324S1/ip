@@ -1,5 +1,10 @@
 import com.sun.jdi.ArrayReference;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -66,17 +71,6 @@ public class Duke {
         BufferedWriter writer = null;
 
         try {
-            // Create the directory if it doesn't exist
-//            File directory = new File(directoryPath);
-//            if (!directory.exists()) {
-//                directory.mkdirs();
-//            }
-//
-//            // Create the file if it doesn't exist
-//            File file = new File(filePath);
-//            if (!file.exists()) {
-//                file.createNewFile();
-//            }
 
             writer = new BufferedWriter(new FileWriter(filePath));
             for (Task task : tasks) {
@@ -118,8 +112,7 @@ public class Duke {
             String line;
             while ((line = reader.readLine()) != null) {
                 // Assuming each line contains task information, parse and create tasks accordingly
-                Task task = parseTaskFromString(line);
-                tasks.add(task);
+                Task task = parseAndAddTaskFromString(line);
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -135,20 +128,65 @@ public class Duke {
         }
     }
 
-    public static Task parseTaskFromString(String line) {
+    public static Task parseAndAddTaskFromString(String line) {
         String[] taskData = line.split("\\s*\\|\\s*");
         boolean isDone = taskData[1].equals("1");
         switch (taskData[0]) {
             case "T" :
-                return new ToDo(taskData[2], isDone);
+                ToDo todo = new ToDo(taskData[2], isDone);
+                tasks.add(todo);
+                return todo;
             case "D":
-                return new Deadline(taskData[2], isDone, taskData[3]);
+                return processAndAddDeadline(taskData[2], taskData[3]);
             case "E":
-        }       return new Event(taskData[2], isDone, taskData[3], taskData[4]);
+        }       Event event = new Event(taskData[2], isDone, taskData[3], taskData[4]);
+                tasks.add(event);
+                return event;
     }
 
+    public static Deadline processAndAddDeadline(String name, String deadlineString) {
+        DateTimeFormatter formatter = null;
+        Deadline deadline = null;
+        if (isValidDate(deadlineString)) {
+            formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            LocalDate parsedDeadlineDate = LocalDate.parse(deadlineString, formatter);
+            deadline = new Deadline(name, false, parsedDeadlineDate);
+            tasks.add(deadline);
+            printTaskAddedMessage(deadline);
+        } else if (isValidDateTime(deadlineString)) {
+            formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+            LocalDateTime parsedDeadlineDateTime = LocalDateTime.parse(deadlineString, formatter);
+            deadline = new Deadline(name, false, parsedDeadlineDateTime);
+            tasks.add(deadline);
+            printTaskAddedMessage(deadline);
+        } else {
+            System.out.println("\t Expected usage for deadline (time is optional):\n deadline {deadlineName} /by yyyy-MM-dd HHmm");
+        }
+        return deadline;
+    }
+
+    private static boolean isValidDate(String input) {
+        Pattern pattern = Pattern.compile("^\\d{4}-\\d{2}-\\d{2}$");
+        Matcher matcher = pattern.matcher(input);
+        return matcher.matches();
+    }
+
+    private static boolean isValidDateTime(String input) {
+        Pattern pattern = Pattern.compile("^\\d{4}-\\d{2}-\\d{2} \\d{4}$");
+        Matcher matcher = pattern.matcher(input);
+        return matcher.matches();
+    }
+
+    private static LocalDate parseDate(String input) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        return LocalDate.parse(input, formatter);
+    }
+
+    private static LocalDateTime parseDateTime(String input) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+        return LocalDateTime.parse(input, formatter);
+    }
     public static void main(String[] args) {
-        //TODO: Load tasks here
         loadTasks();
         Scanner scanner = new Scanner(System.in);
         printDivider(true);
@@ -179,10 +217,9 @@ public class Duke {
                             if (deadlineName.length() == 0) {
                                 printEmptyDescriptionErrorMessage();
                             }
+                            DateTimeFormatter formatter = null;
                             String deadlineString = twoParts[1];
-                            Task deadline = new Deadline(deadlineName, false, deadlineString);
-                            tasks.add(deadline);
-                            printTaskAddedMessage(deadline);
+                            processAndAddDeadline(deadlineName, deadlineString);
                             break;
                         case "event":
                             String[] threeParts = input.split ("/");
@@ -230,7 +267,6 @@ public class Duke {
                         default:
                             System.out.println("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
                     }
-                    // TODO: Save here
                     saveTasks();
                 } else {
                     for (int i = 0; i < tasks.size(); i++) {
