@@ -3,11 +3,14 @@ import java.util.Scanner;
 
 public class TaskList {
     ArrayList<Task> fullList;
-    private static String line = "------------------------------------";
-    Scanner scanner = new Scanner(System.in);
+    private final static String line = "------------------------------------";
 
     public TaskList() {
         this.fullList = new ArrayList<>();
+    }
+
+    public TaskList(ArrayList<Task> fullList) {
+        this.fullList = fullList;
     }
 
     public void addToList(Task task) {
@@ -67,6 +70,10 @@ public class TaskList {
             System.out.println("No such item exists");
             System.out.println(line);
         }
+    }
+
+    public ArrayList<Task> getTask() {
+        return this.fullList;
     }
 
     @Override

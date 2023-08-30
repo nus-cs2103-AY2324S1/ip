@@ -1,8 +1,15 @@
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Scanner;
 public class Duke {
-    private static String chatbot = "chuababyy chatbot";
+    private TaskList fullList;
+    private final FileStorage fileStorage;
+    private String chatbot = "chuababyy chatbot";
+    public void line() {
+        System.out.println(line);
+    }
     private static String line = "------------------------------------";
+    private static String filePath = "./data/duke.txt";
 
     private static final String commands =
             line + "\n"
@@ -46,15 +53,29 @@ public class Duke {
         }
     }
 
-    public static void main(String[] args) {
-        TaskList fullList = new TaskList();
+    public Duke(String filePath) {
+        this.fileStorage = new FileStorage(filePath);
+        try {
+            this.fullList  = new TaskList(fileStorage.loadFiles());
+        } catch (FileCorruptedException e) {
+            System.out.println("Saved tasks is corrupted. Please start adding new tasks");
+            this.fullList = new TaskList();
+        } catch (FileNoExistingTasksException e) {
+            System.out.println("No saved tasks! Please start adding new tasks");
+            this.fullList = new TaskList();
+        } catch (FileLoadException e) {
+            System.out.println("Error when reading saved tasks. Please start adding new tasks");
+            this.fullList = new TaskList();
+        }
+    }
 
-        System.out.println(line);
+    public void run() {
+        Scanner scanner = new Scanner(System.in);
+
+        line();
         System.out.println("Hello! I'm " + chatbot);
         System.out.println("What can I do for you?");
-        System.out.println(line);
-
-        Scanner scanner = new Scanner(System.in);
+        line();
 
         while (true) {
             String userInput = scanner.nextLine().trim();
@@ -64,9 +85,9 @@ public class Duke {
 
             switch (command) {
                 case EMPTY:
-                    System.out.println(line);
+                    line();
                     System.out.println("Item to be added cannot be empty");
-                    System.out.println(line);
+                    line();
                     continue;
 
                 case UNKNOWN:
@@ -74,9 +95,10 @@ public class Duke {
                     continue;
 
                 case BYE:
-                    System.out.println(line);
+                    fileStorage.saveTasks(fullList);
+                    line();
                     System.out.println("Bye. Hope to see you again soon!");
-                    System.out.println(line);
+                    line();
                     break;
 
                 case LIST:
@@ -164,5 +186,9 @@ public class Duke {
             break;
         }
         scanner.close();
+    }
+
+    public static void main(String[] args) {
+        new Duke(filePath).run();
     }
 }

@@ -7,12 +7,27 @@ public class Task{
         this.isDone = false;
     }
 
+    public Task(String description, boolean isDone) {
+        this.description = description;
+        this.isDone = isDone;
+    }
+
     public void markDone() {
         this.isDone = true;
     }
 
     public void markNotDone() {
         this.isDone = false;
+    }
+
+    public String toFileString() {
+        String isDone;
+        if (this.isDone) {
+            isDone = "T";
+        } else {
+            isDone = "F";
+        }
+        return " | " + isDone + " | " + this.description;
     }
 
     @Override
