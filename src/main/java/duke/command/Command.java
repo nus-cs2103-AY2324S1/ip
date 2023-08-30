@@ -1,11 +1,9 @@
 package duke.command;
 
 import duke.exception.DukeException;
-import duke.taskList.TaskList;
-import duke.UI.UI;
 import duke.storage.Storage;
-
-import java.io.IOException;
+import duke.tasklist.TaskList;
+import duke.ui.UI;
 
 /**
  * An abstract class representing a command that can be executed in the main method.

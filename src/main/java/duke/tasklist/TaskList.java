@@ -1,10 +1,10 @@
-package duke.taskList;
-
-import duke.exception.DukeException;
+package duke.tasklist;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
+
+import duke.exception.DukeException;
 
 /**
  * Represents a list of tasks in the Duke application.
@@ -79,7 +79,7 @@ public class TaskList extends ArrayList<Task> {
             Task t = get(index - 1);
             if (t.mark()) {
                 return t;
-            }else {
+            } else {
                 throw new DukeException("OOPS!!! This task has already be marked!\n");
             }
         } catch (IndexOutOfBoundsException e) {

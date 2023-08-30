@@ -1,9 +1,5 @@
 package duke.storage;
 
-import duke.exception.DukeException;
-import duke.taskList.Task;
-import duke.taskList.TaskList;
-
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -12,6 +8,10 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Objects;
 import java.util.Scanner;
+
+import duke.exception.DukeException;
+import duke.tasklist.Task;
+import duke.tasklist.TaskList;
 
 /**
  * Manages the storage of task data in the Duke application.

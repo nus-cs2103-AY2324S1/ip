@@ -1,14 +1,14 @@
 package duke.command;
 
-import duke.exception.DukeException;
-import duke.taskList.Task;
-import duke.taskList.TaskList;
-import duke.UI.UI;
-import duke.storage.Storage;
-
-import java.io.IOException;
 import java.time.DateTimeException;
 import java.time.LocalDate;
+
+
+import duke.exception.DukeException;
+import duke.storage.Storage;
+import duke.tasklist.Task;
+import duke.tasklist.TaskList;
+import duke.ui.UI;
 
 /**
  * Command for adding a deadline task.
@@ -36,14 +36,15 @@ public class AddDeadline extends Command {
      * @throws DukeException If there is an error while executing the command.
      */
     @Override
-    public void execute(TaskList lst, UI io, Storage storage) throws DukeException{
+    public void execute(TaskList lst, UI io, Storage storage) throws DukeException {
         if (s.isEmpty() || s.equals(" ")) {
             throw new DukeException("OOPS!!! The description of a deadline cannot be empty.");
-        }else if(!s.matches(" \\S.*\\s/by\\s\\d.*")){
+        } else if (!s.matches(" \\S.*\\s/by\\s\\d.*")) {
             throw new DukeException(
-                    "OOPS!!! Please follow the following pattern to add a task:\n  " +
-                            "deadline <task name> /by <deadline>\n");
-        }else {
+                    "OOPS!!! Please follow the following pattern to add a task:\n  "
+                            + "deadline <task name> /by <deadline>\n");
+        } else {
+
             String[] temp = s.split(" /by ");
             try {
                 LocalDate d = LocalDate.parse(temp[1]);
@@ -52,8 +53,8 @@ public class AddDeadline extends Command {
                 storage.addToFile(newTask);
             } catch (DateTimeException e) {
                 throw new DukeException(
-                        "OOPS!!! Please follow the following pattern to input the time:\n  " +
-                                "deadline <task name> /by <yyyy-mm-dd>\n");
+                        "OOPS!!! Please follow the following pattern to input the time:\n  "
+                                + "deadline <task name> /by <yyyy-mm-dd>\n");
             }
         }
     }

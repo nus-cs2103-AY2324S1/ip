@@ -1,6 +1,14 @@
 package duke.parser;
 
-import duke.command.*;
+import duke.command.AddDeadline;
+import duke.command.AddEvent;
+import duke.command.AddTodo;
+import duke.command.Bye;
+import duke.command.Command;
+import duke.command.Delete;
+import duke.command.List;
+import duke.command.Remark;
+import duke.command.Unknown;
 
 /**
  * A utility class for parsing user input and creating corresponding command objects.

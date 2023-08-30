@@ -1,20 +1,19 @@
 package duke.command;
 
-import duke.UI.UI;
+import java.io.IOException;
+
 import duke.exception.DukeException;
 import duke.storage.Storage;
-import duke.taskList.Task;
-import duke.taskList.TaskList;
-
-import java.io.IOException;
+import duke.tasklist.Task;
+import duke.tasklist.TaskList;
+import duke.ui.UI;
 
 
 /**
  * Represents a command to delete a task.
  * This command allows deleting a task from the task list.
  */
-public class Delete extends Command{
-
+public class Delete extends Command {
     /**
      * Constructs a Delete command with the given input string.
      *
@@ -41,7 +40,7 @@ public class Delete extends Command{
         io.mark(t);
         try {
             storage.changeFile(lst);
-        } catch (IOException iE){
+        } catch (IOException iE) {
             throw new DukeException(iE.getMessage());
         }
     }

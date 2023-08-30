@@ -1,15 +1,15 @@
 package duke.command;
 
 import duke.exception.DukeException;
-import duke.taskList.TaskList;
-import duke.UI.UI;
 import duke.storage.Storage;
+import duke.tasklist.TaskList;
+import duke.ui.UI;
 
 /**
  * Represents a command for handling unknown or unsupported commands.
  * This command is used when the user enters a command that the application does not recognize.
  */
-public class Unknown extends Command{
+public class Unknown extends Command {
 
     /**
      * Constructs an Unknown command with the given input string.
@@ -30,7 +30,7 @@ public class Unknown extends Command{
      * @throws DukeException Always thrown with the unknown command string.
      */
     @Override
-    public void execute(TaskList lst, UI io, Storage s) throws DukeException{
+    public void execute(TaskList lst, UI io, Storage s) throws DukeException {
         throw new DukeException(super.s);
     }
 }

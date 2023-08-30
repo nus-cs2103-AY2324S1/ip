@@ -1,12 +1,12 @@
 package duke.command;
 
-import duke.UI.UI;
+import java.io.IOException;
+
 import duke.exception.DukeException;
 import duke.storage.Storage;
-import duke.taskList.Task;
-import duke.taskList.TaskList;
-
-import java.io.IOException;
+import duke.tasklist.Task;
+import duke.tasklist.TaskList;
+import duke.ui.UI;
 
 /**
  * Represents a command to mark or unmark a task as done.
@@ -50,7 +50,7 @@ public class Remark extends Command {
         }
         try {
             storage.changeFile(lst);
-        } catch (IOException ignored){
+        } catch (IOException ignored) {
             throw new DukeException(ignored.getMessage());
         }
     }

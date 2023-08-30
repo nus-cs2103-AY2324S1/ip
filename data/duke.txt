@@ -4,3 +4,4 @@
 0 | adas
 0 | read book
 0 | read book
+0 |  not read book

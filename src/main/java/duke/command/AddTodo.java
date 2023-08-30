@@ -1,24 +1,25 @@
 package duke.command;
 
 import duke.exception.DukeException;
-import duke.taskList.Task;
-import duke.taskList.TaskList;
-import duke.UI.UI;
 import duke.storage.Storage;
+import duke.tasklist.Task;
+import duke.tasklist.TaskList;
+import duke.ui.UI;
 
-import java.io.IOException;
+
 
 /**
  * Command for adding a todo task.
  * This command parses the input and adds a new todo task to the task list.
  */
 public class AddTodo extends Command {
+
     /**
      * Constructs an AddTodo command with the given input string.
      *
      * @param s The input string containing the task description.
      */
-    public AddTodo(String s){
+    public AddTodo(String s) {
         super(s);
     }
 
@@ -35,7 +36,7 @@ public class AddTodo extends Command {
     @Override
     public void execute(TaskList lst, UI io, Storage storage) throws DukeException {
         if (s.isEmpty() || s.equals(" ")) {
-            throw new DukeException("☹ OOPS!!! The description of a todo cannot be empty.");
+            throw new DukeException("OOPS!!! The description of a todo cannot be empty.");
         } else {
             Task newTask = lst.addTask(s);
             io.addTask(newTask, lst);
