@@ -7,7 +7,11 @@ import Tasks.Deadline;
 import Tasks.Event;
 import Tasks.Task;
 import Tasks.ToDo;
-
+import Utils.Commands;
+import Utils.DukeDateFormat;
+import Utils.LocalFile;
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -110,9 +114,9 @@ public class Duke {
             }
 
         } catch (ArrayIndexOutOfBoundsException aoob) {
-            throw new MissingTaskException("Missing Tasks.Task");
+            throw new MissingTaskException("Missing Task");
         } catch (IndexOutOfBoundsException ioob) {
-            throw new MissingTaskException("Missing Tasks.Task");
+            throw new MissingTaskException("Missing Task");
         } catch (Exception e) {
             throw new InvalidInputException("Invalid input");
         }
@@ -133,9 +137,9 @@ public class Duke {
             return deleted.getTask() + " has been deleted!";
 
         } catch (ArrayIndexOutOfBoundsException aoob) {
-            throw new MissingTaskException("Missing Tasks.Task");
+            throw new MissingTaskException("Missing Task");
         } catch (IndexOutOfBoundsException ioob) {
-            throw new MissingTaskException("Missing Tasks.Task");
+            throw new MissingTaskException("Missing Task");
         } catch (Exception e) {
             throw new InvalidInputException("Invalid input");
         }
@@ -151,17 +155,22 @@ public class Duke {
                 case DEADLINE:
                     String deadlineTitle = obtainTitle(input, Commands.DEADLINE);
                     String by = obtainDate(input, Commands.DEADLINE);
-                    return new Deadline(deadlineTitle, isDone, by);
+                    LocalDate byDate = DukeDateFormat.stringToDate(by);
+                    return new Deadline(deadlineTitle, isDone, byDate);
 
                 case EVENT:
                     String eventTitle = obtainTitle(input, Commands.EVENT);
                     String fromTo = obtainDate(input, Commands.EVENT);
-                    return new Event(eventTitle, isDone, fromTo.split("/to")[0], fromTo.split("/to")[1]);
+                    LocalDate from = DukeDateFormat.stringToDate(fromTo.split("/to")[0]);
+                    LocalDate to = DukeDateFormat.stringToDate(fromTo.split("/to")[1]);
+                    return new Event(eventTitle, isDone, from, to);
 
                 default:
                     throw new InvalidInputException("Invalid input");
             }
         } catch (DukeException e) {
+            throw e;
+        } catch (DateTimeParseException e) {
             throw e;
         }
     }
@@ -257,6 +266,8 @@ public class Duke {
                 }
             } catch (DukeException de) {
                 System.out.println(de.getMessage());
+            } catch (DateTimeParseException e) {
+                System.out.println("Date cannot be recognised :( please input a valid date format yyyy-mm-dd !");
             } catch (Exception e) {
                 System.out.println("There has been an internal error. Please try again!");
             }

@@ -1,11 +1,18 @@
 package Tasks;
 
+import Utils.DukeDateFormat;
+
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.TextStyle;
+import java.util.Locale;
+
 public class Event extends Task {
 
     /** Date where the event start. */
-    private String from;
+    private LocalDate from;
     /** Date where the event ends. */
-    private String to;
+    private LocalDate to;
 
     /**
      * Constructor for Tasks.Event.
@@ -13,18 +20,19 @@ public class Event extends Task {
      * @param from Date where event starts.
      * @param to Date where event ends.
      */
-    public Event(String taskName, int isDone, String from, String to) {
+    public Event(String taskName, int isDone, LocalDate from, LocalDate to) {
         super(taskName, isDone);
         this.from = from;
         this.to = to;
     }
+
 
     /**
      * Returns duration of the event.
      * @return Duration of event.
      */
     private String getDuration() {
-        return from + " - " + to;
+        return DukeDateFormat.dateToString(from) + " - " + DukeDateFormat.dateToString(to);
     }
 
     /**
@@ -38,6 +46,8 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return super.toString().replace("/TASK", "event ") + "/from " + from + " /to " + to;
+        String fromDate = from.toString();
+        String toDate = to.toString();
+        return super.toString().replace("/TASK", "event ") + "/from " + fromDate + " /to " + toDate;
     }
 }

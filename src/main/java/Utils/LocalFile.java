@@ -1,3 +1,5 @@
+package Utils;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -39,7 +41,7 @@ public class LocalFile {
             FileWriter fw = new FileWriter(path);
             String input = "";
             for (int i = 0; i < tasks.size(); i++) {
-                input = tasks.get(i) + "\n";
+                input = input + tasks.get(i) + "\n";
             }
             writeToFile(fw, input);
             return "Tasks saved successfully";

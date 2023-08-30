@@ -7,14 +7,16 @@ delete 1
 list
 todo return books
 todo
-deadline write essay /by 25/9
+deadline write essay /by 2023-08-30
 deadline
 deadline write essay
-event hackathon /from 23/9 /to 25/9
+deadline write essay /by today
+event hackathon /from 2023-08-30 /to 2023-08-31
 event
 event hackathon
 event hackathon /from 23/9
 event hackathon /to 25/9
+event hackathon /from 2023-08-30 /to next day
 list
 mark 1
 mark 5
