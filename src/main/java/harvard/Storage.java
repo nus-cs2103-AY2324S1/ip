@@ -1,3 +1,5 @@
+//write JUnit test for this class
+
 package harvard;
 import java.util.ArrayList;
 
@@ -18,5 +20,9 @@ public class Storage {
         // Implement saving tasks to the file
         TaskWriter taskWriter = new TaskWriter(filePath);
         taskWriter.write(tasks);
+    }
+
+    public String getFilePath() {
+        return filePath;
     }
 }
