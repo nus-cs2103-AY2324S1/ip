@@ -1,3 +1,5 @@
+package duke.task;
+
 /**
  * Represents a task with a description that can be marked done or undone.
  */
@@ -6,7 +8,7 @@ public abstract class Task {
     protected boolean isDone;
 
     /**
-     * Constructor for a Task instance.
+     * Constructor for a duke.task.Task instance.
      *
      * @param description The description of the task.
      */
@@ -40,7 +42,7 @@ public abstract class Task {
     }
 
     /**
-     * Provides the string representation of the Task instance.
+     * Provides the string representation of the duke.task.Task instance.
      * @return A string with the relevant information of the task.
      */
     @Override
@@ -49,7 +51,7 @@ public abstract class Task {
     }
 
     /**
-     * Get a formatted string of the Task to add to the save file.
+     * Get a formatted string of the duke.task.Task to add to the save file.
      *
      * @return A formatted string with the relevant information for the save file.
      */

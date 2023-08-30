@@ -1,10 +1,12 @@
+package duke.task;
+
 /**
- * Represents a Task to be done.
+ * Represents a duke.task.Task to be done.
  */
 public class Todo extends Task {
 
     /**
-     * Constructor for a Todo instance.
+     * Constructor for a duke.task.Todo instance.
      *
      * @param description The description of the underlying task.
      */
@@ -13,8 +15,8 @@ public class Todo extends Task {
     }
 
     /**
-     * Provides the string representation of the Todo instance.
-     * @return A string with the relevant information of the Todo task.
+     * Provides the string representation of the duke.task.Todo instance.
+     * @return A string with the relevant information of the duke.task.Todo task.
      */
     @Override
     public String toString() {
@@ -22,7 +24,7 @@ public class Todo extends Task {
     }
 
     /**
-     * Get a formatted string of the Todo task to add to the save file.
+     * Get a formatted string of the duke.task.Todo task to add to the save file.
      *
      * @return A formatted string with the relevant information for the save file.
      */

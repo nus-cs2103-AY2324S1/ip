@@ -1,14 +1,16 @@
+package duke.task;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 /**
- * Represents a Task with a deadline.
+ * Represents a duke.task.Task with a deadline.
  */
 public class Deadline extends Task {
     protected LocalDateTime by;
 
     /**
-     * Constructor for a Deadline instance.
+     * Constructor for a duke.task.Deadline instance.
      *
      * @param description The description of the underlying task.
      * @param by The date by which the task is due.
@@ -19,9 +21,9 @@ public class Deadline extends Task {
     }
 
     /**
-     * Provides the string representation of the Deadline instance.
+     * Provides the string representation of the duke.task.Deadline instance.
      *
-     * @return A string with the relevant information of the Deadline task.
+     * @return A string with the relevant information of the duke.task.Deadline task.
      */
     @Override
     public String toString() {
@@ -31,7 +33,7 @@ public class Deadline extends Task {
     }
 
     /**
-     * Get a formatted string of the Deadline task to add to the save file.
+     * Get a formatted string of the duke.task.Deadline task to add to the save file.
      *
      * @return A formatted string with the relevant information for the save file.
      */
