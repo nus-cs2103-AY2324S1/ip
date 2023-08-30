@@ -6,6 +6,9 @@ import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * Manages a list of tasks.
+ */
 public class TaskList {
     private final ArrayList<Task> tasks;
 
@@ -17,6 +20,13 @@ public class TaskList {
         this.tasks = tasks;
     }
 
+    /**
+     * Adds a task to the list. Throws DukeException if the description is invalid.
+     * @param taskType taskType.
+     * @param description description.
+     * @return success message and the task added.
+     * @throws DukeException
+     */
     public String addTask(TaskType taskType, String description) throws DukeException {
         description = description.trim();
         switch (taskType) {
@@ -65,6 +75,9 @@ public class TaskList {
         return result + "\"One thing at a time.\"";
     }
 
+    /**
+     * Returns the tasks in txt format.
+     */
     public String getTasksTxt() {
         String result = "";
         for (int i = 0; i < tasks.size() - 1; i++) {
@@ -76,6 +89,13 @@ public class TaskList {
         return result;
     }
 
+    /**
+     * Marks the task as undone/done accordingly. Throws DukeException if the task is not found.
+     * @param taskIndex taskIndex.
+     * @param isDone task status.
+     * @return success message and the task modified.
+     * @throws DukeException
+     */
     public String markTask(int taskIndex, boolean isDone) throws DukeException {
         if (taskIndex > tasks.size() || taskIndex <= 0) {
             throw new DukeException("task not found");

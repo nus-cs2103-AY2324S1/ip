@@ -13,6 +13,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Represents a storage that loads tasks from the specified file and saves tasks to the same file.
+ */
 public class Storage {
     private String filePath;
 
@@ -20,6 +23,10 @@ public class Storage {
         this.filePath = filePath;
     }
 
+    /**
+     * Loads tasks from the specified file path. Create the folder if necessary.
+     * @throws FileNotFoundException
+     */
     public ArrayList<Task> load() throws FileNotFoundException {
         File folder = new File("data");
         if (!folder.exists()) {
@@ -55,6 +62,11 @@ public class Storage {
     }
 
     //TODO: update the file after each task creation/modification
+
+    /**
+     * Saves the specified task list to the specified file path. Create the file if necessary.
+     * @throws IOException
+     */
     public void save(TaskList taskList) throws IOException {
         String txt = taskList.getTasksTxt();
         if (txt.isEmpty()) {

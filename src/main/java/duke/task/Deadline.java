@@ -6,6 +6,9 @@ import java.time.format.DateTimeParseException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * Represents a deadline task with by date in specified format.
+ */
 public class Deadline extends Task {
 
     protected String byDescription;
@@ -29,6 +32,10 @@ public class Deadline extends Task {
         this.isDone = isDone;
     }
 
+    /**
+     * {@inheritDoc}
+     * Outputs with by date.
+     */
     @Override
     public String toString() {
         return this.by != null ? "[D]" + super.toString() + " (by: "
@@ -36,6 +43,10 @@ public class Deadline extends Task {
                 : "[D]" + super.toString() + " (by: " + this.byDescription + ")";
     }
 
+    /**
+     * {@inheritDoc}
+     * Outputs with by date.
+     */
     @Override
     public String toTxt() {
         return this.by != null ? super.toTxt() + this.description + " | " + this.by + this.byDescription : super.toTxt()

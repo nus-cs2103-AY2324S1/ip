@@ -1,5 +1,8 @@
 package duke.task;
 
+/**
+ * Represents an event task with from and to date.
+ */
 public class Event extends Task {
 
     protected String from;
@@ -18,11 +21,19 @@ public class Event extends Task {
         this.isDone = isDone;
     }
 
+    /**
+     * {@inheritDoc}
+     * Outputs with from and to dates.
+     */
     @Override
     public String toString() {
         return "[E]" + super.toString() + " (from: " + from + " | to: " + this.to + ")";
     }
 
+    /**
+     * {@inheritDoc}
+     * Outputs with from and to dates.
+     */
     @Override
     public String toTxt() {
         return super.toTxt() + this.description + " | " + this.from + " | " + this.to;
