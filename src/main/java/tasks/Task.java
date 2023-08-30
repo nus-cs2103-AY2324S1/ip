@@ -1,20 +1,22 @@
 package tasks;
 
+import storage.Storable;
 /**
  * Task class storing description and status.
  */
-public abstract class Task {
+public abstract class Task implements Storable<Task>{
     protected String desc;
     protected boolean status;
 
     /**
      * Initializes a new task with its description. The task's initial status is set to not done.
      *
+     * @param status The status of the task.
      * @param desc The description of the task.
      */
-    public Task(String desc) {
+    public Task(boolean status, String desc) {
+        this.status = status;
         this.desc = desc;
-        this.status = false;
     }
 
     /**
