@@ -1,9 +1,10 @@
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Simon {
-
-    private static ArrayList<Task> tasks = new ArrayList<>();
+    private static final ArrayList<Task> tasks = new ArrayList<>();
     private static final String SPACE = "____________________________________________________________";
     private static final String NSPACE = "\n____________________________________________________________";
     private static final String SPACEN = "____________________________________________________________\n";
@@ -188,5 +189,25 @@ public class Simon {
         tasks.remove(index);
         System.out.println("Noted. I've removed this task:\n" + task + String.format("\nNow you have %d %s in the list.",
                 tasks.size(), tasks.size() - 1 > 1 ? "tasks" : "task") + NSPACE);
+    }
+
+    private static void saveTasksToFile() {
+        try {
+            PrintWriter writer = new PrintWriter("./data/simon.txt");
+            for (Task task : tasks) {
+                if (task instanceof ToDo) {
+                    writer.println("T | " + (task.isDone ? "1" : "0") + " | " + task.taskName);
+                } else if (task instanceof Deadline) {
+                    Deadline deadline = (Deadline) task;
+                    writer.println("D | " + (task.isDone ? "1" : "0") + " | " + task.taskName + " | " + deadline.endDate);
+                } else if (task instanceof Event) {
+                    Event event = (Event) task;
+                    writer.println("E | " + (task.isDone ? "1" : "0") + " | " + task.taskName + " | " + event.startDate + " | " + event.endDate);
+                }
+            }
+            writer.close();
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
