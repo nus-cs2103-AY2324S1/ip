@@ -34,6 +34,9 @@ public class Duke {
                     throw new DukeException("☹ Description of deadline cannot be empty. ☹");
                 }
                 int spacer = input.indexOf("/");
+                if (spacer == -1) {
+                    throw new DukeException("Please remember to add your deadline! In YYYY-MM-DD format.");
+                }
                 task = new Deadline(input.substring(9, spacer), input.substring(spacer + 4));
                 tasks.add(task);
             } else if (temp[0].equals("event")){
@@ -42,8 +45,11 @@ public class Duke {
                 }
                 int startSpacer = input.indexOf("/");
                 int endSpacer = input.lastIndexOf("/");
+                if (startSpacer == -1 || endSpacer == -1) {
+                    throw new DukeException("Please remember to add your start and end dates! In YYYY-MM-DD format.");
+                }
                 task = new Event(input.substring(6, startSpacer),
-                        input.substring(startSpacer + 6, endSpacer), input.substring(endSpacer + 4));
+                        input.substring(startSpacer + 6, endSpacer - 1), input.substring(endSpacer + 4));
                 tasks.add(task);
             } else {
                 throw new DukeException("I'm sorry, but I don't know what that means :(");

@@ -44,21 +44,25 @@ public class Storage {
 
     public Task parseTasks(String data) {
         String[] parsedData = data.split("\\|");
-        Task task;
-        switch (parsedData.length) {
-        case 3:
-            task = new Todo(parsedData[2]);
-            break;
-        case 4:
-            task = new Deadline(parsedData[2], parsedData[3]);
-            break;
-        default:
-            task = new Event(parsedData[2], parsedData[3], parsedData[4]);
-
-            break;
-        }
-        if (parsedData[1].equals("Y")) {
-            task.markAsDone();
+        Task task = null;
+        try{
+            switch (parsedData.length) {
+            case 3:
+                task = new Todo(parsedData[2]);
+                break;
+            case 4:
+                task = new Deadline(parsedData[2], parsedData[3]);
+                break;
+            default:
+                task = new Event(parsedData[2], parsedData[3], parsedData[4]);
+                break;
+            }
+            if (parsedData[1].equals("Y")) {
+                task.markAsDone();
+            }
+            return task;
+        } catch (DukeException e) {
+            System.out.println("OOPS!" + e.toString().split("DukeException:")[1]);
         }
         return task;
     }
