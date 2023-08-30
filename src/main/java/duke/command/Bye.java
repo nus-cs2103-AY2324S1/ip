@@ -1,8 +1,8 @@
 package duke.command;
 
-import duke.taskList.TaskList;
-import duke.UI.UI;
 import duke.storage.Storage;
+import duke.tasklist.TaskList;
+import duke.ui.UI;
 
 public class Bye extends Command {
     public Bye(String s) {

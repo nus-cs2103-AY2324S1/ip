@@ -1,12 +1,12 @@
-package duke.taskList;
-
-import duke.exception.DukeException;
+package duke.tasklist;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
 
-public class TaskList extends ArrayList<Task>{
+import duke.exception.DukeException;
+
+public class TaskList extends ArrayList<Task> {
 
     public TaskList(Collection<Task> load) {
         super(load);
@@ -39,7 +39,7 @@ public class TaskList extends ArrayList<Task>{
             Task t = get(index - 1);
             if (t.mark()) {
                 return t;
-            }else {
+            } else {
                 throw new DukeException("☹ OOPS!!! This task has already be marked!\n");
             }
         } catch (IndexOutOfBoundsException e) {
@@ -52,7 +52,7 @@ public class TaskList extends ArrayList<Task>{
             Task t = get(index - 1);
             if (t.unmark()) {
                 return t;
-            }else {
+            } else {
                 throw new DukeException("☹ OOPS!!! This task hasn't be marked yet!\n");
             }
         } catch (IndexOutOfBoundsException e) {

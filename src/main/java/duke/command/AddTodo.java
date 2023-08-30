@@ -1,15 +1,15 @@
 package duke.command;
 
 import duke.exception.DukeException;
-import duke.taskList.Task;
-import duke.taskList.TaskList;
-import duke.UI.UI;
 import duke.storage.Storage;
+import duke.tasklist.Task;
+import duke.tasklist.TaskList;
+import duke.ui.UI;
 
-import java.io.IOException;
+
 
 public class AddTodo extends Command {
-    public AddTodo(String s){
+    public AddTodo(String s) {
         super(s);
     }
 

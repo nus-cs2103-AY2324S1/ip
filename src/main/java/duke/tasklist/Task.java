@@ -1,5 +1,7 @@
-package duke.taskList;
+package duke.tasklist;
+
 import java.time.LocalDate;
+
 public abstract class Task {
     private final String name;
     private int state;
@@ -23,7 +25,7 @@ public abstract class Task {
     public boolean mark() {
         if (state == 1) {
             return false;
-        }else {
+        } else {
             this.state = 1;
             return true;
         }
@@ -32,7 +34,7 @@ public abstract class Task {
     public boolean unmark() {
         if (state == 0) {
             return false;
-        }else {
+        } else {
             this.state = 0;
             return true;
         }

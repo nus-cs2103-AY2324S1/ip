@@ -1,6 +1,14 @@
 package duke.parser;
 
-import duke.command.*;
+import duke.command.AddDeadline;
+import duke.command.AddEvent;
+import duke.command.AddTodo;
+import duke.command.Bye;
+import duke.command.Command;
+import duke.command.Delete;
+import duke.command.List;
+import duke.command.Remark;
+import duke.command.Unknown;
 
 public class Parser {
     public static Command parse(String instr) {
@@ -15,7 +23,7 @@ public class Parser {
         case "todo":
             return new AddTodo(instr.substring(4));
         case "mark":
-            return new Remark(instr.substring(4),1);
+            return new Remark(instr.substring(4), 1);
         case "unmark":
             return new Remark(instr.substring(6), 0);
         case "delete":

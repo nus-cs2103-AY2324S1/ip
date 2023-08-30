@@ -1,11 +1,11 @@
 package duke;
-import duke.UI.UI;
+
 import duke.command.Command;
 import duke.exception.DukeException;
 import duke.parser.Parser;
 import duke.storage.Storage;
-import duke.taskList.TaskList;
-
+import duke.tasklist.TaskList;
+import duke.ui.UI;
 
 public class Duke {
     private final Storage storage;

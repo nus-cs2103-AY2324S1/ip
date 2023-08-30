@@ -1,10 +1,8 @@
-package duke.taskList;
+package duke.tasklist;
 import duke.exception.DukeException;
-import duke.parser.Parser;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
-import java.util.Collection;
 
 public class TaskListTest {
 
