@@ -21,6 +21,11 @@ public class Deadline extends Task {
         this.endTime = endTime;
     }
 
+    @Override
+    public String toDataRepresentation() {
+        return "D|" + super.toDataRepresentation() + "|" + endTime;
+    }
+
     /**
      * A string representation of a task.Deadline.
      * Uses an extra [D] to represent a task.Deadline and the due date.

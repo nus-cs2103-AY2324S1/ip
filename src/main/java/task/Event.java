@@ -28,6 +28,12 @@ public class Event extends Task {
         this.endTime = endTime;
     }
 
+    @Override
+    public String toDataRepresentation() {
+        return "E|" + super.toDataRepresentation() + "|" + startTime + "|" + endTime;
+    }
+
+
     /**
      * A string representation of a task.Event.
      * Uses an extra [E] to represent a task.Event, start time, and end time.
