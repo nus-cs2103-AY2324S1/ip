@@ -24,22 +24,20 @@ public class Ui {
         System.out.println(" Now you have " + taskCount + " tasks in the list.");
     }
 
-    public static void markTask(Task task, int count) {
+    public static void markTask(Task task) {
         System.out.println(" Nice! I've marked this task as done:");
         System.out.println("   " + task.toString());
-        System.out.println(" Now you have " + count + " tasks in the list.");
     }
 
-    public static void unMarkTask(Task task, int count) {
+    public static void unMarkTask(Task task) {
         System.out.println(" OK, I've marked this task as not done yet:");
         System.out.println("   " + task.toString());
-        System.out.println(" Now you have " + count + " tasks in the list.");
     }
 
     public static void deleteTask(Task task, int count) {
         System.out.println(" Noted. I've removed this task:");
         System.out.println("   " + task.toString());
-        System.out.println(" Now you have " + count + " tasks in the list.");
+        System.out.println(" Now you have " + (count - 1) + " tasks in the list.");
     }
 
     public static void noTaskList() {

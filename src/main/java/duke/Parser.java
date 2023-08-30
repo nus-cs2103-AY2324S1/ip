@@ -25,10 +25,10 @@ public class Parser {
                     }
                     int index = Integer.parseInt(commandSplit[1]) - 1;
                     if (command.startsWith("mark")) {
-                        Ui.markTask(tasklist.getTask(index), tasklist.taskCount());
+                        Ui.markTask(tasklist.getTask(index));
                         tasklist.markTask(index);
                     } else if (command.startsWith("unmark")) {
-                        Ui.unMarkTask(tasklist.getTask(index), tasklist.taskCount());
+                        Ui.unMarkTask(tasklist.getTask(index));
                         tasklist.unMarkTask(index);
                     } else {
                         Ui.deleteTask(tasklist.getTask(index), tasklist.taskCount());

@@ -23,6 +23,10 @@ public class Task implements Serializable {
         this.isDone = false;
     }
 
+    public boolean isDone() {
+        return this.isDone;
+    }
+
     public String toString() {
         return "[" + this.getStatusIcon() + "] " + this.description;
     }
