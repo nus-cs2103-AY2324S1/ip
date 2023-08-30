@@ -2,6 +2,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -124,5 +126,37 @@ public class TaskList {
             taskId++;
         }
         System.out.println(response);
+    }
+
+    public void handleTodo(String input) {
+        String nameOfTask = input.substring(5);
+        ToDos task = new ToDos(nameOfTask);
+        addToList(task, taskCount);
+    }
+
+    public void handleDeadline(String input) {
+        String[] parts = input.split("/by ");
+        String nameOfTask = parts[0].trim().substring(9);
+        try {
+            LocalDate deadline = LocalDate.parse(parts[1].trim());
+            Deadlines task = new Deadlines(nameOfTask, deadline);
+            addToList(task, taskCount);
+        } catch (DateTimeParseException e) {
+            System.out.println("Invalid Date Format! Follow: YYYY-MM-DD");
+        }
+    }
+
+    public void handleEvent(String input) {
+        String[] taskAndTime = input.split("/from ");
+        String[] fromAndTo = taskAndTime[1].split("/to ");
+        try {
+            LocalDate start = LocalDate.parse(fromAndTo[0].trim());
+            LocalDate end = LocalDate.parse(fromAndTo[1].trim());
+            String nameOfTask = taskAndTime[0].trim().substring(6);
+            Events task = new Events(nameOfTask, start, end);
+            addToList(task, taskCount);
+        } catch (DateTimeParseException e) {
+            System.out.println("Invalid Date Format! Follow: YYYY-MM-DD");
+        }
     }
 }

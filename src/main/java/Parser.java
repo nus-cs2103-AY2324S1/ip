@@ -5,7 +5,6 @@ public class Parser {
     public String getUserInput() {
         return userInput;
     }
-
     String userInput = scanner.nextLine();
 
     public boolean bye() {

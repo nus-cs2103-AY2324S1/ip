@@ -2,16 +2,17 @@ import java.time.format.DateTimeParseException;
 import java.time.LocalDate;
 
 public class Duke {
-    private Ui ui;
+    private final Ui ui;
     private TaskList tasks;
-    private Storage storage;
-    private Parser parser;
+    private final Storage storage;
+    private final Parser parser;
 
     public Duke(String filePath) {
-        ui = new Ui();
-        storage = new Storage(filePath);
+        this.ui = new Ui();
+        this.parser = new Parser();
+        this.storage = new Storage(filePath);
         try {
-            tasks = new TaskList(storage.load());
+            this.tasks = new TaskList(storage.load());
         } catch (DukeException e) {
             ui.showLoadingError();
             tasks = new TaskList();
@@ -24,10 +25,6 @@ public class Duke {
 
     public void startChat() {
         ui.greet();
-
-        int taskCount = 0;
-        int taskId = 1;
-
         String userInput= parser.getUserInput();
 
         while (!parser.bye()){
@@ -41,31 +38,11 @@ public class Duke {
                 } else if (parser.delete()) {
                     tasks.delete(userInput);
                 } else if (parser.todo()) {
-                    String nameOfTask = userInput.substring(5);
-                    ToDos task = new ToDos(nameOfTask);
-                    tasks.addToList(task, taskCount);
+                    tasks.handleTodo(userInput);
                 } else if (parser.deadline()) {
-                    String[] parts = userInput.split("/by ");
-                    String nameOfTask = parts[0].trim().substring(9);
-                    try {
-                        LocalDate deadline = LocalDate.parse(parts[1].trim());
-                        Deadlines task = new Deadlines(nameOfTask, deadline);
-                        tasks.addToList(task, taskCount);
-                    } catch (DateTimeParseException e) {
-                        System.out.println("Invalid Date Format! Follow: YYYY-MM-DD");
-                    }
+                    tasks.handleDeadline(userInput);
                 } else if (parser.event()) {
-                    String[] taskAndTime = userInput.split("/from ");
-                    String[] fromAndTo = taskAndTime[1].split("/to ");
-                    try {
-                        LocalDate start = LocalDate.parse(fromAndTo[0].trim());
-                        LocalDate end = LocalDate.parse(fromAndTo[1].trim());
-                        String nameOfTask = taskAndTime[0].trim().substring(6);
-                        Events task = new Events(nameOfTask, start, end);
-                        tasks.addToList(task, taskCount);
-                    } catch (DateTimeParseException e) {
-                        System.out.println("Invalid Date Format! Follow: YYYY-MM-DD");
-                    }
+                    tasks.handleEvent(userInput);
                 } else {
                     throw new DukeException("Error: Invalid Command!");
                 }
@@ -74,6 +51,7 @@ public class Duke {
             }
             userInput = parser.getUserInput();
         }
+
         ui.goodbye();
         parser.goodbye();
     }
