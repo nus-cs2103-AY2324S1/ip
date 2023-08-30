@@ -11,6 +11,11 @@ public class Parser {
         this.storage = storage;
     }
 
+    // Purely for testing purposes
+    public Parser() {
+        
+    }
+
     public int runInput(String input) {
         if (input.equals("bye")) {
             ui.endProgram();
