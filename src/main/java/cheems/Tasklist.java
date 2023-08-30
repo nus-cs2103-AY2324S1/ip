@@ -145,4 +145,23 @@ public class Tasklist {
                         String.format("\nNow you have %d tasks in your list!", total);
         UI.printWithFormat(resp);
     }
+
+    public static void find(String[] args) {
+        String search = String.join(" ", args);
+        ArrayList<Task> tempList = new ArrayList<>();
+        int a = 1;
+        String resp = "";
+
+        for (int i = 0; i < total; i++) {
+            if (list.get(i).getDescription().contains(search)) {
+                resp += String.format("%d.%s\n", a, list.get(i));
+                a++;
+            }
+        }
+
+        if (resp == "") {
+            resp = "There is no corresponding task in your list!";
+        }
+        UI.printWithFormat(resp);
+    }
 }

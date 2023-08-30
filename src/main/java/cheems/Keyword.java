@@ -10,5 +10,6 @@ public enum Keyword {
     DEADLINE,
     EVENT,
     LIST,
-    DELETE
+    DELETE,
+    FIND
 }

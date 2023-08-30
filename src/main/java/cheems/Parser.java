@@ -3,6 +3,7 @@ package cheems;
 import cheems.exceptions.EmptyArgumentException;
 import cheems.exceptions.InvalidKeywordException;
 
+import java.util.Arrays;
 /**
  * Parser parses the input from the user and execute corresponding actions.
  * Exceptions are thrown should the input be invalid.
@@ -23,6 +24,7 @@ public class Parser {
                 throw new InvalidKeywordException();
             }
 
+            // extract command as the first word
             Keyword currentKey = Keyword.valueOf(words[0].toUpperCase());
             if (currentKey == Keyword.LIST) {
                 Tasklist.displayData();
@@ -33,7 +35,11 @@ public class Parser {
                     throw new EmptyArgumentException(currentKey.toString());
                 }
 
+                // if there are more arguments
                 switch (currentKey) {
+                    case FIND:
+                        Tasklist.find(Arrays.copyOfRange(words, 1, words.length));
+                        break;
                     case MARK:
                         // Fallthrough
                     case UNMARK:
