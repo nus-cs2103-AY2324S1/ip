@@ -3,7 +3,7 @@ package Commands;
 import Storage.Storage;
 import TaskList.TaskList;
 import Tasks.Task;
-import UI.UI;
+import Ui.Ui;
 
 public class AddTodoCommand implements Command {
     public static final String TODO_PATTERN = "^(todo)\\s+.+";
@@ -15,7 +15,7 @@ public class AddTodoCommand implements Command {
     }
 
     @Override
-    public void execute(TaskList tasks, UI ui, Storage storage) {
+    public void execute(TaskList tasks, Ui ui, Storage storage) {
         // Implement the execution of adding a todo task
         // Add the todo task to the task list, update UI, etc.
     }

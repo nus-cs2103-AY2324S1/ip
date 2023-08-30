@@ -44,13 +44,14 @@ public class CommandParser {
                     return new InvalidCommand("Invalid delete command format.");
                 }
             case "event":
-                return null;
+                return new AddEventCommand(taskParser.parseTask(input));
 
             case "todo":
-                return null;
+                return new AddTodoCommand(taskParser.parseTask(input));
 
             case "deadline":
-                return null;
+                return new AddDeadlineCommand(taskParser.parseTask(input));
+
             default:
                 return new HelpCommand();
         }

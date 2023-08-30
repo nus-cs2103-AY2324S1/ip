@@ -1,10 +1,17 @@
 package core;
 
+import Commands.Command;
 import Parser.TaskParser;
 import TaskList.TaskList;
+import Ui.Ui;
+import Storage.Storage;
 
 import java.util.Scanner;
 public class Duke {
+    private Storage storage;
+    private TaskList tasks;
+    private Ui ui;
+
     private static final String botName = "cc";
 
     private static final TaskParser parser = new TaskParser();
@@ -39,6 +46,24 @@ public class Duke {
     private static int extractValue(String input) {
         String[] parts = input.split("\\s+");
         return Integer.parseInt(parts[1]);
+    }
+
+    public void run() {
+        ui.showWelcome();
+        boolean isExit = false;
+        while (!isExit) {
+            try {
+                String fullCommand = ui.readCommand();
+                //ui.showLine(); // show the divider line ("_______")
+               // Command c = Parser.parse(fullCommand);
+               // c.execute(tasks, ui, storage);
+               // isExit = c.isExit();
+            } catch (Exception e) {
+               // ui.showError(e.getMessage());
+            } finally {
+               // ui.showLine();
+            }
+        }
     }
 
     public static void main(String[] args) {

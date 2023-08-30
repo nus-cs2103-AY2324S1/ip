@@ -2,7 +2,7 @@ package Commands;
 
 import Storage.Storage;
 import TaskList.TaskList;
-import UI.UI;
+import Ui.Ui;
 
 public class MarkCommand implements Command {
     private int pos;
@@ -13,7 +13,7 @@ public class MarkCommand implements Command {
     public static final String MARK_PATTERN = "^(mark)\\s+\\d+$";
 
     @Override
-    public void execute(TaskList tasks, UI ui, Storage storage) {
+    public void execute(TaskList tasks, Ui ui, Storage storage) {
 
     }
 }
