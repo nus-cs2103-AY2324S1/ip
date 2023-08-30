@@ -118,4 +118,13 @@ public class TaskManager {
 
         return found ? sb.toString() : "There is no task that matched.";
     }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        for (Task t : tasks) {
+            sb.append(t.toString());
+        }
+        return sb.toString();
+    }
 }

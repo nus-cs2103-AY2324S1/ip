@@ -113,6 +113,9 @@ public class DiskManager {
                 jsonData.append(line);
             }
             String json = jsonData.toString();
+            if (json.isEmpty()) {
+                return new TaskManager();
+            }
 
             TaskManager taskManager = MAPPER.readValue(json, TaskManager.class);
             return taskManager;
