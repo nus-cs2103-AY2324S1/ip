@@ -3,8 +3,12 @@ public class Parser {
 
     public static Command parse(String fullCommand) {
         String[] strArr = fullCommand.split(" ", 2);
-        String cmdWord = strArr[0];
-        String arguments = strArr[1];
+        String cmdWord;
+        String arguments = "";
+        if (strArr.length == 2) {
+            arguments = strArr[1];
+        }
+        cmdWord = strArr[0];
 
         switch (cmdWord) {
         case "todo": case "event": case "deadline":
