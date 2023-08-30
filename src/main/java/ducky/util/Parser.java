@@ -6,6 +6,7 @@ import ducky.command.DeleteCommand;
 import ducky.command.DuckyInvalidCommandException;
 import ducky.command.DuckyInvalidCommandFormatException;
 import ducky.command.ExitCommand;
+import ducky.command.FindTaskCommand;
 import ducky.command.ListCommand;
 import ducky.command.UpdateTaskCompletionCommand;
 import ducky.task.DeadlineTask;
@@ -44,6 +45,8 @@ public class Parser {
             return new ExitCommand();
         case "list":
             return new ListCommand();
+        case "find":
+            return new FindTaskCommand(argumentString);
         case "mark":
             int markInputIndex;
             try {
@@ -157,7 +160,7 @@ public class Parser {
         }
 
         if (taskIsDone) {
-            parsedTask.complete();
+            parsedTask.setComplete();
         }
 
         return parsedTask;

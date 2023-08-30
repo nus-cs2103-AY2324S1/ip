@@ -32,6 +32,15 @@ public abstract class Task {
     }
 
     /**
+     * Returns whether task description contains the given string as a substring.
+     * @param s String to check in description.
+     * @return True if description contains specified string.
+     */
+    public boolean containsString(String s) {
+        return this.description.contains(s);
+    }
+
+    /**
      * Returns a representation of the task for printing to user interface.
      * @return Representation of the task meant for printing.
      */

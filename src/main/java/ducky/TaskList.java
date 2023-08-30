@@ -73,6 +73,26 @@ public class TaskList {
     }
 
     /**
+     * Returns a string representation of tasks in the task list
+     * that contain the specified query string.
+     * @param query Substring to find in the task list.
+     * @return String representation of tasks that match the query.
+     */
+    public String getTaskQueryResult(String query) {
+        StringBuilder result = new StringBuilder();
+        for (int i = 0; i < tasks.size(); i++) {
+            Task t = tasks.get(i);
+            if (t.containsString(query)) {
+                result.append(String.format("%d.%s\n", i + 1, t));
+            }
+        }
+
+        return result.toString().isEmpty()
+                ? String.format("Sorry, I couldn't find any tasks that contain \"%s\".", query)
+                : String.format("Here are the task(s) that contain \"%s\":\n%s", query, result);
+    }
+
+    /**
      * Returns a string representation of the list for printing to user interface.
      * @return Representation of the list meant for printing.
      */
