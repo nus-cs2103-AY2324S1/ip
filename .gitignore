@@ -13,5 +13,9 @@ src/main/resources/docs/
 *.iml
 bin/
 
+# Local data files
+/data/savedTasks.txt
+
 /text-ui-test/ACTUAL.TXT
+/text-ui-test/ACTUAL-SAVED.TXT
 text-ui-test/EXPECTED-UNIX.TXT

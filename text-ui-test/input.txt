@@ -1,13 +1,15 @@
-todo task1
-deadline task2 /by some time
-event task3 /from time1 /to time2
+list
+todo newly added task
+deadline another new deadline /by some time
+event yet another new event /from time1 /to time2
 don't add this
 deadline dont add this too
 event dont add this too
 list
 mark 1
-mark 2
+mark 4
 list
+unmark 1
 unmark 1
 list
 bye

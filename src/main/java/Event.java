@@ -10,11 +10,17 @@ public class Event extends Task{
 
     Event(String name, String startTime, String endTime) {
         super(name);
-        this.startTime = startTime;
-        this.endTime = endTime;
+        this.startTime = startTime.trim();
+        this.endTime = endTime.trim();
     }
 
-    public static Event createEvent(String command) throws LukeException{
+    Event(boolean isDone, String name, String startTime, String endTime) {
+        super(name, isDone);
+        this.startTime = startTime.trim();
+        this.endTime = endTime.trim();
+    }
+
+    public static Event createEvent(String command) throws LukeException {
         Matcher matcher = createCommand.matcher(command);
         matcher.find();
 
@@ -34,6 +40,22 @@ public class Event extends Task{
         }
 
         return new Event(taskName, startTime, endTime);
+    }
+
+    public static Event createEvent(String[] args, boolean isDone) throws LukeException {
+        if (args.length != 3) {
+            throw new LukeException("Error creating Event: Incorrect number of arguments");
+        }
+
+        return new Event(isDone, args[0], args[1], args[2]);
+    }
+
+    @Override
+    public String toSaveStr() {
+        return "E"
+                + " | " + super.toSaveStr()
+                + " | " + startTime
+                + " | " + endTime;
     }
 
     @Override

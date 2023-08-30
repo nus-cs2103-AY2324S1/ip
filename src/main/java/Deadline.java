@@ -7,10 +7,14 @@ public class Deadline extends Task {
     private String finishByTime;
     Deadline(String name, String finishByTime) {
         super(name);
-        this.finishByTime = finishByTime;
+        this.finishByTime = finishByTime.trim();
+    }
+    Deadline(boolean isDone, String name, String finishByTime) {
+        super(name, isDone);
+        this.finishByTime = finishByTime.trim();
     }
 
-    public static Deadline createDeadline(String command) throws LukeException{
+    public static Deadline createDeadline(String command) throws LukeException {
         Matcher matcher = createCommand.matcher(command);
         matcher.find();
 
@@ -24,6 +28,21 @@ public class Deadline extends Task {
         }
 
         return new Deadline(taskName, finishByTime);
+    }
+
+    public static Deadline createDeadline(String[] args, boolean isDone) throws LukeException {
+        if (args.length != 2) {
+            throw new LukeException("Error creating Deadline: Incorrect number of arguments");
+        }
+
+        return new Deadline(isDone, args[0], args[1]);
+    }
+
+    @Override
+    public String toSaveStr() {
+        return "D"
+                + " | " + super.toSaveStr()
+                + " | " + finishByTime;
     }
 
     @Override

@@ -8,7 +8,11 @@ public class Todo extends Task{
         super(name);
     }
 
-    public static Todo createTodo(String command) throws LukeException{
+    Todo(boolean isDone, String name) {
+        super(name, isDone);
+    }
+
+    public static Todo createTodo(String command) throws LukeException {
         Matcher matcher = createCommand.matcher(command);
         matcher.find();
 
@@ -18,6 +22,19 @@ public class Todo extends Task{
         }
 
         return new Todo(taskName);
+    }
+
+    public static Todo createTodo(String[] args, boolean isDone) throws LukeException {
+        if (args.length != 1) {
+            throw new LukeException("Error creating Todo: Incorrect number of arguments");
+        }
+
+        return new Todo(isDone, args[0]);
+    }
+
+    @Override
+    public String toSaveStr() {
+        return "T" + " | " + super.toSaveStr();
     }
 
     @Override
