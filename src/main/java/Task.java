@@ -15,6 +15,11 @@ public class Task {
         this.isDone = false;
     }
 
+    public Task(String description, boolean isDone) {
+        this.description = description;
+        this.isDone = isDone;
+    }
+
     /**
      * Marks the task as done.
      */
@@ -36,6 +41,10 @@ public class Task {
      */
     public String getStatusIcon() {
         return (isDone ? "X" : " ");
+    }
+
+    public String toFileString() {
+        return "";
     }
 
     /**

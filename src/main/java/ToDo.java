@@ -13,6 +13,16 @@ public class ToDo extends Task {
         super(description);
     }
 
+    public ToDo(String description, boolean isDone) {
+        super(description, isDone);
+    }
+
+    @Override
+    public String toFileString() {
+        String status = getStatusIcon().equals("X") ? "1" : "0";
+        return "T" + " | " + status + " | " + super.description + " | ";
+    }
+
     /**
      * Returns a string representation of the ToDo task, including its completion status and description.
      *

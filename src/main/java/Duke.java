@@ -1,6 +1,11 @@
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.List;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.File;
+import java.io.FileWriter;
 
 /**
  * The Duke class represents a simple chatbot application that helps manage tasks.
@@ -14,7 +19,7 @@ public class Duke {
      * @param command The user's command to be processed.
      * @throws DukeException If the command is not recognized or encounters an error.
      */
-    public void executeCommand(String command) throws DukeException {
+    public void executeCommand(String command, String filename) throws DukeException {
         String[] separateCommand = command.split(" ");
         if (command.equals("list")) {
             System.out.println(" Here are the tasks in your list:");
@@ -97,7 +102,79 @@ public class Duke {
         }  else {
             throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
+        try {
+            saveToFile(filename);
+        } catch (DukeException e) {
+            System.out.println(e);
+        }
     }
+
+    public void saveToFile(String filename) throws DukeException {
+        File file = new File(filename);
+
+        try {
+            FileWriter writer = new FileWriter(file);
+
+            for (Task task : tasks) {
+                // Convert each task to its string representation and write to file
+                writer.write(task.toFileString() + "\n");
+            }
+            writer.close();
+        } catch (IOException e) {
+            throw new DukeException("☹ OOPS!!! I'm sorry, but there's an error loading the file");
+        }
+    }
+
+    private void loadFile(String filename) throws DukeException {
+        File file = new File(filename);
+        try {
+            String directoryPath = file.getParent();
+            File directory = new File(directoryPath);
+
+            if (!directory.exists()) {
+                directory.mkdirs();
+                System.out.println("Directory created: " + directoryPath);
+            }
+
+            if (!file.exists()) {
+                file.createNewFile();
+                System.out.println("File created: " + filename);
+            }
+            BufferedReader reader = new BufferedReader(new FileReader(filename));
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] parts = line.split("\\|");
+
+                String taskType = parts[0].trim();
+                boolean isDone = parts[1].trim().equals("1") ? true : false;
+                String description = parts[2].trim();
+
+                if (taskType.equals("T")) {
+                    // Create a ToDo task
+                    tasks.add(new ToDo(description, isDone));
+                } else if (taskType.equals("D")) {
+                    // Extract 'by' from parts[3] if applicable
+                    String by = parts[3].trim();
+                    // Create a Deadline task
+                    tasks.add(new Deadline(description, by, isDone));
+                } else if (taskType.equals("E")) {
+                    // Extract 'from' and 'to' from parts[3] and parts[4] if applicable
+                    String from = parts[3].trim();
+                    String to = parts[4].trim();
+                    // Create an Event task
+                    tasks.add(new Event(description, from, to, isDone));
+                } else {
+                    // Handle unsupported task type
+                    System.out.println("Unsupported task type: " + taskType);
+                }
+            }
+        } catch (IOException e) {
+            throw new DukeException("☹ OOPS!!! I'm sorry, but there's an error loading the file");
+        }
+    }
+
+
+
 
     /**
      * The main method to start the Duke chatbot.
@@ -105,7 +182,13 @@ public class Duke {
      * @param args Command-line arguments (unused).
      */
     public static void main(String[] args) {
+        String filename = "./data/duke.txt";
         Duke bot = new Duke();
+        try {
+            bot.loadFile(filename);
+        } catch (DukeException e) {
+            System.out.println(e);
+        }
         System.out.println("---------------------------------------------\n Hello! I'm zy\n" +
                 " What can I do for you?\n---------------------------------------------");
         Scanner scanner = new Scanner(System.in);
@@ -114,7 +197,7 @@ public class Duke {
         while (!command.equals("bye")) {
             System.out.println("---------------------------------------------");
             try {
-                bot.executeCommand(command);
+                bot.executeCommand(command, filename);
             } catch (DukeException e) {
                 System.out.println(e);
             }
