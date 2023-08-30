@@ -32,11 +32,11 @@ public class Duke {
      */
     public void run() {
         ui.showWelcome();
-        boolean running = true;
-        while (running) {
+        boolean isDone = true;
+        while (isDone) {
             String userInput = ui.readCommand();
             try {
-                running = Parser.parseCommand(userInput, this.tasks, this.ui);
+                isDone = Parser.parseCommand(userInput, this.tasks, this.ui);
             } catch (DukeException e) {
                 ui.showMessage(e.getMessage());
             }
