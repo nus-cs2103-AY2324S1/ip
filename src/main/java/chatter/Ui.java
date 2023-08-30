@@ -1,3 +1,7 @@
+package chatter;
+
+import chatter.task.Task;
+
 import java.util.Scanner;
 
 /**
@@ -15,7 +19,7 @@ public class Ui {
      * Prints a welcome message when user starts the chatbot.
      */
     public void showWelcome() {
-        System.out.println(DIVIDER + "\nHello! I'm Chatter!" + "\nHow can i help you today?\n" + DIVIDER);
+        System.out.println(DIVIDER + "\nHello! I'm chatter.Chatter!" + "\nHow can i help you today?\n" + DIVIDER);
     }
 
     /**
@@ -52,7 +56,7 @@ public class Ui {
     /**
      * Prints task string when task is added to the list.
      *
-     * @param task Task object being added to the list.
+     * @param task chatter.task.Task object being added to the list.
      */
     public void showAddedTask(Task task, int numOfTasks) {
         System.out.println("Got it. I have added this task to do:");
@@ -63,7 +67,7 @@ public class Ui {
     /**
      * Prints completed task string.
      *
-     * @param task Task that is being marked done.
+     * @param task chatter.task.Task that is being marked done.
      */
     public void showMarkedTask(Task task) {
         System.out.println("Good job! I've marked this task as completed:");
@@ -73,7 +77,7 @@ public class Ui {
     /**
      * Prints unmarked task string.
      *
-     * @param task Task that is being unmarked.
+     * @param task chatter.task.Task that is being unmarked.
      */
     public void showUnmarkedTask(Task task) {
         System.out.println("OK! I've marked this task as not done yet:");

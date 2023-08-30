@@ -1,7 +1,11 @@
+package chatter;
+
+import chatter.command.Command;
+
 import java.io.IOException;
 
 /**
- * Represents Chatter the chatbot.
+ * Represents chatter.Chatter the chatbot.
  *
  * @author Anthony Tamzil
  * @version CS2103T Individual Project AY2023/24 Semester 1
@@ -12,7 +16,7 @@ public class Chatter {
     private Storage storage;
 
     /**
-     * A constructor for the Chatter class
+     * A constructor for the chatter.Chatter class
      */
     public Chatter(String filepath) {
         this.ui = new Ui();

@@ -1,5 +1,6 @@
+package chatter.task;
+
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 
 /**
  * Represents a task that has a deadline.
@@ -14,10 +15,10 @@ public class Deadline extends Task {
     protected String altBy;
 
     /**
-     * A constructor to initialize the Deadline class.
+     * A constructor to initialize the chatter.task.Deadline class.
      *
      * @param description Description of the task.
-     * @param by Deadline of the task.
+     * @param by chatter.task.Deadline of the task.
      */
     public Deadline(String description, String by) {
         super(description);
@@ -32,10 +33,10 @@ public class Deadline extends Task {
     }
 
     /**
-     * Returns the string representation of the Deadline that will
+     * Returns the string representation of the chatter.task.Deadline that will
      * be displayed to the user in the list.
      *
-     * @return The string representation of the Deadline object.
+     * @return The string representation of the chatter.task.Deadline object.
      */
     @Override
     public String toString() {
