@@ -16,6 +16,11 @@ public class Parser {
     private static final String INVALID_DATE_FORMAT = "☹ OOPS!!! Invalid date/time format.\nPlease format your start/end times as \"yyyy-MM-dd HHmm\" in 24 hr format";
     private static final String INVALID_DATE_ORDER = "☹ OOPS!!! Your end date/time is before your start date/time!";
     
+    /**
+     * Parses the given query string to create commands.
+     * @param s Raw query string read from the Ui
+     * @return The command requested by the query string.
+     */
     public Command parse(String s) throws ParserException {
         String input = s.trim();
         if (input.equals("bye")) {

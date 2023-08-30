@@ -1,4 +1,8 @@
 package duke;
+
+/**
+ * Encapsulates the command for marking a task as completed.
+ */
 public class MarkCommand extends Command {
     private int idx;
 
