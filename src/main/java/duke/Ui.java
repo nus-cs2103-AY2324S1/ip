@@ -1,6 +1,7 @@
 package duke;
 
 import duke.exceptions.DukeException;
+import duke.exceptions.DukeIndexOutOfBoundsException;
 import duke.tasks.Task;
 
 import java.util.Scanner;
@@ -30,7 +31,7 @@ public class Ui {
                 int index = Integer.parseInt(userInput.split(" ")[1]);
 
                 if (index < 1 || index > taskList.getNumberOfTasks()) {
-                    throw new DukeException("OOPS!!! Index of task to be marked is out of bounds");
+                    throw new DukeIndexOutOfBoundsException("marked");
                 }
 
                 Task toBeMarked = taskList.getTaskAt(index - 1);
@@ -41,7 +42,7 @@ public class Ui {
                 int index = Integer.parseInt(userInput.split(" ")[1]);
 
                 if (index < 1 || index > taskList.getNumberOfTasks()) {
-                    throw new DukeException("OOPS!!! Index of task to be unmarked is out of bounds");
+                    throw new DukeIndexOutOfBoundsException("unmarked");
                 }
 
                 Task toBeUnmarked = taskList.getTaskAt(index - 1);
@@ -51,7 +52,7 @@ public class Ui {
                 int index = Integer.parseInt(userInput.split(" ")[1]);
 
                 if (index < 1 || index > taskList.getNumberOfTasks()) {
-                    throw new DukeException("OOPS!!! Index of task to be deleted is out of bounds");
+                    throw new DukeIndexOutOfBoundsException("deleted");
                 }
 
                 Task toBeDeleted = taskList.getTaskAt(index - 1);

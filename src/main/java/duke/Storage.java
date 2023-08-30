@@ -55,7 +55,7 @@ public class Storage {
 
             s.close();
         } catch (FileNotFoundException e) {
-            System.out.println("\n" + "OOPS!!! Could not find the file duke.txt");
+            System.out.println("\n" + "OOPS!!! Could not find the file " + this.filePath);
         }
         finally {
             return list;
@@ -74,7 +74,7 @@ public class Storage {
 
             fw.close();
         } catch (FileNotFoundException e) {
-            System.out.println("\n" + "OOPS!!! Could not find the file duke.txt");
+            System.out.println("\n" + "OOPS!!! Could not find the file " + this.filePath);
         } catch (IOException e) {
             System.out.println("\n" + "OOPS!!! " + e.getMessage());
         }
