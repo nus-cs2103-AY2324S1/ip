@@ -1,4 +1,12 @@
-package duke;
+package duke.command;
+
+import duke.exception.DukeException;
+import duke.exception.PrintDateException;
+import duke.Storage;
+import duke.TaskList;
+import duke.Ui;
+import duke.Keyword;
+import duke.Time;
 
 public class PrintDateCommand extends Command {
 

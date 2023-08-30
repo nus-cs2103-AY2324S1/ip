@@ -1,4 +1,6 @@
-package duke;
+package duke.task;
+
+import duke.Storage;
 
 public class Todo extends Task{
 

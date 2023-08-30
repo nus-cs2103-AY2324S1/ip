@@ -1,4 +1,6 @@
-package duke;
+package duke.exception;
+
+import duke.Ui;
 
 public class TodoException extends DukeException{
 

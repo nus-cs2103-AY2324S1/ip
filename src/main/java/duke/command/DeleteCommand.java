@@ -1,4 +1,11 @@
-package duke;
+package duke.command;
+
+import duke.exception.DukeException;
+import duke.exception.ManipulateException;
+import duke.Storage;
+import duke.TaskList;
+import duke.Ui;
+import duke.Keyword;
 
 public class DeleteCommand extends Command {
 

@@ -1,4 +1,8 @@
-package duke;
+package duke.task;
+
+import duke.Keyword;
+import duke.Storage;
+import duke.Time;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;

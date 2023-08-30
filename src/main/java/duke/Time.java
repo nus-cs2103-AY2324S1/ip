@@ -1,5 +1,7 @@
 package duke;
 
+import duke.exception.DukeException;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -11,13 +13,13 @@ public class Time {
     private static final String TIME_FORMAT = "HH:mm";
     private static final String DATE_DISPLAY_FORMAT = "d MMM yyyy";
     private static final String TIME_DISPLAY_FORMAT = "h:ma";
-    protected static final DateTimeFormatter DATE_FORMATTER =
+    public static final DateTimeFormatter DATE_FORMATTER =
             DateTimeFormatter.ofPattern(DATE_FORMAT);
-    protected static final DateTimeFormatter DATE_TIME_FORMATTER =
+    public static final DateTimeFormatter DATE_TIME_FORMATTER =
             DateTimeFormatter.ofPattern(DATE_FORMAT + " " + TIME_FORMAT);
-    protected static final DateTimeFormatter DATE_TIME_DISPLAY_FORMATTER =
+    public static final DateTimeFormatter DATE_TIME_DISPLAY_FORMATTER =
             DateTimeFormatter.ofPattern(DATE_DISPLAY_FORMAT + " " + TIME_DISPLAY_FORMAT);
-    protected static final DateTimeFormatter DATE_DISPLAY_FORMATTER =
+    public static final DateTimeFormatter DATE_DISPLAY_FORMATTER =
             DateTimeFormatter.ofPattern(DATE_DISPLAY_FORMAT);
 
     public static LocalDateTime parseDateTime(String time) throws DukeException {
