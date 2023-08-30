@@ -1,3 +1,8 @@
+package TaskPackage;
+
+import DukePackage.DukeException;
+import ToolsPackage.Ui;
+
 public class Task {
 
     private String task;
