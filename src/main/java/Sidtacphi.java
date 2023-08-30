@@ -98,6 +98,13 @@ public class Sidtacphi {
                     System.out.print("\n");
                     System.out.println(e.getMessage());
                 }
+            } else if (input.startsWith("delete")) {
+                try {
+                    deleteTask(input);
+                } catch (SidException e) {
+                    System.out.print("\n");
+                    System.out.println(e.getMessage());
+                }
             } else {
                 System.out.print("\nSidtacphi: \"" + input + "\" is not a valid command. \n");
             }
@@ -179,14 +186,13 @@ public class Sidtacphi {
      * Marks/Unmarks the task given.
      * 
      * @param toMark to mark the task as done when true, and to unmark when false
-     * @param task the task to mark
+     * @param input 
      */
     private static void markTaskAs(boolean toMark, String input) throws SidException {
         
         if (!toMark) {
             if (input.length() < 7) {
-                throw new SidInvalidFormatException("Please input a name for your Event" 
-                + "task, along with a start and end time.");
+                throw new SidInvalidFormatException("Please input the task ID number to unmark.");
             } else if (input.charAt(6) != ' ') {
                 throw new SidException("\"" + input + "\" is not a valid command.");
             } 
@@ -205,8 +211,7 @@ public class Sidtacphi {
             }
         } else {
             if (input.length() < 5) {
-                throw new SidInvalidFormatException("Please input a name for your Event" 
-                + "task, along with a start and end time.");
+                throw new SidInvalidFormatException("Please input the task ID number to mark.");
             } else if (input.charAt(4) != ' ') {
                 throw new SidException("\"" + input + "\" is not a valid command.");
             } 
@@ -239,5 +244,28 @@ public class Sidtacphi {
         for (int i = 0; i < taskList.size() ; i++) {
             System.out.println("" + (i + 1) + ". " + taskList.get(i));
         }
+    }
+
+    /**
+     * Prints the task list.
+     * 
+     * @param input
+     */
+    public static void deleteTask(String input) throws SidException {
+        if (input.length() < 7) {
+            throw new SidInvalidFormatException("Please input the task ID number to delete.");
+        } else if (input.charAt(6) != ' ') {
+            throw new SidException("\"" + input + "\" is not a valid command.");
+        } 
+
+        Integer taskId = Integer.parseInt(input.substring(7));
+        if (Objects.isNull(taskId) || taskId > taskList.size() || taskId < 1) {
+            throw new SidInvalidIndexException("Invalid task ID.");
+        }
+
+        Task task = taskList.get(taskId - 1);
+        taskList.remove(taskId - 1);
+        System.out.println("\nSidtacphi: Removed \"" + task + "\".");
+        System.out.println("Sidtacphi: You now have " + taskList.size() + " tasks in your list.");
     }
 }
