@@ -1,13 +1,10 @@
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-
 public class Deadline extends Task{
-    private LocalDate by;
+    private String by;
     public Deadline (String val, String by){
         super(val);
-        this.by=LocalDate.parse(by,DateTimeFormatter.ofPattern("MMM dd yyyy"));
+        this.by=by;
     }
     public String toString(){
-        return "[D]"+super.toString() +" (by: "+by.format(DateTimeFormatter.ofPattern("MMM dd yyyy"))+")";
+        return "[D]"+super.toString() +" (by: "+by+")";
     }
 }
