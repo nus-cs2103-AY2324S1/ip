@@ -1,4 +1,7 @@
 package task;
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
+
 import exception.InvalidEventException;
 
 /**
@@ -6,8 +9,8 @@ import exception.InvalidEventException;
  */
 public class Event extends Task {
     // Attribute
-    private String start;
-    private String end;
+    private LocalDate start;
+    private LocalDate end;
 
     // Constructor
 
@@ -18,7 +21,7 @@ public class Event extends Task {
      * @param start the start of the event
      * @param end the end of the event
      */
-    public Event(String name, String start, String end) {
+    public Event(String name, LocalDate start, LocalDate end) {
         super(name);
         this.start = start;
         this.end = end;
@@ -27,31 +30,20 @@ public class Event extends Task {
     // Method
 
     /**
-     * Method to get the start of the event
-     * 
-     * @return the start of the event
-     */
-    public String getStart() {
-        return this.start;
-    }
-
-    /**
-     * Method to get the end of the event
-     * 
-     * @return the end of the event
-     */
-    public String getEnd() {
-        return this.end;
-    }
-
-    /**
      * Method to return the string representation of event
      * 
      * @return the string representation of event
      */
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + start + " to: " + end + " )";
+        String startMonth = start.getMonth().toString().substring(0, 3);
+        String startDay = start.toString().split("-")[2];
+        String startYear = start.toString().split("-")[0];
+        String endMonth = end.getMonth().toString().substring(0, 3);
+        String endDay = end.toString().split("-")[2];
+        String endYear = end.toString().split("-")[0];
+        return "[E]" + super.toString() + " (from: " 
+            + startMonth + " " + startDay + " " + startYear + " to: " + endMonth + " " + endDay + " " + endYear + " )";
     }
 
     /**
@@ -72,13 +64,23 @@ public class Event extends Task {
      * @throws InvalidEventException
      */
     public static boolean isEvent(String str) throws InvalidEventException {
-        if(str.split(" ")[0].equals("event")) {
-            if(str.indexOf("/from ") == -1 || str.substring(str.indexOf("/from ") + 5).indexOf( "/to ") == -1) {
-                throw new InvalidEventException();
-            } else {
-                return true;
+        try{
+            if(str.split(" ")[0].equals("event")) {
+                int fromIndex = str.indexOf("/from ");
+                int toIndex = str.indexOf(" /to ", fromIndex);
+                if(fromIndex == -1 || toIndex == -1) {
+                    throw new InvalidEventException();
+                } else {
+                    String fromString = str.substring(fromIndex + 6, toIndex);
+                    String toString = str.substring(toIndex + 5);
+                    LocalDate fromDate = LocalDate.parse(fromString);
+                    LocalDate toDate = LocalDate.parse(toString);
+                    return true;
+                }
             }
+            return false;
+        } catch(DateTimeParseException e) {
+            throw new InvalidEventException();
         }
-        return false;
     }
 }

@@ -1,4 +1,7 @@
 package task;
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
+
 import exception.InvalidDeadlineException;
 
 /**
@@ -6,7 +9,7 @@ import exception.InvalidDeadlineException;
  */
 public class Deadline extends Task {
     // Attribute
-    private String deadline;
+    private LocalDate deadline;
 
     // Constructor
     /**
@@ -15,21 +18,12 @@ public class Deadline extends Task {
      * @param name the name of the deadline
      * @param deadline the deadline of the deadline
      */
-    public Deadline(String name, String deadline) {
+    public Deadline(String name, LocalDate deadline) {
         super(name);
         this.deadline = deadline;
     }
 
     // Method
-
-    /**
-     * Method to return the deadline
-     * 
-     * @return the deadline
-     */
-    public String getDeadline() {
-        return this.deadline;
-    }
 
     /**
      * Method to get the string representation of deadline
@@ -38,7 +32,11 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + this.deadline + " )";
+        String deadlineMonth = deadline.getMonth().toString().substring(0, 3);
+        String deadlineDay = deadline.toString().split("-")[2];
+        String deadlineYear = deadline.toString().split("-")[0];
+        return "[D]" + super.toString() + " (by: " + deadlineMonth + " " 
+            + deadlineDay + " " + deadlineYear + " )";
     }
 
     /**
@@ -52,20 +50,25 @@ public class Deadline extends Task {
     }
 
     /**
-     * Method to check whether a command is deadline
+     * Checks whether a command is deadline
      * 
      * @param str the command
      * @return whether a command is deadline
      * @throws InvalidDeadlineException
      */
     public static boolean isDeadline(String str) throws InvalidDeadlineException {
-        if(str.split(" ")[0].equals("deadline")) {
-            if(str.indexOf("/by ") == -1) {
-                throw new InvalidDeadlineException();
-            } else {
-                return true;
+        try{
+            if(str.split(" ")[0].equals("deadline")) {
+                if(str.indexOf("/by ") != -1) {
+                    LocalDate date = LocalDate.parse(str.split("/by ")[1]);
+                    return true;
+                } else {
+                    throw new InvalidDeadlineException();
+                }
             }
+            return false;
+        } catch(DateTimeParseException e) {
+            throw new InvalidDeadlineException();
         }
-        return false;
     }
 }
