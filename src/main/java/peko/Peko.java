@@ -25,7 +25,6 @@ public class Peko {
     private Peko() {
         userInputHandler = new UserInputHandler();
         storageHandler = new StorageHandler();
-
     }
 
 }
