@@ -2,6 +2,9 @@ package duke;
 
 import java.util.Scanner;
 
+/**
+ * Handles interaction with the user by providing input and displaying messages.
+ */
 public class Ui {
     private final Scanner scanner;
 

@@ -2,6 +2,9 @@ package duke;
 
 import java.util.ArrayList;
 
+/**
+ * Represents a list of tasks and provides methods to manage tasks within the list.
+ */
 public class TaskList {
     private final ArrayList<Task> tasks;
 
@@ -10,6 +13,13 @@ public class TaskList {
     }
 
 
+    /**
+     * Adds a task to the list based on the task description.
+     *
+     * @param taskDescription The description of the task.
+     * @param storage         The storage handler to save the task.
+     * @param ui              The user interface for displaying messages.
+     */
     public void addTask(String taskDescription, Storage storage, Ui ui) {
         Task task;
         String[] taskInformation = taskDescription.split(" /");
@@ -31,10 +41,22 @@ public class TaskList {
 
     }
 
+    /**
+     * Adds a task directly to the list.
+     *
+     * @param task The task to be added.
+     */
     public void addTask(Task task) {
         this.tasks.add(task);
     }
 
+    /**
+     * Deletes a task from the list based on the task number.
+     *
+     * @param taskNumber The number of the task to be deleted.
+     * @param storage    The storage handler to remove the task.
+     * @param ui         The user interface for displaying messages.
+     */
     public void deleteTask(int taskNumber, Storage storage, Ui ui) {
         if (taskNumber > this.tasks.size() || taskNumber < 1) {
             ui.formatPrintMessage("Task number does not exist");
@@ -48,6 +70,11 @@ public class TaskList {
                 + " task(s) in the list.");
     }
 
+    /**
+     * Displays all tasks in the list.
+     *
+     * @param ui The user interface for displaying messages.
+     */
     public void showAllTasks(Ui ui) {
         if (this.tasks.size() == 0) {
             ui.formatPrintMessage("You have no tasks in your list.");
@@ -64,6 +91,13 @@ public class TaskList {
         System.out.println();
     }
 
+    /**
+     * Marks a task as done based on the task number.
+     *
+     * @param taskNumber The number of the task to be marked as done.
+     * @param storage    The storage handler to update the task status.
+     * @param ui         The user interface for displaying messages.
+     */
     public void markTaskAsDone(int taskNumber, Storage storage, Ui ui) {
         if (taskNumber > this.tasks.size() || taskNumber < 1) {
             ui.formatPrintMessage("Task number does not exist");
@@ -75,6 +109,13 @@ public class TaskList {
         storage.modifyTask(taskNumber, task);
     }
 
+    /**
+     * Marks a task as not done (undone) based on the task number.
+     *
+     * @param taskNumber The number of the task to be marked as not done.
+     * @param storage    The storage handler to update the task status.
+     * @param ui         The user interface for displaying messages.
+     */
     public void unmarkTaskAsDone(int taskNumber, Storage storage, Ui ui) {
         if (taskNumber > this.tasks.size() || taskNumber < 1) {
             ui.formatPrintMessage("Task number does not exist");

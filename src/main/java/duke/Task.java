@@ -1,15 +1,28 @@
 package duke;
 
+/**
+ * Represents a task that can be marked as done or undone.
+ */
 public abstract class Task {
 
     private final String name;
     private boolean done;
 
+    /**
+     * Constructs a Task object with a specified name.
+     *
+     * @param name The name or description of the task.
+     */
     public Task(String name) {
         this.name = name;
         this.done = false;
     }
 
+    /**
+     * Marks the task as done and optionally displays a message.
+     *
+     * @param display Whether to display a message indicating the task was marked as done.
+     */
     public void markAsDone(boolean display) {
         this.done = true;
         if (display) {
@@ -17,6 +30,11 @@ public abstract class Task {
         }
     }
 
+    /**
+     * Unmarks the task as done and optionally displays a message.
+     *
+     * @param display Whether to display a message indicating the task was marked as not done.
+     */
     public void unmarkAsDone(boolean display) {
         this.done = false;
         if (display) {
@@ -38,6 +56,11 @@ public abstract class Task {
         return this.done;
     }
 
+    /**
+     * Converts the task into a formatted string for storage.
+     *
+     * @return The formatted string representation of the task.
+     */
     abstract String convertTaskToString();
 
 }
