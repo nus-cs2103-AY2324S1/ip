@@ -1,8 +1,7 @@
-package duke.main;
+package duke;
 
 import java.util.Scanner;
 
-import duke.exceptions.DukeException;
 import duke.parser.Parser;
 import duke.storage.Storage;
 import duke.tasks.Deadline;
@@ -11,6 +10,7 @@ import duke.tasks.Task;
 import duke.tasks.ToDo;
 import duke.ui.Ui;
 import duke.util.TaskList;
+import duke.exceptions.DukeException;
 
 
 public class Duke {
@@ -78,6 +78,7 @@ public class Duke {
             addTask(command);
             break;
         case UNKNOWN:
+            ui.printErrorMessage(new DukeException("I'm sorry, but I don't know what that means :-("));
             break;
         }
     }

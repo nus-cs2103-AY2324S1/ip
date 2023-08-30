@@ -2,9 +2,9 @@ package duke.ui;
 
 import java.util.List;
 
-import duke.exceptions.DukeException;
 import duke.tasks.Task;
 import duke.util.TaskList;
+import duke.exceptions.DukeException;
 
 public class Ui {
     private final String LOGO = ",------.,--.              ,--.  \n"
