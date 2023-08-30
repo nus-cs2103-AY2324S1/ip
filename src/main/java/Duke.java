@@ -1,6 +1,6 @@
-import java.util.ArrayList;
-import java.util.InputMismatchException;
-import java.util.NoSuchElementException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
 /**
@@ -167,8 +167,16 @@ public class Duke {
                 if (taskDeadlineSegment.startsWith("by ")) {
                     String taskDeadline = taskDeadlineSegment.substring(3);
                     if (!taskDeadline.isBlank()) {
-                        DeadlineTask newDeadlineTask = new DeadlineTask(taskDescription, taskDeadline);
-                        addTaskToList(newDeadlineTask);
+                        try {
+                            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+                            LocalDateTime deadline = LocalDateTime.parse(taskDeadline, formatter);
+                            DeadlineTask newDeadlineTask = new DeadlineTask(taskDescription, deadline);
+                            addTaskToList(newDeadlineTask);
+                        } catch (DateTimeParseException e){
+                            System.out.println(SPACER);
+                            System.out.println("HOLD UP! You are not formatting your dates right! Use \"yyyy-MM-dd HH:mm\" >:(");
+                            System.out.println(SPACER);
+                        }
                     } else {
                         System.out.println(SPACER);
                         System.out.println("HOLD UP! C'mon, what's the deadline?");
@@ -208,8 +216,17 @@ public class Duke {
                     String taskFrom = taskFromSegment.substring(5);
                     String taskTo = taskToSegment.substring(3);
                     if (!taskFrom.isBlank() && !taskTo.isBlank()) {
-                        EventTask newEventTask = new EventTask(taskDescription, taskFrom, taskTo);
-                        addTaskToList(newEventTask);
+                        try {
+                            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+                            LocalDateTime from = LocalDateTime.parse(taskFrom, formatter);
+                            LocalDateTime to = LocalDateTime.parse(taskTo, formatter);
+                            EventTask newEventTask = new EventTask(taskDescription, from, to);
+                            addTaskToList(newEventTask);
+                        } catch (DateTimeParseException e){
+                            System.out.println(SPACER);
+                            System.out.println("HOLD UP! You are not formatting your dates right! Use \"yyyy-MM-dd HH:mm\" >:(");
+                            System.out.println(SPACER);
+                        }
                     } else {
                         System.out.println(SPACER);
                         System.out.println("HOLD UP! C'mon, when does it start and end?");
