@@ -29,6 +29,15 @@ public class TaskList {
     }
 
     /**
+     * Provide size of task list.
+     *
+     * @return the size of the taskList
+     */
+    public Integer getSize() {
+        return tasks.size();
+    }
+
+    /**
      * Add task to task list.
      *
      * @param task the new task created
@@ -115,5 +124,24 @@ public class TaskList {
         } else {
             return ("Now you have " + size + " tasks in the list.");
         }
+    }
+
+    /**
+     * Search for similar tasks in task list.
+     *
+     * @param word user input for search
+     * @return Task list of similar tasks
+     */
+    public TaskList findTasks(String word) throws DukeException {
+        TaskList tasksFound = new TaskList();
+        for (Task t : tasks) {
+            if (t.getDescription().contains(word)) {
+                tasksFound.addTask(t);
+            }
+        }
+        if (tasksFound.getSize() == 0) {
+            throw new DukeException(Message.TASK_NOT_FOUND);
+        }
+        return tasksFound;
     }
 }

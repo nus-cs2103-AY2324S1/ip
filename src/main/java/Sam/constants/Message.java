@@ -19,6 +19,7 @@ public class Message {
     public static final String INVALID_COMMAND_FORMAT = "Invalid command format! \n%1$s";
     public static final String CORRUPTED_FILE_ERROR = "Saved data not found due to corruption. \n Corrupted task : ";
     public static final String FAILED_TO_SAVE = "Failed to save ";
-
+    public static final String SEARCH_TASK_SUCCESS = "Here are the matching tasks in your list:";
+    public static final String TASK_NOT_FOUND = "No tasks found.";
 
 }

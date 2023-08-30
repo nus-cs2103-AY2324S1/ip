@@ -17,7 +17,10 @@ import java.util.regex.Pattern;
 import java.util.regex.Matcher;
 
 import static sam.constants.Message.INVALID_COMMAND_FORMAT;
-import static sam.services.parser.TaskParser.*;
+import static sam.services.parser.TaskParser.prepareAddDeadline;
+import static sam.services.parser.TaskParser.prepareAddEvent;
+import static sam.services.parser.TaskParser.prepareAddTodo;
+import static sam.services.parser.TaskParser.prepareFind;
 
 /**
  * Parses user input.
@@ -69,6 +72,10 @@ public class Parser {
 
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
+
+        case FindCommand.COMMAND_WORD:
+            return prepareFind(arguments);
+
 
         case HelpCommand.COMMAND_WORD: // Fallthrough
         default:
