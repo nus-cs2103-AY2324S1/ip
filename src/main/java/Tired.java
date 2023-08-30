@@ -1,13 +1,131 @@
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
+import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Files;
 
 enum TaskType {
     TODO, DEADLINE, EVENT
 }
 public class Tired {
+
+    private static void createFile() {
+        try {
+            Path dataDirectoryPath = Path.of(".", "data");
+
+            // Create directory because it doesn't exist
+            if (!Files.exists(dataDirectoryPath)) {
+                Files.createDirectories(dataDirectoryPath);
+            }
+
+            Path dataPath = dataDirectoryPath.resolve("duke.txt");
+
+            // Create duke.txt if it doesn't exist
+            if (!Files.exists(dataPath)) {
+                Files.createFile(dataPath);
+            }
+
+        } catch (IOException e) {
+            System.err.println(e.getMessage());
+        }
+    }
+
+    private static ArrayList<Task> readFile() {
+        try {
+            Path dataPath = Path.of(".", "data", "duke.txt");
+            List<String> fileLines = Files.readAllLines(dataPath);
+            ArrayList<Task> tasks = new ArrayList<>();
+
+            for (String line : fileLines) {
+                Task task = convertToTask(line);
+                if (task != null) {
+                    tasks.add(task);
+                }
+            }
+            return tasks;
+        } catch (IOException e) {
+            System.err.println(e.getMessage());
+            return null;
+        }
+    }
+
+    private static Task convertToTask(String line) {
+
+        String[] parts = line.split("\\|\\|");
+
+        String taskType = parts[0].trim();
+        String done = parts[1].trim();
+        String taskDescription = parts[2].trim();
+        System.out.println(taskDescription);
+        String date = parts[3].trim();
+        String time = parts[4].trim();
+
+        Task task = null;
+
+        try {
+            switch (taskType) {
+            case "T":
+                task = new ToDo(taskDescription);
+                break;
+            case "D":
+                task = new Deadline(taskDescription, date);
+                break;
+            case "E":
+                task = new Event(taskDescription, date, time);
+                break;
+            }
+            if (done.equals("0") && task != null) {
+                task.isDone = false;
+            }
+        } catch (DukeException e) {
+            System.err.println(e.getMessage());
+        }
+        return task;
+    }
+
+    private static void saveToFile(ArrayList<Task> tasks) {
+        try {
+            if (tasks == null) {
+                return;
+            }
+            Path dataPath = Path.of(".", "data", "duke.txt");
+            List<String> lines = new ArrayList<>();
+
+            for (Task task : tasks) {
+                lines.add(taskToFileString(task));
+            }
+
+            Files.write(dataPath, lines);
+        } catch (IOException e) {
+            System.err.println(e.getMessage());
+        }
+    }
+
+    private static String taskToFileString(Task task) {
+        String taskType = "";
+        String doneStatus = task.isDone() ? "1" : "0";
+        String taskDescription = task.getDescription();
+        String date = "";
+        String time = "";
+
+        if (task instanceof ToDo) {
+            taskType = "T";
+        } else if (task instanceof Deadline) {
+            taskType = "D";
+            date = ((Deadline) task).date;
+        } else if (task instanceof Event) {
+            taskType = "E";
+            date = ((Event) task).start;
+            time = ((Event) task).end;
+        }
+        return taskType + " || " + doneStatus + " || " + taskDescription + " || " + date + " || " + time;
+    }
+
     public static void main(String[] args) {
 
-        ArrayList<Task> list = new ArrayList<Task>();
+        createFile();
+        ArrayList<Task> list = readFile();
 
         String name = "Tired";
         String horizontalLine = "____________________________________________________________";
@@ -74,7 +192,7 @@ public class Tired {
                             Task t = new ToDo(taskDetails);
                             list.add(t);
                             System.out.println("Got it. I've added this task:");
-                            System.out.println(t.toString());
+                            System.out.println(t);
                             break;
                         case DEADLINE:
                             if (parts.length != 2 || parts[1].length() < 2) {
@@ -86,7 +204,7 @@ public class Tired {
                             Task deadlineTask = new Deadline(taskDetails, date);
                             list.add(deadlineTask);
                             System.out.println("Got it. I've added this task:");
-                            System.out.println(deadlineTask.toString());
+                            System.out.println(deadlineTask);
                             break;
                         case EVENT:
                             if (parts.length != 3 || parts[1].length() < 5 || parts[2].length() < 3) {
@@ -99,10 +217,11 @@ public class Tired {
                             Task eventTask = new Event(taskDetails, start, end);
                             list.add(eventTask);
                             System.out.println("Got it. I've added this task:");
-                            System.out.println(eventTask.toString());
+                            System.out.println(eventTask);
                             break;
                     }
                 }
+                saveToFile(list);
                 System.out.println("Now you have " + list.size() + " task(s) in the list.");
                 System.out.println(horizontalLine + "\n");
             } catch (DukeException e) {
