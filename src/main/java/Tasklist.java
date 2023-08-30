@@ -13,40 +13,40 @@ public class Tasklist {
         this.todolist = new ArrayList<>();
     }
     public void mark(int i) {
+        if (i > todolist.size() || i <= 0) {
+            System.out.println("Please mark something in the list");
+            return;
+        }
         todolist.get(i - 1).mark();
-        System.out.println("Nice! I've marked this task as done:");
-        System.out.println(todolist.get(i - 1).toString());
+        Task t = todolist.get(i - 1);
+        Ui.mark(t);
     }
 
     public void unmark(int i) {
+        if (i > todolist.size() || i <= 0) {
+            System.out.println("Please unmark something in the list");
+            return;
+        }
         todolist.get(i - 1).unmark();
-        System.out.println("OK, I've marked this task as not done yet:");
-        System.out.println(todolist.get(i - 1).toString());
+        Task t = todolist.get(i - 1);
+        Ui.unmark(t);
     }
     public void addtolist(String s) throws DukeMissingArgumentException, DukeInvalidArgumentException {
         StringBuilder str = new StringBuilder(s);
-        String check1 = "";
-        String check2 = "";
-        String check3 = "";
-        if (s.length() >= 4) {
-            check1 = str.substring(0, 4);
+        String cmd = Parser.parseCommand(s);
+        Task task = null;
+        if (cmd == null) {
+            throw new DukeInvalidArgumentException();
         }
-        if (s.length() >= 8) {
-            check2 = str.substring(0, 8);
-        }
-        if (s.length() >= 5) {
-            check3 = str.substring(0, 5);
-        }
-        if (check1.equals("todo")) {
+        if (cmd.equals("todo")) {
             if (s.length() <= 5) {
                 throw new DukeMissingArgumentException();
             } else {
-                System.out.println("Got it. I've added this task:");
                 Todo t = new Todo(str.substring(5, str.length()).toString());
                 todolist.add(t);
-                System.out.println(t.toString());
+                task = t;
             }
-        } else if (check2.equals("deadline")) {
+        } else if (cmd.equals("deadline")) {
             if (s.length() <= 9) {
                 throw new DukeMissingArgumentException();
             } else {
@@ -57,15 +57,15 @@ public class Tasklist {
                     LocalDateTime deadline = LocalDateTime.parse(arr[1], formatter);
                     Deadline d = new Deadline(arr[0], deadline);
                     todolist.add(d);
-                    System.out.println("Got it. I've added this task:");
-                    System.out.println(d.toString());
+                    task = d;
                 } catch (IndexOutOfBoundsException e) {
                     throw new DukeMissingArgumentException();
                 } catch (DateTimeParseException e) {
                     System.out.println("Please enter the start/end time in the format of <DD/MM/YY HH:MM>!");
+                    return;
                 }
             }
-        } else if (check3.equals("event")) {
+        } else if (cmd.equals("event")) {
             if (s.length() <= 6) {
                 throw new DukeMissingArgumentException();
             } else {
@@ -77,31 +77,33 @@ public class Tasklist {
                     LocalDateTime startTime = LocalDateTime.parse(times[0], formatter);
                     LocalDateTime endTime = LocalDateTime.parse(times[1], formatter);
                     if (startTime.isAfter(endTime)) {
-                        System.out.println("\tEnd time must be after the start time!\n");
+                        System.out.println("End time must be after the start time!");
                         return;
                     }
                     Event e = new Event(arr[0], startTime, endTime);
                     todolist.add(e);
-                    System.out.println("Got it. I've added this task:");
-                    System.out.println(e.toString());
+                    task = e;
                 } catch (IndexOutOfBoundsException e) {
                     throw new DukeMissingArgumentException();
                 } catch (DateTimeParseException e) {
                     System.out.println("Please enter the start/end time in the format of <DD/MM/YY HH:MM>!");
+                    return;
                 }
             }
         } else {
             throw new DukeInvalidArgumentException();
         }
-        System.out.println("Now you have " + todolist.size() + " tasks in the list.");
-
+        Ui.add(task, todolist.size());
     }
 
     public void delete(int i) {
-        System.out.println("Noted. I've removed this task:");
-        System.out.println(todolist.get(i - 1).toString());
+        if (i > todolist.size() || i <= 0) {
+            System.out.println("Please delete something in the list");
+            return;
+        }
+        Task t = todolist.get(i - 1);
         todolist.remove(i - 1);
-        System.out.println("Now you have " + todolist.size() + " tasks in the list.");
+        Ui.delete(t, todolist.size());
     }
 
     public void printlist() {

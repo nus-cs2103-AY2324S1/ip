@@ -1,7 +1,15 @@
 Got it. I've added this task:
-[T][ ] ah
+[E][ ] project meeting (from: Oct 11 2011 00:00 to: Oct 11 2011 11:00)
 Now you have 1 tasks in the list.
-Noted. I've removed this task:
-[T][ ] ah
-Now you have 0 tasks in the list.
-Here are the tasks in your list:
+End time must be after the start time!
+Pass Awayyy there is missing argument
+Got it. I've added this task:
+[D][ ] time travel (by: Oct 11 2011 00:00)
+Now you have 2 tasks in the list.
+Got it. I've added this task:
+[T][ ] codeforces
+Now you have 3 tasks in the list.
+Nice! I've marked this task as done:
+[T][X] codeforces
+Please delete something in the list
+Bye bye
