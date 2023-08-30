@@ -1,7 +1,9 @@
+package task;
+
 /**
- * A ToDo class extends the task class. A Todo task is a task without a specified date to be completed.
+ * A task.ToDo class extends the task class. A Todo task is a task without a specified date to be completed.
  */
-public class ToDo extends Task{
+public class ToDo extends Task {
 
     /**
      * Constructs a new Todo task.
@@ -19,7 +21,7 @@ public class ToDo extends Task{
     /**
      * Returns a description of the Todo task.
      *
-     * @return A string description of the ToDo.
+     * @return A string description of the task.ToDo.
      */
     @Override
     public String toString() {

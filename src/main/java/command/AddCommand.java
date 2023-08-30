@@ -1,10 +1,15 @@
+package command;
+import duke.TaskList;
+import duke.Ui;
+import duke.Storage;
+
 /**
- * Command that adds a task to the Task List.
+ * command.Command that adds a task to the task.Task List.
  */
 public class AddCommand extends Command {
     /** Type of task to add */
     private String taskType;
-    /** The other information required to instantiate a Task */
+    /** The other information required to instantiate a task.Task */
     private String[] args;
 
     /**

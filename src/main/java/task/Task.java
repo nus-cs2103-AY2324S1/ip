@@ -1,12 +1,14 @@
+package task;
+
 /**
- * The Task Class is an abstract class that serves as a base class for various types of task the user can create.
+ * The task.Task Class is an abstract class that serves as a base class for various types of task the user can create.
  */
 public abstract class Task {
     protected String name;
     protected boolean isDone;
 
     /**
-     * Constructs a new Task with the specified name. By default,
+     * Constructs a new task.Task with the specified name. By default,
      * the task is marked as not done.
      *
      * @param name The name of the task.

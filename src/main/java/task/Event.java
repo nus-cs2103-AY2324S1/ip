@@ -1,14 +1,16 @@
+package task;
+
 /**
  * An event class extends the task class. It represents a task with that needs to be completed within
  * a certain time period.
  *
  */
-public class Event extends Task{
+public class Event extends Task {
     protected String from;
     protected String to;
 
     /**
-     * Constructs a new Event with the specified time period and description.
+     * Constructs a new task.Event with the specified time period and description.
      *
      * @param description The name of the task.
      * @param from The start date of the task.

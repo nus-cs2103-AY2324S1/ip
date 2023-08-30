@@ -1,3 +1,10 @@
+package duke;
+
+import task.Deadline;
+import task.Event;
+import task.Task;
+import task.ToDo;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -11,7 +18,7 @@ public class Storage {
     public final String filePath;
 
     /**
-     * Constructs a Storage that loads and saves ChatBot data into files
+     * Constructs a duke.Storage that loads and saves ChatBot data into files
      *
      * @param filePath The file path to read and write from.
      */
@@ -23,7 +30,7 @@ public class Storage {
      * Saves data input from user into file. User input when using
      * Chat Bot will be written into the file specified.
      *
-     * @param tasks The Task List to be written into file.
+     * @param tasks The task.Task List to be written into file.
      * @throws IOException If an I/O error occurs while writing to the file.
      */
     public void writeFile(TaskList tasks) throws IOException {
@@ -36,7 +43,7 @@ public class Storage {
      * Loads data from the previously saved file. Previous user input written in the file
      * will be processed so user can view and make changes to the data using the Chat Bot.
      *
-     * @return Task List that was saved by user.
+     * @return task.Task List that was saved by user.
      * @throws IOException If an I/O error occurs while reading the file.
      */
     public ArrayList<Task> load() throws IOException {
@@ -58,7 +65,7 @@ public class Storage {
 
     /**
      * Process text from the file to be used by Chat Bot. Process data stored in the
-     * txt file and adds the respective tasks to the TaskList object.
+     * txt file and adds the respective tasks to the duke.TaskList object.
      *
      * @param taskList The array list of task stored by files.
      * @param input The text input from the file being read.

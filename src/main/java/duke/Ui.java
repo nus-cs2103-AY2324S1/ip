@@ -1,3 +1,7 @@
+package duke;
+
+import exception.DukeException;
+
 import java.io.PrintStream;
 import java.util.Scanner;
 
@@ -12,7 +16,7 @@ public class Ui {
     private final PrintStream out;
 
     /**
-     * Constructs a Ui object. Ui object will handle user input and prints
+     * Constructs a duke.Ui object. duke.Ui object will handle user input and prints
      * information to the user.
      */
     public Ui() {

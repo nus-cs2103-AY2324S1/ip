@@ -1,5 +1,10 @@
+package command;
+import duke.TaskList;
+import duke.Ui;
+import duke.Storage;
+
 /**
- * Command to List all the task in TaskList.
+ * command.Command to List all the task in duke.TaskList.
  */
 public class ListCommand extends Command {
     @Override

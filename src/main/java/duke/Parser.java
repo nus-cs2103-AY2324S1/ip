@@ -1,3 +1,10 @@
+package duke;
+
+import command.*;
+import exception.DukeException;
+import exception.InvalidCommandException;
+import exception.InvalidIndexException;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
@@ -18,18 +25,18 @@ public class Parser {
                     + " /to (" + isoDatePattern + ")");
 
     /**
-     * Parses user input and returns a Command. The Command can then be executed
+     * Parses user input and returns a command.Command. The command.Command can then be executed
      * to respond to the user input.
      *
      * @param input The user input.
-     * @return A Command to be executed.
+     * @return A command.Command to be executed.
      * @throws DukeException
      */
     public static Command parse(String input) throws DukeException {
         final Matcher matcher = BASIC_COMMAND.matcher(input.trim());
 
         if(!matcher.matches()) {
-            throw new InvalidCommandException("Invalid Command");
+            throw new InvalidCommandException("Invalid command.Command");
         }
 
         final String command = matcher.group("command");
@@ -92,7 +99,7 @@ public class Parser {
             }
 
         default:
-            throw new InvalidCommandException("Command not understood");
+            throw new InvalidCommandException("command.Command not understood");
         }
 
     }

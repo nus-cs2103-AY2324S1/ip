@@ -1,9 +1,12 @@
-/**
- * ip Project Duke Chat bot
+package duke; /**
+ * ip Project duke.Duke Chat bot
  *
  * @author Aaron Tay
  * @since 2023-08-24
  */
+import command.Command;
+import exception.DukeException;
+
 import java.io.IOException;
 
 public class Duke {
@@ -16,7 +19,7 @@ public class Duke {
     private Ui ui;
 
     /**
-     * Constructs a Duke object with the specified file path.
+     * Constructs a duke.Duke object with the specified file path.
      *
      * @param filePath The path where the ChatBot loads data from.
      */
@@ -56,11 +59,11 @@ public class Duke {
     }
 
     /**
-     * The main entry point for the Duke ChatBot application.
-     * Initialise an instance of Duke with the specified file path
-     * and starts the Duke application.
+     * The main entry point for the duke.Duke ChatBot application.
+     * Initialise an instance of duke.Duke with the specified file path
+     * and starts the duke.Duke application.
      *
-     * @param args Command-line arguments provided when running the application (not used).
+     * @param args command.Command-line arguments provided when running the application (not used).
      */
     public static void main(String[] args) {
         new Duke("./src/main/data/duke.txt").run();

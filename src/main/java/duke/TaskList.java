@@ -1,3 +1,7 @@
+package duke;
+
+import task.*;
+
 import java.util.ArrayList;
 
 /**
@@ -8,14 +12,14 @@ public class TaskList {
     private ArrayList<Task> taskList;
 
     /**
-     * Constructs a TaskList with a empty task list.
+     * Constructs a duke.TaskList with a empty task list.
      */
     public TaskList() {
         this.taskList = new ArrayList<>();
     }
 
     /**
-     * Constructs a TaskList with data load from the file.
+     * Constructs a duke.TaskList with data load from the file.
      *
      * @param taskList The task list stored in the file.
      */
@@ -38,10 +42,10 @@ public class TaskList {
     }
 
     /**
-     * Returns a string of tasks to be written into the file. Formats the data stored in TaskList
+     * Returns a string of tasks to be written into the file. Formats the data stored in duke.TaskList
      * to be written into file.
      *
-     * @return The string representing TaskList to be written into file.
+     * @return The string representing duke.TaskList to be written into file.
      */
     public String toFileString() {
         String tasks = "";
@@ -52,8 +56,8 @@ public class TaskList {
     }
 
     /**
-     * Adds a new task into TaskList. The task can either be a ToDo,
-     * Deadline or Event.
+     * Adds a new task into duke.TaskList. The task can either be a task.ToDo,
+     * task.Deadline or task.Event.
      *
      * @param taskType The type of task to add.
      * @param args Additional information for task to be instantiated.
@@ -81,7 +85,7 @@ public class TaskList {
     }
 
     /**
-     * Edits a task in the TaskList. Task can be marked, unmarked as done or deleted.
+     * Edits a task in the duke.TaskList. task.Task can be marked, unmarked as done or deleted.
      *
      * @param taskType The type of edits to be made.
      * @param ind The task to edit.

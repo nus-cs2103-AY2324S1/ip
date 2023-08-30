@@ -1,5 +1,10 @@
+package command;
+import duke.TaskList;
+import duke.Ui;
+import duke.Storage;
+
 /**
- * Command to edit a task in the Task List.
+ * command.Command to edit a task in the task.Task List.
  */
 public class EditCommand extends Command {
     /** The changes to the task */
@@ -9,7 +14,7 @@ public class EditCommand extends Command {
     private int ind;
 
     /**
-     * Constructs a new Edit Command. Can mark, unmark task as done or
+     * Constructs a new Edit command.Command. Can mark, unmark task as done or
      * delete a task.
      *
      * @param editType The edit command.
