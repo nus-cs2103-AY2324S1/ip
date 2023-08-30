@@ -3,29 +3,32 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
-public class Input {
+public class Parser {
 
-    private static Scanner scanner = new Scanner(System.in);
+    private Ui ui;
+    private TaskList taskList;
+    private Scanner scanner = new Scanner(System.in);
 
-    public static void echo() {
-        try {
-            Storage.loadSave();
-        } catch (DukeException e) {
-            Printing.printError(e);
-        }
+    public Parser(Ui ui, TaskList taskList) {
+        this.ui = ui;
+        this.taskList = taskList;
+    }
 
-        while (Input.scanner.hasNext()) {
+    public void readInputs() {
+        this.ui.greet();
+
+        while (this.scanner.hasNext()) {
             try {
-                String input = Input.scanner.nextLine();
+                String input = this.scanner.nextLine();
 
                 if (input.equals("bye")) {
-                    Printing.bye();
+                    this.ui.sayBye();
                     return;
                 } else if (input.equals("list")) {
-                    if (Storage.getLength() == 0) {
-                        Printing.printNoTasks();
+                    if (this.taskList.getLength() == 0) {
+                        this.ui.printNoTasks();
                     } else {
-                        Printing.list();
+                        this.ui.printList();
                     }
                 } else if (input.startsWith("mark")) {
                     // Throw error if there is no index
@@ -34,16 +37,16 @@ public class Input {
                     }
                     String strIndex = input.split(" ", 2)[1];
                     // Throw error if index given is not an int
-                    if (!Input.isInt(strIndex)) {
+                    if (!Parser.isInt(strIndex)) {
                         throw new InvalidIndexException("☹ OOPS!!! You need to include an index to mark task.");
                     }
                     int index = Integer.parseInt(strIndex) - 1;
                     // Throw error if there is no task at index
-                    if (index >= Storage.getLength()) {
+                    if (index >= this.taskList.getLength()) {
                         throw new InvalidIndexException("☹ OOPS!!! There is no task at that index.");
                     }
-                    Storage.markAsDone(index);
-                    Printing.printMarkAsDone(index);
+                    this.taskList.markTaskAsDone(index);
+                    this.ui.printMarkAsDone(index);
                 } else if (input.startsWith("unmark")) {
                     // Throw error if there is no index
                     if (input.length() < 8 || input.split(" ", 2).length < 2) {
@@ -51,16 +54,16 @@ public class Input {
                     }
                     String strIndex = input.split(" ", 2)[1];
                     // Throw error if index given is not an int
-                    if (!Input.isInt(strIndex)) {
+                    if (!Parser.isInt(strIndex)) {
                         throw new InvalidIndexException("☹ OOPS!!! You need to include an index to unmark task.");
                     }
                     int index = Integer.parseInt(strIndex) - 1;
                     // Throw error if there is no task at index
-                    if (index >= Storage.getLength()) {
+                    if (index >= this.taskList.getLength()) {
                         throw new InvalidIndexException("☹ OOPS!!! There is no task at that index.");
                     }
-                    Storage.unmark(index);
-                    Printing.printUnmark(index);
+                    this.taskList.unmarkTask(index);
+                    this.ui.printUnmark(index);
                 } else if (input.startsWith("todo")) {
                     // Throw error if there is no description
                     if (input.length() < 6) {
@@ -68,8 +71,8 @@ public class Input {
                     }
                     String[] arr = input.split(" ", 2);
                     Task newTask = new Todo(arr[1]);
-                    Storage.addToStorage(newTask);
-                    Printing.printAdded(newTask);
+                    this.taskList.addToStorage(newTask);
+                    this.ui.printAdded(newTask);
                 } else if (input.startsWith("deadline")) {
                     // Throw error if description or by is missing
                     if (input.length() < 10 || !input.contains(" /by ") ||
@@ -83,8 +86,8 @@ public class Input {
                     String taskDesc = arr[0].substring(9);
                     String by = arr[1];
                     Task newTask = new Deadline(taskDesc, by);
-                    Storage.addToStorage(newTask);
-                    Printing.printAdded(newTask);
+                    this.taskList.addToStorage(newTask);
+                    this.ui.printAdded(newTask);
                 } else if (input.startsWith("event")) {
                     // Throw error if description or from or to is missing
                     if (input.length() < 10 || !input.contains(" /from ") ||
@@ -103,8 +106,8 @@ public class Input {
                     String from = arrBack[0];
                     String to = arrBack[1];
                     Task newTask = new Event(taskDesc, from, to);
-                    Storage.addToStorage(newTask);
-                    Printing.printAdded(newTask);
+                    this.taskList.addToStorage(newTask);
+                    this.ui.printAdded(newTask);
                 } else if (input.startsWith("delete")) {
                     // Throw error if there is no index
                     if (input.length() < 8 || input.split(" ", 2).length < 2) {
@@ -112,21 +115,21 @@ public class Input {
                     }
                     String strIndex = input.split(" ", 2)[1];
                     // Throw error if index given is not an int
-                    if (!Input.isInt(strIndex)) {
+                    if (!Parser.isInt(strIndex)) {
                         throw new InvalidIndexException("☹ OOPS!!! You need to include an index to delete task.");
                     }
                     int index = Integer.parseInt(strIndex) - 1;
                     // Throw error if there is no task at index
-                    if (index >= Storage.getLength()) {
+                    if (index >= this.taskList.getLength()) {
                         throw new InvalidIndexException("☹ OOPS!!! There is no task at that index.");
                     }
-                    Task removedTask = Storage.delete(index);
-                    Printing.printDelete(removedTask);
+                    Task removedTask = this.taskList.deleteTask(index);
+                    this.ui.printDelete(removedTask);
                 } else {
                     throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :(");
                 }
             } catch (DukeException e) {
-                Printing.printError(e);
+                this.ui.printError(e);
             }
         }
     }

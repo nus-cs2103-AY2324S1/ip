@@ -9,7 +9,7 @@ public class Deadline extends Task {
         super(description);
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
-        if (!Input.isValidDate(by, formatter)) {
+        if (!Parser.isValidDate(by, formatter)) {
             throw new InvalidDateTimeException();
         }
         this.by = LocalDateTime.parse(by, formatter);
