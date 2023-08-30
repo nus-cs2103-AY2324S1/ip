@@ -13,17 +13,18 @@ public class AddCommand extends Command {
         case "todo":
             if (arguments.isEmpty()) {
                 throw new SanaException("OOPS!!! The description of a todo cannot be empty.");
+            } else {
+                Task newTodo = new Todo(arguments);
+                //tasks.add(newTodo);
+
+                storage.save("/Users/ariellacallista/Desktop",
+                        "/Users/ariellacallista/Desktop/SanaTasks.txt", newTodo);
+                //saveTasks("/Users/ariellacallista/Desktop", "/Users/ariellacallista/Desktop/SanaTasks.txt", newTodo);
+
+                System.out.println("Got it. I've added this task:\n" + newTodo + "\n"
+                        + "Now you have " + tasks.size() + (tasks.size() <= 1 ? " task" : " tasks")
+                        + " in the list");
             }
-            Task newTodo = new Todo(arguments);
-            //tasks.add(newTodo);
-
-            storage.save("/Users/ariellacallista/Desktop",
-                    "/Users/ariellacallista/Desktop/SanaTasks.txt", newTodo);
-            //saveTasks("/Users/ariellacallista/Desktop", "/Users/ariellacallista/Desktop/SanaTasks.txt", newTodo);
-
-            System.out.println("Got it. I've added this task:\n" + newTodo + "\n"
-                    + "Now you have " + tasks.size() + (tasks.size() <= 1 ? " task" : " tasks")
-                    + " in the list");
 
         case "deadline":
             if (arguments.isEmpty()) {
@@ -32,6 +33,7 @@ public class AddCommand extends Command {
             }
 
             int lastDescId = arguments.indexOf('/');
+
             if (lastDescId == -1 || arguments.length() < lastDescId + 4 || arguments.substring(lastDescId + 4).isBlank()) {
                 throw new SanaException("OOPS!! The deadline cannot be empty.\nMake sure you follow the format " +
                         "'deadline [name of task] /by [deadline]'");
@@ -54,7 +56,42 @@ public class AddCommand extends Command {
             }
 
         case "event":
+            if (arguments.isEmpty()) {
+                throw new SanaException("OOPS!!! Incomplete command. Make sure you follow the format " +
+                        "'event [name of task] /from [from] /to [to]'");
+            }
 
+            lastDescId = arguments.indexOf('/');
+
+            if (lastDescId == -1 || arguments.length() < lastDescId + 6 || arguments.substring(lastDescId + 6).isBlank()) {
+                throw new SanaException("OOPS!! The 'from' field cannot be empty.\nMake sure you follow the format " +
+                        "'deadline [name of task] /from [from] /to [to]'");
+            }
+            desc = arguments.substring(0, lastDescId - 1);
+
+            int lastFromId = arguments.indexOf('/', lastDescId + 1);
+            if (lastFromId == -1 || arguments.length() < lastFromId + 4 || arguments.substring(lastFromId + 4).isBlank()) {
+                throw new SanaException("OOPS!! The 'to' field cannot be empty.\nMake sure you follow the format " +
+                        "'deadline [name of task] /from [from] /to [to]'");
+            }
+            String from = arguments.substring(lastDescId + 6, lastFromId - 1);
+            String to = arguments.substring(lastFromId + 4);
+            Task newEvent = null;
+
+            try {
+                LocalDate fromDate = LocalDate.parse(from);
+                LocalDate toDate = LocalDate.parse(to);
+                newEvent = new Event(desc, fromDate, toDate);
+            } catch (DateTimeParseException e) {
+                System.out.println("Invalid date format! Make sure it is yyyy-mm-dd");
+            }
+
+            if (newEvent != null) {
+                storage.save("/Users/ariellacallista/Desktop", "/Users/ariellacallista/Desktop/SanaTasks.txt", newEvent);
+                System.out.println("Got it. I've added this task:\n" + newEvent + "\n"
+                        + "Now you have " + tasks.size() + (tasks.size() <= 1 ? " task" : " tasks")
+                        + " in the list");
+            }
         }
     }
 }
