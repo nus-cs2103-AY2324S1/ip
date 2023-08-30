@@ -3,8 +3,21 @@ package duke;
 import duke.Deadline;
 import duke.DukeException;
 
+/**
+ * Deals with making sense of the user's command.
+ * 
+ * @author Qin Yan Er
+ */
 public class Parser {
 
+    /**
+     * Parses the given command and performs corresponding actions on the provided list, storage and ui.
+     *
+     * @param command The command to be parsed and executed.
+     * @param list Contains the list of tasks.
+     * @param storage Saves tasks into file and load tasks from the file.
+     * @param ui Displays messages to interact with user.
+     */
     public static void parse(String command, TaskList list, Storage storage, Ui ui) {
         if (command.toLowerCase().startsWith("delete")) {
             String[] sub = command.split(" ");
@@ -193,6 +206,7 @@ public class Parser {
             }
         }
 
+        // save updated task list to storage
         storage.save(list);
     }
 

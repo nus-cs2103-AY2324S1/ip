@@ -4,6 +4,11 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+/**
+ * Tests the methods in TaskList class.
+ *
+ * @author Qin Yan Er
+ */
 public class TaskListTest {
     
     @Test

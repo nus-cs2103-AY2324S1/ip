@@ -4,18 +4,31 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Represents a task with a deadline.
+ *
+ * @author Qin Yan Er
+ */
 public class Deadline extends Task {
     protected String by;
     protected String[] parts;
-
     protected String date;
     protected String time;
 
+    /**
+     * Creates a new Deadline instance.
+     *
+     * @param description The description of the task.
+     * @param by The deadline of the task.
+     */
     public Deadline(String description, String by) {
         super(description);
         this.by = by;
     }
 
+    /**
+     * Extracts and processes the date and time from the 'by' string.
+     */
     public void dateTime() {
         parts = this.by.split("/");
         String day;
@@ -48,11 +61,22 @@ public class Deadline extends Task {
             date = year + "-" + month + "-" + day;
         }
     }
+
+    /**
+     * Returns a formatted string to save the task to a file.
+     *
+     * @return A formatted string representing the task.
+     */
     @Override
     public String saveTask() {
         return "D" + " | " + super.saveTask() + " | " + this.by;
     }
 
+    /**
+     * Returns a formatted string for display.
+     *
+     * @return A formatted string representing the task.
+     */
     @Override
     public String toString() {
         dateTime();

@@ -3,6 +3,11 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+/**
+ * Tests the methods in Parser class.
+ *
+ * @author Qin Yan Er
+ */
 public class ParserTest {
 
     @Test
