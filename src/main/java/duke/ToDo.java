@@ -1,9 +1,5 @@
 package duke;
 
-import duke.DukeException;
-import duke.Task;
-import duke.TaskType;
-
 public class ToDo extends Task {
     public ToDo(String list, TaskType type) {
         super(list, type);
@@ -16,9 +12,9 @@ public class ToDo extends Task {
      * @throws DukeException If the task has already been marked as done.
      */
     @Override
-    public String setMarked() throws DukeException{
+    public String setMarked() throws DukeException {
         super.setMarked();
-        return "Nice! I've marked this task as done:\n" + toString();
+        return "Nice! I've marked this task as done:\n" + this;
     }
 
     /**
@@ -28,9 +24,9 @@ public class ToDo extends Task {
      * @throws DukeException If the task has already been marked as not done.
      */
     @Override
-    public String setUnmarked() throws DukeException{
+    public String setUnmarked() throws DukeException {
         super.setUnmarked();
-        return "OK, I've marked this task as not done yet:\n" + toString();
+        return "OK, I've marked this task as not done yet:\n" + this;
     }
 
     @Override

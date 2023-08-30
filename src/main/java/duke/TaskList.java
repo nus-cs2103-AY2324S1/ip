@@ -1,7 +1,5 @@
 package duke;
 
-import duke.*;
-
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -9,16 +7,14 @@ import java.util.ArrayList;
 
 public class TaskList {
 
-    private Storage storage;
-
-    ArrayList<Task> list = new ArrayList<>();
+    ArrayList<Task> tasks = new ArrayList<>();
 
     public TaskList(String tasksFromFile) throws DukeException, IOException {
         convertTasksToList(tasksFromFile);
     }
 
     public TaskList() {
-        list = new ArrayList<>();
+        tasks = new ArrayList<>();
     }
 
     /**
@@ -30,8 +26,10 @@ public class TaskList {
      * @throws IOException If there is an I/O error during processing.
      */
     public void convertTasksToList(String tasksFromFile) throws DukeException, IOException {
+
         int i = 0;
         int j = 0;
+
         while (i < tasksFromFile.length()) {
             String input = "";
             for (; tasksFromFile.charAt(j) != '\n'; j++) {
@@ -40,19 +38,19 @@ public class TaskList {
             String taskType = input.substring(3, 4);
             String taskDescription = input.substring(9);
             switch (taskType) {
-                case "T": {
-                    handleTodoTask("todo " + taskDescription, "file");
-                    break;
-                }
-                case "D": {
-                    handleDeadlineTask("deadline " + taskDescription, "file");
-                    break;
-                }
-                case "E": {
-                    handleEventTask("event " + taskDescription, "file");
-                }
-                default:
+            case "T":
+                handleTodoTask("todo " + taskDescription, "file");
+                break;
+            case "D":
+                handleDeadlineTask("deadline " + taskDescription, "file");
+                break;
+            case "E":
+                handleEventTask("event " + taskDescription, "file");
+                break;
+            default:
+                break;
             }
+
             i = j;
             j++;
             i++;
@@ -60,34 +58,34 @@ public class TaskList {
     }
 
     /**
-     * Retrieves a formatted string showing the number of tasks left in the list.
+     * Retrieves a formatted string showing the number of tasks left in the tasks.
      *
      * @return A string indicating the number of tasks remaining.
      */
     public String getTaskLeft() {
-        return "Now you have " + list.size() + (list.size() == 1 ? " task" : " tasks") + " in the list.";
+        return "Now you have " + tasks.size() + (tasks.size() == 1 ? " task" : " tasks") + " in the tasks.";
     }
 
     /**
-     * Retrieves a formatted string containing all tasks in the list.
+     * Retrieves a formatted string containing all tasks in the tasks.
      *
-     * @return A string listing all tasks in the task list.
-     * @throws DukeException If there are no tasks in the list.
+     * @return A string tasksing all tasks in the task tasks.
+     * @throws DukeException If there are no tasks in the tasks.
      */
     public String getAllToDo() throws DukeException {
         StringBuilder res = new StringBuilder();
 
-        if (list.size() == 0) {
+        if (tasks.size() == 0) {
             throw new DukeException("Oh no! No tasks for now! Add more tasks :)\n");
         }
 
-        res.append("Here are the tasks in your list:\n");
+        res.append("Here are the tasks in your tasks:\n");
 
-        for (int i = 0; i < list.size(); i++) {
+        for (int i = 0; i < tasks.size(); i++) {
 
             res.append(i + 1).append(".")
-                    .append(list.get(i).toString());
-            if (i != list.size() - 1) res.append("\n");
+                    .append(tasks.get(i).toString());
+            if (i != tasks.size() - 1) res.append("\n");
         }
         return res.toString();
     }
@@ -97,7 +95,7 @@ public class TaskList {
      *
      * @param input  The input by the user.
      * @return A message confirming the action's success.
-     * @throws DukeException If there's an issue with the task list or input.
+     * @throws DukeException If there's an issue with the task tasks or input.
      */
     public String markTask(String input) throws DukeException {
 
@@ -115,7 +113,7 @@ public class TaskList {
         }
 
         //No task to mark
-        if (list.size() == 0) {
+        if (tasks.size() == 0) {
             throw new DukeException("No tasks! Add more tasks to mark!\n");
         }
 
@@ -127,11 +125,11 @@ public class TaskList {
                 int index = Integer.parseInt(sec);
 
                 //index entered is more than totalTodos
-                if (index > list.size() || index <= 0) {
-                    throw new DukeException("Enter mark command with positive index lesser than " + (list.size() + 1) + "\n");
+                if (index > tasks.size() || index <= 0) {
+                    throw new DukeException("Enter mark command with positive index lesser than " + (tasks.size() + 1) + "\n");
                 }
 
-                res = list.get(index - 1).setMarked();
+                res = tasks.get(index - 1).setMarked();
 
             } catch (NumberFormatException e) {
                 throw new DukeException("Enter a valid positive integer after your markcommand!\n");
@@ -145,7 +143,7 @@ public class TaskList {
      *
      * @param input  The input by the user.
      * @return A message confirming the action's success.
-     * @throws DukeException If there's an issue with the task list or input.
+     * @throws DukeException If there's an issue with the task tasks or input.
      */
     public String unmarkTask(String input) throws DukeException {
 
@@ -163,7 +161,7 @@ public class TaskList {
         }
 
         //No task to mark
-        if (list.size() == 0) {
+        if (tasks.size() == 0) {
             throw new DukeException("No tasks! Add more tasks to unmark!\n");
         }
 
@@ -175,10 +173,10 @@ public class TaskList {
                 int index = Integer.parseInt(sec);
 
                 //index entered is more than totalTodos
-                if (index > list.size() || index <= 0) {
-                    throw new DukeException("Enter umark command with positive index lesser than " + (list.size() + 1) + "\n");
+                if (index > tasks.size() || index <= 0) {
+                    throw new DukeException("Enter umark command with positive index lesser than " + (tasks.size() + 1) + "\n");
                 }
-                res = list.get(index - 1).setUnmarked();
+                res = tasks.get(index - 1).setUnmarked();
 
             } catch (NumberFormatException e) {
                 throw new DukeException("Enter a valid positive integer after your unmark command!\n");
@@ -189,11 +187,11 @@ public class TaskList {
 
 
     /**
-     * Deletes a task from the task list based on the provided index.
+     * Deletes a task from the task tasks based on the provided index.
      *
      * @param input The input of the task to be deleted.
      * @return A message indicating the success of the deletion.
-     * @throws DukeException If there's an issue with the task list or input.
+     * @throws DukeException If there's an issue with the task tasks or input.
      */
     public String deleteTask(String input) throws DukeException {
 
@@ -207,7 +205,7 @@ public class TaskList {
         }
 
         //No task to delete
-        if (list.size() == 0) {
+        if (tasks.size() == 0) {
             throw new DukeException("No tasks to delete! Add more tasks to delete!\n");
         }
 
@@ -217,8 +215,8 @@ public class TaskList {
             //index is not valid integer
             try {
                 int index = Integer.parseInt(sec);
-                String removedTask = list.get(index - 1).toString();
-                list.remove(index - 1);
+                String removedTask = tasks.get(index - 1).toString();
+                tasks.remove(index - 1);
                 res = "Noted. I've removed this task: \n " + "  " + removedTask + "\n" + getTaskLeft();
             } catch (NumberFormatException e) {
                 throw new DukeException("Enter a valid positive integer after your mark/unmark command!\n");
@@ -229,7 +227,7 @@ public class TaskList {
     }
 
     /**
-     * Adds a duke.ToDo task to the task list based on the provided input.
+     * Adds a duke.ToDo task to the task tasks based on the provided input.
      *
      * @param input The user input containing the task description.
      * @return A message indicating the success of adding the duke.ToDo task.
@@ -248,9 +246,9 @@ public class TaskList {
             throw new DukeException("No description specified la dei!! How to do work when no work is said?! Enter again!\n");
         }
 
-        list.add(new ToDo(task, TaskType.TODO));
+        tasks.add(new ToDo(task, TaskType.TODO));
 
-        String str = list.get(list.size() - 1).toString();
+        String str = tasks.get(tasks.size() - 1).toString();
         String res = "Got it. I've added this task :\n" + str + "\n";
         res += getTaskLeft();
 
@@ -259,7 +257,7 @@ public class TaskList {
     }
 
     /**
-     * Adds a duke.Deadline task to the task list based on the provided input.
+     * Adds a duke.Deadline task to the task tasks based on the provided input.
      *
      * @param input The user input containing the task description and deadline.
      * @return A message indicating the success of adding the duke.Deadline task.
@@ -321,9 +319,9 @@ public class TaskList {
             throw new DukeException("deadline task must have /by date and time\n");
         }
 
-        list.add(new Deadline(task, by, endTime+":00", TaskType.DEADLINE));
+        tasks.add(new Deadline(task, by, endTime+":00", TaskType.DEADLINE));
 
-        String str = list.get(list.size() - 1).toString();
+        String str = tasks.get(tasks.size() - 1).toString();
         String res = "Got it. I've added this task :\n" + str + "\n";
         res += getTaskLeft();
 
@@ -332,7 +330,7 @@ public class TaskList {
     }
 
     /**
-     * Adds an duke.Event task to the task list based on the provided input.
+     * Adds an duke.Event task to the task tasks based on the provided input.
      *
      * @param input The user input containing the task description and event timings.
      * @return A message indicating the success of adding the duke.Event task.
@@ -423,9 +421,9 @@ public class TaskList {
             throw new DukeException("event task must have both /from and /to times\n");
         }
 
-        list.add(new Event(task, startDate, endDate, startTime+":00", endTime+":00", TaskType.EVENT));
+        tasks.add(new Event(task, startDate, endDate, startTime+":00", endTime+":00", TaskType.EVENT));
 
-        String str = list.get(list.size() - 1).toString();
+        String str = tasks.get(tasks.size() - 1).toString();
         String res = "Got it. I've added this task :\n" + str + "\n";
         res += getTaskLeft();
 
@@ -434,6 +432,6 @@ public class TaskList {
     }
 
     public ArrayList<Task> getTasks() {
-        return this.list;
+        return this.tasks;
     }
 }

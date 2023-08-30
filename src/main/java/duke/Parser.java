@@ -1,7 +1,5 @@
 package duke;
 
-import duke.InvalidInputExpression;
-
 public class Parser {
 
     /**
@@ -14,7 +12,6 @@ public class Parser {
      * @throws InvalidInputExpression If the user input does not match any supported command.
      */
     public String[] handleUserInput(String userInput) throws InvalidInputExpression {
-
         try {
             if (userInput.startsWith("mark")) {
                 return new String[]{"mark", userInput};
