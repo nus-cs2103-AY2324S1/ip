@@ -1,7 +1,5 @@
 package utils;
 
-import java.util.Scanner;
-
 import commands.AddTask;
 import commands.Bye;
 import commands.Command;
@@ -29,7 +27,7 @@ enum Keywords {
 public class Parser {
 
   public static Command parse(String input, Ui ui, TaskList tasks,
-      Scanner scanner, Boolean[] running) {
+      Boolean[] running) {
     String[] inputArgs = input.split(" ", 2);
     Keywords command = Keywords.parse(inputArgs[0]);
 
@@ -37,7 +35,7 @@ public class Parser {
     case LIST:
       return new List(ui, tasks);
     case BYE:
-      return new Bye(ui, tasks, scanner, running);
+      return new Bye(ui, tasks, running);
     case MARK:
       int index = Integer.parseInt(inputArgs[1]);
       return new Mark(ui, tasks, index);

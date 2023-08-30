@@ -1,6 +1,5 @@
 import java.io.IOException;
 import java.time.format.DateTimeParseException;
-import java.util.Scanner;
 
 import commands.Command;
 
@@ -28,14 +27,13 @@ public class Jerma {
   }
 
   public void run() {
-    Scanner scanner = new Scanner(System.in);
     ui.hello();
 
     while (running[0]) {
-      String input = scanner.nextLine();
+      String input = ui.readLine();
 
       try {
-        Command command = Parser.parse(input, this.ui, this.tasks, scanner,
+        Command command = Parser.parse(input, this.ui, this.tasks,
             this.running);
         command.execute();
       } catch (IndexOutOfBoundsException e) {

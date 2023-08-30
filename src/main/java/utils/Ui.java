@@ -1,14 +1,24 @@
 package utils;
 
+import java.util.Scanner;
+
 import tasks.Task;
 
 public class Ui {
+  Scanner scanner;
+
   public void hello() {
+    this.scanner = new Scanner(System.in);
     System.out.println("Hello! I'm Jerma.");
   }
 
   public void bye() {
+    this.scanner.close();
     System.out.println("See ya soon!");
+  }
+
+  public String readLine() {
+    return this.scanner.nextLine();
   }
 
   public void error(String message) {
