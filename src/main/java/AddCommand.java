@@ -14,8 +14,8 @@ public class AddCommand extends Command {
             if (arguments.isEmpty()) {
                 throw new SanaException("OOPS!!! The description of a todo cannot be empty.");
             } else {
-                Task newTodo = new Todo(arguments);
-
+                Task newTodo = new Todo(arguments, false);
+                tasks.add(newTodo);
                 storage.save("/Users/ariellacallista/Desktop",
                         "/Users/ariellacallista/Desktop/SanaTasks.txt", newTodo);
 
@@ -43,8 +43,9 @@ public class AddCommand extends Command {
 
             try {
                 LocalDate byDate = LocalDate.parse(by);
-                Task newDeadline = new Deadline(desc, byDate);
+                Task newDeadline = new Deadline(desc, byDate, false);
 
+                tasks.add(newDeadline);
                 storage.save("/Users/ariellacallista/Desktop",
                         "/Users/ariellacallista/Desktop/SanaTasks.txt", newDeadline);
                 System.out.println("Got it. I've added this task:\n" + newDeadline + "\n"
@@ -81,13 +82,15 @@ public class AddCommand extends Command {
             try {
                 LocalDate fromDate = LocalDate.parse(from);
                 LocalDate toDate = LocalDate.parse(to);
-                newEvent = new Event(desc, fromDate, toDate);
+                newEvent = new Event(desc, fromDate, toDate, false);
             } catch (DateTimeParseException e) {
                 System.out.println("Invalid date format! Make sure it is yyyy-mm-dd");
             }
 
             if (newEvent != null) {
-                storage.save("/Users/ariellacallista/Desktop", "/Users/ariellacallista/Desktop/SanaTasks.txt", newEvent);
+                tasks.add(newEvent);
+                storage.save("/Users/ariellacallista/Desktop",
+                        "/Users/ariellacallista/Desktop/SanaTasks.txt", newEvent);
                 System.out.println("Got it. I've added this task:\n" + newEvent + "\n"
                         + "Now you have " + tasks.size() + (tasks.size() <= 1 ? " task" : " tasks")
                         + " in the list");
