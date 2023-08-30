@@ -3,7 +3,6 @@ package Storage;
 import Exception.KevinException;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -59,16 +58,6 @@ public class Storage {
             writer.flush();
         } catch (IOException e) {
             throw new KevinException(e.getMessage());
-        }
-    }
-
-    public void writeFile(String fileLocation, String text) throws KevinException {
-        try {
-            FileWriter fileWriter = new FileWriter(fileLocation, false);
-            fileWriter.write(text);
-            fileWriter.close();
-        } catch (Exception err) {
-            throw new KevinException("Fail to write text to file: " + err.getMessage());
         }
     }
 
