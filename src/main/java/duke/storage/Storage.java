@@ -66,7 +66,7 @@ public class Storage {
                 } else if (type.equals("D")) {
 
                     if (taskComponents.length < 3) {
-                        throw new DukeException("Invalid duke.tasks.Deadline Format!");
+                        throw new DukeException("Invalid Deadline Format!");
                     }
                     LocalDateTime buffer = LocalDateTime.parse(taskComponents[3], storeTimeFormatter);
                     Task item = new Deadline(desc, buffer.format(inputFormatter));
@@ -78,11 +78,11 @@ public class Storage {
                 } else if (type.equals("E")) {
 
                     if (taskComponents.length < 3) {
-                        throw new DukeException("Invalid duke.tasks.Event Format!");
+                        throw new DukeException("Invalid Event Format!");
                     }
                     String[] timeComponents = taskComponents[3].split("-", 2);
                     if (taskComponents.length < 2) {
-                        throw new DukeException("Invalid duke.tasks.Event Format!");
+                        throw new DukeException("Invalid Event Format!");
                     }
                     LocalDateTime bufferStart = LocalDateTime.parse(timeComponents[0], storeTimeFormatter);
                     LocalDateTime bufferEnd = LocalDateTime.parse(timeComponents[1], storeTimeFormatter);

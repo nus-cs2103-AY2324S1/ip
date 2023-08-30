@@ -22,7 +22,7 @@ public class Event extends Task {
             start = parseStart.format(outputFormatter);
             end = parseEnd.format(outputFormatter);
         } catch (DateTimeParseException e) {
-            throw new DukeException("duke.tasks.Event times must be in this format: yyyy-mm-dd HH:mm");
+            throw new DukeException("Event times must be in this format: yyyy-mm-dd HH:mm");
         }
 
     }

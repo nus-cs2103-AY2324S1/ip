@@ -19,7 +19,7 @@ public class Deadline extends Task {
             LocalDateTime d1 = LocalDateTime.parse(date, inputFormatter);
             by = d1.format(outputFormatter);
         } catch (DateTimeParseException e) {
-            throw new DukeException("duke.tasks.Deadline time must be in this format: yyyy-mm-dd hh:mm");
+            throw new DukeException("Deadline time must be in this format: yyyy-mm-dd hh:mm");
         }
 
     }
