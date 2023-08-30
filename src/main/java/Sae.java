@@ -3,6 +3,9 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.io.File;
 import java.io.FileWriter;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 
 /**
  * The Sae class represents an interactive task manager.
@@ -78,7 +81,6 @@ public class Sae {
                 int number = Integer.parseInt(commandTask[1]);
                 Task curr = store.get(number - 1);
                 curr.markTask(store, commandTask);
-                //saveTasks(store);
             } else if (command.equals("unmark")) {
                 int number = Integer.parseInt(commandTask[1]);
                 Task curr = store.get(number - 1);
@@ -95,7 +97,13 @@ public class Sae {
                     throw new InvalidDeadlineException();
                 }
                 String[] parts = commandTask[1].split("/by");
-                Deadline newTask = new Deadline(parts[0].trim(), parts[1].trim());
+                String description = parts[0].trim();
+                String dateTimeString = parts[1].trim();
+
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
+                LocalDateTime dateTime = LocalDateTime.parse(dateTimeString, formatter);
+
+                Deadline newTask = new Deadline(description, dateTime);
                 newTask.addDeadlineTask(store, commandTask);
                 newTask.addtoStore();
             } else if (command.equals("event")) {
@@ -112,6 +120,9 @@ public class Sae {
         } catch (SaeException errorMessage) {
             System.out.println(errorMessage.toString());
         } catch (IOException e) {
+            throw new RuntimeException(e);
+        } catch (InvalidDateTimeFormatException e) {
+            System.out.println("Invalid Date/Time");
             throw new RuntimeException(e);
         }
     }

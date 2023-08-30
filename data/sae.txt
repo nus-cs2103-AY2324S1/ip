@@ -1,4 +1,3 @@
-T | 1 | sleep
-T | 0 | finish work
-D | 0 | 2103 | 2359 
-E | 1 | class | tue 3pm | tue 5pm
+D | 0 | return book | 2 December 2019 6PM
+D | 0 | return book | 2 December 2019 6PM
+D | 0 | return book | 2 December 2019 6PM

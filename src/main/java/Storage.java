@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.io.FileWriter;
 import java.io.File;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 public class Storage {
     private static String filePath;
 
@@ -35,28 +38,33 @@ public class Storage {
         while (tasks.hasNext()) {
             String str = tasks.nextLine();
             String[] taskDetails = str.split("\\|"); // Escape the pipe character
-            String taskType = taskDetails[0].trim(); // Trim any leading/trailing whitespace
+            String taskType = taskDetails[0].trim();
             String completion = taskDetails[1].trim();
             String description = taskDetails[2].trim();
-            // completed = 1; incomplete = 0
 
             switch (taskType) {
                 case "T":
                     Todo newTodo = new Todo(description);
-                    newTodo.isDone = completion.equals("1") ? true : false;
+                    newTodo.isDone = completion.equals("1");
                     taskList.add(newTodo);
                     break;
                 case "D":
-                    String by = taskDetails[3];
-                    Deadline newDeadline = new Deadline(description, by);
-                    newDeadline.isDone = completion.equals("1") ? true : false;
+                    String by = taskDetails[3].trim();
+
+                    // Parse the 'by' string into LocalDateTime using a formatter
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d MMMM yyyy ha");
+
+                    LocalDateTime dateTime = LocalDateTime.parse(by, formatter);
+
+                    Deadline newDeadline = new Deadline(description, dateTime);
+                    newDeadline.isDone = completion.equals("1");
                     taskList.add(newDeadline);
                     break;
                 case "E":
-                    String from = taskDetails[3];
-                    String to = taskDetails[4];
+                    String from = taskDetails[3].trim();
+                    String to = taskDetails[4].trim();
                     Event newEvent = new Event(description, from, to);
-                    newEvent.isDone = completion.equals("1") ? true : false;
+                    newEvent.isDone = completion.equals("1");
                     taskList.add(newEvent);
                     break;
             }
@@ -64,6 +72,7 @@ public class Storage {
         tasks.close();
         return taskList;
     }
+
 
     public void saveTasks(ArrayList<Task> taskList) throws IOException {
         File f = new File(filePath);
