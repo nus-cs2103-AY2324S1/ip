@@ -1,27 +1,78 @@
 package grumpygordon.parser;
 
-import grumpygordon.tasks.*;
-import grumpygordon.exceptions.*;
-import grumpygordon.commands.*;
-import grumpygordon.ui.Ui;
+import grumpygordon.tasks.TaskList;
+import grumpygordon.tasks.Task;
+import grumpygordon.tasks.Todo;
+import grumpygordon.tasks.Deadline;
+import grumpygordon.tasks.Event;
+import grumpygordon.exceptions.GrumpyGordonDateTimeFormatException;
+import grumpygordon.exceptions.GrumpyGordonException;
+import grumpygordon.exceptions.GrumpyGordonInitialisationException;
+import grumpygordon.exceptions.GrumpyGordonInvalidCommandException;
+import grumpygordon.commands.Command;
+import grumpygordon.commands.ByeCommand;
+import grumpygordon.commands.ListCommand;
+import grumpygordon.commands.MarkCommand;
+import grumpygordon.commands.UnmarkCommand;
+import grumpygordon.commands.DeleteCommand;
+import grumpygordon.commands.TodoCommand;
+import grumpygordon.commands.DeadlineCommand;
+import grumpygordon.commands.EventCommand;
 
 import java.time.DateTimeException;
 import java.time.LocalDateTime;
 import java.util.regex.Pattern;
 
+/**
+ * Represents a parser that parses user input.
+ */
 public class Parser {
+    /**
+     * Separator for saved format.
+     */
     private static final String SAVED_FORMAT_SEPARATOR_REGEX = " \\| ";
+
+    /**
+     * Separator for user input.
+     */
     private static final String SPACE_REGEX = " ";
+    /**
+     * Regex for mark command.
+     */
     private static final String MARK_REGEX = "mark\\s([0-9]+)$";
+    /**
+     * Regex for unmark command.
+     */
     private static final String UNMARK_REGEX = "unmark\\s([0-9]+)$";
+    /**
+     * Regex for delete command.
+     */
     private static final String DELETE_REGEX = "delete\\s([0-9]+)$";
+    /**
+     * Regex for deadline command.
+     */
     private static final String DEADLINE_INFO_REGEX = ".*\\s+/by\\s+.*";
+    /**
+     * Regex for event command.
+     */
     private static final String EVENT_INFO_REGEX = ".*\\s+/from\\s+.*\\s+/to\\s+.*";
+    /**
+     * Regex for datetime.
+     */
     private static final String DATETIME_REGEX = "\\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12]\\d|3[01]) \\d{2}:\\d{2}";
+    /**
+     * Regex for datetime.
+     */
     public static boolean isValidDateTime(String datetime) {
         datetime = datetime.strip();
         return Pattern.matches(DATETIME_REGEX, datetime);
     }
+    /**
+     * Parses a string to a LocalDateTime object.
+     * @param datetime String to be parsed
+     * @return LocalDateTime object
+     * @throws GrumpyGordonDateTimeFormatException If the datetime format is invalid
+     */
     public static LocalDateTime parseDateTime(String datetime) throws GrumpyGordonDateTimeFormatException {
         try {
             if (isValidDateTime(datetime)) {
@@ -41,6 +92,12 @@ public class Parser {
         }
         throw new GrumpyGordonDateTimeFormatException("Invalid datetime.\n");
     }
+    /**
+     * Parses a string to a Task object.
+     * @param line String to be parsed
+     * @return Task object
+     * @throws GrumpyGordonException If the saved format is invalid
+     */
     public static Task parseStringToTask(String line) throws GrumpyGordonException {
         String[] parts = line.split(SAVED_FORMAT_SEPARATOR_REGEX);
 
@@ -78,18 +135,34 @@ public class Parser {
         return null;
     }
 
+    /**
+     * Parses a string to a TaskList object.
+     * @param deadlineInfo String to be parsed
+     * @return TaskList object
+     */
     public static String[] parseDeadlineInfo(String deadlineInfo) {
         String desc = deadlineInfo.split(" /by ")[0];
         String by = deadlineInfo.split(" /by ")[1];
         return new String[] {desc, by};
     }
 
+    /**
+     * Parses a string to a TaskList object.
+     * @param eventInfo String to be parsed
+     * @return TaskList object
+     */
     public static String[] parseEventInfo(String eventInfo) {
         String desc = eventInfo.split(" /from ")[0];
         String from = eventInfo.split(" /from ")[1].split(" /to ")[0];
         String to = eventInfo.split(" /from ")[1].split(" /to ")[1];
         return new String[] {desc, from, to};
     }
+    /**
+     * Parses a string to a TaskList object.
+     * @param userInput String to be parsed
+     * @return TaskList object
+     * @throws GrumpyGordonException If the command is invalid
+     */
     public static Command parseCommand(String userInput, TaskList tasks) throws GrumpyGordonException{
         userInput = userInput.strip();
         String[] parts = userInput.split(SPACE_REGEX, 2);
@@ -158,7 +231,7 @@ public class Parser {
             case "todo":
                 String todoInfo = parts[1];
 
-                if (todoInfo.strip().isEmpty()) {
+                if (todoInfo.isBlank()) {
                     throw new GrumpyGordonInvalidCommandException("Command syntax for todo is incorrect.\n");
                 }
 

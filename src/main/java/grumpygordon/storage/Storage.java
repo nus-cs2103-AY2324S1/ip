@@ -1,9 +1,9 @@
 package grumpygordon.storage;
 
-
-import grumpygordon.tasks.*;
-import grumpygordon.exceptions.*;
-
+import grumpygordon.tasks.TaskList;
+import grumpygordon.tasks.Task;
+import grumpygordon.exceptions.GrumpyGordonException;
+import grumpygordon.exceptions.GrumpyGordonInitialisationException;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -12,9 +12,24 @@ import java.io.FileWriter;
 import java.io.BufferedReader;
 import java.io.IOException;
 
+/**
+ * Represents a storage for tasks.
+ */
 public class Storage {
+
+    /**
+     * Path to the directory where the data file is stored.
+     */
     private static final String DIRECTORY_PATH = "./data";
-    private static final String FILE_PATH = "./data/grumpygordon.tasks.txt";
+
+    /**
+     * Path to the data file.
+     */
+    private static final String FILE_PATH = "./data/tasks.txt";
+
+    /**
+     * Constructor of Storage.
+     */
     public Storage() throws GrumpyGordonInitialisationException {
         File dataDirectory = new File(DIRECTORY_PATH);
         File dataFile = new File(FILE_PATH);
@@ -27,11 +42,15 @@ public class Storage {
             try {
                 dataFile.createNewFile();
             } catch (IOException e) {
-                throw new GrumpyGordonInitialisationException("Error: Unable to create new file to store grumpygordon.tasks.\n");
+                throw new GrumpyGordonInitialisationException("Error: Unable to create new file to store tasks.\n");
             }
         }
     }
 
+    /**
+     * Saves the tasks to the data file.
+     * @param tasks The list of tasks to be saved
+     */
     public void saveTasks(TaskList tasks) {
         try (FileWriter fw = new FileWriter(FILE_PATH);
              BufferedWriter bw = new BufferedWriter(fw)) {
@@ -43,9 +62,14 @@ public class Storage {
                 bw.newLine();
             }
         } catch (IOException e) {
-            System.out.println("Error saving grumpygordon.tasks to file: " + e.getMessage());
+            System.out.println("Error saving tasks to file: " + e.getMessage());
         }
     }
+
+    /**
+     * Loads the tasks from the data file.
+     * @return The list of tasks loaded from the data file
+     */
     public TaskList loadTasks() throws GrumpyGordonException {
         TaskList tasks = new TaskList();
         try (FileReader fr = new FileReader(FILE_PATH);
@@ -56,7 +80,7 @@ public class Storage {
                     tasks.addTask(task);
                 }
         } catch (IOException e) {
-            System.out.println("Error reading grumpygordon.tasks from file: " + e.getMessage());
+            System.out.println("Error reading tasks from file: " + e.getMessage());
         }
         return tasks;
     }
