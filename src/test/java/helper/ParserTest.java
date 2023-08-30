@@ -1,10 +1,6 @@
-package Helper;
+package helper;
 
-import Task.Task;
-import Task.TaskList;
 import org.junit.jupiter.api.Test;
-
-import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
 

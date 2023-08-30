@@ -1,4 +1,4 @@
-package Exception;
+package exception;
 
 public class MissingTaskException extends DukeException {
     public MissingTaskException(String command) {

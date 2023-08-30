@@ -1,14 +1,14 @@
-package Command;
+package command;
 
 import java.time.LocalDate;
 
-import Exception.*;
-import Helper.*;
-import Task.*;
+import helper.Storage;
+import helper.Ui;
+import task.TaskList;
 
 public class DueCommand extends Command {
     public static final String COMMAND_WORD = "due";
-    LocalDate dueDate;
+    private LocalDate dueDate;
 
     public DueCommand(int index, LocalDate dueDate) {
         super(index);
@@ -16,7 +16,7 @@ public class DueCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList list, Ui ui, Storage storage) throws DukeException {
+    public void execute(TaskList list, Ui ui, Storage storage) {
         String message = list.dueOn(dueDate);
         ui.print(message);
     }

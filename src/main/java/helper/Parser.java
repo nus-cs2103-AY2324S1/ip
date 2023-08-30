@@ -1,23 +1,34 @@
-package Helper;
-
-import Command.Command;
+package helper;
 
 import java.time.LocalDate;
 
-import Exception.*;
-import Command.*;
+import command.AddCommand;
+import command.Command;
+import command.DeleteCommand;
+import command.DueCommand;
+import command.ExitCommand;
+import command.ListCommand;
+import command.MarkCommand;
+import command.UnmarkCommand;
+import exception.InvalidCommandException;
+import exception.MissingIndexException;
+import exception.MissingTaskException;
+import exception.WrongUseOfCommandException;
 
 public class Parser {
-    public static Command parse(String fullCommand) throws WrongUseOfCommandException, MissingIndexException, InvalidCommandException, MissingTaskException {
+    public static Command parse(String fullCommand) throws WrongUseOfCommandException, MissingIndexException,
+            InvalidCommandException, MissingTaskException {
         fullCommand = fullCommand.trim();
 
         if (fullCommand.startsWith("bye") || fullCommand.startsWith("list")) {
             if (fullCommand.equals(ExitCommand.COMMAND_WORD)) {
                 return new ExitCommand(-1);
             }
+
             if (fullCommand.equals(ListCommand.COMMAND_WORD)) {
                 return new ListCommand(-1);
             }
+
             throw new WrongUseOfCommandException();
         }
 
@@ -34,12 +45,12 @@ public class Parser {
                 int index = Integer.parseInt(res[1].strip());
 
                 switch (taskType) {
-                    case MarkCommand.COMMAND_WORD:
-                        return new MarkCommand(index);
-                    case UnmarkCommand.COMMAND_WORD:
-                        return new UnmarkCommand(index);
-                    case DeleteCommand.COMMAND_WORD:
-                        return new DeleteCommand(index);
+                case MarkCommand.COMMAND_WORD:
+                    return new MarkCommand(index);
+                case UnmarkCommand.COMMAND_WORD:
+                    return new UnmarkCommand(index);
+                case DeleteCommand.COMMAND_WORD:
+                    return new DeleteCommand(index);
                 }
             } catch (ArrayIndexOutOfBoundsException e) {
                 throw new MissingIndexException(fullCommand);

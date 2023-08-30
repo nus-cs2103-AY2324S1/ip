@@ -1,8 +1,9 @@
-package Command;
+package command;
 
-import Exception.*;
-import Helper.*;
-import Task.*;
+import exception.DukeException;
+import helper.Storage;
+import helper.Ui;
+import task.TaskList;
 
 public class DeleteCommand extends Command {
     public static final String COMMAND_WORD = "delete";

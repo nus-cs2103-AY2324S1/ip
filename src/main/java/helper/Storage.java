@@ -1,14 +1,18 @@
-package Helper;
+package helper;
 
-import Task.Task;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 
-import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import task.Task;
+
 public class Storage {
     private String filePath;
-    private final String directoryPath = "./data";
 
     public Storage(String filePath) {
         this.filePath = filePath;
@@ -29,15 +33,17 @@ public class Storage {
             bufferedReader.close();
             fileReader.close();
         } catch (FileNotFoundException e) {
+            String directoryPath = "./data";
             File directory = new File(directoryPath);
+
             if (!directory.exists()) {
                 directory.mkdirs();
             } else {
                 File file = new File(filePath);
                 try {
                     file.createNewFile();
-                } catch (IOException ioException) {
-                    System.out.println(ioException.getMessage());
+                } catch (IOException e1) {
+                    System.out.println(e1.getMessage());
                 }
             }
 

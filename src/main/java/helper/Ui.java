@@ -1,9 +1,9 @@
-package Helper;
+package helper;
 
 import java.util.Scanner;
 
 public class Ui {
-    public static String divider = "____________________________________________________________";
+    public static final String dDIVIDER = "____________________________________________________________";
 
     public void showWelcome() {
         showLine();
@@ -13,7 +13,7 @@ public class Ui {
     }
 
     public void showLine() {
-        System.out.println(divider);
+        System.out.println(dDIVIDER);
     }
 
     public void print(String message) {

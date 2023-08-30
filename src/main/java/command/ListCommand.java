@@ -1,7 +1,8 @@
-package Command;
+package command;
 
-import Helper.*;
-import Task.*;
+import helper.Storage;
+import helper.Ui;
+import task.TaskList;
 
 public class ListCommand extends Command {
     public static final String COMMAND_WORD = "list";
