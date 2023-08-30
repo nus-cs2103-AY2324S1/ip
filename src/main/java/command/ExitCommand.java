@@ -1,8 +1,8 @@
-package Command;
+package command;
 
-import Exception.*;
-import Helper.*;
-import Task.*;
+import helper.Storage;
+import helper.Ui;
+import task.TaskList;
 
 /**
  * Represents a Command that specifically exits the ChatBot.
@@ -31,7 +31,7 @@ public class ExitCommand extends Command {
      * @throws DukeException
      */
     @Override
-    public void execute(TaskList list, Ui ui, Storage storage) throws DukeException {
+    public void execute(TaskList list, Ui ui, Storage storage) {
         ui.print("Bye. Hope to see you again soon lol!");
     }
 }

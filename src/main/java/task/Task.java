@@ -1,4 +1,4 @@
-package Task;
+package task;
 
 import java.io.IOException;
 import java.time.LocalDate;
@@ -70,7 +70,7 @@ public class Task {
      * @return a String representation
      */
     public String getStatusIcon() {
-        return (isDone ? "X" : " "); // mark done task with X
+        return (isDone ? "X" : " ");
     }
 
     /**

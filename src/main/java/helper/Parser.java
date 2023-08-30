@@ -1,11 +1,19 @@
-package Helper;
-
-import Command.Command;
+package helper;
 
 import java.time.LocalDate;
 
-import Exception.*;
-import Command.*;
+import command.AddCommand;
+import command.Command;
+import command.DeleteCommand;
+import command.DueCommand;
+import command.ExitCommand;
+import command.ListCommand;
+import command.MarkCommand;
+import command.UnmarkCommand;
+import exception.InvalidCommandException;
+import exception.MissingIndexException;
+import exception.MissingTaskException;
+import exception.WrongUseOfCommandException;
 
 /**
  * Represents a Parser that takes in the User input and returns a Command object.
@@ -28,9 +36,11 @@ public class Parser {
             if (fullCommand.equals(ExitCommand.COMMAND_WORD)) {
                 return new ExitCommand(-1);
             }
+
             if (fullCommand.equals(ListCommand.COMMAND_WORD)) {
                 return new ListCommand(-1);
             }
+
             throw new WrongUseOfCommandException();
         }
 
@@ -47,12 +57,12 @@ public class Parser {
                 int index = Integer.parseInt(res[1].strip());
 
                 switch (taskType) {
-                    case MarkCommand.COMMAND_WORD:
-                        return new MarkCommand(index);
-                    case UnmarkCommand.COMMAND_WORD:
-                        return new UnmarkCommand(index);
-                    case DeleteCommand.COMMAND_WORD:
-                        return new DeleteCommand(index);
+                case MarkCommand.COMMAND_WORD:
+                    return new MarkCommand(index);
+                case UnmarkCommand.COMMAND_WORD:
+                    return new UnmarkCommand(index);
+                case DeleteCommand.COMMAND_WORD:
+                    return new DeleteCommand(index);
                 }
             } catch (ArrayIndexOutOfBoundsException e) {
                 throw new MissingIndexException(fullCommand);

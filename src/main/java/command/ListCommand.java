@@ -1,7 +1,8 @@
-package Command;
+package command;
 
-import Helper.*;
-import Task.*;
+import helper.Storage;
+import helper.Ui;
+import task.TaskList;
 
 /**
  * Represents a Command that specifically lists out all Tasks in the Tasklist.

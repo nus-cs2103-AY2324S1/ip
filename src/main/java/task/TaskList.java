@@ -1,17 +1,19 @@
-package Task;
+package task;
 
-import java.io.*;
+import java.io.FileWriter;
+import java.io.IOException;
+
 import java.time.LocalDate;
+
 import java.util.List;
 import java.util.stream.Collectors;
 
-import Exception.*;
+import exception.*;
 
 /**
  * Represents a list of Tasks a User can interact with.
  */
 public class TaskList {
-    private String filePath = "./data/tasks.txt";
     private List<Task> list;
 
     public TaskList(List<Task> list) {
@@ -27,9 +29,8 @@ public class TaskList {
     public String add(Task task) {
         list.add(task);
         updateFile();
-        return "I Gotchu. This task added successfully:\n" + task.toString() +
-                "\nYeaboi only " + list.size() + " in the list.";
-
+        return "I Gotchu. This task added successfully:\n" + task.toString()
+                + "\nYeaboi only " + list.size() + " in the list.";
     }
 
     /**
@@ -49,7 +50,7 @@ public class TaskList {
         task.toggleIsDone(true);
         updateFile();
 
-        return "Noice! I've marked this task as donezo:\n" + task.toString();
+        return "Noice! I've marked this task as donezo:\n" + task;
     }
 
     /**
@@ -88,7 +89,7 @@ public class TaskList {
         task.toggleIsDone(false);
         updateFile();
 
-        return "OK, I've marked this task as not done yet bruh:\n" + task.toString();
+        return "OK, I've marked this task as not done yet bruh:\n" + task;
     }
 
     /**
@@ -107,6 +108,7 @@ public class TaskList {
             return "Nothing to see here...";
         } else {
             StringBuilder s = new StringBuilder("ALERT!! Due on " + due);
+
             for (Task t : dueList) {
                 s.append(t.toString());
             }
@@ -122,10 +124,12 @@ public class TaskList {
     public String print() {
         StringBuilder s = new StringBuilder("");
         s.append("Here yo tasks in your list my g:");
+
         for (int i = 0; i < list.size(); i++) {
             Task task = list.get(i);
             s.append("\n" + (i + 1) + "." + task.toString());
         }
+
         return s.toString();
     }
 
@@ -135,9 +139,11 @@ public class TaskList {
      */
     public String toFileString() {
         StringBuilder res = new StringBuilder("");
+
         for (Task t : list) {
             res.append(t.toFileString());
         }
+
         return res.toString();
     }
 
@@ -148,9 +154,12 @@ public class TaskList {
      */
     public void updateFile() {
         try {
+            String filePath = "./data/tasks.txt";
             FileWriter fileWriter = new FileWriter(filePath);
+
             String newContent = toFileString();
             fileWriter.write(newContent);
+
             fileWriter.close();
         } catch (IOException e) {
             System.out.println("oops i done goofed");

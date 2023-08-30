@@ -1,4 +1,4 @@
-package Task;
+package task;
 
 /**
  * Represents a Task that has a start and end time.

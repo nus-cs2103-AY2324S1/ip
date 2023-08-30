@@ -1,10 +1,10 @@
-package Command;
+package command;
 
 import java.time.LocalDate;
 
-import Exception.*;
-import Helper.*;
-import Task.*;
+import helper.Storage;
+import helper.Ui;
+import task.TaskList;
 
 /**
  * Represents a Command specifically returns Tasks due on a LocalDate.
@@ -26,7 +26,7 @@ public class DueCommand extends Command {
      * @throws DukeException
      */
     @Override
-    public void execute(TaskList list, Ui ui, Storage storage) throws DukeException {
+    public void execute(TaskList list, Ui ui, Storage storage) {
         String message = list.dueOn(dueDate);
         ui.print(message);
     }

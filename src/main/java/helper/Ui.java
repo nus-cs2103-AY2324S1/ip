@@ -1,9 +1,9 @@
-package Helper;
+package helper;
 
 import java.util.Scanner;
 
 public class Ui {
-    public static String divider = "____________________________________________________________";
+    public static final String dDIVIDER = "____________________________________________________________";
 
     /**
      * Prints out a welcome message to the User to signal the ChatBot has started up.
@@ -19,7 +19,7 @@ public class Ui {
      * Prints out a dividing line.
      */
     public void showLine() {
-        System.out.println(divider);
+        System.out.println(dDIVIDER);
     }
 
     /**

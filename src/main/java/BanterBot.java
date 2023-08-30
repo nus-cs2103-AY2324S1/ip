@@ -1,18 +1,20 @@
-import Command.Command;
+import command.Command;
 
-import Exception.*;
-import Helper.*;
-import Task.*;
+import exception.DukeException;
+import helper.Parser;
+import helper.Storage;
+import helper.Ui;
+import task.TaskList;
 
 /**
  * Represents the ChatBot the User interacts with.
  */
-public class Duke {
+public class BanterBot {
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
 
-    public Duke(String filePath) {
+    public BanterBot(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
         tasks = new TaskList(storage.load());
@@ -37,6 +39,6 @@ public class Duke {
     }
 
     public static void main(String[] args) {
-        new Duke("data/tasks.txt").run();
+        new BanterBot("data/tasks.txt").run();
     }
 }

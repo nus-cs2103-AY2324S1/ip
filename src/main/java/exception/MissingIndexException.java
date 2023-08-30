@@ -1,4 +1,4 @@
-package Exception;
+package exception;
 
 public class MissingIndexException extends DukeException {
     public MissingIndexException(String command) {

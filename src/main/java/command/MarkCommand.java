@@ -1,8 +1,9 @@
-package Command;
+package command;
 
-import Exception.*;
-import Helper.*;
-import Task.*;;
+import exception.DukeException;
+import helper.Storage;
+import helper.Ui;
+import task.TaskList;;
 
 /**
  * Represents a Command that specifically marks a Task at a given Index in the TaskList
