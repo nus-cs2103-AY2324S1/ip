@@ -1,3 +1,4 @@
+import java.io.*;
 import java.util.Scanner;
 
 /**
@@ -5,38 +6,13 @@ import java.util.Scanner;
  */
 public class ChatBot {
     private final TaskList taskList ;
+    private final String FILE_PATH = "./src/main/data/duke.txt";
 
     /**
      * Initializes the Chatbot with an empty task list
      */
     public ChatBot() {
         this.taskList = new TaskList();
-    }
-
-    /**
-     * Marks a task as done and provides user feedback
-     *
-     * @param taskIndex Index of the task to be marked as done, starts from '1'
-     */
-    public void markTaskByBot(int taskIndex) {
-        taskList.markTaskAsDone(taskIndex - 1);
-        System.out.println("____________________________________________________________\n" +
-                " Nice! I've marked this task as done:\n" +
-                taskList.getTaskDetails(taskIndex - 1) +
-                "\n____________________________________________________________");
-    }
-
-    /**
-     * Marks a task as not done and provides user feedback
-     *
-     * @param taskIndex Index of the task to be marked as not done, starts from '1'
-     */
-    public void unmarkTaskByBot(int taskIndex) {
-        taskList.markTaskAsNotDone(taskIndex - 1);
-        System.out.println("____________________________________________________________\n" +
-                " OK, I've marked this task as not done yet:\n" +
-                taskList.getTaskDetails(taskIndex - 1) +
-                "\n____________________________________________________________");
     }
 
     /**
@@ -53,6 +29,36 @@ public class ChatBot {
             return false;
         }
     }
+
+    /**
+     * Marks a task as done and provides user feedback
+     *
+     * @param taskIndex Index of the task to be marked as done, starts from '1'
+     */
+    public void markTaskByBot(int taskIndex) {
+        taskList.markTaskAsDone(taskIndex - 1);
+        saveTasksToFile();
+        System.out.println("____________________________________________________________\n" +
+                " Nice! I've marked this task as done:\n" +
+                taskList.getTaskDetails(taskIndex - 1) +
+                "\n____________________________________________________________");
+    }
+
+    /**
+     * Marks a task as not done and provides user feedback
+     *
+     * @param taskIndex Index of the task to be marked as not done, starts from '1'
+     */
+    public void unmarkTaskByBot(int taskIndex) {
+        taskList.markTaskAsNotDone(taskIndex - 1);
+        saveTasksToFile();
+        System.out.println("____________________________________________________________\n" +
+                " OK, I've marked this task as not done yet:\n" +
+                taskList.getTaskDetails(taskIndex - 1) +
+                "\n____________________________________________________________");
+    }
+
+
 
     /**
      * Deletes a task from the task list based on the provided input.
@@ -85,7 +91,7 @@ public class ChatBot {
      * @param description The description of the task
      * @throws DukeException If there is an error adding the task
      */
-    private void addTaskByBot(String taskType, String description) throws DukeException {
+    public void addTaskByBot(String taskType, String description) throws DukeException {
         Task newTask = null;
         String taskDescription;
         String deadlineTiming;
@@ -151,6 +157,32 @@ public class ChatBot {
         }
     }
 
+    private void loadTasksFromFile() {
+        try (Scanner scanner = new Scanner(new File(FILE_PATH))) {
+            while (scanner.hasNextLine()) {
+                String taskData = scanner.nextLine();
+                Task task = Task.parseDataString(taskData);
+                this.taskList.addTask(task);
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println("Date file not found, starting with an empty task list.");
+        }
+        this.taskList.displayTasks();
+    }
+
+    /**
+     * Saves the tasks to the storage file
+     */
+    private void saveTasksToFile() {
+        try (PrintWriter writer = new PrintWriter(new FileWriter(FILE_PATH))) {
+            for (int i = 0; i < taskList.getTaskCount(); i++) {
+                Task task = taskList.getTask(i);
+                writer.println(task.readTaskToFile(task)); // Write the task's data to the file
+            }
+        } catch (IOException e) {
+            System.out.println("Error saving tasks to file: " + e.getMessage());
+        }
+    }
 
     /**
      * Start the chatbot interaction loop, end when "bye" is given
@@ -169,8 +201,8 @@ public class ChatBot {
 
         System.out.println(helloMessage);
         String input;
-        String printMessage;
 
+        loadTasksFromFile();
         while (true) {
             try {
                 input = scanner.nextLine();
@@ -207,6 +239,7 @@ public class ChatBot {
                 } else {
                     throw new DukeException("I'm sorry, but I don't know what that means :-(");
                 }
+                saveTasksToFile();
             } catch (DukeException e) {
                 System.out.println("____________________________________________________________\n" +
                         " ☹ OOPS!!! " + e.getMessage() + "\n" +
