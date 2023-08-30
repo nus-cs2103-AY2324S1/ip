@@ -7,6 +7,7 @@ import command.Command;
 import command.DeleteCommand;
 import command.DueCommand;
 import command.ExitCommand;
+import command.FindCommand;
 import command.ListCommand;
 import command.MarkCommand;
 import command.UnmarkCommand;
@@ -45,13 +46,18 @@ public class Parser {
         }
 
         if (fullCommand.startsWith("mark") || fullCommand.startsWith("unmark") ||
-                fullCommand.startsWith("delete") || fullCommand.startsWith("due")) {
+                fullCommand.startsWith("delete") || fullCommand.startsWith("due") ||
+                fullCommand.startsWith("find")) {
             try {
                 String[] res = fullCommand.split(" ", 2);
                 String taskType = res[0].strip();
 
                 if (taskType.equals(DueCommand.COMMAND_WORD)) {
                     return new DueCommand(-1, LocalDate.parse(res[1].strip()));
+                }
+
+                if (taskType.equals(FindCommand.COMMAND_WORD)) {
+                    return new FindCommand(-1, res[1].strip());
                 }
 
                 int index = Integer.parseInt(res[1].strip());

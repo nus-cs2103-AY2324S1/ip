@@ -115,7 +115,31 @@ public class TaskList {
             StringBuilder s = new StringBuilder("ALERT!! Due on " + due);
 
             for (Task t : dueList) {
-                s.append(t.toString());
+                s.append("\n" + t.toString());
+            }
+
+            return s.toString();
+        }
+    }
+
+    /**
+     * Returns a String representation of the list of Task containing the
+     * substring in its description specified by the User.
+     * @param substring
+     * @return a String representation of the list of Task found
+     */
+    public String find(String substring) {
+        List<Task> subList = list.stream()
+                .filter(task -> task.description.contains(substring))
+                .collect(Collectors.toList());
+
+        if (subList.isEmpty()) {
+            return "No such Task...";
+        } else {
+            StringBuilder s = new StringBuilder("Do this:");
+
+            for (Task t : subList) {
+                s.append("\n" + t.toString());
             }
 
             return s.toString();
