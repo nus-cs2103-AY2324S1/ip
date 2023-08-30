@@ -1,7 +1,45 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 public class AiChan {
+    private Storage storage;
+    private TaskList tasks;
+    private Ui ui;
+
+    public AiChan(String filePath) {
+        ui = new Ui();
+        storage = new Storage(filePath);
+        tasks = new TaskList();
+        /*
+        try {
+            tasks = new TaskList(storage.load());
+        } catch (DukeException e) {
+            ui.showLoadingError();
+            tasks = new TaskList();
+        }
+        */
+    }
+
+    public void run() {
+        ui.showWelcome();
+        boolean isExit = false;
+        while (!isExit) {
+            try {
+                String fullCommand = ui.readCommand();
+                ui.showLine();
+                Command c = Parser.parse(fullCommand);
+                // c.execute(tasks, ui, storage);
+                c.execute(tasks, ui);
+                isExit = c.isExit();
+            } catch (AiChanException e) {
+                ui.showError(e.getMessage());
+            } finally {
+                ui.showLine();
+            }
+        }
+    }
     public static void main(String[] args) {
+        new AiChan("data/tasks.txt").run();
+    /*
         String line = "_______________________________________________________________________\n";
         String greet = "Hiya! I'm Ai-chan~\n" +
                 "Hey there, dear viewer, what's on your mind?\n" +
@@ -108,5 +146,7 @@ public class AiChan {
                 System.out.println(line + err.getMessage() + "\n" + line);
             }
         }
+
+     */
     }
 }
