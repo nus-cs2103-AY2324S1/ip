@@ -19,10 +19,12 @@ public class Task {
         return (isDone ? "X" : " "); // mark done task with X
     }
 
-    public String getDescription() {
-        return description;
-    }
+    public String toWrite() {
+        if (isDone)
+            return "1 | " + description;
+        return "0 | " + description;
 
+    }
     @Override
     public String toString() {
         return "[" + getStatusIcon() + "] " + description;
