@@ -23,7 +23,7 @@ import bruno.task.ToDo;
  * update and display of tasks.
  */
 public class TaskList {
-    public static List<Task> list;
+    private List<Task> list;
     private final Storage storage;
     private final UI ui;
 
@@ -200,13 +200,13 @@ public class TaskList {
         LocalDate d = LocalDate.parse(task.split(" ")[1], DateTimeFormatter.ofPattern("yyyy-MM-dd"));
         for (Task t : list) {
             if (t instanceof Deadline) {
-                if (d.isEqual(((Deadline) t).by.toLocalDate())) {
+                if (d.isEqual(((Deadline) t).getBy().toLocalDate())) {
                     s = s + "\t" + (++counter) + ". " + t.getString() + "\n";
                 }
             } else if (t instanceof Event) {
-                if ((d.isAfter(((Event) t).from.toLocalDate()) && d.isBefore(((Event) t).by.toLocalDate()))
-                        || d.isEqual(((Event) t).from.toLocalDate()) || d.isEqual((
-                                (Event) t).by.toLocalDate())) {
+                if ((d.isAfter(((Event) t).getFrom().toLocalDate()) && d.isBefore(((Event) t).getBy().toLocalDate()))
+                        || d.isEqual(((Event) t).getFrom().toLocalDate()) || d.isEqual((
+                                (Event) t).getBy().toLocalDate())) {
                     s = s + "\t" + (++counter) + ". " + t.getString() + "\n";
                 }
             }
@@ -215,5 +215,13 @@ public class TaskList {
             ui.displayMessage("\tYou have no deadlines or events on this date.");
         }
         ui.displayMessage(s);
+    }
+
+    public void setList(List<Task> list) {
+        this.list = list;
+    }
+
+    public List<Task> getList() {
+        return this.list;
     }
 }

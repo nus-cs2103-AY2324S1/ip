@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
  * The Deadline task is responsible for all tasks of Deadline type.
  */
 public class Deadline extends Task {
-    public LocalDateTime by;
+    private LocalDateTime by;
 
     /**
      * Creates a new instance of the Deadline class.
@@ -25,5 +25,9 @@ public class Deadline extends Task {
 
     @Override public String getFileString() {
         return "D|" + super.getFileString() + "|" + by.toString().replace('T', ' ');
+    }
+
+    public LocalDateTime getBy() {
+        return this.by;
     }
 }

@@ -24,7 +24,7 @@ public class DeadlineTest {
     @Test
     void testGetString_markedTask_stringGenerated() {
         Task task = new Deadline("ip tasks", "2023-09-01 16:00");
-        task.isDone = true;
+        task.markAsDone();
         assertEquals("[D][X] ip tasks (by: 01 September 2023 16:00)", task.getString());
     }
 
@@ -37,7 +37,7 @@ public class DeadlineTest {
     @Test
     void testGetFileString_markedTask_stringGenerated() {
         Task task = new Deadline("complete registration", "2023-09-02 10:00");
-        task.isDone = true;
+        task.markAsDone();
         assertEquals("D|✅|complete registration|2023-09-02 10:00", task.getFileString());
     }
 }

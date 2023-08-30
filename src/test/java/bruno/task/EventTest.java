@@ -25,7 +25,7 @@ public class EventTest {
     @Test
     void testGetString_markedTask_stringGenerated() {
         Task task = new Event("office hours", "2023-08-29 19:00", "2023-08-29 22:00");
-        task.isDone = true;
+        task.markAsDone();
         assertEquals("[E][X] office hours (from: 29 August 2023 19:00 to: 29 August 2023 22:00)",
                 task.getString());
     }
@@ -39,7 +39,7 @@ public class EventTest {
     @Test
     void testGetFileString_markedTask_stringGenerated() {
         Task task = new Event("career fair", "2023-08-29 10:00", "2023-08-31 18:00");
-        task.isDone = true;
+        task.markAsDone();
         assertEquals("E|✅|career fair|2023-08-29 10:00|2023-08-31 18:00", task.getFileString());
     }
 }

@@ -19,7 +19,7 @@ public class TaskTest {
     @Test
     void testGetString_markedTask_stringGenerated() {
         Task task = new Task(TaskType.DEADLINE, "project submission");
-        task.isDone = true;
+        task.markAsDone();
         assertEquals("[X] project submission", task.getString());
     }
 
@@ -32,7 +32,7 @@ public class TaskTest {
     @Test
     void testGetFileString_markedTask_stringGenerated() {
         Task task = new Task(TaskType.TODO, "laundry");
-        task.isDone = true;
+        task.markAsDone();
         assertEquals("✅|laundry", task.getFileString());
     }
 
