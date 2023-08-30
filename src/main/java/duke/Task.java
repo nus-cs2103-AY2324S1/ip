@@ -1,5 +1,8 @@
 package duke;
 
+/**
+ * Represents a task
+ */
 public abstract class Task {
     protected String description;
     protected boolean isDone;
@@ -24,18 +27,30 @@ public abstract class Task {
         return(isDone ? "X" : " "); // mark done task with X
     }
 
+    // Mark a task as done.
     public void markAsDone() {
         this.isDone = true;
     }
 
+    // Mark a task as not done
     public void markAsNotDone() {
         this.isDone = false;
     }
 
+    /**
+     * Return the string representation of the task.
+     *
+     * @return the string representation
+     */
     @Override
     public String toString() {
         return "[" + this.getStatusIcon() + "] " + this.description;
     }
 
+    /**
+     * Return the string representation of the task in file format.
+     *
+     * @return the string representation in file format
+     */
     abstract String toFileFormat();
 }

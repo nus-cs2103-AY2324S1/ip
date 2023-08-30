@@ -10,6 +10,7 @@ public class Duke {
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
+
     /**
      * A constructor for the chatbot
      */
@@ -23,6 +24,9 @@ public class Duke {
         }
     }
 
+    /**
+     * Run the chatbot
+     */
     public void run() {
         this.ui.printGreeting();
 
@@ -111,6 +115,11 @@ public class Duke {
         }
     }
 
+    /**
+     * The main method to run the chatbot
+     *
+     * @param args the command line arguments
+     */
     public static void main(String[] args) {
         new Duke("./duke.txt").run();
     }

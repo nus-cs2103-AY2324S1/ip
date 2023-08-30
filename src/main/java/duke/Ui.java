@@ -1,14 +1,17 @@
 package duke;
 
 public class Ui {
+    // Print the greeting message
     public void printGreeting() {
         System.out.println("Hello! I'm Botty!\nWhat can I do for you?");
     }
 
+    // Print the farewell message
     public void printFarewell() {
         System.out.println("Bye. Hope to see you again soon!");
     }
 
+    // Print all the available commands
     public void printAllCommands() {
         System.out.println("OOPS!!! Invalid command. Try the following commands instead:");
         System.out.println("> todo <task>");

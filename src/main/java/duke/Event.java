@@ -26,12 +26,22 @@ public class Event extends Task {
         this.formatter = DateTimeFormatter.ofPattern("MMM dd yyyy hh:mm a");
     }
 
+    /**
+     * Return the string representation of the task.
+     *
+     * @return the string representation
+     */
     @Override
     public String toString() {
         return "[E]" + super.toString() + " (from: " + this.from.format(formatter) + " to: " +
                 this.to.format(formatter) + ")";
     }
 
+    /**
+     * Return the string representation of the task in file format.
+     *
+     * @return the string representation in file format
+     */
     @Override
     public String toFileFormat() {
         return "E | " + this.isDone + " | " + this.description + " | " + this.from.format(formatter) +

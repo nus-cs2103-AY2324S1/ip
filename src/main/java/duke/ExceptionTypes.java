@@ -1,5 +1,8 @@
 package duke;
 
+/**
+ * Represents the types of exceptions
+ */
 public enum ExceptionTypes {
     INVALIDCOMMANDEVENT("OOPS!!! Invalid command. The command for an event should be:\nevent <task> /from yyyy-mm-dd hh:mm /to yyyy-mm-dd hh:mm"),
     INCOMPLETECOMMANDEVENT("OOPS!!! The description of an event cannot be empty and the start and end time/date cannot be empty."),
@@ -14,6 +17,7 @@ public enum ExceptionTypes {
     INVALIDCOMMAND("OOPS!!! I'm sorry, but I don't know what that means :-(");
 
     private final String errormessage;
+
 
     ExceptionTypes(String errormessage) {
         this.errormessage = errormessage;

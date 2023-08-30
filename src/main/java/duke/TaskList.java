@@ -10,20 +10,38 @@ public class TaskList {
     private List<Task> tasks;
     private final DateTimeFormatter inputFormatter;
 
+    /**
+     * A constructor for the task list if an initial list exist
+     *
+     * @param tasks the list of tasks
+     */
     public TaskList(List<Task> tasks) {
         this.tasks = tasks;
         this.inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
     }
 
+    /**
+     * A constructor for the task list if an initial list does not exist
+     */
     public TaskList() {
         this.tasks = new ArrayList<>();
         this.inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
     }
 
+    /**
+     * Returns the number of tasks in the list.
+     *
+     * @return the number of tasks
+     */
     public int getNumberOfTasks() {
         return this.tasks.size();
     }
 
+    /**
+     * Returns the list of tasks.
+     *
+     * @return the list of tasks
+     */
     public List<Task> getTasks() {
         return this.tasks;
     }

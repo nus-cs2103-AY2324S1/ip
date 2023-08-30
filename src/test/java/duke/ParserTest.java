@@ -4,7 +4,9 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-
+/**
+ * Represents a test for Parser class
+ */
 public class ParserTest {
     @Test
     public void testGetCommand() {

@@ -23,11 +23,21 @@ public class Deadline extends Task {
         this.formatter = DateTimeFormatter.ofPattern("MMM dd yyyy hh:mm a");
     }
 
+    /**
+     * Return the string representation of the task.
+     *
+     * @return the string representation
+     */
     @Override
     public String toString() {
         return "[D]" + super.toString() + " (by: " + this.by.format(formatter) + ")";
     }
 
+    /**
+     * Return the string representation of the task in file format.
+     *
+     * @return the string representation in file format
+     */
     @Override
     public String toFileFormat() {
         return "D | " + this.isDone + " | " + this.description + " | " + this.by.format(formatter);
