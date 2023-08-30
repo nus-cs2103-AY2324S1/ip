@@ -4,6 +4,9 @@ import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * Parses user input.
+ */
 public class Parser {
     public static final Pattern BASIC_COMMAND = Pattern.compile("(?<command>\\S+)(?<arguments>.*)");
     public static final String isoDatePattern = "\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}";
@@ -14,6 +17,14 @@ public class Parser {
             "(?<deadline>[^\"]+) /from (" + isoDatePattern + ")"
                     + " /to (" + isoDatePattern + ")");
 
+    /**
+     * Parses user input and returns a Command. The Command can then be executed
+     * to respond to the user input.
+     *
+     * @param input The user input.
+     * @return A Command to be executed.
+     * @throws DukeException
+     */
     public static Command parse(String input) throws DukeException {
         final Matcher matcher = BASIC_COMMAND.matcher(input.trim());
 

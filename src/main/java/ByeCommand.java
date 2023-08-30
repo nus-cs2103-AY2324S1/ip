@@ -1,8 +1,9 @@
 import java.io.IOException;
 
+/**
+ * Command to end the Chat Bot. Saves user input into file.
+ */
 public class ByeCommand extends Command {
-    public ByeCommand(){};
-
     @Override
     public void execute(TaskList tasks, Ui ui, Storage store) {
         try {

@@ -5,12 +5,21 @@
  * @since 2023-08-24
  */
 import java.io.IOException;
+
 public class Duke {
 
+    /**Reads and writes task data into file*/
     private Storage storage;
+    /**List of tasks input by user or loaded from file*/
     private TaskList tasks;
+    /**Handles user interactions*/
     private Ui ui;
 
+    /**
+     * Constructs a Duke object with the specified file path.
+     *
+     * @param filePath The path where the ChatBot loads data from.
+     */
     public Duke(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
@@ -22,6 +31,10 @@ public class Duke {
         }
     }
 
+    /**
+     * Controls the flow of events of the ChatBot. When active, ChatBot will get user input
+     * and execute the given commands.
+     */
     public void run() {
         ui.startBot();
         boolean isExit = false;
@@ -42,72 +55,14 @@ public class Duke {
         ui.endBot();
     }
 
+    /**
+     * The main entry point for the Duke ChatBot application.
+     * Initialise an instance of Duke with the specified file path
+     * and starts the Duke application.
+     *
+     * @param args Command-line arguments provided when running the application (not used).
+     */
     public static void main(String[] args) {
         new Duke("./src/main/data/duke.txt").run();
     }
-
-
-//    public static void main(String[] args) {
-//        String name = "Obi-wan Kenobi";
-//        String line = "_____________________________________";
-//        String FILEPATH = "./src/main/data/duke.txt";
-//        File f = new File(FILEPATH);
-//        ArrayList<Task> taskList = new ArrayList<>();
-//
-//        try {
-//
-//            if (f.exists()) {
-//                Scanner s = new Scanner(f); // create a Scanner using the File as the source
-//                while (s.hasNext()) {
-//                    addFileTask(taskList, s.nextLine());
-//                }
-//            } else {
-//                f.createNewFile();
-//            }
-//        } catch (IOException e) {
-//            System.out.print(e.getMessage());
-//        }
-//
-//        Scanner scanner = new Scanner(System.in);
-//
-//        System.out.println("Hello There! I am " + name);
-//        System.out.println("What can I do for you?");
-//        System.out.println(line);
-//
-//        while (true) {
-//            String input = scanner.nextLine();
-//            String[] command = input.split(" ", 2);
-//
-//            if (command[0].equals("bye") && command.length == 1) {
-//                break;
-//            } else if (command[0].equals("list") && command.length == 1) {
-//                System.out.println("Here are the tasks in your list:");
-//                for (int i = 0; i < taskList.size(); i++) {
-//                    System.out.print((i + 1) + "." + taskList.get(i).toString() + "\n");
-//                }
-//            } else if (command[0].equals("mark") || command[0].equals("unmark") || command[0].equals("delete")) {
-//                try {
-//                    editTask(command, taskList);
-//                } catch (DukeException e) {
-//                    System.out.println(e.getMessage());
-//                }
-//            } else {
-//                try {
-//                    addTask(taskList, command);
-//                } catch (DukeException e) {
-//                    System.out.println(e.getMessage());
-//                }
-//            }
-//
-//            System.out.println(line);
-//        }
-//
-//        try {
-//            writeTaskToFile(FILEPATH, taskList);
-//        } catch (IOException e) {
-//            System.out.println(e.getMessage());
-//        }
-//
-//        System.out.println("Bye. May the force be with you!");
-//    }
 }
