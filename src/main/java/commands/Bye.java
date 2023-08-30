@@ -1,5 +1,6 @@
 package commands;
 
+import java.io.IOException;
 import java.util.Scanner;
 
 import utils.Storage;
@@ -16,7 +17,13 @@ public class Bye extends Command {
 
   public void execute() {
     scanner.close();
-    Storage.save(tasks);
-    ui.bye();
+    try {
+      Storage.save(tasks);
+    } catch (IOException e) {
+      this.ui.error("Filepath issue");
+    } catch (Exception e) {
+      this.ui.error("Failed to save");
+    }
+    this.ui.bye();
   }
 }

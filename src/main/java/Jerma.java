@@ -1,3 +1,4 @@
+import java.io.IOException;
 import java.util.Scanner;
 
 import commands.Delete;
@@ -35,8 +36,10 @@ public class Jerma {
 
     try {
       this.tasks = Storage.load();
-    } catch (Exception e) {
-      this.tasks = new TaskList();
+    } catch (IOException e) {
+      ui.error("Save file not found");
+    } catch (UnsupportedOperationException e) {
+      ui.error("Corrupted save file");
     }
   }
 
