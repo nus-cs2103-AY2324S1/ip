@@ -34,13 +34,14 @@ checkstyle {
 }
 
 application {
-    mainClass.set("/src/main/java/duke/Duke")
+    mainClass.set("duke.Duke")
 }
 
 shadowJar {
     archiveBaseName = "duke"
     archiveClassifier = null
     dependsOn("distZip", "distTar")
+    archiveFileName = 'duke.jar'
 }
 
 run{

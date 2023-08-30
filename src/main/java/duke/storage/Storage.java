@@ -22,7 +22,8 @@ public class Storage {
         File file = new File(this.filePath);
         try {
             if (!file.exists()) {
-               file.createNewFile();
+                file.getParentFile().mkdirs();
+                file.createNewFile();
             }
             Scanner sc = new Scanner(file);
             ArrayList<Task> taskArr = new ArrayList<>();
