@@ -84,7 +84,25 @@ public class ChatBotList {
         return itemToRemove.toString();
     }
 
-
+    /**
+     * Find the item in the list.
+     * 
+     * @param query Query string
+     * @return The toString()s of all matching Items
+     */
+    public String findItem(String query) {
+        String rtnVal = "";
+        for (int i = 0; i < this.list.size(); i++) {
+            if (this.list.get(i).getName().contains(query)) {
+                rtnVal += "\n" + (i + 1 + ".") + this.list.get(i).toString();
+            }
+        }
+        if (rtnVal.equals("")) {
+            return rtnVal;
+        }
+        rtnVal = rtnVal.substring(1);
+        return rtnVal;
+    }
     @Override
     public String toString() {
         String rtnVal = "";

@@ -23,24 +23,27 @@ public class Storage {
             while (listReader.hasNextLine()) {
                 String data = listReader.nextLine();
                 switch (data.substring(data.indexOf("["), data.indexOf("]") + 1)) {
-                    case "[T]":
-                        list.add(new Todo(data.substring(data.indexOf("[") + 7)));
-                        break;
-                    case "[E]":
-                        data.indexOf("(from: ");
-                        data.indexOf(" to: ");
-                        list.add(new Event(data.substring(data.indexOf("[") + 7, data.indexOf(" (from: ")), 
-                                LocalDateTime.parse(data.substring(data.indexOf("(from: ") + 7, data.indexOf(" to: ")), DukeEnvironmentConstants.OUTPUT_FORMATTER),
-                                LocalDateTime.parse(data.substring(data.indexOf("to: ") + 4, data.length() - 1), DukeEnvironmentConstants.OUTPUT_FORMATTER)));
-                        break;
-                    case "[D]":
-                        list.add(new Deadline(data.substring(data.indexOf("[") + 7, data.indexOf(" (by: ")),
-                                LocalDateTime.parse(data.substring(data.indexOf("(by: ") + 5, data.length()-1), DukeEnvironmentConstants.OUTPUT_FORMATTER)));
-                        break;
-                    default: throw new LoadListException();
+                case "[T]":
+                    list.add(new Todo(data.substring(data.indexOf("[") + 7)));
+                    break;
+                case "[E]":
+                    data.indexOf("(from: ");
+                    data.indexOf(" to: ");
+                    list.add(new Event(data.substring(data.indexOf("[") + 7, data.indexOf(" (from: ")),
+                            LocalDateTime.parse(data.substring(data.indexOf("(from: ") + 7, data.indexOf(" to: ")),
+                                    DukeEnvironmentConstants.OUTPUT_FORMATTER),
+                            LocalDateTime.parse(data.substring(data.indexOf("to: ") + 4, data.length() - 1),
+                                    DukeEnvironmentConstants.OUTPUT_FORMATTER)));
+                    break;
+                case "[D]":
+                    list.add(new Deadline(data.substring(data.indexOf("[") + 7, data.indexOf(" (by: ")),
+                            LocalDateTime.parse(data.substring(data.indexOf("(by: ") + 5, data.length() - 1),
+                            DukeEnvironmentConstants.OUTPUT_FORMATTER)));
+                    break;
+                default: throw new LoadListException();
                 }
                 if (data.substring(data.indexOf("[") + 4, data.indexOf("[") + 5).equals("X")) {
-                            markItem(list, list.size() - 1);
+                    markItem(list, list.size() - 1);
                 }
             }
             listReader.close();

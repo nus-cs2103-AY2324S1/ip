@@ -5,14 +5,15 @@ import java.time.format.DateTimeParseException;
  * Encapsulates the parsing mechanism of the chat bot.
  */
 public class Parser {
-    private static final String EMPTY_MARK_QUERY = "☹ OOPS!!! You did not specify which task you want to %s.\n"
-            + "Please use this syntax:\n %s <index>\n";
-    private static final String EMPTY_EVENT_DESC = "☹ OOPS!!! The description of a event cannot be empty.\nPlease use this syntax:\n"
-             + "event <desc> /from <start> /to <end>\n";
-    private static final String EMPTY_DEADLINE_DESC = "☹ OOPS!!! The description of a deadline cannot be empty.\nPlease use this syntax:\n"
-            + "deadline <desc> /by <deadline>\n" ;
-    private static final String EMPTY_TODO_DESC = "☹ OOPS!!! The description of a todo cannot be empty.\n";
-    private static final String NO_VALID_COMMAND = "☹ OOPS!!! I'm sorry, but I don't know what that means :-(\n";
+    private static final String EMPTY_MARK_QUERY = "☹ OOPS!!! You did not specify which task you want to %s."
+            + "Please use this syntax:\n %s <index>";
+    private static final String EMPTY_EVENT_DESC = "☹ OOPS!!! The description of a event cannot be empty.\nPlease use this syntax:"
+             + "event <desc> /from <start> /to <end>";
+    private static final String EMPTY_DEADLINE_DESC = "☹ OOPS!!! The description of a deadline cannot be empty.\nPlease use this syntax:"
+            + "deadline <desc> /by <deadline>" ;
+    private static final String EMPTY_TODO_DESC = "☹ OOPS!!! The description of a todo cannot be empty.";
+    private static final String EMPTY_FIND_QUERY = "☹ OOPS!!! The what are you trying to find?";
+    private static final String NO_VALID_COMMAND = "☹ OOPS!!! I'm sorry, but I don't know what that means :-(";
     private static final String INVALID_DATE_FORMAT = "☹ OOPS!!! Invalid date/time format.\nPlease format your start/end times as \"yyyy-MM-dd HHmm\" in 24 hr format";
     private static final String INVALID_DATE_ORDER = "☹ OOPS!!! Your end date/time is before your start date/time!";
     
@@ -91,6 +92,12 @@ public class Parser {
                     throw new ParserException(EMPTY_TODO_DESC);
                 } else {
                     return new AddToListCommand(DukeEnvironmentConstants.taskType.TODO, new String[]{splitInput[1]});
+                }
+            } else if (splitInput[0].equals("find")) {
+                if (splitInput.length < 2) {
+                    throw new ParserException(EMPTY_FIND_QUERY);
+                } else {
+                    return new FindCommand(splitInput[1]);
                 }
             } else {
                 throw new ParserException(NO_VALID_COMMAND);
