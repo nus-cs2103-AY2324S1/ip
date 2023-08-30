@@ -1,5 +1,9 @@
+
 import java.io.*;
 import java.lang.reflect.Array;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -22,12 +26,13 @@ public class Duke {
 
 
         }
-        String EXIT_PHRASE = "bye";
-        String LIST_PHRASE = "list";
-        String TODO_PHRASE = "todo";
-        String DEADLINE_PHRASE = "deadline";
-        String EVENT_PHRASE = "event";
-        String DELETE_PHRASE = "delete";
+        final String EXIT_PHRASE = "bye";
+        final String LIST_PHRASE = "list";
+        final String TODO_PHRASE = "todo";
+        final String DEADLINE_PHRASE = "deadline";
+        final String EVENT_PHRASE = "event";
+        final String DELETE_PHRASE = "delete";
+        final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
         int LIMIT = 100;
         int i = 0;
@@ -110,7 +115,13 @@ public class Duke {
                     throw new DukeException("☹ OOPS!!! The description of a deadline cannot be empty.");
                 }
                 System.out.println("To be done by?");
-                String by = myObj.nextLine();
+                String userInputBy = myObj.nextLine();
+                LocalDate by;
+                if (userInputBy.equals("today")) {
+                    by = LocalDate.now();
+                } else {
+                    by = LocalDate.parse(userInputBy);
+                }
                 toDoList.add(new Deadlines(userInput, by));
                 System.out.println("Got it. I've added this task: ");
                 System.out.println(toDoList.get(i).toString());
@@ -125,9 +136,9 @@ public class Duke {
                     throw new DukeException("☹ OOPS!!! The description of an event cannot be empty.");
                 }
                 System.out.println("From?");
-                String from = myObj.nextLine();
+                LocalDateTime from = LocalDateTime.parse(myObj.nextLine(), DATE_TIME_FORMATTER);
                 System.out.println("To?");
-                String to = myObj.nextLine();
+                LocalDateTime to = LocalDateTime.parse(myObj.nextLine(), DATE_TIME_FORMATTER);
 
                 toDoList.add(new Events(userInput, from, to));
                 System.out.println("Got it. I've added this task: ");
