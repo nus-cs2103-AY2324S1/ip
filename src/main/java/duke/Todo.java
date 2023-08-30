@@ -1,7 +1,15 @@
 package duke;
 
+/**
+ * This class encapsulates a Todo task.
+ */
 public class Todo extends Task {
 
+    /**
+     * Constructor for Todo.
+     *
+     * @param description the description of the todo task.
+     */
     public Todo(String description) {
         super(description);
     }

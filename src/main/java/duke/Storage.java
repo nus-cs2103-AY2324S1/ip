@@ -10,10 +10,18 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * This class encapsulates dealing with loading tasks from the file and saving tasks in the file.
+ */
 public class Storage {
 
     private final String filePath;
 
+    /**
+     * Constructor for Storage.
+     *
+     * @param filePath the path of the file to be opened.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
@@ -24,7 +32,7 @@ public class Storage {
         }
     }
 
-    private static boolean hasDirectory() {
+    private boolean hasDirectory() {
         File f = new File("./data");
         if (f.exists() && f.isDirectory()) {
             return true;
@@ -52,6 +60,11 @@ public class Storage {
         return LocalDateTime.parse(lineInFile, DateTimeFormatter.ofPattern("MMM dd yyyy hh:mma"));
     }
 
+    /**
+     * Returns an array list that contains the tasks being loaded from the file.
+     *
+     * @return an array list containing the tasks retrieved from the saved file.
+     */
     public ArrayList<Task> loadFile() {
         createDirectory();
 
@@ -84,6 +97,12 @@ public class Storage {
         return taskArray;
     }
 
+    /**
+     * Appends a new line into the file based off the latest task added into the task list.
+     *
+     * @param taskList the corresponding task list to read the tasks from.
+     * @throws DukeException if the attempt to write to the file fails.
+     */
     public void addLineToFile(TaskList taskList) throws DukeException {
         try {
             FileWriter fw = new FileWriter(this.filePath, true);
@@ -98,6 +117,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Rewrites the entire file based off the changes made in the task list.
+     *
+     * @param taskList the corresponding task list to read the tasks from.
+     * @throws DukeException if the attempt to write to the file fails.
+     */
     public void rewriteFile(TaskList taskList) throws DukeException {
         try {
             FileWriter fw = new FileWriter(this.filePath);

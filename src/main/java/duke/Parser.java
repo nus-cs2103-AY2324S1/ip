@@ -1,14 +1,23 @@
 package duke;
 
+/**
+ * This class encapsulates making sense of the user command.
+ */
 public class Parser {
 
-    private final TaskList taskList;
-
-    private final Storage storage;
-    private final String userInput;
-
+    private TaskList taskList;
+    private Storage storage;
+    private String userInput;
     private boolean bye;
 
+
+    /**
+     * Constructor for Parser
+     *
+     * @param userInput the user input that will be going through the validation check
+     * @param taskList the corresponding TaskList object that contains the tasks
+     * @param storage the corresponding Storage object that contains the file
+     */
     public Parser(String userInput, TaskList taskList, Storage storage) {
         this.taskList = taskList;
         this.userInput = userInput;
@@ -16,6 +25,9 @@ public class Parser {
         this.bye = false;
     }
 
+    /**
+     * Checks the user input and perform the corresponding action based on the input.
+     */
     public void parse() {
         String[] input = this.userInput.split(" ", 2);
         Ui.horizontalLine();
@@ -28,7 +40,7 @@ public class Parser {
             case "unmark":
                 try {
                     int taskNum = Integer.parseInt(input[1]);
-                    this.taskList.markTasks(input, taskNum);
+                    this.taskList.markOrUnmarkTask(input[0], taskNum);
                     storage.rewriteFile(this.taskList);
                 } catch (ArrayIndexOutOfBoundsException e) {
                     throw new DukeException("BEEPBEEP! You forgot to give a task number!");
@@ -37,12 +49,12 @@ public class Parser {
                 }
                 break;
             case "bye":
-                Ui.print("WEEEWOOWEEWOO GOODBYE! Hope to see you again soon!");
+                Ui.goodbyeMessage();
                 this.bye = true;
                 break;
             case "todo":
                 try {
-                    this.taskList.addTask(input[1]);
+                    this.taskList.addTodoTask(input[1]);
                     Ui.addedTaskOutput(this.taskList);
                     storage.addLineToFile(this.taskList);
                 } catch (ArrayIndexOutOfBoundsException e) {
@@ -53,7 +65,7 @@ public class Parser {
             case "event":
                 try {
                     String[] remainLine = input[1].split(" /", 2);
-                    this.taskList.deadlineOrEventTask(input[0], remainLine);
+                    this.taskList.addDeadlineOrEventTask(input[0], remainLine);
                     Ui.addedTaskOutput(this.taskList);
                     storage.addLineToFile(this.taskList);
                 } catch (ArrayIndexOutOfBoundsException e) {
@@ -72,8 +84,8 @@ public class Parser {
                 }
                 break;
             default:
-                throw new DukeException("Can you hear the siren? " +
-                        "Because I don't know what that means!");
+                throw new DukeException("Can you hear the siren? "
+                        + "Because I don't know what that means!");
             }
         } catch (DukeException e) {
             Ui.showExceptionError(e);

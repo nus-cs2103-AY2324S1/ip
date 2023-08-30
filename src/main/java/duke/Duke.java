@@ -2,12 +2,20 @@ package duke;
 
 import java.util.Scanner;
 
+/**
+ * This class encapsulates the main program that will run.
+ */
 public class Duke {
 
     private Storage storage;
     private TaskList tasks;
     private Ui ui = new Ui();
 
+    /**
+     * Constructor for Duke
+     *
+     * @param filePath the path of the file for the Storage object to load from.
+     */
     public Duke(String filePath) {
         storage = new Storage(filePath);
         try {
@@ -24,6 +32,9 @@ public class Duke {
         }
     }
 
+    /**
+     * Runs the program.
+     */
     public void run() {
         this.ui.welcomeMessage();
         Scanner sc = new Scanner(System.in);

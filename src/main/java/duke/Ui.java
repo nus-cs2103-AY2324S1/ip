@@ -1,34 +1,64 @@
 package duke;
 
 import java.util.ArrayList;
+
+/**
+ * This class encapsulates the interactions with the user by displaying lines into the output.
+ */
 public class Ui {
 
+    /**
+     * Prints the welcome message when the user starts the program.
+     */
     public void welcomeMessage() {
         System.out.println("WEEWOOWEEWOO WELCOME! I'm Siren");
         System.out.println("What can I do for you?");
         horizontalLine();
     }
 
+    /**
+     * Prints the string that is given.
+     *
+     * @param string the string to be printed out.
+     */
     public static void print(String string) {
         System.out.println(string);
     }
+
+    /**
+     * Prints out a horizontal line.
+     */
     public static void horizontalLine() {
         System.out.println("____________________________________________________________");
     }
 
+    /**
+     * Prints the goodbye message when the user exits the program.
+     */
     public static void goodbyeMessage() {
         System.out.println("WEEEWOOWEEWOO GOODBYE! Hope to see you again soon!");
     }
 
+    /**
+     * Prints the exception's message.
+     *
+     * @param e the exception that will have its message printed.
+     */
     public static void showExceptionError(DukeException e) {
         System.out.println(e.getMessage());
     }
 
+    /**
+     * Prints the message to indicate a saved file is found.
+     */
     public static void savedFileFound() {
         horizontalLine();
         System.out.println("BLINGBLING! You have a saved file! Displaying the contents to you (if any)!");
     }
 
+    /**
+     * Prints the message to indicate there is no saved file found.
+     */
     public static void savedFileNotFound() {
         horizontalLine();
         System.out.println("OH NO! I couldn't find a \"duke.txt\" file in your data directory, "
@@ -36,25 +66,44 @@ public class Ui {
         horizontalLine();
     }
 
+    /**
+     * Prints the message to indicate the specific directory cannot be found.
+     */
     public static void directoryNotFound() {
         horizontalLine();
         System.out.println("OH NO! I couldn't find a \"data\" directory in your project root directory, "
                 + "I'll be creating one for you!");
     }
 
-    public static void deleteTaskOutput(String string, int arraySize) {
+    /**
+     * Prints the message when the user deletes a task.
+     *
+     * @param description the description of task that was deleted.
+     * @param arraySize the number of tasks left.
+     */
+    public static void deleteTaskOutput(String description, int arraySize) {
         System.out.println("ALRIGHTY! I've removed this task:");
-        System.out.println(string);
+        System.out.println(description);
         System.out.println("Now you have " + arraySize + " tasks in the list.");
     }
 
+    /**
+     * Prints the message when the user adds a task.
+     *
+     * @param taskList the TaskList object that contains the array list containing the tasks.
+     */
     public static void addedTaskOutput(TaskList taskList) {
         System.out.println("DINGDONG GOT IT! I've added this task:");
         System.out.println(taskList.taskArray.get(taskList.taskArray.size() - 1));
         System.out.println("Now you have " + taskList.taskArray.size() + " tasks in the list.");
     }
 
-    public static void taskAlreadyMarked(boolean marked) {
+    /**
+     * Prints the message when the user marks a task.
+     *
+     * @param marked true if the task was previously marked, false otherwise.
+     */
+    public static void taskMarked(boolean marked) {
         if (marked) {
             System.out.println("WEEYA! Task was already marked as done!");
         } else {
@@ -62,7 +111,12 @@ public class Ui {
         }
     }
 
-    public static void taskAlreadyNotMarked(boolean notMarked) {
+    /**
+     * Prints the message when the user unmarks a task.
+     *
+     * @param notMarked true if the task was previously unmarked, false otherwise.
+     */
+    public static void taskNotMarked(boolean notMarked) {
         if (notMarked) {
             System.out.println("OOPSIE! Task was already marked as not done!");
         } else {
@@ -70,10 +124,18 @@ public class Ui {
         }
     }
 
+    /**
+     * Prints the message when the array list containing the tasks is empty.
+     */
     public static void taskListEmpty() {
         System.out.println("HEYYYYYYYY! There's nothing to show in your list!");
     }
 
+    /**
+     * Prints the message when the array list containing the tasks is not empty.
+     *
+     * @param taskArray the TaskList object that contains the array list containing the tasks.
+     */
     public static void taskListNotEmpty(ArrayList<Task> taskArray) {
         System.out.println("WHEET WHEET WHEET! Here are the tasks in your list:");
         for (int i = 0; i < taskArray.size(); i++) {
