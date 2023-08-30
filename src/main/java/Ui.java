@@ -1,7 +1,13 @@
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Ui {
+    private Scanner sc;
     private static final String LINEBREAK = "    ＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿";
+
+    Ui() {
+        sc = new Scanner(System.in);
+    }
 
     /**
      * Displays the given message between horizontal lines
@@ -16,6 +22,10 @@ public class Ui {
 
     public void displayError(String msg) {
         displayMessage("☹ OOPS!!! \n" + msg);
+    }
+
+    public String readNextInput() {
+        return sc.nextLine();
     }
 
     public void list(ArrayList<Task> allTasks) {

@@ -27,15 +27,14 @@ public class Duke {
     private void run() {
         greet();
 
-        Scanner sc = new Scanner(System.in);
-        String input = sc.nextLine();
+        String input = ui.readNextInput();
         while (!input.equals("bye")) {
             try {
                 processCommand(input);
             } catch (LukeException e) {
                 ui.displayError(e.getMessage());
             }
-            input = sc.nextLine();
+            input = ui.readNextInput();
         }
 
         bye();
