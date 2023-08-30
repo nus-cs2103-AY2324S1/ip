@@ -36,6 +36,8 @@ public class Parser {
                 taskList.event(command);
             } else if (command.startsWith("delete")) {
                 taskList.delete(command);
+            } else if (command.startsWith("find")) {
+                taskList.find(command);
             } else {
                 throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
             }
