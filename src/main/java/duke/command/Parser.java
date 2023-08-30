@@ -34,42 +34,45 @@ public class Parser {
         }
 
         switch (commandType) {
-            case TODO:
-                return new AddTodoCommand(commandParts[1]);
-            case DEADLINE:
-                int byIndex = commandParts[1].indexOf("/by");
-                if (byIndex == -1) {
-                    throw new DukeException("The format of a deadline should be: deadline DESCRIPTION /by DATE");
-                }
-                String description = commandParts[1].substring(0, byIndex).trim();
-                String by = commandParts[1].substring(byIndex + 3).trim();
-                return new AddDeadlineCommand(description, by);
-            case EVENT:
-                int fromIndex = commandParts[1].indexOf("/from");
-                if (fromIndex == -1) {
-                    throw new DukeException("The format of an event should be: event DESCRIPTION /from DATE /to DATE");
-                }
-                description = commandParts[1].substring(0, fromIndex).trim();
-                String fromTo = commandParts[1].substring(fromIndex + 6).trim();
-                if (fromTo.isEmpty()) {
-                    throw new DukeException("The format of an event should be: event DESCRIPTION /from DATE /to DATE");
-                }
-                String[] fromToParts = fromTo.split("/to");
-                String from = fromToParts[0].trim();
-                String to = fromToParts[1].trim();
-                return new AddEventCommand(description, from, to);
-            case LIST:
-                return new ListCommand();
-            case MARK:
-                return new MarkAsDoneCommand(Integer.parseInt(commandParts[1]));
-            case UNMARK:
-                return new MarkAsUndoneCommand(Integer.parseInt(commandParts[1]));
-            case DELETE:
-                return new DeleteCommand(Integer.parseInt(commandParts[1]));
-            case BYE:
-                return new ExitCommand();
-            default:
-                throw new DukeException("I'm sorry, but I don't know what that means :-(");
+        case TODO:
+            return new AddTodoCommand(commandParts[1]);
+        case DEADLINE:
+            int byIndex = commandParts[1].indexOf("/by");
+            if (byIndex == -1) {
+                throw new DukeException("☹ OOPS!!! The format of a deadline should be: "
+                        + "deadline DESCRIPTION /by DATE");
+            }
+            String description = commandParts[1].substring(0, byIndex).trim();
+            String by = commandParts[1].substring(byIndex + 3).trim();
+            return new AddDeadlineCommand(description, by);
+        case EVENT:
+            int fromIndex = commandParts[1].indexOf("/from");
+            if (fromIndex == -1) {
+                throw new DukeException("☹ OOPS!!! The format of an event should be: "
+                        + "event DESCRIPTION /from DATE /to DATE");
+            }
+            description = commandParts[1].substring(0, fromIndex).trim();
+            String fromTo = commandParts[1].substring(fromIndex + 6).trim();
+            if (fromTo.isEmpty()) {
+                throw new DukeException("☹ OOPS!!! The format of an event should be: "
+                        + "event DESCRIPTION /from DATE /to DATE");
+            }
+            String[] fromToParts = fromTo.split("/to");
+            String from = fromToParts[0].trim();
+            String to = fromToParts[1].trim();
+            return new AddEventCommand(description, from, to);
+        case LIST:
+            return new ListCommand();
+        case MARK:
+            return new MarkAsDoneCommand(Integer.parseInt(commandParts[1]));
+        case UNMARK:
+            return new MarkAsUndoneCommand(Integer.parseInt(commandParts[1]));
+        case DELETE:
+            return new DeleteCommand(Integer.parseInt(commandParts[1]));
+        case BYE:
+            return new ExitCommand();
+        default:
+            throw new DukeException("I'm sorry, but I don't know what that means :-(");
         }
     }
 }

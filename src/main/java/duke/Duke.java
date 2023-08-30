@@ -14,6 +14,7 @@ import duke.ui.Ui;
 public class Duke {
 
     /** The storage for saving and loading the task list */
+
     private final Storage storage;
 
     /** The task list */
