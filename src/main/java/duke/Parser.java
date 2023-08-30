@@ -7,6 +7,7 @@ import duke.command.ByeCommand;
 import duke.command.Command;
 import duke.command.DeleteCommand;
 import duke.command.DisplayCommand;
+import duke.command.FindCommand;
 import duke.command.MarkCommand;
 import duke.command.UnMarkCommand;
 import duke.exceptions.DukeException;
@@ -44,6 +45,9 @@ public class Parser {
         }
         if (command.startsWith("delete")) {
             return new DeleteCommand(command);
+        }
+        if (command.startsWith("find")) {
+            return new FindCommand(command);
         }
         if (command.equals("bye")) {
             return new ByeCommand(command);

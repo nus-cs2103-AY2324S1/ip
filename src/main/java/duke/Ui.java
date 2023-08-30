@@ -117,4 +117,12 @@ public class Ui {
                 task.toString() + "\n Now you have " + size +
                 " tasks in the list.");
     }
+
+    /**
+     * Displays a message indicating that the list of matching tasks is about to be shown.
+     */
+    public void matchingTasks() {
+        System.out.println("Here are the matching tasks in your list:");
+    }
+
 }

@@ -1,6 +1,7 @@
 package duke;
 import static org.junit.jupiter.api.Assertions.*;
 
+import duke.command.FindCommand;
 import org.junit.jupiter.api.Test;
 
 import duke.command.AddDeadlineCommand;
@@ -39,6 +40,9 @@ public class ParserTest {
 
             command = Parser.parse("delete 4");
             assertTrue(command instanceof DeleteCommand);
+
+            command = Parser.parse("find rice");
+            assertTrue(command instanceof FindCommand);
 
             command = Parser.parse("bye");
             assertTrue(command instanceof ByeCommand);
