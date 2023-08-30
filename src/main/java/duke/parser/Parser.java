@@ -2,7 +2,19 @@ package duke.parser;
 
 import duke.command.*;
 import duke.exception.DukeException;
+
+/**
+ * Parses user input and generates corresponding Command objects.
+ */
 public class Parser {
+
+    /**
+     * Parses the given full command and returns the corresponding Command object.
+     *
+     * @param fullCommand The full user input command.
+     * @return The parsed Command object corresponding to the input.
+     * @throws DukeException If there is an issue parsing the command.
+     */
     public static Command parse(String fullCommand) throws DukeException{
         String[] words = fullCommand.split(" ", 2);
         String firstWord = words[0];

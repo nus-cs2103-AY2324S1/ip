@@ -7,20 +7,43 @@ import duke.exception.DukeException;
 
 import java.time.format.DateTimeParseException;
 
+/**
+ * Represents a command to add tasks to the task list.
+ */
 public class AddCommand extends Command{
     private String[] words;
     private String category;
     private boolean isExit = false;
+
+    /**
+     * Constructor for creating an AddCommand.
+     *
+     * @param words The array of words containing user input.
+     * @param category The category of the task to be added ("T" for Todo, "D" for Deadline, "E" for Event).
+     */
     public AddCommand(String[] words, String category) {
         this.words = words;
         this.category = category;
     }
 
+    /**
+     * Checks if the AddCommand should trigger the program to exit.
+     *
+     * @return True if the command is an exit command, false otherwise.
+     */
     @Override
     public boolean isExit() {
         return this.isExit;
     }
 
+    /**
+     * Executes the AddCommand by adding the specified task to the task list.
+     *
+     * @param tasks   The list of tasks to which the task will be added.
+     * @param ui      The user interface for displaying messages.
+     * @param storage The storage handler for updating task data.
+     * @throws DukeException If there is an issue executing the command.
+     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
         try {

@@ -10,14 +10,27 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Represents a storage which handles loading tasks from a file and updating tasks to a file.
+ */
 public class Storage {
     private String filePath;
 
+    /**
+     * Constructs a Storage instance with the specified file path.
+     *
+     * @param filePath The path to the file used for task storage.
+     */
     public Storage(String filePath) {
-
         this.filePath = filePath;
     }
 
+    /**
+     * Loads tasks from the storage file.
+     *
+     * @return An ArrayList containing loaded tasks.
+     * @throws DukeException If there's an issue loading tasks.
+     */
     public ArrayList<Task> load() throws DukeException {
         File file = new File(this.filePath);
         try {
@@ -67,6 +80,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Updates the storage file with the tasks in the given task list.
+     *
+     * @param taskList The task list to update the file with.
+     */
     public void updateFile(TaskList taskList) {
         try {
             // Open the FileWriter without append mode.
