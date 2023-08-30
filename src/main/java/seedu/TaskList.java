@@ -30,30 +30,24 @@ public class TaskList {
     public static TaskList getFromFile(List<String> from) throws Exception {
         try {
             List<Task> lists = new ArrayList<>();
-            String pattern = "\\(From : .+ To : .+\\)";
-            Pattern regexPattern = Pattern.compile(pattern);
 
             for (String l : from) {
-                Matcher matcher = regexPattern.matcher(l);
-                if (!l.endsWith(")")) {
-                    lists.add(new Task(l.split("]", 3)[2],"todo"));
-                } else if (matcher.find()){
-                    int startIndex = matcher.start();
-                    int endIndex = matcher.end();
-                    String title = l.split("]",3)[2].split("\\(")[0];
-                    String fr = l.split("From :")[1].split("To")[0];
-                    String to = l.substring(startIndex, endIndex).split("To :")[1];
-                    lists.add(new Task(title + " /from " + fr + " /to " + to, "event"));
+                String[] chars = l.split("\\|");
+                if (chars[0].equals("ToDo")) {
+                    lists.add(new Task("todo" + " " + chars[2] ,"todo"));
+                } else if (chars[0].equals("Event")){
+                    String title = chars[2];
+                    String fr = chars[4];
+                    String to = chars[3];
+                    Task temp = new Task(title + " /from " + fr + " /to " + to, "event");
+                    if (chars[1].equals("true")) temp.isDone = true;
+                    lists.add(temp);
                 } else {
-                    String title =  l.split("\\(")[0].split("] ")[1];
-
-                    SimpleDateFormat inputDateFormat = new SimpleDateFormat("MMM dd yyyy");
-                    String h = l.split("\\(")[1].substring(0, 10);
-
-                    Date inputDate = inputDateFormat.parse(h);
-                    SimpleDateFormat outputDateFormat = new SimpleDateFormat("dd/MM/yyyy");
-                    String outputDateStr = outputDateFormat.format(inputDate);
-                    lists.add(new Task(title + " /by " + outputDateStr,"deadline"));
+                    String title = chars[2];
+                    String to = chars[3];
+                    Task temp = new Task(title + " /by " + to,"deadline");
+                    if (chars[1].equals("true")) temp.isDone = true;
+                    lists.add(temp);
                 }
             }
             return new TaskList(lists);
@@ -69,8 +63,12 @@ public class TaskList {
         for (int i = 0; i < tasks.getLen(); i++) {
             if (tasks.get(i) != null) {
                 Task t = tasks.get(i);
-                arrays.add((curr++) + ". " + t.getStatus());
+                String start = !t.start.isEmpty() ? t.start + "|" : "";
+                String end = !t.end.isEmpty()?  t.end + "|" : "";
+                arrays.add(t.category.toString() + "|" + (t.isDone ? "true" : "false") + "|" + t.title + "|" + end + start);
+
             }
+            ;
         }
         return arrays;
     }

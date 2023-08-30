@@ -1,4 +1,3 @@
-1. [T][ ] daidnaei
-2. [E][ ] [  (From :    Mon 2pm    To :    Tue 2pm))
-3. [E][ ]  Supernova (From :  Mon 2pm  To :  Tue 2pm)
-4. [E][ ]  Supernova (From :  Mon 2pm  To :  Tue 2pm)
+ToDo|false|nasddas|
+Event|false| Supernova            |            Tue 2pm|            Mon 2pm            |
+Deadline|false| return book  |Dec 2 2019|

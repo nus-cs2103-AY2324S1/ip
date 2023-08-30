@@ -19,7 +19,6 @@ public class Ui {
 
     public boolean showByeMessage() {
         out.println("Bacon Pancake : \n" + "Bye! See you again soon ");
-        this.sc.close();
         return false;
     }
 
