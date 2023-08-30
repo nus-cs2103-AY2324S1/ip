@@ -105,6 +105,29 @@ public class TaskList {
         }
     }
 
+    /**
+     * Finds tasks that contain the keyword.
+     * @param task keyword.
+     * @return Strings of valid tasks.
+     * @throws DukeException
+     */
+    public String findTask(String task) throws DukeException{
+        ArrayList<Task> foundedTasks = new ArrayList<>();
+        for (int i = 0; i < tasks.size(); i++) {
+            if (tasks.get(i).toString().contains(task)) {
+                foundedTasks.add(tasks.get(i));
+            }
+        }
+        if (foundedTasks.isEmpty()) {
+            throw new DukeException("task not found");
+        }
+        String result = "Here are the matching tasks in your list:\n";
+        for (int i = 0; i < foundedTasks.size(); i++) {
+            result += (i + 1) + " " + foundedTasks.get(i) + "\n";
+        }
+        return result + "\"One thing at a time.\"";
+    }
+
     public String deleteTask(int taskIndex) throws DukeException {
         //TODO: double check if not completed
         if (taskIndex > tasks.size() || taskIndex <= 0) {

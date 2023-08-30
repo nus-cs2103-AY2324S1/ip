@@ -23,7 +23,7 @@ public class Ui {
         if (message.equals("undefined")) {
             System.out.println("⚠ Sorry! I am not able to understand you. Try another language:D");
         } else if (message.equals("task not found")) {
-            System.out.println("⚠ Oops! Cannot find the task:(");
+            System.out.println("⚠ Oops! Cannot find task:(");
         } else if (message.equals("todo error")) {
             System.out.println("⚠ Oops! Need description for the todo:(");
         } else if (message.equals("deadline error")) {

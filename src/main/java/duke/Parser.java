@@ -41,9 +41,13 @@ public class Parser {
         Matcher markMatcher = markPattern.matcher(repeat);
         Pattern taskPattern = Pattern.compile("(todo|deadline|event) (.+)");
         Matcher taskMatcher = taskPattern.matcher(repeat);
+        Pattern findPattern = Pattern.compile("find (.+)");
+        Matcher findMatcher = findPattern.matcher(repeat);
         if (repeat.contains("bye") || repeat.contains("88")) {
             this.isRunning = false;
             return "";
+        } else if (findMatcher.find()) {
+            return this.tasks.findTask(findMatcher.group(1));
         } else if (markMatcher.matches()) {
             String action = markMatcher.group(1);
             int taskIndex = Integer.parseInt(markMatcher.group(2));
