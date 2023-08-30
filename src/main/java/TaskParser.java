@@ -21,7 +21,7 @@ public class TaskParser {
     }
 
     private Deadline parseDeadline(String input) throws InvalidTaskFormatException {
-        Pattern pattern = Pattern.compile("deadline (.+) /by (.+)");
+        Pattern pattern = Pattern.compile("deadline (.+) by: (.+)");
         Matcher matcher = pattern.matcher(input);
 
         if (matcher.find()) {
@@ -39,7 +39,7 @@ public class TaskParser {
     }
 
     private Event parseEvent(String input) throws InvalidTaskFormatException {
-        Pattern pattern = Pattern.compile("event (.+) /from (.+) /to (.+)");
+        Pattern pattern = Pattern.compile("event (.+) from (.+) to (.+)");
         Matcher matcher = pattern.matcher(input);
 
         if (matcher.find()) {
