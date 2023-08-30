@@ -2,10 +2,24 @@ import java.io.*;
 import java.util.Scanner;
 import java.util.ArrayList;
 
-public class Duke {
+public class Pau {
+
+    private static String botName = "\n" +
+            "██████╗  █████╗ ██╗   ██╗\n" +
+            "██╔══██╗██╔══██╗██║   ██║\n" +
+            "██████╔╝███████║██║   ██║\n" +
+            "██╔═══╝ ██╔══██║██║   ██║\n" +
+            "██║     ██║  ██║╚██████╔╝\n" +
+            "╚═╝     ╚═╝  ╚═╝ ╚═════╝ \n" +
+            "                         \n";
+
+    private static String introduction = " HI! I'm " + botName + "\n" + "ENTERTAIN MEEE";
+    private static String exit = "byebye come play with me next time";
+
     /**
-     * Prints out a list of the tasks the user has
-     * @param list The list containing all the tasks that user has input
+     * Prints out a list of the tasks the user has.
+     *
+     * @param list The list containing all the tasks that user has input.
      */
     public static void checkList(ArrayList<Task> list) {
         if(list.size() == 0) {
@@ -21,9 +35,10 @@ public class Duke {
     }
 
     /**
-     * Marks a task as done
-     * @param list The list containing all the tasks that user has input
-     * @param input The task the user wants to mark as done
+     * Marks a task as done.
+     *
+     * @param list The list containing all the tasks that user has input.
+     * @param input The task the user wants to mark as done.
      */
     public static void markTask(ArrayList<Task> list, String input) {
         int starEyesEmoji = 0x1F929;
@@ -36,9 +51,10 @@ public class Duke {
     }
 
     /**
-     * Unmarks a task
-     * @param list The list containing all the tasks that user has input
-     * @param input The task the user wants to unmark
+     * Unmarks a task.
+     *
+     * @param list The list containing all the tasks that user has input.
+     * @param input The task the user wants to unmark.
      */
     public static void unMarkTask(ArrayList<Task> list, String input) {
         String parts[] = input.split(" ");
@@ -50,9 +66,10 @@ public class Duke {
     }
 
     /**
-     * Deletes a Task from the list
-     * @param list The list containing all the tasks that user has input
-     * @param input The task the user wants to delete
+     * Deletes a Task from the list.
+     *
+     * @param list The list containing all the tasks that user has input.
+     * @param input The task the user wants to delete.
      */
     public static void deleteTask(ArrayList<Task> list, String input) {
         String parts[] = input.split(" ");
@@ -74,9 +91,10 @@ public class Duke {
     }
 
     /**
-     * Adds a ToDo to the list
-      * @param list The list containing all the tasks that user has input
-     * @param input The ToDo the user wants to add
+     * Adds a ToDo to the list.
+     *
+      * @param list The list containing all the tasks that user has input.
+     * @param input The ToDo the user wants to add.
      */
     public static void addsToDo(ArrayList<Task> list, String input) {
         try {
@@ -89,9 +107,10 @@ public class Duke {
     }
 
     /**
-     * Adds a Deadline to the list
-     * @param list The list containing all the tasks that user has input
-     * @param input The Deadline the user wants to add
+     * Adds a Deadline to the list.
+     *
+     * @param list The list containing all the tasks that user has input.
+     * @param input The Deadline the user wants to add.
      */
     public static void addDeadline(ArrayList<Task> list, String input) {
         try {
@@ -105,9 +124,10 @@ public class Duke {
     }
 
     /**
-     * Adds an Event to the list
-     * @param list The list containing all the tasks that user has input
-     * @param input The Event the user wants to add
+     * Adds an Event to the list.
+     *
+     * @param list The list containing all the tasks that user has input.
+     * @param input The Event the user wants to add.
      */
     public static void addEvent(ArrayList<Task> list, String input) {
         try {
@@ -119,20 +139,15 @@ public class Duke {
         }
     }
 
+    /**
+     * Prints out a reminder to user that command is invalid.
+     */
+    public static void invalidCommand() {
+        System.out.println("can you follow instructions");
+    }
+
     public static void main(String[] args) throws IOException, IOException {
-
-        String botName = "\n" +
-                "██████╗  █████╗ ██╗   ██╗\n" +
-                "██╔══██╗██╔══██╗██║   ██║\n" +
-                "██████╔╝███████║██║   ██║\n" +
-                "██╔═══╝ ██╔══██║██║   ██║\n" +
-                "██║     ██║  ██║╚██████╔╝\n" +
-                "╚═╝     ╚═╝  ╚═╝ ╚═════╝ \n" +
-                "                         \n";
-
-        String introduction = " HI! I'm " + botName + "\n" + "ENTERTAIN MEEE";
-        String exit = "byebye come play with me next time";
-        System.out.println(introduction);
+        System.out.println(Pau.introduction);
 
         String input;
         Scanner scan = new Scanner(System.in);
@@ -141,22 +156,24 @@ public class Duke {
         while (true) {
             input = scan.nextLine();
             if (input.equals("bye")) {
-                System.out.println(exit);
+                System.out.println(Pau.exit);
                 break;
             } else if (input.equals("list")) {
-                Duke.checkList(list);
+                Pau.checkList(list);
             } else if (input.startsWith("mark")) {
-                Duke.markTask(list, input);
+                Pau.markTask(list, input);
             } else if (input.startsWith("unmark")) {
-                Duke.unMarkTask(list, input);
+                Pau.unMarkTask(list, input);
             } else if (input.startsWith("delete")) {
-                Duke.deleteTask(list, input);
+                Pau.deleteTask(list, input);
             } else if (input.startsWith("todo")) {
-                Duke.addsToDo(list, input);
+                Pau.addsToDo(list, input);
             } else if (input.startsWith("deadline")) {
-                Duke.addDeadline(list, input);
+                Pau.addDeadline(list, input);
             } else if (input.startsWith("event")) {
-                Duke.addEvent(list, input);
+                Pau.addEvent(list, input);
+            } else {
+                Pau.invalidCommand();
             }
         }
     }

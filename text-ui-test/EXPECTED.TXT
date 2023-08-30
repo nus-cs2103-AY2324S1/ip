@@ -1,5 +1,12 @@
- HI! I'm PAUUU
- Please entertain me!
+ HI! I'm
+██████╗  █████╗ ██╗   ██╗
+██╔══██╗██╔══██╗██║   ██║
+██████╔╝███████║██║   ██║
+██╔═══╝ ██╔══██║██║   ██║
+██║     ██║  ██║╚██████╔╝
+╚═╝     ╚═╝  ╚═╝ ╚═════╝
+
+ENTERTAIN MEEE
 todo added: [T][ ]  fix puzzle
 You have this many stuff to complete: 1
 todo added: [T][ ]  eat lunch
