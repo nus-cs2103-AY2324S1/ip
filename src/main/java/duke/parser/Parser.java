@@ -6,7 +6,7 @@ import duke.task.TaskList;
 import duke.ui.Ui;
 
 /**
- * Represents the parser of the program.
+ * Parser class to parse user's input.
  */
 public class Parser {
 

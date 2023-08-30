@@ -15,17 +15,23 @@ import duke.task.Task;
 import duke.task.ToDo;
 
 /**
- * Represents the storage of the program.
+ * Storage class to load and save data.
  */
 public class Storage {
     private final Path filePath;
 
+    /**
+     * Constructor for Storage.
+     * @param filename The name of the file to load and save data.
+     */
     public Storage(String filename) {
         this.filePath = Paths.get(".", "data", filename);
     }
 
     /**
      * Loads the data from the file.
+     * @return The tasks loaded from the file.
+     * @throws IOException If an I/O error occurs.
      */
     public ArrayList<Task> load() throws IOException {
         Path directoryPath = filePath.getParent();
@@ -102,6 +108,7 @@ public class Storage {
     /**
      * Saves the data to the file.
      * @param tasks The tasks to save.
+     * @throws IOException If an I/O error occurs.
      */
     public void save(List<Task> tasks) throws IOException {
         Path directoryPath = filePath.getParent();
@@ -122,6 +129,7 @@ public class Storage {
 
     /**
      * Deletes the file.
+     * @throws IOException If an I/O error occurs.
      */
     public void delete() throws IOException {
         Files.delete(filePath);
