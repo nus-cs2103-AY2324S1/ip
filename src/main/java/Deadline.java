@@ -15,6 +15,17 @@ public class Deadline extends Task {
         super(description);
         this.by = by;
     }
+    public Deadline(String description, String by, boolean isDone) {
+        super(description, isDone);
+        this.by = by;
+    }
+
+    @Override
+    public String toFileString() {
+        String status = getStatusIcon().equals("X") ? "1" : "0";
+        return "D" + " | " + status + " | " + super.description + " | " + by;
+    }
+
 
     /**
      * Returns a string representation of the Deadline task, including its completion status, description, and deadline.
