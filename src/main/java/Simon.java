@@ -2,6 +2,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -209,7 +210,7 @@ public class Simon {
                     writer.println("T | " + (task.isDone ? "1" : "0") + " | " + task.taskName);
                 } else if (task instanceof Deadline) {
                     Deadline deadline = (Deadline) task;
-                    writer.println("D | " + (task.isDone ? "1" : "0") + " | " + task.taskName + " | " + deadline.endDate);
+                    writer.println("D | " + (task.isDone ? "1" : "0") + " | " + task.taskName + " | " + deadline.endDateTime.format(DateTimeFormatter.ISO_LOCAL_DATE_TIME));
                 } else if (task instanceof Event) {
                     Event event = (Event) task;
                     writer.println("E | " + (task.isDone ? "1" : "0") + " | " + task.taskName + " | " + event.startDate + " | " + event.endDate);
@@ -271,6 +272,8 @@ public class Simon {
             scanner.close();
         } catch (FileNotFoundException e) {
             System.out.println("Data file not found. Starting with an empty task list.");
+        } catch (SimonException e) {
+            throw new RuntimeException(e);
         }
     }
 }
