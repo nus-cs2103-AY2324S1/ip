@@ -66,4 +66,17 @@ public class TaskList {
             }
         }
     }
+
+    public void find(String[] splitOutput) {
+        TaskList filteredList = new TaskList();
+        for (int i = 0; i < tasks.size(); i++) {
+            if (tasks.get(i).toString().contains(splitOutput[1])) {
+                filteredList.add(tasks.get(i));
+            }
+        }
+        System.out.println("Here are the matching tasks in your list:");
+        for (int i = 0; i < filteredList.size(); i++) {
+            System.out.println(i + 1 + ". " + filteredList.get(i).toString());
+        }
+    }
 }

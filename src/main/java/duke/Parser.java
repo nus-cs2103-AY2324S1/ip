@@ -14,6 +14,8 @@ public class Parser {
                 Event.setEvent(userOutput, inputList);
             } else if (splitOutput[0].equals("delete")) {
                 inputList.delete(splitOutput);
+            } else if (splitOutput[0].equals("find")) {
+                inputList.find(splitOutput);
             } else if (splitOutput[0].equals("mark")) {
                 inputList.mark(splitOutput);
             } else if (splitOutput[0].equals("unmark")) {

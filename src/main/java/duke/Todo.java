@@ -9,7 +9,11 @@ public class Todo extends Task {
 
     public static void setTodo(String userOutput, TaskList inputList) throws EmptyException {
         try {
-            Todo newTodo = new Todo(userOutput.split("todo")[1].strip());
+            String todoCommand = userOutput.split("todo")[1].strip();
+            if (todoCommand.equals("")) {
+                throw new EmptyException("todo");
+            }
+            Todo newTodo = new Todo(todoCommand);
             inputList.add(newTodo);
             System.out.println("Got it. I've added this task:");
             System.out.println(newTodo);
