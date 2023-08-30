@@ -3,7 +3,7 @@ import java.util.ArrayList;
 
 class TaskList {
     private ArrayList<Task> tasks;
-    private String filePath = "C:/Users/dell/Desktop/NUS_CS/Modules/Y2S1/CS2100/IP/src/main/java/duke.txt";
+    private String filePath = "./src/main/java/duke.txt";
 
     public TaskList() {
         tasks = new ArrayList<>();
