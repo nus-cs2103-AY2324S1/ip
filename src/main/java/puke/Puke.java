@@ -62,6 +62,10 @@ class Task {
         this.done = false;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
     public String write() {
         int checked = 0;
         if (this.done) {
@@ -267,6 +271,18 @@ class TaskList {
             throw new PukeException();
         }
     }
+
+    String find(String key) {
+        StringBuilder sb = new StringBuilder();
+        int i = 1;
+        for (Task s : list) {
+            if (s.getDescription().contains(key)) {
+                sb.append(String.format("%d. %s\n", i, s.toString()));
+                i++;
+            }
+        }
+        return sb.toString();
+        }
 
     void mark(int index) throws PukeException {
         try {
@@ -601,6 +617,25 @@ class ErrorCommand extends Command {
     }
 }
 
+class FindCommand extends Command {
+    private final String key;
+    FindCommand(String rest) {
+        super(false, true);
+        this.key = rest;
+    }
+
+    void execute(TaskList tl, Ui ui) {
+        try {
+            System.out.println(ui.find());
+            System.out.println(tl.find(this.key));
+            System.out.println(Ui.separator);
+        } catch (Exception PukeException) {
+            System.out.println(Ui.errorMessage);
+            System.out.println(Ui.separator);
+        }
+    }
+    }
+
 class Parser {
 
     public static Command parse(String command, String line) throws PukeException {
@@ -623,6 +658,8 @@ class Parser {
                 return new DeleteCommand(line.substring(1));
             } else if (command.equals("clearall")) {
                 return new ClearCommand(line);
+            } else if (command.equals("find")) {
+                return new FindCommand(line.substring(1));
             } else {
                 return new ErrorCommand();
             }
@@ -717,5 +754,10 @@ class Ui {
     String clear() {
         return "Well I certainly hope you had meant to do that because I am not going too ask for your confirmation. As per the aforementioned instructions, I shall now" +
                 "purge all of the tasks that you have previously recorded and designated as requiring attention.";
+    }
+
+    String find() {
+        return "As per the instructions provided, I shall initiate a search into your list of items, of which we have previously declared to be known as tasks due too their relatively \n" +
+                "urgent need of attention within a specified or unspecified frame of time, for those of which have an alphabetical similarity to the frame of reference that you have provided.";
     }
 }
