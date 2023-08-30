@@ -23,6 +23,7 @@ import java.nio.file.Paths;
 import java.nio.file.Files;
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.time.LocalDate;
 
 /**
  * Contains the main method and primary logic for Jeeves.
@@ -85,7 +86,7 @@ public class Jeeves {
             taskList.add(null);
             try {
                 BufferedReader br = Files.newBufferedReader(dataPath);
-                String currLine = null;
+                String currLine;
                 while ((currLine = br.readLine()) != null) {
                     // Extract the information to populate the task list
                     String[] currData = currLine.split("\\|");
@@ -97,7 +98,7 @@ public class Jeeves {
                         taskList.add(new Todo(desc, status));
                         break;
                     case "D":
-                        String deadline = currData[3];
+                        LocalDate deadline = LocalDate.parse(currData[3]);
                         taskList.add(new Deadline(desc, deadline, status));
                         break;
                     case "E":
@@ -227,15 +228,18 @@ public class Jeeves {
                     if (byDateIndex == -1 || currentCommand.length() == byDateIndex + FINDFIELD_BY_OFFSET) {
                         // If the "/by " block is missing, throws the MissingByException
                         throw new MissingByException("I cannot do that as the deadline has not been provided.\n" 
-                                + "Please add ' /by <Time/Date>' after the task description\n");
+                                + "Please add ' /by <YYYY-MM-DD>' after the task description\n");
                     } 
                     if ((byDateIndex - 1) <= FINDCOMMAND_DEADLINE_OFFSET) {
                         throw new MissingDescriptionException("The description of a deadline cannot be empty\n");
                     }
                     String currTask = currentCommand.substring(FINDCOMMAND_DEADLINE_OFFSET, byDateIndex - 1);
                     String byDate = currentCommand.substring(byDateIndex + FINDFIELD_BY_OFFSET);
+                    // Checks if the Date input is in the accepted format
+                    LocalDate deadline = LocalDate.parse(byDate);
+                    
                     // Adds the 'Deadline' Task to the task list
-                    Deadline newDeadline = new Deadline(currTask, byDate);
+                    Deadline newDeadline = new Deadline(currTask, deadline);
                     taskList.add(Task.getTaskCount(), newDeadline);
                     System.out.println("Deadline added:\n" +
                             "    " + newDeadline + "\n");
