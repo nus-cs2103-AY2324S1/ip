@@ -1,3 +1,13 @@
+import exceptions.CommandNotRecognizedException;
+import exceptions.NoCommandDetailException;
+import exceptions.StorageException;
+import exceptions.TimeParsingException;
+import storage.Storage;
+import task.Deadline;
+import task.Event;
+import task.Task;
+import task.ToDo;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -5,7 +15,7 @@ import java.util.Scanner;
 public class Duke {
     private static final String NAME = "Kevin";
     private static final int SPLITTER_LENGTH = 50;
-    private static String DATA_FILE_PATH = "./data/duke.txt";
+    private static final String DATA_FILE_PATH = "./data/duke.txt";
     private static final Storage storage = new Storage(DATA_FILE_PATH);
 
     private static void lineSplitter() {
@@ -26,7 +36,7 @@ public class Duke {
         lineSplitter();
     }
 
-    private static Task addTask(String input) throws CommandNotRecognizedException, NoCommandDetailException, TimeParsingException{
+    private static Task addTask(String input) throws CommandNotRecognizedException, NoCommandDetailException, TimeParsingException {
         String[] splittedInput = input.split(" ", 2); // Split into two parts: command and argument
         String command = splittedInput[0].toLowerCase();
         TaskType taskType = TaskType.valueOf(command.toUpperCase());

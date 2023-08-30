@@ -1,10 +1,14 @@
+package task;
+
+import exceptions.TimeParsingException;
+import time.Time;
+
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 public class Event extends Task {
 
-    private LocalDate startTime;
-    private LocalDate endTime;
+    private final LocalDate startTime;
+    private final LocalDate endTime;
 
     public Event(String taskName, String startTime, String endTime) throws TimeParsingException {
         super(taskName);

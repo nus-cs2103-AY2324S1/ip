@@ -1,3 +1,8 @@
+package task;
+
+import exceptions.TimeParsingException;
+import time.Time;
+
 import java.time.LocalDate;
 
 public class Deadline extends Task {
