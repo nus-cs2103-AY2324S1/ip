@@ -1,6 +1,60 @@
 import java.util.*;
-
+import java.io.File;
+import java.io.*;
+import java.nio.file.*;
 public class Blip {
+
+
+    // File path for tasks
+    private static String FILE_PATH = "./data/blip.txt";
+    private static void saveToFile(ArrayList<Task> tasks) throws IOException {
+        try {
+            File file = new File(FILE_PATH);
+            File fileDirectory = file.getParentFile();
+
+            if (!fileDirectory.exists()) {
+                fileDirectory.mkdir();
+            }
+            FileWriter fileWriter = new FileWriter(file);
+
+            for (Task task : tasks) {
+                fileWriter.write(task.saveToFileString() + "\n");
+            }
+            fileWriter.close();
+        } catch (IOException e2) {
+            System.out.println("Error saving to file: " + e2.getMessage());
+        }
+    }
+
+
+    private static ArrayList<Task> loadFile()  {
+        ArrayList<Task> tasks = new ArrayList<>();
+        File file = new File(FILE_PATH);
+        File fileDirectory = file.getParentFile();
+
+        if (!fileDirectory.exists()) {
+                fileDirectory.mkdir();
+        }
+
+        try {
+            if (!file.exists()) {
+                return tasks;
+            }
+                FileReader fileReader = new FileReader(file);
+                BufferedReader finalReader = new BufferedReader(fileReader);
+                String lineToRead;
+                while ((lineToRead = finalReader.readLine()) != null) {
+                    Task task = Task.loadTaskFromFile(lineToRead);
+                    tasks.add(task);
+                }
+                    finalReader.close();
+        } catch (FileNotFoundException e1) {
+            System.out.println("Error loading file: " + e1.getMessage());
+        } catch (IOException e2) {
+            System.out.println("Error reading line: " + e2.getMessage());
+        }
+        return tasks;
+    }
 
     public static void main(String[] args) {
         // Intro message by Blip.
@@ -37,22 +91,25 @@ public class Blip {
         // Constant empty string for exception handling.
         String EMPTY = "";
 
-        // Fixed-size array of tasks to do.
-        ArrayList<Task> tasks = new ArrayList<>();
-        int index = 0;
+
+
 
 
         // Bot starts here!
         System.out.println(intro);
+
+        ArrayList<Task> tasks = loadFile();
 
         String userInput;
         Scanner scanIn = new Scanner(System.in);
         userInput = scanIn.nextLine();
 
 
+
         while (!userInput.equals(END_TRIGGER)) {
             try {
                 if (!userInput.equals(LIST_TRIGGER)) {
+
                     // To mark a task.
                     if (userInput.split(" ")[0].equals(MARK_TRIGGER)) {
 
@@ -63,12 +120,13 @@ public class Blip {
                         int taskNum = Integer.parseInt(userInput.split(" ")[1]) - 1;
 
                         // Task number does not exist.
-                        if (taskNum >= index) {
+                        if (taskNum >= tasks.size()) {
                             throw new WrongNumberException("!!! Wrong Task Number Error !!!\n");
                         }
-                        Task taskToUpdate = tasks.get(taskNum);
 
+                        Task taskToUpdate = tasks.get(taskNum);
                         taskToUpdate.markStatus();
+                        saveToFile(tasks);
                         System.out.println("Nice! I've marked this task as done:\n" + taskToUpdate.toString());
                         userInput = scanIn.nextLine();
 
@@ -82,14 +140,17 @@ public class Blip {
                         int taskNum = Integer.parseInt(userInput.split(" ")[1]) - 1;
 
                         // Task number does not exist.
-                        if (taskNum >= index) {
+                        if (taskNum >= tasks.size()) {
                             throw new WrongNumberException("!!! Wrong Task Number Error !!!\n");
                         }
                         Task taskToUpdate = tasks.get(taskNum);
                         taskToUpdate.unmarkStatus();
+                        saveToFile(tasks);
                         System.out.println("Ok, I've marked this task as not done yet:\n" + taskToUpdate.toString());
                         userInput = scanIn.nextLine();
-                        // To delete a task.
+
+
+                    // To delete a task
                     } else if (userInput.split(" ")[0].equals(DELETE_TRIGGER)) {
 
                         // Missing task number to delete.
@@ -99,15 +160,17 @@ public class Blip {
                         int taskNum = Integer.parseInt(userInput.split(" ")[1]) - 1;
 
                         // Task number does not exist.
-                        if (taskNum >= index) {
+                        if (taskNum >= tasks.size()) {
                             throw new WrongNumberException("!!! Wrong Task Number Error !!!\n");
                         }
                         Task taskToDelete = tasks.get(taskNum);
                         System.out.println("Ok, I've removed this task:\n" + taskToDelete.toString());
                         tasks.remove(taskNum);
-                        index--;
+                        saveToFile(tasks);
                         userInput = scanIn.nextLine();
-                        // For a deadline task.
+
+
+                    // For a deadline task
                     } else if (userInput.split(" ")[0].equals(DEADLINE_TRIGGER)) {
                         String[] test = userInput.split("\\s+", 2);
                         // Missing Deadline Description.
@@ -116,33 +179,39 @@ public class Blip {
                             throw new EmptyDescriptionException("!!! Missing DEADLINE Description !!!\n");
                         }
 
-                        String[] deadlineInfo = userInput.split("/");
-                        Deadline newDeadlineTask = new Deadline(deadlineInfo[0], deadlineInfo[1]);
+                        String[] deadlineInfo = test[1].split("\\s*/by\\s*");
+                        Deadline newDeadlineTask = new Deadline(deadlineInfo[0], deadlineInfo[1], false);
                         tasks.add(newDeadlineTask);
-                        index++;
+                        saveToFile(tasks);
                         System.out.println("Alright! I've added this task:\n " + newDeadlineTask.toString()
-                                + "\nNow you have " + (index) + " tasks in the list.");
+                                + "\nNow you have " + tasks.size() + " tasks in the list.");
                         userInput = scanIn.nextLine();
 
-                        // For an event task.
+
+                    // For an event task
                     } else if (userInput.split(" ")[0].equals(EVENT_TRIGGER)) {
                         String[] test = userInput.split("\\s+", 2);
-                        // Missing Deadline Description.
+
 
                         // Missing Event Description.
                         if (test.length < 2 || test[1].equals(EMPTY)) {
                             throw new EmptyDescriptionException("!!! Missing EVENT Description !!!\n");
                         }
 
-                        String[] eventInfo = userInput.split("/");
-                        Event newEventTask = new Event(eventInfo[0], eventInfo[1], eventInfo[2]);
+                        String[] eventInfo = test[1].split(" /from | /to ");
+                        System.out.println(eventInfo[0]);
+                        if (eventInfo.length < 3) {
+                            throw new InvalidCommandException("!!! Your command is incomplete !!!");
+                        }
+                        Event newEventTask = new Event(eventInfo[0], eventInfo[1], eventInfo[2], false);
                         tasks.add(newEventTask);
-                        index++;
+                        saveToFile(tasks);
                         System.out.println("Alright! I've added this task:\n " + newEventTask.toString()
-                                + "\nNow you have " + (index) + " tasks in the list.");
+                                + "\nNow you have " + tasks.size() + " tasks in the list.");
                         userInput = scanIn.nextLine();
 
-                        // For to do task.
+
+                    // For to do task
                     } else if (userInput.split(" ")[0].equals(TODO_TRIGGER)) {
                         String[] test = userInput.split("\\s+", 2);
 
@@ -151,11 +220,11 @@ public class Blip {
                             throw new EmptyDescriptionException("!!! Missing TO DO Description !!!\n");
                         }
 
-                        ToDo newToDoTask = new ToDo(userInput);
+                        ToDo newToDoTask = new ToDo(test[1], false);
                         tasks.add(newToDoTask);
-                        index++;
+                        saveToFile(tasks);
                         System.out.println("Alright! I've added this task:\n " + newToDoTask.toString()
-                                + "\nNow you have " + (index) + " tasks in the list.");
+                                + "\nNow you have " + tasks.size() + " tasks in the list.");
                         userInput = scanIn.nextLine();
                     } else {
                         throw new InvalidCommandException("!!! Your command is invalid !!!\n");
@@ -164,7 +233,7 @@ public class Blip {
                     // To list out tasks.
                 } else {
                     System.out.println("Here are the tasks in your list:");
-                    for (int i = 0; i < index; i++) {
+                    for (int i = 0; i < tasks.size(); i++) {
                         System.out.println((i + 1) + "." + tasks.get(i).toString());
                     }
                     userInput = scanIn.nextLine();
@@ -188,6 +257,8 @@ public class Blip {
                         "2. event [task description] /from [start datetime] /to [end datetime]\n" +
                         "3. todo [task description].");
                 userInput = scanIn.nextLine();
+            }catch (IOException e) {
+                System.out.println("Error loading file: " + e.getMessage());
             }
         }
 
