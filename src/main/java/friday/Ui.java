@@ -15,6 +15,11 @@ public class Ui {
         System.out.println(taskList);
     }
 
+    public void findTasks(TaskList taskList) {
+        System.out.println("Here are the matching tasks in your list");
+        System.out.println(taskList);
+    }
+
     public void unmark() {
         System.out.println("Nice! I've marked this task as not done yet:");
     }
@@ -57,5 +62,9 @@ public class Ui {
 
     public void showBadInputError() throws FridayException {
         throw new FridayException("OOPS!!! I'm sorry, but I don't know what that means :-(\n");
+    }
+
+    public void showFindError() throws FridayException {
+        throw new FridayException("Oops! Please add a keyword to search for!");
     }
 }

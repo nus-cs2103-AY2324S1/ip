@@ -44,6 +44,13 @@ public class Parser {
                     int taskNumber = Integer.parseInt(userInput.split(" ")[1]);
                     taskList.delete(taskNumber - 1);
                     saveTasks(taskList.toString(), storage);
+                } else if (userInput.contains("find")) {
+                    String[] findInput = userInput.split(" ", 2);
+                    if (findInput.length < 2 || findInput[1].trim().isEmpty()) {
+                        ui.showFindError();
+                    }
+                    TaskList result = taskList.findTasks(findInput[1]);
+                    ui.findTasks(result);
                 } else if (userInput.contains("todo")) {
                     String[] todoInput = userInput.split(" ", 2);
                     if (todoInput.length < 2 || todoInput[1].trim().isEmpty()) {
