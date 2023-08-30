@@ -13,6 +13,9 @@ public class Parser {
      * Parses the given input and tells Tasklist the action to take.
      * Exceptions are thrown should the input be invalid.
      * @param input User input.
+     * @throws InvalidKeywordException if the keyword is not recognised.
+     * @throws EmptyArgumentException if no argument is provided for commands requiring arguments.
+     * @throws NumberFormatException if non-digit argument is provided for commands requiring digits as arguments.
      */
     public static void parseAndExecute(String input)
             throws InvalidKeywordException, EmptyArgumentException, NumberFormatException {

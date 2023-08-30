@@ -104,6 +104,7 @@ public class Tasklist {
     /**
      * Marks the task at index in the task list as done.
      * @param index The index of task to be marked done.
+     * @throws IndexOutOfBoundsException when the index entered is out of range.
      */
     public static void markAsDone(int index) throws IndexOutOfBoundsException {
         checkIndexOutOfBoundsHelper(index);
@@ -118,6 +119,7 @@ public class Tasklist {
     /**
      * Marks the task at index in the task list as undone.
      * @param index The index of task to be marked undone.
+     * @throws IndexOutOfBoundsException when the index entered is out of range.
      */
     public static void markAsNotDone(int index) throws IndexOutOfBoundsException {
         checkIndexOutOfBoundsHelper(index);
@@ -132,6 +134,7 @@ public class Tasklist {
     /**
      * Deletes the task at index in the task list and updates the database.
      * @param index The index of task to be deleted.
+     * @throws IndexOutOfBoundsException when the index entered is out of range.
      */
     public static void delete(int index) throws IndexOutOfBoundsException {
         checkIndexOutOfBoundsHelper(index);
