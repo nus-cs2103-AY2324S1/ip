@@ -1,19 +1,18 @@
 package taskmaster;
 
-import taskmaster.storage.Storage;
-import taskmaster.tasks.Task;
-import taskmaster.ui.Ui;
-import taskmaster.parser.Parser;
 import taskmaster.exceptions.DukeException;
+import taskmaster.parser.Parser;
+import taskmaster.storage.Storage;
+import taskmaster.ui.Ui;
 
 import java.util.Scanner;
 public class Taskmaster {
     private static final String FILE_PATH = "./Data.txt";
     public static boolean activated = true;
-    private Storage storage;
-    private Scanner scanner;
-    private Ui ui;
-    private Parser parser;
+    private final Storage storage;
+    private final Scanner scanner;
+    private final Ui ui;
+    private final Parser parser;
 
     public Taskmaster() {
         this.storage = new Storage(FILE_PATH);
