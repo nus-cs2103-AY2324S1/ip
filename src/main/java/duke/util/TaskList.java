@@ -28,15 +28,24 @@ public class TaskList {
     }
 
     public Task remove(int index) {
+        if (index < 0 || index >= list.size()) {
+            return null;
+        }
         return this.list.remove(index);
     }
 
     public Task mark(int index) {
+        if (index < 0 || index >= list.size()) {
+            return null;
+        }
         this.list.get(index).markAsDone();
         return this.list.get(index);
     }
 
     public Task unmark(int index) {
+        if (index < 0 || index >= list.size()) {
+            return null;
+        }
         this.list.get(index).markAsNotDone();
         return this.list.get(index);
     }
