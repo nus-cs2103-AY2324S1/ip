@@ -1,5 +1,0 @@
-T 1 this
-D 0 that /by then
-E 1 to /from this /to now
-T 0 that
-D 1 now /by then
