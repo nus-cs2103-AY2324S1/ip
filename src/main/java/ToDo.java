@@ -7,14 +7,6 @@ public class ToDo extends Task {
     @Override
     public  String saveString() {
         return "T" + super.saveString();
-<<<<<<< HEAD
-    }
-
-    @Override
-    public String toString() {
-        return String.format("[T] %s", super.toString());
-=======
->>>>>>> branch-Level-7
     }
 
     @Override
