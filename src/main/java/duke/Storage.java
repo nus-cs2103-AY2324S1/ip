@@ -1,3 +1,5 @@
+package duke;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -49,7 +51,7 @@ public class Storage {
         return lst;
     }
 
-    public static Task textToTask(String text) throws DukeException{ // Storage (load())
+    public static Task textToTask(String text) throws DukeException { // Storage (load())
         String[] arr = text.split(" [|] ");
         String identifier = arr[0];
         String status = arr[1];

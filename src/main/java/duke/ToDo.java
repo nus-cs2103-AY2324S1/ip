@@ -1,4 +1,6 @@
-public class ToDo extends Task{
+package duke;
+
+public class ToDo extends Task {
     protected String taskDescription;
     private String identifier;
 
