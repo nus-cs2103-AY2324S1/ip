@@ -17,6 +17,10 @@ public abstract class Task implements Serializable {
         this.icon = "[X]";
     }
 
+    public boolean isDone() {
+        return this.isDone;
+    }
+
     @Override
     public String toString() {
         return this.icon + " " + this.task;
