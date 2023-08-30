@@ -1,6 +1,3 @@
-package ipduke;
-
-import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -9,6 +6,43 @@ import java.util.Scanner;
 import java.io.File;
 
 public class Duke {
+
+    private Storage storage;
+    private TaskList tasks;
+    private Ui ui;
+
+    public Duke(String filePath) {
+        ui = new Ui();
+        storage = new Storage(filePath);
+        try {
+            tasks = new TaskList(storage.load());
+        } catch (IOException e) {
+            ui.showLoadingError();
+            tasks = new TaskList();
+        }
+    }
+
+    public void run() {
+        ui.showWelcome();
+        boolean isExit = false;
+        while (!isExit) {
+            try {
+                String fullCommand = ui.readCommand();
+                Command c = Parser.parse(fullCommand);
+                c.execute(tasks, ui, storage);
+                isExit = c.isExit();
+            } catch (DukeException e) {
+                ui.showError(e.getMessage());
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+        new Duke("./tasks.txt").run();
+    }
+
     static List<Task> taskList = new ArrayList<>();
     static String divider = "    ____________________________________________________________\n";
 
@@ -48,35 +82,6 @@ public class Duke {
                 + divider);
     }
 
-    public static ArrayList<Task> readTaskListFile(String filePath) throws IOException {
-        File f = new File(filePath);
-        if(!f.exists()) {
-            f.createNewFile();
-        }
-        Scanner sc = new Scanner(f);
-        ArrayList<Task> taskList = new ArrayList<>();
-        while (sc.hasNext()) {
-            String[] taskDetails = sc.nextLine().split(" , ");
-            Task task;
-            switch (taskDetails[0]) {
-            case "T":
-                task = new Todo(taskDetails[2], taskDetails[1].equals("1"));
-                break;
-            case "D":
-                task = new Deadline(taskDetails[2], taskDetails[3], taskDetails[1].equals("1"));
-                break;
-            case "E":
-                task = new Event(taskDetails[2], taskDetails[3], taskDetails[4], taskDetails[1].equals("1"));
-                break;
-            default:
-                task = null;
-                break;
-            }
-            taskList.add(task);
-        }
-        return taskList;
-    }
-
     public static void rewriteTaskListFile(String filepath, List<Task> filelist) throws IOException {
         FileWriter fw = new FileWriter(filepath);
         filelist.forEach(task -> {
@@ -103,7 +108,7 @@ public class Duke {
             try {
                 String[] input = sc.nextLine().split(" ", 2);
                 String firstWord = input[0];
-                String taskDetails = input.length == 1 ? "" : input[1];
+                String taskDetails = input.length < 2 ? "" : input[1];
 
                 if (firstWord.equals("bye")) {
                     System.out.println(parting);
@@ -130,6 +135,7 @@ public class Duke {
                     printAddedTask();
                     break;
                 case "deadline":
+                    System.out.println(taskDetails);
                     if (taskDetails.equals("")) throw new EmptyDeadlineException(
                             divider + "    TWEET!!! The description of a deadline cannot be empty.\n" + divider
                     );
@@ -152,17 +158,13 @@ public class Duke {
                     break;
                 case "delete":
                     int deleteIndex = Integer.parseInt(taskDetails) - 1;
-                    if (deleteIndex < 0 || deleteIndex >= taskList.size()) throw new InvalidTaskNumberException(
-                            divider + "    TWEET!!! I can't find the task you are looking for!\n" + divider
-                    );
+                    if (deleteIndex < 0 || deleteIndex >= taskList.size()) throw new InvalidTaskNumberException();
                     taskList.remove(deleteIndex);System.out.print(divider + "    chirp! chirp! Task right out the window!\n" + divider);
                     rewriteTaskListFile(filepath, taskList);
                     break;
                 case "mark":
                     int markIndex = Integer.parseInt(taskDetails) - 1;
-                    if (markIndex < 0 || markIndex >= taskList.size()) throw new InvalidTaskNumberException(
-                            divider + "    TWEET!!! I can't find the task you are looking for!\n" + divider
-                    );
+                    if (markIndex < 0 || markIndex >= taskList.size()) throw new InvalidTaskNumberException();
                     System.out.print(divider);
                     taskList.get(markIndex).markTask();
                     System.out.println(divider);
@@ -170,9 +172,7 @@ public class Duke {
                     break;
                 case "unmark":
                     int unmarkIndex = Integer.parseInt(taskDetails) - 1;
-                    if (unmarkIndex < 0 || unmarkIndex >= taskList.size()) throw new InvalidTaskNumberException(
-                            divider + "    TWEET!!! I can't find the task you are looking for!\n" + divider
-                    );
+                    if (unmarkIndex < 0 || unmarkIndex >= taskList.size()) throw new InvalidTaskNumberException();
                     System.out.print(divider);
                     taskList.get(unmarkIndex).unmarkTask();
                     System.out.println(divider);
@@ -180,27 +180,21 @@ public class Duke {
                     break;
                 case "start":
                     int startIndex = Integer.parseInt(taskDetails) - 1;
-                    if (startIndex < 0 || startIndex >= taskList.size()) throw new InvalidTaskNumberException(
-                            divider + "    TWEET!!! I can't find the task you are looking for!\n" + divider
-                    );
+                    if (startIndex < 0 || startIndex >= taskList.size()) throw new InvalidTaskNumberException();
                     System.out.print(divider);
                     taskList.get(startIndex).printStart();
                     System.out.println(divider);
                     break;
                 case "end":
                     int endIndex = Integer.parseInt(taskDetails) - 1;
-                    if (endIndex < 0 || endIndex >= taskList.size()) throw new InvalidTaskNumberException(
-                            divider + "    TWEET!!! I can't find the task you are looking for!\n" + divider
-                    );
+                    if (endIndex < 0 || endIndex >= taskList.size()) throw new InvalidTaskNumberException();
                     System.out.print(divider);
                     taskList.get(endIndex).printEnd();
                     System.out.println(divider);
                     break;
                 case "due":
                     int dueIndex = Integer.parseInt(taskDetails) - 1;
-                    if (dueIndex < 0 || dueIndex >= taskList.size()) throw new InvalidTaskNumberException(
-                            divider + "    TWEET!!! I can't find the task you are looking for!\n" + divider
-                    );
+                    if (dueIndex < 0 || dueIndex >= taskList.size()) throw new InvalidTaskNumberException();
                     System.out.print(divider);
                     taskList.get(dueIndex).printDueDate();
                     System.out.println(divider);
@@ -215,16 +209,16 @@ public class Duke {
             }
         }
     }
-    public static void main(String[] args){
-        System.out.println("    chirp chirp!\n" + logo_bird + importantNotes + greet);
-        String filepath = "./tasklistfile.txt";
-        try {
-            taskList = readTaskListFile(filepath);
-            setTaskList(filepath);
-        } catch (Exception e) {
-            System.out.println(e);
-        }
-    }
+//    public static void main(String[] args){
+//        System.out.println("    chirp chirp!\n" + logo_bird + importantNotes + greet);
+//        String filepath = "./tasklistfile.txt";
+//        try {
+//            taskList = readTaskListFile(filepath);
+//            setTaskList(filepath);
+//        } catch (Exception e) {
+//            System.out.println(e);
+//        }
+//    }
 
 
 }

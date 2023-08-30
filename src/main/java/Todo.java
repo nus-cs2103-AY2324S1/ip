@@ -1,5 +1,3 @@
-package ipduke;
-
 public class Todo extends Task{
     Todo(String task, boolean done) {
         super(task, done);
