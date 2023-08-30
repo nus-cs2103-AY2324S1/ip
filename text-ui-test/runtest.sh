@@ -6,6 +6,13 @@ then
     mkdir ../bin
 fi
 
+# delete data directory
+if [ -d "./data" ]
+then
+    # Remove the directory
+    rm -r "./data"
+fi
+
 # delete output from previous run
 if [ -e "./ACTUAL.TXT" ]
 then
@@ -20,7 +27,7 @@ then
 fi
 
 # run the program, feed commands from input.txt file and redirect the output to the ACTUAL.TXT
-java -classpath ../bin Duke < input.txt > ACTUAL.TXT
+java -classpath ../bin dukeapp.Duke < input.txt > ACTUAL.TXT
 
 # convert to UNIX format
 cp EXPECTED.TXT EXPECTED-UNIX.TXT

@@ -43,7 +43,7 @@ public class DukeApp {
      * @param name    The name of the command.
      * @param command The associated command.
      */
-    public void addCommand(String name, Command command) {
+    private void addCommand(String name, Command command) {
         this.commandMap.put(name, command);
     }
 
