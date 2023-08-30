@@ -26,4 +26,18 @@ public class Event extends Task {
     public String toString() {
         return String.format("[E]%s (from: %s to: %s)", super.toString(), this.from, this.to);
     }
+
+    /**
+     * Get a formatted string of the Event task to add to the save file.
+     *
+     * @return A formatted string with the relevant information for the save file.
+     */
+    @Override
+    public String getSaveString() {
+        return String.format("E | %d | %s | %s | %s",
+                this.isDone ? 1 : 0,
+                this.description,
+                this.from,
+                this.to);
+    }
 }

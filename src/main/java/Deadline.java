@@ -23,4 +23,17 @@ public class Deadline extends Task {
     public String toString() {
         return String.format("[D]%s (by: %s)", super.toString(), this.by);
     }
+
+    /**
+     * Get a formatted string of the Deadline task to add to the save file.
+     *
+     * @return A formatted string with the relevant information for the save file.
+     */
+    @Override
+    public String getSaveString() {
+        return String.format("D | %d | %s | %s",
+                this.isDone ? 1 : 0,
+                this.description,
+                this.by);
+    }
 }
