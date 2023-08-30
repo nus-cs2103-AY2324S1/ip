@@ -1,4 +1,9 @@
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.Scanner;
 
 public class Duke {
@@ -15,11 +20,37 @@ public class Duke {
         }
     }
 
-    public static void run(String userinput, Scanner scan, ArrayList<Task> list) throws DukeException {
+    public static void runfile(File file, String datainput, ArrayList<Task> list) throws DukeException{
+        String regex = " : ";
+        String[] split = datainput.split(regex);
+        if (split[0].equals("T")) {
+            ToDo todo = new ToDo(split[2]);
+            if (split[1] == "1") {
+                todo.setdone();
+            }
+            list.add(todo);
+        } else if (split[0].equals("D")) {
+            Deadline deadline = new Deadline(split[2], split[3]);
+            if (split[1] == "1") {
+                deadline.setdone();
+            }
+            list.add(deadline);
+        } else if (split[0].equals("E")) {
+            Event event = new Event(split[2], split[3], split[4]);
+            if (split[1] == "1") {
+                event.setdone();
+            }
+            list.add(event);
+        } else {
+            System.out.println("error");
+        }
+    }
+    public static void run(File file, String userinput, ArrayList<Task> list) throws DukeException {
         if (userinput.equalsIgnoreCase("list")) {
             for (int i = 0; i < list.size(); i++) {
                 System.out.println(i + 1 + "." + list.get(i));
             }
+            return;
 
         } else if (userinput.length() >= 6 && userinput.substring(0, 5).equalsIgnoreCase("mark ")) {
             try {
@@ -35,7 +66,6 @@ public class Duke {
             } catch (NumberFormatException e) {
                 System.out.println("Enter a valid number to mark");
             }
-
         } else if (userinput.length() >= 4 && userinput.substring(0, 4).equalsIgnoreCase("todo")) {
             ToDo todo = new ToDo(userinput.substring(4));
             list.add(todo);
@@ -79,18 +109,44 @@ public class Duke {
         } else {
             throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
+        try(FileWriter fw = new FileWriter(file, true);
+            BufferedWriter bw = new BufferedWriter(fw);
+            PrintWriter out = new PrintWriter(bw))
+        {
+            out.println(list.get(list.size() - 1).dataString());
+        } catch (IOException e) {
+            System.out.println("nothing");
+        }
     }
     public static void main(String[] args) {
         System.out.println("Hello! I'm IPSVIJAYKUMARAAKOODAIRRUKALAM");
         System.out.println("What can I do for you?");
         String userinput;
         ArrayList<Task> list = new ArrayList<>();
-        Scanner scan = new Scanner( System.in );
+        Scanner scan = new Scanner(System.in);
+        File file;
+
+        try {
+            File openfile = new File("data/duke");
+            file = openfile;
+            Scanner reader = new Scanner(openfile);
+            while (reader.hasNextLine()) {
+                String data = reader.nextLine();
+                try {
+                    runfile(openfile, data,list);
+                } catch (DukeException e) {
+                    System.out.println(e);
+                }
+            }
+        } catch (FileNotFoundException e) {
+            file = new File("data/duke");
+            System.out.println(e);
+        }
 
         userinput = scan.nextLine();
         while (!userinput.equalsIgnoreCase("bye")) {
             try {
-                run(userinput, scan, list);
+                run(file, userinput, list);
             } catch (DukeException e) {
                 System.out.println(e);
             } finally {

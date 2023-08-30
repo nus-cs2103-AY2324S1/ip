@@ -1,4 +1,4 @@
-public class Task {
+public abstract class Task {
     private boolean done;
     private final String name;
 
@@ -19,6 +19,12 @@ public class Task {
     public boolean isdone() {
         return this.done;
     }
+
+    public String getname() {
+        return this.name;
+    }
+
+    public abstract String dataString();
 
     @Override
     public String toString() {

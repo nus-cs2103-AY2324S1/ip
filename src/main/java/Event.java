@@ -10,6 +10,14 @@ public class Event extends Task {
         this.to = to;
     }
 
+    public String dataString() {
+        if (this.isdone()) {
+            return "T : 1 : " + this.getname() + ":" + this.from + ":" + this.to;
+        } else {
+            return "T : 0 : " + this.getname() + ":" + this.from + ":" + this.to;
+        }
+    }
+
     @Override
     public String toString() {
         return "[E]" + super.toString() + " (from: " + this.from + ") (to: " + this.to + ")";

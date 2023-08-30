@@ -7,6 +7,14 @@ public class ToDo extends Task{
         }
     }
 
+    public String dataString() {
+        if (this.isdone()) {
+            return "T : 1 : " + this.getname();
+        } else {
+            return "T : 0 : " + this.getname();
+        }
+    }
+
     @Override
     public String toString() {
         return "[T]" + super.toString();
