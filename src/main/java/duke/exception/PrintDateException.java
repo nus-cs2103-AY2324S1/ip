@@ -1,3 +1,7 @@
+package duke.exception;
+
+import duke.Ui;
+
 public class PrintDateException extends DukeException{
 
     public PrintDateException(String message) {

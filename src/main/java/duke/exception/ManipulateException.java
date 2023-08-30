@@ -1,3 +1,7 @@
+package duke.exception;
+
+import duke.Ui;
+
 public class ManipulateException extends DukeException{
 
     public ManipulateException(String message, String command) {

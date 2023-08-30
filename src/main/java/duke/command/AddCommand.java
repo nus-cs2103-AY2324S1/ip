@@ -1,3 +1,18 @@
+package duke.command;
+
+import duke.exception.DukeException;
+import duke.exception.DeadlineException;
+import duke.exception.EventException;
+import duke.task.Task;
+import duke.task.Todo;
+import duke.task.Deadline;
+import duke.task.Event;
+import duke.Storage;
+import duke.TaskList;
+import duke.Ui;
+import duke.Keyword;
+import duke.Time;
+
 public class AddCommand extends Command {
 
     private Keyword key;

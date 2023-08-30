@@ -1,3 +1,7 @@
+package duke.exception;
+
+import duke.Ui;
+
 public class DeadlineException extends DukeException{
 
     public DeadlineException(String message) {

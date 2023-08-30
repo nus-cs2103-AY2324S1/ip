@@ -1,3 +1,7 @@
+package duke.exception;
+
+import duke.Ui;
+
 public class EventException extends DukeException{
 
     public EventException(String message) {

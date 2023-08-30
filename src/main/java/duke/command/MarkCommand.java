@@ -1,3 +1,12 @@
+package duke.command;
+
+import duke.exception.DukeException;
+import duke.exception.ManipulateException;
+import duke.Storage;
+import duke.TaskList;
+import duke.Ui;
+import duke.Keyword;
+
 public class MarkCommand extends Command {
 
     private Keyword key;
