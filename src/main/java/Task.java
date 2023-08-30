@@ -6,6 +6,11 @@ public class Task {
         this.name = name;
     }
 
+    public Task(String name, boolean isDone) {
+        this.name = name;
+        this.isDone = isDone;
+    }
+
     public String getName() {
         return name;
     }

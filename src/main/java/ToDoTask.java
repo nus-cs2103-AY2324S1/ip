@@ -4,6 +4,9 @@ public class ToDoTask extends Task{
         super(name);
     }
 
+    public ToDoTask(String name, boolean isDone) {
+        super(name, isDone);
+    }
     @Override
     public String toString() {
         return String.format("[%s][%s] %s",
