@@ -1,3 +1,6 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 /**
  * This is a class representing a single task with fields to represent details and done state
  * @author Selwyn
@@ -20,6 +23,11 @@ public class Task {
     public Task(String detail) {
         this.detail = detail;
         this.isDone = false;
+    }
+
+    public String getDisplayDateTime(LocalDateTime dateTime) {
+        DateTimeFormatter displayFormat = DateTimeFormatter.ofPattern("dd MMM yyyy HH:mm");
+        return dateTime.format(displayFormat);
     }
 
     /**

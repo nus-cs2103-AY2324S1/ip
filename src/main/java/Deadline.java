@@ -1,3 +1,5 @@
+import java.time.LocalDateTime;
+
 /**
  * This is the Deadline class, a child class of Task class
  * @author Selwyn
@@ -6,14 +8,14 @@ public class Deadline extends Task{
     /**
      * Field representing the date and time of the deadline
      */
-    protected String endDateTime;
+    protected LocalDateTime endDateTime;
 
     /**
      * Constructor for a Deadline task
      *
      * @param detail
      */
-    public Deadline(String detail, String endDateTime) {
+    public Deadline(String detail, LocalDateTime endDateTime) {
         super(detail);
         this.endDateTime = endDateTime;
     }
@@ -24,6 +26,6 @@ public class Deadline extends Task{
      */
     @Override
     public String toString() {
-        return "[D] " + super.toString() + " (by: " + this.endDateTime + ")";
+        return "[D] " + super.toString() + " (by: " + super.getDisplayDateTime(this.endDateTime) + ")";
     }
 }
