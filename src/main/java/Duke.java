@@ -1,9 +1,13 @@
 import java.io.FileNotFoundException;
+import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.io.File;
 import java.io.IOException;
 import java.io.FileWriter;
+import java.time.LocalDate;
+import java.time.LocalTime;
+
 
 /**
  * Ding Chatbot
@@ -63,6 +67,8 @@ public class Duke {
                 handleInvalidTaskIndexException(ding);
             } catch (MissingTaskIndexException e) {
                 handleMissingTaskIndexException();
+            } catch (InvalidDateTimeException e) {
+                handleInvalidDateTimeException();
             } finally {
                 System.out.println("\n____________________________________________________________\n");
                 Duke.updateTasks(ding.tasks);
@@ -125,31 +131,47 @@ public class Duke {
         }
     }
 
-    private static void addDeadline(String str, ArrayList<Task> tasks) throws InvalidDescriptionException {
+    private static void addDeadline(String str, ArrayList<Task> tasks) throws InvalidDescriptionException, InvalidDateTimeException {
         if (str.split(" ").length > 3) {
             String fullTaskDescription = str.split(" ", 2)[1];
             String description = fullTaskDescription.split(" /by ")[0];
             String by = fullTaskDescription.split(" /by ")[1];
-
-            Deadline deadline = new Deadline(description, by);
-            tasks.add(deadline);
-            System.out.println(String.format("Ding: What does '%s' mean? I'll just add it anyway.\n You have like %d tasks now", str, tasks.size()));
+            String[] datetime = by.split(" ");
+            try {
+                LocalDate date = LocalDate.parse(datetime[0]);
+                LocalTime time = LocalTime.parse(datetime[1]);
+                Deadline deadline = new Deadline(description, date, time);
+                tasks.add(deadline);
+                System.out.println(String.format("Ding: What does '%s' mean? I'll just add it anyway.\n You have like %d tasks now", str, tasks.size()));
+            } catch (DateTimeParseException e) {
+                throw new InvalidDateTimeException("Invalid Datetime.");
+            }
         } else {
             System.out.println("Ding: I seriously have no idea what I need to do here");
             throw new InvalidDescriptionException("Invalid description.");
         }
     }
 
-    private static void addEvent(String str, ArrayList<Task> tasks) throws InvalidDescriptionException {
+    private static void addEvent(String str, ArrayList<Task> tasks) throws InvalidDescriptionException, InvalidDateTimeException {
         if (str.split(" ").length > 4) {
             String fullTaskDescription = str.split(" ", 2)[1];
             String description = fullTaskDescription.split(" /from ")[0];
             String from = String.join("", fullTaskDescription.split(" /from ")[1]).split(" /to ")[0];
             String to = fullTaskDescription.split(" /to ")[1];
+            try {
+                String[] fromDatetime = from.split(" ");
+                String[] toDatetime = to.split(" ");
+                LocalDate fromDate = LocalDate.parse(fromDatetime[0]);
+                LocalTime fromTime = LocalTime.parse(fromDatetime[1]);
+                LocalDate toDate = LocalDate.parse(toDatetime[0]);
+                LocalTime toTime = LocalTime.parse(toDatetime[1]);
+                Event event = new Event(description, fromDate, fromTime, toDate, toTime);
+                tasks.add(event);
+                System.out.println(String.format("Ding: What does '%s' mean? I'll just add it anyway.\n You have like %d tasks now", str, tasks.size()));
+            } catch (DateTimeParseException e) {
+                throw new InvalidDateTimeException("Invalid Datetime");
+            }
 
-            Event event = new Event(description, from, to);
-            tasks.add(event);
-            System.out.println(String.format("Ding: What does '%s' mean? I'll just add it anyway.\n You have like %d tasks now", str, tasks.size()));
         } else {
             System.out.println("Ding: I seriously have no idea what I need to do here");
             throw new InvalidDescriptionException("Invalid description.");
@@ -198,6 +220,10 @@ public class Duke {
     private static void handleMissingTaskIndexException() {
         System.out.println("Ding: I don't quite understand what you want to do...");
         System.out.println("Ding: Please input '(command) (task number)'...");
+    }
+
+    private static void handleInvalidDateTimeException() {
+        System.out.println("Ding: I already told you... please enter the timestamps in this format 'YYYY-MM-DD HH:mm'");
     }
 
 
@@ -255,7 +281,9 @@ public class Duke {
                 case 'D':
                     description = description.split(" \\(by: ")[0];
                     String by = str.split(" \\(by: ")[1];
-                    Deadline taskD = new Deadline(description, by.substring(0, by.length() - 1));
+                    LocalDate date = LocalDate.parse(by.split(" ")[0]);
+                    LocalTime time = LocalTime.parse(by.split(" ")[1].replaceAll(".$", ""));
+                    Deadline taskD = new Deadline(description, date, time);
                     if (isMarked) {
                         taskD.markAsDone();
                     }
@@ -265,7 +293,11 @@ public class Duke {
                     description = description.split(" \\(from: ")[0];
                     String from = String.join("", str.split("\\(from: ")[1]).split(" to: ")[0];
                     String to = str.split(" to: ")[1];
-                    Event taskE = new Event(description, from, to.substring(0, to.length() - 1));
+                    LocalDate fromDate = LocalDate.parse(from.split(" ")[0]);
+                    LocalTime fromTime = LocalTime.parse(from.split(" ")[1]);
+                    LocalDate toDate = LocalDate.parse(to.split(" ")[0]);
+                    LocalTime toTime = LocalTime.parse(to.split(" ")[1].replaceAll(".$", ""));
+                    Event taskE = new Event(description, fromDate, fromTime, toDate, toTime);
                     if (isMarked) {
                         taskE.markAsDone();
                     }
