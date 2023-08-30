@@ -22,6 +22,8 @@ public class Parser {
             return new ExitCommand();
         case "list":
             return new ListCommand();
+        case "find":
+            return new FindTaskCommand(argumentString);
         case "mark":
             int markInputIndex;
             try {
