@@ -21,6 +21,7 @@ public class HelpCommand extends Command{
                             "To view your list of events, type list. \n" + "To mark your events as done or undone, type in mark / unmark , " +
                             "followed by the index of the task \n"+
                             "To delete tasks from the list, type delete task number, such as delete 2 \n" +
+                            "You can even filter the list to find certain tasks. Just type \"find\" followed by the keyword you want to search" +
                             "Lastly, to exit the chatbot, type \"bye\" \n" + "____________________________________________________________\n"
             );
             System.out.println(commands);
