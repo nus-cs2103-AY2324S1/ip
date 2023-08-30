@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test;
  */
 public class TaskListTest {
 
-    private TaskList taskList;
+    private TaskList taskList = new TaskList();
 
     /**
      * Test adding a task to the task list.
