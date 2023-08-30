@@ -17,6 +17,5 @@ public class DeadlineCommand extends Command {
         System.out.println("Got it. I've added this task:");
         System.out.println("  " + this.task);
         System.out.println("Now you have " + taskList.numOfTasks() + " tasks in the list.\n");
-
     }
 }

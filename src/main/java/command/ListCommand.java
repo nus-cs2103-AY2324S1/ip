@@ -13,7 +13,7 @@ public class ListCommand extends Command {
             String listCounter = (i + 1) + ".";
             System.out.println(listCounter + currTask.toString());
         }
-        System.out.println("");
+        System.out.println();
     }
 
 }

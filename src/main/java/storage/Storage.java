@@ -18,7 +18,6 @@ import java.util.Scanner;
 public class Storage {
     private final Path directory;
     private File file;
-
     public Storage(String filePath) {
         this.directory = Paths.get(System.getProperty("user.dir"), "./ip/src/main/java/storage");
         if (!Files.exists(directory)) {
@@ -37,7 +36,6 @@ public class Storage {
             }
         }
     }
-
     public void saveTaskList(TaskList taskList) {
         try (FileWriter fileWriter = new FileWriter(this.file)) {
             for (int i = 0; i < taskList.numOfTasks(); i++) {

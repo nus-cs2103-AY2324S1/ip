@@ -19,6 +19,5 @@ public class DeleteCommand extends Command {
         System.out.println("  " + deletedTask);
         taskList.removeTask(deletedTask);
         System.out.println("Now you have " + taskList.numOfTasks() + " tasks in the list.\n");
-
     }
 }

@@ -10,13 +10,9 @@ public class TaskList {
     public TaskList() {
         this.taskList = new ArrayList<Task>();
     }
-    public void loadData(Storage storage) {
-
-    }
     public void addTask(Task task) {
         this.taskList.add(task);
     }
-
     public int numOfTasks() {
         return this.taskList.size();
     }
