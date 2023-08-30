@@ -1,13 +1,10 @@
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.File;
-import java.io.IOException;
+package duke;
+
+import duke.command.Command;
+import duke.exception.DukeException;
+import duke.tasklist.TaskList;
+import duke.tasks.Task;
 import java.util.ArrayList;
-import java.util.Scanner;
-
-
 
 
 /**
@@ -22,7 +19,7 @@ public class Yong {
     public static void run() {
         UI ui = new UI();
         ui.showWelcome();
-        TaskList taskList = new TaskList(new ArrayList<Task>());
+        TaskList taskList = new TaskList();
         Storage storage = new Storage(taskList);
         storage.createFile();
         storage.readFile();
@@ -36,6 +33,7 @@ public class Yong {
                 c.execute();
                 isExit = c.isExit();
             } catch (DukeException e) {
+                System.out.println(e);
                 ui.showError(e.getMessage());
             } finally {
                 ui.showLine();

@@ -1,3 +1,10 @@
+package duke.command;
+import duke.tasklist.*;
+import duke.tasks.*;
+import duke.exception.*;
+
+import duke.command.Command;
+
 /**
  * Represents the actions needed if the user inputs a todo task.
  */

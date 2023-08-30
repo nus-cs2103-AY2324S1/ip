@@ -1,8 +1,13 @@
+package duke.command;
+import duke.tasklist.*;
+import duke.tasks.*;
+import duke.exception.*;
+
 /**
  * Represents the actions needed if the user inputs an Exit command.
  * User input is "bye"
  */
-public class ExitCommand extends Command{
+public class ExitCommand extends Command {
 
     /**
      * Constructor for the deadline command.

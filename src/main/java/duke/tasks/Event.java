@@ -1,15 +1,19 @@
+package duke.tasks;
+
+import duke.tasks.Task;
+
 import java.time.LocalDateTime;
 
 /**
- * Event class representing a task and description.
+ * duke.tasks.Event class representing a task and description.
  */
-public class Event extends Task{
+public class Event extends Task {
 
     protected LocalDateTime from;
     protected LocalDateTime to;
 
     /**
-     * Constructor for the Event class.
+     * Constructor for the duke.tasks.Event class.
      *
      * @param description Description of the task.
      * @param from start time of task.
@@ -22,7 +26,7 @@ public class Event extends Task{
     }
 
     /**
-     * String representation of the Event task.
+     * String representation of the duke.tasks.Event task.
      *
      * @return Information of event.
      */

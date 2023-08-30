@@ -1,7 +1,14 @@
+package duke.command;
+import duke.tasklist.*;
+import duke.tasks.*;
+import duke.exception.*;
+
+import duke.command.Command;
+
 /**
  * Represents the actions needed if the user inputs a list command.
  */
-public class ListCommand extends Command{
+public class ListCommand extends Command {
 
 
     /**

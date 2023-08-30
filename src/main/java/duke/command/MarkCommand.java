@@ -1,3 +1,8 @@
+package duke.command;
+import duke.tasklist.TaskList;
+import duke.tasks.*;
+import duke.exception.*;
+
 /**
  * Represents the actions needed if the user inputs a mark command.
  */

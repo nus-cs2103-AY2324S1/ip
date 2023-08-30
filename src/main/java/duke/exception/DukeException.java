@@ -1,3 +1,5 @@
+package duke.exception;
+
 /**
  * Class to handle exceptions due to incorrect user input.
  */

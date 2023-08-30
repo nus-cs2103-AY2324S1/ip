@@ -1,3 +1,10 @@
+package duke.command;
+import duke.tasklist.*;
+import duke.tasks.*;
+import duke.exception.*;
+
+import duke.command.Command;
+
 /**
  * Class representing actions run when the delete command is called by user.
  */
@@ -6,7 +13,7 @@ public class DeleteCommand extends Command {
     String numberString;
 
     /**
-     * Constructor for DeleteCommand
+     * Constructor for duke.command.DeleteCommand
      *
      * @param taskList TaskList object being used to maintain the list of tasks in the chatbot.
      * @param numberString Parsed string input from the CLI, represents task to be deleted.
