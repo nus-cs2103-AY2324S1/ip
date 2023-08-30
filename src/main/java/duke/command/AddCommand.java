@@ -22,6 +22,11 @@ public class AddCommand extends Command {
     private String from;
     private String to;
 
+    /**
+     * Constructor for the AddCommand for todos.
+     *
+     * @param message The description for the to-do in the to-do list.
+     */
     public AddCommand(String message) {
         this.type = COMMAND_TYPE.TODO;
         this.message = message;
@@ -30,6 +35,12 @@ public class AddCommand extends Command {
         this.to = null;
     }
 
+    /**
+     * Constructor for the AddCommand for deadlines.
+     *
+     * @param message The description for the deadline in the to-do list.
+     * @param deadline The deadline as a String in the format yyyy-mm-ddThh:mm:ss.
+     */
     public AddCommand(String message, String deadline) {
         this.type = COMMAND_TYPE.DEADLINE;
         this.message = message;
@@ -38,6 +49,13 @@ public class AddCommand extends Command {
         this.to = null;
     }
 
+    /**
+     * Constructor for the AddCommand for events.
+     *
+     * @param message The description for the event in the to-do list.
+     * @param from The starting date for the event as a String in the format yyyy-mm-ddThh:mm:ss.
+     * @param to The ending date for the event as a String in the format yyyy-mm-ddThh:mm:ss.
+     */
     public AddCommand(String message, String from, String to) {
         this.type = COMMAND_TYPE.EVENT;
         this.message = message;
@@ -46,6 +64,14 @@ public class AddCommand extends Command {
         this.to = to;
     }
 
+    /**
+     * Executes the given AddCommand using the specified TaskList, Ui and Storage.
+     *
+     * @param tasks The task list to run the command on.
+     * @param ui The UI to print any output onto.
+     * @param storage The storage to save tasks to.
+     * @throws DukeException If task type is invalid; or date Strings cannot be parsed (for deadlines and events).
+     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
         try {
@@ -75,6 +101,12 @@ public class AddCommand extends Command {
         }
     }
 
+    /**
+     * Gets the command type for the specific AddCommand.
+     *
+     * @return "Add Todo" if AddCommand adds a to-do; "Add Deadline" if AddCommand adds a deadline;
+     *         "Add Event" if AddCommand adds an event; "Add " otherwise.
+     */
     @Override
     public String getCommandType() {
         String typeStr;

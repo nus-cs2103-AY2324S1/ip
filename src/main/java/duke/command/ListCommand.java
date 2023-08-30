@@ -5,6 +5,14 @@ import duke.Ui;
 import duke.task.TaskList;
 
 public class ListCommand extends Command {
+
+    /**
+     * Executes the given ListCommand using the specified TaskList, Ui and Storage.
+     *
+     * @param tasks The task list to be printed.
+     * @param ui The UI to print the output onto.
+     * @param storage The storage to save and update tasks (if needed).
+     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         ui.print("Here are the tasks in your list:");
@@ -13,6 +21,10 @@ public class ListCommand extends Command {
         }
     }
 
+    /**
+     * Gets the command type for the ListCommand.
+     * @return List.
+     */
     @Override
     public String getCommandType() {
         return "List";

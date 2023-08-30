@@ -3,6 +3,14 @@ package duke;
 import duke.command.*;
 
 public class Parser {
+
+    /**
+     * Parses the message to be processed into a Command, then returns that Command.
+     *
+     * @param message The message to be parsed.
+     * @return The Command parsed from the given message.
+     * @throws DukeException If there is an invalid input message causing an error in parsing.
+     */
     public static Command parse(String message) throws DukeException {
         if (message.equals("bye")) {
             return new ExitCommand();

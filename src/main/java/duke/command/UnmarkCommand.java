@@ -8,10 +8,22 @@ import duke.task.TaskList;
 public class UnmarkCommand extends Command {
     int index;
 
+    /**
+     * Initialises an UnmarkCommand object.
+     * @param index The index in the task list to unmark.
+     */
     public UnmarkCommand(int index) {
         this.index = index;
     }
 
+    /**
+     * Executes the given UnmarkCommand using the specified TaskList, Ui and Storage.
+     *
+     * @param tasks The task list to unmark a task in.
+     * @param ui The UI to print any output onto.
+     * @param storage The storage to save and update tasks.
+     * @throws DukeException If index is out of range for the task list.
+     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
         if (index >= 1 && index <= tasks.getSize()) {
@@ -26,6 +38,10 @@ public class UnmarkCommand extends Command {
         }
     }
 
+    /**
+     * Gets the command type for the UnmarkCommand.
+     * @return Unmark.
+     */
     @Override
     public String getCommandType() {
         return "Unmark";
