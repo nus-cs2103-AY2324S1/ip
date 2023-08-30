@@ -12,13 +12,29 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Manages storage operations such as saving and loading tasks from a file.
+ */
 public class Storage {
+
+    /** File path of the database. */
     private Path filePath;
 
+    /**
+     * Constructs a new Storage instance.
+     *
+     * @param filePath The path to the database file.
+     */
     public Storage(Path filePath) {
         this.filePath = filePath;
     }
 
+    /**
+     * Loads tasks from the database file.
+     *
+     * @return An array of loaded tasks.
+     * @throws DukeException If there's an error reading the database.
+     */
     public Task[] loadData() throws DukeException {
         File db = new File(this.filePath.toUri());
         ArrayList<Task> taskList = new ArrayList<>();
@@ -35,6 +51,11 @@ public class Storage {
     }
 
 
+    /**
+     * Creates a new database file.
+     *
+     * @throws DukeException If there's an error creating the database.
+     */
     private void createDatabase() throws DukeException {
         File db = new File(this.filePath.toUri());
         File dir = new File(db.getParent());
@@ -46,7 +67,13 @@ public class Storage {
         }
     }
 
-
+    /**
+     * Reads and constructs a task based on the given database entry.
+     *
+     * @param entry The string representation of a task from the database.
+     * @return The task represented by the entry.
+     * @throws DukeException If there's an error reading the entry.
+     */
     private Task readEntry(String entry) throws DukeException {
         String[] fields = entry.split("\\|");
         Task taskToAdd;
@@ -73,7 +100,13 @@ public class Storage {
         return taskToAdd;
     }
 
-    public void saveFile(Tasklist todolist) throws IOException {
+    /**
+     * Saves the list of tasks to the database file.
+     *
+     * @param todoList The list of tasks to save.
+     * @throws IOException If there's an error writing to the file.
+     */
+    public void saveFile(Tasklist todoList) throws IOException {
         if (!Files.exists(filePath.getParent())) {
             try {
                 // Create the directory
@@ -96,7 +129,7 @@ public class Storage {
         }
         FileWriter fw = new FileWriter(String.valueOf(filePath), false);
         BufferedWriter bw = new BufferedWriter(fw);
-        todolist.savelist(bw);
+        todoList.saveList(bw);
         bw.close();
         fw.close();
     }
