@@ -36,7 +36,7 @@ public class Storage {
                     // Read each line from the file
                     String line = sc.nextLine();
                     // Convert the line to a Task object using Task.fromString
-                    Task task = Task.fromString(line);
+                    Task task = Parser.parseFileInput(line);
                     // Add the task to the provided list if it's not null
                     if (task != null) {
                         list.addTask(task);

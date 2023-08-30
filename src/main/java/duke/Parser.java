@@ -1,6 +1,7 @@
 package duke;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 public class Parser {
     public static void parseUserInput(String userInput, TaskList taskList) {
@@ -128,5 +129,51 @@ public class Parser {
             // Other inputs
             Ui.showError("I'm sorry, but I don't know what that means");
         }
+    }
+
+    /**
+     * Parses a string representation of a task and creates a Task object.
+     * This method takes a string representation of a task in a specific format
+     * and parses it to create a corresponding Task object. The input string is
+     * split using the "|" delimiter and the task type, status, description, and
+     * other relevant information are extracted to create the appropriate task.
+     * The created task object is then returned.
+     *
+     * @param line The string representation of a task to be parsed.
+     * @return A Task object created from the parsed string representation.
+     */
+    public static Task parseFileInput(String line) {
+        String[] parts = line.split("\\|");
+        String type = parts[0].trim();
+        boolean isDone = parts[1].trim().equals("1");
+        String description = parts[2].trim();
+
+        Task task = null;
+
+        switch (type) {
+            case "T":
+                task = new ToDos(description);
+                break;
+            case "D":
+                String by = parts[3].trim();
+
+                // Parse the date and time
+                LocalDate deadlineDate = LocalDate.parse(by, DateTimeFormatter.ofPattern("MMM d yyyy"));
+
+                task = new Deadlines(description, deadlineDate);
+                break;
+            case "E":
+                String from = parts[3].trim();
+                String to = parts[4].trim();
+
+                task = new Events(description, from, to);
+                break;
+        }
+
+        if (task != null && isDone) {
+            task.markAsDone();
+        }
+
+        return task;
     }
 }
