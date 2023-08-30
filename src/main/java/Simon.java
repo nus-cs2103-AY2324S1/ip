@@ -1,5 +1,6 @@
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -20,6 +21,10 @@ public class Simon {
         // Start Program
         System.out.println(SPACEN + SimonAscii.toStr());
         System.out.println("Hello! I'm Simon\nWhat can I do for you?\n" + SPACE);
+
+        // Load task file
+        loadTasksFromFile();
+        System.out.println("I've loaded your tasks from the last time you used me!" + NSPACE);
 
         while (true) {
             String inData = scan.nextLine();
@@ -134,6 +139,7 @@ public class Simon {
         }
 
         tasks.add(task);
+        saveTasksToFile();
         System.out.println(SPACEN + "Got it. I've added this task:\n" + " " +
                 task + String.format("\nNow you have %d %s in the list.",
                 tasks.size(), tasks.size() > 1 ? "tasks" : "task") + NSPACE);
@@ -160,9 +166,11 @@ public class Simon {
 
         if (markAsDone) {
             tasks.get(index).markAsDone();
+            saveTasksToFile();
             System.out.println("Nice! I've marked this task as done:\n[X] " + tasks.get(index) + NSPACE);
         } else {
             tasks.get(index).markAsUndone();
+            saveTasksToFile();
             System.out.println("OK, I've marked this task as not done yet:\n[ ] " + tasks.get(index) + NSPACE);
         }
     }
@@ -188,6 +196,7 @@ public class Simon {
 
         Task task = tasks.get(index);
         tasks.remove(index);
+        saveTasksToFile();
         System.out.println("Noted. I've removed this task:\n" + task + String.format("\nNow you have %d %s in the list.",
                 tasks.size(), tasks.size() - 1 > 1 ? "tasks" : "task") + NSPACE);
     }
@@ -213,8 +222,24 @@ public class Simon {
     }
 
     private static void loadTasksFromFile() {
+        // Ensure data directory exists
+        File dir = new File("./data");
+        if (!dir.exists()) {
+            dir.mkdir();
+        }
+
+        // Ensure simon.txt file exists
+        File file = new File("./data/simon.txt");
+        if (!file.exists()) {
+            try {
+                file.createNewFile();
+            } catch (IOException e) {
+                System.out.println("An error occurred while creating the data file.");
+                e.printStackTrace();
+            }
+        }
+
         try {
-            File file = new File("./data/simon.txt");
             Scanner scanner = new Scanner(file);
             while (scanner.hasNextLine()) {
                 String data = scanner.nextLine();
