@@ -6,9 +6,9 @@ import java.time.format.DateTimeFormatter;
  */
 public class Event extends Task {
 
-    protected LocalDateTime from;
-    protected LocalDateTime to;
-    protected DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy hh:mm a");
+    private final LocalDateTime from;
+    private final LocalDateTime to;
+    private final DateTimeFormatter formatter;
 
     /**
      * A constructor for task of type Event
@@ -21,6 +21,7 @@ public class Event extends Task {
         super(description);
         this.from = from;
         this.to = to;
+        this.formatter = DateTimeFormatter.ofPattern("MMM dd yyyy hh:mm a");
     }
 
     @Override

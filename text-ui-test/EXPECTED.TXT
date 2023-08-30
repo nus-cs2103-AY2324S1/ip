@@ -33,7 +33,7 @@ OOPS!! Task number cannot empty. Please indicate a task number from one to the n
 OOPS!! Invalid task number. The task number has to be from one to the number of tasks in the list.
 OOPS!! Task number cannot empty. Please indicate a task number from one to the number of tasks in the list.
 Noted. I've removed this task:
- [T][ ] sleep
+ [E][ ] meeting (from: Oct 10 2023 02:00 PM to: Oct 10 2023 04:00 PM)
 Now you have 2 task(s) in the list.
 OOPS!!! Invalid command. Try the following commands instead:
 > todo <task>
