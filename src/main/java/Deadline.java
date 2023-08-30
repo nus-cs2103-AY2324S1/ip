@@ -1,24 +1,23 @@
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 public class Deadline extends Task {
     LocalDateTime deadline;
 
-    public Deadline(String description, LocalDateTime deadline) {
+    public Deadline(String description, LocalDateTime deadline) throws BongoException {
         super(description);
         this.validateDeadline(deadline);
         this.deadline = deadline;
     }
 
-    public Deadline(String description, boolean isDone, LocalDateTime deadline) {
+    public Deadline(String description, boolean isDone, LocalDateTime deadline) throws BongoException {
         super(description);
         this.isDone = isDone;
         this.validateDeadline(deadline);
         this.deadline = deadline;
     }
 
-    private void validateDeadline(LocalDateTime deadline) {
-        if (deadline.isBefore(LocalDateTime.now())) throw new IllegalArgumentException("Deadline must be in the future.");
+    private void validateDeadline(LocalDateTime deadline) throws BongoException {
+        if (deadline.isBefore(LocalDateTime.now())) throw new BongoException("Deadline must be in the future.");
     }
 
     @Override
