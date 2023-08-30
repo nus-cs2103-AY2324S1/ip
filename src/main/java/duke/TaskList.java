@@ -5,18 +5,31 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 import java.util.ArrayList;
+
+/**
+ * This class encapsulates the array list that contains the tasks and operations that operates on the array list.
+ */
 public class TaskList {
 
     protected final ArrayList<Task> taskArray;
-    private final String[] dateFormats = {
+    private String[] dateFormats = {
             "dd-MM-yyyy", "yyyy-MM-dd", "dd/MM/yyyy", "yyyy/MM/dd"
     };
 
-    private final String[] timeFormats = { "HHmm", "HH:mm" };
+    private String[] timeFormats = { "HHmm", "HH:mm" };
+
+    /**
+     * Constructor for TaskList.
+     *
+     * @param taskArray the corresponding array list that contains the tasks.
+     */
     public TaskList(ArrayList<Task> taskArray) {
         this.taskArray = taskArray;
     }
 
+    /**
+     * Constructor for TaskList.
+     */
     public TaskList() {
         this.taskArray = new ArrayList<>();
     }
@@ -29,21 +42,29 @@ public class TaskList {
                     dateTime = LocalDateTime.parse(input,
                             DateTimeFormatter.ofPattern(dateFormats[i] + " " + timeFormats[j]));
                 } catch (DateTimeParseException e) {
+                    if (dateTime == null && i == dateFormats.length - 1 && j == timeFormats.length - 1) {
+                        throw new DukeException("HOHOHO! The date/time format seems to be wrong!"
+                                + "\nPermitted formats for date: dd-mm-yyyy | yyyy-mm-dd | dd/mm/yyyy | yyyy/mm/dd"
+                                + "\nPermitted formats for time (Only 24-hours format): HH:MM | HHMM"
+                                + "\nE.g. 22/09/2023 22:00 | 2023-08-30 0100");
+                    }
                 }
             }
         }
-        if (dateTime == null){
-            throw new DukeException("HOHOHO! The date/time format seems to be wrong!"
-                    + "\nPermitted formats for date: dd-mm-yyyy | yyyy-mm-dd | dd/mm/yyyy | yyyy/mm/dd"
-                    + "\nPermitted formats for time (Only 24-hours format): HH:MM | HHMM"
-                    + "\nE.g. 22/09/2023 22:00 | 2023-08-30 0100");
-        }
         return dateTime;
     }
-
-    public void addTask(String task) {
-        this.taskArray.add(new Todo(task));
+    /**
+     * Adds a Todo task into the array list containing the tasks.
+     *
+     * @param description the description of the task to be added.
+     */
+    public void addTodoTask(String description) {
+        this.taskArray.add(new Todo(description));
     }
+
+    /**
+     * Displays the contents of the array list containing the tasks.
+     */
     public void listTasks() {
         if (this.taskArray.isEmpty()) {
             Ui.taskListEmpty();
@@ -52,13 +73,20 @@ public class TaskList {
         }
     }
 
-    public void markTasks(String[] input, int taskNum) throws DukeException {
+    /**
+     * Marks or unmarks a task in the array list containing the tasks.
+     *
+     * @param action the string to determine it is to mark or unmark the task.
+     * @param taskNum the task number to be marked or unmarked.
+     * @throws DukeException if task number does not exist in the array list.
+     */
+    public void markOrUnmarkTask(String action, int taskNum) throws DukeException {
         try {
-            if (input[0].equals("mark")) {
-                Ui.taskAlreadyMarked(this.taskArray.get(taskNum - 1).isDone);
+            if (action.equals("mark")) {
+                Ui.taskMarked(this.taskArray.get(taskNum - 1).isDone);
                 this.taskArray.get(taskNum - 1).markDone();
             } else {
-                Ui.taskAlreadyNotMarked(!this.taskArray.get(taskNum - 1).isDone);
+                Ui.taskNotMarked(!this.taskArray.get(taskNum - 1).isDone);
                 this.taskArray.get(taskNum - 1).markNotDone();
             }
             Ui.print(this.taskArray.get(taskNum - 1).toString());
@@ -67,7 +95,14 @@ public class TaskList {
         }
     }
 
-    public void deadlineOrEventTask(String action, String[] remainLine)
+    /**
+     * Adds a Deadline or Event task into the array list containing the tasks.
+     *
+     * @param action the string to determine where is a deadline or event task.
+     * @param remainLine the string array from splitting that will have the date/time string representation
+     * @throws DukeException if the string doesn't have a date/time string representation or in an invalid format.
+     */
+    public void addDeadlineOrEventTask(String action, String[] remainLine)
             throws DukeException {
         if (action.equals("deadline")) {
             try {
@@ -94,6 +129,12 @@ public class TaskList {
         }
     }
 
+    /**
+     * Deletes the task from the array list containing the tasks.
+     *
+     * @param taskNum the corresponding task number to be deleted.
+     * @throws DukeException if the task number does not exist.
+     */
     public void deleteTasks(int taskNum) throws DukeException {
         try {
             Task taskDeleted = this.taskArray.get(taskNum - 1);

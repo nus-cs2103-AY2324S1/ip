@@ -1,12 +1,20 @@
 package duke;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
+/**
+ * This class encapsulates a Deadline task that has the date/time to indicate when the task is due.
+ */
 public class Deadline extends Task {
 
     protected LocalDateTime by;
 
+    /**
+     * Constructor for Deadline.
+     *
+     * @param description the description of the deadline task.
+     * @param by the date/time of when the deadline task is due.
+     */
     public Deadline(String description, LocalDateTime by) {
         super(description);
         this.by = by;
@@ -21,9 +29,5 @@ public class Deadline extends Task {
     public String lineToWriteFile() {
         return "D | " + super.lineToWriteFile() + " | "
                 + convertDateToString(this.by);
-    }
-
-    public String convertDateToString(LocalDateTime date) {
-        return date.format(DateTimeFormatter.ofPattern("MMM dd yyyy hh:mma"));
     }
 }
