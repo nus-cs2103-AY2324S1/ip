@@ -188,6 +188,7 @@ public class CommandFactory {
                             }
                             break;
                         case CLEAR:
+
                             tasklists.clear();
                             Task.clear();
                             break;
