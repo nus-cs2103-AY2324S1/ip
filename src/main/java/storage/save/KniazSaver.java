@@ -1,19 +1,18 @@
-package save;
+package storage.save;
 
-import task.Task;
-import task.TaskList;
+import storage.TaskList;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.ObjectOutputStream;
 
 /**
- * Encapsulates a class to help save Kniaz tasklist data to disk.
+ * Encapsulates a class to help storage.save Kniaz tasklist data to disk.
  */
 public class KniazSaver {
 
     /**
-     * The default path KniazSaver will try to save to
+     * The default path KniazSaver will try to storage.save to
      */
     public final static String DEFAULT_PATH = "./data/Kniaz.dat";
 
@@ -23,15 +22,15 @@ public class KniazSaver {
     private File saveFile;
 
     /**
-     * Constructor for class. Makes a KniazSaver that will try to save at the provided path.
-     * @param path the path to save files to
+     * Constructor for class. Makes a KniazSaver that will try to storage.save at the provided path.
+     * @param path the path to storage.save files to
      */
     public KniazSaver(String path) {
         this.saveFile = new File(path);
     }
 
     /**
-     * Constructor for class. Makes a KniazSaver that will try to save to DEFAULT_PATH
+     * Constructor for class. Makes a KniazSaver that will try to storage.save to DEFAULT_PATH
      */
     public KniazSaver() {
         this(DEFAULT_PATH);
@@ -39,7 +38,7 @@ public class KniazSaver {
 
     /**
      * Saves the provided TaskList at the location this class was constructed with.
-     * @param taskList the TaskList to save to disk
+     * @param taskList the TaskList to storage.save to disk
      * @throws java.io.IOException If there is an error with I/O,
      * typically when an error occured in creating file or writing to file
      * @throws java.lang.SecurityException If the security manager did not allow this class to write to file

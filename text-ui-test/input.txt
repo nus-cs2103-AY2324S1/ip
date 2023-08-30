@@ -8,6 +8,14 @@ test2
 deadline fix dates /by 2007-12-03T10:15:30
 event bad event /to 4pm from 2pm
 event weirdly timed event /from apples /to oranges
+event redundant arguments /from apples /to oranges /bad test
+mark 1
+list
+mark 2
+list
+unmark 2
+list
+mark 500
 list
 delete 1
 delete 1
@@ -16,5 +24,6 @@ delete 1
 delete 1
 delete 1
 delete 1
+delete 500
 list
 bye
