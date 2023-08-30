@@ -95,7 +95,7 @@ public class Task {
             );
         } catch (FileNotFoundException e) {
             throw new LukeException(
-                    "Could not find file '" + filepath + "'\n No tasks loaded"
+                    "Could not find file '" + filepath + "'\n\n No tasks loaded"
             );
         }
     }
