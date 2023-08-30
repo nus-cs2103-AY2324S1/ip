@@ -54,7 +54,7 @@ public class Parser {
                     if (parts.length < 2) {
                         throw new DukeException("Boy need to know when the deadline is eh.");
                     }
-                    String[] part = parts[1].split("/by");
+                    String[] part = parts[1].split("/by ");
                     if (part.length < 2) {
                         throw new DukeException("BOY AH The deadline need to write a /by time!!");
                     }
