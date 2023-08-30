@@ -162,13 +162,14 @@ public class Duke {
     }
 
     public void run() throws IllegalCommandException {
-        loadFile();
+        loadFile();     // loads file
         try {
-            readFile();
+            readFile(); // reads loaded file
         } catch (FileNotFoundException e) {
             System.out.println(e.getMessage());
         }
         if (Task.numberOfTasks != 0) {
+            // if there are saved task
             greet = greet + "Welcome back! You had these tasks last time!\n";
             System.out.println(TextFormat.botReply(greet)); // print greet message
             list();
@@ -177,7 +178,7 @@ public class Duke {
         }
         this.processInput();                            // function to run the chatbot
         try {
-            this.writeFile();
+            this.writeFile();                           // write file with all tasks
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
