@@ -1,5 +1,6 @@
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -131,6 +132,10 @@ public class Corgi {
                     if (inputs.length < 2) throw new EmptyDescException();
                     this.deleteTask(inputs[1]);
                     break;
+                case DATE:
+                    if (inputs.length < 2) throw new EmptyDescException();
+                    this.getTaskOnDate(inputs[1]);
+                    break;
             }
         } catch (InvalidCommandException e) {
             this.printException("Can't believe you're asking that! Grrr, what do you want now?");
@@ -154,6 +159,41 @@ public class Corgi {
     */
     private void printException(String msg) {
         System.out.println("Woof?! 🤬 \n" + msg);
+    }
+
+    private void getTaskOnDate(String dateStr) throws InvalidDescFormatException {
+        LocalDate target = null;
+
+        try {
+            target = LocalDate.parse(dateStr, Task.DATE_INPUT_FORMATTER);
+        } catch (DateTimeParseException e) {
+            throw new InvalidDescFormatException();
+        }
+
+        List<Task> tasksOnDate = new ArrayList<>();
+
+        for (Task t : this.tasks) {
+            if (t instanceof Deadline) {
+                Deadline d = (Deadline) t;
+                if (d.isHappeningOnDate(target)) {
+                    tasksOnDate.add(d);
+                }
+            } else if (t instanceof Event) {
+                Event e = (Event) t;
+                if (e.isHappeningOnDate(target)) {
+                    tasksOnDate.add(e);
+                }
+            }
+        }
+        
+        if (tasksOnDate.isEmpty()) {
+            System.out.println("No tasks or events are scheduled for " + target.format(Task.DATE_OUTPUT_FORMATTER) + ".");
+        } else {
+            System.out.println("Here are the tasks and events happening on " + target.format(Task.DATE_OUTPUT_FORMATTER) + ":");
+            for (int i = 0; i < tasksOnDate.size(); i++) {
+                System.out.println((i + 1) + ") " + tasksOnDate.get(i));
+            }
+        }
     }
 
     /**
