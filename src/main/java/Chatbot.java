@@ -48,11 +48,11 @@ public class Chatbot {
 					} else {
 						l1.get(idx).unMark();
 						String echo = String.format("____________________________________________________________\n" +
+								"Nice! I've marked this task as not done yet:\n" +
 								t.toString() + "\n" +
 								"____________________________________________________________");
 						System.out.println(echo);
 					}
-
 				} else if (action.equals("bye")) {
 					// exit
 					String echo = "____________________________________________________________\n" +
@@ -137,6 +137,7 @@ public class Chatbot {
 					int idx = i + 1;
 					lst += idx + ". " + l1.get(i).toString() + "\n";
 				}
+
 				String echo = String.format("____________________________________________________________\n"
 						+ "Here are the task in your list:\n"
 						+ "%s"
