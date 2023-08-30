@@ -52,7 +52,8 @@ public class Pippi {
                     tasks.add(t);
                     break;
                 case "D":
-                    Deadline d = new Deadline(parts[2], parts[3]);
+                    Deadline d = new Deadline(parts[2],
+                            DateFormatter.convertToLocalDate(parts[3].trim()));
                     if (status.equals("1")) {
                         d.mark();
                     }
@@ -123,8 +124,12 @@ public class Pippi {
                         throw new PippiException("Metronome!!! Due time or description is missing");
                     }
                     String title = input[1].split("/by ")[0].trim();
-                    String due = input[1].split("/by ")[1];
-                    Deadline dl = new Deadline(title, due);
+                    String due = input[1].split("/by ")[1].trim();
+                    System.out.println(due);
+                    if (!DateFormatter.isValidFormat(due)) {
+                        throw new PippiException("Please enter due in format yyyy-mm-dd");
+                    }
+                    Deadline dl = new Deadline(title, DateFormatter.convertToLocalDate(due));
                     tasks.add(dl);
                     update(tasks);
                     wrapText("Got it. I've added this task:\n" + dl.toString() +
