@@ -2,7 +2,7 @@ package command;
 
 import data.storage.Store;
 
-public class List implements Command{
+public class ListCommand implements Command{
     @Override
     public void execute(String input) {
         Store s = Store.getInstance();

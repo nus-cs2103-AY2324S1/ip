@@ -6,9 +6,9 @@ import data.task.builder.Builder;
 import exception.DukeException;
 
 
-public class AddTask implements Command {
+public class AddTaskCommand implements Command {
     protected Builder<Task> taskBuilder;
-    public AddTask (Builder<Task> taskBuilder) {
+    public AddTaskCommand (Builder<Task> taskBuilder) {
         this.taskBuilder = taskBuilder;
     }
 

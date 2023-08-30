@@ -1,6 +1,8 @@
 package data.task.taskList;
 import exception.DukeException;
 import exception.InvalidInputException;
+
+
 import data.task.Task;
 
 public class TaskList {
@@ -82,6 +84,17 @@ public class TaskList {
         String result = "";
         for (int i = 0; i < taskCount; i++) {
             result += tasks[i].getUserInputString() + "\n";
+        }
+        return result;
+    }
+
+    public TaskList findTasksWithKeyword(String keyword) throws DukeException{
+        TaskList result = new TaskList();
+
+        for (int i = 0; i < taskCount; i++) {
+            if (tasks[i].hasKeyword(keyword)) {
+               result.addTask(tasks[i]); 
+            }
         }
         return result;
     }

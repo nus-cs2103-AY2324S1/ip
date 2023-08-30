@@ -33,4 +33,8 @@ public abstract class Task {
     public void setUserInputString(String userInputString) {
         this.userInputString = userInputString;
     }
+
+    public boolean hasKeyword(String keyword) {
+       return this.description.hasKeyword(keyword);
+    }
 }
