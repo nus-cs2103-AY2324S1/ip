@@ -1,10 +1,11 @@
-import java.util.ArrayList;
-import java.util.Scanner;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Duke {
     private final String line = "____________________________________________________________";
@@ -70,7 +71,14 @@ public class Duke {
                     + "Please enter a valid deadline description or deadline.");
         }
 
-        Deadline nextDeadline = new Deadline(preprocessedTask[0], preprocessedTask[1]);
+        LocalDate deadline;
+        try {
+            deadline = LocalDate.parse(preprocessedTask[1]);
+        } catch (DateTimeParseException e) {
+            throw new DukeException("Please ensure that the deadline provided is in YYYY-MM-DD format.");
+        }
+
+        Deadline nextDeadline = new Deadline(preprocessedTask[0], deadline);
         this.tasks.add(nextDeadline);
         return nextDeadline.toString();
     }
@@ -89,6 +97,8 @@ public class Duke {
             throw new DukeException("You are missing either a valid event description or start and end time. "
                     + "Please enter a valid event description or start and end time.");
         }
+
+
 
         Event nextEvent = new Event(preprocessedTask[0], preprocessedTask[1], preprocessedTask[2]);
         this.tasks.add(nextEvent);
@@ -282,7 +292,15 @@ public class Duke {
                     }
                     break;
                 case "D":
-                    Deadline newDeadline = new Deadline(taskDescription, processedTask[3]);
+                    LocalDate deadline;
+
+                    try {
+                        deadline = LocalDate.parse(processedTask[3]);
+                    } catch (DateTimeParseException e) {
+                        throw new DukeException("Please ensure that the deadline provided is in YYYY-MM-DD format.");
+                    }
+
+                    Deadline newDeadline = new Deadline(taskDescription, deadline);
                     this.tasks.add(newDeadline);
                     if (taskCompletionStatus.equals("X")) {
                         newDeadline.doTask();
