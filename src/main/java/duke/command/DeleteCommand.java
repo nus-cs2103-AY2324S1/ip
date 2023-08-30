@@ -8,12 +8,24 @@ import duke.task.TaskList;
 
 public class DeleteCommand extends Command {
 
-    int index;
+    private int index;
 
+    /**
+     * Initialises a DeleteCommand object.
+     * @param index The index in the task list to delete.
+     */
     public DeleteCommand(int index) {
         this.index = index;
     }
 
+    /**
+     * Executes the given DeleteCommand using the specified TaskList, Ui and Storage.
+     *
+     * @param tasks The task list to delete a task on.
+     * @param ui The UI to print any output onto.
+     * @param storage The storage to save and update tasks.
+     * @throws DukeException If index is out of range for the task list.
+     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
         if (index >= 1 && index <= tasks.getSize()) {
@@ -27,6 +39,10 @@ public class DeleteCommand extends Command {
         }
     }
 
+    /**
+     * Gets the command type for the DeleteCommand.
+     * @return Delete.
+     */
     @Override
     public String getCommandType() {
         return "Delete";

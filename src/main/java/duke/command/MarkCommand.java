@@ -9,10 +9,22 @@ public class MarkCommand extends Command {
 
     int index;
 
+    /**
+     * Initialises a MarkCommand object.
+     * @param index The index in the task list to mark as done.
+     */
     public MarkCommand(int index) {
         this.index = index;
     }
 
+    /**
+     * Executes the given MarkCommand using the specified TaskList, Ui and Storage.
+     *
+     * @param tasks The task list to mark a task in.
+     * @param ui The UI to print any output onto.
+     * @param storage The storage to save and update tasks.
+     * @throws DukeException If index is out of range for the task list.
+     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
         if (index >= 1 && index <= tasks.getSize()) {
@@ -25,6 +37,10 @@ public class MarkCommand extends Command {
         }
     }
 
+    /**
+     * Gets the command type for the MarkCommand.
+     * @return Mark.
+     */
     @Override
     public String getCommandType() {
         return "Mark";
