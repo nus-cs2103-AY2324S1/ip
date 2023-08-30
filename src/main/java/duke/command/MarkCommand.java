@@ -11,6 +11,7 @@ public class MarkCommand extends Command {
 
     /**
      * Initialises a MarkCommand object.
+     *
      * @param index The index in the task list to mark as done.
      */
     public MarkCommand(int index) {
@@ -39,6 +40,7 @@ public class MarkCommand extends Command {
 
     /**
      * Gets the command type for the MarkCommand.
+     *
      * @return Mark.
      */
     @Override

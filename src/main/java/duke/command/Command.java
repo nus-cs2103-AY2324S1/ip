@@ -11,6 +11,7 @@ public abstract class Command {
 
     /**
      * Returns whether the Command should exit the program when run.
+     *
      * @return False.
      */
     public boolean isExit() {

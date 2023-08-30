@@ -21,6 +21,7 @@ public class ExitCommand extends Command {
 
     /**
      * Returns whether the ExitCommand should exit the program when run, which is true.
+     *
      * @return True.
      */
     @Override
@@ -30,6 +31,7 @@ public class ExitCommand extends Command {
 
     /**
      * Gets the command type for the ExitCommand.
+     * 
      * @return Exit.
      */
     @Override

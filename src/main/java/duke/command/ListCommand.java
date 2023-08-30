@@ -23,6 +23,7 @@ public class ListCommand extends Command {
 
     /**
      * Gets the command type for the ListCommand.
+     *
      * @return List.
      */
     @Override

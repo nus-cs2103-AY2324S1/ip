@@ -6,12 +6,26 @@ import duke.task.TaskList;
 
 public class FindCommand extends Command {
 
-    String findStr;
+    /** The String to search for. */
+    private String findStr;
 
+    /**
+     * Creates a FindCommand with a specified search string.
+     *
+     * @param findStr The search string to search the TaskList for.
+     */
     public FindCommand(String findStr) {
         this.findStr = findStr;
     }
 
+    /**
+     * Finds tasks in the TaskList with the given search string, and prints the matching tasks. Prints a message if no
+     * matching tasks are found.
+     *
+     * @param tasks The task list to search using the search keyword.
+     * @param ui The UI to print the output onto.
+     * @param storage The storage to save and update tasks (if needed).
+     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         TaskList foundTasks = tasks.find(findStr);
@@ -25,6 +39,11 @@ public class FindCommand extends Command {
         }
     }
 
+    /**
+     * Gets the command type for the FindCommand.
+     *
+     * @return Find.
+     */
     @Override
     public String getCommandType() {
         return "Find";

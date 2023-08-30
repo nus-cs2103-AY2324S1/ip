@@ -12,6 +12,7 @@ public class DeleteCommand extends Command {
 
     /**
      * Initialises a DeleteCommand object.
+     *
      * @param index The index in the task list to delete.
      */
     public DeleteCommand(int index) {
@@ -41,6 +42,7 @@ public class DeleteCommand extends Command {
 
     /**
      * Gets the command type for the DeleteCommand.
+     *
      * @return Delete.
      */
     @Override

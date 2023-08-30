@@ -10,6 +10,7 @@ public class UnmarkCommand extends Command {
 
     /**
      * Initialises an UnmarkCommand object.
+     *
      * @param index The index in the task list to unmark.
      */
     public UnmarkCommand(int index) {
@@ -40,6 +41,7 @@ public class UnmarkCommand extends Command {
 
     /**
      * Gets the command type for the UnmarkCommand.
+     *
      * @return Unmark.
      */
     @Override
