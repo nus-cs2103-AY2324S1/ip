@@ -85,8 +85,7 @@ public class Duke {
     }
 
     private static void markResponse(String input, ArrayList<Task> tasklist) throws DukeException {
-        int spaceIndex = input.indexOf(" ");
-        int result = Integer.parseInt(input.substring(spaceIndex + 1)) - 1;
+        int result = Integer.parseInt(input.split(" ")[1]) - 1;
         if (result < 0 || (result + 1) > tasklist.size()) {
             throw new DukeException("☹ OOPS!!! The task number is invalid.");
         }
@@ -99,8 +98,7 @@ public class Duke {
     }
 
     private static void unmarkResponse(String input, ArrayList<Task> tasklist) throws DukeException {
-        int spaceIndex = input.indexOf(" ");
-        int result = Integer.parseInt(input.substring(spaceIndex + 1)) - 1;
+        int result = Integer.parseInt(input.split(" ")[1]) - 1;
         if (result < 0 || (result + 1) > tasklist.size()) {
             throw new DukeException("☹ OOPS!!! The task number is invalid.");
         }
@@ -113,8 +111,7 @@ public class Duke {
     }
 
     private static void delete(String input, ArrayList<Task> tasklist) throws DukeException {
-        int spaceIndex = input.indexOf(" ");
-        int result = Integer.parseInt(input.substring(spaceIndex + 1)) - 1;
+        int result = Integer.parseInt(input.split(" ")[1]) - 1;
         if (result < 0 || (result + 1) > tasklist.size()) {
             throw new DukeException("☹ OOPS!!! The task number is invalid.");
         }
@@ -257,7 +254,7 @@ public class Duke {
         }
         for (int i = 1; i < tasklist.size(); i++) {
             try {
-                appendToFile(FILE_NAME, tasklist.get(i).toString() + System.lineSeparator());
+                appendToFile(FILE_NAME, tasklist.get(i).saveString() + System.lineSeparator());
             } catch (IOException e) {
                 System.out.println("Something went wrong: " + e.getMessage());
             }

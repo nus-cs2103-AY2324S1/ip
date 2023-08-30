@@ -1,1 +1,2 @@
-T | 0 | this
+T | 1 | this
+E | 0 | this  | now -then
