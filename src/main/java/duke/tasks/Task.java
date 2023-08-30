@@ -1,3 +1,5 @@
+package duke.tasks;
+
 import java.io.Serializable;
 
 public class Task implements Serializable {
@@ -8,6 +10,10 @@ public class Task implements Serializable {
     public Task(String description) {
         this.description = description;
         this.isDone = false;
+    }
+
+    public boolean isDone() {
+        return isDone;
     }
 
     public String getStatusIcon() {
