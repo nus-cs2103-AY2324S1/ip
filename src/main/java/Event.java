@@ -1,13 +1,21 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 public class Event extends Task {
-    private String from;
-    private String to;
+    private LocalDate from;
+    private LocalDate to;
     public Event(String name, String from, String to) throws DukeException {
         super(name);
         if (name.trim().isEmpty()) {
             throw new DukeException("☹ OOPS!!! The description of a Task cannot be empty.");
         }
-        this.from = from;
-        this.to = to;
+        try {
+            this.from = LocalDate.parse(from);
+            this.to = LocalDate.parse(to);
+        } catch (DateTimeParseException e) {
+            throw new DukeException("☹ OOPS!!! Follow the format for an Event.");
+        }
     }
 
     public String dataString() {
@@ -20,6 +28,8 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + this.from + ") (to: " + this.to + ")";
+        DateTimeFormatter format = DateTimeFormatter.ofPattern("MMM d yyyy");
+        return "[E]" + super.toString() + " (from: " + this.from.format(format) +
+                ") (to: " + this.to.format(format) + ")";
     }
 }
