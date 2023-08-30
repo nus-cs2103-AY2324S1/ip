@@ -9,25 +9,19 @@ import grumpygordon.parser.*;
 import java.util.Scanner;
 
 public class Ui {
-    private static final String SEPARATOR = "    ____________________________________________________________\n";
+    private static final String SEPARATOR = "    ___________________________________________________________________________________\n";
     private static final String INDENTATION = "     ";
-    // https://www.twitchquotes.com/copypastas/5210
+//    https://patorjk.com/software/taag/#p=display&f=Big&t=GrumpyGordon
     private static final String ASCII_ART =
-                   INDENTATION + "  ⠁⡼⠋⠀⣆⠀⠀⣰⣿⣫⣾⢿⣿⣿⠍⢠⠠⠀⠀⢀⠰⢾⣺⣻⣿⣿⣿⣷⡀⠀\n" +
-                   INDENTATION + "  ⣥⠀⠀⠀⠁⠀⠠⢻⢬⠁⣠⣾⠛⠁⠀⠀⠀⠀⠀⠀⠀⠐⠱⠏⡉⠙⣿⣿⡇⠀\n" +
-                   INDENTATION + "  ⢳⠀⢰⡖⠀⠀⠈⠀⣺⢰⣿⢻⣾⣶⣿⣿⣶⣶⣤⣤⣴⣾⣿⣷⣼⡆⢸⣿⣧⠀\n" +
-                   INDENTATION + "  ⠈⠀⠜⠈⣀⣔⣦⢨⣿⣿⣿⣾⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣅⣼⠛⢹⠀\n" +
-                   INDENTATION + "  ⠀⠀⠀⠀⢋⡿⡿⣯⣭⡟⣟⣿⣿⣽⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠀⡘⠀\n" +
-                   INDENTATION + "  ⡀⠐⠀⠀⠀⣿⣯⡿⣿⣿⣿⣯⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⠋⣉⢽⣿⡆⠀⠀\n" +
-                   INDENTATION + "  ⢳⠀⠄⠀⢀⣿⣿⣿⣿⣿⣿⣿⠙⠉⠉⠉⠛⣻⢛⣿⠛⠃⠀⠐⠛⠻⣿⡇⠀⠀\n" +
-                   INDENTATION + "  ⣾⠄⠀⠀⢸⣿⣿⡿⠟⠛⠁⢀⠀⢀⡄⣀⣠⣾⣿⣿⡠⣴⣎⣀⣠⣠⣿⡇⠀⠀\n" +
-                   INDENTATION + "  ⣧⠀⣴⣄⣽⣿⣿⣿⣶⣶⣖⣶⣬⣾⣿⣾⣿⣿⣿⣿⣽⣿⣿⣿⣿⣿⣿⡇⠀⠀\n" +
-                   INDENTATION + "  ⣿⣶⣈⡯⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⠋⣹⢧⣿⣿⣿⣄⠙⢿⣿⣿⣿⠇⠀⠀\n" +
-                   INDENTATION + "  ⠹⣿⣿⣧⢌⢽⣻⢿⣯⣿⣿⣿⣿⠟⣠⡘⠿⠟⠛⠛⠟⠛⣧⡈⠻⣾⣿⠀⠀⠀\n" +
-                   INDENTATION + "  ⠀⠈⠉⣷⡿⣽⠶⡾⢿⣿⣿⣿⢃⣤⣿⣷⣤⣤⣄⣄⣠⣼⡿⢷⢀⣿⡏⠀⠀⠀\n" +
-                   INDENTATION + "  ⠀⠀⢀⣿⣷⠌⣈⣏⣝⠽⡿⣷⣾⣏⣀⣉⣉⣀⣀⣀⣠⣠⣄⡸⣾⣿⠃⠀⠀⠀\n" +
-                   INDENTATION + "  ⠀⣰⡿⣿⣧⡐⠄⠱⣿⣺⣽⢟⣿⣿⢿⣿⣍⠉⢀⣀⣐⣼⣯⡗⠟⡏⠀⠀⠀⠀\n" +
-                   INDENTATION + "  ⣰⣿⠀⣿⣿⣴⡀⠂⠘⢹⣭⡂⡚⠿⢿⣿⣿⣿⡿⢿⢿⡿⠿⢁⣴⣿⣷⣶⣦⣤\n";
+                    INDENTATION + "    _____                                   _____               _              \n" +
+                    INDENTATION + "   / ____|                                 / ____|             | |             \n" +
+                    INDENTATION + "  | |  __ _ __ _   _ _ __ ___  _ __  _   _| |  __  ___  _ __ __| | ___  _ __   \n" +
+                    INDENTATION + "  | | |_ | '__| | | | '_ ` _ \\| '_ \\| | | | | |_ |/ _ \\| '__/ _` |/ _ \\| '_ \\  \n" +
+                    INDENTATION + "  | |__| | |  | |_| | | | | | | |_) | |_| | |__| | (_) | | | (_| | (_) | | | | \n" +
+                    INDENTATION + "   \\_____|_|   \\__,_|_| |_| |_| .__/ \\__, |\\_____|\\___/|_|  \\__,_|\\___/|_| |_| \n" +
+                    INDENTATION + "                              | |     __/ |                                    \n" +
+                    INDENTATION + "                              |_|    |___/                                     \n";
+
     private static final String INTRO = INDENTATION + "Oi! I'm Grumpy Gordon. Why are you bothering me?\n";
     private static final String OUTRO = INDENTATION + "Bye. Hope to never see you again.\n";
     private final Scanner scanner;
@@ -41,20 +35,19 @@ public class Ui {
     }
 
     public void run() {
-        Command command = null;
+        Command command = new ListCommand();
+        String userInput;
         this.showIntroMessage();
 
-        do {
+        while (!command.isExit()) {
             try {
-                String userInput = this.scanner.nextLine();
-                command = Parser.parseCommand(userInput);
+                userInput = this.scanner.nextLine();
+                command = Parser.parseCommand(userInput, this.tasks);
                 command.execute(tasks, this, storage);
             } catch (GrumpyGordonException e) {
                 this.showErrorMessage(e);
             }
-        } while (!command.isExit());
-
-        this.showOutroMessage();
+        }
         scanner.close();
     }
     public void showIntroMessage() {
@@ -64,7 +57,7 @@ public class Ui {
         System.out.println(SEPARATOR + OUTRO + SEPARATOR);
     }
     public void showErrorMessage(GrumpyGordonException e) {
-        System.out.println(SEPARATOR + e.getMessage() + SEPARATOR);
+        System.out.println(SEPARATOR + INDENTATION + e.getMessage() + SEPARATOR);
     }
     public void showCommandMessage(String message) {
         System.out.println(SEPARATOR + message + SEPARATOR);
