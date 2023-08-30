@@ -11,6 +11,7 @@ public class DukeInvalidTimeException extends DukeException {
      * Constructor for the exception class.
      *
      * @author Tan Kerway
+     * @param details additional details to add to the error message
      */
     public DukeInvalidTimeException(String details) {
         super(" Please specify a valid " + details + " date!");

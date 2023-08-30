@@ -1,5 +1,7 @@
 package DukeTasks;
 
+import java.time.LocalDateTime;
+
 /**
  * Encapsulates the DukeTasks.Event class. Inherits the DukeTasks.Task
  * class and adds on additional unique features.
@@ -8,9 +10,9 @@ package DukeTasks;
  */
 public class Event extends Task {
     // from date for the event class
-    private final String from;
+    private final LocalDateTime from;
     // to date for the event class
-    private final String to;
+    private final LocalDateTime to;
 
 
     /**
@@ -24,9 +26,9 @@ public class Event extends Task {
         super(description);
         int indexTo = period.lastIndexOf("/to");
         // get the String that represents the start time
-        this.from = period.substring(6, indexTo - 1);
+        this.from = super.parseDate(period.substring(6, indexTo - 1), "from");
         // get the String that represents the end time
-        this.to = period.substring(indexTo + 4);
+        this.to = super.parseDate(period.substring(indexTo + 4), "to");
     }
 
     /**
@@ -40,8 +42,8 @@ public class Event extends Task {
      */
     public Event(String description, boolean isDone, String from, String to) {
         super(description, isDone);
-        this.from = from;
-        this.to = to;
+        this.from = super.parseDate(from, "from");
+        this.to = super.parseDate(to, "to");
     }
 
     /**
@@ -51,7 +53,7 @@ public class Event extends Task {
      * @return the start date of the DukeTasks.Event instance, as a String
      */
     public String getFrom() {
-        return this.from;
+        return this.from == null ? null : this.from.toString();
     }
 
     /**
@@ -61,7 +63,7 @@ public class Event extends Task {
      * @return the end date of the DukeTasks.Event instance, as a String
      */
     public String getTo() {
-        return this.to;
+        return this.to == null ? null : this.to.toString();
     }
 
     /**
@@ -72,6 +74,6 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + this.from + " to: " + this.to + ")";
+        return "[E]" + super.toString() + " (from: " + super.formatDate(this.from) + " to: " + super.formatDate(this.to) + ")";
     }
 }

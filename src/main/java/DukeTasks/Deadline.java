@@ -1,5 +1,8 @@
 package DukeTasks;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 /**
  * Encapsulates the DukeTasks.Deadline class. Inherits the DukeTasks.Task
  * class and adds on additional unique features.
@@ -8,7 +11,7 @@ package DukeTasks;
  */
 public class Deadline extends Task {
     // deadline for the deadline task
-    private final String by;
+    private final LocalDateTime by;
 
     /**
      * Constructor for the DukeTasks.Deadline class.
@@ -19,7 +22,7 @@ public class Deadline extends Task {
      */
     public Deadline(String description, String by) {
         super(description);
-        this.by = by;
+        this.by = super.parseDate(by, "by");
     }
 
     /**
@@ -32,7 +35,7 @@ public class Deadline extends Task {
      */
     public Deadline(String description, boolean isDone, String by) {
         super(description, isDone);
-        this.by = by;
+        this.by = super.parseDate(by, "by");
     }
 
     /**
@@ -42,7 +45,7 @@ public class Deadline extends Task {
      * @return the deadline of the DukeTasks.Deadline instance
      */
     public String getBy() {
-        return this.by;
+        return this.by == null ? null : this.by.format(DateTimeFormatter.ofPattern("MMM d HH:mm yyyy"));
     }
 
     /**
@@ -53,6 +56,8 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + this.by + ")";
+        return "[D]"
+                + super.toString()
+                + " (by: " + super.formatDate(this.by) + ")";
     }
 }

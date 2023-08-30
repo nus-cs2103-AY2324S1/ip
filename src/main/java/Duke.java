@@ -64,8 +64,10 @@ public class Duke {
             String[] tokens = reader.nextLine().split(" ");
             // get the input length
             Task currentTask = getTask(tokens);
-            // add the current task to the list of tasks
-            taskList.add(currentTask);
+            if (currentTask == null || currentTask.isValid()) {
+                // add the current task to the list of tasks
+                taskList.add(currentTask);
+            }
         }
         // close the scanner
         reader.close();
@@ -88,65 +90,74 @@ public class Duke {
         StringBuilder description = new StringBuilder();
         // case where todo
         switch (tokens[0]) {
-            case "t":
-                for (int i = 2; i < n; i++) {
-                    description.append(tokens[i]);
-                    if (i != n - 1) {
-                        description.append(" ");
-                    }
+        case "t":
+            for (int i = 2; i < n; i++) {
+                description.append(tokens[i]);
+                if (i != n - 1) {
+                    description.append(" ");
                 }
-                currentTask = new Todo(description.toString(), Boolean.parseBoolean(tokens[1]));
-                break;
-            case "d": {
-                int i;
-                for (i = 2; i < n; i++) {
-                    if (tokens[i].equals("by")) {
-                        i++;
-                        break;
-                    }
-                    description.append(tokens[i]);
-                    if (i != n - 2) {
-                        description.append(" ");
-                    }
-                }
-                StringBuilder sb = new StringBuilder();
-                for (; i < n; i++) {
-                    sb.append(tokens[i]);
-                    if (i != n - 1) {
-                        sb.append(" ");
-                    }
-                }
-                currentTask = new Deadline(description.toString().trim(), Boolean.parseBoolean(tokens[1]), sb.toString());
-                break;
             }
-            case "e": {
-                int i;
-                for (i = 2; i < n - 2; i++) {
-                    if (tokens[i].equals("from")) {
-                        i++;
-                        break;
-                    }
-                    description.append(tokens[i]);
-                    if (i != n - 1) {
-                        description.append(" ");
-                    }
+            currentTask = new Todo(description.toString(), Boolean.parseBoolean(tokens[1]));
+            break;
+        case "d": {
+            int i;
+            for (i = 2; i < n; i++) {
+                if (tokens[i].equals("by")) {
+                    i++;
+                    break;
                 }
-                StringBuilder sb1 = new StringBuilder();
-                while (!tokens[i].equals("to")) {
-                    sb1.append(tokens[i++]);
-                    sb1.append(" ");
+                description.append(tokens[i]);
+                if (i != n - 2) {
+                    description.append(" ");
                 }
-                i++;
-                StringBuilder sb2 = new StringBuilder();
-                for (; i < n; i++) {
-                    sb2.append(tokens[i]);
-                    sb2.append(" ");
-                }
-                currentTask = new Event(description.toString().trim(), Boolean.parseBoolean(tokens[1]), sb1.toString().trim(), sb2.toString().trim());
-                break;
             }
-            default:
-                throw new IOException("Bad file type!");
+            StringBuilder sb = new StringBuilder();
+            for (; i < n; i++) {
+                sb.append(tokens[i]);
+                if (i != n - 1) {
+                    sb.append(" ");
+                }
+            }
+            currentTask = new Deadline(description.toString().trim(), Boolean.parseBoolean(tokens[1]), sb.toString());
+            // case where the deadline is not valid
+            if (((Deadline) currentTask).getBy() == null) {
+                return null;
+            }
+            break;
+        }
+        case "e": {
+            int i;
+            for (i = 2; i < n - 2; i++) {
+                if (tokens[i].equals("from")) {
+                    i++;
+                    break;
+                }
+                description.append(tokens[i]);
+                if (i != n - 1) {
+                    description.append(" ");
+                }
+            }
+            StringBuilder sb1 = new StringBuilder();
+            while (!tokens[i].equals("to")) {
+                sb1.append(tokens[i++]);
+                sb1.append(" ");
+            }
+            i++;
+            StringBuilder sb2 = new StringBuilder();
+            for (; i < n; i++) {
+                sb2.append(tokens[i]);
+                sb2.append(" ");
+            }
+            currentTask = new Event(description.toString().trim(), Boolean.parseBoolean(tokens[1]), sb1.toString().trim(), sb2.toString().trim());
+            Event t = (Event) currentTask;
+            // case where the deadline is not valid
+            if (t.getFrom() == null || t.getTo() == null || !t.isValid()) {
+                return null;
+            }
+            break;
+        }
+        default:
+            throw new IOException("Bad file type!");
         }
         return currentTask;
     }
@@ -171,6 +182,7 @@ public class Duke {
      * @author Tan Kerway
      */
     void listAllTasks() {
+        if (tasks.isEmpty()) { return; }
         System.out.println("------------------------------------------------------------------------");
         System.out.println("Here are the tasks in your list :3");
         for (int i = 0; i < tasks.size(); i++) {
@@ -218,9 +230,11 @@ public class Duke {
                 String period = task.substring(fromStart);
                 createdTask = new Event(description, period);
             }
-            this.tasks.add(createdTask);
-            saveTaskList();
-            return createdTask;
+            if (createdTask.isValid()) {
+                this.tasks.add(createdTask);
+                saveTaskList();
+                return createdTask;
+            }
         } catch (DukeException | IOException ignored) {}
         return null;
     }
@@ -266,7 +280,7 @@ public class Duke {
      */
     private void handleDeadlineErrors(String taskString, int taskDescriptionLength, int indexOfBy) throws DukeException {
         // handle errors
-        if (taskDescriptionLength == 8) {
+        if (taskDescriptionLength == 8 || (indexOfBy != -1 &&taskString.substring(8, taskString.lastIndexOf("/by") + 1).trim().isEmpty())) {
             handleEmptyCommand("deadline");
         }
         if (!taskString.contains("/by") || indexOfBy + 3 == taskString.length() || taskString.substring(indexOfBy + 3).trim().equals("")) {
@@ -322,7 +336,7 @@ public class Duke {
      * @param details the String containing the missing info that the user did
      *                not type in
      */
-    private void handleNoDate(String details) throws DukeException {
+    private static void handleNoDate(String details) throws DukeException {
         DukeException res = new DukeInvalidTimeException(details);
         System.out.println("------------------------------------------------------------------------");
         System.out.println(res.getMessage());
@@ -425,7 +439,9 @@ public class Duke {
             return true;
         }
         Task createdTask = addTask(input);
-        echoTaskAdded(createdTask);
+        if (createdTask != null) {
+            echoTaskAdded(createdTask);
+        }
         return true;
     }
 
