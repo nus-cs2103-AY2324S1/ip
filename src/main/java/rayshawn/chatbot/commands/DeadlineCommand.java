@@ -12,7 +12,7 @@ public class DeadlineCommand extends Command {
             "Example: " + COMMAND_WORD + " homework /by 2023-08-28";
     public static final String MESSAGE_SUCCESS = "Got it. I've added this task: \n %1$s\n";
 
-    private final Task toAdd;
+    public final Task toAdd;
     public DeadlineCommand(String description, String date) throws ChatBotException {
         this.toAdd = new Deadline(description, date);
     }

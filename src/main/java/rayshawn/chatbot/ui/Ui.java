@@ -81,7 +81,7 @@ public class Ui {
             showToUser(LIST_HEADER_MESSAGE);
             showTaskList(taskList.get());
         }
-        showToUser(result.getFeedbackToUser(), LINE_BREAK);
+        showToUser(result.feedbackToUser, LINE_BREAK);
     }
 
     private void showTaskList(List<Task> taskList) {

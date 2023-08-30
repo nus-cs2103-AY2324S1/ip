@@ -10,7 +10,7 @@ public class ToDoCommand extends Command {
             "Parameters: Description\n" + "Example: " + COMMAND_WORD + " homework";
     private static final String MESSAGE_SUCCESS = "Got it. I've added this task: \n %1$s \n";
 
-    private Task toAdd;
+    public Task toAdd;
 
     public ToDoCommand(String toDo) throws ChatBotException {
         this.toAdd = new ToDo(toDo);
