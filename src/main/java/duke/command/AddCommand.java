@@ -55,6 +55,8 @@ public class AddCommand extends Command{
         try {
             tasks.addTask(task);
             store.save(tasks);
+            ui.printAddTask(tasks.size(), task);
+
         } catch (IOException e) {
             throw new DukeException(" umable to locate local file!");
         }

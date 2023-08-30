@@ -1,6 +1,7 @@
 package duke.command;
 import java.io.IOException;
 import duke.task.DukeException;
+import duke.task.Task;
 import duke.task.TaskList;
 import duke.helper.Ui;
 import duke.helper.Storage;
@@ -30,8 +31,10 @@ public class MarkCommand extends Command{
     @Override
     public void execute(TaskList tasks, Ui ui, Storage store) throws DukeException {
         try {
+            Task task = tasks.getTask(taskNum);
             tasks.markTask(taskNum);
             store.save(tasks);
+            ui.printMarkTask(taskNum, task);
         } catch (IOException e) {
             throw new DukeException(" umable to locate local file!");
         }

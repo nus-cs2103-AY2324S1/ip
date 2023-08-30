@@ -1,5 +1,7 @@
 package duke.command;
 import java.io.IOException;
+
+import duke.task.Task;
 import duke.task.TaskList;
 import duke.task.DukeException;
 import duke.helper.Ui;
@@ -24,8 +26,10 @@ public class UnmarkCommand extends Command {
 
     public void execute(TaskList tasks, Ui ui, Storage store) throws DukeException {
         try {
+            Task task = tasks.getTask(taskNum);
             tasks.unmarkTask(taskNum);
             store.save(tasks);
+            ui.printUnmarkTask(taskNum, task);
         } catch (IOException e) {
             throw new DukeException(" unable to locate local file!");
         }
