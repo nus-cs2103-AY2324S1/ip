@@ -33,6 +33,7 @@ application {
 
 shadowJar {
     archiveBaseName = "jarvis"
+    archiveVersion = "0.1"
     archiveClassifier = null
     dependsOn("distZip", "distTar")
 }

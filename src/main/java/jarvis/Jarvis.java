@@ -45,7 +45,7 @@ public class Jarvis {
 
 
     public static void main(String[] args) {
-        String dataFilePath = "src/main/resources/jarvislist.txt";
+        String dataFilePath = "data/jarvislist.txt";
         new Jarvis(dataFilePath).run();
     }
 

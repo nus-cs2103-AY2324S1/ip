@@ -21,6 +21,10 @@ public class Storage implements IStorage {
     public Storage(String dataFilePath) throws SaveToFileException {
         try {
             File file = new File(dataFilePath);
+            File parentDir = file.getParentFile();
+            if (!parentDir.exists()) {
+                parentDir.mkdirs();
+            }
             file.createNewFile();
             dataFile = file;
         } catch (IOException e) {
