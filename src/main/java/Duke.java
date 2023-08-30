@@ -8,22 +8,29 @@ import java.util.ArrayList;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 public class Duke {
-    private static final String name = "Bartholomew Hamish Montgomery";
     private static final String line = "______________________________________________________________________________________\n";
-    public static void main(String[] args) {
-        greet();
-        startChat();
-    }
-    private static void greet() {
-        String greeting = line + "I extend to you my utmost felicitations, User! I am " + name + "." + "\n" + "What may I do for you?" + "\n" + line;
-        System.out.println(greeting);
-    }
-    private static void bye() {
-        String goodbye = line + "Until we meet once more in the near future, I bid you farewell." + "\n" + line;
-        System.out.println(goodbye);
+    private static Ui ui;
+    private static TaskList tasks;
+    private static Storage storage;
+    private static Parser parser;
+
+    public Duke(String filePath) {
+        ui = new Ui();
+        storage = new Storage(filePath);
+//        try {
+//            tasks = new TaskList(storage.load());
+//        } catch (DukeException e) {
+//            ui.showLoadingError();
+//            tasks = new TaskList();
+//        }
     }
 
-    private static void startChat() {
+    public static void main(String[] args) {
+        new Duke("./src/main/data/tasklist.txt").startChat();
+    }
+
+    public void startChat() {
+        ui.greet();
         ArrayList<Task> tasks = new ArrayList<>();
 
         File taskList = new File("./src/main/data/tasklist.txt");
@@ -124,11 +131,11 @@ public class Duke {
                     throw new DukeException("Error: Invalid Command!");
                 }
             } catch (DukeException exception) {
-                System.out.println(line + exception.getMessage() + "\n" + line);
+                System.out.println(Ui.line + exception.getMessage() + "\n" + Ui.line);
             }
             userInput = scanner.nextLine();
         }
-        bye();
+        ui.bye();
         scanner.close();
     }
 
