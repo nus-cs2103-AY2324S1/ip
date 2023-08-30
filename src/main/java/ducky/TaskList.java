@@ -42,6 +42,23 @@ public class TaskList {
         return toDelete;
     }
 
+    /**
+     * Returns a list of Tasks from the task list that contain
+     * the specified string in their descriptions.
+     * @param s String to check in description.
+     * @return List of tasks that contain the specified string in description.
+     */
+    public ArrayList<Task> findTasks(String s) {
+        ArrayList<Task> matches = new ArrayList<>();
+        for (Task t : tasks) {
+            if (t.containsString(s)) {
+                matches.add(t);
+            }
+        }
+
+        return matches;
+    }
+
     public String getPrintableList() {
         if (this.tasks.isEmpty()) {
             return "There are no tasks in your list.";
