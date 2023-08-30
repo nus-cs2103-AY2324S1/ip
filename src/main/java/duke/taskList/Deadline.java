@@ -1,24 +1,23 @@
+package duke.taskList;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 class Deadline extends Task{
-
-    private final LocalDate time;
-    public Deadline(String name, LocalDate time) {
+    private final LocalDate date;
+    Deadline(String name, LocalDate time) {
         super(name);
-        this.time = time;
+        date = time;
     }
 
     @Override
     public String getText() {
-        return super.getText() + " | " + time;
+        return super.getText() + " | ";
     }
-
     @Override
     public String toString() {
         return "[D]" + super.toString()
                 +  " (by: "
-                + time.format(DateTimeFormatter.ofPattern("MMM d yyyy"))
+                + date.format(DateTimeFormatter.ofPattern("MMM d yyyy"))
                 + ")";
     }
 }

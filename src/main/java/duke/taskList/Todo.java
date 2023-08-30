@@ -1,13 +1,9 @@
+package duke.taskList;
 class Todo extends Task{
 
-    public Todo(String name) {
+    Todo(String name) {
         super(name);
     }
-
-//    @Override
-//    public String getText() {
-//        return super.getText() + "\n";
-//    }
 
     @Override
     public String toString() {

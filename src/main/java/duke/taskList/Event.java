@@ -1,15 +1,16 @@
+package duke.taskList;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+
 class Event extends Task{
     private final LocalDate timeFrom;
     private final LocalDate timeTo;
-
-    public Event(String name, LocalDate timeFrom, LocalDate timeTo) {
+    Event(String name, LocalDate timeFrom, LocalDate timeTo) {
         super(name);
         this.timeFrom = timeFrom;
         this.timeTo = timeTo;
     }
-
 
     @Override
     public String getText() {

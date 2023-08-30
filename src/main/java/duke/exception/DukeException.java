@@ -1,6 +1,5 @@
-/**
- * The exception may be formed during the runtime
- */
+package duke.exception;
+
 public class DukeException extends Exception{
     public DukeException(String message) {
         super(message);
