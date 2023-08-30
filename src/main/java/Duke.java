@@ -1,8 +1,9 @@
 import java.io.*;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
-import java.util.Scanner;  // Import the Scanner class
-import java.time.LocalDate;
+import java.util.Scanner;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class Duke {
     static ArrayList<Task> list = new ArrayList<Task>(); // List to be returned when input is "list"
@@ -133,7 +134,7 @@ public class Duke {
             String desc = input.substring(9);
             String task = desc.split(" /by ")[0];
             String by = desc.split(" /by ")[1];
-            LocalDate date = parser(by);
+            LocalDateTime date = parser(by);
             Task item = new Deadline(task, date);
             addTask(item);
             String response = "Understood, I will add the following deadline to your list:\n" + item.toString();
@@ -154,8 +155,8 @@ public class Duke {
             String[] time = eventTime[1].split(" /to ");
             String from = time[0];
             String to = time[1];
-            LocalDate fromDate = parser(from);
-            LocalDate toDate = parser(to);
+            LocalDateTime fromDate = parser(from);
+            LocalDateTime toDate = parser(to);
             Task item = new Event(task, fromDate, toDate);
             addTask(item);
             String response = "Understood, I will add the following deadline to your list:\n" + item.toString();
@@ -210,15 +211,15 @@ public class Duke {
                         }
                     }
                     if (type.equals("D")) {
-                        LocalDate date = parser(data[3]);
+                        LocalDateTime date = parser(data[3]);
                         addTask(new Deadline(task, date));
                         if (isCompleted == "1") {
                             list.get(counter - 1).setDone();
                         }
                     }
                     if (type.equals("E")) {
-                        LocalDate from = parser(data[3]);
-                        LocalDate to = parser(data[3]);
+                        LocalDateTime from = parser(data[3]);
+                        LocalDateTime to = parser(data[3]);
                         addTask(new Event(task, from, to));
                         if (isCompleted == "1") {
                             list.get(counter - 1).setDone();
@@ -242,14 +243,16 @@ public class Duke {
         }
     }
 
-    public static LocalDate parser(String str) throws DateTimeParseException {
+    public static LocalDateTime parser(String str) throws DateTimeParseException {
         try {
-            LocalDate date = LocalDate.parse(str);
-            return date;
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
+
+            LocalDateTime dateTime = LocalDateTime.parse(str, formatter);
+            return dateTime;
         } catch (DateTimeParseException ex) {
             throw new DateTimeParseException("I'm afraid I do not quite understand. " +
                     "Please input the date in the following format:\n" +
-                    "yyyy-mm-dd", ex.getParsedString(), ex.getErrorIndex());
+                    "d/M/yyyy HHmm", ex.getParsedString(), ex.getErrorIndex());
         }
     }
 

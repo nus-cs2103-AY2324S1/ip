@@ -1,0 +1,4 @@
+T | 0 | Automate ButlerBot
+D | 0 | CS2103T Individual Project | 30/8/2023 1900
+E | 0 | Birthday Celebration! | 31/8/2023 1900 | 30/8/2023 2100
+T | 1 | Mark this

@@ -1,6 +1,6 @@
 todo Automate ButlerBot
-deadline CS2103T Individual Project /by Thursday
-event Birthday Celebration! /from Fri 11pm /to Sat 12am
+deadline CS2103T Individual Project /by 30/8/2023 1900
+event Birthday Celebration! /from 31/8/2023 1900 /to 30/8/2023 2100
 todo Delete this
 todo Mark this
 mark 5
