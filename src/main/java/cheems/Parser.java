@@ -3,8 +3,6 @@ package cheems;
 import cheems.exceptions.EmptyArgumentException;
 import cheems.exceptions.InvalidKeywordException;
 
-import java.util.Arrays;
-
 /**
  * Parser parses the input from the user and execute corresponding actions.
  * Exceptions are thrown should the input be invalid.
@@ -63,7 +61,7 @@ public class Parser {
                         }
 
                     case TODO:
-                        Tasklist.addSaveTask("TODO", args);
+                        Tasklist.addTaskToDatabase("TODO", args);
                         break;
                     case EVENT:
                         words = args.split(" /from ");
@@ -71,13 +69,13 @@ public class Parser {
                         words = args.split(" /to ");
                         String from = words[0];
                         String to = words[1];
-                        Tasklist.addSaveTask("EVENT", eventDescription, from, to);
+                        Tasklist.addTaskToDatabase("EVENT", eventDescription, from, to);
                         break;
                     case DEADLINE:
                         words = args.split(" /by ");
                         String ddlDescription = words[0];
                         String by = words[1];
-                        Tasklist.addSaveTask("DEADLINE", ddlDescription, by);
+                        Tasklist.addTaskToDatabase("DEADLINE", ddlDescription, by);
                         break;
                 }
             }

@@ -16,24 +16,48 @@ public class Tasklist {
     private static int total = 0;  // total also indicates the first free slot
 
     /**
-     * Adds the task to the task list.
-     * @param params An array of strings used to create a new task.
+     * Creates a task object based on the string parameters given.
+     * @param isFromDatabase Represents whether the method is used for creating an object based on string input
+     *                       from the database. If so, the isDone status needs to be reflected in the task.
+     * @param params Represents the string parameters used to create the new task.
+     * @return A new task object.
      */
-    public static void addTask(String... params) {
-        boolean done = params[0].equals("1");
-        Keyword keyword = Keyword.valueOf(params[1]);
-        Task task = new Todo(params[2]);
+    private static Task identifyCreateTask(boolean isFromDatabase, String... params) {
+        // If the params variable arguments is from the database
+        // There is a single digit 0/1 in front to represent isDone status
+        // Needs to move the start index to read arguments for creating the task 1 position back
+        int startIndex = 0;
+        boolean isDone = false;
+        if (isFromDatabase) {
+            startIndex++;
+            isDone = params[0].equals("1");
+        }
+
+        // Parse the arguments and create the new task
+        Keyword keyword = Keyword.valueOf(params[startIndex]);
+        Task task = new Todo(params[startIndex + 1]);
         switch (keyword) {
             case DEADLINE:
-                task = new Deadline(params[2], params[3]);
+                task = new Deadline(params[startIndex + 1], params[startIndex + 2]);
                 break;
             case EVENT:
-                task = new Event(params[2], params[3], params[4]);
+                task = new Event(params[startIndex + 1], params[startIndex + 2], params[startIndex + 3]);
         }
-        list.add(task);
-        if (done) {
-            list.get(total).markAsDone();
+
+        if (isFromDatabase && isDone) {
+            task.markAsDone();
         }
+
+        return task;
+    }
+
+    /**
+     * Loads the task from the database to the task list.
+     * @param params An array of strings used to create a new task.
+     */
+    public static void loadTaskFromDatabase(String... params) {
+        Task newTask = identifyCreateTask(true, params);
+        list.add(newTask);
         total++;
     }
 
@@ -42,21 +66,13 @@ public class Tasklist {
      * Updates the database to include this task.
      * @param params An array of strings used to create a new task.
      */
-    public static void addSaveTask(String... params) {
-        Keyword keyword = Keyword.valueOf(params[0]);
-        Task task = new Todo(params[1]);
-        switch (keyword) {
-            case DEADLINE:
-                task = new Deadline(params[1], params[2]);
-                break;
-            case EVENT:
-                task = new Event(params[1], params[2], params[3]);
-        }
-        list.add(task);
+    public static void addTaskToDatabase(String... params) {
+        Task newTask = identifyCreateTask(false, params);
+        list.add(newTask);
         total++;
         Storage.getInstance().saveData("0|" + String.join("|", params));
 
-        String resp = "I have added this task for you!\n" + task;
+        String resp = "I have added this task for you!\n" + newTask;
         resp += total > 1
                 ? String.format("\nNow you have %d tasks in your list!", total)
                 : String.format("\nNow you have %d task in your list!", total);

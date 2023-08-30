@@ -76,7 +76,7 @@ public class Storage {
             while (s.hasNextLine()) {
                 input = s.nextLine();
                 String[] taskLine = input.split("\\|");
-                Tasklist.addTask(taskLine);
+                Tasklist.loadTaskFromDatabase(taskLine);
             }
         } catch (FileNotFoundException e) {
             String msg = String.format("I cannot find %s! May be accidental deletion, " +
