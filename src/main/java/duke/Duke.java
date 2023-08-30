@@ -50,6 +50,6 @@ public class Duke {
      * @throws DukeException If an error has occurred in the duke.Duke application.
      */
     public static void main(String[] args) {
-        new Duke("./src/main/java/data/duke.txt").run();
+        new Duke("C:/repos/ip/src/main/java/data/duke.txt").run();
     }
 }

@@ -1,4 +1,3 @@
-todo
 todo borrow book
 deadline finish work /by
 deadline return book /by Sunday

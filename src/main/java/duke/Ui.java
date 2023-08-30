@@ -7,11 +7,14 @@ import java.util.Scanner;
  * It is responsible for displaying messages, and reading user input.
  */
 public class Ui {
+
+    private Scanner scanner;
+
     /**
      * Constructor for UI class
      */
     public Ui() {
-
+        this.scanner = new Scanner(System.in);
     }
 
     /**
@@ -36,9 +39,7 @@ public class Ui {
      * @return The user's input as a String.
      */
     public String readCommand() {
-        Scanner scanner = new Scanner(System.in);
-        String userInput = scanner.nextLine();
-        return userInput;
+        return this.scanner.nextLine();
     }
 
     /**
@@ -61,6 +62,7 @@ public class Ui {
      * Displays a goodbye message to the user.
      */
     public void showBye() {
+        this.scanner.close();
         System.out.println("Bye. Hope to see you again soon!");
     }
 }
