@@ -6,6 +6,7 @@ import duke.command.AddTodo;
 import duke.command.Bye;
 import duke.command.Command;
 import duke.command.Delete;
+import duke.command.Find;
 import duke.command.List;
 import duke.command.Remark;
 import duke.command.Unknown;
@@ -38,6 +39,8 @@ public class Parser {
             return new Remark(instr.substring(6), 0);
         case "delete":
             return new Delete(instr.substring(6));
+        case "find":
+            return new Find(instr.substring(4));
         case "list":
             return new List(instr);
         case "bye":

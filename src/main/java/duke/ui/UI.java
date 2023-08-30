@@ -1,5 +1,6 @@
 package duke.ui;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 import duke.tasklist.Task;
@@ -100,5 +101,20 @@ public class UI {
     public void delete(Task t) {
         System.out.println("Noted. I've removed this task:");
         System.out.println(t);
+    }
+
+    /**
+     * Displays a list of tasks that match the search criteria.
+     * If the provided list is empty, a message indicating no matching tasks is displayed.
+     *
+     * @param lst The list of tasks that match the search criteria.
+     */
+    public void showMatch(ArrayList<Task> lst) {
+        if (lst.isEmpty()) {
+            System.out.println("There is no task matching your request");
+        } else {
+            System.out.println("Here are the matching tasks in your list:");
+            lst.forEach(x -> System.out.println(lst.indexOf(x) + 1 + ". " + x));
+        }
     }
 }
