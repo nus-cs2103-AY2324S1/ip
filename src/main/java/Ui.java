@@ -1,6 +1,17 @@
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Ui {
+
+    Scanner inputScanner;
+
+    public Ui() {
+        this.inputScanner = new Scanner(System.in);
+    }
+
+    private String readCommand() {
+        return this.inputScanner.nextLine();
+    }
 
     private String insertLines(String message) {
         return "____________________________________________________________\n" +
