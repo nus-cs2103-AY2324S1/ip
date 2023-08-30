@@ -7,8 +7,8 @@ import java.time.LocalDateTime;
  * The Event class is responsible for all Event tasks.
  */
 public class Event extends Task {
-    public LocalDateTime from;
-    public LocalDateTime by;
+    private LocalDateTime from;
+    private LocalDateTime by;
 
     /**
      * Creates a new instance of the Event class.
@@ -30,5 +30,13 @@ public class Event extends Task {
     @Override public String getFileString() throws DateTimeException {
         return "E|" + super.getFileString() + "|" + from.toString().replace('T', ' ') + "|" + by.toString()
                 .replace('T', ' ');
+    }
+
+    public LocalDateTime getBy() {
+        return this.by;
+    }
+
+    public LocalDateTime getFrom() {
+        return this.from;
     }
 }

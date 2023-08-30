@@ -11,7 +11,7 @@ import java.util.Locale;
 public class Task {
     protected TaskType type;
     protected String description;
-    protected boolean isDone;
+    private boolean isDone;
 
     /**
      * Creates a new instance of the Task class.
@@ -60,5 +60,9 @@ public class Task {
     public String convertDateTimeToString(LocalDateTime dt) throws DateTimeException {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMMM yyyy HH:mm", Locale.ENGLISH);
         return dt.format(formatter);
+    }
+
+    public boolean checkDone() {
+        return this.isDone;
     }
 }

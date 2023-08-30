@@ -3,6 +3,7 @@ package bruno;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.List;
 import java.util.Scanner;
 
 import bruno.exceptions.BrunoException;
@@ -19,6 +20,8 @@ import bruno.task.ToDo;
 public class Storage {
     private String dirPath;
     private String fileName;
+    private UI ui;
+    private TaskList taskList;
 
     /**
      * Creates a new instance of the Storage class using the specified directory path and file name.
@@ -38,9 +41,11 @@ public class Storage {
      * Writes to the bruno.txt file by reading all tasks in the task list.
      */
     public void writeToFile() {
+        taskList = new TaskList(this, ui);
         try {
             FileWriter fileWriter = new FileWriter(this.dirPath + this.fileName);
-            for (Task task : TaskList.list) {
+            List<Task> list = taskList.getList();
+            for (Task task : list) {
                 fileWriter.write(task.getFileString() + "\n");
             }
             fileWriter.close();
@@ -63,15 +68,17 @@ public class Storage {
             while (sc.hasNextLine()) {
                 String s = sc.nextLine();
                 String[] task = s.split("\\|");
+                List<Task> list = taskList.getList();
                 if (task[0].equals("T")) {
-                    TaskList.list.add(new ToDo(task[2]));
+                    list.add(new ToDo(task[2]));
                 } else if (task[0].equals("D")) {
-                    TaskList.list.add(new Deadline(task[2], task[3]));
+                    list.add(new Deadline(task[2], task[3]));
                 } else if (task[0].equals("E")) {
-                    TaskList.list.add(new Event(task[2], task[3], task[4]));
+                    list.add(new Event(task[2], task[3], task[4]));
                 } else {
                     throw new BrunoIncorrectFormatException();
                 }
+                taskList.setList(list);
             }
             sc.close();
         } catch (IOException e) {

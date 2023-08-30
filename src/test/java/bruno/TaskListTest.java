@@ -32,7 +32,7 @@ public class TaskListTest {
     void testAddToDo() {
         try {
             taskList.addToDo("todo buy groceries");
-            List<Task> tasks = taskList.list;
+            List<Task> tasks = taskList.getList();
             assertEquals(1, tasks.size());
             assertTrue(tasks.get(0) instanceof ToDo);
         } catch (BrunoException e) {
@@ -50,7 +50,7 @@ public class TaskListTest {
     void testAddDeadline() {
         try {
             taskList.addDeadline("deadline assignment /by 2023-08-30 19:00");
-            List<Task> tasks = taskList.list;
+            List<Task> tasks = taskList.getList();
             assertEquals(1, tasks.size());
             assertTrue(tasks.get(0) instanceof Deadline);
         } catch (BrunoException e) {
@@ -83,7 +83,7 @@ public class TaskListTest {
     void testAddEvent() {
         try {
             taskList.addEvent("event presentation /from 2023-08-31 10:00 /to 2023-08-31 11:00");
-            List<Task> tasks = taskList.list;
+            List<Task> tasks = taskList.getList();
             assertEquals(1, tasks.size());
             assertTrue(tasks.get(0) instanceof Event);
         } catch (BrunoException e) {
@@ -114,11 +114,11 @@ public class TaskListTest {
     @Test
     void testMarkTask() {
         try {
-            List<Task> tasks = taskList.list;
+            List<Task> tasks = taskList.getList();
             taskList.addToDo("todo work");
-            assertFalse(tasks.get(0).isDone);
+            assertFalse(tasks.get(0).checkDone());
             taskList.markTask("mark 1");
-            assertTrue(tasks.get(0).isDone);
+            assertTrue(tasks.get(0).checkDone());
         } catch (BrunoException e) {
             fail();
         }
@@ -126,32 +126,38 @@ public class TaskListTest {
 
     @Test
     void testMarkTask_stringArg_exceptionThrown() {
-        taskList.list.add(new ToDo("work"));
+        List<Task> tasks = taskList.getList();
+        tasks.add(new ToDo("work"));
+        taskList.setList(tasks);
         assertThrows(BrunoIntegerMismatchException.class, () -> taskList.markTask("mark abc"));
     }
 
     @Test
     void testMarkTask_negativeArg_exceptionThrown() {
-        taskList.list.add(new Deadline("post-lecture quiz", "2023-08-30 18:00"));
+        List<Task> tasks = taskList.getList();
+        tasks.add(new Deadline("post-lecture quiz", "2023-08-30 18:00"));
+        taskList.setList(tasks);
         assertThrows(BrunoNegativeArgException.class, () -> taskList.markTask("mark -1"));
     }
 
     @Test
     void testMarkTask_outOfBoundsArg_exceptionThrown() {
-        taskList.list.add(new ToDo("project"));
+        List<Task> tasks = taskList.getList();
+        tasks.add(new ToDo("project"));
+        taskList.setList(tasks);
         assertThrows(BrunoIndexOutOfBoundsException.class, () -> taskList.markTask("mark 2"));
     }
 
     @Test
     void testUnmarkTask() {
         try {
-            List<Task> tasks = taskList.list;
+            List<Task> tasks = taskList.getList();
             Task task = new ToDo("todo work");
-            task.isDone = true;
+            task.markAsDone();
             tasks.add(task);
-            assertTrue(tasks.get(0).isDone);
+            assertTrue(tasks.get(0).checkDone());
             taskList.unmarkTask("unmark 1");
-            assertFalse(tasks.get(0).isDone);
+            assertFalse(tasks.get(0).checkDone());
         } catch (BrunoException e) {
             fail();
         }
@@ -159,32 +165,38 @@ public class TaskListTest {
 
     @Test
     void testUnmarkTask_stringArg_exceptionThrown() {
-        taskList.list.add(new ToDo("work"));
-        taskList.list.get(0).isDone = true;
+        List<Task> tasks = taskList.getList();
+        tasks.add(new ToDo("work"));
+        taskList.setList(tasks);
+        taskList.getList().get(0).markAsDone();
         assertThrows(BrunoIntegerMismatchException.class, () -> taskList.unmarkTask("unmark abc"));
     }
 
     @Test
     void testUnmarkTask_negativeArg_exceptionThrown() {
-        taskList.list.add(new Deadline("post-lecture quiz", "2023-08-30 18:00"));
-        taskList.list.get(0).isDone = true;
+        List<Task> tasks = taskList.getList();
+        tasks.add(new Deadline("post-lecture quiz", "2023-08-30 18:00"));
+        taskList.getList().get(0).markAsDone();
         assertThrows(BrunoNegativeArgException.class, () -> taskList.unmarkTask("unmark -1"));
     }
 
     @Test
     void testUnmarkTask_outOfBoundsArg_exceptionThrown() {
-        taskList.list.add(new ToDo("project"));
-        taskList.list.get(0).isDone = true;
+        List<Task> tasks = taskList.getList();
+        tasks.add(new ToDo("project"));
+        taskList.getList().get(0).markAsDone();
         assertThrows(BrunoIndexOutOfBoundsException.class, () -> taskList.unmarkTask("unmark 2"));
     }
 
     @Test
     void testDeleteTask() {
         try {
-            taskList.list.add(new Event("hackathon", "2023-08-29 10:00", "2023-09-01 10:00"));
-            taskList.list.add(new ToDo("marathon"));
+            List<Task> tasks = taskList.getList();
+            tasks.add(new Event("hackathon", "2023-08-29 10:00", "2023-09-01 10:00"));
+            tasks.add(new ToDo("marathon"));
+            taskList.setList(tasks);
             taskList.deleteTask("delete 2");
-            assertEquals(1, taskList.list.size());
+            assertEquals(1, taskList.getList().size());
         } catch (BrunoException e) {
             fail();
         }
@@ -192,19 +204,25 @@ public class TaskListTest {
 
     @Test
     void testDeleteTask_stringArg_exceptionThrown() {
-        taskList.list.add(new Deadline("project", "2023-09-01 18:00"));
+        List<Task> tasks = taskList.getList();
+        tasks.add(new Deadline("project", "2023-09-01 18:00"));
+        taskList.setList(tasks);
         assertThrows(BrunoIntegerMismatchException.class, () -> taskList.deleteTask("delete a"));
     }
 
     @Test
     void testDeleteTask_outOfBoundsArg_exceptionThrown() {
-        taskList.list.add(new ToDo("debug project"));
+        List<Task> tasks = taskList.getList();
+        tasks.add(new ToDo("debug project"));
+        taskList.setList(tasks);
         assertThrows(BrunoIndexOutOfBoundsException.class, () -> taskList.deleteTask("delete 2"));
     }
 
     @Test
     void testDeleteTask_negativeArg_exceptionThrown() {
-        taskList.list.add(new Event("career fair", "2023-08-29 17:00", "2023-08-31 17:00"));
+        List<Task> tasks = taskList.getList();
+        tasks.add(new Event("career fair", "2023-08-29 17:00", "2023-08-31 17:00"));
+        taskList.setList(tasks);
         assertThrows(BrunoNegativeArgException.class, () -> taskList.deleteTask("delete -1"));
     }
 }

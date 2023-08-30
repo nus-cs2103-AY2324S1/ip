@@ -1,16 +1,14 @@
 package bruno;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import bruno.UI;
-
-import static org.junit.jupiter.api.Assertions.*;
-
-public class UITest {
+public class UiTest {
 
     private UI ui = new UI();
     private final PrintStream standardOut = System.out;

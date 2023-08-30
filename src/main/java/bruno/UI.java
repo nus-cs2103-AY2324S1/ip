@@ -22,7 +22,7 @@ public class UI {
         String logo = "                ;~~,__,\n" + ":-….,———-‘`----/   ._.*\n" + " `-,,,   BRUNO   ,’\n"
                 + "     ;   ,~.——;  /\n" + "     :  |     :  |\n" + "     `_ ’     `_ ‘";
         System.out.println(logo);
-        String name = "bruno.Bruno";
+        String name = "Bruno";
         System.out.println("Woof Woof! I'm " + name + " 🐾");
         System.out.println("How can I help you?");
     }
