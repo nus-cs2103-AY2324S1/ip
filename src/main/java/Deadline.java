@@ -1,5 +1,5 @@
 public class Deadline extends Task {
-    private String deadline;
+    String deadline;
 
     public Deadline(String description, String deadline) {
         super(description);
