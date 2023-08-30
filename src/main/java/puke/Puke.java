@@ -326,6 +326,11 @@ class ExitCommand extends Command {
             System.out.println(ui.exit());
         }
     }
+
+    @Override
+    public boolean equals(Object other) {
+        return (other instanceof ExitCommand);
+    }
 }
 
 class ListCommand extends Command {
@@ -342,6 +347,10 @@ class ListCommand extends Command {
             System.out.println(tl.printOut());
             System.out.println(Ui.separator);
         }
+    }
+    @Override
+    public boolean equals(Object other) {
+        return (other instanceof ListCommand);
     }
 }
 
@@ -363,6 +372,16 @@ class MarkCommand extends Command {
             System.out.println(Ui.errorMessage);
             System.out.println(Ui.separator);
         }
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return (other instanceof MarkCommand && other.toString().equals(this.toString()));
+    }
+
+    @Override
+    public String toString() {
+        return "mark " + this.index;
     }
 }
 
@@ -389,6 +408,16 @@ class UnmarkCommand extends Command {
             System.out.println(Ui.separator);
         }
     }
+
+    @Override
+    public boolean equals(Object other) {
+        return (other instanceof UnmarkCommand && other.toString().equals(this.toString()));
+    }
+
+    @Override
+    public String toString() {
+        return "unmark " + this.index;
+    }
 }
 
 class TodoCommand extends Command {
@@ -408,6 +437,20 @@ class TodoCommand extends Command {
         } catch (Exception PukeException) {
             System.out.println(Ui.errorMessage);
             System.out.println(Ui.separator);
+        }
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return (other instanceof TodoCommand && other.toString().equals(this.toString()));
+    }
+
+    @Override
+    public String toString() {
+        try {
+            return new ToDo(this.desc).toString();
+        } catch (PukeException e) {
+            throw new RuntimeException(e);
         }
     }
 }
@@ -431,6 +474,20 @@ class DeadlineCommand extends Command {
             System.out.println(Ui.separator);
         }
     }
+
+    @Override
+    public boolean equals(Object other) {
+        return (other instanceof DeadlineCommand && other.toString().equals(this.toString()));
+    }
+
+    @Override
+    public String toString() {
+        try {
+            return new Deadline(this.rest).toString();
+        } catch (PukeException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }
 
 class EventCommand extends Command {
@@ -450,6 +507,20 @@ class EventCommand extends Command {
         } catch (Exception PukeException) {
             System.out.println(Ui.errorMessage);
             System.out.println(Ui.separator);
+        }
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return (other instanceof EventCommand && other.toString().equals(this.toString()));
+    }
+
+    @Override
+    public String toString() {
+        try {
+            return new Event(this.rest).toString();
+        } catch (PukeException e) {
+            throw new RuntimeException(e);
         }
     }
 }
@@ -472,6 +543,16 @@ class DeleteCommand extends Command {
             System.out.println(Ui.errorMessage);
             System.out.println(Ui.separator);
         }
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return (other instanceof DeleteCommand && other.toString().equals(this.toString()));
+    }
+
+    @Override
+    public String toString() {
+        return "delete " + this.index;
     }
 }
 
@@ -497,6 +578,11 @@ class ClearCommand extends Command {
             }
         }
     }
+
+    @Override
+    public boolean equals(Object other) {
+        return (other instanceof ClearCommand);
+    }
 }
 
 class ErrorCommand extends Command {
@@ -507,6 +593,11 @@ class ErrorCommand extends Command {
     void execute(TaskList tl, Ui ui) {
         System.out.println(Ui.errorMessage);
         System.out.println(Ui.separator);
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return (other instanceof ErrorCommand);
     }
 }
 
@@ -536,7 +627,7 @@ class Parser {
                 return new ErrorCommand();
             }
         } catch (Exception e) {
-            throw new PukeException();
+            return new ErrorCommand();
         }
     }
 }
