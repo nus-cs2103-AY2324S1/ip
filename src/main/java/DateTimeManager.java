@@ -3,6 +3,10 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 public class DateTimeManager {
+    public static class DateParseException extends Exception {
+        private DateParseException() {}
+    }
+
     /**
      * Transform a String input of datetime to a LocalDateTime instance.
      * The string must be in the format "dd/mm/yyyy hh:mm"
@@ -65,9 +69,12 @@ public class DateTimeManager {
     public static LocalTime parseTime(String input) throws DateParseException {
         String possibleAmPm = input.substring(input.length() - 2);
         boolean isPm = false;
+        boolean isAm = false;
         if (possibleAmPm.equals("am") || possibleAmPm.equals("pm")) {
             if (possibleAmPm.equals("pm")) {
                 isPm = true;
+            } if (possibleAmPm.equals("am")) {
+                isAm = true;
             }
             input = input.substring(0, input.length() - 2);
         }
@@ -76,8 +83,9 @@ public class DateTimeManager {
             if (!timeData[0].matches("\\d+")) {
                 throw new DateParseException();
             }
+            int hour = Integer.parseInt(timeData[0]);
             return LocalTime.of(
-                    Integer.parseInt(timeData[0]) + (isPm ? 12 : 0),
+                    (hour == 12 ? (isAm ? 0 : isPm ? 0 : 12) : hour) + (isPm ? 12 : 0),
                     0
             );
         } else if (timeData.length == 2) {
@@ -86,8 +94,9 @@ public class DateTimeManager {
                     throw new DateParseException();
                 }
             }
+            int hour = Integer.parseInt(timeData[0]);
             return LocalTime.of(
-                    Integer.parseInt(timeData[0]) + (isPm ? 12 : 0),
+                    (hour == 12 ? (isAm ? 0 : isPm ? 0 : 12) : hour) + (isPm ? 12 : 0),
                     Integer.parseInt(timeData[1])
             );
         } else {
