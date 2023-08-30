@@ -37,7 +37,7 @@ public class Tasklistloader {
     try {
       Path filePath = Paths.get("tasks.json");
       String content = new String(Files.readAllBytes(filePath));
-      ReceivedTasks received = this.taskMapper.readValue(content, ReceivedTasks.class);
+      TaskList received = this.taskMapper.readValue(content, TaskList.class);
       ArrayList<Task> tasks = received.tasks;
 
       this.taskList.addAll(tasks);
@@ -54,7 +54,7 @@ public class Tasklistloader {
     try {
 
       Path filePath = Paths.get("tasks.json");
-      ReceivedTasks test = new ReceivedTasks();
+      TaskList test = new TaskList();
       test.tasks = this.taskList;
 
       String output =

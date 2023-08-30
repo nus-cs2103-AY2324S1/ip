@@ -1,9 +1,9 @@
 import java.util.ArrayList;
 
 
-public class ReceivedTasks {
+public class TaskList {
 
-  ReceivedTasks() {
+  TaskList() {
   }
 
   public ArrayList<Task> tasks;
