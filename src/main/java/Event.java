@@ -1,23 +1,27 @@
-public class Event extends Task {
-    protected String from;
-    protected String to;
+import java.util.Date;
+import java.text.SimpleDateFormat;
 
-    public Event(String description, String from, String to) throws DukeException {
+public class Event extends Task {
+    protected Date from;
+    protected Date to;
+
+    public Event(String description, Date from, Date to) throws DukeException {
         super(description);
-        if (description.isEmpty() || from.isEmpty() || to.isEmpty()) {
+        if (description.isEmpty())
             throw new DukeException("☹ OOPS!!! The description / from / to of a event cannot be empty.");
-        }
         this.from = from;
         this.to = to;
     }
 
     @Override
     public String toWrite() {
-        return "E | " + super.toWrite() + " | " + from + "-" + to + "\n";
+        SimpleDateFormat formatter = new SimpleDateFormat("MMM dd yyyy");
+        return "E | " + super.toWrite() + " | " + formatter.format(from) + "-" + formatter.format(to) + "\n";
     }
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + from + " to: " + to + ")";
+        SimpleDateFormat formatter = new SimpleDateFormat("MMM dd yyyy");
+        return "[E]" + super.toString() + " (from: " + formatter.format(from) + " to: " + formatter.format(to) + ")";
     }
 }
