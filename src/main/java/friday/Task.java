@@ -38,4 +38,14 @@ public class Task {
     public String toString() {
         return "[" + getStatusIcon() + "] " + name;
     }
+
+    /**
+     * Checks if keyword is contained in task description.
+     * @param keyWord The keyword to check for.
+     * @return whether the keyword is in task.
+     */
+    public boolean containsKeyWord(String keyWord) {
+        String lowerCaseName = this.name.toLowerCase();
+        return lowerCaseName.contains(keyWord.toLowerCase());
+    }
 }

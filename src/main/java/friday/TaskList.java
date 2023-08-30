@@ -44,6 +44,21 @@ public class TaskList {
     }
 
     /**
+     * Finds a list of tasks based on a keyword
+     * @param keyWord The keyword of the task to find.
+     */
+    public TaskList findTasks(String keyWord) {
+        TaskList result = new TaskList();
+        for (int i = 0; i < taskList.size(); i++) {
+            Task item = taskList.get(i);
+            if (item.containsKeyWord(keyWord)) {
+                result.add(item);
+            }
+        }
+        return result;
+    }
+
+    /**
      * Returns a string representation of the task list.
      * @return A string representing all tasks in the list.
      */
