@@ -1,6 +1,9 @@
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -11,6 +14,7 @@ public class Oscar {
     static ArrayList<Task> taskList = new ArrayList<>();
     static final String FILE_DIRECTORY = "./data";
     static final String FILE_LOCATION = FILE_DIRECTORY + "/tasklist";
+    static final DateTimeFormatter DTFORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
 
     enum Commands {
         BYE,
@@ -195,7 +199,7 @@ public class Oscar {
      * @throws OscarException Todo missing description.
      */
     private static void todo(String description) throws OscarException {
-        if (description.length() == 0) {
+        if (description.isEmpty()) {
             throw new OscarException("Sorry! " +
                     "The description of a todo task cannot be empty.\n");
         }
@@ -213,23 +217,28 @@ public class Oscar {
     private static void deadline(String details) throws OscarException {
         if (!details.contains(" /by ")) {
             throw new OscarException("Sorry! " +
-                    "The deadline task is not formatted correctly.\n");
+                    "The deadline task is not formatted correctly.\n" +
+                    "Please use the format: 'deadline <task> /by yyyy-MM-dd HHmm'.\n");
         }
-        String[] split = details.split(" /by ", 2);
-        String description = split[0];
-        if (description.length() == 0) {
+        String[] detailsSplit = details.split(" /by ", 2);
+        String description = detailsSplit[0];
+        if (description.isEmpty()) {
             throw new OscarException("Sorry! " +
                     "The description of a deadline task cannot be empty.\n");
         }
-        String deadline = split[1];
-        if (deadline.length() == 0) {
-            throw new OscarException("Sorry! " +
-                    "The deadline of a deadline task cannot be empty.\n");
+        String deadline = detailsSplit[1];
+        if (!deadline.contains(" ")) {
+            throw new OscarException("Sorry! Please enter a valid date and time in this format: '2019-10-15 1800'.\n");
         }
-        Task newDeadline = new Deadline(description, deadline);
-        taskList.add(newDeadline);
-        System.out.println("Oscar has added:\n" + newDeadline + "\n");
-        listCount();
+        try {
+            LocalDateTime deadlineDateTime = LocalDateTime.parse(deadline, DTFORMAT);
+            Task newDeadline = new Deadline(description, deadlineDateTime);
+            taskList.add(newDeadline);
+            System.out.println("Oscar has added:\n" + newDeadline + "\n");
+            listCount();
+        } catch (DateTimeParseException e) {
+            throw new OscarException("Sorry! Please enter a valid date and time in this format: '2019-10-15 1800'.\n");
+        }
     }
 
     /**
@@ -241,28 +250,41 @@ public class Oscar {
     private static void event(String details) throws OscarException {
         if (!details.contains(" /from ") || !details.contains(" /to ")) {
             throw new OscarException("Sorry! " +
-                    "The event task is not formatted correctly.\n");
+                    "The event task is not formatted correctly.\n" +
+                    "Please use the format: 'event <task> /from yyyy-MM-dd HHmm /to yyyy-MM-dd HHmm'.\n");
         }
         String[] split = details.split(" /from | /to ");
         String description = split[0];
-        if (description.length() == 0) {
+        if (description.isEmpty()) {
             throw new OscarException("Sorry! " +
                     "The description of an event task cannot be empty.\n");
         }
         String start = split[1];
-        if (start.length() == 0) {
+        if (start.isEmpty()) {
             throw new OscarException("Sorry! " +
-                    "The start date/time of an event task cannot be empty.\n");
+                    "The start date and time of an event task cannot be empty.\n");
         }
         String end = split[2];
-        if (end.length() == 0) {
+        if (end.isEmpty()) {
             throw new OscarException("Sorry! " +
-                    "The end date/time of an event task cannot be empty.\n");
+                    "The end date and time of an event task cannot be empty.\n");
         }
-        Task newEvent = new Event(description, start, end);
-        taskList.add(newEvent);
-        System.out.println("Oscar has added:\n" + newEvent + "\n");
-        listCount();
+        if (!start.contains(" ") || !end.contains(" ")) {
+            throw new OscarException("Sorry! Please enter a valid date and time in this format: '2019-10-15 1800'.\n");
+        }
+        try {
+            LocalDateTime startDateTime = LocalDateTime.parse(start, DTFORMAT);
+            LocalDateTime endDateTime = LocalDateTime.parse(end, DTFORMAT);
+            if (endDateTime.isBefore(startDateTime)) {
+                throw new OscarException("Sorry! End date and time must be after start date and time.\n");
+            }
+            Task newEvent = new Event(description, startDateTime, endDateTime);
+            taskList.add(newEvent);
+            System.out.println("Oscar has added:\n" + newEvent + "\n");
+            listCount();
+        } catch (DateTimeParseException e) {
+            throw new OscarException("Sorry! Please enter a valid date and time in this format: '2019-10-15 1800'.\n");
+        }
     }
 
     /**
