@@ -27,7 +27,7 @@ public class Event extends Task {
         }
     }
 
-    public static void newEvent(String text, ArrayList<Task> tasks) {
+    public static void setNewEvent(String text, ArrayList<Task> tasks) {
         String desc = text.split("\\(")[0].trim();
         String from = text.split("from:")[1].split("to:")[0].strip();
         String to = text.split("to:")[1].strip();

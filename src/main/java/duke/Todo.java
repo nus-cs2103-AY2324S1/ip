@@ -19,7 +19,7 @@ public class Todo extends Task {
         }
     }
 
-    public static void newTodo(String text, ArrayList<Task> tasks) {
+    public static void setNewTodo(String text, ArrayList<Task> tasks) {
         Todo updatedTodo = new Todo(text);
         tasks.add(updatedTodo);
     }

@@ -31,7 +31,7 @@ public class Deadline extends Task {
         }
     }
 
-    public static void newDeadline(String text, ArrayList<Task> tasks) {
+    public static void setNewDeadline(String text, ArrayList<Task> tasks) {
         String desc = text.split("\\(")[0].trim();
         String by = text.split("by:")[1].split("\\)")[0].trim();
         LocalDate date = LocalDate.parse(by, DateTimeFormatter.ofPattern("MMM d yyyy"));
