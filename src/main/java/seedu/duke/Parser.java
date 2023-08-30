@@ -7,6 +7,7 @@ package seedu.duke;
 
 import java.io.StreamCorruptedException;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 
 public class Parser {
     private Storage storage;
@@ -144,6 +145,14 @@ public class Parser {
 
                     Task task = tasks.markOrDeleteTask(taskNumber - 1, "unmark");
                     ui.printUnmarkedTaskMessage(task);
+                } else if (type.equals("find")) {
+                    if (descriptionIsEmpty(cmd)) {
+                        throw new InvalidDescriptionException("find");
+                    }
+
+                    String keyword = cmd.split(" ", 2)[1];
+                    ArrayList<Task> results = tasks.find(keyword);
+                    ui.printFindResults(results);
                 } else {  // If the inputted command is not valid, throw TaskTypeException
                     throw new TaskTypeException();
                 }

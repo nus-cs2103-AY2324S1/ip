@@ -120,4 +120,19 @@ public class Ui {
 
         System.out.println(message);
     }
+
+    public void printFindResults(ArrayList<Task> results) {
+        String message = "    ____________________________________________________________\n" +
+                "     Here are the matching tasks in your list:\n";
+
+        for (int i = 0; i < results.size(); i++) {
+            Task task = results.get(i);
+            message += "     " + (i+1) + "." + task.getTaskType() + task.getStatusIcon() + " " + task.name +
+                    " " + task.getTimeInfo() + "\n";
+        }
+
+        message += "    ____________________________________________________________";
+
+        System.out.println(message);
+    }
 }
