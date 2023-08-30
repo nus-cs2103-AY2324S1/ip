@@ -1,7 +1,11 @@
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
-import java.io.File;
 
 // Solution below inspired by https://stackoverflow.com/questions/47150081/while-loop-for-multiple-inputs
 // Solution below inspired by ChatGPT, to solve the issue in the else block of incrementing the num_items counter to add
@@ -120,43 +124,66 @@ public class Duke {
                         Saving.saveTasks(tasks);
                         num_items++;
                         System.out.println(separators);
-                        System.out.println("Got it. I've added this task:" + "\n" + tasks.get(num_items-1).toString());
+                        System.out.println("Got it. I've added this task:" + "\n" + tasks.get(num_items - 1).toString());
                         System.out.println("Now you have " + num_items + " tasks in the list.");
                         System.out.println(separators);
 
                     }
 
+                    // Solution below adapted and inspired by https://chat.openai.com/share/b706b4df-ab30-4d0f-93eb-b85617616319
                 } else if (user_text.contains("deadline")) {
-                    String[] split_the_command = user_text.split(" ");
-                    String[] clean_text = user_text.split("/", 2);
-                    String the_description = clean_text[0].replaceFirst("deadline", "");
-                    String the_by = clean_text[1];
+                    String[] split_the_command = user_text.split(" ", 2);
+                    String[] otherDetails = split_the_command[1].split("/", 2);
+                    String the_description = otherDetails[0].trim();
+                    // remove starting blank space and split into date and time separately
+                    String[] the_DateTime = otherDetails[1].replaceFirst("by", "").trim().split(" ", 2);
+                    String date = the_DateTime[0];
+                    String time = the_DateTime[1];
+
+                    DateTimeValidator validator = new DateTimeValidator("dd/MM/yyyy HHmm");
+                    boolean isDateValid = validator.validateDate(date + " " + time);
 
                     if (split_the_command[0].equals("deadline")) {
-                        tasks.add(new Deadline(the_description, the_by.replaceFirst("by", "by:")));
-                        Saving.saveTasks(tasks);
-                        num_items++;
-                        System.out.println(separators);
-                        System.out.println("Got it. I've added this task:" + "\n" + tasks.get(num_items - 1).toString());
-                        System.out.println("Now you have " + num_items + " tasks in the list.");
-                        System.out.println(separators);
+                        if (isDateValid) {
+                            LocalDateTime parsedDateTime = LocalDateTime.parse(date + " " + time, DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm"));
+                            tasks.add(new Deadline(the_description, parsedDateTime));
+                            Saving.saveTasks(tasks);
+                            num_items++;
+                            System.out.println(separators);
+                            System.out.println("Got it. I've added this task:" + "\n" + tasks.get(num_items - 1).toString());
+                            System.out.println("Now you have " + num_items + " tasks in the list.");
+                            System.out.println(separators);
+                        } else {
+                            System.out.println("Invalid date format. Please use 'd/M/yyyy HHmm' format.");
+                        }
                     }
                 } else if (user_text.contains("event")) {
-                    String[] split_the_command = user_text.split(" ");
-                    String[] clean_text = user_text.split("/", 3);
-                    String the_description = clean_text[0].replaceFirst("event", "");
-                    String the_from = clean_text[1].replaceFirst("from", "from:");
-                    String the_to = clean_text[2].replaceFirst("to", "to:");
+                    String[] split_the_command = user_text.split(" ", 2);
+                    String[] otherDetails = split_the_command[1].split("/", 2);
+                    String the_description = otherDetails[0].trim();
+                    // remove starting blank space and split into from date and to date separately
+                    String[] fromToParts = otherDetails[1].split("/to", 2);
+                    String fromDateTime = fromToParts[0].replaceFirst("from", "").trim();
+                    String toDateTime = fromToParts[1].trim();
+
+                    DateTimeValidator validator = new DateTimeValidator("yyyy/MM/dd HHmm");
+                    boolean isDateValid = validator.validateDate(fromDateTime) && validator.validateDate(toDateTime);
 
                     if (split_the_command[0].equals("event")) {
-                        tasks.add(new Event(the_description, the_from, the_to));
-                        Saving.saveTasks(tasks);
-                        num_items++;
-                        System.out.println(separators);
-                        System.out.println("Got it. I've added this task:" + "\n" + tasks.get(num_items - 1).toString());
-                        System.out.println("Now you have " + num_items + " tasks in the list.");
-                        System.out.println(separators);
-                        Saving.saveTasks(tasks);
+                        if (isDateValid) {
+                            LocalDateTime parsedFromDate = LocalDateTime.parse(fromDateTime, DateTimeFormatter.ofPattern("yyyy/MM/dd HHmm"));
+                            LocalDateTime parsedToDate = LocalDateTime.parse(toDateTime, DateTimeFormatter.ofPattern("yyyy/MM/dd HHmm"));
+                            tasks.add(new Event(the_description, parsedFromDate, parsedToDate));
+                            Saving.saveTasks(tasks);
+                            num_items++;
+                            System.out.println(separators);
+                            System.out.println("Got it. I've added this task:" + "\n" + tasks.get(num_items - 1).toString());
+                            System.out.println("Now you have " + num_items + " tasks in the list.");
+                            System.out.println(separators);
+                            Saving.saveTasks(tasks);
+                        } else {
+                            System.out.println("Invalid date format. Please use 'yyyy/MM/dd HHmm' format.");
+                        }
                     }
                 } else {
                     tasks.add(new Task(user_text, Task.Type.OTHERS));

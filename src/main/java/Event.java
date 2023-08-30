@@ -1,17 +1,22 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 public class Event extends Task {
 
-    protected String from;
-    protected String to;
+    protected LocalDateTime fromDateAndTime;
+    protected LocalDateTime toDateAndTime;
 
-    public Event(String description, String from, String to) {
+    public Event(String description, LocalDateTime fromDateAndTime, LocalDateTime toDateAndTime) {
         super(description, Type.EVENT);
-        this.from = from;
-        this.to = to;
+        this.fromDateAndTime = fromDateAndTime;
+        this.toDateAndTime = toDateAndTime;
     }
 
     @Override
     public String toString() {
-
-        return "[E]" + "[" + getStatusIcon() + "]" + description + "(" + from + to + ")";
+        // example Oct 15 2019 2pm
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMMM d yyyy ha");
+        return "[E]" + "[" + getStatusIcon() + "] " + description + " (from: " + fromDateAndTime.format(formatter) +
+                " to: " + toDateAndTime.format(formatter) + ")";
     }
 }

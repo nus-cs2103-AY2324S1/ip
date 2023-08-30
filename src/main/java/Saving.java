@@ -2,6 +2,8 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.io.BufferedReader;
 
@@ -32,15 +34,18 @@ public class Saving {
 
                 if (taskType.equals("Event")) {
                     Event event = (Event) task;
-                    String customFrom = event.from.replace("from:", "");
-                    String customTo = event.to.replace("to:", "-");
+                    LocalDateTime fromDateTime = event.fromDateAndTime;
+                    LocalDateTime toDateTime = event.toDateAndTime;
+                    String formattedFromDateTime = fromDateTime.format(DateTimeFormatter.ofPattern("MMMM d yyyy ha"));
+                    String formattedToDateTime = toDateTime.format(DateTimeFormatter.ofPattern("MMMM d yyyy ha"));
                     writer.write("E " + "| " + statusIcon + " | " + event.description +
-                            " | " + customFrom + customTo + "\n");
+                            " | " + formattedFromDateTime + " - " + formattedToDateTime + "\n");
                 } else if (taskType.equals("Deadline")) {
                     Deadline deadline = (Deadline) task;
-                    String customBy = deadline.by.replace("by: ", "");
+                    LocalDateTime dateTime = deadline.DateAndTime;
+                    String formattedDateTime = dateTime.format(DateTimeFormatter.ofPattern("dd MMM yyyy h:mma"));
                     writer.write("D " + "| " + statusIcon + " | " + deadline.description
-                            + " | " + customBy + "\n");
+                            + " | " + formattedDateTime + "\n");
                 } else if (taskType.equals("Todo")) {
                     Todo todo = (Todo) task;
                     writer.write("T " + "| " + statusIcon + " | " + todo.description + "\n");
@@ -88,13 +93,18 @@ public class Saving {
                         switch (taskType) {
 
                             case "E":
-                                String[] eventParts = taskOtherInfo.split("-");
+                                String[] eventParts = taskOtherInfo.trim().split("-");
+                                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMMM d yyyy ha");
+                                LocalDateTime parsedFromStartDateTime = LocalDateTime.parse(eventParts[0].trim(), formatter);
+                                LocalDateTime parsedFromEndDateTime = LocalDateTime.parse(eventParts[1].trim(), formatter);
                                 if (eventParts.length == 2) {
-                                    task = new Event(taskDescription, eventParts[0], eventParts[1]);
+                                    task = new Event(taskDescription, parsedFromStartDateTime, parsedFromEndDateTime);
                                 }
                                 break;
                             case "D":
-                                task = new Deadline(taskDescription, taskOtherInfo);
+                                DateTimeFormatter formatter_d = DateTimeFormatter.ofPattern("dd MMM yyyy h:mma");
+                                LocalDateTime dateTime_d = LocalDateTime.parse(taskOtherInfo, formatter_d);
+                                task = new Deadline(taskDescription, dateTime_d);
                                 break;
                             case "T":
                                 task = new Todo(taskDescription);
