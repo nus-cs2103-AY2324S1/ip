@@ -1,4 +1,6 @@
-[T][ ] say hi
-[D][ ] say bye (by: 2019-10-15)
-[E][ ] wave (from: 2023-01-01 to: 2024-01-01)
-[T][ ] say hi again
+[T][X] read book
+[D][X] sometask          (by: 2023-08-23)
+[D][X] return book         (by: 2023-06-06)
+[E][ ] project meeting         (from: 2023-08-31 to: 2025-12-12)
+[T][ ] read another book
+[D][ ] do something      (by: 2023-01-01)

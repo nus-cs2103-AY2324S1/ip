@@ -1,13 +1,7 @@
 todo read book
-deadline return book /by June 6th
-event project meeting /from Aug 6th 2pm /to 4pm
-todo join sports club
+deadline return book /by 2023-06-06
+event project meeting (from: Monday to: Friday) /from 2023-01-01 /to 2024-01-01
+event project meeting (from: Monday to: Friday) /from 2023-01-01 /to 2024-01-01
 list
-mark 1
-mark 4
-todo borrow book
-list
-deadline return book /by Sunday
-event project meeting /from Mon 2pm /to 4pm
-deadline do homework /by no idea :-p
+deadline read paper (by: 2023-01-01) /by 2023-01-01
 bye
