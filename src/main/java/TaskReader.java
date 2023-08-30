@@ -17,7 +17,9 @@ public class TaskReader {
                 }
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("Error reading the file or the file doesn't exist.");
+            System.out.println("Please try again after ensuring the correctness of the file.");
+            System.exit(1);
         }
         return tasks;
     }
@@ -32,7 +34,7 @@ public class TaskReader {
         } else if (typeIndicator.equals("[T]")) {
             return createToDoFromLine(line);
         } else {
-            return null; // Invalid task type
+            return null;
         }
     }
 
