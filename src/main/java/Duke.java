@@ -6,6 +6,9 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class Duke{
 
@@ -52,7 +55,14 @@ public class Duke{
                     input.add(new Event(splitted[2], splitted[3], splitted[4], (splitted[1] == "1")));
                     break;
                 case "D":
-                    input.add(new Deadline(splitted[2], splitted[3], (splitted[1] == "1")));
+                    int key = Integer.valueOf(splitted[4]);
+                    if (key == 2){
+                        input.add(new Deadline(splitted[2], LocalDateTime.parse(splitted[3]), (splitted[1] == "1")));
+                    } else if (key == 1) {
+                        input.add(new Deadline(splitted[2], LocalDate.parse(splitted[3]), (splitted[1] == "1")));
+                    } else {
+                        System.out.println("Unrecognisable date/time deadline loaded");
+                    }
                     break;
                 }
                 nextLine = bufferedReader.readLine();
@@ -178,8 +188,15 @@ public class Duke{
                         //throw new DukeException("☹ OOPS!!! The description of a deadline cannot be empty.");
 
                     }
-                    String[] toBeSplit = inValue.split(" /");
-                    Deadline d = new Deadline(toBeSplit[0], toBeSplit[1].replace("by ", ""));
+                    String[] toBeSplit = inValue.split(" /by ");
+                    Deadline d;
+                    if (toBeSplit[1].contains (" ")){
+                        //date + time is present
+                        d = new Deadline(toBeSplit[0], LocalDateTime.parse(toBeSplit[1], DateTimeFormatter.ofPattern("yyyy/MM/dd HHmm")));
+                    }
+                    else{
+                        d = new Deadline(toBeSplit[0], LocalDate.parse(toBeSplit[1], DateTimeFormatter.ofPattern("yyyy/MM/dd")));
+                    }
                     myList.add(d);
                     System.out.println("____________________________________________________________");
                     System.out.println("Got it. I've added this task:");
@@ -199,8 +216,9 @@ public class Duke{
                         break;
                         //throw new DukeException("☹ OOPS!!! The description of an event cannot be empty.");
                     }
-                    String[] to_Split = inValue.split(" /");
-                    Event e = new Event(to_Split[0], to_Split[1].replace("from ", ""), to_Split[2].replace("to ", ""));
+                    String[] to_Split = inValue.split(" /from ");
+                    String[] second_Split = to_Split[1].split(" /to ");
+                    Event e = new Event(to_Split[0], second_Split[0], second_Split[1]);
                     myList.add(e);
                     System.out.println("____________________________________________________________");
                     System.out.println("Got it. I've added this task:");
@@ -215,7 +233,6 @@ public class Duke{
                     System.out.println("____________________________________________________________");
                     System.out.println(" ☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
                     System.out.println("____________________________________________________________");
-                    myList.add(new Task(inValue));
                     break;
                     
             }
