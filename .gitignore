@@ -18,4 +18,4 @@ bin/
 text-ui-test/EXPECTED-UNIX.TXT
 
 # Save Data Folder
-data/tasks.txt
+/data/tasks.txt
