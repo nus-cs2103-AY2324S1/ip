@@ -5,10 +5,6 @@ import java.time.format.DateTimeFormatter;
 
 public class Event extends Task{
 
-    protected String start;
-
-    protected String end;
-
     protected LocalDate startDate;
 
     protected LocalDate endDate;
@@ -17,15 +13,9 @@ public class Event extends Task{
      * This is a constructor.
      *
      * @param description description of the task.
-     * @param start the start time of the in a String format.
-     * @param end the end time of the event in a Stirng format.
+     * @param startDate the start time of the in a LocalDate format.
+     * @param endDate the end time of the event in a LocalDate format.
      */
-    public Event (String description, String start, String end) {
-        super(description);
-        this.start = start;
-        this.end = end;
-    }
-
     public Event (String description, LocalDate startDate, LocalDate endDate) {
         super(description);
         this.startDate = startDate;

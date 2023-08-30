@@ -3,21 +3,14 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 public class Deadline extends Task{
-     protected String by;
-
      protected LocalDate byDate;
 
     /**
      * Constructor.
      *
      * @param description Description of the task.
-     * @param by Deadline of the task.
+     * @param byDate Deadline of the task.
      */
-     public Deadline(String description, String by) {
-         super(description);
-         this.by = by;
-     }
-
      public Deadline(String description, LocalDate byDate) {
          super(description);
          this.byDate = byDate;
