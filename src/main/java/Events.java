@@ -1,11 +1,13 @@
+import java.time.LocalDateTime;
+
 /**
  * The Events class extends the Task class.
  * It contains a description, start time, end time, and inherits the
  * completion status functionality from the Task class.
  */
 public class Events extends Task {
-    protected String start;
-    protected String end;
+    protected LocalDateTime start;
+    protected LocalDateTime end;
 
     /**
      * Constructs an Events object with the given description, start time, and end time.
@@ -16,8 +18,8 @@ public class Events extends Task {
      */
     public Events(String description, String start, String end) {
         super(description);
-        this.start = start;
-        this.end = end;
+        this.start = DateFormatter.parseTime(start, "yyyy-MM-dd HH:mm");;
+        this.end = DateFormatter.parseTime(end, "yyyy-MM-dd HH:mm");;
     }
 
     /**
@@ -28,6 +30,8 @@ public class Events extends Task {
      */
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + start + " to: " + end + ")";
+        String formatStartDateTime = DateFormatter.format(start, "dd-MM-yyyy HH:mm");
+        String formatEndDateTime = DateFormatter.format(end, "dd-MM-yyyy HH:mm");
+        return "[E]" + super.toString() + " (from: " + formatStartDateTime + " to: " + formatEndDateTime + ")";
     }
 }
