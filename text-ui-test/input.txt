@@ -1,6 +1,6 @@
 todo ToDo1
-deadline Deadline1 /by deadlineDate
-event Event1 /from startTime /to endTime
+deadline Deadline1 /by 20/04/1970
+event Event1 /from 12/12/2012 1234 /to 10/10/2015 2345
 list
 mark 1
 list
