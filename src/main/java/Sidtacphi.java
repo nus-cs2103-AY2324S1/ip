@@ -3,12 +3,6 @@ import java.util.Scanner;
 
 /**
  * Sidtacphi is the main class for the Sidtacphi bot.
- * 
- * @author Jeffry Lum
- * @author Damith C. Rajapakse
- * @author Sean Leong
- * @author Liow Jia Cheng
- * @author Yu Lexuan
  */
 public class Sidtacphi {
     private static Task[] taskList = new Task[100];
@@ -69,28 +63,41 @@ public class Sidtacphi {
                 break;
             } else if (Objects.equals(input, "list")) {
                 showTaskList();
-            } else if (input.length() > 5 && Objects.equals(input.substring(0, 5), "mark ")) {
+            } else if (input.startsWith("mark")) {
                 try {
-                    int taskId = Integer.parseInt(input.substring(5));
-                    Task task = taskList[taskId - 1];
-                    markTaskAs(true, task);
-                } catch (Exception e) {
-                    System.out.println("\nSidtacphi: Invalid task ID. ");
+                    markTaskAs(true, input);
+                } catch (SidException e) {
+                    System.out.print("\n");
+                    System.out.println(e.getMessage());
                 }
-            } else if (input.length() > 7 && Objects.equals(input.substring(0, 7), "unmark ")) {
+            } else if (input.startsWith("unmark")) {
+                try {;
+                    markTaskAs(false, input);
+                } catch (SidException e) {
+                    System.out.print("\n");
+                    System.out.println(e.getMessage());
+                }
+            } else if (input.startsWith("todo")) {
                 try {
-                    int taskId = Integer.parseInt(input.substring(7));
-                    Task task = taskList[taskId - 1];
-                    markTaskAs(false, task);
-                } catch (Exception e) {
-                    System.out.println("\nSidtacphi: Invalid task ID. ");
+                    addTask(TaskType.TODO, input);
+                } catch (SidException e) {
+                    System.out.print("\n");
+                    System.out.println(e.getMessage());
                 }
-            } else if (input.length() > 4 && Objects.equals(input.substring(0, 5), "todo ")) {
-                addTask(TaskType.TODO, input);
-            } else if (input.length() > 5 && Objects.equals(input.substring(0, 6), "event ")) {
-                addTask(TaskType.EVENT, input);
-            } else if (input.length() > 6 && Objects.equals(input.substring(0, 9), "deadline ")) {
-                addTask(TaskType.DEADLINE, input);
+            } else if (input.startsWith("event")) {
+                try {
+                    addTask(TaskType.EVENT, input);
+                } catch (SidException e) {
+                    System.out.print("\n");
+                    System.out.println(e.getMessage());
+                }
+            } else if (input.startsWith("deadline")) {
+                try {
+                    addTask(TaskType.DEADLINE, input);
+                } catch (SidException e) {
+                    System.out.print("\n");
+                    System.out.println(e.getMessage());
+                }
             } else {
                 System.out.print("\nSidtacphi: \"" + input + "\" is not a valid command. \n");
             }
@@ -105,52 +112,68 @@ public class Sidtacphi {
      * @param taskType type of task to add
      * @param input input to add to the task_list kept by the bot
      */
-    private static void addTask(TaskType taskType, String input) {
+    private static void addTask(TaskType taskType, String input) throws SidException {
         // in case of > 100 messages, we will not add any more messages
         if (listPtr >= taskList.length - 1) {
-            System.out.print("\nSidtacphi: You have too many tasks.\n");
-            return;
+            throw new SidException("You have too many tasks");
         }
 
         String[] inputArgs;
 
         switch (taskType) {
             case TODO:
-                taskList[listPtr] = new Todo(input.substring(5));
+                if (input.length() < 5) {
+                    throw new SidInvalidFormatException("Please input a name for your Todo task.");
+                } else if (input.charAt(4) == ' ') {
+                    taskList[listPtr] = new Todo(input.substring(5));
+                } else {
+                    throw new SidException("\"" + input + "\" is not a valid command.");
+                }
                 break;
             case EVENT:
-                inputArgs = input.substring(6).split("\\s*/from\\s*");
-                if (inputArgs.length == 2) { 
-                    String[] startAndEnd = inputArgs[1].split("\\s*/to\\s*");
-                    if (startAndEnd.length == 2) {
-                        taskList[listPtr] = new Event(inputArgs[0], startAndEnd[0], startAndEnd[1]);
+                if (input.length() < 6) {
+                    throw new SidInvalidFormatException("Please input a name for your Event" 
+                    + "task, along with a start and end time.");
+                } else if (input.charAt(5) == ' ') {
+                    inputArgs = input.substring(6).split("\\s*/from\\s*");
+                    if (inputArgs.length == 2) { 
+                        String[] startAndEnd = inputArgs[1].split("\\s*/to\\s*");
+                        if (startAndEnd.length == 2) {
+                            taskList[listPtr] = new Event(inputArgs[0], startAndEnd[0], startAndEnd[1]);
+                        } else {
+                            throw new SidInvalidFormatException("Please put in the starting and ending time " 
+                            + "using \"/from <time>\" followed by \"/to <time>\" for Event tasks.");
+                        }
                     } else {
-                        System.out.print("\nSidtacphi: Please put in the starting and ending time " 
-                        + "using \"/from <time>\" followed by \"/to <time>\" for Event tasks. \n");
+                        throw new SidInvalidFormatException("Please put in the starting and ending time " 
+                        + "using \"/from <time>\" followed by \"/to <time>\" for Event tasks.");
                     }
                 } else {
-                    System.out.print("\nSidtacphi: Please put in the starting and ending time " 
-                    + "using \"/from <time>\" followed by \"/to <time>\" for Event tasks. \n");
+                    throw new SidException("\"" + input + "\" is not a valid command.");
                 }
                 break;
             case DEADLINE:
-                inputArgs = input.substring(9).split("\\s*/by\\s*");
-                if (inputArgs.length == 2) { 
-                    taskList[listPtr] = new Deadline(inputArgs[0], inputArgs[1]);
-                } else if (inputArgs.length == 1) {
-                    System.out.print("\nSidtacphi: Please write in the deadline using \"/by <time>\" for Deadline tasks. \n");
+                if (input.length() < 9) {
+                    throw new SidInvalidFormatException("Please input a name for your Event" 
+                    + "task, along with a start and end time.");
+                } else if (input.charAt(8) == ' ') {
+                    inputArgs = input.substring(9).split("\\s*/by\\s*");
+                    if (inputArgs.length == 2) { 
+                        taskList[listPtr] = new Deadline(inputArgs[0], inputArgs[1]);
+                    } else if (inputArgs.length == 1) {
+                        throw new SidInvalidFormatException("Please write in the deadline" 
+                        + "using \"/by <time>\" for Deadline tasks. ");
+                    } else {
+                        throw new SidInvalidFormatException("Please do not write in more than 1 deadline. ");
+                    }
                 } else {
-                    System.out.print("\nSidtacphi: Please do not write in more than 1 deadline. \n");
+                    throw new SidException("\"" + input + "\" is not a valid command.");
                 }
                 break;
         }
         
-        if (Objects.nonNull(taskList[listPtr])) {
-            System.out.println("\nSidtacphi: I have added \"" + taskList[listPtr] + "\".");
-            listPtr++;
-        } else {
-            return;
-        }
+        System.out.println("\nSidtacphi: I have added \"" + taskList[listPtr] + "\".");
+        listPtr++;
         
         if (listPtr == 1) {
             System.out.println("Sidtacphi: You now have 1 task in your list.");
@@ -165,17 +188,44 @@ public class Sidtacphi {
      * @param toMark to mark the task as done when true, and to unmark when false
      * @param task the task to mark
      */
-    private static void markTaskAs(boolean toMark, Task task) {
+    private static void markTaskAs(boolean toMark, String input) throws SidException {
+        
         if (!toMark) {
-            if (!task.isCompleted()) {
-                System.out.println("\nSidtacphi: \"" + task + "\" is already unmarked!");
+            if (input.length() < 7) {
+                throw new SidInvalidFormatException("Please input a name for your Event" 
+                + "task, along with a start and end time.");
+            } else if (input.charAt(6) != ' ') {
+                throw new SidException("\"" + input + "\" is not a valid command.");
+            } 
+
+            Integer taskId = Integer.parseInt(input.substring(7));
+            if (Objects.isNull(taskId)) {
+                throw new SidInvalidIndexException("Invalid task ID.");
+            }
+            
+            Task task = taskList[taskId - 1];
+            if (task.isCompleted()) {
+                throw new SidInvalidIndexException("\"" + task + "\" is already unmarked!");
             } else {
                 task.unmark();
                 System.out.println("\nSidtacphi: Unmarked \"" + task + "\".");
             }
         } else {
+            if (input.length() < 5) {
+                throw new SidInvalidFormatException("Please input a name for your Event" 
+                + "task, along with a start and end time.");
+            } else if (input.charAt(4) != ' ') {
+                throw new SidException("\"" + input + "\" is not a valid command.");
+            } 
+
+            Integer taskId = Integer.parseInt(input.substring(5));
+            if (Objects.isNull(taskId)) {
+                throw new SidInvalidIndexException("Invalid task ID.");
+            }
+            
+            Task task = taskList[taskId - 1];
             if (task.isCompleted()) {
-                System.out.println("\nSidtacphi: \"" + task + "\" is already marked!");
+                throw new SidInvalidIndexException("\"" + task + "\" is already marked!");
             } else {
                 task.mark();
                 System.out.println("\nSidtacphi: Marked \"" + task + "\".");
