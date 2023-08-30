@@ -55,4 +55,10 @@ public class Storage {
             System.out.println(e.getMessage());
         }
     }
+
+    public void clear(String filePath) {
+        File file = new File(filePath);
+        file.delete();
+    }
+
 }

@@ -1,3 +1,4 @@
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -30,9 +31,18 @@ public class TaskList {
         tasksList.add(task);
     }
 
+    public Task delete(int taskId) {
+        Task temp = tasksList.get(taskId);
+        tasksList.remove(taskId);
+        return temp;
 
+    }
 
-//    public void mark(int id) {
-//        tasksList
-//    }
+    public void update(Storage storage) {
+        storage.clear("/Users/ariellacallista/Desktop/SanaTasks.txt");
+        for (Task task : tasksList) {
+            storage.save("/Users/ariellacallista/Desktop",
+                    "/Users/ariellacallista/Desktop/SanaTasks.txt", task);
+        }
+    }
 }
