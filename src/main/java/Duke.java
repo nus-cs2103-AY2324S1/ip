@@ -5,16 +5,62 @@ import Task.Todo;
 import Exception.UnknownCommandException;
 import Exception.EmptyDescriptionException;
 
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Duke {
+
+    private static final String DATA_PATH = "./data";
+    private static final String FILE_PATH = DATA_PATH + "/duke.txt";
+
+    // Save tasks to file
+    public static void saveToFile(ArrayList<Task> tasks) {
+        try {
+            if (!Files.exists(Paths.get(DATA_PATH))) {
+                Files.createDirectories(Paths.get(DATA_PATH));
+            }
+
+            List<String> lines = new ArrayList<>();
+            for (Task task : tasks) {
+                lines.add(task.toFileFormat());
+            }
+            Files.write(Paths.get(FILE_PATH), lines);
+        } catch (IOException e) {
+            System.out.println("Error while saving tasks to file.");
+        }
+    }
+
+    // Load tasks from file
+    public static ArrayList<Task> loadFromFile() {
+        ArrayList<Task> tasks = new ArrayList<>();
+
+        try {
+            if (Files.exists(Paths.get(FILE_PATH))) {
+                List<String> lines = Files.readAllLines(Paths.get(FILE_PATH));
+                for (String line : lines) {
+                    tasks.add(Task.fromFileFormat(line));
+                }
+            }
+        } catch (IOException e) {
+            System.out.println("Error while loading tasks from file.");
+        } catch (Exception e) {  // Handling corrupted data format
+            System.out.println("Corrupted data file. Starting with an empty task list.");
+            tasks = new ArrayList<>();
+        }
+
+        return tasks;
+    }
+
     public static void filterInput(String[] words) throws UnknownCommandException, EmptyDescriptionException {
         // Only allows commands that are listed below
         String command = words[0];
         boolean validCommand2Words = command.equals("todo") || command.equals("deadline") || command.equals("event") ||
-                command.equals("mark") || command.equals("unmark");
-        boolean validCommand1Word = command.equals("bye") || command.equals("list") || command.equals("delete");
+                command.equals("mark") || command.equals("unmark") || command.equals("delete");
+        boolean validCommand1Word = command.equals("bye") || command.equals("list");
 
         if (!validCommand2Words && !validCommand1Word) {
             throw new UnknownCommandException();
@@ -36,8 +82,8 @@ public class Duke {
         Scanner scanner = new Scanner(System.in);
         String input;
 
-        ArrayList<Task> tasks = new ArrayList<>();
-        int taskIndex = 0;
+        ArrayList<Task> tasks = loadFromFile();
+        int taskIndex = tasks.size();
 
         while (true) {
             input = scanner.nextLine().toLowerCase();
@@ -52,9 +98,10 @@ public class Duke {
 
             if (input.equals("bye")) {
                 break;
-            } else if (input.equals("delete")) {
+            } else if (words[0].equals("delete")) {
                 int index = Integer.parseInt(words[1]) - 1;
                 Task removedTask = tasks.remove(index); // Removes and retrieves the task from the list
+                taskIndex--;
                 System.out.println(line +
                         "Noted. I've removed this task:\n  " +
                         removedTask +
@@ -122,6 +169,7 @@ public class Duke {
                         "\n" +
                         line);
             }
+            saveToFile(tasks);
         }
 
         System.out.println(line +
