@@ -246,9 +246,6 @@ public class TaskList {
         String res = "Got it. I've added this task :\n" + str + "\n";
         res += getTaskLeft();
 
-//        if(from.equals("user")) {
-//            storage.handleChangesInFile(list);
-//        }
 
         return res;
     }
@@ -322,9 +319,6 @@ public class TaskList {
         String res = "Got it. I've added this task :\n" + str + "\n";
         res += getTaskLeft();
 
-//        if(from.equals("user")) {
-//            storage.handleChangesInFile(list);
-//        }
 
         return res;
     }
@@ -427,9 +421,6 @@ public class TaskList {
         String res = "Got it. I've added this task :\n" + str + "\n";
         res += getTaskLeft();
 
-//        if(from.equals("user")) {
-//            storage.handleChangesInFile(list);
-//        }
 
         return res;
     }
