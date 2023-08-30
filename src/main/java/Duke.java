@@ -85,8 +85,7 @@ public class Duke {
     }
 
     private static void markResponse(String input, ArrayList<Task> tasklist) throws DukeException {
-        int spaceIndex = input.indexOf(" ");
-        int result = Integer.parseInt(input.substring(spaceIndex + 1)) - 1;
+        int result = Integer.parseInt(input.split(" ")[1]) - 1;
         if (result < 0 || (result + 1) > tasklist.size()) {
             throw new DukeException("☹ OOPS!!! The task number is invalid.");
         }
@@ -99,8 +98,7 @@ public class Duke {
     }
 
     private static void unmarkResponse(String input, ArrayList<Task> tasklist) throws DukeException {
-        int spaceIndex = input.indexOf(" ");
-        int result = Integer.parseInt(input.substring(spaceIndex + 1)) - 1;
+        int result = Integer.parseInt(input.split(" ")[1]) - 1;
         if (result < 0 || (result + 1) > tasklist.size()) {
             throw new DukeException("☹ OOPS!!! The task number is invalid.");
         }
@@ -113,8 +111,7 @@ public class Duke {
     }
 
     private static void delete(String input, ArrayList<Task> tasklist) throws DukeException {
-        int spaceIndex = input.indexOf(" ");
-        int result = Integer.parseInt(input.substring(spaceIndex + 1)) - 1;
+        int result = Integer.parseInt(input.split(" ")[1]) - 1;
         if (result < 0 || (result + 1) > tasklist.size()) {
             throw new DukeException("☹ OOPS!!! The task number is invalid.");
         }
@@ -218,8 +215,6 @@ public class Duke {
                 "Bye. Hope to see you again soon!\n" +
                 "____________________________________________________________\n");
     }
-<<<<<<< HEAD
-
     /**
      * Overwrites content in a file with new content.
      *
@@ -259,102 +254,6 @@ public class Duke {
         for (int i = 1; i < tasklist.size(); i++) {
             try {
                 appendToFile(FILE_NAME, tasklist.get(i).toString() + System.lineSeparator());
-            } catch (IOException e) {
-                System.out.println("Something went wrong: " + e.getMessage());
-            }
-        }
-    }
-
-    /**
-     * Loads content from text file into an ArrayList of Tasks.
-     *
-     * @return ArrayList of Tasks with content of text file.
-     * @throws FileNotFoundException if file is not valid.
-     */
-    private static ArrayList<Task> loadTasks() throws FileNotFoundException {
-        File f = new File(FILE_NAME);
-            Scanner s = new Scanner(f);
-            ArrayList<Task> tasklist = new ArrayList<>();
-            while (s.hasNext()) {
-                String nextTask = s.nextLine();
-                String[] input = nextTask.split(" \\| ");
-                String category = input[0];
-                String status = input[1];
-                String description = input[2];
-
-                switch (category) {
-                case "T":
-                    Task todoTask = new ToDo(description);
-                    if (!status.equals("0")) {
-                        todoTask.mark();
-                    }
-                    tasklist.add(todoTask);
-                    break;
-                case "D":
-                    String deadline = input[3];
-                    Task deadlineTask = new Deadline(description, deadline);
-                    if (!status.equals("0")) {
-                        deadlineTask.mark();
-                    }
-                    tasklist.add(deadlineTask);
-                    break;
-                case "E":
-                    String from = input[3].split("-")[0];
-                    String to = input[3].split("-")[1];
-                    Task eventTask = new Event(description, from, to);
-                    if (!status.equals("0")) {
-                        eventTask.mark();
-                    }
-                    tasklist.add(eventTask);
-                    break;
-                }
-            }
-
-        return tasklist;
-    }
-}
-=======
->>>>>>> branch-Level-7
-
-    /**
-     * Overwrites content in a file with new content.
-     *
-     * @param filePath File path of the file to be appended to.
-     * @param textToAdd String to be added to file.
-     * @throws IOException if writing to file is not allowed.
-     */
-    private static void writeToFile(String filePath, String textToAdd) throws IOException {
-        FileWriter fw = new FileWriter(filePath);
-        fw.write(textToAdd);
-        fw.close();
-    }
-    /**
-     * Appends a new line of content to a file.
-     *
-     * @param filePath File path of the file to be appended to.
-     * @param textToAppend String to be appended to file.
-     * @throws IOException if writing to file is not allowed.
-     */
-    private static void appendToFile(String filePath, String textToAppend) throws IOException {
-        FileWriter fw = new FileWriter(filePath, true); // create a FileWriter in append mode
-        fw.write(textToAppend);
-        fw.close();
-    }
-
-    /**
-     * Rewrites the whole txt file.
-     *
-     * @param tasklist ArrayList of tasks to write to file.
-     */
-    private static void rewriteFile(ArrayList<Task> tasklist) {
-        try {
-            writeToFile(FILE_NAME, tasklist.get(0).saveString() + System.lineSeparator());
-        } catch (IOException e) {
-            System.out.println("Something went wrong: " + e.getMessage());
-        }
-        for (int i = 1; i < tasklist.size(); i++) {
-            try {
-                appendToFile(FILE_NAME, tasklist.get(i).saveString() + System.lineSeparator());
             } catch (IOException e) {
                 System.out.println("Something went wrong: " + e.getMessage());
             }
