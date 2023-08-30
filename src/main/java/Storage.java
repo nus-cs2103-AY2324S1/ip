@@ -1,10 +1,18 @@
 import java.io.*;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Storage {
-    private void load(String pathname) throws FileNotFoundException {
-        File file = new File(pathname);
+    String pathname;
+
+    public Storage(String pathname) {
+        this.pathname = pathname;
+    }
+
+    protected ArrayList<Task> load() throws FileNotFoundException, BongoException {
+        File file = new File(this.pathname);
         Scanner fileScanner = new Scanner(file);
+        ArrayList<Task> loadedTasks = new ArrayList<>();
         while (fileScanner.hasNextLine()) {
             String line = fileScanner.nextLine();
             String[] arr = line.split("\\|");
@@ -14,33 +22,56 @@ public class Storage {
             boolean isTaskMarkedDone = arr[1].equals("1");
             switch (arr[0]) {
                 case "T":
-                    tasks.add(new Todo(arr[2], isTaskMarkedDone));
+                    loadedTasks.add(new Todo(arr[2], isTaskMarkedDone));
                     break;
                 case "D":
-                    tasks.add(new Deadline(arr[2], isTaskMarkedDone, formatDateTime(arr[3])));
+                    loadedTasks.add(new Deadline(arr[2], isTaskMarkedDone, DateHelper.formatDateTime(arr[3]))) ;
                     break;
                 case "E":
-                    tasks.add(new Event(arr[2], isTaskMarkedDone, formatDateTime(arr[3]), formatDateTime(arr[4])));
+                    loadedTasks.add(new Event(arr[2], isTaskMarkedDone, DateHelper.formatDateTime(arr[3]), DateHelper.formatDateTime(arr[4])));
                     break;
             }
         }
         fileScanner.close();
+        return loadedTasks;
     }
 
-    private void add(String pathname, Task newTask) {
+    protected void checkIfFilesExist() {
+        File file = new File(this.pathname);
+        String directoryPath = file.getParent();
+        File directory = new File(directoryPath);
+        if (!directory.exists()) {
+            boolean isDirectoryCreated = directory.mkdirs();
+            if (isDirectoryCreated) {
+                System.out.println("Directory created: " + directoryPath);
+            }
+        }
+        if (!file.exists()) {
+            try {
+                boolean isFileCreated = file.createNewFile();
+                if (isFileCreated) {
+                    System.out.println("File created: " + this.pathname);
+                }
+            } catch (IOException e) {
+                System.out.println("An error occurred while creating the file: " + e.getMessage());
+            }
+        }
+    }
+
+    protected void add(Task newTask) {
         try {
-            File file = new File(pathname);
-            FileWriter fw = new FileWriter(pathname, true);
+            File file = new File(this.pathname);
+            FileWriter fw = new FileWriter(this.pathname, true);
             String newLine = "";
             String isTaskMarkedDone = newTask.isDone ? "1" : "0";
             if (newTask instanceof Todo) {
                 newLine = String.join(" | ", "T", isTaskMarkedDone, newTask.description);
             } else if (newTask instanceof Deadline) {
                 Deadline newDeadline = (Deadline) newTask;
-                newLine = String.join(" | ", "D", isTaskMarkedDone, newDeadline.description, formatter.format(newDeadline.deadline));
+                newLine = String.join(" | ", "D", isTaskMarkedDone, newDeadline.description, DateHelper.formatter.format(newDeadline.deadline));
             } else if (newTask instanceof Event) {
                 Event newEvent = (Event) newTask;
-                newLine = String.join(" | ", "E", isTaskMarkedDone, newEvent.description, formatter.format(newEvent.from), formatter.format(newEvent.to));
+                newLine = String.join(" | ", "E", isTaskMarkedDone, newEvent.description, DateHelper.formatter.format(newEvent.from), DateHelper.formatter.format(newEvent.to));
             }
             if (file.length() != 0) {
                 fw.write(String.format("\n%s", newLine));
@@ -54,9 +85,9 @@ public class Storage {
         }
     }
 
-    public void edit(String pathname, Bongo.FileAction action, int taskNumber) {
+    public void edit(Bongo.FileAction action, int taskNumber) {
         try {
-            File file = new File(pathname);
+            File file = new File(this.pathname);
             BufferedReader fileReader = new BufferedReader(new FileReader(file));
             StringBuilder stringBuilder = new StringBuilder();
             String line;
@@ -87,7 +118,6 @@ public class Storage {
             }
             fileReader.close();
 
-            // Write the modified content back to the file
             FileWriter fileWriter = new FileWriter(file);
             fileWriter.write(stringBuilder.toString().trim());
             fileWriter.close();
