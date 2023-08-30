@@ -9,6 +9,10 @@ public class TaskArray {
         taskArrayList = new ArrayList<>();
     }
 
+    public TaskArray(ArrayList<Task> array){
+        taskArrayList = array;
+    }
+
     public void printTaskArrayList(){
         System.out.println(horiLine);
         for(int i = 0; i < taskArrayList.size(); i++ ){
@@ -49,6 +53,10 @@ public class TaskArray {
         taskArrayList.remove(index);
         System.out.println("Now you have "+ getTaskCount()+" tasks in the list.");
         System.out.println(horiLine);
+    }
+
+    public ArrayList<Task> getTaskArrayList(){
+        return taskArrayList;
     }
 
 

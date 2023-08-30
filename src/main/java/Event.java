@@ -11,9 +11,16 @@ public class Event extends Task{
     }
     @Override
     public String getTypeCheckedText(){
-        String result = getType() + getChecked() + " " + getText() + " (from: " + startDate + " to: "+endDate+")";
+        String result = getType() + getChecked() + " " + getText() + " s(from: " + startDate + " to: "+endDate+")";
         return result;
     }
+
+    @Override
+    public String getParsed(){
+        String result = super.getParsed() + ";" + this.startDate + ";" + this.endDate;
+        return result;
+    }
+
 
 
 

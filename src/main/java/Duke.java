@@ -1,3 +1,4 @@
+import java.io.*;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -17,14 +18,17 @@ public class Duke {
         System.out.println("Hello from\n" + logo);
 
         greetFunction("Jack");
-        Scanner scanner = new Scanner(System.in);
-        String input = scanner.nextLine();
+        String folderPath = "./data";  // Relative or absolute path to the folder
+        String filePath = "./data/data.txt"; // Relative or absolute path to the file
 
+        TaskArray taskArrayList = retrieveData(folderPath,filePath);
+        System.out.println(horiLine);
+
+        Scanner scanner = new Scanner(System.in);
+
+        String input = scanner.nextLine();
         String[] inputArray= input.split(" ");
         String firstInput = inputArray[0];
-
-
-        TaskArray taskArrayList = new TaskArray();
 
         while(!firstInput.equals("bye")) {
 
@@ -142,8 +146,11 @@ public class Duke {
             firstInput = inputArray[0];
         }
 
+        ArrayList<String> formattedData = formatData(taskArrayList);
+        inputFile(formattedData,filePath);
         byeFunction();
         scanner.close();
+
 
     }
 
@@ -162,5 +169,134 @@ public class Duke {
         System.out.println(byeword);
     }
 
+    public static TaskArray retrieveData(String folderPath, String filePath){
 
+
+        // Create the folder/file if it doesn't exist
+        boolean createdFolder = createFolder(folderPath);
+        boolean createdFile =createFile(filePath);
+
+        ArrayList<String> result = new ArrayList();
+        ArrayList<String> tobeProcessedArray = scanFile(filePath);
+
+
+
+        return parseData(tobeProcessedArray);
+
+    }
+
+    public static boolean createFile(String filePath) {
+        File file = new File(filePath);
+        if (!file.exists()) {
+            try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            System.out.println("File created successfully.");
+
+            return false;
+        } else {
+            System.out.println("File already exists.");
+            return true;
+        }
+    }
+    public static boolean createFolder(String folderPath){
+        File folder = new File(folderPath);
+        if (!folder.exists()) {
+            boolean folderCreated = folder.mkdirs();
+            if (folderCreated) {
+                System.out.println("Folder created successfully.");
+            } else {
+                System.out.println("Failed to create folder.");
+            }
+            return false;
+
+        } else {
+            System.out.println("Folder already exists.");
+            return true;
+
+        }
+    }
+
+    public static ArrayList<String> scanFile(String fileName){
+
+        ArrayList<String> lines = new ArrayList<>();
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                lines.add(line);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return lines;
+    }
+
+    public static TaskArray parseData(ArrayList<String> inputList){
+
+        ArrayList<Task> arrayTask = new ArrayList<>();
+
+        for (String input : inputList) {
+            String[] parts = input.split(";");
+            String type = parts[0];
+            String text = parts[1];
+            boolean checked = false;
+
+            if(parts[2].equals("true")){
+                checked = true;
+            }
+
+            Task newTask;
+
+            switch(type) {
+                case "T":
+                    newTask = new ToDo(text,checked);
+                    arrayTask.add(newTask);
+                    break;
+
+                case "E":
+                    String startDate = parts[3];
+                    String endDate = parts[4];
+                    newTask = new Event(text,startDate,endDate);
+                    arrayTask.add(newTask);
+                    break;
+
+                case "D":
+                    String dueDate = parts[3];
+                    newTask = new Deadline(text,dueDate,checked);
+                    arrayTask.add(newTask);
+                    break;
+            }
+
+
+
+        }
+        return new TaskArray(arrayTask);
+    }
+
+    public static ArrayList<String> formatData(TaskArray taskArray){
+        ArrayList<Task> taskArrayList = taskArray.getTaskArrayList();
+
+        ArrayList<String> output = new ArrayList<>();
+
+        for (Task task : taskArrayList) {
+            String input = task.getParsed();
+            output.add(input);
+        }
+        return output;
+
+    }
+    public static void inputFile(ArrayList<String> inputArray, String filePath){
+
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
+            for (String line : inputArray) {
+                writer.write(line);
+                writer.newLine(); // Add a newline after each line
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }

@@ -1,7 +1,6 @@
 public class Task {
     private String text;
     private String type = "";
-    private String dueDate;
     private boolean checked;
     public final static String horiLine = "____________________________________________________________";
 
@@ -10,6 +9,11 @@ public class Task {
         this.text = text;
         this.checked = false;
     }
+    public Task(String text,boolean checked){
+        this.text = text;
+        this.checked = checked;
+    }
+
 
     public String getText(){
 
@@ -55,6 +59,11 @@ public class Task {
     }
     public void setType(String text){
         type = text;
+    }
+
+    public String getParsed(){
+        String result = this.type + ";" + this.text + ";" + this.checked;
+        return result;
     }
 
 
