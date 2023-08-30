@@ -1,17 +1,33 @@
 package grumpygordon.ui;
 
 import grumpygordon.storage.Storage;
-import grumpygordon.tasks.*;
-import grumpygordon.exceptions.*;
-import grumpygordon.commands.*;
-import grumpygordon.parser.*;
+import grumpygordon.tasks.TaskList;
+import grumpygordon.exceptions.GrumpyGordonException;
+import grumpygordon.commands.ListCommand;
+import grumpygordon.commands.Command;
+import grumpygordon.parser.Parser;
 
 import java.util.Scanner;
 
+/**
+ * Represents the user interface of the chatbot.
+ */
 public class Ui {
+
+    /**
+     * Separator for responses.
+     */
     private static final String SEPARATOR = "    ___________________________________________________________________________________\n";
+
+    /**
+     * Indentation for responses.
+     */
     private static final String INDENTATION = "     ";
-//    https://patorjk.com/software/taag/#p=display&f=Big&t=GrumpyGordon
+
+    /**
+     * Ascii-art for Grumpy Gordon.
+     * Credits: https://patorjk.com/software/taag/#p=display&f=Big&t=GrumpyGordon
+     */
     private static final String ASCII_ART =
                     INDENTATION + "    _____                                   _____               _              \n" +
                     INDENTATION + "   / ____|                                 / ____|             | |             \n" +
