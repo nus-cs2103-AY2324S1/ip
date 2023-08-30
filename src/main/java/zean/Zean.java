@@ -49,13 +49,11 @@ public class Zean {
 
         while (true) {
             String input = sc.nextLine();
-            this.ui.printDivider();
-            if (input.equals("bye")) {
+            if (input.strip().equals("bye")) {
                 break;
             }
             try {
-                Parser.parse(input, this.tasks);
-                this.ui.printDivider();
+                this.ui.printOutput(Parser.parse(input, this.tasks));
             } catch (DukeException e) {
                 this.ui.showError(e.getMessage());
             }

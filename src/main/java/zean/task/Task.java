@@ -30,18 +30,22 @@ public class Task {
 
     /**
      * Marks the task as done.
+     *
+     * @return The string to be printed on the console.
      */
-    public void markTaskDone() {
+    public String markTaskDone() {
         this.isDone = true;
-        System.out.println("\t  " + this);
+        return "\t  " + this;
     }
 
     /**
      * Marks the task as not done.
+     *
+     * @return The string to be printed on the console.
      */
-    public void markTaskNotDone() {
+    public String markTaskNotDone() {
         this.isDone = false;
-        System.out.println("\t  " + this);
+        return "\t  " + this;
     }
 
     /**
@@ -67,6 +71,11 @@ public class Task {
         }
     }
 
+    /**
+     * Returns the description of the task.
+     *
+     * @return The description of the task.
+     */
     public String getDescription() {
         return this.description;
     }

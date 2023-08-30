@@ -81,4 +81,12 @@ public class TaskListTest {
                 exception.getMessage());
     }
 
+    @Test
+    public void printAddTaskTest1() {
+        assertEquals("\tGot it. I've added this task:\n\t  "
+                        + "[T][ ] read book\n"
+                        + "\tNow you have 1 task in the list.",
+                new TaskList(new StorageStub()).add("read book"));
+    }
+
 }
