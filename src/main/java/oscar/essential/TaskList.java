@@ -1,3 +1,8 @@
+package oscar.essential;
+
+import oscar.exception.OscarException;
+import oscar.task.Task;
+
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;

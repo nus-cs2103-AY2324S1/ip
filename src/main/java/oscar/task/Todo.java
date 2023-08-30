@@ -1,3 +1,5 @@
+package oscar.task;
+
 /**
  * Todo task that contains description of task.
  */

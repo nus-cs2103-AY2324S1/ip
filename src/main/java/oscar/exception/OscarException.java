@@ -1,3 +1,5 @@
+package oscar.exception;
+
 /**
  * Class to handle checked exceptions due to incorrect user input
  */

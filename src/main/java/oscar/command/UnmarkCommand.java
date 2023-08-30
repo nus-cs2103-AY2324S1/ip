@@ -1,20 +1,27 @@
+package oscar.command;
+
+import oscar.essential.Storage;
+import oscar.essential.TaskList;
+import oscar.essential.Ui;
+import oscar.exception.OscarException;
+
 /**
- * Command to delete a task from the task list.
+ * Command to mark a task as not done.
  */
-public class DeleteCommand extends Command {
+public class UnmarkCommand extends Command {
     private final String details;
 
     /**
-     * Instantiates a delete command.
-     * @param details Task number to be deleted.
+     * Instantiates an unmark command.
+     * @param details Task number to be marked.
      */
-    public DeleteCommand(String details) {
+    public UnmarkCommand(String details){
         super(false);
         this.details = details;
     }
 
     /**
-     * Deletes a task using the task number.
+     * Marks a task as not done using the task number.
      * @param tasks ArrayList of tasks.
      * @param ui User interaction handler.
      * @param storage File loading and saving handler.
@@ -23,10 +30,9 @@ public class DeleteCommand extends Command {
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws OscarException {
         int index = validateInt(details, tasks);
-        String currentTask = tasks.delete(index);
+        String currentTask = tasks.unmark(index);
         storage.save(tasks);
-        System.out.println("Oscar has removed this task:\n");
+        System.out.println("Oscar has marked this task as not done yet:\n");
         System.out.println(currentTask + "\n");
-        tasks.listCount();
     }
 }

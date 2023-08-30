@@ -1,3 +1,7 @@
+package oscar.essential;
+
+import oscar.exception.OscarException;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;

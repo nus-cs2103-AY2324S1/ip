@@ -1,3 +1,5 @@
+package oscar.task;
+
 import java.io.Serializable;
 
 /**

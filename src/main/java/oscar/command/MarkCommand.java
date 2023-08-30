@@ -1,20 +1,27 @@
+package oscar.command;
+
+import oscar.essential.Storage;
+import oscar.essential.TaskList;
+import oscar.essential.Ui;
+import oscar.exception.OscarException;
+
 /**
- * Command to mark a task as not done.
+ * Command to mark a task as done.
  */
-public class UnmarkCommand extends Command {
+public class MarkCommand extends Command {
     private final String details;
 
     /**
-     * Instantiates an unmark command.
+     * Instantiates a mark command.
      * @param details Task number to be marked.
      */
-    public UnmarkCommand(String details){
+    public MarkCommand(String details) {
         super(false);
         this.details = details;
     }
 
     /**
-     * Marks a task as not done using the task number.
+     * Marks a task as done using the task number.
      * @param tasks ArrayList of tasks.
      * @param ui User interaction handler.
      * @param storage File loading and saving handler.
@@ -23,9 +30,9 @@ public class UnmarkCommand extends Command {
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws OscarException {
         int index = validateInt(details, tasks);
-        String currentTask = tasks.unmark(index);
+        String currentTask = tasks.mark(index);
         storage.save(tasks);
-        System.out.println("Oscar has marked this task as not done yet:\n");
+        System.out.println("Nice! Oscar has marked this task as done:\n");
         System.out.println(currentTask + "\n");
     }
 }

@@ -1,3 +1,17 @@
+package oscar.essential;
+
+import oscar.command.Command;
+import oscar.command.DeadlineCommand;
+import oscar.command.DeleteCommand;
+import oscar.command.EventCommand;
+import oscar.command.ExitCommand;
+import oscar.command.ListCommand;
+import oscar.command.MarkCommand;
+import oscar.command.TodoCommand;
+import oscar.command.UnmarkCommand;
+
+import oscar.exception.OscarException;
+
 /**
  * Handles raw user input and invokes the corresponding command.
  */

@@ -1,3 +1,12 @@
+package oscar.command;
+
+import oscar.essential.Storage;
+import oscar.essential.TaskList;
+import oscar.essential.Ui;
+import oscar.exception.OscarException;
+import oscar.task.Task;
+import oscar.task.Todo;
+
 /**
  * Command to create a new todo task.
  */

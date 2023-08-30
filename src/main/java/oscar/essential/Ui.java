@@ -1,3 +1,7 @@
+package oscar.essential;
+
+import oscar.exception.OscarException;
+
 import java.util.Scanner;
 
 /**
