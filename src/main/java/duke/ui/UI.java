@@ -31,4 +31,16 @@ public class UI {
         }
         System.out.println(LINEBREAK);
     }
+
+    public static void printFound(ArrayList<Task> items) {
+        System.out.println(LINEBREAK);
+        System.out.println("Here are the matching tasks in your list:");
+        for (int i = 0; i < items.size(); i++) {
+            String index = String.valueOf(i + 1);
+            System.out.println(index + ". " + items.get(i).showTaskinList());
+        }
+        System.out.println(LINEBREAK);
+    }
+
+
 }

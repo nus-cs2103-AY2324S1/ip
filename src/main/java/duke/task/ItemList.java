@@ -252,7 +252,7 @@ public class ItemList {
         if (filteredTasks.isEmpty()) {
             UI.printMessage("No matched item");
         } else {
-            UI.printList(filteredTasks);
+            UI.printFound(filteredTasks);
         }
     }
 
