@@ -1,3 +1,11 @@
+package duke.parser;
+
+import duke.command.*;
+import duke.exception.DukeException;
+import duke.task.Event;
+import duke.task.Deadline;
+import duke.task.ToDo;
+
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
@@ -37,7 +45,7 @@ public class Parser {
                 // Mark tasks as done
                 if (!userInput.matches("mark \\d+")) {
                     String errorMessage = "OOPS!!! The format of marking a task done is \"mark TASK_NUMBER\".\n" +
-                            "Task number must exist in the task list.";
+                            "duke.task.Task number must exist in the task list.";
                     throw new DukeException(errorMessage);
                 }
                 int taskNumber = Integer.parseInt(splitCommand[1]);
@@ -47,7 +55,7 @@ public class Parser {
                 // Mark tasks as undone
                 if (!userInput.matches("unmark \\d+")) {
                     String errorMessage = "OOPS!!! The format of marking a task done is \"unmark TASK_NUMBER\".\n" +
-                            "Task number must exist in the task list.";
+                            "duke.task.Task number must exist in the task list.";
                     throw new DukeException(errorMessage);
                 }
                 int taskNumber = Integer.parseInt(splitCommand[1]);
@@ -57,14 +65,14 @@ public class Parser {
                 // Delete task from list
                 if (!userInput.matches("delete \\d+")) {
                     String errorMessage = "OOPS!!! The format of marking a task done is \"delete TASK_NUMBER\".\n" +
-                            "Task number must exist in the task list.";
+                            "duke.task.Task number must exist in the task list.";
                     throw new DukeException(errorMessage);
                 }
                 int taskNumber = Integer.parseInt(splitCommand[1]);
                 return new DeleteCommand(taskNumber);
             }
             default: {
-                return new InvalidCommand(new DukeException());
+                throw new DukeException();
             }
         }
     }
