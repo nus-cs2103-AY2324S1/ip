@@ -70,4 +70,15 @@ public class TaskList {
     public int getSize() {
         return tasks.size();
     }
+
+    public List<Task> filterByWord(String keyword) {
+        List<Task> filteredList = new ArrayList<Task>();
+
+        for (Task task : taskForce) {
+            if (task.description.contains(keyword)) {
+                filteredList.add(task);
+            }
+        } 
+        return filteredList;
+    }
 }

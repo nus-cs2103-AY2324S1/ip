@@ -1,5 +1,7 @@
 package chatbot;
 
+import java.util.List;
+
 public class Parser {
     /** UI to handle the printing of output. */
     private UI ui;
@@ -85,6 +87,21 @@ public class Parser {
             ui.deleteTask(task, size);
             return 0;
 
+        } else if (input.startsWith("find")) {
+            try {
+                validateInput(input, 5);
+            } catch (UserInputException e) {
+                ui.incompleteCommand(e.getMessage());
+                return 0;
+            }
+
+            String[] keywords = input.split(" ");
+            List<Task> filteredList = taskHandler.filterByWord(keywords[1]);
+
+            ui.printStorageList(filteredList);
+
+            return 0;
+      
         } else {
             if (!(input.startsWith("todo") || input.startsWith("event") 
                     || input.startsWith("deadline"))) {
@@ -141,7 +158,7 @@ public class Parser {
                 int index = taskHandler.getSize();
 
                 ui.addTask(event, index);
-            }
+            } 
             return 0;
         }
     }
