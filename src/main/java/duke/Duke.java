@@ -32,7 +32,11 @@ public class Duke {
                     tasks.unmarkTask(input);
                 } else if (input.startsWith("delete")) {
                     tasks.deleteTask(input);
-                } else {
+                }
+                else if (input.startsWith("find")){
+                    tasks.find(input);
+                }
+                else {
                     tasks.addTask(input);
                 }
                 storage.save(tasks);
