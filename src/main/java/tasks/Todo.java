@@ -5,6 +5,10 @@ public class Todo extends TaskAbstract {
         super(description);
     }
 
+    public String saveToTextFormat() {
+        return String.format("T | %s | %s", this.isDone ? "1" : "0", this.description);
+    }
+
     @Override
     public void printStatus() {
         System.out.printf("[T][%s] %s\n", this.isDone ? "X" : " ", this.description);

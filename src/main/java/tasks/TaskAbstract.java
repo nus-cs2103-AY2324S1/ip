@@ -42,6 +42,8 @@ public abstract class TaskAbstract {
         return isDone;
     }
 
+    public abstract String saveToTextFormat();
+
     @Override
     public String toString() {
         return this.description;

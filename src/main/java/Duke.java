@@ -2,22 +2,26 @@ import tasks.TaskAbstract;
 import tasks.Todo;
 import tasks.Deadline;
 import tasks.Event;
+import dukeexceptions.CorruptDataException;
 
-import java.io.FileNotFoundException;
+import java.io.File;
 import java.io.IOException;
+import java.io.FileWriter;
+import java.io.PrintWriter;
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.List;
 
-import java.nio.file.Paths;
-
-import java.io.PrintWriter;
-import java.io.File;
-
-enum taskTypes {
+enum TaskTypes {
     todo,
     deadline,
     event
+}
+
+enum DataTaskTypes {
+    t,
+    d,
+    e
 }
 
 public class Duke {
@@ -31,6 +35,7 @@ public class Duke {
             "-----------";
     static List<TaskAbstract> taskList = new ArrayList<TaskAbstract>();
     static int taskCounter = 0;
+    static boolean isReadFileSuccessful = false;
     enum validCommands {
         bye,
         list,
@@ -42,11 +47,24 @@ public class Duke {
         delete
     };
 
-    public static void main(String[] args) {
-
+    public static void main(String[] args) throws IOException {
         Scanner sc = new Scanner(System.in);
 
         System.out.println(horizontal + logo + horizontal);
+
+        readFile();
+
+        while (!isReadFileSuccessful) {
+            System.out.print("User: ");
+            String nextLine = sc.nextLine();
+            if (nextLine.equals("exit")) {
+                sc.close();
+                System.exit(0);
+            } else {
+                readFile();
+            }
+        }
+
         System.out.println("ChadGPT: Welcome to ChadGPT, What would you like to do today?\n" + horizontal);
         System.out.print("User: ");
         while (!sc.hasNext("bye")) {
@@ -57,6 +75,8 @@ public class Duke {
             System.out.print(horizontal + "\nUser: ");
         }
         sc.close();
+
+        writeToFile();
         System.out.print("ChadGPT: Bye. Hope to see you again soon!\n" + horizontal);
     }
 
@@ -101,7 +121,7 @@ public class Duke {
         }
     }
 
-   private static TaskAbstract createTask(String nextLine, String[] strArr) {
+    private static TaskAbstract createTask(String nextLine, String[] strArr) {
         String[] delimited = nextLine.split("/");
         switch(strArr[0].toLowerCase()) {
             case "todo":
@@ -120,7 +140,7 @@ public class Duke {
         throw new IllegalArgumentException("Invalid task type");
    }
 
-   private static boolean isValidCommand(String nextLine) {
+    private static boolean isValidCommand(String nextLine) {
         String[] delimitedBySpace = nextLine.split(" ");
         String[] delimitedBySlash = nextLine.split("/");
 
@@ -164,8 +184,9 @@ public class Duke {
                 }
                 return true;
             case "deadline":
+                System.out.println(delimitedBySpace[1]);
                 try {
-                    String information = delimitedBySpace[1].split(" ")[1];
+                    String information = delimitedBySlash[0].split(" ")[1];
                 } catch (IndexOutOfBoundsException indexExcept) {
                     System.out.println("ChadGPT: Please include information about the task you would like to add.");
                     return false;
@@ -202,17 +223,81 @@ public class Duke {
         return true;
    }
 
-   private static void readFile() {
+    private static TaskAbstract createTaskStartup(String nextLine) throws CorruptDataException {
+        String[] delimited = nextLine.split(" \\| ");
+        switch (delimited[0].toLowerCase()){
+            case "t":
+                Todo todo = new Todo(delimited[2]);
+                if (delimited[1].equals("1")) {
+                    todo.completeTask();
+                }
+                return todo;
+            case "d":
+                Deadline deadline = new Deadline(delimited[2], delimited[3]);
+                if (delimited[1].equals("1")) {
+                    deadline.completeTask();
+                }
+                return deadline;
+            case "e":
+                String[] dateArray = delimited[3].split(" - ");
+                Event event = new Event(delimited[2], dateArray[0], dateArray[1]);
+                if (delimited[1].equals("1")) {
+                    event.completeTask();
+                }
+                return event;
+        }
+        throw new CorruptDataException(nextLine);
+    }
+
+    private static boolean isDataValid(String nextLine) throws CorruptDataException {
+        String[] delimited = nextLine.split(" \\| ");
+        if (delimited.length == 3 || delimited.length == 4) {
+            String taskType = delimited[0].toLowerCase();
+            try {
+                DataTaskTypes.valueOf(taskType);
+                return true;
+            } catch (IndexOutOfBoundsException indexExcept) {
+            } catch (IllegalArgumentException illegalArgExcept) {
+            }
+        }
+        throw new CorruptDataException(nextLine);
+    }
+
+    private static void readFile() throws IOException {
         try {
-            File myFile = new File("./data/duke.txt");
+            File myFile = new File("./src/main/java/data/duke.txt");
             myFile.createNewFile();
             Scanner sc = new Scanner(myFile);
+            while (sc.hasNextLine()) {
+                String nextLine = sc.nextLine();
+                if (isDataValid(nextLine)) {
+                    TaskAbstract newTask = createTaskStartup(nextLine);
+                    taskList.add(newTask);
+                    taskCounter++;
+                }
+            }
+            isReadFileSuccessful = true;
         } catch (IOException IOExcept) {
-            System.out.println("IO Exception occured");
+            throw new IOException();
+        } catch (CorruptDataException corruptDataExcept) {
+            System.out.println("ChadGPT: Data is corrupt at: \"" + corruptDataExcept.getCorruptLine() +
+                    "\". Please fix and press enter to proceed, or type the command \"exit\" to quit program");
+            taskList.clear();
+            taskCounter = 0;
         }
-
-        while ()
-
    }
 
+    private static void writeToFile() throws IOException {
+        try {
+            File myFile = new File("./src/main/java/data/duke.txt");
+            FileWriter fw = new FileWriter(myFile);
+            PrintWriter pw = new PrintWriter(fw);
+            for (TaskAbstract t : taskList) {
+                pw.println(t.saveToTextFormat());
+            }
+            pw.close();
+        } catch (IOException IOExcept) {
+            throw new IOException();
+        }
+    }
 }
