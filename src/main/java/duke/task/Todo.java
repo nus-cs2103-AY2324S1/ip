@@ -1,5 +1,9 @@
 package duke.task;
-public class Todo extends Task{
+
+/**
+ * Todo Class initiates the todo event and stores its description
+ */
+public class Todo extends Task {
 
     /**
      *
@@ -8,7 +12,7 @@ public class Todo extends Task{
      */
     public Todo(String name) throws DukeException {
         super(" " + name);
-        this.ogname = name;
+        this.ogName = name;
         this.type = "Todo";
         if (name.isEmpty()) throw new DukeException(" No Description given!");
     }

@@ -1,29 +1,34 @@
 package duke.command;
 import java.io.IOException;
 import duke.task.TaskList;
-import duke.task.*;
-import duke.helper.*;
+import duke.task.DukeException;
+import duke.helper.Ui;
+import duke.helper.Storage;
+
+/**
+ * UnmarkCommand marks the task index specified as Uncompleted
+ */
+
 public class UnmarkCommand extends Command {
     /**
      * Indicates the index to unmark the task as uncompleted
      */
-    int tasknum;
+    int taskNum;
     /**
      * Constructor to make the UnmarkCommand class
-     * @param tasknum indicates the index to mark the task as uncompleted
+     * @param taskNum indicates the index to mark the task as uncompleted
      */
-    public UnmarkCommand(int tasknum) {
-        this.tasknum = tasknum;
+    public UnmarkCommand(int taskNum) {
+        this.taskNum = taskNum;
     }
 
     public void execute(TaskList tasks, Ui ui, Storage store) throws DukeException {
         try {
-            tasks.unmarkTask(tasknum);
+            tasks.unmarkTask(taskNum);
             store.save(tasks);
         } catch (IOException e) {
             throw new DukeException(" unable to locate local file!");
         }
-
 
     }
 }

@@ -1,36 +1,35 @@
 package duke;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
+import duke.command.Command;
+import duke.helper.Ui;
+import duke.helper.Storage;
+import duke.helper.Parser;
 import java.io.IOException;
-import duke.task.*;
-import duke.helper.*;
-import duke.command.*;
+import duke.task.DukeException;
+import duke.task.TaskList;
+
 public class MeowBot {
 
     /**
-     * field filename is the place where the data txt file is located
-     * field storage is the class that handles with the storing and updating of the txt file
-     * field tasks is the class that stores the tasks
-     * field ui is the class that deals with the user interactions
+     * MeowBot is the main class which runs the iP project in its main function
+     * @since 2023-08-30
      */
 
-    String filename;
+    private final String FILENAME;
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
 
     /**
      *
-     * @param file location of the file where data is stored
+     * @param file indicates the location of the file where data is stored
      * @throws DukeException when generating the tasks back from the data file
      * @throws IOException when the data file cannot be found
      */
 
     public MeowBot(String file) throws DukeException, IOException {
         this.ui = new Ui();
-        this.storage = new Storage(file);
-        this.filename = file;
+        this.FILENAME = file;
+        this.storage = new Storage(this.FILENAME);
         try {
             this.tasks = new TaskList(storage.load());
         } catch (IOException e) {
@@ -45,11 +44,10 @@ public class MeowBot {
     }
 
     /**
-     *
-     * @throws DukeException when the command is not valid or has wrong parameters
+     * Main method to run the MeowBot that will execute commands given
      */
 
-    public void run() throws DukeException {
+    public void run() {
         ui.greet();
         boolean isExit = false;
         while (!isExit) {
@@ -58,7 +56,7 @@ public class MeowBot {
                 Command c = Parser.parse(fullCommand);
                 c.execute(tasks, ui, storage);
                 isExit = c.isExit();
-            }  catch (DukeException e){
+            }  catch (DukeException e) {
                 System.out.println(e);
             }
         }

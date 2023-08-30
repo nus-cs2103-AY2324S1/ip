@@ -1,7 +1,13 @@
 package duke.command;
-import duke.task.*;
-import duke.helper.*;
-public class ExitCommand extends Command{
+import duke.task.TaskList;
+import duke.helper.Ui;
+import duke.helper.Storage;
+
+/**
+ * ExitCommand to signal to the Parser class to stop MeowBot
+ */
+public class ExitCommand extends Command {
+
     /**
      * execute for ExitCommand does not execute anything
      * @param tasks takes in TaskList of tasks in MeowBot
@@ -10,7 +16,6 @@ public class ExitCommand extends Command{
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage store) {
-
     }
 
     /**

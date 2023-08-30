@@ -2,6 +2,10 @@ package duke.task;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Event subclass inherits from Task and contains information about
+ * its start and stop date
+ */
 public class Event extends Task {
 
     /**
@@ -20,7 +24,7 @@ public class Event extends Task {
      */
     public Event(String name) throws DukeException {
         super(name.split("/")[0]);
-        this.ogname = name;
+        this.ogName = name;
         this.type = "Event";
 
         this.inputs = name.split("/");
@@ -48,8 +52,6 @@ public class Event extends Task {
     public String toString() {
         String fromDate = startDate.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
         String toDate = endDate.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
-
-
         return "[E]" + super.toString() + "(from: " + fromDate  + " to: " + toDate + ")";
     }
 }

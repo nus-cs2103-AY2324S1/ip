@@ -1,11 +1,13 @@
 package duke.command;
-
 import duke.helper.Storage;
 import duke.helper.Ui;
 import duke.task.DukeException;
 import duke.task.TaskList;
-
 import java.io.IOException;
+
+/**
+ * FindCommand that searches for tasks with the relevant keyword in it
+ */
 
 public class FindCommand extends Command {
 

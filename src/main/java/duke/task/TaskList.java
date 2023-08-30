@@ -1,8 +1,9 @@
 package duke.task;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.ArrayList;
 
+/**
+ * TaskList is the class to store the lists and carry out operands on the tasks
+ */
 public class TaskList {
 
     /**
@@ -10,13 +11,13 @@ public class TaskList {
      * field lines stores the String of lines
      */
     ArrayList<Task> tasklist;
-    String lines;
+    String LINES;
 
     /**
-     * constructor for TaskList
+     * constructor for TaskList and initiates the lines
      */
     public TaskList() {
-        this.lines = "______________________________";
+        this.LINES = "______________________________";
     }
 
     /**
@@ -25,7 +26,7 @@ public class TaskList {
      */
     public TaskList(ArrayList<Task> prevTasks) {
         this.tasklist = prevTasks;
-        this.lines = "______________________________";
+        this.LINES = "______________________________";
     }
 
     /**
@@ -36,7 +37,7 @@ public class TaskList {
         tasklist.add(task);
         System.out.println("MEOW got it. I've added this task:\n   " + task);
         System.out.println("Now you have " + this.tasklist.size() + " meow-tasks in the list.");
-        System.out.println(lines);
+        System.out.println(this.LINES);
     }
 
     /**
@@ -49,7 +50,7 @@ public class TaskList {
         wantedtask.markCompleted();
         System.out.println("Nice! I've meowrked this task as done: ");
         System.out.println("   " + wantedtask);
-        System.out.println(lines);
+        System.out.println(this.LINES);
 
     }
 
@@ -62,7 +63,7 @@ public class TaskList {
         wantedtask.markUncompleted();
         System.out.println("Ok, get your task done soon, I'll be waiting!");
         System.out.println(" " + wantedtask);
-        System.out.println(lines);
+        System.out.println(this.LINES);
 
     }
 
@@ -77,18 +78,18 @@ public class TaskList {
         System.out.println("Meow... ok, I've removed this task: ");
         System.out.println(" " + wantedtask);
         System.out.println("Now you have " + this.tasklist.size() + " meow-tasks in the list.");
-        System.out.println(lines);
+        System.out.println(this.LINES);
     }
     /**
      * displays the tasks in a proper format for the String format
      */
     public void display() {
-        System.out.println(lines);
+        System.out.println(this.LINES);
         System.out.println("Meoowww here are your tasks");
         for (int i = 1; i < this.tasklist.size() + 1; i++) {
             System.out.println(i + ". " + this.tasklist.get(i - 1));
         }
-        System.out.println(lines);
+        System.out.println(this.LINES);
     }
 
     /**
@@ -100,7 +101,7 @@ public class TaskList {
         this.tasklist.remove(taskNumber);
     }
     public void findTasks(String keyword) {
-        System.out.println(lines);
+        System.out.println(this.LINES);
         String res = "";
         int foundcount = 0;
         for (int i = 0; i < tasklist.size(); i ++) {
@@ -111,22 +112,17 @@ public class TaskList {
                 foundcount += 1;
             }
         }
-        if (foundcount == 0) System.out.println("Meow :( found no tasks with " + keyword);
-        else System.out.println("Meow Here are your matching tasks !\n" + res);
-        System.out.println(lines);
+        if (foundcount == 0) {
+            System.out.println("Meow :( found no tasks with " + keyword);
+        } else {
+            System.out.println("Meow Here are your matching tasks !\n" + res);
+        }
+        System.out.println(this.LINES);
     }
-
-//    public int size() {
-//        return tasklist.size();
-//    }
-//
-//    public Task get(int num) {
-//        return tasklist.get(num - 1);
-//    }
 
     /**
      *
-     * @return String format for the TaskList given
+     * @return String format for the TaskList given to be procesed by txt file
      */
 
     public String totxtformat() {
@@ -134,7 +130,7 @@ public class TaskList {
         int taskNumber = 1;
         while (taskNumber < tasklist.size() + 1) {
             Task task = tasklist.get(taskNumber - 1);
-            String txtformat = task.completed + "|" + task.toString() + "|" + task.type + "|" + task.ogname + "\n";
+            String txtformat = task.completed + "|" + task.toString() + "|" + task.type + "|" + task.ogName + "\n";
             res += txtformat;
             taskNumber++;
         }
