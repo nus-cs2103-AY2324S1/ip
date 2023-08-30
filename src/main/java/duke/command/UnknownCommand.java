@@ -1,3 +1,9 @@
+package duke.command;
+
+import duke.storage.Storage;
+import duke.task.*;
+import duke.ui.Ui;
+
 public class UnknownCommand extends Command{
     private boolean isExit = false;
     @Override
