@@ -14,6 +14,12 @@ public class Event extends Task {
         try {
             this.startDateTime = LocalDateTime.parse(startDate, INPUT_FORMATTER);
             this.endDateTime = LocalDateTime.parse(endDate, INPUT_FORMATTER);
+
+            // Validate that endDateTime is after startDateTime
+            if (!endDateTime.isAfter(startDateTime)) {
+                throw new SimonException("The end time should be after the start time.");
+            }
+
         } catch (DateTimeParseException e) {
             throw new SimonException("The date and time format is incorrect. Expected format: d/M/yyyy HHmm.");
         }
