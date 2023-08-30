@@ -3,10 +3,8 @@ package duke;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -45,9 +43,9 @@ public class Storage {
         File f = new File(this.filePath);
         try {
             if (!f.createNewFile()) {
-               Ui.savedFileFound();
+                Ui.savedFileFound();
             } else {
-               Ui.savedFileNotFound();
+                Ui.savedFileNotFound();
             }
             return new Scanner(f);
         } catch (IOException e) {
@@ -88,6 +86,7 @@ public class Storage {
                 taskArray.add(new Event(remainingLine[0],
                         undoDateFormatInputFile(getDateTime[0]), undoDateFormatInputFile(getDateTime[1])));
                 break;
+            default:
             }
 
             if (line[1].equals("X")) {
