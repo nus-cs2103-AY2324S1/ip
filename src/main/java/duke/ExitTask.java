@@ -1,7 +1,8 @@
 package duke;
 
-import duke.Command;
-
+/**
+ * ExitTask class that is a command of a user
+ */
 public class ExitTask extends Command {
 
     @Override

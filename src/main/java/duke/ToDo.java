@@ -1,11 +1,15 @@
 package duke;
 
-import duke.InvalidInputException;
-import duke.Storage;
-import duke.Task;
-
+/**
+ * To-Do class that has 2 fields, its symbol and name
+ */
 public class ToDo extends Task {
     private String symbol = "[T]";
+
+    /**
+     * Constructor for a To-Do task
+     * @param name name of the To-Do object
+     */
     public ToDo(String name) {
         super(name);
     }

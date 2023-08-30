@@ -1,9 +1,5 @@
 package duke;
 
-import duke.Deadline;
-import duke.Event;
-import duke.InvalidInputException;
-
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -15,15 +11,22 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * Storage class that is used to read and write files.
+ */
 public class Storage {
     private Ui ui = new Ui();
     private String filePath;
-    private DateTimeFormatter timeFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
     public static String relativePath = "C:\\Users\\wenji\\OneDrive\\Desktop\\Y2S1\\CS2103T\\CS2103T projects\\ip\\data";
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
+    /**
+     * To write tasks from TaskList into the file
+     * @param lst the TaskList we want to copy from
+     * @throws InvalidInputException the exception thrown if we receive an InvalidInputException while copying
+     */
     public void saveTasks(TaskList lst) throws InvalidInputException {
         try {
             Path folderPath = Paths.get(relativePath);
@@ -62,7 +65,11 @@ public class Storage {
             ui.printException(e.getMessage());
         }
     }
-
+    /**
+     * To load an existing file into a new TaskList object.
+     * @return new TaskList object loaded
+     * @throws InvalidInputException an exception thrown whenever input is invalid
+     */
     public List<Task> load() throws InvalidInputException {
         List<Task> lst = new ArrayList<>();
 

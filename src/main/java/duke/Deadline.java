@@ -4,13 +4,28 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Deadline class with 2 private fields, its deadline and symbol
+ *
+ * @author wj331
+ */
 public class Deadline extends Task {
     private String deadline;
     private String symbol = "[D]";
+
+    /**
+     * Constructor for Deadline Task
+     * @param name Name of the deadline
+     * @param deadline Deadline of the deadline
+     */
     public Deadline(String name, String deadline) {
         super(name);
         verifyDeadline(deadline);
     }
+    /**
+     * Parses the deadline if it is in correct format and ignores it otherwise
+     * @param date Input date of the deadline
+     */
     public void verifyDeadline(String date) {
         //pretty hard coded here, i think can be improved later eg if 1 d provided
         DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
@@ -34,6 +49,10 @@ public class Deadline extends Task {
         return this.symbol + this.getCheckbox() + this.getName() + " (by: " + deadline + ")";
     }
 
+    /**
+     * Getter for deadline of deadline object
+     * @return String value of the deadline
+     */
     public String getDeadline() {
         return this.deadline;
     }

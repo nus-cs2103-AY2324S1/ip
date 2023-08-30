@@ -1,9 +1,8 @@
 package duke;
 
-import duke.Command;
-
-import java.util.List;
-
+/**
+ * ListTask class that is a possible command from the user
+ */
 public class ListTask extends Command {
 
     @Override

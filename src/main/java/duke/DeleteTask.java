@@ -1,10 +1,17 @@
 package duke;
 
-import duke.Command;
-
+/**
+ * Delete Task class with int index that represents which task in TaskList to delete
+ *
+ * @author wj331
+ */
 public class DeleteTask extends Command {
     private int indexToDelete;
 
+    /**
+     * Constructor for DeleteTask
+     * @param indexToDelete the index of task we want to delete from TaskList
+     */
     public DeleteTask(int indexToDelete) {
         this.indexToDelete = indexToDelete;
     }

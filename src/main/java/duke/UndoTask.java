@@ -8,6 +8,10 @@ import duke.Ui;
 public class UndoTask extends Command {
     private int taskToUndo;
 
+    /**
+     * Constructor for UndoTask command
+     * @param taskToUndo the integer in the TaskList which we want to undo
+     */
     public UndoTask(int taskToUndo) {
         this.taskToUndo = taskToUndo;
     }

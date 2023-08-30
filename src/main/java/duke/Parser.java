@@ -1,10 +1,16 @@
 package duke;
 
-import duke.*;
-
+/**
+ * Parser class that takes in input from user and parse it accordingly to a command using switch
+ */
 public class Parser {
 
-    //use this class to process the input
+    /**
+     * Parse function to parse input from user
+     * @param input String input from the user
+     * @return Command object depending on result of the parse
+     * @throws InvalidInputException exception whenever input given is unable to be parsed
+     */
     public static Command parse(String input) throws InvalidInputException {
         String[] words = input.split("\\s+");
         String command = words[0];
