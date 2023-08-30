@@ -1,7 +1,7 @@
-package main.java.Parser;
+package parser;
 
-import main.java.Command.Commands;
-import main.java.Duke;
+import command.Commands;
+import duke.Duke;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;

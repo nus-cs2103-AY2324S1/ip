@@ -1,6 +1,6 @@
-package main.java.Task;
+package task;
 
-import main.java.Storage.Storage;
+import storage.Storage;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;

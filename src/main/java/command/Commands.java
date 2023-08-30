@@ -1,7 +1,7 @@
-package main.java.Command;
+package command;
 
-import main.java.Task.ListOfTask;
-import main.java.Ui.Ui;
+import task.ListOfTask;
+import ui.Ui;
 
 import java.time.LocalDateTime;
 

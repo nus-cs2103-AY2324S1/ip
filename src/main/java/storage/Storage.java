@@ -1,10 +1,10 @@
-package main.java.Storage;
+package storage;
 
-import main.java.Command.Commands;
-import main.java.Duke;
-import main.java.Parser.Parser;
-import main.java.Task.ListOfTask;
-import main.java.Task.Task;
+import command.Commands;
+import duke.Duke;
+import parser.Parser;
+import task.ListOfTask;
+import task.Task;
 
 import java.io.File;
 import java.io.FileWriter;
