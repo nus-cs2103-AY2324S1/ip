@@ -126,6 +126,7 @@ public class Duke {
             while (scanner.hasNextLine() && count < actions.length) {
                 String line = scanner.nextLine();
                 String[] parts = line.split(" \\| ");
+                // to split the line read into the different parts action num and done
                 if (parts.length >= 3) {
                     type[count] = parts[0];
                     isDone[count] = parts[1].equals("1");
