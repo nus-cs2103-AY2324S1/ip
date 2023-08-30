@@ -6,7 +6,6 @@ import duke.Ui;
 import duke.DukeException;
 import duke.Parser;
 
-
 public class Duke {
 
     private Storage storage;
