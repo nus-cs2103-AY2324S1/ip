@@ -12,9 +12,9 @@ import cyrus.ui.Ui;
 import java.util.Scanner;
 
 public class Duke {
-  private final static IStorage storage = new FileStorage("data/data.json");
-  private final static TaskList taskList = new TaskList(storage);
-  private final static Parser parser = new Parser();
+  private final static IStorage STORAGE = new FileStorage("data/data.json");
+  private final static TaskList TASK_LIST = new TaskList(STORAGE);
+  private final static Parser PARSER = new Parser();
 
   public static void main(String[] args) {
     Ui.printText("Hello! I'm Cyrus", "What can I do for you?");
@@ -22,7 +22,7 @@ public class Duke {
     Scanner sc = new Scanner(System.in);
     while (true) {
       input = sc.nextLine();
-      ParseInfo parseInfo = parser.parse(input);
+      ParseInfo parseInfo = PARSER.parse(input);
 
       // Handle empty inputs
       if (parseInfo.equals(ParseInfo.EMPTY)) {
@@ -32,7 +32,7 @@ public class Duke {
 
       if (parseInfo.commandType == CommandType.BYE) break;
 
-      Command commandToRun = parser.dispatchCommand(taskList, parseInfo);
+      Command commandToRun = PARSER.dispatchCommand(TASK_LIST, parseInfo);
       commandToRun.run();
     }
 

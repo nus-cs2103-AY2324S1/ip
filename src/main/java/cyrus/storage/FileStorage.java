@@ -22,7 +22,7 @@ import java.util.function.Consumer;
 import static java.lang.Boolean.parseBoolean;
 
 public class FileStorage implements IStorage {
-  private static final Gson gson =
+  private static final Gson GSON =
       new GsonBuilder()
           .excludeFieldsWithModifiers(Modifier.TRANSIENT)
           .setPrettyPrinting()
@@ -39,7 +39,7 @@ public class FileStorage implements IStorage {
     try (BufferedReader br = new BufferedReader(new FileReader(dataFilePath))) {
       Type listType = new TypeToken<List<HashMap<String, String>>>() {
       }.getType();
-      List<HashMap<String, String>> jsonTasks = gson.fromJson(br, listType);
+      List<HashMap<String, String>> jsonTasks = GSON.fromJson(br, listType);
       List<Task> fileTasks = new ArrayList<>();
 
       if (jsonTasks == null) {
@@ -90,7 +90,7 @@ public class FileStorage implements IStorage {
   @Override
   public void save(List<Task> tasks) {
     try (BufferedWriter bw = new BufferedWriter(new FileWriter(dataFilePath))) {
-      gson.toJson(tasks, bw);
+      GSON.toJson(tasks, bw);
     } catch (IOException e) {
       System.out.println("Failed to save cyrus.tasks to data file");
       System.exit(0);
