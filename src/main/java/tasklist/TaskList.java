@@ -3,12 +3,11 @@ package tasklist;
 import java.util.ArrayList;
 import storage.DataReader;
 import storage.DataWriter;
+import storage.Storage;
 import tasks.Task;
 
 public class TaskList {
-  private static ArrayList<Task> ls = DataReader.readTasksFromFile("data/tasks.txt");
-
-  private static DataWriter dataWriter = new DataWriter("data/tasks.txt");
+  private static ArrayList<Task> ls = DataReader.readTasksFromFile();
 
   public void add(Task task) {
     if (task == null) {
@@ -16,7 +15,7 @@ public class TaskList {
     }
     System.out.println("Got it. I've added this task:");
     ls.add(task);
-    dataWriter.addLine(task.toString());
+    Storage.addLine(task.toString());
     System.out.println(task);
     System.out.println("Now you have " + this.size() + " tasks in the list.");
   }
@@ -45,7 +44,7 @@ public class TaskList {
     System.out.println("Noted. I've removed this task:");
     System.out.println(" " + ls.get(pos - 1));
     ls.remove(pos - 1);
-    dataWriter.deleteLine(pos);
+    Storage.deleteLine(pos);
     System.out.println("Now you have " + ls.size() + " tasks in the list.");
   }
 

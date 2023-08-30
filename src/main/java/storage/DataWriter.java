@@ -26,9 +26,9 @@ public class DataWriter {
     }
   }
 
-  public void deleteLine(int lineNumber) {
+  public static void deleteLine(int lineNumber) {
     List<String> lines = new ArrayList<>();
-    try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
+    try (BufferedReader reader = new BufferedReader(new FileReader(DataWriter.filePath))) {
       String currentLine;
       while ((currentLine = reader.readLine()) != null) {
         lines.add(currentLine);

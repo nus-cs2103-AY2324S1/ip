@@ -9,10 +9,16 @@ import tasks.Task;
 
 public class DataReader {
 
-  public static ArrayList<Task> readTasksFromFile(String fileName) {
+  private static String path;
+
+  public DataReader(String path) {
+    DataReader.path = path;
+  }
+
+  public static ArrayList<Task> readTasksFromFile() {
     ArrayList<Task> tasksList = new ArrayList<>();
 
-    try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
+    try (BufferedReader reader = new BufferedReader(new FileReader(DataReader.path))) {
       String line;
       while ((line = reader.readLine()) != null) {
         Task task = DataParser.parseLineToTask(line);
