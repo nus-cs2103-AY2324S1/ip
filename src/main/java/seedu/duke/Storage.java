@@ -24,13 +24,11 @@ public class Storage {
             Path folder = Paths.get(folderPath);
             if (!Files.exists(folder)) {
                 Files.createDirectories(folder);
-                System.out.println("Folder created: " + folderPath);
             }
             // Check if the file exists, create if not
             Path file = Paths.get(filePath);
             if (!Files.exists(file)) {
                 Files.createFile(file);
-                System.out.println("File created: " + filePath);
             }
 
             // If the duke.txt file is empty, return an empty task arraylist
@@ -56,9 +54,6 @@ public class Storage {
         } catch (ClassNotFoundException e) {
             throw new InvalidDataFormatException();
         }
-
-        System.out.println("List has been updated\n Updated list is: ");
-        System.out.println(tasks);
         return tasks;
     }
 
@@ -68,8 +63,6 @@ public class Storage {
         // Delete all data from duke.txt file
         try (ObjectOutputStream outputStream = new ObjectOutputStream(new FileOutputStream("./data/duke.txt", false))) {
             outputStream.writeObject(data);
-            System.out.println("Data saved to file.\n Data is: ");
-            System.out.println(data);
         } catch (IOException e) {
             e.printStackTrace();
         }
