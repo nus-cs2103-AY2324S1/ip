@@ -11,7 +11,7 @@ public class Duke {
     public static String line = "\t____________________________________________________________\n";
     public static ArrayList<Task> strList = new ArrayList<>();
 
-
+    public static boolean readingFile = true;
 
     private static void printAddTask(Task t) {
         System.out.println(line + "\tGot it. I've added this task: ");
@@ -20,21 +20,90 @@ public class Duke {
         System.out.println(line);
     }
 
-    private static void toDoHandler() {
+    private static void toDoHandler(String description) throws EmptyDescriptionException {
+        if (description.equals("")) {
+            throw new EmptyDescriptionException("todo");
+        } else {
+            Task newToDo = new ToDos(description);
+            strList.add(newToDo);
+            if (!readingFile) {
+                printAddTask(newToDo);
+            }
+        }
+    }
 
+    private static void deadlineHandler(String description) throws EmptyDescriptionException{
+        if (description.equals("")) {
+            throw new EmptyDescriptionException("deadline");
+        } else {
+            String[] parts = description.split("/by");  // Split the input string by the delimiter "/"
+            String before = parts[0].trim();
+            String after = parts[1].trim();
+            Task newDeadline = new Deadline(before, after);
+            strList.add(newDeadline);
+            if (!readingFile) {
+                printAddTask(newDeadline);
+            }
+            //writer.write(newDeadline.toString() + "\n");
+        }
+    }
+
+    public static void eventHandler(String description) throws EmptyDescriptionException {
+        if (description.equals("")) {
+            throw new EmptyDescriptionException("event");
+        } else {
+            int fromIndex = description.indexOf("/from");  // Find the index of "/from"
+            int toIndex = description.indexOf("/to");  // Find the index of "/to"
+            String eventDescription = description.substring(0, fromIndex).trim();
+            String from = description.substring(fromIndex + "/from".length(), toIndex).trim();
+            String to = description.substring(toIndex + "/to".length()).trim();
+            Task newEvent = new Event(eventDescription, from, to);
+            strList.add(newEvent);
+            if (!readingFile) {
+                printAddTask(newEvent);
+            }
+        }
+    }
+
+    public static String convertDeadlineFormat(String input) {
+        // Replace "(by:" with "/by" and remove ")"
+        return input.replace("(by:", "/by").replace(")", "");
+    }
+
+    public static String convertEventFormat(String input) {
+        // Replace "(from:" with "/from" and "to:" with "/to"
+        return input.replace("(from:", "/from")
+                .replace("to:", "/to")
+                .replace(")", "");
     }
 
     public static void main(String[] args) throws EmptyDescriptionException, InvalidCommandException, NotANumberException{
 
         try {
-            //BufferedWriter writer = new BufferedWriter(new FileWriter("test.txt"));
             BufferedReader reader = new BufferedReader(new FileReader("./ip/src/main/data/duke.txt"));
             BufferedWriter writer = new BufferedWriter(new FileWriter("./ip/src/main/data/duke.txt", true));
             String fileLine;
             while((fileLine = reader.readLine()) != null) {
-                System.out.println(fileLine);
+                String eventType = Character.toString(fileLine.charAt(1));
+                String extractedSubstring = fileLine.substring(7, fileLine.length());
+                switch (eventType) {
+                    case "T":
+                        toDoHandler(extractedSubstring);
+                        break;
+                    case "D": {
+                        String description = convertDeadlineFormat(extractedSubstring);
+                        deadlineHandler(description);
+                        break;
+                    }
+                    case "E": {
+                        String description = convertEventFormat(extractedSubstring);
+                        eventHandler(description);
+                        break;
+                    }
+                }
             }
             reader.close();
+            readingFile = false;
             String greeting =
                     line +
                             "\tHello! I'm DukeBot\n" +
@@ -101,42 +170,13 @@ public class Duke {
                         }
                     } else if (words[0].equalsIgnoreCase("todo")) {
                         String description = String.join(" ", Arrays.copyOfRange(words, 1, words.length));
-                        if (description.equals("")) {
-                            throw new EmptyDescriptionException("todo");
-                        } else {
-                            Task newToDo = new ToDos(description);
-                            strList.add(newToDo);
-                            printAddTask(newToDo);
-                            //writer.write(newToDo.toString() + "\n");
-                        }
+                        toDoHandler(description);
                     } else if (words[0].equalsIgnoreCase("deadline")) {
                         String description = String.join(" ", Arrays.copyOfRange(words, 1, words.length));
-                        if (description.equals("")) {
-                            throw new EmptyDescriptionException("deadline");
-                        } else {
-                            String[] parts = description.split("/by");  // Split the input string by the delimiter "/"
-                            String before = parts[0].trim();
-                            String after = parts[1].trim();
-                            Task newDeadline = new Deadline(before, after);
-                            strList.add(newDeadline);
-                            printAddTask(newDeadline);
-                            //writer.write(newDeadline.toString() + "\n");
-                        }
+                        deadlineHandler(description);
                     } else if (words[0].equalsIgnoreCase("event")) {
                         String description = String.join(" ", Arrays.copyOfRange(words, 1, words.length));
-                        if (description.equals("")) {
-                            throw new EmptyDescriptionException("event");
-                        } else {
-                            int fromIndex = description.indexOf("/from");  // Find the index of "/from"
-                            int toIndex = description.indexOf("/to");  // Find the index of "/to"
-                            String eventDescription = description.substring(0, fromIndex).trim();
-                            String from = description.substring(fromIndex + "/from".length(), toIndex).trim();
-                            String to = description.substring(toIndex + "/to".length()).trim();
-                            Task newEvent = new Event(eventDescription, from, to);
-                            strList.add(newEvent);
-                            printAddTask(newEvent);
-                            //writer.write(newEvent.toString() + "\n");
-                        }
+                        eventHandler(description);
                     } else {
                         throw new InvalidCommandException();
                     }
@@ -152,10 +192,12 @@ public class Duke {
                 echo = myObj.nextLine();  // Read user input
             }
             System.out.println(exitMessage);
+            BufferedWriter saveWriter = new BufferedWriter(new FileWriter("./ip/src/main/data/duke.txt"));
             for (Task task : strList) {
-                writer.write(task.toString() + "\n");
+                saveWriter.write(task.toString() + "\n");
             }
             writer.close();
+            saveWriter.close();
         } catch (IOException e ) {
             e.printStackTrace();
             System.out.println("The file named duke.txt does not exist.");
