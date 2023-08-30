@@ -1,3 +1,5 @@
+package duke.exceptions;
+
 public class DukeNoTaskFoundException extends DukeException {
     private int taskNum;
 

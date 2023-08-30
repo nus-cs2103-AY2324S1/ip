@@ -1,3 +1,5 @@
+package duke.task;
+
 public abstract class Task {
     protected boolean done;
     protected String name;
@@ -7,11 +9,11 @@ public abstract class Task {
         this.done = false;
     }
 
-    void mark() {
+    public void mark() {
         done = true;
     }
 
-    void unmark() {
+    public void unmark() {
         done = false;
     }
 

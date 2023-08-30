@@ -1,5 +1,11 @@
+package duke.task;
+
+import duke.exceptions.DukeInvalidArgumentException;
+import duke.exceptions.DukeMissingArgumentException;
+import duke.Parser;
+import duke.Ui;
+
 import java.io.BufferedWriter;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;

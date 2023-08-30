@@ -1,8 +1,7 @@
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
+package duke;
+
+import duke.task.Task;
+import duke.task.Tasklist;
 
 public class Ui {
     private static final String name = "Bot";
@@ -22,8 +21,9 @@ public class Ui {
         System.out.println(t.toString());
     }
 
-    public static void printlist() {
+    public static void printList(Tasklist t) {
         System.out.println("Here are the tasks in your list:");
+        t.printlist();
     }
 
     public static void exit() {
@@ -50,4 +50,5 @@ public class Ui {
         System.out.println("OK, I've marked this task as not done yet:");
         System.out.println(t.toString());
     }
+
 }

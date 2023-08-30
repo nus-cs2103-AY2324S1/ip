@@ -1,10 +1,15 @@
+package duke;
+
+import duke.exceptions.DukeInvalidArgumentException;
+import duke.exceptions.DukeMissingArgumentException;
+import duke.task.Tasklist;
+
 import java.util.Scanner;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
 public class Duke {
-    private static final String name = "Bot";
     private static final String mark = "mark";
     private static final String unmark = "unmark";
     private static final String bye = "bye";
@@ -12,19 +17,17 @@ public class Duke {
     private static final String delete = "delete";
     private static final Path filePath = Paths.get("./data/bot.txt");
     private Tasklist todolist;
-    private Ui ui;
     private Storage storage;
 
     private Duke() {
         this.todolist = new Tasklist();
-        this.ui = new Ui();
         this.storage = new Storage(filePath);
     }
 
     private void exit() {
         try {
             storage.saveFile(todolist);
-            ui.exit();
+            Ui.exit();
         } catch (IOException e) {
             System.out.println("Error when saving data!");
         }
@@ -45,7 +48,7 @@ public class Duke {
             this.exit();
             return false;
         } else if (s.equals(list)) {
-            todolist.printlist();
+            Ui.printList(todolist);
             return true;
         } else if (check1.equals(mark)) {
             todolist.mark(Integer.parseInt(str.substring(5, str.length())));
@@ -70,7 +73,7 @@ public class Duke {
     public static void main(String[] args) {
         Scanner s = new Scanner(System.in);
         Duke d = new Duke();
-        d.ui.greet();
+        Ui.greet();
         while (s.hasNextLine()) {
             String t = s.nextLine();
             if (!d.respond(t)) {
