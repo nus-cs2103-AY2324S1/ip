@@ -11,13 +11,14 @@ import java.nio.file.Files;
 import java.util.List;
 
 public class Storage {
-    private static final String FILE_PATH = "./data/duke.txt";
+    private String path;
 
-    public Storage() {
+    public Storage(String path) {
+        this.path = path;
     }
 
     private File createHardDisk() {
-        File file = new File(FILE_PATH);
+        File file = new File(this.path);
         File directory = file.getParentFile();
 
         if (!directory.exists()) {
