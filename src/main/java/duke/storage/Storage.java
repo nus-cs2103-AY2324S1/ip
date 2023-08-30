@@ -1,4 +1,10 @@
-import exceptions.DukeException;
+package duke.storage;
+
+import duke.tasks.Tasks;
+import duke.ui.Ui;
+import duke.commands.Command;
+import duke.exceptions.DukeException;
+import duke.parser.Parser;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -7,26 +13,22 @@ import java.io.PrintWriter;
 import java.util.Scanner;
 
 public class Storage {
-    private String filepath;
+    private final String FILE_PATH = "./data/duke.txt";
     private Ui ui = new Ui();
-
-    public Storage(String filepath) {
-        this.filepath = filepath;
-    }
 
     public Tasks load() {
         Tasks tasks = new Tasks();
-        File myObj = new File(this.filepath);
+        File myObj = new File(this.FILE_PATH);
         try {
             Scanner myReader = new Scanner(myObj);
-            ui.showSuccessLoadingStorage(this.filepath);
+            ui.showSuccessLoadingStorage(this.FILE_PATH);
             while (myReader.hasNextLine()) {
                 String text = myReader.nextLine();
                 Command c = Parser.parse(text, true);
                 if (c == null) {
                     continue;
                 }
-                c.execute(tasks, ui, new Storage(this.filepath), true);
+                c.execute(tasks, ui, new Storage(), true);
             }
 
         } catch (FileNotFoundException ex) {
@@ -48,7 +50,7 @@ public class Storage {
     public void save(Tasks tasks) {
         // Delete everything in
         try {
-            PrintWriter writer = new PrintWriter(this.filepath);
+            PrintWriter writer = new PrintWriter(this.FILE_PATH);
             writer.print("");
             writer.close();
         } catch (IOException ex) {
@@ -58,7 +60,7 @@ public class Storage {
 
         // Rewrite everything
         for (int i = 0; i < tasks.size(); i++) {
-            tasks.get(i).save(this.filepath);
+            tasks.get(i).save(this.FILE_PATH);
         }
     }
 }

@@ -1,16 +1,20 @@
-import exceptions.DukeException;
+package duke;
 
-import java.util.Scanner;
+import duke.commands.Command;
+import duke.exceptions.DukeException;
+import duke.parser.Parser;
+import duke.storage.Storage;
+import duke.tasks.Tasks;
+import duke.ui.Ui;
 
 public class Duke {
-    private static final String FILE_PATH = "./data/duke.txt";
     private Storage storage;
     private Tasks tasks;
     private Ui ui;
 
-    public Duke(String filepath) {
+    public Duke() {
         this.ui = new Ui();
-        this.storage = new Storage(filepath);
+        this.storage = new Storage();
         tasks = storage.load();
     }
 
@@ -31,7 +35,7 @@ public class Duke {
                 // Execute command
                 c.execute(this.tasks, this.ui, this.storage, false);
 
-                // Check if is ExitCommand
+                // Check if is duke.commands.ExitCommand
                 if (c.isExit()) {
                     break;
                 }
@@ -42,7 +46,7 @@ public class Duke {
         }
     }
     public static void main(String[] args) {
-        new Duke(FILE_PATH).run();
+        new Duke().run();
     }
 
 

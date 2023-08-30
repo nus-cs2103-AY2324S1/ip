@@ -1,3 +1,10 @@
+package duke.commands;
+
+import duke.storage.Storage;
+import duke.tasks.Task;
+import duke.tasks.Tasks;
+import duke.ui.Ui;
+
 public class AddCommand extends Command {
     public static final String COMMAND_WORD_D = "deadline";
     public static final String COMMAND_WORD_E = "event";
