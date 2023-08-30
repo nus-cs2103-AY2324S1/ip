@@ -4,8 +4,9 @@ public class Task {
     private String task;
     private boolean done = false;
 
-    Task(String task) {
+    Task(String task, boolean done) {
         this.task = task;
+        this.done = done;
     }
 
     public String toString() {
@@ -26,5 +27,9 @@ public class Task {
     public void unmarkTask() {
         this.done = false;
         System.out.println("    chirp! I've mark this task as not done yet:\n" +  String.format("    %s", this.toString()));
+    }
+
+    public String getTaskFileString() {
+        return (done ? "1" : "0") + " , " + this.task;
     }
 }

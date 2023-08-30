@@ -1,12 +1,17 @@
 package ipduke;
 
 public class Todo extends Task{
-    Todo(String taskDetails) {
-        super(taskDetails);
+    Todo(String task, boolean done) {
+        super(task, done);
     }
 
     @Override
     public String toString() {
         return "[T]" + super.toString();
+    }
+
+    @Override
+    public String getTaskFileString() {
+        return "T" + " , " + super.getTaskFileString();
     }
 }
