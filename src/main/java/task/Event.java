@@ -13,6 +13,20 @@ public class Event extends Task {
 
     }
 
+    public String getStartDateTime() {
+        return startDateTime;
+    }
+    public String getEndDateTime() {
+        return endDateTime;
+    }
+
+    @Override
+    public String toFileString() {
+        String type = "E";
+        return type + " | " + (getIsDone() ? "1" : "0") + " | " +
+                getDescription() + " | " + startDateTime + " to " + endDateTime;
+    }
+
     @Override
     public String toString() {
         return String.format("[E]%s (from: %s to %s)", super.toString(), startDateTime, endDateTime );

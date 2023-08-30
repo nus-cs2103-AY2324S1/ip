@@ -18,6 +18,11 @@ public class Task {
         return description;
     }
 
+    //Returns isDone status of the task
+    public boolean getIsDone() {
+        return isDone;
+    }
+
     //Toggles isDone to True
     public void markDone() {
         this.isDone = true;
@@ -26,6 +31,11 @@ public class Task {
     //Toggles isDone to false
     public void markNotDone() {
         this.isDone = false;
+    }
+
+    public String toFileString() {
+        String type = "T"; // Default type for base Task
+        return type + " | " + (isDone ? "1" : "0") + " | " + description;
     }
 
     @Override
