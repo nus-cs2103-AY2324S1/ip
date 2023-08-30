@@ -27,6 +27,23 @@ public class TaskParser {
         return null;
     }
 
+    public Task parseAddTaskCommand(String input) {
+        try {
+            if (input.startsWith("deadline")) {
+                return parseDeadline(input);
+            } else if (input.startsWith("event")) {
+                return parseEvent(input);
+            } else if (input.startsWith("todo")) {
+                return parseTodo(input);
+            } else {
+                throw new InvalidTaskFormatException("I'm sorry, but I don't know what that means :-(");
+            }
+        } catch (InvalidTaskFormatException e) {
+            System.out.println("☹ OOPS!!! " + e.getMessage());
+        }
+        return null;
+    }
+
     private Deadline parseDeadline(String input) throws InvalidTaskFormatException {
         Pattern pattern = Pattern.compile("deadline (.+) by: (.+)");
         Matcher matcher = pattern.matcher(input);

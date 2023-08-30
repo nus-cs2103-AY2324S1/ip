@@ -4,13 +4,14 @@ import Storage.Storage;
 import TaskList.TaskList;
 import UI.UI;
 
-public class MarkCommand implements Command {
+public class DeleteCommand implements Command{
+    public static final String DELETE_PATTERN = "^(delete)\\s+\\d+$";
+
     private int pos;
 
-    public MarkCommand(int pos) {
+    public DeleteCommand(int pos) {
         this.pos = pos;
     }
-    public static final String MARK_PATTERN = "^(mark)\\s+\\d+$";
 
     @Override
     public void execute(TaskList tasks, UI ui, Storage storage) {
