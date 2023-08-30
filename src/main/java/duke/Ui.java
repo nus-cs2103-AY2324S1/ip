@@ -1,3 +1,8 @@
+package duke;
+
+import duke.exceptions.DukeException;
+import duke.tasks.Task;
+
 import java.util.Scanner;
 
 public class Ui {
@@ -9,7 +14,7 @@ public class Ui {
         display("Bye. Hope to see you again soon!");
     }
 
-    public void getUserInput(TaskList taskList, Storage storage) throws DukeException{
+    public void getUserInput(TaskList taskList, Storage storage) throws DukeException {
         Scanner sc = new Scanner(System.in);
         Parser parser = new Parser();
         taskList = storage.readFromFile();

@@ -1,3 +1,7 @@
+package duke;
+
+import duke.exceptions.DukeException;
+
 import java.time.format.DateTimeFormatter;
 
 public class Duke {
