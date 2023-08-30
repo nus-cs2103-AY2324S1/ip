@@ -144,13 +144,14 @@ public class Duke {
         System.out.println(LINE);
     }
 
-    private static void deleteTask(int taskID) throws DukeException {
+    private static void deleteTask(int taskID) throws DukeException, IOException {
         if (taskID <= 0 || taskID > tasks.size()) {
             throw new DukeException("☹ OOPS!!! I'm sorry, but task not found.");
         }
         System.out.println("Noted. I've removed this task:");
         System.out.println(tasks.get(taskID - 1));
         tasks.remove(taskID - 1);
+        rewriteFile(FILE_PATH, tasks);
         System.out.println("Now you have " + tasks.size() + " tasks in the list.");
         System.out.println(LINE);
     }
