@@ -1,3 +1,8 @@
+package duke.task;
+
+import duke.DukeException;
+import duke.Ui;
+
 import java.util.ArrayList;
 
 public class TaskList {
@@ -20,7 +25,7 @@ public class TaskList {
         this.ui.addTaskMessage(task, tasks.size());
 
     }
-    public void deleteTask(int index) throws DukeException{
+    public void deleteTask(int index) throws DukeException {
         try {
             Task deletedTask = tasks.get(index - 1);
             tasks.remove(index - 1);

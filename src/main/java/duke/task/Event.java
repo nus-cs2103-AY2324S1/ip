@@ -1,3 +1,8 @@
+package duke.task;
+
+import duke.DukeException;
+import duke.task.Task;
+
 import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -6,7 +11,7 @@ public class Event extends Task {
     protected LocalDate start;
     protected LocalDate end;
 
-    public Event(String description, String start, String end) throws DukeException{
+    public Event(String description, String start, String end) throws DukeException {
         super(description);
         try {
             this.start = formatDate(start);

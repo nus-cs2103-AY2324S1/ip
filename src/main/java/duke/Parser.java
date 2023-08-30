@@ -1,3 +1,7 @@
+package duke;
+
+import duke.task.*;
+
 public class Parser {
     private TaskList tasks;
     private Ui ui;
