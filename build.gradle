@@ -28,13 +28,13 @@ test {
 }
 
 application {
-    mainClass.set("seedu.duke.Duke")
+    mainClass.set("taskmaster.Taskmaster")
 }
 
 shadowJar {
-    archiveBaseName = "duke"
-    archiveClassifier = null
-    dependsOn("distZip", "distTar")
+
+    archiveFileName = 'taskmaster.jar'
+
 }
 
 run{
