@@ -17,8 +17,8 @@ public class UnmarkCommand extends Command {
         if (index >= 1 && index <= tasks.getSize()) {
             tasks.unmarkAsDone(index);
             ui.showLine();
-            System.out.println("\t OK, I've marked this task as not done yet:");
-            System.out.println("\t   " + tasks.getTaskString(index));
+            ui.print("OK, I've marked this task as not done yet:");
+            ui.print("  " + tasks.getTaskString(index));
             ui.showLine();
             storage.saveTasks(tasks);
         } else {

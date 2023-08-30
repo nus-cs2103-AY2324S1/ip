@@ -51,18 +51,18 @@ public class AddCommand extends Command {
         try {
             Task newTask;
             switch (this.type) {
-                case TODO:
-                    newTask = new Todo(message);
-                    break;
-                case DEADLINE:
-                    newTask = new Deadline(message, LocalDateTime.parse(deadline));
-                    break;
-                case EVENT:
-                    newTask = new Event(message, LocalDateTime.parse(from), LocalDateTime.parse(to));
-                    break;
-                default:
-                    throw new DukeException("Task type is invalid!");
-                    // break not needed as exception is thrown
+            case TODO:
+                newTask = new Todo(message);
+                break;
+            case DEADLINE:
+                newTask = new Deadline(message, LocalDateTime.parse(deadline));
+                break;
+            case EVENT:
+                newTask = new Event(message, LocalDateTime.parse(from), LocalDateTime.parse(to));
+                break;
+            default:
+                throw new DukeException("Task type is invalid!");
+                // break not needed as exception is thrown
             }
             tasks.add(newTask);
             ui.print("Got it. I've added this task:");
@@ -70,8 +70,8 @@ public class AddCommand extends Command {
             ui.print("Now you have " + tasks.getSize() + " tasks in the list.");
             storage.saveTasks(tasks);
         } catch (DateTimeParseException e) {
-            throw new DukeException("Dates should be formatted yyyy-mm-ddThh:mm:ss,\n" +
-                    "\t e.g. 2023-09-12T12:06:53");
+            throw new DukeException("Dates should be formatted yyyy-mm-ddThh:mm:ss,\n"
+                    + "\t e.g. 2023-09-12T12:06:53");
         }
     }
 
@@ -79,17 +79,18 @@ public class AddCommand extends Command {
     public String getCommandType() {
         String typeStr;
         switch (this.type) {
-            case TODO:
-                typeStr = "Todo";
-                break;
-            case DEADLINE:
-                typeStr = "Deadline";
-                break;
-            case EVENT:
-                typeStr = "Event";
-                break;
-            default:
-                typeStr = "";
+        case TODO:
+            typeStr = "Todo";
+            break;
+        case DEADLINE:
+            typeStr = "Deadline";
+            break;
+        case EVENT:
+            typeStr = "Event";
+            break;
+        default:
+            typeStr = "";
+            break;
         }
         return "Add " + typeStr;
     }
