@@ -2,7 +2,7 @@
 /.idea/
 /out/
 /*.iml
-src/main/storage
+/src/main/storage/
 
 *.class
 
