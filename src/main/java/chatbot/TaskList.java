@@ -4,11 +4,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TaskList {
+<<<<<<< HEAD
     /** Stores the tasks in a list. */
     public List<Task> taskForce;
+=======
+    public List<Task> tasks;
+>>>>>>> branch-A-CodingStandard
 
     public TaskList() {
-        taskForce = new ArrayList<Task>();
+        tasks = new ArrayList<Task>();
     }
 
     /**
@@ -17,7 +21,7 @@ public class TaskList {
      * @param task The task to be added.
      */
     public void add(Task task) {
-        taskForce.add(task);
+        tasks.add(task);
     }
 
     /**
@@ -26,7 +30,7 @@ public class TaskList {
      * @param task The task to be removed.
      */
     public void delete(int index) {
-        taskForce.remove(index);
+        tasks.remove(index);
     }
 
     /**
@@ -36,7 +40,7 @@ public class TaskList {
      * @return The task that was marked.
      */
     public Task mark(int index) {
-        Task task = taskForce.get(index);
+        Task task = tasks.get(index);
         task.markTaskDone();
         return task;
     }
@@ -48,7 +52,7 @@ public class TaskList {
      * @return The task that was unmarked.
      */
     public Task unmark(int index) {
-        Task task = taskForce.get(index);
+        Task task = tasks.get(index);
         task.markTaskNotDone();
         return task;
     }
@@ -60,6 +64,10 @@ public class TaskList {
      * @return The task in the corresponding index.
      */
     public Task retrieveTask(int index) {
-        return taskForce.get(index);
+        return tasks.get(index);
+    }
+
+    public int getSize() {
+        return tasks.size();
     }
 }
