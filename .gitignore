@@ -17,7 +17,7 @@ bin/
 /src/main/java/*.class
 
 #data files
-/src/main/resources/data/*.txt
+/src/data/*.txt
 
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT
