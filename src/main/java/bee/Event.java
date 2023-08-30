@@ -1,3 +1,5 @@
+package bee;
+
 public class Event extends Task{
     String startDate;
     String endDate;

@@ -1,3 +1,5 @@
+package bee;
+
 public class Parser {
 
     enum TaskClass {

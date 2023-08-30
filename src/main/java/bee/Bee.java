@@ -1,8 +1,6 @@
-import java.io.*;
-import java.time.format.DateTimeParseException;
+package bee;
+
 import java.util.Scanner;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 public class Bee {
     private Storage storage;

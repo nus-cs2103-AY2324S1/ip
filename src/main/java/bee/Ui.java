@@ -1,3 +1,5 @@
+package bee;
+
 public class Ui {
     public void greet() {
         String logo = "\n" +
