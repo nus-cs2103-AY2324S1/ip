@@ -1,9 +1,9 @@
 import java.util.ArrayList;
 
-public class TodoCommand extends Command {
+public class TaskCommand extends Command {
     private final Task newTask;
 
-    public TodoCommand(Task newTask) {
+    public TaskCommand(Task newTask) {
         this.newTask = newTask;
     }
 
