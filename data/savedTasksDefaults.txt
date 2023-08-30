@@ -1,0 +1,3 @@
+T | Not Done | task1
+D | Done | task2 | some time
+E | Not Done | task3 | time1 | time2
