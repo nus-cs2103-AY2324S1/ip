@@ -115,7 +115,7 @@ public class Simon {
                     throw new SimonException("☹ OOPS!!! The description of an event cannot be empty.");
                 }
 
-                String[] toParts = fromToParts[1].split("er/to ");
+                String[] toParts = fromToParts[1].split("/to ");
                 if (toParts.length < 2) {
                     throw new SimonException("☹ OOPS!!! The format for event is missing 'to' information.");
                 }
