@@ -1,9 +1,9 @@
 package anto;
 
-import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.io.File;
 import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.regex.Pattern;
 
@@ -58,7 +58,7 @@ public class Storage {
             }
             return taskList;
         } catch (java.io.IOException e) {
-            throw new DukeException("☹ OOPS!!! IOException");
+            throw new DukeException("OOPS!!! IOException");
         }
     }
 }

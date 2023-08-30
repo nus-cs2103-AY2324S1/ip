@@ -28,16 +28,16 @@ public class TaskList {
             if (newTask instanceof Todo) {
                 writer.write(String.format("\nT | %s | %s", newTask.isDone ? "1" : "0", newTask.description));
             } else if (newTask instanceof Deadline) {
-                writer.write(String.format("\nD | %s | %s | %s", newTask.isDone ? "1" : "0", newTask.description,
-                        ((Deadline) newTask).by.format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm"))));
+                writer.write(String.format("\nD | %s | %s | %s", newTask.isDone ? "1" : "0", newTask.description, (
+                        (Deadline) newTask).by.format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm"))));
             } else if (newTask instanceof Event) {
-                writer.write(String.format("\nE | %s | %s | %s | %s", newTask.isDone ? "1" : "0", newTask.description,
-                        ((Event) newTask).from.format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm")),
-                        ((Event) newTask).to.format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm"))));
+                writer.write(String.format("\nE | %s | %s | %s | %s", newTask.isDone ? "1" : "0", newTask.description, (
+                        (Event) newTask).from.format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm")), (
+                        (Event) newTask).to.format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm"))));
             }
             writer.close();
         } catch (IOException e) {
-            throw new DukeException("☹ OOPS!!! IOException");
+            throw new DukeException("OOPS!!! IOException");
         }
     }
 
@@ -67,8 +67,8 @@ public class TaskList {
             while (sc.hasNextLine()) {
                 String currLine = sc.nextLine();
                 if (line == index) {
-                    writer.write(currLine.replace("| 0 |", "| 1 |") +
-                            System.getProperty("line.separator"));
+                    writer.write(currLine.replace("| 0 |", "| 1 |")
+                            + System.getProperty("line.separator"));
                 } else {
                     writer.write(currLine + System.getProperty("line.separator"));
                 }
@@ -79,7 +79,7 @@ public class TaskList {
             sc.close();
             tempFile.renameTo(antoFile);
         } catch (IOException e) {
-            throw new DukeException("☹ OOPS!!! IOException");
+            throw new DukeException("OOPS!!! IOException");
         }
 
         this.taskList.get(index).markAsDone();
@@ -103,8 +103,8 @@ public class TaskList {
             while (sc.hasNextLine()) {
                 String currLine = sc.nextLine();
                 if (line == index) {
-                    writer.write(currLine.replace("| 1 |", "| 0 |") +
-                            System.getProperty("line.separator"));
+                    writer.write(currLine.replace("| 1 |", "| 0 |")
+                            + System.getProperty("line.separator"));
                 } else {
                     writer.write(currLine + System.getProperty("line.separator"));
                 }
@@ -115,7 +115,7 @@ public class TaskList {
             sc.close();
             tempFile.renameTo(antoFile);
         } catch (IOException e) {
-            throw new DukeException("☹ OOPS!!! IOException");
+            throw new DukeException("OOPS!!! IOException");
         }
 
         this.taskList.get(index).unmark();
@@ -148,7 +148,7 @@ public class TaskList {
             sc.close();
             tempFile.renameTo(antoFile);
         } catch (IOException e) {
-            throw new DukeException("☹ OOPS!!! IOException");
+            throw new DukeException("OOPS!!! IOException");
         }
         return this.taskList.remove(index);
     }
