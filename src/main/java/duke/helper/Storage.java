@@ -16,17 +16,16 @@ public class Storage {
      * tempPath stores where the temporary file is at
      */
 
-    String filePath;
-    String tempPath;
+    private final String FILEPATH;
+    private final String TEMPPATH;
 
     /**
      * Constructor for filePath is where the local storage is stored at,
      * parsed in initially in MeowBot
-     * @param filePath
      */
     public Storage(String filePath) {
-        this.filePath = filePath;
-        this.tempPath = "src/main/data/temp.txt";
+        this.FILEPATH = filePath;
+        this.TEMPPATH = "src/main/data/temp.txt";
     }
 
     /**
@@ -38,7 +37,7 @@ public class Storage {
 
     public ArrayList<Task> load() throws FileNotFoundException, DukeException {
         ArrayList<Task> lst = new ArrayList<>();
-        Scanner sc = new Scanner(new File(filePath));
+        Scanner sc = new Scanner(new File(this.FILEPATH));
         int count = 0;
         while (sc.hasNextLine()){
             Task generatedTask = generateTaskFromString(sc.nextLine());
@@ -55,14 +54,14 @@ public class Storage {
 
     /**
      * Generate the task from its String format
-     * @param taskname name of the task stored in txt
+     * @param taskName name of the task stored in txt
      * @return generates the task from its string format
      * @throws DukeException error if unable to generate the Task from String
      */
-    public Task generateTaskFromString(String taskname) throws DukeException {
+    public Task generateTaskFromString(String taskName) throws DukeException {
         // check the taskname and its type
         Task generatedTask = null;
-        String[] arr = taskname.split("\\|");
+        String[] arr = taskName.split("\\|");
         int length = arr.length;
 
         String ogname = arr[3];
@@ -85,30 +84,29 @@ public class Storage {
     }
 
     /**
-     * saves the TaskList tasks to its String format
+     * saves the TaskList tasks to its String format to the txt file
      * @param tasks TaskList that contains the tasks for meowbot
      * @throws IOException when unable to write to the txt file
      */
 
     public void save(TaskList tasks) throws IOException {
-//        System.out.println("Attempting to save to file");
-        FileWriter tempwriter = new FileWriter(tempPath, true);  // Open the file in append mode
-        tempwriter.write(tasks.totxtformat());
-        tempwriter.close();
-        File ogfile = new File(filePath);
-        File temp = new File(tempPath);
-        ogfile.delete();
-        temp.renameTo(new File(filePath));
+        FileWriter tempWriter = new FileWriter(this.TEMPPATH, true);  // Open the file in append mode
+        tempWriter.write(tasks.totxtformat());
+        tempWriter.close();
+        File ogFile = new File(this.FILEPATH);
+        File temp = new File(this.TEMPPATH);
+        ogFile.delete();
+        temp.renameTo(new File(this.FILEPATH));
     }
 
     /**
      * creates a new file for the user if unable to find the data file
-     * @throws IOException when unable to make the file at specified folderpath
+     * @throws IOException when unable to make the file at specified folder path
      */
     public void createNewFile() throws IOException {
         String folderpath = "src/main/data";
         File folder = new File(folderpath);
-        File file = new File(filePath);
+        File file = new File(this.FILEPATH);
         folder.mkdirs();
         file.createNewFile();
         System.out.println("Meow gotchu! Making local storage to remember your taskzz!");

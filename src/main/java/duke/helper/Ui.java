@@ -10,7 +10,7 @@ public class Ui {
         this.scan = new Scanner(System.in);
     }
     public void showLoadingError() {
-        System.out.println("Error! Initialising new storage");
+        System.out.println("Error! Cannot initialise new Storage");
     }
 
     public String readCommand() {
