@@ -5,8 +5,8 @@ public class Event extends Task {
 
     protected LocalDate from;
     protected LocalDate to;
-    public Event(String description, LocalDate from, LocalDate to) {
-        super(description);
+    public Event(String description, LocalDate from, LocalDate to, boolean isDone) {
+        super(description, isDone);
         this.from = from;
         this.to = to;
     }
@@ -20,6 +20,11 @@ public class Event extends Task {
         String formattedFrom = this.from.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
         String formattedTo = this.to.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
         return "[E]" + super.toString() + " (from: " + formattedFrom + " to: " + formattedTo+ ")";
+    }
+
+    @Override
+    public String formatTask() {
+        return "E" + super.formatTask() + " | " + from + " | " + to;
     }
 
 
