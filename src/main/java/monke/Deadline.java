@@ -1,3 +1,5 @@
+package monke;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -6,12 +8,6 @@ public class Deadline extends Task {
     public Deadline(String description, LocalDateTime date) {
         super(description);
         this.date = date;
-    }
-
-    public Deadline(String description, String date) {
-        super(description);
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
-        this.date = LocalDateTime.parse(date, formatter);
     }
 
     @Override
