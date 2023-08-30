@@ -1,11 +1,6 @@
 package chatter;
 
-import chatter.command.AddCommand;
-import chatter.command.Command;
-import chatter.command.DeleteCommand;
-import chatter.command.ExitCommand;
-import chatter.command.ListCommand;
-import chatter.command.MarkCommand;
+import chatter.command.*;
 import chatter.task.Deadline;
 import chatter.task.Event;
 import chatter.task.ToDo;
@@ -63,6 +58,8 @@ public class Parser {
                     fullCommand.substring(endIndex + 4)));
         case("bye"):
             return new ExitCommand();
+        case("find"):
+            return new FindCommand(fullCommand.substring(5));
         default:
             throw new ChatterException("☹ OOPS!!! I'm sorry, but I don't know what that means :-("
                     + "\nPlease enter a valid command!");

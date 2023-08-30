@@ -105,4 +105,18 @@ public class Ui {
             System.out.println("  " + (i + 1) + "." + tasks.getTask(i).toString());
         }
     }
+
+    /**
+     * Prints out list of tasks with keyword to display to the user.
+     */
+    public void showFoundTasks(TaskList tasks, int numOfTasks, String keyword) {
+        int count = 1;
+        System.out.println("Here are the matching tasks in your list:");
+        for (int i = 0; i < numOfTasks; i++) {
+            if (tasks.getTask(i).toString().contains(keyword)) {
+                System.out.println("  " + count + "." + tasks.getTask(i).toString());
+                count++;
+            }
+        }
+    }
 }
