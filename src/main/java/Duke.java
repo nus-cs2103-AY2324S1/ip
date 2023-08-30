@@ -1,9 +1,8 @@
-import Utils.Output.Response;
-import Utils.Output.GreetingResponse;
+import Utils.Session;
 
 public class Duke {
    public static void main(String[] args) {
-        Response greetings = new GreetingResponse();
-        greetings.print();
+       Session chatBot = new Session();
+       chatBot.start();
     }
 }
