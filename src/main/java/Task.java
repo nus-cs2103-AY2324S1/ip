@@ -7,6 +7,11 @@ public abstract class Task {
         this.isDone = false;
     }
 
+    Task(String name, boolean isDone) {
+        this.name = name;
+        this.isDone = isDone;
+    }
+
     void markDone() {
         this.isDone = true;
     }
@@ -21,6 +26,6 @@ public abstract class Task {
     }
 
     public String exportToText() {
-        return this.name;
+        return String.format("%s,>%s", this.name, this.isDone ? "X" : "O");
     }
 }

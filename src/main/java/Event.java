@@ -18,6 +18,12 @@ public class Event extends Task {
         this.to = to;
     }
 
+    Event(String name, boolean isDone, LocalDate from, LocalDate to) {
+        super(name, isDone);
+        this.from = from;
+        this.to = to;
+    }
+
     public static Event create(String[] queries) throws DukeException {
         List<String> queryList = Arrays.asList(queries);
         if (queryList.size() < 2) {
@@ -70,6 +76,6 @@ public class Event extends Task {
 
     @Override
     public String exportToText() {
-        return String.format("event %s /from %s /to %s", super.exportToText(), this.from, this.to);
+        return String.format("event,>%s,>%s,>%s", super.exportToText(), this.from, this.to);
     }
 }

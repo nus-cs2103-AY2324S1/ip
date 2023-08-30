@@ -5,19 +5,25 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.DateTimeException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class FileHandler {
     public static Task parseFile(String s) throws DukeException {
-        String[] queries = s.trim().split("\\s+");
-        switch (queries[0]) {
-        case "deadline":
-            return Deadline.create(queries);
-        case "event":
-            return Event.create(queries);
-        case "todo":
-            return ToDo.create(queries);
+        String[] q = s.trim().split(",>");
+        try {
+            switch (q[0]) {
+            case "deadline":
+                return new Deadline(q[1], q[2].equals("X"), LocalDate.parse(q[3]));
+            case "event":
+                return new Event(q[1], q[2].equals("X"), LocalDate.parse(q[3]), LocalDate.parse(q[4]));
+            case "todo":
+                return new ToDo(q[1], q[2].equals("X"));
+            }
+        } catch (DateTimeException e) {
+            throw new DukeException("Error parsing date in file");
         }
         throw new DukeException("Error parsing file data");
     }

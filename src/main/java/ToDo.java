@@ -6,6 +6,10 @@ public class ToDo extends Task {
         super(name);
     }
 
+    ToDo(String name, boolean isDone) {
+        super(name, isDone);
+    }
+
     public static ToDo create(String[] queries) throws DukeException {
         List<String> queryList = Arrays.asList(queries);
         if (queryList.size() < 2) {
@@ -26,6 +30,6 @@ public class ToDo extends Task {
 
     @Override
     public String exportToText() {
-        return String.format("todo %s", super.exportToText());
+        return String.format("todo,>%s", super.exportToText());
     }
 }

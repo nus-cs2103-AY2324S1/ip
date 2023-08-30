@@ -14,6 +14,11 @@ public class Deadline extends Task {
         this.deadline = deadline;
     }
 
+    Deadline(String name, boolean isDone, LocalDate deadline) {
+        super(name, isDone);
+        this.deadline = deadline;
+    }
+
     public static Deadline create(String[] queries) throws DukeException {
         List<String> queryList = Arrays.asList(queries);
         if (queryList.size() < 2) {
@@ -54,6 +59,6 @@ public class Deadline extends Task {
 
     @Override
     public String exportToText() {
-        return String.format("deadline %s /by %s", super.exportToText(), this.deadline);
+        return String.format("deadline,>%s,>%s", super.exportToText(), this.deadline);
     }
 }
