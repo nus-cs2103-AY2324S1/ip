@@ -25,7 +25,8 @@ public class Storage {
     }
 
     private static boolean isValidTaskFormat(String taskType, int taskFormatLength) {
-        return (taskType.equals("T") && taskFormatLength == 3) || (taskType.equals("D") && taskFormatLength == 4) || (taskType.equals("E") && taskFormatLength == 5);
+        return (taskType.equals("T") && taskFormatLength == 3) || (taskType.equals("D") && taskFormatLength == 4)
+                || (taskType.equals("E") && taskFormatLength == 5);
     }
 
     public void loadTasks(TaskList taskList) {

@@ -28,7 +28,8 @@ public class Parser {
         }
 
         if (index == -1 || index == 0 || index == description.length - 1) {
-            throw new DukeException("☹ OOPS!!! The format of a deadline is invalid. Format: deadline <task name> /by <date>");
+            throw new DukeException("☹ OOPS!!! The format of a deadline is invalid. "
+                    + "Format: deadline <task name> /by <date>");
         }
 
         return input.replace("deadline", "");
@@ -54,8 +55,10 @@ public class Parser {
             }
         }
 
-        if (fromIndex == -1 || toIndex == -1 || fromIndex == 0 || toIndex == 0 || fromIndex >= toIndex || fromIndex == description.length - 1 || toIndex == description.length - 1) {
-            throw new DukeException("☹ OOPS!!! The format of a event is invalid. Format: event <task name> /from <date> /to <date>");
+        if (fromIndex == -1 || toIndex == -1 || fromIndex == 0 || toIndex == 0 || fromIndex >= toIndex
+                || fromIndex == description.length - 1 || toIndex == description.length - 1) {
+            throw new DukeException("☹ OOPS!!! The format of a event is invalid. Format: event <task name> "
+                    + "/from <date> /to <date>");
         }
 
         return input.replace("event", "");

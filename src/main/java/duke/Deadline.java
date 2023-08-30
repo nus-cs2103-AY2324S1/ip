@@ -16,6 +16,7 @@ public class Deadline extends Task {
     }
 
     public String convertTaskToString() {
-        return "D | " + (super.isDone() ? "1" : "0") + " | " + super.getName() + " | " + DateParser.convertDateTimeToString(this.by);
+        return "D | " + (super.isDone() ? "1" : "0") + " | " + super.getName() + " | "
+                + DateParser.convertDateTimeToString(this.by);
     }
 }

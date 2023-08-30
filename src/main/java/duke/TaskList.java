@@ -26,7 +26,8 @@ public class TaskList {
         }
         this.tasks.add(task);
         storage.saveTask(task);
-        ui.formatPrintMessage("Got it. I've added this task:\n  " + task + "\nNow you have " + this.tasks.size() + " task(s) in the list.");
+        ui.formatPrintMessage("Got it. I've added this task:\n  " + task + "\nNow you have " + this.tasks.size()
+                + " task(s) in the list.");
 
     }
 
@@ -43,7 +44,8 @@ public class TaskList {
         Task task = this.tasks.get(taskNumber - 1);
         this.tasks.remove(task);
         storage.deleteTask(taskNumber);
-        ui.formatPrintMessage("Noted. I've removed this task:\n  " + task + "\nNow you have " + this.tasks.size() + " task(s) in the list.");
+        ui.formatPrintMessage("Noted. I've removed this task:\n  " + task + "\nNow you have " + this.tasks.size()
+                + " task(s) in the list.");
     }
 
     public void showAllTasks(Ui ui) {
