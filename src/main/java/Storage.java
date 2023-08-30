@@ -26,13 +26,12 @@ public class Storage {
             System.out.println(e.getMessage());
         }
         return tasks.toString();
-
     }
 
     public void save(String folderPath, String filePath, Task task) {
         File folder = new File(folderPath);
 
-        // CHeck if folder exists, if not create one
+        // Check if folder exists, if not create one
         if (!folder.exists()) {
             folder.mkdirs();
         }
@@ -50,7 +49,7 @@ public class Storage {
         // write to file
         try {
             FileWriter writer = new FileWriter(Paths.get(filePath).toString(), true);
-            writer.write(task.toString() + "\n");
+            writer.write(task.formatTask() + "\n");
             writer.close();
         } catch (IOException e) {
             System.out.println(e.getMessage());
