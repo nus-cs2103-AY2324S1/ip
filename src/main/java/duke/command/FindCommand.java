@@ -20,7 +20,12 @@ public class FindCommand extends Command {
     @Override
     public void execute(TaskList tasks, Ui ui, Storage store) throws DukeException {
         try {
-            tasks.findTasks(this.keyword);
+            String res = tasks.findTasks(this.keyword);
+            if (res.isEmpty()) {
+                ui.printEmptyFind(this.keyword);
+            } else {
+                ui.printFindRes(res);
+            }
             store.save(tasks);
         } catch (IOException e) {
             throw new DukeException(" umable to locate local file!");

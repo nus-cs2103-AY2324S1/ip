@@ -3,6 +3,7 @@ import java.io.IOException;
 import duke.helper.Storage;
 import duke.helper.Ui;
 import duke.task.DukeException;
+import duke.task.Task;
 import duke.task.TaskList;
 
 /**
@@ -34,8 +35,10 @@ public class DeleteCommand extends Command {
     @Override
     public void execute(TaskList tasks, Ui ui, Storage store) throws DukeException {
         try {
+            Task task = tasks.getTask(taskNum);
             tasks.deleteTask(taskNum);
             store.save(tasks);
+            ui.printDeleteTask(tasks.size(), task);
         } catch (IOException e) {
             throw new DukeException(" umable to locate local file!");
         }

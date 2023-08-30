@@ -17,16 +17,14 @@ public class TaskList {
      * constructor for TaskList and initiates the lines
      */
     public TaskList() {
-        this.LINES = "______________________________";
     }
 
     /**
-     *
+     * Constructor for TaskList if its able to load the tasks from txt file
      * @param prevTasks loads the previous tasks from the txt file
      */
     public TaskList(ArrayList<Task> prevTasks) {
         this.tasklist = prevTasks;
-        this.LINES = "______________________________";
     }
 
     /**
@@ -35,36 +33,25 @@ public class TaskList {
      */
     public void addTask(Task task) {
         tasklist.add(task);
-        System.out.println("MEOW got it. I've added this task:\n   " + task);
-        System.out.println("Now you have " + this.tasklist.size() + " meow-tasks in the list.");
-        System.out.println(this.LINES);
     }
 
     /**
      *
-     * @param tasknumber takes in the index of the task to be marked as completed
+     * @param taskNumber takes in the index of the task to be marked as completed
      */
 
-    public void markTask(int tasknumber) {
-        Task wantedtask = this.tasklist.get(tasknumber - 1); //account for 0 indexing
+    public void markTask(int taskNumber) {
+        Task wantedtask = this.tasklist.get(taskNumber - 1); //account for 0 indexing
         wantedtask.markCompleted();
-        System.out.println("Nice! I've meowrked this task as done: ");
-        System.out.println("   " + wantedtask);
-        System.out.println(this.LINES);
-
     }
 
     /**
      *
-     * @param tasknumber takes in the index of the tasknumber to be marked as uncompleted
+     * @param taskNumber takes in the index of the tasknumber to be marked as uncompleted
      */
-    public void unmarkTask(int tasknumber) {
-        Task wantedtask = this.tasklist.get(tasknumber - 1); //account for 0 indexing
+    public void unmarkTask(int taskNumber) {
+        Task wantedtask = this.tasklist.get(taskNumber - 1); //account for 0 indexing
         wantedtask.markUncompleted();
-        System.out.println("Ok, get your task done soon, I'll be waiting!");
-        System.out.println(" " + wantedtask);
-        System.out.println(this.LINES);
-
     }
 
     /**
@@ -75,21 +62,6 @@ public class TaskList {
     public void deleteTask(int tasknumber) {
         Task wantedtask = this.tasklist.get(tasknumber - 1);
         this.removeTask(tasknumber - 1); //this would also be the line number to delete in the txt file
-        System.out.println("Meow... ok, I've removed this task: ");
-        System.out.println(" " + wantedtask);
-        System.out.println("Now you have " + this.tasklist.size() + " meow-tasks in the list.");
-        System.out.println(this.LINES);
-    }
-    /**
-     * displays the tasks in a proper format for the String format
-     */
-    public void display() {
-        System.out.println(this.LINES);
-        System.out.println("Meoowww here are your tasks");
-        for (int i = 1; i < this.tasklist.size() + 1; i++) {
-            System.out.println(i + ". " + this.tasklist.get(i - 1));
-        }
-        System.out.println(this.LINES);
     }
 
     /**
@@ -100,8 +72,8 @@ public class TaskList {
     private void removeTask(int taskNumber) {
         this.tasklist.remove(taskNumber);
     }
-    public void findTasks(String keyword) {
-        System.out.println(this.LINES);
+    public String findTasks(String keyword) {
+//        System.out.println(this.LINES);
         String res = "";
         int foundcount = 0;
         for (int i = 0; i < tasklist.size(); i ++) {
@@ -112,12 +84,7 @@ public class TaskList {
                 foundcount += 1;
             }
         }
-        if (foundcount == 0) {
-            System.out.println("Meow :( found no tasks with " + keyword);
-        } else {
-            System.out.println("Meow Here are your matching tasks !\n" + res);
-        }
-        System.out.println(this.LINES);
+        return res;
     }
 
     /**
@@ -135,6 +102,14 @@ public class TaskList {
             taskNumber++;
         }
         return res;
+    }
+
+    public int size() {
+        return this.tasklist.size();
+    }
+
+    public Task getTask(int taskNum) {
+        return this.tasklist.get(taskNum);
     }
 
 }
