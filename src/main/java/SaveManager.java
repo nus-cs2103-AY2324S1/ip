@@ -3,6 +3,8 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
 public class SaveManager {
@@ -46,7 +48,7 @@ public class SaveManager {
                         if (dataSegments[0].equals("D")) {
                             String description = dataSegments[2];
                             Boolean done = false;
-                            String by = dataSegments[3];
+                            LocalDateTime by = LocalDateTime.parse(dataSegments[3]);
                             if (dataSegments[1].equals("1")) {
                                 done = true;
                             } else if (!dataSegments[1].equals("0")) {
@@ -63,8 +65,8 @@ public class SaveManager {
                         if (dataSegments[0].equals("E")) {
                             String description = dataSegments[2];
                             Boolean done = false;
-                            String from = dataSegments[3];
-                            String to = dataSegments[4];
+                            LocalDateTime from = LocalDateTime.parse(dataSegments[3]);
+                            LocalDateTime to = LocalDateTime.parse(dataSegments[4]);
                             if (dataSegments[1].equals("1")) {
                                 done = true;
                             } else if (!dataSegments[1].equals("0")) {
