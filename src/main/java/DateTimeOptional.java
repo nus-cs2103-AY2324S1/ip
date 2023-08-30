@@ -6,22 +6,27 @@ import java.time.temporal.TemporalAccessor;
 
 public abstract class DateTimeOptional {
     private static DateTimeFormatter standardDateTimeParser = DateTimeFormatter
-            .ofPattern("[yyyy MM dd HHmm][yyyy MM dd]");
+            .ofPattern("[yyyy MM dd[ HHmm]][yyyy-MM-dd[ HHmm]][yyyy/MM/dd[ HHmm]]");
+
+    private static DateTimeFormatter standardDateTimeDisplay = DateTimeFormatter
+            .ofPattern("L dd yyyy [HH:mm]");
 
     public static DateTimeOptional parseDateTime(String s) throws DukeException {
+        TemporalAccessor temp = standardDateTimeParser.parse(s);
         try {
-            TemporalAccessor temp = standardDateTimeParser.parseBest(s);
-            if (temp instanceof LocalDate date) {
-                return new DateOnly(date);
-            }
-            if (temp instanceof LocalDateTime date) {
-                return new DateTimeOnly(date);
-            }
-            throw new DukeException.DukeDateTimeException(s);
+            LocalDateTime dateTime = LocalDateTime.parse(s, standardDateTimeParser);
+            return new DateTimeOnly(dateTime);
+        } catch (DateTimeParseException e) {
+        }
+        try {
+            LocalDate date = LocalDate.parse(s, standardDateTimeParser);
+            return new DateOnly(date);
         } catch (DateTimeParseException e) {
             throw new DukeException.DukeDateTimeException(s);
         }
     }
+
+    public abstract String displayText();
 
     private static class DateOnly extends DateTimeOptional {
         final LocalDate date;
@@ -34,6 +39,11 @@ public abstract class DateTimeOptional {
         public String toString() {
             return this.date.format(standardDateTimeParser);
         }
+
+        @Override
+        public String displayText() {
+            return this.date.format(standardDateTimeDisplay);
+        }
     }
     private static class DateTimeOnly extends DateTimeOptional {
         final LocalDateTime date;
@@ -43,6 +53,11 @@ public abstract class DateTimeOptional {
         @Override
         public String toString() {
             return this.date.format(standardDateTimeParser);
+        }
+
+        @Override
+        public String displayText() {
+            return this.date.format(standardDateTimeDisplay);
         }
     }
 }
