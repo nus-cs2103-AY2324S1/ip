@@ -78,4 +78,8 @@ public class Task implements Serializable {
         return date.format(DateTimeFormatter.ofPattern("MMM dd yyyy HHmm"));
     }
 
+    public boolean isDone() {
+        return this.isDone;
+    }
+
 }
