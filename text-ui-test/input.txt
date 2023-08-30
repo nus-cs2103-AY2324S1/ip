@@ -3,19 +3,12 @@ todo borrow book
 deadline return book /by 2019-10-15
 event project meeting /from 2/12/2019 1600 /to 2/12/2019 1800
 list
-todo
-event
-deadline
-list
 mark 1
 mark 4
-mark
 list
 unmark 1
-unmark
 delete 4
 delete 3
 delete 2
-delete
 list
 bye
