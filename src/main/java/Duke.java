@@ -91,12 +91,61 @@ public class Duke {
 
                     break;
 
+                case "todo":
+                    System.out.println("Enter task name:");
+                    String taskName = getUserInput.nextLine();
+                    userList[listPointer] = new Task(taskName, 1, "");
+
+                    System.out.println("Got it. I've added this task:");
+
+                    System.out.println(userList[listPointer].display());
+
+                    listPointer = listPointer + 1;
+
+                    System.out.println("Now you have " + listPointer + " tasks in the list.");
+                    break;
+
+                case "deadline":
+                    System.out.println("Enter task name:");
+                    String taskN = getUserInput.nextLine();
+                    System.out.println("Enter deadline:");
+                    String timePeriod = getUserInput.nextLine();
+                    userList[listPointer] = new Task(taskN, 2, "by:" + timePeriod);
+
+                    System.out.println("Got it. I've added this task:");
+
+                    System.out.println(userList[listPointer].display());
+
+                    listPointer = listPointer + 1;
+
+                    System.out.println("Now you have " + listPointer + " tasks in the list.");
+                    break;
+
+                case "event":
+                    System.out.println("Enter task name:");
+                    String tN = getUserInput.nextLine();
+                    System.out.println("Enter start time:");
+                    String startTime = getUserInput.nextLine();
+                    System.out.println("Enter end time:");
+                    String endTime = getUserInput.nextLine();
+                    userList[listPointer] = new Task(tN, 3, "from: " + startTime + " to: " + endTime);
+
+                    System.out.println("Got it. I've added this task:");
+
+                    System.out.println(userList[listPointer].display());
+
+                    listPointer = listPointer + 1;
+
+                    System.out.println("Now you have " + listPointer + " tasks in the list.");
+                    break;
 
                 default:
-                    userList[listPointer] = new Task(userInput);
+                    userList[listPointer] = new Task(userInput, 1, "");
                     listPointer = listPointer + 1;
 
                     System.out.println("added: " + userInput);
+
+                    System.out.println("Now you have " + listPointer + " tasks in the list.");
 
 
             }

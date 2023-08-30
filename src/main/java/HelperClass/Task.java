@@ -1,9 +1,14 @@
 package HelperClass;
 public class Task {
     private boolean isDone;
+
+    private int type;
+    private String timePeriod;
     private String taskName;
-    public Task(String taskName) {
+    public Task(String taskName, int type, String timePeriod) {
         this.isDone = false;
+        this.type = type;
+        this.timePeriod = timePeriod;
         this.taskName = taskName;
 
     }
@@ -21,10 +26,32 @@ public class Task {
     }
 
     public String display() {
-        if (isDone) {
-            return "[X] " + taskName;
-        } else {
-            return "[ ] " + taskName;
+        String description = "[";
+        switch (this.type) {
+            case 1:
+                description = description + "T]";
+                break;
+            case 2:
+                description = description + "D]";
+                break;
+            case 3:
+                description = description + "E]";
+                break;
         }
+        if (isDone) {
+            description = description + "[X] " + taskName;
+        } else {
+            description = description + "[ ] " + taskName;
+        }
+
+        if (!(this.type == 1)) {
+            description = description + " (" + timePeriod + ")";
+        }
+
+
+
+        return description;
     }
 }
+
+
