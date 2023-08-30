@@ -42,12 +42,14 @@ public class Duke {
                     int index = Integer.parseInt(parsedInput.get(1)) - 1;
                     Task task = tasks.mark(index);
                     ui.printTaskMarkedMessage(task);
+                    tasks.saveState(storage);
                     continue;
                 }
                 if (command.equals(Command.UNMARK.getCommand())) {
                     int index = Integer.parseInt(parsedInput.get(1)) - 1;
                     Task task = tasks.unmark(index);
                     ui.printTaskUnmarkedMessage(task);
+                    tasks.saveState(storage);
                     continue;
                 }
                 if (command.equals(Command.LIST.getCommand())) {
@@ -55,7 +57,6 @@ public class Duke {
                     continue;
                 }
                 if (command.equals(Command.BYE.getCommand())) {
-                    tasks.saveState(storage);
                     ui.printGoodbyeMessage();
                     break;
                 }
@@ -63,6 +64,7 @@ public class Duke {
                     ToDo newTodo = new ToDo(parsedInput.get(1));
                     Task task = tasks.add(newTodo);
                     ui.printTaskAddedMessage(task, tasks.getTaskCount());
+                    tasks.saveState(storage);
                     continue;
                 }
                 if (command.equals(Command.DEADLINE.getCommand())) {
@@ -70,6 +72,7 @@ public class Duke {
                             LocalDateTime.parse(parsedInput.get(2), dateTimeInputFormatter));
                     Task task = tasks.add(newDeadline);
                     ui.printTaskAddedMessage(task, tasks.getTaskCount());
+                    tasks.saveState(storage);
                     continue;
                 }
                 if (command.equals(Command.EVENT.getCommand())) {
@@ -78,12 +81,14 @@ public class Duke {
                             LocalDateTime.parse(parsedInput.get(3), dateTimeInputFormatter));
                     Task task = tasks.add(newEvent);
                     ui.printTaskAddedMessage(task, tasks.getTaskCount());
+                    tasks.saveState(storage);
                     continue;
                 }
                 if (command.equals(Command.DELETE.getCommand())) {
                     int index = Integer.parseInt(parsedInput.get(1)) - 1;
                     Task task = tasks.remove(index);
                     ui.printTaskDeletedMessage(task, tasks.getTaskCount());
+                    tasks.saveState(storage);
                     continue;
                 }
                 if (command.equals(Command.ON.getCommand())) {
@@ -98,7 +103,7 @@ public class Duke {
                     continue;
                 }
                 throw new InvalidCommandException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
-            } catch (InvalidCommandException e) {
+            } catch (InvalidCommandException | StorageException e) {
                 System.out.println(e.getMessage());
             }
         }

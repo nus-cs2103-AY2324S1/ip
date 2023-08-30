@@ -34,9 +34,12 @@ public class Storage {
             String directories = String.join("/", Arrays.copyOfRange(splitFilePath, 0,
                     splitFilePath.length - 1));
             File dir = new File(directories);
-            if (!dir.mkdirs()) {
-                throw new StorageException("Error Saving data");
+            if (!dir.exists()) {
+                if (!dir.mkdirs()) {
+                    throw new StorageException("Error Saving data");
+                }
             }
+
 
             FileWriter fw = new FileWriter(filePath);
             for (int i = 0; i < data.size(); i++) {

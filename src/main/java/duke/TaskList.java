@@ -142,17 +142,12 @@ public class TaskList {
      *
      * @param storage storage object to save the tasks.
      */
-    public void saveState(Storage storage) {
-        try {
-            ArrayList<String> stringRepresentation = new ArrayList<>();
-            for (int i = 0; i < this.tasks.size(); i++) {
-                stringRepresentation.add(this.tasks.get(i).toSaveStateString());
-            }
-            storage.saveData(stringRepresentation);
-            System.out.println("Sucessfully saved state");
-        } catch (StorageException e) {
-            System.out.println(e.getMessage());
+    public void saveState(Storage storage) throws StorageException {
+        ArrayList<String> stringRepresentation = new ArrayList<>();
+        for (int i = 0; i < this.tasks.size(); i++) {
+            stringRepresentation.add(this.tasks.get(i).toSaveStateString());
         }
+        storage.saveData(stringRepresentation);
     }
 
     /**
