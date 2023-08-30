@@ -7,7 +7,7 @@ import java.io.File;
 import java.io.FileWriter;
 
 public class Duke {
-     static String logo = "                  .-\"-.\n"
+    static String logo = "                  .-\"-.\n"
             + "                 /|6 6|\\\n"
             + " _  ._ _   _    {/(_0_)\\}\n"
             + "(_) | (/_ (_)    _/ ^ \\_\n"
