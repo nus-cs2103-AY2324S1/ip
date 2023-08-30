@@ -22,4 +22,15 @@ public class Deadline extends Task {
     public String toString() {
         return "[D]" + super.toString() + " (by: " + by + ")";
     }
+
+    /**
+     * Returns deadline task information in format for saving.
+     * Format is D | [1 if completed, 0 if not completed] | [task description] | [by]
+     *
+     * @return Deadline task information in format for saving
+     */
+    @Override
+    public String getInformationForSaving() {
+        return "D | " + super.getInformationForSaving() + " | " + this.by;
+    }
 }

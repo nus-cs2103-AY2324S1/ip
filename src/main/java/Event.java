@@ -25,4 +25,15 @@ public class Event extends Task {
     public String toString() {
         return "[E]" + super.toString() + " (from: " + this.from + " to: " + this.to + ")";
     }
+
+    /**
+     * Returns deadline task information in format for saving.
+     * Format is E | [1 if completed, 0 if not completed] | [task description] | [from] | [to]
+     *
+     * @return Deadline task information in format for saving
+     */
+    @Override
+    public String getInformationForSaving() {
+        return String.format("E | %1s | %2s | %3s", super.getInformationForSaving(), this.from, this.to);
+    }
 }
