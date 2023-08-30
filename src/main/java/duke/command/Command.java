@@ -42,11 +42,19 @@ public abstract class Command {
      */
     public abstract void execute(TaskList taskList, Ui ui, Storage storage) throws DukeBadInputException;
 
-
     /**
      * Checks if the command is the exit command
      *
      * @return true if it is the exit command
      */
     public abstract boolean isExit();
+    /**
+     * Checks if it is the exact same command
+     * @param other the other command in question
+     * @return true if there are equals
+     */
+    @Override
+    public boolean equals(Object other) {
+        return other instanceof Command;
+    }
 }

@@ -33,4 +33,14 @@ public class UnrecognisedCommand extends Command {
     public boolean isExit() {
         return false;
     }
+
+    /**
+     * Checks if it is the exact same command
+     * @param other the other command in question
+     * @return true if there are equals
+     */
+    @Override
+    public boolean equals(Object other) {
+        return other instanceof UnrecognisedCommand;
+    }
 }
