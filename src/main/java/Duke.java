@@ -27,14 +27,14 @@ public class Duke {
 
     public void run() {
         this.ui.showWelcome();
-        boolean exit = false;
-        while(!exit) {
+        boolean isExit = false;
+        while(!isExit) {
             try {
                 String input = this.ui.getUserCommand();
 
                 Command c = Parser.parse(input, this.ui, this.storage, this.tasks);
                 if(c.execute()) {
-                    exit = true;
+                    isExit = true;
                     break;
                 }
             } catch (Exception e) {

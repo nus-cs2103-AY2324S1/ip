@@ -39,7 +39,6 @@ public class Command {
             } else {
                 Task curr = new Task(command.substring(command.indexOf(" ")),
                         command.substring(0, command.indexOf(" ")));
-
                 this.ui.addTask(curr);
                 this.tasks.add(curr);
             }

@@ -2,6 +2,7 @@ package seedu;
 
 public class Parser {
     public static Command parse(String command, Ui ui, Storage storage, TaskList tasks) {
+        
         if(command.equals("bye")) {
             return new Command(command, ui, storage, tasks);
         } else if (command.equals("list")) {
