@@ -1,8 +1,10 @@
 package ducky.task;
 
 public class EventTask extends Task {
+
     private final String startTime;
     private final String endTime;
+
     public EventTask(String desc, String startTime, String endTime) {
         super(desc);
         this.startTime = startTime;

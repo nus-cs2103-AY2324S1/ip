@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 public class DeadlineTask extends Task {
+
     private final LocalDate deadline;
     public DeadlineTask(String desc, LocalDate deadline) {
         super(desc);

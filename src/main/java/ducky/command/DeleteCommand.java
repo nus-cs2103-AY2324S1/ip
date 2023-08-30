@@ -13,6 +13,7 @@ public class DeleteCommand extends Command {
     public DeleteCommand(int inputIndex) {
         this.inputIndex = inputIndex;
     }
+
     @Override
     public void execute(TaskList taskList, UserInterface ui, Storage storage) throws DuckyException {
         int deleteIndex = this.inputIndex - 1;

@@ -15,6 +15,7 @@ public class ChangeTaskCompletionCommand extends Command {
         this.inputIndex = inputIndex;
         this.isCompleted = isCompleted;
     }
+
     @Override
     public void execute(TaskList taskList, UserInterface ui, Storage storage) throws DuckyException {
         int updateIndex = this.inputIndex - 1;

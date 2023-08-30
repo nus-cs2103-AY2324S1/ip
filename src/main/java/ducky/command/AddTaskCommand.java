@@ -22,6 +22,7 @@ public class AddTaskCommand extends Command {
         this.type = type;
         this.args = args;
     }
+
     @Override
     public void execute(TaskList taskList, UserInterface ui, Storage storage) throws DuckyException {
         switch (this.type) {
