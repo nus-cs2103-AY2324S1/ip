@@ -1,3 +1,5 @@
+package duke.exceptions;
+
 public class DukeDatabaseException extends DukeException {
     @Override
     public String toString() {
