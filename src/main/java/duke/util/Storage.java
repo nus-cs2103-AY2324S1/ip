@@ -1,3 +1,11 @@
+package duke.util;
+
+import duke.exception.InvalidDateException;
+import duke.task.Deadline;
+import duke.task.Event;
+import duke.task.Task;
+import duke.task.Todo;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -13,9 +21,9 @@ import java.time.LocalDate;
 
 public class Storage {
     protected static String filePath;
-    protected static ArrayList<Task> taskList;
+    public static ArrayList<Task> taskList;
 
-    Storage(String filePath) {
+    public Storage(String filePath) {
         Storage.filePath = filePath;
         taskList = new ArrayList<>(100);
     }
@@ -25,7 +33,7 @@ public class Storage {
      * @param task the Task that is to be saved.
      * @param isAppend a Boolean to determine if we should add a new line in the saved text file.
      */
-    protected static void saveTask(Task task, boolean isAppend) throws IOException {
+    public static void saveTask(Task task, boolean isAppend) throws IOException {
 
         FileOutputStream outputStream = new FileOutputStream(new File(filePath), isAppend);
         //Use a BufferedWriter
@@ -41,7 +49,7 @@ public class Storage {
             saved[3] = ((Event) task).getStartTime().toString();
             saved[4] = ((Event) task).getEndTime().toString();
         } else {
-            //Todo task
+            //duke.task.Todo duke.task
             saved[0] = "T";
         }
 
@@ -60,7 +68,7 @@ public class Storage {
      * Loads tasks saved previously from Hard Disk.
      * @throws IOException throws an IO Exception if the file is corrupted or invalid.
      */
-    protected void loadTasks() throws IOException, InvalidDateException {
+    public void loadTasks() throws IOException, InvalidDateException {
         // Use FileInputStream and BufferedReader, opposite of saveTask()
         // try-catch to check if file exists or if file is correct format
         try {
@@ -129,12 +137,12 @@ public class Storage {
                     }
                 }
             } catch (IOException e) {
-                // Handle exception while reading the file
+                // Handle duke.exception while reading the file
                 System.out.printf("Error while reading file: %s", e.getMessage());
             }
             bufferedReader.close();
         } catch (IOException e) {
-            // Handle exception while creating directory or file
+            // Handle duke.exception while creating directory or file
             System.out.printf("Error while creating directory: %s", e.getMessage());
         }
     }
@@ -153,8 +161,8 @@ public class Storage {
     }
 
     /**
-     * Clears lines of task status in Hard Disk.
-     * @throws IOException throws IO Exception if file format is invalid or currupted.
+     * Clears lines of task in Hard Disk.
+     * @throws IOException throws IO Exception if file format is invalid or corrupted.
      */
     protected void clearAllData() throws IOException {
         FileOutputStream outputStream = new FileOutputStream(filePath);
@@ -164,7 +172,7 @@ public class Storage {
 
     /**
      * Updates all lines of task status in Hard Disk.
-     * @throws IOException throws IO Exception if file format is invalid or currupted.
+     * @throws IOException throws IO Exception if file format is invalid or corrupted.
      */
     protected void updateData() throws IOException {
         for (int i = 0; i < taskList.size(); i++) {

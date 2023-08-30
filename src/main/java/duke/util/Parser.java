@@ -1,3 +1,14 @@
+package duke.util;
+
+import duke.Duke;
+import duke.exception.EmptyDescriptionException;
+import duke.exception.InvalidCommandException;
+
+import duke.task.Task;
+import duke.task.Todo;
+import duke.task.Deadline;
+import duke.task.Event;
+
 import java.io.IOException;
 
 public class Parser {
@@ -8,7 +19,7 @@ public class Parser {
         BYE, LIST, MARK, UNMARK, DELETE, DEADLINE, TODO, EVENT, UNKNOWN
     }
 
-    Parser(TaskList taskList, Ui ui) {
+    public Parser(TaskList taskList, Ui ui) {
         this.taskList = taskList;
         this.ui = ui;
     }
@@ -21,7 +32,7 @@ public class Parser {
         return line.trim().split("\\s+")[0].toUpperCase();
     }
 
-    protected void parseInput(String userInput, boolean isFinished)
+    public void parseInput(String userInput)
             throws IOException, EmptyDescriptionException, InvalidCommandException {
         try {
             String firstWord = getCommand(userInput);

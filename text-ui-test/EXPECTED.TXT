@@ -56,14 +56,10 @@
     ____________________________________________________________
      OOPS!!! I'm sorry, but I don't know what that means :-(
      Please input valid commands. Currently SeeWhyAre bot supports:
-     todo
-     deadline
-     event
-     list
-     mark
-     unmark
-     delete
-     bye
+     todo      deadline
+     event     list
+     mark      unmark
+     delete    bye
     ____________________________________________________________
     ____________________________________________________________
      Got it. I've added this task:

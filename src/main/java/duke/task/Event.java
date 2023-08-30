@@ -1,3 +1,9 @@
+package duke.task;
+
+import duke.exception.InvalidDateException;
+import duke.util.Storage;
+import duke.util.TaskList;
+
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -41,9 +47,9 @@ public class Event extends Task {
      * Otherwise, print an error message in the console.
      * @param userInput a valid user input for an Event Task.
      */
-    protected static void handleEventTask(String userInput) throws IOException {
+    public static void handleEventTask(String userInput) throws IOException {
         String[] details = userInput.split("/from | /to");
-        //details[0] contains "deadline" plus task description, need to erase "deadline". details[1] contains String deadline timing
+        //details[0] contains "deadline" plus duke.task description, need to erase "deadline". details[1] contains String deadline timing
         if (details.length == 3) {
             String taskDescription = details[0].trim().replaceFirst("event", "").trim();
             String startTime = details[1].trim();
@@ -57,13 +63,13 @@ public class Event extends Task {
                             LocalDate.parse(endTime));
 
                     Storage.saveTask(eventTask, true);
-                    Storage.taskList.add(eventTask); //Deadline <: Task
+                    Storage.taskList.add(eventTask); //duke.task.Deadline <: duke.task.Task
 
                     //Print details in the console
                     printHorizontalLine();
                     System.out.println("     Got it. I've added this task:");
                     System.out.printf("       %s\n", eventTask.toString());
-                    System.out.printf("     Now you have %d tasks in the list.\n", Storage.taskList.size());
+                    System.out.printf("     Now you have %d task(s) in the list.\n", Storage.taskList.size());
                     printHorizontalLine();
                 } else {
                     throw new InvalidDateException();
