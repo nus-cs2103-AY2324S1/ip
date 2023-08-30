@@ -48,7 +48,7 @@ public class Task {
     }
 
     /**
-     * parses the data string from the storage file and returns the corresponding task.
+     * Parses the data string from the storage file and returns the corresponding task.
      * example of data string:
      * T | 1 | read book
      * D | 0 | return book | June 6th
@@ -91,8 +91,8 @@ public class Task {
     /**
      * reads the task and returns the corresponding data string to be written to the storage file.
      *
-     * @param task
-     * @return
+     * @param task The task to be read.
+     * @return String to be written to the storage file.
      */
     public String readTaskToFile(Task task) {
         StringBuilder data = new StringBuilder();

@@ -45,6 +45,12 @@ public class TaskList {
         }
     }
 
+    /**
+     * Retrieves a specific task within the task list.
+     *
+     * @param taskListIndex The index of the task in the task list.
+     * @return The task, or null if the index is invalid.
+     */
     public Task getTask(int taskListIndex) {
         if (isValidListIndex(taskListIndex)) {
             return tasks.get(taskListIndex);
@@ -73,6 +79,11 @@ public class TaskList {
         this.taskCount++;
     }
 
+    /**
+     * Deletes a task from the task list.
+     *
+     * @param taskListIndex The index of the task to be deleted.
+     */
     public void deleteTask(int taskListIndex) {
         this.tasks.remove(taskListIndex);
         this.taskCount--;

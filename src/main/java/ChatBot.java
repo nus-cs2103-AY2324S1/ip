@@ -170,6 +170,9 @@ public class ChatBot {
         this.taskList.displayTasks();
     }
 
+    /**
+     * Saves the tasks to the storage file
+     */
     private void saveTasksToFile() {
         try (PrintWriter writer = new PrintWriter(new FileWriter(FILE_PATH))) {
             for (int i = 0; i < taskList.getTaskCount(); i++) {
