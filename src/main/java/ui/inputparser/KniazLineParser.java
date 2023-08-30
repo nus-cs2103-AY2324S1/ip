@@ -56,12 +56,14 @@ public class KniazLineParser {
 
     private static List<String> splitInstructArgs(String original) {
         List<String> out = new ArrayList<>(List.of(original.split(ANYNUM_WHITESPACE, 2)));
+        // splits by the whitespace into instruction and arguments to instruction
         while (out.size() < 2) {
             out.add("");
         }
         return out;
     }
     private static List<String> splitArgTypes(String original) {
+        // splits into named and unnamed, going off the first '/' marker
         if (!original.contains(NAMED_ARG_MARKER)){
             return List.of(original,"");
         }
