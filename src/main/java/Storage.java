@@ -5,7 +5,12 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Objects;
 import java.util.Scanner;
-public class TasksFile {
+public class Storage {
+
+    private static String FILE_PATH;
+    public Storage (String file_path){
+        FILE_PATH = file_path;
+    }
 
     public static Date fileDateParser(String dateString) throws DukeException {
 
@@ -19,8 +24,6 @@ public class TasksFile {
            throw new DukeException("Cannot read time from file");
         }
     }
-
-    private static final String FILE_PATH = "tasks.txt";
 
     public static void saveTasks(ArrayList<Task> tasks) throws DukeException {
         try {
@@ -50,6 +53,7 @@ public class TasksFile {
 
     public static ArrayList<Task> readTasks() throws DukeException {
         ArrayList<Task> tasks = new ArrayList<>();
+
         try{
             File taskFile = new File(FILE_PATH);
             if (!taskFile.exists()){
