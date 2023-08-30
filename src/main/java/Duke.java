@@ -22,7 +22,6 @@ public class Duke {
     System.out.println(greeting);
     System.out.println(info);
 
-
     label:
     while (true) {
 
@@ -42,9 +41,9 @@ public class Duke {
         break;
       }
 
-      String commandString = inputTokens[0];
+      String commandString = parser.getCommandString();
 
-      switch (commandString) {
+      switch (parser.getCommandString()) {
         case "bye":
           break label;
         case "list":

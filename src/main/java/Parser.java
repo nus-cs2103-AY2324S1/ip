@@ -29,9 +29,18 @@ public class Parser {
     return index;
   }
 
+  public String getCommandString() {
+    if (inputTokens.length == 0) {
+      return "";
+    } else {
+      return inputTokens[0];
+    }
+  }
+
 
   private String inputString;
   private String[] inputTokens;
+
 
   private Scanner scanner;
 }
