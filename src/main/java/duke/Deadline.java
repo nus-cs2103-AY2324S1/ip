@@ -2,8 +2,8 @@ package duke;
 
 import java.time.LocalDateTime;
 
-public class Deadline extends Task{
-    private LocalDateTime by;
+public class Deadline extends Task {
+    private final LocalDateTime by;
 
     public Deadline(String name, String by) {
         super(name);
@@ -16,7 +16,6 @@ public class Deadline extends Task{
     }
 
     public String convertTaskToString() {
-        return "D | " + (super.isDone() ? "1" : "0") + " | " + super.getName() + " | "
-                + DateParser.convertDateTimeToString(this.by) ;
+        return "D | " + (super.isDone() ? "1" : "0") + " | " + super.getName() + " | " + DateParser.convertDateTimeToString(this.by);
     }
 }

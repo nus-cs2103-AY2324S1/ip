@@ -3,7 +3,7 @@ package duke;
 import java.util.ArrayList;
 
 public class TaskList {
-    private ArrayList<Task> tasks;
+    private final ArrayList<Task> tasks;
 
     public TaskList() {
         this.tasks = new ArrayList<>();
@@ -19,16 +19,14 @@ public class TaskList {
         } else if (taskInformation.length == 2) {
             task = new Deadline(taskName, taskInformation[1].replace("by ", ""));
         } else if (taskInformation.length == 3) {
-            task = new Event(taskName, taskInformation[1].replace("from",""),
-                    taskInformation[2].replace("to ", ""));
+            task = new Event(taskName, taskInformation[1].replace("from", ""), taskInformation[2].replace("to ", ""));
         } else {
             ui.formatPrintMessage("Invalid task format");
             return;
         }
         this.tasks.add(task);
         storage.saveTask(task);
-        ui.formatPrintMessage("Got it. I've added this task:\n  " + task + "\nNow you have " + this.tasks.size()
-                + " task(s) in the list.");
+        ui.formatPrintMessage("Got it. I've added this task:\n  " + task + "\nNow you have " + this.tasks.size() + " task(s) in the list.");
 
     }
 
@@ -45,8 +43,7 @@ public class TaskList {
         Task task = this.tasks.get(taskNumber - 1);
         this.tasks.remove(task);
         storage.deleteTask(taskNumber);
-        ui.formatPrintMessage("Noted. I've removed this task:\n  " + task + "\nNow you have " + this.tasks.size()
-                + " task(s) in the list.");
+        ui.formatPrintMessage("Noted. I've removed this task:\n  " + task + "\nNow you have " + this.tasks.size() + " task(s) in the list.");
     }
 
     public void showAllTasks(Ui ui) {

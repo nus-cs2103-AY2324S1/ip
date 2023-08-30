@@ -7,10 +7,24 @@ import java.util.Scanner;
 
 public class Storage {
 
-    private String filePath;
+    private final String filePath;
+
     public Storage(String filePath) {
         this.filePath = filePath;
     }
+
+    private static boolean isValidTaskType(String taskType) {
+        return taskType.equals("T") || taskType.equals("D") || taskType.equals("E");
+    }
+
+    private static boolean isValidDoneFlag(String doneFlag) {
+        return doneFlag.equals("0") || doneFlag.equals("1");
+    }
+
+    private static boolean isValidTaskFormat(String taskType, int taskFormatLength) {
+        return (taskType.equals("T") && taskFormatLength == 3) || (taskType.equals("D") && taskFormatLength == 4) || (taskType.equals("E") && taskFormatLength == 5);
+    }
+
     public void loadTasks(TaskList taskList) {
         try {
             File file = new File(filePath);
@@ -82,18 +96,6 @@ public class Storage {
         }
 
 
-    }
-
-    private static boolean isValidTaskType(String taskType) {
-        return taskType.equals("T") || taskType.equals("D") || taskType.equals("E");
-    }
-
-    private static boolean isValidDoneFlag(String doneFlag) {
-        return doneFlag.equals("0") || doneFlag.equals("1");
-    }
-
-    private static boolean isValidTaskFormat(String taskType, int taskFormatLength) {
-        return (taskType.equals("T") && taskFormatLength == 3) || (taskType.equals("D") && taskFormatLength == 4) || (taskType.equals("E") && taskFormatLength == 5);
     }
 
     public void saveTask(Task task) {

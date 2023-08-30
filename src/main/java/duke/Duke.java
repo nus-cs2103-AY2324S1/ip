@@ -1,10 +1,11 @@
 package duke;
-public class Duke {
-    private String name;
-    private TaskList taskList;
 
-    private Storage storage;
-    private Ui ui;
+public class Duke {
+    private final String name;
+    private final TaskList taskList;
+
+    private final Storage storage;
+    private final Ui ui;
 
     public Duke(String name, String filePath) {
         this.name = name;
@@ -46,7 +47,7 @@ public class Duke {
                 break;
             case "event":
                 String eventDescription = Parser.validateEventCommand(input);
-                this.taskList.addTask(eventDescription , this.storage, this.ui);
+                this.taskList.addTask(eventDescription, this.storage, this.ui);
                 break;
             case "delete":
                 int deleteTaskNumber = Parser.parseInt(inputArr[1]);
