@@ -42,7 +42,7 @@ public class Ui {
      * Reopens the Ui.
      */
     public void open() {
-        this.scanner = new Scanner();
+        this.scanner = new Scanner(System.in);
     }
 
     public void print(String s) {
