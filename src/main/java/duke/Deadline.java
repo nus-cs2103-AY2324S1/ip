@@ -6,6 +6,11 @@ import java.time.LocalDateTime;
 public class Deadline extends Item {
 private LocalDateTime by;
 
+/**
+ * Creates a new deadline
+ * @param name Name of deadline
+ * @param by Due date
+ */
 public Deadline(String input, LocalDateTime by) {
     super(input);
     this.by = by;

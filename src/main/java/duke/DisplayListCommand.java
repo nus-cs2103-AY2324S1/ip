@@ -1,6 +1,6 @@
 package duke;
 /**
- * Encapsulates the command for displaying the list
+ * Encapsulates the command for displaying the list.
  */
 public class DisplayListCommand extends Command{
     @Override

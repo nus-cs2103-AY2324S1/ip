@@ -1,6 +1,9 @@
 package duke;
-public class ExitCommand extends Command{
 
+/**
+ * Encapsulates the command for exiting the chat bot.
+ */
+public class ExitCommand extends Command{
     @Override
     public void execute(ChatBotList list, Ui ui, Storage storage) throws ChatBotListException{
         //do nothing

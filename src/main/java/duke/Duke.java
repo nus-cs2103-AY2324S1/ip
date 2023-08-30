@@ -14,7 +14,6 @@ public class Duke {
         Parser parser = new Parser();
         ChatBotList list = new ChatBotList(storage.loadList());
         System.out.println(new File(DukeEnvironmentConstants.FILE_PATH));
-        System.out.println(DukeEnvironmentConstants.GREETINGS);
         while (true) {
             String input = ui.getNextLine().trim();
             try {

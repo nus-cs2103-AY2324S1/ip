@@ -1,9 +1,9 @@
 package duke;
 import java.time.format.DateTimeFormatter;
-
+/**
+ * A place to store constants.
+ */
 public abstract class DukeEnvironmentConstants {
-    public static final String GREETINGS = "Hello! I'm AChatBot\n" +
-            "What can I do for you?";
     
     public static enum taskType {
         EVENT,

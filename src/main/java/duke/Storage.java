@@ -8,6 +8,9 @@ import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Encapsulates the IO of the list to the disk system.
+ */
 public class Storage {
     private String filePath;
 
