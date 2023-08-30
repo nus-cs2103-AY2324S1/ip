@@ -8,6 +8,7 @@ import duke.tasks.Todo;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -167,5 +168,30 @@ public class TaskList {
         } catch (Exception e) {
             throw new InvalidDateFormatException();
         }
+    }
+
+    /**
+     * Finds tasks in the task list that match the given keyword(s) in their titles.
+     *
+     * @param input The input string containing the keyword(s) to search for.
+     * @return A list of tasks that match the search criteria.
+     * @throws InvalidFindException If the provided search input is too short to be valid.
+     */
+    public List<Task> find(String input) throws InvalidFindException{
+        if (input.length() < 5) {
+            throw new InvalidFindException();
+        }
+        String keywords = input.substring(5);
+        List<Task> filteredTasks = new ArrayList<>();
+        for (Task curr : list) {
+            if (curr.getTitle().indexOf(keywords) != -1) {
+                filteredTasks.add(curr);
+            }
+        }
+        System.out.println("TASKS FOUND:");
+        for (int i = 0; i < filteredTasks.size(); i++) {
+            System.out.println(i + ". " + filteredTasks.get(i));
+        }
+        return filteredTasks;
     }
 }
