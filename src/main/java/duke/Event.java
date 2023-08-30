@@ -36,8 +36,8 @@ public class Event extends Task{
      * @return String representation of the <code>Event</code> object to be saved to the task list file.
      */
     @Override
-    public String savedString() {
-        return "E " + super.savedString() + " | " + this.startTime + "-" + this.endTime;
+    public String getSavedString() {
+        return "E " + super.getSavedString() + " | " + this.startTime + "-" + this.endTime;
     }
 
 }

@@ -8,7 +8,6 @@ import java.time.format.DateTimeFormatter;
  * A <code>Deadline</code> object contains a deadline and a description.
  */
 public class Deadline extends Task{
-
     protected LocalDate deadline;
 
     /**
@@ -44,7 +43,7 @@ public class Deadline extends Task{
      * @return String representation of the <code>Deadline</code> object to be saved to the task list file.
      */
     @Override
-    public String savedString() {
-        return "D " + super.savedString() + " | " + this.deadline;
+    public String getSavedString() {
+        return "D " + super.getSavedString() + " | " + this.deadline;
     }
 }
