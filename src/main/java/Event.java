@@ -3,8 +3,8 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 public class Event extends Task {
-    private LocalDate from;
-    private LocalDate to;
+    private final LocalDate from;
+    private final LocalDate to;
     public Event(String name, String from, String to) throws DukeException {
         super(name);
         if (name.trim().isEmpty()) {
