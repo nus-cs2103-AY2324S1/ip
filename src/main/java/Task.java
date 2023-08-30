@@ -1,3 +1,6 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 public class Task {
     protected String description;
     protected boolean isDone;
@@ -17,6 +20,11 @@ public class Task {
 
     public void markAsUndone() {
         this.isDone = false;
+    }
+
+    public String generateDateString(LocalDateTime datetime) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("EEEE, MMM d, yyyy hh:mm a");
+        return formatter.format(datetime);
     }
 
     @Override

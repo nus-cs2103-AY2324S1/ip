@@ -2,14 +2,19 @@ import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Locale;
 import java.util.Scanner;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class Bongo {
     String pathname = "data/bongo.txt";
     ArrayList<Task> tasks;
     Scanner inputScanner;
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
+
     enum FileAction {
         MARK_TASK,
         UNMARK_TASK,
@@ -75,10 +80,10 @@ public class Bongo {
                     tasks.add(new Todo(arr[2], isTaskMarkedDone));
                     break;
                 case "D":
-                    tasks.add(new Deadline(arr[2], isTaskMarkedDone, arr[3]));
+                    tasks.add(new Deadline(arr[2], isTaskMarkedDone, formatDateTime(arr[3])));
                     break;
                 case "E":
-                    tasks.add(new Event(arr[2], isTaskMarkedDone, arr[3], arr[4]));
+                    tasks.add(new Event(arr[2], isTaskMarkedDone, formatDateTime(arr[3]), formatDateTime(arr[4])));
                     break;
             }
         }
@@ -88,17 +93,17 @@ public class Bongo {
     public void appendToTextFile(Task newTask) {
         try {
             File file = new File(this.pathname);
-            FileWriter fw = new FileWriter(this.pathname,true);
+            FileWriter fw = new FileWriter(this.pathname, true);
             String newLine = "";
             String isTaskMarkedDone = newTask.isDone ? "1" : "0";
             if (newTask instanceof Todo) {
                 newLine = String.join(" | ", "T", isTaskMarkedDone, newTask.description);
             } else if (newTask instanceof Deadline) {
                 Deadline newDeadline = (Deadline) newTask;
-                newLine = String.join(" | ", "D", isTaskMarkedDone, newDeadline.description, newDeadline.deadline);
+                newLine = String.join(" | ", "D", isTaskMarkedDone, newDeadline.description, formatter.format(newDeadline.deadline));
             } else if (newTask instanceof Event) {
                 Event newEvent = (Event) newTask;
-                newLine = String.join(" | ", "E", isTaskMarkedDone, newEvent.description, newEvent.to, newEvent.from);
+                newLine = String.join(" | ", "E", isTaskMarkedDone, newEvent.description, formatter.format(newEvent.from), formatter.format(newEvent.to));
             }
             if (file.length() != 0) {
                 fw.write(String.format("\n%s", newLine));
@@ -107,7 +112,7 @@ public class Bongo {
             }
 
             fw.close();
-        } catch(IOException ioe) {
+        } catch (IOException ioe) {
             System.err.println("IOException: " + ioe.getMessage());
         }
     }
@@ -156,6 +161,14 @@ public class Bongo {
         }
     }
 
+    public LocalDateTime formatDateTime(String datetime) throws DateTimeParseException {
+        try {
+            return LocalDateTime.parse(datetime, this.formatter);
+        } catch (DateTimeParseException e) {
+            throw new DateTimeParseException(String.format("Please enter a valid datetime in the format of %s", "DD/MM/YYYY HHMM"), datetime, e.getErrorIndex());
+        }
+    }
+
     public void listAllTasks() {
         StringBuilder allTasks = new StringBuilder();
         for (int i = 0; i < tasks.size(); i++) {
@@ -183,7 +196,8 @@ public class Bongo {
         if (index == -1) throw new BongoException("OOPS!!! Please include the deadline.");
         String taskDesc = taskInput.substring(0, index - 1);
         String taskDeadline = taskInput.substring(index + 4);
-        this.addTask(new Deadline(taskDesc, taskDeadline));
+        LocalDateTime deadline = formatDateTime(taskDeadline);
+        this.addTask(new Deadline(taskDesc, deadline));
     }
 
     public void addEvent(String[] input) throws BongoException {
@@ -197,7 +211,9 @@ public class Bongo {
         String taskDesc = taskInput.substring(0, fromIndex - 1);
         String taskFrom = taskInput.substring(fromIndex + 6, toIndex - 1);
         String taskTo = taskInput.substring(toIndex + 4);
-        this.addTask(new Event(taskDesc, taskFrom, taskTo));
+        LocalDateTime from = formatDateTime(taskFrom);
+        LocalDateTime to = formatDateTime(taskTo);
+        this.addTask(new Event(taskDesc, from, to));
     }
 
     public void addTask(Task newTask) {
