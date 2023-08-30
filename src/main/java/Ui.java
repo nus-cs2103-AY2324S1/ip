@@ -1,4 +1,3 @@
-import java.util.List;
 import java.util.Scanner;
 
 public class Ui {
@@ -90,10 +89,12 @@ public class Ui {
         }
     }
 
-    public void printDateTask(List<Task> tasksOnDate, String date) {
+    public void printDateTask(String[] tasksOnDate, String date) {
         System.out.printf("%sHere are the %d tasks happening on %s:\n",
-                INDENT, tasksOnDate.size(), date);
-        tasksOnDate.forEach(t -> System.out.printf("%s  %s\n", INDENT, t));
+                INDENT, tasksOnDate.length, date);
+        for (String task : tasksOnDate) {
+            System.out.printf("%s  %s\n", INDENT, task);
+        }
     }
 
     public static String connectTwoLine(String lineOne, String lineTwo) {

@@ -1,7 +1,6 @@
 import java.time.LocalDate;
 import java.util.List;
 import java.util.ArrayList;
-import java.util.stream.IntStream;
 
 public class TaskList {
 
@@ -43,7 +42,11 @@ public class TaskList {
                 }
             }
             if (!tasksOnDate.isEmpty()) {
-                ui.printDateTask(tasksOnDate, date.format(Time.DATE_DISPLAY_FORMATTER));
+                String[] tasks = new String[tasksOnDate.size()];
+                for (int i = 0; i < tasks.length; i++) {
+                    tasks[i] = tasksOnDate.get(i).toString();
+                }
+                ui.printDateTask(tasks, date.format(Time.DATE_DISPLAY_FORMATTER));
             } else {
                 ui.showError(String.format("OOPS!!! There is nothing happening on %s.",
                         date.format(Time.DATE_DISPLAY_FORMATTER)));
