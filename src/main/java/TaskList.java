@@ -82,9 +82,9 @@ public class TaskList {
         TaskList.displayTasks(taskList, isExcludingDone, date);
     }
 
-    public void displayTasks(boolean isExcluding, LocalDate date) {
+    public void displayTasks(boolean isExcludingDone, LocalDate date) {
         ArrayList<Task> taskList = (ArrayList<Task>) this.taskList.clone();
-        TaskList.displayTasks(taskList, isExcluding, date);
+        TaskList.displayTasks(taskList, isExcludingDone, date);
     }
 
     public int size() {

@@ -1,34 +1,17 @@
-import java.io.IOException;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
 import java.util.ArrayList;
-import java.util.MissingResourceException;
 import java.util.Scanner;
 import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 
 public class Duke {
-    private static final String HORIZONTAL_LINE = "____________________________________________________________";
     private final String myName = "Quack-NKN";
-    private final Scanner scanner = new Scanner(System.in);
     private TaskList taskList = new TaskList();
     private Storage storage = new Storage("task-list.txt");
+    private UI ui = new UI("Quack, ", "!");
 
     public Duke() {
         interact();
-    }
-
-    /**
-     * Invoked at the start of the interaction, to greet the user.
-     */
-    private void start() {
-        System.out.print("Hello from ");
-        System.out.println(this.myName);
-        System.out.println("What can I do for you?");
-        System.out.println(Duke.HORIZONTAL_LINE);
     }
 
     /**
@@ -39,25 +22,18 @@ public class Duke {
      * @return whether the program can continue, true if it can, false otherwise.
      */
     private void readFromDisk() throws Storage.FileCorruptedException {
-        System.out.println(Duke.HORIZONTAL_LINE);
-        System.out.println("Loading data from hard disk ...");
+        this.ui.notifyDataLoading();
         try {
             ArrayList<Task> taskList = this.storage.readFromDisk();
             this.taskList = new TaskList(taskList);
-            System.out.println("Done loading.");
+            this.ui.notifyDataLoaded();
         } catch (Storage.FileIOException e) {
-            System.out.println("Quack, an error has occurred while trying to save data to hard disk.");
-            System.out.println("Starting with an empty task list.");
+            this.ui.notifyLoadingIOError();
         }
-        System.out.println(Duke.HORIZONTAL_LINE);
     }
 
-    /**
-     * Invoked at the end of the programme, to leave an exit message to user.
-     */
-    private void exit() {
-        System.out.println("Bye. Hope to see you again soon!");
-        System.out.println(Duke.HORIZONTAL_LINE);
+    public void exit() {
+        this.ui.exit();
     }
 
     /**
@@ -81,405 +57,116 @@ public class Duke {
         try {
             this.readFromDisk();
         } catch (Storage.FileCorruptedException e) {
-            System.out.println("Quack, memory was found to be corrupted!");
-            boolean isContinuing = this.handleFileCorrupted();
+            boolean isContinuing = this.ui.handleFileCorrupted();
             if (!isContinuing) {
                 return;
             }
         }
 
-        this.start();
-        label:
-        while (true) {
+        this.ui.start(this.myName);
+        boolean isContinuing = true;
+        while (isContinuing) {
             // receive input
-            System.out.print("In: ");
-            String command = this.scanner.nextLine();
-            System.out.println(Duke.HORIZONTAL_LINE);
-            String[] commandArgs = command.split(" ", 2);
-
-            // exit
-            switch (commandArgs[0]) {
-                case "":
-                    continue;
-
-                case "exit":
-                case "bye":
-                    break label;
-
-
-                // show list
-                case "list":
-                    this.showList(commandArgs);
-                    break;
-
-                // mark as done
-                case "mark":
-                    this.markTaskAsDone(commandArgs);
-                    break;
-
-                // mark as not done
-                case "unmark":
-                    this.markTaskAsNotDone(commandArgs);
-                    break;
-
-                // add to-do
-                case "todo":
-                    this.addToDoToList(commandArgs);
-                    break;
-
-                // add event
-                case "event":
-                    this.addEventToList(commandArgs);
-                    break;
-
-                // add deadline
-                case "deadline":
-                    this.addDeadlineToList(commandArgs);
-                    break;
-
-                // delete task
-                case "delete":
-                    this.deleteTask(commandArgs);
-                    break;
-
-                // save data to hard disk
-                case "save":
-                    this.saveData();
-                    break;
-
-                // anything else
-                default:
-                    this.echo(command);
-                    break;
+            String input = this.ui.takeInput("In: ");
+            try {
+                Parser.Command command = Parser.parse(input);
+                isContinuing = command.execute(this);
+            } catch (Parser.ParseError e) {
+                this.ui.notifyError(e.getMessage());
             }
-
-            System.out.println(Duke.HORIZONTAL_LINE);
         }
-        this.exit();
-    }
-
-    /**
-     * Perform input checking and add the to-do task to task list.
-     * @param commandArgs the arguments provided in the command
-     */
-    private void addToDoToList(String[] commandArgs) {
-        // number of arguments
-        if (commandArgs.length != 2) {
-            System.out.println("Quack, you did not provide me with the to-do task!");
-            return;
-        }
-        // no empty to-do task
-        if (commandArgs[1].equals("")) {
-            System.out.println("Quack, no empty to-do please!");
-            return;
-        }
-
-        Task newTask = new ToDo(commandArgs[1]);
-        this.taskList.add(newTask);
-        System.out.println("Got it. I've added this task:");
-        System.out.println(newTask);
-        showTaskCount();
-    }
-
-    /**
-     * Perform input checking and add the event to the task list.
-     * @param commandArgs the arguments provided in the command
-     */
-    private void addEventToList(String[] commandArgs) {
-        // number of arguments
-        if (commandArgs.length != 2) {
-            System.out.println("Quack, you did not provide me with the event!");
-            return;
-        }
-
-        // /from keyword
-        String[] separateByFrom = commandArgs[1].split(" /from ", 2);
-        // no empty event
-        if (separateByFrom[0].equals("")) {
-            System.out.println("Quack, no empty event please!");
-            return;
-        }
-        // /from keyword must exist
-        if (separateByFrom.length != 2) {
-            System.out.println("Quack, keyword '/from' not found. " +
-                    "It must be present for me to mark the start time!");
-            return;
-        }
-
-        // /to keyword
-        String[] separateByTo = separateByFrom[1].split(" /to ", 2);
-        // no empty start time
-        if (separateByTo[0].equals("")) {
-            System.out.println("Quack, no empty start time please!");
-            return;
-        }
-        // /to keyword must exist
-        if (separateByTo.length != 2) {
-            System.out.println("Quack, keyword '/to' not found. " +
-                    "It must be present after the '/from' keyword for me to mark the end time!");
-            return;
-        }
-        // no empty end time
-        if (separateByTo[1].equals("")) {
-            System.out.println("Quack, no empty end time please!");
-            return;
-        }
-
-        Task newTask;
-        try {
-            LocalDateTime startTime = DateTimeManager.inputToDate(separateByTo[0]);
-            LocalDateTime endTime = DateTimeManager.inputToDate(separateByTo[1]);
-            newTask = new Event(separateByFrom[0], startTime, endTime);
-        } catch (DateTimeManager.DateParseException | DateTimeException e) {
-            System.out.println("Quack, I do not understand your datetime.");
-            return;
-        }
-        this.taskList.add(newTask);
-        System.out.println("Got it. I've added this task:");
-        System.out.println(newTask);
-        this.showTaskCount();
-    }
-
-    /**
-     * Perform input checking and add a new task as deadline to the current list of tasks.
-     * @param commandArgs the list of arguments in the command
-     */
-    private void addDeadlineToList(String[] commandArgs) {
-        // number of arguments
-        if (commandArgs.length != 2) {
-            System.out.println("Quack, you did not provide me with the deadline!");
-            return;
-        }
-
-        String[] separateByBy = commandArgs[1].split(" /by ", 2);
-        // /by keyword must exist
-        if (separateByBy.length != 2) {
-            System.out.println("Quack, keyword '/by' not found." +
-                    "It must be present for me to mark the deadline time!");
-            return;
-        }
-        // no empty deadline
-        if (separateByBy[0].equals("")) {
-            System.out.println("Quack, no empty deadline task please!");
-            return;
-        }
-        // no empty end time
-        if (separateByBy[1].equals("")) {
-            System.out.println("Quack, no empty deadline time please!");
-            return;
-        }
-
-        Task newTask;
-        try {
-            LocalDateTime dateTime = DateTimeManager.inputToDate(separateByBy[1]);
-            newTask = new Deadline(separateByBy[0], dateTime);
-        } catch (DateTimeManager.DateParseException | DateTimeException e) {
-            System.out.println("Quack, I do not understand your datetime.");
-            return;
-        }
-        this.taskList.add(newTask);
-        System.out.println("Got it. I've added this task:");
-        System.out.println(newTask);
-        this.showTaskCount();
     }
 
     /**
      * Notify user of how many tasks are currently in the task list.
      */
     private void showTaskCount() {
-        System.out.println("Now you have " + this.taskList.size() + " in the list.");
+        this.ui.showTaskCount(this.taskList.size());
     }
 
-    /**
-     * Show the current list of tasks to user.
-     * @param commandArgs the list of arguments in the command
-     */
-    private void showList(String[] commandArgs) {
-        if (commandArgs.length != 1) {
-            String[] args = commandArgs[1].split(" ");
-            boolean isExcludingDone = false;
-            LocalDate date = null;
-            for (String arg: args) {
-                switch (arg) {
-                    case "todo":
-                    case "deadline":
-                    case "event":
-                        break;
-                    case "-d":
-                        isExcludingDone = true;
-                        break;
-                    default:
-                        try {
-                            date = DateTimeManager.parseDate(arg);
-                        } catch (DateTimeManager.DateParseException e) {
-                            System.out.println("Quack, unrecognised \"" + arg + "\"");
-                            return;
-                        }
-                }
-            }
-            switch (args[0]) {
-                case "todo":
-                    System.out.println("Alright, here are your to-do tasks"
-                            + (isExcludingDone ? " not done" : "")
-                            + ":"
-                    );
-                    this.taskList.displayTodos(isExcludingDone);
-                    break;
-                case "deadline":
-                    System.out.println("Alright, here are your deadlines"
-                            + (isExcludingDone ? " not done" : "")
-                            + (date == null ? "" : " before " + DateTimeManager.dateToDisplay(date))
-                    );
-                    this.taskList.displayDeadlines(isExcludingDone, date);
-                    break;
-                case "event":
-                    System.out.println("Alright, here are your events"
-                            + (isExcludingDone ? " not done" : "")
-                            + (date == null ? "" : " happening on " + DateTimeManager.dateToDisplay(date))
-                    );
-                    this.taskList.displayEvents(isExcludingDone, date);
-                    break;
-                default:
-                    String displayString = DateTimeManager.dateToDisplay(date);
-                    System.out.println("Alright, here are the deadlines before "
-                        + displayString + " and events happening " + displayString
-                    );
-                    this.taskList.displayTasks(isExcludingDone, date);
-                    break;
-            }
-        } else {
-            System.out.println("Here is your list of tasks:");
-            this.taskList.displayTasks(false, null);
-        }
+    public void showList(boolean isExcludingDone, LocalDate date) {
+        this.ui.notifyList(UI.Type.DEFAULT, isExcludingDone, date);
+        this.taskList.displayTasks(isExcludingDone, date);
+    }
+
+    public void showTodos(boolean isExcludingDone) {
+        this.ui.notifyList(UI.Type.TODO, isExcludingDone, null);
+        this.taskList.displayTodos(isExcludingDone);
+    }
+
+    public void showDeadlines(boolean isExcludingDone, LocalDate date) {
+        this.ui.notifyList(UI.Type.DEADLINE, isExcludingDone, date);
+        this.taskList.displayDeadlines(isExcludingDone, date);
+    }
+
+    public void showEvents(boolean isExcludingDone, LocalDate date) {
+        this.ui.notifyList(UI.Type.EVENT, isExcludingDone, date);
+        this.taskList.displayEvents(isExcludingDone, date);
+    }
+
+    public void addTaskToList(Task task) {
+        this.taskList.add(task);
+        this.ui.notifyAdded(task);
     }
 
     /**
      * Perform input checking and mark a task with corresponding index as done.
-     * @param commandArgs the list of arguments in the command
+     * @param index the index of task to remove
      */
-    private void markTaskAsDone(String[] commandArgs) {
-        int index = this.getTaskIndexFromCommand(commandArgs);
-        if (index == -1) {
-            return;
-        }
+    public void markTaskAsDone(int index) {
         try {
             Task task = this.taskList.markTaskAsDone(index);
-            System.out.println("Nice! I've marked this task as done:");
-            System.out.println(task);
+            this.ui.notifyMarkDone(task);
         } catch (TaskList.TaskIndexOutOfRange e) {
-            System.out.println("Quack, the task number you provide is too big!");
+            this.ui.notifyError("invalid task index");
         }
     }
 
     /**
      * Perform input checking and mark a task with corresponding index as not done.
-     * @param commandArgs the list of arguments in the command
+     * @param index the index of task to remove
      */
-    private void markTaskAsNotDone(String[] commandArgs) {
-        int index = this.getTaskIndexFromCommand(commandArgs);
-        if (index == -1) {
-            return;
-        }
+    public void markTaskAsNotDone(int index) {
         try {
             Task task = this.taskList.markTaskAsNotDone(index);
-            System.out.println("OK, I've marked this task as not done yet:");
-            System.out.println(task);
+            this.ui.notifyMarkNotDone(task);
         } catch (TaskList.TaskIndexOutOfRange e) {
-            System.out.println("Quack, the task number you provide is too big!");
+            this.ui.notifyError("invalid task index");
         }
     }
 
     /**
      * Perform input checking and delete the task if input is valid, given a command.
-     * @param commandArgs the list of arguments in the command.
+     * @param index the index of the task
      */
-    private void deleteTask(String[] commandArgs) {
-        int index = this.getTaskIndexFromCommand(commandArgs);
-        if (index == -1) {
-            return;
-        }
+    public void deleteTask(int index) {
         try {
             Task taskDeleted = this.taskList.deleteTask(index);
-            System.out.println("Noted, I've removed this task:");
-            System.out.println(taskDeleted);
-            this.showTaskCount();
+            this.ui.notifyRemoved(taskDeleted);
         } catch (TaskList.TaskIndexOutOfRange e) {
-            System.out.println("Quack, the task number you provided is too big!");
+            this.ui.notifyError("invalid task index");
         }
-    }
-
-    /**
-     * Get task index from command (second element) and validate input.
-     * If command is invalid, return the number. Else, return -1.
-     * Print out the relevant error message, if there is error.
-     * Else, return
-     * @param commandArgs the list of command arguments separated by space
-     * @return the task index, or -1 if input is invalid
-     */
-    private int getTaskIndexFromCommand(String[] commandArgs) {
-        // check for number of arguments
-        if (commandArgs.length != 2) {
-            System.out.println("Quack, you have provided wrong number of arguments!");
-            return -1;
-        }
-
-        // check if second argument is positive integer
-        String indexString = commandArgs[1];
-        if (indexString.matches("0+") || !indexString.matches("\\d+")) {
-            System.out.println("Quack, you need to provide a positive integer!");
-            return -1;
-        }
-
-        return Integer.parseInt(indexString) - 1;
     }
 
     /**
      * Save data to hard disk, with the current task list.
      */
-    private void saveData() {
-        System.out.println("Saving data ...");
+    public void saveData() {
+        this.ui.notifyDataSaving();
         try {
             this.taskList.saveData(this.storage);
-            System.out.println("Done saving");
+            this.ui.notifyDataSaved();
         } catch (Storage.FileIOException e) {
-            System.out.println("An error has occurred while writing to hard disk!");
-        }
-    }
-
-    /**
-     * Ask the user on the course of action to take, when file is corrupted.
-     */
-    private boolean handleFileCorrupted() {
-        System.out.println("What do you wish to do?");
-        System.out.println("1. Quit, let me restore the data manually");
-        System.out.println("2. Continue with an empty task list");
-        System.out.print("Please indicate your option (1/2): ");
-
-        while (true) {
-            String response = this.scanner.nextLine();
-            System.out.println(Duke.HORIZONTAL_LINE);
-            switch (response) {
-                case "1":
-                    this.exit();
-                    return false;
-                case "2":
-                    return true;
-                default:
-                    System.out.print("Quack, I do not understand your option, please indicate again (1/2): ");
-            }
+            this.ui.notifyError("an error has occurred while writing to hard disk");
         }
     }
 
     /**
      * Echo command back to the user.
-     * @param command the command from the user
+     * @param input the input from the user
      */
-    private void echo(String command) {
-        if (command.equals("quack")) {
-            System.out.println("Quack quack quack");
-        } else {
-            System.out.println("Quack, what do you mean when you say " + command);
-        }
+    public void echo(String input) {
+        this.ui.echo(input);
     }
 
     public static void main(String[] args) {
