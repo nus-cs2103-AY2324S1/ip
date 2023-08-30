@@ -1,6 +1,13 @@
 package Bob.parser;
 
-import Bob.command.*;
+import Bob.command.AddCommand;
+import Bob.command.Command;
+import Bob.command.DeleteCommand;
+import Bob.command.ExitCommand;
+import Bob.command.FindCommand;
+import Bob.command.ListCommand;
+import Bob.command.MarkCommand;
+
 import Bob.exception.BobException;
 import Bob.exception.BobInvalidCommandException;
 import Bob.exception.BobInvalidTaskNumberException;
@@ -82,6 +89,26 @@ public class ParserTest {
     }
 
     @Test
+    public void parse_find_success() {
+        try {
+            Command c = Parser.parse("find book");
+            assertTrue(c instanceof FindCommand);
+        } catch (BobException e) {
+            fail();
+        }
+    }
+
+    @Test
+    public void parse_delete_success() {
+        try {
+            Command c = Parser.parse("delete 2");
+            assertTrue(c instanceof DeleteCommand);
+        } catch (BobException e) {
+            fail();
+        }
+    }
+
+    @Test
     public void parse_mark_exceptionThrown1() {
         try {
             Command c = Parser.parse("mark");
@@ -155,6 +182,17 @@ public class ParserTest {
         } catch (BobException e) {
             assertTrue(e instanceof BobInvalidCommandException);
             assertEquals("Incorrect event command format! It should be:\nevent [description] /from [start] /to [end]", e.getMessage());
+        }
+    }
+
+    @Test
+    public void parse_delete_exceptionThrown() {
+        try {
+            Command c = Parser.parse("delete non-integer");
+            fail();
+        } catch (BobException e) {
+            assertTrue(e instanceof BobInvalidTaskNumberException);
+            assertEquals("The delete command needs to be followed up by an integer number!\n", e.getMessage());
         }
     }
 }

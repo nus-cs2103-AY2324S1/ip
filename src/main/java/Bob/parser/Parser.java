@@ -118,7 +118,7 @@ public class Parser {
         try {
             return new DeleteCommand(Integer.parseInt(argument));
         } catch (NumberFormatException e) {
-            throw new BobInvalidTaskNumberException();
+            throw new BobInvalidTaskNumberException("The delete command needs to be followed up by an integer number!\n");
         }
     }
 
