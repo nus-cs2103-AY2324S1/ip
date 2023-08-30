@@ -25,8 +25,12 @@ public class Duke {
     while (!isExit) {
       try {
         String fullCommand = ui.readCommand();
-        Command c = CommandParser.parse(fullCommand);
-        c.execute(taskList, ui, storage);
+        if (fullCommand.equals(null)) {
+          isExit = true;
+        } else {
+          Command c = CommandParser.parse(fullCommand);
+          c.execute(taskList, ui, storage);
+        }
       } catch (Exception e) {
         ui.showError(e.getMessage());
       }
