@@ -1,4 +1,12 @@
+package duke.command;
+
 import java.util.stream.Stream;
+
+import duke.core.DukeException;
+import duke.core.Storage;
+import duke.core.Ui;
+import duke.task.Task;
+import duke.task.TaskList;
 
 public class MarkCommand extends Command {
 
