@@ -1,6 +1,9 @@
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.regex.Matcher;
@@ -33,7 +36,7 @@ public class Duke {
     private static final String invalidTodoMessage = "Great heavens! The description of todo cannot be empty!\n"
             + "Usage: todo <description>\n";
     private static final String invalidDeadlineMessage = "Great heavens! Invalid usage of deadline!\n"
-            + "Usage: deadline <description> /by <date>\n";
+            + "Usage: deadline <description> /by <yyyy-mm-dd HHmm> (24h format)\n";
     private static final String invalidEventMessage = "Great heavens! Invalid usage of event!\n"
             + "Usage: event <description> /from <start> /to <end>\n";
     private static final String invalidDeleteMessage = "Great heavens! The index of delete cannot be empty!\n"
@@ -161,7 +164,15 @@ public class Duke {
                             throw new DukeException(line + corruptFileMessage + line);
                         }
 
-                        Deadline newDeadline = new Deadline(matcher.group(3), matcher.group(4));
+                        LocalDateTime parsedDate;
+                        try {
+                            parsedDate = LocalDateTime.parse(matcher.group(4),
+                                    DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
+                        } catch (DateTimeParseException e) {
+                            throw new DukeException(line + corruptFileMessage + line);
+                        }
+
+                        Deadline newDeadline = new Deadline(matcher.group(3), parsedDate);
                         if (matcher.group(2).equals("1")) {
                             newDeadline.markAsDone();
                         }
@@ -305,7 +316,15 @@ public class Duke {
                             throw new DukeException(line + invalidDeadlineMessage + line);
                         }
 
-                        newTask = new Deadline(matcher.group(2), matcher.group(4));
+                        LocalDateTime parsedDate;
+                        try {
+                            parsedDate = LocalDateTime.parse(matcher.group(4),
+                                    DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
+                        } catch (DateTimeParseException e) {
+                            throw new DukeException(line + invalidDeadlineMessage + line);
+                        }
+
+                        newTask = new Deadline(matcher.group(2), parsedDate);
                         tasks.add(newTask);
                         printTaskAdded(newTask, tasks.size());
                         saveTasks(tasks);
