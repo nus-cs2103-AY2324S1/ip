@@ -1,5 +1,7 @@
+package duke;
+
 /**
- * The Task class represents a basic task with a description and status to determine if task is done.
+ * The duke.Task class represents a basic task with a description and status to determine if task is done.
  * Tasks can be marked as done or undone.
  */
 public class Task {
@@ -7,7 +9,7 @@ public class Task {
     protected boolean isDone;
 
     /**
-     * Constructor for the Task class
+     * Constructor for the duke.Task class
      *
      * @param description description of the task
      */

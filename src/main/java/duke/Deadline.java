@@ -1,13 +1,15 @@
+package duke;
+
 /**
- * The Deadline class represents a task with a deadline.
- * It extends the Task class.
+ * The duke.Deadline class represents a task with a deadline.
+ * It extends the duke.Task class.
  * Adds a 'by' field to store the date of the deadline.
  */
 public class Deadline extends Task {
     protected String by;
 
     /**
-     * Constructor for Deadline class.
+     * Constructor for duke.Deadline class.
      *
      * @param description the description of the task
      * @param by          the deadline of the task
@@ -18,10 +20,10 @@ public class Deadline extends Task {
     }
 
     /**
-     * Overides toString method from Task
-     * returns a String representation of Deadline task.
+     * Overides toString method from duke.Task
+     * returns a String representation of duke.Deadline task.
      *
-     * @return The String representation of Deadline task
+     * @return The String representation of duke.Deadline task
      */
     @Override
     public String toString() {

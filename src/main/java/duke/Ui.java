@@ -1,7 +1,9 @@
+package duke;
+
 import java.util.Scanner;
 
 /**
- * UI is a class that handles interactions with the user.
+ * duke.UI is a class that handles interactions with the user.
  * It is responsible for displaying messages, and reading user input.
  */
 public class Ui {
@@ -49,7 +51,7 @@ public class Ui {
     /**
      * Displays the list of tasks.
      *
-     * @param tasks The current TaskList containing tasks to display.
+     * @param tasks The current duke.TaskList containing tasks to display.
      */
     public void showList(TaskList tasks) {
         System.out.println(tasks.toString());

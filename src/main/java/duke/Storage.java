@@ -1,17 +1,24 @@
+package duke;
+
+import duke.exception.DukeException;
+import duke.exception.EmptyDateException;
+import duke.exception.EmptyTaskException;
+import duke.exception.NoEndDateException;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
- * The Storage class is responsible for loading tasks from the file and saving tasks in the file.
+ * The duke.Storage class is responsible for loading tasks from the file and saving tasks in the file.
  */
 public class Storage {
 
     protected String filepath;
 
     /**
-     * Constructor for Storage class.
+     * Constructor for duke.Storage class.
      *
      * @param filepath The file path where the tasks are stored.
      */
@@ -51,10 +58,10 @@ public class Storage {
     }
 
     /**
-     * Creates a Task from the string representation from the file.
+     * Creates a duke.Task from the string representation from the file.
      *
      * @param dataInput The string representation of the task.
-     * @return The created Task object.
+     * @return The created duke.Task object.
      * @throws DukeException If the string representation does not meet task requirements.
      */
     private static Task loadData(String dataInput) throws DukeException {

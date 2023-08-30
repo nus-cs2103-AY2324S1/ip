@@ -1,3 +1,7 @@
+package duke;
+
+import duke.exception.*;
+
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
@@ -11,16 +15,16 @@ public class TaskList {
     private ArrayList<Task> tasks;
 
     /**
-     * Constructs a new empty TaskList.
+     * Constructs a new empty duke.TaskList.
      */
     public TaskList() {
         this.tasks = new ArrayList<>();
     }
 
     /**
-     * Constructs a new TaskList with an existing list of tasks.
+     * Constructs a new duke.TaskList with an existing list of tasks.
      *
-     * @param tasks The list of tasks to initialize the TaskList.
+     * @param tasks The list of tasks to initialize the duke.TaskList.
      */
     public TaskList(ArrayList<Task> tasks) {
         this.tasks = tasks;
@@ -45,7 +49,7 @@ public class TaskList {
      * Creates a new task based on the user's input.
      *
      * @param userInput The user's input.
-     * @return A new Task object.
+     * @return A new duke.Task object.
      * @throws DukeException If userInput does not meet task requirements.
      */
     public Task createNewTask(String userInput) throws DukeException {

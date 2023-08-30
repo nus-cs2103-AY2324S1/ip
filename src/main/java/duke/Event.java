@@ -1,6 +1,8 @@
+package duke;
+
 /**
- * The Event class represents a task with a start date and end date.
- * It extends the Task class.
+ * The duke.Event class represents a task with a start date and end date.
+ * It extends the duke.Task class.
  * Adds a 'from' and 'to' fields to store the state date and end date respectively of the event.
  */
 public class Event extends Task {
@@ -8,7 +10,7 @@ public class Event extends Task {
     protected String to;
 
     /**
-     * Constructor for Event class.
+     * Constructor for duke.Event class.
      *
      * @param description the description of the task
      * @param from        the start date of the task
@@ -21,10 +23,10 @@ public class Event extends Task {
     }
 
     /**
-     * Overides toString method from Task
-     * returns a String representation of Event task.
+     * Overides toString method from duke.Task
+     * returns a String representation of duke.Event task.
      *
-     * @return The String representation of Event task
+     * @return The String representation of duke.Event task
      */
     @Override
     public String toString() {

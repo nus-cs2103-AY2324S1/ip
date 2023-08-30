@@ -1,11 +1,13 @@
+package duke.exception;
+
 /**
- * The NoEndDateException class represents a custom exception used in the Duke class.
- * It extends the DukeException class.
+ * The duke.exception.NoEndDateException class represents a custom exception used in the duke.Duke class.
+ * It extends the duke.exception.DukeException class.
  * It is thrown when the end date of the event task is empty.
  */
 public class NoEndDateException extends DukeException {
     /**
-     * Constructor for NoEndDateException class.
+     * Constructor for duke.exception.NoEndDateException class.
      *
      */
     public NoEndDateException() {

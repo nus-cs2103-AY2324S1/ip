@@ -1,11 +1,13 @@
+package duke.exception;
+
 /**
- * The InvalidInputException class represents a custom exception used in the Duke class.
- * It extends the DukeException class.
+ * The duke.exception.InvalidInputException class represents a custom exception used in the duke.Duke class.
+ * It extends the duke.exception.DukeException class.
  * It is thrown when the user input is invalid.
  */
 public class InvalidInputException extends DukeException {
     /**
-     * Constructor for InvalidInputException class.
+     * Constructor for duke.exception.InvalidInputException class.
      *
      * @param msg The error message of the exception.
      */

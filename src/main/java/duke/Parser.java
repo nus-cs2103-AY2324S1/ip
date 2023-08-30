@@ -1,5 +1,10 @@
+package duke;
+
+import duke.exception.DukeException;
+import duke.exception.InvalidInputException;
+
 /**
- * The Parser class is responsible for interpreting user commands and converting them into actions or tasks.
+ * The duke.Parser class is responsible for interpreting user commands and converting them into actions or tasks.
  */
 public class Parser {
     /**
@@ -66,8 +71,8 @@ public class Parser {
      * Parses the user's input and performs the corresponding operations.
      *
      * @param userInput The user's input.
-     * @param tasks     The current TaskList with all the tasks.
-     * @param ui        The current Ui for user interaction.
+     * @param tasks     The current duke.TaskList with all the tasks.
+     * @param ui        The current duke.Ui for user interaction.
      * @return True if the program should continue running, false if it should exit.
      * @throws DukeException If there's an issue with the user input or task operations.
      */

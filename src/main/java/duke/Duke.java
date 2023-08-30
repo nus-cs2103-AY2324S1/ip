@@ -1,5 +1,9 @@
+package duke;
+
+import duke.exception.DukeException;
+
 /**
- * Duke is a class in-charge of task management.
+ * duke.Duke is a class in-charge of task management.
  * It allows users to add, delete, mark, unmark, specify, and list tasks.
  */
 public class Duke {
@@ -8,7 +12,7 @@ public class Duke {
     private Ui ui;
 
     /**
-     * Constructor for Duke class
+     * Constructor for duke.Duke class
      *
      * @param filePath The filepath where task data is stored.
      */
@@ -24,7 +28,7 @@ public class Duke {
     }
 
     /**
-     * Runs the Duke application
+     * Runs the duke.Duke application
      */
     public void run() {
         ui.showWelcome();
@@ -40,10 +44,10 @@ public class Duke {
     }
 
     /**
-     * The main function of the Duke application.
+     * The main function of the duke.Duke application.
      *
      * @param args Command line arguments
-     * @throws DukeException If an error has occurred in the Duke application.
+     * @throws DukeException If an error has occurred in the duke.Duke application.
      */
     public static void main(String[] args) {
         new Duke("./src/main/java/data/duke.txt").run();
