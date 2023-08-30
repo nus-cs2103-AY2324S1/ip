@@ -13,11 +13,4 @@ public interface Storable<T> {
      * @return The storable string representation of the object.
      */
     public String toStorableString();
-
-    /**
-     * Parses a storable string to create an object of the specified type.
-     *
-     * @return An object created from the storable string.
-     */
-    public T parseStorableString(String storedData);
 }
