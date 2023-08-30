@@ -1,13 +1,17 @@
 package Task;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 public class Event extends Task {
-    private final String start;
-    private final String end;
+    private final LocalDate start;
+    private final LocalDate end;
 
     public Event(String description, String start, String end) {
         super(description);
-        this.start = start;
-        this.end = end;
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        this.start = LocalDate.parse(start, formatter);
+        this.end = LocalDate.parse(end, formatter);
     }
 
     @Override
@@ -26,6 +30,8 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return "[E][" + (getIsDone() ? "X" : " ") + "] " + getDescription() + " (from: " + start + " to: " + end + ")";
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy");
+        return "[E][" + (getIsDone() ? "X" : " ") + "] " + getDescription() + " (from: " + start.format(formatter) +
+                " to: " + end.format(formatter) + ")";
     }
 }

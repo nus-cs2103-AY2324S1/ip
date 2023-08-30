@@ -8,6 +8,8 @@ import Exception.EmptyDescriptionException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -60,7 +62,7 @@ public class Duke {
         String command = words[0];
         boolean validCommand2Words = command.equals("todo") || command.equals("deadline") || command.equals("event") ||
                 command.equals("mark") || command.equals("unmark") || command.equals("delete");
-        boolean validCommand1Word = command.equals("bye") || command.equals("list");
+        boolean validCommand1Word = command.equals("bye") || command.equals("list") || command.equals("help");
 
         if (!validCommand2Words && !validCommand1Word) {
             throw new UnknownCommandException();
@@ -109,6 +111,13 @@ public class Duke {
                         tasks.size() +
                         " tasks in the list.\n" +
                         line);
+            } else if (input.equals("help")) {
+                System.out.println(line + "\nCommands:\n" +
+                        "- To add a todo: 'todo [description]'\n" +
+                        "- To add a deadline: 'deadline [description] /by [date in format yyyy-MM-dd]'\n" +
+                        "- To add an event: 'event [description] /from [start date in format yyyy-MM-dd] /to " +
+                        "[end date in format yyyy-MM-dd]'\n" +
+                        line);
             } else if (words[0].equals("todo")) {
                 Task newTask = new Todo(words[1]);
                 tasks.add(newTask);
@@ -121,6 +130,17 @@ public class Duke {
                         line);
             } else if (words[0].equals("deadline")) {
                 String[] parts = words[1].split(" /by ");
+                if (parts.length < 2) {
+                    System.out.println(line + "Error: Please use the format 'deadline <task description> " +
+                            "/by yyyy-MM-dd'\n" + line);
+                    continue;
+                }
+                try {
+                    LocalDate.parse(parts[1]); // This will throw an exception if the date format is invalid
+                } catch (DateTimeParseException e) {
+                    System.out.println(line + "Error: Please enter the date in the format 'yyyy-MM-dd'.\n" + line);
+                    continue;
+                }
                 Task newTask = new Deadline(parts[0], parts[1]);
                 tasks.add(newTask);
                 taskIndex++;
@@ -132,7 +152,24 @@ public class Duke {
                         " tasks in the list.\n" + line);
             } else if (words[0].equals("event")) {
                 String[] parts = words[1].split(" /from "); // second part will consist the timings
+                if (parts.length < 2) {
+                    System.out.println(line + "Error: Please use the format 'event <event description> /from yyyy-MM-dd " +
+                            "/to yyyy-MM-dd'\n" + line);
+                    continue;
+                }
                 String[] times = parts[1].split(" /to ");
+                if (times.length < 2) {
+                    System.out.println(line + "Error: Please use the format 'event <event description> /from yyyy-MM-dd " +
+                            "/to yyyy-MM-dd'\n" + line);
+                    continue;
+                }
+                try {
+                    LocalDate.parse(times[0]);
+                    LocalDate.parse(times[1]);
+                } catch (DateTimeParseException e) {
+                    System.out.println(line + "Error: Please enter the dates in the format 'yyyy-MM-dd'.\n" + line);
+                    continue;
+                }
                 Task newTask = new Event(parts[0], times[0], times[1]);
                 tasks.add(newTask);
                 taskIndex++;

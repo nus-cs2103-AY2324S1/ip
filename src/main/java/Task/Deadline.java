@@ -1,11 +1,15 @@
 package Task;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 public class Deadline extends Task {
-    private final String dueDate;
+    private final LocalDate dueDate;
 
     public Deadline(String description, String dueDate) {
         super(description);
-        this.dueDate = dueDate;
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        this.dueDate = LocalDate.parse(dueDate, formatter);
     }
 
     @Override
@@ -24,7 +28,9 @@ public class Deadline extends Task {
 
     @Override
     public String toString() {
-        return "[D][" + (getIsDone() ? "X" : " ") + "] " + getDescription() + " (by: " + dueDate + ")";
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy");
+        return "[D][" + (getIsDone() ? "X" : " ") + "] " + getDescription() + " (by: " + dueDate.format(formatter) +
+                ")";
     }
 }
 
