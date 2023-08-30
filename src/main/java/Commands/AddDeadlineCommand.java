@@ -1,9 +1,9 @@
 package Commands;
 
-import Storage.Storage;
-import TaskList.TaskList;
-import Tasks.Task;
-import Ui.Ui;
+import storage.Storage;
+import tasklist.TaskList;
+import tasks.Task;
+import ui.Ui;
 
 public class AddDeadlineCommand implements Command {
     private Task task;

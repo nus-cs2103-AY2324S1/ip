@@ -1,8 +1,8 @@
 package Commands;
 
-import Storage.Storage;
-import TaskList.TaskList;
-import Ui.Ui;
+import storage.Storage;
+import tasklist.TaskList;
+import ui.Ui;
 
 public class DeleteCommand implements Command{
     public static final String DELETE_PATTERN = "^(delete)\\s+\\d+$";
