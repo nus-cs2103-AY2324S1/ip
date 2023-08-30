@@ -1,3 +1,7 @@
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertInstanceOf;
+import static org.junit.jupiter.api.Assertions.fail;
+
 import org.junit.jupiter.api.Test;
 
 import chatter.ChatterException;
@@ -7,8 +11,6 @@ import chatter.command.Command;
 import chatter.command.DeleteCommand;
 import chatter.command.ExitCommand;
 import chatter.command.ListCommand;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 public class ParserTest {
     @Test
