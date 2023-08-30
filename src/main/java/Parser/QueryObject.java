@@ -12,10 +12,19 @@ public class QueryObject {
     }
 
     public Commands getCommandType() {
-        return this.commandType;
+        return commandType;
     }
 
     public ArrayList<String> getArgs() {
-        return this.args;
+        return args;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder result = new StringBuilder(this.commandType.name());
+        for (int i = 0; i < args.size(); i++) {
+            result.append(args.get(i));
+        }
+        return result.toString();
     }
 }

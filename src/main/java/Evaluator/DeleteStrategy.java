@@ -1,7 +1,11 @@
 package Evaluator;
 
 import Logger.Logger;
+import Storage.FileStorage;
 import TaskList.TaskList;
+import TaskList.Task;
+import Exception.KevinException;
+
 import java.util.ArrayList;
 
 public class DeleteStrategy extends BaseStrategy {
@@ -10,10 +14,18 @@ public class DeleteStrategy extends BaseStrategy {
     }
 
     @Override
-    public boolean evaluate(Logger logger) {
-        int index = Integer.parseInt(this.arguments.get(0));
+    public boolean evaluate(Logger logger, FileStorage fileStorage, boolean isInFile) throws KevinException {
+        int index = Integer.parseInt(this.arguments.get(1));
 
-        logger.log(this.taskList.delete(index));
+        Task deletedTask = this.taskList.delete(index);
+
+        if (!isInFile) {
+            fileStorage.deleteTask(index);
+            logger.log("Noted. I've removed this task: \n\t\t" +
+                    deletedTask +
+                    "\n\tNow you have " + this.taskList.size() + " tasks in the list.");
+        }
+
         return true;
     }
 }

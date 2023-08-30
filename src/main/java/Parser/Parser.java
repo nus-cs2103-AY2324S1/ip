@@ -1,7 +1,7 @@
 package Parser;
 
 import java.util.ArrayList;
-import Exception.*;
+import Exception.KevinException;
 
 public class Parser {
     public QueryObject prepareArguments(String userInput) throws KevinException {
@@ -10,9 +10,11 @@ public class Parser {
         if (querySplit.length == 0) {
             throw new KevinException("Please input a command.");
         }
-        // get the command
+
         Commands command;
+        boolean isDone = false;
         ArrayList<String> args = new ArrayList<>();
+        args.add(String.valueOf(isDone));
 
         try {
             command = Commands.valueOf(querySplit[0].toUpperCase());
@@ -25,6 +27,9 @@ public class Parser {
                 throw new KevinException(command.name() + " command does not take any input.");
             }
         } else if (command == Commands.MARK || command == Commands.UNMARK || command == Commands.DELETE) {
+            if (querySplit.length != 2) {
+                throw new KevinException(command.name() + " command needs to take one input");
+            }
             String[] argumentSplit = querySplit[1].split(" ");
             if (argumentSplit.length > 1) {
                 throw new KevinException(command.name() + " command only takes one input.");
@@ -64,6 +69,5 @@ public class Parser {
             args.add(argumentGetDate[1]);
         }
         return new QueryObject(command, args);
-
     }
 }

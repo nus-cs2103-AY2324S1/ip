@@ -1,7 +1,11 @@
 package Evaluator;
 
 import Logger.Logger;
+import Storage.FileStorage;
+import TaskList.Task;
 import TaskList.TaskList;
+import Exception.KevinException;
+
 import java.util.ArrayList;
 
 public class UnmarkStrategy extends BaseStrategy {
@@ -10,10 +14,16 @@ public class UnmarkStrategy extends BaseStrategy {
     }
 
     @Override
-    public boolean evaluate(Logger logger) {
-        int index = Integer.parseInt(this.arguments.get(0));
+    public boolean evaluate(Logger logger, FileStorage fileStorage, boolean isInFile) throws KevinException {
+        int index = Integer.parseInt(this.arguments.get(1));
 
-        logger.log(this.taskList.unmark(index));
+        Task newTask = this.taskList.unmark(index);
+
+        if (!isInFile) {
+            fileStorage.overwriteTask(newTask, index);
+            logger.log("OK, I've marked this task as not done yet: \n\t\t" + newTask);
+        }
+
         return true;
     }
 }

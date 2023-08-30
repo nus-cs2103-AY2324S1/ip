@@ -1,7 +1,10 @@
 package Evaluator;
 
 import Logger.Logger;
+import Storage.FileStorage;
 import TaskList.TaskList;
+import Exception.KevinException;
+
 import java.util.ArrayList;
 
 public abstract class BaseStrategy {
@@ -13,7 +16,7 @@ public abstract class BaseStrategy {
         this.arguments = arguments;
     }
 
-    public boolean evaluate(Logger logger) {
+    public boolean evaluate(Logger logger, FileStorage fileStorage, boolean isInFile) throws KevinException {
         return false;
     }
 }

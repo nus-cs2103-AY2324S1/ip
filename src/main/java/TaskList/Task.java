@@ -1,12 +1,12 @@
 package TaskList;
 
 public class Task {
-    private final String name;
-    private boolean isDone;
+    protected final String name;
+    protected boolean isDone;
 
-    public Task(String name) {
+    public Task(Boolean isDone, String name) {
         this.name = name;
-        this.isDone = false;
+        this.isDone = isDone;
     }
 
     public void setIsDone(boolean isDone) {
@@ -23,6 +23,10 @@ public class Task {
 
     public String isDone() {
         return this.isDone ? "X" : " ";
+    }
+
+    public String toText() {
+        return "Task - "  + isDone + " - " + name + System.lineSeparator();
     }
 
     @Override
