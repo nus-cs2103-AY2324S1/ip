@@ -33,4 +33,15 @@ public class TaskList {
     public Task retrieveTask(int index) {
         return taskForce.get(index);
     }
+
+    public List<Task> filterByWord(String keyword) {
+        List<Task> filteredList = new ArrayList<Task>();
+
+        for (Task task : taskForce) {
+            if (task.description.contains(keyword)) {
+                filteredList.add(task);
+            }
+        } 
+        return filteredList;
+    }
 }
