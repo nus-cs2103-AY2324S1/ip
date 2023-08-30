@@ -1,5 +1,7 @@
+package anto;
+
 public class InvalidIndexException extends DukeException {
     public InvalidIndexException(String errorMessage) {
-        super("InvalidIndexException: " + errorMessage);
+        super("anto.InvalidIndexException: " + errorMessage);
     }
 }

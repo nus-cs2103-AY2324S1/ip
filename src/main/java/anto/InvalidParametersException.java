@@ -1,5 +1,7 @@
+package anto;
+
 public class InvalidParametersException extends DukeException {
     public InvalidParametersException(String errorMessage) {
-        super("InvalidParametersException: " + errorMessage);
+        super("anto.InvalidParametersException: " + errorMessage);
     }
 }

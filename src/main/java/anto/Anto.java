@@ -1,3 +1,5 @@
+package anto;
+
 public class Anto {
 
     private Storage storage;
