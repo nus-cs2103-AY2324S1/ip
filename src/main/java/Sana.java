@@ -19,6 +19,7 @@ public class Sana {
                 ui.showLine();
                 Command c = Parser.parse(fullCommand);
                 c.execute(tasks, ui, storage);
+                isExit = c.isExit();
             } catch (SanaException e) {
                 ui.showError(e.getMessage());
             } finally {

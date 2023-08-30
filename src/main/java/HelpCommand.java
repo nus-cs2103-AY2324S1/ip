@@ -8,4 +8,9 @@ public class HelpCommand extends Command {
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         System.out.println(super.cmd + " is not a valid command!");
     }
+
+    @Override
+    public boolean isExit() {
+        return false;
+    }
 }
