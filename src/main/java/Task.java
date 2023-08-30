@@ -44,7 +44,6 @@ public class Task implements Serializable {
      */
     public void markAsDone() {
         this.isDone = true;
-        System.out.println("You have completed this task");
         System.out.println(this.toString());
     }
 
@@ -53,7 +52,6 @@ public class Task implements Serializable {
      */
     public void unmarkAsDone(){
         this.isDone = false;
-        System.out.println("You have unmarked this task as undone");
         System.out.println(this.toString());
     }
 }

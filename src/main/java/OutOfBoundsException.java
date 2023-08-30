@@ -14,4 +14,7 @@ public class OutOfBoundsException extends AdamException{
     public OutOfBoundsException(String message, Throwable cause){
         super(message,cause);
     }
+    public String getInfo() {
+        return "OOPS!!! The number you put in is more than the current item in your list";
+    }
 }

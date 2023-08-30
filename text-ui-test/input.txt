@@ -1,8 +1,8 @@
 todo test
 list
 mark 1
-event project /from 1am /to 1pm
-deadline homework /by 2 pm
+event project /from 2010-10-10 /to 2011-10-10
+deadline homework /by 2020-10-10
 list
 unmark 1
 mark 2
@@ -17,4 +17,6 @@ deadline test
 event test
 delete
 mark 10
+delete 1
+delete 1
 bye

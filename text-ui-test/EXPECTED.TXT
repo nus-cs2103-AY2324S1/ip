@@ -1,38 +1,38 @@
-Hello! I am Adam
-What can I do for you?
-Got it i have added this todo to the list:
+What's up I am Adam
+so like what do you want?
+I added this todo to the list of endless work you have:
 [T][ ]  test
-Now you have 1 tasks in this list
-Here are the task in your lists:
+1 tasks in this list, stop procrasinating them!!!
+Here are the amount of hard labor you have in your lists:
 1. [T][ ]  test
-You have completed this task
+Congrats on getting one step closer to achieving true happines, I have marked this task as complete
 [T][X]  test
-Got it i have added this todo to the list:
-[E][ ]  project (from: 1am to: 1pm)
-Now you have 2 tasks in this list
-Got it i have added this todo to the list:
-[D][ ]  homework (by: 2 pm)
-Now you have 3 tasks in this list
-Here are the task in your lists:
+I added this event to your list, congrats on having a life outside of work:
+[E][ ]  project (from: Oct 10 2010 to: Oct 10 2011)
+2 tasks in this list, stop procrasinating them!!!
+I have added this deadline to the list, good luck on remembering it one day before deadline:
+[D][ ]  homework (by: Oct 10 2020)
+3 tasks in this list, stop procrasinating them!!!
+Here are the amount of hard labor you have in your lists:
 1. [T][X]  test
-2. [E][ ]  project (from: 1am to: 1pm)
-3. [D][ ]  homework (by: 2 pm)
-You have unmarked this task as undone
+2. [E][ ]  project (from: Oct 10 2010 to: Oct 10 2011)
+3. [D][ ]  homework (by: Oct 10 2020)
+turns out you still got more work to do, I have unmarked it
 [T][ ]  test
-You have completed this task
-[E][X]  project (from: 1am to: 1pm)
-You have completed this task
-[D][X]  homework (by: 2 pm)
-Here are the task in your lists:
+Congrats on getting one step closer to achieving true happines, I have marked this task as complete
+[E][X]  project (from: Oct 10 2010 to: Oct 10 2011)
+Congrats on getting one step closer to achieving true happines, I have marked this task as complete
+[D][X]  homework (by: Oct 10 2020)
+Here are the amount of hard labor you have in your lists:
 1. [T][ ]  test
-2. [E][X]  project (from: 1am to: 1pm)
-3. [D][X]  homework (by: 2 pm)
-I have removed the Task:
-[D][X]  homework (by: 2 pm)
-Now you have 2 tasks in this list
-Here are the task in your lists:
+2. [E][X]  project (from: Oct 10 2010 to: Oct 10 2011)
+3. [D][X]  homework (by: Oct 10 2020)
+I have removed the Task, so just make up your mind next time:
+[D][X]  homework (by: Oct 10 2020)
+2 tasks in this list, stop procrasinating them!!!
+Here are the amount of hard labor you have in your lists:
 1. [T][ ]  test
-2. [E][X]  project (from: 1am to: 1pm)
+2. [E][X]  project (from: Oct 10 2010 to: Oct 10 2011)
 OOPS!!! I don't know what this means
 OOPS!!! Type in the first word you just entered
 OOPS!!! You need to add a description to these tasks
@@ -40,4 +40,10 @@ OOPS!!! You need to add one /by command to indicate by when deadline is
 OOPS!!! You need to add one /from and one /to command
 OOPS!!! You need to follow this command by a number
 OOPS!!! The number you put in is more than the current item in your list
-Bye. Hope to see you again soon!
+I have removed the Task, so just make up your mind next time:
+[T][ ]  test
+1 tasks in this list, stop procrasinating them!!!
+I have removed the Task, so just make up your mind next time:
+[E][X]  project (from: Oct 10 2010 to: Oct 10 2011)
+0 tasks in this list, stop procrasinating them!!!
+Bye. Hope we don't see each other too often

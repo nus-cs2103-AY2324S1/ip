@@ -14,4 +14,7 @@ public class NumberException extends AdamException{
     public NumberException(String message, Throwable cause){
         super(message,cause);
     }
+    public String getInfo() {
+        return "OOPS!!! You need to follow this command by a number";
+    }
 }

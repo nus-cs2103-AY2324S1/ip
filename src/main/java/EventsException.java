@@ -3,14 +3,17 @@
  */
 public class EventsException extends AdamException {
     public EventsException(){}
-    public EventsException(String message){
+    public EventsException(String message) {
         super(message);
     }
-    public EventsException(Throwable cause){
+    public EventsException(Throwable cause) {
         super(cause);
     }
 
-    public EventsException(String message, Throwable cause){
+    public EventsException(String message, Throwable cause) {
         super(message,cause);
+    }
+    public String getInfo() {
+        return "OOPS!!! You need to add one /from and one /to command";
     }
 }

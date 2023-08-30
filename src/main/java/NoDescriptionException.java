@@ -4,14 +4,17 @@
  */
 public class NoDescriptionException extends AdamException{
     public NoDescriptionException(){}
-    public NoDescriptionException(String message){
+    public NoDescriptionException(String message) {
         super(message);
     }
-    public NoDescriptionException(Throwable cause){
+    public NoDescriptionException(Throwable cause) {
         super(cause);
     }
 
-    public NoDescriptionException(String message, Throwable cause){
+    public NoDescriptionException(String message, Throwable cause) {
         super(message,cause);
+    }
+    public String getInfo() {
+        return "OOPS!!! You need to add a description to these tasks";
     }
 }

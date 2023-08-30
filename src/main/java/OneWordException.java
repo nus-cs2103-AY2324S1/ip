@@ -14,4 +14,7 @@ public class OneWordException extends AdamException{
     public OneWordException(String message, Throwable cause){
         super(message,cause);
     }
+    public String getInfo() {
+        return "OOPS!!! Type in the first word you just entered";
+    }
 }

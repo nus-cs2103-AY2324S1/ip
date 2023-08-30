@@ -16,4 +16,8 @@ public class AdamException extends RuntimeException{
     public AdamException(String message, Throwable cause){
         super(message,cause);
     }
+
+    public String getInfo() {
+        return "OOPS!!! I don't know what this means";
+    }
 }
