@@ -1,12 +1,13 @@
+
 public class Task extends Corubi {
     private boolean isDone;
-    private String name;
-    final String done = "[X] ";
-    final String notDone = "[] ";
+    private final String NAME;
+    final String DONE = "[X] ";
+    final String NOTDONE = "[] ";
 
 
     Task(String name, boolean isDone) {
-        this.name = name;
+        this.NAME = name;
         this.isDone = isDone;
     }
 
@@ -24,8 +25,8 @@ public class Task extends Corubi {
      */
     public String toString() {
         return this.checkDone()
-                ? done + this.name
-                : notDone + this.name;
+                ? DONE + this.NAME
+                : NOTDONE + this.NAME;
     }
 
     /*
