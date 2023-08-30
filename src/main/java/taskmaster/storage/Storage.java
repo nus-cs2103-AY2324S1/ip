@@ -1,3 +1,6 @@
+package taskmaster.storage;
+
+import taskmaster.tasks.*;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -5,10 +8,11 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+
 public class Storage {
 
     private static String filePath;
-    private static int number;
+    private static int number = 0;
 
     private ArrayList<Task> taskList = new ArrayList<>();
 

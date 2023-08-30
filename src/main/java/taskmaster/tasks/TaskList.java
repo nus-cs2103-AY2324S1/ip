@@ -1,3 +1,7 @@
+package taskmaster.tasks;
+
+import taskmaster.ui.Ui;
+import taskmaster.exceptions.DukeException;
 import java.util.ArrayList;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -121,8 +125,7 @@ public class TaskList {
         LocalDate dueDate = null;
         try {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-            LocalDate parsedStartDate = LocalDate.parse(date, formatter);
-            dueDate = parsedStartDate;
+            dueDate = LocalDate.parse(date, formatter);
         } catch (java.time.format.DateTimeParseException e) {
             System.out.println("Please input a valid date format: yyyy-mm-dd!");
         }
@@ -137,14 +140,14 @@ public class TaskList {
                 String deadlineString = deadline.getStringDate();
                 LocalDate deadlineDate = deadline.getLocalDate();
                 if ((deadlineDate != null && deadlineDate.equals(dueDate)) || (deadlineString != null && deadlineString.equals(dueDateString))) {
-                    System.out.println(count + ": " + task.toString());
+                    System.out.println(count + ": " + task);
                 }
             } else if (task instanceof Event) {
                 Event event = (Event) task;
                 String startString = event.getStartString();
                 LocalDate startDate = event.getStartDate();
                 if  ((startDate != null && startDate.equals(dueDate)) || (startString != null && startString.equals(dueDateString))) {
-                    System.out.println(count + ": " + task.toString());
+                    System.out.println(count + ": " + task);
                 }
             }
             count++;
