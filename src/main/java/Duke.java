@@ -1,3 +1,4 @@
+import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.List;
@@ -6,6 +7,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.File;
 import java.io.FileWriter;
+import java.time.LocalDate;
 
 /**
  * The Duke class represents a simple chatbot application that helps manage tasks.
@@ -61,8 +63,12 @@ public class Duke {
                     if (description.length() == 0) {
                         throw new DukeException("☹ OOPS!!! The description of a deadline cannot be empty.");
                     }
-                    String by = parts[1].trim();
-                    tasks.add(new Deadline(description, by));
+                    try {
+                        LocalDate by = LocalDate.parse(parts[1].trim());
+                        tasks.add(new Deadline(description, by));
+                    } catch (DateTimeParseException e) {
+                        throw new DukeException("☹ OOPS!!! Invalid date format.");
+                    }
                 } catch (StringIndexOutOfBoundsException e) {
                     throw new DukeException("☹ OOPS!!! The description of a deadline cannot be empty.");
                 }
@@ -154,7 +160,7 @@ public class Duke {
                     tasks.add(new ToDo(description, isDone));
                 } else if (taskType.equals("D")) {
                     // Extract 'by' from parts[3] if applicable
-                    String by = parts[3].trim();
+                    LocalDate by = LocalDate.parse(parts[3].trim());
                     // Create a Deadline task
                     tasks.add(new Deadline(description, by, isDone));
                 } else if (taskType.equals("E")) {
