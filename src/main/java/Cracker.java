@@ -1,20 +1,55 @@
 import Exceptions.*;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Cracker {
 
-    private TodoList list = new TodoList();
+    private TodoList list = null;
     private Reply reply = new Reply();
     enum Type {
         MARK,
         TASK,
         DELETE
-    };
+    }
+
+    private static File getfile(){
+        File file = new File("./data");
+        try{
+
+            file.mkdirs();
+            file = new File("./data/list.txt");
+            file.createNewFile();
+        } catch(Exception e){
+            System.out.println(e);
+        }
+        return file;
+    }
 
     public void startService(){
         boolean talking = true;
+        FileWriter writer = null;
+        try{
+            File taskFile = Cracker.getfile();
+            Scanner setup = new Scanner(taskFile);
+            setup.hasNext();//Why does this work
+            writer = new FileWriter(taskFile);
+            list = new TodoList(writer);
+            while(setup.hasNext()){
+
+                String task = setup.next();
+                list.load(task);
+            }
+            setup.close();
+        } catch (Exception e){
+            System.out.println("This should not be triggered");
+        }
+
+
         Scanner sc = new Scanner(System.in);
         reply.echo("What can I do for you?");
         ArrayList<Object> inLine = new ArrayList<>();
@@ -22,6 +57,8 @@ public class Cracker {
             Type t = null;
 
             String input = sc.nextLine();
+
+
 
             try {
 
@@ -60,6 +97,11 @@ public class Cracker {
                         case "bye":
                             sc.close();
                             talking = false;
+                            try{
+                                list.saveToFile();
+                            } catch (IOException e){
+                                System.out.println("Something wrong happened when saving your tasks");
+                            }
                             break;
                         case "list":
                             reply.iterate(list);
@@ -112,6 +154,8 @@ public class Cracker {
 
     public static void main(String[] args) {
         Cracker bot = new Cracker();
+
+
         bot.startService();
 
 

@@ -29,6 +29,14 @@ public class Event extends Task{
         }
     }
 
+    public Event(String desc, String from, String to) throws EmptyDescriptionException{
+        super(desc);
+        this.from = from;
+        this.to = to;
+
+    }
+    public String getStart(){ return from;}
+    public String getEnd(){return to;}
     public String toString(){
         return "[E]" + super.toString() + " (from: " + from +" to: "+ to +")";
     }
