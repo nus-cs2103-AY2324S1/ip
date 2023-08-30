@@ -1,5 +1,10 @@
 import java.io.*;
+import java.time.format.DateTimeParseException;
 import java.util.Scanner;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 public class Bee {
     private static TaskList listOfTasks = new TaskList();
 
@@ -47,10 +52,17 @@ public class Bee {
                     }
                     String[] splitEditedInput = editedInput.split(" /by ");
                     String deadlineDescription = splitEditedInput[0];
-                    String deadlineDate = splitEditedInput[1];
+                    String deadlineDateString = splitEditedInput[1];
+
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+                    LocalDateTime deadlineDate = LocalDateTime.parse(deadlineDateString, formatter);
+
                     Deadline deadlineTask = new Deadline(deadlineDescription, deadlineDate);
                     listOfTasks.addTask(deadlineTask);
-                } catch (StringIndexOutOfBoundsException e) {
+                } catch (DateTimeParseException e) {
+                    throw new BeeException("OOPS!! Invalid deadline date format. Please use yyyy-MM-dd HHmm");
+                }
+                catch (StringIndexOutOfBoundsException e) {
                     throw new BeeException("OOPS!! The description of a deadline cannot be empty.");
                 } catch (ArrayIndexOutOfBoundsException e) {
                     throw new BeeException("OOPS!! The date of the deadline cannot be empty.");
@@ -136,8 +148,12 @@ public class Bee {
                     String[] splitEditedInput = taskDescription.split("by: ");
                     String deadlineDescription = splitEditedInput[0];
                     deadlineDescription = deadlineDescription.substring(0, deadlineDescription.indexOf("(") - 1);
-                    String deadlineDate = splitEditedInput[1];
-                    deadlineDate = deadlineDate.substring(0, deadlineDate.indexOf(")"));
+                    String deadlineDateString = splitEditedInput[1];
+                    deadlineDateString = deadlineDateString.substring(0, deadlineDateString.indexOf(")"));
+
+                    DateTimeFormatter storageFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm");
+                    LocalDateTime deadlineDate = LocalDateTime.parse(deadlineDateString, storageFormatter);
+
                     Deadline deadlineTask = new Deadline(deadlineDescription, deadlineDate, isDone);
                     listOfTasks.quietlyAddTask(deadlineTask);
                 } catch (StringIndexOutOfBoundsException e) {

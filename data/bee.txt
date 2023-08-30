@@ -1,5 +1,2 @@
-[T][X] YOUR MOM
-[T][X] YOUR MOM
-[D][X] YOUR DAD (by: tmr)
-[D][ ] YOUR SIS (by: this week)
-[E][ ] YOUR WHOLE FAMILY (from: tmr to: sunday)
+[T][ ] YOUR MOM
+[D][ ] YOUR DAD (by: Aug 30 2023 23:59)
