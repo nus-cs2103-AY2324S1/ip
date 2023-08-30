@@ -1,3 +1,7 @@
+package duke;
+
+import duke.task.Task;
+
 import java.io.PrintStream;
 import java.util.Scanner;
 
@@ -10,7 +14,7 @@ public class Ui {
     private final PrintStream out;
 
     /**
-     * Constructor for a Ui instance.
+     * Constructor for a duke.Ui instance.
      */
     public Ui() {
         this.in = new Scanner(System.in);

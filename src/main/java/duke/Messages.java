@@ -1,3 +1,5 @@
+package duke;
+
 public class Messages {
     public static final String GREETING_MESSAGE = "Hello! I'm EnPassant\n"
             + "What can I do for you?\n";

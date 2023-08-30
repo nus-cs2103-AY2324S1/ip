@@ -1,7 +1,12 @@
-public class DeleteCommand extends Command {
+package duke.command;
+
+import duke.*;
+import duke.task.Task;
+
+public class UnmarkCommand extends Command {
     private final int index;
 
-    public DeleteCommand(int index) {
+    public UnmarkCommand(int index) {
         this.index = index;
     }
     @Override
@@ -15,8 +20,8 @@ public class DeleteCommand extends Command {
             throw new DukeException(Ui.LINE + Messages.INVALID_INDEX_MESSAGE + Ui.LINE);
         }
 
-        Task removed = tasks.remove(index);
-        ui.showTaskDeleted(removed, tasks.size());
+        Task currentTask = tasks.markAsUndone(index);
+        ui.showTaskUndone(currentTask);
         storage.saveTasks(tasks);
     }
 }

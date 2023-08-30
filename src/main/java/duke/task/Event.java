@@ -1,12 +1,14 @@
+package duke.task;
+
 /**
- * Represents a Task with a start and end date.
+ * Represents a duke.task.Task with a start and end date.
  */
 public class Event extends Task {
     protected String from;
     protected String to;
 
     /**
-     * Constructor for an Event instance.
+     * Constructor for an duke.task.Event instance.
      *
      * @param description The description of the underlying task.
      * @param from The date on which the event begins.
@@ -19,8 +21,8 @@ public class Event extends Task {
     }
 
     /**
-     * Provides the string representation of the Event instance.
-     * @return A string with the relevant information of the Event task.
+     * Provides the string representation of the duke.task.Event instance.
+     * @return A string with the relevant information of the duke.task.Event task.
      */
     @Override
     public String toString() {
@@ -28,7 +30,7 @@ public class Event extends Task {
     }
 
     /**
-     * Get a formatted string of the Event task to add to the save file.
+     * Get a formatted string of the duke.task.Event task to add to the save file.
      *
      * @return A formatted string with the relevant information for the save file.
      */

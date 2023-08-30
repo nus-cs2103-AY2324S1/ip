@@ -1,3 +1,7 @@
+package duke;
+
+import duke.command.Command;
+
 /**
  * A chatbot that helps you keep track of tasks.
  */
