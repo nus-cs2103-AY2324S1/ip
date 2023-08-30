@@ -61,7 +61,7 @@ public class AddCommand extends Command {
                     newTask = new Event(message, LocalDateTime.parse(from), LocalDateTime.parse(to));
                     break;
                 default:
-                    throw new DukeException("duke.task.Task type is invalid!");
+                    throw new DukeException("Task type is invalid!");
                     // break not needed as exception is thrown
             }
             tasks.add(newTask);
@@ -73,5 +73,24 @@ public class AddCommand extends Command {
             throw new DukeException("Dates should be formatted yyyy-mm-ddThh:mm:ss,\n" +
                     "\t e.g. 2023-09-12T12:06:53");
         }
+    }
+
+    @Override
+    public String getCommandType() {
+        String typeStr;
+        switch (this.type) {
+            case TODO:
+                typeStr = "Todo";
+                break;
+            case DEADLINE:
+                typeStr = "Deadline";
+                break;
+            case EVENT:
+                typeStr = "Event";
+                break;
+            default:
+                typeStr = "";
+        }
+        return "Add " + typeStr;
     }
 }

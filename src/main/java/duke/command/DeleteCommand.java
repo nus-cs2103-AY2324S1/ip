@@ -26,4 +26,9 @@ public class DeleteCommand extends Command {
             throw new DukeException("Cannot delete a task that is out of range!");
         }
     }
+
+    @Override
+    public String getCommandType() {
+        return "Delete";
+    }
 }

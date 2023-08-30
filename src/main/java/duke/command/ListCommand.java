@@ -12,4 +12,9 @@ public class ListCommand extends Command {
             System.out.println("\t " + (i + 1) + "." + tasks.getTaskString(i + 1));
         }
     }
+
+    @Override
+    public String getCommandType() {
+        return "List";
+    }
 }

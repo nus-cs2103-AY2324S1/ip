@@ -19,6 +19,6 @@ public class Deadline extends Task {
 
     public String toString() {
         return "[D]" + this.getStatusIcon() + " " + this.message
-                + " (by: " + deadline.format(DateTimeFormatter.ofPattern("MMM dd yyyy, HH:MM:SS")) + ")";
+                + " (by: " + deadline.format(DateTimeFormatter.ofPattern("MMM dd yyyy, HH:mm:ss")) + ")";
     }
 }

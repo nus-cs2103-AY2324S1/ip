@@ -45,7 +45,7 @@ public class Parser {
             return new AddCommand(deadline[0], deadline[1]);
         } else if (message.startsWith("event")) {
             if (message.length() <= 6)
-                throw new DukeException("The description of a deadline cannot be empty.");
+                throw new DukeException("The description of an event cannot be empty.");
             String[] event = message.substring(6).split(" /to | /from ");
             if (event.length != 3)
                 throw new DukeException("An event requires exactly 2 from/to dates.");

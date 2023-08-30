@@ -24,4 +24,9 @@ public class MarkCommand extends Command {
             throw new DukeException("Cannot mark a task that is out of range!");
         }
     }
+
+    @Override
+    public String getCommandType() {
+        return "Mark";
+    }
 }

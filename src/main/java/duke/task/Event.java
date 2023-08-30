@@ -21,7 +21,7 @@ public class Event extends Task {
 
     public String toString() {
         return "[E]" + this.getStatusIcon() + " " + this.message
-                + " (from: " + from.format(DateTimeFormatter.ofPattern("MMM dd yyyy, HH:MM:SS"))
-                + " to: " + to.format(DateTimeFormatter.ofPattern("MMM dd yyyy, HH:MM:SS")) + ")";
+                + " (from: " + from.format(DateTimeFormatter.ofPattern("MMM dd yyyy, HH:mm:ss"))
+                + " to: " + to.format(DateTimeFormatter.ofPattern("MMM dd yyyy, HH:mm:ss")) + ")";
     }
 }

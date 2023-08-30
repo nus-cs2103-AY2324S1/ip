@@ -25,4 +25,9 @@ public class UnmarkCommand extends Command {
             throw new DukeException("Cannot unmark a task that is out of range!");
         }
     }
+
+    @Override
+    public String getCommandType() {
+        return "Unmark";
+    }
 }

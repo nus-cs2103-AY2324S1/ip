@@ -22,10 +22,6 @@ public class TaskList {
         return this.tasks.remove(i - 1);
     }
 
-    public ArrayList<Task> getTaskList() {
-        return this.tasks;
-    }
-
     public String getTaskString(int i) {
         return this.tasks.get(i - 1).toString();
     }
