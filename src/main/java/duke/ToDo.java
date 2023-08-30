@@ -4,7 +4,7 @@ import java.time.LocalDate;
 
 public class ToDo extends Task{
     /**
-     * Constructor for the task class.
+     * Constructor for the ToDo class.
      *
      * @param name Name of the task.
      */
@@ -14,6 +14,8 @@ public class ToDo extends Task{
 
     /**
      * Returns a string representation of the task.
+     *
+     * @return A string representing the todo.
      */
     @Override
     public String toString() {
@@ -22,6 +24,8 @@ public class ToDo extends Task{
 
     /**
      * Returns a string representation of the task to be saved.
+     *
+     * @return A string representing the todo to be saved.
      */
     @Override
     public String toSaveStateString() {

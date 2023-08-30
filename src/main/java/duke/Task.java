@@ -52,6 +52,8 @@ public abstract class Task {
 
     /**
      * Returns a string representation of the task.
+     *
+     * @return A string representing the task.
      */
     @Override
     public String toString() {
@@ -64,6 +66,8 @@ public abstract class Task {
 
     /**
      * Returns a string representation of the task to be saved.
+     *
+     * @return A string representing the task to be saved.
      */
     public abstract String toSaveStateString();
 
