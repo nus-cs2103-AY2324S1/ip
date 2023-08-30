@@ -43,7 +43,6 @@ public class Duke {
                     } catch (FileNotFoundException e){
                         System.out.println("File not found");
                     }
-//                    displayList(tasks, taskCount);
                 } else if (userInput.startsWith("mark ")) {
                     mark(userInput, tasks, taskCount);
                     try {
