@@ -8,6 +8,8 @@ import java.util.Scanner;
  */
 public class Ui {
     private static final String DIVIDER = "-----------------------";
+    /** Scanner object that takes in user inputs. */
+    private Scanner scanner;
 
     /**
      * Prints a welcome message when user starts the chatbot.
@@ -27,6 +29,7 @@ public class Ui {
      * Prints a welcome message when user exits the chatbot.
      */
     public void showExit() {
+        this.scanner.close();
         System.out.println(DIVIDER + "\nBye. Hope to see you again soon!");
     }
 
@@ -43,8 +46,8 @@ public class Ui {
      * @return A string of the raw user input.
      */
     public String readCommand() {
-        Scanner scanner = new Scanner(System.in);
-        return scanner.nextLine();
+        this.scanner = new Scanner(System.in);
+        return this.scanner.nextLine();
     }
 
     /**

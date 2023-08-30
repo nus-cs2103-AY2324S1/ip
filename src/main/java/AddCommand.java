@@ -17,6 +17,14 @@ public class AddCommand extends Command{
         this.task = task;
     }
 
+    /**
+     * Adds the task to the list of tasks, prints add task message and
+     * stores the updated list in the local file.
+     *
+     * @param tasks TaskList class storing an ArrayList of Task objects.
+     * @param ui Ui class to handle user interactions.
+     * @param storage Storage class to read and store tasks by the user.
+     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         tasks.addTask(task, false);

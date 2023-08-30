@@ -58,6 +58,8 @@ public class Parser {
             return new AddCommand(new Event(input.substring(6, startIndex - 1),
                     input.substring(startIndex + 6, endIndex - 1),
                     input.substring(endIndex + 4)));
+        case("bye"):
+            return new ExitCommand();
         default:
             throw new ChatterException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(" +
                     "\nPlease enter a valid command!");

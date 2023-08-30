@@ -41,15 +41,12 @@ public class Chatter {
                 Command c = p.parse(fullCommand);
                 c.execute(tasks, ui, storage);
                 isExit = c.isExit();
-
             } catch (ChatterException e) {
-
+                System.out.println(e.getMessage());
             } finally {
                 this.ui.showDivider();
             }
         }
-
-        this.ui.showExit();
     }
 
     public static void main(String[] args) {
