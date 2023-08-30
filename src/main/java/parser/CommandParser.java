@@ -6,6 +6,7 @@ import commands.AddTodoCommand;
 import commands.Command;
 import commands.DeleteCommand;
 import commands.ExitCommand;
+import commands.FindCommand;
 import commands.HelpCommand;
 import commands.InvalidCommand;
 import commands.ListCommand;
@@ -56,7 +57,7 @@ public class CommandParser {
     TaskParser taskParser = new TaskParser();
 
     switch (command) {
-      case "mark":
+      case "mark" -> {
         Matcher markMatcher = Pattern.compile(MarkCommand.MARK_PATTERN).matcher(input);
         if (markMatcher.matches()) {
           int pos = extractValue(input);
@@ -64,7 +65,8 @@ public class CommandParser {
         } else {
           return new InvalidCommand("Invalid mark command format.");
         }
-      case "unmark":
+      }
+      case "unmark" -> {
         Matcher unmarkMatcher = Pattern.compile(UnmarkCommand.UNMARK_PATTERN).matcher(input);
         if (unmarkMatcher.matches()) {
           int pos = extractValue(input);
@@ -72,7 +74,8 @@ public class CommandParser {
         } else {
           return new InvalidCommand("Invalid unmark command format.");
         }
-      case "delete":
+      }
+      case "delete" -> {
         Matcher deleteMatcher = Pattern.compile(DeleteCommand.DELETE_PATTERN).matcher(input);
         if (deleteMatcher.matches()) {
           int pos = extractValue(input);
@@ -80,23 +83,29 @@ public class CommandParser {
         } else {
           return new InvalidCommand("Invalid delete command format.");
         }
-      case "event":
+      }
+      case "find" -> {
+        String keyword = input.substring("find".length()).trim();
+        return new FindCommand(keyword);
+      }
+      case "event" -> {
         return new AddEventCommand(taskParser.parseTask(input));
-
-      case "todo":
+      }
+      case "todo" -> {
         return new AddTodoCommand(taskParser.parseTask(input));
-
-      case "deadline":
+      }
+      case "deadline" -> {
         return new AddDeadlineCommand(taskParser.parseTask(input));
-
-      case "bye":
+      }
+      case "bye" -> {
         return new ExitCommand();
-
-      case "list":
+      }
+      case "list" -> {
         return new ListCommand();
-
-      default:
+      }
+      default -> {
         return new HelpCommand();
+      }
     }
   }
 }

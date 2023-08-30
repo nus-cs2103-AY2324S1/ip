@@ -23,7 +23,6 @@ public class TaskList {
     }
     System.out.println("Got it. I've added this task:");
     ls.add(task);
-    Storage.addLine(task.toString());
     System.out.println(task);
     System.out.println("Now you have " + this.size() + " tasks in the list.");
   }
@@ -91,6 +90,27 @@ public class TaskList {
       int order = i + 1;
       Task cur = ls.get(i);
       System.out.println(order + ". " + " " + cur);
+    }
+  }
+
+  /**
+   * Searches for tasks in the task list that contain the
+   * specified keyword and prints the matching tasks.
+   *
+   * @param keyword The keyword to search for in task descriptions.
+   */
+  public void find(String keyword) {
+    System.out.println("Here are the matching tasks in your list:");
+    int counter = 0;
+    for (int i = 0; i < ls.size(); i++) {
+      Task task = ls.get(i);
+      if (task.containKey(keyword)) {
+        counter++;
+        System.out.println(counter + "." + task);
+      }
+    }
+    if (counter == 0) {
+      System.out.println("Sorry.No tasks match the keyword: " + keyword);
     }
   }
 }
