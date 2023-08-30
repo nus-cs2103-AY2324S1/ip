@@ -16,8 +16,8 @@ public class Task {
             this.category = Type.ToDo;
             String[] s =description.split(" ", 2);
             try {
-                this.title = s[1];
-                this.description = s[0] + s[1];
+                this.title = s[1].trim();
+                this.description = s[0] + " " + title;
             } catch(Exception e) {
                 System.out.println("OOPS!!! The description of a todo cannot be empty.");
                 System.out.println("This is not in the correct format");
@@ -28,9 +28,9 @@ public class Task {
             String[] s =description.split("/", 4);
             try {
                 if (s.length == 2) {
-                    this.title = s[0];
-                    this.end = s[1].split("by ")[1];
-                    this.description = s[0] + "("+ s[1].split("by ")[1] + ")";
+                    this.title = s[0].trim();
+                    this.end = s[1].split("by ")[1].trim();
+                    this.description = title + "("+ s[1].split("by ")[1].trim() + ")";
                 } else {
                     String date = s[1].substring( 3).length() == 1 ? "0" + s[1].substring( 3) : s[1].substring( 3);
 
@@ -72,7 +72,7 @@ public class Task {
 
     public String getStatus() {
         String cat = this.category == Type.ToDo ? "T" : this.category == Type.Deadline ? "D" : "E";
-        return "[" + cat +"]" + "["+ this.getStatusIcon() + "] " + this.description;
+        return "[" + cat +"]" + "["+ this.getStatusIcon() + "] " + this.description.trim();
     }
 
     public void setDescription(String desc) {

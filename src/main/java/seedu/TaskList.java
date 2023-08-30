@@ -37,14 +37,14 @@ public class TaskList {
                     lists.add(new Task("todo" + " " + chars[2] ,"todo"));
                 } else if (chars[0].equals("Event")){
                     String title = chars[2];
-                    String fr = chars[4];
-                    String to = chars[3];
+                    String fr = chars[4].trim();
+                    String to = chars[3].trim();
                     Task temp = new Task(title + " /from " + fr + " /to " + to, "event");
                     if (chars[1].equals("true")) temp.isDone = true;
                     lists.add(temp);
                 } else {
-                    String title = chars[2];
-                    String to = chars[3];
+                    String title = chars[2].trim();
+                    String to = chars[3].trim();
                     Task temp = new Task(title + " /by " + to,"deadline");
                     if (chars[1].equals("true")) temp.isDone = true;
                     lists.add(temp);

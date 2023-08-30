@@ -1,5 +1,5 @@
 
-import seedu.*;
+package seedu;
 
 import java.io.FileWriter;
 import java.io.IOException;
