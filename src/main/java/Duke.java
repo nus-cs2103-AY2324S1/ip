@@ -3,7 +3,6 @@ import exceptions.DukeException;
 import java.util.Scanner;
 
 public class Duke {
-    private static Line line = new Line();
     private static final String FILE_PATH = "./data/duke.txt";
     private Storage storage;
     private Tasks tasks;

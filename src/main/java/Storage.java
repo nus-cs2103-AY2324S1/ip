@@ -15,7 +15,7 @@ public class Storage {
     }
 
     public Tasks load() {
-        Tasks tasks = new Tasks(this.filepath);
+        Tasks tasks = new Tasks();
         File myObj = new File(this.filepath);
         try {
             Scanner myReader = new Scanner(myObj);

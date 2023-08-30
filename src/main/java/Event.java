@@ -6,10 +6,9 @@ public class Event extends Task {
 
 
     public Event(String description, LocalDateTime from, LocalDateTime to, boolean marked) {
-        super(description, "event");
+        super(description, "event", marked);
         this.from = from;
         this.to = to;
-        this.mark(marked, true);
     }
 
     @Override

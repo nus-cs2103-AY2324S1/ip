@@ -1,7 +1,7 @@
 import java.util.Scanner;
 
 public class Ui {
-    private static Line line = new Line();
+    private static String line = "    __________________________________________";
     private Scanner s = new Scanner(System.in);
 
     public String readCommand() {

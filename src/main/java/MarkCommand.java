@@ -17,7 +17,7 @@ public class MarkCommand extends Command {
             throw new InvalidCommandException();
         }
 
-        task.mark(this.isMark, false);
+        task.mark(this.isMark);
         storage.save(tasks);
         if (!isRestoring) {
             ui.showSuccessMark(this.isMark, task);

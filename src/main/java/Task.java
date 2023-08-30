@@ -6,18 +6,18 @@ import java.time.format.DateTimeFormatter;
 
 public abstract class Task {
     private String type;
-    private Line line = new Line();
     private String description;
     private boolean isDone = false;
 
-    public Task(String description, String type) {
+    public Task(String description, String type, boolean isDone) {
         this.description = description;
         this.type = type;
+        this.isDone = isDone;
     }
 
     abstract String getOriginalMessage();
 
-    public void mark(boolean val, boolean isRestoring) {
+    public void mark(boolean val) {
         this.isDone = val;
     }
 

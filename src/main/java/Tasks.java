@@ -3,12 +3,7 @@ import java.util.List;
 
 
 public class Tasks {
-    private String filepath;
     private List<Task> tasks = new ArrayList<>();
-
-    public Tasks(String filepath) {
-        this.filepath = filepath;
-    }
 
     public int size() {
         return this.tasks.size();
