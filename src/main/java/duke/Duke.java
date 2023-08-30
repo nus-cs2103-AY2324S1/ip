@@ -22,9 +22,10 @@ public class Duke {
 
         Ui.greetUser();
         Scanner scanObj = new Scanner(System.in);
-        while(true) {
+        boolean isRunning = true;
+        while(isRunning) {
             String nextLine = scanObj.nextLine();
-            Parser.parseCommands(nextLine, this.tasks, this.storage);
+            isRunning = Parser.parseCommands(nextLine, this.tasks, this.storage);
         }
     }
 

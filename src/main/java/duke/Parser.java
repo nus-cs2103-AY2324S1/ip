@@ -18,14 +18,15 @@ public class Parser {
      * @param nextLine input from the user.
      * @param tasks list of task stored.
      * @param storage storage for the tasks to be housed.
+     * @return lets the program know to stop
      */
-    public static void parseCommands(String nextLine, TaskList tasks, Storage storage) {
+    public static boolean parseCommands(String nextLine, TaskList tasks, Storage storage) {
         String firstWord = nextLine.split(" ")[0];
         try {
             switch(firstWord) {
             case "bye":
                 Ui.bidFarewell();
-                return;
+                return false;
             case "list":
                 Ui.printItems(tasks);
                 break;
@@ -57,5 +58,6 @@ public class Parser {
         } catch (DukeException e) {
             Ui.printWrapped(e.getMessage());
         }
+        return true;
     }
 }
