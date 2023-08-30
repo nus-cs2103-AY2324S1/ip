@@ -71,7 +71,6 @@ public class Ui {
         System.out.println("|                   Hey there!                 |");
         System.out.println("|      I'm BouncyBob, your bubbly chatbot!     |");
         System.out.println("| Wow you look very round today, like a ball!  |");
-        System.out.println("|       Use yyyy-mm-dd hhmm for dates          |");
         System.out.println(MIDDLE_BORDER);
         System.out.println(BOTTOM_BORDER);
     }
