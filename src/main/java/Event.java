@@ -2,8 +2,8 @@ public class Event extends Task {
     String start;
     String end;
 
-    public Event(String msg, String start, String end) {
-        super(Type.E, false, msg);
+    public Event(String msg, boolean isDone, String start, String end) {
+        super(Type.E, isDone, msg);
         this.start = start;
         this.end = end;
     }
@@ -41,8 +41,13 @@ public class Event extends Task {
         } else if (input.endsWith("/to")) {
             throw new IllegalArgumentException("Your \"/to\" flag can't be empty! Leave a space if you want it blank.");
         } else {
-            return new Event(input.substring(6, fromFlagStart - 1), input.substring(fromFlagEnd, toFlagStart - 1),
+            return new Event(input.substring(6, fromFlagStart - 1), false, input.substring(fromFlagEnd, toFlagStart - 1),
                     input.substring(toFlagEnd));
         }
+    }
+
+    @Override
+    public String outputFormat() {
+        return String.format("%s|%b|%s|%s|%s", taskType.toString(), done, taskName, start, end);
     }
 }

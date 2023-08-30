@@ -1,0 +1,5 @@
+T|true|cry
+T|false|coding homework
+D|true|get better at coding|ASAP
+E|false|more coding|now|end of time
+D|false|go to sleep|1am

@@ -1,8 +1,8 @@
 public class Deadline extends Task {
     String deadline;
 
-    public Deadline(String msg, String deadline) {
-        super(Type.D,false, msg);
+    public Deadline(String msg, boolean isDone, String deadline) {
+        super(Type.D,isDone, msg);
         this.deadline = deadline;
     }
 
@@ -25,6 +25,11 @@ public class Deadline extends Task {
         } else if (input.endsWith("/by")) {
             throw new IllegalArgumentException("Hey you have to give me a deadline!");
         }
-        return new Deadline(input.substring(9, byFlag - 1), input.substring(byFlag + 4));
+        return new Deadline(input.substring(9, byFlag - 1), false, input.substring(byFlag + 4));
+    }
+
+    @Override
+    public String outputFormat() {
+        return String.format("%s|%b|%s|%s", taskType.toString(), done, taskName, deadline);
     }
 }

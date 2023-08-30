@@ -25,4 +25,6 @@ public abstract class Task {
                 ? String.format("[%s][X] %s", taskType, taskName)
                 : String.format("[%s][ ] %s", taskType, taskName);
     }
+
+    public abstract String outputFormat();
 }

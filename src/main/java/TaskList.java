@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class TaskList {
     ArrayList<Task> taskList;
@@ -82,4 +83,34 @@ public class TaskList {
             }
         }
     }
+
+    public void addFromSc(String input) {
+        Scanner sc = new Scanner(input);
+        sc.useDelimiter("\\|");
+        // parameter handling
+        String taskType = sc.next();
+        boolean isComplete = Boolean.parseBoolean(sc.next());
+        String taskMsg = sc.next();
+
+        switch (taskType) {
+            // todo task
+            case "T":
+                this.taskList.add(new ToDo(taskMsg, isComplete));
+                break;
+            // deadline task
+            case "D":
+                String deadline = sc.next();
+                this.taskList.add(new Deadline(taskMsg, isComplete, deadline));
+                break;
+            // event task
+            case "E":
+                String start = sc.next();
+                String end = sc.next();
+                this.taskList.add(new Event(taskMsg, isComplete, start, end));
+                break;
+            default:
+                System.out.println("something went wrong...");
+        }
+    }
+
 }
