@@ -5,8 +5,15 @@ import java.util.ArrayList;
 public class TaskList {
     private ArrayList<Task> l = new ArrayList<>();
 
+    /**
+     * Empty list.
+     */
     public TaskList() {};
 
+    /**
+     * Init Tasklist with a given arraylist of tasks.
+     * @param list the tasklist
+     */
     public TaskList(ArrayList<Task> list) {
         this.l = list;
     }
@@ -27,6 +34,11 @@ public class TaskList {
         return this.l.get(idx-1);
     }
 
+
+    /**
+     * Make the string to be saved in the textfile upon termination.
+     * @return the string
+     */
     public String format() {
         String res = "";
         for(int i = 0; i < l.size(); ++i) {
@@ -35,6 +47,10 @@ public class TaskList {
         return res;
     }
 
+    /**
+     * The list string representation.
+     * @return the string
+     */
     @Override
     public String toString() {
         StringBuilder res = new StringBuilder();

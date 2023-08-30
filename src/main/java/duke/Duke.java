@@ -46,16 +46,33 @@ public class Duke {
         this.isRunning = false;
     }
 
+
+    /**
+     * Mark the idx^th element in the list.
+     * @param idx index in the list(1-index)
+     * @return The Task marked
+     */
     public Task done(int idx) {
         this.tasklist.get(idx).mark();
         return  this.tasklist.get(idx);
     }
 
+    /**
+     * Unmark the idx^th element in the list.
+     * @param idx index in the list(1-index)
+     * @return The Task unmarked
+     */
     public Task undone(int idx) {
         this.tasklist.get(idx).unmark();
         return this.tasklist.get(idx);
     }
 
+    /**
+     * Add a deadline task based on the description of the string
+     * detailing its deadline and description.
+     * @param s the string
+     * @return the Deadline Tasked added
+     */
     public Task addDeadline(String s) {
         //E|1|descr|12/4/2020 1600|12/4/2020 1700
         try {
@@ -72,6 +89,12 @@ public class Duke {
         }
     }
 
+    /**
+     * Add a todo task based on the description of the string
+     * detailing its deadline.
+     * @param s the string
+     * @return the todo Tasked added
+     */
     public Task addToDo(String s) {
         try {
             System.out.println(s);
@@ -83,6 +106,12 @@ public class Duke {
         }
     }
 
+    /**
+     * Add a event task based on the description of the string
+     * detailing its start, end and description.
+     * @param s the string
+     * @return the Event Tasked added
+     */
     public Task addEvent(String s) {
         //E|1|descr|12/4/2020 1600|12/4/2020 1700
         //event project meeting /from 12/4/2020 1600 /to 12/4/2020 1700
@@ -105,6 +134,12 @@ public class Duke {
             throw new DukeException("Date time input wrong");
         }
     }
+
+    /**
+     * Delete the idx^th task in the list.
+     * @param idx the index of the task(1-index)
+     * @return the Task deleted
+     */
 
     public Task delTask(int idx) {
         try {

@@ -19,10 +19,19 @@ import java.util.Scanner;
 public class Storage {
     private String filePath;
 
+
+    /**
+     * Init the storage at the current filePath.
+     * @param filePath where the saved file is
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
+    /**
+     * Load the saved text file into a list of tasks.
+     * @return the arraylist with the tasks
+     */
     public ArrayList<Task> load() {
         ArrayList<Task> res = new ArrayList<>();
         try {
@@ -39,6 +48,11 @@ public class Storage {
         return res;
     }
 
+    /**
+     * Process every line in the text file and convert to a Task.
+     * @param s line in the file
+     * @return the tasks after processing
+     */
     public Task restore(String s) {
         String[] arr = s.split("\\|");
         Task t;
@@ -79,6 +93,10 @@ public class Storage {
         }
     }
 
+    /**
+     * Upon termination save the tasks into the textfile after formatting.
+     * @param list the tasklist of tasks to be saved
+     */
     public void save(TaskList list) {
         try {
             FileWriter writer = new FileWriter(filePath);
