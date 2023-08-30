@@ -38,6 +38,28 @@ public class Bongo {
         inputScanner.close();
     }
 
+    public void checkIfFilesExist() {
+        File file = new File(this.pathname);
+        String directoryPath = file.getParent();
+        File directory = new File(directoryPath);
+        if (!directory.exists()) {
+            boolean isDirectoryCreated = directory.mkdirs();
+            if (isDirectoryCreated) {
+                System.out.println("Directory created: " + directoryPath);
+            }
+        }
+        if (!file.exists()) {
+            try {
+                boolean isFileCreated = file.createNewFile();
+                if (isFileCreated) {
+                    System.out.println("File created: " + this.pathname);
+                }
+            } catch (IOException e) {
+                System.out.println("An error occurred while creating the file: " + e.getMessage());
+            }
+        }
+    }
+
     public void loadTasksFromStorage() throws FileNotFoundException {
         File file = new File(this.pathname);
         Scanner fileScanner = new Scanner(file);
@@ -137,7 +159,7 @@ public class Bongo {
     public void listAllTasks() {
         StringBuilder allTasks = new StringBuilder();
         for (int i = 0; i < tasks.size(); i++) {
-            allTasks.append(String.format(" %d.%s\n", i + 1, tasks.get(i)));
+            allTasks.append(String.format(" %d. %s\n", i + 1, tasks.get(i)));
         }
         String tasksList = "____________________________________________________________\n" +
                 " Here are the tasks in your list:\n" +
@@ -275,6 +297,7 @@ public class Bongo {
 
     public static void main(String[] args) throws FileNotFoundException {
         Bongo bongo = new Bongo();
+        bongo.checkIfFilesExist();
         bongo.greet();
         bongo.loadTasksFromStorage();
         bongo.processUserInput();
