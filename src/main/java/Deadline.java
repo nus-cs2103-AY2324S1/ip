@@ -1,5 +1,5 @@
 public class Deadline extends Task{
-    private final String endDate;
+    protected final String endDate;
     public Deadline(String taskName, String endDate) {
         super(taskName);
         this.endDate = endDate;
