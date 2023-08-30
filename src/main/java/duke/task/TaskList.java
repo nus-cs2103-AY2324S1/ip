@@ -197,4 +197,28 @@ public class TaskList {
             Ui.showErrorSavingToFileMessage();
         }
     }
+
+    /**
+     * Find tasks with the given keyword.
+     * @param keyword The keyword to search for.
+     */
+    public void findTasks(String keyword) {
+        Ui.showDottedLine();
+        if (tasks.isEmpty()) {
+            System.out.println("There are no tasks in your list.");
+        } else {
+            System.out.println("Here are the matching tasks in your list:");
+            int matchingTasks = 0;
+            for (int i = 0; i < tasks.size(); i++) {
+                if (tasks.get(i).getDescription().contains(keyword)) {
+                    System.out.println((matchingTasks+1) + "." + tasks.get(i));
+                    matchingTasks++;
+                }
+            }
+            if (matchingTasks == 0) {
+                System.out.println("Sorry there are no matching tasks!");
+            }
+        }
+        Ui.showDottedLine();
+    }
 }
