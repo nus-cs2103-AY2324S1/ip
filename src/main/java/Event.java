@@ -10,7 +10,7 @@ public class Event extends Task {
         super(description);
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
-        if (!Input.isValidDate(from, formatter) || !Input.isValidDate(to, formatter)) {
+        if (!Parser.isValidDate(from, formatter) || !Parser.isValidDate(to, formatter)) {
             throw new InvalidDateTimeException();
         }
         this.from = LocalDateTime.parse(from, formatter);
