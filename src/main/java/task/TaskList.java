@@ -14,8 +14,13 @@ import exception.*;
  * Represents a list of Tasks a User can interact with.
  */
 public class TaskList {
+    /** A list containing all the User's tasks. */
     private List<Task> list;
 
+    /**
+     * Constructs a TaskList using a list of Tasks.
+     * @param list
+     */
     public TaskList(List<Task> list) {
         this.list = list;
     }

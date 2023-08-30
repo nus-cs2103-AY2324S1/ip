@@ -15,8 +15,13 @@ import task.Task;
  * Represents a Storage to handle Files found in the User's local storage.
  */
 public class Storage {
+    /** The relative path to the local .txt file. */
     private String filePath;
 
+    /**
+     * Constructs a Storage with a filePath.
+     * @param filePath
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }

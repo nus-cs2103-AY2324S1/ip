@@ -7,9 +7,15 @@ import java.time.LocalDate;
  * Represents a Task that a User can see in a TaskList.
  */
 public class Task {
+    /** The description detailing the Task. */
     protected String description;
+    /** Describes whether the Task is completed. */
     protected boolean isDone;
 
+    /**
+     * Constructs a Task with a description and is set to be not done.
+     * @param description
+     */
     public Task(String description) {
         this.description = description;
         this.isDone = false;

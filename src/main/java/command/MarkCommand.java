@@ -10,8 +10,13 @@ import task.TaskList;;
  * to be completed.
  */
 public class MarkCommand extends Command {
+    /** Command the user starts with to activate the MarkCommand. */
     public static final String COMMAND_WORD = "mark";
 
+    /**
+     * Constructs a MarkCommand with an Index.
+     * @param index
+     */
     public MarkCommand(int index) {
         super(index);
     }

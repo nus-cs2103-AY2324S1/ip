@@ -9,8 +9,13 @@ import task.TaskList;
  * Represents a Command that specifically deletes a Task in the TaskList.
  */
 public class DeleteCommand extends Command {
+    /** Command the user starts with to activate the DeleteCommand. */
     public static final String COMMAND_WORD = "delete";
 
+    /**
+     * Constructs a DeleteCommand with an Index.
+     * @param index
+     */
     public DeleteCommand(int index) {
         super(index);
     }

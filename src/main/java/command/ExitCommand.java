@@ -8,8 +8,13 @@ import task.TaskList;
  * Represents a Command that specifically exits the ChatBot.
  */
 public class ExitCommand extends Command {
+    /** Command the user starts with to activate the ExitCommand. */
     public static final String COMMAND_WORD = "bye";
 
+    /**
+     * Constructs an ExitCommand with an Index.
+     * @param index
+     */
     public ExitCommand(int index) {
         super(index);
     }
@@ -28,7 +33,6 @@ public class ExitCommand extends Command {
      * @param list
      * @param ui
      * @param storage
-     * @throws DukeException
      */
     @Override
     public void execute(TaskList list, Ui ui, Storage storage) {

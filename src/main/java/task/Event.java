@@ -4,9 +4,17 @@ package task;
  * Represents a Task that has a start and end time.
  */
 public class Event extends Task {
+    /** The start time for an Event. */
     protected String start;
+    /** The end time for an Event. */
     protected String end;
 
+    /**
+     * Constructs an Event with a description, a start and end time.
+     * @param description
+     * @param start
+     * @param end
+     */
     public Event(String description, String start, String end) {
         super(description);
         this.start = start;

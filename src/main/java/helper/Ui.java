@@ -2,8 +2,13 @@ package helper;
 
 import java.util.Scanner;
 
+/**
+ * Represents a User Interface that receives the User input and prints out the outputs.
+ */
 public class Ui {
-    public static final String dDIVIDER = "____________________________________________________________";
+    /**
+     * A line to divide responses. */
+    public static final String DIVIDER = "____________________________________________________________";
 
     /**
      * Prints out a welcome message to the User to signal the ChatBot has started up.
@@ -19,7 +24,7 @@ public class Ui {
      * Prints out a dividing line.
      */
     public void showLine() {
-        System.out.println(dDIVIDER);
+        System.out.println(DIVIDER);
     }
 
     /**

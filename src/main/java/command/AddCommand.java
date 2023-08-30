@@ -15,8 +15,14 @@ import task.ToDo;
  * Represents a Command that specifically adds a Task to the TaskList.
  */
 public class AddCommand extends Command {
+    /** Task to be parsed into Command. */
     private String task;
 
+    /**
+     * Constructs an AddCommand with a task and an index.
+     * @param index
+     * @param task
+     */
     public AddCommand(int index, String task) {
         super(index);
         this.task = task;

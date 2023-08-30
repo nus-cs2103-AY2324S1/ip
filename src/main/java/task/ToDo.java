@@ -4,10 +4,13 @@ package task;
  * Represents a Task that just has a description.
  */
 public class ToDo extends Task {
+    /**
+     * Constucts a ToDo with a description.
+     * @param description
+     */
     public ToDo(String description) {
         super(description);
     }
-
 
     /**
      * Returns a String representation of the ToDo.

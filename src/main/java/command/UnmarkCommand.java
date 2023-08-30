@@ -10,8 +10,13 @@ import task.TaskList;
  * to be uncompleted.
  */
 public class UnmarkCommand extends Command {
+    /** Command the user starts with to activate the UnmarkCommand. */
     public static final String COMMAND_WORD = "unmark";
 
+    /**
+     * Constructs a UnmarkCommand with an Index.
+     * @param index
+     */
     public UnmarkCommand(int index) {
         super(index);
     }

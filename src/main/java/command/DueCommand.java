@@ -10,9 +10,16 @@ import task.TaskList;
  * Represents a Command specifically returns Tasks due on a LocalDate.
  */
 public class DueCommand extends Command {
+    /** Command the user starts with to activate the DueCommand. */
     public static final String COMMAND_WORD = "due";
+    /** A LocalDate a Deadline is supposed to be due on. */
     private LocalDate dueDate;
 
+    /**
+     * Constructs a DueCommand with an Index and a DueDate.
+     * @param index
+     * @param dueDate
+     */
     public DueCommand(int index, LocalDate dueDate) {
         super(index);
         this.dueDate = dueDate;
@@ -23,7 +30,6 @@ public class DueCommand extends Command {
      * @param list
      * @param ui
      * @param storage
-     * @throws DukeException
      */
     @Override
     public void execute(TaskList list, Ui ui, Storage storage) {

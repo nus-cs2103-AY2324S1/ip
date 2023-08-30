@@ -7,13 +7,18 @@ import java.time.format.DateTimeFormatter;
  * Represents a Task that has a LocalDate it us due by.
  */
 public class Deadline extends Task {
+    /** A LocalDate which the Deadline is due by. */
     protected LocalDate by;
 
+    /**
+     * Constructs a Deadline with a description and a LocalDate it is due by.
+     * @param description
+     * @param by
+     */
     public Deadline(String description, LocalDate by) {
         super(description);
         this.by = by;
     }
-
 
     /**
      * Returns a String representation of the Deadline.

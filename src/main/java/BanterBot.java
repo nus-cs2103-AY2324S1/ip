@@ -10,10 +10,17 @@ import task.TaskList;
  * Represents the ChatBot the User interacts with.
  */
 public class BanterBot {
+    /** A Storage that handles the reading and writing of local files. */
     private Storage storage;
+    /** The list of Tasks a User has. */
     private TaskList tasks;
+    /** The User Interface the ChatBot uses to interact with the User. */
     private Ui ui;
 
+    /**
+     * Constructs a BanterBot with a filePath leading to the local .txt file.
+     * @param filePath
+     */
     public BanterBot(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);

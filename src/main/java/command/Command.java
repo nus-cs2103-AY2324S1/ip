@@ -9,9 +9,14 @@ import task.TaskList;
  * Represents a Command that the User has entered through the Command Line Interface.
  */
 public abstract class Command {
+    /** Index in the TaskList. Default is set to -1. */
     private int index = -1;
 
-    public Command(int index) {
+    /**
+     * Constructs a Command with an Index.
+     * @param index
+     */
+    protected Command(int index) {
         this.index = index;
     }
 
