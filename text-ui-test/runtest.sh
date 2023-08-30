@@ -37,8 +37,8 @@ fi
 # run the program, feed commands from input.txt file and redirect the output to the ACTUAL.TXT
 java -classpath ./bin Duke < ./text-ui-test/input.txt > ./text-ui-test/ACTUAL.TXT
 
-# Remove duplicated savedTasks
-rm ./data/savedTasks.txt
+# Relocate and rename savedTasks
+mv ./data/savedTasks.txt ./text-ui-test/ACTUAL-SAVED.TXT
 
 # Restore previous savedTask (if any)
 if [ -e "./data/savedTasksTmp.txt" ]
