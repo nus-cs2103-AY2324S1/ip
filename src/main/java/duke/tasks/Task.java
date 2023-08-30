@@ -11,14 +11,19 @@ import duke.exceptions.DukeInvalidArgumentException;
  */
 public abstract class Task {
 
+    /** The date/time formatter for output to the user. */
     private static final DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("EEE dd MMM yyyy HH:mm");
 
+    /**
+     * The date/time formatter for parsing user input.
+     * This format is used to format dates internally.
+     */
     private static final DateTimeFormatter parseFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
-    // The description of the task.
+    /** The description of the task. */
     private String description;
 
-    // Whether the task is done.
+    /** Whether the task is done. */
     private boolean isDone;
 
     /**
@@ -45,16 +50,38 @@ public abstract class Task {
         this.isDone = false;
     }
 
+    /**
+     * Returns the description of the task.
+     *
+     * @return The description of the task.
+     */
     public String getDescription() {
         return this.description;
     }
 
+    /**
+     * Returns whether the task is done.
+     *
+     * @return Whether the task is done.
+     */
     public boolean getIsDone() {
         return this.isDone;
     }
 
+    /**
+     * Returns the save format of the task, to be written to the save file.
+     *
+     * @return The save format of the task.
+     */
     public abstract String getSaveFormat();
 
+    /**
+     * Parses the date input from the user.
+     *
+     * @param input The date input from the user.
+     * @return The parsed date input.
+     * @throws DukeInvalidArgumentException If the date input is invalid.
+     */
     public static String parseDateInput(String input) throws DukeInvalidArgumentException {
         try {
             return LocalDateTime.parse(input, parseFormatter).format(parseFormatter);
@@ -64,6 +91,12 @@ public abstract class Task {
         }
     }
 
+    /**
+     * Returns the string representation of the date, to be shown to the user.
+     *
+     * @param input The date input from the user.
+     * @return The string representation of the date.
+     */
     public static String getDateOutputString(String input) {
         return LocalDateTime.parse(input, parseFormatter).format(outputFormatter);
     }

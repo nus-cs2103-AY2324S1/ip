@@ -10,7 +10,7 @@ import duke.ui.Ui;
  */
 public class TaskList {
 
-    // The list is used to store the user's tasks.
+    /** The list that is used to store the user's tasks. */
     private ArrayList<Task> list;
 
     /**
@@ -20,6 +20,12 @@ public class TaskList {
         this.list = new ArrayList<>();
     }
 
+    /**
+     * Gets task at specified index.
+     *
+     * @param index The index of the specified item.
+     * @return The task at the specified index.
+     */
     public Task getTask(int index) {
         return this.list.get(index);
     }
@@ -141,6 +147,11 @@ public class TaskList {
         }
     }
 
+    /**
+     * Returns the size of the list.
+     *
+     * @return The size of the list.
+     */
     public int size() {
         return this.list.size();
     }

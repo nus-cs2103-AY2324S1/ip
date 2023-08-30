@@ -16,7 +16,7 @@ public enum CommandType {
     UNMARK_TASK("unmark"),
     DELETE_TASK("delete");
 
-    // The string representation of the command.
+    /** The string representation of the command. */
     private final String value;
 
     /**
@@ -33,6 +33,7 @@ public enum CommandType {
      *
      * @param value The string representation of the command.
      * @return The command if it exists, null otherwise.
+     * @throws DukeInvalidCommandException If the command does not exist.
      */
     public static CommandType fromString(String value) throws DukeInvalidCommandException {
         for (CommandType command : CommandType.values()) {

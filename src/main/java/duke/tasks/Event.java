@@ -7,10 +7,10 @@ import duke.exceptions.DukeInvalidArgumentException;
  */
 public class Event extends Task {
 
-    // The start time of the event.
+    /** The start time of the event. */
     private String startTime;
 
-    // The end time of the event.
+    /** The end time of the event. */
     private String endTime;
 
     /**
@@ -26,6 +26,11 @@ public class Event extends Task {
         this.endTime = Task.parseDateInput(endTime);
     }
 
+    /**
+     * Returns the save format of the event, to be written to the save file.
+     *
+     * @return The save format of the event.
+     */
     @Override
     public String getSaveFormat() {
         return String.format("EVENT||%d||%s /from %s /to %s\n", this.getIsDone() ? 1 : 0, this.getDescription(),

@@ -7,7 +7,7 @@ import duke.exceptions.DukeInvalidArgumentException;
  */
 public class Deadline extends Task {
 
-    // The date/time of the deadline.
+    /** The date/time of the deadline. */
     private String endTime;
 
     /**
@@ -21,6 +21,11 @@ public class Deadline extends Task {
         this.endTime = Task.parseDateInput(endTime);
     }
 
+    /**
+     * Returns the save format of the deadline, to be written to the save file.
+     *
+     * @return The save format of the deadline.
+     */
     @Override
     public String getSaveFormat() {
         return String.format("DEADLINE||%d||%s /by %s\n", this.getIsDone() ? 1 : 0, this.getDescription(),
