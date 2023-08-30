@@ -1,4 +1,7 @@
 package tasks;
+
+import parsers.TaskParser;
+
 /**
  * Event task, a type of task that start at a specific date/time and ends at a specific date/time.
  */
@@ -14,9 +17,22 @@ public class Event extends Task{
      * @param to The end date/time of the event
      */
     public Event(String desc, String from, String to) {
-        super(desc);
+        super(false, desc);
         this.from = from;
         this.to = to;
+    }
+
+    public Event(boolean status, String desc, String from, String to) {
+        super(status, desc);
+        this.from = from;
+        this.to = to;
+    }
+
+    @Override
+    public String toStorableString() {
+        String[] infos = {"E", this.status ? "1" : "0", this.desc, this.from, this.to};
+
+        return String.join(TaskParser.SEPARATOR, infos);
     }
 
     /**

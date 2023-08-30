@@ -1,18 +1,25 @@
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+
 import tasks.Task;
 import tasks.TaskStatusException;
 import tasks.ToDo;
 import tasks.Deadline;
 import tasks.Event;
+
 import commands.CommandType;
 import commands.EmptyDescException;
 import commands.InvalidCommandException;
 import commands.InvalidDescFormatException;
 
+import parsers.TaskParser;
+
+import storage.Storage;
+
 public class Corgi {
     private List<Task> tasks;
+    private Storage<Task> storage;
 
     public static void main(String[] args) {
         Corgi bot = new Corgi();
@@ -23,7 +30,12 @@ public class Corgi {
      * Constructs new Corgi chatbot with an empty task list.
      */
     public Corgi() {
-        this.tasks = new ArrayList<>();
+        this.storage = new Storage<>(new TaskParser(), "./data/tasks.txt");
+        this.tasks = storage.load();
+
+        if (tasks.size() > 0) {
+            System.out.println("Successfully loaded " + tasks.size() + " tasks!");
+        }
     }
 
     /**
@@ -154,6 +166,7 @@ public class Corgi {
             if (index >= 0 && index < this.tasks.size()) {
                 Task target = tasks.get(index);
                 target.markAsDone();
+                this.storage.save(tasks);
                 System.out.println("Congratulations, I guess! You finally managed to do something right 🎉:\n" + "\n " + target + "\n");
             } else {
                 System.out.println("Arf! Invalid task number? Seriously, can't you count? 💢");
@@ -176,6 +189,7 @@ public class Corgi {
             if (index >= 0 && index < this.tasks.size()) {
                 Task target = tasks.get(index);
                 target.markAsNotDone();
+                this.storage.save(tasks);
                 System.out.println("Oh great, you've undone something 🐕. Just like always:\n" + "\n " + target + "\n");
             } else {
                 System.out.println("Arf! Invalid task number? Seriously, can't you count? 💢");
@@ -211,6 +225,7 @@ public class Corgi {
             if (index >= 0 && index < this.tasks.size()) {
                 Task target = this.tasks.get(index);
                 this.tasks.remove(index);
+                this.storage.save(tasks);
                 System.out.println("Finally got rid of that task. Took you long enough... uninterested woof\n" 
                     + "\n " + target + "\n\nNow you have " + this.tasks.size() + " tasks in the list.🐾");
             } else {
@@ -230,6 +245,9 @@ public class Corgi {
         Task newTask = new ToDo(taskInfo);
 
         this.tasks.add(newTask);
+
+        this.storage.save(tasks);
+
         System.out.println("Woof, whatever. I've added this ToDo:\n" + 
             "\n " + newTask + "\n\nNow you have " + this.tasks.size() + " tasks in the list.🐾");
     }
@@ -250,6 +268,8 @@ public class Corgi {
         Task newTask = new Deadline(deadlineDesc, by);
 
         this.tasks.add(newTask);
+
+        this.storage.save(tasks);
 
         System.out.println("Woof, whatever. I've added this deadline:\n" + 
             "\n " + newTask + "\n\nNow you have " + this.tasks.size() + " tasks in the list.🐾");
@@ -276,6 +296,9 @@ public class Corgi {
         Task newTask = new Event(eventDesc, from, to);
 
         this.tasks.add(newTask);
+
+        this.storage.save(tasks);
+
         System.out.println("Woof, whatever. I've added this event:\n" + 
             "\n " + newTask + "\n\nNow you have " + this.tasks.size() + " tasks in the list.🐾");
     }

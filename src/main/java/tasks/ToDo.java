@@ -1,5 +1,6 @@
 package tasks;
 
+import parsers.TaskParser;
 /**
  * Todo task, a type of task without any date/time attached to it.
  */
@@ -11,7 +12,18 @@ public class ToDo extends Task {
      * @param desc The description of the todo task
      */
     public ToDo(String desc) {
-        super(desc);
+        super(false, desc);
+    }
+
+    public ToDo(boolean status, String desc) {
+        super(status, desc);
+    }
+
+    @Override
+    public String toStorableString() {
+        String[] infos = {"T", this.status ? "1" : "0", this.desc};
+
+        return String.join(TaskParser.SEPARATOR, infos);
     }
 
     /**

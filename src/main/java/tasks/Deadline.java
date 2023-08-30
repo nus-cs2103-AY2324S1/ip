@@ -1,4 +1,7 @@
 package tasks;
+
+import parsers.TaskParser;
+
 /**
  * Deadline task, a type of task that need to be done before a specific date/time.
  */
@@ -12,8 +15,20 @@ public class Deadline extends Task{
      * @param by The deadline of the task
      */
     public Deadline(String desc, String by) {
-        super(desc);
+        super(false, desc);
         this.by = by;
+    }
+
+    public Deadline(boolean status, String desc, String by) {
+        super(status, desc);
+        this.by = by;
+    }
+
+    @Override
+    public String toStorableString() {
+        String[] infos = {"D", this.status ? "1" : "0", this.desc, this.by};
+
+        return String.join(TaskParser.SEPARATOR, infos);
     }
 
     /**
