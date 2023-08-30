@@ -1,3 +1,7 @@
+package duke;
+
+import exceptions.DukeException;
+import exceptions.FileUnloadableException;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
