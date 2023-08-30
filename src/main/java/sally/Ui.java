@@ -96,6 +96,18 @@ public class Ui {
     }
 
     /**
+     * Displays the list of matching tasks to the user.
+     *
+     * @param matchingTasks A TaskList containing the tasks that match the search criteria.
+     */
+    public void showMatchingTasks(TaskList matchingTasks) {
+        System.out.println("Here are the matching tasks in your list:");
+        for (int i = 0; i < matchingTasks.getSize(); i++) {
+            System.out.println((i + 1) + "." + matchingTasks.getTask(i));
+        }
+    }
+  
+    /**
      * Displays an error message.
      *
      * @param errorMessage The error message to be displayed.

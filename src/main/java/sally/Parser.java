@@ -22,21 +22,22 @@ public class Parser {
             String[] parts = input.split(" ", 2);
             String commandType = parts[0].toLowerCase();
 
-            switch (commandType) {
-                case "mark":
-                    return new MarkCommand(parts[1]);
-                case "unmark":
-                    return new UnmarkCommand(parts[1]);
-                case "delete":
-                    return new DeleteCommand(parts[1]);
-                case "todo":
-                    return new AddTodoCommand(parts[1]);
-                case "deadline":
-                    return new AddDeadlineCommand(parts[1]);
-                case "event":
-                    return new AddEventCommand(parts[1]);
-                default:
-                    throw new SallyException("Sorry, I do not understand the command :-(");
+            if (commandType.equals("mark")) {
+                return new MarkCommand(parts[1]);
+            } else if (commandType.equals("unmark")) {
+                return new UnmarkCommand(parts[1]);
+            } else if (commandType.equals("delete")) {
+                return new DeleteCommand(parts[1]);
+            } else if (commandType.equals("todo")) {
+                return new AddTodoCommand(parts[1]);
+            } else if (commandType.equals("deadline")) {
+                return new AddDeadlineCommand(parts[1]);
+            } else if (commandType.equals("event")) {
+                return new AddEventCommand(parts[1]);
+            } else if (commandType.equals("find")) {
+                return new FindCommand(parts[1]);
+            } else {
+                throw new SallyException("Sorry, I do not understand the command :-(");
             }
         }
     }
