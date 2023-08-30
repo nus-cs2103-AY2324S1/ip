@@ -3,6 +3,7 @@ import Tasks.Events;
 import Tasks.Task;
 import Tasks.ToDos;
 
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
 public class Commands {
@@ -34,8 +35,10 @@ public class Commands {
                 "Here is how you can record down your events.\n" +
                 "To record tasks to do, simply begin your command with \"todo\" followed by a space and the task you need to do.\n" +
                 "To record tasks with deadlines, simply begin your command with \"deadlines\" followed by the task and a / then the due date.\n" +
-                "To record events, simply begin your command with \"events\" followed by the event, / and start time , then / with the end time" +
-                "To view your list of events, type list. \n" + "To mark your events as done or undone, type in mark / unmark , followed by the index of the task \n"+
+                "To record events, simply begin your command with \"events\" followed by the event, \"/from\" and start time , " +
+                        "then \"/tp\" with the end time" +
+                "To view your list of events, type list. \n" + "To mark your events as done or undone, type in mark / unmark , " +
+                        "followed by the index of the task \n"+
                 "To delete tasks from the list, type delete task number, such as delete 2 \n" +
                 "Lastly, to exit the chatbot, type \"bye\" \n" + "____________________________________________________________\n"
         );
@@ -144,7 +147,10 @@ public class Commands {
             System.out.println("____________________________________________________________\n");
             System.out.println(inputException);
             System.out.println("____________________________________________________________\n");
-
+        } catch (DateTimeParseException e) {
+            System.out.println("____________________________________________________________\n");
+            System.out.println("Your Date and time does not follow the format. This is not acceptable");
+            System.out.println("____________________________________________________________\n");
         }
     }
 
@@ -156,9 +162,11 @@ public class Commands {
             String current = String.format("%d: [%c][%s] %s ", i+1, taskType, tasks.get(i).getStatusIcon(),tasks.get(i));
 
             if (tasks.get(i) instanceof Deadlines) {
-                current += (String.format("(by: %s)", ((Deadlines) tasks.get(i)).getDeadline()));
+
+                current += (String.format("(by: %s)", ((Deadlines) tasks.get(i)).getDeadlineInWords()));
             } else if (tasks.get(i) instanceof Events) {
-                current += (String.format("(from: %s to: %s)", ((Events) tasks.get(i)).getStartDate(), ((Events) tasks.get(i)).getEndDate()));
+                current += (String.format("(from: %s to: %s)", ((Events) tasks.get(i)).getStartDateInWords(),
+                        ((Events) tasks.get(i)).getEndDateInWords()));
             }
 
             System.out.println(current);

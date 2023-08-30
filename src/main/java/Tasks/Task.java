@@ -14,6 +14,12 @@ public class Task implements Serializable {
         this.taskType='_';
     }
 
+    public Task(String description, Character taskType) {
+        this.description = description;
+        this.isDone = false;
+        this.taskType = taskType;
+    }
+
     //getters and setters for the fields
     public String getStatusIcon() {
         return (isDone ? "X" : " "); // mark done task with X
