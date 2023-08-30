@@ -3,6 +3,7 @@ package duke;
 
 
 public class Parser {
+
     public static CommandType parseCommand(String s) {
         String res = s.split(" ",2)[0];
         try {
