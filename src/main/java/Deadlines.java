@@ -2,7 +2,7 @@ import java.time.DateTimeException;
 import java.time.LocalDateTime;
 
 public class Deadlines extends Task {
-    private LocalDateTime deadline;
+    private DateTimeOptional deadline;
 
     public static Deadlines create(String rawLine) throws DukeException {
         if (rawLine.length() == 0) {
@@ -13,13 +13,13 @@ public class Deadlines extends Task {
             throw new DukeException("Err: No deadline given. Format - deadline <description> /by <deadline>");
         }
         try {
-            LocalDateTime deadline = LocalDateTime.parse(instructions[1], Task.standardDateTimeParser);
+            DateTimeOptional deadline = DateTimeOptional.parseDateTime(instructions[1]);
             return new Deadlines(instructions[0], deadline);
         } catch (DateTimeException e) {
             throw new DukeException.DukeDateTimeException(instructions[1]);
         }
     }
-    public Deadlines(String item, LocalDateTime deadline) {
+    public Deadlines(String item, DateTimeOptional deadline) {
         super(item);
         this.deadline = deadline;
     }
@@ -39,7 +39,7 @@ public class Deadlines extends Task {
                 "[D][%s] %s (by %s)",
                 super.getStatusIcon(),
                 super.description,
-                this.deadline
+                this.deadline.displayText()
         );
     }
 }

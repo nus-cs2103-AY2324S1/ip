@@ -3,8 +3,8 @@ import java.time.LocalDateTime;
 
 public class Event extends Task{
 
-    private LocalDateTime startTime;
-    private LocalDateTime endTime;
+    private DateTimeOptional startTime;
+    private DateTimeOptional endTime;
     public static Event create(String rawLine) throws DukeException {
         if (rawLine.length() == 0) {
             throw new DukeException("Err: Empty Description");
@@ -18,23 +18,23 @@ public class Event extends Task{
             throw new DukeException("Err: No end time given. Format is in event <desc> /from <time> /to <time>");
         }
 
-        LocalDateTime startDate, endDate;
+        DateTimeOptional startDate, endDate;
 
         try {
-            startDate = LocalDateTime.parse(timeLine[0], Task.standardDateTimeParser);
+            startDate = DateTimeOptional.parseDateTime(timeLine[0]);
         } catch (DateTimeException e) {
             throw new DukeException.DukeDateTimeException(timeLine[0]);
         }
 
         try {
-            endDate = LocalDateTime.parse(timeLine[1], Task.standardDateTimeParser);
+            endDate = DateTimeOptional.parseDateTime(timeLine[1]);
         } catch (DateTimeException e) {
             throw new DukeException.DukeDateTimeException(timeLine[1]);
         }
 
         return new Event(instructions[0], startDate, endDate);
     }
-    public Event(String description, LocalDateTime startTime, LocalDateTime endTime) {
+    public Event(String description, DateTimeOptional startTime, DateTimeOptional endTime) {
         super(description);
         this.startTime = startTime;
         this.endTime = endTime;
@@ -57,8 +57,8 @@ public class Event extends Task{
                 "[E][%s] %s (from: %s to: %s)",
                 super.getStatusIcon(),
                 super.description,
-                this.startTime,
-                this.endTime
+                this.startTime.displayText(),
+                this.endTime.displayText()
         );
     }
 }

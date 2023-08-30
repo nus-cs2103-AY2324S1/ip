@@ -9,7 +9,7 @@ public abstract class DateTimeOptional {
             .ofPattern("[yyyy MM dd[ HHmm]][yyyy-MM-dd[ HHmm]][yyyy/MM/dd[ HHmm]]");
 
     private static DateTimeFormatter standardDateTimeDisplay = DateTimeFormatter
-            .ofPattern("L dd yyyy [HH:mm]");
+            .ofPattern("dd-MM-yyyy [HH:mm]");
 
     public static DateTimeOptional parseDateTime(String s) throws DukeException {
         TemporalAccessor temp = standardDateTimeParser.parse(s);
