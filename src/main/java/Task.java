@@ -17,6 +17,12 @@ public class Task{
     public void markUndone(){
         this.isDone = false;
     }
+    public String getDesc(){
+        return description;
+    }
+    public boolean getStatus(){
+        return isDone;
+    }
     public String toString(){
         return "[" + (isDone?"X":" ") + "] " + description;
     }
