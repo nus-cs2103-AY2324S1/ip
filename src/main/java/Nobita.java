@@ -1,16 +1,12 @@
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Nobita {
     private static ArrayList<Task> tasks = new ArrayList<>();
     private static int size = 0;
-
 
     public static void main(String[] args) {
         System.out.println("Hello! I'm Nobita");
