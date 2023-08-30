@@ -11,7 +11,7 @@ import sam.services.parser.DateTimeParser;
 import sam.tasks.Deadline;
 import sam.tasks.Event;
 import sam.tasks.Task;
-import sam.tasks.Todo;
+import sam.tasks.ToDo;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -29,9 +29,10 @@ public class StorageTest {
     @BeforeEach
     public void setUp() throws IOException {
         validTasks = new TaskList();
-        validTasks.addTask(new Todo("buy book"));
+        validTasks.addTask(new ToDo("buy book"));
         validTasks.addTask(new Deadline("return book", DateTimeParser.parseDate("2023-11-15 0800")));
-        validTasks.addTask(new Event("pool party", DateTimeParser.parseDate("2019-11-15 0800"), DateTimeParser.parseDate("2023-11-15 0800")));
+        validTasks.addTask(new Event("pool party", DateTimeParser.parseDate("2019-11-15 0800"),
+                DateTimeParser.parseDate("2023-11-15 0800")));
         File file = new File(TEST_FILE_VALID);
         File directory = file.getParentFile();
 
@@ -57,9 +58,10 @@ public class StorageTest {
     @Test
     public void saveTasksToHardDisk() throws Exception {
         TaskList tasks = new TaskList();
-        tasks.addTask(new Todo("buy book"));
+        tasks.addTask(new ToDo("buy book"));
         tasks.addTask(new Deadline("return book", DateTimeParser.parseDate("2023-11-15 0800")));
-        tasks.addTask(new Event("pool party", DateTimeParser.parseDate("2019-11-15 0800"), DateTimeParser.parseDate("2023-11-15 0800")));
+        tasks.addTask(new Event("pool party", DateTimeParser.parseDate("2019-11-15 0800"),
+                DateTimeParser.parseDate("2023-11-15 0800")));
         Storage storage = new Storage(TEST_FILE_TEST);
         storage.saveTasksToFile(tasks);
         String content1 = readFileContent(TEST_FILE_VALID);

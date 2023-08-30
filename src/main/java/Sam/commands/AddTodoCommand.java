@@ -3,16 +3,16 @@ package sam.commands;
 import sam.constants.Message;
 import sam.services.Storage;
 import sam.services.TaskList;
-import sam.services.UI;
+import sam.services.Ui;
 import sam.tasks.Task;
-import sam.tasks.Todo;
+import sam.tasks.ToDo;
 
 import java.io.IOException;
 
 /**
- * Adds a todo to the task list.
+ * Adds a ToDo to the task list.
  */
-public class AddTodoCommand extends Command {
+public class AddToDoCommand extends Command {
 
     public static final String COMMAND_WORD = "todo";
 
@@ -21,16 +21,16 @@ public class AddTodoCommand extends Command {
             + " borrow books";
     private String description;
 
-    public AddTodoCommand(String description) {
+    public AddToDoCommand(String description) {
         this.description = description;
     }
 
     @Override
-    public void execute(TaskList tasks, UI ui, Storage storage) {
+    public void execute(TaskList tasks, Ui ui, Storage storage) {
         try {
-            Task todo = new Todo(description);
+            Task todo = new ToDo(description);
             tasks.addTask(todo);
-            ui.printMessage(Message.ADD_TASKS, "\t" + todo, tasks.taskCountSummary());
+            ui.printMessage(Message.ADD_TASKS, "\t" + todo, tasks.getTaskCountSummary());
             storage.saveTasksToFile(tasks);
         } catch (IOException e) {
             ui.showError(Message.FAILED_TO_SAVE + e.getMessage());

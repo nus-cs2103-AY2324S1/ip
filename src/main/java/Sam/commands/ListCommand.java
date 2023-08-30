@@ -4,7 +4,7 @@ import sam.constants.Message;
 import sam.exceptions.DukeException;
 import sam.services.Storage;
 import sam.services.TaskList;
-import sam.services.UI;
+import sam.services.Ui;
 
 /**
  * List all tasks from the task list.
@@ -20,7 +20,7 @@ public class ListCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, UI ui, Storage storage) {
+    public void execute(TaskList tasks, Ui ui, Storage storage) {
         try {
             String list = tasks.listTasks();
             ui.printMessage(Message.LIST_TASKS, list);

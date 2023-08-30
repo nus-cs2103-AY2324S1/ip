@@ -4,7 +4,7 @@ import sam.constants.Message;
 import sam.exceptions.DukeException;
 import sam.services.Storage;
 import sam.services.TaskList;
-import sam.services.UI;
+import sam.services.Ui;
 import sam.tasks.Task;
 
 import java.io.IOException;
@@ -26,10 +26,10 @@ public class DeleteTaskCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, UI ui, Storage storage) {
+    public void execute(TaskList tasks, Ui ui, Storage storage) {
         try {
             Task removedTask = tasks.deleteTask(index);
-            ui.printMessage(Message.DELETE_TASK, "\t" + removedTask, tasks.taskCountSummary());
+            ui.printMessage(Message.DELETE_TASK, "\t" + removedTask, tasks.getTaskCountSummary());
             storage.saveTasksToFile(tasks);
         } catch (DukeException e) {
             ui.showError(e.getMessage());

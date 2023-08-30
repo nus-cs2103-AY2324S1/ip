@@ -1,9 +1,10 @@
 package sam;
 
 import sam.commands.Command;
+import sam.exceptions.DukeException;
 import sam.services.Storage;
 import sam.services.TaskList;
-import sam.services.UI;
+import sam.services.Ui;
 import sam.services.parser.Parser;
 
 import java.io.IOException;
@@ -14,21 +15,21 @@ import java.io.IOException;
 public class Chatbot {
     private TaskList taskList;
     private Storage storage;
-    private UI ui;
+    private Ui ui;
     private Parser parser;
     private static final String FILE_PATH = "./data/duke.txt";
 
     public Chatbot() {
         this.taskList = new TaskList();
         this.storage = new Storage(FILE_PATH);
-        this.ui = new UI();
+        this.ui = new Ui();
         this.parser = new Parser();
     }
 
     public void run() {
         try {
             storage.loadTasksFromFile(this.taskList);
-        } catch (IOException e) {
+        } catch (Exception e) {
             ui.showError(e.getMessage());
         }
 

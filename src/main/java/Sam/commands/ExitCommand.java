@@ -2,7 +2,7 @@ package sam.commands;
 
 import sam.services.Storage;
 import sam.services.TaskList;
-import sam.services.UI;
+import sam.services.Ui;
 
 /**
  * Exits the program.
@@ -16,7 +16,7 @@ public class ExitCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, UI ui, Storage storage) {
+    public void execute(TaskList tasks, Ui ui, Storage storage) {
         ui.shutDown();
     }
 }

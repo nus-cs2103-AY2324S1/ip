@@ -2,7 +2,7 @@ package sam.commands;
 
 import sam.services.Storage;
 import sam.services.TaskList;
-import sam.services.UI;
+import sam.services.Ui;
 
 /**
  * Shows help instructions.
@@ -16,10 +16,10 @@ public class HelpCommand extends Command {
             + "Example: " + COMMAND_WORD;
 
     @Override
-    public void execute(TaskList tasks, UI ui, Storage storage) {
+    public void execute(TaskList tasks, Ui ui, Storage storage) {
         ui.printMessage(
                 "List of possible commands: \n"
-                        + AddTodoCommand.MESSAGE_USAGE
+                        + AddToDoCommand.MESSAGE_USAGE
                         + "\n\n" + AddEventCommand.MESSAGE_USAGE
                         + "\n\n" + AddDeadlineCommand.MESSAGE_USAGE
                         + "\n\n" + DeleteTaskCommand.MESSAGE_USAGE

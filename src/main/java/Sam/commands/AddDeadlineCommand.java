@@ -3,7 +3,7 @@ package sam.commands;
 import sam.constants.Message;
 import sam.services.Storage;
 import sam.services.TaskList;
-import sam.services.UI;
+import sam.services.Ui;
 import sam.tasks.Deadline;
 import sam.tasks.Task;
 
@@ -30,11 +30,11 @@ public class AddDeadlineCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, UI ui, Storage storage) {
+    public void execute(TaskList tasks, Ui ui, Storage storage) {
         try {
             Task deadline = new Deadline(this.description, this.by);
             tasks.addTask(deadline);
-            ui.printMessage(Message.ADD_TASKS, "\t" + deadline, tasks.taskCountSummary());
+            ui.printMessage(Message.ADD_TASKS, "\t" + deadline, tasks.getTaskCountSummary());
             storage.saveTasksToFile(tasks);
         } catch (IOException e) {
             ui.showError(Message.FAILED_TO_SAVE + e.getMessage());

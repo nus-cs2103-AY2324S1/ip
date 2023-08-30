@@ -1,10 +1,11 @@
 package sam.services.parser;
 
+import sam.constants.Message;
 import sam.exceptions.DukeException;
 import sam.tasks.Deadline;
 import sam.tasks.Event;
 import sam.tasks.Task;
-import sam.tasks.Todo;
+import sam.tasks.ToDo;
 
 import java.time.LocalDateTime;
 
@@ -19,7 +20,7 @@ public class FileParser {
         String status = parts[1].trim();
 
         if (!status.equals("0") && !status.equals("1")) {
-            throw new DukeException("☹ OOPS!!! Saved data not found due to corruption. \n Corrupted task status: " + line);
+            throw new DukeException(Message.CORRUPTED_FILE_ERROR + line);
         }
         boolean isDone = status.equals("1");
 
@@ -27,39 +28,39 @@ public class FileParser {
         String additionalInfo = parts.length > 3 ? parts[3].trim() : null;
 
         switch (taskType) {
-            case "T":
-                Todo todo = new Todo(taskDescription);
-                if (isDone) {
-                    todo.markAsDone();
-                }
-                return todo;
-            case "D":
-                if (additionalInfo == null) {
-                    throw new DukeException("☹ OOPS!!! Saved data not found due to corruption. \n Missing date. Corrupted deadline: " + line);
-                }
-                LocalDateTime by = LocalDateTime.parse(additionalInfo);
-                Deadline deadline = new Deadline(taskDescription, by);
-                if (isDone) {
-                    deadline.markAsDone();
-                }
-                return deadline;
-            case "E":
-                if (additionalInfo == null) {
-                    throw new DukeException("☹ OOPS!!!  Saved data not found due to corruption. \n Missing details. Corrupted event: " + line);
-                }
-                String[] eventParts = additionalInfo.split(" to ");
-                if (eventParts.length != 2) {
-                    throw new DukeException("☹ OOPS!!!  Saved data not found due to corruption. \n Missing details. Corrupted event: " + line);
-                }
-                LocalDateTime from = LocalDateTime.parse(eventParts[0]);
-                LocalDateTime to = LocalDateTime.parse(eventParts[1]);
-                Event event = new Event(taskDescription, from, to);
-                if (isDone) {
-                    event.markAsDone();
-                }
-                return event;
-            default:
-                return null;
+        case "T":
+            ToDo todo = new ToDo(taskDescription);
+            if (isDone) {
+                todo.markAsDone();
+            }
+            return todo;
+        case "D":
+            if (additionalInfo == null) {
+                throw new DukeException(Message.CORRUPTED_FILE_ERROR + line);
+            }
+            LocalDateTime by = LocalDateTime.parse(additionalInfo);
+            Deadline deadline = new Deadline(taskDescription, by);
+            if (isDone) {
+                deadline.markAsDone();
+            }
+            return deadline;
+        case "E":
+            if (additionalInfo == null) {
+                throw new DukeException(Message.CORRUPTED_FILE_ERROR + line);
+            }
+            String[] eventParts = additionalInfo.split(" to ");
+            if (eventParts.length != 2) {
+                throw new DukeException(Message.CORRUPTED_FILE_ERROR + line);
+            }
+            LocalDateTime from = LocalDateTime.parse(eventParts[0]);
+            LocalDateTime to = LocalDateTime.parse(eventParts[1]);
+            Event event = new Event(taskDescription, from, to);
+            if (isDone) {
+                event.markAsDone();
+            }
+            return event;
+        default:
+            return null;
         }
     }
 }
