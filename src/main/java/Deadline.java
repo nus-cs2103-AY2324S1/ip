@@ -1,5 +1,9 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 public class Deadline extends Task {
-    private String deadline;
+//    private String deadline;
+    private LocalDate deadline;
     /**
      * Constructor for the Todo class.
      *
@@ -9,7 +13,7 @@ public class Deadline extends Task {
      */
     public Deadline(String name, String deadline, boolean done) {
         super(name, done);
-        this.deadline = deadline;
+        this.deadline = LocalDate.parse(deadline);
     }
 
     @Override
@@ -18,6 +22,14 @@ public class Deadline extends Task {
             return "[D][X] " + this.name + " By: " + this.deadline;
         } else {
             return "[D][ ] " + this.name + " By: " + this.deadline;
+        }
+    }
+
+    public String displayableForm() {
+        if (this.done) {
+            return "[D][X] " + this.name + " By: " + this.deadline.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
+        } else {
+            return "[D][ ] " + this.name + " By: " + this.deadline.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
         }
     }
 }
