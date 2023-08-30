@@ -1,8 +1,8 @@
 package duke;
 
-import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import org.junit.jupiter.api.Test;
 
 public class ToDoTest {
     @Test
@@ -13,7 +13,7 @@ public class ToDoTest {
     }
 
     @Test
-    public void executeTest () {
+    public void executeTest() {
         Ui ui = new Ui();
         Storage storage = new Storage("data/tasks.txt");
         TaskList lst = new TaskList();

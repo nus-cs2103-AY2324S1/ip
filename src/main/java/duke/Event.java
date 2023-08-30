@@ -1,5 +1,4 @@
 package duke;
-
 /**
  * Event class that is a Task with fields startTime, endTime and a symbol
  */

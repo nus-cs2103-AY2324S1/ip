@@ -6,7 +6,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -15,9 +14,10 @@ import java.util.Scanner;
  * Storage class that is used to read and write files.
  */
 public class Storage {
+    private static String relativePath = "C:\\Users\\wenji\\OneDrive\\Desktop\\Y2S1\\"
+            + "CS2103T\\CS2103T projects\\ip\\data";
     private Ui ui = new Ui();
     private String filePath;
-    public static String relativePath = "C:\\Users\\wenji\\OneDrive\\Desktop\\Y2S1\\CS2103T\\CS2103T projects\\ip\\data";
     public Storage(String filePath) {
         this.filePath = filePath;
     }
@@ -104,4 +104,11 @@ public class Storage {
         return lst;
     }
 
+    /**
+     * Getter for relative path
+     * @return String instance of relative path
+     */
+    public static String getRelativePath() {
+        return Storage.relativePath;
+    }
 }

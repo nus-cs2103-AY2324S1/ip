@@ -1,10 +1,8 @@
 package duke;
 
-import duke.Command;
-import duke.InvalidInputException;
-import duke.Storage;
-import duke.Ui;
-
+/**
+ * UndoTask class that contains the index for task to undo
+ */
 public class UndoTask extends Command {
     private int taskToUndo;
 

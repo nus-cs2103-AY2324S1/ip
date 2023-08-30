@@ -42,7 +42,7 @@ public class Duke {
                 if (command.isExit()) {
                     break;
                 }
-            } catch (InvalidInputException e){
+            } catch (InvalidInputException e) {
                 System.out.println(e.getMessage());
             }
         }
@@ -54,6 +54,6 @@ public class Duke {
      * @param args empty String array
      */
     public static void main(String[] args) {
-        new Duke(Storage.relativePath + "\\TaskList.txt").run();
+        new Duke(Storage.getRelativePath() + "\\TaskList.txt").run();
     }
 }

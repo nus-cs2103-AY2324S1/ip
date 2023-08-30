@@ -4,11 +4,10 @@ package duke;
  * Task class that contains field such as name, completed and done & undone checkboxes
  */
 abstract class Task {
+    private static String doneCheckbox = "[X] ";
+    private static String undoneCheckbox = "[ ] ";
     private String name;
     private boolean completed;
-    public static String doneCheckbox = "[X] ";
-    public static String undoneCheckbox = "[ ] ";
-
     public Task(String name) {
         this.name = name;
     }
@@ -72,7 +71,7 @@ abstract class Task {
      */
     public String removed() {
         String s1 = "Noted. I've removed this task:";
-        return(s1 + "\n" + this.toString());
+        return (s1 + "\n" + this.toString());
     }
 
     public void execute(TaskList lst, Ui ui, Storage storage) {};

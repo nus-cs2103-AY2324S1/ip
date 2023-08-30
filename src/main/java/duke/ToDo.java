@@ -1,5 +1,4 @@
 package duke;
-
 /**
  * To-Do class that has 2 fields, its symbol and name
  */

@@ -6,7 +6,12 @@ import java.util.Scanner;
  * Ui class mainly used for printing.
  */
 public class Ui {
-    Scanner sc = new Scanner(System.in);
+    private Scanner sc = new Scanner(System.in);
+    private String name = " ____    __        __       \n"
+            + "|  _ \\   | |  ____ | | __\n"
+            + "| | | |  | | |     | |/ /\n"
+            + "| |_| |  | | |     |   < \n"
+            + "|____/   ___  ____ |_|\\_\\\n";
 
     /**
      * To print the message of Exception objects
@@ -80,12 +85,6 @@ public class Ui {
     public String byeGreetings() {
         return "Bye. Hope to see you again soon!";
     }
-
-    public String name = " ____    __        __       \n"
-            + "|  _ \\   | |  ____ | | __\n"
-            + "| | | |  | | |     | |/ /\n"
-            + "| |_| |  | | |     |   < \n"
-            + "|____/   ___  ____ |_|\\_\\\n";
     public String greet() {
         return "Hello from \n " + this.name + "What can I do for you? ";
     }
