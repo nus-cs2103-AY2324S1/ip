@@ -1,8 +1,11 @@
+package duke.task;
+
 import java.io.IOException;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import duke.DukeException;
 
 public class Event extends Task{
     protected LocalDate from;

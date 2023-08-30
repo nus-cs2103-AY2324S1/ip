@@ -1,3 +1,9 @@
+package duke;
+import duke.command.*;
+import duke.task.*;
+import duke.storage.Storage;
+import duke.parser.Parser;
+import duke.ui.Ui;
 
 public class Duke {
     private final Storage storage;

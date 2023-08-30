@@ -1,3 +1,8 @@
+package duke.command;
+import duke.ui.Ui;
+import duke.task.*;
+import duke.storage.Storage;
+import duke.DukeException;
 public class DeleteCommand extends Command {
     String pos;
     public DeleteCommand(String pos) {

@@ -1,3 +1,9 @@
+package duke.command;
+import duke.ui.Ui;
+import duke.task.*;
+import duke.storage.Storage;
+import duke.DukeException;
+
 public class AddCommand extends Command {
     private final String type;
     private final String description;

@@ -1,3 +1,9 @@
+package duke.parser;
+
+import duke.command.*;
+import duke.ui.Ui;
+import duke.DukeException;
+
 public class Parser {
     public static Command handleInput(String input) throws DukeException{
         Ui ui = new Ui();

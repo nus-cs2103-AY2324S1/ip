@@ -1,5 +1,6 @@
+package duke.task;
 import java.util.ArrayList;
-
+import duke.DukeException;
 public class ToDo extends Task {
     String description;
     public ToDo(String description) {
