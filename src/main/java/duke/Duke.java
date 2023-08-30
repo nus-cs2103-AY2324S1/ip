@@ -53,6 +53,10 @@ public class Duke {
                 int deleteTaskNumber = Parser.parseInt(inputArr[1]);
                 this.taskList.deleteTask(deleteTaskNumber, this.storage, this.ui);
                 break;
+            case "find":
+                String keyword = input.replace("find", "").trim();
+                this.taskList.findTasks(keyword, this.ui);
+                break;
             default:
                 throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
             }

@@ -84,6 +84,26 @@ public class TaskList {
         storage.modifyTask(taskNumber, task);
     }
 
+    public void findTasks(String keyword, Ui ui) {
+        ArrayList<Task> foundTasks = new ArrayList<>();
+        for (Task task : this.tasks) {
+            if (task.toString().contains(keyword)) {
+                foundTasks.add(task);
+            }
+        }
+        if (foundTasks.size() == 0) {
+            System.out.println();
+            ui.formatPrintMessage("No matching tasks found.");
+            return;
+        }
+        System.out.println();
+        System.out.println("Here are the matching tasks in your list:");
+        for (int i = 0; i < foundTasks.size(); i++) {
+            System.out.println(i + 1 + "." + foundTasks.get(i));
+        }
+        System.out.println();
+    }
+
     public int getTaskListSize() {
         return this.tasks.size();
     }
