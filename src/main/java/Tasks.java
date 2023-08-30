@@ -1,7 +1,11 @@
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.List;
+
 
 public class Tasks {
     private int size;
@@ -22,11 +26,14 @@ public class Tasks {
     }
 
     public static void handleDeadline(String input, List<Task> tasks) {
-        String[] arr1 = input.split("/"); // 0: deadline + name , 1: by + date
-        String[] arr2 = arr1[1].split("by "); // date
-        String[] arr3 = arr1[0].split("deadline ");
-        String date = arr2[1];
-        Task deadline = new Deadline(arr3[1], date);
+        String[] arr1 = input.split("/by "); // 0: deadline + name , 1: date
+        String[] arr2 = arr1[0].split("deadline ");
+        String date = arr1[1];
+        LocalDateTime formattedDate = dateFormatter(date);
+        if (formattedDate == null) {
+            return;
+        }
+        Task deadline = new Deadline(arr2[1], formattedDate);
         tasks.add(deadline);
         saveTasks(tasks);
         System.out.println("Got it. I've added this task:\n" + deadline + "\n"
@@ -62,14 +69,14 @@ public class Tasks {
         if (parts.length == 2) {
             try {
                 int index = Integer.parseInt(parts[1]);
-                    Task thisTask = tasks.get(index - 1);
-                    tasks.get(index - 1).toggleDone();
-                    saveTasks(tasks);
+                Task thisTask = tasks.get(index - 1);
+                tasks.get(index - 1).toggleDone();
+                saveTasks(tasks);
                 if (thisTask.getDone()) {
-                        System.out.println("Nice! I've marked this task as done:" + "\n" + thisTask);
-                    } else {
-                        System.out.println("OK, I've marked this task as not done yet:" + "\n" + thisTask);
-                    }
+                    System.out.println("Nice! I've marked this task as done:" + "\n" + thisTask);
+                } else {
+                    System.out.println("OK, I've marked this task as not done yet:" + "\n" + thisTask);
+                }
             } catch (IndexOutOfBoundsException ex) {
                 System.out.println("IndexOutOfBounds");
             } catch (NumberFormatException e) {
@@ -87,6 +94,7 @@ public class Tasks {
         System.out.println("Noted. I've removed this task:\n" + deleted + "\n"
                 + "Now you have " + tasks.size() + " tasks in the list.");
     }
+
     public static void saveTasks(List<Task> tasks) {
         String filepath = "./data/duke.txt";
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filepath))) {
@@ -96,6 +104,23 @@ public class Tasks {
         }
         for (Task task : tasks) {
             task.save(filepath);
+        }
+    }
+
+    public static LocalDateTime dateFormatter(String dateTime) {
+        try {
+            String[] inputs = dateTime.split(" ");
+            DateTimeFormatter formatter;
+            System.out.println("dateTime: " + dateTime);
+            if (inputs.length == 2) {
+                formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+                return LocalDateTime.parse(dateTime, formatter);
+            } else {
+                return null;
+            }
+        } catch (DateTimeParseException ex) {
+            System.out.println("Invalid Date Format");
+            return null;
         }
     }
 }
