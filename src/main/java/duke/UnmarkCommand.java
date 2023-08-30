@@ -17,9 +17,9 @@ public class UnmarkCommand extends Command{
     public boolean equals(Object o) {
         if (!(o instanceof UnmarkCommand)) {
             return false;
-        }
-         //checked above
-        @SuppressWarnings({"unchecked"})
+        } 
+        //checked above
+        @SuppressWarnings("unchecked")
         UnmarkCommand c = (UnmarkCommand) o;
         return c.idx == this.idx;
     }

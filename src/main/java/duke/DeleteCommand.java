@@ -20,9 +20,9 @@ public class DeleteCommand extends Command{
     public boolean equals(Object o) {
         if (!(o instanceof DeleteCommand)) {
             return false;
-        }
-         //checked above
-        @SuppressWarnings({"unchecked"})
+        } 
+        //checked above
+        @SuppressWarnings("unchecked")
         DeleteCommand c = (DeleteCommand) o;
         return c.idx == this.idx;
     }

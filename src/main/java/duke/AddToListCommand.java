@@ -23,9 +23,9 @@ public class AddToListCommand extends Command {
     public boolean equals(Object o) {
         if (!(o instanceof AddToListCommand)) {
             return false;
-        }
-         //checked above
-        @SuppressWarnings({"unchecked"})
+        } 
+        //checked above
+        @SuppressWarnings("unchecked")
         AddToListCommand c = (AddToListCommand) o;
         return c.queries.equals(this.queries) && c.type.equals(this.type);
     }
