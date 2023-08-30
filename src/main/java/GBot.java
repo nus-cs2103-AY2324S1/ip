@@ -1,6 +1,4 @@
-import exceptions.*;
-
-import java.io.FileNotFoundException;
+import exceptions.GBotException;
 import java.io.IOException;
 import java.util.Scanner;
 
