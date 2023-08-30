@@ -35,5 +35,6 @@ public class MarkCommand extends Command{
             tasks.markTaskAsNotDone(taskNumber);
             ui.showUnmarkedTask(tasks.getTask(taskNumber));
         }
+        storage.saveFile(tasks.toStorageString());
     }
 }

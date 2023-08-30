@@ -34,19 +34,9 @@ public class TaskList {
      *
      * @param task The Task object to be added.
      */
-    public void addTask(Task task, boolean isReadFromFile) {
+    public void addTask(Task task) {
         list.add(task);
         numOfTasks++;
-
-        if (!isReadFromFile) {
-            try {
-                FileWriter fw = new FileWriter("./data/chatter.txt", true);
-                fw.write("\n" + task.toStorageString());
-                fw.close();
-            } catch (IOException e) {
-                System.out.println("Got error");
-            }
-        }
     }
 
     /**
@@ -66,11 +56,6 @@ public class TaskList {
      */
     public void delete(int taskNumber) {
         numOfTasks--;
-
-        System.out.println("Noted! I have removed this task:");
-        System.out.println("  " + list.get(taskNumber - 1).toString());
-        System.out.println("You now have " + numOfTasks + " task(s) in the list.");
-
         list.remove(taskNumber - 1);
     }
 

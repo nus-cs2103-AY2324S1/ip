@@ -15,7 +15,7 @@ public class Ui {
      * Prints a welcome message when user starts the chatbot.
      */
     public void showWelcome() {
-        System.out.println(DIVIDER + "\nHello! I'm Chatter!" + "\nHow can i help you today?" + DIVIDER);
+        System.out.println(DIVIDER + "\nHello! I'm Chatter!" + "\nHow can i help you today?");
     }
 
     /**
@@ -37,7 +37,7 @@ public class Ui {
      * Prints a welcome message when user exits the chatbot.
      */
     public void showLoadingError() {
-        System.out.println(DIVIDER + "\nError reading data from file!" + DIVIDER);
+        System.out.println(DIVIDER + "\nError reading data from file!\n" + DIVIDER);
     }
 
     /**
@@ -79,6 +79,12 @@ public class Ui {
     public void showUnmarkedTask(Task task) {
         System.out.println("OK! I've marked this task as not done yet:");
         System.out.println("  " + task);
+    }
+
+    public void showDeletedTask(Task task, int numOfTasks) {
+        System.out.println("Noted! I have removed this task:");
+        System.out.println("  " + task);
+        System.out.println("You now have " + numOfTasks + " task(s) in the list.");
     }
 
     /**

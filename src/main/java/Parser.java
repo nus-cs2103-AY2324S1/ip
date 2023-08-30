@@ -27,9 +27,9 @@ public class Parser {
         case("mark"):
             return new MarkCommand(true, Character.getNumericValue(this.input.charAt(5)));
         case("unmark"):
-            break;
+            return new MarkCommand(false, Character.getNumericValue(this.input.charAt(7)));
         case("delete"):
-            break;
+            return new DeleteCommand(Character.getNumericValue(this.input.charAt(7)));
         case("todo"):
             if (input.length() < 6) {
                 throw new ChatterException("☹ OOPS!!! The description of a todo cannot be empty!");
@@ -64,25 +64,4 @@ public class Parser {
                     "\nPlease enter a valid command!");
         }
     }
-
-//    public void execute() {
-//        if (this.input.equals("list")) {
-//            tasks.listTasks();
-//        } else if (this.input.startsWith("mark")){
-//            tasks.markTaskAsDone(Character.getNumericValue(this.input.charAt(5)), false);
-//        } else if (this.input.startsWith("unmark")){
-//            tasks.markTaskAsNotDone(Character.getNumericValue(this.input.charAt(7)));
-//        } else if (this.input.startsWith("delete")){
-//            tasks.delete(Character.getNumericValue(this.input.charAt(7)));
-//        } else if (this.input.startsWith("todo")){
-//            addTodo(this.input);
-//        } else if (this.input.startsWith("deadline")){
-//            addDeadline(this.input);
-//        } else if (this.input.startsWith("event")){
-//            addEvent(this.input);
-//        } else {
-//            System.out.println("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
-//            System.out.println("Please enter a valid command!");
-//        }
-//    }
 }
