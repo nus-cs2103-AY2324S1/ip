@@ -1,6 +1,10 @@
 import java.io.*;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 
 /**
  * JavAI is a simple chatbot that allows users to add, mark, unmark, delete,
@@ -45,7 +49,8 @@ public class JavAI {
                         }
                         tasks.add(todo);
                     } else if (taskType.equals("D")) {
-                        String by = "";
+                        String endDate = "";
+                        String endTime = "";
                         while (!words[iterator].equals("by:")) {
                             if (!words[iterator].equals("(")) {
                                 description += words[iterator] + " ";
@@ -55,15 +60,17 @@ public class JavAI {
                             }
                         }
                         iterator++;
-                        while (iterator < words.length) {
-                            if (!words[iterator].equals(")")) {
-                                by += words[iterator] + " ";
-                                iterator++;
-                            } else {
-                                iterator++;
-                            }
+                        for (int i = 0; i < 3; i++) {
+                            endDate += words[iterator] + " ";
+                            iterator++;
                         }
-                        Deadline deadline = new Deadline(description, by);
+                        endTime = words[iterator];
+                        String endTimeWithoutColon = endTime.replace(":", "");
+                        DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy ");
+                        LocalDate date = LocalDate.parse(endDate, inputFormatter);
+                        DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+                        String formattedDate = date.format(outputFormatter);
+                        Deadline deadline = new Deadline(description.trim(), formattedDate, endTimeWithoutColon);
                         if (completionType.equals("X")) {
                             deadline.markAsDone();
                         }
@@ -93,7 +100,7 @@ public class JavAI {
                                 iterator++;
                             }
                         }
-                        Event event = new Event(description, from, to);
+                        Event event = new Event(description.trim(), from, to);
                         if (completionType.equals("X")) {
                             event.markAsDone();
                         }
@@ -168,7 +175,8 @@ public class JavAI {
                 }
 
             } else if (words[0].equals("deadline")) {
-                String by = "";
+                String endDate = "";
+                String endTime = "";
                 try {
                     if(!output.contains("/by")) {
                         throw new JavAIException("☹ OOPS!!! Please input a valid deadline using '/by'.");
@@ -178,11 +186,13 @@ public class JavAI {
                         iterator++;
                     }
                     iterator++;
-                    while (iterator < words.length) {
-                        by += words[iterator] + " ";
-                        iterator++;
+                    if (iterator + 1 > words.length) {
+                        throw new JavAIException("☹ OOPS!!! Please specify both date and time in following " +
+                                "format after after /by: yyyy-mm-dd hh:mm'.");
                     }
-                    Deadline deadline = new Deadline(description, by);
+                    endDate = words[iterator];
+                    endTime = words[iterator + 1];
+                    Deadline deadline = new Deadline(description, endDate, endTime);
                     arr.add(deadline);
                     System.out.println(line + "\n      Got it. I've added this task:\n" +
                             "       " + arr.get(counter) +

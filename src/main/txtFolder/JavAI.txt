@@ -1,4 +1,1 @@
 [T][ ] clean bedsheet 
-[T][X] playtime w dog 
-[D][ ] do work   ( by: 2359 )
-[E][ ] class   ( from: 5.30pm to: 8pm )
