@@ -3,6 +3,9 @@ package rayshawn.chatbot.commands;
 import rayshawn.chatbot.messages.Messages;
 import rayshawn.chatbot.tasks.Task;
 
+/**
+ * Unmarks a task as not done by identifying it using its index from the task list.
+ */
 public class UnmarkCommand extends Command {
     public static final String COMMAND_WORD = "unmark";
     public static final String MESSAGE_USAGE = COMMAND_WORD +
@@ -12,6 +15,11 @@ public class UnmarkCommand extends Command {
     private static final String MESSAGE_SUCCESS = "OK, I've marked this task not done yet: \n %1$s";
     private static final String MESSAGE_REPEATED = "This task is not done yet!";
 
+    /**
+     * Constructor for UnmarkCommand
+     *
+     * @param index index of the task to be unmarked
+     */
     public UnmarkCommand(int index) {
         super(index);
     }

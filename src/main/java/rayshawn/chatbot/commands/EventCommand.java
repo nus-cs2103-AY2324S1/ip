@@ -4,6 +4,9 @@ import rayshawn.chatbot.exceptions.ChatBotException;
 import rayshawn.chatbot.tasks.Task;
 import rayshawn.chatbot.tasks.Event;
 
+/**
+ * Adds an event task to the tasklist.
+ */
 public class EventCommand extends Command {
     public static final String COMMAND_WORD = "event";
 
@@ -16,6 +19,14 @@ public class EventCommand extends Command {
 
     public final Task toAdd;
 
+    /**
+     * Constructor for EventCommand
+     *
+     * @param description description of task
+     * @param start date and start time of task
+     * @param end end time of task
+     * @throws ChatBotException if any of the data is invalid
+     */
     public EventCommand(String description, String start, String end) throws ChatBotException {
         String[] temp = start.split(" ");
         this.toAdd = new Event(description, temp[0], temp[1], end);

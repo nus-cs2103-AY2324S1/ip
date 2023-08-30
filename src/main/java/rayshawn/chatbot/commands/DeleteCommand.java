@@ -3,6 +3,9 @@ package rayshawn.chatbot.commands;
 import rayshawn.chatbot.messages.Messages;
 import rayshawn.chatbot.tasks.Task;
 
+/**
+ * Deletes a task identified using its index from the task list.
+ */
 public class DeleteCommand extends Command {
     public static final String COMMAND_WORD = "delete";
     public static final String MESSAGE_USAGE = COMMAND_WORD +
@@ -11,6 +14,11 @@ public class DeleteCommand extends Command {
             "Example: " + COMMAND_WORD + " 1";
     private static final String MESSAGE_SUCCESS = "Noted. I've removed this task: \n %1$s";
 
+    /**
+     * Constructor for DeleteCommand
+     *
+     * @param index index of the task to be deleted
+     */
     public DeleteCommand(int index) {
         super(index);
     }

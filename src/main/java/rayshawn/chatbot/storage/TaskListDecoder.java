@@ -13,6 +13,9 @@ import rayshawn.chatbot.tasks.Task;
 import rayshawn.chatbot.tasks.TaskList;
 import rayshawn.chatbot.tasks.ToDo;
 
+/**
+ * Decodes the storage data file into an task list object
+ */
 public class TaskListDecoder {
 
     private static final Pattern TODO_FORMAT =
@@ -26,6 +29,14 @@ public class TaskListDecoder {
                     " \\| (?<start>[^/]+)" +
                     " \\| (?<end>[^/]+)");
 
+    /**
+     * Decodes the task list from storage file.
+     *
+     * @param encodedTaskList tasklist from storage file
+     * @return tasklist for chatbot to use
+     * @throws ChatBotException if any of the fields in any encoded task string is invalid.
+     * @throws StorageOperationException if the encoded tasklist is in an invalid format.
+     */
     public static TaskList decodeTaskList(List<String> encodedTaskList)
             throws ChatBotException, StorageOperationException {
         final List<Task> decodedTasks = new ArrayList<>();

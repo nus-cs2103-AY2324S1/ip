@@ -20,6 +20,9 @@ import rayshawn.chatbot.commands.NoSuchCommand;
 import rayshawn.chatbot.commands.UnmarkCommand;
 import rayshawn.chatbot.exceptions.ChatBotException;
 
+/**
+ * Parses user input.
+ */
 public class Parser {
 
     public static final Pattern TASK_INDEX_ARGS_FORMAT = Pattern.compile("(?<targetIndex>.+)");
@@ -38,8 +41,17 @@ public class Parser {
                     " /to (?<end>[^/]+)"
             );
 
+    /**
+     * Used to seperate command word from args
+     */
     public static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
 
+    /**
+     * Parses user input into command for execution.
+     *
+     * @param userInput full user input string
+     * @return the command based on the user input
+     */
     public Command parseCommand(String userInput) {
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
         if (!matcher.matches()) {
@@ -75,7 +87,7 @@ public class Parser {
         case ToDoCommand.COMMAND_WORD:
             return prepareToDo(arguments);
 
-        case UnmarkCommand.COMMAND_WORD: // Fallthrough
+        case UnmarkCommand.COMMAND_WORD:
             return prepareUnmark(arguments);
         default:
             return new NoSuchCommand();
@@ -169,6 +181,9 @@ public class Parser {
         return Integer.parseInt(matcher.group("targetIndex"));
     }
 
+    /**
+     * Signals that the user input could not be parsed.
+     */
     public static class ParseException extends Exception {
         ParseException(String message) {
             super(message);
