@@ -20,7 +20,8 @@ public class AddEventCommand extends Command {
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
         if (description.isEmpty() || from.isEmpty() || to.isEmpty()) {
-            throw new DukeException("☹ OOPS!!! The format of an event should be: event DESCRIPTION /from DATE /to DATE");
+            throw new DukeException("☹ OOPS!!! The format of an event should be: "
+                    + "event DESCRIPTION /from DATE /to DATE");
         }
         tasks.addTask(new Event(description, from, to));
         ui.showTaskAddedMessage(tasks);

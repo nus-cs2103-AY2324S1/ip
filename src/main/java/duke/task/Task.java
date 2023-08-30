@@ -40,22 +40,23 @@ public class Task {
         boolean isDone = parts[1].equals("1");
         String description = parts[2];
 
-        if (taskType.equals("T")) {
-            Task todo =  new ToDo(description);
+        switch (taskType) {
+        case "T":
+            Task todo = new ToDo(description);
             todo.isDone = isDone;
             return todo;
-        } else if (taskType.equals("D")) {
+        case "D":
             String by = parts[3];
-            Task deadline =  new Deadline(description, by);
+            Task deadline = new Deadline(description, by);
             deadline.isDone = isDone;
             return deadline;
-        } else if (taskType.equals("E")) {
+        case "E":
             String from = parts[3];
             String to = parts[4];
             Task event = new Event(description, from, to);
             event.isDone = isDone;
             return event;
-        } else {
+        default:
             // Handle unrecognized task type
             return null;
         }

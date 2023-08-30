@@ -18,7 +18,8 @@ public class AddDeadlineCommand extends Command {
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
         if (description.isEmpty() || by.isEmpty()) {
-            throw new DukeException("☹ OOPS!!! The format of a deadline should be: deadline DESCRIPTION /by DATE");
+            throw new DukeException("☹ OOPS!!! The format of a deadline should be: "
+                    + "deadline DESCRIPTION /by DATE");
         }
         tasks.addTask(new Deadline(description, by));
         ui.showTaskAddedMessage(tasks);
