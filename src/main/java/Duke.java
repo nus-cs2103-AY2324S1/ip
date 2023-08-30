@@ -15,9 +15,9 @@ public class Duke {
 
     ArrayList<Task> taskList = new ArrayList<>();
     UiFormatter uiFormatter = new UiFormatter();
-    Tasklistloader tasklistloader = new Tasklistloader(taskList);
+    Storage storage = new Storage(taskList);
 
-    tasklistloader.loadTasks();
+    storage.loadTasks();
     System.out.println(greeting);
     System.out.println(info);
 
@@ -185,7 +185,7 @@ public class Duke {
     }
 
     System.out.println(goodbye);
-    tasklistloader.saveTasks();
+    storage.saveTasks();
 
   }
 }

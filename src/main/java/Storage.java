@@ -14,12 +14,12 @@ import java.util.ArrayList;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-public class Tasklistloader {
+public class Storage {
 
   private ArrayList<Task> taskList;
   private ObjectMapper taskMapper;
 
-  public Tasklistloader(ArrayList<Task> tasks) {
+  public Storage(ArrayList<Task> tasks) {
     this.taskList = tasks;
     this.taskMapper = new ObjectMapper();
     this.taskMapper.registerModule(new JavaTimeModule());
