@@ -11,10 +11,10 @@ public class Peko {
         Output.intro();
         while (true) {
             userInputHandler.newInput();
-            SaveHandler.saveTo();
             if (!userInputHandler.processInput()) {
                 break;
             }
+            SaveHandler.saveTo();
         }
         Output.exit();
 
@@ -22,7 +22,6 @@ public class Peko {
     private Peko() {
         userInputHandler = new UserInputHandler();
         storageHandler = new StorageHandler();
-
     }
 
 }
