@@ -163,6 +163,5 @@ public class Duke {
         }
         return tasks;
     }
-
-
+    int i = 0;
 }
