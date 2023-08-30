@@ -10,17 +10,17 @@ import java.io.File;
 
 public class Duke {
     static List<Task> taskList = new ArrayList<>();
-    static String logo = " ____        _        \n"
-            + "|  _ \\ _   _| | _____ \n"
-            + "| | | | | | | |/ / _ \\\n"
-            + "| |_| | |_| |   <  __/\n"
-            + "|____/ \\__,_|_|\\_\\___|\n";
-
     static String divider = "    ____________________________________________________________\n";
 
     static String logo_bird = "    (• >       (• >       (• >       (• >       (• >       (• >\n"
             +  "    /))        /))        /))        /))        /))        /))\n"
-            +  "     ``         ``         ``         ``         ``         ``\n"
+            +  "     ``         ``         ``         ``         ``         ``\n";
+
+    static String importantNotes = "    IMPORTANT NOTES:\n"
+            + "        Todo: todo <task>\n"
+            + "        Deadline: deadline <deadline> /by <duedate>\n"
+            + "        Event: event <event> /from <start> /to <end>\n"
+            + "        Datetime format: \"dd/MM/yyyy HH:mm\"\n"
             + divider;
 
     static String greet = "    Hello! I'm Birdy\n"
@@ -178,6 +178,33 @@ public class Duke {
                     System.out.println(divider);
                     rewriteTaskListFile(filepath, taskList);
                     break;
+                case "start":
+                    int startIndex = Integer.parseInt(taskDetails) - 1;
+                    if (startIndex < 0 || startIndex >= taskList.size()) throw new InvalidTaskNumberException(
+                            divider + "    TWEET!!! I can't find the task you are looking for!\n" + divider
+                    );
+                    System.out.print(divider);
+                    taskList.get(startIndex).printStart();
+                    System.out.println(divider);
+                    break;
+                case "end":
+                    int endIndex = Integer.parseInt(taskDetails) - 1;
+                    if (endIndex < 0 || endIndex >= taskList.size()) throw new InvalidTaskNumberException(
+                            divider + "    TWEET!!! I can't find the task you are looking for!\n" + divider
+                    );
+                    System.out.print(divider);
+                    taskList.get(endIndex).printEnd();
+                    System.out.println(divider);
+                    break;
+                case "due":
+                    int dueIndex = Integer.parseInt(taskDetails) - 1;
+                    if (dueIndex < 0 || dueIndex >= taskList.size()) throw new InvalidTaskNumberException(
+                            divider + "    TWEET!!! I can't find the task you are looking for!\n" + divider
+                    );
+                    System.out.print(divider);
+                    taskList.get(dueIndex).printDueDate();
+                    System.out.println(divider);
+                    break;
                 default:
                     throw new EmptyEventException(
                             divider + "    TWEET!!! I'm sorry, but I don't know how to bark\n" + divider
@@ -189,7 +216,7 @@ public class Duke {
         }
     }
     public static void main(String[] args){
-        System.out.println("    chirp chirp!\n" + logo_bird + greet);
+        System.out.println("    chirp chirp!\n" + logo_bird + importantNotes + greet);
         String filepath = "./tasklistfile.txt";
         try {
             taskList = readTaskListFile(filepath);
