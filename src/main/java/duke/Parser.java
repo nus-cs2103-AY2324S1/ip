@@ -1,3 +1,5 @@
+package duke;
+
 public class Parser {
     public static boolean command(String userOutput, TaskList inputList) {
         try {
