@@ -4,7 +4,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
-import static duke.Events.DATE_TIME_FORMATTER;
+import static duke.Event.DATE_TIME_FORMATTER;
 import static duke.Storage.saveTasksToFile;
 
 public class Parser {
@@ -90,7 +90,7 @@ public class Parser {
                 } else {
                     by = LocalDate.parse(userInputBy);
                 }
-                taskList.add(new Deadlines(userInput, by));
+                taskList.add(new Deadline(userInput, by));
                 Ui.print("Got it. I've added this task: ");
                 Ui.print(taskList.get(i).toString());
                 i++;
@@ -108,7 +108,7 @@ public class Parser {
                 Ui.print("To?");
                 LocalDateTime to = LocalDateTime.parse(ui.nextLine(), DATE_TIME_FORMATTER);
 
-                taskList.add(new Events(userInput, from, to));
+                taskList.add(new Event(userInput, from, to));
                 Ui.print("Got it. I've added this task: ");
                 Ui.print(taskList.get(i).toString());
                 i++;

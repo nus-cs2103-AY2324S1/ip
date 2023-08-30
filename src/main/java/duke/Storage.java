@@ -16,6 +16,8 @@ public class Storage {
         }
     }
 
+    @SuppressWarnings("unchecked")
+    // data/duke.txt will only contain and ArrayList of Tasks
     public static ArrayList<Task> loadTasksFromFile(String filePath) {
         ArrayList<Task> tasks = new TaskList();
         File file = new File(filePath);
