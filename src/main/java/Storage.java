@@ -9,7 +9,13 @@ import java.io.BufferedWriter;
 import java.io.IOException;
 
 public class Storage {
-    public void saveTasksToFile(ArrayList<Task> tasks, String dir){
+    private String dir;
+
+    public Storage (String dir){
+        this.dir = dir;
+    }
+
+    public void saveTasksToFile(ArrayList<Task> tasks){
         FileWriter fileWriter;
         BufferedWriter bufferedWriter;
         try {
@@ -28,7 +34,7 @@ public class Storage {
             Ui.Error(e);
         }
     }
-    public ArrayList<Task> loadSaveFile(String dir){
+    public ArrayList<Task> loadSaveFile(){
         FileReader fileReader;
         BufferedReader bufferedReader;
         ArrayList<Task> input = new ArrayList<Task>();
