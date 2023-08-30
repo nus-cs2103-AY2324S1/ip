@@ -1,17 +1,12 @@
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 
 public class DeadlineTask extends Task {
-  private LocalDateTime deadline;
+  private final LocalDateTime deadline;
 
-  public DeadlineTask(String description, String deadline) throws JoeException {
+  public DeadlineTask(String description, LocalDateTime deadline) {
     super(description);
-    try {
-      this.deadline = LocalDateTime.parse(deadline, DateTimeFormatter.ofPattern("d/M/yyyy HHmm"));
-    } catch (DateTimeParseException e) {
-      throw new JoeException("Failed to parse datetime.");
-    }
+    this.deadline = deadline;
   }
 
   @Override

@@ -10,10 +10,10 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
-public class JoeIO {
+public class Storage {
   private final Path taskFilePath;
 
-  public JoeIO(String fileName) {
+  public Storage(String fileName) {
     this.taskFilePath = Paths.get(fileName);
   }
 
@@ -24,7 +24,7 @@ public class JoeIO {
   private static final Pattern eventPattern =
       Pattern.compile("^\\[E\\]\\[[X\\s]\\]\\s+(.+)\\s+\\(from:\\s+(.+)\\s+to:\\s+(.+)\\)$");
 
-  private void handleTodo(String input, ArrayList<Task> tasks) throws JoeException {
+  private void handleTodo(String input, TaskList tasks) throws JoeException {
     Matcher m = todoPattern.matcher(input);
     if (m.find()) {
       TodoTask newTask = new TodoTask(m.group(1));
@@ -34,7 +34,7 @@ public class JoeIO {
     }
   }
 
-  private void handleDeadline(String input, ArrayList<Task> tasks) throws JoeException {
+  private void handleDeadline(String input, TaskList tasks) throws JoeException {
     Matcher m = deadlinePattern.matcher(input);
     if (m.find()) {
       TodoTask newTask = new TodoTask(m.group(1));
@@ -44,7 +44,7 @@ public class JoeIO {
     }
   }
 
-  private void handleEvent(String input, ArrayList<Task> tasks) throws JoeException {
+  private void handleEvent(String input, TaskList tasks) throws JoeException {
     Matcher m = eventPattern.matcher(input);
     if (m.find()) {
       TodoTask newTask = new TodoTask(m.group(1));
@@ -54,8 +54,8 @@ public class JoeIO {
     }
   }
 
-  public ArrayList<Task> readTasks() throws JoeException, IOException {
-    ArrayList<Task> tasks = new ArrayList<>();
+  public TaskList readTasks() throws JoeException, IOException {
+    TaskList tasks = new TaskList();
     if (!Files.exists(taskFilePath)) {
       throw new FileNotFoundException();
     }
@@ -83,9 +83,9 @@ public class JoeIO {
     return tasks;
   }
 
-  public void saveToFile(ArrayList<Task> tasks) {
+  public void saveToFile(TaskList tasks) {
     try {
-      List<String> taskStrings = tasks.stream().map(Task::toString).collect(Collectors.toList());
+      List<String> taskStrings = tasks.getStringList();
       Files.write(
           taskFilePath,
           taskStrings,
