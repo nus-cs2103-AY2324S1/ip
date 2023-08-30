@@ -1,6 +1,1 @@
-[T][X] read book
-[D][X] sometask          (by: 2023-08-23)
-[D][X] return book         (by: 2023-06-06)
-[E][ ] project meeting         (from: 2023-08-31 to: 2025-12-12)
-[T][ ] read another book
-[D][ ] do something      (by: 2023-01-01)
+[D][X] read book          (by: 2023-01-01)
