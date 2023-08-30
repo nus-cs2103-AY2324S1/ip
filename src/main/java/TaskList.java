@@ -73,7 +73,9 @@ public class TaskList {
                 }
             }
         } catch (IOException e) {
-            System.out.println("The file you entered cannot be accessed. \n Please create a new file for your tasks!");
+            System.out.println("Please ensure that MYBOT.txt can be accessed");
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println("You have no task at the moment!");
         } catch (Exception e) {
             System.out.println("The file to store your tasks entered cannot be accessed.");
         }
