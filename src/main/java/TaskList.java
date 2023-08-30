@@ -37,6 +37,8 @@ public class TaskList {
         } catch (FileNotFoundException e) {
             System.out.println("An error occurred.");
             e.printStackTrace();
+        } catch (DukeException e) {
+            System.out.println(e);
         }
         this.file = file;
     }
