@@ -1,10 +1,5 @@
 package duke.task;
 
-import duke.ui.Ui;
-import duke.exception.IllegalTaskIndexException;
-import duke.exception.InvalidArgumentException;
-import duke.storage.Storage;
-
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -12,12 +7,20 @@ import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 
+import duke.exception.IllegalTaskIndexException;
+import duke.exception.InvalidArgumentException;
+import duke.storage.Storage;
+import duke.ui.Ui;
+
 
 /**
  * Represents a list of tasks.
  */
 public class TaskList {
 
+    /**
+     * Represents the type of task.
+     */
     public enum TaskType {
 
         TODO {
@@ -31,10 +34,11 @@ public class TaskList {
             public Task createTask(String details) throws InvalidArgumentException {
                 String[] split = details.split(" /by ");
                 if (split.length != 2) {
-                    throw new InvalidArgumentException("☹ OOPS!!! The deadline format is incorrect. " +
-                            "It should be: deadline <name> /by <date> <time>");
+                    throw new InvalidArgumentException("☹ OOPS!!! The deadline format is incorrect. "
+                            + "It should be: deadline <name> /by <date> <time>");
                 }
-                String taskName = split[0], dateTime = split[1];
+                String taskName = split[0];
+                String dateTime = split[1];
                 return new Deadline(taskName, parseDateTime(dateTime));
             }
         },
@@ -44,12 +48,20 @@ public class TaskList {
                 String[] firstSplit = details.split(" /from ");
                 String[] secondSplit = firstSplit[firstSplit.length - 1].split(" /to ");
                 if (firstSplit.length != 2 || secondSplit.length != 2) {
-                    throw new InvalidArgumentException("☹ OOPS!!! The event format is incorrect. " +
-                            "It should be: event <name> /from <date> <time> /to <date> <time>");
+                    throw new InvalidArgumentException("☹ OOPS!!! The event format is incorrect. "
+                            + "It should be: event <name> /from <date> <time> /to <date> <time>");
                 }
-                String taskName = firstSplit[0], startDateTime = secondSplit[0], endDateTime = secondSplit[1];
+                String taskName = firstSplit[0];
+                String startDateTime = secondSplit[0];
+                String endDateTime = secondSplit[1];
                 return new Event(taskName, parseDateTime(startDateTime), parseDateTime(endDateTime));
             }
+        };
+
+        private static final DateTimeFormatter[] DATE_TIME_FORMATS = {
+                DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm"),
+                DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"),
+                DateTimeFormatter.ofPattern("dd-MMM-yyyy HH:mm"),
         };
 
         /**
@@ -59,11 +71,6 @@ public class TaskList {
          * @throws InvalidArgumentException If the deadline task's format is invalid.
          */
         public abstract Task createTask(String details) throws InvalidArgumentException;
-        private static final DateTimeFormatter[] DATE_TIME_FORMATS = {
-                DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm"),
-                DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"),
-                DateTimeFormatter.ofPattern("dd-MMM-yyyy HH:mm"),
-        };
         private static LocalDateTime parseDateTime(String dateTime) throws InvalidArgumentException {
             for (DateTimeFormatter format: DATE_TIME_FORMATS) {
                 try {
@@ -83,7 +90,6 @@ public class TaskList {
      * Constructor for TaskList.
      */
     public TaskList(String filePath) {
-//        this.tasks = new ArrayList<>();
         this.storage = new Storage(filePath);
         try {
             this.tasks = storage.load();

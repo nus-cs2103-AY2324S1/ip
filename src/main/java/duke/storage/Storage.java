@@ -1,46 +1,49 @@
 package duke.storage;
 
-import duke.task.Task;
-import duke.task.ToDo;
-import duke.task.Deadline;
-import duke.task.Event;
-
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
-import java.nio.file.Path;
 
+import duke.task.Deadline;
+import duke.task.Event;
+import duke.task.Task;
+import duke.task.ToDo;
+
+/**
+ * Represents the storage of the program.
+ */
 public class Storage {
-    private final Path FILE_PATH;
+    private final Path filePath;
 
     public Storage(String filename) {
-        this.FILE_PATH = Paths.get(".", "data", filename);
+        this.filePath = Paths.get(".", "data", filename);
     }
 
     /**
      * Loads the data from the file.
      */
     public ArrayList<Task> load() throws IOException {
-        Path directoryPath = FILE_PATH.getParent();
+        Path directoryPath = filePath.getParent();
         if (!Files.exists(directoryPath)) {
             Files.createDirectories(directoryPath);
         }
         // Check if file exists, if not create it
-        if (!Files.exists(FILE_PATH)) {
-            Files.createFile(FILE_PATH);
+        if (!Files.exists(filePath)) {
+            Files.createFile(filePath);
         }
 
         // Read file and load data
         List<String> data;
         try {
-            data = Files.readAllLines(FILE_PATH);
+            data = Files.readAllLines(filePath);
         } catch (IOException e) {
             System.out.println("An error occurred while reading the file: " + e.getMessage());
-            return new ArrayList<>();  // Return an empty duke.task list
+            return new ArrayList<>();
         }
         ArrayList<Task> tasks = new ArrayList<>();
 
@@ -50,7 +53,7 @@ public class Storage {
                 System.out.println("Invalid duke.task format found in Hard Disk");
                 continue;
             }
-            char type = parts[0].charAt(parts[0].length()- 1);
+            char type = parts[0].charAt(parts[0].length() - 1);
             char doneStatus = parts[1].charAt(1);
             boolean isDone = doneStatus == 'X';
             String description = parts[2].trim();
@@ -83,8 +86,13 @@ public class Storage {
                 task = new Event(eventDescription,
                         LocalDateTime.parse(eventStartDateTime, format),
                         LocalDateTime.parse(eventEndDateTime, format));
-                if (isDone) task.markAsDone();
+                if (isDone) {
+                    task.markAsDone();
+                }
                 tasks.add(task);
+                break;
+            default:
+                System.out.println("Invalid duke.task type found in Hard Disk");
                 break;
             }
         }
@@ -96,26 +104,26 @@ public class Storage {
      * @param tasks The tasks to save.
      */
     public void save(List<Task> tasks) throws IOException {
-        Path directoryPath = FILE_PATH.getParent();
+        Path directoryPath = filePath.getParent();
         if (!Files.exists(directoryPath)) {
             Files.createDirectories(directoryPath);
         }
         // Check if file exists, if not create it
-        if (!Files.exists(FILE_PATH)) {
-            Files.createFile(FILE_PATH);
+        if (!Files.exists(filePath)) {
+            Files.createFile(filePath);
         }
         // Write data to file
         List<String> data = new ArrayList<>();
         for (Task task : tasks) {
             data.add(task.toString());
         }
-        Files.write(FILE_PATH, data);
+        Files.write(filePath, data);
     }
 
     /**
      * Deletes the file.
      */
     public void delete() throws IOException {
-        Files.delete(FILE_PATH);
+        Files.delete(filePath);
     }
 }

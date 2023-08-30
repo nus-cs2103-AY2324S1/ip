@@ -5,7 +5,7 @@ package duke.exception;
  * It is thrown when the user inputs an unknown command.
  * @author Alan Lim
  */
-public class UnknownCommandException extends DukeException{
+public class UnknownCommandException extends DukeException {
     /**
     * Constructor for duke.exception.UnknownCommandException.
     */

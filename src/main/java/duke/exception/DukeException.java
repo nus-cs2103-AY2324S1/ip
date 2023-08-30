@@ -3,7 +3,7 @@ package duke.exception;
 /**
  * duke.exception.DukeException class is a custom duke.exception class that extends Exception.
  */
-public class DukeException extends Exception{
+public class DukeException extends Exception {
 
     /**
      * Constructor for duke.exception.DukeException.

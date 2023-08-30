@@ -1,10 +1,11 @@
-package duke.task;  //same package as the class being tested
+package duke.task;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.time.LocalDateTime;
+
 import org.junit.jupiter.api.Test;
 public class DeadlineTest {
 
@@ -51,6 +52,4 @@ public class DeadlineTest {
         deadline.markAsDone();
         assertEquals("X", deadline.getStatusIcon());
     }
-
-
 }
