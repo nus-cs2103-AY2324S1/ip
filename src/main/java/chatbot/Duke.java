@@ -3,9 +3,13 @@ package chatbot;
 import java.util.Scanner;
 
 public class Duke {
-    private Storage storage;
+    /** Storage to load and write files. */
+    private Storage storage; 
+    /** UI to handle the printing of output. */
     private UI ui;
+    /** taskHandler to store the list of Tasks and do operations. */
     private TaskList taskHandler;
+    /** Interprets user input. */
     private Parser parser;
 
     public Duke() {
@@ -16,6 +20,11 @@ public class Duke {
         this.parser = new Parser(ui, taskHandler, storage);
     }
 
+    /** 
+     * Runs the program until the loop breaks.
+     * The loop only breaks when the input is "bye"
+     * and breaker is set to 1.
+     */
     public void run() {
         ui.startProgram();
         

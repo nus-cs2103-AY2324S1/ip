@@ -1,8 +1,11 @@
 package chatbot;
 
 public class Parser {
+    /** UI to handle the printing of output. */
     private UI ui;
+    /** taskHandler to store the list of Tasks and do operations. */
     private TaskList taskHandler;
+    /** Storage to load and write files. */
     private Storage storage;
 
     public Parser(UI ui, TaskList taskHandler, Storage storage) {
@@ -11,11 +14,18 @@ public class Parser {
         this.storage = storage;
     }
 
-    // Purely for testing purposes
+    // Purely for testing purposes.
     public Parser() {
         
     }
 
+    /** 
+     * Interprets the user string input and
+     * returns a value based on the input.
+     * 
+     * @param input The user input to be interpreted.
+     * @return The value to determine if the program ends. 
+     */
     public int runInput(String input) {
         if (input.equals("bye")) {
             ui.endProgram();
@@ -136,6 +146,13 @@ public class Parser {
         }
     }
 
+    /** 
+     * Checks for incomplete user inputs.
+     * 
+     * @param str The user input.
+     * @param minimum The minimum length of the user input.
+     * @throws UserInputException If the input is deemed incomplete.
+     */
     public static void validateInput(String str, int minimum) throws UserInputException {
         if (str.length() <= minimum) {
             throw new UserInputException("OOPS!!! The description of a " + str + " cannot be empty.");
