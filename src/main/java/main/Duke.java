@@ -5,77 +5,88 @@ import mypackage.Deadline;
 import mypackage.Event;
 import mypackage.DukeException;
 import mypackage.ToDo;
+import mypackage.CommandType;
+import mypackage.Global;
 
 public class Duke {
     private static final String chatBotName = "CHAD CCP";
     private static final CustomList list = new CustomList();
     public static void main(String[] args) {
-//        String logo = " ____        _        \n"
-//                + "|  _ \\ _   _| | _____ \n"
-//                + "| | | | | | | |/ / _ \\\n"
-//                + "| |_| | |_| |   <  __/\n"
-//                + "|____/ \\__,_|_|\\_\\___|\n";
-//        System.out.println("Hello from\n" + logo);
 
         Duke dukeInstance = new Duke();
         Scanner scanner = new Scanner(System.in);
         dukeInstance.greetUser();
 
-        while(true) {
-            String command = scanner.nextLine();
-            if (command.equals("bye")) {
+    while (true) {
+        String command = scanner.nextLine();
+        CommandType commandType = CommandType.getCommandType(command);
+
+        switch (commandType) {
+            case BYE:
                 dukeInstance.goodBye();
-                break;
-            } else if (command.equals("list")) {
+                scanner.close();
+                return; 
+            case LIST:
                 list.printList();
-            } else if (command.startsWith("mark")) {
+                break;
+            case MARK:
                 try {
                     list.markAsDone(command);
                 } catch (DukeException e) {
-                    System.out.println("________________________________");
+                    System.out.println(Global.LINE);
                     System.out.println(e);
-                    System.out.println("________________________________");
+                    System.out.println(Global.LINE);
                 }
-            } else if (command.startsWith("unmark")) {
-                int index = Integer.valueOf(command.substring(7));
-                list.markAsUndone(index);
-            } else if (command.startsWith("todo")) {
+                break;
+            case UNMARK:
+                int unmarkIndex = Integer.parseInt(command.substring(7));
+                list.markAsUndone(unmarkIndex);
+                break;
+            case TODO:
                 try {
                     list.addTask(createToDoTask(command));
                 } catch (DukeException e) {
-                    System.out.println("________________________________");
+                    System.out.println(Global.LINE);
                     System.out.println(e);
-                    System.out.println("________________________________");
+                    System.out.println(Global.LINE);
                 }
-            } else if(command.startsWith("deadline")) {
+                break;
+            case DEADLINE:
                 list.addTask(new Deadline(command.substring(9)));
-            } else if(command.startsWith("event")){
+                break;
+            case EVENT:
                 list.addTask(new Event(command.substring(6)));
-            } else if (command.startsWith("delete")) {
-                list.deleteTask(Integer.valueOf(command.substring(7)));
-            }
-            else {
-                //dukeInstance.echoUserAndAddToList(command);
+                break;
+            case DELETE:
+                int deleteIndex = Integer.parseInt(command.substring(7));
+                list.deleteTask(deleteIndex);
+                break;
+            case UNKNOWN:
                 System.out.println(new DukeException("I'm sorry, but I don't know what that means :-("));
-                System.out.println("________________________________");
-            }
+                System.out.println(Global.LINE);
+                break;
         }
-
-        scanner.close();
     }
+}
 
     public void greetUser() {
-        System.out.println("________________________________");
+        System.out.println(Global.LINE);
+        String logo = " ____        _        \n"
+               + "|  _ \\ _   _| | _____ \n"
+               + "| | | | | | | |/ / _ \\\n"
+               + "| |_| | |_| |   <  __/\n"
+               + "|____/ \\__,_|_|\\_\\___|\n";
+        System.out.println(logo);
         System.out.println("Hello! I'm " + Duke.chatBotName);
         System.out.println("What can I do for you?");
-        System.out.println("________________________________");
+        System.out.println(Global.LINE);
     }
 
     // public void echoUserAndAddToList(String command) {
-    //     System.out.println("________________________________");
+    //     System.out.println(Global.LINE);
     //     list.add(new Task(command));
     //     System.out.println("added: " + command);
-    //     System.out.println("________________________________");
+    //     System.out.println(Global.LINE);
     // }
 
     public static ToDo createToDoTask(String command) throws DukeException{
@@ -95,7 +106,7 @@ public class Duke {
 
     public void goodBye() {
         System.out.println("Bye. Hope to see you again soon!");
-        System.out.println("________________________________");
+        System.out.println(Global.LINE);
     }
 
 }
