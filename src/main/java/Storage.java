@@ -137,16 +137,11 @@ public class Storage {
      * @param tasks The ArrayList containing all the tasks.
      * @throws DukeException if there is an error accessing or writing to the save file.
      */
-    public void saveTasks(ArrayList<Task> tasks) throws DukeException {
+    public void saveTasks(TaskList tasks) throws DukeException {
         getOrCreateFile();
-        StringBuilder tempString = new StringBuilder();
-        for (Task task : tasks) {
-            tempString.append(task.getSaveString()).append(System.lineSeparator());
-        }
-
         try {
             FileWriter fileWriter = new FileWriter(this.filePath);
-            fileWriter.write(tempString.toString());
+            fileWriter.write(tasks.getSaveString());
             fileWriter.close();
         } catch (IOException e) {
             throw new DukeException(Ui.LINE + e.getMessage() + Ui.LINE);

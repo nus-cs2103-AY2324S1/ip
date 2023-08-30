@@ -1,6 +1,4 @@
-import java.util.ArrayList;
-
 public abstract class Command {
     public abstract boolean isExit();
-    public abstract void execute(ArrayList<Task> tasks, Ui ui, Storage storage) throws DukeException;
+    public abstract void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException;
 }

@@ -1,5 +1,4 @@
 import java.io.PrintStream;
-import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
@@ -33,11 +32,9 @@ public class Ui {
      *
      * @param list The list containing the tasks.
      */
-    public void showList(ArrayList<Task> list) {
+    public void showList(TaskList list) {
         out.print(LINE + Messages.LIST_MESSAGE);
-        for (int i = 0; i < list.size(); i++) {
-            out.println((i + 1) + ". " + list.get(i));
-        }
+        list.printTasks();
         out.print(LINE);
     }
 

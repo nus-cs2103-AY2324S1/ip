@@ -12,7 +12,6 @@ public class Parser {
                     + "(?:(/to)\\s+([^/]*[^/\\s]))?\\s*";               // match /to command and argument
     private static final Pattern pattern = Pattern.compile(regexPattern);
 
-    public Parser() {};
 
     public static Command parse(String command) throws DukeException {
         Matcher matcher = pattern.matcher(command);
