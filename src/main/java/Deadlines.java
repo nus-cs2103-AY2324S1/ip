@@ -1,5 +1,8 @@
+import java.time.DateTimeException;
+import java.time.LocalDateTime;
+
 public class Deadlines extends Task {
-    private String deadline;
+    private DateTimeOptional deadline;
 
     public static Deadlines create(String rawLine) throws DukeException {
         if (rawLine.length() == 0) {
@@ -9,9 +12,14 @@ public class Deadlines extends Task {
         if (instructions.length != 2) {
             throw new DukeException("Err: No deadline given. Format - deadline <description> /by <deadline>");
         }
-        return new Deadlines(instructions[0], instructions[1]);
+        try {
+            DateTimeOptional deadline = DateTimeOptional.parseDateTime(instructions[1]);
+            return new Deadlines(instructions[0], deadline);
+        } catch (DateTimeException e) {
+            throw new DukeException.DukeDateTimeException(instructions[1]);
+        }
     }
-    public Deadlines(String item, String deadline) {
+    public Deadlines(String item, DateTimeOptional deadline) {
         super(item);
         this.deadline = deadline;
     }
@@ -31,7 +39,7 @@ public class Deadlines extends Task {
                 "[D][%s] %s (by %s)",
                 super.getStatusIcon(),
                 super.description,
-                this.deadline
+                this.deadline.displayText()
         );
     }
 }

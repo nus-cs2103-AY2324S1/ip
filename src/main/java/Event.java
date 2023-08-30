@@ -1,9 +1,10 @@
-import java.security.DigestException;
+import java.time.DateTimeException;
+import java.time.LocalDateTime;
 
 public class Event extends Task{
 
-    private String startTime;
-    private String endTime;
+    private DateTimeOptional startTime;
+    private DateTimeOptional endTime;
     public static Event create(String rawLine) throws DukeException {
         if (rawLine.length() == 0) {
             throw new DukeException("Err: Empty Description");
@@ -16,9 +17,24 @@ public class Event extends Task{
         if (timeLine.length != 2) {
             throw new DukeException("Err: No end time given. Format is in event <desc> /from <time> /to <time>");
         }
-        return new Event(instructions[0], timeLine[0], timeLine[1]);
+
+        DateTimeOptional startDate, endDate;
+
+        try {
+            startDate = DateTimeOptional.parseDateTime(timeLine[0]);
+        } catch (DateTimeException e) {
+            throw new DukeException.DukeDateTimeException(timeLine[0]);
+        }
+
+        try {
+            endDate = DateTimeOptional.parseDateTime(timeLine[1]);
+        } catch (DateTimeException e) {
+            throw new DukeException.DukeDateTimeException(timeLine[1]);
+        }
+
+        return new Event(instructions[0], startDate, endDate);
     }
-    public Event(String description, String startTime, String endTime) {
+    public Event(String description, DateTimeOptional startTime, DateTimeOptional endTime) {
         super(description);
         this.startTime = startTime;
         this.endTime = endTime;
@@ -41,8 +57,8 @@ public class Event extends Task{
                 "[E][%s] %s (from: %s to: %s)",
                 super.getStatusIcon(),
                 super.description,
-                this.startTime,
-                this.endTime
+                this.startTime.displayText(),
+                this.endTime.displayText()
         );
     }
 }
