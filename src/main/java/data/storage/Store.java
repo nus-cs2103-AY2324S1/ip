@@ -175,5 +175,9 @@ public class Store {
     public String toString() {
         return tasks.toString();
     } 
+
+    public TaskList find(String keyword) throws DukeException {
+        return tasks.findTasksWithKeyword(keyword);
+    }
 }
 

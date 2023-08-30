@@ -10,5 +10,6 @@ list
 delete 4
 blah
 list
+find book
 bye
 ```

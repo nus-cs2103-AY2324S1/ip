@@ -17,6 +17,10 @@ final class Description extends TaskComponent {
     public String toString() {
         return this.description;
     }
+
+    public boolean hasKeyword(String keyword) {
+        return this.description.contains(keyword);
+    }
 }
 
 final class By extends TaskComponent {
