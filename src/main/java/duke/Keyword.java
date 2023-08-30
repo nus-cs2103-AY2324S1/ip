@@ -13,12 +13,11 @@ public enum Keyword {
 
     private final String keyword;
 
-    public String getKeyword() {
-        return this.keyword;
-    }
-
     private Keyword(String keyword) {
         this.keyword = keyword;
     }
-}
 
+    public String getKeyword() {
+        return this.keyword;
+    }
+}

@@ -1,9 +1,9 @@
 package duke.task;
 
+import java.time.LocalDate;
+
 import duke.Keyword;
 import duke.Storage;
-
-import java.time.LocalDate;
 
 public class Task {
     protected String description;

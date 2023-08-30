@@ -1,11 +1,11 @@
 package duke.task;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
 import duke.Keyword;
 import duke.Storage;
 import duke.Time;
-
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 public class Deadline extends Task {
 
@@ -26,8 +26,8 @@ public class Deadline extends Task {
     @Override
     public boolean onDate(Keyword key, LocalDate date) {
         LocalDate by = this.by.toLocalDate();
-        return key.equals(Keyword.DEADLINE) &&
-                (by.isAfter(date) || by.equals(date));
+        return key.equals(Keyword.DEADLINE)
+                && (by.isAfter(date) || by.equals(date));
     }
 
     @Override

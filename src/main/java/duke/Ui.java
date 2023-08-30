@@ -1,24 +1,26 @@
 package duke;
 
-import duke.task.Task;
-
 import java.util.Scanner;
 
+import duke.task.Task;
+
 public class Ui {
-    private static final String NAME_ART =
-            "               _                _               _                      \n" +
-                    "           _  /\\ \\            / /\\          _  /\\ \\               \n" +
-                    "          /\\_\\\\ \\ \\          / /  \\        /\\_\\\\ \\ \\        \n" +
-                    "         / / / \\ \\ \\        / / /\\ \\      / / / \\ \\ \\          \n" +
-                    "        / / /   \\ \\ \\      / / /\\ \\ \\    / / /   \\ \\ \\        \n" +
-                    "        \\ \\ \\____\\ \\ \\    /_/ /  \\ \\ \\   \\ \\ \\____\\ \\ \\ \n" +
-                    "         \\ \\________\\ \\   \\ \\ \\   \\ \\ \\   \\ \\________\\ \\ \n" +
-                    "          \\/________/\\ \\   \\ \\ \\   \\ \\ \\   \\/________/\\ \\  \n" +
-                    "                    \\ \\ \\   \\ \\ \\___\\ \\ \\            \\ \\ \\ \n" +
-                    "                     \\ \\_\\   \\ \\/____\\ \\ \\            \\ \\_\\ \n" +
-                    "                      \\/_/    \\_________\\/             \\/_/";
-    protected static final String NAME = "404";
+
     protected static final String INDENT = "     ";
+    protected static final String NAME = "404";
+    private static final String NAME_ART =
+            "               _                _               _                      \n"
+            + "           _  /\\ \\            / /\\          _  /\\ \\               \n"
+            + "          /\\_\\\\ \\ \\          / /  \\        /\\_\\\\ \\ \\        \n"
+            + "         / / / \\ \\ \\        / / /\\ \\      / / / \\ \\ \\          \n"
+            + "        / / /   \\ \\ \\      / / /\\ \\ \\    / / /   \\ \\ \\        \n"
+            + "        \\ \\ \\____\\ \\ \\    /_/ /  \\ \\ \\   \\ \\ \\____\\ \\ \\ \n"
+            + "         \\ \\________\\ \\   \\ \\ \\   \\ \\ \\   \\ \\________\\ \\ \n"
+            + "          \\/________/\\ \\   \\ \\ \\   \\ \\ \\   \\/________/\\ \\  \n"
+            + "                    \\ \\ \\   \\ \\ \\___\\ \\ \\            \\ \\ \\ \n"
+            + "                     \\ \\_\\   \\ \\/____\\ \\ \\            \\ \\_\\ \n"
+            + "                      \\/_/    \\_________\\/             \\/_/";
+
     private Scanner sc;
 
     public void showWelcome() {
@@ -32,8 +34,8 @@ public class Ui {
     }
     public void showLoadingError() {
         String goneWrongMessage =
-                String.format("%sOOPS!!!Something terrible happened to the data file.\n" +
-                                "%sDon't worry I will clean up the mess!", INDENT, INDENT);
+                String.format("%sOOPS!!!Something terrible happened to the data file.\n"
+                              + "%sDon't worry I will clean up the mess!", INDENT, INDENT);
         showLine();
         System.out.println(goneWrongMessage);
         showLine();
@@ -56,22 +58,22 @@ public class Ui {
     }
 
     public void showLine() {
-        String line = "    ____________________________________________________________\n" +
-                "   /_____/_____/_____/_____/_____/_____/_____/_____/_____/_____/";
+        String line = "    ____________________________________________________________\n"
+                + "   /_____/_____/_____/_____/_____/_____/_____/_____/_____/_____/";
         System.out.println(line);
     }
 
     public void showAddTask(Task task, int taskListSize) {
-        System.out.printf("%sGot it. I've added this task:\n" +
-                          "%s  %s\n" +
-                          "%sNow you have %d tasks in the list.\n",
+        System.out.printf("%sGot it. I've added this task:\n"
+                          + "%s  %s\n"
+                          + "%sNow you have %d tasks in the list.\n",
                 INDENT, INDENT, task, INDENT, taskListSize);
     }
 
     public void showDeleteTask(Task removedTask, int taskListSize) {
-        System.out.printf("%sNoted. I've removed this task:%n" +
-                          "%s  %s%n" +
-                          "%sNow you have %d tasks in the list.%n",
+        System.out.printf("%sNoted. I've removed this task:%n"
+                          + "%s  %s%n"
+                          + "%sNow you have %d tasks in the list.%n",
                 INDENT, INDENT, removedTask, INDENT, taskListSize);
     }
 

@@ -1,13 +1,13 @@
 package duke.task;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
 import duke.Keyword;
 import duke.Storage;
 import duke.Time;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-
-public class Event extends Task{
+public class Event extends Task {
 
     protected LocalDateTime from;
     protected LocalDateTime to;
@@ -30,9 +30,9 @@ public class Event extends Task{
     public boolean onDate(Keyword key, LocalDate date) {
         LocalDate from = this.from.toLocalDate();
         LocalDate to = this.to.toLocalDate();
-        return key.equals(Keyword.EVENT) &&
-                (from.isBefore(date) || from.equals(date)) &&
-                (to.isAfter(date) || to.equals(date));
+        return key.equals(Keyword.EVENT)
+                && (from.isBefore(date) || from.equals(date))
+                && (to.isAfter(date) || to.equals(date));
     }
 
     @Override
