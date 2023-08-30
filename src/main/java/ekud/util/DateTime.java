@@ -48,6 +48,36 @@ public final class DateTime {
         }
     }
 
+    public LocalTime getTime() {
+        if (time != null) {
+            return time;
+        } else if (dateTime != null) {
+            return dateTime.toLocalTime();
+        } else {
+            return null;
+        }
+    }
+
+    public LocalDate getDate() {
+        if (date != null) {
+            return date;
+        } else if (dateTime != null) {
+            return dateTime.toLocalDate();
+        } else {
+            return null;
+        }
+    }
+
+    public LocalDateTime getDateTime() {
+        if (dateTime != null) {
+            return dateTime;
+        } else if (date != null) {
+            return date.atStartOfDay();
+        } else {
+            return time.atDate(LocalDate.now());
+        }
+    }
+
     @Override
     public String toString() {
         if (date != null) {

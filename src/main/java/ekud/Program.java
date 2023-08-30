@@ -1,7 +1,6 @@
 package ekud;
 
 import ekud.command.Command;
-import ekud.command.ByeCommand;
 import ekud.error.EkudException;
 import ekud.handler.Handler;
 import ekud.state.State;
