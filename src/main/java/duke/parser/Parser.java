@@ -30,6 +30,9 @@ public class Parser {
             } else if (input.startsWith("delete")) {
                 int index = Integer.parseInt(input.substring(7));
                 taskList.deleteTask(index);
+            } else if (input.startsWith("find")) {
+                String keyword = input.substring(5);
+                taskList.findTasks(keyword);
             } else {
                 throw new UnknownCommandException();
             }

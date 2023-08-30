@@ -45,6 +45,14 @@ public abstract class Task {
      * Returns the description of the duke.task.
      * @return The description of the duke.task.
      */
+    public String getDescription() {
+        return description;
+    }
+
+    /**
+     * Returns the description of the duke.task.
+     * @return The description of the duke.task.
+     */
     @Override
     public String toString() {
         return "[" + getStatusIcon() + "] " + description;
