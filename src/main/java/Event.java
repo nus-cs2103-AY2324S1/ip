@@ -24,12 +24,15 @@ public class Event extends Task {
         if (description.isBlank()) {
             throw new HelpBuddyException("The description of a event cannot be empty.\n");
         } else if (from == null) {
-            throw new HelpBuddyException("Please enter a start time of event.\n");
+            throw new HelpBuddyException("Please enter /from followed by a start time of event.\n");
         } else if (to == null) {
-            throw new HelpBuddyException("Please enter an end time of event.\n");
+            throw new HelpBuddyException("Please enter /to followed by an end time of event.\n");
+        } else if (to.isBefore(from)) {
+            throw new HelpBuddyException("End time must be after the start time!\n");
+        } else if (to.isEqual(from)) {
+            throw new HelpBuddyException("Both start and end time are the same, please check!\n");
         }
     }
-
     /**
      *
      * @return String representation of event object
@@ -38,7 +41,7 @@ public class Event extends Task {
     public String toString() {
         String startTime = this.from.format(DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm"));
         String endTime = this.to.format(DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm"));
-        return "[E]" + super.toString() + "(from: " + startTime + " to: " + endTime + ")";
+        return "[E]" + super.toString() + " (from: " + startTime + " to: " + endTime + ")";
     }
 
     @Override

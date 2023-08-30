@@ -20,7 +20,7 @@ public class Deadline extends Task {
         if (description.isBlank()) {
             throw new HelpBuddyException("The description of a deadline cannot be empty.\n");
         } else if (by == null) {
-            throw new HelpBuddyException("Please enter a deadline.\n");
+            throw new HelpBuddyException("Please enter /by followed by a deadline.\n");
         }
     }
 
@@ -31,7 +31,7 @@ public class Deadline extends Task {
     @Override
     public String toString() {
         String deadline = this.by.format(DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm"));
-        return "[D]" + super.toString() + "(by: " + deadline + ")";
+        return "[D]" + super.toString() + " (by: " + deadline + ")";
     }
 
     @Override
