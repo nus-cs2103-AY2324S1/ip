@@ -2,6 +2,9 @@ package duke;
 
 import java.util.Scanner;
 
+/**
+ * Represents a user interface of the chat robot.
+ */
 public class Ui {
     public void showLoadingError() {
         System.out.println("Generating new chat session...");
@@ -11,6 +14,10 @@ public class Ui {
         System.out.println("⚠ Oops! Something wrong when closing:(");
     }
 
+    /**
+     * Prints corresponding error message according to the exception.
+     * @param e the exception.
+     */
     public void handleException(DukeException e) {
         String message = e.getMessage();
         if (message.equals("undefined")) {
@@ -28,6 +35,10 @@ public class Ui {
         }
     }
 
+    /**
+     * Runs the UI to print start and ending messages.
+     * @param p the parser.
+     */
     public void run(Parser p) {
         Scanner scanner = new Scanner(System.in);
         String logo = " _ \n"
@@ -40,8 +51,11 @@ public class Ui {
                 + "What can I do for you today?");
         while (scanner.hasNextLine()) {
             try {
-                System.out.println(p.parse(scanner.nextLine()));
-                if (!p.isRunning()) {
+                String output = p.parse(scanner.nextLine());
+                if (p.isRunning()) {
+                    System.out.println(output);
+                } else {
+                    System.out.println("Bye!\n\"Beware the barrenness of a busy life.\"");
                     break;
                 }
             } catch (DukeException e) {
