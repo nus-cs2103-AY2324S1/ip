@@ -23,7 +23,8 @@ public class Duke {
 
     public static void getUserInput() throws DukeException{
         Scanner sc = new Scanner(System.in);
-        List list = new List();
+        TaskList list = new TaskList();
+        list.readFromFile();
 
         while (true) {
             String userInput = sc.nextLine();
@@ -74,6 +75,8 @@ public class Duke {
                     throw new DukeException("OOPS!!! Could not add task to the list");
                 }
             }
+
+            list.writeToFile();
         }
     }
 
