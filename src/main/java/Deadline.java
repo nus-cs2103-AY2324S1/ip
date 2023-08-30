@@ -33,7 +33,7 @@ public class Deadline extends Task {
      * @return String representing deadline task to be stored.
      */
     @Override
-    public String toStored() {
-        return "D | " + super.toStored() + " | " + this.endDate;
+    public String tasktoString() {
+        return "D | " + super.tasktoString() + " | " + this.endDate;
     }
 }
