@@ -11,6 +11,12 @@ public class Event extends Task {
         this.to = to;
     }
 
+    public Event(String desc, String from, String to, boolean status) {
+        super(desc, status);
+        this.from = from;
+        this.to = to;
+    }
+
     /**
      * Getter method for the Event start time
      *

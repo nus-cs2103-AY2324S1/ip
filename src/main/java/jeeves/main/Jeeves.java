@@ -11,6 +11,7 @@ import jeeves.exception.DeletedIdException;
 
 import java.io.IOException;
 import java.io.BufferedWriter;
+import java.io.BufferedReader;
 
 import jeeves.task.Task;
 import jeeves.task.Todo;
@@ -45,7 +46,7 @@ public class Jeeves {
      * array access position, index 0 will always be unused.
      * taskList is effectively 1-indexed
      */
-    private static ArrayList<Task> taskList = new ArrayList<>();
+    private static final ArrayList<Task> taskList = new ArrayList<>();
 
     /**
      * Main process.
@@ -73,12 +74,44 @@ public class Jeeves {
         if (Files.notExists(dataPath)) {
             try {
                 Files.createFile(dataPath);
+                // Initialization step for task list, adds an empty object so the arraylist is 1-indexed
+                taskList.add(null);
             } catch (IOException e) {
                 // Do nothing if an error is encountered since the file existence is already checked
             }
+        } else {
+            // If the file already exists, read the data from it and populate the task list.
+            // Initialization step for task list, adds an empty object so the arraylist is 1-indexed
+            taskList.add(null);
+            try {
+                BufferedReader br = Files.newBufferedReader(dataPath);
+                String currLine = null;
+                while ((currLine = br.readLine()) != null) {
+                    // Extract the information to populate the task list
+                    String[] currData = currLine.split("\\|");
+                    String taskType = currData[0];
+                    boolean status = Integer.parseInt(currData[1]) == 1;
+                    String desc = currData[2];
+                    switch (taskType) {
+                    case "T":
+                        taskList.add(new Todo(desc, status));
+                        break;
+                    case "D":
+                        String deadline = currData[3];
+                        taskList.add(new Deadline(desc, deadline, status));
+                        break;
+                    case "E":
+                        String startTime = currData[3];
+                        String endTime = currData[4];
+                        taskList.add(new Event(desc, startTime, endTime, status));
+                        break;
+                    }
+                }
+                br.close();
+            } catch (IOException e) {
+                System.out.println(e.getMessage());
+            }
         }
-        // Initialization step for task list, adds an empty object so the arraylist is 1-indexed
-        taskList.add(null);
 
         // Waits for user input and process it accordingly
         while (true) {
@@ -301,18 +334,18 @@ public class Jeeves {
                     if (currTask != null) {
                         // Determines what type of Task is being handled currently for printing purposes
                         if (currTask instanceof Todo) {
-                            sb.append("T |");
+                            sb.append("T|");
                         } else if (currTask instanceof Deadline) {
-                            sb.append("D |");
+                            sb.append("D|");
                         } else {
-                            sb.append("E |");
+                            sb.append("E|");
                         }
                         
                         // Writes the status of the task
                         if (currTask.isDone()) {
-                            sb.append(" 1 | ");
+                            sb.append("1|");
                         } else {
-                            sb.append(" 0 | ");
+                            sb.append("0|");
                         }
                         
                         // Writes the description and other tracked data.
@@ -321,14 +354,14 @@ public class Jeeves {
                                     .append("\n");
                         } else if (currTask instanceof Deadline) {
                             sb.append(currTask.getDesc())
-                                    .append(" | ")
+                                    .append("|")
                                     .append(((Deadline) currTask).getDeadline())
                                     .append("\n");
                         } else {
                             sb.append(currTask.getDesc())
-                                    .append(" | ")
+                                    .append("|")
                                     .append(((Event) currTask).getStartTime())
-                                    .append(" | ")
+                                    .append("|")
                                     .append(((Event) currTask).getEndTime())
                                     .append("\n");
                         }
@@ -340,8 +373,8 @@ public class Jeeves {
                     bw.write(sb.toString());
                     bw.flush();
                     bw.close();
-                } catch(IOException ex){
-                    System.out.println(ex.getMessage());
+                } catch(IOException e){
+                    System.out.println(e.getMessage());
                 }
                 // Displays the farewell message and terminates the application
                 System.out.println("I bid you farewell, Master");

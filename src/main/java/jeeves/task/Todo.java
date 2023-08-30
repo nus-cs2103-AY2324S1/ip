@@ -6,6 +6,10 @@ public class Todo extends Task {
         super(desc);
     }
 
+    public Todo(String desc, boolean status) {
+        super(desc, status);
+    }
+
     @Override
     public String toString() {
         return String.format(this.id + ". [T]" + super.toString());
