@@ -1,24 +1,44 @@
-import java.util.List;
-import java.util.ArrayList;
 import java.util.Scanner;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
+
 
 
 public class Duke {
+    private Storage storage;
+    private UI ui;
+    private TaskList taskHandler;
+    private Parser parser;
+
+    public Duke() {
+        // root starts at ip
+        this.storage = new Storage("./data/duke.txt");
+        this.ui = new UI(storage);
+        this.taskHandler = new TaskList();
+        this.parser = new Parser(ui, taskHandler, storage);
+    }
+
+    public void run() {
+        ui.startProgram();
+        
+        Scanner sc = new Scanner(System.in);
+
+        while (true) {
+            String input = sc.nextLine();
+            
+            int breaker = parser.runInput(input);
+            
+            if (breaker == 1) {
+                break;
+            } else {
+                continue;
+            }
+        }
+
+        sc.close();
+    }
+    
     public static void main(String[] args) {
-        /* String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
-        System.out.println("Hello from\n" + logo);*/
-
-        // Hello! I'm [YOUR CHATBOT NAME]
-
-        String print1 = "Hello! I'm Afro\n"
+        new Duke().run();
+        /* String print1 = "Hello! I'm Afro\n"
                         + "What can I do for you?\n";
 
         String str;
@@ -186,13 +206,13 @@ public class Duke {
         }
 
         sc.close();
-        System.out.println("Bye. Hope to see you again soon!");
+        System.out.println("Bye. Hope to see you again soon!");*/
 
     }
 
-    public static void validateInput(String str, int minimum) throws UserInputException {
+    /* public static void validateInput(String str, int minimum) throws UserInputException {
         if (str.length() <= minimum) {
             throw new UserInputException("OOPS!!! The description of a " + str + " cannot be empty.");
         }
-    }
+    }*/
 }
