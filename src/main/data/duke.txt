@@ -1,2 +1,2 @@
-[T][ ] testing1
-[T][X] testing3
+[D][ ] do hw (by: Aug 30 2023, 23:59)
+[E][ ] PINUS (from: Aug 30 2023, 15:00 to: Aug 30 2023, 16:00)

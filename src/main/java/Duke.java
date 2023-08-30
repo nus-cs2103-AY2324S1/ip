@@ -6,6 +6,9 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.regex.*;
 
 public class Duke {
     public static String line = "\t____________________________________________________________\n";
@@ -66,15 +69,29 @@ public class Duke {
     }
 
     public static String convertDeadlineFormat(String input) {
-        // Replace "(by:" with "/by" and remove ")"
-        return input.replace("(by:", "/by").replace(")", "");
+        Pattern pattern = Pattern.compile("by: (\\w{3} \\d{2} \\d{4}, \\d{2}:\\d{2})");
+        Matcher matcher = pattern.matcher(input);
+
+        if (matcher.find()) {
+            String dateAndTime = matcher.group(1);
+            LocalDateTime dateTime = LocalDateTime.parse(dateAndTime, DateTimeFormatter.ofPattern("MMM dd yyyy, HH:mm"));
+            String formattedDateTime = dateTime.format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm"));
+            String result = input.replaceFirst("by: " + dateAndTime, "/by " + formattedDateTime);
+            result = result.replace(")", "");
+            result = result.replace("(", "");
+            return result;
+        } else {
+            return input;
+        }
     }
 
     public static String convertEventFormat(String input) {
         // Replace "(from:" with "/from" and "to:" with "/to"
-        return input.replace("(from:", "/from")
+        String result = input.replace("(from:", "/from")
                 .replace("to:", "/to")
                 .replace(")", "");
+        System.out.println(result);
+        return result;
     }
 
     public static void main(String[] args) throws EmptyDescriptionException, InvalidCommandException, NotANumberException{
@@ -91,6 +108,7 @@ public class Duke {
                         toDoHandler(extractedSubstring);
                         break;
                     case "D": {
+                        //System.out.println(extractedSubstring);
                         String description = convertDeadlineFormat(extractedSubstring);
                         deadlineHandler(description);
                         break;
