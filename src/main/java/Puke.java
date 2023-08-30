@@ -1,6 +1,6 @@
 import java.util.*;
 
-public class Duke {
+public class Puke {
     public static String separator = "____________________________________________________________";
     public static String errorMessage = "Unfortunately, the circumstances preceding this has necessitated that I issue and apology for the input that I have received is unrecognised.";
     public static ArrayList<Task> list = new ArrayList<Task>(100);
@@ -203,7 +203,7 @@ class Event extends Task {
         super(tag, all[0]);
         this.from = all[1].split("from ")[1];
         this.to = all[2].split("to ")[1];
-        if (this.from.equals("") || this.to.equals("")) {
+        if (this.from.isEmpty() || this.to.isEmpty()) {
             throw new PukeException();
         }
     }
