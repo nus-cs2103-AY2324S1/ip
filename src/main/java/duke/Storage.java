@@ -1,20 +1,20 @@
 package duke;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
 import duke.exception.DukeException;
 import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Task;
 import duke.task.Todo;
-
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 
 public class Storage {
 
@@ -25,7 +25,7 @@ public class Storage {
     private String folderPath;
 
     public Storage(String folderPath, String fileName) {
-        this.filePath = folderPath + "/" +fileName;
+        this.filePath = folderPath + "/" + fileName;
         this.folderPath = folderPath;
         this.file = new File(this.filePath);
         this.folder = new File(this.folderPath);
@@ -154,9 +154,8 @@ public class Storage {
                 fw.write(sc.nextLine());
             } else {
                 String task = sc.nextLine();
-                String result = task.substring(0, SEPARATOR.length() + 1) +
-                        (isMark ? "1" : "0") +
-                        task.substring(SEPARATOR.length() + 2);
+                String result = task.substring(0, SEPARATOR.length() + 1)
+                        + (isMark ? "1" : "0") + task.substring(SEPARATOR.length() + 2);
                 fw.write(result);
             }
             fw.write("\n");
@@ -168,9 +167,8 @@ public class Storage {
 
         while (sc.hasNext()) {
             String task = sc.nextLine();
-            String result = task.substring(0, SEPARATOR.length() + 1) +
-                    (isMark ? "1" : "0") +
-                    task.substring(SEPARATOR.length() + 2) + "\n";
+            String result = task.substring(0, SEPARATOR.length() + 1)
+                    + (isMark ? "1" : "0") + task.substring(SEPARATOR.length() + 2) + "\n";
             fw.write(result);
         }
     }

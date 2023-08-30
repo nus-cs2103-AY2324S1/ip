@@ -1,7 +1,18 @@
 package duke;
 
-import duke.command.*;
-import duke.exception.*;
+import duke.command.AddCommand;
+import duke.command.Command;
+import duke.command.DeleteCommand;
+import duke.command.ExitCommand;
+import duke.command.ListCommand;
+import duke.command.MarkCommand;
+import duke.command.PrintDateCommand;
+import duke.exception.DeadlineException;
+import duke.exception.DukeException;
+import duke.exception.EventException;
+import duke.exception.ManipulateException;
+import duke.exception.PrintDateException;
+import duke.exception.TodoException;
 
 public class Parser {
 
@@ -27,7 +38,7 @@ public class Parser {
 
     private static Command parseOneWordCommand(Keyword key) throws DukeException {
         String err = String.format("OOPS!!! The description of a %s cannot be empty.", key.getKeyword());
-        switch (key){
+        switch (key) {
         case BYE:
             return new ExitCommand();
 
@@ -48,11 +59,9 @@ public class Parser {
         case DELETE:
             throw new ManipulateException(err, key.getKeyword());
 
-        case PRINT_DATE:
+        default: // Equivalent to case PRINT_DATE
             throw new PrintDateException(err);
         }
-        // Here should not be reached, as all the cases for key is considered.
-        return null;
     }
 
     private static Command parseMultiWordCommand(Keyword key, String commandBody) throws DukeException {
@@ -80,10 +89,8 @@ public class Parser {
         case EVENT:
             return new AddCommand(key, commandBody);
 
-        case PRINT_DATE:
+        default: // Equivalent to case PRINT_DATE
             return new PrintDateCommand(commandBody);
         }
-        // Here should not be reached, as all the cases for key is considered.
-        return null;
     }
 }

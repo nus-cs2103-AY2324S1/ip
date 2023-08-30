@@ -1,11 +1,11 @@
 package duke;
 
-import duke.exception.DukeException;
-
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+
+import duke.exception.DukeException;
 
 public class Time {
 
@@ -23,7 +23,7 @@ public class Time {
             DateTimeFormatter.ofPattern(DATE_DISPLAY_FORMAT);
 
     public static LocalDateTime parseDateTime(String time) throws DukeException {
-        try{
+        try {
             return LocalDateTime.parse(time, DATE_TIME_FORMATTER);
         } catch (DateTimeParseException e) {
             throw new DukeException();
@@ -31,7 +31,7 @@ public class Time {
     }
 
     public static LocalDate parseDate(String time) throws DukeException {
-        try{
+        try {
             return LocalDate.parse(time, DATE_FORMATTER);
         } catch (DateTimeParseException e) {
             throw new DukeException();

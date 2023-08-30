@@ -1,11 +1,11 @@
 package duke.command;
 
-import duke.exception.DukeException;
-import duke.exception.ManipulateException;
+import duke.Keyword;
 import duke.Storage;
 import duke.TaskList;
 import duke.Ui;
-import duke.Keyword;
+import duke.exception.DukeException;
+import duke.exception.ManipulateException;
 
 public class MarkCommand extends Command {
 
@@ -21,10 +21,10 @@ public class MarkCommand extends Command {
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) throws DukeException {
         String err = String.format("OOPS!!! The command for %s task is invalid.", key.getKeyword());
-        int task_num;
+        int taskNum;
         try {
             if (!commandBody.equals("all")) {
-                task_num = Integer.parseInt(commandBody);
+                taskNum = Integer.parseInt(commandBody);
             } else {
                 taskList.manipulateAllTask(key, ui);
                 storage.changeFile(key, -1);
@@ -33,7 +33,7 @@ public class MarkCommand extends Command {
         } catch (NumberFormatException e) {
             throw new ManipulateException(err, key.getKeyword());
         }
-        taskList.markTask(task_num - 1, key.equals(Keyword.MARK), ui);
-        storage.changeFile(key, task_num - 1);
+        taskList.markTask(taskNum - 1, key.equals(Keyword.MARK), ui);
+        storage.changeFile(key, taskNum - 1);
     }
 }

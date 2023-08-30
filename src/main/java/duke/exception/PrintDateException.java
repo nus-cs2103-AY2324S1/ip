@@ -2,7 +2,7 @@ package duke.exception;
 
 import duke.Ui;
 
-public class PrintDateException extends DukeException{
+public class PrintDateException extends DukeException {
 
     public PrintDateException(String message) {
         super(Ui.connectTwoLine(message,

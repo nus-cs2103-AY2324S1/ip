@@ -2,7 +2,7 @@ package duke.exception;
 
 import duke.Ui;
 
-public class TodoException extends DukeException{
+public class TodoException extends DukeException {
 
     public TodoException(String message) {
         super(Ui.connectTwoLine(message,
