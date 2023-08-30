@@ -1,6 +1,10 @@
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.NoSuchElementException;
 import java.util.Scanner;  // Import the Scanner class
+import java.io.File;
+import java.io.FileWriter;
 
 public class Duke {
      static String logo = "                  .-\"-.\n"
@@ -13,6 +17,7 @@ public class Duke {
     static String greet = logo + "Woof! I'm Oreo! How may I help you?\n";
     static String exit = "I will be sad to see you go! bye!\n";
     private ArrayList<Task> taskList;
+    private File savedList;
 
     public Duke() {
         this.taskList = new ArrayList<>();
@@ -119,15 +124,57 @@ public class Duke {
             try {
                 Task newTask = Task.addTask(command, tokeniser);
                 taskList.add(newTask);
+
             } catch (IllegalCommandException e) {
                 System.out.println(e.getMessage());
             }
         }
     }
 
+    public void loadFile(){
+        savedList = new File("src/main/java/data/duke.txt");
+        try {
+            savedList.createNewFile();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void readFile() throws FileNotFoundException {
+        Scanner sc = new Scanner(this.savedList);
+        while (sc.hasNext()) {
+            int id = sc.nextInt();
+            int mark = sc.nextInt();
+            String description = sc.nextLine();
+            Task newTask = Task.addSavedTask(id, mark == 1, description);
+            taskList.add(newTask);
+        }
+    }
+
+    public void writeFile() throws IOException {
+        new FileWriter("src/main/java/data/duke.txt", false).close();
+        FileWriter fw = new FileWriter("src/main/java/data/duke.txt", true);
+        for (int i = 0; i < Task.numberOfTasks; i++) {
+            String data = taskList.get(i).writeToFile();
+            fw.write(data);
+        }
+        fw.close();
+    }
+
     public void run() throws IllegalCommandException {
         System.out.println(TextFormat.botReply(greet)); // print greet message
+        loadFile();
+        try {
+            readFile();
+        } catch (FileNotFoundException e) {
+            System.out.println(e.getMessage());
+        }
         this.processInput();                            // function to run the chatbot
+        try {
+            this.writeFile();
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
         System.out.println(TextFormat.botReply(exit));  // exit message
     }
 
