@@ -2,6 +2,9 @@ package duke.task;
 
 import java.time.LocalDateTime;
 
+/**
+ * Represents an event.
+ */
 public class Event extends Task {
     /**
      * The date of the event.
@@ -15,7 +18,7 @@ public class Event extends Task {
      * @param startDateTime The startDateTime of the event.
      * @param endDateTime The endDateTime of the event.
      */
-    public Event (String description, LocalDateTime startDateTime, LocalDateTime endDateTime) {
+    public Event(String description, LocalDateTime startDateTime, LocalDateTime endDateTime) {
         super.description = description;
         this.startDateTime = startDateTime;
         this.endDateTime = endDateTime;

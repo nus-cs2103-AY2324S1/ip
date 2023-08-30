@@ -1,22 +1,24 @@
-import duke.parser.Parser;
-import duke.ui.Ui;
-import duke.task.TaskList;
 import java.util.Scanner;
+
+import duke.parser.Parser;
+import duke.task.TaskList;
+import duke.ui.Ui;
 
 /**
  * The main class of the program.
  */
 public class Duke {
 
-    /**
-     * Name of the bot.
-     */
-    private final String NAME = "Snake CYQJ";
-    /**
-     * Dynamic array of tasks.
-     */
+    private static final String BOT_NAME = "Snake CYQJ";
     private final TaskList taskList = new TaskList("duke.txt");
     private Ui ui;
+    /**
+     * Constructor for Duke.
+     */
+    public Duke() {
+        this.ui = new Ui(BOT_NAME);
+        this.ui.showHelloMessage();
+    }
 
     /**
      * Entry-point for the program. Displays a greeting, echos the user's input, and exits.
@@ -33,8 +35,5 @@ public class Duke {
         Ui.showGoodbyeMessage();
     }
 
-    public Duke () {
-        this.ui = new Ui(this.NAME);
-        this.ui.showHelloMessage();
-    }
+
 }

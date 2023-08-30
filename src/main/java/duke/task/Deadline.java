@@ -2,6 +2,9 @@ package duke.task;
 
 import java.time.LocalDateTime;
 
+/**
+ * Represents a deadline.
+ */
 public class Deadline extends Task {
     /**
      * The date of the deadline.
@@ -13,7 +16,7 @@ public class Deadline extends Task {
      * @param description The description of the deadline.
      * @param dateTime The date and time of the deadline.
      */
-    public Deadline (String description, LocalDateTime dateTime) {
+    public Deadline(String description, LocalDateTime dateTime) {
         super.description = description;
         this.dateTime = dateTime;
     }

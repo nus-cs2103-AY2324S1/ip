@@ -1,10 +1,13 @@
 package duke.parser;
 
-import duke.ui.Ui;
 import duke.exception.DukeException;
 import duke.exception.UnknownCommandException;
 import duke.task.TaskList;
+import duke.ui.Ui;
 
+/**
+ * Represents the parser of the program.
+ */
 public class Parser {
 
     /**
@@ -27,8 +30,7 @@ public class Parser {
             } else if (input.startsWith("delete")) {
                 int index = Integer.parseInt(input.substring(7));
                 taskList.deleteTask(index);
-            }
-            else {
+            } else {
                 throw new UnknownCommandException();
             }
         } catch (DukeException e) {
