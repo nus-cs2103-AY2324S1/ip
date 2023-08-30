@@ -26,4 +26,8 @@ public class Deadline extends Task {
         String output = by.format(DateTimeFormatter.ofPattern("d/M/yyyy HHmm"));
         return "D | " + super.write() + " | " + output;
     }
+
+    public LocalDateTime getBy() {
+        return by;
+    }
 }

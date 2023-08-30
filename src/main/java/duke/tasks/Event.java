@@ -31,4 +31,12 @@ public class Event extends Task {
 
         return "E | " + super.write() + " | " + outputFrom + " | " + outputTo;
     }
+
+    public LocalDateTime getFrom() {
+        return from;
+    }
+
+    public LocalDateTime getTo() {
+        return to;
+    }
 }

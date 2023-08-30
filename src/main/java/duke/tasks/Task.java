@@ -32,4 +32,11 @@ public class Task {
         String complete = isDone ? "1" : "0";
         return complete + " | " + this.description;
     }
+    public boolean isDone() {
+        return isDone;
+    }
+
+    public String getDescription() {
+        return description;
+    }
 }
