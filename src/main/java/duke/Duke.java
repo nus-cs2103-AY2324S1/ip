@@ -7,12 +7,8 @@ import storage.Storage;
 import task.ListOfTask;
 import ui.Ui;
 
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.PrintStream;
 import java.time.format.DateTimeFormatter;
 
-import parser.Parser;
 
 public class Duke {
     public static DateTimeFormatter FORMAT = DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm");
