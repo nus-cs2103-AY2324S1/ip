@@ -1,4 +1,7 @@
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 /**
  * Represents a list of tasks and provides methods to manipulate them
@@ -33,9 +36,18 @@ public class TaskList {
      * @return Details of the task as a formatted string, or null if the index is invalid.
      */
     public String getTaskDetails(int taskListIndex) {
-        if(isValidListIndex(taskListIndex)) {
+        if (isValidListIndex(taskListIndex)) {
             Task task = tasks.get(taskListIndex);
             return task.toString();
+        } else {
+            System.out.println("Invalid Index of task!");
+            return null;
+        }
+    }
+
+    public Task getTask(int taskListIndex) {
+        if (isValidListIndex(taskListIndex)) {
+            return tasks.get(taskListIndex);
         } else {
             System.out.println("Invalid Index of task!");
             return null;
@@ -104,6 +116,5 @@ public class TaskList {
             }
             System.out.println("____________________________________________________________");
         }
-
     }
 }
