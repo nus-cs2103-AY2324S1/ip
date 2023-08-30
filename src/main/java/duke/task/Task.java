@@ -1,3 +1,5 @@
+package duke.task;
+
 import java.io.FileWriter;
 import java.io.IOException;
 
@@ -25,18 +27,14 @@ public abstract class Task {
         return "[" + this.getStatusIcon() + "] " + task;
     }
 
-    public void completeTask() {
+    public Task completeTask() {
         this.isDone = true;
-        Duke.printLine();
-        System.out.println("\tNice! I've marked this task as done:\n\t\t" + this);
-        Duke.printLine();
+        return this;
     }
 
-    public void undoTask() {
+    public Task undoTask() {
         this.isDone = false;
-        Duke.printLine();
-        System.out.println("\tOk, I've marked this task as not done yet:\n\t\t" + this);
-        Duke.printLine();
+        return this;
     }
 
     public String getTask() {

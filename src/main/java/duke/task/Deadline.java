@@ -1,3 +1,7 @@
+package duke.task;
+
+import duke.task.Task;
+
 import java.io.FileWriter;
 import java.io.IOException;
 import java.time.DateTimeException;
@@ -6,11 +10,6 @@ import java.time.format.DateTimeFormatter;
 
 public class Deadline extends Task {
     private String due;
-
-    public Deadline(String task, String due) throws DateTimeException  {
-        super(task);
-        this.due = LocalDate.parse(due).format(DateTimeFormatter.ofPattern("MMM d yyyy"));
-    }
 
     public Deadline(String task, boolean isDone, String due) throws DateTimeException {
         super(task, isDone);
