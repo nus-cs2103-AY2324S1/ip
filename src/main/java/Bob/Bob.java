@@ -4,7 +4,7 @@ import Bob.command.Command;
 import Bob.exception.BobException;
 import Bob.parser.Parser;
 import Bob.storage.StorageFile;
-import Bob.task.*;
+import Bob.task.TaskList;
 import Bob.ui.TextUi;
 
 /**

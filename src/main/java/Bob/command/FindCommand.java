@@ -2,7 +2,6 @@ package Bob.command;
 
 import Bob.exception.BobException;
 import Bob.storage.StorageFile;
-import Bob.task.Task;
 import Bob.task.TaskList;
 import Bob.ui.TextUi;
 

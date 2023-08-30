@@ -1,9 +1,16 @@
 package Bob.command;
 
 import Bob.enums.CommandType;
+
 import Bob.exception.BobException;
 import Bob.exception.BobInvalidCommandException;
-import Bob.task.*;
+
+import Bob.task.Deadline;
+import Bob.task.Event;
+import Bob.task.Task;
+import Bob.task.TaskList;
+import Bob.task.Todo;
+
 import Bob.ui.TextUi;
 import Bob.storage.StorageFile;
 

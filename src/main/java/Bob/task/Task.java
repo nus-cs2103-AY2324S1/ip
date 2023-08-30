@@ -32,6 +32,11 @@ public class Task {
         this.isDone = isDone;
     }
 
+    /**
+     * Prints an icon to signify if a task is completed.
+     *
+     * @return X is task is completed, empty space otherwise
+     */
     public String getStatusIcon() {
         return (isDone ? "X" : " "); // mark done task with X
     }

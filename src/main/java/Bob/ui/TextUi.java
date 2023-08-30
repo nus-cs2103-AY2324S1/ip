@@ -3,6 +3,7 @@ package Bob.ui;
 import java.util.Scanner;
 
 import Bob.exception.BobInvalidTaskNumberException;
+
 import Bob.task.Task;
 import Bob.task.TaskList;
 

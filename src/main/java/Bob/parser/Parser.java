@@ -1,8 +1,20 @@
 package Bob.parser;
 
-import Bob.command.*;
+import Bob.command.AddCommand;
+import Bob.command.Command;
+import Bob.command.DeleteCommand;
+import Bob.command.ExitCommand;
+import Bob.command.FindCommand;
+import Bob.command.ListCommand;
+import Bob.command.MarkCommand;
 import Bob.enums.CommandType;
-import Bob.exception.*;
+
+import Bob.exception.BobCorruptFileException;
+import Bob.exception.BobException;
+import Bob.exception.BobInvalidCommandException;
+import Bob.exception.BobInvalidTaskNumberException;
+import Bob.exception.BobMissingArgumentException;
+
 import Bob.task.Deadline;
 import Bob.task.Event;
 import Bob.task.Task;
