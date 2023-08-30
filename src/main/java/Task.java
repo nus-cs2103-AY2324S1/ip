@@ -15,6 +15,11 @@ public abstract class Task {
         this.done = false;
     }
 
+    public Task(String description, Boolean done) {
+        this.description = description;
+        this.done = done;
+    }
+
     /**
      * Marks or unmarks the task as done
      * @param done Whether the task is done
@@ -36,5 +41,13 @@ public abstract class Task {
             checkbox = "[ ]";
         }
         return checkbox + " " + this.description;
+    }
+
+    public String toData() {
+        if (done) {
+            return "1|" + this.description;
+        } else {
+            return "0|" + this.description;
+        }
     }
 }

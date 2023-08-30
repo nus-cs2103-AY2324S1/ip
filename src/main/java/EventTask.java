@@ -1,3 +1,5 @@
+import jdk.jfr.Event;
+
 /**
  * Encapsulates an event with a start and end time/date.
  * Inherits from Task class.
@@ -19,6 +21,12 @@ public class EventTask extends Task{
         this.to = to;
     }
 
+    public EventTask(String description, String from, String to, Boolean done) {
+        super(description, done);
+        this.from = from;
+        this.to = to;
+    }
+
     /**
      * Returns the string representation of the task
      * @return The string representation of the task
@@ -26,5 +34,10 @@ public class EventTask extends Task{
     @Override
     public String toString() {
         return "[E]" + super.toString() + " (from: " + from + " to: " + to + ")";
+    }
+
+    @Override
+    public String toData() {
+        return "E|" + super.toData() + "|" + from + "|" + to;
     }
 }

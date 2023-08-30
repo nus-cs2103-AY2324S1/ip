@@ -11,12 +11,14 @@ public class Duke {
     private static String NAME = "Moira";
     private static String SPACER = "--------------------------------------------------------------------------";
     private static boolean IS_RECEIVING_INPUT = false;
-    private static ArrayList<Task> TASK_LIST;
+    private static TaskList TASK_LIST;
     private static Scanner SCANNER;
+    private static SaveManager SAVE_MANAGER;
 
     public static void main(String[] args) {
         SCANNER = new Scanner(System.in);
-        TASK_LIST = new ArrayList<>();
+        TASK_LIST = new TaskList();
+        SAVE_MANAGER = new SaveManager(TASK_LIST);
         greet();
         while (IS_RECEIVING_INPUT) {
             getUserInput();
@@ -35,6 +37,7 @@ public class Duke {
 
     private static void exit() {
         IS_RECEIVING_INPUT = false;
+        SAVE_MANAGER.saveData();
         System.out.println(SPACER);
         System.out.println("See ya later, alligator! I'm waiting here if you need anything :>");
         System.out.println(SPACER);
@@ -104,13 +107,13 @@ public class Duke {
                     markTaskInListAsDone(index, true);
                     System.out.println(SPACER);
                     System.out.println("Good job on completing this task! You are an awesome possum!!");
-                    System.out.println(TASK_LIST.get(index).toString());
+                    System.out.println(TASK_LIST.getTaskAsString(index));
                     System.out.println(SPACER);
                 } else if (wordsInInput[0].equals("unmark")) {
                     markTaskInListAsDone(index, false);
                     System.out.println(SPACER);
                     System.out.println("Man, you've got this extra thing to do now...");
-                    System.out.println(TASK_LIST.get(index).toString());
+                    System.out.println(TASK_LIST.getTaskAsString(index));
                     System.out.println(SPACER);
                 }
             } catch (NumberFormatException e) {
@@ -229,12 +232,12 @@ public class Duke {
             try {
                 int index = Integer.parseInt(wordsInInput[1]) - 1;
                 if (wordsInInput[0].equals("delete")) {
-                    Task deletedTask = TASK_LIST.get(index);
+                    Task deletedTask = TASK_LIST.getTask(index);
                     deleteTaskFromList(index);
                     System.out.println(SPACER);
                     System.out.println("Guess you've got one less thing to do now.");
                     System.out.println(deletedTask.toString());
-                    System.out.println("Get going! You have " + TASK_LIST.size() + " tasks on record!!");
+                    System.out.println("Get going! You have " + TASK_LIST.getTaskCount() + " tasks on record!!");
                     System.out.println(SPACER);
                 } else {
                     handleInvalidInput();
@@ -258,28 +261,24 @@ public class Duke {
     }
 
     private static void deleteTaskFromList(int index) {
-        TASK_LIST.remove(index);
+        TASK_LIST.removeTask(index);
     }
 
     private static void addTaskToList(Task newTask) {
-        TASK_LIST.add(newTask);
+        TASK_LIST.addTask(newTask);
         System.out.println(SPACER);
         System.out.println("Okay, so here is the new thing to keep you occupied:");
         System.out.println(newTask.toString());
-        System.out.println("Get going! You have " + TASK_LIST.size() + " tasks on record!!");
+        System.out.println("Get going! You have " + TASK_LIST.getTaskCount() + " tasks on record!!");
         System.out.println(SPACER);
     }
 
     private static void markTaskInListAsDone(int index, boolean done) {
-        TASK_LIST.get(index).markTaskCompleted(done);
+        TASK_LIST.markTaskAsDone(index, done);
     }
 
     private static void printTaskList() {
         System.out.println("Hey buddy, here's the stuff you need to do:");
-        int index = 1;
-        for (Task task : TASK_LIST) {
-            System.out.println(index + "." + task.toString());
-            index++;
-        }
+        TASK_LIST.printTasksAsList();
     }
 }

@@ -16,6 +16,11 @@ public class DeadlineTask extends Task{
         this.by = by;
     }
 
+    public DeadlineTask(String description, String by, Boolean done) {
+        super(description, done);
+        this.by = by;
+    }
+
     /**
      * Returns the string representation of the task
      * @return The string representation of the task
@@ -23,5 +28,10 @@ public class DeadlineTask extends Task{
     @Override
     public String toString() {
         return "[D]" + super.toString() + " (by: " + by + ")";
+    }
+
+    @Override
+    public String toData() {
+        return "D|" + super.toData() + "|" + by;
     }
 }
