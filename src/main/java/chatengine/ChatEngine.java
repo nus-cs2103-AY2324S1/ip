@@ -2,16 +2,17 @@ package chatengine;
 
 import io.IOHandler;
 import io.ConsoleIO;
+import task.Task;
+import task.TaskList;
 
 public class ChatEngine {
-    private IOHandler ioHandler;
-    private String[] userTextDB;
-    private int textCounter;
+    private final IOHandler ioHandler;
+    private final TaskList taskList; // stores list of tasks
+
 
     public ChatEngine() {
         this.ioHandler = new ConsoleIO();
-        this.userTextDB = new String[100];
-        this.textCounter = 0;
+        this.taskList = new TaskList();
     }
 
     public void start() {
@@ -24,20 +25,24 @@ public class ChatEngine {
     }
 
     private void processInput(String input) {
-        // Process the input
-        if (input.equals("list")) {
-            processDB(userTextDB);
-        } else {
-            userTextDB[textCounter] = input;
-            textCounter++;
-            ioHandler.writeOutput(String.format("added: %s", input));
-        }
-    }
+        String[] parts = input.split(" ", 2);
+        String command = parts[0];
 
-    private void processDB(String[] texts) {
-        for (int i = 0; i < texts.length && texts[i] != null; i++) {
-            String output = String.format("%d. %s", i+1, texts[i]);
-            ioHandler.writeOutput(output);
+        if ("mark".equalsIgnoreCase(command) && parts.length > 1) {
+            int index = Integer.parseInt(parts[1]) - 1;  // Convert to zero-based index
+            String response = taskList.markTaskAsDone(index);
+            ioHandler.writeOutput(response);
+        } else if ("unmark".equalsIgnoreCase(command) && parts.length > 1) {
+            int index = Integer.parseInt(parts[1]) - 1;  // Convert to zero-based index
+            String response = taskList.markTaskAsNotDone(index);
+            ioHandler.writeOutput(response);
+        } else if ("list".equalsIgnoreCase(command)) {
+            String taskListString = taskList.displayTasks();
+            ioHandler.writeOutput(taskListString);
+        } else {
+            Task newTask = new Task(command);
+            taskList.addTask(newTask);
+            ioHandler.writeOutput("Added new task: " + command);
         }
     }
 }
