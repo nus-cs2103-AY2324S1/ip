@@ -1,11 +1,11 @@
-import java.util.List;
+import java.io.File;
 import java.util.Scanner;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 public class Duke {
     private static final String name = "Bartholomew Hamish Montgomery";
     private static final String line = "______________________________________________________________________________________\n";
     public static void main(String[] args) {
-
         greet();
         startChat();
     }
@@ -17,6 +17,7 @@ public class Duke {
 
     private static void startChat() {
         ArrayList<Task> tasks = new ArrayList<>();
+        File taskList = new File("../data/tasklist.txt");
         int taskCount = 0;
         int taskId = 1;
         Scanner scanner = new Scanner(System.in);
