@@ -1,3 +1,5 @@
+package exceptions;
+
 public class EmptyDateException extends DukeException {
     String msg;
     public EmptyDateException(String msg) {
