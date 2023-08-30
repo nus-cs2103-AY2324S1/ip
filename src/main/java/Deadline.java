@@ -1,8 +1,14 @@
 public class Deadline extends Task {
-    private String deadline;
+    String deadline;
 
     public Deadline(String description, String deadline) {
         super(description);
+        this.deadline = deadline;
+    }
+
+    public Deadline(String description, boolean isDone, String deadline) {
+        super(description);
+        this.isDone = isDone;
         this.deadline = deadline;
     }
 
