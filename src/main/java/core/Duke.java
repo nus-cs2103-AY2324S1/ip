@@ -1,6 +1,6 @@
 package core;
 
-import Commands.Command;
+import commands.Command;
 import parser.CommandParser;
 import storage.Storage;
 import tasklist.TaskList;
