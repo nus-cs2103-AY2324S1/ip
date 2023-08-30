@@ -59,8 +59,7 @@ public class Bob {
                 //event
                 Event e = (Event) t;
                 fWriter2.write("E | " + e.getNumber() + " | " + e.getDescription() + " | " + e.getFrom() + "-" +
-                                e.getTo() +"\n");
-
+                        e.getTo() +"\n");
             }
         }
 
@@ -94,29 +93,29 @@ public class Bob {
                 String category = wordArr[0].trim();
 
                 switch (category) {
-                    case "T":
-                        Todo todo = new Todo(wordArr[2].trim());
-                        if (wordArr[1].trim().equals("1")) {
-                            todo.silentMark();
-                        }
-                        taskArr.add(todo);
-                        break;
-                    case "D":
-                        Deadline dl = new Deadline(wordArr[2].trim(), wordArr[3].trim());
-                        if (wordArr[1].trim().equals("1")) {
-                            dl.silentMark();
-                        }
-                        taskArr.add(dl);
-                        break;
-                    case "E":
-                        String time = wordArr[3].trim();
-                        String[] timeline = time.split("-");
-                        Event e = new Event(wordArr[2].trim(), timeline[0], timeline[1]);
-                        if (wordArr[1].trim().equals("1")) {
-                            e.silentMark();
-                        }
-                        taskArr.add(e);
-                        break;
+                case "T":
+                    Todo todo = new Todo(wordArr[2].trim());
+                    if (wordArr[1].trim().equals("1")) {
+                        todo.silentMark();
+                    }
+                    taskArr.add(todo);
+                    break;
+                case "D":
+                    Deadline dl = new Deadline(wordArr[2].trim(), wordArr[3].trim());
+                    if (wordArr[1].trim().equals("1")) {
+                        dl.silentMark();
+                    }
+                    taskArr.add(dl);
+                    break;
+                case "E":
+                    String time = wordArr[3].trim();
+                    String[] timeline = time.split("-");
+                    Event e = new Event(wordArr[2].trim(), timeline[0], timeline[1]);
+                    if (wordArr[1].trim().equals("1")) {
+                        e.silentMark();
+                    }
+                    taskArr.add(e);
+                    break;
                 }
             }
         } catch (FileNotFoundException e) {
@@ -140,7 +139,7 @@ public class Bob {
 
         //printing messages
         String message = "Got it. I've added this task: \n" + task +
-                                "\nNow you have " + taskArr.size() + " tasks in the list.";
+                "\nNow you have " + taskArr.size() + " tasks in the list.";
 
         System.out.println(messageCard(message));
     }
@@ -165,7 +164,7 @@ public class Bob {
 
         //printing the messages
         String message = "Got it. I've added this task: \n" + task +
-                            "\nNow you have " + taskArr.size() + " tasks in the list.";
+                "\nNow you have " + taskArr.size() + " tasks in the list.";
         System.out.println(messageCard(message));
     }
 
@@ -192,7 +191,7 @@ public class Bob {
 
         //print messages
         String message = "Got it. I've added this task: \n" + task +
-                            "\nNow you have " + taskArr.size() + " tasks in the list. ";
+                "\nNow you have " + taskArr.size() + " tasks in the list. ";
         System.out.println(messageCard(message));
     }
 
@@ -210,7 +209,7 @@ public class Bob {
     public void markTask(int index) throws IllegalChatBotExceptions {
         if (index + 1 > taskArr.size()) {
             throw new IllegalChatBotExceptions(messageCard("The current number of tasks is " + taskArr.size() + ", " +
-                        "so you can't mark task " + (index + 1) + "!!."));
+                    "so you can't mark task " + (index + 1) + "!!."));
         }
         Task task = taskArr.get(index);
         task.markAsDone();
@@ -237,7 +236,7 @@ public class Bob {
 
         //printing messages
         String message = "Noted. I've removed this task: \n" + task + "\nNow you have "
-                        + taskArr.size() + " tasks in the list.";
+                + taskArr.size() + " tasks in the list.";
         System.out.println(messageCard(message));
     }
 }
