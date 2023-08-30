@@ -11,7 +11,7 @@ import duke.task.TaskList;
  */
 public class Duke {
     /** Name of chatbot */
-    private static final String NAME = "duke.Duke Prince";
+    private static final String NAME = "Duke Prince";
 
     /** Task list associated with this duke.Duke object */
     private static TaskList taskList;

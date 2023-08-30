@@ -94,36 +94,36 @@ public class Storage {
                 Task taskToAdd;
 
                 switch(taskTitle) {
-                    case("[T]"):
-                        taskToAdd = new Todo(taskDetails);
-                        if (taskDoneStatus.equals("[X]")) {
-                            taskToAdd.markDone();
-                        }
-                        taskList.add(taskToAdd);
-                        break;
-                    case("[D]"):
-                        String[] taskDetailsArr = taskDetails.split("\\(by:", 2);
-                        taskToAdd = new Deadline(taskDetailsArr[0].trim(),
-                                LocalDateTime.parse(taskDetailsArr[1].split("\\)")[0].trim(), dateTimeFormat));
-                        if (taskDoneStatus.equals("[X]")) {
-                            taskToAdd.markDone();
-                        }
-                        taskList.add(taskToAdd);
-                        break;
-                    case("[E]"):
-                        String[] taskDetailsArrOne = taskDetails.split("\\(from:", 2);
-                        String taskDetailsForEvent = taskDetailsArrOne[0];
-                        String[] taskDetailsArrTwo = taskDetailsArrOne[1].split("to:", 2);
-                        taskToAdd = new Event(taskDetailsForEvent.trim(),
-                                LocalDateTime.parse(taskDetailsArrTwo[0].trim(), dateTimeFormat),
-                                LocalDateTime.parse(taskDetailsArrTwo[1].split("\\)")[0].trim(), dateTimeFormat));
-                        if (taskDoneStatus.equals("[X]")) {
-                            taskToAdd.markDone();
-                        }
-                        taskList.add(taskToAdd);
-                        break;
-                    default:
-                        throw new DukeException("File is corrupted!");
+                case("[T]"):
+                    taskToAdd = new Todo(taskDetails);
+                    if (taskDoneStatus.equals("[X]")) {
+                        taskToAdd.markDone();
+                    }
+                    taskList.add(taskToAdd);
+                    break;
+                case("[D]"):
+                    String[] taskDetailsArr = taskDetails.split("\\(by:", 2);
+                    taskToAdd = new Deadline(taskDetailsArr[0].trim(),
+                            LocalDateTime.parse(taskDetailsArr[1].split("\\)")[0].trim(), dateTimeFormat));
+                    if (taskDoneStatus.equals("[X]")) {
+                        taskToAdd.markDone();
+                    }
+                    taskList.add(taskToAdd);
+                    break;
+                case("[E]"):
+                    String[] taskDetailsArrOne = taskDetails.split("\\(from:", 2);
+                    String taskDetailsForEvent = taskDetailsArrOne[0];
+                    String[] taskDetailsArrTwo = taskDetailsArrOne[1].split("to:", 2);
+                    taskToAdd = new Event(taskDetailsForEvent.trim(),
+                            LocalDateTime.parse(taskDetailsArrTwo[0].trim(), dateTimeFormat),
+                            LocalDateTime.parse(taskDetailsArrTwo[1].split("\\)")[0].trim(), dateTimeFormat));
+                    if (taskDoneStatus.equals("[X]")) {
+                        taskToAdd.markDone();
+                    }
+                    taskList.add(taskToAdd);
+                    break;
+                default:
+                    throw new DukeException("File is corrupted!");
                 }
             }
         } catch (FileNotFoundException e) {
