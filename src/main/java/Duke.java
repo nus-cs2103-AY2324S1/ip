@@ -103,8 +103,7 @@ public class Duke {
         }
         case "deadline": {
           try {
-            int commandLength = commandString.length() + 1;
-            String taskName = inputString.substring(commandLength);
+            String taskName = parser.getTaskName();
             String[] parts = taskName.split("/by", 2);
 
             String name = parts[0];
@@ -131,8 +130,7 @@ public class Duke {
         }
         case "event": {
           try {
-            int commandLength = commandString.length() + 1;
-            String taskName = inputString.substring(commandLength);
+            String taskName = parser.getTaskName();
             String[] parts = taskName.split("/from", 2);
             String name = parts[0];
             String dates = parts[1];
