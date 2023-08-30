@@ -77,6 +77,18 @@ public class Duke {
         return taskList;
     }
 
+    public static void rewriteTaskListFile(String filepath, List<Task> filelist) throws IOException {
+        FileWriter fw = new FileWriter(filepath);
+        filelist.forEach(task -> {
+            try {
+                fw.write(task.getTaskFileString() + System.lineSeparator());
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
+        fw.close();
+    }
+
     public static void writeTaskListFile(String filepath, String task) throws IOException {
         FileWriter fw = new FileWriter(filepath, true);
         fw.write(task + System.lineSeparator());
@@ -144,6 +156,7 @@ public class Duke {
                             divider + "    TWEET!!! I can't find the task you are looking for!\n" + divider
                     );
                     taskList.remove(deleteIndex);System.out.print(divider + "    chirp! chirp! Task right out the window!\n" + divider);
+                    rewriteTaskListFile(filepath, taskList);
                     break;
                 case "mark":
                     int markIndex = Integer.parseInt(taskDetails) - 1;
@@ -153,6 +166,7 @@ public class Duke {
                     System.out.print(divider);
                     taskList.get(markIndex).markTask();
                     System.out.println(divider);
+                    rewriteTaskListFile(filepath, taskList);
                     break;
                 case "unmark":
                     int unmarkIndex = Integer.parseInt(taskDetails) - 1;
@@ -162,6 +176,7 @@ public class Duke {
                     System.out.print(divider);
                     taskList.get(unmarkIndex).unmarkTask();
                     System.out.println(divider);
+                    rewriteTaskListFile(filepath, taskList);
                     break;
                 default:
                     throw new EmptyEventException(
