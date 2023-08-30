@@ -1,3 +1,9 @@
-todo ah
-delete 1
-lsit
+event project meeting /from 11/10/11 00:00 /to 11/10/11 11:00
+event time travel /from 11/10/12 00:00 /to 11/10/11 11:00
+event time travel /by 11/10/11 00:00
+deadline time travel /by 11/10/11 00:00
+todo codeforces
+mark 3
+delete 4
+bye
+a
