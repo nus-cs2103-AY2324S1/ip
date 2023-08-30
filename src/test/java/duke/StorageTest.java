@@ -9,7 +9,17 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+/**
+ * The {@code StorageTest} class contains JUnit tests for the {@link Storage} class.
+ * It tests the loading of task data from a storage file.
+ */
 public class StorageTest {
+
+    /**
+     * Tests loading a 'todo' task from a given String representation.
+     *
+     * @throws DukeException If there is an issue with task loading.
+     */
     @Test
     public void testLoadTodo() throws DukeException {
         Storage storage = new Storage("");
@@ -19,6 +29,11 @@ public class StorageTest {
         assertEquals(output1.toString(), storage.loadData(test1).toString());
     }
 
+    /**
+     * Tests loading a 'dealine' task from a given String representation.
+     *
+     * @throws DukeException If there is an issue with task loading.
+     */
     @Test
     public void testLoadDealine() throws DukeException {
         Storage storage = new Storage("");
@@ -27,6 +42,11 @@ public class StorageTest {
         assertEquals(output2.toString(), storage.loadData(test2).toString());
     }
 
+    /**
+     * Tests loading a 'even' task from a given String representation.
+     *
+     * @throws DukeException If there is an issue with task loading.
+     */
     @Test
     public void testLoadEvent() throws DukeException {
         Storage storage = new Storage("");
@@ -35,6 +55,11 @@ public class StorageTest {
         assertEquals(output3.toString(), storage.loadData(test3).toString());
     }
 
+    /**
+     * Tests loading an invalid string representation of a task.
+     *
+     * @throws DukeException If there is an issue with task loading.
+     */
     @Test
     public void testInvalidData() throws DukeException {
         Storage storage = new Storage("");

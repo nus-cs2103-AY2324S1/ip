@@ -133,10 +133,10 @@ public class TaskList {
      * Deletes the desired task from the task list.
      *
      * @param taskIndex The index of the desired deleted task.
-     * @return
-     * @throws DukeException
+     * @return A message confirming the deletion of the task.
+     * @throws InvalidRangeException If the task index is exceeds the range.
      */
-    public String deleteTask(int taskIndex) throws DukeException {
+    public String deleteTask(int taskIndex) throws InvalidRangeException {
         if (taskIndex >= 0 && taskIndex < this.tasks.size()) {
             Task deletedTask = this.tasks.remove(taskIndex);
             return ("Noted. I've removed this task:\n " + deletedTask

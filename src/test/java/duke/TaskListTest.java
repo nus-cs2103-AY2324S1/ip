@@ -9,8 +9,17 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+/**
+ * The {@code TaskListTest} class contains JUnit tests for the {@link TaskList} class.
+ * It tests the functionality of managing tasks in the task list.
+ */
 public class TaskListTest {
 
+    /**
+     * Tests adding tasks to the task list.
+     *
+     * @throws DukeException If there is an issue with the creation of tasks.
+     */
     @Test
     public void testAddTask() throws DukeException {
         TaskList taskList = new TaskList();
@@ -35,6 +44,5 @@ public class TaskListTest {
         assertThrows(NoEndDateException.class, () -> taskList.addTask(test5));
 
     }
-
 
 }
