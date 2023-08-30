@@ -7,8 +7,6 @@ import java.util.Scanner;
 public class UI {
     private String name;
     private Scanner scanner;
-    private static final String DATETIME_INPUT_FORMAT = "yyyy-MM-dd HHmm";
-    public static final DateTimeFormatter dateTimeInputFormatter = DateTimeFormatter.ofPattern(DATETIME_INPUT_FORMAT);
 
     /**
      * Constructor for the UI class.
