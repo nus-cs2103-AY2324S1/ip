@@ -45,7 +45,7 @@ public abstract class Task implements Comparable<Task> {
                         "are you thinking of an event?");
             }
             String[] parts = contents.split("/by", 2);
-            newTask = new Deadline(parts[0], parts[1]);
+            newTask = new Deadline(parts[0], TimeParser.parseInput(parts[1]));
         } else {
             String contents = tokeniser.nextLine();
             if (!contents.contains("/from") || !contents.contains("/to")) {
@@ -56,7 +56,8 @@ public abstract class Task implements Comparable<Task> {
             }
             String[] message = contents.split("/from", 2);
             String[] fromto = message[1].split("/to", 2);
-            newTask = new Event(message[0], fromto[0], fromto[1]);
+            newTask = new Event(message[0], TimeParser.parseInput(fromto[0]),
+                    TimeParser.parseInput(fromto[1]));
         }
         System.out.println(TextFormat.botReply("Gotchu! noted down: \n" +
                 TextFormat.indentLineBy(newTask.toString(), 2) +
@@ -108,10 +109,11 @@ public abstract class Task implements Comparable<Task> {
             return new ToDo(description, mark);
         case (2):
             String[] parts = description.split("/", 2);
-            return new Deadline(parts[0], parts[1], mark);
+            return new Deadline(parts[0], TimeParser.parseInput(parts[1]), mark);
         default:
             String[] message = description.split("/", 3);
-            return new Event(message[0], message[1], message[2], mark);
+            return new Event(message[0], TimeParser.parseInput(message[1]),
+                    TimeParser.parseInput(message[2]), mark);
         }
     }
 

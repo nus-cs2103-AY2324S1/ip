@@ -18,7 +18,7 @@ public class Deadline extends Task {
         if (this.completed) marker = "[X]";
         return  "[D]" + marker + " " +
                 this.description +
-                "(by:" + this.due + ")\n";
+                "(by: " + this.due + ")\n";
     }
 
     @Override

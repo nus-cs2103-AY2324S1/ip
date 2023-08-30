@@ -20,8 +20,8 @@ public class Event extends Task {
         if (this.completed) marker = "[X]";
         return  "[E]" + marker + " " +
                 this.description +
-                "(from:" + this.from +
-                "to:" + this.to + ")\n";
+                "(from: " + this.from +
+                "to: " + this.to + ")\n";
     }
 
     @Override
