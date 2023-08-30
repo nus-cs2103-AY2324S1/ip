@@ -1,7 +1,17 @@
 package duke;
 
+/**
+ * A utility class for parsing and validating user commands in the Duke application.
+ */
 public class Parser {
 
+    /**
+     * Validates and extracts the description from a todo command.
+     *
+     * @param input The user input containing the todo command.
+     * @return The description of the todo task.
+     * @throws DukeException If the description is empty.
+     */
     public static String validateToDoCommand(String input) throws DukeException {
         String[] inputArr = input.split(" ");
         if (inputArr.length == 1) {
@@ -10,6 +20,13 @@ public class Parser {
         return input.replace("todo", "");
     }
 
+    /**
+     * Validates and extracts the description and deadline from a deadline command.
+     *
+     * @param input The user input containing the deadline command.
+     * @return The description of the deadline task.
+     * @throws DukeException If the format is invalid or the description is empty.
+     */
     public static String validateDeadlineCommand(String input) throws DukeException {
         String[] inputArr = input.split(" ");
         if (inputArr.length == 1) {
@@ -34,6 +51,13 @@ public class Parser {
         return input.replace("deadline", "");
     }
 
+    /**
+     * Validates and extracts the description and event timing from an event command.
+     *
+     * @param input The user input containing the event command.
+     * @return The description of the event task.
+     * @throws DukeException If the format is invalid or the description is empty.
+     */
     public static String validateEventCommand(String input) throws DukeException {
         String[] inputArr = input.split(" ");
         if (inputArr.length == 1) {
@@ -61,6 +85,12 @@ public class Parser {
         return input.replace("event", "");
     }
 
+    /**
+     * Parses an integer from a string.
+     *
+     * @param input The string to be parsed.
+     * @return The parsed integer, or -1 if parsing fails.
+     */
     public static int parseInt(String input) {
         try {
             return Integer.parseInt(input);

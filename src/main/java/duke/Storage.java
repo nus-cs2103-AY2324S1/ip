@@ -8,10 +8,18 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 
+/**
+ * A class responsible for loading and saving tasks from and to a file.
+ */
 public class Storage {
 
     private final String filePath;
 
+    /**
+     * Constructs a Storage object with the specified file path.
+     *
+     * @param filePath The path to the file used for storage.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
@@ -28,6 +36,11 @@ public class Storage {
         return (taskType.equals("T") && taskFormatLength == 3) || (taskType.equals("D") && taskFormatLength == 4) || (taskType.equals("E") && taskFormatLength == 5);
     }
 
+    /**
+     * Loads tasks from the file and adds them to the provided TaskList.
+     *
+     * @param taskList The TaskList to which tasks should be added.
+     */
     public void loadTasks(TaskList taskList) {
         try {
             File file = new File(filePath);
@@ -53,6 +66,13 @@ public class Storage {
         System.out.println("Tasks loaded successfully!");
     }
 
+    /**
+     * Converts a data string into a Task object.
+     *
+     * @param dataString The string containing task data.
+     * @return The parsed Task object.
+     * @throws DukeException If parsing encounters an error.
+     */
     public Task convertStringIntoTask(String dataString) throws DukeException {
         String[] dataArr = dataString.split(" \\| ");
         String taskType = dataArr[0];
@@ -80,6 +100,12 @@ public class Storage {
         return task;
     }
 
+    /**
+     * Validates a data string to ensure its format is correct.
+     *
+     * @param dataString The string to be validated.
+     * @throws DukeException If the format is invalid.
+     */
     public void validateString(String dataString) throws DukeException {
 
         String[] dataArr = dataString.split(" \\| ");
@@ -103,6 +129,11 @@ public class Storage {
 
     }
 
+    /**
+     * Saves a task to the file.
+     *
+     * @param task The task to be saved.
+     */
     public void saveTask(Task task) {
         try {
             File file = new File(filePath);
@@ -115,6 +146,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Modifies an existing task in the file.
+     *
+     * @param taskNumber The index of the task to be modified.
+     * @param newTask    The new task to replace the existing task.
+     */
     public void modifyTask(int taskNumber, Task newTask) {
         try {
             File file = new File(filePath);
@@ -140,6 +177,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Deletes a task from the file.
+     *
+     * @param taskNumber The index of the task to be deleted.
+     */
     public void deleteTask(int taskNumber) {
         try {
             File file = new File(filePath);
