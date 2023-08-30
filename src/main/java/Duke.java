@@ -1,4 +1,6 @@
 import java.io.*;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.io.Writer;
@@ -311,17 +313,43 @@ public class Duke {
 
         String[] parts = input.split(" ");
 
+
         boolean found = false;
 
         for (int i = 1; i < parts.length; i++) {
             if (parts[i].equals("/by")) {
                 found = true;
             } else if (found) {
-                by += parts[i] + " ";
+                    if (i != parts.length -1) {
+                        by += parts[i] + " ";
+                    } else {
+                        by += parts[i];
+                    }
+
             } else {
                 task += parts[i] + " ";
             }
         }
+
+        if (from.equals("file")) {
+            by = "";
+            found = false;
+            for (int i = 1; i < parts.length; i++) {
+                if (parts[i].equals("by:")) {
+                    found = true;
+                } else if (found) {
+                    by += parts[i] + " ";
+                }
+            }
+
+            by = by.substring(0,11);
+
+            DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy");
+            DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            LocalDate localDate = LocalDate.parse(by, inputFormatter);
+            by = localDate.format(outputFormatter);
+        }
+
 
         if (task.equals("")) {
             throw new DukeException("No description specified la dei!! How to do work when no work is said!! Enter again!\n");
@@ -368,9 +396,9 @@ public class Duke {
                 startFound = false;
                 endFound = true;
             } else if (startFound) {
-                start += parts[i] + " ";
+                start += parts[i];
             } else if (endFound) {
-                end += parts[i] + " ";
+                end += parts[i];
             } else {
                 task += parts[i] + " ";
             }
