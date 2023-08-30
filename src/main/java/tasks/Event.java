@@ -1,13 +1,15 @@
 package tasks;
 
+import java.time.LocalDate;
+
 import parsers.TaskParser;
 
 /**
  * Event task, a type of task that start at a specific date/time and ends at a specific date/time.
  */
 public class Event extends Task{
-    private String from;
-    private String to;
+    private LocalDate from;
+    private LocalDate to;
     
     /**
      * Initializes a new event with the given description and duration. 
@@ -16,21 +18,27 @@ public class Event extends Task{
      * @param from The start date/time of the event
      * @param to The end date/time of the event
      */
-    public Event(String desc, String from, String to) {
+    public Event(String desc, LocalDate from, LocalDate to) {
         super(false, desc);
         this.from = from;
         this.to = to;
     }
 
-    public Event(boolean status, String desc, String from, String to) {
+    public Event(boolean status, String desc, LocalDate from, LocalDate to) {
         super(status, desc);
         this.from = from;
         this.to = to;
     }
 
+    public boolean isHappeningOnDate(LocalDate targetDate) {
+        return targetDate.isEqual(this.from) || targetDate.isEqual(this.to) 
+                || (targetDate.isAfter(this.from) && targetDate.isBefore(this.to));
+    }
+
     @Override
     public String toStorableString() {
-        String[] infos = {"E", this.status ? "1" : "0", this.desc, this.from, this.to};
+        String[] infos = {"E", this.status ? "1" : "0", this.desc, 
+                this.from.format(Task.DATE_INPUT_FORMATTER), this.to.format(Task.DATE_INPUT_FORMATTER)};
 
         return String.join(TaskParser.SEPARATOR, infos);
     }
@@ -42,6 +50,7 @@ public class Event extends Task{
      */
     @Override
     public String toString(){
-        return "[E]" + super.toString() + " (from: " + this.from + " to: " + this.to + ")";
+        return "[E]" + super.toString() + " (from: " + this.from.format(DATE_OUTPUT_FORMATTER) 
+                + " to: " + this.to.format(DATE_OUTPUT_FORMATTER) + ")";
     }
 }

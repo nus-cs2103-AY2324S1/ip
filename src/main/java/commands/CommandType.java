@@ -7,11 +7,12 @@ public enum CommandType {
     MARK("mark [task no.]"), 
     UNMARK("unmark [task no.]"), 
     TODO("todo [task]"), 
-    DEADLINE("deadline [task] /by [deadline]"), 
-    EVENT("event [task] /from [start date/time] /to [end date/time]"), 
+    DEADLINE("deadline [task] /by [yyyy-mm-dd]"), 
+    EVENT("event [task] /from [yyyy-mm-dd] /to [yyyy-mm-dd]"), 
     BYE("bye"), 
     LIST("list"),
-    DELETE("delete [task no.]");
+    DELETE("delete [task no.]"),
+    DATE("date [yyyy-mm-dd]");
 
     private final String commandFormat;
 
@@ -49,6 +50,8 @@ public enum CommandType {
                 return LIST;
             case "delete":
                 return DELETE;
+            case "date":
+                return DATE;
             default:
                 throw new InvalidCommandException();
         }
