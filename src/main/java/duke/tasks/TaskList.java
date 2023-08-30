@@ -1,3 +1,8 @@
+package duke.tasks;
+
+import duke.storage.Storage;
+import duke.exception.DukeException;
+
 import java.util.ArrayList;
 
 public class TaskList {
@@ -29,7 +34,7 @@ public class TaskList {
             String buffer = "";
 
             if (index > taskList.size() - 1 || index < 0) {
-                throw new DukeException("Invalid Task Index provided!");
+                throw new DukeException("Invalid duke.tasks.Task Index provided!");
             }
             Task selectedTask = taskList.get(index);
             if (status.equals("mark")) {
@@ -44,7 +49,7 @@ public class TaskList {
             this.saveList();
             return buffer;
         } catch (NumberFormatException e) {
-            throw new DukeException("Invalid Task Index provided!");
+            throw new DukeException("Invalid duke.tasks.Task Index provided!");
         }
     }
 
@@ -53,7 +58,7 @@ public class TaskList {
             int index = Integer.parseInt(commandNum) - 1;
 
             if (index > taskList.size() - 1 || index < 0) {
-                throw new DukeException("Invalid Task Index provided!");
+                throw new DukeException("Invalid duke.tasks.Task Index provided!");
             }
             Task selectedTask = taskList.remove(index);
             this.saveList();
@@ -62,7 +67,7 @@ public class TaskList {
                     taskList.size() + " tasks in the list.";
 
         } catch (NumberFormatException e) {
-            throw new DukeException("Invalid Task Index provided!");
+            throw new DukeException("Invalid duke.tasks.Task Index provided!");
         }
     }
 
