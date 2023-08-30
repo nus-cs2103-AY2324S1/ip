@@ -4,6 +4,10 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.time.DateTimeException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 public class Duke {
     private static final String HORIZONTAL_LINE = "____________________________________________________________";
@@ -54,7 +58,12 @@ public class Duke {
                         if (split.length != 2) {
                             throw new FileCorruptedException();
                         }
-                        task = new Deadline(split[0], split[1]);
+                        try {
+                            LocalDateTime dateTime = DateTimeManager.inputToDate(split[1]);
+                            task = new Deadline(split[0], dateTime);
+                        } catch (DateParseException | DateTimeException e) {
+                            throw new FileCorruptedException();
+                        }
                         break;
                     case "E":
                         String[] separateByFrom = line[2].split(" /from ", 2);
@@ -65,7 +74,13 @@ public class Duke {
                         if (separateByTo.length != 2) {
                             throw new FileCorruptedException();
                         }
-                        task = new Event(separateByFrom[0], separateByTo[0], separateByTo[1]);
+                        try {
+                            LocalDateTime startTime = DateTimeManager.inputToDate(separateByTo[0]);
+                            LocalDateTime endTime = DateTimeManager.inputToDate(separateByTo[1]);
+                            task = new Event(separateByFrom[0], startTime, endTime);
+                        } catch (DateParseException | DateTimeException e) {
+                            throw new FileCorruptedException();
+                        }
                         break;
                     default:
                         throw new FileCorruptedException();
@@ -108,12 +123,17 @@ public class Duke {
      * Available commands:
      * - bye: to exit the programme
      * - list: to list out the current task list
+     * - list {date}: to list out all events happening on that date or deadlines before/on that date
+     * - list {todo/deadline/event}: list out all todo items / deadline items / event items
      * - mark {number}: to mark the task with the corresponding index in the list as done
      * - unmark {number}: to mark the task with the corresponding index in the list as not done
      * - todo {taskname}: to add a new task as a to-do item (no deadline or time)
      * - event {taskname} /from {starttime} /to {endtime}: to add a new task as an event (with start time and end time)
      * - deadline {taskname} /by {time}: to add a new task as a deadline (with deadline time)
      * Error handling is done in the individual functions, not here.
+     * Datetime format: "{date} {time}"
+     * Date format: either "today", "tmr", "tomorrow", or DD/MM/YYYY
+     * Time format: either "{HH}am", "{HH}pm", "{HH:MM}am" or "{HH:MM}pm"
      */
     private void interact() {
         try {
@@ -137,13 +157,17 @@ public class Duke {
 
             // exit
             switch (commandArgs[0]) {
+                case "":
+                    continue;
+
+                case "exit":
                 case "bye":
                     break label;
 
 
                 // show list
                 case "list":
-                    this.showList();
+                    this.showList(commandArgs);
                     break;
 
                 // mark as done
@@ -176,6 +200,7 @@ public class Duke {
                     this.deleteTask(commandArgs);
                     break;
 
+                // save data to hard disk
                 case "save":
                     this.saveData();
                     break;
@@ -258,7 +283,15 @@ public class Duke {
             return;
         }
 
-        Task newTask = new Event(separateByFrom[0], separateByTo[0], separateByTo[1]);
+        Task newTask;
+        try {
+            LocalDateTime startTime = DateTimeManager.inputToDate(separateByTo[0]);
+            LocalDateTime endTime = DateTimeManager.inputToDate(separateByTo[1]);
+            newTask = new Event(separateByFrom[0], startTime, endTime);
+        } catch (DateParseException | DateTimeException e) {
+            System.out.println("Quack, I do not understand your datetime.");
+            return;
+        }
         this.taskList.add(newTask);
         System.out.println("Got it. I've added this task:");
         System.out.println(newTask);
@@ -294,7 +327,14 @@ public class Duke {
             return;
         }
 
-        Task newTask = new Deadline(separateByBy[0], separateByBy[1]);
+        Task newTask;
+        try {
+            LocalDateTime dateTime = DateTimeManager.inputToDate(separateByBy[1]);
+            newTask = new Deadline(separateByBy[0], dateTime);
+        } catch (DateParseException | DateTimeException e) {
+            System.out.println("Quack, I do not understand your datetime.");
+            return;
+        }
         this.taskList.add(newTask);
         System.out.println("Got it. I've added this task:");
         System.out.println(newTask);
@@ -311,10 +351,86 @@ public class Duke {
     /**
      * Show the current list of tasks to user.
      */
-    private void showList() {
-        for (int i = 0; i < this.taskList.size(); i++) {
-            System.out.println((i + 1) + ". " + this.taskList.get(i));
+    private void showList(String[] commandArgs) {
+        ArrayList<Task> taskList = (ArrayList<Task>) this.taskList.clone();
+        if (commandArgs.length != 1) {
+            String[] args = commandArgs[1].split(" ");
+            switch (args[0]) {
+                case "todo":
+                    taskList.removeIf(task -> !(task instanceof ToDo));
+                    try {
+                        System.out.println("Alright, here are the to-do tasks" +
+                            (args.length == 2
+                                    ? " " + Duke.handleThirdArgInShowList(args[0], args[1], taskList)
+                                    : "") + ":"
+                        );
+                    } catch (DateParseException e) {
+                        System.out.println("Quack, unrecognised " + commandArgs[2]);
+                        return;
+                    }
+                    break;
+                case "deadline":
+                    taskList.removeIf(task -> !(task instanceof Deadline));
+                    try {
+                        System.out.println("Alright, here are the deadlines" +
+                                (args.length == 2
+                                        ? " " + Duke.handleThirdArgInShowList(args[0], args[1], taskList)
+                                        : "") + ":"
+                        );
+                    } catch (DateParseException e) {
+                        System.out.println("Quack, unrecognised " + commandArgs[2]);
+                        return;
+                    }
+                    break;
+                case "event":
+                    taskList.removeIf(task -> !(task instanceof Event));
+                    try {
+                        System.out.println("Alright, here are the events" +
+                                (args.length == 2
+                                        ? " " + Duke.handleThirdArgInShowList(args[0], args[1], taskList)
+                                        : "") + ":"
+                        );
+                    } catch (DateParseException e) {
+                        System.out.println("Quack, unrecognised " + commandArgs[2]);
+                        return;
+                    }
+                    break;
+                default:
+                    LocalDate date;
+                    try {
+                        date = DateTimeManager.parseDate(commandArgs[1]);
+                    } catch (DateParseException e) {
+                        System.out.println("Quack, I do not understand what list you want me to display");
+                        return;
+                    }
+                    String displayString = DateTimeManager.dateToDisplay(date);
+                    taskList.removeIf(task -> !task.containsDate(date));
+                    System.out.println("Alright, here are the deadlines before "
+                        + displayString + " and events happening " + displayString
+                    );
+                    break;
+            }
         }
+
+        for (int i = 0; i < taskList.size(); i++) {
+            System.out.println((i + 1) + ". " + taskList.get(i));
+        }
+    }
+
+    private static String handleThirdArgInShowList(String type, String arg, ArrayList<Task> taskList) throws DateParseException {
+        String furtherFilter;
+        if (arg.equals("-d")) {
+            furtherFilter = "not done";
+            taskList.removeIf(Task::isDone);
+        } else {
+            if (type.equals("todo")) {
+                return "";
+            }
+            LocalDate date = DateTimeManager.parseDate(arg);
+            furtherFilter = (type.equals("deadline") ? "before " : "happening on ") + DateTimeManager.dateToDisplay(date);
+            taskList.removeIf(task -> !task.containsDate(date));
+        }
+        return furtherFilter;
     }
 
     /**

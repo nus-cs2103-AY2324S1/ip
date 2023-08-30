@@ -1,19 +1,27 @@
-public class Deadline extends Task {
-    private String deadline;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
-    public Deadline(String name, String deadline) {
+public class Deadline extends Task {
+    private LocalDateTime deadline;
+
+    public Deadline(String name, LocalDateTime deadline) {
         super(name);
         this.deadline = deadline;
     }
 
     @Override
     public String data() {
-        return "D " + super.data() + " /by " + this.deadline;
+        return "D " + super.data() + " /by " + DateTimeManager.dateToStringData(this.deadline);
+    }
+
+    @Override
+    public boolean containsDate(LocalDate date) {
+        return this.deadline.toLocalDate().isBefore(date) || this.deadline.toLocalDate().equals(date);
     }
 
     @Override
     public String toString() {
         return "[D]" + super.toString() + " (by: "
-                + this.deadline + ")";
+                + DateTimeManager.dateToDisplay(this.deadline) + ")";
     }
 }
