@@ -8,6 +8,9 @@ import duke.ui.Ui;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * The backbone of the program.
+ */
 public class Duke {
     private Storage storage;
     private TaskList tasks;

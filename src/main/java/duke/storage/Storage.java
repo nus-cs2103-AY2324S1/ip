@@ -13,6 +13,9 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Scanner;
 
+/**
+ * Handles read and write to file data.
+ */
 public class Storage {
     private String home;
     private Path path;

@@ -6,6 +6,9 @@ import java.time.DateTimeException;
 import java.time.format.DateTimeFormatter;
 import java.time.LocalDate;
 
+/**
+ * Represents an event inherits from a Task.
+ */
 public class Event extends Task {
     private LocalDate from;
     private LocalDate to;
