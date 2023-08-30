@@ -1,12 +1,9 @@
-import javafx.beans.InvalidationListener;
-
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 
@@ -224,7 +221,7 @@ public class ChatBot {
             throw new DeadlineMissingFieldException();
         }
         try {
-            String name = command.substring(9, idOfBy);
+            String name = command.substring(9, idOfBy - 1);
             String deadline = command.substring(idOfBy + 4);
             if (name.isEmpty() || deadline.isEmpty()) {
                 throw new DeadlineMissingFieldException();
@@ -242,8 +239,8 @@ public class ChatBot {
             throw new EventMissingFieldException();
         }
         try {
-            String name = command.substring(6, idOfFrom);
-            String from = command.substring(idOfFrom + 6, idOfTo);
+            String name = command.substring(6, idOfFrom - 1);
+            String from = command.substring(idOfFrom + 6, idOfTo - 1);
             String to = command.substring(idOfTo + 4);
             if (name.isEmpty() || from.isEmpty() || to.isEmpty()) {
                 throw new EventMissingFieldException();
