@@ -427,8 +427,34 @@ public class TaskList {
         String res = "Got it. I've added this task :\n" + str + "\n";
         res += getTaskLeft();
 
-
         return res;
+    }
+
+    public String handleFindTask(String input) throws DukeException{
+        String results = "";
+        String parts[] = input.split(" ");
+
+        if (parts.length == 1) {
+            throw new DukeException("Specify keyword to search for!\n");
+        }
+
+        if (parts.length > 2) {
+            throw new DukeException("Enter only one keyword to search!\n");
+        }
+
+        int resultCounter = 1;
+        String keyword = " " + parts[1] + " ";
+        for (int i = 0;i < tasks.size(); i++) {
+            if (tasks.get(i).toString().contains(keyword)) {
+                results += resultCounter + "." + tasks.get(i).toString() + "\n";
+                resultCounter++;
+            }
+        }
+
+        if (results.equals("")) {
+            return "No results found!";
+        }
+        return results;
     }
 
     public ArrayList<Task> getTasks() {

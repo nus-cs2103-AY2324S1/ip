@@ -27,6 +27,8 @@ public class Parser {
                 return new String[]{"deadline", userInput};
             } else if (userInput.startsWith("event")) {
                 return new String[]{"event", userInput};
+            } else if (userInput.startsWith("find")) {
+                return new String[]{"find", userInput};
             } else {
                 throw new InvalidInputExpression("Invalid input!! Specify commands as list, mark, unmark, or deadline, event and todo followed by the task please la dei!\n");
             }
