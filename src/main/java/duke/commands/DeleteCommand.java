@@ -1,5 +1,11 @@
-import exceptions.DukeException;
-import exceptions.InvalidCommandException;
+package duke.commands;
+
+import duke.storage.Storage;
+import duke.tasks.Task;
+import duke.tasks.Tasks;
+import duke.ui.Ui;
+import duke.exceptions.DukeException;
+import duke.exceptions.InvalidCommandException;
 
 public class DeleteCommand extends Command {
     public static final String COMMAND_WORD = "delete";

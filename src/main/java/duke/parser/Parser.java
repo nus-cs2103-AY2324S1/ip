@@ -1,4 +1,11 @@
-import exceptions.*;
+package duke.parser;
+
+import duke.tasks.Deadline;
+import duke.tasks.Event;
+import duke.tasks.Task;
+import duke.tasks.Todo;
+import duke.commands.*;
+import duke.exceptions.*;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
