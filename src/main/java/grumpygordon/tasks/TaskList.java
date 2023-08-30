@@ -92,7 +92,9 @@ public class TaskList {
         StringBuilder sb = new StringBuilder();
 
         if (this.tasks.size() == 0) {
-            sb.append(INDENTATION).append(EMPTY_TASK_LIST_RESPONSE).append("\n");
+            sb.append(INDENTATION)
+                    .append(EMPTY_TASK_LIST_RESPONSE)
+                    .append("\n");
         } else {
             sb.append(INDENTATION).append(NON_EMPTY_TASK_LIST_RESPONSE).append("\n");
             for (int i = 0; i < this.tasks.size(); i++) {

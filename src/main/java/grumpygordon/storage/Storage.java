@@ -1,8 +1,10 @@
 package grumpygordon.storage;
 
 
-import grumpygordon.tasks.*;
-import grumpygordon.exceptions.*;
+import grumpygordon.tasks.TaskList;
+import grumpygordon.tasks.Task;
+import grumpygordon.exceptions.GrumpyGordonException;
+import grumpygordon.exceptions.GrumpyGordonInitialisationException;
 
 
 import java.io.BufferedWriter;
@@ -14,7 +16,7 @@ import java.io.IOException;
 
 public class Storage {
     private static final String DIRECTORY_PATH = "./data";
-    private static final String FILE_PATH = "./data/grumpygordon.tasks.txt";
+    private static final String FILE_PATH = "./data/tasks.txt";
     public Storage() throws GrumpyGordonInitialisationException {
         File dataDirectory = new File(DIRECTORY_PATH);
         File dataFile = new File(FILE_PATH);
@@ -27,7 +29,7 @@ public class Storage {
             try {
                 dataFile.createNewFile();
             } catch (IOException e) {
-                throw new GrumpyGordonInitialisationException("Error: Unable to create new file to store grumpygordon.tasks.\n");
+                throw new GrumpyGordonInitialisationException("Error: Unable to create new file to store tasks.\n");
             }
         }
     }
@@ -43,7 +45,7 @@ public class Storage {
                 bw.newLine();
             }
         } catch (IOException e) {
-            System.out.println("Error saving grumpygordon.tasks to file: " + e.getMessage());
+            System.out.println("Error saving tasks to file: " + e.getMessage());
         }
     }
     public TaskList loadTasks() throws GrumpyGordonException {
@@ -56,7 +58,7 @@ public class Storage {
                     tasks.addTask(task);
                 }
         } catch (IOException e) {
-            System.out.println("Error reading grumpygordon.tasks from file: " + e.getMessage());
+            System.out.println("Error reading tasks from file: " + e.getMessage());
         }
         return tasks;
     }
