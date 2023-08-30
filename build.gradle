@@ -29,7 +29,11 @@ test {
 }
 
 application {
-    mainClass.set("seedu.duke.Duke")
+    mainClass.set("duke.Duke")
+}
+
+checkstyle {
+    toolVersion = '10.2'
 }
 
 shadowJar {
@@ -40,4 +44,5 @@ shadowJar {
 
 run{
     standardInput = System.in
+    enableAssertions = true
 }

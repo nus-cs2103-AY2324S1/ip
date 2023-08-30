@@ -1,10 +1,14 @@
 package duke.task;
 
-import duke.Duke;
-import duke.exception.*;
-
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+
+import duke.Duke;
+import duke.exception.DukeException;
+import duke.exception.EmptyDescriptionException;
+import duke.exception.EmptyTaskException;
+import duke.exception.NoSpaceAfterException;
+import duke.exception.NoSpaceBeforeException;
 
 /**
  * duke.task.TaskList class that contains the task list.
@@ -86,11 +90,11 @@ public class TaskList {
             int idx = Character.getNumericValue(command.charAt(5));
             Task t = getTask(idx - 1);
             t.markAsDone();
-            Duke.ui.printMarkTask(t);
+            Duke.getUi().printMarkTask(t);
         } catch (IndexOutOfBoundsException e) {
-            Duke.ui.printIndexOutOfBoundsException(getList());
+            Duke.getUi().printIndexOutOfBoundsException(getList());
         } catch (NoSpaceAfterException | EmptyTaskException e) {
-            Duke.ui.showError(e.getMessage());
+            Duke.getUi().showError(e.getMessage());
         }
     }
 
@@ -110,11 +114,11 @@ public class TaskList {
             int idx = Character.getNumericValue(command.charAt(7));
             Task t = getTask(idx - 1);
             t.markAsUndone();
-            Duke.ui.printUnmarkTask(t);
+            Duke.getUi().printUnmarkTask(t);
         } catch (IndexOutOfBoundsException e) {
-            Duke.ui.printIndexOutOfBoundsException(getList());
+            Duke.getUi().printIndexOutOfBoundsException(getList());
         } catch (NoSpaceAfterException | EmptyTaskException e) {
-            Duke.ui.showError(e.getMessage());
+            Duke.getUi().showError(e.getMessage());
         }
     }
 
@@ -126,17 +130,17 @@ public class TaskList {
     public void todo(String command) {
         try {
             String[] result = command.split(" ");
-            if ((result.length == 1 && !command.startsWith("todo ") && command.length() > 4) ||
-                    (result.length > 1 && !command.startsWith("todo "))) {
+            if ((result.length == 1 && !command.startsWith("todo ") && command.length() > 4)
+                    || (result.length > 1 && !command.startsWith("todo "))) {
                 throw new NoSpaceAfterException("todo");
             } else if (result.length == 1) {
                 throw new EmptyDescriptionException("todo");
             }
             Todo todo = new Todo(command.substring(5));
             addTask(todo);
-            Duke.ui.printAddTask(todo, getLength());
+            Duke.getUi().printAddTask(todo, getLength());
         } catch (NoSpaceAfterException | EmptyDescriptionException e) {
-            Duke.ui.showError(e.getMessage());
+            Duke.getUi().showError(e.getMessage());
         }
     }
 
@@ -149,12 +153,12 @@ public class TaskList {
         try {
             String[] result1 = command.split(" ");
             String[] result2 = command.split("/by");
-            if ((result1.length == 1 && !command.startsWith("deadline ") && command.length() > 8) ||
-                    (result1.length > 1 && !command.startsWith("deadline "))) {
+            if ((result1.length == 1 && !command.startsWith("deadline ") && command.length() > 8)
+                    || (result1.length > 1 && !command.startsWith("deadline "))) {
                 throw new NoSpaceAfterException("deadline");
-            } else if (result1.length == 1 ||
-                    (command.contains("/by") &&
-                            textBtwnWords(command, "deadline", "/by").isBlank())) {
+            } else if (result1.length == 1
+                    || (command.contains("/by")
+                    && textBtwnWords(command, "deadline", "/by").isBlank())) {
                 throw new EmptyDescriptionException("deadline");
             } else if (!command.contains("/by")) {
                 throw new DukeException("☹ OOPS!!! Pls provide a date/time for the deadline.");
@@ -168,11 +172,11 @@ public class TaskList {
             Deadline deadline = new Deadline(command.substring(9, command.indexOf("/") - 1),
                     command.substring(command.indexOf("/by") + 4));
             addTask(deadline);
-            Duke.ui.printAddTask(deadline, getLength());
+            Duke.getUi().printAddTask(deadline, getLength());
         } catch (DateTimeParseException e) {
-            Duke.ui.printDateTimeParseException();
+            Duke.getUi().printDateTimeParseException();
         } catch (NoSpaceAfterException | EmptyDescriptionException | NoSpaceBeforeException | DukeException e) {
-            Duke.ui.showError(e.getMessage());
+            Duke.getUi().showError(e.getMessage());
         }
     }
 
@@ -185,12 +189,12 @@ public class TaskList {
         try {
             String[] result1 = command.split(" ");
             String[] result2 = command.split("/to");
-            if ((result1.length == 1 && !command.startsWith("event ") && command.length() > 5) ||
-                    (result1.length > 1 && !command.startsWith("event "))) {
+            if ((result1.length == 1 && !command.startsWith("event ") && command.length() > 5)
+                    || (result1.length > 1 && !command.startsWith("event "))) {
                 throw new NoSpaceAfterException("event");
-            } else if (result1.length == 1 ||
-                    (command.contains("/from") &&
-                            textBtwnWords(command, "event", "/from").isBlank())) {
+            } else if (result1.length == 1
+                    || (command.contains("/from")
+                    && textBtwnWords(command, "event", "/from").isBlank())) {
                 throw new EmptyDescriptionException("event");
             } else if (!command.contains("/from")) {
                 throw new DukeException("☹ OOPS!!! Pls provide a start date/time for the event.");
@@ -198,8 +202,8 @@ public class TaskList {
                 throw new NoSpaceBeforeException("/from");
             } else if (!command.contains("/to")) {
                 throw new DukeException("☹ OOPS!!! Pls provide an end date/time for the event.");
-            } else if (command.contains("/from ") && command.contains("/to") &&
-                    textBtwnWords(command, "/from", "/to").isBlank()) {
+            } else if (command.contains("/from ") && command.contains("/to")
+                    && textBtwnWords(command, "/from", "/to").isBlank()) {
                 throw new DukeException("☹ OOPS!!! The start date/time for the event cannot be empty.");
             } else if (!command.contains("/from ")) {
                 throw new NoSpaceAfterException("/from");
@@ -214,11 +218,11 @@ public class TaskList {
                     command.substring(command.indexOf("/from") + 6, command.indexOf("/to") - 1),
                     command.substring(command.indexOf("/to") + 4));
             addTask(event);
-            Duke.ui.printAddTask(event, getLength());
+            Duke.getUi().printAddTask(event, getLength());
         } catch (DateTimeParseException e) {
-            Duke.ui.printDateTimeParseException();
+            Duke.getUi().printDateTimeParseException();
         } catch (NoSpaceAfterException | EmptyDescriptionException | NoSpaceBeforeException | DukeException e) {
-            Duke.ui.showError(e.getMessage());
+            Duke.getUi().showError(e.getMessage());
         }
     }
 
@@ -238,11 +242,11 @@ public class TaskList {
             int idx = Character.getNumericValue(command.charAt(7));
             Task t = getTask(idx - 1);
             deleteTask(idx - 1);
-            Duke.ui.printDeleteTask(t, getLength());
+            Duke.getUi().printDeleteTask(t, getLength());
         } catch (IndexOutOfBoundsException e) {
-            Duke.ui.printIndexOutOfBoundsException(getList());
+            Duke.getUi().printIndexOutOfBoundsException(getList());
         } catch (NoSpaceAfterException | EmptyTaskException e) {
-            Duke.ui.showError(e.getMessage());
+            Duke.getUi().showError(e.getMessage());
         }
     }
 

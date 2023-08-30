@@ -16,14 +16,14 @@ public class Parser {
      * Parses the user command.
      */
     public static void parse(String command, TaskList taskList) {
-        Duke.ui.printLine();
+        Duke.getUi().printLine();
         try {
             if (command.equals("bye")) {
-                Duke.isExit = true;
-                Duke.storage.saveData(Duke.taskList.getList());
-                Duke.ui.showExit();
+                Duke.setExit(true);
+                Duke.getStorage().saveData(Duke.getTaskList().getList());
+                Duke.getUi().showExit();
             } else if (command.equals("list")) {
-                Duke.ui.printList(taskList.getList());
+                Duke.getUi().printList(taskList.getList());
             } else if (command.startsWith("mark")) {
                 taskList.mark(command);
             } else if (command.startsWith("unmark")) {
@@ -40,8 +40,8 @@ public class Parser {
                 throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
             }
         } catch (DukeException e) {
-            Duke.ui.showError(e.getMessage());
+            Duke.getUi().showError(e.getMessage());
         }
-        Duke.ui.printLine();
+        Duke.getUi().printLine();
     }
 }

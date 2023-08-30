@@ -1,8 +1,8 @@
 package duke.util;
 
-import duke.task.Task;
-
 import java.util.ArrayList;
+
+import duke.task.Task;
 
 /**
  * duke.util.Ui class that deals with interactions with the user.
@@ -11,24 +11,17 @@ import java.util.ArrayList;
  */
 
 public class Ui {
-    private final String LINE = "\t____________________________________________________________";
+    private final String line = "\t____________________________________________________________";
 
     /**
      * Shows the welcome message.
      */
     public void showWelcome() {
-        System.out.println(LINE);
+        System.out.println(line);
         System.out.println("\t Hello! I'm Violet");
         System.out.println("\t What can I do for you?");
-        System.out.println(LINE);
+        System.out.println(line);
     }
-
-//    /**
-//     * Shows loading error if the file fails to load.
-//     */
-//    public void showLoadingError() {
-//        System.out.println("Loading Error");
-//    }
 
     /**
      * Shows the exit message.
@@ -50,7 +43,7 @@ public class Ui {
      * Shows the divider line.
      */
     public void printLine() {
-        System.out.println(LINE);
+        System.out.println(line);
     }
 
     /**

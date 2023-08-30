@@ -1,12 +1,5 @@
 package duke.util;
 
-import duke.Duke;
-import duke.exception.DukeException;
-import duke.task.Deadline;
-import duke.task.Event;
-import duke.task.Task;
-import duke.task.Todo;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -14,6 +7,13 @@ import java.io.IOException;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import duke.Duke;
+import duke.exception.DukeException;
+import duke.task.Deadline;
+import duke.task.Event;
+import duke.task.Task;
+import duke.task.Todo;
 
 /**
  * duke.util.Storage class that deals with loading tasks from the file and saving tasks in the file.
@@ -62,23 +62,23 @@ public class Storage {
         String description = data[2];
         try {
             switch (taskType) {
-                case "T":
-                    task = new Todo(description, isDone);
-                    break;
-                case "D":
-                    task = new Deadline(description, isDone, data[3]);
-                    break;
-                case "E":
-                    String[] time = data[3].split(" - ");
-                    task = new Event(description, isDone, time[0], time[1]);
-                    break;
-                default:
-                    throw new DukeException("☹ OOPS!!! Invalid task type");
+            case "T":
+                task = new Todo(description, isDone);
+                break;
+            case "D":
+                task = new Deadline(description, isDone, data[3]);
+                break;
+            case "E":
+                String[] time = data[3].split(" - ");
+                task = new Event(description, isDone, time[0], time[1]);
+                break;
+            default:
+                throw new DukeException("☹ OOPS!!! Invalid task type");
             }
         } catch (DateTimeParseException e) {
-            Duke.ui.printDateTimeParseException();
+            Duke.getUi().printDateTimeParseException();
         } catch (DukeException e) {
-            Duke.ui.showError(e.getMessage());
+            Duke.getUi().showError(e.getMessage());
         }
         return task;
     }

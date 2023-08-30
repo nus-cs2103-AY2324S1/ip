@@ -1,7 +1,7 @@
 package duke.task;
 
-import java.time.format.DateTimeFormatter;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 /**
  * Represents an event.
@@ -28,7 +28,7 @@ public class Event extends Task {
      * @param from The start date/time of the event.
      * @param to The end date/time of the event.
      */
-    public Event (String description, String from, String to) {
+    public Event(String description, String from, String to) {
         super(description);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
         this.from = LocalDateTime.parse(from, formatter);
