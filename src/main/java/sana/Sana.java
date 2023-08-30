@@ -1,3 +1,4 @@
+package sana;
 public class Sana {
 
     private Storage storage;

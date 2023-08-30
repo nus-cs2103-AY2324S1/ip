@@ -1,3 +1,4 @@
+package sana;
 public abstract class Command {
 
     protected String cmd;

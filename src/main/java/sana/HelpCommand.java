@@ -1,3 +1,4 @@
+package sana;
 public class HelpCommand extends Command {
 
     public HelpCommand(String cmd, String arguments) {

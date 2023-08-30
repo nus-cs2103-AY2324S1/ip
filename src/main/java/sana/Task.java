@@ -1,3 +1,4 @@
+package sana;
 import java.time.LocalDate;
 
 public abstract class Task {
@@ -78,7 +79,6 @@ public abstract class Task {
             int lastFromId = temp.indexOf('|', lastDescId + 1);
 
             LocalDate from = LocalDate.parse(temp.substring(lastDescId + 2, lastFromId - 1));
-
 
             LocalDate to = LocalDate.parse(temp.substring(lastFromId + 2));
             return new Event(description, from, to, isDone);

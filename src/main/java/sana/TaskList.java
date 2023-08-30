@@ -1,4 +1,4 @@
-import java.io.File;
+package sana;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -31,9 +31,12 @@ public class TaskList {
         tasksList.add(task);
     }
 
-    public Task delete(int taskId) {
-        Task temp = tasksList.get(taskId);
-        tasksList.remove(taskId);
+    public Task delete(int taskId) throws SanaException {
+        if (taskId > tasksList.size() || taskId <= 0) {
+            throw new SanaException("No such task!");
+        }
+        Task temp = tasksList.get(taskId - 1);
+        tasksList.remove(taskId - 1);
         return temp;
     }
 
@@ -46,7 +49,7 @@ public class TaskList {
     }
 
     public void mark(int taskId) throws SanaException {
-        if (taskId > tasksList.size() || taskId == 0) {
+        if (taskId > tasksList.size() || taskId <= 0) {
             throw new SanaException("No such task!");
         }
         tasksList.get(taskId - 1).markAsDone();
@@ -56,7 +59,7 @@ public class TaskList {
     }
 
     public void unmark(int taskId) throws SanaException {
-        if (taskId > tasksList.size() || taskId == 0) {
+        if (taskId > tasksList.size() || taskId <= 0) {
             throw new SanaException("No such task!");
         }
         tasksList.get(taskId - 1).markAsNotDone();

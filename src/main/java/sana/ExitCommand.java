@@ -1,3 +1,4 @@
+package sana;
 public class ExitCommand extends Command {
     public ExitCommand(String cmd, String arguments) {
         super(cmd, arguments);

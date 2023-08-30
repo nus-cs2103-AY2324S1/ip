@@ -1,11 +1,12 @@
-public class UnmarkCommand extends Command {
-    public UnmarkCommand(String cmd, String arguments) {
+package sana;
+public class MarkCommand extends Command {
+    public MarkCommand(String cmd, String arguments) {
         super(cmd, arguments);
     }
 
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws SanaException {
-        tasks.unmark(Integer.parseInt(arguments));
+        tasks.mark(Integer.parseInt(arguments));
         tasks.update(storage);
     }
 
