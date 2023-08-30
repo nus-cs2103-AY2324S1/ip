@@ -21,12 +21,22 @@ public class Deadline extends Task {
     }
 
     /**
-     * Return a string representation of the Deadline task.
+     * Returns output string representation of the Deadline task.
+     *
+     * @return The output string representation of the Deadline task.
+     */
+    @Override
+    public String outputMsg() {
+        return "D | " + (isDone ? 1 : 0) + " | " + description + " | " + this.by;
+    }
+
+    /**
+     * Returns a string representation of the Deadline task.
      *
      * @return The string representation of the Deadline task with description and deadline.
      */
     @Override
     public String toString() {
-        return "[D]" + super.toString() + "(by: " + by + ")";
+        return "[D]" + super.toString() + " (by: " + by + ")";
     }
 }

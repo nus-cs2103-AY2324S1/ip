@@ -21,12 +21,22 @@ public class Event extends Task {
     }
 
     /**
+     * Returns output string representation of the Event task.
+     *
+     * @return The output string representation of the Event task.
+     */
+    @Override
+    public String outputMsg() {
+        return "E | " + (isDone ? 1 : 0) + " | " + description + " | " + this.duration;
+    }
+
+    /**
      * Returns a string representation of the Event task.
      *
      * @return The string representation of the Event task with description and duration.
      */
     @Override
     public String toString() {
-        return "[E]" + super.toString() + "(" + this.duration + ")";
+        return "[E]" + super.toString() + " (" + this.duration + ")";
     }
 }

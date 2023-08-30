@@ -7,7 +7,7 @@ public class Task {
     protected boolean isDone; // isDone keep track the status of task whether it is done or not
 
     /**
-     * Construct a new task with the given description. The task is initialised as not done.
+     * Constructs a new task with the given description. The task is initialised as not done.
      *
      * @param description The description of the task.
      */
@@ -17,7 +17,7 @@ public class Task {
     }
 
     /**
-     * Get the status of the task based on the variable isDone.
+     * Gets the status of the task based on the variable isDone.
      *
      * @return An "X" if the task is done, otherwise a space.
      */
@@ -37,6 +37,15 @@ public class Task {
      */
     public void markAsNotDone() {
         this.isDone = false;
+    }
+
+    /**
+     * Returns output string representation of the Task object.
+     *
+     * @return The output string representation of the Task object.
+     */
+    public String outputMsg() {
+        return "Task | " + (this.isDone ? 1 : 0) + " | " + this.description;
     }
 
     /**

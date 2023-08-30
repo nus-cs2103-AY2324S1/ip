@@ -14,6 +14,16 @@ public class ToDo extends Task {
     }
 
     /**
+     * Returns output string representation of the To do task.
+     *
+     * @return The output string representation of the To do task.
+     */
+    @Override
+    public String outputMsg() {
+        return "T | " + (isDone ? 1 : 0) + " | " + description;
+    }
+
+    /**
      * Returns a string representation of the ToDo task.
      *
      * @return The string representation of the ToDo task with description.
