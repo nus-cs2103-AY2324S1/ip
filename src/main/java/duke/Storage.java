@@ -24,17 +24,6 @@ public class Storage {
         this.taskList = taskList;
     }
 
-    /**
-     * Creates file to save task list if file is not present
-     */
-    public void createFile() {
-        File dataFile = new File(FILE_PATH);
-        try {
-            boolean hasFile = dataFile.createNewFile();
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-    }
 
     /**
      * Saves the current history array to the file
@@ -56,6 +45,11 @@ public class Storage {
     public void readFile() {
         try {
             File dataFile = new File(FILE_PATH);
+            try {
+                boolean hasFile = dataFile.createNewFile();
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
             FileInputStream dataFileStream = new FileInputStream(dataFile);
             if (dataFileStream.available() > 0) {
                 ObjectInputStream objectStream = new ObjectInputStream(dataFileStream);

@@ -21,7 +21,6 @@ public class Yong {
         ui.showWelcome();
         TaskList taskList = new TaskList();
         Storage storage = new Storage(taskList);
-        storage.createFile();
         storage.readFile();
         boolean isExit = false;
         while (!isExit) {
@@ -33,7 +32,6 @@ public class Yong {
                 c.execute();
                 isExit = c.isExit();
             } catch (DukeException e) {
-                System.out.println(e);
                 ui.showError(e.getMessage());
             } finally {
                 ui.showLine();
