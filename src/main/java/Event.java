@@ -1,5 +1,7 @@
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 
 public class Event extends Task {
 
@@ -20,6 +22,16 @@ public class Event extends Task {
         super(description);
         this.from = LocalDateTime.parse(from, DATETIME_INPUT_FORMATTER);
         this.to = LocalDateTime.parse(to, DATETIME_INPUT_FORMATTER);
+    }
+
+    /**
+     * Returns a boolean representing whether the event starts within a week.
+     *
+     * @return true if the event starts within a week, false otherwise
+     */
+    @Override
+    public boolean isWithinAWeek() {
+        return this.from.isBefore(LocalDateTime.now().plus(1, ChronoUnit.WEEKS));
     }
 
     /**

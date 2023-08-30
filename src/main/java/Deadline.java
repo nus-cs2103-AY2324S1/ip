@@ -1,5 +1,6 @@
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 
 public class Deadline extends Task {
 
@@ -17,6 +18,16 @@ public class Deadline extends Task {
     public Deadline(String description, String by) {
         super(description);
         this.by = LocalDate.parse(by, DATE_INPUT_FORMATTER);
+    }
+
+    /**
+     * Returns a boolean representing whether the task is due within a week.
+     *
+     * @return true if the deadline is due within a week, false otherwise
+     */
+    @Override
+    public boolean isWithinAWeek() {
+        return this.by.isBefore(LocalDate.now().plus(1, ChronoUnit.WEEKS));
     }
 
     /**

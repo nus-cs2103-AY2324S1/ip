@@ -137,18 +137,11 @@ public class ChatBuddy {
     }
 
     /** Displays the list of tasks. */
-    private static void printTaskList() {
-        printHorizontalLine();
-        System.out.println("    Here are the tasks in your list:");
-        for (int i = 0; i < list.size(); i++) {
-            Task task = list.get(i);
-            if (task == null) {
-                // there are no more tasks
-                break;
-            }
-            System.out.println(String.format("    %1s.%2s", i + 1, task.toString()));
+    private static void printTaskList(ArrayList<Task> taskList) {
+        for (int i = 0; i < taskList.size(); i++) {
+            Task task = taskList.get(i);
+            System.out.println(String.format("    %1s.%2s", i + 1, task));
         }
-        printHorizontalLine();
     }
 
     /** Displays a horizontal line. */
@@ -157,6 +150,13 @@ public class ChatBuddy {
         System.out.println(horizontalLine);
     }
 
+    /**
+     * Loads data from file into task list.
+     *
+     * @throws IOException if there's an error creating a directory or file,
+     *                     or if file does not exist when trying to read from it
+     * @throws ChatBuddyException if file data is not in the correct format
+     */
     private static void loadData() throws IOException, ChatBuddyException {
         // load file from hard disk
         File directory = new File(DIRECTORY_PATH);
@@ -177,6 +177,12 @@ public class ChatBuddy {
         }
     }
 
+    /**
+     * Parses task from data from the file and adds the task into the list.
+     *
+     * @param taskData The task data string to parse
+     * @throws ChatBuddyException if file data is not in the correct format
+     */
     private static void parseTaskFromFile(String taskData) throws ChatBuddyException {
         String[] arr = taskData.split(" \\| ");
         String taskType = arr[0];
@@ -207,6 +213,13 @@ public class ChatBuddy {
         list.add(task);
     }
 
+    /**
+     * Saves the task into the file.
+     * The file will be overwritten.
+     *
+     * @param taskList The list of task to be saved.
+     * @throws IOException if there is an error writing into the file
+     */
     private static void saveTasksToFile(ArrayList<Task> taskList) throws IOException {
         // iterate through the taskList and add each task to the file
         FileWriter fileWriter = new FileWriter(FILE_PATH);
@@ -214,6 +227,29 @@ public class ChatBuddy {
             fileWriter.write(task.getInformationForSaving() + System.lineSeparator());
         }
         fileWriter.close();
+    }
+
+    /**
+     * Prints out tasks that have a due date / from date within one week
+     *
+     * @param taskList The list of possible tasks
+     */
+    private static void getOneWeekOfTasks(ArrayList<Task> taskList) {
+        ArrayList<Task> tasksWithinAWeek = new ArrayList<>();
+        for (Task task: taskList) {
+            if (task.isWithinAWeek()) {
+                tasksWithinAWeek.add(task);
+            }
+        }
+
+        printHorizontalLine();
+        if (tasksWithinAWeek.size() == 0) {
+            System.out.println("    There are no deadlines due and no events that starts within the week.");
+        } else {
+            System.out.println("    Here are the deadlines and events that are due or starts within the week.");
+            printTaskList(tasksWithinAWeek);
+        }
+        printHorizontalLine();
     }
 
     public static void main(String[] args) {
@@ -232,7 +268,10 @@ public class ChatBuddy {
             while (!userInput.equals("bye")) {
                 try {
                     if (userInput.equals("list")) {
-                        printTaskList();
+                        printHorizontalLine();
+                        System.out.println("    Here are the tasks in your list:");
+                        printTaskList(list);
+                        printHorizontalLine();
                     } else if (userInput.matches("mark [1-9][0-9]*")) {
                         String indexString = userInput.substring(5);
                         int taskIndex = Integer.parseInt(indexString) - 1;
@@ -259,6 +298,8 @@ public class ChatBuddy {
                         addEvent(userInput);
                     } else if (userInput.matches("delete [1-9][0-9]*")) {
                         deleteTask(userInput);
+                    } else if (userInput.equals("week")) {
+                        getOneWeekOfTasks(list);
                     } else {
                         throw new ChatBuddyException("I'm sorry, but I don't know what that means :-(");
                     }
