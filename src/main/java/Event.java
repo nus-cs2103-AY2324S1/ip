@@ -1,17 +1,18 @@
+import java.time.LocalDateTime;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Event extends Task {
-    protected String start;
-    protected String end;
-    public Event(String description, String start, String end) {
+    protected LocalDateTime start;
+    protected LocalDateTime end;
+    public Event(String description, LocalDateTime start, LocalDateTime end) {
         super(description);
         this.start = start;
         this.end = end;
     }
 
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + start + " to: " + end + ")";
+        return "[E]" + super.toString() + " (from: " + TimeParser.formatTime(this.start) + " to: " + TimeParser.formatTime(this.end) + ")";
     }
     public static Event interpret(String cmd) throws EmptyTaskException {
         Pattern pt = Pattern.compile("event(( (.*) )?/from( (.*) )?/to( (.*))?)?");
@@ -20,9 +21,9 @@ public class Event extends Task {
         mt.find();
         String overall = mt.group(1);
         String desc = mt.group(3);
-        String start = mt.group(5);
-        String end = mt.group(7);
-        if (Task.checkEmpty(overall) || Task.checkEmpty(desc) || Task.checkEmpty(start) || Task.checkEmpty(end)) {
+        LocalDateTime start = TimeParser.parseTime(mt.group(5));
+        LocalDateTime end = TimeParser.parseTime(mt.group(7));
+        if (Task.checkEmpty(overall) || Task.checkEmpty(desc)) {
             throw new EmptyTaskException("Event");
         }
         return new Event(desc, start, end);
@@ -31,6 +32,7 @@ public class Event extends Task {
 
     @Override
     public String getCmd() {
-        return "event " +  super.description + " /from " + this.start + " /to " + this.end;
+        return "event " +  super.description + " /from " + TimeParser.getCmd(this.start) + " /to "
+                + TimeParser.getCmd(this.end);
     }
 }
