@@ -31,7 +31,7 @@ public class Duke {
     }
     public static void main(String[] args) throws DukeException {
 
-        new Duke("Duke.tasks.txt").run();
+        new Duke("tasks.txt").run();
 
         }
     }

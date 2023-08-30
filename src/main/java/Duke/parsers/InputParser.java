@@ -72,7 +72,7 @@ public class InputParser {
 
             //list out each task from Duke.tasks ArrayList
             else if (input.equals("list")) {
-                System.out.println("  Here are the Duke.tasks in your list:");
+                System.out.println("  Here are the tasks in your list:");
                 for (int i = 0; i < Task.getSize(); i++) {
                     int index = i + 1;
                     System.out.println("  " + index + "." + tasks.get(i).toString());

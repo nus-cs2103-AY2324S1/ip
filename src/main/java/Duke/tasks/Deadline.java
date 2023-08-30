@@ -15,7 +15,7 @@ public class Deadline extends Task {
         this.formatDate = outputFormat.format(by);
         System.out.println("Got it. I've added this task:");
         System.out.println("  " + this);
-        System.out.println("Now you have " + super.size + " Duke.tasks in the list.");
+        System.out.println("Now you have " + super.size + " tasks in the list.");
     }
 
     @Override

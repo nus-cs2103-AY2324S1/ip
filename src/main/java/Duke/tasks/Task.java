@@ -53,7 +53,7 @@ public class Task {
         size = size -1;
         System.out.println("Noted. I've removed this task:");
         System.out.println("  " + this);
-        System.out.println("Now you have " + size + " Duke.tasks in the list.");
+        System.out.println("Now you have " + size + " tasks in the list.");
 
     }
     @Override
