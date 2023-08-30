@@ -1,15 +1,6 @@
-Hi
-hihihihih
-blahjblah
-deadline aslkdaskld
-deadline asjdhasjhd /by dakjsdlkja
-event fsdfask /from dasa sd /to daskdakl
-mark 4
+list
+deadline asdfas /by heheh
+event asdas /from asdasd /to asd
 unmark 2
-mark 5
-list
-delete 2
-list
-delete 1
 list
 bye
