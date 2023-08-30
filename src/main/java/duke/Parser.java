@@ -1,7 +1,8 @@
+package duke;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.Scanner;
 public class Parser {
     private TaskList tasks;
@@ -57,7 +58,7 @@ public class Parser {
             if (inValue.length() != 0){
                 inValue = inValue.substring(1);
             } else {
-                //throw new DukeException("☹ OOPS!!! The description of a todo cannot be empty.");
+                //throw new duke.DukeException("☹ OOPS!!! The description of a todo cannot be empty.");
                 Ui.showError("todo");
                 break;
             }
@@ -73,7 +74,7 @@ public class Parser {
             } else {
                 Ui.showError("deadline");
                 break;
-                //throw new DukeException("☹ OOPS!!! The description of a deadline cannot be empty.");
+                //throw new duke.DukeException("☹ OOPS!!! The description of a deadline cannot be empty.");
 
             }
             String[] toBeSplit = inValue.split(" /by ");
@@ -96,7 +97,7 @@ public class Parser {
             } else {
                 Ui.showError("event");
                 break;
-                //throw new DukeException("☹ OOPS!!! The description of an event cannot be empty.");
+                //throw new duke.DukeException("☹ OOPS!!! The description of an event cannot be empty.");
             }
             String[] to_Split = inValue.split(" /from ");
             String[] second_Split = to_Split[1].split(" /to ");
