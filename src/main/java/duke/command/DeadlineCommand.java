@@ -60,7 +60,6 @@ public class DeadlineCommand extends Command {
         ui.println("Quack! I have added this task:");
         ui.println(newTask.toString());
         ui.println("Quack! Quack is currently remembering " + taskList.length() + " tasks.");
-
     }
 
     /**
@@ -82,7 +81,7 @@ public class DeadlineCommand extends Command {
     public boolean equals(Object other) {
         if (other instanceof DeadlineCommand) {
             DeadlineCommand command = (DeadlineCommand) other;
-            return this.by.equals((command.by)) &&  this.desc.equals(command.desc);
+            return this.by.equals((command.by)) && this.desc.equals(command.desc);
         }
         return false;
     }

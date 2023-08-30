@@ -98,9 +98,11 @@ public class Duke {
      */
     private void collectCommand() {
         while (true) {
-
             try {
-                String input = this.ui.readCommand();
+                String input = this.ui.readCommand().trim();
+                if (input.isBlank()) {
+                    continue;
+                }
                 Command command = Parser.parse(input);
                 if (command.isExit()) {
                     break;
