@@ -1,5 +1,7 @@
 package tasks;
 
+import java.time.format.DateTimeFormatter;
+
 import storage.Storable;
 /**
  * Task class storing description and status.
@@ -7,6 +9,8 @@ import storage.Storable;
 public abstract class Task implements Storable<Task>{
     protected String desc;
     protected boolean status;
+    public static final DateTimeFormatter DATE_INPUT_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    public static final DateTimeFormatter DATE_OUTPUT_FORMATTER = DateTimeFormatter.ofPattern("MMM dd yyyy");
 
     /**
      * Initializes a new task with its description. The task's initial status is set to not done.
