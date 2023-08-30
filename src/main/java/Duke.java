@@ -22,7 +22,6 @@ public class Duke {
     System.out.println(greeting);
     System.out.println(info);
 
-//    Scanner scanner = new Scanner(System.in);
 
     label:
     while (true) {
@@ -31,8 +30,6 @@ public class Duke {
       String[] inputTokens = null;
 
       try {
-//        inputString = scanner.nextLine();
-//        inputTokens = inputString.split(" ");
         parser.update();
         inputString = parser.getInputString();
         inputTokens = parser.getInputTokens();
