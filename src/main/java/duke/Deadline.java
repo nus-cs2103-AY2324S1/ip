@@ -5,17 +5,37 @@ import java.time.LocalDateTime;
 import java.util.Arrays;
 
 public class Deadline extends Task{
+    /**
+     * Date and time that the deadline must be done by
+     */
     LocalDateTime by;
+
+    /**
+     * Constructor for the Deadline class.
+     *
+     * @param name Name of the Deadline.
+     * @param by DateTime that the deadline must be completed by.
+     */
     public Deadline(String name, LocalDateTime by) {
         super(name);
         this.by = by;
     }
 
+    /**
+     * Returns a string representation of the task.
+     *
+     * @return A string representing the deadline.
+     */
     @Override
     public String toString() {
         return "[D]" + super.toString() + " (by: " + this.by.format(dateTimeOutputFormatter) + ")";
     }
 
+    /**
+     * Returns a string representation of the task to be saved.
+     *
+     * @return A string representing the deadline to be saved.
+     */
     @Override
     public String toSaveStateString() {
         String[] state = new String[]{ Command.DEADLINE.getCommand(), this.getDone() ? "1" : "0", this.getTaskName(),
@@ -23,18 +43,13 @@ public class Deadline extends Task{
         return String.join(" / ", state);
     }
 
+    /**
+     * Returns whether the event is on a date.
+     *
+     * @return A boolean representation of whether the event is on a given date.
+     */
     @Override
     public boolean isOnDate(LocalDate date) {
         return date.isEqual(this.by.toLocalDate());
-    }
-
-    public static String[] processInput(String[] splitInput) throws InvalidTaskException {
-        splitInput = Task.processInput(splitInput);
-        if (splitInput.length < 2) {
-            throw new InvalidTaskException("☹ OOPS!!! The description and date of a deadline cannot be empty.");
-        }
-        String[] deadlineArray = splitInput[1].split(" ");
-        splitInput[1] = String.join(" ", Arrays.copyOfRange(deadlineArray, 1, deadlineArray.length));
-        return splitInput;
     }
 }
