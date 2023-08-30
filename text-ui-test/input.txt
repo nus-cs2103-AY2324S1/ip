@@ -36,4 +36,10 @@ event reading /to Mon 2pm /to 5pm
 mark 99
 unmark 99
 delete 99
+delete 1
+delete 1
+delete 1
+delete 1
+delete 1
+delete 1
 bye

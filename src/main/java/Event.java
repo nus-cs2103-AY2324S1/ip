@@ -12,4 +12,15 @@ public class Event extends Task {
     public String toString() {
         return "[E]" + super.toString() + " (from: " + this.from + " to: " + this.to + ")";
     }
+
+    @Override
+    public String writeToFile() {
+        int mark;
+        if (super.getStatusIcon() == "X") {
+            mark = 1;
+        } else {
+            mark = 0;
+        }
+        return "E | " + mark + " | " + super.writeToFile() + " | " + this.from + " -> " + this.to;
+    }
 }

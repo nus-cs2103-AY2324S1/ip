@@ -7,4 +7,15 @@ public class ToDo extends Task {
     public String toString() {
         return "[T]" + super.toString();
     }
+
+    @Override
+    public String writeToFile() {
+        int mark;
+        if (super.getStatusIcon() == "X") {
+            mark = 1;
+        } else {
+            mark = 0;
+        }
+        return "T | " + mark + " | " + super.writeToFile();
+    }
 }
