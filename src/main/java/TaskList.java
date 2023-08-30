@@ -1,9 +1,30 @@
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.io.File;
+import java.util.Scanner;
+import java.io.FileWriter;
+import java.io.IOException;
 
 public class TaskList {
     private ArrayList<Task> list;
+    private File file;
 
     public TaskList() {
+        this.list = new ArrayList<Task>();
+    }
+
+    public TaskList(File file) {
+        try {
+            Scanner scanner = new Scanner(file);
+            while (scanner.hasNextLine()) {
+                String task = scanner.nextLine();
+            }
+            scanner.close();
+        } catch (FileNotFoundException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+        }
+        this.file = file;
         this.list = new ArrayList<Task>();
     }
 
@@ -43,6 +64,19 @@ public class TaskList {
     public void printList() {
         for (int i = 0; i < list.size(); i++) {
             System.out.println(i + 1 + "." + list.get(i));
+        }
+    }
+
+    public void close() {
+        try {
+            FileWriter writer = new FileWriter(this.file);
+            for (Task task : list) {
+                writer.write(task.toFileString());
+            }
+            writer.close();
+        } catch (IOException e) {
+            System.out.println("An error occurred while saving your tasks.");
+            e.printStackTrace();
         }
     }
 }
