@@ -24,13 +24,17 @@ public class DukeHandler {
     public void writeTaskList() {
         String homedir = new File(System.getProperty("user.dir")).getParent();
         Path path = Paths.get(homedir, "data", "duke.txt");
+        System.err.println(path);
         try {
             if (Files.notExists(path)) {
                 Files.createFile(path);
             } 
-            BufferedWriter writer = Files.newBufferedWriter(path, StandardCharsets.UTF_8, StandardOpenOption.WRITE);
+            BufferedWriter writer = Files.newBufferedWriter(path, StandardCharsets.UTF_8, StandardOpenOption.TRUNCATE_EXISTING);
             while (!tasklist.isEmpty()) {
-                writer.write(tasklist.clearList());
+                String tempString = tasklist.clearList();
+                System.err.println(tempString);
+                writer.write(tempString + "\n");
+                writer.flush();
             }
         } catch (Exception e) {
             System.err.println(e);
@@ -51,8 +55,8 @@ public class DukeHandler {
                     System.err.println(parsedContent[0]);
                     if (parsedContent.length == 4 && parsedContent[0].charAt(0) == 'D') {
                         System.err.println(tasklist.addDeadline(parsedContent[2] + " " + parsedContent[3]));
-                    } else if (parsedContent.length == 4 && parsedContent[0].charAt(0) == 'E') {
-                        System.err.println(tasklist.addEvent(parsedContent[2] + " " + parsedContent[3]));
+                    } else if (parsedContent.length == 5 && parsedContent[0].charAt(0) == 'E') {
+                        System.err.println(tasklist.addEvent(parsedContent[2] + " " + parsedContent[3] + " " + parsedContent[4]));
                     } else if (parsedContent.length == 3 && parsedContent[0].charAt(0) == 'T') {
                         System.err.println(tasklist.addTodo(parsedContent[2]));
                     } else {

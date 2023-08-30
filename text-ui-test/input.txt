@@ -1,2 +1,6 @@
 list
+deadline asdfas /by heheh
+event asdas /from asdasd /to asd
+unmark 2
+list
 bye

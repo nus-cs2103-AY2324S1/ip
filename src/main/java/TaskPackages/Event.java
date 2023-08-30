@@ -18,6 +18,6 @@ public class Event extends Task{
 
   @Override
   public String toFileString() {
-    return String.format("  # %d # %s # %s # %s", (isDone ? 1 : 0), this.description, this.from, this.to);
+    return String.format("E # %d # %s # /from %s # /to %s", (isDone ? 1 : 0), this.description, this.from, this.to);
   }
 }
