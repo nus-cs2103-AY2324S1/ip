@@ -7,7 +7,6 @@ public class Deadline extends Task {
 
     private LocalDateTime deadline;
 
-
     public Deadline(String message, LocalDateTime deadline) {
         super(message);
         this.deadline = deadline;
