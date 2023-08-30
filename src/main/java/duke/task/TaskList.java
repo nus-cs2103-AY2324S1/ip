@@ -111,7 +111,8 @@ public class TaskList {
         DateTimeFormatter dateTimeFormat = DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm");
 
         try {
-            String eventMsg = "Event tasks should be created in this format: event [name] /from [start time] /to [end time]";
+            String eventMsg = "Event tasks should be created in this format: " +
+                    "event [name] /from [start time] /to [end time]";
             String[] detailsAndStartEnd = args.split("/from", 2);
             if (detailsAndStartEnd.length != 2) {
                 throw new DukeException(eventMsg);
