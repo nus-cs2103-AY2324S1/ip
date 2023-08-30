@@ -1,6 +1,7 @@
 package duke.command;
 
 import duke.DateParserService;
+import duke.Duke;
 import duke.DukeList;
 import duke.Storage;
 import duke.Ui;
@@ -36,17 +37,22 @@ public class AddEventCommand extends Command{
     public void execute(DukeList tasks, Ui ui, Storage storage) throws DukeException {
         String[] inputs = this.command.split(" ", 2);
         Event event;
+        LocalDate f;
+        LocalDate t;
         try {
             String[] from = inputs[1].split("/from", 2);
             String[] to = from[1].split("/to", 2);
-            LocalDate f = DateParserService.parseDate(to[0]);
-            LocalDate t = DateParserService.parseDate(to[1]);
+            f = DateParserService.parseDate(to[0]);
+            t = DateParserService.parseDate(to[1]);
             event = new Event(from[0], f, t);
         } catch (ArrayIndexOutOfBoundsException | DateTimeParseException e) {
             if (e instanceof ArrayIndexOutOfBoundsException) {
                 throw new DukeException("Invalid Event format");
             }
             throw new DukeException("Invalid date format");
+        }
+        if (f.isAfter(t)) {
+            throw new DukeException("To time is before From time");
         }
         tasks.add(event);
         try {
