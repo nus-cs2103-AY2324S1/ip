@@ -6,6 +6,7 @@
 dataTask.txt
 
 # Gradle build files
+*.jar
 /.gradle/
 /build/
 src/main/resources/docs/
