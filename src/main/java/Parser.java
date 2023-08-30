@@ -2,8 +2,11 @@ import exceptions.DeadlineException;
 import exceptions.EventException;
 import exceptions.GBotException;
 import exceptions.TodoException;
-
 import java.util.ArrayList;
+import tasks.Deadline;
+import tasks.Event;
+import tasks.Task;
+import tasks.Todo;
 
 public class Parser {
     enum Keyword {
