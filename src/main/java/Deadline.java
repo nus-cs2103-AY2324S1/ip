@@ -1,22 +1,26 @@
+import java.util.Date;
+import java.text.SimpleDateFormat;
+
 public class Deadline extends Task {
 
-    protected String by;
+    protected Date by;
 
-    public Deadline(String description, String by) throws DukeException {
+    public Deadline(String description, Date by) throws DukeException {
         super(description);
-        if (description.isEmpty() || by.isEmpty()) {
+        if (description.isEmpty())
             throw new DukeException("☹ OOPS!!! The description / by of a deadline cannot be empty.");
-        }
         this.by = by;
     }
 
     @Override
     public String toWrite() {
-        return "D | " + super.toWrite() + " | " + by + "\n";
+        SimpleDateFormat formatter = new SimpleDateFormat("MMM dd yyyy");
+        return "D | " + super.toWrite() + " | " + formatter.format(by) + "\n";
     }
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + by + ")";
+        SimpleDateFormat formatter = new SimpleDateFormat("MMM dd yyyy");
+        return "[D]" + super.toString() + " (by: " + formatter.format(by) + ")";
     }
 }

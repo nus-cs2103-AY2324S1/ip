@@ -1,13 +1,15 @@
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.Scanner;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-
+import java.util.ArrayList;
+import java.util.Scanner;
+import java.util.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 public class Duke {
     private static final String LINE = "_".repeat(60);
     private static ArrayList<Task> tasks;
@@ -30,6 +32,7 @@ public class Duke {
         Scanner scanner = new Scanner(System.in);
         String userInput;
         boolean loop = true;
+        SimpleDateFormat inputDateFormatter = new SimpleDateFormat("yyyy-MM-dd");
 
         try {
             tasks = readFile();
@@ -37,7 +40,7 @@ public class Duke {
             Path path = Paths.get(FILE_PATH);
             if (!Files.exists(path))
                 createFolder(path);
-        } catch (DukeException exception) {
+        } catch (DukeException | ParseException exception) {
             System.out.println(exception.getMessage());
         }
 
@@ -46,10 +49,10 @@ public class Duke {
         while (loop) {
             String task = "";
             String deadlineTask = "";
-            String deadline = "";
             String eventTask = "";
-            String from = "";
-            String to = "";
+            Date deadline = null;
+            Date from = null;
+            Date to = null;
 
             if (!scanner.hasNextLine()) {
                 break;
@@ -88,7 +91,7 @@ public class Duke {
                     case deadline:
                         if (task.contains(" /by ")) {
                             deadlineTask = task.split(" /by ")[0];
-                            deadline = task.split(" /by ")[1];
+                            deadline = inputDateFormatter.parse(task.split(" /by ")[1]);
                         }
                         Deadline newDeadline = new Deadline(deadlineTask, deadline);
                         createNewTask(newDeadline);
@@ -96,8 +99,8 @@ public class Duke {
                     case event:
                         if (task.contains(" /from ") && task.contains(" /to ")) {
                             eventTask = task.split(" /from ")[0];
-                            from = task.split(" /from ")[1].split(" /to ")[0];
-                            to = task.split(" /from ")[1].split(" /to ")[1];
+                            from = inputDateFormatter.parse(task.split(" /from ")[1].split(" /to ")[0]);
+                            to = inputDateFormatter.parse(task.split(" /from ")[1].split(" /to ")[1]);
                         }
                         Event newEvent = new Event(eventTask, from, to);
                         createNewTask(newEvent);
@@ -115,6 +118,9 @@ public class Duke {
                 System.out.println(LINE);
             } catch (IOException exception) {
                 System.out.println("☹ OOPS!!! " + exception.getMessage());
+                System.out.println(LINE);
+            } catch (ParseException e) {
+                System.out.println("☹ OOPS!!! Date has to be in yyyy-mm-dd format!");
                 System.out.println(LINE);
             } catch (DukeException exception) {
                 System.out.println(exception.getMessage());
@@ -192,7 +198,8 @@ public class Duke {
         fw.close();
     }
 
-    private static ArrayList<Task> readFile() throws DukeException, FileNotFoundException {
+    private static ArrayList<Task> readFile() throws DukeException, FileNotFoundException, ParseException {
+        SimpleDateFormat readDateFormatter = new SimpleDateFormat("MMM dd yyyy");
         File file = new File(FILE_PATH + FILE_NAME);
         Scanner scanner = new Scanner(file);
         while (scanner.hasNext()) {
@@ -204,12 +211,12 @@ public class Duke {
                     markAndAdd(todo, task[1]);
                     break;
                 case "D":
-                    Deadline deadline = new Deadline(task[2], task[3]);
+                    Deadline deadline = new Deadline(task[2], readDateFormatter.parse(task[3]));
                     markAndAdd(deadline, task[1]);
                     break;
                 case "E":
                     String[] duration = task[3].split("-");
-                    Event event = new Event(task[2], duration[0], duration[1]);
+                    Event event = new Event(task[2], readDateFormatter.parse(duration[0]), readDateFormatter.parse(duration[1]));
                     markAndAdd(event, task[1]);
                     break;
                 default:
