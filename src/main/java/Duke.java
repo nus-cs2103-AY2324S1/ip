@@ -178,8 +178,8 @@ public class Duke{
                         //throw new DukeException("☹ OOPS!!! The description of a deadline cannot be empty.");
 
                     }
-                    String[] toBeSplit = inValue.split(" /");
-                    Deadline d = new Deadline(toBeSplit[0], toBeSplit[1].replace("by ", ""));
+                    String[] toBeSplit = inValue.split(" /by ");
+                    Deadline d = new Deadline(toBeSplit[0], toBeSplit[1]);
                     myList.add(d);
                     System.out.println("____________________________________________________________");
                     System.out.println("Got it. I've added this task:");
@@ -199,8 +199,9 @@ public class Duke{
                         break;
                         //throw new DukeException("☹ OOPS!!! The description of an event cannot be empty.");
                     }
-                    String[] to_Split = inValue.split(" /");
-                    Event e = new Event(to_Split[0], to_Split[1].replace("from ", ""), to_Split[2].replace("to ", ""));
+                    String[] to_Split = inValue.split(" /from ");
+                    String[] second_Split = to_Split[1].split(" /to ");
+                    Event e = new Event(to_Split[0], second_Split[0], second_Split[1]);
                     myList.add(e);
                     System.out.println("____________________________________________________________");
                     System.out.println("Got it. I've added this task:");
