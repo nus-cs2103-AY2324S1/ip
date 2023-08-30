@@ -1,13 +1,15 @@
 enum ErrorMessages {
     INVALID_INPUT("I'm sorry, I don't understand this command. Did you mean to type "),
-    GOODBYE_MESSAGE("Bye. Hope to see you again soon!"),
-    INTRODUCTION("Hello! I'm Chad. \n" + "What can I do for you?"),
     MISSING_TASK_NUMBER("I'm sorry, you seem to have forgotten to enter the task number."),
     INVALID_TASK_NUMBER("I'm sorry, the task number you have entered a number that exceeds the size of your task list."),
     EMPTY_DESCRIPTION_HEAD("I'm sorry, the description of a "),
     EMPTY_DESCRIPTION_TAIL(" cannot be empty"),
-    TASK_ADDED("Got it. I've added this task:"),
-    INCOMPREHENSIBLE_TASK("I'm sorry, I don't understand this task.");
+    INCOMPREHENSIBLE_TASK("I'm sorry, I don't understand this task."),
+    MISSING_DEADLINE("Deadline is not provided. Please indicate your deadline by placing a '/by' before the deadline."),
+    MISSING_EVENT_TIMING("I'm sorry, you seem to have forgotten to enter a start/end time. " +
+            "Please indicate the start time starting with /from and the end time starting with /to."),
+    TOO_MANY_EVENT_TIMINGS("I'm sorry, you seem to have entered too many timings."),
+    INVALID_END_DATE("End date cannot be before start date!");
 
     private final String message ;
 
