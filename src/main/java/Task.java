@@ -1,25 +1,34 @@
 public class Task {
     protected String name;
-    protected boolean done;
+    protected boolean isDone;
 
-    public Task (String name) {
+    public Task(String name, String isDone) {
         this.name = name;
-        this.done = false;
+        this.isDone = isDone.equals("1");
     }
 
     public void mark() {
-        this.done = true;
+        this.isDone = true;
     }
 
     public void unmark() {
-        this.done = false;
+        this.isDone = false;
     }
 
     public String getStatus() {
-        return this.done ? "[X]" : "[ ]";
+        return this.isDone ? "[X]" : "[ ]";
     }
 
-    public String toPrint() {
+    public String getDataStatus() {
+        return this.isDone ? "1" : "0";
+    }
+
+    public String toDataString() {
+        return (isDone ? "1" : "0") + " | " + name;
+    }
+
+    @Override
+    public String toString() {
         String str = this.getStatus() + " " + this.name;
         return str;
     }
