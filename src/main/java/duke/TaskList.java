@@ -21,6 +21,14 @@ public class TaskList {
         list = new ArrayList<>();
     }
 
+    /**
+     * Converts tasks read from a file to a list of tasks and processes each task.
+     * Reads task strings from the provided input, parses them, and handles them based on their types.
+     *
+     * @param tasksFromFile The string containing tasks read from a file.
+     * @throws DukeException If there is an error while processing a task.
+     * @throws IOException If there is an I/O error during processing.
+     */
     public void convertTasksToList(String tasksFromFile) throws DukeException, IOException {
         int i = 0;
         int j = 0;

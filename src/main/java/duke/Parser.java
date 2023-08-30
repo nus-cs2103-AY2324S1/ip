@@ -5,8 +5,13 @@ import duke.InvalidInputExpression;
 public class Parser {
 
     /**
-     * Handles user input and performs the relevant actions based on the commands.
-     * Continuously listens for user input until the "bye" command is entered.
+     * Handles user input and determines the relevant command and input for further processing.
+     * Parses the user input and extracts the command type and associated input.
+     * Supports commands such as "mark," "unmark," "delete," "list," "todo," "deadline," and "event."
+     *
+     * @param userInput The input string entered by the user.
+     * @return An array containing the command type and associated input.
+     * @throws InvalidInputExpression If the user input does not match any supported command.
      */
     public String[] handleUserInput(String userInput) throws InvalidInputExpression {
 
