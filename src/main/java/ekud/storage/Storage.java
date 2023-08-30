@@ -9,7 +9,9 @@ import java.io.InputStream;
 import java.io.PrintStream;
 import java.nio.file.Paths;
 
+import ekud.command.ByeCommand;
 import ekud.command.Command;
+import ekud.command.ListCommand;
 import ekud.error.StorageException;
 
 public final class Storage {
@@ -39,6 +41,9 @@ public final class Storage {
     }
 
     public void write(Command command) {
+        if (command instanceof ByeCommand || command instanceof ListCommand) {
+            return;
+        }
         out.println(command);
     }
 }

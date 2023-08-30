@@ -45,7 +45,7 @@ public final class Program {
             if (!handler.handle(state, command, ui)) {
                 return false;
             }
-            if (!(command instanceof ByeCommand) && storage != null) {
+            if (storage != null) {
                 storage.write(command);
             }
         } catch (EkudException error) {
