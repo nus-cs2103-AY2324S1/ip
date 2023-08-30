@@ -12,6 +12,10 @@ public class TaskList {
         this.tasks = new ArrayList<Task>();
     }
 
+    public TaskList(ArrayList<Task> tasks) {
+        this.tasks = new ArrayList<>(tasks);
+    }
+
 
     /**
      * Adds the given task to the tasks ArrayList.
@@ -22,60 +26,65 @@ public class TaskList {
      */
     public void addTask(Task task) {
         tasks.add(task);
-        System.out.println("\tGot it. I've added this task:");
-        System.out.println("\t " + task);
-        System.out.println("\tNow you have " + tasks.size() + " tasks in the list.");
+
 
     }
 
     /**
-     * Lists the tasks present in tasks ArrayList.
+     * Returns a string describing the tasks present in tasks ArrayList.
+     *
+     * @return Returns a string describing this taskList.
      */
-    public void listTasks() {
-        System.out.println("\tHere are the tasks in your list:");
+    public String listTasks() {
+        String result = "";
         for (int i = 0; i < tasks.size(); i++) {
-            System.out.print("\t");
-            System.out.print(i + 1);
-            System.out.print(". " + tasks.get(i) + "\n");
+            result += "\t";
+            result += (i + 1);
+            result += ". " + tasks.get(i) + "\n";
         }
 
+        return result;
     }
 
     /**
-     * Marks a given Task.
+     * Marks a given Task and throws DukeException if invalid index.
      *
      * @param index The location of the task in tasks ArrayList.
      */
-    public void markTask(int index) {
-
+    public void markTask(int index) throws DukeException {
+        if (index > tasks.size() || index <= 0) {
+            throw new DukeException("The index is not a valid index. Try again.");
+        }
         tasks.get(index - 1).setAsDone();
-        System.out.println("\tNice! I've marked this task as done:");
-        System.out.println("\t  " + tasks.get(index - 1));
-
     }
 
     /**
-     * Marks a given Task as not done.
+     * Marks a given Task as not done and throws DukeException if invalid index.
      *
      * @param index The location of the task in tasks ArrayList.
      */
-    public void unmarkTask(int index) {
-
+    public void unmarkTask(int index) throws DukeException {
+        if (index > tasks.size() || index <= 0) {
+            throw new DukeException("The index is not a valid index. Try again.");
+        }
         tasks.get(index - 1).setAsNotDone();
-        System.out.println("\tOk. I have marked this task as not done yet:");
-        System.out.println("\t  " + tasks.get(index - 1));
+
     }
 
     /**
-     * Deletes a given Task from the tasklist.
+     * Deletes a given Task from the tasklist and throws DukeException if invalid index.
+     * Returns the deleted task's string representation.
      *
      * @param index The location of the task in tasks ArrayList.
+     * @return Returns the string of deleted task if successful.
      */
-    public void deleteTask(int index) {
-        System.out.println("\tNoted. I have removed this task from the list:");
-        System.out.println("\t  " + tasks.get(index - 1));
+    public String deleteTask(int index) throws DukeException{
+        if (index > tasks.size() || index <= 0) {
+            throw new DukeException("The index is not a valid index. Try again.");
+        }
+        String task = tasks.get(index - 1).toString();
         tasks.remove(index - 1);
-        System.out.println("\tNow you have " + tasks.size() + " tasks in the list.");
+        return task;
     }
 
 
@@ -83,7 +92,20 @@ public class TaskList {
      * Returns the size of the taskList.
      * @return Returns the size of the current taskList.
      */
-    public int size() {
+    public int getSize() {
         return tasks.size();
+    }
+
+    /**
+     * Returns the string representation of task at index i.
+     * If invalid index DukeException is thrown.
+     *
+     * @param index The index of task whose string representation is needed.
+     */
+    public String getTask(int index) throws DukeException {
+        if (index > tasks.size() || index <= 0) {
+            throw new DukeException("");
+        }
+        return this.tasks.get(index - 1).toString();
     }
 }

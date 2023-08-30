@@ -7,6 +7,14 @@ import java.util.Scanner;
  */
 public class Duke {
 
+    /** The storage object that handles storing of user data. */
+    private Storage storage;
+
+    /** The taskList object representing the list of tasks. */
+    private TaskList taskList;
+
+    /** String representing filepath of data file. */
+    private String filePath;
     /**
      * Draws a line separating each conversation.
      *
@@ -15,30 +23,49 @@ public class Duke {
         System.out.println("\t____________________________________________________________");
     }
 
+    /**
+     * Initialises filepath field to given parameter.
+     *
+     * @param filePath String representing filepath of datafile.
+     */
+    public Duke(String filePath) {
+        this.filePath = filePath;
+    }
+
 
     /**
      * Handles input from the user accordingly.
      *
      */
-    public static void handleUserInput() {
+    public void run() {
+
+        try {
+            this.storage = new Storage(this.filePath);
+            this.taskList = new TaskList(this.storage.load());
+        } catch (DukeException d) {
+            System.out.println("\t" + d.getMessage());
+            return;
+        }
+
         Scanner scanner = new Scanner(System.in);
-        TaskList taskList = new TaskList();
         System.out.println();
         String userInput = scanner.nextLine();
-        drawLine();
-
+        Duke.drawLine();
+        Instruction instruction = null;
         while (true) {
             try {
-                Instruction instruction = Parser.parse(userInput, taskList);
-                if (instruction instanceof Instruction.Exit) {
-                    break;
-                } else {
-                    instruction.execute();
-                }
+                instruction = Parser.parse(userInput);
+
+                instruction.execute(this.storage, this.taskList);
+
             } catch (DukeException d) {
                 System.out.println("\t" + d.getMessage());
+
             }
-            drawLine();
+            if (instruction instanceof Instruction.Exit) {
+                return;
+            }
+            Duke.drawLine();
             System.out.println();
             userInput = scanner.nextLine();
 
@@ -47,16 +74,19 @@ public class Duke {
     }
 
     /**
-     * Greets and calls handleUserInput and finally says goodbye.
+     * Greets and calls run and finally says goodbye.
      *
      * @param args Not used currently.
      */
     public static void main(String[] args) {
+
+        String filePath = "./data/src/Duke.txt";
         drawLine();
         System.out.println("\tHello I am Vishnu.");
         System.out.println("\tWhat can I do for you?");
         drawLine();
-        handleUserInput();
+        Duke duke = new Duke(filePath);
+        duke.run();
         System.out.println("\tBye. Hope to see you again soon!");
         drawLine();
     }
