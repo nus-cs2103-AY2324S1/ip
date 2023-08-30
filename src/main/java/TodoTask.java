@@ -1,11 +1,16 @@
 class TodoTask extends Task {
-    public TodoTask(String description) throws DukeException {
-        super(description);
+    public TodoTask(String description, boolean isDone) throws DukeException {
+        super(description, isDone);
     }
 
     @Override
     public String toString() {
         return "[T]" + super.toString() + " " + getDescriptionDetails();
+    }
+
+    @Override
+    public String getTaskType() {
+        return "T";
     }
 
     private String getDescriptionDetails() {

@@ -1,7 +1,9 @@
+import java.io.*;
 import java.util.ArrayList;
 
 class TaskList {
     private ArrayList<Task> tasks;
+    private String filePath = "C:/Users/dell/Desktop/NUS_CS/Modules/Y2S1/CS2100/IP/src/main/java/duke.txt";
 
     public TaskList() {
         tasks = new ArrayList<>();
@@ -18,7 +20,7 @@ class TaskList {
                     if (parts.length < 2 || parts[1].isEmpty()) {
                         throw new DukeException("OOPS!!! The description of a todo cannot be empty.");
                     }
-                    addTask(new TodoTask(parts[1]));
+                    addTask(new TodoTask(parts[1], false));
                     System.out.println(" Got it. I've added this task:");
                     System.out.println("   " + tasks.get(tasks.size() - 1));
                     System.out.println(" Now you have " + tasks.size() + " tasks in the list.");
@@ -27,7 +29,7 @@ class TaskList {
                     if (parts.length < 2 || parts[1].isEmpty()) {
                         throw new DukeException("OOPS!!! The description of a deadline cannot be empty.");
                     }
-                    addTask(new DeadlineTask(parts[1]));
+                    addTask(new DeadlineTask(parts[1], false));
                     System.out.println(" Got it. I've added this task:");
                     System.out.println("   " + tasks.get(tasks.size() - 1));
                     System.out.println(" Now you have " + tasks.size() + " tasks in the list.");
@@ -36,7 +38,7 @@ class TaskList {
                     if (parts.length < 2 || parts[1].isEmpty()) {
                         throw new DukeException("OOPS!!! The description of an event cannot be empty.");
                     }
-                    addTask(new EventTask(parts[1]));
+                    addTask(new EventTask(parts[1], false));
                     System.out.println(" Got it. I've added this task:");
                     System.out.println("   " + tasks.get(tasks.size() - 1));
                     System.out.println(" Now you have " + tasks.size() + " tasks in the list.");
@@ -107,5 +109,58 @@ class TaskList {
         return sb.toString();
     }
 
+    public void saveTasksToFile() {
+        try {
+            FileWriter writer = new FileWriter(filePath);
+            for (Task task : tasks) {
+                writer.write(task.toFileString() + "\n");
+            }
+            writer.close();
+        } catch (IOException e) {
+            System.out.println("Error saving tasks to file: " + e.getMessage());
+        }
+    }
 
+    public void loadTasksFromFile() {
+        try {
+            File file = new File(filePath);
+            if (!file.exists()) {
+                return; // If the file doesn't exist yet, no need to load tasks
+            }
+
+            BufferedReader reader = new BufferedReader(new FileReader(file));
+            String line;
+            while ((line = reader.readLine()) != null) {
+                processFileLine(line);
+            }
+            reader.close();
+        } catch (IOException | DukeException e) {
+            System.out.println("Error loading tasks from file: " + e.getMessage());
+        }
+    }
+
+    private void processFileLine(String line) throws DukeException {
+        // Parse the line and create tasks based on the format in the file
+        String[] parts = line.split(" \\| ");
+        String taskType = parts[0];
+        boolean isDone = parts[1].equals("1");
+        String description = parts[2];
+
+        switch (taskType) {
+            case "T":
+                // Create and add a TodoTask
+                addTask(new TodoTask(description, isDone));
+                break;
+            case "D":
+                // Create and add a DeadlineTask
+                addTask(new DeadlineTask(description, isDone));
+                break;
+            case "E":
+                // Create and add an EventTask
+                addTask(new EventTask(description, isDone));
+                break;
+            default:
+
+        }
+    }
 }

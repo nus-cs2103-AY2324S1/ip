@@ -1,11 +1,16 @@
 class EventTask extends Task {
-    public EventTask(String description) throws DukeException {
-        super(description);
+    public EventTask(String description, boolean isDone) throws DukeException {
+        super(description, isDone);
     }
 
     @Override
     public String toString() {
         return "[E]" + super.toString() + " " + getDescriptionDetails();
+    }
+
+    @Override
+    public String getTaskType() {
+        return "E";
     }
 
     private String getDescriptionDetails() {

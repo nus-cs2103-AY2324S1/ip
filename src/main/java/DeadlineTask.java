@@ -1,11 +1,16 @@
 class DeadlineTask extends Task {
-    public DeadlineTask(String description) throws DukeException {
-        super(description);
+    public DeadlineTask(String description, boolean isDone) throws DukeException {
+        super(description, isDone);
     }
 
     @Override
     public String toString() {
         return "[D]" + super.toString() + " " + getDescriptionDetails();
+    }
+
+    @Override
+    public String getTaskType() {
+        return "D";
     }
 
     private String getDescriptionDetails() {

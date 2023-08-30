@@ -4,6 +4,8 @@ public class Duke {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         TaskList tasks = new TaskList();
+        tasks.loadTasksFromFile();
+        Runtime.getRuntime().addShutdownHook(new Thread(tasks::saveTasksToFile));
 
         System.out.println("____________________________________________________________");
         System.out.println(" Hello! I'm Axela");
@@ -21,15 +23,20 @@ public class Duke {
                     break;
                 } else if (command.equalsIgnoreCase("list")) {
                     System.out.println(" Here are the tasks in your list:");
+                    tasks.saveTasksToFile();
                     System.out.print(tasks);
                 } else if (command.startsWith("mark")) {
                     tasks.markAsDone(command);
+                    tasks.saveTasksToFile();
                 } else if (command.startsWith("unmark")) {
                     tasks.markAsNotDone(command);
+                    tasks.saveTasksToFile();
                 } else if (command.startsWith("delete")) {
                     tasks.deleteTask(command);
+                    tasks.saveTasksToFile();
                 } else {
                     tasks.processCommand(command);
+                    tasks.saveTasksToFile();
                 }
             } catch (DukeException e) {
                 System.out.println(" " + e.getMessage());
