@@ -8,10 +8,12 @@ import utils.TaskList;
 import utils.Ui;
 
 public class Bye extends Command {
-  Scanner scanner;
+  private Scanner scanner;
+  private Boolean[] running;
 
-  public Bye(Ui ui, TaskList tasks, Scanner scanner) {
+  public Bye(Ui ui, TaskList tasks, Scanner scanner, Boolean[] running) {
     super(ui, tasks);
+    this.running = running;
     this.scanner = scanner;
   }
 
@@ -24,6 +26,7 @@ public class Bye extends Command {
     } catch (Exception e) {
       this.ui.error("Failed to save");
     }
+    this.running[0] = false;
     this.ui.bye();
   }
 }
