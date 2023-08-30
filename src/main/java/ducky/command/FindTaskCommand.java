@@ -28,13 +28,13 @@ public class FindTaskCommand extends Command {
         if (matches.isEmpty()) {
             ui.showMessagePerLine(
                     String.format(
-                            "Sorry, I couldn't find any tasks that contain \"%s\"",
+                            "Sorry, I couldn't find any tasks that contain \"%s\".",
                             queryString
                     )
             );
         } else {
             StringBuilder result = new StringBuilder(
-                    "Here are the task(s) that contain \"%s\":\n"
+                    String.format("Here are the task(s) that contain \"%s\":\n", this.queryString)
             );
             for (Task t : matches) {
                 result.append(String.format("%s\n", t.toString()));
