@@ -1,9 +1,11 @@
+import java.time.DateTimeException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Files;
+import java.time.format.DateTimeFormatter;
 
 enum TaskType {
     TODO, DEADLINE, EVENT
@@ -54,13 +56,17 @@ public class Tired {
 
         String[] parts = line.split("\\|\\|");
 
+        if (parts.length < 5) {
+            System.err.println("Invalid task format in file: " + line);
+            return null;
+        }
+
         String taskType = parts[0].trim();
         String done = parts[1].trim();
         String taskDescription = parts[2].trim();
         System.out.println(taskDescription);
-        String date = parts[3].trim();
-        String time = parts[4].trim();
-
+        String start = parts[3].trim();
+        String end = parts[4].trim();
         Task task = null;
 
         try {
@@ -69,10 +75,10 @@ public class Tired {
                 task = new ToDo(taskDescription);
                 break;
             case "D":
-                task = new Deadline(taskDescription, date);
+                task = new Deadline(taskDescription, end);
                 break;
             case "E":
-                task = new Event(taskDescription, date, time);
+                task = new Event(taskDescription, start, end);
                 break;
             }
             if (done.equals("0") && task != null) {
@@ -106,20 +112,20 @@ public class Tired {
         String taskType = "";
         String doneStatus = task.isDone() ? "1" : "0";
         String taskDescription = task.getDescription();
-        String date = "";
-        String time = "";
+        String start = "";
+        String end = "";
 
         if (task instanceof ToDo) {
             taskType = "T";
         } else if (task instanceof Deadline) {
             taskType = "D";
-            date = ((Deadline) task).date;
+            end = ((Deadline) task).date.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
         } else if (task instanceof Event) {
             taskType = "E";
-            date = ((Event) task).start;
-            time = ((Event) task).end;
+            start = ((Event) task).start.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
+            end = ((Event) task).end.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
         }
-        return taskType + " || " + doneStatus + " || " + taskDescription + " || " + date + " || " + time;
+        return taskType + " || " + doneStatus + " || " + taskDescription + " || " + start + " || " + end;
     }
 
     public static void main(String[] args) {
@@ -136,9 +142,12 @@ public class Tired {
         System.out.println(horizontalLine + "\n");
 
         Scanner sc = new Scanner(System.in);
-        String input = sc.nextLine();
 
-        while (!input.equals("bye")) {
+        while (sc.hasNextLine()) {
+            String input = sc.nextLine();
+            if (input.equals("bye")) {
+                break;
+            }
 
             System.out.println(horizontalLine);
             try {
@@ -227,8 +236,9 @@ public class Tired {
             } catch (DukeException e) {
                 System.out.println(e.getMessage());
                 System.out.println(horizontalLine + "\n");
+            } catch (DateTimeException e) {
+                System.out.println(e.getMessage());
             }
-            input = sc.nextLine();
         }
         System.out.println(horizontalLine);
         System.out.println("Bye. Hope to see you again soon!");

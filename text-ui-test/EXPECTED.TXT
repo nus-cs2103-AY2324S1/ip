@@ -17,52 +17,48 @@ ____________________________________________________________
 
 ____________________________________________________________
 Got it. I've added this task:
-[D][ ] cs2103t (by: today)
+[D][ ] run (by: Feb 3 2019 1000)
 Now you have 3 task(s) in the list.
 ____________________________________________________________
 
 ____________________________________________________________
 Got it. I've added this task:
-[E][ ] run (from: now to: tomorrow)
+[D][ ] submit this (by: Jan 9 2023 1800)
 Now you have 4 task(s) in the list.
 ____________________________________________________________
 
 ____________________________________________________________
-Here are the tasks in your list: 
-1.[T][ ] eat
-2.[T][ ] shit
-3.[D][ ] cs2103t (by: today)
-4.[E][ ] run (from: now to: tomorrow)
-Now you have 4 task(s) in the list.
+Got it. I've added this task:
+[E][ ] help (from: Feb 2 2022 1900 to: Sep 8 2023 1000)
+Now you have 5 task(s) in the list.
+____________________________________________________________
+
+____________________________________________________________
+OK, I've marked this task as not done yet:
+[T][ ] shit
+Now you have 5 task(s) in the list.
 ____________________________________________________________
 
 ____________________________________________________________
 Nice! I've marked this task as done:
 [T][X] eat
-Now you have 4 task(s) in the list.
+Now you have 5 task(s) in the list.
 ____________________________________________________________
 
 ____________________________________________________________
 OK, I've marked this task as not done yet:
 [T][ ] eat
-Now you have 4 task(s) in the list.
-____________________________________________________________
-
-____________________________________________________________
-Noted. I've removed this task:
-[T][ ] shit
-Now you have 3 task(s) in the list.
-____________________________________________________________
-
-____________________________________________________________
-Here are the tasks in your list: 
-1.[T][ ] eat
-2.[D][ ] cs2103t (by: today)
-3.[E][ ] run (from: now to: tomorrow)
-Now you have 3 task(s) in the list.
+Now you have 5 task(s) in the list.
 ____________________________________________________________
 
 ____________________________________________________________
 :( OOPS!!! I'm sorry, but I don't know what that means :-(
 ____________________________________________________________
 
+____________________________________________________________
+:( OOPS!!! I'm sorry, but I don't know what that means :-(
+____________________________________________________________
+
+____________________________________________________________
+Bye. Hope to see you again soon!
+____________________________________________________________
