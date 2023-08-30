@@ -7,7 +7,7 @@ public class ExitCommand extends Command {
     }
 
     @Override
-    public void execute(ArrayList<Task> tasks, Ui ui, Storage storage) {
+    public void execute(ArrayList<Task> tasks, Ui ui, Storage storage) throws DukeException {
         ui.showExitMessage();
     }
 }
