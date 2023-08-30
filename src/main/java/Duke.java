@@ -78,10 +78,8 @@ public class Duke {
         case "unmark": {
 
           try {
-            int index = Integer.parseInt(inputTokens[1]);
-            index--;
             // set current task as un-done
-            Task selectedTask = taskList.get(index);
+            Task selectedTask = taskList.get(parser.getIndex());
             System.out.println("Marked selected task as un-done desu");
             selectedTask.setUnDone();
             System.out.println(uiFormatter.displayTask(selectedTask));

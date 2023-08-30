@@ -23,7 +23,7 @@ public class Parser {
     return this.inputTokens;
   }
 
-  public int getIndex() throws IndexOutOfBoundsException{
+  public int getIndex() throws IndexOutOfBoundsException {
     int index = Integer.parseInt(inputTokens[1]);
     index--;
     return index;
