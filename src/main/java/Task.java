@@ -3,8 +3,8 @@ public class Task {
     private String task_name;
 
     //Constructor
-    public Task(String task_name) {
-        task_name = task_name;
+    public Task(String name) {
+        task_name = name;
         completed = false;
     }
 
@@ -14,6 +14,10 @@ public class Task {
 
     @Override
     public String toString() {
-        return task_name;
+        String indicator = " ";
+        if(completed) {
+            indicator = "X";
+        }
+        return "[" + indicator + "]" + task_name;
     }
 }
