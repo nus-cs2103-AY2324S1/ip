@@ -8,9 +8,9 @@ import java.util.ArrayList;
 public class TaskFileHandler {
     private static final String FILE_PATH = "./data/bouncy.txt";
 
-    public static void saveTasksToDisk(ArrayList<Task> database) {
+    public static void saveTasksToDisk(TaskList taskList) {
         StringBuilder builder = new StringBuilder();
-        for(Task task : database) {
+        for(Task task : taskList.getTasks()) {
             builder.append(task.toFileFormat()).append("\n");
         }
         File file = new File(FILE_PATH);
@@ -27,7 +27,7 @@ public class TaskFileHandler {
     }
 
 
-    public static void loadTasksFromDisk(ArrayList<Task> database) {
+    public static void loadTasksFromDisk(TaskList taskList) {
         File file = new File(FILE_PATH);
         if (!file.exists()) {
             System.out.println("No saved tasks found.");
@@ -59,7 +59,7 @@ public class TaskFileHandler {
                 }
                 if (task != null) {
                     if (isDone) task.setDone();
-                    database.add(task);
+                    taskList.addTask(task);
                 }
             }
         } catch (IOException e) {
