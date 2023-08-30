@@ -1,20 +1,22 @@
 /**
- * This is the Todo class, a child class of Task class
- * @author Selwyn
+ * The Todo class represents a task without a specific due date or time.
+ *
+ * @author selwyn
  */
-public class Todo extends Task{
+public class Todo extends Task {
     /**
-     * Constructor for a Todo task
+     * Constructs a Todo object with the specified description.
      *
-     * @param detail
+     * @param detail The description of the todo task.
      */
     public Todo(String detail) {
         super(detail);
     }
 
     /**
-     * This method returns the string representation of this todo task
-     * @return String representation of this todo task
+     * Returns a string representation of the Todo object, including its completion status and description.
+     *
+     * @return A string representation of the Todo object.
      */
     @Override
     public String toString() {

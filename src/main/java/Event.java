@@ -1,24 +1,24 @@
 import java.time.LocalDateTime;
 
 /**
- * This is the Event class, a child class of Task class
- * @author Selwyn
+ * The Event class represents a task that occurs during a specified time range.
+ * It extends the Task class and includes information about the start and end date and time.
+ *
+ * @author selwyn
  */
-public class Event extends Task{
-    /**
-     * Field representing the start date & time of the event
-     */
-    protected LocalDateTime startDateTime;
+public class Event extends Task {
+    /** Start date and time of the event */
+    private LocalDateTime startDateTime;
+
+    /** End date and time of the event */
+    private LocalDateTime endDateTime;
 
     /**
-     * Field representing the end date & time of the event
-     */
-    protected LocalDateTime endDateTime;
-
-    /**
-     * Constructor for an Event task
+     * Constructs an Event object with the specified details, start date and time, and end date and time.
      *
-     * @param detail
+     * @param detail The details of the event.
+     * @param startDateTime The start date and time of the event.
+     * @param endDateTime The end date and time of the event.
      */
     public Event(String detail, LocalDateTime startDateTime, LocalDateTime endDateTime) {
         super(detail);
@@ -27,8 +27,9 @@ public class Event extends Task{
     }
 
     /**
-     * This method returns the string representation of an event task
-     * @return String representation of an event task
+     * Returns a string representation of the Event object, including its details and time range.
+     *
+     * @return A string representation of the Event object.
      */
     @Override
     public String toString() {

@@ -1,19 +1,19 @@
 import java.time.LocalDateTime;
 
 /**
- * This is the Deadline class, a child class of Task class
- * @author Selwyn
+ * The Deadline class represents a task with a specific end date and time.
+ *
+ * @author selwyn
  */
-public class Deadline extends Task{
-    /**
-     * Field representing the date and time of the deadline
-     */
-    protected LocalDateTime endDateTime;
+public class Deadline extends Task {
+    /** The end date and time of the deadline. */
+    private LocalDateTime endDateTime;
 
     /**
-     * Constructor for a Deadline task
+     * Constructs a Deadline object with the specified description and end date and time.
      *
-     * @param detail
+     * @param detail The description of the deadline.
+     * @param endDateTime The end date and time of the deadline.
      */
     public Deadline(String detail, LocalDateTime endDateTime) {
         super(detail);
@@ -21,8 +21,10 @@ public class Deadline extends Task{
     }
 
     /**
-     * This method returns the string representation of a deadline task
-     * @return String representation of a deadline task
+     * Returns a string representation of the Deadline object, including its completion status, description,
+     * and end date and time.
+     *
+     * @return A string representation of the Deadline object.
      */
     @Override
     public String toString() {

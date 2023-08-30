@@ -1,113 +1,79 @@
-import java.util.Scanner;
-
 /**
- * This is the Main class for the Duke program
- * @author Selwyn
+ * The Duke class represents a task management application. It provides functionality
+ * to interact with the user, manage tasks, and store task information.
+ *
+ * @author selwyn
  */
 public class Duke {
-    /**
-     * The name of the bot
-     */
+    /** Name of chatbot */
     private static final String NAME = "Duke Prince";
 
-    /**
-     * This is the TaskList object for the whole program
-     */
-    private static TaskList taskList = new TaskList();
+    /** Task list associated with this Duke object */
+    private static TaskList taskList;
+
+    /** Storage associated with this Duke object */
+    private Storage storage;
+
+    /** UI associated with this Duke object */
+    private Ui ui;
+
+    /** Parser associated with this Duke object */
+    private Parser parser;
 
     /**
-     * This is the main method to run the program
-     * @param args
+     * Constructs a Duke object with the specified file path to initialize the application.
+     *
+     * @param filePath The file path where task data is stored.
      */
-    public static void main(String[] args) {
-        greet();
-        listen();
+    public Duke(String filePath) {
+        ui = new Ui(NAME);
+        parser = new Parser();
+
+        String[] dirAndFilePathArr = filePath.split("/");
+        String dirPath = "";
+        for (int i = 0; i < dirAndFilePathArr.length - 1; i++) {
+            dirPath += dirAndFilePathArr[i];
+            dirPath += "/";
+        }
+
+        System.out.println(dirPath);
+        storage = new Storage(dirPath, dirAndFilePathArr[dirAndFilePathArr.length - 1]);
+        try {
+            taskList = new TaskList(storage.retrieveTasks());
+        } catch (DukeException e) {
+            ui.printError(e.getMessage());
+        }
     }
 
     /**
-     * This is the method for the program to listen to the user input to decide what commands to execute
+     * Starts the Duke application by displaying a greeting and processing user commands.
      */
-    protected static void listen() {
+    public void run() {
+        ui.greet();
         boolean exitProgram = false;
-        // Creating scanner object to get user input
-        Scanner scanner = new Scanner(System.in);
-        String input, userCommand, args;
+        String userInput;
 
-        // Getting user input and performing relevant actions
-        while(!exitProgram) {
+        while (!exitProgram) {
             try {
-                input = scanner.nextLine();
-                printHorizontalLine();
-
-                String[] parsedCommand = input.split(" ", 2);
-                userCommand = parsedCommand[0];
-                args = parsedCommand.length > 1 ? parsedCommand[1] : "";
-
-                switch (userCommand) {
-                case "bye":
-                    exitProgram = true;
-                    exit();
-                    break;
-                case "list":
-                    taskList.displayTaskList();
-                    break;
-                case "todo":
-                    taskList.addTask(TaskType.TODO, args);
-                    break;
-                case "deadline":
-                    taskList.addTask(TaskType.DEADLINE, args);
-                    break;
-                case "event":
-                    taskList.addTask(TaskType.EVENT, args);
-                    break;
-                case "mark":
-                    taskList.changeTaskDoneStatus(args, true);
-                    break;
-                case "unmark":
-                    taskList.changeTaskDoneStatus(args, false);
-                    break;
-                case "delete":
-                    taskList.deleteTask(args);
-                    break;
-                default:
-                    throw new DukeException("I don't understand what you are saying!\n" +
-                            "Available commands are list, todo, deadline, event, mark, unmark, delete, bye.");
-                }
+                userInput = ui.readCommand();
+                ui.printHorizontalLine();
+                Command c = this.parser.parseCommand(userInput);
+                c.execute(taskList, ui, storage);
+                exitProgram = c.isExit();
             } catch (DukeException e) {
-                System.out.println(e.getMessage());
-            } catch(Exception e) {
-                System.out.println("Something has gone wrong! Please try again!");
+                ui.printError(e.getMessage());
             } finally {
-                printHorizontalLine();
+                ui.printHorizontalLine();
             }
         }
     }
 
     /**
-     * This method greets the user upon starting the program
+     * The main method to launch the Duke application.
+     *
+     * @param args Command-line arguments (not used in this context).
      */
-    protected static void greet() {
-        printHorizontalLine();
-        System.out.println("Hello! I'm " + NAME);
-        System.out.println("What can I do for you?");
-        printHorizontalLine();
-    }
-
-    /**
-     * This method says bye when user exits the program
-     */
-    protected static void exit() {
-        System.out.println("Bye. Hope to see you again soon!");
-    }
-
-    /**
-     * This method prints a horizontal line in the console
-     */
-    protected static void printHorizontalLine() {
-        int width = 50;
-        for (int i  = 0; i < width; i++) {
-            System.out.print("-");
-        }
-        System.out.println("");
+    public static void main(String[] args) {
+        new Duke("data/tasks.txt").run();
     }
 }
