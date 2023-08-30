@@ -27,6 +27,7 @@ public class Parser {
                     if (descriptionIsEmpty(cmd)) {
                         throw new InvalidDescriptionException("todo");
                     }
+
                     String taskName = cmd.split(" ", 2)[1];
                     Task todo = new ToDo(taskName);
                     tasks.addTask(todo);
@@ -35,6 +36,7 @@ public class Parser {
                     if (descriptionIsEmpty(cmd)) {
                         throw new InvalidDescriptionException("deadline");
                     }
+
                     String taskWithDeadline = cmd.split(" ", 2)[1];
 
                     if (hasNoDeadline(taskWithDeadline)) {
@@ -44,7 +46,6 @@ public class Parser {
                     String taskName = taskWithDeadline.split("/", 2)[0];
                     String deadlineDescription = taskWithDeadline.split("/", 2)[1];
 
-
                     try {
                         Task deadline = new Deadline(taskName, checkDeadline(deadlineDescription));
                         tasks.addTask(deadline);
@@ -52,11 +53,11 @@ public class Parser {
                     } catch(Exception e) {
                         System.out.println(e.getMessage());
                     }
-
                 } else if (type.equals("event")) {
                     if (descriptionIsEmpty(cmd)) {
                         throw new InvalidDescriptionException("event");
                     }
+
                     String taskWithDuration = cmd.split(" ", 2)[1];
                     String[] time = taskWithDuration.split("/");
 
@@ -64,6 +65,7 @@ public class Parser {
                     if (time.length != 3) {
                         throw new IncompleteDurationException();
                     }
+
                     String taskName = time[0];
                     String starting = time[1];
                     String ending = time[2];
@@ -79,6 +81,7 @@ public class Parser {
 
                     int taskNumber = -1;
                     String integer = cmd.split(" ", 2)[1];
+
                     try {
                         taskNumber = Integer.parseInt(integer);
                     } catch (Exception e) {
@@ -89,15 +92,16 @@ public class Parser {
                         throw new InvalidTaskNumberException(taskNumber);
                     }
 
-                    Task task = tasks.markOrDelete(taskNumber - 1, "delete");
+                    Task task = tasks.markOrDeleteTask(taskNumber - 1, "delete");
                     ui.printDeleteTaskMessage(task, new TaskList(storage.load()));
                 } else if (type.equals("mark")) {
                     if (descriptionIsEmpty(cmd)) {
                         throw new InvalidDescriptionException("mark");
                     }
-                    //EXCEPTION HANDLING!!
+
                     int taskNumber = -1;
                     String integer = cmd.split(" ", 2)[1];
+
                     try {
                         taskNumber = Integer.parseInt(integer);
                     } catch (Exception e) {
@@ -108,7 +112,7 @@ public class Parser {
                         throw new InvalidTaskNumberException(taskNumber);
                     }
 
-                    Task task = tasks.markOrDelete(taskNumber - 1, "mark");
+                    Task task = tasks.markOrDeleteTask(taskNumber - 1, "mark");
                     ui.printMarkedTaskMessage(task);
                 } else if (type.equals("unmark")) {
                     if (descriptionIsEmpty(cmd)) {
@@ -117,6 +121,7 @@ public class Parser {
 
                     int taskNumber = -1;
                     String integer = cmd.split(" ", 2)[1];
+
                     try {
                         taskNumber = Integer.parseInt(integer);
                     } catch (Exception e) {
@@ -127,7 +132,7 @@ public class Parser {
                         throw new InvalidTaskNumberException(taskNumber);
                     }
 
-                    Task task = tasks.markOrDelete(taskNumber - 1, "unmark");
+                    Task task = tasks.markOrDeleteTask(taskNumber - 1, "unmark");
                     ui.printUnmarkedTaskMessage(task);
                 } else {  // If the inputted command is not valid, throw TaskTypeException
                     throw new TaskTypeException();
@@ -157,6 +162,7 @@ public class Parser {
             if (parts.length != 3) {
                 throw new InvalidDeadlineException(deadline);
             }
+
             String by = parts[0];
             String date = parts[1];
             String time = parts[2];
@@ -171,6 +177,7 @@ public class Parser {
             if (dateParts.length != 3) {
                 throw new InvalidDeadlineException(deadline);
             }
+
             int day = Integer.parseInt(dateParts[0]);
             int month = Integer.parseInt(dateParts[1]);
             int year = Integer.parseInt(dateParts[2]);

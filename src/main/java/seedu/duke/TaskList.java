@@ -30,7 +30,7 @@ public class TaskList {
     // Reads the duke.txt file, unserializes it and obtain the arraylist representing saved tasks.
     // Depending on the purpose, information in the arraylist is updated, and the whole arraylist is
     // serialized and saved again in the duke.txt file
-    public Task markOrDelete(int index, String purpose) throws InvalidDataFormatException {
+    public Task markOrDeleteTask(int index, String purpose) throws InvalidDataFormatException {
         if (purpose.equals("mark")) {
             this.tasks.get(index).markTask();
             new Storage("./data/duke.txt").save(this.tasks);

@@ -44,7 +44,7 @@ public class TaskListTest {
         tasks.add(new ToDo("borrow books"));
         TaskList taskList = new TaskList(tasks);
         try {
-            taskList.markOrDelete(0, "mark");
+            taskList.markOrDeleteTask(0, "mark");
             ArrayList<Task> currentTasks;
             ObjectInputStream inputStream = new ObjectInputStream(new FileInputStream("./data/duke.txt"));
             currentTasks = (ArrayList<Task>) inputStream.readObject();

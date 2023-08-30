@@ -16,6 +16,7 @@ public class Ui {
     // Prints the tasks in the taskList given
     public void printListItems(TaskList taskList) {
         ArrayList<Task> tasks = taskList.getTasks();
+
         for (int i = 0; i < tasks.size(); i++) {
             Task task = tasks.get(i);
             System.out.println(i+1 + "." + task.getTaskType() + task.getStatusIcon() + " " + task.name +
@@ -29,17 +30,20 @@ public class Ui {
                 " Hello! I'm Dookie\n" +
                 " What can I do for you?\n" +
                 "____________________________________________________________";
+
         System.out.println(intro);
     }
 
     // Prints the message for when a new task is added
     public void printAddTaskMessage(Task task, TaskList tasks) {
         int listSize = tasks.getTasks().size();
+
         String message = "____________________________________________________________\n" +
                 " Got it. I've added this task: \n   " +
                 task.getTaskType() + task.getStatusIcon() + " " + task.name + task.getTimeInfo() + "\n" +
                 " Now you have " + listSize + " tasks in the list.\n" +
                 "____________________________________________________________";
+
         System.out.println(message);
     }
 
@@ -52,6 +56,7 @@ public class Ui {
                 task.getTaskType() + task.getStatusIcon() + " " + task.name + task.getTimeInfo() + "\n" +
                 " Now you have " + listSize + " tasks in the list.\n" +
                 "____________________________________________________________";
+
         System.out.println(message);
     }
 
@@ -60,6 +65,7 @@ public class Ui {
         String exitMessage = "____________________________________________________________\n" +
                 " Bye. Hope to see you again soon!\n" +
                 "____________________________________________________________";
+
         System.out.println(exitMessage);
     }
 
@@ -69,6 +75,7 @@ public class Ui {
                 " Nice! I've marked this task as done:\n" +
                 "   " + task.getStatusIcon() + " " + task.name + task.getTimeInfo() + "\n" +
                 "____________________________________________________________";
+
         System.out.println(message);
     }
 
@@ -78,6 +85,7 @@ public class Ui {
                 " OK. I've marked this task as not done yet:\n" +
                 "   " + task.getStatusIcon() + " " + task.name + task.getTimeInfo() + "\n" +
                 "____________________________________________________________";
+
         System.out.println(message);
     }
 }
