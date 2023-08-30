@@ -1,12 +1,14 @@
 package tasks;
 
+import java.time.LocalDate;
+
 import parsers.TaskParser;
 
 /**
  * Deadline task, a type of task that need to be done before a specific date/time.
  */
 public class Deadline extends Task{
-    private String by;
+    private LocalDate by;
 
     /**
      * Initializes a new deadline task with the given description and deadline. 
@@ -14,19 +16,19 @@ public class Deadline extends Task{
      * @param desc The description of the task
      * @param by The deadline of the task
      */
-    public Deadline(String desc, String by) {
+    public Deadline(String desc, LocalDate by) {
         super(false, desc);
         this.by = by;
     }
 
-    public Deadline(boolean status, String desc, String by) {
+    public Deadline(boolean status, String desc, LocalDate by) {
         super(status, desc);
         this.by = by;
     }
 
     @Override
     public String toStorableString() {
-        String[] infos = {"D", this.status ? "1" : "0", this.desc, this.by};
+        String[] infos = {"D", this.status ? "1" : "0", this.desc, this.by.format(Task.DATE_INPUT_FORMATTER)};
 
         return String.join(TaskParser.SEPARATOR, infos);
     }
@@ -38,6 +40,6 @@ public class Deadline extends Task{
      */
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + by + ")";
+        return "[D]" + super.toString() + " (by: " + this.by.format(Task.DATE_OUTPUT_FORMATTER) + ")";
     }
 }
