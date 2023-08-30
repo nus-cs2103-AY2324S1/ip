@@ -32,9 +32,9 @@ public class Ui {
 
     public void showMarkedTask(boolean marked, Task task) {
         if (marked) {
-            System.out.println("Nice! I've marked this task as done:\n[X] " + task + Simon.NSPACE);
+            System.out.println("Nice! I've marked this task as done:\n " + task + Simon.NSPACE);
         } else {
-            System.out.println("OK, I've marked this task as not done yet:\n[ ] " + task + Simon.NSPACE);
+            System.out.println("OK, I've marked this task as not done yet:\n " + task + Simon.NSPACE);
         }
     }
 
