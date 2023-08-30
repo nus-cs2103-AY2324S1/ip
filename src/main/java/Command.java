@@ -1,2 +1,3 @@
-package PACKAGE_NAME;public class Command {
+public abstract class Command {
+    abstract protected void execute(TaskList tasks, Ui ui, Storage storage);
 }
