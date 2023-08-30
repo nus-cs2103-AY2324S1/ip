@@ -41,7 +41,6 @@ public class Storage {
             String category = input[0];
             String marked = input[1];
             String description = input[2];
-
             switch (category) {
             case "T":
                 ToDos todo = new ToDos(description);
