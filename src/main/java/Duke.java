@@ -1,6 +1,3 @@
-import java.io.FileNotFoundException;
-import java.util.Scanner;
-
 public class Duke {
     private static final String SAVED_TASKS_FILEPATH = "./data/savedTasks.txt";
 
