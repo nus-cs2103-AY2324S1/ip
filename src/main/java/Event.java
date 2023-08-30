@@ -5,10 +5,16 @@ public class Event extends Task {
     /** End time of event. */
     protected String end;
 
-    public Event(String description, String start, String end) {
-        super(description);
+    public Event(String description, boolean isDone, String start, String end) {
+        super(description, isDone);
         this.start = start;
         this.end = end;
+    }
+
+    @Override
+    public String getStorageDescription() {
+        String isCompleted = this.isDone ? "1" : "0";
+        return "E " + isCompleted + " " + this.description + "/from" + this.start + "/to" + this.end;
     }
 
     /**

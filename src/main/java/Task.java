@@ -1,13 +1,13 @@
-public class Task {
+public abstract class Task {
 
     /** Description of the task. */
     protected String description;
     /** State of task if completed or not. */
     protected boolean isDone;
 
-    public Task(String description) {
+    public Task(String description, boolean isDone) {
         this.description = description;
-        this.isDone = false;
+        this.isDone = isDone;
     }
 
     /** Marks the task if state of task is completed.
@@ -33,8 +33,14 @@ public class Task {
     /** Informs users that task is added to list. */
     public void notice() {
         System.out.println("Got it. I've added this task:");
-        System.out.println(this.toString());
+        System.out.println(this);
     }
+
+    /** Get the string representation of the task for storage in hard drive.
+     *
+     * @return The string representation for storage purposes.
+     */
+    public abstract String getStorageDescription();
 
     /**
      * Display string representation of task.
