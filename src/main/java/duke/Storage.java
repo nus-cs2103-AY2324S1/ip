@@ -104,7 +104,8 @@ public class Storage {
                 case("[D]"):
                     String[] taskDetailsArr = taskDetails.split("\\(by:", 2);
                     taskToAdd = new Deadline(taskDetailsArr[0].trim(),
-                            LocalDateTime.parse(taskDetailsArr[1].split("\\)")[0].trim(), dateTimeFormat));
+                            LocalDateTime.parse(taskDetailsArr[1].split("\\)")[0].trim(),
+                                    dateTimeFormat));
                     if (taskDoneStatus.equals("[X]")) {
                         taskToAdd.markDone();
                     }
@@ -116,7 +117,8 @@ public class Storage {
                     String[] taskDetailsArrTwo = taskDetailsArrOne[1].split("to:", 2);
                     taskToAdd = new Event(taskDetailsForEvent.trim(),
                             LocalDateTime.parse(taskDetailsArrTwo[0].trim(), dateTimeFormat),
-                            LocalDateTime.parse(taskDetailsArrTwo[1].split("\\)")[0].trim(), dateTimeFormat));
+                            LocalDateTime.parse(taskDetailsArrTwo[1].split("\\)")[0].trim(),
+                                    dateTimeFormat));
                     if (taskDoneStatus.equals("[X]")) {
                         taskToAdd.markDone();
                     }
