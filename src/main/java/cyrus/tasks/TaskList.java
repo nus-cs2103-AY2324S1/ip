@@ -30,6 +30,13 @@ public class TaskList {
     this.saveTasks();
   }
 
+  public List<Task> findTask(String keyword) {
+    return this.tasks
+        .stream()
+        .filter(task -> task.name.contains(keyword))
+        .collect(Collectors.toList());
+  }
+
   public int size() {
     return this.tasks.size();
   }

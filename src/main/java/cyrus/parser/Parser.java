@@ -16,6 +16,8 @@ public class Parser {
         return new AddEventCommand(taskList, parseInfo);
       case ADD_DEADLINE:
         return new AddDeadlineCommand(taskList, parseInfo);
+      case FIND_TASK:
+        return new FindTaskCommand(taskList, parseInfo);
       case DELETE_TASK:
         return new DeleteTaskCommand(taskList, parseInfo);
       case LIST_TASKS:
