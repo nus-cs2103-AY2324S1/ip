@@ -11,6 +11,33 @@ import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 
 public class Duke {
+    private Storage storage;
+    private TaskList tasks;
+    private Ui ui;
+
+    public Duke(String filePath) {
+        this.ui = new Ui();
+        this.storage = new Storage(filePath);
+        this.tasks = new TaskList(storage.load());
+    }
+
+    public void run() {
+        Ui.start();
+        String input = Ui.getInput();
+        while (!input.equals("bye")) {
+            Parser.parseInput(input, this.tasks, this.storage);
+            input = Ui.getInput();
+        }
+        Ui.bye();
+    }
+
+    public static void main(String[] args) {
+        new Duke("./duke.txt").run();
+        /*FileWriter writer = new FileWriter("./duke.txt");
+        writer.write("");*/
+    }
+
+    /*
     public static void main(String[] args) throws InvalidTextException, EmptyDescriptionException, InvalidTaskException,
             DeadlineUnclearException, DurationUnclearException, FileNotFoundException, IOException {
         Scanner scan = new Scanner(System.in);
@@ -20,8 +47,6 @@ public class Duke {
             f.createNewFile();
         }
         Scanner fileScan = new Scanner(f);
-        /*FileWriter writer = new FileWriter("./duke.txt");
-        writer.write("");*/
         while (fileScan.hasNext()) {
             String taskString = fileScan.nextLine();
             if (taskString.charAt(0) == 'T') {
@@ -272,4 +297,5 @@ public class Duke {
         System.out.println("     " + "Bye. Hope to see you again soon!");
         System.out.println("    ____________________________________________________________");
     }
+     */
 }
