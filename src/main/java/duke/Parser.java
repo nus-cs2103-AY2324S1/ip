@@ -1,6 +1,16 @@
 package duke;
 
+/**
+ * Parser splits the user command to be processed by the bot.
+ */
 public class Parser {
+    /**
+     * Matches the user command with the different categories.
+     *
+     * @param userOutput User command.
+     * @param inputList  Array list of tasks.
+     * @return Boolean of the correct match of user command.
+     */
     public static boolean command(String userOutput, TaskList inputList) {
         try {
             String[] splitOutput = userOutput.split(" ");

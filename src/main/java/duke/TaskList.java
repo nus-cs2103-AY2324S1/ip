@@ -2,6 +2,9 @@ package duke;
 
 import java.util.ArrayList;
 
+/**
+ * Various commands to modify the tasks inside the list.
+ */
 public class TaskList {
     ArrayList<Task> tasks;
 
@@ -11,10 +14,6 @@ public class TaskList {
 
     public TaskList() {
         this.tasks = new ArrayList<>();
-    }
-
-    public boolean isEmpty() {
-        return tasks.isEmpty();
     }
 
     public int size() {
@@ -29,6 +28,11 @@ public class TaskList {
         return tasks.get(i);
     }
 
+    /**
+     * Marks a task as done by adding X.
+     *
+     * @param splitOutput User command.
+     */
     public void mark(String[] splitOutput) {
         System.out.println("Nice! I've marked this task as done:");
         Task selectedTask = tasks.get(Integer.parseInt(splitOutput[1]) - 1);
@@ -36,6 +40,11 @@ public class TaskList {
         System.out.println(selectedTask.toString());
     }
 
+    /**
+     * Unmarks a task as not done by removing X.
+     *
+     * @param splitOutput User command.
+     */
     public void unmark(String[] splitOutput) {
         System.out.println(" OK, I've marked this task as not done yet:");
         Task selectedTask = tasks.get(Integer.parseInt(splitOutput[1]) - 1);
@@ -43,6 +52,11 @@ public class TaskList {
         System.out.println(selectedTask.toString());
     }
 
+    /**
+     * Deletes a task.
+     *
+     * @param splitOutput User command.
+     */
     public void delete(String[] splitOutput) {
         try {
             Integer deleteIndex = Integer.valueOf(splitOutput[1]);
@@ -56,6 +70,9 @@ public class TaskList {
         }
     }
 
+    /**
+     * Lists out the tasks stored in the task list.
+     */
     public void list() {
         if (tasks.isEmpty()) {
             System.out.println("There is no task in your list.");
