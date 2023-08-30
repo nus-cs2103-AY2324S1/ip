@@ -1,6 +1,17 @@
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.List;
 
 public class Tasks {
+    private int size;
+    private List<Task> tasks;
+    private static String filepath;
+
+    public Tasks(int size, List<Task> tasks) {
+        this.size = size;
+        this.tasks = tasks;
+    }
 
     public static void handleList(String input, List<Task> tasks) {
         System.out.println("Here are the tasks in your list:");
@@ -12,11 +23,11 @@ public class Tasks {
     }
 
     public static void handleDeadline(String input, List<Task> tasks) {
-        String[] arr1 = input.split("/");
-        String[] arr2 = arr1[1].split("by ");
+        String[] arr1 = input.split("/"); // 0: deadline + name , 1: by + date
+        String[] arr2 = arr1[1].split("by "); // date
         String[] arr3 = arr1[0].split("deadline ");
         String date = arr2[1];
-        Task deadline = new Deadline(arr1[0], date);
+        Task deadline = new Deadline(arr3[1], date);
         tasks.add(deadline);
         System.out.println("Got it. I've added this task:\n" + deadline + "\n"
                 + "Now you have " + tasks.size() + " tasks in the list.");
@@ -38,7 +49,7 @@ public class Tasks {
         String[] arr1 = input.split("/from "); // [0]: event + name, [1]: timeframe
         String[] arr2 = arr1[1].split("/to "); // [0] from:..., [1] to:...
         String[] arr3 = arr1[0].split("event ");
-        Task event = new Event(arr3[1], arr2);
+        Task event = new Event(arr3[1], arr2[0], arr2[1]);
         tasks.add(event);
         System.out.println("Got it. I've added this task:\n" + event + "\n" +
                 "Now you have " + tasks.size() + " tasks in the list.");
@@ -71,6 +82,16 @@ public class Tasks {
         tasks.remove(index - 1);
         System.out.println("Noted. I've removed this task:\n" + deleted + "\n"
                 + "Now you have " + tasks.size() + " tasks in the list.");
+    }
+    public static void saveTasks(List<Task> tasks) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filepath))) {
+            writer.write(""); // Clear the file by writing an empty string
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        for (Task task : tasks) {
+            task.save(filepath);
+        }
     }
 }
 
