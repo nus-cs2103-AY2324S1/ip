@@ -1,10 +1,17 @@
 import java.lang.reflect.Array;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 public class TaskList {
     private ArrayList<Task> tasks;
 
     public TaskList() {
         this.tasks = new ArrayList<>();
+    }
+
+    public TaskList(ArrayList<Task> tasks) {
+        this.tasks = tasks;
     }
 
     public void quietlyAddTask(Task task) {
@@ -58,4 +65,103 @@ public class TaskList {
         System.out.println("Now you have " + this.tasks.size() + " tasks in the list.");
     }
 
+    public void createTask(Parser.TaskClass task, String userInput) throws BeeException {
+        switch (task) {
+            case TODO:
+                try {
+                    String editedInput = userInput.substring(5);
+                    if (editedInput.isEmpty()) {
+                        throw new BeeException("OOPS!! The description of a todo cannot be empty.");
+                    }
+                    Todo todo = new Todo(editedInput);
+                    this.addTask(todo);
+                } catch (StringIndexOutOfBoundsException e) {
+                    throw new BeeException("OOPS!! The description of a todo cannot be empty.");
+                }
+                break;
+            case DEADLINE:
+                try {
+                    String editedInput = userInput.substring(9);
+                    if (editedInput.isEmpty()) {
+                        throw new BeeException("OOPS!! The description of a deadline cannot be empty.");
+                    }
+                    String[] splitEditedInput = editedInput.split(" /by ");
+                    String deadlineDescription = splitEditedInput[0];
+                    String deadlineDateString = splitEditedInput[1];
+
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+                    LocalDateTime deadlineDate = LocalDateTime.parse(deadlineDateString, formatter);
+
+                    Deadline deadlineTask = new Deadline(deadlineDescription, deadlineDate);
+                    this.addTask(deadlineTask);
+                } catch (DateTimeParseException e) {
+                    throw new BeeException("OOPS!! Invalid deadline date format. Please use yyyy-MM-dd HHmm");
+                }
+                catch (StringIndexOutOfBoundsException e) {
+                    throw new BeeException("OOPS!! The description of a deadline cannot be empty.");
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    throw new BeeException("OOPS!! The date of the deadline cannot be empty.");
+                }
+                break;
+            case EVENT:
+                try {
+                    String editedInput = userInput.substring(6);
+                    if (editedInput.isEmpty()) {
+                        throw new BeeException("OOPS!! The description of an event cannot be empty.");
+                    }
+                    String[] splitEditedInput = editedInput.split(" /from ");
+                    String[] splitEditedInput2 = splitEditedInput[1].split(" /to ");
+                    String eventDescription = splitEditedInput[0];
+                    String eventStartDate = splitEditedInput2[0];
+                    String eventEndDate = splitEditedInput2[1];
+                    Event event = new Event(eventDescription, eventStartDate, eventEndDate);
+                    this.addTask(event);
+                } catch (StringIndexOutOfBoundsException e) {
+                    throw new BeeException("OOPS!! The description of an event cannot be empty.");
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    throw new BeeException("OOPS!! The date of an event cannot be empty.");
+                }
+                break;
+
+            default:
+                this.addTask(new Task(userInput));
+        }
+    }
+    public void updateTask(Parser.TaskAction action, String userInput) throws BeeException {
+        String[] splitInput = userInput.split(" ");
+        switch (action) {
+            case MARK:
+                try {
+                    int taskIndex = Integer.parseInt(splitInput[1]);
+                    this.setTaskDone(taskIndex);
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    throw new BeeException("OOPS!! The task number cannot be empty.");
+                } catch (NumberFormatException e) {
+                    throw new BeeException("OOPS!! You must have entered an invalid task number.");
+                }
+                break;
+            case UNMARK:
+                try {
+                    int taskIndex = Integer.parseInt(splitInput[1]);
+                    this.setTaskNotDone(taskIndex);
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    throw new BeeException("OOPS!! The task number cannot be empty.");
+                } catch (NumberFormatException e) {
+                    throw new BeeException("OOPSS!! You must have entered an invalid task number.");
+                }
+                break;
+            case DELETE:
+                try {
+                    int taskIndex = Integer.parseInt(splitInput[1]);
+                    this.deleteTask(taskIndex);
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    throw new BeeException("OOPSS!! Please enter a task number");
+                } catch (NumberFormatException e) {
+                    throw new BeeException("OOPSS!! You must have entered an invalid task number.");
+                }
+                break;
+            default:
+                throw new BeeException("OOPSS!! I can't do that!!!");
+        }
+    }
 }
