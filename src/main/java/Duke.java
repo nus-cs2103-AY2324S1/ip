@@ -1,5 +1,3 @@
-import java.util.ArrayList;
-
 public class Duke {
     private Ui ui;
     private Storage storage;
