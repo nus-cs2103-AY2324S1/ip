@@ -15,7 +15,7 @@ public class Deadline extends Task {
     }
 
     public String toString() {
-        return this.identifier + super.toString() + " (by: " +
+        return this.identifier + super.toString() + "(by: " +
                 by.format(DateTimeFormatter.ofPattern("LLL dd yyyy Ka")) + ")";
     }
 }

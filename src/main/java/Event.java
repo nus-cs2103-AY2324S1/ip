@@ -20,7 +20,7 @@ public class Event extends Task {
 
     public String toString() {
         return this.identifier + super.toString() +
-                " (from: " + from.format(DateTimeFormatter.ofPattern("LLL dd yyyy Ka")) +
+                "(from: " + from.format(DateTimeFormatter.ofPattern("LLL dd yyyy Ka")) +
                 " to: " + to.format(DateTimeFormatter.ofPattern("Ka")) + ")";
     }
 }
