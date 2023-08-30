@@ -1,12 +1,9 @@
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
-import java.time.temporal.ChronoUnit;
 public class Event extends Task {
     private String start;
     private String end;
     public Event(String description, String start, String end) {
         super(description);
+<<<<<<< HEAD
 <<<<<<< HEAD
         try {
             LocalDate d1 = LocalDate.parse(start);
@@ -23,6 +20,10 @@ public class Event extends Task {
         this.start = start;
         this.end = end;
 >>>>>>> branch-Level-7
+=======
+        this.start = start;
+        this.end = end;
+>>>>>>> 2e9530ae14998663d522f7670d43b9d0c8f3a301
     }
     @Override
     public  String saveString() {

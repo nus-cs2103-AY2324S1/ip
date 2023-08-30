@@ -1,17 +1,8 @@
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
-import java.time.temporal.ChronoUnit;
 public class Deadline extends Task {
     private String deadline;
     public Deadline(String description, String deadline) {
         super(description);
-        try {
-            LocalDate d1 = LocalDate.parse(deadline);
-            this.deadline = d1.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
-        } catch (DateTimeParseException e) {
-            this.deadline = deadline;
-        }
+        this.deadline = deadline;
     }
     @Override
     public  String saveString() {
