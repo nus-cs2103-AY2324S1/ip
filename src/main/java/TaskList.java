@@ -38,4 +38,12 @@ public class TaskList {
     public void markTaskAsDone(int index, boolean done) {
         getTask(index).markTaskCompleted(done);
     }
+
+    public String getTaskListData() {
+        String data = "";
+        for (Task task : taskList) {
+            data = data.concat(task.toData() + "\n");
+        }
+        return data;
+    }
 }

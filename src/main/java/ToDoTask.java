@@ -13,6 +13,10 @@ public class ToDoTask extends Task{
         super(description);
     }
 
+    public ToDoTask(String description, Boolean done) {
+        super(description, done);
+    }
+
     /**
      * Returns the string representation of the task
      * @return The string representation of the task
@@ -20,5 +24,10 @@ public class ToDoTask extends Task{
     @Override
     public String toString() {
         return "[T]" + super.toString();
+    }
+
+    @Override
+    public String toData() {
+        return "T|" + super.toData();
     }
 }

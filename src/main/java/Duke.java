@@ -13,10 +13,12 @@ public class Duke {
     private static boolean IS_RECEIVING_INPUT = false;
     private static TaskList TASK_LIST;
     private static Scanner SCANNER;
+    private static SaveManager SAVE_MANAGER;
 
     public static void main(String[] args) {
         SCANNER = new Scanner(System.in);
         TASK_LIST = new TaskList();
+        SAVE_MANAGER = new SaveManager(TASK_LIST);
         greet();
         while (IS_RECEIVING_INPUT) {
             getUserInput();
@@ -35,6 +37,7 @@ public class Duke {
 
     private static void exit() {
         IS_RECEIVING_INPUT = false;
+        SAVE_MANAGER.saveData();
         System.out.println(SPACER);
         System.out.println("See ya later, alligator! I'm waiting here if you need anything :>");
         System.out.println(SPACER);
