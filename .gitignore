@@ -2,7 +2,7 @@
 /.idea/
 /out/
 /*.iml
-/src/main/storage/
+/data/
 
 *.class
 
@@ -18,3 +18,5 @@ bin/
 
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT
+
+/data/
