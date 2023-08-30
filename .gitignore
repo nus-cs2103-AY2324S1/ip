@@ -15,6 +15,7 @@ bin/
 
 # Local data files
 /data/savedTasks.txt
+/data/savedTasksTmp.txt
 
 /text-ui-test/ACTUAL.TXT
 /text-ui-test/ACTUAL-SAVED.TXT
