@@ -10,6 +10,9 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.util.List;
 
+/**
+ * Represents the hard disk used to store task list data.
+ */
 public class Storage {
     private String path;
 
@@ -17,6 +20,10 @@ public class Storage {
         this.path = path;
     }
 
+    /**
+     * Ensure that the hard disk is present in the file directory.
+     * Creates the file if not found
+     */
     private File createHardDisk() {
         File file = new File(this.path);
         File directory = file.getParentFile();
@@ -28,6 +35,11 @@ public class Storage {
         return file;
     }
 
+    /**
+     * Saves the {@code taskList} data to the storage file.
+     *
+     * @throws IOException if there were errors converting and/or storing data to file.
+     */
     public void saveTasksToFile(TaskList tasks) throws IOException {
         File file = createHardDisk();
 
@@ -38,6 +50,11 @@ public class Storage {
         fileWriter.close();
     }
 
+    /**
+     * Loads the {@code taskList} data from this storage file into the TaskList.
+     *
+     * @throws IOException if there were errors reading and/or converting data from file.
+     */
     public void loadTasksFromFile(TaskList tasks) throws IOException {
         File file = createHardDisk();
 
