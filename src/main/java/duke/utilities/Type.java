@@ -1,3 +1,5 @@
+package duke.utilities;
+
 /**
  * Enum class to declare types of tasks
  */

@@ -1,3 +1,5 @@
+package duke.exceptions;
+
 /**
  * Exception class that indicates the input command doesn't exist
  */

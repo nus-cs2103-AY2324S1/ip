@@ -1,3 +1,5 @@
+package duke.utilities;
+
 /**
  * Class to declare a Deadline task
  */

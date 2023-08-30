@@ -1,3 +1,5 @@
+package duke.exceptions;
+
 /**
  * Exception class that indicates the task is missing its description
  */

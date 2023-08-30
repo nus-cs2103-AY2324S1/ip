@@ -1,4 +1,6 @@
+package duke.utilities;
 import java.util.Scanner;
+import duke.exceptions.*;
 
 /**
  * Handles user interaction

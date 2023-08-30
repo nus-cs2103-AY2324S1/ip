@@ -1,3 +1,5 @@
+package duke.utilities;
+
 /**
  * Deals with making sense of user commands
  */

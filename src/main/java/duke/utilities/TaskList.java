@@ -1,9 +1,11 @@
+package duke.utilities;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+import duke.exceptions.InvalidTaskNumberException;
 
 /**
  * Contains the task list and its operations
@@ -25,8 +27,8 @@ public class TaskList {
      * Manipulates the data of existing tasks
      * Includes marking, unmarking, and deleting tasks
      * 
-     * @param command Command to be executed
-     * @param list List of tasks where task data are to be changed
+     * @param fullInput Full String input by user
+     * @param command First word of input that signifies the command to be run
      * @param beginIndex Beginning index of the command description excluding the command itself
      * @throws InvalidTaskNumberException
      */

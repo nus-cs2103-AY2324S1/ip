@@ -1,4 +1,4 @@
-import java.util.ArrayList;
+package duke.utilities;
 import java.io.Serializable;
 
 /**
@@ -55,7 +55,7 @@ public class Task implements Serializable {
      * @return the String representation of the task
      */
     public String convertToString() {
-        return "[" + this.getType().substring(0, 1) + "][" + (this.getDone() ? "X" : " ") + "] " + this.name + this.desc;
+        return "[" + this.getType().charAt(0) + "][" + (this.getDone() ? "X" : " ") + "] " + this.name + this.desc;
     }
 
     public String getName() {

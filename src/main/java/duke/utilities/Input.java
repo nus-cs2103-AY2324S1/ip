@@ -1,3 +1,5 @@
+package duke.utilities;
+
 /**
  * Deals with storing input data
  */

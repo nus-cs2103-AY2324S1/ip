@@ -1,7 +1,9 @@
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.time.format.DateTimeParseException;
-
+import java.util.ArrayList;
+import duke.utilities.*;
+import duke.exceptions.*;
 
 /**
  * The main class for Duke Chatbot

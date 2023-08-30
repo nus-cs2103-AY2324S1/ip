@@ -1,3 +1,5 @@
+package duke.exceptions;
+
 /**
  * Parent exception for all custom exceptions
  */
