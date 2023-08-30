@@ -1,15 +1,24 @@
-public class MarkCommand extends Command{
+package duke.command;
+import duke.task.Task;
+import duke.TaskList;
+import duke.Ui;
+import duke.DukeException;
+import duke.messages.ErrorMessages;
+
+import duke.command.Command;
+
+public class MarkCommand extends Command {
     protected int taskNumber;
 
     public MarkCommand(int taskNumber){
         this.taskNumber = taskNumber;
     }
 
-    public void execute(TaskList taskList, Ui ui)throws DukeException{
+    public void execute(TaskList taskList, Ui ui)throws DukeException {
         try {
             Task taskToBeMarked= taskList.getTask(this.taskNumber);
             if (taskToBeMarked.isTaskCompleted()){
-                throw new DukeException ("Task has already been marked as completed.");
+                throw new DukeException("Task has already been marked as completed.");
             }
             else {
                 taskToBeMarked.markTaskCompleted();

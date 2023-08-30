@@ -1,4 +1,6 @@
-enum ErrorMessages {
+package duke.messages;
+
+public enum ErrorMessages {
     INVALID_INPUT("I'm sorry, I don't understand this command. Did you mean to type "),
     MISSING_TASK_NUMBER("I'm sorry, you seem to have forgotten to enter the task number."),
     INVALID_TASK_NUMBER("I'm sorry, the task number you have entered a number that exceeds the size of your task list."),

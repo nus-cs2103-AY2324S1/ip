@@ -1,4 +1,9 @@
-public class AddCommand extends Command{
+package duke.command;
+import duke.task.Task;
+import duke.TaskList;
+import duke.Ui;
+
+public class AddCommand extends Command {
     protected Task taskToBeAdded ;
 
     public AddCommand(Task taskToBeAdded){

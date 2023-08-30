@@ -1,4 +1,6 @@
-enum Messages {
+package duke.messages;
+
+public enum Messages {
     INTRODUCTION("Hello! I'm Chad. \n" + "What can I do for you?"),
     LIST_COMMAND("Here are the tasks on your list: "),
     MARK_COMMAND("Nice! I've marked this task as done:"),
