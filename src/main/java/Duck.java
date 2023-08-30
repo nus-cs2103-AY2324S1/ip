@@ -1,6 +1,9 @@
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 public class Duck {
@@ -285,6 +288,7 @@ class TaskList {
                     lineCounter++;
                     continue;
                 }
+                lineCounter++;
                 history.add(fileScanner.nextLine());
             }
 
@@ -377,7 +381,7 @@ abstract class Task {
     public String toString() {
         char typeChar = this.type.toString().charAt(0);
         char done = this.isDone ? 'X' : ' ';
-        String str = "[" + typeChar + "][" + done + "] " + name + info;
+        String str = "[" + typeChar + "][" + done + "] " + name;
         return str;
     }
 }
@@ -396,29 +400,58 @@ class TodoTask extends Task {
 }
 
 class DeadlineTask extends Task {
+    LocalDate deadline;
+    String deadlineString;
+
     public DeadlineTask(String input) throws StringIndexOutOfBoundsException {
-        super(input.trim().substring(9, input.indexOf("/by") - 1), 
+        super(input.trim().substring(9, input.indexOf("/by")), 
                 false,
                 TaskType.Deadline, 
                 " (by: " + input.substring(input.indexOf("/by") + 4) + ")");
+
+        try {
+            this.deadline = LocalDate.parse(input.substring(input.indexOf("/by") + 4));
+        } catch (DateTimeParseException e) {
+            this.deadline = null;
+            this.deadlineString = " (by: " + input.substring(input.indexOf("/by") + 4) + ")";
+        }
     }
 
     public DeadlineTask(String name, boolean isDone, String info) {
         super(name,  isDone, TaskType.Deadline, info);
+        this.deadlineString = info;
+    }
+
+    @Override
+    public String toString() {
+        if (this.deadline == null) {
+            return super.toString() + this.deadlineString;
+        }
+        return super.toString() + " (by: " + this.deadline.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
     }
 }
 
 class EventTask extends Task {
+    String info;
+
     public EventTask(String input) throws StringIndexOutOfBoundsException {
-        super(input.trim().substring(6, input.indexOf("/from") - 1), 
+        super(input.trim().substring(6, input.indexOf("/from")), 
                 false,
                 TaskType.Event, 
                 " (from: " + input.substring(input.indexOf("/from") + 6, input.indexOf("/to") - 1) + 
                 " to: " + input.substring(input.indexOf("/to") + 4) + ")");
+        this.info = " (from: " + input.substring(input.indexOf("/from") + 6, input.indexOf("/to") - 1) + 
+                " to: " + input.substring(input.indexOf("/to") + 4) + ")";
     }
 
     public EventTask(String name, boolean isDone, String info) {
         super(name,  isDone, TaskType.Event, info);
+        this.info = info;
+    }
+
+    @Override
+    public String toString() {
+        return super.toString() + this.info;
     }
 }
 
