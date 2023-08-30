@@ -111,7 +111,7 @@ public class Simon {
             case EVENT:
                 String[] eventParts = inData.split("event ");
                 if (eventParts.length <= 1 || !inData.contains("/from ") || !inData.contains("/to ")) {
-                    throw new SimonException("☹ OOPS!!! The format for event is incorrect. Expected format: 'event [event description] /from [dd/mm/yyyy HHmm]] /to [dd/mm/yyyy HHmm]'.");
+                    throw new SimonException("☹ OOPS!!! The format for event is incorrect. Expected format: 'event [event description] /from [dd/mm/yyyy HHmm] /to [dd/mm/yyyy HHmm]'. The time(HHmm) is optional.");
                 }
 
                 String[] fromToParts = eventParts[1].split("/from ");
