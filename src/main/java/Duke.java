@@ -4,6 +4,9 @@ import Exception.*;
 import Helper.*;
 import Task.*;
 
+/**
+ * Represents the ChatBot the User interacts with.
+ */
 public class Duke {
     private Storage storage;
     private TaskList tasks;
@@ -15,6 +18,9 @@ public class Duke {
         tasks = new TaskList(storage.load());
     }
 
+    /**
+     * Starts the ChatBot and allows the User to start interacting with it.
+     */
     public void run() {
         ui.showWelcome();
         boolean isExit = false;

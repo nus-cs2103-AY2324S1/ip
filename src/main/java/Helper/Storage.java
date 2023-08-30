@@ -6,6 +6,9 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Represents a Storage to handle Files found in the User's local storage.
+ */
 public class Storage {
     private String filePath;
     private final String directoryPath = "./data";
@@ -14,6 +17,11 @@ public class Storage {
         this.filePath = filePath;
     }
 
+    /**
+     * Attempts to load the User's TaskList in a local .txt file into a TaskList.
+     * If no such file or path is found, a directory and .txt file will be made.
+     * @return TaskList
+     */
     public List<Task> load() {
         List<Task> list = new ArrayList<>();
         try {

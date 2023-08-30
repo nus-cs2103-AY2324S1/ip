@@ -7,8 +7,21 @@ import java.time.LocalDate;
 import Exception.*;
 import Command.*;
 
+/**
+ * Represents a Parser that takes in the User input and returns a Command object.
+ */
 public class Parser {
-    public static Command parse(String fullCommand) throws WrongUseOfCommandException, MissingIndexException, InvalidCommandException, MissingTaskException {
+    /**
+     * Takes in the input given by the User and wraps it in a Command based on the command specified.
+     * @param fullCommand
+     * @return a Command
+     * @throws WrongUseOfCommandException
+     * @throws MissingIndexException
+     * @throws InvalidCommandException
+     * @throws MissingTaskException
+     */
+    public static Command parse(String fullCommand) throws WrongUseOfCommandException, MissingIndexException,
+            InvalidCommandException, MissingTaskException {
         fullCommand = fullCommand.trim();
 
         if (fullCommand.startsWith("bye") || fullCommand.startsWith("list")) {
