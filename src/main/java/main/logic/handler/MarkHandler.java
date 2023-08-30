@@ -14,7 +14,7 @@ import java.util.Map;
  */
 public class MarkHandler implements CommandHandler {
 
-    private static final String[] ARG_ORDER = new String[]{""};
+
     // argument not expected to have prefix, just an index
 
     /**
@@ -22,8 +22,8 @@ public class MarkHandler implements CommandHandler {
      * of the marked task
      *
      * @param session     the linked KniazSession that this command is to execute in
-     * @param unnamedArgs the arguments to this command
-     * @param namedArgs
+     * @param unnamedArgs the arguments to this command, should just be the index of the task to mark
+     * @param namedArgs   the named arguments to this command, should be none
      * @return the user-facing string representation of the marked task
      * @throws KniazInvalidArgsException when the arguments are invalid, like when the index is out of bounds
      */
@@ -33,7 +33,6 @@ public class MarkHandler implements CommandHandler {
                          Map<? extends String, ? extends String> namedArgs) throws KniazInvalidArgsException {
 
 
-        // appears redundant but acts as another gatekeeper to make sure the arg syntax is right
 
         String indexAsString = unnamedArgs.get(0);
         int index = Integer.parseInt(indexAsString) - 1;

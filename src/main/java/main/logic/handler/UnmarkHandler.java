@@ -21,10 +21,11 @@ public  class UnmarkHandler implements CommandHandler {
      * Handles unmark command by un-marking specified task
      *
      * @param session     the linked KniazSession that this command is to execute in
-     * @param unnamedArgs the arguments to this command
-     * @param namedArgs
-     * @return the user-facings tring representation of the unmarked task
-     * @throws KniazInvalidArgsException when there is a problem with the arguments, like index being out of bounds
+     * @param unnamedArgs the arguments to this command, should just be index
+     * @param namedArgs  the named arguments to this command
+     * @return the user-facing string representation of the unmarked task
+     * @throws KniazInvalidArgsException when there is a problem with the arguments,
+     * like index being out of bounds/unparseable
      */
     @Override
     public String handle(KniazSession session,

@@ -11,15 +11,19 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Handles the delete command, by deleting the specified task.
+ * Class encapsulating a handler for deleting tasks from a tasklist
  */
 public class DeleteHandler implements CommandHandler {
 
-    // the expected order of arguments to this command
-    private static final String[] ARG_ORDER = new String[]{""};
 
-
-
+/**
+ * Handles deletion by deleting the task from a list, by index
+ * @param session     the linked KniazSession that this command is to execute in
+ * @param unnamedArgs the unnamed arguments to this command, should just be index of the task to be deleted
+ * @param namedArgs   Should be empty, no named arguments are taken
+ * @return the user-facing string representation of the deleted task
+ * @throws KniazInvalidArgsException if an invalid argument was given, like an inappropriate or unparseable index
+ */
     @Override
     public String handle(KniazSession session,
                          List<? extends String> unnamedArgs,

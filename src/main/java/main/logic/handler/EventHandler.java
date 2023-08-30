@@ -21,8 +21,8 @@ public class EventHandler implements CommandHandler {
      * Handles the event command by creating a new Event
      *
      * @param session     the linked KniazSession that this command is to execute in
-     * @param unnamedArgs the arguments to this command
-     * @param namedArgs
+     * @param unnamedArgs the unnamed arguments to this command, should just be the name of the Event
+     * @param namedArgs   the named arugments to this command - Should just be from and to
      * @return the user-facing string representation of the event that was created
      * @throws KniazInvalidArgsException when the arguments are invalid, like when a "/to {TIME}"is missing as an argument
      */

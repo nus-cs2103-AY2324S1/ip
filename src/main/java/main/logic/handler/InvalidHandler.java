@@ -15,12 +15,14 @@ public class InvalidHandler implements  CommandHandler{
      *
      * @param session     the linked KniazSession that this command is to execute in
      * @param unnamedArgs the arguments to this command
-     * @param namedArgs
+     * @param namedArgs   the named arugments to this command
      * @return nothing, should always throw an exception
      * @throws KniazInvalidCommandException when this is executed (i.e. always)
      */
     @Override
-    public String handle(KniazSession session, List<? extends String> unnamedArgs, Map<? extends String, ? extends String> namedArgs) throws KniazInvalidCommandException {
+    public String handle(KniazSession session,
+                         List<? extends String> unnamedArgs,
+                         Map<? extends String, ? extends String> namedArgs) throws KniazInvalidCommandException {
         throw new KniazInvalidCommandException();
         //What's inside the box? Surprise! It's an exception!
     }

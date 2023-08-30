@@ -4,7 +4,7 @@ import main.logic.command.KniazCommand;
 import ui.inputparser.InstructionType;
 
 /**
- * Handles logic of UI
+ * Class handling printing of output, including delegation of how to 'pretty' up output to user
  */
 public class KniazOutputController {
 
@@ -23,17 +23,32 @@ public class KniazOutputController {
         this.flavourer = DEFAULT_FLAVOURER;
     }
 
+    /**
+     * Prints line to output with a seperator line beneath.
+     * @param toPrint the line to print to output
+     * @return the successfully printed line
+     */
     public String printToOutput(String toPrint){
         System.out.println(toPrint);
         System.out.println(SEPERATOR);
         return toPrint;
     }
 
+    /**
+     * Prints the expected startup message to output, using same format as printToOutput
+     * @return the expected startup message
+     */
     public String printStartupMessage(){
         return printToOutput(GREETING);
     }
 
-    public  String getFlavourFor(KniazCommand command) {
+    /**
+     * Retrives the 'flavour' string for a given Command, which is defined as a string printed purely
+     * to give the chatbot more 'personality'.
+     * @param command the KniazCommand to retrieve the flavour string for
+     * @return the flavour string
+     */
+    public String getFlavourFor(KniazCommand command) {
         return this.flavourer.getFlavourFor(command.getInstruct());
     }
 }

@@ -6,6 +6,10 @@ import ui.inputparser.InstructionType;
 import java.util.EnumMap;
 import java.util.Map;
 
+/**
+ * Class storing 'flavour' strings for any given InstructionType, where 'flavour' strings are strings printed purely
+ * to give the chatbot more personality.
+ */
 public class KniazOutputFlavourer {
     private static final EnumMap<InstructionType, String> INSTRUCT_TO_FLAVOURSTRING =
             new EnumMap<>(Map.of(
@@ -19,10 +23,19 @@ public class KniazOutputFlavourer {
                     InstructionType.DELETE, "It shall be as if this task never existed :",
                     InstructionType.INVALID, "I do not recognise this command."
             ));
+
+    /**
+     * Constructor for the class
+     */
     public KniazOutputFlavourer(){
 
     }
 
+    /**
+     * Returns the appropriate flavour string
+     * @param instr the instruction to retrieve the flavour string for
+     * @return the flavour string
+     */
     public String getFlavourFor(InstructionType instr){
         return INSTRUCT_TO_FLAVOURSTRING.getOrDefault(instr, "I do not recognise this command.");
     }

@@ -5,10 +5,8 @@ import exceptions.syntax.KniazInvalidArgsException;
 import main.logic.command.CommandFactory;
 import main.logic.command.KniazCommand;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Scanner;
-import java.util.stream.Stream;
+import java.util.*;
+
 
 /**
  * Class encapsulating logic of parsing & tokenizing commands given to Kniaz
@@ -24,8 +22,6 @@ public class KniazLineParser {
      * @return the command that line represents, including the arguments
      * @throws KniazInvalidArgsException when the arguments are wrongly formatted
      */
-
-
     public  KniazCommand parseLine(String line) throws KniazInvalidArgsException {
 
 
@@ -35,9 +31,9 @@ public class KniazLineParser {
 
         InstructionType instruct = InstructionType.stringToInstrType(instructAsString);
 
-        ArrayList<String> unnamedArgs = getUnnamedArgs(lineScanner, instruct.numUnnamedArgs);
+        List<String> unnamedArgs = getUnnamedArgs(lineScanner, instruct.numUnnamedArgs);
 
-        HashMap<String,String> namedArgs = getNamedArgs(lineScanner);
+        Map<String,String> namedArgs = getNamedArgs(lineScanner);
 
 
 
@@ -55,8 +51,14 @@ public class KniazLineParser {
     private static String getInstructionString(Scanner toRead){
         return getUntilWhiteSpace(toRead);
     }
+    // on a fresh line/Scanner, it will just be until the first whitespace
 
     private static ArrayList<String> getUnnamedArgs(Scanner toRead, int numArgs){
+        // Default behaviour is to consume the first _n_ arguments as unnamed args
+        // assume they are whitespace-delimited
+        // If there is an error in this assumption, parsing will be strange,
+        // and possibly result in a thrown exception when trying to execute command
+        // But it's difficult to impossible to fully validate user input this way
         ArrayList<String> out = new ArrayList<>();
         for (int i = 0; i < numArgs; i++){
             out.add(getUntilWhiteSpace(toRead));
@@ -64,7 +66,12 @@ public class KniazLineParser {
         return out;
     }
 
-    private static HashMap<String,String> getNamedArgs(Scanner toRead){
+
+    private static Map<String,String> getNamedArgs(Scanner toRead){
+        // gets the named args, marked by '/' characters
+        // Assumes they come in key-value pairs
+        // So it assumes /from 2pm is a key value pair mapping
+        // 'from' to '2pm'
         HashMap<String,String> out = new HashMap<>();
         toRead.useDelimiter(NAMED_ARG_MARKER);
         while (toRead.hasNext()){

@@ -21,10 +21,10 @@ public  class ToDoHandler implements CommandHandler {
      * Handles todo command by making a new ToDo
      *
      * @param session     the linked KniazSession that this command is to execute in
-     * @param unnamedArgs the arguments to this command
-     * @param namedArgs
+     * @param unnamedArgs the arguments to this command, should just be name of the Task
+     * @param namedArgs   the named arguments, ignored
      * @return the user-facing string representation of the newly made Task
-     * @throws KniazInvalidArgsException
+     * @throws KniazInvalidArgsException when the name is missing
      */
     @Override
     public String handle(KniazSession session,

@@ -28,6 +28,13 @@ public abstract class CommandFactory {
                     InstructionType.INVALID, new InvalidHandler()
             ));
 
+    /**
+     * Makes a new KniazCommand from the provided instruction and arguments
+     * @param instruction the instruction type the command is to have
+     * @param unnamedArgs the unnamed arguments supplied to the commmand
+     * @param namedArgs the named arguments supplied to the command
+     * @return the KniazCommand encapsulating the instruction + arguments
+     */
     public static KniazCommand makeCommand(InstructionType instruction,
                                            List<String> unnamedArgs,
                                            Map<? extends String, ? extends  String> namedArgs){

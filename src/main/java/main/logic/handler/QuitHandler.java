@@ -18,8 +18,8 @@ public class QuitHandler implements CommandHandler{
      * Handles the bye command by instruction the session to quit
      *
      * @param session     the linked KniazSession that this command is to execute in
-     * @param unnamedArgs the arguments to this command
-     * @param namedArgs
+     * @param unnamedArgs the arguments to this command, ignored
+     * @param namedArgs   the named arguments to this command, ignored
      * @return The string displayed to the user when the session exits
      * @throws KniazInvalidArgsException when any argument is supplied
      */

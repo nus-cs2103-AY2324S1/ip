@@ -22,7 +22,7 @@ public class DeadlineHandler implements CommandHandler {
      *
      * @param session     the linked KniazSession that this command is to execute in
      * @param unnamedArgs the arguments to this command
-     * @param namedArgs
+     * @param namedArgs   the named arguments to this command
      * @return the user-facing string representation of the created Deadline
      * @throws KniazInvalidArgsException when the arguments are invalid, such as not having a "/by {TIME}" argument
      */
