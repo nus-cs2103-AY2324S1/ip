@@ -1,11 +1,11 @@
 blah
 list
 todo borrow book from the library
-deadline return book to library /by Sunday 5pm
-deadline submit homework by Sunday 7pm
-event concert /from Sunday 6pm /to Sunday 9pm
-event project meeting /from Monday 10am to Monday 11am
-event /from Monday 10am /to Monday 11am
+deadline return book to library /by 2023-04-24
+deadline submit homework by 2023-04-24
+event concert /from 2023-03-24 /to 2023-03-26
+event project meeting /from 2023-04-24 to 2023-04-25
+event /from 2023-04-24 /to 2023-04-25
 list
 mark 1
 mark 2
@@ -14,6 +14,7 @@ unmark 2
 unmark 3
 delete 1
 delete 2
+delete 1
 todo
 deadline
 event

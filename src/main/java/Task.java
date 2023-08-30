@@ -50,19 +50,6 @@ public class Task implements Serializable {
     }
 
     /**
-     * Deletes a task from the specified list
-     * 
-     * @param task Task object to be deleted
-     * @param list List of tasks
-     */
-    public static void deleteTask(Task task, ArrayList<Task> list) {
-        System.out.println("You have deleted a task:");
-        System.out.println("\t" + task.convertToString());
-        list.remove(task);
-        System.out.println("There are now " + list.size() + " tasks in the list");
-    }
-
-    /**
      * Converts the task object to a String text for display
      * 
      * @return the String representation of the task
