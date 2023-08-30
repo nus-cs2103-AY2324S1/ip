@@ -5,7 +5,7 @@ import duke.*;
 public class Parser {
 
     //use this class to process the input
-    public static Command parse(String input, TaskList lst) throws InvalidInputException {
+    public static Command parse(String input) throws InvalidInputException {
         String[] words = input.split("\\s+");
         String command = words[0];
 

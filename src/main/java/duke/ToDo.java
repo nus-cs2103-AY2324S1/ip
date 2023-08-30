@@ -28,6 +28,5 @@ public class ToDo extends Task {
         } catch (InvalidInputException e) {
             ui.printException(e.getMessage());
         }
-
     }
 }

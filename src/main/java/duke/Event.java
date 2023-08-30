@@ -11,16 +11,16 @@ public class Event extends Task {
         this.endTime = endTime;
     }
 
-    public String getDetails(String startTime, String endTime) {
+    public String getDetails() {
         return "(from: " + this.startTime + " to: " + this.endTime + ")";
     }
     @Override
     public String toString() {
-        return this.symbol + this.getCheckbox() + this.getName() + " " + this.getDetails(this.startTime, this.endTime);
+        return this.symbol + this.getCheckbox() + this.getName() + " " + this.getDetails();
     }
 
     @Override
     public String newFormat() {
-        return this.symbol + " | " + this.getInt() + " | " + this.getName() + " | " + this.getDetails(this.startTime, this.endTime);
+        return this.symbol + " | " + this.getInt() + " | " + this.getName() + " | " + this.getDetails();
     }
 }
