@@ -13,12 +13,12 @@
 	____________________________________________________________
 	____________________________________________________________
 	 Got it. I've added this task:
-	   [D][ ] return book (by: Sunday)
+	   [D][ ] return book (by: 30 Sep 2023, 1200)
 	 Now you have 2 tasks in the list.
 	____________________________________________________________
 	____________________________________________________________
 	 Got it. I've added this task:
-	   [E][ ] project meeting (from: Mon 2pm to: 4pm)
+	   [E][ ] project meeting (from: 3 Aug 2023, 1430 to: 30 Aug 2023, 1630)
 	 Now you have 3 tasks in the list.
 	____________________________________________________________
 	____________________________________________________________
@@ -27,23 +27,23 @@
 	____________________________________________________________
 	____________________________________________________________
 	 Nice! I've marked this task as done:
-	   [D][X] return book (by: Sunday)
+	   [D][X] return book (by: 30 Sep 2023, 1200)
 	____________________________________________________________
 	____________________________________________________________
 	 Here are the tasks in your list:
 	 1.[T][X] borrow book
-	 2.[D][X] return book (by: Sunday)
-	 3.[E][ ] project meeting (from: Mon 2pm to: 4pm)
+	 2.[D][X] return book (by: 30 Sep 2023, 1200)
+	 3.[E][ ] project meeting (from: 3 Aug 2023, 1430 to: 30 Aug 2023, 1630)
 	____________________________________________________________
 	____________________________________________________________
 	 OK, I've marked this task as not done yet:
-	   [D][ ] return book (by: Sunday)
+	   [D][ ] return book (by: 30 Sep 2023, 1200)
 	____________________________________________________________
 	____________________________________________________________
 	 Here are the tasks in your list:
 	 1.[T][X] borrow book
-	 2.[D][ ] return book (by: Sunday)
-	 3.[E][ ] project meeting (from: Mon 2pm to: 4pm)
+	 2.[D][ ] return book (by: 30 Sep 2023, 1200)
+	 3.[E][ ] project meeting (from: 3 Aug 2023, 1430 to: 30 Aug 2023, 1630)
 	____________________________________________________________
 	____________________________________________________________
 	 ? OOPS!!! The description of a todo cannot be empty.
@@ -67,8 +67,73 @@
 	____________________________________________________________
 	____________________________________________________________
 	 Here are the tasks in your list:
-	 1.[D][ ] return book (by: Sunday)
-	 2.[E][ ] project meeting (from: Mon 2pm to: 4pm)
+	 1.[D][ ] return book (by: 30 Sep 2023, 1200)
+	 2.[E][ ] project meeting (from: 3 Aug 2023, 1430 to: 30 Aug 2023, 1630)
+	____________________________________________________________
+	____________________________________________________________
+	 Got it. I've added this task:
+	   [D][ ] ma2001 hw (by: 3 Aug 2023, 0000)
+	 Now you have 3 tasks in the list.
+	____________________________________________________________
+	____________________________________________________________
+	 Got it. I've added this task:
+	   [D][ ] ma1521 hw (by: 3 Aug 2023, 0100)
+	 Now you have 4 tasks in the list.
+	____________________________________________________________
+	____________________________________________________________
+	 Got it. I've added this task:
+	   [E][ ] code (from: 3 Aug 2023, 0000 to: 3 Aug 2023, 0030)
+	 Now you have 5 tasks in the list.
+	____________________________________________________________
+	____________________________________________________________
+	 Got it. I've added this task:
+	   [E][ ] run (from: 3 Aug 2023, 0000 to: 3 Aug 2023, 0045)
+	 Now you have 6 tasks in the list.
+	____________________________________________________________
+	____________________________________________________________
+	 Got it. I've added this task:
+	   [E][ ] yoga (from: 3 Aug 2023, 0000 to: 3 Aug 2023, 0145)
+	 Now you have 7 tasks in the list.
+	____________________________________________________________
+	____________________________________________________________
+	 Got it. I've added this task:
+	   [E][ ] nap (from: 3 Aug 2023, 0000 to: 3 Aug 2023, 0230)
+	 Now you have 8 tasks in the list.
+	____________________________________________________________
+	____________________________________________________________
+	 Got it. I've added this task:
+	   [E][ ] dorm workshop (from: 3 Aug 2023, 0000 to: 3 Aug 2023, 0315)
+	 Now you have 9 tasks in the list.
+	____________________________________________________________
+	____________________________________________________________
+	 Got it. I've added this task:
+	   [E][ ] walk around nus (from: 3 Aug 2023, 0000 to: 3 Aug 2023, 0400)
+	 Now you have 10 tasks in the list.
+	____________________________________________________________
+	____________________________________________________________
+	 Got it. I've added this task:
+	   [E][ ] buy supper (from: 3 Aug 2023, 0000 to: 3 Aug 2023, 0445)
+	 Now you have 11 tasks in the list.
+	____________________________________________________________
+	____________________________________________________________
+	 Got it. I've added this task:
+	   [E][ ] sleep (from: 3 Aug 2023, 0000 to: 3 Aug 2023, 0530)
+	 Now you have 12 tasks in the list.
+	____________________________________________________________
+	____________________________________________________________
+	 Here are the tasks in your list:
+	 1.[D][ ] return book (by: 30 Sep 2023, 1200)
+	 2.[E][ ] project meeting (from: 3 Aug 2023, 1430 to: 30 Aug 2023, 1630)
+	 3.[D][ ] ma2001 hw (by: 3 Aug 2023, 0000)
+	 4.[D][ ] ma1521 hw (by: 3 Aug 2023, 0100)
+	 5.[E][ ] code (from: 3 Aug 2023, 0000 to: 3 Aug 2023, 0030)
+	 6.[E][ ] run (from: 3 Aug 2023, 0000 to: 3 Aug 2023, 0045)
+	 7.[E][ ] yoga (from: 3 Aug 2023, 0000 to: 3 Aug 2023, 0145)
+	 8.[E][ ] nap (from: 3 Aug 2023, 0000 to: 3 Aug 2023, 0230)
+	 9.[E][ ] dorm workshop (from: 3 Aug 2023, 0000 to: 3 Aug 2023, 0315)
+	 10.[E][ ] walk around nus (from: 3 Aug 2023, 0000 to: 3 Aug 2023, 0400)
+	 11.[E][ ] buy supper (from: 3 Aug 2023, 0000 to: 3 Aug 2023, 0445)
+	 12.[E][ ] sleep (from: 3 Aug 2023, 0000 to: 3 Aug 2023, 0530)
 	____________________________________________________________
 	____________________________________________________________
 	 Bye. Hope to see you again soon!

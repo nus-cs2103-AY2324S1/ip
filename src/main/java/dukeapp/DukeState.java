@@ -7,7 +7,9 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.Scanner;
 
@@ -17,7 +19,7 @@ import java.util.Scanner;
 public class DukeState {
     private static final String DIRECTORY_PATH = "data";
     private static final String FILE_PATH = "duke.txt";
-    private final ArrayList<Task> tasks = new ArrayList<>();
+    private final List<Task> tasks = new ArrayList<>();
 
     public DukeState() {
         this.loadTasks();
@@ -92,7 +94,7 @@ public class DukeState {
      */
     public void loadTasks() {
         initialiseStorage();
-        ArrayList<Task> tasks = new ArrayList<>();
+        List<Task> tasks = new ArrayList<>();
         String storagePath = String.format("./%s/%s", DIRECTORY_PATH,
                 FILE_PATH);
         File file = new File(storagePath);
@@ -112,8 +114,7 @@ public class DukeState {
             try {
                 Task task = Task.parse(taskCode, taskInput);
                 tasks.add(task);
-            } catch (InsufficientArgumentsException e) {
-                // Input string has insufficient arguments to create task
+            } catch (InsufficientArgumentsException | DateTimeParseException e) {
                 System.out.println(e.getMessage());
             }
         }
@@ -127,7 +128,7 @@ public class DukeState {
     public void saveTasks() {
         String storagePath = String.format("./%s/%s", DIRECTORY_PATH,
                 FILE_PATH);
-        FileWriter fw = null;
+        FileWriter fw;
         try {
             fw = new FileWriter(storagePath);
             for (Task task : this.tasks) {

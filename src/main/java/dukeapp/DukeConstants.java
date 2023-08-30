@@ -44,14 +44,14 @@ public class DukeConstants {
             " of a %s cannot be empty.";
     public static final String UNKNOWN_COMMAND_ERROR_MESSAGE = "I'm sorry, " +
             "but I don't know what that means :-(";
-
     public static final String FAILED_TO_CREATE_FILE_ERROR_MESSAGE =
             "We couldn't create a new data/duke.txt file.";
     public static final String FAILED_TO_WRITE_FILE_ERROR_MESSAGE =
             "We couldn't write to the data/duke.txt file.";
     public static final String FAILED_TO_CREATE_FOLDER_ERROR_MESSAGE =
             "We couldn't create a new data/duke.txt file.";
-
     public static final String FILE_NOT_FOUND_ERROR_MESSAGE =
             "We couldn't find the data/duke.txt file.";
+    public static final String INVALID_DATE_TIME_FORMAT =
+            "\"%s\" is not a valid date time format.";
 }
