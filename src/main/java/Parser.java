@@ -2,6 +2,9 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.Arrays;
+import java.util.Objects;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Parser {
     public void commandParser(String command, TaskList tasks) {
@@ -92,6 +95,45 @@ public class Parser {
             System.out.println(Ben.HORIZONTAL_LINE + "\n" + command + " is not a valid command" + "\n" +
                     "Please input the date in the following format: dd/mm/yyyy HHmm" + "\n" + Ben.HORIZONTAL_LINE);
         }
+    }
+
+    public boolean isEditListCommand(String message, TaskList tasks) {
+        Pattern pattern = Pattern.compile("(unmark|mark|delete)\\s*(-?\\d+)");
+        Matcher matcher = pattern.matcher(message.toLowerCase());
+
+        if (matcher.find()) {
+            // extract command
+            String command = matcher.group(1);
+
+            // extract task number
+            String TaskNumber = matcher.group(2);
+            int num = Integer.parseInt(TaskNumber) - 1;
+
+            // check whether number is valid
+            if (num < 0 || num >= tasks.size()) {
+                System.out.println(Ben.HORIZONTAL_LINE + "\n" +
+                        "Please input a valid task number" + "\n" + Ben.HORIZONTAL_LINE);
+                return true;
+            }
+
+            // if valid, mark or unmark the task
+            Task task = tasks.get(num);
+
+            if (Objects.equals(command, "mark")) {
+                task.mark();
+                System.out.println(Ben.HORIZONTAL_LINE + "\n" +
+                        "Nice! This task is completed\n" + task + "\n" + Ben.HORIZONTAL_LINE);
+            } else if ((Objects.equals(command, "delete"))) {
+                tasks.delete(tasks.get(num));
+            } else {
+                task.unmark();
+                System.out.println(Ben.HORIZONTAL_LINE + "\n" +
+                        "Okay! This task is not completed\n" + task + "\n" + Ben.HORIZONTAL_LINE);
+
+            }
+            return true;
+        }
+        return false;
     }
 
     public LocalDateTime dateTimeParser(String dateTime) throws DateTimeParseException {

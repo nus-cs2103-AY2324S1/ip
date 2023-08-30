@@ -47,7 +47,7 @@ public class Ben {
             } else if (Objects.equals(message.toLowerCase(), "list")) {
                 System.out.println(HORIZONTAL_LINE + "\n" + tasks + HORIZONTAL_LINE);
             } else {
-                if (!tasks.isEditListCommand(message)) {
+                if (!parser.isEditListCommand(message, tasks)) {
                     parser.commandParser(message, tasks);
                 }
             }
