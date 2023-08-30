@@ -19,5 +19,5 @@ text-ui-test/EXPECTED-UNIX.TXT
 # Compiled Class files
 *.class
 
-# Local Storage Data for Duke
+# Local duke.storage.Storage Data for duke.Duke
 /data/*.txt
