@@ -13,4 +13,9 @@ public class Event extends Task {
     public String toString() {
         return "[E]" + super.toString() + " (from: " + from + " to: " + to + ")";
     }
+
+    @Override
+    public String encode() {
+        return "E"+getStatusNumber()+super.description + " /from " + this.from + " /to " + this.to;
+    }
 }
