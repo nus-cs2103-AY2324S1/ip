@@ -1,3 +1,8 @@
+package duke.parser;
+
+import duke.DukeException;
+import duke.task.*;
+
 import java.time.DateTimeException;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;

@@ -1,3 +1,7 @@
+package duke.task;
+
+import duke.DukeException;
+
 import java.time.DateTimeException;
 import java.time.format.DateTimeFormatter;
 import java.time.LocalDate;
@@ -7,19 +11,19 @@ public class Event extends Task {
     private LocalDate to;
     private static String invalidDate = "Please provide dates with the following format: YYYY-MM-DD";
 
-    Event(String name, LocalDate from, LocalDate to) {
+    public Event(String name, LocalDate from, LocalDate to) {
         super(name);
         this.from = from;
         this.to = to;
     }
 
-    Event(String name, boolean isDone, LocalDate from, LocalDate to) {
+    public Event(String name, boolean isDone, LocalDate from, LocalDate to) {
         super(name, isDone);
         this.from = from;
         this.to = to;
     }
 
-    boolean isToday(String dateStr) throws DukeException {
+    public boolean isToday(String dateStr) throws DukeException {
         try {
             LocalDate date = LocalDate.parse(dateStr);
             return this.from.compareTo(date) <= 0 && date.compareTo(to) <= 0;
