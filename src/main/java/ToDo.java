@@ -1,4 +1,3 @@
-import java.util.Arrays;
 import java.util.List;
 
 public class ToDo extends Task {
@@ -10,8 +9,7 @@ public class ToDo extends Task {
         super(name, isDone);
     }
 
-    public static ToDo create(String[] queries) throws DukeException {
-        List<String> queryList = Arrays.asList(queries);
+    public static ToDo create(List<String> queryList) throws DukeException {
         if (queryList.size() < 2) {
             throw new DukeException("The description of a todo cannot be empty.");
         }

@@ -20,6 +20,10 @@ public abstract class Task {
         this.isDone = false;
     }
 
+    boolean isToday(String dateStr) throws DukeException {
+        return false;
+    }
+
     @Override
     public String toString() {
         return String.format("[%s] %s", this.isDone ? "X" : " ", this.name);

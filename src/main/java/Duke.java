@@ -1,4 +1,7 @@
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Scanner;
 
 public class Duke {
@@ -44,11 +47,12 @@ public class Duke {
         while (input.hasNextLine()) {
             response = input.nextLine();
             String[] queries = response.trim().split("\\s+");
-            if (queries[0].equals("bye")) {
+            List<String> queryList = Arrays.asList(queries);
+            if (queryList.get(0).equals("bye")) {
                 break;
             } 
             try {
-                switch (queries[0]) {
+                switch (queryList.get(0)) {
                 case "list":
                     if (tasks.size() == 0) {
                         print("There is no task in your list.");
@@ -59,9 +63,27 @@ public class Duke {
                         print(String.format("%d.%s", i + 1, tasks.get(i).toString()));
                     }
                     break;
+                case "date":
+                    if (queryList.size() < 2) {
+                        throw new DukeException("Please specify date with the following format: YYYY-MM-DD");
+                    }
+                    int idx = 0;
+                    String dmy = Deadline.convertToDMY(queryList.get(1));
+                    for (Task t: tasks) {
+                        if (t.isToday(queryList.get(1))) {
+                            if (idx == 0) {
+                                print(String.format("Here are the tasks on %s:", dmy));
+                            }
+                            print(String.format("%d.%s", ++idx, t.toString()));
+                        }
+                    }
+                    if (idx == 0) {
+                        print(String.format("There is no task on %s.", dmy));
+                    }
+                    break;
                 case "mark":
                     try {
-                        int index = Integer.parseInt(queries[1]) - 1;
+                        int index = Integer.parseInt(queryList.get(1)) - 1;
                         if (index < 0 || index >= tasks.size()) {
                             throw new DukeException("Invalid task index");
                         }
@@ -74,7 +96,7 @@ public class Duke {
                     break;
                 case "unmark":
                     try {
-                        int index = Integer.parseInt(queries[1]) - 1;
+                        int index = Integer.parseInt(queryList.get(1)) - 1;
                         if (index < 0 || index >= tasks.size()) {
                             throw new DukeException("Invalid task index");
                         }
@@ -87,7 +109,7 @@ public class Duke {
                     break;
                 case "delete":
                     try {
-                        int index = Integer.parseInt(queries[1]) - 1;
+                        int index = Integer.parseInt(queryList.get(1)) - 1;
                         if (index < 0 || index >= tasks.size()) {
                             throw new DukeException("Invalid task index");
                         }
@@ -97,13 +119,13 @@ public class Duke {
                     }
                     break;
                 case "deadline":
-                    print(addTask(Deadline.create(queries)));
+                    print(addTask(Deadline.create(queryList)));
                     break;
                 case "event":
-                    print(addTask(Event.create(queries)));
+                    print(addTask(Event.create(queryList)));
                     break;
                 case "todo":
-                    print(addTask(ToDo.create(queries)));
+                    print(addTask(ToDo.create(queryList)));
                     break;
                 default:
                     throw new DukeException("I'm sorry, but I don't know what that means :-(");

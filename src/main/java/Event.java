@@ -1,7 +1,6 @@
 import java.time.DateTimeException;
 import java.time.format.DateTimeFormatter;
 import java.time.LocalDate;
-import java.util.Arrays;
 import java.util.List;
 
 public class Event extends Task {
@@ -24,8 +23,7 @@ public class Event extends Task {
         this.to = to;
     }
 
-    public static Event create(String[] queries) throws DukeException {
-        List<String> queryList = Arrays.asList(queries);
+    public static Event create(List<String> queryList) throws DukeException {
         if (queryList.size() < 2) {
             throw new DukeException("The description of a todo cannot be empty.");
         }
@@ -62,6 +60,15 @@ public class Event extends Task {
                 throw new DukeException(invalidEndDate);
             }
             return new Event(name, from, to);
+        } catch (DateTimeException e) {
+            throw new DukeException(invalidDate);
+        }
+    }
+
+    boolean isToday(String dateStr) throws DukeException {
+        try {
+            LocalDate date = LocalDate.parse(dateStr);
+            return this.from.compareTo(date) <= 0 && date.compareTo(to) <= 0;
         } catch (DateTimeException e) {
             throw new DukeException(invalidDate);
         }

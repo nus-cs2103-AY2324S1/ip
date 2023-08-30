@@ -1,7 +1,6 @@
 import java.time.DateTimeException;
 import java.time.format.DateTimeFormatter;
 import java.time.LocalDate;
-import java.util.Arrays;
 import java.util.List;
 
 public class Deadline extends Task {
@@ -19,8 +18,7 @@ public class Deadline extends Task {
         this.deadline = deadline;
     }
 
-    public static Deadline create(String[] queries) throws DukeException {
-        List<String> queryList = Arrays.asList(queries);
+    public static Deadline create(List<String> queryList) throws DukeException {
         if (queryList.size() < 2) {
             throw new DukeException("The description of a todo cannot be empty.");
         }
@@ -46,6 +44,24 @@ public class Deadline extends Task {
         try {
             LocalDate deadline = LocalDate.parse(deadlineString);
             return new Deadline(name, deadline);
+        } catch (DateTimeException e) {
+            throw new DukeException(invalidDate);
+        }
+    }
+
+    public static String convertToDMY(String dateStr) throws DukeException {
+        try {
+            LocalDate date = LocalDate.parse(dateStr);
+            return date.format(DateTimeFormatter.ofPattern("d MMM yyyy"));
+        } catch (DateTimeException e) {
+            throw new DukeException(invalidDate);
+        }
+    }
+
+    boolean isToday(String dateStr) throws DukeException {
+        try {
+            LocalDate date = LocalDate.parse(dateStr);
+            return this.deadline.compareTo(date) == 0;
         } catch (DateTimeException e) {
             throw new DukeException(invalidDate);
         }
