@@ -3,14 +3,22 @@ package ducky;
 import ducky.command.Command;
 import ducky.util.Parser;
 
+import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
+/**
+ * Represents a Ducky chatbot instance.
+ */
 public class Ducky {
 
     private final Storage storage;
     private final TaskList taskList;
     private final UserInterface ui;
 
+    /**
+     * Creates a Ducky chatbot instance with the specified file path for persistent data.
+     * @param filePath File path for persistent data to be saved in.
+     */
     public Ducky(String filePath) {
         Scanner sc = new Scanner(System.in);
         this.storage = new Storage(filePath);
@@ -18,6 +26,9 @@ public class Ducky {
         this.ui = new UserInterface(sc);
     }
 
+    /**
+     * Loads persistent cache (if available) and starts the chatbot task queue.
+     */
     public void run() {
         this.storage.load(this.taskList);
         this.ui.showWelcome();
