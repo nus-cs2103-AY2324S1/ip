@@ -1,3 +1,5 @@
+import java.time.LocalDateTime;
+
 public abstract class Task {
         protected String description;
         protected boolean isDone;
@@ -22,13 +24,7 @@ public abstract class Task {
             this.isDone = false;
         }
 
-/*        public void splitDescription() {
-            if (!isSplit) {
-                String[] splitDesc = description.split("\\s+", 2);
-                this.description = splitDesc[1];
-                isSplit = true;
-            }
-        }*/
+
 
         public abstract String saveToFileString();
 
@@ -44,19 +40,27 @@ public abstract class Task {
             boolean isDone = taskComponents[1].equals("1");
             String taskDescription = taskComponents[2];
 
-            if (taskType.equals("T")) {
-                return new ToDo(taskDescription, isDone);
-            } else if (taskType.equals("D")) {
-                String deadline = taskComponents[3];
-                Deadline newDeadlineTask = new Deadline(taskDescription, deadline, isDone);
-                return newDeadlineTask;
-            } else if (taskType.equals("E")) {
-                String eventFrom = taskComponents[3];
-                String eventTo = taskComponents[4];
-                Event newEventTask = new Event(taskDescription, eventFrom, eventTo, isDone);
-                return newEventTask;
-            } else {
-                return null;
+            try {
+                if (taskType.equals("T")) {
+                    return new ToDo(taskDescription, isDone);
+                }
+                if (taskType.equals("D")) {
+/*                    String deadline = taskComponents[3];*/
+                    LocalDateTime deadlineDateTime = DateConverter.convertToDateTime(taskComponents[3]);
+                    Deadline newDeadlineTask = new Deadline(taskDescription, deadlineDateTime, isDone);
+                    return newDeadlineTask;
+                }
+                if (taskType.equals("E")) {
+/*                    String eventFrom = taskComponents[3];
+                    String eventTo = taskComponents[4];*/
+                    LocalDateTime eventFrom = DateConverter.convertToDateTime(taskComponents[3]);
+                    LocalDateTime eventTo = DateConverter.convertToDateTime(taskComponents[4]);
+                    Event newEventTask = new Event(taskDescription, eventFrom, eventTo, isDone);
+                    return newEventTask;
+                }
+            } catch (DateTimeFormatException e) {
+                System.out.println("Error with date time format in file: " + e.getMessage());
             }
+            return null;
         }
 }

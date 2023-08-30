@@ -1,6 +1,7 @@
 import java.util.*;
 import java.io.File;
 import java.io.*;
+import java.time.LocalDateTime;
 import java.nio.file.*;
 public class Blip {
 
@@ -172,7 +173,8 @@ public class Blip {
                         }
 
                         String[] deadlineInfo = test[1].split("\\s*/by\\s*");
-                        Deadline newDeadlineTask = new Deadline(deadlineInfo[0], deadlineInfo[1], false);
+                        LocalDateTime deadlineDateTime = DateConverter.convertToDateTime(deadlineInfo[1]);
+                        Deadline newDeadlineTask = new Deadline(deadlineInfo[0], deadlineDateTime, false);
                         tasks.add(newDeadlineTask);
                         saveToFile(tasks);
                         System.out.println("Alright! I've added this task:\n " + newDeadlineTask.toString()
@@ -191,11 +193,13 @@ public class Blip {
                         }
 
                         String[] eventInfo = test[1].split(" /from | /to ");
-                        System.out.println(eventInfo[0]);
                         if (eventInfo.length < 3) {
                             throw new InvalidCommandException("!!! Your command is incomplete !!!");
                         }
-                        Event newEventTask = new Event(eventInfo[0], eventInfo[1], eventInfo[2], false);
+
+                        LocalDateTime eventFrom = DateConverter.convertToDateTime(eventInfo[1]);
+                        LocalDateTime eventTo = DateConverter.convertToDateTime(eventInfo[2]);
+                        Event newEventTask = new Event(eventInfo[0], eventFrom, eventTo, false);
                         tasks.add(newEventTask);
                         saveToFile(tasks);
                         System.out.println("Alright! I've added this task:\n " + newEventTask.toString()
@@ -250,8 +254,12 @@ public class Blip {
                         "2. event [task description] /from [start datetime] /to [end datetime]\n" +
                         "3. todo [task description].");
                 userInput = scanIn.nextLine();
-            }catch (IOException e) {
-                System.out.println("Error loading file: " + e.getMessage());
+            } catch (IOException e5) {
+                System.out.println("Error loading file: " + e5.getMessage());
+                userInput = scanIn.nextLine();
+            } catch (DateTimeFormatException e6) {
+                System.out.println("Error with date time format: " + e6.getMessage());
+                userInput = scanIn.nextLine();
             }
         }
 
