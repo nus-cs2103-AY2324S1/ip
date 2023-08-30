@@ -1,5 +1,9 @@
+import java.io.*;
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.io.Writer;
+import java.io.FileWriter;
+
 public class Duke {
 
     ArrayList<Task> list = new ArrayList<>();
@@ -41,6 +45,7 @@ public class Duke {
         res.append("Here are the tasks in your list:\n");
 
         for (int i = 0; i < list.size(); i++) {
+            
             res.append(i + 1).append(".")
                     .append(list.get(i).toString());
             if (i != list.size() - 1) res.append("\n");
@@ -88,12 +93,83 @@ public class Duke {
                 }
 
                 res = list.get(index - 1).setMarked();
+                handleChangesInFile();
 
             } catch (NumberFormatException e) {
                 throw new DukeException("Enter a valid positive integer after your markcommand!\n");
+            } catch (IOException e) {
+                throw new RuntimeException(e);
             }
         }
         return res;
+    }
+
+    /**
+     * Reads tasks from a file and processes them based on their types.
+     * The tasks are parsed and passed to respective handler methods.
+     * Handles Todo, Deadline, and Event tasks stored in the file.
+     */
+    public void handleReadAllTasksFromFile() {
+
+        try {
+            File obj = new File("./src/main/storage/duke.txt");
+        } catch(Exception e) {
+            System.out.println("Please create a folder at the specified folder : src/main/storage/duke.txt");
+        }
+
+        try {
+            File obj = new File("./src/main/storage/duke.txt");
+            Scanner reader = new Scanner(obj);
+            while (reader.hasNextLine()) {
+
+                String str = reader.nextLine();
+
+                String taskType = str.substring(3, 4);
+                String taskDescription = str.substring(9);
+                switch (taskType) {
+                    case "T": {
+                        handleTodoTask("todo " + taskDescription, "file");
+                        break;
+                    }
+                    case "D": {
+                        handleDeadlineTask("deadline " + taskDescription, "file");
+                        break;
+                    }
+                    case "E": {
+                        handleEventTask("event " + taskDescription, "file");
+                    }
+                    default:
+                }
+            }
+            reader.close();
+        }
+        catch (FileNotFoundException e) {
+            System.out.println("Please create a folder at the specified folder : src/main/storage/duke.txt");
+        }
+        catch(IOException | DukeException e){
+            System.out.println(e.getMessage());
+        }
+
+    }
+
+    /**
+     * Writes changes in the task list to the file.
+     * Each task is written as a formatted string in the file.
+     *
+     * @throws IOException If an I/O error occurs while writing to the file.
+     */
+    public void handleChangesInFile() throws IOException {
+        try {
+            Writer writer = new FileWriter("./src/main/storage/duke.txt", false);
+
+                for(int i = 0;i < list.size();i++) {
+                    writer.append("" + (i+1)).append(".").append(list.get(i).toString()).append("\n");
+                }
+
+                writer.close();
+        } catch (IOException e) {
+            throw new IOException(e.getMessage());
+        }
     }
 
     /**
@@ -136,13 +212,15 @@ public class Duke {
                     throw new DukeException("Enter umark command with positive index lesser than " + (list.size() + 1) + "\n");
                 }
                 res = list.get(index - 1).setUnmarked();
+                handleChangesInFile();
 
-            } catch (NumberFormatException e) {
+            } catch (NumberFormatException | IOException e) {
                 throw new DukeException("Enter a valid positive integer after your unmark command!\n");
             }
         }
         return res;
     }
+
 
     /**
      * Deletes a task from the task list based on the provided index.
@@ -176,10 +254,14 @@ public class Duke {
                 String removedTask = list.get(index).toString();
                 list.remove(index);
                 res = "Noted. I've removed this task: \n " + "  " + removedTask + "\n" + getTaskLeft();
+                handleChangesInFile();
             } catch (NumberFormatException e) {
                 throw new DukeException("Enter a valid positive integer after your mark/unmark command!\n");
+            } catch (IOException e) {
+                throw new RuntimeException(e);
             }
         }
+
         return res;
     }
 
@@ -190,7 +272,7 @@ public class Duke {
      * @return A message indicating the success of adding the ToDo task.
      * @throws DukeException If there's an issue with the input or task description.
      */
-    public String todoTask(String input) throws DukeException {
+    public String handleTodoTask(String input, String from) throws DukeException, IOException {
         String task = "";
 
         String[] parts = input.split(" ");
@@ -204,8 +286,14 @@ public class Duke {
         }
 
         list.add(new ToDo(task, TaskType.TODO));
-        String res = "Got it. I've added this task :\n" + list.get(list.size() - 1).toString() + "\n";
+
+        String str = list.get(list.size() - 1).toString();
+        String res = "Got it. I've added this task :\n" + str + "\n";
         res += getTaskLeft();
+
+        if(from.equals("user")) {
+            handleChangesInFile();
+        }
 
         return res;
     }
@@ -217,7 +305,7 @@ public class Duke {
      * @return A message indicating the success of adding the Deadline task.
      * @throws DukeException If there's an issue with the input, task description, or deadline.
      */
-    public String deadlineTask(String input) throws DukeException {
+    public String handleDeadlineTask(String input,String from) throws DukeException, IOException {
         String task = "";
         String by = "";
 
@@ -245,8 +333,13 @@ public class Duke {
 
         list.add(new Deadline(task, by, TaskType.DEADLINE));
 
-        String res = "Got it. I've added this task :\n" + list.get(list.size() - 1).toString() + "\n";
+        String str = list.get(list.size() - 1).toString();
+        String res = "Got it. I've added this task :\n" + str + "\n";
         res += getTaskLeft();
+
+        if(from.equals("user")) {
+            handleChangesInFile();
+        }
 
         return res;
     }
@@ -258,10 +351,10 @@ public class Duke {
      * @return A message indicating the success of adding the Event task.
      * @throws DukeException If there's an issue with the input, task description, or event timings.
      */
-    public String eventTask(String input) throws DukeException {
+    public String handleEventTask(String input,String from) throws DukeException, IOException {
         String task = "";
-        String from = "";
-        String to = "";
+        String start = "";
+        String end = "";
 
         String[] parts = input.split(" ");
 
@@ -275,9 +368,9 @@ public class Duke {
                 startFound = false;
                 endFound = true;
             } else if (startFound) {
-                from += parts[i] + " ";
+                start += parts[i] + " ";
             } else if (endFound) {
-                to += parts[i] + " ";
+                end += parts[i] + " ";
             } else {
                 task += parts[i] + " ";
             }
@@ -287,14 +380,19 @@ public class Duke {
             throw new DukeException("No description specified la dei!! How to do work when no work is said!! Enter again!\n");
         }
 
-        if (from.isEmpty() || to.isEmpty()) {
+        if (start.isEmpty() || end.isEmpty()) {
             throw new DukeException("event task must have both /from and /to times\n");
         }
 
-        list.add(new Event(task, from, to, TaskType.EVENT));
+        list.add(new Event(task, start, end, TaskType.EVENT));
 
-        String res = "Got it. I've added this task :\n" + list.get(list.size() - 1).toString() + "\n";
+        String str = list.get(list.size() - 1).toString();
+        String res = "Got it. I've added this task :\n" + str + "\n";
         res += getTaskLeft();
+
+        if(from.equals("user")) {
+            handleChangesInFile();
+        }
 
         return res;
     }
@@ -321,15 +419,15 @@ public class Duke {
                 } else if (userInput.startsWith("list")) {
                     System.out.println(divider + getAllToDo() + "\n" + divider);
                 } else if (userInput.startsWith("todo")) {
-                    System.out.println(divider + todoTask(userInput) + "\n" + divider);
+                    System.out.println(divider + handleTodoTask(userInput, "user") + "\n" + divider);
                 } else if (userInput.startsWith("deadline")) {
-                    System.out.println(divider + deadlineTask(userInput) + "\n" + divider);
+                    System.out.println(divider + handleDeadlineTask(userInput, "user") + "\n" + divider);
                 } else if (userInput.startsWith("event")) {
-                    System.out.println(divider + eventTask(userInput) + "\n" + divider);
+                    System.out.println(divider + handleEventTask(userInput, "user") + "\n" + divider);
                 } else {
                     throw new InvalidInputExpression("Invalid input!! Specify commands as list, mark, unmark, or deadline, event and todo followed by the task please la dei!\n");
                 }
-            } catch (DukeException | InvalidInputExpression e) {
+            } catch (DukeException | InvalidInputExpression | IOException e) {
                 System.out.println(e.getMessage());
             }
         }
@@ -340,6 +438,7 @@ public class Duke {
         Duke duke = new Duke();
 
         System.out.println(duke.greet);
+        duke.handleReadAllTasksFromFile();
         duke.handleUserInput();
         System.out.println(duke.exit);
     }
