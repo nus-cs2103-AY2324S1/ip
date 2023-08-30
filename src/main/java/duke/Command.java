@@ -1,3 +1,5 @@
+package duke;
+
 public enum Command {
     MARK("mark"),
     UNMARK("unmark"),
