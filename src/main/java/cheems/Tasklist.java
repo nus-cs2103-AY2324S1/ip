@@ -148,10 +148,9 @@ public class Tasklist {
 
     /**
      * Finds and Print the tasks with corresponding keyword in their description.
-     * @param args The array of strings that represents the keyword we need to search for.
+     * @param search The array of strings that represents the keyword we need to search for.
      */
-    public static void find(String[] args) {
-        String search = String.join(" ", args);
+    public static void find(String search) {
         ArrayList<Task> tempList = new ArrayList<>();
         int a = 1;
         String resp = "";

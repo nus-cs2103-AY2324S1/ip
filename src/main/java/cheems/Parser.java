@@ -36,18 +36,19 @@ public class Parser {
                     throw new EmptyArgumentException(currentKey.toString());
                 }
 
+                String args = words[1];
                 // if there are indeed arguments provided
                 switch (currentKey) {
                     case FIND:
-                        Tasklist.find(Arrays.copyOfRange(words, 1, words.length));
+                        Tasklist.find(args);
                         break;
                     case MARK:
                         // Fallthrough
                     case UNMARK:
                         // Fallthrough
                     case DELETE:
-                        if (words[1].chars().allMatch(Character::isDigit)) {
-                            int index = Integer.parseInt(words[1]);
+                        if (args.chars().allMatch(Character::isDigit)) {
+                            int index = Integer.parseInt(args);
                             if (currentKey == Keyword.MARK) {
                                 Tasklist.markAsDone(index - 1);
                             } else if (currentKey == Keyword.UNMARK) {
@@ -62,18 +63,18 @@ public class Parser {
                         }
 
                     case TODO:
-                        Tasklist.addSaveTask("TODO", words[1]);
+                        Tasklist.addSaveTask("TODO", args);
                         break;
                     case EVENT:
-                        words = words[1].split(" /from ");
+                        words = args.split(" /from ");
                         String eventDescription = words[0];
-                        words = words[1].split(" /to ");
+                        words = args.split(" /to ");
                         String from = words[0];
                         String to = words[1];
                         Tasklist.addSaveTask("EVENT", eventDescription, from, to);
                         break;
                     case DEADLINE:
-                        words = words[1].split(" /by ");
+                        words = args.split(" /by ");
                         String ddlDescription = words[0];
                         String by = words[1];
                         Tasklist.addSaveTask("DEADLINE", ddlDescription, by);
