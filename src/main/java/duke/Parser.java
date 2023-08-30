@@ -11,6 +11,7 @@ public class Parser {
         if (s.length() >= 4) {
             check1 = str.substring(0, 4);
             if (check1.equals("todo")) return check1;
+            if (check1.equals("find")) return check1;
         }
         if (s.length() >= 8) {
             check2 = str.substring(0, 8);

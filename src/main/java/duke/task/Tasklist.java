@@ -126,6 +126,20 @@ public class Tasklist {
         }
     }
 
+    public String find(String arg) {
+        StringBuilder s = new StringBuilder();
+        int i = 1;
+        for (Task task : this.todolist) {
+            if (task.find(arg)) {
+                s.append(i++);
+                s.append(". ");
+                s.append(task.toString());
+                s.append("\n");
+            }
+        }
+        return s.toString();
+    }
+
     @Override
     public String toString() {
         StringBuilder s = new StringBuilder();

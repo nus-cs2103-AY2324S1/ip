@@ -51,4 +51,9 @@ public class Ui {
         System.out.println(t.toString());
     }
 
+    public static void find(String s) {
+        System.out.println("Here are the matching tasks in your list:");
+        System.out.println(s);
+    }
+
 }
