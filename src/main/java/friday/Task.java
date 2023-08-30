@@ -1,7 +1,7 @@
 package friday;
 
 /**
- * Represents a task in the Duke application.
+ * Represents a task in the Friday application.
  */
 public class Task {
     protected String name;

@@ -10,27 +10,53 @@ public class Ui {
         System.out.println("Bye. Hope to see you again soon!");
     }
 
+    /**
+     * Prints the tasks currently in the task list.
+     *
+     * @param taskList The list of tasks.
+     */
     public void listTasks(TaskList taskList) {
         System.out.println("Here are the tasks in your list:");
         System.out.println(taskList);
     }
 
+    /**
+     * Notifies the user that a task has been marked as not done.
+     */
     public void unmark() {
         System.out.println("Nice! I've marked this task as not done yet:");
     }
 
+    /**
+     * Notifies the user that a task has been marked as done.
+     */
     public void mark() {
         System.out.println("Nice! I've marked this task as done:");
     }
 
+    /**
+     * Displays a message related to the task list.
+     *
+     * @param taskList The list of tasks.
+     */
     public void taskListMessage(TaskList taskList) {
         taskList.message();
     }
 
+    /**
+     * Notifies the user that a task has been added.
+     *
+     * @param taskType The type of task that was added.
+     */
     public void addTask(Task taskType) {
         System.out.println("added: " + taskType);
     }
 
+    /**
+     * Displays an error message when loading tasks fails.
+     *
+     * @param e The exception containing the error message.
+     */
     public void showLoadingError(FridayException e) {
         System.out.println(e.getMessage());
     }

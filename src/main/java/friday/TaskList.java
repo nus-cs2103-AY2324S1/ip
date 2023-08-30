@@ -3,7 +3,7 @@ package friday;
 import java.util.ArrayList;
 
 /**
- * Represents a list of tasks in the Duke application.
+ * Represents a list of tasks in the Friday application.
  */
 public class TaskList {
     private ArrayList<Task> taskList = new ArrayList<>();

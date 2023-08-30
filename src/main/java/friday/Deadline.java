@@ -7,7 +7,7 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * Represents an deadline task in the Duke application.
+ * Represents a deadline task in Friday.
  */
 public class Deadline extends Task {
     protected String by;
@@ -24,6 +24,12 @@ public class Deadline extends Task {
         this.by = by;
     }
 
+    /**
+     * Formats the deadline string
+     *
+     * @return Formatted date string in the format "MMM d yyyy".
+     * @throws DateTimeParseException if the provided deadline cannot be parsed.
+     */
     private String toDate() {
         //Solution below inspired by https://www.baeldung.com/java-datetimeformatter
         List<String> validPatterns = Arrays.asList("M/d/yyyy", "MM-dd-yyyy", "yyyy/MM/dd");
