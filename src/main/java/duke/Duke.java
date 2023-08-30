@@ -54,6 +54,6 @@ public class Duke {
      * @param args empty String array
      */
     public static void main(String[] args) {
-        new Duke("data/tasks.txt").run();
+        new Duke(Storage.relativePath + "\\TaskList.txt").run();
     }
 }
