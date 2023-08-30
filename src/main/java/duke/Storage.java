@@ -1,12 +1,12 @@
 package duke;
 
-import duke.Exceptions.DukeException;
-import duke.Exceptions.InvalidDateFormatException;
-import duke.Exceptions.InvalidInputException;
-import duke.Tasks.Deadline;
-import duke.Tasks.Event;
-import duke.Tasks.Task;
-import duke.Tasks.Todo;
+import duke.exceptions.DukeException;
+import duke.exceptions.InvalidDateFormatException;
+import duke.exceptions.InvalidInputException;
+import duke.tasks.Deadline;
+import duke.tasks.Event;
+import duke.tasks.Task;
+import duke.tasks.Todo;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -23,15 +23,15 @@ import java.util.Scanner;
  * The Storage class handles loading and saving tasks from/to a file.
  */
 public class Storage {
-    private String filePath;
-
+    private final String FILEPATH;
     /**
      * Constructs a Storage instance with the specified file path.
      *
-     * @param filePath The file path to store task data.
+     * @param FILEPATH The file path to store task data.
      */
-    public Storage(String filePath) {
-        this.filePath = filePath;
+
+    public Storage(String FILEPATH){
+        this.FILEPATH = FILEPATH;
     }
 
     /**
@@ -42,7 +42,7 @@ public class Storage {
     public List<Task> load() {
         List<Task> list = new ArrayList<>();
         try {
-            File f = new File(filePath);
+            File f = new File(FILEPATH);
             Files.createDirectories(Paths.get("data"));
             f.createNewFile();
             Scanner s = new Scanner(f);
@@ -98,7 +98,7 @@ public class Storage {
      */
     public void save(TaskList tasks) {
         try {
-            FileWriter fw = new FileWriter(filePath);
+            FileWriter fw = new FileWriter(FILEPATH);
             for (int i = 0; i < tasks.list.size(); i++) {
                 fw.write(tasks.list.get(i).toSave() + "\n");
             }

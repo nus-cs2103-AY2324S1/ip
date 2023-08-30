@@ -1,6 +1,5 @@
 package duke;
-
-import duke.Exceptions.DukeException;
+import duke.exceptions.DukeException;
 
 /**
  * Main class for the Duke application.
@@ -14,11 +13,12 @@ public class Duke {
     /**
      * Constructs a Duke instance with the specified file path.
      *
-     * @param filePath The file path for storing task data.
+     * @param FILEPATH file path for storing task data.
      */
-    public Duke(String filePath) {
+
+    public Duke(String FILEPATH) {
         ui = new UI();
-        storage = new Storage(filePath);
+        storage = new Storage(FILEPATH);
         tasks = new TaskList(storage.load());
     }
 

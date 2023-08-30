@@ -1,10 +1,10 @@
 package duke;
 
-import duke.Exceptions.*;
-import duke.Tasks.Deadline;
-import duke.Tasks.Event;
-import duke.Tasks.Task;
-import duke.Tasks.Todo;
+import duke.exceptions.*;
+import duke.tasks.Deadline;
+import duke.tasks.Event;
+import duke.tasks.Task;
+import duke.tasks.Todo;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -47,7 +47,7 @@ public class TaskList {
             throw new OutOfIndexException();
         }
         Task curr = list.get(item);
-        curr.mark();
+        curr.setMark(true);
         System.out.println("I HAVE MARKED THIS TASK:");
         System.out.println(curr);
     }
@@ -64,7 +64,7 @@ public class TaskList {
             throw new OutOfIndexException();
         }
         Task curr = list.get(item);
-        curr.unmark();
+        curr.setMark(false);
         System.out.println("I HAVE UNMARKED THIS TASK:");
         System.out.println(curr);
     }

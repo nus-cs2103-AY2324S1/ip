@@ -1,4 +1,4 @@
-package duke.Exceptions;
+package duke.exceptions;
 
 /**
  * Custom exception class for out-of-index task access in the Duke application.
@@ -12,5 +12,6 @@ public class OutOfIndexException extends DukeException {
      */
     public OutOfIndexException() {
         super("You have provided a number out of index of the stored tasks");
+
     }
 }
