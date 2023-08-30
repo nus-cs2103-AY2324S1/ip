@@ -176,7 +176,8 @@ public class Duke {
 
                     if (name.equals("") || by.equals("")) {
                         // No name or deadline
-                        throw new DukeException("Please include name and deadline! (`deadline name /by date`)");
+                        throw new DukeException("Please include name and deadline!"
+                                + "(`deadline name /by date (in yyyy-mm-dd)`)");
                     }
 
                     addTask(new Deadline(name, by));

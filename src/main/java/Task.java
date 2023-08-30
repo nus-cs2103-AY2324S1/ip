@@ -1,3 +1,6 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 public abstract class Task {
     private String name;
     private boolean isDone;
@@ -16,7 +19,11 @@ public abstract class Task {
         if (type.equals("T")) {
             task = new ToDo(splitEntry[2].trim());
         } else if (type.equals("D")) {
-            task = new Deadline(splitEntry[2].trim(), splitEntry[3].trim());
+            String parsedBy = splitEntry[3].trim(); // in MMM d yyyy
+            LocalDate byDate = LocalDate.parse(parsedBy, DateTimeFormatter.ofPattern("MMM d yyyy"));
+            String by = byDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")); // in yyyy-mm-dd
+
+            task = new Deadline(splitEntry[2].trim(), by);
         } else if (type.equals("E")) {
             task = new Event(splitEntry[2].trim(), splitEntry[3].trim(), splitEntry[4].trim());
         } else {
