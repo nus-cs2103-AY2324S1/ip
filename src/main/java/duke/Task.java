@@ -29,7 +29,7 @@ public abstract class Task {
      * Constructor for the task class.
      * Tasks are initialised as not done.
      *
-     * @param name Name fo the task.
+     * @param name Name of the task.
      */
     public Task(String name) {
         this.taskName = name;
