@@ -24,4 +24,9 @@ public class Deadline extends Task{
     public String toString() {
         return String.format("[D]%s (by: %s)", super.toString(), this.by);
     }
+
+    @Override
+    public String generateSaveString() {
+        return String.format("D | %b | %s /by %s", isDone, name, by);
+    }
 }
