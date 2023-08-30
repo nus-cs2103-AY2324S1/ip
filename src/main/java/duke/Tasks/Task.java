@@ -12,7 +12,8 @@ public abstract class Task {
     /**
      * Constructs a new Task object with a title.
      *
-     * @param title The title of the task.
+     * @param title    The title of the task.
+     * @param isMarked The marking status of the task.
      */
     public Task(String title, boolean isMarked) {
         this.title = title;
@@ -33,10 +34,20 @@ public abstract class Task {
         this.isMarked = false;
     }
 
+    /**
+     * Retrieves the marking status of the task.
+     *
+     * @return True if the task is marked as completed, false otherwise.
+     */
     public boolean getIsMarked() {
         return this.isMarked;
     }
 
+    /**
+     * Retrieves the title of the task.
+     *
+     * @return The title of the task.
+     */
     public String getTitle() {
         return this.title;
     }
@@ -52,6 +63,10 @@ public abstract class Task {
         return mark + title;
     }
 
+    /**
+     * Generates a formatted string to represent the Task object for saving.
+     *
+     * @return A formatted string for saving the Task object.
+     */
     public abstract String toSave();
 }
-

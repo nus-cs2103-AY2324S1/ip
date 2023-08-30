@@ -19,9 +19,10 @@ public class Event extends Task {
     /**
      * Constructs a new Event object with a title, start date, and end date.
      *
-     * @param title  The title of the event task.
-     * @param from   The start date of the event.
-     * @param to     The end date of the event.
+     * @param title    The title of the event task.
+     * @param from     The start date of the event.
+     * @param to       The end date of the event.
+     * @param isMarked The marking status of the event.
      */
     public Event(String title, LocalDateTime from, LocalDateTime to, boolean isMarked) {
         super(title, isMarked);
@@ -43,6 +44,12 @@ public class Event extends Task {
         String mark = super.isMarked ? "[X] " : "[ ] ";
         return "[E]" + mark + title + " (from: " + this.printFromString + " to: " + this.printToString + ")";
     }
+
+    /**
+     * Generates a formatted string to represent the Event object for saving.
+     *
+     * @return A formatted string for saving the Event object.
+     */
     @Override
     public String toSave() {
         String res = "E";
@@ -53,9 +60,20 @@ public class Event extends Task {
         return res;
     }
 
+    /**
+     * Retrieves the start date of the event.
+     *
+     * @return The start date of the event.
+     */
     public LocalDateTime getFrom() {
         return this.from;
     }
+
+    /**
+     * Retrieves the end date of the event.
+     *
+     * @return The end date of the event.
+     */
     public LocalDateTime getTo() {
         return to;
     }
