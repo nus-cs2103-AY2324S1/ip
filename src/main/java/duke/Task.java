@@ -12,7 +12,7 @@ public abstract class Task {
     /**
      * boolean to track whether the task has been marked as done
      */
-    private boolean done;
+    private boolean isDone;
 
     private static final String DATETIME_OUTPUT_FORMAT = "dd-MM-yyyy HH:mm";
     public static final DateTimeFormatter dateTimeOutputFormatter = DateTimeFormatter.ofPattern(DATETIME_OUTPUT_FORMAT);
@@ -23,20 +23,20 @@ public abstract class Task {
      */
     public Task(String name) {
         this.taskName = name;
-        this.done = false;
+        this.isDone = false;
     }
 
     public void markAsDone() {
-        this.done = true;
+        this.isDone = true;
     }
 
     public void markAsUndone() {
-        this.done = false;
+        this.isDone = false;
     }
 
     @Override
     public String toString() {
-        if (this.done) {
+        if (this.isDone) {
             return "[X] " + taskName;
         } else {
             return "[ ] " + taskName;
@@ -46,7 +46,7 @@ public abstract class Task {
     public abstract String toSaveStateString();
 
     public boolean getDone() {
-        return this.done;
+        return this.isDone;
     }
 
     public String getTaskName() {
