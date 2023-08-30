@@ -27,7 +27,7 @@ public abstract class Task {
         return(isDone ? "X" : " "); // mark done task with X
     }
 
-    // Mark a task as done.
+    // Mark a task as done
     public void markAsDone() {
         this.isDone = true;
     }
@@ -53,4 +53,11 @@ public abstract class Task {
      * @return the string representation in file format
      */
     abstract String toFileFormat();
+
+    /**
+     * Return the type of the task.
+     *
+     * @return the type of the task
+     */
+    abstract String getTaskType();
 }

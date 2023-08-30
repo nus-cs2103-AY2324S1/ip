@@ -42,5 +42,15 @@ public class Deadline extends Task {
     public String toFileFormat() {
         return "D | " + this.isDone + " | " + this.description + " | " + this.by.format(formatter);
     }
+
+    /**
+     * Return the task type.
+     *
+     * @return the task type
+     */
+    @Override
+    public String getTaskType() {
+        return "deadline";
+    }
 }
 
