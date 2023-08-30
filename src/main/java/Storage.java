@@ -2,14 +2,12 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.nio.file.Files;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
-public class SaveManager {
+public class Storage {
     private TaskList taskList;
-    public SaveManager(TaskList taskList) {
+    public Storage(TaskList taskList) {
         this.taskList = taskList;
         initialize();
     }
