@@ -2,7 +2,10 @@ package ducky;
 
 import ducky.task.DeadlineTask;
 import ducky.task.EventTask;
+import ducky.task.Task;
 import ducky.task.TodoTask;
+import ducky.util.DuckyFileParseException;
+import ducky.util.Parser;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -33,35 +36,13 @@ public class Storage {
             File f = new File(this.filePath);
             Scanner s = new Scanner(f);
             while (s.hasNext()) {
-                String[] line = s.nextLine().trim().split(" \\| ");
-                boolean taskIsDone = line[1].equals("1");
-                switch (line[0]) {
-                    case "T":
-                        TodoTask newTodo = new TodoTask(line[2]);
-                        if (taskIsDone) {
-                            newTodo.complete();
-                        }
-                        taskList.addTask(newTodo);
-                        break;
-                    case "D":
-                        LocalDate deadline = LocalDate.parse(line[3]);
-                        DeadlineTask newDeadline = new DeadlineTask(line[2], deadline);
-                        if (taskIsDone) {
-                            newDeadline.complete();
-                        }
-                        taskList.addTask(newDeadline);
-                        break;
-                    case "E":
-                        EventTask newEvent = new EventTask(line[2], line[3], line[4]);
-                        if (taskIsDone) {
-                            newEvent.complete();
-                        }
-                        taskList.addTask(newEvent);
-                        break;
-                }
+                Task parsedTask = Parser.parseSavedTask(s.nextLine());
+                taskList.addTask(parsedTask);
             }
         } catch (FileNotFoundException e) {
-            System.out.println("ducky.task.Task file not created yet.");
+            System.out.println("No task file found. No tasks were loaded.");
+        } catch (DuckyFileParseException e) {
+            System.out.println(e.getMessage());
         }
     }
 }

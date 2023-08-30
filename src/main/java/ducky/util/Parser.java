@@ -2,7 +2,7 @@ package ducky.util;
 
 import ducky.command.DuckyInvalidCommandException;
 import ducky.command.DuckyInvalidCommandFormatException;
-import ducky.task.TaskType;
+import ducky.task.*;
 import ducky.command.*;
 
 import java.time.LocalDate;
@@ -101,5 +101,36 @@ public class Parser {
 
     public static LocalDate parseDate(String date) throws DateTimeParseException {
         return LocalDate.parse(date);
+    }
+
+    public static Task parseSavedTask(String line) throws DateTimeParseException, DuckyFileParseException {
+        String[] lineParts = line.trim().split(" \\| ");
+        if (lineParts.length < 3) {
+            throw new DuckyFileParseException();
+        }
+        boolean taskIsDone = lineParts[1].equals("1");
+
+        Task parsedTask;
+
+        switch (lineParts[0]) {
+        case "T":
+            parsedTask = new TodoTask(lineParts[2]);
+            break;
+        case "D":
+            LocalDate deadline = Parser.parseDate(lineParts[3]);
+            parsedTask = new DeadlineTask(lineParts[2], deadline);
+            break;
+        case "E":
+            parsedTask = new EventTask(lineParts[2], lineParts[3], lineParts[4]);
+            break;
+        default:
+            throw new DuckyFileParseException();
+        }
+
+        if (taskIsDone) {
+            parsedTask.complete();
+        }
+
+        return parsedTask;
     }
 }
