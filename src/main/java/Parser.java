@@ -1,5 +1,7 @@
 import exceptions.*;
 
+import java.util.Arrays;
+
 public class Parser {
     public static void parseAndExecute(String input) {
         if (!input.isEmpty()) {
@@ -10,6 +12,7 @@ public class Parser {
                 throw new InvalidKeywordException();
             }
 
+            // extract command as the first word
             Keyword currentKey = Keyword.valueOf(words[0].toUpperCase());
             if (currentKey == Keyword.LIST) {
                 Tasklist.displayData();
@@ -20,7 +23,11 @@ public class Parser {
                     throw new EmptyArgumentException(currentKey.toString());
                 }
 
+                // if there are more arguments
                 switch (currentKey) {
+                    case FIND:
+                        Tasklist.find(Arrays.copyOfRange(words, 1, words.length));
+                        break;
                     case MARK:
                     case UNMARK:
                     case DELETE:
