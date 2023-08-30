@@ -8,9 +8,19 @@ import ui.inputparser.InstructionType;
  */
 public class KniazOutputController {
 
+
     private static final String GREETING = "Hello from KNIAZ";
     private static final String SEPERATOR = "_".repeat(20);
+
+    private static final KniazOutputFlavourer DEFAULT_FLAVOURER = new KniazOutputFlavourer();
+
+    private KniazOutputFlavourer flavourer;
+
+    /**
+     * Constructor for KniazOutputController
+     */
     public KniazOutputController() {
+        this.flavourer = DEFAULT_FLAVOURER;
     }
 
     public String printToOutput(String toPrint){
@@ -23,5 +33,7 @@ public class KniazOutputController {
         return printToOutput(GREETING);
     }
 
-
+    public  String getFlavourFor(KniazCommand command) {
+        return this.flavourer.getFlavourFor(command.getInstruct());
+    }
 }

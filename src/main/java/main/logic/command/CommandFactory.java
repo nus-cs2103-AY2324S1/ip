@@ -33,9 +33,9 @@ public abstract class CommandFactory {
                                            Map<? extends String, ? extends  String> namedArgs){
 
 
-        CommandHandler handler = INSTRUCT_TO_HANDLER.get(instruction);
+        CommandHandler handler = INSTRUCT_TO_HANDLER.getOrDefault(instruction, new InvalidHandler());
 
-        return new KniazCommand(handler, unnamedArgs, namedArgs);
+        return new KniazCommand(instruction, handler, unnamedArgs, namedArgs);
 
         // Guaranteed at this point command is valid
 

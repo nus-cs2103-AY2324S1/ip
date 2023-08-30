@@ -24,6 +24,7 @@ public class KniazInputController {
 
 
 
+
     public KniazCommand nextLine(){
         return readCommand(input.nextLine());
     }

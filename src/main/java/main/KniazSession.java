@@ -66,7 +66,8 @@ public class KniazSession {
         while (isRunning){
             KniazCommand nextCommand = inputController.nextLine();
             String feedback = nextCommand.execute(this);
-            outputController.printToOutput(feedback);
+            String flavour = outputController.getFlavourFor(nextCommand);
+            outputController.printToOutput(flavour + '\n' + feedback);
             try {
                 saver.save(this.taskList);
             } catch (Exception e) {
