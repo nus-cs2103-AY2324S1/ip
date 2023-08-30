@@ -23,6 +23,9 @@ public class Adam {
      */
     protected Scanner scaner = new Scanner(System.in);
 
+    /**
+     * This method reads from a file in the harddisk and puts an array inside the arraylist variable from it
+     */
     public void read() {
         try {
             ObjectInputStream in = new ObjectInputStream(new FileInputStream(path.toFile()));
@@ -36,6 +39,9 @@ public class Adam {
 
     }
 
+    /**
+     * This method writes an array into a file in the harddisk
+     */
     public  void write() {
         try {
             ObjectOutputStream ob = new ObjectOutputStream(new FileOutputStream(path.toFile()));
@@ -47,6 +53,9 @@ public class Adam {
         }
     }
 
+    /**
+     * This method is used to create or read a file when first starting the program
+     */
     public void initialize() {
         if(directoryExists) {
             read();
