@@ -1,4 +1,4 @@
-package Jarvis;
+package jarvis;
 
 import command.Parser;
 import services.Ui;
@@ -51,7 +51,7 @@ public class Jarvis {
     public Jarvis(String dataFilePath) {
         ui = new Ui();
         try {
-            taskList = new TaskList(dataFilePath);
+            taskList = new TaskList(dataFilePath, ui);
             parser = new Parser(taskList);
         } catch (JarvisException e) {
             ui.print(e.toString());
