@@ -1,8 +1,14 @@
-package simon;
+package simon.command;
+
+import simon.SimonException;
+import simon.task.Task;
+import simon.task.ToDo;
+import simon.task.Deadline;
+import simon.task.Event;
 
 public class Parser {
 
-    enum Command {
+    public enum Command {
         TODO, DEADLINE, EVENT, LIST, MARK, UNMARK, DELETE, BYE, UNKNOWN
     }
 

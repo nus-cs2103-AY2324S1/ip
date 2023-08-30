@@ -1,13 +1,16 @@
-package simon;
+package simon.task;
+
+import simon.SimonException;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+
 public class Event extends Task {
 
-    protected LocalDateTime startDateTime;
-    protected LocalDateTime endDateTime;
+    public LocalDateTime startDateTime;
+    public LocalDateTime endDateTime;
     private static final DateTimeFormatter INPUT_FORMATTER = DateTimeFormatter.ofPattern("d/M/yyyy[ HHmm]");
     private static final DateTimeFormatter OUTPUT_FORMATTER = DateTimeFormatter.ofPattern("MMM dd yyyy, h:mm a");
 
