@@ -1,16 +1,10 @@
 package duke;
 
 import java.util.Scanner;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 import duke.parser.Parser;
-import duke.storage.*;
+import duke.storage.Storage;
 import duke.task.ItemList;
 import duke.ui.UI;
-import duke.task.deadline.DeadlineException;
-import duke.task.event.EventException;
-import duke.task.todo.ToDoException;
 
 
 /**
