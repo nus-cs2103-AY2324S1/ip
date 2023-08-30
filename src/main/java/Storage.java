@@ -3,10 +3,15 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.io.FileWriter;
 import java.util.Scanner;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.time.temporal.ChronoUnit;
 
 public class Storage {
     Scanner sc;
     Ui ui;
+    DateTimeFormatter fileFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
 
     public Storage(Ui ui) {
         sc = new Scanner(System.in);
@@ -19,32 +24,12 @@ public class Storage {
         try {
             File taskFile = new File("tasks.txt");
             Scanner taskScanner = new Scanner(taskFile);
+            Parser parser = new Parser(ui);
 
             while (taskScanner.hasNextLine()) {
                 String task = taskScanner.nextLine();
-                String[] taskComponents = task.split(" \\| ");
-                String taskType = taskComponents[0];
-                boolean taskStatus = taskComponents[1].equals("1");
-                String taskDescription = taskComponents[2];
-                switch (taskType) {
-                    case "T":
-                        ToDo todoTask = new ToDo(taskDescription);
-                        todoTask.changeStatus(taskStatus);
-                        list.add(todoTask);
-                        break;
-                    case "D":
-                        String deadlineDate = taskComponents[3];
-                        Deadline deadlineTask = new Deadline(taskDescription, deadlineDate);
-                        deadlineTask.changeStatus(taskStatus);
-                        list.add(deadlineTask);
-                        break;
-                    case "E":
-                        String[] taskDates = taskComponents[3].split(" - ");
-                        Event event = new Event(taskDescription, taskDates[0], taskDates[1]);
-                        event.changeStatus(taskStatus);
-                        list.add(event);
-                        break;
-                }
+                Task newTask = parser.parseFileTask(task);
+                list.add(newTask);
             }
 
             taskScanner.close();

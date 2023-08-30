@@ -22,3 +22,17 @@ src/main/java/Event.class
 src/main/java/ToDo.class
 src/main/java/tasks.txt
 src/main/java/Ui.class
+src/main/java/InvalidCommand.class
+src/main/java/ByeCommand.class
+src/main/java/Command.class
+src/main/java/Command$CommandType.class
+src/main/java/DeadlineCommand.class
+src/main/java/DeleteCommand.class
+src/main/java/EventCommand.class
+src/main/java/MarkCommand.class
+src/main/java/ListCommand.class
+src/main/java/Parser.class
+src/main/java/Storage.class
+src/main/java/ToDoCommand.class
+src/main/java/UnmarkCommand.class
+src/main/java/Storage.class

@@ -22,23 +22,19 @@ Congratulations, your pile of tasks has swelled to a whopping 1.
 
 ____________________________________________________________
 
+Text 'deadlineDate' could not be parsed at index 0
 
 ____________________________________________________________
 
-With your constant mediocrity, it is entirely unlikely that you will be able to meet this deadline I have just added: 
-
-[D][ ] Deadline1 (by: deadlineDate)
-Congratulations, your pile of tasks has swelled to a whopping 2.
+Do not test my patience, mortal. Speak clearly.
 
 ____________________________________________________________
 
+Text 'startTime' could not be parsed at index 0
 
 ____________________________________________________________
 
-Looks like I will have to slow time down myself if you wish to make it to this event I just added:
-
-[E][ ] Event1 (from: startTime to endTime)
-Congratulations, your pile of tasks has swelled to a whopping 3.
+Do not test my patience, mortal. Speak clearly.
 
 ____________________________________________________________
 
@@ -47,12 +43,7 @@ ____________________________________________________________
 
 You have somehow found the audacity to conjure up this laughable list of inconsequential endeavours:
 
-
-____________________________________________________________
-
 1. [T][ ] ToDo1
-2. [D][ ] Deadline1 (by: deadlineDate)
-3. [E][ ] Event1 (from: startTime to endTime)
 
 ____________________________________________________________
 
@@ -70,81 +61,37 @@ ____________________________________________________________
 
 You have somehow found the audacity to conjure up this laughable list of inconsequential endeavours:
 
-
-____________________________________________________________
-
 1. [T][X] ToDo1
-2. [D][ ] Deadline1 (by: deadlineDate)
-3. [E][ ] Event1 (from: startTime to endTime)
 
 ____________________________________________________________
 
-
-____________________________________________________________
-
-Astonishingly enough, you have managed to triumph over this mind-bogglingly simple task:
-
-[D][X] Deadline1 (by: deadlineDate)
-
-____________________________________________________________
-
+You have no such task, mortal.
 
 ____________________________________________________________
 
 You have somehow found the audacity to conjure up this laughable list of inconsequential endeavours:
 
-
-____________________________________________________________
-
 1. [T][X] ToDo1
-2. [D][X] Deadline1 (by: deadlineDate)
-3. [E][ ] Event1 (from: startTime to endTime)
 
 ____________________________________________________________
 
-
-____________________________________________________________
-
-Astonishingly enough, you have managed to triumph over this mind-bogglingly simple task:
-
-[E][X] Event1 (from: startTime to endTime)
-
-____________________________________________________________
-
+You have no such task, mortal.
 
 ____________________________________________________________
 
 You have somehow found the audacity to conjure up this laughable list of inconsequential endeavours:
 
-
-____________________________________________________________
-
 1. [T][X] ToDo1
-2. [D][X] Deadline1 (by: deadlineDate)
-3. [E][X] Event1 (from: startTime to endTime)
 
 ____________________________________________________________
 
-
-____________________________________________________________
-
-In a stunning twist, this task remains untouched by the hands of progress:
-
-[T][ ] ToDo1
-
-____________________________________________________________
-
+You have no such task, mortal.
 
 ____________________________________________________________
 
 You have somehow found the audacity to conjure up this laughable list of inconsequential endeavours:
 
-
-____________________________________________________________
-
-1. [T][ ] ToDo1
-2. [D][X] Deadline1 (by: deadlineDate)
-3. [E][X] Event1 (from: startTime to endTime)
+1. [T][X] ToDo1
 
 ____________________________________________________________
 
