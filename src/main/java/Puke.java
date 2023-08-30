@@ -1,10 +1,14 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.*;
 
 public class Puke {
     public static String separator = "____________________________________________________________";
     public static String errorMessage = "Unfortunately, the circumstances preceding this has necessitated that I issue and apology for the input that I have received is unrecognised.";
     public static ArrayList<Task> list = new ArrayList<Task>(100);
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
                 + "| |_| | | | | |/ / _ \\\n"
@@ -15,6 +19,11 @@ public class Puke {
         System.out.println("Salutations! I hereby would like to inform you that my identity is that of\n" + logo +
                 "\nAn exceedingly verbose conversation simulation program.");
         System.out.println(separator);
+        try {
+            list = DataHandler.loadDatabase();
+        } catch (Exception FileNotFoundException) {
+            new File("ListData.txt").createNewFile();
+        }
         while (true) {
             String command = sc.next();
             System.out.println(separator);
@@ -56,6 +65,7 @@ public class Puke {
                 System.out.println("I have been made aware of your desire to indicate that the task numbered " + index +
                         " has been since been achieved as of the time at which you hve stipulated as so.");
                 System.out.println(separator);
+                DataHandler.writeToDatabase(list);
             } else if (command.equals("unmark")) {
                 int index = sc.nextInt();
                 if (!sc.nextLine().isEmpty()) {
@@ -72,11 +82,13 @@ public class Puke {
                 System.out.println("Very well. I have acknowledged your request to unmark the task of specified index as having been completed and\n" +
                         "will now proceed to set said task of specified index to be considered as having not yet been completed.");
                 System.out.println(separator);
+                DataHandler.writeToDatabase(list);
             } else if (command.equals("todo")) {
                 try {
                     list.add(new ToDo(sc.nextLine()));
                 } catch (Exception e) {
                     System.out.println(errorMessage);
+                    System.out.println(separator);
                     continue;
                 }
                 System.out.println("Understood. I have hereby created a task known to require doing at a future time but with no such time being specified and inserted it into " +
@@ -84,11 +96,13 @@ public class Puke {
                         "Here is a display of the added deadline task: " + list.get(list.size() - 1) + "\n" +
                         "You now, in total, have " + list.size() + " of these tasks recorded within said collection.");
                 System.out.println(separator);
+                DataHandler.writeToDatabase(list);
             } else if (command.equals("deadline")) {
                 try {
                     list.add(new Deadline(sc.nextLine().split("/")));
                 } catch (Exception e) {
                     System.out.println(errorMessage);
+                    System.out.println(separator);
                     continue;
                 }
                 System.out.println("Understood. I have hereby created a task known to require doing at a future time alongside the stipulated time that you have indicated and inserted it into " +
@@ -96,11 +110,13 @@ public class Puke {
                         "Here is a display of the added deadline task: " + list.get(list.size() - 1) + "\n" +
                         "You now, in total, have " + list.size() + " of these tasks recorded within said collection.");
                 System.out.println(separator);
+                DataHandler.writeToDatabase(list);
             } else if (command.equals("event")) {
                 try {
                     list.add(new Event(sc.nextLine().split("/")));
                 } catch (Exception e) {
                     System.out.println(errorMessage);
+                    System.out.println(separator);
                     continue;
                 }
                 System.out.println("Understood. I have hereby created a task known to require doing for a set period of time alongside this stipulated duration that you have indicated and inserted it into " +
@@ -108,6 +124,7 @@ public class Puke {
                         "Here is a display of the added deadline task: " + list.get(list.size() - 1) + "\n" +
                         "You now, in total, have " + list.size() + " of these tasks recorded within said collection.");
                 System.out.println(separator);
+                DataHandler.writeToDatabase(list);
             } else if (command.equals("delete")) {
                 Task hold;
                 try {
@@ -128,6 +145,7 @@ public class Puke {
                         "The task in question that has been deleted is: " + hold + "\n" +
                         "As of this current moment, there are a total of " + list.size() + " occurrences of tasks in your list.");
                 System.out.println(separator);
+                DataHandler.writeToDatabase(list);
             } else {
                 System.out.println("Unfortunately, the circumstances preceding this has necessitated that I issue and apology for the input that I have received is unrecognised.");
                 System.out.println(separator);
@@ -164,7 +182,7 @@ class Task {
         if (this.done) {
             checked = 1;
         }
-        return String.format("%s|%d|%s", this.tag, checked , this.description);
+        return String.format("%s/%d/%s", this.tag, checked , this.description);
     }
 
     @Override
@@ -173,7 +191,7 @@ class Task {
         if (done) {
             status = "[X]";
         }
-        return String.format("%s%s %s", this.tag, status, this.description);
+        return String.format("%s%s%s", this.tag, status, this.description);
     }
 }
 
@@ -200,13 +218,13 @@ class Deadline extends Task {
     public static Deadline construct(String desc, String date) throws PukeException {
         String[] container = new String[2];
         container[0] = desc;
-        container[1] = "by: " + date;
+        container[1] = "by " + date;
         return new Deadline(container);
     }
 
     @Override
     public String write() {
-        return super.write() + this.date;
+        return super.write() + "/" + this.date;
     }
 
     public String toString() {
@@ -231,14 +249,14 @@ class Event extends Task {
     public static Event construct(String desc, String from, String to) throws PukeException {
         String[] container = new String[3];
         container[0] = desc;
-        container[1] = "from: " + from;
-        container[2] = "to: " + to;
+        container[1] = "from " + from;
+        container[2] = "to " + to;
         return new Event(container);
     }
 
     @Override
     public String write() {
-        return super.write() + this.from + "|" + this.to;
+        return super.write() + "/" + this.from + "/" + this.to;
     }
 
     public String toString() {
@@ -255,13 +273,13 @@ class PukeException extends Exception {
 
 class DataHandler {
     public static Task translate(String input) throws PukeException {
-        String[] split = input.split("|");
+        String[] split = input.split("/");
         Task output;
-        if (split[0].equals("T")) {
+        if (split[0].equals("[T]")) {
             output = new ToDo(split[2]);
-        } else if (split[0].equals("D")) {
+        } else if (split[0].equals("[D]")) {
             output = Deadline.construct(split[2], split[3]);
-        } else if (split[0].equals("E")) {
+        } else if (split[0].equals("[E]")) {
             output = Event.construct(split[2], split[3], split[4]);
         } else {
             throw new PukeException();
@@ -275,6 +293,30 @@ class DataHandler {
             throw new PukeException();
         }
 
+        return output;
+    }
+
+    public static void writeToDatabase(ArrayList<Task> taskList) throws IOException {
+        FileWriter fw = new FileWriter("ListData.txt");
+        StringBuilder output = new StringBuilder();
+        for (Task item:taskList) {
+            output.append(item.write()).append("\n");
+        }
+        fw.write(output.toString());
+        fw.close();
+    }
+
+    public static ArrayList<Task> loadDatabase() throws FileNotFoundException {
+        Scanner sc = new Scanner(new File("ListData.txt"));
+        System.out.println("File loaded");
+        ArrayList<Task> output = new ArrayList<Task>();
+        while (sc.hasNext()) {
+            try {
+                output.add(DataHandler.translate(sc.nextLine()));
+            } catch (Exception PukeException) {
+                continue;
+            }
+        }
         return output;
     }
 }
