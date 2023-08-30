@@ -6,9 +6,15 @@ public class Duke {
     private static final String LINE_SEPARATOR = "____________________________________________________________";
 
     public static void main(String[] args) {
+        TaskList taskList = new TaskList();
+        try {
+            taskList.loadTasksFromFile("./data/duke.txt");
+        } catch (IOException e) {
+            System.out.println("Error loading tasks from file: " + e.getMessage());
+        }
+
         printWithSeparator("Hello! I'm David.\nWhat can I do for you?");
 
-        TaskList taskList = new TaskList();
         Scanner sc = new Scanner(System.in);
         while (sc.hasNext()) {
             try {
