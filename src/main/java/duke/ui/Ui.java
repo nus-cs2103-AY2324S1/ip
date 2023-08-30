@@ -104,5 +104,9 @@ public class Ui {
         System.out.println(LINE);
     }
 
+    public void printFindMessage() {
+        System.out.println(LINE);
+        System.out.println("Here are the matching tasks in your list:");
+    }
     
 }
