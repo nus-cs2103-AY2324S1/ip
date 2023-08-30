@@ -1,3 +1,7 @@
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class TaskList {
@@ -78,6 +82,51 @@ public class TaskList {
         }
         System.out.println(LINE_SEPARATOR);
     }
+
+    public void saveTasksToFile(String filePath) throws IOException {
+        FileWriter fileWriter = new FileWriter(filePath);
+
+        for (Task task : tasks) {
+            fileWriter.write(task.toFileString() + "\n");
+        }
+
+        fileWriter.close();
+    }
+
+    public void loadTasksFromFile(String filePath) throws IOException {
+        BufferedReader reader = new BufferedReader(new FileReader(filePath));
+        String line;
+
+        while ((line = reader.readLine()) != null) {
+            String[] parts = line.split(" \\| ");
+            String taskType = parts[0];
+            boolean isDone = parts[1].equals("X");
+            String taskDescription = parts[2];
+
+            Task task;
+
+            if (taskType.equals("T")) {
+                task = new ToDoTask(taskDescription);
+            } else if (taskType.equals("D")) {
+                String deadline = parts[3];
+                task = new DeadlineTask(taskDescription, deadline);
+            } else if (taskType.equals("E")) {
+                String from = parts[3];
+                String to = parts[4];
+                task = new EventTask(taskDescription, from, to);
+            } else {
+                throw new IOException("Invalid task type found in file.");
+            }
+
+            if (isDone) {
+                task.markAsDone();
+            }
+            tasks.add(task);
+        }
+
+        reader.close();
+    }
+
 
     private void printWithSeparator(String message) {
         System.out.println(LINE_SEPARATOR);

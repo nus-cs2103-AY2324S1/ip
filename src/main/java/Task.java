@@ -1,3 +1,5 @@
+import java.io.IOException;
+
 public abstract class Task {
     private String name;
     private boolean isDone;
@@ -21,6 +23,10 @@ public abstract class Task {
 
     public String getDescription() {
         return "[" + this.getStatusIcon() + "] " + this.name;
+    }
+
+    public String toFileString() {
+        return this.getStatusIcon() + " | " + this.name;
     }
 
     public String toString() {

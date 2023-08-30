@@ -1,3 +1,5 @@
+import java.io.File;
+import java.io.IOException;
 import java.util.Scanner;
 
 
@@ -5,9 +7,40 @@ public class Duke {
     private static final String LINE_SEPARATOR = "____________________________________________________________";
 
     public static void main(String[] args) {
-        printWithSeparator("Hello! I'm David.\nWhat can I do for you?");
+        String directoryPath = "./data";
+        File directory = new File(directoryPath);
+
+        if (!directory.exists()) {
+            if (directory.mkdirs()) {
+                System.out.println("Directory created: " + directory.getAbsolutePath());
+            } else {
+                System.out.println("Failed to create directory.");
+            }
+        }
+
+        String filePath = "./data/duke.txt";
+        File file = new File(filePath);
+        if (!file.exists()) {
+            try {
+                if (file.createNewFile()) {
+                    System.out.println("File created: " + file.getAbsolutePath());
+                } else {
+                    System.out.println("Failed to create file.");
+                }
+            } catch (IOException e) {
+                System.out.println("Error creating file: " + e.getMessage());
+            }
+        }
 
         TaskList taskList = new TaskList();
+        try {
+            taskList.loadTasksFromFile("./data/duke.txt");
+        } catch (IOException e) {
+            System.out.println("Error loading tasks from file: " + e.getMessage());
+        }
+
+        printWithSeparator("Hello! I'm David.\nWhat can I do for you?");
+
         Scanner sc = new Scanner(System.in);
         while (sc.hasNext()) {
             try {
@@ -32,6 +65,11 @@ public class Duke {
                     taskList.deleteTask(index);
                 } else {
                     throw new DukeException(messageWithSeparator("☹ OOPS!!! I'm sorry, but I don't know what that means :-("));
+                }
+                try {
+                    taskList.saveTasksToFile("./data/duke.txt");
+                } catch (IOException e) {
+                    System.out.println("Error saving tasks to file: " + e.getMessage());
                 }
             } catch (DukeException e) {
                 System.out.println(e.getMessage());
