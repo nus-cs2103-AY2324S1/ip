@@ -4,8 +4,6 @@ import main.java.Task;
 import main.java.tasklist.TaskList;
 import main.java.ui.Ui;
 
-;
-
 public class DeleteCommand extends Command {
     private int deleteTaskIndex;
 

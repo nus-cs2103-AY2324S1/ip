@@ -20,6 +20,13 @@ public class Deadline extends Task {
         super(description);
         this.byDate = LocalDate.parse(by);
     }
+    /**
+     * Constructs a Deadline object with the specified description and deadline time.
+     *
+     * @param description The description of the deadline task.
+     * @param by          The due date/time for the deadline task.
+     * @param bool        The completion status for the deadline task.
+     */
     public Deadline(String description, String by, Boolean bool) {
         super(description, bool);
         this.byDate = LocalDate.parse(by);
@@ -32,6 +39,11 @@ public class Deadline extends Task {
         return "[D]" + super.toString() + " (by: " + tmp.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
     }
 
+    /**
+     * Returns a string representation of the task's description and completion status for saving.
+     *
+     * @return A formatted string containing completion status and description.
+     */
     @Override
     public String getSaveDescription() {
         String tmp = "D " + super.getSaveDescription() + " | " + this.byDate + "\n";
