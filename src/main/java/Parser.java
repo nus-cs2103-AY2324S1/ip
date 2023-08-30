@@ -2,40 +2,25 @@ import java.util.ArrayList;
 public class Parser {
     public Parser() {
     }
-    public void parse(String s, ArrayList<SingleTask> taskList) throws DukeException {
+    public void parse(String s, TaskList taskList) throws DukeException {
         if (s.matches(".*\\bdelete\\b.*")) {
             String[] parts = s.split(" ");
             if (parts.length < 2) {
                 throw new DukeException("Boy ah need to know which one u want delete eh.");
             }
             int number = Integer.parseInt(parts[1]);
-            if (number - 1 >=  taskList.size()) {
-                throw new DukeException("Boy ah cannot delete a task you dont have eh.");
-            }
-            SingleTask task = taskList.get(number - 1);
-            System.out.println(task.remove());
-            taskList.remove(number - 1);
-            System.out.println(String.format("Got %d task in list boy", taskList.size()));
+            taskList.deleteTask(number);
+            System.out.println(String.format("Got %d task in list boy", taskList.taskList.size()));
         } else if (s.equals("list")) {
-            if (taskList.size() == 0) {
-                System.out.println("No tasks here ah boy");
-            } else {
-                System.out.println("Here are your tasks ah boy:");
-                for (int i = 0; i < taskList.size(); i++) {
-                    SingleTask task = taskList.get(i);
-                    System.out.println((i + 1) + task.listString());
-                }
-            }
+            taskList.list();
         } else if (s.matches(".*\\bmark\\b.*")) {
             String[] parts = s.split(" ");
             int number = Integer.parseInt(parts[1]);
-            SingleTask task = taskList.get(number - 1);
-            task.mark();
+            taskList.mark(number);
         } else if (s.matches(".*\\bunmark\\b.*")) {
             String[] parts = s.split(" ");
             int number = Integer.parseInt(parts[1]);
-            SingleTask task = taskList.get(number - 1);
-            task.unmark();
+            taskList.unmark(number);
         } else if (s.matches("(?i)^\\s*(todo|event|deadline)\\b.*")) {
             String[] parts = s.split(" ", 2);
             String TypeOfEvent = parts[0].toLowerCase();
@@ -45,10 +30,7 @@ public class Parser {
                         throw new DukeException("Boy ah todo need description eh.");
                     }
                     String content = parts[1];
-                    SingleTask taskT = new ToDo(content);
-                    taskList.add(taskT);
-                    System.out.println(taskT.toString());
-                    System.out.println(String.format("Got %d task in list boy", taskList.size()));
+                    taskList.createToDo(content);
                     break;
                 case "deadline":
                     if (parts.length < 2) {
@@ -58,10 +40,7 @@ public class Parser {
                     if (part.length < 2) {
                         throw new DukeException("BOY AH The deadline need to write a /by time!!");
                     }
-                    SingleTask taskD = new Deadline(part[0], part[1]);
-                    taskList.add(taskD);
-                    System.out.println(taskD.toString());
-                    System.out.println(String.format("Got %d task in list boy", taskList.size()));
+                    taskList.createDeadline(part[0], part[1]);
                     break;
                 case "event":
                     if (parts.length < 2) {
@@ -73,10 +52,7 @@ public class Parser {
                     }
                     String from = strarray[1].replace("from", "").trim();
                     String to = strarray[2].replace("to", "").trim();
-                    SingleTask taskE = new Event(strarray[0], from, to);
-                    taskList.add(taskE);
-                    System.out.println(taskE.toString());
-                    System.out.println(String.format("Got %d task in list boy", taskList.size()));
+                    taskList.createEvent(strarray[0], from, to);
                     break;
                 default:
             }
