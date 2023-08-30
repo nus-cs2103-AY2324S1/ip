@@ -1,3 +1,5 @@
+package duke.core;
+
 public class DukeException extends Exception {
     private static final String ANSI_RED = "\u001B[31m";
     private static final String ANSI_RESET = "\u001B[0m";
