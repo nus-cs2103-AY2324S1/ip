@@ -48,4 +48,14 @@ public class TaskList {
         this.taskNum -= 1;
         store.saveTasks(this.tasks);
     }
+
+    public void findTasks(String keyword) {
+        ArrayList<Task> foundTasks = new ArrayList<Task>();
+        for (Task tsk : this.tasks) {
+            if (tsk.getDesc().contains(keyword)) {
+                foundTasks.add(tsk);
+            }
+        }
+        Ui.findTasks(foundTasks);
+    }
 }

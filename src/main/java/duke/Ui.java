@@ -2,6 +2,7 @@ package duke;
 
 import duke.task.Task;
 import duke.task.TaskList;
+import java.util.ArrayList;
 
 public class Ui {
 
@@ -44,6 +45,13 @@ public class Ui {
         showLine();
         System.out.println("No existing tasks, creating new task list...");
         showLine();
+    }
+
+    public static void findTasks(ArrayList<Task> tasks) {
+        System.out.println(" Here are the matching tasks in your list:");
+        for (int i = 0; i < tasks.size(); i++) {
+            System.out.println(" " + (i + 1) + "." + tasks.get(i).toString());
+        }
     }
 
     public static void listTasks(TaskList taskList) {
