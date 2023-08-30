@@ -1,6 +1,8 @@
 package command;
 
+import dukeExceptions.LoadException;
 import task.ListOfTask;
+import dukeExceptions.DukeException;
 import ui.Ui;
 
 import java.time.LocalDateTime;
@@ -36,50 +38,90 @@ public class Commands {
         return this.state;
     }
 
-    public int execute(ListOfTask taskList, Ui ui) {
-        switch (this.state) {
+    public int execute(ListOfTask taskList, Ui ui, int lineNumber, String error) {
+        boolean load = true;
+        if (lineNumber == 0 && error == null) {
+            load = false;
+        }
+        try {
+            switch (this.state) {
 
-        case BYE:
-            ui.exit();
-            return 0;
+            case BYE:
+                ui.exit();
+                return 0;
 
-        case LIST:
-            taskList.listTasks();
-            break;
+            case LIST:
+                taskList.listTasks();
+                break;
 
-        case TODO:
-            taskList.addTask(this.name);
-            break;
+            case TODO:
+                if (!load) {
+                    taskList.addTask(this.name, true);
+                } else {
+                    taskList.addTask(this.name, false);
+                }
+                break;
 
-        case FIND:
-            //taskList.find(this.name);
-            break;
+            case FIND:
+                //taskList.find(this.name);
+                break;
 
-        case SORT:
-            break;
+            case SORT:
+                break;
 
-        case MARK:
-            taskList.mark(this.index);
-            break;
+            case MARK:
+                if (!load) {
+                    taskList.mark(this.index, true);
+                } else {
+                    taskList.mark(this.index, false);
+                }
+                break;
 
-        case UNMARK:
-            taskList.unMark(this.index);
-            break;
+            case UNMARK:
+                if (!load) {
+                    taskList.unMark(this.index, true);
+                } else {
+                    taskList.unMark(this.index, false);
+                }
+                break;
 
-        case DELETE:
-            taskList.delete(this.index);
-            break;
+            case DELETE:
+                if (!load) {
+                    taskList.delete(this.index, true);
+                } else {
+                    taskList.delete(this.index, false);
+                }
+                break;
 
-        case UNKNOWN:
-            System.out.println("Unknown Command");
-            break;
+            case UNKNOWN:
+                throw new DukeException("line corrupted");
+
+            default:
+                throw new DukeException("line corrupted " + this.state + " is not a primary command");
+            }
+        } catch (DukeException e) {
+            System.out.println(new LoadException(e.getMessage(), lineNumber, error).getMessage());
         }
         return 1;
     }
 
     public boolean compareTime(Commands c) {
-        if (this.dateTime.compareTo(c.dateTime) < 0) {
+        if (this.dateTime.isBefore(c.dateTime)) {
             return true;
+        }
+        return false;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj instanceof Commands) {
+            Commands b = (Commands) obj;
+            if (b.state == this.state && b.dateTime == this.dateTime && b.index == this.index && b.name == this.name) {
+                return true;
+            }
         }
         return false;
     }
@@ -97,15 +139,38 @@ public class Commands {
             super(command,str);
             this.secondaryCommand = secondaryCommand;
         }
+
         @Override
-        public int execute(ListOfTask taskList, Ui ui) {
+        public int execute(ListOfTask taskList, Ui ui, int lineNumber, String error) {
+            boolean load = true;
+            if (lineNumber == 0 && error == null) {
+                load = false;
+            }
             switch (super.state) {
 
             case DEADLINE:
-                taskList.addTask(super.name,this.secondaryCommand.dateTime);
+                if (!load) {
+                    taskList.addTask(super.name, this.secondaryCommand.dateTime, true);
+                } else {
+                    taskList.addTask(super.name, this.secondaryCommand.dateTime, false);
+                }
                 break;
             }
             return 1;
+        }
+
+        @Override
+        public boolean equals(Object obj) {
+            if (this == obj) {
+                return true;
+            }
+            if (obj instanceof Commands.TwoCommands) {
+                Commands.TwoCommands b = (Commands.TwoCommands) obj;
+                if (super.equals(b) && b.state2 == this.state2 && this.name2.equals(b.name2) && this.secondaryCommand.equals(b.secondaryCommand)) {
+                    return true;
+                }
+            }
+            return false;
         }
     }
 
@@ -131,14 +196,37 @@ public class Commands {
         }
 
         @Override
-        public int execute(ListOfTask taskList, Ui ui) {
+        public int execute(ListOfTask taskList, Ui ui, int lineNumber, String error) {
+            boolean load = true;
+            if (lineNumber == 0 && error == null) {
+                load = false;
+            }
             switch (super.state) {
 
             case EVENT:
-                taskList.addTask(super.name, this.phaseTwo.dateTime, this.phaseThree.dateTime);
+                if (!load) {
+                    taskList.addTask(super.name, this.phaseTwo.dateTime, this.phaseThree.dateTime, true);
+                } else {
+                    taskList.addTask(super.name, this.phaseTwo.dateTime, this.phaseThree.dateTime, false);
+                }
                 break;
             }
             return 1;
+        }
+
+        public boolean equals(Object obj) {
+            if (this == obj) {
+                return true;
+            }
+            if (obj instanceof Commands.ThreeCommands) {
+                Commands.ThreeCommands b = (Commands.ThreeCommands) obj;
+                if (super.equals(b) && b.state2 == this.state2 && this.name2.equals(b.name2)
+                        && b.state3 == this.state3 && this.name3.equals(b.name3)
+                        && this.phaseTwo.equals(b.phaseTwo) && this.phaseThree.equals(b.phaseThree)) {
+                    return true;
+                }
+            }
+            return false;
         }
     }
 }

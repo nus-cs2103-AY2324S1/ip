@@ -1,6 +1,7 @@
 package duke;
 
 import command.Commands;
+import dukeExceptions.DukeException;
 import parser.Parser;
 import storage.Storage;
 import task.ListOfTask;
@@ -18,7 +19,7 @@ public class Duke {
     }
 
     private static void greet() {
-        if (!Storage.load(taskList)) {
+        if (!Storage.load(taskList, 1)) {
             return;
         }
         ui.greet();
@@ -26,9 +27,14 @@ public class Duke {
     }
 
     protected static void nextCommand(String command) {
-        Parser cmd = new Parser(command);
-        Commands action = cmd.parse();
-        if (action.execute(taskList, ui) == 1) {
+        try {
+            Parser cmd = new Parser(command);
+            Commands action = cmd.parse();
+            if (action.execute(taskList, ui, 0, null) == 1) {
+                nextCommand(ui.nextInput());
+            }
+        } catch (DukeException e) {
+            System.out.println(e.getMessage());
             nextCommand(ui.nextInput());
         }
     }

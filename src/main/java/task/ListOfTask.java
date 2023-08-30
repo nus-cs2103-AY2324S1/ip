@@ -1,5 +1,7 @@
 package task;
 
+import dukeExceptions.DukeException;
+import dukeExceptions.LoadException;
 import storage.Storage;
 
 import java.time.LocalDateTime;
@@ -12,40 +14,32 @@ public class ListOfTask {
         return listOfTask.size();
     }
 
-    public void addTask(String task) {
+    public void addTask(String task, boolean print) {
         Task temp = new Task.ToDos(task);
         listOfTask.add(temp);
-        System.out.println("added: " + temp);
-        Storage.save(listOfTask);
+        if (print) {
+            System.out.println("added: " + temp);
+            Storage.save(listOfTask);
+        }
     }
 
-    public void addTask(String task, LocalDateTime dayDate) {
+
+    public void addTask(String task, LocalDateTime dayDate, boolean print) {
         Task temp = new Task.Deadlines(task, dayDate);
         listOfTask.add(temp);
-        System.out.println("added: " + temp);
-        Storage.save(listOfTask);
+        if (print) {
+            System.out.println("added: " + temp);
+            Storage.save(listOfTask);
+        }
     }
 
-    public void addTask(String task, LocalDateTime startDayDateTime, LocalDateTime endDayDateTime) {
+    public void addTask(String task, LocalDateTime startDayDateTime, LocalDateTime endDayDateTime, boolean print) {
         Task temp = new Task.Event(task, startDayDateTime, endDayDateTime);
         listOfTask.add(temp);
-        System.out.println("added: " + temp);
-        Storage.save(listOfTask);
-    }
-
-    public void loadTask(String task) {
-        Task temp = new Task.ToDos(task);
-        listOfTask.add(temp);
-    }
-
-    public void loadTask(String task, LocalDateTime dayDate) {
-        Task temp = new Task.Deadlines(task, dayDate);
-        listOfTask.add(temp);
-    }
-
-    public void loadTask(String task, LocalDateTime startDayDateTime, LocalDateTime endDayDateTime) {
-        Task temp = new Task.Event(task, startDayDateTime, endDayDateTime);
-        listOfTask.add(temp);
+        if (print) {
+            System.out.println("added: " + temp);
+            Storage.save(listOfTask);
+        }
     }
 
     public void listTasks() {
@@ -59,37 +53,39 @@ public class ListOfTask {
         );
     }
 
-    public void mark(int index) {
+    public void mark(int index, boolean print) throws DukeException {
         try {
             listOfTask.get(index - 1).mark();
-            System.out.println(listOfTask.get(index - 1).toString());
-            Storage.save(listOfTask);
+            if (print) {
+                System.out.println(listOfTask.get(index - 1).toString());
+                Storage.save(listOfTask);
+            }
         } catch (IndexOutOfBoundsException e) {
-            System.out.println("Please select from index 1 to " + listOfTask.size());
+            throw new DukeException("Please select from index 1 to " + listOfTask.size());
         }
     }
 
-    public void loadMark(int index) {
-        listOfTask.get(index - 1).mark();
-    }
-
-    public void unMark(int index) {
+    public void unMark(int index, boolean print) throws DukeException {
         try {
             listOfTask.get(index - 1).unMark();
-            System.out.println(listOfTask.get(index - 1).toString());
+            if (print) {
+                System.out.println(listOfTask.get(index - 1).toString());
+            }
             Storage.save(listOfTask);
         } catch (IndexOutOfBoundsException e) {
-            System.out.println("Please select from index 1 to " + listOfTask.size());
+            throw new DukeException("Please select from index 1 to " + listOfTask.size());
         }
     }
 
-    public void delete(int index) {
+    public void delete(int index, boolean print) throws DukeException {
         try {
             Task removed = listOfTask.remove(index - 1);
-            System.out.println(removed + " has been removed");
+            if (print) {
+                System.out.println(removed + " has been removed");
+            }
             Storage.save(listOfTask);
         } catch (IndexOutOfBoundsException e) {
-            System.out.println("Please select from index 1 to " + listOfTask.size());
+            throw new DukeException("Please select from index 1 to " + listOfTask.size());
         }
     }
 }

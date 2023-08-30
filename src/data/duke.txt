@@ -1,6 +1,3 @@
 todo me
-deadline me /by 28-05-2001 1818
-event me /from 30-11-9999 2359/to 01-01-+10000 0000
-event me /from 01-01-+10000 0000/to 01-01-+10000 0000
-event me /from 30-11-9999 2359/to 01-01-+10000 0000
-event me /from 01-12-9999 0000/to 01-01-+10000 0000
+listme
+todo me

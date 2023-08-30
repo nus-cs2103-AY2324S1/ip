@@ -1,16 +1,15 @@
 package storage;
 
 import command.Commands;
-import duke.Duke;
+import dukeExceptions.DukeException;
 import parser.Parser;
 import task.ListOfTask;
 import task.Task;
+import ui.Ui;
 
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -24,7 +23,7 @@ public class Storage {
                 try {
                     writer.write(x.write());
                     if (x.isDone()) {
-                        writer.write("mark\n");
+                        writer.write("mark " + (listOfTask.indexOf(x) + 1) + "\n");
                     }
                 } catch (IOException e) {
                     System.out.println("You do not have access to write to your save file");
@@ -36,15 +35,33 @@ public class Storage {
         }
     }
 
-    public static boolean load(ListOfTask taskList) {
+    public static boolean load(ListOfTask taskList, int startLine) {
         File saveData = new File("./src/data/duke.txt");
+        String error = null;
         try {
             saveData.createNewFile();
             Scanner readData = new Scanner(saveData);
+            for (int i = 0; i < startLine - 1; i++) {
+                if (readData.hasNextLine()) {
+                    readData.nextLine();
+                }
+            }
             while (readData.hasNextLine()) {
-                quickLoad(readData.nextLine(),taskList);
+                String command = readData.nextLine();
+                error = command;
+                if (command.equals("\n")) {
+                    break;
+                }
+                Parser cmd = new Parser(command);
+                Commands action = cmd.parse();
+                action.execute(taskList, new Ui(), startLine, error);
+                startLine++;
             }
             readData.close();
+        } catch (DukeException e) {
+            System.out.println("line " + startLine + " corrupted: " + error);
+            startLine++;
+            load(taskList, startLine);
         } catch (IOException f) {
             if (clarify() == 0) {
                 return false;
@@ -64,60 +81,6 @@ public class Storage {
             return 0;
         } else {
             return clarify();
-        }
-    }
-
-    public static void quickLoad(String command, ListOfTask taskList) {
-        Parser cmd = new Parser(command);
-        Commands.COMMANDS firstWord = cmd.mainCommand();
-
-        switch (firstWord) {
-            case TODO:
-                if (cmd.secondWord() != null) {
-                    taskList.loadTask(cmd.secondWord());
-                } else {
-                    System.out.println("ToDo line corrupted: " + command);
-                }
-                return;
-
-            case DEADLINE:
-                try {
-                    String task = cmd.phaseParse();
-                    String dayDate = cmd.phaseTwo();
-                    Parser parseDayDate = new Parser(dayDate);
-                    if (parseDayDate.mainCommand().equals(Commands.COMMANDS.BY)) {
-                        LocalDateTime date = LocalDateTime.parse(parseDayDate.secondWord().trim(), Duke.FORMAT);
-                        taskList.loadTask(task, date);
-                    }
-                } catch (NullPointerException | DateTimeParseException e) {
-                    System.out.println("Deadline line corrupted: " + command);
-                }
-                return;
-
-            case EVENT:
-                try {
-                    String task2 = cmd.phaseParse();
-                    String startDayDateTime = cmd.phaseTwo();
-                    Parser parseStartDayDateTime = new Parser(startDayDateTime);
-                    String endDayDateTime = cmd.phaseThree();
-                    Parser parseEndDayDateTime = new Parser(endDayDateTime);
-                    if (parseStartDayDateTime.mainCommand().equals(Commands.COMMANDS.FROM) && parseEndDayDateTime.mainCommand().equals(Commands.COMMANDS.TO)) {
-                        LocalDateTime startDate = LocalDateTime.parse(parseStartDayDateTime.secondWord().trim(),Duke.FORMAT);
-                        LocalDateTime endDate = LocalDateTime.parse(parseEndDayDateTime.secondWord().trim(),Duke.FORMAT);
-                        taskList.loadTask(task2, startDate, endDate);
-                    }
-                } catch (NullPointerException | DateTimeParseException e) {
-                    System.out.println("Event line corrupted: " + command);
-                }
-                return;
-
-            case MARK:
-                int i = taskList.size();
-                taskList.loadMark(i);
-                return;
-
-            default:
-                System.out.println("line corrupted: " + command);
         }
     }
 }
