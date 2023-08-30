@@ -2,7 +2,7 @@ package taskmaster.tasks;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class TaskTest {
+public class TodoTest {
 
     @Test
     public void create_unmarked_todo() {
