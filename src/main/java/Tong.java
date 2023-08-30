@@ -37,7 +37,6 @@ public class Tong {
         while (!currentLine.equalsIgnoreCase("bye")) {
             String[] split = currentLine.split(" ");
             String command = split[0];
-            String content;
             int order;
 
             switch (command) {
@@ -53,31 +52,43 @@ public class Tong {
                     list.unmarkTask(order);
                     break;
                 case "todo":
-                    content = String.join(" ", Arrays.copyOfRange(split, 1, split.length));
-                    ToDo todo = new ToDo(content);
-                    list.addTask(todo);
+                    try {
+                        ToDo todo = new ToDo(trimCommand(currentLine));
+                        list.addTask(todo);
+                    } catch (EmptyDescriptionException e) {
+                        System.out.println("☹ OOPS!!! The description of a todo cannot be empty.");
+                    }
                     break;
                 case "deadline":
-                    content = String.join(" ", Arrays.copyOfRange(split, 1, split.length));
-                    String[] dSplit = content.split(" /by ");
-                    String deadlineName = dSplit[0];
-                    String by = dSplit[1];
-                    Deadline deadline = new Deadline(deadlineName, by);
-                    list.addTask(deadline);
+                    try {
+                        String[] dSplit = trimCommand(currentLine).split(" /by ");
+                        String deadlineName = dSplit[0];
+                        String by = dSplit[1];
+                        Deadline deadline = new Deadline(deadlineName, by);
+                        list.addTask(deadline);
+                    } catch (EmptyDescriptionException e) {
+                        System.out.println("☹ OOPS!!! The description of a deadline cannot be empty.");
+                    }
                     break;
                 case "event":
-                    content = String.join(" ", Arrays.copyOfRange(split, 1, split.length));
-                    String[] eSplit = content.split(" /from ");
-                    String eventName = eSplit[0];
-                    String[] fromAndTo = eSplit[1].split(" /to ");
-                    String from = fromAndTo[0];
-                    String to = fromAndTo[1];
-                    Event event = new Event(eventName, from, to);
-                    list.addTask(event);
+                    try {
+                        String[] eSplit = trimCommand(currentLine).split(" /from ");
+                        String eventName = eSplit[0];
+                        String[] fromAndTo = eSplit[1].split(" /to ");
+                        String from = fromAndTo[0];
+                        String to = fromAndTo[1];
+                        Event event = new Event(eventName, from, to);
+                        list.addTask(event);
+                    } catch (EmptyDescriptionException e) {
+                        System.out.println("☹ OOPS!!! The description of an event cannot be empty.");
+                    }
                     break;
                 case "delete":
                     order = Integer.parseInt(split[1]);
                     list.deleteTask(order);
+                default:
+                    System.out.println(currentLine + " " + currentLine + " " + currentLine);
+                    System.out.println("Sorry, I don't understand :)");
             }
 
             currentLine = input.nextLine();
@@ -93,5 +104,15 @@ public class Tong {
             System.out.print("-");
         }
         System.out.println();
+    }
+
+    public static String trimCommand(String description) throws EmptyDescriptionException {
+        String[] split = description.split(" ");
+
+        if (split.length == 1) {
+            throw new EmptyDescriptionException("☹ OOPS!!! The description of a task cannot be empty.");
+        }
+
+        return String.join(" ", Arrays.copyOfRange(split, 1, split.length));
     }
 }
