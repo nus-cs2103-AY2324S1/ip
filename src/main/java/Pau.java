@@ -19,7 +19,7 @@ public class Pau {
 
     private static String introduction = " HI! I'm " + botName + "\n" + "ENTERTAIN MEEE";
     public static void exit() {
-        System.out.println("byebye come play with me next time");
+        System.out.println("byebyeee come play with me next time");
     }
 
     /**
