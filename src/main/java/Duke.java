@@ -1,9 +1,12 @@
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.io.File;
+import java.io.FileNotFoundException;
 
 public class Duke {
     public static void main(String[] args) {
         String div = "____________________________________________________________\n";
+
         class Task {
             protected String name;
             protected boolean isDone = false;
@@ -14,12 +17,10 @@ public class Duke {
 
             public void mark(){
                 isDone = true;
-                System.out.println("Nice! I've marked this task as done:\n [X] " + name +"\n" + div);
             }
 
             public void unmark(){
                 isDone = false;
-                System.out.println("OK, I've marked this task as not done yet:\n [ ] " + name + "\n" + div);
             }
 
             public String printTask() {
@@ -64,17 +65,58 @@ public class Duke {
             @Override
             public String printTask() {
                 return (isDone) ? "[E] [X] " + name + "(" + start + " " + end + ") \n"
-                        : "[E] [ ] " + name + "(" + start + " " + end + ") \n";
+                        : "[E] [ ] " + name + "(from: " + start + " to: " + end + ") \n";
             }
         }
 
         Scanner scanner = new Scanner(System.in);
         ArrayList<Task> tasks = new ArrayList<>();
+        int count = 0;
+        File file = new File("data/data.txt");
+
+        try {
+            Scanner fileReader = new Scanner(file);
+            while (fileReader.hasNextLine()) {
+                String input = fileReader.nextLine();
+                String[] parts = input.split("\\|");
+
+                if (parts[0].trim().equalsIgnoreCase("t")) {
+                    Task task = new ToDos(parts[2]);
+                    tasks.add(task);
+                    count++;
+                    if (parts[1].trim().equalsIgnoreCase("1")) {
+                        task.mark();
+                    }
+                }
+                else if (parts[0].trim().equalsIgnoreCase("d")) {
+                    String due = parts[3].trim();
+                    Task task = new Deadline(parts[2], due);
+                    tasks.add(task);
+                    count++;
+                    if (parts[1].trim().equalsIgnoreCase("1")) {
+                        task.mark();
+                    }
+                }
+                else if (parts[0].trim().equalsIgnoreCase("e")) {
+                    String start = parts[3].trim();
+                    String end = parts[4].trim();
+                    Task task = new Events(parts[2], start, end);
+                    tasks.add(task);
+                    count++;
+                    if (parts[1].trim().equalsIgnoreCase("1")) {
+                        task.mark();
+                    }
+                }
+            }
+            fileReader.close();
+
+        } catch (FileNotFoundException e) {
+            System.out.println("Error: File not found.");
+        }
 
         System.out.println(div + "Hello! I'm CarrotCake\nWhat can I do for you?\n" + div);
 
         String input = scanner.nextLine();
-        int count = 0;
 
         while (!input.equalsIgnoreCase("bye")) {
             System.out.println(div);
@@ -102,6 +144,7 @@ public class Duke {
                     continue;
                 }
                 tasks.get(taskNumber).mark();
+                System.out.println("Nice! I've marked this task as done:\n [X] " + tasks.get(taskNumber).name +"\n" + div);
                 input = scanner.nextLine();
                 continue;
             }
@@ -114,6 +157,8 @@ public class Duke {
                     continue;
                 }
                 tasks.get(taskNumber).unmark();
+                System.out.println("OK, I've marked this task as not done yet:\n [ ] "
+                        + tasks.get(taskNumber).name + "\n" + div);
                 input = scanner.nextLine();
                 continue;
             }
