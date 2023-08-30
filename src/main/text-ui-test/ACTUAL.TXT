@@ -3,52 +3,50 @@ I extend to you my utmost felicitations, User! I am Bartholomew Hamish Montgomer
 What may I do for you?
 ______________________________________________________________________________________
 
-______________________________________________________________________________________
-Error: There are no items in the list!
-______________________________________________________________________________________
-
+File not found
 ______________________________________________________________________________________
 Got it! I've added this task:
 [T][ ] go for a walk
 You now have 1 task(s) in the list
 ______________________________________________________________________________________
 
+Something went wrong: ./src/main/data/tasklist.txt (No such file or directory)
 ______________________________________________________________________________________
 Error: Invalid Task Index!
 ______________________________________________________________________________________
 
+Something went wrong: ./src/main/data/tasklist.txt (No such file or directory)
 ______________________________________________________________________________________
 Error: Task is already marked as incomplete!
 ______________________________________________________________________________________
 
+Something went wrong: ./src/main/data/tasklist.txt (No such file or directory)
 ______________________________________________________________________________________
 Okay, I have marked this task as completed!
 [T][X] go for a walk
 ______________________________________________________________________________________
 
+Something went wrong: ./src/main/data/tasklist.txt (No such file or directory)
 ______________________________________________________________________________________
 Error: Task is already completed!
 ______________________________________________________________________________________
 
+Something went wrong: ./src/main/data/tasklist.txt (No such file or directory)
 ______________________________________________________________________________________
 Got it! I've added this task:
 [D][ ] CS2103T Quiz (by: Friday)
 You now have 2 task(s) in the list
 ______________________________________________________________________________________
 
+Something went wrong: ./src/main/data/tasklist.txt (No such file or directory)
 ______________________________________________________________________________________
 Got it! I've added this task:
-[E][ ] CS2103T lecture (from: 4pm to: 6pm)
+[E][ ] project meeting (from: Mon 2pm to: 4pm)
 You now have 3 task(s) in the list
 ______________________________________________________________________________________
 
-______________________________________________________________________________________
-
-1.[T][X] go for a walk
-2.[D][ ] CS2103T Quiz (by: Friday)
-3.[E][ ] CS2103T lecture (from: 4pm to: 6pm)
-______________________________________________________________________________________
-
+Something went wrong: ./src/main/data/tasklist.txt (No such file or directory)
+File not found
 ______________________________________________________________________________________
 Error: Invalid Command!
 ______________________________________________________________________________________

@@ -1,6 +1,8 @@
 import java.io.File;
 import java.util.Scanner;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 public class Duke {
     private static final String name = "Bartholomew Hamish Montgomery";
@@ -9,33 +11,57 @@ public class Duke {
         greet();
         startChat();
     }
-
     private static void greet() {
         String greeting = line + "I extend to you my utmost felicitations, User! I am " + name + "." + "\n" + "What may I do for you?" + "\n" + line;
         System.out.println(greeting);
     }
+    private static void bye() {
+        String goodbye = line + "Until we meet once more in the near future, I bid you farewell." + "\n" + line;
+        File taskList = new File("./src/main/data/tasklist.txt");
+        System.out.println(goodbye);
+    }
 
     private static void startChat() {
+
         ArrayList<Task> tasks = new ArrayList<>();
-        File taskList = new File("../data/tasklist.txt");
+        File taskList = new File("./src/main/data/tasklist.txt");
         int taskCount = 0;
         int taskId = 1;
         Scanner scanner = new Scanner(System.in);
         String userInput= scanner.nextLine();
-        String goodbye = line + "Until we meet once more in the near future, I bid you farewell." + "\n" + line;
 
         while (!userInput.equals("bye")){
             try {
                 if (userInput.equals("list")){
-                    displayList(tasks, taskCount);
+                    try {
+                        printFileContents(taskList);
+                    } catch (FileNotFoundException e){
+                        System.out.println("File not found");
+                    }
+//                    displayList(tasks, taskCount);
                 } else if (userInput.startsWith("mark ")) {
                     mark(userInput, tasks, taskCount);
+                    try {
+                        writeToFile(taskList, displayList(tasks, taskCount));
+                    } catch (IOException e) {
+                        System.out.println("Something went wrong: " + e.getMessage());
+                    }
                 } else if (userInput.startsWith("unmark ")) {
                     unMark(userInput, tasks, taskCount);
+                    try {
+                        writeToFile(taskList, displayList(tasks, taskCount));
+                    } catch (IOException e) {
+                        System.out.println("Something went wrong: " + e.getMessage());
+                    }
                 } else if (userInput.startsWith("delete ")) {
                     delete(userInput, tasks, taskCount);
                     if (taskCount > 0) {
                         taskCount--;
+                    }
+                    try {
+                        writeToFile(taskList, displayList(tasks, taskCount));
+                    } catch (IOException e) {
+                        System.out.println("Something went wrong: " + e.getMessage());
                     }
                 } else if (userInput.startsWith("todo ")) {
                     String nameOfTask = userInput.substring(5);
@@ -45,6 +71,11 @@ public class Duke {
                         taskCount++;
                         taskId++;
                     }
+                    try {
+                        writeToFile(taskList, displayList(tasks, taskCount));
+                    } catch (IOException e) {
+                        System.out.println("Something went wrong: " + e.getMessage());
+                    }
                 } else if (userInput.startsWith("deadline ")) {
                     String[] parts = userInput.split("/");
                     String nameOfTask = parts[0].trim().substring(9);
@@ -53,6 +84,11 @@ public class Duke {
                     if (taskCount < tasks.size()) {
                         taskCount++;
                         taskId++;
+                    }
+                    try {
+                        writeToFile(taskList, displayList(tasks, taskCount));
+                    } catch (IOException e) {
+                        System.out.println("Something went wrong: " + e.getMessage());
                     }
                 } else if (userInput.startsWith("event ")) {
                     String[] parts = userInput.split("/");
@@ -65,6 +101,11 @@ public class Duke {
                         taskCount++;
                         taskId++;
                     }
+                    try {
+                        writeToFile(taskList, displayList(tasks, taskCount));
+                    } catch (IOException e) {
+                        System.out.println("Something went wrong: " + e.getMessage());
+                    }
                 } else {
                     throw new DukeException("Error: Invalid Command!");
                 }
@@ -73,25 +114,41 @@ public class Duke {
             }
             userInput = scanner.nextLine();
         }
-        System.out.println(goodbye);
+        bye();
+        taskList.delete();
         scanner.close();
     }
 
-    private static void displayList(ArrayList<Task> tasks, int taskCount){
+    private static void printFileContents(File taskList) throws FileNotFoundException {
+        Scanner s = new Scanner(taskList);
+        while (s.hasNext()) {
+            System.out.println(s.nextLine());
+        }
+    }
+
+    private static void writeToFile(File taskList, String textToAdd) throws IOException {
+        FileWriter fw = new FileWriter(taskList.getPath());
+        fw.write(textToAdd);
+        fw.close();
+    }
+
+    private static String displayList(ArrayList<Task> tasks, int taskCount) {
+        StringBuilder res = null;
         try {
             if (taskCount == 0) {
                 throw new DukeException("Error: There are no items in the list!");
             }
-            System.out.println(line);
-            for(int i = 0; i < taskCount; i++){
+            res = new StringBuilder(line);
+            for (int i = 0; i < taskCount; i++) {
                 Task task = tasks.get(i);
                 int index = i + 1;
-                System.out.println(index + task.getTask());
+                res.append(index).append(task.getTask()).append("\n");
             }
-            System.out.println(line);
+            res.append(line);
         } catch (DukeException emptyList) {
-            System.out.println(line + emptyList.getMessage() + "\n" + line);
+            res = new StringBuilder(line + emptyList.getMessage() + "\n" + line);
         }
+        return res.toString();
     }
 
     public static void delete(String input, ArrayList<Task> tasks, int taskCount) {
