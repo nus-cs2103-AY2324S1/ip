@@ -24,7 +24,9 @@ public class Parser {
 
                 switch (currentKey) {
                     case MARK:
+                        // Fallthrough
                     case UNMARK:
+                        // Fallthrough
                     case DELETE:
                         if (words[1].chars().allMatch(Character::isDigit)) {
                             int index = Integer.parseInt(words[1]);

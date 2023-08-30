@@ -107,9 +107,9 @@ public class Tasklist {
         total--;
         Storage.getInstance().delete(index);
 
-        String resp = "Noted. I've removed this task:\n" +
-                        t +
-                        String.format("\nNow you have %d cheems.tasks in your list!", total);
+        String resp = "Noted. I've removed this task:\n"
+                        + t
+                        + String.format("\nNow you have %d cheems.tasks in your list!", total);
         UI.printWithFormat(resp);
     }
 }

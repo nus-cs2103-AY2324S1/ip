@@ -82,7 +82,7 @@ public class Storage {
         }
     }
 
-    public void mark(int lineToModify, boolean done) {
+    public void mark(int lineToModify, boolean isDone) {
         try {
             BufferedReader reader = new BufferedReader(new FileReader(this.file));
             String content = "";
@@ -92,7 +92,8 @@ public class Storage {
             while ((line = reader.readLine()) != null) {
                 if (currentLine == lineToModify + 1) {
                     if (!line.isEmpty()) {
-                        line = (done ? "1" : "0") + line.substring(1);
+                        line = (isDone ? "1" : "0")
+                                        + line.substring(1);
                     }
                 }
                 content += line + System.lineSeparator();
