@@ -89,6 +89,13 @@ public abstract class Task {
         return this.taskName;
     }
 
+    public boolean containsKeyword(String keyword) {
+        if (this.taskName.contains(keyword)) {
+            return true;
+        }
+        return false;
+    }
+
     /**
      * Returns whether the task is on a date.
      *

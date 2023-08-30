@@ -89,6 +89,16 @@ public class TaskList {
         return tasksOn;
     }
 
+    public ArrayList<Task> getTasksContainingKeyword(String keyword) {
+        ArrayList<Task> tasksOn = new ArrayList<>();
+        for (int i = 0; i < this.tasks.size(); i++) {
+            if (this.tasks.get(i).containsKeyword(keyword)) {
+                tasksOn.add(this.tasks.get(i));
+            }
+        }
+        return tasksOn;
+    }
+
     /**
      * Marks a task to in the list as done.
      *

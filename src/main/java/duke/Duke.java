@@ -92,6 +92,11 @@ public class Duke {
                     ui.printTasksOn(tasksOnDate);
                     continue;
                 }
+                if (command.equals(Command.FIND.getCommand())) {
+                    ArrayList<Task> tasksContainingKeyword = tasks.getTasksContainingKeyword(parsedInput.get(1));
+                    ui.printTasksMatching(tasksContainingKeyword);
+                    continue;
+                }
                 throw new InvalidCommandException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
             } catch (InvalidCommandException e) {
                 System.out.println(e.getMessage());
