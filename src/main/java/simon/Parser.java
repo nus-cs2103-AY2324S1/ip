@@ -1,3 +1,5 @@
+package simon;
+
 public class Parser {
 
     enum Command {

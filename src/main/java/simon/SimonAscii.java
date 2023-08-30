@@ -1,3 +1,4 @@
+package simon;
 public class SimonAscii {
     private static final String name =
             "     _______. __  .___  ___.   ______   .__   __. \n" +

@@ -1,5 +1,5 @@
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+package simon;
+
 import java.util.Scanner;
 
 public class Simon {

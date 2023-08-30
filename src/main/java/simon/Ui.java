@@ -1,3 +1,5 @@
+package simon;
+
 import java.util.Scanner;
 
 public class Ui {
