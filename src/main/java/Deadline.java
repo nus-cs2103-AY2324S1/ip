@@ -4,9 +4,12 @@ public class Deadline extends Task {
         super(description);
         this.deadline = deadline;
     }
-
+    @Override
+    public  String saveString() {
+        return "D" + super.saveString() + " | " + this.deadline;
+    }
     @Override
     public String toString() {
-        return String.format("[D]%s (by: %s)", super.toString(), this.deadline);
+        return String.format("[D] %s (by: %s)", super.toString(), this.deadline);
     }
 }
