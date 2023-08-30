@@ -113,11 +113,12 @@ public class TaskList {
         }
     }
 
-    public static void addToList(Task task, ArrayList<Task> tasks, int taskId) {
+    public void addToList(Task task, int taskId) {
         int taskCount = taskId + 1;
         String response = Ui.line + "Got it! I've added this task:" + "\n" + task.toString() + "\n"
                 + "You now have " + taskCount + " task(s) in the list" + "\n" + Ui.line;
         tasks.add(taskId, task);
+        writeToFile();
         if (taskCount < tasks.size()) {
             taskCount++;
             taskId++;
