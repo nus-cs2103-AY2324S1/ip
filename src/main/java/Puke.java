@@ -340,3 +340,305 @@ class DataHandler {
         fw.close();
     }
 }
+
+class TaskList {
+    private ArrayList<Task> list;
+
+    TaskList() {
+        this.list = new ArrayList<Task>(100);
+    }
+
+    TaskList(ArrayList<Task> list) {
+        this.list = list;
+    }
+
+    String printOut() {
+        StringBuilder sb = new StringBuilder();
+        int i = 1;
+        for (Task s : list) {
+            sb.append(String.format("%d. %s\n", i, s.toString()));
+            i++;
+        }
+        return sb.toString();
+    }
+
+    Task get(int index) throws PukeException {
+        try {
+            return list.get(index);
+        } catch (Exception e) {
+            throw new PukeException();
+        }
+    }
+
+    void add(Task t) {
+        this.list.add(t);
+    }
+
+    Task delete(int index) throws PukeException {
+        Task hold;
+        try {
+            hold = list.get(index);
+            list.remove(index);
+            return hold;
+        } catch (Exception e) {
+            throw new PukeException();
+        }
+    }
+
+    void mark(int index) throws PukeException {
+        try {
+            list.get(index).mark();
+        } catch (Exception e) {
+            throw new PukeException();
+        }
+    }
+
+    void unmark(int index) throws PukeException {
+        try {
+            list.get(index).unmark();
+        } catch (Exception e) {
+            throw new PukeException();
+        }
+    }
+
+    int size() {
+        return list.size();
+    }
+
+    void clear() {
+        this.list.clear();
+    }
+
+    boolean inRange(int i) {
+        return i > 0 && i <= this.size();
+    }
+}
+
+abstract class Command {
+    private boolean exit;
+    protected boolean valid;
+
+    Command(boolean exit, boolean valid) {
+        this.exit = exit;
+        this.valid = valid;
+    }
+    abstract void execute(Storage data, TaskList tl, Ui ui);
+
+    boolean isExit() {
+        return this.exit;
+    }
+
+}
+
+class ExitCommand extends Command {
+
+    ExitCommand(String rest) {
+        super(rest.isEmpty(), rest.isEmpty());
+    }
+    void execute(Storage data, TaskList tl, Ui ui) {
+        if (!super.valid) {
+            System.out.println(ui.errorMessage);
+            System.out.println(ui.separator);
+        } else {
+            System.out.println(ui.exit());
+        }
+    }
+}
+
+class ListCommand extends Command {
+
+    ListCommand(String rest) {
+        super(false, rest.isEmpty());
+    }
+    void execute(Storage data, TaskList tl, Ui ui) {
+        if (!super.valid) {
+            System.out.println(ui.errorMessage);
+            System.out.println(ui.separator);
+        } else {
+            System.out.println(ui.list());
+            System.out.println(tl.printOut());
+            System.out.println(ui.separator);
+        }
+    }
+}
+
+class MarkCommand extends Command {
+    private final int index;
+
+    MarkCommand(String rest) {
+        super(false, true);
+        this.index = Integer.parseInt(rest);
+    }
+
+    void execute(Storage data, TaskList tl, Ui ui) {
+        try {
+            tl.mark(this.index);
+            System.out.println(ui.mark(this.index));
+            System.out.println(ui.separator);
+            DataHandler.writeToDatabase(tl);
+        } catch (Exception PukeException) {
+            System.out.println(ui.errorMessage);
+            System.out.println(ui.separator);
+        }
+    }
+}
+
+class UnmarkCommand extends Command {
+    private final int index;
+
+    UnmarkCommand(String rest) {
+        super(false, true);
+        this.index = Integer.parseInt(rest);
+    }
+
+    void execute(Storage data, TaskList tl, Ui ui) {
+        try {
+            tl.unmark(this.index);
+            System.out.println(ui.unmark(this.index));
+            System.out.println(ui.separator);
+            DataHandler.writeToDatabase(tl);
+        } catch (Exception PukeException) {
+            System.out.println(ui.errorMessage);
+            System.out.println(ui.separator);
+        }
+    }
+}
+
+class TodoCommand extends Command {
+    private final String desc;
+
+    TodoCommand(String rest) {
+        super(false, !rest.isEmpty());
+        this.desc = rest;
+    }
+
+    void execute(Storage data, TaskList tl, Ui ui) {
+        try {
+            tl.add(new ToDo(this.desc));
+            System.out.println(ui.toDo(tl));
+            System.out.println(ui.separator);
+            DataHandler.writeToDatabase(tl);
+        } catch (Exception PukeException) {
+            System.out.println(ui.errorMessage);
+            System.out.println(ui.separator);
+        }
+    }
+}
+
+class DeadlineCommand extends Command {
+    private final String[] rest;
+
+    DeadlineCommand(String rest) {
+        super(false, !rest.isEmpty());
+        this.rest = rest.split(" /");
+    }
+
+    void execute(Storage data, TaskList tl, Ui ui) {
+        try {
+            tl.add(new Deadline(this.rest));
+            System.out.println(ui.deadline(tl));
+            System.out.println(ui.separator);
+            DataHandler.writeToDatabase(tl);
+        } catch (Exception PukeException) {
+            System.out.println(ui.errorMessage);
+            System.out.println(ui.separator);
+        }
+    }
+}
+
+class EventCommand extends Command {
+    private final String[] rest;
+
+    EventCommand(String rest) {
+        super(false, !rest.isEmpty());
+        this.rest = rest.split(" /");
+    }
+
+    void execute(Storage data, TaskList tl, Ui ui) {
+        try {
+            tl.add(new Event(this.rest));
+            System.out.println(ui.event(tl));
+            System.out.println(ui.separator);
+            DataHandler.writeToDatabase(tl);
+        } catch (Exception PukeException) {
+            System.out.println(ui.errorMessage);
+            System.out.println(ui.separator);
+        }
+    }
+}
+
+class DeleteCommand extends Command {
+    private final int index;
+
+    DeleteCommand(String rest) {
+        super(false, true);
+        this.index = Integer.parseInt(rest);
+    }
+
+    void execute(Storage data, TaskList tl, Ui ui) {
+        try {
+            Task hold = tl.delete(this.index);
+            System.out.println(ui.delete(hold));
+            System.out.println(ui.separator);
+            DataHandler.writeToDatabase(tl);
+        } catch (Exception PukeException) {
+            System.out.println(ui.errorMessage);
+            System.out.println(ui.separator);
+        }
+    }
+}
+
+class ClearCommand extends Command {
+    ClearCommand(String rest) {
+        super(false, rest.isEmpty());
+    }
+
+    void execute(Storage data, TaskList tl, Ui ui) {
+        if (!super.valid) {
+            System.out.println(ui.errorMessage);
+            System.out.println(ui.separator);
+        } else {
+            try {
+                tl.clear();
+                DataHandler.clearAll();
+                System.out.println(ui.clear());
+                System.out.println(ui.separator);
+            } catch (Exception e) {
+                tl.clear();
+                System.out.println(ui.clear());
+                System.out.println(ui.separator);
+            }
+        }
+    }
+}
+
+class Parser {
+
+    Parser() {
+    }
+
+    Command parse(String command, String line, TaskList tl) {
+        if (command.equals("bye")) {
+            return new ExitCommand(line);
+        } else if (command.equals("list")) {
+            return new ListCommand(line);
+        } else if (command.equals("mark")) {
+            return new MarkCommand(line);
+        } else if (command.equals("unmark")) {
+            return new UnmarkCommand(line);
+        } else if (command.equals("todo")) {
+            return new TodoCommand(line);
+        } else if (command.equals("deadline")) {
+            return new DeadlineCommand(line);
+        } else if (command.equals("event")) {
+            return new EventCommand(line);
+        } else if (command.equals("delete")) {
+            return new DeleteCommand(line);
+        } else if (command.equals("clearall")) {
+            return new ClearCommand(line);
+        } else {
+            System.out.println(ui.errorMessage);
+            System.out.println(ui.separator);
+        }
+    }
+}
