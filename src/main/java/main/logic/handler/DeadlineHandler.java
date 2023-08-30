@@ -1,11 +1,13 @@
 package main.logic.handler;
 
 
-import exceptions.syntax.KniazInvalidArgsException;
+import exceptions.syntax.MissingNamedArgsException;
+import exceptions.syntax.MissingUnnamedArgsException;
 import main.KniazSession;
 import task.Deadline;
 import task.Task;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -24,17 +26,28 @@ public class DeadlineHandler implements CommandHandler {
      * @param unnamedArgs the arguments to this command
      * @param namedArgs   the named arguments to this command
      * @return the user-facing string representation of the created Deadline
-     * @throws KniazInvalidArgsException when the arguments are invalid, such as not having a "/by {TIME}" argument
+     * @throws MissingUnnamedArgsException when the number of unnamed args is somehow invalid
+     * @throws  MissingNamedArgsException when a required named arg is missing
      */
     @Override
     public String handle(KniazSession session,
                          List<? extends String> unnamedArgs,
-                         Map<? extends String, ? extends String> namedArgs) throws KniazInvalidArgsException {
+                         Map<? extends String, ? extends String> namedArgs) throws MissingUnnamedArgsException,
+            MissingNamedArgsException {
 
 
 
+        if (unnamedArgs.size() < 1) {
+            throw new MissingUnnamedArgsException(unnamedArgs.size(), 1, null);
+        }
 
+        if (!namedArgs.containsKey(BY_NAME)){
+            throw new MissingNamedArgsException(List.of(BY_NAME)
+                    ,new ArrayList<>(namedArgs.keySet()),
+                    null);
+        }
         String taskName = unnamedArgs.get(0);
+
         String taskBy = namedArgs.get(BY_NAME);
 
 

@@ -1,5 +1,6 @@
 package storage.save;
 
+import exceptions.KniazRuntimeException;
 import storage.TaskList;
 
 import java.io.File;
@@ -24,7 +25,7 @@ public class KniazLoader {
 
     /**
      * Constructor for class. Makes a KniazLoader that will try to load from the provided path.
-     * @param path the path to storage.save files to
+     * @param path the path to save files to
      */
     public KniazLoader(String path) {
         this.saveFile = new File(path);
@@ -41,27 +42,52 @@ public class KniazLoader {
      * Attempts to load saved TaskList from the location that was previously provided to this class,
      * during construction
      * @return the loaded TaskList
-     * @throws IOException If there is an error in I/O, typically caused by the file not existing at the location,
-     * which may be caused by this being the first ever session of Kniaz
-     * @throws SecurityException If the security manager did not allow this class to read from file
-     * @throws ClassNotFoundException If the data loaded did not have an entry for the class name.
-     * Typically caused by corruped data
+     * @throws  KniazRuntimeException when something goes wrong in retrieving data, will wrap around the root exception.
      */
-    public TaskList load() throws IOException, SecurityException, ClassNotFoundException {
+    public TaskList load() throws KniazRuntimeException {
 
         if (!this.saveFile.exists()) {
-            throw new IOException(String.format("%s does not exist",this.saveFile.getAbsolutePath()));
+            throw new KniazRuntimeException("Savefile does not exist",
+                    "There is no saved data of your tasklist. We shall start from scratch.",
+                    new IOException(String.format("%s does not exist",this.saveFile.getAbsolutePath())));
         }
 
         if (!this.saveFile.canRead()) {
-            this.saveFile.setReadable(true);
+            try {
+                this.saveFile.setReadable(true);
+            } catch (SecurityException e) {
+                throw new KniazRuntimeException("Could not set savefile to read!",
+                        "I could not access your tasklist saved data. We shall start from scratch.",
+                        e);
+            }
+
         }
 
         // time to read it
-        FileInputStream fileInputStream = new FileInputStream(this.saveFile);
-        ObjectInputStream taskInputStream = new ObjectInputStream(fileInputStream);
 
-        return (TaskList) taskInputStream.readObject();
+
+        try {
+            FileInputStream fileInputStream = new FileInputStream(this.saveFile);
+            ObjectInputStream taskInputStream = new ObjectInputStream(fileInputStream);
+            return (TaskList) taskInputStream.readObject();
+        } catch (ClassNotFoundException e) {
+            throw new KniazRuntimeException("Missing class in saved file, probably corrupted",
+                    "I could not interpret your savefile data. We shall start from scratch.",
+                    e);
+
+        } catch (ClassCastException e) {
+            throw new KniazRuntimeException("Could not cast savefile class, probably corrupted",
+                    "I could not interpret your savefile data. We shall start from scratch.",
+                    e);
+
+        } catch (IOException e) {
+            throw new KniazRuntimeException("Savefile does not exist",
+                    "There is no saved data of your tasklist. We shall start from scratch.",
+                    new IOException(String.format("%s does not exist",this.saveFile.getAbsolutePath())));
+            // should not normally be thrown because we verify up above, but to satisfy compiler requirements
+        }
+
+
 
     }
 

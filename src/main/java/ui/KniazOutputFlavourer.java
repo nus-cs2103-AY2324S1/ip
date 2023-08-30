@@ -21,7 +21,7 @@ public class KniazOutputFlavourer {
                     InstructionType.LIST, "Time to get to work? Here are all your tasks : ",
                     InstructionType.QUIT, "If that is all for now, then I bid you farewell",
                     InstructionType.DELETE, "It shall be as if this task never existed :",
-                    InstructionType.INVALID, "I do not recognise this command."
+                    InstructionType.INVALID, "I do not recognise this command.[THIS SHOULD NORMALLY NOT BE SEEN]"
             ));
 
     /**

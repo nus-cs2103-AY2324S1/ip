@@ -2,7 +2,7 @@ package main.logic.handler;
 
 
 import exceptions.KniazRuntimeException;
-import exceptions.syntax.KniazInvalidArgsException;
+import exceptions.syntax.MissingUnnamedArgsException;
 import main.KniazSession;
 import task.Task;
 import task.ToDo;
@@ -24,14 +24,17 @@ public  class ToDoHandler implements CommandHandler {
      * @param unnamedArgs the arguments to this command, should just be name of the Task
      * @param namedArgs   the named arguments, ignored
      * @return the user-facing string representation of the newly made Task
-     * @throws KniazInvalidArgsException when the name is missing
+     * @throws MissingUnnamedArgsException when the name is missing
      */
     @Override
     public String handle(KniazSession session,
                          List<? extends String> unnamedArgs,
-                         Map<? extends String, ? extends String> namedArgs) throws KniazInvalidArgsException {
+                         Map<? extends String, ? extends String> namedArgs) throws MissingUnnamedArgsException {
 
 
+        if (unnamedArgs.size() < 1) {
+            throw new MissingUnnamedArgsException(unnamedArgs.size(), 1, null);
+        }
         String toDoName = unnamedArgs.get(0);
         Task taskToAdd = new ToDo(toDoName);
 

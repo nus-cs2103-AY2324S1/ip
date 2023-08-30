@@ -81,7 +81,8 @@ public abstract class TaskDateTime implements Serializable {
          * @throws DateTimeParseException if parsing failed
          */
         private ParseableTaskDateTime (String dateTimeAsString)  throws DateTimeParseException {
-            this.date = LocalDateTime.parse(dateTimeAsString);
+
+            this.date = LocalDateTime.parse(dateTimeAsString,DateTimeFormatter.ISO_LOCAL_DATE_TIME);
         }
 
     }

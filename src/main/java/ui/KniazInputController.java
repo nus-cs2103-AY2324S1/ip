@@ -1,8 +1,6 @@
 package ui;
 
-import exceptions.syntax.KniazInvalidArgsException;
 import main.logic.command.KniazCommand;
-import main.logic.handler.CommandHandler;
 import ui.inputparser.KniazLineParser;
 
 import java.util.Scanner;

@@ -1,7 +1,6 @@
 package main.logic.handler;
 
 
-import exceptions.syntax.KniazInvalidArgsException;
 import main.KniazSession;
 
 import java.util.List;

@@ -1,7 +1,7 @@
 package main.logic.handler;
 
 
-import exceptions.syntax.KniazInvalidArgsException;
+import exceptions.syntax.MissingUnnamedArgsException;
 import main.KniazSession;
 
 import java.util.List;
@@ -21,12 +21,11 @@ public class QuitHandler implements CommandHandler{
      * @param unnamedArgs the arguments to this command, ignored
      * @param namedArgs   the named arguments to this command, ignored
      * @return The string displayed to the user when the session exits
-     * @throws KniazInvalidArgsException when any argument is supplied
      */
     @Override
     public String handle(KniazSession session,
                          List<? extends String> unnamedArgs,
-                         Map<? extends String, ? extends String> namedArgs) throws KniazInvalidArgsException {
+                         Map<? extends String, ? extends String> namedArgs) {
         //this helps gatekeep this function and check inputs are right
         return session.quit();
     }

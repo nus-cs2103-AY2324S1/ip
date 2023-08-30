@@ -1,10 +1,8 @@
 package main.logic.handler;
 
-import exceptions.syntax.KniazInvalidArgsException;
-import exceptions.syntax.KniazInvalidCommandException;
+import exceptions.syntax.MissingUnnamedArgsException;
+import exceptions.syntax.UnknownCommandException;
 import main.KniazSession;
-import task.Deadline;
-import task.Task;
 
 import java.util.List;
 import java.util.Map;
@@ -22,14 +20,16 @@ public interface CommandHandler {
      * @param unnamedArgs the unnamed arguments to this command
      * @param namedArgs   the named arguments to this command. Unused named arguments are discarded without complaint.
      * @return the string output expected by this command
-     * @throws KniazInvalidArgsException    when the arguments are somehow invalid(e.g. invalid index, wrong format)
-     * @throws KniazInvalidCommandException when the command that is to be handled is invalid (unrecognised)
+     * @throws MissingUnnamedArgsException    when the arguments are somehow invalid(e.g. invalid index, wrong format)
+     * @throws UnknownCommandException when the command that is to be handled is invalid (unrecognised)
      */
+
+
     public String handle(KniazSession session,
                          List<? extends String> unnamedArgs,
                          Map<? extends  String, ? extends  String> namedArgs)
-            throws KniazInvalidCommandException,
-            KniazInvalidArgsException;
+            throws UnknownCommandException,
+            MissingUnnamedArgsException;
 
 
 }

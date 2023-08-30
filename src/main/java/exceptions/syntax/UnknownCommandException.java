@@ -1,6 +1,6 @@
 package exceptions.syntax;
 
-public class KniazFormatException extends  KniazSyntaxException{
+public class UnknownCommandException extends ArgErrorException {
     /**
      * Constructor for an exception, which constructs it with a non-user facing message, a user-facing message and
      * a cause
@@ -9,12 +9,7 @@ public class KniazFormatException extends  KniazSyntaxException{
      * @param userMessage the message that IS meant to be seen as user feedback
      * @param cause       what caused this, see java.Exceptions for more details
      */
-
-
-    public KniazFormatException() {
-        super();
-        //TODO : fill out for format exception. Should be when user input is formatted wrongly
+    public UnknownCommandException(String message, String userMessage, Throwable cause) {
+        super(message,  userMessage,  cause);
     }
-
-
 }
