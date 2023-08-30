@@ -13,7 +13,7 @@ public abstract class Task {
         this.isDone = bool;
     }
     public String getStatusIcon() {
-        return (isDone ? "X" : " "); // mark done task with X
+        return (isDone ? "X" : " ");
     }
     public String getSaveDescription() {
         return (this.isDone

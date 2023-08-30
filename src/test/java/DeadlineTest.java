@@ -2,7 +2,6 @@ package test.java;
 
 import main.java.Deadline;
 import main.java.Task;
-import main.java.Todo;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 public class DeadlineTest {

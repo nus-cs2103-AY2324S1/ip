@@ -42,10 +42,12 @@ test {
 
 application {
     mainClass.set("main.java.Botty")
+    mainClassName = 'main.java.Botty'
 }
 
 shadowJar {
     archiveBaseName = "Botty"
+    archiveFileName = 'Botty.jar'
     archiveClassifier = null
     dependsOn("distZip", "distTar")
 }

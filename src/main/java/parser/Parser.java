@@ -39,6 +39,8 @@ public class Parser {
             return new EventCommand(description, from, to);
         case "delete":
             return new DeleteCommand(Integer.parseInt(stringArray[1]) - 1);
+        case "find":
+            return new FindCommand(stringArray[1]);
         default:
             throw new UnknownCommandException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(\n");
         }
