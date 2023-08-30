@@ -37,8 +37,8 @@ public class Event extends Task {
      * @return String representing event task to be stored.
      */
     @Override
-    public String toStored() {
-        return "E | " + super.toStored() + " | " + this.startDate + " | " + this.endDate;
+    public String tasktoString() {
+        return "E | " + super.tasktoString() + " | " + this.startDate + " | " + this.endDate;
     }
 
 }
