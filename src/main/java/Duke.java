@@ -62,7 +62,7 @@ public class Duke {
             System.out.println("____________________________________________________________\n");
 
             try {
-                if (userInput.equals("bye")){
+                if (userInput.equals("bye") || userInput.equals("exit")){
                     System.out.println("\tBye. Hope to see you again soon!");
                     break;
                 } else if (userInput.equals("list")) {

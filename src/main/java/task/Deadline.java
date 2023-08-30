@@ -1,5 +1,4 @@
 package task;
-import exception.DukeException;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -26,11 +25,6 @@ public class Deadline extends Task {
     @Override
     public String toFileString() {
         String type = "D";
-        if (deadlineDate != null) {
-            return type + " | " + (getIsDone() ? "1" : "0") + " | " + this.description + " | " + this.deadlineDate;
-        } else if (deadlineDateTime != null) {
-            return type + " | " + (getIsDone() ? "1" : "0") + " | " + this.description + " | " + this.deadlineDateTime;
-        }
         return type + " | " + (getIsDone() ? "1" : "0") + " | " + this.description + " | " + this.deadlineBy;
     }
 
