@@ -1,17 +1,19 @@
 import java.awt.*;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.ArrayDeque;
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.io.PrintWriter;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 
 
 
 public class Brotherman {
 
     public static boolean isValidCommands(String command) throws BrothermanException{
-        if (!command.equals("list")) {
+        if (command.equals("list")) {
             return true;
         }
 
@@ -77,7 +79,7 @@ public class Brotherman {
         }
 
     }
-    public static void main(String[] args) {
+    public static void main(String[] args) throws BrothermanException {
 
         Scanner input = new Scanner(System.in);
 
@@ -86,16 +88,19 @@ public class Brotherman {
 
         System.out.println(
                 "___________________________________________________________\n"
-                + "Hello! I'm Brotherman\n"
-                + "What can I do for you?\n"
-                + "____________________________________________________________\n");
+                        + "Hello! I'm Brotherman\n"
+                        + "What can I do for you?\n"
+                        + "Do remember to add your date and time in DD/MM/YYYY\n"
+                        + "____________________________________________________________\n");
 
         readFromFile(userList);
         String userCommand = input.nextLine();
 
 
+
         while (!userCommand.equals("bye")) {
 
+           isValidCommands(userCommand);
             if (userCommand.equals("list")) {
                 int start = 1;
                 for (Task listItems : userList) {
@@ -156,11 +161,11 @@ public class Brotherman {
 
                 System.out.println(
                         "___________________________________________________________\n"
-                        + "Got you Brotherman! New Todo added to the list. \n"
-                        + userList.get(userList.size() - 1).toString()
-                        + " \n"
-                        + "You have " + userList.size() + " tasks in the list! \n"
-                        + "___________________________________________________________\n"
+                                + "Got you Brotherman! New Todo added to the list. \n"
+                                + userList.get(userList.size() - 1).toString()
+                                + " \n"
+                                + "You have " + userList.size() + " tasks in the list! \n"
+                                + "___________________________________________________________\n"
                 );
 
             } else if (userCommand.split(" ")[0].equals("deadline")) {
@@ -169,11 +174,11 @@ public class Brotherman {
 
                 System.out.println(
                         "___________________________________________________________\n"
-                        + "Got you Brotherman! New deadline added to the list.\n"
-                        + userList.get(userList.size() - 1).toString()
-                        + " \n"
-                        + "You have " + userList.size() + " tasks in the list!\n"
-                        + "___________________________________________________________\n"
+                                + "Got you Brotherman! New deadline added to the list.\n"
+                                + userList.get(userList.size() - 1).toString()
+                                + " \n"
+                                + "You have " + userList.size() + " tasks in the list!\n"
+                                + "___________________________________________________________\n"
                 );
 
             } else if (userCommand.split(" ")[0].equals("event")) {
@@ -181,11 +186,11 @@ public class Brotherman {
                 userList.add(new Event(userCommand.split("event")[1]));
                 System.out.println(
                         "___________________________________________________________\n"
-                        + "Got you Brotherman! New event added to the list.\n"
-                        + userList.get(userList.size() - 1).toString()
-                        + " \n"
-                        + "You have " + userList.size() + " tasks in the list!\n"
-                        + "___________________________________________________________\n"
+                                + "Got you Brotherman! New event added to the list.\n"
+                                + userList.get(userList.size() - 1).toString()
+                                + " \n"
+                                + "You have " + userList.size() + " tasks in the list!\n"
+                                + "___________________________________________________________\n"
                 );
             } else {
 
@@ -199,8 +204,8 @@ public class Brotherman {
         saveToFile(userList);
         System.out.println(
                 "___________________________________________________________\n"
-                + "Bye, see you again Brotherman!\n"
-                + "___________________________________________________________\n"
+                        + "Bye, see you again Brotherman!\n"
+                        + "___________________________________________________________\n"
 
         );
     }
