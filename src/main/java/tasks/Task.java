@@ -1,3 +1,6 @@
+package tasks;
+
+
 /***
  * Task class, superclass to Todo, Deadline and Event subclasses
  */

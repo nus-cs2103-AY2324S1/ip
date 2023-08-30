@@ -1,4 +1,10 @@
 
+import exceptions.DukeException;
+import fileHandler.Storage;
+import parsers.InputParser;
+import tasks.Task;
+import ui.Ui;
+
 import java.util.ArrayList;
 public class Duke {
 
@@ -9,6 +15,7 @@ public class Duke {
 
     public Duke(String filePath) {
         ui = new Ui();
+        ui.printGreeting();
         storage = new Storage(filePath);
         try {
             tasks = storage.readTasks();
@@ -23,7 +30,6 @@ public class Duke {
     }
     public static void main(String[] args) throws DukeException {
 
-        System.out.println("Hello! I'm Mikhil" + '\n' + "What can I do for you");
         new Duke("tasks.txt").run();
 
         }
