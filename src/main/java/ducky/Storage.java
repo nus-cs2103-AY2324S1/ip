@@ -19,7 +19,7 @@ public class Storage {
     private final String filePath;
 
     /**
-     * Creates a Storage instance that saves and loads the specified file path.
+     * Constructs a Storage instance that saves and loads the specified file path.
      * @param filePath File path to load persistent data from.
      */
     public Storage(String filePath) {
@@ -55,7 +55,7 @@ public class Storage {
                     case "T":
                         TodoTask newTodo = new TodoTask(line[2]);
                         if (taskIsDone) {
-                            newTodo.complete();
+                            newTodo.setComplete();
                         }
                         taskList.addTask(newTodo);
                         break;
@@ -63,14 +63,14 @@ public class Storage {
                         LocalDate deadline = LocalDate.parse(line[3]);
                         DeadlineTask newDeadline = new DeadlineTask(line[2], deadline);
                         if (taskIsDone) {
-                            newDeadline.complete();
+                            newDeadline.setComplete();
                         }
                         taskList.addTask(newDeadline);
                         break;
                     case "E":
                         EventTask newEvent = new EventTask(line[2], line[3], line[4]);
                         if (taskIsDone) {
-                            newEvent.complete();
+                            newEvent.setComplete();
                         }
                         taskList.addTask(newEvent);
                         break;

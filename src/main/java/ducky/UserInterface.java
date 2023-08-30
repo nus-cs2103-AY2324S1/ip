@@ -9,7 +9,7 @@ public class UserInterface {
     private final Scanner sc;
 
     /**
-     * Creates a user interface with the specified Scanner instance.
+     * Constructs a UserInterface with the specified Scanner instance.
      * @param sc Scanner to read input from.
      */
     public UserInterface(Scanner sc) {

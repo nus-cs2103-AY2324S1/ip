@@ -16,7 +16,7 @@ public class Ducky {
     private final UserInterface ui;
 
     /**
-     * Creates a Ducky chatbot instance with the specified file path for persistent data.
+     * Constructs a Ducky chatbot instance with the specified file path for persistent data.
      * @param filePath File path for persistent data to be saved in.
      */
     public Ducky(String filePath) {

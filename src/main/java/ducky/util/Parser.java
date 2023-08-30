@@ -8,10 +8,23 @@ import ducky.command.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Represents a Parser used for parsing commands and dates.
+ */
 public class Parser {
 
+    /**
+     * Constructs a Parser instance.
+     */
     public Parser() {}
 
+    /**
+     * Parses the specified input and returns its Command representation, if applicable.
+     * @param cmd Command to be parsed.
+     * @return Command representation of specified input.
+     * @throws DuckyInvalidCommandException If the command does not exist.
+     * @throws DuckyInvalidCommandFormatException If the command is not in the right format.
+     */
     public static Command parse(String cmd) throws DuckyInvalidCommandException, DuckyInvalidCommandFormatException {
         String[] parts = cmd.split(" ", 2);
         String commandType = parts[0].toLowerCase();
@@ -99,6 +112,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses the specified date given as a string (yyyy-mm-dd format)
+     * and returns it as LocalDate.
+     * @param date String representation of date to be parsed.
+     * @return LocalDate representation of specified date.
+     * @throws DateTimeParseException If the input date format is not valid.
+     */
     public static LocalDate parseDate(String date) throws DateTimeParseException {
         return LocalDate.parse(date);
     }

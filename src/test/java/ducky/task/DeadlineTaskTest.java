@@ -20,7 +20,7 @@ public class DeadlineTaskTest {
 
     @BeforeEach
     public void setDeadlineTask2ToCompleted() {
-        deadlineTask2.complete();
+        deadlineTask2.setComplete();
     }
 
     @Test

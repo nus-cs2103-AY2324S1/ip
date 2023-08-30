@@ -1,7 +1,14 @@
 package ducky.task;
 
+/**
+ * Represents a task with only a description.
+ */
 public class TodoTask extends Task {
 
+    /**
+     * Constructs a task with the specified description.
+     * @param desc Description of task.
+     */
     public TodoTask(String desc) {
         super(desc);
     }

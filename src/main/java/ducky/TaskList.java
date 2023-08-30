@@ -12,7 +12,7 @@ public class TaskList {
     private final ArrayList<Task> tasks;
 
     /**
-     * Creates a TaskList.
+     * Constructs a TaskList.
      */
     public TaskList() {
         this.tasks = new ArrayList<>();
@@ -38,7 +38,7 @@ public class TaskList {
             throw new DuckyInvalidTaskIndexException(index + 1, this.tasks.size());
         }
         Task toMark = this.tasks.get(index);
-        toMark.complete();
+        toMark.setComplete();
         return toMark;
     }
 
@@ -53,7 +53,7 @@ public class TaskList {
             throw new DuckyInvalidTaskIndexException(index + 1, this.tasks.size());
         }
         Task toUnmark = this.tasks.get(index);
-        toUnmark.incomplete();
+        toUnmark.setIncomplete();
         return toUnmark;
     }
 
