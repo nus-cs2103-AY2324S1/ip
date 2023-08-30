@@ -54,11 +54,11 @@ public class Storage {
                 String marking = data.substring(4, 5);
                 String taskDesc = data.split("]")[2].trim();
                 if (taskType.equals("D")) {
-                    Deadline.newDeadline(taskDesc, taskList);
+                    Deadline.setNewDeadline(taskDesc, taskList);
                 } else if (taskType.equals("T")) {
-                    Todo.newTodo(taskDesc, taskList);
+                    Todo.setNewTodo(taskDesc, taskList);
                 } else if (taskType.equals("E")) {
-                    Event.newEvent(taskDesc, taskList);
+                    Event.setNewEvent(taskDesc, taskList);
                 }
 
                 if (marking.equals("X")) {

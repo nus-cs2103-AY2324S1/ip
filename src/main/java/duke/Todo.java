@@ -39,7 +39,8 @@ public class Todo extends Task {
      * @param text  Todo from the storage.
      * @param tasks Task list stored in the storage.
      */
-    public static void newTodo(String text, ArrayList<Task> tasks) {
+    public static void setNewTodo(String text, ArrayList<Task> tasks) {
+
         Todo updatedTodo = new Todo(text);
         tasks.add(updatedTodo);
     }
