@@ -202,6 +202,7 @@ public class BouncyBob {
         System.out.println("| Wow you look very round today, like a ball!  |");
         System.out.println(MIDDLE_BORDER);
         System.out.println(BOTTOM_BORDER);
+        TaskFileHandler.loadTasksFromDisk(database);
 
         while (true) {
             System.out.println("Enter something:");
