@@ -204,6 +204,42 @@ public class ChatBot {
         }
     }
 
+    public boolean handleCommand(String userInput) throws DukeException {
+        String[] parts = userInput.split(" ", 2);
+        String command = parts[0];
+        int taskIndex;
+
+        if (command.equals("mark") && parts.length > 1) {
+            taskIndex = Integer.parseInt(parts[1]);
+            this.markTaskByBot(taskIndex);
+
+        } else if (command.equals("unmark") && parts.length > 1) {
+            taskIndex = Integer.parseInt(parts[1]);
+            this.unmarkTaskByBot(taskIndex);
+
+        } else if (userInput.equals("bye")) {
+            return false;  // Exit the loop when user types "bye"
+
+        } else if (userInput.equals("list")) {
+            taskList.displayTasks();
+
+        } else if (command.equals("todo") && parts.length > 1) {
+            addTaskByBot("todo", parts[1]);
+
+        } else if (command.equals("deadline") && parts.length > 1) {
+            addTaskByBot("deadline", parts[1]);
+
+        } else if (command.equals("event") && parts.length > 1) {
+            addTaskByBot("event", parts[1]);
+
+        } else if (command.equals("delete") && parts.length > 1) {
+            deleteTaskByBot(parts[1]);
+        } else {
+            throw new DukeException("I'm sorry, but I don't know what that means :-(");
+        }
+        return true;
+    }
+
     /**
      * Start the chatbot interaction loop, end when "bye" is given
      */
@@ -220,45 +256,14 @@ public class ChatBot {
                 "____________________________________________________________";
 
         System.out.println(helloMessage);
-        String input;
+        String userInput;
 
         loadTasksFromFile();
-        while (true) {
+        boolean isContinuing = true;
+        while (isContinuing) {
             try {
-                input = scanner.nextLine();
-                String[] parts = input.split(" ", 2);
-                String command = parts[0];
-                int taskIndex;
-
-                if (command.equals("mark") && parts.length > 1) {
-                    taskIndex = Integer.parseInt(parts[1]);
-                    this.markTaskByBot(taskIndex);
-
-                } else if (command.equals("unmark") && parts.length > 1) {
-                    taskIndex = Integer.parseInt(parts[1]);
-                    this.unmarkTaskByBot(taskIndex);
-
-                } else if (input.equals("bye")) {
-                    System.out.println(byeMessage);
-                    break;  // Exit the loop when user types "bye"
-
-                } else if (input.equals("list")) {
-                    taskList.displayTasks();
-
-                } else if (command.equals("todo") && parts.length > 1) {
-                    addTaskByBot("todo", parts[1]);
-
-                } else if (command.equals("deadline") && parts.length > 1) {
-                    addTaskByBot("deadline", parts[1]);
-
-                } else if (command.equals("event") && parts.length > 1) {
-                    addTaskByBot("event", parts[1]);
-
-                } else if (command.equals("delete") && parts.length > 1) {
-                    deleteTaskByBot(parts[1]);
-                } else {
-                    throw new DukeException("I'm sorry, but I don't know what that means :-(");
-                }
+                userInput = scanner.nextLine();
+                isContinuing = handleCommand(userInput);
                 saveTasksToFile();
             } catch (DukeException e) {
                 System.out.println("____________________________________________________________\n" +
@@ -266,7 +271,7 @@ public class ChatBot {
                         "____________________________________________________________");
             }
         }
-
+        System.out.println(byeMessage);
         scanner.close();
     }
 }
