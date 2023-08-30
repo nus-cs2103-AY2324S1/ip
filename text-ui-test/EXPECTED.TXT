@@ -79,3 +79,6 @@ Sidtacphi: These are the tasks in your list.
 7. [E] [ ] project meeting (from: Mon 2pm, to: 4pm)
 
 You: 
+Sidtacphi: Goodbye non-Euclidean life form.
+
+____________________________________________________________

@@ -1,12 +1,12 @@
 import java.util.Objects;
 import java.util.Scanner;
+import java.util.ArrayList;
 
 /**
  * Sidtacphi is the main class for the Sidtacphi bot.
  */
 public class Sidtacphi {
-    private static Task[] taskList = new Task[100];
-    private static int listPtr = 0;
+    private static ArrayList<Task> taskList = new ArrayList<>();
     enum TaskType {
         TODO,
         EVENT,
@@ -113,19 +113,13 @@ public class Sidtacphi {
      * @param input input to add to the task_list kept by the bot
      */
     private static void addTask(TaskType taskType, String input) throws SidException {
-        // in case of > 100 messages, we will not add any more messages
-        if (listPtr >= taskList.length - 1) {
-            throw new SidException("You have too many tasks");
-        }
-
         String[] inputArgs;
-
         switch (taskType) {
             case TODO:
                 if (input.length() < 5) {
                     throw new SidInvalidFormatException("Please input a name for your Todo task.");
                 } else if (input.charAt(4) == ' ') {
-                    taskList[listPtr] = new Todo(input.substring(5));
+                    taskList.add(new Todo(input.substring(5)));
                 } else {
                     throw new SidException("\"" + input + "\" is not a valid command.");
                 }
@@ -139,7 +133,7 @@ public class Sidtacphi {
                     if (inputArgs.length == 2) { 
                         String[] startAndEnd = inputArgs[1].split("\\s*/to\\s*");
                         if (startAndEnd.length == 2) {
-                            taskList[listPtr] = new Event(inputArgs[0], startAndEnd[0], startAndEnd[1]);
+                            taskList.add(new Event(inputArgs[0], startAndEnd[0], startAndEnd[1]));
                         } else {
                             throw new SidInvalidFormatException("Please put in the starting and ending time " 
                             + "using \"/from <time>\" followed by \"/to <time>\" for Event tasks.");
@@ -159,7 +153,7 @@ public class Sidtacphi {
                 } else if (input.charAt(8) == ' ') {
                     inputArgs = input.substring(9).split("\\s*/by\\s*");
                     if (inputArgs.length == 2) { 
-                        taskList[listPtr] = new Deadline(inputArgs[0], inputArgs[1]);
+                        taskList.add(new Deadline(inputArgs[0], inputArgs[1]));
                     } else if (inputArgs.length == 1) {
                         throw new SidInvalidFormatException("Please write in the deadline" 
                         + "using \"/by <time>\" for Deadline tasks. ");
@@ -172,13 +166,12 @@ public class Sidtacphi {
                 break;
         }
         
-        System.out.println("\nSidtacphi: I have added \"" + taskList[listPtr] + "\".");
-        listPtr++;
+        System.out.println("\nSidtacphi: I have added \"" + taskList.get(taskList.size() - 1) + "\".");
         
-        if (listPtr == 1) {
+        if (taskList.size() == 1) {
             System.out.println("Sidtacphi: You now have 1 task in your list.");
         } else {
-            System.out.println("Sidtacphi: You now have " + listPtr + " tasks in your list.");
+            System.out.println("Sidtacphi: You now have " + taskList.size() + " tasks in your list.");
         }
     }
 
@@ -203,8 +196,8 @@ public class Sidtacphi {
                 throw new SidInvalidIndexException("Invalid task ID.");
             }
             
-            Task task = taskList[taskId - 1];
-            if (task.isCompleted()) {
+            Task task = taskList.get(taskId - 1);
+            if (!task.isCompleted()) {
                 throw new SidInvalidIndexException("\"" + task + "\" is already unmarked!");
             } else {
                 task.unmark();
@@ -223,7 +216,7 @@ public class Sidtacphi {
                 throw new SidInvalidIndexException("Invalid task ID.");
             }
             
-            Task task = taskList[taskId - 1];
+            Task task = taskList.get(taskId - 1);
             if (task.isCompleted()) {
                 throw new SidInvalidIndexException("\"" + task + "\" is already marked!");
             } else {
@@ -237,13 +230,14 @@ public class Sidtacphi {
      * Prints the task list.
      */
     private static void showTaskList() {
-        if (listPtr == 0) {
+        if (taskList.size() == 0) {
             System.out.println("\nSidtacphi: There are no tasks in your list.");
             return;
         }
+
         System.out.println("\nSidtacphi: These are the tasks in your list.");
-        for (int i = 0; i < listPtr; i++) {
-            System.out.println("" + (i + 1) + ". " + taskList[i]);
+        for (int i = 0; i < taskList.size() ; i++) {
+            System.out.println("" + (i + 1) + ". " + taskList.get(i));
         }
     }
 }
