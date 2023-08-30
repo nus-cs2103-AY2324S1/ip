@@ -24,7 +24,11 @@ public class TaskList {
     public void mark(int pos) {
         System.out.println("Nice! I've marked this task as done:");
         ls.get(pos - 1).toMark();
-        System.out.println(ls.get(pos - 1));
+        System.out.println(ls.get(pos - 1).toString());
+    }
+
+    public Task get(int i) {
+        return ls.get(i);
     }
 
     public void unmark(int pos) {

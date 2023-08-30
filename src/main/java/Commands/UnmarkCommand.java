@@ -15,6 +15,11 @@ public class UnmarkCommand implements Command {
 
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
-
+        if (pos > tasks.size() || pos <= 0) {
+            System.out.println("Invalid index. Please enter again.");
+        } else {
+            tasks.unmark(pos);
+            Storage.refresh(tasks);
+        }
     }
 }

@@ -14,7 +14,7 @@ public class AddEventCommand implements Command {
 
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
-        // Implement the execution of adding an event task
-        // Add the event task to the task list, update UI, etc.
+        tasks.add(task);
+        storage.addLine(task.toString());
     }
 }

@@ -16,7 +16,7 @@ public class AddTodoCommand implements Command {
 
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
-        // Implement the execution of adding a todo task
-        // Add the todo task to the task list, update UI, etc.
+        tasks.add(task);
+        storage.addLine(task.toString());
     }
 }

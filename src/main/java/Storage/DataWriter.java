@@ -1,18 +1,21 @@
 package Storage;
 
+import TaskList.TaskList;
+import Tasks.Task;
+
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class DataWriter {
-    private String filePath;
+    private static String filePath;
 
     public DataWriter(String filePath) {
-        this.filePath = filePath;
+        DataWriter.filePath = filePath;
     }
 
-    public void addLine(String line) {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath, true))) {
+    public static void addLine(String line) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(DataWriter.filePath, true))) {
             writer.write(line);
             writer.newLine();
         } catch (IOException e) {
@@ -45,6 +48,25 @@ public class DataWriter {
             }
         } else {
             System.out.println("Invalid line number.");
+        }
+    }
+
+    public static void refresh(TaskList tasks) {
+        try {
+            // Clean the file by overwriting it with an empty content
+            BufferedWriter cleanWriter = new BufferedWriter(new FileWriter(filePath, false));
+            cleanWriter.write("");
+            cleanWriter.close();
+
+            // Append tasks from the array list to the file
+            BufferedWriter appendWriter = new BufferedWriter(new FileWriter(filePath, true));
+            for (int i = 0; i < tasks.size(); i++) {
+                Task task = tasks.get(i);
+                appendWriter.write(task.toString() + System.lineSeparator());
+            }
+            appendWriter.close();
+        } catch (IOException e) {
+            System.out.println("An error occurred: " + e.getMessage());
         }
     }
 }

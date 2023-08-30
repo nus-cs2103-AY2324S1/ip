@@ -31,8 +31,8 @@ public class Deadline extends Task {
             try {
                 parsedBy = LocalDate.parse(by, dateFormat);
                 break; // Successfully parsed, so no need to try other formats
-            } catch (DateTimeParseException ignored) {
-                parsedBy = null;
+            } catch (DateTimeParseException e) {
+
             }
         }
     }

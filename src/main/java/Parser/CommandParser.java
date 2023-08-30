@@ -6,7 +6,7 @@ import Commands.*;
 
 public class CommandParser {
 
-    public static String extractCommand(String input) {
+    private static String extractCommand(String input) {
         String[] words = input.split(" ", 2);
         if (words.length > 0) {
             return words[0].toLowerCase();
@@ -14,7 +14,12 @@ public class CommandParser {
         return "";
     }
 
-    public Command parse(String input) {
+    private static int extractValue(String input) {
+        String[] parts = input.split("\\s+");
+        return Integer.parseInt(parts[1]);
+    }
+
+    public static Command parse(String input) {
         String command = extractCommand(input);
         TaskParser taskParser = new TaskParser();
 
@@ -22,24 +27,24 @@ public class CommandParser {
             case "mark":
                 Matcher markMatcher = Pattern.compile(MarkCommand.MARK_PATTERN).matcher(input);
                 if (markMatcher.matches()) {
-                    int number = Integer.parseInt(markMatcher.group(1)); // Extract the number
-                    return new MarkCommand(number);
+                    int pos = extractValue(input);
+                    return new MarkCommand(pos);
                 } else {
                     return new InvalidCommand("Invalid mark command format.");
                 }
             case "unmark":
                 Matcher unmarkMatcher = Pattern.compile(UnmarkCommand.UNMARK_PATTERN).matcher(input);
                 if (unmarkMatcher.matches()) {
-                    int number = Integer.parseInt(unmarkMatcher.group(1)); // Extract the number
-                    return new UnmarkCommand(number);
+                    int pos = extractValue(input);
+                    return new UnmarkCommand(pos);
                 } else {
                     return new InvalidCommand("Invalid unmark command format.");
                 }
             case "delete":
                 Matcher deleteMatcher = Pattern.compile(DeleteCommand.DELETE_PATTERN).matcher(input);
                 if (deleteMatcher.matches()) {
-                    int number = Integer.parseInt(deleteMatcher.group(1)); // Extract the number
-                    return new DeleteCommand(number);
+                    int pos = extractValue(input);
+                    return new DeleteCommand(pos);
                 } else {
                     return new InvalidCommand("Invalid delete command format.");
                 }
@@ -51,6 +56,12 @@ public class CommandParser {
 
             case "deadline":
                 return new AddDeadlineCommand(taskParser.parseTask(input));
+
+            case "bye":
+                return new ExitCommand();
+
+            case "list":
+                return new ListCommand();
 
             default:
                 return new HelpCommand();

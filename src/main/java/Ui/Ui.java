@@ -23,4 +23,8 @@ public class Ui {
     public String readCommand() {
         return scanner.nextLine();
     }
+
+    public void showError(String message) {
+        System.out.println(message);
+    }
 }
