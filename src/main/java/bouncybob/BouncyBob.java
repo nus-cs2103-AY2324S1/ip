@@ -1,7 +1,6 @@
 package bouncybob;
 
 import jdk.jfr.Event;
-
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -14,15 +13,31 @@ import bouncybob.util.TaskFileHandler;
 import bouncybob.util.Parser;
 import bouncybob.util.Ui;
 
+/**
+ * Main class for the BouncyBob application.
+ */
 public class BouncyBob {
 
+    /**
+     * Enum representing the types of tasks.
+     */
     public enum TaskType {
         TODO, DEADLINE, EVENT, UNKNOWN
     }
+
+    /**
+     * Enum representing the types of actions that can be performed on tasks.
+     */
     public enum Action {
         MARK, UNMARK, DELETE, UNKNOWN
     }
 
+    /**
+     * Adds a task to the task list and prints the task.
+     *
+     * @param parts    The parsed user input.
+     * @param taskList The task list.
+     */
     private static void addTaskAndPrint(String[] parts, TaskList taskList) {
         TaskType taskType = Parser.getTaskType(parts[0]);
         String taskName = "";
@@ -66,6 +81,12 @@ public class BouncyBob {
         Ui.printTaskCount(taskList.size() - 1, newTask);  // Adjusted to size of ArrayList
     }
 
+    /**
+     * Modifies a task in the task list based on the action specified.
+     *
+     * @param parts    The parsed user input.
+     * @param taskList The task list.
+     */
     public static void modifyTask(String[] parts, TaskList taskList) {
         Action action = Parser.getAction(parts[0]);
         int index = Integer.parseInt(parts[1]); // Adjust for 0-based index
@@ -86,6 +107,11 @@ public class BouncyBob {
     }
 
 
+    /**
+     * The main method for the BouncyBob application.
+     *
+     * @param args Command line arguments.
+     */
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         TaskList taskList = new TaskList();

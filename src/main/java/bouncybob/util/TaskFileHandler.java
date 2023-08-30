@@ -12,9 +12,17 @@ import java.io.FileWriter;
 import java.io.FileReader;
 import java.io.IOException;
 
+/**
+ * Utility class for handling file operations related to tasks.
+ */
 public class TaskFileHandler {
     private static final String FILE_PATH = "./data/bouncy.txt";
 
+    /**
+     * Saves the current tasks to disk.
+     *
+     * @param taskList The list of tasks to be saved.
+     */
     public static void saveTasksToDisk(TaskList taskList) {
         StringBuilder builder = new StringBuilder();
         for(Task task : taskList.getTasks()) {
@@ -33,7 +41,11 @@ public class TaskFileHandler {
         }
     }
 
-
+    /**
+     * Loads tasks from disk into the provided task list.
+     *
+     * @param taskList The list where tasks will be loaded.
+     */
     public static void loadTasksFromDisk(TaskList taskList) {
         File file = new File(FILE_PATH);
         if (!file.exists()) {
@@ -65,7 +77,9 @@ public class TaskFileHandler {
                         break;
                 }
                 if (task != null) {
-                    if (isDone) task.setDone();
+                    if (isDone) {
+                        task.setDone();
+                    }
                     taskList.addTask(task);
                 }
             }
