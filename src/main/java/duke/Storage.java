@@ -1,12 +1,12 @@
 package duke;
 
-import duke.Exceptions.DukeException;
-import duke.Exceptions.InvalidDateFormatException;
-import duke.Exceptions.InvalidInputException;
-import duke.Tasks.Deadline;
-import duke.Tasks.Event;
-import duke.Tasks.Task;
-import duke.Tasks.Todo;
+import duke.exceptions.DukeException;
+import duke.exceptions.InvalidDateFormatException;
+import duke.exceptions.InvalidInputException;
+import duke.tasks.Deadline;
+import duke.tasks.Event;
+import duke.tasks.Task;
+import duke.tasks.Todo;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -20,15 +20,15 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Storage {
-    private String filePath;
-    public Storage(String filePath){
-        this.filePath = filePath;
+    private final String FILEPATH;
+    public Storage(String FILEPATH){
+        this.FILEPATH = FILEPATH;
     }
 
     public List<Task> load() {
         List<Task> list = new ArrayList<>();
         try {
-            File f = new File(filePath);
+            File f = new File(FILEPATH);
             Files.createDirectories(Paths.get("data"));
             f.createNewFile();
             Scanner s = new Scanner(f);
@@ -72,7 +72,7 @@ public class Storage {
     }
     public void save(TaskList tasks) {
         try {
-            FileWriter fw = new FileWriter(filePath);
+            FileWriter fw = new FileWriter(FILEPATH);
             for (int i = 0; i < tasks.list.size(); i++) {
                 fw.write(tasks.list.get(i).toSave() + "\n");
             }

@@ -1,4 +1,4 @@
-package duke.Exceptions;
+package duke.exceptions;
 
 /**
  * Custom exception class for empty event entries in the Duke application.
@@ -11,6 +11,7 @@ public class EmptyEventException extends DukeException {
      * The error message informs the user about the correct format for adding an event.
      */
     public EmptyEventException() {
-        super("I DON'T LIKE WHAT YOU'VE GOT! Missing entry. ENTER event (title) /from (from) /to (to) to add an event");
+        super("I DON'T LIKE WHAT YOU'VE GOT! Missing entry. ENTER event (title) /from (from) /to (to) to" +
+                " add an event");
     }
 }

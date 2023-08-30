@@ -3,7 +3,7 @@ package duke;
 import java.util.Scanner;
 
 public class UI {
-    private String logo = "       ___\n" +
+    private final String LOGO = "       ___\n" +
             "    . -^   `--,\n" +
             "   /# =========`-_\n" +
             "  /# (--====___====\\\n" +
@@ -23,7 +23,7 @@ public class UI {
     public UI(){}
 
     public void printIntro() {
-        System.out.println("Hello from\n" + logo);
+        System.out.println("Hello from\n" + LOGO);
         System.out.println("Hello I'm HEAD");
     }
     public String getInput(){

@@ -1,4 +1,4 @@
-package duke.Tasks;
+package duke.tasks;
 
 /**
  * Abstract base class representing a task in the Duke application.
@@ -19,18 +19,8 @@ public abstract class Task {
         this.isMarked = isMarked;
     }
 
-    /**
-     * Marks the task as completed.
-     */
-    public void mark() {
-        this.isMarked = true;
-    }
-
-    /**
-     * Marks the task as incomplete.
-     */
-    public void unmark() {
-        this.isMarked = false;
+    public void setMark(boolean isMarked) {
+        this.isMarked = isMarked;
     }
 
     public boolean getIsMarked() {

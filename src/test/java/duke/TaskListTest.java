@@ -1,7 +1,7 @@
 package duke;
-import duke.Exceptions.DukeException;
-import duke.Tasks.Task;
-import duke.Tasks.Todo;
+import duke.exceptions.DukeException;
+import duke.tasks.Task;
+import duke.tasks.Todo;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;

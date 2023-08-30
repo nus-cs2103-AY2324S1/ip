@@ -1,5 +1,5 @@
 package duke;
-import duke.Exceptions.DukeException;
+import duke.exceptions.DukeException;
 
 /**
  * Main class for the Duke application.
@@ -10,9 +10,9 @@ public class Duke {
     private TaskList tasks;
     private UI ui;
 
-    public Duke(String filePath) {
+    public Duke(String FILEPATH) {
         ui = new UI();
-        storage = new Storage(filePath);
+        storage = new Storage(FILEPATH);
         tasks = new TaskList(storage.load());
     }
 

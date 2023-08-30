@@ -1,9 +1,9 @@
 package duke;
 
-import duke.Tasks.Deadline;
-import duke.Tasks.Event;
-import duke.Tasks.Task;
-import duke.Tasks.Todo;
+import duke.tasks.Deadline;
+import duke.tasks.Event;
+import duke.tasks.Task;
+import duke.tasks.Todo;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
@@ -15,7 +15,7 @@ public class StorageTest {
     @Test
     public void loadTask_Todo_ValidInput_TaskCreatedAndAddedToList() {
         List<Task> list = new ArrayList<>();
-        Storage storage = new Storage("testFilePath");
+        Storage storage = new Storage("testFILEPATH");
 
         String input = "T | 1| Title";
         storage.loadTask(input, list);
@@ -29,7 +29,7 @@ public class StorageTest {
     @Test
     public void loadTask_Deadline_ValidInput_TaskCreatedAndAddedToList() {
         List<Task> list = new ArrayList<>();
-        Storage storage = new Storage("testFilePath");
+        Storage storage = new Storage("testFILEPATH");
 
         String input = "D | 1| Deadline Title| 01/01/2023 14:00";
         storage.loadTask(input, list);
@@ -44,7 +44,7 @@ public class StorageTest {
     @Test
     public void loadTask_Event_ValidInput_TaskCreatedAndAddedToList() {
         List<Task> list = new ArrayList<>();
-        Storage storage = new Storage("testFilePath");
+        Storage storage = new Storage("testFILEPATH");
 
         String input = "E| 1| Event Title| 01/01/2023 14:00| 01/01/2023 16:00";
         storage.loadTask(input, list);
@@ -59,7 +59,7 @@ public class StorageTest {
     @Test
     public void loadTask_InvalidInput_NoTaskAddedToList() {
         List<Task> list = new ArrayList<>();
-        Storage storage = new Storage("testFilePath");
+        Storage storage = new Storage("testFILEPATH");
 
         String input = "InvalidInput";
         storage.loadTask(input, list);

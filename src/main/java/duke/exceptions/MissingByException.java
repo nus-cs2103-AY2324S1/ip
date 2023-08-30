@@ -1,4 +1,4 @@
-package duke.Exceptions;
+package duke.exceptions;
 
 /**
  * Custom exception class for missing "by" date entries in the Duke application.
