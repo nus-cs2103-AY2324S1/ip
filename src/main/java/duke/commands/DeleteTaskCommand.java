@@ -12,7 +12,7 @@ public class DeleteTaskCommand extends Command {
      * Constructs a new DeleteTaskCommand object.
      *
      * @param taskList The current list of tasks.
-     * @param args The arguments supplied by the user.
+     * @param args     The arguments supplied by the user.
      */
     public DeleteTaskCommand(TaskList taskList, String args) {
         super(CommandType.DELETE_TASK, taskList, args);

@@ -156,6 +156,13 @@ public class TaskList {
         return this.list.size();
     }
 
+    /**
+     * Find tasks that contain a specified query in their description.
+     *
+     * @param query A query specified by the user.
+     * @return An ArrayList containing the index of items that contain the specified
+     *         query.
+     */
     public ArrayList<Integer> findTasks(String query) {
         ArrayList<Integer> result = new ArrayList<>();
         String loweredQuery = query.toLowerCase();
