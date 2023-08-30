@@ -1,10 +1,9 @@
-package Tasks;
+package Duke.Tasks;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 
-public class Events extends Task {
+public class Events extends Duke.Tasks.Task {
     // additional start and end time fields for events
     LocalDateTime startDate;
     LocalDateTime endDate;

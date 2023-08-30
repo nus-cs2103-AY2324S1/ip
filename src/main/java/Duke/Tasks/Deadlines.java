@@ -1,8 +1,7 @@
-    package Tasks;
+    package Duke.Tasks;
 
     import java.time.LocalDateTime;
     import java.time.format.DateTimeFormatter;
-    import java.time.format.DateTimeParseException;
 
     public class Deadlines extends Task {
         // additional deadline given for deadline tasks
