@@ -27,7 +27,7 @@
     ____________________________________________________________
    /_____/_____/_____/_____/_____/_____/_____/_____/_____/_____/
      Got it. I've added this task:
-       [D][ ] return book (by: June 6th)
+       [D][ ] return book (by: 6 Jun 2023 11:59pm)
      Now you have 2 tasks in the list.
     ____________________________________________________________
    /_____/_____/_____/_____/_____/_____/_____/_____/_____/_____/
@@ -35,7 +35,7 @@
     ____________________________________________________________
    /_____/_____/_____/_____/_____/_____/_____/_____/_____/_____/
      Got it. I've added this task:
-       [E][ ] project meeting (from: Aug 6th 2pm to: 4pm)
+       [E][ ] project meeting (from: 6 Aug 2023 2:0pm to: 6 Aug 2023 4:0pm)
      Now you have 3 tasks in the list.
     ____________________________________________________________
    /_____/_____/_____/_____/_____/_____/_____/_____/_____/_____/
@@ -88,8 +88,8 @@
    /_____/_____/_____/_____/_____/_____/_____/_____/_____/_____/
      Here are the tasks in your list:
      1.[T][X] read book
-     2.[D][ ] return book (by: June 6th)
-     3.[E][ ] project meeting (from: Aug 6th 2pm to: 4pm)
+     2.[D][ ] return book (by: 6 Jun 2023 11:59pm)
+     3.[E][ ] project meeting (from: 6 Aug 2023 2:0pm to: 6 Aug 2023 4:0pm)
      4.[T][X] join sports club
      5.[T][ ] borrow book
     ____________________________________________________________
@@ -98,7 +98,7 @@
     ____________________________________________________________
    /_____/_____/_____/_____/_____/_____/_____/_____/_____/_____/
      Got it. I've added this task:
-       [D][ ] return book (by: Sunday)
+       [D][ ] return book (by: 1 May 2023 11:59pm)
      Now you have 6 tasks in the list.
     ____________________________________________________________
    /_____/_____/_____/_____/_____/_____/_____/_____/_____/_____/
@@ -106,7 +106,7 @@
     ____________________________________________________________
    /_____/_____/_____/_____/_____/_____/_____/_____/_____/_____/
      Got it. I've added this task:
-       [E][ ] project meeting (from: Mon 2pm to: 4pm)
+       [E][ ] project meeting (from: 1 Jan 2023 12:0am to: 31 Dec 2023 11:59pm)
      Now you have 7 tasks in the list.
     ____________________________________________________________
    /_____/_____/_____/_____/_____/_____/_____/_____/_____/_____/
@@ -114,7 +114,7 @@
     ____________________________________________________________
    /_____/_____/_____/_____/_____/_____/_____/_____/_____/_____/
      OOPS!!! The command for event task is invalid.
-     Enter in the form: "event [task_description] /from [start_date] /by [end_date]"
+     Enter in the form: "event [task_description] /from {d/M/yyyy HH:mm} /to {d/M/yyyy HH:mm}"
     ____________________________________________________________
    /_____/_____/_____/_____/_____/_____/_____/_____/_____/_____/
 
@@ -122,26 +122,25 @@
    /_____/_____/_____/_____/_____/_____/_____/_____/_____/_____/
      Here are the tasks in your list:
      1.[T][X] read book
-     2.[D][ ] return book (by: June 6th)
-     3.[E][ ] project meeting (from: Aug 6th 2pm to: 4pm)
+     2.[D][ ] return book (by: 6 Jun 2023 11:59pm)
+     3.[E][ ] project meeting (from: 6 Aug 2023 2:0pm to: 6 Aug 2023 4:0pm)
      4.[T][X] join sports club
      5.[T][ ] borrow book
-     6.[D][ ] return book (by: Sunday)
-     7.[E][ ] project meeting (from: Mon 2pm to: 4pm)
+     6.[D][ ] return book (by: 1 May 2023 11:59pm)
+     7.[E][ ] project meeting (from: 1 Jan 2023 12:0am to: 31 Dec 2023 11:59pm)
     ____________________________________________________________
    /_____/_____/_____/_____/_____/_____/_____/_____/_____/_____/
 
     ____________________________________________________________
    /_____/_____/_____/_____/_____/_____/_____/_____/_____/_____/
      Nice! I've marked this task as done:
-       [D][X] return book (by: June 6th)
+       [D][X] return book (by: 6 Jun 2023 11:59pm)
     ____________________________________________________________
    /_____/_____/_____/_____/_____/_____/_____/_____/_____/_____/
 
     ____________________________________________________________
    /_____/_____/_____/_____/_____/_____/_____/_____/_____/_____/
      OOPS!!! You have not entered anything!
-
     ____________________________________________________________
    /_____/_____/_____/_____/_____/_____/_____/_____/_____/_____/
 
@@ -149,20 +148,34 @@
    /_____/_____/_____/_____/_____/_____/_____/_____/_____/_____/
      Here are the tasks in your list:
      1.[T][X] read book
-     2.[D][X] return book (by: June 6th)
-     3.[E][ ] project meeting (from: Aug 6th 2pm to: 4pm)
+     2.[D][X] return book (by: 6 Jun 2023 11:59pm)
+     3.[E][ ] project meeting (from: 6 Aug 2023 2:0pm to: 6 Aug 2023 4:0pm)
      4.[T][X] join sports club
      5.[T][ ] borrow book
-     6.[D][ ] return book (by: Sunday)
-     7.[E][ ] project meeting (from: Mon 2pm to: 4pm)
+     6.[D][ ] return book (by: 1 May 2023 11:59pm)
+     7.[E][ ] project meeting (from: 1 Jan 2023 12:0am to: 31 Dec 2023 11:59pm)
      OOPS!!! There is no task 10 to mark
     ____________________________________________________________
    /_____/_____/_____/_____/_____/_____/_____/_____/_____/_____/
 
     ____________________________________________________________
    /_____/_____/_____/_____/_____/_____/_____/_____/_____/_____/
+     Here are the 1 tasks happening on 1 May 2023:
+       [E][ ] project meeting (from: 1 Jan 2023 12:0am to: 31 Dec 2023 11:59pm)
+    ____________________________________________________________
+   /_____/_____/_____/_____/_____/_____/_____/_____/_____/_____/
+
+    ____________________________________________________________
+   /_____/_____/_____/_____/_____/_____/_____/_____/_____/_____/
+     Here are the 1 tasks happening on 2 May 2023:
+       [D][X] return book (by: 6 Jun 2023 11:59pm)
+    ____________________________________________________________
+   /_____/_____/_____/_____/_____/_____/_____/_____/_____/_____/
+
+    ____________________________________________________________
+   /_____/_____/_____/_____/_____/_____/_____/_____/_____/_____/
      Nice! I've marked this task as done:
-       [E][X] project meeting (from: Aug 6th 2pm to: 4pm)
+       [E][X] project meeting (from: 6 Aug 2023 2:0pm to: 6 Aug 2023 4:0pm)
     ____________________________________________________________
    /_____/_____/_____/_____/_____/_____/_____/_____/_____/_____/
 
@@ -177,12 +190,12 @@
    /_____/_____/_____/_____/_____/_____/_____/_____/_____/_____/
      Here are the tasks in your list:
      1.[T][X] read book
-     2.[D][X] return book (by: June 6th)
-     3.[E][X] project meeting (from: Aug 6th 2pm to: 4pm)
+     2.[D][X] return book (by: 6 Jun 2023 11:59pm)
+     3.[E][X] project meeting (from: 6 Aug 2023 2:0pm to: 6 Aug 2023 4:0pm)
      4.[T][X] join sports club
      5.[T][X] borrow book
-     6.[D][ ] return book (by: Sunday)
-     7.[E][ ] project meeting (from: Mon 2pm to: 4pm)
+     6.[D][ ] return book (by: 1 May 2023 11:59pm)
+     7.[E][ ] project meeting (from: 1 Jan 2023 12:0am to: 31 Dec 2023 11:59pm)
     ____________________________________________________________
    /_____/_____/_____/_____/_____/_____/_____/_____/_____/_____/
 
@@ -203,7 +216,7 @@
     ____________________________________________________________
    /_____/_____/_____/_____/_____/_____/_____/_____/_____/_____/
      Nice! I've marked this task as done:
-       [E][X] project meeting (from: Mon 2pm to: 4pm)
+       [E][X] project meeting (from: 1 Jan 2023 12:0am to: 31 Dec 2023 11:59pm)
     ____________________________________________________________
    /_____/_____/_____/_____/_____/_____/_____/_____/_____/_____/
 
@@ -211,12 +224,12 @@
    /_____/_____/_____/_____/_____/_____/_____/_____/_____/_____/
      Here are the tasks in your list:
      1.[T][X] read book
-     2.[D][X] return book (by: June 6th)
-     3.[E][X] project meeting (from: Aug 6th 2pm to: 4pm)
+     2.[D][X] return book (by: 6 Jun 2023 11:59pm)
+     3.[E][X] project meeting (from: 6 Aug 2023 2:0pm to: 6 Aug 2023 4:0pm)
      4.[T][ ] join sports club
      5.[T][ ] borrow book
-     6.[D][ ] return book (by: Sunday)
-     7.[E][X] project meeting (from: Mon 2pm to: 4pm)
+     6.[D][ ] return book (by: 1 May 2023 11:59pm)
+     7.[E][X] project meeting (from: 1 Jan 2023 12:0am to: 31 Dec 2023 11:59pm)
     ____________________________________________________________
    /_____/_____/_____/_____/_____/_____/_____/_____/_____/_____/
 
@@ -239,11 +252,11 @@
    /_____/_____/_____/_____/_____/_____/_____/_____/_____/_____/
      Here are the tasks in your list:
      1.[T][X] read book
-     2.[D][X] return book (by: June 6th)
-     3.[E][X] project meeting (from: Aug 6th 2pm to: 4pm)
+     2.[D][X] return book (by: 6 Jun 2023 11:59pm)
+     3.[E][X] project meeting (from: 6 Aug 2023 2:0pm to: 6 Aug 2023 4:0pm)
      4.[T][ ] borrow book
-     5.[D][ ] return book (by: Sunday)
-     6.[E][X] project meeting (from: Mon 2pm to: 4pm)
+     5.[D][ ] return book (by: 1 May 2023 11:59pm)
+     6.[E][X] project meeting (from: 1 Jan 2023 12:0am to: 31 Dec 2023 11:59pm)
     ____________________________________________________________
    /_____/_____/_____/_____/_____/_____/_____/_____/_____/_____/
 
@@ -257,11 +270,11 @@
    /_____/_____/_____/_____/_____/_____/_____/_____/_____/_____/
      Here are the tasks in your list:
      1.[T][ ] read book
-     2.[D][ ] return book (by: June 6th)
-     3.[E][ ] project meeting (from: Aug 6th 2pm to: 4pm)
+     2.[D][ ] return book (by: 6 Jun 2023 11:59pm)
+     3.[E][ ] project meeting (from: 6 Aug 2023 2:0pm to: 6 Aug 2023 4:0pm)
      4.[T][ ] borrow book
-     5.[D][ ] return book (by: Sunday)
-     6.[E][ ] project meeting (from: Mon 2pm to: 4pm)
+     5.[D][ ] return book (by: 1 May 2023 11:59pm)
+     6.[E][ ] project meeting (from: 1 Jan 2023 12:0am to: 31 Dec 2023 11:59pm)
     ____________________________________________________________
    /_____/_____/_____/_____/_____/_____/_____/_____/_____/_____/
 
