@@ -8,26 +8,10 @@ public class Deadline extends Task{
     private String time;
     private LocalDateTime timeInDateTime;
 
-    public Deadline(String description) {
+    public Deadline(String description, LocalDateTime timeInDateTime) {
 
-        super(description.split("/by")[0].trim());
-        this.time = description.split("/by")[1].trim();
-
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(
-                "[yyyy-MM-dd HH:mm:ss][yyyy-MM-dd][MM/dd/yyyy HH:mm:ss][dd/MM/yyyy]"
-        );
-
-        try {
-            timeInDateTime = LocalDateTime.parse(this.time, formatter);
-        } catch (DateTimeParseException e) {
-            // If datetime parsing fails, try parsing as date-only
-            try {
-                LocalDate date = LocalDate.parse(this.time, formatter);
-                timeInDateTime = date.atStartOfDay();
-            } catch (DateTimeParseException ex) {
-                System.out.println("Error parsing datetime: " + ex.getMessage());
-            }
-        }
+        super(description);
+        this.timeInDateTime = timeInDateTime;
     }
 
     public String type() {

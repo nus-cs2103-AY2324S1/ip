@@ -33,24 +33,6 @@ public class Task {
         }
     }
 
-    public static void readTaskFromFile(String[] task, ArrayList taskList) {
-
-        if (task[0].equals("T")) {
-            Task task1 = new Todo(task[2]);
-            task1.markedChecker(task[1]);
-            taskList.add(task1);
-        } else if (task[0].equals("D")) {
-            Task task1 = new Deadline(task[2]);
-            task1.markedChecker(task[1]);
-            taskList.add(task1);
-        } else if (task[0].equals("E")) {
-            Task task1 = new Event(task[2]);
-            task1.markedChecker(task[1]);
-            taskList.add(task1);
-        } else {
-            return;
-        }
-    }
 
     @Override
     public String toString() {
