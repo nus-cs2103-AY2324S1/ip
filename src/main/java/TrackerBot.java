@@ -1,5 +1,11 @@
 import ip.utils.Pair;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -218,6 +224,25 @@ public class TrackerBot {
         System.out.println(TASKS.size() + " task(s) remain on my list.");
     }
 
+    private static void save() {
+        Path path = Paths.get("TrackerBot", "data.txt");
+        File file = path.toFile();
+        try {
+            Files.createDirectories(path.getParent());
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+
+        try (FileOutputStream output = new FileOutputStream(file, false)) {
+            for (int i = 1; i < TASKS.size() + 1; i++) {
+                output.write(TASKS.get(i - 1).toString().getBytes());
+                output.write("\n".getBytes());
+            }
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        } // the try with resources statement auto-closes output.
+    }
+
     /**
      * Input handler function of the app. <br>
      * Takes in a user input, and acts upon the input based on what input it gets. <br>
@@ -241,6 +266,7 @@ public class TrackerBot {
         // switch used for now: to handle future input cases.
         switch(input.getFirst()) {
         case BYE:
+            save();
             exit();
             return true;
             // No break - return exits case immediately.
