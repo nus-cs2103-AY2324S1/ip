@@ -1,3 +1,5 @@
+package duke.task;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -7,7 +9,7 @@ public class Event extends Task {
     private LocalDateTime to;
 
 
-    Event(String message, LocalDateTime from, LocalDateTime to) {
+    public Event(String message, LocalDateTime from, LocalDateTime to) {
         super(message);
         this.from = from;
         this.to = to;

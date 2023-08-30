@@ -1,8 +1,10 @@
+package duke.task;
+
 public abstract class Task {
     protected String message;
     protected boolean isDone;
 
-    Task(String message) {
+    public Task(String message) {
         this.message = message;
         this.isDone = false;
     }

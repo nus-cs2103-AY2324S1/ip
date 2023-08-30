@@ -1,3 +1,10 @@
+package duke.command;
+
+import duke.DukeException;
+import duke.Storage;
+import duke.Ui;
+import duke.task.*;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 
@@ -54,7 +61,7 @@ public class AddCommand extends Command {
                     newTask = new Event(message, LocalDateTime.parse(from), LocalDateTime.parse(to));
                     break;
                 default:
-                    throw new DukeException("Task type is invalid!");
+                    throw new DukeException("duke.task.Task type is invalid!");
                     // break not needed as exception is thrown
             }
             tasks.add(newTask);
