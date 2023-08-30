@@ -420,8 +420,7 @@ public class TaskList {
         String str = list.get(list.size() - 1).toString();
         String res = "Got it. I've added this task :\n" + str + "\n";
         res += getTaskLeft();
-
-
+        
         return res;
     }
 
