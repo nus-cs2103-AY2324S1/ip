@@ -1,5 +1,9 @@
+package duke.task;
+
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import duke.Storage;
+import duke.Ui;
 
 public class TaskList {
     private int taskNum = 0;

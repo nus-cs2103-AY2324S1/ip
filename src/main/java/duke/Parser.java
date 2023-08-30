@@ -1,3 +1,11 @@
+package duke;
+
+import duke.task.Deadline;
+import duke.task.Event;
+import duke.task.Task;
+import duke.task.TaskList;
+import duke.task.Todo;
+
 public class Parser {
     public static void readTask(String command, TaskList tasklist) throws DukeException {
         String[] commandSplit = command.split(" ");
