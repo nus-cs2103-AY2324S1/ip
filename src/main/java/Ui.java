@@ -18,8 +18,7 @@ public class Ui {
         System.out.println("    ____________________________________________________________\n");
     }
 
-    public static String getInput() {
-        Scanner scan = new Scanner(System.in);
+    public static String getInput(Scanner scan) {
         String input = scan.nextLine();
         return input;
     }

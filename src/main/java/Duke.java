@@ -23,10 +23,11 @@ public class Duke {
 
     public void run() {
         Ui.start();
-        String input = Ui.getInput();
+        Scanner scan = new Scanner(System.in);
+        String input = Ui.getInput(scan);
         while (!input.equals("bye")) {
             Parser.parseInput(input, this.tasks, this.storage);
-            input = Ui.getInput();
+            input = Ui.getInput(scan);
         }
         Ui.bye();
     }
