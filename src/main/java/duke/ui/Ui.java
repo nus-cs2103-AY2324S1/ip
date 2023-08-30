@@ -6,6 +6,11 @@ import duke.task.Task;
 import duke.task.TaskList;
 
 public class Ui {
+    /**
+     * Adds task to TaskList and displays added task info to user.
+     * @param tasks TaskList
+     * @param task Task to be added
+     */
     public void addTask(TaskList tasks, Task task) {
         tasks.add(task);
         print("Got it. I've added this task:");
@@ -13,10 +18,19 @@ public class Ui {
         print(String.format("Now you have %d tasks in the list.", tasks.size()));
     }
 
+    /**
+     * Displays bye message.
+     */
     public void bye() {
         print("Bye. Hope to see you again soon!");
     }
 
+    /**
+     * Displays all tasks from TaskList that exist on specified date.
+     * @param tasks TaskList
+     * @param date Date given by user
+     * @throws DukeException if invalid date
+     */
     public void date(TaskList tasks, String date) throws DukeException {
         int idx = 0;
         String dmy = Parser.convertToDMY(date);
@@ -33,6 +47,12 @@ public class Ui {
         }
     }
     
+    /**
+     * Removes task from TaskList and displays removed task info to user.
+     * @param tasks TaskList
+     * @param index Index of task removed
+     * @throws DukeException if invalid task index
+     */
     public void deleteTask(TaskList tasks, int index) throws DukeException {
         if (index < 0 || index >= tasks.size()) {
             throw new DukeException("Invalid task index");
@@ -43,6 +63,11 @@ public class Ui {
         print(String.format("Now you have %d tasks in the list.", tasks.size()));
     }
 
+    /**
+     * Displays all tasks in TaskList that matches specified keyword.
+     * @param tasks TaskList
+     * @param keyword String of specified keyword
+     */
     public void find(TaskList tasks, String keyword) {
         int idx = 0;
         for (Task task: tasks) {
@@ -58,10 +83,17 @@ public class Ui {
         }
     }
 
+    /**
+     * Displays hello message.
+     */
     public void hello() {
         print("Hello! I'm AdaBot.\nWhat do you want to do today?");
     }
 
+    /**
+     * Displays all tasks in TaskList.
+     * @param tasks TaskList
+     */
     public void list(TaskList tasks) {
         if (tasks.size() == 0) {
             print("There is no task in your list.");
@@ -73,6 +105,12 @@ public class Ui {
         }
     }
 
+    /**
+     * Marks specified task as done.
+     * @param tasks TaskList
+     * @param index Index of specified task
+     * @throws DukeException if invalid index task
+     */
     public void mark(TaskList tasks, int index) throws DukeException {
         Task task = tasks.markDone(index);
         print("Nice! I've marked this task as done:");
@@ -87,6 +125,12 @@ public class Ui {
         System.out.println("OOPS!!! " + s);
     }
 
+    /**
+     * Marks specified task as undone.
+     * @param tasks TaskList
+     * @param index Index of specified task
+     * @throws DukeException if invalid index task
+     */
     public void unmark(TaskList tasks, int index) throws DukeException {
         Task task = tasks.unmarkDone(index);
         print("OK, I've marked this task as not done yet:");

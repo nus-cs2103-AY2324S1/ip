@@ -25,6 +25,9 @@ public class Duke {
         this.ui = new Ui();
     }
 
+    /**
+     * Runs the program.
+     */
     public void run() {
         try {
             tasks = storage.read();

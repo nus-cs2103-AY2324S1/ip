@@ -20,6 +20,12 @@ public class Deadline extends Task {
         this.deadline = deadline;
     }
 
+    /**
+     * Checks if a deadline is on specified String date
+     * @param String date
+     * @return boolean whether a deadline is on specified String date
+     * @throws DukeException if invalid date
+     */
     public boolean isToday(String dateStr) throws DukeException {
         try {
             LocalDate date = LocalDate.parse(dateStr);

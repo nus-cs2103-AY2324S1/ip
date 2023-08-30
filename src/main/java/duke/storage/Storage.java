@@ -2,7 +2,6 @@ package duke.storage;
 
 import duke.DukeException;
 import duke.parser.Parser;
-import duke.task.Task;
 import duke.task.TaskList;
 
 import java.io.File;
@@ -12,7 +11,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Storage {
@@ -32,6 +30,11 @@ public class Storage {
         this.filePath = filePath;
     }
 
+    /**
+     * Reads from the specified file.
+     * @return TaskList instance containing all tasks in file
+     * @throws DukeException if error reading file
+     */
     public TaskList read() throws DukeException {
         TaskList tasks = new TaskList();
         if (Files.exists(this.path)) {
@@ -53,6 +56,11 @@ public class Storage {
         return tasks;
     }
 
+    /**
+     * Writes to the specified file.
+     * @param textToAdd All tasks exported to text format
+     * @throws DukeException if error writing to file
+     */
     private void writeToFile(String textToAdd) throws DukeException {
         Path folder = this.path.getParent();
         if (!Files.exists(folder)) {
@@ -71,7 +79,12 @@ public class Storage {
         }
     }
 
-    public void write(ArrayList<Task> tasks) throws DukeException {
+    /**
+     * Takes TaskList of the program and exports it to text file.
+     * @param tasks TaskList
+     * @throws DukeException if error writing to file
+     */
+    public void write(TaskList tasks) throws DukeException {
         String data = "";
         for (int i = 0; i < tasks.size(); i++) {
             data += tasks.get(i).exportToText();
