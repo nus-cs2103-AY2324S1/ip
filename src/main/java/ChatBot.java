@@ -19,7 +19,6 @@ public class ChatBot {
 
     private void run() {
         this.ui.greet();
-
         while (!isExit) {
             try {
                 String command = this.ui.nextCommand();
@@ -44,44 +43,30 @@ public class ChatBot {
             break;
         case "mark":
         case "unmark":
-            if (words.length != 2) {
-                throw new MarkMissingFieldException();
-            }
-            try {
-                boolean isDone = words[0].equals("mark");
-                String taskString = this.tasks.markAs(words[0].equals("mark"), Integer.parseInt(words[1]));
-                this.writeTaskList();
-                this.ui.output(String.format("\t%s\n\t%s",
-                        isDone ? "Nice! I've marked this task as done:"
-                                : "OK, I've marked this task as not done yet:",
-                        taskString));
-            } catch (NumberFormatException e) {
-                throw new InvalidTaskIndexException();
-            }
+            boolean isDone = words[0].equals("mark");
+            String taskString = this.tasks.markAs(isDone, Parser.parseMarkCommand(words));
+            this.writeTaskList();
+            this.ui.output(String.format("\t%s\n\t%s",
+                    isDone ? "Nice! I've marked this task as done:"
+                            : "OK, I've marked this task as not done yet:",
+                    taskString));
             break;
         case "delete":
-            if (words.length != 2) {
-                throw new DeleteMissingFieldException();
-            }
-            try {
-                String taskString = this.tasks.deleteTask(Integer.parseInt(words[1]));
-                this.writeTaskList();
-                this.ui.output(String.format("\tNoted. I've removed this task:\n\t%s\n" +
-                                "\tNow you have %d tasks in the list.",
-                        taskString,
-                        this.tasks.getSize()));
-            } catch (NumberFormatException e) {
-                throw new InvalidTaskIndexException();
-            }
+            taskString = this.tasks.deleteTask(Parser.parseDeleteCommand(words));
+            this.writeTaskList();
+            this.ui.output(String.format("\tNoted. I've removed this task:\n\t%s\n" +
+                            "\tNow you have %d tasks in the list.",
+                    taskString,
+                    this.tasks.getSize()));
             break;
         case "todo":
         case "deadline":
         case "event":
             Task task = words[0].equals("todo")
-                    ? parseTodoTaskCommand(command)
+                    ? Parser.parseTodoTaskCommand(command)
                     : words[0].equals("deadline")
-                    ? parseDeadlineTaskCommand(command)
-                    : parseEventTaskCommand(command);
+                    ? Parser.parseDeadlineTaskCommand(command)
+                    : Parser.parseEventTaskCommand(command);
             this.tasks.addTask(task);
             this.writeTaskList();
             this.ui.output(String.format("\tGot it. I've added this task:\n\t\t%s" +
@@ -92,51 +77,6 @@ public class ChatBot {
             break;
         default:
             throw new IllegalCommandException();
-        }
-    }
-
-    private static Task parseTodoTaskCommand(String command) throws TodoMissingFieldException{
-        try {
-            return new ToDoTask(command.substring(5));
-        } catch (IndexOutOfBoundsException e) {
-            throw new TodoMissingFieldException();
-        }
-
-    }
-
-    private static Task parseDeadlineTaskCommand(String command) throws DeadlineMissingFieldException{
-        int idOfBy = command.indexOf("/by");
-        if (idOfBy == -1) {
-            throw new DeadlineMissingFieldException();
-        }
-        try {
-            String name = command.substring(9, idOfBy - 1);
-            String deadline = command.substring(idOfBy + 4);
-            if (name.isEmpty() || deadline.isEmpty()) {
-                throw new DeadlineMissingFieldException();
-            }
-            return new DeadlineTask(name, deadline);
-        } catch (IndexOutOfBoundsException e) {
-            throw new DeadlineMissingFieldException();
-        }
-    }
-
-    private static Task parseEventTaskCommand(String command) throws EventMissingFieldException {
-        int idOfFrom = command.indexOf("/from");
-        int idOfTo = command.indexOf("/to");
-        if (idOfFrom == -1 || idOfTo == -1) {
-            throw new EventMissingFieldException();
-        }
-        try {
-            String name = command.substring(6, idOfFrom - 1);
-            String from = command.substring(idOfFrom + 6, idOfTo - 1);
-            String to = command.substring(idOfTo + 4);
-            if (name.isEmpty() || from.isEmpty() || to.isEmpty()) {
-                throw new EventMissingFieldException();
-            }
-            return new EventTask(name, from, to);
-        } catch (IndexOutOfBoundsException e) {
-            throw new EventMissingFieldException();
         }
     }
 
