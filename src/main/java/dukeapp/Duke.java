@@ -19,7 +19,6 @@ public class Duke {
         // Read user input until program exits
         while (true) {
             String input = scanner.nextLine();
-
             try {
                 app.executeCommand(input);
             } catch (UnknownCommandException e) {

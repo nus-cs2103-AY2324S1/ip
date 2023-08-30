@@ -1,15 +1,21 @@
 package dukeapp.tasks;
 
 import dukeapp.DukeConstants;
+import dukeapp.Parser;
 import dukeapp.exceptions.InsufficientArgumentsException;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
 import java.util.Objects;
 
 /**
  * Represents a generic task containing the description and own task state.
  */
 public abstract class Task {
-    protected String description;
+    protected static final String OUTPUT_DATE_TIME_PATTERN = "d MMM yyyy, HHmm";
+    protected static final String STORAGE_DATE_TIME_PATTERN = "yyyy-MM-dd HHmm";
+
+    protected final String description;
     protected boolean isDone;
 
     protected Task(String description) {
@@ -31,7 +37,7 @@ public abstract class Task {
      *                                        create task.
      */
     public static Task createTask(String taskType, String input)
-            throws InsufficientArgumentsException {
+            throws InsufficientArgumentsException, DateTimeParseException {
         if (Objects.equals(input, "")) {
             throw new InsufficientArgumentsException(String.format(
                     DukeConstants.INSUFFICIENT_ARGUMENTS_ERROR_MESSAGE,
@@ -44,15 +50,15 @@ public abstract class Task {
                 Task.validateContainsArgument(input, taskType, "by");
                 args = input.split("/by");
                 description = args[0].trim();
-                String by = args[1].trim();
+                LocalDateTime by = Parser.parseDate(args[1].trim());
                 return new Deadline(description, by);
             case "event":
                 Task.validateContainsArgument(input, taskType, "from");
                 Task.validateContainsArgument(input, taskType, "to");
                 args = input.split("/from|/to");
                 description = args[0].trim();
-                String from = args[1].trim();
-                String to = args[2].trim();
+                LocalDateTime from = Parser.parseDate(args[1].trim());
+                LocalDateTime to = Parser.parseDate(args[2].trim());
                 return new Event(description, from, to);
             case "todo":
                 return new ToDo(description);
@@ -71,7 +77,7 @@ public abstract class Task {
      *                                        create task.
      */
     public static Task parse(String taskCode, String input)
-            throws InsufficientArgumentsException {
+            throws InsufficientArgumentsException, DateTimeParseException {
         String taskType;
         switch (taskCode) {
             case "D":
@@ -103,30 +109,35 @@ public abstract class Task {
             case "D":
                 input = input.substring(4);
                 description = input.substring(0, input.indexOf(" | "));
-                String by = input.substring(input.indexOf(" | ") + 3);
-                if (Objects.equals(by, "")) {
+                if (Objects.equals(input.substring(input.indexOf(" | ") + 3), "")) {
                     throw new InsufficientArgumentsException(String.format(
                             DukeConstants.INSUFFICIENT_ARGUMENTS_ERROR_MESSAGE,
                             "by", taskType));
                 }
+                LocalDateTime by = Parser.parseDate(input.substring(
+                        input.indexOf(" | ") + 3));
+
                 return new Deadline(description, isDone, by);
             case "E":
                 input = input.substring(4);
                 description = input.substring(0, input.indexOf(" | "));
                 input = input.substring(input.indexOf(" | ") + 3);
-                if (Objects.equals(input, "")) {
+                if (input.length() < OUTPUT_DATE_TIME_PATTERN.length()) {
                     throw new InsufficientArgumentsException(String.format(
                             DukeConstants.INSUFFICIENT_ARGUMENTS_ERROR_MESSAGE,
                             "from", taskType));
                 }
-                if (!input.contains("-")) {
+                if (input.length() < OUTPUT_DATE_TIME_PATTERN.length() * 2 + 1) {
                     throw new InsufficientArgumentsException(String.format(
                             DukeConstants.INSUFFICIENT_ARGUMENTS_ERROR_MESSAGE,
                             "to", taskType));
                 }
-                String[] args = input.split("-");
-                String from = args[0].trim();
-                String to = args[1].trim();
+                // dates in storage should be formatted consistently
+                LocalDateTime from =
+                        Parser.parseDate(input.substring(OUTPUT_DATE_TIME_PATTERN.length()));
+                LocalDateTime to =
+                        Parser.parseDate(input.substring(OUTPUT_DATE_TIME_PATTERN.length() + 1
+                        ));
                 return new Event(description, isDone, from, to);
             case "T":
                 description = input.substring(4);

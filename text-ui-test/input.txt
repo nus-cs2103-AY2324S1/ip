@@ -1,7 +1,7 @@
 todo borrow book
 list
-deadline return book /by Sunday
-event project meeting /from Mon 2pm /to 4pm
+deadline return book /by 30/09/2023 1200
+event project meeting /from 3/8/2023 1430 /to 2023-8-30 1630
 mark 1
 mark 2
 list
@@ -9,9 +9,20 @@ unmark 2
 list
 todo
 event math lecture
-event math lecture /from tomorrow
-deadline math homework /from tomorrow
+event math lecture /from 2023-08-30
+deadline math homework /from 2/12/2019 1500
 generate report
 delete 1
+list
+deadline ma2001 hw /by 3/8/2023
+deadline ma1521 hw /by 03/8/2023 0100
+event code /from 3/8/2023 /to 3/8/2023 0030
+event run /from 3/08/2023 /to 3/08/2023 0045
+event yoga /from 03/8/2023 /to 03/8/2023 0145
+event nap /from 03/08/2023 /to 03/08/2023 0230
+event dorm workshop /from 2023-8-3 /to 2023-8-3 0315
+event walk around nus /from 2023-8-03 /to 2023-8-03 0400
+event buy supper /from 2023-08-3 /to 2023-08-3 0445
+event sleep /from 2023-08-03 /to 2023-08-3 0530
 list
 bye

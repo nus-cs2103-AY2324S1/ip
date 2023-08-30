@@ -8,7 +8,7 @@ public interface Command {
     /**
      * Executes the command given an input.
      *
-     * @param input
+     * @param input The command to be run.
      */
     void run(String input);
 }

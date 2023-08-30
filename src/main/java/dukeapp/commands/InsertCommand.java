@@ -5,6 +5,8 @@ import dukeapp.DukeState;
 import dukeapp.exceptions.InsufficientArgumentsException;
 import dukeapp.tasks.Task;
 
+import java.time.format.DateTimeParseException;
+
 /**
  * Inserts item into application state.
  */
@@ -32,8 +34,7 @@ public class InsertCommand implements Command {
             int taskCount = this.state.getTaskCount();
             System.out.printf((DukeConstants.INSERT_MESSAGE) + "%n",
                     task, taskCount, taskCount == 1 ? "task" : "tasks");
-        } catch (InsufficientArgumentsException e) {
-            // Input string has insufficient arguments to create task
+        } catch (InsufficientArgumentsException | DateTimeParseException e) {
             System.out.println(e.getMessage());
         }
     }
