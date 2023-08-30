@@ -96,6 +96,7 @@ public class BouncyBob {
             System.out.println("Enter something:");
             String userInput = scanner.nextLine();
             String[] parts = userInput.split(" ");
+
             if (userInput.equals("bye")) {
                 Ui.printBye();
                 break;
