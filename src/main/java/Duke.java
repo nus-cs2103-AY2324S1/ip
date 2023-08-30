@@ -64,10 +64,8 @@ public class Duke {
           break;
         case "mark": {
           try {
-            int index = Integer.parseInt(inputTokens[1]);
-            index--;
             // set current task as done
-            Task selectedTask = taskList.get(index);
+            Task selectedTask = taskList.get(parser.getIndex());
             selectedTask.setDone();
             System.out.println("Marked selected task as done");
             System.out.println(uiFormatter.displayTask(selectedTask));
