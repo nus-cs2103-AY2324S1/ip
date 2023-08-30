@@ -1,8 +1,10 @@
-public class Events extends Task{
-    private final String from;
-    private final String to;
+import java.time.LocalDateTime;
 
-    public Events(String description, boolean isCompleted, String from, String to) {
+public class Events extends Task{
+    private final LocalDateTime from;
+    private final LocalDateTime to;
+
+    public Events(String description, boolean isCompleted, LocalDateTime from, LocalDateTime to) {
         super(description, isCompleted);
         this.from = from;
         this.to = to;
@@ -10,11 +12,11 @@ public class Events extends Task{
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + from + " to: " + to + ")";
+        return "[E]" + super.toString() + " (from: " + dateFormat(from) + "HRS to: " + dateFormat(to) + "HRS)";
     }
 
     @Override
     public String saveString() {
-        return "E|" + super.saveString() + "|" + from + "|" + to;
+        return "E|" + super.saveString() + "|" + saveDateFormat(from) + "|" + saveDateFormat(to);
     }
 }

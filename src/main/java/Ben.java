@@ -2,6 +2,9 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Arrays;
 import java.util.Objects;
 import java.util.Scanner;
@@ -43,10 +46,13 @@ public class Ben {
                     tasks.add(new ToDos(words[2], Boolean.parseBoolean(words[1])), false);
                     break;
                 case "d":
-                    tasks.add(new Deadlines(words[2], Boolean.parseBoolean(words[1]), words[3]), false);
+                    tasks.add(new Deadlines(words[2],
+                            Boolean.parseBoolean(words[1]), dateTimeParser(words[3])), false);
                     break;
                 case "e":
-                    tasks.add(new Events(words[2], Boolean.parseBoolean(words[1]), words[3], words[4]), false);
+                    tasks.add(new Events(words[2],
+                            Boolean.parseBoolean(words[1]), dateTimeParser(words[3]), dateTimeParser(words[4])),
+                            false);
                     break;
             }
         }
@@ -90,7 +96,7 @@ public class Ben {
                     throw new EmptyDescriptionException("/by cannot be empty");
                 }
 
-                task = new Deadlines(description, false, by);
+                task = new Deadlines(description, false, dateTimeParser(by));
                 tasks.add(task, true);
                 return;
 
@@ -128,7 +134,7 @@ public class Ben {
                     throw new EmptyDescriptionException("/to cannot be empty");
                 }
 
-                task = new Events(description, false, from, to);
+                task = new Events(description, false, dateTimeParser(from), dateTimeParser(to));
                 tasks.add(task, true);
                 return;
 
@@ -136,7 +142,19 @@ public class Ben {
             throw new InvalidCommandException("Oops this Command: " + message + " is not found");
         } catch (EmptyDescriptionException | InvalidCommandException e) {
             System.out.println(HORIZONTAL_LINE + "\n" + e.getMessage() + "\n" + HORIZONTAL_LINE);
+        } catch (DateTimeParseException e) {
+            System.out.println(HORIZONTAL_LINE + "\n" + message + " is not a valid command" + "\n" +
+                    "Please input the date in the following format: dd/mm/yyyy HHmm" + "\n" + HORIZONTAL_LINE);
         }
+    }
+
+    public LocalDateTime dateTimeParser(String dateTime) throws DateTimeParseException {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
+
+        if (dateTime.length() < 10) {
+            return LocalDateTime.parse(dateTime + " 2359", formatter);
+        }
+        return LocalDateTime.parse(dateTime, formatter);
     }
 
     public void deactivate() {
