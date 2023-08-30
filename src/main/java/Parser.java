@@ -1,5 +1,6 @@
 import java.time.DateTimeException;
 import java.time.format.DateTimeFormatter;
+import java.util.Arrays;
 import java.util.List;
 import java.time.LocalDate;
 
@@ -10,6 +11,21 @@ public class Parser {
         "e.g. event holiday /from 2023-06-01 /to 2023-06-30";
     private static String invalidDate = "Please provide date with the following format: YYYY-MM-DD";
     private static String invalidEndDate = "Your end date is before start date";
+
+    public static String convertToDMY(String dateStr) throws DukeException {
+        try {
+            LocalDate date = LocalDate.parse(dateStr);
+            return date.format(DateTimeFormatter.ofPattern("d MMM yyyy"));
+        } catch (DateTimeException e) {
+            throw new DukeException(invalidDate);
+        }
+    }
+
+    public static List<String> convertToList(String s) {
+        String[] queries = s.trim().split("\\s+");
+        List<String> queryList = Arrays.asList(queries);
+        return queryList;
+    }
 
     public static Task parseFile(String s) throws DukeException {
         String[] q = s.trim().split(",>");
@@ -28,15 +44,6 @@ public class Parser {
         throw new DukeException("Error parsing file data");
     }
     
-    public static String convertToDMY(String dateStr) throws DukeException {
-        try {
-            LocalDate date = LocalDate.parse(dateStr);
-            return date.format(DateTimeFormatter.ofPattern("d MMM yyyy"));
-        } catch (DateTimeException e) {
-            throw new DukeException(invalidDate);
-        }
-    }
-
     public static Deadline parseUserDeadline(List<String> queryList) throws DukeException {
         if (queryList.size() < 2) {
             throw new DukeException("The description of a deadline cannot be empty.");

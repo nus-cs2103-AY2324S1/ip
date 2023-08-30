@@ -32,8 +32,7 @@ public class Duke {
 
         while (input.hasNextLine()) {
             response = input.nextLine();
-            String[] queries = response.trim().split("\\s+");
-            List<String> queryList = Arrays.asList(queries);
+            List<String> queryList = Parser.convertToList(response);
             if (queryList.get(0).equals("bye")) {
                 break;
             } 
