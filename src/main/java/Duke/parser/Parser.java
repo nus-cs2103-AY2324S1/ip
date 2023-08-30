@@ -1,8 +1,16 @@
+package Duke.parser;
+import core.Duke;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import Duke.tasks.Deadlines;
+import Duke.tasks.Events;
+import Duke.tasks.Task;
+import Duke.tasks.ToDos;
+import core.DukeException;
+import core.Duke.CommandType;
 
 public class Parser {
-    public Duke.CommandType getCommandType(String userCommand) {
+    public CommandType getCommandType(String userCommand) {
         if ("bye".equals(userCommand)) {
             return Duke.CommandType.BYE;
         } else if ("list".equals(userCommand)) {

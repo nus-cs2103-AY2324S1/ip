@@ -1,3 +1,5 @@
+package core;
+
 /**
  * Represents a custom exception for Duke application.
  * This exception is thrown when Duke-specific conditions are violated.

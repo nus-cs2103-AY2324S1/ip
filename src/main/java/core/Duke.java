@@ -1,5 +1,10 @@
+package core;
+import Duke.storage.Storage;
+import Duke.parser.Parser;
+import Duke.tasks.*;
+import Duke.ui.Ui;
+
 public class Duke {
-    static String FILE_NAME = "./data/duke.txt";
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
@@ -23,8 +28,6 @@ public class Duke {
         EVENT,
         UNKNOWN
     }
-
-    static String horizontal_line = "____________________________________________________________\n";
 
     public Duke(String filePath) {
         ui = new Ui();

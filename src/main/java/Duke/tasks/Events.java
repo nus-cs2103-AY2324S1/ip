@@ -1,5 +1,8 @@
+package Duke.tasks;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+
+import core.DukeException;
 
 /**
  * Represents an event task with a specified start and end date.

@@ -1,3 +1,6 @@
+package Duke.tasks;
+import core.DukeException;
+
 /**
  * Represents a ToDo task without a specific deadline or event date.
  * A ToDo task is represented by a description.

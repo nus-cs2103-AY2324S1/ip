@@ -1,3 +1,7 @@
+package Duke.tasks;
+
+import Duke.parser.Parser;
+import core.DukeException;
 
 public class TaskManager {
     private TaskList tasks;
@@ -8,7 +12,7 @@ public class TaskManager {
     }
 
     public TaskManager() {
-        this.tasks= new TaskList();
+        this.tasks = new TaskList();
     }
     /**
      * Handles the deletion of a task from the list based on the user command.
@@ -95,8 +99,7 @@ public class TaskManager {
         try {
             Task task = p.parseTaskFromCommand(userCommand);
             tasks.addTask(task);
-            return "Got it I have added this task:" + "\n" + task + updateNumMessage(tasks.size())
-                        + Duke.horizontal_line;
+            return "Got it I have added this task:" + "\n" + task + updateNumMessage(tasks.size());
         } catch (DukeException e) {
             return e.getMessage();
         }
