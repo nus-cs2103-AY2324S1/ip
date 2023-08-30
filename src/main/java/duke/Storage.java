@@ -41,7 +41,7 @@ public class Storage {
             }
             reader.close();
         } catch (FileNotFoundException e) {
-            System.out.println("File not found. Please create duke.txt in the data folder");
+            System.out.println("File not found. Please create duke.txt in the resource folder");
             System.exit(1);
         } catch (IOException e) {
             System.out.println("An error has occured during file loading. Plese check duke.txt in the data folder");
