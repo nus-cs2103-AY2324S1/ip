@@ -84,4 +84,20 @@ public class TaskList implements Serializable {
         this.taskList.get(index).markNotDone();
     }
 
+    /**
+     * Filters list according to keyword
+     *
+     * @param keyword The keyword used to filter the list
+     * @return TaskList The new list with the words required added
+     */
+    public TaskList filter(String keyword) {
+        ArrayList<Task> filteredList = new ArrayList<>();
+        for (Task task : this.taskList) {
+            if (task.toString().contains(keyword)) {
+                filteredList.add(task);
+            }
+        }
+        return new TaskList(filteredList);
+    }
+
 }

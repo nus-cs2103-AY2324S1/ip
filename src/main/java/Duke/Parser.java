@@ -15,7 +15,8 @@ public class Parser {
         TODO,
         DEADLINE,
         EVENT,
-        HELP
+        HELP,
+        FIND
     }
 
     /**
@@ -50,6 +51,8 @@ public class Parser {
                     return new EventCommand(input, taskList, storage, ui);
                 case HELP:
                     return new HelpCommand();
+                case FIND:
+                    return new FindCommand(input, taskList, ui);
                 default:
                     return new ErrorCommand("I do not understand. Either I am wrong, or you are wrong, so you are wrong", ui);
             }

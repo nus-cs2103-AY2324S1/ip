@@ -73,7 +73,7 @@ public class Ui {
      */
     public String printAddTask(TaskList taskList, Task task) {
         String output = br + "You must train hard and complete your task:\n" + task +
-                "\nYou now have " + taskList.size() + " tasks to complete.";
+                "\nYou now have " + taskList.size() + " tasks to complete.\n";
         System.out.println(output);
         return output;
     }
@@ -140,6 +140,29 @@ public class Ui {
      */
     public String printInvalidTimeError() {
         String output = br + "\n Your timing is wrong. This is unacceptable \n"+ br;
+        System.out.println(output);
+        return output;
+    }
+
+    /**
+     *
+     * @param tasks
+     * @param input
+     * @return
+     */
+    public String findFilteredTasks(TaskList tasks, String input) {
+        String output = br;
+        TaskList filteredList = tasks.filter(input);
+        if (filteredList.size() == 0) {
+            output += "There are no tasks with that word.\n" + br;
+            System.out.println(output);
+            return output;
+        }
+        output += "These are your matching tasks:\n";
+        for (int i = 0; i < filteredList.size(); i++) {
+            output += String.format("%d. %s\n",i+1, filteredList.getTask(i).toString());
+        }
+        output += br;
         System.out.println(output);
         return output;
     }
