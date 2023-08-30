@@ -30,6 +30,6 @@ public class Deadline extends Task{
 
     @Override
     public String toString() {
-        return super.toString().replace("/TASK", "deadline ") + "/by " + by.toString();
+        return super.toString().replace("/TASK", "deadline ") + " /by " + by.toString();
     }
 }

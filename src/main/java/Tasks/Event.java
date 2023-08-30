@@ -48,6 +48,6 @@ public class Event extends Task {
     public String toString() {
         String fromDate = from.toString();
         String toDate = to.toString();
-        return super.toString().replace("/TASK", "event ") + "/from " + fromDate + " /to " + toDate;
+        return super.toString().replace("/TASK", "event ") + " /from " + fromDate + " /to " + toDate;
     }
 }
