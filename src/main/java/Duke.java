@@ -2,6 +2,9 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.format.DateTimeFormatter;
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -47,42 +50,51 @@ public class Duke {
     }
 
     public static class Deadline extends Task {
-        public String by;
+        public LocalDate date;
 
         public Deadline(String name, String by) {
             super(name);
-            this.by = by;
+            this.date = LocalDate.parse(by, DateTimeFormatter.ofPattern("d MMM yyyy"));
+
         }
 
         @Override
         public String toString() {
-            return "[D]" + super.toString() + " (by: " + by + ")";
+            String dateString = this.date.format(DateTimeFormatter.ofPattern("dd.MM.yyyy"));
+            return "[D]" + super.toString() + " (by: " + dateString + ")";
         }
 
         @Override
         public String taskToStringStore(Task task) {
-            return "D" + " " + super.taskToStringStore(task) + by;
+            String dateString = this.date.format(DateTimeFormatter.ofPattern("dd.MM.yyyy"));
+            return "D" + " " + super.taskToStringStore(task) + dateString;
         }
     }
 
     public static class Event extends Task {
-        public String from;
-        public String to;
+
+        public LocalDate dateFrom;
+        public LocalDate dateTo;
+
 
         public Event(String name, String from, String to) {
             super(name);
-            this.from = from;
-            this.to = to;
+            this.dateFrom = LocalDate.parse(from, DateTimeFormatter.ofPattern("dd.MM.yyyy"));
+            this.dateTo = LocalDate.parse(to, DateTimeFormatter.ofPattern("dd.MM.yyyy"));
         }
 
         @Override
         public String toString() {
-            return "[E]" + super.toString() + " (from: " + from + " to: " + to + " )";
+            String dateFromString = this.dateFrom.format(DateTimeFormatter.ofPattern("dd.MM.yyyy"));
+            String dateToString = this.dateFrom.format(DateTimeFormatter.ofPattern("dd.MM.yyyy"));
+            return "[E]" + super.toString() + " (from: " + dateFromString + " to: " + dateToString + " )";
         }
 
         @Override
         public String taskToStringStore(Task task) {
-            return "E" + " " + super.taskToStringStore(task) + from + " " + to ;
+            String dateFromString = this.dateFrom.format(DateTimeFormatter.ofPattern("dd-mm-yyyy"));
+            String dateToString = this.dateFrom.format(DateTimeFormatter.ofPattern("dd-mm-yyyy"));
+            return "E" + " " + super.taskToStringStore(task) + dateFromString + " " + dateToString ;
         }
     }
 
@@ -343,6 +355,8 @@ public class Duke {
                     chad.writeFile();
                 } catch (DukeException e){
                     System.out.println(e.getMessage() + "\n");
+                } catch (DateTimeParseException e){
+                    System.out.println("Make sure the date format is: d MMM yyyy");
                 }
 
             } else if (inputArray[0].equals("event")) {
