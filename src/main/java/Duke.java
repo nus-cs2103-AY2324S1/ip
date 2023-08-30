@@ -1,10 +1,17 @@
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Scanner;
 import java.util.ArrayList;
 public class Duke {
     public static void main(String[] args) {
-        ArrayList<Task> tasks = new ArrayList<>();
+        ArrayList<Task> tasks;
         Scanner scanner = new Scanner(System.in);
         greet();
+        try {
+            tasks = Storage.readTasksFromFile();
+        } catch(FileNotFoundException e) {
+            tasks =  new ArrayList<>();
+        }
         while(true) {
             String command = scanner.nextLine();
             evaluate(command, tasks);
@@ -37,6 +44,11 @@ public class Duke {
                 System.out.println(HORIZONTAL);
                 System.out.println("Bye. Hope to see you again soon!");
                 System.out.println(HORIZONTAL);
+                try{
+                    Storage.writeTasksToFile(tasks);
+                } catch (IOException e) {
+                    System.out.println("Error in writing taskList to file!");
+                }
             } else if (command.equals("list")) {
                 int length = tasks.size();
                 System.out.println(HORIZONTAL);

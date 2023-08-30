@@ -6,6 +6,22 @@ public class Task {
         this.description = description;
         this.isDone =  false;
     }
+    public static Task readFromFile(String line) {
+        String[] components = line.split("\\|");
+        switch(components[0]) {
+            case("T"):
+                return Todo.readFromFile(components);
+            case("D"):
+                return Deadline.readFromFile(components);
+            case("E"):
+                return Event.readFromFile(components);
+            default:
+                return null;
+        }
+    }
+    public String writeFileFormat() {
+        return (this.isDone ? "1" : "0")  + "|" + this.description;
+    }
 
     public String getStatusIcon() {
         return (isDone ? "X" : " "); // mark done task with X
