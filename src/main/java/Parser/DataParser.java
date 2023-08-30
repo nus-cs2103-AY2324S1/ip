@@ -17,6 +17,7 @@ public class DataParser {
             case "[T]":
                 return parseToDo(line);
             default:
+                System.out.println("Please check the original file for correctness.");
                 return null;
         }
     }

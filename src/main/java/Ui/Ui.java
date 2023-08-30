@@ -15,8 +15,12 @@ public class Ui {
         System.out.println("What can I do for you?");
     }
 
+    public void exit() {
+        System.out.print("Bye. Hope to see you again soon!");
+        System.exit(0);
+    }
+
     public String readCommand() {
-        System.out.print("Enter a command: ");
         return scanner.nextLine();
     }
 }

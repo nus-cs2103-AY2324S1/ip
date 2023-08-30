@@ -90,5 +90,11 @@ public class TaskParser {
 
         return new ToDo(taskDescription);
     }
+
+    public static class InvalidTaskFormatException extends Exception {
+        public InvalidTaskFormatException(String message) {
+            super(message);
+        }
+    }
 }
 
