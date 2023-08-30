@@ -1,3 +1,8 @@
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.TemporalAccessor;
+
 abstract class Task {
     protected String description;
     protected boolean isDone;
@@ -15,6 +20,20 @@ abstract class Task {
 
     protected String getDescription() {
         return this.description;
+    }
+
+    protected String formatDateTime(TemporalAccessor temporalAccessor) {
+        if (temporalAccessor instanceof LocalDateTime) {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd LLL yyyy, KK:mma");
+            return formatter.format(temporalAccessor);
+        }
+
+        if (temporalAccessor instanceof LocalDate) {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd LLL yyyy");
+            return formatter.format(temporalAccessor);
+        }
+
+        return "";
     }
 
     public void markAsDone() {
