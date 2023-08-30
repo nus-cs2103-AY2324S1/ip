@@ -9,6 +9,10 @@ public class ToDo extends Task{
         System.out.println("    " + this);
     }
 
+    public ToDo(String Description, boolean isDone) {
+        super(Description);
+        this.isDone = isDone;
+    }
     @Override
     public String toString() {
         return "[T]" + super.toString();
