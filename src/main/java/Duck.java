@@ -114,14 +114,6 @@ public class Duck {
                 System.out.println("Now you have " + list.getListSize() + " tasks in the list.");
                 line();
 
-                try {
-                    FileWriter writer = new FileWriter("data/duck.txt", true);
-                    writer.write(newTask.stringify() + "\n");
-                    writer.close();
-                } catch (IOException e) {
-                    System.out.println("Error - unable to save task.");
-                }
-
                 input = in.nextLine();
                 continue;
             }
@@ -196,6 +188,15 @@ class TaskList {
 
         list.add(newTask);
         listSize++;
+
+        try {
+            FileWriter writer = new FileWriter("data/duck.txt", true);
+            writer.write(newTask.stringify() + "\n");
+            writer.close();
+        } catch (IOException e) {
+            System.out.println("Error - unable to access history file.");
+        }
+
         return newTask;
     }
 
@@ -214,6 +215,28 @@ class TaskList {
     public void mark(int index) throws IndexOutOfBoundsException {
         Task currTask = list.get(index);
         currTask.mark();
+
+        ArrayList<String> history = new ArrayList<>();
+        try {
+            Scanner fileScanner = new Scanner(new File("data/duck.txt"));
+            while (fileScanner.hasNextLine()) {
+                if (history.size() == index) {
+                    history.add(currTask.stringify());
+                    fileScanner.nextLine();
+                    continue;
+                }
+                history.add(fileScanner.nextLine());
+            }
+
+            FileWriter writer = new FileWriter("data/duck.txt");
+            while (history.size() > 0) {
+                writer.write(history.remove(0) + "\n");
+            }
+            writer.close();
+        } catch (IOException e) {
+            System.out.println("Error - unable to access history file");
+        }
+
         System.out.println("Nice! I've marked this task as done:");
         System.out.println(currTask);
     }
@@ -221,6 +244,28 @@ class TaskList {
     public void unmark(int index) throws IndexOutOfBoundsException{
         Task currTask = list.get(index);
         currTask.unmark();
+
+        ArrayList<String> history = new ArrayList<>();
+        try {
+            Scanner fileScanner = new Scanner(new File("data/duck.txt"));
+            while (fileScanner.hasNextLine()) {
+                if (history.size() == index) {
+                    history.add(currTask.stringify());
+                    fileScanner.nextLine();
+                    continue;
+                }
+                history.add(fileScanner.nextLine());
+            }
+
+            FileWriter writer = new FileWriter("data/duck.txt");
+            while (history.size() > 0) {
+                writer.write(history.remove(0) + "\n");
+            }
+            writer.close();
+        } catch (IOException e) {
+            System.out.println("Error - unable to access history file");
+        }
+
         System.out.println("OK, I've unmarked this task:");
         System.out.println(currTask);
     }
@@ -267,10 +312,10 @@ abstract class Task {
 
     public String stringify() {
         String typeChar = this.type.toString().substring(0,1);
-        String done = String.valueOf(this.isDone ? 'X' : ' ');
+        String done = String.valueOf(this.isDone ? '1' : '0');
         String nameLength = "/" + String.valueOf(this.name.length()) + "/";
         String infoLength = "/" + String.valueOf(this.info.length()) + "/";
-        System.out.println(typeChar + done + nameLength + this.name + infoLength + this.info);
+        // System.out.println(typeChar + done + nameLength + this.name + infoLength + this.info);
         return typeChar + done + nameLength + this.name + infoLength + this.info;
     }
 
@@ -289,7 +334,7 @@ abstract class Task {
         String nameString = taskString.substring(index_2 + 1, index_3); 
         String infoString = taskString.substring(index_4 + 1, index_4 + infoLength + 1);
 
-        boolean done = doneChar == 'X' ? true : false;
+        boolean done = doneChar == '1' ? true : false;
         String name = nameString;
         String info = infoString;
 
