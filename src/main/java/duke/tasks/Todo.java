@@ -1,3 +1,5 @@
+package duke.tasks;
+
 /**
  * Encapsulates a todo task. Todo tasks only have a description.
  */
