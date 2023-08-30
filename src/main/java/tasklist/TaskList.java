@@ -17,11 +17,6 @@ public class TaskList {
     public TaskList() {
         this.taskList = new ArrayList<Task>();
     }
-<<<<<<< HEAD
-    public void addTask(Task task) {
-        this.taskList.add(task);
-    }
-=======
 
     /**
      * Adds a task to the task list.
@@ -37,7 +32,6 @@ public class TaskList {
      *
      * @return The number of tasks in the list.
      */
->>>>>>> branch-A-JavaDoc
     public int numOfTasks() {
         return this.taskList.size();
     }
