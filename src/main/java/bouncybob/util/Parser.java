@@ -111,7 +111,6 @@ public class Parser {
         Pattern pattern = Pattern.compile("/from\\s+(.*?)\\s+/to\\s+(.*)");
         Matcher matcher = pattern.matcher(string);
         String[] fromTo = new String[2];
-
         if (matcher.find()) {
             fromTo[0] = matcher.group(1).trim();
             fromTo[1] = matcher.group(2).trim();

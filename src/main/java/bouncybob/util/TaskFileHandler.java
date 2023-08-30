@@ -28,6 +28,7 @@ public class TaskFileHandler {
         for(Task task : taskList.getTasks()) {
             builder.append(task.toFileFormat()).append("\n");
         }
+
         File file = new File(FILE_PATH);
         if (!file.getParentFile().exists()) {
             file.getParentFile().mkdirs();
