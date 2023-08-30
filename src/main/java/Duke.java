@@ -4,9 +4,12 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.io.FileWriter;
 import java.io.File;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 
 public class Duke {
-    public static void main (String[] args) throws DukeException {
+    public static void main(String[] args) throws DukeException {
         try {
             File dir = new File("./data");
             if (!dir.exists()) {
@@ -195,14 +198,25 @@ public class Duke {
                 break;
             case "D":
                 String deadline = text.substring(10, text.indexOf(" | ", 10));
+
                 String by = text.substring(text.indexOf("|", 10) + 2);
-                task = new Deadline(deadline, by, isDone);
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd HHmm");
+                LocalDateTime dateTime = LocalDateTime.parse(by, formatter);
+
+                task = new Deadline(deadline, dateTime, isDone);
                 break;
             case "E":
                 String event = text.substring(10, text.indexOf(" | ", 10));
+
                 String from = text.substring(text.indexOf("|", 10) + 2, text.indexOf("-"));
+                DateTimeFormatter formatter1 = DateTimeFormatter.ofPattern("yyyyMMdd HHmm");
+                LocalDateTime dateTimeFrom = LocalDateTime.parse(from, formatter1);
+
                 String to = text.substring(text.indexOf("-") + 1);
-                task = new Event(event, from, to, isDone);
+                DateTimeFormatter formatter2 = DateTimeFormatter.ofPattern("HHmm");
+                LocalTime dateTimeTo = LocalTime.parse(to, formatter2);
+
+                task = new Event(event, dateTimeFrom, dateTimeTo, isDone);
                 break;
         }
         if (task == null) {
@@ -245,9 +259,12 @@ public class Duke {
         }
 
         String by = commands.substring(byIndex + "/by".length() + 1);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd HHmm");
+        LocalDateTime dateTime = LocalDateTime.parse(by, formatter);
+
         String command = commands.substring(commandIndex + 1, byIndex - 1);
 
-        Task deadline = new Deadline(command, by, false);
+        Task deadline = new Deadline(command, dateTime, false);
         lst.add(deadline);
 
         String file = "./data/duke.txt";
@@ -318,9 +335,15 @@ public class Duke {
         }
 
         String from = commands.substring(fromIndex + "/from".length() + 1, toIndex - 1);
+        DateTimeFormatter formatter1 = DateTimeFormatter.ofPattern("yyyyMMdd HHmm");
+        LocalDateTime dateTimeFrom = LocalDateTime.parse(from, formatter1);
+
         String to = commands.substring(toIndex + "/to".length() + 1);
+        DateTimeFormatter formatter2 = DateTimeFormatter.ofPattern("HHmm");
+        LocalTime dateTimeTo = LocalTime.parse(to, formatter2);
+
         String command = commands.substring(commandIndex + 1, fromIndex - 1);
-        Task event = new Event(command, from, to, false);
+        Task event = new Event(command, dateTimeFrom, dateTimeTo, false);
         lst.add(event);
 
         String file = "./data/duke.txt";
@@ -374,6 +397,4 @@ public class Duke {
         System.out.println("\t  " + lst.get(index).toString());
         System.out.println(horizontalLine);
     }
-
-
 }
