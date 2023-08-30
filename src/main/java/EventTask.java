@@ -13,7 +13,7 @@ public class EventTask extends Task {
 
 
     public String toString() {
-        return String.format("[E]%s %s (from: %s to: %s)",
+        return String.format("[E] | %s | %s | %s - %s)",
                 this.isDone() ? "[X]" : "[]",
                 event, from, to);
     }

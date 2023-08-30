@@ -1,11 +1,16 @@
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
-
-public class List {
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.PrintWriter;
+import java.io.FileWriter;
+public class Tasks {
 
     private ArrayList<Task> storagePile;
 
-    public List() {
-        storagePile = new ArrayList<>();
+    public Tasks() {
+        storagePile = Tasks.loadTasks();
     }
 
     public void input(String item) throws InvalidInput, IncompleteInput  {
@@ -27,6 +32,40 @@ public class List {
             String task = item.split(" ", 2)[1];
             storagePile.add(new EventTask(task));
         }
+    }
+
+    private static final String path = "data/";
+
+    public void saveTasks() {
+        try {
+            PrintWriter writer = new PrintWriter(new FileWriter(path));
+
+            for (Task item : storagePile) {
+                String str = item.toString();
+                writer.println(str);
+            }
+        } catch (IOException e) {
+
+        }
+    };
+
+    public static ArrayList<Task> loadTasks() {
+        ArrayList<Task> tasks = new ArrayList<>();
+
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader(path));
+            String line = reader.readLine();
+            System.out.println(line);
+            while (line != null) {
+                String[] splitsy = line.split(" | ");
+                tasks.add(new Task(splitsy[0], splitsy[1], splitsy[2], splitsy[3]));
+            }
+        } catch (FileNotFoundException e) {
+
+        } catch (IOException e) {
+
+        }
+        return tasks;
     }
 
     public String toString() {

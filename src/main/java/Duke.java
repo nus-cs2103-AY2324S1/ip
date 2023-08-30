@@ -13,11 +13,12 @@ public class Duke {
 
     public void inputsForList() {
         Scanner sc = new Scanner(System.in);
-        List lst = new List();
+        Tasks lst = new Tasks();
         while (sc.hasNext()) {
             String entry = sc.nextLine();
             String[] words = entry.split(" ");
             if (entry.equals("bye")) {
+                lst.saveTasks();
                 String logo = "_______________ \n\n"
                         + "finally.  \n"
                         + "_______________ \n";
