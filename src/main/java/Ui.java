@@ -14,9 +14,10 @@ public class Ui {
 
     String divider = "\n____________________________________________________________\n";
 
-    Scanner sc = new Scanner(System.in);
+    Scanner sc;
 
     public Ui() {
+        sc = new Scanner(System.in);
     }
 
     public void printDivider() {
