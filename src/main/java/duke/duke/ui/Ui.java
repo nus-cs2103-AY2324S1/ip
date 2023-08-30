@@ -1,16 +1,23 @@
+package duke.ui;
+
+import duke.DukeException;
+import duke.parser.Parser;
+import duke.task.Task;
+import duke.task.TaskList;
+
 public class Ui {
-    void addTask(TaskList tasks, Task task) {
+    public void addTask(TaskList tasks, Task task) {
         tasks.add(task);
         print("Got it. I've added this task:");
         print(String.format("  %s\n", task.toString()));
         print(String.format("Now you have %d tasks in the list.", tasks.size()));
     }
 
-    void bye() {
+    public void bye() {
         print("Bye. Hope to see you again soon!");
     }
 
-    void date(TaskList tasks, String date) throws DukeException {
+    public void date(TaskList tasks, String date) throws DukeException {
         int idx = 0;
         String dmy = Parser.convertToDMY(date);
         for (Task t: tasks) {
@@ -26,7 +33,7 @@ public class Ui {
         }
     }
     
-    void deleteTask(TaskList tasks, int index) throws DukeException {
+    public void deleteTask(TaskList tasks, int index) throws DukeException {
         if (index < 0 || index >= tasks.size()) {
             throw new DukeException("Invalid task index");
         }
@@ -36,11 +43,11 @@ public class Ui {
         print(String.format("Now you have %d tasks in the list.", tasks.size()));
     }
 
-    void hello() {
+    public void hello() {
         print("Hello! I'm AdaBot.\nWhat do you want to do today?");
     }
 
-    void list(TaskList tasks) {
+    public void list(TaskList tasks) {
         if (tasks.size() == 0) {
             print("There is no task in your list.");
             return;
@@ -51,21 +58,21 @@ public class Ui {
         }
     }
 
-    void mark(TaskList tasks, int index) throws DukeException {
+    public void mark(TaskList tasks, int index) throws DukeException {
         Task task = tasks.markDone(index);
         print("Nice! I've marked this task as done:");
         print("  " + task.toString());
     }    
 
-    void print(String s) {
+    public void print(String s) {
         System.out.println(s);
     }
 
-    void printError(String s) {
+    public void printError(String s) {
         System.out.println("OOPS!!! " + s);
     }
 
-    void unmark(TaskList tasks, int index) throws DukeException {
+    public void unmark(TaskList tasks, int index) throws DukeException {
         Task task = tasks.unmarkDone(index);
         print("OK, I've marked this task as not done yet:");
         print("  " + task.toString());

@@ -1,4 +1,10 @@
-import java.util.Arrays;
+package duke;
+
+import duke.parser.Parser;
+import duke.storage.Storage;
+import duke.task.*;
+import duke.ui.Ui;
+
 import java.util.List;
 import java.util.Scanner;
 
@@ -7,13 +13,13 @@ public class Duke {
     private TaskList tasks;
     private Ui ui;
 
-    Duke() {
+    public Duke() {
         this.storage = new Storage();
         this.tasks = new TaskList();
         this.ui = new Ui();
     }
 
-    Duke(String filePath) {
+    public Duke(String filePath) {
         this.storage = new Storage(filePath);
         this.tasks = new TaskList();
         this.ui = new Ui();

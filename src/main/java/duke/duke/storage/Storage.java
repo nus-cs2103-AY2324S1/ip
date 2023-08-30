@@ -1,3 +1,10 @@
+package duke.storage;
+
+import duke.DukeException;
+import duke.parser.Parser;
+import duke.task.Task;
+import duke.task.TaskList;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -13,19 +20,19 @@ public class Storage {
     private Path path;
     private String filePath;
 
-    Storage() {
+    public Storage() {
         this.home = System.getProperty("user.dir");
         this.path = Paths.get(home, "data", "duke.txt");
         this.filePath = this.path.toString();
     }
 
-    Storage(String filePath) {
+    public Storage(String filePath) {
         this.home = System.getProperty("user.dir");
         this.path = Paths.get(home, filePath);
         this.filePath = filePath;
     }
 
-    TaskList read() throws DukeException {
+    public TaskList read() throws DukeException {
         TaskList tasks = new TaskList();
         if (Files.exists(this.path)) {
             File f = new File(this.filePath);
@@ -64,7 +71,7 @@ public class Storage {
         }
     }
 
-    void write(ArrayList<Task> tasks) throws DukeException {
+    public void write(ArrayList<Task> tasks) throws DukeException {
         String data = "";
         for (int i = 0; i < tasks.size(); i++) {
             data += tasks.get(i).exportToText();

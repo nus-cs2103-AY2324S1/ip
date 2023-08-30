@@ -1,15 +1,19 @@
+package duke.task;
+
+import duke.DukeException;
+
 import java.util.ArrayList;
 
 public class TaskList extends ArrayList<Task> {
-    TaskList() {
+    public TaskList() {
         super();
     }
 
-    TaskList(ArrayList<Task> tasks) {
+    public TaskList(ArrayList<Task> tasks) {
         super(tasks);
     }
     
-    Task markDone(int index) throws DukeException {
+    public Task markDone(int index) throws DukeException {
         if (index < 0 || index >= super.size()) {
             throw new DukeException("Invalid task index");
         }
@@ -17,7 +21,7 @@ public class TaskList extends ArrayList<Task> {
         return super.get(index);
     }
 
-    Task unmarkDone(int index) throws DukeException {
+    public Task unmarkDone(int index) throws DukeException {
         if (index < 0 || index >= super.size()) {
             throw new DukeException("Invalid task index");
         }

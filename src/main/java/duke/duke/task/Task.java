@@ -1,26 +1,30 @@
+package duke.task;
+
+import duke.DukeException;
+
 public abstract class Task {
     private String name;
     private boolean isDone;
 
-    Task(String name) {
+    public Task(String name) {
         this.name = name;
         this.isDone = false;
     }
 
-    Task(String name, boolean isDone) {
+    public Task(String name, boolean isDone) {
         this.name = name;
         this.isDone = isDone;
     }
 
-    void markDone() {
+    public void markDone() {
         this.isDone = true;
     }
 
-    void unmarkDone() {
+    public void unmarkDone() {
         this.isDone = false;
     }
 
-    boolean isToday(String dateStr) throws DukeException {
+    public boolean isToday(String dateStr) throws DukeException {
         return false;
     }
 

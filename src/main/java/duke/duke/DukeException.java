@@ -1,13 +1,15 @@
+package duke;
+
 public class DukeException extends Exception {
-    DukeException(String message) {
+    public DukeException(String message) {
         super(message);
     }
 
-    DukeException(String message, Throwable cause) {
+    public DukeException(String message, Throwable cause) {
         super(message, cause);
     }
 
-    DukeException(Throwable cause) {
+    public DukeException(Throwable cause) {
         super(cause);
     }
 
