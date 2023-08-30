@@ -41,4 +41,15 @@ public class TaskList {
     public void unmarkAsDone(int i) {
         this.tasks.get(i - 1).unmarkAsDone();
     }
+
+
+    public TaskList find(String findStr) {
+        TaskList foundTasks = new TaskList();
+        for (Task task : tasks) {
+            if (task.contains(findStr)) {
+                foundTasks.add(task);
+            }
+        }
+        return foundTasks;
+    }
 }

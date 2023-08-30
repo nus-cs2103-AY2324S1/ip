@@ -25,6 +25,16 @@ public abstract class Task {
         this.isDone = false;
     }
 
+    /**
+     * Checks whether the Task message contains a substring.
+     *
+     * @param substring The substring to search for within the Task message
+     * @return true if Task message contains the substring; false otherwise
+     */
+    public boolean contains(String substring) {
+        return this.message.contains(substring);
+    }
+
     public abstract String toSaveFormatString();
     public abstract String toString();
 }
