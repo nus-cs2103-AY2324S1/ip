@@ -1,4 +1,4 @@
-package duke;
+package duke.exceptions;
 
 public class DukeException extends Exception {
 	/**
@@ -6,7 +6,7 @@ public class DukeException extends Exception {
 	 *
 	 * @param message the message to be displayed
 	 */
-	DukeException(String message) {
+	public DukeException(String message) {
 		super(message);
 	}
 }
