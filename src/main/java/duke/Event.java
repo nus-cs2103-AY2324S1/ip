@@ -5,21 +5,45 @@ import java.time.LocalDateTime;
 import java.util.Arrays;
 
 public class Event extends Task{
+    /**
+     * Date and time that the event starts.
+     */
     LocalDateTime from;
+
+    /**
+     * Date and time that the event ends.
+     */
     LocalDateTime to;
 
+    /**
+     * Constructor for the Deadline class.
+     *
+     * @param name Name of the Deadline.
+     * @param from DateTime that the event starts.
+     * @param from DateTime that the event ends.
+     */
     public Event(String name, LocalDateTime from, LocalDateTime to) {
         super(name);
         this.from = from;
         this.to = to;
     }
 
+    /**
+     * Returns a string representation of the event.
+     *
+     * @return A string representing the event.
+     */
     @Override
     public String toString() {
         return "[E]" + super.toString() + " (from: " + this.from.format(dateTimeOutputFormatter)
                 + " to: " + this.to.format(dateTimeOutputFormatter) + ")";
     }
 
+    /**
+     * Returns a string representation of the event.
+     *
+     * @return A string representing the event to be saved.
+     */
     @Override
     public String toSaveStateString() {
         String[] state = new String[]{ Command.EVENT.getCommand(), this.getDone() ? "1" : "0", this.getTaskName(),

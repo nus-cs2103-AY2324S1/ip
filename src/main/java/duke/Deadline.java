@@ -14,6 +14,7 @@ public class Deadline extends Task{
      * Constructor for the Deadline class.
      *
      * @param name Name of the Deadline.
+     * @param by DateTime that the deadline must be completed by.
      */
     public Deadline(String name, LocalDateTime by) {
         super(name);
@@ -43,9 +44,9 @@ public class Deadline extends Task{
     }
 
     /**
-     * Returns whether the task is on a date.
+     * Returns whether the event is on a date.
      *
-     * @return A boolean representation of whether the task is on a given date.
+     * @return A boolean representation of whether the event is on a given date.
      */
     @Override
     public boolean isOnDate(LocalDate date) {
