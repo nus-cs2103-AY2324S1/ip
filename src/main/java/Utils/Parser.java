@@ -6,7 +6,7 @@ import Exceptions.MissingDateException;
 import Exceptions.MissingTitleException;
 
 /**
- * Makes sense of the user command
+ * Makes sense of the user command.
  */
 public class Parser {
 
@@ -29,10 +29,11 @@ public class Parser {
      * @param input The user input.
      * @param command Type of command given by the user.
      * @return The title of the task.
-     * @throws DukeException Exceptions.InvalidInputException thrown if input cannot be recognised. Exceptions.MissingTitleException thrown
-     * if user did not give a title for their task.
+     * @throws DukeException InvalidInputException thrown if input cannot be recognised.
+     * @throws MissingTitleException if user did not give a title for their task.
      */
-    public static String obtainTitle(String input, Commands command) throws DukeException{
+    public static String obtainTitle(String input, Commands command)
+            throws DukeException, MissingTitleException {
         try {
             if (command.equals(Commands.TODO)) {
                 return input.split("todo ")[1];
@@ -59,10 +60,11 @@ public class Parser {
      * @param input The user input.
      * @param command Type of command given by the user.
      * @return By date of deadlines or From and To date of events.
-     * @throws DukeException Exceptions.InvalidInputException thrown if input cannot be recognised. Exceptions.MissingDateException thrown
-     * if user did not give a by date for their deadline or either a from or to date for their event.
+     * @throws DukeException InvalidInputException thrown if input cannot be recognised.
+     * @throws MissingDateException if user did not give a by date for their
+     * deadline or either a from or to date for their event.
      */
-    public static String obtainDate(String input, Commands command) throws DukeException{
+    public static String obtainDate(String input, Commands command) throws DukeException, MissingDateException{
         try {
             if (command.equals(Commands.DEADLINE)) {
                 return input.split(" /by ")[1];
@@ -75,6 +77,8 @@ public class Parser {
             } else {
                 throw new InvalidInputException("Invalid Input");
             }
+        } catch (DukeException e) {
+            throw e;
         } catch (ArrayIndexOutOfBoundsException oob) {
             throw new MissingDateException("Missing Date");
         } catch (Exception e) {

@@ -8,7 +8,7 @@ public class Task {
     private String taskName;
 
     /**
-     * Constructor for Tasks.Task.
+     * Constructor for Task.
      * @param taskName Name of task.
      */
     public Task(String taskName, int isDone) {
@@ -43,6 +43,10 @@ public class Task {
         return "'" + this.taskName + "'" + " is now not completed :(";
     }
 
+    /**
+     * Returns the string representation of the task.
+     * @return String representation of the task.
+     */
     @Override
     public String toString() {
         return (isDone ? "/C " : "/UC ") + "/TASK" + taskName ;

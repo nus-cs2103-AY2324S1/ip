@@ -7,6 +7,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * Class that retrieves and stores the list of tasks locally.
+ */
 public class Storage {
 
     private String path;
@@ -17,7 +20,10 @@ public class Storage {
         this.tempFile = null;
     }
 
-
+    /**
+     * Reads the previously saved list of tasks and returns it in a list of task descriptions.
+     * @return A list of task descriptions.
+     */
     public List<String> readFile() {
         List<String> output = new ArrayList<>();
         File f = new File(path);
@@ -34,13 +40,24 @@ public class Storage {
         } catch (IOException e) {
             return output;
         }
-
     }
+
+    /**
+     * Writes a string of tasks to a file.
+     * @param fw File to be written in.
+     * @param tasks Tasks to be written.
+     * @throws IOException If an I/O error occurs.
+     */
     private void writeToFile(FileWriter fw, String tasks) throws IOException {
         fw.write(tasks);
         fw.close();
     }
 
+    /**
+     * Updates the local file with the new list of tasks.
+     * @param tasks List of task descriptions.
+     * @return The status of whether the save was successful or not.
+     */
     public String saveToDisk(List<String> tasks) {
         try {
             FileWriter fw = new FileWriter(path);
@@ -53,7 +70,6 @@ public class Storage {
         } catch (IOException e) {
             return "Tasks could not be saved";
         }
-
     }
 
 }

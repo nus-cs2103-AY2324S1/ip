@@ -1,14 +1,17 @@
 import Exceptions.DukeException;
 import Exceptions.InvalidInputException;
-import Tasks.*;
+import Tasks.Task;
+import Tasks.TaskList;
 import Utils.Commands;
 import Storage.Storage;
 import Utils.Parser;
 import Utils.Ui;
-
 import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
+/**
+ * Chatbot that takes in commands.
+ */
 public class Duke {
 
     private Storage storage;
@@ -21,6 +24,9 @@ public class Duke {
         this.tasks = new TaskList(storage.readFile());
     }
 
+    /**
+     * Starts the chatbot.
+     */
     public void run() {
 
         boolean end = false;

@@ -15,7 +15,7 @@ public class Event extends Task {
     private LocalDate to;
 
     /**
-     * Constructor for Tasks.Event.
+     * Constructor for Event.
      * @param taskName Name of event.
      * @param from Date where event starts.
      * @param to Date where event ends.
@@ -36,14 +36,18 @@ public class Event extends Task {
     }
 
     /**
-     * Returns the string representation of the status of the event
-     * @return Status of the event
+     * Returns the string representation of the status of the event.
+     * @return Status of the event.
      */
     @Override
     public String getTask() {
         return "Event ->" + super.getTask() + " (" + getDuration() + ")";
     }
 
+    /**
+     * Returns the string representation of the task.
+     * @return String representation of the task.
+     */
     @Override
     public String toString() {
         String fromDate = from.toString();
