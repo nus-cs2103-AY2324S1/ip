@@ -1,8 +1,10 @@
-T | 1 | new new new todo | null | null
 D | 1 | test dates correct deadline | 2023-10-21 | null
 E | 0 | correct event timings | 2222-11-11 | 2222-11-13
-T | 0 | another todo at 2023-08-30 | null | null
+T | 1 | another todo at 2023-08-30 | null | null
 T | 1 | again todo | null | null
 T | 1 | 7th todo | null | null
 T | 0 | 8th | null | null
 D | 0 | test deadline again | 6543-07-19 | null
+T | 0 | xsrdcftvgbhnj | null | null
+D | 0 | foesd | 1111-11-11 | null
+E | 0 | efjomjwdsvjen | 1111-11-11 | 2222-02-02

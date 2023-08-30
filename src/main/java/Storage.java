@@ -1,4 +1,11 @@
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -9,8 +16,8 @@ public class Storage {
     protected static ArrayList<Task> taskList;
 
     Storage(String filePath) {
-        this.filePath = filePath;
-        this.taskList = new ArrayList<>(100);
+        Storage.filePath = filePath;
+        taskList = new ArrayList<>(100);
     }
 
     /**
@@ -75,7 +82,7 @@ public class Storage {
                 System.out.println("System Message: File 'duke.txt' exists! Loading past data...");
             }
 
-            FileInputStream inputStream = new FileInputStream(new File(this.filePath));
+            FileInputStream inputStream = new FileInputStream(new File(filePath));
             BufferedReader bufferedReader = new BufferedReader(new InputStreamReader((inputStream)));
             String currentLine;
 
@@ -150,7 +157,7 @@ public class Storage {
      * @throws IOException throws IO Exception if file format is invalid or currupted.
      */
     protected void clearAllData() throws IOException {
-        FileOutputStream outputStream = new FileOutputStream(this.filePath);
+        FileOutputStream outputStream = new FileOutputStream(filePath);
         BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter((outputStream)));
         bufferedWriter.close();
     }
@@ -160,12 +167,8 @@ public class Storage {
      * @throws IOException throws IO Exception if file format is invalid or currupted.
      */
     protected void updateData() throws IOException {
-        for (int i = 0; i < this.taskList.size(); i++) {
-            if (i != 0) {
-                saveTask(this.taskList.get(i), true);
-            } else {
-                saveTask(this.taskList.get(i), false);
-            }
+        for (int i = 0; i < taskList.size(); i++) {
+            saveTask(taskList.get(i), i != 0);
         }
     }
 }
