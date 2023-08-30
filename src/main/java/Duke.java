@@ -4,7 +4,7 @@ public class Duke {
 
     private static final TaskParser parser = new TaskParser();
 
-    private static final Memory memory = new Memory(TaskReader.readTasksFromFile("data/tasks.txt"));
+    private static final Memory memory = new Memory();
 
     private static void greet() {
         System.out.println("Hello! I'm " + botName);

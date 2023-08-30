@@ -2,7 +2,6 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 
 public class TaskReader {
 
@@ -20,7 +19,6 @@ public class TaskReader {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
         return tasks;
     }
 
@@ -66,9 +64,6 @@ public class TaskReader {
 
         return new Event(description, start, end, isMarked);
     }
-
-
-
 
     public static ToDo createToDoFromLine(String line) {
         int descriptionStart = line.indexOf("] ") + 2; // Index of the first character after "] "
