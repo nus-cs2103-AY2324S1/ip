@@ -18,14 +18,19 @@ public class Task {
         System.out.println(horizontalLine);
     }
 
-    /** Method to mark task as done. */
-    public void markAsDone() {
+    /** Method to mark task as done.
+     *
+     * @param shouldPrint True to print, false to not print
+     */
+    public void markAsDone(boolean shouldPrint) {
         this.isDone = true;
 
-        printHorizontalLine();
-        System.out.println("     Nice! I've marked this task as done:");
-        System.out.println("       " + this);
-        printHorizontalLine();
+        if (shouldPrint) {
+            printHorizontalLine();
+            System.out.println("     Nice! I've marked this task as done:");
+            System.out.println("       " + this);
+            printHorizontalLine();
+        }
     }
 
     /** Method to mark task as not done. */
@@ -46,7 +51,7 @@ public class Task {
      *         else returns an empty space.
      */
     public String getStatusIcon() {
-        return (isDone ? "X" : " "); // mark done task with X
+        return (this.isDone ? "X" : " "); // mark done task with X
     }
 
     /**
@@ -57,5 +62,15 @@ public class Task {
     @Override
     public String toString() {
         return String.format("[%1s] %2s", this.getStatusIcon(), this.description);
+    }
+
+    /**
+     * Returns task information in format for saving.
+     * Format is [1 if completed, 0 if not completed] | [task description]
+     *
+     * @return Task information in format for saving
+     */
+    public String getInformationForSaving() {
+        return String.format("%1s | %2s", this.isDone ? "1" : "0", this.description);
     }
 }

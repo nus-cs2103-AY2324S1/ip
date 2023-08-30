@@ -1,9 +1,14 @@
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class ChatBuddy {
     // store a list of tasks
     private static ArrayList<Task> list = new ArrayList<>();
+    private static final String DIRECTORY_PATH = "./data";
+    private static final String FILE_PATH = "./data/chat_buddy.txt";
 
     /**
      * Add task to list array.
@@ -151,59 +156,132 @@ public class ChatBuddy {
         System.out.println(horizontalLine);
     }
 
-    public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-
-        printHorizontalLine();
-        System.out.println("    Hello! I'm Chat Buddy!");
-        System.out.println("    What can I do for you?");
-        printHorizontalLine();
-
-        String userInput = scanner.nextLine();
-
-        while (!userInput.equals("bye")) {
-            try {
-                if (userInput.equals("list")) {
-                    printTaskList();
-                } else if (userInput.matches("mark [1-9][0-9]*")) {
-                    String indexString = userInput.substring(5);
-                    int taskIndex = Integer.parseInt(indexString) - 1;
-                    if (taskIndex >= list.size()) {
-                        throw new ChatBuddyException("Please input a valid task number. There are only " +
-                                list.size() + " tasks in the list.");
-                    }
-                    Task task = list.get(taskIndex);
-                    task.markAsDone();
-                } else if (userInput.matches("unmark [1-9][0-9]*")) {
-                    String indexString = userInput.substring(7);
-                    int taskIndex = Integer.parseInt(indexString) - 1;
-                    if (taskIndex >= list.size()) {
-                        throw new ChatBuddyException("Please input a valid task number. There are only " +
-                                list.size() + " tasks in the list.");
-                    }
-                    Task task = list.get(taskIndex);
-                    task.markAsNotDone();
-                } else if (userInput.startsWith("todo")) {
-                    addToDo(userInput);
-                } else if (userInput.startsWith("deadline")) {
-                    addDeadline(userInput);
-                } else if (userInput.startsWith("event")) {
-                    addEvent(userInput);
-                } else if (userInput.matches("delete [1-9][0-9]*")) {
-                    deleteTask(userInput);
-                } else {
-                    throw new ChatBuddyException("I'm sorry, but I don't know what that means :-(");
-                }
-            } catch (ChatBuddyException e) {
-                printHorizontalLine();
-                System.out.println("     " + e.toString());
-                printHorizontalLine();
-            }
-            userInput = scanner.nextLine();
+    private static void loadData() throws IOException, ChatBuddyException {
+        // load file from hard disk
+        File directory = new File(DIRECTORY_PATH);
+        if (!directory.exists()) {
+            directory.mkdir();
         }
 
-        printHorizontalLine();
-        System.out.println("    Bye. Hope to see you again soon!");
-        printHorizontalLine();
+        File file = new File(FILE_PATH);
+        if (!file.exists()) {
+            file.createNewFile();
+        }
+
+        // load data from file
+        Scanner fileScanner = new Scanner(file);
+        while (fileScanner.hasNext()) {
+            // populate task array
+            parseTaskFromFile(fileScanner.nextLine());
+        }
+    }
+
+    private static void parseTaskFromFile(String taskData) throws ChatBuddyException {
+        String[] arr = taskData.split(" \\| ");
+        String taskType = arr[0];
+        boolean isCompleted = arr[1].equals("1");
+        String taskDescription = arr[2];
+
+        // create task object
+        Task task;
+        if (taskType.equals("T")) {
+            task = new ToDo(taskDescription);
+        } else if (taskType.equals("D")) {
+            String by = arr[3];
+            task = new Deadline(taskDescription, by);
+        } else if (taskType.equals("E")) {
+            String from = arr[3];
+            String to = arr[4];
+            task = new Event(taskDescription, from, to);
+        } else {
+            throw new ChatBuddyException("Error parsing data from file");
+        }
+
+        // update completion status
+        if (isCompleted) {
+            task.markAsDone(false);
+        }
+
+        // add task to list
+        list.add(task);
+    }
+
+    private static void saveTasksToFile(ArrayList<Task> taskList) throws IOException {
+        // iterate through the taskList and add each task to the file
+        FileWriter fileWriter = new FileWriter(FILE_PATH);
+        for (Task task : taskList) {
+            fileWriter.write(task.getInformationForSaving() + System.lineSeparator());
+        }
+        fileWriter.close();
+    }
+
+    public static void main(String[] args) {
+        try {
+            loadData();
+
+            Scanner scanner = new Scanner(System.in);
+
+            printHorizontalLine();
+            System.out.println("    Hello! I'm Chat Buddy!");
+            System.out.println("    What can I do for you?");
+            printHorizontalLine();
+
+            String userInput = scanner.nextLine();
+
+            while (!userInput.equals("bye")) {
+                try {
+                    if (userInput.equals("list")) {
+                        printTaskList();
+                    } else if (userInput.matches("mark [1-9][0-9]*")) {
+                        String indexString = userInput.substring(5);
+                        int taskIndex = Integer.parseInt(indexString) - 1;
+                        if (taskIndex >= list.size()) {
+                            throw new ChatBuddyException("Please input a valid task number. There are only " +
+                                    list.size() + " tasks in the list.");
+                        }
+                        Task task = list.get(taskIndex);
+                        task.markAsDone(true);
+                    } else if (userInput.matches("unmark [1-9][0-9]*")) {
+                        String indexString = userInput.substring(7);
+                        int taskIndex = Integer.parseInt(indexString) - 1;
+                        if (taskIndex >= list.size()) {
+                            throw new ChatBuddyException("Please input a valid task number. There are only " +
+                                    list.size() + " tasks in the list.");
+                        }
+                        Task task = list.get(taskIndex);
+                        task.markAsNotDone();
+                    } else if (userInput.startsWith("todo")) {
+                        addToDo(userInput);
+                    } else if (userInput.startsWith("deadline")) {
+                        addDeadline(userInput);
+                    } else if (userInput.startsWith("event")) {
+                        addEvent(userInput);
+                    } else if (userInput.matches("delete [1-9][0-9]*")) {
+                        deleteTask(userInput);
+                    } else {
+                        throw new ChatBuddyException("I'm sorry, but I don't know what that means :-(");
+                    }
+                } catch (ChatBuddyException e) {
+                    printHorizontalLine();
+                    System.out.println("     " + e.toString());
+                    printHorizontalLine();
+                }
+                userInput = scanner.nextLine();
+            }
+
+            saveTasksToFile(list);
+
+            printHorizontalLine();
+            System.out.println("    Bye. Hope to see you again soon!");
+            printHorizontalLine();
+        } catch (ChatBuddyException e) {
+            printHorizontalLine();
+            System.out.println("     " + e.toString());
+            printHorizontalLine();
+        } catch (IOException e) {
+            printHorizontalLine();
+            System.out.println("     Error loading data: " + e);
+            printHorizontalLine();
+        }
     }
 }

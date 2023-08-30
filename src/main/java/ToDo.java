@@ -18,4 +18,15 @@ public class ToDo extends Task {
     public String toString() {
         return "[T]" + super.toString();
     }
+
+    /**
+     * Returns todo task information in format for saving.
+     * Format is T | [1 if completed, 0 if not completed] | [task description]
+     *
+     * @return Todo task information in format for saving
+     */
+    @Override
+    public String getInformationForSaving() {
+        return "T | " + super.getInformationForSaving();
+    }
 }
