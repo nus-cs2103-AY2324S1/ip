@@ -1,5 +1,11 @@
+package duke.task;
+
 import java.util.ArrayList;
 import java.util.stream.Stream;
+
+import duke.core.DukeException;
+import duke.core.Parser;
+import duke.core.Storage;
 
 public class TaskList {
     public ArrayList<Task> taskArray = new ArrayList<>();
