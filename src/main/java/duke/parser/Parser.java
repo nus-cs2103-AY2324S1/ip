@@ -7,6 +7,7 @@ import duke.commands.Command;
 import duke.commands.CommandType;
 import duke.commands.DeleteTaskCommand;
 import duke.commands.ExitCommand;
+import duke.commands.FindTaskCommand;
 import duke.commands.ListTasksCommand;
 import duke.commands.MarkTaskCommand;
 import duke.commands.UnmarkTaskCommand;
@@ -66,6 +67,9 @@ public class Parser {
 
         case DELETE_TASK:
             return new DeleteTaskCommand(this.taskList, commandArgs);
+
+        case FIND_TASK:
+            return new FindTaskCommand(this.taskList, commandArgs);
 
         default:
             throw new DukeInvalidCommandException("I'm gonna be honest, no idea what you're saying.");
