@@ -49,6 +49,14 @@ public class Sidtacphi {
         System.out.println("\n____________________________________________________________");
     }
 
+    private static Integer tryParse(String text) {
+        try {
+          return Integer.parseInt(text);
+        } catch (NumberFormatException e) {
+          return null;
+        }
+    }
+
     /**
      * The method for reading inputs for the bot.
      */
@@ -197,7 +205,7 @@ public class Sidtacphi {
                 throw new SidException("\"" + input + "\" is not a valid command.");
             } 
 
-            Integer taskId = Integer.parseInt(input.substring(7));
+            Integer taskId = tryParse(input.substring(7));
             if (Objects.isNull(taskId)) {
                 throw new SidInvalidIndexException("Invalid task ID.");
             }
@@ -216,7 +224,7 @@ public class Sidtacphi {
                 throw new SidException("\"" + input + "\" is not a valid command.");
             } 
 
-            Integer taskId = Integer.parseInt(input.substring(5));
+            Integer taskId = tryParse(input.substring(5));
             if (Objects.isNull(taskId)) {
                 throw new SidInvalidIndexException("Invalid task ID.");
             }
@@ -258,7 +266,7 @@ public class Sidtacphi {
             throw new SidException("\"" + input + "\" is not a valid command.");
         } 
 
-        Integer taskId = Integer.parseInt(input.substring(7));
+        Integer taskId = tryParse(input.substring(7));
         if (Objects.isNull(taskId) || taskId > taskList.size() || taskId < 1) {
             throw new SidInvalidIndexException("Invalid task ID.");
         }
