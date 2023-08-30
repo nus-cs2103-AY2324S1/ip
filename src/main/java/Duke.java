@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import HelperClass.Task;
 
 public class Duke {
     private static void printOneLine() {
@@ -33,7 +34,9 @@ public class Duke {
 
         boolean wantToExit = false;
         Scanner getUserInput = new Scanner(System.in);
-        String[] userList = new String[100];
+        Scanner getUserIndex = new Scanner(System.in);
+        Task[] userList = new Task[100];
+
         int listPointer = 0;
 
         while (!(wantToExit)) {
@@ -54,18 +57,47 @@ public class Duke {
                     } else {
                         for (int i = 0; i < listPointer; i++) {
                             int num = i + 1;
-                            System.out.println(num + ". " + userList[i]);
+                            System.out.println(num + userList[i].display());
+
+
                         }
                     }
 
                     break;
 
+                case "mark":
+                    System.out.println("Enter index:");
+                    int index = getUserIndex.nextInt() - 1;
+                    if (index < 0 || index >= listPointer) {
+                        System.out.println("Invalid index.");
+                    } else {
+
+                        userList[index].markDone();
+
+                    }
+
+                    break;
+
+                case "unmark":
+                    System.out.println("Enter index:");
+                    int i = getUserIndex.nextInt() - 1;
+                    if (i < 0 || i >= listPointer) {
+                        System.out.println("Invalid index.");
+                    } else {
+
+                        userList[i].unmarkDone();
+
+                    }
+
+                    break;
+
+
                 default:
-                    userList[listPointer] = userInput;
+                    userList[listPointer] = new Task(userInput);
                     listPointer = listPointer + 1;
-                    printOneLine();
+
                     System.out.println("added: " + userInput);
-                    printOneLine();
+
 
             }
             printOneLine();
