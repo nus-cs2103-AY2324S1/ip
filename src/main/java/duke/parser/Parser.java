@@ -1,6 +1,6 @@
 package duke.parser;
 
-import duke.main.Duke;
+import duke.Duke;
 
 public class Parser {
 
