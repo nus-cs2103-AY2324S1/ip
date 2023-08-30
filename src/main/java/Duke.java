@@ -1,13 +1,12 @@
-import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 
 
 public class Duke {
@@ -109,7 +108,8 @@ public class Duke {
                 throw new IncompleteInputException("deadline");
             }
             String des = words[0].substring(9);
-            String by = words[1].substring(3);
+            String date = words[1].substring(3);
+            LocalDate by = LocalDate.parse(date);
             Deadline dl = new Deadline(des, by);
             lst.add(dl);
             System.out.println("____________________________________________________________\n"
@@ -125,8 +125,10 @@ public class Duke {
                 throw new IncompleteInputException("deadline");
             }
             String des = words[0].substring(6);
-            String from = words[1].substring(5);
-            String to = words[2].substring(3);
+            String fromDate = words[1].substring(5, 15);
+            String toDate = words[2].substring(3);
+            LocalDate from = LocalDate.parse(fromDate);
+            LocalDate to = LocalDate.parse(toDate);
             Event event = new Event(des, from, to);
             lst.add(event);
             System.out.println("____________________________________________________________\n"
@@ -189,13 +191,13 @@ public class Duke {
                     }
                     lst.add(t);
                 } else if (arr[0].equals("D")) {
-                    Deadline dl = new Deadline(arr[2], arr[3]);
+                    Deadline dl = new Deadline(arr[2], LocalDate.parse(arr[3]));
                     if (arr[1].equals("1")) {
                         dl.markAsDone();
                     }
                     lst.add(dl);
                 } else if (arr[0].equals("E")){
-                    Event e = new Event(arr[2], arr[3], arr[4]);
+                    Event e = new Event(arr[2], LocalDate.parse(arr[3]), LocalDate.parse(arr[4]));
                     if (arr[1].equals("1")) {
                         e.markAsDone();
                     }
