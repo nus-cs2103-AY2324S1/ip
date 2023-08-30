@@ -6,11 +6,11 @@ Understood, I will add the following todo to your list:
 Please note that there are 1 tasks in the list.
 
 Understood, I will add the following deadline to your list:
-[D][ ] CS2103T Individual Project (by: Thursday)
+[D][ ] CS2103T Individual Project (by: Aug 30 2023, 7:00 PM)
 Please note that there are 2 tasks in the list.
 
-Understood, I will add the following event to your list:
-[E][ ] Birthday Celebration! (from: Fri 11pm to: Sat 12am)
+Understood, I will add the following deadline to your list:
+[E][ ] Birthday Celebration! (from: Aug 31 2023, 7:00 PM to: Aug 30 2023, 9:00 PM)
 Please note that there are 3 tasks in the list.
 
 Understood, I will add the following todo to your list:
@@ -25,8 +25,8 @@ Congratulations on finishing the task. I will now mark it as complete:
 [T][X] Mark this
 
 1. [T][ ] Automate ButlerBot
-2. [D][ ] CS2103T Individual Project (by: Thursday)
-3. [E][ ] Birthday Celebration! (from: Fri 11pm to: Sat 12am)
+2. [D][ ] CS2103T Individual Project (by: Aug 30 2023, 7:00 PM)
+3. [E][ ] Birthday Celebration! (from: Aug 31 2023, 7:00 PM to: Aug 30 2023, 9:00 PM)
 4. [T][ ] Delete this
 5. [T][X] Mark this
 
@@ -35,8 +35,8 @@ Understood, I will remove the following task from your list:
 Please note that there are 4 tasks in the list.
 
 1. [T][ ] Automate ButlerBot
-2. [D][ ] CS2103T Individual Project (by: Thursday)
-3. [E][ ] Birthday Celebration! (from: Fri 11pm to: Sat 12am)
+2. [D][ ] CS2103T Individual Project (by: Aug 30 2023, 7:00 PM)
+3. [E][ ] Birthday Celebration! (from: Aug 31 2023, 7:00 PM to: Aug 30 2023, 9:00 PM)
 4. [T][X] Mark this
 
 Goodbye and have a nice day.
