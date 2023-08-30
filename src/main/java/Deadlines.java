@@ -1,33 +1,15 @@
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+
 public class Deadlines extends Tasks {
 
     private String taskDesc;
     private String dueDateStr;
     private LocalDateTime dueDate;
-    public Deadlines(String userInput) {
-        try {
-            String[] split = userInput.split("/by");
-            if (userInput.equals("deadline")) {
-                throw new IllegalArgumentException("Hey! Please enter the task description or leave a space after the command!");
-            } else if (split.length < 2) {
-                throw new IllegalArgumentException("Hey! Please provide a deadline for your task in this format dd/MM/yyyy HHmm!");
-            } else {
-                DateTime dateTime = new DateTime();
-                String formattedDate = dateTime.formatDateTime(split[1].trim());
-                this.taskDesc = split[0].trim().substring(8).trim();
-
-                if (formattedDate.equals("Invalid format")) {
-                    throw new IllegalArgumentException("Hey! Please provide a deadline for your task in this format dd/MM/yyyy HHmm!");
-                } else {
-                    this.dueDateStr = formattedDate;
-                    this.dueDate = LocalDateTime.parse(formattedDate, DateTimeFormatter.ofPattern("dd MMM yyyy h:mma"));
-                }
-            }
-        } catch (IllegalArgumentException e) {
-            System.out.println(e.getMessage());
-            this.taskDesc = null;
-        }
+    public Deadlines(String userInput, String dueDateStr) {
+        this.taskDesc = userInput;
+        this.dueDateStr = dueDateStr;
+        this.dueDate = LocalDateTime.parse(dueDateStr, DateTimeFormatter.ofPattern("dd MMM yyyy h:mma"));
     }
 
     public Deadlines(String completion, String taskDesc, String duedate) {

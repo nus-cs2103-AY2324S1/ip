@@ -7,10 +7,13 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 public class FileHandler {
-
-    public static boolean readTasksFromFile(ArrayList<Tasks> task) {
+    private static String filePath;
+    public FileHandler(String filePath) {
+        this.filePath = filePath;
+    }
+    public static ArrayList<Tasks> readTasksFromFile() {
+        ArrayList<Tasks> task = new ArrayList<>();
         String folderPath = "data";
-        String filePath = "data/TaskList.txt";
 
         try {
             Files.createDirectories(Paths.get(folderPath));
@@ -77,24 +80,22 @@ public class FileHandler {
                         task.add(newevent);
                     } catch (IndexOutOfBoundsException e) {
                         System.out.println(e.getMessage());
-                        contentCheck = false;
+
                     }
                 }
                 reader.close();
             }
 
-            return contentCheck;
-
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
-        return true;
+        return task;
     }
 
-    public static void writeTasksToFile(ArrayList<Tasks> task) {
+    public static void writeTasksToFile(TaskList task) {
         try {
             FileWriter writer = new FileWriter("data/TaskList.txt");
-            for (Tasks t : task) {
+            for (Tasks t : task.getTasks()) {
                 writer.write(t.toFileString() + "\n");
             }
             writer.close();
