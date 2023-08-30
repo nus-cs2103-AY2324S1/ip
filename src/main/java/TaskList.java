@@ -10,14 +10,14 @@ public class TaskList {
         }
     }
     public void addSuccessMessage(Task task) {
-        System.out.println(Ben.HORIZONTAL_LINE + "\nGot It! This task has been added:\n" + task +
-                "\nNow you have " + tasks.size() + " items in the list\n" + Ben.HORIZONTAL_LINE);
+        Ui.displayMessage("\nGot It! This task has been added:\n" + task +
+                "\nNow you have " + tasks.size() + " items in the list\n");
     }
 
     public void delete(Task task) {
         tasks.remove(task);
-        System.out.println(Ben.HORIZONTAL_LINE + "\n" + "Sure thing! This task has been removed\n" + task +
-                "\nNow you have " + tasks.size() + " tasks left\n" + Ben.HORIZONTAL_LINE);
+        Ui.displayMessage("\n" + "Sure thing! This task has been removed\n" + task +
+                "\nNow you have " + tasks.size() + " tasks left\n");
     }
 
     public String saveTasks() {

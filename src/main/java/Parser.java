@@ -7,10 +7,9 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Parser {
-    public void commandParser(String command, TaskList tasks) {
+    public void commandParser(String command, TaskList tasks) throws InvalidCommandException, EmptyDescriptionException {
         String[] words = command.split("\\s+");
         Task task;
-        try {
             if (words[0].equalsIgnoreCase("todo")) {
                 String description = String.join(" ", Arrays.copyOfRange(words, 1, words.length));
                 if (description.isEmpty()) {
@@ -32,8 +31,7 @@ public class Parser {
                 }
 
                 if (positionBy == 0) {
-                    System.out.println(Ben.HORIZONTAL_LINE + "\n" + "Did not include /by" + "\n" + Ben.HORIZONTAL_LINE);
-                    return;
+                    throw new InvalidCommandException("\n" + "Did not include /by" + "\n");
                 }
 
                 String description = String.join(" ", Arrays.copyOfRange(words, 1, positionBy));
@@ -64,8 +62,7 @@ public class Parser {
                 }
 
                 if (positionFrom == 0 || positionTo == 0) {
-                    System.out.println(Ben.HORIZONTAL_LINE + "\n" + "Did not include both /from and /to" + "\n" + Ben.HORIZONTAL_LINE);
-                    return;
+                    throw new InvalidCommandException("\n" + "Did not include both /from and /to" + "\n");
                 }
 
                 String description = String.join(" ", Arrays.copyOfRange(words, 1, positionFrom));
@@ -89,14 +86,7 @@ public class Parser {
 
             }
             throw new InvalidCommandException("Oops this Command: " + command + " is not found");
-        } catch (EmptyDescriptionException | InvalidCommandException e) {
-            System.out.println(Ben.HORIZONTAL_LINE + "\n" + e.getMessage() + "\n" + Ben.HORIZONTAL_LINE);
-        } catch (DateTimeParseException e) {
-            System.out.println(Ben.HORIZONTAL_LINE + "\n" + command + " is not a valid command" + "\n" +
-                    "Please input the date in the following format: dd/mm/yyyy HHmm" + "\n" + Ben.HORIZONTAL_LINE);
-        }
     }
-
     public boolean isEditListCommand(String message, TaskList tasks) {
         Pattern pattern = Pattern.compile("(unmark|mark|delete)\\s*(-?\\d+)");
         Matcher matcher = pattern.matcher(message.toLowerCase());
@@ -111,8 +101,7 @@ public class Parser {
 
             // check whether number is valid
             if (num < 0 || num >= tasks.size()) {
-                System.out.println(Ben.HORIZONTAL_LINE + "\n" +
-                        "Please input a valid task number" + "\n" + Ben.HORIZONTAL_LINE);
+                Ui.showError("Please input a valid task number");
                 return true;
             }
 
@@ -121,14 +110,14 @@ public class Parser {
 
             if (Objects.equals(command, "mark")) {
                 task.mark();
-                System.out.println(Ben.HORIZONTAL_LINE + "\n" +
-                        "Nice! This task is completed\n" + task + "\n" + Ben.HORIZONTAL_LINE);
+                Ui.displayMessage("\n" +
+                        "Nice! This task is completed\n" + task + "\n");
             } else if ((Objects.equals(command, "delete"))) {
                 tasks.delete(tasks.get(num));
             } else {
                 task.unmark();
-                System.out.println(Ben.HORIZONTAL_LINE + "\n" +
-                        "Okay! This task is not completed\n" + task + "\n" + Ben.HORIZONTAL_LINE);
+                Ui.displayMessage("\n" +
+                        "Okay! This task is not completed\n" + task + "\n");
 
             }
             return true;
