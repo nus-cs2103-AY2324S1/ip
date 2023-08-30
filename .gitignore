@@ -19,4 +19,4 @@ text-ui-test/EXPECTED-UNIX.TXT
 
 # Files that should not be revision controled
 *.class
-data/data.txt
+/data/*
