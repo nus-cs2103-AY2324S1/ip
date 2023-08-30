@@ -3,7 +3,7 @@ package tasks;
 /**
  * Task class storing description and status.
  */
-public class Task {
+public abstract class Task {
     protected String desc;
     protected boolean status;
 
