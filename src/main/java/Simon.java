@@ -1,3 +1,4 @@
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -208,6 +209,43 @@ public class Simon {
             writer.close();
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
+        }
+    }
+
+    private static void loadTasksFromFile() {
+        try {
+            File file = new File("./data/simon.txt");
+            Scanner scanner = new Scanner(file);
+            while (scanner.hasNextLine()) {
+                String data = scanner.nextLine();
+                String[] parts = data.split(" \\| ");
+                switch (parts[0]) {
+                    case "T":
+                        ToDo todo = new ToDo(parts[2]);
+                        if (parts[1].equals("1")) {
+                            todo.markAsDone();
+                        }
+                        tasks.add(todo);
+                        break;
+                    case "D":
+                        Deadline deadline = new Deadline(parts[2], parts[3]);
+                        if (parts[1].equals("1")) {
+                            deadline.markAsDone();
+                        }
+                        tasks.add(deadline);
+                        break;
+                    case "E":
+                        Event event = new Event(parts[2], parts[3], parts[4]);
+                        if (parts[1].equals("1")) {
+                            event.markAsDone();
+                        }
+                        tasks.add(event);
+                        break;
+                }
+            }
+            scanner.close();
+        } catch (FileNotFoundException e) {
+            System.out.println("Data file not found. Starting with an empty task list.");
         }
     }
 }
