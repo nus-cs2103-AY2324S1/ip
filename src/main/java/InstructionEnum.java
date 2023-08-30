@@ -7,21 +7,21 @@ public enum InstructionEnum {
     MARK("mark"),
     UNMARK("unmark"),
     DELETE("delete"),
-    TODO("todo"),
-    DEADLINE("deadline"),
-    EVENT("event");
+    TODO("todo", "T"),
+    DEADLINE("deadline", "D"),
+    EVENT("event", "E");
 
     /**
-     * The string value of the instruction.
+     * An array storing possible string values of the instruction.
      */
-    private final String instruction;
+    private String[] values;
 
     /**
      * Initialises the enums to their respective string values.
-     * @param instruction The string value to assign to enums.
+     * @param values The array of string value to assign to this enums values array.
      */
-    private InstructionEnum(String instruction) {
-        this.instruction = instruction;
+    private InstructionEnum(String... values) {
+        this.values = values;
     }
 
 
@@ -29,8 +29,8 @@ public enum InstructionEnum {
      * Returns the instruction of this enum.
      * @return Returns the instruction of this enum.
      */
-    private String getInstruction() {
-        return this.instruction;
+    private String[] getValues() {
+        return this.values;
     }
 
     /**
@@ -42,8 +42,11 @@ public enum InstructionEnum {
      */
     public static InstructionEnum getInstructionEnum(String s) {
         for (InstructionEnum i : InstructionEnum.values()) {
-            if (i.getInstruction().equals(s)) {
-                return i;
+            String[] values = i.getValues();
+            for (int j = 0; j < values.length; j++) {
+                if (values[j].equals(s)) {
+                    return i;
+                }
             }
         }
 
