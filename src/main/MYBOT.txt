@@ -1,3 +1,0 @@
-T|N|todo sleep
-D|N|slp|28 Sep 2020, Monday
-E|N|sl|28 Sep 2020, Monday|28 Sep 2020, Monday, 4.00PM
