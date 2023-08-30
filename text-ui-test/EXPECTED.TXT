@@ -1,91 +1,113 @@
-Hello from
-KNIAZ
+Hello from KNIAZ
 ____________________
-
-What can I do for you?
+I managed to load your tasks from last time.
 ____________________
-
-As you say. The task has been added To-Do :
+As you say, the ToDo has been created :
 [T][ ] read book
 ____________________
-
+Time to get to work? Here are all your tasks :
 1. [T][ ] read book
 
 ____________________
-
-As you say. The task has been added as a Deadline :
-[D][ ] return book(by : Sunday)
+As you say, the Deadline has been created :
+[D][ ] return book (by : Sunday)
 ____________________
-
-As you say. The task has been added To-Do :
-[E][ ] project meeting from : Dec 03 2010 10:15 to: Dec 03 2011 09:15
+As you say, the Event has been created :
+[E][ ] project meeting  from : Dec 03 2010 10:15 to: Dec 03 2011 09:15
 ____________________
-
+Time to get to work? Here are all your tasks :
 1. [T][ ] read book
-2. [D][ ] return book(by : Sunday)
-3. [E][ ] project meeting from : Dec 03 2010 10:15 to: Dec 03 2011 09:15
+2. [D][ ] return book (by : Sunday)
+3. [E][ ] project meeting  from : Dec 03 2010 10:15 to: Dec 03 2011 09:15
 
 ____________________
-
-I did not recognise test as an input, try again.
+I do not recognise this command
 ____________________
-
-I did not recognise test2 as an input, try again.
+I do not recognise this command
 ____________________
-
-As you say. The task has been added as a Deadline :
-[D][ ] fix dates(by : Dec 03 2007 10:15)
+As you say, the Deadline has been created :
+[D][ ] fix dates (by : Dec 03 2007 10:15)
 ____________________
-
-Your input is formatted wrongly, try again.
+I need all of [from, to] as arguments, but you gave me only [to]!
 ____________________
-
-As you say. The task has been added To-Do :
-[E][ ] weirdly timed event from : apples to: oranges
+As you say, the Event has been created :
+[E][ ] weirdly timed event  from : apples to: oranges
 ____________________
-
-1. [T][ ] read book
-2. [D][ ] return book(by : Sunday)
-3. [E][ ] project meeting from : Dec 03 2010 10:15 to: Dec 03 2011 09:15
-4. [D][ ] fix dates(by : Dec 03 2007 10:15)
-5. [E][ ] weirdly timed event from : apples to: oranges
-
+As you say, the Event has been created :
+[E][ ] redundant arguments  from : apples to: oranges
 ____________________
-
-This task has been erased, mercy on its data :
-[T][ ] read book
-Only 4 tasks remain.
+As you say, I have marked it as done :
+[T][X] read book
 ____________________
-
-This task has been erased, mercy on its data :
-[D][ ] return book(by : Sunday)
-Only 3 tasks remain.
-____________________
-
-This task has been erased, mercy on its data :
-[E][ ] project meeting from : Dec 03 2010 10:15 to: Dec 03 2011 09:15
-Only 2 tasks remain.
-____________________
-
-This task has been erased, mercy on its data :
-[D][ ] fix dates(by : Dec 03 2007 10:15)
-Only 1 tasks remain.
-____________________
-
-This task has been erased, mercy on its data :
-[E][ ] weirdly timed event from : apples to: oranges
-Only 0 tasks remain.
-____________________
-
-There is no such entry numbered 1. Try again, but correct.
-____________________
-
-There is no such entry numbered 1. Try again, but correct.
-____________________
-
+Time to get to work? Here are all your tasks :
+1. [T][X] read book
+2. [D][ ] return book (by : Sunday)
+3. [E][ ] project meeting  from : Dec 03 2010 10:15 to: Dec 03 2011 09:15
+4. [D][ ] fix dates (by : Dec 03 2007 10:15)
+5. [E][ ] weirdly timed event  from : apples to: oranges
+6. [E][ ] redundant arguments  from : apples to: oranges
 
 ____________________
-
-Bye. Hope to see you again soon!
+As you say, I have marked it as done :
+[D][X] return book (by : Sunday)
 ____________________
+Time to get to work? Here are all your tasks :
+1. [T][X] read book
+2. [D][X] return book (by : Sunday)
+3. [E][ ] project meeting  from : Dec 03 2010 10:15 to: Dec 03 2011 09:15
+4. [D][ ] fix dates (by : Dec 03 2007 10:15)
+5. [E][ ] weirdly timed event  from : apples to: oranges
+6. [E][ ] redundant arguments  from : apples to: oranges
 
+____________________
+It is a poor practice to mark it when you are not yet done, but as you say :
+[D][ ] return book (by : Sunday)
+____________________
+Time to get to work? Here are all your tasks :
+1. [T][X] read book
+2. [D][ ] return book (by : Sunday)
+3. [E][ ] project meeting  from : Dec 03 2010 10:15 to: Dec 03 2011 09:15
+4. [D][ ] fix dates (by : Dec 03 2007 10:15)
+5. [E][ ] weirdly timed event  from : apples to: oranges
+6. [E][ ] redundant arguments  from : apples to: oranges
+
+____________________
+Your index 500 cannot be accepted, only indices 1 - 6 are valid!
+____________________
+Time to get to work? Here are all your tasks :
+1. [T][X] read book
+2. [D][ ] return book (by : Sunday)
+3. [E][ ] project meeting  from : Dec 03 2010 10:15 to: Dec 03 2011 09:15
+4. [D][ ] fix dates (by : Dec 03 2007 10:15)
+5. [E][ ] weirdly timed event  from : apples to: oranges
+6. [E][ ] redundant arguments  from : apples to: oranges
+
+____________________
+It shall be as if this task never existed :
+[T][X] read book
+____________________
+It shall be as if this task never existed :
+[D][ ] return book (by : Sunday)
+____________________
+It shall be as if this task never existed :
+[E][ ] project meeting  from : Dec 03 2010 10:15 to: Dec 03 2011 09:15
+____________________
+It shall be as if this task never existed :
+[D][ ] fix dates (by : Dec 03 2007 10:15)
+____________________
+It shall be as if this task never existed :
+[E][ ] weirdly timed event  from : apples to: oranges
+____________________
+It shall be as if this task never existed :
+[E][ ] redundant arguments  from : apples to: oranges
+____________________
+Your index 1 cannot be accepted, only indices 1 - 0 are valid!
+____________________
+Your index 500 cannot be accepted, only indices 1 - 0 are valid!
+____________________
+Time to get to work? Here are all your tasks :
+
+____________________
+If that is all for now, then I bid you farewell
+QUIT
+____________________
