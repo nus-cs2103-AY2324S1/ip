@@ -8,4 +8,9 @@ public class DisplayListCommand extends Command{
         ui.print(list.toString());
         storage.writeToSave(list);
     }
+
+    @Override
+    public boolean equals(Object o) {
+        return o instanceof DisplayListCommand;
+    }
 }

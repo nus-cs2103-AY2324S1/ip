@@ -15,4 +15,15 @@ public class DeleteCommand extends Command{
         ui.print(String.format("Noted. I've removed this task:\n  " + res));
         storage.writeToSave(list);
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (!(o instanceof DeleteCommand)) {
+            return false;
+        } 
+        //checked above
+        @SuppressWarnings("unchecked")
+        DeleteCommand c = (DeleteCommand) o;
+        return c.idx == this.idx;
+    }
 }
