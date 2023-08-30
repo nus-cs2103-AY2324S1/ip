@@ -1,13 +1,19 @@
+package duke;
+
 import java.time.LocalDate;
 import java.util.regex.Pattern;
 
 public class Task {
     protected String description;
-    protected boolean isDone;
+    public boolean isDone;
 
     public Task(String description) {
         this.description = description;
         this.isDone = false;
+    }
+
+    public boolean isItDone() {
+        return isDone;
     }
 
     public String getStatusIcon() {

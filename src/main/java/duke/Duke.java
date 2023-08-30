@@ -1,12 +1,12 @@
+package duke;
 
 // fixing DukeException based on my understanding of exceptions 27/8/23
-import java.io.IOException;
 import java.util.Scanner;
 
 public class Duke {
-    private UI helper;
-    private TaskList tasks;
-    private Storage storage;
+    public UI helper;
+    public TaskList tasks;
+    public Storage storage;
 
     public Duke(String filePath) {
         this.helper = new UI("DukeKing");

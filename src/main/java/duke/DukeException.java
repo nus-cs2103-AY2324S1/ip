@@ -1,3 +1,5 @@
+package duke;
+
 public class DukeException extends Throwable {
     public DukeException(String message) {
 
