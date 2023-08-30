@@ -1,4 +1,4 @@
-package Duke.Exceptions;
+package duke.Exceptions;
 
 /**
  * Custom exception class for Duke application.
@@ -26,5 +26,7 @@ public class DukeException extends Exception {
     public String getMessage() {
         return this.message;
     }
+
+
 }
 
