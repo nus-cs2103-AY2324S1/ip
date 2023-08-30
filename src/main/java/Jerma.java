@@ -1,4 +1,5 @@
 import java.io.IOException;
+import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
 import commands.Command;
@@ -41,6 +42,8 @@ public class Jerma {
         ui.error("Invalid arguments. Try again!");
       } catch (UnsupportedOperationException e) {
         ui.error("Invalid command. Try again!");
+      } catch (DateTimeParseException e) {
+        ui.error("Invalid date format. Try again!");
       }
     }
 

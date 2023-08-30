@@ -68,6 +68,6 @@ public class Parser {
       return new AddTask(ui, tasks, task);
     }
 
-    throw new UnsupportedOperationException("Invalid command");
+    throw new UnsupportedOperationException();
   }
 }
