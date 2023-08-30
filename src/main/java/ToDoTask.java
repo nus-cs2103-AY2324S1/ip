@@ -9,6 +9,11 @@ public class ToDoTask extends Task {
     }
 
     @Override
+    public String toFileString() {
+        return "T | " + super.toFileString();
+    }
+
+    @Override
     public String toString() {
         return super.toString();
     }
