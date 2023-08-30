@@ -54,6 +54,12 @@ public class Storage {
         return list;
     }
 
+    /**
+     * Reads data from each line of the file.
+     *
+     * @param line The line in the file.
+     * @return A Task that the line represents.
+     */
     private Task readData(String line) {
         Task task = null;
         String[] data = line.split(" \\| ");

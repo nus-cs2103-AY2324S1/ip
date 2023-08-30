@@ -49,6 +49,11 @@ public class Duke {
         return Duke.storage;
     }
 
+    /**
+     * Gets the taskList.
+     *
+     * @return the taskList.
+     */
     public static TaskList getTaskList() {
         return Duke.taskList;
     }
@@ -62,6 +67,9 @@ public class Duke {
         return Duke.ui;
     }
 
+    /**
+     * Starts the chatbot.
+     */
     private void run() {
         //duke.Duke.ui.showWelcome();
         Scanner sc = new Scanner(System.in);
