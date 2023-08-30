@@ -1,3 +1,5 @@
+package duke;
+
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -11,7 +13,7 @@ public class Storage {
     /**
      * Reads tasks from a file and processes them based on their types.
      * The tasks are parsed and passed to respective handler methods.
-     * Handles Todo, Deadline, and Event tasks stored in the file.
+     * Handles Todo, duke.Deadline, and duke.Event tasks stored in the file.
      */
     public String handleReadAllTasksFromFile() {
 

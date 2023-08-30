@@ -1,19 +1,16 @@
+package duke;
+
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-public class Event extends Task{
-    protected LocalDate start;
-    protected LocalDate end;
-
-    protected LocalTime startTime;
+public class Deadline extends Task {
+    protected LocalDate deadline;
 
     protected LocalTime endTime;
 
-    public Event(String list, String start, String end, String startTime, String endTime, TaskType type) {
+    public Deadline (String list, String deadline, String endTime, TaskType type) {
         super(list, type);
-        this.start = LocalDate.parse(start);
-        this.end = LocalDate.parse(end);
-        this.startTime = LocalTime.parse(startTime);
+        this.deadline = LocalDate.parse(deadline);
         this.endTime = LocalTime.parse(endTime);
     }
 
@@ -24,7 +21,7 @@ public class Event extends Task{
      * @throws DukeException If the task has already been marked as done.
      */
     @Override
-    public String setMarked() throws DukeException{
+    public String setMarked() throws DukeException {
         super.setMarked();
         return "Nice! I've marked this task as done:\n" + toString();
     }
@@ -36,14 +33,14 @@ public class Event extends Task{
      * @throws DukeException If the task has already been marked as not done.
      */
     @Override
-    public String setUnmarked() throws DukeException{
+    public String setUnmarked() throws DukeException {
         super.setUnmarked();
         return "OK, I've marked this task as not done yet:\n" + toString();
     }
 
     @Override
     public String toString() {
-        return super.toString() + "(from: " + this.start.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + " " + this.startTime + " to: " + this.end.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + " " + this.endTime + ")";
+        return super.toString() + "(by: " + this.deadline.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + " " + this.endTime + ")";
     }
 
 }

@@ -1,4 +1,10 @@
-public class ToDo extends Task{
+package duke;
+
+import duke.DukeException;
+import duke.Task;
+import duke.TaskType;
+
+public class ToDo extends Task {
     public ToDo(String list, TaskType type) {
         super(list, type);
     }
