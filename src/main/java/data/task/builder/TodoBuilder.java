@@ -20,6 +20,7 @@ public class TodoBuilder implements Builder<Task> {
             String description = m.group(1);
             Todo todo = new Todo();
             todo.setDescription(description);
+            todo.setUserInputString(input);
             return todo;
         }
         else {

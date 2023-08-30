@@ -3,6 +3,7 @@ package data.task;
 public abstract class Task {
     protected Description description;
     protected boolean isDone = false;
+    protected String userInputString;
 
     public String getStatusIcon() {
         return (isDone ? "X" : " "); // mark done task with X
@@ -23,5 +24,13 @@ public abstract class Task {
     @Override
     public String toString() {
         return "[" + this.getStatusIcon() + "] " + this.description;
+    }
+
+    public String getUserInputString() throws NullPointerException{
+        return this.userInputString;
+    }
+
+    public void setUserInputString(String userInputString) {
+        this.userInputString = userInputString;
     }
 }

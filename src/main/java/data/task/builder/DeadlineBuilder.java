@@ -20,9 +20,10 @@ public class DeadlineBuilder implements Builder<Task> {
             Deadline deadline = new Deadline();
             deadline.setDescription(description);
             deadline.setBy(by);
+            deadline.setUserInputString(input);
             return deadline;
         } else {
-            throw new InvalidInputException("expected format: deadline <description> /by <by>");
+            throw new InvalidInputException("expected format: deadline <description> /by YYYY-MM-DD HH:MM");
         }
     
     }  

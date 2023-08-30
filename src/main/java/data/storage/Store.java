@@ -6,16 +6,18 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 //import java.io.File;
+import java.io.FileReader;
 
 import data.task.Task;
 import data.task.taskList.TaskList;
+import data.task.builder.TaskBuilder;
 
 
 public class Store {
     private static Store store = new Store();
     TaskList tasks = new TaskList();
     String fileName = "duke.txt";
-
+    TaskBuilder taskBuilder = new TaskBuilder();
     //FileWriter fw;
     //File file = new File("duke.txt");
     
@@ -31,6 +33,37 @@ public class Store {
                 System.out.println("Something went wrong: " + e.getMessage());
             }
         }
+
+        FileReader fr = null;
+        try {
+            fr = new FileReader(fileName);
+            int i;
+            String input = "";
+            while ((i = fr.read()) != -1) {
+                input += (char) i;
+            }
+            String[] inputStrs = input.split("\n");
+            for (String inputStr : inputStrs) {
+                if (inputStr.equals("")) {
+                    continue;
+                }
+                Task task = taskBuilder.buildFromString(inputStr);
+                tasks.addTask(task);
+            }
+        } catch (IOException e) {
+            System.out.println("Something went wrong: " + e.getMessage());
+        } catch (DukeException e) {
+            System.out.println("Something went wrong: " + e.getMessage());
+        } finally {
+            try {
+                if (fr != null) {
+                    fr.close();
+                }
+            } catch (IOException e) {
+                System.out.println("Something went wrong: " + e.getMessage());
+            }
+        }
+        
     }
       
 
@@ -41,7 +74,7 @@ public class Store {
     private void write() {   
         try {
              FileWriter fw = new FileWriter(fileName);
-             fw.write(tasks.toString());
+             fw.write(tasks.getUserInputStrs());
             fw.close();
         } catch (IOException e) {
             System.out.println("Something went wrong: " + e.getMessage());

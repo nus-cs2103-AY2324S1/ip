@@ -77,4 +77,12 @@ public class TaskList {
         }
         return result;
     } 
+
+    public String getUserInputStrs() {
+        String result = "";
+        for (int i = 0; i < taskCount; i++) {
+            result += tasks[i].getUserInputString() + "\n";
+        }
+        return result;
+    }
 }

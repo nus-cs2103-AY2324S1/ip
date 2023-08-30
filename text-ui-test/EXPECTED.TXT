@@ -1,19 +1,7 @@
 Hello! I'm Doctor101
 What can I do for you?
 ____________________________________________________________
-Got it. I’ve added this task:
-[T][ ] borrow book
-Now you have 1 tasks in the list.
-____________________________________________________________
 Invalid Input: Invalid date format, should be YYYY-MM-DD
-____________________________________________________________
-Got it. I’ve added this task:
-[D][ ] return book (by: Feb 02 2020)
-Now you have 2 tasks in the list.
-____________________________________________________________
-Got it. I’ve added this task:
-[E][ ] project meeting (from: Mon 2pm to: 4pm)
-Now you have 3 tasks in the list.
 ____________________________________________________________
 Here are the tasks in your list:
 1. [T][ ] borrow book
@@ -23,12 +11,9 @@ ____________________________________________________________
 Nice! I've marked this task as done:
 [T][X] borrow book
 ____________________________________________________________
-Nice! I've marked this task as done:
-[D][X] return book (by: Feb 02 2020)
-____________________________________________________________
 Here are the tasks in your list:
 1. [T][X] borrow book
-2. [D][X] return book (by: Feb 02 2020)
+2. [D][ ] return book (by: Feb 02 2020)
 3. [E][ ] project meeting (from: Mon 2pm to: 4pm)
 ____________________________________________________________
 OK, I've marked this task as not done yet:
@@ -38,19 +23,28 @@ Invalid Input: index out of bounds
 ____________________________________________________________
 Here are the tasks in your list:
 1. [T][ ] borrow book
-2. [D][X] return book (by: Feb 02 2020)
+2. [D][ ] return book (by: Feb 02 2020)
 3. [E][ ] project meeting (from: Mon 2pm to: 4pm)
 ____________________________________________________________
-Invalid Input: expected format: todo <description>
+Got it. I’ve added this task:
+[T][ ] 123
+Now you have 4 tasks in the list.
+____________________________________________________________
+Here are the tasks in your list:
+1. [T][ ] borrow book
+2. [D][ ] return book (by: Feb 02 2020)
+3. [E][ ] project meeting (from: Mon 2pm to: 4pm)
+4. [T][ ] 123
+____________________________________________________________
+Noted. I've removed this task:
+[T][ ] 123
 ____________________________________________________________
 Invalid Input: Command not found
 ____________________________________________________________
-Noted. I've removed this task:
-[T][ ] borrow book
-____________________________________________________________
 Here are the tasks in your list:
-1. [D][X] return book (by: Feb 02 2020)
-2. [E][ ] project meeting (from: Mon 2pm to: 4pm)
+1. [T][ ] borrow book
+2. [D][ ] return book (by: Feb 02 2020)
+3. [E][ ] project meeting (from: Mon 2pm to: 4pm)
 ____________________________________________________________
 Bye. Hope to see you again soon!
 ____________________________________________________________

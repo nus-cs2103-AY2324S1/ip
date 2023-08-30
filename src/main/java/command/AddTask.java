@@ -13,7 +13,7 @@ public class AddTask implements Command {
     }
 
     @Override
-    public void execute(String input) throws DukeException{
+    public void execute(String input) throws DukeException {
         Store s = Store.getInstance();
         Task task = taskBuilder.buildFromString(input);
         if (task == null) {
@@ -25,7 +25,7 @@ public class AddTask implements Command {
         System.out.println(task);
         System.out.println("Now you have " + s.getTaskCount() + " tasks in the list.");
     }
-    
+      
 }
 
 

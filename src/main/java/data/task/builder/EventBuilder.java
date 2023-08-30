@@ -24,6 +24,7 @@ public class EventBuilder implements Builder<Task> {
             event.setDescription(description);
             event.setFrom(start);
             event.setTo(end);
+            event.setUserInputString(input);
             return event;
         } else {
             throw new InvalidInputException("expected format: event <description> /from <start> /to <end>");
