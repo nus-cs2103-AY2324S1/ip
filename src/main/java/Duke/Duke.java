@@ -11,12 +11,20 @@ public class Duke {
     private Ui ui;
     private String filePath = "./tasklist.txt";
 
+    /**
+     * Chatbot constructor
+     * @throws IOException if there is an error loading the saved file
+     */
     public Duke() throws IOException {
         ui = new Ui();
         this.dataBase = new Storage(filePath);
         this.taskList = dataBase.load();
     }
 
+    /**
+     * The factory method to run the chatbot after it has been instantiated. It is responsible for scanning inputs and
+     * passing the inputs to the parsers to parse and instantiate the respective commands
+     */
     public void run() throws DukeException, IOException {
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"

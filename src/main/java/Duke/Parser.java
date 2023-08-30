@@ -3,6 +3,9 @@ package Duke;
 import Duke.Commands.*;
 
 public class Parser {
+    /**
+     * An enum to store the various commands for ease of parsing into the respective commands
+     */
     enum CommandTypes {
         BYE,
         DELETE,
@@ -15,6 +18,15 @@ public class Parser {
         HELP
     }
 
+    /**
+     * The parse function to convert the input, a string, into the respective commands
+     *
+     * @param input The string input keyed in by the user
+     * @param taskList The taskList to store the tasks
+     * @param storage The storage to save the new taskList
+     * @param ui The ui that prints the messages
+     * @return the command that was requested by the user
+     */
     public static Command parse(String input, TaskList taskList, Storage storage,  Ui ui) {
         try {
             String[] inputs = input.split(" ");

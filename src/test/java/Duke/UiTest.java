@@ -13,5 +13,5 @@ public class UiTest {
                 br;
         assertEquals(expectedOutput, ui.printHello());
     }
-    
+
 }

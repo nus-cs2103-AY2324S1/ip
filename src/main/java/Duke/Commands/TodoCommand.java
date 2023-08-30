@@ -13,6 +13,15 @@ public class TodoCommand extends Command {
     protected Storage storage;
     protected Ui ui;
     protected String input;
+
+    /**
+     * Constructor for the todo command
+     *
+     * @param input The input for the command
+     * @param taskList The taskList to store the task
+     * @param storage The storage system to store the list
+     * @param ui The ui to print the commands
+     */
     public TodoCommand(String input, TaskList taskList, Storage storage, Ui ui) {
         this.input = input;
         this.taskList = taskList;
@@ -20,6 +29,11 @@ public class TodoCommand extends Command {
         this.ui = ui;
     }
 
+    /**
+     * Executes the command
+     *
+     * @throws DukeException when theres an error saving the file
+     */
     @Override
     public void execute() throws DukeException {
         ToDos task = new ToDos(input);

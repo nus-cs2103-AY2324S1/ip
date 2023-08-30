@@ -4,8 +4,11 @@ import Duke.DukeException;
 
 public class HelpCommand extends Command{
 
+    /**
+     * The command that will display the helper lines
+     */
     @Override
-    public void execute() throws DukeException {
+    public void execute() {
             String commands = (
                     "____________________________________________________________\n" +
                             "I currently can record 3 types of tasks. tasks to do, tasks with deadlines and events \n" +

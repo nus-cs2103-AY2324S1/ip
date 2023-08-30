@@ -15,6 +15,15 @@ public class DeadlineCommand extends Command{
     protected Storage storage;
     protected Ui ui;
     protected String input;
+
+    /**
+     * Constructor for a deadline command
+     *
+     * @param input The input for the command
+     * @param taskList The taskList to store the task
+     * @param storage The storage system to store the list
+     * @param ui The ui to print the commands
+     */
     public DeadlineCommand(String input, TaskList taskList, Storage storage, Ui ui) {
         this.input = input;
         this.taskList = taskList;
@@ -22,10 +31,14 @@ public class DeadlineCommand extends Command{
         this.ui = ui;
     }
 
+    /**
+     * Execute the command itself
+     *
+     * @throws DukeException When there is an error saving
+     */
     @Override
     public void execute() throws DukeException {
         String task = "deadline";
-
 
         try {
             Deadlines newTask = new Deadlines(getDescription(task, input), getEndDate(task, input));
