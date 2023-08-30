@@ -1,22 +1,57 @@
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.InputStreamReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 /**
  * Chatbot implementation
  */
 public class Duke {
     // Chatbot's name
-    static final String name = "Atlas";
+    static final String NAME = "Atlas";
+    // Task list save directory
+    static final String LIST_DIRECTORY = "./../data/";
+    // Task list file name
+    static final String LIST_FILENAME = "duke.txt";
     // Task list
-    static List<Task> taskList = new ArrayList<>();
+    static List<Task> tasks = new ArrayList<>();
     // Supported task types
-    protected enum taskTypes {
+    protected enum TaskTypes {
         ToDo,
         Deadline,
         Event
+    }
+
+    /**
+     * Exception class for unsupported task types
+     */
+    static class UnsupportedTaskType extends RuntimeException {
+        final protected String taskType;
+
+        /**
+         * Constructs an UnsupportedTaskType exception
+         * @param taskType Name of illegal task type
+         */
+        public UnsupportedTaskType(String taskType) {
+            this.taskType = taskType;
+        }
+
+        /**
+         * Constructs an UnsupportedTaskType exception
+         * @param taskType Type of illegal task type
+         */
+        public UnsupportedTaskType(TaskTypes taskType) {
+            this.taskType = taskType.toString();
+        }
+
+        public String getTaskType() {
+            return taskType;
+        }
     }
 
     /**
@@ -24,6 +59,7 @@ public class Duke {
      * @param args Arguments to initialise chatbot (none so far)
      */
     public static void main(String[] args) {
+        loadList();
         greet();
         listen();
     }
@@ -41,7 +77,7 @@ public class Duke {
                         " /_/    \\_\\_|  |______/_/    \\_\\_____/ \n";
         System.out.println(logo);
         printHorizontalLine();
-        System.out.printf("Hello, I'm %s!\n", Duke.name);
+        System.out.printf("Hello, I'm %s!\n", Duke.NAME);
         System.out.println("What would you like me to do today?");
         printHorizontalLine();
     }
@@ -67,13 +103,13 @@ public class Duke {
                 args = splitInput.length > 1 ? splitInput[1] : "";
                 switch (command) {
                     case "todo":
-                        addTask(args, taskTypes.ToDo);
+                        addTask(args, TaskTypes.ToDo);
                         break;
                     case "deadline":
-                        addTask(args, taskTypes.Deadline);
+                        addTask(args, TaskTypes.Deadline);
                         break;
                     case "event":
-                        addTask(args, taskTypes.Event);
+                        addTask(args, TaskTypes.Event);
                         break;
                     case "list":
                         printList();
@@ -95,9 +131,9 @@ public class Duke {
                 }
             } catch (UnknownCommandException e) {
                 System.out.println(e.getMessage());
-                System.out.println("Here's what I can do though: I can create ToDos (todo),\n" +
-                        "Deadlines (deadline), Events (event), print them out (list),\n" +
-                        "as well as check (mark) and uncheck (unmark) them!");
+                System.out.println("Here's what I can do though: I can create ToDos (todo),\n"
+                        + "Deadlines (deadline), Events (event), print them out (list),\n"
+                        + "as well as check (mark) and uncheck (unmark) them!");
             } catch (IOException e) {
                 System.out.println("Unable to read command, exiting");
                 printHorizontalLine();
@@ -118,13 +154,7 @@ public class Duke {
      * @param args Item to add to list
      * @param taskType One of "todo", "deadline", or "event"
      */
-    protected static void addTask(String args, taskTypes taskType) {
-        class UnsupportedTaskType extends RuntimeException {
-            final protected taskTypes taskType;
-            public UnsupportedTaskType(taskTypes taskType) {
-                this.taskType = taskType;
-            }
-        }
+    protected static void addTask(String args, TaskTypes taskType) {
         Task newTask;
         try {
             switch (taskType) {
@@ -140,14 +170,15 @@ public class Duke {
                 default:
                     throw new UnsupportedTaskType(taskType);
             }
-            taskList.add(newTask);
-            System.out.printf("Got it. I've added this task:\n" +
-                    "\t%s\n", newTask);
+            tasks.add(newTask);
+            System.out.printf("Got it. I've added this task:\n"
+                    + "\t%s\n", newTask);
             printTaskCount();
+            saveList();
         } catch (IllegalArgumentException e) {
             System.out.printf("I think you missed something! %s\n", e.getMessage());
         } catch (UnsupportedTaskType e) {
-            System.out.printf("I can't handle this task type: %s\n", e.taskType);
+            System.out.printf("I can't handle this task type: %s\n", e.getTaskType());
         }
     }
 
@@ -169,8 +200,8 @@ public class Duke {
     protected static Deadline createDeadline(String argString) throws IllegalArgumentException {
         String[] args = argString.split(" /by ");
         if (args.length != 2) {
-            throw new IllegalArgumentException("Deadlines should be created with the following format:\n" +
-                    "deadline [name] /by [date]");
+            throw new IllegalArgumentException("Deadlines should be created with the following format:\n"
+                    + "deadline [name] /by [date]");
         }
         String name = args[0];
         String date = args[1];
@@ -185,8 +216,8 @@ public class Duke {
      * @throws IllegalArgumentException argString improperly formatted: [name] \from [start time] \to [end time]
      */
     protected static Event createEvent(String argString) throws IllegalArgumentException {
-        IllegalArgumentException badFormat = new IllegalArgumentException("Events should be created " +
-                "with the following format:\n event [name] /from [start time] /to [end time]");
+        IllegalArgumentException badFormat = new IllegalArgumentException("Events should be created "
+                + "with the following format:\n event [name] /from [start time] /to [end time]");
         String[] splitNameDates = argString.split(" /from ");
         if (splitNameDates.length != 2) {
             throw badFormat;
@@ -202,11 +233,85 @@ public class Duke {
     }
 
     /**
+     * Writes task list to file
+     */
+    protected static void saveList() {
+        final String filePath = LIST_DIRECTORY + LIST_FILENAME;
+        try {
+            File saveDir = new File(LIST_DIRECTORY);
+            if (!saveDir.exists()) {
+                saveDir.mkdirs();
+            }
+            File saveFile = new File(filePath);
+            if (saveFile.createNewFile()) {
+                System.out.println("Save file created at: " + filePath);
+            }
+            try (FileWriter taskListWriter = new FileWriter(filePath)){
+                for (Task t : tasks) {
+                    taskListWriter.write(t.generateSaveString() + "\n");
+                }
+            } catch (IOException e) {
+                System.out.println("Unable to save task list to destination: " + filePath);
+                System.out.println("Reason: " + e.getMessage());
+            }
+        } catch (IOException e) {
+            System.out.println("Unable to create file: " + filePath);
+            System.out.println("Reason: " + e.getMessage());
+        } catch (SecurityException e) {
+            System.out.println("Permission not granted to create file!");
+        }
+    }
+
+    /**
+     * Loads task list from file
+     */
+    protected static void loadList() {
+        final String filePath = LIST_DIRECTORY + LIST_FILENAME;
+        try {
+            File fileToLoad = new File(filePath);
+            Scanner listReader = new Scanner(fileToLoad);
+            while (listReader.hasNextLine()) {
+                String[] taskArgs = listReader.nextLine().split(" \\| ");
+                if (taskArgs.length != 3) {
+                    throw new IllegalArgumentException();
+                }
+                Task loadedTask;
+                switch (taskArgs[0]) {
+                    case "T":
+                        loadedTask = createTodo(taskArgs[2]);
+                        break;
+                    case "D":
+                        loadedTask = createDeadline(taskArgs[2]);
+                        break;
+                    case "E":
+                        loadedTask = createEvent(taskArgs[2]);
+                        break;
+                    default:
+                        throw new UnsupportedTaskType(taskArgs[0]);
+                }
+                if (taskArgs[1].equals("true")) {
+                    loadedTask.markAsDone();
+                }
+                tasks.add(loadedTask);
+            }
+            listReader.close();
+        } catch (FileNotFoundException e) {
+            System.out.println("Could not load list from: " + filePath);
+        } catch (IllegalArgumentException e) {
+            System.out.println("Load file is corrupted, abandoning file read");
+            tasks.clear();
+        } catch (UnsupportedTaskType e) {
+            System.out.printf("Unsupported file type %s, abandoning file read\n", e.getTaskType());
+            tasks.clear();
+        }
+    }
+
+    /**
      * Prints list in the order in which items are added.
      */
     protected static void printList() {
         System.out.println("Here are your tasks:");
-        for (int i = 0; i < taskList.size(); ++i) {
+        for (int i = 0; i < tasks.size(); ++i) {
             System.out.printf("%d.%s\n", i + 1, getTaskByOneIndex(i + 1));
         }
     }
@@ -228,6 +333,7 @@ public class Duke {
                 System.out.printf("OK, I've marked this task as not done yet:\n" +
                         "%s\n", selectedTask);
             }
+            saveList();
         } catch (NumberFormatException e) {
             System.out.println("I need a positive integer to know which task you're referring to!");
         } catch (IndexOutOfBoundsException e) {
@@ -243,10 +349,11 @@ public class Duke {
         try {
             int oneBasedIdx = parseTaskIndex(args);
             Task taskToDelete = getTaskByOneIndex(oneBasedIdx);
-            taskList.remove(oneBasedIdx - 1);
+            tasks.remove(oneBasedIdx - 1);
             System.out.printf("Noted. I've removed this task:\n" +
                     "\t%s\n", taskToDelete);
             printTaskCount();
+            saveList();
         } catch (NumberFormatException e) {
             System.out.println("I need a positive integer to know which task you are deleting!");
         } catch (IndexOutOfBoundsException e) {
@@ -278,13 +385,14 @@ public class Duke {
      * @return Task at corresponding zero-based index in task list
      */
     protected static Task getTaskByOneIndex(int idx) {
-        return taskList.get(idx - 1);
+        return tasks.get(idx - 1);
     }
 
     /**
      * Prints goodbye to console.
      */
     protected static void exit() {
+        saveList();
         System.out.println("Goodbye!");
     }
 
@@ -293,7 +401,7 @@ public class Duke {
      */
     protected static void printHorizontalLine() {
         final int consoleWidth = 80;
-        String line = "_".repeat(consoleWidth);
+        final String line = "_".repeat(consoleWidth);
         System.out.println(line);
     }
 
@@ -301,7 +409,7 @@ public class Duke {
      * Prints current number of tasks in task list
      */
     protected static void printTaskCount() {
-        System.out.printf("Now you have %d %s in the list.\n", taskList.size(),
-                taskList.size() == 1 ? "task" : "tasks");
+        System.out.printf("Now you have %d %s in the list.\n", tasks.size(),
+                tasks.size() == 1 ? "task" : "tasks");
     }
 }

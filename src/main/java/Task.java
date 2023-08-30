@@ -1,7 +1,7 @@
 /**
  * A Task is an object with a name and toggleable status
  */
-public class Task {
+public abstract class Task {
     /**
      * Name of task
      */
@@ -60,4 +60,10 @@ public class Task {
     public String toString() {
         return String.format("[%s] %s", this.getStatusIcon(), this.getName());
     }
+
+    /**
+     * Returns string representation to save to file
+     * @return String representation written to file
+     */
+    public abstract String generateSaveString();
 }
