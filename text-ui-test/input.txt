@@ -1,17 +1,22 @@
-todo take a run
-deadline report /by 3pm
 list
-mark 2
+delete 3
 list
-event project meeting /from mon 2pm /to 4pm
+mark 4
+unmark 1
+unmark 1
+todo hi
+todo
+deadline project report
+deadline project report /by 31/12/2001 18:00
 list
-todo bake a cake
+event project meeting /from Mon /to 2pm
+event project meeting /from 21/07/2012 /to 31/12/2031
+event project meeting /from 21/08/2012 18:00 /to 31/12/203 22:00
+event project meetup /from 21/08/2012 18:00 /to 31/12/2033 22:00
 list
-delete 2
+delete
+delete 5
 list
-mark 3
-mark 1
-unmark 3
-unmakr
-unmark
+mark 6
+list
 bye

@@ -4,9 +4,8 @@ public class Deadline extends Task {
     private LocalDateTime by;
 
     public Deadline(String description, LocalDateTime by, boolean marked) {
-        super(description, "deadline");
+        super(description, "deadline", marked);
         this.by = by;
-        this.mark(marked, true);
     }
 
     @Override

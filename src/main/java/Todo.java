@@ -1,7 +1,6 @@
 public class Todo extends Task {
     public Todo(String description, boolean marked) {
-        super(description, "todo");
-        this.mark(marked, true);
+        super(description, "todo", marked);
     }
 
     @Override

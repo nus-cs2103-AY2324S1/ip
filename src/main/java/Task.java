@@ -6,29 +6,19 @@ import java.time.format.DateTimeFormatter;
 
 public abstract class Task {
     private String type;
-    private Line line = new Line();
     private String description;
     private boolean isDone = false;
 
-    public Task(String description, String type) {
+    public Task(String description, String type, boolean isDone) {
         this.description = description;
         this.type = type;
+        this.isDone = isDone;
     }
 
     abstract String getOriginalMessage();
 
-    public void mark(boolean val, boolean isRestoring) {
+    public void mark(boolean val) {
         this.isDone = val;
-        if (!isRestoring) {
-            System.out.println(line);
-            if (val) {
-                System.out.println("    Nice! I've marked this task as done:");
-            } else {
-                System.out.println("    OK, I've marked this task as not done yet:");
-            }
-            System.out.println("      " + this);
-            System.out.println(line);
-        }
     }
 
     public void save(String filepath) {

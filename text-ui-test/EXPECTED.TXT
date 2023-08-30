@@ -1,82 +1,120 @@
     __________________________________________
-    Hello I'm Crow
+    Data has been restored from ./data/duke.txt
+    __________________________________________
+    __________________________________________
+    Hello I'm lynn the koala <3
     What can I do for you?
     __________________________________________
     __________________________________________
-    Got it. I've added this task:
-      [T][ ] take a run
-    Now you have 1 tasks in the list.
-    __________________________________________
-    __________________________________________
-    Got it. I've added this task:
-      [D][ ] report (by: 3pm)
-    Now you have 2 tasks in the list.
-    __________________________________________
-    __________________________________________
     Here are the tasks in your list:
-    1.[T][ ] take a run
-    2.[D][ ] report (by: 3pm)
+    1.[E][X] project meeting (from: 1800, Jan 12 2001 to: 2200, Dec 31 2001)
+    2.[D][ ] report (by: 2300, Dec 31 2023)
+    3.[D][ ] report2 (by: 0000, Jan 1 2100)
+    4.[T][X] meet friend
+    5.[D][ ] report10 (by: 0100, Dec 12 2023)
     __________________________________________
     __________________________________________
-    Nice! I've marked this task as done:
-      [D][X] report (by: 3pm)
-    __________________________________________
-    __________________________________________
-    Here are the tasks in your list:
-    1.[T][ ] take a run
-    2.[D][X] report (by: 3pm)
-    __________________________________________
-    __________________________________________
-    Got it. I've added this task:
-      [E][ ] project meeting (from: mon 2pm to: 4pm)
-    Now you have 3 tasks in the list.
-    __________________________________________
-    __________________________________________
-    Here are the tasks in your list:
-    1.[T][ ] take a run
-    2.[D][X] report (by: 3pm)
-    3.[E][ ] project meeting (from: mon 2pm to: 4pm)
-    __________________________________________
-    __________________________________________
-    Got it. I've added this task:
-      [T][ ] bake a cake
+    Noted. I've removed this task:
+    [D][ ] report2 (by: 0000, Jan 1 2100)
     Now you have 4 tasks in the list.
     __________________________________________
     __________________________________________
     Here are the tasks in your list:
-    1.[T][ ] take a run
-    2.[D][X] report (by: 3pm)
-    3.[E][ ] project meeting (from: mon 2pm to: 4pm)
-    4.[T][ ] bake a cake
-    __________________________________________
-    __________________________________________
-    Noted. I've removed this task:
-    [D][X] report (by: 3pm)
-    Now you have 3 tasks in the list.
-    __________________________________________
-    __________________________________________
-    Here are the tasks in your list:
-    1.[T][ ] take a run
-    2.[E][ ] project meeting (from: mon 2pm to: 4pm)
-    3.[T][ ] bake a cake
+    1.[E][X] project meeting (from: 1800, Jan 12 2001 to: 2200, Dec 31 2001)
+    2.[D][ ] report (by: 2300, Dec 31 2023)
+    3.[T][X] meet friend
+    4.[D][ ] report10 (by: 0100, Dec 12 2023)
     __________________________________________
     __________________________________________
     Nice! I've marked this task as done:
-      [T][X] bake a cake
-    __________________________________________
-    __________________________________________
-    Nice! I've marked this task as done:
-      [T][X] take a run
+      [D][X] report10 (by: 0100, Dec 12 2023)
     __________________________________________
     __________________________________________
     OK, I've marked this task as not done yet:
-      [T][ ] bake a cake
+      [E][ ] project meeting (from: 1800, Jan 12 2001 to: 2200, Dec 31 2001)
     __________________________________________
     __________________________________________
-    OOPS!!! I'm sorry, but I don't know what that means :-(
+    OK, I've marked this task as not done yet:
+      [E][ ] project meeting (from: 1800, Jan 12 2001 to: 2200, Dec 31 2001)
     __________________________________________
     __________________________________________
-    OOPS!!! The description of a unmark cannot be empty.
+    Got it. I've added this task:
+      [T][ ] hi
+    Now you have 5 tasks in the list.
+    __________________________________________
+    __________________________________________
+    OOPS!!! The description of a todo cannot be empty.
+    __________________________________________
+    __________________________________________
+    OOPS!!! Please enter a deadline with the format '<<message>> /by dd/mm/yyyy HH:mm' format
+    __________________________________________
+    __________________________________________
+    Got it. I've added this task:
+      [D][ ] project report (by: 1800, Dec 31 2001)
+    Now you have 6 tasks in the list.
+    __________________________________________
+    __________________________________________
+    Here are the tasks in your list:
+    1.[E][ ] project meeting (from: 1800, Jan 12 2001 to: 2200, Dec 31 2001)
+    2.[D][ ] report (by: 2300, Dec 31 2023)
+    3.[T][X] meet friend
+    4.[D][X] report10 (by: 0100, Dec 12 2023)
+    5.[T][ ] hi
+    6.[D][ ] project report (by: 1800, Dec 31 2001)
+    __________________________________________
+    __________________________________________
+    OOPS!!! Please enter an event with the format '<<message>> /from dd/mm/yyyy HH:mm /to dd/mm/yyyy HH:mm' format
+    __________________________________________
+    __________________________________________
+    OOPS!!! Please enter an event with the format '<<message>> /from dd/mm/yyyy HH:mm /to dd/mm/yyyy HH:mm' format
+    __________________________________________
+    __________________________________________
+    OOPS!!! Please enter an event with the format '<<message>> /from dd/mm/yyyy HH:mm /to dd/mm/yyyy HH:mm' format
+    __________________________________________
+    __________________________________________
+    Got it. I've added this task:
+      [E][ ] project meetup (from: 1800, Aug 21 2012 to: 2200, Dec 31 2033)
+    Now you have 7 tasks in the list.
+    __________________________________________
+    __________________________________________
+    Here are the tasks in your list:
+    1.[E][ ] project meeting (from: 1800, Jan 12 2001 to: 2200, Dec 31 2001)
+    2.[D][ ] report (by: 2300, Dec 31 2023)
+    3.[T][X] meet friend
+    4.[D][X] report10 (by: 0100, Dec 12 2023)
+    5.[T][ ] hi
+    6.[D][ ] project report (by: 1800, Dec 31 2001)
+    7.[E][ ] project meetup (from: 1800, Aug 21 2012 to: 2200, Dec 31 2033)
+    __________________________________________
+    __________________________________________
+    OOPS!!! The description of a delete cannot be empty.
+    __________________________________________
+    __________________________________________
+    Noted. I've removed this task:
+    [T][ ] hi
+    Now you have 6 tasks in the list.
+    __________________________________________
+    __________________________________________
+    Here are the tasks in your list:
+    1.[E][ ] project meeting (from: 1800, Jan 12 2001 to: 2200, Dec 31 2001)
+    2.[D][ ] report (by: 2300, Dec 31 2023)
+    3.[T][X] meet friend
+    4.[D][X] report10 (by: 0100, Dec 12 2023)
+    5.[D][ ] project report (by: 1800, Dec 31 2001)
+    6.[E][ ] project meetup (from: 1800, Aug 21 2012 to: 2200, Dec 31 2033)
+    __________________________________________
+    __________________________________________
+    Nice! I've marked this task as done:
+      [E][X] project meetup (from: 1800, Aug 21 2012 to: 2200, Dec 31 2033)
+    __________________________________________
+    __________________________________________
+    Here are the tasks in your list:
+    1.[E][ ] project meeting (from: 1800, Jan 12 2001 to: 2200, Dec 31 2001)
+    2.[D][ ] report (by: 2300, Dec 31 2023)
+    3.[T][X] meet friend
+    4.[D][X] report10 (by: 0100, Dec 12 2023)
+    5.[D][ ] project report (by: 1800, Dec 31 2001)
+    6.[E][X] project meetup (from: 1800, Aug 21 2012 to: 2200, Dec 31 2033)
     __________________________________________
     __________________________________________
     Bye. Hpoe to see you again soon!
