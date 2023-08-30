@@ -13,10 +13,8 @@ public class Parser {
             throws WrongMarkException, UnknownCommandException {
         String[] splittedCommand = command.split(" ");
         String commandType = splittedCommand[0];
-        int cases = 0;
         switch (commandType) {
             case "bye":
-                cases = 1;
                 try {
                     storage.save(taskList);
                 } catch (IOException e) {
@@ -83,6 +81,10 @@ public class Parser {
                     System.out.println(e.getMessage());
                 }
         }
-        return cases == 1;
+        if (commandType.equals("bye")) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }
