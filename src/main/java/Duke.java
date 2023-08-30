@@ -31,27 +31,27 @@ public class Duke {
                 + " tasks in this list." + "\n" + LINE);
     }
 
-    public void todo(String input) {
+    public void todo(String input) throws DukeException {
         tasksList.add(new Todo(input.replace("todo", "")));
         count++;
         taskPrint(tasksList.get(count - 1).toString());
     }
 
-    public void deadline(String input) {
+    public void deadline(String input) throws DukeException {
         String[] s = input.replace("deadline ", "").split(" /by ");
         tasksList.add(new Deadline(s[0], s[1]));
         count++;
         taskPrint(tasksList.get(count - 1).toString());
     }
 
-    public void event(String input) {
+    public void event(String input) throws DukeException {
         String[] s = input.replace("event ", "").split(" /from | /to");
         tasksList.add(new Event(s[0], s[1], s[2]));
         count++;
         taskPrint(tasksList.get(count - 1).toString());
     }
 
-    public void delete(String input) {
+    public void delete(String input) throws DukeException {
         int i = Integer.parseInt(input.replace("delete ", "")) - 1;
         if (i >= 0 && i < tasksList.size()) {
             count--;

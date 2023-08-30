@@ -15,8 +15,6 @@ public class Task {
         return description;
     }
 
-
-
     public void markDone() {
         this.isDone = true;
         System.out.println(LINE);
