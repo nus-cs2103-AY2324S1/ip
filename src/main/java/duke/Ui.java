@@ -53,9 +53,9 @@ public class Ui {
      */
     public static void markMsg(String description) {
         System.out.println(lines
-                    + "\n        Nice! I've marked this task as done:\n          "
-                    + description + "\n"
-                    + lines);
+                + "\n        Nice! I've marked this task as done:\n          "
+                + description + "\n"
+                + lines);
     }
 
     /**
@@ -64,9 +64,9 @@ public class Ui {
      */
     public static void unmarkMsg(String description) {
         System.out.println(lines
-                    + "\n        OK, I've marked this task as not done yet:\n          "
-                    + description + "\n"
-                    + lines);
+                + "\n        OK, I've marked this task as not done yet:\n          "
+                + description + "\n"
+                + lines);
     }
 
     /**
