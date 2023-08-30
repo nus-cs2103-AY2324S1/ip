@@ -1,48 +1,41 @@
 package alpha;
+
 /**
  * Class that handles the user's inputs and makes sense of them. Uses certain key phrases for different commands.
+ *
  * @author Wong Joon Hung
  */
 public class Parser {
 
     private final static String END = "bye";
-
-    // List trigger word to display a log of stored text
     private final static String LIST = "list";
-
     private final static String CHECK = "mark";
-
     private final static String UNCHECK = "unmark";
-
     private final static String TODO = "todo";
-
     private final static String DEADLINE = "deadline";
-
     private final static String EVENT = "event";
-
     private final static String DELETE = "delete";
 
     private FileHandler fileHandler;
-
     private TaskList taskList;
-
     private UI ui;
-
 
     /**
      * Constructor for the class Parser.
-     * @param fh FileHandler to write to.
-     * @param taskList TaskList to add tasks to.
-     * @param ui User Interface to output responses for Alpha.
+     *
+     * @param fileHandler FileHandler to write to.
+     * @param taskList    TaskList to add tasks to.
+     * @param ui          User Interface to output responses for Alpha.
      */
-    public Parser(FileHandler fh, TaskList taskList, UI ui) {
-        this.fileHandler = fh;
+    public Parser(FileHandler fileHandler, TaskList taskList, UI ui) {
+        this.fileHandler = fileHandler;
         this.taskList = taskList;
         this.ui = ui;
     }
 
     /**
      * Returns a command based on the user's input.
+     *
      * @param input User input to be parsed.
      * @return Command to be executed.
      */
@@ -61,7 +54,7 @@ public class Parser {
                 return addEvent(input);
             } else if (splitInput[0].equals(TODO)) {
                 return addToDo(input);
-            } else if(input.equals(TODO)) {
+            } else if (input.equals(TODO)) {
                 return delete(input);
             } else if (input.equals(END)) {
                 return new ExitCommand(taskList, fileHandler, ui);
@@ -101,6 +94,7 @@ public class Parser {
 
     /**
      * Returns a list command.
+     *
      * @return Command that lists all the stored tasks.
      */
     public Command list() {
@@ -109,8 +103,9 @@ public class Parser {
 
     /**
      * Returns a Command that adds an event based on an input.
+     *
      * @return a Command that adds an event.
-     * @throws MissingInfoException If length of splitInput < 3
+     * @throws MissingInfoException   If length of splitInput < 3
      * @throws InvalidFormatException If /from and /to are not found within the input.
      */
     public Command addEvent(String input) throws MissingInfoException, InvalidFormatException {
@@ -132,6 +127,7 @@ public class Parser {
 
     /**
      * Returns a Command that adds a ToDo based on an input.
+     *
      * @return a Command that adds a ToDo.
      * @throws MissingInfoException If length of splitInput == 1
      */
@@ -140,13 +136,14 @@ public class Parser {
         if (splitInput.length == 1) {
             throw new MissingInfoException("Missing Information!", TaskException.TaskType.TODO);
         } else {
-            ToDo todo = ToDo.makeToDo(input.substring(5));
+            ToDo todo = ToDo.createToDo(input.substring(5));
             return new AddCommand(taskList, fileHandler, ui, todo);
         }
     }
 
     /**
      * Returns a Command that adds a deadline based on an input.
+     *
      * @return a Command that adds a ToDo.
      * @throws MissingInfoException If length of splitInput == 1
      */
@@ -166,6 +163,7 @@ public class Parser {
 
     /**
      * Returns a Command that deletes a task from storage based on an input.
+     *
      * @return a Command that deletes a task.
      * @throws MissingIndexException if the index is missing.
      * @throws InvalidIndexException if the index exceeds or is lesser than the number of stored tasks.
@@ -183,6 +181,7 @@ public class Parser {
 
     /**
      * Returns a Command that checks a task based on an index.
+     *
      * @return a Command that checks a task.
      * @throws MissingIndexException if the index is missing.
      * @throws InvalidIndexException if the index exceeds or is lesser than the number of stored tasks.
@@ -200,6 +199,7 @@ public class Parser {
 
     /**
      * Returns a Command that unchecks a task based on an index.
+     *
      * @return a Command that unchecks a task.
      * @throws MissingIndexException if the index is missing.
      * @throws InvalidIndexException if the index exceeds or is lesser than the number of stored tasks.

@@ -1,16 +1,19 @@
 package alpha;
-public class AddCommand extends Command{
+
+public class AddCommand extends Command {
 
     private Task task;
+
     public AddCommand(TaskList taskList, FileHandler fh, UI ui, Task task) {
         super(taskList, fh, ui);
-        super.isExit = false;
+        isExit = false;
         this.task = task;
     }
 
+    @Override
     public void execute() {
         if (task != null) {
-            this.taskList.add(task);
+            taskList.add(task);
             fileHandler.saveToFile(task);
             ui.taskAdded(task, taskList.size());
         }

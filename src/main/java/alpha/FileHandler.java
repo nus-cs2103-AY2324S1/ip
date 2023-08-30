@@ -1,4 +1,5 @@
 package alpha;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -9,11 +10,12 @@ import java.io.BufferedReader;
 
 /**
  * Class that handles creating the file, reading from the file, storing tasks to the file and updating the file.
+ *
  * @author Wong Joon Hung
  */
 public class FileHandler {
 
-    private boolean created = false;
+    private boolean isCreated = false;
     private File alphaTxt = new File(new File(System.getProperty("user.dir")) +
             File.separator + "data" + File.separator + "alpha.txt");
     private FileWriter writer;
@@ -25,16 +27,16 @@ public class FileHandler {
     /**
      * Checks for the existence of the data/alpha.txt file. Creates it if it does not exist.
      */
-    public void checkAndCreate(){
+    public void checkAndCreate() {
         boolean directoryExists = java.nio.file.Files.exists(java.nio.file.Paths.get("data"));
         // Check if the file exists
         boolean dataExists = java.nio.file.Files.exists(java.nio.file.Paths.get("data", "alpha.txt"));
         try {
             if (!directoryExists) {
                 new File("data").mkdir();
-                created = alphaTxt.createNewFile();
+                isCreated = alphaTxt.createNewFile();
             } else if (!dataExists) {
-                created = alphaTxt.createNewFile();
+                isCreated = alphaTxt.createNewFile();
             }
         } catch (IOException e) {
             System.out.println("There was a problem reading data from the file.");
@@ -44,11 +46,12 @@ public class FileHandler {
     /**
      * Checks if the file is created or not. If not, it reads any tasks from the file and adds them to the current
      * task list.
+     *
      * @return a new task list with tasks from the file added.
      */
     public TaskList readFromFile() {
         TaskList taskList = new TaskList();
-        if (this.created) {
+        if (isCreated) {
             return taskList;
         }
         try {
@@ -61,7 +64,7 @@ public class FileHandler {
                 String description = splitInput[2].trim();
                 Task task;
                 if (type.equals("T ")) {
-                    task = ToDo.makeToDo(description);
+                    task = ToDo.createToDo(description);
                 } else if (type.equals("D ")) {
                     task = Deadline.makeDeadline(description, splitInput[3]);
                 } else {
@@ -82,12 +85,13 @@ public class FileHandler {
 
     /**
      * Saves a task to the file.
+     *
      * @param task The task to add to the file.
      */
     // Saves Task to file whenever a Task is added
     public void saveToFile(Task task) {
         try {
-            this.writer = new FileWriter(alphaTxt, true);
+            writer = new FileWriter(alphaTxt, true);
             if (alphaTxt.length() != 0) {
                 writer.write(System.lineSeparator());
             }
@@ -100,7 +104,7 @@ public class FileHandler {
                 writer.write("E |" + task.getStatusIcon() + "| " + task.getDescription() + " | " + ((Event) task).getStart()
                         + " | " + ((Event) task).getEnd());
             }
-            this.writer.close();
+            writer.close();
         } catch (IOException e) {
             System.out.println("I/O Exception");
         }
@@ -108,6 +112,7 @@ public class FileHandler {
 
     /**
      * Checks or unchecks a task in the file depending on the second boolean parameter.
+     *
      * @param index The index of the task to be marked or unmarked.
      * @param check Boolean of whether the task is to be checked or unchecked.
      */
@@ -117,7 +122,7 @@ public class FileHandler {
         try {
             int temp_index = index;
             File temp = File.createTempFile("file", ".txt", alphaTxt.getParentFile());
-            this.writer = new FileWriter(temp, true);
+            writer = new FileWriter(temp, true);
             reader = new BufferedReader(new FileReader(alphaTxt));
             String curr = reader.readLine();
             while (temp_index > 1) {
@@ -151,6 +156,7 @@ public class FileHandler {
 
     /**
      * Deletes a task from the file.
+     *
      * @param index Index of the task to be deleted.
      */
     // Deletes a task by creating a temp file and copying everything but the deleted task over.
@@ -158,7 +164,7 @@ public class FileHandler {
         try {
             int temp_index = index;
             File temp = File.createTempFile("file", ".txt", alphaTxt.getParentFile());
-            this.writer = new FileWriter(temp, true);
+            writer = new FileWriter(temp, true);
             reader = new BufferedReader(new FileReader(alphaTxt));
             String curr;
             while ((curr = reader.readLine()) != null) {
@@ -172,10 +178,10 @@ public class FileHandler {
                 writer.write(curr);
                 temp_index--;
             }
-                reader.close();
-                writer.close();
-                alphaTxt.delete();
-                temp.renameTo(alphaTxt);
+            reader.close();
+            writer.close();
+            alphaTxt.delete();
+            temp.renameTo(alphaTxt);
 
         } catch (IOException e) {
             System.out.println("There was an error!");

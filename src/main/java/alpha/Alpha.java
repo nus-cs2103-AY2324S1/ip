@@ -1,48 +1,48 @@
 package alpha;
+
 /**
- * The Chatbot Alpha that is able to track, mark, list and delete events, to-dos and deadlines.
- * It responds to commands like "event", "meeting", "deadline", "list", "mark", "unmark", "delete".
- * To end the Chatbot, type "bye".
+ * The Chatbot Alpha is capable of tracking, marking, listing, and deleting events, to-dos, and deadlines.
+ * It responds to commands like "event," "meeting," "deadline," "list," "mark," "unmark," and "delete."
+ * To end the Chatbot, type "bye."
  *
  * @author Wong Joon Hung
  */
 public class Alpha {
 
     private UI ui;
-    private FileHandler fh;
-
+    private FileHandler fileHandler;
     private TaskList taskList;
-
     private Parser parser;
 
     /**
-     * Constructor for the class Alpha. It reads existing tasks from "data/alpha.txt" and adds it to the taskList.
+     * Constructor for the Alpha class. It reads existing tasks from "data/alpha.txt" and adds them to the taskList.
      */
     public Alpha() {
         ui = new UI();
-        fh = new FileHandler();
-        taskList = fh.readFromFile();
-        parser = new Parser(fh, taskList, ui);
-        fh.checkAndCreate();
+        fileHandler = new FileHandler();
+        taskList = fileHandler.readFromFile();
+        parser = new Parser(fileHandler, taskList, ui);
+        fileHandler.checkAndCreate();
     }
 
     /**
-     * Starts the Alpha ChatBot. Ends when "bye" is inputted.
+     * Starts the Alpha ChatBot. Ends when "bye" is input.
      */
     public void run() {
         ui.introduce();
         boolean isExit = false;
-        while(!isExit) {
-                String input = ui.read();
-                Command c = parser.parse(input);
-                c.execute();
-                isExit = c.isExit();
+        while (!isExit) {
+            String input = ui.read();
+            Command command = parser.parse(input);
+            command.execute();
+            isExit = command.isExit();
         }
         ui.goodbye();
     }
 
     /**
-     * This is the main method which calls the run() function and starts the Chatbot Alpha.
+     * This is the main method that calls the run() function and starts Chatbot Alpha.
+     *
      * @param args Unused.
      */
     public static void main(String[] args) {

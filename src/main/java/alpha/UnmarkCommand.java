@@ -1,17 +1,19 @@
 package alpha;
-public class UnmarkCommand extends Command{
 
-    private int index;
+public class UnmarkCommand extends Command {
+
+    private final int index;
 
     public UnmarkCommand(TaskList taskList, FileHandler fh, UI ui, int index) {
         super(taskList, fh, ui);
-        super.isExit = false;
+        isExit = false;
         this.index = index;
     }
 
+    @Override
     public void execute() {
-        ui.unmark(taskList.unmark(index));
-        this.fileHandler.checkOrUncheck(index, false);
+        Task unmarkedTask = taskList.unmark(index);
+        ui.unmark(unmarkedTask);
+        fileHandler.checkOrUncheck(index, false);
     }
-
 }

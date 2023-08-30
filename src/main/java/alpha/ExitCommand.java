@@ -1,12 +1,14 @@
 package alpha;
-public class ExitCommand extends Command{
 
-    public ExitCommand(TaskList taskList, FileHandler fh, UI ui) {
-        super(taskList, fh, ui);
-        super.isExit = true;
+public class ExitCommand extends Command {
+
+    public ExitCommand(TaskList taskList, FileHandler fileHandler, UI ui) {
+        super(taskList, fileHandler, ui);
+        isExit = true;
     }
 
+    @Override
     public void execute() {
-        return;
+        // No need to do anything here for an ExitCommand
     }
 }

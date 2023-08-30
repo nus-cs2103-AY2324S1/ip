@@ -1,12 +1,15 @@
 package alpha;
+
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.time.LocalTime;
 
-// Class representation of a deadline which has an ending time
+/**
+ * Class representation of a deadline which has an ending time.
+ */
+public class Deadline extends Task {
 
-public class Deadline extends Task{
     private LocalDate dateBy;
     private LocalTime timeBy;
 
@@ -43,24 +46,23 @@ public class Deadline extends Task{
         return null;
     }
 
-
     public String getDateBy() {
-        return this.dateBy.toString();
+        return dateBy.toString();
     }
 
     public String getTimeBy() {
-        if (this.timeBy != null) {
-            return this.timeBy.format(DateTimeFormatter.ofPattern("HHmm"));
+        if (timeBy != null) {
+            return timeBy.format(DateTimeFormatter.ofPattern("HHmm"));
         }
         return "";
     }
 
     @Override
     public String toString() {
-        if (this.timeBy != null) {
-            return "[D]" + super.toString() + " (by: " + this.dateBy.format(DateTimeFormatter.ofPattern("MMM d yyyy")) +
-                    " " + this.timeBy.format(DateTimeFormatter.ofPattern("HH:mm")) + ")";
+        if (timeBy != null) {
+            return "[D]" + super.toString() + " (by: " + dateBy.format(DateTimeFormatter.ofPattern("MMM d yyyy")) +
+                    " " + timeBy.format(DateTimeFormatter.ofPattern("HH:mm")) + ")";
         }
-        return "[D]" + super.toString() + " (by: " + this.dateBy.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
+        return "[D]" + super.toString() + " (by: " + dateBy.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
     }
 }

@@ -1,11 +1,13 @@
 package alpha;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.time.LocalTime;
-import java.util.Arrays;
 
-// Class representation of an event which has both a start and end time
+/**
+ * Class representation of an event which has both a start and end time.
+ */
 public class Event extends Task {
 
     private LocalDate startDate;
@@ -78,23 +80,23 @@ public class Event extends Task {
     }
 
     public String getStart() {
-        return this.startDate.toString() + this.getStartTime();
+        return startDate.toString() + getStartTime();
     }
 
     public String getEnd() {
-        return this.endDate.toString() + this.getEndTime();
+        return endDate.toString() + getEndTime();
     }
 
     private String getStartTime() {
-        if (this.startTime != null) {
-            return " " + this.startTime.format(DateTimeFormatter.ofPattern("HHmm"));
+        if (startTime != null) {
+            return " " + startTime.format(DateTimeFormatter.ofPattern("HHmm"));
         }
         return "";
     }
 
     private String getEndTime() {
-        if (this.endTime != null) {
-            return " " + this.endTime.format(DateTimeFormatter.ofPattern("HHmm"));
+        if (endTime != null) {
+            return " " + endTime.format(DateTimeFormatter.ofPattern("HHmm"));
         }
         return "";
     }

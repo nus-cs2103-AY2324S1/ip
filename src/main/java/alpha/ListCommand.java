@@ -1,13 +1,14 @@
 package alpha;
-public class ListCommand extends Command{
 
-    public ListCommand(TaskList taskList, FileHandler fh, UI ui) {
-        super(taskList, fh, ui);
-        super.isExit = false;
+public class ListCommand extends Command {
+
+    public ListCommand(TaskList taskList, FileHandler fileHandler, UI ui) {
+        super(taskList, fileHandler, ui);
+        isExit = false;
     }
 
+    @Override
     public void execute() {
-        this.ui.list(taskList.size(), taskList);
+        ui.list(taskList.size(), taskList);
     }
-
 }
