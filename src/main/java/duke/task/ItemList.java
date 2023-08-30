@@ -1,19 +1,14 @@
 package duke.task;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Scanner;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-
 import duke.dates.Dates;
+import duke.task.deadline.Deadline;
 import duke.task.event.Event;
 import duke.task.todo.ToDo;
 import duke.ui.UI;
-import duke.task.deadline.*;
-import duke.Greeting;
 /**
  * This class encapsulates the items being that are added by the users, and
  * the functions used to list them out, mark them add and delete items from it
@@ -248,7 +243,6 @@ public class ItemList {
             }
             writer.close();
     }
-
 
 
 
