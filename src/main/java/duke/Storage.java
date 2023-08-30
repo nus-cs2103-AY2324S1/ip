@@ -19,9 +19,15 @@ public class Storage {
         this.fileData = new ArrayList<Task>();
     }
 
-    public ArrayList<Task> load(String filePath) throws DukeException {
+    public ArrayList<Task> load(String filePath) throws DukeException, IOException {
+        File f = new File(filePath);
+
+        if (!f.exists()) {
+            f.getParentFile().mkdirs();
+            f.createNewFile();
+        }
+
         try {
-            File f = new File(filePath);
             Scanner s = new Scanner(f);
             while (s.hasNext()) {
                 String[] parts = s.nextLine().split("\\|");

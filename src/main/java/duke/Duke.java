@@ -12,7 +12,7 @@ public class Duke {
 
     private String filePath;
 
-    public Duke(String filePath) {
+    public Duke(String filePath) throws IOException {
         storage = new Storage(filePath);
         ui = new Ui();
         this.filePath = filePath;
@@ -23,7 +23,7 @@ public class Duke {
         }
     }
 
-    public void run() throws DukeException, IOException {
+    public void run() {
         ui.textGenerator("Hello! I'm War Room.");
         ui.textGenerator("What can I do for you?");
         Scanner scanner = new Scanner(System.in);
@@ -39,7 +39,7 @@ public class Duke {
         }
     }
 
-    public static void main(String[] args) throws DukeException, IOException {
+    public static void main(String[] args) throws IOException {
         new Duke("src/main/data/duke.txt").run();
     }
 }
