@@ -15,6 +15,21 @@ public class Event extends Task{
         this.to = to;
     }
 
+    @Override
+    public String getFrom() {
+        return from;
+    }
+
+    @Override
+    public String getTo() {
+        return to;
+    }
+
+    @Override
+    public String getTaskType() {
+        return "E";
+    }
+
     /**
      * Returns the string representation of this event, including its type of task, completion status,
      * description, and duration (date & time)

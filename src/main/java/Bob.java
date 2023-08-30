@@ -1,3 +1,7 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -42,6 +46,12 @@ public class Bob {
         System.out.println("Got it. I've added this task:");
         System.out.println(newTask.toString());
         System.out.println("Now you have " + String.valueOf(list.size()) + " tasks in the list.");
+
+        /*try {
+            writeToFile(file, "first line" + System.lineSeparator() + "second line");
+        } catch (IOException e) {
+            System.out.println("Something went wrong: " + e.getMessage());
+        }*/
     }
 
     /**
@@ -152,9 +162,80 @@ public class Bob {
         }
     }
 
+    private static void writeToFile(String filePath, String textToAdd) throws IOException {
+        FileWriter fw = new FileWriter(filePath);
+        fw.write(textToAdd);
+        fw.close();
+    }
+
+    private static void appendToFile(String filePath, String textToAppend) throws IOException {
+        FileWriter fw = new FileWriter(filePath, true); // create a FileWriter in append mode
+        fw.write(textToAppend);
+        fw.close();
+    }
+
     public static void main(String[] args) {
-        System.out.println("Hello! I'm Bob");
-        System.out.println("What can I do for you?");
+        File file = new File("data/bob.txt");
+        String filePath = "data/bob.txt";
+        file.getParentFile().mkdirs(); //creates parent directories if not existing
+
+        //creates file if file doesn't exist, else reads file and re-initialises tasks
+        try {
+            if (file.createNewFile()) {
+                //file is created
+                System.out.println("Hello! I'm Bob");
+                System.out.println("What can I do for you?");
+            } else {
+                //file exists
+                //read the file and re-initiate the list of tasks
+                Scanner s = new Scanner(file);
+                int index = 0;
+
+                while (s.hasNext()) {
+                    char[] charArray = s.nextLine().toCharArray();
+                    String taskName = "";
+                    String dateOne = ""; //would be either a by (deadline) or a from (event)
+                    String dateTwo = ""; //would be a to (event)
+                    int firstDate = charArray.length;
+                    int secondDate = charArray.length;
+
+                    for (int i = 4; i < charArray.length; i++) {
+                        if (charArray[i] != ',' && i < firstDate) {
+                            taskName += charArray[i];
+                        }
+
+                        if (charArray[i] == ',' && firstDate == secondDate) {
+                            firstDate = i;
+                        } else if (charArray[i] == ',' && firstDate != secondDate) {
+                            secondDate = i;
+                        }
+
+                        if (i > firstDate && i < secondDate) {
+                            dateOne += charArray[i];
+                        } else if (i > secondDate) {
+                            dateTwo += charArray[i];
+                        }
+                    }
+
+                    if (charArray[0] == 'T') {
+                        list.add(new Todo(taskName));
+                    } else if (charArray[0] == 'D') {
+                        list.add(new Deadline(taskName, dateOne));
+                    } else if (charArray[0] == 'E') {
+                        list.add(new Event(taskName, dateOne, dateTwo));
+                    }
+
+                    if (charArray[2] == '1') {
+                        list.get(index).markAsDone();
+                    }
+
+                    index++;
+                }
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+
         Scanner obj = new Scanner(System.in);
 
         while (true) {
@@ -165,12 +246,14 @@ public class Bob {
             int deleteNo = 0;
             char[] charArray = input.toCharArray();
 
+            //checks if mark
             if (charArray[0] == 'm' && charArray[1] == 'a' && charArray[2] == 'r' && charArray[3] == 'k'
                     && Character.isWhitespace(charArray[4]) && Character.isDigit(charArray[5])) {
                 isMark = true;
                 markNo = Character.getNumericValue(charArray[5]);
             }
 
+            //checks if delete
             if (charArray[0] == 'd' && charArray[1] == 'e' && charArray[2] == 'l' && charArray[3] == 'e' &&
                     charArray[4] == 't' && charArray[5] == 'e' && Character.isWhitespace(charArray[6]) &&
                     Character.isDigit(charArray[7])) {
@@ -180,6 +263,33 @@ public class Bob {
 
             if (input.equals("bye")) {
                 System.out.println("Bye. Hope to see you again soon!");
+
+                //clears file
+                try {
+                    writeToFile(filePath, "");
+                } catch (IOException e) {
+                    System.out.println("Something went wrong: " + e.getMessage());
+                }
+
+                //adds list of task into file
+                for (int i = 0; i < list.size(); i++) {
+                    try {
+                        if (list.get(i) instanceof Todo) {
+                            appendToFile(filePath, list.get(i).getTaskType() + "," + list.get(i).getStatusInt() +
+                                    "," + list.get(i).getDescription() + System.lineSeparator());
+                        } else if (list.get(i) instanceof Deadline) {
+                            appendToFile(filePath, list.get(i).getTaskType() + "," + list.get(i).getStatusInt() +
+                                    "," + list.get(i).getDescription() + "," + list.get(i).getBy() + System.lineSeparator());
+                        } else if (list.get(i) instanceof Event) {
+                            appendToFile(filePath, list.get(i).getTaskType() + "," + list.get(i).getStatusInt() + ","
+                                    + list.get(i).getDescription() + "," + list.get(i).getFrom() + "," + list.get(i).getTo()
+                                    + System.lineSeparator());
+                        }
+
+                    } catch (IOException e) {
+                        System.out.println("Something went wrong: " + e.getMessage());
+                    }
+                }
                 return;
             } else if (input.equals("list")) {
                 printTasks();

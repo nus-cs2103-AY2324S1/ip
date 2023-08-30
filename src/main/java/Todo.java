@@ -15,6 +15,12 @@ public class Todo extends Task{
      *
      * @return the string representation of the todo
      */
+
+    @Override
+    public String getTaskType() {
+        return "T";
+    }
+
     @Override
     public String toString() {
         return "[T]" + super.toString();
