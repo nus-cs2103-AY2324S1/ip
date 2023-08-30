@@ -1,4 +1,6 @@
 T | 1 | read book
-D | 0 | return book | June 6th
-E | 1 | project meeting | Aug 6th 2-4pm
-T | 1 | join sports club
+D | 1 | go school | 2023-08-29 1000
+T | 1 | sleep
+T | 0 | read book
+D | 0 | complete this level | 2021-12-06 1800
+T | 0 | sleep

@@ -13,7 +13,7 @@ public class Deadline extends Task {
         this.date = LocalDateTime.parse(this.by, DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
     }
     public String getBy() {
-        return this.by;
+        return this.date.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
     }
 
     @Override

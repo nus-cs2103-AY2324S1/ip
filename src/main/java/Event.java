@@ -19,10 +19,10 @@ public class Event extends Task {
     }
 
     public String getFrom() {
-        return this.from;
+        return this.fromDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
     }
     public String getTo() {
-        return this.to;
+        return this.toDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
     }
 
     @Override
