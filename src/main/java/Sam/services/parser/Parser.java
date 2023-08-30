@@ -7,7 +7,10 @@ import java.util.regex.Pattern;
 import java.util.regex.Matcher;
 
 import static sam.constants.Message.INVALID_COMMAND_FORMAT;
-import static sam.services.parser.TaskParser.*;
+import static sam.services.parser.TaskParser.prepareAddDeadline;
+import static sam.services.parser.TaskParser.prepareAddEvent;
+import static sam.services.parser.TaskParser.prepareAddTodo;
+import static sam.services.parser.TaskParser.prepareFind;
 
 /**
  * Parses user input.
@@ -43,27 +46,30 @@ public class Parser {
             case AddDeadlineCommand.COMMAND_WORD:
                 return prepareAddDeadline(arguments);
 
-            case AddTodoCommand.COMMAND_WORD:
-                return prepareAddTodo(arguments);
+        case AddTodoCommand.COMMAND_WORD:
+            return prepareAddTodo(arguments);
 
-            case DeleteTaskCommand.COMMAND_WORD:
-                return prepareDelete(arguments);
+        case DeleteTaskCommand.COMMAND_WORD:
+            return prepareDelete(arguments);
 
-            case MarkTaskCommand.COMMAND_WORD:
-                return prepareMark(arguments);
+        case MarkTaskCommand.COMMAND_WORD:
+            return prepareMark(arguments);
 
-            case UnmarkTaskCommand.COMMAND_WORD:
-                return prepareUnmark(arguments);
+        case UnmarkTaskCommand.COMMAND_WORD:
+            return prepareUnmark(arguments);
 
-            case ListCommand.COMMAND_WORD:
-                return new ListCommand();
+        case ListCommand.COMMAND_WORD:
+            return new ListCommand();
 
-            case ExitCommand.COMMAND_WORD:
-                return new ExitCommand();
+        case ExitCommand.COMMAND_WORD:
+            return new ExitCommand();
 
-            case HelpCommand.COMMAND_WORD: // Fallthrough
-            default:
-                return new HelpCommand();
+        case FindCommand.COMMAND_WORD:
+            return prepareFind(arguments);
+
+        case HelpCommand.COMMAND_WORD: // Fallthrough
+        default:
+            return new HelpCommand();
         }
     }
 
