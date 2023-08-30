@@ -2,7 +2,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 import java.util.ArrayList;
@@ -20,6 +20,8 @@ public class Duke {
             f.createNewFile();
         }
         Scanner fileScan = new Scanner(f);
+        /*FileWriter writer = new FileWriter("./duke.txt");
+        writer.write("");*/
         while (fileScan.hasNext()) {
             String taskString = fileScan.nextLine();
             if (taskString.charAt(0) == 'T') {
@@ -30,8 +32,8 @@ public class Duke {
                 list.add(task);
             } else if (taskString.charAt(0) == 'D') {
                 String[] details = taskString.substring(8).split(Pattern.quote(" | "));
-                LocalDate date = LocalDate.parse(details[1], DateTimeFormatter.ofPattern("MMM d yyyy"));
-                Task task = new Deadline(details[0], date);
+                LocalDateTime dateTime = LocalDateTime.parse(details[1], DateTimeFormatter.ofPattern("MMM d yyyy HHmm"));
+                Task task = new Deadline(details[0], dateTime);
                 if (taskString.charAt(4) == '1') {
                     task.mark();
                 }
@@ -39,7 +41,9 @@ public class Duke {
             } else if (taskString.charAt(0) == 'E') {
                 String[] details = taskString.substring(8).split(Pattern.quote(" | "));
                 String[] duration = details[1].split(" -> ");
-                Task task = new Event(details[0], duration[0], duration[1]);
+                LocalDateTime fromDateTime = LocalDateTime.parse(duration[0], DateTimeFormatter.ofPattern("MMM d yyyy HHmm"));
+                LocalDateTime toDateTime = LocalDateTime.parse(duration[1], DateTimeFormatter.ofPattern("MMM d yyyy HHmm"));
+                Task task = new Event(details[0], fromDateTime, toDateTime);
                 if (taskString.charAt(4) == '1') {
                     task.mark();
                 }
@@ -99,9 +103,8 @@ public class Duke {
                         if (details.length != 2) {
                             throw new DeadlineUnclearException();
                         }
-                        System.out.println(details[1]);
-                        LocalDate date = LocalDate.parse(details[1], DateTimeFormatter.ISO_LOCAL_DATE);;
-                        Task task = new Deadline(details[0], date);
+                        LocalDateTime dateTime = LocalDateTime.parse(details[1], DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
+                        Task task = new Deadline(details[0], dateTime);
                         list.add(task);
                         FileWriter fw;
                         Scanner sc = new Scanner(f);
@@ -130,7 +133,7 @@ public class Duke {
                         throw new RuntimeException(e);
                     } catch (DateTimeParseException e) {
                         System.out.println("    ____________________________________________________________");
-                        System.out.println("     ☹ OOPS!!! Please follow the \"yyyy-mm-dd\" format.");
+                        System.out.println("     ☹ OOPS!!! Please follow the \"yyyy-MM-dd HHmm\" format.");
                         System.out.println("    ____________________________________________________________\n");
                     }
                 } else if (input.startsWith("event ") || (input.startsWith("event") && input.length() == 5)) {
@@ -142,7 +145,9 @@ public class Duke {
                         if (details.length != 3 || !input.contains(" /from ") || !input.contains(" /to ")) {
                             throw new DurationUnclearException();
                         }
-                        Task task = new Event(details[0], details[1], details[2]);
+                        LocalDateTime fromDateTime = LocalDateTime.parse(details[1], DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
+                        LocalDateTime toDateTime = LocalDateTime.parse(details[2], DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
+                        Task task = new Event(details[0], fromDateTime, toDateTime);
                         list.add(task);
                         FileWriter fw;
                         Scanner sc = new Scanner(f);
@@ -169,6 +174,10 @@ public class Duke {
                         System.out.println("    ____________________________________________________________\n");
                     } catch (IOException e) {
                         throw new RuntimeException(e);
+                    } catch (DateTimeParseException e) {
+                        System.out.println("    ____________________________________________________________");
+                        System.out.println("     ☹ OOPS!!! Please follow the \"yyyy-MM-dd HHmm\" format.");
+                        System.out.println("    ____________________________________________________________\n");
                     }
                 } else if (input.startsWith("mark ") && input.length() > 5 && input.substring(5).matches("\\d+")) {
                     try {
