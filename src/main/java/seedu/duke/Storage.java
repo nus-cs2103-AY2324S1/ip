@@ -5,14 +5,23 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 
+/**
+ * Encapsulates the Storage class.
+ * The Storage class deals with saving and loading information to a specified file.
+ */
 public class Storage {
     protected String filePath;
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
-    // Reads the data in the duke.txt file, unserializes it and returns an arraylist representing
-    // the saved tasks
+    /**
+     * Reads the data in the duke.txt file, unserializes it and returns an arraylist representing
+     * the saved tasks.
+     *
+     * @return An ArrayList<Task> containing the saved tasks accumulated.
+     * @throws InvalidDataFormatException if the format of the data in the saved file is incorrect.
+     */
     public ArrayList<Task> load() throws InvalidDataFormatException {
         ArrayList<Task> tasks = new ArrayList<>();
 
@@ -57,8 +66,12 @@ public class Storage {
         return tasks;
     }
 
-    // Removes all data from the duke.txt file
-    // Takes the task arraylist argument, serializes it and stores it in the duke.txt file
+    /**
+     * Removes all data from the duke.txt file. Takes the task arraylist argument, serializes it
+     * and stores it in the duke.txt file.
+     *
+     * @param data The new ArrayList of tasks to be overwritten in the duke.txt file.
+     */
     public void save(ArrayList<Task> data) {
         // Delete all data from duke.txt file
         try (ObjectOutputStream outputStream = new ObjectOutputStream(new FileOutputStream("./data/duke.txt", false))) {

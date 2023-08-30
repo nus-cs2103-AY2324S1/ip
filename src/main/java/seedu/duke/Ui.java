@@ -1,19 +1,29 @@
 package seedu.duke;
 import java.util.ArrayList;
 
+/**
+ * Encapsulates the Ui class.
+ * The Ui is responsible for the outputs printed to the user.
+ */
 public class Ui {
     public Ui() {
 
     }
 
-    // Prints a data format error
+    /**
+     * Prints a data format error.
+     */
     public void showLoadingError() {
         System.out.println("____________________________________________________________\n" +
                 " ☹ OOPS!!! The saved data format is invalid!\n" +
                 "____________________________________________________________");
     }
 
-    // Prints the tasks in the taskList given
+    /**
+     * Prints the tasks in the taskList given.
+     *
+     * @param taskList The tasks accumulated.
+     */
     public void printListItems(TaskList taskList) {
         ArrayList<Task> tasks = taskList.getTasks();
         for (int i = 0; i < tasks.size(); i++) {
@@ -23,7 +33,9 @@ public class Ui {
         }
     }
 
-    // Prints the introduction message at the start of the program
+    /**
+     * Prints the introduction message at the start of the program.
+     */
     public void printIntro() {
         String intro = "____________________________________________________________\n" +
                 " Hello! I'm Dookie\n" +
@@ -32,7 +44,12 @@ public class Ui {
         System.out.println(intro);
     }
 
-    // Prints the message for when a new task is added
+    /**
+     * Prints the message for when a new task is added.
+     *
+     * @param task The newly added task.
+     * @param tasks The current accumulated tasks.
+     */
     public void printAddTaskMessage(Task task, TaskList tasks) {
         int listSize = tasks.getTasks().size();
         String message = "____________________________________________________________\n" +
@@ -43,7 +60,12 @@ public class Ui {
         System.out.println(message);
     }
 
-    // Prints the message for when a task is deleted
+    /**
+     * Prints the message for when a task is deleted.
+     *
+     * @param task The newly deleted task.
+     * @param tasks The current accumulated tasks.
+     */
     public void printDeleteTaskMessage(Task task, TaskList tasks){
         int listSize = tasks.getTasks().size();
 
@@ -55,7 +77,9 @@ public class Ui {
         System.out.println(message);
     }
 
-    // Prints the message at the end of the program
+    /**
+     * Prints the message at the end of the program.
+     */
     public void printExit() {
         String exitMessage = "____________________________________________________________\n" +
                 " Bye. Hope to see you again soon!\n" +
@@ -63,7 +87,11 @@ public class Ui {
         System.out.println(exitMessage);
     }
 
-    // Prints the message when a task is marked
+    /**
+     * Prints the message when a task is marked.
+     *
+     * @param task The task which has been marked.
+     */
     public void printMarkedTaskMessage(Task task) {
         String message = "____________________________________________________________\n" +
                 " Nice! I've marked this task as done:\n" +
@@ -72,7 +100,11 @@ public class Ui {
         System.out.println(message);
     }
 
-    // Prints the message when a task is unmarked
+    /**
+     * Prints the message when a task is marked.
+     *
+     * @param task The task which has been marked.
+     */
     public void printUnmarkedTaskMessage(Task task) {
         String message = "____________________________________________________________\n" +
                 " OK. I've marked this task as not done yet:\n" +

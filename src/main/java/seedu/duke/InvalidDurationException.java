@@ -1,4 +1,8 @@
 package seedu.duke;
+
+/**
+ * Encapsulates the exception where the event start and end dates are not correct dates.
+ */
 public class InvalidDurationException extends DukeException {
     public InvalidDurationException(String duration) {
         super("____________________________________________________________\n" +

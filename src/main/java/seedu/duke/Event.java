@@ -1,4 +1,9 @@
 package seedu.duke;
+
+/**
+ * Encapsulates the Event class.
+ * An event is a Task with a start and end date.
+ */
 public class Event extends Task {
     protected String type = "E";
     protected String start;
