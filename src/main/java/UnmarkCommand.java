@@ -1,0 +1,22 @@
+public class UnmarkCommand extends Command {
+    private final int index;
+
+    public UnmarkCommand(int index) {
+        this.index = index;
+    }
+    @Override
+    public boolean isExit() {
+        return false;
+    }
+
+    @Override
+    public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
+        if (index < 1 || index > tasks.size()) {
+            throw new DukeException(Ui.LINE + Messages.INVALID_INDEX_MESSAGE + Ui.LINE);
+        }
+
+        Task currentTask = tasks.markAsUndone(index);
+        ui.showTaskUndone(currentTask);
+        storage.saveTasks(tasks);
+    }
+}
