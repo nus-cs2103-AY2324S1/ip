@@ -1,7 +1,12 @@
+import java.io.File;
 public class Storage {
-    String filePath;
+    File taskList;
 
     public Storage(String filePath) {
-        this.filePath = filePath;
+        this.taskList = new File(filePath);
+    }
+
+    public File load() {
+        return taskList;
     }
 }

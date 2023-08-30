@@ -17,12 +17,12 @@ public class Duke {
     public Duke(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
-//        try {
-//            tasks = new TaskList(storage.load());
-//        } catch (DukeException e) {
-//            ui.showLoadingError();
-//            tasks = new TaskList();
-//        }
+        try {
+            tasks = new TaskList(storage.load());
+        } catch (DukeException e) {
+            ui.showLoadingError();
+            tasks = new TaskList();
+        }
     }
 
     public static void main(String[] args) {
@@ -31,8 +31,7 @@ public class Duke {
 
     public void startChat() {
         ui.greet();
-        ArrayList<Task> tasks = new ArrayList<>();
-
+//        ArrayList<Task> tasks = new ArrayList<>();
         File taskList = new File("./src/main/data/tasklist.txt");
         taskList.deleteOnExit();
 
@@ -45,35 +44,13 @@ public class Duke {
         while (!userInput.equals("bye")){
             try {
                 if (userInput.equals("list")){
-                    try {
-                        printFileContents(taskList);
-                    } catch (FileNotFoundException e){
-                        System.out.println("File not found");
-                    }
+                    tasks.printFileContents();
                 } else if (userInput.startsWith("mark ")) {
-                    mark(userInput, tasks, taskCount);
-                    try {
-                        writeToFile(taskList, displayList(tasks, taskCount));
-                    } catch (IOException e) {
-                        System.out.println("Something went wrong: " + e.getMessage());
-                    }
+                    tasks.mark(userInput);
                 } else if (userInput.startsWith("unmark ")) {
-                    unMark(userInput, tasks, taskCount);
-                    try {
-                        writeToFile(taskList, displayList(tasks, taskCount));
-                    } catch (IOException e) {
-                        System.out.println("Something went wrong: " + e.getMessage());
-                    }
+                    tasks.unMark(userInput);
                 } else if (userInput.startsWith("delete ")) {
-                    delete(userInput, tasks, taskCount);
-                    if (taskCount > 0) {
-                        taskCount--;
-                    }
-                    try {
-                        writeToFile(taskList, displayList(tasks, taskCount));
-                    } catch (IOException e) {
-                        System.out.println("Something went wrong: " + e.getMessage());
-                    }
+                    tasks.delete(userInput);
                 } else if (userInput.startsWith("todo ")) {
                     String nameOfTask = userInput.substring(5);
                     ToDos task = new ToDos(nameOfTask);
@@ -82,11 +59,7 @@ public class Duke {
                         taskCount++;
                         taskId++;
                     }
-                    try {
-                        writeToFile(taskList, displayList(tasks, taskCount));
-                    } catch (IOException e) {
-                        System.out.println("Something went wrong: " + e.getMessage());
-                    }
+                    tasks.writeToFile();
                 } else if (userInput.startsWith("deadline ")) {
                     String[] parts = userInput.split("/by ");
                     String nameOfTask = parts[0].trim().substring(9);
@@ -101,11 +74,7 @@ public class Duke {
                     } catch (DateTimeParseException e) {
                         System.out.println("Invalid Date Format! Follow: YYYY-MM-DD");
                     }
-                    try {
-                        writeToFile(taskList, displayList(tasks, taskCount));
-                    } catch (IOException e) {
-                        System.out.println("Something went wrong: " + e.getMessage());
-                    }
+                    tasks.writeToFile();
                 } else if (userInput.startsWith("event ")) {
                     String[] taskAndTime = userInput.split("/from ");
                     String[] fromAndTo = taskAndTime[1].split("/to ");
@@ -122,11 +91,7 @@ public class Duke {
                     } catch (DateTimeParseException e) {
                         System.out.println("Invalid Date Format! Follow: YYYY-MM-DD");
                     }
-                    try {
-                        writeToFile(taskList, displayList(tasks, taskCount));
-                    } catch (IOException e) {
-                        System.out.println("Something went wrong: " + e.getMessage());
-                    }
+                    tasks.writeToFile();
                 } else {
                     throw new DukeException("Error: Invalid Command!");
                 }
