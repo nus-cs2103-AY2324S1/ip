@@ -15,6 +15,7 @@ public class Duke {
     private static final String bye = "bye";
     private static final String list = "list";
     private static final String delete = "delete";
+    private static final String FIND = "find";
     private static final Path filePath = Paths.get("./data/bot.txt");
     private Tasklist todolist;
     private Storage storage;
@@ -52,6 +53,9 @@ public class Duke {
             return true;
         } else if (check1.equals(mark)) {
             todolist.mark(Integer.parseInt(str.substring(5, str.length())));
+            return true;
+        } else if (check1.equals(FIND)) {
+            Ui.find(todolist.find(str.substring(5, str.length())));
             return true;
         } else if (check2.equals(unmark)) {
             todolist.unmark(Integer.parseInt(str.substring(7, str.length())));

@@ -1,3 +1,3 @@
-E|0|project meeting |from Oct 11 2011 00:00 to Oct 11 2011 11:00
-D|0|time travel |Oct 11 2011 00:00
-T|1|codeforces
+T|0|codeforces
+T|0|sleep
+E|1|enter the speed force |Nov 22 2012 00:15|Nov 22 2012 00:16
