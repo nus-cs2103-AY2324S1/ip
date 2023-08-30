@@ -6,17 +6,7 @@ import java.util.Scanner;
  * This class handles the UI of the application.
  */
 public class Ui {
-    public static final String line = "____________________________________________________________\n";
-    private static final String greetingMessage = "Hello! I'm EnPassant\n"
-            + "What can I do for you?\n";
-    private static final String exitMessage = "Bye! Hope to see you again soon!\n";
-    private static final String listMessage = "Here are the tasks in your list:\n";
-    private static final String newTaskAddedMessage = "New task just dropped!\n";
-    private static final String taskDeletedMessage = "Task went on vacation, never came back.\n";
-    private static final String totalTaskCountMessage = "You now have %d tasks in the list!\n";
-    private static final String markDoneMessage = "Great success! I have marked this task as done:\n";
-    private static final String markUndoneMessage = "Very nice! I have marked this task as not done yet:\n";
-
+    public static final String LINE = "____________________________________________________________\n";
     private final Scanner in;
     private final PrintStream out;
 
@@ -34,7 +24,7 @@ public class Ui {
      * @param message The message to be printed.
      */
     private void printWithLines(String message) {
-        out.print(line + message + line);
+        out.print(LINE + message + LINE);
     }
 
     /**
@@ -44,11 +34,11 @@ public class Ui {
      * @param list The list containing the tasks.
      */
     public void showList(ArrayList<Task> list) {
-        out.print(line + listMessage);
+        out.print(LINE + Messages.LIST_MESSAGE);
         for (int i = 0; i < list.size(); i++) {
             out.println((i + 1) + ". " + list.get(i));
         }
-        out.print(line);
+        out.print(LINE);
     }
 
     /**
@@ -59,10 +49,10 @@ public class Ui {
      * @param totalTasks The total count of tasks in the list.
      */
     public void showTaskAdded(Task task, int totalTasks) {
-        out.print(line + newTaskAddedMessage);
+        out.print(LINE + Messages.NEW_TASK_ADDED_MESSAGE);
         out.print("  " + task + "\n");
-        out.printf(totalTaskCountMessage, totalTasks);
-        out.print(line);
+        out.printf(Messages.TOTAL_TASK_COUNT_MESSAGE, totalTasks);
+        out.print(LINE);
     }
 
     /**
@@ -73,10 +63,10 @@ public class Ui {
      * @param totalTasks The total count of tasks in the list.
      */
     public void showTaskDeleted(Task task, int totalTasks) {
-        out.print(line + taskDeletedMessage);
+        out.print(LINE + Messages.TASK_DELETED_MESSAGE);
         out.print("  " + task + "\n");
-        out.printf(totalTaskCountMessage, totalTasks);
-        out.print(line);
+        out.printf(Messages.TOTAL_TASK_COUNT_MESSAGE, totalTasks);
+        out.print(LINE);
     }
 
     /**
@@ -86,7 +76,7 @@ public class Ui {
      * @param task The done task.
      */
     public void showTaskDone(Task task) {
-        printWithLines(markDoneMessage + "  " + task + '\n');
+        printWithLines(Messages.MARK_DONE_MESSAGE + "  " + task + '\n');
     }
 
     /**
@@ -96,17 +86,17 @@ public class Ui {
      * @param task The undone task.
      */
     public void showTaskUndone(Task task) {
-        printWithLines(markUndoneMessage + "  " + task + '\n');
+        printWithLines(Messages.MARK_UNDONE_MESSAGE + "  " + task + '\n');
     }
 
     /** Print the greeting message. */
     public void showGreeting() {
-        printWithLines(greetingMessage);
+        printWithLines(Messages.GREETING_MESSAGE);
     }
 
     /** Print the exit message. */
     public void showExitMessage() {
-        printWithLines(exitMessage);
+        printWithLines(Messages.EXIT_MESSAGE);
     }
 
     /**
