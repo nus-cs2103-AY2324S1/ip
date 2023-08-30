@@ -1,12 +1,14 @@
 package command;
+
 import java.util.regex.Pattern;
 
 import data.storage.Store;
 import exception.DukeException;
 import exception.InvalidInputException;
-public class Unmark implements Command{
+
+public class Unmark implements Command {
     @Override
-    public void execute(String input) throws DukeException{
+    public void execute(String input) throws DukeException {
         Pattern pattern = Pattern.compile("unmark \\d+");
         if (!pattern.matcher(input).matches()) {
             throw new InvalidInputException("expected format: unmark <index>");
@@ -17,5 +19,5 @@ public class Unmark implements Command{
         System.out.println("OK, I've marked this task as not done yet:");
         System.out.println(s.getTask(index));
     }
-    
+
 }

@@ -1,4 +1,5 @@
 package data.task.taskList;
+
 import exception.DukeException;
 import exception.InvalidInputException;
 import data.task.Task;
@@ -6,7 +7,7 @@ import data.task.Task;
 public class TaskList {
     private int taskCount = 0;
     private Task[] tasks = new Task[100];
-    
+
     public TaskList() {
     }
 
@@ -22,14 +23,14 @@ public class TaskList {
         return tasks;
     }
 
-    public Task getTask(int index) throws DukeException{
+    public Task getTask(int index) throws DukeException {
         if (index > taskCount || index < 1) {
             throw new DukeException("index out of bounds when calling getTask from store");
         }
         return tasks[index - 1];
     }
 
-    public void deleteTask(int index) throws DukeException{
+    public void deleteTask(int index) throws DukeException {
         if (index > taskCount || index < 1) {
             throw new InvalidInputException("index out of bounds");
         }
@@ -41,9 +42,9 @@ public class TaskList {
 
     public void mark(int index) throws DukeException {
         if (index > taskCount || index < 1) {
-           throw new InvalidInputException("index out of bounds");
+            throw new InvalidInputException("index out of bounds");
         }
-        tasks[index-1].mark(); 
+        tasks[index - 1].mark();
     }
 
     public void unmark(int index) throws DukeException {
@@ -51,15 +52,15 @@ public class TaskList {
             throw new InvalidInputException("index out of bounds");
         }
 
-        tasks[index-1].unmark(); 
+        tasks[index - 1].unmark();
     }
 
-    public void updateDescription(int index, String description) throws DukeException{
+    public void updateDescription(int index, String description) throws DukeException {
         if (index > taskCount || index < 1) {
             throw new InvalidInputException("index out of bounds");
         }
-        tasks[index-1].setDescription(description); 
-    }  
+        tasks[index - 1].setDescription(description);
+    }
 
     public int getTaskCount() {
         return taskCount;
@@ -76,7 +77,7 @@ public class TaskList {
             result += (i + 1) + ". " + tasks[i] + "\n";
         }
         return result;
-    } 
+    }
 
     public String getUserInputStrs() {
         String result = "";

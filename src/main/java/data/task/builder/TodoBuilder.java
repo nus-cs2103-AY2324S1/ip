@@ -10,10 +10,9 @@ import exception.InvalidInputException;
 
 public class TodoBuilder implements Builder<Task> {
     private String pattern = "todo\\s+(.*)";
-    
 
     @Override
-    public Todo buildFromString(String input) throws DukeException{
+    public Todo buildFromString(String input) throws DukeException {
         Pattern p = Pattern.compile(pattern);
         Matcher m = p.matcher(input);
         if (m.matches()) {
@@ -22,10 +21,8 @@ public class TodoBuilder implements Builder<Task> {
             todo.setDescription(description);
             todo.setUserInputString(input);
             return todo;
-        }
-        else {
+        } else {
             throw new InvalidInputException("expected format: todo <description>");
         }
     }
 }
-

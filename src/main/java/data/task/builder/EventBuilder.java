@@ -10,7 +10,6 @@ import exception.InvalidInputException;
 
 public class EventBuilder implements Builder<Task> {
     private String pattern = "event\\s+(.*?)\\s+/from\\s+(.*?)\\s+/to\\s+(.*)";
-    
 
     @Override
     public Task buildFromString(String input) throws DukeException {
@@ -29,8 +28,7 @@ public class EventBuilder implements Builder<Task> {
         } else {
             throw new InvalidInputException("expected format: event <description> /from <start> /to <end>");
         }
-       
-    }
-    
-}
 
+    }
+
+}

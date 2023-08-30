@@ -5,10 +5,10 @@ import data.task.Task;
 import data.task.builder.Builder;
 import exception.DukeException;
 
-
 public class AddTask implements Command {
     protected Builder<Task> taskBuilder;
-    public AddTask (Builder<Task> taskBuilder) {
+
+    public AddTask(Builder<Task> taskBuilder) {
         this.taskBuilder = taskBuilder;
     }
 
@@ -25,7 +25,5 @@ public class AddTask implements Command {
         System.out.println(task);
         System.out.println("Now you have " + s.getTaskCount() + " tasks in the list.");
     }
-      
+
 }
-
-

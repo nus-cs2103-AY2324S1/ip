@@ -8,12 +8,11 @@ public class TaskBuilder implements Builder<Task> {
     private DeadlineBuilder deadlineBuilder = new DeadlineBuilder();
     private EventBuilder eventBuilder = new EventBuilder();
     private TodoBuilder todoBuilder = new TodoBuilder();
-    
 
     @Override
     public Task buildFromString(String input) throws DukeException {
-       String type = input.split(" ")[0];
-         switch (type) {
+        String type = input.split(" ")[0];
+        switch (type) {
             case "todo":
                 return todoBuilder.buildFromString(input);
             case "deadline":
@@ -21,8 +20,9 @@ public class TaskBuilder implements Builder<Task> {
             case "event":
                 return eventBuilder.buildFromString(input);
             default:
-                throw new InvalidInputException("expected format: todo <description> or deadline <description> /by <by> or event <description> /from <start> /to <end>");      
+                throw new InvalidInputException(
+                        "expected format: todo <description> or deadline <description> /by <by> or event <description> /from <start> /to <end>");
+        }
     }
-}
-   
+
 }

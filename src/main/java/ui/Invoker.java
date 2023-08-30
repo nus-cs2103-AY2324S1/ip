@@ -6,7 +6,7 @@ import exception.DukeException;
 import exception.InvalidInputException;
 
 public class Invoker {
-    private HashMap<String, Command> commands; 
+    private HashMap<String, Command> commands;
 
     public Invoker() {
         this.commands = new HashMap<String, Command>();
@@ -25,4 +25,3 @@ public class Invoker {
         this.commands.get(commandName).execute(input);
     }
 }
-

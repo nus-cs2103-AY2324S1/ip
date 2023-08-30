@@ -1,4 +1,5 @@
 package command;
+
 import java.util.regex.Pattern;
 
 import data.storage.Store;
@@ -18,9 +19,9 @@ public class DeleteCommand implements Command {
         Store s = Store.getInstance();
         if (s.hasTaskAtIndex(index)) {
             Task t = s.getTask(index);
-             System.out.println("Noted. I've removed this task:");
-             System.out.println(t);  
-        } 
+            System.out.println("Noted. I've removed this task:");
+            System.out.println(t);
+        }
         s.deleteTask(index);
-    }  
+    }
 }

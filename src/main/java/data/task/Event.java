@@ -1,7 +1,7 @@
 package data.task;
 
-public class Event extends Task{
-    private From  from;
+public class Event extends Task {
+    private From from;
     private To to;
 
     public void setFrom(String from) {

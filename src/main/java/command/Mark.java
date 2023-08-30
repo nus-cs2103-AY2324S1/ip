@@ -5,10 +5,11 @@ import java.util.regex.Pattern;
 import data.storage.Store;
 import exception.DukeException;
 import exception.InvalidInputException;
-public class Mark implements Command{
-    
+
+public class Mark implements Command {
+
     @Override
-    public void execute(String input) throws DukeException{
+    public void execute(String input) throws DukeException {
         Pattern pattern = Pattern.compile("mark \\d+");
         if (!pattern.matcher(input).matches()) {
             throw new InvalidInputException("expected format: mark <index>");
@@ -19,5 +20,5 @@ public class Mark implements Command{
         System.out.println("Nice! I've marked this task as done:");
         System.out.println(s.getTask(index));
     }
-    
+
 }

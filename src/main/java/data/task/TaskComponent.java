@@ -3,15 +3,16 @@ package data.task;
 import exception.InvalidInputException;
 import java.time.LocalDate;
 
-public abstract class TaskComponent { 
+public abstract class TaskComponent {
 }
 
 final class Description extends TaskComponent {
     protected String description;
-    
+
     public Description(String description) {
         this.description = description;
     }
+
     @Override
     public String toString() {
         return this.description;
@@ -28,10 +29,11 @@ final class By extends TaskComponent {
             throw new InvalidInputException("Invalid date format, should be YYYY-MM-DD");
         }
     }
-    
+
     @Override
     public String toString() {
-        //Accept dates in a format such as yyyy-mm-dd format (e.g., 2019-10-15) and print in a different format such as MMM dd yyyy e.g., (Oct 15 2019).
+        // Accept dates in a format such as yyyy-mm-dd format (e.g., 2019-10-15) and
+        // print in a different format such as MMM dd yyyy e.g., (Oct 15 2019).
         return this.by.format(java.time.format.DateTimeFormatter.ofPattern("MMM dd yyyy"));
     }
 }
@@ -42,7 +44,7 @@ final class From extends TaskComponent {
     public From(String from) {
         this.from = from;
     }
-    
+
     @Override
     public String toString() {
         return this.from;
@@ -55,11 +57,9 @@ final class To extends TaskComponent {
     public To(String to) {
         this.to = to;
     }
-    
+
     @Override
     public String toString() {
         return this.to;
     }
 }
-
-
