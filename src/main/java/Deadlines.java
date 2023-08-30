@@ -1,24 +1,20 @@
+import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.util.Date;
 
 public class Deadlines extends Task {
-
     private LocalDate by;
-
-    public Deadlines(String task, String details) throws DukeException {
-        super(task);
-
-        // Throws error if format is incorrect.
-        if (!details.startsWith("by")) {
-            throw new DukeException("☹ OOPS!!! Please use the proper format for the deadline.");
-        }
-
-        // Throws error if no 'by' details are given.
-        if (details.substring(3).isEmpty()) {
+    public Deadlines(String task, String details, String done) throws DukeException {
+        super(task, done);
+        try {
+            this.by = LocalDate.parse(details.substring(3));
+        } catch (DateTimeParseException e) {
+            throw new DukeException("☹ OOPS!!! Please use the proper format for the deadline (YYYY-MM-DD).");
+        } catch (IndexOutOfBoundsException e) {
             throw new DukeException("☹ OOPS!!! There are missing details for the deadline.");
         }
-        this.by = LocalDate.parse(details.substring(3));
-
     }
 
     public String printDetails() {
