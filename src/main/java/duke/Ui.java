@@ -97,7 +97,7 @@ public class Ui {
     }
 
     /**
-     * Displays a greeting message to the user.
+     * Prints a greeting message to the user.
      */
     public void greet() {
         this.printHorizontalLine();
