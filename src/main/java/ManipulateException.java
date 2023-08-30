@@ -1,7 +1,7 @@
 public class ManipulateException extends DukeException{
 
     public ManipulateException(String message, String command) {
-        super(message + "Enter in the form: \"" + command + " [task_number]\" or \"" +
-                command + " all\"");
+        super(Ui.connectTwoLine(message, String.format(
+                "Enter in the form: \"%s [task_number]\" or \"%s all\"", command, command)));
     }
 }

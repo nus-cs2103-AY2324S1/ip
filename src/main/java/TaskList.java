@@ -2,7 +2,6 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.stream.IntStream;
-import java.time.LocalDateTime;
 
 public class TaskList {
 
@@ -16,29 +15,26 @@ public class TaskList {
         this.taskList = new ArrayList<>();
     }
 
-    public void addTask(Task task) {
+    public void addTask(Task task, Ui ui) {
         taskList.add(task);
-        System.out.printf("%sGot it. I've added this task:%n" +
-                        "%s  %s%n" +
-                        "%sNow you have %d tasks in the list.%n",
-                Duke.INDENT, Duke.INDENT, task, Duke.INDENT, taskList.size());
+        ui.showAddTask(task, taskList.size());
     }
 
-    public void listTask() {
+    public void listTask(Ui ui) {
         if (taskList.isEmpty()) {
-            System.out.printf("%sOOPS!!! There is nothing in the list, yet!%n", Duke.INDENT);
+            ui.showError("OOPS!!! There is nothing in the list, yet!");
             return;
-        } else {
-            System.out.printf("%sHere are the tasks in your list:%n", Duke.INDENT);
         }
-        IntStream.range(0, taskList.size())
-                .forEach(i ->
-                        System.out.printf("%s%d.%s%n", Duke.INDENT, i + 1, taskList.get(i)));
+        String[] tasks = new String[taskList.size()];
+        for (int i = 0; i < tasks.length; i++) {
+            tasks[i] = taskList.get(i).toString();
+        }
+        ui.listTask(tasks);
     }
 
-    public void printDateTask(Keyword key, LocalDate date) {
+    public void printDateTask(Keyword key, LocalDate date, Ui ui) throws DukeException {
         if (taskList.isEmpty()) {
-            System.out.printf("%sOOPS!!! There is nothing in the list, yet!%n", Duke.INDENT);
+            throw new DukeException("OOPS!!! There is nothing in the list, yet!");
         } else {
             List<Task> tasksOnDate = new ArrayList<>();
             for (Task task : taskList) {
@@ -47,54 +43,42 @@ public class TaskList {
                 }
             }
             if (!tasksOnDate.isEmpty()) {
-                System.out.printf("%sHere are the %d tasks happening on %s:%n",
-                        Duke.INDENT, tasksOnDate.size(), date.format(Time.DATE_DISPLAY_FORMATTER));
-                tasksOnDate.forEach(t -> System.out.printf("%s  %s%n", Duke.INDENT, t));
+                ui.printDateTask(tasksOnDate, date.format(Time.DATE_DISPLAY_FORMATTER));
             } else {
-                System.out.printf("%sOOPS!!! There is nothing happening on %s.%n",
-                        Duke.INDENT, date.format(Time.DATE_DISPLAY_FORMATTER));
+                ui.showError(String.format("OOPS!!! There is nothing happening on %s.",
+                        date.format(Time.DATE_DISPLAY_FORMATTER)));
             }
         }
     }
 
-    public void deleteTask(int index) throws DukeException {
+    public void deleteTask(int index, Ui ui) throws DukeException {
         if (index >= taskList.size() || index < 0) {
-            String str = String.format("%sOOPS!!! There is no task %d to delete",
-                    Duke.INDENT, index + 1);
-            listTask();
-            throw new DukeException(str);
+            listTask(ui);
+            throw new DukeException(String.format("OOPS!!! There is no task %d to delete", index + 1));
         }
         Task removedTask = taskList.remove(index);
-        System.out.printf("%sNoted. I've removed this task:%n" +
-                        "%s  %s%n" +
-                        "%sNow you have %d tasks in the list.%n",
-                Duke.INDENT, Duke.INDENT, removedTask, Duke.INDENT, taskList.size());
+        ui.showDeleteTask(removedTask, taskList.size());
     }
 
-    public void markTask(int index, boolean isMark) throws DukeException {
+    public void markTask(int index, boolean isMark, Ui ui) throws DukeException {
         if (index >= taskList.size() || index < 0) {
-            String str = String.format("%sOOPS!!! There is no task %d to %s",
-                    Duke.INDENT, index + 1, isMark ? "mark" : "unmark");
-            listTask();
-            throw new DukeException(str);
+            String err = String.format("OOPS!!! There is no task %d to %s",
+                     index + 1, isMark ? "mark" : "unmark");
+            listTask(ui);
+            throw new DukeException(err);
         }
-        String task = taskList.get(index).mark(isMark);
-        String message = isMark ? "Nice! I've marked this task as done:"
-                              : "OK, I've marked this task as not done yet:";
-        System.out.printf("%s%s%n%s  %s%n", Duke.INDENT, message, Duke.INDENT, task);
+        ui.showMarkTask(isMark, taskList.get(index).mark(isMark));
     }
 
-    public void manipulateAllTask(Keyword key) throws DukeException {
+    public void manipulateAllTask(Keyword key, Ui ui) throws DukeException {
         if (taskList.isEmpty()) {
-            String str = String.format("%sOOPS!!! There are no tasks to %s.",
-                    Duke.INDENT, key.getKeyword());
-            throw new DukeException(str);
+            throw new DukeException(String.format("OOPS!!! There are no tasks to %s.", key.getKeyword()));
         }
         if (key.equals(Keyword.DELETE)) {
             taskList.clear();
         } else {
             taskList.forEach(t -> t.mark(key.equals(Keyword.MARK)));
         }
-        System.out.printf("%sNoted. I will %s all tasks.%n", Duke.INDENT, key.getKeyword());
+        ui.showManipulateAllTask(key.getKeyword());
     }
 }

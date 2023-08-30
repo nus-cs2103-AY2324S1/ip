@@ -25,10 +25,7 @@ public class Storage {
 
     public List<Task> load() throws DukeException {
         List<Task> taskList = new ArrayList<>();
-        String goneWrongMessage =
-                String.format("%sOOPS!!!Something terrible happened to the data file.\n" +
-                        "%sDon't worry I will clean up the mess!", Duke.INDENT,
-                        Duke.INDENT);
+
         try {
             Scanner sc = new Scanner(this.file);
             while (sc.hasNext()) {
@@ -45,7 +42,7 @@ public class Storage {
                     task = new Event(temp[2], Time.parseDateTime(temp[3]), Time.parseDateTime(temp[4]));
                     break;
                 default:
-                    throw new DukeException(goneWrongMessage);
+                    throw new DukeException();
                 }
 
                 if (temp[1].equals("1")) {
@@ -53,19 +50,14 @@ public class Storage {
                 } else if (temp[1].equals("0")) {
                     task.mark(false);
                 } else {
-                    throw new DukeException(goneWrongMessage);
+                    throw new DukeException();
                 }
 
                 taskList.add(task);
             }
             sc.close();
-        } catch (FileNotFoundException e) {
-            String notFileMessage =
-                    String.format("%sOOPS!!!Looks like there is no data file.\n" +
-                            "%sDon't worry, I will setup one for you!", Duke.INDENT, Duke.INDENT);
-            throw new DukeException(notFileMessage);
-        } catch (ArrayIndexOutOfBoundsException e) {
-            throw new DukeException(goneWrongMessage);
+        } catch (FileNotFoundException | ArrayIndexOutOfBoundsException e) {
+            throw new DukeException();
         }
         return taskList;
     }

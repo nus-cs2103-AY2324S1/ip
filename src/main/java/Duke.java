@@ -1,21 +1,6 @@
-import java.util.Scanner;
-
 public class Duke {
 
-    private static final String NAME_ART =
-            "               _                _               _                      \n" +
-            "           _  /\\ \\            / /\\          _  /\\ \\               \n" +
-            "          /\\_\\\\ \\ \\          / /  \\        /\\_\\\\ \\ \\        \n" +
-            "         / / / \\ \\ \\        / / /\\ \\      / / / \\ \\ \\          \n" +
-            "        / / /   \\ \\ \\      / / /\\ \\ \\    / / /   \\ \\ \\        \n" +
-            "        \\ \\ \\____\\ \\ \\    /_/ /  \\ \\ \\   \\ \\ \\____\\ \\ \\ \n" +
-            "         \\ \\________\\ \\   \\ \\ \\   \\ \\ \\   \\ \\________\\ \\ \n" +
-            "          \\/________/\\ \\   \\ \\ \\   \\ \\ \\   \\/________/\\ \\  \n" +
-            "                    \\ \\ \\   \\ \\ \\___\\ \\ \\            \\ \\ \\ \n" +
-            "                     \\ \\_\\   \\ \\/____\\ \\ \\            \\ \\_\\ \n" +
-            "                      \\/_/    \\_________\\/             \\/_/";
-    private static final String NAME = "404";
-    public static final String INDENT = "     ";
+    private Ui ui;
     private Storage storage;
     private TaskList taskList;
 
@@ -26,56 +11,44 @@ public class Duke {
 
     public Duke(String foldPath, String fileName) {
         this.storage = new Storage(foldPath, fileName);
+        this.ui = new Ui();
         try {
-            this.taskList = new TaskList(this.storage.load());
+            this.taskList = new TaskList(storage.load());
         } catch (DukeException e) {
-            printLine();
-            System.out.println(e.getMessage());
-            printLine();
+            ui.showLoadingError();
             storage.createFile();
             taskList = new TaskList();
         }
     }
 
     public void start() {
-        Scanner sc = new Scanner(System.in);
-        String greeting = String.format("%sHello! I'm %s%n%sWhat can I do for you?",
-                                         INDENT, NAME, INDENT);
-        System.out.println(NAME_ART);
-        printLine();
-        System.out.println(greeting);
-        printLine();
-        System.out.println();
-
-        boolean exit = false;
-        while (!exit) {
-            String text = sc.nextLine();
-            printLine();
+        ui.showWelcome();
+        boolean isExit = false;
+        while (!isExit) {
             try {
-                exit = parseCommand(text);
+                String fullCommand = ui.readCommand();
+                ui.showLine();
+                isExit = parseCommand(fullCommand);
             } catch (DukeException e) {
-                System.out.println(e.getMessage());
+                ui.showError(e.getMessage());
             } finally {
-                printLine();
+                ui.showLine();
                 System.out.println();
             }
         }
-        sc.close();
     }
 
     private boolean parseCommand(String text) throws DukeException {
         String[] split = text.split(" ");
         if (text.isEmpty() || split.length == 0) {
-            String message = String.format("%sOOPS!!! You have not entered anything!%n", INDENT);
-            throw new DukeException(message);
+            throw new DukeException("OOPS!!! You have not entered anything!");
         }
 
         Keyword key;
         try {
             key = Keyword.valueOf(split[0].toUpperCase());
         } catch (IllegalArgumentException e) {
-            String str = String.format("%sOOPS!!! I'm sorry, but I don't know what that means.", INDENT);
-            throw new DukeException(str);
+            throw new DukeException("OOPS!!! I'm sorry, but I don't know what that means.");
         }
 
         if (split.length == 1) {
@@ -87,68 +60,68 @@ public class Duke {
     }
 
     private boolean processOneWordCommand(Keyword key) throws DukeException {
-        String message = String.format("%sOOPS!!! The description of a %s cannot be empty.%n%s",
-                INDENT, key.getKeyword(), INDENT);
+        String err = String.format("OOPS!!! The description of a %s cannot be empty.",
+                key.getKeyword());
         switch (key){
         case BYE:
-            System.out.printf("%sBye. Hope to see you again soon!%n", INDENT);
+            ui.showExit();
             return true;
 
         case LIST:
-            taskList.listTask();
+            taskList.listTask(ui);
             break;
 
         case TODO:
-            throw new TodoException(message);
+            throw new TodoException(err);
 
         case DEADLINE:
-            throw new DeadlineException(message);
+            throw new DeadlineException(err);
 
         case EVENT:
-            throw new EventException(message);
+            throw new EventException(err);
 
         case MARK:
         case UNMARK:
         case DELETE:
-            throw new ManipulateException(message, key.getKeyword());
+            throw new ManipulateException(err, key.getKeyword());
 
         case PRINT_DATE:
-            throw new PrintDateException(message);
+            throw new PrintDateException(err);
         }
 
         return false;
     }
 
     private boolean processMultiWordCommand(Keyword key, String rest) throws DukeException {
-        String message = String.format("%sOOPS!!! The command for %s task is invalid.%n%s",
-                INDENT, key.getKeyword(), INDENT);
+        String err = String.format("OOPS!!! The command for %s task is invalid.",
+                 key.getKeyword());
         switch (key) {
         case BYE:
-            if (rest.equals(NAME)) {
-                System.out.printf("%sBye. Hope to see you again soon!%n", INDENT);
+            if (rest.equals(Ui.NAME)) {
+                ui.showExit();
                 return true;
             }
             // fall through
         case LIST:
-            String errMessage = String.format("%sOOPS!!! The command for %s is invalid.\n" +
-                                "%sEnter in the form: \"%s\"",
-                    INDENT, key.getKeyword(), INDENT, key.getKeyword());
+            String errMessage = Ui.connectTwoLine(
+                    String.format("OOPS!!! The command for %s is invalid.", key.getKeyword()),
+                    String.format("Enter in the form: \"%s\"", key.getKeyword()));
             throw new DukeException(errMessage);
 
         case MARK:
         case UNMARK:
         case DELETE:
-            processManipulateCommand(key, rest, message);
+            processManipulateCommand(key, rest, err);
             break;
 
         case TODO:
         case DEADLINE:
         case EVENT:
-            processAddCommand(key, rest, message);
+            processAddCommand(key, rest, err);
             break;
 
         case PRINT_DATE:
-            processPrintCommand(key, rest, message);
+            processPrintCommand(key, rest, err);
             break;
         }
         return false;
@@ -160,7 +133,7 @@ public class Duke {
             if (!rest.equals("all")) {
                 task_num = Integer.parseInt(rest);
             } else {
-                taskList.manipulateAllTask(key);
+                taskList.manipulateAllTask(key, ui);
                 storage.changeFile(key, -1);
                 return;
             }
@@ -169,10 +142,10 @@ public class Duke {
         }
 
         if (key.equals(Keyword.DELETE)) {
-            taskList.deleteTask(task_num - 1);
+            taskList.deleteTask(task_num - 1, ui);
             storage.changeFile(Keyword.DELETE, task_num - 1);
         } else {
-            taskList.markTask(task_num - 1, key.equals(Keyword.MARK));
+            taskList.markTask(task_num - 1, key.equals(Keyword.MARK), ui);
             storage.changeFile(key, task_num - 1);
         }
     }
@@ -212,7 +185,7 @@ public class Duke {
             }
             break;
         }
-        taskList.addTask(task);
+        taskList.addTask(task, ui);
         storage.appendFile(task.fileFormat());
     }
 
@@ -226,15 +199,9 @@ public class Duke {
         }
 
         try {
-            taskList.printDateTask(Keyword.valueOf(printTask[0].toUpperCase()), Time.parseDate(printTask[1]));
+            taskList.printDateTask(Keyword.valueOf(printTask[0].toUpperCase()), Time.parseDate(printTask[1]), ui);
         } catch (DukeException e) {
             throw new PrintDateException(err);
         }
-    }
-
-    private static void printLine() {
-        String line = "    ____________________________________________________________\n" +
-                      "   /_____/_____/_____/_____/_____/_____/_____/_____/_____/_____/";
-        System.out.println(line);
     }
 }
