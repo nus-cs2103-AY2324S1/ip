@@ -46,29 +46,22 @@ public class Duke {
 
     public String handleCommand(String command, String input) throws DukeException, IOException {
         switch (command) {
-
-            case "mark": {
-                return tasks.markTask(input);
-            }
-            case "unmark": {
-                return tasks.unmarkTask(input);
-            }
-            case "list": {
-                return tasks.getAllToDo();
-            }
-            case "todo": {
-                return tasks.handleTodoTask(input, "user");
-            }
-            case "deadline": {
-                return tasks.handleDeadlineTask(input, "user");
-            }
-            case "event": {
-                return tasks.handleEventTask(input, "user");
-            }
-            case "delete": {
-                return tasks.deleteTask(input);
-            }
-            default:
+        case "mark":
+            return tasks.markTask(input);
+        case "unmark":
+            return tasks.unmarkTask(input);
+        case "list":
+            return tasks.getAllToDo();
+        case "todo":
+            return tasks.handleTodoTask(input, "user");
+        case "deadline":
+            return tasks.handleDeadlineTask(input, "user");
+        case "event":
+            return tasks.handleEventTask(input, "user");
+        case "delete":
+            return tasks.deleteTask(input);
+        default:
+            break;
         }
         return "";
     }

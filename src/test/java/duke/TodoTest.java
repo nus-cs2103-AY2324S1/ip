@@ -11,7 +11,7 @@ public class TodoTest {
     }
 
     @Test
-    public void toDoSetMarkAgainError() throws DukeException{
+    public void toDo_setMarkAgain_exception() throws DukeException{
         try {
             ToDo todo = new ToDo("borrow book", TaskType.TODO);
             todo.setMarked();
@@ -22,7 +22,7 @@ public class TodoTest {
     }
 
     @Test
-    public void toDoSetUnMarkAgainError() throws DukeException{
+    public void toDo_setUnMarkAgain_exception() throws DukeException{
         try {
             ToDo todo = new ToDo("borrow book", TaskType.TODO);
             todo.setUnmarked();

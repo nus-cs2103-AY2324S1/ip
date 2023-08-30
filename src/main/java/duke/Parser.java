@@ -1,7 +1,5 @@
 package duke;
 
-import duke.InvalidInputExpression;
-
 public class Parser {
 
     /**
@@ -9,7 +7,6 @@ public class Parser {
      * Continuously listens for user input until the "bye" command is entered.
      */
     public String[] handleUserInput(String userInput) throws InvalidInputExpression {
-
         try {
             if (userInput.startsWith("mark")) {
                 return new String[]{"mark", userInput};
