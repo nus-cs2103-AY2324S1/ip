@@ -1,6 +1,6 @@
-public class Task {
-    private boolean done;
-    private String name;
+public abstract class Task {
+    protected boolean done;
+    protected String name;
 
     public Task(String name) {
         this.name = name;
@@ -14,6 +14,9 @@ public class Task {
     void unmark() {
         done = false;
     }
+
+    public abstract String stringifyTask();
+
     @Override
     public String toString() {
         if (done) {
