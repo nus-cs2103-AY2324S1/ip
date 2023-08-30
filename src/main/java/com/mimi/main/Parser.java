@@ -16,7 +16,7 @@ public class Parser {
     public static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
 
     private enum ValidCommands {
-        bye, list, mark, unmark, delete, todo, deadline, event
+        bye, list, mark, unmark, delete, todo, deadline, event, find
     }
 
     public Parser(String input, Storage storage, ReadWriteData readWriteData) {
@@ -34,6 +34,7 @@ public class Parser {
             cmd = cmd.substring(0, i);
         }
 
+        //TODO: make sure commands handle the case where there are no spaces present
         //check if this is a valid command
 
         for (ValidCommands v: ValidCommands.values()) {
@@ -46,29 +47,32 @@ public class Parser {
 
         if (isValidCommand) {
             switch (cmd) {
-                case "bye":
-                    return new ExitCommand();
+            case "bye":
+                return new ExitCommand();
 
-                case "list":
-                    return new ListCommand(this.storage);
+            case "list":
+                return new ListCommand(this.storage);
 
-                case "mark":
-                    return markCommand();
+            case "mark":
+                return markCommand();
 
-                case "unmark":
-                    return unmarkCommand();
+            case "unmark":
+                return unmarkCommand();
 
-                case "delete":
-                    return deleteCommand();
+            case "delete":
+                return deleteCommand();
 
-                case "todo":
-                    return todoCommand();
+            case "todo":
+                return todoCommand();
 
-                case "deadline":
-                    return deadlineCommand();
+            case "deadline":
+                return deadlineCommand();
 
-                case "event":
-                    return eventCommand();
+            case "event":
+                return eventCommand();
+
+            case "find":
+                return findCommand();
 
             }
         }
@@ -76,6 +80,21 @@ public class Parser {
 
 
         return new InvalidCommand();
+
+    }
+
+    private Command findCommand() {
+        String taskDescription = input;
+
+        //first remove the find keyword
+        if (!taskDescription.contains(" ")) {
+            return new FindCommand();
+        }
+        int i = taskDescription.indexOf(' ');
+        taskDescription = taskDescription.substring(i+1);
+
+        return new FindCommand(taskDescription, this.storage);
+
 
     }
 

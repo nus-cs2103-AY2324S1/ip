@@ -115,4 +115,21 @@ public class Ui {
     public void errorWhenUpdatingFile() {
         System.out.println("Error when updating file.\n" + LINE);
     }
+
+    public void returnSearchTerm(Task task, int index) {
+        if (index == 1) {
+            System.out.println("Here are the matching tasks in your list:");
+        }
+
+        System.out.println(String.format(
+                "%d. %s", index, task.toString()));
+    }
+
+    public void noSearchResults() {
+        System.out.println("OOPS!!! There are no search results for your query.");
+    }
+
+    public void incompleteSearchCommand() {
+        System.out.println("You must enter a search term!");
+    }
 }

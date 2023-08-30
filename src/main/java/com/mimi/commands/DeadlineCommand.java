@@ -23,6 +23,10 @@ public DeadlineCommand(boolean isCompleteCommand, String taskName,
         this.readWriteData = readWriteData;
         this.deadlineTime = deadlineTime;
     }
+
+    /**
+     * Executes the given command.
+     */
     @Override
     public void execute() {
         //first check if the command is complete and if the time format is correct.
@@ -35,6 +39,10 @@ public DeadlineCommand(boolean isCompleteCommand, String taskName,
         this.readWriteData.write(deadline);
     }
 
+    /**
+     * Calls the ui to give the appropriate response based on the type of command.
+     * @param ui Ui class instance
+     */
     @Override
     public void uiResponse(Ui ui) {
         if (!this.isCompleteCommand) {

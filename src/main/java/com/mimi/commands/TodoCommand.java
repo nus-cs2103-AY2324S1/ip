@@ -14,6 +14,10 @@ public class TodoCommand extends Command {
         this.storage = storage;
         this.readWriteData = readWriteData;
     }
+
+    /**
+     * Executes the given command.
+     */
     @Override
     public void execute() {
         Todo todo = new Todo(taskTodo);
@@ -23,6 +27,10 @@ public class TodoCommand extends Command {
 
     }
 
+    /**
+     * Calls the ui to give the appropriate response based on the type of command.
+     * @param ui Ui class instance
+     */
     @Override
     public void uiResponse(Ui ui) {
         ui.separator();

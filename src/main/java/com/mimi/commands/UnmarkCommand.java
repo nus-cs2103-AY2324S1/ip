@@ -15,6 +15,9 @@ public class UnmarkCommand extends Command {
         this.storage = storage;
         this.readWriteData = readWriteData;
     }
+    /**
+     * Executes the given command.
+     */
     @Override
     public void execute(){
         if (this.isCompleteCommand) {
@@ -22,7 +25,10 @@ public class UnmarkCommand extends Command {
             readWriteData.updateFile();
         }
     }
-
+    /**
+     * Calls the ui to give the appropriate response based on the type of command.
+     * @param ui Ui class instance
+     */
     @Override
     public void uiResponse(Ui ui) {
 

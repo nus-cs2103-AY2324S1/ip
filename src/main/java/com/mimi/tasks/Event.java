@@ -14,6 +14,10 @@ public class Event extends Task {
         this.endTime = endTime;
 
     }
+    /**
+     * Returns the string representation of the task type.
+     * @return a string that represents what kind of task this is.
+     */
     @Override
     public String eventCode() {
         return "E";
@@ -31,7 +35,10 @@ public class Event extends Task {
     }
 
 
-
+    /**
+     * A string representation of the start time of the task, if any.
+     * @return a formatted string that shows the start time of the task.
+     */
     @Override
     public String taskStartTime() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd yyyy HH:mm");
@@ -44,6 +51,10 @@ public class Event extends Task {
         );
     }
 
+    /**
+     * A string representation of the end time of the task, if any.
+     * @return a formatted string that shows the end time of the task.
+     */
     @Override
     public String taskEndTime() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd yyyy HH:mm");
@@ -56,6 +67,11 @@ public class Event extends Task {
         );
 
     }
+
+    /**
+     * A string that is used to store the task content into the hard drive
+     * @return string representation of the task for storage.
+     */
     @Override
     public String writeFormat() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");

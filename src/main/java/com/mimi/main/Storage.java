@@ -86,5 +86,21 @@ public class Storage {
         }
     }
 
+    public void search(String searchTerm) {
+        int index = 1;
+        for (Task task: this.previous_Commands) {
+            //convert both strings to lower case to ignore casing
+            if (task.toString().toLowerCase().
+                    contains(searchTerm.toLowerCase())) {
+                ui.returnSearchTerm(task, index);
+                index++;
+            }
+        }
+
+        if (index == 1) {
+            ui.noSearchResults();
+        }
+    }
+
 
 }

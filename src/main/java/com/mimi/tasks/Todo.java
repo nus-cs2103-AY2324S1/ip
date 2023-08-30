@@ -6,6 +6,10 @@ public class Todo extends Task {
         super(taskName);
     }
 
+    /**
+     * Returns the string representation of the task type.
+     * @return a string that represents what kind of task this is.
+     */
     @Override
     public String eventCode() {
         return "T";

@@ -15,6 +15,10 @@ public class Deadline extends Task {
         this.deadlineTime = deadlineTime;
     }
 
+    /**
+     * Returns the string representation of the task type.
+     * @return a string that represents what kind of task this is.
+     */
     @Override
     public String eventCode() {
         return "D";
@@ -30,6 +34,10 @@ public class Deadline extends Task {
         );
     }
 
+    /**
+     * A string representation of the end time of the task, if any.
+     * @return a formatted string that shows the end time of the task.
+     */
     @Override
     public String taskEndTime() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd yyyy HH:mm");
@@ -42,7 +50,10 @@ public class Deadline extends Task {
                 );
 
     }
-
+    /**
+     * A string that is used to store the task content into the hard drive
+     * @return string representation of the task for storage.
+     */
     @Override
     public String writeFormat() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
