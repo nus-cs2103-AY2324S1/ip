@@ -32,4 +32,11 @@ public class Task {
                 + "     Now you have " + (numTask + 1) + " tasks in the list.\n"
                 + Duke.horizontalLine);
     }
+    public String getDescription() {
+        if (this.isDone) {
+            return "X | " + this.description;
+        } else {
+            return "  | " + this.description;
+        }
+    }
 }

@@ -1,7 +1,14 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.Scanner;
 
 public class Duke {
+    private static final String hardDiskPath = "./data/duke.txt";
+    private static File hardDisk;
     public static final String horizontalLine = "    ____________________________________________________________";
     public static ArrayList<Task> taskArray = new ArrayList<>();
     public static int numTask = 0;
@@ -104,7 +111,7 @@ public class Duke {
                 return TASK.INVALID;
         }
     }
-    public static void printCommand(TASK command, String info) throws DukeException {
+    public static void printCommand(TASK command, String info) throws DukeException, IOException {
         switch(command) {
             case BYE:
                 exit();
@@ -142,8 +149,85 @@ public class Duke {
                 throw new DukeException("     OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
     }
+    private static void checkHardDisk() {
+        File dataDirectory = new File("./data");
+        if (!dataDirectory.exists()) {
+            System.out.println("     OOPS! The data directory doesn't exist. I'll create one for you!");
+            dataDirectory.mkdir();
+        }
+        hardDisk = new File(hardDiskPath);
+        if (!hardDisk.exists()) {
+            System.out.println("     OOPS! The hard disk doesn't exist. I'll create one for you!");
+            try {
+                hardDisk.createNewFile();
+                hardDisk.setReadable(true);
+                hardDisk.setWritable(true);
+            } catch (IOException e) {
+                System.out.println("     Something went wrong, we couldn't create duke.txt");
+            }
+        }
+    }
+    // retrieves past tasks
+    // T | X | DESC
+    private static void loadTask() {
+        try {
+            Scanner fileScanner = new Scanner(hardDisk);
+            while (fileScanner.hasNext()) {
+                String task = fileScanner.nextLine();
+                String[] taskDetails = task.split("|",5);
+                String taskType = taskDetails[0];
+                String taskStatus = taskDetails[1];
+                String taskDescription = taskDetails[2];
+                switch (taskType) {
+                    case "T":
+                        Todo addTodo = new Todo(taskDescription);
+                        if (Objects.equals(taskStatus, "Y")) {
+                            addTodo.markAsDone();
+                        }
+                        taskArray.add(addTodo);
+                        numTask++;
+                        break;
+                    case "D":
+                        Deadline addDeadline = new Deadline(taskDescription, taskDetails[3]);
+                        if (Objects.equals(taskStatus, "Y")) {
+                            addDeadline.markAsDone();
+                        }
+                        taskArray.add(addDeadline);
+                        numTask++;
+                        break;
+                    case "E":
+                        Event addEvent = new Event(taskDescription, taskDetails[3], taskDetails[4]);
+                        if (Objects.equals(taskStatus, "Y")) {
+                            addEvent.markAsDone();
+                        }
+                        taskArray.add(addEvent);
+                        numTask++;
+                        break;
+                    default:
+                        throw new DukeException("     invalid task in the hard disk");
+                }
+
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println("     There is no saved duke.txt");
+        } catch (DukeException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+    // saves new tasks
+    private static void saveTask() throws IOException {
+        FileWriter fw = new FileWriter(hardDiskPath);
+        for (Task task : taskArray) {
+            String writeTask = task.getDescription() + "\n";
+            fw.write(writeTask);
+        }
+        fw.close();
+    }
     public static void main(String[] args) {
+        checkHardDisk();
+        loadTask();
         greet();
+        File f = new File("/Desktop/CS2103T/ip/hardDrive.txt");
         Scanner input = new Scanner(System.in);
 
         while (input.hasNext()) {
@@ -152,8 +236,11 @@ public class Duke {
             TASK order = commandCheck(findCommand[0]);
             try {
                 printCommand(order, command);
+                saveTask();
             } catch (DukeException message) {
                 System.out.println(horizontalLine + "\n" + message.getMessage() + "\n" + horizontalLine);
+            } catch (IOException e) {
+                System.out.println("     Oh no, seems like something is not working.. We can't save your data.");
             }
         }
     }

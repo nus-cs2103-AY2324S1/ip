@@ -9,4 +9,8 @@ public class Todo extends Task {
     public String printDesc() {
         return "[T]" + super.printDesc();
     }
+    @Override
+    public String getDescription() {
+        return "T | " + super.getDescription();
+    }
 }

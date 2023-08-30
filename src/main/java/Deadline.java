@@ -10,4 +10,9 @@ public class Deadline extends Task {
         return "[D]" + super.printDesc() + " (by: " + this.by + ")";
     }
 
+    @Override
+    public String getDescription() {
+        return "D | " + super.getDescription() + "|" + this.by;
+    }
+
 }

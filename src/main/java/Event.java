@@ -11,4 +11,9 @@ public class Event extends Task {
     public String printDesc() {
         return "[E]" + super.printDesc() + " (from: " + this.from + " to: " + this.to + ")";
     }
+
+    @Override
+    public String getDescription() {
+        return "E | " + super.getDescription() + "| " + this.from + "- " + this.to;
+    }
 }
