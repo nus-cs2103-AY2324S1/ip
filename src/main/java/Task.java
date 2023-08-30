@@ -1,4 +1,5 @@
 public class Task {
+
     private String task;
     private boolean isDone;
 
@@ -10,14 +11,6 @@ public class Task {
     public Task() {
         this.task = " ";
         this.isDone = false;
-    }
-
-    public String getTask() {
-        return this.task;
-    }
-
-    public boolean checkDone() {
-        return this.isDone;
     }
 
     public void markDone() {
