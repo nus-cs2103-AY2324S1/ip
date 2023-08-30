@@ -1,4 +1,6 @@
-abstract class Task {
+package tasks;
+
+public abstract class Task {
   private String description;
   private Boolean isDone;
   protected String symbol;
@@ -20,7 +22,7 @@ abstract class Task {
     return (isDone ? "X" : " ");
   }
 
-  protected String save() {
+  public String save() {
     return String.format("%d|%s", this.isDone.compareTo(false),
         this.description);
   };

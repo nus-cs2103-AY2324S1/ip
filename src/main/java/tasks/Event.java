@@ -1,5 +1,6 @@
+package tasks;
+
 import java.time.LocalDate;
-import java.time.format.DateTimeParseException;
 
 public class Event extends Task {
   private LocalDate from;
@@ -8,12 +9,8 @@ public class Event extends Task {
   public Event(String descriptor, String from, String to) {
     super(descriptor);
     this.symbol = "E";
-    try {
-      this.from = LocalDate.parse(from);
-      this.to = LocalDate.parse(to);
-    } catch (DateTimeParseException e) {
-      System.out.println("Invalid date format");
-    }
+    this.from = LocalDate.parse(from);
+    this.to = LocalDate.parse(to);
   }
 
   @Override
