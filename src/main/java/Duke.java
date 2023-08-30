@@ -1,4 +1,6 @@
 import java.io.*;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -98,6 +100,8 @@ public class Duke {
                         throw new DukeException("\n____________________________________________________________\n" +
                                 "☹ OOPS!!! Insufficient parameters passed to deadline.\n" +
                                 "____________________________________________________________");
+                    LocalDate date=changeDateFormat(arr[1]);
+                    arr[1]=date.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
                     list.add(new Deadline(arr[0], arr[1]));
                     addToFile("D,0,"+arr[0]+","+arr[1]);
                     System.out.println("____________________________________________________________\n" +
@@ -121,6 +125,10 @@ public class Duke {
                         throw new DukeException("\n____________________________________________________________\n" +
                                 "☹ OOPS!!! Insufficient parameters passed to event.\n" +
                                 "____________________________________________________________");
+                    LocalDate date=changeDateFormat(time[0]);
+                    time[0]=date.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
+                    date=changeDateFormat(time[1]);
+                    time[1]=date.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
                     list.add(new Event(arr[0], time[0], time[1]));
                     addToFile("E,0,"+arr[0]+","+time[0]+","+time[1]);
                     System.out.println("____________________________________________________________\n" +
@@ -173,6 +181,18 @@ public class Duke {
         catch (Exception e){
             System.out.println("Error:" + e.getMessage());
         }
+    }
+    public static LocalDate changeDateFormat(String input) throws DukeException {
+        LocalDate date;
+        try {
+            DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            date = LocalDate.parse(input,format);
+        }catch (Exception e){
+            throw new DukeException("\n____________________________________________________________\n" +
+                    "☹ OOPS!!! Improper date format.\n" +
+                    "____________________________________________________________");
+        }
+        return date;
     }
     public static void updateFile(int num,boolean val){
         File file = new File("file.txt");
