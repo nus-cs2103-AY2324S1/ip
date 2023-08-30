@@ -1,3 +1,5 @@
+package duke;
+
 public enum ExceptionTypes {
     INVALIDCOMMANDEVENT("OOPS!!! Invalid command. The command for an event should be:\nevent <task> /from yyyy-mm-dd hh:mm /to yyyy-mm-dd hh:mm"),
     INCOMPLETECOMMANDEVENT("OOPS!!! The description of an event cannot be empty and the start and end time/date cannot be empty."),

@@ -1,3 +1,5 @@
+package duke;
+
 public class Ui {
     public void printGreeting() {
         System.out.println("Hello! I'm Botty!\nWhat can I do for you?");

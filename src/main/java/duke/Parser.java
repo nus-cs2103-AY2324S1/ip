@@ -1,3 +1,5 @@
+package duke;
+
 public class Parser {
     private String[] words;
     public Parser(String input) {
