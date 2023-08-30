@@ -89,6 +89,12 @@ public class TaskList {
         return tasksOn;
     }
 
+    /**
+     * Return a list tasks on a given date.
+     *
+     * @param keyword The keyword to match with in the task name.
+     * @return List of tasks on the given date.
+     */
     public ArrayList<Task> getTasksContainingKeyword(String keyword) {
         ArrayList<Task> tasksOn = new ArrayList<>();
         for (int i = 0; i < this.tasks.size(); i++) {

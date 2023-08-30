@@ -89,6 +89,11 @@ public abstract class Task {
         return this.taskName;
     }
 
+    /**
+     * Returns whether the task contains a keyword.
+     *
+     * @return A boolean representation of whether the task contains a keyword.
+     */
     public boolean containsKeyword(String keyword) {
         if (this.taskName.contains(keyword)) {
             return true;
