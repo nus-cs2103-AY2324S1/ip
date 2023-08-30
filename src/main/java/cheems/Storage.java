@@ -17,6 +17,7 @@ import java.util.Scanner;
  * Contains methods that interacts with the database and current task list during program run.
  */
 public class Storage {
+
     /**
      * Each Storage object has a file field storing the file to read and write from.
      */

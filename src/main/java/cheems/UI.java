@@ -7,6 +7,7 @@ import java.util.Scanner;
  * Handles display and interaction with the user.
  */
 public class UI {
+
     /**
      * Prints welcome message with logo and greetings.
      */

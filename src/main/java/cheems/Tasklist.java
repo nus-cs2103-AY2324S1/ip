@@ -146,6 +146,10 @@ public class Tasklist {
         UI.printWithFormat(resp);
     }
 
+    /**
+     * Finds and Print the tasks with corresponding keyword in their description.
+     * @param args The array of strings that represents the keyword we need to search for.
+     */
     public static void find(String[] args) {
         String search = String.join(" ", args);
         ArrayList<Task> tempList = new ArrayList<>();

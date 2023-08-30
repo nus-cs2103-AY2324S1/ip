@@ -4,11 +4,13 @@ import cheems.exceptions.EmptyArgumentException;
 import cheems.exceptions.InvalidKeywordException;
 
 import java.util.Arrays;
+
 /**
  * Parser parses the input from the user and execute corresponding actions.
  * Exceptions are thrown should the input be invalid.
  */
 public class Parser {
+
     /**
      * Parses the given input and tells Tasklist the action to take.
      * Exceptions are thrown should the input be invalid.
@@ -29,13 +31,12 @@ public class Parser {
             if (currentKey == Keyword.LIST) {
                 Tasklist.displayData();
             } else {
-
-                // if empty arguments
+                // if there is no argument provided for commands supposed to have arguments
                 if (words.length == 1) {
                     throw new EmptyArgumentException(currentKey.toString());
                 }
 
-                // if there are more arguments
+                // if there are indeed arguments provided
                 switch (currentKey) {
                     case FIND:
                         Tasklist.find(Arrays.copyOfRange(words, 1, words.length));
@@ -60,7 +61,6 @@ public class Parser {
                             throw new NumberFormatException(errMsg);
                         }
 
-                        // input of tasks are assumed to be in correct format
                     case TODO:
                         Tasklist.addSaveTask("TODO", words[1]);
                         break;

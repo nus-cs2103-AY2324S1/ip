@@ -21,16 +21,12 @@ public abstract class Task {
         return this.description;
     }
 
-    /**
-     * Marks this task as done.
-     */
+    /** Marks this task as done.*/
     public void markAsDone() {
         this.isDone = true;
     }
 
-    /**
-     * Marks this task as undone.
-     */
+    /** Marks this task as undone.*/
     public void markAsNotDone() {
         this.isDone = false;
     }
