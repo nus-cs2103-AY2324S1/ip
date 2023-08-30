@@ -1,22 +1,31 @@
 package parser;
 
-import Commands.AddDeadlineCommand;
-import Commands.AddEventCommand;
-import Commands.AddTodoCommand;
-import Commands.Command;
-import Commands.DeleteCommand;
-import Commands.ExitCommand;
-import Commands.HelpCommand;
-import Commands.InvalidCommand;
-import Commands.ListCommand;
-import Commands.MarkCommand;
-import Commands.UnmarkCommand;
+import commands.AddDeadlineCommand;
+import commands.AddEventCommand;
+import commands.AddTodoCommand;
+import commands.Command;
+import commands.DeleteCommand;
+import commands.ExitCommand;
+import commands.HelpCommand;
+import commands.InvalidCommand;
+import commands.ListCommand;
+import commands.MarkCommand;
+import commands.UnmarkCommand;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-
+/**
+ * The CommandParser is responsible for parsing input and generating the Command objects.
+ * It examines the input to determine the type of command and returns the appropriate instance.
+ */
 public class CommandParser {
 
+  /**
+   * Extracts the command keyword from the input string.
+   *
+   * @param input The input string from the user.
+   * @return The command keyword.
+   */
   private static String extractCommand(String input) {
     String[] words = input.split(" ", 2);
     if (words.length > 0) {
@@ -25,11 +34,23 @@ public class CommandParser {
     return "";
   }
 
+  /**
+   * Extracts the value (e.g., task position) from the input string.
+   *
+   * @param input The input string from the user.
+   * @return The extracted value.
+   */
   private static int extractValue(String input) {
     String[] parts = input.split("\\s+");
     return Integer.parseInt(parts[1]);
   }
 
+  /**
+   * Parses the user input and generates the appropriate Command instance.
+   *
+   * @param input The input string from the user.
+   * @return The corresponding Command instance.
+   */
   public static Command parse(String input) {
     String command = extractCommand(input);
     TaskParser taskParser = new TaskParser();
@@ -78,5 +99,4 @@ public class CommandParser {
         return new HelpCommand();
     }
   }
-
 }
