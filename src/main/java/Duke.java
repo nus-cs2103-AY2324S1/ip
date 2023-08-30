@@ -1,5 +1,8 @@
 import java.util.Scanner;
-
+import java.io.FileWriter;
+import java.io.File;
+import java.io.IOException;
+import java.io.FileReader;
 public class Duke {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
@@ -9,6 +12,10 @@ public class Duke {
         String[] type = new String[100];
         String logo = "Hello! I'm bob\nWhat can I do for you?";
         System.out.println(logo);
+        File file = new File("./data");
+        //Save data.txt to file
+        counter = load("./data/duke.txt", actions, type, isDone);
+
         while (true) {
             String input = scanner.nextLine();
             if (input.startsWith("bye")) {
@@ -16,14 +23,14 @@ public class Duke {
                 break;
             } else if (input.startsWith("delete")) {
                 int num3 = Integer.parseInt(input.substring(7).trim());
-                String action2 = helper(actions[num3-1], type[num3-1], isDone[num3-1]);
-                for (int j = num3-1; j < counter - 1; j ++) {
-                    actions[j] = actions[j+1];
-                    type[j]  = type[j+1];
-                    isDone[j] = isDone[j+1];
+                String action2 = helper(actions[num3 - 1], type[num3 - 1], isDone[num3 - 1]);
+                for (int j = num3 - 1; j < counter - 1; j++) {
+                    actions[j] = actions[j + 1];
+                    type[j] = type[j + 1];
+                    isDone[j] = isDone[j + 1];
                 }
                 counter = counter - 1;
-                System.out.println( "Noted. I've removed this task:\n" + action2);
+                System.out.println("Noted. I've removed this task:\n" + action2);
                 System.out.println("Now you have " + counter + " tasks in the list.");
             } else if (input.startsWith("list")) {
                 System.out.println("Here are the tasks in your list:");
@@ -63,22 +70,23 @@ public class Duke {
                 System.out.println("Now you have " + counter + " tasks in the list.");
             } else if (input.startsWith("mark")) {
                 int num = Integer.parseInt(input.substring(5).trim());
-                if (num-1 < counter) {
-                    isDone[num-1] = true;
+                if (num - 1 < counter) {
+                    isDone[num - 1] = true;
                     System.out.println("Nice! I've marked this task as done:");
-                    System.out.println("  " + helper(actions[num-1], type[num-1], isDone[num-1]));
+                    System.out.println("  " + helper(actions[num - 1], type[num - 1], isDone[num - 1]));
                 }
             } else if (input.startsWith("unmark")) {
                 int num2 = Integer.parseInt(input.substring(7).trim());
-                if (num2-1 < counter) {
-                    isDone[num2-1] = false;
+                if (num2 - 1 < counter) {
+                    isDone[num2 - 1] = false;
                     System.out.println("OK, I've marked this task as not done yet:");
-                    System.out.println("  " + helper(actions[num2-1], type[num2-1], isDone[num2-1]));
+                    System.out.println("  " + helper(actions[num2 - 1], type[num2 - 1], isDone[num2 - 1]));
                 } else {
-                      System.out.println("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+                    System.out.println("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
 
                 }
             }
+            save("./data/duke.txt", actions, type, isDone, counter);
         }
     }
 
@@ -96,4 +104,41 @@ public class Duke {
         }
         return taskIcon + "[" + (isDone ? "X" : " ") + "] " + task;
     }
+
+    public static void save(String fileName, String[] actions, String[] type, boolean[] isDone, int counter) {
+        try (FileWriter writer = new FileWriter(fileName)) {
+            writer.write(counter + "\n");
+            for (int i = 0; i < counter; i++) {
+                int isDoneNum = isDone[i]
+                                ? 1
+                                : 0;
+                writer.write(type[i] + " | " + isDoneNum + " | " + actions[i] + "\n");
+            }
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public static int load(String fileName, String[] actions, String[] type, boolean[] isDone) {
+        int count = 0;
+        try (FileReader fileReader = new FileReader(fileName)) {
+            Scanner scanner = new Scanner(fileReader);
+            while (scanner.hasNextLine() && count < actions.length) {
+                String line = scanner.nextLine();
+                String[] parts = line.split(" \\| ");
+                if (parts.length >= 3) {
+                    type[count] = parts[0];
+                    isDone[count] = parts[1].equals("1");
+                    actions[count] = parts[2];
+                    count++;
+                }
+            }
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+        return count;
+    }
+
 }
+
+
