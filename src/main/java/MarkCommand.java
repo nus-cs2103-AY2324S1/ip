@@ -29,11 +29,11 @@ public class MarkCommand extends Command{
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         if (isDone) {
-            tasks.markTaskAsDone(taskNumber);
-            ui.showMarkedTask(tasks.getTask(taskNumber));
+            tasks.markTaskAsDone(taskNumber );
+            ui.showMarkedTask(tasks.getTask(taskNumber - 1));
         } else {
             tasks.markTaskAsNotDone(taskNumber);
-            ui.showUnmarkedTask(tasks.getTask(taskNumber));
+            ui.showUnmarkedTask(tasks.getTask(taskNumber - 1));
         }
         storage.saveFile(tasks.toStorageString());
     }

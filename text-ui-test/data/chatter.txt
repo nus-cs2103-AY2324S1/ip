@@ -1,1 +1,0 @@
-T, false, borrow book

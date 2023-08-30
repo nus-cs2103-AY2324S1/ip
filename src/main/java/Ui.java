@@ -9,13 +9,13 @@ import java.util.Scanner;
 public class Ui {
     private static final String DIVIDER = "-----------------------";
     /** Scanner object that takes in user inputs. */
-    private Scanner scanner;
+    private static final Scanner scanner = new Scanner(System.in);
 
     /**
      * Prints a welcome message when user starts the chatbot.
      */
     public void showWelcome() {
-        System.out.println(DIVIDER + "\nHello! I'm Chatter!" + "\nHow can i help you today?");
+        System.out.println(DIVIDER + "\nHello! I'm Chatter!" + "\nHow can i help you today?\n" + DIVIDER);
     }
 
     /**
@@ -29,8 +29,8 @@ public class Ui {
      * Prints a welcome message when user exits the chatbot.
      */
     public void showExit() {
-        this.scanner.close();
-        System.out.println(DIVIDER + "\nBye. Hope to see you again soon!");
+        scanner.close();
+        System.out.println("Bye. Hope to see you again soon!");
     }
 
     /**
@@ -46,8 +46,7 @@ public class Ui {
      * @return A string of the raw user input.
      */
     public String readCommand() {
-        this.scanner = new Scanner(System.in);
-        return this.scanner.nextLine();
+        return scanner.nextLine();
     }
 
     /**
@@ -90,7 +89,7 @@ public class Ui {
     /**
      * Prints out list of tasks to display to the user.
      */
-    public void listTasks(TaskList tasks, int numOfTasks) {
+    public void showListTasks(TaskList tasks, int numOfTasks) {
         System.out.println("These are all the task(s) in your list:");
         for (int i = 0; i < numOfTasks; i++) {
             System.out.println("  " + (i + 1) + "." + tasks.getTask(i).toString());

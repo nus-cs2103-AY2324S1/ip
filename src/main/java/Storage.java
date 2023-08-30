@@ -36,7 +36,7 @@ public class Storage {
         Path p = Paths.get(this.path);
         Path path = Paths.get(p.getParent().toString());
         Files.createDirectories(path);
-        File f = new File(p.getFileName().toString());
+        File f = new File(p.toString());
         f.createNewFile();
 
         Scanner s = new Scanner(f);

@@ -19,6 +19,7 @@ public class Chatter {
         this.storage = new Storage(filepath);
         try {
             this.tasks = new TaskList(storage.readFile());
+//            System.out.println(tasks.getTask(0));
         } catch (IOException e) {
             ui.showLoadingError();
             this.tasks = new TaskList();
@@ -34,15 +35,26 @@ public class Chatter {
         this.ui.showWelcome();
         boolean isExit = false;
         while(!isExit) {
+            String fullCommand = ui.readCommand();
             try {
+                if (fullCommand.isBlank()) {
+                    continue;
+                }
+
                 this.ui.showDivider();
-                String fullCommand = ui.readCommand();
                 Parser p = new Parser(fullCommand);
                 Command c = p.parse(fullCommand);
                 c.execute(tasks, ui, storage);
                 isExit = c.isExit();
             } catch (ChatterException e) {
                 System.out.println(e.getMessage());
+            } catch (Exception e) {
+                if (fullCommand.startsWith("deadline")) {
+                    System.out.println("Please enter a valid description or deadline.");
+                } else {
+                    System.out.println("Please enter a valid description and start / end time.");
+                }
+
             } finally {
                 this.ui.showDivider();
             }
