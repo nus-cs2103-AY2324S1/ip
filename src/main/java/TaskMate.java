@@ -17,11 +17,13 @@ public class TaskMate {
     private Ui ui;
     private Storage storage;
     private TaskList tasks;
+    private Parser parser;
 
     TaskMate(String filePath) {
         this.ui = new Ui(chatbotName);
         this.storage = new Storage(filePath);
         this.tasks = new TaskList();
+        this.parser = new Parser();
 
         // Load existing tasks from disk
         try {
@@ -38,6 +40,7 @@ public class TaskMate {
         this.ui = new Ui(chatbotName);
         this.storage = new Storage(defaultSaveTaskFilePath);
         this.tasks = new TaskList();
+        this.parser = new Parser();
 
         // Load existing tasks from disk
         try {
@@ -61,8 +64,12 @@ public class TaskMate {
 
         // Reading user input
         String userInput;
+        Command command;
         while (true) {
             userInput = ui.nextLine();
+
+//            // Parse user input
+//            userInput = getCommandType(userInput);
 
             // Checks if user input is correct (Error handling)
             checkInvalidCommandTypeException(userInput);
@@ -202,7 +209,7 @@ public class TaskMate {
 
     static String getCommandType(String userInput) {
         // Returns the type of command input by the user
-        // Possible values: "todo", "deadline", "event", "bye", "list", "mark", "unmark"
+        // Possible values: "to\-do", "deadline", "event", "bye", "list", "mark", "unmark"
         for (CommandTypes type : CommandTypes.values()) {
             String typeString = type.toString();
             if (userInput.startsWith(typeString)) {

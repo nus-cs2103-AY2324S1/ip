@@ -30,8 +30,25 @@ public class Ui {
         System.out.println();
     }
 
+
     void printInvalidCommandTypeExceptionResponse() {
         printMessage("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+    }
+
+    void printSuccessfulDeleteResponse(Task taskToDelete, int numTotalTasks) {
+        printMessage("Noted. I've removed this task:\n  " + taskToDelete.toString() + "\nNow you have " + numTotalTasks + " task(s) in the list.");
+    }
+
+    void printSuccessfulMarkResponse(Task taskToMark) {
+        printMessage("Nice! I've marked this task as done:\n  " + taskToMark);
+    }
+
+    void printSuccessfulUnmarkResponse(Task taskToUnmark) {
+        printMessage("OK, I've marked this task as not done yet:\n[ ] " + taskToUnmark);
+    }
+
+    void printSuccessfulAddTaskResponse(Task newTask, int numTotalTasks) {
+        printMessage("Got it. I've added this task:\n  " + newTask + "\nNow you have " + numTotalTasks + " task(s) in the list.");
     }
 
     void printInvalidMarkOrUnmarkResponse(int numTotalTasks) {

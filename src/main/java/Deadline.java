@@ -10,6 +10,11 @@ public class Deadline extends Task {
         this.by = LocalDate.parse(by);
     }
 
+    Deadline(String name, LocalDate by) {
+        super(name);
+        this.by = by;
+    }
+
     Deadline(String name, String by, boolean isDone) {
         super(name, isDone);
         this.by = LocalDate.parse(by);
