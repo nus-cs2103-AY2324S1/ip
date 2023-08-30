@@ -1,9 +1,12 @@
-import java.io.*;
+package adam;
+
 import java.util.ArrayList;
-import java.util.Scanner;
+import adam.exception.AdamException;
+import adam.command.Command;
+import adam.tasks.Task;
 
 /**
- * This is the main java class that contains instructions to create the chatbot Task manager Adam
+ * This is the main java class that contains instructions to create the chatbot Tasks.Task manager Adam.Adam
  */
 public class Adam {
 

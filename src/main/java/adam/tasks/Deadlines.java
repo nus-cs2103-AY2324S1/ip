@@ -1,3 +1,5 @@
+package adam.tasks;
+
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -5,7 +7,7 @@ import java.time.format.DateTimeFormatter;
 /**
  * This class is used to create Deadline objects that holds the description and when the task is due
  */
-public class Deadlines extends  Task implements Serializable {
+public class Deadlines extends Task implements Serializable {
     /**
      * This variable holds the information on when this instance of a deadline object is due
      */

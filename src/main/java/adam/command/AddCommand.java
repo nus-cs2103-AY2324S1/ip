@@ -1,4 +1,13 @@
-public class AddCommand implements Command{
+package adam.command;
+
+import adam.Storage;
+import adam.Ui;
+import adam.TaskList;
+import adam.exception.NoDescriptionException;
+import adam.exception.DeadlineException;
+import adam.exception.EventsException;
+
+public class AddCommand implements Command {
     String[]tokens;
     String item;
     String input;

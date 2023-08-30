@@ -1,7 +1,9 @@
+package adam.exception;
+
 /**
- * This exception is a subclass of the AdamException and is used when a user tried to edit a Task that doesnt exist
+ * This adam.exception is a subclass of the Exception.AdamException and is used when a user tried to edit a Tasks.Task that doesnt exist
  */
-public class OutOfBoundsException extends AdamException{
+public class OutOfBoundsException extends AdamException {
 
     public OutOfBoundsException(){}
     public OutOfBoundsException(String message){

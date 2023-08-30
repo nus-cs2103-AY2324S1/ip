@@ -1,3 +1,10 @@
+package adam;
+
+import adam.tasks.Deadlines;
+import adam.tasks.Events;
+import adam.tasks.Task;
+import adam.exception.OutOfBoundsException;
+import adam.tasks.ToDos;
 import java.util.ArrayList;
 
 public class TaskList {

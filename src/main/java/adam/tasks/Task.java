@@ -1,7 +1,9 @@
+package adam.tasks;
+
 import java.io.Serializable;
 
 /**
- * This class is used as the superclass to all three types o tasks that is used in the chatbot Adam
+ * This class is used as the superclass to all three types o adam.tasks that is used in the chatbot Adam.Adam
  * This class holds information such as the description of the task and whether or not someone has completed it
  */
 public class Task implements Serializable {
@@ -15,7 +17,7 @@ public class Task implements Serializable {
     protected boolean isDone;
 
     /**
-     * This is a constructor to create a Task object
+     * This is a constructor to create a Tasks.Task object
      * @param description This param gives the description of the task
      */
     public Task(String description) {
@@ -40,7 +42,7 @@ public class Task implements Serializable {
     }
 
     /**
-     * This method is used to declare that this instance of a Task has been completed
+     * This method is used to declare that this instance of a Tasks.Task has been completed
      */
     public void markAsDone() {
         this.isDone = true;
@@ -48,7 +50,7 @@ public class Task implements Serializable {
     }
 
     /**
-     * This method is used to declare that this instance of a Task has been uncompleted
+     * This method is used to declare that this instance of a Tasks.Task has been uncompleted
      */
     public void unmarkAsDone(){
         this.isDone = false;

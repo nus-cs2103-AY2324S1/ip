@@ -1,4 +1,7 @@
+package adam;
+
 import java.util.Scanner;
+import adam.tasks.Task;
 
 public class Ui {
     protected Scanner scaner = new Scanner(System.in);
@@ -8,15 +11,15 @@ public class Ui {
     }
 
     public void welcome() {
-        System.out.println("What's up I am Adam\n" + "so like what do you want?");
+        System.out.println("What's up I am Adam.Adam\n" + "so like what do you want?");
     }
 
     public void amount(int size) {
-        System.out.println(String.format("%d tasks in this list, stop procrasinating them!!!", size));
+        System.out.println(String.format("%d adam.tasks in this list, stop procrasinating them!!!", size));
     }
 
     public void delete(Task curr, int size) {
-        System.out.println("I have removed the Task, so just make up your mind next time:");
+        System.out.println("I have removed the Tasks.Task, so just make up your mind next time:");
         System.out.println(curr.toString());
         amount(size);
     }

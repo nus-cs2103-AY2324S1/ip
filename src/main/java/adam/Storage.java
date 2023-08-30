@@ -1,6 +1,9 @@
+package adam;
+
 import java.io.*;
 import java.util.ArrayList;
-
+import adam.tasks.Task;
+import adam.exception.AdamException;
 public class Storage {
     String home = System.getProperty("user.home");
     java.nio.file.Path path = java.nio.file.Paths.get(home, "Pokemon.txt");

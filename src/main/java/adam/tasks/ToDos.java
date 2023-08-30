@@ -1,3 +1,5 @@
+package adam.tasks;
+
 import java.io.Serializable;
 
 /**

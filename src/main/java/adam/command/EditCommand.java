@@ -1,4 +1,11 @@
-public class EditCommand implements Command{
+package adam.command;
+
+import adam.Storage;
+import adam.Ui;
+import adam.TaskList;
+import adam.exception.NumberException;
+
+public class EditCommand implements Command {
     String[] tokens;
     String text;
     public EditCommand(String[] tokens, String text) {

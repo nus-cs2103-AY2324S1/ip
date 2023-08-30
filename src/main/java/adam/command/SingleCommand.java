@@ -1,3 +1,9 @@
+package adam.command;
+
+import adam.Storage;
+import adam.Ui;
+import adam.TaskList;
+import adam.exception.OneWordException;
 public class SingleCommand implements Command {
     String[] tokens;
     String input;
