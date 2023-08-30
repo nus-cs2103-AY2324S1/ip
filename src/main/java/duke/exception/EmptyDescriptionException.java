@@ -1,4 +1,6 @@
-class EmptyDescriptionException extends Exception {
+package duke.exception;
+
+public class EmptyDescriptionException extends Exception {
     protected static String HORIZONTAL_LINE = "    ____________________________________________________________"; //60 underscores.
 
     public EmptyDescriptionException(String message) {

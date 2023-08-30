@@ -1,12 +1,22 @@
+package duke;
+
+import duke.exception.EmptyDescriptionException;
+import duke.exception.InvalidCommandException;
+import duke.exception.InvalidDateException;
+
+import duke.util.Parser;
+import duke.util.Storage;
+import duke.util.TaskList;
+import duke.util.Ui;
+
 import java.io.IOException;
-import java.util.ArrayList;
 
 /**
- * Duke
+ * duke.Duke
  *
  * CS2103T AY23/24 Semester 1
  * iP - Individual Project
- * Duke Project
+ * duke.Duke Project
  *
  * @author Freddy Chen You Ren
  */
@@ -40,7 +50,7 @@ public class Duke {
             InvalidCommandException, EmptyDescriptionException {
         ui.greet();
         while (!isFinished) {
-            parser.parseInput(ui.getUserInput(), isFinished);
+            parser.parseInput(ui.getUserInput());
         }
     }
 

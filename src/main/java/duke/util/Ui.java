@@ -1,3 +1,5 @@
+package duke.util;
+
 import java.io.IOException;
 import java.util.Scanner;
 // Test merge branch for A-Packages
@@ -5,7 +7,7 @@ import java.util.Scanner;
 public class Ui {
     public String HORIZONTAL_LINE = "    ____________________________________________________________"; //60 underscores.
     private Scanner scanner;
-    Ui() {
+    public Ui() {
         this.scanner = new Scanner(System.in);
     }
 
@@ -16,7 +18,7 @@ public class Ui {
     /**
      * Function to greet the User.
      */
-    protected void greet() {
+    public void greet() {
         System.out.println("\nStarting SeeWhyAre Bot...");
         printHorizontalLine();
         System.out.println("    Hello! I'm SeeWhyAre Bot!");
@@ -24,7 +26,7 @@ public class Ui {
         printHorizontalLine();
     }
 
-    protected String getUserInput() {
+    public String getUserInput() {
         System.out.println("Enter your Command: ");
         return this.scanner.nextLine();
     }

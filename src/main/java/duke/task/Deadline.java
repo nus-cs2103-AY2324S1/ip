@@ -1,3 +1,10 @@
+package duke.task;
+
+import duke.Duke;
+import duke.exception.InvalidDateException;
+import duke.util.Storage;
+import duke.util.TaskList;
+
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -32,7 +39,7 @@ public class Deadline extends Task {
      */
     public static void handleDeadlineTask(String userInput) throws IOException {
         String[] details = userInput.split("/by");
-        //details[0] contains "deadline" plus task description, need to erase "deadline". details[1] contains deadline timing
+        //details[0] contains "deadline" plus duke.task description, need to erase "deadline". details[1] contains deadline timing
         if (details.length == 2) {
             String taskDescription = details[0].trim().replaceFirst("deadline", "").trim();
             String deadline = details[1].trim();
@@ -42,13 +49,13 @@ public class Deadline extends Task {
                 if (TaskList.isValidDate(deadline)) {
                     Deadline deadlineTask = new Deadline(taskDescription, LocalDate.parse(deadline));
                     Storage.saveTask(deadlineTask, true);
-                    Storage.taskList.add(deadlineTask); //Deadline <: Task
+                    Storage.taskList.add(deadlineTask); //duke.task.Deadline <: duke.task.Task
 
                     //Print details in the console
                     System.out.println(Duke.HORIZONTAL_LINE);
-                    System.out.println("     Got it. I've added this task:");
+                    System.out.println("     Got it. I've added this Task:");
                     System.out.printf("       %s\n", deadlineTask.toString());
-                    System.out.printf("     Now you have %d tasks in the list.\n", Storage.taskList.size());
+                    System.out.printf("     Now you have %d task(s) in the list.\n", Storage.taskList.size());
                     System.out.println(Duke.HORIZONTAL_LINE);
                 } else {
                     throw new InvalidDateException();

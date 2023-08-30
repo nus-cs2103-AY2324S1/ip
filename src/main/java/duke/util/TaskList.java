@@ -1,7 +1,11 @@
+package duke.util;
+
+import duke.exception.EmptyDescriptionException;
+import duke.task.Task;
+
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class TaskList {
@@ -10,7 +14,7 @@ public class TaskList {
     protected static String HORIZONTAL_LINE = "    ____________________________________________________________"; //60 underscores.
 
 
-    TaskList(Storage storage) {
+    public TaskList(Storage storage) {
         this.storage = storage;
         this.taskList = storage.taskList;
     }
@@ -38,14 +42,14 @@ public class TaskList {
     }
 
     /**
-     * Delete a task when given valid task index.
+     * Delete a Task when given valid task index.
      */
     public void deleteTask(String deleteInput)
             throws EmptyDescriptionException, IOException {
         String[] words = deleteInput.split("\\s+"); // Split input by space, put into array
         //Check for valid length
         if (words.length <= 1) {
-            throw new EmptyDescriptionException("Please provide the task index to be deleted.");
+            throw new EmptyDescriptionException("Please provide the ask index to be deleted.");
         }
 
         //Try parsing into integer to get deleteIndex
@@ -54,8 +58,8 @@ public class TaskList {
             printHorizontalLine();
 
             if (deleteIndex >= 0 && deleteIndex < taskList.size()) {
-                Task removedTask = taskList.remove(deleteIndex); //Actual task can be todo, deadline, or event
-                System.out.println("     Noted. I've removed this task:");
+                Task removedTask = taskList.remove(deleteIndex); //Actual ask can be todo, deadline, or event
+                System.out.println("     Noted. I've removed this Task:");
                 System.out.printf("       %s\n", removedTask.toString());
                 System.out.printf("     Now you have %d task(s) in the list.\n", taskList.size());
             } else {
@@ -76,8 +80,8 @@ public class TaskList {
     }
 
     /**
-     * Mark a given task as done.
-     * @param taskIndex the index of the task to be marked as done.
+     * Mark a given Task as done.
+     * @param taskIndex the index of the Task to be marked as done.
      */
     protected void markTask(int taskIndex) throws IOException {
         printHorizontalLine();
@@ -86,7 +90,7 @@ public class TaskList {
         } else {
             Task task = taskList.get(taskIndex);
             task.markAsDone();
-            System.out.println("     Nice! I've marked this task as done:");
+            System.out.println("     Nice! I've marked this Task as done:");
             System.out.printf("       [%s] %s\n", task.getStatusIcon(), task.description);
         }
         printHorizontalLine();
@@ -95,17 +99,17 @@ public class TaskList {
     }
 
     /**
-     * Function to mark a given task as NOT done.
-     * @param taskIndex the index of the task to be marked as not done yet.
+     * Function to mark a given Task as NOT done.
+     * @param taskIndex the index of the Task to be marked as not done yet.
      */
     protected void unmarkTask(int taskIndex) throws IOException {
         printHorizontalLine();
         if (taskIndex < 0 || taskIndex >= taskList.size()) {
-            System.out.printf("    Invalid Index of Task. You currently have %d Task(s)\n", taskList.size());
+            System.out.printf("    Invalid Index of task. You currently have %d Task(s)\n", taskList.size());
         } else {
             Task task = taskList.get(taskIndex);
             task.markAsNotDone();
-            System.out.println("     OK, I've marked this task as not done yet:");
+            System.out.println("     OK, I've marked this Task as not done yet:");
             System.out.printf("       [%s] %s\n", task.getStatusIcon(), task.description);
         }
         printHorizontalLine();
@@ -127,7 +131,7 @@ public class TaskList {
         return false; // Line is not valid
     }
 
-    protected static boolean isValidDate(String testDate) {
+    public static boolean isValidDate(String testDate) {
         SimpleDateFormat simpleDate = new SimpleDateFormat("yyyy-MM-dd");
         simpleDate.setLenient(false);
         try {
@@ -137,6 +141,5 @@ public class TaskList {
         }
         return true;
     }
-
 
 }
