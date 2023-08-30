@@ -4,9 +4,10 @@ import commands.Delete;
 import commands.List;
 import commands.Mark;
 import commands.Unmark;
+import commands.Bye;
+
 import tasks.Deadline;
 import tasks.Event;
-import tasks.Task;
 import tasks.Todo;
 
 import utils.Storage;
@@ -54,6 +55,7 @@ public class Jerma {
           new List(ui, tasks).execute();
           break;
         case BYE:
+          new Bye(ui, tasks, scanner).execute();
           break listen;
         case MARK:
           int index = Integer.parseInt(inputArgs[1]);
@@ -94,13 +96,11 @@ public class Jerma {
           break;
         }
       } catch (IndexOutOfBoundsException e) {
-        System.out.println("Invalid arguments. Try again!");
+        ui.error("Invalid arguments. Try again!");
       } catch (UnsupportedOperationException e) {
-        System.out.println("Invalid command. Try again!");
+        ui.error("Invalid command. Try again!");
       }
     }
-    scanner.close();
-    Storage.save(tasks);
   }
 
   public static void main(String[] args) {
