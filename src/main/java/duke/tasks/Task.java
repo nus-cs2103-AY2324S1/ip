@@ -1,4 +1,4 @@
-package duke;
+package duke.tasks;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -7,8 +7,8 @@ import java.time.format.DateTimeFormatter;
  * Represents a single task
  */
 public class Task {
-    protected String description;
-    protected boolean isDone;
+    private String description;
+    private boolean isDone;
 
     public Task(String description) {
         this.description = description;
@@ -70,5 +70,9 @@ public class Task {
             default:
                 return "th";
         }
+    }
+
+    public boolean isDone() {
+        return isDone;
     }
 }
