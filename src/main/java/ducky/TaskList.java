@@ -43,20 +43,23 @@ public class TaskList {
     }
 
     /**
-     * Returns a list of Tasks from the task list that contain
-     * the specified string in their descriptions.
-     * @param s String to check in description.
-     * @return List of tasks that contain the specified string in description.
+     * Returns a string representation of tasks in the task list
+     * that contain the specified query string.
+     * @param query Substring to find in the task list.
+     * @return String representation of tasks that match the query.
      */
-    public ArrayList<Task> findTasks(String s) {
-        ArrayList<Task> matches = new ArrayList<>();
-        for (Task t : tasks) {
-            if (t.containsString(s)) {
-                matches.add(t);
+    public String getTaskQueryResult(String query) {
+        StringBuilder result = new StringBuilder();
+        for (int i = 0; i < tasks.size(); i++) {
+            Task t = tasks.get(i);
+            if (t.containsString(query)) {
+                result.append(String.format("%d.%s\n", i + 1, t));
             }
         }
 
-        return matches;
+        return result.toString().isEmpty()
+                ? String.format("Sorry, I couldn't find any tasks that contain \"%s\".", query)
+                : String.format("Here are the task(s) that contain \"%s\":\n%s", query, result);
     }
 
     public String getPrintableList() {
