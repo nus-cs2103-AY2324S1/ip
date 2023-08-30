@@ -1,11 +1,15 @@
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+package simon;
+
+import simon.command.Parser;
+import simon.task.Task;
+
+
 import java.util.Scanner;
 
 public class Simon {
     private TaskList tasks;
-    private Storage storage;
-    private Ui ui;
+    private final Storage storage;
+    private final Ui ui;
 
     protected static final String SPACE = "____________________________________________________________";
     protected static final String NSPACE = "\n____________________________________________________________";

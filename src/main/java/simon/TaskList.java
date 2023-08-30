@@ -1,3 +1,7 @@
+package simon;
+
+import simon.task.Task;
+
 import java.util.ArrayList;
 
 public class TaskList {

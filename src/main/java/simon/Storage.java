@@ -1,3 +1,10 @@
+package simon;
+
+import simon.task.Task;
+import simon.task.ToDo;
+import simon.task.Deadline;
+import simon.task.Event;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
