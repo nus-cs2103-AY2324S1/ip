@@ -2,7 +2,9 @@ import jdk.jfr.Event;
 
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.util.regex.*;
+import java.util.regex.Pattern;
+import java.util.regex.Matcher;
+
 public class BouncyBob {
     private static final String TOP_BORDER = "================================================";
     private static final String MIDDLE_BORDER = "|                                              |";
@@ -187,6 +189,16 @@ public class BouncyBob {
         System.out.println(str);
     }
 
+    private static void printIntro() {
+        System.out.println(TOP_BORDER);
+        System.out.println(MIDDLE_BORDER);
+        System.out.println("|                   Hey there!                 |");
+        System.out.println("|      I'm BouncyBob, your bubbly chatbot!     |");
+        System.out.println("| Wow you look very round today, like a ball!  |");
+        System.out.println("|       Use yyyy-mm-dd hhmm for dates          |");
+        System.out.println(MIDDLE_BORDER);
+        System.out.println(BOTTOM_BORDER);
+    }
     private static void printIllegalArgumentException(IllegalArgumentException e) {
         System.out.println(TOP_BORDER);
         System.out.println("Oops! " + e.getMessage());
@@ -195,13 +207,7 @@ public class BouncyBob {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         ArrayList<Task> database = new ArrayList<>();
-        System.out.println(TOP_BORDER);
-        System.out.println(MIDDLE_BORDER);
-        System.out.println("|                   Hey there!                 |");
-        System.out.println("|      I'm BouncyBob, your bubbly chatbot!     |");
-        System.out.println("| Wow you look very round today, like a ball!  |");
-        System.out.println(MIDDLE_BORDER);
-        System.out.println(BOTTOM_BORDER);
+        printIntro();
         TaskFileHandler.loadTasksFromDisk(database);
 
         while (true) {
