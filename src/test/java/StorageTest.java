@@ -9,10 +9,26 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class StorageTest {
+    /**
+     * Comparison function to compare the contents of two ArrayLists.
+     *
+     * @param first First arraylist.
+     * @param second Second arraylist.
+     * @return Boolean determining if they have the same content.
+     */
+    public boolean ArrayListComparison(ArrayList<Task> first, ArrayList<Task> second) {
+        for (int i = 0; i < first.size();i++) {
+            if (!(first.get(i).toString()).equals(second.get(i).toString())) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
     @Test
     public void testLoadTasks() throws IOException {
         try {
@@ -23,10 +39,24 @@ public class StorageTest {
             Task t = new Deadline("help", "tmr");
             t.markAsDone();
             result.add(t);
-            assertEquals(result.get(0), storage.readFile().get(0));
-            assertEquals(result.get(1), storage.readFile().get(1));
+            assertTrue(ArrayListComparison(result, storage.readFile()));
         } catch (IOException e) {
             fail();
         }
+    }
+
+    @Test
+    public void testFileDoesNotExist() throws IOException {
+        Path path = Path.of("./data/chatter.txt");
+
+        if (Files.exists(path)) {
+            Files.delete(path);
+        }
+
+        Storage storage = new Storage("./data/chatter.txt");
+        storage.saveFile("T, false, return book");
+        ArrayList<Task> result = new ArrayList<>();
+        result.add(new ToDo("return book"));
+        assertTrue(ArrayListComparison(result, storage.readFile()));
     }
 }
