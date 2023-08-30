@@ -1,8 +1,16 @@
 package cheems;
 
-import java.io.*;
-import java.util.Scanner;
 import cheems.exceptions.InputOutputException;
+
+import java.io.File;
+import java.io.FileWriter;
+import java.io.FileReader;
+import java.io.BufferedWriter;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.FileNotFoundException;
+
+import java.util.Scanner;
 
 public class Storage {
     private final File file;

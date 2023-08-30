@@ -1,6 +1,7 @@
 package cheems;
 
-import cheems.exceptions.*;
+import cheems.exceptions.EmptyArgumentException;
+import cheems.exceptions.InvalidKeywordException;
 
 public class Parser {
     public static void parseAndExecute(String input)

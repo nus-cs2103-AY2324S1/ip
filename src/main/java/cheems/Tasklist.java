@@ -1,6 +1,10 @@
 package cheems;
 
-import cheems.tasks.*;
+import cheems.tasks.Task;
+import cheems.tasks.Event;
+import cheems.tasks.Todo;
+import cheems.tasks.Deadline;
+
 import java.util.ArrayList;
 
 public class Tasklist {
