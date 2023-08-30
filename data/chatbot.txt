@@ -1,0 +1,6 @@
+[T][ ] 2
+[T][X] 3
+[T][ ] 4
+[D][X] 5  (by: tmr)
+[T][ ] 6
+[E][ ] 7  (from: today  to: tmr)

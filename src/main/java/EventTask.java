@@ -8,6 +8,12 @@ public class EventTask extends Task{
         this.to = to;
     }
 
+    public EventTask(String name, boolean isDone, String from, String to) {
+        super(name, isDone);
+        this.from = from;
+        this.to = to;
+    }
+
     @Override
     public String toString() {
         return String.format("[%s][%s] %s (from: %s to: %s)",
