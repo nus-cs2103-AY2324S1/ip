@@ -16,7 +16,7 @@ public class Storage {
         this.taskListPath = taskListPath;
     }
 
-    public ArrayList<String> getTaskDetails() {
+    public ArrayList<String> getTaskDetails() throws GlubException{
         File taskFile = new File(this.taskListPath);
         ArrayList<String> taskDetails = new ArrayList<>();
         try {
@@ -28,9 +28,9 @@ public class Storage {
             }
             scanner.close();
         } catch (FileNotFoundException ex) {
-            Ui.printError("Glub.Task list not found!");
+            throw new GlubException("Task list not found!");
         } catch (IOException ex) {
-            Ui.printError("Glub.Task list file creation failed!");
+            throw new GlubException("Task list file creation failed!");
         }
         return taskDetails;
     }
