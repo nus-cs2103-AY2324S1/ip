@@ -75,7 +75,7 @@ public class TaskList {
             Scanner s = new Scanner(f);
             String[] array;
             while (s.hasNextLine()) {
-                array = s.nextLine().split("/");
+                array = s.nextLine().split("/ ");
                 tasks.add(checkAndAddTask(array));
             }
         } catch (IOException e) {
@@ -99,7 +99,7 @@ public class TaskList {
     private Task checkAndAddTask(String[] array) {
         Task currentTask;
         if (array[0].contains("E")) {
-            currentTask = new Event(array[2], array[3]);
+            currentTask = new Event(array[2], array[3], array[4]);
         } else if (array[0].contains("D")) {
             currentTask = new Deadline(array[2], array[3]);
         } else if (array[0].contains("T")) {
