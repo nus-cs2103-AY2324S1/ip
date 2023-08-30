@@ -12,12 +12,15 @@ public class Task {
         completed = true;
     }
 
+    public void mark_as_incompleted() {
+        completed = false;
+    }
     @Override
     public String toString() {
         String indicator = " ";
         if(completed) {
             indicator = "X";
         }
-        return "[" + indicator + "]" + task_name;
+        return "[" + indicator + "] " + task_name;
     }
 }

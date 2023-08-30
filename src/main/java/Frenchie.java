@@ -22,6 +22,14 @@ public class Frenchie {
             counter += 1;
         }
     }
+
+    public void completeTask(int index) {
+        tasks.get(index).mark_as_completed();
+    }
+
+    public void uncompleteTask(int index) {
+        tasks.get(index).mark_as_incompleted();
+    }
     public static void main(String[] args) {
         /*String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
@@ -33,7 +41,7 @@ public class Frenchie {
         String skeleton = "____________________________________________________________\n" +
                 " Hello! I'm Frenchie\n" +
                 " What can I do for you?\n" +
-                "____________________________________________________________\n"
+                "____________________________________________________________"
                 /* " Bye. Hope to see you again soon!\n" +
                 "____________________________________________________________\n" */;
         System.out.println(skeleton);
@@ -46,14 +54,29 @@ public class Frenchie {
             if(input.equals("bye")){
                 System.out.println("____________________________________________________________\n" +
                         " Bye. Hope to see you again soon!\n" +
-                        "____________________________________________________________\n");
+                        "____________________________________________________________");
                 break;
 
             } else if (input.equals("list")) {
                 frenchie.listTasks();
             } else if (input.contains("mark")){
-                System.out.println(input);
-            } else {
+                String[] parts = input.split(" ");
+                int index = Integer.parseInt(parts[1]) - 1;
+                Task target_task = frenchie.tasks.get(index);
+                if (parts[0].equals("mark")) {
+                    frenchie.completeTask(index);
+                    System.out.println("____________________________________________________________\n" +
+                            " Nice! I've marked this task as done: \n" +
+                            target_task.toString() + "\n" +
+                            "____________________________________________________________");
+                } else {
+                    frenchie.uncompleteTask(index);
+                    System.out.println("____________________________________________________________\n" +
+                            " OK, I've marked this task as not done yet: \n" +
+                            target_task.toString() + "\n" +
+                            "____________________________________________________________");
+                }
+            }else {
                 frenchie.addTask(input);
                 /*user_input += counter + ". " + input + "\n";
                 counter += 1;
