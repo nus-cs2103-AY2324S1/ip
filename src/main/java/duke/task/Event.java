@@ -13,7 +13,7 @@ public class Event extends Task {
     public Event(String task, String start, String end) throws DukeException {
         super(task);
         if (start.isEmpty() || start.equals(" ")) {
-            throw new DukeException("Missing time !!!\n");
+            throw new DukeException("Missing time!!!\n");
         } else if (end.isEmpty() || end.equals(" ")) {
             throw new DukeException("Missing time!!!\n");
         }
