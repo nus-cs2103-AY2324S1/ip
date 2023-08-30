@@ -3,6 +3,9 @@ package duke;
 // fixing DukeException based on my understanding of exceptions 27/8/23
 import java.util.Scanner;
 
+import duke.Exceptions.DukeException;
+import duke.Tasks.TaskList;
+
 public class Duke {
     public UI helper;
     public TaskList tasks;

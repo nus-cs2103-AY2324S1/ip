@@ -2,6 +2,12 @@ package duke;
 
 import java.io.IOException;
 
+import duke.Exceptions.EmptyDetailsOfTaskError;
+import duke.Exceptions.WrongMarkException;
+import duke.Tasks.TaskList;
+import duke.Tasks.Task;
+import duke.Exceptions.UnknownCommandException;
+
 public class Parser {
     public static boolean parse(String command, TaskList taskList, UI helper, Storage storage)
             throws WrongMarkException, UnknownCommandException {

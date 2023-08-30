@@ -1,4 +1,4 @@
-package duke;
+package duke.Exceptions;
 
 public class DukeException extends Throwable {
     public DukeException(String message) {
