@@ -13,7 +13,7 @@ public class BouncyBob {
         MARK, UNMARK, DELETE, UNKNOWN
     }
 
-    private static void addTaskAndPrint(String[] parts, ArrayList<Task> database) {
+    private static void addTaskAndPrint(String[] parts, TaskList taskList) {
         TaskType taskType = Parser.getTaskType(parts[0]);
         String taskName = "";
         Task newTask = null;
@@ -52,23 +52,23 @@ public class BouncyBob {
             case UNKNOWN:
                 throw new IllegalArgumentException("Invalid task type: " + taskType);
         }
-        database.add(newTask);
-        Ui.printTaskCount(database.size() - 1, newTask);  // Adjusted to size of ArrayList
+        taskList.addTask(newTask);
+        Ui.printTaskCount(taskList.size() - 1, newTask);  // Adjusted to size of ArrayList
     }
 
-    public static void modifyTask(String[] parts, ArrayList<Task> database) {
+    public static void modifyTask(String[] parts, TaskList taskList) {
         Action action = Parser.getAction(parts[0]);
         int index = Integer.parseInt(parts[1]); // Adjust for 0-based index
-        Ui.printTaskStatus(database.get(index), action);
+        Ui.printTaskStatus(taskList.getTask(index), action);
         switch(action) {
             case MARK:
-                database.get(index).setDone();
+                taskList.getTask(index).setDone();
                 break;
             case UNMARK:
-                database.get(index).setUnDone();
+                taskList.getTask(index).setUnDone();
                 break;
             case DELETE:
-                database.remove(index);
+                taskList.removeTask(index);
                 break;
         }
     }
@@ -76,9 +76,9 @@ public class BouncyBob {
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        ArrayList<Task> database = new ArrayList<>();
+        TaskList taskList = new TaskList();
         Ui.printIntro();
-        TaskFileHandler.loadTasksFromDisk(database);
+        TaskFileHandler.loadTasksFromDisk(taskList);
 
         while (true) {
             System.out.println("Enter something:");
@@ -88,18 +88,18 @@ public class BouncyBob {
                 Ui.printBye();
                 break;
             } else if (userInput.equals("list")) {
-                Ui.printDatabase(database);  // Adjusted for ArrayList
+                Ui.printDatabase(taskList);  // Adjusted for ArrayList
             } else if (Parser.getAction(parts[0]) != Action.UNKNOWN) {
                 try {
-                    modifyTask(parts, database);
-                    TaskFileHandler.saveTasksToDisk(database);
+                    modifyTask(parts, taskList);
+                    TaskFileHandler.saveTasksToDisk(taskList);
                 } catch (IndexOutOfBoundsException e) {
                     Ui.printIndexOutOfBound();
                 }
             } else {
                 try {
-                    addTaskAndPrint(parts, database);
-                    TaskFileHandler.saveTasksToDisk(database);
+                    addTaskAndPrint(parts, taskList);
+                    TaskFileHandler.saveTasksToDisk(taskList);
                 } catch (IllegalArgumentException e) {
                     Ui.printIllegalArgumentException(e);
                 } catch (DateTimeParseException e) {

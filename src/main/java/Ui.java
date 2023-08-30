@@ -14,13 +14,13 @@ public class Ui {
         System.out.println(BOTTOM_BORDER);
     }
 
-    public static void printDatabase(ArrayList<Task> database) {
+    public static void printDatabase(TaskList taskList) {
         System.out.println(TOP_BORDER);
-        if (database.isEmpty()) {
+        if (taskList.isEmpty()) {
             System.out.println("Balls! You currently do not have any tasks!");
         } else {
             System.out.println("Here are your tasks!");
-            for (Task curTask : database) {
+            for (Task curTask : taskList.getTasks()) {
                 printTaskStatus(curTask);
             }
         }
