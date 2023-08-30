@@ -5,9 +5,9 @@ package main.java;
  */
 
 import main.java.command.Command;
+import main.java.exception.EmptyChoiceException;
 import main.java.exception.EmptyTodoException;
 import main.java.exception.UnknownCommandException;
-import main.java.exception.EmptyChoiceException;
 import main.java.parser.Parser;
 import main.java.storage.Storage;
 import main.java.tasklist.TaskList;

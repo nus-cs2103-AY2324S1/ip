@@ -1,6 +1,7 @@
 plugins {
     id 'java'
     id 'application'
+    id 'checkstyle'
     id 'com.github.johnrengelman.shadow' version '7.1.2'
 }
 
@@ -8,7 +9,19 @@ repositories {
     mavenCentral()
 }
 
+sourceSets {
+    main {
+        java.srcDirs = ['src/main/java']
+    }
+
+    test {
+        java.srcDirs = ['src/test/java']
+    }
+}
+
+
 dependencies {
+    implementation 'org.junit.jupiter:junit-jupiter:5.8.1'
     testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.10.0'
     testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.10.0'
 }
@@ -28,15 +41,16 @@ test {
 }
 
 application {
-    mainClass.set("seedu.duke.Duke")
+    mainClass.set("main.java.Botty")
 }
 
 shadowJar {
-    archiveBaseName = "duke"
+    archiveBaseName = "Botty"
     archiveClassifier = null
     dependsOn("distZip", "distTar")
 }
 
 run{
     standardInput = System.in
+    enableAssertions = true
 }
