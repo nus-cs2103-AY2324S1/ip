@@ -1,3 +1,14 @@
+package chatbot;
+
+import chatbot.exceptions.FileCorruptedException;
+import chatbot.exceptions.FilePermissionException;
+import chatbot.exceptions.InvalidTaskStringException;
+import chatbot.exceptions.LocalFileException;
+import chatbot.tasks.DeadlineTask;
+import chatbot.tasks.EventTask;
+import chatbot.tasks.Task;
+import chatbot.tasks.ToDoTask;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -94,7 +105,7 @@ public class Storage {
         }
     }
 
-    public ArrayList<Task> readData() throws LocalFileException{
+    public ArrayList<Task> readData() throws LocalFileException {
         try {
             File f = new File(localFilePath);
             if (!f.exists() || !f.isFile()) {

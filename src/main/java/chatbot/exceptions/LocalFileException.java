@@ -1,3 +1,5 @@
+package chatbot.exceptions;
+
 public class LocalFileException extends ChatBotException{
     private String filePath;
 

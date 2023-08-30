@@ -1,3 +1,5 @@
+package chatbot.exceptions;
+
 public class InvalidTaskIndexException extends ChatBotException{
     @Override
     public String toString() {

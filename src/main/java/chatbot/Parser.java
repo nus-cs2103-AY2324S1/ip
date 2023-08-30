@@ -1,3 +1,11 @@
+package chatbot;
+
+import chatbot.exceptions.*;
+import chatbot.tasks.DeadlineTask;
+import chatbot.tasks.EventTask;
+import chatbot.tasks.Task;
+import chatbot.tasks.ToDoTask;
+
 public class Parser {
     public static int parseMarkCommand(String[] commandWords) throws MarkMissingFieldException, InvalidTaskIndexException {
         if (commandWords.length != 2) {
@@ -30,7 +38,7 @@ public class Parser {
 
     }
 
-    public static Task parseDeadlineTaskCommand(String command) throws DeadlineMissingFieldException{
+    public static Task parseDeadlineTaskCommand(String command) throws DeadlineMissingFieldException {
         int idOfBy = command.indexOf("/by");
         if (idOfBy == -1) {
             throw new DeadlineMissingFieldException();

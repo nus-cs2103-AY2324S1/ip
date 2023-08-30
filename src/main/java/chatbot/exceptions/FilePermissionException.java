@@ -1,3 +1,5 @@
+package chatbot.exceptions;
+
 public class FilePermissionException extends LocalFileException{
     private String filePath;
 

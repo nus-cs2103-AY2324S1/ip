@@ -1,3 +1,5 @@
+package chatbot.exceptions;
+
 public class FileCorruptedException extends LocalFileException{
     private String filePath;
 

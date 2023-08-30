@@ -1,3 +1,8 @@
+package chatbot;
+
+import chatbot.exceptions.InvalidTaskIndexException;
+import chatbot.tasks.Task;
+
 import java.util.ArrayList;
 
 public class TaskList {

@@ -1,3 +1,5 @@
+package chatbot.exceptions;
+
 public class ChatBotException extends Exception{
     @Override
     public String toString() {

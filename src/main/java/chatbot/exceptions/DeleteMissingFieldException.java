@@ -1,3 +1,5 @@
+package chatbot.exceptions;
+
 public class DeleteMissingFieldException extends MissingFieldException{
     @Override
     public String toString() {

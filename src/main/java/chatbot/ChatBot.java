@@ -1,3 +1,10 @@
+package chatbot;
+
+import chatbot.exceptions.ChatBotException;
+import chatbot.exceptions.IllegalCommandException;
+import chatbot.exceptions.LocalFileException;
+import chatbot.tasks.Task;
+
 public class ChatBot {
     static final String name = "4F5DA2";
     static final String localFilePath = "./data/chatbot.txt";
