@@ -8,53 +8,53 @@ Hello from
 '.___.' [___]|__]  '.__.'  '.__.' [___||__||__] [\__) ) 
                                                         
 
-> Cheems: 
-Heyo I'm Cheems! Nice to meet you:)
+> cheems.Cheems:
+Heyo I'm cheems.Cheems! Nice to meet you:)
 Want to get some fries on the pier together?
 > You: 
-> Cheems: 
+> cheems.Cheems:
 Please give me instructions, if not, I'll serve you some fries.
 > You: 
-exceptions.InvalidKeywordException: Sorry I do not understand you, can you provide another keyword or I get you some fries?
+cheems.exceptions.InvalidKeywordException: Sorry I do not understand you, can you provide another keyword or I get you some fries?
 > You: 
-exceptions.EmptyArgumentException: Please specify the correct number of arguments for keyword TODO ~~
+cheems.exceptions.EmptyArgumentException: Please specify the correct number of arguments for keyword TODO ~~
 > You: 
 java.lang.NumberFormatException: Sorry you must provide the task number to mark/unmark it!
 > You: 
-> Cheems: 
+> cheems.Cheems:
 You have no task right now:) Happy happy!
 > You: 
-> Cheems: 
+> cheems.Cheems:
 I have added this task for you!
 [T][ ] borrow book
 Now you have 1 task in your list!
 > You: 
-> Cheems: 
+> cheems.Cheems:
 I have added this task for you!
 [D][ ] return book (by: Sunday)
-Now you have 2 tasks in your list!
+Now you have 2 cheems.tasks in your list!
 > You: 
-> Cheems: 
+> cheems.Cheems:
 I have added this task for you!
 [E][ ] project meeting (from: Mon 2pm to: 4pm)
-Now you have 3 tasks in your list!
+Now you have 3 cheems.tasks in your list!
 > You: 
-> Cheems: 
+> cheems.Cheems:
 Good job! I've marked this task as done:
 [T][X] borrow book
 > You: 
-> Cheems: 
+> cheems.Cheems:
 Good job! I've marked this task as done:
 [E][X] project meeting (from: Mon 2pm to: 4pm)
 > You: 
-> Cheems: 
+> cheems.Cheems:
 Okie dokie! I've unmarked it for you:
 [E][ ] project meeting (from: Mon 2pm to: 4pm)
 > You: 
-> Cheems: 
+> cheems.Cheems:
 1.[T][X] borrow book
 2.[D][ ] return book (by: Sunday)
 3.[E][ ] project meeting (from: Mon 2pm to: 4pm)
 > You: 
-> Cheems: 
+> cheems.Cheems:
 Okay bye:( Let's get the fries next time.

@@ -1,4 +1,4 @@
-package tasks;
+package cheems.tasks;
 
 /**
  * A child class of the abstract Task class.

@@ -1,4 +1,4 @@
-package exceptions;
+package cheems.exceptions;
 
 /**
  * Custom exception class to represent an input with empty arguments.

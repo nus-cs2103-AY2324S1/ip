@@ -1,4 +1,10 @@
-import tasks.*;
+package cheems;
+
+import cheems.tasks.Task;
+import cheems.tasks.Event;
+import cheems.tasks.Todo;
+import cheems.tasks.Deadline;
+
 import java.util.ArrayList;
 
 /**
@@ -82,7 +88,7 @@ public class Tasklist {
      * Marks the task at index in the task list as done.
      * @param index The index of task to be marked done.
      */
-    public static void markAsDone(int index) {
+    public static void markAsDone(int index) throws IndexOutOfBoundsException {
         // check for range of index
         if (index >= total) {
             String errMsg = String.format("Sorry you do not have task #%d, " +
@@ -101,7 +107,7 @@ public class Tasklist {
      * Marks the task at index in the task list as undone.
      * @param index The index of task to be marked undone.
      */
-    public static void markAsNotDone(int index) {
+    public static void markAsNotDone(int index) throws IndexOutOfBoundsException {
         // check for range of index
         if (index >= total) {
             String errMsg = String.format("Sorry you do not have task #%d, " +
@@ -116,11 +122,12 @@ public class Tasklist {
         UI.printWithFormat(resp);
     }
 
+
     /**
      * Deletes the task at index in the task list and updates the database.
      * @param index The index of task to be deleted.
      */
-    public static void delete(int index) {
+    public static void delete(int index) throws IndexOutOfBoundsException {
         // check for range of index
         if (index >= total) {
             String errMsg = String.format("Sorry you do not have task #%d, " +

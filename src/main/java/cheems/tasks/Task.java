@@ -1,4 +1,4 @@
-package tasks;
+package cheems.tasks;
 
 /**
  * An abstract class that represents each task.

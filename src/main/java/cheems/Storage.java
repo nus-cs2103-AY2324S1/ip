@@ -1,4 +1,15 @@
-import java.io.*;
+package cheems;
+
+import cheems.exceptions.InputOutputException;
+
+import java.io.File;
+import java.io.FileWriter;
+import java.io.FileReader;
+import java.io.BufferedWriter;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.FileNotFoundException;
+
 import java.util.Scanner;
 
 /**
@@ -21,7 +32,7 @@ public class Storage {
      * Stores the file in this.file field of the class, for easy reference by other methods.
      * @param filePath The filepath used to find the text file for storing task data.
      */
-    private Storage(String filePath) {
+    private Storage(String filePath) throws InputOutputException {
         try {
             File f = new File(filePath);
             if (!f.exists()) {
@@ -29,7 +40,7 @@ public class Storage {
             }
             this.file = f;
         } catch (IOException e) {
-            throw new exceptions.IOException("Failed to create a new data file!");
+            throw new InputOutputException("Failed to create a new data file!");
         }
     }
 
@@ -58,7 +69,7 @@ public class Storage {
      * Reads tasks from database file.
      * Calls Tasklist.addTask() to add these into the tasklist maintained during chatbot run.
      */
-    public void loadData() {
+    public void loadData() throws InputOutputException {
         try (Scanner s = new Scanner(this.file)){
             String input;
             while (s.hasNextLine()) {
@@ -68,8 +79,8 @@ public class Storage {
             }
         } catch (FileNotFoundException e) {
             String msg = String.format("I cannot find %s! May be accidental deletion, " +
-                    "try restart Cheems!", file.getName());
-            throw new exceptions.IOException(msg);
+                    "try restart cheems.Cheems!", file.getName());
+            throw new InputOutputException(msg);
         }
     }
 
@@ -77,13 +88,13 @@ public class Storage {
      * Saves a new task to the database text.
      * @param taskLine The line to be written to the database, formatted based on database specification.
      */
-    public void saveData(String taskLine) {
+    public void saveData(String taskLine) throws InputOutputException {
         try {
             FileWriter fw = new FileWriter(this.file.getPath(), true);
             fw.write(taskLine + System.lineSeparator());
             fw.close();
         } catch (IOException e) {
-            throw new exceptions.IOException("I cannot open the file for writing!");
+            throw new InputOutputException("I cannot open the file for writing!");
         }
     }
 
@@ -91,7 +102,7 @@ public class Storage {
      * Deletes a task from the database.
      * @param lineToDelete The index of the line that should be deleted.
      */
-    public void delete(int lineToDelete) {
+    public void delete(int lineToDelete) throws InputOutputException {
         try {
             BufferedReader reader = new BufferedReader(new FileReader(this.file));
             String content = "";
@@ -112,16 +123,16 @@ public class Storage {
 
             System.out.println("Task deleted successfully from storage.");
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new InputOutputException("Sorry, I cannot update the text file!");
         }
     }
 
     /**
      * Marks a task as done or undone, based on the parameter done.
      * @param lineToModify The index of the line that should be updated.
-     * @param done A true value indicates marking the task done, otherwise undone.
+     * @param isDone A true value indicates marking the task done, otherwise undone.
      */
-    public void mark(int lineToModify, boolean done) {
+    public void mark(int lineToModify, boolean isDone) throws InputOutputException {
         try {
             BufferedReader reader = new BufferedReader(new FileReader(this.file));
             String content = "";
@@ -131,7 +142,8 @@ public class Storage {
             while ((line = reader.readLine()) != null) {
                 if (currentLine == lineToModify + 1) {
                     if (!line.isEmpty()) {
-                        line = (done ? "1" : "0") + line.substring(1);
+                        line = (isDone ? "1" : "0")
+                                        + line.substring(1);
                     }
                 }
                 content += line + System.lineSeparator();
@@ -145,7 +157,7 @@ public class Storage {
 
             System.out.println("Task udpated successfully from storage.");
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new InputOutputException("Sorry, I cannot update the text file!");
         }
     }
 }

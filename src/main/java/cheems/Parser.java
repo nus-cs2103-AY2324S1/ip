@@ -1,4 +1,7 @@
-import exceptions.*;
+package cheems;
+
+import cheems.exceptions.EmptyArgumentException;
+import cheems.exceptions.InvalidKeywordException;
 
 /**
  * Parser parses the input from the user and execute corresponding actions.
@@ -10,7 +13,8 @@ public class Parser {
      * Exceptions are thrown should the input be invalid.
      * @param input User input.
      */
-    public static void parseAndExecute(String input) {
+    public static void parseAndExecute(String input)
+            throws InvalidKeywordException, EmptyArgumentException, NumberFormatException {
         if (!input.isEmpty()) {
             String[] words = input.split(" ", 2);
 
@@ -31,7 +35,9 @@ public class Parser {
 
                 switch (currentKey) {
                     case MARK:
+                        // Fallthrough
                     case UNMARK:
+                        // Fallthrough
                     case DELETE:
                         if (words[1].chars().allMatch(Character::isDigit)) {
                             int index = Integer.parseInt(words[1]);
