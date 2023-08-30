@@ -1,3 +1,5 @@
+package monday.exception;
+
 /**
  * MondayExceptions is a custom exception class for handling
  * exceptions related to the Monday application.
