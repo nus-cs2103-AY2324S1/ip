@@ -2,11 +2,11 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.regex.Pattern;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 
@@ -30,8 +30,8 @@ public class Duke {
                 list.add(task);
             } else if (taskString.charAt(0) == 'D') {
                 String[] details = taskString.substring(8).split(Pattern.quote(" | "));
-                LocalDateTime dateTime = LocalDateTime.parse(details[1], DateTimeFormatter.ofPattern("MMM dd yyyy HHmm"));
-                Task task = new Deadline(details[0], dateTime);
+                LocalDate date = LocalDate.parse(details[1], DateTimeFormatter.ofPattern("MMM d yyyy"));
+                Task task = new Deadline(details[0], date);
                 if (taskString.charAt(4) == '1') {
                     task.mark();
                 }
@@ -96,12 +96,12 @@ public class Duke {
                             throw new EmptyDescriptionException();
                         }
                         String[] details = input.substring(9).split(" /by ");
-                        System.out.println(details.length);
                         if (details.length != 2) {
                             throw new DeadlineUnclearException();
                         }
-                        LocalDateTime dateTime = LocalDateTime.parse(details[1], DateTimeFormatter.ofPattern("yyyy-MM-dd"));;
-                        Task task = new Deadline(details[0], dateTime);
+                        System.out.println(details[1]);
+                        LocalDate date = LocalDate.parse(details[1], DateTimeFormatter.ISO_LOCAL_DATE);;
+                        Task task = new Deadline(details[0], date);
                         list.add(task);
                         FileWriter fw;
                         Scanner sc = new Scanner(f);
