@@ -18,5 +18,7 @@ public class UI {
         System.out.println("What can I do for you?");
     }
 
-    private static void printGoodbyeMessage() {}
+    private void printGoodbyeMessage() {
+        System.out.println("Bye. Hope to see you again soon!");
+    }
 }
