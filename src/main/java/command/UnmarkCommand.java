@@ -30,4 +30,13 @@ public class UnmarkCommand extends Command {
         ui.printOutput(taskManager.markTask(index, false));
         diskManager.saveToDisk(taskManager);
     }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other instanceof UnmarkCommand) {
+            UnmarkCommand temp = (UnmarkCommand) other;
+            return temp.index == this.index;
+        }
+        return false;
+    }
 }

@@ -31,4 +31,13 @@ public class FindCommand extends Command {
     public void execute(TaskManager taskManager, DiskManager diskManager, Ui ui) throws DukeException {
         ui.printOutput(taskManager.find(pattern));
     }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other instanceof FindCommand) {
+            FindCommand temp = (FindCommand) other;
+            return temp.pattern.equals(this.pattern);
+        }
+        return false;
+    }
 }

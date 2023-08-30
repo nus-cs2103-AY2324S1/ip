@@ -30,4 +30,13 @@ public class MarkCommand extends Command {
         ui.printOutput(taskManager.markTask(index, true));
         diskManager.saveToDisk(taskManager);
     }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other instanceof MarkCommand) {
+            MarkCommand temp = (MarkCommand) other;
+            return temp.index == this.index;
+        }
+        return false;
+    }
 }

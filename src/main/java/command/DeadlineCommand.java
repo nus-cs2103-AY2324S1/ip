@@ -36,4 +36,14 @@ public class DeadlineCommand extends Command {
         ui.printOutput(taskManager.addTask(new Deadline(description, deadline)));
         diskManager.saveToDisk(taskManager);
     }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other instanceof DeadlineCommand) {
+            DeadlineCommand temp = (DeadlineCommand) other;
+            return temp.deadline.equals(this.deadline) && temp.description.equals(this.description);
+        }
+
+        return false;
+    }
 }

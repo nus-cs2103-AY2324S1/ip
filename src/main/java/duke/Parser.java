@@ -42,6 +42,8 @@ public class Parser {
      * @throws DukeException If the command format is invalid or unrecognized.
      */
     public static Command parseCommand(String input) throws DukeException {
+        input = input.trim();
+
         // skip past empty lines
         if (input.isEmpty()) {
             return new EmptyCommand();

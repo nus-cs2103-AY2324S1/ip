@@ -18,4 +18,9 @@ public class ListCommand extends Command {
     public void execute(TaskManager taskManager, DiskManager diskManager, Ui ui) {
         ui.printOutput(taskManager.listTasks());
     }
+
+    @Override
+    public boolean equals(Object other) {
+        return other instanceof ListCommand;
+    }
 }

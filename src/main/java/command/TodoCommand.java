@@ -30,4 +30,13 @@ public class TodoCommand extends Command {
         ui.printOutput(taskManager.addTask(new Todo(description)));
         diskManager.saveToDisk(taskManager);
     }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other instanceof TodoCommand) {
+            TodoCommand temp = (TodoCommand) other;
+            return temp.description.equals(this.description);
+        }
+        return false;
+    }
 }
