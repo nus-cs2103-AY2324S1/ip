@@ -1,11 +1,12 @@
-package Duke;
+package duke;
 
-import Duke.Exceptions.DukeException;
-import Duke.Exceptions.InvalidDateFormatException;
-import Duke.Tasks.Deadline;
-import Duke.Tasks.Event;
-import Duke.Tasks.Task;
-import Duke.Tasks.Todo;
+import duke.Exceptions.DukeException;
+import duke.Exceptions.InvalidDateFormatException;
+import duke.Exceptions.InvalidInputException;
+import duke.Tasks.Deadline;
+import duke.Tasks.Event;
+import duke.Tasks.Task;
+import duke.Tasks.Todo;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -44,7 +45,7 @@ public class Storage {
     public void loadTask(String input, List<Task> list) {
         boolean isMarked;
         int markedIndex = input.indexOf("|");
-        isMarked = input.charAt(markedIndex + 1) == 1;
+        isMarked = input.charAt(markedIndex + 2) == '1';
         int titleIndex = input.indexOf("|", markedIndex + 1) + 2;
         try {
             if (input.startsWith("T")) {
@@ -55,13 +56,15 @@ public class Storage {
                 String title = input.substring(titleIndex, byIndex);
                 String dueDateString = input.substring(byIndex + 2);
                 list.add(new Deadline(title,parseDate(dueDateString),isMarked));
-            } else {
+            } else if (input.startsWith("E")){
                 int fromIndex = input.indexOf("|", titleIndex);
                 String title = input.substring(titleIndex, fromIndex);
                 int toIndex = input.indexOf("|", fromIndex + 1);
                 String from = input.substring(fromIndex + 2, toIndex);
                 String to = input.substring( toIndex + 2);
                 list.add(new Event(title,parseDate(from),parseDate(to),isMarked));
+            } else {
+                throw new InvalidInputException();
             }
         } catch (DukeException e) {
             System.out.println(e.getMessage());

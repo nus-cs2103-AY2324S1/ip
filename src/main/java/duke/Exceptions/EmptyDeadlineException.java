@@ -1,4 +1,4 @@
-package Duke.Exceptions;
+package duke.Exceptions;
 
 /**
  * Custom exception class for empty deadline entries in the Duke application.

@@ -1,4 +1,4 @@
-package Duke.Exceptions;
+package duke.Exceptions;
 
 /**
  * Custom exception class for invalid input entries in the Duke application.

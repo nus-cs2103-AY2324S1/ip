@@ -1,4 +1,4 @@
-package Duke.Tasks;
+package duke.Tasks;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -51,5 +51,12 @@ public class Event extends Task {
         res += "| " + saveFromString;
         res += "| " + saveToString;
         return res;
+    }
+
+    public LocalDateTime getFrom() {
+        return this.from;
+    }
+    public LocalDateTime getTo() {
+        return to;
     }
 }

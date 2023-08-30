@@ -1,4 +1,4 @@
-package Duke.Exceptions;
+package duke.Exceptions;
 
 /**
  * Custom exception class for out-of-index task access in the Duke application.

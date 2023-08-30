@@ -1,4 +1,4 @@
-package Duke.Exceptions;
+package duke.Exceptions;
 
 /**
  * Custom exception class for empty event entries in the Duke application.

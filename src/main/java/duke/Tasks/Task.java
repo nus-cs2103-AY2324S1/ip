@@ -1,4 +1,4 @@
-package Duke.Tasks;
+package duke.Tasks;
 
 /**
  * Abstract base class representing a task in the Duke application.
@@ -31,6 +31,14 @@ public abstract class Task {
      */
     public void unmark() {
         this.isMarked = false;
+    }
+
+    public boolean getIsMarked() {
+        return this.isMarked;
+    }
+
+    public String getTitle() {
+        return this.title;
     }
 
     /**

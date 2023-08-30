@@ -1,4 +1,4 @@
-package Duke.Tasks;
+package duke.Tasks;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -44,6 +44,10 @@ public class Deadline extends Task {
         res += "| " + title;
         res += "| " + saveDateString;
         return res;
+    }
+
+    public LocalDateTime getDueDate() {
+        return this.dueDate;
     }
 }
 
