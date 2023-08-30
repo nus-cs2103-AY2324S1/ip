@@ -31,7 +31,9 @@ public class Storage {
      * This private constructor is called only by getInstance(String filepath).
      * Creates the file should it not exist.
      * Stores the file in this.file field of the class, for easy reference by other methods.
+     *
      * @param filePath The filepath used to find the text file for storing task data.
+     * @throws InputOutputException If fails to create the new file.
      */
     private Storage(String filePath) throws InputOutputException {
         try {
@@ -49,6 +51,7 @@ public class Storage {
      * Acts as an overloaded constructor of the Storage class, only called upon startup of the chatbot.
      * Returns a new Storage object based on the filepath given as the database text location.
      * Stores this object in the static singleton field for global access.
+     *
      * @param filepath Text database location.
      * @return A Storage object.
      */
@@ -60,6 +63,7 @@ public class Storage {
     /**
      * Acts as an overloaded constructor of the Storage class, called by all methods except Cheems.main().
      * Retrieves the singleton Storage object from static field instance.
+     *
      * @return A Storage object.
      */
     public static Storage getInstance() {
@@ -69,9 +73,11 @@ public class Storage {
     /**
      * Reads tasks from database file.
      * Calls Tasklist.addTask() to add these into the tasklist maintained during chatbot run.
+     *
+     * @throws InputOutputException If fails to find the file.
      */
     public void loadData() throws InputOutputException {
-        try (Scanner s = new Scanner(this.file)){
+        try (Scanner s = new Scanner(this.file)) {
             String input;
             while (s.hasNextLine()) {
                 input = s.nextLine();
@@ -87,11 +93,13 @@ public class Storage {
 
     /**
      * Saves a new task to the database text.
+     *
      * @param taskLine The line to be written to the database, formatted based on database specification.
+     * @throws InputOutputException If fails to write to file.
      */
-    public void saveData(String taskLine) throws InputOutputException {
+    public void saveNewTask(String taskLine) throws InputOutputException {
         try {
-            FileWriter fw = new FileWriter(this.file.getPath(), true);
+            FileWriter fw = new FileWriter(this.file, true);
             fw.write(taskLine + System.lineSeparator());
             fw.close();
         } catch (IOException e) {
@@ -100,65 +108,17 @@ public class Storage {
     }
 
     /**
-     * Deletes a task from the database.
-     * @param lineToDelete The index of the line that should be deleted.
+     * Updates the specific task in the database with either of the following actions: delete, mark, unmark.
+     * Side effect: Overwrites the whole file.
+     * @throws InputOutputException If fails to read or write to file.
      */
-    public void delete(int lineToDelete) throws InputOutputException {
+    public void updateWholeDatabase() throws InputOutputException {
         try {
-            BufferedReader reader = new BufferedReader(new FileReader(this.file));
-            String content = "";
-            int currentLine = 1;
-            String line;
-
-            while ((line = reader.readLine()) != null) {
-                if (currentLine != lineToDelete + 1) {
-                    content += line + System.lineSeparator();
-                }
-                currentLine++;
-            }
-            reader.close();
-
-            BufferedWriter writer = new BufferedWriter(new FileWriter(this.file));
-            writer.write(content);
-            writer.close();
-
-            System.out.println("Task deleted successfully from storage.");
+            FileWriter fw = new FileWriter(this.file);
+            fw.write(Tasklist.taskListToStorage());
+            fw.close();
         } catch (IOException e) {
-            throw new InputOutputException("Sorry, I cannot update the text file!");
-        }
-    }
-
-    /**
-     * Marks a task as done or undone, based on the parameter done.
-     * @param lineToModify The index of the line that should be updated.
-     * @param isDone A true value indicates marking the task done, otherwise undone.
-     */
-    public void mark(int lineToModify, boolean isDone) throws InputOutputException {
-        try {
-            BufferedReader reader = new BufferedReader(new FileReader(this.file));
-            String content = "";
-            int currentLine = 1;
-            String line;
-
-            while ((line = reader.readLine()) != null) {
-                if (currentLine == lineToModify + 1) {
-                    if (!line.isEmpty()) {
-                        line = (isDone ? "1" : "0")
-                                        + line.substring(1);
-                    }
-                }
-                content += line + System.lineSeparator();
-                currentLine++;
-            }
-            reader.close();
-
-            BufferedWriter writer = new BufferedWriter(new FileWriter(this.file));
-            writer.write(content);
-            writer.close();
-
-            System.out.println("Task udpated successfully from storage.");
-        } catch (IOException e) {
-            throw new InputOutputException("Sorry, I cannot update the text file!");
+            throw new InputOutputException("I cannot open the file for writing!");
         }
     }
 }

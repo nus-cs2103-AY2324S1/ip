@@ -7,6 +7,7 @@ package cheems.tasks;
 public abstract class Task {
     private String description;
     protected boolean isDone;
+    public abstract String toStorage();
 
     public Task(String description) {
         this.description = description;

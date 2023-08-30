@@ -15,10 +15,19 @@ public class Tasklist {
     private static final ArrayList<Task> list = new ArrayList<>();
     private static int total = 0;  // total also indicates the first free slot
 
+    private static void checkIndexOutOfBoundsHelper(int index) throws IndexOutOfBoundsException {
+        if (index >= total) {
+            String errMsg = String.format("Sorry you do not have task #%d, " +
+                    "try \"list\" to check your current list of tasks!", index + 1);
+            throw new IndexOutOfBoundsException(errMsg);
+        }
+    }
+
     /**
      * Creates a task object based on the string parameters given.
      * @param isFromDatabase Represents whether the method is used for creating an object based on string input
-     *                       from the database. If so, the isDone status needs to be reflected in the task.
+     *                       from the database or the end user, since they have different formats.
+     *                       If from the database, the isDone status needs to be reflected in the task.
      * @param params Represents the string parameters used to create the new task.
      * @return A new task object.
      */
@@ -70,15 +79,12 @@ public class Tasklist {
         Task newTask = identifyCreateTask(false, params);
         list.add(newTask);
         total++;
-        Storage.getInstance().saveData("0|" + String.join("|", params));
+        Storage.getInstance().saveNewTask(newTask.toStorage());
 
         String resp = "I have added this task for you!\n" + newTask;
-        resp += total > 1
-                ? String.format("\nNow you have %d tasks in your list!", total)
-                : String.format("\nNow you have %d task in your list!", total);
+        resp += String.format("\nNow you have %d task(s) in your list!", total);
         UI.printWithFormat(resp);
     }
-
 
     /**
      * Prints all tasks in the current task list.
@@ -89,31 +95,21 @@ public class Tasklist {
             resp = "You have no task right now:) Happy happy!";
         } else {
             for (int i = 0; i < total; i++) {
-                if (i == total - 1) {
-                    resp += String.format("%d.%s", i + 1, list.get(i));
-                } else {
-                    resp += String.format("%d.%s\n", i + 1, list.get(i));
-                }
+                resp += String.format("%d.%s\n", i + 1, list.get(i));
             }
         }
         UI.printWithFormat(resp);
     }
-
 
     /**
      * Marks the task at index in the task list as done.
      * @param index The index of task to be marked done.
      */
     public static void markAsDone(int index) throws IndexOutOfBoundsException {
-        // check for range of index
-        if (index >= total) {
-            String errMsg = String.format("Sorry you do not have task #%d, " +
-                    "try \"list\" to check your current list of tasks!", index + 1);
-            throw new IndexOutOfBoundsException(errMsg);
-        }
+        checkIndexOutOfBoundsHelper(index);
 
         list.get(index).markAsDone();
-        Storage.getInstance().mark(index, true);
+        Storage.getInstance().updateWholeDatabase();
 
         String resp = "Good job! I've marked this task as done:\n" + list.get(index);
         UI.printWithFormat(resp);
@@ -124,37 +120,26 @@ public class Tasklist {
      * @param index The index of task to be marked undone.
      */
     public static void markAsNotDone(int index) throws IndexOutOfBoundsException {
-        // check for range of index
-        if (index >= total) {
-            String errMsg = String.format("Sorry you do not have task #%d, " +
-                    "try \"list\" to check your current list of tasks!", index + 1);
-            throw new IndexOutOfBoundsException(errMsg);
-        }
+        checkIndexOutOfBoundsHelper(index);
 
         list.get(index).markAsNotDone();
-        Storage.getInstance().mark(index, false);
+        Storage.getInstance().updateWholeDatabase();
 
         String resp = "Okie dokie! I've unmarked it for you:\n" + list.get(index);
         UI.printWithFormat(resp);
     }
-
 
     /**
      * Deletes the task at index in the task list and updates the database.
      * @param index The index of task to be deleted.
      */
     public static void delete(int index) throws IndexOutOfBoundsException {
-        // check for range of index
-        if (index >= total) {
-            String errMsg = String.format("Sorry you do not have task #%d, " +
-                    "try \"list\" to check your current list of tasks!", index + 1);
-            throw new IndexOutOfBoundsException(errMsg);
-        }
+        checkIndexOutOfBoundsHelper(index);
 
         Task t = list.get(index);
         list.remove(index);
         total--;
-        Storage.getInstance().delete(index);
+        Storage.getInstance().updateWholeDatabase();
 
         String resp = "Noted. I've removed this task:\n" +
                         t +
@@ -182,5 +167,17 @@ public class Tasklist {
             resp = "There is no corresponding task in your list!";
         }
         UI.printWithFormat(resp);
+    }
+
+    /**
+     * Converts the tasks in list to Storage compatible string format.
+     * @return A string in storage format.
+     */
+    public static String taskListToStorage() {
+        String resp = "";
+        for (int i = 0; i < total; i++) {
+            resp += list.get(i).toStorage() + "\n";
+        }
+        return resp;
     }
 }

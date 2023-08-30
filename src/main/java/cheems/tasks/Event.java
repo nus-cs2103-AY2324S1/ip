@@ -38,4 +38,9 @@ public class Event extends Task {
                 " (from: " + this.from +
                 " to: " + this.to + ")";
     }
+
+    @Override
+    public String toStorage() {
+        return String.format("%d|EVENT|%s|%s|%s", this.isDone ? 1 : 0, this.getDescription(), this.from, this.to);
+    }
 }

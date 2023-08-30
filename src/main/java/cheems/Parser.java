@@ -66,9 +66,9 @@ public class Parser {
                     case EVENT:
                         words = args.split(" /from ");
                         String eventDescription = words[0];
-                        words = args.split(" /to ");
-                        String from = words[0];
-                        String to = words[1];
+                        String[] words1 = words[1].split(" /to ");
+                        String from = words1[0];
+                        String to = words1[1];
                         Tasklist.addTaskToDatabase("EVENT", eventDescription, from, to);
                         break;
                     case DEADLINE:
