@@ -30,6 +30,11 @@ public class Event extends Task{
         this.to = to;
     }
 
+    public boolean isHappeningOnDate(LocalDate targetDate) {
+        return targetDate.isEqual(this.from) || targetDate.isEqual(this.to) 
+                || (targetDate.isAfter(this.from) && targetDate.isBefore(this.to));
+    }
+
     @Override
     public String toStorableString() {
         String[] infos = {"E", this.status ? "1" : "0", this.desc, 

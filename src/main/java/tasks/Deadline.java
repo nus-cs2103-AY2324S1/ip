@@ -26,6 +26,10 @@ public class Deadline extends Task{
         this.by = by;
     }
 
+    public boolean isHappeningOnDate(LocalDate targetDate) {
+        return this.by.isEqual(targetDate);
+    }
+
     @Override
     public String toStorableString() {
         String[] infos = {"D", this.status ? "1" : "0", this.desc, this.by.format(Task.DATE_INPUT_FORMATTER)};
