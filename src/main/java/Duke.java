@@ -1,8 +1,12 @@
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+
 public class Duke {
     private static ArrayList<Task> currList = new ArrayList<>();
-
+    private static final String FILE_PATH = "./data/duke.txt";
     public static void main(String[] args) {
         greetUser();
 
@@ -11,6 +15,7 @@ public class Duke {
             try {
                 String currInput = sc.nextLine().trim();
                 processInput(currInput);
+                saveTasksToFile();
             } catch (DukeException e) {
                 System.out.println(">  " + e.getMessage());
             } catch (NumberFormatException e) {
@@ -28,6 +33,27 @@ public class Duke {
         System.out.println(">  Hello from " + name + "\n" + logo);
         System.out.println(">  What can misty help you with?");
         System.out.println("------------------------------------------------");
+        loadTasksFromFile();
+
+    }
+
+    private static void loadTasksFromFile() {
+        try {
+            File file = new File(FILE_PATH);
+            if (file.exists()) {
+                Scanner scanner = new Scanner(file);
+                while (scanner.hasNext()) {
+                    String line = scanner.nextLine();
+                    Task task = Task.fromFileString(line);
+                    if (task != null) {
+                        currList.add(task);
+                    }
+                }
+                scanner.close();
+            }
+        } catch (IOException e) {
+            System.out.println(">  An error occured while loading the tasks from the file: "+  e.getMessage());
+        }
     }
 
     private static void processInput(String currInput) throws DukeException {
@@ -134,5 +160,17 @@ public class Duke {
         Task deleted = currList.remove(index);
         System.out.println(">  Task " + (index + 1) + " has been removed");
         System.out.println(">  " + deleted + " has been deleted.");
+    }
+
+    private static void saveTasksToFile() {
+        try {
+            FileWriter fileWriter = new FileWriter(FILE_PATH);
+            for (Task task : currList) {
+                fileWriter.write(task.toFileString() + System.lineSeparator());
+            }
+            fileWriter.close();
+        } catch (IOException e) {
+            System.out.println(">  An error occured while saving the tasks to a file: " + e.getMessage());
+        }
     }
 }
