@@ -4,7 +4,6 @@ package duke;
  */
 public class DeleteCommand extends Command{
     private int idx;
-    private DeleteCommand(){};
 
     public DeleteCommand(int idx) {
         this.idx = idx;

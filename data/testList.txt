@@ -1,0 +1,4 @@
+1.[E][X] seminar (from: Aug 23 2023 1600hrs to: Aug 23 2023 1700hrs)
+2.[E][ ] concert (from: Dec 20 2023 1800hrs to: Dec 21 2023 0100hrs)
+3.[T][ ] cs2103t homework
+4.[D][ ] duke (by: Aug 30 2023 1500hrs)

@@ -1,15 +1,7 @@
 package duke;
 
 import java.util.ArrayList;
-import java.util.Scanner;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.nio.file.InvalidPathException;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeParseException;
 /**
  * Abstracts a list. Note that items in the list cannot be removed as yet.
  */
@@ -48,6 +40,7 @@ public class ChatBotList {
         }
         return this.list.get(this.list.size()-1).toString();
     }
+
     /**
      * Marks item at index given by user as completed.  
      *

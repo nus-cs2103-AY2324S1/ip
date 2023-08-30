@@ -1,7 +1,6 @@
 package duke;
 public class MarkCommand extends Command {
     private int idx;
-    private MarkCommand(){};
 
     public MarkCommand(int idx) {
         this.idx = idx;
