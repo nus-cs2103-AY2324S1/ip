@@ -46,8 +46,7 @@ public class Duke {
                 } catch (DukeException e) {
                     System.out.println(e.getMessage());
                 }
-
-                // exits program
+            // exits program
             } else if (command.equalsIgnoreCase("bye")) {
                 ui.showBye();
                 break;
