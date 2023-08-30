@@ -6,10 +6,17 @@ import java.io.IOException;
 import java.util.Scanner;
 import java.io.FileWriter;
 
+/**
+ * Deals with loading tasks from the file in the user's hard disk and saving tasks in the file.
+ */
 public class Storage {
     private static File taskList;
     private static String filepath;
 
+    /**
+     * Constructs new <code>Storage</code> object.
+     * @param filepath the filepath to the file that stores existing tasks. New file created if the file specified does not exist at the start.
+     */
     public Storage(String filepath) {
         File tasks = new File(filepath);
         if (!tasks.exists()) {
@@ -23,6 +30,11 @@ public class Storage {
         this.filepath = filepath;
     }
 
+    /**
+     * Loads data from the hard disk when the chatbot starts up.
+     * Saves any pre-existing tasks in the file to the task list.
+     * @throws DukeException when data from the file cannot be converted to a <code>Task</code> object.
+     */
     public static void load() throws DukeException {
         try {
             Scanner s = new Scanner(taskList);
@@ -69,6 +81,9 @@ public class Storage {
         }
     }
 
+    /**
+     * Saves the tasks in the hard disk automatically whenever the task list changes.
+     */
     public static void save() {
         try {
             FileWriter writer = new FileWriter(filepath);

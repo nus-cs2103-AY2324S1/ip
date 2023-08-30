@@ -1,12 +1,23 @@
-
-
 package duke;
+
+/**
+ * Parses user command and executes tasks based on user commands.
+ */
 public class Parser {
     private String userCommand;
+
+    /**
+     * Constructs new <code>Parser</code> object.
+     * @param command the command taken from user input.
+     */
     public Parser(String command) {
         this.userCommand = command;
     }
 
+    /**
+     * Parses and responds to the user command.
+     * @throws DukeException when user command is invalid.
+     */
     public void parseAndRespond() throws DukeException {
         String[] splitted = userCommand.split(" ", 2);
         switch (splitted[0]) {
