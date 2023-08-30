@@ -24,17 +24,14 @@ public class Duke {
     label:
     while (true) {
 
-      String[] inputTokens = null;
-
       try {
         parser.update();
-        inputTokens = parser.getInputTokens();
       } catch (NoSuchElementException ex) {
         break;
       }
 
       // there is no input
-      if (inputTokens.length == 0) {
+      if (parser.isInputThere()) {
         break;
       }
 

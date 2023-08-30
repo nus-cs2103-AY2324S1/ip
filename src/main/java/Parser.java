@@ -44,6 +44,10 @@ public class Parser {
 
   }
 
+  public boolean isInputThere() {
+    return inputTokens.length == 0;
+  }
+
 
   private String inputString;
   private String[] inputTokens;
