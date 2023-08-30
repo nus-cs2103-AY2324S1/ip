@@ -23,6 +23,10 @@ public class KniazSession {
 
     private boolean isRunning;
 
+    /**
+     * Getter for the tasklist of this session
+     * @return the tasklist of this session
+     */
     public TaskList getTaskList() {
         return taskList;
     }
@@ -42,6 +46,11 @@ public class KniazSession {
 
     }
 
+    /**
+     * Factory method that also performs any needed tasks that a KniazSession would
+     * be expected to when starting up (Like printing starting messages,etc.)
+     * @return a new KniazSession
+     */
     public static KniazSession init() {
         KniazLoader loader = new KniazLoader();
         KniazSaver saver = new KniazSaver();
@@ -63,10 +72,19 @@ public class KniazSession {
     }
 
 
+    /**
+     * Signals the run loop to quit. Should often result in a quit
+     * @return a string with "QUIT", for messaging purposes
+     */
     public String quit() {
         this.isRunning = false;
         return "QUIT";
     }
+
+    /**
+     * Start the main loop of this Session, to run it
+     * @return a boolean true
+     */
     public boolean run(){
         isRunning = true;
         while (isRunning){

@@ -1,12 +1,14 @@
 package exceptions.syntax;
 
+/**
+ * Exception to be thrown when a CommandHandler is missing unnamed arguments
+ */
 public class MissingUnnamedArgsException extends ArgErrorException {
     /**
-     * Constructor for an exception, which constructs it with a non-user facing message, a user-facing message and
-     * a cause
+     * Constructor for the exception
      *
-     * @param message     the message that is NOT meant to be seen by the user, e.g. for debugging
-     * @param userMessage the message that IS meant to be seen as user feedback
+     * @param numGivenArgs     How many arguments were actually provided
+     * @param numExpectedArgs How many arguments were expected
      * @param cause       what caused this, see java.Exceptions for more details
      */
     public MissingUnnamedArgsException(int numGivenArgs, int numExpectedArgs, Throwable cause) {

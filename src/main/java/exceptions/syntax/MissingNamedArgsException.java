@@ -2,6 +2,9 @@ package exceptions.syntax;
 
 import java.util.List;
 
+/**
+ * Exception thrown when an expected named argument is missing
+ */
 public class MissingNamedArgsException extends ArgErrorException{
 
     /**

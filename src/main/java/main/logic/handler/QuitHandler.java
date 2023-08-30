@@ -1,7 +1,7 @@
 package main.logic.handler;
 
 
-import exceptions.syntax.MissingUnnamedArgsException;
+
 import main.KniazSession;
 
 import java.util.List;
