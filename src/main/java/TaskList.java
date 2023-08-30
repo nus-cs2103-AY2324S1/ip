@@ -57,4 +57,15 @@ public class TaskList {
         }
     }
 
+    public Task getTask(int index) {
+        return this.tasks.get(index);
+    }
+
+    public int getTaskCount() {
+        return this.tasks.size();
+    }
+
+    public ArrayList<Task> getAllTasks() {
+        return new ArrayList<>(this.tasks);
+    }
 }

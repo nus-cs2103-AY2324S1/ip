@@ -16,7 +16,7 @@ public class Simon {
         this.storage = new Storage(filePath);
         try {
             tasks = new TaskList(storage.load());
-            ui.showMessage("I've loaded your tasks from the last time you used me!" + NSPACE);
+//            ui.showMessage("I've loaded your tasks from the last time you used me!" + NSPACE);
         } catch (SimonException e) {
             ui.showLoadingError();
             tasks = new TaskList();
@@ -43,22 +43,22 @@ public class Simon {
                     case EVENT:
                         Task newTask = Parser.parseAddTask(inData, command);
                         tasks.addTask(newTask);
-                        storage.save(tasks.getTasks());  // Assuming a getter method for tasks in TaskList
+                        storage.save(tasks.getAllTasks());
                         ui.showAddedTask(newTask, tasks.getTaskCount());
                         break;
                     case UNMARK:
                         Task unmarkedTask = tasks.markTask(inData, false);
-                        storage.save(tasks.getTasks());
+                        storage.save(tasks.getAllTasks());
                         ui.showMarkedTask(false, unmarkedTask);
                         break;
                     case MARK:
                         Task markedTask = tasks.markTask(inData, true);
-                        storage.save(tasks.getTasks());
+                        storage.save(tasks.getAllTasks());
                         ui.showMarkedTask(true, markedTask);
                         break;
                     case DELETE:
                         Task deletedTask = tasks.deleteTask(inData);
-                        storage.save(tasks.getTasks());
+                        storage.save(tasks.getAllTasks());
                         ui.showDeletedTask(deletedTask, tasks.getTaskCount());
                         break;
                     case BYE:
