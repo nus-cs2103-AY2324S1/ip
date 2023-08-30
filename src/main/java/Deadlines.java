@@ -1,4 +1,6 @@
 import java.io.Serializable;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 /**
  * This class is used to create Deadline objects that holds the description and when the task is due
@@ -7,7 +9,7 @@ public class Deadlines extends  Task implements Serializable {
     /**
      * This variable holds the information on when this instance of a deadline object is due
      */
-    protected String by;
+    protected LocalDate by;
 
     /**
      * This is a constructor that creates a Deadline object
@@ -16,7 +18,7 @@ public class Deadlines extends  Task implements Serializable {
      */
     public Deadlines(String text, String by){
         super(text);
-        this.by = by;
+        this.by = LocalDate.parse(by);
     }
 
     /**
@@ -25,6 +27,6 @@ public class Deadlines extends  Task implements Serializable {
      */
     @Override
     public String toString() {
-        return "[D]" + super.toString()  + " (by: " + by + ")";
+        return "[D]" + super.toString()  + " (by: " + by.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
     }
 }
