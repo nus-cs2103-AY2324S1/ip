@@ -2,12 +2,22 @@ import duke.*;
 
 import java.util.Scanner;
 
+/**
+ * A chatbot that helps a person to keep track of a list of tasks.
+ *
+ * @author Qin Yan Er
+ */
 public class Duke {
 
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
 
+    /**
+     * Creates a new Duke instance.
+     *
+     * @param filePath The file path where the list of tasks are saved in.
+     */
     public Duke(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
@@ -19,6 +29,9 @@ public class Duke {
         }
     }
 
+    /**
+     * Runs the Duke program.
+     */
     public void run() {
         Scanner scanner = new Scanner(System.in);
         ui.showIntro();
@@ -43,6 +56,8 @@ public class Duke {
             }
         }
     }
+
+
     public static void main(String[] args) {
         new Duke("data/tasks.txt").run();
     }

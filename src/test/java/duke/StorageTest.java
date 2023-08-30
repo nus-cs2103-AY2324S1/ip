@@ -8,6 +8,11 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+/**
+ * Tests the methods in Storage class.
+ * 
+ * @author Qin Yan Er
+ */
 public class StorageTest {
 
     @Test
