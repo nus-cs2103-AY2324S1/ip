@@ -89,8 +89,6 @@ public class Storage<T extends Storable<T>> {
 
         if (skipped > 0) {
             System.out.println("Skipped " + skipped + " lines with corrupted data.");
-        } else {
-            System.out.println("Successfully loaded data from previous session.");
         }
 
         return items;
