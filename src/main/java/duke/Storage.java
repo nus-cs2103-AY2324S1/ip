@@ -18,7 +18,7 @@ public class Storage {
 
     public Storage(Path filePath) {
         this.filePath = filePath;
-         list = new ArrayList<>();
+        list = new ArrayList<>();
     }
 
     public ArrayList<Task> loadTaskList() {
@@ -103,8 +103,7 @@ public class Storage {
             }
             return t;
         } catch (IndexOutOfBoundsException e) {
-            System.out.println("    Corrupted entry.");
-            return null;
+            throw new DukeException("    Data file corrupted.");
         }
     }
 }
