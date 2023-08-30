@@ -38,13 +38,12 @@ public class Deadline extends Task {
         if (deadlineString.equals("")) {
             throw new DukeException(emptyDate);
         }
-        LocalDate deadline = null;
         try {
-            deadline = LocalDate.parse(deadlineString);
+            LocalDate deadline = LocalDate.parse(deadlineString);
+            return new Deadline(name, deadline);
         } catch (DateTimeException e) {
             throw new DukeException(invalidDate);
         }
-        return new Deadline(name, deadline);
     }
 
     @Override
