@@ -63,7 +63,7 @@ public class Duke {
                         try {
                             LocalDateTime dateTime = DateTimeManager.inputToDate(split[1]);
                             task = new Deadline(split[0], dateTime);
-                        } catch (DateParseException | DateTimeException e) {
+                        } catch (DateTimeManager.DateParseException | DateTimeException e) {
                             throw new FileCorruptedException();
                         }
                         break;
@@ -80,7 +80,7 @@ public class Duke {
                             LocalDateTime startTime = DateTimeManager.inputToDate(separateByTo[0]);
                             LocalDateTime endTime = DateTimeManager.inputToDate(separateByTo[1]);
                             task = new Event(separateByFrom[0], startTime, endTime);
-                        } catch (DateParseException | DateTimeException e) {
+                        } catch (DateTimeManager.DateParseException | DateTimeException e) {
                             throw new FileCorruptedException();
                         }
                         break;
@@ -290,7 +290,7 @@ public class Duke {
             LocalDateTime startTime = DateTimeManager.inputToDate(separateByTo[0]);
             LocalDateTime endTime = DateTimeManager.inputToDate(separateByTo[1]);
             newTask = new Event(separateByFrom[0], startTime, endTime);
-        } catch (DateParseException | DateTimeException e) {
+        } catch (DateTimeManager.DateParseException | DateTimeException e) {
             System.out.println("Quack, I do not understand your datetime.");
             return;
         }
@@ -333,7 +333,7 @@ public class Duke {
         try {
             LocalDateTime dateTime = DateTimeManager.inputToDate(separateByBy[1]);
             newTask = new Deadline(separateByBy[0], dateTime);
-        } catch (DateParseException | DateTimeException e) {
+        } catch (DateTimeManager.DateParseException | DateTimeException e) {
             System.out.println("Quack, I do not understand your datetime.");
             return;
         }
@@ -371,7 +371,7 @@ public class Duke {
                     default:
                         try {
                             date = DateTimeManager.parseDate(arg);
-                        } catch (DateParseException e) {
+                        } catch (DateTimeManager.DateParseException e) {
                             System.out.println("Quack, unrecognised \"" + arg + "\"");
                             return;
                         }

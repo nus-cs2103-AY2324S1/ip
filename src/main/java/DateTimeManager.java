@@ -3,6 +3,10 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 public class DateTimeManager {
+    public static class DateParseException extends Exception {
+        private DateParseException() {}
+    }
+
     /**
      * Transform a String input of datetime to a LocalDateTime instance.
      * The string must be in the format "dd/mm/yyyy hh:mm"
