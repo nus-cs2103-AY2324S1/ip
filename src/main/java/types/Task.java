@@ -1,3 +1,5 @@
+package types;
+
 public class Task {
     protected boolean isCompleted;
     protected String description;
