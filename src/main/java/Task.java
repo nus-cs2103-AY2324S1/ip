@@ -10,6 +10,9 @@ public class Task {
     public String getStatusIcon() {
         return (this.isDone ? "[X] " : "[ ] ");
     }
+    public String getStatus() {
+        return (this.isDone ? "| 1 | " : "| 0 | ");
+    }
 
     public String getDescription() {
         return this.description;
@@ -22,6 +25,9 @@ public class Task {
     public void unmark() {
         this.isDone = false;
     }
+    public String toMemory() {
+        return this.toString();
+    };
 
     @Override
     public String toString() {
