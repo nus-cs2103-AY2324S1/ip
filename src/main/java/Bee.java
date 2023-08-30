@@ -1,6 +1,9 @@
+import java.io.*;
 import java.util.Scanner;
 public class Bee {
     private static TaskList listOfTasks = new TaskList();
+
+    private static final String DATA_FILE_PATH = "./data/bee.txt";
 
     private enum TaskClass {
         TODO, DEADLINE, EVENT
@@ -90,6 +93,7 @@ public class Bee {
                 } catch (NumberFormatException e) {
                     throw new BeeException("OOPS!! You must have entered an invalid task number.");
                 }
+                break;
             case UNMARK:
                 try {
                     int taskIndex = Integer.parseInt(splitInput[1]);
@@ -99,6 +103,7 @@ public class Bee {
                 } catch (NumberFormatException e) {
                     throw new BeeException("OOPSS!! You must have entered an invalid task number.");
                 }
+                break;
             case DELETE:
                 try {
                     int taskIndex = Integer.parseInt(splitInput[1]);
@@ -108,8 +113,94 @@ public class Bee {
                 } catch (NumberFormatException e) {
                     throw new BeeException("OOPSS!! You must have entered an invalid task number.");
                 }
+                break;
             default:
                 throw new BeeException("OOPSS!! I can't do that!!!");
+        }
+    }
+
+    // Parse string information from file into task
+    private static void parseTask(String taskData) throws BeeException{
+        String[] taskDataSplit = taskData.split("]");
+        String taskType = taskDataSplit[0].substring(1);
+        Boolean isDone = taskDataSplit[1].substring(1).equals("X");
+        String taskDescription = taskDataSplit[2].substring(1);
+
+        switch (taskType) {
+            case "T":
+                Todo todo = new Todo(taskDescription, isDone);
+                listOfTasks.quietlyAddTask(todo);
+                break;
+            case "D":
+                try {
+                    String[] splitEditedInput = taskDescription.split("by: ");
+                    String deadlineDescription = splitEditedInput[0];
+                    deadlineDescription = deadlineDescription.substring(0, deadlineDescription.indexOf("(") - 1);
+                    String deadlineDate = splitEditedInput[1];
+                    deadlineDate = deadlineDate.substring(0, deadlineDate.indexOf(")"));
+                    Deadline deadlineTask = new Deadline(deadlineDescription, deadlineDate, isDone);
+                    listOfTasks.quietlyAddTask(deadlineTask);
+                } catch (StringIndexOutOfBoundsException e) {
+                    throw new BeeException("OOPS!! The description of a deadline cannot be empty.");
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    throw new BeeException("OOPS!! The date of the deadline cannot be empty.");
+                }
+                break;
+            case "E":
+                try {
+                    String[] splitEditedInput = taskDescription.split("from: ");
+                    String[] splitEditedInput2 = splitEditedInput[1].split(" to: ");
+                    String eventDescription = splitEditedInput[0];
+                    eventDescription = eventDescription.substring(0, eventDescription.indexOf("(") - 1);
+                    String eventStartDate = splitEditedInput2[0];
+                    String eventEndDate = splitEditedInput2[1];
+                    eventEndDate = eventEndDate.substring(0, eventEndDate.indexOf(")"));
+                    Event event = new Event(eventDescription, eventStartDate, eventEndDate, isDone);
+                    listOfTasks.quietlyAddTask(event);
+                } catch (StringIndexOutOfBoundsException e) {
+                    throw new BeeException("OOPS!! The description of an event cannot be empty.");
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    throw new BeeException("OOPS!! The date of an event cannot be empty.");
+                }
+                break;
+        }
+    }
+
+    // Load tasks from file
+    private static void loadTasksFromFile() throws BeeException {
+        try {
+            File file = new File(DATA_FILE_PATH);
+            if (!file.exists()) {
+                // If file doesn't exist, create an empty one
+                file.createNewFile();
+                return;
+            }
+
+            Scanner fileScanner = new Scanner(file);
+            while (fileScanner.hasNextLine()) {
+                String taskData = fileScanner.nextLine();
+                parseTask(taskData);
+                // Parse taskData and add tasks to the list
+                // Example: T | 1 | read book
+            }
+            fileScanner.close();
+        } catch (IOException e) {
+            System.out.println("Error loading tasks from file: " + e.getMessage());
+        }
+    }
+
+    // Save tasks to file
+    private static void saveTasksToFile() {
+        try {
+            File file = new File(DATA_FILE_PATH);
+            FileWriter writer = new FileWriter(file);
+
+            for (Task task : listOfTasks.getTasks()) {
+                writer.write(task.toString() + System.lineSeparator());
+            }
+            writer.close();
+        } catch (IOException e) {
+            System.out.println("Error saving tasks to file: " + e.getMessage());
         }
     }
 
@@ -119,32 +210,47 @@ public class Bee {
         Scanner scanner = new Scanner(System.in);
 
         boolean isRunning = true;
+
+        try {
+            loadTasksFromFile();
+        } catch (BeeException e) {
+            System.out.println(e.getMessage());
+        }
+
         while (isRunning) {
             String userInput = scanner.nextLine();
             String[] splitInput = userInput.split(" ");
+            String command = splitInput[0].toLowerCase();
             try {
-                // If user enters "bye", ends the program and says goodbye to the user.
-                if (splitInput[0].equals("bye")) {
-                    System.out.println("By-ee!. Hope to see you soon! ~Bzzz~");
-                    break;
-                } else if (splitInput[0].equals("list")) {
-                    listOfTasks.listAllTasks();
-                } else if (splitInput[0].equals("todo")) {
-                    createTask(TaskClass.TODO, userInput);
-                } else if (splitInput[0].equals("deadline")) {
-                    createTask(TaskClass.DEADLINE, userInput);
-                } else if (splitInput[0].equals("event")) {
-                    createTask(TaskClass.EVENT, userInput);
-                }
-                else if (splitInput[0].startsWith("mark")) {
-                    updateTask(TaskAction.MARK, userInput);
-                } else if (splitInput[0].startsWith("unmark")) {
-                    updateTask(TaskAction.UNMARK, userInput);
-                } else if (splitInput[0].startsWith("delete")) {
-                    updateTask(TaskAction.DELETE, userInput);
-                } else {
-                    // Else, echo back the user input and add to list
-                    listOfTasks.addTask(new Task(userInput));
+                switch (command) {
+                    case "bye":
+                        System.out.println("Bye-bye! Have a great day! ~Bzzz~");
+                        isRunning = false;
+                        break;
+                    case "list":
+                        listOfTasks.listAllTasks();
+                        break;
+                    case "todo":
+                        createTask(TaskClass.TODO, userInput);
+                        break;
+                    case "deadline":
+                        createTask(TaskClass.DEADLINE, userInput);
+                        break;
+                    case "event":
+                        createTask(TaskClass.EVENT, userInput);
+                        break;
+                    case "mark":
+                        updateTask(TaskAction.MARK, userInput);
+                        break;
+                    case "unmark":
+                        updateTask(TaskAction.UNMARK, userInput);
+                        break;
+                    case "delete":
+                        updateTask(TaskAction.DELETE, userInput);
+                        break;
+                    default:
+                        throw new BeeException("Sorry, you need to use a command!");
+
                 }
             } catch (BeeException e) {
                 System.out.println(e.toString());
@@ -155,6 +261,8 @@ public class Bee {
                         "(\")(_)-\"()))=-\n" +
                         "   (\\\\ BZZZZZZZ!!!! Something went very wrong!!");
             }
+            saveTasksToFile();
         }
+        scanner.close();
     }
 }

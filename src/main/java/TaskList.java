@@ -1,9 +1,14 @@
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 public class TaskList {
     private ArrayList<Task> tasks;
 
     public TaskList() {
         this.tasks = new ArrayList<>();
+    }
+
+    public void quietlyAddTask(Task task) {
+        this.tasks.add(task);
     }
 
     public void addTask(Task task) {
@@ -18,6 +23,10 @@ public class TaskList {
         for (int i = 0; i < this.tasks.size() ; i++) {
             System.out.println((i + 1) + ". " + this.tasks.get(i).toString());
         }
+    }
+
+    public ArrayList<Task> getTasks() {
+        return tasks;
     }
 
     public void setTaskDone(int taskIndex) throws BeeException {
