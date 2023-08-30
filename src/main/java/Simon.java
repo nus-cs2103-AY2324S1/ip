@@ -2,6 +2,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -210,7 +211,7 @@ public class Simon {
                     writer.println("T | " + (task.isDone ? "1" : "0") + " | " + task.taskName);
                 } else if (task instanceof Deadline) {
                     Deadline deadline = (Deadline) task;
-                    writer.println("D | " + (task.isDone ? "1" : "0") + " | " + task.taskName + " | " + deadline.endDateTime.format(DateTimeFormatter.ISO_LOCAL_DATE_TIME));
+                    writer.println("D | " + (task.isDone ? "1" : "0") + " | " + task.taskName + " | " + deadline.endDateTime.format(DateTimeFormatter.ofPattern("d/M/yyyy HHmm")));
                 } else if (task instanceof Event) {
                     Event event = (Event) task;
                     writer.println("E | " + (task.isDone ? "1" : "0") + " | " + task.taskName + " | " + event.startDate + " | " + event.endDate);
@@ -254,7 +255,9 @@ public class Simon {
                         tasks.add(todo);
                         break;
                     case "D":
-                        Deadline deadline = new Deadline(parts[2], parts[3]);
+                        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
+                        LocalDateTime endDateTime = LocalDateTime.parse(parts[3], formatter);
+                        Deadline deadline = new Deadline(parts[2], endDateTime.format(formatter));
                         if (parts[1].equals("1")) {
                             deadline.markAsDone();
                         }
