@@ -14,10 +14,24 @@ public class TaskList {
     }
 
     public TaskList(File file) {
+        this.list = new ArrayList<Task>();
         try {
             Scanner scanner = new Scanner(file);
             while (scanner.hasNextLine()) {
-                String task = scanner.nextLine();
+                String storedTask = scanner.nextLine();
+                String[] taskArray = storedTask.split(",");
+                Task task;
+                if (taskArray[0].startsWith("Todo")) {
+                    task = new ToDoTask(taskArray[2]);
+                } else if (taskArray[0].startsWith("Deadline")) {
+                    task = new DeadlineTask(taskArray[2], taskArray[3]);
+                } else {
+                    task = new EventTask(taskArray[2], taskArray[3], taskArray[4]);
+                }
+                if ((taskArray[1]).equals("1")) {
+                    task.setDone();
+                }
+                this.list.add(task);
             }
             scanner.close();
         } catch (FileNotFoundException e) {
@@ -25,7 +39,6 @@ public class TaskList {
             e.printStackTrace();
         }
         this.file = file;
-        this.list = new ArrayList<Task>();
     }
 
     public void addTask(Task task) {
