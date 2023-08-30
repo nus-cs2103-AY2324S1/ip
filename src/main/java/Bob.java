@@ -58,7 +58,7 @@ public class Bob {
             } else {
                 //event
                 Event e = (Event) t;
-                fWriter2.write("E | " + e.getNumber() + " | " + e.getDescription() + " | " + e.getFrom() + " to " +
+                fWriter2.write("E | " + e.getNumber() + " | " + e.getDescription() + " | " + e.getFrom() + "-" +
                         e.getTo() +"\n");
             }
         }
@@ -109,8 +109,8 @@ public class Bob {
                     break;
                 case "E":
                     String time = wordArr[3].trim();
-                    String[] timeline = time.split("to");
-                    Event e = new Event(wordArr[2].trim(), timeline[0].trim(), timeline[1].trim());
+                    String[] timeline = time.split("-");
+                    Event e = new Event(wordArr[2].trim(), timeline[0], timeline[1]);
                     if (wordArr[1].trim().equals("1")) {
                         e.silentMark();
                     }
@@ -156,7 +156,7 @@ public class Bob {
         Deadline task = new Deadline(desc, by);
 
         //writing to the txt.file
-        String addToText = "D | 0 | " + desc + " | " + task.getBy();
+        String addToText = "D | 0 | " + desc + " | " + by;
         Bob.fWrite(addToText);
 
         //add task to taskArr
@@ -183,7 +183,7 @@ public class Bob {
         Event task = new Event(desc, from, to);
 
         //writing to the txt.file
-        String addToText = "E | 0 | " + desc + " | " + task.getFrom() + " to " + task.getTo();
+        String addToText = "E | 0 | " + desc + " | " + from + "-" + to;
         Bob.fWrite(addToText);
 
         //add task to taskArr

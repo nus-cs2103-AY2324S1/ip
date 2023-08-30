@@ -1,6 +1,6 @@
 todo read book
-deadline complete this level /by 2021-12-06 1800
-event project meeting /from 2021-12-06 1800 /to 2021-12-12 1300
+deadline complete this level /by June 6th
+event project meeting /from Thursday 2pm /to 4pm
 todo sleep
 list
 mark 3
