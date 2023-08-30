@@ -14,9 +14,9 @@ public class Duke {
     }
 
     public  static void Exit() {
-        printOneLine();
+
         System.out.println(" Bye. Hope to see you again soon!");
-        printOneLine();
+
     }
 
 
@@ -33,16 +33,43 @@ public class Duke {
 
         boolean wantToExit = false;
         Scanner getUserInput = new Scanner(System.in);
+        String[] userList = new String[100];
+        int listPointer = 0;
+
         while (!(wantToExit)) {
             String userInput = getUserInput.nextLine();
-            if (userInput.equals("bye")) {
-                wantToExit = true;
-                Exit();
-            } else {
-                printOneLine();
-                System.out.println(userInput);
-                printOneLine();
+
+            printOneLine();
+            switch (userInput) {
+
+                case "bye":
+                    wantToExit = true;
+                    Exit();
+                    break;
+
+                case "list":
+
+                    if (listPointer < 1) {
+                        System.out.println("No items in the list yet");
+                    } else {
+                        for (int i = 0; i < listPointer; i++) {
+                            int num = i + 1;
+                            System.out.println(num + ". " + userList[i]);
+                        }
+                    }
+
+                    break;
+
+                default:
+                    userList[listPointer] = userInput;
+                    listPointer = listPointer + 1;
+                    printOneLine();
+                    System.out.println("added: " + userInput);
+                    printOneLine();
+
             }
+            printOneLine();
+
         }
 
 
