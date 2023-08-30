@@ -1,10 +1,12 @@
+import java.time.LocalDateTime;
+
 /**
  * The Deadlines class extends the Task class.
  * It contains a description, a deadline, and inherits the
  * completion status functionality from the Task class.
  */
 public class Deadlines extends Task {
-    protected String deadline;
+    protected LocalDateTime deadline;
 
     /**
      * Constructs a Deadlines object with the given description and deadline.
@@ -14,7 +16,7 @@ public class Deadlines extends Task {
      */
     public Deadlines(String description, String deadline) {
         super(description);
-        this.deadline = deadline;
+        this.deadline = DateFormatter.parseTime(deadline, "yyyy-MM-dd HH:mm");
     }
 
     /**
@@ -25,6 +27,7 @@ public class Deadlines extends Task {
      */
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + deadline + ")";
+        String formatDateTime = DateFormatter.format(deadline, "dd-MM-yyyy HH:mm");
+        return "[D]" + super.toString() + " (by: " + formatDateTime + ")";
     }
 }
