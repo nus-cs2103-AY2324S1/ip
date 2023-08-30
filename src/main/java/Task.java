@@ -60,7 +60,7 @@ public abstract class Task {
      */
     public static Task getTask(String formattedTask) {
         char type = formattedTask.charAt(0);
-        boolean isDone = (formattedTask.charAt(4) == 1? true : false);
+        boolean isDone = (formattedTask.charAt(4) == '1'? true : false);
         String description = formattedTask.substring(8);
 
         switch (type) {

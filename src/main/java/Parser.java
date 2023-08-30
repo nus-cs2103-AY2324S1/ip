@@ -19,6 +19,10 @@ public class Parser {
             return new DeleteCommand(cmdWord, arguments);
         case "bye":
             return new ExitCommand(cmdWord, arguments);
+        case "mark":
+            return new MarkCommand(cmdWord, arguments);
+        case "unmark":
+            return new UnmarkCommand(cmdWord, arguments);
         default:
             return new HelpCommand(cmdWord, arguments);
         }

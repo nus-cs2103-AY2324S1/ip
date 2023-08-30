@@ -35,7 +35,6 @@ public class TaskList {
         Task temp = tasksList.get(taskId);
         tasksList.remove(taskId);
         return temp;
-
     }
 
     public void update(Storage storage) {
@@ -44,5 +43,24 @@ public class TaskList {
             storage.save("/Users/ariellacallista/Desktop",
                     "/Users/ariellacallista/Desktop/SanaTasks.txt", task);
         }
+    }
+
+    public void mark(int taskId) throws SanaException {
+        if (taskId > tasksList.size() || taskId == 0) {
+            throw new SanaException("No such task!");
+        }
+        tasksList.get(taskId - 1).markAsDone();
+        System.out.println("Nice! I've marked this task as done:\n"
+                + tasksList.get(taskId - 1).toString());
+
+    }
+
+    public void unmark(int taskId) throws SanaException {
+        if (taskId > tasksList.size() || taskId == 0) {
+            throw new SanaException("No such task!");
+        }
+        tasksList.get(taskId - 1).markAsNotDone();
+        System.out.println("OK, I've marked this task as not done yet:\n"
+                + tasksList.get(taskId - 1).toString());
     }
 }
