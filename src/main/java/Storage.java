@@ -2,6 +2,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -33,7 +34,7 @@ public class Storage {
                 case "D":
                     String[] splitDeadline = description.split("/by", 2);
                     String deadlineTaskDescription = splitDeadline[0];
-                    String deadline = splitDeadline[1];
+                    LocalDate deadline = DateParser.parseDate(splitDeadline[1]);
                     Task deadlineTask = new Deadline(deadlineTaskDescription, isDone, deadline);
                     this.list.add(deadlineTask);
                     break;
@@ -41,8 +42,8 @@ public class Storage {
                     String[] splitEvent = description.split("/from", 2);
                     String eventTaskDescription = splitEvent[0];
                     String[] timings = splitEvent[1].split("/to", 2);
-                    String start = timings[0];
-                    String end = timings[1];
+                    LocalDate start = DateParser.parseDate(timings[0]);
+                    LocalDate end = DateParser.parseDate(timings[1]);
                     Task eventTask = new Event(eventTaskDescription, isDone, start, end);
                     this.list.add(eventTask);
                     break;

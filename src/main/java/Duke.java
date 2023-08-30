@@ -1,3 +1,4 @@
+import java.time.LocalDate;
 import java.util.Scanner;
 
 /**
@@ -108,7 +109,7 @@ public class Duke {
             try {
                 String[] splits = specifications.split("/by", 2);
                 String description = splits[0];
-                String date = splits[1];
+                LocalDate date = DateParser.parseDate(splits[1]);
                 Task deadlineTask = new Deadline(description, false, date);
                 this.taskList.store(deadlineTask);
                 deadlineTask.notice();
@@ -122,8 +123,8 @@ public class Duke {
                 String[] split = specifications.split("/from", 2);
                 String event = split[0];
                 String[] timings = split[1].split("/to", 2);
-                String start = timings[0];
-                String end = timings[1];
+                LocalDate start = DateParser.parseDate(timings[0]);
+                LocalDate end = DateParser.parseDate(timings[1]);
                 Task eventTask = new Event(event, false, start, end);
                 this.taskList.store(eventTask);
                 eventTask.notice();
