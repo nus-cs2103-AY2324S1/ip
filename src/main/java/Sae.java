@@ -1,17 +1,37 @@
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.io.File;
+import java.io.FileWriter;
 
 /**
  * The Sae class represents an interactive task manager.
  * Users can add, list, mark, and unmark tasks using this program.
  */
 public class Sae {
+
+    private final Storage storage;
+    private final ArrayList<Task> store;
+
+    public Sae(String filePath) {
+        ArrayList<Task> temp;
+        this.storage = new Storage(filePath);
+        try {
+            temp = storage.loadTasks(filePath);
+        } catch (IOException e) {
+            temp = new ArrayList<Task>();
+        }
+        this.store = temp;
+    }
     public static void main(String[] args) {
         System.out.println("Hello! I'm Sae\nWhat can I do for you?");
 
-        ArrayList<Task> store = new ArrayList<>();
-        Scanner input = new Scanner(System.in);
+        // Create an instance of Sae
+        Sae saeInstance = new Sae("./data/sae.txt");
 
+        ArrayList<Task> store = saeInstance.store; // Access store from the instance
+
+        Scanner input = new Scanner(System.in);
 
         while (true) {
             String str = input.nextLine();
@@ -27,11 +47,13 @@ public class Sae {
 
             try {
                 executeCommand(store, commandTask);
+                saeInstance.storage.saveTasks(store);
             } catch (SaeException e) {
                 System.out.println("☹ " + e.getMessage());
+            } catch (IOException e) {
+                System.out.println("An error occurred while saving tasks: " + e.getMessage());
             }
         }
-
         input.close();
     }
 
@@ -47,34 +69,50 @@ public class Sae {
 
         try {
             if (command.equals("delete")) {
-                deleteTask(store, commandTask);
+                int number = Integer.parseInt(commandTask[1]);
+                Task curr = store.get(number - 1);
+                curr.deleteTask(store, commandTask);
             } else if (command.equals("list")) {
                 listTasks(store);
             } else if (command.equals("mark")) {
-                markTask(store, commandTask);
+                int number = Integer.parseInt(commandTask[1]);
+                Task curr = store.get(number - 1);
+                curr.markTask(store, commandTask);
+                //saveTasks(store);
             } else if (command.equals("unmark")) {
-                unmarkTask(store, commandTask);
+                int number = Integer.parseInt(commandTask[1]);
+                Task curr = store.get(number - 1);
+                curr.unmarkTask(store, commandTask);
             } else if (command.equals("todo")) {
                 if (commandTask.length < 2 || commandTask[1].isEmpty()) {
                     throw new InvalidTodoException();
-                } else {
-                    addTodoTask(store, commandTask);
                 }
+                Todo newTask = new Todo(commandTask[1]);
+                newTask.addTodoTask(store, commandTask);
+                newTask.addtoStore();
             } else if (command.equals("deadline")) {
                 if (commandTask.length < 2 || !commandTask[1].contains("/by")) {
                     throw new InvalidDeadlineException();
                 }
-                addDeadlineTask(store, commandTask);
+                String[] parts = commandTask[1].split("/by");
+                Deadline newTask = new Deadline(parts[0].trim(), parts[1].trim());
+                newTask.addDeadlineTask(store, commandTask);
+                newTask.addtoStore();
             } else if (command.equals("event")) {
                 if (commandTask.length < 2 || !commandTask[1].contains("/from") || !commandTask[1].contains("/to")) {
                     throw new InvalidEventException();
                 }
-                addEventTask(store, commandTask);
+                String[] parts = commandTask[1].split("/from|/to");
+                Event newTask = new Event(parts[0].trim(), parts[1].trim(), parts[2].trim());
+                newTask.addEventTask(store, commandTask);
+                newTask.addtoStore();
             } else {
                 throw new SaeException();
             }
         } catch (SaeException errorMessage) {
             System.out.println(errorMessage.toString());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -91,86 +129,4 @@ public class Sae {
         }
     }
 
-    /**
-     * Marks a task as done based on the user's input.
-     *
-     * @param store        The ArrayList containing the tasks.
-     * @param commandTask  The user's input split into command and content.
-     */
-    private static void markTask(ArrayList<Task> store, String[] commandTask) {
-        int number = Integer.parseInt(commandTask[1]);
-        Task curr = store.get(number - 1);
-        curr.markAsDone();
-        System.out.println("Nice! I've marked this task as done:");
-        System.out.println(curr.toString());
-    }
-
-    /**
-     * Unmarks a task as done based on the user's input.
-     *
-     * @param store        The ArrayList containing the tasks.
-     * @param commandTask  The user's input split into command and content.
-     */
-    private static void unmarkTask(ArrayList<Task> store, String[] commandTask) {
-        int number = Integer.parseInt(commandTask[1]);
-        Task curr = store.get(number - 1);
-        curr.unmarkAsDone();
-        System.out.println("OK, I've marked this task as not done yet:");
-        System.out.println(curr.toString());
-    }
-
-    /**
-     * Adds a new Todo task to the store.
-     *
-     * @param store       The ArrayList containing the tasks.
-     * @param commandTask The user's input split into command and description.
-     */
-    private static void addTodoTask(ArrayList<Task> store, String[] commandTask) {
-        Task curr = new Todo(commandTask[1]);
-        store.add(curr);
-        System.out.println("Got it. I've added this task:");
-        System.out.println(curr.toString());
-        System.out.println("Now you have " + store.size() + " tasks in the list.");
-    }
-
-    /**
-     * Adds a new Deadline task to the store.
-     *
-     * @param store       The ArrayList containing the tasks.
-     * @param commandTask The user's input split into command and description.
-     */
-    private static void addDeadlineTask(ArrayList<Task> store, String[] commandTask) {
-        String[] parts = commandTask[1].split("/by");
-        Task curr = new Deadline(parts[0].trim(), parts[1].trim());
-        store.add(curr);
-        System.out.println("Got it. I've added this task:");
-        System.out.println(curr.toString());
-        System.out.println("Now you have " + store.size() + " tasks in the list.");
-    }
-
-    /**
-     * Adds a new Event task to the store.
-     *
-     * @param store       The ArrayList containing the tasks.
-     * @param commandTask The user's input split into command and description.
-     */
-
-    private static void addEventTask(ArrayList<Task> store, String[] commandTask) {
-        String[] parts = commandTask[1].split("/from|/to");
-        Task curr = new Event(parts[0].trim(), parts[1].trim(), parts[2].trim());
-        store.add(curr);
-        System.out.println("Got it. I've added this task:");
-        System.out.println("  " + curr.toString());
-        System.out.println("Now you have " + store.size() + " tasks in the list.");
-    }
-
-    private static void deleteTask(ArrayList<Task> store, String[] commandTask) {
-        int number = Integer.parseInt(commandTask[1]);
-        Task curr = store.get(number - 1);
-        System.out.println("Noted. I've removed this task:");
-        System.out.println("  " + curr.toString());
-        store.remove(curr);
-        System.out.println("Now you have " + store.size() + " tasks in the list.");
-
-    }
 }

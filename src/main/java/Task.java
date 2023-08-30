@@ -1,7 +1,11 @@
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+
 /**
  * The Task class represents a task with a description and a status indicating whether it's done or not.
  */
-public class Task {
+abstract public class Task {
     protected String description;
     protected boolean isDone;
 
@@ -36,14 +40,38 @@ public class Task {
     /**
      * Marks the task as done by setting its status to true.
      */
-    public void markAsDone() {
-        this.isDone = true;
+    public void markTask(ArrayList<Task> store, String[] commandTask) {
+        int number = Integer.parseInt(commandTask[1]);
+        Task curr = store.get(number - 1);
+        curr.isDone = true;
+        System.out.println("Nice! I've marked this task as done:");
+        System.out.println(curr.toString());
     }
 
-    /**
-     * Unmarks the task as done by setting its status to false.
-     */
-    public void unmarkAsDone() {
-        this.isDone = false;
+    public void unmarkTask(ArrayList<Task> store, String[] commandTask) {
+        int number = Integer.parseInt(commandTask[1]);
+        Task curr = store.get(number - 1);
+        curr.isDone = false;
+        System.out.println("OK, I've marked this task as not done yet:");
+        System.out.println(curr.toString());
     }
+
+    public void deleteTask(ArrayList<Task> store, String[] commandTask) {
+        int number = Integer.parseInt(commandTask[1]);
+        Task curr = store.get(number - 1);
+        System.out.println("Noted. I've removed this task:");
+        System.out.println("  " + curr.toString());
+        store.remove(curr);
+        System.out.println("Now you have " + store.size() + " tasks in the list.");
+    }
+
+    public abstract void addtoStore() throws IOException;
+
+    public void changeMarktoStore(String[] commandTask) {
+        File file = new File("./data/sae.txt");
+        int number = Integer.parseInt(commandTask[1]) - 1;
+    }
+
+    public abstract String toFileString();
+
 }
