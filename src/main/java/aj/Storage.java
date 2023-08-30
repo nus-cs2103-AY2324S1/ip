@@ -1,3 +1,5 @@
+package aj;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -35,7 +37,7 @@ public class Storage {
                 boolean isMark = Boolean.parseBoolean(parsedValues[1]);
                 Task task;
                 if (command.equals("todo")) {
-//                    task = new Todo(remaining.substring(1), isMark);
+//                    task = new aj.Todo(remaining.substring(1), isMark);
                     task = this.parser.getTodoTask(remaining, isMark);
                 } else if (command.equals("deadline")) {
                     task = this.parser.getDeadlineTask(remaining, isMark);

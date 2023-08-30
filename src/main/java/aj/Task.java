@@ -1,3 +1,5 @@
+package aj;
+
 public abstract class Task {
     protected boolean isMarked;
     protected String taskName;

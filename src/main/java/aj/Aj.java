@@ -1,8 +1,10 @@
+package aj;
+
 import java.util.Scanner;
 import java.io.IOException;
 
-public class Aj {
 
+public class Aj {
     Parser parser;
     Storage storage;
 
@@ -43,11 +45,11 @@ public class Aj {
 //            String back = scanner.next();
                 int idx = Integer.parseInt(remaining.substring(1)) - 1;
                 this.ui.checkIndex(idx);
-//      Task task = this.lst[idx];
+//      aj.Task task = this.lst[idx];
                 Task task = this.taskList.getTask(idx);
                 this.ui.horiLine();
                 if (!task.isCompleted()) {
-                    System.out.println("Task is already unmarked!!!");
+                    System.out.println("aj.Task is already unmarked!!!");
                 } else {
                     task.toggleComplete();
                     this.storage.updateData(idx, false);
