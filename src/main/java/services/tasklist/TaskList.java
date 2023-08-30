@@ -14,19 +14,26 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TaskList {
-    private List<Task> taskList;
-    private Storage repo;
-    private int taskCount;
-    private Ui ui;
+public class TaskList implements ITaskList {
+    protected List<Task> taskList;
+    protected IStorage repo;
+    protected int taskCount;
+    protected Ui ui;
 
-    public TaskList(String dataFilePath, Ui ui) throws JarvisException {
+    public TaskList(IStorage repo, Ui ui) {
         this.ui = ui;
-        repo = new Storage(dataFilePath);
-        taskList = repo.load();
-        taskCount = taskList.size();
+        this.repo = repo;
+        try {
+            taskList = repo.load();
+            taskCount = taskList.size();
+        } catch (JarvisException e) {
+            ui.print(e.toString() + "\nA temporary session is opened for you.");
+            taskList = new ArrayList<>();
+            taskCount = 0;
+        }
     }
 
+    @Override
     public void add(String description, CommandType taskType, String... args) throws JarvisException {
         Task newTask;
         // this if block is unnecessary currently (is never reached), but it may be useful in the future.
@@ -53,6 +60,7 @@ public class TaskList {
         ui.print("added: " + newTask + "\n" + taskCount + " more tasks to do, Sir.");
     }
 
+    @Override
     public void delete(int taskNumber) throws JarvisException {
         if (taskNumber <= 0 || taskNumber > taskCount) {
             throw new IndexOutOfRangeException(taskNumber, taskCount);
@@ -64,6 +72,7 @@ public class TaskList {
         ui.print("removed: " + deletedTask + "\n" + taskCount + " tasks left, Sir.");
     }
 
+    @Override
     public void markDone(int taskNumber) throws JarvisException {
         if (taskNumber <= 0 || taskNumber > taskCount) {
             throw new IndexOutOfRangeException(taskNumber, taskCount);
@@ -74,6 +83,7 @@ public class TaskList {
         ui.print("Check.\n\t" + task + "\n" + "Way to go, sir.");
     }
 
+    @Override
     public void markUndone(int taskNumber) throws JarvisException {
         if (taskNumber <= 0 || taskNumber > taskCount) {
             throw new IndexOutOfRangeException(taskNumber, taskCount);
@@ -84,6 +94,7 @@ public class TaskList {
         ui.print("As you wish, sir.\n\t" + task);
     }
 
+    @Override
     public void show() {
         if (taskCount == 0) {
             ui.print("Sir, there are no tasks on your calendar.");

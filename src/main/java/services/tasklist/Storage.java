@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class Storage {
+public class Storage implements IStorage {
     private File dataFile;
 
     public Storage(String dataFilePath) throws SaveToFileException {
@@ -28,6 +28,7 @@ public class Storage {
         }
     }
 
+    @Override
     public void save(List<Task> tasks) throws SaveToFileException {
         try {
             FileWriter fileWriter = new FileWriter(dataFile);
@@ -40,6 +41,7 @@ public class Storage {
         }
     }
 
+    @Override
     public List<Task> load() throws ReadFromFileException, InvalidArgumentException {
         try {
             Scanner scanner = new Scanner(dataFile);

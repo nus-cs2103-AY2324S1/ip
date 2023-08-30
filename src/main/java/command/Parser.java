@@ -4,13 +4,14 @@ import services.bizerrors.EmptyArgumentException;
 import services.bizerrors.InvalidArgumentException;
 import services.bizerrors.InvalidCommandException;
 import services.bizerrors.JarvisException;
+import services.tasklist.ITaskList;
 import services.tasklist.TaskList;
 
 public class Parser {
 
-    private TaskList taskList;
+    protected ITaskList taskList;
 
-    public Parser(TaskList taskList) {
+    public Parser(ITaskList taskList) {
         this.taskList = taskList;
     }
 
@@ -21,7 +22,7 @@ public class Parser {
     }
 
     // a helper method for the above resolve method.
-    private void execute(String command, String args) throws JarvisException {
+    protected void execute(String command, String args) throws JarvisException {
         try {
             CommandType commandType = CommandType.valueOf(command.toUpperCase());
             // go through commands without any arguments.

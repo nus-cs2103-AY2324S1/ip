@@ -3,6 +3,7 @@ package jarvis;
 import command.Parser;
 import services.Ui;
 import services.bizerrors.JarvisException;
+import services.tasklist.Storage;
 import services.tasklist.TaskList;
 
 import java.util.Scanner;
@@ -51,7 +52,7 @@ public class Jarvis {
     public Jarvis(String dataFilePath) {
         ui = new Ui();
         try {
-            taskList = new TaskList(dataFilePath, ui);
+            taskList = new TaskList(new Storage(dataFilePath), ui);
             parser = new Parser(taskList);
         } catch (JarvisException e) {
             ui.print(e.toString());
