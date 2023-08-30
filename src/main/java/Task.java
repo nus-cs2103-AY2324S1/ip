@@ -19,9 +19,15 @@ public class Task {
         this.isDone = false;
     }
 
+    public String save() {
+        return (this.isDone ? "Y" : "N") + "|" + this.description;
+    }
+
     @Override
     public String toString() {
         return "[" + getStatusIcon() + "] " + this.description;
     }
+
+
 
 }
