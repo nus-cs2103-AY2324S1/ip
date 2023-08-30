@@ -8,6 +8,11 @@
  * @version Level-4
  */
 public abstract class Task {
+    /** Enumerates the Task subtypes. **/
+    public enum TaskType {
+        TODO, DEADLINE, EVENT
+    }
+
     /** The description of the task instance. **/
     private String description;
 
@@ -50,19 +55,28 @@ public abstract class Task {
         this.isDone = false;
     }
 
+
     // TODO: Create the Factory method.
-    public static Task of(String type, String... args) {
+    public static Task of(TaskType type, String... args) throws IllegalArgumentException {
         switch (type) {
-        case "1":
-            System.out.println("1");
-            break;
-        case "2":
-            System.out.println("2");
-            break;
+        case TODO:
+            if (args.length != 1) {
+                throw new IllegalArgumentException("Todos should have exactly 1 argument.");
+            }
+            return new Todo(args[0]);
+        case DEADLINE:
+            if (args.length != 2) {
+                throw new IllegalArgumentException("Deadline should have exactly 2 argument.");
+            }
+            return new Deadline(args[0], args[1]);
+        case EVENT:
+            if (args.length != 3) {
+                throw new IllegalArgumentException("Events should have exactly 3 argument.");
+            }
+            return new Event(args[0], args[1], args[2]);
         default:
-            break;
+            throw new IllegalArgumentException("Unknown Task type.");
         }
-        return null;
     }
 
     /**
