@@ -25,7 +25,7 @@ public class Deadline extends Task {
 
         String taskName = matcher.group("taskName");
         if (taskName == null || taskName.isBlank()) {
-            throw new LukeException("The description of a todo cannot be empty.");
+            throw new LukeException("The description of a deadline cannot be empty.");
         }
         String finishByTime = matcher.group("finishByTime");
         if (finishByTime == null || finishByTime.isBlank()) {
