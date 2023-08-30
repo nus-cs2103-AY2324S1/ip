@@ -20,11 +20,7 @@ public class Duke {
         storage = new Storage(filePath);
         try {
             tasks = new TaskList(storage.loadFile());
-            if (tasks.taskArray.isEmpty()) {
-                Ui.taskListEmpty();
-            } else {
-                Ui.taskListNotEmpty(this.tasks.taskArray);
-            }
+            Ui.showTaskList(tasks.taskArray, false);
             Ui.horizontalLine();
         } catch (DukeException e) {
             Ui.showExceptionError(e);
@@ -36,7 +32,7 @@ public class Duke {
      * Runs the program.
      */
     public void run() {
-        this.ui.welcomeMessage();
+        ui.welcomeMessage();
         Scanner sc = new Scanner(System.in);
 
         while (true) {

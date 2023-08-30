@@ -60,13 +60,12 @@ public class TaskList {
 
     /**
      * Displays the contents of the array list containing the tasks.
+     *
+     * @param taskList the TaskList object that contains the array list containing the tasks.
+     * @param isMatch true if the user command is a "find" command, false otherwise.
      */
-    public void listTasks() {
-        if (this.taskArray.isEmpty()) {
-            Ui.taskListEmpty();
-        } else {
-            Ui.taskListNotEmpty(this.taskArray);
-        }
+    public void listTasks(TaskList taskList, boolean isMatch) {
+        Ui.showTaskList(taskList.taskArray, isMatch);
     }
 
     /**
@@ -139,5 +138,20 @@ public class TaskList {
         } catch (IndexOutOfBoundsException | NumberFormatException e) {
             throw new DukeException("WARBLE WARBLE, this task number does not exist!");
         }
+    }
+
+    /**
+     * Displays the tasks that contains the keyword given by the user.
+     *
+     * @param keyword the keyword to find in the tasks.
+     */
+    public void findTasks(String keyword) {
+        ArrayList<Task> foundTasksArray = new ArrayList<>();
+        for (int i = 0; i < this.taskArray.size(); i++) {
+            if (this.taskArray.get(i).toString().contains(keyword)) {
+                foundTasksArray.add(this.taskArray.get(i));
+            }
+        }
+        Ui.showTaskList(foundTasksArray, true);
     }
 }

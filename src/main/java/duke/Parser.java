@@ -34,7 +34,7 @@ public class Parser {
         try {
             switch (input[0]) {
             case "list":
-                this.taskList.listTasks();
+                this.taskList.listTasks(this.taskList, false);
                 break;
             case "mark":
             case "unmark":
@@ -81,6 +81,16 @@ public class Parser {
                     throw new DukeException("BEEPBEEP! You forgot to give a task number!");
                 } catch (NumberFormatException e) {
                     throw new DukeException("WOIWOI! That is an invalid input!");
+                }
+                break;
+            case "find":
+                try {
+                    if (input[1].isEmpty()) {
+                        throw new ArrayIndexOutOfBoundsException();
+                    }
+                    this.taskList.findTasks(input[1].trim());
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    throw new DukeException("BEEPBEEP! You forgot to give a keyword for me to search!");
                 }
                 break;
             default:

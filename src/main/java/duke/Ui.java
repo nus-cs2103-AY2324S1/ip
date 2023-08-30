@@ -125,19 +125,22 @@ public class Ui {
     }
 
     /**
-     * Prints the message when the array list containing the tasks is empty.
-     */
-    public static void taskListEmpty() {
-        System.out.println("HEYYYYYYYY! There's nothing to show in your list!");
-    }
-
-    /**
-     * Prints the message when the array list containing the tasks is not empty.
+     * Prints the message when the array list containing the tasks.
      *
      * @param taskArray the TaskList object that contains the array list containing the tasks.
+     * @param isMatch true if the user command is a "find" command, false otherwise.
      */
-    public static void taskListNotEmpty(ArrayList<Task> taskArray) {
-        System.out.println("WHEET WHEET WHEET! Here are the tasks in your list:");
+    public static void showTaskList(ArrayList<Task> taskArray, boolean isMatch) {
+        if (taskArray.isEmpty() && !isMatch) {
+            System.out.println("HEYYYYYYYY! There's nothing to show in your list!");
+        } else if (taskArray.isEmpty()) {
+            System.out.println("HAIYAAAA! There's nothing in your list that matches the keyword!");
+        }
+        if (!taskArray.isEmpty() && !isMatch) {
+            System.out.println("WHEET WHEET WHEET! Here are the tasks in your list:");
+        } else if (!taskArray.isEmpty()) {
+            System.out.println("HOOOOOYEAAAAA! Here are the matching tasks in your list:");
+        }
         for (int i = 0; i < taskArray.size(); i++) {
             System.out.println(i + 1 + "." + taskArray.get(i));
         }
