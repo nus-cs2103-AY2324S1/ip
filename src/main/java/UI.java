@@ -22,7 +22,7 @@ public class UI {
         System.out.println("Bye. Hope to see you again soon!");
     }
 
-    public void printTaskAddedSuccessfullyMessage(Task task, int taskCount) {
+    public void printTaskAddedMessage(Task task, int taskCount) {
         System.out.println("Got it. I've added this task:");
         System.out.println(task);
         this.printTaskCount(taskCount);

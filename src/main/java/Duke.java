@@ -6,6 +6,8 @@ import java.util.Scanner;
 
 public class Duke {
     private static TaskList tasks;
+    private static final String NAME = "DEREK";
+    private static UI ui = new UI(NAME);
     private static final String DATETIME_INPUT_FORMAT = "yyyy-MM-dd HHmm";
     public static final DateTimeFormatter dateTimeInputFormatter = DateTimeFormatter.ofPattern(DATETIME_INPUT_FORMAT);
 
@@ -13,9 +15,7 @@ public class Duke {
         Duke.tasks = new TaskList();
         Scanner in = new Scanner(System.in);
 
-        String name = "Derek";
-        System.out.println("Hello! I'm " + name);
-        System.out.println("What can I do for you?");
+        ui.printWelcomeMessage();
 
         while (true) {
             String line = in.nextLine();
@@ -39,7 +39,7 @@ public class Duke {
                 }
                 if (command.equals(Command.BYE.getCommand())) {
                     Duke.tasks.saveState();
-                    System.out.println("Bye. Hope to see you again soon!");
+                    ui.printGoodbyeMessage();
                     break;
                 }
                 if (command.equals(Command.TODO.getCommand())) {
