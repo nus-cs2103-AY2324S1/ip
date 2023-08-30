@@ -1,5 +1,7 @@
 package parsers;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.regex.Pattern;
 
 import tasks.Deadline;
@@ -58,13 +60,34 @@ public class TaskParser extends Parser<Task>{
             if (infos.length != 4) {
                 throw new InvalidParsingFormatException("Wrong format for Deadline task!");
             }
-            task = new Deadline(status, desc, infos[3]);
+
+            LocalDate by = null;
+
+            try {
+                by = LocalDate.parse(infos[3], Task.DATE_INPUT_FORMATTER);
+            } catch (DateTimeParseException e) {
+                throw new InvalidParsingFormatException("Wrong format for date!");
+            }
+
+            task = new Deadline(status, desc, by);
+
             break;
         case "E":
             if (infos.length != 5) {
                 throw new InvalidParsingFormatException("Wrong format for Event task!");
             }
-            task = new Event(status, desc, infos[3], infos[4]);
+
+            LocalDate from = null;
+            LocalDate to = null;
+
+            try {
+                from = LocalDate.parse(infos[3], Task.DATE_INPUT_FORMATTER);
+                to = LocalDate.parse(infos[4], Task.DATE_INPUT_FORMATTER);
+            } catch (DateTimeParseException e) {
+                throw new InvalidParsingFormatException("Wrong format for date!");
+            }
+
+            task = new Event(status, desc, from, to);
             break;
         default:
             throw new InvalidParsingTypeException("Invalid task type!");
