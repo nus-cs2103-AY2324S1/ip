@@ -1,4 +1,4 @@
-package src.alpha;
+package alpha;
 public class ListCommand extends Command{
 
     public ListCommand(TaskList taskList, FileHandler fh, UI ui) {

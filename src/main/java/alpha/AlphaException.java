@@ -1,4 +1,4 @@
-package src.alpha;
+package alpha;
 // Class to handle Exceptions regarding ChatBot Alpha
 public abstract class AlphaException extends Exception{
     public AlphaException(String errorMessage) {

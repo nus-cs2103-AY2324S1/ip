@@ -1,4 +1,4 @@
-package src.alpha;
+package alpha;
 public class AddCommand extends Command{
 
     private Task task;

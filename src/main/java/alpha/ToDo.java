@@ -1,4 +1,4 @@
-package src.alpha;
+package alpha;
 // Class representation of a ToDo
 public class ToDo extends Task{
 

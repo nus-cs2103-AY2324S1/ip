@@ -1,4 +1,4 @@
-package src.alpha;
+package alpha;
 // Task Class to handle each individual task that is either marked or unmarked
 public abstract class Task {
 

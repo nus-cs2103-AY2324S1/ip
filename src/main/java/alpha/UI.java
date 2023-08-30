@@ -1,4 +1,4 @@
-package src.alpha;
+package alpha;
 import java.util.Scanner;
 
 public class UI {

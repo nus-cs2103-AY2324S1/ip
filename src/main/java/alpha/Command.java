@@ -1,4 +1,4 @@
-package src.alpha;
+package alpha;
 public abstract class Command {
 
     protected TaskList taskList;

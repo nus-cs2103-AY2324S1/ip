@@ -1,4 +1,4 @@
-package src.alpha;
+package alpha;
 public class UnmarkCommand extends Command{
 
     private int index;

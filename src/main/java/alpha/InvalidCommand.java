@@ -1,4 +1,4 @@
-package src.alpha;
+package alpha;
 public class InvalidCommand extends Command{
 
     public InvalidCommand(TaskList taskList, FileHandler fh, UI ui) {

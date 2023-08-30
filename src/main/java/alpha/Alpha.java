@@ -1,4 +1,4 @@
-package src.alpha;
+package alpha;
 
 // The Chatbot Aplha!
 public class Alpha {
@@ -18,7 +18,7 @@ public class Alpha {
         fh.checkAndCreate();
     }
 
-    private void run() {
+    public void run() {
         ui.introduce();
         boolean isExit = false;
         while(!isExit) {

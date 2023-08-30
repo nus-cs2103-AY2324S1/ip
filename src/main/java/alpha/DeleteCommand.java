@@ -1,4 +1,4 @@
-package src.alpha;
+package alpha;
 public class DeleteCommand extends Command{
 
     private int index;
