@@ -1,12 +1,14 @@
+package jerma;
+
 import java.io.IOException;
 import java.time.format.DateTimeParseException;
 
-import commands.Command;
+import jerma.commands.Command;
 
-import utils.Parser;
-import utils.Storage;
-import utils.TaskList;
-import utils.Ui;
+import jerma.utils.Storage;
+import jerma.utils.TaskList;
+import jerma.utils.Ui;
+import jerma.utils.Parser;
 
 public class Jerma {
   private TaskList tasks;

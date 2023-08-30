@@ -1,7 +1,7 @@
-package commands;
+package jerma.commands;
 
-import utils.TaskList;
-import utils.Ui;
+import jerma.utils.TaskList;
+import jerma.utils.Ui;
 
 public abstract class Command {
   protected Ui ui;

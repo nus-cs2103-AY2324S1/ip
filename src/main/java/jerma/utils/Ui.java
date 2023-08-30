@@ -1,8 +1,8 @@
-package utils;
+package jerma.utils;
 
 import java.util.Scanner;
 
-import tasks.Task;
+import jerma.tasks.Task;
 
 public class Ui {
   Scanner scanner;

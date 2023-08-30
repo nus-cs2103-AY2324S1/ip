@@ -1,8 +1,8 @@
-package utils;
+package jerma.utils;
 
 import java.util.ArrayList;
 
-import tasks.Task;
+import jerma.tasks.Task;
 
 public class TaskList extends ArrayList<Task> {
   @Override

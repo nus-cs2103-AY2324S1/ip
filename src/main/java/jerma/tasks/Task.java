@@ -1,4 +1,4 @@
-package tasks;
+package jerma.tasks;
 
 public abstract class Task {
   private String description;
