@@ -1,2 +1,5 @@
-T | 0 | et
-D | 0 | eat | 2013-03-03T10:00
+T | 0 | eat
+T | 0 | sleep
+T | 1 | eat cake
+T | 0 | sleep now
+T | 0 | eat banana
