@@ -143,6 +143,7 @@ public class Duke {
 
     public Task delTask(int idx) {
         try {
+
             Task t = this.tasklist.get(idx);
             this.tasklist.del(idx);
             return t;
