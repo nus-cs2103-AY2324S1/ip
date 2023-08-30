@@ -8,12 +8,16 @@ import java.time.format.DateTimeFormatter;
 
 public class TaskList {
 
-    public static ArrayList<Task> list = new ArrayList<>();
+    public static ArrayList<Task> list;
     public enum MarkStatus {
         MARK, UNMARK
     }
     public enum TaskType {
         TODO, EVENT, DEADLINE
+    }
+
+    public TaskList () {
+        TaskList.list = new ArrayList<>();
     }
 
     public static void printList() {
@@ -25,45 +29,40 @@ public class TaskList {
         System.out.println(Ui.line);
     }
 
-    public static void toggleMark(MarkStatus mark, String userInput) {
-        String[] parts = userInput.split(" ");
-        if (parts.length == 2) {
-            int taskIndex = Integer.parseInt(parts[1]) - 1;
-            if (taskIndex >= 0 && taskIndex < list.size()) {
-                if (mark == MarkStatus.UNMARK) {
-                    list.get(taskIndex).markAsNotDone();
-                    System.out.println(Ui.line);
-                    System.out.println("OK, I have marked this as undone:");
-                    System.out.println("  " + list.get(taskIndex));
-                    System.out.println(Ui.line);
-                } else if (mark == MarkStatus.MARK){
-                    list.get(taskIndex).markAsDone();
-                    System.out.println(Ui.line);
-                    System.out.println("Good job! I have marked this task as completed:");
-                    System.out.println("  " + list.get(taskIndex));
-                    System.out.println(Ui.line);
-                }
-            } else {
-                System.out.println("Sorry! you have input an invalid task!");
+    public void toggleMark(MarkStatus mark, int taskIndex) throws DukeException{
+        if (taskIndex >= 0 && taskIndex < TaskList.list.size()) {
+            if (mark == MarkStatus.UNMARK) {
+                list.get(taskIndex).markAsNotDone();
+                System.out.println(Ui.line);
+                System.out.println("OK, I have marked this as undone:");
+                System.out.println("  " + list.get(taskIndex));
+                System.out.println(Ui.line);
+            } else if (mark == MarkStatus.MARK) {
+                list.get(taskIndex).markAsDone();
+                System.out.println(Ui.line);
+                System.out.println("Good job! I have marked this task as completed:");
+                System.out.println("  " + list.get(taskIndex));
+                System.out.println(Ui.line);
             }
+        } else {
+            throw new DukeException("Invalid task number");
         }
     }
 
-    public static void deleteTask(int taskIndex) {
+    public void deleteTask(int taskIndex) throws DukeException {
         if (taskIndex >= 0 && taskIndex < TaskList.list.size()) {
             Task removedTask = list.remove(taskIndex);
-//            Duke.number--;
             System.out.println(Ui.line);
             System.out.println("Noted. I've removed this task:");
             System.out.println("  " + removedTask);
             System.out.println("Now you have " + list.size() + " tasks in the list.");
             System.out.println(Ui.line);
         } else {
-            System.out.println("Sorry! You have entered an invalid task number.");
+            throw new DukeException("Specified task does not exist");
         }
     }
 
-    public static void addTask(TaskType taskType, String description, String userInput, String marked) throws DukeException{
+    public void addTask(TaskType taskType, String description, String marked) throws DukeException{
         if (taskType == TaskType.TODO) {
             if (description.isEmpty()) {
                 throw new DukeException("The description of a todo cannot be empty.");
@@ -121,7 +120,7 @@ public class TaskList {
         }
     }
 
-    public static void printTasksByDate(String date) {
+    public void printTasksByDate(String date) {
         LocalDate dueDate = null;
         try {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
@@ -152,5 +151,15 @@ public class TaskList {
             }
             count++;
         }
+    }
+
+    @Override public String toString() {
+        StringBuilder result = new StringBuilder();
+        for (int i = 0; i < list.size(); i++) {
+            result.append(String.format("%d. %s\n", i + 1, list.get(i)));
+        }
+        return (result + String.format("You have %d %s in the list.",
+                list.size(),
+                list.size() == 1 ? "task" : "tasks"));
     }
 }

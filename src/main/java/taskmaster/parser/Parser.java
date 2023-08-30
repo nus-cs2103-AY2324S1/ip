@@ -9,41 +9,53 @@ public class Parser {
 
     public Parser () {}
 
-    public void parse (String userInput, Storage storage) throws DukeException {
+    public void parse (String userInput, Storage storage, TaskList taskList) throws DukeException {
         if (userInput.equalsIgnoreCase("bye")) {
             Taskmaster.activated = false;
         } else if (userInput.equalsIgnoreCase("list")) {
             TaskList.printList();
         } else if (userInput.startsWith("todo")) {
             String description = userInput.substring(5).trim();
-            TaskList.addTask(TaskList.TaskType.TODO, description, userInput, "unmarked");
+            taskList.addTask(TaskList.TaskType.TODO, description, "unmarked");
             storage.saveTasksToFile();
         } else if (userInput.startsWith("event")) {
             String description = userInput.substring(5);
-            TaskList.addTask(TaskList.TaskType.EVENT, description, userInput, "unmarked");
+            taskList.addTask(TaskList.TaskType.EVENT, description, "unmarked");
             storage.saveTasksToFile();
         } else if (userInput.startsWith("deadline")) {
             String description = userInput.substring(8);
-            TaskList.addTask(TaskList.TaskType.DEADLINE, description, userInput, "unmarked");
+            taskList.addTask(TaskList.TaskType.DEADLINE, description, "unmarked");
             storage.saveTasksToFile();
         } else if (userInput.startsWith("mark")) {
-            TaskList.toggleMark(TaskList.MarkStatus.MARK, userInput);
-            storage.saveTasksToFile();
+            String[] parts = userInput.split(" ");
+            if (parts.length == 2) {
+                int taskIndex = Integer.parseInt(parts[1]) - 1;
+                taskList.toggleMark(TaskList.MarkStatus.MARK, taskIndex);
+                storage.saveTasksToFile();
+            } else {
+                throw new DukeException("Invalid command");
+            }
         } else if (userInput.startsWith("unmark")) {
-            TaskList.toggleMark(TaskList.MarkStatus.UNMARK, userInput);
-            storage.saveTasksToFile();
+            String[] parts = userInput.split(" ");
+            if (parts.length == 2) {
+                int taskIndex = Integer.parseInt(parts[1]) - 1;
+                taskList.toggleMark(TaskList.MarkStatus.UNMARK, taskIndex);
+                storage.saveTasksToFile();
+            } else {
+                throw new DukeException("Invalid command");
+            }
         } else if (userInput.startsWith("delete")) {
             String[] parts = userInput.split(" ");
             if (parts.length == 2) {
                 int taskIndex = Integer.parseInt(parts[1]) - 1;
-                TaskList.deleteTask(taskIndex);
+                taskList.deleteTask(taskIndex);
             } else {
                 System.out.println("Please specify the task number to delete.");
             }
             storage.saveTasksToFile();
         } else if (userInput.startsWith("due")) {
             String date = userInput.substring(4).trim();
-            TaskList.printTasksByDate(date);
+            taskList.printTasksByDate(date);
         } else {
             throw new DukeException("Please enter a valid command!");
         }
