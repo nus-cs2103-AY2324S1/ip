@@ -12,8 +12,9 @@ public class ListCommand extends Command {
         if (tasks.toString().isBlank()) {
             throw new SanaException("Your list is empty! Add tasks first to display list");
         }
-        String newTasks = storage.load();
-        System.out.println(newTasks);
+
+        TaskList updatedTasks = new TaskList(storage.load());
+        System.out.println(updatedTasks);
     }
 
     @Override
