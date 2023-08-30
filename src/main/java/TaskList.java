@@ -91,13 +91,11 @@ public class TaskList {
         return this.taskList.size();
     }
 
-    public void saveData(String fileName) throws IOException {
-        FileWriter writer = new FileWriter(fileName);
+    public void saveData(Storage storage) throws Storage.FileIOException {
+        StringBuilder data = new StringBuilder();
         for (Task task: this.taskList) {
-            writer.write(task.data());
-            writer.write("\n");
+            data.append(task.data()).append("\n");
         }
-        writer.close();
-        System.out.println("Done saving");
+        storage.saveData(data.toString());
     }
 }

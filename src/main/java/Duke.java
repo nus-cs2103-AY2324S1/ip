@@ -12,10 +12,10 @@ import java.time.LocalTime;
 
 public class Duke {
     private static final String HORIZONTAL_LINE = "____________________________________________________________";
-    private static final String TASK_FILENAME = "task-list.txt";
     private final String myName = "Quack-NKN";
     private final Scanner scanner = new Scanner(System.in);
     private TaskList taskList = new TaskList();
+    private Storage storage = new Storage("task-list.txt");
 
     public Duke() {
         interact();
@@ -38,77 +38,17 @@ public class Duke {
      * If there is an error in writing file, the program should not continue.
      * @return whether the program can continue, true if it can, false otherwise.
      */
-    private void readFromDisk() throws FileCorruptedException {
+    private void readFromDisk() throws Storage.FileCorruptedException {
         System.out.println(Duke.HORIZONTAL_LINE);
         System.out.println("Loading data from hard disk ...");
-        File f = new File(Duke.TASK_FILENAME);
         try {
-            ArrayList<Task> taskList = new ArrayList<>();
-            Scanner fileScanner = new Scanner(f);
-            while (fileScanner.hasNext()) {
-                String[] line = fileScanner.nextLine().split(" ", 3);
-                if (line.length == 0 && !fileScanner.hasNext()) {
-                    break;
-                }
-                Task task;
-                switch (line[0]) {
-                    case "T":
-                        task = new ToDo(line[2]);
-                        break;
-                    case "D":
-                        String[] split = line[2].split(" /by ", 2);
-                        if (split.length != 2) {
-                            throw new FileCorruptedException();
-                        }
-                        try {
-                            LocalDateTime dateTime = DateTimeManager.inputToDate(split[1]);
-                            task = new Deadline(split[0], dateTime);
-                        } catch (DateTimeManager.DateParseException | DateTimeException e) {
-                            throw new FileCorruptedException();
-                        }
-                        break;
-                    case "E":
-                        String[] separateByFrom = line[2].split(" /from ", 2);
-                        if (separateByFrom.length != 2) {
-                            throw new FileCorruptedException();
-                        }
-                        String[] separateByTo = separateByFrom[1].split(" /to ", 2);
-                        if (separateByTo.length != 2) {
-                            throw new FileCorruptedException();
-                        }
-                        try {
-                            LocalDateTime startTime = DateTimeManager.inputToDate(separateByTo[0]);
-                            LocalDateTime endTime = DateTimeManager.inputToDate(separateByTo[1]);
-                            task = new Event(separateByFrom[0], startTime, endTime);
-                        } catch (DateTimeManager.DateParseException | DateTimeException e) {
-                            throw new FileCorruptedException();
-                        }
-                        break;
-                    default:
-                        throw new FileCorruptedException();
-                }
-                if (line[1].equals("1")) {
-                    task.markAsDone();
-                } else if (line[1].equals("0")) {
-                    task.markAsNotDone();
-                } else {
-                    throw new FileCorruptedException();
-                }
-                taskList.add(task);
-            }
+            ArrayList<Task> taskList = this.storage.readFromDisk();
             this.taskList = new TaskList(taskList);
-            fileScanner.close();
-        } catch (FileNotFoundException fileError) {
-            try {
-                f.createNewFile();
-            } catch (IOException ioError) {
-                System.out.println("Quack, an error has occurred while trying to save data to hard disk.");
-                System.out.println("Starting with an empty task list.");
-                return;
-            }
+            System.out.println("Done loading.");
+        } catch (Storage.FileIOException e) {
+            System.out.println("Quack, an error has occurred while trying to save data to hard disk.");
+            System.out.println("Starting with an empty task list.");
         }
-
-        System.out.println("Done loading.");
         System.out.println(Duke.HORIZONTAL_LINE);
     }
 
@@ -139,8 +79,8 @@ public class Duke {
      */
     private void interact() {
         try {
-            readFromDisk();
-        } catch (FileCorruptedException e) {
+            this.readFromDisk();
+        } catch (Storage.FileCorruptedException e) {
             System.out.println("Quack, memory was found to be corrupted!");
             boolean isContinuing = this.handleFileCorrupted();
             if (!isContinuing) {
@@ -499,8 +439,9 @@ public class Duke {
     private void saveData() {
         System.out.println("Saving data ...");
         try {
-            this.taskList.saveData(Duke.TASK_FILENAME);
-        } catch (IOException e) {
+            this.taskList.saveData(this.storage);
+            System.out.println("Done saving");
+        } catch (Storage.FileIOException e) {
             System.out.println("An error has occurred while writing to hard disk!");
         }
     }
