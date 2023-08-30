@@ -9,6 +9,11 @@ public class Deadline extends Task {
         this.by = by;
     }
 
+    public Deadline(String description, LocalDateTime by, boolean isDone) {
+        super(description, isDone);
+        this.by = by;
+    }
+
     @Override
     public String toString() {
         String output = by.format(DateTimeFormatter.ofPattern("MMM d yyyy, h:mm a"));

@@ -9,6 +9,11 @@ public class Event extends Task {
         this.from = from;
         this.to = to;
     }
+    public Event(String description, LocalDateTime from, LocalDateTime to, boolean isDone) {
+        super(description, isDone);
+        this.from = from;
+        this.to = to;
+    }
 
     @Override
     public String toString() {
