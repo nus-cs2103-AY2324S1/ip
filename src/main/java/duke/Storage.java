@@ -26,7 +26,7 @@ public class Storage {
             }
             fw.close();
         } catch (IOException e) {
-            throw new DukeException(e.getMessage());
+            throw new DukeException("Duke! " + e.getMessage());
         }
     }
 
@@ -37,7 +37,9 @@ public class Storage {
         try {
             sc = new Scanner(f);
         } catch (FileNotFoundException e) {
-            throw new DukeException(e.getMessage());
+            File folder = new File(System.getProperty("user.dir"), "data");
+            folder.mkdir();
+            throw new DukeException("Hi, you are the first time using this app right");
         }
         while (sc.hasNext()) {
             String input = sc.nextLine();
