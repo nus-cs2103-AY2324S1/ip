@@ -1,6 +1,8 @@
 import java.io.*;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;  // Import the Scanner class
+import java.time.LocalDate;
 
 public class Duke {
     static ArrayList<Task> list = new ArrayList<Task>(); // List to be returned when input is "list"
@@ -127,16 +129,17 @@ public class Duke {
     }
 
     public static String deadline(String input) throws DukeException, IOException {
-        String desc = input.substring(9);
-        String task = desc.split(" /by ")[0];
-        String by = desc.split(" /by ")[1];
-        if (task != "" && by != "") {
-            Task item = new Deadline(task, by);
+        try {
+            String desc = input.substring(9);
+            String task = desc.split(" /by ")[0];
+            String by = desc.split(" /by ")[1];
+            LocalDate date = parser(by);
+            Task item = new Deadline(task, date);
             addTask(item);
             String response = "Understood, I will add the following deadline to your list:\n" + item.toString();
             String listLength = "Please note that there are " + counter + " tasks in the list.";
             return response + "\n" + listLength + "\n";
-        } else { // No task or by
+        } catch (DukeException e) {
             throw new DukeException("I am missing some information. " +
                     "I must have not heard you correctly. " +
                     "Perhaps you can say it again?");
@@ -144,19 +147,21 @@ public class Duke {
     }
 
     public static String event(String input) throws DukeException, IOException {
-        String desc = input.substring(6);
-        String[] eventTime = desc.split(" /from ");
-        String task = eventTime[0];
-        String[] time = eventTime[1].split(" /to ");
-        String from = time[0];
-        String to = time[1];
-        if (task != "" && from != "" && to != "") {
-            Task item = new Event(task, from, to);
+        try {
+            String desc = input.substring(6);
+            String[] eventTime = desc.split(" /from ");
+            String task = eventTime[0];
+            String[] time = eventTime[1].split(" /to ");
+            String from = time[0];
+            String to = time[1];
+            LocalDate fromDate = parser(from);
+            LocalDate toDate = parser(to);
+            Task item = new Event(task, fromDate, toDate);
             addTask(item);
-            String response = "Understood, I will add the following event to your list:\n" + item.toString();
+            String response = "Understood, I will add the following deadline to your list:\n" + item.toString();
             String listLength = "Please note that there are " + counter + " tasks in the list.";
             return response + "\n" + listLength + "\n";
-        } else { // No task, from or to
+        } catch (DukeException e) {
             throw new DukeException("I am missing some information. " +
                     "I must have not heard you correctly. " +
                     "Perhaps you can say it again?");
@@ -205,13 +210,16 @@ public class Duke {
                         }
                     }
                     if (type.equals("D")) {
-                        addTask(new Deadline(task, data[3]));
+                        LocalDate date = parser(data[3]);
+                        addTask(new Deadline(task, date));
                         if (isCompleted == "1") {
                             list.get(counter - 1).setDone();
                         }
                     }
                     if (type.equals("E")) {
-                        addTask(new Event(task, data[3], data[4]));
+                        LocalDate from = parser(data[3]);
+                        LocalDate to = parser(data[3]);
+                        addTask(new Event(task, from, to));
                         if (isCompleted == "1") {
                             list.get(counter - 1).setDone();
                         }
@@ -234,6 +242,17 @@ public class Duke {
         }
     }
 
+    public static LocalDate parser(String str) throws DateTimeParseException {
+        try {
+            LocalDate date = LocalDate.parse(str);
+            return date;
+        } catch (DateTimeParseException ex) {
+            throw new DateTimeParseException("I'm afraid I do not quite understand. " +
+                    "Please input the date in the following format:\n" +
+                    "yyyy-mm-dd", ex.getParsedString(), ex.getErrorIndex());
+        }
+    }
+
     public static void main(String[] args) throws DukeException, FileNotFoundException {
         try (Scanner myObj = new Scanner(System.in)) {
             try {
@@ -246,6 +265,8 @@ public class Duke {
                     try {
                         System.out.println(command(echo)); // Checks input
                     } catch (DukeException ex) {
+                        System.err.println(ex); // Prints error
+                    } catch (DateTimeParseException ex) {
                         System.err.println(ex); // Prints error
                     } finally {
                         save();
