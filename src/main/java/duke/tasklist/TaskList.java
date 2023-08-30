@@ -108,6 +108,22 @@ public class TaskList extends ArrayList<Task> {
     }
 
     /**
+     * Searches the task list for tasks that match the given search query.
+     *
+     * @param s The search query to match against task names.
+     * @return An ArrayList containing tasks that match the search query.
+     */
+    public ArrayList<Task> find(String s) {
+        ArrayList<Task> res = new ArrayList<>();
+        forEach(x -> {
+            if (x.isMatch(s)) {
+                res.add(x);
+            }
+        });
+        return res;
+    }
+
+    /**
      * Deletes the task at the specified index from the task list and returns it.
      *
      * @param index The index of the task to delete.

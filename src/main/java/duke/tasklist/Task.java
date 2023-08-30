@@ -100,6 +100,16 @@ public abstract class Task {
     }
 
     /**
+     * Checks if the task name contains the given search query.
+     *
+     * @param s The search query to match against the task name.
+     * @return {@code true} if the task name contains the search query, {@code false} otherwise.
+     */
+    public boolean isMatch(String s) {
+        return name.contains(s);
+    }
+
+    /**
      * Returns the formatted string representation of the task.
      *
      * @return The formatted string representation of the task.
