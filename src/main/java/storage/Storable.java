@@ -19,5 +19,5 @@ public interface Storable<T> {
      *
      * @return An object created from the storable string.
      */
-    public T parseStorableString();
+    public T parseStorableString(String storedData);
 }
