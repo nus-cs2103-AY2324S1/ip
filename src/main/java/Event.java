@@ -11,4 +11,9 @@ public class Event extends Task {
     public String toString() {
         return "[E]" + super.toString() + String.format(" (from: %s to: %s)", eventStart, eventEnd);
     }
+
+    public String toString(boolean isWritten) {
+        String completionStr = super.isDone() ? "1" : "0";
+        return "E" + " | " + completionStr + " | " + super.getName() + " | " + this.eventStart + " | " + this.eventEnd;
+    }
 }

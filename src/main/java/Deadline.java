@@ -9,4 +9,8 @@ public class Deadline extends Task {
     public String toString() {
         return "[D]" + super.toString() + String.format(" (by: %s)", this.deadlineDateString);
     }
+    public String toString(boolean isWritten) {
+        String completionStr = super.isDone() ? "1" : "0";
+        return "D" + " | " + completionStr + " | " + super.getName() + " | " + this.deadlineDateString;
+    }
 }

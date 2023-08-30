@@ -25,4 +25,7 @@ public abstract class Task {
     public String toString() {
         return String.format("%s %s", this.getStatusIcon(), this.getName());
     }
+    public String toString(boolean isWritten) {
+        return String.format("TK %s", this.getName());
+    }
 }

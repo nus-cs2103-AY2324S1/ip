@@ -3,6 +3,12 @@ import com.sun.jdi.ArrayReference;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.io.BufferedWriter;
+import java.io.BufferedReader;
+import java.io.FileWriter;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.File;
 public class Duke {
     private static String name = "WallE";
     private static List<Task> tasks = new ArrayList<>();
@@ -14,19 +20,37 @@ public class Duke {
             super(message);
         }
     }
+
+    public static void printGreeting() {
+        System.out.println("\tHello! I'm " + name + "!");
+        System.out.println("\tWhat can I do for you?");
+    }
     public static void printDivider(boolean isIndented) {
         if (isIndented)
             System.out.println('\t' + "_________________________________________");
         else
             System.out.println("_________________________________________");
     }
-
     public static void printTaskAddedMessage(Task task) {
         System.out.println("\t\t Got it. I've added this task:");
         System.out.println(String.format("\t\t\t %s", task.toString()));
         System.out.println(String.format("\t\tNow you have %d tasks in the list.", tasks.size()));
     }
-
+    public static void printTaskRemovedMessage(Task task) {
+        System.out.println("\tNoted. I've removed this task:");
+        System.out.println("\t\t" + task.toString());
+    }
+    public static void printEmptyDescriptionErrorMessage() {
+        System.out.println("☹ OOPS!!! The description of a task cannot be empty.");
+    }
+    public static void printTaskMarkedMessage(Task task) {
+        System.out.println("\tNice! I've marked this task as done:");
+        System.out.println("\t\t" + task.toString());
+    }
+    public static void printTaskUnmarkedMessage(Task task) {
+        System.out.println("\tOk, I've marked this task as not done yet:");
+        System.out.println("\t\t" + task.toString());
+    }
     public static String extractSecondWordOnwards(String str) {
         String[] wordArray = str.split(" ");
         String secondWordOnwards = wordArray.length >= 2 ? wordArray[1] : "";
@@ -35,11 +59,100 @@ public class Duke {
         }
         return secondWordOnwards;
     }
+
+    public static void saveTasks() {
+        String directoryPath = "./data";
+        String filePath = "./data/duke.txt";
+        BufferedWriter writer = null;
+
+        try {
+            // Create the directory if it doesn't exist
+//            File directory = new File(directoryPath);
+//            if (!directory.exists()) {
+//                directory.mkdirs();
+//            }
+//
+//            // Create the file if it doesn't exist
+//            File file = new File(filePath);
+//            if (!file.exists()) {
+//                file.createNewFile();
+//            }
+
+            writer = new BufferedWriter(new FileWriter(filePath));
+            for (Task task : tasks) {
+                writer.write(task.toString(true));
+                writer.newLine();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            // Make sure to close the writer in the finally block
+            if (writer != null) {
+                try {
+                    writer.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+    public static void loadTasks() {
+        String directoryPath = "./data";
+        String filePath = "./data/duke.txt";
+        BufferedReader reader = null;
+
+        try {
+            // Create the directory if it doesn't exist
+            File directory = new File(directoryPath);
+            if (!directory.exists()) {
+                directory.mkdirs();
+            }
+
+            // Create the file if it doesn't exist
+            File file = new File(filePath);
+            if (!file.exists()) {
+                file.createNewFile();
+            }
+
+            reader = new BufferedReader(new FileReader(filePath));
+            String line;
+            while ((line = reader.readLine()) != null) {
+                // Assuming each line contains task information, parse and create tasks accordingly
+                Task task = parseTaskFromString(line);
+                tasks.add(task);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            // Make sure to close the reader in the finally block
+            if (reader != null) {
+                try {
+                    reader.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    public static Task parseTaskFromString(String line) {
+        String[] taskData = line.split("\\s*\\|\\s*");
+        boolean isDone = taskData[1].equals("1");
+        switch (taskData[0]) {
+            case "T" :
+                return new ToDo(taskData[2], isDone);
+            case "D":
+                return new Deadline(taskData[2], isDone, taskData[3]);
+            case "E":
+        }       return new Event(taskData[2], isDone, taskData[3], taskData[4]);
+    }
+
     public static void main(String[] args) {
+        //TODO: Load tasks here
+        loadTasks();
         Scanner scanner = new Scanner(System.in);
         printDivider(true);
-        System.out.println("\tHello! I'm " + name + "!");
-        System.out.println("\tWhat can I do for you?");
+        printGreeting();
         printDivider(true);
         String input;
         do {
@@ -53,38 +166,35 @@ public class Duke {
                         case "todo":
                             String todoName = extractSecondWordOnwards(input);
                             if (todoName.length() == 0) {
-                                System.out.println("\t☹ OOPS!!! The description of a todo cannot be empty.");
+                                printEmptyDescriptionErrorMessage();
                                 break;
                             }
                             Task todo = new ToDo(todoName, false);
                             tasks.add(todo);
-                            System.out.println("\tadded: " + input);
                             printTaskAddedMessage(todo);
                             break;
                         case "deadline":
                             String[] twoParts = input.split ("/by ");
                             String deadlineName = extractSecondWordOnwards(twoParts[0]);
                             if (deadlineName.length() == 0) {
-                                System.out.println("☹ OOPS!!! The description of a deadline cannot be empty.");
+                                printEmptyDescriptionErrorMessage();
                             }
                             String deadlineString = twoParts[1];
                             Task deadline = new Deadline(deadlineName, false, deadlineString);
                             tasks.add(deadline);
-                            System.out.println("\tadded: " + input);
                             printTaskAddedMessage(deadline);
                             break;
                         case "event":
                             String[] threeParts = input.split ("/");
                             String eventName = extractSecondWordOnwards(threeParts[0]);
                             if (eventName.length() == 0) {
-                                System.out.println("☹ OOPS!!! The description of an event cannot be empty.");
+                                printEmptyDescriptionErrorMessage();
                             }
                             try {
                                 String eventStart = extractSecondWordOnwards(threeParts[1]);
                                 String eventEnd = extractSecondWordOnwards(threeParts[2]);
                                 Task event = new Event(eventName, false, eventStart, eventEnd);
                                 tasks.add(event);
-                                System.out.println("\tadded: " + input);
                                 printTaskAddedMessage(event);
                                 break;
                             } catch (RuntimeException e) {
@@ -96,8 +206,7 @@ public class Duke {
                             try {
                                 id = Integer.valueOf(inputWords[1]) - 1;
                                 tasks.get(id).markAsDone();
-                                System.out.println("\tNice! I've marked this task as done:");
-                                System.out.println("\t\t" + tasks.get(id).toString());
+                                printTaskMarkedMessage(tasks.get(id));
                             } catch (ArrayIndexOutOfBoundsException e) {
                                 throw new DukeException("Index out of bounds. Expected: mark {id}");
                             } finally {
@@ -107,8 +216,7 @@ public class Duke {
                             try {
                                 id = Integer.valueOf(inputWords[1]) - 1;
                                 tasks.get(id).markAsUndone();
-                                System.out.println("\tOk, I've marked this task as not done yet:");
-                                System.out.println("\t\t" + tasks.get(id).toString());
+                                printTaskUnmarkedMessage(tasks.get(id));
                             } catch (ArrayIndexOutOfBoundsException e) {
                                 throw new DukeException("Index out of bounds. Expected: unmark {id}");
                             } finally {
@@ -116,13 +224,14 @@ public class Duke {
                             }
                         case "delete":
                             id = Integer.valueOf(inputWords[1]) - 1;
-                            Task removedEvent = tasks.remove(id);
-                            System.out.println("\tNoted. I've removed this task:");
-                            System.out.println("\t\t" + removedEvent.toString());
+                            Task removedTask = tasks.remove(id);
+                            printTaskRemovedMessage(removedTask);
                             break;
                         default:
                             System.out.println("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
                     }
+                    // TODO: Save here
+                    saveTasks();
                 } else {
                     for (int i = 0; i < tasks.size(); i++) {
                         Task task = tasks.get(i);
