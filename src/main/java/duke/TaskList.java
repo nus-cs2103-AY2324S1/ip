@@ -109,7 +109,7 @@ public class TaskList {
                 .filter(task -> task.checkTerm(searchTerm))
                 .collect(Collectors.toList());
         System.out.println("        ____________________________________________________________"
-                + "\n        Here are the matching tasks in your list:");
+                + "\n        Here are the matching tasks in your list: (≧▽≦)");
         for (int i = 0; i < result.size(); i++) {
             Task currTask = result.get(i);
             String description = currTask.getDescription();
