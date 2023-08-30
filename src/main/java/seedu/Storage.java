@@ -8,6 +8,10 @@ import java.util.List;
 
 public class Storage {
     private final Path filePath;
+
+    /**
+     * Stores the file of the tasks
+     */
     public Storage(String filePath) {
         this.filePath = Paths.get(filePath);
     }

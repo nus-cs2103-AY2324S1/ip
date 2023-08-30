@@ -10,6 +10,9 @@ public class Task {
     protected String start = "";
     protected String end = "";
 
+    /**
+     * The task to be loaded
+     */
     public Task(String description, String category) throws IllegalArgumentException {
         this.isDone = false;
         if (category.equals("todo")) {
@@ -66,24 +69,49 @@ public class Task {
         }
     }
 
+    /**
+     * Returns the status of the task
+     *
+     * @returns a String of X if task is done otherwise a blank space
+     */
     public String getStatusIcon() {
         return (isDone ? "X" : " "); // mark done task with X
     }
 
+    /**
+     * Returns the status of the task
+     *
+     * @returns a String more descriptive status of the task
+     */
     public String getStatus() {
         String cat = this.category == Type.ToDo ? "T" : this.category == Type.Deadline ? "D" : "E";
         return "[" + cat +"]" + "["+ this.getStatusIcon() + "] " + this.description.trim();
     }
 
+    /**
+     * Sets the description of the task
+     *
+     * @param the text description of the task
+     */
     public void setDescription(String desc) {
         this.description = desc;
     }
 
+    /**
+     * Marks a certain task as done
+     *
+     * @returns a String to confirm the checked
+     */
     public String mark() {
         this.isDone = true;
         return "["+ this.getStatusIcon() + "] " + this.description;
     }
 
+    /**
+     * Returns a string to show the status of the task
+     *
+     * @returns a status of the current task
+     */
     @Override
     public String toString() {
         return this.getStatus();

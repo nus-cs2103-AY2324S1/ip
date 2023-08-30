@@ -1,5 +1,8 @@
 package seedu;
 
+/**
+ * Parses user input.
+ */
 public class Parser {
     public static Command parse(String command, Ui ui, Storage storage, TaskList tasks) {
         if(command.equals("bye")) {
