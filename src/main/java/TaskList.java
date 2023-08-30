@@ -16,4 +16,13 @@ public class TaskList {
     public int size() {
         return tasksList.size();
     }
+
+    public String toString() {
+        StringBuilder task = new StringBuilder();
+        for (int i = 0; i < tasksList.size(); i++) {
+            int id = i + 1;
+            task.append("   " + id + "." + tasksList.get(i).toString() + "\n");
+        }
+        return("Here are the tasks in your list: \n" + task);
+    }
 }

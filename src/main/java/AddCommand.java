@@ -15,16 +15,15 @@ public class AddCommand extends Command {
                 throw new SanaException("OOPS!!! The description of a todo cannot be empty.");
             } else {
                 Task newTodo = new Todo(arguments);
-                //tasks.add(newTodo);
 
                 storage.save("/Users/ariellacallista/Desktop",
                         "/Users/ariellacallista/Desktop/SanaTasks.txt", newTodo);
-                //saveTasks("/Users/ariellacallista/Desktop", "/Users/ariellacallista/Desktop/SanaTasks.txt", newTodo);
 
                 System.out.println("Got it. I've added this task:\n" + newTodo + "\n"
                         + "Now you have " + tasks.size() + (tasks.size() <= 1 ? " task" : " tasks")
                         + " in the list");
             }
+            break;
 
         case "deadline":
             if (arguments.isEmpty()) {
@@ -54,6 +53,7 @@ public class AddCommand extends Command {
             } catch (DateTimeParseException e) {
                 ui.showError(e.getMessage());
             }
+            break;
 
         case "event":
             if (arguments.isEmpty()) {
@@ -92,6 +92,7 @@ public class AddCommand extends Command {
                         + "Now you have " + tasks.size() + (tasks.size() <= 1 ? " task" : " tasks")
                         + " in the list");
             }
+            break;
         }
     }
 
