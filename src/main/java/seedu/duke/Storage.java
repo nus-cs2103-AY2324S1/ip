@@ -34,6 +34,7 @@ public class Storage {
             if (!Files.exists(folder)) {
                 Files.createDirectories(folder);
             }
+
             // Check if the file exists, create if not
             Path file = Paths.get(filePath);
             if (!Files.exists(file)) {
@@ -52,7 +53,6 @@ public class Storage {
             // Throws exception if data in duke.txt is not an ArrayList<Task>
             if (tasks instanceof ArrayList<?>) {
                 tasks = (ArrayList<Task>) tasks;
-
             } else {
                 throw new InvalidDataFormatException();
             }
