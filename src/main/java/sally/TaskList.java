@@ -2,8 +2,6 @@ package sally;
 
 import java.util.ArrayList;
 
-// contains the task list e.g.,
-// it has operations to add/delete tasks in the list
 public class TaskList {
     private ArrayList<Task> tasks;
 
