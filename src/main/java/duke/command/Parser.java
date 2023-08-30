@@ -5,7 +5,7 @@ import duke.exception.DukeException;
 public class Parser {
 
     public enum CommandType {
-        TODO, DEADLINE, EVENT, LIST, MARK, UNMARK, DELETE, BYE
+        TODO, DEADLINE, EVENT, LIST, MARK, UNMARK, DELETE, FIND, BYE
     }
 
     public static Command parse(String fullCommand) throws DukeException {
@@ -54,6 +54,8 @@ public class Parser {
                 return new MarkAsUndoneCommand(Integer.parseInt(commandParts[1]));
             case DELETE:
                 return new DeleteCommand(Integer.parseInt(commandParts[1]));
+            case FIND:
+                return new FindCommand(commandParts[1]);
             case BYE:
                 return new ExitCommand();
             default:
