@@ -1,6 +1,10 @@
+package zean.task;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+
+import zean.exception.DukeException;
 
 /**
  * The class that represents an event task.
@@ -31,6 +35,12 @@ public class Event extends Task {
         }
     }
 
+    /**
+     * Constructor for the event task.
+     *
+     * @param bool The completion status of the event task.
+     * @param description The description of the event task.
+     */
     public Event(String bool, String description, String from, String to) {
         super(description.strip());
         this.from = LocalDate.parse(from.strip());
@@ -43,7 +53,7 @@ public class Event extends Task {
     /**
      * Returns the string representation of the event task.
      *
-     * @return a string comprising the symbol, status,
+     * @return A string comprising the symbol, status,
      *      description, start and end time/date of the event task.
      */
     @Override
@@ -61,11 +71,21 @@ public class Event extends Task {
         return "E | " + super.toStringForFile() + " | " + this.from + " | " + this.to;
     }
 
-    private String getFrom() {
+    /**
+     * Returns the string with formatted start date of the event.
+     *
+     * @return The string with formatted start date of the event.
+     */
+    protected String getFrom() {
         return this.from.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
     }
 
-    private String getTo() {
+    /**
+     * Returns the string with formatted end date of the event.
+     *
+     * @return The string with formatted end date of the event.
+     */
+    protected String getTo() {
         return this.to.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
     }
 }

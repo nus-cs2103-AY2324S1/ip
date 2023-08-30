@@ -1,15 +1,25 @@
+package zean;
+
 import java.util.ArrayList;
 import java.util.regex.Pattern;
 
+import zean.exception.DukeException;
+import zean.task.Deadline;
+import zean.task.Event;
+import zean.task.Task;
+import zean.task.Todo;
+
 /**
  * The class that provides the parser of the input.
+ *
+ * @author Zhong Han
  */
 public class Parser {
 
     private static final Pattern DATE_PATTERN = Pattern.compile("\\d\\d\\d\\d-\\d\\d-\\d\\d");
 
     /**
-     * Parses the input and prints the corresponding output.
+     * Parses the input and calls the corresponding methods.
      *
      * @param input The input from the user.
      * @param tasks The taskList object to store the tasks.
@@ -66,7 +76,8 @@ public class Parser {
             int indexOfBy = input.indexOf("/by");
 
             if (indexOfBy == -1) {
-                throw new DukeException("\tOOPS!!! You forgot to specify the deadline.\n\tUse \"/by\" to do so.");
+                throw new DukeException("\tOOPS!!! You forgot to specify the deadline."
+                        + "\n\tUse \"/by\" to do so.");
             }
 
             description = input.substring(8, indexOfBy);
@@ -79,7 +90,8 @@ public class Parser {
                 throw new DukeException("\tOOPS!!! You forgot to specify the deadline.");
             }
             if (!DATE_PATTERN.matcher(deadline).matches()) {
-                throw new DukeException("\tHmm, I don't understand the date. Use this format: YYYY-MM-DD");
+                throw new DukeException("\tHmm, I don't understand the date. "
+                        + "Use this format: YYYY-MM-DD");
             }
 
             tasks.add(description, deadline);
@@ -92,7 +104,8 @@ public class Parser {
                         + "\n\tUse \"/from\" to do so.");
             }
             if (indexOfTo == -1) {
-                throw new DukeException("\tOOPS!!! You forgot to specify the ending date.\n\tUse \"/to\" to do so.");
+                throw new DukeException("\tOOPS!!! You forgot to specify the ending date."
+                        + "\n\tUse \"/to\" to do so.");
             }
 
             description = input.substring(5, indexOfFrom);
@@ -111,15 +124,31 @@ public class Parser {
             }
 
             if (!DATE_PATTERN.matcher(from).matches() || !DATE_PATTERN.matcher(to).matches()) {
-                throw new DukeException("\tHmm, I don't understand the date. Use this format: YYYY-MM-DD");
+                throw new DukeException("\tHmm, I don't understand the date. "
+                        + "Use this format: YYYY-MM-DD");
             }
             tasks.add(description, from, to);
+            break;
+        case "find":
+            description = input.substring(4);
+            System.out.println(description);
+            if (description.isBlank()) {
+                throw new DukeException("\tPlease provide the keyword for me to search.");
+            }
+            tasks.find(description);
             break;
         default:
             throw new DukeException("\tOOPS!!! I'm sorry, but I don't understand what that means :-(");
         }
     }
 
+    /**
+     * Parses the formatted text read from the file and adds the created task to the ArrayList.
+     *
+     * @param arrList The ArrayList to contain the tasks.
+     * @param text The formatted text read from the file.
+     * @return The number of tasks added successfully to the ArrayList.
+     */
     public static int parseToTask(ArrayList<Task> arrList, String text) {
         String[] textArr = text.split(" \\| ");
         int count = 0;

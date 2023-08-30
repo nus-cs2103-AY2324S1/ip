@@ -1,3 +1,5 @@
+package zean.task;
+
 /**
  * The class that represents a todo task.
  *
@@ -6,7 +8,7 @@
 public class Todo extends Task {
 
     /**
-     * Constructor of a todo task.
+     * Constructor for the todo task.
      *
      * @param description The description of the todo task.
      */
@@ -14,6 +16,12 @@ public class Todo extends Task {
         super(description.strip());
     }
 
+    /**
+     * Constructor for the todo task.
+     *
+     * @param bool The completion status of the todo task.
+     * @param description The description of the todo task.
+     */
     public Todo(String bool, String description) {
         super(description.strip());
         if (Integer.parseInt(bool) == 1) {
@@ -24,7 +32,7 @@ public class Todo extends Task {
     /**
      * Returns the string representation of the todo task.
      *
-     * @return a string comprising the symbol, status
+     * @return S string comprising the symbol, status
      *      and the description of the todo task.
      */
     @Override
@@ -35,7 +43,7 @@ public class Todo extends Task {
     /**
      * Returns the string representing the task to be written in the disk.
      *
-     * @return The string describing this task to be written in the disk.
+     * @return The string describing the task to be written in the disk.
      */
     @Override
     public String toStringForFile() {

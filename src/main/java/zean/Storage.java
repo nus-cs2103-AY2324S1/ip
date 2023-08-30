@@ -1,3 +1,5 @@
+package zean;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -5,18 +7,27 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import zean.exception.DukeException;
+import zean.task.Task;
+
 /**
- * The class that provides the storage for the tasks.
+ * The class that deals with loading tasks from the file and saving tasks in the file.
  *
  * @author Zhong Han
  */
 public class Storage {
-    private ArrayList<Task> tasks;
-    private int count;
 
     private File f;
 
     private String filePath;
+
+    /**
+     * Empty constructor for storage.
+     * For the purpose of testing.
+     */
+    public Storage() {
+
+    }
 
     /**
      * Constructor for storage.
@@ -24,9 +35,7 @@ public class Storage {
      * Reads the present content in the file into the ArrayList.
      */
     public Storage(String filePath) throws FileNotFoundException, IOException {
-        this.tasks = new ArrayList<>();
-        this.count = 0;
-        this.filePath  = filePath;
+        this.filePath = filePath;
 
         File dir = new File("./data");
         if (!dir.exists()) {
@@ -42,13 +51,18 @@ public class Storage {
         }
     }
 
+    /**
+     * Returns an ArrayList populated with tasks that is present in the file.
+     *
+     * @return An ArrayList populated with tasks.
+     */
     public ArrayList<Task> load() {
         ArrayList<Task> tasks = new ArrayList<>();
         Scanner sc = null;
         try {
             sc = new Scanner(this.f);
             while (sc.hasNext()) {
-                this.count = Parser.parseToTask(tasks, sc.nextLine());
+                Parser.parseToTask(tasks, sc.nextLine());
             }
         } catch (FileNotFoundException e) {
             throw new DukeException("\tOOPS! The file cannot be created.");
@@ -60,17 +74,26 @@ public class Storage {
         return tasks;
     }
 
+    /**
+     * Appends task to the file.
+     *
+     * @param task The task to be written to the file.
+     */
     public void addToDisk(Task task) {
         try {
             FileWriter fw = new FileWriter(this.filePath, true);
             fw.write(task.toStringForFile() + System.lineSeparator());
-            this.count++;
             fw.close();
         } catch (IOException e) {
             throw new DukeException("\tOOPS! The file is not available!");
         }
     }
 
+    /**
+     * Overwrites all the tasks to the file.
+     *
+     * @param tasks The ArrayList containing all the tasks to be written to the file.
+     */
     public void rewriteToDisk(ArrayList<Task> tasks) {
         try {
             FileWriter fw = new FileWriter(this.filePath);

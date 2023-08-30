@@ -1,3 +1,5 @@
+package zean.task;
+
 /**
  * The class that represents a task.
  *
@@ -8,7 +10,7 @@ public class Task {
     protected boolean isDone;
 
     /**
-     * Constructor of the task.
+     * Constructor for the task.
      *
      * @param description The description of the task.
      */
@@ -20,7 +22,7 @@ public class Task {
     /**
      * Returns "X" if the task is marked as done, and " " otherwise.
      *
-     * @return a string indicating the status of the task.
+     * @return A string indicating the status of the task.
      */
     public String getStatusIcon() {
         return isDone ? "X" : " ";
@@ -45,7 +47,7 @@ public class Task {
     /**
      * Returns a string representation of the task.
      *
-     * @return a string comprising the status and description of the task.
+     * @return A string comprising the status and description of the task.
      */
     @Override
     public String toString() {
@@ -55,7 +57,7 @@ public class Task {
     /**
      * Returns the string representing the task to be written in the disk.
      *
-     * @return The string describing this task to be written in the disk.
+     * @return The string describing the task to be written in the disk.
      */
     public String toStringForFile() {
         if (this.isDone) {
@@ -63,5 +65,9 @@ public class Task {
         } else {
             return "0 | " + this.description;
         }
+    }
+
+    public String getDescription() {
+        return this.description;
     }
 }
