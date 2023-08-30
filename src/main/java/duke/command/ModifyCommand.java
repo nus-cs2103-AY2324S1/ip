@@ -1,3 +1,11 @@
+package duke.command;
+
+import duke.components.DukeException;
+import duke.components.Storage;
+import duke.components.TaskList;
+import duke.components.Ui;
+import duke.tasks.Task;
+
 public class ModifyCommand extends Command{
     private String type;
     private int index;

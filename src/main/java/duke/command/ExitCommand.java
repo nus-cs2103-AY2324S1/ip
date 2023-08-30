@@ -1,3 +1,10 @@
+package duke.command;
+
+import duke.components.DukeException;
+import duke.components.Storage;
+import duke.components.TaskList;
+import duke.components.Ui;
+
 public class ExitCommand extends Command{
     private boolean isExit;
 

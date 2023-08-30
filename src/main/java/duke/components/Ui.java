@@ -1,6 +1,6 @@
-import java.io.IOException;
-import java.util.ArrayList;
+package duke.components;
 import java.util.Scanner;
+import duke.tasks.Task;
 
 public class Ui {
     private Scanner scanner;
