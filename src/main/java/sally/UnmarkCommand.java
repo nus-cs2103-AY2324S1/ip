@@ -1,8 +1,17 @@
 package sally;
 
+/**
+ * Represents a command to unmark a task as done.
+ */
 public class UnmarkCommand implements Command {
     private final int taskIndex;
 
+    /**
+     * Constructs an UnmarkCommand object with the provided input.
+     *
+     * @param input The input representing the task index to unmark.
+     * @throws SallyException If the input is not a valid task index.
+     */
     public UnmarkCommand(String input) throws SallyException {
         try {
             taskIndex = Integer.parseInt(input) - 1;
@@ -11,6 +20,15 @@ public class UnmarkCommand implements Command {
         }
     }
 
+    /**
+     * Executes the unmark command on the specified task, updating its status as not done.
+     * Updates the task list and saves it to the storage.
+     *
+     * @param tasks The TaskList containing tasks.
+     * @param storage The Storage for tasks.
+     * @param ui The Ui for user interaction.
+     * @throws SallyException If the task index is invalid or an error occurs during execution.
+     */
     @Override
     public void execute(TaskList tasks, Storage storage, Ui ui) throws SallyException {
         if (taskIndex < 0 || taskIndex >= tasks.getSize()) {

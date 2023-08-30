@@ -1,6 +1,17 @@
-package sally;// deals with making sense of the user command
+package sally;
 
+/**
+ * Deals with making sense of the user command.
+ */
 public class Parser {
+
+    /**
+     * Parses the user input and returns the corresponding Command object.
+     *
+     * @param input The user's input command.
+     * @return The Command object based on the input.
+     * @throws SallyException If the input command is invalid.
+     */
     public static Command parse(String input) throws SallyException {
         // if no space then exception handling
         if (input.startsWith("list")) {
