@@ -1,3 +1,5 @@
+package chatter.task;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
@@ -8,13 +10,13 @@ import java.time.format.DateTimeFormatter;
  * @version CS2103T Individual Project AY2023/24 Semester 1
  */
 public abstract class Task {
-    /** A string description of the Task object. */
+    /** A string description of the chatter.task.Task object. */
     protected String description;
-    /** A boolean status of whether the Task is done. */
+    /** A boolean status of whether the chatter.task.Task is done. */
     protected boolean isDone;
 
     /**
-     * A constructor to initialize the Task class.
+     * A constructor to initialize the chatter.task.Task class.
      *
      * @param description Description of the task.
      */
@@ -24,19 +26,19 @@ public abstract class Task {
     }
 
     /**
-     * Returns the string description of the Task.
+     * Returns the string description of the chatter.task.Task.
      *
-     * @return The string description of Task.
+     * @return The string description of chatter.task.Task.
      */
     public String getDescription() {
         return this.description;
     }
 
     /**
-     * Returns the string representation of the Task that will
+     * Returns the string representation of the chatter.task.Task that will
      * be displayed to the user in the list.
      *
-     * @return The string representation of the Task.
+     * @return The string representation of the chatter.task.Task.
      */
     @Override
     public String toString() {
@@ -87,7 +89,7 @@ public abstract class Task {
     }
 
     /**
-     * Returns string representation of the status of the Task.
+     * Returns string representation of the status of the chatter.task.Task.
      *
      * @return The string representation of the status.
      */

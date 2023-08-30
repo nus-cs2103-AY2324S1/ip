@@ -1,3 +1,5 @@
+package chatter;
+
 /**
  * Represents an exception that will be thrown by the chatbot.
  *
@@ -6,7 +8,7 @@
  */
 public class ChatterException extends Exception{
     /**
-     * A constructor to initialize the ChatterException class.
+     * A constructor to initialize the chatter.ChatterException class.
      *
      * @param message Error message to be displayed.
      */

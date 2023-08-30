@@ -1,3 +1,5 @@
+package chatter.task;
+
 /**
  * Represents a task without any date or time attached to it.
  *
@@ -6,7 +8,7 @@
  */
 public class ToDo extends Task {
     /**
-     * A constructor to initialize the ToDo class.
+     * A constructor to initialize the chatter.task.ToDo class.
      *
      * @param description Description of the task.
      */
@@ -15,10 +17,10 @@ public class ToDo extends Task {
     }
 
     /**
-     * Returns the string representation of the ToDo that will
+     * Returns the string representation of the chatter.task.ToDo that will
      * be displayed to the user in the list.
      *
-     * @return The string representation of the ToDo object.
+     * @return The string representation of the chatter.task.ToDo object.
      */
     @Override
     public String toString() {

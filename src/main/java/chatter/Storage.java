@@ -1,3 +1,10 @@
+package chatter;
+
+import chatter.task.Deadline;
+import chatter.task.Event;
+import chatter.task.Task;
+import chatter.task.ToDo;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -17,7 +24,7 @@ public class Storage {
     private String path;
 
     /**
-     * Constructor for Storage class.
+     * Constructor for chatter.Storage class.
      *
      * @param path File path of the local data file.
      */
@@ -29,7 +36,7 @@ public class Storage {
      * Creates new directory and file for data storage if they do not exist. Reads
      * data from the local file.
      *
-     * @return ArrayList of Task objects.
+     * @return ArrayList of chatter.task.Task objects.
      * @throws IOException Error thrown is file cannot be created.
      */
     public ArrayList<Task> readFile() throws IOException {
@@ -69,7 +76,7 @@ public class Storage {
     /**
      * Saves the list of tasks to the local data file in the appropriate format.
      *
-     * @param list ArrayList of Task objects to be saved to the local data file.
+     * @param list ArrayList of chatter.task.Task objects to be saved to the local data file.
      */
     public void saveFile(String storageString) {
         try {

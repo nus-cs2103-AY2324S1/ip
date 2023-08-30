@@ -1,3 +1,5 @@
+package chatter.task;
+
 import java.time.LocalDate;
 
 /**
@@ -17,7 +19,7 @@ public class Event extends Task {
     protected LocalDate end;
 
     /**
-     * A constructor to initialize the Event class.
+     * A constructor to initialize the chatter.task.Event class.
      *
      * @param description Description of the task.
      * @param start Start time of the task.
@@ -42,10 +44,10 @@ public class Event extends Task {
     }
 
     /**
-     * Returns the string representation of the Event that will
+     * Returns the string representation of the chatter.task.Event that will
      * be displayed to the user in the list.
      *
-     * @return The string representation of the Event object.
+     * @return The string representation of the chatter.task.Event object.
      */
     @Override
     public String toString() {

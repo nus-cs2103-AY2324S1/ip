@@ -1,5 +1,12 @@
+package chatter;
+
+import chatter.command.*;
+import chatter.task.Deadline;
+import chatter.task.Event;
+import chatter.task.ToDo;
+
 /**
- * Represents a Parser class to make sense of the user command.
+ * Represents a chatter.Parser class to make sense of the user command.
  *
  * @author Anthony Tamzil
  * @version CS2103T Individual Project AY2023/24 Semester 1
@@ -11,7 +18,7 @@ public class Parser {
     private String keyword;
 
     /**
-     * Constructor for Parser class.
+     * Constructor for chatter.Parser class.
      *
      * @param input User input.
      */
