@@ -27,6 +27,8 @@ public class Event extends Item {
         } else {
             rtnVal += "[E][ ] ";
         }
-        return rtnVal + super.getName() + " (from: " + DukeEnvironmentConstants.OUTPUT_FORMATTER.format(this.from) + " to: " + DukeEnvironmentConstants.OUTPUT_FORMATTER.format(this.to) + ")";
+        return rtnVal + super.getName() + " (from: "
+            + DukeEnvironmentConstants.OUTPUT_FORMATTER.format(this.from) + " to: "
+            + DukeEnvironmentConstants.OUTPUT_FORMATTER.format(this.to) + ")";
     }
 }
