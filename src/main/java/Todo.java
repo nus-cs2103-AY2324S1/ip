@@ -15,6 +15,11 @@ public class Todo extends Task {
         super(desc);
     }
 
+    @Override
+    public String toSaveString() {
+        return "T|" + getSaveInfo();
+    }
+
     /**
      * toString method of To-do. <br>
      * The String representation of To-do appends the [T] tag in front of the Task toString.
