@@ -24,12 +24,10 @@ public class Duke {
     label:
     while (true) {
 
-      String inputString = null;
       String[] inputTokens = null;
 
       try {
         parser.update();
-        inputString = parser.getInputString();
         inputTokens = parser.getInputTokens();
       } catch (NoSuchElementException ex) {
         break;
@@ -39,8 +37,6 @@ public class Duke {
       if (inputTokens.length == 0) {
         break;
       }
-
-      String commandString = parser.getCommandString();
 
       switch (parser.getCommandString()) {
         case "bye":
