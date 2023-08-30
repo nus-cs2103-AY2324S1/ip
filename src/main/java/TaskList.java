@@ -128,4 +128,8 @@ public class TaskList {
             System.out.println("____________________________________________________________");
         }
     }
+
+    public boolean isEmpty() {
+        return (taskCount == 0);
+    }
 }

@@ -1,5 +1,8 @@
 import java.io.*;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Scanner;
+import java.time.LocalDate;
 
 /**
  * Represents the chatbot that interacts with the user and manage task
@@ -7,6 +10,7 @@ import java.util.Scanner;
 public class ChatBot {
     private final TaskList taskList ;
     private final String FILE_PATH = "./src/main/data/duke.txt";
+
 
     /**
      * Initializes the Chatbot with an empty task list
@@ -64,16 +68,16 @@ public class ChatBot {
      * Deletes a task from the task list based on the provided input.
      *
      * @param inputStr The input string containing the index of the task to be deleted.
-     * @throws deleteException If the input string is not numeric or if the task index is out of valid range.
+     * @throws DeleteException If the input string is not numeric or if the task index is out of valid range.
      */
-    public void deleteTaskByBot(String inputStr) throws deleteException {
+    public void deleteTaskByBot(String inputStr) throws DeleteException {
         if (!isNumeric(inputStr)) {
-            throw new deleteException();
+            throw new DeleteException();
         }
 
         int taskIndex = Integer.parseInt(inputStr);
         if (taskIndex < 1 || taskIndex > taskList.getTaskCount()) {
-            throw new deleteException();
+            throw new DeleteException();
         } else {
             System.out.println("____________________________________________________________\n" +
                     " Noted. I've removed this task:\n" +
@@ -92,6 +96,7 @@ public class ChatBot {
      * @throws DukeException If there is an error adding the task
      */
     public void addTaskByBot(String taskType, String description) throws DukeException {
+        DateTimeFormatter dataFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         Task newTask = null;
         String taskDescription;
         String deadlineTiming;
@@ -100,50 +105,63 @@ public class ChatBot {
 
         // invoke diff task's constructor
         switch (taskType) {
-            case "todo":
-                newTask = new Todo(description);
-                break;
-            case "deadline":
-                // make sure /by exist to avoid exception in "split() array"
-                if (!description.contains("/by")) {
+        case "todo":
+            newTask = new Todo(description);
+            break;
+        case "deadline":
+            // make sure /by exist to avoid exception in "split() array"
+            if (!description.contains("/by")) {
+                throw new DeadlineException();
+            } else {
+                // split the description to task description and timing, with /by in between
+                String[] desArray = description.split("/by", 2);
+                taskDescription = desArray[0];
+                deadlineTiming = desArray[1];
+
+                if (taskDescription.isEmpty() || deadlineTiming.isEmpty()) {
                     throw new DeadlineException();
-                } else {
-                    // split the description to task description and timing, with /by in between
-                    String[] desArray = description.split("/by", 2);
-                    taskDescription = desArray[0];
-                    deadlineTiming = desArray[1];
-
-                    if (taskDescription.isEmpty() || deadlineTiming.isEmpty()) {
-                        throw new DeadlineException();
-                    }
-                    newTask = new Deadline(taskDescription, deadlineTiming.trim());
-                    break;
                 }
-            case "event":
-                // make sure /from and /to exist to avoid exception in "split() array"
-                if (!description.contains("/from") || !description.contains("/to")) {
+
+                try {
+                    LocalDate.parse(deadlineTiming.trim(), dataFormatter);  // Validate date format
+                    newTask = new Deadline(taskDescription, deadlineTiming.trim());
+                } catch (DateTimeParseException e) {
+                    throw new DeadlineException();
+                }
+                break;
+            }
+        case "event":
+            // make sure /from and /to exist to avoid exception in "split() array"
+            if (!description.contains("/from") || !description.contains("/to")) {
+                throw new EventException();
+            } else {
+                // split the description to task description and timing, with /from in between
+                String[] desArray = description.split("/from", 2);
+                taskDescription = desArray[0];
+                // when from /to comes before /from
+                if (taskDescription.contains("/to")) {
                     throw new EventException();
-                } else {
-                    // split the description to task description and timing, with /from in between
-                    String[] desArray = description.split("/from", 2);
-                    taskDescription = desArray[0];
-                    // when from /to comes before /from
-                    if (taskDescription.contains("/to")) {
-                        throw new EventException();
-                    }
+                }
 
-                    // split the timing description further, with /to in between
-                    String[] timingArr = desArray[1].split("/to", 2);
-                    eventFrom = timingArr[0];
-                    eventTo = timingArr[1];
+                // split the timing description further, with /to in between
+                String[] timingArr = desArray[1].split("/to", 2);
+                eventFrom = timingArr[0];
+                eventTo = timingArr[1];
 
-                    if (eventFrom.isEmpty() || eventTo.isEmpty()) {
-                        throw new EventException();
-                    }
+                if (eventFrom.isEmpty() || eventTo.isEmpty()) {
+                    throw new EventException();
+                }
 
+                try {
+                    LocalDate.parse(eventFrom.trim(), dataFormatter);  // Validate date format
+                    LocalDate.parse(eventTo.trim(), dataFormatter);  // Validate date format
                     newTask = new Event(taskDescription, eventFrom.trim(), eventTo.trim());
                     break;
+                } catch (DateTimeParseException e) {
+                    throw new EventException();
                 }
+
+            }
         }
 
         // provides feedback for the task created
@@ -167,7 +185,9 @@ public class ChatBot {
         } catch (FileNotFoundException e) {
             System.out.println("Date file not found, starting with an empty task list.");
         }
-        this.taskList.displayTasks();
+        if (!this.taskList.isEmpty()) {
+            this.taskList.displayTasks();
+        }
     }
 
     /**
