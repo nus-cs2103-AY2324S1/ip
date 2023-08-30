@@ -1,5 +1,6 @@
 import java.util.Scanner;
 
+import commands.Delete;
 import commands.List;
 import commands.Mark;
 import commands.Unmark;
@@ -64,12 +65,8 @@ public class Jerma {
           new Unmark(ui, tasks, index).execute();
           break;
         case DELETE:
-          index = Integer.parseInt(inputArgs[1]) - 1;
-          Task removed = tasks.remove(index);
-
-          System.out.println(String.format(
-              "Removed the task: \n%s \nYou have %d tasks remaining.", removed,
-              tasks.size()));
+          index = Integer.parseInt(inputArgs[1]);
+          new Delete(ui, tasks, index).execute();
           break;
         case TODO:
           tasks.add(new Todo(inputArgs[1]));
