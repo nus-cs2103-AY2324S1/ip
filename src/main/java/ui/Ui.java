@@ -20,6 +20,10 @@ public class Ui {
     System.exit(0);
   }
 
+  public void showMessage(String s) {
+    System.out.println(s);
+  }
+
   public String readCommand() {
     return scanner.nextLine();
   }
