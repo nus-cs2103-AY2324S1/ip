@@ -13,6 +13,12 @@ public class TaskList {
     public TaskList(List<Task> t) {
         this.lists = t;
     }
+
+    /**
+     * Add a tasks in the lists of tasks
+     *
+     * @param task the Task class that is to be added
+     */
     public void add(Task t) throws Exception {
         try {
             this.lists.add(t);
@@ -23,10 +29,22 @@ public class TaskList {
         }
     }
 
+    /**
+     * Returns the current task from the list
+     *
+     * @param index the position of the current task to be retrieved
+     * @returns a Task object of interest
+     */
     public Task get(int index) {
         return this.lists.get(index);
     }
 
+    /**
+     * Retrieves task lists from a list of string from a file
+     *
+     * @param from source of the lists of strings
+     * @returns a TaskList of the current lists of tasks
+     */
     public static TaskList getFromFile(List<String> from) throws Exception {
         try {
             List<Task> lists = new ArrayList<>();
@@ -57,6 +75,12 @@ public class TaskList {
 
     }
 
+    /**
+     * Encodes TaskList to a list of string to be used in a file
+     *
+     * @param tasks the list of Tasks objects
+     * @returns a String List to be stored in a file
+     */
     public static List<String> encode(TaskList tasks) {
         int curr = 1;
         List<String> arrays = new ArrayList<>();
@@ -73,10 +97,20 @@ public class TaskList {
         return arrays;
     }
 
+    /**
+     * Returns the size of the TaskList
+     *
+     * @returns the length of the tasks number
+     */
     public int getLen() {
         return this.lists.size();
     }
 
+    /**
+     * Marks a task in the lists of tasks
+     *
+     * @param index position of the task in the lists of tasks
+     */
     public void mark(int index) throws Exception {
         try {
             this.lists.get(index).mark();
@@ -86,6 +120,12 @@ public class TaskList {
 
     }
 
+    /**
+     * Removes a task from lists of tasks
+     *
+     * @param index the position of the task to be removed
+     * @returns the Task that was removed
+     */
     public Task remove(int index) throws Exception {
         try {
             Task now = lists.get(index);
