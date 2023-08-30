@@ -9,14 +9,14 @@ import java.io.IOException;
 import java.time.LocalDate;
 
 public class LocalDateAdapter extends TypeAdapter<LocalDate> {
-  @Override
-  public void write(JsonWriter jsonWriter, LocalDate localDate) throws IOException {
-    jsonWriter.value(DateUtility.toInputFormat(localDate));
-  }
+    @Override
+    public void write(JsonWriter jsonWriter, LocalDate localDate) throws IOException {
+        jsonWriter.value(DateUtility.toInputFormat(localDate));
+    }
 
-  @Override
-  public LocalDate read(JsonReader jsonReader) throws IOException {
-    String input = jsonReader.nextString();
-    return DateUtility.parse(input);
-  }
+    @Override
+    public LocalDate read(JsonReader jsonReader) throws IOException {
+        String input = jsonReader.nextString();
+        return DateUtility.parse(input);
+    }
 }

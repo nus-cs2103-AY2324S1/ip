@@ -5,12 +5,12 @@ import cyrus.tasks.TaskList;
 import cyrus.ui.Ui;
 
 public class ListTasksCommand extends Command {
-  public ListTasksCommand(TaskList taskList, ParseInfo parseInfo) {
-    super(taskList, parseInfo);
-  }
+    public ListTasksCommand(TaskList taskList, ParseInfo parseInfo) {
+        super(taskList, parseInfo);
+    }
 
-  @Override
-  public void execute() {
-    Ui.printText(this.taskList.toString());
-  }
+    @Override
+    public void execute() {
+        Ui.printText(this.taskList.toString());
+    }
 }
