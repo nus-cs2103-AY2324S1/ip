@@ -2,6 +2,10 @@ import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.TemporalAccessor;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -187,14 +191,10 @@ public class Duke {
         Duke.addTask(taskType, args, false, false);
     }
 
-    private static void addTask(TaskType taskType, String args, boolean completed) {
-        Duke.addTask(taskType, args, completed, false);
-    }
-
     private static void addTask(TaskType taskType, String args, boolean completed, boolean silent) {
         try {
             Optional<Task> taskToAdd = Optional.empty();
-
+            DateTimeFormatter parser = DateTimeFormatter.ofPattern("dd-MM-yyyy[ HHmm]");
 
             switch (taskType) {
             case TODO:
@@ -207,11 +207,18 @@ public class Duke {
             case DEADLINE:
                 String[] deadlineArguments = args.split("/");
                 String deadlineDescription = deadlineArguments[0].trim();
-                String dueDateTime = null;
+                TemporalAccessor dueDateTime = null;
 
                 for (int i = 1; i < deadlineArguments.length; i++) {
                     if (deadlineArguments[i].startsWith("by ")) {
-                        dueDateTime = deadlineArguments[i].substring(3).trim();
+                        try {
+                            dueDateTime = parser.parseBest(deadlineArguments[i].substring(3).trim(),
+                                            LocalDateTime::from,
+                                            LocalDate::from);
+
+                        } catch (Exception e) {
+                            throw new DukeException("Please use the format \"DD-MM-YYYY [HHMM]\"");
+                        }
                     }
                 }
 
@@ -219,7 +226,7 @@ public class Duke {
                     throw new DukeException("No description specified. Please specify a description.");
                 }
 
-                if (dueDateTime == null || dueDateTime.equals("")) {
+                if (dueDateTime == null) {
                     throw new DukeException("No due date/time specified. Please specify a due date/time");
                 }
 
@@ -230,16 +237,30 @@ public class Duke {
                 String[] eventArguments = args.split("/");
 
                 String eventDescription = eventArguments[0].trim();
-                String startDatetime = null;
-                String endDatetime = null;
+                TemporalAccessor startDatetime = null;
+                TemporalAccessor endDatetime = null;
                 
                 for (int i = 1; i < eventArguments.length; i++) {
                     if (eventArguments[i].startsWith("from ")) {
-                        startDatetime = eventArguments[i].substring(5).trim();
+                        try {
+                            startDatetime = parser.parseBest(eventArguments[i].substring(5).trim(),
+                                            LocalDateTime::from,
+                                            LocalDate::from);
+
+                        } catch (Exception e) {
+                            throw new DukeException("Please use the format \"DD-MM-YYYY [HHMM]\"");
+                        }
                     }
 
                     if (eventArguments[i].startsWith("to ")) {
-                        endDatetime = eventArguments[i].substring(3).trim();
+                        try {
+                            endDatetime = parser.parseBest(eventArguments[i].substring(3).trim(),
+                                            LocalDateTime::from,
+                                            LocalDate::from);
+
+                        } catch (Exception e) {
+                            throw new DukeException("Please use the format \"DD-MM-YYYY [HHMM]\"");
+                        }
                     }
                 }
 
@@ -247,12 +268,38 @@ public class Duke {
                     throw new DukeException("No description specified. Please specify a description.");
                 }
                 
-                if (startDatetime == null || startDatetime.equals("")) {
+                if (startDatetime == null) {
                     throw new DukeException("No start date/time specified. Please specify a start date/time.");
                 }
 
-                if (endDatetime == null|| endDatetime.equals("")) {
+                if (endDatetime == null) {
                     throw new DukeException("No end date/time specified. Please specify an end date/time.");
+                }
+
+                if (startDatetime instanceof LocalDate) {
+                    if (!(endDatetime instanceof LocalDate)) {
+                        throw new DukeException("Please ensure that both arguments have the same format.");
+                    }
+
+                    LocalDate startDate = (LocalDate) startDatetime;
+                    LocalDate endDate = (LocalDate) endDatetime;
+
+                    if (startDate.isAfter(endDate)) {
+                        throw new DukeException("Start date cannot be after the end date");
+                    }
+                }
+
+                if (startDatetime instanceof LocalDateTime) {
+                    if (!(endDatetime instanceof LocalDateTime)) {
+                        throw new DukeException("Please ensure that both arguments have the same format.");
+                    }
+
+                    LocalDateTime startDate = (LocalDateTime) startDatetime;
+                    LocalDateTime endDate = (LocalDateTime) endDatetime;
+
+                    if (startDate.isAfter(endDate)) {
+                        throw new DukeException("Start date cannot be after the end date");
+                    }
                 }
 
                 taskToAdd = Optional.of(new Event(eventDescription, startDatetime, endDatetime));
@@ -292,6 +339,7 @@ public class Duke {
             }
 
             BufferedReader reader = Files.newBufferedReader(taskFilePath);
+            DateTimeFormatter parser = DateTimeFormatter.ofPattern("dd-MM-yyyy[ HHmm]");
             reader.lines().forEach(line -> {
                 String[] taskData = line.split(" \\| ");
                 
@@ -320,10 +368,14 @@ public class Duke {
 
                     boolean deadlineCompletion = taskData[1].equals("1");
                     String deadlineDescription = taskData[2];
-                    String deadlineDueDate = taskData[3];
+                    TemporalAccessor deadlineDueDate = parser.parseBest(taskData[3],
+                                                                        LocalDateTime::from,
+                                                                        LocalDate::from);
 
                     Duke.addTask(TaskType.DEADLINE,
-                                 String.format("%s /by %s", deadlineDescription, deadlineDueDate),
+                                 String.format("%s /by %s",
+                                               deadlineDescription,
+                                               parser.format(deadlineDueDate)),
                                  deadlineCompletion,
                                  true);
                     break;
@@ -335,11 +387,18 @@ public class Duke {
 
                     boolean eventCompletion = taskData[1].equals("1");
                     String eventDescription = taskData[2];
-                    String eventStartDate = taskData[3];
-                    String eventEndDate = taskData[4];
+                    TemporalAccessor eventStartDate = parser.parseBest(taskData[3],
+                                                                        LocalDateTime::from,
+                                                                        LocalDate::from);
+                    TemporalAccessor eventEndDate = parser.parseBest(taskData[4],
+                                                                        LocalDateTime::from,
+                                                                        LocalDate::from);
 
                     Duke.addTask(TaskType.EVENT,
-                                 String.format("%s /from %s /to %s", eventDescription, eventStartDate, eventEndDate),
+                                 String.format("%s /from %s /to %s",
+                                               eventDescription,
+                                               parser.format(eventStartDate),
+                                               parser.format(eventEndDate)),
                                  eventCompletion,
                                  true);
                     break;

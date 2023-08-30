@@ -4,11 +4,15 @@ todo Todo
 deadline
 deadline Deadline without due date
 deadline Deadline with random argument specified /random argument
-deadline Deadline with due date /by due date
+deadline Deadline with wrong due date format /by due date
+deadline Deadline with due date /by 01-02-2023
+deadline Deadline with due date and time /by 01-02-2023 1222
 event
 event Event without start and end date
-event Event with only start date /from start date
-event Event with only end date /to end date
+event Event with only start date /from 01-02-2023 1222
+event Event with only end date /to 02-02-2023 1222
+event Event with wrong start and end date format /from start date /to end date
+event Event with start date after end date /from 01-03-2023 1222 /to 01-02-2023 1222
 event Event with random argument specified /random argument
 list
 mark 1
