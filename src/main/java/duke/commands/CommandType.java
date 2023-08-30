@@ -14,7 +14,8 @@ public enum CommandType {
     ADD_EVENT("event"),
     MARK_TASK("mark"),
     UNMARK_TASK("unmark"),
-    DELETE_TASK("delete");
+    DELETE_TASK("delete"),
+    FIND_TASK("find");
 
     // The string representation of the command.
     private final String value;

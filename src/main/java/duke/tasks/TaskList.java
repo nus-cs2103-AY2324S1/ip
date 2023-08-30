@@ -61,7 +61,7 @@ public class TaskList {
             } catch (IndexOutOfBoundsException e) {
                 throw new DukeInvalidArgumentException(
                         "Your event seems to be formatted wrongly. "
-                                + "Check that you're doing: \"event {description} /from {yyyy-MM-dd HH:mm}"
+                                + "Check that you're doing: \"event {description} /from {yyyy-MM-dd HH:mm} "
                                 + "/to {yyyy-MM-dd HH:mm}\".");
             }
             break;
@@ -143,5 +143,16 @@ public class TaskList {
 
     public int size() {
         return this.list.size();
+    }
+
+    public ArrayList<Integer> findTasks(String query) {
+        ArrayList<Integer> result = new ArrayList<>();
+        String loweredQuery = query.toLowerCase();
+        for (int i = 0; i < this.list.size(); i++) {
+            if (this.list.get(i).getDescription().toLowerCase().contains(loweredQuery)) {
+                result.add(i);
+            }
+        }
+        return result;
     }
 }
