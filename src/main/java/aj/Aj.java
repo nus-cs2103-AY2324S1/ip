@@ -132,7 +132,7 @@ public class Aj {
         String testingFilePath = System.getProperty("user.dir") + "/../src/main/data/testData.txt";
 
         Aj bot = new Aj(); // create bot instance
-        bot.setUpBot(testingFilePath); // setup bot with necessary instances
+        bot.setUpBot(filePath); // setup bot with necessary instances
         bot.run(); // run bot
     }
 }
