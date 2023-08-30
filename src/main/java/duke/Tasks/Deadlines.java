@@ -11,7 +11,7 @@ public class Deadlines extends Task {
 
     /**
      * @param description
-     * @param oriEnd
+     * @param originalEnd
      */
     public Deadlines(String description, String originalEnd) {
         super(description);
