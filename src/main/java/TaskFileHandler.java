@@ -19,10 +19,8 @@ public class TaskFileHandler {
         }
 
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_PATH))) {
-            System.out.println(builder);
             writer.write(builder.toString());
             writer.flush();
-            System.out.println("Written to hard disk");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -64,7 +62,6 @@ public class TaskFileHandler {
                     database.add(task);
                 }
             }
-            System.out.println("Tasks loaded from disk.");
         } catch (IOException e) {
             e.printStackTrace();
         }
