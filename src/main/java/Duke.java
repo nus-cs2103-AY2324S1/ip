@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.regex.*;
 
 public class Duke {
@@ -23,11 +25,11 @@ public class Duke {
         System.out.println(line);
     }
 
-    private static void toDoHandler(String description) throws EmptyDescriptionException {
+    private static void toDoHandler(String description, boolean isDone) throws EmptyDescriptionException {
         if (description.equals("")) {
             throw new EmptyDescriptionException("todo");
         } else {
-            Task newToDo = new ToDos(description);
+            Task newToDo = new ToDos(description, isDone);
             strList.add(newToDo);
             if (!readingFile) {
                 printAddTask(newToDo);
@@ -35,14 +37,14 @@ public class Duke {
         }
     }
 
-    private static void deadlineHandler(String description) throws EmptyDescriptionException{
+    private static void deadlineHandler(String description, boolean isDone) throws EmptyDescriptionException{
         if (description.equals("")) {
             throw new EmptyDescriptionException("deadline");
         } else {
             String[] parts = description.split("/by");  // Split the input string by the delimiter "/"
             String before = parts[0].trim();
             String after = parts[1].trim();
-            Task newDeadline = new Deadline(before, after);
+            Task newDeadline = new Deadline(before, after, isDone);
             strList.add(newDeadline);
             if (!readingFile) {
                 printAddTask(newDeadline);
@@ -51,7 +53,7 @@ public class Duke {
         }
     }
 
-    public static void eventHandler(String description) throws EmptyDescriptionException {
+    public static void eventHandler(String description, boolean isDone) throws EmptyDescriptionException {
         if (description.equals("")) {
             throw new EmptyDescriptionException("event");
         } else {
@@ -60,7 +62,7 @@ public class Duke {
             String eventDescription = description.substring(0, fromIndex).trim();
             String from = description.substring(fromIndex + "/from".length(), toIndex).trim();
             String to = description.substring(toIndex + "/to".length()).trim();
-            Task newEvent = new Event(eventDescription, from, to);
+            Task newEvent = new Event(eventDescription, from, to, isDone);
             strList.add(newEvent);
             if (!readingFile) {
                 printAddTask(newEvent);
@@ -86,12 +88,29 @@ public class Duke {
     }
 
     public static String convertEventFormat(String input) {
-        // Replace "(from:" with "/from" and "to:" with "/to"
-        String result = input.replace("(from:", "/from")
-                .replace("to:", "/to")
-                .replace(")", "");
-        System.out.println(result);
-        return result;
+// Define a regular expression pattern to match the date and time strings
+        Pattern pattern = Pattern.compile("\\((from: ([^)]+) to: ([^)]+))\\)");
+        Matcher matcher = pattern.matcher(input);
+
+        SimpleDateFormat inputDateFormat = new SimpleDateFormat("MMM dd yyyy, HH:mm");
+        SimpleDateFormat outputDateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm");
+
+        // Find and replace matches in the input string
+        StringBuffer sb = new StringBuffer();
+        while (matcher.find()) {
+            try {
+                Date fromDate = inputDateFormat.parse(matcher.group(2));
+                Date toDate = inputDateFormat.parse(matcher.group(3));
+
+                String replacement = "/from " + outputDateFormat.format(fromDate) + " /to " + outputDateFormat.format(toDate);
+                matcher.appendReplacement(sb, replacement);
+            } catch (java.text.ParseException e) {
+                e.printStackTrace();
+            }
+        }
+        matcher.appendTail(sb);
+
+        return sb.toString();
     }
 
     public static void main(String[] args) throws EmptyDescriptionException, InvalidCommandException, NotANumberException{
@@ -102,20 +121,21 @@ public class Duke {
             String fileLine;
             while((fileLine = reader.readLine()) != null) {
                 String eventType = Character.toString(fileLine.charAt(1));
+                String isDone = Character.toString(fileLine.charAt(4));
                 String extractedSubstring = fileLine.substring(7, fileLine.length());
                 switch (eventType) {
                     case "T":
-                        toDoHandler(extractedSubstring);
+                        toDoHandler(extractedSubstring, isDone.equals("X"));
                         break;
                     case "D": {
                         //System.out.println(extractedSubstring);
                         String description = convertDeadlineFormat(extractedSubstring);
-                        deadlineHandler(description);
+                        deadlineHandler(description, isDone.equals("X"));
                         break;
                     }
                     case "E": {
                         String description = convertEventFormat(extractedSubstring);
-                        eventHandler(description);
+                        eventHandler(description, isDone.equals("X"));
                         break;
                     }
                 }
@@ -188,13 +208,13 @@ public class Duke {
                         }
                     } else if (words[0].equalsIgnoreCase("todo")) {
                         String description = String.join(" ", Arrays.copyOfRange(words, 1, words.length));
-                        toDoHandler(description);
+                        toDoHandler(description, false);
                     } else if (words[0].equalsIgnoreCase("deadline")) {
                         String description = String.join(" ", Arrays.copyOfRange(words, 1, words.length));
-                        deadlineHandler(description);
+                        deadlineHandler(description, false);
                     } else if (words[0].equalsIgnoreCase("event")) {
                         String description = String.join(" ", Arrays.copyOfRange(words, 1, words.length));
-                        eventHandler(description);
+                        eventHandler(description, false);
                     } else {
                         throw new InvalidCommandException();
                     }
