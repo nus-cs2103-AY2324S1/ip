@@ -2,6 +2,10 @@ package duke;
 
 import java.util.ArrayList;
 
+import duke.Tasks.TaskList;
+
+import duke.Tasks.Task;
+
 public class UI {
     public String name;
 

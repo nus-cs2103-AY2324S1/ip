@@ -1,7 +1,12 @@
-package duke;
+package duke.Tasks;
 
 import java.time.LocalDate;
 import java.util.regex.Pattern;
+
+import duke.Commands;
+import duke.FormatterDate;
+import duke.Exceptions.EmptyDetailsOfTaskError;
+import duke.Exceptions.UnknownCommandException;
 
 public class Task {
     protected String description;
