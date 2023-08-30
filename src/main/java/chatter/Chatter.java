@@ -45,8 +45,7 @@ public class Chatter {
                 }
 
                 this.ui.showDivider();
-                Parser p = new Parser(fullCommand);
-                Command c = p.parse(fullCommand);
+                Command c = Parser.parse(fullCommand);
                 c.execute(tasks, ui, storage);
                 isExit = c.isExit();
             } catch (ChatterException e) {
