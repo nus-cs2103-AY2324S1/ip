@@ -1,4 +1,5 @@
-package task;
+package duke.task;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -6,54 +7,43 @@ import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Event extends Task {
-    private String startDateTimeStr;
-    private String endDateTimeStr;
-    private LocalDate startDate;
-    private LocalDate endDate;
-    private LocalDateTime startDateTime;
-    private LocalDateTime endDateTime;
+public class Deadline extends Task {
 
+    private String deadlineBy;
 
-    public Event(String description, String startDateTimeStr,String endDateTimeStr) {
+    private LocalDate deadlineDate;
+
+    private LocalDateTime deadlineDateTime;
+
+    public Deadline(String description, String deadlineBy) {
         super(description);
-        this.startDate = parseDate(startDateTimeStr);
-        this.endDate = parseDate(endDateTimeStr);
-        this.startDateTime = parseDateTime(startDateTimeStr);
-        this.endDateTime = parseDateTime(endDateTimeStr);
-        this.startDateTimeStr = startDateTimeStr;
-        this.endDateTimeStr = endDateTimeStr;
-
+        this.deadlineDate = parseDate(deadlineBy);
+        this.deadlineDateTime = parseDateTime(deadlineBy);
+        this.deadlineBy = deadlineBy;
     }
 
     @Override
     public String toFileString() {
-        String type = "E";
-        return type + " | " + (getIsDone() ? "1" : "0") + " | " + this.description + " | "
-                + this.startDateTimeStr + " to " + this.endDateTimeStr;
+        String type = "D";
+        return type + " | " + (getIsDone() ? "1" : "0") + " | " + this.description + " | " + this.deadlineBy;
     }
+
 
     @Override
     public String toString() {
-
-        String startStr = startDateTimeStr;
-        String endStr = endDateTimeStr;
-
-        if (startDateTime != null) {
-            startStr = startDateTime.format(DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm"));
-        } else if (startDate != null) {
-            startStr = startDate.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
+        if (deadlineDate != null) {
+            String formattedDate = deadlineDate.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
+            return String.format("[D]%s (by: %s)", super.toString(), formattedDate);
+        } else if (deadlineDateTime != null) {
+            String formattedDate = deadlineDateTime.format(DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm"));
+            return String.format("[D]%s (by: %s)", super.toString(), formattedDate);
+        } else {
+            return String.format("[D]%s (by: %s)", super.toString(), deadlineBy);
         }
 
-        if (endDateTime != null) {
-            endStr = endDateTime.format(DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm"));
-        } else if (endDate != null) {
-            endStr = endDate.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
-        }
-
-        return String.format("[E]%s (from: %s to %s)", super.toString(), startStr, endStr);
     }
 
+    //parse LocalDate Object
     private LocalDate parseDate(String date) {
 
         List<DateTimeFormatter> formatters = new ArrayList<>();
@@ -96,5 +86,4 @@ public class Event extends Task {
         return null;
 
     }
-
 }

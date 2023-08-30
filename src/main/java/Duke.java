@@ -1,26 +1,14 @@
+import duke.exception.DukeException;
+import duke.task.Deadline;
+import duke.task.Event;
+import duke.task.Task;
+import duke.task.Todo;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
-
-import java.util.Date;
-import java.util.Scanner;
 import java.util.ArrayList;
-import java.util.List;
-
-import task.Event;
-import task.Task;
-import task.Todo;
-import task.Deadline;
-
-import exception.DukeException;
+import java.util.Scanner;
 
 public class Duke {
     private Scanner sc = new Scanner(System.in);
@@ -31,10 +19,10 @@ public class Duke {
     public static void main(String[] args) {
         String logo =
                 " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
+                        + "|  _ \\ _   _| | _____ \n"
+                        + "| | | | | | | |/ / _ \\\n"
+                        + "| |_| | |_| |   <  __/\n"
+                        + "|____/ \\__,_|_|\\_\\___|\n";
         System.out.println("Hello from\n " + logo);
         String chatBotName = "Duke";
 
@@ -242,3 +230,4 @@ public class Duke {
 
 
 }
+
