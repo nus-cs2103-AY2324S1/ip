@@ -16,17 +16,27 @@ public class DateTimeManager {
             throw new DateParseException();
         }
 
-        String[] dateData = splitBySpace[0].split("/");
-        LocalDate date;
+        LocalDate date = DateTimeManager.parseDate(splitBySpace[0]);
+        LocalTime time = DateTimeManager.parseTime(splitBySpace[1]);
+
+        return LocalDateTime.of(date, time);
+    }
+
+    /**
+     * Parse the string and return a LocalDate instance.
+     * @param input the raw string
+     * @return the LocalDate instance that corresponds to the input
+     * @throws DateParseException when the input string cannot be parsed properly
+     */
+    public static LocalDate parseDate(String input) throws DateParseException {
+        String[] dateData = input.split("/");
         if (dateData.length == 1) {
             switch (dateData[0]) {
                 case "today":
-                    date = LocalDate.now();
-                    break;
+                    return LocalDate.now();
                 case "tomorrow":
                 case "tmr":
-                    date = LocalDate.now().plusDays(1);
-                    break;
+                    return LocalDate.now().plusDays(1);
                 default:
                     throw new DateParseException();
             }
@@ -36,7 +46,7 @@ public class DateTimeManager {
                     throw new DateParseException();
                 }
             }
-            date = LocalDate.of(
+            return LocalDate.of(
                     Integer.parseInt(dateData[2]),
                     Integer.parseInt(dateData[1]),
                     Integer.parseInt(dateData[0])
@@ -44,22 +54,29 @@ public class DateTimeManager {
         } else {
             throw new DateParseException();
         }
+    }
 
-        String possibleAmPm = splitBySpace[1].substring(splitBySpace[1].length() - 2);
+    /**
+     * Read the given input indicating a time and return a LocalTime instance.
+     * @param input the raw input string
+     * @return the LocalTime instance that corresponds to the string
+     * @throws DateParseException when the string cannot be parse properly to interpret a time
+     */
+    public static LocalTime parseTime(String input) throws DateParseException {
+        String possibleAmPm = input.substring(input.length() - 2);
         boolean isPm = false;
         if (possibleAmPm.equals("am") || possibleAmPm.equals("pm")) {
             if (possibleAmPm.equals("pm")) {
                 isPm = true;
             }
-            splitBySpace[1] = splitBySpace[1].substring(0, splitBySpace[1].length() - 2);
+            input = input.substring(0, input.length() - 2);
         }
-        String[] timeData = splitBySpace[1].split(":");
-        LocalTime time;
+        String[] timeData = input.split(":");
         if (timeData.length == 1) {
             if (!timeData[0].matches("\\d+")) {
                 throw new DateParseException();
             }
-            time = LocalTime.of(
+            return LocalTime.of(
                     Integer.parseInt(timeData[0]) + (isPm ? 12 : 0),
                     0
             );
@@ -69,45 +86,56 @@ public class DateTimeManager {
                     throw new DateParseException();
                 }
             }
-            time = LocalTime.of(
+            return LocalTime.of(
                     Integer.parseInt(timeData[0]) + (isPm ? 12 : 0),
                     Integer.parseInt(timeData[1])
             );
         } else {
             throw new DateParseException();
         }
-
-        return LocalDateTime.of(date, time);
     }
 
     public static String dateToStringData(LocalDateTime dateTime) {
-        return dateTime.getDayOfMonth() + "/"
-                + dateTime.getMonthValue() + "/"
-                + dateTime.getYear() + " "
-                + DateTimeManager.timeDisplayFrom(dateTime);
+        return DateTimeManager.dateToStringData(dateTime.toLocalDate()) + " "
+                + DateTimeManager.timeDataFrom(dateTime.toLocalTime());
+    }
+
+    public static String dateToStringData(LocalDate date) {
+        return date.getDayOfMonth() + "/"
+                + date.getMonthValue() + "/"
+                + date.getYear();
+    }
+
+    public static String timeDataFrom(LocalTime time) {
+        return time.getHour() + ":" + time.getMinute();
     }
 
     public static String dateToDisplay(LocalDateTime dateTime) {
-        if (dateTime.toLocalDate().equals(LocalDate.now())) {
-            return "today " + DateTimeManager.timeDisplayFrom(dateTime);
-        } else if (dateTime.toLocalDate().equals(LocalDate.now().plusDays(1))) {
-            return "tomorrow " + DateTimeManager.timeDisplayFrom(dateTime);
+        return DateTimeManager.dateToDisplay(dateTime.toLocalDate()) + " "
+                + DateTimeManager.timeDisplayFrom(dateTime.toLocalTime());
+    }
+
+    public static String dateToDisplay(LocalDate date) {
+        if (date.equals(LocalDate.now())) {
+            return "today";
+        } else if (date.equals(LocalDate.now().plusDays(1))) {
+            return "tomorrow";
         } else {
-            return dateToStringData(dateTime);
+            return dateToStringData(date);
         }
     }
 
-    private static String timeDisplayFrom(LocalDateTime dateTime) {
-        if (dateTime.getHour() < 12) {
-            return (dateTime.getHour() == 0
+    public static String timeDisplayFrom(LocalTime time) {
+        if (time.getHour() < 12) {
+            return (time.getHour() == 0
                         ? "12"
-                        : DateTimeManager.twoDecimalPlaces(dateTime.getHour())
-                    ) + ":" + DateTimeManager.twoDecimalPlaces(dateTime.getMinute()) + "am";
+                        : DateTimeManager.twoDecimalPlaces(time.getHour())
+                    ) + ":" + DateTimeManager.twoDecimalPlaces(time.getMinute()) + "am";
         } else {
-            return (dateTime.getHour() == 12
+            return (time.getHour() == 12
                         ? "12"
-                        : DateTimeManager.twoDecimalPlaces(dateTime.getHour() - 12)
-                    ) + ":" + DateTimeManager.twoDecimalPlaces(dateTime.getMinute()) + "pm";
+                        : DateTimeManager.twoDecimalPlaces(time.getHour() - 12)
+                    ) + ":" + DateTimeManager.twoDecimalPlaces(time.getMinute()) + "pm";
         }
     }
 

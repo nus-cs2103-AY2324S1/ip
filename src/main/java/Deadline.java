@@ -1,3 +1,4 @@
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class Deadline extends Task {
@@ -11,6 +12,11 @@ public class Deadline extends Task {
     @Override
     public String data() {
         return "D " + super.data() + " /by " + DateTimeManager.dateToStringData(this.deadline);
+    }
+
+    @Override
+    public boolean containsDate(LocalDate date) {
+        return this.deadline.toLocalDate().isBefore(date) || this.deadline.toLocalDate().equals(date);
     }
 
     @Override

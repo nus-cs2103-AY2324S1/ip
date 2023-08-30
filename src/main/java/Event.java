@@ -1,3 +1,4 @@
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class Event extends Task {
@@ -15,6 +16,12 @@ public class Event extends Task {
         return "E " + super.data()
                 + " /from " + DateTimeManager.dateToStringData(this.start)
                 + " /to " + DateTimeManager.dateToStringData(this.end);
+    }
+
+    @Override
+    public boolean containsDate(LocalDate date) {
+        return (this.start.toLocalDate().isBefore(date) || this.start.toLocalDate().equals(date))
+                && (this.end.toLocalDate().isAfter(date) || this.end.toLocalDate().equals(date));
     }
 
     @Override
