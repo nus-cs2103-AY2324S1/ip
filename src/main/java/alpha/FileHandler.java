@@ -7,7 +7,10 @@ import java.io.FileWriter;
 import java.io.FileReader;
 import java.io.BufferedReader;
 
-// Class to Handle Storing and retrieving from alpha.txt
+/**
+ * Class that handles creating the file, reading from the file, storing tasks to the file and updating the file.
+ * @author Wong Joon Hung
+ */
 public class FileHandler {
 
     private boolean created = false;
@@ -19,7 +22,9 @@ public class FileHandler {
     public FileHandler() {
     }
 
-    // Checks for the data directory and alpha.txt. If one or both are not there, it creates them.
+    /**
+     * Checks for the existence of the data/alpha.txt file. Creates it if it does not exist.
+     */
     public void checkAndCreate(){
         boolean directoryExists = java.nio.file.Files.exists(java.nio.file.Paths.get("data"));
         // Check if the file exists
@@ -36,7 +41,11 @@ public class FileHandler {
         }
     }
 
-    // Reads information from file
+    /**
+     * Checks if the file is created or not. If not, it reads any tasks from the file and adds them to the current
+     * task list.
+     * @return a new task list with tasks from the file added.
+     */
     public TaskList readFromFile() {
         TaskList taskList = new TaskList();
         if (this.created) {
@@ -71,6 +80,10 @@ public class FileHandler {
         }
     }
 
+    /**
+     * Saves a task to the file.
+     * @param task The task to add to the file.
+     */
     // Saves Task to file whenever a Task is added
     public void saveToFile(Task task) {
         try {
@@ -93,6 +106,11 @@ public class FileHandler {
         }
     }
 
+    /**
+     * Checks or unchecks a task in the file depending on the second boolean parameter.
+     * @param index The index of the task to be marked or unmarked.
+     * @param check Boolean of whether the task is to be checked or unchecked.
+     */
     // Checks or unchecks a task in the file. Does so by creating a temp file that copies everything over
     // except the task that is being checked/unchecked.
     public void checkOrUncheck(int index, boolean check) {
@@ -131,6 +149,10 @@ public class FileHandler {
     }
 
 
+    /**
+     * Deletes a task from the file.
+     * @param index Index of the task to be deleted.
+     */
     // Deletes a task by creating a temp file and copying everything but the deleted task over.
     public void delete(int index) {
         try {

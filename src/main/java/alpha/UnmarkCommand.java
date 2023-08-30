@@ -10,7 +10,7 @@ public class UnmarkCommand extends Command{
     }
 
     public void execute() {
-        ui.mark(taskList.unmark(index));
+        ui.unmark(taskList.unmark(index));
         this.fileHandler.checkOrUncheck(index, false);
     }
 

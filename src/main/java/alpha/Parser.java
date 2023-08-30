@@ -1,22 +1,26 @@
 package alpha;
+/**
+ * Class that handles the user's inputs and makes sense of them. Uses certain key phrases for different commands.
+ * @author Wong Joon Hung
+ */
 public class Parser {
 
-    private static String END = "bye";
+    private final static String END = "bye";
 
     // List trigger word to display a log of stored text
-    private static String LIST = "list";
+    private final static String LIST = "list";
 
-    private static String CHECK = "mark";
+    private final static String CHECK = "mark";
 
-    private static String UNCHECK = "unmark";
+    private final static String UNCHECK = "unmark";
 
-    private static String TODO = "todo";
+    private final static String TODO = "todo";
 
-    private static String DEADLINE = "deadline";
+    private final static String DEADLINE = "deadline";
 
-    private static String EVENT = "event";
+    private final static String EVENT = "event";
 
-    private static String DELETE = "delete";
+    private final static String DELETE = "delete";
 
     private FileHandler fileHandler;
 
@@ -24,12 +28,24 @@ public class Parser {
 
     private UI ui;
 
+
+    /**
+     * Constructor for the class Parser.
+     * @param fh FileHandler to write to.
+     * @param taskList TaskList to add tasks to.
+     * @param ui User Interface to output responses for Alpha.
+     */
     public Parser(FileHandler fh, TaskList taskList, UI ui) {
         this.fileHandler = fh;
         this.taskList = taskList;
         this.ui = ui;
     }
 
+    /**
+     * Returns a command based on the user's input.
+     * @param input User input to be parsed.
+     * @return Command to be executed.
+     */
     public Command parse(String input) {
         String[] splitInput = input.split(" "); // Splits string to check for "mark" or "unmark"
         try {
@@ -49,6 +65,8 @@ public class Parser {
                 return delete(input);
             } else if (input.equals(END)) {
                 return new ExitCommand(taskList, fileHandler, ui);
+            } else if (splitInput[0].equals(DELETE)) {
+                return delete(input);
             } else {
                 throw new InvalidInputException("Invalid Input!");
             }
@@ -81,10 +99,20 @@ public class Parser {
         }
     }
 
+    /**
+     * Returns a list command.
+     * @return Command that lists all the stored tasks.
+     */
     public Command list() {
         return new ListCommand(taskList, fileHandler, ui);
     }
 
+    /**
+     * Returns a Command that adds an event based on an input.
+     * @return a Command that adds an event.
+     * @throws MissingInfoException If length of splitInput < 3
+     * @throws InvalidFormatException If /from and /to are not found within the input.
+     */
     public Command addEvent(String input) throws MissingInfoException, InvalidFormatException {
         String[] splitInput = input.split(" ");
         if (splitInput.length < 3) {
@@ -102,6 +130,11 @@ public class Parser {
         }
     }
 
+    /**
+     * Returns a Command that adds a ToDo based on an input.
+     * @return a Command that adds a ToDo.
+     * @throws MissingInfoException If length of splitInput == 1
+     */
     public Command addToDo(String input) throws MissingInfoException {
         String[] splitInput = input.split(" ");
         if (splitInput.length == 1) {
@@ -112,6 +145,11 @@ public class Parser {
         }
     }
 
+    /**
+     * Returns a Command that adds a deadline based on an input.
+     * @return a Command that adds a ToDo.
+     * @throws MissingInfoException If length of splitInput == 1
+     */
     public Command addDeadline(String input) throws MissingInfoException, InvalidFormatException {
         String[] splitInput = input.split(" ");
         if (splitInput.length < 2) {
@@ -126,6 +164,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Returns a Command that deletes a task from storage based on an input.
+     * @return a Command that deletes a task.
+     * @throws MissingIndexException if the index is missing.
+     * @throws InvalidIndexException if the index exceeds or is lesser than the number of stored tasks.
+     */
     public Command delete(String input) throws MissingIndexException, InvalidIndexException {
         String[] splitInput = input.split(" ");
         if (splitInput.length == 1) {
@@ -137,6 +181,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Returns a Command that checks a task based on an index.
+     * @return a Command that checks a task.
+     * @throws MissingIndexException if the index is missing.
+     * @throws InvalidIndexException if the index exceeds or is lesser than the number of stored tasks.
+     */
     public Command check(String input) throws MissingIndexException, InvalidIndexException {
         String[] splitInput = input.split(" ");
         if (splitInput.length == 1) {
@@ -148,6 +198,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Returns a Command that unchecks a task based on an index.
+     * @return a Command that unchecks a task.
+     * @throws MissingIndexException if the index is missing.
+     * @throws InvalidIndexException if the index exceeds or is lesser than the number of stored tasks.
+     */
     public Command uncheck(String input) throws MissingIndexException, InvalidIndexException {
         String[] splitInput = input.split(" ");
         if (splitInput.length == 1) {
@@ -155,8 +211,7 @@ public class Parser {
         } else if (Integer.parseInt(splitInput[1]) > taskList.size() || splitInput.length > 2) {
             throw new InvalidIndexException("Invalid Index!");
         } else {
-            return new MarkCommand(taskList, fileHandler, ui, Integer.parseInt(splitInput[1]));
+            return new UnmarkCommand(taskList, fileHandler, ui, Integer.parseInt(splitInput[1]));
         }
     }
-
 }

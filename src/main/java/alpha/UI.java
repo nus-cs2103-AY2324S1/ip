@@ -1,13 +1,12 @@
 package alpha;
 import java.util.Scanner;
-
+/**
+ * Class that handles ChatBot Alpha's inputs and outputs with the user.
+ * @author Wong Joon Hung
+ */
 public class UI {
 
 
-    //End trigger to end the program
-
-
-    // Intro message
     private String intro = "____________________________________________________________\n" +
             " Hello! I'm Alpha\n" +
             " What can I do for you?\n" + "____________________________________________________________";
@@ -20,14 +19,25 @@ public class UI {
     public UI() {
     }
 
+    /**
+     * Outputs Chatbot Alpha's Introduction messsage.
+     */
     public void introduce() {
         System.out.println(intro);
     }
 
+    /**
+     * Outputs Chatbot Alpha's Goodbye messsage.
+     */
     public void goodbye() {
         System.out.println(end);
     }
 
+    /**
+     * Outputs a message to tell the user a task was added.
+     * @param task Task that is being added.
+     * @param size Current size of the  task list.
+     */
     public void taskAdded(Task task, int size) {
         System.out.println("____________________________________________________________\n" +
                 "Alright! I've added this task:\n " + " " + task
@@ -35,6 +45,10 @@ public class UI {
                 "____________________________________________________________");
     }
 
+    /**
+     * Outputs a message to tell the user a task has been marked.
+     * @param task Task that is being marked.
+     */
     public void mark(Task task) {
         System.out.println("____________________________________________________________\n" +
                 "Nice! I've marked this task as done:\n" + "  " +
@@ -42,6 +56,10 @@ public class UI {
                 "\n____________________________________________________________");
     }
 
+    /**
+     * Outputs a message to tell the user a task has been unmarked.
+     * @param task Task that is being unmarked.
+     */
     public void unmark(Task task) {
         System.out.println("____________________________________________________________\n" +
                 "Cool! I've marked this task as not done yet:\n" + "  " +
@@ -50,6 +68,11 @@ public class UI {
 
     }
 
+    /**
+     * Outputs a message to tell the user a task has been deleted and the size of the remaining list.
+     * @param task Task that is being marked.
+     * @param size Remaining size of the task list.
+     */
     public void delete(Task task, int size) {
         System.out.println("____________________________________________________________\n" +
                 "Noted. I've removed this task:\n" + "  " + task + "\n Now You have " + size +
@@ -57,6 +80,11 @@ public class UI {
                 "____________________________________________________________");
     }
 
+    /**
+     * Outputs a display of the current list.
+     * @param size Current size of the task list.
+     * @param taskList Current taskList.
+     */
     public void list(int size, TaskList taskList) {
         System.out.println("____________________________________________________________\n" +
                 "Here are the tasks in your list:");
@@ -67,6 +95,10 @@ public class UI {
         System.out.println("____________________________________________________________");
     }
 
+    /**
+     * Returns the current user input.
+     * @return the current user input.
+     */
     public String read() {
         Scanner sc = new Scanner(System.in);
         return sc.nextLine();
