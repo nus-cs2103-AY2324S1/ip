@@ -17,6 +17,9 @@ import duke.util.TaskList;
 
 import duke.exceptions.DukeException;
 
+/*
+ * Duke is a personal assistant chatbot that helps a person to keep track of various things.
+ */
 
 public class Duke {
     
@@ -59,6 +62,10 @@ public class Duke {
         ui.printFarewellMessage();
     }
 
+    /*
+     * Main entry point of the Duke application.
+     * @param args Command line arguments.
+     */
     public static void main(String[] args) {
         Duke ekud = new Duke();
         ekud.run();

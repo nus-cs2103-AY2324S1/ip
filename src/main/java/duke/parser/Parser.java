@@ -2,8 +2,17 @@ package duke.parser;
 
 import duke.Duke;
 
+/*
+ * Encapsulates a parser that parses user input.
+ */
 public class Parser {
 
+    /*
+     * Returns the command type of the given command.
+     * 
+     * @param command The command to be parsed.
+     * @return The command type of the given command.
+     */
     public Duke.CommandType parseCommandType(String command) {
         if (command.startsWith("list")) {
             return Duke.CommandType.LIST;

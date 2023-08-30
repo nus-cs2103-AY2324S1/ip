@@ -17,12 +17,17 @@ import duke.exceptions.DukeException;
 
 
 
-
+/*
+ * Encapsulates the storage of tasks in duke.txt.
+ */
 public class Storage {
 
     private File file;
     private String filePath;
 
+    /*
+     * Constructs a Storage object with the default file path.
+     */
     public Storage() {
         this.filePath = "data/duke.txt";
         this.file = getFile();
@@ -52,6 +57,12 @@ public class Storage {
         return newTask;
     }
 
+    /*
+     * Reads the tasks from duke.txt and returns them as a list of tasks.
+     * 
+     * @return The list of tasks read from duke.txt.
+     * @throws DukeException If there is an error reading from duke.txt.
+     */
     public List<Task> readTasks() throws DukeException {
         List<Task> tasks = new ArrayList<>();
         try (Scanner sc = new Scanner(file)) {
@@ -67,6 +78,12 @@ public class Storage {
         return tasks;
     }
 
+    /*
+     * Writes the given list of tasks to duke.txt.
+     * 
+     * @param tasks The list of tasks to be written to duke.txt.
+     * @throws DukeException If there is an error writing to duke.txt.
+     */
     public void write(List<Task> tasks) throws DukeException {
         try {
             FileWriter fw = new FileWriter(file);
@@ -79,6 +96,12 @@ public class Storage {
         }
     }
 
+    /*
+     * Writes the given task to duke.txt.
+     * 
+     * @param newTask The task to be written to duke.txt.
+     * @throws DukeException If there is an error writing to duke.txt.
+     */
     public void write(Task newTask) throws DukeException {
         try {
             FileWriter fw = new FileWriter(file, true);
