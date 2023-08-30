@@ -1,10 +1,17 @@
+package bouncybob.util;
+
+import bouncybob.task.Deadlines;
+import bouncybob.task.Events;
+import bouncybob.task.Task;
+import bouncybob.task.ToDos;
+
 import java.io.BufferedWriter;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
+
 public class TaskFileHandler {
     private static final String FILE_PATH = "./data/bouncy.txt";
 
