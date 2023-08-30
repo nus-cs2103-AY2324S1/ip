@@ -7,26 +7,19 @@ import tasks.Event;
 import tasks.Task;
 import tasks.ToDo;
 
+/**
+ * The TaskParser class is responsible for parsing user input
+ * and generating Task objects based on different task types.
+ */
 public class TaskParser {
 
+  /**
+   * Parses the input string and generates a Task object based on the specified task type.
+   *
+   * @param input The input string containing task information.
+   * @return A Task object representing the parsed task.
+   */
   public Task parseTask(String input) {
-    try {
-      if (input.startsWith("deadline")) {
-        return parseDeadline(input);
-      } else if (input.startsWith("event")) {
-        return parseEvent(input);
-      } else if (input.startsWith("todo")) {
-        return parseTodo(input);
-      } else {
-        throw new InvalidTaskFormatException("I'm sorry, but I don't know what that means :-(");
-      }
-    } catch (InvalidTaskFormatException e) {
-      System.out.println("☹ OOPS!!! " + e.getMessage());
-    }
-    return null;
-  }
-
-  public Task parseAddTaskCommand(String input) {
     try {
       if (input.startsWith("deadline")) {
         return parseDeadline(input);
@@ -90,6 +83,9 @@ public class TaskParser {
     return new ToDo(taskDescription);
   }
 
+  /**
+   * Custom exception class for representing an invalid task format.
+   */
   public static class InvalidTaskFormatException extends Exception {
     public InvalidTaskFormatException(String message) {
       super(message);

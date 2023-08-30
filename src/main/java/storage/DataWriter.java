@@ -10,13 +10,26 @@ import java.util.List;
 import tasklist.TaskList;
 import tasks.Task;
 
+/**
+ * The DataWriter class is responsible for writing and updating task data in a storage file.
+ */
 public class DataWriter {
   private static String filePath;
 
+  /**
+   * Constructs a DataWriter instance with the specified file path.
+   *
+   * @param filePath The file path of the storage file to be written to.
+   */
   public DataWriter(String filePath) {
     DataWriter.filePath = filePath;
   }
 
+  /**
+   * Adds a new line of text to the storage file.
+   *
+   * @param line The line of text to be added.
+   */
   public static void addLine(String line) {
     try (BufferedWriter writer = new BufferedWriter(new FileWriter(DataWriter.filePath, true))) {
       writer.write(line);
@@ -26,6 +39,11 @@ public class DataWriter {
     }
   }
 
+  /**
+   * Deletes a line from the storage file based on the line number.
+   *
+   * @param lineNumber The line number to be deleted.
+   */
   public static void deleteLine(int lineNumber) {
     List<String> lines = new ArrayList<>();
     try (BufferedReader reader = new BufferedReader(new FileReader(DataWriter.filePath))) {
@@ -54,6 +72,11 @@ public class DataWriter {
     }
   }
 
+  /**
+   * Refreshes the content of the storage file with the tasks from the given TaskList.
+   *
+   * @param tasks The TaskList containing tasks to be written to the file.
+   */
   public static void refresh(TaskList tasks) {
     try {
       // Clean the file by overwriting it with an empty content
