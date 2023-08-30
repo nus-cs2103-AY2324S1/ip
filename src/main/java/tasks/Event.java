@@ -30,7 +30,7 @@ public class Event extends Task{
 
     @Override
     public String toStorableString() {
-        String[] infos = {"T", this.status ? "1" : "0", this.desc, this.from, this.to};
+        String[] infos = {"E", this.status ? "1" : "0", this.desc, this.from, this.to};
 
         return String.join(TaskParser.SEPARATOR, infos);
     }

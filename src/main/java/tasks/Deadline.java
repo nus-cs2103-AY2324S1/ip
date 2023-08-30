@@ -26,7 +26,7 @@ public class Deadline extends Task{
 
     @Override
     public String toStorableString() {
-        String[] infos = {"T", this.status ? "1" : "0", this.desc, this.by};
+        String[] infos = {"D", this.status ? "1" : "0", this.desc, this.by};
 
         return String.join(TaskParser.SEPARATOR, infos);
     }
