@@ -9,12 +9,19 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 public class Storage {
+    /** The string representation of the directory */
     private String filePath;
 
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
+    /** 
+     * Checks if the file path exists and
+     * prints the text document if it exists.
+     * 
+     * @throws FileNotFoundException If file path is invalid.
+     */
     public void load() {
         File file = new File(filePath);
 
@@ -30,6 +37,12 @@ public class Storage {
         }
     }
 
+    /** 
+     * Creates a new file in the specified path and
+     * writes to the file.
+     * 
+     * @throws IOException If the input/output is interrupted.
+     */
     public void write(List<Task> taskForce) {
         String toBeSaved = "";
         for (int i = 0; i < taskForce.size(); i++) {
