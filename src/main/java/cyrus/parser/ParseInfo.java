@@ -11,54 +11,58 @@ import java.util.HashMap;
  * and an {@code option} is the values of "flags".</p>
  */
 public class ParseInfo {
-  /**
-   * Default {@code ParseInfo} for an empty command.
-   */
-  public final static ParseInfo EMPTY = new ParseInfo(
-      CommandType.UNKNOWN,
-      "",
-      new HashMap<>()
-  );
+    /**
+     * Default {@code ParseInfo} for an empty command.
+     */
+    public final static ParseInfo EMPTY = new ParseInfo(
+            CommandType.UNKNOWN,
+            "",
+            new HashMap<>()
+    );
 
-  private final CommandType commandType;
-  private final String argument;
-  private final HashMap<String, String> options;
+    private final CommandType commandType;
+    private final String argument;
+    private final HashMap<String, String> options;
 
-  public ParseInfo(CommandType commandType, String argument, HashMap<String, String> options) {
-    this.commandType = commandType;
-    this.argument = argument;
-    this.options = options;
-  }
+    public ParseInfo(CommandType commandType, String argument, HashMap<String, String> options) {
+        this.commandType = commandType;
+        this.argument = argument;
+        this.options = options;
+    }
 
-  /**
-   * Returns if parsed command has no argument.
-   * @return true if parsed command has no arguments
-   */
-  public boolean hasNoArgument() {
-    return this.argument.equals("");
-  }
+    /**
+     * Returns if parsed command has no argument.
+     *
+     * @return true if parsed command has no arguments
+     */
+    public boolean hasNoArgument() {
+        return this.argument.equals("");
+    }
 
-  /**
-   * Returns {@code argument} of the command.
-   * @return argument of command
-   */
-  public String getArgument() {
-    return this.argument;
-  }
+    /**
+     * Returns {@code argument} of the command.
+     *
+     * @return argument of command
+     */
+    public String getArgument() {
+        return this.argument;
+    }
 
-  /**
-   * Create a copy of the options to avoid accidentally modifying the current options map.
-   * @return Copy of options hashmap.
-   */
-  public HashMap<String, String> getOptions() {
-    return new HashMap<>(this.options);
-  }
+    /**
+     * Create a copy of the options to avoid accidentally modifying the current options map.
+     *
+     * @return Copy of options hashmap.
+     */
+    public HashMap<String, String> getOptions() {
+        return new HashMap<>(this.options);
+    }
 
-  /**
-   * Returns {@code commandType} of the command.
-   * @return command type
-   */
-  public CommandType getCommandType() {
-    return this.commandType;
-  }
+    /**
+     * Returns {@code commandType} of the command.
+     *
+     * @return command type
+     */
+    public CommandType getCommandType() {
+        return this.commandType;
+    }
 }

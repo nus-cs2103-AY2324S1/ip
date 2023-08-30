@@ -6,7 +6,7 @@ package cyrus.commands;
  * <p>Often occurs when the input is parsed wrongly.</p>
  */
 public class CommandError extends Exception {
-  public CommandError(String reason) {
-    super(reason);
-  }
+    public CommandError(String reason) {
+        super(reason);
+    }
 }
