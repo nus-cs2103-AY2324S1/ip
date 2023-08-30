@@ -1,7 +1,8 @@
 import java.util.ArrayList;
 public class Memory {
-    private final static ArrayList<Task> ls = new ArrayList<>();
-    private final static ArrayList<Boolean> markList = new ArrayList<>();
+    private static ArrayList<Task> ls = TaskReader.readTasksFromFile("data/tasks.txt");
+
+    private static TaskWriter taskWriter = new TaskWriter("data/tasks.txt");
 
     public void add(Task task) {
         if (task == null) {
@@ -9,6 +10,7 @@ public class Memory {
         }
         System.out.println("Got it. I've added this task:");
         ls.add(task);
+        taskWriter.addLine(task.toString());
         System.out.println(task);
         System.out.println("Now you have " + this.size() + " tasks in the list.");
     }
@@ -33,6 +35,7 @@ public class Memory {
         System.out.println("Noted. I've removed this task:");
         System.out.println(" " + ls.get(pos - 1) );
         ls.remove(pos - 1);
+        taskWriter.deleteLine(pos);
         System.out.println("Now you have " + ls.size() + " tasks in the list.");
     }
 
