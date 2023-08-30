@@ -63,6 +63,22 @@ public class TaskList {
         return tasks;
     }
 
+    /*
+     * Returns a list of tasks that contain the given substring in their names.
+     *
+     * @param subString The substring to search for in task names.
+     * @return An ArrayList containing tasks that have names containing the substring.
+     */
+    public TaskList getSubTaskList(String subString) {
+        TaskList subTaskList = new TaskList();
+        for (Task task : tasks) {
+            if (task.getName().contains(subString)) {
+                subTaskList.addTask(task);
+            }
+        }
+        return subTaskList;
+    }
+
     /**
      * Checks if the task list is empty.
      *
