@@ -10,12 +10,6 @@ public class TaskList {
         this.storage = storage;
     }
 
-    private static String formatOutput(String output) {
-        String horizontalLine = "____________________________________________________________";
-        return INDENTATION + horizontalLine + "\n " +
-                INDENTATION + output + '\n' + INDENTATION + horizontalLine + '\n';
-    }
-
     public String formatList() {
         String str = "";
         int len = taskList.size();
@@ -28,10 +22,11 @@ public class TaskList {
         return str;
     }
 
-    public void handleMarking(String commandNum, String status) throws DukeException {
+    public String handleMarking(String commandNum, String status) throws DukeException {
 
         try {
             int index = Integer.parseInt(commandNum) - 1;
+            String buffer = "";
 
             if (index > taskList.size() - 1 || index < 0) {
                 throw new DukeException("Invalid Task Index provided!");
@@ -39,20 +34,21 @@ public class TaskList {
             Task selectedTask = taskList.get(index);
             if (status.equals("mark")) {
                 selectedTask.markTask();
-                System.out.println(formatOutput("Nice! I've marked the task as done:\n   " +
-                        INDENTATION + selectedTask));
+                buffer = "Nice! I've marked the task as done:\n   " +
+                        INDENTATION + selectedTask;
             } else if (status.equals("unmark")) {
                 selectedTask.unmarkTask();
-                System.out.println(formatOutput("OK, I've marked this task as not done yet:\n   " +
-                        INDENTATION + selectedTask));
+                buffer = "OK, I've marked this task as not done yet:\n   " +
+                        INDENTATION + selectedTask;
             }
             this.saveList();
+            return buffer;
         } catch (NumberFormatException e) {
             throw new DukeException("Invalid Task Index provided!");
         }
     }
 
-    public void handleDelete(String commandNum) throws DukeException {
+    public String handleDelete(String commandNum) throws DukeException {
         try {
             int index = Integer.parseInt(commandNum) - 1;
 
@@ -61,41 +57,41 @@ public class TaskList {
             }
             Task selectedTask = taskList.remove(index);
             this.saveList();
-            System.out.println(formatOutput("Noted. I've removed this task:\n   " +
+            return "Noted. I've removed this task:\n   " +
                     INDENTATION + selectedTask + "\n " + INDENTATION + "Now you have " +
-                    taskList.size() + " tasks in the list."));
+                    taskList.size() + " tasks in the list.";
 
         } catch (NumberFormatException e) {
             throw new DukeException("Invalid Task Index provided!");
         }
     }
 
-    public void handleToDo(String task) {
+    public String handleToDo(String task) {
         ToDo item = new ToDo(task);
         taskList.add(item);
         this.saveList();
-        System.out.println(formatOutput("Got it. I've added this task:\n   " +
+        return "Got it. I've added this task:\n   " +
                 INDENTATION + item + "\n " + INDENTATION + "Now you have " +
-                taskList.size() + " tasks in the list."));
+                taskList.size() + " tasks in the list.";
     }
 
-    public void handleDeadline(String desc, String by) throws DukeException {
+    public String handleDeadline(String desc, String by) throws DukeException {
 
         Deadline item = new Deadline(desc, by);
         taskList.add(item);
         this.saveList();
-        System.out.println(formatOutput("Got it. I've added this task:\n   " +
+        return "Got it. I've added this task:\n   " +
                 INDENTATION + item + "\n " + INDENTATION + "Now you have " +
-                taskList.size() + " tasks in the list."));
+                taskList.size() + " tasks in the list.";
     }
 
-    public void handleEvent(String desc, String start, String end) throws DukeException {
+    public String handleEvent(String desc, String start, String end) throws DukeException {
         Event item = new Event(desc, start, end);
         taskList.add(item);
         this.saveList();
-        System.out.println(formatOutput("Got it. I've added this task:\n   " +
+        return "Got it. I've added this task:\n   " +
                 INDENTATION + item + "\n " + INDENTATION + "Now you have " +
-                taskList.size() + " tasks in the list."));
+                taskList.size() + " tasks in the list.";
     }
 
     public String exportList() {
