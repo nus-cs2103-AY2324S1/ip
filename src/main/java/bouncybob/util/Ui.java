@@ -1,4 +1,7 @@
-import java.util.ArrayList;
+package bouncybob.util;
+
+import bouncybob.BouncyBob;
+import bouncybob.task.Task;
 
 public class Ui {
     private static final String TOP_BORDER = "================================================";

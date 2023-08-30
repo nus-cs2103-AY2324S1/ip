@@ -1,8 +1,18 @@
+package bouncybob;
+
 import jdk.jfr.Event;
 
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
+import bouncybob.task.Task;
+import bouncybob.task.Deadlines;
+import bouncybob.task.Events;
+import bouncybob.task.ToDos;
+import bouncybob.util.TaskList;
+import bouncybob.util.TaskFileHandler;
+import bouncybob.util.Parser;
+import bouncybob.util.Ui;
 
 public class BouncyBob {
 
@@ -21,7 +31,7 @@ public class BouncyBob {
             case TODO:
                 taskName = Parser.removeAction(parts);
                 if (taskName.trim().isEmpty()) {
-                    throw new IllegalArgumentException("Task name for 'todo' cannot be empty.");
+                    throw new IllegalArgumentException("bouncybob.task.Task name for 'todo' cannot be empty.");
                 }
                 newTask = new ToDos(taskName);
                 break;
@@ -33,7 +43,7 @@ public class BouncyBob {
                 }
                 taskName = Parser.getTaskDeadline(taskName);
                 if (taskName.trim().isEmpty()) {
-                    throw new IllegalArgumentException("Task name for 'deadline' cannot be empty.");
+                    throw new IllegalArgumentException("bouncybob.task.Task name for 'deadline' cannot be empty.");
                 }
                 newTask = new Deadlines(taskName, datetime);
                 break;
@@ -45,7 +55,7 @@ public class BouncyBob {
                 }
                 taskName = Parser.getTaskEvent(taskName);
                 if (taskName.trim().isEmpty()) {
-                    throw new IllegalArgumentException("Task name for 'event' cannot be empty.");
+                    throw new IllegalArgumentException("bouncybob.task.Task name for 'event' cannot be empty.");
                 }
                 newTask = new Events(taskName, fromTo[0], fromTo[1]);
                 break;
@@ -59,15 +69,17 @@ public class BouncyBob {
     public static void modifyTask(String[] parts, TaskList taskList) {
         Action action = Parser.getAction(parts[0]);
         int index = Integer.parseInt(parts[1]); // Adjust for 0-based index
-        Ui.printTaskStatus(taskList.getTask(index), action);
         switch(action) {
             case MARK:
                 taskList.getTask(index).setDone();
+                Ui.printTaskStatus(taskList.getTask(index), action);
                 break;
             case UNMARK:
                 taskList.getTask(index).setUnDone();
+                Ui.printTaskStatus(taskList.getTask(index), action);
                 break;
             case DELETE:
+                Ui.printTaskStatus(taskList.getTask(index), action);
                 taskList.removeTask(index);
                 break;
         }

@@ -1,3 +1,7 @@
+package bouncybob.util;
+
+import bouncybob.task.Task;
+
 import java.util.ArrayList;
 
 public class TaskList {
