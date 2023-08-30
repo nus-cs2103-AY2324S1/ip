@@ -20,4 +20,9 @@ public class Todo extends Task{
     public String toString() {
         return "[" + type + "]" + super.toString();
     }
+
+    @Override
+    public String toDataString() {
+        return this.type + " / " + super.toDataString();
+    }
 }

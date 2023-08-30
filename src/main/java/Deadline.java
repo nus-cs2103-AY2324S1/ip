@@ -25,4 +25,9 @@ public class Deadline extends Task{
     public String toString() {
         return "[" + this.type + "]" + super.toString() + " (by: " + this.by + ")";
     }
+
+    @Override
+    public String toDataString() {
+        return this.type + " / " + super.toDataString() + " / " + this.by;
+    }
 }

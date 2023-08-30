@@ -30,4 +30,9 @@ public class Event extends Task {
     public String toString() {
         return "[" + type + "]" + super.toString() + " (from: " + this.from + " to: " + this.to + ")";
     }
+
+    @Override
+    public String toDataString() {
+        return this.type + " / " + super.toDataString() + " / " + this.from + " / " + this.to;
+    }
 }
