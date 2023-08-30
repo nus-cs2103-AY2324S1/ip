@@ -1,3 +1,5 @@
+package duke;
+
 public class ManipulateException extends DukeException{
 
     public ManipulateException(String message, String command) {

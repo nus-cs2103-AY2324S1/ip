@@ -1,3 +1,5 @@
+package duke;
+
 public class PrintDateException extends DukeException{
 
     public PrintDateException(String message) {
