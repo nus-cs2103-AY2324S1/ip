@@ -19,6 +19,15 @@ public class Storage {
         this.fileData = new ArrayList<Task>();
     }
 
+    /**
+     * Returns an ArrayList<Task> based on data represented in the Duke.txt file.
+     * If the file does not exist, it creates a new directory and new file.
+     *
+     * @param filePath File Path for Duke.txt
+     * @return ArrayList<Task> based on data parsed from the Duke.txt
+     * @throws DukeException If Deadline object is not instantiated properly
+     * @throws IOException If file is not located or not available
+     */
     public ArrayList<Task> load(String filePath) throws DukeException, IOException {
         File f = new File(filePath);
 

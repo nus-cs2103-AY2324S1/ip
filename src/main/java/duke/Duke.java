@@ -12,6 +12,14 @@ public class Duke {
 
     private String filePath;
 
+    /**
+     * Returns a Duke Object which contains essential information for the functionality of this chatbot.
+     * TaskList Object is instantiated to keep account of current tasks available for user (ArrayList)
+     * Ui Object is instantiated to return appropriate UI prompts back to user
+     *
+     * @param filePath File Path for Duke.txt
+     * @throws IOException If file is not located or not available
+     */
     public Duke(String filePath) throws IOException {
         storage = new Storage(filePath);
         ui = new Ui();

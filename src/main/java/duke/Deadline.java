@@ -11,6 +11,14 @@ public class Deadline extends Task {
     protected Temporal by;
     protected String deadline;
 
+    /**
+     * Returns a Deadline object if provided with description (String) and the appropriate string format for deadline.
+     * If the deadline provided is not of (YYYY-MM-DD or YYYY-MM-DD HHMM) format, Object will not be created.
+     *
+     * @param description description of task
+     * @param deadline due date for tasks. Has to be represented in yyyy-mm-dd or yyyy-mm-dd hhmm format
+     * @throws DukeException if format is provided wrongly, Deadline Object cannot be instantiated.
+     */
     public Deadline(String description, String deadline) throws DukeException {
         super(description, "D");
         this.deadline = deadline;
@@ -32,6 +40,13 @@ public class Deadline extends Task {
         return this.deadline;
     }
 
+    /**
+     * Returns MMM-D-YYYY representation for the deadline assuming the deadline provided is of LocalDate/LocalDateTime Object.
+     * If the deadline isn't of LocalDate/LocalDateTime, it throws an UnsupportedOperationException.
+     *
+     * @return MMM-D-YYYY representation from LocalDate or LocalDateTime object
+     * @throws UnsupportedOperationException If object is not of LocalDate or LocalDateTime
+     */
     public String byString() {
         if (this.by instanceof LocalDate) {
             return ((LocalDate) this.by).format(DateTimeFormatter.ofPattern("MMM d yyyy"));

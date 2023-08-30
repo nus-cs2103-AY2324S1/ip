@@ -6,12 +6,12 @@ public class Task {
 
     protected String tag;
 
-    public Task(String description) {
-        this.description = description;
-        this.isDone = false;
-        this.tag = "R";
-    }
-
+    /**
+     * Returns a Task object if provided with task description and associated tag ("T"/"D"/"E")
+     *
+     * @param description Task description (String)
+     * @param tag "E" for Event, "T" for Todo, "D" for Deadline
+     */
     public Task(String description, String tag) {
         this.description = description;
         this.isDone = false;

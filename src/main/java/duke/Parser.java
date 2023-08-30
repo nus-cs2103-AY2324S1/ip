@@ -13,6 +13,13 @@ public class Parser {
         ui = new Ui();
     }
 
+    /**
+     * Analyses user's commands and performs the appropriate actions.
+     * If the user's command is "Bye", throws an Exception such that main Duke class can be terminated.
+     *
+     * @param tasks current Tasks the user has stored. Aids in operation of deleting/appending tasks.
+     * @throws Exception If command is "Bye"
+     */
     public void parserChecker(TaskList tasks) throws Exception {
 
         String action = this.words[0];
@@ -68,6 +75,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Returns task description for various Task types (Todo/Deadline/Event)
+     *
+     * @param arrUserCommand Array of the particular user's command split by " "
+     * @return Task description for a particular Task (String)
+     */
     public String getTaskDescription(String[] arrUserCommand) {
         StringBuilder result = new StringBuilder();
         for (int i = 1; i < arrUserCommand.length; i++) {
@@ -79,6 +92,14 @@ public class Parser {
         return result.toString().trim();
     }
 
+    /**
+     * Returns True if the user's command for a Todo event is valid. I.e. has to contain >= 1 words
+     * Throws DukeException if the user's command contains only 1 word (No Task Description)
+     *
+     * @param userCommand Array of the particular user's command split by " "
+     * @return True if appropriate Todo command
+     * @throws DukeException If the command is only one word. I.e. no task description
+     */
     public boolean validToDoCommand(String[] userCommand) throws DukeException {
         if (userCommand.length <= 1) {
             String error = String.format("OOPS!!! The description of a %s cannot be empty.", userCommand[0]);
@@ -88,6 +109,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Returns string from delimiter to end of array. Array is from user commands.
+     *
+     * @param userCommand Array of the particular user's command split by " "
+     * @param delimiter Use-case would be "/by" for a deadline task
+     * @return In Deadline task context, it should return the due date that the user has input. (String)
+     */
     public String searcher(String[] userCommand, String delimiter) {
         StringBuilder result = new StringBuilder();
 
@@ -108,6 +136,14 @@ public class Parser {
         return result.toString().trim();
     }
 
+    /**
+     * Returns an Array of length 2 where the first index is the "/from" specification and the second index is the "/to" specification for Event Task
+     *
+     * @param userCommand Array of the particular user's command split by " "
+     * @param delimiter Use-case would be "/from" for an "Event" task
+     * @param delimiter_2 Use-case would be "/to" for an "Event" task
+     * @return In Event task context, it should return an array where array[0] is "/from" specs and array[1] is "/to" specs.
+     */
     public String[] fromToDeadline(String[] userCommand, String delimiter, String delimiter_2) {
         StringBuilder firstResult = new StringBuilder();
         StringBuilder secondResult = new StringBuilder();
