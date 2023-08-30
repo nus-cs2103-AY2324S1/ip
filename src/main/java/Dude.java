@@ -1,3 +1,6 @@
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -5,6 +8,12 @@ import java.util.Scanner;
  * Dude (Duke, but renamed)
  */
 public class Dude {
+  // Save-file related constants
+  /**
+   * Path to save file
+   */
+  static final String SAVE_FILE_PATH = "./data/dude.txt";
+
   // Messages
   static String logo =
     " _|    _| _    O\n" +
@@ -31,21 +40,26 @@ public class Dude {
   /**
    * Add task to tasks list.
    *
-   * @param task Task to add.
+   * @param task Task to add
+   * @throws SaveFileException if error saving
    */
-  public static void addTask(Task task) {
+  public static void addTask(Task task) throws SaveFileException {
     tasks.add(task);
+    saveToSaveFile();
   }
 
   /**
    * Remove task from tasks list.
    *
-   * @param index 1-based index of task to remove.
-   * @return Removed task.
+   * @param index 1-based index of task to remove
+   * @return Removed task
+   * @throws SaveFileException if error saving
    */
-  public static Task removeTask(int index) throws TaskOutOfBoundsException {
+  public static Task removeTask(int index) throws TaskOutOfBoundsException, SaveFileException {
     try {
-      return tasks.remove(index - 1);
+      Task removedTask = tasks.remove(index - 1);
+      saveToSaveFile();
+      return removedTask;
     } catch (IndexOutOfBoundsException e) {
       throw new TaskOutOfBoundsException();
     }
@@ -162,7 +176,7 @@ public class Dude {
    * @param input command.
    * @throws TaskDescriptionMissingException if task description is missing
    */
-  public static void parseTodo(String input) throws TaskDescriptionMissingException {
+  public static void parseTodo(String input) throws TaskDescriptionMissingException, SaveFileException {
     String[] splitInput = input.split(" ", 2);
     if (splitInput.length < 2) {
       // task description not specified
@@ -183,7 +197,7 @@ public class Dude {
    * @throws TaskDeadlineMissingException    if task deadline is missing
    */
   public static void parseDeadline(String input)
-    throws TaskDescriptionMissingException, TaskDeadlineMissingException {
+    throws TaskDescriptionMissingException, TaskDeadlineMissingException, SaveFileException {
     String[] splitInput = input.split(" ", 2);
     if (splitInput.length < 2) {
       // task description not specified
@@ -210,7 +224,7 @@ public class Dude {
    * @throws EventEndMissingException        if event end is missing
    */
   public static void parseEvent(String input)
-    throws TaskDescriptionMissingException, EventStartMissingException, EventEndMissingException {
+    throws TaskDescriptionMissingException, EventStartMissingException, EventEndMissingException, SaveFileException {
     String[] splitInput = input.split(" ", 2);
     if (splitInput.length < 2) {
       // task description not specified
@@ -303,21 +317,103 @@ public class Dude {
     System.out.println(output);
   }
 
+  /**
+   * Create new empty save file at SAVE_FILE_PATH if it does not already exist.
+   *
+   * @throws SaveFileException if file cannot be created
+   */
+  public static void createSaveFile() throws SaveFileException {
+    File saveFile = new File(SAVE_FILE_PATH);
+    File parent = saveFile.getParentFile();
+    // check & create parent dir(s)
+    if (parent != null && !parent.exists()) {
+      parent.mkdirs();
+    }
+    try {
+      // create save file
+      saveFile.createNewFile();
+    } catch (IOException e) {
+      throw new SaveFileException("Error creating save file: " + e.getMessage());
+    }
+  }
+
+  /**
+   * Reads save file contents and sets list of Task instances.
+   *
+   * @throws SaveFileException        if there is an error reading the file
+   * @throws InvalidTaskDataException if the text data format is invalid
+   */
+  public static void readSaveFile() throws SaveFileException, InvalidTaskDataException {
+    try {
+      File f = new File(SAVE_FILE_PATH);
+      Scanner s = new Scanner(f);
+      ArrayList<Task> readTasks = new ArrayList<>();
+      while (s.hasNext()) {
+        String data = s.nextLine();
+        if (data.isBlank()) {
+          continue;
+        }
+        String taskType = data.split(Task.DELIMITER_REGEX)[0];
+        switch (taskType) {
+          case "T":
+            readTasks.add(ToDoTask.fromData(data));
+            break;
+          case "D":
+            readTasks.add(DeadlineTask.fromData(data));
+            break;
+          case "E":
+            readTasks.add(EventTask.fromData(data));
+            break;
+          default:
+            throw new InvalidTaskDataException();
+        }
+      }
+      tasks = readTasks;
+    } catch (IOException e) {
+      throw new SaveFileException("Error reading save file: " + e.getMessage());
+    }
+  }
+
+  /**
+   * Saves current list of tasks to save file.
+   *
+   * @throws SaveFileException if there is an error saving the file
+   */
+  public static void saveToSaveFile() throws SaveFileException {
+    StringBuilder s = new StringBuilder();
+    for (int i = 1; i <= getNumTasks(); i++) {
+      s.append(getTask(i).toData());
+    }
+    try {
+      FileWriter fw = new FileWriter(SAVE_FILE_PATH);
+      fw.write(s.toString());
+      fw.close();
+    } catch (IOException e) {
+      throw new SaveFileException("Error writing save file: " + e.getMessage());
+    }
+  }
+
   public static void main(String[] args) {
     Scanner sc = new Scanner(System.in);
-    // Print startup greeting
-    printMessage(hello);
+    try {
+      // Startup
+      createSaveFile();
+      printMessage(hello); // Print startup greeting
+      readSaveFile();
 
-    // Input loop -- wait for input, respond, repeat
-    boolean shouldContinue = true;
-    while (shouldContinue) {
-      // read user input
-      String input = sc.nextLine();
-      try {
-        shouldContinue = parseInput(input);
-      } catch (DudeException e) {
-        printMessage(e.getMessage());
+      // Input loop -- wait for input, respond, repeat
+      boolean shouldContinue = true;
+      while (shouldContinue) {
+        try {
+          // read user input
+          String input = sc.nextLine();
+          shouldContinue = parseInput(input);
+        } catch (DudeException e) {
+          printMessage(e.getMessage());
+        }
       }
+    } catch (DudeException e) {
+      printMessage(e.getMessage());
     }
   }
 }
