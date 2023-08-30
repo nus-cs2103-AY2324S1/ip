@@ -1,2 +1,6 @@
 [D][X]|bbb (by: sunday)
 [E][ ]|project (from: Mon 2pm to: 4pm)
+[D][ ]|gg (by: 12-12-2020)
+[D][ ]|gg (by: 12-12-2020 18)
+[D][ ]|gg (by: 12-12-2020 1800)
+[D][ ]|bb (by: 2020-12-12)

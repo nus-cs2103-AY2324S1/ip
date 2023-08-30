@@ -11,6 +11,10 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 
 /**
  * Cheese class for Cheese chatbot
@@ -172,11 +176,11 @@ public class Cheese {
    * ToDo
    *
    */
-  private LocalDateTime dateTimeConverted(String dateInput) {
+  private LocalDate dateTimeConverted(String dateInput) {
     // Assume "2019-10-15 16:00"
     String[] dateSplit = dateInput.split(" ");
-    LocalDateTime date = LocalDateTime.parse(dateSplit[0] + "T" + dateSplit[1]);
-    return date;
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+    return LocalDate.parse(dateInput, formatter);
   }
 
   /**
@@ -202,29 +206,40 @@ public class Cheese {
       Task newTask = null;
 
       switch (command) {
+        // todo command
         case "todo":
-          newTask = new Task('T', taskDescription);
-          break;
+        newTask = new Task('T', taskDescription);
+        break;
+        // deadline command 
         case "deadline":
-          String[] deadlineInfo = taskDescription.split("/by", 2);
+        String[] deadlineInfo = taskDescription.split("/by", 2);
+        try {
+          System.out.println(deadlineInfo[1].trim());
+          LocalDate dateTime = dateTimeConverted(deadlineInfo[1].trim());
+          newTask = new Task('D', deadlineInfo[0].trim(), dateTime);
+        } catch (DateTimeParseException e) {
+          System.out.println(e);
           newTask = new Task('D', deadlineInfo[0].trim(), deadlineInfo[1].trim());
-          System.out.println(deadlineInfo[0]);
-          break;
+        }
+        //newTask = new Task('D', deadlineInfo[0].trim(), deadlineInfo[1].trim());
+        break;
+        // event command
         case "event":
-          String[] eventInfo = taskDescription.split("/from", 2);
-          String[] eventTime = eventInfo[1].split("/to", 2);
-          newTask = new Task('E', eventInfo[0].trim(), eventTime[0].trim(), eventTime[1].trim());
-          break;
+        String[] eventInfo = taskDescription.split("/from", 2);
+        String[] eventTime = eventInfo[1].split("/to", 2);
+        newTask = new Task('E', eventInfo[0].trim(), eventTime[0].trim(), eventTime[1].trim());
+        break;
+        // delete command 
         case "delete":
-          System.out.println("\t-----------------------------------------");
-          System.out.println("\tNoted. I've removed this task:");
-          System.out.println("\t  " + CheeseStack.get(Integer.parseInt(taskDescription) - 1));
-          deleteItem(Integer.parseInt(taskDescription) - 1);
-          System.out.println("\tNow you have " + CheeseStack.size() + " tasks in the list.");
-          System.out.println("\t-----------------------------------------");
-          break;
+        System.out.println("\t-----------------------------------------");
+        System.out.println("\tNoted. I've removed this task:");
+        System.out.println("\t  " + CheeseStack.get(Integer.parseInt(taskDescription) - 1));
+        deleteItem(Integer.parseInt(taskDescription) - 1);
+        System.out.println("\tNow you have " + CheeseStack.size() + " tasks in the list.");
+        System.out.println("\t-----------------------------------------");
+        break;
         default:
-          throw new IllegalArgumentException("OOPS!!! I'm sorry, but I don't know what that means :-(");
+        throw new IllegalArgumentException("OOPS!!! I'm sorry, but I don't know what that means :-(");
       }
 
       if (newTask != null) {
@@ -253,27 +268,27 @@ public class Cheese {
     String inputSplit[] = input.split(" ");
     switch(inputSplit[0]) {
       case "mark":
-        markItem(Integer.parseInt(inputSplit[1]) - 1);
-        System.out.println("\t-----------------------------------------");
-        System.out.println("\tNice! I've marked this task as done:");
-        System.out.println("\t" + CheeseStack.get(Integer.parseInt(inputSplit[1]) - 1));
-        System.out.println("\t-----------------------------------------");
-        break;
+      markItem(Integer.parseInt(inputSplit[1]) - 1);
+      System.out.println("\t-----------------------------------------");
+      System.out.println("\tNice! I've marked this task as done:");
+      System.out.println("\t" + CheeseStack.get(Integer.parseInt(inputSplit[1]) - 1));
+      System.out.println("\t-----------------------------------------");
+      break;
       case "bye":
-        System.out.println("\tBye. Hope to see you again soon!");
-        break;
+      System.out.println("\tBye. Hope to see you again soon!");
+      break;
       case "list":
-        System.out.println("\t-----------------------------------------");
-        System.out.println("\tHere are the tasks in your list:");
-        for (int i = 0; i < CheeseStack.size(); i++) {
-          System.out.println("\t" + (i + 1) + ". " + CheeseStack.get(i));
-        }
-        System.out.println("\t-----------------------------------------");
-        break;
+      System.out.println("\t-----------------------------------------");
+      System.out.println("\tHere are the tasks in your list:");
+      for (int i = 0; i < CheeseStack.size(); i++) {
+        System.out.println("\t" + (i + 1) + ". " + CheeseStack.get(i));
+      }
+      System.out.println("\t-----------------------------------------");
+      break;
 
       default:
-        addToList(input);
-        break;
+      addToList(input);
+      break;
     }
   }
 
@@ -311,14 +326,24 @@ public class Cheese {
     private String description;
     private String dateTime1;
     private String dateTime2;
-    private LocalDateTime dateTimeHr1;
-    private LocalDateTime dateTimeHr2;
+    private LocalDate dateTimeHr1;
+    //private LocalDateTime dateTimeHr2;
     private boolean isDone;
 
+    // Todo constructor
     public Task(char type, String description) {
       this.type = type;
       this.description = description;
       this.isDone = false;
+    }
+
+    // Deadline constructor
+    public Task(char type, String description, LocalDate dateTime1) {
+      this.type = type;
+      this.description = description;
+      this.dateTimeHr1 = dateTime1;
+      this.isDone = false;
+      System.out.println("Added with localdatetime");
     }
 
     public Task(char type, String description, String dateTime1) {
@@ -328,6 +353,7 @@ public class Cheese {
       this.isDone = false;
     }
 
+    // Event constructor
     public Task(char type, String description, String dateTime1, String dateTime2) {
       this.type = type;
       this.description = description;
@@ -351,7 +377,9 @@ public class Cheese {
     public String toString() {
       StringBuilder sb = new StringBuilder();
       sb.append("[").append(type).append("][").append(isDone ? "X" : " ").append("]|").append(description);
-      if (dateTime2 == null) {
+      if (dateTimeHr1 != null) {
+        sb.append(" (by: ").append(dateTimeHr1).append(")");
+      } else if (dateTime2 == null) {
         sb.append(" (by: ").append(dateTime1).append(")");
       } else if (dateTime1 != null) {
         sb.append(" (from: ").append(dateTime1);
