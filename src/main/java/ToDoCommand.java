@@ -1,5 +1,3 @@
-import java.util.ArrayList;
-
 public class ToDoCommand extends Command {
 
     private String description;
@@ -9,10 +7,10 @@ public class ToDoCommand extends Command {
         this.description = description;
     }
 
-    public void execute(ArrayList<Task> tasks, Ui ui) {
+    public void execute(TaskList tasks, Ui ui) {
         Task task = new ToDo(description);
-        tasks.add(task);
+        tasks.addTask(task);
         ui.todoMessage(task);
-        ui.taskListSizeMessage(tasks.size(), true);
+        ui.taskListSizeMessage(tasks.getSize(), true);
     }
 }

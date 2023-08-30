@@ -1,5 +1,4 @@
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 
 public class DeadlineCommand extends Command {
     private String description;
@@ -11,10 +10,10 @@ public class DeadlineCommand extends Command {
         this.by = by;
     }
 
-    public void execute(ArrayList<Task> tasks, Ui ui) {
+    public void execute(TaskList tasks, Ui ui) {
         Task task = new Deadline(description, by);
-        tasks.add(task);
+        tasks.addTask(task);
         ui.deadlineMessage(task);
-        ui.taskListSizeMessage(tasks.size(), true);
+        ui.taskListSizeMessage(tasks.getSize(), true);
     }
 }

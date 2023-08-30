@@ -1,5 +1,3 @@
-import java.util.ArrayList;
-
 public class UnmarkCommand extends Command {
     private int taskNum;
 
@@ -7,12 +5,12 @@ public class UnmarkCommand extends Command {
         super(CommandType.UNMARK);
     }
 
-    public void execute(ArrayList<Task> tasks, Ui ui) {
+    public void execute(TaskList tasks, Ui ui) {
         try {
-            Task task = tasks.get(taskNum - 1);
+            Task task = tasks.getTask(taskNum - 1);
             task.changeStatus(false);
             ui.unmarkTaskMessage(task);
-            ui.taskListSizeMessage(tasks.size(), true);
+            ui.taskListSizeMessage(tasks.getSize(), true);
         } catch (IndexOutOfBoundsException e) {
             ui.showError("You have no such task, mortal.");
             return;

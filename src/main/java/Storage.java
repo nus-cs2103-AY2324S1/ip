@@ -3,10 +3,7 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.io.FileWriter;
 import java.util.Scanner;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
-import java.time.temporal.ChronoUnit;
 
 public class Storage {
     Scanner sc;
@@ -47,13 +44,13 @@ public class Storage {
         return list;
     }
 
-    public void writeFile(ArrayList<Task> list) throws Exception {
+    public void writeFile(TaskList list) throws Exception {
         FileWriter fw = new FileWriter("tasks.txt");
 
         try {
             FileWriter taskWriter = new FileWriter("tasks.txt");
-            for (Task task : list) {
-                taskWriter.write(task.toFileString() + "\n");
+            for (int i = 0; i < list.getSize(); i++) {
+                taskWriter.write(list.getTask(i).toFileString() + "\n");
             }
             taskWriter.close();
         } catch (Exception e) {

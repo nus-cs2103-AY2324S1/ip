@@ -1,5 +1,3 @@
-import java.util.ArrayList;
-
 public abstract class Command {
 
     public enum CommandType {
@@ -12,5 +10,5 @@ public abstract class Command {
         this.type = type;
     }
 
-    public abstract void execute(ArrayList<Task> tasks, Ui ui);
+    public abstract void execute(TaskList tasks, Ui ui);
 }

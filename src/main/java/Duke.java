@@ -1,9 +1,3 @@
-import java.util.Scanner;
-import java.util.ArrayList;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-
 public class Duke {
     public static void main(String[] args) {
 
@@ -13,13 +7,14 @@ public class Duke {
 
         Parser parser = new Parser(ui);
 
-        ArrayList<Task> list = new ArrayList<Task>();
+        TaskList list;
 
         // Read from file
         try {
-            list = storage.readFile();
+            list = new TaskList(storage.readFile());
         } catch (Exception e) {
             ui.showError("Error reading from file.");
+            list = new TaskList();
         }
 
         ui.startMessage();

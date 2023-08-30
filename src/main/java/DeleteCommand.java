@@ -1,5 +1,3 @@
-import java.util.ArrayList;
-
 public class DeleteCommand extends Command {
     int taskNum;
 
@@ -8,12 +6,12 @@ public class DeleteCommand extends Command {
         this.taskNum = taskNum;
     }
 
-    public void execute(ArrayList<Task> tasks, Ui ui) {
+    public void execute(TaskList tasks, Ui ui) {
         try {
-            Task task = tasks.get(taskNum - 1);
-            tasks.remove(taskNum - 1);
+            Task task = tasks.getTask(taskNum - 1);
+            tasks.deleteTask(taskNum - 1);
             ui.deleteMessage(task);
-            ui.taskListSizeMessage(tasks.size(), false);
+            ui.taskListSizeMessage(tasks.getSize(), false);
         } catch (IndexOutOfBoundsException e) {
             ui.showError("You have no such task, mortal.");
             return;

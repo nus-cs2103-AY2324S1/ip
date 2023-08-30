@@ -1,5 +1,4 @@
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 
 public class EventCommand extends Command {
     private String description;
@@ -13,10 +12,10 @@ public class EventCommand extends Command {
         this.to = to;
     }
 
-    public void execute(ArrayList<Task> tasks, Ui ui) {
+    public void execute(TaskList tasks, Ui ui) {
         Task task = new Event(description, from, to);
-        tasks.add(task);
+        tasks.addTask(task);
         ui.eventMessage(task);
-        ui.taskListSizeMessage(tasks.size(), true);
+        ui.taskListSizeMessage(tasks.getSize(), true);
     }
 }

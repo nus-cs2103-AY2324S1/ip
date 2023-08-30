@@ -1,5 +1,4 @@
 import java.util.Scanner;
-import java.util.ArrayList;
 
 public class Ui {
 
@@ -44,12 +43,12 @@ public class Ui {
         return sc.nextLine();
     }
 
-    public void listTasks(ArrayList<Task> taskList) {
+    public void listTasks(TaskList taskList) {
         printDivider();
         System.out.println(
                 "You have somehow found the audacity to conjure up this laughable list of inconsequential endeavours:\n");
-        for (int i = 1; i <= taskList.size(); i++) {
-            System.out.println(i + ". " + taskList.get(i - 1));
+        for (int i = 1; i <= taskList.getSize(); i++) {
+            System.out.println(i + ". " + taskList.getTask(i - 1));
         }
         printDivider();
     }
