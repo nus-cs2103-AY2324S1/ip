@@ -5,9 +5,9 @@ import java.util.Scanner;
  * Encapsulates the UI of the chat bot.
  */
 public class Ui {
-    private final String FAREWELL = "Bye. Hope to see you again soon!";
-    private final String GREETINGS = "Hello! I'm AChatBot\n" +
-    "What can I do for you?";
+    private static final String FAREWELL = "Bye. Hope to see you again soon!";
+    private static final String GREETINGS = "Hello! I'm AChatBot\n"
+            + "What can I do for you?";
     private Scanner scanner;
 
     public Ui() {

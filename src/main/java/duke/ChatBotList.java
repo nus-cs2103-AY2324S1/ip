@@ -1,7 +1,7 @@
 package duke;
 
-import java.util.ArrayList;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 /**
  * Abstracts a list. Note that items in the list cannot be removed as yet.
  */
@@ -24,25 +24,28 @@ public class ChatBotList {
      * @param type The type of task to add
      * @return The toString of the task
      */
-    public String addToList(String[] queries, DukeEnvironmentConstants.taskType type) {
+    public String addToList(String[] queries, DukeEnvironmentConstants.TaskType type) {
         switch (type) {
-            case EVENT:
-                this.list.add(new Event(queries[0], LocalDateTime.parse(queries[1],DukeEnvironmentConstants.FORMATTER1), LocalDateTime.parse(queries[2],DukeEnvironmentConstants.FORMATTER1)));
-                break;
-            case DEADLINE:
-                this.list.add(new Deadline(queries[0], LocalDateTime.parse(queries[1], DukeEnvironmentConstants.FORMATTER1)));
-                break;
-            case TODO:
-                this.list.add(new Todo(queries[0]));
-                break;
-            default:
-                break;
+        case EVENT:
+            this.list.add(new Event(queries[0],
+                    LocalDateTime.parse(queries[1], DukeEnvironmentConstants.FORMATTER1),
+                    LocalDateTime.parse(queries[2], DukeEnvironmentConstants.FORMATTER1)));
+            break;
+        case DEADLINE:
+            this.list.add(new Deadline(queries[0],
+                    LocalDateTime.parse(queries[1], DukeEnvironmentConstants.FORMATTER1)));
+            break;
+        case TODO:
+            this.list.add(new Todo(queries[0]));
+            break;
+        default:
+            break;
         }
-        return this.list.get(this.list.size()-1).toString();
+        return this.list.get(this.list.size() - 1).toString();
     }
 
     /**
-     * Marks item at index given by user as completed.  
+     * Marks item at index given by user as completed.
      *
      * @param index Raw index given by user.
      * @return The toString() of the item marked.
