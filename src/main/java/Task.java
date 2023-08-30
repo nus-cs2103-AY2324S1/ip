@@ -1,3 +1,5 @@
+import java.util.StringJoiner;
+
 public class Task {
     private final String taskName;
     private boolean isComplete = false;
@@ -8,14 +10,10 @@ public class Task {
 
     public void markComplete() {
         this.isComplete = true;
-        System.out.println("Nice! I've marked this task as done:");
-        System.out.println(this.toString());
     }
 
     public void markIncomplete() {
         this.isComplete = false;
-        System.out.println("OK, I've marked this task as not done yet:");
-        System.out.println(this.toString());
     }
 
     private String getStatus() {
@@ -25,5 +23,11 @@ public class Task {
     @Override
     public String toString() {
         return getStatus() + this.taskName;
+    }
+
+    public String toFileFormat() {
+        StringJoiner joiner = new StringJoiner(";");
+        joiner.add(this.isComplete ? "1" : "0").add(this.taskName);
+        return joiner.toString();
     }
 }
