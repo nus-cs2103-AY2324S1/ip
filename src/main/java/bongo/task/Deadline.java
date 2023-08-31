@@ -21,7 +21,7 @@ public class Deadline extends Task {
     }
 
     private void validateDeadline(LocalDateTime deadline) throws BongoException {
-        if (deadline.isBefore(LocalDateTime.now())) throw new BongoException("bongo.task.Deadline must be in the future.");
+        if (deadline.isBefore(LocalDateTime.now())) throw new BongoException("Deadline must be in the future.");
     }
 
     @Override
