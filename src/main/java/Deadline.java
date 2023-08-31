@@ -18,24 +18,14 @@ public class Deadline extends Task{
         this.by = by;
     }
 
-    @Override
-    public String displayTask() {
-        return (".[D]" + super.getStatusIcon() + description + "(by: " + getDateTime(by) + ")");
-    }
 
     @Override
-    public void addedTask() {
-        System.out.println("Got it. I've added this task:");
-        System.out.println("  [D]" + super.getStatusIcon() + description + "(by: " + getDateTime(by) + ")");
-    }
-
-    @Override
-    public void displayTaskMark() {
-        System.out.println("[D]" + super.getStatusIcon() + description + " (by: " + getDateTime(by) + ")");
+    public String toString() {
+        return "[D]" + super.getStatusIcon() + description + " (by: " + getDateTime(by) + ")";
     }
 
 
-    public static Deadline readFromFile(String[] segments) {
+    public static Deadline readFromFile(String[] segments) throws GmanException {
         String symbol = segments[1];
         String description = segments[2];
         String by = segments[3];

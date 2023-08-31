@@ -1,4 +1,6 @@
-D | X |  this  | 2019-12-01 1800
-D | X |  this  | 2019-12-01 1800
-D | O |  this  | 2019-12-01 0600
-D | O |  this  | 2019-12-01 1800
+D | X |  this  | 2019-10-15 1800
+T | X |  this
+E | O |  have fun  | now  | then
+E | O |  this  | now  | later
+T | O |  have alot of fun
+D | O |  nice  | 2019-10-15 1800

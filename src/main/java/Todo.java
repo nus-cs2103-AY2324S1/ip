@@ -5,22 +5,11 @@ public class Todo extends Task{
     }
 
     @Override
-    public String displayTask() {
-        return (".[T]" + super.getStatusIcon() + description);
-    }
-
-    @Override
-    public void addedTask() {
-        System.out.println("Got it. I've added this task:");
-        System.out.println("  [T]" + super.getStatusIcon() + description);
-    }
-
-    @Override
-    public void displayTaskMark() {
-        System.out.println("[T]" + super.getStatusIcon() + description);
+    public String toString() {
+        return "[T]" + super.getStatusIcon() + description;
     }
     
-    public static Todo readFromFile(String[] segments) {
+    public static Todo readFromFile(String[] segments) throws GmanException {
         String symbol = segments[1];
         String description = segments[2];
         Todo toReturn =  new Todo(description);

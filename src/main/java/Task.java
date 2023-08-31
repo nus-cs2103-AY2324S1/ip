@@ -7,48 +7,44 @@ public class Task {
         this.isDone = false;
     }
 
-    /*public LocalDateTime getDateTime(String s) {
-        return null;
-    }*/
-
+    @Override
+    public String toString() {
+        return "[" + this.getStatusIcon() + "] " + this.description;
+    }
     public String getStatusIcon() { //for tasks
         return (isDone ? "[X]" : "[ ]");
     }
 
-    public void mark() {
+    /*public void mark() {
         if (isDone == false) {
             isDone = true;
-            System.out.println("Nice! I've marked this task as done:");
-            displayTaskMark();
         } else {
             System.out.println("Haha nice going... This task is already done, bozo!");
         }
-
-    }
-
-    public void unmark() {
-        if (isDone == true) {
-            isDone = false;
-            System.out.println("OK, I've marked this task as not done yet:");
-            displayTaskMark();
-        } else {
-            System.out.println("Hey... this task was never done in the first place!");
+    } */
+    public void mark() throws GmanException{
+        try {
+            if (isDone == true) {
+                throw new GmanException("Haha nice going... This task is already done, bozo!");
+            }
+            isDone = true;
+        } catch (GmanException e) {
+            System.out.println(e.getMessage());
         }
-
-    }
-    public String displayTask() { //for listing out tasks
-        return "hey"; //what do i do here? maybe an exception? need to check if the try exception
-        // is even corerect
-
     }
 
-    public void addedTask() { //display message for added tasks!
+    public void unmark() throws GmanException{
+        try {
+            if (isDone == false) {
+                throw new GmanException("Hey... this task was never done in the first place!");
+            }
+            isDone = false;
+        } catch (GmanException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
-    public void displayTaskMark() {
-    }
-
-    public static Task readFromFile(String line) {
+    public static Task readFromFile(String line) throws GmanException {
         String[] segments = line.split(" \\| ");
         if (segments[0].equals("T")) {
             return Todo.readFromFile(segments);
