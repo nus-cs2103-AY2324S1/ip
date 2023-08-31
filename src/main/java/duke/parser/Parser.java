@@ -14,7 +14,7 @@ import java.util.Arrays;
 
 public class Parser {
     public static Command parse(String command, boolean isRestoring) throws DukeException {
-        if (command.equals("")) return null;
+        if (command.trim().equals("")) return null;
 
         String[] parsedText = parseText(command);
         String action = parsedText[0];
@@ -53,7 +53,7 @@ public class Parser {
         }
     }
 
-    private static AddCommand handleAdd(String action, String args, boolean marked) throws DukeException {
+    protected static AddCommand handleAdd(String action, String args, boolean marked) throws DukeException {
         if (args.equals("")) throw new InvalidArgumentException();
         Task task;
         switch (action) {
@@ -106,24 +106,23 @@ public class Parser {
         return new Event(first[0], fromDate, toDate, marked);
     }
 
-    private static String[] parseText(String text) {
-        String[] words = text.split(" ");
+    protected static String[] parseText(String text) {
+        String[] words = text.trim().split(" ");
         String[] remaining = Arrays.copyOfRange(words, 1, words.length);
         String restOfText = String.join(" ", remaining);
 
         return new String[] {words[0], restOfText};
     }
 
-    private static int parseArgs(String args) throws DukeException {
+    protected static int parseArgs(String args) throws DukeException {
         try {
-            int number = Integer.parseInt(args);
-            return number;
+            return Integer.parseInt(args);
         } catch (NumberFormatException ex) {
             throw new InvalidCommandException();
         }
     }
 
-    private static LocalDateTime parseDateTime(String text) {
+    protected static LocalDateTime parseDateTime(String text) {
         String[] datetime = text.split(" ");
         LocalDateTime parsedDateTime;
         try {

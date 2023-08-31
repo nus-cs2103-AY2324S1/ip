@@ -22,4 +22,18 @@ public class Event extends Task {
     public String toString() {
         return super.toString() + " (from: " + this.formatDate(this.from) + " to: " + this.formatDate(this.to) + ")" ;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (!super.equals(o)) return false;
+
+        if (o instanceof Event) {
+            Event d = (Event) o;
+            if (!this.from.equals(d.from)) return false;
+
+            return this.to.equals(d.to);
+        }
+
+        return false;
+    }
 }
