@@ -27,7 +27,7 @@ public class Duke {
     /**
      * The main method that starts the Duke application.
      *
-     * @param args Command-line arguments (not used in this case).
+     * @param args Command-line arguments.
      */
     public static void main(String[] args) {
         new Duke("./src/main/data/tasklist.txt").startChat();
