@@ -23,7 +23,7 @@ public class Ui {
      * Prints the welcome message at the start of the program.
      */
     public void welcome() {
-        System.out.println("What's up I am Adam.Adam\n" + "so like what do you want?");
+        System.out.println("What's up I am Adam\n" + "so like what do you want?");
     }
 
     /**
@@ -32,7 +32,7 @@ public class Ui {
      * @param size Size of the list.
      */
     public void getAmount(int size) {
-        System.out.println(String.format("%d adam.tasks in this list, stop procrasinating them!!!", size));
+        System.out.println(String.format("%d tasks in this list, stop procrasinating them!!!", size));
     }
 
     /**
@@ -42,7 +42,7 @@ public class Ui {
      * @param size Size of the list.
      */
     public void delete(Task curr, int size) {
-        System.out.println("I have removed the Tasks.Task, so just make up your mind next time:");
+        System.out.println("I have removed the Task, so just make up your mind next time:");
         System.out.println(curr.toString());
         getAmount(size);
     }
@@ -120,5 +120,19 @@ public class Ui {
      */
     public void displayError(String message) {
         System.out.println(message);
+    }
+
+    /**
+     * Prints out whenever the find method couldnt find a match.
+     */
+    public void apologize() {
+        System.out.println("I couldn't find anything are you sure its here?");
+    }
+
+    /**
+     * Prints when you find a match using the find method.
+     */
+    public void search() {
+        System.out.println("Here are some of the tasks I found:");
     }
 }

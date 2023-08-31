@@ -3,7 +3,7 @@ package adam.tasks;
 import java.io.Serializable;
 
 /**
- * This class holds information about the task such ad completion and description.
+ * This class holds information about the task such as completion and description.
  */
 public class Task implements Serializable {
     protected String description;
@@ -52,5 +52,25 @@ public class Task implements Serializable {
     public void unmarkAsDone(){
         this.isDone = false;
         System.out.println(this.toString());
+    }
+
+    /**
+     * Returns boolean depending on whether or not the param exists in the description.
+     *
+     * @param item String that is being checked.
+     * @return Boolean.
+     */
+    public boolean search(String item) {
+        boolean isIdentical = true;
+        String[] tokens = item.split(" ");
+        String[] descriptions = description.split(" ");
+        for (String word : tokens) {
+            for (String line : descriptions) {
+                if (!word.equals(line)) {
+                    isIdentical = false;
+                }
+            }
+        }
+        return isIdentical;
     }
 }

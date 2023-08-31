@@ -13,6 +13,7 @@ public class EditCommand implements Command {
     private String[] tokens;
     private String text;
 
+
     /**
      * Initializes the string from the user input that has been processed.
      *

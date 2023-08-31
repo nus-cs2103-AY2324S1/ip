@@ -12,7 +12,7 @@ import adam.exception.AdamException;
 public class Storage {
 
     private String home = System.getProperty("user.home");
-    private java.nio.file.Path path = java.nio.file.Paths.get(home, "Pokemon.txt");
+    private java.nio.file.Path path = java.nio.file.Paths.get(home, "Digimon.txt");
     boolean directoryExists = java.nio.file.Files.exists(path);
 
     /**

@@ -25,7 +25,7 @@ public class AddCommandTest {
             new AddCommand(tokens,item,tokens[0]).execute(task,storage,ui);
             fail();
         } catch (AdamException e) {
-            assertEquals("OOPS!!! You need to add a description to these adam.tasks", e.getInfo());
+            assertEquals("OOPS!!! You need to add a description to these tasks", e.getInfo());
         }
     }
 
@@ -39,7 +39,7 @@ public class AddCommandTest {
             new AddCommand(tokens,item,tokens[0]).execute(task,storage,ui);
             fail();
         } catch (AdamException e) {
-            assertEquals( "OOPS!!! You need to add one /by adam.command to indicate by when deadline is", e.getInfo());
+            assertEquals( "OOPS!!! You need to add one /by command to indicate by when deadline is", e.getInfo());
         }
     }
     @Test
@@ -52,7 +52,7 @@ public class AddCommandTest {
             new AddCommand(tokens,item,tokens[0]).execute(task,storage,ui);
             fail();
         } catch (AdamException e) {
-            assertEquals( "OOPS!!! You need to add a description to these adam.tasks", e.getInfo());
+            assertEquals( "OOPS!!! You need to add a description to these tasks", e.getInfo());
         }
     }
     @Test
@@ -93,7 +93,7 @@ public class AddCommandTest {
             new AddCommand(tokens,item,tokens[0]).execute(task,storage,ui);
             fail();
         } catch (AdamException e) {
-            assertEquals( "OOPS!!! You need to add a description to these adam.tasks", e.getInfo());
+            assertEquals( "OOPS!!! You need to add a description to these tasks", e.getInfo());
         }
     }
 
@@ -107,7 +107,7 @@ public class AddCommandTest {
             new AddCommand(tokens,item,tokens[0]).execute(task,storage,ui);
             fail();
         } catch (AdamException e) {
-            assertEquals( "OOPS!!! You need to add one /from and one /to adam.command", e.getInfo());
+            assertEquals( "OOPS!!! You need to add one /from and one /to command", e.getInfo());
         }
     }
 
@@ -121,7 +121,7 @@ public class AddCommandTest {
             new AddCommand(tokens,item,tokens[0]).execute(task,storage,ui);
             fail();
         } catch (AdamException e) {
-            assertEquals("OOPS!!! You need to add a description to these adam.tasks", e.getInfo());
+            assertEquals("OOPS!!! You need to add a description to these tasks", e.getInfo());
         }
     }
 
@@ -135,7 +135,7 @@ public class AddCommandTest {
             new AddCommand(tokens,item,tokens[0]).execute(task,storage,ui);
             fail();
         } catch (AdamException e) {
-            assertEquals("OOPS!!! You need to add a description to these adam.tasks", e.getInfo());
+            assertEquals("OOPS!!! You need to add a description to these tasks", e.getInfo());
         }
     }
 }

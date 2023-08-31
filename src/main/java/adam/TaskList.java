@@ -140,4 +140,28 @@ public class TaskList {
     public int getSize() {
         return tasks.size();
     }
+
+    /**
+     * Finds the task that contains the same word as the param.
+     *
+     * @param item String that is being searched.
+     */
+    public void find(String item) {
+        ArrayList<Task> matches = new ArrayList<>();
+        int count = 1;
+        for (Task task : tasks) {
+           if (task.search(item)) {
+               matches.add(task);
+           }
+        }
+        if (matches.size() == 0) {
+            ui.apologize();
+        } else {
+            ui.search();
+            for (Task match : matches) {
+                System.out.println(count + ". " + match.toString());
+                count++;
+            }
+        }
+    }
 }

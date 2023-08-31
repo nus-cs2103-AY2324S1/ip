@@ -24,7 +24,7 @@ public class EditCommandTest {
             new EditCommand(tokens,item).execute(task,storage,ui);
             fail();
         } catch (AdamException e) {
-            assertEquals("OOPS!!! You need to follow this adam.command by a number", e.getInfo());
+            assertEquals("OOPS!!! You need to follow this command by a number", e.getInfo());
         }
     }
 
@@ -80,7 +80,7 @@ public class EditCommandTest {
             new EditCommand(tokens,item).execute(task,storage,ui);
             fail();
         } catch (AdamException e) {
-            assertEquals("OOPS!!! You need to follow this adam.command by a number", e.getInfo());
+            assertEquals("OOPS!!! You need to follow this command by a number", e.getInfo());
         }
     }
 
@@ -94,7 +94,7 @@ public class EditCommandTest {
             new EditCommand(tokens,item).execute(task,storage,ui);
             fail();
         } catch (AdamException e) {
-            assertEquals("OOPS!!! You need to follow this adam.command by a number", e.getInfo());
+            assertEquals("OOPS!!! You need to follow this command by a number", e.getInfo());
         }
     }
 
@@ -108,7 +108,7 @@ public class EditCommandTest {
             new EditCommand(tokens,item).execute(task,storage,ui);
             fail();
         } catch (AdamException e) {
-            assertEquals("OOPS!!! You need to follow this adam.command by a number", e.getInfo());
+            assertEquals("OOPS!!! You need to follow this command by a number", e.getInfo());
         }
     }
     @Test
@@ -121,7 +121,7 @@ public class EditCommandTest {
             new EditCommand(tokens,item).execute(task,storage,ui);
             fail();
         } catch (AdamException e) {
-            assertEquals("OOPS!!! You need to follow this adam.command by a number", e.getInfo());
+            assertEquals("OOPS!!! You need to follow this command by a number", e.getInfo());
         }
     }
     @Test
@@ -134,7 +134,7 @@ public class EditCommandTest {
             new EditCommand(tokens,item).execute(task,storage,ui);
             fail();
         } catch (AdamException e) {
-            assertEquals("OOPS!!! You need to follow this adam.command by a number", e.getInfo());
+            assertEquals("OOPS!!! You need to follow this command by a number", e.getInfo());
         }
     }
 
@@ -148,7 +148,7 @@ public class EditCommandTest {
             new EditCommand(tokens,item).execute(task,storage,ui);
             fail();
         } catch (AdamException e) {
-            assertEquals("OOPS!!! You need to follow this adam.command by a number", e.getInfo());
+            assertEquals("OOPS!!! You need to follow this command by a number", e.getInfo());
         }
     }
     @Test
@@ -161,7 +161,7 @@ public class EditCommandTest {
             new EditCommand(tokens,item).execute(task,storage,ui);
             fail();
         } catch (AdamException e) {
-            assertEquals("OOPS!!! You need to follow this adam.command by a number", e.getInfo());
+            assertEquals("OOPS!!! You need to follow this command by a number", e.getInfo());
         }
     }
     @Test
@@ -174,7 +174,7 @@ public class EditCommandTest {
             new EditCommand(tokens,item).execute(task,storage,ui);
             fail();
         } catch (AdamException e) {
-            assertEquals("OOPS!!! You need to follow this adam.command by a number", e.getInfo());
+            assertEquals("OOPS!!! You need to follow this command by a number", e.getInfo());
         }
     }
 }
