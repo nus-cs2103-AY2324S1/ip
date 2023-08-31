@@ -118,6 +118,44 @@ public class Duke {
             System.out.printf("\n     Now you have %d tasks in the list.\n", size);
         }
 
+        public void write() {
+            try {
+                FileWriter fileWriter = new FileWriter("data/duke.txt");
+                BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+
+                for (Task tasking : this.taskList) {
+                    // format the string
+
+                    String formattedString = "";
+                    Integer priority = tasking.isDone
+                            ? 1
+                            : 0;
+                    switch (tasking.type) {
+                        case TODO:
+                            formattedString = String.format("%c|%d|%s",
+                                    'T', priority, tasking.description);
+                            break;
+                        case DEADLINE:
+                            formattedString = String.format("%c|%d|%s|%s",
+                                    'D', priority, tasking.description,
+                                    tasking.start.toString().replace("T", " "));
+                            break;
+                        case EVENT:
+                            formattedString = String.format("%c|%d|%s|%s|%s",
+                                    'E', priority, tasking.description,
+                                    tasking.start.toString().replace("T", " "),
+                                    tasking.end.toString().replace("T", " "));
+                            break;
+                    }
+                    bufferedWriter.write(formattedString);
+                    bufferedWriter.newLine(); // Move to the next line
+                }
+
+                bufferedWriter.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
         public void load() {
             try (BufferedReader reader = new BufferedReader(new FileReader("data/duke.txt"))) {
 
@@ -179,6 +217,7 @@ public class Duke {
             try {
                 Task t = this.taskList.get(i);
                 t.printMarking(true);
+                System.out.println();
             }
             catch (Exception e) {
                 throw new DukeException("     ☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
@@ -216,6 +255,30 @@ public class Duke {
         }
     }
 
+    public static class ChatUI {
+        String horizontalLine = "   ------------------------------------------------------------------------";
+        String intro =  "    Hello! I'm iPbot \n" +
+                        "    What can I do for you?";
+        String outro = "    Bye. Hope to see you again soon!";
+
+        public ChatUI() {
+            // Constructor body (if needed)
+        }
+
+        public void divider() {
+            System.out.println(horizontalLine);
+        }
+
+        public void intro() {
+            System.out.println(horizontalLine);
+            System.out.println(intro);
+            System.out.println(horizontalLine);
+        }
+
+        public void outro() {
+            System.out.println(outro);
+        }
+    }
 
     public static void main(String[] args) {
 
@@ -228,65 +291,26 @@ public class Duke {
         // initialise
         Storage storage = new Storage();
         Parser parser = new Parser();
+        ChatUI ui = new ChatUI();
         // read from txt file and create tasks and put into storage
         storage.load();
-        System.out.println(horizontalLine);
-        System.out.println(intro);
-        System.out.println(horizontalLine);
+        ui.intro();
 
         while (true) {
             String input = parser.getInput();
             String[] parts = input.split(" ");
+            ui.divider();
             switch (parts[0]) {
                 case "bye":
-                    System.out.println(horizontalLine);
-                    System.out.println(outro);
-                    System.out.println(horizontalLine);
+                    ui.outro();
+                    ui.divider();
                     // write the changes into the file duke.txt
-                    try {
-                        FileWriter fileWriter = new FileWriter("data/duke.txt");
-                        BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
-
-                        for (Task tasking : storage.taskList) {
-                            // format the string
-
-                            String formattedString = "";
-                            Integer priority = tasking.isDone
-                                    ? 1
-                                    : 0;
-                            switch (tasking.type) {
-                                case TODO:
-                                    formattedString = String.format("%c|%d|%s",
-                                            'T', priority, tasking.description);
-                                    break;
-                                case DEADLINE:
-                                    formattedString = String.format("%c|%d|%s|%s",
-                                            'D', priority, tasking.description,
-                                            tasking.start.toString().replace("T", " "));
-                                    break;
-                                case EVENT:
-                                    formattedString = String.format("%c|%d|%s|%s|%s",
-                                            'E', priority, tasking.description,
-                                            tasking.start.toString().replace("T", " "),
-                                            tasking.end.toString().replace("T", " "));
-                                    break;
-                            }
-                            bufferedWriter.write(formattedString);
-                            bufferedWriter.newLine(); // Move to the next line
-                        }
-
-                        bufferedWriter.close();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+                    storage.write();
                     return;
                 case "list":
-                    System.out.println(horizontalLine);
                     storage.listPrinter();
-                    System.out.println(horizontalLine);
                     break;
                 case "mark" :
-                    System.out.println(horizontalLine);
                     int id = Integer.parseInt(parts[1]) - 1;
                     try {
                         storage.changeMarking(id, true);
@@ -294,24 +318,19 @@ public class Duke {
                     } catch (Exception e) {
                         System.out.print(e.getMessage());
                     }
-                    System.out.println("\n" + horizontalLine);
                     break;
                 case "unmark" :
                     int id2 = Integer.parseInt(parts[1]) - 1;
-                    System.out.println(horizontalLine);
                     try {
                         storage.changeMarking(id2, false);
                         storage.printMarking(id2);
                     } catch (Exception e) {
                         System.out.print(e.getMessage());
                     }
-                    System.out.println("\n" + horizontalLine);
                     break;
                 case "delete" :
                     int id3 = Integer.parseInt(parts[1]) - 1;
-                    System.out.println(horizontalLine);
                     storage.delete(id3);
-                    System.out.println(horizontalLine);
                     break;
                 case "todo" :
                     int indexOfTodo = input.indexOf("todo");
@@ -323,10 +342,8 @@ public class Duke {
                         break;
                     }
                     Task task = new Task(taskDesc, TaskType.TODO, "", "");
-                    System.out.println(horizontalLine);
                     storage.addList(task);
                     storage.printEntry(task);
-                    System.out.println(horizontalLine);
                     break;
                 case "deadline" :
                     int indexOfDeadline = input.indexOf("deadline");
@@ -334,12 +351,9 @@ public class Duke {
                     taskDesc = input.substring(indexOfDeadline + 9, indexOfBy);
                     String deadlinePart = "";
                     deadlinePart = input.substring(indexOfBy + 3).trim();
-                    System.out.println(horizontalLine);
                     task = new Task(taskDesc, TaskType.DEADLINE, deadlinePart, "");
                     storage.addList(task);
                     storage.printEntry(task);
-
-                    System.out.println(horizontalLine);
                     break;
                 case "event" :
                     int indexOfEvent = input.indexOf("event");
@@ -350,18 +364,14 @@ public class Duke {
                     fromPart = input.substring(indexOfFrom + 5, indexOfTo).trim();
                     String toPart = "";
                     toPart = input.substring(indexOfTo +3).trim();
-                    System.out.println(horizontalLine);
                     task = new Task(taskDesc, TaskType.EVENT, fromPart, toPart);
                     storage.addList(task);
                     storage.printEntry(task);
-
-                    System.out.println(horizontalLine);
                     break;
                 default:
-                    System.out.println(horizontalLine);
                     System.out.println(noCommandError);
-                    System.out.println(horizontalLine);
             }
+            ui.divider();
         }
     }
 }
