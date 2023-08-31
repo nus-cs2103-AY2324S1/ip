@@ -12,6 +12,11 @@ import tasks.TaskList;
  * @author Alvis Ng (supermii2)
  */
 public class CommandTaskDelete extends Command {
+    /**
+     * Constructor to create the
+     * delete command
+     * @param client Chatbot object
+     */
     public CommandTaskDelete(Rock client) {
         super(client);
     }

@@ -10,7 +10,14 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
+/**
+ * Used to handle saving
+ * and loading files
+ * 
+ * @author Alvis Ng (supermii2)
+ */
 public class Storage {
+    /** Object representation of file */
     File saveFile;
     TaskList taskList;
     Rock client;
