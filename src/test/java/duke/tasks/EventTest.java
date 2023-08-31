@@ -20,9 +20,9 @@ public class EventTest {
     @Test
     public void toString_checkAndUncheck() {
         Event testEvent = new Event("Test Event", testStartTime, testEndTime);
-        testEvent.markAsDone();
+        testEvent.markDone();
         assertEquals(testEvent.toString(), "[E][X] Test Event (from: 25-08-2023 0000 to: 25-08-2023 2359)");
-        testEvent.markAsNotDone();
+        testEvent.markNotDone();
         assertEquals(testEvent.toString(), "[E][ ] Test Event (from: 25-08-2023 0000 to: 25-08-2023 2359)");
 
     }
@@ -37,7 +37,7 @@ public class EventTest {
     @Test
     public void generateSaveString_checked() {
         Event testEvent = new Event("Test Event", testStartTime, testEndTime);
-        testEvent.markAsDone();
+        testEvent.markDone();
         assertEquals(testEvent.generateSaveString(), "E | true | Test Event /from 25-08-2023 0000 "
                 + "/to 25-08-2023 2359");
     }

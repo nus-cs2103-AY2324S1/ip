@@ -41,26 +41,26 @@ public class Parser {
         String command = splitInput[0];
         try {
             switch (command) {
-                case "todo":
-                    return parseArguments(Command.Types.TODO, splitInput[1]);
-                case "deadline":
-                    return parseArguments(Command.Types.DEADLINE, splitInput[1]);
-                case "event":
-                    return parseArguments(Command.Types.EVENT, splitInput[1]);
-                case "list":
-                    return new ListCommand();
-                case "bye":
-                    return new ExitCommand();
-                case "mark":
-                    return parseArguments(Command.Types.MARK, splitInput[1]);
-                case "unmark":
-                    return parseArguments(Command.Types.UNMARK, splitInput[1]);
-                case "delete":
-                    return parseArguments(Command.Types.DELETE, splitInput[1]);
-                case "date":
-                    return parseArguments(Command.Types.DATE, splitInput[1]);
-                default:
-                    return new UnknownCommand();
+            case "todo":
+                return parseArguments(Command.Type.TODO, splitInput[1]);
+            case "deadline":
+                return parseArguments(Command.Type.DEADLINE, splitInput[1]);
+            case "event":
+                return parseArguments(Command.Type.EVENT, splitInput[1]);
+            case "list":
+                return new ListCommand();
+            case "bye":
+                return new ExitCommand();
+            case "mark":
+                return parseArguments(Command.Type.MARK, splitInput[1]);
+            case "unmark":
+                return parseArguments(Command.Type.UNMARK, splitInput[1]);
+            case "delete":
+                return parseArguments(Command.Type.DELETE, splitInput[1]);
+            case "date":
+                return parseArguments(Command.Type.DATE, splitInput[1]);
+            default:
+                return new UnknownCommand();
             }
         } catch (IndexOutOfBoundsException e) {
             return new UnknownCommand(String.format("%s requires additional arguments!", command));
@@ -73,29 +73,29 @@ public class Parser {
      * @param args String containing the arguments
      * @return Command of type commandType initialised with parsed arguments
      */
-    protected Command parseArguments(Command.Types commandType, String args) {
+    protected Command parseArguments(Command.Type commandType, String args) {
         try {
             switch (commandType) {
-                case TODO:
-                    Task newTodo = parseTaskArgs(Task.Types.TODO, args);
-                    return new AddTaskCommand(newTodo);
-                case DEADLINE:
-                    Task newDeadline = parseTaskArgs(Task.Types.DEADLINE, args);
-                    return new AddTaskCommand(newDeadline);
-                case EVENT:
-                    Task newEvent = parseTaskArgs(Task.Types.EVENT, args);
-                    return new AddTaskCommand(newEvent);
-                case DATE:
-                    LocalDate searchDate = parseDate(args);
-                    return new ListByDateCommand(searchDate);
-                case MARK:
-                    return new MarkTaskCommand(parseOneBasedIndexToZeroBased(args));
-                case UNMARK:
-                    return new UnmarkTaskCommand(parseOneBasedIndexToZeroBased(args));
-                case DELETE:
-                    return new DeleteTaskCommand(parseOneBasedIndexToZeroBased(args));
-                default:
-                    return new UnknownCommand();
+            case TODO:
+                Task newTodo = parseTaskArgs(Task.Types.TODO, args);
+                return new AddTaskCommand(newTodo);
+            case DEADLINE:
+                Task newDeadline = parseTaskArgs(Task.Types.DEADLINE, args);
+                return new AddTaskCommand(newDeadline);
+            case EVENT:
+                Task newEvent = parseTaskArgs(Task.Types.EVENT, args);
+                return new AddTaskCommand(newEvent);
+            case DATE:
+                LocalDate searchDate = parseDate(args);
+                return new ListByDateCommand(searchDate);
+            case MARK:
+                return new MarkTaskCommand(parseOneBasedIndexToZeroBased(args));
+            case UNMARK:
+                return new UnmarkTaskCommand(parseOneBasedIndexToZeroBased(args));
+            case DELETE:
+                return new DeleteTaskCommand(parseOneBasedIndexToZeroBased(args));
+            default:
+                return new UnknownCommand();
             }
         } catch (NumberFormatException e) {
             return new UnknownCommand("I need a positive integer to know which task you're referring to!");
@@ -132,7 +132,7 @@ public class Parser {
                 throw new UnsupportedTaskType(args[0]);
         }
         if (isMarked) {
-            loadedTask.markAsDone();
+            loadedTask.markDone();
         }
         return loadedTask;
     }

@@ -12,7 +12,7 @@ public abstract class Command {
     /**
      * Types of commands
      */
-    public enum Types {
+    public enum Type {
         TODO, DEADLINE, EVENT, MARK, UNMARK, DELETE, DATE
     }
 
