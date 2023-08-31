@@ -49,10 +49,10 @@ public class Ui {
     }
 
 
-    public void printTaskList(ArrayList<Task> taskList) {
+    public void printTaskList(ArrayList<Task> tasks) {
         System.out.println("Here are your entries:");
-        for (int i = 0; i < taskList.size(); i++) {
-            System.out.println("\t" + (i + 1) + ". " + taskList.get(i).toString());
+        for (int i = 0; i < tasks.size(); i++) {
+            System.out.println("\t" + (i + 1) + ". " + tasks.get(i).toString());
         }
     }
 

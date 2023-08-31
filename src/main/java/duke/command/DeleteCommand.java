@@ -15,12 +15,12 @@ public class DeleteCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) throws DukeException {
-        if (index >= 0 && index < taskList.size()) {
-            Task removedTask = taskList.get(index);
-            taskList.delete(index);
-            ui.printDeleteMessage(removedTask, taskList.size());
-            storage.saveTasksToFile(taskList);
+    public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
+        if (index >= 0 && index < tasks.size()) {
+            Task removedTask = tasks.get(index);
+            tasks.delete(index);
+            ui.printDeleteMessage(removedTask, tasks.size());
+            storage.saveTasksToFile(tasks);
         } else {
             throw new DukeException("☹ OOPS!!! Please provide a valid task index to delete.");
         }

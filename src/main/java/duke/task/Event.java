@@ -30,7 +30,7 @@ public class Event extends Task {
     @Override
     public String toFileString() {
         String type = "E";
-        return type + " | " + (getIsDone() ? "1" : "0") + " | " + this.description + " | "
+        return type + " | " + (isDone() ? "1" : "0") + " | " + this.description + " | "
                 + this.startDateTimeStr + " to " + this.endDateTimeStr;
     }
 

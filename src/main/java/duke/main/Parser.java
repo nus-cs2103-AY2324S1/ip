@@ -25,7 +25,7 @@ public class Parser {
             return new UnmarkCommand(taskIndex);
         } else if (userInput.startsWith("todo")) {
             String todoDescription = userInput.replace("todo ", "");
-            validateTodo(todoDescription);
+            validateToDo(todoDescription);
             return new ToDoCommand(todoDescription);
         } else if (userInput.startsWith("deadline")) {
             String[] info = validateDeadline(userInput);
@@ -61,7 +61,7 @@ public class Parser {
         }
     }
 
-    private static void validateTodo(String todo) throws DukeException {
+    private static void validateToDo(String todo) throws DukeException {
         if (todo.isEmpty()) {
             throw new DukeException("☹ OOPS!!! The description of a todo cannot be empty.");
         }

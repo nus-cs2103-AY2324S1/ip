@@ -18,12 +18,12 @@ public class Storage {
     Storage(String filePath) {this.filePath = filePath;};
 
     public ArrayList<Task> loadTasksFromFile() throws DukeException {
-        ArrayList<Task> taskList = new ArrayList<>();
+        ArrayList<Task> tasks = new ArrayList<>();
         try {
             File file = new File(filePath);
             if (!file.exists()) {
                 file.getParentFile().mkdirs();
-                return taskList;
+                return tasks;
             }
             Scanner scanner = new Scanner(file);
             while (scanner.hasNextLine()) {
@@ -55,20 +55,20 @@ public class Storage {
                     task.markNotDone();
                 }
 
-                taskList.add(task);
+                tasks.add(task);
 
             }
 
-            return taskList;
+            return tasks;
         } catch (IOException e) {
             throw new DukeException("Error loading file: IOException occurred.");
         }
     }
 
-    public void saveTasksToFile(TaskList taskList) throws DukeException {
+    public void saveTasksToFile(TaskList tasks) throws DukeException {
         try {
             FileWriter fileWriter = new FileWriter(filePath);
-            for (Task task: taskList.getAllTasks()) {
+            for (Task task: tasks.getAllTasks()) {
                 fileWriter.write(task.toFileString() + "\n");
             }
             fileWriter.close();

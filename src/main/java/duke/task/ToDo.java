@@ -8,7 +8,7 @@ public class ToDo extends Task {
     @Override
     public String toFileString() {
         String type = "T";
-        return type + " | " + (getIsDone() ? "1" : "0") + " | " + getDescription();
+        return type + " | " + (isDone() ? "1" : "0") + " | " + getDescription();
     }
     @Override
     public String toString() {

@@ -5,7 +5,7 @@ import duke.exception.DukeException;
 
 public class Duke {
     private Storage storage;
-    private TaskList taskList;
+    private TaskList tasks;
     private Ui ui;
     private static final String DATA_FILE_PATH = "./data/duke.txt";
     public static void main(String[] args) throws DukeException {
@@ -17,9 +17,9 @@ public class Duke {
         ui = new Ui();
 
         try {
-            taskList = new TaskList(storage.loadTasksFromFile());
+            tasks = new TaskList(storage.loadTasksFromFile());
         } catch (DukeException e) {
-            taskList = new TaskList();
+            tasks = new TaskList();
             throw new DukeException("An error occurred during file loading.");
         }
     }
@@ -31,7 +31,7 @@ public class Duke {
                 String fullCommand = ui.readCommand();
                 ui.showLine(); // show the divider line ("_______")
                 Command c = Parser.parse(fullCommand);
-                c.execute(taskList, ui, storage);
+                c.execute(tasks, ui, storage);
                 isExit = c.isExit();
             } catch (DukeException e) {
                 ui.showError(e.getMessage());
