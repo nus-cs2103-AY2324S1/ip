@@ -11,12 +11,7 @@ public class Duke {
         this.ui = new Ui();
         this.parser = new Parser();
         this.storage = new Storage(filePath);
-        try {
-            this.tasks = new TaskList(storage.load());
-        } catch (DukeException e) {
-            ui.showLoadingError();
-            tasks = new TaskList();
-        }
+        this.tasks = new TaskList(storage.load());
     }
 
     public static void main(String[] args) {
@@ -25,7 +20,7 @@ public class Duke {
 
     public void startChat() {
         ui.greet();
-        String userInput= parser.getUserInput();
+        String userInput = parser.getUserInput();
 
         while (!parser.bye()){
             try {

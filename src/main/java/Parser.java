@@ -3,7 +3,7 @@ import java.util.Scanner;
 public class Parser {
     static Scanner scanner = new Scanner(System.in);
     public String getUserInput() {
-        return userInput;
+        return scanner.nextLine();
     }
     String userInput = scanner.nextLine();
 
@@ -23,17 +23,15 @@ public class Parser {
         return userInput.startsWith("delete ");
     }
     public boolean todo() {
-        return userInput.startsWith("delete ");
+        return userInput.startsWith("todo ");
     }
     public boolean deadline() {
-        return userInput.startsWith("delete ");
+        return userInput.startsWith("deadline ");
     }
     public boolean event() {
-        return userInput.startsWith("delete ");
+        return userInput.startsWith("event ");
     }
-
     public void goodbye() {
         scanner.close();
     }
-
 }
