@@ -3,9 +3,9 @@ list
 todo
 todo run script
 deadline do something
-deadline do something /by friday morning
-event some lecture /from today 4pm /to 6pm
-event some recitation /to 2pm /from tomorrow 12pm
+deadline do something /by 24/10/2023
+event some lecture /from 31/8/2023 6:30 PM 4pm /to 31/8/2023 8:30PM
+event some recitation /to xx pm /from tomorrow 12pm
 mark 1
 mark 3
 list

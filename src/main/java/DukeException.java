@@ -41,3 +41,9 @@ class InvalidDateTimeFormatException extends DukeException {
                 + "6/3/2023 5:30 AM, 16/12/2024 6:30PM");
     }
 }
+
+class FileNotLoadedException extends DukeException {
+    public FileNotLoadedException() {
+        super("No file data. Creating data file and starting new task list...");
+    }
+}

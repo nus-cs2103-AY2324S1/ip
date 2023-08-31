@@ -1,5 +1,15 @@
-public class HelpMessage {
-    public static void displayHelpMessage() {
+public class Ui {
+    public void showWelcome() {
+        String logo = "I'm Chewy,\n" +
+                "What can I do for you?\n";
+        System.out.println("Hello!\n" + logo);
+    }
+
+    public void showDukeError(DukeException e) {
+        System.out.println(":( Chewy can't understand! " + e.getMessage());
+    }
+
+    public void displayHelpMessage() {
         System.out.println("List of available commands:");
         System.out.println(" - todo <description>: Add a new todo task");
         System.out.println(" - deadline <description> /by <date>: Add a new deadline task");
@@ -9,5 +19,9 @@ public class HelpMessage {
         System.out.println(" - unmark <taskNumber>: Unmark a task as done");
         System.out.println(" - bye: Exit Chewy");
         // Add more commands in the future
+    }
+
+    public void showException(Exception e) {
+        System.out.println("Something unexpected happened. try 'help' to see a list of commands");
     }
 }
