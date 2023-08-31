@@ -113,7 +113,6 @@ public class Remy {
                         saveTasksToFile(filePath, taskList);
                         addTask(temp, taskList.size());
                     } else {
-                        // printSandwichContent("Wrong format lah.", "short");
                         throw new ChatbotException("wrong format lah.");
                     }
                 } else {
@@ -167,28 +166,33 @@ public class Remy {
         printSandwichContent(content, "short");
     }
 
+    // Solution below adapted from https://stackoverflow.com/questions/10404698/saving-arrays-to-the-hard-disk
     public static void saveTasksToFile(Path filePath, ArrayList<Task> tasks) {
         try {
             if (!Files.exists(filePath.getParent())) {
-                Files.createDirectories(filePath.getParent()); // Create parent directories if they don't exist
+                // Create parent directories if they don't exist
+                Files.createDirectories(filePath.getParent());
             }
 
             ObjectOutputStream oos = new ObjectOutputStream(Files.newOutputStream(filePath));
             oos.writeObject(tasks); // writes the tasks ArrayList to the file
+            oos.close();
         } catch (IOException e) {
-            System.out.println("Error while saving tasks to file: " + e.getMessage());
+            System.out.println("error saving tasks to file, probably some issue on your end: " + e.getMessage());
         }
     }
 
+    // Solution below adapted from https://stackoverflow.com/questions/10404698/saving-arrays-to-the-hard-disk
     private static ArrayList<Task> loadTasksFromFile(Path filePath) {
         ArrayList<Task> tasks = new ArrayList<>();
 
         try {
             ObjectInputStream ois = new ObjectInputStream(Files.newInputStream(filePath));
             tasks = (ArrayList<Task>) ois.readObject();
+            ois.close();
 
         } catch (IOException | ClassNotFoundException e) {
-            System.out.println("Error while loading tasks from file: " + e.getMessage());
+            System.out.println("error loading tasks from file, your fault lah: " + e.getMessage());
         }
 
         return tasks;
