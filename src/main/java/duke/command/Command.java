@@ -10,7 +10,7 @@ public abstract class Command {
     public Command(boolean exit) {
         this.exit = exit;
     }
-    public abstract void execute(TaskList tasks, Ui ui, Storage storage);
+    public abstract void execute(TaskList taskList, Ui ui, Storage storage);
     public boolean isExit() {
         return this.exit;
     }
