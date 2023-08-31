@@ -1,6 +1,10 @@
 package duke;
 
+import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.function.Consumer;
+
 
 /**
  * Represents a list of tasks.
@@ -48,5 +52,22 @@ public class TaskList extends ArrayList<Task> {
     public Task remove(int i) {
         tasks.remove(i);
         return null;
+    }
+
+    @Override
+    public boolean isEmpty() {
+        return tasks.isEmpty();
+    }
+    @Override
+    public int size() {
+        return tasks.size();
+    }
+    @Override
+    public boolean contains(Object obj) {
+        return tasks.contains(obj);
+    }
+    @Override
+    public void forEach(Consumer<? super Task> action) {
+        tasks.forEach(action);
     }
 }

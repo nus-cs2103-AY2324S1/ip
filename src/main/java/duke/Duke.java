@@ -14,7 +14,6 @@ public class Duke {
     public static void main(String[] args) throws DukeException {
         Storage storage = new Storage();
         Ui ui = new Ui();
-        Parser parser = new Parser();
         ArrayList<Task> taskList = new TaskList();
 
         if (!storage.getFileExists()) {
@@ -46,12 +45,7 @@ public class Duke {
         );
 
 
-        String userInput = ui.next();
-        while (index < LIMIT && parser.getRunning()) {
-            Parser.parse(userInput, taskList, index, ui);
-        }
-
-        saveTasksToFile(taskList, String.valueOf(storage.path));
+        Parser.parse(taskList, index, ui, storage);
         Ui.print("Bye. Hope to see you again soon!");
 
     }
