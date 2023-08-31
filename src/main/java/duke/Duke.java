@@ -113,6 +113,7 @@ public class Duke {
     public void addTaskToList(Task task) {
         this.taskList.add(task);
         this.ui.notifyAdded(task);
+        this.ui.showTaskCount(this.taskList.size());
     }
 
     /**
