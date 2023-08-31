@@ -10,6 +10,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Storage {
@@ -38,9 +39,18 @@ public class Storage {
         } catch (FileNotFoundException ex) {
             ui.showErrorFileNotFound();
             try {
+                String[] filepathSplit = this.filepath.split("/");
+                String fileLocation = String.join("/", Arrays.copyOfRange(filepathSplit, 0, filepathSplit.length - 1));
+                System.out.println(fileLocation);
+                File dir = new File(fileLocation);
+                if (!dir.exists()) {
+                    dir.mkdirs();
+                }
+
                 myObj.createNewFile();
             } catch (IOException e) {
                 ui.showErrorLoadingFile();
+                ui.showError(e.getMessage());
                 System.exit(1);
             }
         } catch (DukeException ex) {
