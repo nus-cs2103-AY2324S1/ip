@@ -100,11 +100,11 @@ public class Rocket {
                     break;
                 }
                 case "deadline": {
-                    handleDeadline(taskList, arguments, formatUglyDateTime);
+                    handleDeadline(taskList, arguments);
                     break;
                 }
                 case "event": {
-                    handleEvent(taskList, arguments, formatUglyDateTime);
+                    handleEvent(taskList, arguments);
                     break;
                 }
                 default: {
