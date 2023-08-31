@@ -1,3 +1,6 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 public class Deadline extends Task{
     /**
      * the type Icon
@@ -6,7 +9,7 @@ public class Deadline extends Task{
     /**
      * the time the deadline must be finished
      */
-    private String by = "";
+    private LocalDateTime time;
 
     /**
      * constructor for Event task
@@ -14,7 +17,7 @@ public class Deadline extends Task{
      */
     public Deadline(String description, String by) {
         super(description);
-        this.by = by;
+        this.time = Time.toLocalDateTime(by);
     }
 
     /**
@@ -23,11 +26,12 @@ public class Deadline extends Task{
      */
     @Override
     public String toString() {
-        return "[" + this.type + "]" + super.toString() + " (by: " + this.by + ")";
+        return "[" + this.type + "]" + super.toString() +
+                " (by: " + Time.toString(this.time) + ")";
     }
 
     @Override
     public String toDataString() {
-        return this.type + " / " + super.toDataString() + " / " + this.by;
+        return this.type + " / " + super.toDataString() + " / " + Time.toDataString(this.time);
     }
 }

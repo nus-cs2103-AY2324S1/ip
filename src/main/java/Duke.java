@@ -41,6 +41,7 @@ public class Duke {
 
             if (s.equals("list")) {
                 String items = "";
+                
 
                 for (int i = 0; i < arrayList.size(); i++) {
                     if (arrayList.get(i) == null) {
@@ -203,6 +204,7 @@ public class Duke {
                 "     What can I do for you?\n" +
                 "    ____________________________________________________________\n";
         System.out.println(greet);
+        //Time.isCorrectFormat("ok");
 
         while (true) {
             try {
