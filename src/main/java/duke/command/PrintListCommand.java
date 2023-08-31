@@ -10,7 +10,7 @@ public class PrintListCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList list, Ui ui, Storage storage) {
-        ui.printList(list);
+    public void execute(TaskList taskList, Ui ui, Storage storage) {
+        ui.printList(taskList);
     }
 }
