@@ -10,12 +10,20 @@ import duke.Tasks.TaskList;
 
 import duke.Tasks.Task;
 
+/**
+ * Implements a storage class to allow the bot to be able to save tasks
+ */
 public class Storage {
     private String filePath;
     private File file;
     private FileReader fr;
     private Scanner sc;
 
+    /**
+     * Constructor of the storage class
+     * @param filePath
+     * @throws IOException if file is not found or created
+     */
     public Storage(String filePath) throws IOException {
         this.filePath = filePath;
         this.file = new File(filePath);
@@ -25,6 +33,14 @@ public class Storage {
         this.fr = new FileReader(file);
     }
 
+    /**
+     * Describes the process of saving the taskList into a file
+     * @param taskList Takes in the original taskList
+     * @throws IOException if there is no file for the contents in the taskList
+     * to be recorded
+     */
+    // solution for save adapted from asdfghjkxd
+    // Storage.java write method
     public void save(TaskList taskList) throws IOException {
         FileWriter fw = new FileWriter(filePath);
         for (Task task : taskList) {
@@ -33,6 +49,10 @@ public class Storage {
         fw.close();
     }
 
+    /**
+     * Allows the contents from the file to be loaded
+     * @return a scanner to read the contents form the file
+     */
     public Scanner load() {
         if (sc != null) {
             return sc;
