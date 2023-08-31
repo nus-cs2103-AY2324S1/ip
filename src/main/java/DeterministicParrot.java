@@ -21,80 +21,6 @@ interface CheckedConsumer<T> {
 public class DeterministicParrot {
     //static variable storing the path to data file
     private static final String DATA_FILE_PATH = "./data/data.txt";
-    private class Task {
-        private String name;
-        private boolean isDone;
-        Task(String description){
-            this.name = description;
-            this.isDone = false;
-        }
-        public String getName(){
-            return this.name;
-        }
-        public boolean getIsDone(){
-            return this.isDone;
-        }
-        public void markAsDone(){
-            this.isDone = true;
-        }
-        public void markAsUndone(){
-            this.isDone = false;
-        }
-        @Override
-        public String toString(){
-            return "[" + (this.isDone ? "X" : " ") + "] " + this.name;
-        }
-    }
-    private class ToDo extends Task{
-        ToDo(String s){
-            super(s);
-        }
-        @Override
-        public String toString(){
-            return String.format("[T]%s", super.toString());
-        }
-    }
-    private class Deadline extends Task{
-        private LocalDateTime by;
-        Deadline(String s, String by) throws DateTimeParseException {
-            super(s);
-            try {
-                this.by = dPTryParseDateTime(by);
-            } catch (DateTimeParseException e) {
-                throw new IllegalArgumentException("Invalid date format for 'by'. Please provide a valid date format.", e);
-            }
-        }
-        @Override
-        public String toString(){
-            return String.format("[D]%s (by: %s)", super.toString(), dPFormatDateTime(this.by));
-        }
-    }
-    private class Event extends Task{
-        private LocalDateTime timeStart;
-        private LocalDateTime timeEnd;
-        Event(String name, String timeStart, String timeEnd) throws DateTimeParseException {
-            super(name);
-            try {
-                this.timeStart = dPTryParseDateTime(timeStart);
-            } catch (DateTimeParseException e) {
-                throw new IllegalArgumentException("Invalid date format for 'timeStart'. Please provide a valid date.", e);
-            }
-
-            try {
-                this.timeEnd = dPTryParseDateTime(timeEnd);
-            } catch (DateTimeParseException e) {
-                throw new IllegalArgumentException("Invalid date format for 'timeEnd'. Please provide a valid date.", e);
-            }
-            //add a catch for if timeStart is after timeEnd
-            if(this.timeStart.isAfter(this.timeEnd)){
-                throw new IllegalArgumentException("'timeStart' cannot be after 'timeEnd'.");
-            }
-        }
-        @Override
-        public String toString(){
-            return String.format("[E]%s (from: %s to: %s)", super.toString(), dPFormatDateTime(this.timeStart), dPFormatDateTime(this.timeEnd));
-        }
-    }
 
     //init by setting input and output
     private Scanner s;
@@ -120,16 +46,6 @@ public class DeterministicParrot {
         this.initCommandHandlers();
     }
     //takes a datetime and prints it in a certain format
-    public String dPFormatDateTime(LocalDateTime dateTime) {
-        return dateTime.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
-    }
-    public String saveFormatDateTime(LocalDateTime dateTime) {
-        return dateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-    }
-    public LocalDateTime dPTryParseDateTime(String dateTime) throws DateTimeParseException {
-        //TODO: add different formats
-        return LocalDateTime.parse(dateTime+ "T00:00:00");
-    }
     private void loadData() throws FileNotFoundException, DateTimeParseException {
         File file = new File(DATA_FILE_PATH);
         if (file.exists()) {
@@ -172,10 +88,10 @@ public class DeterministicParrot {
                     fileWriter.println("T | " + (task.getIsDone() ? "1" : "0") + " | " + task.getName());
                 } else if (task instanceof Deadline) {
                     Deadline deadline = (Deadline) task;
-                    fileWriter.println("D | " + (task.getIsDone() ? "1" : "0") + " | " + task.getName() + " | " + saveFormatDateTime(deadline.by));
+                    fileWriter.println("D | " + (task.getIsDone() ? "1" : "0") + " | " + task.getName() + " | " + DPUtils.saveFormatDateTime(deadline.by));
                 } else if (task instanceof Event) {
                     Event event = (Event) task;
-                    fileWriter.println("E | " + (task.getIsDone() ? "1" : "0") + " | " + task.getName() + " | " + saveFormatDateTime(event.timeStart)+ " " + saveFormatDateTime(event.timeEnd));
+                    fileWriter.println("E | " + (task.getIsDone() ? "1" : "0") + " | " + task.getName() + " | " + DPUtils.saveFormatDateTime(event.timeStart)+ " " + DPUtils.saveFormatDateTime(event.timeEnd));
                 }
             }
         } catch (FileNotFoundException e) {
