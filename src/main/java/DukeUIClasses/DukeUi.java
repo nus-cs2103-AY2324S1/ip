@@ -10,7 +10,8 @@ import java.util.ArrayList;
  * @author Tan Kerway
  *
  */
-public class DukeUI {
+public class DukeUi {
+
     /**
      * When called, the chatbot will greet the user.
      *

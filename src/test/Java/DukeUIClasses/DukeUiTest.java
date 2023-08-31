@@ -19,7 +19,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  * @author Tan Kerway
  * @see <a href=”https://stackoverflow.com/questions/1647907/junit-how-to-simulate-system-in-testing”>Credits</a>
  */
-public class DukeUITest {
+public class DukeUiTest {
 
     // inputStream for the system.in
     private static final InputStream systemIn = System.in;
@@ -86,7 +86,7 @@ public class DukeUITest {
                 "Hello! I'm nyancatbot!\n" +
                 "What can I do for nyan?\n" +
                 "------------------------------------------------------------------------\n";
-        DukeUI dukeUiTestInstance = new DukeUI();
+        DukeUi dukeUiTestInstance = new DukeUi();
         dukeUiTestInstance.greet(new ArrayList<>());
         assertEquals(expected, getOutput());
     }
@@ -98,7 +98,7 @@ public class DukeUITest {
                 "------------------------------------------------------------------------\n" +
                         "Bye. Hope to see you a-nyan soon!\n" +
                         "------------------------------------------------------------------------\n";
-        DukeUI dukeUiTestInstance = new DukeUI();
+        DukeUi dukeUiTestInstance = new DukeUi();
         dukeUiTestInstance.sayGoodBye();
         assertEquals(expected, getOutput());
     }
@@ -124,7 +124,7 @@ public class DukeUITest {
                 "Got it. I've added this task:\n    " + "[ ] dummy task\n" +
                 "Nyan you have 1 tasks in the list.\n" +
                 "------------------------------------------------------------------------\n";
-        DukeUI dukeUiTestInstance = new DukeUI();
+        DukeUi dukeUiTestInstance = new DukeUi();
         dukeUiTestInstance.echoTaskAdded(testTask, 1);
         assertEquals(expected, getOutput());
     }

@@ -2,7 +2,7 @@ package DukeParsers;
 
 import DukeTaskList.DukeTaskList;
 import DukeTasks.Task;
-import DukeUIClasses.DukeUI;
+import DukeUIClasses.DukeUi;
 
 import java.util.Scanner;
 
@@ -12,17 +12,18 @@ import java.util.Scanner;
  * @author Tan Kerway
  */
 public class DukeParser {
-    private final DukeUI ui;
-    private final DukeTaskList taskList;
+
+    private final DukeUi ui;
+    private final DukeTaskList taskListUtility;
 
     /**
-     * Constructs a parser for Duke
+     * Constructs a parser for Duke.
      *
      * @author Tan Kerway
      */
-    public DukeParser(DukeTaskList taskList) {
-            this.ui = new DukeUI();
-            this.taskList = taskList;
+    public DukeParser(DukeTaskList taskListUtility) {
+            this.ui = new DukeUi();
+            this.taskListUtility = taskListUtility;
     }
 
     /**
@@ -38,29 +39,29 @@ public class DukeParser {
         if (input == null) { return true; }
         // case where the input is "list" => enumerate all tasks
         if (input.equals("list")) {
-            this.ui.listAllTasks(this.taskList.getTasks());
+            this.ui.listAllTasks(this.taskListUtility.getTasks());
             return true;
         }
         // case where the input is "bye" => terminate early
         if (input.equals("bye")) { return false; }
         // case where the input is the mark command => mark the task as done
         if (input.startsWith("mark")) {
-            this.taskList.handleMark(input);
+            this.taskListUtility.handleMark(input);
             return true;
         }
         // case where the input is unmark
         if (input.startsWith("unmark")) {
-            this.taskList.handleUnmark(input);
+            this.taskListUtility.handleUnmark(input);
             return true;
         }
         // case where the input is deleted
         if (input.startsWith("delete")) {
-            this.taskList.handleDelete(input);
+            this.taskListUtility.handleDelete(input);
             return true;
         }
-        Task createdTask = this.taskList.addTask(input);
+        Task createdTask = this.taskListUtility.addTask(input);
         if (createdTask != null) {
-            this.ui.echoTaskAdded(createdTask, this.taskList.getTasks().size());
+            this.ui.echoTaskAdded(createdTask, this.taskListUtility.getTasks().size());
         }
         return true;
     }
@@ -68,14 +69,15 @@ public class DukeParser {
     /**
      * Returns the length of the task list.
      *
+     * @author Tan Kerway
      * @return the length of the tasklist
      */
     public int getTaskListSize() {
-        return this.taskList.getTasks().size();
+        return this.taskListUtility.getTasks().size();
     }
 
     /**
-     * parses the String. if there is error, this method will return null to
+     * Parses the String. if there is error, this method will return null to
      * indicate unsuccessful parsing.
      *
      * @author Tan Kerway
@@ -96,7 +98,7 @@ public class DukeParser {
             // else, add to the res
             res = res * 10 + (currentChar - '0');
         }
-        return res - 1 < 0 || res - 1 >= this.taskList.getTasks().size() ? null : res;
+        return res - 1 < 0 || res - 1 >= this.taskListUtility.getTasks().size() ? null : res;
     }
 
     /**

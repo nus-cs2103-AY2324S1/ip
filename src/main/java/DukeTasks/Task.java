@@ -105,7 +105,7 @@ public class Task {
     }
 
     /**
-     * Converts the string date into a Datetime object
+     * Converts the string date into a Datetime object.
      *
      * @author Tan Kerway
      * @param time the String that contains the data for the date
@@ -157,7 +157,7 @@ public class Task {
     }
 
     /**
-     * Checks if the given String is numeric or not
+     * Checks if the given String is numeric or not.
      *
      * @author Tan Kerway
      * @param str the string to check
@@ -172,7 +172,7 @@ public class Task {
     }
 
     /**
-     * Adds the year to the date object
+     * Adds the year to the date object.
      *
      * @author Tan Kerway
      * @param time the LocalDateTime object that represents start dates, or deadlines
@@ -186,7 +186,7 @@ public class Task {
     }
 
     /**
-     * Adds the day to the date object
+     * Adds the day to the date object.
      *
      * @author Tan Kerway
      * @param time the LocalDateTime object that represents start dates, or deadlines
@@ -218,7 +218,7 @@ public class Task {
     }
 
     /**
-     * Formats the time String
+     * Formats the time String.
      *
      * @param time the given LocalDateTime object to format
      * @return the string form of the LocalDateTime object
@@ -267,7 +267,7 @@ public class Task {
     }
 
     /**
-     * Sets the isValid flag to false
+     * Sets the isValid flag to false.
      *
      * @author Tan Kerway
      * @return true if valid, false otherwise
@@ -277,7 +277,7 @@ public class Task {
     }
 
     /**
-     * Sets the isValid flag to false
+     * Sets the isValid flag to false.
      *
      * @author Tan Kerway
      */

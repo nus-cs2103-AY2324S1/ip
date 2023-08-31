@@ -9,8 +9,6 @@ import DukeTasks.Todo;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -24,17 +22,17 @@ public class DukeStorageDatabase {
     private static final String DIR_PATH = System.getProperty("user.dir") + "/data";
     private static final String FILE_PATH = System.getProperty("user.dir") + "/data/duke.txt";
     // tasklist class for manipulation
-    private final DukeTaskList taskList;
+    private final DukeTaskList tasks;
 
     /**
      * Constructs the database controller.
      *
      * @author Tan Kerway
-     * @param taskList the DukeTaskList object tied to the Duke instance that created this instance
+     * @param tasks the DukeTaskList object tied to the Duke instance that created this instance
      *                 of the class.
      */
-    public DukeStorageDatabase(DukeTaskList taskList) {
-        this.taskList = taskList;
+    public DukeStorageDatabase(DukeTaskList tasks) {
+        this.tasks = tasks;
     }
     /**
      * Loads the database from the file path(if any).
@@ -67,7 +65,7 @@ public class DukeStorageDatabase {
             // get the input
             String[] tokens = reader.nextLine().split(" ");
             // get the input length
-            Task currentTask = this.taskList.getTask(tokens);
+            Task currentTask = this.tasks.getTask(tokens);
             if (currentTask == null || currentTask.isValid()) {
                 // add the current task to the list of tasks
                 taskList.add(currentTask);
@@ -93,7 +91,7 @@ public class DukeStorageDatabase {
         database.createNewFile();
         try (FileWriter writer = new FileWriter(database)) {
             // loop over the tasklist and add the tasks
-            for (Task task : this.taskList.getTasks()) {
+            for (Task task : this.tasks.getTasks()) {
                 // stringBuilder class to parse the task into a string for database storage
                 StringBuilder taskString = new StringBuilder();
                 if (task instanceof Todo) {
