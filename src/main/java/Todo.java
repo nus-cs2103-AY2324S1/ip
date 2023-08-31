@@ -19,4 +19,22 @@ public class Todo extends Task{
     public void displayTaskMark() {
         System.out.println("[T]" + super.getStatusIcon() + description);
     }
+
+
+    public static Todo readFromFile(String[] segments) {
+        String symbol = segments[1];
+        String description = segments[2];
+        Todo toReturn =  new Todo(description);
+        if (symbol.equals("X")) {
+            toReturn.mark();
+        }
+        return toReturn;
+    }
+
+
+    @Override
+    public String toWriteString() {
+        String toWrite = "T" + " | " + super.toWriteString();
+        return toWrite;
+    }
 }

@@ -1,9 +1,38 @@
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.FileWriter;
+
 public class Gman {
     public static String userInput;
-    //public static Task taskList[] = new Task[100];
-    public static ArrayList<Task> taskList = new ArrayList<>();
+    public static ArrayList<Task> taskList;
+    private static final String FILE_PATH = "./data/gman.txt"; //hardcoded
+
+    public static ArrayList<Task> readTasks() throws FileNotFoundException {
+        File file = new File(FILE_PATH);
+        Scanner fileScanner = new Scanner(file);
+        ArrayList<Task> tasksFromFile = new ArrayList<>();
+        while (fileScanner.hasNext()) {
+            Task taskRead = Task.readFromFile(fileScanner.nextLine());
+            tasksFromFile.add(taskRead);
+        }
+        return tasksFromFile;
+    }
+
+    public static void writeTasks(ArrayList<Task> taskList) throws IOException {
+        File dir = new File("./data");
+        if (!dir.exists()) {
+            dir.mkdir();
+        }
+        FileWriter writer = new FileWriter(FILE_PATH);
+        for (Task task : taskList) {
+            writer.write(task.toWriteString() + "\n");
+        }
+        writer.close();
+    }
+
 
     public static String noTasksInList() {
         if (taskList.size() == 0) {
@@ -14,17 +43,17 @@ public class Gman {
             return ("Now you have " + taskList.size() + " tasks in the list.");
         }
     }
+
     public static void main(String[] args) throws GmanIncorrectKeywordException {
+        try {
+            taskList = readTasks();
+        } catch(FileNotFoundException e) {
+            taskList = new ArrayList<>();
+        }
         Scanner myScanner = new Scanner(System.in);
         System.out.println("Hello! I'm Gman! \nWhat can I do for you?");
         String exitWord = "bye";
         userInput = myScanner.nextLine();
-        //String keyword = userInput.split(" ")[0];
-
-        //int counter = 0;
-        //possible exceptions: nothing is given after keyword,
-        //list when there is nothing
-        //marked unmarked something that is already marked unmarked
 
         while (!userInput.equals(exitWord)) {
             if (userInput.equals("list")) {
@@ -90,9 +119,6 @@ public class Gman {
                     System.out.println(e.getMessage());
                 }
             } else {
-                /*taskList[counter] = new GenericTask( " " + userInput, counter + 1);
-                taskList[counter].addedTask();
-                counter++;*/
                 try {
                     throw new GmanIncorrectKeywordException("OOPS! I'm sorry, I don't know what that means! Please start " +
                             "with keywords: todo, deadline, or event!");
@@ -103,5 +129,10 @@ public class Gman {
             userInput = myScanner.nextLine();
         }
         System.out.println("    Bye. Hope to see you again soon!");
+        try {
+            writeTasks(taskList);
+        } catch (IOException e) {
+            System.out.println("Sorry... I could not save your tasks :C");
+        }
     }
 }

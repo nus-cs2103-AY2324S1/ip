@@ -45,6 +45,27 @@ public class Task {
     public void displayTaskMark() {
     }
 
+    public static Task readFromFile(String line) {
+        String[] segments = line.split(" \\| ");
+        if (segments[0].equals("T")) {
+            return Todo.readFromFile(segments);
+        } else if (segments[0].equals("D")) {
+            return Deadline.readFromFile(segments);
+        } else if (segments[0].equals("E")) {
+            return Event.readFromFile(segments);
+        } else {
+            return null;
+        }
+    }
+
+    public String toWriteString() {
+        String symbol = "O";
+        if (this.isDone) {
+            symbol = "X";
+        }
+        return (symbol + " | " + this.description);
+    }
+
 
 
 }
