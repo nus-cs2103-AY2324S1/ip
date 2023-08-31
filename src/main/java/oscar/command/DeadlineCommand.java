@@ -36,7 +36,7 @@ public class DeadlineCommand extends Command {
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws OscarException {
-        String[] validatedDetails = validate(details);
+        String[] validatedDetails = validate();
         String description = validatedDetails[0];
         String deadline = validatedDetails[1];
         LocalDateTime deadlineDateTime = LocalDateTime.parse(deadline, DTFORMAT);
@@ -50,10 +50,9 @@ public class DeadlineCommand extends Command {
     /**
      * Validates details of deadline task.
      * Format: deadline [task] /by yyyy-MM-dd HHmm
-     * @param details Information about the details and deadline of task.
      * @throws OscarException Incorrect format of deadline command.
      */
-    public String[] validate(String details) throws OscarException {
+    public String[] validate() throws OscarException {
         if (!details.contains(" /by ")) {
             throw new OscarException("Sorry! " +
                     "The deadline task is not formatted correctly.\n" +

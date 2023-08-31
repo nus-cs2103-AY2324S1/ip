@@ -2,7 +2,6 @@ package oscar.command;
 
 import oscar.essential.Storage;
 import oscar.essential.TaskList;
-import oscar.essential.Ui;
 
 import oscar.exception.OscarException;
 
@@ -29,7 +28,10 @@ abstract public class Command {
      * @throws OscarException Failure to validate task number.
      */
     public int validateInt(String details, TaskList tasks) throws OscarException {
-        int index;
+        if (details.isEmpty()) {
+            throw new OscarException("Sorry! The task number cannot be empty.\n");
+        }
+            int index;
         try {
             index = Integer.parseInt(details) - 1;
             if (index < 0) {
@@ -46,11 +48,10 @@ abstract public class Command {
     /**
      * Carries out the intended function of a command.
      * @param tasks ArrayList of tasks.
-     * @param ui User interaction handler.
      * @param storage File loading and saving handler.
      * @throws OscarException Failure to execute command.
      */
-    abstract public void execute(TaskList tasks, Ui ui, Storage storage) throws OscarException;
+    abstract public void execute(TaskList tasks, Storage storage) throws OscarException;
 
     /**
      * Getter method to check if command is an exit command.

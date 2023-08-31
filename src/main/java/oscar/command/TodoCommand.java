@@ -33,7 +33,7 @@ public class TodoCommand extends Command {
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws OscarException {
-        validate(details);
+        validate();
         Task newTodo = new Todo(details);
         tasks.add(newTodo);
         storage.save(tasks);
@@ -44,10 +44,9 @@ public class TodoCommand extends Command {
     /**
      * Validates description of todo task.
      * Format: todo [task]
-     * @param details Description of todo task.
      * @throws OscarException Description is missing or not within 200 characters.
      */
-    public void validate(String details) throws OscarException {
+    public void validate() throws OscarException {
         if (details.isEmpty()) {
             throw new OscarException("Sorry! The description of a todo task cannot be empty.\n");
         } else if (details.length() > 200) {
