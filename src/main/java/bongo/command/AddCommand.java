@@ -15,7 +15,10 @@ public class AddCommand extends Command {
     Task newTask;
     public AddCommand(String[] command) throws BongoException {
         if (command.length <= 1)
-            throw new BongoException("The description of your task cannot be empty.");
+            throw new BongoException("Please include the description and datetime of your deadline.");
+        if (command.length <= 3) {
+            throw new BongoException("Please include the deadline.");
+        }
         this.command = command;
         this.initialiseTask();
     }
@@ -28,7 +31,6 @@ public class AddCommand extends Command {
                 break;
             case "deadline":
                 int index = taskInput.indexOf("/by");
-                if (index == -1) throw new BongoException("Please include the deadline.");
                 String deadlineDesc = taskInput.substring(0, index - 1);
                 String deadlineStr = taskInput.substring(index + 4);
                 LocalDateTime deadline = DateHelper.formatDateTime(deadlineStr);
