@@ -22,12 +22,12 @@ public class AddEventCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) throws DukeException {
+    public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
         Event event = new Event(description, from, to);
-        taskList.addEvent(event);
-        storage.writeData(taskList.toWriteString());
+        tasks.addEvent(event);
+        storage.writeData(tasks.toWriteString());
         System.out.println("Ok. Your tasklist has grown longer with this addition:\n"
                 + event.toString()
-                + "\nYou now have " + taskList.getLength() + " things to do.\n");
+                + "\nYou now have " + tasks.getLength() + " things to do.\n");
     }
 }

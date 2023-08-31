@@ -12,9 +12,9 @@ public class ListCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) throws DukeException {
-        for (int i = 1; i <= taskList.getLength(); i++) {
-            Task t = taskList.getTask((i-1));
+    public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
+        for (int i = 1; i <= tasks.getLength(); i++) {
+            Task t = tasks.getTask((i-1));
             System.out.format("%d. " + t.toString() + "\n", i);
         }
     }

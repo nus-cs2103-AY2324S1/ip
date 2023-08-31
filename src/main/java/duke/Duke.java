@@ -5,16 +5,16 @@ import duke.exception.DukeException;
 
 public class Duke {
     private Storage storage;
-    private TaskList taskList;
+    private TaskList tasks;
     private Ui ui;
     public Duke(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
         try {
-            taskList = new TaskList(storage.loadData());
+            tasks = new TaskList(storage.loadData());
         } catch (DukeException e) {
             ui.showLoadingError();
-            taskList = new TaskList();
+            tasks = new TaskList();
         }
     }
     static boolean isEnd = false;
@@ -27,7 +27,7 @@ public class Duke {
                 String fullCommand = ui.awaitCommand();
                 ui.showLine(); // show the divider line ("_______")
                 Command c = Parser.parse(fullCommand);
-                c.execute(taskList, ui, storage);
+                c.execute(tasks, ui, storage);
                 isExit = c.isExit();
             } catch (DukeException e) {
                 ui.showError(e.getMessage());
