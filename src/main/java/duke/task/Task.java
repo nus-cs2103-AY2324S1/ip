@@ -62,4 +62,8 @@ public abstract class Task {
   public boolean filter(Optional<LocalDateTime> before) {
     return before.isEmpty();
   }
+	
+	public boolean filter(String find) {
+		return description.contains(find);
+	}
 }

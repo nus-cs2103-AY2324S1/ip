@@ -1,8 +1,12 @@
 package duke.task;
 
 import duke.exception.TaskListOutOfBoundsException;
+
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Stream;
 
 public class TaskList {
   private List<Task> tasks;
@@ -54,4 +58,12 @@ public class TaskList {
   public void populate(List<Task> tasks) {
     this.tasks = tasks;
   }
+
+	public Stream<Task> filter(Optional<LocalDateTime> before) {
+		return tasks.stream().filter((task) -> task.filter(before));
+	}
+
+	public Stream<Task> filter(String search) {
+		return tasks.stream().filter((task) -> task.filter(search));
+	}
 }

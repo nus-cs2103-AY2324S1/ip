@@ -65,6 +65,8 @@ public class CommandBuilder {
         return new AddTaskCommand(out, taskList, savefile, command, name, arguments);
       case Command.DELETE:
         return new DeleteCommand(out, taskList, savefile, name);
+			case Command.FIND:
+				return new FindCommand(out, taskList, savefile, name);
       default:
         return new UnidentifiedCommand(out, taskList, savefile);
     }
