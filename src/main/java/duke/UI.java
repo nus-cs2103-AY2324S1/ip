@@ -1,10 +1,7 @@
 package duke;
 
-import java.util.ArrayList;
-
-import duke.Tasks.TaskList;
-
-import duke.Tasks.Task;
+import duke.tasks.TaskList;
+import duke.tasks.Task;
 
 public class UI {
     public String name;
@@ -45,19 +42,19 @@ public class UI {
         System.out.println(output);
     }
 
-    public void deleteTask(TaskList list, int taskNumber) {
+    public void deleteTask(TaskList tasks, int taskNumber) {
         String deletingTask = "Noted. I've removed this task:";
-        int taskInArray = list.size() - 1;
-        Task removedTask = list.deleteTask(taskNumber);
+        int taskInArray = tasks.size() - 1;
+        Task removedTask = tasks.deleteTask(taskNumber);
         String numberOfTask = "Now you have " + taskInArray + " tasks in the list.";
         String output = String.format("%s\n  %s\n%s", deletingTask, removedTask, numberOfTask);
         printLine();
         System.out.println(output);
     }
 
-    public void addTask(Task task, ArrayList<Task> list) {
+    public void addTask(Task task, TaskList tasks) {
         String addingTask = "Got it. I've added this task:";
-        String numberOfTask = "Now you have " + list.size() + " tasks in the list.";
+        String numberOfTask = "Now you have " + tasks.size() + " tasks in the list.";
         String output = String.format("%s\n  %s\n%s", addingTask, task, numberOfTask);
         printLine();
         System.out.println(output);

@@ -1,6 +1,4 @@
-package duke.Exceptions;
-
-import duke.Exceptions.DukeException;
+package duke.exceptions;
 
 public class EmptyDetailsOfTaskError extends DukeException {
     public EmptyDetailsOfTaskError(String message) {

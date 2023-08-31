@@ -6,9 +6,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 
-import duke.Tasks.TaskList;
-
-import duke.Tasks.Task;
+import duke.tasks.TaskList;
+import duke.tasks.Task;
 
 public class Storage {
     private String filePath;
@@ -25,9 +24,9 @@ public class Storage {
         this.fr = new FileReader(file);
     }
 
-    public void save(TaskList taskList) throws IOException {
+    public void save(TaskList tasks) throws IOException {
         FileWriter fw = new FileWriter(filePath);
-        for (Task task : taskList) {
+        for (Task task : tasks) {
             fw.write(task.toString() + "\n");
         }
         fw.close();

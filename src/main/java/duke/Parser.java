@@ -2,35 +2,39 @@ package duke;
 
 import java.io.IOException;
 
-import duke.Exceptions.EmptyDetailsOfTaskError;
-import duke.Exceptions.WrongMarkException;
-import duke.Tasks.TaskList;
-import duke.Tasks.Task;
-import duke.Exceptions.UnknownCommandException;
+import duke.exceptions.EmptyDetailsOfTaskError;
+import duke.exceptions.WrongMarkException;
+import duke.tasks.TaskList;
+import duke.tasks.Task;
+import duke.exceptions.UnknownCommandException;
 
 public class Parser {
-    public static boolean parse(String command, TaskList taskList, UI helper, Storage storage)
-            throws WrongMarkException, UnknownCommandException {
+    public static boolean isExitOrContinue(String command,
+            TaskList tasks,
+            UI helper,
+            Storage storage)
+            throws WrongMarkException,
+            UnknownCommandException {
         String[] splittedCommand = command.split(" ");
         String commandType = splittedCommand[0];
         switch (commandType) {
             case "bye":
                 try {
-                    storage.save(taskList);
+                    storage.save(tasks);
                 } catch (IOException e) {
                     System.out.println("OOPS!!! There is no file to save.");
                 }
                 break;
             case "list":
                 helper.printLine();
-                taskList.printList();
+                tasks.printList();
                 break;
             case "mark":
                 try {
                     int taskNumber = Integer.parseInt(splittedCommand[1]);
-                    Task task = taskList.get(taskNumber - 1);
+                    Task task = tasks.get(taskNumber - 1);
                     if (!task.isItDone()) {
-                        task.markAsDone();
+                        task.setAsDone();
                         helper.markTask(task);
                     } else if (task.isItDone()) {
                         helper.printLine();
@@ -47,9 +51,9 @@ public class Parser {
             case "unmark":
                 try {
                     int taskNumber = Integer.parseInt(splittedCommand[1]);
-                    Task task = taskList.get(taskNumber - 1);
+                    Task task = tasks.get(taskNumber - 1);
                     if (task.isItDone()) {
-                        task.markAsUndone();
+                        task.setAsUndone();
                         helper.unMarkTask(task);
                     } else {
                         helper.printLine();
@@ -66,13 +70,13 @@ public class Parser {
             case "delete":
                 String[] splittedInput = command.split(" ");
                 int taskNumber = Integer.parseInt(splittedInput[1]);
-                helper.deleteTask(taskList, taskNumber);
+                helper.deleteTask(tasks, taskNumber);
                 break;
             default:
                 try {
                     Task currentTask = Task.createTask(command);
-                    taskList.add(currentTask);
-                    helper.addTask(currentTask, taskList);
+                    tasks.add(currentTask);
+                    helper.addTask(currentTask, tasks);
                 } catch (EmptyDetailsOfTaskError e) {
                     helper.printLine();
                     System.out.println(e.getMessage());

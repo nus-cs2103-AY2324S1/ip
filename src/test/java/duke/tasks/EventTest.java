@@ -1,10 +1,10 @@
-package duke.Tasks;
+package duke.tasks;
 
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 public class EventTest {
     @Test
-    public void testStringConverstion() {
+    public void toString_testStringConverstion_correctResult() {
         assertEquals(
                 "| E |   | study cs2103 (from: Aug 14 2023 to: Dec 01 2023)",
                 new Events(

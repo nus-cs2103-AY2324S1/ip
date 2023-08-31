@@ -1,16 +1,16 @@
-package duke.Tasks;
+package duke.tasks;
 
 import java.time.LocalDate;
 import java.util.regex.Pattern;
 
 import duke.Commands;
 import duke.FormatterDate;
-import duke.Exceptions.EmptyDetailsOfTaskError;
-import duke.Exceptions.UnknownCommandException;
+import duke.exceptions.EmptyDetailsOfTaskError;
+import duke.exceptions.UnknownCommandException;
 
 public class Task {
     protected String description;
-    public boolean isDone;
+    protected boolean isDone;
 
     public Task(String description) {
         this.description = description;
@@ -25,11 +25,11 @@ public class Task {
         return (isDone ? "x" : " ");
     }
 
-    public void markAsDone() {
+    public void setAsDone() {
         this.isDone = true;
     }
 
-    public void markAsUndone() {
+    public void setAsUndone() {
         this.isDone = false;
     }
 
@@ -94,7 +94,7 @@ public class Task {
             currentTask = new Events(splittedData[0], taskStart, taskEnd);
         }
         if (taskStatus.equals("x")) {
-            currentTask.markAsDone();
+            currentTask.setAsDone();
         }
         return currentTask;
     }
