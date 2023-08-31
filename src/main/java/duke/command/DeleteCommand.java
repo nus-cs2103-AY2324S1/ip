@@ -1,3 +1,10 @@
+package duke.command;
+
+import duke.exception.DukeInvalidDeleteException;
+import duke.storage.Storage;
+import duke.task.TaskList;
+import duke.ui.Ui;
+
 public class DeleteCommand extends Command{
     private String[] splitTask;
 

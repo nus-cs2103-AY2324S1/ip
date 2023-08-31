@@ -1,3 +1,10 @@
+package duke.command;
+
+import duke.exception.DukeInvalidMarkException;
+import duke.storage.Storage;
+import duke.task.TaskList;
+import duke.ui.Ui;
+
 public class MarkCommand extends Command {
     private String[] splitTask;
 

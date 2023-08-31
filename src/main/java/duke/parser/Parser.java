@@ -1,3 +1,8 @@
+package duke.parser;
+
+import duke.command.*;
+import duke.exception.DukeNotTaskException;
+
 public class Parser {
     enum CommandWord {
         BYE,

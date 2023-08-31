@@ -1,6 +1,13 @@
+package duke.task;
+
+import duke.exception.DukeException;
+import duke.exception.DukeIndexOutOfBoundException;
+import duke.exception.DukeNoTimeException;
+import duke.exception.DukeNotTaskException;
+
 public class Task {
     /**
-     * the task description
+     * the duke.task description
      */
     protected String description;
     /**
@@ -9,7 +16,7 @@ public class Task {
     protected boolean isDone;
 
     /**
-     * Constructor for Task class
+     * Constructor for duke.task.Task class
      * @param description the string of description that would like to be stored
      */
     public Task(String description) {
@@ -18,14 +25,14 @@ public class Task {
     }
 
     /**
-     * factory method to create task based on the type
+     * factory method to create duke.task based on the type
      * @param splitTask String array containing the type and description
-     * @return new Task object based on the types
-     * @throws DukeException throws DukeException
+     * @return new duke.task.Task object based on the types
+     * @throws DukeException throws duke.exception.DukeException
      */
     public static Task createTaskType(String[] splitTask) throws DukeException {
         /**
-         * variable to store the type of task
+         * variable to store the type of duke.task
          */
         String type = splitTask[0];
         /**
@@ -65,18 +72,18 @@ public class Task {
      * @return the status icon
      */
     public String getStatusIcon() {
-        return (isDone ? "X" : " "); // mark done task with X
+        return (isDone ? "X" : " "); // mark done duke.task with X
     }
 
     /**
-     * mark the task done
+     * mark the duke.task done
      */
     public void mark() {
         this.isDone = true;
     }
 
     /**
-     * mark the task not done
+     * mark the duke.task not done
      */
     public void unmark() {
         this.isDone = false;

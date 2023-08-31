@@ -1,3 +1,5 @@
+package duke.task;
+
 public class Todo extends Task{
     /**
      * the type Icon
@@ -5,7 +7,7 @@ public class Todo extends Task{
     private String type = "T";
 
     /**
-     * constructor for Event task
+     * constructor for duke.task.Event duke.task
      * @param description the text stored
      */
     public Todo(String description) {
