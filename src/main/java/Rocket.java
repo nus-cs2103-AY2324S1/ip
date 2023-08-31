@@ -1,6 +1,8 @@
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -48,6 +50,9 @@ public class Rocket {
         } catch (FileNotFoundException e) {
             System.out.println("File not found");
         }
+
+        LocalDateTime dateTime = stringToDateTime("15-10-2019 15:30");
+        System.out.println(dateTime);
 
         // Create scanner to read user input
         Scanner scanner = new Scanner(System.in);
@@ -362,6 +367,11 @@ public class Rocket {
                 .replace(')', ' ')
                 .trim();
         return new Event(description, isDone, from, to);
+    }
+
+    private static LocalDateTime stringToDateTime(String s) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+        return LocalDateTime.parse(s, formatter);
     }
 
 }
