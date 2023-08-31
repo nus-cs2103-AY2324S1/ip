@@ -9,9 +9,7 @@ import java.time.LocalDateTime;
  * Deadline is a task with a deadline date.
  */
 public class Deadline extends Task{
-    /**
-     * Deadline date
-     */
+
     protected LocalDateTime by;
 
     /**

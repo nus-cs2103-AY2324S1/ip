@@ -110,8 +110,9 @@ public class Parser {
      * @return Task initialised with arguments
      * @throws UnsupportedTaskType Thrown if task type specified in fileArgs do not match
      * any known task types
+     * @throws IllegalArgumentException Thrown if line does not have 2 delimiters " | "
      */
-    public static Task parseFileTasks(String fileArgs) throws UnsupportedTaskType {
+    public static Task parseFileTasks(String fileArgs) throws UnsupportedTaskType, IllegalArgumentException {
         String[] args = fileArgs.split(" \\| ");
         if (args.length != 3) {
             throw new IllegalArgumentException("Save file is corrupted, skipping line");
@@ -142,9 +143,11 @@ public class Parser {
      * @param taskType Type of task
      * @param args Additional arguments required to create the task
      * @return Task of specified task type initialised with arguments
+     * @throws IllegalArgumentException Thrown if arguments could not be parsed correctly
      * @throws UnsupportedTaskType Thrown if task type is not covered (should not happen)
      */
-    private static Task parseTaskArgs(Task.Types taskType, String args) throws UnsupportedTaskType {
+    private static Task parseTaskArgs(Task.Types taskType, String args) throws IllegalArgumentException,
+            UnsupportedTaskType {
         String name;
         switch (taskType) {
             case TODO:
