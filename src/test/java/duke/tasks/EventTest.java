@@ -9,7 +9,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class EventTest {
     @Test
-    public void toString_correctOuput() {
+    public void toString_correctOutput() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yy HHmm");
         LocalDateTime from = LocalDateTime.parse("21/08/02 1900", formatter);
         LocalDateTime to = LocalDateTime.parse("21/08/02 2000", formatter);
@@ -20,7 +20,7 @@ public class EventTest {
     }
 
     @Test
-    public void toFile_correctOuput() {
+    public void toFile_correctOutput() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yy HHmm");
         LocalDateTime from = LocalDateTime.parse("21/08/02 1900", formatter);
         LocalDateTime to = LocalDateTime.parse("21/08/02 2000", formatter);
