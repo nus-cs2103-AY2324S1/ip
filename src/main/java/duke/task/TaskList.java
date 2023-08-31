@@ -10,6 +10,8 @@ import duke.core.Storage;
 public class TaskList {
     public ArrayList<Task> taskArray = new ArrayList<>();
 
+    public TaskList() {}
+
     public TaskList(Stream<String> taskDataStream) {
         taskDataStream.forEach(taskData -> {
             try {
