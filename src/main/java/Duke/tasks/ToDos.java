@@ -20,12 +20,12 @@ public class ToDos extends Task {
         }
     }
 
-    public ToDos(String description, boolean completed) throws DukeException {
+    public ToDos(String description, boolean isCompleted) throws DukeException {
         super(description);
         if (description == null || description.trim().isEmpty()) {
             throw new DukeException("OOPS! The description of ToDo cannot be empty!");
         }
-        this.completed = completed;
+        this.isCompleted = isCompleted;
     }
 
     /**

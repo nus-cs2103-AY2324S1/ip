@@ -35,15 +35,13 @@ public class Parser {
     public Task parseTaskFromFile(String line) throws DukeException {
         String[] parts = line.split("\\|");
 
-        // Trim spaces for each part
         for (int i = 0; i < parts.length; i++) {
             parts[i] = parts[i].trim();
         }
 
-        // Extract fields
         Task task = null;
         String taskType = parts[0];
-        boolean completed = "1".equals(parts[1]);
+        boolean isCompleted = "1".equals(parts[1]);
         String description = parts[2];
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         LocalDateTime date = (parts.length >= 4 && !parts[3].isEmpty()) ? LocalDateTime.parse(parts[3], formatter)
@@ -56,15 +54,15 @@ public class Parser {
         try {
             switch (taskType) {
                 case "T":
-                    task = new ToDos(description, completed);
+                    task = new ToDos(description, isCompleted);
                     break;
 
                 case "D":
-                    task = new Deadlines(description, date, completed);
+                    task = new Deadlines(description, date, isCompleted);
                     break;
 
                 case "E":
-                    task = new Events(description, startDate, endDate, completed);
+                    task = new Events(description, startDate, endDate, isCompleted);
                     break;
             }
         } catch (DukeException e) {
@@ -94,7 +92,7 @@ public class Parser {
         String[] parts = userCommand.split(" ", 2);
         String commandType = parts[0].toLowerCase();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-        Task task = null;
+        Task task;
     
         switch (commandType) {
             case "event":

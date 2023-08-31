@@ -32,7 +32,7 @@ public class Deadlines extends Task {
         this.date = date;
     }
 
-    public Deadlines(String description, LocalDateTime date, boolean completed) throws DukeException {
+    public Deadlines(String description, LocalDateTime date, boolean isCompleted) throws DukeException {
         super(description);
         if (description == null || description.trim().isEmpty()) {
             throw new DukeException("description of deadline cannot be empty");
@@ -41,7 +41,7 @@ public class Deadlines extends Task {
             throw new DukeException("date of deadline cannot be empty");
         }
         this.date = date;
-        this.completed = completed;
+        this.isCompleted = isCompleted;
     }
 
     /**
@@ -72,10 +72,10 @@ public class Deadlines extends Task {
      */
     @Override
     public String toString() {
-        String completed = this.isCompleted() ? "[X] " : "[ ] ";
+        String isCompleted = this.isCompleted() ? "[X] " : "[ ] ";
         String taskType = "[" + this.getType() + "]";
         DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy, hh:mm a");
         String byMessage = "by: " + getDate().format(outputFormatter);
-        return taskType + completed + this.getDescription() + "(" + byMessage + ")";
+        return taskType + isCompleted + this.getDescription() + "(" + byMessage + ")";
     }
 }

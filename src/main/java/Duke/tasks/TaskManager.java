@@ -43,11 +43,11 @@ public class TaskManager {
     }
 
     /**
-     * Handles the marking of a task as completed based on the user command.
+     * Handles the marking of a task as isCompleted based on the user command.
      *
-     * @param userCommand The command given by the user to mark a task as completed.
+     * @param userCommand The command given by the user to mark a task as isCompleted.
      * @param tasks       A list of tasks from which a specific task will be marked
-     *                    as completed.
+     *                    as isCompleted.
      */
     public String handleMark(String userCommand) {
         String[] parts = userCommand.split(" ");
@@ -69,7 +69,7 @@ public class TaskManager {
     }
 
     /**
-     * Handles the unmarking of a task, reverting its status to not completed based
+     * Handles the unmarking of a task, reverting its status to not isCompleted based
      * on the user command.
      *
      * @param userCommand The command given by the user to unmark a task.
