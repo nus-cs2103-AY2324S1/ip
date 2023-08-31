@@ -1,4 +1,12 @@
+package duke;
+
 import java.io.IOException;
+import commands.Command;
+import data.TaskList;
+import data.exception.DukeException;
+import parser.Parser;
+import storage.Storage;
+import ui.Ui;
 
 public class Duke {
     private TaskList tasks;
@@ -34,8 +42,8 @@ public class Duke {
 
     public static void main(String[] args) throws IOException {
         Duke chatbot = new Duke(
-            "./data/data.txt", 
-            "./data"
+            "./save/data.txt", 
+            "./save"
         );
         chatbot.start();
     }

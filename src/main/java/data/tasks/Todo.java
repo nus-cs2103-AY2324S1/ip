@@ -1,3 +1,5 @@
+package data.tasks;
+
 public class Todo extends Task {
     public Todo(String detail) {
         super(detail);

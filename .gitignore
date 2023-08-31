@@ -20,4 +20,4 @@ text-ui-test/EXPECTED-UNIX.TXT
 **/*.class
 
 # Ignore all data files created by chatbot
-data
+save
