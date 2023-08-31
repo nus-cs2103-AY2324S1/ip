@@ -5,10 +5,10 @@ package duke;
  * that provides common functionality for different types of tasks.
  */
 abstract public class Task {
-    protected String task;
+    protected String description;
     protected Boolean isCompleted = false;
-    public Task(String task) {
-        this.task = task;
+    public Task(String description) {
+        this.description = description;
     }
 
     /**
@@ -35,6 +35,6 @@ abstract public class Task {
     @Override
     public String toString() {
         String box = this.isCompleted ? "[X]": "[ ]";
-        return box + " " + this.task;
+        return box + " " + this.description;
     }
 }

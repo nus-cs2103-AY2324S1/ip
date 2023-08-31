@@ -163,6 +163,18 @@ public class Ui {
         System.out.println(taskList.toString());
         showLine();
     }
+
+    public void showFindResults(TaskList taskList) {
+        showLine();
+        if (taskList.getTasks().isEmpty()) {
+            System.out.println("No tasks with that keyword exists!");
+        } else {
+            System.out.println("Here are the matching tasks in your list");
+            System.out.println(taskList);
+        }
+        showLine();
+    }
+
     public String readCmd() {
         // Read user input
         return scanner.nextLine();

@@ -2,8 +2,8 @@ package duke;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
+
 public class TestTaskList {
     @Test
     public void taskList_testAddTasks() throws DukeInvalidDateException {
@@ -45,7 +45,10 @@ public class TestTaskList {
         taskList.addTask(todo);
         assertTrue(taskList.getTasks().contains(todo));
 
-        taskList.deleteTask(1);
+        assertThrows(IndexOutOfBoundsException.class,
+                () -> {
+                    taskList.deleteTask(1);
+                });
         assertTrue(taskList.getTasks().contains(todo));
     }
     @Test
