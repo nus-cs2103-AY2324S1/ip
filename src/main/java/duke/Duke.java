@@ -1,15 +1,22 @@
 package duke;
+
 import duke.command.*;
 import duke.task.*;
 import duke.storage.Storage;
 import duke.parser.Parser;
 import duke.ui.Ui;
 
+/**
+ * The main class that represents the Duke chatbot application.
+ */
 public class Duke {
     private final Storage storage;
     private TaskList tasks;
     private final Ui ui;
 
+    /**
+     * Runs the Duke application.
+     */
     public void run() {
         ui.showWelcome(tasks.getList());
         boolean isExit = false;
@@ -27,6 +34,12 @@ public class Duke {
             }
         }
     }
+
+    /**
+     * Constructs a Duke object with the given file path.
+     *
+     * @param filePath The path to the file for storing task data.
+     */
     public Duke(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
@@ -38,7 +51,11 @@ public class Duke {
         }
     }
 
-
+    /**
+     * The main method to start the Duke application.
+     *
+     * @param args Command-line arguments.
+     */
     public static void main(String[] args) {
         new Duke("./data/list.txt").run();
     }

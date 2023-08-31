@@ -1,17 +1,38 @@
 package duke.task;
+
 import java.util.ArrayList;
 import duke.DukeException;
 
+/**
+ * Represents a list of tasks with various operations.
+ */
 public class TaskList {
     private ArrayList<Task> list;
 
-    public TaskList (ArrayList<Task> list) {
+    /**
+     * Constructs a TaskList with an existing task list.
+     *
+     * @param list The ArrayList containing tasks.
+     */
+    public TaskList(ArrayList<Task> list) {
         this.list = list;
     }
+
+    /**
+     * Constructs an empty TaskList.
+     */
     public TaskList() {
         this.list = null;
     }
 
+    /**
+     * Adds a task to the list based on the given type and description.
+     *
+     * @param type The type of task ("todo", "deadline", or "event").
+     * @param description The description of the task.
+     * @return The added task.
+     * @throws DukeException If the input type is invalid.
+     */
     public Task addTask(String type, String description) throws DukeException {
         if (type.equals("todo")) {
             return ToDo.addTodo(description, list);
@@ -24,6 +45,13 @@ public class TaskList {
         }
     }
 
+    /**
+     * Deletes a task at the specified position.
+     *
+     * @param pos The position of the task to be deleted.
+     * @return The deleted task.
+     * @throws DukeException If the position is invalid or not provided.
+     */
     public Task deleteTask(String pos) throws DukeException {
         if (pos.isEmpty()) {
             throw new DukeException("☹ OOPS!!! Please indicate which item you wish to delete");
@@ -35,9 +63,16 @@ public class TaskList {
         list.remove(amt);
 
         return temp;
-
     }
 
+    /**
+     * Marks or unmarks a task at the specified position.
+     *
+     * @param type The action ("mark" or "unmark").
+     * @param pos The position of the task to be marked or unmarked.
+     * @return The task after marking or unmarking.
+     * @throws DukeException If the position is invalid or not provided.
+     */
     public Task markTask(String type, String pos) throws DukeException {
         if (pos.isEmpty()) {
             throw new DukeException("☹ OOPS!!! Please indicate which item you wish to mark");
@@ -48,17 +83,27 @@ public class TaskList {
 
         if (type.equals("mark")) {
             newTask.mark();
-
         } else if (type.equals("unmark")) {
             newTask.unMark();
         }
         return newTask;
     }
 
+    /**
+     * Gets a task at the specified position.
+     *
+     * @param pos The position of the task to retrieve.
+     * @return The task at the specified position.
+     */
     public Task getTask(int pos) {
         return list.get(pos);
     }
 
+    /**
+     * Gets the entire task list.
+     *
+     * @return The ArrayList containing tasks.
+     */
     public ArrayList<Task> getList() {
         return this.list;
     }

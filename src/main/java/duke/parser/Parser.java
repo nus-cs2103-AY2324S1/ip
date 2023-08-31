@@ -4,12 +4,23 @@ import duke.command.*;
 import duke.ui.Ui;
 import duke.DukeException;
 
+/**
+ * Represents a parser for handling user inputs and generating corresponding commands.
+ */
 public class Parser {
-    public static Command handleInput(String input) throws DukeException{
+
+    /**
+     * Handles the user input and returns the corresponding command.
+     *
+     * @param input The user input to be parsed.
+     * @return A Command object based on the parsed input.
+     * @throws DukeException If there is an issue parsing the input or creating the command.
+     */
+    public static Command handleInput(String input) throws DukeException {
         Ui ui = new Ui();
         String[] arr = input.split(" ", 2);
         if (arr.length == 1) {
-            arr = new String[] {arr[0], ""};
+            arr = new String[] { arr[0], "" };
         }
         String type = arr[0];
         if ("bye".equals(type)) {
