@@ -74,21 +74,13 @@ public class Storage {
         return null;
     }
 
-    public void update(ArrayList<Task> tasks) throws DukeException {
+    public void update(TaskList tasks) throws DukeException {
         try {
             FileWriter fw = new FileWriter(filePath);
-            fw.write(this.taskListToString(tasks));
+            fw.write(tasks.toString());
             fw.close();
         } catch (IOException e) {
             throw new DukeException("Sorry error with saving tasks!");
         }
-    }
-
-    private String taskListToString(ArrayList<Task> tasks) {
-        String taskListString = "";
-        for (Task task : tasks) {
-            taskListString += task.toFileFormatString() + "\n";
-        }
-        return taskListString.strip();
     }
 }

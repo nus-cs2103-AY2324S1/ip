@@ -13,27 +13,27 @@ public class Task {
     }
 
     public void mark() {
-        this.isDone = true;
+        isDone = true;
     }
 
     public void unmark() {
-        this.isDone = false;
+        isDone = false;
     }
 
     @Override
     public String toString() {
         return String.format(
             "[%s] %s",
-            this.isDone ? "X" : " ", 
-            this.description
+            isDone ? "X" : " ", 
+            description
         );
     }
 
     public String toFileFormatString() {
         return String.format(
             "%s|%s",
-            this.isDone ? "1" : "0",
-            this.description
+            isDone ? "1" : "0",
+            description
         );
     }
 }

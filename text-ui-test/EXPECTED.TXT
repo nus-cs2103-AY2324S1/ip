@@ -1,10 +1,4 @@
 
-    Initalizing... Please be patient
-
-
-    I've created a new folder to store your tasks :)
-
-
     Hi. I'm [35mBryan[0m
     What can I do for you?
 
@@ -50,11 +44,17 @@
 
 > 
     [0;31mErm... error :([0m
-        Oops, looks like your date is in an invalid format...
+    Oops, looks like your date is in an invalid format...
+    Here are some valid formats:
+    2023-10-20, 20-10-2023, 2023/10/20, 20/10/2023, Oct 10 2023, 10 Oct 2023
+    You can provide a timing as well: 2023-10-20 1800
 
 > 
     [0;31mErm... error :([0m
-        Oops, looks like your date is in an invalid format...
+    Oops, looks like your date is in an invalid format...
+    Here are some valid formats:
+    2023-10-20, 20-10-2023, 2023/10/20, 20/10/2023, Oct 10 2023, 10 Oct 2023
+    You can provide a timing as well: 2023-10-20 1800
 
 > 
     Okie! I've added a new [0;34mDEADLINE[0m:

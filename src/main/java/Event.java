@@ -21,8 +21,8 @@ public class Event extends Task {
         return String.format(
             "[E]%s (from: %s to: %s)",
             super.toString(), 
-            DateParser.toDisplayString(this.from), 
-            DateParser.toDisplayString(this.to)
+            DateParser.toDisplayString(from), 
+            DateParser.toDisplayString(to)
         );
     }
 
@@ -31,8 +31,8 @@ public class Event extends Task {
         return String.format(
             "E|%s|%s|%s",
             super.toFileFormatString(),
-            DateParser.toFileString(this.from), 
-            DateParser.toFileString(this.to)
+            DateParser.toFileString(from), 
+            DateParser.toFileString(to)
         );
     }
 }
