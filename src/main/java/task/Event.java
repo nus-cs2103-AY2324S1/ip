@@ -13,8 +13,8 @@ public class Event extends Task {
     private LocalDateTime localDateTimeStart = null;
     private LocalDateTime localDateTimeEnd = null;
 
-    public Event(boolean completed, String nameOfTask, String start, String end) throws WrongDateFormatException, InvalidDateException {
-        super(completed, nameOfTask);
+    public Event(boolean isCompleted, String nameOfTask, String start, String end) throws WrongDateFormatException, InvalidDateException {
+        super(isCompleted, nameOfTask);
         this.start = start;
         this.end = end;
         this.localDateTimeStart = DateHandler.determineDateTime(start);
@@ -23,7 +23,7 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        if (completed) {
+        if (isCompleted) {
             return "[E][X] " + nameOfTask + " (from: " + DateHandler.correctDateTimeFormat(localDateTimeStart) + " to: " + DateHandler.correctDateTimeFormat(localDateTimeEnd) + ")";
         } else {
             return "[E][ ] " + nameOfTask + " (from: " + DateHandler.correctDateTimeFormat(localDateTimeStart) + " to: " + DateHandler.correctDateTimeFormat(localDateTimeEnd) + ")";

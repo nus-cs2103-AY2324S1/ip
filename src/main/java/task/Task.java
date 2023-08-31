@@ -1,17 +1,17 @@
 package task;
 
 abstract public class Task {
-    protected boolean completed;
+    protected boolean isCompleted;
     protected String nameOfTask;
 
-    public Task(boolean completed, String nameOfTask) {
-        this.completed = completed;
+    public Task(boolean isCompleted, String nameOfTask) {
+        this.isCompleted = isCompleted;
         this.nameOfTask = nameOfTask;
     }
 
     @Override
     public String toString() {
-        if (completed) {
+        if (isCompleted) {
             return "[X] " + nameOfTask;
         } else {
             return "[ ] " + nameOfTask;
@@ -20,7 +20,7 @@ abstract public class Task {
 
     abstract public String typeOfString();
     public String statusString() {
-        if (completed) {
+        if (isCompleted) {
             return "1 ";
         } else {
             return "0 ";
@@ -30,11 +30,11 @@ abstract public class Task {
     abstract public String taskDetailsString();
 
     public void setUnmarked() {
-        this.completed = false;
+        this.isCompleted = false;
     }
 
     public void setMarked() {
-        this.completed = true;
+        this.isCompleted = true;
     }
 
 }

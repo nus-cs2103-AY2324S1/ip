@@ -10,15 +10,15 @@ public class Deadline extends Task {
     private final String dateOfDeadline;
     private LocalDateTime localDateTime = null;
 
-    public Deadline(boolean completed, String nameOfTask, String dateOfDeadline) throws WrongDateFormatException, InvalidDateException {
-        super(completed, nameOfTask);
+    public Deadline(boolean isCompleted, String nameOfTask, String dateOfDeadline) throws WrongDateFormatException, InvalidDateException {
+        super(isCompleted, nameOfTask);
         this.localDateTime = DateHandler.determineDateTime(dateOfDeadline);
         this.dateOfDeadline = dateOfDeadline;
     }
 
     @Override
     public String toString() {
-        if (completed) {
+        if (isCompleted) {
             return "[D][X] " + nameOfTask + " (by: " + DateHandler.correctDateTimeFormat(localDateTime) + ")";
         } else {
             return "[D][ ] " + nameOfTask + " (by: " + DateHandler.correctDateTimeFormat(localDateTime) + ")";

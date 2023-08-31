@@ -2,10 +2,7 @@ import emiyaexception.CreateDirectoryFailException;
 import emiyaexception.EmiyaException;
 import emiyaexception.InvalidDateException;
 import emiyaexception.WrongDateFormatException;
-import task.Deadline;
-import task.Event;
-import task.Task;
-import task.ToDo;
+import task.*;
 
 import java.io.File;
 import java.io.IOException;
@@ -97,8 +94,30 @@ public class Storage {
         }
     }
 
+    public void writeToFileFromTaskList(TaskList taskList, String fileName, String dirName) {
+        String path = Paths.get("").toAbsolutePath().toString();
+        String pathToDataDir = Paths.get(path, dirName).toString();
+        Path pathToDataDoc = Paths.get(pathToDataDir, fileName);
 
-    public void fillListWithFileContent(ArrayList<Task> taskArrayList, String fileContent) throws WrongDateFormatException, InvalidDateException {
+        StringBuilder str = new StringBuilder();
+        for (Task task : taskList.getTaskArrayList()) {
+            str.append(task.typeOfString());
+            str.append("| ");
+            str.append(task.statusString());
+            str.append("| ");
+            str.append(task.taskDetailsString());
+            str.append("\n");
+        }
+
+        try {
+            Files.write(pathToDataDoc, str.toString().getBytes());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+
+    public void fillListWithFileContent(TaskList taskList, String fileContent) throws WrongDateFormatException, InvalidDateException {
         String[] tasksStrArr = fileContent.split("\n");
 
         for (String tasksStr : tasksStrArr) {
@@ -107,8 +126,8 @@ public class Storage {
             }
             String[] tasksStrParts = tasksStr.split(" \\| ");
             String taskType = tasksStrParts[0];
-            int completedInt = Integer.parseInt(tasksStrParts[1]);
-            boolean completedBool = (completedInt == 1);
+            int isCompletedInt = Integer.parseInt(tasksStrParts[1]);
+            boolean isCompletedBool = (isCompletedInt == 1);
             String taskDetails = tasksStrParts[2];
             String firstDate = "";
             String secondDate = "";
@@ -120,11 +139,11 @@ public class Storage {
             }
 
             if (taskType.equals("T")) {
-                taskArrayList.add(new ToDo(completedBool, taskDetails));
+                taskList.add(new ToDo(isCompletedBool, taskDetails));
             } else if (taskType.equals("D")) {
-                taskArrayList.add(new Deadline(completedBool, taskDetails, firstDate));
+                taskList.add(new Deadline(isCompletedBool, taskDetails, firstDate));
             } else {
-                taskArrayList.add(new Event(completedBool, taskDetails, firstDate, secondDate));
+                taskList.add(new Event(isCompletedBool, taskDetails, firstDate, secondDate));
             }
         }
     }

@@ -1,13 +1,13 @@
 package task;
 
 public class ToDo extends Task {
-    public ToDo(boolean completed, String nameOfTask) {
-        super(completed, nameOfTask);
+    public ToDo(boolean isCompleted, String nameOfTask) {
+        super(isCompleted, nameOfTask);
     }
 
     @Override
     public String toString() {
-        if (completed) {
+        if (isCompleted) {
             return "[T][X] " + nameOfTask;
         } else {
             return "[T][ ] " + nameOfTask;

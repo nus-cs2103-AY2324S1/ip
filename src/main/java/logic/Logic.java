@@ -1,5 +1,7 @@
 package logic;
 
+import emiya.Keywords;
+
 public class Logic {
 
     // Used to check whether a given string contains purely numeric values.
@@ -19,7 +21,21 @@ public class Logic {
         return (day > 0 && day < 32);
     }
 
-    public static boolean isValidHour(int hour) { return (hour >= 0 && hour <= 23 ); }
+    public static boolean isValidHour(int hour) {
+        return (hour >= 0 && hour <= 23 );
+    }
 
-    public static boolean isValidMinute(int min) { return (min >= 0 && min <= 59); }
+    public static boolean isValidMinute(int min) {
+        return (min >= 0 && min <= 59);
+    }
+
+    // Checks if a given test String is part of the reserved keywords for the different tasks.
+    public static boolean enumContainsKeyword(String test) {
+        for (Keywords k : Keywords.values()) {
+            if (k.name().equals(test)) {
+                return true;
+            }
+        }
+        return false;
+    }
 }
