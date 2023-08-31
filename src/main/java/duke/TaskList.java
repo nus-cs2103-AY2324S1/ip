@@ -50,13 +50,13 @@ public class TaskList {
 
     public void markTask(int idx) throws IndexOutOfBoundsException {
         Task task = tasks.get(idx);
-        task.setCompleted(true);
+        task.setIsCompleted(true);
         ui.showMarkedTask(task);
     }
 
     public void unmarkTask(int idx) throws IndexOutOfBoundsException {
         Task task = tasks.get(idx);
-        task.setCompleted(false);
+        task.setIsCompleted(false);
         ui.showUnmarkedTask(task);
     }
 

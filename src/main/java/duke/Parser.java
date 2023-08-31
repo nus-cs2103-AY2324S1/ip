@@ -61,7 +61,11 @@ public class Parser {
             ui.showInvalidCommandError();
             return true;
         } else if (Command.taskTypes().contains(cmd)) {
-            createTask(cmd, input);
+            try {
+                createTask(cmd, input);
+            } catch (DukeInvalidDateException e) {
+                ui.showAddTaskError(e.getMessage());
+            }
             return true;
         }
         return true;
@@ -77,7 +81,7 @@ public class Parser {
         return null;
     }
 
-    private void parseAndAndEvent(String info) {
+    private void parseAndAndEvent(String info) throws DukeInvalidDateException {
         if (!info.matches(".*\\b /by \\b.*") || !info.matches(".*\\b /to \\b.*")) {
             ui.showAddTaskError("An event must contain a description," +
                     " start and end specified with `/by` and `/to`!");
@@ -98,7 +102,7 @@ public class Parser {
             }
         }
     }
-    private void createTask(Command cmd, String input) {
+    private void createTask(Command cmd, String input) throws DukeInvalidDateException {
         String[] splitInput = input.split(" ");
         if (splitInput.length < 2) {
             ui.showAddTaskError("Task description cannot be empty!");

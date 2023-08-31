@@ -8,25 +8,23 @@ public class Event extends Task{
     private final DateTimeFormatter parseFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
     private LocalDateTime start;
     private LocalDateTime deadline;
-    public Event(String task, String start, String deadline) {
+    public Event(String task, String start, String deadline) throws DukeInvalidDateException {
         super(task);
         try {
             this.start = LocalDateTime.parse(start, parseFormatter);
         } catch (DateTimeParseException e) {
-            System.out.println("Incorrect datetime format used for /by, defaulting to current datetime");
-            this.start = LocalDateTime.now();
+            throw new DukeInvalidDateException("Incorrect datetime format used for /by.");
         }
         try {
             this.deadline = LocalDateTime.parse(deadline, parseFormatter);
         } catch (DateTimeParseException e) {
-            System.out.println("Incorrect datetime format used for /to, defaulting to current datetime");
-            this.deadline = LocalDateTime.now();
+            throw new DukeInvalidDateException("Incorrect datetime format used for /to.");
         }
     }
 
     @Override
     public String saveString() {
-        String completedString = completed ? "X|" : " |";
+        String completedString = isCompleted ? "X|" : " |";
 
         return "E|" + completedString + task + "|" + start.format(parseFormatter) + "|" + deadline.format(parseFormatter);
     }

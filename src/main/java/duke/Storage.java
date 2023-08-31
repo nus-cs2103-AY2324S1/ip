@@ -53,17 +53,25 @@ public class Storage {
                                 tempTaskList.add(new Todo(datum[2]));
                                 break;
                             case "D":
-                                tempTaskList.add(new Deadline(datum[2], datum[3]));
+                                try {
+                                    tempTaskList.add(new Deadline(datum[2], datum[3]));
+                                } catch (DukeInvalidDateException e) {
+                                    break;
+                                }
                                 break;
                             case "E":
-                                tempTaskList.add(new Event(datum[2], datum[3], datum[4]));
+                                try {
+                                    tempTaskList.add(new Event(datum[2], datum[3], datum[4]));
+                                } catch (DukeInvalidDateException e) {
+                                    break;
+                                }
                                 break;
                             default:
                                 System.out.println("Illegal task type, skipping");
                                 break;
                         }
                         if (datum[1].equals("X")) {
-                            tempTaskList.get(tempTaskList.size() - 1).setCompleted(true);
+                            tempTaskList.get(tempTaskList.size() - 1).setIsCompleted(true);
                         }
                     } catch (IndexOutOfBoundsException e) {
                         System.out.println("Illegal line in save file, skipping");

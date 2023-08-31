@@ -7,19 +7,18 @@ import java.time.format.DateTimeFormatter;
 public class Deadline extends Task{
     private final DateTimeFormatter parseFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
     private LocalDateTime deadline;
-    public Deadline(String task, String deadline) {
+    public Deadline(String task, String deadline) throws DukeInvalidDateException {
         super(task);
         try {
             this.deadline = LocalDateTime.parse(deadline, parseFormatter);
         } catch (DateTimeParseException e) {
-            System.out.println("Incorrect datetime format used, defaulting to current datetime");
-            this.deadline = LocalDateTime.now();
+            throw new DukeInvalidDateException("Incorrect datetime format used.");
         }
     }
 
     @Override
     public String saveString() {
-        String completedString = completed ? "X|" : " |";
+        String completedString = isCompleted ? "X|" : " |";
         return "D|" + completedString + task + "|" + deadline.format(parseFormatter);
     }
 

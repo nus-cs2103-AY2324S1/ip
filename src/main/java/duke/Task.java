@@ -2,19 +2,19 @@ package duke;
 
 abstract public class Task {
     protected String task;
-    protected Boolean completed = false;
+    protected Boolean isCompleted = false;
     public Task(String task) {
         this.task = task;
     }
 
-    public void setCompleted(Boolean completed) {
-        this.completed = completed;
+    public void setIsCompleted(Boolean isCompleted) {
+        this.isCompleted = isCompleted;
     }
 
     abstract public String saveString();
 
     public String toString() {
-        String box = this.completed ? "[X]": "[ ]";
+        String box = this.isCompleted ? "[X]": "[ ]";
         return box + " " + this.task;
     }
 }

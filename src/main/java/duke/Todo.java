@@ -7,7 +7,7 @@ public class Todo extends Task{
 
     @Override
     public String saveString() {
-        String completedString = completed ? "X|" : " |";
+        String completedString = isCompleted ? "X|" : " |";
         return "T|" + completedString + task;
     }
     @Override
