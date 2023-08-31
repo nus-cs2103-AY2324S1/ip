@@ -9,6 +9,7 @@ repositories {
 }
 
 dependencies {
+    implementation 'com.google.code.gson:gson:2.10.1'
     testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.10.0'
     testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.10.0'
 }
@@ -28,15 +29,21 @@ test {
 }
 
 application {
-    mainClass.set("seedu.duke.Duke")
+    mainClass.set("Linus")
 }
 
 shadowJar {
-    archiveBaseName = "duke"
+    archiveBaseName = "linus"
     archiveClassifier = null
     dependsOn("distZip", "distTar")
 }
 
+jar {
+    enabled = true
+}
+
 run{
     standardInput = System.in
+    enableAssertions = true
 }
+

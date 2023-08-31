@@ -3,7 +3,7 @@ import java.util.List;
 import java.util.ArrayList;
 
 public class Bot {
-    List<Task> tasks = new ArrayList<Task>();
+    Storage storage = new Storage();
 
     public static enum Command {
         LIST,
@@ -27,32 +27,6 @@ public class Bot {
         MessagePrinter.print("Bye. Hope to see you again soon!");
     }
 
-    public void list() {
-        String listOfItems = "Here are the tasks in your list:\n";
-        for (int i = 0; i < tasks.size(); ++i) {
-            listOfItems += (i + 1) + "."
-                    + tasks.get(i).toString() + "\n";
-        }
-        MessagePrinter.print(listOfItems);
-    }
-
-    public void add(Task task) {
-        tasks.add(task);
-        int numOfTasks = tasks.size();
-        MessagePrinter.print("Got it. I've added this task:\n"
-                + "  " + task + "\n"
-                + "Now you have " + numOfTasks + " task" + (numOfTasks > 1 ? "s" : "") + " in the list.");
-    }
-
-    public void delete(int index) {
-        Task task = tasks.get(index);
-        tasks.remove(index);
-        int numOfTasks = tasks.size();
-        MessagePrinter.print("Noted. I've removed this task:\n"
-                + "  " + task + "\n"
-                + "Now you have " + numOfTasks + " task" + (numOfTasks > 1 ? "s" : "") + " in the list.");
-    }
-
     public void chat() {
         Scanner sc = new Scanner(System.in);
         while (sc.hasNextLine()) {
@@ -69,38 +43,26 @@ public class Bot {
                 case BYE:
                     break;
                 case LIST:
-                    this.list();
+                    storage.list();
                     continue;
                 case MARK:
                     index = Integer.parseInt(data);
-                    if (index <= 0 || index > tasks.size()) {
-                        throw new LinusException("Cannot mark task. Please provide a valid index.");
-                    }
-
-                    tasks.get(index - 1).mark();
+                    storage.mark(index);
                     continue;
                 case UNMARK:
                     index = Integer.parseInt(data);
-                    if (index <= 0 || index > tasks.size()) {
-                        throw new LinusException("Cannot unmark task. Please provide a valid index.");
-                    }
-
-                    tasks.get(index - 1).unmark();
+                    storage.unmark(index);
                     continue;
                 case DELETE:
                     index = Integer.parseInt(data);
-                    if (index <= 0 || index > tasks.size()) {
-                        throw new LinusException("Cannot delete task. Please provide a valid index.");
-                    }
-
-                    this.delete(index - 1);
+                    storage.delete(index);
                     continue;
                 case TODO:
                     if (data == "") {
                         throw new LinusException("☹ OOPS!!! The description of a todo cannot be empty.");
                     }
                     description = data;
-                    this.add(new ToDo(description));
+                    storage.add(new ToDo(description));
                     continue;
                 case DEADLINE:
                     if (data == "") {
@@ -115,7 +77,7 @@ public class Bot {
                     description = items[0];
                     String by = items[1];
 
-                    this.add(new Deadline(description, by));
+                    storage.add(new Deadline(description, by));
                     continue;
                 case EVENT:
                     if (data == "") {
@@ -130,7 +92,7 @@ public class Bot {
                     String from = items[1];
                     String to = items[2];
 
-                    this.add(new Event(description, from, to));
+                    storage.add(new Event(description, from, to));
                     continue;
                 }
                 break;
