@@ -313,6 +313,68 @@ public class DukeTaskList {
     }
 
     /**
+     * Finds and prints the list of tasks that the user has
+     * searched for. Only prints tasks that contain the search
+     * String.
+     *
+     * @author Tan Kerway
+     * @param input the input String the user has typed in,
+     *              including the "find" command
+     */
+    public void handleFind(String input) {
+        // case where the input is empty
+        if (this.tasks.isEmpty()) {
+            try {
+                this.errorUI.handleEmptyTasksList();
+            } catch (DukeException ignored) {
+            }
+            return;
+        }
+        // get the substring that is the search query
+        String query = input.substring(4).trim();
+        // get the list of tasks that contain the query String
+        ArrayList<Task> matchingTasks = getMatchingTasks(query);
+        // print the matching tasks
+        printMatchingTasks(matchingTasks);
+    }
+
+    /**
+     * Returns the list of tasks that match the given query.
+     *
+     * @author Tan Kerway
+     * @param query the input string
+     * @return the list of tasks that contain the query
+     */
+    private ArrayList<Task> getMatchingTasks(String query) {
+        ArrayList<Task> matchingTasks = new ArrayList<>();
+        for (Task currentTask : this.tasks) {
+            if (currentTask.getDescription().contains(query)) {
+                matchingTasks.add(currentTask);
+            }
+        }
+        return matchingTasks;
+    }
+
+    /**
+     * Prints the list of matching tasks to the console.
+     *
+     * @author Tan Kerway
+     * @param matchingTasks the list of tasks that match the query
+     */
+    private void printMatchingTasks(ArrayList<Task> matchingTasks) {
+        System.out.println("------------------------------------------------------------------------");
+        // gc: task list is empty
+        if (matchingTasks.isEmpty()) {
+            System.out.println("No nyatching tasks found!");
+        } else {
+            System.out.println("Here are the nyatching tasks in your list:");
+            for (int i = 0; i < matchingTasks.size(); i++) {
+                System.out.println((i + 1) + "." + matchingTasks.get(i));
+            }
+        }
+    }
+
+    /**
      * Deletes the task at the given index.
      *
      * @author Tan Kerway

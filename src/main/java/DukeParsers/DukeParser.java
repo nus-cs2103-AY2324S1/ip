@@ -58,6 +58,11 @@ public class DukeParser {
             this.taskList.handleDelete(input);
             return true;
         }
+        // case where the input is to find matching tasks
+        if (input.startsWith("find")) {
+            this.taskList.handleFind(input);
+            return true;
+        }
         Task createdTask = this.taskList.addTask(input);
         if (createdTask != null) {
             this.ui.echoTaskAdded(createdTask, this.taskList.getTasks().size());
