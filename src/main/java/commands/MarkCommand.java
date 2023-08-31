@@ -33,7 +33,7 @@ public class MarkCommand extends Command {
         }
 
         // Mark or unmark the task if the taskCount given is correct.
-        Task task = tasks.mark(taskCount, isDone);
+        Task task = tasks.mark(taskCount - 1, isDone);
 
         String success = isDone
             ? "Nice, I've marked this task as done:"

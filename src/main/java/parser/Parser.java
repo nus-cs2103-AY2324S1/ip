@@ -57,7 +57,7 @@ public class Parser {
         );
     }
 
-    private Command parseMarkCommand(String input, String type) throws DukeException{
+    private Command parseMarkCommand(String input, String type) throws DukeException {
         String[] parseArr = input.split(" ");
         if (parseArr.length < 2) {
             throw new DukeException(new String[] {

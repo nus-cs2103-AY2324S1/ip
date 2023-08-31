@@ -34,21 +34,21 @@ public class TaskList {
 
     public Task mark(int taskIndex, boolean isDone) throws DukeException {
         // User tries to mark/unmark a task that is out of bounds.
-        if (taskIndex < 0 || taskIndex > getSize()) {
+        if (taskIndex < 0 || taskIndex >= getSize()) {
             throw new DukeException(String.format(
                 "Unable to %s task %d :( You have %d task(s) stored.",
                 isDone ? "mark" : "unmark", taskIndex, getSize()
             ));
         }
 
-        Task task = getTask(taskIndex - 1);
+        Task task = getTask(taskIndex);
         if (isDone) task.mark(); 
-        else      task.unmark();
+        else        task.unmark();
         return task;
     }
 
     public Task delete(int taskIndex) throws DukeException {
-        if (taskIndex < 0 || taskIndex > getSize()) {
+        if (taskIndex < 0 || taskIndex >= getSize()) {
             throw new DukeException(String.format(
                 "Unable to " 
                     + Ui.cTxt("delete", Ui.COLOR.PURPLE) 
