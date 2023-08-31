@@ -1,3 +1,9 @@
+import java.io.File;
+import java.io.FileWriter;
+import java.io.PrintWriter;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.MissingFormatArgumentException;
@@ -85,6 +91,21 @@ public class Ax {
             String[] inputs = input.split(" ", 2);
             String[] dates = input.split("/(by|from|to) ");
             if (input.equals("bye")) { // check if it is bye, then return true, so it will exit the loop
+                // delete existing file
+                Path saveFile = Paths.get("data/save.txt");
+                System.out.println(saveFile.toAbsolutePath());
+                if (saveFile.toFile().exists()) {
+                    Files.delete(saveFile);
+                }
+                boolean success = saveFile.toFile().createNewFile();
+                // write new file
+                FileWriter fileWriter = new FileWriter(saveFile.toFile());
+                PrintWriter printWriter = new PrintWriter(fileWriter);
+                for (ListItem listItem : listItems) {
+                    System.out.println(listItem);
+                    printWriter.println(listItem);
+                }
+
                 return true;
             } else if (input.equals("list")) {
                 // call the list function
@@ -142,6 +163,8 @@ public class Ax {
             );
         } catch (Exception e) {
             System.out.println("I DONT KNOW WHATS HAPPENING!!! SAVE ME 🆘");
+            System.out.println("But seriously, its this ");
+            System.out.print("error = " + e);
         }
         return false;
     }
