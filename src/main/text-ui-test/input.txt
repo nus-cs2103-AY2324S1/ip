@@ -1,0 +1,12 @@
+list
+todo go for a walk
+unmark 0
+unmark 1
+mark 1
+mark 1
+deadline CS2103T Quiz /by 2019-02-14
+event project meeting /from 2019-02-14 /to 2019-02-15
+list
+delete 1
+hello
+bye

@@ -1,0 +1,168 @@
+package duke;
+
+import duke.Deadlines;
+import duke.DukeException;
+import duke.Events;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
+import java.util.Scanner;
+
+public class TaskList {
+    static File taskList;
+    static int taskCount = 0;
+
+    public TaskList(File file) throws FileNotFoundException {
+        taskList = file;
+        taskList.deleteOnExit();
+    }
+
+    public TaskList() {
+        taskList = new File("./src/main/data/tasklist.txt");
+        taskList.deleteOnExit();
+    }
+    static ArrayList<Task> tasks = new ArrayList<>();
+
+    public void printFileContents() {
+        try {
+            Scanner s = new Scanner(taskList);
+            while (s.hasNext()) {
+                System.out.println(s.nextLine());
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println("Error: There are no items in the list!");
+        }
+
+    }
+
+    public void writeToFile() {
+        try {
+            FileWriter fw = new FileWriter(taskList.getPath());
+            fw.write(displayList());
+            fw.close();
+        } catch (IOException e) {
+            System.out.println("Something went wrong: " + e.getMessage());
+        }
+    }
+
+    public static String displayList() {
+        StringBuilder res = null;
+        try {
+            if (taskCount == 0) {
+                throw new DukeException("Error: There are no items in the list!");
+            }
+            res = new StringBuilder(Ui.line);
+            for (int i = 0; i < taskCount; i++) {
+                Task task = tasks.get(i);
+                int index = i + 1;
+                res.append(index).append(task.getTask()).append("\n");
+            }
+            res.append(Ui.line);
+        } catch (DukeException emptyList) {
+            res = new StringBuilder(Ui.line + emptyList.getMessage() + "\n" + Ui.line);
+        }
+        return res.toString();
+    }
+
+    public void delete(String input) {
+        int taskIndex = Integer.parseInt(input.substring(7)) - 1;
+        try {
+            if (taskIndex > taskCount || taskIndex < 0) {
+                throw new DukeException("Error: Invalid duke.Task Index!");
+            } else {
+                int remainingTasks = taskCount - 1;
+                String response = Ui.line + "Got it! I've removed this task:" + "\n" + tasks.get(taskIndex).toString() + "\n"
+                        + "You now have " + remainingTasks + " task(s) in the list" + "\n" + Ui.line;
+                tasks.remove(taskIndex);
+                if (taskCount > 0) {
+                    taskCount--;
+                }
+                System.out.println(response);
+                writeToFile();
+            }
+        } catch (DukeException exception) {
+            System.out.println(Ui.line + exception.getMessage() + "\n" + Ui.line);
+        }
+    }
+
+    public void mark(String input) {
+        int taskIndex = Integer.parseInt(input.substring(5)) - 1;
+        try {
+            if (taskIndex > taskCount || taskIndex < 0) {
+                throw new DukeException("Error: Invalid duke.Task Index!");
+            } else if (tasks.get(taskIndex).isMarked()) {
+                throw new DukeException("Error: duke.Task is already completed!");
+            } else {
+                tasks.get(taskIndex).mark();
+                writeToFile();
+            }
+        } catch (DukeException exception) {
+            System.out.println(Ui.line + exception.getMessage() + "\n" + Ui.line);
+        }
+    }
+
+    public void unMark(String input) {
+        int taskIndex = Integer.parseInt(input.substring(7)) - 1;
+        try {
+            if (taskIndex > taskCount || taskIndex < 0) {
+                throw new DukeException("Error: Invalid duke.Task Index!");
+            } else if (!tasks.get(taskIndex).isMarked()) {
+                throw new DukeException("Error: duke.Task is already marked as incomplete!");
+            } else {
+                tasks.get(taskIndex).unMark();
+                writeToFile();
+            }
+        } catch (DukeException exception) {
+            System.out.println(Ui.line + exception.getMessage() + "\n" + Ui.line);
+        }
+    }
+
+    public void addToList(Task task, int taskId) {
+        int numTasks = taskCount + 1;
+        String response = Ui.line + "Got it! I've added this task:" + "\n" + task.toString() + "\n"
+                + "You now have " + numTasks + " task(s) in the list" + "\n" + Ui.line;
+        tasks.add(taskId, task);
+        if (taskCount < tasks.size()) {
+            taskCount++;
+        }
+        writeToFile();
+        System.out.println(response);
+    }
+
+    public void handleTodo(String input) {
+        String nameOfTask = input.substring(5);
+        ToDos task = new ToDos(nameOfTask);
+        addToList(task, taskCount);
+    }
+
+    public void handleDeadline(String input) {
+        String[] parts = input.split("/by ");
+        String nameOfTask = parts[0].trim().substring(9);
+        try {
+            LocalDate deadline = LocalDate.parse(parts[1].trim());
+            Deadlines task = new Deadlines(nameOfTask, deadline);
+            addToList(task, taskCount);
+        } catch (DateTimeParseException e) {
+            System.out.println("Invalid Date Format! Follow: YYYY-MM-DD");
+        }
+    }
+
+    public void handleEvent(String input) {
+        String[] taskAndTime = input.split("/from ");
+        String[] fromAndTo = taskAndTime[1].split("/to ");
+        try {
+            LocalDate start = LocalDate.parse(fromAndTo[0].trim());
+            LocalDate end = LocalDate.parse(fromAndTo[1].trim());
+            String nameOfTask = taskAndTime[0].trim().substring(6);
+            Events task = new Events(nameOfTask, start, end);
+            addToList(task, taskCount);
+        } catch (DateTimeParseException e) {
+            System.out.println("Invalid Date Format! Follow: YYYY-MM-DD");
+        }
+    }
+}
