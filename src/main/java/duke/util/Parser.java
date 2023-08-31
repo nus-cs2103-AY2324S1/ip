@@ -4,13 +4,22 @@ import duke.Duke;
 import duke.exception.EmptyDescriptionException;
 import duke.exception.InvalidCommandException;
 
-import duke.task.Task;
 import duke.task.Todo;
 import duke.task.Deadline;
 import duke.task.Event;
 
 import java.io.IOException;
 
+/**
+ * Represents a Parser that parses user input for SeeWhyAre bot to perform corresponding actions.
+ *
+ * <p>CS2103T AY23/24 Semester 1
+ * Individual Project
+ * SeeWhyAre Bot
+ * 31 Aug 2023
+ *
+ * @author Freddy Chen You Ren
+ */
 public class Parser {
     private static String HORIZONTAL_LINE = "    ____________________________________________________________"; //60 underscores.
     private TaskList taskList;
@@ -19,6 +28,12 @@ public class Parser {
         BYE, LIST, MARK, UNMARK, DELETE, DEADLINE, TODO, EVENT, UNKNOWN
     }
 
+    /**
+     * Constructs a Parser with the specified task list and CLI user interface.
+     *
+     * @param taskList The task list to work with.
+     * @param ui The CLI user interface to display messages.
+     */
     public Parser(TaskList taskList, Ui ui) {
         this.taskList = taskList;
         this.ui = ui;
@@ -28,10 +43,25 @@ public class Parser {
         System.out.println(HORIZONTAL_LINE);
     }
 
+    /**
+     * Retrieves the command keyword from the user input.
+     * The command keyword is the first word from the user input.
+     *
+     * @param line The user input to be parsed.
+     * @return The command keyword extracted from the user input.
+     */
     private String getCommand (String line) {
         return line.trim().split("\\s+")[0].toUpperCase();
     }
 
+    /**
+     * Parses user input and performs the corresponding action.
+     *
+     * @param userInput The user's input to be parsed.
+     * @throws IOException If there is an issue with I/O operations.
+     * @throws EmptyDescriptionException If a description is required but not provided.
+     * @throws InvalidCommandException If an invalid command is entered.
+     */
     public void parseInput(String userInput)
             throws IOException, EmptyDescriptionException, InvalidCommandException {
         try {
@@ -84,7 +114,7 @@ public class Parser {
             e.printExceptionMessage();
         } catch (ArrayIndexOutOfBoundsException e) {
             System.out.println("     Please enter valid Integer index!");
-            System.out.printf("     You currently have %d tasks", taskList.taskList.size());
+            System.out.printf("     You currently have %d tasks", taskList.listOfTasks.size());
         } catch (Exception e) {
             System.out.println(HORIZONTAL_LINE);
             System.out.println("     Very Invalid command! Please enter valid commands");
