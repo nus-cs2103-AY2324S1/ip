@@ -7,7 +7,7 @@ import java.util.Scanner;
 import java.util.stream.Collectors;
 
 public class Duke {
-    private static final List<Task> tasks = new ArrayList<>();
+    private static final TaskList taskList = new TaskList();
     private static final Ui ui = new Ui();
     private static final Storage storage = new Storage(ui);
 
@@ -20,7 +20,7 @@ public class Duke {
         Scanner scanner = new Scanner(System.in);
         String input;
 
-        tasks.addAll(storage.loadTasks());
+        taskList.getTasks().addAll(storage.loadTasks());
         ui.printGreeting();
 
         while (true) {
@@ -37,14 +37,14 @@ public class Duke {
                         return;
 
                     case LIST:
-                        ui.printList(tasks);
+                        ui.printList(taskList.getTasks());
                         break;
 
                     case TODO:
                         ToDo todo = new ToDo(input.substring(5));
-                        tasks.add(todo);
-                        ui.printTaskAdded(todo, tasks.size());
-                        storage.saveTasks(tasks);
+                        taskList.add(todo);
+                        ui.printTaskAdded(todo, taskList.size());
+                        storage.saveTasks(taskList.getTasks());
                         break;
 
                     case DEADLINE:
@@ -53,9 +53,9 @@ public class Duke {
                             throw new DukeException("Deadline format is incorrect.");
                         }
                         Deadline deadline = new Deadline(parts[0], parts[1]);
-                        tasks.add(deadline);
-                        ui.printTaskAdded(deadline, tasks.size());
-                        storage.saveTasks(tasks);
+                        taskList.add(deadline);
+                        ui.printTaskAdded(deadline, taskList.size());
+                        storage.saveTasks(taskList.getTasks());
                         break;
 
                     case EVENT:
@@ -65,35 +65,35 @@ public class Duke {
                             throw new DukeException("Event format is incorrect.");
                         }
                         Event event = new Event(eventParts[0], timeParts[0], timeParts[1]);
-                        tasks.add(event);
-                        ui.printTaskAdded(event, tasks.size());
-                        storage.saveTasks(tasks);
+                        taskList.add(event);
+                        ui.printTaskAdded(event, taskList.size());
+                        storage.saveTasks(taskList.getTasks());
                         break;
 
                     case MARK:
                         int taskNumberMark = Integer.parseInt(input.split(" ")[1]);
-                        tasks.get(taskNumberMark - 1).markAsDone();
-                        ui.printMarkedAsDone(tasks.get(taskNumberMark - 1));
-                        storage.saveTasks(tasks);
+                        taskList.get(taskNumberMark - 1).markAsDone();
+                        ui.printMarkedAsDone(taskList.get(taskNumberMark - 1));
+                        storage.saveTasks(taskList.getTasks());
                         break;
 
                     case UNMARK:
                         int taskNumberUnmark = Integer.parseInt(input.split(" ")[1]);
-                        tasks.get(taskNumberUnmark - 1).unmark();
-                        ui.printMarkedAsNotDone(tasks.get(taskNumberUnmark - 1));
-                        storage.saveTasks(tasks);
+                        taskList.get(taskNumberUnmark - 1).unmark();
+                        ui.printMarkedAsNotDone(taskList.get(taskNumberUnmark - 1));
+                        storage.saveTasks(taskList.getTasks());
                         break;
 
                     case DELETE:
                         int taskNumberDelete = Integer.parseInt(input.split(" ")[1]);
-                        Task removedTask = tasks.remove(taskNumberDelete - 1);
-                        ui.printTaskDeleted(removedTask, tasks.size());
-                        storage.saveTasks(tasks);
+                        Task removedTask = taskList.remove(taskNumberDelete - 1);
+                        ui.printTaskDeleted(removedTask, taskList.size());
+                        storage.saveTasks(taskList.getTasks());
                         break;
 
                     case TASKS_ON_DATE:
                         LocalDate givenDate = Parser.getLocalDate(input);
-                        List<Task> tasksOnGivenDate = tasks.stream()
+                        List<Task> tasksOnGivenDate = taskList.getTasks().stream()
                                 .filter(task ->
                                         (task instanceof Deadline && ((Deadline) task).getBy().toLocalDate().isEqual(givenDate)) ||
                                                 (task instanceof Event && Parser.isWithinEventDate((Event) task, givenDate)))
@@ -111,6 +111,7 @@ public class Duke {
             ui.printHorizontalLine();
         }
     }
+
 
     public static void main(String[] args) {
         echoMessages();
