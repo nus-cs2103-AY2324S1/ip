@@ -17,7 +17,7 @@ public class Deadline extends Task {
     }
 
     public String toText() {
-        return "Deadline - "  + isDone + " - " + name + " -" + deadline + System.lineSeparator();
+        return "Deadline - "  + isDone + " - " + name + " - " + deadline + System.lineSeparator();
     }
 
     @Override
