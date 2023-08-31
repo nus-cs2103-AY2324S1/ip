@@ -1,15 +1,24 @@
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 
 public class BenBen {
     //private static String[] arr;
     private static Task[] arr;
     private static ArrayList<Task> arrlst;
+
+
+    private static String FILEPATH = "./src/main/java/tasks.txt";
+
+    private static File FILE;
     //private static boolean[] bool;
     private static final String line ="_______________________________________\n";
-    private static int counter = 0;
 
-    public static class Task {
+    public static abstract class Task {
         protected String description;
         protected boolean isDone;
         public Task(String description) {
@@ -36,6 +45,8 @@ public class BenBen {
         public String description() {
             return this.description;
         }
+
+        public abstract String getLog() ;
     }
 
     public static class Todo extends Task {
@@ -46,6 +57,12 @@ public class BenBen {
         @Override
         public String toString() {
             return "[T] " + super.toString();
+        }
+
+        @Override
+        public String getLog() {
+            return "T | " + (isDone? "1" : "0")
+                    + " | " + this.description + System.lineSeparator();
         }
     }
 
@@ -59,6 +76,19 @@ public class BenBen {
         public String toString() {
             return "[D] " + super.toString() + " (by: " + ddl + ")";
         }
+
+        public String getDdl() {
+            return ddl;
+        }
+
+        @Override
+        public String getLog() {
+            return "D | " + (isDone? "1" : "0")
+                    + " | " + this.description
+                    + " | " + this.ddl + System.lineSeparator();
+        }
+
+
     }
 
     public static class Event extends Task {
@@ -72,6 +102,22 @@ public class BenBen {
         @Override
         public String toString() {
             return "[E] " + super.toString() + " (from: " + startTime + " to: " + endTime + ")";
+        }
+
+        public String getStartTime() {
+            return startTime;
+        }
+
+        public String getEndTime() {
+            return endTime;
+        }
+
+        @Override
+        public String getLog() {
+            return "E | " + (isDone? "1" : "0")
+                    + " | " + this.description
+                    + " | " + this.startTime
+                    + " | " + this.endTime + System.lineSeparator();
         }
     }
 
@@ -107,11 +153,11 @@ public class BenBen {
         Task t = new Todo(des);
         //arr[counter] = t;
         arrlst.add(t);
-        counter++;
+        //counter++;
         System.out.println(line);
         System.out.println("Got it. I've added this task:\n");
         System.out.println(t.toString());
-        System.out.println("Now you have " + counter + " tasks in the list.");
+        System.out.println("Now you have " + arrlst.size() + " tasks in the list.");
         System.out.println(line);
     }
 
@@ -142,11 +188,10 @@ public class BenBen {
         Task t = new Deadline(des, ddl);
         //arr[counter] = t;
         arrlst.add(t);
-        counter++;
         System.out.println(line);
         System.out.println("Got it. I've added this task:\n");
         System.out.println(t.toString());
-        System.out.println("Now you have " + counter + " tasks in the list.");
+        System.out.println("Now you have " + arrlst.size() + " tasks in the list.");
         System.out.println(line);
     }
 
@@ -189,13 +234,12 @@ public class BenBen {
         Task t = new Event(des, start, end);
         //arr[counter] = t;
         arrlst.add(t);
-        counter++;
 
 
         System.out.println(line);
         System.out.println("Got it. I've added this task:\n");
         System.out.println(t.toString());
-        System.out.println("Now you have " + counter + " tasks in the list.");
+        System.out.println("Now you have " + arrlst.size() + " tasks in the list.");
         System.out.println(line);
     }
 
@@ -208,7 +252,7 @@ public class BenBen {
         } else {
             System.out.println(line);
             System.out.println("Here are the tasks in your list:");
-            for (int i = 0; i < counter; i++) {
+            for (int i = 0; i < arrlst.size(); i++) {
                 System.out.println((i + 1) + "." + arrlst.get(i).toString());
             }
             System.out.println(line);
@@ -284,11 +328,11 @@ public class BenBen {
             //[x - 1].unmark();
             Task temp = arrlst.get(x - 1);
             arrlst.remove(x - 1);
-            counter = counter - 1;
+            //counter = counter - 1;
             System.out.println(line);
             System.out.println("Noted. I've removed this task:\n");
             System.out.println(temp.toString());
-            System.out.println("Now you have " + counter + " tasks in the list.");
+            System.out.println("Now you have " + arrlst.size() + " tasks in the list.");
             System.out.println(line);
         } catch (NumberFormatException e) {
             throw new BenBenException("Please use an integer value to indicate your task!");
@@ -315,31 +359,37 @@ public class BenBen {
         if (!bool && next.startsWith("mark")) {
             mark(next);
             bool = true;
+            writeFile();
         }
 
         if (!bool && next.startsWith("unmark")) {
             unmark(next);
             bool = true;
+            writeFile();
         }
 
         if (!bool && next.startsWith("todo")) {
             todo(next);
             bool = true;
+            writeFile();
         }
 
         if (!bool && next.startsWith("deadline")) {
             deadline(next);
             bool = true;
+            writeFile();
         }
 
         if (!bool && next.startsWith("event")) {
             event(next);
             bool = true;
+            writeFile();
         }
 
         if (!bool && next.startsWith("delete")) {
             remove(next);
             bool = true;
+            writeFile();
         }
 
         if (!bool) {
@@ -347,10 +397,90 @@ public class BenBen {
         }
 
     }
+
+    public static void writeFile() {
+        try {
+            FileWriter fw = new FileWriter(FILEPATH);
+            String content = "";
+            for (int i = 0; i < arrlst.size(); i++) {
+                Task t = arrlst.get(i);
+                content = content + t.getLog();
+            }
+            fw.write(content);
+            fw.close();
+        } catch (IOException e) {
+            throw new BenBenException("Failed to write to file!" + e.getMessage());
+        }
+    }
+
+
+    public static void readFile() throws BenBenException {
+        try {
+
+            FILE = new File(FILEPATH);
+            //System.out.println(FILE.exists());
+           if (!FILE.exists()) {
+                boolean isCreated = FILE.createNewFile();
+                //System.out.println(isCreated + "new file created");
+            }
+            Scanner sc = new Scanner(FILE);
+            //System.out.println("next line? : " + sc.hasNext());
+            while (sc.hasNext()) {
+                boolean canRead = false;
+                String task = sc.nextLine();
+                //System.out.println(task);
+                String[] strSplit = task.split("\\|");
+
+                for (int i = 0; i < strSplit.length; i++) {
+                    strSplit[i] = strSplit[i].trim();
+                    //System.out.println(strSplit[i]);
+                }
+                //System.out.println("length: " + strSplit.length);
+                if (strSplit[0].startsWith("T") && strSplit.length == 3) {
+                    Task nextTask = new Todo(strSplit[2]);
+//                    System.out.println(strSplit[1]);
+//                    System.out.println(strSplit[1].equals("1"));
+                    if(strSplit[1].equals("1")) {
+                        nextTask.mark();
+                    }
+                    arrlst.add(nextTask);
+                    canRead = true;
+
+                }
+                if (strSplit[0].startsWith("D") && strSplit.length == 4) {
+                    Task nextTask = new Deadline(strSplit[2], strSplit[3]);
+                    if(strSplit[1].startsWith("1")) {
+                        nextTask.mark();
+                    }
+                    arrlst.add(nextTask);
+                    canRead = true;
+                }
+                if (strSplit[0].startsWith("E") && strSplit.length == 5) {
+                    Task nextTask = new Event(strSplit[2], strSplit[3], strSplit[4]);
+                    if (strSplit[1].startsWith("1")) {
+                        nextTask.mark();
+                    }
+                    arrlst.add(nextTask);
+                    canRead = true;
+                }
+                if (!canRead) {
+                    throw new BenBenException("The file content is corrupted, please report this to admin");
+                }
+            }
+
+        } catch (FileNotFoundException e) {
+            throw new BenBenException("The local file is not found in the directory");
+        } catch (IOException e) {
+            throw new BenBenException("IOException found!" + e.getMessage());
+        }
+
+    }
     public static void main(String[] args) throws BenBenException{
+            arrlst = new ArrayList<Task>();
+            readFile();
             Scanner sc = new Scanner(System.in);
             //arr = new Task[100];
-            arrlst = new ArrayList<Task>();
+
             System.out.println(line);
             System.out.println("Hello! I'm BenBen.\n" +
                     "What can I do for you?");
