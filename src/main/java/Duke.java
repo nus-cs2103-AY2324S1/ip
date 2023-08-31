@@ -1,5 +1,6 @@
 import java.io.*;
 import java.nio.file.Path;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -57,6 +58,9 @@ public class Duke {
         } catch (IOException e) {
             throw new RuntimeException(e);
         } catch (TaskFormatException e) {
+            System.out.println(e.getMessage());
+            return;
+        } catch (DateTimeParseException e) {
             System.out.println(e.getMessage());
             return;
         }
@@ -185,6 +189,9 @@ public class Duke {
                 }
             }
             catch(CommandArgumentException e){
+                System.out.println(e.getMessage());
+            }
+            catch (DateTimeParseException e) {
                 System.out.println(e.getMessage());
             }
             System.out.println(HORIZONTAL_LINE);

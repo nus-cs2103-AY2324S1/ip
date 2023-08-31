@@ -1,9 +1,19 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
+
 public class Event extends Task {
 
-    protected String startTime;
-    protected String endTime;
+    protected LocalDateTime startTime;
+    protected LocalDateTime endTime;
 
-    public Event(String description, String startTime, String endTime){
+    public Event(String description, String startTimeStr, String endTimeStr) throws DateTimeParseException {
+        this(
+                description,
+                LocalDateTime.parse(startTimeStr, Task.INPUT_DATE_TIME_FORMATTER),
+                LocalDateTime.parse(endTimeStr, Task.INPUT_DATE_TIME_FORMATTER));
+    }
+
+    public Event(String description, LocalDateTime startTime, LocalDateTime endTime) {
         super(description);
         this.startTime = startTime;
         this.endTime = endTime;
@@ -15,8 +25,8 @@ public class Event extends Task {
                 "E",
                 this.isDone ? "X" : " ",
                 this.description,
-                this.startTime,
-                this.endTime,
+                this.startTime.format(Task.INPUT_DATE_TIME_FORMATTER),
+                this.endTime.format(Task.INPUT_DATE_TIME_FORMATTER),
         };
         String commaString = String.join(",", commaStringValues);
         return commaString;
@@ -24,6 +34,8 @@ public class Event extends Task {
 
     @Override
     public String toString(){
-        return "[E]" + super.toString() + " (from: " + this.startTime + " to: " + this.endTime + ")";
+        return "[E]" + super.toString()
+                + " (from: " + this.startTime.format(Task.DISPLAY_DATE_TIME_FORMATTER)
+                + " to: " + this.endTime.format(Task.DISPLAY_DATE_TIME_FORMATTER) + ")";
     }
 }

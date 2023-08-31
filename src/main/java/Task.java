@@ -1,7 +1,15 @@
 import java.io.Serializable;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeFormatterBuilder;
+import java.time.format.DateTimeParseException;
 import java.util.regex.Pattern;
 
 public class Task implements Serializable {
+    public static final DateTimeFormatter INPUT_DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern(
+            "uuuu-MM-dd HHmm");
+    public static final DateTimeFormatter DISPLAY_DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern(
+            "dd LLL yyyy hh:mm a");
     protected String description;
     protected boolean isDone;
 
@@ -30,7 +38,7 @@ public class Task implements Serializable {
         return true;
     }
 
-    public static Task fromString(String string) throws TaskFormatException {
+    public static Task fromString(String string) throws TaskFormatException, DateTimeParseException {
         String[] args = string.split(",");
         if (args.length < 2) {
             throw new TaskFormatException("Task string is too short!");
