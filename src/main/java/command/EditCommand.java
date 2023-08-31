@@ -2,6 +2,7 @@ package command;
 import duke.TaskList;
 import duke.Ui;
 import duke.Storage;
+import exception.DukeException;
 
 /**
  * command.Command to edit a task in the task.Task List.
@@ -25,7 +26,7 @@ public class EditCommand extends Command {
         this.ind = ind;
     }
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage store) {
+    public void execute(TaskList tasks, Ui ui, Storage store) throws DukeException {
         String action = tasks.editTask(editType, ind);
         ui.respondUser(action);
     }
