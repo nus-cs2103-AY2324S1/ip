@@ -19,10 +19,10 @@ public class Event extends Task {
      * @param startTime The start time of this event.
      * @param endTime The endt time of this event.
      */
-    public Event(String description, String startTime, String endTime) {
+    public Event(String description, LocalDateTime startTime, LocalDateTime endTime) {
         super(description);
-        this.startTime = LocalDateTime.parse(startTime, Parser.outputFormat);
-        this.endTime = LocalDateTime.parse(endTime, Parser.outputFormat);
+        this.startTime = startTime;
+        this.endTime = endTime;
     }
 
 
@@ -34,6 +34,7 @@ public class Event extends Task {
     @Override
     public String toString() {
 
-        return "[E]" + super.toString() + " (from: " + startTime + " to: " + endTime + ")";
+        return "[E]" + super.toString() + " (from: " + startTime.format(Parser.outputFormat) +
+                " to: " + endTime.format(Parser.outputFormat) + ")";
     }
 }

@@ -63,6 +63,14 @@ public class Storage {
             System.out.println(e.getMessage());
             e.printStackTrace();
             throw new DukeException("An error occurred when loading data. Try again.");
+        } finally {
+            if (bufferedReader != null) {
+                try {
+                    bufferedReader.close();
+                } catch (IOException e) {
+                    throw new DukeException("An exception occurred when closing file reader.");
+                }
+            }
         }
         return tasks;
     }
@@ -89,10 +97,17 @@ public class Storage {
                 bufferedWriter.write(s[i]);
                 bufferedWriter.newLine();
             }
-            bufferedWriter.close();
 
         } catch (IOException e) {
             throw new DukeException("Error in saving data. Data lost.");
+        } finally {
+            if (bufferedWriter != null) {
+                try {
+                    bufferedWriter.close();
+                } catch (IOException e) {
+                    throw new DukeException("An error occurred when closing file writer.");
+                }
+            }
         }
 
 

@@ -13,9 +13,9 @@ public class Deadline extends Task {
      * @param description The name of this deadline task.
      * @param endTime The deadline of task.
      */
-    public Deadline(String description, String endTime) {
+    public Deadline(String description, LocalDateTime endTime) {
         super(description);
-        this.endTime = LocalDateTime.parse(endTime, Parser.outputFormat);
+        this.endTime = endTime;
     }
 
     /**
@@ -25,6 +25,6 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + endTime + ")";
+        return "[D]" + super.toString() + " (by: " + endTime.format(Parser.outputFormat) + ")";
     }
 }

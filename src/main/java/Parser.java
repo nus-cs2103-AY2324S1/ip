@@ -1,3 +1,5 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;
 import java.time.LocalDateTime;
@@ -10,7 +12,7 @@ import java.time.format.DateTimeFormatter;
  */
 public class Parser {
 
-    public static DateTimeFormatter inputFormat = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+    public static DateTimeFormatter inputFormat = DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm");
     public static DateTimeFormatter outputFormat = DateTimeFormatter.ofPattern("d MMM yyyy hh:mm a");
 
 
@@ -95,33 +97,35 @@ public class Parser {
                     LocalDateTime dateTime;
                     try {
                         dateTime = LocalDateTime.parse(matcher.group(9).trim(), Parser.inputFormat);
-                    } catch (Exception e) {
-                        throw new DukeException("");
+                    } catch (DateTimeParseException e) {
+                        throw new DukeException("Invalid date format. Try again.");
                     }
 
-                    return new Instruction.Add(new Deadline(matcher.group(8).trim(), dateTime.format(outputFormat)));
+                    return new Instruction.Add(new Deadline(matcher.group(8).trim(), dateTime));
                 }
             }
         case EVENT:
             if (matcher.group(4) == null || matcher.group(4).isBlank()) {
                 throw new DukeException("The description of an event cannot be empty. Try again.");
             } else {
-                if (matcher.group(5) == null || matcher.group(6) == null || matcher.group(5).isBlank() || matcher.group(6).isBlank()) {
+                if (matcher.group(5) == null || matcher.group(6) == null
+                        || matcher.group(5).isBlank() || matcher.group(6).isBlank()) {
                     throw new DukeException("Insufficient number of arguments for an event. Try again.");
                 } else {
                     LocalDateTime startDateTime, endDateTime;
                     try {
                         startDateTime = LocalDateTime.parse(matcher.group(5).trim(), Parser.inputFormat);
                         endDateTime = LocalDateTime.parse(matcher.group(6).trim(), Parser.inputFormat);
-                    } catch (Exception e) {
-                        throw new DukeException("");
+                    } catch (DateTimeParseException e) {
+                        throw new DukeException("Invalid date format. Try again. ");
                     }
-                    return new Instruction.Add(new Event(matcher.group(4).trim(), startDateTime.format(Parser.outputFormat), endDateTime.format(Parser.outputFormat)));
+                    return new Instruction.Add(new Event(matcher.group(4).trim(), startDateTime,
+                            endDateTime));
                 }
             }
         default:
             //program will not reach here.
-            return null;
+            throw new DukeException("An unexpected error occurred. Try again.");
         }
     }
 
@@ -157,7 +161,13 @@ public class Parser {
                     matcher.group(9) == null || matcher.group(9).isBlank()) {
                 throw new DukeException("");
             } else {
-                task = new Deadline(matcher.group(9).trim(), matcher.group(10));
+                LocalDateTime dateTime;
+                try {
+                    dateTime = LocalDateTime.parse(matcher.group(10), Parser.outputFormat);
+                } catch (DateTimeParseException e) {
+                    throw new DukeException("");
+                }
+                task = new Deadline(matcher.group(9).trim(), dateTime);
             }
             break;
         case EVENT:
@@ -165,8 +175,15 @@ public class Parser {
                     matcher.group(7) == null || matcher.group(6).isBlank() || matcher.group(7).isBlank()) {
                 throw new DukeException("");
             } else {
-
-                task = new Event(matcher.group(5).trim(), matcher.group(6), matcher.group(7));
+                LocalDateTime startDateTime;
+                LocalDateTime endDateTime;
+                try {
+                    startDateTime = LocalDateTime.parse(matcher.group(6), Parser.outputFormat);
+                    endDateTime = LocalDateTime.parse(matcher.group(7), Parser.outputFormat);
+                } catch (DateTimeParseException e) {
+                    throw new DukeException("");
+                }
+                task = new Event(matcher.group(5).trim(), startDateTime, endDateTime);
             }
             break;
         default:
