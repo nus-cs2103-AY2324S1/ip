@@ -2,45 +2,30 @@
      Oi! I'm Grumpy Gordon.
      Why are you bothering me?
     ____________________________________________________________
+
     ____________________________________________________________
-     Got it. I've added this task:
-       [T][ ] borrow book
-     Now you have 1 task in the list.
+     Todo task added to list!
+     [T][ ] eat
     ____________________________________________________________
+
     ____________________________________________________________
-     Got it. I've added this task:
-       [E][ ] book presentation (from: Oct 12 2023 15:00 to: Oct 12 2023 16:00)
-     Now you have 2 grumpygordon.tasks in the list.
+     Deadline task added to list
+     [D][ ] sleep (by: Mar 10 2023 20:00)
     ____________________________________________________________
+
     ____________________________________________________________
-     Got it. I've added this task:
-       [D][ ] return book (by: Oct 12 2023 18:00)
-     Now you have 3 grumpygordon.tasks in the list.
+     Event task added to list
+     [E][ ] fight (from: Mar 10 2023 12:00 to: Mar 10 2023 14:00)
     ____________________________________________________________
+
     ____________________________________________________________
-     Took you long enough!
-       [T][X] borrow book
+     Here's your list, you donkey!
+     1.[T][ ] eat
+     2.[D][ ] sleep (by: Mar 10 2023 20:00)
+     3.[E][ ] fight (from: Mar 10 2023 12:00 to: Mar 10 2023 14:00)
     ____________________________________________________________
-    ____________________________________________________________
-     Took you long enough!
-       [E][X] book presentation (from: Oct 12 2023 15:00 to: Oct 12 2023 16:00)
-    ____________________________________________________________
-    ____________________________________________________________
-     Stop wasting time, go get it done!
-     1.[T][X] borrow book
-     2.[E][X] book presentation (from: Oct 12 2023 15:00 to: Oct 12 2023 16:00)
-     3.[D][ ] return book (by: Oct 12 2023 18:00)
-    ____________________________________________________________
-    ____________________________________________________________
-     My grandmother does it faster than you!
-       [T][ ] borrow book
-    ____________________________________________________________
-    ____________________________________________________________
-     Stop wasting time, go get it done!
-     1.[T][ ] borrow book
-     2.[E][X] book presentation (from: Oct 12 2023 15:00 to: Oct 12 2023 16:00)
-     3.[D][ ] return book (by: Oct 12 2023 18:00)
-    ____________________________________________________________
+
     ____________________________________________________________
      Bye. Hope to never see you again.
     ____________________________________________________________
+
