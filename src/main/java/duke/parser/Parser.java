@@ -1,6 +1,15 @@
 package duke.parser;
 
-import duke.command.*;
+import duke.command.Command;
+import duke.command.AddTodoCommand;
+import duke.command.AddDeadlineCommand;
+import duke.command.AddEventCommand;
+import duke.command.MarkCommand;
+import duke.command.UnmarkCommand;
+import duke.command.DeleteCommand;
+import duke.command.ListCommand;
+import duke.command.ExitCommand;
+import duke.command.WrongCommand;
 import duke.exception.DukeException;
 
 import java.time.DateTimeException;
@@ -9,6 +18,7 @@ import java.time.format.DateTimeFormatter;
 
 public class Parser {
 	public static Command parse(String input) throws DukeException {
+		input = input.trim();
 		String commandWord = input.split(" ", 2)[0];
 		switch (commandWord) {
 			case AddTodoCommand.COMMAND_WORD:
@@ -35,14 +45,14 @@ public class Parser {
 			case AddEventCommand.COMMAND_WORD:
 				String[] eventData = input.split(" /from ", 2);
 				if (eventData.length < 2) {
-					throw new duke.exception.DukeException("An event requires a /from (timedate) descriptor");
+					throw new DukeException("An event requires a /from (timedate) descriptor");
 				}
 				String[] period = eventData[1].split( "/to ");
 				if (period.length < 2) {
-					throw new duke.exception.DukeException("An event requires a /to (timedate) descriptor");
+					throw new DukeException("An event requires a /to (timedate) descriptor");
 				}
 				if (eventData[0].split(" ", 2).length < 2) {
-					throw new duke.exception.DukeException("The description of an event cannot be empty.");
+					throw new DukeException("The description of an event cannot be empty.");
 				}
 				try {
 					String from = LocalDate.parse(period[0].trim())
