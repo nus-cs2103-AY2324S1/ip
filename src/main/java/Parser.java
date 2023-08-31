@@ -2,7 +2,29 @@ import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
 public class Parser {
-    public static Task parseInput (String type, String input) throws CCException {
+
+    /**
+     * Parses the input command and performs corresponding actions based on the provided input.
+     * This method handles various commands such as listing tasks, marking/unmarking tasks, deleting tasks,
+     * and adding new tasks.
+     *
+     * @param input The input command provided by the user.
+     * @throws CCException If an error occurs during parsing or execution of the command.
+     */
+    public Command parseInput(String input) throws CCException {
+        int space = input.indexOf(' ');
+        String action = "";
+        String taskDescription = "";
+        if (space == -1) {
+            action = input;
+        } else {
+            action = input.substring(0, space);
+            taskDescription = input.substring(space + 1, input.length());
+        }
+        return new Command(action, taskDescription);
+    }
+
+    public Task parseTask(String type, String input) throws CCException {
         Task task = null;
         switch (type) {
             case "todo":
@@ -27,11 +49,11 @@ public class Parser {
      * @return A new ToDo task object created from the provided input.
      * @throws CCException If the input string is empty or if there is an error in task creation.
      */
-    private static ToDo parseToDo (String input) throws CCException {
-        if (input.equals("todo")) {
+    private ToDo parseToDo (String taskDescription) throws CCException {
+        if (taskDescription.isEmpty()) {
             throw new CCException("OOPS!!! The description of a todo cannot be empty.");
         }
-        return new ToDo(input, input.substring("todo".length()).trim());
+        return new ToDo(taskDescription);
     }
 
     /**
@@ -44,20 +66,17 @@ public class Parser {
      * @return A new Deadline task object created from the provided input.
      * @throws CCException If the input format is incorrect or if there are empty fields.
      */
-    private static Deadline parseDeadline(String input) throws CCException {
-        String[] fields = input.split("/");
+    private Deadline parseDeadline(String taskDescription) throws CCException {
+        String[] fields = taskDescription.split("/by");
         if (fields.length != 2) {
             throw new CCException("OOPS!!! Incorrect format for deadline.");
         }
-        if (!fields[0].startsWith("deadline ") || !fields[1].startsWith("by ")) {
-            throw new CCException("OOPS!!! Incorrect format for deadline.");
-        }
-        String name = fields[0].substring("deadline".length()).trim();
-        String end = fields[1].substring("by".length()).trim();
+        String name = fields[0].trim();
+        String end = fields[1].trim();
         if (name.isEmpty() || end.isEmpty()) {
             throw new CCException("OOPS!!! Empty field for deadline detected.");
         }
-        return new Deadline(input, name, parseDate(end));
+        return new Deadline(taskDescription, name, parseDate(end));
     }
 
     /**
@@ -70,21 +89,18 @@ public class Parser {
      * @return A new Event task object created from the provided input.
      * @throws CCException If the input format is incorrect or if there are empty fields.
      */
-    private static Event parseEvent(String input) throws CCException{
-        String[] fields = input.split("/");
+    private Event parseEvent(String taskDescription) throws CCException{
+        String[] fields = taskDescription.split("/from|/to");
         if (fields.length != 3) {
             throw new CCException("OOPS!!! Incorrect format for event.");
         }
-        if (!fields[0].startsWith("event ") || !fields[1].startsWith("from ") || !fields[2].startsWith("to ")) {
-            throw new CCException("OOPS!!! Incorrect format for event.");
-        }
-        String name = fields[0].substring("event".length()).trim();
-        String start = fields[1].substring("from".length()).trim();
-        String end = fields[2].substring("to".length()).trim();
+        String name = fields[0].trim();
+        String start = fields[1].trim();
+        String end = fields[2].trim();
         if (name.isEmpty() || start.isEmpty() || end.isEmpty()) {
             throw new CCException("OOPS!!! Empty field for event detected.");
         }
-        return new Event(input, name, parseDate(start), parseDate(end));
+        return new Event(taskDescription, name, parseDate(start), parseDate(end));
     }
 
     private static LocalDate parseDate(String date) {

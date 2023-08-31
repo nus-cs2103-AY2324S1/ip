@@ -5,8 +5,8 @@ public class Event extends Task {
     private final LocalDate start;
     private final LocalDate end;
 
-    public Event(String input, String name, LocalDate start, LocalDate end) {
-        super(input, name);
+    public Event(String taskDescription, String name, LocalDate start, LocalDate end) {
+        super(taskDescription, name);
         this.start = start;
         this.end = end;
     }
@@ -24,5 +24,10 @@ public class Event extends Task {
                 super.getName(),
                 super.formatDate(start),
                 super.formatDate(end));
+    }
+
+    @Override
+    public String getTaskDescription() {
+        return "event " + super.getTaskDescription();
     }
 }

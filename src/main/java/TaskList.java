@@ -1,13 +1,4 @@
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
-import java.nio.file.Paths;
-import java.time.LocalDate;
 
 /**
  * The List class represents a collection of tasks managed by the ChatterChicken task manager.
@@ -19,8 +10,8 @@ public class TaskList {
 
     private ArrayList<Task> taskList;
 
-    public TaskList() {
-        this.taskList = Storage.loadTasksFromFile();
+    public TaskList(ArrayList<Task> taskList) {
+        this.taskList = taskList;
     }
 
     /**

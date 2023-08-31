@@ -3,8 +3,8 @@ import java.time.LocalDate;
 public class Deadline extends Task {
     private final LocalDate end;
 
-    public Deadline(String input, String name, LocalDate end) {
-        super(input, name);
+    public Deadline(String taskDescription, String name, LocalDate end) {
+        super(taskDescription, name);
         this.end = end;
     }
 
@@ -17,5 +17,10 @@ public class Deadline extends Task {
     @Override
     public String getTask() {
         return String.format("[%s][D] %s (by: %s)", super.checkDone(), super.getName(), super.formatDate(end));
+    }
+
+    @Override
+    public String getTaskDescription() {
+        return "deadline " + super.getTaskDescription();
     }
 }

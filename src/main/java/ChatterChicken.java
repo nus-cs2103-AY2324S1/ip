@@ -2,13 +2,28 @@ import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 public class ChatterChicken {
+
     public static final String LINE = "\n    _____________________________________________________________________________\n";
+
     public static final String INDENT = "      ";
     public static final String INDENT_BIG = "        ";
 
     public static final String PATH = "src/main/data/task-list.txt";
 
-    private static TaskList tasks;
+    private TaskList tasks;
+
+    private Parser parser;
+    private Storage storage;
+
+    public ChatterChicken() {
+        this.parser = new Parser();
+        this.storage = new Storage(parser);
+    }
+
+    public static void main(String[] args) {
+        ChatterChicken chatterChicken = new ChatterChicken();
+        chatterChicken.run();
+    }
 
     /**
      * Displays a greeting message to the user to introduce ChatterChicken.
@@ -27,44 +42,6 @@ public class ChatterChicken {
         System.out.println(LINE + INDENT + "Bye. Hope to see you again soon!" + LINE);
     }
 
-    /**
-     * Parses the input command and performs corresponding actions based on the provided input.
-     * This method handles various commands such as listing tasks, marking/unmarking tasks, deleting tasks,
-     * and adding new tasks.
-     *
-     * @param input The input command provided by the user.
-     * @throws CCException If an error occurs during parsing or execution of the command.
-     */
-    private void parseInput(String input) throws CCException {
-        int space = input.indexOf(' ');
-        String action;
-        if (space == -1) {
-            action = input;
-        } else {
-            action = input.substring(0, input.indexOf(' '));
-        }
-        switch (action) {
-            case "list":
-                tasks.printList();
-                break;
-            case "mark":
-                tasks.markTask(input);
-                break;
-            case "unmark":
-                tasks.unmarkTask(input);
-                break;
-            case "delete":
-                tasks.deleteTask(input);
-                break;
-            case "todo":
-            case "deadline":
-            case "event":
-                tasks.addTask(Parser.parseInput(action, input));
-                break;
-            default:
-                throw new CCException("OOPS!!! I'm sorry, but I don't know what that means :<");
-        }
-    }
 
     /**
      * Initiates the main loop of the ChatterChicken application.
@@ -73,11 +50,12 @@ public class ChatterChicken {
      */
     private void run() {
         try (Scanner sc = new Scanner(System.in)) {
-            tasks = new TaskList();
+            tasks = new TaskList(storage.loadTasksFromFile());
             greet();
             String input = sc.nextLine();
             while (!input.equals("bye")) {
-                parseInput(input);
+                Command command = parser.parseInput(input);
+                executeCommand(command);
                 input = sc.nextLine();
             }
         } catch (CCException e) {
@@ -86,8 +64,30 @@ public class ChatterChicken {
         exit();
     }
 
-    public static void main(String[] args) {
-        ChatterChicken chatterChicken = new ChatterChicken();
-        chatterChicken.run();
+    private void executeCommand(Command command) throws CCException {
+        String action = command.getAction();
+        String taskDescription = command.getTaskDescription();
+        String output = "";
+        switch (action) {
+            case "list":
+                tasks.printList();
+                break;
+            case "mark":
+                tasks.markTask(taskDescription);
+                break;
+            case "unmark":
+                tasks.unmarkTask(taskDescription);
+                break;
+            case "delete":
+                tasks.deleteTask(taskDescription);
+                break;
+            case "todo":
+            case "deadline":
+            case "event":
+                tasks.addTask(parser.parseTask(action, taskDescription));
+                break;
+            default:
+                throw new CCException("OOPS!!! I'm sorry, but I don't know what that means :<");
+        }
     }
 }

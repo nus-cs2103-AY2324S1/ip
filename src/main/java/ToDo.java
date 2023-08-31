@@ -1,7 +1,7 @@
 public class ToDo extends Task {
 
-    public ToDo(String input, String name) {
-        super(input, name);
+    public ToDo(String taskDescription) {
+        super(taskDescription, taskDescription);
     }
 
     /**
@@ -13,5 +13,10 @@ public class ToDo extends Task {
     @Override
     public String getTask() {
         return String.format("[%s][T] %s", super.checkDone(), super.getName());
+    }
+
+    @Override
+    public String getTaskDescription() {
+        return "todo " + super.getTaskDescription();
     }
 }
