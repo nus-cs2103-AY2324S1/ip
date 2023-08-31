@@ -1,3 +1,5 @@
+package Jarvis;
+
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -66,7 +68,7 @@ public class TaskList {
         return taskList.size();
     }
 
-    // function checks if task number is valid and throws InvalidTaskNumberException
+    // function checks if task number is valid and throws Jarvis.InvalidTaskNumberException
     public boolean isValidTaskNumber(int taskNum) {
         boolean isValid = true;
         if (taskNum < 0 || taskNum > this.taskList.size()) { // check if task number is of valid range

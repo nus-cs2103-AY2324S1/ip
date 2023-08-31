@@ -1,3 +1,5 @@
+package Jarvis;
+
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -20,7 +22,7 @@ public class Parser {
         validCommands.add("event");
     }
 
-    // checks if command is valid and throws IncorrectJarvisCommandException
+    // checks if command is valid and throws Jarvis.IncorrectJarvisCommandException
     private static String isValidCommand(String inputCommand) {
         // check if command is one of the valid keywords
         boolean isValidCommand = false;
