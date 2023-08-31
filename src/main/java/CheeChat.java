@@ -1,26 +1,9 @@
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.ArrayList;
-import java.io.File;
 import java.util.Scanner;
-
 public class CheeChat {
 
 
     public static void main(String[] args) {
-        File f = new File("./data/duke.txt");
-        try {
-            if (!f.getParentFile().isDirectory()) {
-                f.mkdirs();
-                f.createNewFile();
-            } if (!f.exists()) {
-                f.createNewFile();
-            }
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
-        }
-
-
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
                 + "| | | | | | | |/ / _ \\\n"
@@ -32,7 +15,6 @@ public class CheeChat {
         Scanner input = new Scanner(System.in);
         ArrayList<Task> tasks = new ArrayList<>();
         String cmd = input.nextLine();
-
 
         while(!cmd.equals("bye")){
             int counter = tasks.size();
@@ -48,40 +30,12 @@ public class CheeChat {
                     int number = c - 48 - 1;
                     System.out.println("Nice! I've marked this task as done:");
                     System.out.println("  " + tasks.get(number).description(0));
-                    FileWriter fw;
-                    try{
-                        fw = new FileWriter(f);
-                        String toBeWritten = "";
-                        for (int i = 0; i < tasks.size(); i++) {
-                            toBeWritten = toBeWritten.concat(tasks.get(i).toString());
-                            toBeWritten += System.lineSeparator();
-                        }
-                        fw.write(toBeWritten);
-                        fw.close();
-                    } catch (IOException e) {
-                        System.out.println(e.getMessage());
-                    }
-
                 } else if (cmd.startsWith("unmark")) {
                     int index = cmd.length() - 1;
                     char c = cmd.charAt(index);
                     int number = c - 48 - 1;
                     System.out.println("OK, I've marked this task as not done yet:");
                     System.out.println("  " + tasks.get(number).description(1));
-                    FileWriter fw;
-                    try{
-                        fw = new FileWriter(f);
-                        String toBeWritten = "";
-                        for (int i = 0; i < tasks.size(); i++) {
-                            toBeWritten = toBeWritten.concat(tasks.get(i).toString());
-                            toBeWritten += System.lineSeparator();
-                        }
-                        fw.write(toBeWritten);
-                        fw.close();
-                    } catch (IOException e) {
-                        System.out.println(e.getMessage());
-                    }
-
                 } else {
                     if (cmd.startsWith("todo")) {
                         try {
@@ -94,20 +48,6 @@ public class CheeChat {
                             tasks.add(instance);
                             System.out.println("  " + instance);
                             System.out.println("Now you have " + tasks.size() + " tasks in the list.");
-                            FileWriter fw;
-                            try{
-                                fw = new FileWriter(f);
-                                String toBeWritten = "";
-                                for (int i = 0; i < tasks.size(); i++) {
-                                    toBeWritten = toBeWritten.concat(tasks.get(i).toString());
-                                    toBeWritten += System.lineSeparator();
-                                }
-                                fw.write(toBeWritten);
-                                fw.close();
-                            } catch (IOException e) {
-                                System.out.println(e.getMessage());
-                            }
-
                         } catch (CheeException e){
                             System.out.println(e.getMessage());
                         }
@@ -120,19 +60,6 @@ public class CheeChat {
                         tasks.add(instance);
                         System.out.println("  " + instance);
                         System.out.println("Now you have " + tasks.size() + " tasks in the list.");
-                        FileWriter fw;
-                        try{
-                            fw = new FileWriter(f);
-                            String toBeWritten = "";
-                            for (int i = 0; i < tasks.size(); i++) {
-                                toBeWritten = toBeWritten.concat(tasks.get(i).toString());
-                                toBeWritten += System.lineSeparator();
-                            }
-                            fw.write(toBeWritten);
-                            fw.close();
-                        } catch (IOException e) {
-                            System.out.println(e.getMessage());
-                        }
                     } else if (cmd.startsWith("event")){
                         System.out.println("Got it. I've added this task:");
                         int index1 = cmd.indexOf(47);
@@ -145,19 +72,6 @@ public class CheeChat {
                         tasks.add(instance);
                         System.out.println("  " + instance);
                         System.out.println("Now you have " + tasks.size() + " tasks in the list.");
-                        FileWriter fw;
-                        try {
-                            fw = new FileWriter(f);
-                            String toBeWritten = "";
-                            for (int i = 0; i < tasks.size(); i++) {
-                                toBeWritten = toBeWritten.concat(tasks.get(i).toString());
-                                toBeWritten += System.lineSeparator();
-                            }
-                            fw.write(toBeWritten);
-                            fw.close();
-                        } catch (IOException e) {
-                            System.out.println(e.getMessage());
-                        }
                     } else if (cmd.startsWith("delete")){
                         int index = cmd.length() - 1;
                         char c = cmd.charAt(index);
@@ -167,19 +81,6 @@ public class CheeChat {
                         tasks.remove(number);
                         int x = tasks.size();
                         System.out.println("Now you have " + x + " tasks in the list.");
-                        FileWriter fw;
-                        try{
-                            fw = new FileWriter(f);
-                            String toBeWritten = "";
-                            for (int i = 0; i < tasks.size(); i++) {
-                                toBeWritten = toBeWritten.concat(tasks.get(i).toString());
-                                toBeWritten += System.lineSeparator();
-                            }
-                            fw.write(toBeWritten);
-                            fw.close();
-                        } catch (IOException e) {
-                            System.out.println(e.getMessage());
-                        }
                     } else {
                         try {
                             throw new CheeException("OOPS!!! I'm sorry, but I don't know what that means :-(");
