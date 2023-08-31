@@ -15,6 +15,7 @@ import task.Deadline;
 import task.Event;
 import task.Task;
 import task.ToDo;
+import ui.Ui;
 
 public class Storage {
     private List<Task> tasks;
@@ -37,7 +38,7 @@ public class Storage {
                 this.readTasksFromData();
             }
         } catch (IOException error) {
-            System.out.println("\t Something went wrong when loading tasks :(");
+            Ui.printLines("Something went wrong when loading tasks :(");
         }
     }
 
@@ -67,7 +68,7 @@ public class Storage {
                         continue;
                 }
             } catch (DukeInvalidDateException error) {
-                System.out.println("\t Something went wrong when loading tasks :(");
+                Ui.printLines("Something went wrong when loading tasks :(");
                 break;
             }
 
@@ -94,7 +95,7 @@ public class Storage {
             }
             dataWriter.close();
         } catch (IOException error) {
-            System.out.println("An error occurred when updating tasks :(");
+            Ui.printLines("Something went wrong when updating tasks :(");
         }
     }
 
@@ -102,9 +103,9 @@ public class Storage {
         this.tasks.add(newTask);
         this.writeTasks();
 
-        System.out.println("\t Got it. I've added this task:\n" +
-                "\t\t" + newTask + "\n" +
-                "\t Now you have " + this.tasks.size() + " tasks in your list. Good luck!");
+        Ui.printLines("Got it. I've added this task:",
+                "\t " + newTask,
+                "Now you have " + this.tasks.size() + " tasks in your list. Good luck!");
     }
 
     public boolean checkIndexValidity(int taskIndex) {
@@ -120,8 +121,8 @@ public class Storage {
         task.markAsDone();
         this.writeTasks();
 
-        System.out.println("\t Nice job! I've marked this task as done:");
-        System.out.println("\t\t " + task);
+        Ui.printLines("Nice job! I've marked this task as done:",
+                "\t " + task);
     }
 
     public void unmarkTask (int taskIndex) {
@@ -129,8 +130,8 @@ public class Storage {
         task.markAsNotDone();
         this.writeTasks();
 
-        System.out.println("\t What happened? I've marked this task as not done yet:");
-        System.out.println("\t\t " + task);
+        Ui.printLines("What happened? I've marked this task as not done yet:",
+                "\t " + task);
     }
 
     public void deleteTask (int taskIndex) {
@@ -139,9 +140,9 @@ public class Storage {
         this.tasks.remove(taskIndex - 1);
         this.writeTasks();
 
-        System.out.println("\t Noted. I've removed this task:\n" +
-                "\t\t" + deletedTask + "\n" +
-                "\t Now you have " + this.tasks.size() + " tasks in your list. Good luck!");
+        Ui.printLines("Noted. I've removed this task:",
+                deletedTask.toString(),
+                "Now you have " + this.tasks.size() + " tasks in your list. Good luck!");
     }
 
     @Override
@@ -149,7 +150,7 @@ public class Storage {
         String tasksList;
 
         if (this.getTasksSize() > 0) {
-            tasksList = "\t Here are the tasks in your list:\n";
+            tasksList = "Here are the tasks in your list:\n";
 
             for (int i = 0; i < this.tasks.size(); i++) {
                 tasksList += ("\t " + (i + 1) + "." + this.tasks.get(i) + "\n");
@@ -157,7 +158,7 @@ public class Storage {
 
             tasksList += ("\t Keep up the good work!");
         } else {
-            tasksList = "\t You currently have no tasks :)";
+            tasksList = "You currently have no tasks :)";
         }
 
         return tasksList;
