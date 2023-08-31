@@ -24,7 +24,7 @@ public class EventCommand extends Command {
 
     /**
      * Method to be executed when this command is called.
-     * Initializes a Event object and adds it to the taskList.
+     * Initializes an Event object and adds it to the taskList.
      */
     @Override
     public void execute() {

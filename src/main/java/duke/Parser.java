@@ -5,14 +5,14 @@ import duke.exception.DukeException;
 import duke.tasklist.TaskList;
 
 /**
- * duke.Parser class to decipher the input of the chatbot and call the correct command.
+ * Parser class to decipher the input of the chatbot and call the correct command.
  */
 public class Parser {
 
     TaskList taskList;
 
     /**
-     * Contructor for the parser class.
+     * Constructor for the parser class.
      *
      * @param taskList TaskList object being used to maintain the list of tasks in the chatbot.
      */
