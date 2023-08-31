@@ -1,15 +1,19 @@
 package pogo.storage;
 
-import pogo.tasks.Task;
-import pogo.tasks.TaskEncoder;
-import pogo.tasks.TaskTextEncoder;
-
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.util.List;
 
+import pogo.tasks.Task;
+import pogo.tasks.TaskEncoder;
+import pogo.tasks.TaskTextEncoder;
+
+/**
+ * The TextStorage class is responsible for saving and loading tasks to and from a text file.
+ * It implements the Storage interface for saving and loading tasks.
+ */
 public class TextStorage implements Storage {
     private static final String TASKS_FILE = "./data/tasks.txt";
     private final TaskEncoder encoder = new TaskTextEncoder();
@@ -25,12 +29,25 @@ public class TextStorage implements Storage {
         File file = new File(TASKS_FILE);
 
         if (!file.getParentFile().exists()) {
-            file.getParentFile().mkdirs();
+            boolean isCreated = file.getParentFile().mkdirs();
+            if (!isCreated) {
+                throw new IOException("Error creating parent directory");
+            }
         }
 
-        file.createNewFile();
+        boolean isCreated = file.createNewFile();
+        if (!isCreated) {
+            throw new IOException("Error creating task file");
+        }
     }
 
+    /**
+     * Saves the list of tasks to a text file.
+     * The tasks are encoded using the {@link TaskTextEncoder}
+     *
+     * @param tasks the list of tasks to save.
+     */
+    @Override
     public void save(List<Task> tasks) {
         try {
             createTaskFileIfNotExist();
@@ -49,6 +66,14 @@ public class TextStorage implements Storage {
         }
     }
 
+    /**
+     * Loads the list of tasks from a text file.
+     * The tasks are decoded using the {@link TaskTextEncoder}
+     *
+     * @return the list of tasks.
+     * @throws IOException if there is an error loading the list of tasks.
+     */
+    @Override
     public List<Task> load() throws IOException {
         createTaskFileIfNotExist();
 

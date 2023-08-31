@@ -1,11 +1,10 @@
 package pogo.commands;
 
-import pogo.parsers.DateTimeParser;
+import java.time.LocalDateTime;
+
 import pogo.tasks.Deadline;
 import pogo.tasks.Task;
 import pogo.tasks.exceptions.PogoInvalidTaskException;
-
-import java.time.LocalDateTime;
 
 /**
  * Represents a command to add a deadline task.
@@ -16,7 +15,9 @@ public class AddDeadlineCommand extends Command {
     /**
      * Message to show if the command format is invalid.
      */
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a deadline task to the task list. " + "Parameters: DESCRIPTION /by DEADLINE" + System.lineSeparator() + "Example: " + COMMAND_WORD + " Eat eggs /by 2023-09-18 2359";
+    public static final String MESSAGE_USAGE =
+        COMMAND_WORD + ": Adds a deadline task to the task list. " + "Parameters: DESCRIPTION /by DEADLINE"
+            + System.lineSeparator() + "Example: " + COMMAND_WORD + " Eat eggs /by 2023-09-18 2359";
 
     private final String description;
     private final LocalDateTime by;

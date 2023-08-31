@@ -1,15 +1,24 @@
 package pogo.parsers;
 
-import pogo.commands.*;
-import pogo.common.Messages;
-import pogo.tasks.exceptions.PogoInvalidTaskException;
-
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeParseException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import pogo.commands.AddDeadlineCommand;
+import pogo.commands.AddEventCommand;
+import pogo.commands.AddToDoCommand;
+import pogo.commands.Command;
+import pogo.commands.DeleteTaskCommand;
+import pogo.commands.ExitCommand;
+import pogo.commands.InvalidCommand;
+import pogo.commands.ListTasksCommand;
+import pogo.commands.MarkTaskCommand;
+import pogo.commands.UnmarkTaskCommand;
+import pogo.common.Messages;
+import pogo.tasks.exceptions.PogoInvalidTaskException;
 
 /**
  * The Parser class is responsible for parsing user input.
@@ -21,7 +30,13 @@ public class Parser {
      * A command consists of a command word e.g. "list" and an optional arguments string.
      */
     public static final Pattern COMMAND_PATTERN = Pattern.compile("(?<command>\\S+)(?<arguments>.*)");
+    private static final Pattern LIST_PATTERN = Pattern.compile("/from (?<from>.*) /to (?<to>.*)");
 
+    /**
+     * Parses user input into command for execution.
+     * @param input the user input to parse.
+     * @return Command to be executed.
+     */
     public static Command parseCommand(String input) {
         final Matcher matcher = COMMAND_PATTERN.matcher(input.trim());
         if (!matcher.matches()) {
@@ -34,7 +49,6 @@ public class Parser {
         try {
             switch (commandWord) {
             case ListTasksCommand.COMMAND_WORD:
-                final Pattern LIST_PATTERN = Pattern.compile("/from (?<from>.*) /to (?<to>.*)");
                 final Matcher listMatcher = LIST_PATTERN.matcher(arguments);
                 // Set from and to encompass all dates
                 LocalDateTime from = LocalDateTime.of(LocalDate.MIN, LocalTime.MIN);
@@ -70,6 +84,8 @@ public class Parser {
                 return TaskParser.parseDeleteCommand(arguments);
             case ExitCommand.COMMAND_WORD:
                 return new ExitCommand();
+            default:
+                break;
             }
         } catch (PogoInvalidTaskException e) {
             return new InvalidCommand(Messages.INVALID_TASK);

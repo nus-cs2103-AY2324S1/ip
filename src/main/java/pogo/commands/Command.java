@@ -1,9 +1,8 @@
 package pogo.commands;
 
-import pogo.Pogo;
-import pogo.tasks.Task;
-
 import java.util.List;
+
+import pogo.tasks.Task;
 
 /**
  * The Command class is the base class for all commands.

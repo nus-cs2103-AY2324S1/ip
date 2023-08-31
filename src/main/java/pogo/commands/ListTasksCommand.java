@@ -1,8 +1,8 @@
 package pogo.commands;
 
-import pogo.tasks.Task;
-
 import java.time.LocalDateTime;
+
+import pogo.tasks.Task;
 
 /**
  * Lists all the tasks in the task list.
@@ -12,6 +12,12 @@ public class ListTasksCommand extends Command {
     private final LocalDateTime from;
     private final LocalDateTime to;
 
+    /**
+     * Creates a ListTasksCommand object.
+     *
+     * @param from The start of the interval to list.
+     * @param to The end of the interval to list.
+     */
     public ListTasksCommand(LocalDateTime from, LocalDateTime to) {
         this.from = from;
         this.to = to;
