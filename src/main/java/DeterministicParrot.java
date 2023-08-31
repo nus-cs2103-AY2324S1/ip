@@ -7,12 +7,6 @@ import java.time.format.DateTimeParseException;
 import java.util.*;
 
 
-class DeterministicParrotException extends Exception {
-    public DeterministicParrotException(String message) {
-        super(message);
-    }
-}
-
 @FunctionalInterface
 interface CheckedConsumer<T> {
     void accept(T t) throws DeterministicParrotException;
