@@ -12,7 +12,7 @@ public class EventTest {
             Event newTodoTask = new Event("Book meeting", "02-09-2023 20:00", "02-09-2023 21:00");
             assertEquals("[E] [ ] Book meeting (from: 02 Sep 2023 20:00 to: 02 Sep 2023 21:00)",
                     newTodoTask.toString());
-        } catch (DukeException e) {
+        } catch (AntoException e) {
             fail("Expected exception was thrown");
         }
     }
@@ -29,7 +29,7 @@ public class EventTest {
             assertEquals(" ", newTodoTask.getStatusIcon());
             assertEquals("[E] [ ] Book meeting (from: 02 Sep 2023 20:00 to: 02 Sep 2023 21:00)",
                     newTodoTask.toString());
-        } catch (DukeException e) {
+        } catch (AntoException e) {
             fail("Expected exception was thrown");
         }
     }

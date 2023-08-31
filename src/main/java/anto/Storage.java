@@ -7,12 +7,20 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.regex.Pattern;
 
+/**
+ * Storage class handles all storing and loading of data.
+ */
 public class Storage {
     private Ui ui;
     private String relativePath;
     private Path absolutePath;
     private File antoFile;
 
+    /**
+     * Creates a Storage class.
+     * @param ui Ui that handles all printing to the command line.
+     * @param filePath Relative file path of file to load data from.
+     */
     public Storage(Ui ui, String filePath) {
         this.ui = ui;
         this.relativePath = filePath;
@@ -21,7 +29,13 @@ public class Storage {
 
     }
 
-    public ArrayList<Task> loadSave() throws DukeException {
+    /**
+     * Checks file at file path and loads data if it is there, else create a new file.
+     *
+     * @return ArrayList of Tasks representing data.
+     * @throws AntoException Throws exception if there is an IO Exception.
+     */
+    public ArrayList<Task> loadSave() throws AntoException {
         try {
             ArrayList<Task> taskList = new ArrayList<>();
 
@@ -58,7 +72,7 @@ public class Storage {
             }
             return taskList;
         } catch (java.io.IOException e) {
-            throw new DukeException("OOPS!!! IOException");
+            throw new AntoException("OOPS!!! IOException");
         }
     }
 }

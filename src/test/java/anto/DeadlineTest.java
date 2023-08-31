@@ -11,7 +11,7 @@ public class DeadlineTest {
         try {
             Deadline newTodoTask = new Deadline("Read book", "01-09-2023 23:59");
             assertEquals("[D] [ ] Read book (by: 01 Sep 2023 23:59)", newTodoTask.toString());
-        } catch (DukeException e) {
+        } catch (AntoException e) {
             fail("Expected exception was thrown");
         }
     }
@@ -26,7 +26,7 @@ public class DeadlineTest {
             newTodoTask.unmark();
             assertEquals(" ", newTodoTask.getStatusIcon());
             assertEquals("[D] [ ] Read book (by: 01 Sep 2023 23:59)", newTodoTask.toString());
-        } catch (DukeException e) {
+        } catch (AntoException e) {
             fail("Expected exception was thrown");
         }
     }
