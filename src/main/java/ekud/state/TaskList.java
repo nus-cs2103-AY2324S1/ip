@@ -2,6 +2,8 @@ package ekud.state;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 public final class TaskList {
     private final ArrayList<Task> tasks;
@@ -54,5 +56,12 @@ public final class TaskList {
         }
         task.unmark();
         return task;
+    }
+
+    public List<Task> findTasks(String query) {
+        return asList()
+                .stream()
+                .filter(task -> task.getTitle().contains(query))
+                .collect(Collectors.toList());
     }
 }

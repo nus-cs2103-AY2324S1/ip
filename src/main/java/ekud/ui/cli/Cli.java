@@ -97,6 +97,25 @@ public final class Cli extends Ui {
         out.println("   " + task);
     }
 
+    public void showFoundTasks(List<Task> foundTasks) {
+        if (foundTasks.isEmpty()) {
+            out.println("No tasks found.");
+            return;
+        }
+
+        out.println("Here are the matching tasks in your list:");
+        for (int taskId = 1; taskId <= foundTasks.size(); taskId++) {
+            // Add padding to align single-digit numbers if we'll render two-digit numbers
+            // later on.
+            if (foundTasks.size() > 9 && taskId < 10) {
+                out.print(" ");
+            }
+            out.print(taskId);
+            Task task = foundTasks.get(taskId - 1);
+            out.println(". " + task.toString());
+        }
+    }
+
     public void showError(EkudException error) {
         err.println("☹ OOPS!!! " + error.getMessage());
     }
