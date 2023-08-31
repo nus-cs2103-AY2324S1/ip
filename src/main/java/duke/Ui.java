@@ -13,13 +13,8 @@ public class Ui {
 
     protected static final String INDENT = "     ";
     protected static final String NAME = "404";
-    private static final String YELLOW = "\033[0;33m";
-    private static final String YELLOW_BOLD_BRIGHT = "\033[1;93m";
-    private static final String RED = "\033[0;31m";
-    private static final String WHITE_BOLD = "\033[1;37m";
-    private static final String RESET = "\033[0m";
-    private static final String NAME_ART = YELLOW_BOLD_BRIGHT
-            + "               _                _               _                      \n"
+    private static final String NAME_ART =
+              "               _                _               _                      \n"
             + "           _  /\\ \\            / /\\          _  /\\ \\               \n"
             + "          /\\_\\\\ \\ \\          / /  \\        /\\_\\\\ \\ \\        \n"
             + "         / / / \\ \\ \\        / / /\\ \\      / / / \\ \\ \\          \n"
@@ -29,7 +24,7 @@ public class Ui {
             + "          \\/________/\\ \\   \\ \\ \\   \\ \\ \\   \\/________/\\ \\  \n"
             + "                    \\ \\ \\   \\ \\ \\___\\ \\ \\            \\ \\ \\ \n"
             + "                     \\ \\_\\   \\ \\/____\\ \\ \\            \\ \\_\\ \n"
-            + "                      \\/_/    \\_________\\/             \\/_/" + RESET;
+            + "                      \\/_/    \\_________\\/             \\/_/";
     private Scanner sc;
 
 
@@ -37,8 +32,8 @@ public class Ui {
      * Shows the welcome message to the user.
      */
     public void showWelcome() {
-        String greeting = String.format("%sHello! I'm %s%s%s\n%sWhat can I do for you?",
-                INDENT, YELLOW_BOLD_BRIGHT, NAME, RESET, INDENT);
+        String greeting = String.format("%sHello! I'm %s\n%sWhat can I do for you?",
+                INDENT, NAME, INDENT);
         System.out.println(NAME_ART);
         showLine();
         System.out.println(greeting);
@@ -54,7 +49,7 @@ public class Ui {
                 String.format("%sOOPS!!!Something terrible happened to the data file.\n"
                               + "%sDon't worry I will clean up the mess!", INDENT, INDENT);
         showLine();
-        System.out.println(RED + goneWrongMessage + RESET);
+        System.out.println(goneWrongMessage);
         showLine();
     }
 
@@ -76,7 +71,7 @@ public class Ui {
      * @param message the error message.
      */
     public void showError(String message) {
-        System.out.printf(RED + "%s%s\n" + RESET, INDENT, message);
+        System.out.printf("%s%s\n", INDENT, message);
     }
 
     /**
@@ -85,17 +80,15 @@ public class Ui {
      */
     public void showExit() {
         sc.close();
-        System.out.printf(YELLOW_BOLD_BRIGHT
-                + "%sBye. Hope to see you again soon!%n" + RESET, INDENT);
+        System.out.printf("%sBye. Hope to see you again soon!%n", INDENT);
     }
 
     /**
      * Shows the line to separate each command and respond to the user.
      */
     public void showLine() {
-        String line = WHITE_BOLD
-                + "    ____________________________________________________________\n"
-                + "   /_____/_____/_____/_____/_____/_____/_____/_____/_____/_____/" + RESET;
+        String line = "    ____________________________________________________________\n"
+                + "   /_____/_____/_____/_____/_____/_____/_____/_____/_____/_____/";
         System.out.println(line);
     }
 
@@ -108,7 +101,7 @@ public class Ui {
      */
     public void showAddTask(Task task, int taskListSize) {
         System.out.printf("%sGot it. I've added this task:\n"
-                          + YELLOW + "%s  %s\n" + RESET
+                          + "%s  %s\n"
                           + "%sNow you have %d tasks in the list.\n",
                 INDENT, INDENT, task, INDENT, taskListSize);
     }
@@ -122,7 +115,7 @@ public class Ui {
      */
     public void showDeleteTask(Task removedTask, int taskListSize) {
         System.out.printf("%sNoted. I've removed this task:%n"
-                          + YELLOW + "%s  %s\n" + RESET
+                          + "%s  %s\n"
                           + "%sNow you have %d tasks in the list.%n",
                 INDENT, INDENT, removedTask, INDENT, taskListSize);
     }
@@ -137,8 +130,8 @@ public class Ui {
         String message = isMark
                 ? "Nice! I've marked this task as done:"
                 : "OK, I've marked this task as not done yet:";
-        System.out.printf("%s%s\n%s  %s%s\n" + RESET, INDENT,
-                message, INDENT, YELLOW, task);
+        System.out.printf("%s%s\n%s  %s\n", INDENT,
+                message, INDENT, task);
     }
 
     /**
@@ -147,7 +140,7 @@ public class Ui {
      * @param keyword the keyword of the command.
      */
     public void showManipulateAllTask(String keyword) {
-        System.out.printf("%sNoted. I will %s %sall%s tasks.\n", INDENT, keyword, YELLOW, RESET);
+        System.out.printf("%sNoted. I will %s all tasks.\n", INDENT, keyword);
     }
 
     /**
@@ -159,8 +152,8 @@ public class Ui {
     public void showListTask(String[] tasks) {
         System.out.printf("%sHere are the tasks in your list:\n", INDENT);
         for (int i = 0; i < tasks.length; i++) {
-            System.out.printf("%s%d.%s%s\n" + RESET, INDENT,
-                    i + 1, YELLOW, tasks[i]);
+            System.out.printf("%s%d.%s\n", INDENT,
+                    i + 1, tasks[i]);
         }
     }
 
@@ -175,7 +168,7 @@ public class Ui {
         System.out.printf("%sHere are the %d tasks happening on %s:\n",
                 INDENT, tasksOnDate.length, date);
         for (String task : tasksOnDate) {
-            System.out.printf(YELLOW + "%s  %s\n" + RESET, INDENT, task);
+            System.out.printf("%s  %s\n", INDENT, task);
         }
     }
 
@@ -191,8 +184,7 @@ public class Ui {
     public void showFindTask(String[] tasksFound, String[] indices) {
         System.out.printf("%sHere are the matching tasks in your list:\n", INDENT);
         for (int i = 0; i < tasksFound.length; i++) {
-            System.out.printf("%s%s.%s%s\n" + RESET, INDENT,
-                    indices[i], YELLOW, tasksFound[i]);
+            System.out.printf("%s%s.%s\n", INDENT, indices[i], tasksFound[i]);
         }
     }
 
