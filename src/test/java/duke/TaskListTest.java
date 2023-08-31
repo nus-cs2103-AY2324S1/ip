@@ -6,8 +6,15 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+/**
+ * Test class to test the functionality of the TaskList class.
+ */
 public class TaskListTest {
 
+    /**
+     * Test adding and retrieving tasks from the TaskList class.
+     * It checks if the retrieved tasks match the original tasks.
+     */
     @Test
     public void testAddAndRetrieveTasks() {
         TaskList taskList = new TaskList();

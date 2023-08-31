@@ -6,10 +6,10 @@ import java.util.ArrayList;
 import static duke.Storage.loadTasksFromFile;
 import static duke.Storage.saveTasksToFile;
 
+/**
+ * The main class for the Duke application.
+ */
 public class Duke {
-
-
-
     public static void main(String[] args) throws DukeException {
         Storage storage = new Storage();
         Ui ui = new Ui();

@@ -1,12 +1,19 @@
 package duke;
 
-import duke.Deadline;
 import org.junit.jupiter.api.Test;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class ParserTest {
+/**
+ * Test class to test the functionality of the Deadline class.
+ */
+public class DeadlineTest {
+
+    /**
+     * Test the getFormattedDeadline method of the Deadline class.
+     * It checks if the formatted deadline matches the expected result.
+     */
     @Test
     public void testGetFormattedDeadline_taskWithDeadline_formattedDateTime() {
         final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("dd MMM yyyy");

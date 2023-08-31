@@ -7,6 +7,9 @@ import java.util.ArrayList;
 import static duke.Event.DATE_TIME_FORMATTER;
 import static duke.Storage.saveTasksToFile;
 
+/**
+ * Handles the parsing of user input and the corresponding actions in the Duke application.
+ */
 public class Parser {
     final static String EXIT_PHRASE = "bye";
     final static String LIST_PHRASE = "list";
@@ -17,7 +20,15 @@ public class Parser {
 
     private static boolean isRunning = true;
 
-
+    /**
+     * Parses the user input and performs the corresponding actions.
+     *
+     * @param userInput The user's input command.
+     * @param taskList The list of tasks.
+     * @param i The current index of tasks in the list.
+     * @param ui The user interface object.
+     * @throws DukeException If an error occurs during parsing.
+     */
     public static void parse(String userInput, ArrayList<Task> taskList, int i, Ui ui) throws DukeException {
         while (!userInput.equals(EXIT_PHRASE)) {
             if (userInput.equals(LIST_PHRASE)) {
@@ -121,6 +132,11 @@ public class Parser {
         isRunning = false;
     }
 
+    /**
+     * Retrieves the running state of the parser.
+     *
+     * @return The running state of the parser.
+     */
     public boolean getRunning() {
         return isRunning;
     }
