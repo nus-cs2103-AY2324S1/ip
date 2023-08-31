@@ -1,3 +1,8 @@
+import duke.DukeException;
+import duke.Storage;
+import duke.StoreList;
+import duke.UserInterface;
+
 public class Duke {
     private static final String NAME = "Nino!";
     public static void main(String[] args) {

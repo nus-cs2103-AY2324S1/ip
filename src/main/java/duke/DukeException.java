@@ -1,3 +1,5 @@
+package duke;
+
 public class DukeException extends Exception{
     public static class DukeDateTimeException extends DukeException {
         public DukeDateTimeException(String s) {
