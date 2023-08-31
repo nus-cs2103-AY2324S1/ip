@@ -6,6 +6,11 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.time.temporal.ChronoUnit;
 
 public class DevyBot {
     private static ArrayList<Task> taskList = new ArrayList<>();
@@ -93,15 +98,30 @@ public class DevyBot {
                             break;
                         case "D":
                             String taskBy = taskParts[3].trim();
-                            loadedTask = new DeadlineTask(taskDescription, taskBy);
+                            if (taskBy.contains(" ")) {
+                                // Contains time, parse as LocalDateTime
+                                LocalDateTime dateTime = LocalDateTime.parse(taskBy,
+                                        DateTimeFormatter.ofPattern("d/M/yyyy HHmm"));
+                                loadedTask = new DeadlineTask(taskDescription, dateTime);
+                            } else {
+                                // No time, parse as LocalDate
+                                LocalDate date = LocalDate.parse(taskBy, DateTimeFormatter.ofPattern("d/M/yyyy"));
+                                loadedTask = new DeadlineTask(taskDescription, date);
+                            }
                             if (taskStatus.equals("1")) {
                                 loadedTask.markTask();
                             }
                             break;
                         case "E":
                             String taskFrom = taskParts[3].trim();
+
+                            LocalDateTime fromDateTime = LocalDateTime.parse(taskFrom,
+                                    DateTimeFormatter.ofPattern("d/M/yyyy HHmm"));
                             String taskTo = taskParts[4].trim();
-                            loadedTask = new EventTask(taskDescription, taskFrom, taskTo);
+
+                            LocalDateTime toDateTime = LocalDateTime.parse(taskTo,
+                                    DateTimeFormatter.ofPattern("d/M/yyyy HHmm"));
+                            loadedTask = new EventTask(taskDescription, fromDateTime, toDateTime);
                             if (taskStatus.equals("1")) {
                                 loadedTask.markTask();
                             }
@@ -188,12 +208,28 @@ public class DevyBot {
 
         String by = parts[1].trim();
 
-        Task newTask = new DeadlineTask(description, by);
-        taskList.add(newTask);
+        Task newTask;
 
-        String outpString = "Got it. I've added this task:\n  " + newTask + "\nNow you have " + taskList.size()
-                + " tasks in the list.";
-        printMessage(outpString);
+        try {
+            if (by.contains(" ")) {
+                // Contains time, parse as LocalDateTime
+                LocalDateTime dateTime = LocalDateTime.parse(by, DateTimeFormatter.ofPattern("d/M/yyyy HHmm"));
+                newTask = new DeadlineTask(description, dateTime);
+            } else {
+                // No time, parse as LocalDate
+                LocalDate date = LocalDate.parse(by, DateTimeFormatter.ofPattern("d/M/yyyy"));
+                newTask = new DeadlineTask(description, date);
+            }
+
+            taskList.add(newTask);
+
+            String outpString = "Got it. I've added this task:\n  " + newTask + "\nNow you have " + taskList.size()
+                    + " tasks in the list.";
+            printMessage(outpString);
+        } catch (DateTimeParseException e) {
+            // Handle parsing error
+            printMessage("Invalid date/time format. Please use 'd/M/yyyy' or 'd/M/yyyy HHmm'.");
+        }
     }
 
     public static void addEventTask(String userInput) throws EmptyDescriptionException {
@@ -207,12 +243,20 @@ public class DevyBot {
         String from = parts[1].trim();
         String to = parts[2].trim();
 
-        Task newTask = new EventTask(description, from, to);
-        taskList.add(newTask);
+        try {
+            // Contains time, parse as LocalDateTime
+            LocalDateTime fromDateTime = LocalDateTime.parse(from, DateTimeFormatter.ofPattern("d/M/yyyy HHmm"));
+            LocalDateTime toDateTime = LocalDateTime.parse(to, DateTimeFormatter.ofPattern("d/M/yyyy HHmm"));
+            Task newTask = new EventTask(description, fromDateTime, toDateTime);
 
-        String outpString = "Got it. I've added this task:\n  " + newTask + "\nNow you have " + taskList.size()
-                + " tasks in the list.";
-        printMessage(outpString);
+            taskList.add(newTask);
+
+            String outpString = "Got it. I've added this task:\n  " + newTask + "\nNow you have " + taskList.size()
+                    + " tasks in the list.";
+            printMessage(outpString);
+        } catch (DateTimeParseException e) {
+            printMessage("Invald date/tim frmat. Please use 'd/M/yyyy HHmm'.");
+        }
     }
 
     public static void markTaskAsDone(int index) throws TaskIndexOutOfBoundsException {

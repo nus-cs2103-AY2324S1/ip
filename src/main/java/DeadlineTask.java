@@ -1,20 +1,42 @@
-class DeadlineTask extends Task {
-    protected String by;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
-    public DeadlineTask(String description, String by) {
+public class DeadlineTask extends Task {
+    protected LocalDateTime dateTime;
+    protected LocalDate date;
+
+    public DeadlineTask(String description, LocalDateTime dateTime) {
         super(description);
-        this.by = by;
+        this.dateTime = dateTime;
+    }
+
+    public DeadlineTask(String description, LocalDate date) {
+        super(description);
+        this.date = date;
+    }
+
+    @Override
+    public String toFileString() {
+        if (dateTime != null) {
+            return "D | " + super.toFileString() + " | "
+                    + dateTime.format(DateTimeFormatter.ofPattern("d/M/yyyy HHmm"));
+        } else {
+            return "D | " + super.toFileString() + " | " + date.format(DateTimeFormatter.ofPattern("d/M/yyyy"));
+        }
     }
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + by + ")";
+        String formattedDate;
+
+        if (dateTime != null) {
+            formattedDate = dateTime.format(DateTimeFormatter.ofPattern("MMM dd yyyy h:mm a"));
+        } else {
+            formattedDate = date.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
+        }
+
+        return "[D]" + super.toString() + " (by: " + formattedDate + ")";
     }
 
-    
-
-    @Override
-    public String toFileString() {
-        return "D | " + super.toFileString() + " | " + by;
-    }
 }
