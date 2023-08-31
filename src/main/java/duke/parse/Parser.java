@@ -17,13 +17,37 @@ import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
+/**
+ * Deals with parsing input from user.
+ */
 public class Parser {
+    /**
+     * Thrown when the input from user cannot be parsed properly.
+     */
     public static class ParseError extends Exception {
         private ParseError(String message) {
             super(message);
         }
     }
 
+    /**
+     * Parse a given input.
+     * Available commands:
+     * - bye/exit: to exit the programme
+     * - list: to list out the current task list
+     * - list {date}: to list out all events happening on that date or deadlines before/on that date
+     * - list {todo/deadline/event}: list out all todo items / deadline items / event items
+     * - list -d: list out all tasks not done
+     * - mark {number}: to mark the task with the corresponding index in the list as done
+     * - unmark {number}: to mark the task with the corresponding index in the list as not done
+     * - todo {taskname}: to add a new task as a to-do item (no deadline or time)
+     * - event {taskname} /from {starttime} /to {endtime}: to add a new task as an event (with start time and end time)
+     * - deadline {taskname} /by {time}: to add a new task as a deadline (with deadline time)
+     * Note that for list, a combination of options can be used, by separating them by space characters.
+     * @param input the input from the user
+     * @return the command to be executed on the bot
+     * @throws ParseError when the input cannot be properly interpreted
+     */
     public static Command parse(String input) throws ParseError {
         String[] commandArgs = input.split(" ", 2);
         int index;

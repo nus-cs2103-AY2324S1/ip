@@ -6,6 +6,10 @@ import duke.task.Task;
 import java.time.LocalDate;
 import java.util.Scanner;
 
+/**
+ * Deals with standard input and output.
+ * Prints out the output and takes in input as requested.
+ */
 public class UI {
     private static String HORIZONTAL_LINE = "____________________________________________________________";
 
@@ -13,14 +17,19 @@ public class UI {
     private String errorPrepend;
     private String errorAppend;
 
+    /**
+     * Instantiates a UI, with a string to prepend and a string to append every error message.
+     * @param errorPrepend the string to prepend every error message
+     * @param errorAppend the string to append every error message
+     */
     public UI(String errorPrepend, String errorAppend) {
         this.errorPrepend = errorPrepend;
         this.errorAppend = errorAppend;
     }
 
     /**
-     * Invoked at the start of the interaction, to greet the user.
-     * After data has been loaded / error has been handled
+     * Invoked at the start of the interaction, to greet the user,
+     * after data has been loaded / error has been handled.
      * @param name the name of the bot
      */
     public void start(String name) {
@@ -54,7 +63,7 @@ public class UI {
     }
 
     /**
-     * Notify that file is corrupted and cannot be loaded,
+     * Notifies that file is corrupted and cannot be loaded,
      * and ask the user on the course of action to take.
      * @return whether the user has decided to exit the program.
      */
@@ -79,7 +88,7 @@ public class UI {
     }
 
     /**
-     * Take input from the user
+     * Takes input from the user
      * @return the input from the user
      */
     public String takeInput(String prompt) {
@@ -100,14 +109,14 @@ public class UI {
     }
 
     /**
-     * Notify user of a user-input error.
+     * Notifies user of a user-input error.
      */
     public void notifyError(String message) {
         System.out.println(this.errorPrepend + message + this.errorAppend);
     }
 
     /**
-     * Notify user that a task has been marked done
+     * Notifies user that a task has been marked done
      * @param task the task to notify
      */
     public void notifyMarkDone(Task task) {
@@ -116,7 +125,7 @@ public class UI {
     }
 
     /**
-     * Notify user that a task has been marked not done
+     * Notifies user that a task has been marked not done
      * @param task the task to notify
      */
     public void notifyMarkNotDone(Task task) {
@@ -125,7 +134,7 @@ public class UI {
     }
 
     /**
-     * Notify user that a task has been removed
+     * Notifies user that a task has been removed
      * @param task the task removed
      */
     public void notifyRemoved(Task task) {
@@ -140,6 +149,14 @@ public class UI {
         DEFAULT
     }
 
+    /**
+     * Notifies that a list of task is going to be displayed.
+     * Does not display the tasks itself.
+     * @param type type of task (todo/deadline/event)
+     * @param isExcludingDone whether to exclude tasks already done
+     * @param date the date before which to display deadlines before or events happening on,
+     *             null if not to filter by date
+     */
     public void notifyList(Type type, boolean isExcludingDone, LocalDate date) {
         String typeString;
         switch (type) {
@@ -172,11 +189,19 @@ public class UI {
         );
     }
 
+    /**
+     * Notifies the user that a task has been added.
+     * @param task the task added
+     */
     public void notifyAdded(Task task) {
         System.out.println("Got it, I've added this task to the list:");
         System.out.println(task);
     }
 
+    /**
+     * Echoes an input back to the user.
+     * @param input the input from the user
+     */
     public void echo(String input) {
         if (input.equals("quack")) {
             System.out.println("Quack quack quack");
@@ -185,10 +210,16 @@ public class UI {
         }
     }
 
+    /**
+     * Notifies the user that data is in the process of being saved to disk.
+     */
     public void notifyDataSaving() {
         System.out.println("Saving data ...");
     }
 
+    /**
+     * Notifies the user that data has been saved to disk.
+     */
     public void notifyDataSaved() {
         System.out.println("Done saving");
     }
