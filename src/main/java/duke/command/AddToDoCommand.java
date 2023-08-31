@@ -16,12 +16,12 @@ public class AddToDoCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) throws DukeException {
+    public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
         ToDo todo = new ToDo(description);
-        taskList.addToDo(todo);
-        storage.writeData(taskList.toWriteString());
+        tasks.addToDo(todo);
+        storage.writeData(tasks.toWriteString());
         System.out.println("Ok. Your tasklist has grown longer with this addition:\n"
                 + todo.toString()
-                + "\nYou now have " + taskList.getLength() + " things to do.\n");
+                + "\nYou now have " + tasks.getLength() + " things to do.\n");
     }
 }
