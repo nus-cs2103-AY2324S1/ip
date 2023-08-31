@@ -1,5 +1,6 @@
 import java.io.IOException;
-import java.util.*;
+import java.util.List;
+import java.util.Scanner;
 public class Duke {
     public static void main(String[] args) {
         String name = "Harry Potter";
