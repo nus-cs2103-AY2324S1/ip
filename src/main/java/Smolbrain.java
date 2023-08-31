@@ -84,8 +84,8 @@ public class Smolbrain {
     public static void parse(String[] words, ArrayList<Task> data) {
         String descr = "";
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/MM/yyy HHmm");
-        LocalDateTime dateTime;
-        LocalDateTime dateTime2;
+        LocalDateTime dateTime = LocalDateTime.now();
+        LocalDateTime dateTime2 = LocalDateTime.now();
         try {
             switch (words[0]) {
                 case "list":
@@ -133,7 +133,11 @@ public class Smolbrain {
                     descr = descr.substring(0, descr.length() - 1);
                     by_text = by_text.substring(0, by_text.length() - 1);
 
-                    dateTime = LocalDateTime.parse(by_text, formatter);
+                    try {
+                        dateTime = LocalDateTime.parse(by_text, formatter);
+                    } catch (DateTimeParseException e) {
+                        throw new InvalidDateTimeException();
+                    }
                     Deadline deadline = new Deadline(descr, dateTime);
                     data.add(deadline);
                     if (!loading) {
@@ -173,9 +177,12 @@ public class Smolbrain {
                     descr = descr.substring(0, descr.length() - 1);
                     from_text = from_text.substring(0, from_text.length() - 1);
                     to_text = to_text.substring(0, to_text.length() - 1);
-                    dateTime = LocalDateTime.parse(from_text, formatter);
-
-                    dateTime2 = LocalDateTime.parse(to_text, formatter);
+                    try {
+                        dateTime = LocalDateTime.parse(from_text, formatter);
+                        dateTime2 = LocalDateTime.parse(to_text, formatter);
+                    } catch (DateTimeParseException e) {
+                        throw new InvalidDateTimeException();
+                    }
                     Event event = new Event(descr, dateTime, dateTime2);
                     data.add(event);
                     if (!loading) {
@@ -244,7 +251,7 @@ public class Smolbrain {
                     break;
             }
         } catch (InvalidRangeException | MissingDescriptionException | MissingTimeException | InvalidNumberException |
-                 DateTimeParseException e) {
+                 InvalidDateTimeException e) {
             System.out.println(e);
         }
     }
