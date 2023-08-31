@@ -1,14 +1,36 @@
 import java.util.List;
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+
 
 
 public class Duke {
     static List<Task> tasks;
     static int count;
     public static void main(String[] args) {
-        // an array list of tasks
-         tasks = new ArrayList<>();
+        tasks = new ArrayList<>();
+        Duke buddy = new Duke();
+
+        try {
+            if (!Files.isDirectory(Paths.get("data/"))) {
+                Files.createDirectories(Paths.get("data/"));
+            }
+
+            if (!Files.exists(Paths.get("data/duke.txt"))) {
+                Files.createFile(Paths.get("data/duke.txt"));
+                System.out.println("New file created");
+            }
+            buddy.saveTasks();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
 
         Scanner scanner = new Scanner(System.in);
         printHorizontalLine();
@@ -19,6 +41,8 @@ public class Duke {
 
         while (count <=100 ) {
             String input = scanner.nextLine();
+
+
             if (input.equals("bye")) {
                 System.out.println("\t " + "Bye! Hope to see you again soon!");
                 printHorizontalLine();
@@ -27,23 +51,35 @@ public class Duke {
 
             //marking task
             else if (input.startsWith("mark ")) {
-                int taskIndex = Integer.parseInt(input.substring(5));
-                tasks.get(taskIndex - 1).markAsDone();
-                printHorizontalLine();
-                System.out.println("\tGreat! I've marked this task as done:");
-                System.out.println("\t" + taskIndex + "." + tasks.get(taskIndex-1).toString());
-                printHorizontalLine();
+                try {
+                    int taskIndex = Integer.parseInt(input.substring(5));
+                    tasks.get(taskIndex - 1).markAsDone();
+                    printHorizontalLine();
+                    System.out.println("\tGreat! I've marked this task as done:");
+                    System.out.println("\t" + taskIndex + "." + tasks.get(taskIndex - 1).toString());
+                    printHorizontalLine();
+                    buddy.writeTasksToFile();
+                }
+                catch (IOException i) {
+                    System.out.println(i);
+                }
 
             }
 
             //unmarking task
             else if (input.startsWith("unmark ")) {
-                int taskIndex = Integer.parseInt(input.substring(7));
-                tasks.get(taskIndex - 1).markAsNotDone();
-                printHorizontalLine();
-                System.out.println("\tOk! I've marked this task as not done yet:");
-                System.out.println("\t" + taskIndex + "." + tasks.get(taskIndex-1).toString());
-                printHorizontalLine();
+                try {
+                    int taskIndex = Integer.parseInt(input.substring(7));
+                    tasks.get(taskIndex - 1).markAsNotDone();
+                    printHorizontalLine();
+                    System.out.println("\tOk! I've marked this task as not done yet:");
+                    System.out.println("\t" + taskIndex + "." + tasks.get(taskIndex - 1).toString());
+                    printHorizontalLine();
+                    buddy.writeTasksToFile();
+                }
+                catch (IOException i) {
+                    System.out.println(i);
+                }
 
             }
 
@@ -53,7 +89,7 @@ public class Duke {
                     printHorizontalLine();
                     System.out.println("\tHere are the tasks in your list:");
                     if (tasks.size() == 0) {
-                         throw new DukeException("\t Seems like you have no tasks at the moment :) ");
+                        throw new DukeException("\t Seems like you have no tasks at the moment :) ");
 
                     }
                     for (int i = 1; i <= tasks.size(); i++) {
@@ -80,9 +116,13 @@ public class Duke {
                     System.out.println("\tOkie I've removed this task:\n\t" + element.toString());
                     System.out.println("\tNow you have " + tasks.size() + " tasks in the list.");
                     printHorizontalLine();
+                    buddy.writeTasksToFile();
                 }
                 catch (DukeException e) {
                     e.printMessage();
+                }
+                catch (IOException i) {
+                    System.out.println(i);
                 }
             }
 
@@ -90,9 +130,13 @@ public class Duke {
             else {
                 try {
                     addTaskToList(input);
+                    buddy.writeTasksToFile();
                 }
                 catch (DukeException e){
                     e.printMessage();
+                }
+                catch (IOException i) {
+                    System.out.println(i);
                 }
             }
         }
@@ -151,6 +195,41 @@ public class Duke {
         }
 
     }
+
+    private void saveTasks() throws IOException {
+        Scanner scanner = new Scanner(new File("data/duke.txt"));
+        while (scanner.hasNext()) {
+            String[] split = scanner.nextLine().split("\\|");
+            for (int i = 0; i < split.length; i++) {
+                split[i] = split[i].strip();
+            }
+            String description = split[2];
+
+            switch (split[0]) {
+                case "T":
+                    tasks.add(new ToDo(description));
+                    break;
+                case "D":
+                    String by = split[3];
+                    tasks.add(new Deadline(description, by));
+                    break;
+                case "E":
+                    String from = split[3];
+                    String to = split[4];
+                    tasks.add(new Event(description, from, to));
+                    break;
+            }
+        }
+    }
+
+    private void writeTasksToFile() throws IOException {
+        FileWriter fileWriter = new FileWriter("data/duke.txt");
+        for (Task t: tasks) {
+            fileWriter.write(t.toWriteString()+"\n");
+        }
+        fileWriter.close();
+    }
+
 
 
     public static void printHorizontalLine() {
