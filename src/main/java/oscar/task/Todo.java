@@ -6,6 +6,7 @@ package oscar.task;
 public class Todo extends Task {
   /**
    * Public constructor of todo.
+   *
    * @param description Details of todo.
    */
   public Todo(String description) {

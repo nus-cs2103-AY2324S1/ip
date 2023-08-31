@@ -6,6 +6,7 @@ package oscar.exception;
 public class OscarException extends Exception{
   /**
    * Instantiates a custom exception with error message.
+   *
    * @param errorMessage Informs the user with the exact issue.
    */
   public OscarException(String errorMessage) {

@@ -18,6 +18,7 @@ import oscar.exception.OscarException;
 public class Parser {
     /**
      * Handles raw user input and invokes the corresponding command.
+     *
      * @param fullCommand Raw user input.
      * @return Corresponding command.
      * @throws OscarException Invalid command.

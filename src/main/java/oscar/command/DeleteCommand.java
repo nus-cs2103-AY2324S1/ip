@@ -2,7 +2,6 @@ package oscar.command;
 
 import oscar.essential.Storage;
 import oscar.essential.TaskList;
-import oscar.essential.Ui;
 
 import oscar.exception.OscarException;
 
@@ -14,6 +13,7 @@ public class DeleteCommand extends Command {
 
     /**
      * Instantiates a delete command.
+     *
      * @param details Task number to be deleted.
      */
     public DeleteCommand(String details) {
@@ -23,6 +23,7 @@ public class DeleteCommand extends Command {
 
     /**
      * Deletes a task using the task number.
+     *
      * @param tasks ArrayList of tasks.
      * @param storage File loading and saving handler.
      * @throws OscarException Failure to validate task number.

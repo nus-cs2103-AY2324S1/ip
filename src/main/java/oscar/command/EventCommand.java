@@ -2,7 +2,6 @@ package oscar.command;
 
 import oscar.essential.Storage;
 import oscar.essential.TaskList;
-import oscar.essential.Ui;
 
 import oscar.exception.OscarException;
 
@@ -20,6 +19,7 @@ public class EventCommand extends Command {
 
     /**
      * Instantiates an event command.
+     *
      * @param details Description of event task.
      */
     public EventCommand(String details) {
@@ -29,6 +29,7 @@ public class EventCommand extends Command {
 
     /**
      * Creates a new event task and save it to the task list.
+     *
      * @param tasks ArrayList of tasks.
      * @param storage File loading and saving handler.
      * @throws OscarException Incorrect format of event command.
@@ -39,8 +40,8 @@ public class EventCommand extends Command {
         String description = validatedDetails[0];
         String start = validatedDetails[1];
         String end = validatedDetails[2];
-        LocalDateTime startDateTime = LocalDateTime.parse(start, DTFORMAT);
-        LocalDateTime endDateTime = LocalDateTime.parse(end, DTFORMAT);
+        LocalDateTime startDateTime = LocalDateTime.parse(start, DATE_TIME_FORMAT);
+        LocalDateTime endDateTime = LocalDateTime.parse(end, DATE_TIME_FORMAT);
         Task newEvent = new Event(description, startDateTime, endDateTime);
         tasks.add(newEvent);
         storage.save(tasks);
@@ -50,7 +51,9 @@ public class EventCommand extends Command {
 
     /**
      * Validates details of event task.
-     * Format: event [task] /from yyyy-MM-dd HHmm /to yyyy-MM-dd HHmm
+     * Format: event [task] /from yyyy-MM-dd HHmm /to yyyy-MM-dd HHmm.
+     *
+     * @return String array containing description, start and end date and time of event task.
      * @throws OscarException Incorrect format of event command.
      */
     public String[] validate() throws OscarException {
@@ -80,8 +83,8 @@ public class EventCommand extends Command {
             throw new OscarException("Sorry! Please enter a valid date and time in this format: '2019-10-15 1800'.\n");
         }
         try {
-            LocalDateTime startDateTime = LocalDateTime.parse(start, DTFORMAT);
-            LocalDateTime endDateTime = LocalDateTime.parse(end, DTFORMAT);
+            LocalDateTime startDateTime = LocalDateTime.parse(start, DATE_TIME_FORMAT);
+            LocalDateTime endDateTime = LocalDateTime.parse(end, DATE_TIME_FORMAT);
             if (endDateTime.isBefore(startDateTime)) {
                 throw new OscarException("Sorry! End date and time must be after start date and time.\n");
             }

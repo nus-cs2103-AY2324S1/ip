@@ -2,7 +2,6 @@ package oscar.command;
 
 import oscar.essential.Storage;
 import oscar.essential.TaskList;
-import oscar.essential.Ui;
 
 import oscar.exception.OscarException;
 
@@ -17,6 +16,7 @@ public class TodoCommand extends Command {
 
     /**
      * Instantiates a todo command.
+     *
      * @param details Description of todo task.
      */
     public TodoCommand(String details) {
@@ -26,6 +26,7 @@ public class TodoCommand extends Command {
 
     /**
      * Creates a new todo task and save it to the task list.
+     *
      * @param tasks ArrayList of tasks.
      * @param storage File loading and saving handler.
      * @throws OscarException Incorrect format of todo command.
@@ -42,7 +43,8 @@ public class TodoCommand extends Command {
 
     /**
      * Validates description of todo task.
-     * Format: todo [task]
+     * Format: todo [task].
+     *
      * @throws OscarException Description is missing or not within 200 characters.
      */
     public void validate() throws OscarException {

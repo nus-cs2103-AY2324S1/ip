@@ -13,9 +13,10 @@ public class Event extends Task{
 
   /**
    * Public constructor for event.
+   *
    * @param description Details of event.
-   * @param start Start date/time of event.
-   * @param end End date/time of event.
+   * @param start Start date and time of event.
+   * @param end End date and time of event.
    */
   public Event(String description, LocalDateTime start, LocalDateTime end) {
     super(description, "E");
@@ -24,7 +25,8 @@ public class Event extends Task{
   }
 
   /**
-   * Detailed string representation of event.
+   * Obtains string representation of event.
+   *
    * @return Information of event.
    */
   @Override

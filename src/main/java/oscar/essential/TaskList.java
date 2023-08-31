@@ -24,6 +24,9 @@ public class TaskList {
 
     /**
      * Uses the saved task list.
+     *
+     * @param stream Object input stream to be read.
+     * @throws OscarException Unable to load object input stream.
      */
     public TaskList(ObjectInputStream stream) throws OscarException {
         this.taskList = load(stream);
@@ -33,8 +36,9 @@ public class TaskList {
      * Loads the task list from the object input stream.
      * Solution adapted by <a href="https://howtodoinjava.com/java/collections/arraylist/
      * serialize-deserialize-arraylist/">...</a>
+     *
      * @param stream Deserialized save file stream.
-     * @return Saved task list.
+     * @return Saved task list in an ArrayList.
      * @throws OscarException Unable to handle object input stream.
      */
     private ArrayList<Task> load(ObjectInputStream stream) throws OscarException {
@@ -52,6 +56,7 @@ public class TaskList {
 
     /**
      * Save current task list by serializing it.
+     *
      * @param stream Object output stream of saved file.
      * @throws OscarException Input or output error.
      */
@@ -64,7 +69,8 @@ public class TaskList {
     }
 
     /**
-     * Getter method for obtaining the number of tasks in the task list.
+     * Obtains the number of tasks in the task list.
+     *
      * @return Count of tasks.
      */
     public int getSize() {
@@ -98,7 +104,8 @@ public class TaskList {
     }
 
     /**
-     * Mark a task as done.
+     * Marks a task as done.
+     *
      * @param index Task number.
      * @return Description of task.
      */
@@ -109,7 +116,8 @@ public class TaskList {
     }
 
     /**
-     * Mark a task as not done.
+     * Marks a task as not done.
+     *
      * @param index Task number.
      * @return Description of task.
      */
@@ -121,6 +129,7 @@ public class TaskList {
 
     /**
      * Deletes a task.
+     *
      * @param index Task number.
      * @return Description of task.
      */
@@ -130,7 +139,8 @@ public class TaskList {
     }
 
     /**
-     * Add a task to the task list.
+     * Adds a task to the task list.
+     *
      * @param task Task to be added.
      */
     public void add(Task task) {

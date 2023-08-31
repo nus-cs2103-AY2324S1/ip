@@ -2,7 +2,6 @@ package oscar.command;
 
 import oscar.essential.Storage;
 import oscar.essential.TaskList;
-import oscar.essential.Ui;
 
 import oscar.exception.OscarException;
 
@@ -20,6 +19,7 @@ public class DeadlineCommand extends Command {
 
     /**
      * Instantiates a deadline command.
+     *
      * @param details Description of deadline task.
      */
     public DeadlineCommand(String details) {
@@ -29,6 +29,7 @@ public class DeadlineCommand extends Command {
 
     /**
      * Creates a new deadline task and save it to the task list.
+     *
      * @param tasks ArrayList of tasks.
      * @param storage File loading and saving handler.
      * @throws OscarException Incorrect format of deadline command.
@@ -38,7 +39,7 @@ public class DeadlineCommand extends Command {
         String[] validatedDetails = validate();
         String description = validatedDetails[0];
         String deadline = validatedDetails[1];
-        LocalDateTime deadlineDateTime = LocalDateTime.parse(deadline, DTFORMAT);
+        LocalDateTime deadlineDateTime = LocalDateTime.parse(deadline, DATE_TIME_FORMAT);
         Task newDeadline = new Deadline(description, deadlineDateTime);
         tasks.add(newDeadline);
         storage.save(tasks);
@@ -48,7 +49,9 @@ public class DeadlineCommand extends Command {
 
     /**
      * Validates details of deadline task.
-     * Format: deadline [task] /by yyyy-MM-dd HHmm
+     * Format: deadline [task] /by yyyy-MM-dd HHmm.
+     *
+     * @return String array of description and deadline for deadline task.
      * @throws OscarException Incorrect format of deadline command.
      */
     public String[] validate() throws OscarException {
@@ -68,11 +71,10 @@ public class DeadlineCommand extends Command {
             throw new OscarException("Sorry! Please enter a valid date and time in this format: '2019-10-15 1800'.\n");
         }
         try {
-            LocalDateTime.parse(deadline, DTFORMAT);
+            LocalDateTime.parse(deadline, DATE_TIME_FORMAT);
         } catch (DateTimeParseException e) {
             throw new OscarException("Sorry! Please enter a valid date and time in this format: '2019-10-15 1800'.\n");
         }
         return new String[]{description, deadline};
     }
-
 }

@@ -12,10 +12,11 @@ import java.time.format.DateTimeFormatter;
  */
 abstract public class Command {
     private final boolean isExit;
-    static final DateTimeFormatter DTFORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+    static final DateTimeFormatter DATE_TIME_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
 
     /**
      * Constructor for command subclasses.
+     *
      * @param isExit Whether command is an exit command.
      */
     public Command(boolean isExit) {
@@ -23,8 +24,11 @@ abstract public class Command {
     }
 
     /**
-     * Validates task number.
+     * Validates the provided task number.
+     *
      * @param details Task number as a string.
+     * @param tasks ArrayList of tasks.
+     * @return Integer task number.
      * @throws OscarException Failure to validate task number.
      */
     public int validateInt(String details, TaskList tasks) throws OscarException {
@@ -47,6 +51,7 @@ abstract public class Command {
 
     /**
      * Carries out the intended function of a command.
+     *
      * @param tasks ArrayList of tasks.
      * @param storage File loading and saving handler.
      * @throws OscarException Failure to execute command.
@@ -54,7 +59,8 @@ abstract public class Command {
     abstract public void execute(TaskList tasks, Storage storage) throws OscarException;
 
     /**
-     * Getter method to check if command is an exit command.
+     * Checks if command is an exit command.
+     *
      * @return Whether command is an exit command.
      */
     public boolean isExit() {
