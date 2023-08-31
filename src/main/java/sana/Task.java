@@ -87,5 +87,19 @@ public abstract class Task {
         }
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof Task) {
+            Task task = (Task) obj;
+
+            if (this == null || task == null) {
+                return false;
+            }
+
+            return this.toString().equals(task.toString());
+        }
+        return false;
+    }
+
 
 }
