@@ -11,7 +11,18 @@ import duke.command.ExitCommand;
 import duke.command.ListCommand;
 import duke.exception.DukeException;
 
+/**
+ * Handles the parsing of user input commands to create corresponding Command objects.
+ */
 public class Parser {
+
+    /**
+     * Parses the user input to create a corresponding Command object.
+     *
+     * @param userInput The user's input as a String.
+     * @return A Command object representing the parsed user input.
+     * @throws DukeException If the user input is invalid.
+     */
     static Command parse(String userInput) throws DukeException {
         if (userInput.equals("bye") || userInput.equals("exit")){
             return new ExitCommand();
@@ -41,6 +52,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Validates and extracts the task index from the user input for mark and delete commands.
+     *
+     * @param input The user input containing the task index.
+     * @return The validated task index as an integer.
+     * @throws DukeException If the task index is not valid.
+     */
     private static int validateMarkAndDelete(String input) throws DukeException {
         if (input.isEmpty() || !isNumeric(input)) {
             throw new DukeException("☹ OOPS!!! The index cannot be blank or not an integer.");
@@ -49,6 +67,12 @@ public class Parser {
         return Integer.parseInt(input);
     }
 
+    /**
+     * Checks if a given String can be converted to an integer.
+     *
+     * @param str The String to be checked.
+     * @return True if the String can be converted to an integer, false otherwise.
+     */
     private static boolean isNumeric(String str) {
         if (str == null || str == "") {
             return false;
@@ -61,12 +85,25 @@ public class Parser {
         }
     }
 
+    /**
+     * Validates a toDo description to ensure it is not empty.
+     *
+     * @param todo The toDo description to be validated.
+     * @throws DukeException If the toDo description is empty.
+     */
     private static void validateTodo(String todo) throws DukeException {
         if (todo.isEmpty()) {
             throw new DukeException("☹ OOPS!!! The description of a todo cannot be empty.");
         }
     }
 
+    /**
+     * Validates and extracts information from user input for creating a deadline.
+     *
+     * @param input The user input for creating a deadline.
+     * @return A String array containing the task description and deadline information.
+     * @throws DukeException If the input format is invalid.
+     */
     private static String[] validateDeadline(String input) throws DukeException {
         String[] splitInput = input.replace("deadline", "").split(" /by ");
 
@@ -80,6 +117,13 @@ public class Parser {
         return splitInput;
     }
 
+    /**
+     * Validates and extracts information from user input for creating an event.
+     *
+     * @param input The user input for creating an event.
+     * @return An array containing the event description and timing information.
+     * @throws DukeException If the input format is invalid.
+     */
     private static String[] validateEvent(String input) throws DukeException {
         String[] info = input.replace("event ", "").split(" /from ");
 
