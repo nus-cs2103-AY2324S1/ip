@@ -1,20 +1,24 @@
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.io.FileWriter;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.List;
 
-public class Helper {
+public class Storage {
+
+    private String filePath;
+    public Storage(String filePath) {
+        //fix hard coded part later
+       this.filePath = filePath;
+    }
 
     /**read from file and return an array list of task
      *
      * @return array list of task
      */
-    public static ArrayList<Task> readFromFile() {
+    public ArrayList<Task> load() throws DukeException {
+        //print error message if cannot load
         //assume that all file path are ../data/duke.txt for now, change it later
         //if anything happen to the path or to the file, just return a new ArrayList and continue, no exception printed
         Path path = Paths.get("..", "data", "duke.txt");
@@ -58,7 +62,7 @@ public class Helper {
                 }
             } catch (Exception e) {
                 //if anything happen, just return a new one
-                return new ArrayList<Task>();
+                throw new DukeException("Error occured in loading", e);
             }
 
         } else {
@@ -67,7 +71,7 @@ public class Helper {
         }
         return loadList;
     }
-    public static void saveToFile(String filename, ArrayList<Task> list) {
+    public void store(TaskList tasks) {
         Path path = Paths.get("..", "data");
         if (Files.notExists(path)) {
             //if the directory not exist, create one instantly
@@ -75,15 +79,18 @@ public class Helper {
             try {
                 Files.createDirectories(path);
             } catch (Exception e) {
-                e.printStackTrace();
+                System.out.println("Error occured in creating directory");
             }
         }
-        try (FileWriter filewriter = new FileWriter(filename)) {
-            for (Task task : list) {
-                filewriter.write(task.stringInFile() + "\n");
+        try (FileWriter filewriter = new FileWriter(this.filePath)) {
+            //might need a fix for above, todo
+            int size = tasks.size();
+            for (int i = 0; i < size; i++) {
+                Task curr = tasks.getTask(i);
+                filewriter.write(curr.stringInFile() + "\n");
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println("Error occured in writing the file");
         }
     }
 }
