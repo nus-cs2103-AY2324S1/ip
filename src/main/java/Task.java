@@ -1,8 +1,11 @@
 import java.io.IOException;
+import java.time.format.DateTimeFormatter;
 
 public abstract class Task {
     private String name;
     private boolean isDone;
+
+    private static final DateTimeFormatter OUTPUT_FORMAT = DateTimeFormatter.ofPattern("d MMM yyyy hh:mm a");
 
     public Task(String name) {
         this.name = name;
@@ -27,6 +30,10 @@ public abstract class Task {
 
     public String toFileString() {
         return this.getStatusIcon() + " | " + this.name;
+    }
+
+    public DateTimeFormatter getOutputFormat() {
+        return OUTPUT_FORMAT;
     }
 
     public String toString() {

@@ -2,12 +2,18 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
 public class TaskList {
     private ArrayList<Task> tasks = new ArrayList<>();
 
     private final String LINE_SEPARATOR = "____________________________________________________________";
+    public static DateTimeFormatter inputFormat = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
+    private static DateTimeFormatter outputFormat = DateTimeFormatter.ofPattern("d MMM yyyy hh:mm a");
 
     public TaskList() {
     }
@@ -25,14 +31,35 @@ public class TaskList {
             newTask = new ToDoTask(taskDetails);
         } else if (taskType.equals("deadline") && taskDetails.contains("/by")) {
             String[] taskDetailsArray = taskDetails.split("/by");
+            if (taskDetailsArray.length < 2) {
+                throw new DukeException(messageWithSeparator("☹ OOPS!!! The deadline of a " + taskType + " cannot be empty."));
+            }
             taskName = taskDetailsArray[0].trim();
-            String taskDeadline = taskDetailsArray[1].trim();
-            newTask = new DeadlineTask(taskName, taskDeadline);
+            String stringDeadline = taskDetailsArray[1].trim();
+            try {
+                LocalDateTime deadline = LocalDateTime.parse(stringDeadline, inputFormat);
+                newTask = new DeadlineTask(taskName, deadline);
+            } catch (DateTimeParseException e) {
+                throw new DukeException(messageWithSeparator("☹ OOPS!!! Please enter a valid date and time in the format: dd/MM/yyyy HHmm"));
+            }
         } else if (taskType.equals("event") && taskDetails.contains("/from") && taskDetails.contains("/to")) {
+            String[] fromSplit = taskDetails.split("/from");
+            String[] toSplit = taskDetails.split("/to");
+            if (fromSplit.length < 2 || toSplit.length < 2) {
+                throw new DukeException(messageWithSeparator("☹ OOPS!!! The date and time of a " + taskType + " cannot be empty."));
+            }
+
             taskName = taskDetails.split("/from")[0].trim();
-            String from = taskDetails.split("/from")[1].split("/to")[0].trim();
-            String to = taskDetails.split("/to")[1].trim();
-            newTask = new EventTask(taskName, from, to);
+            String stringFrom = taskDetails.split("/from")[1].split("/to")[0].trim();
+            String stringTo = taskDetails.split("/to")[1].trim();
+
+            try {
+                LocalDateTime from = LocalDateTime.parse(stringFrom, inputFormat);
+                LocalDateTime to = LocalDateTime.parse(stringTo, inputFormat);
+                newTask = new EventTask(taskName, from, to);
+            } catch (DateTimeParseException e) {
+                throw new DukeException(messageWithSeparator("☹ OOPS!!! Please enter a valid date and time in the format: dd/MM/yyyy HHmm"));
+            }
         } else {
             printWithSeparator("Please enter a valid task.");
             return;
@@ -108,11 +135,11 @@ public class TaskList {
             if (taskType.equals("T")) {
                 task = new ToDoTask(taskDescription);
             } else if (taskType.equals("D")) {
-                String deadline = parts[3];
+                LocalDateTime deadline = LocalDateTime.parse(parts[3], outputFormat);
                 task = new DeadlineTask(taskDescription, deadline);
             } else if (taskType.equals("E")) {
-                String from = parts[3];
-                String to = parts[4];
+                LocalDateTime from = LocalDateTime.parse(parts[3], outputFormat);
+                LocalDateTime to = LocalDateTime.parse(parts[4], outputFormat);
                 task = new EventTask(taskDescription, from, to);
             } else {
                 throw new IOException("Invalid task type found in file.");
