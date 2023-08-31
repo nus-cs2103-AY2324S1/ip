@@ -3,6 +3,10 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -120,9 +124,9 @@ public class Duke {
         while (sc.hasNext()) {
             String[] args = sc.nextLine().split("-", -1);
             TaskType type;
-            String due = "";
-            String start = "";
-            String end = "";
+            LocalDateTime due = null;
+            LocalDateTime start = null;
+            LocalDateTime end = null;
             try {
                 type = TaskType.valueOf(args[0].toUpperCase());
             } catch (IllegalArgumentException e) {
@@ -131,11 +135,16 @@ public class Duke {
             }
             String details = args[1];
             boolean isCompleted = args[2].equals("Y");
-            if (type == TaskType.DEADLINE) {
-                due = args[3];
-            } else if (type == TaskType.EVENT) {
-                start = args[3];
-                end = args[4];
+            try {
+                if (type == TaskType.DEADLINE) {
+                    due = LocalDateTime.parse(args[3]);
+                } else if (type == TaskType.EVENT) {
+                    start = LocalDateTime.parse(args[3]);
+                    end = LocalDateTime.parse(args[4]);
+                }
+            } catch (DateTimeParseException e) {
+                System.out.println("Could not retrieve date and/or time");
+                return;
             }
             switch (type) {
                 case TASK:
@@ -245,12 +254,23 @@ public class Duke {
         Scanner sc = new Scanner(System.in);
         System.out.printf("Input %s %s.%n", taskType, input);
         String message = sc.nextLine();
-        if (!checkValidTask(message)) {
-            System.out.printf("The %s %s cannot be empty.%n", taskType, input);
-            printEndOfOperation();
-            return null;
-        } else if (checkDuplicates(message)) {
-            System.out.printf("Task %s already exists.%n", message);
+        try {
+            if (!checkValidTask(message)) {
+                if (taskType.equals("deadline") &&
+                        input.equals("due time (Optional, Required format: HH:MM)")) {
+                    return "23:59";
+                } else {
+                    System.out.printf("The %s %s cannot be empty.%n", taskType, input);
+                    printEndOfOperation();
+                    return null;
+                }
+            } else if (checkDuplicates(message)) {
+                System.out.printf("Task %s already exists.%n", message);
+                printEndOfOperation();
+                return null;
+            }
+        } catch (DateTimeParseException e) {
+            System.out.printf("Invalid date or time format. Please try again.%n");
             printEndOfOperation();
             return null;
         }
@@ -282,14 +302,16 @@ public class Duke {
         if (details == null) {
             return;
         }
-        String due = checkUserInput("deadline", "due date");
-        if (due != null) {
-            tasks.add(new Deadline(details, due));
-            numOfTasks++;
-            System.out.printf("Just saying, better %s now.%n" +
-                    "Not like it's my problem if you don't.%n", details);
-            printEndOfOperation();
-        }
+        LocalDate dueDate = LocalDate.parse(checkUserInput("deadline",
+                "due date (Required format: YYYY-MM-DD)"));
+        LocalTime dueTime = LocalTime.parse(checkUserInput("deadline",
+                "due time (Optional, Required format: HH:MM)"));
+        LocalDateTime due = dueTime.atDate(dueDate);
+        tasks.add(new Deadline(details, due));
+        numOfTasks++;
+        System.out.printf("Just saying, better %s now.%n" +
+                "Not like it's my problem if you don't.%n", details);
+        printEndOfOperation();
     }
 
     public void createEvent() {
@@ -297,18 +319,21 @@ public class Duke {
         if (details == null) {
             return;
         }
-        String start = checkUserInput("event","start time");
-        if (start == null) {
-            return;
-        }
-        String end = checkUserInput("event", "end time");
-        if (end != null) {
-            tasks.add(new Event(details, start, end));
-            numOfTasks++;
-            System.out.printf("Wow, you have a %s at %s?%n" +
-                    "Uhh, n-not like I wanna join you!%n", details, start);
-            printEndOfOperation();
-        }
+        LocalDate startDate = LocalDate.parse(checkUserInput("event",
+                "start date (Required format: YYYY-MM-DD)"));
+        LocalTime startTime = LocalTime.parse(checkUserInput("event",
+                "start time (Required format: HH:MM)"));
+        LocalDate endDate = LocalDate.parse(checkUserInput("event",
+                "end date (Required format: YYYY-MM-DD)"));
+        LocalTime endTime = LocalTime.parse(checkUserInput("event",
+                "end time (Required format: HH:MM)"));
+        LocalDateTime start = startTime.atDate(startDate);
+        LocalDateTime end = endTime.atDate(endDate);
+        tasks.add(new Event(details, start, end));
+        numOfTasks++;
+        System.out.printf("Wow, you have a %s at %s?%n" +
+                "Uhh, n-not like I wanna join you!%n", details, start);
+        printEndOfOperation();
     }
 
     public void list() {
