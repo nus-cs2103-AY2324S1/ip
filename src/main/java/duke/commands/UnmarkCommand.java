@@ -1,5 +1,6 @@
 package duke.commands;
 
+import duke.exceptions.CommandDetailException;
 import duke.exceptions.StorageException;
 import duke.storage.Storage;
 import duke.task.TaskList;
@@ -12,7 +13,7 @@ public class UnmarkCommand extends Command {
         this.index = index;
     }
 
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws StorageException {
+    public void execute(TaskList tasks, Ui ui, Storage storage) throws StorageException, CommandDetailException {
         ui.showUnmark(tasks, index);
         tasks.unmarkTask(index);
         storage.save(tasks);

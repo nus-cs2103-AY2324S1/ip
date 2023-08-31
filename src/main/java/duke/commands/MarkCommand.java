@@ -1,5 +1,6 @@
 package duke.commands;
 
+import duke.exceptions.CommandDetailException;
 import duke.exceptions.StorageException;
 import duke.storage.Storage;
 import duke.task.TaskList;
@@ -12,7 +13,7 @@ public class MarkCommand extends Command {
         this.index = index;
     }
 
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws StorageException {
+    public void execute(TaskList tasks, Ui ui, Storage storage) throws StorageException, CommandDetailException {
         ui.showMark(tasks, index);
         tasks.markTask(index);
         storage.save(tasks);

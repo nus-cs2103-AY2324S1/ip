@@ -1,8 +1,8 @@
 package duke;
 
 import duke.commands.Command;
+import duke.exceptions.CommandDetailException;
 import duke.exceptions.CommandNotRecognizedException;
-import duke.exceptions.NoCommandDetailException;
 import duke.exceptions.StorageException;
 import duke.exceptions.TimeParsingException;
 import duke.storage.Storage;
@@ -31,12 +31,16 @@ public class Duke {
                     c.execute(tasks, ui, storage);
                     isExit = c.isExit();
                 } catch (CommandNotRecognizedException e) {
+                    ui.showError(e);
                     ui.showCommandNotRecognized();
-                } catch (NoCommandDetailException e) {
+                } catch (CommandDetailException e) {
+                    ui.showError(e);
                     ui.showNoCommandDetail();
                 } catch (TimeParsingException e) {
+                    ui.showError(e);
                     ui.showTimeParsingError();
                 } catch (StorageException e) {
+                    ui.showError(e);
                     ui.showLoadingError();
                 } finally {
                     ui.showLine();

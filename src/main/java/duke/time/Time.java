@@ -10,7 +10,7 @@ public class Time {
         try {
             return LocalDate.parse(time, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
         } catch (Exception e) {
-            throw new TimeParsingException(time);
+            throw new TimeParsingException("Unable to parse time: " + time);
         }
     }
 

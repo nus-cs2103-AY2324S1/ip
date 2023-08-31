@@ -1,5 +1,7 @@
 package duke.task;
 
+import duke.exceptions.CommandDetailException;
+
 import java.util.ArrayList;
 
 
@@ -30,8 +32,12 @@ public class TaskList {
         tasks.get(index).setUndone();
     }
 
-    public Task getTask(int index) {
-        return tasks.get(index);
+    public Task getTask(int index) throws CommandDetailException {
+        try {
+            return tasks.get(index);
+        } catch (IndexOutOfBoundsException e) {
+            throw new CommandDetailException("OOPS!!! There is no such task!");
+        }
     }
 
     public int size() {

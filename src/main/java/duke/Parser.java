@@ -1,8 +1,8 @@
 package duke;
 
 import duke.commands.*;
+import duke.exceptions.CommandDetailException;
 import duke.exceptions.CommandNotRecognizedException;
-import duke.exceptions.NoCommandDetailException;
 import duke.exceptions.TimeParsingException;
 import duke.task.Deadline;
 import duke.task.Event;
@@ -15,7 +15,7 @@ public class Parser {
     public Parser() {
     }
 
-    public Command parse(String input) throws TimeParsingException, CommandNotRecognizedException, NoCommandDetailException {
+    public Command parse(String input) throws TimeParsingException, CommandNotRecognizedException, CommandDetailException {
         String trimedInput = input.trim();
         String[] splitInput = trimedInput.split(" ", 2);
         String command = splitInput[0].toLowerCase();
@@ -42,13 +42,13 @@ public class Parser {
             if (task != null) {
                 return new AddCommand(task);
             } else {
-                throw new CommandNotRecognizedException("I'm sorry, but I don't know what" + input + " means :-(");
+                throw new CommandNotRecognizedException("I'm sorry, but I don't know what " + input + " means :-(");
             }
         }
         }
     }
 
-    protected Task parseTask(String input) throws TimeParsingException, NoCommandDetailException {
+    protected Task parseTask(String input) throws TimeParsingException, CommandDetailException {
         String[] splitInput = input.split(" ", 2);
         String command = splitInput[0].toLowerCase();
 
@@ -70,7 +70,7 @@ public class Parser {
                 return null;
             }
         } catch (ArrayIndexOutOfBoundsException e) {
-            throw new NoCommandDetailException("OOPS!!! The description of a " + command + " cannot be empty.");
+            throw new CommandDetailException("OOPS!!! The description of a " + command + " cannot be understood.");
         }
     }
 }
