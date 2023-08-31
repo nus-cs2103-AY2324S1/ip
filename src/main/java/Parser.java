@@ -4,12 +4,12 @@ import java.time.format.DateTimeParseException;
 public class Parser {
 
     /**
-     * Parses the input command and performs corresponding actions based on the provided input.
-     * This method handles various commands such as listing tasks, marking/unmarking tasks, deleting tasks,
-     * and adding new tasks.
+     * Parses the input command and creates a Command object.
+     * This method extracts the action and task description from the input and returns a Command object.
      *
      * @param input The input command provided by the user.
-     * @throws CCException If an error occurs during parsing or execution of the command.
+     * @return A Command object representing the parsed command.
+     * @throws CCException If an error occurs during parsing.
      */
     public Command parseInput(String input) throws CCException {
         int space = input.indexOf(' ');
@@ -24,6 +24,33 @@ public class Parser {
         return new Command(action, taskDescription);
     }
 
+    /**
+     * Parses a task from a line of data file input and returns the corresponding Task object.
+     * This method extracts task details from the input, creates a Command object, and parses the Task type.
+     *
+     * @param fileLine The input line from the data file containing task details.
+     * @return A Task object representing the parsed task.
+     * @throws CCException If an error occurs during parsing.
+     */
+    public Task parseTaskFromFile(String fileLine) throws CCException {
+        char done = fileLine.charAt(0);
+        String input = fileLine.substring(1, fileLine.length());
+        Command command = parseInput(input);
+        Task task = parseTask(command.getAction(), command.getTaskDescription());
+        if (done == 'X') {
+            task.setDone(true);
+        }
+        return task;
+    }
+
+    /**
+     * Parses a Task object based on its type and input details.
+     *
+     * @param type The type of the task (todo, deadline, event).
+     * @param input The input containing task details.
+     * @return A Task object representing the parsed task.
+     * @throws CCException If an error occurs during parsing or task creation.
+     */
     public Task parseTask(String type, String input) throws CCException {
         Task task = null;
         switch (type) {
@@ -42,12 +69,10 @@ public class Parser {
 
     /**
      * Parses the input string to create a new ToDo task.
-     * The method extracts the task description from the input and creates a new ToDo task.
      *
-     * @param input The input string containing the todo description.
-     *              The input should be in the format "todo todo_description"
-     * @return A new ToDo task object created from the provided input.
-     * @throws CCException If the input string is empty or if there is an error in task creation.
+     * @param taskDescription The description of the ToDo task.
+     * @return A new ToDo task object created from the provided description.
+     * @throws CCException If the description is empty.
      */
     private ToDo parseToDo (String taskDescription) throws CCException {
         if (taskDescription.isEmpty()) {
@@ -58,12 +83,9 @@ public class Parser {
 
     /**
      * Parses the input string to create a new Deadline task.
-     * The method splits the input into fields, checks for the correct format, and extracts the task name
-     * and deadline information to create a new Deadline task.
      *
-     * @param input The input string containing the deadline description and end time.
-     *              The input should be in the format "deadline deadline_description /by end_time"
-     * @return A new Deadline task object created from the provided input.
+     * @param taskDescription The description and end time of the Deadline task.
+     * @return A new Deadline task object created from the provided description.
      * @throws CCException If the input format is incorrect or if there are empty fields.
      */
     private Deadline parseDeadline(String taskDescription) throws CCException {
@@ -81,12 +103,9 @@ public class Parser {
 
     /**
      * Parses the input string to create a new Event task.
-     * The method splits the input into fields, checks for the correct format, and extracts the task name,
-     * start time, and end time information to create  a new Event task.
      *
-     * @param input The input string containing the event description and start and end timings.
-     *              The input should be in the format "event event_description /from start_time /to end_time
-     * @return A new Event task object created from the provided input.
+     * @param taskDescription The description, start time, and end time of the Event task.
+     * @return A new Event task object created from the provided description.
      * @throws CCException If the input format is incorrect or if there are empty fields.
      */
     private Event parseEvent(String taskDescription) throws CCException{
@@ -103,6 +122,13 @@ public class Parser {
         return new Event(taskDescription, name, parseDate(start), parseDate(end));
     }
 
+
+    /**
+     * Parses a string into a LocalDate object.
+     *
+     * @param date The string containing a date to be parsed.
+     * @return A LocalDate object representing the parsed date.
+     */
     private static LocalDate parseDate(String date) {
         try {
             return LocalDate.parse(date);

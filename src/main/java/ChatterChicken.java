@@ -42,11 +42,10 @@ public class ChatterChicken {
         System.out.println(LINE + INDENT + "Bye. Hope to see you again soon!" + LINE);
     }
 
-
     /**
      * Initiates the main loop of the ChatterChicken application.
-     * The method reads user input, processes commands, and provides responses until the user chooses to  exit.
-     * Exceptions are caught and displayed.
+     * Reads user input, processes commands, and provides responses until the user chooses to exit.
+     * Catches and displays exceptions.
      */
     private void run() {
         try (Scanner sc = new Scanner(System.in)) {
@@ -56,6 +55,7 @@ public class ChatterChicken {
             while (!input.equals("bye")) {
                 Command command = parser.parseInput(input);
                 executeCommand(command);
+                storage.saveTasksToFile(tasks);
                 input = sc.nextLine();
             }
         } catch (CCException e) {
@@ -64,6 +64,11 @@ public class ChatterChicken {
         exit();
     }
 
+    /**
+     * Executes the specified command by invoking corresponding methods on the tasks.
+     * @param command The parsed user command.
+     * @throws CCException If an error occurs during command execution.
+     */
     private void executeCommand(Command command) throws CCException {
         String action = command.getAction();
         String taskDescription = command.getTaskDescription();

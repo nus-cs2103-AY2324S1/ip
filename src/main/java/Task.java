@@ -13,20 +13,6 @@ public abstract class Task {
         this.isDone = false;
     }
 
-    public String getName() {
-        return this.name;
-    }
-
-    public abstract String getTask();
-
-    protected String getTaskDescription() {
-        return this.taskDescription;
-    }
-
-    public void setDone(boolean isDone) {
-        this.isDone = isDone;
-    }
-
     protected String checkDone() {
         return isDone ? "X" : " ";
     }
@@ -34,5 +20,23 @@ public abstract class Task {
     public String formatDate(LocalDate date) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         return date.format(formatter);
+    }
+
+    protected String getName() {
+        return this.name;
+    }
+
+    protected String getTaskDescription() {
+        return this.taskDescription;
+    }
+
+    public abstract String getTaskForPrinting();
+
+    public String getTaskForSaving() {
+        return checkDone() + getTaskDescription();
+    }
+
+    public void setDone(boolean isDone) {
+        this.isDone = isDone;
     }
 }

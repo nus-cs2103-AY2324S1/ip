@@ -18,7 +18,7 @@ public class Event extends Task {
      * @return The formatted representation of the event task.
      */
     @Override
-    public String getTask() {
+    public String getTaskForPrinting() {
         return String.format("[%s][E] %s (from: %s to: %s)",
                 super.checkDone(),
                 super.getName(),

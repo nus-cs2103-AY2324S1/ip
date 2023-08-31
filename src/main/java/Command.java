@@ -1,6 +1,6 @@
 public class Command {
-    private String action;
-    private String taskDescription;
+    private final String action;
+    private final String taskDescription;
 
     public Command(String action, String taskDescription) {
         this.action = action;

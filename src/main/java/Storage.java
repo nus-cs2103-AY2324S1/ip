@@ -11,9 +11,10 @@ public class Storage {
     }
 
     /**
-     * Loads tasks from the data file and populates the task list with them.
+     * Loads tasks from the data file and returns them as an ArrayList.
      * If the data file doesn't exist, a new file is created.
-     * Any errors during loading or task addition are caught and handled.
+     *
+     * @return An ArrayList containing the loaded tasks, or null in case of errors.
      */
     public ArrayList<Task> loadTasksFromFile() {
         try {
@@ -25,8 +26,7 @@ public class Storage {
                 String currLine = reader.readLine();
                 ArrayList<Task> taskList = new ArrayList<>();
                 while (currLine != null) {
-                    String taskType = currLine.substring(0, currLine.indexOf(' '));
-                    Task task = parser.parseTask(taskType, currLine);
+                    Task task = parser.parseTaskFromFile(currLine);
                     taskList.add(task);
                     currLine = reader.readLine();
                 }
@@ -42,15 +42,18 @@ public class Storage {
     }
 
     /**
-     * Saves the provided task to the data file in its original user input format.
+     * Saves tasks from the provided TaskList to the data file.
      *
-     * @param task The task to be saved to the data file.
+     * @param taskList The TaskList containing tasks to be saved.
      */
-    public static void saveTaskToFile(Task task) {
+    public void saveTasksToFile(TaskList taskList) {
         try {
             File dataFile = Paths.get(ChatterChicken.PATH).toAbsolutePath().toFile();
-            BufferedWriter writer = new BufferedWriter(new FileWriter(dataFile, true));
-            writer.append(task.getTaskDescription() + "\n");
+            BufferedWriter writer = new BufferedWriter(new FileWriter(dataFile));
+            for (Task task : taskList) {
+                String taskDescription = task.getTaskForSaving() + "\n";
+                writer.append(taskDescription);
+            }
             writer.close();
         } catch (IOException e) {
             System.err.println("An error occurred while saving tasks to file: " + e.getMessage());
