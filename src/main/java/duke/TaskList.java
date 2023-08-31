@@ -24,10 +24,9 @@ public class TaskList {
         ui.showAddTask(task, taskList.size());
     }
 
-    public void listTask(Ui ui) {
+    public void listTask(Ui ui) throws DukeException {
         if (taskList.isEmpty()) {
-            ui.showError("OOPS!!! There is nothing in the list, yet!");
-            return;
+            throw new DukeException("OOPS!!! There is nothing in the list, yet!");
         }
         String[] tasks = new String[taskList.size()];
         for (int i = 0; i < tasks.length; i++) {
@@ -39,7 +38,7 @@ public class TaskList {
     public void printDateTask(Keyword key, LocalDate date, Ui ui) throws DukeException {
         if (taskList.isEmpty()) {
             throw new DukeException("OOPS!!! There is nothing in the list, yet!");
-        } else {
+        } else if (key.equals(Keyword.DEADLINE) || key.equals(Keyword.EVENT)) {
             List<Task> tasksOnDate = new ArrayList<>();
             for (Task task : taskList) {
                 if (task.onDate(key, date)) {
@@ -53,9 +52,11 @@ public class TaskList {
                 }
                 ui.printDateTask(tasks, date.format(Time.DATE_DISPLAY_FORMATTER));
             } else {
-                ui.showError(String.format("OOPS!!! There is nothing happening on %s.",
+                throw new DukeException(String.format("OOPS!!! There is nothing happening on %s.",
                         date.format(Time.DATE_DISPLAY_FORMATTER)));
             }
+        } else {
+            throw new DukeException("OOPS!!! This is not a valid command.");
         }
     }
 
@@ -80,12 +81,15 @@ public class TaskList {
 
     public void manipulateAllTask(Keyword key, Ui ui) throws DukeException {
         if (taskList.isEmpty()) {
-            throw new DukeException(String.format("OOPS!!! There are no tasks to %s.", key.getKeyword()));
+            throw new DukeException(String.format("OOPS!!! There are no tasks to %s.",
+                    key.getKeyword()));
         }
         if (key.equals(Keyword.DELETE)) {
             taskList.clear();
-        } else {
+        } else if (key.equals(Keyword.MARK) || key.equals(Keyword.UNMARK)) {
             taskList.forEach(t -> t.mark(key.equals(Keyword.MARK)));
+        } else {
+            throw new DukeException("OOPS!!! This is not a valid command.");
         }
         ui.showManipulateAllTask(key.getKeyword());
     }

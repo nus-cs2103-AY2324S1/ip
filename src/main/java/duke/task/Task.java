@@ -5,7 +5,7 @@ import java.time.LocalDate;
 import duke.Keyword;
 import duke.Storage;
 
-public class Task {
+public abstract class Task {
     protected String description;
     protected boolean isDone;
 

@@ -39,11 +39,7 @@ public class AddCommand extends Command {
             if (deadlineTask.length != 2) {
                 throw new DeadlineException(err);
             }
-            try {
-                task = new Deadline(deadlineTask[0], Time.parseDateTime(deadlineTask[1]));
-            } catch (DukeException e) {
-                throw new DeadlineException(err);
-            }
+            task = new Deadline(deadlineTask[0], Time.parseDateTime(deadlineTask[1]));
             break;
 
         default: // equivalent to case EVENT
@@ -55,11 +51,7 @@ public class AddCommand extends Command {
             if (dates.length != 2) {
                 throw new EventException(err);
             }
-            try {
-                task = new Event(eventTask[0], Time.parseDateTime(dates[0]), Time.parseDateTime(dates[1]));
-            } catch (DukeException e) {
-                throw new EventException(err);
-            }
+            task = new Event(eventTask[0], Time.parseDateTime(dates[0]), Time.parseDateTime(dates[1]));
             break;
         }
         taskList.addTask(task, ui);
