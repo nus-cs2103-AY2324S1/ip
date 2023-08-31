@@ -1,7 +1,4 @@
-import exceptions.DukeEmptyArgumentException;
-import exceptions.DukeException;
-import exceptions.DukeInvalidIndexException;
-import exceptions.DukeUnknownCommandException;
+import exceptions.*;
 
 import command.Command;
 
@@ -45,7 +42,7 @@ public class Duke {
      * @param command
      * @param taskInfo
      */
-    private static void addTask(Command command, String taskInfo) {
+    private static void addTask(Command command, String taskInfo) throws DukeInvalidDateException {
         Task newTask;
 
         if (command == Command.TODO) {
