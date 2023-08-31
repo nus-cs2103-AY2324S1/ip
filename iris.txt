@@ -1,0 +1,4 @@
+T | 1 | one
+T | 0 | two
+T | 0 | three
+T | 1 | one
