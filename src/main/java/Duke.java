@@ -2,6 +2,9 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.regex.Matcher;
@@ -16,6 +19,8 @@ public class Duke {
                     " / __/ / / /_/ / ,< /  __/\n" +
                     "/_/   /_/\\__,_/_/|_|\\___/";
     private final static String SAVE_FILE_NAME = "fluke.txt";
+    private final static DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG);
+
     private static ArrayList<Task> listOfTasks = new ArrayList<>();
 
     private enum Command {
@@ -371,7 +376,8 @@ public class Duke {
             }
             String desc = taskDesc.substring(0, bracketStartIndex).trim();
             String by = taskDesc.substring(bracketStartIndex + 4, bracketEndIndex).trim();
-            return new Deadline(desc, isMarked, by);
+            LocalDate date = LocalDate.parse(by, DATE_TIME_FORMATTER);
+            return new Deadline(desc, isMarked, date.toString());
         } else if (taskType == Command.EVENT) {
             int bracketStartIndex = taskDesc.indexOf('(');
             if (bracketStartIndex < 0) {
@@ -385,16 +391,18 @@ public class Duke {
             if (!fromFound) {
                 throw new SaveFileParsingException();
             }
-            String from = fromMatcher.group().replaceFirst("to:", "").substring(5).trim();
+            String from = fromMatcher.group().substring(5).replaceFirst("to:", "").trim();
+            LocalDate fromDate = LocalDate.parse(from, DATE_TIME_FORMATTER);
             // parse to date
-            Pattern toPattern = Pattern.compile("to:[\\S\\s]+");
+            Pattern toPattern = Pattern.compile("to:.+\\)");
             Matcher toMatcher = toPattern.matcher(taskDesc);
             boolean toFound = toMatcher.find();
             if (!toFound) {
                 throw new SaveFileParsingException();
             }
-            String to = toMatcher.group().substring(3).trim();
-            return new Event(desc, isMarked, from, to);
+            String to = toMatcher.group().substring(3).replaceFirst("\\)", "").trim();
+            LocalDate toDate = LocalDate.parse(to, DATE_TIME_FORMATTER);
+            return new Event(desc, isMarked, fromDate.toString(), toDate.toString());
         }
         throw new SaveFileParsingException();
     }

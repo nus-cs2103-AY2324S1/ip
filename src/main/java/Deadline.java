@@ -1,17 +1,24 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
+
+
 public class Deadline extends Task {
-    protected String by;
+    private final static DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG);
+    protected LocalDate by;
     public Deadline(String description, String by) throws DukeException {
         super(description);
-        this.by = by;
+        this.by = LocalDate.parse(by);
     }
 
     public Deadline(String description, boolean isDone, String by) throws DukeException {
         super(description, isDone);
-        this.by = by;
+        this.by = LocalDate.parse(by);
     }
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + by + ")";
+        String byString = by.format(DATE_TIME_FORMATTER);
+        return "[D]" + super.toString() + " (by: " + byString + ")";
     }
 }
