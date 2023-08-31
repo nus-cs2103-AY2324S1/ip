@@ -46,7 +46,7 @@ public class Storage {
 
         } catch (IOException e) {
             // Handle IO exception by printing an error message
-            Ui.showError(" An error occurred while loading tasks");
+            Ui.showError("An error occurred while loading tasks");
         }
     }
 
@@ -77,7 +77,7 @@ public class Storage {
 
         } catch (IOException e) {
             // Handle IO exception by printing an error message
-            Ui.showError(" An error occurred while saving tasks");
+            Ui.showError("An error occurred while saving tasks");
         }
     }
 }
