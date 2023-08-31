@@ -3,7 +3,6 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.time.format.DateTimeParseException;
@@ -11,7 +10,7 @@ import java.time.format.DateTimeParseException;
 import static java.lang.Integer.parseInt;
 
 public class Max {
-    private static String line = "____________________________________________________________";
+    private static String LINE = "____________________________________________________________";
     private static ArrayList<Task> myList = new ArrayList<>();
     private static int numOfItems = 0;
     public static class Task {
@@ -25,13 +24,13 @@ public class Max {
             this.done = true;
             System.out.println("     Good job on completing your task!");
             System.out.println("       " + this);
-            System.out.println(Max.line);
+            System.out.println(Max.LINE);
         }
         private void unmark() {
             this.done = false;
             System.out.println("     Okay, I've marked this as not done yet!");
             System.out.println("       " + this);
-            System.out.println(Max.line);
+            System.out.println(Max.LINE);
         }
 
         @Override
@@ -85,7 +84,7 @@ public class Max {
         System.out.println("     / /\\/\\ \\ (_| |>  <");
         System.out.println("     \\/    \\/\\__,_/_/\\_\\");
         System.out.println("     How may I assist you?");
-        System.out.println(Max.line);
+        System.out.println(Max.LINE);
     }
 
     public static void add(String task) throws MaxException {
@@ -154,7 +153,7 @@ public class Max {
         } else {
             System.out.println("     Now you have " + numOfItems + " tasks in the list.");
         }
-        System.out.println(Max.line);
+        System.out.println(Max.LINE);
     }
 
     public static void list() {
@@ -166,7 +165,7 @@ public class Max {
             System.out.println("     " + index + ". " + myList.get(i));
         }
 
-        System.out.println(Max.line);
+        System.out.println(Max.LINE);
     }
     public static void delete(int taskNumber) throws MaxException {
         if (taskNumber > numOfItems) {
@@ -185,12 +184,12 @@ public class Max {
         } else {
             System.out.println("     Now you have " + numOfItems + " tasks left.");
         }
-        System.out.println(Max.line);
+        System.out.println(Max.LINE);
     }
 
     public static void exit() {
         System.out.println("     Bye! Please come again!");
-        System.out.println(Max.line);
+        System.out.println(Max.LINE);
     }
     public static enum Command {
         LIST, MARK, UNMARK, BYE, ADD, DELETE, UNKNOWN
@@ -289,7 +288,7 @@ public class Max {
 
             } catch (MaxException e) {
                 System.out.println(e.getMessage());
-                System.out.println(Max.line);
+                System.out.println(Max.LINE);
             } catch (DateTimeParseException e) {
                 System.out.println("Please use yyyy-mm-dd format!");
             }
