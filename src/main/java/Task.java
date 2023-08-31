@@ -13,6 +13,13 @@ public class Task {
     public void markDone() {
         this.isDone = true;
     }
+    public boolean getStatus() {
+        return this.isDone;
+    }
+
+    public String getName() {
+        return this.taskName;
+    }
 
     public void markUndone() {
         this.isDone = false;
