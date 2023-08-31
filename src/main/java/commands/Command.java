@@ -9,12 +9,12 @@ import ui.Ui;
  */
 public interface Command {
 
-  /**
-   * Executes the command on the given task list, user interface, and storage.
-   *
-   * @param tasks   The task list on which the command will be executed.
-   * @param ui      The user interface to display messages to the user.
-   * @param storage The storage to update as needed by the command.
-   */
-  void execute(TaskList tasks, Ui ui, Storage storage);
+    /**
+     * Executes the command on the given task list, user interface, and storage.
+     *
+     * @param tasks   The task list on which the command will be executed.
+     * @param ui      The user interface to display messages to the user.
+     * @param storage The storage to update as needed by the command.
+     */
+    void execute(TaskList tasks, Ui ui, Storage storage);
 }
