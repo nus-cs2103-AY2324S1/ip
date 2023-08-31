@@ -1,12 +1,15 @@
 import java.util.Scanner;
 
 public class Parser {
+    static String userInput;
     static Scanner scanner = new Scanner(System.in);
     public String getUserInput() {
         return scanner.nextLine();
     }
-    String userInput = scanner.nextLine();
 
+    public void setUserInput(String newUserInput) {
+        userInput = newUserInput;
+    }
     public boolean bye() {
         return userInput.equals("bye");
     }

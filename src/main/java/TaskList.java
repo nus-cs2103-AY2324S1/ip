@@ -11,15 +11,16 @@ public class TaskList {
     static File taskList;
     static int taskCount = 0;
 
-    public TaskList(File file) {
+    public TaskList(File file) throws FileNotFoundException {
         taskList = file;
         taskList.deleteOnExit();
     }
+
     public TaskList() {
+        taskList = new File("./src/main/data/tasklist.txt");
+        taskList.deleteOnExit();
     }
     static ArrayList<Task> tasks = new ArrayList<>();
-
-
 
     public void printFileContents() {
         try {
@@ -28,7 +29,7 @@ public class TaskList {
                 System.out.println(s.nextLine());
             }
         } catch (FileNotFoundException e) {
-            System.out.println("File not found");
+            System.out.println("Error: There are no items in the list!");
         }
 
     }
@@ -116,15 +117,14 @@ public class TaskList {
     }
 
     public void addToList(Task task, int taskId) {
-        int taskCount = taskId + 1;
+        int numTasks = taskCount + 1;
         String response = Ui.line + "Got it! I've added this task:" + "\n" + task.toString() + "\n"
-                + "You now have " + taskCount + " task(s) in the list" + "\n" + Ui.line;
+                + "You now have " + numTasks + " task(s) in the list" + "\n" + Ui.line;
         tasks.add(taskId, task);
-        writeToFile();
         if (taskCount < tasks.size()) {
             taskCount++;
-            taskId++;
         }
+        writeToFile();
         System.out.println(response);
     }
 

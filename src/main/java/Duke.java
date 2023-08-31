@@ -1,17 +1,18 @@
-import java.time.format.DateTimeParseException;
-import java.time.LocalDate;
+import java.io.FileNotFoundException;
 
 public class Duke {
     private final Ui ui;
     private TaskList tasks;
-    private final Storage storage;
-    private final Parser parser;
 
     public Duke(String filePath) {
         this.ui = new Ui();
-        this.parser = new Parser();
-        this.storage = new Storage(filePath);
-        this.tasks = new TaskList(storage.load());
+        Storage storage = new Storage(filePath);
+        try {
+            this.tasks = new TaskList(storage.load());
+        } catch (FileNotFoundException e) {
+            tasks = new TaskList();
+        }
+
     }
 
     public static void main(String[] args) {
@@ -20,10 +21,14 @@ public class Duke {
 
     public void startChat() {
         ui.greet();
+        Parser parser = new Parser();
         String userInput = parser.getUserInput();
-
-        while (!parser.bye()){
+        parser.setUserInput(userInput);
+        while (true) {
             try {
+                if (parser.bye()) {
+                    break;
+                }
                 if (parser.list()){
                     tasks.printFileContents();
                 } else if (parser.mark()) {
@@ -45,8 +50,8 @@ public class Duke {
                 System.out.println(Ui.line + exception.getMessage() + "\n" + Ui.line);
             }
             userInput = parser.getUserInput();
+            parser.setUserInput(userInput);
         }
-
         ui.goodbye();
         parser.goodbye();
     }
