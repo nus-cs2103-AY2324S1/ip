@@ -30,7 +30,7 @@ public class Parser {
      *
      * @param input The user input.
      * @return A command.Command to be executed.
-     * @throws DukeException
+     * @throws DukeException If user input is invalid, Duke exception will be thrown.
      */
     public static Command parse(String input) throws DukeException {
         final Matcher matcher = BASIC_COMMAND.matcher(input.trim());
@@ -54,48 +54,72 @@ public class Parser {
             if (validIndex) {
                 return new EditCommand("mark", Integer.parseInt(argument));
             } else {
-                throw new InvalidIndexException();
+                throw new InvalidCommandException("Please input an integer to identify task");
             }
 
         case "unmark":
             if (validIndex) {
                 return new EditCommand("unmark", Integer.parseInt(argument));
             } else {
-                throw new InvalidIndexException();
+                throw new InvalidCommandException("Please input an integer to identify task");
             }
 
 
         case "delete":
             if (validIndex) {
                 return new EditCommand("delete", Integer.parseInt(argument));
+
             } else {
-                throw new InvalidIndexException();
+                throw new InvalidCommandException("Please input an integer to identify task");
+
             }
 
         case "todo":
+            if (argument.equals("")) {
+                throw new InvalidCommandException("ToDo description cannot be empty");
+            }
+
             return new AddCommand("todo", new String[]{argument});
 
         case "deadline":
             Matcher deadlineFormat = DEADLINE_FORMAT.matcher(argument);
+            if (argument.equals("")) {
+                throw new InvalidCommandException("Deadline description cannot be empty");
+            }
 
             if (deadlineFormat.matches()) {
                 String desc = deadlineFormat.group(1);
-                String byDate = parseDateTimeFormat(deadlineFormat.group(2));
+                LocalDateTime d = parseDateTime(deadlineFormat.group(2));
+                String byDate = reformatDateTime(d);
                 return new AddCommand("deadline", new String[]{desc, byDate});
             } else {
-                throw new InvalidCommandException("Wrong deadline format");
+                throw new InvalidCommandException("Invalid deadline command. " +
+                        "Please include /by date in this format: yyyy-mm-dd HH:mm");
             }
 
         case "event":
             Matcher eventFormat = EVENT_FORMAT.matcher(argument);
+            if (argument.equals("")) {
+                throw new InvalidCommandException("Event description cannot be empty");
+            }
 
             if (eventFormat.matches()) {
                 String desc = eventFormat.group(1);
-                String fromDate = parseDateTimeFormat(eventFormat.group(2));
-                String toDate = parseDateTimeFormat(eventFormat.group(3));
+
+                LocalDateTime from = parseDateTime(eventFormat.group(2));
+                LocalDateTime to = parseDateTime(eventFormat.group(3));
+
+                if (from.isAfter(to)) {
+                    throw new InvalidCommandException("/from date should be before /to date given");
+                }
+
+                String fromDate = reformatDateTime(from);
+                String toDate = reformatDateTime(to);
+
                 return new AddCommand("event", new String[]{desc, fromDate, toDate});
             } else {
-                throw new InvalidCommandException("Wrong event format");
+                throw new InvalidCommandException("Invalid event command. " +
+                        "Please include /from and /to dates in this format: yyyy-mm-dd HH:mm");
             }
 
         default:
@@ -110,12 +134,15 @@ public class Parser {
      * @param input The dateTime string input from the user.
      * @return The string of the formatted DateTime input.
      */
-    private static String parseDateTimeFormat(String input) {
+    public static String reformatDateTime(LocalDateTime input) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM d yyyy h.mma", Locale.ENGLISH);
+        return input.format(formatter);
+    }
+
+
+    public static LocalDateTime parseDateTime(String input) {
         String[] dateTime = input.split(" ", 2);
         String dateTimeFormat = dateTime[0] + "T" + dateTime[1] + ":00";
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM d yyyy h.mma", Locale.ENGLISH);
-
-        LocalDateTime deadline = LocalDateTime.parse(dateTimeFormat);
-        return deadline.format(formatter);
+        return LocalDateTime.parse(dateTimeFormat);
     }
 }

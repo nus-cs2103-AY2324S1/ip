@@ -53,6 +53,10 @@ public abstract class Task {
         return this.getStatusIcon() + " " + this.name;
     }
 
+    /**
+     * Returns string of task to store in file. Description includes
+     * task type, date, if task is done and the task name.
+     */
     public String fileString() {
         String done = isDone ? "1" : "0";
         return " | " + done + " | " + this.name;

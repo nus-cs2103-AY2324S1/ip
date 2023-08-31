@@ -1,5 +1,6 @@
 package duke;
 
+import exception.InvalidIndexException;
 import task.*;
 
 import java.util.ArrayList;
@@ -33,7 +34,7 @@ public class TaskList {
         for (int i = 0; i < taskList.size(); i++) {
             tasks += (i + 1) + "." + taskList.get(i).toString();
 
-            if (i != taskList.size() - 1) {
+            if (i < taskList.size() - 1) {
                 tasks += "\n";
             }
         }
@@ -50,7 +51,11 @@ public class TaskList {
     public String toFileString() {
         String tasks = "";
         for (int i = 0; i < taskList.size(); i++) {
-            tasks += taskList.get(i).fileString() + "\n";
+            tasks += taskList.get(i).fileString();
+
+            if (i < taskList.size() - 1) {
+                tasks += "\n";
+            }
         }
         return tasks;
     }
@@ -91,7 +96,11 @@ public class TaskList {
      * @param ind The task to edit.
      * @return The string description of the edit being made.
      */
-    public String editTask(String taskType, int ind) {
+    public String editTask(String taskType, int ind) throws InvalidIndexException {
+
+        if (!isValidIndex(ind)) {
+            throw new InvalidIndexException();
+        }
 
         String editDesc = "";
 
@@ -114,5 +123,17 @@ public class TaskList {
         }
 
         return editDesc;
+    }
+
+    public boolean isValidIndex(int ind) {
+        if (ind <= 0) {
+            return false;
+        }
+
+        if (ind > taskList.size()) {
+            return false;
+        }
+
+        return true;
     }
 }

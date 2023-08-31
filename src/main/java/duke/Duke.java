@@ -1,9 +1,10 @@
-package duke; /**
+/**
  * ip Project duke.Duke Chat bot
  *
  * @author Aaron Tay
  * @since 2023-08-24
  */
+package duke;
 import command.Command;
 import exception.DukeException;
 
