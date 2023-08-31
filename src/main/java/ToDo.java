@@ -1,7 +1,7 @@
 public class ToDo extends Task{
 
     public ToDo(String taskName) {
-        super(taskName);
+        super(taskName,TaskType.TODO);
     }
     @Override
     public String toString() {

@@ -2,7 +2,7 @@ public class Event extends Task {
     String startDate;
     String dueDate;
     public Event(String taskName, String startDate,String dueDate) {
-        super(taskName);
+        super(taskName, TaskType.EVENT);
         this.startDate = startDate;
         this.dueDate = dueDate;
     }

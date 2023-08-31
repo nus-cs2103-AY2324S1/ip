@@ -1,7 +1,7 @@
 public class Deadline extends Task {
     String dueDate;
     public Deadline(String taskName, String dueDate) {
-        super(taskName);
+        super(taskName, TaskType.DEADLIINE);
         this.dueDate = dueDate;
     }
     @Override
