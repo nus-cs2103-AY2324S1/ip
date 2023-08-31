@@ -1,10 +1,10 @@
-package Duke.fileHandler;
+package duke.filehandler;
 
-import Duke.exceptions.DukeException;
-import Duke.tasks.Deadline;
-import Duke.tasks.Event;
-import Duke.tasks.Task;
-import Duke.tasks.Todo;
+import duke.exceptions.DukeException;
+import duke.tasks.Deadline;
+import duke.tasks.Event;
+import duke.tasks.Task;
+import duke.tasks.Todo;
 
 import java.io.*;
 import java.text.SimpleDateFormat;
@@ -20,7 +20,6 @@ public class Storage {
     }
 
     public static Date fileDateParser(String dateString) throws DukeException {
-
         SimpleDateFormat sdf = new SimpleDateFormat("dd MMM yyyy h a");
 
         try {
@@ -37,10 +36,8 @@ public class Storage {
             File taskFile = new File(FILE_PATH);
             if (!taskFile.exists()) {
                 taskFile.createNewFile();
-
             }
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             throw new DukeException("Error creating task file!");
         }
 
@@ -51,10 +48,8 @@ public class Storage {
                 taskWriter.write("\n");
             }
             taskWriter.close();
-
-
         } catch (IOException e) {
-            throw new DukeException(" Error saving Duke.tasks to file");
+            throw new DukeException(" Error saving tasks to file");
         }
     }
 
@@ -70,17 +65,13 @@ public class Storage {
             while (reader.hasNextLine()) {
                 String data = reader.nextLine();
                 if (data.length() > 0){
-
-
                     if (data.charAt(1)=='T'){
                         Todo todo = new Todo (data.substring(7));
-
                         if (data.charAt(4) == 'X'){
                             todo.setAction("mark");
                         }
                         tasks.add(todo);
-                    }
-                    else if (data.charAt(1)=='D'){
+                    } else if (data.charAt(1)=='D'){
                         String dates = data.split(":",2)[1];
                         String desc = data.split("\\(")[0];
                         Date date = fileDateParser(dates.substring(1,dates.length()-1));
@@ -89,16 +80,12 @@ public class Storage {
                             deadline.setAction("mark");
                         }
                         tasks.add(deadline);
-                    }
-                    else if (data.charAt(1) == 'E'){
+                    } else if (data.charAt(1) == 'E'){
                         String[] dates = data.split(":");
                         String desc = data.split("\\(")[0];
-
                         Date from = fileDateParser(dates[1].substring(1,dates[1].length()-2));
                         Date to = fileDateParser(dates[2].substring(1,dates[2].length()-1));
-
                         Event event = new Event(desc.substring(7), from,to);
-
                         if (data.charAt(4) == 'X'){
                             event.setAction("mark");
                         }
@@ -106,9 +93,7 @@ public class Storage {
                     }
                 }
             }
-
-        }
-         catch( IOException e){
+        } catch( IOException e){
             throw new DukeException("error reading from file");
         }
         return tasks;

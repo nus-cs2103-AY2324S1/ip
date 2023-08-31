@@ -1,6 +1,6 @@
-package Duke;
+package duke;
 
-import Duke.parsers.InputParser;
+import duke.parsers.InputParser;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.jupiter.api.Test;

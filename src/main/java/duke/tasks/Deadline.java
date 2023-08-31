@@ -1,4 +1,4 @@
-package Duke.tasks;
+package duke.tasks;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;

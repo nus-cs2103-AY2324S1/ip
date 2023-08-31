@@ -1,4 +1,4 @@
-package Duke.tasks;
+package duke.tasks;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -10,7 +10,6 @@ public class Event extends Task {
     protected String fromFormat;
     protected String toFormat;
 
-
     public Event(String description, Date from , Date to) {
         super(description);
         this.from = from;
@@ -18,7 +17,6 @@ public class Event extends Task {
         SimpleDateFormat outputFormat = new SimpleDateFormat("dd MMM yyyy h a");
         this.fromFormat = outputFormat.format(from);
         this.toFormat = outputFormat.format(to);
-
 
         System.out.println("Got it. I've added this task:");
         System.out.println("  " + this);
