@@ -181,7 +181,7 @@ public class Ax {
             while (scanner.hasNextLine()){
                 String info = scanner.nextLine();
                 // check if index 5 is blank space
-                boolean marked = info.charAt(5) == ' ';
+                boolean marked = info.charAt(5) != ' ';
                 // check if index 1 is T D or E
                 int startidx = 8;
                 if (info.charAt(1) == 'T') {
@@ -190,7 +190,7 @@ public class Ax {
                     // find first ( in info
                     int idx = info.indexOf('(') - 1;
                     int end = info.indexOf(')');
-                    listItems.add(new Deadlines(info.substring(startidx, idx), info.substring(idx + 5, end)));
+                    listItems.add(new Deadlines(info.substring(startidx, idx), info.substring(idx + 6, end)));
                 } else if (info.charAt(1) == 'E') {
                     // find first ( in info
                     int idx = info.indexOf('(') - 1;
@@ -200,6 +200,7 @@ public class Ax {
                     int tostart = info.indexOf("to: ") - 1;
                     listItems.add(new Events(info.substring(startidx,idx), info.substring(fromend, tostart), info.substring(toend, end)));
                 }
+                listItems.get(listItems.size() - 1).setDone(marked);
 
             }
         } catch (FileNotFoundException e) {

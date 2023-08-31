@@ -1,3 +1,5 @@
+import java.time.LocalDate;
+
 /**
  * Represents a single item in a to-do list.
  */
@@ -51,6 +53,15 @@ public class ListItem {
      */
     public void setDone(boolean done) {
         this.done = done;
+    }
+
+    /**
+     * Parses the date
+     * @param date the string of date
+     * @return a LocalDate Object
+     */
+    public LocalDate parseDate(String date) {
+        return LocalDate.parse(date.strip());
     }
 
     /**

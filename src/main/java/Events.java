@@ -1,15 +1,17 @@
+import java.time.LocalDate;
+
 public class Events extends ListItem {
 
-    String start;
-    String end;
+    LocalDate start;
+    LocalDate end;
 
     /**
      * Constructor for Events.
      */
     public Events(String text, String start, String end) {
         super(text);
-        this.start = start;
-        this.end = end;
+        this.start = super.parseDate(start);
+        this.end = super.parseDate(end);
     }
 
     /**
@@ -20,7 +22,7 @@ public class Events extends ListItem {
         return (
                 "[E] " +
                         super.toString() +
-                        String.format(" (from: %s to: %s)", this.start, this.end)
+                        String.format(" (from: %s to: %s)", this.start.toString(), this.end.toString())
         );
     }
 }

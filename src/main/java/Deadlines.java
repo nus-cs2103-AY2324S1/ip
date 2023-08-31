@@ -1,13 +1,15 @@
+import java.time.LocalDate;
+
 public class Deadlines extends ListItem {
 
-    String end;
+    LocalDate end;
 
     /**
      * Constructor for Deadlines.
      */
     public Deadlines(String text, String end) {
         super(text);
-        this.end = end;
+        this.end = super.parseDate(end);
     }
 
     /**
@@ -15,6 +17,6 @@ public class Deadlines extends ListItem {
      */
     @Override
     public String toString() {
-        return "[D] " + super.toString() + String.format(" (by: %s)", this.end);
+        return "[D] " + super.toString() + String.format(" (by: %s)", this.end.toString());
     }
 }
