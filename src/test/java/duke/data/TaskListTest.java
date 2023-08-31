@@ -27,5 +27,5 @@ public class TaskListTest {
         tasklist.deleteTask(1);
         assertEquals(1, tasklist.getTasklist().size());
     }
-    
+
 }
