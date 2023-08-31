@@ -33,7 +33,22 @@ public class TaskList {
         } catch (FileNotFoundException e) {
             System.out.println("Error: There are no items in the list!");
         }
+    }
 
+    public void printFileContents(String itemToFind) {
+        try {
+            Scanner s = new Scanner(taskList);
+            while (s.hasNext()) {
+                String nextLine = s.nextLine();
+                if (nextLine.contains(itemToFind)){
+                    System.out.println(nextLine);
+                } else {
+                    continue;
+                }
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println("Error: There are no items in the list!");
+        }
     }
 
     public void writeToFile() {
@@ -160,5 +175,10 @@ public class TaskList {
         } catch (DateTimeParseException e) {
             System.out.println("Invalid Date Format! Follow: YYYY-MM-DD");
         }
+    }
+
+    public void handleFind(String input) {
+        String itemToFind = input.substring(5);
+        printFileContents(itemToFind);
     }
 }

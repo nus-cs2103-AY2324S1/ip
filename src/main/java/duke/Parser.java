@@ -36,6 +36,7 @@ public class Parser {
     public boolean event() {
         return userInput.startsWith("event ");
     }
+    public boolean find() { return userInput.startsWith("find ");}
     public void goodbye() {
         scanner.close();
     }

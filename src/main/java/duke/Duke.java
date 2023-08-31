@@ -44,6 +44,8 @@ public class Duke {
                     tasks.handleDeadline(userInput);
                 } else if (parser.event()) {
                     tasks.handleEvent(userInput);
+                } else if (parser.find()) {
+                    tasks.handleFind(userInput);
                 } else {
                     throw new DukeException("Error: Invalid Command!");
                 }
