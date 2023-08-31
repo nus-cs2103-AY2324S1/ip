@@ -9,7 +9,7 @@ import duke.data.exception.DukeException;
 
 public class Parser {
 
-    enum Instruction {bye, list, mark, unmark, todo, deadline, event, delete}
+    enum Instruction {bye, list, mark, unmark, todo, deadline, event, delete, find}
 
     public static Command parseCommand(String command) throws ParseException, DukeException, IllegalArgumentException {
         SimpleDateFormat inputDateFormatter = new SimpleDateFormat("yyyy-MM-dd");
@@ -49,6 +49,8 @@ public class Parser {
                 throw new DukeException("☹ OOPS!!! The description / from / to of a event cannot be empty.");
             case delete:
                 return new DeleteTaskCommand(Integer.parseInt(second_word));
+            case find:
+                return new FindCommand(second_word);
             default:
                 throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
         }

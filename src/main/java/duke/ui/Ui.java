@@ -1,5 +1,6 @@
 package duke.ui;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 import duke.data.TaskList;
 import duke.data.task.Task;
@@ -10,6 +11,7 @@ public class Ui {
     public Ui() {
         this.scanner = new Scanner(System.in);
     }
+
     public void showWelcome() {
         showLine();
         System.out.println("Hello! I'm Dommi");
@@ -79,5 +81,11 @@ public class Ui {
 
     public void showInvalidCommand() {
         System.out.println("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+    }
+
+    public void showSearchResults(ArrayList<Task> results) {
+        for (int i = 0; i < results.size(); i++) {
+            System.out.println((i + 1) + "." + results.get(i));
+        }
     }
 }

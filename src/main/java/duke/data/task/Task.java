@@ -24,6 +24,10 @@ public class Task {
         return (isDone ? "X" : " "); // mark done task with X
     }
 
+    public boolean contains(String query) {
+        return description.contains(query);
+    }
+
     public String toWrite() {
         if (isDone)
             return "1 | " + description;
