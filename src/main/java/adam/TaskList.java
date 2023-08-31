@@ -1,79 +1,77 @@
 package adam;
 
-import adam.tasks.Deadlines;
-import adam.tasks.Events;
-import adam.tasks.Task;
-import adam.exception.OutOfBoundsException;
-import adam.tasks.ToDos;
 import java.util.ArrayList;
 
+import adam.tasks.Deadline;
+import adam.tasks.Event;
+import adam.tasks.Task;
+import adam.exception.OutOfBoundException;
+import adam.tasks.ToDo;
 public class TaskList {
-    Ui ui = new Ui();
-    boolean running = true;
-    private ArrayList<Task> array;
-
+    private Ui ui = new Ui();
+    private boolean isActive = true;
+    private ArrayList<Task> tasks;
 
     public TaskList(ArrayList<Task> saved) {
-
-        array = saved;
+        tasks = saved;
     }
 
     public void deleteTask(int num) {
-        Task curr = array.get(num-1);
-        array.remove(num-1);
-        ui.delete(curr, array.size());
+        Task curr = tasks.get(num-1);
+        tasks.remove(num-1);
+        ui.delete(curr, tasks.size());
     }
     public void addTodo(String text) {
-        ToDos curr = new ToDos(text);
-        array.add(curr);
-        ui.addTodo(curr, array.size());
+        ToDo curr = new ToDo(text);
+        tasks.add(curr);
+        ui.addTodo(curr, tasks.size());
     }
     public void addDeadline(String text, String by) {
-        Deadlines curr = new Deadlines(text, by);
-        array.add(curr);
-        ui.addDeadline(curr,array.size());
+        Deadline curr = new Deadline(text, by);
+        tasks.add(curr);
+        ui.addDeadline(curr, tasks.size());
     }
     public void addEvent(String text, String from, String to) {
-        Events curr = new Events(text, from, to);
-        array.add(curr);
-        ui.addEvent(curr,array.size());
+        Event curr = new Event(text, from, to);
+        tasks.add(curr);
+        ui.addEvent(curr, tasks.size());
     }
     public void list() {
         ui.list();
         int count = 1;
-        for (Task item: array) {
+        for (Task item: tasks) {
             System.out.println(count + ". " + item.toString());
             count++;
         }
     }
 
     public void markAsDone(int number) {
-        if (number > array.size()) {
-            throw new OutOfBoundsException();
+        if (number > tasks.size()) {
+            throw new OutOfBoundException();
         }
-        Task curr = array.get(number - 1);
+        Task curr = tasks.get(number - 1);
         ui.mark();
         curr.markAsDone();
     }
-    public void unMarkAsDone(int number) {
-        if (number > array.size()) {
-            throw new OutOfBoundsException();
+    public void unmarkAsDone(int number) {
+        if (number > tasks.size()) {
+            throw new OutOfBoundException();
         }
-        Task curr = array.get(number - 1);
+        Task curr = tasks.get(number - 1);
         ui.unmark();
         curr.unmarkAsDone();
     }
 
     public boolean isRunning() {
-        return running;
+        return isActive;
     }
 
     public void bye() {
-        running = false;
+        isActive = false;
         ui.bye();
     }
 
     public void save (Storage storage) {
-        storage.write(array);
+        storage.write(tasks);
     }
 }

@@ -2,13 +2,13 @@ package adam;
 
 import java.io.*;
 import java.util.ArrayList;
+
 import adam.tasks.Task;
 import adam.exception.AdamException;
 public class Storage {
-    String home = System.getProperty("user.home");
-    java.nio.file.Path path = java.nio.file.Paths.get(home, "Pokemon.txt");
+    private String home = System.getProperty("user.home");
+    private java.nio.file.Path path = java.nio.file.Paths.get(home, "Pokemon.txt");
 
-    boolean directoryExists = java.nio.file.Files.exists(path);
     public ArrayList<Task> read() {
         try {
             ObjectInputStream in = new ObjectInputStream(new FileInputStream(path.toFile()));
@@ -21,10 +21,10 @@ public class Storage {
             throw new RuntimeException(e);
         }
     }
-    public void write(ArrayList<Task> array) {
+    public void write(ArrayList<Task> tasks) {
         try {
             ObjectOutputStream ob = new ObjectOutputStream(new FileOutputStream(path.toFile()));
-            ob.writeObject(array);
+            ob.writeObject(tasks);
             ob.flush();
             ob.close();
         } catch (IOException e) {

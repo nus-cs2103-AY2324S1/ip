@@ -6,8 +6,8 @@ import adam.TaskList;
 import adam.exception.NumberException;
 
 public class EditCommand implements Command {
-    String[] tokens;
-    String text;
+    private String[] tokens;
+    private String text;
     public EditCommand(String[] tokens, String text) {
         this.tokens =  tokens;
         this.text = text;
@@ -21,17 +21,17 @@ public class EditCommand implements Command {
         }
         int number = Integer.valueOf(tokens[1]);
         switch (text) {
-            case "mark":
-                tasks.markAsDone(number);
-                break;
-            case "unmark":
-                tasks.unMarkAsDone(number);
-                break;
-            case "delete":
-                tasks.deleteTask(number);
-                break;
-            default:
-                System.out.println("Wrong input");
+        case "mark":
+            tasks.markAsDone(number);
+            break;
+        case "unmark":
+            tasks.unmarkAsDone(number);
+            break;
+        case "delete":
+            tasks.deleteTask(number);
+            break;
+        default:
+            System.out.println("Wrong input");
         }
         tasks.save(storage);
     }
