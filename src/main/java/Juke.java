@@ -1,7 +1,11 @@
+import java.io.*;
+import java.util.Objects;
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.util.function.Function;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.function.Consumer;
 
 public class Juke {
     static void printLine() {
@@ -15,6 +19,11 @@ public class Juke {
             public Task(String desc) {
                 this.desc = desc;
                 this.isDone = false;
+            }
+
+            public Task(String desc, boolean isDone) {
+                this.desc = desc;
+                this.isDone = isDone;
             }
 
             public String getStatusIcon() {
@@ -33,6 +42,11 @@ public class Juke {
             public String toString() {
                 return this.getStatusIcon() + desc;
             }
+
+            public String toData() {
+                String done = isDone ? "1" : "0";
+                return "|" + isDone + "|" + desc;
+            }
         }
 
         class Todo extends Task {
@@ -40,10 +54,17 @@ public class Juke {
                 super(desc);
             }
 
+            public Todo(String desc, boolean isDone) {
+                super(desc, isDone);
+            }
+
             @Override
             public String toString() {
                 return "[T]" + super.toString();
             }
+
+            @Override
+            public String toData() { return "T" + super.toData(); }
         }
 
         class Deadline extends Task {
@@ -54,10 +75,18 @@ public class Juke {
                 this.by = by;
             }
 
+            public Deadline(String description, boolean isDone, String by) {
+                super(description, isDone);
+                this.by = by;
+            }
+
             @Override
             public String toString() {
                 return "[D]" + super.toString() + " (by: " + by + ")";
             }
+
+            @Override
+            public String toData() { return "D" + super.toData() + "|" + this.by; }
         }
 
         class Event extends Task {
@@ -69,14 +98,104 @@ public class Juke {
                 this.end = end;
             }
 
+            public Event(String description, boolean isDone, String start, String end) {
+                super(description, isDone);
+                this.start = start;
+                this.end = end;
+            }
+
             @Override
             public String toString() {
                 return "[E]" + super.toString() + " (from: " + start + " to: " + end + ")";
             }
+
+            @Override
+            public String toData() { return "E" + super.toData() + "|" + start + "|" + end; }
         }
 
-        ArrayList<Task> tasks = new ArrayList<Task>();
+        Consumer<Task> write = task -> {
+            File savefile = new File("./savefile.txt");
+            if (!savefile.exists()) {
+                try {
+                    savefile.createNewFile();
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+            try {
+                FileWriter writer = new FileWriter(savefile, true);
+                writer.write(task.toData() + "\n");
+                writer.flush();
+                writer.close();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        };
 
+        Consumer<ArrayList<Task>> updateAll = tasks -> {
+            File savefile = new File("./savefile.txt");
+            if (!savefile.exists()) {
+                try {
+                    savefile.createNewFile();
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+            try {
+                FileWriter deleter = new FileWriter(savefile, false);
+                deleter.write("");
+                for (Task task : tasks) {
+                    FileWriter writer = new FileWriter(savefile, true);
+                    writer.write(task.toData() + "\n");
+                    writer.flush();
+                    writer.close();
+                }
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        };
+
+        ArrayList<Task> tasks = new ArrayList<>();
+
+        Function<String, Boolean> parseIsDone = str -> {
+            return str.equals("true");
+        };
+
+        Function<String, Task> parse = data -> {
+            String[] parts = data.split("\\|");
+            if (Objects.equals(parts[0], "T")) {
+                return new Todo(parts[2], parseIsDone.apply(parts[1]));
+            }
+            if (Objects.equals(parts[0], "D")) {
+                return new Deadline(parts[2], parseIsDone.apply(parts[1]), parts[3]);
+            }
+            if (Objects.equals(parts[0], "E")) {
+                return new Event(parts[2], parseIsDone.apply(parts[1]), parts[3], parts[4]);
+            }
+            return null;
+        };
+
+        Consumer<File> loadAll = savefile -> {
+            if (!savefile.exists()) {
+                try {
+                    savefile.createNewFile();
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+            try {
+                BufferedReader reader = new BufferedReader(new FileReader(savefile));
+                // Read the lines from the file one by one.
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    tasks.add(parse.apply(line));
+                }
+
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        };
+        loadAll.accept(new File("./savefile.txt"));
         //Introduce itself to the user
         System.out.println("Hello! I'm Juke!");
         System.out.println("What can I do for you?");
@@ -111,6 +230,7 @@ public class Juke {
                     Task currTask = tasks.get(index - 1);
                     currTask.markAsUndone();
                     System.out.println("OK, I've marked this task as not done yet: \n" + currTask.toString());
+                    updateAll.accept(tasks);
                     printLine();
                     continue;
                 }
@@ -123,6 +243,7 @@ public class Juke {
                     Task currTask = tasks.get(index - 1);
                     currTask.markAsDone();
                     System.out.println("Nice! I've marked this task as done: \n" + currTask.toString());
+                    updateAll.accept(tasks);
                     printLine();
                     continue;
                 }
@@ -137,6 +258,7 @@ public class Juke {
                     System.out.println("Noted. I've removed this task:");
                     System.out.println("\t" + currTask.toString());
                     System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+                    updateAll.accept(tasks);
                     printLine();
                 }
 
@@ -150,6 +272,7 @@ public class Juke {
                         System.out.println("Got it. I've added this task:");
                         System.out.println("\t" + newTask.toString());
                         System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+                        write.accept(newTask);
                         printLine();
                     } else if (input.startsWith("deadline")) {
                         final Pattern deadlinePattern = Pattern.compile(
@@ -161,6 +284,7 @@ public class Juke {
                             System.out.println("Got it. I've added this task:");
                             System.out.println("\t" + newTask.toString());
                             System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+                            write.accept(newTask);
                             printLine();
                         }
                     } else if (input.startsWith("event")) {
@@ -173,6 +297,7 @@ public class Juke {
                             System.out.println("Got it. I've added this task:");
                             System.out.println("\t" + newTask.toString());
                             System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+                            write.accept(newTask);
                             printLine();
                         }
                     } else {
