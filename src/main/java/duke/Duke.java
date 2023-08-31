@@ -9,12 +9,24 @@ import duke.storage.Storage;
 import duke.task.TaskList;
 import duke.ui.Ui;
 
+/**
+ * Represents the main class for the Duke application.
+ * Responsible for initializing the application and handling the user input.
+ */
 public class Duke {
+
     private static final String DATA_FILE_PATH = "./data/duke.txt";
     private static final Storage storage = new Storage(DATA_FILE_PATH);
     private static final Ui ui = new Ui();
     private static final Parser parser = new Parser();
 
+    /**
+     * The main entry point for the Duke application.
+     * Initializes the user interface, loads stored tasks from storage,
+     * and then continuously waits for user input until the exit command is received.
+     *
+     * @param args Command-line arguments (unused).
+     */
     public static void main(String[] args) {
         ui.showLine();
         ui.showWelcome();

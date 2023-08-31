@@ -2,17 +2,40 @@ package duke.storage;
 
 import duke.exceptions.StorageException;
 import duke.exceptions.TimeParsingException;
-import duke.task.*;
+import duke.task.Deadline;
+import duke.task.Event;
+import duke.task.Task;
+import duke.task.TaskList;
+import duke.task.ToDo;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 
+/**
+ * Represents the storage component in the Duke application.
+ * This class is responsible for loading tasks from a file and saving tasks back to that file.
+ */
 public class Storage {
     private final String filePath;
 
+    /**
+     * Constructs a new instance of the Storage class with the specified file path.
+     *
+     * @param filePath The path to the file where tasks are to be stored and loaded from.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
+    /**
+     * Loads tasks from the storage file. If the file doesn't exist, a new file will be created.
+     *
+     * @return A {@link TaskList} populated with tasks loaded from the storage file.
+     * @throws StorageException If there are any issues with creating or reading from the file.
+     */
     public TaskList load() throws StorageException {
         TaskList tasks = new TaskList();
         File file = new File(filePath);
@@ -44,7 +67,13 @@ public class Storage {
         return tasks;
     }
 
-
+    /**
+     * Parses a line from the storage file and constructs a {@link Task} object from it.
+     *
+     * @param line The line from the storage file to be parsed.
+     * @return A Task object constructed from the provided line, or null if the line format is unrecognized.
+     * @throws TimeParsingException If there's an issue parsing the time from the line.
+     */
     private Task parseTask(String line) throws TimeParsingException {
         String[] parts = line.split(" \\| ");
         switch (parts[0]) {
@@ -60,6 +89,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Saves a {@link TaskList} back to the storage file.
+     *
+     * @param tasks The TaskList to be saved.
+     * @throws StorageException If there's an issue saving to the file.
+     */
     public void save(TaskList tasks) throws StorageException {
         try (FileWriter fw = new FileWriter(filePath)) {
             fw.write(tasks.toStorage());
