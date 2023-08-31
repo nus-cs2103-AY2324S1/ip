@@ -14,6 +14,12 @@ public class Event extends Task {
         this.to = to;
     }
 
+    Event(String description, String period, boolean isDone) {
+        super(description, isDone);
+        this.from = period.split("-")[0];
+        this.to = period.split("-")[1];
+    }
+
     @Override
     public String getType() {
         return SYMBOL;
