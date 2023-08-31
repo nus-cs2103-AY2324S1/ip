@@ -78,6 +78,21 @@ public class Ui {
     }
 
     /**
+     * Shows list of tasks that user searched for.
+     *
+     * @param tasks All user tasks.
+     */
+    public void showSearchedTasks(ArrayList<Task> tasks) {
+        StringBuilder allTasks = new StringBuilder();
+        for (int i = 0; i < tasks.size(); i++) {
+            allTasks.append(String.format(" %d. %s\n", i + 1, tasks.get(i)));
+        }
+        String tasksList = " Here are the matching tasks in your list:\n" +
+                allTasks;
+        System.out.println(tasksList.trim());
+    }
+
+    /**
      * Shows user the recently added task.
      *
      * @param newTask    New Task to be added.

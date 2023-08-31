@@ -4,6 +4,10 @@ import bongo.command.AddCommand;
 import bongo.command.Command;
 import bongo.command.DeleteCommand;
 import bongo.command.ExitCommand;
+<<<<<<< HEAD
+=======
+import bongo.command.FindCommand;
+>>>>>>> branch-Level-9
 import bongo.command.ListCommand;
 import bongo.command.MarkCommand;
 import bongo.command.UnmarkCommand;
@@ -27,6 +31,7 @@ public class Parser {
         case "list":
             return new ListCommand();
         case "mark":
+<<<<<<< HEAD
             return new MarkCommand(input);
         case "unmark":
             return new UnmarkCommand(input);
@@ -36,6 +41,8 @@ public class Parser {
         case "deadline":
         case "event":
             return new AddCommand(input);
+        case "find":
+            return new FindCommand(input);
         default:
             throw new BongoException();
         }
