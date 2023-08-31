@@ -1,3 +1,12 @@
+package helpbuddy;
+
+import helpbuddy.command.Command;
+import helpbuddy.exception.HelpBuddyException;
+import helpbuddy.storage.Storage;
+import helpbuddy.task.TaskList;
+import helpbuddy.ui.Parser;
+import helpbuddy.ui.Ui;
+
 import java.io.IOException;
 import java.time.format.DateTimeParseException;
 

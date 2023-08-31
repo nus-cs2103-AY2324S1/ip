@@ -1,3 +1,10 @@
+package helpbuddy.command;
+
+import helpbuddy.exception.HelpBuddyException;
+import helpbuddy.storage.Storage;
+import helpbuddy.ui.Ui;
+import helpbuddy.task.TaskList;
+
 import java.io.IOException;
 
 public abstract class Command {

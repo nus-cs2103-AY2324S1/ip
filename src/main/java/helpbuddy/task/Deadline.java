@@ -1,3 +1,7 @@
+package helpbuddy.task;
+
+import helpbuddy.exception.HelpBuddyException;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 

@@ -1,3 +1,5 @@
+package helpbuddy.task;
+
 /**
  * An abstract class that defines task objects written by users.
  */

@@ -1,3 +1,5 @@
+package helpbuddy.exception;
+
 /**
  * A class that handles errors for invalid inputs to HelpBuddy.
  */

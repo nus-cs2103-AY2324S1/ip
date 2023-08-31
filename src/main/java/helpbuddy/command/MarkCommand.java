@@ -1,9 +1,17 @@
+package helpbuddy.command;
+
+import helpbuddy.exception.HelpBuddyException;
+import helpbuddy.storage.Storage;
+import helpbuddy.ui.Ui;
+import helpbuddy.task.Task;
+import helpbuddy.task.TaskList;
+
 import java.io.IOException;
 
-public class DeleteCommand extends Command {
+public class MarkCommand extends Command {
     private int taskIndex;
 
-    public DeleteCommand(int taskIndex) throws HelpBuddyException {
+    public MarkCommand(int taskIndex) throws HelpBuddyException {
         if (taskIndex < 0) {
             throw new HelpBuddyException("Invalid task number.\n");
         }
@@ -16,7 +24,10 @@ public class DeleteCommand extends Command {
             throw new HelpBuddyException("Invalid task number.\n");
         }
         Task task = taskList.getTask(this.taskIndex - 1);
-        taskList.deleteTask(this.taskIndex - 1);
-        ui.printDeleteTaskMessage(task, taskList);
+        if (task.getStatusIcon() == "X") {
+            throw new HelpBuddyException("Task is already marked as done.\n");
+        }
+        task.updateDone();
+        ui.printMarkMessage(task);
     }
 }

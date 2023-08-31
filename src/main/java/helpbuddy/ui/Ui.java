@@ -1,3 +1,8 @@
+package helpbuddy.ui;
+
+import helpbuddy.task.Task;
+import helpbuddy.task.TaskList;
+
 import java.util.Scanner;
 
 public class Ui {

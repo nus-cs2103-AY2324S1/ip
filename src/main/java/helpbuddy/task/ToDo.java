@@ -1,3 +1,7 @@
+package helpbuddy.task;
+
+import helpbuddy.exception.HelpBuddyException;
+
 /**
  * This class is a subclass of Task which defines a todo task.
  */

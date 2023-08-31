@@ -1,4 +1,6 @@
-import java.util.Scanner;
+package helpbuddy;
+
+import helpbuddy.HelpBuddy;
 
 /**
  * A class which runs the HelpBuddy chatbot.
