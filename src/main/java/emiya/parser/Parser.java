@@ -56,19 +56,37 @@ public class Parser {
         return new String[] {eventDetails[0], eventDurationDetails[0], eventDurationDetails[1]};
     }
 
-    public String[] parseForEventFrom(String taskDetails) throws NoFromException {
-        String[] eventDetails = taskDetails.split(" /from ", 2);
-        if (eventDetails.length <= 1) {
-            throw new NoFromException();
-        }
-        return eventDetails;
-    }
+    public static String[] parseForDate(String input) throws InvalidDateException, WrongDateFormatException{
+        String[] partsOfDateTime = input.split("\\s+", 2);
 
-    public String[] parseForEventTo(String taskDetails) throws NoToException {
-        String[] eventDetails = taskDetails.split(" /from ", 2);
-        if (eventDetails.length <= 1) {
-            throw new NoToException();
+        // word/no whitespace used
+        if (partsOfDateTime.length <= 1) {
+            throw new WrongDateFormatException();
         }
-        return eventDetails;
+
+        String datePart = partsOfDateTime[0];
+        String timePart = partsOfDateTime[1];
+        String[] partsOfDate = datePart.split("-", 3);
+
+        // if second part is not the time in 24h format/date not given in correct format
+        if (timePart.length() != 4 || !Logic.isNumeric(timePart.substring(0, 2)) || !Logic.isNumeric(timePart.substring(2, 4)) ||
+                partsOfDate.length < 3 || !Logic.isNumeric(partsOfDate[0]) || !Logic.isNumeric(partsOfDate[1])
+                || !Logic.isNumeric(partsOfDate[2])) {
+            throw new WrongDateFormatException();
+        }
+
+        int year = Integer.parseInt(partsOfDate[0]);
+        int month = Integer.parseInt(partsOfDate[1]);
+        int day = Integer.parseInt(partsOfDate[2]);
+        int hour = Integer.parseInt(timePart.substring(0, 2));
+        int min = Integer.parseInt(timePart.substring(2, 4));
+
+        // if given date is invalid
+        if (!Logic.isValidYear(year) || !Logic.isValidMonth(month) || !Logic.isValidDay(day) || !Logic.isValidHour(hour) || !Logic.isValidMinute(min)) {
+            throw new InvalidDateException();
+        }
+
+        return new String[] {datePart, hour < 10 ? "0" + hour : hour + "", min < 10 ? "0" + min : min + ""};
+
     }
 }
