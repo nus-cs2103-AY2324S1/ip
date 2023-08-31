@@ -1,4 +1,5 @@
 package bongo.command;
+
 import bongo.task.TaskList;
 import bongo.helper.BongoException;
 import bongo.helper.Ui;
@@ -14,8 +15,12 @@ public class DeleteCommand extends Command {
 
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws BongoException {
-        if (tasks.getTotalTasks() == 0) throw new BongoException("There are currently no tasks.");
-        if (taskIndex < 0 || taskIndex >= tasks.getTotalTasks()) throw new BongoException("Task does not exist.");
+        if (tasks.getTotalTasks() == 0) {
+            throw new BongoException("There are currently no tasks.");
+        }
+        if (taskIndex < 0 || taskIndex >= tasks.getTotalTasks()) {
+            throw new BongoException("Task does not exist.");
+        }
         Task taskToBeDeleted = tasks.getTask(taskIndex);
         tasks.deleteTask(taskIndex);
         ui.showDeleteTask(taskToBeDeleted, tasks.getTotalTasks());

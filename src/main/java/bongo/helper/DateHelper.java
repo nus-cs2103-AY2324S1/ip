@@ -6,6 +6,7 @@ import java.time.format.DateTimeParseException;
 
 public class DateHelper {
     public static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
+
     public static LocalDateTime formatDateTime(String datetime) throws BongoException {
         try {
             return LocalDateTime.parse(datetime, formatter);

@@ -1,9 +1,13 @@
 package bongo.command;
+
 import bongo.task.TaskList;
 import bongo.helper.Ui;
 import bongo.helper.Storage;
+
 public class ExitCommand extends Command {
-    public ExitCommand() {}
+    public ExitCommand() {
+    }
+
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         ui.showGoodbye();
