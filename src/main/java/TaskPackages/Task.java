@@ -2,23 +2,23 @@ package TaskPackages;
 
 public class Task {
   protected String description;
-  protected boolean isDone;
+  protected boolean doneness;
 
-  protected Task(String description) {
+  protected Task(String description, boolean doneness) {
     this.description = description;
-    this.isDone = false;
+    this.doneness = doneness;
   }
 
   protected String getStatusIcon() {
-    return (isDone ? "X" : " ");
+    return (doneness ? "X" : " ");
   }
 
   protected boolean getIsDone() {
-    return this.isDone;
+    return this.doneness;
   }
 
-  protected void setDoneness(boolean isDone) {
-    this.isDone = isDone;
+  protected void setDoneness(boolean doneness) {
+    this.doneness = doneness;
   }
 
   public String toString() {
@@ -26,6 +26,6 @@ public class Task {
   }
 
   public String toFileString() {
-    return String.format("  # %d # %s", (isDone ? 1 : 0), this.description);
+    return String.format("  # %d # %s", (doneness ? 1 : 0), this.description);
   }
 }

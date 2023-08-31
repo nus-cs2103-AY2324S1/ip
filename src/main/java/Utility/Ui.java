@@ -31,21 +31,24 @@ public class Ui {
     return input;
   }
 
+  public void print(String str) {
+    System.out.println(str);
+  }
+
   public void showLine() {
     System.out.println(line);
   }
 
   public void showLoadingError() {
-    System.err.println("File failed to load");
+    System.out.println("File failed to load");
   }
 
   public void showError(String message) {
-    System.err.println(message);
+    System.out.println(message);
   }
 
   public void showGoodbye() {
     scanner.close();
-    System.out.println("Aw goodbye.. ಠ_ಠ\n" + line);
   }
   
 }
