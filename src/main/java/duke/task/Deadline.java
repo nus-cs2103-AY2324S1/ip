@@ -45,6 +45,12 @@ public class Deadline extends Task {
         return "D | " + super.taskToString() + " | " + by;
     }
 
+    /**
+     * Compares this to another object to check if they are the same task.
+     *
+     * @param o Object to compare with.
+     * @return True if they are the same task and false if not.
+     */
     @Override
     public boolean equals(Object o) {
         if (o == this) {
