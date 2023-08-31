@@ -1,3 +1,5 @@
+package duke;
+
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -54,7 +56,7 @@ public class StoreList {
             int index = Integer.parseInt(position) - 1;
             Task task = list.get(index);
             task.markAsNotDone();
-            return String.format("Ok! Task marked undone:\n    %s", task);
+            return String.format("Ok! duke.Task marked undone:\n    %s", task);
         } catch (NumberFormatException e) {
             return "Err: Index provided is not an integer";
         } catch (IndexOutOfBoundsException e) {

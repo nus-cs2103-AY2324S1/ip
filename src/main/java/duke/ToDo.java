@@ -1,3 +1,5 @@
+package duke;
+
 public class ToDo extends Task {
 
     public static ToDo create(String description) throws DukeException {
