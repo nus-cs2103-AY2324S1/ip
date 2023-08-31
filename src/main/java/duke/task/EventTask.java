@@ -11,7 +11,6 @@ public class EventTask extends Task {
      * The starting time of the event
      */
     private LocalDateTime from;
-
     /**
      * The ending time of the event
      */
@@ -45,7 +44,7 @@ public class EventTask extends Task {
         this.from = from;
         this.to = to;
         if (isComplete) {
-            this.toggleCompleted();
+            this.toggleComplete();
         }
     }
 

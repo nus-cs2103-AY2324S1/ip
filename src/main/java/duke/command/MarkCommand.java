@@ -17,7 +17,6 @@ public class MarkCommand extends Command {
      * true if mark command else unmark
      */
     private boolean isMark;
-
     /**
      * index of the task being marked/unmarked
      */
@@ -47,17 +46,20 @@ public class MarkCommand extends Command {
     public void execute(TaskList taskList, Ui ui, Storage storage) throws DukeBadInputException {
         Command.validateIndex(this.index, taskList.length());
         Task task = taskList.get(index);
+
         // only toggle if mark != completed as if they are the same then there is no
         // effect
         String resp;
         if (isMark != task.isComplete()) {
-            task.toggleCompleted();
+            task.toggleComplete();
             resp = isMark ? "Quack! Congrats for finishing the task!"
                     : "Quack, I've marked this task as not done yet :(";
         } else {
             resp = isMark ? "Quack! This task is already done QUACK!"
                     : "Quack! you cant unmark something that isn't done yet!!";
         }
+
+        // writes to UI
         ui.println(resp);
         ui.println(task.toString());
         try {

@@ -33,7 +33,6 @@ public class Parser {
      * Formatter to output date time
      */
     public static final DateTimeFormatter OUTPUT_FORMAT = DateTimeFormatter.ofPattern("EEE hh:mma, MMM yyyy");
-
     /**
      * Formatter to parse date time
      */
@@ -50,6 +49,7 @@ public class Parser {
     public static Command parse(String input) throws DukeBadInputException, NumberFormatException {
         String[] splitInput = input.split(" ");
         HashMap<String, LocalDateTime> flagMap = new HashMap<>();
+
         switch (splitInput[0].toUpperCase()) {
         case "BYE":
             return new ExitCommand();
@@ -78,7 +78,6 @@ public class Parser {
             return new EventCommand(flagMap.get("/from"), flagMap.get("/to"), desc);
         default:
             return new UnrecognisedCommand();
-
         }
     }
 
@@ -93,27 +92,26 @@ public class Parser {
 
     public static Task fromStorage(String storedStr) throws DukeLoadingException, DateTimeParseException {
         String[] content = storedStr.split(Task.SEP);
+
         if (content.length < 3 || content.length > 6) {
             throw new DukeLoadingException(storedStr + ", this command cannot be read");
         }
+
         boolean isCompleted = content[2].equals("1");
         switch (content[0]) {
         case "TODO":
             return new TodoTask(content[1], isCompleted);
-
         case "DEADLINE":
             if (content.length != 4) {
                 throw new DukeLoadingException(storedStr + ", this command cannot be read");
             }
             return new DeadlineTask(LocalDateTime.parse(content[3]), content[1], isCompleted);
-
         case "EVENT":
             if (content.length != 5) {
                 throw new DukeLoadingException(storedStr + ", this command cannot be read");
             }
             return new EventTask(LocalDateTime.parse(content[3]),
                     LocalDateTime.parse(content[4]), content[1], isCompleted);
-
         default:
             throw new DukeLoadingException(storedStr + ", this command cannot be read");
         }
@@ -159,13 +157,11 @@ public class Parser {
         String desc;
 
         for (int i = 0; i < flagIndex.length - 1; i++) {
-
             // Check for the presence of the flag
             if (flagIndex[i] == -1) {
                 throw new DukeBadInputException(
                         "Quack cant find the required " + flags[i] + " flags, please provide quack with one please");
             }
-
             if (flagIndex[i + 1] == -1) {
                 throw new DukeBadInputException(
                         "Quack cant find the required " + flags[i + 1]
@@ -181,18 +177,15 @@ public class Parser {
 
             // check the format of the flag
             LocalDateTime val = LocalDateTime.parse(value, Parser.PARSE_FORMAT);
-
             flagMap.put(splitInputs[flagIndex[i]], val);
-
         }
-        // Check first for a valid description
+        // Check for a valid description
         desc = String.join(" ", Arrays.copyOfRange(splitInputs, 1, flagIndex[0]));
         if (desc.isBlank()) {
             throw new DukeBadInputException(
                     "Quack doesn't understand an empty description, please provide one!!");
         }
         return desc;
-
     }
 
     /**
@@ -231,5 +224,4 @@ public class Parser {
         }
         return ret;
     }
-
 }

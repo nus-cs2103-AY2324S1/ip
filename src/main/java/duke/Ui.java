@@ -30,12 +30,10 @@ public class Ui {
      * Default Exit Message
      */
     private static final String GOODBYE_MESSAGE = TAB + "Quack Quack! Quack hopes to see you again soon!\n";
-
     /**
      * Line Break
      */
     private static final String LINE_BREAK = "    ____________________________________________________________\n";
-
     /**
      * App LOGO
      */
@@ -62,7 +60,6 @@ public class Ui {
             + "░░░░░░░░░░░░░░░░░░░░░████████████████░░░░░░░░░░░░░░░░░░░░░░░░░░\n"
             + "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░\n"
             + "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░";
-
     private final Scanner scanner;
 
     /**

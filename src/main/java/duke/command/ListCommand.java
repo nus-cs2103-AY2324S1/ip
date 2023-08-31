@@ -9,6 +9,7 @@ import duke.exception.DukeBadInputException;
  * Represents the list command
  */
 public class ListCommand extends Command {
+
     /**
      * Method to encapsulate the execution logic of the command
      *
@@ -24,6 +25,7 @@ public class ListCommand extends Command {
             ui.println("Create new tasks with the todo, deadline or event command");
             return;
         }
+
         ui.println("Quack Quack, here are the tasks in quack's memory:");
         for (int i = 0; i < taskList.length(); i++) {
             ui.println((i + 1) + "." + taskList.get(i));

@@ -9,6 +9,7 @@ import duke.exception.DukeBadInputException;
  * Represents the help command
  */
 public class HelpCommand extends Command {
+
     /**
      * Method to encapsulate the execution logic of the command
      *
