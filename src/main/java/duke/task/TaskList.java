@@ -175,4 +175,14 @@ public class TaskList {
         }
         storage.saveData(data.toString());
     }
+
+    /**
+     * Display the tasks that match the given input.
+     * @param input the search parameter
+     */
+    public void showResults(String input) {
+        ArrayList<Task> list = (ArrayList<Task>) this.taskList.clone();
+        list.removeIf(task -> !task.containsString(input));
+        TaskList.displayTasks(list, false, null);
+    }
 }

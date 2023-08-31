@@ -6,6 +6,7 @@ import duke.parse.command.DeleteCommand;
 import duke.parse.command.EchoCommand;
 import duke.parse.command.EmptyCommand;
 import duke.parse.command.ExitCommand;
+import duke.parse.command.FindCommand;
 import duke.parse.command.ListCommand;
 import duke.parse.command.MarkCommand;
 import duke.parse.command.SaveCommand;
@@ -193,6 +194,11 @@ public class Parser {
         // save data to hard disk
         case "save":
             return new SaveCommand();
+
+        // find task containing given description
+        case "find":
+            String query = commandArgs[1];
+            return new FindCommand(query);
 
         // anything else
         default:

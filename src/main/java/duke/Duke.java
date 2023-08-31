@@ -145,6 +145,7 @@ public class Duke {
     public void addTaskToList(Task task) {
         this.taskList.add(task);
         this.USER_INTERFACE.notifyAdded(task);
+        this.USER_INTERFACE.showTaskCount(this.taskList.size());
     }
 
     /**
@@ -208,6 +209,15 @@ public class Duke {
      */
     public void echo(String input) {
         this.USER_INTERFACE.echo(input);
+    }
+
+    /**
+     * Finds a task based on the command from the user.
+     * @param input the input from the user
+     */
+    public void find(String input) {
+        this.USER_INTERFACE.notifyFind(input);
+        this.taskList.showResults(input);
     }
 
     public static void main(String[] args) {

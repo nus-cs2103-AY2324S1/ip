@@ -60,6 +60,15 @@ public abstract class Task {
     }
 
     /**
+     * Checks if this task content contains the input.
+     * @param string the input to check against
+     * @return whether this task content contains the input
+     */
+    public boolean containsString(String string) {
+        return this.name.contains(string);
+    }
+
+    /**
      * String representation of this task, to be printed in UI.
      * @return the string representation to be printed in UI
      */

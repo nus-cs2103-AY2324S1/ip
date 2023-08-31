@@ -227,4 +227,12 @@ public class UI {
     public void showTaskCount(int count) {
         System.out.println("Now you have " + count + " in the list.");
     }
+
+    /**
+     * Notify the user of the search result.
+     * @param input the search parameter
+     */
+    public void notifyFind(String input) {
+        System.out.println("Here are the tasks that match \"" + input + "\"");
+    }
 }
