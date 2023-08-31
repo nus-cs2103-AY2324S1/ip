@@ -1,5 +1,15 @@
 package harvard;
+/**
+ * Represents a parser that parses user input.
+ */
 public class Parser {
+    /**
+     * Parses the user input.
+     *
+     * @param command The user input.
+     * @return The command.
+     * @throws DukeException If there is an error parsing the user input.
+     */
     public static Command parse(String command) throws DukeException {
         if (command.equals("bye")) {
             return new ExitCommand();
