@@ -55,14 +55,14 @@ public class Task implements Serializable {
      * @return the String representation of the task
      */
     public String convertToString() {
-        return "[" + this.getType().charAt(0) + "][" + (this.getDone() ? "X" : " ") + "] " + this.getName() + this.desc;
+        return "[" + this.getType().charAt(0) + "][" + (this.isDone() ? "X" : " ") + "] " + this.getName() + this.desc;
     }
 
     public String getName() {
         return this.name;
     }
     
-    public boolean getDone() {
+    public boolean isDone() {
         return this.isDone;
     }
 

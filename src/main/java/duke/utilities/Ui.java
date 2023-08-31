@@ -29,7 +29,7 @@ public class Ui {
         return input;
     }
 
-    public boolean handleInput(TaskList tasks, Input input) {
+    public boolean handleInput(TaskList tasks, Input input, Parser parser) {
         boolean endSession = true;
         try {
             String command = input.getCommand();
@@ -86,7 +86,10 @@ public class Ui {
                     throw new MissingTaskNameException("Deadline task name cannot be empty");
                 }
                 String strDeadline = taskDesc[1].trim();
-                String deadline = tasks.formatDate(strDeadline);
+                String deadline = parser.formatDate(strDeadline);
+                if (deadline.equals("Invalid date")) {
+                    return endSession;
+                }
                 tasks.addDeadline(taskName, deadline);
             } else if (command.equals("event")) {
                 if (inputLength <= 1) {
@@ -108,8 +111,14 @@ public class Ui {
                 }
                 String strStart = fromAndTo[0].trim();
                 String strEnd = fromAndTo[1].trim();
-                String start = tasks.formatDate(strStart);
-                String end = tasks.formatDate(strEnd);
+                String start = parser.formatDate(strStart);
+                if (start.equals("Invalid date")) {
+                    return endSession;
+                }
+                String end = parser.formatDate(strEnd);
+                if (end.equals("Invalid date")) {
+                    return endSession;
+                }
                 tasks.addEvent(taskName, start, end);
             } else if (command.equals("bye")) {
                 if (inputLength > 1) {
