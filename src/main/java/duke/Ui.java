@@ -32,7 +32,7 @@ public class Ui {
     /**
      * Displays a separator line.
      */
-    public void showline() {
+    public void showLine() {
         System.out.println(LINE);
     }
 
@@ -40,28 +40,28 @@ public class Ui {
      * Displays a welcome message when the chatbot starts.
      */
     public void showWelcome() {
-        showline();
+        showLine();
         System.out.println("Hello! I'm " + CHATBOT);
         System.out.println("What can I do for you?");
-        showline();
+        showLine();
     }
 
     /**
      * Displays a message which indicates that the item to be added cannot be empty.
      */
     public void showEmptyMessage() {
-        showline();
+        showLine();
         System.out.println("Item to be added cannot be empty");
-        showline();
+        showLine();
     }
 
     /**
      * Displays a message which indicates an invalid command.
      */
     public void showUnknownMessage() {
-        showline();
+        showLine();
         System.out.println("Invalid structure. Please follow the valid commands below.\n" + COMMANDS);
-        showline();
+        showLine();
     }
 
     /**
@@ -75,17 +75,17 @@ public class Ui {
      * Displays a message which indicated the item does not exist.
      */
     public void showNoItemMessage() {
-        showline();
+        showLine();
         System.out.println("No such item exists");
-        showline();
+        showLine();
     }
     /**
      * Displays a goodbye message.
      */
     public void showByeMessage() {
-        showline();
+        showLine();
         System.out.println("Bye. Hope to see you again soon!");
-        showline();
+        showLine();
     }
 
     /**
@@ -119,11 +119,11 @@ public class Ui {
      * @param size The size of the current list.
      */
     public void showDeleteMessage(Task task, int size) {
-        showline();
+        showLine();
         System.out.println("Noted. I've removed this task:\n" +
                 task.toString() + "\n" +
                         "Now you have " + size + " tasks in the list.");
-        showline();
+        showLine();
     }
 
     /**
@@ -132,10 +132,10 @@ public class Ui {
      * @param task The task to be marked.
      */
     public void showMarkMessage(Task task) {
-        showline();
+        showLine();
         System.out.println("Nice! I've marked this task as done:");
         System.out.println(task.toString());
-        showline();
+        showLine();
     }
 
     /**
@@ -144,18 +144,38 @@ public class Ui {
      * @param task The task to be unMarked.
      */
     public void showUnmarkMessage(Task task) {
-        showline();
+        showLine();
         System.out.println("Ok, I've marked this task as not done yet:");
         System.out.println(task.toString());
-        showline();
+        showLine();
     }
 
     /**
      * Displays an error message when the date format is invalid.
      */
     public void showInvalidDate() {
-        showline();
+        showLine();
         System.out.println("Invalid date format. Start date is after end date");
-        showline();
+        showLine();
+    }
+
+    /**
+     * Displays all the tasks which have description that match a keyword.
+     *
+     * @param list The list of tasks which match.
+     */
+    public void showFind(TaskList list) {
+        showLine();
+        System.out.println("Here are the matching tasks in your list");
+        System.out.println(list.toString());
+    }
+
+    /**
+     * Displays message when there are no tasks that match a given keyword.
+     */
+    public void showNoFind() {
+        showLine();
+        System.out.println("There are no matching tasks in your current list");
+        showLine();
     }
 }

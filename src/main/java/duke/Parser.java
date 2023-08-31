@@ -39,8 +39,8 @@ public class Parser {
     }
 
     public enum CommandType {
-        TODO, DEADLINE, EVENT, MARK,
-        UNMARK, DELETE, LIST, BYE, UNKNOWN, EMPTY
+        TODO, DEADLINE, EVENT, MARK, UNMARK,
+        DELETE, LIST, BYE, UNKNOWN, EMPTY, FIND
     }
 
     /**
@@ -68,6 +68,8 @@ public class Parser {
             return CommandType.LIST;
         } else if (input.equals("")) {
             return CommandType.EMPTY;
+        } else if (input.equals("find")) {
+            return CommandType.FIND;
         } else {
             return CommandType.UNKNOWN;
         }
@@ -199,6 +201,17 @@ public class Parser {
             }
             int ind = Integer.parseInt(split[1]) - 1;
             fullList.deleteFromList(ind);
+            return true;
+
+        case FIND:
+            String[] inputParts = input.split(" ", 2);
+            String keyword = inputParts[1].trim();
+            TaskList list = fullList.findTask(keyword);
+            if (list.getSize() == 0) {
+                ui.showNoFind();
+            } else {
+                ui.showFind(list);
+            }
             return true;
 
         default:

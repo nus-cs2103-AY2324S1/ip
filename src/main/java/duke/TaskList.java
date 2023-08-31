@@ -105,6 +105,23 @@ public class TaskList {
     }
 
     /**
+     * Returns a new TaskList object with all the tasks in the current
+     * list with description that partially matches a keyword.
+     *
+     * @param keyword The keyword to match current tasks to.
+     * @return A new TaskList with all the tasks which match the keyword.
+     */
+    public TaskList findTask(String keyword) {
+        ArrayList<Task> tempArray = new ArrayList<>();
+        for (Task task : fullList) {
+            if (task.getDescription().contains(keyword)) {
+                tempArray.add(task);
+            }
+        }
+        return new TaskList(tempArray);
+    }
+
+    /**
      * Returns a formatted string representation of all the tasks in the TaskList.
      *
      * @return A formatted string containing the tasks in the TaskList.
