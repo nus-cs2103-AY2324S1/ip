@@ -50,7 +50,7 @@ public class TaskList {
      * @throws InvalidDataFormatException if the data in the duke.txt file is not in the correct format.
      */
     //
-    public Task markOrDelete(int index, String purpose) throws InvalidDataFormatException {
+    public Task markOrDeleteTask(int index, String purpose) throws InvalidDataFormatException {
         if (purpose.equals("mark")) {
             this.tasks.get(index).markTask();
             new Storage("./data/duke.txt").save(this.tasks);

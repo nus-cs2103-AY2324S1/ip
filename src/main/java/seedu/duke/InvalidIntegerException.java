@@ -5,6 +5,9 @@ package seedu.duke;
  * an integer.
  */
 public class InvalidIntegerException extends DukeException {
+    /**
+     * Creates an InvalidIntegerException.
+     */
     public InvalidIntegerException() {
         super("____________________________________________________________\n" +
                 " ☹ OOPS!!! There is no such task.\n" +

@@ -14,6 +14,13 @@ public class Parser {
     private TaskList tasks;
     private Ui ui;
 
+    /**
+     * Creates a Parser instance.
+     *
+     * @param storage The Storage used for the Duke program.
+     * @param tasks The TaskList created for the Duke program.
+     * @param ui The Ui used by the Duke program.
+     */
     public Parser(Storage storage, TaskList tasks, Ui ui) {
         this.storage = storage;
         this.tasks = tasks;

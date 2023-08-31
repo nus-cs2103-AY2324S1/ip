@@ -12,6 +12,11 @@ public class Duke {
     private Ui ui;
     private Parser parser;
 
+    /**
+     * Creates a new Duke instance.
+     *
+     * @param filePath The relative path to the file used to store the saved data.
+     */
     public Duke(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);

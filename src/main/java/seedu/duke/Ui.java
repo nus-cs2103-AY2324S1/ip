@@ -6,9 +6,10 @@ import java.util.ArrayList;
  * The Ui is responsible for the outputs printed to the user.
  */
 public class Ui {
-    public Ui() {
-
-    }
+    /**
+     * Creates a Ui instance.
+     */
+    public Ui() {}
 
     /**
      * Prints a data format error.
@@ -121,6 +122,11 @@ public class Ui {
         System.out.println(message);
     }
 
+    /**
+     * Prints the results matching the keyword given by the user.
+     *
+     * @param results The ArrayList<Task> containing Tasks that match the keyword given.
+     */
     public void printFindResults(ArrayList<Task> results) {
         String message = "    ____________________________________________________________\n" +
                 "     Here are the matching tasks in your list:\n";

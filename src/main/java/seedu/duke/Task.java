@@ -10,12 +10,17 @@ class Task implements Serializable {
     protected boolean isDone = false;
     protected String name = "";
 
+    /**
+     * Creates a Task instance.
+     *
+     * @param name The name of the task given by the user.
+     */
     public Task(String name) {
         this.name = name;
     }
 
     /**
-     * Obtain a String representing the completion status of the task.
+     * Obtains a String representing the completion status of the task.
      *
      * @return [X] if the task has been completed and [ ] if it has not.
      */
@@ -24,7 +29,7 @@ class Task implements Serializable {
     }
 
     /**
-     * A string representing the type of task.
+     * Obtains a string representing the type of task.
      *
      * @return [T], [D] or [E] for ToDos, Deadlines and Events respectively.
      */

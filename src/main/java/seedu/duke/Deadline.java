@@ -12,26 +12,23 @@ import java.util.Locale;
 public class Deadline extends Task {
     protected String type = "D";
     protected LocalDateTime dateAndTime;
+
+    /**
+     * Creates a new Deadline instance.
+     *
+     * @param name The name of the task given by the user.
+     * @param dateAndTime The deadline of the task.
+     */
     public Deadline(String name, LocalDateTime dateAndTime) {
         super(name);
         this.dateAndTime = dateAndTime;
     }
 
-    /**
-     * Obtains the task type in square brackets.
-     *
-     * @return A string containing the task type in square brackets.
-     */
     @Override
     public String getTaskType() {
         return "[" + this.type + "]";
     }
 
-    /**
-     * Obtains the deadline in a string format.
-     *
-     * @return A string containing the deadline information.
-     */
     @Override
     public String getTimeInfo() {
         // Format month in words

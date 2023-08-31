@@ -11,6 +11,12 @@ import java.util.ArrayList;
  */
 public class Storage {
     protected String filePath;
+
+    /**
+     * Creates a Storage instance.
+     *
+     * @param filePath The relative path to the file used to store data.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }

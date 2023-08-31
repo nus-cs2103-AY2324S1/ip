@@ -46,10 +46,10 @@ public class TaskListTest {
     }
 
     /**
-     * Tests the markOrDelete method in TaskList.
+     * Tests the markOrDeleteTask method in TaskList.
      */
     @Test
-    public void markOrDelete_markOne_success() {
+    public void markOrDeleteTask_markOne_success() {
         ArrayList<Task> tasks = new ArrayList<>();
         tasks.add(new ToDo("borrow books"));
         TaskList taskList = new TaskList(tasks);

@@ -6,6 +6,12 @@ package seedu.duke;
  */
 public class ToDo extends Task {
     protected String type = "T";
+
+    /**
+     * Creates a ToDo instance.
+     *
+     * @param name The name of the task given by the user.
+     */
     public ToDo(String name) {
         super(name);
     }
