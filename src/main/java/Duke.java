@@ -1,9 +1,9 @@
 import java.util.Scanner;
 
-public class Duke {
+public class Iris {
     private static ToDoList toDoList = new ToDoList();
     private static void greet() {
-        System.out.println("Hello! I'm Duke!");
+        System.out.println("Hello! I'm Iris!");
         System.out.println("What can I do for you?");
     }
 
@@ -20,7 +20,7 @@ public class Duke {
         toDoList.add(task);
         System.out.println("Got it. I've added this task:");
         System.out.println(task.toString());
-        Duke.length();
+        Iris.length();
     }
 
     private static void list() {
@@ -43,7 +43,7 @@ public class Duke {
         System.out.println("Noted. I've removed this task:");
         System.out.println(toDoList.get(index).toString());
         toDoList.remove(index);
-        Duke.length();
+        Iris.length();
     }
 
     private static boolean parseCommand(String input) {
@@ -52,12 +52,12 @@ public class Duke {
         String rest = sections.length > 1 ? sections[1] : "";
         switch (command) {
             case "bye": {
-                Duke.bye();
+                Iris.bye();
                 return false;
             }
 
             case "list": {
-                Duke.list();
+                Iris.list();
                 break;
             }
 
@@ -65,7 +65,7 @@ public class Duke {
                 if (rest.isEmpty()) {
                     throw new IllegalArgumentException("Description is missing.");
                 }
-                Duke.add(new Todo(rest));
+                Iris.add(new Todo(rest));
                 break;
             }
 
@@ -77,7 +77,7 @@ public class Duke {
                     String[] deadlineSections = rest.split(" /by ", 2);
                     String name = deadlineSections[0];
                     String endTime = deadlineSections[1];
-                    Duke.add(new Deadline(name, endTime));
+                    Iris.add(new Deadline(name, endTime));
                 } catch (ArrayIndexOutOfBoundsException e) {
                     throw new IllegalArgumentException("Invalid format.");
                 }
@@ -96,7 +96,7 @@ public class Duke {
                     String[] startAndEndSections = startAndEnd.split(" /to ", 2);
                     String startTime = startAndEndSections[0];
                     String endTime = startAndEndSections[1];
-                    Duke.add(new Event(name, startTime, endTime));
+                    Iris.add(new Event(name, startTime, endTime));
                 } catch (ArrayIndexOutOfBoundsException e) {
                     throw new IllegalArgumentException("Invalid format.");
                 }
@@ -108,7 +108,7 @@ public class Duke {
                     throw new IllegalArgumentException("Index is missing.");
                 }
                 int index = Integer.parseInt(rest);
-                Duke.mark(index);
+                Iris.mark(index);
                 break;
             }
 
@@ -117,7 +117,7 @@ public class Duke {
                     throw new IllegalArgumentException("Index is missing.");
                 }
                 int index = Integer.parseInt(rest);
-                Duke.unmark(index);
+                Iris.unmark(index);
                 break;
             }
 
@@ -126,7 +126,7 @@ public class Duke {
                     throw new IllegalArgumentException("Index is missing.");
                 }
                 int index = Integer.parseInt(rest);
-                Duke.delete(index);
+                Iris.delete(index);
                 break;
             }
 
@@ -139,14 +139,14 @@ public class Duke {
 
 
     public static void main(String[] args) {
-        Duke.greet();
+        Iris.greet();
         Scanner scanner = new Scanner(System.in);
 
         boolean parse = true;
         while (parse) {
             String input = scanner.nextLine();
             try {
-                parse = Duke.parseCommand(input);
+                parse = Iris.parseCommand(input);
             } catch (IllegalArgumentException e) {
                 System.out.println("Argument Error: " + e.getMessage());
             } catch (IndexOutOfBoundsException e) {
