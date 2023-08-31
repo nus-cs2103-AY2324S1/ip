@@ -33,7 +33,6 @@ public class TaskList {
         } catch (FileNotFoundException e) {
             System.out.println("Error: There are no items in the list!");
         }
-
     }
 
     public void writeToFile() {
@@ -72,8 +71,10 @@ public class TaskList {
                 throw new DukeException("Error: Invalid Task Index!");
             } else {
                 int remainingTasks = taskCount - 1;
-                String response = Ui.line + "Got it! I've removed this task:" + "\n" + tasks.get(taskIndex).toString() + "\n"
-                        + "You now have " + remainingTasks + " task(s) in the list" + "\n" + Ui.line;
+                String response = Ui.line + "Got it! I've removed this task:" +
+                        "\n" + tasks.get(taskIndex).toString() +
+                        "\n" + "You now have " + remainingTasks +
+                        " task(s) in the list" + "\n" + Ui.line;
                 tasks.remove(taskIndex);
                 if (taskCount > 0) {
                     taskCount--;
@@ -120,8 +121,10 @@ public class TaskList {
 
     public void addToList(Task task, int taskId) {
         int numTasks = taskCount + 1;
-        String response = Ui.line + "Got it! I've added this task:" + "\n" + task.toString() + "\n"
-                + "You now have " + numTasks + " task(s) in the list" + "\n" + Ui.line;
+        String response = Ui.line + "Got it! I've added this task:" +
+                "\n" + task.toString() + "\n"
+                + "You now have " + numTasks
+                + " task(s) in the list" + "\n" + Ui.line;
         tasks.add(taskId, task);
         if (taskCount < tasks.size()) {
             taskCount++;
@@ -132,7 +135,7 @@ public class TaskList {
 
     public void handleTodo(String input) {
         String nameOfTask = input.substring(5);
-        ToDos task = new ToDos(nameOfTask);
+        ToDo task = new ToDo(nameOfTask);
         addToList(task, taskCount);
     }
 
@@ -141,7 +144,7 @@ public class TaskList {
         String nameOfTask = parts[0].trim().substring(9);
         try {
             LocalDate deadline = LocalDate.parse(parts[1].trim());
-            Deadlines task = new Deadlines(nameOfTask, deadline);
+            Deadline task = new Deadline(nameOfTask, deadline);
             addToList(task, taskCount);
         } catch (DateTimeParseException e) {
             System.out.println("Invalid Date Format! Follow: YYYY-MM-DD");
@@ -155,7 +158,7 @@ public class TaskList {
             LocalDate start = LocalDate.parse(fromAndTo[0].trim());
             LocalDate end = LocalDate.parse(fromAndTo[1].trim());
             String nameOfTask = taskAndTime[0].trim().substring(6);
-            Events task = new Events(nameOfTask, start, end);
+            Event task = new Event(nameOfTask, start, end);
             addToList(task, taskCount);
         } catch (DateTimeParseException e) {
             System.out.println("Invalid Date Format! Follow: YYYY-MM-DD");

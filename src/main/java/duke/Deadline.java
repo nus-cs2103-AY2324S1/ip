@@ -1,8 +1,13 @@
 package duke;
 
-public class ToDos extends Task {
-    public ToDos(String task) {
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+public class Deadline extends Task {
+    private final LocalDate deadline;
+
+    public Deadline(String task, LocalDate deadline) {
         super(task);
+        this.deadline = deadline;
     }
 
     @Override
@@ -20,6 +25,7 @@ public class ToDos extends Task {
     @Override
     public String toString() {
         String checkbox = this.done ? "[X] " : "[ ] ";
-        return "[T]" + checkbox + task;
+        String submitDate = "(by: " + deadline.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
+        return "[D]" + checkbox + task + " " + submitDate;
     }
 }

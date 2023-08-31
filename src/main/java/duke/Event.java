@@ -3,10 +3,10 @@ package duke;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-public class Events extends Task {
+public class Event extends Task {
     private final LocalDate start;
     private final LocalDate end;
-    public Events(String task, LocalDate start, LocalDate end) {
+    public Event(String task, LocalDate start, LocalDate end) {
         super(task);
         this.start = start;
         this.end = end;

@@ -3,12 +3,10 @@ package duke;
 public class Task {
     Boolean done = false;
     String task;
-    int taskId;
     static String line = "______________________________________________________________________________________\n";
 
     public Task(String task) {
         this.task = task;
-        this.taskId = taskId;
     }
 
     public Boolean isMarked() {
