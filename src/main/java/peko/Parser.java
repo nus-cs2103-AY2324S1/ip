@@ -7,9 +7,8 @@ public class Parser {
     private String string;
     private static final String[] commands = new String[]
             {"echo","otsupeko", "list", "write", "mark", "unmark",
-                    "todo", "deadline", "event", "delete","tell me a joke"};
+                    "todo", "deadline", "event", "find", "delete","tell me a joke"};
     public Parser(String s) {
-
         this.string = s;
     }
     public Commands getResponseValue() {

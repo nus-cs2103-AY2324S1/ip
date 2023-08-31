@@ -60,6 +60,11 @@ public class TaskHandler {
         StorageHandler.addToArray(t);
         System.out.println(lineBreak);
     }
+    private void Find(String s) {
+        Find find = new Find(s);
+        find.display();
+        System.out.println(lineBreak);
+    }
     public void delete(String s) {
         int i = Integer.parseInt(s);
         StorageHandler.setDelete(i);
@@ -92,6 +97,9 @@ public class TaskHandler {
                     return true;
                 case EVENT:
                     Event(description);
+                    return true;
+                case FIND:
+                    Find(description);
                     return true;
                 case DELETE:
                     delete(description);
