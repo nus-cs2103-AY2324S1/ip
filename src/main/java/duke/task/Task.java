@@ -7,23 +7,23 @@ import duke.DukeException;
  * Represents a task with a description and completion status.
  */
 public class Task {
+    private String description;
+    private boolean isDone;
 
-    /** The description of the task. */
-    protected String description;
-
-    /** Whether the task is marked as done. */
-    protected boolean isDone;
 
     /**
      * Constructs a Task object with the given description.
      *
+     * This constructor initializes a Task object with the provided description and sets its initial
+     * "done" status to false.
+     *
      * @param description The description of the task.
      */
-
     public Task(String description) {
         this.description = description;
         this.isDone = false;
     }
+
 
     /**
      * Reads task information from a file and adds it to the task list.
@@ -119,5 +119,9 @@ public class Task {
      */
     public String toStringFile() {
         return getStatusFromFile() + " | " + description;
+    }
+
+    public String getDescription() {
+        return this.description;
     }
 }

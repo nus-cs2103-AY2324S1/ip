@@ -10,7 +10,7 @@ public class TaskList {
     private ArrayList<Task> list;
 
     /**
-     * Constructs a TaskList with an existing task list.
+     * Constructs a TaskList.
      *
      * @param list The ArrayList containing tasks.
      */
@@ -88,6 +88,30 @@ public class TaskList {
         }
         return newTask;
     }
+
+    /**
+     * Finds tasks that match a specified keyword within the task list.
+     *
+     * This method searches through the task list for tasks whose descriptions contain the specified keyword,
+     * and returns a list of tasks that match the search criteria.
+     *
+     * @param keyword The keyword to search for within task descriptions.
+     * @return An ArrayList containing tasks that match the search criteria.
+     */
+    public ArrayList<Task> findTask(String keyword) {
+        ArrayList<Task> resultList = new ArrayList<>();
+        Task[] temp = list.toArray(new Task[0]);
+
+        for (Task task : temp) {
+            String description = task.getDescription().stripTrailing().toLowerCase();
+            if (description.contains(keyword.stripTrailing().toLowerCase())) {
+                resultList.add(task);
+            }
+        }
+
+        return resultList;
+    }
+
 
     /**
      * Gets a task at the specified position.

@@ -110,6 +110,24 @@ public class Ui {
         }
     }
 
+
+    /**
+     * Displays a list of tasks that match the specified search criteria.
+     *
+     * This method is used to show a subset of tasks from the given list that match a certain search criteria.
+     * It displays the matching tasks along with their indices in the list.
+     *
+     * @param list The list of tasks to search within.
+     */
+    public void showListMatching(ArrayList<Task> list) {
+        Task[] temp = list.toArray(new Task[0]);
+        System.out.println("Here are the matching tasks in your list:");
+        for (int i = 0; i < temp.length; i++) {
+            System.out.println(i + 1 + ". " + temp[i].toString());
+        }
+    }
+
+
     /**
      * Reads and retrieves a user command from the console input.
      *

@@ -6,12 +6,15 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import duke.DukeException;
 
+
 /**
  * Represents a task with a start and end date.
- */
-public class Event extends Task {
-    protected LocalDate from;
-    protected LocalDate to;
+ * */
+public class Event extends Task{
+    private String description;
+    private LocalDate from;
+    private LocalDate to;
+
 
     /**
      * Constructs an Event task.
@@ -24,6 +27,7 @@ public class Event extends Task {
         super(description);
         this.from = from;
         this.to = to;
+        this.description = description;
     }
 
     /**

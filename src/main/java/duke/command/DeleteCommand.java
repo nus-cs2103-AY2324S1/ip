@@ -15,6 +15,7 @@ public class DeleteCommand extends Command {
      *
      * @param pos The position of the task to be deleted in the list.
      */
+
     public DeleteCommand(String pos) {
         this.pos = pos;
     }

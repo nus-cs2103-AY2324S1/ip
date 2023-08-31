@@ -1,18 +1,13 @@
 package duke;
-<<<<<<< HEAD
 
-import duke.command.*;
-import duke.task.*;
-=======
 import duke.command.Command;
 import duke.task.TaskList;
->>>>>>> branch-A-CodingStandard
 import duke.storage.Storage;
 import duke.parser.Parser;
 import duke.ui.Ui;
 
 /**
- * The main class that represents the Duke chatbot application.
+ * The main class that represents the Duke but BTR chatbot application.
  */
 public class Duke {
     private final Storage storage;
