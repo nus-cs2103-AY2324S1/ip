@@ -1,9 +1,13 @@
-import java.io.FileNotFoundException;
+package data;
+
+import exceptions.EmptyTaskException;
+import exceptions.InvalidCommand;
+import tasks.Task;
+
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.io.File;
-import java.util.Scanner;
 
 public class TaskList {
     public static final ArrayList<Task>  taskList = new ArrayList<>();
@@ -24,32 +28,6 @@ public class TaskList {
         return numOfTasks;
     }
 
-
-    // save method
-    public static void save() {
-        try {
-            FileWriter writer = new FileWriter("./Data.txt");
-            for (Task task: taskList) {
-                writer.write(task.getCmd() + "\n");
-            }
-            writer.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    // read method
-    public static void read() {
-        File file = new File("./Data.txt");
-        if (!file.exists()) {
-            try {
-                file.createNewFile();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-
-    }
 
     public static Task getTask(int id) {
         return taskList.get(id);

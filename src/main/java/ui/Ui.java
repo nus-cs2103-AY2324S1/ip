@@ -1,3 +1,10 @@
+package ui;
+
+import exceptions.EmptyTaskException;
+import exceptions.InvalidCommand;
+import tasks.Task;
+import data.TaskList;
+
 import static java.lang.Integer.parseInt;
 
 public class Ui {
@@ -19,11 +26,9 @@ public class Ui {
     public void greet() {
         formatPrint("Hello! I'm HASTE\nWhat can I do for you?");
         // read file and update task list
-        TaskList.read();
     }
     public void bye() {
         formatPrint("Bye. Hope to see you again!");
-        TaskList.save();
         // end prog
         this.running = false;
     }

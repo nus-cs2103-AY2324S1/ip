@@ -1,3 +1,7 @@
+package tasks;
+
+import exceptions.EmptyTaskException;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -15,7 +19,7 @@ public class ToDo extends Task {
         mt.find();
         String desc = mt.group(2);
         if (Task.checkEmpty(desc)) { // check if desc is null
-            throw new EmptyTaskException("ToDo");
+            throw new EmptyTaskException("tasks.ToDo");
         }
         return new ToDo(desc);
     }

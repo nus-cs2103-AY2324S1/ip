@@ -1,3 +1,13 @@
+package commands;
+
+import exceptions.EmptyTaskException;
+import exceptions.InvalidCommand;
+import tasks.Deadline;
+import tasks.Event;
+import tasks.ToDo;
+import tasks.Task;
+import ui.Ui;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -47,9 +57,7 @@ public class Parser {
         }
     }
 
-
-
-    /*public static LocalDateTime parseTime(String input) {
+    public static LocalDateTime parseTime(String input) {
         // formatting
         String formatPattern = "yyyy-MM-dd HHmm";
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern(formatPattern);
@@ -62,6 +70,7 @@ public class Parser {
         }
 
     }
+
 
     public static String formatTime(LocalDateTime input) {
         // format time into a string object
@@ -84,6 +93,6 @@ public class Parser {
         String hourAndTime = savedTime.getHour() >= 10 ? String.valueOf(savedTime.getHour() * 100 + savedTime.getMinute())
                 : "0" + (savedTime.getHour() * 100 + savedTime.getMinute());
         return year + "-" + month + "-" + day + " " + hourAndTime;
-    }*/
+    }
 
 }
