@@ -1,5 +1,8 @@
 package bob;
 
+/**
+ * Reoresents a task that could be a todo, deadline or event
+ */
 public class Task {
     protected String description;
     protected boolean isDone;
@@ -23,6 +26,11 @@ public class Task {
         return (isDone ? "X" : " ");
     }
 
+    /**
+     * Returns the integer representation of the completion status of this task in the form of an icon
+     *
+     * @return 1 is Task is marked done
+     */
     public int getStatusInt() {
         return isDone? 1 : 0;
     }

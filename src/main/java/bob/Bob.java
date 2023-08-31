@@ -2,6 +2,10 @@ package bob;
 
 import java.util.Scanner;
 
+/**
+ * Represents a bot that can record three types of tasks: todo, deadline and event, as well as
+ * mark those tasks as done and delete
+ */
 public class Bob {
 
     private static Storage storage;

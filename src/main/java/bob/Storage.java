@@ -7,6 +7,9 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Represents a storage that deals with loading tasks from the file and saving tasks in the file
+ */
 public class Storage {
 
     String filePath;
@@ -16,7 +19,12 @@ public class Storage {
         this.filePath = filePath;
     }
 
-    //if file exists
+    /**
+     * Loads file content and re-initialises task if file exists, else creates new file
+     *
+     * @return ArrayList</Task> the list of tasks that were recorded in the existing file, else an empty list
+     * @throws BobException
+     */
     public ArrayList<Task> load() throws BobException {
         ArrayList<Task> list = new ArrayList<Task>();
         File file = new File(filePath);
@@ -98,6 +106,11 @@ public class Storage {
         fw.close();
     }
 
+    /**
+     * Saves the new list into the file
+     *
+     * @param list the TaskList containing the tasks to be saved in the file
+     */
     public void saveNewList(TaskList list) {
         //clears file
         try {
