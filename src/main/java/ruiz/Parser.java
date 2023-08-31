@@ -27,6 +27,8 @@ public class Parser {
             return Command.TODO;
         case "event":
             return Command.EVENT;
+        case "find":
+            return Command.FIND;
         default:
             return Command.UNKNOWN;
         }
@@ -81,6 +83,13 @@ public class Parser {
             throw new BotException("OOPS!!! The description the event is incomplete.");
         }
         return input.split(" ", 2)[1].split(" /from ")[1].split("/to ")[1];
+    }
+
+    public String getKeyword(String input) throws BotException {
+        if (input.split(" ").length != 2) {
+            throw new BotException("OOPS!!! PLease use the format of 'find *keyword*'");
+        }
+        return input.split(" ", 2)[1];
     }
 }
 

@@ -63,7 +63,7 @@ public class Ui {
         System.out.println("____________________________________________________________\n" +
                 "Got it. I've added this task:\n" +
                 task +
-                "\nNow you have " + taskListSize + " this.taskList in the list.\n" +
+                "\nNow you have " + taskListSize + " in the list.\n" +
                 "____________________________________________________________"
         );
     }
@@ -71,7 +71,7 @@ public class Ui {
     public void deletedTask(Task task, int taskListSize) {
         System.out.println("____________________________________________________________\n" +
                 "Noted. I've removed this task:\n" + task);
-        System.out.println("Now you have " + taskListSize + " this.taskList in the list.\n" +
+        System.out.println("Now you have " + taskListSize + " in the list.\n" +
                 "____________________________________________________________");
     }
 
