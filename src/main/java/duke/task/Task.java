@@ -30,6 +30,15 @@ public abstract class Task {
         return false;
     }
 
+    /**
+     * Checks if this task content contains the input.
+     * @param string the input to check against
+     * @return whether this task content contains the input
+     */
+    public boolean containsString(String string) {
+        return this.name.contains(string);
+    }
+
     @Override
     public String toString() {
         return "[" + (this.isDone ? "X" : " ") + "] " + this.name;

@@ -176,6 +176,15 @@ public class Duke {
         this.ui.echo(input);
     }
 
+    /**
+     * Finds a task based on the command from the user.
+     * @param input the input from the user
+     */
+    public void find(String input) {
+        this.ui.notifyFind(input);
+        this.taskList.showResults(input);
+    }
+
     public static void main(String[] args) {
         new Duke();
     }
