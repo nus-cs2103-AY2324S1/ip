@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class Tasklist {
     private ArrayList<Task> tasks;
 
-    // Constructor for the duke.Tasklist
+    // Constructor for the Tasklist
     public Tasklist(ArrayList<Task> tasks) {
         this.tasks = tasks;
     }
