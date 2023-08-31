@@ -6,6 +6,9 @@ import chatbot.exceptions.IllegalCommandException;
 import chatbot.exceptions.LocalFileException;
 import chatbot.tasks.Task;
 
+/**
+ * Main ChatBot class which instantiates a ChatBot object that coordinates other components.
+ */
 public class ChatBot {
     static final String name = "4F5DA2";
     static final String localDirectoryPath = "./data";
@@ -13,9 +16,14 @@ public class ChatBot {
     private final Ui ui;
     private final Storage storage;
     private TaskList tasks;
-    private boolean isExit = false;
-    private boolean noLocalFileAccess = false;
+    private boolean isExit = false;    // Whether the user has indicated to exit the program.
+    private boolean noLocalFileAccess = false;    // Whether the data file cannot be accessed due to permission issue.
 
+    /**
+     * Constructor to instantiate a new ChatBot object.
+     * @param directoryPath String path to the data file's directory
+     * @param filePath String path to the data file
+     */
     public ChatBot(String directoryPath, String filePath) {
         this.ui = new Ui();
         this.storage = new Storage(directoryPath, filePath);
@@ -43,7 +51,7 @@ public class ChatBot {
         }
     }
 
-    public void handleCommand(String command) throws ChatBotException {
+    private void handleCommand(String command) throws ChatBotException {
         String[] words = command.split(" ");
         String firstWord = words[0];
         switch (firstWord) {
@@ -93,7 +101,7 @@ public class ChatBot {
         }
     }
 
-    public void writeTaskList() throws LocalFileException {
+    private void writeTaskList() throws LocalFileException {
         if (!noLocalFileAccess) {
             this.storage.writeToDataFile(this.tasks.taskListToStrings());
         }
