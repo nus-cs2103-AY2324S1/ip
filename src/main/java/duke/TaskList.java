@@ -32,25 +32,23 @@ public class TaskList {
         for (int i = 0; i < tasks.length; i++) {
             tasks[i] = taskList.get(i).toString();
         }
-        ui.listTask(tasks);
+        ui.showListTask(tasks);
     }
 
     public void printDateTask(Keyword key, LocalDate date, Ui ui) throws DukeException {
         if (taskList.isEmpty()) {
             throw new DukeException("OOPS!!! There is nothing in the list, yet!");
-        } else if (key.equals(Keyword.DEADLINE) || key.equals(Keyword.EVENT)) {
-            List<Task> tasksOnDate = new ArrayList<>();
+        }
+        if (key.equals(Keyword.DEADLINE) || key.equals(Keyword.EVENT)) {
+            List<String> tasksOnDate = new ArrayList<>();
             for (Task task : taskList) {
                 if (task.onDate(key, date)) {
-                    tasksOnDate.add(task);
+                    tasksOnDate.add(task.toString());
                 }
             }
             if (!tasksOnDate.isEmpty()) {
-                String[] tasks = new String[tasksOnDate.size()];
-                for (int i = 0; i < tasks.length; i++) {
-                    tasks[i] = tasksOnDate.get(i).toString();
-                }
-                ui.printDateTask(tasks, date.format(Time.DATE_DISPLAY_FORMATTER));
+                ui.showPrintDateTask(tasksOnDate.toArray(new String[0]),
+                        date.format(Time.DATE_DISPLAY_FORMATTER));
             } else {
                 throw new DukeException(String.format("OOPS!!! There is nothing happening on %s.",
                         date.format(Time.DATE_DISPLAY_FORMATTER)));
@@ -85,6 +83,27 @@ public class TaskList {
             throw new DukeException(err);
         }
         ui.showMarkTask(isMark, taskList.get(index).mark(isMark));
+    }
+
+    public void findTask(String commandBody, Ui ui) throws DukeException {
+        if (taskList.isEmpty()) {
+            throw new DukeException("OOPS!!! There is nothing in the list, yet!");
+        }
+        List<String> tasksFound = new ArrayList<>();
+        List<String> taskIndexFound = new ArrayList<>();
+        for (int i = 0; i < taskList.size(); i++) {
+            String task = taskList.get(i).toString();
+            String taskLowerCase = task.toLowerCase();
+            if (taskLowerCase.contains(commandBody.toLowerCase())) {
+                tasksFound.add(task);
+                taskIndexFound.add(String.valueOf(i + 1));
+            }
+        }
+        if (tasksFound.isEmpty()) {
+            throw new DukeException(String.format(
+                    "OOPS!!! There is no task with %s.", commandBody));
+        }
+        ui.showFindTask(tasksFound.toArray(new String[0]), taskIndexFound.toArray(new String[0]));
     }
 
     public void manipulateAllTask(Keyword key, Ui ui) throws DukeException {
