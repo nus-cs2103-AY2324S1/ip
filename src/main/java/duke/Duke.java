@@ -7,14 +7,14 @@ import duke.ui.UI;
 import duke.task.Task;
 import duke.task.TaskList;
 
-import java.util.ArrayList;
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 public class Duke {
-    private final String myName = "Quack-NKN";
+    private final String MY_NAME = "Quack-NKN";
     private TaskList taskList = new TaskList();
-    private Storage storage = new Storage("task-list.txt");
-    private UI ui = new UI("Quack, ", "!");
+    private final Storage STORAGE = new Storage("task-list.txt");
+    private final UI USER_INTERFACE = new UI("Quack, ", "!");
 
     public Duke() {
         interact();
@@ -28,18 +28,18 @@ public class Duke {
      * @return whether the program can continue, true if it can, false otherwise.
      */
     private void readFromDisk() throws Storage.FileCorruptedException {
-        this.ui.notifyDataLoading();
+        this.USER_INTERFACE.notifyDataLoading();
         try {
-            ArrayList<Task> taskList = this.storage.readFromDisk();
+            ArrayList<Task> taskList = this.STORAGE.readFromDisk();
             this.taskList = new TaskList(taskList);
-            this.ui.notifyDataLoaded();
+            this.USER_INTERFACE.notifyDataLoaded();
         } catch (Storage.FileIOException e) {
-            this.ui.notifyLoadingIOError();
+            this.USER_INTERFACE.notifyLoadingIOError();
         }
     }
 
     public void exit() {
-        this.ui.exit();
+        this.USER_INTERFACE.exit();
     }
 
     /**
@@ -63,22 +63,22 @@ public class Duke {
         try {
             this.readFromDisk();
         } catch (Storage.FileCorruptedException e) {
-            boolean isContinuing = this.ui.handleFileCorrupted();
+            boolean isContinuing = this.USER_INTERFACE.handleFileCorrupted();
             if (!isContinuing) {
                 return;
             }
         }
 
-        this.ui.start(this.myName);
+        this.USER_INTERFACE.start(this.MY_NAME);
         boolean isContinuing = true;
         while (isContinuing) {
             // receive input
-            String input = this.ui.takeInput("In: ");
+            String input = this.USER_INTERFACE.takeInput("In: ");
             try {
                 Command command = Parser.parse(input);
                 isContinuing = command.execute(this);
             } catch (Parser.ParseError e) {
-                this.ui.notifyError(e.getMessage());
+                this.USER_INTERFACE.notifyError(e.getMessage());
             }
         }
     }
@@ -87,32 +87,32 @@ public class Duke {
      * Notify user of how many tasks are currently in the task list.
      */
     private void showTaskCount() {
-        this.ui.showTaskCount(this.taskList.size());
+        this.USER_INTERFACE.showTaskCount(this.taskList.size());
     }
 
     public void showList(boolean isExcludingDone, LocalDate date) {
-        this.ui.notifyList(UI.Type.DEFAULT, isExcludingDone, date);
+        this.USER_INTERFACE.notifyList(UI.Type.DEFAULT, isExcludingDone, date);
         this.taskList.displayTasks(isExcludingDone, date);
     }
 
     public void showTodos(boolean isExcludingDone) {
-        this.ui.notifyList(UI.Type.TODO, isExcludingDone, null);
+        this.USER_INTERFACE.notifyList(UI.Type.TODO, isExcludingDone, null);
         this.taskList.displayTodos(isExcludingDone);
     }
 
     public void showDeadlines(boolean isExcludingDone, LocalDate date) {
-        this.ui.notifyList(UI.Type.DEADLINE, isExcludingDone, date);
+        this.USER_INTERFACE.notifyList(UI.Type.DEADLINE, isExcludingDone, date);
         this.taskList.displayDeadlines(isExcludingDone, date);
     }
 
     public void showEvents(boolean isExcludingDone, LocalDate date) {
-        this.ui.notifyList(UI.Type.EVENT, isExcludingDone, date);
+        this.USER_INTERFACE.notifyList(UI.Type.EVENT, isExcludingDone, date);
         this.taskList.displayEvents(isExcludingDone, date);
     }
 
     public void addTaskToList(Task task) {
         this.taskList.add(task);
-        this.ui.notifyAdded(task);
+        this.USER_INTERFACE.notifyAdded(task);
     }
 
     /**
@@ -122,9 +122,9 @@ public class Duke {
     public void markTaskAsDone(int index) {
         try {
             Task task = this.taskList.markTaskAsDone(index);
-            this.ui.notifyMarkDone(task);
+            this.USER_INTERFACE.notifyMarkDone(task);
         } catch (TaskList.TaskIndexOutOfRange e) {
-            this.ui.notifyError("invalid task index");
+            this.USER_INTERFACE.notifyError("invalid task index");
         }
     }
 
@@ -135,9 +135,9 @@ public class Duke {
     public void markTaskAsNotDone(int index) {
         try {
             Task task = this.taskList.markTaskAsNotDone(index);
-            this.ui.notifyMarkNotDone(task);
+            this.USER_INTERFACE.notifyMarkNotDone(task);
         } catch (TaskList.TaskIndexOutOfRange e) {
-            this.ui.notifyError("invalid task index");
+            this.USER_INTERFACE.notifyError("invalid task index");
         }
     }
 
@@ -148,9 +148,9 @@ public class Duke {
     public void deleteTask(int index) {
         try {
             Task taskDeleted = this.taskList.deleteTask(index);
-            this.ui.notifyRemoved(taskDeleted);
+            this.USER_INTERFACE.notifyRemoved(taskDeleted);
         } catch (TaskList.TaskIndexOutOfRange e) {
-            this.ui.notifyError("invalid task index");
+            this.USER_INTERFACE.notifyError("invalid task index");
         }
     }
 
@@ -158,12 +158,12 @@ public class Duke {
      * Save data to hard disk, with the current task list.
      */
     public void saveData() {
-        this.ui.notifyDataSaving();
+        this.USER_INTERFACE.notifyDataSaving();
         try {
-            this.taskList.saveData(this.storage);
-            this.ui.notifyDataSaved();
+            this.taskList.saveData(this.STORAGE);
+            this.USER_INTERFACE.notifyDataSaved();
         } catch (Storage.FileIOException e) {
-            this.ui.notifyError("an error has occurred while writing to hard disk");
+            this.USER_INTERFACE.notifyError("an error has occurred while writing to hard disk");
         }
     }
 
@@ -172,7 +172,7 @@ public class Duke {
      * @param input the input from the user
      */
     public void echo(String input) {
-        this.ui.echo(input);
+        this.USER_INTERFACE.echo(input);
     }
 
     public static void main(String[] args) {
