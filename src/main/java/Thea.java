@@ -57,7 +57,9 @@ public class Thea {
             else {
                 if (command.equals("todo")) {
                     if (commandWordsArray.size() != 1) {
-                        add(new ToDo(commandWords[1]), tasks);
+                        ToDo todo = new ToDo(commandWords[1]);
+                        add(todo, tasks);
+                        writeTask(todo);
                     } else {
                         throw new EmptyDescriptionException("The description of a todo cannot be empty! '^'");
                     }
@@ -65,7 +67,9 @@ public class Thea {
                     if (commandWordsArray.size() != 1) {
                         String relevantData = commandWords[1];
                         String[] nameAndTime = relevantData.split(" /by ");
-                        add(new Deadline(nameAndTime[0], nameAndTime[1]), tasks);
+                        Deadline deadline = new Deadline(nameAndTime[0], nameAndTime[1]);
+                        add(deadline, tasks);
+                        writeTask(deadline);
                     } else {
                         throw new EmptyDescriptionException("The description of a deadline cannot be empty! '^'");
                     }
@@ -73,7 +77,9 @@ public class Thea {
                     if (commandWordsArray.size() != 1) {
                         String relevantData = commandWords[1];
                         String[] nameAndTime = relevantData.split(" /from | /to ");
-                        add(new Event(nameAndTime[0], nameAndTime[1], nameAndTime[2]), tasks);
+                        Event event = new Event(nameAndTime[0], nameAndTime[1], nameAndTime[2]);
+                        add(event, tasks);
+                        writeTask(event);
                     } else {
                         throw new EmptyDescriptionException("The description of an event cannot be empty! '^'");
                     }
@@ -85,6 +91,40 @@ public class Thea {
         }
     }
 
+    public static void writeTask(ToDo todo) throws Exception {
+        String currentDir = System.getProperty("user.dir");
+        Path path = Paths.get(currentDir, "data", "thea.txt");
+        try (BufferedWriter bufferWriter = Files.newBufferedWriter(path)) {
+            bufferWriter.newLine();
+            bufferWriter.write("T" + " | "+ (todo.isDone ? 1 : 0) + " | " + todo.getTaskName());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static void writeTask(Deadline deadline) throws Exception {
+        String currentDir = System.getProperty("user.dir");
+        Path path = Paths.get(currentDir, "data", "thea.txt");
+        try (BufferedWriter bufferWriter = Files.newBufferedWriter(path)) {
+            bufferWriter.newLine();
+            bufferWriter.write("T" + " | "+ (deadline.isDone ? 1 : 0)
+                    + " | " + deadline.getTaskName() + " | " + deadline.time);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static void writeTask(Event event) throws Exception {
+        String currentDir = System.getProperty("user.dir");
+        Path path = Paths.get(currentDir, "data", "thea.txt");
+        try (BufferedWriter bufferWriter = Files.newBufferedWriter(path)) {
+            bufferWriter.newLine();
+            bufferWriter.write("T" + " | "+ (event.isDone ? 1 : 0)
+                    + " | " + event.getTaskName() + " | " + event.from + " | " + event.to);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
     public static ArrayList<Task> retrieveTasks() throws Exception{
         String currentDir = System.getProperty("user.dir");
         Path path = Paths.get(currentDir, "data", "thea.txt");
