@@ -20,8 +20,6 @@ public class Parser {
     final static String DELETE_PHRASE = "delete";
     final static String SEARCH_PHRASE = "find";
 
-    private static boolean isRunning = true;
-
 
     /**
      * Parses the user input and performs the corresponding actions.
@@ -96,6 +94,7 @@ public class Parser {
                 userInput = ui.next();
                 continue;
             }
+
             if (userInput.equals(DEADLINE_PHRASE)) {
                 userInput = ui.nextLine();
                 if (userInput.equals("")) {
@@ -117,6 +116,7 @@ public class Parser {
                 userInput = ui.next();
                 continue;
             }
+
             if (userInput.equals(EVENT_PHRASE)) {
                 userInput = ui.nextLine();
                 if (userInput.equals("")) {
@@ -135,6 +135,7 @@ public class Parser {
                 userInput = ui.next();
                 continue;
             }
+
             if (userInput.equals(SEARCH_PHRASE)) {
                 String searchTerm = ui.nextLine();
                 ArrayList<Task> searchList = new TaskList();
@@ -154,8 +155,6 @@ public class Parser {
             }
             throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
-
         saveTasksToFile(taskList, String.valueOf(storage.path));
-
     }
 }
