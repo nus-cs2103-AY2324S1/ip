@@ -4,7 +4,7 @@ import duke.task.*;
 import duke.storage.Storage;
 import duke.DukeException;
 public class DeleteCommand extends Command {
-    String pos;
+    private final String pos;
     public DeleteCommand(String pos) {
         this.pos = pos;
     }

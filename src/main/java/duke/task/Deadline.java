@@ -24,7 +24,9 @@ public class Deadline extends Task{
     }
 
     @Override
-    public String getType() { return "Deadline"; }
+    public String getType() {
+        return "Deadline";
+    }
 
 
     public static Deadline addDeadline(String description, ArrayList<Task> list) throws DukeException {

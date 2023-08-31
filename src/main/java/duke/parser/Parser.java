@@ -1,6 +1,11 @@
 package duke.parser;
 
-import duke.command.*;
+import duke.command.AddCommand;
+import duke.command.DeleteCommand;
+import duke.command.ExitCommand;
+import duke.command.Command;
+import duke.command.MarkCommand;
+import duke.command.ListCommand;
 import duke.ui.Ui;
 import duke.DukeException;
 
@@ -10,6 +15,7 @@ public class Parser {
         String[] arr = input.split(" ", 2);
         if (arr.length == 1) {
             arr = new String[] {arr[0], ""};
+
         }
         String type = arr[0];
         if ("bye".equals(type)) {

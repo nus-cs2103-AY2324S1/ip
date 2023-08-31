@@ -6,8 +6,6 @@ public class Task {
 
     protected String description;
     protected boolean isDone;
-    public static String line = "___________________________________\n";
-
     public Task(String description) {
         this.description = description;
         this.isDone = false;
@@ -40,7 +38,9 @@ public class Task {
         this.isDone = false;
     }
 
-    public String getType() { return "Task"; }
+    public String getType() {
+        return "Task";
+    }
 
     public void markFromRead(String isMarked) {
         if (isMarked.equals("1")) this.isDone = true;
@@ -49,7 +49,9 @@ public class Task {
     public String getStatusIcon() {
         return (isDone ? "[X]" : "[ ]");
     }
-    public int getStatus() { return (isDone ? 1 : 0); }
+    public int getStatus() {
+        return (isDone ? 1 : 0);
+    }
 
     @Override
     public String toString() {
