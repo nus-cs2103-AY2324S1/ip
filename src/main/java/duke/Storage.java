@@ -1,7 +1,7 @@
 package duke;
 
 import java.io.*;
-import java.lang.annotation.Target;
+
 import java.util.ArrayList;
 
 
@@ -10,7 +10,7 @@ import java.util.ArrayList;
  */
 public class Storage {
     java.nio.file.Path path = java.nio.file.Paths.get( "./","src", "main", "data", "duke.txt");
-    private boolean fileExists = java.nio.file.Files.exists(path);
+    private final boolean fileExists = java.nio.file.Files.exists(path);
     File f = new File(String.valueOf(path));
 
     /**

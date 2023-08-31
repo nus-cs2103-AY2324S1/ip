@@ -2,10 +2,10 @@ package duke;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+
 import java.util.ArrayList;
 
 import static duke.Event.DATE_TIME_FORMATTER;
-import static duke.Storage.saveTasksToFile;
 
 /**
  * Handles the parsing of user input and the corresponding actions in the Duke application.

@@ -1,10 +1,11 @@
 package duke;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+
 
 /**
  * Test class to test the functionality of the TaskList class.

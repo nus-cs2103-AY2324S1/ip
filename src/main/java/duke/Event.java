@@ -1,7 +1,7 @@
 package duke;
 
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.LocalDateTime;
 
 /**
  * Represents an event task with a specific start and end time.

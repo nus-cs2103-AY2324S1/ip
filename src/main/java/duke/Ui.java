@@ -1,7 +1,6 @@
 package duke;
 
 import java.util.Scanner;
-import java.time.format.DateTimeFormatter;
 
 /**
  * Handles user input and output interactions.
