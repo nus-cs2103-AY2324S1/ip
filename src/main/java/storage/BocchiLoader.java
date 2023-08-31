@@ -1,6 +1,10 @@
 package storage;
 
-import task.*;
+import task.Deadline;
+import task.Event;
+import task.Task;
+import task.TaskList;
+import task.Todo;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -11,7 +15,9 @@ public class BocchiLoader {
     private static final int INDEX_TYPE = 0;
     private static final int INDEX_MARKED = 1;
     private static final int INDEX_NAME = 2;
-    private static final int INDEX_TIME = 3;
+    private static final int INDEX_DEADLINE = 3;
+    private static final int INDEX_START_TIME = 3;
+    private static final int INDEX_END_TIME = 4;
     private final String filePath;
 
     public BocchiLoader() {
@@ -31,11 +37,10 @@ public class BocchiLoader {
         case "T":
             return new Todo(name, marked);
         case "D":
-            return new Deadline(name, tokens[INDEX_TIME].trim(), marked);
+            return new Deadline(name, tokens[INDEX_DEADLINE].trim(), marked);
         case "E":
-            String[] timeRange = tokens[INDEX_TIME].split("-");
-            String start = timeRange[0].trim();
-            String end = timeRange[1].trim();
+            String start = tokens[INDEX_START_TIME].trim();
+            String end = tokens[INDEX_END_TIME].trim();
             return new Event(name, start, end, marked);
         default:
             throw new Exception("File might be corrupted, please check input file.");
