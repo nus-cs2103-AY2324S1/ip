@@ -12,7 +12,7 @@ public class ListCommand extends Command {
             if (tasks.size() == 0) {
                 ui.showNoTasks();
             } else {
-                ui.showTasks(tasks);
+                ui.showTasks(tasks.getAll(), false);
             }
         }
     }

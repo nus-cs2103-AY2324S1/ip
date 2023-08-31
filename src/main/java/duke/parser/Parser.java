@@ -48,6 +48,9 @@ public class Parser {
         case MarkCommand.COMMAND_WORD_MARK:
             if (arguments.equals("")) throw new InvalidArgumentException();
             return new MarkCommand(true, parseArgs(arguments));
+        case FindCommand.COMMAND_WORD:
+            if (arguments.equals("")) throw new InvalidArgumentException();
+            return new FindCommand(arguments);
         default:
             throw new InvalidCommandException();
         }

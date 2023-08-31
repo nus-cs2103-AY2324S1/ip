@@ -1,8 +1,8 @@
 package duke.ui;
 
 import duke.tasks.Task;
-import duke.tasks.Tasks;
 
+import java.util.List;
 import java.util.Scanner;
 
 public class Ui {
@@ -34,13 +34,14 @@ public class Ui {
 
     public void showNoTasks() {
         System.out.println(line);
-        System.out.println("    You do not have any tasks currently!");
+        System.out.println("    No tasks found!");
         System.out.println(line);
     }
 
-    public void showTasks(Tasks tasks) {
+    public void showTasks(List<Task> tasks, boolean isFiltered) {
+        String header = isFiltered ? "Here are the matching tasks in your list:" : "Here are the tasks in your list:";
         System.out.println(line);
-        System.out.println("    Here are the tasks in your list:");
+        System.out.println("    " + header);
         for (int i = 0; i < tasks.size(); i++) {
             Task task = tasks.get(i);
             System.out.println(String.format("    %s.%s", i + 1, task));

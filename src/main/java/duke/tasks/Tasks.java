@@ -30,4 +30,8 @@ public class Tasks {
 
         return this.tasks.get(id - 1);
     }
+
+    public List<Task> getAll() {
+        return this.tasks;
+    }
 }
