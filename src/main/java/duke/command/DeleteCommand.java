@@ -19,7 +19,7 @@ public class DeleteCommand extends Command {
     String numberString;
 
     /**
-     * Constructor for duke.command.DeleteCommand
+     * Constructor for DeleteCommand
      *
      * @param taskList TaskList object being used to maintain the list of tasks in the chatbot.
      * @param numberString Parsed string input from the CLI, represents task to be deleted.

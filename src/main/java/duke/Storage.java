@@ -14,7 +14,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 /**
- * duke.Storage class to handle file storage, creation and reading of saved file.
+ * Storage class to handle file storage, creation and reading of saved file.
  */
 public class Storage {
 
@@ -23,7 +23,7 @@ public class Storage {
     TaskList taskList;
 
     /**
-     * Contructor of the duke.Storage class.
+     * Constructor of the duke.Storage class.
      *
      * @param taskList TaskList object being used to maintain the list of tasks in the chatbot.
      */
