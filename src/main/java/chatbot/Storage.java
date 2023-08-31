@@ -18,9 +18,11 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Storage {
+    private final String localDirectoryPath;
     private final String localFilePath;
 
-    public Storage(String filePath) {
+    public Storage(String directoryPath, String filePath) {
+        this.localDirectoryPath = directoryPath;
         this.localFilePath = filePath;
     }
 
@@ -107,6 +109,10 @@ public class Storage {
 
     public ArrayList<Task> readData() throws LocalFileException {
         try {
+            File d = new File(localDirectoryPath);
+            if (!d.exists() || !d.isDirectory()) {
+                Files.createDirectory(Paths.get(localDirectoryPath));
+            }
             File f = new File(localFilePath);
             if (!f.exists() || !f.isFile()) {
                 Files.createFile(Paths.get(localFilePath));

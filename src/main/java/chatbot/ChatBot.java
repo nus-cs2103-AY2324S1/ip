@@ -1,26 +1,32 @@
 package chatbot;
 
 import chatbot.exceptions.ChatBotException;
+import chatbot.exceptions.FilePermissionException;
 import chatbot.exceptions.IllegalCommandException;
 import chatbot.exceptions.LocalFileException;
 import chatbot.tasks.Task;
 
 public class ChatBot {
     static final String name = "4F5DA2";
-    static final String localFilePath = "./data/chatbot.txt";
+    static final String localDirectoryPath = "./data";
+    static final String localFilePath = localDirectoryPath + "/chatbot.txt";
     private final Ui ui;
     private final Storage storage;
     private TaskList tasks;
     private boolean isExit = false;
+    private boolean noLocalFileAccess = false;
 
-    public ChatBot(String filePath) {
+    public ChatBot(String directoryPath, String filePath) {
         this.ui = new Ui();
-        this.storage = new Storage(filePath);
+        this.storage = new Storage(directoryPath, filePath);
         try {
             this.tasks = new TaskList(storage.readData());
         } catch (LocalFileException e) {
             this.ui.showLoadingError(e);
             this.tasks = new TaskList();
+            if (e instanceof FilePermissionException) {
+                this.noLocalFileAccess = true;
+            }
         }
     }
 
@@ -88,10 +94,12 @@ public class ChatBot {
     }
 
     public void writeTaskList() throws LocalFileException {
-        this.storage.writeToDataFile(this.tasks.taskListToStrings());
+        if (!noLocalFileAccess) {
+            this.storage.writeToDataFile(this.tasks.taskListToStrings());
+        }
     }
 
     public static void main(String[] args) {
-        new ChatBot(ChatBot.localFilePath).run();
+        new ChatBot(ChatBot.localDirectoryPath, ChatBot.localFilePath).run();
     }
 }
