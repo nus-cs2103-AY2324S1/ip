@@ -33,12 +33,12 @@ application {
 }
 
 shadowJar {
-    archiveBaseName = "duke"
+    archiveBaseName = "pogo"
     archiveClassifier = null
     dependsOn("distZip", "distTar")
 }
 
-run{
+run {
     standardInput = System.in
 }
 
