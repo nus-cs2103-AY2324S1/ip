@@ -40,26 +40,22 @@ public abstract class Task {
             boolean isDone = taskComponents[1].equals("1");
             String taskDescription = taskComponents[2];
 
-            try {
-                if (taskType.equals("T")) {
-                    return new ToDo(taskDescription, isDone);
-                }
-                if (taskType.equals("D")) {
+            if (taskType.equals("T")) {
+                return new ToDo(taskDescription, isDone);
+            }
+            if (taskType.equals("D")) {
 /*                    String deadline = taskComponents[3];*/
-                    LocalDateTime deadlineDateTime = DateConverter.convertToDateTime(taskComponents[3]);
-                    Deadline newDeadlineTask = new Deadline(taskDescription, deadlineDateTime, isDone);
-                    return newDeadlineTask;
-                }
-                if (taskType.equals("E")) {
+                LocalDateTime deadlineDateTime = DateConverter.convertToDateTime(taskComponents[3]);
+                Deadline newDeadlineTask = new Deadline(taskDescription, deadlineDateTime, isDone);
+                return newDeadlineTask;
+            }
+            if (taskType.equals("E")) {
 /*                    String eventFrom = taskComponents[3];
-                    String eventTo = taskComponents[4];*/
-                    LocalDateTime eventFrom = DateConverter.convertToDateTime(taskComponents[3]);
-                    LocalDateTime eventTo = DateConverter.convertToDateTime(taskComponents[4]);
-                    Event newEventTask = new Event(taskDescription, eventFrom, eventTo, isDone);
-                    return newEventTask;
-                }
-            } catch (DateTimeFormatException e) {
-                System.out.println("Error with date time format in file: " + e.getMessage());
+                String eventTo = taskComponents[4];*/
+                LocalDateTime eventFrom = DateConverter.convertToDateTime(taskComponents[3]);
+                LocalDateTime eventTo = DateConverter.convertToDateTime(taskComponents[4]);
+                Event newEventTask = new Event(taskDescription, eventFrom, eventTo, isDone);
+                return newEventTask;
             }
             return null;
         }

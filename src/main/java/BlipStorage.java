@@ -36,7 +36,7 @@ public class BlipStorage {
         return tasks;
     }
 
-    private static void saveToFile(TaskList tasks) {
+    public static void saveToFile(TaskList tasks) {
         try {
             File file = new File(filePath);
             File fileDirectory = file.getParentFile();
