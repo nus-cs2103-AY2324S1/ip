@@ -2,6 +2,9 @@ package duke;
 
 import java.util.ArrayList;
 
+/**
+ * Encapsulates a list of tasks to manage the current tasks on hand.
+ */
 public class TaskList {
     private ArrayList<Task> tasks = new ArrayList<>();
     private int count = 0;
@@ -14,6 +17,11 @@ public class TaskList {
         return count;
     }
 
+    /**
+     * Adds a given task to the list.
+     * @param t task to be added
+     * @param shouldPrint whether text should be printed, disabled when it is loaded from a file
+     */
     public void addTask(Task t, boolean shouldPrint) {
         tasks.add(t);
         count++;
@@ -25,6 +33,10 @@ public class TaskList {
         }
     }
 
+    /**
+     * Deletes a task of given index from the list.
+     * @param index index of task to be deleted
+     */
     public void deleteTask(int index) {
         Task t = getTask(index);
         tasks.remove(t);
@@ -36,6 +48,11 @@ public class TaskList {
 
     }
 
+    /**
+     * Marks task of given index as done or undone.
+     * @param index index of task to be marked as done or undone
+     * @param isDone indicates if task is done
+     */
     public void markTask(int index, boolean isDone) {
         Task t = getTask(index);
         if (isDone) {
@@ -45,6 +62,9 @@ public class TaskList {
         }
     }
 
+    /**
+     * Outputs all tasks in the list
+     */
     public void printTasks() {
         System.out.println("List of items:");
         for (int i = 0; i < count; i++) {

@@ -3,6 +3,9 @@ package duke;
 import java.io.File;
 import java.util.Scanner;
 
+/**
+ * Chatbot that manages a task list, which is saved into the hard disk.
+ */
 public class Duke {
     private static TaskList taskList = new TaskList();
     private static File taskListFile = null;

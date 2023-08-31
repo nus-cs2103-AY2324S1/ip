@@ -3,7 +3,17 @@ package duke;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Encapsulates all methods that processes the user's input to perform actions accordingly.
+ */
 public class Parser {
+    /**
+     * Parses the input gotten from the main menu.
+     * @param s user input
+     * @param taskList task list managed by the chatbot
+     * @return process code, where 0 means the program should end and 1 otherwise
+     * @throws DukeException if there are malformed inputs
+     */
     public static int parseInput(String s, TaskList taskList) throws DukeException {
         if (s.equals("bye")) {
             System.out.println("Bye. Hope to see you again soon!");
@@ -116,6 +126,11 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses text from the pre-existing task list file to the corresponding Task object.
+     * @param entry line from the task list file
+     * @return corresponding Task object to the entry
+     */
     public static Task parseTaskListEntry(String entry) {
         Task task;
         String[] splitEntry = entry.split("\\|"); // Split by "|"

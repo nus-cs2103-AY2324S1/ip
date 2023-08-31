@@ -6,9 +6,17 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 
+/**
+ * Encapsulates read and write methods that deal with the task list file.
+ */
 public class Storage {
     public static final String FILE_PATH = "./data/duke.txt";
 
+    /**
+     * Loads the existing task list file and creates one if it does not exist.
+     * @param taskList task list managed by the chatbot to populate
+     * @return process code, where 0 means no file was read / created and 1 otherwise
+     */
     public static int initialiseTaskListFile(TaskList taskList) {
         try {
             // Load existing file
@@ -49,6 +57,10 @@ public class Storage {
         return 1;
     }
 
+    /**
+     * Updates task list file based on user's action
+     * @param taskList most updated task list used to edit the task list file
+     */
     public static void updateTaskListFile(TaskList taskList) {
         try {
             FileWriter fw = new FileWriter(FILE_PATH);
