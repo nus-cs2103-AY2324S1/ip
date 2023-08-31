@@ -1,5 +1,6 @@
 package ToolsPackage;
 
+import DukePackage.DukeException;
 import TaskPackage.Task;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -15,13 +16,14 @@ public class TaskList {
         this.listOfTasks = listOfTasks;
     }
 
-    public void saveStorage(FileWriter fileWriter) {
+    public boolean saveStorage(FileWriter fileWriter) throws DukeException {
         try {
             for (Task listOfTask : listOfTasks) {
                 fileWriter.write(listOfTask.addToStorage());
             }
+            return true;
         } catch (IOException e) {
-            System.out.println(e.getMessage());
+            throw new DukeException("☹ OOPS!!! There was an error saving data into storage.");
         }
     }
 
@@ -29,28 +31,34 @@ public class TaskList {
         ui.printList(listOfTasks);
     }
 
-    public void toggleDone(String id, String keyword, Ui ui) {
+    public boolean toggleDone(String id, String keyword, Ui ui) {
         try {
             this.listOfTasks.get(Integer.parseInt(id) - 1).toggleDone(keyword, ui);
+            return true;
         } catch (NumberFormatException e) {
             if (keyword.equals("mark")) {
                 System.out.println("☹ OOPS!!! Please indicate the task to mark in numbers.");
             } else {
                 System.out.println("☹ OOPS!!! Please indicate the task to unmark in numbers.");
             }
+            return false;
         } catch (IndexOutOfBoundsException e) {
             System.out.println("☹ OOPS!!! Please indicate an appropriate index within the list range.");
+            return false;
         }
     }
 
-    public void removeItem(String id, Ui ui) {
+    public boolean removeItem(String id, Ui ui) {
         try {
             Task task = this.listOfTasks.remove(Integer.parseInt(id) - 1);
             ui.removeItem(task, this.listOfTasks.size());
+            return true;
         } catch (NumberFormatException e) {
             System.out.println("☹ OOPS!!! Please indicate the task to delete in numbers.");
+            return false;
         } catch (IndexOutOfBoundsException e) {
             System.out.println("☹ OOPS!!! Please indicate an appropriate index within the list range.");
+            return false;
         }
     }
 

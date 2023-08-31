@@ -32,12 +32,13 @@ public class Storage {
         }
     }
 
-    public void saveStorage(TaskList listOfTasks) throws DukeException {
+    public boolean saveStorage(TaskList listOfTasks) throws DukeException {
         try {
             FileWriter fileWriter = new FileWriter(this.file);
             listOfTasks.saveStorage(fileWriter);
             fileWriter.close();
-        } catch (IOException e) {
+            return true;
+        } catch (IOException | DukeException e) {
             throw new DukeException("☹ OOPS!!! There was an error saving data into storage.");
         }
     }
