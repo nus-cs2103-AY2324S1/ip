@@ -1,12 +1,16 @@
+package duke.tasks;
+
+import duke.tasks.Task;
+
 /**
  * Encapsulates a task without any time/date attached.
- * Inherits from Task class.
+ * Inherits from duke.tasks.Task class.
  * @author Wu Jingya
  */
-public class ToDoTask extends Task{
+public class ToDoTask extends Task {
 
     /**
-     * Creates a ToDo Task with the specified description
+     * Creates a ToDo duke.tasks.Task with the specified description
      * @param description The task's description
      */
     public ToDoTask(String description) {

@@ -1,3 +1,7 @@
+package duke.ui;
+
+import duke.tasks.TaskList;
+
 public class Ui {
     private String botName;
     private static String SPACER = "--------------------------------------------------------------------------";

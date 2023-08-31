@@ -1,18 +1,19 @@
-import java.time.LocalDate;
+package duke.tasks;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 /**
  * Encapsulates an event with a start and end time/date.
- * Inherits from Task class.
+ * Inherits from duke.tasks.Task class.
  * @author Wu Jingya
  */
-public class EventTask extends Task{
+public class EventTask extends Task {
     private LocalDateTime from;
     private LocalDateTime to;
 
     /**
-     * Creates an Event Task with the specified description and start and end time/date
+     * Creates an Event duke.tasks.Task with the specified description and start and end time/date
      * @param description The task's description
      * @param from The task's starting time/date
      * @param to The task's ending time/date

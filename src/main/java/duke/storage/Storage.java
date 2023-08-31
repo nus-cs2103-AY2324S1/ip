@@ -1,3 +1,10 @@
+package duke.storage;
+
+import duke.tasks.TaskList;
+import duke.tasks.DeadlineTask;
+import duke.tasks.EventTask;
+import duke.tasks.ToDoTask;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -33,13 +40,13 @@ public class Storage {
                             if (dataSegments[1].equals("1")) {
                                 done = true;
                             } else if (!dataSegments[1].equals("0")) {
-                                System.out.println("Task formatting error: " + taskData + " not loaded");
+                                System.out.println("duke.tasks.Task formatting error: " + taskData + " not loaded");
                                 break;
                             }
                             ToDoTask newToDo = new ToDoTask(description, done);
                             taskList.addTask(newToDo);
                         } else {
-                            System.out.println("Task formatting error: " + taskData + " not loaded");
+                            System.out.println("duke.tasks.Task formatting error: " + taskData + " not loaded");
                         }
                         break;
                     case 4:
@@ -50,13 +57,13 @@ public class Storage {
                             if (dataSegments[1].equals("1")) {
                                 done = true;
                             } else if (!dataSegments[1].equals("0")) {
-                                System.out.println("Task formatting error: " + taskData + " not loaded");
+                                System.out.println("duke.tasks.Task formatting error: " + taskData + " not loaded");
                                 break;
                             }
                             DeadlineTask newDeadline = new DeadlineTask(description, by, done);
                             taskList.addTask(newDeadline);
                         } else {
-                            System.out.println("Task formatting error: " + taskData + " not loaded");
+                            System.out.println("duke.tasks.Task formatting error: " + taskData + " not loaded");
                         }
                         break;
                     case 5:
@@ -68,13 +75,13 @@ public class Storage {
                             if (dataSegments[1].equals("1")) {
                                 done = true;
                             } else if (!dataSegments[1].equals("0")) {
-                                System.out.println("Task formatting error: " + taskData + " not loaded");
+                                System.out.println("duke.tasks.Task formatting error: " + taskData + " not loaded");
                                 break;
                             }
                             EventTask newEvent = new EventTask(description, from, to, done);
                             taskList.addTask(newEvent);
                         } else {
-                            System.out.println("Task formatting error: " + taskData + " not loaded");
+                            System.out.println("duke.tasks.Task formatting error: " + taskData + " not loaded");
                         }
                         break;
                 }

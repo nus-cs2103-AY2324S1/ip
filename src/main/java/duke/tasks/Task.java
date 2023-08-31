@@ -1,3 +1,5 @@
+package duke.tasks;
+
 /**
  * An abstract class encapsulating a task in the task list.
  * @author Wu Jingya
@@ -7,7 +9,7 @@ public abstract class Task {
     private boolean done;
 
     /**
-     * Creates a Task with the specified description
+     * Creates a duke.tasks.Task with the specified description
      * @param description The task's description
      */
     public Task(String description) {

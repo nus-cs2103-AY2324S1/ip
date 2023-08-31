@@ -1,16 +1,18 @@
+package duke.tasks;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 /**
  * Encapsulates a task with a deadline.
- * Inherits from Task class.
+ * Inherits from duke.tasks.Task class.
  * @author Wu Jingya
  */
-public class DeadlineTask extends Task{
+public class DeadlineTask extends Task {
     private LocalDateTime by;
 
     /**
-     * Creates a Deadline Task with the specified description and deadline
+     * Creates a Deadline duke.tasks.Task with the specified description and deadline
      * @param description The task's description
      * @param by The task's deadline
      */
