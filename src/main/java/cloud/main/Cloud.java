@@ -22,22 +22,71 @@ public class Cloud {
             Cloud.say("Please enter a valid command.");
             break;
         case "list":
-            // Lists TODOs
-            Cloud.say("Your TODO list:");
+            if (Cloud.TODOS.size() <= 0) {
+                Cloud.say("Your TODO list is empty.");
+                return;
+            }
+
             for (int i = 0; i < Cloud.TODOS.size(); i++) {
                 Todo todo = Cloud.TODOS.get(i);
-                Cloud.say(
-                    String.format(
-                        "[%s] %d) %s",
-                        todo.isDone() ? "X" : " ",
-                        i + 1,
-                        todo.getDescription()
-                    )
-                );
+                Cloud.sayTodo(todo, i + 1);
             }
             break;
+        case "mark": {
+            Integer number = wordToInt(words, 1);
+            if (number == null) {
+                return;
+            }
+
+            Todo todo = Cloud.TODOS.get(number - 1);
+            if (todo.isComplete()) {
+                Cloud.say(
+                    String.format(
+                        "TODO #%d is already marked as complete.",
+                        number
+                    )
+                );
+                return;
+            }
+
+            todo.setComplete(true);
+            Cloud.say(
+                String.format(
+                    "TODO #%d marked as complete.",
+                    number
+                )
+            );
+            Cloud.sayTodo(todo, number);
+            break;
+        }
+        case "unmark": {
+            Integer number = wordToInt(words, 1);
+            if (number == null) {
+                return;
+            }
+
+            Todo todo = Cloud.TODOS.get(number - 1);
+            if (!todo.isComplete()) {
+                Cloud.say(
+                    String.format(
+                        "TODO #%d is already not marked as complete.",
+                        number
+                    )
+                );
+                return;
+            }
+
+            todo.setComplete(false);
+            Cloud.say(
+                String.format(
+                    "TODO #%d marked as incomplete.",
+                    number
+                )
+            );
+            Cloud.sayTodo(todo, number);
+            break;
+        }
         case "bye":
-            // Ends chat session
             Cloud.say("\\o");
             System.exit(0);
             break;
@@ -48,7 +97,7 @@ public class Cloud {
             );
             Cloud.say(
                 String.format(
-                    "Added TODO #%d: \"%s\"",
+                    "Added new TODO #%d: \"%s\"",
                     Cloud.TODOS.size(),
                     input
                 )
@@ -57,8 +106,47 @@ public class Cloud {
         }
     }
 
+    private static Integer wordToInt(String[] words, int index) {
+        String numberString = words.length >= index + 1 ? words[index] : "";
+        int number;
+        try {
+            number = Integer.parseInt(numberString);
+        } catch (NumberFormatException e) {
+            Cloud.say(
+                String.format(
+                    "\"%s\" is not a valid TODO number.",
+                    numberString
+                )
+            );
+            return null;
+        }
+
+        if (number < 0 || number > Cloud.TODOS.size()) {
+            Cloud.say(
+                String.format(
+                    "TODO #%d does not exist.",
+                    number
+                )
+            );
+            return null;
+        }
+
+        return number;
+    }
+
     private static void say(String text) {
         System.out.println(text);
+    }
+
+    private static void sayTodo(Todo todo, int number) {
+        Cloud.say(
+            String.format(
+                "[%s] %d) %s",
+                todo.isComplete() ? "X" : " ",
+                number,
+                todo.getDescription()
+            )
+        );
     }
 
     /**
