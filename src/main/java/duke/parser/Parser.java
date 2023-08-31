@@ -5,9 +5,12 @@ import duke.command.*;
 import duke.exception.DukeException;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 public class Parser {
+
+    public static final DateTimeFormatter DATETIME_INPUT_FORMAT = DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm");
 
     public static Command parse(String command) throws DukeException {
 
@@ -70,17 +73,17 @@ public class Parser {
                     deadlineName = str.trim();
                 }
             }
-            if (deadlineName == "") {
+            if (deadlineName.equals("")) {
                 throw new DukeException("OOPS!! Please include the name of the deadline.");
             }
-            if (deadlineBy == "") {
+            if (deadlineBy.equals("")) {
                 throw new DukeException("OOPS!! Please include when the deadline is by.");
             }
             try {
-                LocalDateTime byParsed = LocalDateTime.parse(deadlineBy, Duke.DATETIME_INPUT_FORMAT);
+                LocalDateTime byParsed = LocalDateTime.parse(deadlineBy, DATETIME_INPUT_FORMAT);
                 return new DeadlineCommand(deadlineName, byParsed);
             } catch (DateTimeParseException e) {
-                throw new DukeException("Wrong DateTime format!! Please use 'dd-MM-yyyy HHmm'.");
+                throw new DukeException(DukeException.WRONG_DATETIME_MESSAGE);
             }
         case "event":
             if (commandArr.length < 2) {
@@ -100,21 +103,21 @@ public class Parser {
                     eventName = str.trim();
                 }
             }
-            if (eventName == "") {
+            if (eventName.equals("")) {
                 throw new DukeException("OOPS!! Please include the name of the event.");
             }
-            if (eventFrom == "") {
+            if (eventFrom.equals("")) {
                 throw new DukeException("OOPS!! Please include when the event is from.");
             }
-            if (eventTo == "") {
+            if (eventTo.equals("")) {
                 throw new DukeException("OOPS!! Please include when the event is till.");
             }
             try {
-                LocalDateTime fromParsed =  LocalDateTime.parse(eventFrom, Duke.DATETIME_INPUT_FORMAT);
-                LocalDateTime toParsed = LocalDateTime.parse(eventTo, Duke.DATETIME_INPUT_FORMAT);
+                LocalDateTime fromParsed =  LocalDateTime.parse(eventFrom, DATETIME_INPUT_FORMAT);
+                LocalDateTime toParsed = LocalDateTime.parse(eventTo, DATETIME_INPUT_FORMAT);
                 return new EventCommand(eventName, fromParsed, toParsed);
             } catch (DateTimeParseException e) {
-                throw new DukeException("Wrong DateTime format!! Please use 'dd-MM-yyyy HHmm'.");
+                throw new DukeException(DukeException.WRONG_DATETIME_MESSAGE);
             }
         default:
             throw new DukeException("OOPS!!! I'm sorry, but I don't know what that means :-(");
