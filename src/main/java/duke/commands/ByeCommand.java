@@ -5,9 +5,7 @@ import duke.ui.Ui;
 import duke.storage.Storage;
 public class ByeCommand extends Command {
 
-    public ByeCommand() {
-
-    }
+    public ByeCommand() { }
 
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) {

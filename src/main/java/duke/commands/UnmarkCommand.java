@@ -8,8 +8,15 @@ import duke.data.exception.DukeException;
 
 public class UnmarkCommand extends Command {
 
+    /** ID of task to be unmarked. */
+
     private final int taskID;
 
+    /**
+     * Constructor to initialize UnmarkCommand.
+     *
+     * @param taskID ID of task to be unmarked.
+     */
     public UnmarkCommand(int taskID) throws DukeException {
         if (taskID < 1)
             throw new DukeException("☹ OOPS!!! Invalid Task ID.");

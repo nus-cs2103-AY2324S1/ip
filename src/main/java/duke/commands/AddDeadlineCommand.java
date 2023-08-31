@@ -8,9 +8,17 @@ import duke.storage.Storage;
 import duke.data.task.Deadline;
 
 public class AddDeadlineCommand extends Command {
+    /** Description of the deadline task */
     private final String description;
+    /** Date of deadline */
     private final Date by;
 
+    /**
+     * Constructor to initialize AddDeadlineCommand.
+     *
+     * @param description Description of the deadline task.
+     * @param by Date of deadline.
+     */
     public AddDeadlineCommand(String description, Date by) {
         this.description = description;
         this.by = by;

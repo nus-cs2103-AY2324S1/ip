@@ -4,9 +4,15 @@ import java.util.Date;
 import java.text.SimpleDateFormat;
 
 public class Deadline extends Task {
-
+    /** Date of deadline */
     protected Date by;
 
+    /**
+     * Constructor to initialize Deadline.
+     *
+     * @param description Description of the deadline task.
+     * @param by Date of deadline.
+     */
     public Deadline(String description, Date by) {
         super(description);
 //        if (description.isEmpty())
