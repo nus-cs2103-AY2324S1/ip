@@ -1,3 +1,7 @@
+package duke.exception;
+
+import duke.exception.DukeException;
+
 public class EventException extends DukeException {
     public EventException() {
         super("The format for adding an event is incorrect. Please use: 'event [description] /from [yyyy-MM-dd] /to [yyyy-MM-dd]'");

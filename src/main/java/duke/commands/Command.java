@@ -1,3 +1,5 @@
+package duke.commands;
+
 import java.time.LocalDate;
 
 public class Command {
