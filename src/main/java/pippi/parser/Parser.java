@@ -1,3 +1,13 @@
+package pippi.parser;
+
+import pippi.*;
+import pippi.storage.Storage;
+import pippi.task.Deadline;
+import pippi.task.Event;
+import pippi.task.Task;
+import pippi.task.ToDo;
+import pippi.ui.Ui;
+
 import java.util.ArrayList;
 public class Parser {
     public static void reply(String userMessage, ArrayList<Task> tasks) {
@@ -7,7 +17,7 @@ public class Parser {
             switch (command) {
                 case "bye":
                     Ui.wrapText("Bye. Hope to see you again soon!");
-                    Pippi.inPokeball = true;
+                    Pippi.returnToPokeball();
                     break;
                 case "todo":
                     if ((input.length < 2) || input[1].trim().isEmpty()) {
@@ -43,7 +53,7 @@ public class Parser {
                         throw new PippiException("Pound!!! The description and start, end time of an event cannot be empty.");
                     }
                     if (input[1].split("/from").length < 2) {
-                        throw new PippiException("Pound!!! Event title or duration is missing");
+                        throw new PippiException("Pound!!! pippi.task.Event title or duration is missing");
                     }
                     String evTitle = input[1].split("/from ")[0].trim();
                     String duration = input[1].split("/from ")[1];
