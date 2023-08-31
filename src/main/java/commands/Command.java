@@ -10,6 +10,10 @@ import io.Parser;
  */
 public abstract class Command implements Consumer<Parser> {
     Rock client;
+    /**
+     * Constructor method for a command
+     * @param client Chatbot object.
+     */
     public Command(Rock client) {
         this.client = client;
     }

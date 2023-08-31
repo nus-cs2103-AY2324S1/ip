@@ -10,6 +10,11 @@ import io.Parser;
  * @author Alvis Ng (supermii2)
  */
 public class CommandBye extends Command{
+    /**
+     * Constructor to create the
+     * Terminate command 
+     * @param client Chatbot object
+     */
     public CommandBye(Rock client) {
         super(client);
     }

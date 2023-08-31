@@ -10,6 +10,11 @@ import io.Parser;
  * @author Alvis Ng (supermii2)
  */
 public class CommandTaskList extends Command {
+    /**
+     * Constructor to create the
+     * List command
+     * @param client Chatbot object
+     */
     public CommandTaskList(Rock client) {
         super(client);
     }

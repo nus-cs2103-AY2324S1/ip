@@ -15,6 +15,11 @@ import tasks.TaskList;
 public class CommandTaskMark extends Command {
     /** Represents whether this command marks or unmarks a task. */
     boolean isMarking;
+    /**
+     * Constructor to create the
+     * mark command
+     * @param client Chatbot object
+     */
     public CommandTaskMark(Rock client, boolean isMarking) {
         super(client);
         this.isMarking = isMarking;

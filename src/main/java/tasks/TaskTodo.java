@@ -9,6 +9,10 @@ import java.time.LocalDate;
  */
 public class TaskTodo extends Task {
     @Override
+    /**
+     * Used to get the date of the task object.
+     * @return Null, as todo has no date
+     */
     public LocalDate getDate() {
         return null;
     }

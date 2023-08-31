@@ -29,6 +29,10 @@ public class TaskEvent extends Task{
         }
     }
     @Override
+    /**
+     * Used to get the date of the task object.
+     * @return Start date of Event
+     */
     public LocalDate getDate() {
         return this.startTime;
     }
