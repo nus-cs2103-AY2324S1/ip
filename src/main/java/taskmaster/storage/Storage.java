@@ -10,17 +10,22 @@ import java.util.Scanner;
 
 
 public class Storage {
-
+    /**
+     * File path that stores saved tasks
+     */
     private static String filePath;
-    private static int number = 0;
-
-    private ArrayList<Task> taskList = new ArrayList<>();
-
+    /**
+     * Constructor for the Storage class.
+     *
+     * @param filePath Relative path of the file that stores the data.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
-
-    public ArrayList<Task> loadTasksFromFile() {
+    /**
+     * Loads the stored data into the current task list.
+     */
+    public void loadTasksFromFile() {
         try {
             File file = new File(filePath);
             Scanner scanner = new Scanner(file);
@@ -38,8 +43,7 @@ public class Storage {
                     } else {
                         TaskList.list.add(new Todo(description, "unmarked"));
                     }
-                    Storage.number++;
-                } else if ( type == 'D') {
+                } else if (type == 'D') {
                     int byIndex = line.indexOf("(by: ");
                     String description = line.substring(7, byIndex).trim(); // 7 is the length of "[D][ ] "
                     String dueDate = line.substring(byIndex + 5, line.length() - 1).trim();
@@ -49,11 +53,9 @@ public class Storage {
                     } else {
                         TaskList.list.add(new Deadline(description, dueDate, "unmarked"));
                     }
-                    Storage.number++;
-                } else if ( type == 'E') {
+                } else if (type == 'E') {
                     String[] parts = line.split("\\(from: | to ");
-                    String description = parts[0].trim().substring(7
-                    );
+                    String description = parts[0].trim().substring(7);
                     String startTime = parts[1].trim();
                     String endTime = parts[2].replace(")", "").trim();
 
@@ -62,19 +64,18 @@ public class Storage {
                     } else {
                         TaskList.list.add(new Event(description, startTime, endTime, "unmarked"));
                     }
-                    Storage.number++;
                 }
             }
             scanner.close();
-            return this.taskList;
         } catch (FileNotFoundException e) {
             System.out.println("Data file not found: " + e.getMessage());
         }
-        return this.taskList;
     }
 
-
-        public static void saveTasksToFile() {
+    /**
+     * Saves the task list to the file
+     */
+    public static void saveTasksToFile() {
         try {
             FileWriter writer = new FileWriter(filePath);
 

@@ -32,7 +32,6 @@ public class Taskmaster {
             String userInput = scanner.nextLine();
             parser.parse(userInput, this.storage, this.taskList);
         }
-
         this.ui.printGoodbye();
     }
 

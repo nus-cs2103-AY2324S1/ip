@@ -7,18 +7,49 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 public class TaskList {
+    /**
+     * List that contains all the current tasks.
+     */
     public static ArrayList<Task> list;
+    /**
+     * Enum that indicates whether a task is marked or unmarked.
+     */
     public enum MarkStatus {
-        MARK, UNMARK
+        /**
+         * Task is marked
+         */
+        MARK,
+        /**
+         * Task is unmarked
+         */
+        UNMARK
     }
+    /**
+     * Enum that indicates the task type.
+     */
     public enum TaskType {
-        TODO, EVENT, DEADLINE
+        /**
+         * Todo task.
+         */
+        TODO,
+        /**
+         * Event task.
+         */
+        EVENT,
+        /**
+         * Deadline task.
+         */
+        DEADLINE
     }
-
+    /**
+     * Constructor for the TaskList class.
+     */
     public TaskList() {
         TaskList.list = new ArrayList<>();
     }
-
+    /**
+     * Prints all tasks in the list.
+     */
     public static void printList() {
         System.out.println(Ui.line);
         System.out.println("Here are the tasks in your list:");
@@ -27,7 +58,13 @@ public class TaskList {
         }
         System.out.println(Ui.line);
     }
-
+    /**
+     * Marks or un-marks a task to in the list as done.
+     *
+     * @param mark Indication of whether a task should be marked or unmarked.
+     * @param taskIndex of the task to toggle the mark.
+     * @throws DukeException If the provided index is out of range.
+     */
     public void toggleMark(MarkStatus mark, int taskIndex) throws DukeException {
         if (taskIndex >= 0 && taskIndex < TaskList.list.size()) {
             if (mark == MarkStatus.UNMARK) {
@@ -47,7 +84,12 @@ public class TaskList {
             throw new DukeException("Invalid task number");
         }
     }
-
+    /**
+     * Removes a task to the list.
+     *
+     * @param taskIndex Index of the task to remove.
+     * @throws DukeException If the provided index is out of range.
+     */
     public void deleteTask(int taskIndex) throws DukeException {
         if (taskIndex >= 0 && taskIndex < TaskList.list.size()) {
             Task removedTask = list.remove(taskIndex);
@@ -60,7 +102,14 @@ public class TaskList {
             throw new DukeException("Specified task does not exist");
         }
     }
-
+    /**
+     * Removes a task to the list.
+     *
+     * @param taskType Type of task that is added.
+     * @param description Description of the task.
+     * @param marked Whether the task should be added as marked or unmarked.
+     * @throws DukeException If command given is not a valid command.
+     */
     public void addTask(TaskType taskType, String description, String marked) throws DukeException {
         if (taskType == TaskType.TODO) {
             if (description.isEmpty()) {
@@ -89,7 +138,7 @@ public class TaskList {
                 wrongInput = true;
             }
             if (wrongInput) {
-                System.out.println("Please input a valid task");
+                throw new DukeException("Please input a valid task");
             } else {
                 System.out.println(Ui.line);
                 System.out.println("Got it. I've added this event:");
@@ -108,7 +157,7 @@ public class TaskList {
                 wrongInput = true;
             }
             if (wrongInput) {
-                System.out.println("Please input a valid task");
+                throw new DukeException("Please input a valid task");
             } else {
                 System.out.println(Ui.line);
                 System.out.println("Got it. I've added this deadline:");
@@ -118,7 +167,11 @@ public class TaskList {
             }
         }
     }
-
+    /**
+     * Prints all tasks that is happening on the specified date.
+     *
+     * @param date Date that task is happening on.
+     */
     public void printTasksByDate(String date) {
         LocalDate dueDate = null;
         try {
@@ -152,13 +205,23 @@ public class TaskList {
         }
     }
 
-    @Override public String toString() {
-        StringBuilder result = new StringBuilder();
-        for (int i = 0; i < list.size(); i++) {
-            result.append(String.format("%d. %s\n", i + 1, list.get(i)));
+    /**
+     * Returns tasks that is matching keyword provided.
+     * @param keyword Keyword to match task with.
+     */
+    public void findTask(String keyword) {
+        System.out.println(Ui.line);
+        int count = 1;
+        for (Task task: list) {
+            String description = task.getDescription();
+            if (description.contains(keyword)) {
+                System.out.println(count + ": " + task);
+                count++;
+            }
         }
-        return (result + String.format("You have %d %s in the list.",
-                list.size(),
-                list.size() == 1 ? "task" : "tasks"));
+        if (count == 1) {
+            System.out.println("No task found with given keywords!");
+        }
+        System.out.println(Ui.line);
     }
 }

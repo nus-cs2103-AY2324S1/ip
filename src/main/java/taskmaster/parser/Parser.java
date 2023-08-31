@@ -6,6 +6,14 @@ import taskmaster.storage.Storage;
 import taskmaster.exceptions.DukeException;
 
 public class Parser {
+    /**
+     * Reads user input and calls the relevant method.
+     *
+     * @param userInput Input from user.
+     * @param storage Storage of the program.
+     * @param taskList Task list of the program
+     * @throws DukeException If the input is not valid command.
+     */
     public void parse(String userInput, Storage storage, TaskList taskList) throws DukeException {
         if (userInput.equalsIgnoreCase("bye")) {
             Taskmaster.activated = false;
@@ -53,6 +61,9 @@ public class Parser {
         } else if (userInput.startsWith("due")) {
             String date = userInput.substring(4).trim();
             taskList.printTasksByDate(date);
+        } else if (userInput.startsWith("find")) {
+            String keyword = userInput.substring(5).trim();
+            taskList.findTask(keyword);
         } else {
             throw new DukeException("Please enter a valid command!");
         }
