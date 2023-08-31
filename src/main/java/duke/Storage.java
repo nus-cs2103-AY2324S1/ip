@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 public class Storage {
     java.nio.file.Path path = java.nio.file.Paths.get( "./","src", "main", "data", "duke.txt");
-    private boolean fileExists = java.nio.file.Files.exists(path);
+    private final boolean fileExists = java.nio.file.Files.exists(path);
     File f = new File(String.valueOf(path));
     public static void saveTasksToFile(ArrayList<Task> tasks, String filePath) {
         try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(filePath))) {
