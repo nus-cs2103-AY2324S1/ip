@@ -18,6 +18,7 @@ public class Commands {
             put("event", new CommandTaskCreate(client, TaskTypes.EVENT));
             put("delete", new CommandTaskDelete(client));
             put("listbydate", new CommandTaskListByDate(client));
+            put("find", new CommandTaskFind(client));
     }};
     }
     /** Lookup table of possible commands that can be used. */

@@ -38,6 +38,9 @@ public abstract class Task implements Serializable{
     public void setCompleted(boolean completed) {
         this.completed = completed;
     }
+    public String getName() {
+        return this.taskName;
+    }
     public abstract LocalDate getDate();
     @Override
     /**
