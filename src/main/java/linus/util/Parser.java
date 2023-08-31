@@ -1,6 +1,12 @@
 package linus.util;
 
 public class Parser {
+
+    /**
+     * Parses the input string into a command and data.
+     * @param input The input string.
+     * @return String[]
+     */
     public static String[] parse(String input) {
         String[] inputSplit = input.split(" ", 2);
         String command = inputSplit[0];

@@ -5,6 +5,11 @@ import linus.util.Ui;
 public abstract class Task {
     protected String description;
     protected boolean isDone;
+
+    /**
+     * Constructs a Task object with the specified description.
+     * @param description The description of the task.
+     */
     public Task(String description) {
         this.description = description;
         this.isDone = false;
