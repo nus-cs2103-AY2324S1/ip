@@ -9,6 +9,11 @@ import exception.InvalidInputException;
 public class FindCommand implements Command {
     Store s = Store.getInstance();
 
+    /**
+     * Finds tasks that contain the keyword.
+     * @param input String input from user in the format "find <keyword>".
+     * @throws DukeException If input is invalid.
+     */
     @Override
     public void execute(String input) throws DukeException {
         Pattern pattern = Pattern.compile("find .+");

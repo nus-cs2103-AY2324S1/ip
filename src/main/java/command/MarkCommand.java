@@ -6,7 +6,7 @@ import data.storage.Store;
 import exception.DukeException;
 import exception.InvalidInputException;
 
-public class Mark implements Command{
+public class MarkCommand implements Command{
     /**
      * Marks a task as done.
      * @param input String input from user in the format "mark <index>".
