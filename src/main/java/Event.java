@@ -2,7 +2,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 public class Event extends Task {
-
     protected String from;
     protected String to;
 
