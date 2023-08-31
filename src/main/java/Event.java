@@ -22,6 +22,17 @@ public class Event extends Task {
         this.to = to;
     }
 
+    protected Event(String[] args) {
+        super(args);
+        this.from = args[2];
+        this.to = args[3];
+    }
+
+    @Override
+    public String toSaveString() {
+        return "E|" + getSaveInfo() + "|" + this.from + "|" + this.to;
+    }
+
     /**
      * toString method of Event. <br>
      * The String representation of To-do appends the [E] tag in front of the Task toString, and

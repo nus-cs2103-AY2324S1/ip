@@ -1,5 +1,12 @@
 import ip.utils.Pair;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -32,6 +39,7 @@ public class TrackerBot {
      * Prints a welcome message to the user on login.
      */
     private static void greet() {
+        read();
         System.out.println(FORMAT_LINE);
         System.out.println("Greetings from " + APP_NAME + "!");
         System.out.println("How may I assist?");
@@ -43,6 +51,7 @@ public class TrackerBot {
      * Prints an exit message to the user on logout.
      */
     private static void exit() {
+        save();
         System.out.println("Thank you for using " + APP_NAME + ". Goodbye.");
     }
 
@@ -216,6 +225,40 @@ public class TrackerBot {
         TASKS.remove(index - 1);
         System.out.println("I have removed this task off of my list.\n  " + task);
         System.out.println(TASKS.size() + " task(s) remain on my list.");
+    }
+
+    private static void read() {
+        Path path = Paths.get("TrackerBot", "data.txt");
+        if (Files.notExists(path)) {
+            return;
+        }
+
+        try (Scanner input = new Scanner(new FileReader(path.toFile()))){
+            while (input.hasNextLine()) {
+                TASKS.add(Task.parseSaveLine(input.nextLine()));
+            }
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    private static void save() {
+        Path path = Paths.get("TrackerBot", "data.txt");
+        File file = path.toFile();
+        try {
+            Files.createDirectories(path.getParent());
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+
+        try (FileOutputStream output = new FileOutputStream(file, false)) {
+            for (int i = 1; i < TASKS.size() + 1; i++) {
+                output.write(TASKS.get(i - 1).toSaveString().getBytes());
+                output.write("\n".getBytes());
+            }
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        } // the try with resources statement auto-closes output.
     }
 
     /**

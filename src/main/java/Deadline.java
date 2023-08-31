@@ -18,6 +18,16 @@ public class Deadline extends Task {
         this.by = by;
     }
 
+    public Deadline(String[] args) {
+        super(args);
+        this.by = args[2];
+    }
+
+    @Override
+    public String toSaveString() {
+        return "D|" + getSaveInfo() + "|" + this.by;
+    }
+
     /**
      * toString method of Deadline. <br>
      * The String representation of To-do appends the [D] tag in front of the Task toString, and
