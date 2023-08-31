@@ -12,7 +12,7 @@ public abstract class Command {
 
     TaskList taskList;
 
-    public boolean isExitCommand = false;
+    protected boolean isExitCommand = false;
 
     /**
      * Constructor for command objects.
