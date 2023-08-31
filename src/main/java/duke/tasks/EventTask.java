@@ -44,4 +44,18 @@ public class EventTask extends Task {
     public String toData() {
         return "E|" + super.toData() + "|" + from + "|" + to;
     }
+
+    // for testing purposes only
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) {
+            return true;
+        }
+        if (obj instanceof EventTask) {
+            return super.equals(obj) &&
+                    ((EventTask) obj).from.equals(this.from) &&
+                    ((EventTask) obj).to.equals(this.to);
+        }
+        return false;
+    }
 }

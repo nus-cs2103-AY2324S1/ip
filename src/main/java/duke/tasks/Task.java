@@ -52,4 +52,16 @@ public abstract class Task {
             return "0|" + this.description;
         }
     }
+
+    // for testing purposes only
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) {
+            return true;
+        }
+        if (obj instanceof Task) {
+            return ((Task) obj).description.equals(this.description) && ((Task) obj).done == this.done;
+        }
+        return false;
+    }
 }
