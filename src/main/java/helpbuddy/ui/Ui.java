@@ -3,6 +3,7 @@ package helpbuddy.ui;
 import helpbuddy.task.Task;
 import helpbuddy.task.TaskList;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Ui {
@@ -55,6 +56,22 @@ public class Ui {
         printMessageBlock("Noted. I've removed this task:\n\t  " + task + stringifyNumOfTasks(taskList));
     }
 
+    /**
+     * Prints the taskList.
+     * @param taskList the taskList that contains Task objects user is finding.
+     */
+    public void printFindTaskMessage(ArrayList<Task> taskList) {
+        if (taskList.isEmpty()) {
+            printMessageBlock("There is no such task in your list.\n");
+        } else {
+            String messageOutput = "Here are the matching tasks in your list:\n";
+            for (int i = 0; i < taskList.size(); i++) {
+                int taskIndex = i + 1;
+                messageOutput += "\t" + taskIndex + ". " + taskList.get(i) + "\n";
+            }
+            printMessageBlock(messageOutput);
+        }
+    }
     public void printErrorMessage(String s) {
         printMessageBlock(s);
     }
