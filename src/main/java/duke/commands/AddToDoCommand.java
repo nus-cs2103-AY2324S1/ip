@@ -1,10 +1,11 @@
 package duke.commands;
 
 import java.io.IOException;
+
+import duke.data.task.Todo;
 import duke.data.TaskList;
 import duke.ui.Ui;
 import duke.storage.Storage;
-import duke.data.task.Todo;
 
 public class AddToDoCommand extends Command {
     /** Description of the Todo task */

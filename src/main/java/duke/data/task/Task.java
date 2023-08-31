@@ -1,4 +1,5 @@
 package duke.data.task;
+
 public class Task {
     /** Description of the task */
     protected String description;
@@ -49,10 +50,10 @@ public class Task {
      * @return formatted string of the task
      * */
     public String toWrite() {
-        if (isDone)
+        if (isDone) {
             return "1 | " + description;
+        }
         return "0 | " + description;
-
     }
 
     /**

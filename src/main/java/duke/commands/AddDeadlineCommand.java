@@ -2,10 +2,11 @@ package duke.commands;
 
 import java.io.IOException;
 import java.util.Date;
+
+import duke.data.task.Deadline;
 import duke.data.TaskList;
 import duke.ui.Ui;
 import duke.storage.Storage;
-import duke.data.task.Deadline;
 
 public class AddDeadlineCommand extends Command {
     /** Description of the deadline task */

@@ -1,6 +1,7 @@
 package duke.data;
 
 import java.util.ArrayList;
+
 import duke.data.task.Task;
 import duke.data.exception.DukeException;
 
@@ -46,8 +47,9 @@ public class TaskList {
      * @throws DukeException when the task is already marked.
      */
     public void markTask(Task task) throws DukeException {
-        if (task.getDone())
+        if (task.getDone()) {
             throw new DukeException("☹ OOPS!!! I'm sorry, but task is already marked!");
+        }
         task.markAsDone();
     }
 
@@ -58,8 +60,9 @@ public class TaskList {
      * @throws DukeException when the task is already unmarked.
      */
     public void unmarkTask(Task task) throws DukeException {
-        if (!task.getDone())
+        if (!task.getDone()) {
             throw new DukeException("☹ OOPS!!! I'm sorry, but task is already marked!");
+        }
         task.markAsNotDone();
     }
 

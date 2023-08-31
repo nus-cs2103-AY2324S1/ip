@@ -1,11 +1,12 @@
 package duke.commands;
 
 import java.io.IOException;
+
+import duke.data.exception.DukeException;
+import duke.data.task.Task;
 import duke.data.TaskList;
 import duke.ui.Ui;
 import duke.storage.Storage;
-import duke.data.exception.DukeException;
-import duke.data.task.Task;
 public class DeleteTaskCommand extends Command {
 
     /** ID of task to be deleted. */

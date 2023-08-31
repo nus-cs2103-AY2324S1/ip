@@ -18,8 +18,6 @@ public class Event extends Task {
      */
     public Event(String description, Date from, Date to) {
         super(description);
-//        if (description.isEmpty())
-//            throw new DukeException("☹ OOPS!!! The description / from / to of a event cannot be empty.");
         this.from = from;
         this.to = to;
     }
