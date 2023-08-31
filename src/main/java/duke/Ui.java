@@ -1,3 +1,5 @@
+package duke;
+
 public class Ui {
     // Greets the user
     public static void greet() {

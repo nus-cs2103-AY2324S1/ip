@@ -1,9 +1,11 @@
+package duke;
+
 import java.util.ArrayList;
 
 public class Tasklist {
     private ArrayList<Task> tasks;
 
-    // Constructor for the Tasklist
+    // Constructor for the duke.Tasklist
     public Tasklist(ArrayList<Task> tasks) {
         this.tasks = tasks;
     }

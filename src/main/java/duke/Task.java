@@ -1,13 +1,15 @@
+package duke;
+
 public class Task {
     private String name;
     private boolean done = false;
 
-    // Constructor for Task
+    // Constructor for duke.Task
     public Task(String name) {
         this.name = name;
     }
 
-    // Constructor for Task with done status
+    // Constructor for duke.Task with done status
     public Task(String name, boolean done) {
         this.name = name;
         this.done = done;
@@ -34,7 +36,7 @@ public class Task {
         done = false;
     }
 
-    // Gets name of Task
+    // Gets name of duke.Task
     public String getName() {
         return this.name;
     }

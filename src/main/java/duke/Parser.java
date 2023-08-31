@@ -1,5 +1,6 @@
+package duke;
+
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 
 public class Parser {
     // Parses the response given by the user
