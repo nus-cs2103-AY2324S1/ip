@@ -1,5 +1,8 @@
 package duke.task;
 
+/**
+ * Represents an error that occurred during the initialisation of a Deadline object.
+ */
 public class EventException extends TaskException {
 
     public EventException() {

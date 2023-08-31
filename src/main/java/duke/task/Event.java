@@ -2,6 +2,9 @@ package duke.task;
 
 import java.time.LocalDate;
 
+/**
+ * Represents an event with a given start and end date.
+ */
 public class Event extends Task {
     protected LocalDate from;
     protected LocalDate to;
@@ -12,6 +15,11 @@ public class Event extends Task {
         this.to = to;
     }
 
+    /**
+     * Returns a string representation of the Event object.
+     *
+     * @return String representation of the Event object.
+     */
     @Override
     public String toString() {
         String status = "[" + (this.isDone ? "X" : " ") + "]";

@@ -5,6 +5,9 @@ import duke.util.Storage;
 import duke.util.TaskList;
 import duke.util.Ui;
 
+/**
+ * Represents a Delete command to be executed.
+ */
 public class DeleteCommand extends Command {
     private int index;
 
@@ -13,6 +16,13 @@ public class DeleteCommand extends Command {
         this.index = index;
     }
 
+    /**
+     * Executes the list of commands to delete a Task from a TaskList.
+     *
+     * @param list The given TaskList with the Task to be deleted.
+     * @param ui The given Ui to show the status of the deletion command.
+     * @param storage The given Storage that saves the TaskList locally.
+     */
     @Override
     public void execute(TaskList list, Ui ui, Storage storage) {
         Task task = list.remove(this.index);
