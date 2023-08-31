@@ -29,14 +29,14 @@ public class Ruiz {
 
     public void run() {
         Scanner inputObj = new Scanner(System.in);
-        ui.greet();
+        ui.printGreet();
         while (true) {
             try {
                 String input = inputObj.nextLine();
                 Command command = parser.getCommand(input);
                 switch (command) {
                 case BYE:
-                    ui.bye();
+                    ui.printBye();
                     return;
                 case LIST:
                     ui.getTasks(this.tasks.getTaskList());

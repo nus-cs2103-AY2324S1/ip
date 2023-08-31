@@ -8,7 +8,7 @@ public class Ui {
     /**
      * This method prints the greeting message of the bot.
      */
-    public void greet() {
+    public void printGreet() {
         String greet = "____________________________________________________________\n" +
                 " Hello! I'm Ruiz\n" +
                 " What can I do for you?\n" +
@@ -19,7 +19,7 @@ public class Ui {
     /**
      * This method prints the goodbye message of the bot.
      */
-    public void bye() {
+    public void printBye() {
         String bye = "____________________________________________________________\n" +
                 "Bye! Comeback soon!\n" +
                 "____________________________________________________________";
