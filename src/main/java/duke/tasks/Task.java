@@ -82,4 +82,12 @@ public class Task implements Serializable {
         return this.isDone;
     }
 
+    /**
+     * Returns the description of the task
+     *
+     * @return description of the task
+     */
+    public String getDescription() {
+        return this.description;
+    }
 }
