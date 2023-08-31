@@ -27,19 +27,11 @@ public class Parser {
         case "list":
             return new ListCommand();
         case "mark":
+            return new MarkCommand(input);
         case "unmark":
+            return new UnmarkCommand(input);
         case "delete":
-            if (input.length <= 1) {
-                throw new BongoException("Please include the task index.");
-            }
-            int taskIndex = Integer.parseInt(input[1]) - 1;
-            if (input[0].equals("mark")) {
-                return new MarkCommand(taskIndex);
-            } else if (input[0].equals("unmark")) {
-                return new UnmarkCommand(taskIndex);
-            } else if (input[0].equals("delete")) {
-                return new DeleteCommand(taskIndex);
-            }
+            return new DeleteCommand(input);
         case "todo":
         case "deadline":
         case "event":

@@ -11,10 +11,14 @@ public class UnmarkCommand extends Command {
     /**
      * A constructor for a UnmarkCommand, with a taskIndex.
      *
-     * @param taskIndex Index of task.
+     * @param command Array of strings from user command.
+     * @throws BongoException If task index is missing.
      */
-    public UnmarkCommand(int taskIndex) {
-        this.taskIndex = taskIndex;
+    public UnmarkCommand(String[] command) throws BongoException {
+        if (command.length <= 1) {
+            throw new BongoException("Please include the task index.");
+        }
+        this.taskIndex = Integer.parseInt(command[1]) - 1 ;
     }
 
     @Override

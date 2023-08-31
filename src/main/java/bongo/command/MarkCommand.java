@@ -11,10 +11,14 @@ public class MarkCommand extends Command {
     /**
      * A constructor for a MarkCommand, with a taskIndex.
      *
-     * @param taskIndex Index of task.
+     * @param command Array of strings from user command.
+     * @throws BongoException If task index is missing.
      */
-    public MarkCommand(int taskIndex) {
-        this.taskIndex = taskIndex;
+    public MarkCommand(String[] command) throws BongoException {
+        if (command.length <= 1) {
+            throw new BongoException("Please include the task index.");
+        }
+        this.taskIndex = Integer.parseInt(command[1]) - 1 ;
     }
 
     @Override
