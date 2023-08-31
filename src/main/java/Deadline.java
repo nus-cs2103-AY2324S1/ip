@@ -3,13 +3,12 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 public class Deadline extends Task {
-
+    protected String type = "Deadline";
     protected LocalDate by = null;
 
     public Deadline(String description, String by) throws LinusException {
         super(description);
         try {
-            System.out.println(by);
             this.by = LocalDate.parse(by);
         } catch( DateTimeParseException e ) {
             throw new LinusException("☹ OOPS!!! Please specify the deadline in the correct format: yyyy-mm-dd");
