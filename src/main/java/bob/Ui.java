@@ -2,6 +2,9 @@ package bob;
 
 import java.time.LocalDate;
 
+/**
+ * Represents a parser that deals with interactions with the user
+ */
 public class Ui {
 
     private static Parser parser;
@@ -151,7 +154,6 @@ public class Ui {
 
     /**
      * Prints all the tasks in the list.
-     *
      */
     public static void printTasks(TaskList list) {
         System.out.println("Here are the tasks in your list:");
@@ -160,15 +162,24 @@ public class Ui {
         }
     }
 
+    /**
+     * Shows the loading error
+     */
     public void showLoadingError() {
         System.out.println("Error loading file");
     }
 
+    /**
+     * Prints greeting when it is the user's first time running
+     */
     public void printGreeting() {
         System.out.println("Hello! I'm Bob");
         System.out.println("What can I do for you?");
     }
 
+    /**
+     * Prints goodbye message when user says bye
+     */
     public void printGoodbye() {
         System.out.println("Bye. Hope to see you again soon!");
     }
