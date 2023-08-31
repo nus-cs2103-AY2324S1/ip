@@ -3,6 +3,7 @@ import exception.ChattyException;
 import exception.DetailsUnknownException;
 
 import java.io.IOException;
+import java.time.format.DateTimeParseException;
 
 public class Duke {
 
@@ -67,11 +68,14 @@ public class Duke {
                     } else {
                         throw new UnknownCommandException();
                     }
+                    storage.saveTaskToFile();
+                } catch (DateTimeParseException e) {
+                    System.out.println("Error parsing date and time: " + e.getMessage());
                 } catch (DetailsUnknownException e) {
                     System.out.println(e.getMessage());
                 } catch (UnknownCommandException e) {
                     System.out.println(e.getMessage());
-                }catch (ChattyException e) {
+                } catch (ChattyException e) {
                     System.out.println(e.getMessage());
                 }
             }
