@@ -13,6 +13,7 @@ import duke.command.DeadlineCommand;
 import duke.command.DeleteCommand;
 import duke.command.EventCommand;
 import duke.command.ExitCommand;
+import duke.command.FindCommand;
 import duke.command.HelpCommand;
 import duke.command.ListCommand;
 import duke.command.MarkCommand;
@@ -43,6 +44,9 @@ public class ParserTest {
             assertEquals(new MarkCommand(false, 1), Parser.parse("unmark 1"));
             // delete command
             assertEquals(new DeleteCommand(1), Parser.parse("delete 1"));
+            // Find command
+            assertEquals(new FindCommand("testString"), Parser.parse("Find testString"));
+            // deadline command
             // todo command
             assertEquals(new TodoCommand("testing1"), Parser.parse("todo testing1"));
             // deadline command
@@ -67,7 +71,6 @@ public class ParserTest {
         // no index
         e = assertThrows(DukeBadInputException.class, () -> Parser.parse("mark"));
         assertEquals("Quack requires exactly one number after the mark command", e.getMessage());
-
         // no index
         e = assertThrows(DukeBadInputException.class, () -> Parser.parse("delete"));
         assertEquals("Quack requires exactly one number after the delete command", e.getMessage());

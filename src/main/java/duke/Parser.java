@@ -11,6 +11,7 @@ import duke.command.DeadlineCommand;
 import duke.command.DeleteCommand;
 import duke.command.EventCommand;
 import duke.command.ExitCommand;
+import duke.command.FindCommand;
 import duke.command.HelpCommand;
 import duke.command.ListCommand;
 import duke.command.MarkCommand;
@@ -50,6 +51,8 @@ public class Parser {
     public static Command parse(String input) throws DukeBadInputException, NumberFormatException {
         String[] splitInput = input.split(" ");
         HashMap<String, LocalDateTime> flagMap = new HashMap<>();
+        String desc;
+
         switch (splitInput[0].toUpperCase()) {
         case "BYE":
             return new ExitCommand();
@@ -63,13 +66,20 @@ public class Parser {
             return new MarkCommand(false, findIndex(splitInput));
         case "DELETE":
             return new DeleteCommand(findIndex(splitInput));
+        case "FIND":
+            if (splitInput.length < 2) {
+                throw new DukeBadInputException(
+                        "Quack doesn't understand an empty find query, please provide one!!");
+            }
+            // join the string to find the query
+            return new FindCommand(String.join(" ", Arrays.copyOfRange(splitInput, 1 , splitInput.length)));
         case "TODO":
-            String desc = input.replace("todo ", "");
-            if (desc.equals("todo")) {
+            if (splitInput.length < 2) {
                 throw new DukeBadInputException(
                         "Quack doesn't understand an empty todo description, please provide one!!");
             }
-            return new TodoCommand(desc);
+            // join the string to find the description
+            return new TodoCommand(String.join(" ", Arrays.copyOfRange(splitInput, 1 , splitInput.length)));
         case "DEADLINE":
             desc = Parser.findFlags(flagMap, splitInput, "/by");
             return new DeadlineCommand(flagMap.get("/by"), desc);
