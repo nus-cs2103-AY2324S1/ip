@@ -10,18 +10,15 @@ import java.time.format.DateTimeParseException;
  */
 public class Parser {
     private final TaskList list;
-    private final Ui ui;
     private boolean shouldContinue;
 
     /**
      * Constructs a Parser object with the specified TaskList and Ui instances.
      *
      * @param list The TaskList instance for managing tasks.
-     * @param ui The Ui instance for handling user interface interactions.
      */
-    public Parser(TaskList list, Ui ui) {
+    public Parser(TaskList list) {
         this.list = list;
-        this.ui = ui;
         this.shouldContinue = true;
     }
 
@@ -38,10 +35,10 @@ public class Parser {
         switch (action) {
         case "bye":
             this.shouldContinue = false;
-            this.ui.exit();
+            Ui.exit();
             break;
         case "list":
-            this.ui.listTasks(this.list);
+            Ui.listTasks(this.list);
             break;
         case "mark":
             try {
@@ -50,8 +47,14 @@ public class Parser {
                 throw new DukeException("Please enter a valid number...");
             }
             break;
+        case "find":
+            if (details.isEmpty()) {
+                throw new DukeException("So what exactly do you want to do?");
+            }
+            this.list.findTasks(details);
+            break;
         case "todo":
-            if (details.equals("")) {
+            if (details.isEmpty()) {
                 throw new DukeException("So what exactly do you want to do?");
             }
             this.list.addTask(new ToDo(details));
@@ -78,7 +81,7 @@ public class Parser {
             break;
         case "delete":
             try {
-                this.list.delete(Integer.parseInt(details));
+                this.list.deleteTask(Integer.parseInt(details));
             } catch (NumberFormatException e) {
                 throw new DukeException("Please enter a valid number...");
             }

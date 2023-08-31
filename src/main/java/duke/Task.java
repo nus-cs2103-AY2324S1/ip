@@ -39,6 +39,15 @@ public abstract class Task implements Serializable {
     }
 
     /**
+     * Retrieves the description of the task.
+     *
+     * @return The task description.
+     */
+    public String getTask() {
+        return this.task;
+    }
+
+    /**
      * Returns a string representation of the Task object.
      *
      * @return A string containing the completion status icon and the task description.

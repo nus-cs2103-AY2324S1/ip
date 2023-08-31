@@ -1,5 +1,7 @@
 package duke;
 
+import java.util.Scanner;
+
 /**
  * The Duke class represents a simple task management application.
  * It initializes necessary components and controls the main application flow.
@@ -7,7 +9,6 @@ package duke;
 public class Duke {
     private final Parser parser;
     private final TaskList list;
-    private final Ui ui;
 
     /**
      * Constructs a Duke object with the specified file path for task storage.
@@ -15,9 +16,8 @@ public class Duke {
      * @param filePath The path to the file where tasks are stored.
      */
     public Duke(String filePath) {
-        this.ui = new Ui();
         this.list = new TaskList(filePath);
-        this.parser = new Parser(this.list, this.ui);
+        this.parser = new Parser(this.list);
     }
 
     /**
@@ -25,12 +25,13 @@ public class Duke {
      * Greets the user, reads and parses commands, and executes corresponding actions.
      */
     public void run() {
+        Ui.greet();
+        Scanner scanner = new Scanner(System.in);
         boolean shouldContinue = true;
-        this.ui.greet();
         while (shouldContinue) {
             try {
-                String input = this.ui.readCommand();
-                this.parser.parse(input);
+                String command = scanner.nextLine();
+                this.parser.parse(command);
                 shouldContinue = this.parser.getStatus();
             } catch (DukeException e) {
                 System.out.println(e.getMessage());

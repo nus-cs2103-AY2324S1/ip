@@ -30,7 +30,7 @@ public class TaskList {
         try {
             this.list = this.storage.load();
         } catch (IOException | ClassNotFoundException e) {
-            System.out.println("Error when fetching to-do list: " + e.getMessage());
+            System.out.println("Error when fetching todo list: " + e.getMessage());
         }
     }
 
@@ -39,7 +39,7 @@ public class TaskList {
      */
     public void saveToFile() {
         try {
-            storage.saveToFile(list);
+            storage.saveToFile(this.list);
         } catch (IOException e) {
             System.out.println("Error while saving to-do list: " + e.getMessage());
         }
@@ -52,9 +52,8 @@ public class TaskList {
      */
     public void addTask(Task task) {
         this.list.add(task);
-        System.out.println("Got it. I've added this task:");
-        System.out.println(task.toString());
-        System.out.println("Now you have " + this.list.size() + " tasks in the list.");
+        Ui.addTask(task);
+        Ui.countTasks(this.list);
         saveToFile();
     }
 
@@ -66,8 +65,7 @@ public class TaskList {
     public void markAsDone(int taskNum) {
         Task task = this.list.get(taskNum - 1);
         task.markAsDone();
-        System.out.println("Nice! I've marked this task as done:");
-        System.out.println(task);
+        Ui.markAsDone(task);
         saveToFile();
     }
 
@@ -76,13 +74,27 @@ public class TaskList {
      *
      * @param taskNum The index of the task to be deleted.
      */
-    public void delete(int taskNum) {
+    public void deleteTask(int taskNum) {
         Task task = this.list.get(taskNum - 1);
         this.list.remove(taskNum - 1);
-        System.out.println("Noted. I've removed this task:");
-        System.out.println(task);
-        System.out.println("Now you have " + this.list.size() + " tasks in the list.");
+        Ui.deleteTask(task);
+        Ui.countTasks(this.list);
         saveToFile();
+    }
+
+    /**
+     * Searches for tasks that match a given input and returns a list of matches.
+     *
+     * @param input The search query to match against task descriptions.
+     */
+    public void findTasks(String input) {
+        ArrayList<Task> matches = new ArrayList<>();
+        for (Task task : this.list) {
+            if (task.getTask().contains(input)) {
+                matches.add(task);
+            }
+        }
+        Ui.findTasks(matches);
     }
 
     /**
