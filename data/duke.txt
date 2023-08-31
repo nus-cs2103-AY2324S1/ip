@@ -1,4 +1,0 @@
-T | 0 | read book
-E | X | open house | monday | tuesday
-D | 0 | return book | by by Friday
-T | 0 | homework
