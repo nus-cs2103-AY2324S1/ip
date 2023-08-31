@@ -15,6 +15,15 @@ public class Deadline extends Todo {
     }
 
     @Override
+    public String toString(int number) {
+        return String.format(
+            "%s | BY %s",
+            super.toString(number),
+            this.timestampEnd
+        );
+    }
+
+    @Override
     public String getTypeString() {
         return "D";
     }

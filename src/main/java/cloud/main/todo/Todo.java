@@ -16,8 +16,9 @@ public class Todo {
 
     public String toString(int number) {
         return String.format(
-            "%s | #%d: %s",
+            "%s | %s#%d: %s",
             this.getCompletionString(),
+            this.getTypeString(),
             number,
             this.getDescription()
         );
