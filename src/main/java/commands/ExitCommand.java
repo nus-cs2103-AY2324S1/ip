@@ -1,6 +1,8 @@
-import java.io.IOException;
+package commands;
 
-public class ExitCommand extends Command{
+import functions.*;
+
+public class ExitCommand extends Command {
 
     public ExitCommand() {}
 

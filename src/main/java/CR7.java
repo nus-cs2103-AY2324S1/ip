@@ -1,3 +1,7 @@
+import commands.*;
+import functions.*;
+import tasks.*;
+
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
