@@ -1,14 +1,6 @@
 package oscar.essential;
 
-import oscar.command.Command;
-import oscar.command.DeadlineCommand;
-import oscar.command.DeleteCommand;
-import oscar.command.EventCommand;
-import oscar.command.ExitCommand;
-import oscar.command.ListCommand;
-import oscar.command.MarkCommand;
-import oscar.command.TodoCommand;
-import oscar.command.UnmarkCommand;
+import oscar.command.*;
 
 import oscar.exception.OscarException;
 
@@ -59,6 +51,10 @@ public class Parser {
         // Create a new event task if user enters "event" command
         case "event":
             return new EventCommand(details);
+
+        // Find
+        case "find":
+            return new FindCommand(details);
 
         default:
             // Default response for unknown commands

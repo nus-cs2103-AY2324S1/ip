@@ -24,7 +24,8 @@ public class Event extends Task{
   }
 
   /**
-   * Detailed string representation of event.
+   * Formats string representation of event.
+   *
    * @return Information of event.
    */
   @Override

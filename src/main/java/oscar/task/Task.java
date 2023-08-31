@@ -22,6 +22,7 @@ abstract public class Task implements Serializable {
 
   /**
    * Checks if task is done and indicates "X" for done and blank otherwise.
+   *
    * @return Indicator of task completion.
    */
   public String getStatusIcon() {
@@ -29,21 +30,32 @@ abstract public class Task implements Serializable {
   }
 
   /**
-   * Mark a task as done.
+   * Marks a task as done.
    */
   public void markAsDone() {
     this.isDone = true;
   }
 
   /**
-   * Mark a task as not done.
+   * Marks a task as not done.
    */
   public void markAsNotDone() {
     this.isDone = false;
   }
 
   /**
-   * Detailed string representation of task.
+   * Obtains description of task.
+   *
+   * @return String description of task.
+   */
+  public String getDescription() {
+    return this.description;
+  }
+
+  /**
+   * Formats string representation of task.
+   *
+   * @return Information of task.
    */
   @Override
   public String toString() {
