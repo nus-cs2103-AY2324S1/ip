@@ -6,7 +6,8 @@ import java.time.format.DateTimeFormatter;
 /**
  * Represents an event task that contains a description, starting date and ending date
  */
-public class Event extends Task{
+public class Event extends Task {
+
     protected LocalDate from;
     protected LocalDate to;
 
