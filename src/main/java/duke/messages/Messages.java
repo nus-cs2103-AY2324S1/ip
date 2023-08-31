@@ -11,7 +11,8 @@ public enum Messages {
     DELETED_COMMAND("Noted. I've removed this task:"),
     GOODBYE_MESSAGE("Bye. Hope to see you again soon!"),
     TASK_ADDED("Got it. I've added this task:"),
-    DATE_FORMAT("yyyy-MM-dd ha");
+    DATE_FORMAT("yyyy-MM-dd ha"),
+    FOUND_TASKS("Here are the matching tasks in your list");
 
     private final String MESSAGE;
 

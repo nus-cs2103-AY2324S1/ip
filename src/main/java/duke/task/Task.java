@@ -13,6 +13,10 @@ public class Task {
         this.name = name ;
         this.status = false;
     }
+
+    public String getName(){
+        return this.name ;
+    }
     public boolean isTaskCompleted(){
         return this.status;
     }
