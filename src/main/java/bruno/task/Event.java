@@ -22,11 +22,21 @@ public class Event extends Task {
         this.by = this.convertToLocalDateTime(by);
     }
 
+    /**
+     * {@inheritDoc}
+     * @return String representation of the task.
+     * @throws DateTimeException Thrown if LocalDateTime values 'from' and 'by' cannot be converted to string.
+     */
     @Override public String getString() throws DateTimeException {
         return "[E]" + super.getString() + " (from: " + convertDateTimeToString(from) + " to: "
                 + convertDateTimeToString(by) + ")";
     }
 
+    /**
+     * {@inheritDoc}
+     * @return String representation of the task, as required by the file.
+     * @throws DateTimeException Thrown if LocalDateTime values 'from' and 'by' cannot be converted to string.
+     */
     @Override public String getFileString() throws DateTimeException {
         return "E|" + super.getFileString() + "|" + from.toString().replace('T', ' ') + "|" + by.toString()
                 .replace('T', ' ');
