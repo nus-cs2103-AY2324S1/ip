@@ -4,17 +4,18 @@ todo
 todo nothing
 deadline
 deadline nothing
-deadline nothing /to tmr morning
-deadline /by tmr morning
+deadline nothing /to 1111-11-11
+deadline /by 1111-11-11
 deadline nothing /by tmr morning
+deadline nothing /by 1111-11-11
 event
 event nothing
 event nothing /from /to
-event nothing /from tmr morning /to
 event nothing /from tmr morning /to later
-mark 1
+event nothing /from 1111-11-11 /to 1111-11-11
+mark 3
 list
-unmark 1
+unmark 3
 list
 delete
 delete everything

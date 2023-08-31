@@ -17,4 +17,8 @@ public class Todo extends Task {
             return "[T][ ] " + this.name;
         }
     }
+
+    public String displayableForm() {
+        return this.toString();
+    }
 }

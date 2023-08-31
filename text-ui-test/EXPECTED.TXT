@@ -10,37 +10,38 @@ DukeException: ☹ OOPS!!! Incorrect description of a deadline.
 DukeException: ☹ OOPS!!! Incorrect description of a deadline.
 DukeException: ☹ OOPS!!! Incorrect description of a deadline.
 DukeException: ☹ OOPS!!! Incorrect description of a deadline.
+DukeException: Something is wrong with the date provided.
 Got it. I've added this task:
-[D][ ] nothing By: tmr morning
+[D][ ] nothing By: Nov 11 1111
 Now you have 2 tasks in the list.
 DukeException: ☹ OOPS!!! Incorrect description of an event.
 DukeException: ☹ OOPS!!! Incorrect description of an event.
 DukeException: ☹ OOPS!!! Incorrect description of an event.
-DukeException: ☹ OOPS!!! Incorrect description of an event.
+DukeException: Something is wrong with the date provided.
 Got it. I've added this task:
-[E][ ] nothing From: tmr morning To: later
+[E][ ] nothing From: Nov 11 1111 To: Nov 11 1111
 Now you have 3 tasks in the list.
 Nice! I've marked this task as done:
-[T][X] nothing
-Here are the tasks in your list:
-1. [T][X] nothing
-2. [D][ ] nothing By: tmr morning
-3. [E][ ] nothing From: tmr morning To: later
-OK, I've marked this task as not done yet:
-[T][ ] nothing
+[E][X] nothing From: Nov 11 1111 To: Nov 11 1111
 Here are the tasks in your list:
 1. [T][ ] nothing
-2. [D][ ] nothing By: tmr morning
-3. [E][ ] nothing From: tmr morning To: later
+2. [D][ ] nothing By: Nov 11 1111
+3. [E][X] nothing From: Nov 11 1111 To: Nov 11 1111
+OK, I've marked this task as not done yet:
+[E][ ] nothing From: Nov 11 1111 To: Nov 11 1111
+Here are the tasks in your list:
+1. [T][ ] nothing
+2. [D][ ] nothing By: Nov 11 1111
+3. [E][ ] nothing From: Nov 11 1111 To: Nov 11 1111
 DukeException: Invalid input for index
 DukeException: Invalid input for index
 ☹ OOPS!!! There is no task with this index number.
 Noted. I've removed this task:
-[D][ ] nothing By: tmr morning
+[D][ ] nothing By: Nov 11 1111
 Now you have 2 tasks in the list.
 Here are the tasks in your list:
 1. [T][ ] nothing
-2. [E][ ] nothing From: tmr morning To: later
+2. [E][ ] nothing From: Nov 11 1111 To: Nov 11 1111
 DukeException: ☹ OOPS!!! I'm sorry, but I don't know what that means :-(
 DukeException: ☹ OOPS!!! I'm sorry, but I don't know what that means :-(
 Bye! Hope to see you again soon!

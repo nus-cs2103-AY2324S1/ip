@@ -41,6 +41,10 @@ public class Task {
         }
     }
 
+    public String displayableForm() {
+        return null;
+    }
+
     /**
      * Returns the name of the task.
      *

@@ -1,3 +1,6 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
+
 public class Parser {
     /**
      * Checks if a string is numeric.
@@ -92,10 +95,15 @@ public class Parser {
             if (string.contains(" /by ")) {
                 String[] segments = string.split("/by");
                 String eventName = segments[0].trim();
-                String date = segments[1].trim();
-                results[1] = eventName;
-                results[2] = date;
-                return results;
+                try {
+                    results[1] = eventName;
+                    String dateString = segments[1].trim();
+                    LocalDate.parse(dateString);
+                    results[2] = dateString;
+                    return results;
+                } catch (DateTimeParseException e) {
+                    throw new DukeException("Something is wrong with the date provided.");
+                }
             } else {
                 throw new DukeException("☹ OOPS!!! Incorrect description of a deadline.");
             }
@@ -133,7 +141,13 @@ public class Parser {
                         throw new DukeException("☹ OOPS!!! Incorrect description of an event.");
                     }
                     results[3] = endDate;
-                    return results;
+                    try {
+                        LocalDate.parse(startDate);
+                        LocalDate.parse(endDate);
+                        return results;
+                    } catch (DateTimeParseException e) {
+                        throw new DukeException("Something is wrong with the date provided.");
+                    }
                 } else {
                     throw new DukeException("☹ OOPS!!! Incorrect description of an event.");
                 }
