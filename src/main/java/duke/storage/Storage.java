@@ -9,6 +9,7 @@ import duke.data.task.ToDo;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
@@ -80,6 +81,10 @@ public class Storage {
             throw new DukeException("Failed to create directory.");
         }
         return tasks;
+    }
+
+    public List<String> loadHelpGuide() throws IOException {
+        return Files.readAllLines(Paths.get("src/main/java/duke/guide/help.txt"));
     }
 
     public void write(List<Task> tasks) throws IOException {

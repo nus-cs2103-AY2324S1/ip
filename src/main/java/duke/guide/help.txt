@@ -1,0 +1,26 @@
+Usage:
+  <command> [command arguments]
+
+Description:
+  A command-line tool to record tasks efficiently.
+
+Available Commands:
+  todo <description>                                                        Add a new todo.
+  deadline <description> /by <DD-MM-YYYY HH:MM>                             Add a new deadline.
+  event <description> /from <DD-MM-YYYY HH:MM> /to <DD-MM-YYYY HH:MM>       Add a new event.
+  list                                                                      List all tasks.
+  due <DD-MM-YYYY>                                                          List all deadlines due on a specified date.
+  mark <task number>                                                        Mark a task as done.
+  unmark <task number>                                                      Unmark a completed task.
+  delete <task number>                                                      Delete a task.
+  bye                                                                       Exit the program.
+  help                                                                      View usage guide.
+
+Usage Examples:
+  $ deadline Finish project /by 31-07-2023 23:59
+  $ event Swimming /from 04-08-2023 10:00 /to 04-08-2023 12:00
+
+Additional Information:
+  - Use quotes for descriptions with spaces.
+  - Dates should be in the format DD-MM-YYYY
+  - Datetime should be in the format DD-MM-YYYY HH:MM

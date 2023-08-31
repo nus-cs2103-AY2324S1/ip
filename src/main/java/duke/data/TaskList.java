@@ -65,9 +65,21 @@ public class TaskList {
 
     public List<Task> showTasksDueOn(LocalDate date) {
         return tasks.stream()
-                .filter(x -> x instanceof Deadline)
+                .filter(task -> task instanceof Deadline)
                 .map(task -> (Deadline) task)
                 .filter(deadline -> deadline.getBy().toLocalDate().equals(date))
+                .collect(Collectors.toList());
+    }
+
+    /**
+     * Finds a list of tasks containing a specified keyword in the task description.
+     *
+     * @param keyword Keyword specified by the user
+     * @return A list of matching tasks
+     */
+    public List<Task> findTasksContaining(String keyword) {
+        return tasks.stream()
+                .filter(task -> task.getDescription().contains(keyword))
                 .collect(Collectors.toList());
     }
 }

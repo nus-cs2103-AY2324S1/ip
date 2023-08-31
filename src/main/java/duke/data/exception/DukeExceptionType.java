@@ -17,6 +17,7 @@ public enum DukeExceptionType {
 "Invalid\n" +
         "Correct usage: due <dd-mm-yyyy>"
     ),
+    FIND_NO_KEYWORD("No keyword specified for finding tasks."),
     INVALID_DEADLINE_FORMAT(
 "Invalid deadline format!\n" +
         "Correct usage: deadline <description> /by <dd-mm-yyyy hh:mm>"
