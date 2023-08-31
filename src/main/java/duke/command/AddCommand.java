@@ -13,18 +13,36 @@ import duke.task.Event;
 import duke.task.Task;
 import duke.task.Todo;
 
-
+/**
+ * Represents a command to add a task to the task list. A <code>AddCommand</code>
+ * object corresponds to an executable command when the user wants to add a task
+ * to the task list.
+ */
 public class AddCommand extends Command {
 
     private Keyword key;
     private String commandBody;
 
+    /**
+     * Constructs a <code>AddCommand</code> object.
+     *
+     * @param key the type of task to be added
+     * @param commandBody the body of the command
+     */
     public AddCommand(Keyword key, String commandBody) {
         super(false);
         this.key = key;
         this.commandBody = commandBody;
     }
 
+    /**
+     * Executes the command to add a task to the task list.
+     *
+     * @param taskList the task list to which the task is added
+     * @param ui the user interface to print messages to the user
+     * @param storage the storage to save the task list to
+     * @throws DukeException if the command is invalid
+     */
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) throws DukeException {
         Task task;
