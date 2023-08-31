@@ -1,3 +1,11 @@
+package duke.data;
+
+import duke.data.task.ToDo;
+import duke.data.task.Deadline;
+import duke.data.task.Event;
+import duke.data.task.Task;
+import duke.data.exception.DukeException;
+
 import java.io.IOException;
 import java.util.ArrayList;
 

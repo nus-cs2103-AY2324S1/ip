@@ -1,7 +1,14 @@
+package duke;
+
 import java.io.IOException;
 import java.util.Scanner;
 
-
+import duke.storage.Storage;
+import duke.ui.Ui;
+import duke.parser.Parser;
+import duke.data.task.Task;
+import duke.data.TaskList;
+import duke.data.exception.DukeException;
 public class Duke {
     static final String FILE_NAME = "data/duke.txt";
     private final Storage storage;
