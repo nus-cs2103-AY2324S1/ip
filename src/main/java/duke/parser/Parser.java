@@ -11,7 +11,19 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * The Parser class deals with interpreting the user inputs
+ * and generating corresponding commands if valid.
+ */
 public class Parser {
+    /**
+     * Returns a command based on the user input.
+     * If the command is invalid, an exception is thrown.
+     *
+     * @param userInput The input provided by the user.
+     * @return A Command object representing the user's intended action.
+     * @throws DukeException If there is an error in the user input.
+     */
     public static Command parse(String userInput) throws DukeException {
         String[] splitCommand = userInput.trim().split(" ", 2);
         switch (splitCommand[0]) {
@@ -77,6 +89,15 @@ public class Parser {
         }
     }
 
+    /**
+     * Returns a command for deadline tasks for valid user inputs.
+     * Else, exception is thrown.
+     *
+     * @param stringCommand The deadline command provided by the user, excluding the task type.
+     * @return A Command object with a deadline task.
+     * @throws DateTimeParseException If the date or time inputs are invalid.
+     * @throws DukeException If the deadline command has an invalid input format.
+     */
     public static Command parseDeadlineCommand(String stringCommand)
             throws DateTimeParseException, DukeException {
         // Add deadline task into task list
@@ -103,10 +124,22 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses a date string and returns a LocalDate object.
+     *
+     * @param date The date of the deadline for the task.
+     * @return A LocalDate object of the deadline task.
+     */
     public static LocalDate parseDate(String date) {
         return LocalDate.parse(date, DateTimeFormatter.ofPattern("d/MM/yyyy"));
     }
 
+    /**
+     * Parses a time string and returns a LocalTime object.
+     *
+     * @param time The time of the deadline for the task.
+     * @return A LocalTime object of the deadline task.
+     */
     public static LocalTime parseTime(String time) {
         return LocalTime.parse(time, DateTimeFormatter.ofPattern("HHmm"));
     }

@@ -5,9 +5,17 @@ import duke.task.TaskList;
 import duke.storage.Storage;
 import duke.ui.Ui;
 
+/**
+ * The UnmarkCommand class represents a command to be marked undone in the task list.
+ */
 public class UnmarkCommand extends Command {
     private final int taskNumber;
 
+    /**
+     * Construcst an UnmarkCommand object.
+     *
+     * @param taskNumber The task number corresponding to the task, to be marked undone.
+     */
     public UnmarkCommand(int taskNumber) {
         this.taskNumber = taskNumber;
     }
