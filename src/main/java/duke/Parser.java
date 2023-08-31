@@ -128,13 +128,12 @@ public class Parser {
         }
     }
 
-<<<<<<< HEAD
     /**
-     * Parses text from the pre-existing task list file to the corresponding Task object.
-     * @param entry line from the task list file
-     * @return corresponding Task object to the entry
+     * Parse user command to find tasks containing given string.
+     * @param s user input
+     * @param taskList task list to find tasks from
+     * @throws DukeException if input is missing the string to be found
      */
-=======
     private static void parseFind(String s, TaskList taskList) throws DukeException {
         String toFind = s.substring(4).trim();
         if (toFind.length() == 0) {
@@ -143,8 +142,11 @@ public class Parser {
 
         taskList.findTasks(toFind);
     }
-
->>>>>>> branch-Level-9
+    /**
+     * Parses text from the pre-existing task list file to the corresponding Task object.
+     * @param entry line from the task list file
+     * @return corresponding Task object to the entry
+     */
     public static Task parseTaskListEntry(String entry) {
         Task task;
         String[] splitEntry = entry.split("\\|"); // Split by "|"
