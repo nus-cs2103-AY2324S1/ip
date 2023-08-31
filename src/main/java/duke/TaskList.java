@@ -36,7 +36,7 @@ public class TaskList {
             task = Event.createEvent(command);
             break;
         default:
-            throw new LukeException("Error processing command in addTask: '" + command + "'");
+            throw new LukeException("Unknown command");
         }
 
         tasks.add(task);
