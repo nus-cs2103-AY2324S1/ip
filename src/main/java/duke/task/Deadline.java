@@ -33,11 +33,11 @@ public class Deadline extends Task {
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by " + reformatDate() + " | " + reformatTime() + ")";
+        return "[D]" + super.toString() + " (by " + reformatDate() + " " + reformatTime() + ")";
     }
 
     @Override
     public String fileDescription() {
-        return "D" + super.fileDescription() + " | " + "by " + reformatDate() + " | " + reformatTime() + "\n";
+        return "D" + super.fileDescription() + " | " + reformatDate() + " | " + reformatTime() + "\n";
     }
 }
