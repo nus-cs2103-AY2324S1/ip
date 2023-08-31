@@ -12,6 +12,13 @@ public class Duke {
     private TaskList tasks;
     private Ui ui;
 
+    /**
+     * Constructs the respective components to
+     * initialise Duke, namely the UI, Storage,
+     * and TaskList.
+     *
+     * @param filePath File path of storage.
+     */
     public Duke(String filePath) {
         try {
             this.ui = new Ui();
@@ -27,6 +34,10 @@ public class Duke {
             System.out.println(e.getMessage());
         }
     }
+
+    /**
+     * Runs a loop to listen for commands by user.
+     */
     private void run() {
         this.ui.showWelcome();
         Scanner inputs = new Scanner(System.in);
@@ -43,6 +54,7 @@ public class Duke {
         inputs.close();
         this.ui.showBye();
     }
+
     public static void main(String[] args) {
         new Duke("./data/tasks.txt").run();
     }

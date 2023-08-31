@@ -8,6 +8,13 @@ public class Task {
     private String task;
     private boolean done;
 
+    /**
+     * Constructs a new Task.
+     *
+     * @param task Task to complete.
+     * @param done Indicator of whether task has been completed.
+     * @throws DukeException if the task is missing.
+     */
     public Task(String task, String done) throws DukeException {
 
         // Throws error if there is no task description.
@@ -20,8 +27,8 @@ public class Task {
     }
 
     /**
-     * Function to print task, together with whether it is marked
-     * done or not done.
+     * Prints tasks for user to see.
+     *
      * @return String
      */
     public String printTask() {
@@ -33,14 +40,21 @@ public class Task {
     }
 
     /**
-     * Function to toggle done or undone, depending on parameter.
-     * @param keyword
+     * Toggles the completed status of the task.
+     *
+     * @param keyword Word to indicate whether to mark the task as complete or incomplete.
+     * @parma ui UI of the bot.
      */
     public void toggleDone(String keyword, Ui ui) {
         this.done = keyword.equals("mark");
         ui.toggleDone(this, keyword);
     }
 
+    /**
+     * Formats and returns task for storage.
+     *
+     * @return String
+     */
     public String addToStorage() {
         if (this.done) {
             return String.format("| 1 | %s", this.task);
