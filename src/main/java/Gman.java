@@ -9,6 +9,7 @@ public class Gman {
     public static String userInput;
     public static ArrayList<Task> taskList;
     private static final String FILE_PATH = "./data/gman.txt"; //hardcoded
+    private static final String INPUT_FORMAT = "yyyy-MM-dd HHmm";
 
     public static ArrayList<Task> readTasks() throws FileNotFoundException {
         File file = new File(FILE_PATH);
