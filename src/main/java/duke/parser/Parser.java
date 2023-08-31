@@ -20,7 +20,12 @@ public class Parser {
     }
 
     public void parse(String userInput) {
-        String prefix = userInput.split(" ")[0];
+        String[] words = userInput.split(" ");
+        if (words == null || words.length < 1) {
+            handleInvalidInput();
+            return;
+        }
+        String prefix = words[0];
 
         switch (prefix) {
             case "bye":

@@ -14,13 +14,15 @@ import java.util.Scanner;
 
 public class Storage {
     private TaskList taskList;
-    public Storage(TaskList taskList) {
+    private String path;
+    public Storage(TaskList taskList, String path) {
         this.taskList = taskList;
+        this.path = path;
         initialize();
     }
 
     private void initialize() {
-        File savedData = new File("./data/duke.txt");
+        File savedData = new File(path);
         if (savedData.exists()) {
             loadTasksFromFile(savedData, taskList);
         }
@@ -105,7 +107,7 @@ public class Storage {
             }
         }
 
-        File savedData = new File("./data/duke.txt");
+        File savedData = new File(path);
         try {
             FileWriter writer = new FileWriter(savedData, false);
             savedData.createNewFile();
