@@ -3,14 +3,11 @@ import java.time.format.DateTimeFormatter;
 
 public class Deadline extends Task {
 
-    private String deadlineDetails;
     private LocalDateTime time;
 
     public Deadline(String task, String deadlineDetails) {
         super(task);
-        this.deadlineDetails = deadlineDetails;
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
-        LocalDateTime dueDateTime = LocalDateTime.parse(deadlineDetails, formatter);
+        LocalDateTime dueDateTime = Parser.formatDate(deadlineDetails);
         this.time = dueDateTime;
 
     }
@@ -18,8 +15,7 @@ public class Deadline extends Task {
 
     @Override
     public String toString() {
-        DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("HH:mm, MMM dd yyyy");
-        String timeToString = time.format(outputFormatter);
+        String timeToString = Parser.dateToString(this.time);
         return "[D]" + super.toString() + " (by: " + timeToString + ")";
     }
 }
