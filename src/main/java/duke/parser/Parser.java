@@ -68,7 +68,11 @@ public class Parser {
             case "delete":
                 return new DeleteCommand(taskNumber);
             }
-
+        case "find":
+            if (!userInput.matches("find .*")) {
+                throw new DukeException("OOPS!!! The description of a find command cannot be empty.");
+            }
+            return new FindCommand(splitCommand[1]);
         default:
             throw new DukeException();
         }

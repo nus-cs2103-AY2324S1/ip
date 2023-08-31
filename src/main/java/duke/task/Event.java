@@ -17,17 +17,17 @@ public class Event extends Task {
      */
     public Event(String description, String from, String to) {
         super(description);
-        this.from = from;
-        this.to = to;
+        this.from = from.trim();
+        this.to = to.trim();
     }
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + "(" + from + to + ")";
+        return "[E]" + super.toString().trim() + " (" + this.from + " " + this.to + ")";
     }
 
     @Override
     public String toFileFormat() {
-        return "E" + super.toFileFormat() + "| " + from + to + "\n";
+        return "E" + super.toFileFormat() + " | " + this.from + " | " + this.to + "\n";
     }
 }

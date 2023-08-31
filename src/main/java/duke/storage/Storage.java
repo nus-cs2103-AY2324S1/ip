@@ -88,9 +88,8 @@ public class Storage {
                     tasks.add(new ToDo(taskParts[2].trim()));
                     break;
                 case "D":
-                    String datePart = taskParts[3].replace(" by ", "").trim();
+                    String datePart = taskParts[3].trim();
                     String timePart = taskParts[4].trim();
-
                     LocalDate date = LocalDate.parse(datePart, DateTimeFormatter.ofPattern("d MMM yyyy", Locale.US));
                     String formattedDate = date.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
 
