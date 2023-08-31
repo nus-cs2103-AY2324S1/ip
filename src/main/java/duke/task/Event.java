@@ -18,15 +18,15 @@ public class Event extends Task {
    * Returns an Event
    *
    * @param description the task description
-   * @param mark if the task is marked
+   * @param isMarked if the task is marked
    * @param from the from deadline
    * @param to the to deadline
    * @return the constructed Event
    * @throws DukeException if from or to is empty, or from is after to
    * @throws InvalidDatetimeFormatException if from or to is not valid datetime
    */
-  public Event(String description, boolean mark, String from, String to) {
-    super(description, mark, 'E');
+  public Event(String description, boolean isMarked, String from, String to) {
+    super(description,isMarked, 'E');
 
 		if (from.isEmpty()) {
 			throw new DukeException("The from of a event cannot be empty.");

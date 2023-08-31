@@ -8,10 +8,10 @@ public class Todo extends Task {
    * Returns a Todo
    *
    * @param description the description of task
-   * @param mark if the task is marked
+   * @param isMarked if the task is marked
    * @return the created Todo
    */
-  public Todo(String description, boolean mark) {
-    super(description, mark, 'T');
+  public Todo(String description, boolean isMarked) {
+    super(description, isMarked, 'T');
   }
 }

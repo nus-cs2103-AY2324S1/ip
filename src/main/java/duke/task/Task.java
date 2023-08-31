@@ -10,7 +10,7 @@ import java.util.Optional;
  * Represents a task object, with as mark, description and type. 
  */
 public abstract class Task {
-	private boolean mark;
+	private boolean isMarked;
 	private final String description;
 	private final char type;
 
@@ -18,14 +18,14 @@ public abstract class Task {
    * Returns a Task
    *
    * @param description the task description
-   * @param mark if the task is marked
+   * @param isMarked if the task is marked
    * @param type the type of task
    * @return the constructed Task
    * @throws DukeException if the description is empty
    */
-  protected Task(String description, boolean mark, char type) throws DukeException {
+  protected Task(String description, boolean isMarked, char type) throws DukeException {
     this.description = description;
-    this.mark = mark;
+		this.isMarked = isMarked;
     this.type = type;
 
 		if (description.isEmpty()) {
@@ -65,14 +65,14 @@ public abstract class Task {
 	 * Marks the task. 
 	 */
   public void mark() {
-    mark = true;
+    isMarked = true;
   }
 
   /**
 	 * Unmarks the task 
 	 */
   public void unmark() {
-    mark = false;
+    isMarked = false;
   }
 
   /**
@@ -82,7 +82,7 @@ public abstract class Task {
    */
   @Override
   public String toString() {
-    return String.format("  [%c][%c] %s", type, mark ? 'X' : ' ', description);
+    return String.format("  [%c][%c] %s", type, isMarked ? 'X' : ' ', description);
   }
 
   /**
@@ -93,7 +93,7 @@ public abstract class Task {
   public String toCommand() {
     return String.format(
         "%s %s%s",
-        this.getClass().getSimpleName().toLowerCase(), description, mark ? " /mark" : "");
+        this.getClass().getSimpleName().toLowerCase(), description, isMarked ? " /mark" : "");
   }
 
   /**

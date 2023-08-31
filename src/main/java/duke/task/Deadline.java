@@ -17,14 +17,14 @@ public class Deadline extends Task {
    * Returns a Deadline
    *
    * @param description the task description
-   * @param mark if the task is marked
+   * @param isMarked if the task is marked
    * @param by the by datetime
    * @return the constructed Deadline
    * @throws DukeException if by is empty
    * @throws InvalidDatetimeFormatException if format of by is not valid
    */
-  public Deadline(String description, boolean mark, String by) {
-    super(description, mark, 'D');
+  public Deadline(String description, boolean isMarked, String by) {
+    super(description, isMarked, 'D');
 
 		if (by.isEmpty()) {
 			throw new DukeException("The by of a deadline cannot be empty.");

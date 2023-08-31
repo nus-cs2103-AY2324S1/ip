@@ -25,7 +25,7 @@ public abstract class Command {
 	protected TaskList taskList;
 	private FileIO savefile;
 
-	private boolean saveAfterAction = false;
+	private boolean shouldSaveAfterAction = false;
 
 	/**
 	 * Returns a Command
@@ -46,7 +46,7 @@ public abstract class Command {
 	 * action() and not when save is called
 	 */
 	public final void save() {
-		this.saveAfterAction = true;
+		this.shouldSaveAfterAction = true;
 	}
 
 	/**
@@ -64,7 +64,7 @@ public abstract class Command {
 			out.print(e);
 		}
 
-		if (saveAfterAction) {
+		if (shouldSaveAfterAction) {
 			try {
 				savefile.write(taskList.toString());
 			} catch (IOException e) {
