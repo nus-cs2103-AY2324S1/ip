@@ -11,6 +11,11 @@ public class Deadline extends Task {
     }
 
     @Override
+    public String toText() {
+        return "D " + this.getDoneStatus() + " " + this.description + " /" + this.end;
+    }
+
+    @Override
     public String toString() {
         return "[D] " + super.toString() + " (" + this.end + ")";
     }

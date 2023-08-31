@@ -17,9 +17,18 @@ public abstract class Task {
         this.isDone = false;
     }
 
+    public boolean getDoneStatus() {
+        return this.isDone;
+    }
+
+    public String getDescription() {
+        return this.description;
+    }
+
     public String getStatus() {
         return this.isDone ? "[X]" : "[ ]";
     }
+    public abstract String toText();
 
     public String toString() {
         return this.getStatus() + " " + this.description;

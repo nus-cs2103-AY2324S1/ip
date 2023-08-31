@@ -12,6 +12,11 @@ public class Event extends Task {
     }
 
     @Override
+    public String toText() {
+        return "E " + this.getDoneStatus() + " " + this.description + " /" + this.start + " /" + this.end;
+    }
+
+    @Override
     public String toString() {
         return "[E] " + super.toString() + " (" + this.start + this.end + ")";
     }

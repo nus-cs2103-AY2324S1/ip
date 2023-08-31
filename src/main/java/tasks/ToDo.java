@@ -9,6 +9,11 @@ public class ToDo extends Task {
     }
 
     @Override
+    public String toText() {
+        return "T " + this.getDoneStatus() + " " + this.description;
+    }
+
+    @Override
     public String toString() {
         return "[T] " + super.toString();
     }
