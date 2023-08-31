@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 public class TaskList {
 
-    private ArrayList<Task> listOfTasks = new ArrayList<>();
+    private static ArrayList<Task> listOfTasks = new ArrayList<>();
 
     public void addTask(Task task) {
         listOfTasks.add(task);
@@ -40,5 +40,9 @@ public class TaskList {
 
     public int numOfTasks() {
         return listOfTasks.size();
+    }
+
+    public static ArrayList<Task> getList() {
+        return listOfTasks;
     }
 }

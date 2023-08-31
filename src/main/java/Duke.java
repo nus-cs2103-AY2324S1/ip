@@ -2,21 +2,38 @@ import exception.UnknownCommandException;
 import exception.ChattyException;
 import exception.DetailsUnknownException;
 
+import java.io.IOException;
+
 public class Duke {
 
     private Ui ui;
     private Messages messages;
     private TaskList tasklist;
+    private Storage storage;
     public Duke() {
         this.messages = new Messages();
         this.ui = new Ui();
         this.tasklist = new TaskList();
     }
+
+    public Duke(String filePath) {
+        this.ui = new Ui();
+        this.storage = new Storage(filePath);
+        try {
+            tasklist = new TaskList();
+            storage.loadTask();
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+            tasklist = new TaskList();
+        }
+    }
     public static void main(String[] args) {
-        new Duke().startChatting();
+        new Duke("Level7File/tasks.txt").startChatting();
     }
 
     public void startChatting() {
+        Messages.Greet();
+
         String exitC = "bye";
         String listC = "list";
         String deleteC = "delete";
