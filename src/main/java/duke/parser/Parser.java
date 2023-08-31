@@ -8,12 +8,21 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * The `Parser` class is responsible for parsing user input commands into executable commands.
+ */
 public class Parser {
 
     public static final DateTimeFormatter DATETIME_INPUT_FORMAT = DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm");
 
+    /**
+     * Parses a user input command and returns the corresponding `Command` object.
+     *
+     * @param command The user input command to be parsed.
+     * @return A `Command` object representing the parsed command.
+     * @throws DukeException If the command cannot be parsed or contains invalid arguments.
+     */
     public static Command parse(String command) throws DukeException {
-
         String[] commandArr = command.split(" ", 2);
         String keyword = commandArr[0];
         String description;
