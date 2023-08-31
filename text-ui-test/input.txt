@@ -6,13 +6,13 @@ add todo study
 add deadline
 add deadline read
 add deadline read /by
-add deadline /by april
-add deadline read /by april
+add deadline /by 2023-10-04
+add deadline read /by 2023-10-04
 add event
 add event shop
 add event shop /from
-add event shop /from monday
-add event shop /from monday /to tuesday
+add event shop /from 2023-09-05
+add event shop /from 2023-09-05 /to 2023-09-10
 list
 mark 2
 mark
