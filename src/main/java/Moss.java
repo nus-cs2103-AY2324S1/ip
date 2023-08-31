@@ -11,9 +11,17 @@ public class Moss {
      *
      * @param args Command-line arguments (not used in this application).
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws MossException {
+        Storage storage = new Storage();
 
         // Greeting message
+        /*try {
+            things = (ArrayList<Task>) storage.loadTasks();
+        } catch (Exception e) {
+            throw new MossException("Failed to load tasks");
+        }*/
+        things = (ArrayList<Task>) storage.loadTasks();
+
         String greet = "____________________________________________________________\n"
                 + "Hello! I'm Moss \n"
                 + "What can I do for you? \n"
@@ -38,12 +46,14 @@ public class Moss {
                 String indexSubstring = message.substring(5);
                 int index = Integer.parseInt(indexSubstring) - 1;
                 things.get(index).markDone();
+                storage.saveTasks(things);
             }
             else if (message.startsWith("unmark")) {
                 // Mark a task as undone
                 String indexSubstring = message.substring(7);
                 int index = Integer.parseInt(indexSubstring) - 1;
                 things.get(index).markUndone();
+                storage.saveTasks(things);
             }
             else if (message.startsWith("delete")) {
                 // Delete a task
@@ -54,6 +64,7 @@ public class Moss {
                 System.out.println("Noted. I've removed this task:");
                 System.out.println(temp.toString());
                 System.out.println("Now you have " + things.size() + " tasks in the list.");
+                storage.saveTasks(things);
             }
             else {
                 // Process other commands using the command method
@@ -72,7 +83,16 @@ public class Moss {
      *
      * @param message The user's command input.
      */
-    public static void command(String message) {
+    public static void command(String message) throws MossException{
+        Storage storage = new Storage();
+
+        // Greeting message
+        try {
+            things = (ArrayList<Task>) storage.loadTasks();
+        } catch (Exception e) {
+            throw new MossException("Failed to load tasks");
+        }
+
         try {
             // Add a todo task
             if (message.startsWith("todo")) {
@@ -82,6 +102,7 @@ public class Moss {
                 }
                 ToDo task = new ToDo(message.substring(5));
                 things.add(task);
+                storage.saveTasks(things);
             }
             // Add a deadline task
             else if (message.startsWith("deadline")) {
@@ -104,6 +125,7 @@ public class Moss {
 
                 Deadline task = new Deadline(taskDescription, day);
                 things.add(task);
+                storage.saveTasks(things);
             }
             // Add an event task
             else if (message.startsWith("event")) {
@@ -123,6 +145,7 @@ public class Moss {
 
                 Event task = new Event(taskDescription, from, to);
                 things.add(task);
+                storage.saveTasks(things);
             }
             // check if the command is valid otherwise throw errors
             else {
@@ -143,6 +166,7 @@ public class Moss {
             System.out.println("____________________________________________________________");
         }
     }
+
 
 
 }
