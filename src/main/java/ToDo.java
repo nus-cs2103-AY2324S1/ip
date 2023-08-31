@@ -8,11 +8,6 @@ public class ToDo extends Task {
         String output = "[T]" + super.taskString();
         return output;
     }
-    /*@Override
-    public String fileString() {
-        String output = "[T]" + super.taskString();
-        return output;
-    }*/
 
 
 }

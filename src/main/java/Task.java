@@ -41,20 +41,10 @@ abstract class Task implements Serializable {
             i++;
         }
     }
-    /*public String fileString() {
-        String str = this.isDone ? "[X] " : "[ ] ";
-        String output = "\n" + str + this.description + "\n";
-        return output;
-    }*/
      static void saveTasks(String filePath, List<Task> tasks) throws IOException {
          ObjectOutputStream file = null;
          try {
              file = new ObjectOutputStream(new FileOutputStream(filePath));
-             /*for(Task task: tasks) {
-                 String str = task.fileString();
-                 byte[] strToBytes = str.getBytes();
-                 file.write(strToBytes);
-             }*/
              file.writeObject(tasks);
          } catch(IOException e) {
              System.out.println(e.getMessage());

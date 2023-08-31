@@ -86,7 +86,7 @@ public class Duke {
                                 String listLength = len == 1 ? "Now you have " + len + " task in the list." :
                                         "Now you have " + len + " tasks in the list.";
                                 System.out.println(output
-                                        + "\n\t" + listLength);
+                                        + "\n" + "\t" + listLength);
                             }
                         } else if (str.startsWith("event")) {
                             if (!str.contains("from")) {

@@ -10,8 +10,4 @@ public class Event extends Task {
     public String taskString() {
         return "[E]" + super.taskString() + "(from: " + from + "to: " + to + ")";
     }
-    /*@Override
-    public String fileString() {
-        return "[E]" + super.taskString() + "(from: " + from + "to: " + to + ")";
-    }*/
 }
