@@ -1,5 +1,8 @@
 package bob;
 
+/**
+ * Represents a todo task that contains a description
+ */
 public class Todo extends Task{
 
     /**
