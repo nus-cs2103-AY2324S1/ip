@@ -14,16 +14,24 @@ public class Cloud {
     private static List<Todo> TODOS = new ArrayList<>();
 
     private static void handle(String input) {
-        switch (input) {
+        String[] words = input.split(" ");
+        String command = words.length >= 1 ? words[0] : "";
+
+        switch (command) {
+        case "":
+            Cloud.say("Please enter a valid command.");
+            break;
         case "list":
             // Lists TODOs
             Cloud.say("Your TODO list:");
             for (int i = 0; i < Cloud.TODOS.size(); i++) {
+                Todo todo = Cloud.TODOS.get(i);
                 Cloud.say(
                     String.format(
-                        "%d) %s",
+                        "[%s] %d) %s",
+                        todo.isDone() ? "X" : " ",
                         i + 1,
-                        Cloud.TODOS.get(i).getDescription()
+                        todo.getDescription()
                     )
                 );
             }
