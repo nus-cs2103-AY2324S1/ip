@@ -34,7 +34,10 @@ public class Input {
             this.active = false;
             return new TerminateResponse();
         }
-        return this.tasks.execute(this.input,commandArgs);
+        else if (commands.contains(command)) {
+            return this.tasks.execute(this.input,commandArgs);
+        }
+        return new InputResponse("Error");
     }
 
     public boolean isActive() {

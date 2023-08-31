@@ -1,6 +1,6 @@
 package Utils;
 
-public class Task {
+public abstract class Task {
     private static final String MARKED_CHECKBOX = "[X]";
     private static final String UNMARKED_CHECKBOX = "[ ]";
     private String title;
