@@ -7,7 +7,7 @@ import java.io.FileNotFoundException;
 
 public class Duke {
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
+        Ui ui = new Ui();
         TaskList list = null;
 
         Storage storage = new Storage();
@@ -15,9 +15,7 @@ public class Duke {
 
         Parser parser = new Parser();
 
-        System.out.println("Hello! I'm Bob");
-        System.out.println("What can I do for you?");
-        String input = scanner.nextLine();
+        String input = ui.getFirstInput();
 
         while (true) {
             try {
@@ -30,12 +28,11 @@ public class Duke {
                     list.printList();
                 } else {
                     list.executeCommand(command, input);
-//                    list.addTask(command, input);
                 }
             } catch (DukeException e) {
                 System.out.println(e);
             }
-            input = scanner.nextLine();
+            input = ui.getInput();
         }
     }
 }
