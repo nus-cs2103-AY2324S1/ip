@@ -5,7 +5,12 @@ import bongo.task.Event;
 import bongo.task.Task;
 import bongo.task.Todo;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.FileReader;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -16,6 +21,7 @@ public class Storage {
         UNMARK_TASK,
         DELETE_TASK
     }
+
     String pathname;
 
     /**
@@ -45,15 +51,15 @@ public class Storage {
             }
             boolean isTaskMarkedDone = arr[1].equals("1");
             switch (arr[0]) {
-                case "T":
-                    loadedTasks.add(new Todo(arr[2], isTaskMarkedDone));
-                    break;
-                case "D":
-                    loadedTasks.add(new Deadline(arr[2], isTaskMarkedDone, DateHelper.formatDateTime(arr[3]))) ;
-                    break;
-                case "E":
-                    loadedTasks.add(new Event(arr[2], isTaskMarkedDone, DateHelper.formatDateTime(arr[3]), DateHelper.formatDateTime(arr[4])));
-                    break;
+            case "T":
+                loadedTasks.add(new Todo(arr[2], isTaskMarkedDone));
+                break;
+            case "D":
+                loadedTasks.add(new Deadline(arr[2], isTaskMarkedDone, DateHelper.formatDateTime(arr[3])));
+                break;
+            case "E":
+                loadedTasks.add(new Event(arr[2], isTaskMarkedDone, DateHelper.formatDateTime(arr[3]), DateHelper.formatDateTime(arr[4])));
+                break;
             }
         }
         fileScanner.close();
@@ -126,17 +132,17 @@ public class Storage {
                         lineWordsArr[i] = lineWordsArr[i].trim();
                     }
                     switch (action) {
-                        case MARK_TASK:
-                            lineWordsArr[1] = "1";
-                            stringBuilder.append(String.join(" | ", lineWordsArr)).append("\n");
-                            break;
-                        case UNMARK_TASK:
-                            lineWordsArr[1] = "0";
-                            stringBuilder.append(String.join(" | ", lineWordsArr)).append("\n");
-                            break;
-                        case DELETE_TASK:
-                            currentLine++;
-                            continue;
+                    case MARK_TASK:
+                        lineWordsArr[1] = "1";
+                        stringBuilder.append(String.join(" | ", lineWordsArr)).append("\n");
+                        break;
+                    case UNMARK_TASK:
+                        lineWordsArr[1] = "0";
+                        stringBuilder.append(String.join(" | ", lineWordsArr)).append("\n");
+                        break;
+                    case DELETE_TASK:
+                        currentLine++;
+                        continue;
                     }
                 } else {
                     stringBuilder.append(line).append("\n");
