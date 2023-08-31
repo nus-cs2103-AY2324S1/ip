@@ -16,7 +16,7 @@ public class DukeParser {
     private final DukeTaskList taskList;
 
     /**
-     * Constructs a parser for Duke
+     * Constructs a parser for Duke.
      *
      * @author Tan Kerway
      */
