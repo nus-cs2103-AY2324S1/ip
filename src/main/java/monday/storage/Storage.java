@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import monday.task.Task;
 
 public class Storage {
-    private final String filePath;
+    private final String FILEPATH;
 
     public Storage(String fileName) {
         this.filePath = fileName;

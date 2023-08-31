@@ -1,6 +1,7 @@
 package monday;
 
 import java.util.Scanner;
+
 import monday.monday.ui.Ui;
 import monday.task.TaskList;
 import monday.monday.parser.Parser;
@@ -18,16 +19,16 @@ public class Monday {
     private static void startMonday(String filepath) {
         Scanner scanner = new Scanner(System.in);
         TaskList taskList = new TaskList(filepath);
-        boolean running = true;
+        boolean isRunning = true;
 
         Ui.printSeparator();
         Ui.greet();
         Ui.printSeparator();
-        while (running) {
+        while (isRunning) {
             String userInput = scanner.nextLine();
             Ui.printSeparator();
             try {
-                running = Parser.mondayParser(userInput, taskList);
+                isRunning = Parser.mondayParser(userInput, taskList);
             } catch (MondayExceptions e) {
                 System.out.println(e);
             } catch (NumberFormatException e) {
