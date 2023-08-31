@@ -1,16 +1,14 @@
 package helpbuddy.task;
 
 /**
- * An abstract class that defines task objects written by users.
+ * An abstract class representing a Task. This class provides a basic structure for various tasks.
  */
 public abstract class Task {
-    /** A string that indicates task name. */
     protected String description;
-    /** A boolean that indicates whether task is completed by user. */
     protected boolean isDone;
 
     /**
-     * A constructor of a task object.
+     * Constructs a new Task object with specified String description.
      * @param description A string that indicates task name.
      */
     public Task(String description) {
@@ -19,10 +17,11 @@ public abstract class Task {
     }
 
     /**
-     * @return the icon status of task
+     * Returns String icon that represents if Task is done.
+     * @return "X" if Task is done; " " otherwise.
      */
     public String getStatusIcon() {
-        return (isDone ? "X" : " "); // mark done task with X
+        return (isDone ? "X" : " ");
     }
 
     /**
@@ -33,13 +32,18 @@ public abstract class Task {
     }
 
     /**
-     * @return string representation of task object.
+     * Returns String representing the Task object.
+     * @return a string representation of description, isDone.
      */
     @Override
     public String toString() {
         return "[" + this.getStatusIcon() + "] " + this.description;
     }
 
+    /**
+     * Returns String representing the Task object to be saved in a file.
+     * @return a string representation of Task object attributes.
+     */
     public abstract String stringifyTask();
 
 }

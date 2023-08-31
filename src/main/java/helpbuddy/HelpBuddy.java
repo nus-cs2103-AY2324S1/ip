@@ -11,7 +11,7 @@ import java.io.IOException;
 import java.time.format.DateTimeParseException;
 
 /**
- * A HelpBuddy class that produces messages to user.
+ * A HelpBuddy class creates a HelpBuddy object to run the HelpBuddy chatbot.
  */
 
 public class HelpBuddy {
@@ -19,6 +19,10 @@ public class HelpBuddy {
     private TaskList tasks;
     private Ui ui;
 
+    /**
+     * Constructs a new HelpBuddy object containing the specified String filePath to store data.
+     * @param filePath the filePath for data to be loaded and saved.
+     */
     public HelpBuddy(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
@@ -31,6 +35,9 @@ public class HelpBuddy {
         }
     }
 
+    /**
+     * Runs the HelpBuddy chatbot.
+     */
     public void run() {
         ui.printHelloMessage();
         boolean isExit = false;

@@ -6,20 +6,19 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 /**
- * This class is a subclass of Task which defines an event task.
+ * The Event class creates a Task storing a start time and an end time of type LocalDateTime.
  */
 public class Event extends Task {
-    /** A String containing start of event. */
     private LocalDateTime from;
-    /** A String containing end of event. */
     private LocalDateTime to;
 
     /**
-     * A constructor of event
-     * @param description Name of event
-     * @param from Start of event
-     * @param to End of event
-     * @throws HelpBuddyException If description, start and end time of event is empty.
+     * Constructs a new Event object with specified String description and LocalDateTime from as start time of Event
+     * and LocalDateTime to as end time of Event.
+     * @param description the description of Task.
+     * @param from the start time of Event.
+     * @param to the end time of Event.
+     * @throws HelpBuddyException if description, from and to is empty and if from and to are invalid time.
      */
     public Event(String description, LocalDateTime from, LocalDateTime to) throws HelpBuddyException {
         super(description);
@@ -38,8 +37,8 @@ public class Event extends Task {
         }
     }
     /**
-     *
-     * @return String representation of event object
+     * Returns String representing the Event object.
+     * @return a string representation of description, isDone, from and to.
      */
     @Override
     public String toString() {
@@ -48,11 +47,21 @@ public class Event extends Task {
         return "[E]" + super.toString() + " (from: " + startTime + " to: " + endTime + ")";
     }
 
+    /**
+     * Returns String representing the Event object to be saved in a file.
+     * @return a string representation of description, isDone, from and to.
+     */
     @Override
     public String stringifyTask() {
         return String.format("E|%d|%s|%s", this.isDone ? 1 : 0, this.description, this.from + " to " + this.to);
     }
 
+    /**
+     * Compares the object to the specified object. The result is true if and only if argument is not null and
+     * its stringifyTask() is the same as the object's.
+     * @param obj the object to compare with.
+     * @return true if objects are the same; false otherwise.
+     */
     @Override
     public boolean equals(Object obj) {
         if (obj == this) {

@@ -1,19 +1,20 @@
 package helpbuddy.exception;
 
 /**
- * A class that handles errors for invalid inputs to HelpBuddy.
+ * Thrown when HelpBuddy chatbot detects invalid input by user.
  */
 public class HelpBuddyException extends Exception {
     /**
-     * A constructor for the HelpBuddyException.
-     * @param message Error message to be displayed to users.
+     * Reports a HelpBuddyException for the message specified.
+     * @param message String describing the reason for exception.
      */
     public HelpBuddyException(String message) {
         super(message);
     }
 
     /**
-     * @return The error message.
+     * Produces the error message.
+     * @return the error message along with "OOPS!".
      */
     @Override
     public String getMessage() {
