@@ -8,7 +8,17 @@ import java.io.IOException;
 import java.time.format.DateTimeParseException;
 import java.util.Objects;
 
+/**
+ * The Parser class handles the parsing of user input and corresponding actions.
+ */
 public class Parser {
+
+    /**
+     * Parses the user input and performs corresponding actions on the task list.
+     *
+     * @param userInput The input provided by the user.
+     * @param taskList  The TaskList instance used to manage tasks.
+     */
     public static void parseInput(String userInput, TaskList taskList) {
             try {
 
