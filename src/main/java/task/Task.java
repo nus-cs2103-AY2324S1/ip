@@ -7,29 +7,29 @@ import java.time.LocalDateTime;
 public class Task {
 
     String taskName;
-    private Boolean done;
+    private Boolean isDone;
     private LocalDateTime dateAdded;
 
     public Task(String taskName) {
         this.taskName = taskName;
-        this.done = false;
+        this.isDone = false;
         this.dateAdded = LocalDateTime.now();
     }
     @Override
     public String toString() {
-        return ("[" + (this.done ? "X] " : " ] ") + this.taskName);
+        return ("[" + (this.isDone ? "X] " : " ] ") + this.taskName);
     }
 
-    public void mark() {
-        this.done = true;
+    public void setDone() {
+        this.isDone = true;
     }
 
-    public void unMark() {
-        this.done = false;
+    public void setNotDone() {
+        this.isDone = false;
     }
 
-    public boolean isDone() {
-        return this.done;
+    public boolean getIsDone() {
+        return this.isDone;
     }
 
     public String write() {
@@ -79,11 +79,13 @@ public class Task {
 
         @Override
         public String toString() {
-            return "[E]" + super.toString() + "(from: " + startDayDateTime.format(Duke.FORMAT) + " to: " + endDayDateTime.format(Duke.FORMAT) +")";
+            return "[E]" + super.toString() + "(from: " + startDayDateTime.format(Duke.FORMAT)
+                    + " to: " + endDayDateTime.format(Duke.FORMAT) +")";
         }
 
         public String write() {
-            return "event " + super.taskName + "/from " + this.startDayDateTime.format(Duke.FORMAT) + " /to " + this.endDayDateTime.format(Duke.FORMAT) + "\n";
+            return "event " + super.taskName + "/from " + this.startDayDateTime.format(Duke.FORMAT)
+                    + " /to " + this.endDayDateTime.format(Duke.FORMAT) + "\n";
         }
     }
 }

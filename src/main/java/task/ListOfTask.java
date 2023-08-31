@@ -1,7 +1,6 @@
 package task;
 
 import dukeExceptions.DukeException;
-import dukeExceptions.LoadException;
 import storage.Storage;
 
 import java.time.LocalDateTime;
@@ -33,7 +32,8 @@ public class ListOfTask {
         }
     }
 
-    public void addTask(String task, LocalDateTime startDayDateTime, LocalDateTime endDayDateTime, boolean print) {
+    public void addTask(String task, LocalDateTime startDayDateTime,
+                        LocalDateTime endDayDateTime, boolean print) {
         Task temp = new Task.Event(task, startDayDateTime, endDayDateTime);
         listOfTask.add(temp);
         if (print) {
@@ -55,7 +55,7 @@ public class ListOfTask {
 
     public void mark(int index, boolean print) throws DukeException {
         try {
-            listOfTask.get(index - 1).mark();
+            listOfTask.get(index - 1).setDone();
             if (print) {
                 System.out.println(listOfTask.get(index - 1).toString());
                 Storage.save(listOfTask);
@@ -67,7 +67,7 @@ public class ListOfTask {
 
     public void unMark(int index, boolean print) throws DukeException {
         try {
-            listOfTask.get(index - 1).unMark();
+            listOfTask.get(index - 1).setNotDone();
             if (print) {
                 System.out.println(listOfTask.get(index - 1).toString());
             }

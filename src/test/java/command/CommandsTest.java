@@ -49,7 +49,9 @@ public class CommandsTest {
 
     @Test
     public void commandsExecuteDeadline() {
-        String[] cmd = {"deadline CS2103T A-JUnit /by 18-09-2023 0000", "deadline gyrdefsf /by 8411", "deadline gyrdefsf /by ", "deadline /b"};
+        String[] cmd = {"deadline CS2103T A-JUnit /by 18-09-2023 0000",
+                "deadline gyrdefsf /by 8411",
+                "deadline gyrdefsf /by ", "deadline /b"};
         String cmd2 = "CS2103T A-JUnit";
         String cmd3 = "added: [D][ ] ";
         String cmd4 = " (by: 18-09-2023 0000)";
@@ -106,7 +108,8 @@ public class CommandsTest {
             } catch (DukeDateTimeParseException e) {
                 assertEquals("The format for dates&time is 'dd-MM-yyyy hhmm'", e.getMessage());
             } catch (DukeNullPointerException e) {
-                assertEquals("The format for the command is: event task /from startDayDateTime /to endDayDateTime", e.getMessage());
+                assertEquals("The format for the command is: event task /from startDayDateTime /to endDayDateTime",
+                        e.getMessage());
             } catch (DukeException e) {
                 assertEquals("Please add the task name", e.getMessage());
             }

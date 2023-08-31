@@ -11,7 +11,7 @@ import java.time.format.DateTimeFormatter;
 
 
 public class Duke {
-    public static DateTimeFormatter FORMAT = DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm");
+    public static final DateTimeFormatter FORMAT = DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm");
     private static ListOfTask taskList = new ListOfTask();
     private static Ui ui = new Ui();
     public static void main(String[] args) {

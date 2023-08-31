@@ -36,7 +36,8 @@ public class Parser {
                 LocalDateTime dateTime = LocalDateTime.parse(restOfCommand, Duke.FORMAT);
                 return new Commands(cmd, dateTime);
             } catch (DateTimeParseException e) {
-                throw new DukeDateTimeParseException(cmd + ": The format for dates&time is 'dd-MM-yyyy hhmm'");
+                throw new DukeDateTimeParseException(cmd
+                        + ": The format for dates&time is 'dd-MM-yyyy hhmm'");
             }
         }
 
@@ -86,15 +87,18 @@ public class Parser {
                             throw new DukeFromEarlierThanToException("From must be earlier than To");
                         }
                     } else {
-                        throw new DukeNullPointerException("The format for the command is: event task /from startDayDateTime /to endDayDateTime");
+                        throw new DukeNullPointerException("The format for the command is: "
+                                + "event task /from startDayDateTime /to endDayDateTime");
                     }
                 } else {
                     throw new DukeException("Please add the task name");
                 }
             } catch (DukeUnknownCommandException e) {
-                throw new DukeNullPointerException("The format for the command is: event task /from startDayDateTime /to endDayDateTime");
+                throw new DukeNullPointerException("The format for the command is: "
+                        + "event task /from startDayDateTime /to endDayDateTime");
             } catch (NullPointerException e) {
-                throw new DukeNullPointerException("The format for the command is: event task /from startDayDateTime /to endDayDateTime");
+                throw new DukeNullPointerException("The format for the command is: "
+                        + "event task /from startDayDateTime /to endDayDateTime");
             }
         }
 

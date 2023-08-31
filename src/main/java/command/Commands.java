@@ -111,7 +111,10 @@ public class Commands {
         }
         if (obj instanceof Commands) {
             Commands b = (Commands) obj;
-            if (b.state == this.state && b.dateTime == this.dateTime && b.index == this.index && b.name == this.name) {
+            if (b.state == this.state
+                    && b.dateTime == this.dateTime
+                    && b.index == this.index
+                    && b.name == this.name) {
                 return true;
             }
         }
@@ -158,7 +161,10 @@ public class Commands {
             }
             if (obj instanceof Commands.TwoCommands) {
                 Commands.TwoCommands b = (Commands.TwoCommands) obj;
-                if (super.equals(b) && b.state2 == this.state2 && this.name2.equals(b.name2) && this.secondaryCommand.equals(b.secondaryCommand)) {
+                if (super.equals(b)
+                        && b.state2 == this.state2
+                        && this.name2.equals(b.name2)
+                        && this.secondaryCommand.equals(b.secondaryCommand)) {
                     return true;
                 }
             }
@@ -173,7 +179,8 @@ public class Commands {
         private String name3;
         private Commands phaseTwo;
         private Commands phaseThree;
-        public ThreeCommands(COMMANDS command, String str, COMMANDS command2, String str2, COMMANDS command3, String str3) {
+        public ThreeCommands(COMMANDS command, String str, COMMANDS command2,
+                             String str2, COMMANDS command3, String str3) {
             super(command,str);
             this.state2 = command2;
             this.name2 = str2;
