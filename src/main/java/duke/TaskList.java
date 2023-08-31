@@ -5,8 +5,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class TaskList {
-    private static Pattern deleteCommand = Pattern.compile("^delete (?<taskNumber>\\d*)$");
-    private static Pattern markUnmarkCommand = Pattern.compile("^(mark|unmark) (?<taskNumber>\\d*)$");
+    private static final Pattern PATTERN_COMMAND_DELETE = Pattern.compile("^delete (?<taskNumber>\\d*)$");
+    private static final Pattern PATTERN_COMMAND_MARK_UNMARK = Pattern.compile("^(mark|unmark) (?<taskNumber>\\d*)$");
 
 
     private ArrayList<Task> tasks;
@@ -44,7 +44,7 @@ public class TaskList {
     }
 
     public Task delete(String command) throws LukeException {
-        Matcher matcher = deleteCommand.matcher(command);
+        Matcher matcher = PATTERN_COMMAND_DELETE.matcher(command);
         if (!matcher.find()) {
             throw new LukeException("Invalid format. Usage: delete {task_number}");
         }
@@ -79,7 +79,7 @@ public class TaskList {
     }
 
     private Task getTask(String command) throws LukeException {
-        Matcher matcher = markUnmarkCommand.matcher(command);
+        Matcher matcher = PATTERN_COMMAND_MARK_UNMARK.matcher(command);
         if (!matcher.find()) {
             throw new LukeException("Invalid format. Usage: mark {task_number}");
         }

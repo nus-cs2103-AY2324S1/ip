@@ -4,7 +4,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Event extends Task {
-    private static Pattern createCommand =
+    private static final Pattern PATTERN_COMMAND_CREATE_EVENT =
             Pattern.compile("^event ?(?<taskName>.*?)? ?(/from (?<startTime>.*?))? ?(/to (?<endTime>.*))?$");
 
     private String startTime;
@@ -23,7 +23,7 @@ public class Event extends Task {
     }
 
     public static Event createEvent(String command) throws LukeException {
-        Matcher matcher = createCommand.matcher(command);
+        Matcher matcher = PATTERN_COMMAND_CREATE_EVENT.matcher(command);
         matcher.find();
 
         String taskName = matcher.group("taskName");

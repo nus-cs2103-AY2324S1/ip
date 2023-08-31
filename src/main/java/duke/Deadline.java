@@ -8,7 +8,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Deadline extends Task {
-    private static Pattern createCommand =
+    private static final Pattern PATTERN_COMMAND_CREATE_DEADLINE =
             Pattern.compile("^deadline ?(?<taskName>.*?)? ?(/by (?<finishByTime>.*))?$");
     private LocalDate finishByTime;
     Deadline(String name, LocalDate finishByTime) {
@@ -21,7 +21,7 @@ public class Deadline extends Task {
     }
 
     public static Deadline createDeadline(String command) throws LukeException {
-        Matcher matcher = createCommand.matcher(command);
+        Matcher matcher = PATTERN_COMMAND_CREATE_DEADLINE.matcher(command);
         matcher.find();
 
         String taskName = matcher.group("taskName");
