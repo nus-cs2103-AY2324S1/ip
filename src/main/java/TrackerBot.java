@@ -7,11 +7,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeFormatterBuilder;
 import java.time.format.DateTimeParseException;
-import java.time.temporal.ChronoField;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -264,26 +260,6 @@ public class TrackerBot {
         } catch (IOException e) {
             System.out.println(e.getMessage());
         } // the try with resources statement auto-closes output.
-    }
-
-    /**
-     * Converts the String into a LocalDateTime object.
-     * @param input The input String to parse into a Date object.
-     *              The String should be in the format: d/M/yyyy HHmm <br>
-     *              The year and time are optional. If not given, the year is assumed
-     *              to be the current year, and the time is assumed to be 0000.
-     * @return The LocalDateTime object from the parsed String
-     * @throws DateTimeParseException if the input does not match the format string
-     */
-    private static LocalDateTime convertStringToDate(String input) throws DateTimeParseException {
-        DateTimeFormatter format = new DateTimeFormatterBuilder()
-                .append(DateTimeFormatter.ofPattern("d/M[/yyyy][ HHmm]"))
-                .parseDefaulting(ChronoField.YEAR, LocalDateTime.now().getYear())
-                .parseDefaulting(ChronoField.HOUR_OF_DAY, 0)
-                .parseDefaulting(ChronoField.MINUTE_OF_HOUR, 0)
-                .toFormatter();
-        LocalDateTime date = LocalDateTime.parse(input, format);
-        return date;
     }
 
     /**
