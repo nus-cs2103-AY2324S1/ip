@@ -40,11 +40,11 @@ public class Task {
         this.isDone = false;
     }
 
-    private String getStatusIcon() {
+    public String getStatusIcon() {
         return (isDone ? "X" : " "); // mark done task with X
     }
 
-    private String fileGetStatusIcon(){
+    public String fileGetStatusIcon(){
         return (isDone ? "Y" : "N");
     }
 

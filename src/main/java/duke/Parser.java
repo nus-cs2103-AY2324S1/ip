@@ -48,7 +48,7 @@ public class Parser {
 
                 String description = input.substring(5);
                 if (!description.isBlank()) {
-                    command.addTodoTask(input);
+                    command.addTodoTask(description);
                 } else {
                     throw new MYBotExceptions.EmptyDetailsException("description", "todo");
                 }
