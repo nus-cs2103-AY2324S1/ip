@@ -18,7 +18,21 @@ import ekud.state.TaskList;
 import ekud.state.TodoTask;
 import ekud.ui.Ui;
 
+/**
+ * Handles modifying the current state of the program based on the command
+ * given, passing side effects the user interface.
+ */
 public final class Handler {
+    /**
+     * Handles the command given by getting user input from the user interface,
+     * modifying the current state of the program and passing side effects back to
+     * the user interface.
+     * 
+     * @param state   The current state of the program.
+     * @param command The command to handle.
+     * @param ui      The user interface.
+     * @return Whether to continue execution of the program main loop.
+     */
     public boolean handle(State state, Command command, Ui ui) {
         if (command instanceof ByeCommand) {
             return false;
@@ -53,19 +67,21 @@ public final class Handler {
         } else if (command instanceof MarkCommand) {
             MarkCommand markCommand = (MarkCommand) command;
             TaskList taskList = state.getTaskList();
-            Task task = taskList.markTask(markCommand.getTaskId());
+            Task task = taskList.getTask(markCommand.getTaskId());
             if (task == null) {
                 throw new ArgumentException("Invalid task identifier.");
             }
+            task.mark();
             ui.showTaskMarked(task);
             return true;
         } else if (command instanceof UnmarkCommand) {
             UnmarkCommand unmarkCommand = (UnmarkCommand) command;
             TaskList taskList = state.getTaskList();
-            Task task = taskList.unmarkTask(unmarkCommand.getTaskId());
+            Task task = taskList.getTask(unmarkCommand.getTaskId());
             if (task == null) {
                 throw new ArgumentException("Invalid task identifier.");
             }
+            task.unmark();
             ui.showTaskUnmarked(task);
             return true;
         } else if (command instanceof DeleteCommand) {
