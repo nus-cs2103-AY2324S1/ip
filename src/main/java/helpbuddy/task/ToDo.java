@@ -19,7 +19,6 @@ public class ToDo extends Task {
     }
 
     /**
-     *
      * @return String representation of todo task.
      */
     @Override

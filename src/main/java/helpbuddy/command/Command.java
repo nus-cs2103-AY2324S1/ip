@@ -1,11 +1,11 @@
 package helpbuddy.command;
 
+import java.io.IOException;
+
 import helpbuddy.exception.HelpBuddyException;
 import helpbuddy.storage.Storage;
-import helpbuddy.ui.Ui;
 import helpbuddy.task.TaskList;
-
-import java.io.IOException;
+import helpbuddy.ui.Ui;
 
 public abstract class Command {
     private boolean exit = false;

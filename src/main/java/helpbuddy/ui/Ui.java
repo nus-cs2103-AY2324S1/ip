@@ -1,12 +1,12 @@
 package helpbuddy.ui;
 
+import java.util.Scanner;
+
 import helpbuddy.task.Task;
 import helpbuddy.task.TaskList;
 
-import java.util.Scanner;
-
 public class Ui {
-    private final String HORIZONTAL_LINE = "\t____________________________________________________________";
+    private final String horizontalLine = "\t____________________________________________________________";
     private Scanner sc;
 
     public Ui() {
@@ -14,7 +14,7 @@ public class Ui {
     }
 
     private void printMessageBlock(String s) {
-        System.out.println(HORIZONTAL_LINE + "\n\t" + s + HORIZONTAL_LINE + "\n");
+        System.out.println(horizontalLine + "\n\t" + s + horizontalLine + "\n");
     }
     public void printHelloMessage() {
         printMessageBlock("Hello! I'm HelpBuddy.\n" + "\tWhat can I do for you?\n");

@@ -1,14 +1,14 @@
 package helpbuddy.task;
 
-import helpbuddy.exception.HelpBuddyException;
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
+import org.junit.jupiter.api.Test;
 
+import helpbuddy.exception.HelpBuddyException;
 public class DeadlineTest {
 
     @Test
@@ -33,9 +33,9 @@ public class DeadlineTest {
 
     @Test
     public void deadline_success() {
-        DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yy HH:mm");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yy HH:mm");
         try {
-            Deadline task = new Deadline("read", LocalDateTime.parse("31/08/23 17:41", FORMATTER));
+            Deadline task = new Deadline("read", LocalDateTime.parse("31/08/23 17:41", formatter));
             assertEquals("D|0|read|2023-08-31T17:41", task.stringifyTask());
         } catch (HelpBuddyException e) {
             fail();

@@ -1,10 +1,9 @@
 package helpbuddy.task;
 
-import helpbuddy.command.MarkCommand;
-import helpbuddy.exception.HelpBuddyException;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+
+import helpbuddy.exception.HelpBuddyException;
 
 /**
  * This class is a subclass of Task which defines tasks with deadline.
@@ -30,7 +29,6 @@ public class Deadline extends Task {
     }
 
     /**
-     *
      * @return String representation of task with deadline
      */
     @Override

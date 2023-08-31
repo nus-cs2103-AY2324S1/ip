@@ -1,10 +1,11 @@
 package helpbuddy.task;
 
-import helpbuddy.exception.HelpBuddyException;
-import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
+
+import org.junit.jupiter.api.Test;
+
+import helpbuddy.exception.HelpBuddyException;
 
 public class ToDoTest {
 

@@ -1,10 +1,10 @@
 package helpbuddy.command;
 
-import helpbuddy.storage.Storage;
-import helpbuddy.ui.Ui;
-import helpbuddy.task.TaskList;
-
 import java.io.IOException;
+
+import helpbuddy.storage.Storage;
+import helpbuddy.task.TaskList;
+import helpbuddy.ui.Ui;
 
 public class ExitCommand extends Command {
 

@@ -1,9 +1,9 @@
 package helpbuddy.task;
 
-import helpbuddy.exception.HelpBuddyException;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+
+import helpbuddy.exception.HelpBuddyException;
 
 /**
  * This class is a subclass of Task which defines an event task.
@@ -38,7 +38,6 @@ public class Event extends Task {
         }
     }
     /**
-     *
      * @return String representation of event object
      */
     @Override
