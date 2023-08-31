@@ -5,9 +5,18 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 
+/**
+ * The Storage class is responsible for loading and saving tasks to a file in the Duke application.
+ * It provides methods to read tasks from a file and write tasks to a file.
+ */
 public class Storage {
     private final String filepath;
 
+    /**
+     * Constructs a Storage instance with the specified file path.
+     *
+     * @param filepath The path to the file used for storing tasks.
+     */
     public Storage(String filepath) {
         this.filepath = filepath;
     }

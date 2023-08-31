@@ -3,7 +3,17 @@ package duke;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * The Parser class is responsible for parsing user input and file input
+ * to create and manipulate tasks in the Duke application.
+ */
 public class Parser {
+    /**
+     * Parses user input and performs corresponding actions on the task list.
+     *
+     * @param userInput The user's input command.
+     * @param taskList  The list of tasks to be manipulated.
+     */
     public static void parseUserInput(String userInput, TaskList taskList) {
         if (userInput.equals("list")) {
             // If user wants to check list
@@ -151,23 +161,23 @@ public class Parser {
         Task task = null;
 
         switch (type) {
-        case "T":
-            task = new ToDos(description);
-            break;
-        case "D":
-            String by = parts[3].trim();
+            case "T":
+                task = new ToDos(description);
+                break;
+            case "D":
+                String by = parts[3].trim();
 
-            // Parse the date and time
-            LocalDate deadlineDate = LocalDate.parse(by, DateTimeFormatter.ofPattern("MMM d yyyy"));
+                // Parse the date and time
+                LocalDate deadlineDate = LocalDate.parse(by, DateTimeFormatter.ofPattern("MMM d yyyy"));
 
-            task = new Deadlines(description, deadlineDate);
-            break;
-        case "E":
-            String from = parts[3].trim();
-            String to = parts[4].trim();
+                task = new Deadlines(description, deadlineDate);
+                break;
+            case "E":
+                String from = parts[3].trim();
+                String to = parts[4].trim();
 
-            task = new Events(description, from, to);
-            break;
+                task = new Events(description, from, to);
+                break;
         }
 
         if (task != null && isDone) {

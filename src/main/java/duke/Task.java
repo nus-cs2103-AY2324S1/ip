@@ -1,11 +1,9 @@
 package duke;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-
 /**
- * A class for Tasks.
+ * The Task class represents a task in the Duke application.
+ * It contains fields and methods to manage task descriptions, completion status,
+ * and generating formatted string representations for display and storage.
  */
 public class Task {
     /** Class field description that describes the task. */
@@ -23,6 +21,11 @@ public class Task {
         this.isDone = false;
     }
 
+    /**
+     * Gets the description of the task.
+     *
+     * @return The description of the task.
+     */
     public String getDescription() {
         return this.description;
     }
@@ -36,6 +39,11 @@ public class Task {
         return (isDone ? "X" : " "); // mark done task with X
     }
 
+    /**
+     * Checks if the task is done.
+     *
+     * @return `true` if the task is done, otherwise `false`.
+     */
     public boolean isDone() {
         return this.isDone;
     }
