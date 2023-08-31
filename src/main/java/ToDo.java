@@ -1,5 +1,5 @@
 /**
- * Todo class that inherits from Task.
+ * Todo class that is a task.
  * 
  * 
  * @author Owen Yeo

@@ -1,3 +1,7 @@
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 /**
  * Event class that inherits from Task.
  * 
@@ -7,8 +11,8 @@
  * @author Owen Yeo
  */
 public class Event extends Task{
-    private String from;
-    private String to;
+    private LocalDateTime from;
+    private LocalDateTime to;
 
     /**
      * Constructor for an event object.
@@ -19,8 +23,10 @@ public class Event extends Task{
      */
     Event(String label, String from, String to) {
         super(label);
-        this.from = from;
-        this.to = to;
+        this.from = LocalDateTime.parse(from, DateTimeFormatter
+            .ofPattern("yyyy-MM-dd HHmm"));
+        this.to = LocalDateTime.parse(to, DateTimeFormatter
+            .ofPattern("yyyy-MM-dd HHmm"));
     }
 
     /**
@@ -28,7 +34,9 @@ public class Event extends Task{
      */
     @Override
     public String toSaveString() {
-        return "E " + super.toSaveString() + " | " + from + " - " + to;
+        return "E " + super.toSaveString() + " | " + from
+            .format(DateTimeFormatter.ofPattern("MMM dd YYYY ha")) + " - " + to
+            .format(DateTimeFormatter.ofPattern("MMM dd YYYY ha"));
     }
 
     /**
@@ -36,6 +44,8 @@ public class Event extends Task{
      */
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + from + " to: " + to + ")";
+        return "[E]" + super.toString() + " (from: " + from
+            .format(DateTimeFormatter.ofPattern("MMM dd YYYY ha")) + " to: " + to
+            .format(DateTimeFormatter.ofPattern("MMM dd YYYY ha")) + ")";
     }
 }

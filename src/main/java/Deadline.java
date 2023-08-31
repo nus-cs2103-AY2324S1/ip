@@ -1,3 +1,8 @@
+import java.sql.Date;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 /**
  * Deadline class that inherits from Task.
  * 
@@ -7,17 +12,18 @@
  */
 public class Deadline extends Task{
 
-    private String deadline;
+    private LocalDateTime deadline;
 
     /**
      * Constructor for a deadline object.
      * 
      * @param label Descriptor for the task with deadline
-     * @param deadline Deadline
+     * @param deadline String representing deadline
      */
     Deadline(String label, String deadline) {
         super(label);
-        this.deadline = deadline;
+        this.deadline = LocalDateTime.parse(deadline, DateTimeFormatter
+            .ofPattern("yyyy-MM-dd HHmm"));
     }
 
     /**
@@ -25,7 +31,8 @@ public class Deadline extends Task{
      */
     @Override
     public String toSaveString() {
-        return "D " + super.toSaveString() + " | " + deadline;
+        return "D " + super.toSaveString() + " | " + deadline
+            .format(DateTimeFormatter.ofPattern("MMM dd YYYY ha"));
     }
 
     /**
@@ -33,7 +40,8 @@ public class Deadline extends Task{
      */
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + deadline + ")";
+        return "[D]" + super.toString() + " (by: " + deadline
+            .format(DateTimeFormatter.ofPattern("MMM dd YYYY ha")) + ")";
     }
     
 }

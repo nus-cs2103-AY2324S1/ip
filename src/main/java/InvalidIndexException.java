@@ -1,4 +1,4 @@
-/*
+/**
  * Exception thrown when the index given for mark, unmark, or delete is wrong.
  * 
  * @author Owen Yeo

@@ -1,4 +1,4 @@
-/*
+/**
  * Exception that is thrown when a command is correct but the description
  * is wrong.
  * 
