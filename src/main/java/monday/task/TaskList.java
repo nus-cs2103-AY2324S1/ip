@@ -1,9 +1,9 @@
-package task;
+package monday.task;
 
 import java.io.IOException;
 import java.util.ArrayList;
 
-import storage.Storage;
+import monday.storage.Storage;
 
 /**
  * The TaskList class is responsible for storing and managing the tasks in the task list.

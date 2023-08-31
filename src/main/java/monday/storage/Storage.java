@@ -1,4 +1,4 @@
-package storage;
+package monday.storage;
 
 import java.io.File;
 import java.io.IOException;
@@ -9,10 +9,10 @@ import java.io.FileInputStream;
 import java.io.EOFException;
 import java.util.ArrayList;
 
-import task.Task;
+import monday.task.Task;
 
 public class Storage {
-    private String filePath;
+    private final String filePath;
 
     public Storage(String fileName) {
         this.filePath = fileName;
@@ -46,7 +46,7 @@ public class Storage {
             ArrayList<Task> tasklist = (ArrayList<Task>) input.readObject();
             return tasklist;
         } catch (EOFException e) {
-            return new ArrayList<Task>();
+            return new ArrayList<>();
         }
     }
 }

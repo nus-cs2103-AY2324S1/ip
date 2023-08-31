@@ -1,4 +1,4 @@
-package task;
+package monday.task;
 
 import java.io.Serializable;
 

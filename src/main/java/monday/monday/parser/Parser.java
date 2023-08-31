@@ -1,11 +1,11 @@
-package monday.parser;
+package monday.monday.parser;
 
-import monday.exception.MondayExceptions;
-import task.TaskList;
-import task.ToDos;
-import task.Events;
-import task.Deadlines;
-import monday.ui.Ui;
+import monday.monday.exception.MondayExceptions;
+import monday.task.TaskList;
+import monday.task.ToDos;
+import monday.task.Events;
+import monday.task.Deadlines;
+import monday.monday.ui.Ui;
 
 public class Parser {
 

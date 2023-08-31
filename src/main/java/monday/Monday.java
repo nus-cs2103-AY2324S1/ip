@@ -1,8 +1,10 @@
+package monday;
+
 import java.util.Scanner;
-import monday.ui.Ui;
-import task.TaskList;
-import monday.parser.Parser;
-import monday.exception.MondayExceptions;
+import monday.monday.ui.Ui;
+import monday.task.TaskList;
+import monday.monday.parser.Parser;
+import monday.monday.exception.MondayExceptions;
 
 /**
  * Monday is a task management ChatBot. Users can add, mark, unmark,
