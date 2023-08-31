@@ -82,49 +82,6 @@ public class Storage {
         return tasks;
     }
 
-
-//    public List<Task> loadTasks() {
-//        List<Task> tasks = new ArrayList<>();
-//
-//        try {
-//            File file = new File(filePath);
-//            if (!file.exists()) {
-//                file.createNewFile();
-//            }
-//
-//            try (Scanner scanner = new Scanner(file)) {
-//                while (scanner.hasNextLine()) {
-//                    String line = scanner.nextLine();
-//                    String[] parts = line.split(" \\| ");
-//                    System.out.println("Parts: " + parts);
-//
-//
-//
-//                    String type = parts[0];
-//                    String isDone = parts[1];
-//                    String description = parts[2];
-//
-//                    switch (type) {
-//                        case "T":
-//                            tasks.add(new ToDo(description, isDone));
-//                            break;
-//                        case "D":
-//                            tasks.add(new Deadline(description, parts[3], isDone));
-//                            break;
-//                        case "E":
-//                            tasks.add(new Event(description, parts[3], parts[4], isDone));
-//                            break;
-//                    }
-//                }
-//            }
-//        } catch (IOException e) {
-//            // Handle file reading error
-//            e.printStackTrace();
-//        }
-//
-//        return tasks;
-//    }
-
     public void saveTasks(List<Task> tasks) {
         try {
             File file = new File(filePath);
