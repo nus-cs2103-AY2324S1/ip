@@ -3,7 +3,7 @@ package duke.main;
 import duke.command.Command;
 import duke.command.DeadlineCommand;
 import duke.command.EventCommand;
-import duke.command.TodoCommand;
+import duke.command.ToDoCommand;
 import duke.command.DeleteCommand;
 import duke.command.MarkCommand;
 import duke.command.UnmarkCommand;
@@ -26,7 +26,7 @@ public class Parser {
         } else if (userInput.startsWith("todo")) {
             String todoDescription = userInput.replace("todo ", "");
             validateTodo(todoDescription);
-            return new TodoCommand(todoDescription);
+            return new ToDoCommand(todoDescription);
         } else if (userInput.startsWith("deadline")) {
             String[] info = validateDeadline(userInput);
             return new DeadlineCommand(info[0], info[1]);

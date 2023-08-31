@@ -1,19 +1,7 @@
 package duke.main;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-
 import duke.command.Command;
-import duke.main.Storage;
-import duke.main.TaskList;
-import duke.main.Ui;
-import duke.task.Task;
 import duke.exception.DukeException;
-
-import java.util.Scanner;
-import java.util.ArrayList;
-
 
 public class Duke {
     private Storage storage;

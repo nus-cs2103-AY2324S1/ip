@@ -5,17 +5,17 @@ import duke.main.TaskList;
 import duke.main.Ui;
 
 import duke.exception.DukeException;
-import duke.task.Todo;
+import duke.task.ToDo;
 
-public class TodoCommand extends Command {
+public class ToDoCommand extends Command {
     private String description;
-    public TodoCommand(String description) {
+    public ToDoCommand(String description) {
         this.description = description;
     }
 
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) throws DukeException {
-        Todo todo = new Todo(description);
+        ToDo todo = new ToDo(description);
         taskList.add(todo);
         ui.displayCompletionMessage(todo, taskList.size());
         storage.saveTasksToFile(taskList);

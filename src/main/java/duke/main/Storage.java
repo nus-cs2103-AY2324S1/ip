@@ -4,7 +4,7 @@ import duke.exception.DukeException;
 import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Task;
-import duke.task.Todo;
+import duke.task.ToDo;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -38,7 +38,7 @@ public class Storage {
                 boolean isDone = taskData[1].equals("1");
 
                 if (taskData[0].equals("T")) {
-                    task = new Todo(taskData[2]);
+                    task = new ToDo(taskData[2]);
                 } else if (taskData[0].equals("D")) {
                     task = new Deadline(taskData[2], taskData[3]);
                 } else if (taskData[0].equals("E")) {
