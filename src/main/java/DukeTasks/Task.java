@@ -141,6 +141,9 @@ public class Task {
                     // add the year and time to the final date
                     temp = addYear(temp);
                     temp = addTime(temp);
+                    if (temp.isBefore(LocalDateTime.now())) {
+                        temp = temp.plusYears(1);
+                    }
                 }
                 // gc: the given date is before today's date even after parsing
                 if (temp.isBefore(LocalDateTime.now())) {
