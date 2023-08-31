@@ -21,6 +21,10 @@ public class Task {
         System.out.println(this.toString());
     }
 
+    public String storeFormat() {
+        return null;
+    }
+
     @Override
     public String toString() {
         return "[" + this.getStatusIcon() + "] " + this.description;
