@@ -9,8 +9,20 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Represents a utility class to parse and interpret user input and task data.
+ * <p>
+ * This class provides static methods for parsing user input into specific command types,
+ * reading task data, and converting date strings into {@link LocalDate} objects.
+ * </p>
+ */
 public class Parser {
-
+    /**
+     * Parses the user input and returns its corresponding command type.
+     *
+     * @param input The user input to be parsed.
+     * @return The corresponding {@link CommandType} based on the user input.
+     */
     public static CommandType parseCommand(String input) {
         if (input.equalsIgnoreCase("bye")) return CommandType.BYE;
         if (input.equalsIgnoreCase("list")) return CommandType.LIST;
@@ -24,6 +36,13 @@ public class Parser {
         return CommandType.UNKNOWN;
     }
 
+    /**
+     * Parses a task represented as a string from the storage file.
+     *
+     * @param taskData The task data as a string.
+     * @return A {@link Task} object based on the provided task data.
+     * @throws DukeException If the task type is unknown or there's an error in parsing.
+     */
     private static Task parseFileTask(String taskData) throws DukeException {
         String[] parts = taskData.split(" \\| ");
         switch (parts[0]) {
@@ -44,6 +63,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Converts a date string from the user input into a {@link LocalDate} object.
+     *
+     * @param input The user input containing the date string.
+     * @return The {@link LocalDate} representation of the provided date string.
+     * @throws DukeException If the date format is invalid or there's an error in parsing.
+     */
     public static LocalDate getLocalDate(String input) throws DukeException {
         String[] dateParts = input.split(" ");
         if (dateParts.length < 3) {
@@ -59,6 +85,13 @@ public class Parser {
         return givenDate;
     }
 
+    /**
+     * Determines if a specific date falls within the start and end dates of an event.
+     *
+     * @param event The event to check against.
+     * @param date  The date to verify.
+     * @return {@code true} if the date is within the event's date range, otherwise {@code false}.
+     */
     public static boolean isWithinEventDate(Event event, LocalDate date) {
         LocalDate startDate = event.getFrom().toLocalDate();
         LocalDate endDate = event.getTo().toLocalDate();

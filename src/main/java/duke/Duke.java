@@ -1,22 +1,42 @@
 package duke;
 
-import duke.task.*;
+import duke.task.Deadline;
+import duke.task.Event;
+import duke.task.Task;
+import duke.task.TaskList;
+import duke.task.ToDo;
 
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 
+/**
+ * Main class for the Duke application.
+ * <p>
+ * The Duke application is a task management application that allows users to manage and track
+ * tasks such as todos, deadlines, and events. It provides a command-line interface for users
+ * to interact with.
+ * </p>
+ */
 public class Duke {
+    /** Task list to store and manage all tasks. */
     private static final TaskList taskList = new TaskList();
+
+    /** User interface object for interacting with the user. */
     private static final Ui ui = new Ui();
+
+    /** Storage object for saving and loading tasks to/from a file. */
     private static final Storage storage = new Storage(ui);
 
-
-    private enum Command {
-        BYE, LIST, TODO, DEADLINE, EVENT, MARK, UNMARK, DELETE, TASKS_ON_DATE, UNKNOWN
-    }
-
+    /**
+     * Processes user input commands and interacts with the user.
+     * <p>
+     * This method listens for user inputs, parses the commands, processes them,
+     * and provides appropriate responses. It handles task creation, modification,
+     * deletion, listing, and other related operations.
+     * </p>
+     */
     public static void echoMessages() {
         Scanner scanner = new Scanner(System.in);
         String input;
@@ -113,7 +133,11 @@ public class Duke {
         }
     }
 
-
+    /**
+     * The entry point for the Duke application.
+     *
+     * @param args Command line arguments.
+     */
     public static void main(String[] args) {
         echoMessages();
     }
