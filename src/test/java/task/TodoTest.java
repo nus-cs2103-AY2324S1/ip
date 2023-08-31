@@ -8,12 +8,12 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TodoTest {
     @Test
-    public void TestTodoConstructor() throws EmptyTaskDescException {
+    public void testTodoConstructor() throws EmptyTaskDescException {
         assertEquals(new Todo("a").toString(), "[T][ ] a");
     }
 
     @Test
-    public void TestTodoToSaveFormat() throws EmptyTaskDescException {
+    public void testTodoToSaveFormat() throws EmptyTaskDescException {
         assertEquals(new Todo("a").toSaveFormat(), "todo:a|false");
     }
 }

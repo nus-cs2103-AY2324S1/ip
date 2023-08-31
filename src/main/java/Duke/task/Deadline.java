@@ -31,16 +31,17 @@ public class Deadline extends Task{
             throw new InvalidTimeFormatException(taskComponents[1]);
         }
     }
-    public static Deadline ParseContent(String content) throws DukeException {
-        String[] components = content.split("\\|", 3);
+    public static Deadline unpackSaveFormat(String savedTask) throws DukeException {
+        String[] components = savedTask.split("\\|", 3);
         Deadline task = new Deadline(components[1] + "/by" + components[0]);
         if(components[2].equals("X"))
-            task.SetCompleted();
+            task.setCompleted();
         else
-            task.SetUncompleted();
+            task.setUncompleted();
         return task;
     }
 
+    @Override
     public String toString() {
         return "[D]" + super.toString() + " (by: " + deadlineTime.toLocalDate().toString() + ","
                 + deadlineTime.toLocalTime().toString() + ")";

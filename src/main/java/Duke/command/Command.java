@@ -11,7 +11,7 @@ public abstract class Command {
         this.content = content;
     }
 
-    public static Command Of(String commandName, String content)
+    public static Command of(String commandName, String content)
             throws NoCommandFoundException {
         switch (commandName) {
         case "bye":
@@ -43,7 +43,7 @@ class Bye extends Command {
     @Override
     public Message execute(Application application) {
         application.kill();
-        return Message.OnExit();
+        return Message.onExit();
     }
 }
 
@@ -54,9 +54,9 @@ class Todo extends Command {
     @Override
     public Message execute(Application application)
             throws DukeException {
-        Task task = Task.Of(content, Task.TaskType.TODO);
-        application.AddTask(task);
-        return Message.OnTaskAdd(task);
+        Task task = Task.of(content, Task.TaskType.TODO);
+        application.addTask(task);
+        return Message.onTaskAdd(task);
     }
 }
 class Deadline extends Command {
@@ -66,9 +66,9 @@ class Deadline extends Command {
     @Override
     public Message execute(Application application)
             throws DukeException {
-        Task task = Task.Of(content, Task.TaskType.DEADLINE);
-        application.AddTask(task);
-        return Message.OnTaskAdd(task);
+        Task task = Task.of(content, Task.TaskType.DEADLINE);
+        application.addTask(task);
+        return Message.onTaskAdd(task);
     }
 }
 class Event extends Command {
@@ -78,9 +78,9 @@ class Event extends Command {
     @Override
     public Message execute(Application application)
             throws DukeException {
-        Task task = Task.Of(content, Task.TaskType.EVENT);
-        application.AddTask(task);
-        return Message.OnTaskAdd((task));
+        Task task = Task.of(content, Task.TaskType.EVENT);
+        application.addTask(task);
+        return Message.onTaskAdd((task));
     }
 }
 class List extends Command {
@@ -89,8 +89,8 @@ class List extends Command {
     }
     @Override
     public Message execute(Application application) {
-        return Message.AccumulateList(Message.ConvertTasks(application), "\n").ChainTo(
-                Message.NumberOfTasks(application), "\n");
+        return Message.accumulateList(Message.convertTasks(application), "\n").chainTo(
+                Message.numberOfTasks(application), "\n");
     }
 }
 class Mark extends Command {
@@ -108,12 +108,12 @@ class Mark extends Command {
             throw new InvalidTaskIndexException(content);
         }
         try {
-            task = application.GetTask(taskIndex);
+            task = application.getTask(taskIndex);
         } catch (IndexOutOfBoundsException e) {
             throw new TaskIndexOutOfRangeException(String.valueOf(taskIndex));
         }
-        task.SetCompleted();
-        return Message.OnTaskComplete(task);
+        task.setCompleted();
+        return Message.onTaskComplete(task);
     }
 }
 class Unmark extends Command {
@@ -131,12 +131,12 @@ class Unmark extends Command {
             throw new InvalidTaskIndexException(content);
         }
         try {
-            task = application.GetTask(taskIndex);
+            task = application.getTask(taskIndex);
         } catch (IndexOutOfBoundsException e) {
             throw new TaskIndexOutOfRangeException(String.valueOf(taskIndex));
         }
-        task.SetUncompleted();
-        return Message.OnTaskUncomplete(task);
+        task.setUncompleted();
+        return Message.onTaskUncomplete(task);
     }
 }
 class Delete extends Command {
@@ -154,11 +154,11 @@ class Delete extends Command {
             throw new InvalidTaskIndexException(content);
         }
         try {
-            task = application.GetTask(taskIndex);
+            task = application.getTask(taskIndex);
         } catch (IndexOutOfBoundsException e) {
             throw new TaskIndexOutOfRangeException(String.valueOf(taskIndex));
         }
-        application.RemoveTask((task));
-        return Message.OnTaskDelete(task);
+        application.removeTask((task));
+        return Message.onTaskDelete(task);
     }
 }

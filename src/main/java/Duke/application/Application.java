@@ -28,7 +28,7 @@ public class Application {
     public Application(Duke duke, Storage storage) throws DukeException {
         this.duke = duke;
         this.storage = storage;
-        LoadTaskList();
+        loadTaskList();
     }
 
     /**
@@ -43,8 +43,8 @@ public class Application {
      *
      * @param task The task to be added.
      */
-    public void AddTask(Task task) {
-        storage.AddLine(task.toSaveFormat());
+    public void addTask(Task task) {
+        storage.addLine(task.toSaveFormat());
         taskList.add(task);
     }
 
@@ -53,8 +53,8 @@ public class Application {
      *
      * @param task The task to be removed.
      */
-    public void RemoveTask(Task task) {
-        storage.RemoveLine(taskList.indexOf(task) + 1);
+    public void removeTask(Task task) {
+        storage.removeLine(taskList.indexOf(task) + 1);
         taskList.remove(task);
     }
 
@@ -63,11 +63,11 @@ public class Application {
      *
      * @throws DukeException If there's an issue with loading tasks from storage.
      */
-    public void LoadTaskList() throws DukeException {
+    public void loadTaskList() throws DukeException {
         taskList = new ArrayList<>();
         String line;
         int currentLine = 1;
-        while(!(line = storage.GetLine(currentLine)).equals("")) {
+        while(!(line = storage.getLine(currentLine)).equals("")) {
             taskList.add(Task.Parse(line));
             currentLine++;
         }
@@ -78,7 +78,7 @@ public class Application {
      *
      * @return The number of tasks.
      */
-    public int TaskCount() {
+    public int taskCount() {
         return taskList.size();
     }
 
@@ -88,7 +88,7 @@ public class Application {
      * @param index The index of the task to retrieve.
      * @return The task at the specified index.
      */
-    public Task GetTask(int index) {
+    public Task getTask(int index) {
         return taskList.get(index);
     }
 }
