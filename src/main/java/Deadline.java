@@ -8,4 +8,8 @@ public class Deadline extends Task {
     public String toString() {
         return "[D][" + this.getStatusIcon() + "] " + this.description + " (by: " + this.end + ")";
     }
+    public String toStorageString() {
+        int stat = this.isDone ? 1 : 0;
+        return "D|" + stat + "|" + this.description + "|" + this.end;
+    }
 }

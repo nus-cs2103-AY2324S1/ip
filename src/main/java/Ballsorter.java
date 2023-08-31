@@ -1,6 +1,10 @@
+import java.io.IOException;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
+import java.io.File;
+import java.io.FileWriter;
 
 public class Ballsorter {
 
@@ -12,6 +16,53 @@ public class Ballsorter {
         System.out.println(line);
         System.out.println("Hello! I'm Ballsorter\nWhat can I do for you?");
         System.out.println(line);
+
+        //check for storage
+        File tmpDir = new File("data/Ballsorter.txt");
+        try {
+            if (tmpDir.createNewFile()) {
+                //do nothing
+            } else {
+                Scanner sc = new Scanner(tmpDir);
+                while (sc.hasNextLine()) {
+                    String input = sc.nextLine();
+                    int stat = Integer.parseInt(input.substring(2, 3));
+                    StringBuilder desc = new StringBuilder();
+                    StringBuilder start = new StringBuilder();
+                    Task curr;
+                    if (input.charAt(0) == 'T') {
+                        curr = new Todo(input.substring(4));
+                    } else if (input.charAt(0) == 'D') {
+                        int i = 4;
+                        while (input.charAt(i) != '|') {
+                            desc.append(input.charAt(i));
+                            i++;
+                        }
+                        i++;
+                        curr = new Deadline(desc.toString(), input.substring(i));
+                    } else {
+                        int i = 4;
+                        while (input.charAt(i) != '|') {
+                            desc.append(input.charAt(i));
+                            i++;
+                        }
+                        i++;
+                        while (input.charAt(i) != '|') {
+                            start.append(input.charAt(i));
+                            i++;
+                        }
+                        i++;
+                        curr = new Event(desc.toString(), start.toString(), input.substring(i));
+                    }
+                    if (stat == 1) {
+                        curr.markDone();
+                    }
+                    tasks.add(curr);
+                }
+            }
+        } catch (IOException e) {
+            System.out.println(e);
+        }
 
         Scanner sc = new Scanner(System.in);
 
@@ -159,6 +210,17 @@ public class Ballsorter {
                     System.out.println(line);
                 }
             }
+        }
+
+        //write list to storage
+        try {
+            StringBuilder storage = new StringBuilder();
+            for (int i = 0; i < tasks.size(); i++) {
+                storage.append(String.format(tasks.get(i).toStorageString() + "%n"));
+            }
+            Files.write(tmpDir.toPath(), storage.toString().getBytes());
+        } catch (IOException e) {
+            System.out.println(e);
         }
 
         System.out.println("Bye. Hope to see you again soon!");
