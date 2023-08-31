@@ -12,13 +12,30 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.time.LocalDateTime;
 
+/**
+ * Class that manages the storing and loading of the list of task.
+ */
 public class Storage {
+    /**
+     * filePath contains the path to the stored file containing the list.
+     */
     private String filePath;
 
+    /**
+     * Constructor for the Storage class.
+     *
+     * @param filePath The path to the stored file containing the list.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
+    /**
+     * Loads the task from an existing save file.
+     *
+     * @return The list stored in the save file.
+     * @throws DukeException Invalid path.
+     */
     public ArrayList<Task> loadTasks() throws DukeException {
         ArrayList<Task> tasks = new ArrayList<>();
 
@@ -43,6 +60,12 @@ public class Storage {
         return tasks;
     }
 
+    /**
+     * Create the path to the file and the file itself if they do not exist.
+     *
+     * @param filePath Path to be created.
+     * @throws IOException
+     */
     private void createFileIfNotExist(String filePath) throws IOException {
         File file = new File(filePath);
         if (!file.exists()) {
@@ -54,7 +77,11 @@ public class Storage {
         }
     }
 
-
+    /**
+     * Updates the save file with the most current state of the list.
+     *
+     * @param tasks List of tasks to be updated into the save file.
+     */
     public void saveTasks(ArrayList<Task> tasks) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
             for (Task task : tasks) {
@@ -66,6 +93,13 @@ public class Storage {
         }
     }
 
+    /**
+     * Reads the data stored in the save file and return the corresponding Task.
+     *
+     * @param taskData Data for Task stored in the save file.
+     * @return Task representation of the String stored.
+     * @throws DukeException
+     */
     private Task parseTask(String taskData) throws DukeException {
         String[] parts = taskData.split(" \\| ");
         String taskType = parts[0];

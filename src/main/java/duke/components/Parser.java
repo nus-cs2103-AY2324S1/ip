@@ -8,7 +8,17 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Class that parses the user input.
+ */
 public class Parser {
+    /**
+     * Parses user input and returns the corresponding command.
+     * @param input User input to be parses.
+     * @return Corresponding Command based on the input.
+     * @throws DukeException
+     * @throws IOException
+     */
     public static Command parse(String input) throws DukeException, IOException {
         String[] commandInput = input.split(" ");
         String command = commandInput[0];
@@ -49,6 +59,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Further parses the input if the command is to add a new task.
+     *
+     * @param type Type of Command, Todo, Deadline or Event.
+     * @param input User input, containing details of task.
+     * @return String array containing the details of the task, parsed into the correct indexes.
+     */
     public static String[] getTask(String type, String input) {
         if (type.equals("T")) {
             return new String[] {input.substring(5)};
@@ -64,6 +81,14 @@ public class Parser {
             return new String[] {};
         }
     }
+
+    /**
+     * Further parses the input if the input contains the String for dateTime.
+     *
+     * @param dateTimeStr String of the dateTime to be converted.
+     * @return LocalDateTime object to be used to construct the Task.
+     * @throws DukeException Invalid format or input for dateTimeStr.
+     */
     public static LocalDateTime parseDateTime(String dateTimeStr) throws DukeException{
         try {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");

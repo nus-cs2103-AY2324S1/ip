@@ -6,16 +6,40 @@ import duke.components.TaskList;
 import duke.components.Ui;
 import duke.tasks.Task;
 
+/**
+ * Class of commands that modifies the existing list.
+ */
 public class ModifyCommand extends Command{
+    /**
+     * type contains the type of command.
+     *
+     * index contains the index of the list to modify.
+     *
+     * isExit contains whether to terminate the bot.
+     */
     private String type;
     private int index;
     private boolean isExit = false;
 
+    /**
+     * Constructor for ModifyCommand.
+     *
+     * @param type The type of command.
+     * @param index The index of the list to modify.
+     */
     public ModifyCommand(String type, int index) {
         this.type = type;
         this.index = index - 1;
     }
 
+    /**
+     * Executes the command based on user input.
+     *
+     * @param tasks List of tasks in taskList.
+     * @param ui Instance of the user interface.
+     * @param storage Instance of the storage.
+     * @throws DukeException Invalid input.
+     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
         try {
