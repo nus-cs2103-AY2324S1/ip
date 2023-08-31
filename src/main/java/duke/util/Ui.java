@@ -5,18 +5,18 @@ import duke.task.Task;
 import java.util.Scanner;
 
 public class Ui {
-    private Scanner sc;
+    private Scanner scanner;
     private static final String HORIZONTAL_LINE = "____________________________________________________________\n";
 
     public Ui () {
-        this.sc = new Scanner(System.in);
+        this.scanner = new Scanner(System.in);
     }
 
     public String nextCommand() {
-        if (!sc.hasNextLine()) {
+        if (!scanner.hasNextLine()) {
             return "";
         }
-        return sc.nextLine();
+        return scanner.nextLine();
     }
 
     public void printEntryMessage() {
@@ -34,9 +34,9 @@ public class Ui {
         System.out.println(exitMessage);
     }
 
-    public void printList(TaskList list) {
+    public void printList(TaskList taskList) {
         System.out.print(HORIZONTAL_LINE);
-        System.out.println(list.toString());
+        System.out.println(taskList.toString());
         System.out.println(HORIZONTAL_LINE);
     }
 
