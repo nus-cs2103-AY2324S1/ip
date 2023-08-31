@@ -28,6 +28,8 @@ public class Parser {
 
     public Matcher matchBy(String input) {
         Matcher byMatcher = byPattern.matcher(input);
+
+        byMatcher.find();
         return byMatcher;
     }
 
@@ -40,6 +42,7 @@ public class Parser {
 
     public Matcher matchFrom(String input) {
         Matcher fromMatcher = fromPattern.matcher(input);
+        fromMatcher.find();
         return fromMatcher;
     }
 
@@ -50,6 +53,7 @@ public class Parser {
 
     public Matcher matchTo(String input) {
         Matcher toMatcher = toPattern.matcher(input);
+        toMatcher.find();
         return toMatcher;
     }
 
@@ -118,15 +122,16 @@ public class Parser {
         }
 
         String taskDescription = inputSplit[1];
-
         switch (command) {
           case "todo":
+            //System.out.println("Stuff1: " + taskDescription);
             newTask = new Task('T',taskDescription);
             break;
           case "deadline":
           String[] deadlineSplit = taskDescription.split(" /by ", 2);
           LocalDate deadlineDate = dateTimeConverted(deadlineSplit[1].trim());
           if (deadlineDate != null) {
+            System.out.println("Its proper LocalDate");
             newTask = new Task('D',deadlineSplit[0].trim(), deadlineDate);
           } else {
             newTask = new Task('D',deadlineSplit[0].trim(), deadlineSplit[1].trim());

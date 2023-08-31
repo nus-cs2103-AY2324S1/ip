@@ -58,7 +58,27 @@ public class Task {
     public String toString() {
       StringBuilder sb = new StringBuilder();
       sb.append("[").append(type).append("][").append(isDone ? "X" : " ").append("]|").append(description);
-      if (dateTimeHr1 != null) {
+      
+      if (type == 'T') {
+        return sb.toString();
+      } else if (type == 'D') {
+        if (dateTimeHr1 != null) {
+          String formattedDate = dateTimeHr1.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
+          sb.append(" (by: ").append(formattedDate).append(")");
+        } else if (dateTime1 != null) {
+          sb.append(" (by: ").append(dateTime1).append(")");
+        }
+      } else if (type == 'E') {
+        if (dateTime1 != null) {
+          sb.append(" (from: ").append(dateTime1);
+          if (dateTime2 != null) {
+            sb.append(" to: ").append(dateTime2);
+          }
+          sb.append(")");
+        }
+    }
+    /*
+    if (dateTimeHr1 != null) {
         String formattedDate = dateTimeHr1.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
         sb.append(" (by: ").append(formattedDate).append(")");
       } else if (dateTime2 == null) {
@@ -70,6 +90,7 @@ public class Task {
         }
         sb.append(")");
       }
+    */
       return sb.toString();
     }
   }

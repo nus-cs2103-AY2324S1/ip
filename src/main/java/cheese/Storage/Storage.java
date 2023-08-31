@@ -24,22 +24,28 @@ public class Storage {
 
   public Storage(String filePath) {
     this.file = new File(filePath);
+    if (!this.file.exists()) {
+      try {
+        this.file.createNewFile();
+        System.out.println("File created: " + this.file.getName());
+      } catch (IOException e) {
+        System.out.println("Something went wrong: " + e.getMessage());
+      }
+    }
     this.taskList = new TaskList();
     this.parser = new Parser();
 
   }
 
   public TaskList loadTask() {
-  
     try {
       Scanner sc = new Scanner(this.file);
       while (sc.hasNextLine()) {
         String line = sc.nextLine();
-        String[] splitLine = line.split(" \\| ");
+        String[] splitLine = line.split("\\|");
         char type = splitLine[0].charAt(1);
-        boolean isDone = (splitLine[0].charAt(4) == '1');
+        boolean isDone = (splitLine[0].charAt(4) == 'X');
         String description = splitLine[1].trim();
-        
         switch (type) {
           case 'T':
           Task todo = new Task(type, description);
@@ -53,13 +59,15 @@ public class Storage {
             String deadlineInfo = parser.matchBy(description).group(1);
             String desc = description.split(" \\(")[0];
             LocalDate deadlineDate = parser.dateTimeConverted(deadlineInfo);
+            // Can be formatted as a LocalDate obj
             if (deadlineDate != null) {
+
               Task deadline = new Task(type, desc, deadlineDate);
               if (isDone) {
                 deadline.markAsDone();
               }
               this.taskList.addTask(deadline);
-            } else {
+            } else { // Cannot be formatted as a LocalDate obj
               Task deadline = new Task(type, desc, deadlineInfo);
               if (isDone) {
                 deadline.markAsDone();

@@ -1,4 +1,4 @@
-//package cheese;
+package cheese;
 
 import cheese.Ui.Ui;
 import cheese.TaskList.TaskList;
