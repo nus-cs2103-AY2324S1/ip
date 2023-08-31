@@ -1,7 +1,7 @@
-package parser;
+package duke.parser;
 
-import command.Command;
-import exceptions.DukeUnknownCommandException;
+import duke.command.Command;
+import duke.exceptions.DukeUnknownCommandException;
 
 public class Parser {
     public Command parseInput(String input) throws DukeUnknownCommandException {
@@ -26,7 +26,7 @@ public class Parser {
         } else if (command.equals("unmark")) {
             return Command.UNMARK;
         } else {
-            throw new DukeUnknownCommandException("OOPS!!! Argument for this command is invalid.");
+            throw new DukeUnknownCommandException(command);
         }
     }
 }

@@ -1,12 +1,14 @@
-import exceptions.*;
+package duke;
 
-import command.Command;
+import duke.exceptions.*;
 
-import parser.Parser;
-import storage.Storage;
+import duke.command.Command;
 
-import task.*;
-import ui.Ui;
+import duke.parser.Parser;
+import duke.storage.Storage;
+
+import duke.task.*;
+import duke.ui.Ui;
 
 import java.io.IOException;
 import java.util.Scanner;
@@ -93,7 +95,7 @@ public class Duke {
             storage.writeTasks(tasks);
             return false;
         } else if (command == Command.TODO || command == Command.DEADLINE || command == Command.EVENT) {
-            if (inputs.length == 1 || inputs[0].equals("")) {
+            if (inputs.length == 1 || inputs[1].equals("")) {
                 throw new DukeEmptyArgumentException("OOPS!!! Argument for this command is invalid.");
             }
             if (command == Command.TODO) {
@@ -147,8 +149,6 @@ public class Duke {
             }
 
             Duke.editTask(Command.UNMARK, Integer.parseInt(inputs[1]));
-        } else {
-            throw new DukeUnknownCommandException("OOPS!!! Argument for this command is invalid.");
         }
 
         return true;
