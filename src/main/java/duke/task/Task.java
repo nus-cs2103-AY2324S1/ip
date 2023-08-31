@@ -40,15 +40,19 @@ public class Task {
         }
     }
 
+    /**
+     * Shows the content of task.
+     * @return
+     */
     public String showContent() {
         return taskContent;
     }
 
+    /**
+     * Constructs the string of a task to be saved into file.
+     * @return
+     */
     public String saveToFileLine() {
         return String.format("%s | %s", status ? "1" : "0", taskContent);
-    }
-
-    public String formatDate(LocalDate date) {
-        return LocalDate.parse(date.toString()).format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
     }
 }
