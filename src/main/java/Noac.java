@@ -1,16 +1,22 @@
-
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 
 public class Noac {
 
+
+    private static final String FILE_PATH = "./data/noac.txt";
+
+
     public static void main(String[] args) {
 
         Scanner scanner = new Scanner(System.in);
 
-        ArrayList<Task> list = new ArrayList<>();
-
+        ArrayList<Task> tasks = new ArrayList<>();
 
         String logo =  " _   _  ___    _    ____\n" +
                 "| \\ | |/ _ \\  / \\  / ___|\n" +
@@ -20,6 +26,17 @@ public class Noac {
         System.out.println("Hello from\n" + logo);
 
 
+        try {
+            tasks = Noac.loadFromFile();
+
+        } catch (NoacException e) {
+            System.out.println("    ____________________________________________________________");
+            System.out.println("    " + e.getMessage());
+            System.out.println("    ____________________________________________________________");
+
+        }
+
+
         String welcomeMessage = "    ____________________________________________________________\n" +
                 "     Hello! I'm NOAC\n" +
                 "     What can I do for you?\n" +
@@ -27,8 +44,9 @@ public class Noac {
 
         System.out.println(welcomeMessage);
 
-
         String userInput = scanner.nextLine();
+
+        boolean didListChange = false;
 
         while (!userInput.equals("bye")) {
 
@@ -40,8 +58,8 @@ public class Noac {
                     case "list":
                         System.out.println("    ____________________________________________________________");
                         System.out.println("     Here are the tasks in your list:");
-                        for (int i = 1; i <= list.size(); i++) {
-                            System.out.println("     " + i + "." + list.get(i-1).toString());
+                        for (int i = 1; i <= tasks.size(); i++) {
+                            System.out.println("     " + i + "." + tasks.get(i-1).toString());
                         }
                         System.out.println("    ____________________________________________________________");
 
@@ -50,24 +68,26 @@ public class Noac {
                     case "mark": case "unmark":
                         String[] temp = userInput.split(" ");
 
-                        if(checkValidMarkInput(userInput, list.size())){
+                        if(checkValidMarkInput(userInput, tasks.size())){
 
                             int taskNo = Integer.parseInt(temp[1]);
 
                             System.out.println("    ____________________________________________________________");
 
                             if (command.equals("mark")) {
-                                list.get(taskNo - 1).markAsDone();
+                                tasks.get(taskNo - 1).markAsDone();
+                                didListChange = true;
 
                                 System.out.println("     Nice! I've marked this task as done:");
 
                             } else {
-                                list.get(taskNo - 1).unmarkAsDone();
+                                tasks.get(taskNo - 1).unmarkAsDone();
+                                didListChange = true;
 
                                 System.out.println("     OK, I've marked this task as not done yet:");
 
                             }
-                            System.out.println("       " + list.get(taskNo-1).toString());
+                            System.out.println("       " + tasks.get(taskNo-1).toString());
                             System.out.println("    ____________________________________________________________");
 
 
@@ -87,12 +107,14 @@ public class Noac {
 
                             Todo t = new Todo(description);
 
-                            list.add(t);
+                            tasks.add(t);
+                            didListChange = true;
+
 
                             System.out.println("    ____________________________________________________________");
                             System.out.println("     Got it. I've added this task:");
                             System.out.println("       " + t.toString());
-                            System.out.println("     Now you have " + list.size() + " tasks in the list.");
+                            System.out.println("     Now you have " + tasks.size() + " tasks in the list.");
                             System.out.println("    ____________________________________________________________");
 
 
@@ -142,12 +164,14 @@ public class Noac {
 
                         Deadline d = new Deadline(description, by);
 
-                        list.add(d);
+                        tasks.add(d);
+                        didListChange = true;
+
 
                         System.out.println("    ____________________________________________________________");
                         System.out.println("     Got it. I've added this task:");
                         System.out.println("       " + d.toString());
-                        System.out.println("     Now you have " + list.size() + " tasks in the list.");
+                        System.out.println("     Now you have " + tasks.size() + " tasks in the list.");
                         System.out.println("    ____________________________________________________________");
 
 
@@ -199,12 +223,14 @@ public class Noac {
 
                         Event e = new Event(descript, from, to);
 
-                        list.add(e);
+                        tasks.add(e);
+                        didListChange = true;
+
 
                         System.out.println("    ____________________________________________________________");
                         System.out.println("     Got it. I've added this task:");
                         System.out.println("       " + e.toString());
-                        System.out.println("     Now you have " + list.size() + " tasks in the list.");
+                        System.out.println("     Now you have " + tasks.size() + " tasks in the list.");
                         System.out.println("    ____________________________________________________________");
 
 
@@ -214,15 +240,18 @@ public class Noac {
 
                     case "delete":
 
-                        if(checkValidDeleteInput(userInput, list.size())) {
+                        if(checkValidDeleteInput(userInput, tasks.size())) {
 
                             int taskNo = Integer.parseInt(userInputArr[1]);
 
                             System.out.println("    ____________________________________________________________");
                             System.out.println("     Noted. I've removed this task:");
-                            System.out.println("       " + list.get(taskNo-1).toString());
-                            list.remove(taskNo-1);
-                            System.out.println("     Now you have " + list.size() + " tasks in the list.");
+                            System.out.println("       " + tasks.get(taskNo-1).toString());
+
+                            tasks.remove(taskNo-1);
+                            didListChange = true;
+
+                            System.out.println("     Now you have " + tasks.size() + " tasks in the list.");
                             System.out.println("    ____________________________________________________________");
 
 
@@ -243,6 +272,12 @@ public class Noac {
 
             }
 
+
+            if(didListChange) {
+                printToFile(tasks);
+            }
+
+            didListChange = false;
 
 
             userInput = scanner.nextLine();
@@ -293,6 +328,103 @@ public class Noac {
         return true;
     }
 
+
+    private static void printToFile(ArrayList<Task> tasks){
+        try {
+            FileWriter fileWriter = new FileWriter(FILE_PATH);
+            BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+
+            for(int i = 0; i < tasks.size(); i++) {
+                bufferedWriter.write(tasks.get(i).printToFile() + "\n");
+
+            }
+
+            bufferedWriter.close();
+
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+
+
+    }
+
+    private static ArrayList<Task> loadFromFile() throws NoacException {
+
+        ArrayList<Task> returnList = new ArrayList<>();
+
+        try {
+            File file = new File(FILE_PATH);
+            file.getParentFile().mkdirs();
+            if (!file.createNewFile()) {
+                Scanner scanner = new Scanner(file);
+                while(scanner.hasNextLine()){
+                    String[] fileLineInput = scanner.nextLine().split("\\|");
+
+                    String taskType = fileLineInput[0];
+
+                    switch (taskType){
+                    case "T":
+                        if (fileLineInput.length != 3) {
+                            throw new NoacException("☹ OOPS!!! Corrupted Save file");
+                        }
+
+                        Todo todo = new Todo(fileLineInput[2]);
+                        if(fileLineInput[1].equals("1")) {
+                            todo.markAsDone();
+                        }
+
+                        returnList.add(todo);
+
+                        break;
+
+                    case "D":
+                        if (fileLineInput.length != 4) {
+                            throw new NoacException("☹ OOPS!!! Corrupted Save file");
+                        }
+
+                        Deadline deadline = new Deadline(fileLineInput[2], fileLineInput[3]);
+                        if(fileLineInput[1].equals("1")) {
+                            deadline.markAsDone();
+                        }
+
+                        returnList.add(deadline);
+
+                        break;
+
+                    case "E":
+                        if (fileLineInput.length != 5) {
+                            throw new NoacException("☹ OOPS!!! Corrupted Save file");
+                        }
+
+                        Event event = new Event(fileLineInput[2], fileLineInput[3], fileLineInput[4]);
+                        if(fileLineInput[1].equals("1")) {
+                            event.markAsDone();
+                        }
+
+                        returnList.add(event);
+
+                        break;
+
+                    default:
+                        throw new NoacException("☹ OOPS!!! Corrupted Save file");
+
+
+                    }
+
+
+
+                }
+            }
+        } catch (IOException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+        }
+
+        return returnList;
+
+    }
 
 
 }

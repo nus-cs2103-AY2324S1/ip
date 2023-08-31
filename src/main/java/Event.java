@@ -13,4 +13,10 @@ public class Event extends Task {
     public String toString() {
         return "[E]" + super.toString() + " (from: " + this.from + " to: " + this.to  + ")";
     }
+
+
+    @Override
+    public String printToFile() {
+        return "T|" + super.printToFile() + "|" + this.from + "|" + this.to;
+    }
 }
