@@ -38,8 +38,10 @@ public class Task {
     }
 
     String getDescription() {
-        return toString();
+        return "Task";
     }
+
+
 
     public String statusAndTask() {
         return "[Task]" + statusString() + " " + this.taskName;

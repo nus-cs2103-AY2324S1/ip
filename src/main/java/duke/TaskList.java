@@ -4,9 +4,9 @@ import exceptions.EmptyTaskException;
 import exceptions.EmptyDateException;
 import exceptions.OutOfRangeException;
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.concurrent.Future;
 
 public class TaskList {
     private static ArrayList<Task> taskArray;
@@ -126,6 +126,27 @@ public class TaskList {
         } catch (IOException e) {
             System.out.println("Something went wrong while updating the task file: " + e.getMessage());
         }
+    }
+
+    public String find(String userInput) throws EmptyTaskException {
+        if (userInput.equals("find")) {
+            throw new EmptyTaskException("find");
+        }
+        String[] parts = userInput.split("\\s+");
+        String keyword = parts[1];
+        ArrayList<Task> foundTasks = new ArrayList<>();
+        for (Task task : taskArray) {
+            if (task.getName().contains(keyword)) {
+                foundTasks.add(task);
+            }
+        }
+        String foundTasksString = "";
+        int num = 1;
+        for (Task task : foundTasks) {
+            foundTasksString += num + ". " + task.statusAndTask() + "\n";
+            num++;
+        }
+        return foundTasksString;
     }
 
     public Task getTask(int i) {
