@@ -15,13 +15,22 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Handles access to the storage, both read and write.
+ */
 public class Storage {
+    /**
+     * Thrown when the file is found to be corrupted, and data cannot be read properly.
+     */
     public class FileCorruptedException extends Exception {
         public FileCorruptedException() {
             super();
         }
     }
 
+    /**
+     * Thrown where there is an IO error.
+     */
     public class FileIOException extends IOException {
         public FileIOException() {
             super();
@@ -30,10 +39,20 @@ public class Storage {
 
     private String fileName;
 
+    /**
+     * Instantiates a storage that monitors a file with the given file name.
+     * @param fileName the file name to monitor
+     */
     public Storage(String fileName) {
         this.fileName = fileName;
     }
 
+    /**
+     * Reads data from disk and return a list of task recorded.
+     * @return the list of task in order
+     * @throws FileCorruptedException when file is corrupted
+     * @throws FileIOException when there is an IO error
+     */
     public ArrayList<Task> readFromDisk() throws FileCorruptedException, FileIOException {
         File f = new File(this.fileName);
         try {
@@ -105,6 +124,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Save data to disk
+     * @param data the data to save
+     * @throws FileIOException when there is an IO error
+     */
     public void saveData(String data) throws FileIOException {
         try {
             FileWriter writer = new FileWriter(this.fileName);

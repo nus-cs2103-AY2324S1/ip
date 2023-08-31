@@ -5,13 +5,18 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
+/**
+ * Contains methods to deal with datetime,
+ * including methods to convert java date and time to readable string and string for storage,
+ * and vice versa.
+ */
 public class DateTimeManager {
     public static class DateParseException extends Exception {
         private DateParseException() {}
     }
 
     /**
-     * Transform a String input of datetime to a LocalDateTime instance.
+     * Transforms a String input of datetime to a LocalDateTime instance.
      * The string must be in the format "dd/mm/yyyy hh:mm"
      * @param input the input string
      * @return the LocalDateTime object that corresponds to the input string
@@ -30,7 +35,7 @@ public class DateTimeManager {
     }
 
     /**
-     * Parse the string and return a LocalDate instance.
+     * Parses the string and return a LocalDate instance.
      * @param input the raw string
      * @return the LocalDate instance that corresponds to the input
      * @throws DateParseException when the input string cannot be parsed properly
@@ -68,7 +73,7 @@ public class DateTimeManager {
     }
 
     /**
-     * Read the given input indicating a time and return a LocalTime instance.
+     * Reads the given input indicating a time and return a LocalTime instance.
      * @param input the raw input string
      * @return the LocalTime instance that corresponds to the string
      * @throws DateParseException when the string cannot be parsed properly to interpret a time
@@ -119,26 +124,51 @@ public class DateTimeManager {
         }
     }
 
+    /**
+     * Converts the given datetime to string for storage
+     * @param dateTime the instance of LocalDateTime to convert
+     * @return the string containing the data of the datetime
+     */
     public static String dateToStringData(LocalDateTime dateTime) {
         return DateTimeManager.dateToStringData(dateTime.toLocalDate()) + " "
                 + DateTimeManager.timeDataFrom(dateTime.toLocalTime());
     }
 
+    /**
+     * Converts the given date to string data for storage.
+     * @param date the instance of LocalDate to convert
+     * @return the string containing data of the date
+     */
     public static String dateToStringData(LocalDate date) {
         return date.getDayOfMonth() + "/"
                 + date.getMonthValue() + "/"
                 + date.getYear();
     }
 
+    /**
+     * Converts the given time to string data for storage.
+     * @param time the instance of LocalTime to convert
+     * @return the string containing the data of the time
+     */
     public static String timeDataFrom(LocalTime time) {
         return time.getHour() + ":" + time.getMinute();
     }
 
+    /**
+     * Converts a datetime to readable form, for display in UI.
+     * @param dateTime the instance of LocalDateTime to display
+     * @return the string representing the datetime to be displayed
+     */
     public static String dateToDisplay(LocalDateTime dateTime) {
         return DateTimeManager.dateToDisplay(dateTime.toLocalDate()) + " "
                 + DateTimeManager.timeDisplayFrom(dateTime.toLocalTime());
     }
 
+    /**
+     * Converts the date given to readable form, for display in UI.
+     * @param date the instance of LocalDate to display
+     * @return the string representing the date to be displayed
+     */
     public static String dateToDisplay(LocalDate date) {
         if (date.equals(LocalDate.now())) {
             return "today";
@@ -149,6 +179,11 @@ public class DateTimeManager {
         }
     }
 
+    /**
+     * Converts the time to readable form, for display in UI.
+     * @param time the instance of LocalTime to convert
+     * @return the string representing the time to be displayed
+     */
     public static String timeDisplayFrom(LocalTime time) {
         if (time.getHour() < 12) {
             return (time.getHour() == 0
