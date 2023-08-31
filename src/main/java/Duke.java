@@ -118,6 +118,48 @@ public class Duke {
             System.out.printf("\n     Now you have %d tasks in the list.\n", size);
         }
 
+        public void load() {
+            try (BufferedReader reader = new BufferedReader(new FileReader("data/duke.txt"))) {
+
+                File file = new File("data/duke.txt");
+                if (!file.exists()) {
+                    file.createNewFile();
+                }
+                FileReader fileReader = new FileReader(file); // append mode
+                BufferedReader bufferedReader = new BufferedReader(fileReader);
+
+                String line;
+
+                while ((line = reader.readLine()) != null) {
+                    // Assuming your line contains comma-separated values
+                    String[] values = line.split("\\|");
+                    // Create your Java object based on the parsed values
+                    Duke.TaskType type = Objects.equals(values[0], "T")
+                            ? TaskType.TODO
+                            : Objects.equals(values[0], "D")
+                            ? TaskType.DEADLINE
+                            : TaskType.EVENT;
+                    String start = "", end = "";
+                    try {
+                        start = values[3];
+                    } catch (Exception e) {
+                        start = "";
+                    }
+                    try {
+                        end = values[4];
+                    } catch (Exception e) {
+                        end = "";
+                    }
+                    Task obj = new Task(values[2], type, start, end); // Instantiate with appropriate arguments
+                    obj.marking(!Objects.equals(values[1], "0"));
+                    // Store the object in your storage instance
+                    addList(obj);
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
         public void listPrinter() {
             for (int i = 0; i < this.taskList.size(); i++) {
                 int index = i + 1;
@@ -161,12 +203,19 @@ public class Duke {
     }
 
     //function to retrieve string that the user input
-    public static String getInput() {
-        Scanner scanner = new Scanner(System.in);
-        //to mimic chatBot
-        System.out.print(" ");
-        return scanner.nextLine();
+    public static class Parser {
+        Scanner scanner;
+        public Parser() {
+            this.scanner = new Scanner(System.in);
+        }
+        public  String getInput() {
+            Scanner scanner = this.scanner;
+            //to mimic chatBot
+            System.out.print(" ");
+            return scanner.nextLine();
+        }
     }
+
 
     public static void main(String[] args) {
 
@@ -178,52 +227,15 @@ public class Duke {
         String noCommandError = "     ☹ OOPS!!! I'm sorry, but I don't know what that means :-(";
         // initialise
         Storage storage = new Storage();
+        Parser parser = new Parser();
         // read from txt file and create tasks and put into storage
-        try (BufferedReader reader = new BufferedReader(new FileReader("data/duke.txt"))) {
-
-            File file = new File("data/duke.txt");
-            if (!file.exists()) {
-                file.createNewFile();
-            }
-            FileReader fileReader = new FileReader(file); // append mode
-            BufferedReader bufferedReader = new BufferedReader(fileReader);
-
-            String line;
-
-            while ((line = reader.readLine()) != null) {
-                // Assuming your line contains comma-separated values
-                String[] values = line.split("\\|");
-                // Create your Java object based on the parsed values
-                Duke.TaskType type = Objects.equals(values[0], "T")
-                        ? TaskType.TODO
-                        : Objects.equals(values[0], "D")
-                        ? TaskType.DEADLINE
-                        : TaskType.EVENT;
-                String start = "", end = "";
-                try {
-                    start = values[3];
-                } catch (Exception e) {
-                    start = "";
-                }
-                try {
-                    end = values[4];
-                } catch (Exception e) {
-                    end = "";
-                }
-                Task obj = new Task(values[2], type, start, end); // Instantiate with appropriate arguments
-                obj.marking(!Objects.equals(values[1], "0"));
-                // Store the object in your storage instance
-                storage.addList(obj);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        storage.load();
         System.out.println(horizontalLine);
         System.out.println(intro);
         System.out.println(horizontalLine);
 
         while (true) {
-            String input = getInput();
+            String input = parser.getInput();
             String[] parts = input.split(" ");
             switch (parts[0]) {
                 case "bye":
