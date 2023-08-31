@@ -2,7 +2,7 @@ package duke.exceptions;
 
 public class DukeException extends Exception {
 	/**
-	 * Constructor for DukeException
+	 * Constructor
 	 *
 	 * @param message the message to be displayed
 	 */

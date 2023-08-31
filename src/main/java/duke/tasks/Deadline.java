@@ -4,7 +4,10 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class Deadline extends Task {
-	private LocalDateTime deadline;
+	/**
+	 * The time of the deadline
+	 */
+	private final LocalDateTime deadline;
 
 	/**
 	 * Constructor for Deadline
@@ -30,16 +33,21 @@ public class Deadline extends Task {
 	}
 
 	/**
-	 * The string representation of the task.
+	 * Returns the time of the deadline
 	 *
-	 * @return The string representation
-	 **/
+	 * @return the time of the deadline
+	 */
 	@Override
 	public String toString() {
 		return "[D] " + super.toString()
 						+ " (by: " + this.deadline.format(DateTimeFormatter.ofPattern("MMM d yyyy hh:mm a")) + ")";
 	}
 
+	/**
+	 * Returns the time of the deadline
+	 *
+	 * @return the time of the deadline
+	 */
 	public String toFile() {
 		return "D" + super.toFile() + " | " + this.deadline.format(DateTimeFormatter.ofPattern("MMM d yyyy hh:mm a"));
 	}

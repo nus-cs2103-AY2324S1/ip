@@ -5,10 +5,14 @@ import duke.commands.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.util.Date;
-import java.util.Locale;
 
 public class Parser {
+	/**
+	 * Parses the query and returns the corresponding command
+	 *
+	 * @param query the query
+	 * @return the corresponding command
+	 */
 	public static Command parse(String query) {
 
 		String[] split = query.split(" ", 2);
@@ -45,6 +49,12 @@ public class Parser {
 		return command;
 	}
 
+	/**
+	 * Validates the mark command
+	 *
+	 * @param split the split query
+	 * @return the corresponding command
+	 */
 	private static Command validateMark(String[] split) {
 		if (split.length == 1) {
 			return new IncorrectCommand("☹ OOPS!!! You are missing a number\n" +
@@ -70,6 +80,12 @@ public class Parser {
 		return new MarkCommand(index, split[0]);
 	}
 
+	/**
+	 * Validates the delete command
+	 *
+	 * @param split the split query
+	 * @return the corresponding command
+	 */
 	public static Command validateDelete(String[] split) {
 
 		if (split.length == 1) {
@@ -95,6 +111,12 @@ public class Parser {
 		return new DeleteCommand(index);
 	}
 
+	/**
+	 * Validates the task command
+	 *
+	 * @param split the split query
+	 * @return the corresponding command
+	 */
 	public static Command validateTask(String[] split) {
 		if (split.length == 1) {
 			return new IncorrectCommand("☹ OOPS!!! The description of a " + split[0] + " cannot be empty.");
@@ -172,6 +194,12 @@ public class Parser {
 		}
 	}
 
+	/**
+	 * Validates the list command
+	 *
+	 * @param split the split query
+	 * @return the corresponding command
+	 */
 	public static Command validateList(String[] split) {
 		if (split.length != 1) {
 			return new IncorrectCommand("☹ OOPS!!! Please enter a valid command - list");
@@ -179,6 +207,12 @@ public class Parser {
 		return new ListCommand();
 	}
 
+	/**
+	 * Validates the exit command
+	 *
+	 * @param split the split query
+	 * @return the corresponding command
+	 */
 	public static Command validateExit(String[] split) {
 		if (split.length != 1) {
 			return new IncorrectCommand("☹ OOPS!!! Please enter a valid command - bye");
@@ -186,6 +220,12 @@ public class Parser {
 		return new ExitCommand();
 	}
 
+	/**
+	 * Validates the help command
+	 *
+	 * @param split the split query
+	 * @return the corresponding command
+	 */
 	public static Command validateHelp(String[] split) {
 		if (split.length != 1) {
 			return new IncorrectCommand("☹ OOPS!!! Please enter a valid command - help");
@@ -193,6 +233,12 @@ public class Parser {
 		return new HelpCommand();
 	}
 
+	/**
+	 * Checks if the string is numeric
+	 *
+	 * @param str the string
+	 * @return true if the string is numeric
+	 */
 	static boolean isNumeric(String str) {
 		if (str == null) {
 			return false;
