@@ -10,7 +10,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 public class Jarvis {
-    private static ArrayList<Task> taskList = new ArrayList<>(); // list of Tasks
+    private static TaskList tasks;
     private static ArrayList<String> validCommands = new ArrayList<>(); // list of valid commands
 
     private static void addValidCommands() {
@@ -47,17 +47,6 @@ public class Jarvis {
         System.out.println(line);
     }
 
-    private static void printList() {
-        System.out.println(line);
-        System.out.println(listInforming);
-        for (int i = 0; i < taskList.size(); i++) { // listing out the current task
-            int count = i + 1;
-            Task currentTask = taskList.get(i);
-            System.out.println(count + "." + currentTask.toString());
-        }
-        System.out.println(line);
-    }
-
     private static void printMark(Task currentTask) {
         System.out.println(line);
         System.out.println(markInforming);
@@ -69,22 +58,6 @@ public class Jarvis {
         System.out.println(line);
         System.out.println(uncheckInforming);
         System.out.println(currentTask.toString());
-        System.out.println(line);
-    }
-
-    private static void printTask(Task currentTask) {
-        System.out.println(line);
-        System.out.println(taskInforming);
-        System.out.println(currentTask.toString());
-        System.out.println("You have now " + taskList.size() + " tasks in the list Sir.");
-        System.out.println(line);
-    }
-
-    private static void printDelete(Task currentTask) {
-        System.out.println(line);
-        System.out.println(deleteInforming);
-        System.out.println(currentTask.toString());
-        System.out.println("You have now " + taskList.size() + " tasks in the list Sir.");
         System.out.println(line);
     }
 
@@ -191,23 +164,6 @@ public class Jarvis {
         return validInputCommand;
     }
 
-    // function check if task number is valid and throws InvalidTaskNumberException
-    private static boolean isValidTaskNumber(int taskNum) {
-        boolean isValid = true;
-        if (taskNum < 0 || taskNum > taskList.size()) { // check if task number is of valid range
-            try {
-                throw new InvalidTaskNumberException("Apologies Sir, the task number you provided is out of range.");
-            } catch (InvalidTaskNumberException e) {
-                System.out.println(line);
-                System.out.println(e.getMessage());
-                System.out.println("    There are currently " + taskList.size() + " tasks in the list.");
-                System.out.println(line);
-                isValid = false;
-            }
-        }
-        return isValid;
-    }
-
     // delete contents in data.txt and return empty data.txt
     private static File deleteContentsDataFile(File dataFile) {
         try (FileWriter writer = new FileWriter(dataFile)) {
@@ -221,8 +177,8 @@ public class Jarvis {
 
     // write tasks toString() to data.txt
     private static void writeTaskListToDataFile(File dataFile) {
-        for (int i = 0; i < taskList.size(); i++) { // writing the string of each task to the data file
-            Task currentTask = taskList.get(i);
+        for (int i = 0; i < tasks.countTask(); i++) { // writing the string of each task to the data file
+            Task currentTask = tasks.getTask(i);
             try (FileWriter dataFileWriter = new FileWriter(dataFile, true)) {
                 dataFileWriter.write(currentTask.toString() + "\n");
             } catch (IOException e) {
@@ -252,6 +208,7 @@ public class Jarvis {
         Pattern eventPattern = Pattern.compile("(event) (.+) /from (.+) /to (.+)");
         Pattern deletePattern = Pattern.compile("(delete) (\\d+)");
 
+        tasks = new TaskList();
         Scanner scanner = new Scanner(System.in);
         while (true) {
             String command = scanner.nextLine().trim();
@@ -263,7 +220,7 @@ public class Jarvis {
             Matcher deleteMatcher = deletePattern.matcher(command);
 
             if (command.matches("list")) { // if "list" is entered
-                printList();
+                tasks.printTaskList();
 
             } else if (command.matches("bye")) { // if "bye" is entered
                 printBye();
@@ -273,9 +230,9 @@ public class Jarvis {
                     command.matches("uncheck \\d+")) { // if "mark" or "uncheck" is entered
 
                 int taskNum = Integer.parseInt(command.substring(command.length() - 1));
-                if (!isValidTaskNumber(taskNum)) {continue;}
+                if (!tasks.isValidTaskNumber(taskNum)) {continue;}
 
-                Task currentTask = taskList.get(taskNum - 1);
+                Task currentTask = tasks.getTask(taskNum - 1);
                 if (command.matches("uncheck \\d+")) { // if "uncheck" is entered
                     currentTask.setDone(false);
                     printUncheck(currentTask);
@@ -306,15 +263,15 @@ public class Jarvis {
                     newTask = new Event(taskDescription, from, to);
 
                 }
-                taskList.add(newTask);
-                printTask(newTask);
+                tasks.appendTask(newTask);
+                tasks.printTask(newTask);
 
             } else if (deleteMatcher.matches()) { // if delete is entered
                 int taskNum = Integer.parseInt(deleteMatcher.group(2));
-                if (isValidTaskNumber(taskNum)) {
-                    Task deletedTask = taskList.get(taskNum - 1);
-                    taskList.remove(taskNum - 1);
-                    printDelete(deletedTask);
+                if (tasks.isValidTaskNumber(taskNum)) {
+                    Task deletedTask = tasks.getTask(taskNum - 1);
+                    tasks.deleteTask(taskNum - 1);
+                    tasks.printDelete(deletedTask);
                 }
             }
 
