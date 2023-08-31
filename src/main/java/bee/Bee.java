@@ -8,6 +8,7 @@ public class Bee {
     private Ui ui;
 
     private static final String DATA_FILE_PATH = "./data/bee.txt";
+
     public Bee(String filePath) {
         try {
             ui = new Ui();
@@ -18,6 +19,7 @@ public class Bee {
             tasks = new TaskList();
         }
     }
+
     public void run() {
         ui.greet();
         Scanner scanner = new Scanner(System.in);

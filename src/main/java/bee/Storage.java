@@ -8,17 +8,26 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Handles the storage of tasks in a file and loading tasks from the file.
+ */
 public class Storage {
 
     private TaskList tasks = new TaskList();
-
     private String filePath = "";
+
+    /**
+     * Constructs a Storage object with the specified file path.
+     *
+     * @param filePath The path of the storage file.
+     * @throws BeeException If there is an issue with file initialization.
+     */
     public Storage(String filePath) throws BeeException {
         this.filePath = filePath;
     }
 
     // Parse string information from file into task
-    private void parseTask(String taskData) throws BeeException{
+    private void parseTask(String taskData) throws BeeException {
         String[] taskDataSplit = taskData.split("]");
         String taskType = taskDataSplit[0].substring(1);
         Boolean isDone = taskDataSplit[1].substring(1).equals("X");
@@ -67,7 +76,10 @@ public class Storage {
                 break;
         }
     }
-    // Save tasks to file
+
+    /**
+     * Saves the tasks to the storage file.
+     */
     public void saveTasksToFile() {
         try {
             File file = new File(this.filePath);
@@ -82,7 +94,12 @@ public class Storage {
         }
     }
 
-    // Load tasks from file
+    /**
+     * Loads tasks from the storage file.
+     *
+     * @return The list of loaded tasks.
+     * @throws BeeException If there is an issue loading tasks from the file.
+     */
     public ArrayList<Task> loadTasksFromFile() throws BeeException {
         try {
             File file = new File(filePath);

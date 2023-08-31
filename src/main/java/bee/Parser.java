@@ -1,15 +1,33 @@
 package bee;
 
+/**
+ * Parses user commands and executes corresponding actions.
+ */
 public class Parser {
 
+    /**
+     * Enumerates the possible task classes.
+     */
     enum TaskClass {
         TODO, DEADLINE, EVENT
     }
 
+    /**
+     * Enumerates the possible task actions.
+     */
     enum TaskAction {
         MARK, UNMARK, DELETE
     }
 
+    /**
+     * Parses and executes user commands.
+     *
+     * @param userInput The user's input command.
+     * @param tasks The task list.
+     * @param storage The storage to save tasks.
+     * @param ui The user interface to display messages.
+     * @return True if the program should continue running, false otherwise.
+     */
     public static boolean parseUserCommand(String userInput, TaskList tasks, Storage storage, Ui ui) {
         String[] splitInput = userInput.split(" ");
         String command = splitInput[0].toLowerCase();
@@ -41,7 +59,6 @@ public class Parser {
                     break;
                 default:
                     throw new BeeException("Sorry, you need to use a command!");
-
             }
         } catch (BeeException e) {
             System.out.println(e.toString());
