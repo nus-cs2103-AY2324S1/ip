@@ -11,7 +11,7 @@ public class AddCommand extends Command {
     }
 
     public void execute(Storage storage, ArrayList<Task> tasks) {
-        String[] words = type.split(" ");
+        String[] words = fullCommand.split(" ");
 
         try {
             int startIndex;
@@ -70,15 +70,6 @@ public class AddCommand extends Command {
                     }
                     tasks.add(newTask);
                     break;
-
-                default:
-                    try {
-                        throw(new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-("));
-                    } catch (DukeException invalidCommand) {
-                        System.out.println(invalidCommand.getMessage());
-                        Ui.printLine();
-                        return;
-                    }
             }
 
             System.out.println("Got it. I've added this task:");

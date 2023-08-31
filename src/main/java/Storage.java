@@ -28,9 +28,8 @@ public class Storage {
     public void writeToFile(ArrayList<Task> tasks) throws IOException {
         // create data folder if it does not exist
         File file = new File(this.filepath);
-        System.out.println(System.getProperty("user.dir"));
+//        System.out.println(System.getProperty("user.dir"));
         if (!file.getParentFile().exists()) {
-            System.out.println("FILE does not exists");
             file.getParentFile().mkdir();
         }
 

@@ -1,11 +1,6 @@
 public class Parser {
-    private String fullCommand;
 
-    public Parser(String fullCommand) {
-        this.fullCommand = fullCommand;
-    }
-
-    public Command parse() {
+    public Command parse(String fullCommand) {
         String[] words = fullCommand.split(" ");
         String command = fullCommand;
         if (words.length > 1) {
@@ -59,7 +54,13 @@ public class Parser {
                 }
 
             default:
-                return null;
+                try {
+                    throw(new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-("));
+                } catch (DukeException invalidCommand) {
+                    System.out.println(invalidCommand.getMessage());
+                    Ui.printLine();
+                    return null;
+                }
         }
     }
 }

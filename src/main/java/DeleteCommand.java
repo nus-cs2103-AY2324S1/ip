@@ -10,12 +10,13 @@ public class DeleteCommand extends Command {
     @Override
     public void execute(Storage storage, ArrayList<Task> tasks) {
         try {
+            Task task = tasks.get(taskNumber - 1);
             System.out.println("Noted. I've removed this task:");
-            System.out.println(tasks.get(taskNumber - 1));
+            System.out.println(task);
             tasks.remove(this.taskNumber-1);
             Ui.printLine();
         } catch (IndexOutOfBoundsException | NumberFormatException e) {
-            System.out.println("The selected task does not exist.");
+            System.out.println("The selected task does not exist");
             Ui.printLine();
         }
     }

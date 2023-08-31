@@ -15,7 +15,7 @@ public class MarkCommand extends Command {
             System.out.println(tasks.get(taskNumber - 1));
             Ui.printLine();
         } catch (IndexOutOfBoundsException | NumberFormatException e) {
-            System.out.println("The selected task does not exist.");
+            System.out.println("The selected task does not exist");
             Ui.printLine();
         }
     }
