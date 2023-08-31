@@ -1,11 +1,17 @@
+import java.io.IOException;
 import java.util.Collections;
 import java.util.Scanner;
-import java.util.List;
 import java.util.ArrayList;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.Files;
+import java.io.BufferedWriter;
+import java.io.BufferedReader;
 
 public class Thea {
 
-    public static void main(String[] args) throws WrongCommandException, EmptyDescriptionException, IndexOutOfBoundsException {
+    public static void main(String[] args) throws Exception {
+        readfile();
         Scanner input = new Scanner(System.in);
         ArrayList<Task> tasks =  new ArrayList<>();
         greet();
@@ -77,6 +83,22 @@ public class Thea {
             }
             userInput = input.nextLine();
         }
+    }
+
+    public static void readfile() {
+        String currentDir = System.getProperty("user.dir");
+        Path path = Paths.get(currentDir, "data", "thea.txt");
+        String line;
+        try (BufferedReader bufferReader = Files.newBufferedReader(path)) {
+            line = bufferReader.readLine();
+            while (line != null) {
+                System.out.println(line);
+                line = bufferReader.readLine();
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
     }
     public static void greet() {
         System.out.println("Hello! I'm Thea •ᴗ•\nHow can I help you?");
