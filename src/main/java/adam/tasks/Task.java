@@ -7,26 +7,22 @@ import java.io.Serializable;
  * This class holds information such as the description of the task and whether or not someone has completed it
  */
 public class Task implements Serializable {
-    /**
-     * This variable holds the information on what the task is
-     */
     protected String description;
-    /**
-     * This boolean is to indicate whether this task is complete or not
-     */
     protected boolean isDone;
 
     /**
-     * This is a constructor to create a Tasks.Task object
-     * @param description This param gives the description of the task
+     * Initializes the deacription and the completion of the task.
+     *
+     * @param description Describe the task.
      */
     public Task(String description) {
         this.description = description;
         this.isDone = false;
     }
     /**
-     * This is a toString method that has been Override to better suit the display of this class
-     * @return The string form and information about this task
+     * Returns the strung form of the Tasks.
+     *
+     * @return The string form and information about this task.
      */
     @Override
     public String toString(){
@@ -34,15 +30,16 @@ public class Task implements Serializable {
     }
 
     /**
-     * This method is used to return a String representing whether or not this task has been completed
-     * @return A bracket that contains X or empty space depending on whther it is done or not
+     * Returns an X when a task is complete and empty space when it is not.
+     *
+     * @return String for its completion status.
      */
     public String getStatusIcon() {
         return (isDone ? "X" : " "); // mark done task with X
     }
 
     /**
-     * This method is used to declare that this instance of a Tasks.Task has been completed
+     * Completes this task.
      */
     public void markAsDone() {
         this.isDone = true;
@@ -50,7 +47,7 @@ public class Task implements Serializable {
     }
 
     /**
-     * This method is used to declare that this instance of a Tasks.Task has been uncompleted
+     * Unmarks the task as incomplete.
      */
     public void unmarkAsDone(){
         this.isDone = false;

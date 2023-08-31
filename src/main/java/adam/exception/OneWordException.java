@@ -1,21 +1,10 @@
 package adam.exception;
 
 /**
- * This adam.exception is a subclass of the Exception.AdamException and is used whena user input something after inputing
- * the one word adam.command like list and bye
+ * This exception is for when you typed in bye and list and follow up those commands with something else.
  */
 public class OneWordException extends AdamException {
-    public OneWordException(){}
-    public OneWordException(String message){
-        super(message);
-    }
-    public OneWordException(Throwable cause){
-        super(cause);
-    }
-
-    public OneWordException(String message, Throwable cause){
-        super(message,cause);
-    }
+    @Override
     public String getInfo() {
         return "OOPS!!! Type in the first word you just entered";
     }

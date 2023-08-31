@@ -4,7 +4,17 @@ import adam.command.AddCommand;
 import adam.command.EditCommand;
 import adam.command.SingleCommand;
 import adam.exception.AdamException;
+
+/**
+ * This class is used to parse the user input and make sense of it.
+ */
 public class Parser {
+    /**
+     * Returns a Command object that specifies what kind of command the user inputs.
+     *
+     * @param li User input.
+     * @return Command object.
+     */
     public static Command parse(String li) {
         Command command ;
         String[] tokens = li.split(" ");
