@@ -45,11 +45,18 @@ public class MarkCommandTest {
 
     @Test
     public void execute_invalidCommand_exceptionThrown() {
-        MarkCommand mark = new MarkCommand(Keyword.MARK, "2");
+        MarkCommand mark = new MarkCommand(Keyword.DELETE, "1");
         UiStub ui = new UiStub();
         StorageStub storage = new StorageStub();
         TaskList taskList = new TaskList();
         taskList.addTask(new Todo("test"), ui);
+        try {
+            mark.execute(taskList, ui, storage);
+            fail();
+        } catch (DukeException e) {
+            assert true;
+        }
+        mark = new MarkCommand(Keyword.MARK, "2");
         try {
             mark.execute(taskList, ui, storage);
             fail();

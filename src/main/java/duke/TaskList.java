@@ -69,10 +69,18 @@ public class TaskList {
         ui.showDeleteTask(removedTask, taskList.size());
     }
 
-    public void markTask(int index, boolean isMark, Ui ui) throws DukeException {
+    public void markTask(int index, Keyword key, Ui ui) throws DukeException {
+        switch (key) {
+        case MARK:
+        case UNMARK:
+            break;
+        default:
+            throw new DukeException("OOPS!!! This is not a valid command.");
+        }
+        boolean isMark = key.equals(Keyword.MARK);
         if (index >= taskList.size() || index < 0) {
             String err = String.format("OOPS!!! There is no task %d to %s",
-                     index + 1, isMark ? "mark" : "unmark");
+                     index + 1, key.getKeyword());
             listTask(ui);
             throw new DukeException(err);
         }

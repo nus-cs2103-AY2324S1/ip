@@ -33,7 +33,7 @@ public class MarkCommand extends Command {
         } catch (NumberFormatException e) {
             throw new ManipulateException(err, key.getKeyword());
         }
-        taskList.markTask(taskNum - 1, key.equals(Keyword.MARK), ui);
+        taskList.markTask(taskNum - 1, key, ui);
         storage.changeFile(key, taskNum - 1);
     }
 }

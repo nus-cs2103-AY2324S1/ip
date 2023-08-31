@@ -79,7 +79,7 @@ public class TaskListTest {
         UiStub ui = new UiStub();
         try {
             taskList.addTask(new Todo("test"), ui);
-            taskList.markTask(0, true, ui);
+            taskList.markTask(0, Keyword.MARK, ui);
             assert true;
         } catch (DukeException e) {
             fail();
@@ -92,7 +92,7 @@ public class TaskListTest {
         UiStub ui = new UiStub();
         try {
             taskList.addTask(new Todo("test"), ui);
-            taskList.markTask(-1, false, ui);
+            taskList.markTask(-1, Keyword.UNMARK, ui);
             fail();
         } catch (DukeException e) {
             assertEquals("OOPS!!! There is no task 0 to unmark", e.getMessage());
@@ -104,7 +104,7 @@ public class TaskListTest {
         TaskList taskList = new TaskList();
         UiStub ui = new UiStub();
         try {
-            taskList.markTask(0, true, ui);
+            taskList.markTask(0, Keyword.MARK, ui);
             fail();
         } catch (DukeException e) {
             assertEquals("OOPS!!! There is nothing in the list, yet!", e.getMessage());
