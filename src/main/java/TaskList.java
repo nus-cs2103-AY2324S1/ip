@@ -13,11 +13,13 @@ public class TaskList {
      *
      * @param task The user's task
      */
-    public void addToList(Task task) {
+    public void addToList(Task task, boolean isQuiet) {
         list.add(task);
 
-        System.out.println("\uD83D\uDE0A I've added a new task: " + task.toString());
-        System.out.println("Now you have " + getSize() + " tasks!");
+        if (!isQuiet) {
+            System.out.println("\uD83D\uDE0A I've added a new task: " + task.toString());
+            System.out.println("Now you have " + getSize() + " tasks!");
+        } ;
     }
 
     /**

@@ -1,7 +1,13 @@
 import Tasks.DeadlineTask;
 import Tasks.EventTask;
+import Tasks.Task;
 import Tasks.TodoTask;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Objects;
 import java.util.Scanner;
 import java.util.regex.Matcher;
@@ -18,6 +24,10 @@ public class Duke {
     private static String FROM_EMPTY = "\uD83D\uDE21 Missing from!";
     private static String TO_EMPTY = "\uD83D\uDE21 Missing to!";
     private static String TIME_FORMAT_ERROR = "\uD83D\uDE21 Time format invalid!";
+    private static String FILE_PARSE_ERROR = "\uD83D\uDE21 Error parsing save file!";
+
+
+    private static Path SAVE_FILE_LOCATION = Paths.get("./src/data/duke.txt");
 
     public static void main(String[] args) {
 //        String logo = " ____        _        \n"
@@ -31,15 +41,40 @@ public class Duke {
                 "What can I do for you?";
         System.out.println(entranceMsg);
         System.out.println(SEPARATOR_LINE);
+        try {
+            // Load in existing file if it exists
+            if (Files.exists(SAVE_FILE_LOCATION)) {
+                // it exists, so let's read it
+                try {
+                    Scanner sc = new Scanner(SAVE_FILE_LOCATION);
+                    while (sc.hasNextLine()) {
+                        String inputLine = sc.nextLine();
+
+                        Task task = parseTask(inputLine);
+
+                        listContainer.addToList(task, true);
 
 
-        String inputString = "";
 
-        Scanner keyboard = new Scanner(System.in);
+                    }
+                } catch (FileNotFoundException e) {
+                    throw new DukeException(FILE_PARSE_ERROR);
+                } catch (IOException e) {
+                    throw new DukeException(FILE_PARSE_ERROR);
+                }
+            } else {
+                System.out.println("No save file!");
+                System.out.println(SAVE_FILE_LOCATION);
+            }
 
-        loop:
-        while (true) {
-            try {
+
+            String inputString = "";
+
+            Scanner keyboard = new Scanner(System.in);
+
+            loop:
+            while (true) {
+
                 inputString = keyboard.nextLine();
 
 
@@ -60,6 +95,8 @@ public class Duke {
                         break;
                     }
                     case MARK: {
+                        String userInputIndex = inputString.split(" ")[1];
+                        // check if is number
                         int index = Integer.parseInt(inputString.split(" ")[1]);
                         listContainer.markAsDone(index);
                         break;
@@ -86,7 +123,7 @@ public class Duke {
 
                         TodoTask todoTask = new TodoTask(itemName);
 
-                        listContainer.addToList(todoTask);
+                        listContainer.addToList(todoTask, false);
                         break;
                     }
                     case DEADLINE: {
@@ -111,7 +148,7 @@ public class Duke {
                         }
                         DeadlineTask deadlineTask = new DeadlineTask(itemName, deadline);
 
-                        listContainer.addToList(deadlineTask);
+                        listContainer.addToList(deadlineTask, false);
                         break;
                     }
                     case EVENT: {
@@ -149,7 +186,7 @@ public class Duke {
 
                         EventTask eventTask = new EventTask(itemName, from, to);
 
-                        listContainer.addToList(eventTask);
+                        listContainer.addToList(eventTask, false);
                         break;
                     }
 
@@ -161,13 +198,12 @@ public class Duke {
 //            System.out.println(inputString);
 
 
-            } catch (DukeException e) {
-                System.out.println(e.printError());
-            } catch (Exception e) {
-                System.out.println("some other exception " + e.getMessage());
             }
 
-
+        } catch (DukeException e) {
+            System.out.println(e.printError());
+        } catch (Exception e) {
+            System.out.println("some other exception " + e.getMessage());
         }
 
         String exitMsg = "Bye! Hope to see you again soon.";
@@ -175,5 +211,44 @@ public class Duke {
         System.out.println(SEPARATOR_LINE);
 
 
+    }
+
+    private static Task parseTask(String inputLine) throws IOException {
+        String[] split = inputLine.split(" \\| ");
+        String taskType = split[0];
+        String isDoneStr = split[1];
+        String taskDescription = split[2];
+        Boolean isDone = false;
+        if (Objects.equals(isDoneStr, "1") || Objects.equals(isDoneStr, "0")) {
+            isDone = isDoneStr.equals("1");
+        }
+
+        Task task;
+        switch (taskType) {
+            case "T": {
+                task = new TodoTask(taskDescription);
+                break;
+            }
+            case "D": {
+                // get the deadline, which is 4th element
+                String deadline = split[3];
+                task = new DeadlineTask(taskDescription, deadline);
+                break;
+            }
+            case "E": {
+                // get the start date, which is 4th element
+                // get the end date, which is 5th element
+                String start = split[3];
+                String end = split[4];
+                task = new EventTask(taskDescription, start, end);
+                break;
+            }
+            default: throw new IOException();
+        }
+
+        if (isDone) {
+            task.setDone();
+        }
+        return task;
     }
 }
