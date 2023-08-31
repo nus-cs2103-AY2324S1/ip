@@ -1,4 +1,12 @@
+import java.io.FileOutputStream;
+import java.io.ObjectOutputStream;
+import java.io.ObjectInputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.io.IOException;
 import java.util.Scanner;
+import java.util.List;
 import java.util.ArrayList;
 
 public class Remy {
@@ -15,7 +23,14 @@ public class Remy {
         String exitMessage = "Hope to never see you again!\n" + divider;
 
 
-        ArrayList<Task> taskList = new ArrayList(100);
+        Path filePath = Paths.get(".", "data", "remy.ser");
+
+        ArrayList<Task> taskList;
+        if (Files.exists(filePath)) {
+            taskList = loadTasksFromFile(filePath);
+        } else {
+            taskList = new ArrayList(100);
+        }
 
         printSandwichContent(welcomeContent, "long");
         Scanner scanner = new Scanner(System.in);
@@ -41,7 +56,9 @@ public class Remy {
                     if (index >= 0 && index < taskList.size()) {
                         taskList.get(index).markAsDone();
                         String content = "Done. You happy?\n" + taskList.get(index).toString();
+                        saveTasksToFile(filePath, taskList);
                         printSandwichContent(content, "short");
+
                     } else {
                         throw new ChatbotException("no such item lah.");
                     }
@@ -52,6 +69,7 @@ public class Remy {
                     if (index >= 0 && index < taskList.size()) {
                         taskList.get(index).markAsUndone();
                         String content = "Done. You happy?\n" + taskList.get(index).toString();
+                        saveTasksToFile(filePath, taskList);
                         printSandwichContent(content, "short");
                     } else {
                         throw new ChatbotException("no such item lah.");
@@ -63,6 +81,7 @@ public class Remy {
                         String task = taskList.get(index).toString();
                         taskList.remove(index);
                         String content = "Done. Can you don't be so troublesome?\n" + task;
+                        saveTasksToFile(filePath, taskList);
                         printSandwichContent(content, "short");
                     } else {
                         throw new ChatbotException("no such item lah.");
@@ -72,6 +91,7 @@ public class Remy {
                     String description = input.substring(5);
                     Todo temp = new Todo(description);
                     taskList.add(temp);
+                    saveTasksToFile(filePath, taskList);
                     addTask(temp, taskList.size());
                 } else if (taskType.equals("deadline")) {
                     if (input.length() < 10) throw new ChatbotException("missing info lah.");
@@ -79,6 +99,7 @@ public class Remy {
                     if (parts.length == 2) {
                         Deadline temp = new Deadline(parts[0], parts[1]);
                         taskList.add(temp);
+                        saveTasksToFile(filePath, taskList);
                         addTask(temp, taskList.size());
                     } else {
                         throw new ChatbotException("wrong format lah.");
@@ -89,6 +110,7 @@ public class Remy {
                     if (parts.length == 3) {
                         Event temp = new Event(parts[0], parts[1], parts[2]);
                         taskList.add(temp);
+                        saveTasksToFile(filePath, taskList);
                         addTask(temp, taskList.size());
                     } else {
                         // printSandwichContent("Wrong format lah.", "short");
@@ -144,4 +166,32 @@ public class Remy {
                 "Now you have " + num + " tasks in the list.";
         printSandwichContent(content, "short");
     }
+
+    public static void saveTasksToFile(Path filePath, ArrayList<Task> tasks) {
+        try {
+            if (!Files.exists(filePath.getParent())) {
+                Files.createDirectories(filePath.getParent()); // Create parent directories if they don't exist
+            }
+
+            ObjectOutputStream oos = new ObjectOutputStream(Files.newOutputStream(filePath));
+            oos.writeObject(tasks); // writes the tasks ArrayList to the file
+        } catch (IOException e) {
+            System.out.println("Error while saving tasks to file: " + e.getMessage());
+        }
+    }
+
+    private static ArrayList<Task> loadTasksFromFile(Path filePath) {
+        ArrayList<Task> tasks = new ArrayList<>();
+
+        try {
+            ObjectInputStream ois = new ObjectInputStream(Files.newInputStream(filePath));
+            tasks = (ArrayList<Task>) ois.readObject();
+
+        } catch (IOException | ClassNotFoundException e) {
+            System.out.println("Error while loading tasks from file: " + e.getMessage());
+        }
+
+        return tasks;
+    }
+
 }
