@@ -27,10 +27,22 @@ public class Duke {
     public static void unmark(String i) {
         int taskId = Integer.parseInt(i.substring(7)) - 1;
         taskArray.get(taskId).markAsUndone();
+        // update the duke.txt
+        try {
+            saveTask();
+        } catch (IOException e) {
+            System.out.println("      Uhm.. something is not working right..");
+        }
     }
     public static void mark(String i) {
         int taskId = Integer.parseInt(i.substring(5)) - 1;
         taskArray.get(taskId).markAsDone();
+        // update the duke.txt
+        try {
+            saveTask();
+        } catch (IOException e) {
+            System.out.println("      Uhm.. something is not working right..");
+        }
     }
     public static void deleteTask(String i) {
         int deleteTask = Integer.parseInt(i.substring(7)) - 1;
@@ -63,7 +75,7 @@ public class Duke {
     public static void deadlineTask(String i) {
         String[] taskDetails = i.split(" ", 2);
         try {
-            String[] deadlineDetails = taskDetails[1].split("/by", 2);
+            String[] deadlineDetails = taskDetails[1].split(" /by ", 2);
             taskArray.add(new Deadline(deadlineDetails[0], deadlineDetails[1]));
             taskArray.get(numTask).printMessage(numTask);
         } catch (ArrayIndexOutOfBoundsException e) {
@@ -77,7 +89,7 @@ public class Duke {
     public static void eventTask(String i) {
         String[] taskDetails = i.split(" ", 2);
         try {
-            String[] eventDetails = taskDetails[1].split("/", 3);
+            String[] eventDetails = taskDetails[1].split(" /", 3);
             taskArray.add(new Event(eventDetails[0], eventDetails[1].substring(5),
                     eventDetails[2].substring(3)));
             taskArray.get(numTask).printMessage(numTask);
@@ -168,21 +180,20 @@ public class Duke {
         }
     }
     // retrieves past tasks
-    // T | X | DESC
     private static void loadTask() {
         try {
             Scanner fileScanner = new Scanner(hardDisk);
             while (fileScanner.hasNext()) {
                 String task = fileScanner.nextLine();
-                String[] taskDetails = task.split("|",5);
+                String[] taskDetails = task.split("~",5);
                 String taskType = taskDetails[0];
                 String taskStatus = taskDetails[1];
                 String taskDescription = taskDetails[2];
                 switch (taskType) {
                     case "T":
                         Todo addTodo = new Todo(taskDescription);
-                        if (Objects.equals(taskStatus, "Y")) {
-                            addTodo.markAsDone();
+                        if (Objects.equals(taskStatus, "done")) {
+                            addTodo.updateAsDone();
                         }
                         taskArray.add(addTodo);
                         numTask++;
@@ -196,7 +207,8 @@ public class Duke {
                         numTask++;
                         break;
                     case "E":
-                        Event addEvent = new Event(taskDescription, taskDetails[3], taskDetails[4]);
+                        String[] timeDetails = taskDetails[3].split(" - ", 2);
+                        Event addEvent = new Event(taskDescription, timeDetails[0], timeDetails[1]);
                         if (Objects.equals(taskStatus, "Y")) {
                             addEvent.markAsDone();
                         }

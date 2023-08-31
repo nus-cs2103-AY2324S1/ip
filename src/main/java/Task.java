@@ -11,6 +11,9 @@ public class Task {
     public String getStatusIcon() {
         return (isDone ? "X" : " "); // mark done task with X
     }
+    public void updateAsDone() {
+        this.isDone = true;
+    }
 
     public void markAsDone() {
         this.isDone = true;
@@ -32,11 +35,12 @@ public class Task {
                 + "     Now you have " + (numTask + 1) + " tasks in the list.\n"
                 + Duke.horizontalLine);
     }
+
     public String getDescription() {
         if (this.isDone) {
-            return "X | " + this.description;
+            return "done~" + this.description;
         } else {
-            return "  | " + this.description;
+            return "notDone~" + this.description;
         }
     }
 }
