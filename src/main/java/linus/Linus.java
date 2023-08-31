@@ -26,6 +26,10 @@ public class Linus {
     private Storage storage = null;
     private TaskList tasks = null;
 
+    /**
+     * Constructs a Linus Chatbot with the specified file path.
+     * @param filePath The file path.
+     */
     public Linus(String filePath) {
         storage = new Storage("data/linus.txt");
         try {
@@ -37,6 +41,9 @@ public class Linus {
 
     }
 
+    /**
+     * Runs the chatbot.
+     */
     public void run() {
         Ui.showWelcomeMessage();
 

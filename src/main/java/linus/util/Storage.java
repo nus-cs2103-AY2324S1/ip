@@ -25,10 +25,19 @@ public class Storage {
     private File file = null;
     private String filePath = "";
 
+    /**
+     * Constructs a Storage object with the specified file path.
+     * @param filePath The file path.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
+    /**
+     * Loads the list of tasks from the file.
+     * @return List<Task>
+     * @throws LinusException
+     */
     public List<Task> load() throws LinusException {
         try {
             Path path = Paths.get(filePath);
@@ -55,6 +64,10 @@ public class Storage {
         }
     }
 
+    /**
+     * Stores the list of tasks into the file.
+     * @param tasks The list of tasks.
+     */
     public void store(List<Task> tasks) {
         gson = new GsonBuilder()
                 .registerTypeAdapter(LocalDate.class, new LocalDateTypeAdapter())
