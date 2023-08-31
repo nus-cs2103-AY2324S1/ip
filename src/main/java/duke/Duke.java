@@ -1,6 +1,8 @@
+package duke;
+
 import java.util.Scanner;
 /**
- * The Duke class represents a simple chatbot application that helps manage tasks.
+ * The duke.Duke class represents a simple chatbot application that helps manage tasks.
  */
 public class Duke {
 
@@ -37,7 +39,7 @@ public class Duke {
     }
 
     /**
-     * The main method to start the Duke chatbot.
+     * The main method to start the duke.Duke chatbot.
      *
      * @param args Command-line arguments (unused).
      */

@@ -3,22 +3,22 @@
  What can I do for you?
 ---------------------------------------------
 ---------------------------------------------
- Got it. I've added this task:
+ Got it. I've added this duke.task:
    [T][ ] read book
  Now you have 1 tasks in the list.
 ---------------------------------------------
 ---------------------------------------------
- Got it. I've added this task:
+ Got it. I've added this duke.task:
    [T][ ] buy bread
  Now you have 2 tasks in the list.
 ---------------------------------------------
 ---------------------------------------------
- Got it. I've added this task:
+ Got it. I've added this duke.task:
    [D][ ] return books (by: Sunday)
  Now you have 3 tasks in the list.
 ---------------------------------------------
 ---------------------------------------------
- Got it. I've added this task:
+ Got it. I've added this duke.task:
    [E][ ] project meeting (from: Mon 2pm to: 4pm)
  Now you have 4 tasks in the list.
 ---------------------------------------------
@@ -30,7 +30,7 @@
  4.[E][ ] project meeting (from: Mon 2pm to: 4pm)
 ---------------------------------------------
 ---------------------------------------------
- Nice! I've marked this task as done:
+ Nice! I've marked this duke.task as done:
    [T][X] buy bread
 ---------------------------------------------
 ---------------------------------------------
@@ -41,7 +41,7 @@
  4.[E][ ] project meeting (from: Mon 2pm to: 4pm)
 ---------------------------------------------
 ---------------------------------------------
- OK, I've marked this task as not done yet:
+ OK, I've marked this duke.task as not done yet:
    [T][ ] buy bread
 ---------------------------------------------
 ---------------------------------------------
