@@ -16,10 +16,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class Storage {
 
-  private ArrayList<Task> taskList;
+  private TaskList taskList;
   private ObjectMapper taskMapper;
 
-  public Storage(ArrayList<Task> tasks) {
+  public Storage(TaskList tasks) {
     this.taskList = tasks;
     this.taskMapper = new ObjectMapper();
     this.taskMapper.registerModule(new JavaTimeModule());
@@ -37,12 +37,14 @@ public class Storage {
     try {
       Path filePath = Paths.get("tasks.json");
       String content = new String(Files.readAllBytes(filePath));
-      TaskList received = this.taskMapper.readValue(content, TaskList.class);
-      ArrayList<Task> tasks = received.tasks;
+      TaskList plist = this.taskMapper.readValue(content, TaskList.class);
+      for (int i = 0; i < plist.size(); i++) {
+        Task wow = plist.get(i);
+        taskList.add(wow);
+      }
 
-      this.taskList.addAll(tasks);
     } catch (IOException ex) {
-      System.out.println(ex.getMessage()+ " not found! No list loaded!");
+      System.out.println(ex.getMessage() + " not found! No list loaded!");
     }
 
   }
@@ -54,11 +56,8 @@ public class Storage {
     try {
 
       Path filePath = Paths.get("tasks.json");
-      TaskList test = new TaskList();
-      test.tasks = this.taskList;
-
       String output =
-          this.taskMapper.writeValueAsString(test);
+          this.taskMapper.writeValueAsString(taskList);
       Files.write(filePath, output.getBytes());
 
     } catch (JsonProcessingException ex) {
