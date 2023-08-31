@@ -20,10 +20,12 @@ public class Deadline extends Task {
             throw new DukeException.DukeDateTimeException(instructions[1]);
         }
     }
+
     public Deadline(String item, DateTimeOptional deadline) {
         super(item);
         this.deadline = deadline;
     }
+
     @Override
     public String fileString() {
         return String.format(
@@ -31,7 +33,7 @@ public class Deadline extends Task {
                 super.isDone ? 1 : 0,
                 super.description,
                 this.deadline
-                );
+        );
     }
 
     @Override

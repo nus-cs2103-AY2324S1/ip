@@ -1,4 +1,5 @@
 package duke;
+
 public enum Commands {
     //alr implemented enums.
     deadline,

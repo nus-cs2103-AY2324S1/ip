@@ -7,14 +7,14 @@ public abstract class Task {
 
     public static Task create(Commands command, String rawLine) throws DukeException {
         switch (command) {
-            case todo:
-                return ToDo.create(rawLine);
-            case deadline:
-                return Deadline.create(rawLine);
-            case event:
-                return Event.create(rawLine);
-            default:
-                throw new RuntimeException("Command not recognized"); //literally should not run
+        case todo:
+            return ToDo.create(rawLine);
+        case deadline:
+            return Deadline.create(rawLine);
+        case event:
+            return Event.create(rawLine);
+        default:
+            throw new RuntimeException("Command not recognized"); //literally should not run
         }
     }
 

@@ -6,6 +6,7 @@ public class Event extends Task {
 
     private DateTimeOptional startTime;
     private DateTimeOptional endTime;
+
     public static Event create(String rawLine) throws DukeException {
         if (rawLine.length() == 0) {
             throw new DukeException("Err: Empty Description");
@@ -35,6 +36,7 @@ public class Event extends Task {
 
         return new Event(instructions[0], startDate, endDate);
     }
+
     public Event(String description, DateTimeOptional startTime, DateTimeOptional endTime) {
         super(description);
         this.startTime = startTime;

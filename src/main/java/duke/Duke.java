@@ -2,6 +2,7 @@ package duke;
 
 public class Duke {
     private static final String NAME = "Nino!";
+
     public static void main(String[] args) {
         try {
             UserInterface userInterface = new UserInterface(new Storage(), new StoreList());

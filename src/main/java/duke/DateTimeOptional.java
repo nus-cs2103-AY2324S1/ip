@@ -47,11 +47,14 @@ public abstract class DateTimeOptional {
             return this.date.format(standardDateTimeDisplay);
         }
     }
+
     private static class DateTimeOnly extends DateTimeOptional {
         final LocalDateTime date;
+
         DateTimeOnly(LocalDateTime date) {
             this.date = date;
         }
+
         @Override
         public String toString() {
             return this.date.format(standardDateTimeParser);

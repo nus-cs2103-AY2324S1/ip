@@ -6,6 +6,7 @@ import java.util.Collection;
 public class StoreList {
 
     ArrayList<Task> list;
+
     public StoreList() {
         this.list = new ArrayList<>();
     }
@@ -79,6 +80,7 @@ public class StoreList {
             return "Err: Index provided is out of position of the list";
         }
     }
+
     @Override
     public String toString() {
         if (list.size() == 0) {

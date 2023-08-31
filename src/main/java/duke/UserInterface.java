@@ -15,6 +15,7 @@ public class UserInterface {
         this.list = list;
         this.storage = storage;
     }
+
     public boolean hasNextCommand() {
         return sc.hasNext();
     }
@@ -23,8 +24,10 @@ public class UserInterface {
         Task[] tasks = Parser.parseFile(this.storage);
         this.list.addTasks(List.of(tasks));
     }
+
     public void readCommandLine() {
-        Reading: while (true) {
+        Reading:
+        while (true) {
             String line = sc.nextLine();
             if (line.length() == 0) {
                 display("Err: No command input");
@@ -34,52 +37,54 @@ public class UserInterface {
             Commands cmd = Commands.get(instruction[0]);
             String response;
             switch (cmd) {
-                case bye:
-                    this.save();
-                    break Reading;
-                case list:
-                    response = list.toString();
+            case bye:
+                this.save();
+                break Reading;
+            case list:
+                response = list.toString();
+                display(response);
+                break;
+            case deadline:
+                // Fallthrough
+            case todo:
+                // Fallthrough
+            case event:
+                try {
+                    Task task = Parser.parseTask(cmd, instruction);
+                    response = list.add(task);
                     display(response);
-                    break;
-                case deadline:
-                case todo:
-                case event:
-                    try {
-                        Task task = Parser.parseTask(cmd, instruction);
-                        response = list.add(task);
-                        display(response);
-                    } catch (DukeException e) {
-                        display(e.toString());
-                    }
-                    break;
-                case mark:
-                    try {
-                        response = list.markDone(instruction[1]);
-                        display(response);
-                    } catch (IndexOutOfBoundsException e) {
-                        display("Err: Index not in range of list.");
-                    }
-                    break;
-                case unmark:
-                    try {
-                        response = list.markUndone(instruction[1]);
-                        display(response);
-                    } catch (IndexOutOfBoundsException e) {
-                        display("Err: Index not in range of list.");
-                    }
-                    break;
-                case delete:
-                    try {
-                        response = list.delete(instruction[1]);
-                        display(response);
-                    } catch (IndexOutOfBoundsException e) {
-                        display("Err: Index not in range of list.");
-                    }
-                    break;
-                default:
-                    response = "Err: Unknown command - " + instruction[0];
+                } catch (DukeException e) {
+                    display(e.toString());
+                }
+                break;
+            case mark:
+                try {
+                    response = list.markDone(instruction[1]);
                     display(response);
-                    break;
+                } catch (IndexOutOfBoundsException e) {
+                    display("Err: Index not in range of list.");
+                }
+                break;
+            case unmark:
+                try {
+                    response = list.markUndone(instruction[1]);
+                    display(response);
+                } catch (IndexOutOfBoundsException e) {
+                    display("Err: Index not in range of list.");
+                }
+                break;
+            case delete:
+                try {
+                    response = list.delete(instruction[1]);
+                    display(response);
+                } catch (IndexOutOfBoundsException e) {
+                    display("Err: Index not in range of list.");
+                }
+                break;
+            default:
+                response = "Err: Unknown command - " + instruction[0];
+                display(response);
+                break;
             }
         }
         sc.close();

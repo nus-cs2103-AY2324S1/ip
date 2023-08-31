@@ -7,7 +7,7 @@ public class Parser {
     public static Task[] parseFile(Storage storage) throws DukeException {
         ArrayList<Task> tasks = new ArrayList<>();
         String[] lines = storage.readLines();
-        for (String line: lines) {
+        for (String line : lines) {
             tasks.add(parseTaskFromFileLine(line));
         }
         return tasks.toArray(new Task[]{});
