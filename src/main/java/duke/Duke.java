@@ -44,7 +44,7 @@ public class Duke {
                     case TODO:
                         ToDo todo = new ToDo(input.substring(5));
                         taskList.add(todo);
-                        ui.printTaskAdded(todo, taskList.size());
+                        ui.printTaskAdded(todo, taskList.getSize());
                         storage.saveTasks(taskList.getTasks());
                         break;
 
@@ -55,7 +55,7 @@ public class Duke {
                         }
                         Deadline deadline = new Deadline(parts[0], parts[1]);
                         taskList.add(deadline);
-                        ui.printTaskAdded(deadline, taskList.size());
+                        ui.printTaskAdded(deadline, taskList.getSize());
                         storage.saveTasks(taskList.getTasks());
                         break;
 
@@ -67,7 +67,7 @@ public class Duke {
                         }
                         Event event = new Event(eventParts[0], timeParts[0], timeParts[1]);
                         taskList.add(event);
-                        ui.printTaskAdded(event, taskList.size());
+                        ui.printTaskAdded(event, taskList.getSize());
                         storage.saveTasks(taskList.getTasks());
                         break;
 
@@ -88,7 +88,7 @@ public class Duke {
                     case DELETE:
                         int taskNumberDelete = Integer.parseInt(input.split(" ")[1]);
                         Task removedTask = taskList.remove(taskNumberDelete - 1);
-                        ui.printTaskDeleted(removedTask, taskList.size());
+                        ui.printTaskDeleted(removedTask, taskList.getSize());
                         storage.saveTasks(taskList.getTasks());
                         break;
 
