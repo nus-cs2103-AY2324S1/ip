@@ -2,8 +2,6 @@ package taskmaster.tasks;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 
 public class Event extends Task {
     String startTime;

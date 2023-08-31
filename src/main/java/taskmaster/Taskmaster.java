@@ -10,11 +10,11 @@ import java.util.Scanner;
 public class Taskmaster {
     private static final String FILE_PATH = "./Data.txt";
     public static boolean activated = true;
-    private final Storage storage;
-    private final Scanner scanner;
-    private final Ui ui;
-    private final Parser parser;
-    private final TaskList taskList;
+    private Storage storage;
+    private Scanner scanner;
+    private Ui ui;
+    private Parser parser;
+    private TaskList taskList;
 
     public Taskmaster() {
         this.storage = new Storage(FILE_PATH);

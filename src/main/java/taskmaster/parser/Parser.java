@@ -1,15 +1,12 @@
 package taskmaster.parser;
 
 import taskmaster.Taskmaster;
-import taskmaster.tasks.*;
+import taskmaster.tasks.TaskList;
 import taskmaster.storage.Storage;
 import taskmaster.exceptions.DukeException;
 
 public class Parser {
-
-    public Parser () {}
-
-    public void parse (String userInput, Storage storage, TaskList taskList) throws DukeException {
+    public void parse(String userInput, Storage storage, TaskList taskList) throws DukeException {
         if (userInput.equalsIgnoreCase("bye")) {
             Taskmaster.activated = false;
         } else if (userInput.equalsIgnoreCase("list")) {

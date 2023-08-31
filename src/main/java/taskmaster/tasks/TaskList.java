@@ -7,7 +7,6 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 public class TaskList {
-
     public static ArrayList<Task> list;
     public enum MarkStatus {
         MARK, UNMARK
@@ -16,20 +15,20 @@ public class TaskList {
         TODO, EVENT, DEADLINE
     }
 
-    public TaskList () {
+    public TaskList() {
         TaskList.list = new ArrayList<>();
     }
 
     public static void printList() {
         System.out.println(Ui.line);
         System.out.println("Here are the tasks in your list:");
-        for (int i = 0; i < list.size(); i ++ ) {
-            System.out.println("Task " + (i + 1)+ ": " + list.get(i));
+        for (int i = 0; i < list.size(); i++) {
+            System.out.println("Task " + (i + 1) + ": " + list.get(i));
         }
         System.out.println(Ui.line);
     }
 
-    public void toggleMark(MarkStatus mark, int taskIndex) throws DukeException{
+    public void toggleMark(MarkStatus mark, int taskIndex) throws DukeException {
         if (taskIndex >= 0 && taskIndex < TaskList.list.size()) {
             if (mark == MarkStatus.UNMARK) {
                 list.get(taskIndex).markAsNotDone();
@@ -62,7 +61,7 @@ public class TaskList {
         }
     }
 
-    public void addTask(TaskType taskType, String description, String marked) throws DukeException{
+    public void addTask(TaskType taskType, String description, String marked) throws DukeException {
         if (taskType == TaskType.TODO) {
             if (description.isEmpty()) {
                 throw new DukeException("The description of a todo cannot be empty.");
