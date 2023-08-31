@@ -111,12 +111,12 @@ public class Ui {
     public void printFileError() {
         System.out.println("MYBOT has created a file MYBOT.txt to record your tasks");
     }
-
-
-    public void printNoTasks() {
-        System.out.println("You have no task at the moment!");
-    }
-
+    
+    /**
+     * Prints the list of tasks that matches user's input.
+     *
+     * @param matchingTasks The List of matching tasks found.
+     */
     public void printMatchingTasks(List<Task> matchingTasks) {
         printLine();
         System.out.println("Here are the matching tasks in your list:");
