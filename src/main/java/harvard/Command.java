@@ -1,4 +1,7 @@
 package harvard;
+/**
+ * Represents a command.
+ */
 public abstract class Command {
     /**
      * Executes the command.

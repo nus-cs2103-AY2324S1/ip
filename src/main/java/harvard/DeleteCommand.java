@@ -1,4 +1,7 @@
 package harvard;
+/**
+ * Represents a delete command.
+ */
 public class DeleteCommand extends Command {
     /**
      * The index of the task to be deleted.

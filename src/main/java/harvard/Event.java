@@ -2,6 +2,9 @@ package harvard;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Represents a task with a deadline.
+ */
 public class Event extends Task{
     /**
      * The start time of the event.
