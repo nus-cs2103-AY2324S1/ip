@@ -22,7 +22,6 @@ public class Duke {
      * @param filePath The path to the data file.
      */
     public Duke(String filePath) {
-        // Initializing array to store list items
         ui = new Ui();
         this.storage = new Storage(filePath);
 
