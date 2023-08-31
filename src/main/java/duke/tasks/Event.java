@@ -33,7 +33,7 @@ public class Event extends Task{
 
     @Override
     public String generateSaveString() {
-        return String.format("E | %b | %s  /from %s /to %s", isDone, name, startTime.format(
+        return String.format("E | %b | %s /from %s /to %s", isDone, name, startTime.format(
                 Parser.DATETIME_FORMATTER),
                 endTime.format(Parser.DATETIME_FORMATTER));
     }

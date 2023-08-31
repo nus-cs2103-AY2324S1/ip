@@ -26,7 +26,7 @@ public abstract class Task {
      * Returns icon indicating task's status
      * @return "X" if task is done, " " otherwise
      */
-    public String getStatusIcon() {
+    private String getStatusIcon() {
 
         return this.isDone? "X" : " ";
     }

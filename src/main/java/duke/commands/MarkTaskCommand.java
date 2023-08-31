@@ -24,6 +24,7 @@ public class MarkTaskCommand extends Command {
             Task t = taskList.markTask(idx);
             ui.printToScreen("Nice! I've marked this task as done:\n"
                     + t);
+            storage.save(taskList);
         } catch (IndexOutOfBoundsException e) {
             ui.showError(String.format("%d is not a valid index! Unable to mark task.", idx + 1));
         }

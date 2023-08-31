@@ -31,8 +31,6 @@ public class AddTaskCommand extends Command {
             storage.write(task);
         } catch (IOException e) {
             ui.showError(e.getMessage());
-        } catch (SecurityException e) {
-            ui.showError("Permission not granted to create file!");
         }
     }
 }

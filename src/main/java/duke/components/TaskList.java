@@ -10,7 +10,7 @@ import java.util.List;
  * List that contains tasks and methods to interact with the tasks
  */
 public class TaskList {
-    List<Task> tasks = new ArrayList<>();
+    private final List<Task> tasks = new ArrayList<>();
 
     /**
      * Constructs a TaskList object
