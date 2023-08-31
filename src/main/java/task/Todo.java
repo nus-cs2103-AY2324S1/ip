@@ -1,9 +1,11 @@
-class Todo extends Task {
-    Todo(String name) {
+package task;
+
+public class Todo extends Task {
+    public Todo(String name) {
         super(name);
     }
 
-    Todo(String name, boolean marked) {
+    public Todo(String name, boolean marked) {
         super(name, marked);
     }
 

@@ -1,29 +1,40 @@
-abstract class Task {
+package task;
+
+public abstract class Task {
     protected final String name;
     private final boolean marked;
 
-    Task(String name, boolean marked) {
+    public Task(String name, boolean marked) {
         this.name = name;
         this.marked = marked;
     }
 
-    Task(String name) {
+    public Task(String name) {
         this(name, false);
     }
 
     /**
-     * Mark the task.
+     * Marks the task.
      *
-     * @return Returns a marked Task
+     * @return Marked task
      */
     abstract Task mark();
 
     /**
-     * Unmark the task.
+     * Unmarks the task.
      *
-     * @return Returns an unmarked task
+     * @return Unmarked task
      */
     abstract Task unmark();
+
+    /**
+     * Creates the string to be saved into the save file
+     *
+     * @return String to be saved
+     */
+    public String saveTask() {
+        return String.format("%s | %s", this.name, this.marked ? "1" : "0");
+    }
 
     /**
      * Returns the name of task to be done.

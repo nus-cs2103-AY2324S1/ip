@@ -1,12 +1,14 @@
-class Deadline extends Task {
+package task;
+
+public class Deadline extends Task {
     private final String deadline;
 
-    Deadline(String name, String deadline) {
+    public Deadline(String name, String deadline) {
         super(name);
         this.deadline = deadline;
     }
 
-    Deadline(String name, String deadline, Boolean marked) {
+    public Deadline(String name, String deadline, Boolean marked) {
         super(name, marked);
         this.deadline = deadline;
     }
@@ -22,10 +24,15 @@ class Deadline extends Task {
         return new Deadline(this.name, this.deadline, false);
     }
 
+    @Override
+    public String saveTask() {
+        return String.format("%s | %s", super.saveTask(), this.deadline);
+    }
+
     /**
      * Returns the name of task with deadline.
      *
-     * @return Task to be done
+     * @return Task.Task to be done
      */
     @Override
     public String toString() {

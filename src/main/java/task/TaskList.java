@@ -1,13 +1,15 @@
+package task;
+
 import java.util.ArrayList;
 
-class TaskList {
+public class TaskList {
     private final ArrayList<Task> tasks;
 
-    TaskList() {
+    public TaskList() {
         this.tasks = new ArrayList<>();
     }
 
-    TaskList(ArrayList<Task> tasks) {
+    public TaskList(ArrayList<Task> tasks) {
         this.tasks = tasks;
     }
 
@@ -77,9 +79,20 @@ class TaskList {
 
     /**
      * Returns the size of the list.
+     *
+     * @return Size of task list
      */
     public int size() {
         return this.tasks.size();
+    }
+
+    /**
+     * Returns true if task list is empty.
+     *
+     * @return True if length of task list is 0, otherwise false
+     */
+    public boolean isEmpty() {
+        return this.tasks.isEmpty();
     }
 
     /**
@@ -92,7 +105,10 @@ class TaskList {
         StringBuilder outputString = new StringBuilder();
         for (int i = 0; i < this.tasks.size(); i++) {
             Task task = this.tasks.get(i);
-            outputString.append(String.format("%d. %s\n", i + 1, task.toString()));
+            outputString.append(String.format("%d. %s", i + 1, task.toString()));
+            if (i < this.tasks.size() - 1) {
+                outputString.append("\n");
+            }
         }
         if (this.tasks.isEmpty()) {
             outputString.append("You have no pending tasks.");

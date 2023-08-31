@@ -2,7 +2,16 @@ import exceptions.BocchiException;
 import exceptions.EmptyTaskException;
 import exceptions.InvalidInputException;
 import exceptions.InvalidSyntaxException;
+import storage.BocchiLoader;
+import storage.BocchiSaver;
+import task.Deadline;
+import task.Event;
+import task.Task;
+import task.TaskList;
+import task.Todo;
 
+
+import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 public class Bocchi {
@@ -59,7 +68,7 @@ public class Bocchi {
             );
             task = new Event(eventTokens[0], eventTokens[1], eventTokens[2]);
             break;
-        // Todo is the default case
+        // Task.Todo is the default case
         default:
             task = new Todo(input);
         }
@@ -85,7 +94,7 @@ public class Bocchi {
     /**
      * Marks the indicated task.
      *
-     * @param taskNumber Task number
+     * @param taskNumber Task.Task number
      * @param taskList Current list of tasks
      * @return Updated task list
      */
@@ -101,7 +110,7 @@ public class Bocchi {
     /**
      * Unmarks the indicated task.
      *
-     * @param taskNumber Task number
+     * @param taskNumber Task.Task number
      * @param taskList Current list of tasks
      * @return Updated task list
      */
@@ -130,7 +139,14 @@ public class Bocchi {
      */
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        TaskList taskList = new TaskList();
+        TaskList taskList;
+        try {
+            taskList = new BocchiLoader().loadTaskList();
+            System.out.println("Previous data has been loaded");
+        } catch (FileNotFoundException e) {
+            System.out.println("No previous data found");
+            taskList = new TaskList();
+        }
         greet();
         String message = sc.nextLine();
         // This splits the input string into two to isolate the first token as an action
@@ -174,6 +190,8 @@ public class Bocchi {
             action = tokens[0];
         }
         sc.close();
+        BocchiSaver saver = new BocchiSaver(taskList);
+        saver.saveTaskList();
         exit();
     }
 }

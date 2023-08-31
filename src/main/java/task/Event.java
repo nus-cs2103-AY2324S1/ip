@@ -1,14 +1,16 @@
-class Event extends Task {
+package task;
+
+public class Event extends Task {
     private final String start;
     private final String end;
 
-    Event(String name, String start, String end) {
+    public Event(String name, String start, String end) {
         super(name);
         this.start = start;
         this.end = end;
     }
 
-    Event(String name, String start, String end, Boolean marked) {
+    public Event(String name, String start, String end, Boolean marked) {
         super(name, marked);
         this.start = start;
         this.end = end;
@@ -24,10 +26,15 @@ class Event extends Task {
         return new Event(this.name, this.start, this.end, false);
     }
 
+    @Override
+    public String saveTask() {
+        return String.format("%s | %s-%s", super.saveTask(), this.start, this.end);
+    }
+
     /**
      * Returns the name of task with start and end times.
      *
-     * @return Task to be done
+     * @return Task.Task to be done
      */
     @Override
     public String toString() {
