@@ -1,3 +1,7 @@
+package duke.task;
+
+import duke.time.Time;
+
 import java.time.LocalDateTime;
 
 public class Event extends Task {
@@ -15,7 +19,7 @@ public class Event extends Task {
     private LocalDateTime to;
 
     /**
-     * constructor for Event task
+     * constructor for duke.task.Event duke.task
      * @param description the text stored
      */
     public Event(String description, String from, String to) {

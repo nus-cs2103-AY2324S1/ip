@@ -1,4 +1,7 @@
-import java.util.ArrayList;
+package duke.ui;
+
+import duke.task.Task;
+import duke.task.TaskList;
 
 public class Ui {
     private final String HORIZONTAL_LINE = "    ____________________________________________________________\n";
@@ -16,13 +19,13 @@ public class Ui {
     }
 
     public void printAddTask(Task newTask, int numberOfTask) {
-        printFinal("     Got it. I've added this task:\n" +
+        printFinal("     Got it. I've added this duke.task:\n" +
                 "      " + newTask + "\n" +
                 "     Now you have " + numberOfTask + " tasks in the list." + "\n");
     }
 
     public void printDeleteTask(Task deletedTask, int numberOfTask) {
-        printFinal("     Noted. I've removed this task:" + "\n" +
+        printFinal("     Noted. I've removed this duke.task:" + "\n" +
                 "       " + deletedTask + "\n" +
                 "     Now you have " + numberOfTask + " tasks in the list." + "\n");
     }
@@ -41,13 +44,13 @@ public class Ui {
     }
 
     public void printMark(Task task) {
-        printFinal("     Nice! I've marked this task as done:" + "\n" +
+        printFinal("     Nice! I've marked this duke.task as done:" + "\n" +
                 "       " + task + "\n");
 
     }
 
     public void printUnmark(Task task) {
-        printFinal("     OK, I've marked this task as not done yet:" + "\n" +
+        printFinal("     OK, I've marked this duke.task as not done yet:" + "\n" +
                 "       " + task + "\n");
     }
 

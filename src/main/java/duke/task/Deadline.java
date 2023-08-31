@@ -1,5 +1,8 @@
+package duke.task;
+
+import duke.time.Time;
+
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 public class Deadline extends Task{
     /**
@@ -7,12 +10,12 @@ public class Deadline extends Task{
      */
     private String type = "D";
     /**
-     * the time the deadline must be finished
+     * the duke.time the deadline must be finished
      */
     private LocalDateTime time;
 
     /**
-     * constructor for Event task
+     * constructor for duke.task.Event duke.task
      * @param description the text stored
      */
     public Deadline(String description, String by) {

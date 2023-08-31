@@ -1,3 +1,5 @@
+package duke.exception;
+
 public class DukeNotTaskException extends DukeException{
     public DukeNotTaskException(String e) {
         super("    ____________________________________________________________\n" +

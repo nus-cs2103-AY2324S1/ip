@@ -1,8 +1,16 @@
+import duke.command.ByeCommand;
+import duke.command.Command;
+import duke.exception.DukeException;
+import duke.parser.Parser;
+import duke.storage.Storage;
+import duke.task.TaskList;
+import duke.ui.Ui;
+
 import java.util.Scanner;
 
 public class Duke {
     /**
-     * array of task
+     * array of duke.task
      */
     private TaskList taskList;
     private Storage storage;
@@ -23,7 +31,7 @@ public class Duke {
     /**
      * method to run the code.
      * @return boolean to check bye or not
-     * @throws DukeException throws DukeException
+     * @throws DukeException throws duke.exception.DukeException
      */
     public void run() throws Exception{
         ui.printGreet();
