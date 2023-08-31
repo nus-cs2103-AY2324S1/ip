@@ -8,18 +8,18 @@ import java.util.Scanner;
  * @author Alvis Ng (supermii2)
  */
 public class Ui {
+    /** Line separator to separate input and output */
+    private static String lineBreak = "____________________________________________________________";
+    /** Logo used on startup */
+    private static String logo = "\r\n"
+            + "__________               __                          \r\n"
+            + "\\______   \\ ____   ____ |  | __ _____ _____    ____  \r\n"
+            + " |       _//  _ \\_/ ___\\|  |/ //     \\\\__  \\  /    \\ \r\n"
+            + " |    |   (  <_> )  \\___|    <|  Y Y  \\/ __ \\|   |  \\\r\n"
+            + " |____|_  /\\____/ \\___  >__|_ \\__|_|  (____  /___|  /\r\n"
+            + "        \\/            \\/     \\/     \\/     \\/     \\/ \r\n";
     /** Scanner object for input and output */
     private Scanner scanner;
-    /** Line separator to separate input and output */
-    private static String LINE_BREAK = "____________________________________________________________";
-    /** Logo used on startup */
-    private static String LOGO = "\r\n" +
-            "__________               __                          \r\n" +
-            "\\______   \\ ____   ____ |  | __ _____ _____    ____  \r\n" +
-            " |       _//  _ \\_/ ___\\|  |/ //     \\\\__  \\  /    \\ \r\n" +
-            " |    |   (  <_> )  \\___|    <|  Y Y  \\/ __ \\|   |  \\\r\n" +
-            " |____|_  /\\____/ \\___  >__|_ \\__|_|  (____  /___|  /\r\n" +
-            "        \\/            \\/     \\/     \\/     \\/     \\/ \r\n";
     /**
      * Constructor used to
      * create UI object
@@ -41,7 +41,7 @@ public class Ui {
      * @param words
      */
     public void respond(String words) {
-        String response = words + "\n" + LINE_BREAK;
+        String response = words + "\n" + lineBreak;
         say(response.replaceAll("\n", "\n\t"));
     }
     /**
@@ -49,7 +49,7 @@ public class Ui {
      * on startup of the bot
      */
     public void startup() {
-        say(LOGO);
+        say(logo);
         respond("Startup successful!");
     }
     /**

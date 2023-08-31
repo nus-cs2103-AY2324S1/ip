@@ -6,7 +6,6 @@ import io.Parser;
 /**
  * Representation of a command
  * to list all tasks in list.
- * 
  * @author Alvis Ng (supermii2)
  */
 public class CommandTaskList extends Command {
@@ -18,13 +17,13 @@ public class CommandTaskList extends Command {
     public CommandTaskList(Rock client) {
         super(client);
     }
-    @Override
     /**
      * Removes task from task list.
      * @param input Unused
      * @throws IllegalArgumentException Thrown when invalid index is given.
      */
+    @Override
     public void accept(Parser input) {
-        this.client.ui.respond(this.client.taskList.toString());
+        this.client.getUi().respond(this.client.getTaskList().toString());
     }
 }

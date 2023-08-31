@@ -11,14 +11,13 @@ import tasks.TaskList;
 /**
  * Rock is the name of and the main program used
  * to run the chatbot for ip.
- * 
  * @author Alvis Ng (supermii2)
  */
 public class Rock {
-    public static Path FILE_PATH = Paths.get("data", "tasks.ser");
-    public TaskList taskList;
-    public Storage storage;
-    public Ui ui;
+    private static Path filePath = Paths.get("data", "tasks.ser");
+    private TaskList taskList;
+    private Storage storage;
+    private Ui ui;
     private Commands commands;
     private boolean isTerminated = false;
 
@@ -28,7 +27,7 @@ public class Rock {
         this.commands = new Commands(this);
         this.ui.startup();
         try {
-            this.storage = new Storage(path.toAbsolutePath().toFile(), this.taskList, this);
+            this.storage = new Storage(path.toAbsolutePath().toFile(), this);
         } catch (StorageException e) {
             System.out.println(e.getMessage());
         }
@@ -44,13 +43,24 @@ public class Rock {
             }
         }
     }
-
+    public TaskList getTaskList() {
+        return this.taskList;
+    }
+    public void setTaskList(TaskList taskList) {
+        this.taskList = taskList;
+    }
+    public Ui getUi() {
+        return this.ui;
+    }
+    public Storage getStorage() {
+        return this.storage;
+    }
     public void terminate() {
         // Sets necessary fields to closed.
         this.isTerminated = true;
         ui.close();
     }
     public static void main(String[] args) {
-        new Rock(FILE_PATH).run();
+        new Rock(filePath).run();
     }
 }

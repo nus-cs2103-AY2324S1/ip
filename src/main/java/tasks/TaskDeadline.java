@@ -5,7 +5,6 @@ import java.time.format.DateTimeParseException;
 /**
  * Representation of a deadline task
  * recorded by the chatbot.
- * 
  * @author Alvis Ng (supermii2)
  */
 public class TaskDeadline extends Task {
@@ -25,17 +24,21 @@ public class TaskDeadline extends Task {
             throw new IllegalArgumentException("Illegal Date/Time");
         }
     }
+    /**
+     * Used to get the date of the task object.
+     * @return Date of Deadline
+     */
     @Override
     public LocalDate getDate() {
         return this.deadlineTime;
     }
-    @Override
     /**
      * String representation of Deadline
      * @return String representation of deadline
      */
+    @Override
     public String toString() {
-        return super.toString() + 
-        " (by: " + this.deadlineTime + ")";
+        return super.toString()
+            + " (by: " + this.deadlineTime + ")";
     }
 }
