@@ -2,9 +2,10 @@ package duke.task;
 import java.util.ArrayList;
 import duke.DukeException;
 public class ToDo extends Task {
-    String description;
+    public String description;
     public ToDo(String description) {
         super(description);
+        this.description = description;
     }
 
     @Override
@@ -33,5 +34,16 @@ public class ToDo extends Task {
         newTask.markFromRead(isMarked);
         list.add(newTask);
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof ToDo) {
+            ToDo toDo = (ToDo) obj;
+            return this.description.equals(toDo.description);
+        }
+        return false;
+
+    }
+
 
 }
