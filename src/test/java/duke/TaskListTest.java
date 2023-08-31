@@ -1,8 +1,10 @@
 package duke;
 
-import org.junit.jupiter.api.Test;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
+
+import org.junit.jupiter.api.Test;
 
 import duke.exception.DukeException;
 import duke.task.Deadline;
@@ -15,7 +17,7 @@ public class TaskListTest {
         TaskList taskList = new TaskList();
         UiStub ui = new UiStub();
         try {
-            taskList.addTask(new Todo ("test"), ui);
+            taskList.addTask(new Todo("test"), ui);
             taskList.deleteTask(0, ui);
             assert true;
         } catch (DukeException e) {
@@ -28,7 +30,7 @@ public class TaskListTest {
         TaskList taskList = new TaskList();
         UiStub ui = new UiStub();
         try {
-            taskList.addTask(new Todo ("test"), ui);
+            taskList.addTask(new Todo("test"), ui);
             taskList.deleteTask(-1, ui);
             fail();
         } catch (DukeException e) {

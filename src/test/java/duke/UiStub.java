@@ -2,6 +2,11 @@ package duke;
 
 import duke.task.Task;
 
+/**
+ * Represents a UI stub.
+ * A <code>UiStub</code> object corresponds to a UI
+ * that does not actually print to the console. It is used for testing.
+ */
 public class UiStub extends Ui {
 
     @Override

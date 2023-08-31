@@ -1,13 +1,15 @@
 package duke.task;
 
-import duke.Keyword;
-import duke.Storage;
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 import java.time.LocalDate;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
+import org.junit.jupiter.api.Test;
+
+import duke.Keyword;
+import duke.Storage;
+
 
 public class TodoTest {
 
