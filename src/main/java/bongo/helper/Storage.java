@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Storage {
+
     public enum FileAction {
         MARK_TASK,
         UNMARK_TASK,
@@ -17,10 +18,21 @@ public class Storage {
     }
     String pathname;
 
+    /**
+     * A constructor for a Storage, with a pathname.
+     * @param pathname
+     */
     public Storage(String pathname) {
         this.pathname = pathname;
     }
 
+    /**
+     * Loads tasks into the TaskList, if there is an existing text file found.
+     * If no file is found, throws a FileNotFound Exception.
+     * @return An ArrayList<Task> of preloaded tasks.
+     * @throws FileNotFoundException
+     * @throws BongoException
+     */
     public ArrayList<Task> load() throws FileNotFoundException, BongoException {
         File file = new File(this.pathname);
         Scanner fileScanner = new Scanner(file);
@@ -48,6 +60,10 @@ public class Storage {
         return loadedTasks;
     }
 
+    /**
+     * Check if the data directory and text file is present.
+     * If either is not present, create it.
+     */
     public void checkIfFilesExist() {
         File file = new File(this.pathname);
         String directoryPath = file.getParent();
@@ -70,6 +86,10 @@ public class Storage {
         }
     }
 
+    /**
+     * Appends task on a new line in the text file.
+     * @param newTask
+     */
     public void add(Task newTask) {
         try {
             File file = new File(this.pathname);
@@ -87,6 +107,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Edit the text that corresponds to a certain task in the text file.
+     * @param action
+     * @param taskNumber
+     */
     public void edit(FileAction action, int taskNumber) {
         try {
             File file = new File(this.pathname);
