@@ -7,7 +7,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 
 public class Ui {
-    final boolean isDebug = false;
+    final boolean isDebug = true;
     final String DIVIDER = "____________________________________________________________";
 
     public void showStartLogo() {
