@@ -79,6 +79,8 @@ public class TokenManager {
         while (removeCount > 0) {
             Token token = this.tokens.remove(startIndex);
             removed.add(token);
+
+            removeCount--;
         }
         return removed;
     }
