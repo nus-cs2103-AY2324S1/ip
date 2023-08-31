@@ -87,6 +87,18 @@ public class Cheesebot {
           ui.showMessage("Task not found!");
         }
         break;
+        case "find":
+        String keyword = input.split(" ")[1];
+        TaskList filteredList = taskList.filterTasks(keyword);
+        if (filteredList.getSize() > 0) {
+          ui.showMessage("Here are the matching tasks in your list:");
+          for (int i = 0; i < filteredList.getSize(); i++) {
+            ui.showMessage((i + 1) + ". " + filteredList.getTask(i));
+          }
+        } else {
+          ui.showMessage("No matching tasks found!");
+        }
+        break;
         default:
         ui.showMessage("I'm sorry, but I don't know what that means :-(");
       }

@@ -26,14 +26,14 @@ public class Ui {
     System.out.println("\tHello! I'm Cheese");
     System.out.println("\tWhat can I do for you?");
     System.out.println("\tCommands:"+ 
-      "\ntodo <task>,"+
-      "\ndeadline <task> /by <date>,"+
-      "\nevent <task> /at <date>,"+
-      "\nlist,"+
-      "\ndelete <task number>,"+
-      "\nmark <task number>,"+
-      //"\nfind <keyword>,"+
-      "\nbye");
+      "\n\ttodo <task>,"+
+      "\n\tdeadline <task> /by dd-MM-yyyy,"+
+      "\n\tevent <task> /from <day> /to <day>,"+
+      "\n\tlist,"+
+      "\n\tdelete <task number>,"+
+      "\n\tmark <task number>,"+
+      "\n\tfind <keyword>,"+
+      "\n\tbye");
 
     System.out.println("-----------------------------------------------");
   }

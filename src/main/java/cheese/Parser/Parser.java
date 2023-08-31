@@ -97,6 +97,7 @@ public class Parser {
       case "deadline":
       case "event":
       case "delete":
+      case "find":
       return true;
       default:
       return false;
@@ -107,7 +108,11 @@ public class Parser {
     String[] inputSplit = input.split(" ");
     return inputSplit[0];
   }
-
+  /**
+   * Parses input during load and returns a Task object
+   * @param input
+   * @return Task object
+   */
   public Task parseTask(String input) {
     String[] inputSplit = input.split(" ", 2);
     String command = inputSplit[0];
@@ -141,6 +146,7 @@ public class Parser {
         String[] eventInfo2 = eventInfo[1].split(" /to ", 2);
         newTask = new Task('E',eventInfo[0].trim(), eventInfo2[0].trim(), eventInfo2[1].trim());
         break;
+        
 
         default:
         throw new IllegalArgumentException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
