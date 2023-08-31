@@ -13,7 +13,7 @@ public class TaskList {
     }
 
 
-    public List getList() {
+    public List<Task> getList() {
         return this.todoList;
     }
 
