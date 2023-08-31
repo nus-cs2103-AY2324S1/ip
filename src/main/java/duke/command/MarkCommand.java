@@ -31,7 +31,9 @@ public class MarkCommand extends Command {
     @Override
     public void execute() {
         Integer number = Integer.parseInt(this.numberString);
+
         Task task = taskList.mark(number);
+
         System.out.println("YONG has marked this task as completed! \n" + task.toString());
     }
 }

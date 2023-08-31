@@ -49,6 +49,7 @@ public class Task implements Serializable {
     @Override
     public String toString() {
         String ret = "[" + getStatusIcon() + "] " + description;
+
         return ret;
     }
 

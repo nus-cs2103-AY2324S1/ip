@@ -37,9 +37,11 @@ public class Parser {
      */
     public Command parse(String inp) {
         inp = inp.toUpperCase();
+
         String [] parts = inp.split(" ", 2);
         String check = parts[0];
         String numberString = parts.length > 1 ? parts[1] : "";
+
         switch (check) {
             case "BYE":
                 Command byeCommand = new ExitCommand(taskList);

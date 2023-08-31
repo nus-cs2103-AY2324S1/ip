@@ -36,8 +36,11 @@ public class ToDoCommand extends Command {
             String[] typeDescription = inp.split(" ", 2);
             String type = typeDescription[0];
             String description = typeDescription[1];
+
             Task newTask = new ToDo(description);
+
             taskList.add(newTask);
+
             System.out.println("Okay! Task added \n" + newTask);
         } catch (Exception e) {
             throw new DukeException("Please give a valid description for a ToDo task!");

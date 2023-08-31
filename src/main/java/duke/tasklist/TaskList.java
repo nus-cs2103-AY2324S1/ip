@@ -32,8 +32,11 @@ public class TaskList {
         if (number > taskList.size() || number < 0) {
             throw new DukeException("Wrong Param");
         }
+
         Task task = taskList.get(number-1);
+
         task.markAsDone();
+
         return task;
     }
 
@@ -47,8 +50,11 @@ public class TaskList {
         if (number > taskList.size() || number < 0) {
             throw new DukeException("Wrong Param");
         }
+
         Task task = taskList.get(number-1);
+
         task.unmarkAsDone();
+
         return task;
     }
 
@@ -62,7 +68,9 @@ public class TaskList {
         if (number > taskList.size() || number < 0) {
             throw new DukeException("Wrong Param");
         }
+
         Task task = taskList.remove(number-1);
+
         return task;
     }
 

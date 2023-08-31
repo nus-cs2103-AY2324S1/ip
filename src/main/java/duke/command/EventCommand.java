@@ -38,8 +38,11 @@ public class EventCommand extends Command {
             String description = typeDescription[1];
             String from = parts[1].trim().split(" ", 2)[1];
             String to = parts[2].trim().split(" ", 2)[1];
+
             Task newTask = new Event(description, from, to);
+
             taskList.add(newTask);
+
             System.out.println("Okay! Task added \n" + newTask);
         } catch (Exception e) {
             System.out.println(e);

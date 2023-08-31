@@ -36,8 +36,11 @@ public class DeadlineCommand extends Command {
             String[] typeDescription = parts[0].split(" ", 2);
             String type = typeDescription[0];
             String description = typeDescription[1];
+
             Task newTask = new Deadline(description, parts[1]);
+
             taskList.add(newTask);
+
             System.out.println("Okay! Task added \n" + newTask);
         } catch (Exception e) {
             throw new DukeException("Please give a valid description for a Deadline task!");

@@ -34,7 +34,9 @@ public class DeleteCommand extends Command {
     @Override
     public void execute() {
         Integer number = Integer.parseInt(numberString);
+
         Task task = taskList.delete(number);
+
         System.out.println("YONG has deleted this task for you! \n" + task.toString());
 
     }

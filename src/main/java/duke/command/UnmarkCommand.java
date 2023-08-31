@@ -31,7 +31,9 @@ public class UnmarkCommand extends Command {
     @Override
     public void execute() {
         Integer number = Integer.parseInt(this.numberString);
+
         Task task = taskList.unmark(number);
+
         System.out.println("YONG has unmarked this task successfully! \n" + task.toString() + "\n");
     }
 }
