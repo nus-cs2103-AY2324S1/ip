@@ -1,3 +1,5 @@
+package Duke;
+
 public class Event extends SingleTask {
     private String from;
     private String to;

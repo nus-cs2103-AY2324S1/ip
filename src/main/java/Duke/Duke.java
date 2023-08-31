@@ -1,9 +1,11 @@
+package Duke;
+
 import java.io.IOException;
 import java.io.File;
 
 
 public class Duke {
-    private  Ui ui = new Ui();
+    private Ui ui = new Ui();
     private TaskList tasks;
 
     public Duke() {

@@ -1,4 +1,8 @@
-public class ToDo extends SingleTask{
+package Duke;
+
+import Duke.SingleTask;
+
+public class ToDo extends SingleTask {
     public ToDo(String s) {
         super(s);
     }

@@ -1,3 +1,5 @@
+package Duke;
+
 public abstract class SingleTask {
     protected  String description;
     protected Boolean isDone;
