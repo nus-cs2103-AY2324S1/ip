@@ -5,7 +5,7 @@ import chatter.TaskList;
 import chatter.Ui;
 
 /**
- * Represents a Command class that is responsible for finding tasks via a keyword.
+ * Represents a FindCommand class that is responsible for finding tasks via a keyword.
  *
  * @author Anthony Tamzil
  * @version CS2103T Individual Project AY2023/24 Semester 1
