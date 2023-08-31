@@ -1,9 +1,11 @@
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.time.format.DateTimeFormatter;
+
 
 
 public class Noac {
@@ -55,213 +57,252 @@ public class Noac {
                 String command = userInputArr[0];
 
                 switch(command) {
-                    case "list":
+                case "list":
+                    System.out.println("    ____________________________________________________________");
+                    System.out.println("     Here are the tasks in your list:");
+                    for (int i = 1; i <= tasks.size(); i++) {
+                        System.out.println("     " + i + "." + tasks.get(i-1).toString());
+                    }
+                    System.out.println("    ____________________________________________________________");
+
+                    break;
+
+                case "mark": case "unmark":
+                    String[] temp = userInput.split(" ");
+
+                    if(checkValidMarkInput(userInput, tasks.size())){
+
+                        int taskNo = Integer.parseInt(temp[1]);
+
                         System.out.println("    ____________________________________________________________");
-                        System.out.println("     Here are the tasks in your list:");
-                        for (int i = 1; i <= tasks.size(); i++) {
-                            System.out.println("     " + i + "." + tasks.get(i-1).toString());
-                        }
-                        System.out.println("    ____________________________________________________________");
 
-                        break;
-
-                    case "mark": case "unmark":
-                        String[] temp = userInput.split(" ");
-
-                        if(checkValidMarkInput(userInput, tasks.size())){
-
-                            int taskNo = Integer.parseInt(temp[1]);
-
-                            System.out.println("    ____________________________________________________________");
-
-                            if (command.equals("mark")) {
-                                tasks.get(taskNo - 1).markAsDone();
-                                didListChange = true;
-
-                                System.out.println("     Nice! I've marked this task as done:");
-
-                            } else {
-                                tasks.get(taskNo - 1).unmarkAsDone();
-                                didListChange = true;
-
-                                System.out.println("     OK, I've marked this task as not done yet:");
-
-                            }
-                            System.out.println("       " + tasks.get(taskNo-1).toString());
-                            System.out.println("    ____________________________________________________________");
-
-
-                        }
-
-                        break;
-
-                    case "todo":
-                        if (userInputArr.length > 1) {
-                            String description = "";
-
-                            for(int i = 1; i < userInputArr.length; i++) {
-                                description += userInputArr[i] + " ";
-                            }
-
-                            description = description.substring(0, description.length() - 1);
-
-                            Todo t = new Todo(description);
-
-                            tasks.add(t);
+                        if (command.equals("mark")) {
+                            tasks.get(taskNo - 1).markAsDone();
                             didListChange = true;
 
-
-                            System.out.println("    ____________________________________________________________");
-                            System.out.println("     Got it. I've added this task:");
-                            System.out.println("       " + t.toString());
-                            System.out.println("     Now you have " + tasks.size() + " tasks in the list.");
-                            System.out.println("    ____________________________________________________________");
-
-
+                            System.out.println("     Nice! I've marked this task as done:");
 
                         } else {
-
-                            throw new NoacException("☹ OOPS!!! The description of a todo cannot be empty.");
-
-                        }
-                        break;
-
-                    case "deadline":
-
-
-                        String description = "";
-                        String by = "";
-
-                        boolean afterBy = false;
-
-                        for(int i = 1; i < userInputArr.length; i++) {
-                            if (userInputArr[i].equals("/by")){
-                                afterBy = true;
-                                continue;
-                            }
-                            if (afterBy) {
-                                by += userInputArr[i] + " ";
-                            } else {
-                                description += userInputArr[i] + " ";
-                            }
-
-                        }
-
-                        if (!afterBy) {
-
-                            throw new NoacException("☹ OOPS!!! The input must contain the command /by");
-
-                        }
-
-                        if(by.length() == 0 || description.length() == 0) {
-
-                            throw new NoacException("☹ OOPS!!! The description and by of a deadline cannot \n     be empty");
-
-                        }
-
-                        by = by.substring(0, by.length() - 1);
-                        description = description.substring(0, description.length() - 1);
-
-                        Deadline d = new Deadline(description, by);
-
-                        tasks.add(d);
-                        didListChange = true;
-
-
-                        System.out.println("    ____________________________________________________________");
-                        System.out.println("     Got it. I've added this task:");
-                        System.out.println("       " + d.toString());
-                        System.out.println("     Now you have " + tasks.size() + " tasks in the list.");
-                        System.out.println("    ____________________________________________________________");
-
-
-                        break;
-
-
-                    case "event":
-
-                        String descript = "";
-                        String from = "";
-                        String to = "";
-
-                        String status = "event";
-
-
-                        for(int i = 1; i < userInputArr.length; i++) {
-                            if (userInputArr[i].equals("/from")){
-                                status = "from";
-                                continue;
-                            }
-                            if (userInputArr[i].equals("/to")){
-                                status = "to";
-                                continue;
-                            }
-
-                            if (status.equals("event")) {
-                                descript += userInputArr[i] + " ";
-                            } else if (status.equals("from")) {
-                                from += userInputArr[i] + " ";
-                            } else if (status.equals("to")) {
-                                to += userInputArr[i] + " ";
-                            }
-
-                        }
-
-                        if (!status.equals("to")) {
-
-                            throw new NoacException("☹ OOPS!!! The input must contain the command /from and /to \n     in this order");                        }
-
-                        if(descript.length() == 0 || from.length() == 0 || to.length() == 0) {
-
-                            throw new NoacException("☹ OOPS!!! The description, from and to of a event cannot \n     be empty!");
-
-                        }
-
-                        from = from.substring(0, from.length() - 1);
-                        to = to.substring(0, to.length() - 1);
-                        descript = descript.substring(0, descript.length() - 1);
-
-                        Event e = new Event(descript, from, to);
-
-                        tasks.add(e);
-                        didListChange = true;
-
-
-                        System.out.println("    ____________________________________________________________");
-                        System.out.println("     Got it. I've added this task:");
-                        System.out.println("       " + e.toString());
-                        System.out.println("     Now you have " + tasks.size() + " tasks in the list.");
-                        System.out.println("    ____________________________________________________________");
-
-
-
-                        break;
-
-
-                    case "delete":
-
-                        if(checkValidDeleteInput(userInput, tasks.size())) {
-
-                            int taskNo = Integer.parseInt(userInputArr[1]);
-
-                            System.out.println("    ____________________________________________________________");
-                            System.out.println("     Noted. I've removed this task:");
-                            System.out.println("       " + tasks.get(taskNo-1).toString());
-
-                            tasks.remove(taskNo-1);
+                            tasks.get(taskNo - 1).unmarkAsDone();
                             didListChange = true;
 
-                            System.out.println("     Now you have " + tasks.size() + " tasks in the list.");
-                            System.out.println("    ____________________________________________________________");
-
+                            System.out.println("     OK, I've marked this task as not done yet:");
 
                         }
-                        break;
+                        System.out.println("       " + tasks.get(taskNo-1).toString());
+                        System.out.println("    ____________________________________________________________");
 
 
-                    default:
+                    }
 
-                        throw new NoacException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+                    break;
+
+                case "todo":
+                    if (userInputArr.length > 1) {
+                        String description = "";
+
+                        for(int i = 1; i < userInputArr.length; i++) {
+                            description += userInputArr[i] + " ";
+                        }
+
+                        description = description.substring(0, description.length() - 1);
+
+                        Todo t = new Todo(description);
+
+                        tasks.add(t);
+                        didListChange = true;
+
+
+                        System.out.println("    ____________________________________________________________");
+                        System.out.println("     Got it. I've added this task:");
+                        System.out.println("       " + t.toString());
+                        System.out.println("     Now you have " + tasks.size() + " tasks in the list.");
+                        System.out.println("    ____________________________________________________________");
+
+
+
+                    } else {
+
+                        throw new NoacException("☹ OOPS!!! The description of a todo cannot be empty.");
+
+                    }
+                    break;
+
+                case "deadline":
+
+
+                    String description = "";
+                    String by = "";
+
+                    boolean afterBy = false;
+
+                    for(int i = 1; i < userInputArr.length; i++) {
+                        if (userInputArr[i].equals("/by")){
+                            afterBy = true;
+                            continue;
+                        }
+                        if (afterBy) {
+                            by += userInputArr[i] + " ";
+                        } else {
+                            description += userInputArr[i] + " ";
+                        }
+
+                    }
+
+                    if (!afterBy) {
+
+                        throw new NoacException("☹ OOPS!!! The input must contain the command /by");
+
+                    }
+
+                    if(by.length() == 0 || description.length() == 0) {
+
+                        throw new NoacException("☹ OOPS!!! The description and by of a deadline cannot \n     be empty");
+
+                    }
+
+                    by = by.substring(0, by.length() - 1);
+                    description = description.substring(0, description.length() - 1);
+
+
+
+                    Deadline d = new Deadline(description, parseDate(by));
+
+                    tasks.add(d);
+                    didListChange = true;
+
+
+                    System.out.println("    ____________________________________________________________");
+                    System.out.println("     Got it. I've added this task:");
+                    System.out.println("       " + d.toString());
+                    System.out.println("     Now you have " + tasks.size() + " tasks in the list.");
+                    System.out.println("    ____________________________________________________________");
+
+
+                    break;
+
+
+                case "event":
+
+                    String descript = "";
+                    String from = "";
+                    String to = "";
+
+                    String status = "event";
+
+
+                    for(int i = 1; i < userInputArr.length; i++) {
+                        if (userInputArr[i].equals("/from")){
+                            status = "from";
+                            continue;
+                        }
+                        if (userInputArr[i].equals("/to")){
+                            status = "to";
+                            continue;
+                        }
+
+                        if (status.equals("event")) {
+                            descript += userInputArr[i] + " ";
+                        } else if (status.equals("from")) {
+                            from += userInputArr[i] + " ";
+                        } else if (status.equals("to")) {
+                            to += userInputArr[i] + " ";
+                        }
+
+                    }
+
+                    if (!status.equals("to")) {
+
+                        throw new NoacException("☹ OOPS!!! The input must contain the command /from and /to \n     in this order");                        }
+
+                    if(descript.length() == 0 || from.length() == 0 || to.length() == 0) {
+
+                        throw new NoacException("☹ OOPS!!! The description, from and to of a event cannot \n     be empty!");
+
+                    }
+
+                    from = from.substring(0, from.length() - 1);
+                    to = to.substring(0, to.length() - 1);
+                    descript = descript.substring(0, descript.length() - 1);
+
+
+                    Event e = new Event(descript, parseDate(from), parseDate(to));
+
+                    tasks.add(e);
+                    didListChange = true;
+
+
+                    System.out.println("    ____________________________________________________________");
+                    System.out.println("     Got it. I've added this task:");
+                    System.out.println("       " + e.toString());
+                    System.out.println("     Now you have " + tasks.size() + " tasks in the list.");
+                    System.out.println("    ____________________________________________________________");
+
+
+
+                    break;
+
+
+                case "delete":
+
+                    if(checkValidDeleteInput(userInput, tasks.size())) {
+
+                        int taskNo = Integer.parseInt(userInputArr[1]);
+
+                        System.out.println("    ____________________________________________________________");
+                        System.out.println("     Noted. I've removed this task:");
+                        System.out.println("       " + tasks.get(taskNo-1).toString());
+
+                        tasks.remove(taskNo-1);
+                        didListChange = true;
+
+                        System.out.println("     Now you have " + tasks.size() + " tasks in the list.");
+                        System.out.println("    ____________________________________________________________");
+
+
+                    }
+                    break;
+
+                case "on":
+                    LocalDate localDate;
+
+                    if (userInputArr.length != 2) {
+                        throw new NoacException("☹ OOPS!!! Please input date in this format yyyy-MM-dd");
+                    }
+                    try{
+                        localDate = LocalDate.parse(userInputArr[1], DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+
+                    } catch (DateTimeParseException exception) {
+                        throw new NoacException("☹ OOPS!!! Please input date in this format yyyy-MM-dd");
+                    }
+
+                    System.out.println("    ____________________________________________________________");
+                    System.out.println("     The tasks on this date are:");
+
+
+
+
+                    for(int i = 0 ; i < tasks.size(); i++) {
+                        if(tasks.get(i) instanceof Deadline) {
+                            if(localDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")).equals(((Deadline) tasks.get(i)).getBy().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")))) {
+                                System.out.println("     " + tasks.get(i).toString());
+                            }
+                        } else if (tasks.get(i) instanceof Event) {
+                            if(localDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")).equals(((Event) tasks.get(i)).getFrom().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))) || localDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")).equals(((Event) tasks.get(i)).getTo().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")))) {
+                                System.out.println("     " + tasks.get(i).toString());
+                            }
+                        }
+
+                    }
+
+                    System.out.println("    ____________________________________________________________");
+
+                    break;
+
+
+                default:
+
+                    throw new NoacException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
                 }
 
 
@@ -384,7 +425,8 @@ public class Noac {
                             throw new NoacException("☹ OOPS!!! Corrupted Save file");
                         }
 
-                        Deadline deadline = new Deadline(fileLineInput[2], fileLineInput[3]);
+
+                        Deadline deadline = new Deadline(fileLineInput[2], parseDate(fileLineInput[3]));
                         if(fileLineInput[1].equals("1")) {
                             deadline.markAsDone();
                         }
@@ -398,7 +440,9 @@ public class Noac {
                             throw new NoacException("☹ OOPS!!! Corrupted Save file");
                         }
 
-                        Event event = new Event(fileLineInput[2], fileLineInput[3], fileLineInput[4]);
+
+                        Event event = new Event(fileLineInput[2],parseDate(fileLineInput[3]) ,parseDate(fileLineInput[4]) );
+
                         if(fileLineInput[1].equals("1")) {
                             event.markAsDone();
                         }
@@ -423,6 +467,23 @@ public class Noac {
         }
 
         return returnList;
+
+    }
+
+
+    private static LocalDateTime parseDate(String date) throws NoacException {
+        LocalDateTime localDateTime;
+        try{
+            if(date.length() == 10) {
+                localDateTime = LocalDateTime.parse(date + " 0000", DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
+            } else {
+                localDateTime = LocalDateTime.parse(date, DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
+            }
+        } catch (DateTimeParseException e) {
+            throw new NoacException("☹ OOPS!!! Please input date in this format yyyy-MM-dd or yyyy-MM-dd HHmm");
+        }
+
+        return localDateTime;
 
     }
 
