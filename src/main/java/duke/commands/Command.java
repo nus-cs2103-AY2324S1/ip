@@ -8,7 +8,8 @@ import duke.components.Ui;
  * Abstract Command class that can be executed to perform a command
  */
 public abstract class Command {
-    public enum Types {
+
+    public enum Type {
         TODO, DEADLINE, EVENT, MARK, UNMARK, DELETE, DATE
     }
 
