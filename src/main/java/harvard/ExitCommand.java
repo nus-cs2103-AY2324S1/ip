@@ -1,4 +1,7 @@
 package harvard;
+/**
+ * Represents a command to exit the program.
+ */
 public class ExitCommand extends Command {
     /**
      * Returns true if the command is an exit command.

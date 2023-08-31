@@ -1,5 +1,9 @@
 package harvard;
 
+/**
+ * Represents a command to add a task.
+ */
+
 public class AddCommand extends Command {
     /**
      * The task to be added.
