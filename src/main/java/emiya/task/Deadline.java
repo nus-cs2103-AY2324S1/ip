@@ -1,9 +1,9 @@
-package task;
+package emiya.task;
 
 import java.time.LocalDateTime;
-import datehandler.DateHandler;
-import emiyaexception.InvalidDateException;
-import emiyaexception.WrongDateFormatException;
+import emiya.datehandler.DateHandler;
+import emiya.emiyaexception.InvalidDateException;
+import emiya.emiyaexception.WrongDateFormatException;
 
 public class Deadline extends Task {
 

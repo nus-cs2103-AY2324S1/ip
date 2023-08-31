@@ -1,4 +1,4 @@
-package emiyaexception;
+package emiya.emiyaexception;
 
 public class NoToException extends EmiyaException{
     public NoToException() {

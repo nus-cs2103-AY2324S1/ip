@@ -1,4 +1,4 @@
-package emiyaexception;
+package emiya.emiyaexception;
 
 public class CreateDirectoryFailException extends EmiyaException{
     public CreateDirectoryFailException() {

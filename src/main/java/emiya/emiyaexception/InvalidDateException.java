@@ -1,4 +1,4 @@
-package emiyaexception;
+package emiya.emiyaexception;
 
 public class InvalidDateException extends EmiyaException{
     public InvalidDateException() {

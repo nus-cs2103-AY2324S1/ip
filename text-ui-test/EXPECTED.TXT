@@ -1,22 +1,22 @@
 -----------------------------------------
-Hello! I'm Emiya
+Hello! I'm emiya.Emiya
 What can I do for you?
 -----------------------------------------
 
 -----------------------------------------
-Sure! I have added this task to the list:
+Sure! I have added this emiya.task to the list:
 [T][ ] buy a book
-Now you have 1 task in your list!
+Now you have 1 emiya.task in your list!
 -----------------------------------------
 
 -----------------------------------------
-Sure! I have added this task to the list:
+Sure! I have added this emiya.task to the list:
 [D][ ] read book (by: Sunday)
 Now you have 2 tasks in your list!
 -----------------------------------------
 
 -----------------------------------------
-Sure! I have added this task to the list:
+Sure! I have added this emiya.task to the list:
 [E][ ] reading book (from: today to: Sunday)
 Now you have 3 tasks in your list!
 -----------------------------------------
@@ -29,7 +29,7 @@ Lots of things to do! Get to it!:
 -----------------------------------------
 
 -----------------------------------------
-Nice job! I have marked this task as done:
+Nice job! I have marked this emiya.task as done:
 [D][X] read book (by: Sunday)
 -----------------------------------------
 
@@ -41,7 +41,7 @@ Lots of things to do! Get to it!:
 -----------------------------------------
 
 -----------------------------------------
-Oof, alright I have set this task as unmarked:
+Oof, alright I have set this emiya.task as unmarked:
 [D][ ] read book (by: Sunday)
 -----------------------------------------
 

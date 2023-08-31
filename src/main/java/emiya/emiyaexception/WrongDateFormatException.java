@@ -1,4 +1,4 @@
-package emiyaexception;
+package emiya.emiyaexception;
 
 public class WrongDateFormatException extends EmiyaException{
     public WrongDateFormatException() {

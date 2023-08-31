@@ -1,8 +1,8 @@
-package datehandler;
+package emiya.datehandler;
 
-import emiyaexception.InvalidDateException;
-import emiyaexception.WrongDateFormatException;
-import logic.Logic;
+import emiya.emiyaexception.InvalidDateException;
+import emiya.emiyaexception.WrongDateFormatException;
+import emiya.logic.Logic;
 
 import java.time.LocalDateTime;
 import java.time.Month;

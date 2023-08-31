@@ -1,4 +1,4 @@
-package logic;
+package emiya.logic;
 
 import emiya.Keywords;
 

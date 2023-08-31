@@ -1,4 +1,4 @@
-package task;
+package emiya.task;
 
 public class ToDo extends Task {
     public ToDo(boolean isCompleted, String nameOfTask) {
