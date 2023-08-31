@@ -1,7 +1,5 @@
 T1read book
-D0return book /by June 6th
-E0project meeting /from Aug 6th 2pm /to 4pm
 T0borrow book
-D0return book /by Sunday
-E0project meeting /from Mon 2pm /to 4pm
-D0do homework /by no idea :-p
+D0return book /by 2/12/2019 1800
+D0return book /by 2/01/2019 1100
+E0dfasdf /from 2/12/2019 1800 /to 2/12/3011 0800

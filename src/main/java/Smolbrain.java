@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 
 public class Smolbrain {
@@ -81,6 +82,9 @@ public class Smolbrain {
 
     public static void parse(String[] words, ArrayList<Task> data) {
         String descr = "";
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/MM/yyy HHmm");
+        LocalDateTime dateTime;
+        LocalDateTime dateTime2;
         try {
             switch (words[0]) {
                 case "list":
@@ -127,7 +131,9 @@ public class Smolbrain {
                     }
                     descr = descr.substring(0, descr.length() - 1);
                     by_text = by_text.substring(0, by_text.length() - 1);
-                    Deadline deadline = new Deadline(descr, by_text);
+
+                    dateTime = LocalDateTime.parse(by_text, formatter);
+                    Deadline deadline = new Deadline(descr, dateTime);
                     data.add(deadline);
                     if (!loading) {
                         System.out.println("Got it. I've added this task: \n" + deadline);
@@ -166,7 +172,10 @@ public class Smolbrain {
                     descr = descr.substring(0, descr.length() - 1);
                     from_text = from_text.substring(0, from_text.length() - 1);
                     to_text = to_text.substring(0, to_text.length() - 1);
-                    Event event = new Event(descr, from_text, to_text);
+                    dateTime = LocalDateTime.parse(from_text, formatter);
+
+                    dateTime2 = LocalDateTime.parse(to_text, formatter);
+                    Event event = new Event(descr, dateTime, dateTime2);
                     data.add(event);
                     if (!loading) {
                         System.out.println("Got it. I've added this task: \n" + event);
