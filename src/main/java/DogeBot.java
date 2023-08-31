@@ -6,88 +6,55 @@ public class DogeBot {
     private static ArrayList<Task> tasks = new ArrayList<>();
     public static void main(String[] args) {
         String logo = "    ___\n"
-                + " __/_  `.  .-\"\"\"-."         + "           |                      |             |   \n"
-                + " \\_,` | \\-'  /   )`-')"      + "    _` |   _ \\    _` |   _ \\  __ \\    _ \\   __| \n"
-                + "  \"\") `\"`    \\  ((`\"`"    + "    (   |  (   |  (   |   __/  |   |  (   |  |   \n"
-                + " ___Y  ,    .'7 /|"            + "      \\__,_| \\___/  \\__, | \\___| _.__/  \\___/  \\__| \n"
-                + "(_,___/...-` (_/_/"            + "                    |___/";
+            + " __/_  `.  .-\"\"\"-."         + "           |                      |             |   \n"
+            + " \\_,` | \\-'  /   )`-')"      + "    _` |   _ \\    _` |   _ \\  __ \\    _ \\   __| \n"
+            + "  \"\") `\"`    \\  ((`\"`"    + "    (   |  (   |  (   |   __/  |   |  (   |  |   \n"
+            + " ___Y  ,    .'7 /|"            + "      \\__,_| \\___/  \\__, | \\___| _.__/  \\___/  \\__| \n"
+            + "(_,___/...-` (_/_/"            + "                    |___/";
 
         System.out.println(logo + "\nHi ! I'm DogeBot \nHow may I help you today ?\n");
         Scanner sc = new Scanner(System.in);
         boolean loop = true;
 
         while (loop) {
-            switch (sc.next().toLowerCase()) {
+            try {
+                switch (sc.next().toLowerCase()) {
                 case "bye":
                     loop = false;
                     break;
                 case "list":
-                    try {
-                        list();
-                    } catch (DogeBotException e) { // empty list
-                        System.out.println(e.getMessage());
-                    }
+                    list();
                     break;
                 case "mark":
-                    try {
-                        mark(sc.nextInt() - 1);
-                    } catch (InputMismatchException e) { // input not 'int' datatype
-                        sc.nextLine(); // absorb remaining words so 'default' block doesn't act up
-                        System.out.println("Oops ! Integers only please :c");
-                    } catch (IndexOutOfBoundsException e) {
-                        System.out.println("Oh no ! I think that number is too big~");
-                    } catch (DogeBotException e) { // no tasks added yet
-                        System.out.println(e.getMessage());
-                    }
+                    mark(sc.nextInt() - 1);
                     break;
                 case "unmark":
-                    try {
-                        unmark(sc.nextInt() - 1);
-                    } catch (InputMismatchException e) { // input not 'int' datatype
-                        sc.nextLine(); // absorb remaining words so 'default' block doesn't act up
-                        System.out.println("Oops ! Integers only please :c");
-                    } catch (IndexOutOfBoundsException e) {
-                        System.out.println("Oh no ! I think that number is too big~");
-                    } catch (DogeBotException e) { // no tasks added yet
-                        System.out.println(e.getMessage());
-                    }
+                    unmark(sc.nextInt() - 1);
                     break;
                 case "todo":
-                    try {
-                        todo(sc.nextLine()); // sc.nextLine() to get the remaining words
-                    } catch (DogeBotException e) { // description blank
-                        System.out.println(e.getMessage());
-                    }
+                    todo(sc.nextLine()); // sc.nextLine() to get the remaining words
                     break;
                 case "deadline":
-                    try {
-                        deadline(sc.nextLine());
-                    } catch (DogeBotException e) { // description blank
-                        System.out.println(e.getMessage());
-                    }
+                    deadline(sc.nextLine());
                     break;
                 case "event":
-                    try {
-                        event(sc.nextLine());
-                    } catch (DogeBotException e) { // description blank
-                        System.out.println(e.getMessage());
-                    }
+                    event(sc.nextLine());
                     break;
                 case "delete":
-                    try {
-                        delete(sc.nextInt() - 1);
-                    } catch (InputMismatchException e) { // input not 'int' datatype
-                        sc.nextLine(); // absorb remaining words so 'default' block doesn't act up
-                        System.out.println("Oops ! Integers only please :c");
-                    } catch (IndexOutOfBoundsException e) {
-                        System.out.println("Oh no :( I think that number is too big~");
-                    } catch (DogeBotException e) {
-                        System.out.println(e.getMessage());
-                    }
+                    delete(sc.nextInt() - 1);
                     break;
                 default:
                     System.out.println("Wuff, I'm not sure what that means :(");
+                }
+            } catch (InputMismatchException e) {
+                sc.nextLine(); // absorb remaining words so 'default' block doesn't act up
+                System.out.println("Oops ! Integers only please :c");
+            } catch (IndexOutOfBoundsException e) {
+                System.out.println("Oh no :( I think that number is too big~");
+            } catch (DogeBotException e) {
+                System.out.println(e.getMessage());
             }
+
         }
 
         System.out.println("Bye~ See you again");
