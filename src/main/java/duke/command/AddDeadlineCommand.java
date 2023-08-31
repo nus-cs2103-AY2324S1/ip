@@ -2,8 +2,9 @@ package duke.command;
 
 import duke.tasks.Deadline;
 import duke.tasks.TaskList;
-import duke.util.Ui;
 import duke.util.Storage;
+import duke.util.Ui;
+
 
 /**
  * Represents a command to add a deadline task to the task list.

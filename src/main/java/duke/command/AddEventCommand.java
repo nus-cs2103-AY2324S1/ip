@@ -2,8 +2,8 @@ package duke.command;
 
 import duke.tasks.Event;
 import duke.tasks.TaskList;
-import duke.util.Ui;
 import duke.util.Storage;
+import duke.util.Ui;
 
 /**
  * Represents a command to add an event task to the task list.

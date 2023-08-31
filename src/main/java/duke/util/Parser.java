@@ -1,22 +1,23 @@
 package duke.util;
 
-import duke.command.Command;
+import java.util.HashMap;
+
 import duke.command.AddDeadlineCommand;
-import duke.command.ExitCommand;
-import duke.command.DeleteCommand;
 import duke.command.AddEventCommand;
 import duke.command.AddTodoCommand;
+import duke.command.Command;
+import duke.command.DeleteCommand;
+import duke.command.ExitCommand;
+import duke.command.FindCommand;
 import duke.command.ListCommand;
 import duke.command.MarkCommand;
 import duke.command.UnmarkCommand;
-import duke.command.FindCommand;
-
 import duke.exception.DukeException;
 import duke.exception.EmptyTaskException;
 import duke.exception.InvalidDateTimeException;
 import duke.tasks.TaskType;
 
-import java.util.HashMap;
+
 
 /**
  * Provides functionality to parse user input into commands that the application can understand.
@@ -74,7 +75,7 @@ public class Parser {
                 throw new EmptyTaskException(TaskType.TODO, "description");
             }
             String by = map.getOrDefault("by", "");
-            if(by.isEmpty()) {
+            if (by.isEmpty()) {
                 throw new EmptyTaskException(TaskType.DEADLINE, "by");
             }
             return new AddDeadlineCommand(argument, DateParser.transformDateTimeFormat(by));
@@ -83,14 +84,16 @@ public class Parser {
                 throw new EmptyTaskException(TaskType.TODO, "description");
             }
             String from = map.getOrDefault("from", "");
-            if(from.isEmpty()) {
+            if (from.isEmpty()) {
                 throw new EmptyTaskException(TaskType.EVENT, "from");
             }
             String to = map.getOrDefault("to", "");
-            if(to.isEmpty()) {
+            if (to.isEmpty()) {
                 throw new EmptyTaskException(TaskType.EVENT, "to");
             }
-            return new AddEventCommand(argument, DateParser.transformDateTimeFormat(from), DateParser.transformDateTimeFormat(to));
+            return new AddEventCommand(argument,
+                    DateParser.transformDateTimeFormat(from),
+                    DateParser.transformDateTimeFormat(to));
         case "find":
             return new FindCommand(argument);
         default:

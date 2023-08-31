@@ -1,11 +1,12 @@
 package duke.util;
 
-import duke.exception.InvalidDateTimeException;
-
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.regex.Pattern;
+
+import duke.exception.InvalidDateTimeException;
+
 
 /**
  * Utility class for parsing and transforming date-time strings.
@@ -35,7 +36,8 @@ public class DateParser {
     /**
      * Formatter for producing output datetime strings in the format "MMM dd yyyy, h:mma".
      */
-    private static final DateTimeFormatter OUTPUT_DATETIME_FORMATTER = DateTimeFormatter.ofPattern("MMM dd yyyy, h:mma");
+    private static final DateTimeFormatter OUTPUT_DATETIME_FORMATTER =
+            DateTimeFormatter.ofPattern("MMM dd yyyy, h:mma");
 
     /**
      * Pattern for validating input datetime strings.

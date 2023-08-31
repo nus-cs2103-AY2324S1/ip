@@ -3,7 +3,8 @@ package duke.tasks;
 /**
  * Represents a generic task with a specific type, description, and completion status.
  *
- * <p> The Task class is a fundamental representation of a task that can be of various types such as TODO, DEADLINE, or EVENT.
+ * <p> The Task class is a fundamental representation of a task that can be of various types
+ * such as TODO, DEADLINE, or EVENT.
  * Each task has a type, a description, and a flag that indicates whether it has been completed. </p>
  */
 public class Task {
@@ -66,7 +67,7 @@ public class Task {
     /**
      * Transforms the task's data into a specific format, useful for data storage or other representations.
      *
-     * @return A formatted string that represents the task's type, completion status, and description in a unique format.
+     * @return A string that represents the task's type, completion status, and description in a unique format.
      */
     public String transformFormat() {
         String printType;

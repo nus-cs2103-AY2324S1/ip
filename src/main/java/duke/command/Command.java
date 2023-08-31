@@ -1,8 +1,8 @@
 package duke.command;
 
 import duke.tasks.TaskList;
-import duke.util.Ui;
 import duke.util.Storage;
+import duke.util.Ui;
 
 /**
  * Represents an abstract command that can be executed in the application.

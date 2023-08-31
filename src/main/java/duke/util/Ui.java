@@ -11,12 +11,10 @@ public class Ui {
     /** The horizontal line used for formatting output */
     private static final String HORIZONTAL_LINE = "----------------------------------------";
 
-    /** Scanner object to read user input */
-    private Scanner inputScanner;
-
     /** The name of the bot */
     private static final String name = "Code Buddy";
-
+    /** Scanner object to read user input */
+    private Scanner inputScanner;
     /**
      * Initializes a new Ui object, setting up the scanner for user input.
      */

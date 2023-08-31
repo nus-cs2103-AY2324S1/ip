@@ -50,7 +50,7 @@ public class TaskList {
      * @throws InvalidIndexException If the provided index is out of bounds.
      */
     public void deleteTask(int index) throws InvalidIndexException {
-        if(index > store.size()) {
+        if (index > store.size()) {
             throw new InvalidIndexException();
         }
         Task task = store.get(index - 1);
@@ -66,7 +66,7 @@ public class TaskList {
     public void listTasks() {
         System.out.println("Here are the tasks in your list:");
         int counter = 1;
-        for(Task task: store) {
+        for (Task task: store) {
             System.out.println(counter + "." + task);
             counter++;
         }
@@ -79,7 +79,7 @@ public class TaskList {
      * @throws InvalidIndexException If the provided index is out of bounds.
      */
     public void markTask(int index) throws InvalidIndexException {
-        if(index > store.size()) {
+        if (index > store.size()) {
             throw new InvalidIndexException();
         }
         Task curr = store.get(index - 1);
@@ -95,7 +95,7 @@ public class TaskList {
      * @throws InvalidIndexException If the provided index is out of bounds.
      */
     public void unmarkTask(int index) throws InvalidIndexException {
-        if(index > store.size()) {
+        if (index > store.size()) {
             throw new InvalidIndexException();
         }
         Task curr = store.get(index - 1);
@@ -113,6 +113,11 @@ public class TaskList {
         return store;
     }
 
+    /**
+     * Finds and prints tasks containing the specified keyword.
+     *
+     * @param keyword The keyword to search for in task descriptions.
+     */
     public void findTasks(String keyword) {
         System.out.println("Here are the matching tasks in your list:");
         boolean found = false;

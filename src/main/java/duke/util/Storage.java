@@ -1,17 +1,17 @@
 package duke.util;
 
-import duke.tasks.Deadline;
-import duke.tasks.Event;
-import duke.tasks.Task;
-import duke.tasks.Todo;
-import duke.exception.CorruptHarddriveException;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import duke.exception.CorruptHarddriveException;
+import duke.tasks.Deadline;
+import duke.tasks.Event;
+import duke.tasks.Task;
+import duke.tasks.Todo;
 
 /**
  * Provides functionality for storing tasks in a file and retrieving tasks from a file.
@@ -28,7 +28,7 @@ public class Storage {
      * Loads the tasks from the hard drive.
      *
      * @return An ArrayList of Task objects, each representing a task retrieved from the hard drive.
-     * If there are any errors while reading, the list may be empty.
+     *
      */
     public ArrayList<Task> load() {
         ArrayList<Task> store = new ArrayList<>();
@@ -79,6 +79,7 @@ public class Storage {
                 }
             }
         } catch (FileNotFoundException e) {
+            System.out.println("No initial file");
         } catch (CorruptHarddriveException e) {
             System.out.println("Something went wrong: " + e.getMessage());
         }
