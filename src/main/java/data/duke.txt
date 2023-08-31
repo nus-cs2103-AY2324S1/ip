@@ -1,9 +1,7 @@
-[T][ ] homework
-[D][ ] math (by: monday)
+[D][ ] math (by: 2013-12-01)
 [E][ ] weekend (from: sat to: sun)
 [T][ ] add homework
-[D][ ] fish (by: june)
 [E][ ] ghost (from: 23/01/2023 to: 12/2/2024)
-[T][X] re
-[D][X] gr (by: monday)
 [T][ ] g
+[D][ ] fish (by: 2019-12-12)
+[D][ ] hell (by: 2019-12-20)

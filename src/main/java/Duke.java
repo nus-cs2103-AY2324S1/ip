@@ -3,6 +3,9 @@ import java.util.Scanner;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 
 class EmptyDescriptionException extends Exception {
     public EmptyDescriptionException(String task) {
@@ -142,7 +145,7 @@ class Duke {
                 String by = deadlineParts[1];
                 tasks.add(new Deadline(description, by));
             } catch (Exception e) {
-                throw new WrongFormatException("OOPS!!! deadlines need to be in this format, deadline return book /by Sunday");
+                throw new WrongFormatException("OOPS!!! deadlines need to be in this format, deadline return book /by YYYY-MM-DD");
             }
         } else if (commandType == CommandType.EVENT) {
             if (inputParts.length <= 1){
@@ -201,11 +204,12 @@ class Todo extends Task {
 }
 
 class Deadline extends Task {
-    public String by;
+    public LocalDate by;
 
     public Deadline(String description, String by) {
         super(description);
-        this.by = by;
+        LocalDate date = LocalDate.parse(by);
+        this.by = date;
     }
 
     @Override
