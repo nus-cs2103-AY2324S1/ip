@@ -55,6 +55,12 @@ public class InputParser {
         }
     }
 
+    /***
+     * parses user input
+     * @param input
+     * @param toStore
+     * @return truw if user has not exited, false if user has exited chatbot
+     */
     public static boolean parse(String input, boolean toStore) {
         String[] splitStr = input.trim().split("\\s+");
 
@@ -179,8 +185,10 @@ public class InputParser {
     }
 
 
-
-
+    /***
+     * Until user types 'bye', will keep calling parse function with user input
+     * @param savedTasks loads existing
+     */
     public static void getUserInputs(ArrayList<Task> savedTasks) {
 
         tasks = savedTasks;

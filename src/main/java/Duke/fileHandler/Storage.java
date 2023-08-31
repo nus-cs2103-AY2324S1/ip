@@ -19,6 +19,12 @@ public class Storage {
         FILE_PATH = file_path;
     }
 
+    /***
+     * converts string from saved file to Date object
+     * @param dateString
+     * @return Date
+     * @throws DukeException
+     */
     public static Date fileDateParser(String dateString) throws DukeException {
 
         SimpleDateFormat sdf = new SimpleDateFormat("dd MMM yyyy h a");
@@ -32,6 +38,11 @@ public class Storage {
         }
     }
 
+    /***
+     * Saves tasks in memory to file
+     * @param tasks
+     * @throws DukeException
+     */
     public static void saveTasks(ArrayList<Task> tasks) throws DukeException {
         try {
             File taskFile = new File(FILE_PATH);
@@ -57,6 +68,12 @@ public class Storage {
             throw new DukeException(" Error saving Duke.tasks to file");
         }
     }
+
+    /***
+     * reads all tasks from saved file
+     * @return tasks as an ArrayList
+     * @throws DukeException
+     */
 
     public static ArrayList<Task> readTasks() throws DukeException {
         ArrayList<Task> tasks = new ArrayList<>();
