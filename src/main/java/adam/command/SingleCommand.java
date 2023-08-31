@@ -8,8 +8,8 @@ import adam.exception.OneWordException;
  * This class is used to call either the list or bye methods
  */
 public class SingleCommand implements Command {
-    String[] tokens;
-    String input;
+    private String[] tokens;
+    private String input;
 
     /**
      * Initializes the string from the user input that has been processed.
@@ -35,14 +35,14 @@ public class SingleCommand implements Command {
             throw new OneWordException();
         }
         switch (input) {
-            case "bye":
-                tasks.bye();
-                break;
-            case "list":
-                tasks.list();
-                break;
-            default:
-                System.out.println("Wrong input");
+        case "bye":
+            tasks.bye();
+            break;
+        case "list":
+            tasks.list();
+            break;
+        default:
+            System.out.println("Wrong input");
         }
     }
 }

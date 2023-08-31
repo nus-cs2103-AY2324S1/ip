@@ -1,4 +1,5 @@
 package adam;
+
 import adam.command.Command;
 import adam.command.AddCommand;
 import adam.command.EditCommand;
@@ -12,29 +13,30 @@ public class Parser {
     /**
      * Returns a Command object that specifies what kind of command the user inputs.
      *
-     * @param li User input.
+     * @param input User input.
      * @return Command object.
      */
-    public static Command parse(String li) {
+
+    public static Command parse(String input) {
         Command command ;
-        String[] tokens = li.split(" ");
+        String[] tokens = input.split(" ");
         int length = tokens[0].length();
-        String item = li.substring(length, li.length());
+        String item = input.substring(length, input.length());
         switch (tokens[0]) {
         case "bye":
         case "list":
            command = new SingleCommand(tokens, tokens[0]);
-        break;
+           break;
         case "todo":
         case "deadline":
         case "event":
             command = new AddCommand(tokens, item, tokens[0]);
-        break;
+            break;
         case "mark":
         case "unmark":
         case "delete":
             command = new EditCommand(tokens, tokens[0]);
-        break;
+            break;
         default:
                 throw new AdamException();
         }

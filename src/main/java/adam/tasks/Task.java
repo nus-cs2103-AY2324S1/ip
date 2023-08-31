@@ -25,7 +25,7 @@ public class Task implements Serializable {
      * @return The string form and information about this task.
      */
     @Override
-    public String toString(){
+    public String toString() {
         return "[" + getStatusIcon() + "] " + this.description;
     }
 
@@ -35,7 +35,7 @@ public class Task implements Serializable {
      * @return String for its completion status.
      */
     public String getStatusIcon() {
-        return (isDone ? "X" : " "); // mark done task with X
+        return (isDone ? "X" : " ");
     }
 
     /**

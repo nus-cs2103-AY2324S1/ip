@@ -1,6 +1,5 @@
 package adam.exception;
 
-
 /**
  * This exception is for when using an edit command incorrectly.
  */

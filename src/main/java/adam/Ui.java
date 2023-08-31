@@ -1,6 +1,7 @@
 package adam;
 
 import java.util.Scanner;
+
 import adam.tasks.Task;
 
 /**
@@ -30,7 +31,7 @@ public class Ui {
      *
      * @param size Size of the list.
      */
-    public void amount(int size) {
+    public void getAmount(int size) {
         System.out.println(String.format("%d adam.tasks in this list, stop procrasinating them!!!", size));
     }
 
@@ -43,7 +44,7 @@ public class Ui {
     public void delete(Task curr, int size) {
         System.out.println("I have removed the Tasks.Task, so just make up your mind next time:");
         System.out.println(curr.toString());
-        amount(size);
+        getAmount(size);
     }
 
     /**
@@ -55,7 +56,7 @@ public class Ui {
     public void addTodo(Task curr, int size) {
         System.out.println("I added this todo to the list of endless work you have:");
         System.out.println(curr.toString());
-        amount(size);
+        getAmount(size);
     }
 
     /**
@@ -67,7 +68,7 @@ public class Ui {
     public void addEvent(Task curr, int size) {
         System.out.println("I added this event to your list, congrats on having a life outside of work:");
         System.out.println(curr.toString());
-        amount(size);
+        getAmount(size);
     }
 
     /**
@@ -80,7 +81,7 @@ public class Ui {
         System.out.println("I have added this deadline to the list, good " +
                 "luck on remembering it one day before deadline:");
         System.out.println(curr.toString());
-        amount(size);
+        getAmount(size);
     }
 
     /**

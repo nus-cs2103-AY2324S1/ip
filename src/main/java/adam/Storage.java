@@ -2,6 +2,7 @@ package adam;
 
 import java.io.*;
 import java.util.ArrayList;
+
 import adam.tasks.Task;
 import adam.exception.AdamException;
 
@@ -9,8 +10,9 @@ import adam.exception.AdamException;
  * This class is used to store and read the array of tasks inside the hard disk.
  */
 public class Storage {
-    String home = System.getProperty("user.home");
-    java.nio.file.Path path = java.nio.file.Paths.get(home, "Pokemon.txt");
+
+    private String home = System.getProperty("user.home");
+    private java.nio.file.Path path = java.nio.file.Paths.get(home, "Pokemon.txt");
     boolean directoryExists = java.nio.file.Files.exists(path);
 
     /**
@@ -34,12 +36,13 @@ public class Storage {
     /**
      * Saves an ArrayList into a file inside the hard disk.
      *
-     * @param array ArrayList Object that is going to be saved.
+     * @param tasks ArrayList Object that is going to be saved.
      */
-    public void write(ArrayList<Task> array) {
+
+    public void write(ArrayList<Task> tasks) {
         try {
             ObjectOutputStream ob = new ObjectOutputStream(new FileOutputStream(path.toFile()));
-            ob.writeObject(array);
+            ob.writeObject(tasks);
             ob.flush();
             ob.close();
         } catch (IOException e) {

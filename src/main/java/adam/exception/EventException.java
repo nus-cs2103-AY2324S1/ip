@@ -1,11 +1,10 @@
 package adam.exception;
 
 /**
- * This exception is for inputting the /from and /to command incorrectly.
+ * This exception is used for event commands that have incorrect use of /from and /to.
  */
-public class EventsException extends AdamException {
+public class EventException extends AdamException {
     @Override
-
     public String getInfo() {
         return "OOPS!!! You need to add one /from and one /to adam.command";
     }

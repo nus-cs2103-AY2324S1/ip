@@ -4,13 +4,14 @@ import adam.Storage;
 import adam.Ui;
 import adam.TaskList;
 import adam.exception.NumberException;
+import adam.exception.OutOfBoundException;
 
 /**
  * This class is used to call the appropriate methods to edit a Task inside the list
  */
 public class EditCommand implements Command {
-    String[] tokens;
-    String text;
+    private String[] tokens;
+    private String text;
 
     /**
      * Initializes the string from the user input that has been processed.
@@ -39,18 +40,21 @@ public class EditCommand implements Command {
             throw new NumberException();
         }
         int number = Integer.valueOf(tokens[1]);
+        if (number > tasks.getSize()) {
+            throw new OutOfBoundException();
+        }
         switch (text) {
-            case "mark":
-                tasks.markAsDone(number);
-                break;
-            case "unmark":
-                tasks.unMarkAsDone(number);
-                break;
-            case "delete":
-                tasks.deleteTask(number);
-                break;
-            default:
-                System.out.println("Wrong input");
+        case "mark":
+            tasks.markAsDone(number);
+            break;
+        case "unmark":
+            tasks.unmarkAsDone(number);
+            break;
+        case "delete":
+            tasks.deleteTask(number);
+            break;
+        default:
+            System.out.println("Wrong input");
         }
         tasks.save(storage);
     }

@@ -29,6 +29,48 @@ public class EditCommandTest {
     }
 
     @Test
+    public void executeMark_outOfBound_exceptionThrown() {
+        String li = "mark 5";
+        String[] tokens = li.split(" ");
+        int length = tokens[0].length();
+        String item = li.substring(length, li.length());
+        try {
+            new EditCommand(tokens,item).execute(task,storage,ui);
+            fail();
+        } catch (AdamException e) {
+            assertEquals("OOPS!!! The number you put in is more than the current item in your list", e.getInfo());
+        }
+    }
+
+    @Test
+    public void executeUnmark_outOfBound_exceptionThrown() {
+        String li = "unmark 5";
+        String[] tokens = li.split(" ");
+        int length = tokens[0].length();
+        String item = li.substring(length, li.length());
+        try {
+            new EditCommand(tokens,item).execute(task,storage,ui);
+            fail();
+        } catch (AdamException e) {
+            assertEquals("OOPS!!! The number you put in is more than the current item in your list", e.getInfo());
+        }
+    }
+
+    @Test
+    public void executeDelete_outOfBound_exceptionThrown() {
+        String li = "delete 5";
+        String[] tokens = li.split(" ");
+        int length = tokens[0].length();
+        String item = li.substring(length, li.length());
+        try {
+            new EditCommand(tokens,item).execute(task,storage,ui);
+            fail();
+        } catch (AdamException e) {
+            assertEquals("OOPS!!! The number you put in is more than the current item in your list", e.getInfo());
+        }
+    }
+
+    @Test
     public void executeMark_wrongDescription_exceptionThrown() {
         String li = "mark test";
         String[] tokens = li.split(" ");
