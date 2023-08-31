@@ -1,4 +1,10 @@
 package duke;
+
+/**
+ * Used to handle user interface output.
+ *
+ * @author Teo Kai Sheng
+ */
 public class Ui {
     private String line = "    ______________________________________________";
 

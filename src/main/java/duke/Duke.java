@@ -1,11 +1,11 @@
 package duke;
 
-import duke.task.Task;
-
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import duke.task.Task;
 
 /**
  * Program to run a task manager that can add, delete and mark tasks.

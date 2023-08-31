@@ -1,13 +1,19 @@
 package duke;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
+
 import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Task;
 import duke.task.ToDo;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeParseException;
-import java.util.ArrayList;
+/**
+ * Used to add, delete, mark, show and find tasks in the list.
+ *
+ * @author Teo Kai Sheng
+ */
 public class TaskList {
     private ArrayList<Task> taskList;
 
@@ -186,7 +192,7 @@ public class TaskList {
      *
      * @param input User input.
      */
-    public void find(String input[]) {
+    public void find(String[] input) {
         try {
             String keyword = input[1];
             if (keyword.strip().equals("")) {

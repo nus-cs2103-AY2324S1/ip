@@ -1,10 +1,5 @@
 package duke;
 
-import duke.task.Deadline;
-import duke.task.Event;
-import duke.task.Task;
-import duke.task.ToDo;
-
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -13,6 +8,16 @@ import java.nio.file.Path;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+import duke.task.Deadline;
+import duke.task.Event;
+import duke.task.Task;
+import duke.task.ToDo;
+
+/**
+ * Used to handle loading and saving of task list.
+ *
+ * @author Teo Kai Sheng
+ */
 public class Storage {
     private Path filePath;
     private ArrayList<Task> list;

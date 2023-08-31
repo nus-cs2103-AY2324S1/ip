@@ -1,4 +1,10 @@
 package duke;
+
+/**
+ * Used to parse user input into appropriate commands.
+ *
+ * @author Teo Kai Sheng
+ */
 public class Parser {
     private Ui ui;
     private TaskList tasks;
@@ -41,7 +47,7 @@ public class Parser {
             tasks.addToDo(input);
         } else if (command.equals("find")) {
             tasks.find(input);
-        } else if (command.equals("bye")){
+        } else if (command.equals("bye")) {
             this.finish = true;
             ui.bye();
         } else {
