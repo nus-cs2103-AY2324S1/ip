@@ -24,11 +24,13 @@ class TaskList {
     public Todo addTodo(String desc) {
         Todo curr = new Todo(desc);
         taskArr.add(curr);
+
         System.out.println("-------------------------------\n"
                 + "Got it. I've added this task:\n"
                 + curr.toString()
                 + totalTasks()
                 + "\n-------------------------------\n");
+
         return curr;
     }
     /**
@@ -39,11 +41,13 @@ class TaskList {
     public Deadline addDeadline(String desc, String date) {
         Deadline curr = new Deadline(desc, date);
         taskArr.add(curr);
+
         System.out.println("-------------------------------\n"
                 + "Got it. I've added this task:\n"
                 + curr.toString()
                 + totalTasks()
                 + "\n-------------------------------\n");
+
         return curr;
     }
     /**
@@ -54,11 +58,13 @@ class TaskList {
     public Event addEvent(String desc, String timeline) {
         Event curr = new Event(desc, timeline);
         taskArr.add(curr);
+
         System.out.println("-------------------------------\n"
                 + "Got it. I've added this task:\n"
                 + curr.toString()
                 + totalTasks()
                 + "\n-------------------------------\n");
+
         return curr;
     }
     /**
@@ -68,6 +74,7 @@ class TaskList {
      */
     public void mark(String[] input) throws WrongInput {
         int size = taskArr.size();
+
         try {
             int index = Integer.parseInt(input[1]);
             if (index > size || index < 0) {
@@ -86,6 +93,7 @@ class TaskList {
      */
     public void unmark(String[] input) throws WrongInput {
         int size = taskArr.size();
+
         try {
             int index = Integer.parseInt(input[1]);
             if (index > size || index < 0) {
@@ -104,6 +112,7 @@ class TaskList {
      */
     public void delete(String[] input) throws WrongInput {
         int size = taskArr.size();
+
         try {
             int num = Integer.parseInt(input[1]);
             if (num > size || num < 0) {
@@ -127,11 +136,14 @@ class TaskList {
      */
     public void listOut() {
         int size = taskArr.size();
+
         System.out.println("-------------------------------\n"
                 + "Here are the tasks in your list:");
+
         for (int i = 0; i < size; i++) {
             System.out.println(i + 1 + ". " + taskArr.get(i).toString());
         }
+
         System.out.println("-------------------------------\n");
     }
     /**
@@ -140,6 +152,7 @@ class TaskList {
      */
     public String totalTasks() {
         int size = taskArr.size();
+
         return "\nNow you have " + size + " tasks in the list.";
     }
     /**
@@ -195,16 +208,22 @@ class TaskList {
     public String getEventTimeline(String[] arr) {
         String fromInput = null;
         String toInput = null;
+
         for (int i = 0; i < arr.length; i++) {
             if (arr[i].equals("/from")) {
                 fromInput = arr[i + 1];
                 toInput = arr[i + 3];
             }
         }
+
         String from = LocalDate.parse(fromInput)
                 .format(DateTimeFormatter.ofPattern("MMM d yyyy"));
         String to = LocalDate.parse(toInput)
                 .format(DateTimeFormatter.ofPattern("MMM d yyyy"));
+
+        String from = LocalDate.parse(fromInput).format(DateTimeFormatter.ofPattern("MMM d yyyy"));
+        String to = LocalDate.parse(toInput).format(DateTimeFormatter.ofPattern("MMM d yyyy"));
+
         return from + " - " + to;
     }
     public void find(String[] arr) throws WrongInput {

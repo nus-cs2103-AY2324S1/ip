@@ -88,13 +88,11 @@ class Duke {
                         String desc = tasks.getDescription(arr);
                         String date = tasks.getDeadline(arr);
                         tasks.addDeadline(desc, date);
-                    }
-                    else if (type.equals("event")) {
+                    } else if (type.equals("event")) {
                         String desc = tasks.getDescription(arr);
                         String timeline = tasks.getEventTimeline(arr);
                         tasks.addEvent(desc, timeline);
-                    }
-                    else {
+                    } else {
                         throw new WrongInput();
                     }
                 }
