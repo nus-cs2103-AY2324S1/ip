@@ -1,3 +1,7 @@
+package duke;
+
+import duke.task.Task;
+
 import java.time.LocalDate;
 import java.util.List;
 public class Ui {

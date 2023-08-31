@@ -1,7 +1,8 @@
+package duke;
+
+import duke.task.*;
+
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Collectors;
@@ -50,7 +51,7 @@ public class Duke {
                     case DEADLINE:
                         String[] parts = input.substring(9).split(" /by ");
                         if (parts.length < 2) {
-                            throw new DukeException("Deadline format is incorrect.");
+                            throw new DukeException("duke.task.Deadline format is incorrect.");
                         }
                         Deadline deadline = new Deadline(parts[0], parts[1]);
                         taskList.add(deadline);
@@ -62,7 +63,7 @@ public class Duke {
                         String[] eventParts = input.substring(6).split(" /from ");
                         String[] timeParts = eventParts[1].split(" /to ");
                         if (timeParts.length < 2) {
-                            throw new DukeException("Event format is incorrect.");
+                            throw new DukeException("duke.task.Event format is incorrect.");
                         }
                         Event event = new Event(eventParts[0], timeParts[0], timeParts[1]);
                         taskList.add(event);
