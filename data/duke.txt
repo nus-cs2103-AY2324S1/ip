@@ -1,4 +1,2 @@
-T | 0 | screening
-T | 0 | cs2100 lab
-T | 1 | book later tickey for mama
-T | 0 | try cs2100 lab 2
+D | 1 | Submit report | 2023-09-01 1800
+E | 0 | Team meeting | 2023-01-01 1300 | 2023-09-02 1200

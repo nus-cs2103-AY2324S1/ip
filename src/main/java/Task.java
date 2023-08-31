@@ -1,3 +1,7 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
+
 public class Task {
     protected String taskName;
     protected boolean completed;
@@ -24,10 +28,16 @@ public class Task {
     }
 
     public String toFileString() {
-        if (completed) {
-            return "T | 1 | " + taskName;
+        if (this instanceof Todo) {
+            return "T | " + (completed ? "1" : "0") + " | " + taskName;
+        } else if (this instanceof Deadline) {
+            Deadline deadline = (Deadline) this;
+            return "D | " + (completed ? "1" : "0") + " | " + taskName + " | " + deadline.getBy().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
+        } else if (this instanceof Event) {
+            Event event = (Event) this;
+            return "E | " + (completed ? "1" : "0") + " | " + taskName + " | " + event.getFrom().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm")) + " | " + event.getTo().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
         } else {
-            return "T | 0 | " + taskName;
+            return "";
         }
     }
 
@@ -42,11 +52,13 @@ public class Task {
             task = new Todo(taskName);
         } else if (taskType.equals("D")) {
             String by = parts[3].trim();
-            task = new Deadline(taskName, by);
+            task = new Deadline(taskName, LocalDateTime.parse(by));
         } else if (taskType.equals("E")) {
             String from = parts[3].trim();
             String to = parts[4].trim();
-            task = new Event(taskName, from, to);
+            LocalDateTime fromDate = LocalDateTime.parse(from);  // Parse string to LocalDate
+            LocalDateTime toDate = LocalDateTime.parse(to);      // Parse string to LocalDate
+            task = new Event(taskName, fromDate, toDate); // Create Event with LocalDate objects
         } else {
             task = null;
         }

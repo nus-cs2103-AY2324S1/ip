@@ -3,6 +3,9 @@ import java.util.ArrayList;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.format.DateTimeParseException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class Duke {
     private static ArrayList<Task> currList = new ArrayList<>();
@@ -52,10 +55,9 @@ public class Duke {
                 scanner.close();
             }
         } catch (IOException e) {
-            System.out.println(">  An error occured while loading the tasks from the file: "+  e.getMessage());
+            System.out.println(">  An error occurred while loading the tasks from the file: " + e.getMessage());
         }
     }
-
     private static void processInput(String currInput) throws DukeException {
         if (currInput.equals("bye")) {
             System.out.println(">  ok thanks bye");
@@ -113,10 +115,15 @@ public class Duke {
         }
         String description = sections[0].substring(9).trim();
         String by = sections[1].trim();
-        currList.add(new Deadline(description, by));
-        System.out.println(">  Added Deadline Task: " + currList.get(currList.size() - 1));
-    }
 
+        try {
+            LocalDateTime deadlineDateTime = parseDateTime(by);
+            currList.add(new Deadline(description, deadlineDateTime));
+            System.out.println(">  Added Deadline Task: " + currList.get(currList.size() - 1));
+        } catch (DateTimeParseException e) {
+            throw new DukeException("Incorrect date/time format for deadline. Please use 'yyyy-MM-dd HHmm'.");
+        }
+    }
     private static void addEvent(String currInput) throws DukeException {
         if (!currInput.contains("/from") || !currInput.contains("/to")) {
             throw new DukeException("An Event task should have a '/from' and '/to' with respective times.");
@@ -128,10 +135,16 @@ public class Duke {
         String description = sections[0].substring(6).trim();
         String from = sections[1].trim();
         String to = sections[2].trim();
-        currList.add(new Event(description, from, to));
-        System.out.println(">  Added Event Task: " + currList.get(currList.size() - 1));
-    }
 
+        try {
+            LocalDateTime fromDateTime = parseDateTime(from);
+            LocalDateTime toDateTime = parseDateTime(to);
+            currList.add(new Event(description, fromDateTime, toDateTime));
+            System.out.println(">  Added Event Task: " + currList.get(currList.size() - 1));
+        } catch (DateTimeParseException e) {
+            throw new DukeException("Incorrect date/time format for event. Please use 'yyyy-MM-dd HHmm'.");
+        }
+    }
     private static void markTask(String currInput) throws DukeException {
         int index = Integer.parseInt(currInput.split(" ")[1]) - 1;
         if (index < 0 || index >= currList.size()) {
@@ -153,13 +166,23 @@ public class Duke {
     }
 
     private static void deleteTask(String currInput) throws DukeException {
-        int index = Integer.parseInt(currInput.split(" ")[1]) -1;
-        if (index < 0 || index >= currList.size()) {
-            throw new DukeException("Task " + (index + 1) + " was not found.");
+        String[] parts = currInput.split(" ");
+        if (parts.length < 2) {
+            throw new DukeException("Please provide a valid task number to delete.");
         }
-        Task deleted = currList.remove(index);
-        System.out.println(">  Task " + (index + 1) + " has been removed");
-        System.out.println(">  " + deleted + " has been deleted.");
+
+        try {
+            int index = Integer.parseInt(parts[1]) - 1;
+            if (index < 0 || index >= currList.size()) {
+                throw new DukeException("Task " + (index + 1) + " was not found.");
+            }
+
+            Task deleted = currList.remove(index);
+            System.out.println(">  Task " + (index + 1) + " has been removed");
+            System.out.println(">  " + deleted + " has been deleted.");
+        } catch (NumberFormatException e) {
+            throw new DukeException("Please provide a valid task number to delete.");
+        }
     }
 
     private static void saveTasksToFile() {
@@ -170,7 +193,10 @@ public class Duke {
             }
             fileWriter.close();
         } catch (IOException e) {
-            System.out.println(">  An error occured while saving the tasks to a file: " + e.getMessage());
+            System.out.println(">  An error occurred while saving the tasks to a file: " + e.getMessage());
         }
     }
-}
+
+    private static LocalDateTime parseDateTime(String dateTimeString) {
+        return LocalDateTime.parse(dateTimeString, DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
+    }}
