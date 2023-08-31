@@ -77,12 +77,15 @@ public class TaskManager {
             Events newEvent = new Events(t, startDateTime, endDateTime);
             tasks.add(newEvent);
             storage.saveToFile(tasks);
-
+            System.out.println("    ____________________________________________________________");
             System.out.println("    Got it. I've added this event:");
             System.out.println("      " + newEvent);
             System.out.println("    Now you have " + tasks.size() + " tasks in the list.");
+            System.out.println("    ____________________________________________________________");
         } catch (DateTimeParseException e) {
+            System.out.println("    ____________________________________________________________");
             System.out.println("    Invalid date/time format. Please enter in dd/MM/yyyy HHmm format.");
+            System.out.println("    ____________________________________________________________");
         }
     }
 
@@ -90,10 +93,12 @@ public class TaskManager {
        try {
            tasks.markTaskDone(index);
            storage.saveToFile(tasks);
+           System.out.println("    ____________________________________________________________");
            System.out.println("     Nice! I've marked this task as done:");
            System.out.println("       " + tasks.getTask(index));
            System.out.println("    ____________________________________________________________");
        } catch (NumberFormatException e) {
+           System.out.println("    ____________________________________________________________");
            System.out.println("     Oops! Please enter a valid task number to mark.");
            System.out.println("    ____________________________________________________________");
        }
@@ -103,10 +108,12 @@ public class TaskManager {
         try {
             tasks.unMarkTask(index);
             storage.saveToFile(tasks);
+            System.out.println("    ____________________________________________________________");
             System.out.println("     OK, I've marked this task as not done yet:");
             System.out.println("       " + tasks.getTask(index));
             System.out.println("    ____________________________________________________________");
         } catch (NumberFormatException e) {
+            System.out.println("    ____________________________________________________________");
             System.out.println("     Oops! Please enter a valid task number to unmark.");
             System.out.println("    ____________________________________________________________");
         }
@@ -117,7 +124,7 @@ public class TaskManager {
 
     public void deleteTask(int index) throws ChatbotException {
         try {
-            Task removedTask = tasks.removeTask(index - 1); // Subtracting 1 because ArrayList is 0-based.
+            Task removedTask = tasks.removeTask(index); // Subtracting 1 because ArrayList is 0-based.
             storage.saveToFile(tasks);
             System.out.println("    ____________________________________________________________");
             System.out.println("     Noted. I've removed this task:");
