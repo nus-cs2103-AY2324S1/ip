@@ -16,16 +16,35 @@ import duke.tools.Storage;
 import duke.tools.TaskList;
 import duke.tools.Ui;
 
-
+/**
+ * Represents a command to add tasks to the task list.
+ */
 public class AddCommand extends Command {
 
     private final DateTimeFormatter formatter;
 
+    /**
+     * Constructs an AddCommand with the specified command and date-time formatter.
+     *
+     * @param fullCommand The full command string.
+     * @param formatter   The date-time formatter to parse date and time inputs.
+     */
     public AddCommand(String fullCommand, DateTimeFormatter formatter) {
         super(fullCommand);
         this.formatter = formatter;
     }
 
+    /**
+     * Executes the add command, adding the appropriate task to the task list.
+     *
+     * @param tasks   The list of tasks.
+     * @param ui      The user interface for displaying messages.
+     * @param storage The storage handler to manage data persistence.
+     * @throws NoDescriptionException   If the task description is missing.
+     * @throws UnknownTimeException     If the task time is not recognized.
+     * @throws BackwardsTimeException   If an event's end time is before its start time.
+     * @throws UnknownCommandException  If the command is not recognized.
+     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws NoDescriptionException,
             UnknownTimeException, BackwardsTimeException, UnknownCommandException {
@@ -88,6 +107,5 @@ public class AddCommand extends Command {
         default:
             throw new UnknownCommandException(fullCommand);
         }
-
     }
 }

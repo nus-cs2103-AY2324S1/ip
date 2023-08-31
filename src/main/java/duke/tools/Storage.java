@@ -15,14 +15,28 @@ import duke.tasks.Event;
 import duke.tasks.Task;
 import duke.tasks.ToDo;
 
+/**
+ * Handles loading tasks from storage and saving tasks to storage.
+ */
 public class Storage {
 
     private final String filePath;
 
+    /**
+     * Constructs a Storage object with the specified file path.
+     *
+     * @param filePath The path to the storage file.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
+    /**
+     * Loads tasks from the storage file.
+     *
+     * @return A list of tasks loaded from storage.
+     * @throws IOException If an I/O error occurs.
+     */
     public List<Task> loadTasksFromStorage() throws IOException {
         List<Task> tasks = new ArrayList<>();
         File file = new File(filePath);
@@ -87,7 +101,11 @@ public class Storage {
         return tasks;
     }
 
-
+    /**
+     * Writes the provided text to the storage file.
+     *
+     * @param text The text to be written to the storage file.
+     */
     public void writeFile(String text) {
         try {
             FileWriter fw = new FileWriter(filePath, false);
