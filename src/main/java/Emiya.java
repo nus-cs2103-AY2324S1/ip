@@ -1,5 +1,6 @@
 import emiyaexception.*;
 
+import logic.Logic;
 import task.Deadline;
 import task.Event;
 import task.Task;
@@ -9,11 +10,6 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Emiya {
-
-    // Used to check whether a given string contains purely numeric values.
-    public static boolean isNumeric(String str) {
-        return str.matches("\\d+");
-    }
 
     // Checks if a given test String is part of the reserved keywords for the different tasks.
     public static boolean enumContainsKeyword(String test) {
@@ -26,7 +22,6 @@ public class Emiya {
     }
 
     public static void main(String[] args) {
-
         Storage storage = new Storage();
         try {
             storage.createDirectory("data");
@@ -35,11 +30,13 @@ public class Emiya {
             System.out.println(e.getMessage());
         }
 
-
-
         // Represents the list as an ArrayList of task.Task objects
         ArrayList<Task> taskArrayList = new ArrayList<>();
-        storage.fillListWithFileContent(taskArrayList, storage.fileContents("emiya.txt", "data"));
+        try {
+            storage.fillListWithFileContent(taskArrayList, storage.fileContents("emiya.txt", "data"));
+        } catch (EmiyaException e) {
+            System.out.println(e.getMessage());
+        }
         String welcomeMessage = "-----------------------------------------\n"
                 + "Hello! I'm Emiya\n"
                 + "What can I do for you?\n"
@@ -116,7 +113,7 @@ public class Emiya {
                 }
                 Integer position = null;
 
-                if (isNumeric(taskDetails)) {
+                if (Logic.isNumeric(taskDetails)) {
                     position = Integer.parseInt(taskDetails);
                 }
 
