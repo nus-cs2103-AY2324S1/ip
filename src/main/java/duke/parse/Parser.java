@@ -53,7 +53,7 @@ public class Parser {
                             default:
                                 try {
                                     date = DateTimeManager.parseDate(arg);
-                                } catch (DateTimeManager.DateParseException e) {
+                                } catch (DateTimeManager.DateParseException | DateTimeException e) {
                                     throw new ParseError("unrecognised \"" + arg + "\"");
                                 }
                         }

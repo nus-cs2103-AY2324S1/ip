@@ -14,4 +14,13 @@ public class DeleteCommand implements Command {
         bot.deleteTask(this.taskIndex);
         return true;
     }
+
+    @Override
+    public boolean equals(Object another) {
+        if (another instanceof DeleteCommand) {
+            DeleteCommand anotherDelete = (DeleteCommand) another;
+            return this.taskIndex == anotherDelete.taskIndex;
+        }
+        return false;
+    }
 }

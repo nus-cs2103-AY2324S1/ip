@@ -14,4 +14,12 @@ public class ToDo extends Task {
     public String toString() {
         return "[T]" + super.toString();
     }
+
+    @Override
+    public boolean equals(Object another) {
+        if (another instanceof ToDo) {
+            return super.equals(another);
+        }
+        return false;
+    }
 }

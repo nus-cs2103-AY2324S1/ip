@@ -10,4 +10,9 @@ public class SaveCommand implements Command {
         bot.saveData();
         return true;
     }
+
+    @Override
+    public boolean equals(Object another) {
+        return another instanceof SaveCommand;
+    }
 }

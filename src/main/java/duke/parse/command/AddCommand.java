@@ -15,4 +15,13 @@ public class AddCommand implements Command {
         bot.addTaskToList(task);
         return true;
     }
+
+    @Override
+    public boolean equals(Object another) {
+        if (another instanceof AddCommand) {
+            AddCommand anotherAdd = (AddCommand) another;
+            return this.task.equals(anotherAdd.task);
+        }
+        return false;
+    }
 }

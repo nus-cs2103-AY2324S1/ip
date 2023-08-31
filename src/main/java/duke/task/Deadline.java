@@ -28,4 +28,14 @@ public class Deadline extends Task {
         return "[D]" + super.toString() + " (by: "
                 + DateTimeManager.dateToDisplay(this.deadline) + ")";
     }
+
+    @Override
+    public boolean equals(Object another) {
+        if (another instanceof Deadline) {
+            Deadline anotherDeadline = (Deadline) another;
+            return super.equals(anotherDeadline)
+                    && this.deadline.equals(anotherDeadline.deadline);
+        }
+        return false;
+    }
 }

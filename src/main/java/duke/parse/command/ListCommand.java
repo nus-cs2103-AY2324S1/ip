@@ -40,4 +40,16 @@ public class ListCommand implements Command {
         }
         return true;
     }
+
+    @Override
+    public boolean equals(Object another) {
+        if (another instanceof ListCommand) {
+            ListCommand anotherList = (ListCommand) another;
+            return this.isExcludingDone == anotherList.isExcludingDone
+                    && ((this.date == null && anotherList.date == null)
+                        || this.date.equals(anotherList.date))
+                    && this.type.equals(anotherList.type);
+        }
+        return false;
+    }
 }

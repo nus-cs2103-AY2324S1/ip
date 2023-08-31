@@ -107,7 +107,7 @@ public class Storage {
 
     public void saveData(String data) throws FileIOException {
         try {
-            FileWriter writer = new FileWriter(fileName);
+            FileWriter writer = new FileWriter(this.fileName);
             writer.write(data);
             writer.close();
         } catch (IOException e) {

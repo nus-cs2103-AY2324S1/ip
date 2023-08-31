@@ -20,4 +20,14 @@ public class MarkCommand implements Command {
         }
         return true;
     }
+
+    @Override
+    public boolean equals(Object another) {
+        if (another instanceof MarkCommand) {
+            MarkCommand anotherMark = (MarkCommand) another;
+            return this.isDone == anotherMark.isDone
+                    && this.index == anotherMark.index;
+        }
+        return false;
+    }
 }

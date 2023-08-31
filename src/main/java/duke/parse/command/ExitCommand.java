@@ -11,4 +11,9 @@ public class ExitCommand implements Command {
         bot.exit();
         return false;
     }
+
+    @Override
+    public boolean equals(Object another) {
+        return another instanceof ExitCommand;
+    }
 }

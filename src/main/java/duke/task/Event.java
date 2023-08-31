@@ -34,4 +34,15 @@ public class Event extends Task {
                 + " (from: " + DateTimeManager.dateToDisplay(this.start)
                 + " to: " + DateTimeManager.dateToDisplay(this.end) + ")";
     }
+
+    @Override
+    public boolean equals(Object another) {
+        if (another instanceof Event) {
+            Event anotherEvent = (Event) another;
+            return super.equals(another)
+                    && this.start.equals(anotherEvent.start)
+                    && this.end.equals(anotherEvent.end);
+        }
+        return false;
+    }
 }
