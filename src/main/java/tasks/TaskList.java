@@ -95,17 +95,6 @@ public class TaskList implements StorableList<Task> {
     }
 
     /**
-     * Returns the number of tasks in the TaskList.
-     *
-     * @return The number of tasks in the TaskList.
-     */
-    public static void printTasks(TaskList tl) {
-        for (int i = 0; i < tl.tasks.size(); i++) {
-            System.out.println((i+1) + ") " + tl.tasks.get(i));
-        }
-    }
-
-    /**
      * Filters the tasks in the TaskList based on the given predicate.
      *
      * @param predicate The predicate used to filter tasks.
@@ -155,5 +144,19 @@ public class TaskList implements StorableList<Task> {
             storableString += task.toStorableString() + "\n";
         }
         return storableString;
+    }
+
+    /**
+     * Returns a string representation of task list.
+     * 
+     * @return The string representation of task list.
+     */
+    @Override
+    public String toString() {
+        String s = "";
+        for (int i = 0; i < this.tasks.size(); i++) {
+            s += (i+1) + ") " + this.tasks.get(i) + "\n";
+        }
+        return s;
     }
 }
