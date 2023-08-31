@@ -1,3 +1,20 @@
+package duke.components;
+
+import duke.commands.AddTaskCommand;
+import duke.commands.Command;
+import duke.commands.DeleteTaskCommand;
+import duke.commands.ExitCommand;
+import duke.commands.ListByDateCommand;
+import duke.commands.ListCommand;
+import duke.commands.MarkTaskCommand;
+import duke.commands.UnknownCommand;
+import duke.commands.UnmarkTaskCommand;
+
+import duke.tasks.Deadline;
+import duke.tasks.Event;
+import duke.tasks.Task;
+import duke.tasks.Todo;
+
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.time.LocalDate;
@@ -9,10 +26,10 @@ import java.time.LocalDateTime;
 public class Parser {
     static final String DATE_FORMAT = "dd-MM-yyyy";
 
-    static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern(DATE_FORMAT);
+    public static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern(DATE_FORMAT);
     static final String DATETIME_FORMAT = "dd-MM-yyyy HHmm";
 
-    static final DateTimeFormatter DATETIME_FORMATTER = DateTimeFormatter.ofPattern(DATETIME_FORMAT);
+    public static final DateTimeFormatter DATETIME_FORMATTER = DateTimeFormatter.ofPattern(DATETIME_FORMAT);
 
     /**
      * Parses the user input into a Command object

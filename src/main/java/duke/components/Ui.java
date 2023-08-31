@@ -1,3 +1,7 @@
+package duke.components;
+
+import duke.exceptions.DukeException;
+
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.IOException;
@@ -12,6 +16,8 @@ public class Ui {
             "   / /\\ \\ | |  | |      / /\\ \\  \\___ \\ \n" +
             "  / ____ \\| |  | |____ / ____ \\ ____) |\n" +
             " /_/    \\_\\_|  |______/_/    \\_\\_____/ \n";
+    // Chatbot name
+    static final String NAME = "Atlas";
     final BufferedReader inputReader;
 
     /**
@@ -44,7 +50,7 @@ public class Ui {
     public void showWelcome() {
         System.out.println(LOGO);
         printLine();
-        System.out.printf("Hello, I'm %s!\n", Duke.NAME);
+        System.out.printf("Hello, I'm %s!\n", NAME);
         System.out.println("What would you like me to do today?");
         printLine();
     }
@@ -52,13 +58,13 @@ public class Ui {
     /**
      * Reads user input from command line
      * @return String containing user input
-     * @throws Duke.DukeException Exception thrown if I/O error encountered
+     * @throws DukeException Exception thrown if I/O error encountered
      */
-    public String readCommand() throws Duke.DukeException {
+    public String readCommand() throws DukeException {
         try {
             return inputReader.readLine();
         } catch (IOException e) {
-            throw new Duke.DukeException("I/O error encountered: " + e.getMessage());
+            throw new DukeException("I/O error encountered: " + e.getMessage());
         }
     }
 

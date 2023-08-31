@@ -1,3 +1,7 @@
+package duke.components;
+
+import duke.tasks.Task;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -47,7 +51,7 @@ public class TaskList {
      * @param idx Zero-based index of task to delete
      * @return Task deleted
      */
-    protected Task deleteTask(int idx) {
+    public Task deleteTask(int idx) {
         Task taskToDelete = tasks.get(idx);
         tasks.remove(idx);
         return taskToDelete;
@@ -67,7 +71,7 @@ public class TaskList {
      * @param date LocalDate object
      * @return List of tasks that occur on date
      */
-    protected List<Task> getTaskOnDate(LocalDate date) {
+    public List<Task> getTaskOnDate(LocalDate date) {
         List<Task> tasksOnDate = new ArrayList<>();
         for (Task t : tasks) {
             if (t.isOccurringOnDate(date)) {

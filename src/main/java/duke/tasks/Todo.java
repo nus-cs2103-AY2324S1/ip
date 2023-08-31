@@ -1,3 +1,5 @@
+package duke.tasks;
+
 /**
  * Todo is a Task with no dates
  */
