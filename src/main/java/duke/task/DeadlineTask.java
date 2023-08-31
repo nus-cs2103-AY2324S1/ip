@@ -5,9 +5,17 @@ import java.time.LocalDate;
 
 import duke.Duke;
 
-final class DeadlineTask extends Task {
+/**
+ * A task with a deadline.
+ */
+public final class DeadlineTask extends Task {
     private LocalDate dateEnd;
 
+    /**
+     * Creates a deadline task.
+     * @param task The input string.
+     * @throws Duke.WrongFormatException If the input string is in the wrong format.
+     */
     public DeadlineTask(String task) throws Duke.WrongFormatException {
         String description = getDescription(task);
         if (description == null) {
@@ -16,6 +24,12 @@ final class DeadlineTask extends Task {
         this.description = description;
     }
 
+    /**
+     * Creates a deadline task.
+     * @param isDone Whether the task is done.
+     * @param description The description of the task.
+     * @param dateEnd The date of the deadline.
+     */
     public DeadlineTask(boolean isDone, String description, String dateEnd) {
         this.isDone = isDone;
         this.description = description;

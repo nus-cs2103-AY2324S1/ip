@@ -5,10 +5,18 @@ import java.time.LocalDate;
 
 import duke.Duke;
 
-final class EventTask extends Task {
+/**
+ * An event task.
+ */
+public final class EventTask extends Task {
     private LocalDate dateStart;
     private LocalDate dateEnd;
 
+    /**
+     * Creates an event task.
+     * @param task The input string.
+     * @throws Duke.WrongFormatException If the input string is in the wrong format.
+     */
     public EventTask(String task) throws Duke.WrongFormatException {
         String description = getDescription(task);
         if (description == null) {
@@ -17,6 +25,13 @@ final class EventTask extends Task {
         this.description = description;
     }
 
+    /**
+     * Creates an event task.
+     * @param isDone Whether the task is done.
+     * @param description The description of the task.
+     * @param dateStart The start date of the event.
+     * @param dateEnd The end date of the event.
+     */
     public EventTask(boolean isDone, String description, String dateStart, String dateEnd) {
         this.isDone = isDone;
         this.description = description;
