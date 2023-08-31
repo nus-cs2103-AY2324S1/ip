@@ -1,6 +1,5 @@
-package Utility;
+package Utilities;
 
-import TaskPackages.TaskList;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -14,6 +13,7 @@ import java.util.List;
 
 import Commands.Command;
 import Exceptions.DukeException;
+import Tasks.TaskList;
 
 public class Storage {
 

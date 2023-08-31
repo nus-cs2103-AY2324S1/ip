@@ -3,9 +3,9 @@ package Commands;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
-import TaskPackages.TaskList;
-import Utility.Storage;
-import Utility.Ui;
+import Tasks.TaskList;
+import Utilities.Storage;
+import Utilities.Ui;
 
 public class DeadlineCommand extends TaskCommand {
 

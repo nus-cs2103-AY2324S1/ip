@@ -1,6 +1,6 @@
 import Exceptions.DukeException;
-import TaskPackages.TaskList;
-import Utility.*;
+import Tasks.TaskList;
+import Utilities.*;
 import Commands.Command;
 
 public class Duke {
