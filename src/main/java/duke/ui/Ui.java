@@ -7,7 +7,7 @@ public class Ui {
 
     public static void showWelcomeMessage() {
         System.out.println("____________________________________________________________");
-        System.out.println(" Hello! I'm duke.Duke\n What can I do for you?");
+        System.out.println(" Hello! I'm duke.main.Duke\n What can I do for you?");
         System.out.println("____________________________________________________________");
     }
 

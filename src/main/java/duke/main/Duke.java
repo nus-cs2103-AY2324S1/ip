@@ -1,4 +1,4 @@
-package duke;
+package duke.main;
 import duke.task.*;
 import duke.exception.*;
 import duke.storage.Storage;
