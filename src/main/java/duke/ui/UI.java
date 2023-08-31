@@ -23,7 +23,14 @@ public class UI {
      * Displays a welcome message to the user.
      */
     public void showWelcome() {
-        System.out.println("Hey summoner! I'm Three Wolves B.\n" + "What do you want me to do?\n");
+        System.out.println("Hey summoner! I'm\n"
+                + "  ___  " + "  _____ " + "  _____ " + "   ___  \n"
+                + " / _ \\ " + " |     |" + " |     |" + "  / _ \\ \n"
+                + "| | | |" + "  -   - " + "  -   - " + " | | | |\n"
+                + "| |_| |" + "   | |  " + "   | |  " + " | |_| |\n"
+                + " \\ _ / " + "   | |  " + "   | |  " + "  \\ _ /\n "
+                + "  ___  " + "   |_|  " + "   |_|  " + "   ___  \n"
+                + "What do you want me to do?\n");
     }
 
     /**
