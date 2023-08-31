@@ -12,7 +12,7 @@ public class Parser {
         this.ui = new Ui();
     }
 
-    public void parse(String command) throws DukeException{
+    public void parse(String command) {
         String[] spacedCommand = command.split(" ");
         String mainCommand = spacedCommand[0];
         Task task;
@@ -43,7 +43,7 @@ public class Parser {
                 if (spacedCommand.length == 1) {
                     throw new DukeException("☹ Description of todo cannot be empty. ☹");
                 }
-                task = new Todo(spacedCommand[1]);
+                task = new Todo(command.substring(5));
                 this.tasks.addTask(task);
                 break;
             case "deadline":
@@ -84,8 +84,5 @@ public class Parser {
         } catch (DukeException e) {
             System.out.println("OOPS!" + e.toString().split("DukeException:")[1]);
         }
-
     }
-
-
 }
