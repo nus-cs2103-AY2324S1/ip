@@ -6,6 +6,10 @@ import TaskList.TaskList;
 import TaskList.Deadline;
 import Exception.KevinException;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
 public class DeadlineStrategy extends BaseStrategy {
@@ -19,7 +23,14 @@ public class DeadlineStrategy extends BaseStrategy {
         String name = this.arguments.get(1);
         String deadline = this.arguments.get(2);
 
-        Deadline newDeadline = taskList.addDeadline(isDone, name, deadline);
+        LocalDateTime deadlineDate;
+        try {
+            deadlineDate = LocalDateTime.parse(deadline, DateTimeFormatter.ofPattern(" d/MM/yyyy HHmm"));
+        } catch (DateTimeParseException err) {
+            throw new KevinException("Ensure that the deadline is a valid date");
+        }
+
+        Deadline newDeadline = taskList.addDeadline(isDone, name, deadlineDate);
 
         if (!isInFile) {
             fileStorage.addDeadline(newDeadline);

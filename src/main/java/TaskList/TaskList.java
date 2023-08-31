@@ -1,7 +1,7 @@
 package TaskList;
 
-import javafx.util.Pair;
-
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public class TaskList {
@@ -23,7 +23,7 @@ public class TaskList {
         return newEvent;
     }
 
-    public Deadline addDeadline(Boolean isDone, String name, String deadline) {
+    public Deadline addDeadline(Boolean isDone, String name, LocalDateTime deadline) {
         Deadline newDeadline = new Deadline(isDone, name, deadline);
         this.taskList.add(newDeadline);
         return newDeadline;
