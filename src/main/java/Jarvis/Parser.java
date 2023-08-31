@@ -20,6 +20,7 @@ public class Parser {
         validCommands.add("todo");
         validCommands.add("deadline");
         validCommands.add("event");
+        validCommands.add("find");
     }
 
     // checks if command is valid and throws Jarvis.IncorrectJarvisCommandException
@@ -99,16 +100,18 @@ public class Parser {
         Pattern deadlinePattern = Pattern.compile("(deadline) (.+) /by (.+)");
         Pattern eventPattern = Pattern.compile("(event) (.+) /from (.+) /to (.+)");
         Pattern deletePattern = Pattern.compile("(delete) (\\d+)");
+        Pattern findPattern = Pattern.compile("(find) (.+)");
 
         Matcher todoMatcher = todoPattern.matcher(userInput);
         Matcher deadlineMatcher = deadlinePattern.matcher(userInput);
         Matcher eventMatcher = eventPattern.matcher(userInput);
         Matcher deleteMatcher = deletePattern.matcher(userInput);
+        Matcher findMatcher = findPattern.matcher(userInput);
 
         String nameOfValidCommand = isValidCommand(userInput);
 
         if (userInput.matches("list")) { // if "list" is entered
-            tasks.printTaskList();
+            Ui.printTaskList(tasks);
 
         } else if (userInput.matches("bye")) { // if "bye" is entered
             Ui.printBye();
@@ -151,15 +154,19 @@ public class Parser {
 
             }
             tasks.appendTask(newTask);
-            tasks.printTask(newTask);
+            Ui.printTask(tasks ,newTask);
 
         } else if (deleteMatcher.matches()) { // if delete is entered
             int taskNum = Integer.parseInt(deleteMatcher.group(2));
             if (tasks.isValidTaskNumber(taskNum)) {
                 Task deletedTask = tasks.getTask(taskNum - 1);
                 tasks.deleteTask(taskNum - 1);
-                tasks.printDelete(deletedTask);
+                Ui.printDelete(tasks ,deletedTask);
             }
+
+        } else if (findMatcher.matches()) { // if find is entered
+            String keyword = findMatcher.group(2);
+            Ui.printFoundTask(tasks.findTask(keyword));
         }
 
         else { // if none of the above commands go through

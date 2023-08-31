@@ -6,10 +6,6 @@ import java.util.regex.Pattern;
 
 public class TaskList {
     private ArrayList<Task> taskList;
-    private static final String line = "____________________________________________________________";
-    private static final String listInforming = "Here are the task in your list Sir:";
-    private static final String taskInforming = "As you please Sir, I've added the task:";
-    private static final String deleteInforming = "Alright Sir, I've removed this task";
 
     public TaskList(String tasks) { // tasks is a string
         String[] stringTasks =  tasks.split("\n");
@@ -70,6 +66,7 @@ public class TaskList {
 
     // function checks if task number is valid and throws Jarvis.InvalidTaskNumberException
     public boolean isValidTaskNumber(int taskNum) {
+        final String line = "____________________________________________________________";
         boolean isValid = true;
         if (taskNum < 0 || taskNum > this.taskList.size()) { // check if task number is of valid range
             try {
@@ -85,31 +82,13 @@ public class TaskList {
         return isValid;
     }
 
-    public void printTask(Task currentTask) {
-        System.out.println(line);
-        System.out.println(taskInforming);
-        System.out.println(currentTask.toString());
-        System.out.println("You have now " + taskList.size() + " tasks in the list Sir.");
-        System.out.println(line);
-    }
-
-    public void printDelete(Task currentTask) {
-        System.out.println(line);
-        System.out.println(deleteInforming);
-        System.out.println(currentTask.toString());
-        System.out.println("You have now " + taskList.size() + " tasks in the list Sir.");
-        System.out.println(line);
-    }
-
-    public void printTaskList() {
-        System.out.println(line);
-        System.out.println(listInforming);
-        for (int i = 0; i < taskList.size(); i++) { // listing out the current task
-            int count = i + 1;
-            Task currentTask = taskList.get(i);
-            System.out.println(count + "." + currentTask.toString());
+    public ArrayList<Task> findTask(String keyword) {
+        ArrayList<Task> foundTasks = new ArrayList<>();
+        for (Task task: taskList) {
+            if (task.description.contains(keyword)) {
+                foundTasks.add(task);
+            }
         }
-        System.out.println(line);
+        return foundTasks;
     }
-
 }
