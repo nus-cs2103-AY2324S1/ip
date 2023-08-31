@@ -3,6 +3,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
 import exception.InvalidDeadlineException;
+import exception.InvalidEventException;
 
 /**
  * Deadline class
@@ -26,6 +27,26 @@ public class Deadline extends Task {
     // Method
 
     /**
+     * Creates a new deadline based on the message
+     * 
+     * @param message the message to create the new deadline
+     * @return the new deadline
+     * @throws InvalidDeadlineException
+     */
+    public static Deadline create(String message) throws InvalidDeadlineException {
+        try {
+            String name = message.substring(9, message.indexOf("/by "));
+            String deadlineString = message.substring(message.indexOf("/by ") + 4);
+            LocalDate deadlineDate = LocalDate.parse(deadlineString);
+            return new Deadline(name, deadlineDate);
+        } catch(IndexOutOfBoundsException e) {
+            throw new InvalidDeadlineException();
+        } catch(DateTimeParseException e) {
+            throw new InvalidDeadlineException();
+        }
+    }
+
+    /**
      * Method to get the string representation of deadline
      * 
      * @return the string representation of deadline
@@ -47,28 +68,5 @@ public class Deadline extends Task {
     @Override
     public String storeInString() {
         return "D | " + (this.getMark() ? "1 | " : "0 | ") + this.getName() + " | " + this.deadline;
-    }
-
-    /**
-     * Checks whether a command is deadline
-     * 
-     * @param str the command
-     * @return whether a command is deadline
-     * @throws InvalidDeadlineException
-     */
-    public static boolean isDeadline(String str) throws InvalidDeadlineException {
-        try{
-            if(str.split(" ")[0].equals("deadline")) {
-                if(str.indexOf("/by ") != -1) {
-                    LocalDate date = LocalDate.parse(str.split("/by ")[1]);
-                    return true;
-                } else {
-                    throw new InvalidDeadlineException();
-                }
-            }
-            return false;
-        } catch(DateTimeParseException e) {
-            throw new InvalidDeadlineException();
-        }
     }
 }

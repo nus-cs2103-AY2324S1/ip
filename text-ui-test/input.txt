@@ -34,4 +34,16 @@ unmark 0
 unmark 999
 unmark 1
 list
+delete
+list
+delete -1
+list
+delete haha
+list
+delete 99
+list
+delete 1 1
+list
+delete 1
+list
 bye

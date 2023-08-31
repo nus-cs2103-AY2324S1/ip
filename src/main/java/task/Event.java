@@ -30,6 +30,30 @@ public class Event extends Task {
     // Method
 
     /**
+     * Creates a new event based on the message
+     * 
+     * @param message the message to create the new event
+     * @return the new event
+     * @throws InvalidEventException
+     */
+    public static Event create(String message) throws InvalidEventException {
+        try {
+            String name = message.substring(6, message.indexOf("/from "));
+            int fromIndex = message.indexOf("/from ");
+            int toIndex = message.indexOf(" /to ", fromIndex);
+            String fromString = message.substring(fromIndex + 6, toIndex);
+            String toString = message.substring(toIndex + 5);
+            LocalDate fromDate = LocalDate.parse(fromString);
+            LocalDate toDate = LocalDate.parse(toString);
+            return new Event(name, fromDate, toDate);
+        } catch(IndexOutOfBoundsException e) {
+            throw new InvalidEventException();
+        } catch(DateTimeParseException e) {
+            throw new InvalidEventException();
+        }
+    }
+
+    /**
      * Method to return the string representation of event
      * 
      * @return the string representation of event
@@ -54,33 +78,5 @@ public class Event extends Task {
     @Override
     public String storeInString() {
         return "E | " + (this.getMark() ? "1 | " : "0 | ") + this.getName() + " | " + this.start + " | " + this.end;
-    }
-
-    /**
-     * Method to check whether the command is event
-     * 
-     * @param str the command
-     * @return whether the command is event
-     * @throws InvalidEventException
-     */
-    public static boolean isEvent(String str) throws InvalidEventException {
-        try{
-            if(str.split(" ")[0].equals("event")) {
-                int fromIndex = str.indexOf("/from ");
-                int toIndex = str.indexOf(" /to ", fromIndex);
-                if(fromIndex == -1 || toIndex == -1) {
-                    throw new InvalidEventException();
-                } else {
-                    String fromString = str.substring(fromIndex + 6, toIndex);
-                    String toString = str.substring(toIndex + 5);
-                    LocalDate fromDate = LocalDate.parse(fromString);
-                    LocalDate toDate = LocalDate.parse(toString);
-                    return true;
-                }
-            }
-            return false;
-        } catch(DateTimeParseException e) {
-            throw new InvalidEventException();
-        }
     }
 }
