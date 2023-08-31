@@ -1,9 +1,13 @@
+package duke.command;
+
+import duke.*;
+
 import java.io.IOException;
 
-public class MarkCommand extends Command {
+public class UnmarkCommand extends Command {
     private int taskNumber; // the number of the task to be marked
 
-    public MarkCommand(int taskNumber) {
+    public UnmarkCommand(int taskNumber) {
         this.taskNumber = taskNumber;
     }
 
@@ -11,9 +15,9 @@ public class MarkCommand extends Command {
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException, IOException {
         try {
             Task task = tasks.get(taskNumber - 1); // arrays are 0-based, so subtract 1
-            task.markAsDone();
+            task.unmarkAsDone();
             storage.saveTasks(tasks); // Save the updated tasks to file
-            ui.showTaskMarked(task);
+            ui.showTaskUnmarked(task);
         } catch (IndexOutOfBoundsException e) {
             throw new DukeException("Invalid task number.");
         }

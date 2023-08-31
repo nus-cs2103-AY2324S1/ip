@@ -1,3 +1,5 @@
+package duke;
+
 public class Todo extends Task {
 
     public Todo(String description) {
@@ -29,7 +31,7 @@ while (true) {
                 } else if (userInput.startsWith("mark")) {
                     processTask(userInput, tasks, true);
                     try {
-                        Storage.saveTasks(tasks); // Save the updated tasks to file
+                        duke.Storage.saveTasks(tasks); // Save the updated tasks to file
                     } catch (IOException e) {
                         ui.showSavingError(e.getMessage());
                     }
@@ -37,7 +39,7 @@ while (true) {
                 } else if (userInput.startsWith("unmark")) {
                     processTask(userInput, tasks, false);
                     try {
-                        Storage.saveTasks(tasks); // Save the updated tasks to file
+                        duke.Storage.saveTasks(tasks); // Save the updated tasks to file
                     } catch (IOException e) {
                         ui.showSavingError(e.getMessage());
                     }
@@ -46,14 +48,14 @@ while (true) {
                     String description = userInput.substring(4).trim();
 
                     if (description.isEmpty()) {
-                        throw new DukeException("☹ OOPS!!! The description of a todo cannot be empty.");
+                        throw new duke.DukeException("☹ OOPS!!! The description of a todo cannot be empty.");
                     }
 
-                    Todo newTodo = new Todo(description);
+                    duke.Todo newTodo = new duke.Todo(description);
                     tasks.add(newTodo);
 
                     try {
-                        Storage.saveTasks(tasks); // Save the updated tasks to file
+                        duke.Storage.saveTasks(tasks); // Save the updated tasks to file
                     } catch (IOException e) {
                         ui.showSavingError(e.getMessage());
                     }
@@ -64,24 +66,24 @@ while (true) {
                     int index = content.indexOf("/by");
 
                     if (index == -1) {
-                        throw new DukeException("Please use '/by' to specify the deadline time.");
+                        throw new duke.DukeException("Please use '/by' to specify the deadline time.");
                     } else {
                         String description = content.substring(0, index).trim();
                         String by = content.substring(index + 4).trim();
-                        Deadline newDeadline;
+                        duke.Deadline newDeadline;
                         try {
                             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
                             LocalDateTime dateTime = LocalDateTime.parse(by, formatter);
-                            newDeadline = new Deadline(description, dateTime);
+                            newDeadline = new duke.Deadline(description, dateTime);
                             tasks.add(newDeadline);
 
                             try {
-                                Storage.saveTasks(tasks); // Save the updated tasks to file
+                                duke.Storage.saveTasks(tasks); // Save the updated tasks to file
                             } catch (IOException e) {
                                 ui.showSavingError(e.getMessage());
                             }
                         } catch (DateTimeParseException e) {
-                            throw new DukeException("Invalid date-time format! Please use d/M/yyyy HHmm format.");
+                            throw new duke.DukeException("Invalid date-time format! Please use d/M/yyyy HHmm format.");
                         }
 
                         ui.showAddedTask(newDeadline, tasks.size());
@@ -92,28 +94,28 @@ while (true) {
                     String[] parts = content.split("/from | /to ");
 
                     if (parts.length < 3) {
-                        throw new DukeException("Please use the format: event [description] /from [start time] /to [end time]");
+                        throw new duke.DukeException("Please use the format: event [description] /from [start time] /to [end time]");
                     }
 
                     String description = parts[0].trim();
                     String from = parts[1].trim();
                     String to = parts[2].trim();
 
-                    Event newEvent;
+                    duke.Event newEvent;
                     try {
                         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
                         LocalDateTime dateTimeFrom = LocalDateTime.parse(from, formatter);
                         LocalDateTime dateTimeTo = LocalDateTime.parse(to, formatter);
-                        newEvent = new Event(description, dateTimeFrom, dateTimeTo);
+                        newEvent = new duke.Event(description, dateTimeFrom, dateTimeTo);
                         tasks.add(newEvent);
 
                         try {
-                            Storage.saveTasks(tasks); // Save the updated tasks to file
+                            duke.Storage.saveTasks(tasks); // Save the updated tasks to file
                         } catch (IOException e) {
                             ui.showSavingError(e.getMessage());
                         }
                     } catch (DateTimeParseException e) {
-                        throw new DukeException("Invalid date-time format! Please use d/M/yyyy HHmm format.");
+                        throw new duke.DukeException("Invalid date-time format! Please use d/M/yyyy HHmm format.");
                     }
 
                     ui.showAddedTask(newEvent, tasks.size());
@@ -122,15 +124,15 @@ while (true) {
                     try {
                         taskNumber = Integer.parseInt(userInput.split(" ")[1]);
                         if (taskNumber <= 0 || taskNumber > tasks.size()) {
-                            throw new DukeException("Invalid task number!");
+                            throw new duke.DukeException("Invalid task number!");
                         }
 
-                        Task deletedTask = tasks.get(taskNumber - 1);
+                        duke.Task deletedTask = tasks.get(taskNumber - 1);
 
                         tasks.remove(taskNumber - 1);
 
                         try {
-                            Storage.saveTasks(tasks); // Save the updated tasks to file
+                            duke.Storage.saveTasks(tasks); // Save the updated tasks to file
                         } catch (IOException e) {
                             ui.showSavingError(e.getMessage());
                         }
@@ -138,15 +140,15 @@ while (true) {
                         ui.showDeletedTask(deletedTask, tasks.size());
                     } catch (NumberFormatException e) {
                         ui.showInvalidTaskNumber();
-                    } catch (DukeException de) {
+                    } catch (duke.DukeException de) {
                         System.out.println("____________________________________________________________");
                         System.out.println(de.getMessage());
                         System.out.println("____________________________________________________________");
                     }
                 } else {
-                    throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+                    throw new duke.DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
                 }
-            } catch (DukeException de) {
+            } catch (duke.DukeException de) {
                 ui.printMessage(de.getMessage());
             }
         }

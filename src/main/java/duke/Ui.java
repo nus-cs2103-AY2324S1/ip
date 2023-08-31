@@ -1,4 +1,5 @@
-import java.util.ArrayList;
+package duke;
+
 import java.util.Scanner;
 
 public class Ui {
@@ -17,7 +18,7 @@ public class Ui {
     // Show a welcome message when the program starts
     public void showWelcome() {
         printLine("____________________________________________________________");
-        printLine("Hello! I'm Duke");
+        printLine("Hello! I'm duke.Duke");
         printLine("What can I do for you?");
         printLine("____________________________________________________________");
     }

@@ -1,31 +1,38 @@
+package duke.command;
+
+import duke.*;
+
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
-public class DeadlineCommand extends Command {
+public class EventCommand extends Command {
     private String description;
-    private String by;
+    private String from;
+    private String to;
 
-    public DeadlineCommand(String description, String by) {
+    public EventCommand(String description, String from, String to) {
         this.description = description;
-        this.by = by;
+        this.from = from;
+        this.to = to;
     }
 
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException, IOException {
-        if (description.isEmpty() || by.isEmpty()) {
-            throw new DukeException("☹ OOPS!!! The description or deadline of a task cannot be empty.");
+        if (description.isEmpty() || from.isEmpty() || to.isEmpty()) {
+            throw new DukeException("☹ OOPS!!! The description, start, or end time of an event cannot be empty.");
         }
 
-        Deadline newDeadline;
+        Event newEvent;
         try {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
-            LocalDateTime dateTime = LocalDateTime.parse(by, formatter);
-            newDeadline = new Deadline(description, dateTime);
-            tasks.add(newDeadline);
+            LocalDateTime dateTimeFrom = LocalDateTime.parse(from, formatter);
+            LocalDateTime dateTimeTo = LocalDateTime.parse(to, formatter);
+            newEvent = new Event(description, dateTimeFrom, dateTimeTo);
+            tasks.add(newEvent);
             storage.saveTasks(tasks); // Save the updated tasks to file
-            ui.showAddedTask(newDeadline, tasks.size());
+            ui.showAddedTask(newEvent, tasks.size());
         } catch (DateTimeParseException e) {
             throw new DukeException("Invalid date-time format! Please use d/M/yyyy HHmm format.");
         } catch (IOException e) {

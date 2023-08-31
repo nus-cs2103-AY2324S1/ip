@@ -1,11 +1,10 @@
-import java.io.IOException;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
+package duke;
+
+import duke.command.*;
 
 public class Parser {
 
-    // Interpret the user command and return a Command object or equivalent representation
+    // Interpret the user command and return a duke.commands.Command object or equivalent representation
     public static Command parse(String userInput) throws DukeException {
         if ("bye".equalsIgnoreCase(userInput)) {
             return new ByeCommand();
