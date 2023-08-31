@@ -18,7 +18,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class Parser {
-    public class ParseError extends Exception {
+    public static class ParseError extends Exception {
         private ParseError(String message) {
             super(message);
         }
