@@ -8,15 +8,25 @@ public abstract class Task {
 
   private boolean isCompleted;
 
+  /**
+   * Creates a new Task with the given task name.
+   *
+   * @param taskName the name of the task
+   */
   public Task(String taskName) {
     this.taskName = taskName;
   }
 
+  /**
+   * Creates a new Task with the given task name.
+   *
+   * @param taskName the name of the task
+   * @param isCompleted the completion status of the task
+   */
   public Task(String taskName, boolean isCompleted) {
     this.taskName = taskName;
     this.isCompleted = isCompleted;
   }
-
 
   public abstract String saveData();
 
@@ -46,7 +56,6 @@ public abstract class Task {
   protected String taskName() {
     return this.taskName;
   }
-
 
   /**
    * Returns a string representation of the object.

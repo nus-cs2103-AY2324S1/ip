@@ -13,12 +13,15 @@ public class Storage {
 
   private String filePath;
 
+  /**
+   * Creates a storage that reads and writes from the file path.
+   * @param filePath the location to read and write data
+   */
   public Storage(String filePath) {
     this.filePath = filePath;
   }
 
   private TimeParser parser = new TimeParser();
-
 
   /**
    *  Writes the current state of the task lists into a .txt file
@@ -37,10 +40,9 @@ public class Storage {
     }
   }
 
-
   /**
-   *  Gets the local save .txt file and read it line by line,
-   *  parsing the lines into a task and adding that to the list.
+   * Gets the local save .txt file and read it line by line,
+   * parsing the lines into a task and adding that to the list.
    *
    * @return a list that has tasks parsed from a local .txt file
    */

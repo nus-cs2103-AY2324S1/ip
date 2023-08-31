@@ -11,6 +11,10 @@ public class TaskList {
 
   private LinkedList<Task> tasks = new LinkedList<>();
 
+  /**
+   * Creates a new TaskList with the given list.
+   * @param tasks the tasks to be created
+   */
   public TaskList(LinkedList<Task> tasks) {
     this.tasks = tasks;
   }
@@ -18,7 +22,6 @@ public class TaskList {
   public LinkedList<Task> getTaskList() {
     return this.tasks;
   }
-
 
   /**
    * List the current state of the tasks list
@@ -91,7 +94,6 @@ public class TaskList {
     }
   }
 
-
   /**
    * Unmarked the task as completed at the specified position.
    *
@@ -116,6 +118,12 @@ public class TaskList {
     }
   }
 
+  /**
+   * Finds all the tasking matching the expression
+   *
+   * @param expr the expression to match
+   * @return true if there is a match, false otherwise
+   */
   public boolean findTasks(String expr) {
     System.out.println("     Here are the matching tasks in your list:");
     if (expr.equals("")) {

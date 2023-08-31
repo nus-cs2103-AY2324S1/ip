@@ -5,6 +5,9 @@ package duke;
  */
 public class UI {
 
+  /**
+   * Creates a UI object that prints out miscellaneous statements.
+   */
   public UI() {}
 
   /**

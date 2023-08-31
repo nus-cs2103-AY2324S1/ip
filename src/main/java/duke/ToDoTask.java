@@ -4,14 +4,24 @@ package duke;
  * Represents a task that only has a task name.
  */
 public class ToDoTask  extends Task {
+  /**
+   * Creates a TodoTask with the given task name.
+   *
+   * @param taskName the name of the task
+   */
   public ToDoTask(String taskName) {
     super(taskName);
   }
 
+  /**
+   * Creates a TodoTask with the given task name.
+   *
+   * @param taskName the name of the task
+   * @param isCompleted the completion status of the task
+   */
   public ToDoTask(String taskName, boolean isCompleted) {
     super(taskName, isCompleted);
   }
-
 
   /**
    * Returns the current state of the task in String for saving purposes.
@@ -24,7 +34,6 @@ public class ToDoTask  extends Task {
     String isCompleted = isCompleted() ? "1" : "0";
     return "todo" + delimiter + isCompleted + delimiter + taskName() + delimiter;
   }
-
 
   /**
    * Returns a string representation of the object.

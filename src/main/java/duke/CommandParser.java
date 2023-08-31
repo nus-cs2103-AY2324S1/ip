@@ -6,6 +6,9 @@ package duke;
  */
 public class CommandParser {
 
+  /**
+   * Creates a parser to parse input commands
+   */
   public CommandParser() {}
 
   private TimeParser parser = new TimeParser();

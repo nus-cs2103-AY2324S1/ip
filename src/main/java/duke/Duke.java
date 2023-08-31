@@ -8,13 +8,13 @@ import java.util.Scanner;
  */
 public class Duke {
 
-    private final UI ui = new UI();
+    private UI ui = new UI();
 
-    private final Storage storage = new Storage("./data/Duke.txt");
+    private Storage storage = new Storage("./data/Duke.txt");
 
-    private final CommandParser parser = new CommandParser();
+    private CommandParser parser = new CommandParser();
 
-    private final TaskList taskList = new TaskList(storage.loadFile());
+    private TaskList taskList = new TaskList(storage.loadFile());
 
     private void handleUI() {
         ui.greet();

@@ -13,11 +13,24 @@ public class DeadlineTask extends Task {
   private DateTimeFormatter saveFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
   private DateTimeFormatter displayFormatter = DateTimeFormatter.ofPattern("dd MMM yyyy");
 
+  /**
+   * Creates a new Deadline task.
+   *
+   * @param taskName the name of the task
+   * @param endDate the end date of the task
+   */
   public DeadlineTask(String taskName, LocalDate endDate) {
     super(taskName);
     this.endDate = endDate;
   }
 
+  /**
+   * Creates a new Deadline task.
+   *
+   * @param taskName the name of the task
+   * @param endDate the end date of the task
+   * @param isCompleted the status of completion
+   */
   public DeadlineTask(String taskName, LocalDate endDate, boolean isCompleted) {
     super(taskName, isCompleted);
     this.endDate = endDate;

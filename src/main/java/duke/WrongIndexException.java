@@ -5,6 +5,9 @@ package duke;
  */
 public class WrongIndexException extends DukeException {
 
+  /**
+   * Creates a WrongIndexException.
+   */
   WrongIndexException() {
     super("    Enter a valid index");
   }

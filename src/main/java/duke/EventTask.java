@@ -13,18 +13,32 @@ public class EventTask extends Task {
   private DateTimeFormatter saveFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
   private DateTimeFormatter displayFormatter = DateTimeFormatter.ofPattern("dd MMM yyyy");
 
+  /**
+   * Creates a new Event Task.
+   *
+   * @param taskName the name of the task
+   * @param startDate the start date of the task
+   * @param endDate the end date of the task
+   */
   public EventTask(String taskName, LocalDate startDate, LocalDate endDate) {
     super(taskName);
     this.startDate = startDate;
     this.endDate = endDate;
   }
 
+  /**
+   * Creates a new Event Task.
+   *
+   * @param taskName the name of the task
+   * @param startDate the start date of the task
+   * @param endDate the end date of the task
+   * @param isCompleted the completion status of the task
+   */
   public EventTask(String taskName, LocalDate startDate, LocalDate endDate, boolean isCompleted) {
     super(taskName, isCompleted);
     this.startDate = startDate;
     this.endDate = endDate;
   }
-
 
   /**
    * Returns the current state of the task in String for saving purposes.

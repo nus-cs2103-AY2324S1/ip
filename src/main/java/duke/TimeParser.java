@@ -8,6 +8,9 @@ import java.time.format.DateTimeParseException;
  * A parser to parse a String into a LocalDate object.
  */
 public class TimeParser {
+  /**
+   * Creates a new parser to parse String into LocalDate objects.
+   */
   public TimeParser() {}
 
   /**
