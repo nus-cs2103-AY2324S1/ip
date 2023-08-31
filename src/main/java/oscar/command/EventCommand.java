@@ -36,7 +36,7 @@ public class EventCommand extends Command {
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws OscarException {
-        String[] validatedDetails = validate(details);
+        String[] validatedDetails = validate();
         String description = validatedDetails[0];
         String start = validatedDetails[1];
         String end = validatedDetails[2];
@@ -52,17 +52,20 @@ public class EventCommand extends Command {
     /**
      * Validates details of event task.
      * Format: event [task] /from yyyy-MM-dd HHmm /to yyyy-MM-dd HHmm
-     * @param details Information about the details, as well as start and end
-     *                date/time of task.
      * @throws OscarException Incorrect format of event command.
      */
-    public String[] validate(String details) throws OscarException {
+    public String[] validate() throws OscarException {
         if (!details.contains(" /from ") || !details.contains(" /to ")) {
             throw new OscarException("Sorry! " +
                     "The event task is not formatted correctly.\n" +
                     "Please use the format: 'event [task] /from yyyy-MM-dd HHmm /to yyyy-MM-dd HHmm'.\n");
         }
         String[] split = details.split(" /from | /to ");
+        if (split.length != 3) {
+            throw new OscarException("Sorry! " +
+                    "The event task is not formatted correctly.\n" +
+                    "Please use the format: 'event [task] /from yyyy-MM-dd HHmm /to yyyy-MM-dd HHmm'.\n");
+        }
         String description = split[0];
         if (description.isEmpty()) {
             throw new OscarException("Sorry! " +
@@ -74,10 +77,6 @@ public class EventCommand extends Command {
                     "The start date and time of an event task cannot be empty.\n");
         }
         String end = split[2];
-        if (end.isEmpty()) {
-            throw new OscarException("Sorry! " +
-                    "The end date and time of an event task cannot be empty.\n");
-        }
         if (!start.contains(" ") || !end.contains(" ")) {
             throw new OscarException("Sorry! Please enter a valid date and time in this format: '2019-10-15 1800'.\n");
         }
@@ -93,5 +92,4 @@ public class EventCommand extends Command {
         }
         return new String[]{description, start, end};
     }
-
 }

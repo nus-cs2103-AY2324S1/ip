@@ -19,7 +19,7 @@ public class TaskList {
      * Use an empty task list.
      */
     public TaskList() {
-        this.taskList = new ArrayList<Task>();
+        this.taskList = new ArrayList<>();
     }
 
     /**

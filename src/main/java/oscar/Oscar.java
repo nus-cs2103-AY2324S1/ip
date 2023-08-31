@@ -48,7 +48,7 @@ public class Oscar {
                 String fullCommand = ui.readCommand();
                 ui.showLine(); // show the divider line ("_______")
                 Command c = Parser.parse(fullCommand);
-                c.execute(tasks, ui, storage);
+                c.execute(tasks, storage);
                 isExit = c.isExit();
             } catch (OscarException e) {
                 ui.showError(e);
