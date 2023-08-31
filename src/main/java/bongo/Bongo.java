@@ -10,15 +10,13 @@ import bongo.task.TaskList;
 import java.io.*;
 
 public class Bongo {
-    private Storage storage;
+    private final Storage storage;
+    private final Ui ui;
     private TaskList tasks;
-    private Ui ui;
-    private Parser parser;
 
     public Bongo(String filepath) {
         this.ui = new Ui();
         this.storage = new Storage(filepath);
-        this.parser = new Parser();
         try {
             this.tasks = new TaskList(storage.load());
         } catch (FileNotFoundException e) {
@@ -37,7 +35,7 @@ public class Bongo {
             try {
                 String command = ui.readCommand();
                 ui.showLine();
-                Command c = this.parser.parse(command);
+                Command c = Parser.parse(command);
                 c.execute(this.tasks, this.ui, this.storage);
                 isExit = c.isExit();
             } catch (BongoException e) {

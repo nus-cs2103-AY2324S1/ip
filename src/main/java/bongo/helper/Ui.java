@@ -74,12 +74,12 @@ public class Ui {
     }
 
     public void showError(String errorMessage) {
-        String finalErrorMessage = " Oh no! bongo.Bongo ran into an error :(\n" + String.format(" %s", errorMessage);
+        String finalErrorMessage = " Oh no! Bongo ran into an error :(\n" + String.format(" %s", errorMessage);
         System.out.println(finalErrorMessage);
     }
 
     public void showLoadingError() {
-        String loadingErrorMessage = "Oh no! bongo.Bongo couldn't find the files, so the following files were created:";
+        String loadingErrorMessage = "Oh no! Bongo couldn't find the files, so the following files were created:";
         System.out.println(loadingErrorMessage);
     }
 }
