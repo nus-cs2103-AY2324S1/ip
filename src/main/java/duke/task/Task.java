@@ -49,21 +49,16 @@ public class Task {
         this.isDone = false;
     }
 
-    /**
-     * The String representation of the task's completion status.
-     *
-     * @return The Sting "X" if task completed, " " if not completed.
-     */
-    public String getStatusIcon() {
+
+    public String getStatus() {
         return (isDone ? "X" : " "); // mark done task with X
     }
 
-    /**
-     * The String representation of the task's completion status when tasks are stored.
-     *
-     * @return The Sting "Y" if task completed, "N" if not completed.
-     */
-    public String fileGetStatusIcon(){
+    public String getStatusIcon() {
+        return (isDone ? "X" : " "); // mark done task with X
+    }
+  
+   public String getStatusFromFile(){
         return (isDone ? "Y" : "N");
     }
 
@@ -71,10 +66,7 @@ public class Task {
         return description;
     }
 
-    /**
-     * Marks task's completion status as done.
-     */
-    public void taskDone(){
+    public void setTaskDone(){
         isDone = true;
     }
 
@@ -193,7 +185,7 @@ public class Task {
      */
     @Override
     public String toString(){
-        return " [" + getStatusIcon() + "] " + getDescription();
+        return " [" + getStatus() + "] " + getDescription();
     }
 
     /**
@@ -202,6 +194,6 @@ public class Task {
      * @return The formatted string representation of the task for file storage.
      */
     public String toFileString(){
-        return "|" + fileGetStatusIcon() + "|" + getDescription();
+        return "|" + getStatusFromFile() + "|" + getDescription();
     }
 }
