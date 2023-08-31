@@ -1,6 +1,5 @@
-T | [ ] | read book
+T | [X] | read book
 D | [ ] | return book  | 20230607 1400
 T | [X] | join sports club
-T | [X] | borrow book
 E | [ ] | project meeting  | 20230808 1500-1600
 E | [ ] | project meeting  | 20230709 1600-1800

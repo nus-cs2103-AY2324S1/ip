@@ -2,6 +2,9 @@ package duke;
 
 import java.util.ArrayList;
 
+/**
+ * TaskList class storing all the tasks in an ArrayList.
+ */
 public class TaskList {
     protected ArrayList<Task> tasks;
 
@@ -33,6 +36,22 @@ public class TaskList {
 
     public Task deleteTask(int index) {
         return this.tasks.remove(index);
+    }
+
+    /**
+     * Finds task objects that has matching keyword.
+     * @param keyword keyword in String look for
+     * @return an ArrayList of task that has matching keyword
+     */
+    public ArrayList<Task> findTaskUsingKeyword(String keyword) {
+        ArrayList<Task> matchingTasks = new ArrayList<>();
+        for (int i = 0; i < tasks.size(); i++) {
+            if (tasks.get(i).taskDescription.contains(keyword)) {
+                matchingTasks.add(tasks.get(i));
+            }
+        }
+
+        return matchingTasks;
     }
 
 }

@@ -1,7 +1,10 @@
 package duke;
 
+
+/**
+ * /nTodo class that inherits from parent class Task. Stores information about the task.
+ */
 public class ToDo extends Task {
-    protected String taskDescription;
     private String identifier;
 
     public ToDo(String taskDescription, boolean isDone) {

@@ -1,5 +1,8 @@
 package duke;
 
+/**
+ * A task class. Stores information about the description of task and whether it is done or not.
+ */
 public class Task {
     protected String taskDescription;
     protected boolean isDone;
@@ -26,7 +29,7 @@ public class Task {
             this.isDone = true;
         }
     }
-
+    @Override
     public String toString() {
         return this.getStatusIcon() + " " + this.taskDescription;
     }
