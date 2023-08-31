@@ -90,6 +90,10 @@ public abstract class CommandParser {
             return new CmdAddTask(new Event(description, from, to));
         }
 
+        if (command.equals("find")) {
+            return new CmdFind(description);
+        }
+
         return null;
     }
 

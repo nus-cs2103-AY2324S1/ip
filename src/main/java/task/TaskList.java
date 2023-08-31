@@ -36,6 +36,17 @@ public class TaskList {
         return index > 0 && index < list.size();
     }
 
+    public Task[] search(String keyword) {
+        Object[] tempRes = list.stream()
+                .filter(task -> task.getDescription().toLowerCase().contains(keyword.toLowerCase()))
+                .toArray();
+        Task[] res = new Task[tempRes.length];
+        for (int i = 0; i < tempRes.length; i++) {
+            res[i] = (Task) tempRes[i];
+        }
+        return res;
+    }
+
     public int size() {
         return list.size();
     }
