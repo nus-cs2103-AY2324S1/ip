@@ -1,7 +1,10 @@
 package duke.task;
 
+import duke.DukeException;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Represents a list of tasks.
@@ -72,5 +75,14 @@ public class TaskList {
      */
     public List<Task> getTasks() {
         return tasks;
+    }
+
+    public TaskList findTasks(String description) throws DukeException {
+        if (description.isBlank()) {
+            throw new DukeException("!!!: Please provide a description to search for");
+        }
+        return new TaskList(tasks.stream()
+                .filter(task -> task.description.contains(description))
+                .collect(Collectors.toCollection(ArrayList::new)));
     }
 }

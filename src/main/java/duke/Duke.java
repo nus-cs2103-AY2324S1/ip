@@ -122,6 +122,12 @@ public class Duke {
                         ui.printTasksOnDate(tasksOnGivenDate, givenDate);
                         break;
 
+                    case FIND:
+                        String keyword = input.substring(5);
+                        TaskList resultList = taskList.findTasks(keyword);
+                        ui.printFindResults(resultList.getTasks());
+                        break;
+
                     default:
                         ui.showError("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
                 }
