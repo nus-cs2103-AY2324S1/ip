@@ -1,5 +1,3 @@
-import javax.sound.midi.SysexMessage;
-
 public class Deadline extends Task{
 
     protected String by;
@@ -25,6 +23,21 @@ public class Deadline extends Task{
         System.out.println("[D]" + super.getStatusIcon() + description + " (by: " + by + ")");
     }
 
-    //make one display with different conditions:
-    //public String
+
+    public static Deadline readFromFile(String[] segments) {
+        String symbol = segments[1];
+        String description = segments[2];
+        String by = segments[3];
+        Deadline toReturn =  new Deadline(description, by);
+        if (symbol.equals("X")) {
+            toReturn.mark();
+        }
+        return toReturn;
+    }
+
+    @Override
+    public String toWriteString() {
+        String toWrite = "D" + " | " + super.toWriteString() + " | " + by;
+        return toWrite;
+    }
 }
