@@ -4,12 +4,16 @@ public class Task {
     protected String description;
     protected boolean isDone;
 
-    public Task(String description) throws IllegalArgumentException {
+    public Task(String description, boolean isDone) {
         if (description.isEmpty()) {
             throw new IllegalArgumentException("Whoops, a task needs to have a non-empty description!");
         }
         this.description = description;
-        this.isDone = false;
+        this.isDone = isDone;
+    }
+
+    public Task(String description) throws IllegalArgumentException {
+        this(description, false);
     }
 
     public String getStatusIcon() {

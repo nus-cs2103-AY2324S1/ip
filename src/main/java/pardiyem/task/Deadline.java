@@ -3,13 +3,19 @@ package pardiyem.task;
 import java.util.ArrayList;
 
 public class Deadline extends Task {
+
     protected String doBy;
-    public Deadline(String description, String doBy) throws IllegalArgumentException {
-        super(description);
+
+    public Deadline(String description, String doBy, boolean isDone) throws IllegalArgumentException {
+        super(description, isDone);
         if (doBy.isEmpty()) {
             throw new IllegalArgumentException("Whoops, a deadline needs to have a non-empty do by description");
         }
         this.doBy = doBy;
+    }
+
+    public Deadline(String description, String doBy) {
+        this(description, doBy, false);
     }
 
     @Override

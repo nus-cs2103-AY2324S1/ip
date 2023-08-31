@@ -1,55 +1,41 @@
-
+-------------------------
 Salve, I'm Pardi
 What can I do for you?
-
-
+-------------------------
 java.lang.IllegalArgumentException: Whoops, a task needs to have a non-empty description!
-
-
 Got it. I've added this task:
+-------------------------
 [T][ ] hahaha
 Now you have 1 task(s) in the list
-
-
+-------------------------
 java.lang.IllegalArgumentException: Whoops, a task needs to have a non-empty description!
-
-
+-------------------------
 java.lang.IllegalArgumentException: Whoops, you forgot to indicate the deadline by using "/by *insert deadline*"
-
-
+-------------------------
 Got it. I've added this task:
 [D][ ] hahaha (by: 12)
 Now you have 2 task(s) in the list
-
-
+-------------------------
 java.lang.IllegalArgumentException: You used "aaaa" as an argument. A list command shouldn't have any arguments
-
-
+-------------------------
 1.[T][ ] hahaha
 2.[D][ ] hahaha (by: 12)
-
-
+-------------------------
 java.lang.IllegalArgumentException: Whoops, a task needs to have a non-empty description!
-
-
+-------------------------
 java.lang.IllegalArgumentException: Whoops, a task needs to have a non-empty description!
-
-
+-------------------------
 java.lang.IllegalArgumentException: Whoops, you forgot to indicate the ending time by using "/to *insert ending time*"
-
-
+-------------------------
 java.lang.IllegalArgumentException: Whoops, you forgot to indicate the starting time by using "/from *insert starting time*"
-
-
+-------------------------
 Got it. I've added this task:
 [E][ ] hahaha (from: 12 to: 13)
 Now you have 3 task(s) in the list
-
-
+-------------------------
 Got it. I've added this task:
 [E][ ] hihihi (from: 13 to: 14)
 Now you have 4 task(s) in the list
-
-
+-------------------------
 Ciao! See you again!
-
+-------------------------

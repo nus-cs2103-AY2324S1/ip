@@ -1,13 +1,19 @@
 package pardiyem.parser;
-import java.util.ArrayList;
-import java.util.Arrays;
+
+import pardiyem.command.AddCommand;
+import pardiyem.command.ByeCommand;
+import pardiyem.command.Command;
+import pardiyem.command.DeleteCommand;
+import pardiyem.command.ListCommand;
+import pardiyem.command.MarkCommand;
+import pardiyem.command.UnmarkCommand;
 
 public class Parser {
-    String SPACE = " ";
-    public ArrayList<String> parseCommand(String in) {
+    private static final String SPACE = " ";
+
+    public static Command parseCommand(String in) throws NoSuchMethodException {
         int x = in.indexOf(SPACE);
         String command;
-        ArrayList<String> out = new ArrayList<String>(Arrays.asList("", ""));
         if (x == -1) {
             command = in;
         } else {
@@ -15,40 +21,23 @@ public class Parser {
         }
         switch (command) {
             case "bye":
-                out.set(0, "1");
-                out.set(1, in.substring(3).trim());
-                break;
+                return new ByeCommand(in.substring(3).trim());
             case "list":
-                out.set(0, "2");
-                out.set(1, in.substring(4).trim());
-                break;
+                return new ListCommand(in.substring(4).trim());
             case "mark":
-                out.set(0, "3");
-                out.set(1, in.substring(4).trim());
-                break;
+                return new MarkCommand(in.substring(4).trim());
             case "unmark":
-                out.set(0, "4");
-                out.set(1, in.substring(6).trim());
-                break;
+                return new UnmarkCommand(in.substring(6).trim());
             case "todo":
-                out.set(0, "5");
-                out.set(1, in.substring(4).trim());
-                break;
+                return new AddCommand(in.substring(4).trim(), 1);
             case "deadline":
-                out.set(0, "6");
-                out.set(1, in.substring(8).trim());
-                break;
+                return new AddCommand(in.substring(8).trim(), 2);
             case "event":
-                out.set(0, "7");
-                out.set(1, in.substring(5).trim());
-                break;
+                return new AddCommand(in.substring(5).trim(), 3);
             case "delete":
-                out.set(0, "8");
-                out.set(1, in.substring(6).trim());
-                break;
+                return new DeleteCommand(in.substring(6).trim());
             default:
-                out.set(0, "-1");
+                throw new NoSuchMethodException("Whoops, I do not recognize that command");
         }
-        return out;
     }
 }
