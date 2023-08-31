@@ -3,7 +3,7 @@ package duke.task;
 import java.time.LocalDateTime;
 
 /**
- * Represents a deadline task
+ * Represents a deadline task in a task manager
  */
 public class DeadlineTask extends Task {
 
@@ -45,9 +45,9 @@ public class DeadlineTask extends Task {
 
     /**
      * returns the stored form of this deadline
-     * Stored as DEADLINE,{task description},{by}
+     * Stored as DEADLINE{task description}{by}
      *
-     * @return DEADLINE,{task description},{by}
+     * @return DEADLINE{task description}{by}
      */
     @Override
     public String getStored() {

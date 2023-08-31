@@ -24,7 +24,6 @@ public class Task {
      * The state of the task
      */
     private boolean isComplete = false;
-
     /**
      * Constructor for the duke.task.Task class
      *
@@ -85,6 +84,7 @@ public class Task {
 
     /**
      * Checks if it is the exact same TASK
+     *
      * @param other the other command in question
      * @return true if there are equals
      */

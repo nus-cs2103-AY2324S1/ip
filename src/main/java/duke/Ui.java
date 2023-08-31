@@ -60,6 +60,9 @@ public class Ui {
             + "░░░░░░░░░░░░░░░░░░░░░████████████████░░░░░░░░░░░░░░░░░░░░░░░░░░\n"
             + "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░\n"
             + "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░";
+    /**
+     * scanner instance, default to scan from System.in
+     */
     private final Scanner scanner;
 
     /**
@@ -140,7 +143,7 @@ public class Ui {
     }
 
     /**
-     * Prints Unexpteced Error message in the quack convention
+     * Prints Unexpected Error message in the quack convention
      *
      * @param e - the error message
      */

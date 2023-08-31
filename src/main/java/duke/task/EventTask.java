@@ -3,7 +3,7 @@ package duke.task;
 import java.time.LocalDateTime;
 
 /**
- * Class to encapsulate the logic of an event in a todo list
+ * Class to encapsulate the logic of an event in a task manager
  */
 public class EventTask extends Task {
 
@@ -18,7 +18,7 @@ public class EventTask extends Task {
 
     /**
      * constructor for duke.task.EventTask
-     * Stored as EVENT,{marked}{task description},{from},{to}
+     * Stored as EVENT{marked}{task description}{from}{to}
      *
      * @param from - the starting time of the event
      * @param to   - the ending time of the event
@@ -32,7 +32,7 @@ public class EventTask extends Task {
 
     /**
      * constructor for duke.task.EventTask from storage
-     * Stored as EVENT,{marked}{task description},{from},{to}
+     * Stored as EVENT{marked}{task description}{from}{to}
      *
      * @param from       - the starting time of the event
      * @param to         - the ending time of the event

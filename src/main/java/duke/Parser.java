@@ -31,16 +31,12 @@ import duke.task.TodoTask;
 public class Parser {
 
     /**
-     * Formatter to output date time
-     */
-    public static final DateTimeFormatter OUTPUT_FORMAT = DateTimeFormatter.ofPattern("EEE hh:mma, MMM yyyy");
-    /**
      * Formatter to parse date time
      */
     private static final DateTimeFormatter PARSE_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
     /**
-     * Factory method to parse the input and output the respective command
+     * Factory method to parse the input and output the respective command instance
      *
      * @param input - the input string that needs to be parsed
      * @return a respective subclass of the command that can be executed

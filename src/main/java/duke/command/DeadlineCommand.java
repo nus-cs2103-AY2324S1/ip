@@ -9,8 +9,6 @@ import duke.exception.DukeBadInputException;
 import duke.task.DeadlineTask;
 import duke.task.Task;
 
-
-
 /**
  * Represents the Deadline command
  */
@@ -39,9 +37,10 @@ public class DeadlineCommand extends Command {
     /**
      * Method to encapsulate the execution logic of the command
      *
-     * @param taskList - the task list instance  of the current duke
+     * @param taskList - the task list instance of the current duke
      * @param ui       - the ui instance of DUKE
-     * @param storage  - the storage instance to allow the command to write to the storage
+     * @param storage  - the storage instance to allow the command to write to the
+     *                 storage
      * @throws DukeBadInputException - if the input cannot be used
      */
     @Override
@@ -76,6 +75,7 @@ public class DeadlineCommand extends Command {
 
     /**
      * Checks if it is the exact same command
+     *
      * @param other the other command in question
      * @return true if there are equals
      */

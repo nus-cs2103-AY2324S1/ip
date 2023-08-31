@@ -44,6 +44,7 @@ public class ListCommand extends Command {
 
     /**
      * Checks if it is the exact same command
+     *
      * @param other the other command in question
      * @return true if there are equals
      */
