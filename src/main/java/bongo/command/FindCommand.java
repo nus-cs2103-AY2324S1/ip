@@ -17,8 +17,8 @@ public class FindCommand extends Command {
      * @param searchInput
      */
     public FindCommand(String[] searchInput) throws BongoException {
-        this.validateSearchInput();
         this.searchInput = searchInput;
+        this.validateSearchInput();
     }
 
     private void validateSearchInput() throws BongoException {
