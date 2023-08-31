@@ -11,6 +11,8 @@ public class Task {
         this.isDone = done;
     }
 
+    public void stringToDate() {}
+
     public String toString() { // generates the string of marking and task
         String marking = "";
         if (this.isDone) {
