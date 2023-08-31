@@ -10,7 +10,7 @@ public abstract class Task {
             case todo:
                 return ToDo.create(rawLine);
             case deadline:
-                return Deadlines.create(rawLine);
+                return Deadline.create(rawLine);
             case event:
                 return Event.create(rawLine);
             default:

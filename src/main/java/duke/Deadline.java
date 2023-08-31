@@ -2,10 +2,10 @@ package duke;
 
 import java.time.DateTimeException;
 
-public class Deadlines extends Task {
+public class Deadline extends Task {
     private DateTimeOptional deadline;
 
-    public static Deadlines create(String rawLine) throws DukeException {
+    public static Deadline create(String rawLine) throws DukeException {
         if (rawLine.length() == 0) {
             throw new DukeException("Err: Empty Description");
         }
@@ -15,12 +15,12 @@ public class Deadlines extends Task {
         }
         try {
             DateTimeOptional deadline = DateTimeOptional.parseDateTime(instructions[1]);
-            return new Deadlines(instructions[0], deadline);
+            return new Deadline(instructions[0], deadline);
         } catch (DateTimeException e) {
             throw new DukeException.DukeDateTimeException(instructions[1]);
         }
     }
-    public Deadlines(String item, DateTimeOptional deadline) {
+    public Deadline(String item, DateTimeOptional deadline) {
         super(item);
         this.deadline = deadline;
     }

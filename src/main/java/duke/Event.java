@@ -2,7 +2,7 @@ package duke;
 
 import java.time.DateTimeException;
 
-public class Event extends Task{
+public class Event extends Task {
 
     private DateTimeOptional startTime;
     private DateTimeOptional endTime;
