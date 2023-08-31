@@ -105,6 +105,15 @@ public class Commands {
         }
         return false;
     }
+    /**
+     * Executes the action or throws a DukeException.
+     * @param taskList The list of tasks that the action will be executed in.
+     * @return Returns 0 if the 'bye' command is executed, returns 1 if any other command is successfully executed.
+     * @throws DukeException The exception thrown when encountering any problems in executing.
+     */
+    public int action(ListOfTask taskList) throws DukeException {
+        return execute(taskList, 0, null);
+    }
 
     /**
      * Executes the action or throws a DukeException.

@@ -12,10 +12,20 @@ public class Parser {
     private String command;
     private String[] initialParse;
     private String[] phaseParse;
+
+    /**
+     * Construct the Parser object.
+     * @param command The string that needs to be parsed.
+     */
     public Parser(String command) {
         this.command = command;
     }
 
+    /**
+     * Parses the string into actionable commands.
+     * @return Returns a Command object.
+     * @throws DukeException If the input is not a command
+     */
     public Commands parse() throws DukeException {
         Commands.COMMANDS cmd = this.mainCommand();
         if (cmd == Commands.COMMANDS.BYE || cmd == Commands.COMMANDS.LIST) {
@@ -44,7 +54,7 @@ public class Parser {
             try {
                 int index = Integer.parseInt(this.secondWord());
                 return Commands.of(cmd, index);
-            } catch (NumberFormatException e) {
+            } catch (NumberFormatException | NullPointerException e) {
                 throw new DukeNumberFormatException("Place a number after the command");
             }
         }
@@ -100,7 +110,8 @@ public class Parser {
 
         throw new DukeUnknownCommandException("Unknown command");
     }
-    public Commands.COMMANDS mainCommand() {
+
+    private Commands.COMMANDS mainCommand() {
         this.initialParse = command.split(" ",2);
         switch (initialParse[0]) {
             case ("bye"):
@@ -134,7 +145,7 @@ public class Parser {
         }
     }
 
-    public String secondWord() {
+    private String secondWord() {
         try {
             if (this.initialParse[1].equals("")) {
                 return null;
@@ -146,7 +157,7 @@ public class Parser {
         }
     }
 
-    public String phaseParse() {
+    private String phaseParse() {
         try {
             this.phaseParse = this.initialParse[1].split("/");
             return phaseParse[0];
@@ -155,7 +166,7 @@ public class Parser {
         }
     }
 
-    public String phaseTwo() {
+    private String phaseTwo() {
         try {
             return this.phaseParse[1];
         } catch (NullPointerException | ArrayIndexOutOfBoundsException e) {
@@ -163,7 +174,7 @@ public class Parser {
         }
     }
 
-    public String phaseThree() {
+    private String phaseThree() {
         try {
             return this.phaseParse[2];
         } catch (NullPointerException | ArrayIndexOutOfBoundsException e) {

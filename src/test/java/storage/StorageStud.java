@@ -2,11 +2,12 @@ package storage;
 
 import task.ListOfTaskStud;
 import task.Task;
+import task.TaskStud;
 
 import java.util.ArrayList;
 
 public class StorageStud {
-    public static void save(ArrayList<Task> listOfTask) {
+    public static void save(ArrayList<TaskStud> listOfTask) {
 
     }
 
