@@ -1,6 +1,11 @@
 package duke.tasklist;
-import duke.tasks.*;
-import duke.exception.*;
+
+import duke.tasks.Task;
+import duke.tasks.Deadline;
+import duke.tasks.Event;
+import duke.tasks.ToDo;
+
+import duke.exception.DukeException;
 
 import java.util.ArrayList;
 
@@ -28,8 +33,11 @@ public class TaskList {
         if (number > taskList.size() || number < 0) {
             throw new DukeException("Wrong Param");
         }
+
         Task task = taskList.get(number-1);
+
         task.markAsDone();
+
         return task;
     }
 
@@ -43,8 +51,11 @@ public class TaskList {
         if (number > taskList.size() || number < 0) {
             throw new DukeException("Wrong Param");
         }
+
         Task task = taskList.get(number-1);
+
         task.unmarkAsDone();
+
         return task;
     }
 
@@ -58,7 +69,9 @@ public class TaskList {
         if (number > taskList.size() || number < 0) {
             throw new DukeException("Wrong Param");
         }
+
         Task task = taskList.remove(number-1);
+
         return task;
     }
 

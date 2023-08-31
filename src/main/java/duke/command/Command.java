@@ -1,7 +1,10 @@
 package duke.command;
-import duke.tasklist.*;
-import duke.tasks.*;
-import duke.exception.*;
+import duke.tasklist.TaskList;
+import duke.tasks.Task;
+import duke.tasks.Deadline;
+import duke.tasks.Event;
+import duke.tasks.ToDo;
+import duke.exception.DukeException;
 /**
  * Represents a command given by the user. Parent class with abstract execute() method.
  */
@@ -9,7 +12,7 @@ public abstract class Command {
 
     TaskList taskList;
 
-    public boolean isExitCommand = false;
+    protected boolean isExitCommand = false;
 
     /**
      * Constructor for command objects.

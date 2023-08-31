@@ -1,7 +1,13 @@
 package duke.command;
-import duke.tasklist.*;
-import duke.tasks.*;
-import duke.exception.*;
+
+import duke.tasklist.TaskList;
+
+import duke.tasks.Task;
+import duke.tasks.Deadline;
+import duke.tasks.Event;
+import duke.tasks.ToDo;
+
+import duke.exception.DukeException;
 
 import duke.command.Command;
 
@@ -31,7 +37,9 @@ public class DeleteCommand extends Command {
     @Override
     public void execute() {
         Integer number = Integer.parseInt(numberString);
+
         Task task = taskList.delete(number);
+
         System.out.println("YONG has deleted this task for you! \n" + task.toString());
 
     }

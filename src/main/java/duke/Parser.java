@@ -1,7 +1,18 @@
 package duke;
 
-import duke.command.*;
+import duke.command.Command;
+import duke.command.DeadlineCommand;
+import duke.command.DeleteCommand;
+import duke.command.EventCommand;
+import duke.command.ExitCommand;
+import duke.command.ListCommand;
+import duke.command.MarkCommand;
+import duke.command.StartCommand;
+import duke.command.ToDoCommand;
+import duke.command.UnmarkCommand;
+
 import duke.exception.DukeException;
+
 import duke.tasklist.TaskList;
 
 /**
@@ -28,9 +39,11 @@ public class Parser {
      */
     public Command parse(String inp) {
         inp = inp.toUpperCase();
+
         String [] parts = inp.split(" ", 2);
         String check = parts[0];
         String numberString = parts.length > 1 ? parts[1] : "";
+
         switch (check) {
             case "BYE":
                 Command byeCommand = new ExitCommand(taskList);

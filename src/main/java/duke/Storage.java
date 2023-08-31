@@ -1,9 +1,16 @@
 package duke;
 
 import duke.tasklist.TaskList;
+
 import duke.tasks.Task;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.ObjectOutputStream;
+import java.io.ObjectInputStream;
+import java.io.IOException;
+
 import java.util.ArrayList;
 
 /**
@@ -32,7 +39,9 @@ public class Storage {
         try {
             FileOutputStream dataFileStream = new FileOutputStream(FILE_PATH);
             ObjectOutputStream objectStream = new ObjectOutputStream(dataFileStream);
+
             objectStream.writeObject(taskList.get());
+
             objectStream.close();
         } catch (Exception e) {
             System.out.println("File is not found! But this shouldn't happen LOL");
@@ -45,19 +54,16 @@ public class Storage {
     public void readFile() {
         try {
             File dataFile = new File(FILE_PATH);
-            try {
-                boolean hasFile = dataFile.createNewFile();
-            } catch (Exception e) {
-                System.out.println(e.getMessage());
-            }
+            dataFile.createNewFile();
+
             FileInputStream dataFileStream = new FileInputStream(dataFile);
+
             if (dataFileStream.available() > 0) {
                 ObjectInputStream objectStream = new ObjectInputStream(dataFileStream);
                 this.taskList.set((ArrayList<Task>) objectStream.readObject());
                 objectStream.close();
             }
         } catch (IOException e) {
-            System.out.println(e);
             System.out.println("File is not found! But this shouldn't happen LOL");
         } catch (Exception e) {
             System.out.println("There is an error occurring, " + e.getMessage());

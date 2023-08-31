@@ -32,7 +32,8 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        String ret = "[E] " + super.toString() + " (from: " + printDateTime(this.from) + " to: " + printDateTime(this.to) + ")" ;
+        String ret = "[E] " + super.toString() + " (from: " + printDateTime(this.from) + " to: "
+                + printDateTime(this.to) + ")" ;
         return ret;
     }
 }

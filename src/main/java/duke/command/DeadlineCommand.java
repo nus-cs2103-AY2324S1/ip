@@ -1,7 +1,15 @@
 package duke.command;
-import duke.tasklist.*;
-import duke.tasks.*;
-import duke.exception.*;
+
+import duke.tasklist.TaskList;
+
+import duke.tasks.Task;
+import duke.tasks.Deadline;
+import duke.tasks.Event;
+import duke.tasks.ToDo;
+
+import duke.exception.DukeException;
+
+
 /**
  * Represents the actions needed if the user inputs a deadline task
  */
@@ -28,11 +36,14 @@ public class DeadlineCommand extends Command {
     public void execute() {
         try {
             String[] parts = inp.split("/", 2);
-            String[] type_description = parts[0].split(" ", 2);
-            String type = type_description[0];
-            String description = type_description[1];
+            String[] typeDescription = parts[0].split(" ", 2);
+            String type = typeDescription[0];
+            String description = typeDescription[1];
+
             Task newTask = new Deadline(description, parts[1]);
+
             taskList.add(newTask);
+
             System.out.println("Okay! Task added \n" + newTask);
         } catch (Exception e) {
             throw new DukeException("Please give a valid description for a Deadline task!");

@@ -22,6 +22,7 @@ public class ToDo extends Task {
     @Override
     public String toString() {
         String ret = "[T] " + super.toString();
+
         return ret;
     }
 }

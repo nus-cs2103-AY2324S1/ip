@@ -1,7 +1,13 @@
 package duke.command;
-import duke.tasklist.*;
-import duke.tasks.*;
-import duke.exception.*;
+
+import duke.tasklist.TaskList;
+
+import duke.tasks.Task;
+import duke.tasks.Deadline;
+import duke.tasks.Event;
+import duke.tasks.ToDo;
+
+import duke.exception.DukeException;
 
 
 /**
@@ -30,13 +36,16 @@ public class EventCommand extends Command {
     public void execute() {
         try {
             String[] parts = inp.split("/", 3);
-            String[] type_description = parts[0].split(" ", 2);
-            String type = type_description[0];
-            String description = type_description[1];
+            String[] typeDescription = parts[0].split(" ", 2);
+            String type = typeDescription[0];
+            String description = typeDescription[1];
             String from = parts[1].trim().split(" ", 2)[1];
             String to = parts[2].trim().split(" ", 2)[1];
+
             Task newTask = new Event(description, from, to);
+
             taskList.add(newTask);
+
             System.out.println("Okay! Task added \n" + newTask);
         } catch (Exception e) {
             System.out.println(e);

@@ -1,7 +1,13 @@
 package duke.command;
-import duke.tasklist.*;
-import duke.tasks.*;
-import duke.exception.*;
+
+import duke.tasklist.TaskList;
+
+import duke.tasks.Task;
+import duke.tasks.Deadline;
+import duke.tasks.Event;
+import duke.tasks.ToDo;
+
+import duke.exception.DukeException;
 
 /**
  * Represents the actions needed if the user inputs an unmark command.
@@ -28,7 +34,9 @@ public class UnmarkCommand extends Command {
     @Override
     public void execute() {
         Integer number = Integer.parseInt(this.numberString);
+
         Task task = taskList.unmark(number);
+
         System.out.println("YONG has unmarked this task successfully! \n" + task.toString() + "\n");
     }
 }

@@ -1,7 +1,9 @@
 package duke.tasks;
 
 import java.io.Serializable;
+
 import java.security.InvalidParameterException;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
@@ -49,6 +51,7 @@ public class Task implements Serializable {
     @Override
     public String toString() {
         String ret = "[" + getStatusIcon() + "] " + description;
+
         return ret;
     }
 
