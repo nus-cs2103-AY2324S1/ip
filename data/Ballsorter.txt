@@ -1,0 +1,5 @@
+D|0|finish assignment |tonight
+T|1|buy milk
+D|0|gen training |sat 9am |5pm
+T|0|laundry
+T|0|kitkat

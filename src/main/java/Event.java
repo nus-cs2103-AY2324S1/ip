@@ -9,6 +9,10 @@ public class Event extends Task {
     @Override
     public String toString() {
         return "[E][" + this.getStatusIcon() + "] " + this.description
-                + " (from: " + this.start + "to: " + this.end + ")";
+                + " (from: " + this.start + " to: " + this.end + ")";
+    }
+    public String toStorageString() {
+        int stat = this.isDone ? 1 : 0;
+        return "D|" + stat + "|" + this.description + "|" + this.start + "|" + this.end;
     }
 }
