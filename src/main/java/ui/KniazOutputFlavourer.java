@@ -21,6 +21,7 @@ public class KniazOutputFlavourer {
                     InstructionType.LIST, "Time to get to work? Here are all your tasks : ",
                     InstructionType.QUIT, "If that is all for now, then I bid you farewell",
                     InstructionType.DELETE, "It shall be as if this task never existed :",
+                    InstructionType.FIND, "I have searched the records. Here are the results :",
                     InstructionType.INVALID, "I do not recognise this command.[THIS SHOULD NORMALLY NOT BE SEEN]"
             ));
 
@@ -37,7 +38,8 @@ public class KniazOutputFlavourer {
      * @return the flavour string
      */
     public String getFlavourFor(InstructionType instr){
-        return INSTRUCT_TO_FLAVOURSTRING.getOrDefault(instr, "I do not recognise this command.");
+        return INSTRUCT_TO_FLAVOURSTRING.getOrDefault(instr,
+                "I do not recognise this command.[THIS SHOULD NOT NORMALLY BE SEEN]");
     }
 
 }

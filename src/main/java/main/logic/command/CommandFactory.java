@@ -22,6 +22,7 @@ public abstract class CommandFactory {
                     InstructionType.LIST, new ListHandler(),
                     InstructionType.QUIT, new QuitHandler(),
                     InstructionType.DELETE, new DeleteHandler(),
+                    InstructionType.FIND, new FindHandler(),
                     InstructionType.INVALID, new InvalidHandler()
             ));
 

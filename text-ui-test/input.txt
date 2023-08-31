@@ -17,6 +17,9 @@ unmark 2
 list
 mark 500
 list
+find book
+find apples
+find event
 delete 1
 delete 1
 delete 1
