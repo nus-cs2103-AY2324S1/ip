@@ -1,6 +1,8 @@
-import exception.UnknownCommandException;
-import exception.ChattyException;
-import exception.DetailsUnknownException;
+package duke;
+
+import duke.exception.UnknownCommandException;
+import duke.exception.ChattyException;
+import duke.exception.DetailsUnknownException;
 
 import java.io.IOException;
 import java.time.format.DateTimeParseException;

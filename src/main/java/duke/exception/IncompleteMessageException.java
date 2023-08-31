@@ -1,4 +1,4 @@
-package exception;
+package duke.exception;
 
 public class IncompleteMessageException extends ChattyException {
     public IncompleteMessageException(String errorMessage) {
