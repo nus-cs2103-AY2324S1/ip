@@ -37,7 +37,7 @@ public class Save {
         };
 
         Files.copy( Paths.get(tempFilePath), Paths.get(saveFilePath), StandardCopyOption.REPLACE_EXISTING);
-        //Files.delete(Paths.get(tempFilePath));
+        Files.delete(Paths.get(tempFilePath));
 
     }
 
