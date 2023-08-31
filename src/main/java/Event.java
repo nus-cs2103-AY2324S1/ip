@@ -1,23 +1,26 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 public class Event extends Task {
 
-    protected String from;
-    protected String to;
+    protected LocalDate fromDate;
+    protected LocalDate toDate;
 
     /**
      * Constructs an Event object with the given description, start time, and end time.
      *
      * @param description The description of the event.
-     * @param from        The start time of the event.
-     * @param to          The end time of the event.
+     * @param fromDate        The start time of the event.
+     * @param toDate          The end time of the event.
      */
-    public Event(String description, String from, String to) {
+    public Event(String description, LocalDate fromDate, LocalDate toDate) {
         super(description);
-        this.from = from;
-        this.to = to;
+        this.fromDate = fromDate;
+        this.toDate = toDate;
     }
 
     @Override
     public String toString() {
-        return "E | " + super.toString() + " | " + from + " | " + to + "";
+        return "E | " + super.toString() + " | " + fromDate.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + " | " + toDate.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + "";
     }
 }

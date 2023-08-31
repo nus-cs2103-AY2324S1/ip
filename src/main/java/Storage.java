@@ -1,6 +1,7 @@
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -31,12 +32,16 @@ public class Storage {
                             break;
                         case "D":
                             String by = tokens[3];
-                            task = new Deadline(description, by);
+                            LocalDate date = LocalDate.parse(by);
+                            task = new Deadline(description, date);
                             break;
                         case "E":
                             String from = tokens[3];
+                            LocalDate fromDate = LocalDate.parse(from);
                             String to = tokens[4];
-                            task = new Event(description, from, to);
+                            LocalDate toDate = LocalDate.parse(to);
+
+                            task = new Event(description, fromDate, toDate);
                             break;
                         default:
                             throw new MossException("invalid task type");

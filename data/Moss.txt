@@ -1,7 +1,5 @@
 T | X | read book
-D |   | return book | June 6th
-E |   | project meeting | Aug 6th 2 | 4pm
+D |   | return book | 2023-12-01
+E |   | project meeting | 2023-09-01 | 2023-09-02
 T | X | join sports club
-D |   | return book | Sunday
-E |   | project meeting | Mon 2pm | 4pm
-E |   | project meeting | Mon 2pm | 4pm
+D |   | return book | 2023-10-27
