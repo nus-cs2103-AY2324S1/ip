@@ -9,6 +9,11 @@ import duke.ui.Ui;
 
 import java.util.Scanner;
 
+/**
+ * Duke is a personal assistant chatbot that helps
+ * to keep track of various tasks.
+ *
+ */
 public class Duke {
     public static final String FILE_PATH = "data/duke.txt";
 
@@ -16,6 +21,11 @@ public class Duke {
     private TaskList tasks;
     private final Ui ui;
 
+    /**
+     * Constructs a Duke object.
+     *
+     * @param filePath The filepath for loading and saving the file.
+     */
     public Duke(String filePath) {
         this.ui = new Ui();
         storage = new Storage(FILE_PATH);
@@ -27,6 +37,9 @@ public class Duke {
         }
     }
 
+    /**
+     * Runs the Duke application, handling user interactions.
+     */
     public void run() {
         ui.showWelcomeMessage();
         boolean isExit = false;
@@ -45,6 +58,11 @@ public class Duke {
         scanner.close();
     }
 
+    /**
+     * The main method to start the Duke application.
+     *
+     * @param args Command-line arguments.
+     */
     public static void main(String[] args) {
         new Duke(FILE_PATH).run();
     }
