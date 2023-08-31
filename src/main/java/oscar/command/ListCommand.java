@@ -18,11 +18,10 @@ public class ListCommand extends Command {
     /**
      * Lists stored tasks in chronological order of addition.
      * @param tasks ArrayList of tasks.
-     * @param ui User interaction handler.
      * @param storage File loading and saving handler.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public void execute(TaskList tasks, Storage storage) {
         tasks.list();
     }
 }

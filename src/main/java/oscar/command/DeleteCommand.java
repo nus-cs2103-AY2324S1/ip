@@ -24,12 +24,11 @@ public class DeleteCommand extends Command {
     /**
      * Deletes a task using the task number.
      * @param tasks ArrayList of tasks.
-     * @param ui User interaction handler.
      * @param storage File loading and saving handler.
      * @throws OscarException Failure to validate task number.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws OscarException {
+    public void execute(TaskList tasks, Storage storage) throws OscarException {
         int index = validateInt(details, tasks);
         String currentTask = tasks.delete(index);
         storage.save(tasks);
