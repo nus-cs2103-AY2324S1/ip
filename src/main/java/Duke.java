@@ -1,7 +1,9 @@
-import Exceptions.DukeException;
-import Tasks.TaskList;
-import Utilities.*;
-import Commands.Command;
+import duke.commands.Command;
+import duke.exceptions.DukeException;
+import duke.tasks.TaskList;
+import duke.utils.Parser;
+import duke.utils.Storage;
+import duke.utils.Ui;
 
 public class Duke {
 
