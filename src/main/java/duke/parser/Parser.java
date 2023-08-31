@@ -10,6 +10,7 @@ import duke.command.DeleteCommand;
 import duke.command.ListCommand;
 import duke.command.ExitCommand;
 import duke.command.WrongCommand;
+import duke.command.FindCommand;
 import duke.exception.DukeException;
 
 import java.time.DateTimeException;
@@ -94,6 +95,12 @@ public class Parser {
 				} catch (NumberFormatException e) {
 					throw new DukeException("Please specify the index of the task (Numbers only)");
 				}
+			case FindCommand.COMMAND_WORD:
+				String[] searchData = input.split(" ", 2);
+				if (searchData.length < 2) {
+					throw new DukeException("Search string cannot be empty");
+				}
+				return new FindCommand(searchData[1]);
 			case ListCommand.COMMAND_WORD:
 				return new ListCommand();
 			case ExitCommand.COMMAND_WORD:

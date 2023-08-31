@@ -3,6 +3,9 @@ package duke.ui;
 import duke.exception.DukeException;
 import duke.task.Task;
 import duke.list.FunnyList;
+
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Ui {
@@ -63,6 +66,17 @@ public class Ui {
 		System.out.println("\tNoted. I've removed this duke.task:");
 		System.out.println("\t\t" + task);
 		System.out.println("\tNow you have " + String.valueOf(taskList.size()) + " tasks in the list");
+	}
+
+	public void showMatchingTasks(ArrayList<Task> tasks) {
+		if (tasks.size() == 0) {
+			System.out.println("\tThere are no matching tasks found based on you search.");
+		} else {
+			System.out.println("\tHere are the matching tasks in your list");
+			for (int i = 0; i < tasks.size(); i++) {
+				System.out.println("\t" + String.valueOf(i + 1) + ". " + tasks.get(i));
+			}
+		}
 	}
 
 	public void showGoodbyeMessage() {

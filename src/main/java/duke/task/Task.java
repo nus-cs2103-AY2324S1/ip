@@ -41,5 +41,9 @@ public abstract class Task {
         return this.task;
     }
 
+    public boolean match(String search) {
+        return this.task.contains(search);
+    }
+
     public abstract void writeToFile(FileWriter fw) throws IOException;
 }
