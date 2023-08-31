@@ -1,8 +1,10 @@
+import java.time.LocalDateTime;
+
 public class Deadline extends Task {
 
-    protected String by;
+    protected LocalDateTime by;
 
-    public Deadline(String description, String by) {
+    public Deadline(String description, LocalDateTime by) {
         super(description);
         this.by = by;
     }
@@ -12,8 +14,8 @@ public class Deadline extends Task {
      * 
      * @return Time when the deadline is due.
      */
-    public String getCompleteBy() {
-        return this.by;
+    public LocalDateTime getCompleteBy() {
+        return by;
     }
 
     /**
