@@ -17,16 +17,28 @@ public class TaskList {
         for (String[] line : inputList) {
             switch (line[0]) {
                 case "T":
-                    taskList.add(new ToDo(line[2]));
+                    ToDo t = new ToDo(line[2]);
+                    if (line[1].equals("1")) {
+                        t.markAsDone();
+                    }
+                    taskList.add(t);
                     break;
                 case "D":
-                    taskList.add(new Deadline(line[2],
-                            LocalDateTime.parse(line[3], DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"))));
+                    Deadline d = new Deadline(line[2],
+                            LocalDateTime.parse(line[3], DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm")));
+                    if (line[1].equals("1")) {
+                        d.markAsDone();
+                    }
+                    taskList.add(d);
                     break;
                 case "E":
-                    taskList.add(new Event(line[2],
+                    Event e = new Event(line[2],
                             LocalDateTime.parse(line[3], DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm")),
-                            LocalDateTime.parse(line[4], DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"))));
+                            LocalDateTime.parse(line[4], DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm")));
+                    if (line[1].equals("1")) {
+                        e.markAsDone();
+                    }
+                    taskList.add(e);
                     break;
             }
         }
