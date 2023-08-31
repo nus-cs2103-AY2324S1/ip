@@ -5,19 +5,17 @@ import java.util.NoSuchElementException;
 /**
  * Used parse the additional data
  * given in a command based on tags.
- * 
  * @author Alvis Ng (supermii2)
  */
 public class Parser {
-    /**Untagged input*/
+    /** Untagged input*/
     private String defaultInput;
-    /**Dictionary of tagged inputs*/
+    /** Dictionary of tagged inputs*/
     private Dictionary<String, String> taggedInputs;
     /**
      * Creates a parsed representation
      * of the input string given by
      * the user's input.
-     * 
      * @param input
      */
     public Parser(String input) {
@@ -45,7 +43,9 @@ public class Parser {
      */
     public String getTaggedInput(String tag) throws NoSuchElementException {
         String result = taggedInputs.get(tag);
-        if (result == null) throw new NoSuchElementException("Invalid Tag!");
+        if (result == null) {
+            throw new NoSuchElementException("Invalid Tag!");
+        }
         return result;
     }
 }

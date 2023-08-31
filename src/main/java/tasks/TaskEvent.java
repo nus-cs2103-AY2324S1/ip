@@ -5,12 +5,12 @@ import java.time.format.DateTimeParseException;
 /**
  * Representation of a deadline task
  * recorded by the chatbot.
- * 
  * @author Alvis Ng (supermii2)
  */
-public class TaskEvent extends Task{
-    /**Start and end times of events */
-    LocalDate startTime, endTime;
+public class TaskEvent extends Task {
+    /** Start and end times of events */
+    private LocalDate startTime;
+    private LocalDate endTime;
     /**
      * Creates a deadline task.
      * @param taskName Name of task
@@ -23,7 +23,9 @@ public class TaskEvent extends Task{
         try {
             this.startTime = LocalDate.parse(startTime);
             this.endTime = LocalDate.parse(endTime);
-            if (startTime.compareTo(endTime) > 0) throw new IllegalArgumentException("Start Date after End Date");
+            if (startTime.compareTo(endTime) > 0) {
+                throw new IllegalArgumentException("Start Date after End Date");
+            }
         } catch (DateTimeParseException e) {
             throw new IllegalArgumentException("Illegal Date/Time");
         }
@@ -32,13 +34,13 @@ public class TaskEvent extends Task{
     public LocalDate getDate() {
         return this.startTime;
     }
-    @Override
     /**
      * String representation of Event
      * @return String representation of Event
      */
+    @Override
     public String toString() {
-        return super.toString() + 
-        " (from: " + this.startTime + " to: " + this.endTime + ")";
-    }    
+        return super.toString()
+            + " (from: " + this.startTime + " to: " + this.endTime + ")";
+    }
 }

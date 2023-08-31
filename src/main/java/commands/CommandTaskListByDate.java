@@ -19,7 +19,7 @@ public class CommandTaskListByDate extends Command {
         } catch (DateTimeParseException e) {
             throw new IllegalArgumentException("Illegal Date");
         }
-        List<Task> taskList = this.client.taskList.toList();
+        List<Task> taskList = this.client.getTaskList().toList();
         String response = "";
         for (int i = 0; i < taskList.size(); i++) {
             if (taskList.get(i).getDate().equals(filterDate)) {
@@ -27,9 +27,9 @@ public class CommandTaskListByDate extends Command {
             }
         }
         if (response == "") {
-            this.client.ui.respond("No tasks found!");
+            this.client.getUi().respond("No tasks found!");
         } else {
-            this.client.ui.respond(response);
+            this.client.getUi().respond(response);
         }
     }
 }

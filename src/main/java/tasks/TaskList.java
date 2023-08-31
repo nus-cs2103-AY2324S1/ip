@@ -3,9 +3,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TaskList implements Serializable{
-    ArrayList<Task> items;
-
+public class TaskList implements Serializable {
+    private ArrayList<Task> items;
     public TaskList() {
         this.items = new ArrayList<>();
     }
