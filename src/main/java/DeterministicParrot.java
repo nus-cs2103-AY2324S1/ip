@@ -1,5 +1,8 @@
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.util.*;
+
 
 class DeterministicParrotException extends Exception {
     public DeterministicParrotException(String message) {
@@ -13,7 +16,9 @@ interface CheckedConsumer<T> {
 }
 
 public class DeterministicParrot {
-    private class Task{
+    //static variable storing the path to data file
+    private static final String DATA_FILE_PATH = "./data/data.txt";
+    private class Task {
         private String name;
         private boolean isDone;
         Task(String description){
@@ -76,9 +81,14 @@ public class DeterministicParrot {
     private PrintWriter pw;
     private List<Task> list;
     private Map<String, CheckedConsumer<String[]>> commandHandlers = new HashMap<>();
-
     DeterministicParrot(){
         this.list = new LinkedList<>();
+        try{
+            loadData();
+        }
+        catch (Exception e){
+            System.out.println(e.getMessage());
+        }
         s = new Scanner(System.in);
         pw = new PrintWriter(System.out, true);
         this.initCommandHandlers();
@@ -89,6 +99,58 @@ public class DeterministicParrot {
         this.pw = pw;
         this.initCommandHandlers();
     }
+    private void loadData() {
+        File file = new File(DATA_FILE_PATH);
+        if (file.exists()) {
+            try (Scanner fileScanner = new Scanner(file)) {
+                while (fileScanner.hasNext()) {
+                    String line = fileScanner.nextLine();
+                    String[] data = line.split(" \\| ");
+                    switch (data[0]) {
+                        case "T":
+                            ToDo todo = new ToDo(data[2]);
+                            if (data[1].equals("1")) todo.markAsDone();
+                            list.add(todo);
+                            break;
+                        case "D":
+                            Deadline deadline = new Deadline(data[2], data[3]);
+                            if (data[1].equals("1")) deadline.markAsDone();
+                            list.add(deadline);
+                            break;
+                        case "E":
+                            String[] time = data[3].split(" ");
+                            Event event = new Event(data[2], time[0], time[1]);
+                            if (data[1].equals("1")) event.markAsDone();
+                            list.add(event);
+                            break;
+                    }
+                }
+            } catch (FileNotFoundException e) {
+                // handle error
+            }
+        } else {
+            file.getParentFile().mkdirs();
+        }
+    }
+
+    private void saveData() {
+        try (PrintWriter fileWriter = new PrintWriter(DATA_FILE_PATH)) {
+            for (Task task : list) {
+                if (task instanceof ToDo) {
+                    fileWriter.println("T | " + (task.getIsDone() ? "1" : "0") + " | " + task.getName());
+                } else if (task instanceof Deadline) {
+                    Deadline deadline = (Deadline) task;
+                    fileWriter.println("D | " + (task.getIsDone() ? "1" : "0") + " | " + task.getName() + " | " + deadline.by);
+                } else if (task instanceof Event) {
+                    Event event = (Event) task;
+                    fileWriter.println("E | " + (task.getIsDone() ? "1" : "0") + " | " + task.getName() + " | " + event.timeStart + " " + event.timeEnd);
+                }
+            }
+        } catch (FileNotFoundException e) {
+            // handle the error
+        }
+    }
+
     private void initCommandHandlers() {
         commandHandlers.put("list", args -> printList());
         commandHandlers.put("bye", args -> bye());
@@ -145,12 +207,12 @@ public class DeterministicParrot {
             this.pw.println("     " + (i+1) + ". " + this.list.get(i));
         }
     }
-    private void addToList(String s){
-        //create task
-        Task t = new Task(s);
+    private void addToList(Task t){
         this.list.add(t);
-        this.pw.println("    " + "added: " + s);
-
+        saveData();
+        this.pw.println("     " + "Got it. I've added this task:");
+        this.pw.println("       " + t);
+        this.pw.println("     " + "Now you have " + this.list.size() + " tasks in the list.");
     }
     private void markAsDone(String args[]) throws DeterministicParrotException {
         if(args.length < 2){
@@ -193,10 +255,13 @@ public class DeterministicParrot {
         }
         String taskDescription = String.join(" ", Arrays.copyOfRange(args, 1, args.length));
         ToDo t = new ToDo(taskDescription);
+        addToList(t);
+        /*
         this.list.add(t);
         this.pw.println("     " + "Got it. I've added this task:");
         this.pw.println("      " + t);
         this.pw.println("     " + "Now you have " + this.list.size() + " tasks in the list.");
+         */
     }
 
     private void addDeadline(String[] args) throws DeterministicParrotException {
@@ -208,10 +273,13 @@ public class DeterministicParrot {
         String deadline = String.join(" ", Arrays.copyOfRange(args, byIndex + 1, args.length));
 
         Deadline t = new Deadline(taskName, deadline);
+        /*
         this.list.add(t);
         this.pw.println("     " + "Got it. I've added this task:");
         this.pw.println("      " + t);
         this.pw.println("     " + "Now you have " + this.list.size() + " tasks in the list.");
+         */
+        addToList(t);
     }
 
     private void addEvent(String[] args) throws DeterministicParrotException {
@@ -225,10 +293,13 @@ public class DeterministicParrot {
         String endTime = String.join(" ", Arrays.copyOfRange(args, toIndex + 1, args.length));
 
         Event t = new Event(eventName, startTime, endTime);
+        /*
         this.list.add(t);
         this.pw.println("    " + "Got it. I've added this task:");
         this.pw.println("       " + t);
         this.pw.println("     " + "Now you have " + this.list.size() + " tasks in the list.");
+         */
+        addToList(t);
     }
     private void deleteTask(String args[]) throws DeterministicParrotException {
         if(args.length < 2){
