@@ -1,5 +1,4 @@
 import java.io.File;
-import java.io.FileWriter;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.time.LocalDate;
@@ -7,18 +6,24 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+/** Stores the task list on to the hard drive */
 public class Storage {
 
-    private List<Task> list = new ArrayList<>();
+    private final String FILE_PATH;
 
-    public Storage() {}
+    public Storage(String filePath) {
+        this.FILE_PATH = filePath;
+    }
 
     /** Reads data.txt file and stores the task into a list.
      *  If data.txt file does not exist, it will attempt to create a data.txt file
+     *
+     * @return The list retrieve from the file data.txt.
      */
-    public void readFile() {
+    public List<Task> load() {
+        List<Task> list = new ArrayList<>();
         try {
-            File file = new File("./src/main/java/data.txt");
+            File file = new File(FILE_PATH);
             Scanner fileReader = new Scanner(file);
             while (fileReader.hasNextLine()) {
                 String task = fileReader.nextLine();
@@ -29,14 +34,14 @@ public class Storage {
                 switch (taskType) {
                 case "T":
                     Task toDoTask = new ToDo(description, isDone);
-                    this.list.add(toDoTask);
+                    list.add(toDoTask);
                     break;
                 case "D":
                     String[] splitDeadline = description.split("/by", 2);
                     String deadlineTaskDescription = splitDeadline[0];
                     LocalDate deadline = DateParser.parseDate(splitDeadline[1]);
                     Task deadlineTask = new Deadline(deadlineTaskDescription, isDone, deadline);
-                    this.list.add(deadlineTask);
+                    list.add(deadlineTask);
                     break;
                 case "E":
                     String[] splitEvent = description.split("/from", 2);
@@ -45,72 +50,27 @@ public class Storage {
                     LocalDate start = DateParser.parseDate(timings[0]);
                     LocalDate end = DateParser.parseDate(timings[1]);
                     Task eventTask = new Event(eventTaskDescription, isDone, start, end);
-                    this.list.add(eventTask);
+                    list.add(eventTask);
                     break;
                 }
             }
             fileReader.close();
+            return list;
         } catch (FileNotFoundException error) {
-            createFile();
+            createFile(FILE_PATH);
         }
+        return null;
     }
 
     /** Creates a file named data.txt. */
-    public void createFile() {
+    public void createFile(String filePath) {
         try {
-            File file = new File("./src/main/java/data.txt");
+            File file = new File(filePath);
             if (!file.createNewFile()) {
-                readFile();
+                load();
             }
         } catch (IOException error) {
            throw new IllegalArgumentException("Oops! Something went wrong!");
         }
-    }
-
-    /** Goes through all task stored in list and updates the hard drive. */
-    public void updateStorage() {
-        try {
-            FileWriter writer = new FileWriter("./src/main/java/data.txt");
-            for (Task task: this.list) {
-                String description = task.getStorageDescription();
-                writer.write(description + "\n");
-            }
-            writer.close();
-        } catch (IOException error) {
-            throw new IllegalArgumentException("Oops! Something went wrong!");
-        }
-    }
-
-    /** Stores the task into the task list.
-     *
-      * @param task Task to be added to list.
-     */
-    public void store(Task task) {
-        this.list.add(task);
-    }
-
-    /** Return length of the list.
-     *
-     * @return Length of list.
-     */
-    public int length() {
-        return this.list.size();
-    }
-
-    /** Get the task at the specific index of the list.
-     *
-     * @param index Position of the task in the list.
-     * @return The task at the index position.
-     */
-    public Task retrieve(int index) {
-        return this.list.get(index);
-    }
-
-    /** Removes the task specified by the index inputed.
-     *
-     * @param index Position of the task that is to be removed.
-     */
-    public void delete(int index) {
-        this.list.remove(index);
     }
 }
