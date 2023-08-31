@@ -33,6 +33,10 @@ public class Storage {
      * Constructor for storage.
      * Creates the necessary directory and file if not present.
      * Reads the present content in the file into the ArrayList.
+     *
+     * @param filePath The filepath of the text file to be read from and written to.
+     * @throws FileNotFoundException If the provided filepath is invalid.
+     * @throws IOException If an I/O error occurred.
      */
     public Storage(String filePath) throws FileNotFoundException, IOException {
         this.filePath = filePath;

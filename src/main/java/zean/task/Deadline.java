@@ -32,8 +32,9 @@ public class Deadline extends Task {
     /**
      * Constructor for the deadline task.
      *
-     * @param bool The completion status of the deadline task..
+     * @param bool The completion status of the deadline task.
      * @param description The description of the deadline task.
+     * @param by The due date of the deadline task in the format YYYY-MM-DD.
      */
     public Deadline(String bool, String description, String by) {
         super(description.strip());
