@@ -1,2 +1,4 @@
-D | 1 | Submit report | 2023-09-01 1800
-E | 0 | Team meeting | 2023-01-01 1300 | 2023-09-02 1200
+E | 1 | screening | 2023-09-01 1500 | 2023-09-01 1700
+T | 0 | buy cat food
+D | 0 | finish slides | 2023-09-01 2359
+E | 0 | presentation | 2023-09-02 1000 | 2023-09-02 1200

@@ -1,8 +1,8 @@
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
-
-public class Task {
+public class Task implements Completable, Describable {
     protected String taskName;
     protected boolean completed;
 
@@ -11,10 +11,10 @@ public class Task {
         this.completed = false;
     }
 
-    public String getName() {
+    @Override
+    public String getDescription() {
         return taskName;
     }
-
     public boolean isCompleted() {
         return completed;
     }
@@ -52,13 +52,22 @@ public class Task {
             task = new Todo(taskName);
         } else if (taskType.equals("D")) {
             String by = parts[3].trim();
-            task = new Deadline(taskName, LocalDateTime.parse(by));
+            try {
+                LocalDateTime deadlineDateTime = parseDateTime(by);
+                task = new Deadline(taskName, deadlineDateTime);
+            } catch (DateTimeParseException e) {
+                task = null;
+            }
         } else if (taskType.equals("E")) {
             String from = parts[3].trim();
             String to = parts[4].trim();
-            LocalDateTime fromDate = LocalDateTime.parse(from);  // Parse string to LocalDate
-            LocalDateTime toDate = LocalDateTime.parse(to);      // Parse string to LocalDate
-            task = new Event(taskName, fromDate, toDate); // Create Event with LocalDate objects
+            try {
+                LocalDateTime fromDate = parseDateTime(from);
+                LocalDateTime toDate = parseDateTime(to);
+                task = new Event(taskName, fromDate, toDate);
+            } catch (DateTimeParseException e) {
+                task = null;
+            }
         } else {
             task = null;
         }
@@ -68,6 +77,10 @@ public class Task {
         }
 
         return task;
+    }
+
+    private static LocalDateTime parseDateTime(String dateTimeString) {
+        return LocalDateTime.parse(dateTimeString, DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
     }
 
     @Override
