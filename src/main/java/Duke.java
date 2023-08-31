@@ -1,3 +1,7 @@
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.BufferedWriter;
@@ -26,8 +30,8 @@ public class Duke {
         protected String description;
         protected boolean isDone;
         protected TaskType type;
-        protected String start;
-        protected String end;
+        protected LocalDateTime start;
+        protected LocalDateTime end;
         String markString = "    Nice! I've marked this task as done:";
         String unmarkString = "     OK, I've marked this task as not done yet:";
 
@@ -36,8 +40,13 @@ public class Duke {
             this.isDone = false;
             // set to-do as the default type
             this.type = type;
-            this.start = start;
-            this.end = end;
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+            this.start = Objects.equals(start, "")
+                ? null
+                : LocalDateTime.parse(start, formatter);
+            this.end = Objects.equals(end, "")
+                    ? null
+                    :LocalDateTime.parse(end, formatter);
 
         }
 
@@ -78,10 +87,10 @@ public class Duke {
 
             System.out.printf("       [%s][%s] %s", this.getTypeIcon(), this.getStatusIcon(), this.description);
 
-            if (!Objects.equals(this.start, "") && !Objects.equals(this.end, "")) {
-                System.out.printf(" (from: %s to: %s)", this.start, this.end);
-            } else if  (!Objects.equals(this.start, "")) {
-                System.out.printf(" (by: %s)", this.start);
+            if (!Objects.isNull(this.start) && !Objects.isNull(this.end)) {
+                System.out.printf(" (from: %s to: %s)", this.start.toString().replace("T", " "), this.end.toString().replace("T", " "));
+            } else if  (!Objects.isNull(this.start)) {
+                System.out.printf(" (by: %s)", this.start.toString().replace("T", " "));
             } else {
                 return;
             }
@@ -114,10 +123,10 @@ public class Duke {
                 int index = i + 1;
                 Task t = this.taskList.get(i);
                 System.out.printf("     %d.[%s][%s] %s", index, t.getTypeIcon(), t.getStatusIcon(), t.description);
-                if (!Objects.equals(t.start, "") && !Objects.equals(t.end, "")) {
-                    System.out.printf(" (from: %s to: %s)%n", t.start, t.end);
-                } else if  (!Objects.equals(t.start, "")) {
-                    System.out.printf(" (by: %s)%n", t.start);
+                if (!Objects.isNull(t.start) && !Objects.isNull(t.end)) {
+                    System.out.printf(" (from: %s to: %s)%n", t.start.toString().replace("T", " "), t.end.toString().replace("T", " "));
+                } else if  (!Objects.isNull(t.start)) {
+                    System.out.printf(" (by: %s)%n", t.start.toString().replace("T", " "));
                 } else {
                     System.out.print("\n");
                 }
@@ -184,9 +193,6 @@ public class Duke {
             while ((line = reader.readLine()) != null) {
                 // Assuming your line contains comma-separated values
                 String[] values = line.split("\\|");
-                System.out.println(line);
-                System.out.println(values[0]);
-                System.out.println(values[1]);
                 // Create your Java object based on the parsed values
                 Duke.TaskType type = Objects.equals(values[0], "T")
                         ? TaskType.TODO
@@ -206,7 +212,6 @@ public class Duke {
                 }
                 Task obj = new Task(values[2], type, start, end); // Instantiate with appropriate arguments
                 obj.marking(!Objects.equals(values[1], "0"));
-                System.out.println(values[2]);
                 // Store the object in your storage instance
                 storage.addList(obj);
             }
@@ -242,13 +247,16 @@ public class Duke {
                                     formattedString = String.format("%c|%d|%s",
                                             'T', priority, tasking.description);
                                     break;
-                                case EVENT:
-                                    formattedString = String.format("%c|%d|%s|%s",
-                                            'T', priority, tasking.description, tasking.start);
-                                    break;
                                 case DEADLINE:
+                                    formattedString = String.format("%c|%d|%s|%s",
+                                            'D', priority, tasking.description,
+                                            tasking.start.toString().replace("T", " "));
+                                    break;
+                                case EVENT:
                                     formattedString = String.format("%c|%d|%s|%s|%s",
-                                            'T', priority, tasking.description, tasking.start, tasking.end);
+                                            'E', priority, tasking.description,
+                                            tasking.start.toString().replace("T", " "),
+                                            tasking.end.toString().replace("T", " "));
                                     break;
                             }
                             bufferedWriter.write(formattedString);
@@ -327,7 +335,7 @@ public class Duke {
                     int indexOfTo = input.indexOf("/to");
                     taskDesc = input.substring(indexOfEvent + 6, indexOfFrom);
                     String fromPart = "";
-                    fromPart = input.substring(indexOfFrom + 5, indexOfTo);
+                    fromPart = input.substring(indexOfFrom + 5, indexOfTo).trim();
                     String toPart = "";
                     toPart = input.substring(indexOfTo +3).trim();
                     System.out.println(horizontalLine);
