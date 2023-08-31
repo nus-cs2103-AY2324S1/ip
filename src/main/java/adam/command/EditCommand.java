@@ -6,8 +6,8 @@ import adam.TaskList;
 import adam.exception.NumberException;
 
 public class EditCommand implements Command {
-    String[] tokens;
-    String text;
+    private String[] tokens;
+    private String text;
     public EditCommand(String[] tokens, String text) {
         this.tokens =  tokens;
         this.text = text;

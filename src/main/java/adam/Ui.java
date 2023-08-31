@@ -60,4 +60,12 @@ public class Ui {
     public void displayError(String message) {
         System.out.println(message);
     }
+
+    public void apologize() {
+        System.out.println("I couldn't find anything are you sure its here?");
+    }
+
+    public void search() {
+        System.out.println("Here are some of the tasks I found:");
+    }
 }

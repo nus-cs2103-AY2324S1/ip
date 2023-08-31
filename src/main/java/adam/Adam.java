@@ -5,9 +5,6 @@ import adam.exception.AdamException;
 import adam.command.Command;
 import adam.tasks.Task;
 
-/**
- * This is the main java class that contains instructions to create the chatbot Tasks.Task manager Adam.Adam
- */
 public class Adam {
 
     private Storage storage;
@@ -39,10 +36,6 @@ public class Adam {
                 }
             }
     }
-
-    /**
-     * This method stops the chatbot and ending the whole program
-     */
 
     public static void main(String[] args) {
         Adam test = new Adam();

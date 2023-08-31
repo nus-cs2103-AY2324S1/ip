@@ -12,9 +12,9 @@ import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
 public class AddCommand implements Command {
-    String[]tokens;
-    String item;
-    String input;
+    private String[]tokens;
+    private String item;
+    private String input;
     public AddCommand(String[]tokens, String item, String input) {
         this.tokens = tokens;
         this.item = item;
