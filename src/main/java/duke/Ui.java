@@ -88,18 +88,25 @@ public class Ui {
         System.out.printf("%sNoted. I will %s all tasks.\n", INDENT, keyword);
     }
 
-    public void listTask(String[] tasks) {
+    public void showListTask(String[] tasks) {
         System.out.printf("%sHere are the tasks in your list:\n", INDENT);
         for (int i = 0; i < tasks.length; i++) {
             System.out.printf("%s%d.%s\n", INDENT, i + 1, tasks[i]);
         }
     }
 
-    public void printDateTask(String[] tasksOnDate, String date) {
+    public void showPrintDateTask(String[] tasksOnDate, String date) {
         System.out.printf("%sHere are the %d tasks happening on %s:\n",
                 INDENT, tasksOnDate.length, date);
         for (String task : tasksOnDate) {
             System.out.printf("%s  %s\n", INDENT, task);
+        }
+    }
+
+    public void showFindTask(String[] tasksFound, String[] indices) {
+        System.out.printf("%sHere are the matching tasks in your list:\n", INDENT);
+        for (int i = 0; i < tasksFound.length; i++) {
+            System.out.printf("%s%s.%s\n", INDENT, indices[i], tasksFound[i]);
         }
     }
 

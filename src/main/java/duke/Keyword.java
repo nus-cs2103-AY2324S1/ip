@@ -9,7 +9,8 @@ public enum Keyword {
     TODO("todo"),
     EVENT("event"),
     DEADLINE("deadline"),
-    PRINT_DATE("print_date");
+    PRINT_DATE("print_date"),
+    FIND("find");
 
     private final String keyword;
 

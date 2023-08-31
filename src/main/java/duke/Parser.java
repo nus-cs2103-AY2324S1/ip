@@ -4,12 +4,14 @@ import duke.command.AddCommand;
 import duke.command.Command;
 import duke.command.DeleteCommand;
 import duke.command.ExitCommand;
+import duke.command.FindCommand;
 import duke.command.ListCommand;
 import duke.command.MarkCommand;
 import duke.command.PrintDateCommand;
 import duke.exception.DeadlineException;
 import duke.exception.DukeException;
 import duke.exception.EventException;
+import duke.exception.FindException;
 import duke.exception.ManipulateException;
 import duke.exception.PrintDateException;
 import duke.exception.TodoException;
@@ -59,8 +61,11 @@ public class Parser {
         case DELETE:
             throw new ManipulateException(err, key.getKeyword());
 
-        default: // Equivalent to case PRINT_DATE
+        case PRINT_DATE:
             throw new PrintDateException(err);
+
+        default: // Equivalent to case FIND
+            throw new FindException(err);
         }
     }
 
@@ -89,8 +94,11 @@ public class Parser {
         case EVENT:
             return new AddCommand(key, commandBody);
 
-        default: // Equivalent to case PRINT_DATE
+        case PRINT_DATE:
             return new PrintDateCommand(commandBody);
+
+        default:
+            return new FindCommand(commandBody);
         }
     }
 }
