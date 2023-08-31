@@ -22,17 +22,26 @@ public class ByeCommand extends Command {
         super("bye", args);
     }
 
+    /**
+     * @inheritdoc
+     */
     @Override
     protected List<CommandElement> getCommandElements() {
         return List.of();
     }
 
+    /**
+     * @inheritdoc
+     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         storage.save(tasks);
         ui.print("Bye. Hope to see you again soon!");
     }
 
+    /**
+     * @inheritdoc
+     */
     @Override
     public boolean isExit() {
         return true;

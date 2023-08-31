@@ -24,11 +24,17 @@ public class RemoveCommand extends Command {
         super("remove", args);
     }
 
+    /**
+     * @inheritdoc
+     */
     @Override
     protected List<CommandElement> getCommandElements() {
         return List.of(new IndexArgument("index"));
     }
 
+    /**
+     * @inheritdoc
+     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
         int idx = (int) ((Integer) this.args.get("index"));
@@ -36,6 +42,9 @@ public class RemoveCommand extends Command {
                 tasks.delete(idx).toString(), ui.getTaskCount(tasks.size())));
     }
 
+    /**
+     * @inheritdoc
+     */
     @Override
     public boolean isExit() {
         return false;

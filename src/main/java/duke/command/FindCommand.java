@@ -26,11 +26,17 @@ public class FindCommand extends Command {
         super("find", args);
     }
 
+    /**
+     * @inheritdoc
+     */
     @Override
     public List<CommandElement> getCommandElements() {
         return List.of(new StringArgument("key"));
     }
 
+    /**
+     * @inheritdoc
+     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         String key = (String) this.args.get("key");
@@ -43,6 +49,9 @@ public class FindCommand extends Command {
         ui.print(String.format("Here are the relevant tasks:\n%s", ui.stringifyList(filteredTasks)));
     }
 
+    /**
+     * @inheritdoc
+     */
     @Override
     public boolean isExit() {
         return false;

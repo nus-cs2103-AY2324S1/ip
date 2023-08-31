@@ -18,16 +18,25 @@ public class Field implements CommandElement {
         this.text = text;
     }
 
+    /**
+     * @inheritdoc
+     */
     @Override
     public String getName() {
         return this.text;
     }
 
+    /**
+     * @inheritdoc
+     */
     @Override
     public String getRegexForm() {
         return String.format("( %s )", this.text);
     }
 
+    /**
+     * @inheritdoc
+     */
     @Override
     public String toString() {
         return this.text;

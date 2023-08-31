@@ -32,12 +32,18 @@ public class Event extends Task {
         this.to = to;
     }
 
+    /**
+     * @inheritdoc
+     */
     @Override
     public String toString() {
         return String.format("[E]%s (from: %s to: %s)", super.toString(),
                 Ui.stringifyDate(this.from), Ui.stringifyDate(this.to));
     }
 
+    /**
+     * @inheritdoc
+     */
     @Override
     public String toCommand(int idx) {
         return (new EventCommand(Map.ofEntries(

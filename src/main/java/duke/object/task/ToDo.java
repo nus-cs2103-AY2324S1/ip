@@ -18,11 +18,17 @@ public class ToDo extends Task {
         super(description);
     }
 
+    /**
+     * @inheritdoc
+     */
     @Override
     public String toString() {
         return String.format("[T]%s", super.toString());
     }
 
+    /**
+     * @inheritdoc
+     */
     @Override
     public String toCommand(int idx) {
         return (new ToDoCommand(Map.ofEntries(

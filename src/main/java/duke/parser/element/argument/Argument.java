@@ -19,16 +19,25 @@ public abstract class Argument implements CommandElement {
         this.text = text;
     }
 
+    /**
+     * @inheritdoc
+     */
     @Override
     public String getName() {
         return String.format("{ %s }", this.text);
     }
 
+    /**
+     * @inheritdoc
+     */
     @Override
     public String getRegexForm() {
         return "(.*)";
     }
-    
+
+    /**
+     * @inheritdoc
+     */
     @Override
     public String toString() {
         return this.text;

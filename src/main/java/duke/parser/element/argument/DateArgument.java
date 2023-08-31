@@ -18,6 +18,9 @@ public class DateArgument extends Argument {
         super(text);
     }
 
+    /**
+     * @inheritdoc
+     */
     @Override
     public LocalDate formatInput(String input) throws InvalidDateException {
         try {
@@ -27,6 +30,9 @@ public class DateArgument extends Argument {
         }
     }
 
+    /**
+     * @inheritdoc
+     */
     @Override
     public String formatOutput(Object val) {
         return val.toString();

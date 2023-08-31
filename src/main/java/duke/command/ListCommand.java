@@ -22,16 +22,25 @@ public class ListCommand extends Command {
         super("list", args);
     }
 
+    /**
+     * @inheritdoc
+     */
     @Override
     protected List<CommandElement> getCommandElements() {
         return List.of();
     }
 
+    /**
+     * @inheritdoc
+     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         ui.print(String.format("Here are the tasks in your list:\n%s", ui.stringifyList(tasks)));
     }
 
+    /**
+     * @inheritdoc
+     */
     @Override
     public boolean isExit() {
         return false;

@@ -24,11 +24,17 @@ public class MarkCommand extends Command {
         super("mark", args);
     }
 
+    /**
+     * @inheritdoc
+     */
     @Override
     protected List<CommandElement> getCommandElements() {
         return List.of(new IndexArgument("index"));
     }
 
+    /**
+     * @inheritdoc
+     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
         int idx = (int) ((Integer) this.args.get("index"));
@@ -36,6 +42,9 @@ public class MarkCommand extends Command {
         ui.print(String.format("Nice! I've marked this task as done:\n  %s", tasks.access(idx).toString()));
     }
 
+    /**
+     * @inheritdoc
+     */
     @Override
     public boolean isExit() {
         return false;

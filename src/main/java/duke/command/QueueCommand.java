@@ -25,11 +25,17 @@ public class QueueCommand extends Command {
         super("queue", args);
     }
 
+    /**
+     * @inheritdoc
+     */
     @Override
     protected List<CommandElement> getCommandElements() {
         return List.of();
     }
 
+    /**
+     * @inheritdoc
+     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         List<Deadline> deadlines = new ArrayList<>();
@@ -41,6 +47,9 @@ public class QueueCommand extends Command {
         ui.print(String.format("Here is the queue of deadlines:\n%s", ui.stringifyList(deadlines)));
     }
 
+    /**
+     * @inheritdoc
+     */
     @Override
     public boolean isExit() {
         return false;

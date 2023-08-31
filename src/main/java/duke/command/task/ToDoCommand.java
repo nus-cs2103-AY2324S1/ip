@@ -23,11 +23,17 @@ public class ToDoCommand extends TaskCommand {
         super("todo", args);
     }
 
+    /**
+     * @inheritdoc
+     */
     @Override
     protected List<CommandElement> getCommandElements() {
         return List.of(new StringArgument("description"));
     }
 
+    /**
+     * @inheritdoc
+     */
     @Override
     protected ToDo makeTask() {
         return new ToDo((String) this.args.get("description"));

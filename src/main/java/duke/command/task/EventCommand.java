@@ -25,6 +25,9 @@ public class EventCommand extends TaskCommand {
         super("event", args);
     }
 
+    /**
+     * @inheritdoc
+     */
     @Override
     protected List<CommandElement> getCommandElements() {
         return List.of(new StringArgument("description"),
@@ -32,6 +35,9 @@ public class EventCommand extends TaskCommand {
                 new Field("/to"), new DateArgument("to"));
     }
 
+    /**
+     * @inheritdoc
+     */
     @Override
     protected Event makeTask() throws DateRangeException {
         return new Event((String) this.args.get("description"), (LocalDate) this.args.get("from"), (LocalDate) this.args.get("to"));

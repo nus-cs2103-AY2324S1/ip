@@ -16,6 +16,9 @@ public class StringArgument extends Argument {
         super(text);
     }
 
+    /**
+     * @inheritdoc
+     */
     @Override
     public String formatInput(String input) throws EmptyArgException {
         if (input == null || input.equals("")) {
@@ -24,6 +27,9 @@ public class StringArgument extends Argument {
         return input;
     }
 
+    /**
+     * @inheritdoc
+     */
     @Override
     public String formatOutput(Object val) {
         return val.toString();

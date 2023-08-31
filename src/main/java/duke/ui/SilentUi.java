@@ -16,9 +16,15 @@ public class SilentUi extends Ui {
         super(sc);
     }
 
+    /**
+     * @inheritdoc
+     */
     @Override
     public void print(String msg) {}
 
+    /**
+     * @inheritdoc
+     */
     @Override
     public void greet() {}
 

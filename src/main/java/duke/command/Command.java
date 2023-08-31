@@ -58,6 +58,9 @@ public abstract class Command {
         return String.join(" ", struct);
     }
 
+    /**
+     * @inheritdoc
+     */
     @Override
     public String toString() {
         List<String> commandList = new ArrayList<>();

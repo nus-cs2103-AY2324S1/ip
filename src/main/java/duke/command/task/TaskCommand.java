@@ -27,6 +27,9 @@ public abstract class TaskCommand extends Command {
 
     protected abstract Task makeTask() throws DukeException;
 
+    /**
+     * @inheritdoc
+     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
         Task newTask = this.makeTask();
@@ -35,6 +38,9 @@ public abstract class TaskCommand extends Command {
                 tasks.access(tasks.size()).toString(), ui.getTaskCount(tasks.size())));
     }
 
+    /**
+     * @inheritdoc
+     */
     @Override
     public boolean isExit() {
         return false;

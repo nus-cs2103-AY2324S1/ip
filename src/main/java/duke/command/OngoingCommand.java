@@ -27,11 +27,17 @@ public class OngoingCommand extends Command {
         super("ongoing", args);
     }
 
+    /**
+     * @inheritdoc
+     */
     @Override
     protected List<CommandElement> getCommandElements() {
         return List.of(new DateArgument("date"));
     }
 
+    /**
+     * @inheritdoc
+     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         LocalDate date = (LocalDate) this.args.get("date");
@@ -45,6 +51,9 @@ public class OngoingCommand extends Command {
                 ui.stringifyDate(date), ui.stringifyList(filteredEvents)));
     }
 
+    /**
+     * @inheritdoc
+     */
     @Override
     public boolean isExit() {
         return false;

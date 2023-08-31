@@ -38,6 +38,9 @@ public class Task {
         this.isDone = false;
     }
 
+    /**
+     * @inheritdoc
+     */
     @Override
     public String toString() {
         return String.format("[%s] %s", this.isDone ? "X" : " ", this.description);

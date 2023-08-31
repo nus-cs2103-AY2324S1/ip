@@ -16,6 +16,9 @@ public class IndexArgument extends Argument {
         super(text);
     }
 
+    /**
+     * @inheritdoc
+     */
     @Override
     public Integer formatInput(String input) throws InvalidIndexException {
         int idx;
@@ -30,6 +33,9 @@ public class IndexArgument extends Argument {
         return idx;
     }
 
+    /**
+     * @inheritdoc
+     */
     @Override
     public String formatOutput(Object val) {
         return String.valueOf((int) ((Integer) val));

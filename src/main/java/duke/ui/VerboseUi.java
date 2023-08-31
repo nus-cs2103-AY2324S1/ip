@@ -21,11 +21,17 @@ public class VerboseUi extends Ui {
         this.name = name;
     }
 
+    /**
+     * @inheritdoc
+     */
     @Override
     public void greet() {
         print(String.format("Hello! I'm %s\nWhat can I do for you?", name));
     }
 
+    /**
+     * @inheritdoc
+     */
     @Override
     public void print(String msg) {
         printIndent(HORIZONTAL_LINE);

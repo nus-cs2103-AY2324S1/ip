@@ -24,12 +24,18 @@ public class DeadlineCommand extends TaskCommand {
         super("deadline", args);
     }
 
+    /**
+     * @inheritdoc
+     */
     @Override
     protected List<CommandElement> getCommandElements() {
         return List.of(new StringArgument("description"),
                 new Field("/by"), new DateArgument("by"));
     }
 
+    /**
+     * @inheritdoc
+     */
     @Override
     protected Deadline makeTask() {
         return new Deadline((String) this.args.get("description"), (LocalDate) this.args.get("by"));
