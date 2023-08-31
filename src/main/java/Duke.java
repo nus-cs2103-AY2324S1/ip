@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -124,6 +125,9 @@ public class Duke {
                     "WRONG FORMAT FOOL!!! IT'S:\n" +
                     "deadline {task} /by {time}\n" +
                     horizontalLine);
+        } catch (DateTimeParseException e) {
+            System.out.print(horizontalLine + "Date format should be yyyy-mm-dd"
+                    + horizontalLine);
         }
     }
 
@@ -140,6 +144,8 @@ public class Duke {
                     "WRONG FORMAT FOOL!!! IT'S:\n" +
                     "event {task} /from {time} /to {time}\n" +
                     horizontalLine);
+        } catch (DateTimeParseException e) {
+            System.out.print(horizontalLine + "Date format should be yyyy-mm-dd");
         }
     }
     /**

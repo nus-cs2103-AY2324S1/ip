@@ -1,3 +1,6 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 /**
  * A Task object that contains a start and end time
  */
@@ -26,6 +29,8 @@ public class Event extends Task{
      */
     @Override
     public String toString() {
-        return "[E] " + super.toString() + " (from: " + this.from + " to: " + this.to + ")";
+        return "[E] " + super.toString() + " (from: " +
+                LocalDate.parse(from).format(DateTimeFormatter.ofPattern("MMM d yyyy")) + " to: " +
+                LocalDate.parse(to).format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
     }
 }
