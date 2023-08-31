@@ -3,6 +3,7 @@ import java.util.Scanner;
 import java.util.Map;
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 import utility.DateTimeParser;
@@ -15,6 +16,7 @@ public class Thorndike {
     private Boolean running;
     public static final String TASK_FILE_PATH = "data/tasks.txt";
     public static final String TASK_FILE_SEPARATOR = "-";
+    public static final String TASK_FILE_TB_FORMAT = "dd/MM/yyyy HHmm";
 
     public Thorndike() {
         this.scanner = new Scanner(System.in);
@@ -89,7 +91,7 @@ public class Thorndike {
                 throw new MissingDescriptionException("deadline");
             }
 
-            LocalDateTime by = DateTimeParser.parseDateTime(args.get("by"));
+            LocalDateTime by = DateTimeParser.parse(args.get("by"));
             if (by == null) {
                 throw new InvalidDateTimeFormat();
             }
@@ -103,13 +105,13 @@ public class Thorndike {
                 throw new MissingDescriptionException("event");
             }
 
-            LocalDateTime from = DateTimeParser.parseDateTime(args.get("from"));
-            LocalDateTime to = DateTimeParser.parseDateTime(args.get("to"));
+            LocalDateTime from = DateTimeParser.parse(args.get("from"));
+            LocalDateTime to = DateTimeParser.parse(args.get("to"));
             if (from == null || to == null) {
                 throw new InvalidDateTimeFormat();
             }
 
-            addTask(new Event(description, args.get("from"), args.get("to")));
+            addTask(new Event(description, from, to));
             return;
         }
 
@@ -250,11 +252,12 @@ public class Thorndike {
                     addTaskSilent(new Todo(description));
                 } else if (taskType.equals("D")) {
                     String time = task[3];
-                    addTaskSilent(new Deadline(description, DateTimeParser.parseDateTime(time)));
+                    addTaskSilent(new Deadline(description, DateTimeParser.parse(time)));
                 } else if (taskType.equals("E")) {
                     String from = task[3];
                     String to = task[4];
-                    addTaskSilent(new Event(description, from, to));
+                    addTaskSilent(new Event(description, DateTimeParser.parse(from),
+                            DateTimeParser.parse(to)));
                 }
 
                 if (status.equals("1")) {
@@ -284,12 +287,15 @@ public class Thorndike {
             } else if (task instanceof Deadline) {
                 output += TASK_FILE_SEPARATOR + "D";
                 Deadline deadline = (Deadline) task;
-                output += TASK_FILE_SEPARATOR + deadline.getCompleteBy();
+                output += TASK_FILE_SEPARATOR
+                        + deadline.getCompleteBy().format(DateTimeFormatter.ofPattern(TASK_FILE_TB_FORMAT));
             } else if (task instanceof Event) {
                 output += TASK_FILE_SEPARATOR + "E";
                 Event event = (Event) task;
-                output += TASK_FILE_SEPARATOR + event.getStartTime();
-                output += TASK_FILE_SEPARATOR + event.getEndTime();
+                output += TASK_FILE_SEPARATOR
+                        + event.getStartTime().format(DateTimeFormatter.ofPattern(TASK_FILE_TB_FORMAT));
+                output += TASK_FILE_SEPARATOR
+                        + event.getEndTime().format(DateTimeFormatter.ofPattern(TASK_FILE_TB_FORMAT));
             }
             output += System.lineSeparator();
         }
