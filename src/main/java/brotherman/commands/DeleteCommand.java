@@ -1,8 +1,8 @@
 package brotherman.commands;
 
-import brotherman.storage.*;
-import brotherman.tasks.*;
-import brotherman.ui.*;
+import brotherman.storage.Storage;
+import brotherman.tasks.TaskList;
+import brotherman.ui.Ui;
 
 public class DeleteCommand extends Command {
     private int taskNum;
