@@ -20,6 +20,10 @@ public class Task {
 
     }
 
+    public String getDescription(){
+        return this.description;
+    }
+
     public static int getSize(){
         return size;
     }

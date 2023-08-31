@@ -117,6 +117,32 @@ public class InputParser {
             }
         }
 
+        //find a certain task
+        else if (splitStr[0].equals("find")){
+            try{
+                inputChecker(splitStr, "find");
+                String toFind = input.substring(5);
+                ArrayList<Task> foundTasks = new ArrayList<>();
+
+                for (Task task:tasks){
+                    if (task.getDescription().contains(toFind)){
+                        foundTasks.add(task);
+                    }
+                }
+                if (foundTasks.size() >0){
+                    System.out.println("Here are the matching tasks in your list:");
+                    for (int i = 0; i < foundTasks.size(); i++) {
+                        int index = i + 1;
+                        System.out.println("  " + index + "." + foundTasks.get(i).toString());
+                    }
+                } else{
+                    System.out.println("No tasks called " + toFind + " found");
+                }
+            } catch (DukeException e){
+                System.out.println(e.getMessage());
+            }
+        }
+
         //mark or unmark an existing task
         else if (splitStr[0].equals("mark") || splitStr[0].equals("unmark")) {
             try {
