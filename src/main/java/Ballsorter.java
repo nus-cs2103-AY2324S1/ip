@@ -1,10 +1,11 @@
 import java.io.IOException;
 import java.nio.file.Files;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
 import java.io.File;
-import java.io.FileWriter;
+import java.time.LocalDateTime;
 
 public class Ballsorter {
 
@@ -12,6 +13,7 @@ public class Ballsorter {
 
         String line = "____________________________________________________________";
         ArrayList<Task> tasks = new ArrayList<>();
+        DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
         System.out.println(line);
         System.out.println("Hello! I'm Ballsorter\nWhat can I do for you?");
@@ -39,7 +41,8 @@ public class Ballsorter {
                             i++;
                         }
                         i++;
-                        curr = new Deadline(desc.toString(), input.substring(i));
+                        LocalDateTime endDateTime = LocalDateTime.parse(input.substring(i), inputFormatter);
+                        curr = new Deadline(desc.toString(), endDateTime);
                     } else {
                         int i = 4;
                         while (input.charAt(i) != '|') {
@@ -52,7 +55,9 @@ public class Ballsorter {
                             i++;
                         }
                         i++;
-                        curr = new Event(desc.toString(), start.toString(), input.substring(i));
+                        LocalDateTime startDateTime = LocalDateTime.parse(start.toString(), inputFormatter);
+                        LocalDateTime endDateTime = LocalDateTime.parse(input.substring(i), inputFormatter);
+                        curr = new Event(desc.toString(), startDateTime, endDateTime);
                     }
                     if (stat == 1) {
                         curr.markDone();
@@ -162,7 +167,8 @@ public class Ballsorter {
                         System.out.println(line);
                         curr = null;
                     } else {
-                        curr = new Deadline(description.toString(), input.substring(i));
+                        LocalDateTime endDateTime = LocalDateTime.parse(input.substring(i), inputFormatter);
+                        curr = new Deadline(description.toString(), endDateTime);
                     }
 
 
@@ -192,7 +198,9 @@ public class Ballsorter {
                         System.out.println(line);
                         curr = null;
                     } else {
-                        curr = new Event(description.toString(), start.toString(), input.substring(i));
+                        LocalDateTime startDateTime = LocalDateTime.parse(start.toString(), inputFormatter);
+                        LocalDateTime endDateTime = LocalDateTime.parse(input.substring(i), inputFormatter);
+                        curr = new Event(description.toString(), startDateTime, endDateTime);
                     }
 
                 } else {

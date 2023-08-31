@@ -1,5 +1,6 @@
-D|0|finish assignment |tonight
+D|0|finish assignment|2023-08-31 09:04
 T|1|buy milk
-D|0|gen training |sat 9am |5pm
+E|0|gen training|2023-09-02 09:00|2023-09-02 17:00
 T|0|laundry
 T|0|kitkat
+D|0|watch lecture |2023-09-01 09:00
