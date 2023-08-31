@@ -28,7 +28,7 @@ test {
 }
 
 application {
-    mainClass.set("main.java.duke.Duke")
+    mainClass.set("src/main/java/duke/Duke.java")
 }
 
 shadowJar {
