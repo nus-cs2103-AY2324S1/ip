@@ -1,3 +1,4 @@
+package duke.data.task;
 public class Task {
     protected String description;
     protected boolean isDone;
@@ -13,6 +14,10 @@ public class Task {
 
     public void markAsNotDone() {
         isDone = false;
+    }
+
+    public boolean getDone() {
+        return isDone;
     }
 
     public String getStatusIcon() {

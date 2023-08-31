@@ -1,6 +1,11 @@
+package duke.parser;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import duke.commands.*;
+import duke.data.task.*;
+import duke.data.exception.DukeException;
 
 public class Parser {
 

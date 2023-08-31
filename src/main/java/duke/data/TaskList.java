@@ -1,7 +1,11 @@
+package duke.data;
+
 import java.util.ArrayList;
+import duke.data.task.Task;
+import duke.data.exception.DukeException;
 
 public class TaskList {
-    private ArrayList<Task> taskList;
+    private final ArrayList<Task> taskList;
 
     public TaskList() {
         this.taskList = new ArrayList<>();
@@ -19,13 +23,13 @@ public class TaskList {
         this.taskList.add(task);
     }
     public void markTask(Task task) throws DukeException {
-        if (task.isDone)
+        if (task.getDone())
             throw new DukeException("☹ OOPS!!! I'm sorry, but task is already marked!");
         task.markAsDone();
     }
 
     public void unmarkTask(Task task) throws DukeException {
-        if (!task.isDone)
+        if (!task.getDone())
             throw new DukeException("☹ OOPS!!! I'm sorry, but task is already marked!");
         task.markAsNotDone();
     }
@@ -48,6 +52,4 @@ public class TaskList {
     public Task getTask(int taskID) {
         return taskList.get(taskID);
     }
-
-
 }

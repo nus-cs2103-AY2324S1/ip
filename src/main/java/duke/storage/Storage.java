@@ -1,3 +1,5 @@
+package duke.storage;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -7,6 +9,10 @@ import java.nio.file.Paths;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
+import duke.data.exception.DukeException;
+import duke.parser.Parser;
+import duke.data.TaskList;
+import duke.data.task.Task;
 
 public class Storage {
     public static String DEFAULT_STORAGE_FILEPATH;
