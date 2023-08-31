@@ -25,6 +25,24 @@ public class Task {
         return description;
     }
 
+    public String toSaveString() {
+        return (isDone ? "1" : "0") + " | " + description;
+    }
+
+    public static Task parseSavedTask(String savedString) {
+        String[] parts = savedString.split(" \\| ");
+        if (parts.length == 2) {
+            String status = parts[0];
+            String description = parts[1];
+            Task task = new Task(description);
+            if (status.equals("1")) {
+                task.markAsDone();
+            }
+            return task;
+        }
+        return null;
+    }
+
     @Override
     public String toString() {
         return getStatusIcon() + " " + getDescription();

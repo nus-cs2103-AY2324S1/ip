@@ -6,11 +6,14 @@ import task.Event;
 import task.Task;
 import task.Todo;
 
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 public class Dialogix {
+    private static final String FILE_PATH = "./data/dialogix.txt";
+
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
@@ -23,9 +26,7 @@ public class Dialogix {
 
         boolean continueDialog = true;
 
-
-
-
+        loadTasksFromFile(list); // Load tasks from file when chatbot starts
 
         while (continueDialog) {
             try {
@@ -58,29 +59,14 @@ public class Dialogix {
                         System.out.println("Bot: Invalid input format for 'event'.");
                     }
                 } else if (userInput.equalsIgnoreCase("bye")) {
-                    System.out.println("Bot: Bye. Hope to see you again soon!");
+                    saveTasksToFile(list); // Save tasks to file before exiting
+                    System.out.println("Bot: Goodbye! Have a great day!");
                     continueDialog = false;
                 } else if (userInput.startsWith("delete")) {
                     int taskIndex = Integer.parseInt(userInput.replaceFirst("delete\\s+", "")) - 1;
                     if (taskIndex >= 0 && taskIndex < list.size()) {
                         Task deletedTask = list.remove(taskIndex);
                         System.out.println("Bot: Noted. I've removed this task:\n  " + deletedTask.toString());
-                    } else {
-                        throw new DialogixException(":( OOPS!!! Task index is out of range.");
-                    }
-                } else if (userInput.startsWith("mark")) {
-                    int taskIndex = Integer.parseInt(userInput.replaceFirst("mark\\s+", "")) - 1;
-                    if (taskIndex >= 0 && taskIndex < list.size()) {
-                        list.get(taskIndex).markAsDone();
-                        System.out.println("Bot: Nice! I've marked this task as done:\n  " + list.get(taskIndex).toString());
-                    } else {
-                        throw new DialogixException(":( OOPS!!! Task index is out of range.");
-                    }
-                } else if (userInput.startsWith("unmark")) {
-                    int taskIndex = Integer.parseInt(userInput.replaceFirst("unmark\\s+", "")) - 1;
-                    if (taskIndex >= 0 && taskIndex < list.size()) {
-                        list.get(taskIndex).markAsNotDone();
-                        System.out.println("Bot: OK, I've marked this task as not done yet:\n  " + list.get(taskIndex).toString());
                     } else {
                         throw new DialogixException(":( OOPS!!! Task index is out of range.");
                     }
@@ -99,4 +85,48 @@ public class Dialogix {
         System.out.println("____________________________________________________________");
         scanner.close();
     }
+
+    private static void saveTasksToFile(List<Task> tasks) {
+        try {
+            File file = new File(FILE_PATH);
+            File parentDirectory = file.getParentFile();
+
+            if (!parentDirectory.exists()) {
+                parentDirectory.mkdirs();
+            }
+
+            FileWriter fileWriter = new FileWriter(file);
+            for (Task task : tasks) {
+                fileWriter.write(task.toSaveString() + "\n");
+            }
+            fileWriter.close();
+        } catch (IOException e) {
+            System.out.println("Bot: Error saving tasks to file.");
+        }
+    }
+
+    private static void loadTasksFromFile(List<Task> tasks) {
+        try {
+            File file = new File(FILE_PATH);
+
+            if (!file.exists()) {
+                file.getParentFile().mkdirs(); // Create directory if it doesn't exist
+                file.createNewFile();
+                return;
+            }
+
+            Scanner scanner = new Scanner(file);
+            while (scanner.hasNextLine()) {
+                String line = scanner.nextLine();
+                Task task = Task.parseSavedTask(line);
+                if (task != null) {
+                    tasks.add(task);
+                }
+            }
+            scanner.close();
+        } catch (IOException e) {
+            System.out.println("Bot: Error loading tasks from file.");
+        }
+    }
+
 }
