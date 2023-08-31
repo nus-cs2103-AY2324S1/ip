@@ -17,24 +17,31 @@ public class Zean {
     private TaskList tasks;
     private Storage storage;
 
+    /**
+     * Constructor for the chatbot zean.
+     *
+     * @param filePath The filepath of the data to be retrieved or written.
+     */
     public Zean(String filePath) {
         this.ui = new Ui();
         try {
             this.storage = new Storage(filePath);
             this.tasks = new TaskList(this.storage);
         } catch (FileNotFoundException e) {
-            this.ui.showError("\tOOPS! Something went wrong with the file.\n\tShutting down now...");
+            this.ui.showError("\tOOPS! Something went wrong with the file."
+                    + "\n\tShutting down now...");
         } catch (IOException e) {
             this.ui.showError("\tOOPS! The file cannot be created.\n\tShutting down now...");
         } catch (SecurityException e) {
-            this.ui.showError("\tOOPS! The file cannot be written due to invalid access.\n\tShutting down now...");
+            this.ui.showError("\tOOPS! The file cannot be written due to invalid access."
+                    + "\n\tShutting down now...");
         } catch (DukeException e) {
             this.ui.showError(e.getMessage());
         }
     }
 
     /**
-     * Handles the input provided and outputs corresponding messages.
+     * Runs the chatbot.
      */
     public void run() {
         this.ui.greet("Zean");
@@ -42,13 +49,11 @@ public class Zean {
 
         while (true) {
             String input = sc.nextLine();
-            this.ui.printDivider();
-            if (input.equals("bye")) {
+            if (input.strip().equals("bye")) {
                 break;
             }
             try {
-                Parser.parse(input, this.tasks);
-                this.ui.printDivider();
+                this.ui.printOutput(Parser.parse(input, this.tasks));
             } catch (DukeException e) {
                 this.ui.showError(e.getMessage());
             }

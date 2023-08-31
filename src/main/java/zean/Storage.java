@@ -11,7 +11,7 @@ import zean.exception.DukeException;
 import zean.task.Task;
 
 /**
- * The class that provides the storage for the tasks.
+ * The class that deals with loading tasks from the file and saving tasks in the file.
  *
  * @author Zhong Han
  */
@@ -51,6 +51,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Returns an ArrayList populated with tasks that is present in the file.
+     *
+     * @return An ArrayList populated with tasks.
+     */
     public ArrayList<Task> load() {
         ArrayList<Task> tasks = new ArrayList<>();
         Scanner sc = null;
@@ -69,6 +74,11 @@ public class Storage {
         return tasks;
     }
 
+    /**
+     * Appends task to the file.
+     *
+     * @param task The task to be written to the file.
+     */
     public void addToDisk(Task task) {
         try {
             FileWriter fw = new FileWriter(this.filePath, true);
@@ -79,6 +89,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Overwrites all the tasks to the file.
+     *
+     * @param tasks The ArrayList containing all the tasks to be written to the file.
+     */
     public void rewriteToDisk(ArrayList<Task> tasks) {
         try {
             FileWriter fw = new FileWriter(this.filePath);

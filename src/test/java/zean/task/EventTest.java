@@ -1,58 +1,59 @@
 package zean.task;
 
-import org.junit.jupiter.api.Test;
-import zean.exception.DukeException;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+
+import org.junit.jupiter.api.Test;
+
+import zean.exception.DukeException;
 
 public class EventTest {
     @Test
     public void invalidFromDateTest1() {
-        Exception exception = assertThrows(DukeException.class,
-                () -> new Event("invalid from date", "2023-02-29", "2023-03-01"));
+        Exception exception = assertThrows(DukeException.class, () ->
+                new Event("invalid from date", "2023-02-29", "2023-03-01"));
         assertEquals("\tThe date is invalid!", exception.getMessage());
     }
 
     @Test
     public void invalidFromDateTest2() {
-        Exception exception = assertThrows(DukeException.class,
-                () -> new Event("invalid from date", "2023-13-13", "2024-03-01"));
+        Exception exception = assertThrows(DukeException.class, () ->
+                new Event("invalid from date", "2023-13-13", "2024-03-01"));
         assertEquals("\tThe date is invalid!", exception.getMessage());
     }
 
     @Test
     public void invalidToDateTest1() {
-        Exception exception = assertThrows(DukeException.class,
-                () -> new Event("invalid to date", "2023-02-28", "2023-02-29"));
+        Exception exception = assertThrows(DukeException.class, () ->
+                new Event("invalid to date", "2023-02-28", "2023-02-29"));
         assertEquals("\tThe date is invalid!", exception.getMessage());
     }
 
     @Test
     public void invalidToDateTest2() {
-        Exception exception = assertThrows(DukeException.class,
-                () -> new Event("invalid to date", "2023-02-28", "2023-32-29"));
+        Exception exception = assertThrows(DukeException.class, () ->
+                new Event("invalid to date", "2023-02-28", "2023-32-29"));
         assertEquals("\tThe date is invalid!", exception.getMessage());
     }
 
     @Test
     public void endBeforeStartDateTest1() {
-        Exception exception = assertThrows(DukeException.class,
-                () -> new Event("end before start date", "2023-02-28", "2023-01-29"));
+        Exception exception = assertThrows(DukeException.class, () ->
+                new Event("end before start date", "2023-02-28", "2023-01-29"));
         assertEquals("\tThe end date is before the start date!", exception.getMessage());
     }
 
     @Test
     public void endBeforeStartDateTest2() {
-        Exception exception = assertThrows(DukeException.class,
-                () -> new Event("end before start date", "2024-01-28", "2023-01-29"));
+        Exception exception = assertThrows(DukeException.class, () ->
+                new Event("end before start date", "2024-01-28", "2023-01-29"));
         assertEquals("\tThe end date is before the start date!", exception.getMessage());
     }
 
     @Test
     public void endBeforeStartDateTest3() {
-        Exception exception = assertThrows(DukeException.class,
-                () -> new Event("end before start date", "2023-08-29", "2023-08-20"));
+        Exception exception = assertThrows(DukeException.class, () ->
+                new Event("end before start date", "2023-08-29", "2023-08-20"));
         assertEquals("\tThe end date is before the start date!", exception.getMessage());
     }
 

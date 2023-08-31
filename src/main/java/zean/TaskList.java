@@ -8,6 +8,11 @@ import zean.task.Event;
 import zean.task.Task;
 import zean.task.Todo;
 
+/**
+ * The class that contains the task list, with operations to add/delete tasks in the list.
+ *
+ * @author Zhong Han
+ */
 public class TaskList {
     private ArrayList<Task> tasks;
     private int count;
@@ -35,118 +40,150 @@ public class TaskList {
     }
 
     /**
-     * Adds a todo task to the array list and write to the disk.
+     * Adds a todo task to the array list and writes to the disk.
      *
      * @param description The description of the todo task.
+     * @return The output to be printed on the console.
      */
-    public void add(String description) {
+    public String add(String description) {
         Todo task = new Todo(description);
         this.tasks.add(task);
         this.count++;
-        printAddTask(task);
         this.storage.addToDisk(task);
+        return printAddTask(task);
     }
 
     /**
-     * Adds a deadline task to the array list and write to the disk.
+     * Adds a deadline task to the array list and writes to the disk.
      *
      * @param description The description of the deadline task.
      * @param by The due date of the deadline task.
+     * @return The output to be printed on the console.
      */
-    public void add(String description, String by) {
+    public String add(String description, String by) {
         Deadline task = new Deadline(description, by);
         this.tasks.add(task);
         this.count++;
-        printAddTask(task);
         this.storage.addToDisk(task);
+        return printAddTask(task);
     }
 
     /**
-     * Adds an event task to the array list and write to the disk.
+     * Adds an event task to the array list and writes to the disk.
      *
      * @param description The description of the event task.
-     * @param from The start date/time of the event task.
-     * @param to The end date/time of the event task.
+     * @param from The start date of the event task.
+     * @param to The end date of the event task.
+     * @return The output to be printed on the console.
      */
-    public void add(String description, String from, String to) {
+    public String add(String description, String from, String to) {
         Event task = new Event(description, from, to);
         this.tasks.add(task);
         this.count++;
-        printAddTask(task);
         this.storage.addToDisk(task);
+        return printAddTask(task);
     }
 
-    private void printAddTask(Task task) {
-        System.out.println("\tGot it. I've added this task:\n\t  " + task);
-        this.printNumOfTasks();
+    private String printAddTask(Task task) {
+        return "\tGot it. I've added this task:\n\t  " + task + "\n" + this.printNumOfTasks();
     }
 
     /**
-     * Prints the list of tasks that the ArrayList holds.
+     * Returns the string of the list of tasks that the list holds.
+     *
+     * @return The output to be printed on the console.
      */
-    public void list() {
+    public String list() {
         if (this.count == 0) {
-            System.out.println("\tThere are currently no tasks in your list:");
+            return "\tThere are currently no tasks in your list:\n";
         } else {
-            System.out.println("\tAs requested, here are the tasks in your list:");
+            StringBuilder output = new StringBuilder("\tAs requested, here are the tasks in your list:\n");
             for (int i = 0; i < this.count; i++) {
-                System.out.printf("\t%d.%s\n", i + 1, this.tasks.get(i));
+                output.append(String.format("\t%d.%s\n", i + 1, this.tasks.get(i)));
             }
+            return output.toString();
         }
     }
 
     /**
-     * Marks the task corresponding to the index as done and write to the disk.
+     * Marks the task corresponding to the index as done and writes to the disk.
      *
      * @param index The index of the task seen by the user, which starts from 1.
+     * @return The output to be printed on the console.
      * @throws DukeException An exception related to the chatbot.
      */
-    public void markTaskDone(int index) throws DukeException {
+    public String markTaskDone(int index) throws DukeException {
         if (index > this.count || index <= 0) {
             throw new DukeException("\tHmm, this task does not exist :|");
         }
-        System.out.println("\tNice! I've marked this task as done:");
-        this.tasks.get(index - 1).markTaskDone();
         this.storage.rewriteToDisk(this.tasks);
+        String taskOutput = this.tasks.get(index - 1).markTaskDone();
+        return "\tNice! I've marked this task as done:\n" + taskOutput;
     }
 
     /**
-     * Marks the task corresponding to the index as not done and write to the disk.
+     * Marks the task corresponding to the index as not done and writes to the disk.
      *
      * @param index The index of the task seen by the user, which starts from 1.
+     * @return The output to be printed on the console.
      * @throws DukeException An exception related to the chatbot.
      */
-    public void markTaskNotDone(int index) {
+    public String markTaskNotDone(int index) {
         if (index > this.count || index <= 0) {
             throw new DukeException("\tHmm, this task does not exist :|");
         }
-        System.out.println("\tSure, I've marked this task as not done yet:");
-        this.tasks.get(index - 1).markTaskNotDone();
         this.storage.rewriteToDisk(this.tasks);
+        String taskOutput = this.tasks.get(index - 1).markTaskNotDone();
+        return "\tSure, I've marked this task as not done yet:\n" + taskOutput;
+
     }
 
-    private void printNumOfTasks() {
+    private String printNumOfTasks() {
         if (this.count < 2) {
-            System.out.printf("\tNow you have %d task in the list.\n", this.count);
+            return String.format("\tNow you have %d task in the list.", this.count);
         } else {
-            System.out.printf("\tNow you have %d tasks in the list.\n", this.count);
+            return String.format("\tNow you have %d tasks in the list.", this.count);
         }
     }
 
     /**
-     * Deletes the task corresponding to the index and write to the disk.
+     * Deletes the task corresponding to the index and writes to the disk.
      *
      * @param index The index of the task seen by the user, which starts from 1.
+     * @return The output to be printed on the console.
      * @throws DukeException An exception related to the chatbot.
      */
-    public void deleteTask(int index) throws DukeException {
+    public String deleteTask(int index) throws DukeException {
         if (index < 1 || index > this.count) {
             throw new DukeException("\tHmm, this task does not exist :|");
         }
         this.tasks.remove(index - 1);
         this.count--;
-        System.out.println("\tNoted. I've removed this task.");
-        printNumOfTasks();
         this.storage.rewriteToDisk(this.tasks);
+        return "\tNoted. I've removed this task.\n" + printNumOfTasks();
+    }
+
+    /**
+     * Returns the string of the list of tasks that matches the search string.
+     *
+     * @param description The search string.
+     * @return The output to be printed on the console.
+     */
+    public String find(String description) {
+        ArrayList<Task> subList = new ArrayList<>();
+        this.tasks.forEach((task) -> {
+            if (task.getDescription().toLowerCase().contains(description.trim().toLowerCase())) {
+                subList.add(task);
+            }
+        });
+        if (subList.isEmpty()) {
+            return "\tThere are no matching tasks in your list.";
+        } else {
+            StringBuilder output = new StringBuilder("\tHere are the matching tasks in your list:\n");
+            for (int i = 0; i < subList.size(); i++) {
+                output.append(String.format("\t%d.%s\n", i + 1, subList.get(i)));
+            }
+            return output.toString();
+        }
     }
 }

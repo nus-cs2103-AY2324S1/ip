@@ -29,6 +29,12 @@ public class Deadline extends Task {
         }
     }
 
+    /**
+     * Constructor for the deadline task.
+     *
+     * @param bool The completion status of the deadline task..
+     * @param description The description of the deadline task.
+     */
     public Deadline(String bool, String description, String by) {
         super(description.strip());
         this.by = LocalDate.parse(by.strip());
@@ -58,6 +64,11 @@ public class Deadline extends Task {
         return "D | " + super.toStringForFile() + " | " + this.by;
     }
 
+    /**
+     * Returns the string with formatted due date of the deadline task.
+     *
+     * @return The string with formatted due date of the deadline task.
+     */
     protected String getDeadline() {
         return this.by.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
     }
