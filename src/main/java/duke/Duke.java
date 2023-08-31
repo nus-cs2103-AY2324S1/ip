@@ -9,12 +9,22 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Duke is a task management application that allows users to manage their tasks.
+ * It provides features to add, mark, unmark, and delete tasks, and also displays the list of tasks.
+ */
 public class Duke {
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
     static ArrayList<Task> taskArray = new ArrayList<>();
     static TaskList taskList =  new TaskList(taskArray);
+
+    /**
+     * Constructs a Duke instance with the specified file path for task storage.
+     *
+     * @param filePath The file path for task storage.
+     */
     public Duke(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
@@ -28,6 +38,9 @@ public class Duke {
         }
     }
 
+    /**
+     * Runs the Duke application, handling user interactions and task management.
+     */
     public void run() {
         // Send welcome message
         Ui.printWelcomeMessage();
@@ -65,6 +78,11 @@ public class Duke {
         scanner.close();
     }
 
+    /**
+     * The main method to start the Duke application.
+     *
+     * @param args Command-line arguments (not used).
+     */
     public static void main(String[] args) {
         new Duke("tasks.txt").run();
     }

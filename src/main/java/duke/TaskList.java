@@ -6,21 +6,34 @@ import exceptions.OutOfRangeException;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.concurrent.Future;
 
+/**
+ * The TaskList class manages the list of tasks in the Duke application.
+ * It provides methods to add, mark, unmark, delete, and list tasks.
+ */
 public class TaskList {
     private static ArrayList<Task> taskArray;
 
+    /**
+     * Constructs a TaskList instance with an empty task array.
+     */
     public TaskList() {
         taskArray = new ArrayList<>();
     }
 
+    /**
+     * Constructs a TaskList instance with the specified task array.
+     *
+     * @param tasks The initial task array.
+     */
     public TaskList(ArrayList<Task> tasks) {
         taskArray = tasks;
     }
 
     /**
      * Lists the tasks stored in the task array.
+     *
+     * @return A string containing the list of tasks.
      */
      public static String listTasks() {
         String inputArrayString = "";
@@ -32,6 +45,14 @@ public class TaskList {
         return inputArrayString;
     }
 
+    /**
+     * Marks a task as done based on user input.
+     *
+     * @param userInput The user input specifying the task to be marked.
+     * @throws EmptyTaskException If the user input is missing task details.
+     * @throws OutOfRangeException If the task index is out of the array range.
+     * @throws IOException If an I/O error occurs while updating the task file.
+     */
     public static void markTask(String userInput) throws EmptyTaskException, OutOfRangeException, IOException {
         if (userInput.equals("mark")) {
             throw new EmptyTaskException("mark");
@@ -43,10 +64,17 @@ public class TaskList {
         }
         Task currentTask = taskArray.get(taskIndex);
         currentTask.markDone();
-        System.out.println("Nice! I've marked this task as done:\n");
+        System.out.println("Nice! I've marked this task as done:");
         System.out.println(currentTask.statusAndTask());
     }
 
+    /**
+     * Unmarks a task as done based on user input.
+     *
+     * @param userInput The user input specifying the task to be unmarked.
+     * @throws EmptyTaskException If the user input is missing task details.
+     * @throws OutOfRangeException If the task index is out of the array range.
+     */
     public static void unmarkTask(String userInput) throws EmptyTaskException, OutOfRangeException {
         if (userInput.equals("unmark")) {
             throw new EmptyTaskException("unmark");
@@ -62,6 +90,11 @@ public class TaskList {
         System.out.println(currentTask.statusAndTask());
     }
 
+    /**
+     * Adds a ToDo task based on user input.
+     *
+     * @param userInput The user input specifying the ToDo task.
+     */
     public static void makeToDo(String userInput) {
         String taskName = userInput.substring("todo".length()).trim();
         taskArray.add(new ToDo(taskName));
@@ -70,6 +103,12 @@ public class TaskList {
         System.out.println("Now you have " + taskArray.size() + " task(s) in the list.");
     }
 
+    /**
+     * Adds a Deadline task based on user input.
+     *
+     * @param userInput The user input specifying the Deadline task.
+     * @throws EmptyDateException If the user input is missing the task deadline.
+     */
     public static void makeDeadline(String userInput) throws EmptyDateException {
         String description = userInput.substring("deadline".length()).trim();
         String[] parts = description.split("/by");
@@ -85,6 +124,12 @@ public class TaskList {
         System.out.println("Now you have " + taskArray.size() + " task(s) in the list.");
     }
 
+    /**
+     * Adds an Event task based on user input.
+     *
+     * @param userInput The user input specifying the Event task.
+     * @throws EmptyDateException If the user input is missing the event start or end date.
+     */
     public static void makeEvent(String userInput) throws EmptyDateException {
         String description = userInput.substring("event".length()).trim();
         String[] partsA = description.split("/from");
@@ -104,6 +149,13 @@ public class TaskList {
         System.out.println("Now you have " + taskArray.size() + " task(s) in the list.");
     }
 
+    /**
+     * Deletes a task based on user input.
+     *
+     * @param userInput The user input specifying the task to be deleted.
+     * @throws EmptyTaskException If the user input is missing task details.
+     * @throws OutOfRangeException If the task index is out of the array range.
+     */
     public static void deleteTask(String userInput) throws EmptyTaskException, OutOfRangeException {
         if (userInput.equals("delete")) {
             throw new EmptyTaskException("delete");
@@ -120,6 +172,11 @@ public class TaskList {
         System.out.println("Now you have " + taskArray.size() + " task(s) in the list.");
     }
 
+    /**
+     * Updates the task file with the current task array.
+     *
+     * @throws IOException If an I/O error occurs while updating the task file.
+     */
     public static void updateTaskFile() throws IOException {
         try {
             Storage.generateTaskFileContent(taskArray);
@@ -128,6 +185,12 @@ public class TaskList {
         }
     }
 
+    /**
+     * Retrieves a task from the task array based on its index.
+     *
+     * @param i The index of the task to retrieve.
+     * @return The retrieved task.
+     */
     public Task getTask(int i) {
          return taskArray.get(i);
     }
