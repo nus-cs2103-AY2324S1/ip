@@ -46,7 +46,7 @@ public class Event extends Task {
     public static Event unpackSaveFormat(String savedTask) throws DukeException {
         String[] components = savedTask.split("\\|", 4);
         Event task = new Event(components[2] + "/from " + components[0] + "/to " + components[1]);
-        if(components[3].equals("X"))
+        if(components[3].equals("true"))
             task.setCompleted();
         else
             task.setUncompleted();

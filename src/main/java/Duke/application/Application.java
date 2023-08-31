@@ -26,13 +26,14 @@ public class Application {
     public Application(Duke duke, Storage storage) throws DukeException {
         this.duke = duke;
         this.storage = storage;
-        LoadTaskList();
+        loadTaskList();
     }
 
     /**
      * Shuts down application.
      */
     public void kill() {
+        saveTaskList();
         duke.kill();
     }
 
@@ -41,8 +42,7 @@ public class Application {
      *
      * @param task The task to be added.
      */
-    public void AddTask(Task task) {
-        storage.AddLine(task.toSaveFormat());
+    public void addTask(Task task) {
         taskList.addTask(task);
     }
 
@@ -51,8 +51,8 @@ public class Application {
      *
      * @param task The task to be removed.
      */
-    public void RemoveTask(Task task) {
-        storage.RemoveLine(taskList.findTaskIndex(task) + 1);
+    public void removeTask(Task task) {
+        storage.removeLine(taskList.findTaskIndex(task) + 1);
         taskList.removeTask(task);
     }
 
@@ -61,13 +61,21 @@ public class Application {
      *
      * @throws DukeException If there's an issue with loading tasks from storage.
      */
-    public void LoadTaskList() throws DukeException {
+    public void loadTaskList() throws DukeException {
         taskList = new TaskList();
         String line;
         int currentLine = 1;
-        while(!(line = storage.GetLine(currentLine)).equals("")) {
-            taskList.addTask(Task.Parse(line));
+        while(!(line = storage.getLine(currentLine)).equals("")) {
+            taskList.addTask(Task.parse(line));
             currentLine++;
+        }
+    }
+
+    public void saveTaskList() {
+        storage.clear();
+        for(int i = 0; i < getTaskCount(); i++) {
+            Task task = taskList.getTask(i);
+            storage.addLine(task.toSaveFormat());
         }
     }
 
@@ -77,7 +85,7 @@ public class Application {
      * @return The number of tasks.
      */
     public int getTaskCount() {
-        return taskList.getNumberOfTasks();
+        return taskList.getTaskCount();
     }
 
     /**
@@ -86,7 +94,7 @@ public class Application {
      * @param index The index of the task to retrieve.
      * @return The task at the specified index.
      */
-    public Task GetTask(int index) {
+    public Task getTask(int index) {
         return taskList.getTask(index);
     }
 

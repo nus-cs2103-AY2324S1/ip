@@ -22,7 +22,7 @@ public class TaskList {
         return taskList.indexOf(task);
     }
 
-    public int getNumberOfTasks() {
+    public int getTaskCount() {
         return taskList.size();
     }
 }

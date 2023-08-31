@@ -8,7 +8,7 @@ public abstract class Task {
     final private String name;
     private boolean completed = false;
 
-    public static Task Parse(String line)
+    public static Task parse(String line)
             throws DukeException {
         String[] components = line.split(":", 2);
         TaskType taskType = components[0].equals("todo") ? TaskType.TODO

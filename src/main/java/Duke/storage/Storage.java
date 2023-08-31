@@ -75,4 +75,16 @@ public class Storage {
             e.printStackTrace();
         }
     }
+
+    public void clear() {   // Create a FileWriter with the given file path
+        try {
+            FileWriter fileWriter = new FileWriter(file);
+            // Overwrite the file content with an empty string
+            fileWriter.write("");
+            // Close the FileWriter
+            fileWriter.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }

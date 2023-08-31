@@ -9,7 +9,7 @@ public class Todo extends Task{
     public static Todo unpackSaveFormat(String savedTask) throws EmptyTaskDescException {
         String[] components = savedTask.split("\\|", 2);
         Todo task = new Todo(components[0]);
-        if(components[1].equals("X"))
+        if(components[1].equals("true"))
             task.setCompleted();
         else
             task.setUncompleted();
