@@ -1,6 +1,11 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 public class Deadline extends Task{
 
-    private String by;
+    private final LocalDate dueDate;
+    private String dueTime = "";
 
     /**
      * Constructs a Deadline with a given description. Completion of the task
@@ -9,9 +14,17 @@ public class Deadline extends Task{
      * @param description The description of the task.
      * @param by The deadline the task must be completed by
      */
-    public Deadline(String description, String by) {
+    public Deadline(String description, String by) throws InvalidFormatException {
         super(description);
-        this.by = by;
+        String[] temp = by.split("\\s+");
+        try {
+            this.dueDate = LocalDate.parse(temp[0]);
+        } catch (DateTimeParseException e) {
+            throw new InvalidFormatException(e.getMessage());
+        }
+        if (temp.length == 2) {
+            this.dueTime = temp[1];
+        }
     }
 
     /**
@@ -21,7 +34,8 @@ public class Deadline extends Task{
      */
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + by + ")" ;
+        return "[D]" + super.toString() + " (by: " + this.dueDate.format(DateTimeFormatter.ofPattern("dd MMM yyyy"))
+                + " " + this.dueTime  + ")" ;
     }
 
     /**
@@ -30,6 +44,6 @@ public class Deadline extends Task{
      */
     public String toSaveFormat() {
         return "D | " + (this.isDone ? 1 : 0) + " | " + this.description + " | "
-                + this.by;
+                + this.dueDate + " " + this.dueTime;
     }
 }
