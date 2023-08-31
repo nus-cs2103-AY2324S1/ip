@@ -27,6 +27,9 @@ public class Parser {
         } else if (type.equals("delete")) {
             return new DeleteCommand(arr[1]);
 
+        } else if (type.equals("find")) {
+            return new FindCommand(arr[1]);
+
         } else {
             throw new DukeException("Oops!! That does not seem to be a valid command!");
         }

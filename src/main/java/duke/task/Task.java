@@ -4,8 +4,8 @@ import duke.DukeException;
 
 public class Task {
 
-    protected String description;
-    protected boolean isDone;
+    private String description;
+    private boolean isDone;
     public static String line = "___________________________________\n";
 
     public Task(String description) {
@@ -58,5 +58,9 @@ public class Task {
 
     public String toStringFile() {
         return getStatus() + " | " + description;
+    }
+
+    public String getDescription() {
+        return this.description;
     }
 }

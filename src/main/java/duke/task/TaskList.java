@@ -55,6 +55,20 @@ public class TaskList {
         return newTask;
     }
 
+    public ArrayList<Task> findTask(String keyword) {
+        ArrayList<Task> resultList = new ArrayList<>();
+        Task[] temp = list.toArray(new Task[0]);
+
+        for (Task task : temp) {
+            String description = task.getDescription().stripTrailing().toLowerCase();
+            if (description.contains(keyword.stripTrailing().toLowerCase())) {
+                resultList.add(task);
+            }
+        }
+
+        return resultList;
+    }
+
     public Task getTask(int pos) {
         return list.get(pos);
     }

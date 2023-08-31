@@ -8,13 +8,15 @@ import java.time.format.DateTimeFormatter;
 import duke.DukeException;
 
 public class Event extends Task{
-    protected LocalDate from;
-    protected LocalDate to;
+    private String description;
+    private LocalDate from;
+    private LocalDate to;
 
     public Event(String description, LocalDate from, LocalDate to) {
         super(description);
         this.from = from;
         this.to = to;
+        this.description = description;
     }
 
     @Override
