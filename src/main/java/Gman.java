@@ -32,8 +32,7 @@ public class Gman {
         }
         writer.close();
     }
-
-
+    
     public static String noTasksInList() {
         if (taskList.size() == 0) {
             return ("There are no tasks in the list!");
