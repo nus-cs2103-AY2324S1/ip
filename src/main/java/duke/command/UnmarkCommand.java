@@ -31,12 +31,12 @@ public class UnmarkCommand extends Command {
      * @throws DukeException If the provided task index is invalid.
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) throws DukeException {
-        if (index >= 0 && index < taskList.size()) {
-            Task unmarkTask = taskList.get(index);
-            taskList.markNotDone(index);
+    public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
+        if (index >= 0 && index < tasks.size()) {
+            Task unmarkTask = tasks.get(index);
+            tasks.markNotDone(index);
             ui.printMessage("OK, I've marked this task as not done yet:\n\t",unmarkTask);
-            storage.saveTasksToFile(taskList);
+            storage.saveTasksToFile(tasks);
         } else {
             throw new DukeException("☹ OOPS!!! Please provide a valid task index to be unmarked.");
         }

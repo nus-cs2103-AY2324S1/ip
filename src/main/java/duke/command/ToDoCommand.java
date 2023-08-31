@@ -32,11 +32,11 @@ public class ToDoCommand extends Command {
      * @throws DukeException If there's an error during command execution.
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) throws DukeException {
+    public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
         ToDo todo = new ToDo(description);
-        taskList.add(todo);
-        ui.displayCompletionMessage(todo, taskList.size());
-        storage.saveTasksToFile(taskList);
+        tasks.add(todo);
+        ui.displayCompletionMessage(todo, tasks.size());
+        storage.saveTasksToFile(tasks);
     }
 
 }

@@ -48,7 +48,7 @@ public class TaskListTest {
         Task task = new ToDo("Go for a run");
         taskList.add(task);
         taskList.markDone(0);
-        assertTrue(task.getIsDone());
+        assertTrue(task.isDone());
     }
 
     @Test
@@ -58,6 +58,6 @@ public class TaskListTest {
         task.markDone(); // Mark the task as done initially
         taskList.add(task);
         taskList.markNotDone(0);
-        assertFalse(task.getIsDone());
+        assertFalse(task.isDone());
     }
 }

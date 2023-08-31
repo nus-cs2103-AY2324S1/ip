@@ -31,12 +31,12 @@ public class MarkCommand extends Command {
      * @throws DukeException If the provided task index is invalid.
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) throws DukeException {
-        if (index >= 0 && index < taskList.size()) {
-            Task markTask = taskList.get(index);
-            taskList.markDone(index);
+    public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
+        if (index >= 0 && index < tasks.size()) {
+            Task markTask = tasks.get(index);
+            tasks.markDone(index);
             ui.printMessage("Nice! I've marked this task as done:\n\t",markTask);
-            storage.saveTasksToFile(taskList);
+            storage.saveTasksToFile(tasks);
         } else {
             throw new DukeException("☹ OOPS!!! Please provide a valid task index to mark.");
         }

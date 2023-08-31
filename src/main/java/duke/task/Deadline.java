@@ -40,7 +40,7 @@ public class Deadline extends Task {
     @Override
     public String toFileString() {
         String type = "D";
-        return type + " | " + (getIsDone() ? "1" : "0") + " | " + this.description + " | " + this.deadlineBy;
+        return type + " | " + (isDone() ? "1" : "0") + " | " + this.description + " | " + this.deadlineBy;
     }
 
     /**

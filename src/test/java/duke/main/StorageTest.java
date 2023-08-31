@@ -44,7 +44,7 @@ public class StorageTest {
         assertEquals(expectedTaskList.size(), loadedTaskList.size());
         for (int i = 0; i < expectedTaskList.size(); i++) {
             assertEquals(expectedTaskList.get(i).getDescription(), loadedTaskList.get(i).getDescription());
-            assertEquals(expectedTaskList.get(i).getIsDone(), loadedTaskList.get(i).getIsDone());
+            assertEquals(expectedTaskList.get(i).isDone(), loadedTaskList.get(i).isDone());
         }
     }
 
@@ -75,7 +75,7 @@ public class StorageTest {
         assertEquals(taskListToSave.size(), loadedTaskList.size());
         for (int i = 0; i < taskListToSave.size(); i++) {
             assertEquals(taskListToSave.get(i).getDescription(), loadedTaskList.get(i).getDescription());
-            assertEquals(taskListToSave.get(i).getIsDone(), loadedTaskList.get(i).getIsDone());
+            assertEquals(taskListToSave.get(i).isDone(), loadedTaskList.get(i).isDone());
         }
     }
 }

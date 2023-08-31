@@ -8,22 +8,22 @@ import duke.task.Task;
  * Represents a list of tasks and provides methods for managing tasks.
  */
 public class TaskList {
-    private ArrayList<Task> taskList;
+    private ArrayList<Task> tasks;
 
     /**
      * Constructs an empty TaskList.
      */
     TaskList() {
-        this.taskList = new ArrayList<>();
+        this.tasks = new ArrayList<>();
     }
 
     /**
      * Constructs a TaskList with an existing list of tasks.
      *
-     * @param taskList An ArrayList of tasks to populate the TaskList.
+     * @param tasks An ArrayList of tasks to populate the TaskList.
      */
-    TaskList(ArrayList<Task> taskList) {
-        this.taskList = taskList;
+    TaskList(ArrayList<Task> tasks) {
+        this.tasks = tasks;
     }
 
     /**
@@ -32,7 +32,7 @@ public class TaskList {
      * @return An ArrayList containing all tasks in the TaskList.
      */
     public ArrayList<Task> getAllTasks() {
-        return taskList;
+        return tasks;
     }
 
     /**
@@ -42,7 +42,7 @@ public class TaskList {
      * @return The task at the specified index.
      */
     public Task get(int index) {
-        return taskList.get(index);
+        return tasks.get(index);
     }
 
     /**
@@ -51,7 +51,7 @@ public class TaskList {
      * @param task The task to be added.
      */
     public void add(Task task) {
-        taskList.add(task);
+        tasks.add(task);
     }
 
     /**
@@ -59,7 +59,9 @@ public class TaskList {
      *
      * @param index The index of the task to be deleted.
      */
-    public void delete(int index) { taskList.remove(index); }
+    public void delete(int index) {
+        tasks.remove(index);
+    }
 
     /**
      * Retrieves the total number of tasks in the TaskList.
@@ -67,7 +69,7 @@ public class TaskList {
      * @return The total number of tasks in the TaskList.
      */
     public int size() {
-        return taskList.size();
+        return tasks.size();
     }
 
     /**
@@ -76,7 +78,7 @@ public class TaskList {
      * @param index The index of the task to be marked as done.
      */
     public void markDone(int index) {
-        taskList.get(index).markDone();
+        tasks.get(index).markDone();
     }
 
     /**
@@ -85,7 +87,7 @@ public class TaskList {
      * @param index The index of the task to be marked as not done.
      */
     public void markNotDone(int index) {
-        taskList.get(index).markNotDone();
+        tasks.get(index).markNotDone();
     }
 
 }

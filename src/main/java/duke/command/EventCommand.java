@@ -38,11 +38,11 @@ public class EventCommand extends Command {
      * @throws DukeException If there's an error during command execution.
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) throws DukeException {
+    public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
         Event event = new Event(description, startDateTimeStr, endDateTimeStr);
-        taskList.add(event);
-        ui.displayCompletionMessage(event, taskList.size());
-        storage.saveTasksToFile(taskList);
+        tasks.add(event);
+        ui.displayCompletionMessage(event, tasks.size());
+        storage.saveTasksToFile(tasks);
     }
 
 }
