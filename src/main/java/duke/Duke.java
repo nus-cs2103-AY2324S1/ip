@@ -1,13 +1,16 @@
 package duke;
 
 import java.util.Scanner;
+
+/**
+ * Represents the main class where the chatbot will run.
+ */
 public class Duke {
     private TaskList fullList;
     private final FileStorage fileStorage;
     private Parser parser;
     private static String filePath = "./data/duke.txt";
     private Ui ui;
-
 
     public Duke(String filePath) {
         this.fileStorage = new FileStorage(filePath);
