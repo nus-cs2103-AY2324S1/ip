@@ -4,21 +4,24 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 /**
- * The Deadlines class represents a task with a specific deadline.
+ * The Event class represents a task with a specific start and end time.
  * It extends the Task class and provides methods to mark and unmark the task as done.
  */
-public class Deadlines extends Task {
-    private final LocalDate deadline;
+public class Event extends Task {
+    private final LocalDate start;
+    private final LocalDate end;
 
     /**
-     * Constructs a Deadlines instance with the specified task description and deadline.
+     * Constructs a Event instance with the specified task description, start time, and end time.
      *
      * @param task The description of the task.
-     * @param deadline The deadline for the task.
+     * @param start The start time for the event.
+     * @param end The end time for the event.
      */
-    public Deadlines(String task, LocalDate deadline) {
+    public Event(String task, LocalDate start, LocalDate end) {
         super(task);
-        this.deadline = deadline;
+        this.start = start;
+        this.end = end;
     }
 
     @Override
@@ -27,18 +30,17 @@ public class Deadlines extends Task {
         System.out.println(super.line() + "Okay, I have marked this task as completed!" + "\n" + this.toString());
         System.out.println(super.line());
     }
-
     @Override
     public void unMark() {
         this.done = false;
         System.out.println(super.line() + "Okay, I have marked this task as incomplete!" + "\n" + this.toString());
         System.out.println(super.line());
     }
-
     @Override
     public String toString() {
         String checkbox = this.done ? "[X] " : "[ ] ";
-        String submitDate = "(by: " + deadline.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
-        return "[D]" + checkbox + task + " " + submitDate;
+        String startTime = "(from: " + start.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
+        String endTime = "to: " + end.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
+        return "[E]" + checkbox + task + " " + startTime + " " + endTime;
     }
 }
