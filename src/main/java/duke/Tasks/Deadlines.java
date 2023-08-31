@@ -5,13 +5,17 @@ import java.time.format.DateTimeFormatter;
 
 import duke.FormatterDate;
 
+/**
+ * is a subclass of the task object
+ */
 public class Deadlines extends Task {
     protected String end;
     protected LocalDate date;
 
     /**
-     * @param description
-     * @param originalEnd
+     * Constructor of deadLine
+     * @param description is the name of the deadline
+     * @param originalEnd is the end date of the deadline
      */
     public Deadlines(String description, String originalEnd) {
         super(description);
@@ -23,6 +27,10 @@ public class Deadlines extends Task {
         }
     }
 
+    /**
+     * String of the deadLine object
+     * @return a string
+     */
     @Override
     public String toString() {
         return String.format(
