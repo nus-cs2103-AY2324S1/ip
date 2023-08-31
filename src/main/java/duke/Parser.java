@@ -3,7 +3,12 @@ package duke;
 import java.time.LocalDateTime;
 
 public class Parser {
-    // Parses the response given by the user
+    /**
+     * Parses the response given by the user.
+     *
+     * @param s The response of the user.
+     * @param tasks The current Tasklist.
+     */
     public static void parseResponse(String s, Tasklist tasks) {
         if (s.equals("list")) {
             Ui.listTasks(tasks);

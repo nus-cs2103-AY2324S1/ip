@@ -13,7 +13,13 @@ public class DateManager {
     private final static String DATETIME_STORAGE_FORMAT = "ddMMyyyy HHmm";
     private final static String STORAGE_DATE_FORMAT = "ddMMyyyy";
 
-    // Parse the date and time strings into a dateTime object
+    /**
+     * Parses the date and time strings into a dateTime object.
+     *
+     * @param dateString String representing the date.
+     * @param timeString String representing the time.
+     * @return A dateTime object with the specified date and time.
+     */
     public static LocalDateTime parseDateString(String dateString, String timeString) {
         LocalDate date = null;
         LocalTime time = null;
@@ -29,7 +35,13 @@ public class DateManager {
         return dateTime;
     }
 
-    // Parse the date and time strings from storage into a dateTime object
+    /**
+     * Parses the date and time strings from storage into a dateTime object.
+     *
+     * @param dateString String representing the date.
+     * @param timeString String representing the time.
+     * @return A dateTime object with the specified date and time.
+     */
     public static LocalDateTime parseStorageDateString(String dateString, String timeString) {
         LocalDate date = null;
         LocalTime time = null;
@@ -45,12 +57,21 @@ public class DateManager {
         return dateTime;
     }
 
-    // Return String representation of a dateTime in the chatbot
+    /**
+     * Returns the String representation of a dateTime object in the chatbot.
+     *
+     * @param dateTime The dateTime object to be converted into a String.
+     * @return A String representing the dateTime object.
+     */
     public static String dateTimeToString(LocalDateTime dateTime) {
         return dateTime.format(DateTimeFormatter.ofPattern(DATETIME_OUTPUT_FORMAT));
     }
 
-    // Return String representation of a dateTime in the storage
+    /**
+     * Returns the String representation of a dateTime object in the storage.
+     * @param dateTime The dateTime object to be converted into a String.
+     * @return A String representing the dateTime object in the storage.
+     */
     public static String dateTimeToStringStorage(LocalDateTime dateTime) {
         return dateTime.format(DateTimeFormatter.ofPattern(DATETIME_STORAGE_FORMAT));
     }

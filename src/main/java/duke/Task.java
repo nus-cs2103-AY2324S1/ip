@@ -2,41 +2,66 @@ package duke;
 
 public class Task {
     private String name;
-    private boolean done = false;
+    private boolean isDone = false;
 
-    // Constructor for duke.Task
+    /**
+     * Constructor for Task.
+     *
+     * @param name Description of Task.
+     */
     public Task(String name) {
         this.name = name;
     }
 
-    // Constructor for duke.Task with done status
-    public Task(String name, boolean done) {
+    /**
+     * Constructor for Task if it is supplied with a done status.
+     *
+     * @param name Description of Task.
+     * @param isDone Boolean representing whether the task is done.
+     */
+    public Task(String name, boolean isDone) {
         this.name = name;
-        this.done = done;
+        this.isDone = isDone;
     }
 
-    // Checks if the task is done.
+    /**
+     * Checks if the task is done.
+     *
+     * @return Boolean representing whether the task is done.
+     */
     public boolean isDone() {
-        return done;
+        return isDone;
     }
 
-    // Gets string representation of the task
+    /**
+     * Gets the String representation of the Task.
+     *
+     * @return String representation of the Task.
+     */
     public String toString() {
-        String checkbox = done ? "[X] " : "[ ] ";
+        String checkbox = isDone ? "[X] " : "[ ] ";
         return checkbox + name;
     }
 
-    // Marks task as done
+    /**
+     * Marks Task as done.
+     */
     public void markDone() {
-        done = true;
+        isDone = true;
     }
 
-    // Marks task as undone
+    /**
+     * Marks task as undone.
+     */
     public void markUndone() {
-        done = false;
+        isDone = false;
     }
 
-    // Gets name of duke.Task
+    /**
+     * Gets the name of the Task.
+     *
+     * @return Name of the Task.
+     */
     public String getName() {
         return this.name;
     }

@@ -13,7 +13,11 @@ public class Storage {
     private final String filePath;
     private final File hardDiskFile;
 
-    // Constructor for storage
+    /**
+     * Constructor for Storage.
+     *
+     * @param filePath Path of file that will be used as storage.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
         this.hardDiskFile = new File(filePath);
@@ -31,7 +35,11 @@ public class Storage {
         }
     }
 
-    // Returns an ArrayList of all tasks in the storage
+    /**
+     * Returns an Arraylist of all tasks in the storage.
+     *
+     * @return Arraylist of tasks in the storage.
+     */
     public ArrayList<Task> getTasks() {
         createFile();
 
@@ -70,7 +78,11 @@ public class Storage {
         return tasks;
     }
 
-    // Updates the storage with the new task list
+    /**
+     * Updates the storage with the new Tasklist.
+     *
+     * @param tasks The updated Tasklist.
+     */
     public void updateTasks(ArrayList<Task> tasks) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
             for (Task task : tasks) {
