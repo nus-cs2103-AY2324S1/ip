@@ -1,4 +1,4 @@
-package Moss;
+package moss;
 
 import java.time.LocalDate;
 
@@ -6,8 +6,8 @@ import java.time.LocalDate;
  * Represents a task with a description and completion status.
  */
 public class Task {
-    protected String description;
-    protected boolean isDone;
+    public String description;
+    public boolean isDone;
 
 
     /**
@@ -57,11 +57,11 @@ public class Task {
      * @return The formatted string.
      */
     public String toString() {
-        return "" + getStatusIcon() + " | " + this.description;
+        return getStatusIcon() + " | " + this.description;
     }
 
     public String toString(String x) {
-        return "" + getStatusIcon() + " | " + this.description;
+        return getStatusIcon() + " | " + this.description;
     }
 }
 

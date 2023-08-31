@@ -1,6 +1,8 @@
-package Moss;
+package moss;
 
-public class ToDo extends Task{
+import moss.Task;
+
+public class ToDo extends Task {
     /**
      * Constructs a Moss.ToDo object with the given description.
      *

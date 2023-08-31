@@ -1,9 +1,9 @@
-package Moss;
+package moss;
 
 public class UI {
     public void greeting(){
         String greet = "____________________________________________________________\n"
-                + "Hello! I'm Moss.Moss \n"
+                + "Hello! I'm Moss \n"
                 + "What can I do for you? \n"
                 + "____________________________________________________________\n";
         System.out.println(greet);

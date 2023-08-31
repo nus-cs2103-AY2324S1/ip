@@ -1,4 +1,4 @@
-package Moss;
+package moss;
 
 import java.io.*;
 import java.nio.file.Files;
@@ -11,8 +11,17 @@ import java.util.Objects;
 public class Storage {
     private final String filePath;
 
-    public Storage() {
-        this.filePath = "./data/Moss.Moss.txt";
+    public Storage() throws MossException{
+        this.filePath = "./data/Moss.txt";
+        File file = new File(filePath);
+        if (!file.exists()) {
+            try {
+                Files.createDirectories(Path.of(this.filePath).getParent());
+                Files.createFile(Path.of(this.filePath));
+            } catch (IOException e) {
+                throw new MossException("Could not create");
+            }
+        }
     }
 
     public List<Task> loadTasks() throws MossException{

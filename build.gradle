@@ -10,6 +10,7 @@ repositories {
 
 dependencies {
     testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.10.0'
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.8.1'
     testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.10.0'
 }
 
@@ -25,18 +26,20 @@ test {
         showStackTraces true
         showStandardStreams = false
     }
+
 }
 
 application {
-    mainClass.set("seedu.duke.Duke")
+    mainClass.set("moss.Moss")
 }
 
 shadowJar {
-    archiveBaseName = "duke"
+    archiveBaseName = "moss.Moss"
     archiveClassifier = null
     dependsOn("distZip", "distTar")
 }
 
 run{
+    enableAssertions = true
     standardInput = System.in
 }

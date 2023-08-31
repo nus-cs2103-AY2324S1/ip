@@ -1,4 +1,1 @@
-T | X | read book
-D |   | return book | 2019-12-01
-E |   | project meeting | 2019-12-01 | 2019-12-01
-T | X | join sports club
+T |   | Buy groceries

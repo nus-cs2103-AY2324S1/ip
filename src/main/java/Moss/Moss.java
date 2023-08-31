@@ -1,4 +1,4 @@
-package Moss;
+package moss;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -17,13 +17,12 @@ public class Moss {
     public static void main(String[] args) throws MossException {
         Storage storage = new Storage();
 
-
         try {
             things = (ArrayList<Task>) storage.loadTasks();
         } catch (Exception e) {
             throw new MossException("Failed to load tasks");
         }
-        things = (ArrayList<Task>) storage.loadTasks();
+
         UI ui = new UI();
         ui.greeting();
 
