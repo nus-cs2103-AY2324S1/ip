@@ -3,8 +3,6 @@ import java.util.Scanner;
 import java.util.Map;
 import java.io.IOException;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 
 import utility.DateTimeParser;
 import utility.TextFileHandler;
@@ -19,12 +17,11 @@ public class Thorndike {
 
     public Thorndike() {
         this.scanner = new Scanner(System.in);
-        this.taskList = new TaskList();
         this.running = true;
 
         try {
             TextFileHandler.createFile(TASK_FILE_PATH);
-            readTasksFromFile();
+            this.taskList = Storage.readFromFile();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -132,7 +129,7 @@ public class Thorndike {
         echo("Meow! I've marked this task as done:");
         taskList.markDone(idx - 1);
         echo(taskList.getTask(idx - 1).toString());
-        writeTasksToFile();
+        Storage.writeToFile(taskList);
     }
 
     /**
@@ -145,7 +142,7 @@ public class Thorndike {
         echo("Meow! I've marked this task as not done yet:");
         taskList.markNotDone(idx - 1);
         echo(taskList.getTask(idx - 1).toString());
-        writeTasksToFile();
+        Storage.writeToFile(taskList);
     }
 
     /**
@@ -159,7 +156,7 @@ public class Thorndike {
         echo("Got it. I've added this task:");
         echo(task.toString());
         echo(String.format("Now you have %d tasks in the list.", taskList.size()));
-        writeTasksToFile();
+        Storage.writeToFile(taskList);
     }
 
     /**
@@ -173,7 +170,7 @@ public class Thorndike {
         echo("Meow. I've removed this task:");
         echo(deleted.toString());
         echo(String.format("Now you have %d tasks in the list.", taskList.size()));
-        writeTasksToFile();
+        Storage.writeToFile(taskList);
     }
 
     /**
@@ -232,82 +229,6 @@ public class Thorndike {
         }
 
         return idx;
-    }
-
-    public void readTasksFromFile() {
-        try {
-            String[] lines = TextFileHandler.readLines(TASK_FILE_PATH);
-            for (String line : lines) {
-                String[] task = line.split(TASK_FILE_SEPARATOR);
-                String taskType = task[2];
-                String status = task[1];
-                String description = task[0];
-
-                if (taskType.equals("T")) {
-                    addTaskSilent(new Todo(description));
-                } else if (taskType.equals("D")) {
-                    String time = task[3];
-                    addTaskSilent(new Deadline(description, DateTimeParser.parse(time)));
-                } else if (taskType.equals("E")) {
-                    String from = task[3];
-                    String to = task[4];
-                    addTaskSilent(new Event(description, DateTimeParser.parse(from),
-                            DateTimeParser.parse(to)));
-                }
-
-                if (status.equals("1")) {
-                    markDoneSilent(taskList.size());
-                }
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void writeTasksToFile() {
-        String output = "";
-
-        for (int i = 0; i < taskList.size(); i++) {
-            Task task = taskList.getTask(i);
-            output += task.getDescription();
-
-            if (task.isDone()) {
-                output += TASK_FILE_SEPARATOR + "1";
-            } else {
-                output += TASK_FILE_SEPARATOR + "0";
-            }
-
-            if (task instanceof Todo) {
-                output += TASK_FILE_SEPARATOR + "T";
-            } else if (task instanceof Deadline) {
-                output += TASK_FILE_SEPARATOR + "D";
-                Deadline deadline = (Deadline) task;
-                output += TASK_FILE_SEPARATOR
-                        + deadline.getCompleteBy().format(DateTimeFormatter.ofPattern(TASK_FILE_TB_FORMAT));
-            } else if (task instanceof Event) {
-                output += TASK_FILE_SEPARATOR + "E";
-                Event event = (Event) task;
-                output += TASK_FILE_SEPARATOR
-                        + event.getStartTime().format(DateTimeFormatter.ofPattern(TASK_FILE_TB_FORMAT));
-                output += TASK_FILE_SEPARATOR
-                        + event.getEndTime().format(DateTimeFormatter.ofPattern(TASK_FILE_TB_FORMAT));
-            }
-            output += System.lineSeparator();
-        }
-
-        try {
-            TextFileHandler.writeText(TASK_FILE_PATH, output);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void addTaskSilent(Task task) {
-        this.taskList.addTask(task);
-    }
-
-    private void markDoneSilent(int idx) {
-        taskList.getTask(idx - 1).setDone();
     }
 
     public static void main(String[] args) {

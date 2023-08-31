@@ -8,7 +8,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 
-public class TextFileHandler {
+public abstract class TextFileHandler {
 
     /**
      * Creates a .txt file along with the necessary directories.
