@@ -14,10 +14,5 @@ public class Storage {
     public void writeListToFile(TaskList taskList) {
         taskFile.writeListToFile(taskList.getList());
     }
-
-    public void load() {
-
-    }
-
 }
 
