@@ -2,6 +2,7 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -33,7 +34,7 @@ public class FileManager {
                         }
                         break;
                     case "D":
-                        pastTask = new Deadline(pastTaskDetails[2], pastTaskDetails[3]);
+                        pastTask = new Deadline(pastTaskDetails[2], LocalDate.parse(pastTaskDetails[3]));
                         taskList.add(pastTask);
                         if (pastTaskDetails[1].equals("1")) {
                             pastTask.setTaskState(true);

@@ -1,2 +1,0 @@
-E | 0 | project meeting | Mon 2pm | 4pm
-T | 1 | borrow book

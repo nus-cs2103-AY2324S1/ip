@@ -1,3 +1,4 @@
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -20,7 +21,7 @@ public class Duke {
         System.out.println(formatTask(task));
     }
 
-    private static void addDeadline(String description, String by) {
+    private static void addDeadline(String description, LocalDate by) {
         Task task = new Deadline(description, by);
         taskList.add(task);
         System.out.println(formatTask(task));
@@ -102,7 +103,7 @@ public class Duke {
                         case "deadline":
                             try{
                                 String[] deadlineTask = words[1].split(" /by ");
-                                addDeadline(deadlineTask[0], deadlineTask[1]);
+                                addDeadline(deadlineTask[0], LocalDate.parse(deadlineTask[1]));
                                 break;
                             } catch (ArrayIndexOutOfBoundsException e) {
                                 throw new ChatException("☹ OOPS!!! Please specify the deadline.");
