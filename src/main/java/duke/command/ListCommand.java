@@ -48,13 +48,6 @@ public class ListCommand extends Command {
 			}
 		}
 
-		List<String> toPrint = new ArrayList<>();
-		toPrint.add("Here are the tasks in your list:");
-		for (int i = 1; i <= taskList.size(); ++i) {
-			if (taskList.getTask(i).filter(beforeTime)) {
-				toPrint.add(String.format("%d.%s", toPrint.size(), taskList.getTask(i).toString()));
-			}
-		}
-		out.print(toPrint);
-	}
+		out.print(taskList.filter(beforeTime));
+  }
 }

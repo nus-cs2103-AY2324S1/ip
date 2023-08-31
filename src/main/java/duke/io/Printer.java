@@ -2,9 +2,14 @@ package duke.io;
 
 import duke.exception.DukeException;
 import duke.exception.DukeSideEffectException;
+import duke.task.Task;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 /**
  * A Printer class that helps format the output to the terminal, cache output
@@ -44,13 +49,10 @@ public class Printer {
 		messages.add(String.format("%s %s", exceptionPrepend, e.getMessage()));
 	}
 
-	/**
-	 * Stores the output to print. Note that the output is cached and not printed
-	 * straight away for
-	 * formatting purposes.
-	 */
-	public void print(List<String> l) {
-		l.forEach((s) -> print(s));
+	public void print(Stream<Task> tasks) {
+		print("Here are the tasks in your list:");
+		List<Task> l = tasks.collect(Collectors.toList());
+		IntStream.range(0, l.size()).forEach((i) -> print(String.format("%d.%s", i+1, l.get(i))));
 	}
 
 	/**

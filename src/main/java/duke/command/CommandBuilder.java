@@ -77,30 +77,24 @@ public class CommandBuilder {
 		return new CommandBuilder(command, name, arguments);
 	}
 
-	/**
-	 * Returns a Command based on the parsed arguments
-	 *
-	 * @param out      Printer to print to
-	 * @param taskList Tasklist to read and update
-	 * @param savefile File to write tasklist to
-	 * @return a command object
-	 */
-	public Command toCommand(Printer out, TaskList taskList, FileIO savefile) {
-		switch (command) {
-			case Command.LIST:
-				return new ListCommand(out, taskList, savefile, arguments.getOrDefault("before", ""));
-			case Command.MARK:
-				return new MarkCommand(out, taskList, savefile, name);
-			case Command.UNMARK:
-				return new UnmarkCommand(out, taskList, savefile, name);
-			case Command.TODO:
-			case Command.DEADLINE:
-			case Command.EVENT:
-				return new AddTaskCommand(out, taskList, savefile, command, name, arguments);
-			case Command.DELETE:
-				return new DeleteCommand(out, taskList, savefile, name);
-			default:
-				return new UnidentifiedCommand(out, taskList, savefile);
-		}
-	}
+  public Command toCommand(Printer out, TaskList taskList, FileIO savefile) {
+    switch (command) {
+      case Command.LIST:
+        return new ListCommand(out, taskList, savefile, arguments.getOrDefault("before", ""));
+      case Command.MARK:
+        return new MarkCommand(out, taskList, savefile, name);
+      case Command.UNMARK:
+        return new UnmarkCommand(out, taskList, savefile, name);
+      case Command.TODO:
+      case Command.DEADLINE:
+      case Command.EVENT:
+        return new AddTaskCommand(out, taskList, savefile, command, name, arguments);
+      case Command.DELETE:
+        return new DeleteCommand(out, taskList, savefile, name);
+			case Command.FIND:
+				return new FindCommand(out, taskList, savefile, name);
+      default:
+        return new UnidentifiedCommand(out, taskList, savefile);
+    }
+  }
 }
