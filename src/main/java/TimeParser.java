@@ -1,31 +1,44 @@
+import java.sql.Date;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
 public class TimeParser {
-    private static String parseDate(String input) {
+    public static String parseDateOut(String input) {
         LocalDate date = LocalDate.parse(input);
         return date.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
     }
 
-    private static  String parseTime(String input) {
+    public static String parseDateForFile(String input) {
+        DateTimeFormatter format = DateTimeFormatter.ofPattern("MMM d yyyy");
+        LocalDate date = LocalDate.parse(input, format);
+        return date.toString();
+    }
+
+    public static String parseTimeOut(String input) {
         LocalTime time = LocalTime.parse(input,
                 DateTimeFormatter.ofPattern("HHmm"));
         return time.format(DateTimeFormatter.ofPattern("h:mm a"));
     }
 
-    public static String parseInput(String input) {
-        Scanner sc = new Scanner(input);
-        String formattedResult = parseDate(sc.next());
-        if (sc.hasNext()) {
-            String time = sc.next();
-            String hour = time.substring(0, 2);
-            String min = time.substring(2);
-            String formattedTime = parseTime(hour + min);
-            formattedResult += (" " + formattedTime);
+    public static String parseTimeForFile(String input) {
+        if (input == null) {
+            return "";
+        } else {
+            DateTimeFormatter format = DateTimeFormatter.ofPattern("h:mm a");
+            LocalTime time = LocalTime.parse(input, format);
+            return " " + time.format(DateTimeFormatter.ofPattern("HHmm"));
         }
-        return formattedResult;
+    }
+
+    public static String[] parseInputOut(String input) {
+        String[] out = new String[2];
+        String[] dateTime = input.split("\\s+");
+        out[0] = parseDateOut(dateTime[0]);
+        if (dateTime.length == 2) {
+            out[1] = parseTimeOut(dateTime[1]);
+        }
+        return out;
     }
 }

@@ -1,31 +1,40 @@
-public class Deadline extends Task {
-    String due;
+import java.time.LocalDate;
+import java.time.LocalTime;
 
-    public Deadline(String d, String due) {
+public class Deadline extends Task {
+    String date;
+
+    String time;
+
+    public Deadline(String d, String date, String time) {
         super(d);
-        this.due = due;
+        this.date = date;
+        this.time = time;
     }
 
-    public Deadline(String d, String due, boolean completed) {
+    public Deadline(String d, String date, String time, boolean completed) {
         super(d);
-        this.due = due;
+        this.date = date;
+        this.time = time;
         this.completed = completed;
     }
 
     @Override
     public String toString() {
         String marker = "[ ]";
+        String timeString;
+        timeString = (this.time == null) ? "" : (" " + this.time);
         if (this.completed) marker = "[X]";
         return  "[D]" + marker + " " +
                 this.description +
-                "(by: " + this.due + ")\n";
+                " (by: " + this.date + timeString + ")\n";
     }
 
     @Override
     public String writeToFile() {
         int mark = completed ? 1 : 0;
-        String data = 2 + " " + mark + description + "/" + due +
-                System.lineSeparator();
+        String data = 2 + " " + mark + description + "/" + TimeParser.parseDateForFile(this.date) +
+                TimeParser.parseTimeForFile(this.time) + System.lineSeparator();
         return data;
     }
 }
