@@ -1,3 +1,9 @@
+import Exceptions.*;
+import Tasks.Deadline;
+import Tasks.Event;
+import Tasks.Task;
+import Tasks.Todo;
+
 public class Parser {
     public static Task parseTaskFromFileString(String lineFromFile) throws DukeException {
         Task task;
@@ -31,7 +37,7 @@ public class Parser {
                 break;
             default:
                 // Line does not start with a task value (T,D,E), file corrupted, throw error
-                throw new IllegalArgumentException("Invalid Task Type");
+                throw new IllegalArgumentException("Invalid Tasks.Task Type");
         }
         if (isDone) task.markAsDone();
         return task;
@@ -58,13 +64,13 @@ public class Parser {
 
     public static int getTaskId(String inputString) throws DukeException {
         String[] inputParts = inputString.split(" ", 2);
-        // throws a NoTaskFoundException if no task is found
+        // throws a Exceptions.NoTaskFoundException if no task is found
         if (inputParts.length != 2) throw new NoTaskFoundException();
         try {
             int taskId = Integer.parseInt(inputParts[1].trim());
             return taskId - 1;
         } catch (NumberFormatException e) {
-            // throws InvalidTaskException if the taskId is not an integer
+            // throws Exceptions.InvalidTaskException if the taskId is not an integer
             throw new InvalidTaskException();
         }
     }

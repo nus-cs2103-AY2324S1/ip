@@ -1,3 +1,10 @@
+import Exceptions.DukeException;
+import Exceptions.InvalidTaskException;
+import Tasks.Deadline;
+import Tasks.Event;
+import Tasks.Task;
+import Tasks.Todo;
+
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -21,7 +28,7 @@ public class TaskList {
         } catch (FileNotFoundException e) {
             System.out.println("Error saving tasks to file" + e.getMessage());
         }
-        System.out.println("Task saved successfully");
+        System.out.println("Tasks.Task saved successfully");
     }
     public void addTask(String userInput) throws DukeException {
         String inputCommand = Parser.getCommand(userInput);
@@ -38,7 +45,7 @@ public class TaskList {
                 task = new Event(taskDesc);
                 break;
             default:
-                // Throw InvalidCommandException as invalid command was entered
+                // Throw Exceptions.InvalidCommandException as invalid command was entered
                 throw new DukeException("Error, see 'help' for a list of commands");
         }
         // Add task to task list
