@@ -2,9 +2,9 @@ package duke;
 
 import java.util.ArrayList;
 
-import duke.Tasks.TaskList;
+import duke.tasks.TaskList;
 
-import duke.Tasks.Task;
+import duke.tasks.Task;
 
 public class UI {
     public String name;
@@ -66,5 +66,10 @@ public class UI {
     public void noFile() {
         printLine();
         System.out.println("OOPS!!! There is no file to load.");
+    }
+
+    public void findTask() {
+        printLine();
+        System.out.println("Here are the matching tasks in your list:");
     }
 }

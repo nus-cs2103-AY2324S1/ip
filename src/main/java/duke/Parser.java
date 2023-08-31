@@ -2,11 +2,11 @@ package duke;
 
 import java.io.IOException;
 
-import duke.Exceptions.EmptyDetailsOfTaskError;
-import duke.Exceptions.WrongMarkException;
-import duke.Tasks.TaskList;
-import duke.Tasks.Task;
-import duke.Exceptions.UnknownCommandException;
+import duke.exceptions.EmptyDetailsOfTaskError;
+import duke.exceptions.WrongMarkException;
+import duke.tasks.TaskList;
+import duke.tasks.Task;
+import duke.exceptions.UnknownCommandException;
 
 public class Parser {
     public static boolean parse(String command, TaskList taskList, UI helper, Storage storage)
@@ -20,6 +20,11 @@ public class Parser {
                 } catch (IOException e) {
                     System.out.println("OOPS!!! There is no file to save.");
                 }
+                break;
+            case "find":
+                helper.findTask();
+                String keyword = splittedCommand[1];
+                taskList.findTaskFromTaskList(keyword);
                 break;
             case "list":
                 helper.printLine();

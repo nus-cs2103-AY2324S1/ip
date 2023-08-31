@@ -6,9 +6,9 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 
-import duke.Tasks.TaskList;
+import duke.tasks.TaskList;
 
-import duke.Tasks.Task;
+import duke.tasks.Task;
 
 public class Storage {
     private String filePath;

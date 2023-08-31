@@ -1,4 +1,4 @@
-package duke.Tasks;
+package duke.tasks;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -29,6 +29,16 @@ public class TaskList extends ArrayList<Task> {
         System.out.println("Here are the tasks in your list:");
         for (int length = 1; length < this.size() + 1; length += 1) {
             System.out.println(length + "." + this.get(length - 1));
+        }
+    }
+
+    public void findTaskFromTaskList(String keyword) {
+        int count = 1;
+        for (Task task : this) {
+            if (task.toString().contains(keyword)) {
+                System.out.println(count + ": " + task);
+                count += 1;
+            }
         }
     }
 }
