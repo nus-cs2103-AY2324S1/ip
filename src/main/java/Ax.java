@@ -1,13 +1,11 @@
 import java.io.File;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.MissingFormatArgumentException;
-import java.util.Scanner;
+import java.util.*;
 
 public class Ax {
 
@@ -170,10 +168,52 @@ public class Ax {
         return false;
     }
 
+    /**
+     * Reads the save file and stores the previous save into the current list
+     */
+    public static void readSave() {
+        // read save file
+        try {
+            Path saveFilepath = Paths.get("data/save.txt");
+            File saveFile = saveFilepath.toFile();
+            Scanner scanner = new Scanner(saveFile);
+            // Declaring loop variable
+            int i;
+            // Holds true till there is nothing to read
+            while (scanner.hasNextLine()){
+                String info = scanner.nextLine();
+                // check if index 5 is blank space
+                boolean marked = info.charAt(5) == ' ';
+                // check if index 1 is T D or E
+                int startidx = 8;
+                if (info.charAt(1) == 'T') {
+                    listItems.add(new Todos(info.substring(startidx)));
+                } else if (info.charAt(1) == 'D') {
+                    // find first ( in info
+                    int idx = info.indexOf('(') - 1;
+                    int end = info.indexOf(')');
+                    listItems.add(new Deadlines(info.substring(startidx, idx), info.substring(idx + 5, end)));
+                } else if (info.charAt(1) == 'E') {
+                    // find first ( in info
+                    int idx = info.indexOf('(') - 1;
+                    int end = info.indexOf(')');
+                    int fromend = info.indexOf("from: ") + 6;
+                    int toend = info.indexOf("to: ") + 4;
+                    int tostart = info.indexOf("to: ") - 1;
+                    listItems.add(new Events(info.substring(startidx,idx), info.substring(fromend, tostart), info.substring(toend, end)));
+                }
+
+            }
+        } catch (Exception e) {
+            System.out.println("error = " + e);
+        }
+    }
+
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
         greet();
+        readSave();
         while (true) {
             boolean done = getInput(scanner);
             if (done) {
