@@ -10,6 +10,7 @@ import duke.command.MarkCommand;
 import duke.command.StartCommand;
 import duke.command.ToDoCommand;
 import duke.command.UnmarkCommand;
+import duke.command.FindCommand;
 
 import duke.exception.DukeException;
 
@@ -72,6 +73,9 @@ public class Parser {
             case "DEADLINE":
                 Command deadLineCommand = new DeadlineCommand(taskList, inp);
                 return deadLineCommand;
+            case "FIND":
+                Command findCommand = new FindCommand(taskList, inp);
+                return findCommand;
             default:
                 throw new DukeException("I do not know what you are saying.");
         }

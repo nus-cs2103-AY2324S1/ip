@@ -7,7 +7,11 @@ import duke.tasks.ToDo;
 
 import duke.exception.DukeException;
 
+import duke.tasks.Task;
+
 import java.util.ArrayList;
+
+import java.util.List;
 
 /**
  * Represents the list of tasks in the chatbot.
@@ -107,5 +111,16 @@ public class TaskList {
      */
     public void set(ArrayList<Task> taskList) {
         this.taskList = taskList;
+    }
+
+    public void find(String lookupString) {
+        List<Task> matchedTasks = taskList.stream()
+                .filter(task -> task.getDescription().contains(lookupString)).toList();
+
+        for (int i = 0; i < matchedTasks.size(); i++) {
+            System.out.println(i+1 + ": " + taskList.get(i));
+        }
+
+
     }
 }
