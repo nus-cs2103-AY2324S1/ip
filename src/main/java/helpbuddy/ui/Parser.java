@@ -8,6 +8,7 @@ import helpbuddy.command.AddCommand;
 import helpbuddy.command.Command;
 import helpbuddy.command.DeleteCommand;
 import helpbuddy.command.ExitCommand;
+import helpbuddy.command.FindCommand;
 import helpbuddy.command.ListCommand;
 import helpbuddy.command.MarkCommand;
 import helpbuddy.command.UnmarkCommand;
@@ -25,8 +26,8 @@ public class Parser {
      * @param userCommand the String that user keys into HelpBuddy.
      * @return the Command to be executed by HelpBuddy.
      * @throws HelpBuddyException if userCommand is invalid.
-     * @throws DateTimeParseException if the time keyed in for Deadline and Event Task is not in the
-     * format of dd/MM/yy HH:mm.
+     * @throws DateTimeParseException if the time keyed in for Deadline and Event Task is
+     *     not in the format of dd/MM/yy HH:mm.
      */
     public static Command parseCommand(String userCommand) throws HelpBuddyException, DateTimeParseException {
         String[] userInput = userCommand.split(" ", 2);

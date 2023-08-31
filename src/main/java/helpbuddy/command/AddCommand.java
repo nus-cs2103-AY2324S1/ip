@@ -1,7 +1,5 @@
 package helpbuddy.command;
 
-import java.io.IOException;
-
 import helpbuddy.storage.Storage;
 import helpbuddy.task.Task;
 import helpbuddy.task.TaskList;

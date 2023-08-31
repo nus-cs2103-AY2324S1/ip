@@ -60,7 +60,7 @@ public class TaskList {
     /**
      * Finds Task objects that has String s in description of Task.
      * @param s String that represents the description of Task to find in taskList.
-     * @return an ArrayList<Task> with Task objects description matching String s.
+     * @return an ArrayList with Task objects description matching String s.
      */
     public ArrayList<Task> findCommonTask(String s) {
         ArrayList<Task> commonTaskList = new ArrayList<>();

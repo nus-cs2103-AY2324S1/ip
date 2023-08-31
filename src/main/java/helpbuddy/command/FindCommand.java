@@ -28,7 +28,7 @@ public class FindCommand extends Command {
     }
 
     /**
-     * Finds an ArrayList<Task> of Task objects in taskList that has taskDescription and calls ui to print the list.
+     * Finds an ArrayList of Task objects in taskList that has taskDescription and calls ui to print the list.
      * @param taskList the taskList that stores Task objects.
      * @param ui the ui that prints the corresponding response from HelpBuddy chatbot.
      * @param storage the storage that loads and saves data.
