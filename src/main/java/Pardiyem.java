@@ -1,25 +1,43 @@
-import pardiyem.logic.Pardi;
 import pardiyem.parser.Parser;
 
-import java.util.ArrayList;
-import java.util.Scanner;
+import java.io.IOException;
 
+import pardiyem.command.Command;
+import pardiyem.storage.Storage;
+import pardiyem.ui.Ui;
+import pardiyem.task.TaskList;
+ 
 public class Pardiyem {
-    public static void main(String[] args) {
-        Pardi pardiyem = new Pardi();
-        Scanner scanner = new Scanner(System.in);
-        pardiyem.greeting();
-        while (scanner.hasNext()) {
+
+    private Storage storage;
+    private TaskList tasks;
+    private Ui ui;
+
+    public Pardiyem() throws IOException {
+        ui = new Ui();
+        storage = new Storage();
+        tasks = storage.load();
+    }
+
+    public void run() {
+        ui.showGreeting();
+        boolean isExit = false;
+        while (!isExit) {
             try {
-                Parser parser = new Parser();
-                ArrayList<String> id = parser.parseCommand(scanner.nextLine());
-                if (!pardiyem.run(id)) {
-                    break;
-                }
+                String fullCommand = ui.readCommand();
+                ui.showDivider(); // show the divider line ("_______")
+                Command c = Parser.parseCommand(fullCommand);
+                c.execute(tasks, ui, storage);
+                isExit = c.isExit();
             } catch (Exception e) {
-                System.out.printf("\n%s\n\n", e.toString());
+                ui.showException(e);
+            } finally {
+                ui.showDivider();
             }
         }
-        pardiyem.exit();    
+    }
+
+    public static void main(String[] args) throws IOException {
+        new Pardiyem().run();
     }
 }

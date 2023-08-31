@@ -5,8 +5,8 @@ import java.util.ArrayList;
 public class Event extends Task {
     protected String to;
     protected String from;
-    public Event(String description, String from, String to) throws IllegalArgumentException  {
-        super(description);
+    public Event(String description, String from, String to, boolean isDone) throws IllegalArgumentException  {
+        super(description, isDone);
         if (to.isEmpty()) {
             throw new IllegalArgumentException("Whoops, an event need to have a non-empty ending time");
         }
@@ -15,6 +15,10 @@ public class Event extends Task {
         }
         this.to = to;
         this.from = from;
+    }
+
+    public Event(String description, String from, String to) throws IllegalArgumentException {
+        this(description, from, to, false);
     }
 
     @Override
