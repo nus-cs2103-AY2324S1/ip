@@ -1,3 +1,5 @@
+import java.time.LocalDateTime;
+
 public class Event extends Task {
     /**
      * the type Icon
@@ -6,11 +8,11 @@ public class Event extends Task {
     /**
      * start of the event
      */
-    private String from = "";
+    private LocalDateTime from;
     /**
      * end of the event
      */
-    private String to = "";
+    private LocalDateTime to;
 
     /**
      * constructor for Event task
@@ -18,8 +20,8 @@ public class Event extends Task {
      */
     public Event(String description, String from, String to) {
         super(description);
-        this.from = from;
-        this.to = to;
+        this.from = Time.toLocalDateTime(from);
+        this.to = Time.toLocalDateTime(to);
     }
 
     /**
@@ -28,11 +30,13 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        return "[" + type + "]" + super.toString() + " (from: " + this.from + " to: " + this.to + ")";
+        return "[" + type + "]" + super.toString() +
+                " (from: " + Time.toString(this.from) + " to: " + Time.toString(this.to) + ")";
     }
 
     @Override
     public String toDataString() {
-        return this.type + " / " + super.toDataString() + " / " + this.from + " / " + this.to;
+        return this.type + " / " + super.toDataString() + " / " +
+                Time.toDataString(this.from) + " / " + Time.toDataString(this.to);
     }
 }
