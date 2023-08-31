@@ -12,6 +12,7 @@ public class TaskList {
     public TaskList() {
         this.tasks = new ArrayList<>();
     }
+
     public TaskList(List<Task> tasks) {
         this.tasks = tasks;
     }
@@ -19,6 +20,7 @@ public class TaskList {
     public List<Task> getList() {
         return this.tasks;
     }
+
     public void list() {
         String listOfItems = "Here are the tasks in your list:\n";
         for (int i = 0; i < tasks.size(); ++i) {
@@ -57,6 +59,7 @@ public class TaskList {
         tasks.get(index).mark();
 
     }
+
     public void unmark(int index) throws LinusException {
         index -= 1;
         if (index < 0 || index >= tasks.size()) {
