@@ -3,12 +3,12 @@ import java.time.format.DateTimeFormatter;
 
 public abstract class Task {
 
-    private final String input;
+    private final String taskDescription;
     private final String name;
     private boolean isDone;
 
-    public Task(String input, String name) {
-        this.input = input;
+    public Task(String taskDescription, String name) {
+        this.taskDescription = taskDescription;
         this.name = name;
         this.isDone = false;
     }
@@ -19,8 +19,8 @@ public abstract class Task {
 
     public abstract String getTask();
 
-    public String getTaskInput() {
-        return this.input;
+    protected String getTaskDescription() {
+        return this.taskDescription;
     }
 
     public void setDone(boolean isDone) {
