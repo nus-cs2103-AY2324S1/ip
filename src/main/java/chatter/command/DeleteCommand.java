@@ -24,7 +24,7 @@ public class DeleteCommand extends Command {
     }
 
     /**
-     * Deletes a task from the list and prints deleted task message.
+     * Deletes a task from the list and prints deleted task message for user.
      *
      * @param tasks chatter.TaskList class storing an ArrayList of chatter.task.Task objects.
      * @param ui chatter.Ui class to handle user interactions.
