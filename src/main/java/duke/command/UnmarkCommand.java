@@ -14,8 +14,8 @@ public class UnmarkCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList list, Ui ui, Storage storage) {
-        Task task = list.unmark(this.index);
-        ui.printDelete(task, list.size());
+    public void execute(TaskList taskList, Ui ui, Storage storage) {
+        Task task = taskList.unmark(this.index);
+        ui.printDelete(task, taskList.size());
     }
 }
