@@ -9,26 +9,14 @@ public class Event extends Task {
         this.to = to;
     }
 
-    @Override
-    public String displayTask() {
-        return (".[E]" + super.getStatusIcon() + description +
-                "(from: " + from + "to: " + to + ")");
-    }
 
     @Override
-    public void addedTask() {
-        System.out.println("Got it. I've added this task:");
-        System.out.println("  [E]" + super.getStatusIcon() + description +
-                "(from: " + from + "to: " + to + ")");
-    }
-
-    @Override
-    public void displayTaskMark() {
-        System.out.println("[E]" + super.getStatusIcon() + description +
+    public String toString() {
+        return ("[E]" + super.getStatusIcon() + description +
                 " (from: " + from + "to: " + to + ")");
     }
 
-    public static Event readFromFile(String[] segments) {
+    public static Event readFromFile(String[] segments) throws GmanException {
         String symbol = segments[1];
         String description = segments[2];
         String from = segments[3];
