@@ -4,6 +4,6 @@ package Exceptions;
  */
 public class InvalidCommandException extends Exception {
     public InvalidCommandException(String message) {
-        super(String.format("Macho...I do not understand what this means. Please enter a correct command, macho!"));
+        super("Macho...I do not understand what this means. Please enter a correct command, macho!");
     }
 }

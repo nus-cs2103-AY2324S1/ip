@@ -5,6 +5,9 @@ import Tasks.Deadline;
 import Tasks.Events;
 import Tasks.Task;
 import Tasks.Todo;
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 public class Parser {
@@ -13,6 +16,7 @@ public class Parser {
     protected final ArrayList<Task> taskList;
     protected final String input;
     protected final String DIVIDER = "\n____________________________________________________________";
+    private final static DateTimeFormatter dateTimeFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
     protected Storage storage;
     /**
@@ -74,18 +78,23 @@ public class Parser {
      * @return output String
      * @throws InvalidArgumentException if input does not contain the correct /by argument
      */
-    public String createDeadline(String input) throws InvalidArgumentException {
+    public String createDeadline(String input) throws InvalidArgumentException, InvalidTimeFormatException {
         String[] parts = input.split(" /by ", 2);
         if (parts.length == 1 || parts[1].isEmpty() || parts[1].isBlank()) {
             throw new InvalidArgumentException(input.substring(9), "/by");
         } else {
-            String taskDesc = parts[0].split(" ", 2)[1];
-            String by = parts[1];
-            Deadline dl = new Deadline(taskDesc, false, by);
-            this.taskList.add(dl);
-            this.storage.write(this.taskList);
-            return "Got it macho! I've added this task:\n" + dl + "\nYou now have " + this.taskList.size()
-                    + " tasks in the list, macho!";
+            try {
+                String taskDesc = parts[0].split(" ", 2)[1];
+                LocalDateTime by = LocalDateTime.parse(parts[1], dateTimeFormat);
+                Deadline dl = new Deadline(taskDesc, false, by);
+                this.taskList.add(dl);
+                this.storage.write(this.taskList);
+                return "Got it macho! I've added this task:\n" + dl + "\nYou now have " + this.taskList.size()
+                        + " tasks in the list, macho!";
+            } catch (Exception e) {
+              throw new InvalidTimeFormatException(parts[1]);
+            }
+
         }
     }
 
@@ -96,19 +105,24 @@ public class Parser {
      * @return output String
      * @throws InvalidArgumentException if input does not contain the correct /from and /to argument
      */
-    public String createEvent(String input) throws InvalidArgumentException {
+    public String createEvent(String input) throws InvalidArgumentException, InvalidTimeFormatException {
         String[] parts = input.split("\\s+/from\\s+|\\s+/to\\s+");
         if (parts.length < 3) {
             throw new InvalidArgumentException(input.substring(6), "/from and /to");
         } else {
+            try {
             String taskDesc = parts[0].split(" ", 2)[1];
-            String afterFrom = parts[1];
-            String afterTo = parts[2];
+            LocalDateTime afterFrom = LocalDateTime.parse(parts[1], dateTimeFormat);
+            LocalDateTime afterTo = LocalDateTime.parse(parts[2], dateTimeFormat);
             Events ev = new Events(taskDesc, false, afterFrom, afterTo);
             this.taskList.add(ev);
             this.storage.write(this.taskList);
             return "Got it macho! I've added this task:\n" + ev + "\nYou now have " + this.taskList.size()
                     + " tasks in the list, macho!";
+
+            } catch (Exception e) {
+                throw new InvalidTimeFormatException(parts[1] + " " + parts[2]);
+            }
         }
     }
 
@@ -189,10 +203,9 @@ public class Parser {
     /**
      * Execute the Duke's functions to process user's input.
      *
-     * @return ArrayList of Task
      * @throws InvalidCommandException if user enters an invalid command
      */
-    public ArrayList<Task> execute() throws InvalidCommandException {
+    public void execute() throws InvalidCommandException {
         CommandsList command;
         try {
             try {
@@ -241,13 +254,11 @@ public class Parser {
             System.out.println(DIVIDER);
 
         } catch (InvalidArgumentException | EmptyTasksException | InvalidCommandException |
-                 InvalidTaskDescriptionException | InvalidIndexException e) {
+                 InvalidTaskDescriptionException | InvalidIndexException | InvalidTimeFormatException e) {
             System.out.println(e.getMessage());
             System.out.println(DIVIDER);
-            return this.taskList;
         }
 
-        return this.taskList;
     }
 
     private enum CommandsList {
