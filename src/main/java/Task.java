@@ -52,7 +52,7 @@ public class Task {
      * @return The formatted string.
      */
     public String toString() {
-        return "[" + getStatusIcon() + "] " + this.description;
+        return "" + getStatusIcon() + " | " + this.description;
     }
 }
 

@@ -10,6 +10,6 @@ public class ToDo extends Task{
 
     @Override
     public String toString() {
-        return "[T]" + super.toString();
+        return "T | " + super.toString();
     }
 }
