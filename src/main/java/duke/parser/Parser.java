@@ -1,15 +1,22 @@
 package duke.parser;
 
 import duke.commands.*;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.Arrays;
-import java.util.Scanner;
 
+/**
+ * Represents a parser to convert user input into executable commands.
+ */
 public class Parser {
 
+    /**
+     * Parses the user input and converts it into an executable command.
+     *
+     * @param input The user input.
+     * @return A Command object based on the parsed input.
+     */
     public static Command parse(String input) {
         String[] split = input.split(" ", 2);
         Command c = null;
@@ -43,7 +50,12 @@ public class Parser {
         return c;
     }
 
-
+    /**
+     * Validates and constructs a Todo command.
+     *
+     * @param split The user input split into parts.
+     * @return A TodoCommand object if input is valid, else an IncorrectCommand object.
+     */
     public static Command validateTodo(String[] split) {
         if (split.length == 1 || split[1].isBlank()) {
             return new IncorrectCommand("Please enter a valid task.");
@@ -51,8 +63,13 @@ public class Parser {
         return new AddCommand(split[1]);
     }
 
+    /**
+     * Validates and constructs a Deadline command.
+     *
+     * @param split The user input split into parts.
+     * @return A DeadlineCommand object if input is valid, else an IncorrectCommand object.
+     */
     public static Command validateDeadline(String[] split) {
-        System.out.println(Arrays.toString(split));
         if (split.length == 1 || split[1].isBlank()) {
             return new IncorrectCommand("Please enter a valid task.");
         }
@@ -72,6 +89,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Validates and constructs an Event command.
+     *
+     * @param split The user input split into parts.
+     * @return An EventCommand object if input is valid, else an IncorrectCommand object.
+     */
     public static Command validateEvent(String[] split) {
         if (!split[1].contains(" /from ")) {
             return new IncorrectCommand("Please indicate a start datetime using /from.");
@@ -107,7 +130,13 @@ public class Parser {
         }
     }
 
-    private static Command validateExit(String[] split) {
+    /**
+     * Validates and constructs an Exit command.
+     *
+     * @param split The user input split into parts.
+     * @return An ExitCommand object if input is valid, else an IncorrectCommand object.
+     */
+    public static Command validateExit(String[] split) {
         if (split.length != 1) {
             return new IncorrectCommand("The bye command should not have " +
                     "any additional words appended to it");
@@ -115,7 +144,13 @@ public class Parser {
         return new ExitCommand();
     }
 
-    private static Command validateList(String[] split) {
+    /**
+     * Validates and constructs a List command.
+     *
+     * @param split The user input split into parts.
+     * @return A ListCommand object if input is valid, else an IncorrectCommand object.
+     */
+    public static Command validateList(String[] split) {
         if (split.length != 1) {
             return new IncorrectCommand("The list command should not have any " +
                     "additional words appended to it");
@@ -123,47 +158,43 @@ public class Parser {
         return new ListCommand();
     }
 
-    private static Command validateMark(String[] split) {
-        // Check if mark is receiving any input or receiving extra input
+    /**
+     * Validates and constructs a Mark command.
+     *
+     * @param split The user input split into parts.
+     * @return A MarkCommand object if input is valid, else an IncorrectCommand object.
+     */
+    public static Command validateMark(String[] split) {
         if (split.length != 2 || split[1].isBlank()) {
             return new IncorrectCommand("Please enter a valid mark command!");
         }
-
-        // Check if mark is not receiving a number.
         if (!Character.isDigit(split[1].charAt(0))) {
             return new IncorrectCommand("The second argument must be a digit!");
         }
-
         int index = Integer.parseInt(split[1]);
-
-        // Check if index is greater than 0.
         if (index <= 0) {
             return new IncorrectCommand("Please enter a number greater than 0!");
         }
-
         return new MarkCommand(index, split[0]);
     }
 
-    private static Command validateDelete(String[] split) {
-        // Check if mark is receiving any input or receiving extra input
+    /**
+     * Validates and constructs a Delete command.
+     *
+     * @param split The user input split into parts.
+     * @return A DeleteCommand object if input is valid, else an IncorrectCommand object.
+     */
+    public static Command validateDelete(String[] split) {
         if (split.length != 2 || split[1].isBlank()) {
             return new IncorrectCommand("Please enter a valid delete command!");
         }
-
-        // Check if mark is not receiving a number.
         if (!Character.isDigit(split[1].charAt(0))) {
             return new IncorrectCommand("The second argument must be a digit!");
         }
-
         int index = Integer.parseInt(split[1]);
-
-        // Check if index is greater than 0.
         if (index <= 0) {
             return new IncorrectCommand("Please enter a number greater than 0!");
         }
-
-        System.out.println(index);
-
         return new DeleteCommand(index);
     }
 }

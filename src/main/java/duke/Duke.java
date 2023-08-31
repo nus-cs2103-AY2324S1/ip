@@ -1,6 +1,5 @@
 package duke;
 
-
 import duke.commands.Command;
 import duke.exceptions.DukeException;
 import duke.parser.Parser;
@@ -9,7 +8,7 @@ import duke.tasks.DukeList;
 import duke.ui.Ui;
 
 /**
- * duke.Duke class serves as the chatbot
+ * Represents the main application class for Duke.
  */
 public class Duke {
 
@@ -17,8 +16,13 @@ public class Duke {
     private Storage storage;
     private Ui ui;
 
+    /**
+     * Constructs a Duke instance with the given file path.
+     *
+     * @param filePath The path to the data file.
+     */
     public Duke(String filePath) {
-        //Initialising array to store list items
+        // Initializing array to store list items
         ui = new Ui();
         this.storage = new Storage(filePath);
 
@@ -28,19 +32,22 @@ public class Duke {
             ui.showLoadingError();
             this.ItemList = new DukeList();
         }
-
-    }
-
-    public static void main(String[] args) {
-           new Duke("data/duke.txt").run();
     }
 
     /**
-     * This method initialises the beginning of the bots interaction with the user. It analyses the users input
-     * and performs the relevant action correspondingly
+     * The main method that initializes and runs the Duke application.
+     *
+     * @param args Command line arguments.
+     */
+    public static void main(String[] args) {
+        new Duke("data/duke.txt").run();
+    }
+
+    /**
+     * Runs the Duke application.
      */
     public void run() {
-        //Initialising Scanner
+        // Initializing Scanner
         ui.showWelcome();
         boolean isExit = false;
         while (!isExit) {
@@ -57,8 +64,7 @@ public class Duke {
             }
         }
     }
-
-
 }
+
 
 
