@@ -1,6 +1,16 @@
 package duke;
 
+/**
+ * The ToDos class represents a task.
+ * It extends the Task class and provides methods to mark and unmark the task as done.
+ */
 public class ToDos extends Task {
+
+    /**
+     * Constructs a ToDos instance with the specified task description.
+     *
+     * @param task The description of the task.
+     */
     public ToDos(String task) {
         super(task);
     }
