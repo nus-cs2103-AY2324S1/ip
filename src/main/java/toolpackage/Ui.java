@@ -1,27 +1,29 @@
-package ToolsPackage;
+package toolpackage;
 
-import TaskPackage.Task;
+import taskpackage.Task;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Ui {
-    private final String greetingString =  "Hello! I'm ChampionSOS\nWhat can I do for you?";
-    private final String exitString =  "Bye. Hope to see you again soon!";
-    private final String dataNotFoundString =  "No existing data found. New file created!";
+    
+    private static final String TEXT_GREETING =  "Hello! I'm ChampionSOS\nWhat can I do for you?";
+    private static final String TEXT_GOODBYE =  "Bye. Hope to see you again soon!";
+    private static final String TEXT_NO_DATA =  "No existing data found. New file created!";
 
     public Ui() {
     }
 
     public void showWelcome() {
-        System.out.println(this.greetingString);
+        System.out.println(Ui.TEXT_GREETING);
     }
 
     public void showBye() {
-        System.out.println(this.exitString);
+        System.out.println(Ui.TEXT_GOODBYE);
     }
 
     public void showLoadingError() {
-        System.out.println(this.dataNotFoundString);
+        System.out.println(Ui.TEXT_NO_DATA);
     }
 
     public String readCommands(Scanner inputs) {

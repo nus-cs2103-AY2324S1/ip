@@ -1,22 +1,22 @@
-package TaskPackage;
+package taskpackage;
 
-import DukePackage.DukeException;
-import ToolsPackage.Ui;
+import dukepackage.DukeException;
+
+import toolpackage.Ui;
 
 public class Task {
 
     private String task;
-    private boolean done;
+    private boolean isDone;
 
-    public Task(String task, String done) throws DukeException {
-
+    public Task(String task, String isDone) throws DukeException {
         // Throws error if there is no task description.
         if (task.isEmpty()) {
             throw new DukeException("☹ OOPS!!! Task description should not be empty.");
         }
 
         this.task = task;
-        this.done = done.equals("1 ");
+        this.isDone = isDone.equals("1 ");
     }
 
     /**
@@ -25,7 +25,7 @@ public class Task {
      * @return String
      */
     public String printTask() {
-        if (this.done) {
+        if (this.isDone) {
             return String.format("[X] %s", this.task);
         } else {
             return String.format("[] %s", this.task);
@@ -37,12 +37,12 @@ public class Task {
      * @param keyword
      */
     public void toggleDone(String keyword, Ui ui) {
-        this.done = keyword.equals("mark");
+        this.isDone = keyword.equals("mark");
         ui.toggleDone(this, keyword);
     }
 
     public String addToStorage() {
-        if (this.done) {
+        if (this.isDone) {
             return String.format("| 1 | %s", this.task);
         } else {
             return String.format("| 0 | %s", this.task);

@@ -1,9 +1,10 @@
-package ToolsPackage;
+package toolpackage;
 
-import DukePackage.DukeException;
-import TaskPackage.Deadlines;
-import TaskPackage.Events;
-import TaskPackage.ToDos;
+import dukepackage.DukeException;
+
+import taskpackage.Deadlines;
+import taskpackage.Events;
+import taskpackage.ToDos;
 
 public class Parser {
 
@@ -13,10 +14,12 @@ public class Parser {
     public static boolean parse(String userInput, TaskList tasks, Ui ui) throws DukeException {
         String[] parsedCommand = userInput.split(" ", 2);
         String command = parsedCommand[0];
+
         String task = "";
         if (parsedCommand.length > 1) {
             task = parsedCommand[1];
         }
+
         if (command.equals("bye")) {
             return false;
         } else if (command.equals("list")) {
@@ -46,6 +49,7 @@ public class Parser {
         } else {
             throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
+        
         return true;
     }
 }

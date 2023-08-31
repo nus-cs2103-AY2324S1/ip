@@ -1,9 +1,10 @@
-package DukePackage;
+package dukepackage;
 
-import ToolsPackage.Storage;
-import ToolsPackage.TaskList;
-import ToolsPackage.Ui;
-import ToolsPackage.Parser;
+import toolpackage.Storage;
+import toolpackage.TaskList;
+import toolpackage.Ui;
+import toolpackage.Parser;
+
 import java.util.Scanner;
 
 public class Duke {
@@ -16,8 +17,9 @@ public class Duke {
         try {
             this.ui = new Ui();
             this.storage = new Storage(filePath);
-            boolean createdFile = this.storage.createStorage();
-            if (!createdFile) {
+
+            boolean isCreated = this.storage.createStorage();
+            if (!isCreated) {
                 tasks = new TaskList(storage.load());
             } else {
                 ui.showLoadingError();
@@ -30,6 +32,7 @@ public class Duke {
     private void run() {
         this.ui.showWelcome();
         Scanner inputs = new Scanner(System.in);
+
         boolean shouldContinue = true;
         while (shouldContinue) {
             String command = this.ui.readCommands(inputs);
@@ -40,6 +43,7 @@ public class Duke {
                 System.out.println(e.getMessage());
             }
         }
+        
         inputs.close();
         this.ui.showBye();
     }

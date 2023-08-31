@@ -1,11 +1,11 @@
-package TaskPackage;
+package taskpackage;
 
-import DukePackage.DukeException;
+import dukepackage.DukeException;
 
 public class ToDos extends Task {
 
-    public ToDos(String task, String done) throws DukeException {
-        super(task, done);
+    public ToDos(String task, String isDone) throws DukeException {
+        super(task, isDone);
     }
 
     @Override
