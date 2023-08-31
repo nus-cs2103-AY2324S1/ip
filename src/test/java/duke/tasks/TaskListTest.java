@@ -14,7 +14,7 @@ public class TaskListTest {
 
     @Test
     public void testAddToDoSuccess() {
-        Storage storage = new Storage("duke/test.txt");
+        Storage storage = new Storage("data/test.txt");
         TaskList testList = new TaskList(new ArrayList<>(), storage);
         String actual = testList.handleToDo("test desc");
         String expected = "Got it. I've added this task:\n   " +
@@ -25,7 +25,7 @@ public class TaskListTest {
 
     @Test
     public void testAddDeadlineSuccess() {
-        Storage storage = new Storage("duke/test.txt");
+        Storage storage = new Storage("data/test.txt");
         TaskList testList = new TaskList(new ArrayList<>(), storage);
         String actual = "";
         try {
@@ -41,7 +41,7 @@ public class TaskListTest {
 
     @Test
     public void testAddDeadlineError() {
-        Storage storage = new Storage("duke/test.txt");
+        Storage storage = new Storage("data/test.txt");
         TaskList testList = new TaskList(new ArrayList<>(), storage);
         Exception exception = assertThrows(DukeException.class, () -> {
             testList.handleDeadline("boo", "2001-10-22");
@@ -52,7 +52,7 @@ public class TaskListTest {
 
     @Test
     public void testAddEventSuccess() {
-        Storage storage = new Storage("duke/test.txt");
+        Storage storage = new Storage("data/test.txt");
         TaskList testList = new TaskList(new ArrayList<>(), storage);
         String actual = "";
         try {
@@ -68,7 +68,7 @@ public class TaskListTest {
 
     @Test
     public void testAddEventError() {
-        Storage storage = new Storage("duke/test.txt");
+        Storage storage = new Storage("data/test.txt");
         TaskList testList = new TaskList(new ArrayList<>(), storage);
         Exception exception = assertThrows(DukeException.class, () -> {
             testList.handleEvent("boo", "2001-10-22 11:12", "2001-11-22");
