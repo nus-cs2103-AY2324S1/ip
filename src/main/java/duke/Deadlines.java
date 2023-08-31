@@ -5,10 +5,6 @@ import java.time.format.DateTimeFormatter;
 public class Deadlines extends Task {
     private final LocalDate deadline;
 
-    /**
-     * deadline doesn't work with slashes
-     * other deadline formats?
-     */
     public Deadlines(String task, LocalDate deadline) {
         super(task);
         this.deadline = deadline;
