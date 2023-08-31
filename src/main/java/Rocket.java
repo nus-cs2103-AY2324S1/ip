@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
 import java.io.File;
@@ -11,6 +12,9 @@ import java.io.File;
 
 public class Rocket {
     private static final String LINE = "    ____________________________________________________________";
+    private static final DateTimeFormatter formatUglyDateTime = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+    private static final DateTimeFormatter formatPrettyDateTime = DateTimeFormatter.ofPattern("MMM dd yyyy, h:mm a");
+
     public static void main(String[] args) {
 
         // Create data file and directory if they don't exist
@@ -50,9 +54,6 @@ public class Rocket {
         } catch (FileNotFoundException e) {
             System.out.println("File not found");
         }
-
-        LocalDateTime dateTime = stringToDateTime("15-10-2019 11:30");
-        System.out.println(dateTimeToString(dateTime));
 
         // Create scanner to read user input
         Scanner scanner = new Scanner(System.in);
@@ -99,11 +100,11 @@ public class Rocket {
                     break;
                 }
                 case "deadline": {
-                    handleDeadline(taskList, arguments);
+                    handleDeadline(taskList, arguments, formatUglyDateTime);
                     break;
                 }
                 case "event": {
-                    handleEvent(taskList, arguments);
+                    handleEvent(taskList, arguments, formatUglyDateTime);
                     break;
                 }
                 default: {
@@ -151,9 +152,9 @@ public class Rocket {
         if (taskType == 'T') {
             return new Todo(taskString.substring(7), isDone);
         } else if (taskType == 'D') {
-            return makeDeadline(taskString.substring(7), isDone);
+            return makeDeadline(taskString.substring(7), isDone, formatPrettyDateTime);
         } else {
-            return makeEvent(taskString.substring(7), isDone);
+            return makeEvent(taskString.substring(7), isDone, formatPrettyDateTime);
         }
     }
 
@@ -290,11 +291,11 @@ public class Rocket {
      * @throws RocketIllegalArgumentException throws illegal argument exception if there is no
      *         description or deadline provided
      */
-    private static void handleDeadline(List<Task> taskList, String arguments) throws RocketIllegalArgumentException {
+    private static void handleDeadline(List<Task> taskList, String arguments, DateTimeFormatter formatter) throws RocketIllegalArgumentException {
         if (arguments.isBlank()) {
             throw new RocketIllegalArgumentException("The description of a Deadline");
         }
-        Deadline deadline = makeDeadline(arguments, false);
+        Deadline deadline = makeDeadline(arguments, false, formatter);
         taskList.add(deadline);
         System.out.println(LINE);
         System.out.println("    Got it. I've added this task:");
@@ -310,11 +311,11 @@ public class Rocket {
      * @throws RocketIllegalArgumentException throws illegal argument exception if there is no
      *         description or duration provided
      */
-    private static void handleEvent(List<Task> taskList, String arguments) throws RocketIllegalArgumentException {
+    private static void handleEvent(List<Task> taskList, String arguments, DateTimeFormatter formatter) throws RocketIllegalArgumentException {
         if (arguments.isBlank()) {
             throw new RocketIllegalArgumentException("The description of an Event");
         }
-        Event event = makeEvent(arguments, false);
+        Event event = makeEvent(arguments, false, formatter);
         taskList.add(event);
         System.out.println(LINE);
         System.out.println("    Got it. I've added this task:");
@@ -329,16 +330,17 @@ public class Rocket {
      * @return a deadline task.
      * @throws RocketIllegalArgumentException because of illegal argument.
      */
-    private static Deadline makeDeadline(String arguments, boolean isDone) throws RocketIllegalArgumentException {
+    private static Deadline makeDeadline(String arguments, boolean isDone, DateTimeFormatter formatter) throws RocketIllegalArgumentException {
         int descriptionIndex = arguments.indexOf("by") - 2;
         String description = arguments.substring(0, descriptionIndex);
         if (description.isEmpty()) {
             throw new RocketIllegalArgumentException("The description of a deadline");
         }
-        String by = arguments.substring(descriptionIndex + 5)
+        String deadline = arguments.substring(descriptionIndex + 5)
                 .replace(')', ' ')
                 .trim();
-        if (by.isEmpty()) {
+        LocalDateTime by = stringToDateTime(deadline, formatter);
+        if (deadline.isEmpty()) {
             throw new RocketIllegalArgumentException("The deadline of a deadline");
         }
         return new Deadline(description, isDone, by);
@@ -350,7 +352,7 @@ public class Rocket {
      * @return an event.
      * @throws RocketIllegalArgumentException because of Illegal Argument.
      */
-    private static Event makeEvent(String arguments, boolean isDone) throws RocketIllegalArgumentException{
+    private static Event makeEvent(String arguments, boolean isDone, DateTimeFormatter formatter) throws RocketIllegalArgumentException{
         int descriptionIndex = arguments.indexOf("from") - 2;
         String description = arguments.substring(0, descriptionIndex);
         if (description.isEmpty()) {
@@ -362,20 +364,24 @@ public class Rocket {
             throw new RocketIllegalArgumentException("The duration of an event");
         }
         int fromIndex = duration.indexOf("to") - 1;
-        String from = duration.substring(0, fromIndex).trim();
-        String to = duration.substring(fromIndex + 4)
-                .replace(')', ' ')
-                .trim();
+        LocalDateTime from = stringToDateTime(
+                duration.substring(0, fromIndex).trim(),
+                formatter
+        );
+        LocalDateTime to = stringToDateTime(
+                duration.substring(fromIndex + 4)
+                        .replace(')', ' ')
+                        .trim(),
+                formatter
+        );
         return new Event(description, isDone, from, to);
     }
 
-    private static LocalDateTime stringToDateTime(String s) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+    private static LocalDateTime stringToDateTime(String s, DateTimeFormatter formatter) {
         return LocalDateTime.parse(s, formatter);
     }
 
-    private static String dateTimeToString(LocalDateTime dateTime) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy, h:mm a");
+    private static String dateTimeToString(LocalDateTime dateTime, DateTimeFormatter formatter) {
         return dateTime.format(formatter);
     }
 
