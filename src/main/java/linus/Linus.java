@@ -17,6 +17,7 @@ public class Linus {
         MARK,
         UNMARK,
         DELETE,
+        FIND,
         TODO,
         DEADLINE,
         EVENT,
@@ -77,6 +78,9 @@ public class Linus {
                 case DELETE:
                     index = Integer.parseInt(data);
                     tasks.delete(index);
+                    break;
+                case FIND:
+                    tasks.find(data);
                     break;
                 case TODO:
                     if (data == "") {
