@@ -7,11 +7,7 @@ import duke.storage.Storage;
 import duke.task.TaskList;
 import duke.ui.Ui;
 
-import java.time.format.DateTimeFormatter;
-
 public class Duke {
-
-    public static final DateTimeFormatter DATETIME_INPUT_FORMAT = DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm");
 
     private Storage storage;
     private TaskList items;

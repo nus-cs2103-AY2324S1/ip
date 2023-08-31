@@ -7,11 +7,11 @@ import duke.ui.Ui;
 
 public abstract class Command {
 
-    protected boolean exitsNext = false;
+    protected boolean willExitNext = false;
 
     public abstract void execute(TaskList items, Ui ui, Storage storage) throws DukeException;
 
     public boolean exitsNext() {
-        return exitsNext;
+        return willExitNext;
     }
 }
