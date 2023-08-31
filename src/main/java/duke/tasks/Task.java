@@ -59,4 +59,14 @@ public abstract class Task {
         String statusNumber = isDone ? "1" : "0";
         return statusNumber + " | " + this.description;
     }
+
+    /**
+     * Checks if the task description contains the search target.
+     *
+     * @param target The search target input by user.
+     * @return True if description contains target, false otherwise.
+     */
+    public boolean contains(String target) {
+        return this.description.contains(target);
+    }
 }
