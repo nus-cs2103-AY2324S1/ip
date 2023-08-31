@@ -13,6 +13,7 @@ import pogo.commands.AddToDoCommand;
 import pogo.commands.Command;
 import pogo.commands.DeleteTaskCommand;
 import pogo.commands.ExitCommand;
+import pogo.commands.FindTaskCommand;
 import pogo.commands.InvalidCommand;
 import pogo.commands.ListTasksCommand;
 import pogo.commands.MarkTaskCommand;
@@ -49,6 +50,7 @@ public class Parser {
         try {
             switch (commandWord) {
             case ListTasksCommand.COMMAND_WORD:
+                final Pattern LIST_PATTERN = Pattern.compile("/from (?<from>.*) /to (?<to>.*)");
                 final Matcher listMatcher = LIST_PATTERN.matcher(arguments);
                 // Set from and to encompass all dates
                 LocalDateTime from = LocalDateTime.of(LocalDate.MIN, LocalTime.MIN);
@@ -70,6 +72,8 @@ public class Parser {
                 }
 
                 return new ListTasksCommand(from, to);
+            case FindTaskCommand.COMMAND_WORD:
+                return new FindTaskCommand(arguments);
             case AddDeadlineCommand.COMMAND_WORD:
                 return TaskParser.parseDeadlineCommand(arguments);
             case AddToDoCommand.COMMAND_WORD:

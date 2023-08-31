@@ -35,6 +35,10 @@ public class TextStorage implements Storage {
             }
         }
 
+        if (file.exists()) {
+            return;
+        }
+
         boolean isCreated = file.createNewFile();
         if (!isCreated) {
             throw new IOException("Error creating task file");
