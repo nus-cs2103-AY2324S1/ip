@@ -4,10 +4,25 @@ import duke.Duke;
 import duke.command.Command;
 import duke.exception.DukeException;
 
+/**
+ * The Parser to parse input for the Chatbot.
+ */
 public class Parser {
+    /**
+     * The command parsed from the input.
+     */
     private Command command;
+
+    /**
+     * The arguments parsed from the input.
+     */
     private String arguments = "";
 
+    /**
+     * The Constructor of the Parser.
+     *
+     * @param rawData The data to be parsed.
+     */
     public Parser(String rawData) {
         try {
             this.command = parseCommand(rawData);
@@ -17,6 +32,13 @@ public class Parser {
 
     }
 
+    /**
+     * Parses the input given to the Chatbot.
+     *
+     * @param rawData Input from the Chatbot.
+     * @return The given Command from the input.
+     * @throws DukeException if there is no input.
+     */
     public Command parseCommand(String rawData) throws DukeException {
         String[] commandArray = rawData.split("\\s+", 2);
         if (commandArray.length == 0) {
@@ -27,14 +49,30 @@ public class Parser {
         return Command.getCommand(commandArray[0]);
     }
 
+    /**
+     * Returns the command of the parsed input.
+     *
+     * @return The command of the parsed input.
+     */
     public Command getCommand() {
         return this.command;
     }
 
+    /**
+     * Returns the arguments of the parsed input.
+     *
+     * @return The arguments of the parsed input.
+     */
     public String getArguments() {
         return this.arguments;
     }
 
+    /**
+     * Parses the ToDo Arguments from the input.
+     *
+     * @return The description of the ToDo task.
+     * @throws DukeException if description is empty.
+     */
     public String parseToDoArguments() throws DukeException {
         if (arguments.length() == 0) {
             throw new DukeException("Hey! The task description cannot be empty!");
@@ -42,6 +80,13 @@ public class Parser {
         return arguments;
     }
 
+    /**
+     * Parses the Deadline arguments from the input.
+     *
+     * @return The String Array containing the description as the first element
+     * and time as the second element.
+     * @throws DukeException if description is empty.
+     */
     public String[] parseDeadlineArguments() throws DukeException {
         if (this.arguments.length() == 0) {
             throw new DukeException("Hey! The task description cannot be empty!");
@@ -58,6 +103,13 @@ public class Parser {
         return arr;
     }
 
+    /**
+     * Parses the Event arguments from the input.
+     *
+     * @return The String array containing the description as the first element,
+     * start time as the second element and end time as the third element.
+     * @throws DukeException if description is empty.
+     */
     public String[] parseEventArguments() throws DukeException {
         if (this.arguments.length() == 0) {
             throw new DukeException("Hey! The task description cannot be empty!");

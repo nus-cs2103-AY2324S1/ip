@@ -5,16 +5,37 @@ import duke.exception.DukeException;
 
 import java.util.ArrayList;
 
+/**
+ * Represents a Task List to store User's Tasks.
+ */
 public class TaskList {
+
+    /** The Indentation Level to format text. */
     private static final String INDENTATION = "    ";
+
+    /** The ArrayList to represent the Task List. */
     private ArrayList<Task> taskList;
+
+    /** The Storage for the Chatbot. */
     private Storage storage;
 
+
+    /**
+     * The Constructor for the TaskList.
+     *
+     * @param taskList The ArrayList to initialise as the TaskList.
+     * @param storage The Storage of the Chatbot.
+     */
     public TaskList(ArrayList<Task> taskList, Storage storage) {
         this.taskList = taskList;
         this.storage = storage;
     }
 
+    /**
+     * Formats the Task List to output.
+     *
+     * @return The formatted task list as a String.
+     */
     public String formatList() {
         String str = "";
         int len = taskList.size();
@@ -27,6 +48,14 @@ public class TaskList {
         return str;
     }
 
+    /**
+     * Handles the Marking of the Tasks in the Task List.
+     *
+     * @param commandNum The Index of the Task as a String.
+     * @param status The status of the marking as either 'mark' or 'unmark'.
+     * @return The Success output as a String.
+     * @throws DukeException If Task Index provided is invalid.
+     */
     public String handleMarking(String commandNum, String status) throws DukeException {
 
         try {
@@ -53,6 +82,13 @@ public class TaskList {
         }
     }
 
+    /**
+     * Handles the Deleting of a Task from the Task List.
+     *
+     * @param commandNum The Index of the Task as a String.
+     * @return The Success output as a String.
+     * @throws DukeException If Task Index provided is invalid.
+     */
     public String handleDelete(String commandNum) throws DukeException {
         try {
             int index = Integer.parseInt(commandNum) - 1;
@@ -71,6 +107,12 @@ public class TaskList {
         }
     }
 
+    /**
+     * Handles the Adding of a ToDo Task to the Task List.
+     *
+     * @param task The Description of the Task.
+     * @return The Success output as a String.
+     */
     public String handleToDo(String task) {
         ToDo item = new ToDo(task);
         taskList.add(item);
@@ -80,6 +122,14 @@ public class TaskList {
                 taskList.size() + " tasks in the list.";
     }
 
+    /**
+     * Handles the Adding of a Deadline Task to the Task List.
+     *
+     * @param desc The Description of the Task.
+     * @param by The deadline of the Task.
+     * @return The Success output as a String.
+     * @throws DukeException if there is an Error in creating the Deadline Task.
+     */
     public String handleDeadline(String desc, String by) throws DukeException {
 
         Deadline item = new Deadline(desc, by);
@@ -90,6 +140,15 @@ public class TaskList {
                 taskList.size() + " tasks in the list.";
     }
 
+    /**
+     * Handles the Adding of an Event Task to the Task List.
+     *
+     * @param desc The Description of the Task.
+     * @param start The start time of the Task.
+     * @param end The end time of the Task.
+     * @return The Success output as a String.
+     * @throws DukeException if there is an Error in creating the Event Task.
+     */
     public String handleEvent(String desc, String start, String end) throws DukeException {
         Event item = new Event(desc, start, end);
         taskList.add(item);
@@ -99,6 +158,11 @@ public class TaskList {
                 taskList.size() + " tasks in the list.";
     }
 
+    /**
+     * Formats the Task List to be saved to Storage.
+     *
+     * @return The formatted List as a String.
+     */
     public String exportList() {
         StringBuilder sb = new StringBuilder();
         for (Task task : taskList) {
@@ -107,6 +171,9 @@ public class TaskList {
         return sb.toString();
     }
 
+    /**
+     * Saves the Task List to the Storage.
+     */
     public void saveList() {
         String data = this.exportList();
         storage.saveData(data);

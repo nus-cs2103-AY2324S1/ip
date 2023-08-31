@@ -15,18 +15,44 @@ import java.io.FileWriter;
 import java.util.Scanner;
 import java.io.IOException;
 
+/**
+ * The Storage to read and write from the data file.
+ */
 public class Storage {
 
+    /**
+     * A Temporary storage for reading the Tasks from the file.
+     */
     private ArrayList<Task> store = new ArrayList<Task>();
-    private String filePath;
-    private DateTimeFormatter storeTimeFormatter = DateTimeFormatter.ofPattern("dd MMMM yyyy HH:mm");
-    DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
+    /**
+     * The file path to read and write data from.
+     */
+    private String filePath;
+
+    /**
+     * The formatter to parse the time of the tasks.
+     */
+    private DateTimeFormatter storeTimeFormatter = DateTimeFormatter.ofPattern("dd MMMM yyyy HH:mm");
+
+    /**
+     * The formatter to format the time of the tasks to store.
+     */
+    private DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+
+    /**Constructor for the Storage.
+     *
+     * @param filePath The file path of the data file to write and read from.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
-
+    /**
+     * Saves the data to the data file.
+     *
+     * @param data The data to be saved.
+     */
     public void saveData(String data) {
         try {
             File file = new File(filePath);
@@ -38,11 +64,16 @@ public class Storage {
             fw.write(data);
             fw.close();
         } catch (IOException e) {
-//            System.out.println(e.getMessage());
             System.out.println("Could not save data to storage!");
         }
     }
 
+    /**
+     * Loads the task data from the data file.
+     *
+     * @return The Task List from the data file.
+     * @throws DukeException if data file is corrupted or not found.
+     */
     public ArrayList<Task> load() throws DukeException {
         File f = new File(filePath);
         try {

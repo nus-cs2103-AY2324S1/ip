@@ -9,16 +9,30 @@ import duke.ui.Ui;
 
 import java.util.ArrayList;
 
+/**
+ * Duke is a Chatbot that helps you keep track of your tasks.
+ * In this version, Duke is renamed to Nano.
+ */
 public class Duke {
 
+    /** The Indentation Level to format text. */
     public static final String INDENTATION = "    ";
 
+    /** The storage that is used to save and load the user's tasks. */
     private static Storage storage;
+
+    /** The task list that is used to store the user's tasks. */
     private TaskList tasks;
+
+    /** The UI to interact with the User. */
     private Ui ui;
+
+    /** The file path to store the User's Task Data. */
     private static final String FILEPATH = "./data/duke.txt";
 
-
+    /**
+     * Handles the Chatbot functionality.
+     */
     private void handleCommand() {
         String commandString;
         Command command;
@@ -71,6 +85,9 @@ public class Duke {
 
     }
 
+    /**
+     * Runs the Chatbot program.
+     */
     public void run() {
         storage = new Storage(FILEPATH);
         ui = new Ui();
@@ -86,7 +103,11 @@ public class Duke {
         handleCommand();
     }
 
-
+    /**
+     * The main method is used to run the program.
+     *
+     * @param args The command line arguments.
+     */
     public static void main(String[] args) {
         new Duke().run();
     }
