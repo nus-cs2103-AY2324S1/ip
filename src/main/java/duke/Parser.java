@@ -22,6 +22,8 @@ public class Parser {
             parseEvent(s, taskList);
         } else if (s.startsWith("delete")) {
             parseDelete(s, taskList);
+        } else if (s.startsWith("find")) {
+            parseFind(s, taskList);
         } else {
             throw new DukeException("I do not understand :(((");
         }
@@ -114,6 +116,15 @@ public class Parser {
         } catch (IndexOutOfBoundsException e) {
             throw new DukeException("Please enter a number within the list index!");
         }
+    }
+
+    private static void parseFind(String s, TaskList taskList) throws DukeException {
+        String toFind = s.substring(4).trim();
+        if (toFind.length() == 0) {
+            throw new DukeException("Please enter a string to find!");
+        }
+
+        taskList.findTasks(toFind);
     }
 
     public static Task parseTaskListEntry(String entry) {
