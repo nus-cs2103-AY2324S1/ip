@@ -19,8 +19,11 @@ public class Hachi {
 
     private Ui ui;
 
+    private Storage storage;
+
     public Hachi(String filePath) {
         ui = new Ui();
+        storage = new Storage();
     }
 
     public static void main(String[] args) throws HachiException {
@@ -28,146 +31,83 @@ public class Hachi {
 
     }
 
-    public void run() {
+    public void run() throws HachiException {
         String name = "Hachi";
 
+        TaskList taskList = storage.getTaskList();
         // creating the directory and file to store the tasks in
-
-        File dataDirectory = new File(dataPath);
-        if (!dataDirectory.exists()) {
-            dataDirectory.mkdir();
-        }
-        File taskFile = new File(taskPath);
-        if (!taskFile.exists()) {
-            try {
-                taskFile.createNewFile();
-            } catch (IOException e) {
-                e.printStackTrace();
-                return;
-            }
-        }
-
-        // Obtaining tasks from stored file
-        ArrayList<Task> tasks = new ArrayList<>();
-        try {
-            Scanner fileScanner = new Scanner(taskFile);
-            while (fileScanner.hasNext()) {
-                tasks.add(txtToTask(fileScanner.nextLine()));
-            }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-            return;
-        } catch (HachiException e) {
-            ui.showError(e);
-        }
+        ArrayList<Task> tasks = taskList.getArrayList();
 
         // Printing opening line
         ui.showWelcome();
 
+        boolean isExit = false;
 
 
         // repeats until user types bye, which quits the program
-        while (true) {
+        while (!isExit) {
             // getting command and argument separately
             Command cmd = Parser.parse(ui.getInput());
             String command = cmd.getCommand();
             String[] arguments = cmd.getArguments();
-            line();
+
+            // main logic
             try {
-                if (command.equals("bye")) { // BYE
-                    if (arguments.length > 0) {
-                        throw new TooManyArgumentsException("bye", 0, arguments.length);
-                    }
-                    System.out.println("Bye. Hope to see you again soon!");
+                switch (command) {
+                case ByeCommand.COMMAND_WORD:
+                    Parser.checkArgumentLength(ByeCommand.COMMAND_WORD, arguments.length);
+                    isExit = true;
+                    ui.showMessage("Bye. Hope to see you again soon!");
                     break;
-                } else if (command.equals("list")) { // LIST
-                    if (arguments.length > 0) {
-                        throw new TooManyArgumentsException("list", 0, arguments.length);
-                    }
-                    printTaskList(tasks);
-                } else if (command.equals("mark")) { // MARK
-                    if (arguments.length > 1) {
-                        throw new TooManyArgumentsException("mark", 1, arguments.length);
-                    }
-                    if (arguments.length < 1) {
-                        throw new EmptyNumberException("mark");
-                    }
+                case ListCommand.COMMAND_WORD:
+                    Parser.checkArgumentLength(ListCommand.COMMAND_WORD, arguments.length);
+                    ui.showMessage(taskList.toString());
+                    break;
+                case MarkCommand.COMMAND_WORD:
+                    Parser.checkArgumentLength(MarkCommand.COMMAND_WORD, arguments.length);
                     try {
-                        int number = Integer.parseInt(arguments[0]);
-                        int i = number - 1;
-                        if (number > tasks.size()) {
-                            throw new NumberOutOfBoundsException(tasks.size());
-                        }
-                        tasks.get(i).mark();
-                        System.out.println("Nice! I've marked this task as done");
-                        System.out.println("   " + tasks.get(i));
-                        updateTaskFile(tasks);
+                        int i = Parser.parseTaskNumber(arguments[0], tasks.size());
+                        Task t = taskList.mark(i);
+                        ui.showMessage("Nice! I've marked this task as done\n   " + t);
+                        storage.updateTaskFile(taskList);
                     } catch (NumberFormatException e) {
-                        throw new InvalidArgumentException("mark");
+                        throw new InvalidArgumentException(MarkCommand.COMMAND_WORD);
                     }
-                } else if (command.equals("unmark")) { // UNMARK
-                    if (arguments.length > 1) {
-                        throw new TooManyArgumentsException("unmark", 1, arguments.length);
-                    }
-                    if (arguments.length < 1) {
-                        throw new EmptyNumberException("unmark");
-                    }
+                    break;
+                case UnmarkCommand.COMMAND_WORD:
+                    Parser.checkArgumentLength(UnmarkCommand.COMMAND_WORD, arguments.length);
                     try {
-                        int number = Integer.parseInt(arguments[0]);
-                        int i = number - 1;
-                        if (number > tasks.size()) {
-                            throw new NumberOutOfBoundsException(tasks.size());
-                        }
-                        tasks.get(i).unmark();
-                        System.out.println("OK, I've marked this task as not done yet:");
-                        System.out.println("   " + tasks.get(i));
-                        updateTaskFile(tasks);
+                        int i = Parser.parseTaskNumber(arguments[0], tasks.size());
+                        Task t = taskList.unmark(i);
+                        ui.showMessage("OK, I've marked this task as not done yet:\n   " + t);
+                        storage.updateTaskFile(taskList);
                     } catch (NumberFormatException e) {
-                        System.out.println("Invalid argument for command \"unmark\"");
+                        throw new InvalidArgumentException(UnmarkCommand.COMMAND_WORD);
                     }
-                } else if (command.equals("delete")) { // DELETE
-                    if (arguments.length > 1) {
-                        throw new TooManyArgumentsException("delete", 1, arguments.length);
-                    }
-                    if (arguments.length < 1) {
-                        throw new EmptyNumberException("delete");
-                    }
+                    break;
+                case DeleteCommand.COMMAND_WORD:
+                    Parser.checkArgumentLength(DeleteCommand.COMMAND_WORD, arguments.length);
                     try {
-                        int number = Integer.parseInt(arguments[0]);
-                        int i = number - 1;
-                        if (number > tasks.size()) {
-                            throw new NumberOutOfBoundsException(tasks.size());
-                        }
-                        Task t = tasks.remove(i);
-                        System.out.println("Noted. I've removed this task: ");
-                        System.out.println("   " + t);
-                        System.out.println(String.format("Now you have %d tasks in the list.", tasks.size()));
-                        updateTaskFile(tasks);
+                        int i = Parser.parseTaskNumber(arguments[0], tasks.size());
+                        Task t = taskList.remove(i);
+                        ui.showMessage("Noted. I've removed this task:\n   " + t
+                                + String.format("\nNow you have %d tasks in the list.", tasks.size()));
+                        storage.updateTaskFile(taskList);
                     } catch (NumberFormatException e) {
-                        throw new InvalidArgumentException("delete");
+                        throw new InvalidArgumentException(DeleteCommand.COMMAND_WORD);
                     }
-                } else if (command.equals("todo")) { // TODO
-                    if (arguments.length < 1) {
-                        throw new EmptyTaskException("todo");
-                    }
-                    String todoTask = String.join(" ", arguments);
-                    System.out.println("Got it. I've added this task:");
-                    Todo td = new Todo(todoTask);
-                    tasks.add(td);
-                    System.out.println("   " + td);
-                    System.out.println(String.format("Now you have %d tasks in the list.", tasks.size()));
-                    updateTaskFile(tasks);
-                } else if (command.equals("deadline")) { // DEADLINE
-                    if (arguments.length < 1) {
-                        throw new EmptyTaskException("deadline");
-                    }
-                    int byIndex = -1;
-                    for (int i = 0; i < arguments.length; i++) {
-                        if (arguments[i].equals("/by")) {
-                            byIndex = i;
-                            break;
-                        }
-                    }
+                    break;
+                case TodoCommand.COMMAND_WORD:
+                    Parser.checkArgumentLength(TodoCommand.COMMAND_WORD, arguments.length);
+                    Todo td = new Todo(Parser.parseTaskArguments(TodoCommand.COMMAND_WORD, arguments));
+                    taskList.add(td);
+                    ui.showMessage("Got it. I've added this task:\n   " + td
+                            + String.format("\nNow you have %d tasks in the list.", tasks.size()));
+                    storage.updateTaskFile(taskList);
+                    break;
+                case DeadlineCommand.COMMAND_WORD:
+                    Parser.checkArgumentLength(DeadlineCommand.COMMAND_WORD, arguments.length);
+                    int byIndex = Parser.getWordIndex("/by", arguments);
                     if (byIndex == -1) {
                         throw new NoDeadlineException();
                     }
@@ -180,30 +120,21 @@ public class Hachi {
                             Arrays.copyOfRange(arguments, byIndex + 1, arguments.length));
                     try {
                         Deadline dl = new Deadline(deadlineTask, LocalDate.parse(deadlineDate));
-                        tasks.add(dl);
-                        System.out.println("Got it. I've added this task:");
-                        System.out.println("   " + dl);
-                        System.out.println(String.format("Now you have %d tasks in the list.", tasks.size()));
-                        updateTaskFile(tasks);
+                        taskList.add(dl);
+                        ui.showMessage("Got it. I've added this task:\n   " + dl
+                                + String.format("\nNow you have %d tasks in the list.", tasks.size()));
+                        storage.updateTaskFile(taskList);
                     } catch (DateTimeParseException e) {
                         throw new DateFormatWrongException(deadlineDate);
                     }
-                } else if (command.equals("event")) {
-                    if (arguments.length < 1) {
-                        throw new EmptyTaskException("event");
-                    }
-                    int fromIndex = -1;
-                    int toIndex = -1;
-                    for (int i = 0; i < arguments.length; i++) {
-                        if (arguments[i].equals("/from")) {
-                            fromIndex = i;
-                        } else if (arguments[i].equals("/to")) {
-                            toIndex = i;
-                        }
-                    }
+                    break;
+                case EventCommand.COMMAND_WORD:
+                    Parser.checkArgumentLength(EventCommand.COMMAND_WORD, arguments.length);
+                    int fromIndex = Parser.getWordIndex("/from", arguments);
+                    int toIndex = Parser.getWordIndex("/to", arguments);
                     if (fromIndex == -1 && toIndex == -1) {
                         throw new EventDateException("/from and /to");
-                    } else if (toIndex == -1){
+                    } else if (toIndex == -1) {
                         throw new EventDateException("/to");
                     } else if (fromIndex == -1) {
                         throw new EventDateException("/from");
@@ -226,107 +157,33 @@ public class Hachi {
                         try {
                             Event ev = new Event(eventTask, LocalDate.parse(eventStartDate),
                                     LocalDate.parse(eventEndDate));
-                            tasks.add(ev);
-                            System.out.println("Got it. I've added this task:");
-                            System.out.println("   " + ev);
-                            System.out.println(String.format("Now you have %d tasks in the list.", tasks.size()));
-                            updateTaskFile(tasks);
+                            taskList.add(ev);
+                            ui.showMessage("Got it. I've added this task:\n   " + ev
+                                    + String.format("\nNow you have %d tasks in the list.", tasks.size()));
+                            storage.updateTaskFile(taskList);
                         } catch (DateTimeParseException e) {
                             throw new DateFormatWrongException(eventStartDate + ", " + eventEndDate);
                         }
                     }
-                } else if (command.equals("search-date")) {
-                    if (arguments.length > 1) {
-                        throw new TooManyArgumentsException("search-date", 1, arguments.length);
-                    }
-                    if (arguments.length < 1) {
-                        throw new DateFormatWrongException("");
-                    }
+                    break;
+                case SearchdateCommand.COMMAND_WORD:
+                    Parser.checkArgumentLength(SearchdateCommand.COMMAND_WORD, arguments.length);
                     LocalDate searchDate = LocalDate.parse(arguments[0]);
                     ArrayList<Task> filteredDates = new ArrayList<>();
                     tasks.forEach(task -> {
-                        if(task.isDateWithinRange(searchDate)) {
+                        if (task.isDateWithinRange(searchDate)) {
                             filteredDates.add(task);
                         }
                     });
-                    printTaskList(filteredDates);
-                } else {
+                    ui.showMessage(new TaskList(filteredDates).toString());
+                    break;
+                default:
                     throw new InvalidCommandException(command);
                 }
             } catch (HachiException e) {
                 System.out.println(e.getMessage());
             }
-            line();
         }
-    }
-
-    private static void appendToFile(String filePath, String textToAdd) throws IOException {
-        FileWriter fw = new FileWriter(filePath, true);
-        fw.write(textToAdd);
-        fw.close();
-    }
-
-    private static void updateTaskFile(ArrayList<Task> tasks) {
-        // clear file first
-        try {
-            new FileWriter(taskPath).close();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-
-        // add every task in current task list
-        tasks.forEach(task -> {
-            try {
-                appendToFile(taskPath, task.toData() + "\n");
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-        });
-    }
-
-    private static Task txtToTask(String txt) throws HachiException {
-        String[] s = txt.split(" \\| "); // need to escape | character as it means something in regex
-        Task temp = null;
-        // set Task to the respective task type
-        try {
-            if (s[0].equals("T")) {
-                temp = new Todo(s[2]);
-            } else if (s[0].equals("D")) {
-                try {
-                    temp = new Deadline(s[2], LocalDate.parse(s[3]));
-                } catch (DateTimeParseException e) {
-                    throw new DateFormatWrongException(s[3]);
-                }
-            } else if (s[0].equals("E")) {
-                try {
-                    temp = new Event(s[2], LocalDate.parse(s[3]), LocalDate.parse(s[4]));
-                } catch (DateTimeParseException e) {
-                    throw new DateFormatWrongException(s[3] + ", " + s[4]);
-                }
-            }
-        } catch (ArrayIndexOutOfBoundsException e) {
-            System.out.println("Task stored in the wrong format! Please check the file at 'data/tasks.txt'");
-        }
-
-        // mark task based on '0' or '1' in the file
-        if (s[1].equals("1")) {
-            temp.mark();
-        } else {
-            temp.unmark();
-        }
-
-        return temp;
-    }
-
-    private static void printTaskList(ArrayList<Task> taskList) {
-        for (int i = 0; i < taskList.size(); i++) {
-            int num = i + 1;
-            System.out.println(num + ". " + taskList.get(i));
-        }
-    }
-
-    public static void line() {
-        System.out.println("____________________________________________________________");
     }
 
 }
