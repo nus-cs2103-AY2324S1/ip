@@ -1,5 +1,4 @@
 public class Event extends Task {
-
     private String from;
     private String to;
 
@@ -7,6 +6,11 @@ public class Event extends Task {
         super(description);
         this.from = from;
         this.to = to;
+    }
+
+    @Override
+    public String fileString() {
+        return "E | " + super.fileDescription() + " | " + this.from + " | " + this.to;
     }
 
     public String toString() {
