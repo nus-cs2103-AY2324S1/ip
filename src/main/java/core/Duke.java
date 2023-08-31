@@ -72,7 +72,9 @@ public class Duke {
                 case UNMARK:
                     ui.showMessage(tm.handleUnmark(userCommand));
                     break;
-                case EVENT, DEADLINE, TODO:
+                case EVENT:
+                case DEADLINE:
+                    case TODO:
                     ui.showMessage(tm.addTask(userCommand));
                     break;
                 case UNKNOWN:
