@@ -82,10 +82,14 @@ public class CliParserService {
             displayText.add(successMessage);
             displayText.add(outputService.indentLeft(task.toString()));
             outputService.echo(displayText);
-        }, () ->
+        }, () -> {
+            if (dukeBot.getNumberOfTasks() == 0) {
+                outputService.echo("There are no tasks left!");
+            }
             outputService.echo(String.format("Invalid Task index: %s provided.%n" +
-                    "Specify a number between %s - %s", taskNumber, 1, dukeBot.getNumberOfTasks() + 1))
-        );
+                    "Specify a number between %s - %s", taskNumber, 1, dukeBot.getNumberOfTasks() + 1));
+
+        });
     }
 
     private void handleDelete(String[] input) {
