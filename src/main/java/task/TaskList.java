@@ -150,10 +150,26 @@ public class TaskList {
     }
 
     /**
+     * Adds any task
+     * @param task The task to add
+     */
+    public void add(Task task) {
+        tasks.add(task);
+    }
+
+    /**
+     * Size of task list
+     * @return Number of tasks in the list
+     */
+    public int size() {
+        return tasks.size();
+    }
+
+    /**
      * Displays all tasks that are overdue
      */
     public String overdue() {
-        List<Task> overdue = new ArrayList<>();
+        TaskList overdue = new TaskList();
         for (Task task : tasks) {
             if (task.isDeadline()) {
                 Deadline deadline = (Deadline) task;
@@ -165,7 +181,7 @@ public class TaskList {
         if (overdue.size() == 0) {
             return "The Mind sees no overdue deadlines";
         } else {
-            return list(overdue);
+            return overdue.list();
         }
     }
 
@@ -175,7 +191,7 @@ public class TaskList {
             String dateTimeString = commandList[1];
             LocalDateTime localDateTime= Deadline.convertDate(dateTimeString);
             if (localDateTime != null) {
-                List<Task> dueBy = new ArrayList<>();
+                TaskList dueBy = new TaskList();
                 for (Task task : tasks) {
                     if (task.isDeadline()) {
                         Deadline deadline = (Deadline) task;
@@ -187,7 +203,7 @@ public class TaskList {
                 if (dueBy.size() == 0) {
                     return "The Mind sees no deadlines due by that day";
                 } else {
-                    return list(dueBy);
+                    return dueBy.list();
                 }
             } else {
                 return "The Mind does not sense a correct DateTime";
@@ -195,5 +211,18 @@ public class TaskList {
         } else {
             return "The Mind sees no deadline";
         }
+    }
+
+    public String find(String searchBy) {
+        TaskList contains = new TaskList();
+        for (Task task : tasks) {
+            if (task.contains(searchBy)) {
+                contains.add(task);
+            }
+        }
+        if (contains.size() == 0) {
+            return "The Mind sees no such tasks";
+        }
+        return contains.list();
     }
 }
