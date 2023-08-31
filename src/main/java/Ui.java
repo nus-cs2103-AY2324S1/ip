@@ -43,7 +43,7 @@ public class Ui {
     public void showDelete(Task task, int size) {
         System.out.println("     Aights mate. I've killed this task:");
         System.out.println("       " + task);
-        System.out.println(String.format("     Now you have %d task(s) in the list.", size));
+        System.out.println(String.format("     Now you have %d task(s) left.", size));
     }
     public void showList(List list) {
         System.out.println("     Here are all your tasks:");
