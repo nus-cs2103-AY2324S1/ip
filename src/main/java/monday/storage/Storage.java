@@ -15,7 +15,7 @@ import monday.task.Task;
  * Class for handling the storage of tasks in a file.
  */
 public class Storage {
-    private final String FILEPATH;
+    private final String filePath;
 
     /**
      * Constructs a Storage object with the specified file path.
