@@ -1,5 +1,8 @@
 package duke;
 
+/**
+ * Represents the keywords that the chatbot can understand.
+ */
 public enum Keyword {
     BYE("bye"),
     LIST("list"),

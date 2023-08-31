@@ -7,6 +7,10 @@ import java.time.format.DateTimeParseException;
 
 import duke.exception.DukeException;
 
+/**
+ * Time class is used to parse the date and time from
+ * {@code String} to {@code LocalDateTime} or {@code LocalDate} object.
+ */
 public class Time {
 
     private static final String DATE_FORMAT = "d/M/yyyy";
@@ -22,6 +26,14 @@ public class Time {
     public static final DateTimeFormatter DATE_DISPLAY_FORMATTER =
             DateTimeFormatter.ofPattern(DATE_DISPLAY_FORMAT);
 
+    /**
+     * Parses the date and time from {@code String} to {@code LocalDateTime} object.
+     * <p>If the format is wrong, it will throw an exception.</p>
+     *
+     * @param time The string to be parsed.
+     * @return The {@code LocalDateTime} object.
+     * @throws DukeException If the format is wrong.
+     */
     public static LocalDateTime parseDateTime(String time) throws DukeException {
         try {
             return LocalDateTime.parse(time, DATE_TIME_FORMATTER);
@@ -31,6 +43,14 @@ public class Time {
         }
     }
 
+    /**
+     * Parses the date from {@code String} to {@code LocalDate} object.
+     * <p>If the format is wrong, it will throw an exception.</p>
+     *
+     * @param time The string to be parsed.
+     * @return The {@code LocalDate} object.
+     * @throws DukeException If the format is wrong.
+     */
     public static LocalDate parseDate(String time) throws DukeException {
         try {
             return LocalDate.parse(time, DATE_FORMATTER);

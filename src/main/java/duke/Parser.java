@@ -16,8 +16,23 @@ import duke.exception.ManipulateException;
 import duke.exception.PrintDateException;
 import duke.exception.TodoException;
 
+/**
+ * Represents a parser that parses user input and turn it into command
+ * that the chatbot can execute.
+ * <p><br>Commands are in the form: {@code <keyword> <command body>}</p><br>
+ * <p>Where the command body is optional. The keyword is case-insensitive.
+ * The command body is the rest of the user input after the keyword.
+ * If the command body is present, it must be separated from the keyword by a space.</p>
+ */
 public class Parser {
 
+    /**
+     * Parses the user input and returns the corresponding command.
+     *
+     * @param fullCommand The user input.
+     * @return The corresponding command.
+     * @throws DukeException If the user input is invalid.
+     */
     public static Command parse(String fullCommand) throws DukeException {
         String[] split = fullCommand.split(" ");
         if (fullCommand.isEmpty() || split.length == 0) {
@@ -38,6 +53,14 @@ public class Parser {
         return parseMultiWordCommand(key, commandBody);
     }
 
+    /**
+     * Parses user input that only contains one word, and
+     * returns the corresponding command.
+     *
+     * @param key The keyword of the command.
+     * @return The corresponding command.
+     * @throws DukeException If the user input is invalid.
+     */
     private static Command parseOneWordCommand(Keyword key) throws DukeException {
         String err = String.format("OOPS!!! The description of a %s cannot be empty.", key.getKeyword());
         switch (key) {
@@ -69,7 +92,16 @@ public class Parser {
         }
     }
 
-    private static Command parseMultiWordCommand(Keyword key, String commandBody) throws DukeException {
+    /**
+     * Parses user input that contains more than one word, and
+     * returns the corresponding command.
+     *
+     * @param key The keyword of the command.
+     * @param commandBody The main body of the command.
+     * @return The corresponding command.
+     * @throws DukeException If the user input is invalid.
+     */
+    public static Command parseMultiWordCommand(Keyword key, String commandBody) throws DukeException {
         switch (key) {
         case BYE:
             if (commandBody.equals(Ui.NAME)) {
