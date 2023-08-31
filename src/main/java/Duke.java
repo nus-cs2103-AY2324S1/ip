@@ -2,6 +2,7 @@ import exceptions.*;
 
 import command.Command;
 
+import parser.Parser;
 import storage.Storage;
 
 import task.*;
@@ -18,6 +19,7 @@ import java.util.Scanner;
 public class Duke {
     private static final Storage storage = new Storage();
     private static final TaskList tasks = new TaskList();
+    private static final Parser parser = new Parser();
 
     /**
      * Sends a greeting message to the user.
@@ -85,29 +87,25 @@ public class Duke {
      * @return A boolean to stop the chatbot on "bye" command
      * @throws DukeException
      */
-    private static boolean runCommand(String[] inputs) throws DukeException {
-        String command = inputs[0].toLowerCase();
-
-        if (command.equals("bye")) {
+    private static boolean runCommand(Command command, String[] inputs) throws DukeException {
+        if (command == Command.BYE) {
             Ui.printExitMessage();
             storage.writeTasks(tasks);
             return false;
-        } else if (command.equals("todo") || command.equals("deadline") || command.equals("event")) {
-            if (inputs.length == 1 || inputs[1].equals("")) {
-                throw new DukeEmptyArgumentException(command);
+        } else if (command == Command.TODO || command == Command.DEADLINE || command == Command.EVENT) {
+            if (inputs.length == 1 || inputs[0].equals("")) {
+                throw new DukeEmptyArgumentException("OOPS!!! Argument for this command is invalid.");
             }
-
-            if (command.equals("todo")) {
+            if (command == Command.TODO) {
                 addTask(Command.TODO, inputs[1]);
-            } else if (command.equals(("deadline"))) {
+            } else if (command == Command.DEADLINE) {
                 addTask(Command.DEADLINE, inputs[1]);
             } else {
                 addTask(Command.EVENT, inputs[1]);
             }
-
-        } else if (command.equals("delete")) {
+        } else if (command == Command.DELETE) {
             if (inputs.length == 1 || inputs[1].equals("")) {
-                throw new DukeEmptyArgumentException(command);
+                throw new DukeEmptyArgumentException("OOPS!!! Argument for this command is invalid.");
             }
 
             try {
@@ -119,11 +117,11 @@ public class Duke {
             }
 
             editTask(Command.DELETE, Integer.parseInt(inputs[1]));
-        } else if (command.equals("list")) {
+        } else if (command == Command.LIST) {
             executeSingleCommand(Command.LIST);
-        } else if (command.equals("mark")) {
+        } else if (command == Command.MARK) {
             if (inputs.length == 1 || inputs[1].equals("")) {
-                throw new DukeEmptyArgumentException(command);
+                throw new DukeEmptyArgumentException("OOPS!!! Argument for this command is invalid.");
             }
 
             try {
@@ -135,9 +133,9 @@ public class Duke {
             }
 
             editTask(Command.MARK, Integer.parseInt(inputs[1]));
-        } else if (command.equals("unmark")) {
+        } else if (command == Command.UNMARK) {
             if (inputs.length == 1 || inputs[1].equals("")) {
-                throw new DukeEmptyArgumentException(command);
+                throw new DukeEmptyArgumentException("OOPS!!! Argument for this command is invalid.");
             }
 
             try {
@@ -150,7 +148,7 @@ public class Duke {
 
             Duke.editTask(Command.UNMARK, Integer.parseInt(inputs[1]));
         } else {
-            throw new DukeUnknownCommandException(command);
+            throw new DukeUnknownCommandException("OOPS!!! Argument for this command is invalid.");
         }
 
         return true;
@@ -170,9 +168,11 @@ public class Duke {
         while (true) {
             try {
                 String userInput = sc.nextLine();
+                Command command = parser.parseInput(userInput);
                 String[] inputs = userInput.split(" ", 2);
 
-                if (!Duke.runCommand(inputs)) break;
+                if (!Duke.runCommand(command, inputs)) break;
+                storage.writeTasks(tasks);
 
             } catch (Exception e) {
                 Ui.printLines(e.getMessage());

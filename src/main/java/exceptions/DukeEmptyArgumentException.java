@@ -7,6 +7,6 @@ package exceptions;
  */
 public class DukeEmptyArgumentException extends DukeException {
     public DukeEmptyArgumentException(String message) {
-        super("OOPS!!! The description of " + message + " cannot be empty.");
+        super(message);
     }
 }
