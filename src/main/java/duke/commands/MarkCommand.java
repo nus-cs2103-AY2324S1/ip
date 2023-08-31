@@ -9,8 +9,10 @@ import duke.ui.UI;
 import java.io.IOException;
 
 public class MarkCommand extends Command {
+
     public static final String COMMAND_WORD = "mark";
     private final int taskNumber;
+
     public MarkCommand(int taskNumber) {
         super();
         this.taskNumber = taskNumber;

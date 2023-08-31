@@ -8,7 +8,7 @@ import java.util.Scanner;
 
 public class UI {
     private static final int LINE_LENGTH = 100;
-    private Scanner scanner;
+    private final Scanner scanner;
 
     public UI() {
         scanner = new Scanner(System.in);

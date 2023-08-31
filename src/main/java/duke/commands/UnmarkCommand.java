@@ -9,6 +9,7 @@ import duke.ui.UI;
 import java.io.IOException;
 
 public class UnmarkCommand extends Command {
+
     public static final String COMMAND_WORD = "unmark";
     private final int taskNumber;
 

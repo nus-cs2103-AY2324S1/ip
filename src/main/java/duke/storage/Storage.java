@@ -5,6 +5,7 @@ import duke.data.task.Deadline;
 import duke.data.task.Event;
 import duke.data.task.Task;
 import duke.data.task.ToDo;
+import duke.parser.Parser;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -17,11 +18,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import duke.parser.Parser;
-
 public class Storage {
+
     private static final String CURRENT_DIRECTORY = System.getProperty("user.dir");
     private final String filePath;
+
     public Storage(String filePath) {
         this.filePath = filePath;
     }
@@ -37,12 +38,9 @@ public class Storage {
                 String taskType = data[0].trim();
                 switch (taskType) {
                     case "D":
-                        // duke.data.task.Deadline
                         if (data.length == 4) {
-                            // Ensure deadline date is a Datetime object
                             LocalDateTime localDateTime =
                                     LocalDateTime.parse(data[3].trim(), Parser.DATE_TIME_FORMAT);
-                            // Create new task object
                             Task t = new Deadline(data[2].trim(), localDateTime);
                             if (Integer.parseInt(data[1].trim()) == 1) {
                                 t.markAsDone();
@@ -51,9 +49,7 @@ public class Storage {
                         }
                         break;
                     case "E":
-                        // duke.data.task.Event
                         if (data.length == 5) {
-                            // Ensure deadline date is a Datetime object
                             Task t = new Event(data[2].trim(),
                                     LocalDateTime.parse(data[3].trim(), Parser.DATE_TIME_FORMAT),
                                     LocalDateTime.parse(data[4].trim(), Parser.DATE_TIME_FORMAT));
@@ -64,7 +60,6 @@ public class Storage {
                         }
                         break;
                     case "T":
-                        // To Do
                         if (data.length == 3) {
                             Task t = new ToDo(data[2].trim());
                             if (Integer.parseInt(data[1].trim()) == 1) {

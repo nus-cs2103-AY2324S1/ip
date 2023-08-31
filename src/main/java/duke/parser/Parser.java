@@ -1,6 +1,17 @@
 package duke.parser;
 
-import duke.commands.*;
+import duke.commands.AddDeadlineCommand;
+import duke.commands.AddEventCommand;
+import duke.commands.AddToDoCommand;
+import duke.commands.ByeCommand;
+import duke.commands.Command;
+import duke.commands.DeleteCommand;
+import duke.commands.DueCommand;
+import duke.commands.HelpCommand;
+import duke.commands.InvalidCommand;
+import duke.commands.ListCommand;
+import duke.commands.MarkCommand;
+import duke.commands.UnmarkCommand;
 
 import duke.data.exception.DukeException;
 import duke.data.exception.DukeExceptionType;
@@ -15,7 +26,9 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Parser {
+
     public static final Pattern COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
+
     public static final Pattern TASK_NUMBER_ARGS_FORMAT = Pattern.compile("(?<taskNumber>.+)");
     public static final Pattern DEADLINE_ARGS_FORMAT =
             Pattern.compile("(?<description>.*?)\\s+/by\\s+(?<deadline>.*)");
@@ -89,6 +102,11 @@ public class Parser {
 
         String deadlineDescription = matcher.group("description").trim();
         String dateString = matcher.group("deadline").trim();
+
+        if (deadlineDescription.isEmpty()) {
+            throw new DukeException(DukeExceptionType.DEADLINE_NO_DESCRIPTION);
+        }
+
         LocalDateTime localDateTime = LocalDateTime.parse(dateString, DATE_TIME_FORMAT);
 
         return new Deadline(deadlineDescription, localDateTime);
@@ -104,6 +122,10 @@ public class Parser {
         String fromDateString  = matcher.group("fromDate").trim();
         String toDateString  = matcher.group("toDate").trim();
 
+        if (eventDescription.isEmpty()) {
+            throw new DukeException(DukeExceptionType.EVENT_NO_DESCRIPTION);
+        }
+
         LocalDateTime fromDate = LocalDateTime.parse(fromDateString, DATE_TIME_FORMAT);
         LocalDateTime toDate = LocalDateTime.parse(toDateString, DATE_TIME_FORMAT);
 
@@ -112,6 +134,16 @@ public class Parser {
         }
 
         return new Event(eventDescription, fromDate, toDate);
+    }
+
+    private ToDo parseArgsAsToDo(String args) throws DukeException {
+        String description = args.trim();
+
+        if (description.isEmpty()) {
+            throw new DukeException(DukeExceptionType.TODO_NO_DESCRIPTION);
+        }
+
+        return new ToDo(description);
     }
 
     private Command prepareMarkCommand(String args) throws DukeException {
@@ -134,8 +166,9 @@ public class Parser {
         return new AddEventCommand(event);
     }
 
-    private Command prepareAddToDoCommand(String args) {
-        return new AddToDoCommand(new ToDo(args.trim()));
+    private Command prepareAddToDoCommand(String args) throws DukeException {
+        ToDo todo = parseArgsAsToDo(args);
+        return new AddToDoCommand(todo);
     }
 
     private Command prepareDeleteCommand(String args) throws DukeException {
@@ -143,7 +176,10 @@ public class Parser {
         return new DeleteCommand(taskIndex);
     }
 
-    private Command prepareDueCommand(String args) {
+    private Command prepareDueCommand(String args) throws DukeException {
+        if (args.isEmpty()) {
+            throw new DukeException(DukeExceptionType.DUE_NO_DATE);
+        }
         LocalDate dueDate = LocalDate.parse(args.trim(), DATE_FORMAT);
         return new DueCommand(dueDate);
     }

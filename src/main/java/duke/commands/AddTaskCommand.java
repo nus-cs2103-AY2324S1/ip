@@ -8,6 +8,7 @@ import duke.ui.UI;
 import java.io.IOException;
 
 public class AddTaskCommand extends Command {
+
     private final Task task;
 
     public AddTaskCommand(Task task) {
