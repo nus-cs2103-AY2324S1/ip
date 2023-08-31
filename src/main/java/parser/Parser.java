@@ -6,11 +6,7 @@ import exception.InvalidDeadlineException;
 import exception.InvalidEventException;
 import exception.InvalidToDoException;
 import storage.Storage;
-import task.Deadline;
-import task.Event;
-import task.Task;
 import task.TaskList;
-import task.ToDo;
 import ui.Ui;
 
 public class Parser {
@@ -50,21 +46,6 @@ public class Parser {
             ui.printException(e);
         } catch(InvalidCommandException e) {
             ui.printException(e);
-        }
-    }
-
-    /**
-     * Merthod to check whether a string is integer
-     * 
-     * @param str the string that wanted to be checked
-     * @return whether the string is integer
-     */
-    private static boolean isInt(String str) {
-        try {
-            Integer.parseInt(str);
-            return true;
-        } catch (NumberFormatException e) {
-            return false;
         }
     }
 }
