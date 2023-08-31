@@ -9,34 +9,19 @@ import java.util.Scanner;
 public class Ui {
     String name;
 
+    /**
+     * The Ui class handles interactions with the user interface, displaying messages and receiving inputs.
+     */
+
     public Ui(){
 
     }
-    public void greetFunction(String name){
-
-        String greetings = Duke.horiLine +"\nHello! I'm " + name + "\n"
-                + Duke.logo
-                + "What can I do for you?\n" + Duke.horiLine;
-        System.out.println(greetings);
-    }
-
-    public void helpFunction(){
-        System.out.println(Duke.horiLine);
-        System.out.println("You can utilise our functions below : ");
-        System.out.println("bye");
-        System.out.println("list");
-        System.out.println("todo [task]");
-        System.out.println("deadline [task] /by [dd/MM/yyyy]");
-        System.out.println("event [task] /from [dd/MM/yyyy] /to [dd/MM/yyyy]");
-        System.out.println("Note that all input date format will only accepted in format : \n 02/12/2019 1800 dd/MM/yyyy HHmm");
-        System.out.println(Duke.horiLine);
-    }
-
-    public String acceptInput(Scanner scanner){
-        String input = scanner.nextLine();
-
-        return input;
-    }
+    /**
+     * Runs the task processing loop, taking user inputs and performing corresponding actions.
+     *
+     * @param oriTaskArray The original TaskArray containing tasks.
+     * @return The updated TaskArray after processing user inputs.
+     */
 
     public TaskArray runTask(TaskArray oriTaskArray){
         TaskArray taskArray = oriTaskArray;
@@ -54,10 +39,11 @@ public class Ui {
                     taskArray.printTaskArrayList();
                     break;
                 case "delete":
-                    int deleteIndex = input.processMarkIndex();
+                    int deleteIndex = input.processDeleteIndex();
                     if(deleteIndex >= 0) {
                         taskArray.removeTask(deleteIndex - 1);
                     }else{
+                        printInvalidArgIndex();
                         continue;
                     }
                     break;
@@ -67,6 +53,7 @@ public class Ui {
                     if(markIndex >= 0) {
                         taskArray.get(markIndex - 1).mark();
                     }else{
+                        printInvalidArgIndex();
                         continue;
                     }
                     break;
@@ -76,6 +63,7 @@ public class Ui {
                     if(unmarkIndex >= 0) {
                         taskArray.get(unmarkIndex - 1).unmark();
                     }else{
+                        printInvalidArgIndex();
                         continue;
                     }
                     break;
@@ -120,22 +108,88 @@ public class Ui {
         return taskArray;
 
     }
+    /**
+     * Greets the user with a welcome message.
+     *
+     * @param name The name of the bot.
+     */
+
+    public void greetFunction(String name){
+
+        String greetings = Duke.horiLine +"\nHello! I'm " + name + "\n"
+                + Duke.logo
+                + "What can I do for you?\n" + Duke.horiLine;
+        System.out.println(greetings);
+    }
+
+    /**
+     * Displays the list of available commands to the user.
+     */
+    public void helpFunction(){
+        System.out.println(Duke.horiLine);
+        System.out.println("You can utilise our functions below : ");
+        System.out.println("bye");
+        System.out.println("find [task keywords]");
+        System.out.println("list");
+        System.out.println("todo [task]");
+        System.out.println("deadline [task] /by [dd/MM/yyyy]");
+        System.out.println("event [task] /from [dd/MM/yyyy] /to [dd/MM/yyyy]");
+        System.out.println("Note that all input date format will only accepted in format : \n 02/12/2019 1800 dd/MM/yyyy HHmm");
+        System.out.println(Duke.horiLine);
+    }
+
+    /**
+     * Accepts user input from the scanner.
+     *
+     * @param scanner The Scanner object used for input.
+     * @return The user's input as a String.
+     */
+
+    public String acceptInput(Scanner scanner){
+        String input = scanner.nextLine();
+
+        return input;
+    }
+
+
+    /**
+     * Displays a goodbye message to the user.
+     */
     public static void byeFunction(){
 
         String byeword = Duke.horiLine + "\nBye. Hope to see you again soon\n" + Duke.horiLine;
         System.out.println(byeword);
     }
 
+    /**
+     * Displays an error message for an invalid index.
+     */
+    public void printInvalidArgIndex(){
+        System.out.println(Duke.horiLine);
+        System.out.println("OOPS!!! Invalid Index!");
+        System.out.println(Duke.horiLine);
+    }
+
+    /**
+     * Displays an error message for insufficient arguments for an event task.
+     */
     public void printInsufficientArgEvent(){
         System.out.println(Duke.horiLine);
         System.out.println("☹ OOPS!!! The argument for the event is insufficient!");
         System.out.println(Duke.horiLine);
     }
+
+    /**
+     * Displays an error message for insufficient arguments for a deadline task.
+     */
     public void printInsufficientArgDeadline(){
         System.out.println(Duke.horiLine);
         System.out.println("☹ OOPS!!! The argument for the deadline is insufficient!");
         System.out.println(Duke.horiLine);
     }
+    /**
+     * Displays an error message for an empty description in a to-do task.
+     */
 
     public void printInsufficientArgToDo(){
         System.out.println(Duke.horiLine);
@@ -143,6 +197,9 @@ public class Ui {
         System.out.println(Duke.horiLine);
     }
 
+    /**
+     * Displays an error message for an invalid command.
+     */
     public void printInvalidArg(){
         System.out.println(Duke.horiLine);
         System.out.println("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
