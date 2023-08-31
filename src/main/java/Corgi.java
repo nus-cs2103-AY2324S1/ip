@@ -8,6 +8,7 @@ import tasks.TaskList;
 import tasks.TaskListIndexOutOfBoundsException;
 import tasks.TaskStatusException;
 import tasks.ToDo;
+import ui.Ui;
 import tasks.Deadline;
 import tasks.Event;
 
@@ -23,6 +24,7 @@ import storage.Storage;
 public class Corgi {
     private TaskList tasks;
     private Storage<Task> storage;
+    private Ui ui;
 
     public static void main(String[] args) {
         Corgi bot = new Corgi();
@@ -33,11 +35,12 @@ public class Corgi {
      * Constructs new Corgi chatbot with an empty task list.
      */
     public Corgi() {
+        this.ui = new Ui();
         this.storage = new Storage<>(new TaskParser(), "./data/tasks.txt");
         this.tasks = new TaskList(storage.load());
 
         if (tasks.size() > 0) {
-            System.out.println("Successfully loaded " + tasks.size() + " tasks!");
+            this.ui.showTasksLoaded(tasks.size());
         }
     }
 
@@ -45,25 +48,19 @@ public class Corgi {
      * Starts the chatbot - Corgi.
      */
     public void start() {
-        String logo = "  ____ ___  ____   ____ ___\n"
-                + " / ___/ _ \\|  _ \\ / ___|_ _|\n"
-                + "| |  | | | | |_) | |  _ | |\n"
-                + "| |__| |_| |  _ <| |_| || |\n"
-                + " \\____\\___/|_| \\_\\\\____|___|\n";
-        System.out.println(logo);
-        System.out.println("Woof! I'm Corgi!");
-        System.out.println("So, what's your wish this time, hooman?\n");
-
         Scanner sc = new Scanner(System.in);
+        this.ui.setScanner(sc);
+
+        this.ui.showIntro();
 
         while(true) {
-            String userInput = sc.nextLine().trim();
+            String userInput = this.ui.readCommand();
 
             if (userInput.equals("")) {
                 continue;
             }
 
-            System.out.println("---------------------------------------------------------------------");
+            this.ui.showStartLine();
 
             String[] inputParts = userInput.split(" ", 2);
             String cmdStr = inputParts[0];
@@ -73,7 +70,7 @@ public class Corgi {
             try {
                 cmd = CommandType.getCommandType(cmdStr);
             } catch (InvalidCommandException e) {
-                this.printException("Can't believe you're asking that! Grrr, what do you want now?");
+                this.ui.showError(e.getClass().getSimpleName());
             }
 
             boolean breakLoop = false;
@@ -82,7 +79,7 @@ public class Corgi {
                 breakLoop = this.executeCommand(cmd, inputParts);
             }
 
-            System.out.println("---------------------------------------------------------------------\n");
+            this.ui.showEndLine();
 
             if (breakLoop) break;
         }
@@ -103,7 +100,7 @@ public class Corgi {
             switch (cmd) {
                 case BYE:
                     if (inputs.length > 1) throw new InvalidCommandException();
-                    System.out.println("Fine! Whatever! Just go away then! See if I care! huffs");
+                    this.ui.showExitMsg();
                     return true;
                 case LIST:
                     if (inputs.length > 1) throw new InvalidCommandException();
@@ -139,27 +136,17 @@ public class Corgi {
                     break;
             }
         } catch (InvalidCommandException e) {
-            this.printException("Can't believe you're asking that! Grrr, what do you want now?");
+            this.ui.showError(e.getClass().getSimpleName());
         } catch (EmptyDescException e) {
-            this.printException("Seriously? You want me to do something with an empty description?");
+            this.ui.showError(e.getClass().getSimpleName());
         } catch (InvalidDescFormatException e) {
-            this.printException("Are you trying to confuse me with this nonsense? Try again hooman!" + "\n" 
-                + "Format: < " + cmd.getCommandFormat() + " >");
+            this.ui.showError(e.getClass().getSimpleName(), e.getMessage());
+            this.ui.showCommandFormat(cmd);
         } catch (Exception e) {
-            this.printException("Oh wonderful, you've broken something. And guess what? I have absolutely no idea what happened either."
-                + "\n\n❗An error of type " + e.getClass().getSimpleName() + " occurred: " + e.getMessage());
+            this.ui.showError(e.getClass().getSimpleName());
         }
 
         return false;
-    }
-
-    /**
-    * Prints an corgi-themed error message.
-    *
-    * @param msg The error message to display.
-    */
-    private void printException(String msg) {
-        System.out.println("Woof?! 🤬 \n" + msg);
     }
 
     private void getTaskOnDate(String dateStr) throws InvalidDescFormatException {
@@ -168,7 +155,7 @@ public class Corgi {
         try {
             target = LocalDate.parse(dateStr, Task.DATE_INPUT_FORMATTER);
         } catch (DateTimeParseException e) {
-            throw new InvalidDescFormatException();
+            throw new InvalidDescFormatException("Invalid date format!");
         }
 
         final LocalDate FINAL_TARGET = target;
@@ -185,12 +172,13 @@ public class Corgi {
         };
 
         TaskList tasksOnDate = this.tasks.filter(isOnDate);
+
+        String formattedDate = target.format(Task.DATE_OUTPUT_FORMATTER);
         
         if (tasksOnDate.isEmpty()) {
-            System.out.println("No tasks or events are scheduled for " + target.format(Task.DATE_OUTPUT_FORMATTER) + ".");
+            this.ui.showNoTaskOnDate(formattedDate);;
         } else {
-            System.out.println("Here are the tasks and events happening on " + target.format(Task.DATE_OUTPUT_FORMATTER) + ":");
-            TaskList.printTasks(tasksOnDate);
+            this.ui.showTasksOnDate(formattedDate, tasksOnDate.toString());
         }
     }
 
@@ -204,14 +192,13 @@ public class Corgi {
             int index = Integer.parseInt(indexStr) - 1;
             this.tasks.mark(index, true);
             this.storage.save(tasks);
-            System.out.println("Congratulations, I guess! You finally managed to do something right 🎉:\n" 
-                    + "\n " + this.tasks.getTaskInfo(index) + "\n");     
+            this.ui.showTaskDone(this.tasks.getTaskInfo(index)); 
         } catch (NumberFormatException e) {
-            this.printException("Arf! You're trying to trick me with words instead of numbers?");
+            this.ui.showError(e.getClass().getSimpleName());
         } catch (TaskStatusException e) {
-            this.printException("This task is already marked as done. What are you trying to do? 🤔");
+            this.ui.showError(e.getClass().getSimpleName());
         } catch (TaskListIndexOutOfBoundsException e) {
-            this.printException("Arf! Invalid task number? Seriously, can't you count? 💢");
+            this.ui.showError(e.getClass().getSimpleName());
         }
     }
 
@@ -225,14 +212,13 @@ public class Corgi {
             int index = Integer.parseInt(indexStr) - 1;
             this.tasks.mark(index, false);
             this.storage.save(tasks);
-            System.out.println("Oh great, you've undone something 🐕. Just like always:\n" 
-                    + "\n " + this.tasks.getTaskInfo(index) + "\n");
+            this.ui.showTaskUndone(this.tasks.getTaskInfo(index));
         } catch (NumberFormatException e) {
-            this.printException("Arf! You're trying to trick me with words instead of numbers?");
+            this.ui.showError(e.getClass().getSimpleName());
         } catch (TaskStatusException e) {
-            this.printException("This task isn't even marked as done yet. What are you trying to do? 🤔");
+            this.ui.showError(e.getClass().getSimpleName());
         } catch (TaskListIndexOutOfBoundsException e) {
-            this.printException("Arf! Invalid task number? Seriously, can't you count? 💢");
+            this.ui.showError(e.getClass().getSimpleName());
         }
     }
 
@@ -241,9 +227,9 @@ public class Corgi {
      */
     private void displayTasks() {
         if (tasks.isEmpty()) {
-            System.out.println("If you haven't noticed, there's nothing here! No tasks to be found.");
+            this.ui.showNoTaskInList();
         } else {
-            TaskList.printTasks(this.tasks);
+            this.ui.showTaskList(this.tasks.toString());
         }
     }
 
@@ -258,12 +244,12 @@ public class Corgi {
             String target = this.tasks.getTaskInfo(index);
             this.tasks.remove(index);
             this.storage.save(tasks);
-            System.out.println("Finally got rid of that task. Took you long enough... uninterested woof\n" 
-                    + "\n " + target + "\n\nNow you have " + this.tasks.size() + " tasks in the list.🐾");
+            this.ui.showTaskDeleted(target, this.tasks.size());
         } catch (NumberFormatException e) {
-            this.printException("Arf! You're trying to trick me with words instead of numbers?");
+            //todo: when encounter this throw InvalidDescFormat with message of what happening?
+            this.ui.showError(e.getClass().getSimpleName());
         } catch (TaskListIndexOutOfBoundsException e) {
-            this.printException("Arf! Invalid task number? Seriously, can't you count? 💢");
+            this.ui.showError(e.getClass().getSimpleName());
         }
     }
 
@@ -279,8 +265,7 @@ public class Corgi {
 
         this.storage.save(tasks);
 
-        System.out.println("Woof, whatever. I've added this ToDo:\n" + 
-            "\n " + newTask + "\n\nNow you have " + this.tasks.size() + " tasks in the list.🐾");
+        this.ui.showTaskAdded("todo", newTask.toString(), this.tasks.size());
     }
 
     /**
@@ -291,7 +276,7 @@ public class Corgi {
     private void addDeadline(String taskInfo) throws InvalidDescFormatException{
         String[] deadlineInfos = taskInfo.split(" /by ");
 
-        if (deadlineInfos.length < 2) throw new InvalidDescFormatException();
+        if (deadlineInfos.length < 2) throw new InvalidDescFormatException("Missing information!");
 
         String deadlineDesc = deadlineInfos[0];
         LocalDate by = null;
@@ -299,7 +284,7 @@ public class Corgi {
         try {
             by = LocalDate.parse(deadlineInfos[1], Task.DATE_INPUT_FORMATTER);
         } catch (DateTimeParseException e) {
-            throw new InvalidDescFormatException();
+            throw new InvalidDescFormatException("Invalid date format!");
         }
 
         Task newTask = new Deadline(deadlineDesc, by);
@@ -308,8 +293,7 @@ public class Corgi {
 
         this.storage.save(tasks);
 
-        System.out.println("Woof, whatever. I've added this deadline:\n" + 
-            "\n " + newTask + "\n\nNow you have " + this.tasks.size() + " tasks in the list.🐾");
+        this.ui.showTaskAdded("deadline", newTask.toString(), this.tasks.size());
     }
 
     /**
@@ -320,12 +304,12 @@ public class Corgi {
     private void addEvent(String taskInfo) throws InvalidDescFormatException{
         String[] eventInfos = taskInfo.split(" /from ");
 
-        if (eventInfos.length < 2) throw new InvalidDescFormatException();
+        if (eventInfos.length < 2) throw new InvalidDescFormatException("Missing information!");
 
         String eventDesc = eventInfos[0];
         String[] eventDuration = eventInfos[1].split(" /to ");
 
-        if (eventDuration.length < 2) throw new InvalidDescFormatException();
+        if (eventDuration.length < 2) throw new InvalidDescFormatException("Missing information!");
 
         LocalDate from = null;
         LocalDate to = null;
@@ -334,7 +318,7 @@ public class Corgi {
             from = LocalDate.parse(eventDuration[0], Task.DATE_INPUT_FORMATTER);
             to = LocalDate.parse(eventDuration[1], Task.DATE_INPUT_FORMATTER);
         } catch (DateTimeParseException e) {
-            throw new InvalidDescFormatException();
+            throw new InvalidDescFormatException("Invalid date format!");
         }
 
         Task newTask = new Event(eventDesc, from, to);
@@ -343,7 +327,6 @@ public class Corgi {
 
         this.storage.save(tasks);
 
-        System.out.println("Woof, whatever. I've added this event:\n" + 
-            "\n " + newTask + "\n\nNow you have " + this.tasks.size() + " tasks in the list.🐾");
+        this.ui.showTaskAdded("event", newTask.toString(), this.tasks.size());
     }
 }
