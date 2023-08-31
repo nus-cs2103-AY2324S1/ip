@@ -14,16 +14,10 @@ public class Storage {
         this.filepath = filepath;
     }
 
-    public void save(ArrayList<Task> allTasks) throws LukeException {
+    public void save(String saveString) throws LukeException {
         try {
             FileWriter fw = new FileWriter(filepath);
-            String inputTxt = "";
-
-            for (Task task : allTasks) {
-                inputTxt += task.toSaveStr() + "\n";
-            }
-
-            fw.write(inputTxt.trim());
+            fw.write(saveString);
             fw.close();
         } catch (IOException e) {
             throw new LukeException("Error writing saved tasks into '" + filepath

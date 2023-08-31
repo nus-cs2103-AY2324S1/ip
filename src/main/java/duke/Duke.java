@@ -42,7 +42,7 @@ public class Duke {
 
         bye();
         try {
-            storage.save(tasks.getAll());
+            storage.save(tasks.toSaveString());
             ui.displayMessage("Tasks successfully saved");
         } catch (LukeException e) {
             ui.displayError(e.getMessage());
@@ -59,7 +59,7 @@ public class Duke {
     private void executeCommand(String command) throws LukeException {
         switch(command.split(" ")[0]) {
         case "list":
-            ui.list(tasks.getAll());
+            ui.displayMessage(tasks.list());
             break;
         case "mark":
             ui.displayMessage("Nice! I've marked this task as done: \n" + tasks.markAsDone(command));
@@ -76,6 +76,9 @@ public class Duke {
             // Fallthrough
         case "event":
             ui.displayMessage("added : " + tasks.add(command));
+            break;
+        case "find":
+            ui.displayMessage(tasks.find(command));
             break;
         default:
             throw new LukeException("I'm sorry, but I don't know what that means :-(");

@@ -1,6 +1,5 @@
 package duke;
 
-import java.sql.Array;
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -8,7 +7,7 @@ import java.util.regex.Pattern;
 public class TaskList {
     private static final Pattern PATTERN_COMMAND_DELETE = Pattern.compile("^delete (?<taskNumber>\\d*)$");
     private static final Pattern PATTERN_COMMAND_MARK_UNMARK = Pattern.compile("^(mark|unmark) (?<taskNumber>\\d*)$");
-
+    private static Pattern PATTERN_COMMAND_FIND = Pattern.compile("^find( (?<searchString>.*))?$");
 
     private ArrayList<Task> tasks;
 
@@ -27,6 +26,72 @@ public class TaskList {
      */
     public ArrayList<Task> getAll() {
         return tasks;
+    }
+
+    /**
+     * Returns the string representation of the list of tasks
+     *
+     * @return String representation of the list of tasks
+     */
+    public String list() {
+        String listStr = "";
+
+        for (int i = 0; i < tasks.size(); i++) {
+            listStr += (i + 1) + ". " + tasks.get(i) + "\n";
+        }
+
+        if (listStr.isBlank()) {
+            listStr = "Congrats! You have no tasks!";
+        }
+
+        return listStr.trim();
+    }
+
+    /**
+     * The saving string representation of the list of tasks.
+     *
+     * @return Saving string representation of the list of tasks
+     */
+    public String toSaveString() {
+        String inputTxt = "";
+
+        for (Task task : tasks) {
+            inputTxt += task.toSaveStr() + "\n";
+        }
+
+        return inputTxt.trim();
+    }
+
+    /**
+     * Returns a list of tasks whose names contain the specified substring
+     *
+     * @param command Command specifying the substring to search for
+     * @return ArrayList of tasks whose names has the substring
+     */
+    public String find(String command) {
+        Matcher matcher = PATTERN_COMMAND_FIND.matcher(command);
+        matcher.find();
+
+        String searchString = matcher.group("searchString");
+        if (searchString == null || searchString.isBlank()) {
+            return list();
+        }
+
+        String result = "";
+        for (int i = 0; i < tasks.size(); ++i) {
+            Task task = tasks.get(i);
+            if (!task.hasSubstring(searchString)) {
+                continue;
+            }
+
+            result += (i + 1) + ". " + task + "\n";
+        }
+
+        if (result.isBlank()) {
+            result = "You have no tasks that contain this substring!";
+        }
+
+        return result;
     }
 
     /**
