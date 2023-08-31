@@ -10,12 +10,12 @@ Hello! I'm Jack
 What can I do for you?
 ____________________________________________________________
 ____________________________________________________________
-Got it. I've added this task:
+Got it. I've added this taskTest:
 [D][] return book (by: June 6th)
 Now you have 1 tasks in the list.
 ____________________________________________________________
 ____________________________________________________________
-Got it. I've added this task:
+Got it. I've added this taskTest:
 [E][] project meeting (from: Aug 6th 2pm to: 4pm)
 Now you have 2 tasks in the list.
 ____________________________________________________________
@@ -25,7 +25,7 @@ Here are the tasks in your list:
 2.[E][] project meeting (from: Aug 6th 2pm to: 4pm)
 ____________________________________________________________
 ____________________________________________________________
-Noted. I've removed this task:
+Noted. I've removed this taskTest:
 [E][] project meeting (from: Aug 6th 2pm to: 4pm)
 Now you have 1 tasks in the list.
 ____________________________________________________________
