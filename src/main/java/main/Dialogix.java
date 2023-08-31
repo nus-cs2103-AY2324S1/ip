@@ -6,13 +6,19 @@ import task.Event;
 import task.Task;
 import task.Todo;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 public class Dialogix {
-    private static final String FILE_PATH = "./data/dialogix.txt";
+    private static final String FILE_PATH = "./data/dialogix.txt"; // Update the relative file path
+
+    private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
@@ -26,7 +32,7 @@ public class Dialogix {
 
         boolean continueDialog = true;
 
-        loadTasksFromFile(list); // Load tasks from file when chatbot starts
+        loadTasksFromFile(list);
 
         while (continueDialog) {
             try {
@@ -45,7 +51,8 @@ public class Dialogix {
                 } else if (userInput.startsWith("deadline")) {
                     String[] parts = userInput.replaceFirst("deadline\\s+", "").split(" /by ");
                     if (parts.length == 2) {
-                        list.add(new Deadline(parts[0], parts[1]));
+                        LocalDate byDate = LocalDate.parse(parts[1], DATE_TIME_FORMATTER);
+                        list.add(new Deadline(parts[0], byDate, null));
                         System.out.println("Bot: Got it. I've added this task:\n  " + list.get(list.size() - 1).toString());
                     } else {
                         System.out.println("Bot: Invalid input format for 'deadline'.");
@@ -53,13 +60,15 @@ public class Dialogix {
                 } else if (userInput.startsWith("event")) {
                     String[] parts = userInput.replaceFirst("event\\s+", "").split(" /from | /to ");
                     if (parts.length == 3) {
-                        list.add(new Event(parts[0], parts[1], parts[2]));
+                        LocalDate fromDate = LocalDate.parse(parts[1], DATE_TIME_FORMATTER);
+                        LocalDate toDate = LocalDate.parse(parts[2], DATE_TIME_FORMATTER);
+                        list.add(new Event(parts[0], fromDate, toDate));
                         System.out.println("Bot: Got it. I've added this task:\n  " + list.get(list.size() - 1).toString());
                     } else {
                         System.out.println("Bot: Invalid input format for 'event'.");
                     }
                 } else if (userInput.equalsIgnoreCase("bye")) {
-                    saveTasksToFile(list); // Save tasks to file before exiting
+                    saveTasksToFile(list);
                     System.out.println("Bot: Goodbye! Have a great day!");
                     continueDialog = false;
                 } else if (userInput.startsWith("delete")) {
@@ -110,7 +119,7 @@ public class Dialogix {
             File file = new File(FILE_PATH);
 
             if (!file.exists()) {
-                file.getParentFile().mkdirs(); // Create directory if it doesn't exist
+                file.getParentFile().mkdirs();
                 file.createNewFile();
                 return;
             }
@@ -128,5 +137,4 @@ public class Dialogix {
             System.out.println("Bot: Error loading tasks from file.");
         }
     }
-
 }
