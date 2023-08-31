@@ -2,9 +2,20 @@ package duke;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+
+/**
+ * The Deadlines class represents a task with a specific deadline.
+ * It extends the Task class and provides methods to mark and unmark the task as done.
+ */
 public class Deadlines extends Task {
     private final LocalDate deadline;
 
+    /**
+     * Constructs a Deadlines instance with the specified task description and deadline.
+     *
+     * @param task The description of the task.
+     * @param deadline The deadline for the task.
+     */
     public Deadlines(String task, LocalDate deadline) {
         super(task);
         this.deadline = deadline;
@@ -16,12 +27,14 @@ public class Deadlines extends Task {
         System.out.println(super.line() + "Okay, I have marked this task as completed!" + "\n" + this.toString());
         System.out.println(super.line());
     }
+
     @Override
     public void unMark() {
         this.done = false;
         System.out.println(super.line() + "Okay, I have marked this task as incomplete!" + "\n" + this.toString());
         System.out.println(super.line());
     }
+
     @Override
     public String toString() {
         String checkbox = this.done ? "[X] " : "[ ] ";
