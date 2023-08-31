@@ -285,7 +285,7 @@ public class TrackerBot {
      *         false otherwise.
      */
     private static boolean handleInput(String str) {
-        Pair<CommandType, String> input = CommandType.parse(str);
+        Pair<CommandType, String> input = Parser.parse(str);
         Scanner scanner = new Scanner(input.getSecond());
 
         System.out.println(FORMAT_LINE);
