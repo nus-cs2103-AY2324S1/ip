@@ -10,6 +10,19 @@ public class Event extends Task {
     }
 
     @Override
+    public String toCommaString() {
+        String[] commaStringValues = {
+                "E",
+                this.isDone ? "X" : " ",
+                this.description,
+                this.startTime,
+                this.endTime,
+        };
+        String commaString = String.join(",", commaStringValues);
+        return commaString;
+    }
+
+    @Override
     public String toString(){
         return "[E]" + super.toString() + " (from: " + this.startTime + " to: " + this.endTime + ")";
     }
