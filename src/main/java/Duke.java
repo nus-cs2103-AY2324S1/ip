@@ -1,3 +1,9 @@
+import java.io.File;
+import java.io.FileWriter;
+import java.io.BufferedWriter;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.Objects;
 import java.util.Scanner;
 import java.util.ArrayList;
@@ -10,12 +16,20 @@ public class Duke {
         EVENT
     }
 
+    public static class DukeException extends Exception {
+        public DukeException(String message) {
+            super(message);
+        }
+    }
+
     public static class Task {
         protected String description;
         protected boolean isDone;
         protected TaskType type;
         protected String start;
         protected String end;
+        String markString = "    Nice! I've marked this task as done:";
+        String unmarkString = "     OK, I've marked this task as not done yet:";
 
         public Task(String description, TaskType type, String start, String end) {
             this.description = description;
@@ -50,10 +64,18 @@ public class Duke {
         public void descriptionString() {
             String initStatement = "     Got it. I've added this task:";
             System.out.println(initStatement);
-            this.printMarking();
+            this.printMarking(false);
         }
 
-        public void printMarking() {
+        public void printMarking(boolean mark) {
+            if (mark) {
+                if (this.isDone) {
+                    System.out.println(markString);
+                } else {
+                    System.out.println(unmarkString);
+                }
+            }
+
             System.out.printf("       [%s][%s] %s", this.getTypeIcon(), this.getStatusIcon(), this.description);
 
             if (!Objects.equals(this.start, "") && !Objects.equals(this.end, "")) {
@@ -81,7 +103,7 @@ public class Duke {
         public void delete(int id) {
             System.out.println("     Noted. I've removed this task:");
             Task t = this.taskList.get(id);
-            t.printMarking();
+            t.printMarking(false);
             this.taskList.remove(id);
             int size = this.taskList.size();
             System.out.printf("\n     Now you have %d tasks in the list.\n", size);
@@ -102,9 +124,24 @@ public class Duke {
             }
         }
 
-        public void printMarking(int i) {
-            Task t = this.taskList.get(i);
-            t.printMarking();
+        public void printMarking(int i) throws DukeException{
+            try {
+                Task t = this.taskList.get(i);
+                t.printMarking(true);
+            }
+            catch (Exception e) {
+                throw new DukeException("     ☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+            }
+        }
+
+        public void changeMarking(int i, boolean isDone) throws DukeException{
+            try {
+                Task t = this.taskList.get(i);
+                t.marking(isDone);
+            }
+            catch (Exception e) {
+                throw new DukeException("     ☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+            }
         }
 
         public void printEntry(Task t) {
@@ -125,15 +162,57 @@ public class Duke {
     public static void main(String[] args) {
 
         // standard response
-        String horizontalLine = "   ---------------------------------------------------";
+        String horizontalLine = "   ------------------------------------------------------------------------";
         String intro = "    Hello! I'm iPbot \n    What can I do for you?";
         String outro = "    Bye. Hope to see you again soon!";
-        String markString = "    Nice! I've marked this task as done:";
-        String unmarkString = "     OK, I've marked this task as not done yet:";
         String noDescError = "     ☹ OOPS!!! The description of a todo cannot be empty.";
         String noCommandError = "     ☹ OOPS!!! I'm sorry, but I don't know what that means :-(";
         // initialise
         Storage storage = new Storage();
+        // read from txt file and create tasks and put into storage
+        try (BufferedReader reader = new BufferedReader(new FileReader("data/duke.txt"))) {
+
+            File file = new File("data/duke.txt");
+            if (!file.exists()) {
+                file.createNewFile();
+            }
+            FileReader fileReader = new FileReader(file); // append mode
+            BufferedReader bufferedReader = new BufferedReader(fileReader);
+
+            String line;
+
+            while ((line = reader.readLine()) != null) {
+                // Assuming your line contains comma-separated values
+                String[] values = line.split("\\|");
+                System.out.println(line);
+                System.out.println(values[0]);
+                System.out.println(values[1]);
+                // Create your Java object based on the parsed values
+                Duke.TaskType type = Objects.equals(values[0], "T")
+                        ? TaskType.TODO
+                        : Objects.equals(values[0], "D")
+                        ? TaskType.DEADLINE
+                        : TaskType.EVENT;
+                String start = "", end = "";
+                try {
+                    start = values[3];
+                } catch (Exception e) {
+                    start = "";
+                }
+                try {
+                    end = values[4];
+                } catch (Exception e) {
+                    end = "";
+                }
+                Task obj = new Task(values[2], type, start, end); // Instantiate with appropriate arguments
+                obj.marking(!Objects.equals(values[1], "0"));
+                System.out.println(values[2]);
+                // Store the object in your storage instance
+                storage.addList(obj);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         System.out.println(horizontalLine);
         System.out.println(intro);
         System.out.println(horizontalLine);
@@ -146,6 +225,40 @@ public class Duke {
                     System.out.println(horizontalLine);
                     System.out.println(outro);
                     System.out.println(horizontalLine);
+                    // write the changes into the file duke.txt
+                    try {
+                        FileWriter fileWriter = new FileWriter("data/duke.txt");
+                        BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+
+                        for (Task tasking : storage.taskList) {
+                            // format the string
+
+                            String formattedString = "";
+                            Integer priority = tasking.isDone
+                                    ? 1
+                                    : 0;
+                            switch (tasking.type) {
+                                case TODO:
+                                    formattedString = String.format("%c|%d|%s",
+                                            'T', priority, tasking.description);
+                                    break;
+                                case EVENT:
+                                    formattedString = String.format("%c|%d|%s|%s",
+                                            'T', priority, tasking.description, tasking.start);
+                                    break;
+                                case DEADLINE:
+                                    formattedString = String.format("%c|%d|%s|%s|%s",
+                                            'T', priority, tasking.description, tasking.start, tasking.end);
+                                    break;
+                            }
+                            bufferedWriter.write(formattedString);
+                            bufferedWriter.newLine(); // Move to the next line
+                        }
+
+                        bufferedWriter.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                     return;
                 case "list":
                     System.out.println(horizontalLine);
@@ -155,18 +268,24 @@ public class Duke {
                 case "mark" :
                     System.out.println(horizontalLine);
                     int id = Integer.parseInt(parts[1]) - 1;
-                    System.out.println(markString);
-                    storage.taskList.get(id).marking(true);
-                    storage.printMarking(id);
-                    System.out.println(horizontalLine);
+                    try {
+                        storage.changeMarking(id, true);
+                        storage.printMarking(id);
+                    } catch (Exception e) {
+                        System.out.print(e.getMessage());
+                    }
+                    System.out.println("\n" + horizontalLine);
                     break;
                 case "unmark" :
                     int id2 = Integer.parseInt(parts[1]) - 1;
-                    storage.taskList.get(id2).marking(false);
                     System.out.println(horizontalLine);
-                    System.out.println(unmarkString);
-                    storage.printMarking(id2);
-                    System.out.println(horizontalLine);
+                    try {
+                        storage.changeMarking(id2, false);
+                        storage.printMarking(id2);
+                    } catch (Exception e) {
+                        System.out.print(e.getMessage());
+                    }
+                    System.out.println("\n" + horizontalLine);
                     break;
                 case "delete" :
                     int id3 = Integer.parseInt(parts[1]) - 1;
@@ -175,7 +294,8 @@ public class Duke {
                     System.out.println(horizontalLine);
                     break;
                 case "todo" :
-                    String taskDesc = input.replace("todo", "");
+                    int indexOfTodo = input.indexOf("todo");
+                    String taskDesc = input.substring(indexOfTodo + 5);
                     if (Objects.equals(taskDesc, "")) {
                         System.out.println(horizontalLine);
                         System.out.println(noDescError);
