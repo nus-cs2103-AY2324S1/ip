@@ -1,5 +1,6 @@
 package duke;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -55,6 +56,19 @@ public class TaskList {
     public void deleteTask(Task task) {
         userList.remove(task);
         Ui.showDeletedTask(task, this);
+    }
+
+    public void findTasks(String keyword) {
+        List<Task> matchingTasks = new ArrayList<>();
+        TaskList matchingTasksList = new TaskList(matchingTasks);
+
+        for (Task task : userList) {
+            if (task.getDescription().contains(keyword)) {
+                matchingTasksList.addTask(task);
+            }
+        }
+
+        Ui.showMatchingTasks(matchingTasksList);
     }
 
     /**
