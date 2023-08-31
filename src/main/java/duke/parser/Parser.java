@@ -38,27 +38,27 @@ public class Parser {
         final String arguments = matcher.group("arguments");
 
         switch (commandWord) {
-            case AddTodoCommand.COMMAND_WORD:
-                return prepareTodo(arguments);
-            case AddDeadlineCommand.COMMAND_WORD:
-                return prepareDeadline(arguments);
-            case AddEventCommand.COMMAND_WORD:
-                return prepareEvent(arguments);
-            case ListCommand.COMMAND_WORD:
-                return new ListCommand();
-            case ClearCommand.COMMAND_WORD:
-                return new ClearCommand();
-            case MarkCommand.COMMAND_WORD:
-                return prepareMark(arguments, true);
-            case UnmarkCommand.COMMAND_WORD:
-                return prepareMark(arguments, false);
-            case DeleteCommand.COMMAND_WORD:
-                return prepareDelete(arguments);
-            case ExitCommand.COMMAND_WORD:
-                return new ExitCommand();
+        case AddTodoCommand.COMMAND_WORD:
+            return prepareTodo(arguments);
+        case AddDeadlineCommand.COMMAND_WORD:
+            return prepareDeadline(arguments);
+        case AddEventCommand.COMMAND_WORD:
+            return prepareEvent(arguments);
+        case ListCommand.COMMAND_WORD:
+            return new ListCommand();
+        case ClearCommand.COMMAND_WORD:
+            return new ClearCommand();
+        case MarkCommand.COMMAND_WORD:
+            return prepareMark(arguments, true);
+        case UnmarkCommand.COMMAND_WORD:
+            return prepareMark(arguments, false);
+        case DeleteCommand.COMMAND_WORD:
+            return prepareDelete(arguments);
+        case ExitCommand.COMMAND_WORD:
+            return new ExitCommand();
 
-            default:
-                throw new DukeException("I'm sorry, but I don't know what that means :-(");
+        default:
+            throw new DukeException("I'm sorry, but I don't know what that means :-(");
         }
     }
 

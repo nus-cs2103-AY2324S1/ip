@@ -44,23 +44,23 @@ public class Storage {
                 Task task;
 
                 switch (type) {
-                    case "T":
-                        task = new Todo(description);
-                        break;
-                    case "D":
-                        String by = saveStringArgs[3];
-                        LocalDate localBy = LocalDate.parse(by);
-                        task = new Deadline(description, localBy);
-                        break;
-                    case "E":
-                        String from = saveStringArgs[3];
-                        String to = saveStringArgs[4];
-                        LocalDate localFrom = LocalDate.parse(from);
-                        LocalDate localTo = LocalDate.parse(to);
-                        task = new Event(description, localFrom, localTo);
-                        break;
-                    default:
-                        throw new DukeException("Invalid save data.");
+                case "T":
+                    task = new Todo(description);
+                    break;
+                case "D":
+                    String by = saveStringArgs[3];
+                    LocalDate localBy = LocalDate.parse(by);
+                    task = new Deadline(description, localBy);
+                    break;
+                case "E":
+                    String from = saveStringArgs[3];
+                    String to = saveStringArgs[4];
+                    LocalDate localFrom = LocalDate.parse(from);
+                    LocalDate localTo = LocalDate.parse(to);
+                    task = new Event(description, localFrom, localTo);
+                    break;
+                default:
+                    throw new DukeException("Invalid save data.");
                 }
 
                 tasks.add(task);
