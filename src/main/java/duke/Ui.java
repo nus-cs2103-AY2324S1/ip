@@ -113,6 +113,31 @@ public class Ui {
     }
 
     /**
+     * Prints message to inform users about matching tasks
+     * that will be displayed after.
+     */
+    public void displayMatchMessage() {
+        System.out.println("Here are the matching tasks!");
+    }
+
+    /**
+     * Prints a string representation of a Task in an ordered list.
+     *
+     * @param count Integer representing the number of task in ordered list.
+     * @param task Task to be printed.
+     */
+    public void displayTaskMessage(int count, Task task) {
+        System.out.println(count + ". " + task);
+    }
+
+    /**
+     * Prints message when user has no matching task to find based on input.
+     */
+    public void noMatchMessage() {
+        System.out.println("There are no matching tasks!");
+    }
+
+    /**
      * Prints message containing all commands that bot recognizes.
      */
     public void helpMessage() {
