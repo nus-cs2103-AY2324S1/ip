@@ -14,6 +14,7 @@ public class Parser {
     final static String DEADLINE_PHRASE = "deadline";
     final static String EVENT_PHRASE = "event";
     final static String DELETE_PHRASE = "delete";
+    final static String SEARCH_PHRASE = "find";
 
     private static boolean isRunning = true;
 
@@ -113,6 +114,22 @@ public class Parser {
                 Ui.print(taskList.get(i).toString());
                 i++;
                 Ui.print("Now you have " + i + " tasks in the list.");
+                userInput = ui.next();
+                continue;
+            }
+            if (userInput.equals(SEARCH_PHRASE)) {
+                String searchTerm = ui.nextLine();
+                ArrayList<Task> searchList = new TaskList();
+                taskList.forEach(t -> {
+                    if (t.contains(searchTerm)) {
+                        searchList.add(t);
+                    }
+                });
+                System.out.println("Here are the matching tasks in your list:");
+                for (int j = 0; j < i; j++) {
+                    Ui.print(j + 1 + "." +
+                            searchList.get(j).toString());
+                }
                 userInput = ui.next();
                 continue;
             }
