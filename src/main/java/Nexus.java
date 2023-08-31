@@ -1,15 +1,13 @@
 import Exceptions.MissingInputException;
 import Exceptions.InvalidInputException;
 
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 public class Nexus {
-    private ArrayList<Task> list;
+    private static ArrayList<Task> list;
 
     public static void main(String[] args) {
         System.out.println("Hello! I'm NEXUS");
@@ -18,34 +16,25 @@ public class Nexus {
         ArrayList<Task> list = null;
         // read from file and populate arraylist
         try {
-            FileInputStream fileIn = new FileInputStream("../../data/nexus.ser");
-            ObjectInputStream in = new ObjectInputStream(fileIn);
-            list = (ArrayList<Task>) in.readObject();
-            in.close();
-            fileIn.close();
-
-            if (list != null) {
-                for
+            File f = new File("C:\\Users\\keeso\\Desktop\\ip\\src\\main\\data");
+            Scanner s = new Scanner(f);
+            while (s.hasNext()) {
+                Nexus.parseInput(s.nextLine());
             }
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found");
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
 
-        int index;
-        String desc;
-        StringBuilder builder = new StringBuilder();
         boolean exit = false;
 
         while (!exit) {
             try {
                 String input = scanner.nextLine();
-                Nexus.parseInput(input);
+                exit = Nexus.parseInput(input);
                 // Reset data structures
                 scanner.reset();
-                builder.setLength(0);
             } catch (InvalidInputException | MissingInputException e) {
                 scanner.reset();
                 System.out.println(e.getMessage());
@@ -54,13 +43,16 @@ public class Nexus {
                 System.out.println("An unexpected error occurred: " + e.getMessage());
             }
         }
+        System.out.println("Bye. Hope to see you again soon!");
     }
 
-    public static void parseInput(String input) throws Exception{
+    public static boolean parseInput(String input) throws Exception{
+        int index;
+        String desc;
         String[] data = input.split(" ");
         switch (data[0]) {
         case "bye":
-            System.out.println("Bye. Hope to see you again soon!");
+            return true;
             break;
         case "list":
             System.out.println("Here are the tasks in your list:");
@@ -166,8 +158,8 @@ public class Nexus {
             System.out.println("Now you have " + list.size() + " tasks in the list.");
             break;
         default:
-            scanner.reset();
             throw new InvalidInputException("I don't understand. Please check your input again.");
+            return false;
         }
     }
 }
