@@ -10,54 +10,12 @@ import java.util.Scanner;
 import java.util.stream.Collectors;
 
 public class Duke {
-    private static final String INDENT = "    ";
     private static final List<Task> tasks = new ArrayList<>();
     private static final String FILE_PATH = "./data/duke.txt";
+    private static final Ui ui = new Ui();
 
     private enum Command {
         BYE, LIST, TODO, DEADLINE, EVENT, MARK, UNMARK, DELETE, TASKS_ON_DATE, UNKNOWN
-    }
-
-    public static void printGreeting() {
-        printHorizontalLine();
-        printIndented("Hello! I'm Davidson");
-        printIndented("What can I do for you?");
-        printHorizontalLine();
-    }
-
-    public static void printExit() {
-        printHorizontalLine();
-        printIndented("Bye. Hope to see you again soon!");
-        printHorizontalLine();
-    }
-
-    public static void printHorizontalLine() {
-        System.out.print(INDENT);
-        for (int i = 0; i < 60; i++) {
-            System.out.print("-");
-        }
-        System.out.println();
-    }
-
-    public static void printIndented(String message) {
-        System.out.println(INDENT + message);
-    }
-
-    public static void printList() {
-        printHorizontalLine();
-        printIndented("Here are the tasks in your list:");
-        for (int i = 0; i < tasks.size(); i++) {
-            printIndented((i + 1) + "." + tasks.get(i));
-        }
-        printHorizontalLine();
-    }
-
-    public static void printTaskAdded(Task task) {
-        printHorizontalLine();
-        printIndented("Got it. I've added this task:");
-        printIndented("  " + task);
-        printIndented("Now you have " + tasks.size() + " tasks in the list.");
-        printHorizontalLine();
     }
 
     private static Command parseCommand(String input) {
@@ -89,7 +47,7 @@ public class Duke {
             }
             fw.close();
         } catch (IOException e) {
-            printIndented("Error saving tasks to file.");
+            ui.printIndented("Error saving tasks to file.");
         }
     }
 
@@ -106,9 +64,9 @@ public class Duke {
             }
             s.close();
         } catch (IOException e) {
-            printIndented("Error loading tasks from file.");
+            ui.printIndented("Error loading tasks from file.");
         } catch (DukeException e) {
-            printIndented("Data file is corrupted: " + e.getMessage());
+            ui.printIndented("Data file is corrupted: " + e.getMessage());
         }
     }
 
@@ -132,47 +90,34 @@ public class Duke {
         }
     }
 
-    private static void printTasksOnDate(List<Task> tasksOnDate, LocalDate date) {
-        printHorizontalLine();
-        if (tasksOnDate.isEmpty()) {
-            printIndented("No tasks on " + date);
-            return;
-        }
-        printIndented("Here are the tasks on " + date + ":");
-        for (Task task : tasksOnDate) {
-            printIndented(task.toString());
-        }
-        printHorizontalLine();
-    }
-
     public static void echoMessages() {
         Scanner scanner = new Scanner(System.in);
         String input;
 
         loadTasks();
-        printGreeting();
+        ui.printGreeting();
 
         while (true) {
             input = scanner.nextLine();
             Command command = parseCommand(input);
 
-            printHorizontalLine();
+            ui.printHorizontalLine();
 
             try {
                 switch (command) {
                     case BYE:
-                        printExit();
+                        ui.printExit();
                         scanner.close();
                         return;
 
                     case LIST:
-                        printList();
+                        ui.printList(tasks);
                         break;
 
                     case TODO:
                         ToDo todo = new ToDo(input.substring(5));
                         tasks.add(todo);
-                        printTaskAdded(todo);
+                        ui.printTaskAdded(todo, tasks.size());
                         saveTasks();
                         break;
 
@@ -183,7 +128,7 @@ public class Duke {
                         }
                         Deadline deadline = new Deadline(parts[0], parts[1]);
                         tasks.add(deadline);
-                        printTaskAdded(deadline);
+                        ui.printTaskAdded(deadline, tasks.size());
                         saveTasks();
                         break;
 
@@ -195,32 +140,28 @@ public class Duke {
                         }
                         Event event = new Event(eventParts[0], timeParts[0], timeParts[1]);
                         tasks.add(event);
-                        printTaskAdded(event);
+                        ui.printTaskAdded(event, tasks.size());
                         saveTasks();
                         break;
 
                     case MARK:
                         int taskNumberMark = Integer.parseInt(input.split(" ")[1]);
                         tasks.get(taskNumberMark - 1).markAsDone();
-                        printIndented("I've marked this task as done:");
-                        printIndented("  " + tasks.get(taskNumberMark - 1));
+                        ui.printMarkedAsDone(tasks.get(taskNumberMark - 1));
                         saveTasks();
                         break;
 
                     case UNMARK:
                         int taskNumberUnmark = Integer.parseInt(input.split(" ")[1]);
                         tasks.get(taskNumberUnmark - 1).unmark();
-                        printIndented("I've marked this task as not done:");
-                        printIndented("  " + tasks.get(taskNumberUnmark - 1));
+                        ui.printMarkedAsNotDone(tasks.get(taskNumberUnmark - 1));
                         saveTasks();
                         break;
 
                     case DELETE:
                         int taskNumberDelete = Integer.parseInt(input.split(" ")[1]);
                         Task removedTask = tasks.remove(taskNumberDelete - 1);
-                        printIndented("Noted. I've removed this task:");
-                        printIndented("  " + removedTask);
-                        printIndented("Now you have " + tasks.size() + " tasks in the list.");
+                        ui.printTaskDeleted(removedTask, tasks.size());
                         saveTasks();
                         break;
 
@@ -231,17 +172,17 @@ public class Duke {
                                         (task instanceof Deadline && ((Deadline) task).getBy().toLocalDate().isEqual(givenDate)) ||
                                                 (task instanceof Event && isWithinEventDate((Event) task, givenDate)))
                                 .collect(Collectors.toList());
-                        printTasksOnDate(tasksOnGivenDate, givenDate);
+                        ui.printTasksOnDate(tasksOnGivenDate, givenDate);
                         break;
 
                     default:
-                        throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+                        ui.showError("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
                 }
             } catch (DukeException e) {
-                printIndented(e.getMessage());
+                ui.showError(e.getMessage());
             }
 
-            printHorizontalLine();
+            ui.printHorizontalLine();
         }
     }
 

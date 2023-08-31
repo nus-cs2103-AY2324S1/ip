@@ -2,3 +2,4 @@ D | 0 | return book | 2/12/2019 1800
 D | 0 | get her back | 31/8/2023 2359
 D | 0 | move on | 31/8/2023 2359
 E | 0 | project meeting | 31/8/2023 1600 | 31/8/2023 1800
+T | 0 | text her
