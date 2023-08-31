@@ -45,7 +45,7 @@ public class TaskList {
         }
         list.add(new ToDo(task.substring(task.indexOf(" ") + 1)));
         String s = "\tWoof. I have added this task:\n\t\t" + list.get(list.size() - 1).getString();
-        storage.writeToFile();
+        storage.writeToFile(this);
         ui.displayMessage(s);
     }
 
@@ -65,7 +65,7 @@ public class TaskList {
         }
         list.add(new Deadline(task.substring(task.indexOf(' ') + 1, task.indexOf('/') - 1),
                 task.substring(task.lastIndexOf('/') + 4)));
-        storage.writeToFile();
+        storage.writeToFile(this);
         String s = "\tWoof. I have added this task:\n\t\t" + list.get(list.size() - 1).getString();
         ui.displayMessage(s);
     }
@@ -88,7 +88,7 @@ public class TaskList {
         list.add(new Event(task.substring(task.indexOf(' ') + 1, task.indexOf('/') - 1),
                 task.substring(task.indexOf("from") + 5, task.lastIndexOf('/') - 1),
                 task.substring(task.indexOf("to") + 3)));
-        storage.writeToFile();
+        storage.writeToFile(this);
         String s = "\tWoof. I have added this task:\n\t\t" + list.get(list.size() - 1).getString();
         ui.displayMessage(s);
     }
@@ -112,7 +112,7 @@ public class TaskList {
             throw new BrunoNegativeArgException("mark");
         }
         list.get(Integer.parseInt(markVal) - 1).markAsDone();
-        storage.writeToFile();
+        storage.writeToFile(this);
         String s =
                 "\tWoof Woof! I have marked the task as done.\n\t" + list.get(Integer.parseInt(markVal) - 1)
                         .getString();
@@ -138,7 +138,7 @@ public class TaskList {
             throw new BrunoNegativeArgException("unmark");
         }
         list.get(Integer.parseInt(unmarkVal) - 1).unMark();
-        storage.writeToFile();
+        storage.writeToFile(this);
         String s = "\tOK, I have marked the task as not done yet.\n\t" + list.get(
                 Integer.parseInt(unmarkVal) - 1).getString();
         ui.displayMessage(s);
@@ -164,7 +164,7 @@ public class TaskList {
         }
         String s1 = list.get(Integer.parseInt(deleteVal) - 1).getString();
         list.remove(Integer.parseInt(deleteVal) - 1);
-        storage.writeToFile();
+        storage.writeToFile(this);
         String s = "\tI have removed this task from your list:\n\t" + s1;
         ui.displayMessage(s);
     }

@@ -40,8 +40,7 @@ public class Storage {
     /**
      * Writes to the bruno.txt file by reading all tasks in the task list.
      */
-    public void writeToFile() {
-        taskList = new TaskList(this, ui);
+    public void writeToFile(TaskList taskList) {
         try {
             FileWriter fileWriter = new FileWriter(this.dirPath + this.fileName);
             List<Task> list = taskList.getList();
@@ -58,7 +57,7 @@ public class Storage {
      * Loads the bruno.txt file and populates the list of tasks.
      * @throws BrunoException
      */
-    public void loadFile() throws BrunoException {
+    public void loadFile(TaskList taskList) throws BrunoException {
         try {
             File file = new File(this.dirPath + this.fileName);
             if (!file.exists()) {

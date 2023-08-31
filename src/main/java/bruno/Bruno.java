@@ -24,7 +24,7 @@ public class Bruno {
         storage = new Storage(dirPath, fileName);
         try {
             tasks = new TaskList(storage, ui);
-            storage.loadFile();
+            storage.loadFile(tasks);
         } catch (BrunoException e) {
             System.out.println(e.getMessage());
         }
