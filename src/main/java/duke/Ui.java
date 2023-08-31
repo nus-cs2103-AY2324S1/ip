@@ -104,6 +104,11 @@ public class Ui {
         Ui.showLine();
     }
 
+    /**
+     * Displays a list of tasks that match the search criteria.
+     *
+     * @param matchingTasks The list of tasks that match the search criteria.
+     */
     public static void showMatchingTasks(TaskList matchingTasks) {
         Ui.showLine();
         System.out.println("        Here are the matching tasks in your list:");
