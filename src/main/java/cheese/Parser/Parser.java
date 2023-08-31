@@ -7,24 +7,24 @@ import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import java.util.IllegalFormatException;
 
 import cheese.Task.Task;
-import cheese.TaskList.TaskList;
 
 /**
  * Parser class to parse user input
  */
 
 public class Parser {
+
     /** Regex patterns for parsing user input */    
     final static String byPatternString = "\\(by: (.*?)\\)";
     final static String fromPatternString = "from: (.*?) to:";
     final static String toPatternString = "to: (.*)\\)$";
 
-    final static Pattern byPattern = Pattern.compile(byPatternString);
-    final static Pattern fromPattern = Pattern.compile(fromPatternString);
-    final static Pattern toPattern = Pattern.compile(toPatternString);
+  final static Pattern byPattern = Pattern.compile(byPatternString);
+  final static Pattern fromPattern = Pattern.compile(fromPatternString);
+  final static Pattern toPattern = Pattern.compile(toPatternString);
+
 
     /**
      * Parses user input and valid dates
@@ -48,6 +48,10 @@ public class Parser {
         byMatcher.find();
         return byMatcher;
     }
+
+    byMatcher.find();
+    return byMatcher;
+  }
 
 
     /**
@@ -107,12 +111,22 @@ public class Parser {
         } else {
             LocalDate localDateMMM = parseMMMFormat(dateInput, outputformat);
 
-            if (localDateMMM != null) {
-                return localDateMMM;
-            }
-        }
-        return null;
+
+  public LocalDate dateTimeConverted(String dateInput) {
+    DateTimeFormatter inputformat = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+    DateTimeFormatter outputformat = DateTimeFormatter.ofPattern("MMM dd yyyy");
+    Optional<LocalDate> localDate = parseDate(dateInput, inputformat);
+    if (localDate.isPresent()) {
+      return localDate.get();
+    } else {
+      LocalDate localDateMMM = parseMMMFormat(dateInput, outputformat);
+
+      if (localDateMMM != null) {
+        return localDateMMM;
+      }
     }
+    return null;
+  }
 
     /**
      * Converts user input to LocalDate
@@ -127,6 +141,8 @@ public class Parser {
             return null;
         }
     }
+  }
+
 
     /**
      * Converts user input to Optional<LocalDate>
@@ -141,6 +157,7 @@ public class Parser {
             return Optional.empty();
         }
     }
+  }
 
     /**
      * Checks if user input is a command
@@ -162,6 +179,8 @@ public class Parser {
                 return false;
         }
     }
+  }
+
 
     /**
      * Gets command from user input
@@ -189,36 +208,21 @@ public class Parser {
         } else if (inputSplit.length < 2 && !isCommand(input)) {
           throw new IllegalArgumentException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
+        break;
 
-        String taskDescription = inputSplit[1];
-        switch (command) {
-          case "todo":
-            //System.out.println("Stuff1: " + taskDescription);
-            newTask = new Task('T',taskDescription);
-            break;
-          case "deadline":
-          String[] deadlineSplit = taskDescription.split(" /by ", 2);
-          LocalDate deadlineDate = dateTimeConverted(deadlineSplit[1].trim());
-          if (deadlineDate != null) {
-            System.out.println("Its proper LocalDate");
-            newTask = new Task('D',deadlineSplit[0].trim(), deadlineDate);
-          } else {
-            newTask = new Task('D',deadlineSplit[0].trim(), deadlineSplit[1].trim());
-          }
-          break;
+        case "event":
+        String[] eventInfo = taskDescription.split(" /from ", 2);
+        String[] eventInfo2 = eventInfo[1].split(" /to ", 2);
+        newTask = new Task('E',eventInfo[0].trim(), eventInfo2[0].trim(), eventInfo2[1].trim());
+        break;
+        
 
-          case "event":
-          String[] eventInfo = taskDescription.split(" /from ", 2);
-          String[] eventInfo2 = eventInfo[1].split(" /to ", 2);
-          newTask = new Task('E',eventInfo[0].trim(), eventInfo2[0].trim(), eventInfo2[1].trim());
-          break;
-
-          default:
-            throw new IllegalArgumentException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
-        }
-      } catch (IllegalArgumentException e) {
-        System.out.println(e.getMessage());
+        default:
+        throw new IllegalArgumentException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
       }
+    } catch (IllegalArgumentException e) {
+      System.out.println(e.getMessage());
+    }
     return newTask;
   }
 }

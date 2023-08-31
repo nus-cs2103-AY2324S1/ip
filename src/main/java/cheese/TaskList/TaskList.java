@@ -58,7 +58,16 @@ public class TaskList {
   public List<Task> getCheeseList() {
     return cheeseList;
   }
-
+  
+  public TaskList filterTasks(String kw) {
+    TaskList filteredList = new TaskList();
+    for (Task task : cheeseList) {
+      if (task.isInDescripton(kw)) {
+        filteredList.addTask(task);
+      }
+    }
+    return filteredList;
+  }
 }
 
 

@@ -3,6 +3,7 @@ package cheese.Task;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+
 /**
  * Represents a task
  */
@@ -46,16 +47,24 @@ public class Task {
     }
 
     /**
-         * Mark task as done
-         */
+     * Mark task as done
+     */
     public void markAsDone() {
       this.isDone = true;
     }
 
     /**
-         * Returns string representation of task
-         * @return String representation of task
-         */
+     * Returns type of task
+     * @return type of task
+     */
+    public boolean isInDescripton(String input) {
+      return this.description.contains(input);
+    }
+
+    /**
+     * Returns string representation of task
+     * @return String representation of task
+     */
     @Override
     public String toString() {
       StringBuilder sb = new StringBuilder();
