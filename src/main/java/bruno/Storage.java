@@ -25,8 +25,8 @@ public class Storage {
 
     /**
      * Creates a new instance of the Storage class using the specified directory path and file name.
-     * @param dirPath
-     * @param fileName
+     * @param dirPath The path of the directory where the file will be stored.
+     * @param fileName The name of the file that is loaded, or the tasks are written to.
      */
     public Storage(String dirPath, String fileName) {
         this.dirPath = dirPath;
@@ -56,7 +56,7 @@ public class Storage {
 
     /**
      * Loads the bruno.txt file and populates the list of tasks.
-     * @throws BrunoException
+     * @throws BrunoException Thrown if file to be read is not in proper format.
      */
     public void loadFile() throws BrunoException {
         try {

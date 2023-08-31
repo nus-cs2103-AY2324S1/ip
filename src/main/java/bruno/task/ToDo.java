@@ -8,10 +8,16 @@ public class ToDo extends Task {
         super(TaskType.TODO, description);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override public String getString() {
         return "[T]" + super.getString();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override public String getFileString() {
         return "T|" + super.getFileString();
     }

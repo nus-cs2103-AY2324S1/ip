@@ -19,7 +19,7 @@ public class Parser {
      * Parses the user input and calls methods to perform the appropriate task.
      * @param s User input string.
      * @return Flag value for termination.
-     * @throws BrunoException
+     * @throws BrunoException Thrown if any error occurs in any of the tasks.
      */
     public boolean parse(String s) throws BrunoException {
         try {

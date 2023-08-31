@@ -35,8 +35,8 @@ public class TaskList {
 
     /**
      * Adds a task of type ToDo to the list of tasks.
-     * @param task
-     * @throws BrunoException
+     * @param task The ToDo command input by the user.
+     * @throws BrunoException Thrown if description of ToDo is missing.
      */
     public void addToDo(String task) throws BrunoException {
         if (task.split(" ").length == 1) {
@@ -51,8 +51,8 @@ public class TaskList {
 
     /**
      * Adds a task of type Deadline to the list of tasks.
-     * @param task
-     * @throws BrunoException
+     * @param task The Deadline command input by the user.
+     * @throws BrunoException Thrown if input is missing information.
      */
     public void addDeadline(String task) throws BrunoException {
         if (task.split(" ").length == 1 || task.indexOf('/') == 9) {
@@ -72,8 +72,8 @@ public class TaskList {
 
     /**
      * Adds a task of type Event to the list of tasks.
-     * @param task
-     * @throws BrunoException
+     * @param task The Event command input by the user.
+     * @throws BrunoException Thrown if input is missing information.
      */
     public void addEvent(String task) throws BrunoException {
         if (task.split(" ").length == 1 || task.indexOf('/') == 6) {
@@ -95,8 +95,8 @@ public class TaskList {
 
     /**
      * Marks a task as done from the list of tasks.
-     * @param task
-     * @throws BrunoException
+     * @param task The Mark command input by the user.
+     * @throws BrunoException Thrown if user tries to mark an invalid task.
      */
     public void markTask(String task) throws BrunoException {
         String markVal = task.split(" ")[1];
@@ -121,8 +121,8 @@ public class TaskList {
 
     /**
      * Unmarks a task to show that it is not done, from the list of tasks.
-     * @param task
-     * @throws BrunoException
+     * @param task The Unmark command input by the user.
+     * @throws BrunoException Thrown if user tries to unmark an invalid task.
      */
     public void unmarkTask(String task) throws BrunoException {
         String unmarkVal = task.split(" ")[1];
@@ -146,8 +146,8 @@ public class TaskList {
 
     /**
      * Deletes a task from the list of tasks.
-     * @param task
-     * @throws BrunoException
+     * @param task The Delete command input by the user.
+     * @throws BrunoException Thrown if user tries to delete an invalid task.
      */
     public void deleteTask(String task) throws BrunoException {
         String deleteVal = task.split(" ")[1];
@@ -191,8 +191,8 @@ public class TaskList {
 
     /**
      * Displays all the tasks the user has on a given date.
-     * @param task
-     * @throws DateTimeException
+     * @param task The Schedule command input by the user.
+     * @throws DateTimeException Thrown if date input by the user is not correct format.
      */
     public void showSchedule(String task) throws DateTimeException {
         String s = "";

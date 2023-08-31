@@ -16,8 +16,8 @@ public class Bruno {
 
     /**
      * Creates a new instance of the Bruno class with the specified directory path and file name
-     * @param dirPath
-     * @param fileName
+     * @param dirPath The path of the directory that will store the file.
+     * @param fileName The name of the file where the tasks are being loaded, or read from.
      */
     public Bruno(String dirPath, String fileName) {
         ui = new UI();
