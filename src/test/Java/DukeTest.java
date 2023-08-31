@@ -70,4 +70,25 @@ public class DukeTest {
             fail("This should not happen");
         }
     }
+
+    /**
+     * Tests a greeting and a goodbye.
+     *
+     * @author Tan Kerway
+     */
+    @Test
+    public void testGreetingAndGoodbye() {
+        String expected =
+                "------------------------------------------------------------------------\n" +
+                "Hello! I'm nyancatbot!\n" +
+                "What can I do for nyan?\n" +
+                "------------------------------------------------------------------------\n" +
+                "------------------------------------------------------------------------\n" +
+                "Bye. Hope to see you a-nyan soon!\n" +
+                "------------------------------------------------------------------------\n";
+        // call the main function to get user input
+        Duke.main(null);
+        // test the actual output against the expected
+        assertEquals(expected, getOutput());
+    }
 }
