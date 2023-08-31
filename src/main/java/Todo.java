@@ -4,10 +4,11 @@ public class Todo extends Task {
         super(description);
     }
     public String toStorageString() {
-        return "T // " + this.getStatusIcon() + " // " + this.description;
+        return "T // " + this.getStatusIcon() + " // " + this.getDescription();
     }
+    @Override
     public String toString() {
-        return "[T]" + "[" + this.getStatusIcon() + "] " + this.description;
+        return "[T]" + "[" + this.getStatusIcon() + "] " + this.getDescription();
     }
     
 }
