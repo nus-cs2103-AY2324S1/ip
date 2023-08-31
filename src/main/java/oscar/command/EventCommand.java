@@ -38,8 +38,8 @@ public class EventCommand extends Command {
         String description = validatedDetails[0];
         String start = validatedDetails[1];
         String end = validatedDetails[2];
-        LocalDateTime startDateTime = LocalDateTime.parse(start, DTFORMAT);
-        LocalDateTime endDateTime = LocalDateTime.parse(end, DTFORMAT);
+        LocalDateTime startDateTime = LocalDateTime.parse(start, DATE_TIME_FORMAT);
+        LocalDateTime endDateTime = LocalDateTime.parse(end, DATE_TIME_FORMAT);
         Task newEvent = new Event(description, startDateTime, endDateTime);
         tasks.add(newEvent);
         storage.save(tasks);
@@ -54,39 +54,42 @@ public class EventCommand extends Command {
      */
     public String[] validate() throws OscarException {
         if (!details.contains(" /from ") || !details.contains(" /to ")) {
-            throw new OscarException("Sorry! " +
-                    "The event task is not formatted correctly.\n" +
-                    "Please use the format: 'event [task] /from yyyy-MM-dd HHmm /to yyyy-MM-dd HHmm'.\n");
+            throw new OscarException("Sorry! "
+                    + "The event task is not formatted correctly.\n"
+                    + "Please use the format: 'event [task] /from yyyy-MM-dd HHmm /to yyyy-MM-dd HHmm'.\n");
         }
-        String[] split = details.split(" /from | /to ");
-        if (split.length != 3) {
-            throw new OscarException("Sorry! " +
-                    "The event task is not formatted correctly.\n" +
-                    "Please use the format: 'event [task] /from yyyy-MM-dd HHmm /to yyyy-MM-dd HHmm'.\n");
+        String[] splitDetails = details.split(" /from | /to ");
+        if (splitDetails.length != 3) {
+            throw new OscarException("Sorry! "
+                    + "The event task is not formatted correctly.\n"
+                    + "Please use the format: 'event [task] /from yyyy-MM-dd HHmm /to yyyy-MM-dd HHmm'.\n");
         }
-        String description = split[0];
+        String description = splitDetails[0];
         if (description.isEmpty()) {
-            throw new OscarException("Sorry! " +
-                    "The description of an event task cannot be empty.\n");
+            throw new OscarException("Sorry! "
+                    + "The description of an event task cannot be empty.\n");
         }
-        String start = split[1];
+        String start = splitDetails[1];
         if (start.isEmpty()) {
-            throw new OscarException("Sorry! " +
-                    "The start date and time of an event task cannot be empty.\n");
+            throw new OscarException("Sorry! "
+                    + "The start date and time of an event task cannot be empty.\n");
         }
-        String end = split[2];
+        String end = splitDetails[2];
         if (!start.contains(" ") || !end.contains(" ")) {
-            throw new OscarException("Sorry! Please enter a valid date and time in this format: '2019-10-15 1800'.\n");
+            throw new OscarException("Sorry! "
+                    + "Please enter a valid date and time in this format: '2019-10-15 1800'.\n");
         }
         try {
-            LocalDateTime startDateTime = LocalDateTime.parse(start, DTFORMAT);
-            LocalDateTime endDateTime = LocalDateTime.parse(end, DTFORMAT);
+            LocalDateTime startDateTime = LocalDateTime.parse(start, DATE_TIME_FORMAT);
+            LocalDateTime endDateTime = LocalDateTime.parse(end, DATE_TIME_FORMAT);
             if (endDateTime.isBefore(startDateTime)) {
-                throw new OscarException("Sorry! End date and time must be after start date and time.\n");
+                throw new OscarException("Sorry! "
+                        + "End date and time must be after start date and time.\n");
             }
 
         } catch (DateTimeParseException e) {
-            throw new OscarException("Sorry! Please enter a valid date and time in the format 'yyyy-MM-dd HHmm'.\n");
+            throw new OscarException("Sorry! "
+                    + "Please enter a valid date and time in the format 'yyyy-MM-dd HHmm'.\n");
         }
         return new String[]{description, start, end};
     }

@@ -12,7 +12,7 @@ import java.time.format.DateTimeFormatter;
  */
 abstract public class Command {
     private final boolean isExit;
-    static final DateTimeFormatter DTFORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+    static final DateTimeFormatter DATE_TIME_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
 
     /**
      * Constructor for command subclasses.

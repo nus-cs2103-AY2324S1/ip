@@ -15,9 +15,9 @@ public class Parser {
      * @throws OscarException Invalid command.
      */
     public static Command parse(String fullCommand) throws OscarException {
-        String[] split = fullCommand.split(" ", 2);
-        String command = split[0].toLowerCase();
-        String details = fullCommand.length() > command.length() ? split[1] : "";
+        String[] splits = fullCommand.split(" ", 2);
+        String command = splits[0].toLowerCase();
+        String details = fullCommand.length() > command.length() ? splits[1] : "";
         switch (command) {
         // Exit programme if user enters "bye" command
         case "bye":
