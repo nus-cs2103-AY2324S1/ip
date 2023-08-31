@@ -1,3 +1,4 @@
+import java.io.IOException;
 import java.util.*;
 public class Duke {
     public static void main(String[] args) {
@@ -7,7 +8,7 @@ public class Duke {
 
         Scanner sc = new Scanner(System.in);
         String str = sc.nextLine();
-        List<Task> tasks = new ArrayList<>();
+        List<Task> tasks = Task.loadTasks("src/data/Duke.txt");
 
         try {
             while (!str.equals("bye")) {
@@ -125,25 +126,18 @@ public class Duke {
                     }
                 }
             else {
-                listTasks(tasks);
+                Task.listTasks(tasks);
                 System.out.println();
             }
             str = sc.nextLine();
             }
+            Task.saveTasks("src/data/Duke.txt", tasks);
             System.out.println("\t" + "Bye. Hope to see you again soon!");
         } catch (InvalidInputException | EventCommandUseException|
                  DeadlineCommandUseException| ToDoCommandUseException e) {
             System.out.println(e.getMessage());
-        }
-    }
-
-    public static void listTasks(List<Task> tasks) {
-        int i = 1;
-        System.out.print("\tHere are the tasks in your list:");
-        for (Task task : tasks) {
-            System.out.println();
-            System.out.print("\t" + i + "." + task.taskString());
-            i++;
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 }
