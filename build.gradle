@@ -5,6 +5,8 @@ plugins {
     id 'com.github.johnrengelman.shadow' version '7.1.2'
 }
 
+mainClassName = 'duke.Duke'
+
 repositories {
     mavenCentral()
 }
@@ -35,6 +37,7 @@ application {
 shadowJar {
     archiveBaseName = "duke"
     archiveClassifier = null
+    archiveFileName = 'duke.jar'
     dependsOn("distZip", "distTar")
 }
 
