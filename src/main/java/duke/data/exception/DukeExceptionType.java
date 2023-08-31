@@ -1,5 +1,9 @@
 package duke.data.exception;
 
+/**
+ * Represents the various types of exceptions that appear in the program.
+ * It contains the error message for each type.
+ */
 public enum DukeExceptionType {
     DEADLINE_NO_DESCRIPTION(
 "The description of a deadline cannot be empty.\n" +
@@ -36,10 +40,20 @@ public enum DukeExceptionType {
 
     private final String message;
 
+    /**
+     * Initializes a type of exception that can occur in the program.
+     *
+     * @param message Error message
+     */
     DukeExceptionType(String message) {
         this.message = message;
     }
 
+    /**
+     * Gets the error message
+     *
+     * @return Error message
+     */
     public String getMessage() {
         return message;
     }

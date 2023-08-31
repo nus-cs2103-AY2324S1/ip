@@ -18,13 +18,33 @@ import java.util.Scanner;
 
 import duke.parser.Parser;
 
+/**
+ * Represents a storage utility object which provides operations to load task information
+ * from the user's file system and write task information to the specified file path.
+ */
 public class Storage {
+
     private static final String CURRENT_DIRECTORY = System.getProperty("user.dir");
     private final String filePath;
+
+    /**
+     * Initializes the storage object by providing a file path
+     *
+     * @param filePath Path to the save file
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
+    /**
+     * Load all task information into the save file by reading from a text file specified
+     * by the file path and decoding each line into a Task object.
+     *
+     * @return
+     * @throws IOException
+     * @throws DateTimeParseException
+     * @throws DukeException
+     */
     public List<Task> load() throws IOException, DateTimeParseException, DukeException {
         List<Task> tasks = new ArrayList<>();
         File saveFile = new File(Paths.get(CURRENT_DIRECTORY, filePath).toString());
@@ -82,6 +102,12 @@ public class Storage {
         return tasks;
     }
 
+    /**
+     * Writes a list of decoded Task objects to the specified file path.
+     *
+     * @param tasks List of Task objects
+     * @throws IOException Signifies that writing to file has failed
+     */
     public void write(List<Task> tasks) throws IOException {
         FileWriter fw = new FileWriter(Paths.get(CURRENT_DIRECTORY, filePath).toString());
         for (Task t: tasks) {

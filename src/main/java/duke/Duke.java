@@ -9,12 +9,23 @@ import duke.parser.Parser;
 import duke.storage.Storage;
 import duke.ui.UI;
 
+/**
+ * Represents the main program instance of the Duke chatbot.
+ * <p>
+ * The program instance depends on the Parser, Storage, TaskList and UI classes to function.
+ */
 public class Duke {
+
     private Parser parser;
     private Storage storage;
     private TaskList taskList;
     private UI ui;
 
+    /**
+     * Initializes an instance of Duke by providing the file path to the save file.
+     *
+     * @param filePath File path to the directory containing the save file.
+     */
     public Duke(String filePath) {
         parser = new Parser();
         storage = new Storage(filePath);
@@ -31,6 +42,9 @@ public class Duke {
         new Duke("data/tasks.txt").run();
     }
 
+    /**
+     * A method to start running the chatbot.
+     */
     private void run() {
         // Welcome message
         ui.showWelcome();
