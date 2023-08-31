@@ -12,7 +12,7 @@ public class ExitCommand implements Command {
     }
 
     @Override
-    public TaskList execute(TaskList tasks, Ui ui, Storage storage) throws Exception{
+    public TaskList execute(TaskList tasks, Ui ui, Storage storage) throws Exception {
         ui.showGoodbye();
         return tasks;
     }

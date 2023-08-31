@@ -8,7 +8,7 @@ public class EmptyDescriptionException extends Exception {
         this.type = type;
     }
 
-    public String toString(){
+    public String toString() {
         return (" OOPS!!! The description of a " + type + " cannot be empty.\n");
     }
 }

@@ -8,22 +8,26 @@ import rua.common.Ui;
 
 public class Rua {
 
-    private Storage storage;
+    private final Storage storage;
+    private final Ui ui;
     private TaskList tasks;
-    private Ui ui;
 
     public Rua(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
         try {
             tasks = new TaskList(storage.load());
-            ui.showMessage("Load successfully. Now you have " + Integer.toString(tasks.getTasks().size()) +
+            ui.showMessage("Load successfully. Now you have " + tasks.getTasks().size() +
                     " tasks in the list.\n");
             ui.showMessage(tasks.toString());
         } catch (Exception e) {
             ui.showLoadingError();
             tasks = new TaskList();
         }
+    }
+
+    public static void main(String[] args) {
+        new Rua("src/main/data/tasks.txt").run();
     }
 
     public void run() {
@@ -42,8 +46,5 @@ public class Rua {
                 ui.showLine();
             }
         }
-    }
-    public static void main(String[] args) {
-        new Rua("src/main/data/tasks.txt").run();
     }
 }

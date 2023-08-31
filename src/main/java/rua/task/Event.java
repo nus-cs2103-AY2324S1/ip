@@ -3,7 +3,7 @@ package rua.task;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-public class Event extends Task{
+public class Event extends Task {
     private final LocalDate from;
     private final LocalDate to;
 
@@ -43,7 +43,7 @@ public class Event extends Task{
     }
 
     @Override
-    public Boolean happenOnThatDate(LocalDate date) {
+    public Boolean isHappeningOnThatDate(LocalDate date) {
         return (date.isEqual(from) || date.isAfter(from)) &&
                 (date.isEqual(to) || date.isBefore(to));
     }
@@ -65,6 +65,7 @@ public class Event extends Task{
                 c.from.isEqual(this.from) &&
                 c.to.isEqual(this.to);
     }
+
     @Override
     public String toString() {
         return "[E]" + super.toString() + " (from: " +

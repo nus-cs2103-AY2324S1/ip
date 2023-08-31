@@ -49,12 +49,11 @@ public class TaskList {
         return update(currentTasks);
     }
 
-    public String dateSearch(LocalDate date) {
-        String res= "";
+    public String searchByDate(LocalDate date) {
+        String res = "";
         for (int i = 0; i < tasks.size(); i++) {
-            if (tasks.get(i).happenOnThatDate(date)) {
-                res = res + Integer.toString(i + 1) +
-                        ": " + tasks.get(i).toString() + "\n";
+            if (tasks.get(i).isHappeningOnThatDate(date)) {
+                res = res + (i + 1) + ": " + tasks.get(i).toString() + "\n";
             }
         }
         return res;
@@ -64,8 +63,7 @@ public class TaskList {
     public String saveMessage() {
         String result = "";
         for (int i = 0; i < tasks.size(); i++) {
-            result = result + Integer.toString(i + 1) +
-                    ": " + tasks.get(i).toString() + "\n";
+            result = result + (i + 1) + ": " + tasks.get(i).toString() + "\n";
         }
         return result;
     }
@@ -74,8 +72,7 @@ public class TaskList {
     public String toString() {
         String result = "Here are the tasks in your list:\n";
         for (int i = 0; i < tasks.size(); i++) {
-            result = result + Integer.toString(i + 1) +
-                    ": " + tasks.get(i).toString() + "\n";
+            result = result + (i + 1) + ": " + tasks.get(i).toString() + "\n";
         }
         return result;
     }

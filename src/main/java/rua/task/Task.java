@@ -20,11 +20,6 @@ public class Task {
         return "None";
     }
 
-    @Override
-    public int hashCode() {
-        return super.hashCode();
-    }
-
     public String getDescription() {
         return this.description;
     }
@@ -33,7 +28,7 @@ public class Task {
         return this.marked;
     }
 
-    public Boolean happenOnThatDate(LocalDate date) {
+    public Boolean isHappeningOnThatDate(LocalDate date) {
         return false;
     }
 
@@ -63,6 +58,6 @@ public class Task {
 
     @Override
     public String toString() {
-        return "[" +  (this.marked ? "X" : " ") + "] " + this.description;
+        return "[" + (this.marked ? "X" : " ") + "] " + this.description;
     }
 }
