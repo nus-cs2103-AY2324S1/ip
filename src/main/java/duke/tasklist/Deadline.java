@@ -29,7 +29,7 @@ class Deadline extends Task {
      */
     @Override
     public String getText() {
-        return super.getText() + " | ";
+        return super.getText() + " | " + date;
     }
 
     /**

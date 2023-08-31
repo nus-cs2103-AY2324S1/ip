@@ -39,7 +39,8 @@ public class Storage {
     public Collection<Task> load() throws DukeException {
         boolean directoryExists = new java.io.File(home + "\\Documents\\ip\\data").exists();
         if (!directoryExists) {
-            java.nio.file.Path path = java.nio.file.Paths.get(home, "Documents", "ip", "data");
+            java.nio.file.Path path = java.nio.file.Paths.get(home,
+                    "Desktop", "NUS", "Y2", "CS2103T", "ip", "data");
             directoryExists = java.nio.file.Files.exists(path);
             if (!directoryExists) {
                 throw new DukeException("There is no 'data' folder, please create one");

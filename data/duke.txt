@@ -1,4 +1,1 @@
-0 | dancing | 2102-10-29 | 2002-10-27
-0 | read book
-0 | adas
-0 | read book
+1 | return book | 2001-10-29
