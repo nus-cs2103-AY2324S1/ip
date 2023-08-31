@@ -112,4 +112,23 @@ public class TaskList {
         System.out.println("Noted. I've removed this task:\n" + taskToEdit);
         System.out.println("Now you have " + lists.size() + " tasks in the list.");
     }
+
+    /**
+     * Finds and prints tasks containing the specified keyword.
+     *
+     * @param keyword the keyword to search for in the tasks
+     */
+    public void find(String keyword) {
+        if (list.isEmpty()) {
+            System.out.println("Your list is empty.");
+        } else {
+            int matchingTaskCount = 1;
+            for (Task curr : list) {
+                if (curr.toString().contains(keyword)) {
+                    System.out.println(matchingTaskCount + "." + curr);
+                    matchingTaskCount++;
+                }
+            }
+        }
+    }
 }

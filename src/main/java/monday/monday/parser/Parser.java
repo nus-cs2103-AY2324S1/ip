@@ -23,7 +23,8 @@ public class Parser {
         TODO,
         DEADLINE,
         EVENT,
-        DELETE
+        DELETE,
+        FIND
     }
 
     /** 
@@ -122,6 +123,20 @@ public class Parser {
             int index = Integer.parseInt(content);
 
             taskList.delete(index);
+            break;
+        case FIND:
+            if (content == null) {
+                throw new MondayExceptions("Find requires a keyword to find the tasks");
+            }
+
+            String[] keywordDetails = content.split(" ");
+
+            if (keywordDetails.length > 1) {
+                throw new IllegalArgumentException("Invalid Format. " +
+                        "Usage: find (keyword), there should only be one keyword.");
+            }
+
+            taskList.find(keywordDetails[0]);
             break;
         default:
             throw new MondayExceptions("Sorry, I do not understand what that means.\n" +
