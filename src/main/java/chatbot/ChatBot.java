@@ -62,6 +62,10 @@ public class ChatBot {
         case "list":
             this.ui.output(this.tasks.listTasks());
             break;
+        case "find":
+            String name = Parser.parseFindCommand(command);
+            this.ui.output(this.tasks.findTasks(name));
+            break;
         case "mark":
         case "unmark":
             boolean isDone = words[0].equals("mark");

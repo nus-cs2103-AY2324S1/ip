@@ -4,6 +4,7 @@ import chatbot.exceptions.InvalidTaskIndexException;
 import chatbot.tasks.Task;
 
 import java.util.ArrayList;
+import java.util.function.Consumer;
 
 /**
  * Class that represents the list of tasks the user has created.
@@ -92,6 +93,28 @@ public class TaskList {
                     task.toString()));
         }
         return sb.toString();
+    }
+
+    /**
+     * Obtain indexed String representation of tasks matched with the given name.
+     * @param name the task name to match with
+     * @return indexed String representation of tasks whose names contain the provided name
+     */
+    public String findTasks(String name) {
+        ArrayList<Task> matchedTasks = new ArrayList<>();
+        taskList.forEach(new Consumer<Task>() {
+            @Override
+            public void accept(Task t) {
+                if (t.getName().contains(name)) {
+                    matchedTasks.add(t);
+                }
+            }
+        });
+        if (matchedTasks.isEmpty()) {
+            return "\tNo task in the list matches the query.";
+        } else {
+            return "\tHere are the matching tasks in your list:\n" + new TaskList(matchedTasks).listTasks();
+        }
     }
 
     /**

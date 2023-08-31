@@ -3,6 +3,7 @@ package chatbot;
 import chatbot.exceptions.DeadlineMissingFieldException;
 import chatbot.exceptions.DeleteMissingFieldException;
 import chatbot.exceptions.EventMissingFieldException;
+import chatbot.exceptions.FindMissingFieldException;
 import chatbot.exceptions.InvalidTaskIndexException;
 import chatbot.exceptions.MarkMissingFieldException;
 import chatbot.exceptions.TodoMissingFieldException;
@@ -15,6 +16,24 @@ import chatbot.tasks.ToDoTask;
  * Class that contains static methods to help parse user commands.
  */
 public class Parser {
+    /**
+     * Parse "find" command from the user.
+     * @param command String which is the user's command
+     * @return task name provided as the search string
+     * @throws FindMissingFieldException when the command does not contain any task name
+     */
+    public static String parseFindCommand(String command) throws FindMissingFieldException {
+        try {
+            String name = command.substring(5);
+            if (name.isEmpty()) {
+                throw new FindMissingFieldException();
+            }
+            return name;
+        } catch (IndexOutOfBoundsException e) {
+            throw new FindMissingFieldException();
+        }
+    }
+
     /**
      * Parse "mark" or "unmark" command from the user.
      * @param commandWords String array that contains the words in the command in order
@@ -67,7 +86,6 @@ public class Parser {
         } catch (IndexOutOfBoundsException e) {
             throw new TodoMissingFieldException();
         }
-
     }
 
     /**
