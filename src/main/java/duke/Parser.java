@@ -106,6 +106,16 @@ public class Parser {
             Ui.taskAdd(e, tasks);
             storage.saveTasksToFile(tasks);
             break;
+        case "find":
+            inValue = myScanner.nextLine();
+            if (inValue.length() != 0){
+                inValue = inValue.substring(1);
+            } else {
+                Ui.showError("find");
+                break;
+                //throw new duke.DukeException("☹ OOPS!!! The description of an event cannot be empty.");
+            }
+            Ui.printMatchingTasks(tasks, inValue);
 
         default:
             inValue += myScanner.nextLine();
