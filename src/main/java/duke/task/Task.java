@@ -1,4 +1,4 @@
-package eva.task;
+package duke.task;
 
 /**
  * A Task class to represent tasks

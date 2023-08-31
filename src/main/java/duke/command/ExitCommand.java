@@ -1,9 +1,9 @@
-package eva.command;
+package duke.command;
 
-import eva.Ui;
-import eva.task.TaskList;
-import eva.Storage;
-import eva.DukeException;
+import duke.Ui;
+import duke.task.TaskList;
+import duke.Storage;
+import duke.DukeException;
 
 public class ExitCommand extends Command {
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {

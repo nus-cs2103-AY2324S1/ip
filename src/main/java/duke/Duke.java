@@ -1,12 +1,12 @@
-package eva;
+package duke;
 
-import eva.command.Command;
-import eva.task.TaskList;
+import duke.command.Command;
+import duke.task.TaskList;
 
 /**
  * CS2103T iP Week 3
  * AY23/24 Semester 1
- * A product named Eva (Originally Duke), a Personal Assistant Chatbot that helps a person
+ * A product named Duke, a Personal Assistant Chatbot that helps a person
  * to keep track of various things.
  *
  * @author bhnuka, Bhanuka Bandara Ekanayake (AXXX7875J), G01
@@ -14,15 +14,15 @@ import eva.task.TaskList;
  */
 
 /**
- * All the sourcecode behind the chatbot, Eva
+ * All the sourcecode behind the chatbot, Duke
  */
-public class Eva {
+public class Duke {
 
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
 
-    public Eva(String filePath) {
+    public Duke(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
         try {
@@ -52,6 +52,6 @@ public class Eva {
     }
 
     public static void main(String[] args) {
-        new Eva("data/tasks.txt").run();
+        new Duke("data/tasks.txt").run();
     }
 }

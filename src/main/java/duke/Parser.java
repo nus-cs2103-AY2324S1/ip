@@ -1,9 +1,9 @@
-package eva;
+package duke;
 
-import eva.command.*;
-import eva.task.Deadline;
-import eva.task.Event;
-import eva.task.Todo;
+import duke.command.*;
+import duke.task.Deadline;
+import duke.task.Event;
+import duke.task.Todo;
 
 public class Parser {
 

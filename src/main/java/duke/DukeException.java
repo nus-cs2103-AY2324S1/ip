@@ -1,4 +1,4 @@
-package eva;
+package duke;
 /**
  * Class DukeException to represent exceptions specific to Duke.
  */

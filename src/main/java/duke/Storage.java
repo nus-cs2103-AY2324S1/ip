@@ -1,9 +1,9 @@
-package eva;
+package duke;
 
-import eva.task.Deadline;
-import eva.task.Event;
-import eva.task.TaskList;
-import eva.task.Todo;
+import duke.task.Deadline;
+import duke.task.Event;
+import duke.task.TaskList;
+import duke.task.Todo;
 
 import java.io.FileNotFoundException;
 import java.io.FileWriter;

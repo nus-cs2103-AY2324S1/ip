@@ -1,24 +1,24 @@
-package eva;
+package duke;
 
-import eva.task.Task;
-import eva.task.TaskList;
-
+import duke.task.Task;
+import duke.task.TaskList;
 import java.util.Scanner;
 
 public class Ui {
+    private Scanner scanner;
     public Ui() {
+        scanner = new Scanner(System.in);
     }
 
     public static void showWelcome() {
-        String logo = "  ______          \n"
-                + " |  ____|         \n"
-                + " | |____   ____ _ \n"
-                + " |  __\\ \\ / / _` |\n"
-                + " | |___\\ V / (_| |\n"
-                + " |______\\_/ \\__,_|\n";
+        String logo = " ____        _        \n"
+                + "|  _ \\ _   _| | _____ \n"
+                + "| | | | | | | |/ / _ \\\n"
+                + "| |_| | |_| |   <  __/\n"
+                + "|____/ \\__,_|_|\\_\\___|\n";
         System.out.println("Hello from\n" + logo);
         System.out.println("\t____________________________________________________________");
-        System.out.println("\t Hello! I'm Eva.");
+        System.out.println("\t Hello! I'm duke.");
         System.out.println("\t What can I do for you?");
         System.out.println("\t____________________________________________________________");
     }
@@ -64,10 +64,6 @@ public class Ui {
     }
 
     public String readCommand() {
-        Scanner scanner = new Scanner(System.in);
-        while (true) {
-            String input = scanner.nextLine();
-            return input;
-        }
+        return scanner.nextLine();
     }
 }

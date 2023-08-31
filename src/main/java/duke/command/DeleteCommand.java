@@ -1,10 +1,10 @@
-package eva.command;
+package duke.command;
 
-import eva.Ui;
-import eva.task.TaskList;
-import eva.task.Task;
-import eva.Storage;
-import eva.DukeException;
+import duke.Ui;
+import duke.task.TaskList;
+import duke.task.Task;
+import duke.Storage;
+import duke.DukeException;
 
 
 public class DeleteCommand extends Command {

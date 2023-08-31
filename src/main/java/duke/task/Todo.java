@@ -1,4 +1,4 @@
-package eva.task;
+package duke.task;
 
 /**
  * A Todo class to represent todo tasks

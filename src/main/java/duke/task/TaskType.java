@@ -1,4 +1,4 @@
-package eva.task;
+package duke.task;
 
 /**
  * Enums to represent the different types of tasks
