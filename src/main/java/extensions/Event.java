@@ -11,9 +11,17 @@ public class Event extends Task {
         this.to = to;
     }
     @Override
+    public String getSaveFormat() {
+        return String.format("E | %c | %s | %s | %s",
+                this.getDoneSymbol(),
+                this.description,
+                this.from,
+                this.to);
+    }
+    @Override
     public String toString() {
         return String.format("[E][%c] %s (from: %s, to: %s)",
-                this.getDoneStatus(),
+                this.getDoneSymbol(),
                 this.description,
                 this.from,
                 this.to);

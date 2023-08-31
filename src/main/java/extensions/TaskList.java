@@ -1,6 +1,10 @@
 package extensions;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 /**
  * TaskList handles task modifications and invalid user inputs for
@@ -11,6 +15,8 @@ public class TaskList {
     private final String HORIZONTAL_LINE = "-~-~-~-~-~-~-~-~--~-~-~-~-~-~-~-~-";
     // Actual list storing the tasks
     private List<Task> tasks;
+    // Relative path to file with saved tasks.
+    private static final String PATH = "src/main/data/savedTasks.txt";
     // Constructor for TaskList
     public TaskList() {
         this.tasks = new ArrayList<>();
@@ -48,6 +54,7 @@ public class TaskList {
             int index = Integer.valueOf(userArg) - 1;
             Task task = tasks.get(index);
             task.markAsDone();
+
             this.echo("The following task is marked done, sheeesh:\n"
                         + task.toString());
         } catch(NumberFormatException e) {
@@ -75,12 +82,10 @@ public class TaskList {
         }
     }
     /**
-     * Adds a task to this TaskList before printing a confirmation message,
-     * to be used internally.
-     * @param task Task object to be added.
+     * Prints a confirmation message for the user after adding a task.
+     * @param task
      */
-    private void addTask(Task task) {
-        this.tasks.add(task);
+    private void showTaskAdded(Task task) {
         this.echo(String.format(
                 "Got it! I've added this task:\n%s\nNow you have %d task(s) in the list.",
                 task.toString(),
@@ -95,7 +100,9 @@ public class TaskList {
         if (description.isBlank()) { // isBlank() checks if string is all whitespace
             throw new EkudIllegalArgException("Todo task shouldn't be empty :(");
         }
-        addTask(new ToDo(description));
+        ToDo newToDo = new ToDo(description);
+        this.tasks.add(newToDo);
+        this.showTaskAdded(newToDo);
     }
     /**
      * Adds a deadline task to this TaskList.
@@ -110,7 +117,9 @@ public class TaskList {
             if (description.isBlank() || day.isBlank()) {
                 throw new EkudIllegalArgException("Description/day shouldn't be empty :(");
             }
-            addTask(new Deadline(description, day));
+            Deadline newDeadline = new Deadline(description, day);
+            this.tasks.add(newDeadline);
+            this.showTaskAdded(newDeadline);
         } catch(IndexOutOfBoundsException e) {
             throw new EkudIllegalArgException("Deadline formatted wrongly, " +
                     "ensure 'deadline <description> /by <day>' is followed");
@@ -131,7 +140,9 @@ public class TaskList {
             if (description.isBlank() || from.isBlank() || to.isBlank()) {
                 throw new EkudIllegalArgException("Description/start/end shouldn't be empty :(");
             }
-            addTask(new Event(description, from, to));
+            Event newEvent = new Event(description, from, to);
+            this.tasks.add(newEvent);
+            this.showTaskAdded(newEvent);
         } catch(IndexOutOfBoundsException e) {
             throw new EkudIllegalArgException("Event formatted wrongly, " +
                     "ensure 'event <description> /from <start> /to <end>' is followed");
@@ -158,6 +169,58 @@ public class TaskList {
             throw new EkudIllegalArgException("Please input a valid index number :o");
         } catch(IndexOutOfBoundsException e) {
             throw new EkudIllegalArgException("Task index number is out of bounds :/");
+        }
+    }
+
+    public void loadData() throws EkudIOException {
+        File savedTasks = new File(PATH);
+        try {
+            if (!savedTasks.exists()) {
+                System.out.println("Creating task file...");
+                savedTasks.createNewFile();
+                System.out.println("Task file created successfully");
+                return;
+            }
+            System.out.println("Loading up saved tasks...");
+            Scanner scanner = new Scanner(savedTasks);
+            while (scanner.hasNext()) {
+                // Saved tasks format eg:
+                // T | 0 | task1
+                // D | 1 | task2 | 1st Sep
+                // E | 0 | task 3 | 1st Sep 2pm | 3rd Sep 2pm
+                String[] taskDetails = scanner.nextLine().split(" \\| ");
+                String taskType = taskDetails[0];
+                boolean isDone = taskDetails[1].equals("X");
+                if (taskType.equals("T")) {
+                    this.tasks.add(new ToDo(taskDetails[2]));
+                } else if (taskType.equals("D")) {
+                    this.tasks.add(new Deadline(taskDetails[2], taskDetails[3]));
+                } else if (taskType.equals("E")) {
+                    this.tasks.add(new Event(taskDetails[2], taskDetails[3], taskDetails[4]));
+                }
+                if (isDone) this.tasks.get(tasks.size() - 1).markAsDone();
+            }
+            if (tasks.size() == 0) {
+                System.out.println("No saved tasks found");
+            } else {
+                System.out.println("Saved tasks loaded successfully");
+            }
+        } catch (IOException e) {
+            throw new EkudIOException("Error with creating task file: " + e);
+        } catch (IndexOutOfBoundsException e) {
+            throw new EkudIOException("Error with parsing saved tasks file");
+        }
+    }
+    public void saveData() throws EkudIOException {
+        try {
+            FileWriter fw = new FileWriter(PATH);
+            int len = tasks.size();
+            for (int i = 0; i < len; i++) {
+                fw.write(tasks.get(i).getSaveFormat() + "\n");
+            }
+            fw.close();
+        } catch (IOException e) {
+            throw new EkudIOException("Error with saving tasks");
         }
     }
 }
