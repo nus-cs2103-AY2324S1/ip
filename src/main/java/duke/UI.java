@@ -102,4 +102,9 @@ public class UI {
         printLine();
         System.out.println("OOPS!!! There is no file to load.");
     }
+
+    public void findTask() {
+        printLine();
+        System.out.println("Here are the matching tasks in your list:");
+    }
 }

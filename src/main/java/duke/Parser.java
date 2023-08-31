@@ -47,6 +47,11 @@ public class Parser {
                     System.out.println("OOPS!!! There is no file to save.");
                 }
                 break;
+            case "find":
+                helper.findTask();
+                String keyword = splittedCommand[1];
+                tasks.findTaskFromTaskList(keyword);
+                break;
             case "list":
                 helper.printLine();
                 tasks.printList();

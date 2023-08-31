@@ -12,8 +12,6 @@ import duke.tasks.Task;
 /**
  * Implements a storage class to allow the bot to be able to save tasks
  */
-import duke.tasks.TaskList;
-import duke.tasks.Task;
 
 public class Storage {
     private String filePath;

@@ -57,4 +57,14 @@ public class TaskList extends ArrayList<Task> {
             System.out.println(length + "." + this.get(length - 1));
         }
     }
+
+    public void findTaskFromTaskList(String keyword) {
+        int count = 1;
+        for (Task task : this) {
+            if (task.toString().contains(keyword)) {
+                System.out.println(count + ": " + task);
+                count += 1;
+            }
+        }
+    }
 }
