@@ -66,7 +66,7 @@ public class TaskList {
 
     public Task markAsDone(String command) throws LukeException {
         Task task = getTask(command);
-        task.setIsDone(true);
+        task.setDone(true);
 
         return task;
     }
@@ -74,7 +74,7 @@ public class TaskList {
     public Task markAsUndone(String command) throws LukeException {
         Task task = getTask(command);
 
-        task.setIsDone(false);
+        task.setDone(false);
         return task;
     }
 

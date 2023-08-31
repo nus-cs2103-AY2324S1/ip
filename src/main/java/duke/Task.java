@@ -14,7 +14,7 @@ public class Task {
         this.isDone = isDone;
     }
 
-    public void setIsDone(boolean isDone) throws LukeException {
+    public void setDone(boolean isDone) throws LukeException {
         if (this.isDone == isDone) {
             throw new LukeException("Task is already marked as done");
         }
