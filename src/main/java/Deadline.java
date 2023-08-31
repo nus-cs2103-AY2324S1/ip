@@ -16,6 +16,6 @@ public class Deadline extends Task {
     }
     @Override
     public String saveItem() {
-        return "D | " + super.saveItem() + "by: " + byDate.toString();
+        return "D | " + super.saveItem() + "by: " + byDate.toString() + "\n";
     }
 }

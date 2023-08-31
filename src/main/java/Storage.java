@@ -21,14 +21,11 @@ public class Storage {
     }
     public void loadTask(String task, ArrayList<Task> tasks) throws MaxException {
         String type = task.substring(0, 1).trim(); // T, D, E
-        boolean done = task.substring(3, 4).trim().equals("1");
-        System.out.println("type is: " + type);
-        System.out.println("done is: " + done);
+        boolean done = task.substring(3, 5).trim().equals("1");
+        System.out.println(task.substring(3, 5).trim().equals("1"));
         switch (type) {
         case "T":
             String description = task.substring(7).trim();
-            System.out.println("desc is: " + description);
-            System.out.println(new Todo(description, done));
             tasks.add(new Todo(description, done));
             break;
         case "D": {

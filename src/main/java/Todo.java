@@ -11,6 +11,6 @@ public class Todo extends Task {
     }
     @Override
     public String saveItem() {
-        return "T | " + super.saveItem();
+        return "T | " + super.saveItem() + "\n";
     }
 }

@@ -1,5 +1,4 @@
 public class Task {
-    private Ui ui = new Ui();
     private String item;
     private boolean done;
     public Task(String item) {
@@ -12,11 +11,9 @@ public class Task {
     }
     public void mark() {
         this.done = true;
-        ui.showMark(this);
     }
     public void unmark() {
         this.done = false;
-        ui.showUnmark(this);
     }
     @Override
     public String toString() {

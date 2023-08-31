@@ -19,6 +19,6 @@ public class Event extends Task {
     @Override
     public String saveItem() {
         return "E | " + super.saveItem() +
-                "from: " + fromDate.toString() + "to: " + toDate.toString();
+                " from: " + fromDate.toString() + " to: " + toDate.toString() + "\n";
     }
 }
