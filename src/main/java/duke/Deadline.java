@@ -19,7 +19,7 @@ public class Deadline extends Task{
     @Override
     public String saveString() {
         String completedString = isCompleted ? "X|" : " |";
-        return "D|" + completedString + task + "|" + deadline.format(parseFormatter);
+        return "D|" + completedString + description + "|" + deadline.format(parseFormatter);
     }
 
     @Override

@@ -1,10 +1,10 @@
 package duke;
 
 abstract public class Task {
-    protected String task;
+    protected String description;
     protected Boolean isCompleted = false;
-    public Task(String task) {
-        this.task = task;
+    public Task(String description) {
+        this.description = description;
     }
 
     public void setIsCompleted(Boolean isCompleted) {
@@ -15,6 +15,6 @@ abstract public class Task {
 
     public String toString() {
         String box = this.isCompleted ? "[X]": "[ ]";
-        return box + " " + this.task;
+        return box + " " + this.description;
     }
 }

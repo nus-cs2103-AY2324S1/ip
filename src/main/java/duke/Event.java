@@ -26,7 +26,7 @@ public class Event extends Task{
     public String saveString() {
         String completedString = isCompleted ? "X|" : " |";
 
-        return "E|" + completedString + task + "|" + start.format(parseFormatter) + "|" + deadline.format(parseFormatter);
+        return "E|" + completedString + description + "|" + start.format(parseFormatter) + "|" + deadline.format(parseFormatter);
     }
 
     @Override

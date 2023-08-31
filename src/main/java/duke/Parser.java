@@ -12,7 +12,7 @@ public class Parser {
     }
 
     private enum Command {
-        invalid, bye, list, mark, unmark, delete, todo, deadline, event;
+        invalid, bye, list, mark, unmark, delete, find, todo, deadline, event;
 
         /*
         If more task types are added in the future can just add here so I don't have to change in main
@@ -60,6 +60,8 @@ public class Parser {
         } else if (cmd.equals(Command.invalid)) {
             ui.showInvalidCommandError();
             return true;
+        } else if (cmd.equals(Command.find)) {
+            ui.showFindResults(taskList.find(input.split(" ", 2)[1]));
         } else if (Command.taskTypes().contains(cmd)) {
             try {
                 createTask(cmd, input);
