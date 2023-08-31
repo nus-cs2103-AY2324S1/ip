@@ -1,6 +1,7 @@
 package bob;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 /**
  * Represents a parser that deals with interactions with the user
@@ -38,6 +39,26 @@ public class Ui {
         System.out.println(list.get(deleteNo - 1).toString());
         list.remove(deleteNo - 1);
         System.out.println("Now you have " + String.valueOf(list.size()) + " tasks in the list.");
+    }
+
+    /**
+     * Finds task according to the specified keyword and lists them out
+     * @param list the list containing all tasks
+     * @param keyword the keyword used to filter tasks
+     */
+    public static void findTask(TaskList list, String keyword) {
+        ArrayList<Task> matches = new ArrayList<Task>();
+
+        for (int i = 0; i < list.size(); i++) {
+            if (list.get(i).toString().contains(keyword)) {
+                matches.add(list.get(i));
+            }
+        }
+
+        System.out.println("Here are the matching tasks in your list:");
+        for (int i = 1; i <= matches.size(); i++) {
+            System.out.println(i + ". " + list.get(i - 1).toString());
+        }
     }
 
     /**
