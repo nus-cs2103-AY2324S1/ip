@@ -1,6 +1,7 @@
 package duke;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import java.io.File;
@@ -20,7 +21,6 @@ public class TaskListTest {
 
     @Test
     public void testHandleTodo() {
-        // Adding a task
         taskList.handleTodo("todo Sample todo task");
 
         assertEquals(1, taskList.taskCount);
