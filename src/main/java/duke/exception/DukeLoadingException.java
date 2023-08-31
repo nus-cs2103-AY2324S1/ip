@@ -7,7 +7,7 @@ public class DukeLoadingException extends Exception {
     /**
      * Constructs an duke.exception.DukeLoadingException with the specified detail message.
      *
-     * @param e - description of the bad input
+     * @param e - description of the loading exception
      */
     public DukeLoadingException(String e) {
         super(e);

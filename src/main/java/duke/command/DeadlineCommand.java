@@ -9,8 +9,6 @@ import duke.exception.DukeBadInputException;
 import duke.task.DeadlineTask;
 import duke.task.Task;
 
-
-
 /**
  * Represents the Deadline command
  */
@@ -25,8 +23,6 @@ public class DeadlineCommand extends Command {
      * Stores the deadline of the task
      */
     private LocalDateTime by;
-
-
     /**
      * Constructor of the duke.task.DeadlineTask command
      *
@@ -37,7 +33,6 @@ public class DeadlineCommand extends Command {
         this.desc = desc;
         this.by = by;
     }
-
     /**
      * Method to encapsulate the execution logic of the command
      *
@@ -61,7 +56,6 @@ public class DeadlineCommand extends Command {
         ui.println(newTask.toString());
         ui.println("Quack! Quack is currently remembering " + taskList.length() + " tasks.");
     }
-
     /**
      * Checks if the command is the exit command
      *
@@ -74,6 +68,7 @@ public class DeadlineCommand extends Command {
 
     /**
      * Checks if it is the exact same command
+     *
      * @param other the other command in question
      * @return true if there are equals
      */

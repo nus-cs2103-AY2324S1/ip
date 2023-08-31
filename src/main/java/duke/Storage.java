@@ -24,17 +24,17 @@ public class Storage {
     /**
      * Path of the storage file
      */
-    private final Path path;
+    private Path path;
 
     /**
      * The input string that points to the file
      */
-    private final String input;
+    private String input;
 
     /**
      * Writer instance
      */
-    private final BufferedWriter writer;
+    private BufferedWriter writer;
 
 
     /**
@@ -92,7 +92,7 @@ public class Storage {
     }
 
     /**
-     * Writes to storage
+     * Writes the given line to storage
      *
      * @param input string that is you want to write
      * @return true if successfully written

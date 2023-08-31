@@ -8,7 +8,7 @@ import duke.command.ListCommand;
 import duke.exception.DukeBadInputException;
 
 /**
- * A task manager duke
+ * A task manager that initialise a quack instance
  */
 public class Duke {
 
@@ -26,7 +26,7 @@ public class Duke {
     private Storage storage;
 
     /**
-     * Construct a new duke.Duke object which uses filePath as the storage
+     * Construct a new Duke object which uses filePath as the storage
      *
      * @param filePath - path to the storage file
      */
@@ -65,12 +65,17 @@ public class Duke {
         }
     }
 
+    /**
+     * Entry point of the program
+     *
+     * @param args  System arguments, should be empty
+     */
     public static void main(String[] args) {
         new Duke("data/data.txt").run();
     }
 
     /**
-     * Entry point of the software
+     * Start the running the quack program, will not run if storage is null
      */
     private void run() {
         if (this.storage == null) {
@@ -94,7 +99,7 @@ public class Duke {
     }
 
     /**
-     * Handles the collection and execution of the command
+     * Handles the collection and execution of the command until the exit command is given
      */
     private void collectCommand() {
         while (true) {
