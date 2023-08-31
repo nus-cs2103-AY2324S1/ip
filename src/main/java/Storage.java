@@ -1,7 +1,15 @@
 import ip.utils.Pair;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 // TODO: Remove UI logic from Storage
 
@@ -68,7 +76,7 @@ public class Storage {
      * prints an appropriate error message.
      * @param index The index of the list to unmark.
      */
-    private void delete(int index) {
+    public void delete(int index) {
         Task task = getTask(index);
         // happy path: the task does not exist.
         if (task == null) {
@@ -87,7 +95,7 @@ public class Storage {
      * Adds a To-Do, Event or Deadline task to the task list.
      * @param input The Pair&lt;Command, String&gt; of the task to add to the list.
      */
-    private void add(Pair<CommandType, String> input) {
+    public void add(Pair<CommandType, String> input) {
         Task newTask;
         String[] segments;
         try {
@@ -162,5 +170,42 @@ public class Storage {
         } catch (DateTimeParseException e) {
             System.out.println("Additional Date Fields should be in the format DD/MM(/YYYY)( HHmm).");
         }
+    }
+
+    public void read() {
+        Path path = Paths.get("TrackerBot", "data.txt");
+        if (Files.notExists(path)) {
+            return;
+        }
+
+        try (Scanner input = new Scanner(new FileReader(path.toFile()))) {
+            while (input.hasNextLine()) {
+                TASKS.add(Task.parseSaveLine(input.nextLine()));
+            }
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        } catch (DateTimeParseException e) {
+            System.out.println(e.getMessage());
+            TASKS.clear();
+        }
+    }
+
+    public void save() {
+        Path path = Paths.get("TrackerBot", "data.txt");
+        File file = path.toFile();
+        try {
+            Files.createDirectories(path.getParent());
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+
+        try (FileOutputStream output = new FileOutputStream(file, false)) {
+            for (int i = 1; i < TASKS.size() + 1; i++) {
+                output.write(TASKS.get(i - 1).toSaveString().getBytes());
+                output.write("\n".getBytes());
+            }
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        } // the try with resources statement auto-closes output.
     }
 }
