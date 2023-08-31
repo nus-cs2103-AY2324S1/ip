@@ -33,7 +33,7 @@ public class ParserTest {
         Parser parser = new Parser(new Ui("Moira"));
         parser.parse(" ");
         parser.parse("bleh");
-        parser.parse("bye s");
+        parser.parse("sdaf sd asdd");
         assertEquals("--------------------------------------------------------------------------" +
                 "\nHOLD UP! What on earth do you mean??" +
                 "\n--------------------------------------------------------------------------" +
@@ -47,7 +47,14 @@ public class ParserTest {
     }
 
     @Test
-    public void anotherDummyTest(){
-        assertEquals(4, 4);
+    public void parse_byeCommandVariations_isReceivingInputChangeAccordingly(){
+        Parser parser = new Parser(new Ui("Moira"));
+        Duke.setIsReceivingInput(true);
+        parser.parse("bye s");
+        assertEquals(true, Duke.getIsReceivingInput());
+        parser.parse("by");
+        assertEquals(true, Duke.getIsReceivingInput());
+        parser.parse("bye ");
+        assertEquals(false, Duke.getIsReceivingInput());
     }
 }

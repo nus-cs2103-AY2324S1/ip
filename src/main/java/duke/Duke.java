@@ -55,7 +55,18 @@ public class Duke {
         return TASK_LIST;
     }
 
+    // for testing purposes
     public static void changeFilePath(String path) {
         filePath = path;
+    }
+
+    // for testing purposes
+    public static boolean getIsReceivingInput() {
+        return IS_RECEIVING_INPUT;
+    }
+
+    // for testing purposes
+    public static void setIsReceivingInput(boolean isReceivingInput) {
+        IS_RECEIVING_INPUT = isReceivingInput;
     }
 }
