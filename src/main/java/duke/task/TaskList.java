@@ -1,7 +1,8 @@
-import java.io.File;
-import java.io.FileNotFoundException;
+package duke.task;
+
+import duke.task.Task;
+
 import java.util.ArrayList;
-import java.util.Scanner;
 
 /**
  * Represents a list of tasks and provides methods to manipulate them

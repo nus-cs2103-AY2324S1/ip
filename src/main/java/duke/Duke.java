@@ -1,3 +1,11 @@
+package duke;
+import duke.task.*;
+import duke.exception.*;
+import duke.storage.Storage;
+import duke.ui.Ui;
+import duke.commands.*;
+
+
 import java.time.LocalDate;
 
 /**
@@ -22,7 +30,10 @@ public class Duke {
      *
      * @param taskIndex Index of the task to be marked as done, starts from '1'
      */
-    public void markTaskByBot(int taskIndex) {
+    public void markTaskByBot(int taskIndex) throws DeleteException {
+        if (!taskList.isValidListIndex(taskIndex - 1)) {
+            throw new DeleteException("Invalid Index of task!");
+        }
         taskList.markTaskAsDone(taskIndex - 1);
         saveTasksToFile(this.taskList);
         Ui.showMessage(taskList.getTaskDetails(taskIndex - 1));
@@ -33,13 +44,15 @@ public class Duke {
      *
      * @param taskIndex Index of the task to be marked as not done, starts from '1'
      */
-    public void unmarkTaskByBot(int taskIndex) {
+    public void unmarkTaskByBot(int taskIndex) throws DeleteException {
+        if (!taskList.isValidListIndex(taskIndex - 1)) {
+            throw new DeleteException("detail: Invalid Index of task!");
+        }
+
         taskList.markTaskAsNotDone(taskIndex - 1);
         saveTasksToFile(this.taskList);
-        System.out.println("____________________________________________________________\n" +
-                " OK, I've marked this task as not done yet:\n" +
-                taskList.getTaskDetails(taskIndex - 1) +
-                "\n____________________________________________________________");
+        Ui.showMessage(" OK, I've marked this task as not done yet:\n" +
+                taskList.getTaskDetails(taskIndex - 1));
     }
 
 
