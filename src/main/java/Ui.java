@@ -41,7 +41,7 @@ public class Ui {
     public void printTaskAdded(Task task, int size) {
         printHorizontalLine();
         printIndented("Got it. I've added this task:");
-        printIndented("  " + task);
+        printIndented("  " + task.toFileString());
         printIndented("Now you have " + size + " tasks in the list.");
         printHorizontalLine();
     }
@@ -58,7 +58,7 @@ public class Ui {
         }
         printIndented("Here are the tasks on " + date + ":");
         for (Task task : tasksOnDate) {
-            printIndented(task.toString());
+            printIndented(task.toFileString());
         }
         printHorizontalLine();
     }

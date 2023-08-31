@@ -11,8 +11,9 @@ import java.util.stream.Collectors;
 
 public class Duke {
     private static final List<Task> tasks = new ArrayList<>();
-    private static final String FILE_PATH = "./data/duke.txt";
     private static final Ui ui = new Ui();
+    private static final Storage storage = new Storage(ui);
+
 
     private enum Command {
         BYE, LIST, TODO, DEADLINE, EVENT, MARK, UNMARK, DELETE, TASKS_ON_DATE, UNKNOWN
@@ -29,45 +30,6 @@ public class Duke {
         if (input.startsWith("delete")) return Command.DELETE;
         if (input.startsWith("tasks on")) return Command.TASKS_ON_DATE;
         return Command.UNKNOWN;
-    }
-
-    private static void ensureDirectoryExists() {
-        File directory = new File("./data/");
-        if (!directory.exists()) {
-            directory.mkdirs();
-        }
-    }
-
-    private static void saveTasks() {
-        try {
-            ensureDirectoryExists();
-            FileWriter fw = new FileWriter(FILE_PATH);
-            for (Task task : tasks) {
-                fw.write(task.toFileString() + "\n");
-            }
-            fw.close();
-        } catch (IOException e) {
-            ui.printIndented("Error saving tasks to file.");
-        }
-    }
-
-    private static void loadTasks() {
-        try {
-            ensureDirectoryExists();
-            File f = new File(FILE_PATH);
-            if (!f.exists()) return;
-            Scanner s = new Scanner(f);
-            while (s.hasNext()) {
-                String taskData = s.nextLine();
-                Task task = parseFileTask(taskData);
-                tasks.add(task);
-            }
-            s.close();
-        } catch (IOException e) {
-            ui.printIndented("Error loading tasks from file.");
-        } catch (DukeException e) {
-            ui.printIndented("Data file is corrupted: " + e.getMessage());
-        }
     }
 
     private static Task parseFileTask(String taskData) throws DukeException {
@@ -94,7 +56,7 @@ public class Duke {
         Scanner scanner = new Scanner(System.in);
         String input;
 
-        loadTasks();
+        tasks.addAll(storage.loadTasks());
         ui.printGreeting();
 
         while (true) {
@@ -118,7 +80,7 @@ public class Duke {
                         ToDo todo = new ToDo(input.substring(5));
                         tasks.add(todo);
                         ui.printTaskAdded(todo, tasks.size());
-                        saveTasks();
+                        storage.saveTasks(tasks);
                         break;
 
                     case DEADLINE:
@@ -129,7 +91,7 @@ public class Duke {
                         Deadline deadline = new Deadline(parts[0], parts[1]);
                         tasks.add(deadline);
                         ui.printTaskAdded(deadline, tasks.size());
-                        saveTasks();
+                        storage.saveTasks(tasks);
                         break;
 
                     case EVENT:
@@ -141,28 +103,28 @@ public class Duke {
                         Event event = new Event(eventParts[0], timeParts[0], timeParts[1]);
                         tasks.add(event);
                         ui.printTaskAdded(event, tasks.size());
-                        saveTasks();
+                        storage.saveTasks(tasks);
                         break;
 
                     case MARK:
                         int taskNumberMark = Integer.parseInt(input.split(" ")[1]);
                         tasks.get(taskNumberMark - 1).markAsDone();
                         ui.printMarkedAsDone(tasks.get(taskNumberMark - 1));
-                        saveTasks();
+                        storage.saveTasks(tasks);
                         break;
 
                     case UNMARK:
                         int taskNumberUnmark = Integer.parseInt(input.split(" ")[1]);
                         tasks.get(taskNumberUnmark - 1).unmark();
                         ui.printMarkedAsNotDone(tasks.get(taskNumberUnmark - 1));
-                        saveTasks();
+                        storage.saveTasks(tasks);
                         break;
 
                     case DELETE:
                         int taskNumberDelete = Integer.parseInt(input.split(" ")[1]);
                         Task removedTask = tasks.remove(taskNumberDelete - 1);
                         ui.printTaskDeleted(removedTask, tasks.size());
-                        saveTasks();
+                        storage.saveTasks(tasks);
                         break;
 
                     case TASKS_ON_DATE:
@@ -185,6 +147,7 @@ public class Duke {
             ui.printHorizontalLine();
         }
     }
+
 
     private static LocalDate getLocalDate(String input) throws DukeException {
         String[] dateParts = input.split(" ");
