@@ -1,43 +1,44 @@
 package pogo.parsers;
 
-import pogo.commands.*;
-import pogo.common.Messages;
-import pogo.tasks.TaskType;
-import pogo.tasks.exceptions.PogoInvalidTaskException;
-
 import java.time.format.DateTimeParseException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import pogo.commands.AddDeadlineCommand;
+import pogo.commands.AddEventCommand;
+import pogo.commands.AddToDoCommand;
+import pogo.commands.Command;
+import pogo.commands.DeleteTaskCommand;
+import pogo.commands.InvalidCommand;
+import pogo.commands.MarkTaskCommand;
+import pogo.commands.UnmarkTaskCommand;
+import pogo.common.Messages;
+import pogo.tasks.exceptions.PogoInvalidTaskException;
+
+/**
+ * TaskParser parses user input into a Command object.
+ */
 public class TaskParser {
-    public static TaskType toTaskType(String input) {
-        if (input.startsWith("todo") || input.startsWith("T")) {
-            return TaskType.TODO;
-        } else if (input.startsWith("deadline") || input.startsWith("D")) {
-            return TaskType.DEADLINE;
-        } else if (input.startsWith("event") || input.startsWith("E")) {
-            return TaskType.EVENT;
-        } else {
-            return null;
-        }
-    }
+    private static final Pattern DEADLINE_PATTERN = Pattern.compile("(?<description>.*) /by (?<by>.*)");
+    private static final Pattern TODO_PATTERN = Pattern.compile("(?<description>.*)");
+    private static final Pattern EVENT_PATTERN = Pattern.compile("(?<description>.*) /from (?<from>.*) /to (?<to>.*)");
+    private static final Pattern MARK_PATTERN = Pattern.compile("(?<index>\\d+)");
 
     /**
      * Parses a deadline command.
-     * A valid deadline command has the format "deadline <description> /by <by>".
+     * A valid deadline command has the format "deadline DESCRIPTION /by DEADLINE".
      * Returns an InvalidCommand if the command is invalid.
      *
      * @param input The input string.
      * @return The AddDeadlineCommand if the command is valid.
      */
     public static Command parseDeadlineCommand(String input) throws PogoInvalidTaskException {
-        final Pattern DEADLINE_PATTERN = Pattern.compile("(?<description>.*) /by (?<by>.*)");
         final Matcher matcher = DEADLINE_PATTERN.matcher(input);
 
         InvalidCommand ic =
-                new InvalidCommand(Messages.INVALID_TASK
-                        + System.lineSeparator()
-                        + AddDeadlineCommand.MESSAGE_USAGE);
+            new InvalidCommand(Messages.INVALID_TASK
+                + System.lineSeparator()
+                + AddDeadlineCommand.MESSAGE_USAGE);
         if (!matcher.matches()) {
             return ic;
         }
@@ -56,19 +57,18 @@ public class TaskParser {
 
     /**
      * Parses a todo command.
-     * A valid todo command has the format "todo <description>".
+     * A valid todo command has the format "todo TASK".
      * Returns an InvalidCommand if the command is invalid.
      *
      * @param input The input string.
      * @return The AddToDoCommand if the command is valid.
      */
     public static Command parseToDoCommand(String input) throws PogoInvalidTaskException {
-        final Pattern TODO_PATTERN = Pattern.compile("(?<description>.*)");
         final Matcher matcher = TODO_PATTERN.matcher(input);
         InvalidCommand ic =
-                new InvalidCommand(Messages.INVALID_TASK
-                        + System.lineSeparator()
-                        + AddToDoCommand.MESSAGE_USAGE);
+            new InvalidCommand(Messages.INVALID_TASK
+                + System.lineSeparator()
+                + AddToDoCommand.MESSAGE_USAGE);
         if (!matcher.matches()) {
             return ic;
         }
@@ -82,20 +82,18 @@ public class TaskParser {
 
     /**
      * Parses an event command.
-     * A valid event command has the format "event <description> /from <from> /to <to>".
+     * A valid event command has the format "event DESCRIPTION /from START /to END".
      * Returns an InvalidCommand if the command is invalid.
      *
      * @param input The input string.
      * @return The AddEventCommand if the command is valid.
      */
     public static Command parseEventCommand(String input) throws PogoInvalidTaskException {
-        final Pattern EVENT_PATTERN = Pattern.compile("(?<description>.*) /from (?<from>.*) /to (?<to>.*)");
         final Matcher matcher = EVENT_PATTERN.matcher(input);
-
         InvalidCommand ic =
-                new InvalidCommand(Messages.INVALID_TASK
-                        + System.lineSeparator()
-                        + AddEventCommand.MESSAGE_USAGE);
+            new InvalidCommand(Messages.INVALID_TASK
+                + System.lineSeparator()
+                + AddEventCommand.MESSAGE_USAGE);
         if (!matcher.matches()) {
             return ic;
         }
@@ -121,7 +119,6 @@ public class TaskParser {
      * @return The index of the task.
      */
     private static int parseIndex(String input) {
-        final Pattern MARK_PATTERN = Pattern.compile("(?<index>\\d+)");
         final Matcher matcher = MARK_PATTERN.matcher(input);
         if (!matcher.matches()) {
             return -1;
