@@ -6,77 +6,83 @@ import duke.task.TaskList;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * A utility class to make building Commands faster. Includes helpers like
- * parsing input
+/** 
+ * A utility class to make building Commands faster. Includes helpers like parsing input 
  */
 public class CommandBuilder {
-	private String command;
-	private String name;
-	private Map<String, String> arguments;
+  private String command;
+  private String name;
+  private Map<String, String> arguments;
 
-	private CommandBuilder(String command, String name, Map<String, String> arguments) {
-		this.command = command;
-		this.name = name;
-		this.arguments = arguments;
-	}
+  private CommandBuilder(String command, String name, Map<String, String> arguments) {
+    this.command = command;
+    this.name = name;
+    this.arguments = arguments;
+  }
 
-	/**
-	 * Returns the command type
-	 *
-	 * @return command type
-	 */
-	public String getCommand() {
-		return command;
-	}
+  /**
+   * Returns the command type
+   *
+   * @return command type
+   */
+  public String getCommand() {
+    return command;
+  }
 
-	/**
-	 * Returns the name of the argument (second argument)
-	 *
-	 * @return command name
-	 */
-	public String getName() {
-		return name;
-	}
+  /**
+   * Returns the name of the argument (second argument)
+   *
+   * @return command name
+   */
+  public String getName() {
+    return name;
+  }
 
-	/**
-	 * Returns the arguments of the command. Arguments are key value pairs (/key
-	 * value)
-	 *
-	 * @return map containing argument key value pairs
-	 */
-	public Map<String, String> getArguments() {
-		return arguments;
-	}
+  /**
+   * Returns the arguments of the command. Arguments are key value pairs (/key value)
+   *
+   * @return map containing argument key value pairs
+   */
+  public Map<String, String> getArguments() {
+    return arguments;
+  }
 
-	/**
-	 * Returns a command builder object.
-	 *
-	 * @param line The command
-	 * @return A command builder containing information about the command
-	 */
-	public static CommandBuilder parse(String line) {
-		String[] input = line.split(" ", 2);
-		String command = input[0];
-		String name = "";
-		Map<String, String> arguments = new HashMap<>();
+  /**
+   * Returns a command builder object.
+   *
+   * @param line The command
+   * @return A command builder containing information about the command
+   */
+  public static CommandBuilder parse(String line) {
+    String[] input = line.split(" ", 2);
+    String command = input[0];
+    String name = "";
+    Map<String, String> arguments = new HashMap<>();
 
-		if (input.length == 2) {
-			String[] arr = input[1].split("/");
-			name = arr[0].trim();
-			for (int i = 1; i < arr.length; ++i) {
-				String[] argument = arr[i].split(" ", 2);
-				String value = "";
-				if (argument.length == 2) {
-					value = argument[1].trim();
-				}
-				arguments.put(argument[0].trim(), value);
-			}
-		}
+    if (input.length == 2) {
+      String[] arr = input[1].split("/");
+      name = arr[0].trim();
+      for (int i = 1; i < arr.length; ++i) {
+        String[] argument = arr[i].split(" ", 2);
+        String value = "";
+        if (argument.length == 2) {
+          value = argument[1].trim();
+        }
+        arguments.put(argument[0].trim(), value);
+      }
+    }
 
-		return new CommandBuilder(command, name, arguments);
-	}
+    return new CommandBuilder(command, name, arguments);
+  }
 
+  /**
+   * Converts the commandBuilder to Command
+   *
+   * @param out Printer to print output to
+   * @param taskList taskList to read and modify
+   * @param savefile the file to write tasklist to
+   * @return the created Command
+   */
   public Command toCommand(Printer out, TaskList taskList, FileIO savefile) {
     switch (command) {
       case Command.LIST:
@@ -91,8 +97,8 @@ public class CommandBuilder {
         return new AddTaskCommand(out, taskList, savefile, command, name, arguments);
       case Command.DELETE:
         return new DeleteCommand(out, taskList, savefile, name);
-			case Command.FIND:
-				return new FindCommand(out, taskList, savefile, name);
+      case Command.FIND:
+        return new FindCommand(out, taskList, savefile, name);
       default:
         return new UnidentifiedCommand(out, taskList, savefile);
     }

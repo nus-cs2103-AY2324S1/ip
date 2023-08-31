@@ -9,8 +9,7 @@ import java.io.IOException;
 
 /**
  * Represents a generic command (add task, delete task etc.). Command is built
- * and called during
- * execute
+ * and called during execute
  */
 public abstract class Command {
   public static final String LIST = "list";
@@ -44,8 +43,7 @@ public abstract class Command {
 
 	/**
 	 * Command will save after calling action(). Note that save always occur after
-	 * action() and not
-	 * when save is called
+	 * action() and not when save is called
 	 */
 	public final void save() {
 		this.saveAfterAction = true;
@@ -53,8 +51,7 @@ public abstract class Command {
 
 	/**
 	 * Executes the code logic, catches exceptions to print to output. Modify this
-	 * behaviour by
-	 * overriding action().
+	 * behaviour by overriding action().
 	 */
 	public final void execute() {
 		try {
@@ -82,8 +79,7 @@ public abstract class Command {
 
 	/**
 	 * Represents the business logic of command. Override this function to set the
-	 * behaviour of a
-	 * command.
+	 * behaviour of a command.
 	 */
 	protected abstract void action();
 }

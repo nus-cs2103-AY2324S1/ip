@@ -6,7 +6,9 @@ import java.time.LocalDateTime;
 import java.util.Map;
 import java.util.Optional;
 
-/** Represents a task object, with as mark, description and type. */
+/** 
+ * Represents a task object, with as mark, description and type. 
+ */
 public abstract class Task {
   private boolean mark;
   private final String description;
@@ -59,12 +61,16 @@ public abstract class Task {
     throw new DukeException(String.format("%s is not an task type", type));
   }
 
-  /** Marks the task. */
+  /** 
+	 * Marks the task. 
+	 */
   public void mark() {
     mark = true;
   }
 
-  /** Unmarks the task */
+  /**
+	 * Unmarks the task 
+	 */
   public void unmark() {
     mark = false;
   }
@@ -100,6 +106,12 @@ public abstract class Task {
     return before.isEmpty();
   }
 
+  /**
+   * Returns if find is in task description
+   *
+   * @param find The string to search in description.
+   * @return if the Task should be filtered
+   */
   public boolean filter(String find) {
     return description.contains(find);
   }

@@ -7,7 +7,9 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Stream;
 
-/** Represents the TaskList */
+/** 
+ * Represents the TaskList 
+ */
 public class TaskList {
   private List<Task> tasks = new ArrayList<>();
 
@@ -93,10 +95,22 @@ public class TaskList {
     this.tasks = tasks;
   }
 
+  /**
+   * Filters and return a stream of tasks
+   *
+   * @param before the datetime to filter tasks before
+   * @return a stream of filtered tasks
+   */
   public Stream<Task> filter(Optional<LocalDateTime> before) {
     return tasks.stream().filter((task) -> task.filter(before));
   }
 
+  /**
+   * Filters and returns a stream of tasks
+   *
+   * @param search the string to filter task description by
+   * @return a stream of filtered tasks
+   */
   public Stream<Task> filter(String search) {
     return tasks.stream().filter((task) -> task.filter(search));
   }
