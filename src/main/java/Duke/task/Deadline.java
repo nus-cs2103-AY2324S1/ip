@@ -1,46 +1,39 @@
 package Duke.task;
 
 import Duke.exception.DukeException;
-import Duke.exception.EmptyTaskDescException;
 import Duke.exception.InvalidTaskFormatException;
 import Duke.exception.InvalidTimeFormatException;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.format.DateTimeParseException;
 
 public class Deadline extends Task{
     final private LocalDateTime deadlineTime;
 
     public Deadline(String task) throws DukeException {
-        super(task.split("/", 2)[0]);
+        super(task.split("/",2)[0]);
         String[] taskComponents = task.split("/",2);
-        if(taskComponents.length != 2) {
+        String[] timeComponents;
+        try {
+            timeComponents = taskComponents[1].split(" ", 3);
+            if (timeComponents.length < 3) {
+                throw new InvalidTimeFormatException(taskComponents[1]);
+            }
+        } catch (ArrayIndexOutOfBoundsException e) {
             throw new InvalidTaskFormatException(task);
         }
-        String[] timeComponents = taskComponents[1].split(" ", 3);
-        if(timeComponents.length < 2) {
-            throw new InvalidTimeFormatException(task);
-        }
-        this.deadlineTime = LocalDateTime.of(LocalDate.parse(timeComponents[1]),
-                                              LocalTime.parse(timeComponents[2]));
-    }
-
-    private Deadline(String name, String time) throws EmptyTaskDescException {
-        super(name);
-        String[] timeComponents = time.split(",", 3);
-        if(timeComponents.length < 3) {
-            deadlineTime = LocalDateTime.of(LocalDate.parse(timeComponents[0]),
-                           LocalTime.parse(timeComponents[1]));
-        } else {
-            deadlineTime = LocalDateTime.of(LocalDate.parse(timeComponents[0]),
-                    LocalTime.parse(timeComponents[1]));
+        try {
+            deadlineTime = LocalDateTime.of(LocalDate.parse(timeComponents[1]),
+                    LocalTime.parse(timeComponents[2]));
+        } catch (DateTimeParseException e) {
+            throw new InvalidTimeFormatException(taskComponents[1]);
         }
     }
-
-    public static Deadline ParseContent(String content) throws EmptyTaskDescException {
+    public static Deadline ParseContent(String content) throws DukeException {
         String[] components = content.split("\\|", 3);
-        Deadline task = new Deadline(components[1], components[0]);
+        Deadline task = new Deadline(components[1] + "/by" + components[0]);
         if(components[2].equals("X"))
             task.SetCompleted();
         else
@@ -53,7 +46,7 @@ public class Deadline extends Task{
                 + deadlineTime.toLocalTime().toString() + ")";
     }
     public String toSaveFormat(){
-        return "deadline:" + deadlineTime.toLocalDate().toString() + ","
+        return "deadline:" + deadlineTime.toLocalDate().toString() + " "
                 + deadlineTime.toLocalTime().toString() + "|" + super.toSaveFormat();
     }
 }
