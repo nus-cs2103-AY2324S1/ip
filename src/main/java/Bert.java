@@ -43,11 +43,11 @@ public class Bert {
     private static void list() {
         System.out.println(
                 "____________________________________________________________\n" +
-                "Here are the tasks in your list:\n"
+                "Here are the tasks in your list:"
         );
         for (int i = 0; i < al.size(); i++) {
             int index = i + 1;
-            System.out.println(index + "." + al.get(i) + "\n");
+            System.out.println(index + "." + al.get(i));
         }
         System.out.println("____________________________________________________________\n");
     }
@@ -234,13 +234,13 @@ public class Bert {
                 System.out.println(
                         "____________________________________________________________\n" +
                         "OOPS!!! " + e.getMessage() + "\n" +
-                        "____________________________________________________________"
+                        "____________________________________________________________\n"
                 );
             } catch (BertInvalidTaskException e) {
                 System.out.println(
                         "____________________________________________________________\n" +
                         "OOPS!!! " + e.getMessage() + "\n" +
-                        "____________________________________________________________"
+                        "____________________________________________________________\n"
                 );
             } finally {
                 s = sc.nextLine().trim();
