@@ -142,7 +142,6 @@ public class Parser {
                 String taskDescription = deadlineMatcher.group(2);
                 String by = deadlineMatcher.group(3);
                 newTask = new Deadline(taskDescription, by);
-                newTask.stringToDate();
 
             } else { // if "event" is entered
                 String taskDescription = eventMatcher.group(2);
