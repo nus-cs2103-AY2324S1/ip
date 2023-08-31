@@ -20,8 +20,7 @@ public class UnrecognisedCommand extends Command {
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) throws DukeBadInputException {
         ui.println("Quack does not understand your command!!");
-        ui.println(
-                "Quack only understands these commands: list, mark, unmark, delete, todo, deadline, event");
+        ui.println("Quack only understands these commands: list, mark, unmark, delete, todo, deadline, event");
     }
 
     /**

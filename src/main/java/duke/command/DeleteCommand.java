@@ -38,6 +38,8 @@ public class DeleteCommand extends Command {
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) throws DukeBadInputException {
         Command.validateIndex(this.index, taskList.length());
+
+        // Check if able to remove
         Task removed = taskList.remove(index);
         try {
             if (!storage.rewriteAll(taskList.getAllTask())) {
@@ -46,10 +48,11 @@ public class DeleteCommand extends Command {
         } catch (IOException e) {
             ui.unexpectedError("error when writing to storage: " + e.getMessage());
         }
+
+        // print to screen if able to remove
         ui.println("Quack! I have removed this task:");
         ui.println(removed.toString());
         ui.println("Quack! Quack is currently remembering " + taskList.length() + " tasks.");
-
     }
 
     /**

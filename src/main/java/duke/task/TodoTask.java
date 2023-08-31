@@ -4,6 +4,7 @@ package duke.task;
  * Class to encapsulate the logic of an todo task
  */
 public class TodoTask extends Task {
+
     /**
      * Constructor for the duke.task.TodoTask class
      * Stored as TODO,{task description},{1 if marked else 0}
@@ -24,7 +25,7 @@ public class TodoTask extends Task {
     public TodoTask(String task, boolean isComplete) {
         super(task);
         if (isComplete) {
-            this.toggleCompleted();
+            this.toggleComplete();
         }
     }
 

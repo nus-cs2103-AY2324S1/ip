@@ -9,6 +9,7 @@ import duke.exception.DukeBadInputException;
  * Represents the exit command
  */
 public class ExitCommand extends Command {
+
     /**
      * Method to encapsulate the execution logic of the command
      *

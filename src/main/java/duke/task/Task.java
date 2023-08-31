@@ -16,12 +16,10 @@ public class Task {
      * Separator used
      */
     public static final String SEP = "#";
-
     /**
      * The description of the task
      */
     private String task;
-
     /**
      * The state of the task
      */
@@ -58,7 +56,7 @@ public class Task {
     /**
      * Toggles the complete field
      */
-    public void toggleCompleted() {
+    public void toggleComplete() {
         this.isComplete = !this.isComplete;
     }
 
@@ -74,7 +72,7 @@ public class Task {
     /**
      * returns the stored form of the task
      *
-     * @return a string which duke.Duke duke.Parser could Parse
+     * @return a string which duke.Parser could Parse
      */
     public String getStored() {
         return "";

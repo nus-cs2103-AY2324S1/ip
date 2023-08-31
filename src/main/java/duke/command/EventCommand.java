@@ -18,12 +18,10 @@ public class EventCommand extends Command {
      * Stores the description of the task
      */
     private String desc;
-
     /**
      * Stores the end date of the event
      */
     private LocalDateTime to;
-
     /**
      * Stores the start date of the event
      */
@@ -55,16 +53,19 @@ public class EventCommand extends Command {
         if (taskList.length() >= 100) {
             throw new DukeBadInputException("quack cannot remember any more tasks!!");
         }
+
+        // Tries to write to storage and task list, error thrown otherwise
         Task newTask = new EventTask(this.from, this.to, this.desc);
         taskList.add(newTask);
         if (!storage.writeToFile(newTask.getStored())) {
             ui.unexpectedError("unable to write to storage");
             return;
         }
+
+        // writes to the ui if successful
         ui.println("Quack! I have added this task:");
         ui.println(newTask.toString());
         ui.println("Quack! Quack is currently remembering " + taskList.length() + " tasks.");
-
     }
 
     /**

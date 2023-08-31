@@ -36,7 +36,6 @@ public class Storage {
      */
     private final BufferedWriter writer;
 
-
     /**
      * Constructs a new instance of a duke.Storage object that reads and write to a specific file
      *
@@ -61,9 +60,11 @@ public class Storage {
     private void checkFile() throws IOException, DukeBadInputException {
         String[] dir = this.input.split("/");
         String home = System.getProperty("user.dir");
+
         if (!this.input.endsWith(".txt")) {
             throw new DukeBadInputException(this.path.toString());
         }
+
         if (!Files.exists(this.path)) {
             // Handles folder not existing
             for (int i = 1; i < dir.length; i++) {
@@ -72,7 +73,6 @@ public class Storage {
                     Files.createDirectories(tmp);
                 }
             }
-
             // handles file not existing
             Files.createFile(this.path);
         }
@@ -116,11 +116,12 @@ public class Storage {
      * @throws IOException if there is an IOException
      */
     public boolean rewriteAll(Task[] tasks) throws IOException {
-
         this.writer.flush();
         BufferedWriter tmpWriter = Files.newBufferedWriter(this.path,
                 StandardOpenOption.WRITE, StandardOpenOption.TRUNCATE_EXISTING);
         boolean isSuccessful = true;
+
+        // rewrite for each
         for (Task t : tasks) {
             try {
                 tmpWriter.write(t.getStored());
@@ -134,7 +135,6 @@ public class Storage {
         return isSuccessful;
     }
 
-
     /**
      * Close the connection to the storage and deallocate all resources
      */
@@ -145,6 +145,4 @@ public class Storage {
             throw new RuntimeException(e);
         }
     }
-
-
 }

@@ -48,6 +48,7 @@ public class Duke {
             this.storage = null;
         }
 
+        // read from storage, throws an error when unable to rewrite to the storage file
         if (this.storage != null) {
             this.taskList = new TaskList();
             try {
@@ -84,6 +85,8 @@ public class Duke {
         } catch (DukeBadInputException e) {
             this.ui.unexpectedError(e.getMessage());
         }
+
+        // start to collect commands
         this.ui.lineBreak();
         this.ui.println("");
         this.collectCommand();

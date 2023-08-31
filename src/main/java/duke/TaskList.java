@@ -11,11 +11,11 @@ import duke.task.Task;
  * Manages the operation on the tasks
  */
 public class TaskList {
+
     /**
      * Stores all the task
      */
     private ArrayList<Task> tasks;
-
     /**
      * construct a new empty task list
      */
@@ -29,7 +29,6 @@ public class TaskList {
      * @return true if all task loaded successfully else false
      */
     public boolean loadTasks(List<String> storedInput) {
-
         // parse and store data while looking out for data corruption
         boolean isCorrupted = false;
         for (String s : storedInput) {

@@ -17,7 +17,6 @@ public class TodoCommand extends Command {
      */
     private String desc;
 
-
     /**
      * Constructor of the todo command
      *
@@ -40,16 +39,19 @@ public class TodoCommand extends Command {
         if (taskList.length() >= 100) {
             throw new DukeBadInputException("quack cannot remember any more tasks!!");
         }
+
+        // add task to storage and task list, throws error if not successful
         Task newTask = new TodoTask(desc);
         taskList.add(newTask);
         if (!storage.writeToFile(newTask.getStored())) {
             ui.unexpectedError("unable to write to storage");
             return;
         }
+
+        // writes to the ui
         ui.println("Quack! I have added this task:");
         ui.println(newTask.toString());
         ui.println("Quack! Quack is currently remembering " + taskList.length() + " tasks.");
-
     }
 
     /**

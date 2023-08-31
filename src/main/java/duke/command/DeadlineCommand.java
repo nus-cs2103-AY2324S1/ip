@@ -20,12 +20,10 @@ public class DeadlineCommand extends Command {
      * Stores the description of the task
      */
     private String desc;
-
     /**
      * Stores the deadline of the task
      */
     private LocalDateTime by;
-
 
     /**
      * Constructor of the duke.task.DeadlineTask command
@@ -51,12 +49,16 @@ public class DeadlineCommand extends Command {
         if (taskList.length() >= 100) {
             throw new DukeBadInputException("quack cannot remember any more tasks!!");
         }
+
+        // tries to add task to storage and task list, exception thrown otherwise
         Task newTask = new DeadlineTask(this.by, this.desc);
         taskList.add(newTask);
         if (!storage.writeToFile(newTask.getStored())) {
             ui.unexpectedError("unable to write to storage");
             return;
         }
+
+        // write to UI
         ui.println("Quack! I have added this task:");
         ui.println(newTask.toString());
         ui.println("Quack! Quack is currently remembering " + taskList.length() + " tasks.");

@@ -34,7 +34,7 @@ public class DeadlineTask extends Task {
         super(task);
         this.by = by;
         if (isComplete) {
-            this.toggleCompleted();
+            this.toggleComplete();
         }
     }
 
@@ -51,8 +51,8 @@ public class DeadlineTask extends Task {
      */
     @Override
     public String getStored() {
-        return String.join(Task.SEP, new String[] { "DEADLINE",
-                this.getTask(), this.isComplete() ? "1" : "0", this.by.toString() });
+        return String.join(Task.SEP, new String[] { "DEADLINE", this.getTask(),
+                this.isComplete() ? "1" : "0", this.by.toString() });
     }
 
 }
