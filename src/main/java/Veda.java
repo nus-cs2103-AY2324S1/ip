@@ -1,10 +1,22 @@
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Veda {
 
     private final static String NAME = "Veda";
+    private final static FileManagement filemanagement = new FileManagement();
     private static ArrayList<Task> tasks = new ArrayList<Task>(100);
+
+    private static boolean addFile() {
+        final String dirPath = "/Dukedata";
+        final String fileName = dirPath + "/Duke.txt";
+
+        boolean isSuccessful = filemanagement.addFile(new File(dirPath), new File(fileName));
+
+        return isSuccessful;
+    }
 
     private static void addTask(String taskArgs) throws NoDescriptionException {
         String type = taskArgs.split(" ")[0].toLowerCase();
@@ -123,6 +135,17 @@ public class Veda {
         System.out.println("____________________________________________________________");
 
         Scanner inScanner = new Scanner(System.in);
+
+        //TODO load data
+        if (filemanagement.checkFileExists(new File("/Dukedata/Duke.txt"))) {
+            //File does exist
+            //TODO load the data within the file if any
+            tasks = filemanagement.retrieveData(new File("/Dukedata/Duke.txt"));
+
+        } else {
+            //File does not exist
+            addFile();
+        }
 
         while (true) {
             String input = inScanner.nextLine();
