@@ -42,11 +42,26 @@ public class Parser {
 			case "delete":
 				command = validateDelete(split);
 				break;
+			case "find":
+				command = validateFind(split);
+				break;
 			default:
 				command = new IncorrectCommand("☹ OOPS!!! Please try again!\n"
 								+ "If you need help with commands, please type 'help'!");
 		}
 		return command;
+	}
+
+	private static Command validateFind(String[] split) {
+		if (split.length == 1) {
+			return new IncorrectCommand("☹ OOPS!!! You are missing a keyword\n" +
+							"Please enter a valid find query - find book");
+		}
+		if (split.length > 2) {
+			return new IncorrectCommand("☹ OOPS!!! You have too many keywords\n" +
+							"Please enter a valid find query - find book");
+		}
+		return new FindCommand(split[1]);
 	}
 
 	/**

@@ -134,4 +134,11 @@ public class Ui {
 		System.out.println("bye - Exits the program");
 		printLine();
 	}
+
+	public void showFilteredList(int length) {
+		printLine();
+		System.out.println("Here are the matching tasks in your list:");
+		System.out.println(length + " tasks in total.");
+		printLine();
+	}
 }
