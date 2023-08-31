@@ -6,7 +6,10 @@ import duke.task.TaskList;
 import duke.task.ToDo;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class TaskListTest {
 
@@ -19,7 +22,7 @@ public class TaskListTest {
     }
 
     @Test
-    void testDeleteTask() throws CommandDetailException{
+    void testDeleteTask() throws CommandDetailException {
         TaskList taskList = new TaskList();
         Task task = new ToDo("test");
         taskList.add(task);

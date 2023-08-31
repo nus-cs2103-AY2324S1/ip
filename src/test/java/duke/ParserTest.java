@@ -1,7 +1,7 @@
 package duke;
 
-import duke.exceptions.CommandNotRecognizedException;
 import duke.exceptions.CommandDetailException;
+import duke.exceptions.CommandNotRecognizedException;
 import duke.exceptions.TimeParsingException;
 import org.junit.jupiter.api.Test;
 
