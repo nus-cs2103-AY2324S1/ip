@@ -14,11 +14,11 @@ public class Parser {
   public Parser() {
   };
 
-  protected static class DateTimeWrapper {
-    protected LocalDate date;
-    protected LocalTime time;
+  private static class DateTimeWrapper {
+    private LocalDate date;
+    private LocalTime time;
 
-    protected DateTimeWrapper(LocalDate date, LocalTime time) {
+    private DateTimeWrapper(LocalDate date, LocalTime time) {
       this.date = date;
       this.time = time;
     }
@@ -52,7 +52,7 @@ public class Parser {
     }
   }
 
-  private static DateTimeWrapper dateParser(String input) {
+  private static DateTimeWrapper dateParser(String input) throws IncorrectFormatException {
     String[] parsedInput = inputParser(input);
     LocalDate date;
     LocalTime time;
@@ -64,7 +64,6 @@ public class Parser {
     } else if (i2.matches("[0-9]{2}.[0-9]{2}.[0-9]{4}")) {
       date = LocalDate.parse(i2.substring(6, 10) + "-" + i2.substring(3, 5) + "-" + i2.substring(0, 2));
     } else if (i1.matches("[0-9]{4}.[0-9]{2}.[0-9]{2}")) {
-      System.err.println("b");
       date = LocalDate.parse(i1.substring(0, 4) + "-" + i1.substring(5, 7) + "-" + i1.substring(8, 10));
     } else if (i2.matches("[0-9]{4}.[0-9]{2}.[0-9]{2}")) {
       date = LocalDate.parse(i2.substring(0, 4) + "-" + i2.substring(5, 7) + "-" + i2.substring(8, 10));
@@ -82,6 +81,10 @@ public class Parser {
       time = LocalTime.parse(i2.substring(0, 2) + ":" + i2.substring(3, 5) + ":00");
     } else {
       time = null;
+    }
+
+    if (time == null && date == null) {
+      throw new IncorrectFormatException();
     }
 
     return new DateTimeWrapper(date, time);
@@ -109,7 +112,6 @@ public class Parser {
 
         return new DeadlineCommand(description, doneness, byDate, byTime);
       } catch (Exception e) {
-        System.err.println(e.getMessage());
         throw new IncorrectFormatException();
       }
     } else {

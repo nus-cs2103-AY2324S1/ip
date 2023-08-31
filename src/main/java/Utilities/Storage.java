@@ -39,17 +39,15 @@ public class Storage {
         throw new DukeException(e.getMessage());
       } catch (IOException e) {
         throw new DukeException(e.getMessage());
-      } catch (NumberFormatException e) {
-        throw new DukeException(e.getMessage());
-      } catch (Exception e) {
-        throw new DukeException(e.getMessage());
+      } catch (DukeException e) {
+        throw e;
       }
     } else {
       throw new DukeException("File not found");
     }
   }
 
-  public void writeToFile(TaskList tasklist) {
+  public void writeToFile(TaskList tasklist) throws DukeException {
     try {
       if (Files.notExists(path)) {
         Files.createFile(path);
@@ -58,12 +56,11 @@ public class Storage {
           StandardOpenOption.TRUNCATE_EXISTING);
       while (!tasklist.isEmpty()) {
         String tempString = tasklist.clearList();
-        System.err.println(tempString);
         writer.write(tempString + "\n");
         writer.flush();
       }
     } catch (Exception e) {
-      System.err.println(e);
+      throw new DukeException(e.getMessage());
     }
   }
 

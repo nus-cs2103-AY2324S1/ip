@@ -18,14 +18,16 @@ public class DeadlineCommand extends TaskCommand {
     this.byTime = byTime;
   }
 
+  @Override
   public void load(TaskList tasklist) {
     tasklist.add(this.description, this.doneness, this.byDate, this.byTime);
   }
 
+  @Override
   public void execute(TaskList tasklist, Ui ui, Storage storage) {
     String deadlineString = tasklist.add(this.description, this.doneness, this.byDate, this.byTime);
     ui.print(
-        String.format("I've added this deadline:\n%s\nNow you have %d tasks in the list.\n", deadlineString,
+        String.format("I've added this deadline:\n%s\nNow you have %d tasks in the list.", deadlineString,
             tasklist.getSize()));
   }
 }

@@ -36,7 +36,11 @@ public class Duke {
       }
     }
     ui.showGoodbye();
-    storage.writeToFile(tasklist);
+    try {
+      storage.writeToFile(tasklist);
+    } catch (DukeException e) {
+      System.err.println(e.getMessage());
+    }
   }
 
   public static void main(String[] args) {

@@ -23,13 +23,15 @@ public class EventCommand extends TaskCommand {
     this.toTime = toTime;
   }
 
+  @Override
   public void load(TaskList tasklist) {
     tasklist.add(description, doneness, fromDate, fromTime, toDate, toTime);
   }
 
+  @Override
   public void execute(TaskList tasklist, Ui ui, Storage storage) {
     String eventString = tasklist.add(description, doneness, fromDate, fromTime, toDate, toTime);
-    ui.print(String.format("I've added this event:\n%s\nNow you have %d tasks in the list.\n", eventString,
+    ui.print(String.format("I've added this event:\n%s\nNow you have %d tasks in the list.", eventString,
         tasklist.getSize()));
   }
 }

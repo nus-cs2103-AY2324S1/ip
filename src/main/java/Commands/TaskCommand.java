@@ -14,9 +14,11 @@ public abstract class TaskCommand extends Command {
     this.doneness = doneness;
   }
 
+  @Override
   public void load(TaskList tasklist) {
   }
 
+  @Override
   public void execute(TaskList tasklist, Ui ui, Storage storage) {
   }
 }

@@ -12,7 +12,8 @@ public class DeleteCommand extends Command {
   public DeleteCommand(int index) {
     this.index = index;
   }
-
+  
+  @Override
   public void execute(TaskList tasklist, Ui ui, Storage storage) throws DukeException {
     ui.print(tasklist.delete(index));
   }
