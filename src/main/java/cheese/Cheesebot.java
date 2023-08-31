@@ -8,6 +8,12 @@ import cheese.Task.Task;
 
 import java.util.Scanner;
 
+/**
+ * Represents a Cheesebot that can add, delete, and mark tasks as done.
+ *
+ * @version v0.1
+ */
+
 public class Cheesebot {
   private TaskList taskList;
   private Ui ui;
