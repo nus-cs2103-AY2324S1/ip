@@ -56,4 +56,19 @@ public class TaskList {
     public int getSize() {
         return this.taskList.size();
     }
+
+    /**
+     * Finds Task objects that has String s in description of Task.
+     * @param s String that represents the description of Task to find in taskList.
+     * @return an ArrayList<Task> with Task objects description matching String s.
+     */
+    public ArrayList<Task> findCommonTask(String s) {
+        ArrayList<Task> commonTaskList = new ArrayList<>();
+        for (Task task : taskList) {
+            if (task.hasDescription(s)) {
+                commonTaskList.add(task);
+            }
+        }
+        return commonTaskList;
+    }
 }

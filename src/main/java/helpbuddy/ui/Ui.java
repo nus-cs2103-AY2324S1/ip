@@ -1,5 +1,6 @@
 package helpbuddy.ui;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 import helpbuddy.task.Task;
@@ -99,6 +100,23 @@ public class Ui {
      */
     public void printDeleteTaskMessage(Task task, TaskList taskList) {
         printMessageBlock("Noted. I've removed this task:\n\t  " + task + stringifyNumOfTasks(taskList));
+    }
+
+    /**
+     * Prints the taskList.
+     * @param taskList the taskList that contains Task objects user is finding.
+     */
+    public void printFindTaskMessage(ArrayList<Task> taskList) {
+        if (taskList.isEmpty()) {
+            printMessageBlock("There is no such task in your list.\n");
+        } else {
+            String messageOutput = "Here are the matching tasks in your list:\n";
+            for (int i = 0; i < taskList.size(); i++) {
+                int taskIndex = i + 1;
+                messageOutput += "\t" + taskIndex + ". " + taskList.get(i) + "\n";
+            }
+            printMessageBlock(messageOutput);
+        }
     }
 
     /**

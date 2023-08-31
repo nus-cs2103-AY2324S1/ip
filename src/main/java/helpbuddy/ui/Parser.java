@@ -94,6 +94,11 @@ public class Parser {
                     LocalDateTime.parse(endTime, formatter)
             ));
         }
+        case("find"):
+            if (userInput.length == 1) {
+                return new FindCommand("");
+            }
+            return new FindCommand(userInput[1].trim());
         case ("delete"):
             return new DeleteCommand(Integer.parseInt(userInput[1]));
         case ("bye"):

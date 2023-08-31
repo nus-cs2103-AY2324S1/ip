@@ -46,4 +46,14 @@ public abstract class Task {
      */
     public abstract String stringifyTask();
 
+    /**
+     * Compares the description of Task object to String S. Return true if and only if s is found in the description;
+     * false otherwise.
+     * @param s String representation of Task's description to match.
+     * @return true if description has String s; false otherwise.
+     */
+    public boolean hasDescription(String s) {
+        return this.description.contains(s);
+    }
+
 }
