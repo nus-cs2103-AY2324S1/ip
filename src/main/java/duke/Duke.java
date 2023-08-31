@@ -1,11 +1,13 @@
-import Exceptions.DukeException;
-import Exceptions.InvalidInputException;
-import Tasks.Task;
-import Tasks.TaskList;
-import Utils.Commands;
-import Storage.Storage;
-import Utils.Parser;
-import Utils.Ui;
+package duke;
+
+import duke.exceptions.DukeException;
+import duke.exceptions.InvalidInputException;
+import duke.tasks.Task;
+import duke.tasks.TaskList;
+import duke.utils.Commands;
+import duke.storage.Storage;
+import duke.utils.Parser;
+import duke.utils.Ui;
 import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
@@ -91,6 +93,6 @@ public class Duke {
     }
 
     public static void main(String[] args) {
-        new Duke("src/main/java/Storage/toothless.txt").run();
+        new Duke("src/main/java/duke/storage/toothless.txt").run();
     }
 }

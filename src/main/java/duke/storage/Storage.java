@@ -1,4 +1,4 @@
-package Storage;
+package duke.storage;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -68,6 +68,7 @@ public class Storage {
             writeToFile(fw, input);
             return "Tasks saved successfully";
         } catch (IOException e) {
+            System.out.println(e);
             return "Tasks could not be saved";
         }
     }

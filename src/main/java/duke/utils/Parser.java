@@ -1,9 +1,9 @@
-package Utils;
+package duke.utils;
 
-import Exceptions.DukeException;
-import Exceptions.InvalidInputException;
-import Exceptions.MissingDateException;
-import Exceptions.MissingTitleException;
+import duke.exceptions.DukeException;
+import duke.exceptions.InvalidInputException;
+import duke.exceptions.MissingDateException;
+import duke.exceptions.MissingTitleException;
 
 /**
  * Makes sense of the user command.
@@ -34,21 +34,28 @@ public class Parser {
      */
     public static String obtainTitle(String input, Commands command)
             throws DukeException, MissingTitleException {
+        String title;
         try {
             if (command.equals(Commands.TODO)) {
-                return input.split("todo ")[1];
+                title = input.split("todo ")[1];
 
             } else if (command.equals(Commands.DEADLINE)) {
-                return input.split("deadline ")[1].split(" /by ")[0];
+                title =  input.split("deadline ")[1].split("/by ")[0];
 
             } else if (command.equals(Commands.EVENT)) {
-                return input.split("event ")[1].split(" /from ")[0];
+                title =  input.split("event ")[1].split("/from ")[0];
 
             } else {
                 throw new InvalidInputException("Invalid input");
             }
 
-        } catch (ArrayIndexOutOfBoundsException oob) {
+            if (title.trim().isEmpty()) {
+                throw new MissingTitleException("Missing Title");
+            } else {
+                return title.trim();
+            }
+
+        } catch (ArrayIndexOutOfBoundsException | MissingTitleException e) {
             throw new MissingTitleException("Missing Title");
         } catch (Exception e) {
             throw new InvalidInputException("Invalid input");

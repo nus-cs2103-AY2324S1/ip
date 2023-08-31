@@ -1,11 +1,8 @@
-package Tasks;
+package duke.tasks;
 
-import Utils.DukeDateFormat;
+import duke.utils.DukeDateFormat;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.time.format.TextStyle;
-import java.util.Locale;
 
 public class Event extends Task {
 

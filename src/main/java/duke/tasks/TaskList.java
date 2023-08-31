@@ -1,10 +1,10 @@
-package Tasks;
-import Exceptions.DukeException;
-import Exceptions.InvalidInputException;
-import Exceptions.MissingTaskException;
-import Utils.Commands;
-import Utils.DukeDateFormat;
-import Utils.Parser;
+package duke.tasks;
+import duke.exceptions.DukeException;
+import duke.exceptions.InvalidInputException;
+import duke.exceptions.MissingTaskException;
+import duke.utils.Commands;
+import duke.utils.DukeDateFormat;
+import duke.utils.Parser;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
@@ -128,8 +128,6 @@ public class TaskList {
                 throw new InvalidInputException("Invalid input");
             }
 
-        } catch (ArrayIndexOutOfBoundsException aoob) {
-            throw new MissingTaskException("Missing Task");
         } catch (IndexOutOfBoundsException ioob) {
             throw new MissingTaskException("Missing Task");
         } catch (Exception e) {
@@ -151,8 +149,6 @@ public class TaskList {
             Task deleted = tasks.remove(taskNum - 1);
             return deleted.getTask() + " has been deleted!";
 
-        } catch (ArrayIndexOutOfBoundsException aoob) {
-            throw new MissingTaskException("Missing Task");
         } catch (IndexOutOfBoundsException ioob) {
             throw new MissingTaskException("Missing Task");
         } catch (Exception e) {

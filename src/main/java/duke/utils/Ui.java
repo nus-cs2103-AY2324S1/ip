@@ -1,7 +1,6 @@
-package Utils;
+package duke.utils;
 
-import Exceptions.DukeException;
-import Tasks.Task;
+import duke.exceptions.DukeException;
 
 import java.util.List;
 
