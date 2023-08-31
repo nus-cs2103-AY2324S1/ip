@@ -7,9 +7,6 @@ public class Event extends Task{
     private LocalDateTime startDate;
     private LocalDateTime endDate;
 
-<<<<<<< HEAD
-    public Event(String text, LocalDateTime startDate, LocalDateTime endDate) {
-=======
     /**
      * Creates a new Event object with text,startDate,endDate, set type "T" with super constructor from Task
      *
@@ -17,8 +14,7 @@ public class Event extends Task{
      * @param startDate The startDate of the task.
      * @param endDate The endDate of the task.
      */
-    public Event(String text, LocalDateTime startDate, LocalDateTime endDate){
->>>>>>> branch-A-JavaDoc
+    public Event(String text, LocalDateTime startDate, LocalDateTime endDate) {
         super(text);
         super.getText();
         super.setType("E");
@@ -35,7 +31,7 @@ public class Event extends Task{
      * @param endDate The endDate of the task.
      * @param checked The status of whether the task is checked (completed) or not.
      */
-    public Event(String text, LocalDateTime startDate, LocalDateTime endDate, boolean checked){
+    public Event(String text, LocalDateTime startDate, LocalDateTime endDate, boolean checked) {
         super(text,checked);
         super.getText();
         super.setType("E");

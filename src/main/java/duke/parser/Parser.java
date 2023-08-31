@@ -139,6 +139,18 @@ public class Parser {
         return newTask;
     }
 
+    public String getExtracted() {
+
+        if(inputArray.length <= 1) {
+            return "";
+        }
+
+        String extractedWord = String.join(" ", Arrays.copyOfRange(inputArray, 1, inputArray.length));
+
+        return extractedWord;
+    }
+
+
 
     /**
      * Return an Integer Index to be marked based on String input, and -1 if invalid

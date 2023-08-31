@@ -94,6 +94,25 @@ public class TaskArray {
         System.out.println(Duke.HORIZONTAL_LINE);
     }
 
+    public void printFind(String arg) {
+
+        ArrayList<Task> tempTaskArraylist = new ArrayList<>();
+
+
+        for (Task task : taskArrayList) {
+            if(task.getText().contains(arg)) {
+                tempTaskArraylist.add(task);
+            }
+        }
+        System.out.println(Duke.HORIZONTAL_LINE);
+        System.out.println("Here are the matching tasks in your list:");
+        for(int i = 0; i < tempTaskArraylist.size(); i++) {
+            int index = i + 1;
+            System.out.println(index+"."+ tempTaskArraylist.get(i).getTypeCheckedText());
+        }
+        System.out.println(Duke.HORIZONTAL_LINE);
+    }
+
     /**
      * Returns the list of tasks in the TaskArray.
      *
