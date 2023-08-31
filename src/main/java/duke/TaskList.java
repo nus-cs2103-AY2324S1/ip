@@ -63,6 +63,25 @@ public class TaskList {
     }
 
     /**
+     * Finds tasks in lists that contain the given string.
+     * @param toFind string to be searched for
+     */
+    public void findTasks(String toFind) {
+        System.out.println("Here are the matching tasks in your list:");
+        int index = 1;
+        for (int i = 0; i < count; i++) {
+            if (tasks.get(i).getName().contains(toFind)) {
+                System.out.println(index + "." + tasks.get(i));
+                index++;
+            }
+        }
+
+        if (index == 1) {
+            // None found
+            System.out.println("No matching tasks found.");
+        }
+    }
+    /**
      * Outputs all tasks in the list
      */
     public void printTasks() {

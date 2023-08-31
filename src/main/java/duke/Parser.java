@@ -32,6 +32,8 @@ public class Parser {
             parseEvent(input, taskList);
         } else if (input.startsWith("delete")) {
             parseDelete(input, taskList);
+        } else if (input.startsWith("find")) {
+            parseFind(input, taskList);
         } else {
             throw new DukeException("I do not understand :(((");
         }
@@ -126,11 +128,23 @@ public class Parser {
         }
     }
 
+<<<<<<< HEAD
     /**
      * Parses text from the pre-existing task list file to the corresponding Task object.
      * @param entry line from the task list file
      * @return corresponding Task object to the entry
      */
+=======
+    private static void parseFind(String s, TaskList taskList) throws DukeException {
+        String toFind = s.substring(4).trim();
+        if (toFind.length() == 0) {
+            throw new DukeException("Please enter a string to find!");
+        }
+
+        taskList.findTasks(toFind);
+    }
+
+>>>>>>> branch-Level-9
     public static Task parseTaskListEntry(String entry) {
         Task task;
         String[] splitEntry = entry.split("\\|"); // Split by "|"
