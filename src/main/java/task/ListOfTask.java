@@ -3,6 +3,7 @@ package task;
 import dukeExceptions.DukeException;
 import dukeExceptions.LoadException;
 import storage.Storage;
+import ui.Ui;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -45,12 +46,40 @@ public class ListOfTask {
     public void listTasks() {
         int[] i = new int[1];
         i[0] = 1;
-        listOfTask.forEach(x-> {
-                    System.out.print(i[0] + ".");
-                    System.out.println(x);
-                    i[0]++;
-                }
-        );
+        listOfTask.forEach(x -> {
+            System.out.print(i[0] + ".");
+            System.out.println(x);
+            i[0]++;
+        });
+    }
+
+
+    /**
+     * Finds and prints index and tasks that contains the string str in its name.
+     * @param str The string that will be searched.
+     */
+    public void find(String str) {
+        int[] start = new int[1];
+        start[0] = 0;
+        int size = listOfTask.size();
+        int[] rememberIndex = new int[size];
+        Task[] rememberTask = new Task[size];
+        int[] i = new int[1];
+        i[0] = 1;
+        listOfTask.forEach(x -> {
+            if (x.taskName.contains(str)) {
+                rememberTask[start[0]] = x;
+                rememberIndex[start[0]] = i[0];
+                start[0]++;
+            }
+            i[0]++;
+        });
+        for (int j = 0; j < (start[0]); j++) {
+            System.out.println(rememberIndex[j] + "." + rememberTask[j]);
+        }
+        if (start[0] == 0) {
+            System.out.println("Whoopys uWu, sorry I couldnyt fynd any taysk that contyain that strying. XD uWu");
+        }
     }
 
     public void mark(int index, boolean print) throws DukeException {

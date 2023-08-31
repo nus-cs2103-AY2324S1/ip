@@ -1,1 +1,3 @@
 todo CS2103T A-JUnit
+deadline CS2103T B-JUnit /by 18-09-2023 0000
+event CS2103T C-JUnit /from 18-09-2023 0000 /to 18-09-2024 0000
