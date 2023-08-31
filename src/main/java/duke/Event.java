@@ -3,7 +3,7 @@ package duke;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class Event extends Task{
+public class Event extends Task {
     private static Pattern createCommand =
             Pattern.compile("^event ?(?<taskName>.*?)? ?(/from (?<startTime>.*?))? ?(/to (?<endTime>.*))?$");
 

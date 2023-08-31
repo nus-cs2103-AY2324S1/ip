@@ -4,8 +4,10 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Ui {
-    private Scanner sc;
     private static final String LINEBREAK = "    ＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿";
+
+
+    private Scanner sc;
 
     Ui() {
         sc = new Scanner(System.in);

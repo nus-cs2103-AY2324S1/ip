@@ -3,7 +3,7 @@ package duke;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class Todo extends Task{
+public class Todo extends Task {
     private static Pattern createCommand = Pattern.compile("^todo( (?<taskName>.*))?");
 
     Todo(String name) {
