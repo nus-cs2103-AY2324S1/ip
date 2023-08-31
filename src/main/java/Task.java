@@ -9,7 +9,7 @@ public abstract class Task {
 
     public void mark() {
         this.isDone = true;
-        MessagePrinter.print("Nice! I've marked this task as done:\n"
+        Ui.print("Nice! I've marked this task as done:\n"
                 + "[X] "
                 + this.description
         );
@@ -17,7 +17,7 @@ public abstract class Task {
 
     public void unmark() {
         this.isDone = false;
-        MessagePrinter.print(
+        Ui.print(
                 "OK, I've marked this task as not done yet:\n"
                         + "[ ] "
                         + this.description
