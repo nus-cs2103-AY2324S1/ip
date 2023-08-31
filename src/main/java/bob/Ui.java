@@ -1,18 +1,14 @@
+package bob;
+
 import java.time.LocalDate;
-import java.util.Scanner;
 
 public class Ui {
 
-    //private static TaskList list;
     private static Parser parser;
 
     public Ui() {
         this.parser = new Parser();
     }
-
-    /*public Ui(TaskList list) {
-        this.list = list;
-    }*/
 
     /**
      * Marks a task as completed according to specified task index

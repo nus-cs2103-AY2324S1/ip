@@ -1,3 +1,5 @@
+package bob;
+
 public class BobException extends Exception{
     protected String message;
 

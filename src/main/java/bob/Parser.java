@@ -1,3 +1,5 @@
+package bob;
+
 public class Parser {
 
     public Parser() {
