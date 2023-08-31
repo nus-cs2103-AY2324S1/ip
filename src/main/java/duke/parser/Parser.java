@@ -1,3 +1,7 @@
+package duke.parser;
+
+import duke.data.exception.DukeException;
+
 public class Parser {
     public String getInstruction(String input) {
         String[] command = input.split(" ");
