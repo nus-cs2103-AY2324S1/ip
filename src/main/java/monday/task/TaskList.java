@@ -12,6 +12,11 @@ public class TaskList {
     private ArrayList<Task> list;
     private Storage storage;
 
+    /** 
+     * Constructs a TaskList object with the specified file path. 
+     * 
+     * @param filePath the file path to store the tasks 
+     */ 
     public TaskList(String filePath) {
         this.storage = new Storage(filePath);
         try {
@@ -21,6 +26,11 @@ public class TaskList {
         }
     }
 
+    /**
+    * Saves the list of tasks to the storage.
+    * 
+    * @throws IOException if an I/O error occurs while saving the tasks
+    */
     private void save() {
         try {
             storage.save(list);
@@ -28,7 +38,7 @@ public class TaskList {
             System.out.println("Error saving tasks: " + e.getMessage());
         }
     }
-
+    
     /**
      * Adds a task to the task list.
      *

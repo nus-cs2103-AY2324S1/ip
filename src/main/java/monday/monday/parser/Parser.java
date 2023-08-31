@@ -23,14 +23,15 @@ public class Parser {
         DELETE
     }
 
-    /**
-     * Parses the user input and performs the corresponding action.
-     *
-     * @param userInput the user input to be parsed
-     * @return true if the application should continue running, false otherwise
-     * @throws MondayExceptions if there are errors related to Monday application
-     * @throws IllegalArgumentException if user input is in the wrong format
-     */
+    /** 
+     * Parses the user input and performs the corresponding action. 
+     * 
+     * @param userInput the user input to be parsed 
+     * @param taskList the TaskList object to perform actions on 
+     * @return true if the application should continue running, false otherwise 
+     * @throws MondayExceptions if there are errors related to the Monday application 
+     * @throws IllegalArgumentException if the user input is in the wrong format 
+     */ 
     public static boolean mondayParser(String userInput, TaskList taskList) throws MondayExceptions {
         String[] input = userInput.split(" ", 2);
         String command = input[0];

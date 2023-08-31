@@ -11,10 +11,12 @@ import monday.monday.exception.MondayExceptions;
  * delete, keep track of the tasks they have.
  */
 public class Monday {
-    /**
-     * Starts Monday application.
-     * Initialises necessary components, greets the user, handle user input and handle errors.
-     */
+    /** 
+     * Starts the Monday application. 
+     * Initializes necessary components, greets the user, handles user input, and handles errors. 
+     * 
+     * @param filepath the filepath to store the tasks 
+     */ 
     private static void startMonday(String filepath) {
         Scanner scanner = new Scanner(System.in);
         TaskList taskList = new TaskList(filepath);

@@ -8,21 +8,26 @@ import java.io.FileOutputStream;
 import java.io.FileInputStream;
 import java.io.EOFException;
 import java.util.ArrayList;
-
 import monday.task.Task;
 
+
+/**
+ * Class for handling the storage of tasks in a file.
+ */
 public class Storage {
     private final String filePath;
 
+    /**
+     * Constructs a Storage object with the specified file path.
+     *
+     * @param fileName the name of the file to store the tasks
+     */
     public Storage(String fileName) {
         this.filePath = fileName;
-
         File file = new File(fileName);
-
         if (!file.getParentFile().exists()) {
             file.getParentFile().mkdirs();
         }
-
         if (!file.exists()) {
             try {
                 file.createNewFile();
@@ -32,16 +37,28 @@ public class Storage {
         }
     }
 
-    public void save(ArrayList<Task> tasks) throws IOException{
-        try (ObjectOutputStream output = new ObjectOutputStream(new FileOutputStream(filePath))){
+    /**
+     * Saves the given list of tasks to the file.
+     *
+     * @param tasks the list of tasks to save
+     * @throws IOException if an I/O error occurs while saving the tasks
+     */
+    public void save(ArrayList<Task> tasks) throws IOException {
+        try (ObjectOutputStream output = new ObjectOutputStream(new FileOutputStream(filePath))) {
             output.writeObject(tasks);
         }
     }
 
-    public ArrayList<Task> load() throws ClassNotFoundException, IOException{
-
-        try (ObjectInputStream input = new ObjectInputStream(new FileInputStream(filePath))){
-            // We know the objects inside are all Tasks,therefore we can suppress the unchecked warning.
+    /**
+     * Loads the list of tasks from the file.
+     *
+     * @return the list of tasks loaded from the file
+     * @throws ClassNotFoundException if the class of a serialized object cannot be found
+     * @throws IOException if an I/O error occurs while loading the tasks
+     */
+    public ArrayList<Task> load() throws ClassNotFoundException, IOException {
+        try (ObjectInputStream input = new ObjectInputStream(new FileInputStream(filePath))) {
+            // We know the objects inside are all Tasks, therefore we can suppress the unchecked warning.
             @SuppressWarnings("unchecked")
             ArrayList<Task> tasklist = (ArrayList<Task>) input.readObject();
             return tasklist;
