@@ -1,3 +1,5 @@
+package duke;
+
 public abstract class Task {
 
     /** Description of the task. */
@@ -29,7 +31,7 @@ public abstract class Task {
     /** Change the state of task to not completed. */
     public void markAsUndone() {
         this.isDone = false;
-        this.ui.showTaskUnMarked(this);
+        this.ui.showTaskUnmarked(this);
     }
 
     /** Get the string representation of the task for storage in hard drive.

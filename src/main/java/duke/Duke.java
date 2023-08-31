@@ -1,3 +1,4 @@
+package duke;
 import java.util.Scanner;
 
 /**
@@ -42,6 +43,6 @@ public class Duke {
     }
 
     public static void main(String[] args) {
-        new Duke("./src/main/java/data.txt").run();
+        new Duke("./src/main/java/duke/data.txt").run();
     }
 }

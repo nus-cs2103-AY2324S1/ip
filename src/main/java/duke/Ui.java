@@ -1,3 +1,5 @@
+package duke;
+
 /** Ui prints statements that the user will interact with */
 public class Ui {
 
@@ -44,12 +46,20 @@ public class Ui {
         System.out.println("Now you have " + listSize + " tasks in the list.");
     }
 
+    /** Informs user that the desired task has been marked as completed.
+     *
+     * @param task Task to be marked.
+     */
     public void showTaskMarked(Task task) {
         System.out.println("Nice! I've marked this task as done:");
         System.out.println(task);
     }
 
-    public void showTaskUnMarked(Task task) {
+    /** Informs the user that the desired task has been unmarked.
+     *
+     * @param task Task to be unmarked.
+     */
+    public void showTaskUnmarked(Task task) {
         System.out.println("OK, I've marked this task as not done yet:");
         System.out.println(task);
     }
