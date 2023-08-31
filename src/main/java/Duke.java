@@ -1,12 +1,16 @@
+import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 public class Duke {
     private Scanner scanner;
     private TaskList taskList;
+    private TaskListManager taskListManager;
 
-    public Duke() {
+    public Duke() throws DukeException, FileNotFoundException {
         scanner = new Scanner(System.in);
         taskList = new TaskList();
+        taskListManager = new TaskListManager("data", "tasks.txt", taskList);
+        taskListManager.loadTasks();
     }
 
     private Task parseTaskInput(String input) throws DukeException {
@@ -59,12 +63,10 @@ public class Duke {
         System.out.println("____________________________________________________________");
         System.out.println(" Hello! I'm BloopBot");
         System.out.println(" What can I do for you?");
-        System.out.println(" Bloop will echo by default, without any keywords");
-        System.out.println(" Keywords: add, deadline, event, todo, bye");
+        System.out.println(" Keywords: add, deadline, event, todo, bye, echo");
         System.out.println("\n____________________________________________________________");
 
         boolean isEcho = true;
-
 
         while (isEcho) {
             String strInput = scanner.nextLine();
@@ -81,57 +83,59 @@ public class Duke {
                     Task newTasks = parseTaskInput(strInput);
                     if (newTasks != null) {
                         taskList.addTask(newTasks);
+                        taskListManager.saveTask(taskList.getTasks());
                     }
                 }
 
                 switch (taskType) {
-                    case BYE:
-                        isEcho = false;
-                        System.out.println(" Bye. Hope to see you again soon!");
-                        break;
+                case BYE:
+                    isEcho = false;
+                    System.out.println(" Bye. Hope to see you again soon!");
+                    taskListManager.saveTask(taskList.getTasks());
+                    break;
 
-                    case LIST:
-                        System.out.println("Here are the tasks in your list:");
-                        taskList.displayTasks();
-                        break;
+                case LIST:
+                    System.out.println("Here are the tasks in your list:");
+                    taskList.displayTasks();
+                    break;
 
-                    case MARK:
-                        int taskIndex = Integer.parseInt(words[1]) - 1;
-                        if (taskList.isMarked(taskIndex)) {
-                            throw new DukeException("Task is already marked");
-                        } else {
-                            taskList.doneAndDusted(taskIndex);
-                        }
-                        break;
+                case MARK:
+                    int taskIndex = Integer.parseInt(words[1]) - 1;
+                    if (taskList.isMarked(taskIndex)) {
+                        throw new DukeException("Task is already marked");
+                    } else {
+                        taskList.doneAndDusted(taskIndex);
+                    }
+                    break;
 
-                    case UNMARK:
-                        taskIndex = Integer.parseInt(words[1]) - 1;
-                        if (taskList.isMarked(taskIndex)) {
-                            taskList.notDoneNotDusted(taskIndex);
-                        } else {
-                            throw new DukeException("Task is already unmarked");
-                        }
-                        break;
+                case UNMARK:
+                    taskIndex = Integer.parseInt(words[1]) - 1;
+                    if (taskList.isMarked(taskIndex)) {
+                        taskList.notDoneNotDusted(taskIndex);
+                    } else {
+                        throw new DukeException("Task is already unmarked");
+                    }
+                    break;
 
-                    case DELETE:
-                        if (words.length == 1) {
-                            throw new DukeException("Please provide a task number to delete");
-                        }
-                        taskIndex = Integer.parseInt(words[1]) - 1;
-                        taskList.deleteTask(taskIndex);
-                        break;
+                case DELETE:
+                    if (words.length == 1) {
+                        throw new DukeException("Please provide a task number to delete");
+                    }
+                    taskIndex = Integer.parseInt(words[1]) - 1;
+                    taskList.deleteTask(taskIndex);
+                    break;
 
-                    case ECHO:
-                        String[] echoWords = strInput.split(" ", 2);
-                        if (echoWords.length < 2) {
-                            throw new DukeException(" Nothing to echo!");
-                        }
-                        String echoedText = echoWords[1].trim();
-                        System.out.println(" Echo!! " + echoedText);
-                        break;
+                case ECHO:
+                    String[] echoWords = strInput.split(" ", 2);
+                    if (echoWords.length < 2) {
+                        throw new DukeException(" Nothing to echo!");
+                    }
+                    String echoedText = echoWords[1].trim();
+                    System.out.println(" Echo!! " + echoedText);
+                    break;
 
-                    case UNKNOWN:
-                        throw new DukeException("Woops, I don't know this command. I only know: add, todo, deadline, event, list, mark, unmark, delete, bye, echo");
+                case UNKNOWN:
+                    throw new DukeException("Woops, I don't know this command. I only know: add, todo, deadline, event, list, mark, unmark, delete, bye, echo");
                 }
             } catch (IllegalArgumentException e) {
                 System.out.println("Woops, I don't know this command, sorry :(");
@@ -143,8 +147,12 @@ public class Duke {
         }
     }
 
-    public static void main(String[] args) throws DukeException {
-        Duke bloopBot = new Duke();
-        bloopBot.start();
+    public static void main(String[] args) throws DukeException, FileNotFoundException {
+        try {
+            Duke bloopBot = new Duke();
+            bloopBot.start();
+        } catch (DukeException | FileNotFoundException e) {
+            System.out.println("An error occurred: " + e.getMessage());
+        }
     }
 }
