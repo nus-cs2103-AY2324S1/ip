@@ -1,9 +1,13 @@
+package task;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+import exception.LinusException;
+
 public class Deadline extends Task {
-    protected String type = "Deadline";
+    protected String type = "task.Deadline";
     protected LocalDate by = null;
 
     public Deadline(String description, String by) throws LinusException {
