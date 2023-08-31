@@ -48,6 +48,9 @@ public class BlipUI {
         System.out.println("Error saving file: ");
     }
 
+    public void showDateTimeFormatErr() {
+        System.out.println("Please format your date time to be yyyy-mm-dd HH:mm HEREE");
+    }
 
     public static void listsTasksMsg(TaskList tasks) {
         System.out.println("Here are the tasks in your list:");

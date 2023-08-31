@@ -30,8 +30,10 @@ public class BlipStorage {
                 tasks.addTask(task);
             }
             finalReader.close();
-        } catch (IOException e2) {
-            System.out.println("Error reading line: " + e2.getMessage());
+        } catch (IOException e) {
+            System.out.println("Error reading line: " + e.getMessage());
+        } catch (DateTimeFormatException e) {
+            System.out.println("Error with date time format: " + e.getMessage());
         }
         return tasks;
     }
@@ -46,7 +48,7 @@ public class BlipStorage {
             }
             FileWriter fileWriter = new FileWriter(file);
 
-            for (int i = 0; i < tasks.size(); i ++) {
+            for (int i = 0; i < tasks.size(); i++) {
                 Task task = tasks.getTask(i);
                 fileWriter.write(task.saveToFileString() + "\n");
             }

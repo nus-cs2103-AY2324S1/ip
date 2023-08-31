@@ -1,9 +1,9 @@
 import java.time.LocalDateTime;
 public class BlipParser {
 
-    private BlipUI ui;
+    private BlipUI ui = new BlipUI();
 
-    public static int parseToGetIndex (String input) throws EmptyTaskNumberException{
+    public static int parseToGetIndex (String input) throws EmptyTaskNumberException {
         String[] components = input.split("\\s+", 2);
         // Missing Delete Index.
         if (components.length < 2 || components[1].equals("")) {
@@ -92,7 +92,9 @@ public class BlipParser {
         } catch (EmptyDescriptionException e3) {
             System.out.println(e3.getMessage());
             ui.showEmptyDescErr();
+        } catch (DateTimeFormatException e4) {
+            System.out.println(e4.getMessage());
+            ui.showDateTimeFormatErr();
         }
-        return null;
     }
 }

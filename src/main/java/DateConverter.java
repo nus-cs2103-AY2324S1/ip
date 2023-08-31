@@ -11,14 +11,7 @@ public class DateConverter {
         return matcher.matches();
     }
 
-    public static LocalDateTime convertToDateTime(String dateTimeString) {
-        try {
-            if (!isCorrectFormat(dateTimeString)) {
-                throw new DateTimeFormatException("Please format your date time to be yyyy-mm-dd HH:mm");
-            }
-        } catch (DateTimeFormatException e) {
-            System.out.println("Error with date time format: " + e.getMessage());
-        }
+    public static LocalDateTime convertToDateTime(String dateTimeString) throws DateTimeFormatException {
         if (isCorrectFormat(dateTimeString)) {
             dateTimeString = dateTimeString.trim();
             String[] dateTimeParts = dateTimeString.split(" ");
@@ -31,7 +24,7 @@ public class DateConverter {
                     Integer.parseInt(timeParts[1]));
             return localDateTime;
         }
-        return null;
+        throw new DateTimeFormatException("Please format your date time to be yyyy-mm-dd HH:mm");
     }
 
 }

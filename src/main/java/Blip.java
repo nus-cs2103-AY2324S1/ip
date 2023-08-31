@@ -15,8 +15,8 @@ public class Blip {
         this.ui = new BlipUI();
         this.storage = new BlipStorage(filePath);
         this.parser = new BlipParser();
-              try {
-        tasks = storage.loadFile();
+        try {
+            tasks = storage.loadFile();
         } catch (BlipException e) {
             ui.showLoadingErr();
             tasks = new TaskList();

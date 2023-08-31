@@ -34,7 +34,7 @@ public abstract class Task {
         }
 
 
-        public static Task loadTaskFromFile(String lineToLoad) {
+        public static Task loadTaskFromFile(String lineToLoad) throws DateTimeFormatException {
             String[] taskComponents = lineToLoad.split(" \\| ");
             String taskType = taskComponents[0];
             boolean isDone = taskComponents[1].equals("1");
@@ -44,14 +44,11 @@ public abstract class Task {
                 return new ToDo(taskDescription, isDone);
             }
             if (taskType.equals("D")) {
-/*                    String deadline = taskComponents[3];*/
                 LocalDateTime deadlineDateTime = DateConverter.convertToDateTime(taskComponents[3]);
                 Deadline newDeadlineTask = new Deadline(taskDescription, deadlineDateTime, isDone);
                 return newDeadlineTask;
             }
             if (taskType.equals("E")) {
-/*                    String eventFrom = taskComponents[3];
-                String eventTo = taskComponents[4];*/
                 LocalDateTime eventFrom = DateConverter.convertToDateTime(taskComponents[3]);
                 LocalDateTime eventTo = DateConverter.convertToDateTime(taskComponents[4]);
                 Event newEventTask = new Event(taskDescription, eventFrom, eventTo, isDone);
