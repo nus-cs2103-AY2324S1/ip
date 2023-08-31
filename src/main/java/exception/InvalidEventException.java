@@ -1,4 +1,6 @@
-public class InvalidEventException extends DukeException{
+package exception;
+
+public class InvalidEventException extends DukeException {
     public InvalidEventException() {
         super();
     }

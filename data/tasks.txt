@@ -4,4 +4,4 @@ D | 0 | return book  | Oct 15 2019
 D | 0 | return book  | Oct 15 2019 6pm
 E | 0 | return book  | Oct 15 2019 6pm | Oct 15 2019 8pm
 E | 0 | return book  | Feb 12 2019 6pm | Feb 12 2019 8pm
-E | 0 | return book  | Feb 12 2019 | Feb 12 2019
+E | 1 | return book  | Feb 12 2019 | Feb 12 2019

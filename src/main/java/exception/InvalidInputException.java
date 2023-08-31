@@ -1,4 +1,6 @@
-public class InvalidInputException extends DukeException{
+package exception;
+
+public class InvalidInputException extends DukeException {
     public InvalidInputException() {
         super();
     }

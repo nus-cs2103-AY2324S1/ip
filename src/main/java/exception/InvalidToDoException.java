@@ -1,4 +1,6 @@
-public class InvalidToDoException extends DukeException{
+package exception;
+
+public class InvalidToDoException extends DukeException {
     public InvalidToDoException() {
         super();
     }

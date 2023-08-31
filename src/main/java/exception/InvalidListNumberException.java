@@ -1,4 +1,6 @@
-public class InvalidListNumberException extends DukeException{
+package exception;
+
+public class InvalidListNumberException extends DukeException {
     public InvalidListNumberException() {
         super();
     }

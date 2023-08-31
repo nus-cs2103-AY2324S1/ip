@@ -1,10 +1,12 @@
+package exception;
+
 /**
  * Abstract class representing a custom exception for the Duke application.
  * Specific types of exceptions should extend this class.
  */
 public abstract class DukeException extends Exception{
     /**
-     * Default constructor for DukeException.
+     * Default constructor for exception.DukeException.
      */
     public DukeException(){
         super();

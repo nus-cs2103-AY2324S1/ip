@@ -1,4 +1,6 @@
-public class InvalidDateTimeException extends DukeException{
+package exception;
+
+public class InvalidDateTimeException extends DukeException {
     public InvalidDateTimeException() {
         super();
     }

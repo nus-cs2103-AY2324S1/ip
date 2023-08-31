@@ -1,14 +1,27 @@
+import taskClasses.TaskList;
+
 public class Duke {
+    private Storage storage;
+    private TaskList tasks;
+    private Ui ui;
+
+    public Duke(String filePath) {
+        ui = new Ui();
+        storage = new Storage(filePath);
+        try {
+            tasks = storage.load();
+        }
+        catch (Exception e) {
+            ui.showLoadingError();
+            tasks = new TaskList();
+        }
+    }
+
+    public void run() {
+        Parser.run(ui, storage, tasks);
+    }
+
     public static void main(String[] args) {
-        String logo = " ██▄   ████▄    ▄     ▄▀  \n" +
-                "█  █  █   █     █  ▄▀    \n" +
-                "█   █ █   █ ██   █ █ ▀▄  \n" +
-                "█  █  ▀████ █ █  █ █   █ \n" +
-                "███▀        █  █ █  ███  \n" +
-                "            █   ██       \n" +
-                "                         ";
-        System.out.println("Hello from\n" + "Dong");
-        System.out.println("What can I do for you?\n");
-        CommandFactory.CommandActions();
+        new Duke("./data/tasks.txt").run();
     }
 }
