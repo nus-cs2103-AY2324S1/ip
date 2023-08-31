@@ -2,9 +2,18 @@ package duke;
 
 import java.io.*;
 import java.util.ArrayList;
+
+/**
+ * Storage class handles loading tasks from file and saving tasks in the file.
+ */
 public class Storage {
     private String filePath;
 
+    /**
+     * Constructs a Storage object with the specified file path.
+     *
+     * @param filePath The path to the file where tasks are stored.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
         File file = new File(filePath);
@@ -18,6 +27,13 @@ public class Storage {
         }
     }
 
+    /**
+     * Loads tasks from the file.
+     *
+     * @return An ArrayList of Task objects loaded from the file.
+     * @throws IOException If an I/O error occurs while reading the file.
+     * @throws ClassNotFoundException If the class of a serialized object cannot be found.
+     */
     public ArrayList<Task> load() throws IOException, ClassNotFoundException {
         ObjectInputStream in = null;
         try {
@@ -36,6 +52,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Saves tasks to the file.
+     *
+     * @param list The ArrayList of Task objects to be saved to the file.
+     * @throws IOException If an I/O error occurs while writing to the file.
+     */
     public void saveToFile(ArrayList<Task> list) throws IOException{
         ObjectOutputStream out = null;
         try {
