@@ -1,5 +1,6 @@
 import exception.DukeException;
 import exception.DukeStorageException;
+import exception.FileCorruptedException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,32 +14,34 @@ public class Duke {
 
     public Duke(String botName, StorageService storageService) {
         this.botName = botName;
-        this.taskList = new ArrayList<>();
         this.storageService = storageService;
+        try {
+            this.taskList = storageService.loadTasks();
+        } catch (FileCorruptedException e) {
+
+        }
     }
 
     public static void main(String[] args) {
         OutputService outputService = new OutputService();
-        StorageService storageService = null;
         try {
-            storageService = new StorageService();
+            StorageService storageService = new StorageService();
+            if (storageService.wasFileCorrupted()) {
+                outputService.echo("Warning: The existing tasks file was corrupted and has been reset.");
+            }
+            Duke changooseBot = new Duke("Changoose", storageService);
+            TaskFactory taskFactory = new TaskFactory();
+            CliParserService cliParserService = new CliParserService(changooseBot, outputService, taskFactory);
+            String startMessage = String.format("Hello! I'm %s%nWhat can I do for you?", changooseBot.getBotName());
+            String endMessage = "Bye! Hope to see you again soon!";
+
+            outputService.echo(startMessage);
+            cliParserService.parse();
+            outputService.echo(endMessage);
         } catch (DukeStorageException e) {
             outputService.echo("Warning: Error initializing storage. " +
                     "Any changes made during this session will not be saved!");
         }
-        assert storageService != null;
-        if (storageService.wasFileCorrupted()) {
-            outputService.echo("Warning: The existing tasks file was corrupted and has been reset.");
-        }
-        Duke changooseBot = new Duke("Changoose", storageService);
-        TaskFactory taskFactory = new TaskFactory();
-        CliParserService cliParserService = new CliParserService(changooseBot, outputService, taskFactory);
-        String startMessage = String.format("Hello! I'm %s%nWhat can I do for you?", changooseBot.getBotName());
-        String endMessage = "Bye! Hope to see you again soon!";
-
-        outputService.echo(startMessage);
-        cliParserService.parse();
-        outputService.echo(endMessage);
     }
 
     public String getBotName() {
