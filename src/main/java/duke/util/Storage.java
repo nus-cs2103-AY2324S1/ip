@@ -12,6 +12,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Represents a storage for the list of Tasks.
+ */
 public class Storage {
     private File file;
 
@@ -19,6 +22,12 @@ public class Storage {
         this.file = new File(path);
     }
 
+    /**
+     * Returns an ArrayList of Tasks from local data file.
+     *
+     * @return ArrayList consisting of Task read from the data file.
+     * @throws FileNotFoundException
+     */
     public ArrayList<Task> load() throws FileNotFoundException {
         ArrayList<Task> list = new ArrayList<>();
         Scanner sc = new Scanner(this.file);
@@ -41,6 +50,11 @@ public class Storage {
         return list;
     }
 
+    /**
+     * Save the given TaskList into a local data file.
+     *
+     * @param list The given TaskList to be saved locally.
+     */
     public void save(TaskList list) {
         String input = list.toString();
         String newData = "";
