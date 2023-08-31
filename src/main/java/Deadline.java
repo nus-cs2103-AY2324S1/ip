@@ -15,22 +15,19 @@ public class Deadline extends Task{
      * @param name Name of deadline
      * @param by Date of deadline
      */
-    public Deadline(String name, String by) {
+    public Deadline(String name, LocalDateTime by) {
         super(name);
-        this.by = LocalDateTime.parse(by, DATETIME_FORMAT);
+        this.by = by;
     }
 
-    /**
-     * Return string representation of Deadline
-     * @return String representation of Deadline
-     */
+    @Override
     public String toString() {
-        return String.format("[D]%s (by: %s)", super.toString(), by.format(DATETIME_FORMAT));
+        return String.format("[D]%s (by: %s)", super.toString(), by.format(Parser.DATETIME_FORMATTER));
     }
 
     @Override
     public String generateSaveString() {
-        return String.format("D | %b | %s /by %s", isDone, name, by.format(DATETIME_FORMAT));
+        return String.format("D | %b | %s /by %s", isDone, name, by.format(Parser.DATETIME_FORMATTER));
     }
 
     @Override

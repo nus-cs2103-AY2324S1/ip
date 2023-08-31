@@ -1,31 +1,21 @@
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 
 /**
  * A Task is an object with a name and toggleable status
  */
 public abstract class Task {
-    /**
-     * Name of task
-     */
     protected String name;
-    /**
-     * Whether the task is done
-     */
     protected boolean isDone;
-    /**
-     * Formatter for parsing date times
-     */
-    static final DateTimeFormatter DATETIME_FORMAT = DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm");
+
+    public enum Types {
+        TODO, DEADLINE, EVENT
+    }
 
     /**
      * Constructs a new Task with description
      * @param name Name of task
      */
-    public Task(String name) throws IllegalArgumentException {
-        if (name.isEmpty()) {
-            throw new IllegalArgumentException("I need a name for the task!");
-        }
+    public Task(String name) {
         this.name = name;
         this.isDone = false;
     }
@@ -35,6 +25,7 @@ public abstract class Task {
      * @return "X" if task is done, " " otherwise
      */
     public String getStatusIcon() {
+
         return this.isDone? "X" : " ";
     }
 
@@ -43,6 +34,7 @@ public abstract class Task {
      * @return The name of the task
      */
     public String getName() {
+
         return this.name;
     }
 
@@ -50,6 +42,7 @@ public abstract class Task {
      * Marks task as done
      */
     public void markAsDone() {
+
         this.isDone = true;
     }
 
@@ -57,14 +50,13 @@ public abstract class Task {
      * Marks task as not done
      */
     public void markAsNotDone() {
+
         this.isDone = false;
     }
 
-    /**
-     * Returns string representation of task
-     * @return String representation of task containing task status and task description
-     */
+    @Override
     public String toString() {
+
         return String.format("[%s] %s", this.getStatusIcon(), this.getName());
     }
 
@@ -79,6 +71,7 @@ public abstract class Task {
      * @param date Date specified
      */
     public boolean isOccurringOnDate(LocalDate date) {
+
         return false;
     }
 }

@@ -14,29 +14,29 @@ public class Event extends Task{
      * @param startTime Start time of event
      * @param endTime End time of event
      */
-    public Event(String name, String startTime, String endTime) {
+    public Event(String name, LocalDateTime startTime, LocalDateTime endTime) {
         super(name);
-        this.startTime = LocalDateTime.parse(startTime, DATETIME_FORMAT);
-        this.endTime = LocalDateTime.parse(endTime, DATETIME_FORMAT);
+        this.startTime = startTime;
+        this.endTime = endTime;
     }
 
-    /**
-     * String representation of Event
-     * @return String representation of Event
-     */
+    @Override
     public String toString() {
         return String.format("[E]%s (from: %s to: %s)", super.toString(),
-                startTime.format(DATETIME_FORMAT), endTime.format(DATETIME_FORMAT));
+                startTime.format(Parser.DATETIME_FORMATTER), endTime.format(
+                        Parser.DATETIME_FORMATTER));
     }
 
     @Override
     public String generateSaveString() {
-        return String.format("E | %b | %s  /from %s /to %s", isDone, name, startTime.format(DATETIME_FORMAT),
-                endTime.format(DATETIME_FORMAT));
+        return String.format("E | %b | %s  /from %s /to %s", isDone, name, startTime.format(
+                Parser.DATETIME_FORMATTER),
+                endTime.format(Parser.DATETIME_FORMATTER));
     }
 
     @Override
     public boolean isOccurringOnDate(LocalDate date) {
-        return (!date.isBefore(startTime.toLocalDate())) && (!date.isAfter(endTime.toLocalDate()));
+        return (!date.isBefore(startTime.toLocalDate()))
+                && (!date.isAfter(endTime.toLocalDate()));
     }
 }
