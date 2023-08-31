@@ -70,4 +70,14 @@ public class TaskList {
         }
     }
 
+    public ArrayList<Task> getTasks() {
+        return taskList;
+    }
+
+    public void loadTasks(TaskList loadedTasks) {
+        taskList.clear();
+        taskList.addAll(loadedTasks.getTasks());
+    }
+
+
 }
