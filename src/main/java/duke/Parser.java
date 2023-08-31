@@ -1,5 +1,6 @@
 package duke;
 
+import java.util.ArrayList;
 import java.util.Objects;
 
 public class Parser {
@@ -64,6 +65,13 @@ public class Parser {
                 Task deletedTask = tasks.userData.get(index - 1);
                 tasks.deleteTask(index - 1);
                 ui.deleteTaskText(deletedTask, tasks.userData.size());
+            } else if (Objects.equals(action, "find"))  {
+                String keyword = taskDescription;
+                ArrayList<Task> filteredTasks = tasks.filter(keyword);
+                for (int i = 0; i < filteredTasks.size(); i++) {
+                    Task currentTask = filteredTasks.get(i);
+                    ui.displayTaskInList(i, currentTask);
+                }
             } else {
                 throw new DukeException("OOPS!!! I'm sorry, but I don't know what that means :-(");
             }

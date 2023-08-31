@@ -26,4 +26,16 @@ public class TaskList {
     public void deleteTask(int referenceIndex) {
         this.userData.remove(referenceIndex);
     }
+
+    public ArrayList<Task> filter(String keyword) {
+        ArrayList<Task> filteredTask = new ArrayList<>();
+        for (int i = 0; i < userData.size(); i++) {
+            Task task = userData.get(i);
+            String taskDescription = task.getDescription();
+            if (taskDescription.contains(keyword)) {
+                filteredTask.add(task);
+            }
+        }
+        return filteredTask;
+    }
 }
