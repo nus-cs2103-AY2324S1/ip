@@ -31,6 +31,12 @@ public class KniazSession {
         return taskList;
     }
 
+    /**
+     * Dummy constructor that does nothing
+     */
+    public KniazSession() {
+
+    }
 
     private KniazSession(TaskList taskList,
                          KniazLoader loader,
