@@ -4,4 +4,6 @@
 [T][ ] add homework
 [D][ ] fish (by: june)
 [E][ ] ghost (from: 23/01/2023 to: 12/2/2024)
-[T][ ] re
+[T][X] re
+[D][X] gr (by: monday)
+[T][ ] g

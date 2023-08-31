@@ -30,17 +30,15 @@ class Duke {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         String botName = "Aaronbot";
-        String holder123 = "";
+        String savedString = "";
         try {
             byte[] encodedBytes = Files.readAllBytes(Paths.get("data/duke.txt"));
             String fileContent = new String(encodedBytes);
-            holder123 = fileContent;
+            savedString = fileContent;
         } catch (IOException e) {
             System.out.println("Error reading file: " + e.getMessage());
         }
-        System.out.print(holder123);
-        System.out.print("\n");
-        TaskList tasks = new TaskList(holder123);
+        TaskList tasks = new TaskList(savedString);
 
         System.out.println("Hello! I'm " + botName);
         System.out.println("What can I do for you?");
@@ -89,6 +87,7 @@ class Duke {
                 } else {
                     System.out.println("Invalid task index.");
                 }
+                tasks.saveToFile();
                 break;
             case DELETE:
                 int index = Integer.parseInt(inputParts[1]) - 1;
@@ -101,6 +100,7 @@ class Duke {
             case DEADLINE:
             case EVENT:
                 handleTaskCreation(userInput, tasks, commandType);
+                tasks.saveToFile();
                 break;
             default:
                 throw new UnknownCommandException();
@@ -160,7 +160,6 @@ class Duke {
         } else {
             throw new UnknownCommandException();
         }
-        tasks.saveToFile();
         System.out.println("Got it. I've added this task:");
         System.out.println("  " + tasks.get(tasks.size() - 1));
         System.out.println("Now you have " + tasks.size() + " tasks in the list.");
