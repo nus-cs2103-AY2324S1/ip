@@ -27,6 +27,11 @@ public class Event extends Task {
             return "[E][ ] " + this.name + " From: " + this.startDate + " To: " + this.endDate;
         }
     }
+    /**
+     * Displays the event in a user-friendly format.
+     *
+     * @return The string representation of the event for display to the user.
+     */
     public String displayableForm() {
         String newStartDate = this.startDate.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
         String newEndDate = this.endDate.format(DateTimeFormatter.ofPattern("MMM d yyyy"));

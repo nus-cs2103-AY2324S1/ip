@@ -2,7 +2,6 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 public class Deadline extends Task {
-//    private String deadline;
     private LocalDate deadline;
     /**
      * Constructor for the Todo class.
@@ -25,6 +24,11 @@ public class Deadline extends Task {
         }
     }
 
+    /**
+     * Displays the deadline in a user-friendly format.
+     *
+     * @return The string representation of the deadline for display to the user.
+     */
     public String displayableForm() {
         if (this.done) {
             return "[D][X] " + this.name + " By: " + this.deadline.format(DateTimeFormatter.ofPattern("MMM d yyyy"));

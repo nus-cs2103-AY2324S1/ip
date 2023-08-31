@@ -1,6 +1,6 @@
 Hello! I'm Albatross
 Please enter a command
-☹ OOPS!!! There is no task with this index number.
+DukeException: ☹ OOPS!!! There is no task with this index number.
 DukeException: Invalid input for index
 DukeException: ☹ OOPS!!! Incorrect description of a todo.
 Got it. I've added this task:
@@ -35,7 +35,7 @@ Here are the tasks in your list:
 3. [E][ ] nothing From: Nov 11 1111 To: Nov 11 1111
 DukeException: Invalid input for index
 DukeException: Invalid input for index
-☹ OOPS!!! There is no task with this index number.
+DukeException: ☹ OOPS!!! There is no task with this index number.
 Noted. I've removed this task:
 [D][ ] nothing By: Nov 11 1111
 Now you have 2 tasks in the list.
