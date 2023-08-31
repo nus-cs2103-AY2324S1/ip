@@ -18,9 +18,13 @@ public class Event extends Task {
         this.fromDate = fromDate;
         this.toDate = toDate;
     }
+    @Override
+    public String toString(String x) {
+        return "E | " + super.toString() + " | " + fromDate.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + " | " + toDate.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + "";
+    }
 
     @Override
     public String toString() {
-        return "E | " + super.toString() + " | " + fromDate.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + " | " + toDate.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + "";
+        return "E | " + super.toString() + " | " + fromDate + " | " + toDate + "";
     }
 }

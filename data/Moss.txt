@@ -1,5 +1,4 @@
 T | X | read book
-D |   | return book | 2023-12-01
-E |   | project meeting | 2023-09-01 | 2023-09-02
+D |   | return book | 2019-12-01
+E |   | project meeting | 2019-12-01 | 2019-12-01
 T | X | join sports club
-D |   | return book | 2023-10-27

@@ -17,7 +17,13 @@ public class Deadline extends Task {
     }
 
     @Override
-    public String toString() {
+    public String toString(String x) {
         return "D | " + super.toString() + " | " + date.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + "";
     }
+
+    @Override
+    public String toString() {
+        return "D | " + super.toString() + " | " + date + "";
+    }
+
 }

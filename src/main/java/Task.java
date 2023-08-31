@@ -57,5 +57,9 @@ public class Task {
     public String toString() {
         return "" + getStatusIcon() + " | " + this.description;
     }
+
+    public String toString(String x) {
+        return "" + getStatusIcon() + " | " + this.description;
+    }
 }
 
