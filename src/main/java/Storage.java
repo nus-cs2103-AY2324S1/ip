@@ -40,7 +40,7 @@ public class Storage {
                 } else if (taskType.equals("E")) {
                     tasks.add(new Events(taskName, input.split(",")[3],input.split(",")[4]));
                 } else {
-                    throw new DukeException("☹ OOPS!!! Failed to load tasks from file.");
+                    throw new DukeException(" OOPS!!! Failed to load tasks from file.");
                 }
                 if (taskMark == "0") {
                     tasks.get(tasks.size() - 1).changeMarkStatus(true);
@@ -49,7 +49,7 @@ public class Storage {
             System.out.println(tasks.size());
             return tasks;
         } catch (IOException e) {
-            throw new DukeException("☹ OOPS!!! Failed to load tasks from file.");
+            throw new DukeException(" OOPS!!! Failed to load tasks from file.");
         }
     }
 
@@ -62,7 +62,7 @@ public class Storage {
             }
             fw.close();
         } catch (IOException e) {
-            throw new DukeException("☹ OOPS!!! Failed to write to file.");
+            throw new DukeException(" OOPS!!! Failed to write to file.");
         }
     }
 }
