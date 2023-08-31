@@ -5,17 +5,28 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
+/**
+ * Parser class handles all reading of inputs from command line and decides what to do.
+ */
 public class Parser {
 
     private Ui ui;
     private TaskList taskList;
     private Scanner scanner = new Scanner(System.in);
 
+    /**
+     * Creates a Parser class.
+     * @param ui Ui class that handles printing to command line.
+     * @param taskList TaskList with all the current tasks.
+     */
     public Parser(Ui ui, TaskList taskList) {
         this.ui = ui;
         this.taskList = taskList;
     }
 
+    /**
+     * Continuously reads inputs from command line and decide what actions to take.
+     */
     public void readInputs() {
         this.ui.greet();
 
@@ -130,14 +141,20 @@ public class Parser {
                     Task removedTask = this.taskList.deleteTask(index);
                     this.ui.printDelete(removedTask);
                 } else {
-                    throw new DukeException("OOPS!!! I'm sorry, but I don't know what that means :(");
+                    throw new AntoException("OOPS!!! I'm sorry, but I don't know what that means :(");
                 }
-            } catch (DukeException e) {
+            } catch (AntoException e) {
                 this.ui.printError(e);
             }
         }
     }
 
+    /**
+     * Return boolean whether String represents an integer.
+     *
+     * @param strInt String to check.
+     * @return True if string represents an integer.
+     */
     public static boolean isInt(String strInt) {
         if (strInt == null) {
             return false;
@@ -150,6 +167,12 @@ public class Parser {
         return true;
     }
 
+    /**
+     * Check if String given is in correct datetime format.
+     * @param dateStr String to be checked.
+     * @param formatter Format of DateTime to check with.
+     * @return True if string is in correct DateTime format.
+     */
     public static boolean isValidDate(String dateStr, DateTimeFormatter formatter) {
         try {
             LocalDateTime.parse(dateStr, formatter);
