@@ -45,7 +45,7 @@ public class Parser {
                 // Mark tasks as done
                 if (!userInput.matches("mark \\d+")) {
                     String errorMessage = "OOPS!!! The format of marking a task done is \"mark TASK_NUMBER\".\n" +
-                            "duke.task.Task number must exist in the task list.";
+                            "Task number must exist in the task list.";
                     throw new DukeException(errorMessage);
                 }
                 int taskNumber = Integer.parseInt(splitCommand[1]);
@@ -55,7 +55,7 @@ public class Parser {
                 // Mark tasks as undone
                 if (!userInput.matches("unmark \\d+")) {
                     String errorMessage = "OOPS!!! The format of marking a task done is \"unmark TASK_NUMBER\".\n" +
-                            "duke.task.Task number must exist in the task list.";
+                            "Task number must exist in the task list.";
                     throw new DukeException(errorMessage);
                 }
                 int taskNumber = Integer.parseInt(splitCommand[1]);
@@ -65,7 +65,7 @@ public class Parser {
                 // Delete task from list
                 if (!userInput.matches("delete \\d+")) {
                     String errorMessage = "OOPS!!! The format of marking a task done is \"delete TASK_NUMBER\".\n" +
-                            "duke.task.Task number must exist in the task list.";
+                            "Task number must exist in the task list.";
                     throw new DukeException(errorMessage);
                 }
                 int taskNumber = Integer.parseInt(splitCommand[1]);
