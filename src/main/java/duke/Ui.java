@@ -1,3 +1,5 @@
+package duke;
+
 public class Ui {
     private static final String name = "Bartholomew Hamish Montgomery";
     static final String line = "______________________________________________________________________________________\n";

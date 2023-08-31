@@ -1,13 +1,17 @@
+package duke;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+public class Deadlines extends Task {
+    private final LocalDate deadline;
 
-public class Events extends Task{
-    private final LocalDate start;
-    private final LocalDate end;
-    public Events(String task, LocalDate start, LocalDate end) {
+    /**
+     * deadline doesn't work with slashes
+     * other deadline formats?
+     */
+    public Deadlines(String task, LocalDate deadline) {
         super(task);
-        this.start = start;
-        this.end = end;
+        this.deadline = deadline;
     }
 
     @Override
@@ -25,8 +29,7 @@ public class Events extends Task{
     @Override
     public String toString() {
         String checkbox = this.done ? "[X] " : "[ ] ";
-        String startTime = "(from: " + start.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
-        String endTime = "to: " + end.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
-        return "[E]" + checkbox + task + " " + startTime + " " + endTime;
+        String submitDate = "(by: " + deadline.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
+        return "[D]" + checkbox + task + " " + submitDate;
     }
 }

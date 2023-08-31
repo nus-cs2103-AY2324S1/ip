@@ -1,3 +1,9 @@
+package duke;
+
+import duke.Deadlines;
+import duke.DukeException;
+import duke.Events;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -67,7 +73,7 @@ public class TaskList {
         int taskIndex = Integer.parseInt(input.substring(7)) - 1;
         try {
             if (taskIndex > taskCount || taskIndex < 0) {
-                throw new DukeException("Error: Invalid Task Index!");
+                throw new DukeException("Error: Invalid duke.Task Index!");
             } else {
                 int remainingTasks = taskCount - 1;
                 String response = Ui.line + "Got it! I've removed this task:" + "\n" + tasks.get(taskIndex).toString() + "\n"
@@ -88,9 +94,9 @@ public class TaskList {
         int taskIndex = Integer.parseInt(input.substring(5)) - 1;
         try {
             if (taskIndex > taskCount || taskIndex < 0) {
-                throw new DukeException("Error: Invalid Task Index!");
+                throw new DukeException("Error: Invalid duke.Task Index!");
             } else if (tasks.get(taskIndex).isMarked()) {
-                throw new DukeException("Error: Task is already completed!");
+                throw new DukeException("Error: duke.Task is already completed!");
             } else {
                 tasks.get(taskIndex).mark();
                 writeToFile();
@@ -104,9 +110,9 @@ public class TaskList {
         int taskIndex = Integer.parseInt(input.substring(7)) - 1;
         try {
             if (taskIndex > taskCount || taskIndex < 0) {
-                throw new DukeException("Error: Invalid Task Index!");
+                throw new DukeException("Error: Invalid duke.Task Index!");
             } else if (!tasks.get(taskIndex).isMarked()) {
-                throw new DukeException("Error: Task is already marked as incomplete!");
+                throw new DukeException("Error: duke.Task is already marked as incomplete!");
             } else {
                 tasks.get(taskIndex).unMark();
                 writeToFile();

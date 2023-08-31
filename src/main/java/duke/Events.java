@@ -1,6 +1,15 @@
-public class ToDos extends Task {
-    public ToDos(String task) {
+package duke;
+
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
+public class Events extends Task {
+    private final LocalDate start;
+    private final LocalDate end;
+    public Events(String task, LocalDate start, LocalDate end) {
         super(task);
+        this.start = start;
+        this.end = end;
     }
 
     @Override
@@ -18,6 +27,8 @@ public class ToDos extends Task {
     @Override
     public String toString() {
         String checkbox = this.done ? "[X] " : "[ ] ";
-        return "[T]" + checkbox + task;
+        String startTime = "(from: " + start.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
+        String endTime = "to: " + end.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
+        return "[E]" + checkbox + task + " " + startTime + " " + endTime;
     }
 }
