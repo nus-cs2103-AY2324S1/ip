@@ -1,7 +1,9 @@
 package ruiz.task;
-public class ToDos extends Task{
+
+public class ToDos extends Task {
     /**
      * A constructor for the public ToDos class.
+     *
      * @param description contains the description of the ToDo
      */
     public ToDos(String description) {
@@ -15,6 +17,7 @@ public class ToDos extends Task{
 
     /**
      * This method converts the value of an Event into a String type.
+     *
      * @return the String representation of the ToDo with its type and completion status.
      */
     @Override
