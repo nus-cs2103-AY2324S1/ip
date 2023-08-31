@@ -13,7 +13,6 @@ import java.util.ArrayList;
 class Storage {
     private String textFile;
     private String dataFile;
-    private ArrayList<Task> taskArr;
     public Storage(String textFile, String dataFile) {
         this.textFile = textFile;
         this.dataFile = dataFile;
@@ -22,17 +21,18 @@ class Storage {
         try {
             FileInputStream fileIn = new FileInputStream(this.dataFile);
             ObjectInputStream objIn = new ObjectInputStream(fileIn);
+            @SuppressWarnings("unchecked")
             // can safely cast because all the methods to modify the array
             // guarantee that the elements in the array are all sub-classes
             // of Task, the array is type-safe
-            taskArr = (ArrayList<Task>) objIn.readObject();
+            ArrayList<Task> taskArr = (ArrayList<Task>) objIn.readObject();
             objIn.close();
+            return taskArr;
         } catch (IOException e) {
             throw new DukeException("Data file is empty.");
         } catch (ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
-        return taskArr;
     }
     /**
      * Saves all the tasks' information in a text file.
