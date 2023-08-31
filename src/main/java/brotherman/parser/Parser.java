@@ -41,6 +41,10 @@ public class Parser {
         if (userCommand.equals("list")) {
             return new ListCommand();
 
+        } else if (userCommand.split(" ")[0].equals("find")) {
+            String keyword = userCommand.split(" ")[1];
+            return new FindCommand(keyword);
+
         } else if (userCommand.split(" ")[0].equals("mark")) {
             int task = Integer.parseInt(userCommand.split(" ")[1]) - 1;
             return new MarkDoneCommand(task);
@@ -89,6 +93,10 @@ public class Parser {
     public static boolean isValidCommands(String command) throws BrothermanException {
         if (command.equals("list")) {
             return true;
+        }
+
+        if (command.equals("find") && command.split(" ").length <= 1) {
+            throw new BrothermanException("Error! There must be a keyword to search for!");
         }
 
         if (command.split(" ")[0].equals("mark") && command.split(" ").length <= 1) {
