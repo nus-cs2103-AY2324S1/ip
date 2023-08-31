@@ -13,7 +13,7 @@ public class Parser {
      * Represents the different commands accepted by the chatbot
      */
     public enum Operations {
-        BYE, LIST, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, CHECK,
+        BYE, LIST, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, CHECK, FIND
     }
 
     private static final DateTimeFormatter FORMATTER = new DateTimeFormatterBuilder()
@@ -45,6 +45,8 @@ public class Parser {
             return new DeleteCommand(fullCommand);
         case CHECK:
             return new CheckCommand(fullCommand, FORMATTER);
+        case FIND:
+            return new FindCommand(fullCommand);
         default:
             throw new UnknownCommandException(fullCommand);
         }

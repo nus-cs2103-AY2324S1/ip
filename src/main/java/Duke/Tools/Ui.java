@@ -94,6 +94,18 @@ public class Ui {
         System.out.println(LINE);
     }
 
+    public void printRelatedTasks(TaskList tasks, String keyword) {
+        System.out.println("Here are your list of tasks:");
+        int index = 1;
+        for (int i = 0; i < tasks.size(); i++) {
+            Task task = tasks.get(i);
+            if (task.isRelatedContent(keyword)) {
+                System.out.printf(INDENTATION + "%d. %s%n", index++, task);
+            }
+        }
+        System.out.println(LINE);
+    }
+
     public void showErrorMessage(Exception e) {
         System.out.println(e.getMessage());
         System.out.println(LINE);
