@@ -14,6 +14,6 @@ public class Duke {
         storage.writeToStorage();
     }
     public static void main(String[] args) throws EmptyDescriptionException, InvalidCommandException, NotANumberException {
-        Duke duke = new Duke("./ip/src/main/data/duke.txt");
+        Duke duke = new Duke("../ip/src/main/data/duke.txt");
     }
 }
