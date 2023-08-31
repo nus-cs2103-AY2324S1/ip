@@ -7,17 +7,23 @@ import java.util.Scanner;
  */
 public class Duke {
     private TaskList fullList;
-    private final FileStorage fileStorage;
+    private final FileStorage FILE_STORAGE;
     private Parser parser;
     private static String filePath = "./data/duke.txt";
     private Ui ui;
 
+    /**
+     * Constructs a chatbot which will load any existing tasks stored in the filePath
+     * specified.
+     *
+     * @param filePath Represents the location of stored tasks.
+     */
     public Duke(String filePath) {
-        this.fileStorage = new FileStorage(filePath);
+        this.FILE_STORAGE = new FileStorage(filePath);
         try {
-            this.fullList  = new TaskList(fileStorage.loadFiles());
+            this.fullList  = new TaskList(FILE_STORAGE.loadFiles());
             this.ui = new Ui();
-            this.parser = new Parser(fileStorage, fullList, ui);
+            this.parser = new Parser(FILE_STORAGE, fullList, ui);
         } catch (FileCorruptedException e) {
             System.out.println("Saved tasks is corrupted. Please start adding new tasks");
             this.fullList = new TaskList();
@@ -36,6 +42,10 @@ public class Duke {
         }
     }
 
+    /**
+     * Initialises the application, displays a welcome message and
+     * enters a loop to process user inputs until the use enters "bye".
+     */
     public void run() {
         Scanner scanner = new Scanner(System.in);
         ui.showWelcome();
@@ -46,6 +56,11 @@ public class Duke {
         scanner.close();
     }
 
+    /**
+     * Entry point of the Duke application.
+     *
+     * @param args Command-line arguments. Not used in this context.
+     */
     public static void main(String[] args) {
         new Duke(filePath).run();
     }
