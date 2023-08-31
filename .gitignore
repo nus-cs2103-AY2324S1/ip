@@ -20,3 +20,6 @@ text-ui-test/EXPECTED-UNIX.TXT
 *.class
 *.jar
 *.exe
+
+# data storage, user-specific
+/data/

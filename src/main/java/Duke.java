@@ -1,12 +1,21 @@
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.Scanner;
+
+import static java.nio.file.Paths.*;
 
 public class Duke {
 
     static String softbreak = "--------------------------------------------------";
     static String hardbreak = "——————————————————————————————————————————————————";
-
+    String directory = "data";
+    String fileName = "Duke.txt";
+    Path filePath = get(System.getProperty("user.dir"), directory, fileName);
     ArrayList<Task> tasks = new ArrayList<>();
 
     /**
@@ -47,6 +56,63 @@ public class Duke {
 
     }
 
+    private void save(File saveFile) {
+
+        try {
+            FileOutputStream fos = new FileOutputStream(saveFile);
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
+            oos.writeObject(tasks);
+            oos.close();
+        } catch (IOException e) {
+            System.out.println("saving to file failed, " + e.getMessage());
+        }
+
+    }
+
+    private boolean initSave() {
+
+        boolean doesSaveExist = true;
+        String currDir = System.getProperty("user.dir");
+        Path dirPath = java.nio.file.Paths.get(currDir, directory);
+        File dir = dirPath.toFile();
+        if (!dir.exists()) {
+            dir.mkdir();
+            doesSaveExist = false;
+        }
+        Path savePath = java.nio.file.Paths.get(currDir, directory, fileName);
+        File save = savePath.toFile();
+        if (!save.exists()) {
+            doesSaveExist = false;
+            try {
+                save.createNewFile();
+            } catch (IOException e) {
+                System.out.println("Could not create new save file, " + e.getMessage());
+            }
+        }
+
+        return doesSaveExist;
+
+    }
+
+    private void load(File saveFile) {
+
+        if (saveFile.length() == 0) {
+            return;
+        }
+
+        try {
+            FileInputStream fis = new FileInputStream(saveFile);
+            ObjectInputStream ois = new ObjectInputStream(fis);
+            tasks = (ArrayList<Task>) ois.readObject();
+            ois.close();
+        } catch (IOException e) {
+            System.out.println("io reading from file failed, " + e.getMessage());
+        } catch (ClassNotFoundException e) {
+            System.out.println("cnf reading from file failed, " + e.getMessage());
+        }
+
+    }
+
     /**
      * Takes the user's input and parses it to execute actions.
      * @param input The user's input read in from the Scanner.
@@ -75,11 +141,11 @@ public class Duke {
                 try {
                     String[] deadlineSplits = detail.split("/by", 2);
                     String deadlineDescription = deadlineSplits[0].strip();
-                    String deadline = deadlineSplits[1].strip();
-                    if (deadline.isBlank() || deadlineDescription.isBlank())
+                    String deadlineStr = deadlineSplits[1].strip();
+                    if (deadlineStr.isBlank() || deadlineDescription.isBlank())
                         throw new DukeException("I can't read your mind. Do add more details.");
                     System.out.println("Alright. I'll make sure you don't forget it.");
-                    tasks.add(new Deadline(deadlineDescription, deadline));
+                    tasks.add(new Deadline(deadlineDescription, deadlineStr));
                     System.out.println(tasks.get(tasks.size() - 1));
                 } catch (ArrayIndexOutOfBoundsException e) {
                     throw new DukeException("Please format your description properly.");
@@ -192,6 +258,8 @@ public class Duke {
 
         }
 
+        save(filePath.toFile());
+
     }
 
     public static void main(String[] args) {
@@ -200,6 +268,10 @@ public class Duke {
         Scanner scanner = new Scanner(System.in);
 
         prts.greet();
+
+        prts.initSave();
+
+        prts.load(prts.filePath.toFile());
 
         while (true) {
 
