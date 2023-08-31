@@ -9,25 +9,28 @@ public class Storage {
         this.filePath = filePath;
     }
 
-    public ArrayList<String> loadTasks() {
-        ArrayList<String> taskStrings = new ArrayList<>();
+    public ArrayList<Task> loadTasks() {
+        ArrayList<Task> tasks = new ArrayList<>();
+        Task task = null;
+
         try (Scanner scanner = new Scanner(new File(filePath))) {
             while (scanner.hasNextLine()) {
-                taskStrings.add(scanner.nextLine());
+                task = Parser.parseFileString(scanner.nextLine());
+                tasks.add(task);
             }
         } catch (FileNotFoundException e) {
             Ui.showMessage("Data file not found, starting with an empty task list.");
         }
-        return taskStrings;
+        return tasks;
     }
 
-    public void saveTasks(ArrayList<String> taskStrings) {
+    public void saveTasks(TaskList tasks) {
         try (PrintWriter writer = new PrintWriter(new FileWriter(filePath))) {
-            for (String taskString : taskStrings) {
-                writer.println(taskString);
+            for (int i = 0; i < tasks.getTaskCount(); i++) {
+                writer.println(Parser.readTaskToFile(tasks.getTask(i)));
             }
         } catch (IOException e) {
-            Ui.showError("Error saving tasks to file: " + e.getMessage());
+            Ui.showErrorMessage("Error saving tasks to file: " + e.getMessage());
         }
     }
 }

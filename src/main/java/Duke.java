@@ -2,6 +2,7 @@ import java.io.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
@@ -11,6 +12,8 @@ public class Duke {
 
     private final TaskList taskList ;
     private final String FILE_PATH = "./src/main/data/duke.txt";
+    private final Storage storage = new Storage(FILE_PATH);
+
 
 
     /**
@@ -177,32 +180,20 @@ public class Duke {
     }
 
     private void loadTasksFromFile() {
-        try (Scanner scanner = new Scanner(new File(FILE_PATH))) {
-            while (scanner.hasNextLine()) {
-                String taskData = scanner.nextLine();
-                Task task = Task.parseDataString(taskData);
-                this.taskList.addTask(task);
-            }
-        } catch (FileNotFoundException e) {
-            System.out.println("Date file not found, starting with an empty task list.");
+        for (Task taskData : storage.loadTasks()) {
+            this.taskList.addTask(taskData);
         }
+
         if (!this.taskList.isEmpty()) {
-            this.taskList.displayTasks();
+            System.out.println(this.taskList.toString());
         }
     }
 
     /**
      * Saves the tasks to the storage file
      */
-    private void saveTasksToFile() {
-        try (PrintWriter writer = new PrintWriter(new FileWriter(FILE_PATH))) {
-            for (int i = 0; i < taskList.getTaskCount(); i++) {
-                Task task = taskList.getTask(i);
-                writer.println(task.readTaskToFile(task)); // Write the task's data to the file
-            }
-        } catch (IOException e) {
-            System.out.println("Error saving tasks to file: " + e.getMessage());
-        }
+    private void saveTasksToFile(TaskList taskList) {
+        this.storage.saveTasks(taskList);
     }
 
 //    public boolean handleCommand(String userInput) throws DukeException {
@@ -327,7 +318,7 @@ public class Duke {
                 userInput = Ui.getUserInput();
                 parsedCommand = Parser.parse(userInput);
                 isContinuing = handleCommand(parsedCommand);
-                this.saveTasksToFile();
+                this.saveTasksToFile(this.taskList.getTasks());
             } catch (DukeException e) {
                Ui.showErrorMessage(e.getMessage());
             }
