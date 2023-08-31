@@ -1,3 +1,5 @@
+package duke.parse;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -64,7 +66,7 @@ public class DateTimeManager {
      * Read the given input indicating a time and return a LocalTime instance.
      * @param input the raw input string
      * @return the LocalTime instance that corresponds to the string
-     * @throws DateParseException when the string cannot be parse properly to interpret a time
+     * @throws DateParseException when the string cannot be parsed properly to interpret a time
      */
     public static LocalTime parseTime(String input) throws DateParseException {
         String possibleAmPm = input.substring(input.length() - 2);

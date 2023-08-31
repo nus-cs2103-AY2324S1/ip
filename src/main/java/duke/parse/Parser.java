@@ -1,148 +1,24 @@
+package duke.parse;
+
+import duke.parse.command.AddCommand;
+import duke.parse.command.Command;
+import duke.parse.command.DeleteCommand;
+import duke.parse.command.EchoCommand;
+import duke.parse.command.EmptyCommand;
+import duke.parse.command.ExitCommand;
+import duke.parse.command.MarkCommand;
+import duke.parse.command.ListCommand;
+import duke.parse.command.SaveCommand;
+import duke.task.Deadline;
+import duke.task.Event;
+import duke.task.ToDo;
+
 import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class Parser {
-    public interface Command {
-        /**
-         * Execute the command.
-         * @return whether the execution allows the program to continue,
-         * true if it can, false means the program must exit
-         */
-        boolean execute(Duke bot);
-    }
-
-    public static class Exit implements Command {
-        private Exit() {
-        }
-
-        @Override
-        public boolean execute(Duke bot) {
-            bot.exit();
-            return false;
-        }
-    }
-
-    public enum Type {
-        TODO,
-        DEADLINE,
-        EVENT,
-        DEFAULT,
-    }
-
-    public static class List implements Command {
-        private boolean isExcludingDone;
-        private LocalDate date;
-        private Type type;
-
-        private List(boolean isExcludingDone, LocalDate date, Type type) {
-            this.isExcludingDone = isExcludingDone;
-            this.date = date;
-            this.type = type;
-        }
-
-        @Override
-        public boolean execute(Duke bot) {
-            switch (this.type) {
-                case TODO:
-                    bot.showTodos(this.isExcludingDone);
-                    break;
-                case DEADLINE:
-                    bot.showDeadlines(this.isExcludingDone, this.date);
-                    break;
-                case EVENT:
-                    bot.showEvents(this.isExcludingDone, this.date);
-                    break;
-                case DEFAULT:
-                    bot.showList(this.isExcludingDone, this.date);
-                    break;
-            }
-            return true;
-        }
-    }
-
-    public static class Mark implements Command {
-        private boolean isDone;
-        private int index;
-
-        private Mark(boolean isDone, int index) {
-            this.isDone = isDone;
-            this.index = index;
-        }
-
-        @Override
-        public boolean execute(Duke bot) {
-            if (this.isDone) {
-                bot.markTaskAsDone(this.index);
-            } else {
-                bot.markTaskAsNotDone(this.index);
-            }
-            return true;
-        }
-    }
-
-    public static class Add implements Command {
-        private Task task;
-
-        private Add(Task task) {
-            this.task = task;
-        }
-
-        @Override
-        public boolean execute(Duke bot) {
-            bot.addTaskToList(task);
-            return true;
-        }
-    }
-
-    public static class Delete implements Command {
-        private int taskIndex;
-
-        private Delete(int taskIndex) {
-            this.taskIndex = taskIndex;
-        }
-
-        @Override
-        public boolean execute(Duke bot) {
-            bot.deleteTask(this.taskIndex);
-            return true;
-        }
-    }
-
-    public static class Save implements Command {
-        private Save() {}
-
-        @Override
-        public boolean execute(Duke bot) {
-            bot.saveData();
-            return true;
-        }
-    }
-
-    public static class Echo implements Command {
-        private String command;
-
-        private Echo(String command) {
-            this.command = command;
-        }
-
-        @Override
-        public boolean execute(Duke bot) {
-            bot.echo(this.command);
-            return true;
-        }
-    }
-
-    public static class Empty implements Command {
-        private Empty() {}
-
-        @Override
-        public boolean execute(Duke bot) {
-            return true;
-        }
-    }
-
-    public static class ParseError extends Exception {
+    public class ParseError extends Exception {
         private ParseError(String message) {
             super(message);
         }
@@ -153,11 +29,11 @@ public class Parser {
         int index;
         switch (commandArgs[0]) {
             case "":
-                return new Empty();
+                return new EmptyCommand();
 
             case "exit":
             case "bye":
-                return new Exit();
+                return new ExitCommand();
 
             // show list
             case "list":
@@ -184,27 +60,27 @@ public class Parser {
                     }
                     switch (args[0]) {
                         case "todo":
-                            return new List(isExcludingDone, date, Type.TODO);
+                            return new ListCommand(isExcludingDone, date, ListCommand.Type.TODO);
                         case "deadline":
-                            return new List(isExcludingDone, date, Type.DEADLINE);
+                            return new ListCommand(isExcludingDone, date, ListCommand.Type.DEADLINE);
                         case "event":
-                            return new List(isExcludingDone, date, Type.EVENT);
+                            return new ListCommand(isExcludingDone, date, ListCommand.Type.EVENT);
                         default:
-                            return new List(isExcludingDone, date, Type.DEFAULT);
+                            return new ListCommand(isExcludingDone, date, ListCommand.Type.DEFAULT);
                     }
                 } else {
-                    return new List(false, null, Type.DEFAULT);
+                    return new ListCommand(false, null, ListCommand.Type.DEFAULT);
                 }
 
             // mark as done
             case "mark":
                 index = Parser.getTaskIndexFromCommand(commandArgs);
-                return new Mark(true, index);
+                return new MarkCommand(true, index);
 
             // mark as not done
             case "unmark":
                 index = Parser.getTaskIndexFromCommand(commandArgs);
-                return new Mark(false, index);
+                return new MarkCommand(false, index);
 
             // add to-do
             case "todo":
@@ -214,7 +90,7 @@ public class Parser {
                 if (commandArgs[1].equals("")) {
                     throw new ParseError("empty to-do task");
                 }
-                return new Add(new ToDo(commandArgs[1]));
+                return new AddCommand(new ToDo(commandArgs[1]));
 
             // add event
             case "event":
@@ -252,7 +128,7 @@ public class Parser {
                 try {
                     LocalDateTime startTime = DateTimeManager.inputToDate(separateByTo[0]);
                     LocalDateTime endTime = DateTimeManager.inputToDate(separateByTo[1]);
-                    return new Add(new Event(separateByFrom[0], startTime, endTime));
+                    return new AddCommand(new Event(separateByFrom[0], startTime, endTime));
                 } catch (DateTimeManager.DateParseException | DateTimeException e) {
                     throw new ParseError("invalid datetime");
                 }
@@ -280,7 +156,7 @@ public class Parser {
 
                 try {
                     LocalDateTime dateTime = DateTimeManager.inputToDate(separateByBy[1]);
-                    return new Add(new Deadline(separateByBy[0], dateTime));
+                    return new AddCommand(new Deadline(separateByBy[0], dateTime));
                 } catch (DateTimeManager.DateParseException | DateTimeException e) {
                     throw new ParseError("invalid datetime");
                 }
@@ -288,15 +164,15 @@ public class Parser {
             // delete task
             case "delete":
                 index = getTaskIndexFromCommand(commandArgs);
-                return new Delete(index);
+                return new DeleteCommand(index);
 
             // save data to hard disk
             case "save":
-                return new Save();
+                return new SaveCommand();
 
             // anything else
             default:
-                return new Echo(input);
+                return new EchoCommand(input);
         }
     }
 

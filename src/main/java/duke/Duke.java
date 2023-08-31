@@ -1,8 +1,14 @@
+package duke;
+
+import duke.parse.command.Command;
+import duke.parse.Parser;
+import duke.storage.Storage;
+import duke.ui.UI;
+import duke.task.Task;
+import duke.task.TaskList;
+
 import java.util.ArrayList;
-import java.util.Scanner;
-import java.time.DateTimeException;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 public class Duke {
     private final String myName = "Quack-NKN";
@@ -69,7 +75,7 @@ public class Duke {
             // receive input
             String input = this.ui.takeInput("In: ");
             try {
-                Parser.Command command = Parser.parse(input);
+                Command command = Parser.parse(input);
                 isContinuing = command.execute(this);
             } catch (Parser.ParseError e) {
                 this.ui.notifyError(e.getMessage());
