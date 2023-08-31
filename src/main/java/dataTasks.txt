@@ -1,3 +1,1 @@
-| T |   | book
-| T |   | review book
-| T |   | buy book
+| T |   | three
