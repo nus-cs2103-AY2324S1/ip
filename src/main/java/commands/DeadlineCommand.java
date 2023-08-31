@@ -26,7 +26,7 @@ public class DeadlineCommand extends Command{
         tasks.addTask(dl);
         task = dl;
         size = tasks.getSize();
-
+        System.out.println(this);
         try {
             dF.writeToFile(dl);
         } catch (IOException e) {

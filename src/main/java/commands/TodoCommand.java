@@ -23,6 +23,7 @@ public class TodoCommand extends Command{
         tasks.addTask(todo);
         task = todo;
         size = tasks.getSize();
+        System.out.println(this);
         try {
             dF.writeToFile(todo);
         } catch (IOException e) {

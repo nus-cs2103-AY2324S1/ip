@@ -106,6 +106,9 @@ public class Parser {
         ArrayList<String> texts = new ArrayList<>();
         switch (type) {
         case "E": {
+            if (input.indexOf("/by") - 1 < 6) {
+                throw new DukeException("Your Event name is blank");
+            }
             String desc = input.substring(6, input.indexOf("/from") - 1);
             if (desc.isBlank() || desc.isEmpty()) {
                 throw new DukeException("Your Event name is blank");
@@ -118,6 +121,9 @@ public class Parser {
             break;
         }
         case "D": {
+            if (input.indexOf("/by") - 1 < 9) {
+                throw new DukeException("Your Deadline name is blank");
+            }
             String desc = input.substring(9, input.indexOf("/by") - 1);
             if (desc.isBlank() || desc.isEmpty()) {
                 throw new DukeException("Your Deadline name is blank");

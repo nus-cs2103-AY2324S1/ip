@@ -2,40 +2,31 @@ package parser;
 
 import duke.DukeException;
 import org.junit.jupiter.api.Test;
+
+import java.util.ArrayList;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
 public class ParserTest {
-/*
-  @Test
-    public void intDivision_nonZeroDivisor_success() throws Exception {
-        // normal division results in an integer answer 2
-        assertEquals(2, new IntPair(4, 2).intDivision());
-
-        // normal division results in a decimal answer 1.9
-        assertEquals(1, new IntPair(19, 10).intDivision());
-
-        // dividend is zero but devisor is not
-        assertEquals(0, new IntPair(0, 5).intDivision());
+    @Test
+    public void convertTaskInput_deadlineCommand_success() throws DukeException {
+        assertEqualsConvertTaskInput("deadline Do notes /by 2/2/2019 2222");
     }
-        @Test
-    public void intDivision_zeroDivisor_exceptionThrown() {
+
+    @Test
+    public void convertTaskInput_missingNameDeadlineCommand_success() {
         try {
-            assertEquals(0, new IntPair(1, 0).intDivision());
-            fail(); // the test should not reach this line
-        } catch (Exception e) {
-            assertEquals("Divisor is zero", e.getMessage());
+            String input = "deadline /by 2/2/2019 2222";
+            new Parser("D").convertTaskInput(input);
+            fail();
+        } catch (DukeException e) {
+            assertEquals("Your Deadline name is blank", e.getMessage());
         }
     }
 
     @Test
-    public void testStringConversion() {
-        assertEquals("4,7", new IntPair(4, 7).toString());
-    }
-*/
-
-    @Test
-    public void getCommand_invalidCommandNotEmpty_throwDukeException(){
+    public void getCommand_invalidCommandNotEmpty_throwDukeException() {
         try {
             assertEquals(" ", new Parser().getCommand("sdfsfsdf"));
             fail();
@@ -45,7 +36,7 @@ public class ParserTest {
     }
 
     @Test
-    public void getCommand_invalidCommandTodo_throwDukeException(){
+    public void getCommand_invalidCommandTodo_throwDukeException() {
         try {
             assertEquals(" ", new Parser().getCommand("todooo"));
             fail();
@@ -55,7 +46,7 @@ public class ParserTest {
     }
 
     @Test
-    public void getCommand_invalidCommandDl_throwDukeException(){
+    public void getCommand_invalidCommandDl_throwDukeException() {
         try {
             assertEquals(" ", new Parser().getCommand("deadlinesad"));
             fail();
@@ -65,7 +56,7 @@ public class ParserTest {
     }
 
     @Test
-    public void getCommand_invalidCommandEvent_throwDukeException(){
+    public void getCommand_invalidCommandEvent_throwDukeException() {
         try {
             assertEquals(" ", new Parser().getCommand("eventsdf"));
             fail();
@@ -74,9 +65,8 @@ public class ParserTest {
         }
     }
 
-
     @Test
-    public void getCommand_invalidCommandEmpty_throwDukeException(){
+    public void getCommand_invalidCommandEmpty_throwDukeException() {
         try {
             assertEquals(" ", new Parser().getCommand(""));
             fail();
@@ -85,9 +75,14 @@ public class ParserTest {
         }
     }
 
-    @Test
-    public void dummyTest(){
-        assertEquals(2, 2);
+/*
+Helper methods
+ */
+    // deadline eat /by 2/2/2019 2222
+    public void assertEqualsConvertTaskInput(String input) throws DukeException {
+        ArrayList<String> texts = new Parser("D").convertTaskInput(input);
+        assertEquals("Do notes", texts.get(0));
+        assertEquals("2/2/2019 2222", texts.get(1));
     }
 
 }

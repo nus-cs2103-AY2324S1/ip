@@ -27,9 +27,7 @@ public class EventCommand extends Command{
         tasks.addTask(event);
         task = event;
         size = tasks.getSize();
-        System.out.println("Got it. I've added this task:\n" + event +
-                "\nNow you have " + tasks.getSize()  + " tasks in the list.");
-
+        System.out.println(this);
         try {
             dF.writeToFile(event);
         } catch (IOException e) {
