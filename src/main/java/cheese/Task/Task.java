@@ -3,7 +3,10 @@ package cheese.Task;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-// Task class
+
+/**
+ * Represents a task
+ */
 public class Task {
     private char type;
     private String description;

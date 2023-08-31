@@ -17,7 +17,15 @@ import cheese.Task.Task;
 import cheese.Parser.Parser;
 import cheese.TaskList.TaskList;
 
+/**
+ * Storage class that handles the loading and saving of tasks
+ *
+ */
+
 public class Storage {
+  /** 
+   * File object that represents the file to be loaded from and saved to
+   */
   private File file;
   private TaskList taskList;
   private Parser parser;
@@ -36,7 +44,11 @@ public class Storage {
     this.parser = new Parser();
 
   }
-
+  
+  /**
+   * Loads the tasks from the file and returns a TaskList object
+   * @return TaskList object
+   */
   public TaskList loadTask() {
     try {
       Scanner sc = new Scanner(this.file);
@@ -99,8 +111,12 @@ public class Storage {
     return this.taskList;
     
   }
-
-  public void saveTask(List cheeseList) {
+  
+  /**
+   * Saves the tasks in the TaskList object to the file
+   * @param cheeseList TaskList object
+   */
+  public void saveTask(List<Task> cheeseList) {
     try {
       FileWriter fw = new FileWriter(this.file);
       for (int i = 0; i < this.taskList.getSize(); i++) {
