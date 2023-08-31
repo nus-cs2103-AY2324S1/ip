@@ -1,4 +1,7 @@
 package datafile;
+import Exceptions.InvalidDeadlineException;
+import Exceptions.InvalidEventException;
+import Exceptions.NoTasksException;
 import Tasks.Deadline;
 import Tasks.Event;
 import Tasks.Task;
@@ -77,30 +80,36 @@ public class Storage {
                                 boolean isDoneD = checkDone(input[1]);
                                 String descriptionD = input[2];
                                 String by = input [3];
-                                Task toAddTaskD = new Deadline(descriptionD, by, isDoneD);
-                                tasks.add(toAddTaskD);
+                                try {
+                                    Task toAddTaskD = new Deadline(descriptionD, by, isDoneD);
+                                    tasks.add(toAddTaskD);
+                                } catch (InvalidDeadlineException e) {
+                                    System.out.println(e.getMessage());
+                                }
                                 break;
                             case "E":
                                 boolean isDoneE = checkDone(input[1]);
                                 String descriptionE = input[2];
                                 String fromE = input[3];
                                 String toE = input[4];
-                                Task toAddTaskE = new Event(descriptionE, fromE, toE, isDoneE);
-                                tasks.add(toAddTaskE);
+                                try {
+                                    Task toAddTaskE = new Event(descriptionE, fromE, toE, isDoneE);
+                                    tasks.add(toAddTaskE);
+                                } catch (InvalidEventException e) {
+                                    System.out.println(e.getMessage());
+                                }
+                                break;
                         }
                     }
                 } catch (FileNotFoundException e) {
                     System.out.println("File not found!");
                 }
-
-                }
-                return tasks;
+            }
+            return tasks;
         }
 
         private static boolean checkDone(String isDone) {
-            return isDone.equals("1")
-                    ? true
-                    : false;
+            return isDone.equals("1");
         }
 
 

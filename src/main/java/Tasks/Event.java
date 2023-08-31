@@ -1,23 +1,37 @@
 package Tasks;
 
 
+import Exceptions.InvalidEventException;
+
+import java.time.DateTimeException;
+import java.time.LocalDate;
+
 public class Event extends Task {
     /**
      * A child class of Tasks to create tasks with a start time & end time.
      */
 
-    protected String start;
-    protected String end;
-    public Event(String description, String start, String end) {
+    protected LocalDate start;
+    protected LocalDate end;
+    public Event(String description, String start, String end) throws InvalidEventException {
         super(description);
-        this.start = start;
-        this.end = end;
+        try {
+            this.start = LocalDate.parse(start);
+            this.end = LocalDate.parse(end);
+        } catch (DateTimeException e) {
+            throw new InvalidEventException("Invalid date");
+        }
+
     }
 
-    public Event(String description, String start, String end, boolean isDone) {
+    public Event(String description, String start, String end, boolean isDone) throws InvalidEventException {
         super(description, isDone);
-        this.start = start;
-        this.end = end;
+        try {
+            this.start = LocalDate.parse(start);
+            this.end = LocalDate.parse(end);
+        } catch (DateTimeException e) {
+            throw new InvalidEventException("Invalid date");
+        }
     }
     @Override
     public String toString() {

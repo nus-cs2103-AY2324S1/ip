@@ -103,7 +103,7 @@ public class Duke {
                                 throw new InvalidEventException("");
                             }
                             String taskDetails = getEventFromArray[0];
-                            String[] getEventToArray = getEventFromArray[1].split("/to ", 2);
+                            String[] getEventToArray = getEventFromArray[1].split(" /to ", 2);
                             if (getEventToArray.length < 2) {
                                 throw new InvalidEventException("");
                             }
