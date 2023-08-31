@@ -1,3 +1,6 @@
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+
 public class Task {
     protected String description;
     protected boolean isDone;
@@ -32,15 +35,15 @@ public class Task {
             }
             return task;
         } else if (type.equals("D")) {
-            String by = parts[3];
+            LocalDateTime by = LocalDateTime.parse(parts[3]);
             Task task = new Deadline(description, by);
             if (isDone == 1) {
                 task.markAsDone();
             }
             return task;
         } else if (type.equals("E")) {
-            String from = parts[3];
-            String to = parts[4];
+            LocalDateTime from = LocalDateTime.parse(parts[3]);
+            LocalTime to = LocalTime.parse(parts[4]);
             Task task = new Event(description, from, to);
             if (isDone == 1) {
                 task.markAsDone();
