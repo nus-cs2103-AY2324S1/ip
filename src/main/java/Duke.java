@@ -4,8 +4,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.time.temporal.ChronoUnit;
 
 class EmptyDescriptionException extends Exception {
     public EmptyDescriptionException(String task) {
@@ -34,15 +32,9 @@ class Duke {
         Scanner scanner = new Scanner(System.in);
         String botName = "Aaronbot";
         String savedString = "";
-        try {
-            byte[] encodedBytes = Files.readAllBytes(Paths.get("data/duke.txt"));
-            String fileContent = new String(encodedBytes);
-            savedString = fileContent;
-        } catch (IOException e) {
-            System.out.println("Error reading file: " + e.getMessage());
-        }
+        Storage storage = new Storage("data/duke.txt");
+        savedString = storage.load();
         TaskList tasks = new TaskList(savedString);
-
         System.out.println("Hello! I'm " + botName);
         System.out.println("What can I do for you?");
 
@@ -51,6 +43,7 @@ class Duke {
 
             try {
                 processUserInput(userInput, tasks);
+                storage.save(tasks);
             } catch (EmptyDescriptionException | UnknownCommandException | WrongFormatException e) {
                 System.out.println(e.getMessage());
             }
@@ -90,20 +83,17 @@ class Duke {
                 } else {
                     System.out.println("Invalid task index.");
                 }
-                tasks.saveToFile();
                 break;
             case DELETE:
                 int index = Integer.parseInt(inputParts[1]) - 1;
                 Task task = tasks.get(index);
                 tasks.remove(index);
-                tasks.saveToFile();
                 System.out.println("Noted. I've removed this task: \n" + task + "\nNow you have " + tasks.size() + " tasks in the list.");
                 break;
             case TODO:
             case DEADLINE:
             case EVENT:
                 handleTaskCreation(userInput, tasks, commandType);
-                tasks.saveToFile();
                 break;
             default:
                 throw new UnknownCommandException();
@@ -316,15 +306,6 @@ class TaskList {
         return task;
     }
 
-    public void saveToFile() {
-        try {
-            String content = this.toString(); // Get the string representation of tasks
-            Files.write(Paths.get("data/duke.txt"), content.getBytes());
-        } catch (IOException e) {
-            System.out.println("Error writing to file: " + e.getMessage());
-        }
-    }
-
     @Override
     public String toString() {
         StringBuilder stringBuilder = new StringBuilder();
@@ -334,5 +315,33 @@ class TaskList {
         }
         return stringBuilder.toString();
     }
-}    
 
+}
+
+class Storage {
+    private String directory;
+
+    Storage(String directory) {
+        this.directory = directory;
+    }
+
+    public String load() {
+        String fileContent = "";
+        try {
+            byte[] encodedBytes = Files.readAllBytes(Paths.get(directory));
+            fileContent = new String(encodedBytes);
+        } catch (IOException e) {
+            System.out.println("Error reading file: " + e.getMessage());
+        }
+        return fileContent;
+    }
+
+    public void save(TaskList tasks) {
+        try {
+            String content = tasks.toString(); // Get the string representation of tasks
+            Files.write(Paths.get(directory), content.getBytes());
+        } catch (IOException e) {
+            System.out.println("Error writing to file: " + e.getMessage());
+        }
+    }
+}
