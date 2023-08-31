@@ -20,7 +20,7 @@ public class DeadlineTest {
         assertEquals("[D][X] finish lab (by: Sep 11 2023 22:00)", done.toString());
 
     }
-
+    
     @Test
     public void testAsMark() {
         Deadline deadline = new Deadline("buy lunch", formatDateTime("3/9/2023 1300"));

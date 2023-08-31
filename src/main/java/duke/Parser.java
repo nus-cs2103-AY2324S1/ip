@@ -3,17 +3,34 @@ package duke;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+
+/**
+ * The Parser class is responsible for parsing user input and executing corresponding actions.
+ * It interacts with the TaskList and Ui classes to manage tasks and user interface interactions.
+ */
 public class Parser {
     private final TaskList list;
     private final Ui ui;
     private boolean status;
 
+    /**
+     * Constructs a Parser object with the specified TaskList and Ui instances.
+     *
+     * @param list The TaskList instance for managing tasks.
+     * @param ui The Ui instance for handling user interface interactions.
+     */
     public Parser(TaskList list, Ui ui) {
         this.list = list;
         this.ui = ui;
         this.status = true;
     }
 
+    /**
+     * Parses user input and executes corresponding actions.
+     *
+     * @param input The user input to be parsed and acted upon.
+     * @throws DukeException If there is an issue with parsing or executing the input.
+     */
     public void parse(String input) throws DukeException {
         String[] parts = input.split(" ", 2);
         String action = parts[0];
@@ -70,10 +87,22 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses a string into a LocalDateTime object using a specific format.
+     *
+     * @param input The input string representing a date and time.
+     * @return A LocalDateTime object parsed from the input.
+     * @throws DateTimeParseException If the input cannot be parsed into a valid LocalDateTime.
+     */
     private static LocalDateTime formatDateTime(String input) throws DateTimeParseException {
         return LocalDateTime.parse(input, DateTimeFormatter.ofPattern("d/M/yyyy HHmm"));
     }
 
+    /**
+     * Returns the status of the Parser indicating whether the main application loop should continue in Duke.
+     *
+     * @return True if the main loop should continue, false otherwise.
+     */
     public boolean status() {
         return this.status;
     }
