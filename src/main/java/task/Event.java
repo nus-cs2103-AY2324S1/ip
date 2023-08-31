@@ -1,6 +1,7 @@
 package task;
 
 import datehandler.DateHandler;
+import emiyaexception.InvalidDateException;
 import emiyaexception.WrongDateFormatException;
 
 import java.time.LocalDateTime;
@@ -12,7 +13,7 @@ public class Event extends Task {
     private LocalDateTime localDateTimeStart = null;
     private LocalDateTime localDateTimeEnd = null;
 
-    public Event(boolean completed, String nameOfTask, String start, String end) throws WrongDateFormatException {
+    public Event(boolean completed, String nameOfTask, String start, String end) throws WrongDateFormatException, InvalidDateException {
         super(completed, nameOfTask);
         this.start = start;
         this.end = end;
@@ -36,6 +37,6 @@ public class Event extends Task {
 
     @Override
     public String taskDetailsString() {
-        return super.nameOfTask + " |" + " " + DateHandler.correctDateTimeFormat(localDateTimeStart) + " |" + " " + DateHandler.correctDateTimeFormat(localDateTimeEnd);
+        return super.nameOfTask + " |" + " " + start + " |" + " " + end;
     }
 }

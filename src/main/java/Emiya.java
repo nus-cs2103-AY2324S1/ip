@@ -34,7 +34,7 @@ public class Emiya {
         ArrayList<Task> taskArrayList = new ArrayList<>();
         try {
             storage.fillListWithFileContent(taskArrayList, storage.fileContents("emiya.txt", "data"));
-        } catch (WrongDateFormatException e) {
+        } catch (EmiyaException e) {
             System.out.println(e.getMessage());
         }
         String welcomeMessage = "-----------------------------------------\n"

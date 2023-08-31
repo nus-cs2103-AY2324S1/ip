@@ -2,6 +2,7 @@ package task;
 
 import java.time.LocalDateTime;
 import datehandler.DateHandler;
+import emiyaexception.InvalidDateException;
 import emiyaexception.WrongDateFormatException;
 
 public class Deadline extends Task {
@@ -9,7 +10,7 @@ public class Deadline extends Task {
     private final String dateOfDeadline;
     private LocalDateTime localDateTime = null;
 
-    public Deadline(boolean completed, String nameOfTask, String dateOfDeadline) throws WrongDateFormatException {
+    public Deadline(boolean completed, String nameOfTask, String dateOfDeadline) throws WrongDateFormatException, InvalidDateException {
         super(completed, nameOfTask);
         this.localDateTime = DateHandler.determineDateTime(dateOfDeadline);
         this.dateOfDeadline = dateOfDeadline;
@@ -31,6 +32,6 @@ public class Deadline extends Task {
 
     @Override
     public String taskDetailsString() {
-        return super.nameOfTask + " |" + " " + DateHandler.correctDateTimeFormat(localDateTime);
+        return super.nameOfTask + " |" + " " + dateOfDeadline;
     }
 }

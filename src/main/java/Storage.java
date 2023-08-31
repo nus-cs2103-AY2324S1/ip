@@ -1,5 +1,6 @@
 import emiyaexception.CreateDirectoryFailException;
 import emiyaexception.EmiyaException;
+import emiyaexception.InvalidDateException;
 import emiyaexception.WrongDateFormatException;
 import task.Deadline;
 import task.Event;
@@ -97,7 +98,7 @@ public class Storage {
     }
 
 
-    public void fillListWithFileContent(ArrayList<Task> taskArrayList, String fileContent) throws WrongDateFormatException{
+    public void fillListWithFileContent(ArrayList<Task> taskArrayList, String fileContent) throws WrongDateFormatException, InvalidDateException {
         String[] tasksStrArr = fileContent.split("\n");
 
         for (String tasksStr : tasksStrArr) {
