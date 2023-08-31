@@ -36,8 +36,8 @@ public class TaskStud {
         return "task " + this.taskName + "\n";
     }
 
-    public static class ToDos extends Task {
-        public ToDos(String taskName) {
+    public static class ToDosStud extends TaskStud {
+        public ToDosStud(String taskName) {
             super(taskName);
         }
         @Override

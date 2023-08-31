@@ -9,10 +9,6 @@ import ui.Ui;
 
 import java.time.format.DateTimeFormatter;
 
-<<<<<<< HEAD
-=======
-
->>>>>>> master
 public class Duke {
     public static DateTimeFormatter FORMAT = DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm");
     private static ListOfTask taskList = new ListOfTask();
@@ -38,7 +34,7 @@ public class Duke {
         try {
             Parser cmd = new Parser(command);
             Commands action = cmd.parse();
-            if (action.execute(taskList, 0, null) == 1) {
+            if (action.action(taskList) == 1) {
                 nextCommand(ui.nextInput());
             } else {
                 ui.exit();

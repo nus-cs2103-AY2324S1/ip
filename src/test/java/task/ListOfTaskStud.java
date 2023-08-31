@@ -7,14 +7,14 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public class ListOfTaskStud {
-    private ArrayList<Task> listOfTask = new ArrayList<>();
+    private ArrayList<TaskStud> listOfTask = new ArrayList<>();
 
     public int size() {
         return listOfTask.size();
     }
 
     public void addTask(String task, boolean print) {
-        Task temp = new Task.ToDos(task);
+        TaskStud temp = new TaskStud(task);
         listOfTask.add(temp);
         if (print) {
             System.out.println("added: " + temp);
@@ -24,7 +24,7 @@ public class ListOfTaskStud {
 
 
     public void addTask(String task, LocalDateTime dayDate, boolean print) {
-        Task temp = new Task.Deadlines(task, dayDate);
+        TaskStud temp = new TaskStud.DeadlinesStud(task, dayDate);
         listOfTask.add(temp);
         if (print) {
             System.out.println("added: " + temp);
@@ -33,7 +33,7 @@ public class ListOfTaskStud {
     }
 
     public void addTask(String task, LocalDateTime startDayDateTime, LocalDateTime endDayDateTime, boolean print) {
-        Task temp = new Task.Event(task, startDayDateTime, endDayDateTime);
+        TaskStud temp = new TaskStud.EventStud(task, startDayDateTime, endDayDateTime);
         listOfTask.add(temp);
         if (print) {
             System.out.println("added: " + temp);
@@ -78,7 +78,7 @@ public class ListOfTaskStud {
 
     public void delete(int index, boolean print) throws DukeException {
         try {
-            Task removed = listOfTask.remove(index - 1);
+            TaskStud removed = listOfTask.remove(index - 1);
             if (print) {
                 System.out.println(removed + " has been removed");
             }
