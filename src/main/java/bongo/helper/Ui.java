@@ -49,6 +49,16 @@ public class Ui {
         System.out.println(tasksList.trim());
     }
 
+    public void showSearchedTasks(ArrayList<Task> tasks) {
+        StringBuilder allTasks = new StringBuilder();
+        for (int i = 0; i < tasks.size(); i++) {
+            allTasks.append(String.format(" %d. %s\n", i + 1, tasks.get(i)));
+        }
+        String tasksList = " Here are the matching tasks in your list:\n" +
+                allTasks;
+        System.out.println(tasksList.trim());
+    }
+
     public void showAddedTask(Task newTask, int totalTasks) {
         String addedTaskMessage = " Got it. I've added this task:\n" +
                 String.format("  %s\n", newTask) +
