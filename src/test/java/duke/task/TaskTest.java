@@ -31,7 +31,7 @@ public class TaskTest {
     }
 
     @Test
-    void markAsDone() {
+    void markAsDone_success() {
         Task task = new Task("Second Task Description");
         assertFalse(task.isDone);
         task.markAsDone();

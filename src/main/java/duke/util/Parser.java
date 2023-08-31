@@ -4,7 +4,6 @@ import duke.Duke;
 import duke.exception.EmptyDescriptionException;
 import duke.exception.InvalidCommandException;
 
-import duke.task.Task;
 import duke.task.Todo;
 import duke.task.Deadline;
 import duke.task.Event;
@@ -28,7 +27,7 @@ public class Parser {
         System.out.println(HORIZONTAL_LINE);
     }
 
-    private String getCommand (String line) {
+    private String getCommand(String line) {
         return line.trim().split("\\s+")[0].toUpperCase();
     }
 
@@ -84,7 +83,7 @@ public class Parser {
             e.printExceptionMessage();
         } catch (ArrayIndexOutOfBoundsException e) {
             System.out.println("     Please enter valid Integer index!");
-            System.out.printf("     You currently have %d tasks", taskList.taskList.size());
+            System.out.printf("     You currently have %d tasks", taskList.listOfTasks.size());
         } catch (Exception e) {
             System.out.println(HORIZONTAL_LINE);
             System.out.println("     Very Invalid command! Please enter valid commands");

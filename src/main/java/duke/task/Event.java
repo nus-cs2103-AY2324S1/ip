@@ -26,7 +26,6 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-//        return "[E]" + super.toString() + " (from: " + startTime + " to: " + endTime + ")";
         return String.format("[E]%s (from: %s to: %s)", super.toString(),
                 getStartTime().format(DateTimeFormatter.ofPattern("MMM d yyy")),
                 getEndTime().format(DateTimeFormatter.ofPattern("MMM d yyy")));
@@ -39,9 +38,7 @@ public class Event extends Task {
     public LocalDate getEndTime() {
         return this.endTime;
     }
-    public String getSchedule() {
-        return String.format("From %s to %s", getStartTime(), getEndTime());
-    }
+
     /**
      * Function to handle an Event Task. If it's inputs are valid, create an Event Task.
      * Otherwise, print an error message in the console.
@@ -63,13 +60,13 @@ public class Event extends Task {
                             LocalDate.parse(endTime));
 
                     Storage.saveTask(eventTask, true);
-                    Storage.taskList.add(eventTask); //duke.task.Deadline <: duke.task.Task
+                    Storage.listOfTasks.add(eventTask); //duke.task.Deadline <: duke.task.Task
 
                     //Print details in the console
                     printHorizontalLine();
                     System.out.println("     Got it. I've added this task:");
                     System.out.printf("       %s\n", eventTask.toString());
-                    System.out.printf("     Now you have %d task(s) in the list.\n", Storage.taskList.size());
+                    System.out.printf("     Now you have %d task(s) in the list.\n", Storage.listOfTasks.size());
                     printHorizontalLine();
                 } else {
                     throw new InvalidDateException();

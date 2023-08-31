@@ -21,11 +21,11 @@ import java.time.LocalDate;
 
 public class Storage {
     protected static String filePath;
-    public static ArrayList<Task> taskList;
+    public static ArrayList<Task> listOfTasks;
 
     public Storage(String filePath) {
         Storage.filePath = filePath;
-        taskList = new ArrayList<>(100);
+        listOfTasks = new ArrayList<>(100);
     }
 
     /**
@@ -111,7 +111,7 @@ public class Storage {
                             } else {
                                 taskFromHardDisk = new Event(taskDescription, LocalDate.parse(content[3]), LocalDate.parse(content[4]));
                                 checkCompletionStatus(taskFromHardDisk, content[1]);
-                                taskList.add(taskFromHardDisk);
+                                listOfTasks.add(taskFromHardDisk);
                                 //Potential error for content[3]
                             }
                             break;
@@ -121,14 +121,14 @@ public class Storage {
                             } else {
                                 taskFromHardDisk = new Deadline(taskDescription, LocalDate.parse(content[3]));
                                 checkCompletionStatus(taskFromHardDisk, content[1]);
-                                taskList.add(taskFromHardDisk);
+                                listOfTasks.add(taskFromHardDisk);
                                 //Potential error for content[3]
                             }
                             break;
                         default:
                             taskFromHardDisk = new Todo(taskDescription);
                             checkCompletionStatus(taskFromHardDisk, content[1]);
-                            taskList.add(taskFromHardDisk);
+                            listOfTasks.add(taskFromHardDisk);
                             break;
                         }
 
@@ -175,8 +175,8 @@ public class Storage {
      * @throws IOException throws IO Exception if file format is invalid or corrupted.
      */
     protected void updateData() throws IOException {
-        for (int i = 0; i < taskList.size(); i++) {
-            saveTask(taskList.get(i), i != 0);
+        for (int i = 0; i < listOfTasks.size(); i++) {
+            saveTask(listOfTasks.get(i), i != 0);
         }
     }
 }

@@ -10,13 +10,13 @@ import java.util.ArrayList;
 
 public class TaskList {
     protected Storage storage;
-    protected ArrayList<Task> taskList;
+    protected ArrayList<Task> listOfTasks;
     protected static String HORIZONTAL_LINE = "    ____________________________________________________________"; //60 underscores.
 
 
     public TaskList(Storage storage) {
         this.storage = storage;
-        this.taskList = storage.taskList;
+        this.listOfTasks = storage.listOfTasks;
     }
 
     protected void printHorizontalLine() {
@@ -27,15 +27,15 @@ public class TaskList {
      * List out all tasks.
      */
     protected void listAllTasks() {
-        if (taskList.isEmpty()) {
+        if (listOfTasks.isEmpty()) {
             printHorizontalLine();
             System.out.println("    No tasks for now!");
             printHorizontalLine();
         } else {
             printHorizontalLine();
             System.out.println("    Your current task list:");
-            for (int i = 0; i < taskList.size(); i++) {
-                System.out.printf("     %d.%s\n", i + 1, taskList.get(i).toString());
+            for (int i = 0; i < listOfTasks.size(); i++) {
+                System.out.printf("     %d.%s\n", i + 1, listOfTasks.get(i).toString());
             }
             printHorizontalLine();
         }
@@ -57,14 +57,14 @@ public class TaskList {
             int deleteIndex = Integer.parseInt(words[1]) - 1; // Potential Error cannot parse to integer
             printHorizontalLine();
 
-            if (deleteIndex >= 0 && deleteIndex < taskList.size()) {
-                Task removedTask = taskList.remove(deleteIndex); //Actual ask can be todo, deadline, or event
+            if (deleteIndex >= 0 && deleteIndex < listOfTasks.size()) {
+                Task removedTask = listOfTasks.remove(deleteIndex); //Actual ask can be todo, deadline, or event
                 System.out.println("     Noted. I've removed this Task:");
                 System.out.printf("       %s\n", removedTask.toString());
-                System.out.printf("     Now you have %d task(s) in the list.\n", taskList.size());
+                System.out.printf("     Now you have %d task(s) in the list.\n", listOfTasks.size());
             } else {
                 System.out.println("     OOPS!!! The task index is invalid.");
-                System.out.printf("     You currently have %d task(s).\n", taskList.size());
+                System.out.printf("     You currently have %d task(s).\n", listOfTasks.size());
             }
             printHorizontalLine();
 
@@ -85,10 +85,10 @@ public class TaskList {
      */
     protected void markTask(int taskIndex) throws IOException {
         printHorizontalLine();
-        if (taskIndex < 0 || taskIndex >= taskList.size()) {
-            System.out.printf("     Invalid Index of Task. You currently have %d Task(s)\n", taskList.size());
+        if (taskIndex < 0 || taskIndex >= listOfTasks.size()) {
+            System.out.printf("     Invalid Index of Task. You currently have %d Task(s)\n", listOfTasks.size());
         } else {
-            Task task = taskList.get(taskIndex);
+            Task task = listOfTasks.get(taskIndex);
             task.markAsDone();
             System.out.println("     Nice! I've marked this Task as done:");
             System.out.printf("       [%s] %s\n", task.getStatusIcon(), task.description);
@@ -104,10 +104,10 @@ public class TaskList {
      */
     protected void unmarkTask(int taskIndex) throws IOException {
         printHorizontalLine();
-        if (taskIndex < 0 || taskIndex >= taskList.size()) {
-            System.out.printf("    Invalid Index of task. You currently have %d Task(s)\n", taskList.size());
+        if (taskIndex < 0 || taskIndex >= listOfTasks.size()) {
+            System.out.printf("    Invalid Index of task. You currently have %d Task(s)\n", listOfTasks.size());
         } else {
-            Task task = taskList.get(taskIndex);
+            Task task = listOfTasks.get(taskIndex);
             task.markAsNotDone();
             System.out.println("     OK, I've marked this Task as not done yet:");
             System.out.printf("       [%s] %s\n", task.getStatusIcon(), task.description);

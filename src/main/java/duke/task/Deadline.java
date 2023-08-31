@@ -23,7 +23,6 @@ public class Deadline extends Task {
     }
     @Override
     public String toString() {
-        //return "[D]" + super.toString() + " (by: " + by + ")";
         return String.format("[D]%s (by: %s)", super.toString(),
                 getDeadlineDate().format(DateTimeFormatter.ofPattern("MMM d yyyy")));
     }
@@ -49,13 +48,13 @@ public class Deadline extends Task {
                 if (TaskList.isValidDate(deadline)) {
                     Deadline deadlineTask = new Deadline(taskDescription, LocalDate.parse(deadline));
                     Storage.saveTask(deadlineTask, true);
-                    Storage.taskList.add(deadlineTask); //duke.task.Deadline <: duke.task.Task
+                    Storage.listOfTasks.add(deadlineTask); //duke.task.Deadline <: duke.task.Task
 
                     //Print details in the console
                     System.out.println(Duke.HORIZONTAL_LINE);
                     System.out.println("     Got it. I've added this Task:");
                     System.out.printf("       %s\n", deadlineTask.toString());
-                    System.out.printf("     Now you have %d task(s) in the list.\n", Storage.taskList.size());
+                    System.out.printf("     Now you have %d task(s) in the list.\n", Storage.listOfTasks.size());
                     System.out.println(Duke.HORIZONTAL_LINE);
                 } else {
                     throw new InvalidDateException();
