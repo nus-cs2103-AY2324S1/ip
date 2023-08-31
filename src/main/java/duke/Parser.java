@@ -123,7 +123,7 @@ public class Parser {
             }
 
         default:
-            throw new InvalidCommandException("command.Command not understood");
+            throw new InvalidCommandException("Unknown/Invalid command given");
         }
 
     }
