@@ -2,7 +2,6 @@ import java.io.File;
 import java.io.IOException;
 
 public class Storage {
-
     private File file;
     public Storage() {
         try {
