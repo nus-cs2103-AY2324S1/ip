@@ -4,25 +4,53 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+
+/**
+ * Represents a list of tasks and provides methods to interact with the tasks.
+ */
 public class TaskList {
     private ArrayList<Task> tasks;
 
+    /**
+     * Constructs an empty TaskList.
+     */
     public TaskList() {
         this.tasks = new ArrayList<>();
     }
 
+    /**
+     * Constructs a TaskList with the provided list of tasks.
+     *
+     * @param tasks The initial list of tasks to populate the TaskList.
+     */
     public TaskList(ArrayList<Task> tasks) {
         this.tasks = tasks;
     }
 
+    /**
+     * Returns the number of tasks in the TaskList.
+     *
+     * @return The number of tasks.
+     */
     public int size() {
         return this.tasks.size();
     }
 
+    /**
+     * Adds a task to the TaskList without displaying any messages.
+     *
+     * @param task The task to be added.
+     */
     public void quietlyAddTask(Task task) {
         this.tasks.add(task);
     }
 
+    /**
+     * Adds a task to the TaskList and displays a confirmation message.
+     *
+     * @param task The task to be added.
+     * @throws BeeException If there's an issue with adding the task.
+     */
     public void addTask(Task task) {
         this.tasks.add(task);
         System.out.println("Got it. I've added this task: ~Bzzz~");
@@ -30,6 +58,9 @@ public class TaskList {
         System.out.println("Now you have " + this.tasks.size() + " tasks in the list. ~Bzzz~");
     }
 
+    /**
+     * Lists all tasks in the TaskList along with their indices.
+     */
     public void listAllTasks() {
         System.out.println("Here are the tasks in your list: ~Bzzz~");
         for (int i = 0; i < this.tasks.size() ; i++) {
@@ -37,13 +68,31 @@ public class TaskList {
         }
     }
 
+    /**
+     * Returns the list of tasks in the TaskList.
+     *
+     * @return The list of tasks.
+     */
     public ArrayList<Task> getTasks() {
         return tasks;
     }
 
+    /**
+     * Retrieves the task at the specified index.
+     *
+     * @param index The index of the task to retrieve.
+     * @return The task at the specified index.
+     */
     public Task getTask(int index) {
         return tasks.get(index);
     }
+
+    /**
+     * Marks a task as done based on its index in the TaskList.
+     *
+     * @param taskIndex The index of the task to mark as done.
+     * @throws BeeException If there's an issue with marking the task as done.
+     */
     public void setTaskDone(int taskIndex) throws BeeException {
         if (taskIndex > this.tasks.size() || taskIndex < 1) {
             throw new BeeException("OOPS!! Please enter a valid task number.");
@@ -53,6 +102,12 @@ public class TaskList {
         System.out.println(this.tasks.get(taskIndex - 1).toString());
     }
 
+    /**
+     * Marks a task as not done based on its index in the TaskList.
+     *
+     * @param taskIndex The index of the task to mark as not done.
+     * @throws BeeException If there's an issue with marking the task as not done.
+     */
     public void setTaskNotDone(int taskIndex) throws BeeException {
         if (taskIndex > this.tasks.size() || taskIndex < 1) {
             throw new BeeException("OOPS!! Please enter a valid task number.");
@@ -62,6 +117,12 @@ public class TaskList {
         System.out.println(this.tasks.get(taskIndex - 1).toString());
     }
 
+    /**
+     * Deletes a task based on its index in the TaskList.
+     *
+     * @param taskIndex The index of the task to delete.
+     * @throws BeeException If there's an issue with deleting the task.
+     */
     public void deleteTask(int taskIndex) throws BeeException {
         if (taskIndex > tasks.size() || taskIndex < 1) {
             throw new BeeException("OOPS!! Please enter a valid task number.");
@@ -73,6 +134,13 @@ public class TaskList {
         System.out.println("Now you have " + this.tasks.size() + " tasks in the list.");
     }
 
+    /**
+     * Creates a task of the specified type based on user input and adds it to the TaskList.
+     *
+     * @param task      The type of task to create.
+     * @param userInput The user input specifying the task details.
+     * @throws BeeException If there's an issue with creating or adding the task.
+     */
     public void createTask(Parser.TaskClass task, String userInput) throws BeeException {
         switch (task) {
             case TODO:
@@ -135,6 +203,14 @@ public class TaskList {
                 this.addTask(new Task(userInput));
         }
     }
+
+    /**
+     * Updates a task based on the specified action and user input.
+     *
+     * @param action    The action to perform on the task (e.g., mark, unmark, delete).
+     * @param userInput The user input specifying the task and action.
+     * @throws BeeException If there's an issue with performing the task action.
+     */
     public void updateTask(Parser.TaskAction action, String userInput) throws BeeException {
         String[] splitInput = userInput.split(" ");
         switch (action) {
