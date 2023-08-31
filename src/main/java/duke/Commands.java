@@ -90,4 +90,9 @@ public class Commands {
             ui.printException(e);
         }
     }
+
+    public void findTasks(String keyword) {
+        List<Task> matchingTasks = task_List.findMatchingTasks(keyword);
+        ui.printMatchingTasks(matchingTasks);
+    }
 }

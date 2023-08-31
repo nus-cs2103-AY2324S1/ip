@@ -48,7 +48,7 @@ public class Task {
         return (isDone ? "Y" : "N");
     }
 
-    private String getDescription(){
+    public String getDescription(){
         return description;
     }
 
