@@ -19,7 +19,17 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Represents a parser to parse user input
+ */
 public class Parser {
+
+    /**
+     * Parses the user input and returns the corresponding command
+     * @param userCommand User input
+     * @return Command corresponding to the user input
+     * @throws BrothermanException If the user input is invalid
+     */
     public static Command parse(String userCommand) throws BrothermanException {
 
         if (userCommand.equals("bye")) {
@@ -69,6 +79,13 @@ public class Parser {
         return new ListCommand();
     }
 
+
+    /**
+     * Checks if the user input is valid
+     * @param command User input
+     * @return True if the user input is valid
+     * @throws BrothermanException If the user input is invalid
+     */
     public static boolean isValidCommands(String command) throws BrothermanException {
         if (command.equals("list")) {
             return true;
@@ -108,10 +125,23 @@ public class Parser {
         return true;
     }
 
+
+    /**
+     * Parses the user input as a todo
+     * @param description Description of the todo
+     * @return Todo parsed from the user input
+     */
     public static Todo parseTodo(String description) {
         return new Todo(description);
     }
 
+
+    /**
+     * Parses the user input as a deadline
+     * @param description Description of the deadline
+     * @param time Due date/time of the deadline
+     * @return Deadline parsed from the user input
+     */
     public static Deadline parseDeadline(String description, String time) {
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern(
@@ -136,6 +166,14 @@ public class Parser {
         return new Deadline(description, dateTimeObj);
     }
 
+
+    /**
+     * Parses the user input as an event
+     * @param description Description of the event
+     * @param startTime Start date/time of the event
+     * @param endTime End date/time of the event
+     * @return Event parsed from the user input
+     */
     public static Event parseEvent(String description, String startTime, String endTime) {
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern(

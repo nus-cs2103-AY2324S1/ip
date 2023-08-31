@@ -3,7 +3,6 @@ package brotherman.storage;
 import brotherman.tasks.Task;
 import brotherman.tasks.TaskList;
 
-import brotherman.ui.Ui;
 
 import brotherman.parser.Parser;
 
@@ -13,14 +12,30 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Represents a storage to save and load the task list
+ */
 public class Storage {
+
+    /**
+     * File path of the storage
+     */
     private File folder;
 
+    /**
+     * Constructor for Storage
+     * @param filePath File path of the storage
+     */
     public Storage(String filePath) {
         this.folder = new File(filePath);
         if(!folder.exists()) folder.mkdirs();
     }
 
+
+    /**
+     * Reads the task list from the storage
+     * @return Task list from the storage
+     */
     public TaskList readFromFile() {
         ArrayList<Task> taskList = new ArrayList<>();
         try (Scanner sc = new Scanner(new File("./data/brotherman.txt"))) {
@@ -53,6 +68,11 @@ public class Storage {
         return new TaskList(taskList);
     }
 
+
+    /**
+     * Saves the task list to the storage
+     * @param list Task list to be saved
+     */
     public void saveToFile(ArrayList<Task> list) {
 
         try (PrintWriter output = new PrintWriter("./data/brotherman.txt")){
