@@ -83,6 +83,12 @@ public class Parser {
                 }
                 output = new DateSearchCommand(LocalDate.parse(input[1]));
                 break;
+            case "find":
+                if (input.length == 1) {
+                    throw new EmptyDescriptionException("keyword search");
+                }
+                output = new SearchCommand(input[1]);
+                break;
             default:
                 throw new InvalidCommandException();
         }

@@ -29,7 +29,7 @@ public class TaskList {
         return update(currentTasks);
     }
 
-    public TaskList delete(int index) throws IOException {
+    public TaskList delete(int index) {
         ArrayList<Task> currentTasks = this.tasks;
         currentTasks.remove(index - 1);
         return update(currentTasks);
@@ -51,10 +51,25 @@ public class TaskList {
 
     public String dateSearch(LocalDate date) {
         String res= "";
+        int index = 1;
         for (int i = 0; i < tasks.size(); i++) {
             if (tasks.get(i).happenOnThatDate(date)) {
-                res = res + Integer.toString(i + 1) +
+                res = res + Integer.toString(index) +
                         ": " + tasks.get(i).toString() + "\n";
+                index += 1;
+            }
+        }
+        return res;
+    }
+
+    public String search(String keyword) {
+        String res= "";
+        int index = 1;
+        for (Task task : tasks) {
+            if (task.getDescription().contains(keyword)) {
+                res = res + Integer.toString(index) +
+                        ": " + task.toString() + "\n";
+                index += 1;
             }
         }
         return res;
