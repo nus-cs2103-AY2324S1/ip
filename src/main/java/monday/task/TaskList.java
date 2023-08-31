@@ -113,6 +113,7 @@ public class TaskList {
             System.out.println("Your list is empty.");
         } else {
             int matchingTaskCount = 1;
+            System.out.println("Here are the matching tasks in your list:");
             for (Task curr : list) {
                 if (curr.toString().contains(keyword)) {
                     System.out.println(matchingTaskCount + "." + curr);
