@@ -1,344 +1,344 @@
-_______         _
-|  ____|       (_)
-| |__ ___  _ __ _ _ __   ___
-|  __/ _ \| '__| | '_ \ / _ \
-| | | (_) | |  | | | | |  __/
-|_|  \___/|_|  |_|_| |_|\___|
+    _______         _
+    |  ____|       (_)
+    | |__ ___  _ __ _ _ __   ___
+    |  __/ _ \| '__| | '_ \ / _ \
+    | | | (_) | |  | | | | |  __/
+    |_|  \___/|_|  |_|_| |_|\___|
 
-     ____________________________________________________________
-     Hello! I'm Forine
-     What can I do for you?
-     ____________________________________________________________
-     OOPS!!! I'm sorry, but I don't know what that means :-(
-	 You typed: 
-     ____________________________________________________________
-     ____________________________________________________________
-     Invalid index!
-     ____________________________________________________________
-     ____________________________________________________________
-     OOPS!!! I'm sorry, but I don't know what that means :-(
-	 You typed: asdf
-     ____________________________________________________________
-     ____________________________________________________________
-     OOPS!!! I'm sorry, but I don't know what that means :-(
-	 You typed: Entry 1 should be empty
-     ____________________________________________________________
-     ____________________________________________________________
-     OOPS!!! I'm sorry, but I don't know what that means :-(
-	 You typed: Mark 1
-     ____________________________________________________________
-     ____________________________________________________________
-     OOPS!!! I'm sorry, but I don't know what that means :-(
-	 You typed: mark fail, there isnt an exception to handle this, it just isnt caught in the regex
-     ____________________________________________________________
-     ____________________________________________________________
-     OOPS!!! I'm sorry, but I don't know what that means :-(
-	 You typed: mark1
-     ____________________________________________________________
-     ____________________________________________________________
-     Invalid index!
-     ____________________________________________________________
-     ____________________________________________________________
-     Invalid index!
-     ____________________________________________________________
-     ____________________________________________________________
-     OOPS!!! I'm sorry, but I don't know what that means :-(
-	 You typed: Unmark 1
-     ____________________________________________________________
-     ____________________________________________________________
-     Invalid index!
-     ____________________________________________________________
-     ____________________________________________________________
-     Invalid index!
-     ____________________________________________________________
-     ____________________________________________________________
-     Invalid index!
-     ____________________________________________________________
-     ____________________________________________________________
-     OOPS!!! I'm sorry, but I don't know what that means :-(
-	 You typed: Todo Testing Caps would not make TODO
-     ____________________________________________________________
-     ____________________________________________________________
-     Got it. I've added this task:
-          [T][ ] asdf1
-     Now you have 1 tasks in the list.
-     ____________________________________________________________
-     ____________________________________________________________
-     Got it. I've added this task:
-          [T][ ] asdf Testing Spaces
-     Now you have 2 tasks in the list.
-     ____________________________________________________________
-     ____________________________________________________________
-     OOPS!!! The description of a todo cannot be empty.
-     ____________________________________________________________
-     ____________________________________________________________
-     OOPS!!! The description of a todo cannot be empty.
-     ____________________________________________________________
-     ____________________________________________________________
-     OOPS!!! The description of a todo cannot be empty.
-     ____________________________________________________________
-     ____________________________________________________________
-     OOPS!!! The description of a todo cannot be empty.
-     ____________________________________________________________
-     ____________________________________________________________
-     Invalid index!
-     ____________________________________________________________
-     ____________________________________________________________
-     Nice! I've marked this task as done:
-          [T][X] asdf Testing Spaces
-     ____________________________________________________________
-     ____________________________________________________________
-          1. [T][ ] asdf1
-          2. [T][X] asdf Testing Spaces
-     ____________________________________________________________
-     ____________________________________________________________
-     Ok! I've marked this task as not done yet:
-          [T][ ] asdf1
-     ____________________________________________________________
-     ____________________________________________________________
-          1. [T][ ] asdf1
-          2. [T][X] asdf Testing Spaces
-     ____________________________________________________________
-     ____________________________________________________________
-     Ok! I've marked this task as not done yet:
-          [T][ ] asdf Testing Spaces
-     ____________________________________________________________
-     ____________________________________________________________
-          1. [T][ ] asdf1
-          2. [T][ ] asdf Testing Spaces
-     ____________________________________________________________
-     ____________________________________________________________
-     Ok! I've marked this task as not done yet:
-          [T][ ] asdf Testing Spaces
-     ____________________________________________________________
-     ____________________________________________________________
-          1. [T][ ] asdf1
-          2. [T][ ] asdf Testing Spaces
-     ____________________________________________________________
-     ____________________________________________________________
-     Invalid index!
-     ____________________________________________________________
-     ____________________________________________________________
-     OOPS!!! I'm sorry, but I don't know what that means :-(
-	 You typed: deadline fail(ByNotMakingRealDeadline)
-     ____________________________________________________________
-     ____________________________________________________________
-     OOPS!!! I'm sorry, but I don't know what that means :-(
-	 You typed: Deadline caps should not make a real deadline
-     ____________________________________________________________
-     ____________________________________________________________
-     OOPS!!! I'm sorry, but I don't know what that means :-(
-	 You typed: deadline /by fail
-     ____________________________________________________________
-     ____________________________________________________________
-     OOPS!!! I'm sorry, but I don't know what that means :-(
-	 You typed: deadline fail /by
-     ____________________________________________________________
-     ____________________________________________________________
-     OOPS!!! I'm sorry, but I don't know what that means :-(
-	 You typed: deadline this /from should /to fail
-     ____________________________________________________________
-     ____________________________________________________________
-     OOPS!!! I'm sorry, but I don't know what that means :-(
-	 You typed: deadline clumping/byshouldfail
-     ____________________________________________________________
-     ____________________________________________________________
-     Got it. I've added this task:
-          [D][ ] should (by: work)
-     Now you have 3 tasks in the list.
-     ____________________________________________________________
-     ____________________________________________________________
-     OOPS!!! The description of a deadline cannot be empty.
-     ____________________________________________________________
-     ____________________________________________________________
-     OOPS!!! The /by parameter is invalid!
-	Usage: deadline <description> /by <date>
-     ____________________________________________________________
-     ____________________________________________________________
-     Got it. I've added this task:
-          [D][ ] extra spaces  should (by: work)
-     Now you have 4 tasks in the list.
-     ____________________________________________________________
-     ____________________________________________________________
-     Got it. I've added this task:
-          [D][ ] this /from should /to make a (by: deadline)
-     Now you have 5 tasks in the list.
-     ____________________________________________________________
-     ____________________________________________________________
-     Got it. I've added this task:
-          [D][ ] this /from should (by: not be mixed)
-     Now you have 6 tasks in the list.
-     ____________________________________________________________
-     ____________________________________________________________
-     Got it. I've added this task:
-          [D][ ] this (by: should /to not be mixed)
-     Now you have 7 tasks in the list.
-     ____________________________________________________________
-     ____________________________________________________________
-          1. [T][ ] asdf1
-          2. [T][ ] asdf Testing Spaces
-          3. [D][ ] should (by: work)
-          4. [D][ ] extra spaces  should (by: work)
-          5. [D][ ] this /from should /to make a (by: deadline)
-          6. [D][ ] this /from should (by: not be mixed)
-          7. [D][ ] this (by: should /to not be mixed)
-     ____________________________________________________________
-     ____________________________________________________________
-     Nice! I've marked this task as done:
-          [D][X] extra spaces  should (by: work)
-     ____________________________________________________________
-     ____________________________________________________________
-          1. [T][ ] asdf1
-          2. [T][ ] asdf Testing Spaces
-          3. [D][ ] should (by: work)
-          4. [D][X] extra spaces  should (by: work)
-          5. [D][ ] this /from should /to make a (by: deadline)
-          6. [D][ ] this /from should (by: not be mixed)
-          7. [D][ ] this (by: should /to not be mixed)
-     ____________________________________________________________
-     ____________________________________________________________
-     Ok! I've marked this task as not done yet:
-          [D][ ] extra spaces  should (by: work)
-     ____________________________________________________________
-     ____________________________________________________________
-          1. [T][ ] asdf1
-          2. [T][ ] asdf Testing Spaces
-          3. [D][ ] should (by: work)
-          4. [D][ ] extra spaces  should (by: work)
-          5. [D][ ] this /from should /to make a (by: deadline)
-          6. [D][ ] this /from should (by: not be mixed)
-          7. [D][ ] this (by: should /to not be mixed)
-     ____________________________________________________________
-     ____________________________________________________________
-     OOPS!!! I'm sorry, but I don't know what that means :-(
-	 You typed: Event fail(ByNotMakingRealEvent)
-     ____________________________________________________________
-     ____________________________________________________________
-     OOPS!!! I'm sorry, but I don't know what that means :-(
-	 You typed: Event caps should not make a real event
-     ____________________________________________________________
-     ____________________________________________________________
-     OOPS!!! I'm sorry, but I don't know what that means :-(
-	 You typed: event /at fail
-     ____________________________________________________________
-     ____________________________________________________________
-     OOPS!!! I'm sorry, but I don't know what that means :-(
-	 You typed: event fail /at
-     ____________________________________________________________
-     ____________________________________________________________
-     OOPS!!! I'm sorry, but I don't know what that means :-(
-	 You typed: event should /at fail
-     ____________________________________________________________
-     ____________________________________________________________
-     OOPS!!! The description of a event cannot be empty.
-     ____________________________________________________________
-     ____________________________________________________________
-     OOPS!!! The /from parameter is invalid!
-	Usage: event <description> /from <from_date> /to <to_date>
-     ____________________________________________________________
-     ____________________________________________________________
-     OOPS!!! The /to parameter is invalid!
-	Usage: event <description> /from <from_date> /to <to_date>
-     ____________________________________________________________
-     ____________________________________________________________
-     OOPS!!! I'm sorry, but I don't know what that means :-(
-	 You typed: event thisClumping /from Should/by Fail
-     ____________________________________________________________
-     ____________________________________________________________
-     OOPS!!! I'm sorry, but I don't know what that means :-(
-	 You typed: event thisClumping/fromShould /by Fail
-     ____________________________________________________________
-     ____________________________________________________________
-     OOPS!!! I'm sorry, but I don't know what that means :-(
-	 You typed: event thisClumping/fromShould/byFail
-     ____________________________________________________________
-     ____________________________________________________________
-     OOPS!!! I'm sorry, but I don't know what that means :-(
-	 You typed: event this /from should /by fail
-     ____________________________________________________________
-     ____________________________________________________________
-     OOPS!!! I'm sorry, but I don't know what that means :-(
-	 You typed: event this /by should /at fail
-     ____________________________________________________________
-     ____________________________________________________________
-     Got it. I've added this task:
-          [E][ ] this (from: should to: work)
-     Now you have 8 tasks in the list.
-     ____________________________________________________________
-     ____________________________________________________________
-     Got it. I've added this task:
-          [E][ ] this (from: should /by not to: be mixed)
-     Now you have 9 tasks in the list.
-     ____________________________________________________________
-     ____________________________________________________________
-     Got it. I've added this task:
-          [E][ ] this /by (from: should to: not be mixed)
-     Now you have 10 tasks in the list.
-     ____________________________________________________________
-     ____________________________________________________________
-          1. [T][ ] asdf1
-          2. [T][ ] asdf Testing Spaces
-          3. [D][ ] should (by: work)
-          4. [D][ ] extra spaces  should (by: work)
-          5. [D][ ] this /from should /to make a (by: deadline)
-          6. [D][ ] this /from should (by: not be mixed)
-          7. [D][ ] this (by: should /to not be mixed)
-          8. [E][ ] this (from: should to: work)
-          9. [E][ ] this (from: should /by not to: be mixed)
-          10. [E][ ] this /by (from: should to: not be mixed)
-     ____________________________________________________________
-     ____________________________________________________________
-     Nice! I've marked this task as done:
-          [E][X] this (from: should /by not to: be mixed)
-     ____________________________________________________________
-     ____________________________________________________________
-          1. [T][ ] asdf1
-          2. [T][ ] asdf Testing Spaces
-          3. [D][ ] should (by: work)
-          4. [D][ ] extra spaces  should (by: work)
-          5. [D][ ] this /from should /to make a (by: deadline)
-          6. [D][ ] this /from should (by: not be mixed)
-          7. [D][ ] this (by: should /to not be mixed)
-          8. [E][ ] this (from: should to: work)
-          9. [E][X] this (from: should /by not to: be mixed)
-          10. [E][ ] this /by (from: should to: not be mixed)
-     ____________________________________________________________
-     ____________________________________________________________
-     Ok! I've marked this task as not done yet:
-          [E][ ] this (from: should /by not to: be mixed)
-     ____________________________________________________________
-     ____________________________________________________________
-          1. [T][ ] asdf1
-          2. [T][ ] asdf Testing Spaces
-          3. [D][ ] should (by: work)
-          4. [D][ ] extra spaces  should (by: work)
-          5. [D][ ] this /from should /to make a (by: deadline)
-          6. [D][ ] this /from should (by: not be mixed)
-          7. [D][ ] this (by: should /to not be mixed)
-          8. [E][ ] this (from: should to: work)
-          9. [E][ ] this (from: should /by not to: be mixed)
-          10. [E][ ] this /by (from: should to: not be mixed)
-     ____________________________________________________________
-     ____________________________________________________________
-     Invalid index!
-     ____________________________________________________________
-     ____________________________________________________________
-     Noted. I've removed this task:
-          [D][ ] this /from should /to make a (by: deadline)
-     Now you have 9 tasks in the list.
-     ____________________________________________________________
-     ____________________________________________________________
-     Noted. I've removed this task:
-          [T][ ] asdf1
-     Now you have 8 tasks in the list.
-     ____________________________________________________________
-     ____________________________________________________________
-          1. [T][ ] asdf Testing Spaces
-          2. [D][ ] should (by: work)
-          3. [D][ ] extra spaces  should (by: work)
-          4. [D][ ] this /from should (by: not be mixed)
-          5. [D][ ] this (by: should /to not be mixed)
-          6. [E][ ] this (from: should to: work)
-          7. [E][ ] this (from: should /by not to: be mixed)
-          8. [E][ ] this /by (from: should to: not be mixed)
-     ____________________________________________________________
+    Hello! I'm Forine
+    What can I do for you?
+    ____________________________________________________________
+    ____________________________________________________________
+    OOPS!!! I'm sorry, but I don't know what that means :-(
+        You typed: 
+    ____________________________________________________________
+    ____________________________________________________________
+    Invalid index!
+    ____________________________________________________________
+    ____________________________________________________________
+    OOPS!!! I'm sorry, but I don't know what that means :-(
+        You typed: asdf
+    ____________________________________________________________
+    ____________________________________________________________
+    OOPS!!! I'm sorry, but I don't know what that means :-(
+        You typed: Entry 1 should be empty
+    ____________________________________________________________
+    ____________________________________________________________
+    OOPS!!! I'm sorry, but I don't know what that means :-(
+        You typed: Mark 1
+    ____________________________________________________________
+    ____________________________________________________________
+    OOPS!!! I'm sorry, but I don't know what that means :-(
+        You typed: mark fail, there isnt an exception to handle this, it just isnt caught in the regex
+    ____________________________________________________________
+    ____________________________________________________________
+    OOPS!!! I'm sorry, but I don't know what that means :-(
+        You typed: mark1
+    ____________________________________________________________
+    ____________________________________________________________
+    Invalid index!
+    ____________________________________________________________
+    ____________________________________________________________
+    Invalid index!
+    ____________________________________________________________
+    ____________________________________________________________
+    OOPS!!! I'm sorry, but I don't know what that means :-(
+        You typed: Unmark 1
+    ____________________________________________________________
+    ____________________________________________________________
+    Invalid index!
+    ____________________________________________________________
+    ____________________________________________________________
+    Invalid index!
+    ____________________________________________________________
+    ____________________________________________________________
+    Invalid index!
+    ____________________________________________________________
+    ____________________________________________________________
+    OOPS!!! I'm sorry, but I don't know what that means :-(
+        You typed: Todo Testing Caps would not make TODO
+    ____________________________________________________________
+    ____________________________________________________________
+    Got it. I've added this task:
+        [T][ ] asdf1
+    Now you have 1 tasks in the list.
+    ____________________________________________________________
+    ____________________________________________________________
+    Got it. I've added this task:
+        [T][ ] asdf Testing Spaces
+    Now you have 2 tasks in the list.
+    ____________________________________________________________
+    ____________________________________________________________
+    OOPS!!! The description of a todo cannot be empty.
+    ____________________________________________________________
+    ____________________________________________________________
+    OOPS!!! The description of a todo cannot be empty.
+    ____________________________________________________________
+    ____________________________________________________________
+    OOPS!!! The description of a todo cannot be empty.
+    ____________________________________________________________
+    ____________________________________________________________
+    OOPS!!! The description of a todo cannot be empty.
+    ____________________________________________________________
+    ____________________________________________________________
+    Invalid index!
+    ____________________________________________________________
+    ____________________________________________________________
+    Nice! I've marked this task as done:
+        [T][X] asdf Testing Spaces
+    ____________________________________________________________
+    ____________________________________________________________
+    1. [T][ ] asdf1
+    2. [T][X] asdf Testing Spaces
+    ____________________________________________________________
+    ____________________________________________________________
+    Ok! I've marked this task as not done yet:
+        [T][ ] asdf1
+    ____________________________________________________________
+    ____________________________________________________________
+    1. [T][ ] asdf1
+    2. [T][X] asdf Testing Spaces
+    ____________________________________________________________
+    ____________________________________________________________
+    Ok! I've marked this task as not done yet:
+        [T][ ] asdf Testing Spaces
+    ____________________________________________________________
+    ____________________________________________________________
+    1. [T][ ] asdf1
+    2. [T][ ] asdf Testing Spaces
+    ____________________________________________________________
+    ____________________________________________________________
+    Ok! I've marked this task as not done yet:
+        [T][ ] asdf Testing Spaces
+    ____________________________________________________________
+    ____________________________________________________________
+    1. [T][ ] asdf1
+    2. [T][ ] asdf Testing Spaces
+    ____________________________________________________________
+    ____________________________________________________________
+    Invalid index!
+    ____________________________________________________________
+    ____________________________________________________________
+    OOPS!!! I'm sorry, but I don't know what that means :-(
+        You typed: deadline fail(ByNotMakingRealDeadline)
+    ____________________________________________________________
+    ____________________________________________________________
+    OOPS!!! I'm sorry, but I don't know what that means :-(
+        You typed: Deadline caps should not make a real deadline
+    ____________________________________________________________
+    ____________________________________________________________
+    OOPS!!! I'm sorry, but I don't know what that means :-(
+        You typed: deadline /by fail
+    ____________________________________________________________
+    ____________________________________________________________
+    OOPS!!! I'm sorry, but I don't know what that means :-(
+        You typed: deadline fail /by
+    ____________________________________________________________
+    ____________________________________________________________
+    OOPS!!! I'm sorry, but I don't know what that means :-(
+        You typed: deadline this /from should /to fail
+    ____________________________________________________________
+    ____________________________________________________________
+    OOPS!!! I'm sorry, but I don't know what that means :-(
+        You typed: deadline clumping/byshouldfail
+    ____________________________________________________________
+    ____________________________________________________________
+    Got it. I've added this task:
+        [D][ ] should (by: work)
+    Now you have 3 tasks in the list.
+    ____________________________________________________________
+    ____________________________________________________________
+    OOPS!!! The description of a deadline cannot be empty.
+    ____________________________________________________________
+    ____________________________________________________________
+    OOPS!!! The /by parameter is invalid!
+        Usage: deadline <description> /by <date>
+    ____________________________________________________________
+    ____________________________________________________________
+    Got it. I've added this task:
+        [D][ ] extra spaces  should (by: work)
+    Now you have 4 tasks in the list.
+    ____________________________________________________________
+    ____________________________________________________________
+    Got it. I've added this task:
+        [D][ ] this /from should /to make a (by: deadline)
+    Now you have 5 tasks in the list.
+    ____________________________________________________________
+    ____________________________________________________________
+    Got it. I've added this task:
+        [D][ ] this /from should (by: not be mixed)
+    Now you have 6 tasks in the list.
+    ____________________________________________________________
+    ____________________________________________________________
+    Got it. I've added this task:
+        [D][ ] this (by: should /to not be mixed)
+    Now you have 7 tasks in the list.
+    ____________________________________________________________
+    ____________________________________________________________
+    1. [T][ ] asdf1
+    2. [T][ ] asdf Testing Spaces
+    3. [D][ ] should (by: work)
+    4. [D][ ] extra spaces  should (by: work)
+    5. [D][ ] this /from should /to make a (by: deadline)
+    6. [D][ ] this /from should (by: not be mixed)
+    7. [D][ ] this (by: should /to not be mixed)
+    ____________________________________________________________
+    ____________________________________________________________
+    Nice! I've marked this task as done:
+        [D][X] extra spaces  should (by: work)
+    ____________________________________________________________
+    ____________________________________________________________
+    1. [T][ ] asdf1
+    2. [T][ ] asdf Testing Spaces
+    3. [D][ ] should (by: work)
+    4. [D][X] extra spaces  should (by: work)
+    5. [D][ ] this /from should /to make a (by: deadline)
+    6. [D][ ] this /from should (by: not be mixed)
+    7. [D][ ] this (by: should /to not be mixed)
+    ____________________________________________________________
+    ____________________________________________________________
+    Ok! I've marked this task as not done yet:
+        [D][ ] extra spaces  should (by: work)
+    ____________________________________________________________
+    ____________________________________________________________
+    1. [T][ ] asdf1
+    2. [T][ ] asdf Testing Spaces
+    3. [D][ ] should (by: work)
+    4. [D][ ] extra spaces  should (by: work)
+    5. [D][ ] this /from should /to make a (by: deadline)
+    6. [D][ ] this /from should (by: not be mixed)
+    7. [D][ ] this (by: should /to not be mixed)
+    ____________________________________________________________
+    ____________________________________________________________
+    OOPS!!! I'm sorry, but I don't know what that means :-(
+        You typed: Event fail(ByNotMakingRealEvent)
+    ____________________________________________________________
+    ____________________________________________________________
+    OOPS!!! I'm sorry, but I don't know what that means :-(
+        You typed: Event caps should not make a real event
+    ____________________________________________________________
+    ____________________________________________________________
+    OOPS!!! I'm sorry, but I don't know what that means :-(
+        You typed: event /at fail
+    ____________________________________________________________
+    ____________________________________________________________
+    OOPS!!! I'm sorry, but I don't know what that means :-(
+        You typed: event fail /at
+    ____________________________________________________________
+    ____________________________________________________________
+    OOPS!!! I'm sorry, but I don't know what that means :-(
+        You typed: event should /at fail
+    ____________________________________________________________
+    ____________________________________________________________
+    OOPS!!! The description of a event cannot be empty.
+    ____________________________________________________________
+    ____________________________________________________________
+    OOPS!!! The /from parameter is invalid!
+        Usage: event <description> /from <from_date> /to <to_date>
+    ____________________________________________________________
+    ____________________________________________________________
+    OOPS!!! The /to parameter is invalid!
+        Usage: event <description> /from <from_date> /to <to_date>
+    ____________________________________________________________
+    ____________________________________________________________
+    OOPS!!! I'm sorry, but I don't know what that means :-(
+        You typed: event thisClumping /from Should/by Fail
+    ____________________________________________________________
+    ____________________________________________________________
+    OOPS!!! I'm sorry, but I don't know what that means :-(
+        You typed: event thisClumping/fromShould /by Fail
+    ____________________________________________________________
+    ____________________________________________________________
+    OOPS!!! I'm sorry, but I don't know what that means :-(
+        You typed: event thisClumping/fromShould/byFail
+    ____________________________________________________________
+    ____________________________________________________________
+    OOPS!!! I'm sorry, but I don't know what that means :-(
+        You typed: event this /from should /by fail
+    ____________________________________________________________
+    ____________________________________________________________
+    OOPS!!! I'm sorry, but I don't know what that means :-(
+        You typed: event this /by should /at fail
+    ____________________________________________________________
+    ____________________________________________________________
+    Got it. I've added this task:
+        [E][ ] this (from: should to: work)
+    Now you have 8 tasks in the list.
+    ____________________________________________________________
+    ____________________________________________________________
+    Got it. I've added this task:
+        [E][ ] this (from: should /by not to: be mixed)
+    Now you have 9 tasks in the list.
+    ____________________________________________________________
+    ____________________________________________________________
+    Got it. I've added this task:
+        [E][ ] this /by (from: should to: not be mixed)
+    Now you have 10 tasks in the list.
+    ____________________________________________________________
+    ____________________________________________________________
+    1. [T][ ] asdf1
+    2. [T][ ] asdf Testing Spaces
+    3. [D][ ] should (by: work)
+    4. [D][ ] extra spaces  should (by: work)
+    5. [D][ ] this /from should /to make a (by: deadline)
+    6. [D][ ] this /from should (by: not be mixed)
+    7. [D][ ] this (by: should /to not be mixed)
+    8. [E][ ] this (from: should to: work)
+    9. [E][ ] this (from: should /by not to: be mixed)
+    10. [E][ ] this /by (from: should to: not be mixed)
+    ____________________________________________________________
+    ____________________________________________________________
+    Nice! I've marked this task as done:
+        [E][X] this (from: should /by not to: be mixed)
+    ____________________________________________________________
+    ____________________________________________________________
+    1. [T][ ] asdf1
+    2. [T][ ] asdf Testing Spaces
+    3. [D][ ] should (by: work)
+    4. [D][ ] extra spaces  should (by: work)
+    5. [D][ ] this /from should /to make a (by: deadline)
+    6. [D][ ] this /from should (by: not be mixed)
+    7. [D][ ] this (by: should /to not be mixed)
+    8. [E][ ] this (from: should to: work)
+    9. [E][X] this (from: should /by not to: be mixed)
+    10. [E][ ] this /by (from: should to: not be mixed)
+    ____________________________________________________________
+    ____________________________________________________________
+    Ok! I've marked this task as not done yet:
+        [E][ ] this (from: should /by not to: be mixed)
+    ____________________________________________________________
+    ____________________________________________________________
+    1. [T][ ] asdf1
+    2. [T][ ] asdf Testing Spaces
+    3. [D][ ] should (by: work)
+    4. [D][ ] extra spaces  should (by: work)
+    5. [D][ ] this /from should /to make a (by: deadline)
+    6. [D][ ] this /from should (by: not be mixed)
+    7. [D][ ] this (by: should /to not be mixed)
+    8. [E][ ] this (from: should to: work)
+    9. [E][ ] this (from: should /by not to: be mixed)
+    10. [E][ ] this /by (from: should to: not be mixed)
+    ____________________________________________________________
+    ____________________________________________________________
+    Invalid index!
+    ____________________________________________________________
+    ____________________________________________________________
+    Noted. I've removed this task:
+    [D][ ] this /from should /to make a (by: deadline)
+    Now you have 9 tasks in the list.
+    ____________________________________________________________
+    ____________________________________________________________
+    Noted. I've removed this task:
+    [T][ ] asdf1
+    Now you have 8 tasks in the list.
+    ____________________________________________________________
+    ____________________________________________________________
+    1. [T][ ] asdf Testing Spaces
+    2. [D][ ] should (by: work)
+    3. [D][ ] extra spaces  should (by: work)
+    4. [D][ ] this /from should (by: not be mixed)
+    5. [D][ ] this (by: should /to not be mixed)
+    6. [E][ ] this (from: should to: work)
+    7. [E][ ] this (from: should /by not to: be mixed)
+    8. [E][ ] this /by (from: should to: not be mixed)
+    ____________________________________________________________

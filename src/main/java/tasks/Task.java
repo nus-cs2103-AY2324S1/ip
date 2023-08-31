@@ -15,10 +15,16 @@ public class Task {
         this.isDone = false;
     }
 
+    public Task(String description, boolean isDone) {
+        this.description = description;
+        this.isDone = false;
+    }
+
     public String getStatusIcon() {
         return (isDone ? "X" : " "); // mark done task with X
     }
 
+    @Override
     public String toString(){
         return "[" + getStatusIcon() + "] " + description;
     }
@@ -33,6 +39,10 @@ public class Task {
 
     public boolean getIsDone() {
         return this.isDone;
+    }
+
+    public String toFileString() {
+        return "";
     }
 
     //...

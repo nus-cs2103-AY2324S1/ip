@@ -6,7 +6,6 @@ package tasks;
  * Events: tasks that start at a specific date/time and ends at a specific date/time 
  * e.g., (a) team project meeting 2/10/2019 2-4pm (b) orientation week 4/10/2019 to 11/10/2019
  */
-
 public class Event extends Task {
 
     protected String from;
@@ -18,8 +17,19 @@ public class Event extends Task {
         this.to = to;
     }
 
+    public Event(String description, String from, String to, boolean isDone) {
+        super(description, isDone);
+        this.from = from;
+        this.to = to;
+    }
+
     @Override
     public String toString() {
         return "[E]" + super.toString() + " (from: " + from + " to: " + to + ")";
+    }
+
+    @Override
+    public String toFileString() {
+        return "E | " + (isDone ? "1" : "0") + " | " + description + " | " + from + " | " + to;
     }
 }
