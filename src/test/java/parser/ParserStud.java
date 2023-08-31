@@ -12,10 +12,22 @@ public class ParserStud {
     private String command;
     private String[] initialParse;
     private String[] phaseParse;
+
+    /**
+     * Construct the Parser object.
+     *
+     * @param command The string that needs to be parsed.
+     */
     public ParserStud(String command) {
         this.command = command;
     }
 
+    /**
+     * Parses the string into actionable commands.
+     *
+     * @return Returns a Command object.
+     * @throws DukeException If the input is not a command
+     */
     public Commands parse() throws DukeException {
         Commands.COMMANDS cmd = this.mainCommand();
         if (cmd == Commands.COMMANDS.BYE || cmd == Commands.COMMANDS.LIST) {

@@ -20,6 +20,7 @@ public class Commands {
 
     /**
      * Construct a Commands object with only the primary command.
+     *
      * @param command The command or action given by the Parse object.
      */
     public static Commands of(COMMANDS command) {
@@ -28,6 +29,7 @@ public class Commands {
 
     /**
      * Construct a Commands object with both a primary command and task description.
+     *
      * @param command The command or action given by the Parse object.
      * @param task The task name or description.
      */
@@ -37,6 +39,7 @@ public class Commands {
 
     /**
      * Construct a Commands object with both a primary command and the index of the task.
+     *
      * @param command The command or action given by the Parse object.
      * @param index The index of the task that the command should act on.
      */
@@ -46,6 +49,7 @@ public class Commands {
 
     /**
      * Construct a Commands object with both a primary command and the index of the task.
+     *
      * @param command The command or action given by the Parse object.
      * @param dateTime The date and time of a command giving in the format of 'dd-MM-yyyy HHmm'.
      */
@@ -55,6 +59,7 @@ public class Commands {
 
     /**
      * Construct a Commands object with both a primary command and the index of the task.
+     *
      * @param command The command or action given by the Parse object.
      * @param task The task name or description.
      * @param secondaryCommand A sub-command that supplements the main command.
@@ -65,6 +70,7 @@ public class Commands {
 
     /**
      * Construct a Commands object with both a primary command and the index of the task.
+     *
      * @param command The command or action given by the Parse object.
      * @param task The task name or description.
      * @param secondaryCommand A sub-command that supplements the main command.
@@ -96,6 +102,7 @@ public class Commands {
 
     /**
      * Check if this object's COMMANDS is the same as command.
+     *
      * @param command The COMMANDS enum that you want to compare
      * @return Returns true same, false otherwise.
      */
@@ -107,6 +114,7 @@ public class Commands {
     }
     /**
      * Executes the action or throws a DukeException.
+     *
      * @param taskList The list of tasks that the action will be executed in.
      * @return Returns 0 if the 'bye' command is executed, returns 1 if any other command is successfully executed.
      * @throws DukeException The exception thrown when encountering any problems in executing.
@@ -117,6 +125,7 @@ public class Commands {
 
     /**
      * Executes the action or throws a DukeException.
+     *
      * @param taskList The list of tasks that the action will be executed in.
      * @param lineNumber Line Number of the command when reading from the save file.
      * @param error The command reading from the save file.
@@ -181,6 +190,7 @@ public class Commands {
 
     /**
      * Compares LocalDateTime between this object and c.
+     *
      * @param c Commands object to be compared to.
      * @return Returns true if this object's time is before c's time, false for all other cases.
      */
@@ -197,6 +207,7 @@ public class Commands {
 
     /**
      * Compares this object to another object.
+     *
      * @param obj An object.
      * @return Returns true if both objects are equivalent, false if otherwise.
      */
@@ -232,12 +243,7 @@ public class Commands {
         }
 
         /**
-         * Executes the action or throws a DukeException.
-         * @param taskList The list of tasks that the action will be executed in.
-         * @param lineNumber Line Number of the command when reading from the save file.
-         * @param error The command reading from the save file.
-         * @return Returns 0 if the 'bye' command is executed, returns 1 if any other command is successfully executed.
-         * @throws DukeException The exception thrown when encountering any problems in executing.
+         * @inheritDoc
          */
         @Override
         public int execute(ListOfTask taskList, int lineNumber, String error) throws DukeException {
@@ -259,9 +265,7 @@ public class Commands {
         }
 
         /**
-         * Compares this object to another object.
-         * @param obj An object.
-         * @return Returns true if both objects are equivalent, false if otherwise.
+         * @inheritDoc
          */
         @Override
         public boolean equals(Object obj) {
@@ -288,7 +292,8 @@ public class Commands {
         private String name3;
         private Commands phaseTwo;
         private Commands phaseThree;
-        private ThreeCommands(COMMANDS command, String str, COMMANDS command2, String str2, COMMANDS command3, String str3) {
+        private ThreeCommands(COMMANDS command, String str, COMMANDS command2,
+                              String str2, COMMANDS command3, String str3) {
             super(command,str);
             this.state2 = command2;
             this.name2 = str2;
@@ -303,12 +308,7 @@ public class Commands {
         }
 
         /**
-         * Executes the action or throws a DukeException.
-         * @param taskList The list of tasks that the action will be executed in.
-         * @param lineNumber Line Number of the command when reading from the save file.
-         * @param error The command reading from the save file.
-         * @return Returns 0 if the 'bye' command is executed, returns 1 if any other command is successfully executed.
-         * @throws DukeException The exception thrown when encountering any problems in executing.
+         * @inheritDoc
          */
         @Override
         public int execute(ListOfTask taskList, int lineNumber, String error) throws DukeException {
@@ -330,9 +330,7 @@ public class Commands {
         }
 
         /**
-         * Compares this object to another object.
-         * @param obj An object.
-         * @return Returns true if both objects are equivalent, false if otherwise.
+         * @inheritDoc
          */
         @Override
         public boolean equals(Object obj) {

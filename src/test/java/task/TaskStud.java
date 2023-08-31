@@ -36,6 +36,12 @@ public class TaskStud {
         return "task " + this.taskName + "\n";
     }
 
+    public void setDone() {
+    }
+
+    public void setNotDone() {
+    }
+
     public static class ToDosStud extends TaskStud {
         public ToDosStud(String taskName) {
             super(taskName);
@@ -59,7 +65,8 @@ public class TaskStud {
 
         @Override
         public String toString() {
-            return "[D]" + super.toString() + "(by: " + this.dayDate.format(Duke.FORMAT) + ")";
+            return "[D]" + super.toString()
+                    + "(by: " + this.dayDate.format(Duke.FORMAT) + ")";
         }
 
         public String write() {
@@ -79,11 +86,13 @@ public class TaskStud {
 
         @Override
         public String toString() {
-            return "[E]" + super.toString() + "(from: " + startDayDateTime.format(Duke.FORMAT) + " to: " + endDayDateTime.format(Duke.FORMAT) +")";
+            return "[E]" + super.toString() + "(from: " + startDayDateTime.format(Duke.FORMAT)
+                    + " to: " + endDayDateTime.format(Duke.FORMAT) +")";
         }
 
         public String write() {
-            return "event " + super.taskName + "/from " + this.startDayDateTime.format(Duke.FORMAT) + "/to " + this.endDayDateTime.format(Duke.FORMAT) + "\n";
+            return "event " + super.taskName + "/from " + this.startDayDateTime.format(Duke.FORMAT)
+                    + "/to " + this.endDayDateTime.format(Duke.FORMAT) + "\n";
         }
     }
 }

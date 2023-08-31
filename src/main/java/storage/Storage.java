@@ -17,6 +17,7 @@ public class Storage {
 
     /**
      * Saves the list to a specific file.
+     *
      * @param listOfTask The task list to save.
      */
     public static void save(ArrayList<Task> listOfTask) {
@@ -42,9 +43,11 @@ public class Storage {
 
     /**
      * Loads the task list from a specific line in the save file onwards.
+     *
      * @param taskList The task list that tasks are loaded into.
      * @param startLine The line number to start loading from.
-     * @return Returns false if it is unable to load and the user does not want to be able to save the task list. True if otherwise.
+     * @return Returns false if it is unable to load and the user does not want to
+     * be able to save the task list. True if otherwise.
      */
     public static boolean load(ListOfTask taskList, int startLine) {
         File saveData = new File("./src/data/duke.txt");

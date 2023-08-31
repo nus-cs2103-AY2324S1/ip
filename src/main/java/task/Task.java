@@ -6,31 +6,43 @@ import java.time.LocalDateTime;
 
 public class Task {
 
-<<<<<<< HEAD
     private String taskName;
-    private Boolean done;
-=======
-    String taskName;
     private Boolean isDone;
->>>>>>> branch-A-CodingStandard
     private LocalDateTime dateAdded;
 
+    /**
+     * Calls the constructor to create a Task.
+     *
+     * @param taskName The name of the task.
+     * @return Returns a Task object.
+     */
     public static Task of(String taskName) {
         return new ToDos(taskName);
     }
 
+    /**
+     * Calls the constructor to create a Task.
+     *
+     * @param taskName The name of the task.
+     * @param dayDate The date and time of the deadline of the task.
+     * @return Returns a Task object.
+     */
     public static Task of(String taskName, LocalDateTime dayDate) {
         return new Deadlines(taskName, dayDate);
     }
 
+    /**
+     * Calls the constructor to create a Task.
+     *
+     * @param taskName The name of the task.
+     * @param startDayDateTime The date and time of the start of the event.
+     * @param endDayDateTime The date and time of the end of the event.
+     * @return Returns a Task object.
+     */
     public static Task of(String taskName, LocalDateTime startDayDateTime, LocalDateTime endDayDateTime) {
         return new Event(taskName, startDayDateTime, endDayDateTime);
     }
 
-    /**
-     * Construct the task object.
-     * @param taskName The description or name of the task.
-     */
     private Task(String taskName) {
         this.taskName = taskName;
         this.isDone = false;
@@ -39,6 +51,7 @@ public class Task {
 
     /**
      * The string that represents the object.
+     *
      * @return Returns a string that represents the object.
      */
     @Override
@@ -46,43 +59,41 @@ public class Task {
         return ("[" + (this.isDone ? "X] " : " ] ") + this.taskName);
     }
 
-<<<<<<< HEAD
-    /**
-     * Check if the task is done.
-     * @return Returns true if the task is done, false if otherwise.
-     */
-    public boolean isDone() {
-        return this.done;
-=======
-    public void setDone() {
-        this.isDone = true;
-    }
-
-    public void setNotDone() {
-        this.isDone = false;
-    }
-
-    public boolean getIsDone() {
-        return this.isDone;
->>>>>>> branch-A-CodingStandard
-    }
-
     /**
      * Mark the task as done.
      */
-    protected void mark() {
-        this.done = true;
+    public void setDone() {
+        this.isDone = true;
     }
 
     /**
      * Mark the task as undone.
      */
-    protected void unMark() {
-        this.done = false;
+    public void setNotDone() {
+        this.isDone = false;
+    }
+
+    /**
+     * Check if the task is done.
+     *
+     * @return Returns true if the task is done, false if otherwise.
+     */
+    public boolean getIsDone() {
+        return this.isDone;
+    }
+
+    /**
+     * Returns the name of the task.
+     *
+     * @return Returns the name of the task.
+     */
+    public String getTaskName() {
+        return this.taskName;
     }
 
     /**
      * Writes the initial command the user put that resulted in the task.
+     *
      * @return Returns the initial command the user put for this task.
      */
     public String write() {
@@ -96,8 +107,7 @@ public class Task {
         }
 
         /**
-         * The string that represents the object.
-         * @return Returns a string that represents the object.
+         * @inheritDoc
          */
         @Override
         public String toString() {
@@ -105,8 +115,7 @@ public class Task {
         }
 
         /**
-         * Writes the initial command the user put that resulted in the task.
-         * @return Returns the initial command the user put for this task.
+         * @inheritDoc
          */
         @Override
         public String write() {
@@ -122,8 +131,7 @@ public class Task {
         }
 
         /**
-         * The string that represents the object.
-         * @return Returns a string that represents the object.
+         * @inheritDoc
          */
         @Override
         public String toString() {
@@ -131,8 +139,7 @@ public class Task {
         }
 
         /**
-         * Writes the initial command the user put that resulted in the task.
-         * @return Returns the initial command the user put for this task.
+         * @inheritDoc
          */
         @Override
         public String write() {
@@ -151,8 +158,7 @@ public class Task {
         }
 
         /**
-         * The string that represents the object.
-         * @return Returns a string that represents the object.
+         * @inheritDoc
          */
         @Override
         public String toString() {
@@ -161,8 +167,7 @@ public class Task {
         }
 
         /**
-         * Writes the initial command the user put that resulted in the task.
-         * @return Returns the initial command the user put for this task.
+         * @inheritDoc
          */
         @Override
         public String write() {

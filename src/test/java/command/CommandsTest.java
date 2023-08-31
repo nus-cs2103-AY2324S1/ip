@@ -108,7 +108,8 @@ public class CommandsTest {
             } catch (DukeDateTimeParseException e) {
                 assertEquals("The format for dates&time is 'dd-MM-yyyy hhmm'", e.getMessage());
             } catch (DukeNullPointerException e) {
-                assertEquals("The format for the command is: event task /from startDayDateTime /to endDayDateTime",
+                assertEquals("The format for the command is: "
+                        + "event task /from startDayDateTime /to endDayDateTime",
                         e.getMessage());
             } catch (DukeException e) {
                 assertEquals("Please add the task name", e.getMessage());
@@ -296,7 +297,7 @@ public class CommandsTest {
             ParserStud cm = new ParserStud(str);
             try {
                 Commands c = cm.parse();
-                c.execute(taskList, new Ui(), 0, null);
+                c.action(taskList);
             } catch (DukeException e) {
                 System.out.println("check the test cases again");
             }
@@ -309,7 +310,7 @@ public class CommandsTest {
                 System.setOut(new PrintStream(outContent));
                 ParserStud p = new ParserStud(cmdj[i]);
                 Commands c = p.parse();
-                c.execute(taskList, new Ui(), 0, null);
+                c.action(taskList);
                 assertEquals(cmdi[i - 3], outContent.toString());
             } catch (DukeUnknownCommandException e) {
                 assertEquals("Unknown command", e.getMessage());

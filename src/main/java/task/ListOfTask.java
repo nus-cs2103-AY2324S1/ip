@@ -12,6 +12,7 @@ public class ListOfTask {
 
     /**
      * The size of the task list.
+     *
      * @return Returns the size of the task list.
      */
     public int size() {
@@ -20,6 +21,7 @@ public class ListOfTask {
 
     /**
      * Adds a task into the task list.
+     *
      * @param task The task that is to be added.
      * @param print True to print messages, false to not print messages.
      */
@@ -34,6 +36,7 @@ public class ListOfTask {
 
     /**
      * Adds a task into the task list.
+     *
      * @param task The task that is to be added.
      * @param dayDate The deadline of the task.
      * @param print True to print messages, false to not print messages.
@@ -47,21 +50,17 @@ public class ListOfTask {
         }
     }
 
-<<<<<<< HEAD
     /**
      * Adds a task into the task list.
+     *
      * @param task The task that is to be added.
      * @param startDayDateTime The date and time of the start of the task.
      * @param endDayDateTime The date and time of the end of the task.
      * @param print True to print messages, false to not print messages.
      */
-    public void addTask(String task, LocalDateTime startDayDateTime, LocalDateTime endDayDateTime, boolean print) {
-        Task temp = Task.of(task, startDayDateTime, endDayDateTime);
-=======
     public void addTask(String task, LocalDateTime startDayDateTime,
                         LocalDateTime endDayDateTime, boolean print) {
-        Task temp = new Task.Event(task, startDayDateTime, endDayDateTime);
->>>>>>> branch-A-CodingStandard
+        Task temp = Task.of(task, startDayDateTime, endDayDateTime);
         listOfTask.add(temp);
         if (print) {
             System.out.println("added: " + temp);
@@ -85,6 +84,7 @@ public class ListOfTask {
 
     /**
      * Finds and prints index and tasks that contains the string str in its name.
+     *
      * @param str The string that will be searched.
      */
     public void find(String str) {
@@ -96,7 +96,7 @@ public class ListOfTask {
         int[] i = new int[1];
         i[0] = 1;
         listOfTask.forEach(x -> {
-            if (x.taskName.contains(str)) {
+            if (x.getTaskName().contains(str)) {
                 rememberTask[start[0]] = x;
                 rememberIndex[start[0]] = i[0];
                 start[0]++;
@@ -113,6 +113,7 @@ public class ListOfTask {
 
     /**
      * Mark a task as done.
+     *
      * @param index The index of the task based on the current task list.
      * @param print True to print messages, false to not print messages.
      * @throws DukeException If the number is outside the range of indexes in the list.
@@ -131,6 +132,7 @@ public class ListOfTask {
 
     /**
      * Mark a task as undone.
+     *
      * @param index The index of the task based on the current task list.
      * @param print True to print messages, false to not print messages.
      * @throws DukeException If the number is outside the range of indexes in the list.
@@ -149,6 +151,7 @@ public class ListOfTask {
 
     /**
      * Delete a task from the task list.
+     *
      * @param index The index of the task based on the current task list.
      * @param print True to print messages, false to not print messages.
      * @throws DukeException If the number is outside the range of indexes in the list.

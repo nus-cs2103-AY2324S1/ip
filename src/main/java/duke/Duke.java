@@ -9,17 +9,18 @@ import ui.Ui;
 
 import java.time.format.DateTimeFormatter;
 
-<<<<<<< HEAD
-=======
-
->>>>>>> branch-A-CodingStandard
 public class Duke {
+
+    /**
+     * This is the format for all date and time input.
+     */
     public static final DateTimeFormatter FORMAT = DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm");
     private static ListOfTask taskList = new ListOfTask();
     private static Ui ui = new Ui();
 
     /**
      * This starts the Duke chatbot.
+     *
      * @param args Does nothing
      */
     public static void main(String[] args) {
