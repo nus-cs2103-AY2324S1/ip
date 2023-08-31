@@ -1,9 +1,12 @@
 package sana;
 import java.time.LocalDate;
 
+/**
+ * Represents the task inputted by the user.
+ */
 public abstract class Task {
-    protected String description;
-    protected boolean isDone;
+    private String description;
+    private boolean isDone;
 
     /**
      * Creates an instance of task.
@@ -31,6 +34,7 @@ public abstract class Task {
 
     /**
      * Returns status icon for task.
+     *
      * @return X if task is done and whitespace if not.
      */
     public String getStatusIcon() {
@@ -48,6 +52,7 @@ public abstract class Task {
 
     /**
      * Returns the formatted task string to be saved in the hard disk.
+     *
      * @return formatted task string to be saved in the hard disk.
      */
     public String formatTask() {
@@ -55,13 +60,14 @@ public abstract class Task {
     }
 
     /**
-     * Given a formatted task string, it returns the Task equivalent of that string.
-     * @param formattedTask task string that has been formatted in a specific manner from the harddisk.
+     * Returns the Task equivalent of a given formatted string task loaded from file.
+     *
+     * @param formattedTask task string that has been formatted in a specific manner from the file.
      * @return task equivalence of the formatted task string.
      */
     public static Task getTask(String formattedTask) {
         char type = formattedTask.charAt(0);
-        boolean isDone = (formattedTask.charAt(4) == '1'? true : false);
+        boolean isDone = (formattedTask.charAt(4) == '1' ? true : false);
         String description = formattedTask.substring(8);
 
         switch (type) {
@@ -87,6 +93,16 @@ public abstract class Task {
         }
     }
 
+    /**
+     * Indicates whether some other object is "equal to" this task.
+     *
+     * This method compares the string representations of two Task objects to determine
+     * if they are equal. The comparison is based on the equality of the string
+     * representations of the tasks.
+     *
+     * @param obj the reference object with which to compare.
+     * @return true if this task is equal to the obj argument; false otherwise.
+     */
     @Override
     public boolean equals(Object obj) {
         if (obj instanceof Task) {
@@ -100,6 +116,7 @@ public abstract class Task {
         }
         return false;
     }
+
 
 
 }

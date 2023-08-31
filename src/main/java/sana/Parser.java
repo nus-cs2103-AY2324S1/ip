@@ -1,8 +1,16 @@
 package sana;
-import sana.AddCommand;
-import sana.ListCommand;
 
+/**
+ * Represents a parser to parse user input into commands.
+ */
 public class Parser {
+
+    /**
+     * Parses user input into a command type and its description.
+     *
+     * @param fullCommand command that user types in.
+     * @return returns a command according to the command type.
+     */
     public static Command parse(String fullCommand) {
         String[] strArr = fullCommand.split(" ", 2);
         String cmdWord;
