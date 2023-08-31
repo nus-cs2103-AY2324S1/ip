@@ -221,9 +221,6 @@ class TaskList {
         String to = LocalDate.parse(toInput)
                 .format(DateTimeFormatter.ofPattern("MMM d yyyy"));
 
-        String from = LocalDate.parse(fromInput).format(DateTimeFormatter.ofPattern("MMM d yyyy"));
-        String to = LocalDate.parse(toInput).format(DateTimeFormatter.ofPattern("MMM d yyyy"));
-
         return from + " - " + to;
     }
     public void find(String[] arr) throws WrongInput {

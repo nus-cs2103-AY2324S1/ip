@@ -25,9 +25,6 @@ class Todo extends Task {
                 + "Nice! I've marked this task as done:\n"
                 + this
                 + "\n-------------------------------");
-
-        System.out.println("Nice! I've marked this task as done:\n"
-                + this);
     }
     /**
      * Unmark this Todo task as not done yet.

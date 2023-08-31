@@ -24,9 +24,6 @@ class Event extends Task {
                 + "Nice! I've marked this task as done:\n"
                 + this
                 + "\n-------------------------------");
-
-        System.out.println("Nice! I've marked this task as done:\n"
-                + this);
     }
     @Override
     public void unmark() {
