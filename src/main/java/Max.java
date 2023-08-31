@@ -1,22 +1,12 @@
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.Scanner;
 import java.time.format.DateTimeParseException;
 
 import static java.lang.Integer.parseInt;
 
 public class Max {
-
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
-
-
     public Max(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
@@ -27,50 +17,72 @@ public class Max {
             tasks = new TaskList();
         }
     }
-
     public void run() {
-        ui.greet();
-
-        Scanner input = new Scanner(System.in);
-        boolean scannerOpen = true;
-
-        while (scannerOpen) {
-
-        // User is interacting with chatbot
-
-            String userInput = input.nextLine();
-
-//            Parser parser = new Parser(userInput);
-
-//            String command = userInput.split(" ")[0];
-
-            // Initialise enum type for Command
-//            Command commandEnum = Parser.parse(userInput);
-
+        ui.showGreeting();
+        boolean isExit = false;
+        while (!isExit) {
             try {
-                Parser.parse(userInput);
+                Parser parser = new Parser();
+                String fullCommand = ui.readCommand(); // return the first word of input
+                Command c = parser.parse(fullCommand);
+                c.execute(tasks, ui, storage);
+                isExit = c.isExit();
             } catch (MaxException e) {
-                System.out.println(e.getMessage());
-                ui.showLine();
+                ui.showError(e.getMessage());
             } catch (DateTimeParseException e) {
-                System.out.println("Please use yyyy-mm-dd format!");
+                ui.showError(e.getMessage());
             } finally {
                 ui.showLine();
             }
         }
 
-        // User has exited the chatbot
-        input.close();
-        ui.exit();
-
-    }
-
-
-
-
-
-
+//
+//        boolean scannerOpen = true;
+//
+//        while (scannerOpen) {
+//            Parser parser = new Parser(userInput);
+//            try {
+//                CommandEnum commandEnum = parser.parse(userInput);
+//                switch (commandEnum) {
+//                case BYE:
+//                    input.close();
+//                    ui.exit();
+//                    storage.writeToFile(tasks);
+//                    scannerOpen = false;
+//                    break;
+//                case LIST:
+//                    tasks.list();
+//                    break;
+//                case ADD:
+//                    tasks.add(userInput);
+//                    break;
+//                case UNMARK:
+//                    int unmarkNumber = parseInt(userInput.substring(7));
+//                    tasks.myList.get(unmarkNumber - 1).unmark();
+//                    break;
+//                case MARK:
+//                    int markNumber = parseInt(userInput.substring(5));
+//                    tasks.myList.get(markNumber - 1).mark();
+//                    break;
+//                case DELETE:
+//                    int deleteNumber = parseInt(userInput.substring(7));
+//                    tasks.delete(deleteNumber);
+//                    break;
+//                case UNKNOWN:
+//                    throw new MaxException("     Oh no! I cannot recognise that command.");
+//                default:
+//                    break;
+//                }
+//            } catch (MaxException e) {
+//                System.out.println(e.getMessage());
+//                ui.showLine();
+//            } catch (DateTimeParseException e) {
+//                System.out.println("Please use yyyy-mm-dd format!");
+//            } finally {
+//                ui.showLine();
+//            }
+        }
     public static void main(String[] args) {
-        new Max("data/tasks.txt").run();
+        new Max("./data/max.txt").run();
     }
 }
