@@ -15,7 +15,7 @@ public class Storage {
     private final String FILEPATH;
 
     public Storage(String fileName) {
-        this.filePath = fileName;
+        this.FILEPATH = fileName;
 
         File file = new File(fileName);
 
@@ -32,15 +32,15 @@ public class Storage {
         }
     }
 
-    public void save(ArrayList<Task> tasks) throws IOException{
-        try (ObjectOutputStream output = new ObjectOutputStream(new FileOutputStream(filePath))){
+    public void save(ArrayList<Task> tasks) throws IOException {
+        try (ObjectOutputStream output = new ObjectOutputStream(new FileOutputStream(FILEPATH))){
             output.writeObject(tasks);
         }
     }
 
-    public ArrayList<Task> load() throws ClassNotFoundException, IOException{
+    public ArrayList<Task> load() throws ClassNotFoundException, IOException {
 
-        try (ObjectInputStream input = new ObjectInputStream(new FileInputStream(filePath))){
+        try (ObjectInputStream input = new ObjectInputStream(new FileInputStream(FILEPATH))){
             // We know the objects inside are all Tasks,therefore we can suppress the unchecked warning.
             @SuppressWarnings("unchecked")
             ArrayList<Task> tasklist = (ArrayList<Task>) input.readObject();
