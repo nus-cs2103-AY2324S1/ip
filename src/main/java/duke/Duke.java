@@ -26,15 +26,15 @@ public class Duke {
 
     public Duke(String filePath) {
         TaskList tasks1;
-        this.ui = new Ui();
-        this.storage = new Storage(filePath);
+        ui = new Ui();
+        storage = new Storage(filePath);
         try {
             tasks1 = new TaskList(storage.loadTasksFromStorage());
         } catch (IOException e) {
             ui.showLoadingError();
             tasks1 = new TaskList();
         }
-        this.tasks = tasks1;
+        tasks = tasks1;
     }
 
     public void run() {
@@ -46,7 +46,7 @@ public class Duke {
                 ui.showLine();
                 Command c = Parser.parse(fullCommand);
 
-                c.execute(this.tasks, this.ui, this.storage);
+                c.execute(tasks, ui, storage);
                 isExit = c.isExit();
 
             } catch (Exception e) {
