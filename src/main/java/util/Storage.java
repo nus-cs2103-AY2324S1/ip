@@ -13,6 +13,7 @@ public class Storage {
 
     /**
      * Saves the task list to a txt file at the path
+     *
      * @param taskList The task list to write to file
      */
     public void save(TaskList taskList) {
@@ -21,7 +22,7 @@ public class Storage {
         if (!parentDirectory.exists()) {
             parentDirectory.mkdir();
         }
-        try (PrintWriter pw = new PrintWriter(file);){
+        try (PrintWriter pw = new PrintWriter(file);) {
             for (Task task : taskList.getTasks()) {
                 pw.println(task.toString());
             }
@@ -32,11 +33,12 @@ public class Storage {
 
     /**
      * Saves the task list to a txt file at the path
+     *
      * @param taskList The task list to write to file
      */
     public void save(TaskList taskList, String filePath) {
         File file = new File(filePath);
-        try (PrintWriter pw = new PrintWriter(file);){
+        try (PrintWriter pw = new PrintWriter(file);) {
             File parentDirectory = file.getParentFile();
             if (!parentDirectory.exists()) {
                 parentDirectory.mkdir();

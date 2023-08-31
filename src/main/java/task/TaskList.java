@@ -1,6 +1,7 @@
 package task;
 
 import exception.EpochMindException;
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,6 +16,7 @@ public class TaskList {
 
     /**
      * Method to return the List of tasks
+     *
      * @return The list of tasks
      */
     public List<Task> getTasks() {
@@ -30,7 +32,7 @@ public class TaskList {
         }
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < tasks.size(); i++) {
-            sb.append(i+1);
+            sb.append(i + 1);
             sb.append(". ");
             sb.append(tasks.get(i).toString());
             sb.append("\n");
@@ -41,6 +43,7 @@ public class TaskList {
 
     /**
      * List out the task list when given an ArrayList of tasks
+     *
      * @param tasks ArrayList of task.Task
      */
     public String list(List<Task> tasks) {
@@ -49,7 +52,7 @@ public class TaskList {
         }
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < tasks.size(); i++) {
-            sb.append(i+1);
+            sb.append(i + 1);
             sb.append(". ");
             sb.append(tasks.get(i).toString());
             sb.append("\n");
@@ -60,6 +63,7 @@ public class TaskList {
 
     /**
      * Mark a task as completed
+     *
      * @param index Index to mark as completed
      */
     public void mark(int index) {
@@ -79,6 +83,7 @@ public class TaskList {
 
     /**
      * Unmark a completed task
+     *
      * @param index Index to mark as uncompleted
      */
     public void unmark(int index) {
@@ -98,6 +103,7 @@ public class TaskList {
 
     /**
      * Delete a task from the list
+     *
      * @param index Index to delete the task
      */
     public void delete(int index) {
@@ -117,6 +123,7 @@ public class TaskList {
 
     /**
      * Add a todo task
+     *
      * @param task Parsed string containing the task description
      */
     public void todo(String task) {
@@ -127,7 +134,8 @@ public class TaskList {
 
     /**
      * Add a deadline task
-     * @param task Parsed string containing the task description
+     *
+     * @param task           Parsed string containing the task description
      * @param deadlineString Parsed string containing the deadline
      */
     public void deadline(String task, String deadlineString) {
@@ -139,9 +147,10 @@ public class TaskList {
 
     /**
      * Add an event task
+     *
      * @param description Parsed string containing the task description
-     * @param start Parsed string containing the start datetime
-     * @param end Parsed string containing the end datetime
+     * @param start       Parsed string containing the start datetime
+     * @param end         Parsed string containing the end datetime
      */
     public void event(String description, String start, String end) {
         Event event = new Event(description, start, end);
@@ -189,7 +198,7 @@ public class TaskList {
         String[] commandList = command.trim().toLowerCase().split(" ");
         if (commandList.length > 1) {
             String dateTimeString = commandList[1];
-            LocalDateTime localDateTime= Deadline.convertDate(dateTimeString);
+            LocalDateTime localDateTime = Deadline.convertDate(dateTimeString);
             if (localDateTime != null) {
                 TaskList dueBy = new TaskList();
                 for (Task task : tasks) {
