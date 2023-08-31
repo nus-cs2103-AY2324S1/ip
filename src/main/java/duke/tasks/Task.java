@@ -21,6 +21,15 @@ public class Task {
         this.isDone = false;
     }
 
+    /**
+     * Returns the description of the Task.
+     *
+     * @return The description of the Task.
+     */
+    public String getDescription() {
+        return this.description;
+    }
+
 
     public String exportData() {
         return this.getStatusIcon() + " | " + this.description;
