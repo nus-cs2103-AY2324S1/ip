@@ -1,6 +1,12 @@
 package duke;
 
-import duke.commands.*;
+import duke.commands.AddCommand;
+import duke.commands.Command;
+import duke.commands.DeleteCommand;
+import duke.commands.ExitCommand;
+import duke.commands.ListCommand;
+import duke.commands.MarkCommand;
+import duke.commands.UnmarkCommand;
 import duke.exceptions.CommandDetailException;
 import duke.exceptions.CommandNotRecognizedException;
 import duke.exceptions.TimeParsingException;
@@ -10,11 +16,24 @@ import duke.task.Task;
 import duke.task.ToDo;
 
 
+/**
+ * Represents a parser for interpreting user input commands.
+ * The parser is responsible for translating string input into executable command objects.
+ */
 public class Parser {
 
     public Parser() {
     }
 
+    /**
+     * Parses the user input string and translates it into an executable command object.
+     *
+     * @param input The string input from the user.
+     * @return A Command object representing the user's intent.
+     * @throws TimeParsingException          If there's an error in parsing the time for tasks.
+     * @throws CommandNotRecognizedException If the entered command is not recognized.
+     * @throws CommandDetailException        If there's an error in the command details.
+     */
     public Command parse(String input) throws TimeParsingException, CommandNotRecognizedException, CommandDetailException {
         String trimedInput = input.trim();
         String[] splitInput = trimedInput.split(" ", 2);
@@ -48,6 +67,15 @@ public class Parser {
         }
     }
 
+    /**
+     * Helper method to parse tasks from the input string.
+     * Used for commands that involve creating tasks like ToDo, Deadline, and Event.
+     *
+     * @param input The string input from the user for creating tasks.
+     * @return A Task object representing the specified task, or null if the command doesn't correspond to a task.
+     * @throws TimeParsingException   If there's an error in parsing the time for tasks.
+     * @throws CommandDetailException If there's an error in the command details.
+     */
     protected Task parseTask(String input) throws TimeParsingException, CommandDetailException {
         String[] splitInput = input.split(" ", 2);
         String command = splitInput[0].toLowerCase();

@@ -29,7 +29,6 @@ public class TaskList {
     }
 
 
-
     public Task getTask(int index) throws CommandDetailException {
         try {
             return tasks.get(index);
@@ -38,13 +37,14 @@ public class TaskList {
         }
     }
 
-    public void markTask(int index) throws CommandDetailException{
+    public void markTask(int index) throws CommandDetailException {
         this.getTask(index).setDone();
     }
 
-    public void unmarkTask(int index) throws CommandDetailException{
+    public void unmarkTask(int index) throws CommandDetailException {
         this.getTask(index).setUndone();
     }
+
     public int size() {
         return tasks.size();
     }

@@ -41,3 +41,8 @@ shadowJar {
 run{
     standardInput = System.in
 }
+
+javadoc {
+    title = "Shuyao's Duke"
+    source = sourceSets.main.allJava
+}

@@ -1,0 +1,412 @@
+commit 7e85e11fa1b485501909f4c30e15ae3934945ce2
+Author: Tim-Siu <e1088140@u.nus.edu>
+Date:   Thu Aug 31 20:20:54 2023 +0800
+
+    Added Javadoc and make code comply with the coding standards
+
+diff --git a/build.gradle b/build.gradle
+index e902d8a..d48158c 100644
+--- a/build.gradle
++++ b/build.gradle
+@@ -41,3 +41,8 @@ shadowJar {
+ run{
+     standardInput = System.in
+ }
++
++javadoc {
++    title = "Shuyao's Duke"
++    source = sourceSets.main.allJava
++}
+diff --git a/src/main/java/duke/Duke.java b/src/main/java/duke/Duke.java
+index 713d4df..4956c4c 100644
+--- a/src/main/java/duke/Duke.java
++++ b/src/main/java/duke/Duke.java
+@@ -9,12 +9,24 @@ import duke.storage.Storage;
+ import duke.task.TaskList;
+ import duke.ui.Ui;
+ 
++/**
++ * Represents the main class for the Duke application.
++ * Responsible for initializing the application and handling the user input.
++ */
+ public class Duke {
++
+     private static final String DATA_FILE_PATH = "./data/duke.txt";
+     private static final Storage storage = new Storage(DATA_FILE_PATH);
+     private static final Ui ui = new Ui();
+     private static final Parser parser = new Parser();
+ 
++    /**
++     * The main entry point for the Duke application.
++     * Initializes the user interface, loads stored tasks from storage,
++     * and then continuously waits for user input until the exit command is received.
++     *
++     * @param args Command-line arguments (unused).
++     */
+     public static void main(String[] args) {
+         ui.showLine();
+         ui.showWelcome();
+diff --git a/src/main/java/duke/Parser.java b/src/main/java/duke/Parser.java
+index 68dec79..36798e2 100644
+--- a/src/main/java/duke/Parser.java
++++ b/src/main/java/duke/Parser.java
+@@ -1,6 +1,12 @@
+ package duke;
+ 
+-import duke.commands.*;
++import duke.commands.AddCommand;
++import duke.commands.Command;
++import duke.commands.DeleteCommand;
++import duke.commands.ExitCommand;
++import duke.commands.ListCommand;
++import duke.commands.MarkCommand;
++import duke.commands.UnmarkCommand;
+ import duke.exceptions.CommandDetailException;
+ import duke.exceptions.CommandNotRecognizedException;
+ import duke.exceptions.TimeParsingException;
+@@ -10,11 +16,24 @@ import duke.task.Task;
+ import duke.task.ToDo;
+ 
+ 
++/**
++ * Represents a parser for interpreting user input commands.
++ * The parser is responsible for translating string input into executable command objects.
++ */
+ public class Parser {
+ 
+     public Parser() {
+     }
+ 
++    /**
++     * Parses the user input string and translates it into an executable command object.
++     *
++     * @param input The string input from the user.
++     * @return A Command object representing the user's intent.
++     * @throws TimeParsingException          If there's an error in parsing the time for tasks.
++     * @throws CommandNotRecognizedException If the entered command is not recognized.
++     * @throws CommandDetailException        If there's an error in the command details.
++     */
+     public Command parse(String input) throws TimeParsingException, CommandNotRecognizedException, CommandDetailException {
+         String trimedInput = input.trim();
+         String[] splitInput = trimedInput.split(" ", 2);
+@@ -48,6 +67,15 @@ public class Parser {
+         }
+     }
+ 
++    /**
++     * Helper method to parse tasks from the input string.
++     * Used for commands that involve creating tasks like ToDo, Deadline, and Event.
++     *
++     * @param input The string input from the user for creating tasks.
++     * @return A Task object representing the specified task, or null if the command doesn't correspond to a task.
++     * @throws TimeParsingException   If there's an error in parsing the time for tasks.
++     * @throws CommandDetailException If there's an error in the command details.
++     */
+     protected Task parseTask(String input) throws TimeParsingException, CommandDetailException {
+         String[] splitInput = input.split(" ", 2);
+         String command = splitInput[0].toLowerCase();
+diff --git a/src/main/java/duke/commands/Command.java b/src/main/java/duke/commands/Command.java
+index 3971239..f632fdd 100644
+--- a/src/main/java/duke/commands/Command.java
++++ b/src/main/java/duke/commands/Command.java
+@@ -6,12 +6,33 @@ import duke.storage.Storage;
+ import duke.task.TaskList;
+ import duke.ui.Ui;
+ 
++/**
++ * Represents a command in the Duke application.
++ * This is an abstract class and serves as a blueprint for various commands in the application.
++ */
+ public abstract class Command {
+-
++    /**
++     * Constructor for the Command class.
++     */
+     public Command() {
+     }
+ 
++    /**
++     * Executes the command with the specified task list, UI, and storage.
++     * Implementation will vary based on the specific command type.
++     *
++     * @param tasks   The list of tasks that the command will operate on or use.
++     * @param ui      The UI component that the command will interact with.
++     * @param storage The storage component that the command will use for loading or saving data.
++     * @throws StorageException       If there is an issue with storing or retrieving tasks.
++     * @throws CommandDetailException If there is an issue with the details or parameters of the command.
++     */
+     public abstract void execute(TaskList tasks, Ui ui, Storage storage) throws StorageException, CommandDetailException;
+ 
++    /**
++     * Checks if the command instructs the application to exit.
++     *
++     * @return true if the command instructs the application to exit, false otherwise.
++     */
+     public abstract boolean isExit();
+ }
+diff --git a/src/main/java/duke/storage/Storage.java b/src/main/java/duke/storage/Storage.java
+index c3d9139..752f675 100644
+--- a/src/main/java/duke/storage/Storage.java
++++ b/src/main/java/duke/storage/Storage.java
+@@ -2,17 +2,40 @@ package duke.storage;
+ 
+ import duke.exceptions.StorageException;
+ import duke.exceptions.TimeParsingException;
+-import duke.task.*;
++import duke.task.Deadline;
++import duke.task.Event;
++import duke.task.Task;
++import duke.task.TaskList;
++import duke.task.ToDo;
+ 
+-import java.io.*;
++import java.io.BufferedReader;
++import java.io.File;
++import java.io.FileReader;
++import java.io.FileWriter;
++import java.io.IOException;
+ 
++/**
++ * Represents the storage component in the Duke application.
++ * This class is responsible for loading tasks from a file and saving tasks back to that file.
++ */
+ public class Storage {
+     private final String filePath;
+ 
++    /**
++     * Constructs a new instance of the Storage class with the specified file path.
++     *
++     * @param filePath The path to the file where tasks are to be stored and loaded from.
++     */
+     public Storage(String filePath) {
+         this.filePath = filePath;
+     }
+ 
++    /**
++     * Loads tasks from the storage file. If the file doesn't exist, a new file will be created.
++     *
++     * @return A {@link TaskList} populated with tasks loaded from the storage file.
++     * @throws StorageException If there are any issues with creating or reading from the file.
++     */
+     public TaskList load() throws StorageException {
+         TaskList tasks = new TaskList();
+         File file = new File(filePath);
+@@ -44,7 +67,13 @@ public class Storage {
+         return tasks;
+     }
+ 
+-
++    /**
++     * Parses a line from the storage file and constructs a {@link Task} object from it.
++     *
++     * @param line The line from the storage file to be parsed.
++     * @return A Task object constructed from the provided line, or null if the line format is unrecognized.
++     * @throws TimeParsingException If there's an issue parsing the time from the line.
++     */
+     private Task parseTask(String line) throws TimeParsingException {
+         String[] parts = line.split(" \\| ");
+         switch (parts[0]) {
+@@ -60,6 +89,12 @@ public class Storage {
+         }
+     }
+ 
++    /**
++     * Saves a {@link TaskList} back to the storage file.
++     *
++     * @param tasks The TaskList to be saved.
++     * @throws StorageException If there's an issue saving to the file.
++     */
+     public void save(TaskList tasks) throws StorageException {
+         try (FileWriter fw = new FileWriter(filePath)) {
+             fw.write(tasks.toStorage());
+diff --git a/src/main/java/duke/task/Task.java b/src/main/java/duke/task/Task.java
+index 1df7577..7c8aa04 100644
+--- a/src/main/java/duke/task/Task.java
++++ b/src/main/java/duke/task/Task.java
+@@ -1,45 +1,104 @@
+ package duke.task;
+ 
++/**
++ * Represents an abstract task in the Duke application.
++ * This class provides common functionality and structure for various types of tasks.
++ */
+ public abstract class Task {
+     private final String taskName;
+     private boolean isDone;
+ 
++    /**
++     * Creates a new task with the given name and sets its completion status to false.
++     *
++     * @param taskName The name or description of the task.
++     */
+     public Task(String taskName) {
+         this.taskName = taskName;
+         this.isDone = false;
+     }
+ 
++    /**
++     * Creates a new task with the given name and completion status.
++     *
++     * @param taskName The name or description of the task.
++     * @param isDone   The completion status of the task.
++     */
+     public Task(String taskName, boolean isDone) {
+         this.taskName = taskName;
+         this.isDone = isDone;
+     }
+ 
++    /**
++     * Marks this task as done.
++     */
+     public void setDone() {
+         this.isDone = true;
+     }
+ 
++    /**
++     * Marks this task as not done.
++     */
+     public void setUndone() {
+         this.isDone = false;
+     }
+ 
++    /**
++     * Retrieves the status of the task.
++     *
++     * @return A string representation indicating whether the task is done or not.
++     */
+     public String getTaskStatus() {
+         return this.isDone ? "[X]" : "[ ]";
+     }
+ 
++    /**
++     * Retrieves the name or description of the task.
++     *
++     * @return The name of the task.
++     */
+     public String getTaskName() {
+         return this.taskName;
+     }
+ 
++    /**
++     * Retrieves the type of the task (e.g., "ToDo", "Event").
++     * Must be implemented by subclasses.
++     *
++     * @return The type of the task.
++     */
+     public abstract String getTaskType();
+ 
++    /**
++     * Retrieves the time associated with the task (if any).
++     * Must be implemented by subclasses.
++     *
++     * @return A string representation of the task's time, or an empty string if not applicable.
++     */
+     public abstract String getTaskTime();
+ 
++    /**
++     * Formats the task into a string suitable for saving to storage.
++     * Must be implemented by subclasses.
++     *
++     * @return The task formatted as a string.
++     */
+     public abstract String toSaveFormat();
+ 
++    /**
++     * Checks if the task is marked as done.
++     *
++     * @return true if the task is done, false otherwise.
++     */
+     public boolean isDone() {
+         return this.isDone;
+     }
+ 
++    /**
++     * Provides a string representation of the task, including its type, status, name, and time.
++     *
++     * @return A string representation of the task.
++     */
+     @Override
+     public String toString() {
+         return this.getTaskType() + this.getTaskStatus() + " " + this.getTaskName() + this.getTaskTime();
+diff --git a/src/main/java/duke/task/TaskList.java b/src/main/java/duke/task/TaskList.java
+index e70a7c4..d75d9d4 100644
+--- a/src/main/java/duke/task/TaskList.java
++++ b/src/main/java/duke/task/TaskList.java
+@@ -29,7 +29,6 @@ public class TaskList {
+     }
+ 
+ 
+-
+     public Task getTask(int index) throws CommandDetailException {
+         try {
+             return tasks.get(index);
+@@ -38,13 +37,14 @@ public class TaskList {
+         }
+     }
+ 
+-    public void markTask(int index) throws CommandDetailException{
++    public void markTask(int index) throws CommandDetailException {
+         this.getTask(index).setDone();
+     }
+ 
+-    public void unmarkTask(int index) throws CommandDetailException{
++    public void unmarkTask(int index) throws CommandDetailException {
+         this.getTask(index).setUndone();
+     }
++
+     public int size() {
+         return tasks.size();
+     }
+diff --git a/src/main/java/duke/time/Time.java b/src/main/java/duke/time/Time.java
+index 6d0c7e1..a86410c 100644
+--- a/src/main/java/duke/time/Time.java
++++ b/src/main/java/duke/time/Time.java
+@@ -5,7 +5,23 @@ import duke.exceptions.TimeParsingException;
+ import java.time.LocalDate;
+ import java.time.format.DateTimeFormatter;
+ 
++/**
++ * Provides utility methods for parsing and formatting date-time representations in the Duke application.
++ * Supports specific date formats for displaying and storing purposes.
++ *
++ * @author YourName
++ * @version 1.0
++ * @since 2023-08-31
++ */
+ public class Time {
++    /**
++     * Parses a string representation of a date into a {@link LocalDate} object.
++     * The expected format is "yyyy-MM-dd".
++     *
++     * @param time The string representation of the date to be parsed.
++     * @return A {@link LocalDate} object representing the parsed date.
++     * @throws TimeParsingException If the provided string cannot be parsed into a valid date.
++     */
+     public static final LocalDate parseTime(String time) throws TimeParsingException {
+         try {
+             return LocalDate.parse(time, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+@@ -14,10 +30,24 @@ public class Time {
+         }
+     }
+ 
++    /**
++     * Formats a {@link LocalDate} object into a string representation.
++     * The resulting format is "MMM dd yyyy" (e.g., "Jan 01 2023").
++     *
++     * @param time The {@link LocalDate} object to be formatted.
++     * @return A string representation of the date.
++     */
+     public static final String formatTime(LocalDate time) {
+         return time.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
+     }
+ 
++    /**
++     * Formats a {@link LocalDate} object into a string representation suitable for storing.
++     * The resulting format is "yyyy-MM-dd" (e.g., "2023-01-01").
++     *
++     * @param time The {@link LocalDate} object to be formatted.
++     * @return A string representation of the date in a format suitable for storing.
++     */
+     public static final String formatTimeStoring(LocalDate time) {
+         return time.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+     }
