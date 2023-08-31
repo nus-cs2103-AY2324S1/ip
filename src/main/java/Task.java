@@ -13,6 +13,10 @@ public class Task {
     public String getStatusIcon() {
         return (isDone ? "X" : " ");
     }
+
+    public String toTxtString() {
+        return "";
+    }
     @Override
     public String toString() {
         return "[" + this.getStatusIcon() + "] " +  this.description;
