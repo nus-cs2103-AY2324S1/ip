@@ -2,6 +2,9 @@ package Duke.parser;
 import Duke.command.*;
 import Duke.exception.*;
 
+/**
+ * Parses user input and returns the corresponding command object.
+ */
 public class InputParser {
     public Command ParseInput(String input)
         throws DukeException{

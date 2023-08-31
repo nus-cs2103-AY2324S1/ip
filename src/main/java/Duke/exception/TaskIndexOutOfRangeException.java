@@ -1,6 +1,10 @@
 package Duke.exception;
 
 import Duke.message.ErrorMessage;
+
+/**
+ * An exception that is thrown when a task index is out of range.
+ */
 public class TaskIndexOutOfRangeException extends DukeException {
     public TaskIndexOutOfRangeException(String message) {
         super(message);

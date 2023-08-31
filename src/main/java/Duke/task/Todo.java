@@ -2,6 +2,10 @@ package Duke.task;
 
 import Duke.exception.EmptyTaskDescException;
 
+/**
+ * Represents a to-do task that has a name.
+ * Extends the {@link Task} class.
+ */
 public class Todo extends Task{
     public Todo(String task) throws EmptyTaskDescException {
         super(task);

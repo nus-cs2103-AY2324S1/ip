@@ -4,10 +4,21 @@ import Duke.exception.DukeException;
 import Duke.exception.EmptyTaskDescException;
 import Duke.exception.NoCommandFoundException;
 
+/**
+ * Represents a task with a name and completion status.
+ */
 public abstract class Task {
     final private String name;
     private boolean completed = false;
 
+
+    /**
+     * Parses a task from a line of text.
+     *
+     * @param line The line of text containing task information.
+     * @return A Task object parsed from the input line.
+     * @throws DukeException If there's an issue with parsing the task.
+     */
     public static Task Parse(String line)
             throws DukeException {
         String[] components = line.split(":", 2);
@@ -39,6 +50,14 @@ public abstract class Task {
         this.name = name;
     }
 
+    /**
+     * Creates a Task object based on the provided content and task type.
+     *
+     * @param task The content of the task.
+     * @param taskType The type of the task.
+     * @return A Task object of the specified type.
+     * @throws DukeException If there's an issue with creating the task.
+     */
     public static Task Of(String task, TaskType taskType)
             throws DukeException {
         switch (taskType) {

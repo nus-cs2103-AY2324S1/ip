@@ -9,6 +9,10 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Represents an event task that has a name, start time, and end time.
+ * Extends the {@link Task} class.
+ */
 public class Event extends Task {
     final private LocalDateTime startTime;
     final private LocalDateTime endTime;

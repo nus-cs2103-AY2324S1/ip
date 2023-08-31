@@ -5,12 +5,23 @@ import Duke.message.Message;
 import Duke.task.Task;
 import Duke.application.Application;
 
+/**
+ * Represents an abstract command that interacts with the application with some content string.
+ */
 public abstract class Command {
     protected String content;
     protected Command(String content){
         this.content = content;
     }
 
+    /**
+     * Creates a Command instance based on the given command name and content.
+     *
+     * @param commandName The name of the command.
+     * @param content The content associated with the command.
+     * @return A Command instance corresponding to the specified command name.
+     * @throws NoCommandFoundException If the provided command name is not recognized.
+     */
     public static Command Of(String commandName, String content)
             throws NoCommandFoundException {
         switch (commandName) {
@@ -34,10 +45,22 @@ public abstract class Command {
             throw new NoCommandFoundException(commandName);
         }
     }
+
+    /**
+     * Executes the command and interacts with the application.
+     *
+     * @param application The application instance with which the command interacts.
+     * @return A Message instance representing the result of executing the command.
+     * @throws DukeException If an error occurs during command execution.
+     */
     public abstract Message execute(Application application) throws DukeException;
 }
+
+/**
+ * Represents a command to exit the application.
+ */
 class Bye extends Command {
-    public Bye(String content) {
+    protected Bye(String content) {
         super(content);
     }
     @Override
@@ -47,8 +70,11 @@ class Bye extends Command {
     }
 }
 
+/**
+ * Represents a command to add a To-do task to the task list.
+ */
 class Todo extends Command {
-    public Todo(String content) {
+    protected Todo(String content) {
         super(content);
     }
     @Override
@@ -59,8 +85,12 @@ class Todo extends Command {
         return Message.OnTaskAdd(task);
     }
 }
+
+/**
+ * Represents a command to add a Deadline task to the task list.
+ */
 class Deadline extends Command {
-    public Deadline(String content) {
+    protected Deadline(String content) {
         super(content);
     }
     @Override
@@ -71,8 +101,12 @@ class Deadline extends Command {
         return Message.OnTaskAdd(task);
     }
 }
+
+/**
+ * Represents a command to add an Event task to the task list.
+ */
 class Event extends Command {
-    public Event(String content) {
+    protected Event(String content) {
         super(content);
     }
     @Override
@@ -83,8 +117,12 @@ class Event extends Command {
         return Message.OnTaskAdd((task));
     }
 }
+
+/**
+ * Represents a command to list tasks in the application.
+ */
 class List extends Command {
-    public List(String content) {
+    protected List(String content) {
         super(content);
     }
     @Override
@@ -93,8 +131,12 @@ class List extends Command {
                 Message.NumberOfTasks(application), "\n");
     }
 }
+
+/**
+ * Represents a command to mark a task as completed.
+ */
 class Mark extends Command {
-    public Mark(String content) {
+    protected Mark(String content) {
         super(content);
     }
     @Override
@@ -116,8 +158,12 @@ class Mark extends Command {
         return Message.OnTaskComplete(task);
     }
 }
+
+/**
+ * Represents a command to unmark a completed task.
+ */
 class Unmark extends Command {
-    public Unmark(String content) {
+    protected Unmark(String content) {
         super(content);
     }
     @Override
@@ -139,8 +185,12 @@ class Unmark extends Command {
         return Message.OnTaskUncomplete(task);
     }
 }
+
+/**
+ * Represents a command to delete a task from the task list.
+ */
 class Delete extends Command {
-    public Delete(String content) {
+    protected Delete(String content) {
         super(content);
     }
     @Override
