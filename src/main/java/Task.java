@@ -46,7 +46,7 @@ abstract class Task implements Serializable {
          try {
              file = new ObjectOutputStream(new FileOutputStream(filePath));
              file.writeObject(tasks);
-         } catch(IOException e) {
+         } catch (IOException e) {
              System.out.println(e.getMessage());
          } finally {
              if (file!= null) {
