@@ -113,4 +113,12 @@ public class TaskList {
         }
     }
 
+    public String outputList() {
+        StringBuilder output = new StringBuilder();
+        for (Task t : this.taskList) {
+            output.append(t.outputFormat()).append("\n");
+        }
+        return output.toString();
+    }
+
 }

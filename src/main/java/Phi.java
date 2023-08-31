@@ -1,6 +1,7 @@
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Scanner;
 
 
@@ -40,12 +41,12 @@ public class Phi {
             catch (IllegalArgumentException e) {
                 System.out.println(e.getMessage());
             }
+            writeToFile();
             System.out.println();
             input = sc.nextLine();
         }
 
         sc.close();
-
         writeToFile();
         goodbye();
     }
@@ -61,33 +62,32 @@ public class Phi {
     }
 
     public static void readFromFile() {
-        // Reading from txt file
+        File txtFile = new File("./data/tasklist.txt");
         try {
             System.out.println("Attempting to read from text file...");
-            File txtFile = new File("./data/tasklist.txt");
             Scanner txtScanner = new Scanner(txtFile);
-
             while (txtScanner.hasNextLine()) {
                 taskList.addFromSc(txtScanner.nextLine());
             }
             txtScanner.close();
             System.out.println("Text file has been scanned!\n" + taskList.taskList.size() + " items in the list");
         } catch (FileNotFoundException e) {
-            System.out.println("I can't find it :(");
-            e.printStackTrace();
+            System.out.println("I can't find it :( Creating new .txt file");
+            try {
+                txtFile.createNewFile();
+                System.out.println("New .txt file created :)");
+            } catch (IOException i) {
+                System.out.println(i.getMessage());
+            }
         }
     }
 
     public static void writeToFile() {
         try {
-            System.out.println("Writing to file...");
-            FileWriter output = new FileWriter("./data/tasklist.txt");
-            for (Task t : taskList.taskList) {
-                output.write(t.outputFormat() + "\n");
-            }
+            File txtFile = new File("./data/tasklist.txt");
+            FileWriter output = new FileWriter(txtFile);
+            output.write(taskList.outputList());
             output.close();
-            System.out.println("Writing complete!");
-
         } catch (Exception e) {
             e.getStackTrace();
         }
