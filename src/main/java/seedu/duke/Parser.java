@@ -234,6 +234,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Checks whether the given start date and time for an event is valid.
+     *
+     * @param starting The start date and time
+     * @return A LocalDateTime representing the date and time
+     */
     public LocalDateTime checkStarting(String starting ){
         String[] parts = starting.split(" ");
         try {
@@ -251,7 +257,7 @@ public class Parser {
                 throw new InvalidDurationException(starting);
             }
 
-            String[] dateParts = date.split("/");
+            String[] dateParts = date.split("-");
             // If the date does not have three components, return false
             if (dateParts.length != 3) {
                 throw new InvalidDurationException(starting);
@@ -276,6 +282,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Checks whether the given end date and time for an event is valid.
+     *
+     * @param ending The end date and time
+     * @return A LocalDateTime representing the date and time
+     */
     public LocalDateTime checkEnding(String ending) {
         String[] parts = ending.split(" ");
         try {
@@ -293,7 +305,7 @@ public class Parser {
                 throw new InvalidDurationException(ending);
             }
 
-            String[] dateParts = date.split("/");
+            String[] dateParts = date.split("-");
             // If the date does not have three components, return false
             if (dateParts.length != 3) {
                 throw new InvalidDurationException(ending);
