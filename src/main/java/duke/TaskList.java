@@ -17,26 +17,6 @@ public class TaskList {
         this.ui = ui;
     }
 
-    public void listTasks() {
-        int tempCounter = 0;
-        for (Task task : tasks) {
-            // Don't print nulls
-            if (task == null) { break; }
-            if (task instanceof Todo) {
-                Todo t = (Todo) task;
-                System.out.println(tempCounter + "." + t);
-            } else if (task instanceof Deadline) {
-                Deadline t = (Deadline) task;
-                System.out.println(tempCounter + "." + t);
-            } else if (task instanceof Event) {
-                Event t = (Event) task;
-                System.out.println(tempCounter + "." + t);
-            }
-            tempCounter++;
-        }
-        Ui.showLine();
-    }
-
     public void deleteTask(int idx) throws IndexOutOfBoundsException{
         Task task = tasks.get(idx);
         tasks.remove(task);
@@ -62,5 +42,17 @@ public class TaskList {
 
     public List<Task> getTasks() {
         return this.tasks;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder stringBuilder = new StringBuilder();
+        for (int i = 0; i < tasks.size(); i++) {
+            stringBuilder.append(i);
+            stringBuilder.append(".");
+            stringBuilder.append(tasks.get(i));
+            stringBuilder.append("\n");
+        }
+        return stringBuilder.toString();
     }
 }

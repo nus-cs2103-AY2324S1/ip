@@ -34,7 +34,7 @@ public class Parser {
             ui.showByeMessage();
             return false;
         } else if (cmd.equals(Command.list)) {
-            taskList.listTasks();
+            ui.showTaskList(taskList);
             return true;
         } else if (cmd.equals(Command.mark)) {
             try {

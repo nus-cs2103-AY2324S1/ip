@@ -84,6 +84,12 @@ public class Ui {
         System.out.println("Failed to save tasks to drive: " + e.getMessage());
         showLine();
     }
+
+    public void showTaskList(TaskList taskList) {
+        showLine();
+        System.out.println(taskList.toString());
+        showLine();
+    }
     public String readCmd() {
         // Read user input
         return scanner.nextLine();
