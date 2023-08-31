@@ -34,7 +34,7 @@ public class PrintDateCommand extends Command {
      * @param ui The user interface to print out the tasks.
      * @param storage The storage.
      * @throws DukeException If the command is invalid, or if there is
-     * nothing in the list or if nothing is happening on that date.
+     *             nothing in the list or if nothing is happening on that date.
      */
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) throws DukeException {

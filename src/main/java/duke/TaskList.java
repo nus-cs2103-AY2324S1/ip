@@ -68,7 +68,7 @@ public class TaskList {
      * @param date the date to be checked
      * @param ui the ui to show the list of tasks on the given date to the user
      * @throws DukeException if the list is empty, or the keyword is invalid
-     * or there is no task on the given date
+     *           or there is no task on the given date
      */
     public void printDateTask(Keyword key, LocalDate date, Ui ui) throws DukeException {
         if (taskList.isEmpty()) {
