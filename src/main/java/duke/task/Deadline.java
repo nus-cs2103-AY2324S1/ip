@@ -7,6 +7,10 @@ import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 
+
+/**
+ * Represents a task with a deadline.
+ */
 public class Deadline extends Task {
 
     private String deadlineBy;
@@ -15,6 +19,12 @@ public class Deadline extends Task {
 
     private LocalDateTime deadlineDateTime;
 
+    /**
+     * Constructs a Deadline object with the task description and deadline.
+     *
+     * @param description Description of the task.
+     * @param deadlineBy Deadline of the task.
+     */
     public Deadline(String description, String deadlineBy) {
         super(description);
         this.deadlineDate = parseDate(deadlineBy);
@@ -22,13 +32,22 @@ public class Deadline extends Task {
         this.deadlineBy = deadlineBy;
     }
 
+    /**
+     * Formats the string representation of deadline object to write to the file.
+     *
+     * @return String representation of the deadline object to be written to the file.
+     */
     @Override
     public String toFileString() {
         String type = "D";
         return type + " | " + (getIsDone() ? "1" : "0") + " | " + this.description + " | " + this.deadlineBy;
     }
 
-
+    /**
+     * The string representation of deadline object.
+     *
+     * @return String representation of the deadline object.
+     */
     @Override
     public String toString() {
         if (deadlineDate != null) {
@@ -43,7 +62,12 @@ public class Deadline extends Task {
 
     }
 
-    //parse LocalDate Object
+    /**
+     * Parses a String to a LocalDate object
+     *
+     * @param date String representation of potential date
+     * @return A LocalDate object if string can be parsed, null otherwise
+     */
     private LocalDate parseDate(String date) {
 
         List<DateTimeFormatter> formatters = new ArrayList<>();
@@ -65,7 +89,12 @@ public class Deadline extends Task {
 
     }
 
-    //parse LocalDateTime Object
+    /**
+     * Parses a String to a LocalDateTime object
+     *
+     * @param date String representation of potential date and time
+     * @return A LocalDateTime object if string can be parsed, null otherwise
+     */
     private LocalDateTime parseDateTime(String date) {
 
         List<DateTimeFormatter> formatters = new ArrayList<>();

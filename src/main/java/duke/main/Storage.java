@@ -12,11 +12,26 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+
+/**
+ * Handles the loading and saving of tasks to a data file.
+ */
 public class Storage {
     private String filePath;
 
+    /**
+     * Constructs a Storage instance with the specified file path.
+     *
+     * @param filePath The file path where task data will be stored and loaded from.
+     */
     Storage(String filePath) {this.filePath = filePath;};
 
+    /**
+     * Loads tasks from the data file and returns them as a list.
+     *
+     * @return An ArrayList containing the loaded tasks.
+     * @throws DukeException If there is an error during the loading process.
+     */
     public ArrayList<Task> loadTasksFromFile() throws DukeException {
         ArrayList<Task> taskList = new ArrayList<>();
         try {
@@ -65,6 +80,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Saves tasks to the data file.
+     *
+     * @param taskList The TaskList containing the tasks to be saved.
+     * @throws DukeException If there is an error during the saving process.
+     */
     public void saveTasksToFile(TaskList taskList) throws DukeException {
         try {
             FileWriter fileWriter = new FileWriter(filePath);
