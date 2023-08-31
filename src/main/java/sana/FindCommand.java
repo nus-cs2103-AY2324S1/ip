@@ -5,7 +5,7 @@ import java.util.ArrayList;
 /**
  * Represents a command to find a task by searching for a keyword.
  */
-public class FindCommand extends Command{
+public class FindCommand extends Command {
 
     /**
      * Constructs a FindCommand object.
