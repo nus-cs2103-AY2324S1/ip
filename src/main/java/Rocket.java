@@ -5,19 +5,19 @@ import java.util.Scanner;
 public class Rocket {
     public static void main(String[] args) {
         String LINE = "    ____________________________________________________________";
-        // Initialise string variable to store command
         String input;
+        // Create list
+        List<Task> taskList = new ArrayList<>();
+
         // Create scanner to read user input
         Scanner scanner = new Scanner(System.in);
 
-        // Create list
-        List<Task> taskList = new ArrayList<>();
         System.out.println(LINE + "\n    Hello! I'm Rocket\n" +
                 "    What can I do for you?\n" + LINE);
         input = scanner.nextLine();
 
         while (true) {
-            // Split string
+            // Split string to get command and arguments
             int firstWordIndex = input.indexOf(' ');
             String command;
             String arguments = "";
@@ -29,86 +29,86 @@ public class Rocket {
             }
             try {
                 switch (command) {
-                    case "bye": {
-                        System.out.println(LINE + "\n    Bye. Hope to see you again soon!\n" + LINE);
-                        return;
+                case "bye": {
+                    System.out.println(LINE + "\n    Bye. Hope to see you again soon!\n" + LINE);
+                    return;
+                }
+                case "list": {
+                    System.out.println(LINE);
+                    for (int i = 0; i < taskList.size(); i++) {
+                        Task task = taskList.get(i);
+                        System.out.println("    " + (i + 1) + "." + task);
                     }
-                    case "list": {
-                        System.out.println(LINE);
-                        for (int i = 0; i < taskList.size(); i++) {
-                            Task task = taskList.get(i);
-                            System.out.println("    " + (i + 1) + "." + task);
-                        }
-                        System.out.println(LINE);
-                        break;
+                    System.out.println(LINE);
+                    break;
+                }
+                case "mark": {
+                    int taskNumber = Integer.parseInt(arguments) - 1;
+                    Task task = taskList.get(taskNumber);
+                    task.markAsDone();
+                    System.out.println(LINE);
+                    System.out.println("    Nice! I've marked this task as done:");
+                    System.out.println("      " + task);
+                    System.out.println(LINE);
+                    break;
+                }
+                case "unmark": {
+                    int taskNumber = Integer.parseInt(arguments) - 1;
+                    Task task = taskList.get(taskNumber);
+                    task.markAsUndone();
+                    System.out.println(LINE);
+                    System.out.println("    OK, I've marked this task as not done yet:");
+                    System.out.println("      " + task);
+                    System.out.println(LINE);
+                    break;
+                }
+                case "delete": {
+                    int taskNumber = Integer.parseInt(arguments) - 1;
+                    Task task = taskList.get(taskNumber);
+                    taskList.remove(taskNumber);
+                    System.out.println(LINE);
+                    System.out.println("    Noted. I've removed this task:");
+                    System.out.println("      " + task);
+                    System.out.println("    Now you have " + taskList.size() + " tasks in the list");
+                    System.out.println(LINE);
+                    break;
+                }
+                case "deadline": {
+                    Deadline deadline = getDeadline(arguments);
+                    taskList.add(deadline);
+                    System.out.println(LINE);
+                    System.out.println("    Got it. I've added this task:");
+                    System.out.println("      " + deadline);
+                    System.out.println("    Now you have " + taskList.size() + " tasks in the list");
+                    System.out.println(LINE);
+                    break;
+                }
+                case "todo": {
+                    if (arguments.isBlank()) {
+                        throw new RocketIllegalArgumentException("The description of a todo cannot be empty.");
                     }
-                    case "mark": {
-                        int taskNumber = Integer.parseInt(arguments) - 1;
-                        Task task = taskList.get(taskNumber);
-                        task.markAsDone();
-                        System.out.println(LINE);
-                        System.out.println("    Nice! I've marked this task as done:");
-                        System.out.println("      " + task);
-                        System.out.println(LINE);
-                        break;
-                    }
-                    case "unmark": {
-                        int taskNumber = Integer.parseInt(arguments) - 1;
-                        Task task = taskList.get(taskNumber);
-                        task.markAsUndone();
-                        System.out.println(LINE);
-                        System.out.println("    OK, I've marked this task as not done yet:");
-                        System.out.println("      " + task);
-                        System.out.println(LINE);
-                        break;
-                    }
-                    case "delete": {
-                        int taskNumber = Integer.parseInt(arguments) - 1;
-                        Task task = taskList.get(taskNumber);
-                        taskList.remove(taskNumber);
-                        System.out.println(LINE);
-                        System.out.println("    Noted. I've removed this task:");
-                        System.out.println("      " + task);
-                        System.out.println("    Now you have " + taskList.size() + " tasks in the list");
-                        System.out.println(LINE);
-                        break;
-                    }
-                    case "deadline": {
-                        Deadline deadline = getDeadline(arguments);
-                        taskList.add(deadline);
-                        System.out.println(LINE);
-                        System.out.println("    Got it. I've added this task:");
-                        System.out.println("      " + deadline);
-                        System.out.println("    Now you have " + taskList.size() + " tasks in the list");
-                        System.out.println(LINE);
-                        break;
-                    }
-                    case "todo": {
-                        if (arguments.isBlank()) {
-                            throw new RocketIllegalArgumentException("The description of a todo cannot be empty.");
-                        }
-                        Todo todo = new Todo(arguments);
-                        taskList.add(todo);
-                        System.out.println(LINE);
-                        System.out.println("    Got it. I've added this task:");
-                        System.out.println("      " + todo);
-                        System.out.println("    Now you have " + taskList.size() + " tasks in the list");
-                        System.out.println(LINE);
-                        break;
-                    }
-                    case "event": {
-                        Event event = getEvent(arguments);
-                        taskList.add(event);
-                        System.out.println(LINE);
-                        System.out.println("    Got it. I've added this task:");
-                        System.out.println("      " + event);
-                        System.out.println("    Now you have " + taskList.size() + " tasks in the list");
-                        System.out.println(LINE);
-                        break;
-                    }
-                    default: {
-                        throw new RocketInvalidCommandException("I'm sorry, but I don't know what that means :-(");
-                    }
+                    Todo todo = new Todo(arguments);
+                    taskList.add(todo);
+                    System.out.println(LINE);
+                    System.out.println("    Got it. I've added this task:");
+                    System.out.println("      " + todo);
+                    System.out.println("    Now you have " + taskList.size() + " tasks in the list");
+                    System.out.println(LINE);
+                    break;
+                }
+                case "event": {
+                    Event event = getEvent(arguments);
+                    taskList.add(event);
+                    System.out.println(LINE);
+                    System.out.println("    Got it. I've added this task:");
+                    System.out.println("      " + event);
+                    System.out.println("    Now you have " + taskList.size() + " tasks in the list");
+                    System.out.println(LINE);
+                    break;
+                }
+                default: {
+                    throw new RocketInvalidCommandException("I'm sorry, but I don't know what that means :-(");
+                }
                 }
             } catch (RocketException e) {
                 System.out.println(LINE);
@@ -123,10 +123,10 @@ public class Rocket {
     }
 
     /**
-     * Extracts deadline from input
-     * @param arguments information about task
-     * @return a deadline task
-     * @throws RocketIllegalArgumentException because of illegal argument
+     * Extracts deadline from input.
+     * @param arguments information about task.
+     * @return a deadline task.
+     * @throws RocketIllegalArgumentException because of illegal argument.
      */
     private static Deadline getDeadline(String arguments) throws RocketIllegalArgumentException {
         int descriptionIndex = arguments.indexOf(" /by");
@@ -142,10 +142,10 @@ public class Rocket {
     }
 
     /**
-     * Extracts event from input
-     * @param arguments information about event
-     * @return an event
-     * @throws RocketIllegalArgumentException because of Illegal Argument
+     * Extracts event from input.
+     * @param arguments information about event.
+     * @return an event.
+     * @throws RocketIllegalArgumentException because of Illegal Argument.
      */
     private static Event getEvent(String arguments) throws RocketIllegalArgumentException{
         int descriptionIndex = arguments.indexOf(" /from");
