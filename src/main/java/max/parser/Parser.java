@@ -9,6 +9,7 @@ import max.tasks.*;
 import max.ui.Ui;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 
 import static java.lang.Integer.parseInt;
 
@@ -24,32 +25,32 @@ public class Parser {
     public Command parse(String fullCommand) throws MaxException {
         String com = fullCommand.split(" ")[0];
 
-        switch (com) {
-            case AddCommand.COMMAND_WORD_DEADLINE:
-                return handleDeadline(fullCommand);
+            switch (com) {
+                case AddCommand.COMMAND_WORD_DEADLINE:
+                    return handleDeadline(fullCommand);
 
-            case AddCommand.COMMAND_WORD_EVENT:
-                return handleEvent(fullCommand);
+                case AddCommand.COMMAND_WORD_EVENT:
+                    return handleEvent(fullCommand);
 
-            case AddCommand.COMMAND_WORD_TODO:
-                return handleTodo(fullCommand);
+                case AddCommand.COMMAND_WORD_TODO:
+                    return handleTodo(fullCommand);
 
-            case ListCommand.COMMAND_WORD:
-                return new ListCommand();
+                case ListCommand.COMMAND_WORD:
+                    return new ListCommand();
 
-            case MarkCommand.COMMAND_WORD:
-                return handleMark(fullCommand);
-            case UnmarkCommand.COMMAND_WORD:
-                return handleUnmark(fullCommand);
-            case DeleteCommand.COMMAND_WORD:
-                return handleDelete(fullCommand);
+                case MarkCommand.COMMAND_WORD:
+                    return handleMark(fullCommand);
+                case UnmarkCommand.COMMAND_WORD:
+                    return handleUnmark(fullCommand);
+                case DeleteCommand.COMMAND_WORD:
+                    return handleDelete(fullCommand);
 
-            case ExitCommand.COMMAND_WORD:
-                return new ExitCommand();
+                case ExitCommand.COMMAND_WORD:
+                    return new ExitCommand();
 
-            default:
-                throw new MaxException("Invalid command sir.");
-        }
+                default:
+                    throw new MaxException("Invalid command sir.");
+            }
 
 //        max.commands.CommandEnum commandEnum;
 ////        switch (command) {
@@ -88,17 +89,21 @@ public class Parser {
         int toIndex = fullCommand.indexOf("/to");
         // Error checking: no /from or /to tag
         if (fromIndex == -1 || toIndex == -1) {
-            throw new MaxException("     Hey! max.tasks.Event must contain '/from' and '/to' tags.");
+            throw new MaxException("     Hey! Event must contain '/from' and '/to' tags.");
         }
         String item = fullCommand.substring(5, fromIndex - 1).trim();
         String from = fullCommand.substring(fromIndex + 5, toIndex -1).trim();
         String to = fullCommand.substring(toIndex + 3).trim();
-        LocalDate fromDate = LocalDate.parse(from);
-        LocalDate toDate = LocalDate.parse(to);
+
         // Error checking: empty fields
         if (item.isEmpty() || from.isEmpty() || to.isEmpty()) {
-            throw new MaxException("     Oh no! max.tasks.Event item, 'from' date, or 'to' date cannot be empty.");
+            throw new MaxException("     Oh no! Event item, 'from' date, or 'to' date cannot be empty.");
         }
+
+        LocalDate fromDate = LocalDate.parse(from);
+        LocalDate toDate = LocalDate.parse(to);
+
+
         return new AddCommand(new Event(item, fromDate, toDate));
     }
     public Command handleDeadline(String fullCommand) throws MaxException {
@@ -109,11 +114,13 @@ public class Parser {
         }
         String item = fullCommand.substring(8, byIndex - 1).trim();
         String by = fullCommand.substring(byIndex + 3).trim();
-        LocalDate byDate = LocalDate.parse(by);
         // Error checking: empty fields
         if (item.isEmpty() || by.isEmpty()) {
-            throw new MaxException("     Oops... max.tasks.Deadline item or 'by' date cannot be empty.");
+            throw new MaxException("     Oops... Deadline item or 'by' date cannot be empty.");
         }
+
+        LocalDate byDate = LocalDate.parse(by);
+
         return new AddCommand(new Deadline(item, byDate));
     }
     public Command handleDelete(String fullCommand) throws MaxException {

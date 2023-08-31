@@ -45,7 +45,7 @@ public class TaskList {
         return myList;
     }
     public void delete(int taskNumber) throws MaxException {
-        if (taskNumber > myList.size()) {
+        if (taskNumber > myList.size() || taskNumber < 0) {
             throw new MaxException("     Seems like that number is out of range. Check again!");
         }
         Task toDelete = myList.get(taskNumber - 1);
@@ -53,13 +53,13 @@ public class TaskList {
         numOfItems--;
     }
     public void mark(int taskNumber) throws MaxException {
-        if (taskNumber > myList.size()) {
+        if (taskNumber > myList.size() || taskNumber < 0) {
             throw new MaxException("     Seems like that number is out of range. Check again!");
         }
         myList.get(taskNumber - 1).mark();
     }
     public void unmark(int taskNumber) throws MaxException {
-        if (taskNumber > myList.size()) {
+        if (taskNumber > myList.size() || taskNumber < 0) {
             throw new MaxException("     Seems like that number is out of range. Check again!");
         }
         myList.get(taskNumber - 1).unmark();
