@@ -5,10 +5,10 @@ public class Event extends Task {
     protected Date from;
     protected Date to;
 
-    public Event(String description, Date from, Date to) throws DukeException {
+    public Event(String description, Date from, Date to) {
         super(description);
-        if (description.isEmpty())
-            throw new DukeException("☹ OOPS!!! The description / from / to of a event cannot be empty.");
+//        if (description.isEmpty())
+//            throw new DukeException("☹ OOPS!!! The description / from / to of a event cannot be empty.");
         this.from = from;
         this.to = to;
     }
