@@ -30,7 +30,7 @@ public class TaskList {
         try {
             this.list = this.storage.load();
         } catch (IOException | ClassNotFoundException e) {
-            System.out.println("Error when fetching to-do list: " + e.getMessage());
+            System.out.println("Error when fetching todo list: " + e.getMessage());
         }
     }
 
@@ -83,6 +83,25 @@ public class TaskList {
         System.out.println(task);
         System.out.println("Now you have " + this.list.size() + " tasks in the list.");
         saveToFile();
+    }
+
+    /**
+     * Searches for tasks that match a given input and returns a list of matches.
+     *
+     * @param input The search query to match against task descriptions.
+     * @return An ArrayList containing tasks that match the input query.
+     */
+    public void findTasks(String input) {
+        ArrayList<Task> matches = new ArrayList<>();
+        for (Task task : this.list) {
+            if (task.getTask().contains(input)) {
+                matches.add(task);
+            }
+        }
+        System.out.println("Here are the matching tasks in your list:");
+        for (int i = 0; i < matches.size(); i++) {
+            System.out.println(i + 1 + ". " + matches.get(i));
+        }
     }
 
     /**

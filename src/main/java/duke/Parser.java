@@ -50,6 +50,9 @@ public class Parser {
                 throw new DukeException("Please enter a valid number...");
             }
             break;
+        case "find":
+            this.list.findTasks(details);
+            break;
         case "todo":
             if (details.equals("")) {
                 throw new DukeException("So what exactly do you want to do?");
