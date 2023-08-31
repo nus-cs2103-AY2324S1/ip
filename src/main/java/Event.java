@@ -1,3 +1,9 @@
+import ip.utils.TaskDateHandler;
+
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
+import java.time.format.DateTimeParseException;
+
 /**
  * The Event class for TrackerBot, inheriting from the Task class. <br>
  * This Event child contains the start and end times to complete the task by.
@@ -7,30 +13,32 @@
  */
 public class Event extends Task {
     /** The start date of the event. **/
-    String from;
+    LocalDateTime from;
 
     /** The end date of the event. **/
-    String to;
+    LocalDateTime to;
 
     /**
      * The constructor for the class.
      * @param desc The description of the Deadline task.
      */
-    public Event(String desc, String from, String to) {
+    public Event(String desc, String from, String to) throws DateTimeParseException {
         super(desc);
-        this.from = from;
-        this.to = to;
+        this.from = TaskDateHandler.convertInputToDate(from);
+        this.to = TaskDateHandler.convertInputToDate(to);
     }
 
-    protected Event(String[] args) {
+    protected Event(String[] args) throws DateTimeParseException {
         super(args);
-        this.from = args[2];
-        this.to = args[3];
+        this.from = TaskDateHandler.convertInputToDate(args[2]);
+        this.to = TaskDateHandler.convertInputToDate(args[3]);
     }
 
     @Override
     public String toSaveString() {
-        return "E|" + getSaveInfo() + "|" + this.from + "|" + this.to;
+        return "E|" + getSaveInfo() + "|"
+                + this.from.toEpochSecond(ZoneOffset.UTC) + "|"
+                + this.to.toEpochSecond(ZoneOffset.UTC);
     }
 
     /**
@@ -41,6 +49,8 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + this.from + " | to: " + this.to + ")";
+        return "[E]" + super.toString()
+                + " (from: " + TaskDateHandler.convertDateToUi(this.from)
+                + " | to: " + TaskDateHandler.convertDateToUi(this.to) + ")";
     }
 }

@@ -1,3 +1,4 @@
+import java.time.format.DateTimeParseException;
 import java.util.Arrays;
 
 /**
@@ -59,7 +60,8 @@ public abstract class Task {
 
 
     // TODO: Create the Factory method.
-    public static Task of(String type, String... args) throws IllegalArgumentException {
+    public static Task of(String type, String... args)
+            throws IllegalArgumentException, DateTimeParseException {
         switch (type) {
         case "T":
             if (args.length != 2) {
@@ -89,7 +91,7 @@ public abstract class Task {
      * @param saveStr The input save string, in the aforementioned format.
      * @return The Task object from parsing the String.
      */
-    public static Task parseSaveLine(String saveStr) {
+    public static Task parseSaveLine(String saveStr) throws DateTimeParseException {
         String delimiter = "|";
         String[] args = saveStr.split("[|]");
         return Task.of(args[0], Arrays.copyOfRange(args, 1, args.length));
