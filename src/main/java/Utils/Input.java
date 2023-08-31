@@ -4,11 +4,13 @@ import java.util.Scanner;
 
 public class Input {
     private static Scanner scanner = new Scanner(System.in);
+    private TodoList todo;
     private String input;
     private boolean active;
 
     public Input() {
         this.active = true;
+        this.todo = new TodoList();
     }
 
     public void readCommand() {
@@ -16,11 +18,17 @@ public class Input {
     }
 
     public Response executeCommand() {
-        if (this.input.equals("bye")) {
+        String[] commandArgs = this.input.split(" ");
+        String command = commandArgs[0];
+        if (command.equals("bye")) {
             this.active = false;
             return new TerminateResponse();
         }
-        return new InputResponse(this.input);
+        else if (command.equals("list")) {
+            return this.todo.list();
+        }
+
+        return this.todo.add(input);
     }
 
     public boolean isActive() {

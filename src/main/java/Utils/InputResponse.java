@@ -3,11 +3,13 @@ package Utils;
 import java.util.ArrayList;
 
 public class InputResponse extends Response {
-    private String command;
 
-    public InputResponse(String command) {
+    protected InputResponse() {
         super();
-        this.command = command;
-        this.add(command);
+    }
+
+    protected InputResponse(String input) {
+        super();
+        this.add(input);
     }
 }

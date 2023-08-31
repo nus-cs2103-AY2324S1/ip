@@ -7,7 +7,7 @@ public abstract class Response {
     private static final String LINE = "____________________________________________________________";
     private static final String TAB = "    ";
 
-    public Response() {
+    protected Response() {
         this.messageList = new ArrayList<>();
     }
 
@@ -15,12 +15,11 @@ public abstract class Response {
         messageList.add(Response.TAB + message);
     }
 
-    public void print() {
+    protected void print() {
         System.out.println(Response.TAB + Response.LINE);
         for (String message : messageList) {
             System.out.println(message);
         }
-        System.out.println(Response.TAB + Response.LINE);
-        System.out.println("");
+        System.out.println(Response.TAB + Response.LINE + '\n');
     }
 }
