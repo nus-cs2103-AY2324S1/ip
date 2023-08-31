@@ -25,7 +25,7 @@ import bruno.task.ToDo;
 
 public class TaskListTest {
     private final UI ui = new UI();
-    private final Storage storage = new Storage("data/", "bruno.txt");
+    private final Storage storage = new Storage("data-test/", "bruno-test.txt");
     private final TaskList taskList = new TaskList(this.storage, this.ui);
 
     @Test

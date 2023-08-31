@@ -55,6 +55,9 @@ public class Parser {
             case SCHEDULE:
                 taskList.showSchedule(s);
                 return true;
+            case FIND:
+                taskList.findTasks(s);
+                return true;
             default:
                 throw new BrunoUnknownTaskException();
             }

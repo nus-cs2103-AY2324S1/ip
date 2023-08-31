@@ -217,6 +217,30 @@ public class TaskList {
         ui.displayMessage(s);
     }
 
+    /**
+     * Finds all tasks whose description contains the keyword.
+     *
+     * @param task The user input for the task.
+     */
+    public void findTasks(String task) {
+        String taskInfo = "";
+        String keyWord = task.split(" ")[1];
+        int counter = 0;
+        for (int i = 0; i < list.size(); i++) {
+            String description = list.get(i).getDescription();
+            if (description.contains(keyWord)) {
+                taskInfo += "\t" + (++counter) + ". " + list.get(i).getString() + "\n";
+            }
+        }
+        if (counter == 0) {
+            taskInfo += "\tThere are no items matching your search.";
+        }
+        else {
+            taskInfo = "\tHere are the tasks matching your search:\n" + taskInfo;
+        }
+        ui.displayMessage(taskInfo);
+    }
+
     public void setList(List<Task> list) {
         this.list = list;
     }

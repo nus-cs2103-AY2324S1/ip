@@ -35,13 +35,13 @@ public class Storage {
         if (!directory.exists()) {
             directory.mkdir();
         }
+        taskList = new TaskList(this, ui);
     }
 
     /**
      * Writes to the bruno.txt file by reading all tasks in the task list.
      */
     public void writeToFile() {
-        taskList = new TaskList(this, ui);
         try {
             FileWriter fileWriter = new FileWriter(this.dirPath + this.fileName);
             List<Task> list = taskList.getList();

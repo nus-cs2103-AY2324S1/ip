@@ -30,8 +30,8 @@ public class StorageTest {
 
     @BeforeEach
     void setUp() {
-        dirPath = "data/";
-        fileName = "bruno.txt";
+        dirPath = "data-test/";
+        fileName = "bruno-test.txt";
         storage = new Storage(dirPath, fileName);
         ui = new UI();
         taskList = new TaskList(storage, ui);

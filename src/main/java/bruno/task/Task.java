@@ -65,4 +65,8 @@ public class Task {
     public boolean checkDone() {
         return this.isDone;
     }
+
+    public String getDescription() {
+        return this.description;
+    }
 }
