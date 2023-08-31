@@ -13,6 +13,9 @@ abstract public class Task implements Serializable {
 
   /**
    * Public constructor that is invoked by subclasses when creating task.
+   *
+   * @param description String description of task.
+   * @param type Type of task, denoted by D for deadline, E for event and T for todo task.
    */
   public Task(String description, String type) {
     this.description = description;
@@ -23,7 +26,7 @@ abstract public class Task implements Serializable {
   /**
    * Checks if task is done and indicates "X" for done and blank otherwise.
    *
-   * @return Indicator of task completion.
+   * @return String indicator of task completion.
    */
   public String getStatusIcon() {
     return (this.isDone ? "X" : " "); // mark done task with X
@@ -54,6 +57,9 @@ abstract public class Task implements Serializable {
 
   /**
    * Formats string representation of task.
+=======
+   * Obtains string representation of task.
+>>>>>>> branch-A-JavaDoc
    *
    * @return Information of task.
    */

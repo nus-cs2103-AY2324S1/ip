@@ -24,6 +24,9 @@ public class TaskList {
 
     /**
      * Uses the saved task list.
+     *
+     * @param stream Object input stream to be read.
+     * @throws OscarException Unable to load object input stream.
      */
     public TaskList(ObjectInputStream stream) throws OscarException {
         this.taskList = load(stream);
@@ -35,7 +38,7 @@ public class TaskList {
      * serialize-deserialize-arraylist/">...</a>
      *
      * @param stream Deserialized save file stream.
-     * @return Saved task list.
+     * @return Saved task list in an ArrayList.
      * @throws OscarException Unable to handle object input stream.
      */
     private ArrayList<Task> load(ObjectInputStream stream) throws OscarException {

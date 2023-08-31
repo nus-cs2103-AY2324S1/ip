@@ -17,7 +17,8 @@ public class Ui {
     }
 
     /**
-     * Print error message in OscarException.
+     * Prints error message in OscarException.
+     *
      * @param e OscarException.
      */
     public void showError(OscarException e) {
@@ -26,6 +27,7 @@ public class Ui {
 
     /**
      * Instantiates a scanner to take in user input.
+     *
      * @return User input.
      */
     public String readCommand() {
@@ -34,7 +36,7 @@ public class Ui {
     }
 
     /**
-     * Print divider line in output.
+     * Prints divider line in output.
      */
     public void showLine() {
         System.out.println("___________________________________\n");

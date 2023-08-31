@@ -19,6 +19,7 @@ public class EventCommand extends Command {
 
     /**
      * Instantiates an event command.
+     *
      * @param details Description of event task.
      */
     public EventCommand(String details) {
@@ -28,6 +29,7 @@ public class EventCommand extends Command {
 
     /**
      * Creates a new event task and save it to the task list.
+     *
      * @param tasks ArrayList of tasks.
      * @param storage File loading and saving handler.
      * @throws OscarException Incorrect format of event command.
@@ -49,7 +51,9 @@ public class EventCommand extends Command {
 
     /**
      * Validates details of event task.
-     * Format: event [task] /from yyyy-MM-dd HHmm /to yyyy-MM-dd HHmm
+     * Format: event [task] /from yyyy-MM-dd HHmm /to yyyy-MM-dd HHmm.
+     *
+     * @return String array containing description, start and end date and time of event task.
      * @throws OscarException Incorrect format of event command.
      */
     public String[] validate() throws OscarException {

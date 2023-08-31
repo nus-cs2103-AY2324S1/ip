@@ -22,6 +22,7 @@ public class Storage {
 
     /**
      * Instantiates a storage object.
+     *
      * @param filePath Relative location of save file.
      */
     public Storage(String filePath) {

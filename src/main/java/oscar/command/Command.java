@@ -24,10 +24,10 @@ abstract public class Command {
     }
 
     /**
-     * Validates task number.
+     * Validates the provided task number.
      *
      * @param details Task number as a string.
-     * @param tasks   ArrayList of tasks.
+     * @param tasks ArrayList of tasks.
      * @return Integer task number.
      * @throws OscarException Failure to validate task number.
      */
@@ -59,7 +59,7 @@ abstract public class Command {
     abstract public void execute(TaskList tasks, Storage storage) throws OscarException;
 
     /**
-     * Getter method to check if command is an exit command.
+     * Checks if command is an exit command.
      *
      * @return Whether command is an exit command.
      */

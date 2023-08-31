@@ -43,7 +43,7 @@ public class TodoCommand extends Command {
 
     /**
      * Validates description of todo task.
-     * Format: todo [task]
+     * Format: todo [task].
      *
      * @throws OscarException Description is missing or not within 200 characters.
      */

@@ -16,6 +16,7 @@ public class ExitCommand extends Command {
 
     /**
      * Displays message when terminating Oscar.
+     *
      * @param tasks ArrayList of tasks.
      * @param storage File loading and saving handler.
      */

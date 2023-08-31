@@ -19,6 +19,7 @@ public class DeadlineCommand extends Command {
 
     /**
      * Instantiates a deadline command.
+     *
      * @param details Description of deadline task.
      */
     public DeadlineCommand(String details) {
@@ -28,6 +29,7 @@ public class DeadlineCommand extends Command {
 
     /**
      * Creates a new deadline task and save it to the task list.
+     *
      * @param tasks ArrayList of tasks.
      * @param storage File loading and saving handler.
      * @throws OscarException Incorrect format of deadline command.
@@ -47,7 +49,9 @@ public class DeadlineCommand extends Command {
 
     /**
      * Validates details of deadline task.
-     * Format: deadline [task] /by yyyy-MM-dd HHmm
+     * Format: deadline [task] /by yyyy-MM-dd HHmm.
+     *
+     * @return String array of description and deadline for deadline task.
      * @throws OscarException Incorrect format of deadline command.
      */
     public String[] validate() throws OscarException {
@@ -75,5 +79,4 @@ public class DeadlineCommand extends Command {
         }
         return new String[]{description, deadline};
     }
-
 }

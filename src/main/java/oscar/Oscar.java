@@ -23,6 +23,7 @@ public class Oscar {
 
     /**
      * Instantiates Oscar with saved data.
+     *
      * @param filePath Location of saved task list.
      */
     public Oscar(String filePath) {
@@ -61,6 +62,7 @@ public class Oscar {
 
     /**
      * Programme flow to run Oscar.
+     * @param args Arguments for main method.
      */
     public static void main(String[] args) {
         new Oscar(FILE_PATH).run();
