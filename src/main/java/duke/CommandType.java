@@ -35,6 +35,8 @@ public enum CommandType {
     /** Command to list all tasks on a specified date. */
     TASKS_ON_DATE,
 
+    FIND,
+
     /** Command type when the input command is not recognized. */
     UNKNOWN
 }

@@ -147,4 +147,13 @@ public class Ui {
         printIndented("Now you have " + size + " tasks in the list.");
         printHorizontalLine();
     }
+
+    public void printFindResults(List<Task> tasks) {
+        printHorizontalLine();
+        printIndented("Here are the matching tasks in your list:");
+        for (int i = 0; i < tasks.size(); i++) {
+            printIndented((i + 1) + "." + tasks.get(i));
+        }
+        printHorizontalLine();
+    }
 }

@@ -33,6 +33,7 @@ public class Parser {
         if (input.startsWith("unmark")) return CommandType.UNMARK;
         if (input.startsWith("delete")) return CommandType.DELETE;
         if (input.startsWith("tasks on")) return CommandType.TASKS_ON_DATE;
+        if (input.startsWith("find")) return CommandType.FIND;
         return CommandType.UNKNOWN;
     }
 
