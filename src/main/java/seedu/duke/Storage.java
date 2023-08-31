@@ -4,6 +4,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Encapsulates the Storage class.
@@ -41,6 +42,7 @@ public class Storage {
                 Files.createDirectories(folder);
             }
 
+
             // Check if the file exists, create if not
             Path file = Paths.get(filePath);
             if (!Files.exists(file)) {
@@ -65,7 +67,19 @@ public class Storage {
         } catch (StreamCorruptedException e) {
             throw new InvalidDataFormatException();
         } catch (IOException e) {
-            throw new InvalidDataFormatException();
+            try {
+                // Read all lines from the file and store them in a List<String>
+                List<String> lines = Files.readAllLines(Paths.get(filePath));
+
+                // Print each line from the List
+                for (String line : lines) {
+                    System.out.println(line);
+                }
+                System.out.println("File path is: " + filePath);
+                throw new InvalidDataFormatException();
+            } catch (Exception f) {
+                System.out.println(f.getMessage());
+            }
         } catch (ClassNotFoundException e) {
             throw new InvalidDataFormatException();
         }
