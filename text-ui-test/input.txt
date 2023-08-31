@@ -37,4 +37,7 @@ delete 3
 list
 list /before a
 list /before 2023-09-15 1200
+find
+find t
+find orts
 bye

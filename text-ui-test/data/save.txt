@@ -1,6 +1,6 @@
 todo read book /mark
-deadline return book  /by 2023-06-06 1200
+deadline return book /by 2023-06-06 1200
 todo join sports club /mark
-todo borrow book 
-deadline return book  /by 2023-09-15 1200
-event project meeting  /from 2023-09-16 1400 /to 2023-09-16 1600
+todo borrow book
+deadline return book /by 2023-09-15 1200
+event project meeting /from 2023-09-16 1400 /to 2023-09-16 1600
