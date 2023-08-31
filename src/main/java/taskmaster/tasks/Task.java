@@ -23,4 +23,12 @@ public class Task {
     public String toString() {
         return "[" + (isDone ? "X" : " ") + "] " + description;
     }
+
+    /**
+     * Returns description of task.
+     * @return String of description of task.
+     */
+    public String getDescription() {
+        return this.description;
+    }
 }

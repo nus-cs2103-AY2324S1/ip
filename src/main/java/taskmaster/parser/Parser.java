@@ -53,6 +53,9 @@ public class Parser {
         } else if (userInput.startsWith("due")) {
             String date = userInput.substring(4).trim();
             taskList.printTasksByDate(date);
+        } else if (userInput.startsWith("find")) {
+            String keyword = userInput.substring(5).trim();
+            taskList.findTask(keyword);
         } else {
             throw new DukeException("Please enter a valid command!");
         }
