@@ -4,12 +4,23 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * The Event class represents a task without a specific deadline or time.
+ * It inherits from the Task class and provides methods to create and display an Event task.
+ */
 public class Event extends Task {
 
     private LocalDate fromDate, toDate;
     private LocalTime fromTime, toTime;
     private DayOfWeek fromDay, toDay;
 
+    /**
+     * Constructs an Event task.
+     *
+     * @param description The description of the Event task.
+     * @param from The start time of the Event task.
+     * @param to The end time of the Event task.
+     */
     public Event(String description, String from, String to) {
         super(description);
 
@@ -36,6 +47,14 @@ public class Event extends Task {
         }
     }
 
+    /**
+     * Constructs an Event task when reloading tasks from storage file.
+     *
+     * @param description The description of the Event task.
+     * @param from The start time of the Event task.
+     * @param to The end time of the Event task.
+     * @param status A string indicating the status of the task ("Y" for done, "N" for not done).
+     */
     public Event(String description, String from, String to, String status) {
         super(description);
 
@@ -69,6 +88,11 @@ public class Event extends Task {
     }
 
 
+    /**
+     * Converts the task to a formatted string representation to be displayed to users.
+     *
+     * @return The formatted string representation of the task.
+     */
     @Override
     public String toString() {
 
@@ -83,6 +107,11 @@ public class Event extends Task {
 
     }
 
+    /**
+     * Converts the task to a formatted string representation for file storage.
+     *
+     * @return The formatted string representation of the task for file storage.
+     */
     @Override
     public String toFileString(){
         String fromDate = dateToString(this.fromDate);

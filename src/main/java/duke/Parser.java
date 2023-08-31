@@ -1,4 +1,9 @@
 package duke;
+
+/**
+ * The Parser class handles the analysis of user inputs and triggers commands accordingly.
+ * It interprets user commands and interacts with the UI, storage, tasks and commands.
+ */
 public class Parser {
 
     private Commands command;
@@ -7,6 +12,14 @@ public class Parser {
     private TaskList tasks;
     private Ui ui;
 
+    /**
+     * Constructs a Parser instance.
+     *
+     * @param ui The UI component for displaying messages to the user.
+     * @param storage The storage component for loading and saving task data.
+     * @param tasks The task list containing existing tasks.
+     * @param command The commands component for executing actions on tasks.
+     */
     public Parser(Ui ui, Storage storage, TaskList tasks, Commands command) {
         this.ui = ui;
         this.storage = storage;
@@ -14,6 +27,15 @@ public class Parser {
         this.command = command;
     }
 
+    /**
+     * Analyzes the user input and triggers the appropriate actions.
+     * Analyze inputs based on what inputs begin with.
+     * If input is related to creating a new task, call next analyzer.
+     * If input is related to modifying existing task, call relevant commands.
+     * If is none of the above, throw MYBotExceptions accordingly.
+     *
+     * @param input The user input to be analysed
+     */
     public void analyseInput(String input) {
         try {
             if (input.equals("list")) {
@@ -24,9 +46,12 @@ public class Parser {
             } else if (input.startsWith("unmark ")) {
                 int task_index = Integer.parseInt(input.substring(7));
                 command.unmarkTasks(task_index);
-            } else if (input.startsWith("delete ")){
+            } else if (input.startsWith("delete ")) {
                 int task_index = Integer.parseInt(input.substring(7));
                 command.removeTasks(task_index);
+            } else if(input.startsWith("find ")) {
+                String keyword = input.substring(5);
+                command.findTasks(keyword);
             } else if (input.isEmpty()) {
                 throw new MYBotExceptions.UnknownCommandException();
             } else if (!input.startsWith("todo ") && !input.startsWith("deadline ") && !input.startsWith("event ")) {
@@ -39,6 +64,15 @@ public class Parser {
         }
     }
 
+    /**
+     * Analyzes an input that is related to creating a new Task.
+     * Determines type of task according to what inputs begin with.
+     * Checks if details of tasks keyed in based on format.
+     * Calls respective commands if input is keyed in correct format,
+     * or else throw an exception to tell users what's wrong.
+     *
+     * @param input The details of the Task
+     */
     public void analyseAddTaskInput(String input) {
         try {
             if(command == null) {
@@ -95,7 +129,7 @@ public class Parser {
         } catch (MYBotExceptions e) {
             ui.printException(e);
         } catch (NullPointerException e) {
-            System.out.println("x");
+            System.out.println(e.getMessage());
         }
     }
 }

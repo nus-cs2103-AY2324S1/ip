@@ -7,6 +7,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+/**
+ * The Task class represents a task with a description and completion status.
+ * It provides methods for managing task details, status and conversions.
+ */
 public class Task {
     private String description;
     private boolean isDone;
@@ -35,20 +39,30 @@ public class Task {
 
     }
 
+    /**
+     * Constructs a Task with the specified description.
+     *
+     * @param description The description of the task.
+     */
     public Task(String description) {
         this.description = description;
         this.isDone = false;
     }
 
+
     public String getStatus() {
         return (isDone ? "X" : " "); // mark done task with X
     }
 
-    public String getStatusFromFile(){
+    public String getStatusIcon() {
+        return (isDone ? "X" : " "); // mark done task with X
+    }
+  
+   public String getStatusFromFile(){
         return (isDone ? "Y" : "N");
     }
 
-    private String getDescription(){
+    public String getDescription(){
         return description;
     }
 
@@ -56,14 +70,26 @@ public class Task {
         isDone = true;
     }
 
+    /**
+     * Retrieves tasks status from file.
+     */
     public void taskStatusFromFile(boolean status){
         isDone = status;
     }
 
+    /**
+     * Marks task's completion status as undone.
+     */
     public void undoTask() {
         isDone = false;
     }
 
+    /**
+     * Converts a string representation to a LocalDate object.
+     *
+     * @param date The date string to be converted.
+     * @return The converted LocalDate object
+     */
     public LocalDate convertStringToDate(String date) {
             for (DateTimeFormatter formatter : DATE_FORMATTERS) {
                 try {
@@ -76,6 +102,12 @@ public class Task {
         return null;
     }
 
+    /**
+     * Converts a string representation to a DayOfWeek object.
+     *
+     * @param day The day string to be converted.
+     * @return The converted DayOfWeek object.
+     */
     public DayOfWeek convertStringToDay(String day) {
         for (DateTimeFormatter formatter : DAY_FORMATTERS) {
             try {
@@ -89,6 +121,12 @@ public class Task {
         return null;
     }
 
+    /**
+     * Converts a string representation to a LocalTime object.
+     *
+     * @param time The time string to be converted.
+     * @return The converted LocalTime object.
+     */
     public LocalTime convertStringToTime(String time) {
         for (DateTimeFormatter formatter : TIME_FORMATTERS) {
             try {
@@ -102,9 +140,22 @@ public class Task {
         return null;
     }
 
+    /**
+     * Converts a LocalDate object to a formatted date string.
+     *
+     * @param date The LocalDate object to be converted.
+     * @return The converted date String.
+     */
     public String dateToString(LocalDate date) {
         return date.format(DateTimeFormatter.ofPattern("dd MMM yyyy"));
     }
+
+    /**
+     * Converts a DayToWeek object to a formatted day string.
+     *
+     * @param day The DayToWeek object to be converted.
+     * @return The converted day String.
+     */
     public String dayToString(DayOfWeek day) {
         if(day!=null) {
             return ", " + day.name().substring(0,1) + day.name().substring(1).toLowerCase() ;
@@ -113,6 +164,12 @@ public class Task {
         }
     }
 
+    /**
+     * Converts a LocalTime object to a formatted day string.
+     *
+     * @param time The LocalTime object to be converted.
+     * @return The converted time String.
+     */
     public String timeToString(LocalTime time) {
         if(time!=null) {
             return ", " + time.format(DateTimeFormatter.ofPattern("h.mma")).toUpperCase();
@@ -120,11 +177,22 @@ public class Task {
             return "";
         }
     }
+
+    /**
+     * Converts the task to a formatted string representation to be displayed to users.
+     *
+     * @return The formatted string representation of the task.
+     */
     @Override
     public String toString(){
         return " [" + getStatus() + "] " + getDescription();
     }
 
+    /**
+     * Converts the task to a formatted string representation for file storage.
+     *
+     * @return The formatted string representation of the task for file storage.
+     */
     public String toFileString(){
         return "|" + getStatusFromFile() + "|" + getDescription();
     }

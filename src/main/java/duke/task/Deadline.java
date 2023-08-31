@@ -6,12 +6,22 @@ import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 
 
+/**
+ * The Deadline class represents a task without a specific deadline or time.
+ * It inherits from the Task class and provides methods to create and display a Deadline task.
+ */
 public class Deadline extends Task {
 
     private LocalDate date;
     private LocalTime time;
     private DayOfWeek day;
 
+    /**
+     * Constructs a Deadline task.
+     *
+     * @param description The description of the Deadline task.
+     * @param by The deadline of the Deadline task.
+     */
     public Deadline(String description, String by) {
         super(description);
 
@@ -27,6 +37,13 @@ public class Deadline extends Task {
         }
     }
 
+    /**
+     * Constructs a Deadline task when reloading tasks from storage file.
+     *
+     * @param description The description of the Deadline task.
+     * @param by The deadline of the Deadline task.
+     * @param status A string indicating the status of the task ("Y" for done, "N" for not done).
+     */
     public Deadline(String description, String by, String status) {
         super(description);
 
@@ -48,6 +65,11 @@ public class Deadline extends Task {
         }
     }
 
+    /**
+     * Converts the task to a formatted string representation to be displayed to users.
+     *
+     * @return The formatted string representation of the task.
+     */
     @Override
     public String toString() {
         String date = dateToString(this.date);
@@ -56,6 +78,11 @@ public class Deadline extends Task {
         return "[D]" + super.toString() + " (by:" + date + day + time + ")";
     }
 
+    /**
+     * Converts the task to a formatted string representation for file storage.
+     *
+     * @return The formatted string representation of the task for file storage.
+     */
     @Override
     public String toFileString(){
         String date = dateToString(this.date);
