@@ -28,10 +28,6 @@ public class PrintDateCommand extends Command {
             throw new PrintDateException(err);
         }
 
-        try {
-            taskList.printDateTask(Keyword.valueOf(printTask[0].toUpperCase()), Time.parseDate(printTask[1]), ui);
-        } catch (DukeException e) {
-            throw new PrintDateException(err);
-        }
+        taskList.printDateTask(Keyword.valueOf(printTask[0].toUpperCase()), Time.parseDate(printTask[1]), ui);
     }
 }

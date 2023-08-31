@@ -17,7 +17,7 @@ public class DeleteCommand extends Command {
     }
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) throws DukeException {
-        String err = String.format("OOPS!!! The command for delete task is invalid.");
+        String err = "OOPS!!! The command for delete task is invalid.";
         int taskNum;
         try {
             if (!commandBody.equals("all")) {
