@@ -15,7 +15,7 @@ import java.util.ArrayList;
 
 public class Storage {
     private Path filePath;
-    ArrayList<Task> list;
+    private ArrayList<Task> list;
 
     /**
      * Constructor to create a Storage object.

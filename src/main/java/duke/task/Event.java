@@ -11,17 +11,17 @@ import java.time.format.DateTimeFormatter;
 
 public class Event extends Task {
 
-    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d-MMM-yyyy");
+    private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d-MMM-yyyy");
 
     /**
      * Starting date of the event.
      */
-    protected LocalDate from;
+    private LocalDate from;
 
     /**
      * Ending date of the event.
      */
-    protected LocalDate to;
+    private LocalDate to;
 
     /**
      * Constructor to create an Event.

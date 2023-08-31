@@ -25,7 +25,8 @@ public class TaskList {
      *
      * @param input User input.
      */
-    public void showList(String input[]) {
+
+    public void showList(String[] input) {
         try {
             if (!(input.length == 1 || input[1].strip().equals(""))) {
                 throw new DukeException("    Did you mean list?");
@@ -45,7 +46,8 @@ public class TaskList {
      *
      * @param input User input.
      */
-    public void markTask(String input[]) {
+
+    public void markTask(String[] input) {
         try {
             int toMark = Integer.parseInt(input[1]);
             Task task = taskList.get(toMark - 1);
@@ -64,7 +66,7 @@ public class TaskList {
      *
      * @param input User input.
      */
-    public void unmarkTask(String input[]) {
+    public void unmarkTask(String[] input) {
         try {
             int toMark = Integer.parseInt(input[1]);
             Task task = taskList.get(toMark - 1);
@@ -83,7 +85,7 @@ public class TaskList {
      *
      * @param input User input.
      */
-    public void deleteTask(String input[]) {
+    public void deleteTask(String[] input) {
         try {
             int toDelete = Integer.parseInt(input[1]);
             Task task = taskList.get(toDelete - 1);
@@ -103,7 +105,7 @@ public class TaskList {
      *
      * @param input User input.
      */
-    public void addEvent(String input[]) {
+    public void addEvent(String[] input) {
         try {
             String[] s1 = input[1].split("/from", 2);
             String[] s2 = s1[1].split("/to", 2);
@@ -132,11 +134,12 @@ public class TaskList {
      *
      * @param input User input.
      */
-    public void addDeadline(String input[]) {
+
+    public void addDeadline(String[] input) {
         try {
             String[] s = input[1].split("/by", 2);
             String desc = s[0].strip();
-            String deadline= s[1].strip();
+            String deadline = s[1].strip();
             if (desc.equals("") || deadline.equals("")) {
                 throw new DukeException("    Format: deadline description /by yyyy-mm-dd");
             }
@@ -154,12 +157,13 @@ public class TaskList {
         }
     }
 
+
     /**
      * Adds a ToDo to the task list.
      *
      * @param input User input.
      */
-    public void addToDo(String input[]) {
+    public void addToDo(String[] input) {
         try {
             String desc = input[1];
             if (desc.strip().equals("")) {
