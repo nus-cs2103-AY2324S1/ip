@@ -46,9 +46,12 @@ public class Parser {
             } else if (input.startsWith("unmark ")) {
                 int task_index = Integer.parseInt(input.substring(7));
                 command.unmarkTasks(task_index);
-            } else if (input.startsWith("delete ")){
+            } else if (input.startsWith("delete ")) {
                 int task_index = Integer.parseInt(input.substring(7));
                 command.removeTasks(task_index);
+            } else if(input.startsWith("find ")) {
+                String keyword = input.substring(5);
+                command.findTasks(keyword);
             } else if (input.isEmpty()) {
                 throw new MYBotExceptions.UnknownCommandException();
             } else if (!input.startsWith("todo ") && !input.startsWith("deadline ") && !input.startsWith("event ")) {

@@ -145,4 +145,14 @@ public class Commands {
             ui.printException(e);
         }
     }
+
+    /**
+     * Find and prints tasks that match the specified keyword.
+     *
+     * @param keyword The keyword to search for in tasks.
+     */
+    public void findTasks(String keyword) {
+        List<Task> matchingTasks = task_List.findMatchingTasks(keyword);
+        ui.printMatchingTasks(matchingTasks);
+    }
 }
