@@ -5,8 +5,10 @@ import duke.components.TaskList;
 import duke.components.Ui;
 import duke.tasks.Task;
 
+import java.io.IOException;
+
 /**
- * Command used to delete a Task from the TaskList
+ * Command to delete a Task from the TaskList
  */
 public class DeleteTaskCommand extends Command {
     private final int idx;
@@ -29,6 +31,8 @@ public class DeleteTaskCommand extends Command {
             storage.save(taskList);
         } catch (IndexOutOfBoundsException e) {
             ui.showError(String.format("%d is not a valid index! Unable to delete task.", idx + 1));
+        } catch (IOException e) {
+            ui.showError(e.getMessage());
         }
     }
 }

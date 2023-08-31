@@ -8,16 +8,12 @@ import duke.components.Ui;
  * Abstract Command class that can be executed to perform a command
  */
 public abstract class Command {
-
-    /**
-     * Types of commands
-     */
     public enum Types {
         TODO, DEADLINE, EVENT, MARK, UNMARK, DELETE, DATE
     }
 
     /**
-     * Whether the command is an Exit Command
+     * Returns whether a command is an Exit command
      * @return True if command is an Exit Command, false otherwise
      */
     public boolean isExit() {
