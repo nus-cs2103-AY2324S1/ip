@@ -3,6 +3,9 @@ package duke;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Encapsulates different types of tasks that have a name and whether it is done.
+ */
 public abstract class Task {
     private String name;
     private boolean isDone;
@@ -41,5 +44,9 @@ public abstract class Task {
         return String.format("[%s] %s", this.isDone ? "X" : " ", this.name);
     }
 
+    /**
+     * Generates task list entry in specified format.
+     * @return task list entry as a string
+     */
     public abstract String toTaskListEntry();
 }
