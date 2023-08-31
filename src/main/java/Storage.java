@@ -10,7 +10,10 @@ import java.util.Scanner;
 
 import exceptions.DevyBotException;
 import exceptions.UnknownCommandException;
-import devybot.Ui;
+import tasks.Task;
+import tasks.DeadlineTask;
+import tasks.EventTask;
+import tasks.TodoTask;
 
 public class Storage {
     private String filePath;
@@ -22,7 +25,7 @@ public class Storage {
 
     }
 
-    private ArrayList<Task> loadTasksFromFile() throws DevyBotException {
+    public ArrayList<Task> loadTasksFromFile() throws DevyBotException {
         ArrayList<Task> taskList = new ArrayList<>();
         try {
             Scanner scanner = new Scanner(this.file);
@@ -86,15 +89,15 @@ public class Storage {
         return taskList;
     }
 
-    private void saveTasksToFile(ArrayList<Task> taskList) {
+    public void saveTasksToFile(TaskList taskList) {
         try {
             File dataDir = new File("./data");
             if (!dataDir.exists()) {
                 dataDir.mkdir(); // Create the directory if it doesn't exist
             }
             FileWriter fileWriter = new FileWriter(filePath);
-            for (Task task : taskList) {
-                fileWriter.write(task.toFileString() + "\n");
+            for (int i = 0; i < taskList.size(); i++) {
+                fileWriter.write(taskList.getTask(i).toFileString() + "\n");
             }
             fileWriter.close();
         } catch (IOException e) {

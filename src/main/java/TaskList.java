@@ -5,9 +5,12 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
-import devybot.Ui;
 import exceptions.EmptyDescriptionException;
 import exceptions.TaskIndexOutOfBoundsException;
+import tasks.DeadlineTask;
+import tasks.Task;
+import tasks.EventTask;
+import tasks.TodoTask;
 
 public class TaskList {
     private ArrayList<Task> taskList;
@@ -31,9 +34,15 @@ public class TaskList {
             }
             Task currentTask = this.taskList.get(index);
             taskList.remove(index);
+            String outpString = "Noted. I've removed this task:\n  " + currentTask;
+            Ui.showMessage(outpString);
         } catch (TaskIndexOutOfBoundsException e) {
             Ui.showMessage(e.getMessage());
         }
+    }
+
+    public int size() {
+        return this.taskList.size();
     }
 
     public void listTasks() {
@@ -66,7 +75,9 @@ public class TaskList {
         String[] parts = userInput.split(" /by ");
 
         String description = parts[0].substring(8).trim();
-        if (description.isEmpty()) {
+
+        if (description.isEmpty() || parts.length < 2) {
+            // need to edit to be more specific
             throw new EmptyDescriptionException("deadline");
         }
 
@@ -100,7 +111,8 @@ public class TaskList {
         String[] parts = userInput.split(" /from | /to ");
 
         String description = parts[0].substring(5).trim();
-        if (description.isEmpty()) {
+        if (description.isEmpty() || parts.length < 3) {
+            // need to edit to be more specific
             throw new EmptyDescriptionException("event");
         }
 
@@ -148,5 +160,4 @@ public class TaskList {
         String outpString = "OK, I've marked this task as not done yet:\n  " + currentTask;
         Ui.showMessage(outpString);
     }
-
 }

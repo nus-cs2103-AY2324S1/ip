@@ -1,11 +1,11 @@
-import devybot.Ui;
 import exceptions.DevyBotException;
 import exceptions.EmptyDescriptionException;
 import exceptions.NonIntegerInputException;
 import exceptions.UnknownCommandException;
 
 public class Parser {
-    public static enum CommandType {
+    private static boolean isRun = true;
+    private static enum CommandType {
         TODO, DEADLINE, EVENT, MARK, UNMARK, DELETE, LIST, BYE, UNKNOWN
     }
 
@@ -17,43 +17,40 @@ public class Parser {
         }
     }
 
-    public static void parse(String userInput, TaskList taskList) {
+    public static void parse(String userInput, TaskList taskList) throws DevyBotException {
         String[] wordsArray = userInput.split("\\s+");
         CommandType commandType = getCommandType(wordsArray[0]);
-        try {
-            switch (commandType) {
-                case TODO:
-                    taskList.addTodoTask(userInput);
-                    break;
-                case DEADLINE:
-                    taskList.addDeadlineTask(userInput);
-                    break;
-                case EVENT:
-                    taskList.addEventTask(userInput);
-                    break;
-                case MARK:
-                    int markIndex = getIndex(wordsArray);
-                    taskList.markTaskAsDone(markIndex);
-                    break;
-                case UNMARK:
-                    int unmarkIndex = getIndex(wordsArray);
-                    taskList.markTaskAsUndone(unmarkIndex);
-                    break;
-                case DELETE:
-                    int deleteIndex = getIndex(wordsArray);
-                    taskList.deleteTask(deleteIndex);
-                    break;
-                case BYE:
-                    Ui.showMessage("Bye. Hope to see you again soon!");
-                    break;
-                case LIST:
-                    taskList.listTasks();
-                    break;
-                default:
-                    throw new UnknownCommandException();
-            }
-        } catch (DevyBotException e) {
-            Ui.showMessage(e.getMessage());
+
+        switch (commandType) {
+            case TODO:
+                taskList.addTodoTask(userInput);
+                break;
+            case DEADLINE:
+                taskList.addDeadlineTask(userInput);
+                break;
+            case EVENT:
+                taskList.addEventTask(userInput);
+                break;
+            case MARK:
+                int markIndex = getIndex(wordsArray);
+                taskList.markTaskAsDone(markIndex);
+                break;
+            case UNMARK:
+                int unmarkIndex = getIndex(wordsArray);
+                taskList.markTaskAsUndone(unmarkIndex);
+                break;
+            case DELETE:
+                int deleteIndex = getIndex(wordsArray);
+                taskList.deleteTask(deleteIndex);
+                break;
+            case BYE:
+                isRun = false;
+                break;
+            case LIST:
+                taskList.listTasks();
+                break;
+            default:
+                throw new UnknownCommandException();
         }
 
     }
@@ -68,5 +65,9 @@ public class Parser {
         } catch (NumberFormatException e) {
             throw new NonIntegerInputException();
         }
+    }
+
+    public static boolean isRun() {
+        return isRun;
     }
 }

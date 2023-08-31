@@ -2,8 +2,8 @@ todo Buy groceries
 todo Clean room
 todo Study for exam
 deadline Submit assignment /by Sunday
-deadline Pay bills /by 15th
-event Birthday party /from 3pm /to 7pm
+deadline Pay bills /by 1/10/2023 1000
+event Birthday party /from 1/3/2000 1000 /to 3/4/2000 2300
 event Team meeting /from 10am /to 11am
 mark 1
 mark 2

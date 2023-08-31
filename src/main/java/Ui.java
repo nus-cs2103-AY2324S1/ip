@@ -1,5 +1,3 @@
-package devybot;
-
 public class Ui {
     public static void showMessage(String message) {
         System.out.println("____________________________________________________________");
