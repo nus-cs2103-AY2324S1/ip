@@ -1,8 +1,11 @@
 package sana;
-import org.junit.jupiter.api.Test;
-import java.util.Scanner;
-import static org.junit.jupiter.api.Assertions.fail;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
+
+import java.util.Scanner;
+
+import org.junit.jupiter.api.Test;
 
 public class AddCommandTest {
 
@@ -24,8 +27,8 @@ public class AddCommandTest {
             c.execute(new TaskList("mockList"), new Ui(new Scanner("mockScanner")), new Storage("mockFile"));
             fail();
         } catch (SanaException e) {
-            assertEquals("OOPS!!! Incomplete task description.\nMake sure you follow the format " +
-                    "'deadline [name of task] /by [deadline]'", e.getMessage());
+            assertEquals("OOPS!!! Incomplete task description.\nMake sure you follow the format "
+                    + "'deadline [name of task] /by [deadline]'", e.getMessage());
         }
     }
 
@@ -36,8 +39,8 @@ public class AddCommandTest {
             c.execute(new TaskList("mockList"), new Ui(new Scanner("mockScanner")), new Storage("mockFile"));
             fail();
         } catch (SanaException e) {
-            assertEquals("OOPS!! The deadline cannot be empty.\nMake sure you follow the format " +
-                    "'deadline [name of task] /by [deadline]'", e.getMessage());
+            assertEquals("OOPS!! The deadline cannot be empty.\nMake sure you follow the format "
+                    + "'deadline [name of task] /by [deadline]'", e.getMessage());
         }
     }
 
@@ -48,8 +51,8 @@ public class AddCommandTest {
             c.execute(new TaskList("mockList"), new Ui(new Scanner("mockScanner")), new Storage("mockFile"));
             fail();
         } catch (SanaException e) {
-            assertEquals("OOPS!!! Incomplete command. Make sure you follow the format " +
-                    "'event [name of task] /from [from] /to [to]'", e.getMessage());
+            assertEquals("OOPS!!! Incomplete command. Make sure you follow the format "
+                    + "'event [name of task] /from [from] /to [to]'", e.getMessage());
         }
     }
 
@@ -60,8 +63,8 @@ public class AddCommandTest {
             c.execute(new TaskList("mockList"), new Ui(new Scanner("mockScanner")), new Storage("mockFile"));
             fail();
         } catch (SanaException e) {
-            assertEquals("OOPS!! The 'from' field cannot be empty.\nMake sure you follow the format " +
-                    "'deadline [name of task] /from [from] /to [to]'", e.getMessage());
+            assertEquals("OOPS!! The 'from' field cannot be empty.\nMake sure you follow the format "
+                    + "'deadline [name of task] /from [from] /to [to]'", e.getMessage());
         }
     }
 
@@ -72,8 +75,8 @@ public class AddCommandTest {
             c.execute(new TaskList("mockList"), new Ui(new Scanner("mockScanner")), new Storage("mockFile"));
             fail();
         } catch (SanaException e) {
-            assertEquals("OOPS!! The 'to' field cannot be empty.\nMake sure you follow the format " +
-                    "'deadline [name of task] /from [from] /to [to]'", e.getMessage());
+            assertEquals("OOPS!! The 'to' field cannot be empty.\nMake sure you follow the format "
+                    + "'deadline [name of task] /from [from] /to [to]'", e.getMessage());
         }
     }
 }

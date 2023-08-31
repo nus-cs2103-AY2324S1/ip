@@ -18,15 +18,17 @@ public class AddCommand extends Command {
     }
 
     /**
-     * Executes the add command by adding a task to the task list.
+     * Executes the add command by adding a task to the task list and saving to file.
      *
      * @param tasks   The TaskList object containing the list of tasks.
      * @param ui      The Ui object for handling user interface.
-     * @param storage The Storage object for managing data storage.
+     * @param storage The Storage object for saving and loading tasks.
      * @throws SanaException If an error specific to Sana occurs during execution.
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws SanaException {
+        String cmd = getCmd();
+        String arguments = getArguments();
         switch (cmd) {
         case "todo":
             if (arguments.isBlank()) {
@@ -45,15 +47,16 @@ public class AddCommand extends Command {
 
         case "deadline":
             if (arguments.isBlank()) {
-                throw new SanaException("OOPS!!! Incomplete task description.\nMake sure you follow the format " +
-                        "'deadline [name of task] /by [deadline]'");
+                throw new SanaException("OOPS!!! Incomplete task description.\nMake sure you follow the format "
+                        + "'deadline [name of task] /by [deadline]'");
             }
 
             int lastDescId = arguments.indexOf('/');
 
-            if (lastDescId == -1 || arguments.length() < lastDescId + 4 || arguments.substring(lastDescId + 4).isBlank()) {
-                throw new SanaException("OOPS!! The deadline cannot be empty.\nMake sure you follow the format " +
-                        "'deadline [name of task] /by [deadline]'");
+            if (lastDescId == -1 || arguments.length() < lastDescId + 4
+                    || arguments.substring(lastDescId + 4).isBlank()) {
+                throw new SanaException("OOPS!! The deadline cannot be empty.\nMake sure you follow the format "
+                        + "'deadline [name of task] /by [deadline]'");
             }
 
             String desc = arguments.substring(0, lastDescId - 1);
@@ -76,22 +79,24 @@ public class AddCommand extends Command {
 
         case "event":
             if (arguments.isBlank()) {
-                throw new SanaException("OOPS!!! Incomplete command. Make sure you follow the format " +
-                        "'event [name of task] /from [from] /to [to]'");
+                throw new SanaException("OOPS!!! Incomplete command. Make sure you follow the format "
+                        + "'event [name of task] /from [from] /to [to]'");
             }
 
             lastDescId = arguments.indexOf('/');
 
-            if (lastDescId == -1 || arguments.length() < lastDescId + 6 || arguments.substring(lastDescId + 6).isBlank()) {
-                throw new SanaException("OOPS!! The 'from' field cannot be empty.\nMake sure you follow the format " +
-                        "'deadline [name of task] /from [from] /to [to]'");
+            if (lastDescId == -1 || arguments.length() < lastDescId + 6
+                    || arguments.substring(lastDescId + 6).isBlank()) {
+                throw new SanaException("OOPS!! The 'from' field cannot be empty.\nMake sure you follow the format "
+                        + "'deadline [name of task] /from [from] /to [to]'");
             }
             desc = arguments.substring(0, lastDescId - 1);
 
             int lastFromId = arguments.indexOf('/', lastDescId + 1);
-            if (lastFromId == -1 || arguments.length() < lastFromId + 4 || arguments.substring(lastFromId + 4).isBlank()) {
-                throw new SanaException("OOPS!! The 'to' field cannot be empty.\nMake sure you follow the format " +
-                        "'deadline [name of task] /from [from] /to [to]'");
+            if (lastFromId == -1 || arguments.length() < lastFromId + 4
+                    || arguments.substring(lastFromId + 4).isBlank()) {
+                throw new SanaException("OOPS!! The 'to' field cannot be empty.\nMake sure you follow the format "
+                        + "'deadline [name of task] /from [from] /to [to]'");
             }
             String from = arguments.substring(lastDescId + 6, lastFromId - 1);
             String to = arguments.substring(lastFromId + 4);
@@ -114,6 +119,8 @@ public class AddCommand extends Command {
                         + " in the list");
             }
             break;
+        default:
+            throw new SanaException("Task type not recognized!");
         }
     }
 
