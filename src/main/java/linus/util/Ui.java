@@ -1,8 +1,10 @@
 package linus.util;
 
 import java.util.Scanner;
+
 public class Ui {
     private static final Scanner sc = new Scanner(System.in);
+
     public static void print(String message) {
         System.out.println(
                 "^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n"
