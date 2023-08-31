@@ -10,7 +10,7 @@ import java.util.ArrayList;
  */
 public class TaskList {
     private final ArrayList<Task> taskList;
-    static final int maxNumberOfTasks = 100;
+    static final int MAX_NUMBER_OF_TASKS = 100;
 
     /**
      * Constructor that instantiates a TaskList object with specified list of task.
@@ -24,7 +24,7 @@ public class TaskList {
      * Constructor that instantiates an empty TaskList object.
      */
     public TaskList() {
-        this.taskList = new ArrayList<>(maxNumberOfTasks);
+        this.taskList = new ArrayList<>(MAX_NUMBER_OF_TASKS);
     }
 
     /**
