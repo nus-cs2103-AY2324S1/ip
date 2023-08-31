@@ -14,7 +14,8 @@ public class TaskList {
 
     /**
      * A constructor for a TaskList, with preloaded tasks.
-     * @param loadedTasks
+     *
+     * @param loadedTasks ArrayList of preloaded tasks.
      */
     public TaskList(ArrayList<Task> loadedTasks) {
         this.tasks = loadedTasks;
@@ -30,7 +31,8 @@ public class TaskList {
 
     /**
      * Deletes a specific task from the TaskList.
-     * @param taskIndex
+     *
+     * @param taskIndex Index of task.
      */
     public void deleteTask(int taskIndex) {
         tasks.remove(taskIndex);

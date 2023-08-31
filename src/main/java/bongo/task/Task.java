@@ -9,7 +9,8 @@ public abstract class Task {
 
     /**
      * A constructor for a Task.
-     * @param description
+     *
+     * @param description Task description.
      */
     public Task(String description) {
         this.description = description;
@@ -18,6 +19,7 @@ public abstract class Task {
 
     /**
      * Returns status icon of task.
+     *
      * @return Status icon of task.
      */
     public String getStatusIcon() {
@@ -34,7 +36,8 @@ public abstract class Task {
 
     /**
      * Converts datetime into formatted string.
-     * @param datetime
+     *
+     * @param datetime Datetime of Task.
      * @return Returns formatted datetime string.
      */
     public String generateDateString(LocalDateTime datetime) {
@@ -44,12 +47,14 @@ public abstract class Task {
 
     /**
      * Returns string to save in text file.
+     *
      * @return String to save in text file.
      */
     public abstract String generateStringForTextFile();
 
     /**
      * Returns string representation of task.
+     *
      * @return String representation of task.
      */
     @Override

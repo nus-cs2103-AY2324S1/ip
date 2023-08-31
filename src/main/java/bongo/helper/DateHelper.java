@@ -10,9 +10,9 @@ public class DateHelper {
 
     /**
      * Helper method to convert LocalDateTime object to a nicely formatted datetime string.
-     * @param datetime
+     * @param datetime Datetime string.
      * @return A formatted datetime string.
-     * @throws BongoException
+     * @throws BongoException If datetime string has an invalid format.
      */
     public static LocalDateTime formatDateTime(String datetime) throws BongoException {
         try {

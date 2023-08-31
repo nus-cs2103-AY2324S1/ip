@@ -10,7 +10,8 @@ public class UnmarkCommand extends Command {
 
     /**
      * A constructor for a UnmarkCommand, with a taskIndex.
-     * @param taskIndex
+     *
+     * @param taskIndex Index of task.
      */
     public UnmarkCommand(int taskIndex) {
         this.taskIndex = taskIndex;

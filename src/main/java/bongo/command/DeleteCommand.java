@@ -11,7 +11,8 @@ public class DeleteCommand extends Command {
 
     /**
      * A constructor for a DeleteCommand, with a taskIndex.
-     * @param taskIndex
+     *
+     * @param taskIndex Index of task.
      */
     public DeleteCommand(int taskIndex) {
         this.taskIndex = taskIndex;

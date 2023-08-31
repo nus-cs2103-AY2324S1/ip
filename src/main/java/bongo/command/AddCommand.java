@@ -18,8 +18,9 @@ public class AddCommand extends Command {
 
     /**
      * A constructor for a AddCommand.
-     * @param command
-     * @throws BongoException
+     *
+     * @param command Array of strings from user command.
+     * @throws BongoException If there is a problem when initializing task.
      */
     public AddCommand(String[] command) throws BongoException {
         this.command = command;
@@ -29,7 +30,8 @@ public class AddCommand extends Command {
     /**
      * Processes user input and initializes the respective task (Todo, Event or Deadline).
      * Checks if user input to create task is valid.
-     * @throws BongoException
+     *
+     * @throws BongoException If task is not initialized properly.
      */
     private void initialiseTask() throws BongoException {
         String taskInput = "";

@@ -14,9 +14,10 @@ public class Parser {
      * Parses command that user inputs into the bot.
      * Returns the Command that matches the user's input.
      * Throws a BongoException if user enters unknown command.
-     * @param command
+     *
+     * @param command Command from user input.
      * @return A Command which corresponds to user's input.
-     * @throws BongoException
+     * @throws BongoException If user gives an unknown command.
      */
     public static Command parse(String command) throws BongoException {
         String[] input = command.split(" ");

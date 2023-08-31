@@ -11,10 +11,11 @@ public class Event extends Task {
 
     /**
      * A constructor for a Event.
-     * @param description
-     * @param from
-     * @param to
-     * @throws BongoException
+     *
+     * @param description Event description.
+     * @param from        Event from datetime.
+     * @param to          Event to datetime.
+     * @throws BongoException If either Event from or to datetime is invalid.
      */
     public Event(String description, LocalDateTime from, LocalDateTime to) throws BongoException {
         super(description);
@@ -25,11 +26,12 @@ public class Event extends Task {
 
     /**
      * A constructor for a Event, specifying whether it is done.
-     * @param description
-     * @param isDone
-     * @param from
-     * @param to
-     * @throws BongoException
+     *
+     * @param description Event description.
+     * @param isDone      Event marked done or undone.
+     * @param from        Event from datetime.
+     * @param to          Event to datetime.
+     * @throws BongoException If either Event from or to datetime is invalid.
      */
     public Event(String description, boolean isDone, LocalDateTime from, LocalDateTime to) throws BongoException {
         super(description);
@@ -41,9 +43,10 @@ public class Event extends Task {
 
     /**
      * Check if event to and from datetime provided is valid.
-     * @param from
-     * @param to
-     * @throws BongoException
+     *
+     * @param from Event from datetime.
+     * @param to   Event to datetime.
+     * @throws BongoException If Event from/to datetime is in the past or if Event from datetime is after it's to datetime.
      */
     private void validateEventDuration(LocalDateTime from, LocalDateTime to) throws BongoException {
         if (from.isBefore(LocalDateTime.now()) || to.isBefore(LocalDateTime.now())) {

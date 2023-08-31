@@ -10,7 +10,8 @@ public class MarkCommand extends Command {
 
     /**
      * A constructor for a MarkCommand, with a taskIndex.
-     * @param taskIndex
+     *
+     * @param taskIndex Index of task.
      */
     public MarkCommand(int taskIndex) {
         this.taskIndex = taskIndex;

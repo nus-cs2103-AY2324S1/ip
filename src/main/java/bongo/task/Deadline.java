@@ -10,9 +10,10 @@ public class Deadline extends Task {
 
     /**
      * A constructor for a Deadline.
-     * @param description
-     * @param deadline
-     * @throws BongoException
+     *
+     * @param description Deadline description.
+     * @param deadline    Deadline datetime.
+     * @throws BongoException If deadline datetime is invalid.
      */
     public Deadline(String description, LocalDateTime deadline) throws BongoException {
         super(description);
@@ -22,10 +23,11 @@ public class Deadline extends Task {
 
     /**
      * A constructor for a Deadline, specifying whether it is done.
-     * @param description
-     * @param isDone
-     * @param deadline
-     * @throws BongoException
+     *
+     * @param description Deadline description.
+     * @param isDone      Deadline is marked done or undone.
+     * @param deadline    Deadline datetime.
+     * @throws BongoException If deadline datetime is invalid.
      */
     public Deadline(String description, boolean isDone, LocalDateTime deadline) throws BongoException {
         super(description);
@@ -36,8 +38,9 @@ public class Deadline extends Task {
 
     /**
      * Check if deadline provided is valid.
-     * @param deadline
-     * @throws BongoException
+     *
+     * @param deadline Deadline datetime.
+     * @throws BongoException If deadline is in the past.
      */
     private void validateDeadline(LocalDateTime deadline) throws BongoException {
         if (deadline.isBefore(LocalDateTime.now())) {

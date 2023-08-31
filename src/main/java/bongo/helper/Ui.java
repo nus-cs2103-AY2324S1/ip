@@ -18,6 +18,7 @@ public class Ui {
 
     /**
      * Returns the current line of the user's input.
+     *
      * @return Current line of user input.
      */
     public String readCommand() {
@@ -26,7 +27,8 @@ public class Ui {
 
     /**
      * Adds lines to top and bottom of message.
-     * @param message
+     *
+     * @param message User message.
      * @return A message sandwiched between two lines.
      */
     private String insertLines(String message) {
@@ -62,7 +64,8 @@ public class Ui {
 
     /**
      * Shows all tasks to the user.
-     * @param tasks
+     *
+     * @param tasks All user tasks.
      */
     public void showAllTasks(ArrayList<Task> tasks) {
         StringBuilder allTasks = new StringBuilder();
@@ -76,8 +79,9 @@ public class Ui {
 
     /**
      * Shows user the recently added task.
-     * @param newTask
-     * @param totalTasks
+     *
+     * @param newTask    New Task to be added.
+     * @param totalTasks Number of total tasks.
      */
     public void showAddedTask(Task newTask, int totalTasks) {
         String addedTaskMessage = " Got it. I've added this task:\n" +
@@ -88,7 +92,8 @@ public class Ui {
 
     /**
      * Shows user the task that was recently marked done.
-     * @param task
+     *
+     * @param task Recently marked done task.
      */
     public void showTaskIsDone(Task task) {
         String taskStatusMessage = " Nice! I've marked this task as done:\n" + task;
@@ -97,7 +102,8 @@ public class Ui {
 
     /**
      * Shows user the task that was recently marked undone.
-     * @param task
+     *
+     * @param task Recently marked undone task.
      */
     public void showTaskIsUndone(Task task) {
         String taskStatusMessage = " OK, I've marked this task as not done yet:\n" + task;
@@ -106,8 +112,9 @@ public class Ui {
 
     /**
      * Shows user the recently deleted task.
-     * @param task
-     * @param tasksLeft
+     *
+     * @param task      Task that was recently deleted.
+     * @param tasksLeft Number of tasks left.
      */
     public void showDeleteTask(Task task, int tasksLeft) {
         String taskDeleteMessage = " Noted. I've removed this task:\n" +
@@ -118,7 +125,8 @@ public class Ui {
 
     /**
      * Shows user an error message.
-     * @param errorMessage
+     *
+     * @param errorMessage Error message that BongoException throws.
      */
     public void showError(String errorMessage) {
         String finalErrorMessage = " Oh no! Bongo ran into an error :(\n" + String.format(" %s", errorMessage);

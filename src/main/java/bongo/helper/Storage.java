@@ -26,7 +26,8 @@ public class Storage {
 
     /**
      * A constructor for a Storage, with a pathname.
-     * @param pathname
+     *
+     * @param pathname Pathname of file.
      */
     public Storage(String pathname) {
         this.pathname = pathname;
@@ -35,9 +36,10 @@ public class Storage {
     /**
      * Loads tasks into the TaskList, if there is an existing text file found.
      * If no file is found, throws a FileNotFound Exception.
+     *
      * @return An ArrayList<Task> of preloaded tasks.
-     * @throws FileNotFoundException
-     * @throws BongoException
+     * @throws FileNotFoundException If file is not found.
+     * @throws BongoException        If datetime string has an invalid format.
      */
     public ArrayList<Task> load() throws FileNotFoundException, BongoException {
         File file = new File(this.pathname);
@@ -94,6 +96,7 @@ public class Storage {
 
     /**
      * Appends task on a new line in the text file.
+     *
      * @param newTask
      */
     public void add(Task newTask) {
@@ -115,6 +118,7 @@ public class Storage {
 
     /**
      * Edit the text that corresponds to a certain task in the text file.
+     *
      * @param action
      * @param taskNumber
      */

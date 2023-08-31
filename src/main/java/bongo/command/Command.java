@@ -11,10 +11,11 @@ public abstract class Command {
 
     /**
      * Execute the respective details of the Command.
-     * @param tasks
-     * @param ui
-     * @param storage
-     * @throws BongoException
+     *
+     * @param tasks   TaskList instance.
+     * @param ui      Ui instance.
+     * @param storage Storage instance.
+     * @throws BongoException If command is invalid.
      */
     abstract public void execute(TaskList tasks, Ui ui, Storage storage) throws BongoException;
 
@@ -27,6 +28,7 @@ public abstract class Command {
 
     /**
      * Returns whether Command is an ExitCommand.
+     *
      * @return Whether Command is an ExitCommand.
      */
     public boolean isExit() {
