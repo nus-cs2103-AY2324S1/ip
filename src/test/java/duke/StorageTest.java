@@ -22,7 +22,7 @@ public class StorageTest {
 
     @Test
     public void loadTaskList_wrongPath_emptyList() {
-        // unable to load saved list
+        // return empty list if path is wrong
         assertEquals("", listToString(new Storage(null).loadTaskList()));
     }
 
