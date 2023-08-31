@@ -1,11 +1,11 @@
 package pogo.ui;
 
-import pogo.commands.CommandResult;
-import pogo.common.Messages;
-
 import java.io.InputStream;
 import java.io.PrintStream;
 import java.util.Scanner;
+
+import pogo.commands.CommandResult;
+import pogo.common.Messages;
 
 /**
  * Represents the text user interface for the application.
@@ -16,10 +16,19 @@ public class TextUi {
     private final Scanner in;
     private final PrintStream out;
 
+    /**
+     * Creates a TextUi object with System.in and System.out and input and output.
+     */
     public TextUi() {
         this(System.in, System.out);
     }
 
+    /**
+     * Creates a TextUi object with the specified input and output streams.
+     *
+     * @param in  The input stream.
+     * @param out The output stream.
+     */
     public TextUi(InputStream in, PrintStream out) {
         this.in = new Scanner(in);
         this.out = out;

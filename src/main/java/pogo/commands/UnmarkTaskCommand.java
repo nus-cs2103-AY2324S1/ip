@@ -3,16 +3,25 @@ package pogo.commands;
 import pogo.common.Messages;
 import pogo.tasks.Task;
 
+/**
+ * Represents a command to mark a task as not done.
+ */
 public class UnmarkTaskCommand extends Command {
     public static final String COMMAND_WORD = "unmark";
     private final int index;
 
+    /**
+     * Creates a UnmarkTaskCommand object.
+     *
+     * @param index of the task to be marked as not done.
+     */
     public UnmarkTaskCommand(int index) {
         this.index = index;
     }
 
     /**
      * Marks the task at the specified index as not done.
+     *
      * @return CommandResult containing the status of the command.
      */
     @Override

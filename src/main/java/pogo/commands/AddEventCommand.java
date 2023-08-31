@@ -1,19 +1,29 @@
 package pogo.commands;
 
+import java.time.LocalDateTime;
+
 import pogo.common.Messages;
 import pogo.tasks.Event;
 import pogo.tasks.Task;
 import pogo.tasks.exceptions.PogoInvalidTaskException;
 
-import java.time.LocalDateTime;
-
+/**
+ * Represents an add event command.
+ */
 public class AddEventCommand extends Command {
+    /**
+     * Command word to add an event task.
+     */
     public static final String COMMAND_WORD = "event";
+
+    /**
+     * Message to show if the command format is invalid.
+     */
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds an event task to the task list. "
-            + "Parameters: DESCRIPTION /from DATE TIME /to DATE TIME"
-            + System.lineSeparator()
-            + "Example: " + COMMAND_WORD
-            + "Blockchain Conference /from 2023-09-18 0800 /to 2023-09-19 1800";
+        + "Parameters: DESCRIPTION /from DATE TIME /to DATE TIME"
+        + System.lineSeparator()
+        + "Example: " + COMMAND_WORD
+        + "Blockchain Conference /from 2023-09-18 0800 /to 2023-09-19 1800";
 
     private final String description;
     private final LocalDateTime from;

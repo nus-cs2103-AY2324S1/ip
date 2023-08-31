@@ -1,9 +1,8 @@
 package pogo.tasks;
 
-import pogo.tasks.exceptions.PogoInvalidTaskException;
-
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+
+import pogo.tasks.exceptions.PogoInvalidTaskException;
 
 /**
  * Represents a task with a deadline.
@@ -14,6 +13,13 @@ public class Deadline extends Task {
      */
     protected LocalDateTime by;
 
+    /**
+     * Creates a Deadline task.
+     *
+     * @param description Description of the task.
+     * @param by          Deadline of the task.
+     * @throws PogoInvalidTaskException If the deadline is empty.
+     */
     public Deadline(String description, LocalDateTime by) throws PogoInvalidTaskException {
         super(description);
         if (by == null) {

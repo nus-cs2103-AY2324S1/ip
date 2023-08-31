@@ -1,15 +1,20 @@
 package pogo.tasks;
 
-import pogo.tasks.exceptions.PogoInvalidTaskException;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+
+import pogo.tasks.exceptions.PogoInvalidTaskException;
 
 /**
  * Task is an abstract class representing some kind of task, such as a deadline or todo.
  * A basic task contains a description and can be marked as done or not done.
  */
 public abstract class Task {
+    /**
+     * Format for datetime for all tasks.
+     */
+    public static final DateTimeFormatter DATETIME_FORMAT = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+
     /**
      * Description of the task.
      */
@@ -20,7 +25,6 @@ public abstract class Task {
      */
     protected boolean isDone;
 
-    public static DateTimeFormatter DATETIME_FORMAT = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
 
     /**
      * Constructor for a Task.
@@ -90,7 +94,7 @@ public abstract class Task {
      * By default, returns true for all tasks without a deadline.
      *
      * @param start LocalDateTime to check if the task is between.
-     * @param end LocalDateTime to check if the task is between.
+     * @param end   LocalDateTime to check if the task is between.
      * @return boolean Whether the task is between the given start and end dates.
      */
     public boolean isBetween(LocalDateTime start, LocalDateTime end) {

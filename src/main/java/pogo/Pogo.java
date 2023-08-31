@@ -1,5 +1,9 @@
 package pogo;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
 import pogo.commands.Command;
 import pogo.commands.CommandResult;
 import pogo.common.Messages;
@@ -9,11 +13,9 @@ import pogo.storage.TextStorage;
 import pogo.tasks.Task;
 import pogo.ui.TextUi;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
-
+/**
+ * The Pogo class is the main class of the chat application.
+ */
 public class Pogo {
     /**
      * List of tasks in Pogo.
@@ -33,8 +35,7 @@ public class Pogo {
 
         ui.showCommandResultToUser(result);
 
-        boolean isExit = result.getFeedbackToUser().equals(Messages.EXIT_MESSAGE);
-        return isExit;
+        return result.getFeedbackToUser().equals(Messages.EXIT_MESSAGE);
     }
 
     public static void main(String[] args) {

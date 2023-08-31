@@ -1,8 +1,8 @@
 package pogo.tasks;
 
-import pogo.tasks.exceptions.PogoInvalidTaskException;
-
 import java.time.LocalDateTime;
+
+import pogo.tasks.exceptions.PogoInvalidTaskException;
 
 /**
  * Represents an event task, which has a start and end datetime.
@@ -18,6 +18,14 @@ public class Event extends Task {
      */
     protected LocalDateTime to;
 
+    /**
+     * Creates an Event task.
+     *
+     * @param description Description of the task.
+     * @param from        Start datetime of the event.
+     * @param to          End datetime of the event.
+     * @throws PogoInvalidTaskException If the start or end datetime is empty.
+     */
     public Event(String description, LocalDateTime from, LocalDateTime to) throws PogoInvalidTaskException {
         super(description);
         if (from == null) {
