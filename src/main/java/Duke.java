@@ -1,7 +1,13 @@
 import tasks.*;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Scanner;
 import java.util.ArrayList;
+
+import tasks.Task;
+import tasks.TaskList;
 
 public class Duke {
     public static void main(String[] args) {
@@ -27,18 +33,68 @@ public class Duke {
         System.out.println(welcomeMessage);
 
         String userInput = scanner.nextLine();
-        TaskList taskList = new TaskList();
+        String filePath = "data/duke.txt";
+
+        //checking
+        File directory = new File("data");
+        File file = new File(filePath);
+
+
+        if (!directory.exists()) {
+            directory.mkdir();
+            try {
+                file.createNewFile();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        if (!file.exists()) {
+            try {
+                file.createNewFile();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        TaskList taskList = new TaskList(filePath);
 
         while (!userInput.equals("bye")) {
             System.out.println("────────────────────────────────────\n");
             taskList.inputHandler(userInput);
-            System.out.println("────────────────────────────────────");
-
-
             userInput = scanner.nextLine();
+            System.out.println("────────────────────────────────────");
         }
 
+        writeToDisk(taskList.getTasks());
+
         System.out.println(exitMessage);
+        scanner.close();
     }
 
+
+    public static void writeToDisk(ArrayList<Task> taskList) {
+
+        String filePath = "data/duke.txt";
+
+        File file = new File(filePath);
+
+        try {
+            FileWriter writer = new FileWriter(file, false);
+            for (int i = 0; i < taskList.size(); i++) {
+
+                String content = taskList.get(i).toText();
+                writer.write(content);
+                writer.write("\n");
+
+
+            }
+
+            writer.close();
+            System.out.println("Task list updated.");
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }

@@ -1,15 +1,68 @@
 package tasks;
 
 import exceptions.DukeException;
+
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class TaskList {
 
-    private ArrayList<Task> taskList;
+    private ArrayList<Task> tasks;
 
     public TaskList() {
-        this.taskList = new ArrayList<>(0);
+        this.tasks = new ArrayList<>(0);
     }
+
+    public TaskList(String filePath) {
+        this.tasks = new ArrayList<>(0);
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader(filePath));
+            String line = reader.readLine();
+
+            while (line != null) {
+
+                addTextToTask(line);
+                line = reader.readLine();
+            }
+
+            reader.close();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+
+
+
+    }
+
+    public void addTextToTask(String input) {
+        String[] parts = input.split(" ", 3);
+
+        if (parts[0].equals("T")) {
+
+            ToDo task = new ToDo(parts[2]);
+            this.tasks.add(task);
+
+        } else if (parts[0].equals("D")) {
+
+            String[] arr = parts[2].split("/");
+            Deadline task = new Deadline(arr[0], arr[1]);
+            this.tasks.add(task);
+
+        } else {
+
+            String[] arr = parts[2].split("/");
+            Event task = new Event(arr[0], arr[1], arr[2]);
+            this.tasks.add(task);
+
+        }
+    }
+
+
 
     public void inputHandler(String input) {
         try {
@@ -31,17 +84,23 @@ public class TaskList {
 
     }
 
+    public ArrayList<Task> getTasks() {
+        return this.tasks;
+    }
+
     public void listTasks() {
         System.out.println("Here are the tasks in your list:\n");
 
-        if (taskList.size() == 0) {
+        if (tasks.size() == 0) {
             System.out.println("There's nothing in your list /ᐠ｡ꞈ｡ᐟ\\");
         }
 
-        for (int i = 0; i < taskList.size(); i++) {
-            System.out.println(i + 1 + ". " + taskList.get(i) + "\n");
+        for (int i = 0; i < tasks.size(); i++) {
+            System.out.println(i + 1 + ". " + tasks.get(i) + "\n");
         }
     }
+
+
 
     public void markTaskDone(String input) throws DukeException {
 
@@ -50,14 +109,14 @@ public class TaskList {
         String numStr = input.substring(index + 1);
         int number = Integer.parseInt(numStr);
 
-        if (number < 0 || number > taskList.size()) {
+        if (number < 0 || number > tasks.size()) {
             throw new DukeException("No such task exists (index out of bound error)");
         }
 
-        taskList.get(number - 1).setIsDone();
+        tasks.get(number - 1).setIsDone();
 
         System.out.println("Yay! You have completed this task:\n" +
-                taskList.get(number - 1) + "\n");
+                tasks.get(number - 1) + "\n");
     }
 
     public void unmarkTaskDone(String input) throws DukeException {
@@ -66,14 +125,14 @@ public class TaskList {
         String numStr = input.substring(index + 1);
         int number = Integer.parseInt(numStr);
 
-        if (number < 0 || number > taskList.size()) {
+        if (number < 0 || number > tasks.size()) {
             throw new DukeException("No such task exists (index out of bound error)");
         }
 
-        taskList.get(number - 1).setIsNotDone();
+        tasks.get(number - 1).setIsNotDone();
 
         System.out.println("Ok... Guess you're not actually done with this:\n" +
-                taskList.get(number - 1) + "\n");
+                tasks.get(number - 1) + "\n");
     }
 
     public void deleteTask(String input) throws DukeException {
@@ -82,12 +141,12 @@ public class TaskList {
         String numStr = input.substring(index + 1);
         int number = Integer.parseInt(numStr);
 
-        if (number < 0 || number > taskList.size()) {
+        if (number < 0 || number > tasks.size()) {
             throw new DukeException("No such task exists (index out of bound error)");
         }
 
-        Task removedTask = taskList.get(number - 1);
-        taskList.remove(number - 1);
+        Task removedTask = tasks.get(number - 1);
+        tasks.remove(number - 1);
 
         System.out.println("banished this task to the shadow realm:\n" + removedTask);
     }
@@ -98,28 +157,28 @@ public class TaskList {
         if (parts[0].equals("todo")) {
 
             ToDo todo = new ToDo(parts[1]);
-            this.taskList.add(todo);
+            this.tasks.add(todo);
 
             System.out.println("added new task:\n" + todo);
-            System.out.println("you now have " + taskList.size() + " tasks in your list." + "\n");
+            System.out.println("you now have " + tasks.size() + " tasks in your list." + "\n");
 
         } else if (parts[0].equals("deadline")) {
 
             String[] arr = parts[1].split("/");
             Deadline deadline = new Deadline(arr[0], arr[1]);
-            this.taskList.add(deadline);
+            this.tasks.add(deadline);
 
             System.out.println("added new task:\n" + deadline);
-            System.out.println("you now have " + taskList.size() + " tasks in your list." + "\n");
+            System.out.println("you now have " + tasks.size() + " tasks in your list." + "\n");
 
         } else if (parts[0].equals("event")) {
 
             String[] arr = parts[1].split("/");
             Event event = new Event(arr[0], arr[1], arr[2]);
-            this.taskList.add(event);
+            this.tasks.add(event);
 
             System.out.println("added new task:\n" + event);
-            System.out.println("you now have " + taskList.size() + " tasks in your list." + "\n");
+            System.out.println("you now have " + tasks.size() + " tasks in your list." + "\n");
 
         } else {
             throw new DukeException("Not a valid task!");
