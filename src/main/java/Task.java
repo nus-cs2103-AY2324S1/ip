@@ -30,7 +30,7 @@ public class Task {
         System.out.println(this.toString());
         System.out.println(LINE);
     }
-
+    @Override
     public String toString() {
         return "[" + getStatusIcon() + "] " + description;
     }

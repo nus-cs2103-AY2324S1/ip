@@ -1,6 +1,5 @@
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.util.*;
 public class Duke {
     private static final String BYE = " Bye. Hope to see you again soon!";
     private int count = 0;
@@ -39,16 +38,16 @@ public class Duke {
 
     public void deadline(String input) throws DukeException {
         String[] s = input.replace("deadline ", "").split(" /by ");
-        tasksList.add(new Deadline(s[0], s[1]));
-        count++;
-        taskPrint(tasksList.get(count - 1).toString());
+            tasksList.add(new Deadline(s[0], s[1]));
+            count++;
+            taskPrint(tasksList.get(count - 1).toString());
     }
 
     public void event(String input) throws DukeException {
-        String[] s = input.replace("event ", "").split(" /from | /to");
-        tasksList.add(new Event(s[0], s[1], s[2]));
-        count++;
-        taskPrint(tasksList.get(count - 1).toString());
+        String[] s = input.replace("event ", "").split(" /from | /to ");
+            tasksList.add(new Event(s[0], s[1], s[2]));
+            count++;
+            taskPrint(tasksList.get(count - 1).toString());
     }
 
     public void delete(String input) throws DukeException {

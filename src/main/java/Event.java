@@ -10,8 +10,8 @@ public class Event extends Task {
         try {
             this.from = LocalDate.parse(from);
             this.to = LocalDate.parse(to);
-        } catch(DateTimeParseException e) {
-            throw new DukeException("Invalid Date Format! Please input date using the yyyy-mm-dd format");
+        } catch (DateTimeParseException e) {
+            throw new DukeException("Invalid date format! Please input in the form of yyyy-MM-dd");
         }
     }
 
@@ -20,7 +20,7 @@ public class Event extends Task {
         return "[E]" + super.toString()
                 + " (from: "
                 + this.from.format(DateTimeFormatter.ofPattern("MMM dd yyyy"))
-                + " to:"
+                + " to: "
                 + this.to.format(DateTimeFormatter.ofPattern("MMM dd yyyy"))
                 + ")";
     }

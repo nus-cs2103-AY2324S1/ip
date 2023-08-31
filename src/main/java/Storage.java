@@ -1,13 +1,18 @@
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 public class Storage {
     private final String DIRECTORY = "./data";
     private final String FILE_PATH = DIRECTORY + "/duke.txt";
     private File STORAGE_FILE;
+
+    private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy");
 
     public Storage() throws DukeException {
         try {
@@ -43,14 +48,17 @@ public class Storage {
                     listOfTasks.add(todo);
                 } else if (type.equals("E")) {
                     String[] s = description.split(" \\(from: | to: |\\)");
-                    Task event = new Event(s[0], s[1], s[2]);
+                    LocalDate from = LocalDate.parse(s[1], formatter);
+                    LocalDate to = LocalDate.parse(s[2], formatter);
+                    Task event = new Event(s[0], from.toString(), to.toString());
                     if (mark.equals("X")) {
                         event.markDone();
                     }
                     listOfTasks.add(event);
                 } else if (type.equals("D")) {
                     String[] s = description.split(" \\(by: |\\)");
-                    Task deadline = new Deadline(s[0], s[1]);
+                    LocalDate by = LocalDate.parse(s[1], formatter);
+                    Task deadline = new Deadline(s[0], by.toString());
                     if (mark.equals("X")) {
                         deadline.markDone();
                     }
@@ -60,6 +68,8 @@ public class Storage {
                 }
             }
             return listOfTasks;
+        } catch (DateTimeParseException e) {
+            throw new DukeException("yeehaw");
         } catch (IOException e) {
             throw new DukeException("OOPS !!! Can't Load Task from File");
         }

@@ -9,12 +9,10 @@ public class Deadline extends Task {
         super(description);
         try {
             this.by = LocalDate.parse(by);
-        } catch(DateTimeParseException e) {
-            throw new DukeException("Invalid Date Format! Please input date using the yyyy-mm-dd format");
+        } catch (DateTimeParseException e) {
+            throw new DukeException("Invalid date format! Please input in the form of yyyy-MM-dd");
         }
     }
-
-    @Override
     public String toString() {
         return "[D]" + super.toString()
                 + " (by: "
