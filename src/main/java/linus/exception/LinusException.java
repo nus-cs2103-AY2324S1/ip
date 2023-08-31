@@ -1,6 +1,6 @@
 package linus.exception;
 
-public class LinusException extends Exception{
+public class LinusException extends Exception {
     /**
      * Constructs a new LinusException with the specified detail message.
      *

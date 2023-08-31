@@ -20,7 +20,7 @@ public class Deadline extends Task {
         super(description);
         try {
             this.by = LocalDate.parse(by);
-        } catch( DateTimeParseException e ) {
+        } catch (DateTimeParseException e) {
             throw new LinusException("☹ OOPS!!! Please specify the deadline in the correct format: yyyy-mm-dd");
         }
     }
