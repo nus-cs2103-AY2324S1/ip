@@ -1,3 +1,5 @@
+package duke;
+
 import java.util.ArrayList;
 
 public class TaskList {
@@ -22,7 +24,7 @@ public class TaskList {
         }
     }
 
-    public void deadlineHandler(String description, boolean isDone, boolean readingFile) throws EmptyDescriptionException{
+    public void deadlineHandler(String description, boolean isDone, boolean readingFile) throws EmptyDescriptionException {
         if (description.equals("")) {
             throw new EmptyDescriptionException("deadline");
         } else {
@@ -83,7 +85,7 @@ public class TaskList {
         }
     }
 
-    public void unmarkTask(char number) throws NotANumberException{
+    public void unmarkTask(char number) throws NotANumberException {
         if (!Character.isDigit(number)) {
             throw new NotANumberException();
         } else {

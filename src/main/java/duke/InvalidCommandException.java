@@ -1,3 +1,5 @@
+package duke;
+
 public class InvalidCommandException extends DukeException {
     public static String line = "\t____________________________________________________________\n";
     public InvalidCommandException() {

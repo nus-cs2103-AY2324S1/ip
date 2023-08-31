@@ -1,3 +1,5 @@
+package duke;
+
 public class Duke {
     private Ui ui;
     private Storage storage;
@@ -11,7 +13,7 @@ public class Duke {
         ui.startUi();
         storage.writeToStorage();
     }
-    public static void main(String[] args) throws EmptyDescriptionException, InvalidCommandException, NotANumberException{
+    public static void main(String[] args) throws EmptyDescriptionException, InvalidCommandException, NotANumberException {
         Duke duke = new Duke("./ip/src/main/data/duke.txt");
     }
 }
