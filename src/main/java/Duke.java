@@ -16,11 +16,12 @@ public class Duke {
     public static void main(String[] args) {
         Duke wizzer = new Duke();
         String logo = "Wiz";
+        String folderPath = "./data/";
         String filePath = "./data/duke.txt";
         //        wizzer.readFile();
 //        List<Task> tasks = new ArrayList<>();
         try {
-            tasks = readFile(filePath);
+            tasks = readFile(filePath, folderPath);
         } catch (DukeException e) {
             System.out.println(e);
         }
@@ -41,8 +42,26 @@ public class Duke {
             command = scanner.nextLine();
         }
         scanner.close();
+
         System.out.println("Bye. Hope to see you again soon!");
         System.out.println("--------------------------");
+    }
+    private static void createDataFolderIfNeeded(String folderPath) {
+        File dataFolder = new File(folderPath);
+        if (!dataFolder.exists()) {
+            dataFolder.mkdir();
+        }
+    }
+
+    private static void createDataFileIfNeeded(String filePath) {
+        File dataFile = new File(filePath);
+        if (!dataFile.exists()) {
+            try {
+                dataFile.createNewFile();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
     public static void writeLine(String filePath) throws DukeException {
         File resourceFile = new File(filePath);
@@ -56,7 +75,7 @@ public class Duke {
             throw new DukeException("☹ OOPS!!! The description of a deadline cannot be empty.");
         }
     }
-    public static List<Task> readFile(String filePath) throws DukeException {
+    public static List<Task> readFile(String filePath, String folderPath) throws DukeException {
         List<Task> tasks = new ArrayList<>();
         try {
             File resourceFile = new File(filePath);
@@ -110,6 +129,9 @@ public class Duke {
             myReader.close();
             return tasks;
         } catch (FileNotFoundException e) {
+            createDataFolderIfNeeded(folderPath);
+            createDataFileIfNeeded(filePath);
+            writeLine(filePath);
             throw new DukeException("Unable to find file.");
         }
     }
@@ -172,7 +194,7 @@ public class Duke {
                     String byID = parts[1].trim();
                     Task currTask = new Deadline(description, byID);
                     tasks.add(currTask);
-                    writeLine(currTask.toTxtString());
+//                    writeLine(currTask.toTxtString());
                 } catch (StringIndexOutOfBoundsException e) {
                     throw new DukeException("☹ OOPS!!! The description of a deadline cannot be empty.");
                 }
@@ -188,7 +210,7 @@ public class Duke {
                     String end = timeParts[1].trim();
                     Task currTask = new Event(description, start, end);
                     tasks.add(currTask);
-                    writeLine(currTask.toTxtString());
+//                    writeLine(currTask.toTxtString());
                 } catch (StringIndexOutOfBoundsException e) {
                     throw new DukeException("☹ OOPS!!! The description of an event cannot be empty.");
                 }
