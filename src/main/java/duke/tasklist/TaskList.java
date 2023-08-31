@@ -105,7 +105,7 @@ public class TaskList {
                 .filter(task -> task.getDescription().contains(lookupString)).toList();
 
         for (int i = 0; i < matchedTasks.size(); i++) {
-            System.out.println(i+1 + ": " + taskList.get(i));
+            System.out.println(i+1 + ": " + matchedTasks.get(i));
         }
 
 
