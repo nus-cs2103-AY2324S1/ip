@@ -6,7 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 public class TestTaskList {
     @Test
-    public void testAddTask() throws DukeInvalidDateException {
+    public void taskList_testAddTasks() throws DukeInvalidDateException {
         Ui ui = new Ui();
         TaskList taskList = new TaskList(ui);
 
@@ -24,7 +24,7 @@ public class TestTaskList {
     }
 
     @Test
-    public void testAddAndSuccessfullyDeleteTask() {
+    public void taskList_testDeleteTask() {
         Ui ui = new Ui();
         TaskList taskList = new TaskList(ui);
 
@@ -37,7 +37,7 @@ public class TestTaskList {
     }
 
     @Test
-    public void testAddAndFailToDeleteTask() {
+    public void taskList_testDeleteTask_invalidIndex() {
         Ui ui = new Ui();
         TaskList taskList = new TaskList(ui);
 
@@ -49,7 +49,7 @@ public class TestTaskList {
         assertTrue(taskList.getTasks().contains(todo));
     }
     @Test
-    public void testMarkTask() {
+    public void taskList_testMarkTask() {
         Ui ui = new Ui();
         TaskList taskList = new TaskList(ui);
 
@@ -62,7 +62,7 @@ public class TestTaskList {
     }
 
     @Test
-    public void testMarkAndUnmarkTask() {
+    public void taskList_testMarkAndUnmarkTask() {
         Ui ui = new Ui();
         TaskList taskList = new TaskList(ui);
 
