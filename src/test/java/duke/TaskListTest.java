@@ -1,13 +1,14 @@
 package duke;
 
-import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
+import org.junit.jupiter.api.Test;
 
 public class TaskListTest {
     @Test
@@ -38,7 +39,7 @@ public class TaskListTest {
         Todo expectedTodo2 = new Todo(false, todo2Name);
         assertEquals(expectedTodo2, todo2);
 
-        ArrayList<Task> expectedTaskList= new ArrayList<>(Arrays.asList(todo1, todo2));
+        ArrayList<Task> expectedTaskList = new ArrayList<>(Arrays.asList(todo1, todo2));
         assertEquals(expectedTaskList, tl.getAll());
 
     }
@@ -69,7 +70,7 @@ public class TaskListTest {
                 LocalDate.parse(deadline2DueDate));
         assertEquals(expectedDeadline2, deadline2);
 
-        ArrayList<Task> expectedTaskList= new ArrayList<>(Arrays.asList(deadline1, deadline2));
+        ArrayList<Task> expectedTaskList = new ArrayList<>(Arrays.asList(deadline1, deadline2));
         assertEquals(expectedTaskList, tl.getAll());
     }
 
@@ -100,7 +101,7 @@ public class TaskListTest {
         Event expectedEvent2 = new Event(false, event2Name, event2From, event2To);
         assertEquals(expectedEvent2, event2);
 
-        ArrayList<Task> expectedTaskList= new ArrayList<>(Arrays.asList(event1, event2));
+        ArrayList<Task> expectedTaskList = new ArrayList<>(Arrays.asList(event1, event2));
         assertEquals(expectedTaskList, tl.getAll());
     }
 
@@ -126,7 +127,7 @@ public class TaskListTest {
     }
 
     @Test
-    public void delete_correctNumber_success() throws LukeException{
+    public void delete_correctNumber_success() throws LukeException {
         String deletePrefix = "delete ";
 
         Task seedTask1 = new Todo("First");

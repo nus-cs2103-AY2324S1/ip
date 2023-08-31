@@ -4,8 +4,10 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Ui {
+    private static final String LINE_BREAK = "＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿";
+
+
     private Scanner sc;
-    private static final String LINEBREAK = "    ＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿";
 
     Ui() {
         sc = new Scanner(System.in);
@@ -17,9 +19,9 @@ public class Ui {
      * @param msg String to output
      */
     public void displayMessage(String msg) {
-        System.out.println(LINEBREAK);
+        System.out.println(LINE_BREAK);
         System.out.println(indent(msg));
-        System.out.println(LINEBREAK);
+        System.out.println(LINE_BREAK);
     }
 
     public void displayError(String msg) {

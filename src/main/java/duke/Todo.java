@@ -3,8 +3,8 @@ package duke;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class Todo extends Task{
-    private static Pattern createCommand = Pattern.compile("^todo( (?<taskName>.*))?");
+public class Todo extends Task {
+    private static final Pattern PATTERN_COMMAND_CREATE_TODO = Pattern.compile("^todo( (?<taskName>.*))?");
 
     Todo(String name) {
         super(name);
@@ -22,7 +22,7 @@ public class Todo extends Task{
      * @throws LukeException If the command is of an invalid format
      */
     public static Todo createTodo(String command) throws LukeException {
-        Matcher matcher = createCommand.matcher(command);
+        Matcher matcher = PATTERN_COMMAND_CREATE_TODO.matcher(command);
         matcher.find();
 
         String taskName = matcher.group("taskName");

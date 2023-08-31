@@ -20,7 +20,7 @@ public class Task {
      * @param isDone Boolean that the instance variable isDone should take
      * @throws LukeException If the instance variable isDone is already set to the specified value
      */
-    public void setIsDone(boolean isDone) throws LukeException {
+    public void setDone(boolean isDone) throws LukeException {
         if (this.isDone == isDone) {
             throw new LukeException("Task is already marked as done");
         }

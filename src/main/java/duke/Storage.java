@@ -36,7 +36,7 @@ public class Storage {
             ArrayList<Task> allTasks = new ArrayList<>();
             File f = new File(filepath);
             Scanner s = new Scanner(f);
-            while(s.hasNext()) {
+            while (s.hasNext()) {
                 String savedData = s.nextLine();
                 String[] taskDetails = Arrays.stream(savedData.split("\\|")).map(String::trim).toArray(String[]::new);
 
@@ -62,13 +62,14 @@ public class Storage {
                     createdTask = Todo.createTodo(Arrays.copyOfRange(taskDetails, 2, taskDetails.length), isDone);
                     break;
                 case "D":
-                    createdTask = Deadline.createDeadline(Arrays.copyOfRange(taskDetails, 2, taskDetails.length), isDone);
+                    createdTask = Deadline.createDeadline(
+                            Arrays.copyOfRange(taskDetails, 2, taskDetails.length), isDone);
                     break;
                 case "E":
                     createdTask = Event.createEvent(Arrays.copyOfRange(taskDetails, 2, taskDetails.length), isDone);
                     break;
                 default:
-                    throw new LukeException("Unknown Task Type '" + taskDetails[0] +"'");
+                    throw new LukeException("Unknown Task Type '" + taskDetails[0] + "'");
                 }
                 allTasks.add(createdTask);
             }

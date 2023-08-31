@@ -4,12 +4,11 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.time.format.FormatStyle;
-import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Deadline extends Task {
-    private static Pattern createCommand =
+    private static final Pattern PATTERN_COMMAND_CREATE_DEADLINE =
             Pattern.compile("^deadline ?(?<taskName>.*?)? ?(/by (?<finishByTime>.*))?$");
     private LocalDate finishByTime;
 
@@ -30,7 +29,7 @@ public class Deadline extends Task {
      * @throws LukeException If the command is invalid
      */
     public static Deadline createDeadline(String command) throws LukeException {
-        Matcher matcher = createCommand.matcher(command);
+        Matcher matcher = PATTERN_COMMAND_CREATE_DEADLINE.matcher(command);
         matcher.find();
 
         String taskName = matcher.group("taskName");
