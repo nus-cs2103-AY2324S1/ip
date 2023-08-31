@@ -1,11 +1,13 @@
 package TaskPackages;
 import java.util.ArrayList;
+
+import Exceptions.DukeException;
+import Exceptions.IncorrectFormatException;
+import Exceptions.InvalidNumberException;
+import Exceptions.NoSuchEntryException;
+
 import java.time.LocalDate;
 import java.time.LocalTime;
-import Utility.NoSuchEntryException;
-import Utility.DukeException;
-import Utility.IncorrectFormatException;
-import Utility.InvalidNumberException;
 
 public class TaskList {
   protected ArrayList<Task> list;
@@ -112,7 +114,62 @@ public class TaskList {
     if (indexFrom > -1 && indexTo > -1) {
       String[] tempString = {input.substring(0, indexFrom), input.substring(indexFrom+7, indexTo), input.substring(indexTo+5, input.length())};
       try {
+        LocalDate byDateFrom;
+        LocalDate byDateTo;
+        LocalTime byTimeFrom;
+        LocalTime byTimeTo;
         String description = tempString[0];
+        String[] tempDateFrom = tempString[1].split(" ", 2);
+        String[] tempDateTo = tempString[2].split(" ", 2);
+
+        if (LocalDate.parse(tempDateFrom[0]) instanceof LocalDate) {
+          byDateFrom = LocalDate.parse(tempDateFrom[0]);
+        } else if (LocalDate.parse(tempDateFrom[1]) instanceof LocalDate) {
+          byDateFrom = LocalDate.parse(tempDateFrom[1]);
+        } else {
+          byDateFrom = null;
+        }
+
+        if (LocalTime.parse(tempDateFrom[0]) instanceof LocalTime) {
+          byTimeFrom = LocalTime.parse(tempDateFrom[0]);
+        } else if (LocalTime.parse(tempDateFrom[1]) instanceof LocalTime) {
+          byTimeFrom = LocalTime.parse(tempDateFrom[1]);
+        } else {
+          byTimeFrom = null;
+        }
+
+        if (LocalDate.parse(tempDateTo[0]) instanceof LocalDate) {
+          byDateTo = LocalDate.parse(tempDateTo[0]);
+        } else if (LocalDate.parse(tempDateTo[1]) instanceof LocalDate) {
+          byDateTo = LocalDate.parse(tempDateTo[1]);
+        } else {
+          byDateTo = null;
+        }
+
+        if (LocalTime.parse(tempDateTo[0]) instanceof LocalTime) {
+          byTimeTo = LocalTime.parse(tempDateTo[0]);
+        } else if (LocalTime.parse(tempDateTo[1]) instanceof LocalTime) {
+          byTimeTo = LocalTime.parse(tempDateTo[1]);
+        } else {
+          byTimeTo = null;
+        }
+
+        // Smart date guesser for incomplete date formats
+
+        if (byDateTo == null && byDateFrom != null) {
+          byDateTo = byDateFrom;
+        }
+        if (byDateTo != null && byDateFrom == null) {
+          byDateFrom = byDateTo;
+        }
+        if (byTimeFrom == null && byTimeTo != null) {
+          byTimeFrom = byTimeTo;
+        }
+        if (byTimeFrom != null && byTimeTo == null) {
+          byTimeTo = byTimeFrom;
+        }
+
+        return new EventWrapper(description, byDateFrom, byTimeFrom, byDateTo, byTimeTo);
 
       } catch (Exception e) {
         throw new IncorrectFormatException();

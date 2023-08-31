@@ -1,6 +1,10 @@
-list
-deadline asdfas /by heheh
-event asdas /from asdasd /to asd
+Hi
+hihihihih
+blahjblah
+deadline 5/2/2015
+deadline asjdhasjhd /by 2015-12-12
+event fsdfask /from dasa sd /to daskdakl
+mark 4
 unmark 2
 list
 bye

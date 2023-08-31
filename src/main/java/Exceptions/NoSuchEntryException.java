@@ -1,4 +1,4 @@
-package Utility;
+package Exceptions;
 
 public class NoSuchEntryException extends DukeException{
     
