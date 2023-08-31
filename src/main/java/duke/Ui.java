@@ -1,10 +1,13 @@
 package duke;
 
-import duke.task.Task;
-
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import duke.task.Task;
+
+/**
+ * The Ui class.
+ */
 public class Ui {
     private Scanner scanner;
 
@@ -85,7 +88,7 @@ public class Ui {
         System.out.println("Here are the tasks in your list:");
         for (int i = 0; i < list.size(); i++) {
             if (list.get(i) != null) {
-                System.out.println((i+1) + ". " + list.get(i).displayableForm());
+                System.out.println((i + 1) + ". " + list.get(i).displayableForm());
             }
         }
     }

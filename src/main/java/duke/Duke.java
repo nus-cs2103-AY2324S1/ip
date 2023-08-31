@@ -2,6 +2,9 @@ package duke;
 
 import duke.command.Command;
 
+/**
+ * The Duke class.
+ */
 public class Duke {
 
     private Storage storage;
@@ -24,10 +27,13 @@ public class Duke {
         }
     }
 
+    /**
+     * Runs the program.
+     */
     public void run() {
         ui.showWelcomeMsg();
         boolean isExit = false;
-        while(!isExit) {
+        while (!isExit) {
             try {
                 String fullCommand = ui.readCommand();
                 Command command = Parser.parse(fullCommand);

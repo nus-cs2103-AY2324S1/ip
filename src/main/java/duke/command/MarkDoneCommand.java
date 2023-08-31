@@ -1,13 +1,16 @@
 package duke.command;
 
+import java.io.IOException;
+
 import duke.DukeException;
 import duke.Storage;
 import duke.TaskList;
 import duke.Ui;
 import duke.task.Task;
 
-import java.io.IOException;
-
+/**
+ * The MarkDoneCommand class.
+ */
 public class MarkDoneCommand extends Command {
     private int index;
 

@@ -5,6 +5,9 @@ import duke.Storage;
 import duke.TaskList;
 import duke.Ui;
 
+/**
+ * The Command class.
+ */
 public abstract class Command {
     /**
      * Creates a new task, adds it to the task list, stores it in the file,
