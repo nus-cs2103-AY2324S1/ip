@@ -6,6 +6,10 @@ import bongo.helper.Storage;
 public class MarkCommand extends Command {
     int taskIndex;
 
+    /**
+     * A constructor for a MarkCommand, with a taskIndex.
+     * @param taskIndex
+     */
     public MarkCommand(int taskIndex) {
         this.taskIndex = taskIndex;
     }
