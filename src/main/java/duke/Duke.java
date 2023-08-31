@@ -1,6 +1,5 @@
 package duke;
 
-
 import duke.commands.Command;
 import duke.exceptions.DukeException;
 import duke.parser.Parser;
@@ -10,22 +9,22 @@ import duke.ui.Ui;
 
 public class Duke {
 	/**
-	 * The task list object
+	 * The task list
 	 */
-	private TaskList taskList;
+	private final TaskList taskList;
 	/**
 	 * The ui object
 	 */
-	private Ui ui;
+	private final Ui ui;
 	/**
 	 * The storage object
 	 */
-	private Storage storage;
+	private final Storage storage;
 
 	/**
 	 * Constructor for Duke
 	 *
-	 * @param filePath the path to the file
+	 * @param filePath the file path
 	 */
 	public Duke(String filePath) {
 		this.storage = new Storage(filePath);
@@ -34,14 +33,17 @@ public class Duke {
 	}
 
 	/**
-	 * The main function where the program starts
+	 * Main method
 	 *
-	 * @param args input args
+	 * @param args the arguments
 	 */
 	public static void main(String[] args) {
 		new Duke("data/duke.txt").run();
 	}
 
+	/**
+	 * Runs the program
+	 */
 	public void run() {
 		this.ui.showWelcome();
 		boolean isExit = false;

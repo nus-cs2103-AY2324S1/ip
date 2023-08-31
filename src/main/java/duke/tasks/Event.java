@@ -6,14 +6,14 @@ import java.time.format.DateTimeFormatter;
 public class Event extends Task {
 
 	/**
-	 * The from date/time
-	 **/
-	private LocalDateTime from;
+	 * The "from" date/time
+	 */
+	private final LocalDateTime from;
 
 	/**
-	 * The to date/time
-	 **/
-	private LocalDateTime to;
+	 * The "to" date/time
+	 */
+	private final LocalDateTime to;
 
 	/**
 	 * Constructor for Event
@@ -55,9 +55,9 @@ public class Event extends Task {
 	}
 
 	/**
-	 * Returns a string representation of the event task to be saved in the file.
+	 * Returns a string representation of the event task for file storage.
 	 *
-	 * @return String representation of the event task to be saved in the file.
+	 * @return String representation of the event task for file storage.
 	 */
 	@Override
 	public String toFile() {

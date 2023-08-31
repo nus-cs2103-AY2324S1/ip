@@ -82,14 +82,14 @@ public class AddCommand extends Command {
 				break;
 		}
 		tasks.add(task);
-		ui.showAdd(tasks.size(), task);
+		ui.showAdd(tasks.length(), task);
 		storage.writeData(tasks.getAllTasks());
 	}
 
 	/**
-	 * Returns whether the program should exit
+	 * Returns true if the command is an exit command
 	 *
-	 * @return whether the program should exit
+	 * @return true if the command is an exit command
 	 */
 	@Override
 	public boolean isExit() {

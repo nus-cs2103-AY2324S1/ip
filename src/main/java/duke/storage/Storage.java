@@ -15,9 +15,20 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Storage {
-	private File folder;
-	private File file;
+	/**
+	 * The folder to store the file
+	 */
+	private final File folder;
+	/**
+	 * The file to store the data
+	 */
+	private final File file;
 
+	/**
+	 * Constructor
+	 *
+	 * @param filePath the path to the file
+	 */
 	public Storage(String filePath) {
 		String[] folder = filePath.split("/");
 		this.file = new File(filePath);
@@ -34,10 +45,16 @@ public class Storage {
 		}
 	}
 
+	/**
+	 * Creates the directory
+	 */
 	public void createDirectory() {
 		this.folder.mkdir();
 	}
 
+	/**
+	 * Creates the file
+	 */
 	public void createFile() {
 		try {
 			this.file.createNewFile();
@@ -46,10 +63,20 @@ public class Storage {
 		}
 	}
 
+	/**
+	 * Returns true if the file exists
+	 *
+	 * @return true if the file exists
+	 */
 	public boolean fileExists() {
 		return this.file.exists();
 	}
 
+	/**
+	 * Reads the data from the file
+	 *
+	 * @return the data from the file
+	 */
 	public ArrayList<Task> readData() {
 		ArrayList<Task> data = new ArrayList<>();
 		try {
@@ -66,6 +93,11 @@ public class Storage {
 		return data;
 	}
 
+	/**
+	 * Writes the data to the file
+	 *
+	 * @param tasks the data to be written
+	 */
 	public void writeData(ArrayList<Task> tasks) {
 		try {
 			FileWriter fw = new FileWriter(this.file);
@@ -78,6 +110,12 @@ public class Storage {
 		}
 	}
 
+	/**
+	 * Formats the string to a task
+	 *
+	 * @param line the string to be formatted
+	 * @return the task
+	 */
 	public Task formatStringToTask(String line) {
 		String[] split = line.split(" \\| ", 4);
 
