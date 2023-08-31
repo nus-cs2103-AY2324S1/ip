@@ -8,12 +8,21 @@ import tasks.Todo;
 import tasks.Deadline;
 import tasks.Event;
 
+/**
+ * Handles all the manipulation of the file that is stored
+ * locally.
+ */
 public class DataFile {
 
     private final String filePath;
     private final String fileName;
     private final File file;
 
+    /**
+     * DateFile constructor that takes in String, String.
+     * @param filePath Name of the path.
+     * @param fileName Name of the file.
+     */
     public DataFile(String filePath, String fileName) {
         this.fileName = fileName;
         this.filePath = filePath;
@@ -39,6 +48,11 @@ public class DataFile {
         }
     }
 
+    /**
+     * Writes data into file.
+     * @param task The task that is being written into the file.
+     * @throws IOException If any file issues exists.
+     */
     public void writeToFile(Task task) throws IOException {
         FileWriter fW = new FileWriter(file, true);
         String div = "*|,";
@@ -64,8 +78,14 @@ public class DataFile {
         fW.close();
     }
 
-    // n starts from 0
+    /**
+     * Edit the marks or unmarks of a task in the file.
+     * @param n The line to be edited.
+     * @param newChar The mark to be replaced.
+     * @throws IOException If any file issues exists.
+     */
     public void editFileAtLineN(int n, char newChar) throws IOException {
+        // n starts from 0
         BufferedReader reader = new BufferedReader(new FileReader(file));
         String line = reader.readLine();
         StringBuilder oldContent = new StringBuilder();
@@ -85,6 +105,11 @@ public class DataFile {
         fW.close();
     }
 
+    /**
+     * Deletes a task from the file at line n.
+     * @param n The line to be deleted.
+     * @throws IOException If any file issues exists.
+     */
     public void deleteTaskFromFile(int n) throws IOException{
         BufferedReader reader = new BufferedReader(new FileReader(file));
         String line = reader.readLine();
@@ -102,6 +127,11 @@ public class DataFile {
         fW.close();
     }
 
+    /**
+     * Read the data from the file and convert it to list of Tasks object.
+     * @return List of Tasks in ArrayList.
+     * @throws IOException If any file issues exists.
+     */
     public ArrayList<Task> fileToObjects() throws IOException {
         ArrayList<Task> tasks = new ArrayList<>();
         BufferedReader reader = new BufferedReader(new FileReader(file));

@@ -10,15 +10,27 @@ import tasks.TaskList;
 import java.io.IOException;
 import java.util.ArrayList;
 
+/**
+ * Represents a type of command that can be read by the chatbot.
+ */
 public class EventCommand extends Command{
     private final ArrayList<String> texts;
     private Task task;
     private int size;
 
+    /**
+     * EventCommand constructor that takes in an ArrayList.
+     * @param texts ArrayList of texts needed for event.
+     */
     public EventCommand(ArrayList<String> texts) {
         this.texts = texts;
     }
 
+    /**
+     * Executes the event command.
+     * @param tasks List of tasks.
+     * @param dF The file to be edited on.
+     */
     @Override
     public void execute(TaskList tasks , DataFile dF) {
         CustomDate cD = new CustomDate();
@@ -35,6 +47,10 @@ public class EventCommand extends Command{
         }
     }
 
+    /**
+     * Returns the string representation of event command.
+     * @return String representation of event command.
+     */
     @Override
     public String toString() {
         return "Got it. I've added this task:\n" + task +

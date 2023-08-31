@@ -5,8 +5,16 @@ import parser.Parser;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
+/**
+ * Converts the string input of date into date and time objects.
+ */
 public class CustomDate {
 
+    /**
+     * Returns the LocaleDateTime from a string.
+     * @param text Date, time in string.
+     * @return LocaleDateTime from the string.
+     */
     public LocalDateTime strToDateTime(String text) {
         Parser p = new Parser();
         ArrayList<String> texts = p.splitter(text, "/");
@@ -19,10 +27,20 @@ public class CustomDate {
         return d1;
     }
 
+    /**
+     * Add zero to the front of a string that is 1 in length.
+     * @param text Text to be edited.
+     * @return Text with a zero in front.
+     */
     public String addZeroFront(String text) {
         return text.length() == 1 ? 0 + text : text;
     }
 
+    /**
+     * Returns formatted time string.
+     * @param str Time in string.
+     * @return Formatted time string.
+     */
     public String formatTime(String str) {
         return str.substring(0, 2) + ":" + str.substring(2, 4);
     }
