@@ -10,8 +10,8 @@ public class ExitCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList list, Ui ui, Storage storage) {
-        storage.save(list);
+    public void execute(TaskList taskList, Ui ui, Storage storage) {
+        storage.save(taskList);
         ui.printExitMessage();
     }
 }
