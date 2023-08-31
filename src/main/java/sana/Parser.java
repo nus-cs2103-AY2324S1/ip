@@ -3,8 +3,6 @@ import sana.AddCommand;
 import sana.ListCommand;
 
 public class Parser {
-
-
     public static Command parse(String fullCommand) {
         String[] strArr = fullCommand.split(" ", 2);
         String cmdWord;

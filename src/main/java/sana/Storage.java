@@ -7,9 +7,7 @@ import java.nio.file.Paths;
 import java.util.Scanner;
 
 public class Storage {
-
     private String filePath;
-
     public Storage(String filePath) {
         this.filePath = filePath;
     }

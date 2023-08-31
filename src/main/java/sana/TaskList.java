@@ -24,7 +24,7 @@ public class TaskList {
             int id = i + 1;
             task.append(id + "." + tasksList.get(i).toString() + "\n");
         }
-        return("Here are the tasks in your list: \n" + task);
+        return("Here are the tasks in your list:\n" + task);
     }
 
     public void add(Task task) {
@@ -66,4 +66,5 @@ public class TaskList {
         System.out.println("OK, I've marked this task as not done yet:\n"
                 + tasksList.get(taskId - 1).toString());
     }
+
 }

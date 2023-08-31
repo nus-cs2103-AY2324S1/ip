@@ -1,4 +1,7 @@
 package sana;
+
+import java.util.Scanner;
+
 public class Sana {
 
     private Storage storage;
@@ -6,7 +9,7 @@ public class Sana {
     private Ui ui;
 
     public Sana(String filePath) {
-        ui = new Ui();
+        ui = new Ui(new Scanner(System.in));
         storage = new Storage(filePath);
         tasks = new TaskList(storage.load());
     }

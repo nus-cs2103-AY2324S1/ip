@@ -3,6 +3,12 @@ import java.util.Scanner;
 
 public class Ui {
 
+    protected Scanner scanner;
+
+    public Ui(Scanner scanner) {
+        this.scanner = scanner;
+    }
+
     public void showWelcome() {
         this.showLine();
         System.out.println("Hello I'm Sana!\nWhat can I do for you today?");
@@ -10,8 +16,7 @@ public class Ui {
     }
 
     public String readCommand() {
-        Scanner myObj = new Scanner(System.in);
-        return myObj.nextLine();
+        return scanner.nextLine();
     }
 
     public void showLine() {
