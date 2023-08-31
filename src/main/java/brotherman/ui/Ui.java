@@ -57,5 +57,18 @@ public class Ui {
         }
     }
 
+    public void showFind(TaskList taskList, String keyword) {
+        System.out.println("Here are the matching tasks in your list:");
+        ArrayList<Task> list = taskList.getTasksByKeyword(keyword);
+
+        if (list.size() == 0) {
+            System.out.println("Brotherman, there are no tasks with that keyword");
+        }
+
+        for (Task listItems : list) {
+            System.out.println(listItems.toString());
+        }
+    }
+
 
 }

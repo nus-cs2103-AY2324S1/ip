@@ -29,6 +29,7 @@ public class TaskList {
     public ArrayList list() {
         return this.taskList;
     }
+
     public int size() {return this.taskList.size();}
 
     public void markDone(int num) {
@@ -53,5 +54,16 @@ public class TaskList {
                     + taskList.get(num).toString()
             );
         }
+    }
+
+    public ArrayList<Task> getTasksByKeyword(String keyword) {
+        ArrayList<Task> list = new ArrayList<>();
+        for (Task listItems : taskList) {
+            if (listItems.description.contains(keyword)) {
+                list.add(listItems);
+            }
+        }
+
+        return list;
     }
 }

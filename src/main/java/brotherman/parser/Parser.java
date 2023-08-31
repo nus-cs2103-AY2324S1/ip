@@ -1,12 +1,14 @@
 package brotherman.parser;
 
-import brotherman.commands.AddCommand;
 import brotherman.commands.Command;
 import brotherman.commands.ExitCommand;
 import brotherman.commands.ListCommand;
+import brotherman.commands.AddCommand;
+import brotherman.commands.DeleteCommand;
 import brotherman.commands.MarkDoneCommand;
 import brotherman.commands.UnmarkCommand;
-import brotherman.commands.DeleteCommand;
+import brotherman.commands.FindCommand;
+
 
 import brotherman.tasks.Todo;
 import brotherman.tasks.Event;
@@ -30,6 +32,10 @@ public class Parser {
 
         if (userCommand.equals("list")) {
             return new ListCommand();
+
+        } else if (userCommand.split(" ")[0].equals("find")) {
+            String keyword = userCommand.split(" ")[1];
+            return new FindCommand(keyword);
 
         } else if (userCommand.split(" ")[0].equals("mark")) {
             int task = Integer.parseInt(userCommand.split(" ")[1]) - 1;
@@ -72,6 +78,10 @@ public class Parser {
     public static boolean isValidCommands(String command) throws BrothermanException {
         if (command.equals("list")) {
             return true;
+        }
+
+        if (command.equals("find") && command.split(" ").length <= 1) {
+            throw new BrothermanException("Error! There must be a keyword to search for!");
         }
 
         if (command.split(" ")[0].equals("mark") && command.split(" ").length <= 1) {
