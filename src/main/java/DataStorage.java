@@ -1,3 +1,4 @@
+import java.time.LocalDateTime;
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.io.*;
@@ -64,9 +65,9 @@ public class DataStorage {
         if (taskType.equals("T")) {
             task = new ToDo(split[2]);
         } else if (taskType.equals("D")) {
-            task = new Deadline(split[2], split[3]);
+            task = new Deadline(split[2], LocalDateTime.parse(split[3]));
         } else if (taskType.equals("E")) {
-            task = new Event(split[2], split[3], split[4]);
+            task = new Event(split[2], LocalDateTime.parse(split[3]), LocalDateTime.parse(split[4]));
         } else {
             throw new IOException();
         }

@@ -1,3 +1,4 @@
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -104,7 +105,7 @@ public class Duke {
                     } else {
                         String[] splitCommands = userInput.split(" /by ");
                         String[] taskName = splitCommands[0].split(" ");
-                        Task task = new Deadline(taskName[1], splitCommands[1]);
+                        Task task = new Deadline(taskName[1], Parser.parseDateTime(splitCommands[1]));
                         taskList.add(task);
                         System.out.println("Woof luck with your new task: \n" + task.toString());
                         System.out.println("You now have " + taskList.size() + " tasks in the list");
@@ -121,7 +122,8 @@ public class Duke {
                         String[] splitCommands = userInput.split(" /from ");
                         String[] taskName = splitCommands[0].split(" ");
                         String[] fromTo = splitCommands[1].split(" /to ");
-                        Task task = new Event(taskName[1], fromTo[0], fromTo[1]);
+                        Task task = new Event(taskName[1], Parser.parseDateTime(fromTo[0]),
+                                Parser.parseDateTime(fromTo[1]));
                         taskList.add(task);
                         System.out.println("Woof luck with your new task: \n" + task.toString());
                         System.out.println("You now have " + taskList.size() + " tasks in the list");
@@ -133,6 +135,9 @@ public class Duke {
                 System.out.println(lineSpacer);
             } catch (DukeException e) {
                 System.out.println(e.getMessage());
+                System.out.println(lineSpacer);
+            } catch (DateTimeParseException e) {
+                System.out.println("Date/time must be in 'dd-mm-yyy hh:mm' format");
                 System.out.println(lineSpacer);
             }
         }
