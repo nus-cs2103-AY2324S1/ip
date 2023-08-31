@@ -4,6 +4,7 @@ import duke.DukeException;
 import duke.Ui;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 /**
  * TaskList is a class containing Tasks. Through the TaskList, users are able to
@@ -92,6 +93,29 @@ public class TaskList {
             throw new DukeException("Index is out of bounds! Please choose a valid index");
         }
 
+    }
+
+    /**
+     * Displays all tasks containing the keyword given by the user.
+     *
+     * @param keyword String containing keyword to use.
+     */
+    public void findTask(String keyword) {
+        ArrayList<Integer> taskIndexArray = new ArrayList<>();
+        for (int i = 0; i < tasks.size(); i++) {
+            Task currentTask = tasks.get(i);
+            if (currentTask.toString().toUpperCase().contains(keyword.toUpperCase())) {
+                taskIndexArray.add(i);
+            }
+        }
+        if (taskIndexArray.size() == 0) {
+            ui.noMatchMessage();
+        } else {
+            ui.displayMatchMessage();
+            for (int i = 0; i < taskIndexArray.size(); i++) {
+                ui.displayTaskMessage(i+1, tasks.get(taskIndexArray.get(i)));
+            }
+        }
     }
 
     /**

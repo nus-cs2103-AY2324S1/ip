@@ -36,6 +36,9 @@ public class Parser {
             case "list":
                 this.tasks.listTask();
                 break;
+            case "find":
+                this.tasks.findTask(command.substring(5));
+                break;
             case "mark":
                 if (spacedCommand.length == 1) {
                     throw new DukeException("Please specify the task to mark.");
