@@ -18,6 +18,7 @@ public class DataFile {
         this.fileName = fileName;
         this.filePath = filePath;
         File directory = new File(filePath);
+        File localFile = new File(filePath + "/" + fileName);
         if (!directory.exists() ) {
             directory.mkdir();
             try {
@@ -25,8 +26,17 @@ public class DataFile {
             } catch (IOException e) {
                 System.out.println(e.getMessage());
             }
+            file = new File(filePath + "/" + fileName);
+        } else if (!localFile.exists()) {
+            try {
+                new FileWriter(filePath + "/" + fileName);
+            } catch (IOException e) {
+                System.out.println(e.getMessage());
+            }
+            file = new File(filePath + "/" + fileName);
+        } else {
+            file = localFile;
         }
-        file = new File(filePath + "/" + fileName);
     }
 
     public void writeToFile(Task task) throws IOException {

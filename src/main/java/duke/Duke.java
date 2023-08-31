@@ -1,6 +1,7 @@
 package duke;
 
 import commands.Command;
+import parser.Parser;
 import storage.DataFile;
 import tasks.Task;
 import tasks.TaskList;
@@ -38,10 +39,10 @@ public class Duke {
         while (run) {
             try {
                 String command = ui.readCommand();
-                Command c = new Command(command);
+                Command c = new Parser().getCommand(command);
                 c.execute(tL, dF);
                 run = !c.isExit();
-            } catch (IOException e) {
+            } catch (DukeException e) {
                 System.out.println(e.getMessage());
             }
         }
