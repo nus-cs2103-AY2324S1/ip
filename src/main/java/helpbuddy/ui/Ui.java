@@ -26,7 +26,7 @@ public class Ui {
 
     public void printListMessage(TaskList taskList) {
         if (taskList.isEmpty()) {
-            printMessageBlock("\tYou have no task in your list.\n");
+            printMessageBlock("You have no task in your list.\n");
         } else {
             String messageOutput = "Here are the tasks in your list:\n";
             for (int i = 0; i < taskList.getSize(); i++) {
