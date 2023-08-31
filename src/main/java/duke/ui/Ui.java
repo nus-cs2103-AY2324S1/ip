@@ -3,6 +3,7 @@ package duke.ui;
 import duke.tasks.DukeList;
 import duke.tasks.Task;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Ui {
@@ -32,7 +33,13 @@ public class Ui {
 
     public void showList(DukeList tasks) {
         this.showLine();
-        tasks.displayList();
+        System.out.println("Here are the tasks in your list:");
+        int len = tasks.getSize();
+        for (int i = 0; i < len; i++) {
+            int num = i + 1;
+            Task currTask = tasks.getTask(i);
+            System.out.println(num + ". " + currTask.toString());
+        }
     }
 
     public void showLoadingError() {
@@ -56,6 +63,22 @@ public class Ui {
         System.out.println("Noted. I've removed this task:");
         System.out.println(index + ". " + task.toString());
         this.showLine();
+    }
+
+    public void acknowledgeFind(ArrayList<Task> filteredTasks) {
+        this.showLine();
+        if (filteredTasks.size() == 0) {
+            System.out.println("No tasks with the given keyword can be found");
+        } else {
+            System.out.println("Here are the matching tasks in your list:");
+            int len = filteredTasks.size();
+            for (int i = 0; i < len; i++) {
+                int num = i + 1;
+                Task currTask = filteredTasks.get(i);
+                System.out.println(num + ". " + currTask.toString());
+            }
+        }
+
     }
 
     public void acknowledgeMark(int index, Task task) {

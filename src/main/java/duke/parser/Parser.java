@@ -44,6 +44,9 @@ public class Parser {
             case "delete":
                 c = validateDelete(split);
                 break;
+            case "find":
+                c = validateFind(split);
+                break;
             default:
                 c = new IncorrectCommand("I'm sorry, but I don't know what that means :-(");
         }
@@ -136,7 +139,15 @@ public class Parser {
      * @param split The user input split into parts.
      * @return An ExitCommand object if input is valid, else an IncorrectCommand object.
      */
-    public static Command validateExit(String[] split) {
+
+    private  static Command validateFind(String[] split) {
+        if (split.length == 1 || split[1].isBlank()) {
+            return new IncorrectCommand("Please enter a valid find command.");
+        }
+        return new FindCommand(split[1]);
+    }
+
+    private static Command validateExit(String[] split) {
         if (split.length != 1) {
             return new IncorrectCommand("The bye command should not have " +
                     "any additional words appended to it");

@@ -2,6 +2,7 @@ package duke.tasks;
 
 import duke.tasks.Task;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 /**
@@ -34,20 +35,18 @@ public class DukeList {
      * @param taskNum index of the task
      */
     public void deleteTask(int taskNum) {
-        Task removedItem = dukeList.remove(taskNum - 1);
+        dukeList.remove(taskNum - 1);
     }
 
-    /**
-     * Displays the current list
-     */
-    public void displayList() {
-        System.out.println("Here are the tasks in your list:");
-        int len = dukeList.size();
-        for (int i = 0; i < len; i++) {
-            int num = i + 1;
-            Task currTask = dukeList.get(i);
-            System.out.println(num + ". " + currTask.toString());
+    public ArrayList<Task> filterByKeyword(String keyword) {
+        ArrayList<Task> filteredTasks = new ArrayList<>();
+        for (Task task : dukeList) {
+            String description = task.getDescription();
+            if (description.contains(keyword)) {
+                filteredTasks.add(task);
+            }
         }
+        return filteredTasks;
     }
 
     /**
