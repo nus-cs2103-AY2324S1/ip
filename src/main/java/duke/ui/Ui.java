@@ -1,5 +1,6 @@
 package duke.ui;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 import duke.data.TaskList;
@@ -126,5 +127,11 @@ public class Ui {
     /** Displays invalid command error */
     public void showInvalidCommand() {
         System.out.println("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+    }
+
+    public void showSearchResults(ArrayList<Task> results) {
+        for (int i = 0; i < results.size(); i++) {
+            System.out.println((i + 1) + "." + results.get(i));
+        }
     }
 }

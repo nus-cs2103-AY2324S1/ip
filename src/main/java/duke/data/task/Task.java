@@ -45,10 +45,20 @@ public class Task {
     }
 
     /**
+     * Checks whether the user search query exists in the description of task.
+     *
+     * @param query the search query entered by the user.
+     * @return whether the query exists in the description of the task.
+     */
+    public boolean contains(String query) {
+        return description.contains(query);
+    }
+
+    /**
      * Gets the formatted string of the task to be written to .txt file
      *
      * @return formatted string of the task
-     * */
+     */
     public String toWrite() {
         if (isDone) {
             return "1 | " + description;

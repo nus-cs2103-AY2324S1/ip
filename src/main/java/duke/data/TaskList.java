@@ -1,5 +1,6 @@
 package duke.data;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 import duke.data.task.Task;
@@ -106,5 +107,15 @@ public class TaskList {
      */
     public Task getTask(int taskID) {
         return taskList.get(taskID);
+    }
+
+    public ArrayList<Task> findTasks(String query) {
+        ArrayList<Task> results = new ArrayList<>();
+        for (Task task: taskList) {
+            if (task.contains(query)) {
+                results.add(task);
+            }
+        }
+        return results;
     }
 }

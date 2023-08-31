@@ -4,15 +4,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import duke.commands.Command;
-import duke.commands.AddDeadlineCommand;
-import duke.commands.AddToDoCommand;
-import duke.commands.AddEventCommand;
-import duke.commands.ByeCommand;
-import duke.commands.DeleteTaskCommand;
-import duke.commands.DisplayTaskCommand;
-import duke.commands.MarkCommand;
-import duke.commands.UnmarkCommand;
+import duke.commands.*;
 
 import duke.data.task.Task;
 import duke.data.task.Event;
@@ -23,7 +15,7 @@ import duke.data.exception.DukeException;
 
 public class Parser {
 
-    enum Instruction {bye, list, mark, unmark, todo, deadline, event, delete}
+    enum Instruction {bye, list, mark, unmark, todo, deadline, event, delete, find}
 
     /**
      * Returns the command object based on the command string entered by the user.
@@ -73,6 +65,8 @@ public class Parser {
             throw new DukeException("☹ OOPS!!! The description / from / to of a event cannot be empty.");
         case delete:
             return new DeleteTaskCommand(Integer.parseInt(second_word));
+        case find:
+            return new FindCommand(second_word);
         default:
             throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
