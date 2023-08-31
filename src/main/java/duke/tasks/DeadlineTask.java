@@ -39,4 +39,17 @@ public class DeadlineTask extends Task {
     public String toData() {
         return "D|" + super.toData() + "|" + by;
     }
+
+    // for testing purposes only
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) {
+            return true;
+        }
+        if (obj instanceof DeadlineTask) {
+            return super.equals(obj) &&
+                    ((DeadlineTask) obj).by.equals(this.by);
+        }
+        return false;
+    }
 }

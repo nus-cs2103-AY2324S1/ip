@@ -19,11 +19,12 @@ public class Duke {
     private static Storage STORAGE;
     private static Ui UI;
     private static Parser PARSER;
+    private static String filePath = "./data/duke.txt";
 
     public static void main(String[] args) {
         SCANNER = new Scanner(System.in);
         TASK_LIST = new TaskList();
-        STORAGE = new Storage(TASK_LIST);
+        STORAGE = new Storage(TASK_LIST, filePath);
         UI = new Ui(NAME);
         PARSER = new Parser(UI);
         run();
@@ -52,5 +53,20 @@ public class Duke {
 
     public static TaskList getTaskList() {
         return TASK_LIST;
+    }
+
+    // for testing purposes
+    public static void changeFilePath(String path) {
+        filePath = path;
+    }
+
+    // for testing purposes
+    public static boolean getIsReceivingInput() {
+        return IS_RECEIVING_INPUT;
+    }
+
+    // for testing purposes
+    public static void setIsReceivingInput(boolean isReceivingInput) {
+        IS_RECEIVING_INPUT = isReceivingInput;
     }
 }

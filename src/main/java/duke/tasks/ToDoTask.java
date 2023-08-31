@@ -34,4 +34,16 @@ public class ToDoTask extends Task {
     public String toData() {
         return "T|" + super.toData();
     }
+
+    // for testing purposes only
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) {
+            return true;
+        }
+        if (obj instanceof ToDoTask) {
+            return super.equals(((ToDoTask) obj));
+        }
+        return false;
+    }
 }

@@ -14,19 +14,27 @@ import java.util.Scanner;
 
 public class Storage {
     private TaskList taskList;
-    public Storage(TaskList taskList) {
+    private String path;
+    public Storage(TaskList taskList, String path) {
         this.taskList = taskList;
+        this.path = path;
         initialize();
     }
 
+    // for testing purposes only
+    public Storage(TaskList taskList) {
+        this.taskList = taskList;
+        this.path = "";
+    }
+
     private void initialize() {
-        File savedData = new File("./data/duke.txt");
+        File savedData = new File(path);
         if (savedData.exists()) {
             loadTasksFromFile(savedData, taskList);
         }
     }
 
-    private void loadTasksFromFile(File file, TaskList taskList) {
+    public void loadTasksFromFile(File file, TaskList taskList) {
         try {
             Scanner scanner = new Scanner(file);
             while (scanner.hasNextLine()) {
@@ -40,13 +48,13 @@ public class Storage {
                             if (dataSegments[1].equals("1")) {
                                 done = true;
                             } else if (!dataSegments[1].equals("0")) {
-                                System.out.println("duke.tasks.Task formatting error: " + taskData + " not loaded");
+                                System.out.println("Task formatting error: " + taskData + " not loaded");
                                 break;
                             }
                             ToDoTask newToDo = new ToDoTask(description, done);
                             taskList.addTask(newToDo);
                         } else {
-                            System.out.println("duke.tasks.Task formatting error: " + taskData + " not loaded");
+                            System.out.println("Task formatting error: " + taskData + " not loaded");
                         }
                         break;
                     case 4:
@@ -57,13 +65,13 @@ public class Storage {
                             if (dataSegments[1].equals("1")) {
                                 done = true;
                             } else if (!dataSegments[1].equals("0")) {
-                                System.out.println("duke.tasks.Task formatting error: " + taskData + " not loaded");
+                                System.out.println("Task formatting error: " + taskData + " not loaded");
                                 break;
                             }
                             DeadlineTask newDeadline = new DeadlineTask(description, by, done);
                             taskList.addTask(newDeadline);
                         } else {
-                            System.out.println("duke.tasks.Task formatting error: " + taskData + " not loaded");
+                            System.out.println("Task formatting error: " + taskData + " not loaded");
                         }
                         break;
                     case 5:
@@ -75,13 +83,13 @@ public class Storage {
                             if (dataSegments[1].equals("1")) {
                                 done = true;
                             } else if (!dataSegments[1].equals("0")) {
-                                System.out.println("duke.tasks.Task formatting error: " + taskData + " not loaded");
+                                System.out.println("Task formatting error: " + taskData + " not loaded");
                                 break;
                             }
                             EventTask newEvent = new EventTask(description, from, to, done);
                             taskList.addTask(newEvent);
                         } else {
-                            System.out.println("duke.tasks.Task formatting error: " + taskData + " not loaded");
+                            System.out.println("Task formatting error: " + taskData + " not loaded");
                         }
                         break;
                 }
@@ -105,7 +113,7 @@ public class Storage {
             }
         }
 
-        File savedData = new File("./data/duke.txt");
+        File savedData = new File(path);
         try {
             FileWriter writer = new FileWriter(savedData, false);
             savedData.createNewFile();
@@ -115,5 +123,10 @@ public class Storage {
         } catch (IOException e) {
             System.out.println("Error saving data... Tasks not saved.");
         }
+    }
+
+    // for testing purposes
+    public TaskList getTaskList() {
+        return taskList;
     }
 }
