@@ -1,5 +1,6 @@
 import java.io.IOException;
 import java.util.Collections;
+import java.util.List;
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.nio.file.Path;
@@ -11,9 +12,8 @@ import java.io.BufferedReader;
 public class Thea {
 
     public static void main(String[] args) throws Exception {
-        readfile();
         Scanner input = new Scanner(System.in);
-        ArrayList<Task> tasks =  new ArrayList<>();
+        ArrayList<Task> tasks =  retrieveTasks();
         greet();
         String userInput = input.nextLine();
         while (true) {
@@ -85,20 +85,35 @@ public class Thea {
         }
     }
 
-    public static void readfile() {
+    public static ArrayList<Task> retrieveTasks() throws Exception{
         String currentDir = System.getProperty("user.dir");
         Path path = Paths.get(currentDir, "data", "thea.txt");
         String line;
+        ArrayList<Task> retrievedTasks = new ArrayList<>();
+        Task task;
         try (BufferedReader bufferReader = Files.newBufferedReader(path)) {
             line = bufferReader.readLine();
             while (line != null) {
-                System.out.println(line);
+                String[] splitLine = line.split(" [|] ");
+                if (splitLine[0].equals("T")) {
+                    task = new ToDo(splitLine[2]);
+                } else if (splitLine[0].equals("D")) {
+                    task = new Deadline(splitLine[2], splitLine[3]);
+                } else if (splitLine[0].equals("E")) {
+                    task = new Event(splitLine[2],splitLine[3], splitLine[4]);
+                } else {
+                    throw new FileCorruptedException("Unexpected File Format Found. File might be corrupted.");
+                }
+                if (splitLine[1].equals("1")) {
+                    task.markAsDone();
+                }
+                retrievedTasks.add(task);
                 line = bufferReader.readLine();
             }
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-
+        return retrievedTasks;
     }
     public static void greet() {
         System.out.println("Hello! I'm Thea •ᴗ•\nHow can I help you?");
