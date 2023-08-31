@@ -1,3 +1,9 @@
+package duke.commands;
+
+import duke.components.Storage;
+import duke.components.TaskList;
+import duke.components.Ui;
+
 /**
  * Represents a command that cannot be parsed correctly
  */

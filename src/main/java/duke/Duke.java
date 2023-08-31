@@ -1,9 +1,18 @@
+package duke;
+
+import duke.commands.Command;
+
+import duke.components.Parser;
+import duke.components.Storage;
+import duke.components.TaskList;
+import duke.components.Ui;
+
+import duke.exceptions.DukeException;
+
 /**
  * Chatbot implementation
  */
 public class Duke {
-    // Chatbot name
-    static final String NAME = "Atlas";
     private final TaskList taskList;
     private final Storage storage;
     private final Ui ui;
@@ -47,25 +56,6 @@ public class Duke {
             } finally {
                 ui.printLine();
             }
-        }
-    }
-
-    /**
-     * Exception class for exceptions that terminate the command and meant to be handled by Duke
-     */
-    public static class DukeException extends RuntimeException {
-
-        /**
-         * Constructs a DukeException exception
-         * @param errorDetails String containing information about error
-         */
-        public DukeException(String errorDetails) {
-            super(errorDetails);
-        }
-
-        @Override
-        public String getMessage() {
-            return "Sorry, I ran into an error! Here's more info:\n" + super.getMessage();
         }
     }
 }
