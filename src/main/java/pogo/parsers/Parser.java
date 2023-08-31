@@ -1,15 +1,25 @@
 package pogo.parsers;
 
-import pogo.commands.*;
-import pogo.common.Messages;
-import pogo.tasks.exceptions.PogoInvalidTaskException;
-
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeParseException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import pogo.commands.AddDeadlineCommand;
+import pogo.commands.AddEventCommand;
+import pogo.commands.AddToDoCommand;
+import pogo.commands.Command;
+import pogo.commands.DeleteTaskCommand;
+import pogo.commands.ExitCommand;
+import pogo.commands.FindTaskCommand;
+import pogo.commands.InvalidCommand;
+import pogo.commands.ListTasksCommand;
+import pogo.commands.MarkTaskCommand;
+import pogo.commands.UnmarkTaskCommand;
+import pogo.common.Messages;
+import pogo.tasks.exceptions.PogoInvalidTaskException;
 
 /**
  * The Parser class is responsible for parsing user input.
@@ -56,6 +66,8 @@ public class Parser {
                 }
 
                 return new ListTasksCommand(from, to);
+            case FindTaskCommand.COMMAND_WORD:
+                return new FindTaskCommand(arguments);
             case AddDeadlineCommand.COMMAND_WORD:
                 return TaskParser.parseDeadlineCommand(arguments);
             case AddToDoCommand.COMMAND_WORD:
