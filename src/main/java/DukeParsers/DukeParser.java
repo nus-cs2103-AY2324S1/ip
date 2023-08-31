@@ -66,6 +66,15 @@ public class DukeParser {
     }
 
     /**
+     * Returns the length of the task list.
+     *
+     * @return the length of the tasklist
+     */
+    public int getTaskListSize() {
+        return this.taskList.getTasks().size();
+    }
+
+    /**
      * parses the String. if there is error, this method will return null to
      * indicate unsuccessful parsing.
      *

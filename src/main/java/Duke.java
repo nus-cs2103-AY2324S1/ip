@@ -56,7 +56,6 @@ public class Duke {
      * @param args pointer to some array of command-line arguments
      */
     public static void main(String[] args) {
-        System.out.println(System.getProperty("user.dir"));
         try {
             Duke dukeInstance = new Duke();
             dukeInstance.initiateChat();
