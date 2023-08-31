@@ -1,65 +1,41 @@
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.Scanner;
 public class Duke {
-    private static boolean isDone = false;
 
-    public static void main(String[] args) {
-        File file = new File("duke.txt");
-        // Task list to store user responses
-        TaskList taskList = new TaskList();
+    private Storage storage;
+    private TaskList taskList;
+    private Ui ui;
 
-        // Loads the data from the file
+    /**
+     * Constructor for the Duke class.
+     *
+     * @param filePath The String representing the filePath of the file to be used.
+     */
+    public Duke(String filePath) {
+        ui = new Ui();
+        storage = new Storage(filePath);
         try {
-            taskList.loadTaskList();
-        } catch (FileNotFoundException e) {
-            System.out.println("File not found");
+            taskList = new TaskList(storage.load());
+        } catch (DukeException e) {
+            System.out.println(e.getMessage());
+            taskList = new TaskList();
         }
+    }
 
-        String chatbotName = "Albatross";
-        System.out.println("Hello! I'm " + chatbotName);
-
-        // Scanner to read user response
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Please enter a command");
-
-        // Scanner reads responses and adds to task list
-        String userResponse = scanner.nextLine();
-
-        while (!isDone) {
-            // Interpret the commands returned from the Parser
-            // and execute the corresponding actions
+    public void run() {
+        ui.showWelcomeMsg();
+        boolean isExit = false;
+        while(!isExit) {
             try {
-                String[] strSegments = Parser.parse(userResponse);
-                String command = strSegments[0];
-                if (command.equals("bye")) {
-                    isDone = false;
-                    break;
-                } else if (command.equals("list")) {
-                    taskList.printTaskList();
-                } else if (command.equals("todo")) {
-                    Todo todo = new Todo(strSegments[1], false);
-                    taskList.addTask(todo);
-                } else if (command.equals("deadline")) {
-                    Deadline deadline = new Deadline(strSegments[1], strSegments[2], false);
-                    taskList.addTask(deadline);
-                } else if (command.equals("event")) {
-                    Event event = new Event(strSegments[1], strSegments[2], strSegments[3], false);
-                    taskList.addTask(event);
-                } else if (command.equals("mark")) {
-                    taskList.markDone((int) Double.parseDouble(strSegments[1]));
-                } else if (command.equals("unmark")) {
-                    taskList.markNotDone((int) Double.parseDouble(strSegments[1]));
-                } else if (command.equals("delete")) {
-                    taskList.delete((int) Double.parseDouble(strSegments[1]));
-                }
+                String fullCommand = ui.readCommand();
+                Command command = Parser.parse(fullCommand);
+                command.execute(taskList, ui, storage);
+                isExit = command.isExit();
             } catch (DukeException e) {
                 System.out.println(e);
             }
-            userResponse = scanner.nextLine();
         }
+    }
 
-        System.out.println("Bye! Hope to see you again soon!");
-        scanner.close();
+    public static void main(String[] args) {
+        new Duke("duke.txt").run();
     }
 }

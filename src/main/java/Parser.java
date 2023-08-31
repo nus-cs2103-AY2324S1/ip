@@ -21,14 +21,11 @@ public class Parser {
      * Checks for a valid "bye" command
      *
      * @param input the string input by the user
-     * @return A String array containing the keywords if the command is valid
-     *         and null otherwise.
+     * @return A ByeCommand if the command is valid and null otherwise.
      */
-    public static String[] byeCommandChecker(String input) {
+    public static ByeCommand byeCommandChecker(String input) {
         if (input.trim().equals("bye")) {
-            String[] results = new String[1];
-            results[0] = "bye";
-            return results;
+            return new ByeCommand();
         } else {
             return null;
         }
@@ -38,14 +35,11 @@ public class Parser {
      * Checks for a valid "list" command
      *
      * @param input the string input by the user
-     * @return A String array containing the keywords if the command is valid
-     *         and null otherwise.
+     * @return A ListCommand containing the keywords if the command is valid and null otherwise.
      */
-    public static String[] listCommandChecker(String input) {
+    public static ListCommand listCommandChecker(String input) {
         if (input.trim().equals("list")) {
-            String[] results = new String[1];
-            results[0] = "list";
-            return results;
+            return new ListCommand();
         } else {
             return null;
         }
@@ -55,22 +49,19 @@ public class Parser {
      * Checks for a valid "todo" command
      *
      * @param input the string input by the user
-     * @return A String array containing the keywords if the command is valid
-     *         and null if the command is not a "todo".
+     * @return A AddTodoCommand if the command is valid and null if the command is not a "todo".
      * @throws DukeException if the command is "todo" but the keywords are not valid
      */
-    public static String[] todoCommandChecker(String input) throws DukeException {
+    public static AddTodoCommand todoCommandChecker(String input) throws DukeException {
         String[] strSegments = input.trim().split(" ");
         String command = strSegments[0];
 
         if (command.equals("todo")) {
-            String[] results = new String[2];
-            results[0] = "todo";
-            results[1] = input.trim().substring(4).trim();
-            if (results[1].equals("")) {
+            String taskName = input.trim().substring(4).trim();
+            if (taskName.equals("")) {
                 throw new DukeException("☹ OOPS!!! Incorrect description of a todo.");
             }
-            return results;
+            return new AddTodoCommand(taskName);
         } else {
             return null;
         }
@@ -80,27 +71,23 @@ public class Parser {
      * Checks for a valid "deadline" command
      *
      * @param input the string input by the user
-     * @return A String array containing the keywords if the command is valid
+     * @return A AddDeadlineCommand if the command is valid
      *         and null if the command is not a "deadline".
      * @throws DukeException if the command is "deadline" but the keywords are not valid
      */
-    public static String[] deadlineCommandChecker(String input) throws DukeException {
+    public static AddDeadlineCommand deadlineCommandChecker(String input) throws DukeException {
         String[] strSegments = input.trim().split(" ");
         String command = strSegments[0];
 
         if (command.equals("deadline")) {
-            String[] results = new String[3];
-            results[0] = "deadline";
             String string = input.trim().substring(8).trim();
             if (string.contains(" /by ")) {
                 String[] segments = string.split("/by");
                 String eventName = segments[0].trim();
                 try {
-                    results[1] = eventName;
                     String dateString = segments[1].trim();
                     LocalDate.parse(dateString);
-                    results[2] = dateString;
-                    return results;
+                    return new AddDeadlineCommand(eventName, dateString);
                 } catch (DateTimeParseException e) {
                     throw new DukeException("Something is wrong with the date provided.");
                 }
@@ -116,17 +103,14 @@ public class Parser {
      * Checks for a valid "event" command
      *
      * @param input the string input by the user
-     * @return A String array containing the keywords if the command is valid
-     *         and null if the command is not an "event".
+     * @return An AddEventCommand if the command is valid and null if the command is not an "event".
      * @throws DukeException if the command is "event" but the keywords are not valid
      */
-    public static String[] eventCommandChecker(String input) throws DukeException {
+    public static AddEventCommand eventCommandChecker(String input) throws DukeException {
         String[] strSegments = input.trim().split(" ");
         String command = strSegments[0];
 
         if (command.equals("event")) {
-            String[] results = new String[4];
-            results[0] = "event";
             String string = input.substring(5).trim();
             if (string.contains(" /from ")) {
                 String[] segments = string.split("/from");
@@ -135,16 +119,13 @@ public class Parser {
                     String[] segments2 = segments[1].split(" /to ");
                     String startDate = segments2[0].trim();
                     String endDate = segments2[1].trim();
-                    results[1] = eventName;
-                    results[2] = startDate;
                     if (startDate.equals("")) {
                         throw new DukeException("☹ OOPS!!! Incorrect description of an event.");
                     }
-                    results[3] = endDate;
                     try {
                         LocalDate.parse(startDate);
                         LocalDate.parse(endDate);
-                        return results;
+                        return new AddEventCommand(eventName, startDate, endDate);
                     } catch (DateTimeParseException e) {
                         throw new DukeException("Something is wrong with the date provided.");
                     }
@@ -163,11 +144,10 @@ public class Parser {
      * Checks for a valid "mark" command
      *
      * @param input the string input by the user
-     * @return A String array containing the keywords if the command is valid
-     *         and null if the command is not a "mark".
+     * @return A MarkDoneCommand if the command is valid and null if the command is not a "mark".
      * @throws DukeException if the command is "mark" but the keywords are not valid
      */
-    public static String[] markCommandChecker(String input) throws DukeException {
+    public static MarkDoneCommand markCommandChecker(String input) throws DukeException {
         String[] strSegments = input.trim().split(" ");
         String command = strSegments[0];
 
@@ -179,10 +159,8 @@ public class Parser {
             } catch (ArrayIndexOutOfBoundsException e) {
                 throw new DukeException("Invalid input for index");
             }
-            String[] results = new String[2];
-            results[0] = "mark";
-            results[1] = input.substring(4).trim();
-            return results;
+            int index = (int) Double.parseDouble(input.substring(4).trim());
+            return new MarkDoneCommand(index);
         } else {
             return null;
         }
@@ -192,11 +170,10 @@ public class Parser {
      * Checks for a valid "unmark" command
      *
      * @param input the string input by the user
-     * @return A String array containing the keywords if the command is valid
-     *         and null if the command is not a "unmark".
+     * @return A MarkNotDoneCommand if the command is valid and null if the command is not a "unmark".
      * @throws DukeException if the command is "unmark" but the keywords are not valid
      */
-    public static String[] unmarkCommandChecker(String input) throws DukeException {
+    public static MarkNotDoneCommand unmarkCommandChecker(String input) throws DukeException {
         String[] strSegments = input.trim().split(" ");
         String command = strSegments[0];
 
@@ -208,24 +185,21 @@ public class Parser {
             } catch (ArrayIndexOutOfBoundsException e) {
                 throw new DukeException("Invalid input for index");
             }
-            String[] results = new String[2];
-            results[0] = "unmark";
-            results[1] = input.substring(6).trim();
-            return results;
+            int index = (int) Double.parseDouble(input.substring(6).trim());
+            return new MarkNotDoneCommand(index);
         } else {
             return null;
         }
     }
 
     /**
-     * Checks for a valid "unmark" command
+     * Checks for a valid "delete" command
      *
      * @param input the string input by the user
-     * @return A String array containing the keywords if the command is valid
-     *         and null if the command is not a "unmark".
-     * @throws DukeException if the command is "unmark" but the keywords are not valid
+     * @return A DeleteTaskCommand if the command is valid and null if the command is not a delete command.
+     * @throws DukeException if the command is "delete" but the keywords are not valid
      */
-    public static String[] deleteCommandChecker(String input) throws DukeException {
+    public static DeleteTaskCommand deleteCommandChecker(String input) throws DukeException {
         String[] strSegments = input.trim().split(" ");
         String command = strSegments[0];
 
@@ -237,10 +211,8 @@ public class Parser {
             } catch (ArrayIndexOutOfBoundsException e) {
                 throw new DukeException("Invalid input for index");
             }
-            String[] results = new String[2];
-            results[0] = "delete";
-            results[1] = input.substring(6).trim();
-            return results;
+            int index = (int) Double.parseDouble(input.substring(6).trim());
+            return new DeleteTaskCommand(index);
         } else {
             return null;
         }
@@ -250,10 +222,10 @@ public class Parser {
      * Checks for a valid command.
      *
      * @param input the string input by the user
-     * @return a String array containing the keywords corresponding to the correct command
+     * @return a Command corresponding to the correct command
      * @throws DukeException if the command is invalid.
      */
-    public static String[] parse(String input) throws DukeException {
+    public static Command parse(String input) throws DukeException {
         if (byeCommandChecker(input) != null) {
             return byeCommandChecker(input);
         } else if (listCommandChecker(input) != null) {

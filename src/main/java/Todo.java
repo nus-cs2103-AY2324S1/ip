@@ -18,6 +18,11 @@ public class Todo extends Task {
         }
     }
 
+    /**
+     * Displays the todo in a user-friendly format.
+     *
+     * @return The string representation of the todo for display to the user.
+     */
     public String displayableForm() {
         return this.toString();
     }
