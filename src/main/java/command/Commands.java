@@ -1,46 +1,120 @@
 package command;
 
-import dukeExceptions.DukeNumberFormatException;
-import dukeExceptions.DukeUnknownCommandException;
-import dukeExceptions.LoadException;
+
 import task.ListOfTask;
 import dukeExceptions.DukeException;
-import ui.Ui;
 
 import java.time.LocalDateTime;
 
 public class Commands {
+
+    /**
+     * List of both primary and secondary commands.
+     */
     public enum COMMANDS {BYE, LIST, TODO, DEADLINE, EVENT, MARK, UNMARK, DELETE, BY, FROM, TO, SORT, FIND, UNKNOWN}
 
-    COMMANDS state;
-    String name;
-    int index;
-    LocalDateTime dateTime;
+    private COMMANDS state;
+    private String name;
+    private int index;
+    private LocalDateTime dateTime;
 
-    public Commands(COMMANDS command) {
+    /**
+     * Construct a Commands object with only the primary command.
+     * @param command The command or action given by the Parse object.
+     */
+    public static Commands of(COMMANDS command) {
+        return new Commands(command);
+    }
+
+    /**
+     * Construct a Commands object with both a primary command and task description.
+     * @param command The command or action given by the Parse object.
+     * @param task The task name or description.
+     */
+    public static Commands of(COMMANDS command, String task) {
+        return new Commands(command, task);
+    }
+
+    /**
+     * Construct a Commands object with both a primary command and the index of the task.
+     * @param command The command or action given by the Parse object.
+     * @param index The index of the task that the command should act on.
+     */
+    public static Commands of(COMMANDS command, int index) {
+        return new Commands(command, index);
+    }
+
+    /**
+     * Construct a Commands object with both a primary command and the index of the task.
+     * @param command The command or action given by the Parse object.
+     * @param dateTime The date and time of a command giving in the format of 'dd-MM-yyyy HHmm'.
+     */
+    public static Commands of(COMMANDS command, LocalDateTime dateTime) {
+        return new Commands(command, dateTime);
+    }
+
+    /**
+     * Construct a Commands object with both a primary command and the index of the task.
+     * @param command The command or action given by the Parse object.
+     * @param task The task name or description.
+     * @param secondaryCommand A sub-command that supplements the main command.
+     */
+    public static Commands of(COMMANDS command, String task, Commands secondaryCommand) {
+        return new Commands.TwoCommands(command, task, secondaryCommand);
+    }
+
+    /**
+     * Construct a Commands object with both a primary command and the index of the task.
+     * @param command The command or action given by the Parse object.
+     * @param task The task name or description.
+     * @param secondaryCommand A sub-command that supplements the main command.
+     * @param tertiaryCommand A sub-command that supplements the main command and comes after the secondaryCommand.
+     */
+    public static Commands of(COMMANDS command, String task, Commands secondaryCommand, Commands tertiaryCommand) {
+        return new Commands.ThreeCommands(command, task, secondaryCommand, tertiaryCommand);
+    }
+
+    private Commands(COMMANDS command) {
         this.state = command;
     }
 
-    public Commands(COMMANDS command, String str) {
+    private Commands(COMMANDS command, String task) {
         this.state = command;
-        this.name = str;
+        this.name = task;
     }
 
-    public Commands(COMMANDS command, int index) {
+    private Commands(COMMANDS command, int index) {
         this.state = command;
         this.index = index;
     }
 
-    public Commands(COMMANDS command, LocalDateTime dateTime) {
+
+    private Commands(COMMANDS command, LocalDateTime dateTime) {
         this.state = command;
         this.dateTime = dateTime;
     }
 
-    public COMMANDS getCommand() {
-        return this.state;
+    /**
+     * Check if this object's COMMANDS is the same as command.
+     * @param command The COMMANDS enum that you want to compare
+     * @return Returns true same, false otherwise.
+     */
+    public boolean checkCommand(COMMANDS command) {
+        if (this.state == command) {
+            return true;
+        }
+        return false;
     }
 
-    public int execute(ListOfTask taskList, Ui ui, int lineNumber, String error) throws DukeException {
+    /**
+     * Executes the action or throws a DukeException.
+     * @param taskList The list of tasks that the action will be executed in.
+     * @param lineNumber Line Number of the command when reading from the save file.
+     * @param error The command reading from the save file.
+     * @return Returns 0 if the 'bye' command is executed, returns 1 if any other command is successfully executed.
+     * @throws DukeException The exception thrown when encountering any problems in executing.
+     */
+    public int execute(ListOfTask taskList, int lineNumber, String error) throws DukeException {
         boolean load = true;
         if (lineNumber == 0 && error == null) {
             load = false;
@@ -48,7 +122,6 @@ public class Commands {
             switch (this.state) {
 
             case BYE:
-                ui.exit();
                 return 0;
 
             case LIST:
@@ -97,13 +170,27 @@ public class Commands {
         return 1;
     }
 
+    /**
+     * Compares LocalDateTime between this object and c.
+     * @param c Commands object to be compared to.
+     * @return Returns true if this object's time is before c's time, false for all other cases.
+     */
     public boolean compareTime(Commands c) {
-        if (this.dateTime.isBefore(c.dateTime)) {
-            return true;
+        try {
+            if (this.dateTime.isBefore(c.dateTime)) {
+                return true;
+            }
+        } catch (NullPointerException e) {
+            return false;
         }
         return false;
     }
 
+    /**
+     * Compares this object to another object.
+     * @param obj An object.
+     * @return Returns true if both objects are equivalent, false if otherwise.
+     */
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {
@@ -118,22 +205,30 @@ public class Commands {
         return false;
     }
 
-    public static class TwoCommands extends Commands {
+    private static class TwoCommands extends Commands {
         private COMMANDS state2;
         private String name2;
         private Commands secondaryCommand;
-        public TwoCommands(COMMANDS command, String str, COMMANDS command2, String str2) {
+        private TwoCommands(COMMANDS command, String str, COMMANDS command2, String str2) {
             super(command, str);
             this.state2 = command2;
             this.name2 = str2;
         }
-        public TwoCommands(COMMANDS command, String str, Commands secondaryCommand) {
+        private TwoCommands(COMMANDS command, String str, Commands secondaryCommand) {
             super(command,str);
             this.secondaryCommand = secondaryCommand;
         }
 
+        /**
+         * Executes the action or throws a DukeException.
+         * @param taskList The list of tasks that the action will be executed in.
+         * @param lineNumber Line Number of the command when reading from the save file.
+         * @param error The command reading from the save file.
+         * @return Returns 0 if the 'bye' command is executed, returns 1 if any other command is successfully executed.
+         * @throws DukeException The exception thrown when encountering any problems in executing.
+         */
         @Override
-        public int execute(ListOfTask taskList, Ui ui, int lineNumber, String error) throws DukeException {
+        public int execute(ListOfTask taskList, int lineNumber, String error) throws DukeException {
             boolean load = true;
             if (lineNumber == 0 && error == null) {
                 load = false;
@@ -151,6 +246,11 @@ public class Commands {
             return 1;
         }
 
+        /**
+         * Compares this object to another object.
+         * @param obj An object.
+         * @return Returns true if both objects are equivalent, false if otherwise.
+         */
         @Override
         public boolean equals(Object obj) {
             if (this == obj) {
@@ -166,14 +266,14 @@ public class Commands {
         }
     }
 
-    public static class ThreeCommands extends Commands {
+    private static class ThreeCommands extends Commands {
         private COMMANDS state2;
         private String name2;
         private COMMANDS state3;
         private String name3;
         private Commands phaseTwo;
         private Commands phaseThree;
-        public ThreeCommands(COMMANDS command, String str, COMMANDS command2, String str2, COMMANDS command3, String str3) {
+        private ThreeCommands(COMMANDS command, String str, COMMANDS command2, String str2, COMMANDS command3, String str3) {
             super(command,str);
             this.state2 = command2;
             this.name2 = str2;
@@ -181,14 +281,22 @@ public class Commands {
             this.name3 = str3;
         }
 
-        public ThreeCommands(COMMANDS command, String str, Commands phaseTwo, Commands phaseThree) {
+        private ThreeCommands(COMMANDS command, String str, Commands phaseTwo, Commands phaseThree) {
             super(command,str);
             this.phaseTwo = phaseTwo;
             this.phaseThree = phaseThree;
         }
 
+        /**
+         * Executes the action or throws a DukeException.
+         * @param taskList The list of tasks that the action will be executed in.
+         * @param lineNumber Line Number of the command when reading from the save file.
+         * @param error The command reading from the save file.
+         * @return Returns 0 if the 'bye' command is executed, returns 1 if any other command is successfully executed.
+         * @throws DukeException The exception thrown when encountering any problems in executing.
+         */
         @Override
-        public int execute(ListOfTask taskList, Ui ui, int lineNumber, String error) throws DukeException {
+        public int execute(ListOfTask taskList, int lineNumber, String error) throws DukeException {
             boolean load = true;
             if (lineNumber == 0 && error == null) {
                 load = false;
@@ -206,6 +314,12 @@ public class Commands {
             return 1;
         }
 
+        /**
+         * Compares this object to another object.
+         * @param obj An object.
+         * @return Returns true if both objects are equivalent, false if otherwise.
+         */
+        @Override
         public boolean equals(Object obj) {
             if (this == obj) {
                 return true;

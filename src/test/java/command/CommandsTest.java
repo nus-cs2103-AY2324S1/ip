@@ -19,9 +19,9 @@ public class CommandsTest {
         for (Commands.COMMANDS c : Commands.COMMANDS.values()) {
             for (Commands.COMMANDS d : Commands.COMMANDS.values()) {
                 if (c == d) {
-                    assertEquals(new Commands(c), new Commands(d));
+                    assertEquals(Commands.of(c), Commands.of(d));
                 } else {
-                    assertNotEquals(new Commands(c), new Commands(d));
+                    assertNotEquals(Commands.of(c), Commands.of(d));
                 }
             }
         }
@@ -38,7 +38,7 @@ public class CommandsTest {
             System.setOut(new PrintStream(outContent));
             try {
                 Commands c = cm.parse();
-                c.execute(new task.ListOfTask(), new Ui(), 0, null);
+                c.execute(new task.ListOfTask(), 0, null);
                 assertEquals(cmd3 + cmd2 + "\r\n", outContent.toString());
             } catch (DukeException e) {
                 assertEquals("Please add the task name\r\n", e.getMessage() + "\r\n");
@@ -59,7 +59,7 @@ public class CommandsTest {
             System.setOut(new PrintStream(outContent));
             try {
                 Commands c = cm.parse();
-                c.execute(new task.ListOfTask(), new Ui(), 0, null);
+                c.execute(new task.ListOfTask(), 0, null);
                 assertEquals(cmd3 + cmd2 + cmd4 + "\r\n", outContent.toString());
             } catch (DukeDateTimeParseException e) {
                 assertEquals("The format for dates&time is 'dd-MM-yyyy hhmm'", e.getMessage());
@@ -99,7 +99,7 @@ public class CommandsTest {
             System.setOut(new PrintStream(outContent));
             try {
                 Commands c = cm.parse();
-                c.execute(new task.ListOfTask(), new Ui(), 0, null);
+                c.execute(new task.ListOfTask(), 0, null);
                 assertEquals(cmd3 + cmd2 + cmd4 + "\r\n", outContent.toString());
             } catch (DukeFromEarlierThanToException e) {
                 assertEquals("From must be earlier than To", e.getMessage());
@@ -126,7 +126,7 @@ public class CommandsTest {
             ParserStud cm = new ParserStud(str);
             try {
                 Commands c = cm.parse();
-                c.execute(taskList, new Ui(), 0, null);
+                c.execute(taskList, 0, null);
             } catch (DukeException e) {
                 System.out.println("check the test cases again");
             }
@@ -172,7 +172,7 @@ public class CommandsTest {
             ParserStud cm = new ParserStud(str);
             try {
                 Commands c = cm.parse();
-                c.execute(taskList, new Ui(), 0, null);
+                c.execute(taskList, 0, null);
             } catch (DukeException e) {
                 System.out.println("check the test cases again");
             }
@@ -217,7 +217,7 @@ public class CommandsTest {
             ParserStud cm = new ParserStud(str);
             try {
                 Commands c = cm.parse();
-                c.execute(taskList, new Ui(), 0, null);
+                c.execute(taskList, 0, null);
             } catch (DukeException e) {
                 System.out.println("check the test cases again");
             }
@@ -259,7 +259,7 @@ public class CommandsTest {
             ParserStud cm = new ParserStud(str);
             try {
                 Commands c = cm.parse();
-                c.execute(taskList, new Ui(), 0, null);
+                c.execute(taskList, 0, null);
             } catch (DukeException e) {
                 System.out.println("check the test cases again");
             }
@@ -271,7 +271,7 @@ public class CommandsTest {
             ParserStud p = new ParserStud(str);
             try {
                 Commands c = p.parse();
-                c.execute(taskList, new Ui(), 0, null);
+                c.execute(taskList, 0, null);
                 assertEquals(cmdi, outContent.toString());
             } catch (DukeException e) {
                 assertEquals("Unknown command", e.getMessage());
