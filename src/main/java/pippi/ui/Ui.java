@@ -1,3 +1,5 @@
+package pippi.ui;
+
 public class Ui {
     public static void wrapText(String content) {
         String line = "_____________________________________\n";

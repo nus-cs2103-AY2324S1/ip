@@ -1,3 +1,10 @@
+package pippi;
+
+import pippi.parser.Parser;
+import pippi.storage.Storage;
+import pippi.task.Task;
+import pippi.ui.Ui;
+
 import java.util.Scanner;
 import java.util.ArrayList;
 public class Pippi {
@@ -16,7 +23,11 @@ public class Pippi {
             "⠀⠀⠀⠀⠀⠘⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠃⠀⠀⠀⠀⠀\n" +
             "⠀⠀⠀⠀⠀⠀⠹⣿⣿⣿⣿⣿⠿⠿⠿⠿⠿⠿⣿⣿⣿⣿⣿⠏⠀⠀⠀⠀⠀⠀\n" +
             "⠀⠀⠀⠀⠀⠀⠀⠹⣿⣿⣿⠏⠀⠀⠀⠀⠀⠀⠹⣿⣿⣿⠏⠀⠀⠀⠀⠀⠀⠀";
-    protected static boolean inPokeball = false;
+    private static boolean inPokeball = false;
+
+    public static void returnToPokeball() {
+        Pippi.inPokeball = true;
+    }
 
     public void start() {
         Ui.wrapText("Hello trainer, I'm Pippi!\nWhat can I do for you?");
