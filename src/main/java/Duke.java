@@ -12,7 +12,7 @@ public class Duke {
     String info = "Ask the bunny a question!\n";
     String goodbye = "Bye. See you again! (またね)";
 
-    ArrayList<Task> taskList = new ArrayList<>();
+    TaskList taskList = new TaskList();
     Parser parser = new Parser();
     Ui ui = new Ui();
     Storage storage = new Storage(taskList);
