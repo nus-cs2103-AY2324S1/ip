@@ -8,7 +8,7 @@ import Duke.tasks.Task;
 import Duke.tasks.ToDos;
 import core.DukeException;
 import core.Duke.CommandType;
-
+import Duke.tasks.TaskList;
 public class Parser {
     public CommandType getCommandType(String userCommand) {
         if ("bye".equals(userCommand)) {
@@ -27,6 +27,8 @@ public class Parser {
             return Duke.CommandType.DEADLINE;
         } else if (userCommand.startsWith("event ")) {
             return Duke.CommandType.EVENT;
+        } else if (userCommand.startsWith("find")) {
+            return CommandType.FIND;
         } else {
             return Duke.CommandType.UNKNOWN;
         }
@@ -137,11 +139,30 @@ public class Parser {
                 LocalDateTime deadlineDate = LocalDateTime.parse(deadlineParts[1], formatter);
                 task = new Deadlines(deadlineParts[0], deadlineDate);
                 break;
-    
             default:
                 throw new DukeException("Invalid command. Please enter a valid task type.");
         }
         return task; 
+    }
+
+    public TaskList parseMatchingTasks(String userCommand, TaskList allTasks) throws DukeException {
+        String[] parts = userCommand.split(" ", 2);
+
+        if (userCommand == null) {
+            throw new DukeException("Please input a valid command.");
+        }
+        if (parts.length < 2 || parts[1].trim().isEmpty()) {
+            return new TaskList();
+        }
+
+        String keyword = parts[1];
+        TaskList matchingTasks = new TaskList();
+        for (Task task : allTasks.getTasks()) {
+            if (task.getDescription().contains(keyword)) {
+                matchingTasks.addTask(task);
+            }
+        }
+        return matchingTasks;
     }
     
 }

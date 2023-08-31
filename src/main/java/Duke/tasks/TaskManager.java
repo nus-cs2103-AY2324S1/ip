@@ -124,4 +124,21 @@ public class TaskManager {
             return e.getMessage();
         }
     }
+
+    public String findTasks(String userCommand) {
+        StringBuilder msg = new StringBuilder();
+        try {
+            TaskList matchingTasks = p.parseMatchingTasks(userCommand, tasks);
+            if (matchingTasks.size() == 0) {
+                return "No matching tasks.";
+            }
+            msg.append("Here are the tasks in your list:");
+            for (Task task : matchingTasks.getTasks()) {
+                msg.append("\n").append(task.toString());
+            }
+        } catch (DukeException e) {
+            return e.getMessage();
+        }
+        return msg.toString();
+    }
 }
