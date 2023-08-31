@@ -11,7 +11,8 @@ public class Ui {
 
     public static final String WELCOME_MESSAGE = "-----------------------------------------\n"
             + "Hello! I'm Emiya\n"
-            + "What can I do for you?\n";
+            + "What can I do for you?\n"
+            + "-----------------------------------------\n";
 
     public static final String EXIT_MESSAGE = "-----------------------------------------\n"
             + "Bye. Hope to see you again soon!\n"

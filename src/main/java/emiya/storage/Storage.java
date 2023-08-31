@@ -39,16 +39,9 @@ public class Storage {
 
         if (!dataDir.exists()) {
             boolean result = dataDir.mkdirs();
-            if (result) {
-                System.out.println("Directory was created successfully");
-                // return "Directory was created successfully";
-            } else {
+            if (!result) {
                 throw new CreateDirectoryFailException();
-                // return "Failed to create directory";
             }
-        } else {
-            System.out.println("Directory already exists");
-            // return "Directory already exists";
         }
     }
 
@@ -61,15 +54,12 @@ public class Storage {
         File dataDoc = new File(pathToDataDocStr);
 
         if (!dataDoc.exists()) {
-//            System.out.println("File does not exist");
             String testData = "";
             try {
                 Files.write(pathToDataDoc, testData.getBytes());
             } catch (IOException e) {
                 e.printStackTrace();
             }
-        } else {
-            System.out.println("File exists");
         }
     }
 
