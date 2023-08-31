@@ -17,7 +17,7 @@ abstract public class Command {
     abstract public void execute(TaskList tasks, Ui ui, Storage storage) throws Exception;
 
     public boolean isExit() {
-        return this.isExit;
+        return isExit;
     }
 
 }

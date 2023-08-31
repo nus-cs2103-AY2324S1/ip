@@ -18,19 +18,19 @@ public class TaskList {
     }
 
     public void add(Task task) {
-        this.tasks.add(task);
+        tasks.add(task);
     }
 
     public void remove(int index) {
-        this.tasks.remove(index);
+        tasks.remove(index);
     }
 
     public int size() {
-        return this.tasks.size();
+        return tasks.size();
     }
 
     public Task get(int index) {
-        return this.tasks.get(index);
+        return tasks.get(index);
     }
 
     public String retrieveForStorage() {

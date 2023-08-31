@@ -29,12 +29,12 @@ public class AddCommand extends Command {
     public void execute(TaskList tasks, Ui ui, Storage storage)
             throws NoDescriptionException, UnknownTimeException, BackwardsTimeException, UnknownCommandException {
         Parser.Operations operation = Parser.Operations.valueOf(
-                this.fullCommand.replaceAll("^\\W*\\b(\\w+).*", "$1").toUpperCase());
+                fullCommand.replaceAll("^\\W*\\b(\\w+).*", "$1").toUpperCase());
         Task task;
 
         switch (operation) {
         case TODO:
-            String desc = this.fullCommand.replaceAll("^\\s*todo\\s*", "");
+            String desc = fullCommand.replaceAll("^\\s*todo\\s*", "");
             if (desc.equals("")) {
                 throw new NoDescriptionException("todo");
             }
@@ -44,7 +44,7 @@ public class AddCommand extends Command {
             ui.showAddMessage(task, tasks.size());
             break;
         case DEADLINE:
-            String deadlineTime = this.fullCommand.replaceAll("^\\s*deadline\\s*", "");
+            String deadlineTime = fullCommand.replaceAll("^\\s*deadline\\s*", "");
 
             String[] strings = deadlineTime.split(" /by ");
 
@@ -56,12 +56,12 @@ public class AddCommand extends Command {
             }
 
             task = new Deadline(strings[0],
-                    LocalDateTime.parse(strings[1], this.formatter));
+                    LocalDateTime.parse(strings[1], formatter));
             tasks.add(task);
             ui.showAddMessage(task, tasks.size());
             break;
         case EVENT:
-            String content = this.fullCommand.replaceAll("^\\s*event\\s*", "");
+            String content = fullCommand.replaceAll("^\\s*event\\s*", "");
             if (content.equals("")) {
                 throw new NoDescriptionException("event");
             }
@@ -73,8 +73,8 @@ public class AddCommand extends Command {
                 throw new UnknownTimeException(descTime[0]);
             }
 
-            LocalDateTime start = LocalDateTime.parse(times[0], this.formatter);
-            LocalDateTime end = LocalDateTime.parse(times[1], this.formatter);
+            LocalDateTime start = LocalDateTime.parse(times[0], formatter);
+            LocalDateTime end = LocalDateTime.parse(times[1], formatter);
 
             if (start.isAfter(end)) {
                 throw new BackwardsTimeException();
@@ -85,7 +85,7 @@ public class AddCommand extends Command {
             ui.showAddMessage(task, tasks.size());
             break;
         default:
-            throw new UnknownCommandException(this.fullCommand);
+            throw new UnknownCommandException(fullCommand);
         }
 
     }

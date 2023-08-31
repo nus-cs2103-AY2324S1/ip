@@ -30,17 +30,17 @@ public class Event extends Task {
     @Override
     public String toString() {
         return String.format("[E]%s (from: %s to %s)", super.toString(),
-                this.start.format(DateTimeFormatter.ofPattern("MMM d yyyy HH:mm")),
-                this.deadline.format(DateTimeFormatter.ofPattern("MMM d yyyy HH:mm")));
+                start.format(DateTimeFormatter.ofPattern("MMM d yyyy HH:mm")),
+                deadline.format(DateTimeFormatter.ofPattern("MMM d yyyy HH:mm")));
     }
 
     @Override
     public String formatForStorage() {
-        return String.format("E | %s | %s--%s", super.formatForStorage(), this.start, this.deadline);
+        return String.format("E | %s | %s--%s", super.formatForStorage(), start, deadline);
     }
 
     @Override
     public boolean isWithinDateRange(LocalDateTime date) {
-        return this.start.isBefore(date) && this.deadline.isAfter(date);
+        return start.isBefore(date) && deadline.isAfter(date);
     }
 }

@@ -16,12 +16,12 @@ public class Ui {
     }
 
     public void showWelcome() {
-        String logo = "                     _                 _      \n" +
-                " _ __ ___  ___ _ __ (_)_ __ ___  _ __ (_)_  __\n" +
-                "| '__/ _ \\/ __| '_ \\| | '__/ _ \\| '_ \\| \\ \\/ /\n" +
-                "| | |  __/\\__ \\ |_) | | | | (_) | | | | |>  < \n" +
-                "|_|  \\___||___/ .__/|_|_|  \\___/|_| |_|_/_/\\_\\\n" +
-                "              |_|                             ";
+        String logo = "                     _                 _      \n"
+                + " _ __ ___  ___ _ __ (_)_ __ ___  _ __ (_)_  __\n"
+                + "| '__/ _ \\/ __| '_ \\| | '__/ _ \\| '_ \\| \\ \\/ /\n"
+                + "| | |  __/\\__ \\ |_) | | | | (_) | | | | |>  < \n"
+                + "|_|  \\___||___/ .__/|_|_|  \\___/|_| |_|_/_/\\_\\\n"
+                + "              |_|                             ";
         System.out.println(LINE);
         System.out.println(logo);
         System.out.println(LINE);
@@ -31,11 +31,11 @@ public class Ui {
     }
 
     public String readCommand() {
-        return this.scanner.nextLine();
+        return scanner.nextLine();
     }
 
     public boolean checkForCommand() {
-        return this.scanner.hasNext();
+        return scanner.hasNext();
     }
 
     public void showLine() {

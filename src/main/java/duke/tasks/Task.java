@@ -23,24 +23,24 @@ public class Task {
     }
 
     public void markDone() {
-        this.isDone = true;
+        isDone = true;
     }
 
     public void markUndone() {
-        this.isDone = false;
+        isDone = false;
     }
 
     public String getStatus() {
-        return (this.isDone ? "[X]" : "[ ]");
+        return (isDone ? "[X]" : "[ ]");
     }
 
     @Override
     public String toString() {
-        return String.format("%s %s", getStatus(), this.description);
+        return String.format("%s %s", getStatus(), description);
     }
 
     public String formatForStorage() {
-        return String.format("%s | %s", isDone ? "1" : "0", this.description);
+        return String.format("%s | %s", isDone ? "1" : "0", description);
     }
 
     public boolean isWithinDateRange(LocalDateTime date) {

@@ -27,16 +27,16 @@ public class Deadline extends Task {
     @Override
     public String toString() {
         return String.format("[D]%s (by: %s)", super.toString(),
-                this.deadline.format(DateTimeFormatter.ofPattern("MMM d yyyy HH:mm")));
+                deadline.format(DateTimeFormatter.ofPattern("MMM d yyyy HH:mm")));
     }
 
     @Override
     public String formatForStorage() {
-        return String.format("D | %s | %s", super.formatForStorage(), this.deadline);
+        return String.format("D | %s | %s", super.formatForStorage(), deadline);
     }
 
     @Override
     public boolean isWithinDateRange(LocalDateTime date) {
-        return this.deadline.toLocalDate().equals(date.toLocalDate());
+        return deadline.toLocalDate().equals(date.toLocalDate());
     }
 }

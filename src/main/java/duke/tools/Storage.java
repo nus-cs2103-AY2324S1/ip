@@ -25,7 +25,7 @@ public class Storage {
 
     public List<Task> loadTasksFromStorage() throws IOException {
         List<Task> tasks = new ArrayList<>();
-        File file = new File(this.filePath);
+        File file = new File(filePath);
 
         // scan for the storage file
         try {
@@ -90,7 +90,7 @@ public class Storage {
 
     public void writeFile(String text) {
         try {
-            FileWriter fw = new FileWriter(this.filePath, false);
+            FileWriter fw = new FileWriter(filePath, false);
             fw.write(text);
             fw.close();
         } catch (Exception e) {

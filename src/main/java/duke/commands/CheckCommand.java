@@ -18,7 +18,7 @@ public class CheckCommand extends Command {
 
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
-        String content = this.fullCommand.replaceAll("^\\s*check\\s*", "");
-        ui.printScheduledTasks(tasks, LocalDateTime.parse(content, this.formatter));
+        String content = fullCommand.replaceAll("^\\s*check\\s*", "");
+        ui.printScheduledTasks(tasks, LocalDateTime.parse(content, formatter));
     }
 }
