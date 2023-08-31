@@ -33,7 +33,7 @@ public class Corgi {
      */
     public Corgi() {
         this.storage = new Storage<>(new TaskParser(), "./data/tasks.txt");
-        this.tasks = storage.load();
+        this.tasks = new ArrayList<>(storage.load());
 
         if (tasks.size() > 0) {
             System.out.println("Successfully loaded " + tasks.size() + " tasks!");
