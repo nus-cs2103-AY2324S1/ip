@@ -16,6 +16,7 @@ abstract public class Command {
 
     /**
      * Constructor for command subclasses.
+     *
      * @param isExit Whether command is an exit command.
      */
     public Command(boolean isExit) {
@@ -24,7 +25,10 @@ abstract public class Command {
 
     /**
      * Validates task number.
+     *
      * @param details Task number as a string.
+     * @param tasks   ArrayList of tasks.
+     * @return Integer task number.
      * @throws OscarException Failure to validate task number.
      */
     public int validateInt(String details, TaskList tasks) throws OscarException {
@@ -47,6 +51,7 @@ abstract public class Command {
 
     /**
      * Carries out the intended function of a command.
+     *
      * @param tasks ArrayList of tasks.
      * @param storage File loading and saving handler.
      * @throws OscarException Failure to execute command.
@@ -55,6 +60,7 @@ abstract public class Command {
 
     /**
      * Getter method to check if command is an exit command.
+     *
      * @return Whether command is an exit command.
      */
     public boolean isExit() {

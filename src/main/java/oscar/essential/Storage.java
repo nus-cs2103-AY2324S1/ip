@@ -30,6 +30,7 @@ public class Storage {
 
     /**
      * Reads the serialized save file.
+     *
      * @return Stream of serialized save file.
      * @throws OscarException Unable to find or read saved file.
      */
@@ -51,6 +52,7 @@ public class Storage {
      * Saves the taskList to a text file after executing a command.
      * Solution adapted by <a href="https://howtodoinjava.com/java/collections/arraylist/
      * serialize-deserialize-arraylist/">...</a>
+     *
      * @param tasks Current taskList.
      * @throws OscarException Unable to serialise taskList.
      */

@@ -16,7 +16,7 @@ public class TaskList {
     private ArrayList<Task> taskList;
 
     /**
-     * Use an empty task list.
+     * Uses an empty task list.
      */
     public TaskList() {
         this.taskList = new ArrayList<>();
@@ -33,6 +33,7 @@ public class TaskList {
      * Loads the task list from the object input stream.
      * Solution adapted by <a href="https://howtodoinjava.com/java/collections/arraylist/
      * serialize-deserialize-arraylist/">...</a>
+     *
      * @param stream Deserialized save file stream.
      * @return Saved task list.
      * @throws OscarException Unable to handle object input stream.
@@ -51,7 +52,8 @@ public class TaskList {
     }
 
     /**
-     * Save current task list by serializing it.
+     * Saves the current task list by serializing it.
+     *
      * @param stream Object output stream of saved file.
      * @throws OscarException Input or output error.
      */
@@ -64,7 +66,8 @@ public class TaskList {
     }
 
     /**
-     * Getter method for obtaining the number of tasks in the task list.
+     * Obtains the number of tasks in the task list.
+     *
      * @return Count of tasks.
      */
     public int getSize() {
@@ -78,7 +81,7 @@ public class TaskList {
         System.out.println("Here are the tasks in your list:");
         for (int i = 1; i <= taskList.size(); i++) {
             Task currentTask = taskList.get(i - 1);
-            System.out.println(i + "." + currentTask.toString());
+            System.out.println(i + "." + currentTask);
         }
         System.out.println();
     }
@@ -98,7 +101,8 @@ public class TaskList {
     }
 
     /**
-     * Mark a task as done.
+     * Marks a task as done.
+     *
      * @param index Task number.
      * @return Description of task.
      */
@@ -109,7 +113,8 @@ public class TaskList {
     }
 
     /**
-     * Mark a task as not done.
+     * Marks a task as not done.
+     *
      * @param index Task number.
      * @return Description of task.
      */
@@ -121,6 +126,7 @@ public class TaskList {
 
     /**
      * Deletes a task.
+     *
      * @param index Task number.
      * @return Description of task.
      */
@@ -130,10 +136,27 @@ public class TaskList {
     }
 
     /**
-     * Add a task to the task list.
+     * Adds a task to the task list.
+     *
      * @param task Task to be added.
      */
     public void add(Task task) {
         taskList.add(task);
+    }
+
+    /**
+     * Lists all tasks in the task list containing the keyword.
+     *
+     * @param keyword String to match.
+     */
+    public void find(String keyword) {
+        System.out.println("Here are the matching tasks in your list:");
+        for (int i = 1; i <= taskList.size(); i++) {
+            Task currentTask = taskList.get(i - 1);
+            if (currentTask.getDescription().contains(keyword)) {
+                System.out.println(i + "." + currentTask);
+            }
+        }
+        System.out.println();
     }
 }
