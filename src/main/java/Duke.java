@@ -4,7 +4,11 @@ import java.util.Scanner;
 public class Duke {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        ArrayList<Task> taskList = new ArrayList<>();
+        DataStorage store = new DataStorage();
+        store.loadTasks();
+        ArrayList<Task> taskList = store.taskData;
+
+
 
         String lineSpacer = "________________________________________";
         String logo = "   / \\__\n"
@@ -24,6 +28,7 @@ public class Duke {
                 System.out.println(lineSpacer);
 
                 if (userInput.equals("bye")) {
+                    store.saveTasks(taskList);
                     System.out.println("Goodbye! Have a paw-some day :-) \n" + logo);
                     break;
 
@@ -43,7 +48,7 @@ public class Duke {
                         } else {
                             taskList.get(taskIndex).markAsUndone();
                             System.out.println("That's ruff! I've unmarked this task:  \n" +
-                                    taskList.get(taskIndex - 1).toString());
+                                    taskList.get(taskIndex).toString());
                         }
                     }
 
@@ -58,7 +63,7 @@ public class Duke {
                         } else {
                             taskList.get(taskIndex).markAsDone();
                             System.out.println("Furtastic job completing this task: \n" +
-                                taskList.get(taskIndex - 1).toString());
+                                taskList.get(taskIndex).toString());
                         }
                     }
 
