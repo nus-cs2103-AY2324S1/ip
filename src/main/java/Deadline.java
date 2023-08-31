@@ -14,7 +14,7 @@ public class Deadline extends Task {
         try {
             FileWriter file = new FileWriter(path, true);
             int completed = this.isDone ? 1 : 0;
-            file.write("D " + "| " + completed + " | " + this.description + "| " + this.by);
+            file.write("D " + "| " + completed + " | " + this.description + "| " + this.by + "\r\n");
             file.close();
         } catch (IOException e) {
             e.printStackTrace();

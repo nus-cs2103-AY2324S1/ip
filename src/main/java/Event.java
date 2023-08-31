@@ -16,7 +16,8 @@ public class Event extends Task {
         try {
             FileWriter file = new FileWriter(path, true);
             int completed = this.isDone ? 1 : 0;
-            file.write("E " + "| " + completed + " | " + this.description + "| " + this.from + "| " + this.to);
+            file.write("E " + "| " + completed + " | " + this.description + "| " + this.from
+                    + "| " + this.to + "\r\n");
             file.close();
         } catch (IOException e) {
             e.printStackTrace();

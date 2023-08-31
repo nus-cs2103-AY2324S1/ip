@@ -1,9 +1,9 @@
 import java.io.File;
-import java.io.FileWriter;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
-
 
 public class Duke {
     static String line = "____________________________________________________________";
@@ -22,6 +22,11 @@ public class Duke {
             System.out.println("Checking for data file!");
             findDirectory("./data");
             readFile("./data", "data.txt");
+            PrintWriter writer = new PrintWriter("./data/data.txt");
+            writer.print("");
+            writer.close();
+        } catch (FileNotFoundException e) {
+            System.out.println(e.getMessage());
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
