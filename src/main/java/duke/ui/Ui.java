@@ -4,6 +4,7 @@ import duke.exceptions.CommandDetailException;
 import duke.task.Task;
 import duke.task.TaskList;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 
@@ -71,6 +72,17 @@ public class Ui {
         System.out.println("Here are the tasks in your list:");
         for (int i = 0; i < tasks.size(); i++) {
             System.out.println((i + 1) + "." + tasks.getTask(i));
+        }
+    }
+
+    public void showFind(ArrayList<Task> tasks) {
+        if (tasks.size() == 0) {
+            System.out.println("There is no matching task in your list.");
+            return;
+        }
+        System.out.println("Here are the matching tasks in your list:");
+        for (int i = 0; i < tasks.size(); i++) {
+            System.out.println((i + 1) + "." + tasks.get(i));
         }
     }
 

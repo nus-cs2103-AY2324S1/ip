@@ -4,6 +4,7 @@ import duke.commands.AddCommand;
 import duke.commands.Command;
 import duke.commands.DeleteCommand;
 import duke.commands.ExitCommand;
+import duke.commands.FindCommand;
 import duke.commands.ListCommand;
 import duke.commands.MarkCommand;
 import duke.commands.UnmarkCommand;
@@ -38,32 +39,43 @@ public class Parser {
         String trimedInput = input.trim();
         String[] splitInput = trimedInput.split(" ", 2);
         String command = splitInput[0].toLowerCase();
-
-        switch (command) {
-        case "bye":
-            return new ExitCommand();
-        case "list":
-            return new ListCommand();
-        case "mark": {
-            int markIndex = Integer.parseInt(splitInput[1]) - 1;
-            return new MarkCommand(markIndex);
-        }
-        case "delete": {
-            int deleteIndex = Integer.parseInt(splitInput[1]) - 1;
-            return new DeleteCommand(deleteIndex);
-        }
-        case "unmark": {
-            int markIndex = Integer.parseInt(splitInput[1]) - 1;
-            return new UnmarkCommand(markIndex);
-        }
-        default: {
-            Task task = parseTask(trimedInput);
-            if (task != null) {
-                return new AddCommand(task);
-            } else {
-                throw new CommandNotRecognizedException("I'm sorry, but I don't know what " + input + " means :-(");
+        try {
+            switch (command) {
+            case "bye": {
+                return new ExitCommand();
             }
-        }
+            case "list": {
+                return new ListCommand();
+            }
+            case "mark": {
+                int markIndex = Integer.parseInt(splitInput[1]) - 1;
+                return new MarkCommand(markIndex);
+            }
+            case "delete": {
+                int deleteIndex = Integer.parseInt(splitInput[1]) - 1;
+                return new DeleteCommand(deleteIndex);
+            }
+            case "unmark": {
+                int markIndex = Integer.parseInt(splitInput[1]) - 1;
+                return new UnmarkCommand(markIndex);
+            }
+            case "find": {
+                String keyword = splitInput[1];
+                return new FindCommand(keyword);
+            }
+            default: {
+                Task task = parseTask(trimedInput);
+                if (task != null) {
+                    return new AddCommand(task);
+                } else {
+                    throw new CommandNotRecognizedException("I'm sorry, but I don't know what " + input + " means :-(");
+                }
+            }
+            }
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw new CommandDetailException("OOPS!!! Missing details for command: " + command + ".");
+        } catch (NumberFormatException e) {
+            throw new CommandDetailException("OOPS!!! Please enter a valid number for the index.");
         }
     }
 

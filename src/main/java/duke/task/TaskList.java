@@ -45,6 +45,16 @@ public class TaskList {
         this.getTask(index).setUndone();
     }
 
+    public ArrayList<Task> findTasks(String keyword) {
+        ArrayList<Task> foundTasks = new ArrayList<>();
+        for (Task task : tasks) {
+            if (task.getTaskName().contains(keyword)) {
+                foundTasks.add(task);
+            }
+        }
+        return foundTasks;
+    }
+
     public int size() {
         return tasks.size();
     }
