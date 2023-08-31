@@ -2,8 +2,8 @@ package duke.task;
 
 import duke.storage.Storage;
 
-import java.util.ArrayList;
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 public class TaskList {
     public static class TaskIndexOutOfRange extends Exception {

@@ -39,13 +39,13 @@ public class DateTimeManager {
         String[] dateData = input.split("/");
         if (dateData.length == 1) {
             switch (dateData[0]) {
-                case "today":
-                    return LocalDate.now();
-                case "tomorrow":
-                case "tmr":
-                    return LocalDate.now().plusDays(1);
-                default:
-                    throw new DateParseException();
+            case "today":
+                return LocalDate.now();
+            case "tomorrow":
+            case "tmr":
+                return LocalDate.now().plusDays(1);
+            default:
+                throw new DateParseException();
             }
         } else if (dateData.length == 3) {
             for (String data : dateData) {

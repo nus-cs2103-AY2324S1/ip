@@ -9,13 +9,13 @@ import java.util.Scanner;
 public class UI {
     private static String HORIZONTAL_LINE = "____________________________________________________________";
 
-    private Scanner scanner = new Scanner(System.in);
-    private String errorPrepend;
-    private String errorAppend;
+    private final Scanner SCANNER = new Scanner(System.in);
+    private final String ERROR_PREPEND;
+    private final String ERROR_APPEND;
 
     public UI(String errorPrepend, String errorAppend) {
-        this.errorPrepend = errorPrepend;
-        this.errorAppend = errorAppend;
+        this.ERROR_PREPEND = errorPrepend;
+        this.ERROR_APPEND = errorAppend;
     }
 
     /**
@@ -67,13 +67,13 @@ public class UI {
         while (true) {
             String response = this.takeInput("Please indicate your option (1/2): ");
             switch (response) {
-                case "1":
-                    this.exit();
-                    return false;
-                case "2":
-                    return true;
-                default:
-                    System.out.print("Quack, I do not understand your option, please indicate again (1/2): ");
+            case "1":
+                this.exit();
+                return false;
+            case "2":
+                return true;
+            default:
+                System.out.print("Quack, I do not understand your option, please indicate again (1/2): ");
             }
         }
     }
@@ -85,7 +85,7 @@ public class UI {
     public String takeInput(String prompt) {
         System.out.println(UI.HORIZONTAL_LINE);
         System.out.print(prompt);
-        String input = this.scanner.nextLine();
+        String input = this.SCANNER.nextLine();
         System.out.println(UI.HORIZONTAL_LINE);
         return input;
     }
@@ -96,14 +96,14 @@ public class UI {
     public void exit() {
         System.out.println("Bye. Hope to see you again soon!");
         System.out.println(UI.HORIZONTAL_LINE);
-        this.scanner.close();
+        this.SCANNER.close();
     }
 
     /**
      * Notify user of a user-input error.
      */
     public void notifyError(String message) {
-        System.out.println(this.errorPrepend + message + this.errorAppend);
+        System.out.println(this.ERROR_PREPEND + message + this.ERROR_APPEND);
     }
 
     /**
@@ -143,18 +143,18 @@ public class UI {
     public void notifyList(Type type, boolean isExcludingDone, LocalDate date) {
         String typeString;
         switch (type) {
-            case TODO:
-                typeString = "to-do tasks";
-                break;
-            case DEADLINE:
-                typeString = "deadlines";
-                break;
-            case EVENT:
-                typeString = "events";
-                break;
-            default:
-                typeString = "tasks";
-                break;
+        case TODO:
+            typeString = "to-do tasks";
+            break;
+        case DEADLINE:
+            typeString = "deadlines";
+            break;
+        case EVENT:
+            typeString = "events";
+            break;
+        default:
+            typeString = "tasks";
+            break;
         }
         System.out.println(
                 "Alright, here is your list of "

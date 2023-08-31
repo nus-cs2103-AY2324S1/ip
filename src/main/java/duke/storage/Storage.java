@@ -49,40 +49,40 @@ public class Storage {
                 }
                 Task task;
                 switch (line[0]) {
-                    case "T":
-                        task = new ToDo(line[2]);
-                        break;
-                    case "D":
-                        String[] split = line[2].split(" /by ", 2);
-                        if (split.length != 2) {
-                            throw new FileCorruptedException();
-                        }
-                        try {
-                            LocalDateTime dateTime = DateTimeManager.inputToDate(split[1]);
-                            task = new Deadline(split[0], dateTime);
-                        } catch (DateTimeManager.DateParseException | DateTimeException e) {
-                            throw new FileCorruptedException();
-                        }
-                        break;
-                    case "E":
-                        String[] separateByFrom = line[2].split(" /from ", 2);
-                        if (separateByFrom.length != 2) {
-                            throw new FileCorruptedException();
-                        }
-                        String[] separateByTo = separateByFrom[1].split(" /to ", 2);
-                        if (separateByTo.length != 2) {
-                            throw new FileCorruptedException();
-                        }
-                        try {
-                            LocalDateTime startTime = DateTimeManager.inputToDate(separateByTo[0]);
-                            LocalDateTime endTime = DateTimeManager.inputToDate(separateByTo[1]);
-                            task = new Event(separateByFrom[0], startTime, endTime);
-                        } catch (DateTimeManager.DateParseException | DateTimeException e) {
-                            throw new FileCorruptedException();
-                        }
-                        break;
-                    default:
+                case "T":
+                    task = new ToDo(line[2]);
+                    break;
+                case "D":
+                    String[] split = line[2].split(" /by ", 2);
+                    if (split.length != 2) {
                         throw new FileCorruptedException();
+                    }
+                    try {
+                        LocalDateTime dateTime = DateTimeManager.inputToDate(split[1]);
+                        task = new Deadline(split[0], dateTime);
+                    } catch (DateTimeManager.DateParseException | DateTimeException e) {
+                        throw new FileCorruptedException();
+                    }
+                    break;
+                case "E":
+                    String[] separateByFrom = line[2].split(" /from ", 2);
+                    if (separateByFrom.length != 2) {
+                        throw new FileCorruptedException();
+                    }
+                    String[] separateByTo = separateByFrom[1].split(" /to ", 2);
+                    if (separateByTo.length != 2) {
+                        throw new FileCorruptedException();
+                    }
+                    try {
+                        LocalDateTime startTime = DateTimeManager.inputToDate(separateByTo[0]);
+                        LocalDateTime endTime = DateTimeManager.inputToDate(separateByTo[1]);
+                        task = new Event(separateByFrom[0], startTime, endTime);
+                    } catch (DateTimeManager.DateParseException | DateTimeException e) {
+                        throw new FileCorruptedException();
+                    }
+                    break;
+                default:
+                    throw new FileCorruptedException();
                 }
                 if (line[1].equals("1")) {
                     task.markAsDone();
