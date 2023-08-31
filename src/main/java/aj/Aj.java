@@ -124,7 +124,9 @@ public class Aj {
     }
 
     public static void main(String[] args) {
+        String fullFilePath = "/Users/aaronjt/Documents/CS2103_IP/ip/src/main/data/actualData.txt";
         String filePath = System.getProperty("user.dir") + "/src/main/data/actualData.txt";
+
 
         /*
         Since test script run in different directory, change setUpBot() below accordingly
@@ -132,7 +134,7 @@ public class Aj {
         String testingFilePath = System.getProperty("user.dir") + "/../src/main/data/testData.txt";
 
         Aj bot = new Aj(); // create bot instance
-        bot.setUpBot(filePath); // setup bot with necessary instances
+        bot.setUpBot(fullFilePath); // setup bot with necessary instances
         bot.run(); // run bot
     }
 }
