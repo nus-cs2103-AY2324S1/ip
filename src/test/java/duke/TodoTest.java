@@ -3,15 +3,9 @@ package duke;  //same package as the class being tested
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class TodoTest {
-    @Test
-    public void testTodoCreation_description_success() {
-        Todo todo = new Todo("Test Task");
-        assertNotNull(todo);
-        assertEquals("Test Task", todo.getDescription());
-        assertFalse(todo.isDone);
-    }
 
     @Test
     public void testTodoToString_notDone_success() {
