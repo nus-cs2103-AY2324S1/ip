@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import cloud.main.todo.Deadline;
+import cloud.main.todo.Event;
 import cloud.main.todo.Todo;
 import cloud.main.token.Token;
 import cloud.main.token.TokenManager;
@@ -70,7 +72,16 @@ public class Cloud {
     }
 
     private static Todo createTodo(TokenManager manager) {
-        //TODO base on flags
+        TokenManager inputBy = manager.findFlag("by");
+        TokenManager inputFrom = manager.findFlag("from");
+        TokenManager inputTo = manager.findFlag("to");
+
+        if (inputBy != null) {
+            return new Deadline(manager.toString(), inputBy.toString());
+        }
+        if (inputFrom != null && inputTo != null) {
+            return new Event(manager.toString(), inputFrom.toString(), inputTo.toString());
+        }
         return new Todo(manager.toString());
     }
 
