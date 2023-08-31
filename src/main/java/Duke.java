@@ -1,3 +1,5 @@
+import java.io.*;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -5,6 +7,7 @@ import java.util.Scanner;
 public class Duke {
 
     public static final String HORIZONTAL_LINE = "____________________________________________________________";
+    public static final String SAVE_FILE = "data/saved_tasks.csv";
 
     private static int checkIndexArg(String indexArg, int lstSize){
         if (!indexArg.matches("^\\d+$")) {
@@ -18,6 +21,18 @@ public class Duke {
     }
 
     public static void main(String[] args) {
+        File saveFile = new File(SAVE_FILE);
+        if (!saveFile.exists()) {
+            if (!saveFile.getParentFile().exists()) {
+                saveFile.getParentFile().mkdirs();
+            }
+            try {
+                saveFile.createNewFile();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
+
         String name = "Ip Bot";
         System.out.println(HORIZONTAL_LINE);
         System.out.println("Hello I'm " + name + "!");
@@ -28,6 +43,23 @@ public class Duke {
         Scanner scanner = new Scanner(System.in);
 
         List<Task> list = new ArrayList<>();
+
+        try {
+            FileReader fr = new FileReader(SAVE_FILE);
+            BufferedReader br = new BufferedReader(fr);
+            String line;
+            while ((line = br.readLine()) != null) {
+                list.add(Task.fromString(line));
+            }
+            br.close();
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        } catch (TaskFormatException e) {
+            System.out.println(e.getMessage());
+            return;
+        }
 
         while(true) {
             String command = scanner.nextLine().strip();
@@ -156,6 +188,18 @@ public class Duke {
                 System.out.println(e.getMessage());
             }
             System.out.println(HORIZONTAL_LINE);
+            String writeString = "";
+            for (int i=0; i<list.size(); i++) {
+                writeString += list.get(i).toCommaString() + "\n";
+            }
+            try {
+                FileWriter fw = new FileWriter(SAVE_FILE);
+                BufferedWriter bw = new BufferedWriter(fw);
+                bw.write(writeString);
+                bw.close();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
         }
     }
 }
