@@ -21,7 +21,7 @@ public class Bob {
         }
     }
 
-    public void run(){
+    public void run() {
         Scanner obj = new Scanner(System.in);
 
         while (true) {

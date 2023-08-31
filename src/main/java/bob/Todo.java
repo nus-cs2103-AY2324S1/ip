@@ -1,6 +1,6 @@
 package bob;
 
-public class Todo extends Task{
+public class Todo extends Task {
 
     /**
      * Constructor for the Todo class
