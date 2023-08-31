@@ -1,5 +1,14 @@
+package max.commands;
+import max.commands.*;
+import max.exception.MaxException;
+import max.parser.Parser;
+import max.storage.Storage;
+import max.tasks.TaskList;
+import max.tasks.*;
+import max.ui.Ui;
+
 public class ExitCommand extends Command {
-    static final String COMMAND_WORD = "bye";
+    public static final String COMMAND_WORD = "bye";
     public ExitCommand() {
 
     }

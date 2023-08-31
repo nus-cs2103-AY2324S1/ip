@@ -1,3 +1,13 @@
+package max.tasks;
+
+import max.commands.*;
+import max.exception.MaxException;
+import max.parser.Parser;
+import max.storage.Storage;
+import max.tasks.TaskList;
+import max.tasks.*;
+import max.ui.Ui;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 
@@ -15,8 +25,8 @@ public class TaskList {
     public void add(Task task) {
         myList.add(task);
     }
-//    public void add(String task) throws MaxException {
-//        // Parse command based on type of task (Todo, Deadline, Event)
+//    public void add(String task) throws max.exception.MaxException {
+//        // Parse command based on type of task (max.tasks.Todo, max.tasks.Deadline, max.tasks.Event)
 //        if (task.startsWith("todo")) {
 //
 //        } else if (task.startsWith("deadline")) {
@@ -26,7 +36,7 @@ public class TaskList {
 //        }
 //
 //        // Visual feedback from chatbot
-//        Ui ui = new Ui();
+//        max.ui.Ui ui = new max.ui.Ui();
 //        ui.showAdd(this);
 //        // Increment pointer
 //        numOfItems++;

@@ -1,7 +1,18 @@
+package max.commands;
+
+import max.commands.*;
+import max.exception.MaxException;
+import max.parser.Parser;
+import max.storage.Storage;
+import max.tasks.TaskList;
+import max.tasks.*;
+import max.ui.Ui;
+
+
 public class AddCommand extends Command {
-    static final String COMMAND_WORD_DEADLINE = "deadline";
-    static final String COMMAND_WORD_EVENT = "event";
-    static final String COMMAND_WORD_TODO = "todo";
+    public static final String COMMAND_WORD_DEADLINE = "deadline";
+    public static final String COMMAND_WORD_EVENT = "event";
+    public static final String COMMAND_WORD_TODO = "todo";
     private Task task;
     public AddCommand(Task task) {
         this.task = task;

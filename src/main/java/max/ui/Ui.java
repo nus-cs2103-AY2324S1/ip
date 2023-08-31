@@ -1,3 +1,6 @@
+package max.ui;
+
+import max.tasks.Task;
 import java.util.List;
 import java.util.Scanner;
 

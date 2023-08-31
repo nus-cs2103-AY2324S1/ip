@@ -1,5 +1,14 @@
+package max.commands;
+import max.commands.*;
+import max.exception.MaxException;
+import max.parser.Parser;
+import max.storage.Storage;
+import max.tasks.TaskList;
+import max.tasks.*;
+import max.ui.Ui;
+
 public class DeleteCommand extends Command {
-    static final String COMMAND_WORD = "delete";
+    public static final String COMMAND_WORD = "delete";
     private int taskNumber;
     public DeleteCommand(int taskNumber) {
         this.taskNumber = taskNumber;

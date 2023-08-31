@@ -1,3 +1,13 @@
+package max.parser;
+
+import max.commands.*;
+import max.exception.MaxException;
+import max.parser.Parser;
+import max.storage.Storage;
+import max.tasks.TaskList;
+import max.tasks.*;
+import max.ui.Ui;
+
 import java.time.LocalDate;
 
 import static java.lang.Integer.parseInt;
@@ -41,26 +51,26 @@ public class Parser {
                 throw new MaxException("Invalid command sir.");
         }
 
-//        CommandEnum commandEnum;
+//        max.commands.CommandEnum commandEnum;
 ////        switch (command) {
 ////            case
 ////        }
 //        if (command.equals("bye")) {
 //            // User wants to exit the chatbot
-//            commandEnum = CommandEnum.BYE;
+//            commandEnum = max.commands.CommandEnum.BYE;
 //        } else if (command.equals("list")) {
-//            commandEnum = CommandEnum.LIST;
+//            commandEnum = max.commands.CommandEnum.LIST;
 //        } else if (command.contains("unmark")) {
-//            commandEnum = CommandEnum.UNMARK;
+//            commandEnum = max.commands.CommandEnum.UNMARK;
 //        } else if (command.contains("mark")) {
-//            commandEnum = CommandEnum.MARK;
+//            commandEnum = max.commands.CommandEnum.MARK;
 //        } else if (command.contains("event") || command.contains("todo") ||
 //                command.contains("deadline")) {
-//            commandEnum = CommandEnum.ADD;
+//            commandEnum = max.commands.CommandEnum.ADD;
 //        } else if (command.contains("delete")) {
-//            commandEnum = CommandEnum.DELETE;
+//            commandEnum = max.commands.CommandEnum.DELETE;
 //        } else {
-//            commandEnum = CommandEnum.UNKNOWN;
+//            commandEnum = max.commands.CommandEnum.UNKNOWN;
 //        }
 //        return commandEnum;
     }
@@ -78,7 +88,7 @@ public class Parser {
         int toIndex = fullCommand.indexOf("/to");
         // Error checking: no /from or /to tag
         if (fromIndex == -1 || toIndex == -1) {
-            throw new MaxException("     Hey! Event must contain '/from' and '/to' tags.");
+            throw new MaxException("     Hey! max.tasks.Event must contain '/from' and '/to' tags.");
         }
         String item = fullCommand.substring(5, fromIndex - 1).trim();
         String from = fullCommand.substring(fromIndex + 5, toIndex -1).trim();
@@ -87,7 +97,7 @@ public class Parser {
         LocalDate toDate = LocalDate.parse(to);
         // Error checking: empty fields
         if (item.isEmpty() || from.isEmpty() || to.isEmpty()) {
-            throw new MaxException("     Oh no! Event item, 'from' date, or 'to' date cannot be empty.");
+            throw new MaxException("     Oh no! max.tasks.Event item, 'from' date, or 'to' date cannot be empty.");
         }
         return new AddCommand(new Event(item, fromDate, toDate));
     }
@@ -102,7 +112,7 @@ public class Parser {
         LocalDate byDate = LocalDate.parse(by);
         // Error checking: empty fields
         if (item.isEmpty() || by.isEmpty()) {
-            throw new MaxException("     Oops... Deadline item or 'by' date cannot be empty.");
+            throw new MaxException("     Oops... max.tasks.Deadline item or 'by' date cannot be empty.");
         }
         return new AddCommand(new Deadline(item, byDate));
     }

@@ -1,5 +1,14 @@
+package max.commands;
+import max.commands.*;
+import max.exception.MaxException;
+import max.parser.Parser;
+import max.storage.Storage;
+import max.tasks.TaskList;
+import max.tasks.*;
+import max.ui.Ui;
+
 public class MarkCommand extends Command {
-    static final String COMMAND_WORD = "mark";
+    public static final String COMMAND_WORD = "mark";
     private int taskNumber;
     public MarkCommand(int taskNumber) {
         this.taskNumber = taskNumber;
