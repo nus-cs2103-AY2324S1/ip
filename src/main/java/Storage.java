@@ -95,81 +95,8 @@ public class Storage {
      * Adds a To-Do, Event or Deadline task to the task list.
      * @param input The Pair&lt;Command, String&gt; of the task to add to the list.
      */
-    public void add(Pair<CommandType, String> input) {
-        Task newTask;
-        String[] segments;
-        try {
-            switch (input.getFirst()) {
-            case TODO:
-                if (input.getSecond().equals("")) {
-                    System.out.println("I can't track a task that doesn't have a description!");
-                    return;
-                }
-                newTask = new Todo(input.getSecond());
-                break;
-            case DEADLINE:
-                segments = input.getSecond().split("/by");
-                if (segments.length < 2) {
-                    System.out.println("Use 1 /by flag in the argument, followed by the deadline.");
-                    System.out.println("Format: deadline [description] /by [end-date]");
-                    return;
-                } else if (segments.length > 2) {
-                    System.out.println("Too many flags specified! Use only 1 /by flag.");
-                    System.out.println("Format: deadline [description] /by [end-date]");
-                    return;
-                }
-
-                if (segments[0].trim().equals("")) {
-                    System.out.println("I can't track a task that doesn't have a description!");
-                    return;
-                }
-                if (segments[1].trim().equals("")) {
-                    System.out.println("Specify a deadline please.");
-                    return;
-                }
-
-                newTask = new Deadline(segments[0].trim(), segments[1].trim());
-                break;
-            case EVENT:
-                // this will check for the standard format, and will also guarantee that segment length is min 3.
-                if (!input.getSecond().matches("^.+ /from .+ /to .+")) {
-                    System.out.println("event is not used in the correct format.");
-                    System.out.println("Format: event [description] /from [start-date] /to [end-date]");
-                    return;
-                }
-
-                segments = input.getSecond().split("/from|/to");
-                if (segments.length > 3) {
-                    System.out.println("Too many flags specified for event!");
-                    System.out.println("Format: event [description] /from [start-date] /to [end-date]");
-                    return;
-                }
-
-                if (segments[0].trim().equals("")) {
-                    System.out.println("I can't track a task that doesn't have a description!");
-                    return;
-                }
-                if (segments[1].trim().equals("")) {
-                    System.out.println("Specify a start date please.");
-                    return;
-                }
-                if (segments[2].trim().equals("")) {
-                    System.out.println("Specify an end date please.");
-                    return;
-                }
-
-                newTask = new Event(segments[0].trim(), segments[1].trim(), segments[2].trim());
-                break;
-            default:
-                System.out.println("That wasn't supposed to happen...");
-                return;
-            }
-            TASKS.add(newTask);
-
-            System.out.println("Now tracking: \n  " + newTask);
-        } catch (DateTimeParseException e) {
-            System.out.println("Additional Date Fields should be in the format DD/MM(/YYYY)( HHmm).");
-        }
+    public void add(Pair<CommandType, String> input) throws TrackerBotException {
+        TASKS.add(Parser.parseAdd(input));
     }
 
     public void read() {
