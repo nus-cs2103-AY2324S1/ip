@@ -67,7 +67,7 @@ public class TaskList {
     }
   }
 
-  public void findTask(Collection<String> keywords) {
+  public ArrayList<Task> findTasks(Collection<String> keywords) {
     ArrayList<Task> matchedTasks = new ArrayList<>();
     for (Task task : taskList) {
       final Set<String> wordsInDescription = new HashSet<>(Arrays.asList(task.getDescription().split(" ")));
@@ -75,16 +75,7 @@ public class TaskList {
         matchedTasks.add(task);
       }
     }
-
-    if (matchedTasks.isEmpty()) {
-      System.out.println("No tasks found");
-      return;
-    }
-
-    System.out.println("Here are the matching tasks in your list:");
-    for (int i = 0; i < matchedTasks.size(); i++) {
-      System.out.println((i + 1) + ". " + matchedTasks.get(i));
-    }
+    return matchedTasks;
   }
 
   public ArrayList<Task> getTasks() {
@@ -92,9 +83,6 @@ public class TaskList {
   }
 
   public void showTasks() {
-    System.out.println("-----Tasks-----");
-    for (int i = 0; i < taskList.size(); i++) {
-      System.out.println((i + 1) + ". " + taskList.get(i));
-    }
+
   }
 }

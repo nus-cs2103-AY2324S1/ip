@@ -1,23 +1,13 @@
 package horo;
 
-import java.util.Arrays;
-import java.util.Scanner;
-import java.util.regex.Matcher;
-
-import horo.components.DialogBox;
-import horo.data.Deadline;
-import horo.data.Event;
+import horo.commands.Command;
 import horo.data.TaskList;
-import horo.data.Todo;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
@@ -28,7 +18,6 @@ public class Horo extends Application {
   private Storage storage;
   private TaskList taskList;
   private Ui ui;
-  private static Scanner scanner = new Scanner(System.in);
 
   private ScrollPane scrollPane;
   private VBox dialogContainer;
@@ -36,15 +25,7 @@ public class Horo extends Application {
   private Button sendButton;
   private Scene scene;
 
-  private Image user = new Image(this.getClass().getResourceAsStream("/images/profile.jpg"));
-
   public Horo() {
-  }
-
-  public Horo(String filePath) {
-    ui = new Ui();
-    storage = new Storage(filePath);
-    taskList = storage.load();
   }
 
   @Override
@@ -101,7 +82,9 @@ public class Horo extends Application {
       handleUserInput();
     });
 
-    // new Horo("./data/tasks.txt").run();
+    ui = new Ui(dialogContainer);
+    storage = new Storage();
+    taskList = storage.load();
   }
 
   /**
@@ -111,100 +94,23 @@ public class Horo extends Application {
    * the dialog container. Clears the user input after processing.
    */
   private void handleUserInput() {
-    Label userText = new Label(userInput.getText());
-    Label dukeText = new Label(getResponse(userInput.getText()));
-    dialogContainer.getChildren().addAll(
-        DialogBox.getUserDialog(userText, new ImageView(user)),
-        DialogBox.getDukeDialog(dukeText, new ImageView(user)));
-    userInput.clear();
-  }
+    String input = userInput.getText();
 
-  /**
-   * You should have your own function to generate a response to user input.
-   * Replace this stub with your completed method.
-   */
-  private String getResponse(String input) {
-    return "Duke heard: " + input;
-  }
+    ui.userOutput(input);
 
-  public void run() {
-    ui.showWelcome();
-
-    while (true) {
-      System.out.print(">");
-      String input = scanner.nextLine();
-      Matcher m;
-      Command command;
-      try {
-        command = Command.commandParser(input);
-        m = command.getMatcher(input);
-      } catch (HoroException e) {
-        System.out.println(e.getMessage());
-        continue;
-      }
-
-      switch (command) {
-        case BYE:
-          exit();
-          break;
-        case LIST:
-          taskList.showTasks();
-          break;
-        case MARK:
-          taskList.markTaskDone(Integer.parseInt(m.group(1)) - 1);
-          storage.updateTaskData(taskList);
-          break;
-        case UNMARK:
-          taskList.markTaskDone(Integer.parseInt(m.group(1)) - 1);
-          storage.updateTaskData(taskList);
-          break;
-        case DELETE:
-          taskList.removeTask(Integer.parseInt(m.group(1)) - 1);
-          storage.updateTaskData(taskList);
-          break;
-        case TODO:
-          try {
-            taskList.addTask(new Todo(m.group(1)));
-          } catch (HoroException e) {
-            System.out.println(e.getMessage());
-            break;
-          }
-          storage.updateTaskData(taskList);
-          break;
-        case DEADLINE:
-          try {
-            taskList.addTask(new Deadline(m.group(1), m.group(2)));
-          } catch (HoroException e) {
-            System.out.println(e.getMessage());
-            break;
-          }
-          storage.updateTaskData(taskList);
-          break;
-        case EVENT:
-          try {
-            taskList.addTask(new Event(m.group(1), m.group(2), m.group(3)));
-          } catch (HoroException e) {
-            System.out.println(e.getMessage());
-            break;
-          }
-          storage.updateTaskData(taskList);
-          break;
-        case FIND:
-          taskList.findTask(Arrays.asList(m.group(1).split(" ")));
-          break;
-        default:
-          break;
-      }
+    try {
+      Command c = Parser.parse(input);
+      c.execute(taskList, ui, storage);
+    } catch (HoroException e) {
+      ui.horoOutput(e.getMessage());
+    } catch (Exception e) {
+      e.printStackTrace(System.out);
     }
+
+    userInput.clear();
   }
 
   public static void main(String[] args) {
     launch(args);
-  }
-
-  private static void exit() {
-    System.out.println("Bye. Hope to see you again soon!");
-    scanner.close();
-    System.exit(0);
   }
 }
