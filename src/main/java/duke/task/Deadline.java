@@ -1,10 +1,12 @@
+package duke.task;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 public class Deadline extends Task {
     private LocalDate deadline;
     /**
-     * Constructor for the Todo class.
+     * Constructor for the duke.task.Todo class.
      *
      * @param name The name of the todo task.
      * @param deadline The deadline of the task.

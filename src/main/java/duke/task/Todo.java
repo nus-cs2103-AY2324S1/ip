@@ -1,6 +1,8 @@
+package duke.task;
+
 public class Todo extends Task {
     /**
-     * Constructor for the Todo class.
+     * Constructor for the duke.task.Todo class.
      *
      * @param name The name of the todo task.
      * @param done Whether the task is marked done or not.

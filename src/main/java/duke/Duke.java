@@ -1,3 +1,7 @@
+package duke;
+
+import duke.command.Command;
+
 public class Duke {
 
     private Storage storage;
@@ -5,7 +9,7 @@ public class Duke {
     private Ui ui;
 
     /**
-     * Constructor for the Duke class.
+     * Constructor for the duke.Duke class.
      *
      * @param filePath The String representing the filePath of the file to be used.
      */
