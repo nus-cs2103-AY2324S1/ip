@@ -92,6 +92,19 @@ public class Parser {
                             tasks.get(id).toString());
                     Storage.update(tasks);
                     break;
+                case "find":
+                    String keyword = input[1].trim();
+                    String found = "";
+                    int count = 1;
+                    for (int i = 0; i < tasks.size(); i++) {
+                        Task curr = tasks.get(i);
+                        if (curr.getDescription().contains(keyword)) {
+                            found = found + String.valueOf(count) + "." + curr.toString() + "\n";
+                            count ++;
+                        }
+                    }
+                    Ui.wrapText("Here are the matching tasks in your list:\n" + found);
+                    break;
                 case "delete":
                     int i = Integer.parseInt(input[1]) - 1;
                     Ui.wrapText("Noted. I've removed this task:\n" +
