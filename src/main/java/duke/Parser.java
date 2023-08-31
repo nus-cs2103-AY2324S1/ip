@@ -1,3 +1,8 @@
+package duke;
+
+import duke.command.*;
+import duke.exception.InvalidTaskException;
+
 public class Parser {
     public static Command parse(String fullCommand) {
         //read first word in command
