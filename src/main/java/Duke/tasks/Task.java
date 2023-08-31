@@ -47,7 +47,7 @@ public class Task {
     }
 
     /***
-     * reduce size of Duke.tasks and print remaining number
+     * reduce size of tasks and print remaining number
      */
     public void delete(){
         size = size -1;
