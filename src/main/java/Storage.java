@@ -5,14 +5,14 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
-public class HardDiskManager {
+public class Storage {
     private final String filePath;
     private final File hardDiskFile;
 
-    public HardDiskManager(String filePath) {
+    // Constructor for storage
+    public Storage(String filePath) {
         this.filePath = filePath;
         this.hardDiskFile = new File(filePath);
     }
@@ -29,6 +29,7 @@ public class HardDiskManager {
         }
     }
 
+    // Returns an ArrayList of all tasks in the storage
     public ArrayList<Task> getTasks() {
         createFile();
 
@@ -67,6 +68,7 @@ public class HardDiskManager {
         return tasks;
     }
 
+    // Updates the storage with the new task list
     public void updateTasks(ArrayList<Task> tasks) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
             for (Task task : tasks) {
