@@ -7,6 +7,10 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Represents the storage for the Duke application.
+ * Handles the loading and saving of tasks to a file.
+ */
 public class Storage {
     private String filePath;
 

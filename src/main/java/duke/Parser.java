@@ -1,5 +1,9 @@
 package duke;
 
+/**
+ * Represents a parser for the Duke application.
+ * Handles the interpretation and execution of user commands.
+ */
 public class Parser {
 
     private boolean isExit = false;
@@ -18,56 +22,56 @@ public class Parser {
         String[] tokens = fullCommand.split("\\s+");
         String command = tokens[0];
         switch (command) {
-            case "bye":
-                this.isExit = true;
-                ui.printBye();
-                break;
-            case "list":
-                tasks.printList();
-                break;
-            case "todo":
-                Task todo = new Todo (fullCommand.substring(5));
-                tasks.add(todo);
-                ui.printAdded(todo, tasks.getSize());
-                storage.save(tasks.getTasks());
-                break;
-            case "deadline":
-                String[] arr = fullCommand.substring(9).split(" /by ");
-                Task deadline = new Deadline(arr[0], arr[1]);
-                tasks.add(deadline);
-                ui.printAdded(deadline, tasks.getSize());
-                storage.save(tasks.getTasks());
-                break;
-            case "event":
-                String[] arr1 = fullCommand.split("\\s*/from\\s*|\\s*/to\\s*");
-                Task event = new Event(arr1[0], arr1[1], arr1[2]);
-                tasks.add(event);
-                ui.printAdded(event, tasks.getSize());
-                storage.save(tasks.getTasks());
-                break;
-            case "delete":
-                int indexToDelete = Integer.parseInt(fullCommand.substring(7));
-                Task taskToDelete = tasks.get(indexToDelete);
-                tasks.delete(indexToDelete - 1);
-                ui.printDeleted(taskToDelete, tasks.getSize());
-                storage.save(tasks.getTasks());
-                break;
-            case "mark":
-                int indexToMark = Integer.parseInt(fullCommand.substring(5));
-                Task taskToMark = tasks.get(indexToMark);
-                taskToMark.markAsDone();
-                ui.printDone(taskToMark);
-                storage.save(tasks.getTasks());
-                break;
-            case "unmark":
-                int indexToUnmark = Integer.parseInt(fullCommand.substring(7));
-                Task taskToUnmark = tasks.get(indexToUnmark);
-                taskToUnmark.markAsUndone();
-                ui.printUndone(taskToUnmark);
-                storage.save(tasks.getTasks());
-                break;
-            default:
-                throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+        case "bye":
+            this.isExit = true;
+            ui.printBye();
+            break;
+        case "list":
+            tasks.printList();
+            break;
+        case "todo":
+            Task todo = new Todo (fullCommand.substring(5));
+            tasks.add(todo);
+            ui.printAdded(todo, tasks.getSize());
+            storage.save(tasks.getTasks());
+            break;
+        case "deadline":
+            String[] arr = fullCommand.substring(9).split(" /by ");
+            Task deadline = new Deadline(arr[0], arr[1]);
+            tasks.add(deadline);
+            ui.printAdded(deadline, tasks.getSize());
+            storage.save(tasks.getTasks());
+            break;
+        case "event":
+            String[] arr1 = fullCommand.split("\\s*/from\\s*|\\s*/to\\s*");
+            Task event = new Event(arr1[0], arr1[1], arr1[2]);
+            tasks.add(event);
+            ui.printAdded(event, tasks.getSize());
+            storage.save(tasks.getTasks());
+            break;
+        case "delete":
+            int indexToDelete = Integer.parseInt(fullCommand.substring(7));
+            Task taskToDelete = tasks.get(indexToDelete);
+            tasks.delete(indexToDelete - 1);
+            ui.printDeleted(taskToDelete, tasks.getSize());
+            storage.save(tasks.getTasks());
+            break;
+        case "mark":
+            int indexToMark = Integer.parseInt(fullCommand.substring(5));
+            Task taskToMark = tasks.get(indexToMark);
+            taskToMark.markAsDone();
+            ui.printDone(taskToMark);
+            storage.save(tasks.getTasks());
+            break;
+        case "unmark":
+            int indexToUnmark = Integer.parseInt(fullCommand.substring(7));
+            Task taskToUnmark = tasks.get(indexToUnmark);
+            taskToUnmark.markAsUndone();
+            ui.printUndone(taskToUnmark);
+            storage.save(tasks.getTasks());
+            break;
+        default:
+            throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
     }
 

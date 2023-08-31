@@ -4,6 +4,10 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Represents an Event task in the Duke application.
+ * Each event has a description, start time, and end time.
+ */
 public class Event extends Task {
     private LocalDateTime from;
     private LocalDateTime to;

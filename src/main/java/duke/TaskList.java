@@ -3,6 +3,9 @@ package duke;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Represents a list of tasks in the Duke application.
+ */
 public class TaskList {
     private List<Task> tasks;
 
@@ -74,7 +77,6 @@ public class TaskList {
      *
      * @return The list of tasks.
      */
-
     public List<Task> getTasks() {
         return this.tasks;
     }

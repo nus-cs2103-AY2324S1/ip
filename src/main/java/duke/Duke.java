@@ -11,9 +11,6 @@ import java.util.Scanner;
 
 public class Duke {
 
-//    private Scanner sc = new Scanner(System.in);
-//    private final TaskManager taskManager = new TaskManager();
-
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
@@ -51,7 +48,6 @@ public class Duke {
             }
         }
     }
-
 
 }
 
