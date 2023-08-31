@@ -1,8 +1,8 @@
-package Duke.Commands;
+package duke.commands;
 
-import Duke.Tools.Storage;
-import Duke.Tools.TaskList;
-import Duke.Tools.Ui;
+import duke.tools.Storage;
+import duke.tools.TaskList;
+import duke.tools.Ui;
 
 /**
  * Represents a command to find tasks matching a specific keyword.
