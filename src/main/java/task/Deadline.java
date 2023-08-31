@@ -24,6 +24,11 @@ public class Deadline extends Task {
         return new Deadline(this.name, this.deadline, false);
     }
 
+    @Override
+    public String saveTask() {
+        return String.format("%s | %s", super.saveTask(), this.deadline);
+    }
+
     /**
      * Returns the name of task with deadline.
      *

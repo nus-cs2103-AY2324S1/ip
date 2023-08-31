@@ -28,6 +28,15 @@ public abstract class Task {
     abstract Task unmark();
 
     /**
+     * Creates the string to be saved into the save file
+     *
+     * @return String to be saved
+     */
+    public String saveTask() {
+        return String.format("%s | %s", this.name, this.marked ? "1" : "0");
+    }
+
+    /**
      * Returns the name of task to be done.
      *
      * @return Name of task to be done

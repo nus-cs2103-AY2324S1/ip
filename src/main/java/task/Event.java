@@ -26,6 +26,11 @@ public class Event extends Task {
         return new Event(this.name, this.start, this.end, false);
     }
 
+    @Override
+    public String saveTask() {
+        return String.format("%s | %s-%s", super.saveTask(), this.start, this.end);
+    }
+
     /**
      * Returns the name of task with start and end times.
      *
