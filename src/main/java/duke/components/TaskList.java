@@ -31,7 +31,7 @@ public class TaskList {
      */
     public Task markTask(int idx) {
         Task selectedTask = tasks.get(idx);
-        selectedTask.markAsDone();
+        selectedTask.markDone();
         return selectedTask;
     }
 
@@ -42,7 +42,7 @@ public class TaskList {
      */
     public Task unmarkTask(int idx) {
         Task selectedTask = tasks.get(idx);
-        selectedTask.markAsNotDone();
+        selectedTask.markNotDone();
         return selectedTask;
     }
 

@@ -17,9 +17,9 @@ public class TodoTest {
     @Test
     public void toString_checkAndUncheck() {
         Todo testTodo = new Todo("Test Todo");
-        testTodo.markAsDone();
+        testTodo.markDone();
         assertEquals(testTodo.toString(), "[T][X] Test Todo");
-        testTodo.markAsNotDone();
+        testTodo.markNotDone();
         assertEquals(testTodo.toString(), "[T][ ] Test Todo");
     }
 
@@ -32,7 +32,7 @@ public class TodoTest {
     @Test
     public void generateSaveString_checked() {
         Todo testTodo = new Todo("Test Todo");
-        testTodo.markAsDone();
+        testTodo.markDone();
         assertEquals(testTodo.generateSaveString(), "T | true | Test Todo");
     }
 

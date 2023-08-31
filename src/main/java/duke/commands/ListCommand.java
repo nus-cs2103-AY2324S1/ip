@@ -8,7 +8,7 @@ import duke.tasks.Task;
 import java.util.List;
 
 /**
- * Represents a command to print the contents of the task list
+ * Command to print the contents of the task list
  */
 public class ListCommand extends Command {
     @Override

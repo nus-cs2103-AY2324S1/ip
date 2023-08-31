@@ -9,15 +9,12 @@ import duke.components.Ui;
  */
 public abstract class Command {
 
-    /**
-     * Types of commands
-     */
-    public enum Types {
+    public enum Type {
         TODO, DEADLINE, EVENT, MARK, UNMARK, DELETE, DATE, FIND
     }
 
     /**
-     * Whether the command is an Exit Command
+     * Returns whether a command is an Exit command
      * @return True if command is an Exit Command, false otherwise
      */
     public boolean isExit() {
