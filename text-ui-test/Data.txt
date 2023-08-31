@@ -1,2 +1,0 @@
-event project meeting /from 2023-02-21 1600 /to 2023-02-21 1700
-todo borrow book

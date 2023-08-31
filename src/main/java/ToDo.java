@@ -10,10 +10,8 @@ public class ToDo extends Task {
         return "[T]" + super.toString();
     }
     public static ToDo interpret(String cmd) throws EmptyTaskException {
-
         Pattern pt = Pattern.compile("todo( (.+))?"); // ( ...)? is optional group
         Matcher mt = pt.matcher(cmd);
-
         mt.find();
         String desc = mt.group(2);
         if (Task.checkEmpty(desc)) { // check if desc is null
