@@ -8,53 +8,37 @@ import tasks.Task;
 
 public class Duke {
 
-    private static Storage storage;
+    public static final String VERSION = "OwO Bot ─ a CS2103T iP ─ Week 3 Update";
+
+    private Storage storage;
     private TaskList tasks;
     private Ui ui;
 
     public Duke() {
         storage = new Storage();
+        ui = new Ui();
     }
 
     public void run() {
-        Scanner scanner = new Scanner(System.in);
 
-        String logo = "  OOOO                         OOOO\n" +
-                " O    O     w           w     O    O\n" +
-                " O    O      w   w w   w      O    O\n" +
-                " O    O       w w   w w       O    O\n" +
-                "  OOOO         w     w         OOOO";
+        this.tasks = new TaskList(storage.load());
 
-        String welcomeMessage = "────────────────────────────────────\n" +
-                "Hello >u<! I'm OwO_bot\n\n" +
-                logo + "\n\n" +
-                "How can I help ♥w♥ ?\n" +
-                "────────────────────────────────────";
+        ui.printWelcomeMessage(VERSION);
 
-        String exitMessage = "────────────────────────────────────\n" +
-                "Bye! Hope to see you again soon!\n" +
-                "────────────────────────────────────";
+        runCommandLoop();
 
-        System.out.println(welcomeMessage);
+        storage.save(tasks.getTaskList());
 
-        String userInput;
+        ui.printExitMessage();
 
-        TaskList taskList = new TaskList(storage.load());
-
-        while (!(userInput = scanner.nextLine()).equals("bye")) {
-            System.out.println("────────────────────────────────────\n");
-            taskList.inputHandler(userInput);
-
-            System.out.println("────────────────────────────────────");
-        }
-
-        storage.save(taskList.getTaskList());
-
-        System.out.println(exitMessage);
-        scanner.close();
     }
     public static void main(String[] args) {
         new Duke().run();
+    }
+
+
+    public void runCommandLoop() {
+        ui.runLoop(tasks);
 
     }
 }
