@@ -172,4 +172,22 @@ public class TaskList {
                 throw new BeeException("OOPSS!! I can't do that!!!");
         }
     }
+
+    public void findTasksByKeyword(String userInput) {
+        String keyword = userInput.substring(5).trim();
+        ArrayList<Task> matchingTasks = new ArrayList<>();
+        for (Task task : tasks) {
+            if (task.getDescription().contains(keyword)) {
+                matchingTasks.add(task);
+            }
+        }
+        if (matchingTasks.isEmpty()) {
+            System.out.println("No matching tasks found.");
+        } else {
+            System.out.println("Here are the matching tasks in your list: ~Bzzz~");
+            for (int i = 0; i < matchingTasks.size(); i++) {
+                System.out.println((i + 1) + ". " + matchingTasks.get(i).toString());
+            }
+        }
+    }
 }

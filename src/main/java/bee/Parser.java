@@ -1,5 +1,8 @@
 package bee;
 
+import java.util.ArrayList;
+import java.util.Scanner;
+
 public class Parser {
 
     enum TaskClass {
@@ -38,6 +41,9 @@ public class Parser {
                     break;
                 case "delete":
                     tasks.updateTask(TaskAction.DELETE, userInput);
+                    break;
+                case "find":
+                    tasks.findTasksByKeyword(userInput);
                     break;
                 default:
                     throw new BeeException("Sorry, you need to use a command!");
