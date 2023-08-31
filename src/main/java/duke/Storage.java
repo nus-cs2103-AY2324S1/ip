@@ -8,11 +8,21 @@ import duke.task.Todo;
 import java.io.*;
 import java.util.ArrayList;
 
+/**
+ * Storage stores task data from the chatbot to a local folder,
+ * and read/write to the data file when the bot it used.
+ */
 public class Storage {
     private static final String FOLDER_PATH = "./data";
     private static final String FILE_PATH = "./data/duke.txt";
 
-
+    /**
+     * Reads the data file from the default FILE_PATH and parses the data file
+     * to return an ArrayList containing Tasks based on the data file.
+     *
+     * @return An ArrayList of Tasks based on the data file.
+     * @throws DukeException If there is an error reading from the data file.
+     */
     public ArrayList<Task> readTasks() throws DukeException {
         ArrayList<Task> tasks = new ArrayList<>();
         File folder = new File(FOLDER_PATH);
@@ -34,6 +44,13 @@ public class Storage {
         return tasks;
     }
 
+    /**
+     * Writes the current task list into the data file by converting items
+     * in the ArrayList to a String.
+     *
+     * @param tasks An ArrayList of Task objects.
+     * @throws DukeException If there are any errors writing to the data file.
+     */
     public void writeTasks(ArrayList<Task> tasks) throws DukeException {
         try {
             FileWriter fw = new FileWriter(FILE_PATH);
@@ -46,6 +63,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Parses an individual line from the data file and converts it into a Task Object.
+     *
+     * @param data A String from the data file.
+     * @return A Task object made based on the String from the data file.
+     */
     public Task parseTasks(String data) {
         String[] parsedData = data.split("\\|");
         Task task = null;

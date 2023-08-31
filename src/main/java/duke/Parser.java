@@ -2,16 +2,31 @@ package duke;
 
 import duke.task.*;
 
+/**
+ * Parser helps to parse user input and call the relevant commands
+ * related to modifying the task list.
+ */
 public class Parser {
     private TaskList tasks;
     private Ui ui;
 
+    /**
+     * Constructs a Parser object.
+     *
+     * @param tasks A TaskList class containing tasks.
+     */
     public Parser(TaskList tasks) {
 
         this.tasks = tasks;
         this.ui = new Ui();
     }
 
+    /**
+     * Parses the user input and calls relevant functions that modify
+     * the TaskList based on input.
+     *
+     * @param command User's input in a String Format.
+     */
     public void parse(String command) {
         String[] spacedCommand = command.split(" ");
         String mainCommand = spacedCommand[0];
