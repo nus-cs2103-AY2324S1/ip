@@ -39,6 +39,9 @@ public class Parser {
             return new UnmarkCommand(Parser.parseUserUnmark(input));
         } else if (input.startsWith("delete")) {
             return new DeleteCommand(Parser.parseUserDelete(input));
+        } else if (input.startsWith("find")) {
+            String queryString = Parser.parseUserFind(input);
+            return new FindCommand(queryString);
         } else if (input.startsWith("deadline")) {
             Deadline deadline = Parser.parseUserDeadline(input);
             return new AddCommand(deadline);
@@ -241,5 +244,13 @@ public class Parser {
         }
 
         return index;
+    }
+
+    public static String parseUserFind(String input) throws TaskException {
+        if (input.length() <= 5) {
+            throw new TaskException("find (query string)");
+        }
+
+        return input.substring(5);
     }
 }

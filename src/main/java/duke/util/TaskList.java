@@ -101,4 +101,15 @@ public class TaskList {
     public int size() {
         return this.list.size();
     }
+
+    public TaskList find(String string) {
+        ArrayList<Task> filteredList = new ArrayList<>();
+        for (int i = 0; i < list.size(); i++) {
+            Task task = list.get(i);
+            if (task.toString().contains(string)) {
+                filteredList.add(task);
+            }
+        }
+        return new TaskList(filteredList);
+    }
 }
