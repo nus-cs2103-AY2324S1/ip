@@ -40,6 +40,7 @@ public class Parser {
         }
         return texts;
     }
+
     public ArrayList<String> splitter(String text, String cutOff) {
         ArrayList<String> res = new ArrayList<>();
         String resStrAftCutting = text;
