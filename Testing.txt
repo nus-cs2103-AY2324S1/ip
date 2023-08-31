@@ -1,3 +1,5 @@
-  [T][ ] poo
-  [D][ ] shit (by: 12)
-  [E][ ] (from: 1 to: 2)
+  [T][ ]  poo
+  [D][ ]  shit (by:12)
+  [E][ ]  (from: 1 to: 2)
+  [D][ ] shit (by:Oct 10 2019)
+  [E][ ] poo (from: Oct 10 2019 to: Oct 10 2020)

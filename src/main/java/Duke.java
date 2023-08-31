@@ -1,3 +1,6 @@
+import java.time.DateTimeException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 import java.util.ArrayList;
 
@@ -17,6 +20,7 @@ public class Duke {
         }
     }
     public static void main(String[] args) {
+        System.out.println("\n \n" + "Please Input the txt file you wish to access");
         Scanner scanner = new Scanner(System.in);
         String textFile = scanner.nextLine();
         new Duke(textFile).run();
@@ -106,13 +110,18 @@ public class Duke {
                }
                if (message.startsWith("deadline")) {
                    String info = message.substring(9);
-                   String[] split = info.split("/by");
+                   String[] split = info.split("/by ");
                    if (split.length != 2) {
                        task.hasError();
                        throw new DukeException("☹ OOPS!!! The description of a deadline is invalid.");
                    }
-                   task = new Deadline(split[0], split[1]);
-                   task.isValid();
+                   try {
+                       String deadDate = LocalDate.parse(split[1]).format(DateTimeFormatter.ofPattern("MMM d yyyy"));
+                       task = new Deadline(split[0], deadDate);
+                       task.isValid();
+                   } catch (DateTimeException e) {
+                       throw new DukeException("☹ OOPS!!! The description of a time must be in yyyy-mm-dd");
+                   }
                }
                if (message.startsWith("event")) {
                    String info = message.substring(6);
@@ -121,8 +130,14 @@ public class Duke {
                        task.hasError();
                        throw new DukeException("☹ OOPS!!! The description of a event is invalid.");
                    }
-                   task = new Event(split[0], split[1], split[2]);
-                   task.isValid();
+                   try {
+                       String startDate = LocalDate.parse(split[1]).format(DateTimeFormatter.ofPattern("MMM d yyyy"));
+                       String endDate = LocalDate.parse(split[2]).format(DateTimeFormatter.ofPattern("MMM d yyyy"));
+                       task = new Event(split[0], startDate, endDate);
+                       task.isValid();
+                   } catch (DateTimeException e) {
+                       throw new DukeException("☹ OOPS!!! The description of a time must be in yyyy-mm-dd");
+                   }
                }
            } catch (DukeException e) {
                System.out.printf(lineBreak + e.getMessage() + lineBreak);
