@@ -2,8 +2,13 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 
 public class Duke {
 
@@ -48,7 +53,7 @@ public class Duke {
         System.out.println("- - - - - - - - - - - - - - - - - - - - - - - - -");
     }
 
-    public static void deadline(ArrayList<Task> tasklist, String description, String by) {
+    public static void deadline(ArrayList<Task> tasklist, String description, LocalDateTime by) {
         tasklist.add(new Deadline(description, by));
         System.out.println("- - - - - - - - - - - - - - - - - - - - - - - - -");
         System.out.println(" Got it. I've added this task:\n" + "   " + tasklist.get(tasklist.size() - 1).getStatusIcon());
@@ -56,7 +61,7 @@ public class Duke {
         System.out.println("- - - - - - - - - - - - - - - - - - - - - - - - -");
     }
 
-    public static void event(ArrayList<Task> tasklist, String description, String from, String to) {
+    public static void event(ArrayList<Task> tasklist, String description, LocalDateTime from, LocalTime to) {
         tasklist.add(new Event(description, from, to));
         System.out.println("- - - - - - - - - - - - - - - - - - - - - - - - -");
         System.out.println(" Got it. I've added this task:\n" + "   " + tasklist.get(tasklist.size() - 1).getStatusIcon());
@@ -135,14 +140,14 @@ public class Duke {
                 } else if (input[0].equals("deadline")) {
                     String[] full_desc = input[1].split(" /by ");
                     String description = full_desc[0];
-                    String by = full_desc[1];
+                    LocalDateTime by = LocalDateTime.parse(full_desc[1]);
                     deadline(tasklist, description, by);
                     str = sc.nextLine();
                 } else if (input[0].equals("event")) {
                     String[] full_desc = input[1].split(" /from | /to ");
                     String description = full_desc[0];
-                    String from = full_desc[1];
-                    String to = full_desc[2];
+                    LocalDateTime from = LocalDateTime.parse(full_desc[1]);
+                    LocalTime to = LocalTime.parse(full_desc[2]);
                     event(tasklist, description, from, to);
                     str = sc.nextLine();
                 } else if (input[0].equals("delete")) {
