@@ -1,4 +1,5 @@
 import java.io.*;
+import java.time.format.DateTimeParseException;
 import java.util.Objects;
 import java.util.Scanner;
 import java.util.ArrayList;
@@ -6,6 +7,8 @@ import java.util.function.Function;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.function.Consumer;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 public class Juke {
     static void printLine() {
@@ -68,21 +71,22 @@ public class Juke {
         }
 
         class Deadline extends Task {
-            protected String by;
+            protected LocalDate by;
 
-            public Deadline(String description, String by) {
+            public Deadline(String description, LocalDate by) {
                 super(description);
                 this.by = by;
             }
 
-            public Deadline(String description, boolean isDone, String by) {
+            public Deadline(String description, boolean isDone, LocalDate by) {
                 super(description, isDone);
                 this.by = by;
             }
 
             @Override
             public String toString() {
-                return "[D]" + super.toString() + " (by: " + by + ")";
+                return "[D]" + super.toString() + " (by: " +
+                        by.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
             }
 
             @Override
@@ -90,15 +94,15 @@ public class Juke {
         }
 
         class Event extends Task {
-            protected String start;
-            protected String end;
-            public Event(String description, String start, String end) {
+            protected LocalDate start;
+            protected LocalDate end;
+            public Event(String description, LocalDate start, LocalDate end) {
                 super(description);
                 this.start = start;
                 this.end = end;
             }
 
-            public Event(String description, boolean isDone, String start, String end) {
+            public Event(String description, boolean isDone, LocalDate start, LocalDate end) {
                 super(description, isDone);
                 this.start = start;
                 this.end = end;
@@ -106,7 +110,9 @@ public class Juke {
 
             @Override
             public String toString() {
-                return "[E]" + super.toString() + " (from: " + start + " to: " + end + ")";
+                return "[E]" + super.toString() + " (" +
+                        "from: " + start.format(DateTimeFormatter.ofPattern("MMM d yyyy")) +
+                        " to: " + end.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
             }
 
             @Override
@@ -167,10 +173,11 @@ public class Juke {
                 return new Todo(parts[2], parseIsDone.apply(parts[1]));
             }
             if (Objects.equals(parts[0], "D")) {
-                return new Deadline(parts[2], parseIsDone.apply(parts[1]), parts[3]);
+                return new Deadline(parts[2], parseIsDone.apply(parts[1]), LocalDate.parse(parts[3]));
             }
             if (Objects.equals(parts[0], "E")) {
-                return new Event(parts[2], parseIsDone.apply(parts[1]), parts[3], parts[4]);
+                return new Event(parts[2], parseIsDone.apply(parts[1]),
+                        LocalDate.parse(parts[3]), LocalDate.parse(parts[4]));
             }
             return null;
         };
@@ -279,26 +286,39 @@ public class Juke {
                                 "^deadline\\s+(.*)\\s+/by\\s+(.*)$");
                         Matcher matcher = deadlinePattern.matcher(input);
                         if (matcher.matches()) {
-                            Task newTask = new Deadline(matcher.group(1), matcher.group(2));
-                            tasks.add(newTask);
-                            System.out.println("Got it. I've added this task:");
-                            System.out.println("\t" + newTask.toString());
-                            System.out.println("Now you have " + tasks.size() + " tasks in the list.");
-                            write.accept(newTask);
-                            printLine();
+                            try {
+                                Task newTask = new Deadline(matcher.group(1), LocalDate.parse(matcher.group(2)));
+                                tasks.add(newTask);
+                                System.out.println("Got it. I've added this task:");
+                                System.out.println("\t" + newTask.toString());
+                                System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+                                write.accept(newTask);
+                                printLine();
+                            } catch (DateTimeParseException e) {
+                                System.out.println("Failed to parse date");
+                                printLine();
+                            }
                         }
                     } else if (input.startsWith("event")) {
                         final Pattern eventPattern = Pattern.compile(
                                 "^event\\s+(.*)\\s+/from\\s+(.*)\\s+/to\\s+(.*)$");
                         Matcher matcher = eventPattern.matcher(input);
                         if (matcher.matches()) {
-                            Task newTask = new Event(matcher.group(1), matcher.group(2), matcher.group(3));
-                            tasks.add(newTask);
-                            System.out.println("Got it. I've added this task:");
-                            System.out.println("\t" + newTask.toString());
-                            System.out.println("Now you have " + tasks.size() + " tasks in the list.");
-                            write.accept(newTask);
-                            printLine();
+                            try {
+                                Task newTask = new Event(
+                                        matcher.group(1),
+                                        LocalDate.parse(matcher.group(2)),
+                                        LocalDate.parse(matcher.group(3)));
+                                tasks.add(newTask);
+                                System.out.println("Got it. I've added this task:");
+                                System.out.println("\t" + newTask.toString());
+                                System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+                                write.accept(newTask);
+                                printLine();
+                            } catch (DateTimeParseException e) {
+                                System.out.println("Failed to parse date");
+                                printLine();
+                            }
                         }
                     } else {
                         throw new JukeError("I'm sorry, but I don't know what that means :-(");
