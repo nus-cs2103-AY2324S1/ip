@@ -18,7 +18,8 @@ public abstract class Task implements Comparable<Task> {
         numberOfTasks++;
     }
 
-    public static Task addTask(String command, Scanner tokeniser) throws IllegalCommandException {
+    public static Task addTask(String command, Scanner tokeniser) throws IllegalCommandException,
+            IllegalDateTimeException {
         Task newTask;
         if (!command.equals("todo") && !command.equals("deadline")
             && !command.equals("event")) {
@@ -44,8 +45,9 @@ public abstract class Task implements Comparable<Task> {
                 throw new IllegalCommandException("do that for a deadline," +
                         "are you thinking of an event?");
             }
-            String[] parts = contents.split("/by", 2);
-            newTask = new Deadline(parts[0], parts[1]);
+            String[] parts = contents.split(" /by ", 2);
+            String[] dateTime = TimeParser.parseInputOut(parts[1]);
+            newTask = new Deadline(parts[0], dateTime[0], dateTime[1]);
         } else {
             String contents = tokeniser.nextLine();
             if (!contents.contains("/from") || !contents.contains("/to")) {
@@ -54,9 +56,12 @@ public abstract class Task implements Comparable<Task> {
                 throw new IllegalCommandException("do that for an event," +
                         "are you thinking of a deadline?");
             }
-            String[] message = contents.split("/from", 2);
-            String[] fromto = message[1].split("/to", 2);
-            newTask = new Event(message[0], fromto[0], fromto[1]);
+            String[] message = contents.split(" /from ", 2);
+            String[] fromto = message[1].split(" /to ", 2);
+            String[] fromDateTime = TimeParser.parseInputOut(fromto[0]);
+            String[] toDateTime = TimeParser.parseInputOut(fromto[1]);
+            newTask = new Event(message[0], fromDateTime[0], fromDateTime[1],
+                    toDateTime[0], toDateTime[1]);
         }
         System.out.println(TextFormat.botReply("Gotchu! noted down: \n" +
                 TextFormat.indentLineBy(newTask.toString(), 2) +
@@ -102,16 +107,20 @@ public abstract class Task implements Comparable<Task> {
         }
     }
 
-    public static Task addSavedTask(int id, boolean mark, String description) {
+    public static Task addSavedTask(int id, boolean mark, String description) throws IllegalDateTimeException {
         switch (id) {
         case (1):
             return new ToDo(description, mark);
         case (2):
             String[] parts = description.split("/", 2);
-            return new Deadline(parts[0], parts[1], mark);
+            String[] dateTime = TimeParser.parseInputOut(parts[1]);
+            return new Deadline(parts[0], dateTime[0], dateTime[1], mark);
         default:
             String[] message = description.split("/", 3);
-            return new Event(message[0], message[1], message[2], mark);
+            String[] fromDateTime = TimeParser.parseInputOut(message[1]);
+            String[] toDateTime = TimeParser.parseInputOut(message[2]);
+            return new Event(message[0], fromDateTime[0], fromDateTime[1],
+                    toDateTime[0], toDateTime[1], mark);
         }
     }
 

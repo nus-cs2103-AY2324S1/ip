@@ -1,10 +1,15 @@
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.sql.Time;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.NoSuchElementException;
 import java.util.Scanner;  // Import the Scanner class
 import java.io.File;
 import java.io.FileWriter;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 
 public class Duke {
     static String logo = "                  .-\"-.\n"
@@ -124,8 +129,9 @@ public class Duke {
             try {
                 Task newTask = Task.addTask(command, tokeniser);
                 taskList.add(newTask);
-
             } catch (IllegalCommandException e) {
+                System.out.println(e.getMessage());
+            } catch (IllegalDateTimeException e) {
                 System.out.println(e.getMessage());
             }
         }
@@ -133,8 +139,6 @@ public class Duke {
 
     public void loadFile(){
         savedList = new File("/Users/daniel/Desktop/CS2103T/iP/src/main/java/data/duke.txt");
-//        String userDirectory = new File("").getAbsolutePath();
-//        System.out.println(userDirectory);
         try {
             savedList.createNewFile();
         } catch (IOException e) {
@@ -148,7 +152,13 @@ public class Duke {
             int id = sc.nextInt();
             int mark = sc.nextInt();
             String description = sc.nextLine();
-            Task newTask = Task.addSavedTask(id, mark == 1, description);
+            Task newTask;
+            try {
+                newTask = Task.addSavedTask(id, mark == 1, description);
+            } catch (IllegalDateTimeException e) {
+                System.out.println(e.getMessage());
+                continue;
+            }
             taskList.add(newTask);
         }
     }
