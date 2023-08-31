@@ -2,11 +2,12 @@ package duke.tasks;
 
 import duke.storage.Storage;
 import duke.exception.DukeException;
+import duke.ui.Ui;
 
 import java.util.ArrayList;
 
 public class TaskList {
-    private static final String INDENTATION = "    ";
+    private static final String INDENTATION = Ui.INDENTATION;
     private ArrayList<Task> taskList;
     private Storage storage;
 

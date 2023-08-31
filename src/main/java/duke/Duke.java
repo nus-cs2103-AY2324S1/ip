@@ -11,8 +11,6 @@ import java.util.ArrayList;
 
 public class Duke {
 
-    public static final String INDENTATION = "    ";
-
     private static Storage storage;
     private TaskList tasks;
     private Ui ui;
