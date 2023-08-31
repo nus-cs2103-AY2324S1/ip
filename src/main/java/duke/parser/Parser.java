@@ -38,8 +38,10 @@ public class Parser {
                 throw new DukeException("OOPS!!! The format of an event task is " +
                         "\"event TASK_DESCRIPTION /from START /to END\"");
             }
-            String[] taskParts = splitCommand[1].split("/");
-            return new AddCommand(new Event(taskParts[0], taskParts[1], taskParts[2]));
+//            String[] taskParts = splitCommand[1].split("/");
+            String description = splitCommand[1].split("/from")[0];
+            String[] dateAndTime = splitCommand[1].split("/from")[1].split("/to");
+            return new AddCommand(new Event(description, dateAndTime[0], dateAndTime[1]));
         case "deadline":
             // Add deadline task into task list
             return parseDeadlineCommand(splitCommand[1]);

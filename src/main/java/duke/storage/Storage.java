@@ -82,10 +82,13 @@ public class Storage {
                 String fullTaskCommand = scanner.nextLine();
                 String[] taskParts = fullTaskCommand.split("\\|");
                 String taskType = taskParts[0].trim();
+                int taskStatus = Integer.parseInt(taskParts[1].trim());
 
                 switch (taskType) {
                 case "T":
-                    tasks.add(new ToDo(taskParts[2].trim()));
+                    Task todo = new ToDo(taskParts[2].trim());
+                    tasks.add(todo);
+                    todo.markStatusFromFile(taskStatus);
                     break;
                 case "D":
                     String datePart = taskParts[3].trim();
@@ -96,10 +99,16 @@ public class Storage {
                     LocalTime time = LocalTime.parse(timePart, DateTimeFormatter.ofPattern("h.mma", Locale.US));
                     String formattedTime = time.format(DateTimeFormatter.ofPattern("HHmm"));
 
-                    tasks.add(new Deadline(taskParts[2].trim(), formattedDate, formattedTime));
+                    Task deadline = new Deadline(taskParts[2].trim(), formattedDate, formattedTime);
+                    tasks.add(deadline);
+                    deadline.markStatusFromFile(taskStatus);
                     break;
                 case "E":
-                    tasks.add(new Event(taskParts[2].trim(), taskParts[3].trim(), taskParts[4].trim()));
+                    Task event = new Event(taskParts[2].trim(),
+                            taskParts[3].trim().replace("from", ""),
+                            taskParts[4].trim().replace("to", ""));
+                    tasks.add(event);
+                    event.markStatusFromFile(taskStatus);
                     break;
                 default:
                     throw new DukeException("Invalid task type in file: " + taskType);

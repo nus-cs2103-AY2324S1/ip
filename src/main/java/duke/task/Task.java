@@ -41,6 +41,19 @@ public class Task {
     }
 
     /**
+     * Marks the task status based on status obtained from file.
+     *
+     * @param status The status of the task saved in the file.
+     */
+    public void markStatusFromFile(int status) {
+        if (status == 0) {
+            markAsDone();
+        } else {
+            markAsUndone();
+        }
+    }
+
+    /**
      * Returns a string representation of the task, containing its
      * completion status and description.
      *

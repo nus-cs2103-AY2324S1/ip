@@ -1,2 +1,3 @@
-T | 1 | add
-E | 1 | yay | from 12 aug | to 14 aug
+T | 1 | read book
+D | 1 | project | 12 Dec 2023 | 7.00PM
+E | 0 | testing| from 12/12 | to 12/12
