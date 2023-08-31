@@ -14,7 +14,9 @@ public enum ErrorMessages {
     MISSING_EVENT_TIMING("I'm sorry, you seem to have forgotten to enter a start/end time. " +
             "Please indicate the start time starting with /from and the end time starting with /to."),
     TOO_MANY_EVENT_TIMINGS("I'm sorry, you seem to have entered too many timings."),
-    INVALID_END_DATE("End date cannot be before start date!");
+    INVALID_END_DATE("End date cannot be before start date!"),
+    KEYWORD_NOT_FOUND("I'm sorry, I could not find task with this word in it."),
+    NO_KEYWORD_PROVIDED("I'm sorry. Did you forget to enter a keyword?");
 
     private final String message ;
 
