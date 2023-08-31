@@ -34,7 +34,7 @@ public class Duke {
             this.storage.writeTasks(this.tasks.getTasks());
             this.ui.byeMessage();
         } catch (DukeException e) {
-            System.out.println("There was an error saving your file. Goodbye.");
+            System.out.println("OOPS!" + e.toString().split("DukeException:")[1]);
         }
     }
 
