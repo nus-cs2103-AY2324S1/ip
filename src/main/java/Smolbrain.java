@@ -2,6 +2,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.time.LocalDate;
@@ -242,7 +243,8 @@ public class Smolbrain {
                     System.out.println("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
                     break;
             }
-        } catch (InvalidRangeException | MissingDescriptionException | MissingTimeException | InvalidNumberException e) {
+        } catch (InvalidRangeException | MissingDescriptionException | MissingTimeException | InvalidNumberException |
+                 DateTimeParseException e) {
             System.out.println(e);
         }
     }
