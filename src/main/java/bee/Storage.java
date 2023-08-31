@@ -15,7 +15,6 @@ import java.util.Scanner;
 public class Storage {
 
     private TaskList tasks = new TaskList();
-
     private String filePath = "";
 
     /**
@@ -34,7 +33,7 @@ public class Storage {
      * @param taskData The task data string to parse.
      * @throws BeeException If there's an issue with parsing the task data.
      */
-    private void parseTask(String taskData) throws BeeException{
+    private void parseTask(String taskData) throws BeeException {
         String[] taskDataSplit = taskData.split("]");
         String taskType = taskDataSplit[0].substring(1);
         Boolean isDone = taskDataSplit[1].substring(1).equals("X");

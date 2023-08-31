@@ -8,7 +8,7 @@ import java.time.format.DateTimeFormatter;
  * Extends the base class Task and adds functionality for handling deadlines.
  */
 public class Deadline extends Task {
-    LocalDateTime localDateTime;
+    private LocalDateTime localDateTime;
 
     /**
      * Constructor for creating a new Deadline task.
@@ -39,7 +39,7 @@ public class Deadline extends Task {
      * @return Formatted string representation of the Deadline task.
      */
     @Override
-     public String toString() {
+    public String toString() {
         return "[D]" + super.toString() + " (by: "
                 + this.localDateTime.format(DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm")) + ")";
     }

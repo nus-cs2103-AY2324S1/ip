@@ -15,7 +15,8 @@ public class Bee {
 
     /**
      * Constructs a new Bee chatbot instance.
-     * Initializes the user interface, storage, and task list based on the provided data file path.
+     * Initializes the user interface, storage, and task list based on the provided
+     * data file path.
      *
      * @param filePath The path to the data file for storing tasks.
      */
@@ -32,7 +33,8 @@ public class Bee {
 
     /**
      * Starts the execution of the chatbot.
-     * Displays a greeting, reads user input, and processes commands until the chatbot is terminated.
+     * Displays a greeting, reads user input, and processes commands until the
+     * chatbot is terminated.
      */
     public void run() {
         ui.greet();

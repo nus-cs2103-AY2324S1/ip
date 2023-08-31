@@ -2,7 +2,8 @@ package bee;
 
 /**
  * Handles the parsing of user commands and delegates the corresponding actions.
- * Provides methods for parsing user input and executing actions based on the input.
+ * Provides methods for parsing user input and executing actions based on the
+ * input.
  */
 public class Parser {
 
@@ -21,7 +22,8 @@ public class Parser {
     }
 
     /**
-     * Parses the user's command, executes the corresponding action, and handles exceptions.
+     * Parses the user's command, executes the corresponding action, and handles
+     * exceptions.
      *
      * @param userInput The user's input command.
      * @param tasks     The TaskList instance to manage tasks.
@@ -60,7 +62,6 @@ public class Parser {
                     break;
                 default:
                     throw new BeeException("Sorry, you need to use a command!");
-
             }
         } catch (BeeException e) {
             System.out.println(e.toString());
