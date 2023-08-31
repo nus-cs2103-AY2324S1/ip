@@ -1,5 +1,7 @@
 import java.io.*;
 import java.nio.file.Path;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
@@ -9,6 +11,7 @@ public class Duke {
 
     public static final String HORIZONTAL_LINE = "____________________________________________________________";
     public static final String SAVE_FILE = "data/saved_tasks.csv";
+    public static final DateTimeFormatter QUERY_DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("uuuu-MM-dd HHmm");
 
     private static int checkIndexArg(String indexArg, int lstSize){
         if (!indexArg.matches("^\\d+$")) {
@@ -91,10 +94,27 @@ public class Duke {
                         String desc;
                         switch (commandName) {
                             case LIST:
+                                LocalDateTime queryDate = null;
                                 if (!commandArgs.isEmpty()) {
-                                    throw new CommandArgumentException("list does not take in arguments!");
+                                    queryDate = LocalDateTime.parse(commandArgs + " 0000", QUERY_DATE_TIME_FORMATTER);
                                 }
                                 for (int index = 0; index < list.size(); index++) {
+                                    if (queryDate != null) {
+                                        Task currTask = list.get(index);
+                                        if (currTask instanceof Event) {
+                                            Event event = (Event) currTask;
+                                            if (!event.isOngoing(queryDate)) {
+                                                continue;
+                                            }
+                                        } else if (currTask instanceof Deadline) {
+                                            Deadline deadline = (Deadline) currTask;
+                                            if (!deadline.isDue(queryDate)) {
+                                                continue;
+                                            }
+                                        } else {
+                                            continue;
+                                        }
+                                    }
                                     System.out.printf("%d. %s\n", index + 1, list.get(index).toString());
                                 }
                                 break;
