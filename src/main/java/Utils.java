@@ -2,8 +2,12 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
+
 
 public class Utils {
     public static void saveTasks(ArrayList<Task> tasks) throws IOException {
@@ -45,14 +49,23 @@ public class Utils {
                         tasks.add(todo);
                         break;
                     case "D":
-                        Deadline deadline = new Deadline(parts[2], parts[3]);
-                        if (parts[1].equals("1")) {
-                            deadline.markAsDone();
+                        try{
+                            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
+                            LocalDateTime dateTime = LocalDateTime.parse(parts[3], formatter);
+                            Deadline deadline = new Deadline(parts[2], dateTime);
+                            if (parts[1].equals("1")) {
+                                deadline.markAsDone();
+                            }
+                            tasks.add(deadline);
+                        } catch (DateTimeParseException e) {
+                            System.out.println("Error parsing date-time from saved data: " + e.getMessage());
                         }
-                        tasks.add(deadline);
                         break;
                     case "E":
-                        Event event = new Event(parts[2], parts[3], parts[4]);
+                        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
+                        LocalDateTime dateTimeFrom = LocalDateTime.parse(parts[3], formatter);
+                        LocalDateTime dateTimeTo = LocalDateTime.parse(parts[4], formatter);
+                        Event event = new Event(parts[2], dateTimeFrom, dateTimeTo);
                         if (parts[1].equals("1")) {
                             event.markAsDone();
                         }

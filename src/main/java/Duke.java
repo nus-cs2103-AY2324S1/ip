@@ -3,6 +3,9 @@ import java.util.Scanner;
 import java.util.ArrayList;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 public class Duke {
     public static void main(String[] args) {
@@ -83,13 +86,20 @@ public class Duke {
                     } else {
                         String description = content.substring(0, index).trim();
                         String by = content.substring(index + 4).trim();
-                        Deadline newDeadline = new Deadline(description, by);
-                        tasks.add(newDeadline);
-
+                        Deadline newDeadline;
                         try {
-                            Utils.saveTasks(tasks); // Save the updated tasks to file
-                        } catch (IOException e) {
-                            System.out.println("Error saving tasks: " + e.getMessage());
+                            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
+                            LocalDateTime dateTime = LocalDateTime.parse(by, formatter);
+                            newDeadline = new Deadline(description, dateTime);
+                            tasks.add(newDeadline);
+
+                            try {
+                                Utils.saveTasks(tasks); // Save the updated tasks to file
+                            } catch (IOException e) {
+                                System.out.println("Error saving tasks: " + e.getMessage());
+                            }
+                        } catch (DateTimeParseException e) {
+                            throw new DukeException("Invalid date-time format! Please use d/M/yyyy HHmm format.");
                         }
 
                         System.out.println("____________________________________________________________");
@@ -111,13 +121,21 @@ public class Duke {
                     String from = parts[1].trim();
                     String to = parts[2].trim();
 
-                    Event newEvent = new Event(description, from, to);
-                    tasks.add(newEvent);
-
+                    Event newEvent;
                     try {
-                        Utils.saveTasks(tasks); // Save the updated tasks to file
-                    } catch (IOException e) {
-                        System.out.println("Error saving tasks: " + e.getMessage());
+                        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
+                        LocalDateTime dateTimeFrom = LocalDateTime.parse(from, formatter);
+                        LocalDateTime dateTimeTo = LocalDateTime.parse(to, formatter);
+                        newEvent = new Event(description, dateTimeFrom, dateTimeTo);
+                        tasks.add(newEvent);
+
+                        try {
+                            Utils.saveTasks(tasks); // Save the updated tasks to file
+                        } catch (IOException e) {
+                            System.out.println("Error saving tasks: " + e.getMessage());
+                        }
+                    } catch (DateTimeParseException e) {
+                        throw new DukeException("Invalid date-time format! Please use d/M/yyyy HHmm format.");
                     }
 
                     System.out.println("____________________________________________________________");
