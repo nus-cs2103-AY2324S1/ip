@@ -56,6 +56,10 @@ public class TaskList {
         return this.fullList;
     }
 
+    public int getSize() {
+        return this.fullList.size();
+    }
+
     @Override
     public String toString() {
         StringBuilder stringBuilder = new StringBuilder();

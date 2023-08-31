@@ -22,6 +22,10 @@ public class Task{
         this.isDone = false;
     }
 
+    public boolean isDone() {
+        return this.isDone;
+    }
+
     public String toFileString() {
         String isDone;
         if (this.isDone) {
