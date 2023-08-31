@@ -2,133 +2,109 @@ _______________________________________
 Hello I'm Sana!
 What can I do for you today?
 _______________________________________
-
-_______________________________________
-Your list is empty! Add tasks first to display list
-_______________________________________
-
 _______________________________________
 Got it. I've added this task:
 [T][ ] borrow book
 Now you have 1 task in the list
 _______________________________________
-
 _______________________________________
 Got it. I've added this task:
-[D][ ] return book (by: Sunday)
+[D][ ] return book (by: Aug 30 2023)
 Now you have 2 tasks in the list
-_______________________________________
 
 _______________________________________
+_______________________________________
 Got it. I've added this task:
-[E][ ] project meeting (from: Mon 2pm to: 4pm)
+[E][ ] project meeting (from: Aug 30 2023 to: Aug 31 2023)
 Now you have 3 tasks in the list
 _______________________________________
-
 _______________________________________
 Nice! I've marked this task as done:
-[D][X] return book (by: Sunday)
+[D][X] return book (by: Aug 30 2023)
 _______________________________________
-
 _______________________________________
 Here are the tasks in your list:
 1.[T][ ] borrow book
-2.[D][X] return book (by: Sunday)
-3.[E][ ] project meeting (from: Mon 2pm to: 4pm)
-_______________________________________
+2.[D][X] return book (by: Aug 30 2023)
+3.[E][ ] project meeting (from: Aug 30 2023 to: Aug 31 2023)
 
+_______________________________________
 _______________________________________
 OK, I've marked this task as not done yet:
-[D][ ] return book (by: Sunday)
+[D][ ] return book (by: Aug 30 2023)
 _______________________________________
-
 _______________________________________
 Here are the tasks in your list:
 1.[T][ ] borrow book
-2.[D][ ] return book (by: Sunday)
-3.[E][ ] project meeting (from: Mon 2pm to: 4pm)
-_______________________________________
+2.[D][ ] return book (by: Aug 30 2023)
+3.[E][ ] project meeting (from: Aug 30 2023 to: Aug 31 2023)
 
+_______________________________________
 _______________________________________
 Noted. I've removed this task:
-[D][ ] return book (by: Sunday)
+[D][ ] return book (by: Aug 30 2023)
 Now you have 2 tasks in the list
 _______________________________________
-
 _______________________________________
 OOPS!!! Incomplete task description.
 Make sure you follow the format 'deadline [name of task] /by [deadline]'
 _______________________________________
-
 _______________________________________
 OOPS!! The deadline cannot be empty.
 Make sure you follow the format 'deadline [name of task] /by [deadline]'
 _______________________________________
-
 _______________________________________
 OOPS!! The deadline cannot be empty.
 Make sure you follow the format 'deadline [name of task] /by [deadline]'
 _______________________________________
-
 _______________________________________
 OOPS!! The deadline cannot be empty.
 Make sure you follow the format 'deadline [name of task] /by [deadline]'
 _______________________________________
-
 _______________________________________
 OOPS!! The deadline cannot be empty.
 Make sure you follow the format 'deadline [name of task] /by [deadline]'
 _______________________________________
-
 _______________________________________
 OOPS!!! Incomplete command. Make sure you follow the format 'event [name of task] /from [from] /to [to]'
 _______________________________________
-
 _______________________________________
 OOPS!! The 'from' field cannot be empty.
 Make sure you follow the format 'deadline [name of task] /from [from] /to [to]'
 _______________________________________
-
 _______________________________________
 OOPS!! The 'from' field cannot be empty.
 Make sure you follow the format 'deadline [name of task] /from [from] /to [to]'
 _______________________________________
-
 _______________________________________
 OOPS!! The 'from' field cannot be empty.
 Make sure you follow the format 'deadline [name of task] /from [from] /to [to]'
 _______________________________________
-
 _______________________________________
 OOPS!! The 'from' field cannot be empty.
 Make sure you follow the format 'deadline [name of task] /from [from] /to [to]'
 _______________________________________
-
 _______________________________________
 OOPS!! The 'to' field cannot be empty.
 Make sure you follow the format 'deadline [name of task] /from [from] /to [to]'
 _______________________________________
-
 _______________________________________
 OOPS!! The 'to' field cannot be empty.
 Make sure you follow the format 'deadline [name of task] /from [from] /to [to]'
 _______________________________________
-
 _______________________________________
-OOPS!! The 'to' field cannot be empty.
-Make sure you follow the format 'deadline [name of task] /from [from] /to [to]'
+Got it. I've added this task:
+[E][ ] read book (from: Aug 30 2023 to: Aug 31 2023)
+Now you have 3 tasks in the list
 _______________________________________
-
 _______________________________________
-OOPS!! The 'to' field cannot be empty.
-Make sure you follow the format 'deadline [name of task] /from [from] /to [to]'
+Got it. I've added this task:
+[E][ ] read book (from: Aug 30 2023 to: Aug 31 2023)
+Now you have 4 tasks in the list
 _______________________________________
-
 _______________________________________
-OOPS!!! I'm sorry, but I don't know what that means :-(
+invalid is not a valid command!
 _______________________________________
-
 _______________________________________
 Bye. Hope to see you again soon!
 _______________________________________
-
