@@ -22,10 +22,10 @@ public class Duke {
         Scanner in = Ui.initialiseUi();
 
         while (true) {
-            String s = Ui.getInput(in);
+            String input = Ui.getInput(in);
 
             try {
-                boolean isParsed = Parser.parseInput(s, taskList) == 1;
+                boolean isParsed = Parser.parseInput(input, taskList) == 1;
                 if (!isParsed) {
                     break;
                 }
