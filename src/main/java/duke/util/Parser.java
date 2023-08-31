@@ -5,7 +5,17 @@ import duke.task.*;
 
 import java.time.LocalDate;
 
+/**
+ * Converts a given String into Tasks and Commands.
+ */
 public class Parser {
+    /**
+     * Returns a Command with the given instructions.
+     *
+     * @param input The given instruction to be parsed.
+     * @return Command object that correspond to the given instruction.
+     * @throws TaskException if given input is in the wrong format.
+     */
     public static Command parse(String input) throws TaskException {
         if (input.equals("list")) {
             return new PrintListCommand();
@@ -30,6 +40,13 @@ public class Parser {
             return new UnknownCommand();
         }
     }
+
+    /**
+     * Returns a Deadline object based on the information from the local file.
+     *
+     * @param input The given information from local file.
+     * @return Deadline object that correspond to the information given.
+     */
     public static Deadline parseLoadDeadline(String input) {
         int byIndex = input.indexOf('|', 7);
 
@@ -46,6 +63,12 @@ public class Parser {
         return deadline;
     }
 
+    /**
+     * Returns a Event object based on the information from the local file.
+     *
+     * @param input The given information from local file.
+     * @return Event object that correspond to the information given.
+     */
     public static Event parseLoadEvent(String input) {
         int fromIndex = input.indexOf('|', 7);
         int toIndex = input.indexOf('|', fromIndex + 1);
@@ -66,6 +89,12 @@ public class Parser {
         return event;
     }
 
+    /**
+     * Returns a ToDo object based on the information from the local file.
+     *
+     * @param input The given information from local file.
+     * @return ToDo object that correspond to the information given.
+     */
     public static ToDo parseLoadToDo(String input) {
         String description = input.substring(8);
 
@@ -78,6 +107,13 @@ public class Parser {
         return todo;
     }
 
+    /**
+     * Returns a Deadline object based on the user given input.
+     *
+     * @param input The user given input.
+     * @return Deadline object that corresponds to the user given input.
+     * @throws DeadlineException if given input is missing information or in wrong format.
+     */
     public static Deadline parseUserDeadline(String input) throws DeadlineException {
         int byIndex = input.indexOf("/by");
 
@@ -96,6 +132,13 @@ public class Parser {
         return deadline;
     }
 
+    /**
+     * Returns a Event object based on the user given input.
+     *
+     * @param input The user given input.
+     * @return Event object that corresponds to the user given input.
+     * @throws EventException if given input is missing information or in wrong format.
+     */
     public static Event parseUserEvent(String input) throws EventException {
         int fromIndex = input.indexOf("/from");
         int toIndex = input.indexOf("/to");
@@ -119,6 +162,13 @@ public class Parser {
         return event;
     }
 
+    /**
+     * Returns a ToDo object based on the user given input.
+     *
+     * @param input The user given input.
+     * @return ToDo object that corresponds to the user given input.
+     * @throws ToDoException if given input is missing information or in wrong format.
+     */
     public static ToDo parseUserToDo(String input) throws ToDoException {
         if (input.length() <= 5) {
             throw new ToDoException();
@@ -128,6 +178,13 @@ public class Parser {
         return todo;
     }
 
+    /**
+     * Returns the index of the Task to be mark based on user input.
+     *
+     * @param input The given user input.
+     * @return The index of the Task the user wishes to mark.
+     * @throws TaskException if given input is missing information or in wrong format.
+     */
     public static int parseUserMark(String input) throws TaskException {
         int index = Integer.valueOf(input.substring(5)) - 1;
 
@@ -138,6 +195,13 @@ public class Parser {
         return index;
     }
 
+    /**
+     * Returns the index of Task to be unmark based on user input.
+     *
+     * @param input The given user input.
+     * @return The index of the Task the user wishes to unmark.
+     * @throws TaskException if given input is missing information or in wrong format.
+     */
     public static int parseUserUnmark(String input) throws TaskException {
         int index = Integer.valueOf(input.substring(7)) - 1;
 
@@ -148,6 +212,13 @@ public class Parser {
         return index;
     }
 
+    /**
+     * Returns the index of the Task to be deleted based on user input.
+     *
+     * @param input The given user input.
+     * @return The index of the Task the user wishes to delete.
+     * @throws TaskException if given input is missing information or in wrong format.
+     */
     public static int parseUserDelete(String input) throws TaskException {
         int index = Integer.valueOf(input.substring(7)) - 1;
 
