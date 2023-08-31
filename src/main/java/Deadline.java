@@ -1,12 +1,17 @@
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 public class Deadline extends Task {
-    protected LocalDate deadline;
-    public Deadline(String description, LocalDate deadline) {
+    protected String deadline;
+    protected LocalDate deadlineDate;
+    public Deadline(String description, String deadline) {
         super(description);
         this.deadline = deadline;
+        if (isValidDateFormat(deadline, "yyyy-MM-dd")) {
+            this.deadlineDate = LocalDate.parse(deadline, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+            this.deadline = deadlineDate.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
+        }
     }
-
 
     @Override
     public String writeToFile() {
@@ -17,7 +22,16 @@ public class Deadline extends Task {
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + "(by:" + deadline + ")";
+        return "[D]" + super.toString() + "(by: " + deadline + ")";
     }
 
+    public static boolean isValidDateFormat(String deadline, String format) {
+        try {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern(format);
+            formatter.parse(deadline);
+            return true;
+        } catch (DateTimeParseException e) {
+            return false;
+        }
+    }
 }

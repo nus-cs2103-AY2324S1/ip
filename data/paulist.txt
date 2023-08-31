@@ -1,2 +1,2 @@
-T | 0 | gym
-D | 0 | watch lecture  |  wed
+D | 0 | watch lecture  | Oct 23 2023
+D | 0 | do stuff  | wed

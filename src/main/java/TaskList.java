@@ -118,13 +118,14 @@ public class TaskList {
      */
     public void addDeadline(String input) {
         try {
-            String parts[] = input.split("/by");
+            String parts[] = input.split("/by ");
             if (input.replace("deadline", "").isEmpty()) {
                 throw new NoDescException("how am i suppose to know what is due...");
             }
             if (!input.contains("/by")) {
                 throw new DeadlineNoEndException("here's literally how to create a deadline: deadline [task name] /by [date]");
             }
+            System.out.println(parts[0]);
             Deadline item = new Deadline(parts[0].replace("deadline ", ""), parts[1]);
             this.taskList.add(item);
             if (input.contains("deadline")) {
@@ -169,7 +170,7 @@ public class TaskList {
                 this.taskList.get(listSize() - 1).setStatus(status);
                 break;
             case "D":
-                String wholeDeadline = description + "/by" + s.next();
+                String wholeDeadline = description + "/by " + s.next();
                 this.addDeadline(wholeDeadline);
                 this.taskList.get(listSize() - 1).setStatus(status);
                 break;
