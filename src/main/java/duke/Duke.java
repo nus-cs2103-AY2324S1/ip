@@ -9,11 +9,9 @@ import duke.tools.Storage;
 import duke.tools.TaskList;
 import duke.tools.Ui;
 
-
 /**
- * Encapsulates the logic of a Chat bot
- *
- * @author Rayson
+ * Represents the main class for the chat bot.
+ * Encapsulates the logic of the chat bot's functionality.
  */
 public class Duke {
 
@@ -25,6 +23,11 @@ public class Duke {
     private final TaskList tasks;
     private final Ui ui;
 
+    /**
+     * Constructs a Duke instance with the specified file path.
+     *
+     * @param filePath The file path for data storage.
+     */
     public Duke(String filePath) {
         TaskList tasks1;
         ui = new Ui();
@@ -38,6 +41,10 @@ public class Duke {
         tasks = tasks1;
     }
 
+    /**
+     * Runs the chat bot by displaying a welcome message
+     * and processing user commands.
+     */
     public void run() {
         ui.showWelcome();
         boolean isExit = false;
@@ -56,7 +63,9 @@ public class Duke {
         }
     }
 
-
+    /**
+     * Main method to start the chat bot.
+     */
     public static void main(String[] args) {
         new Duke(DIR_NAME + File.separator + FILE_NAME).run();
     }

@@ -4,11 +4,10 @@ import duke.tools.Storage;
 import duke.tools.TaskList;
 import duke.tools.Ui;
 
-public abstract class Command {
 /**
  * Represents a command that can be executed on the task list.
  */
-
+public abstract class Command {
     protected String fullCommand;
     protected boolean isExit;
 
