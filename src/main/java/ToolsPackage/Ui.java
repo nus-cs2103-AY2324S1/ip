@@ -12,22 +12,42 @@ public class Ui {
     public Ui() {
     }
 
+    /**
+     * Prints greeting message to user.
+     */
     public void showWelcome() {
         System.out.println(this.greetingString);
     }
 
+    /**
+     * Prints goodbye message to user.
+     */
     public void showBye() {
         System.out.println(this.exitString);
     }
 
+    /**
+     * Prints "No existing data" message to user.
+     */
     public void showLoadingError() {
         System.out.println(this.dataNotFoundString);
     }
 
+    /**
+     * Reads and returns the inputs by users.
+     *
+     * @param inputs Commands given by user.
+     * @return String
+     */
     public String readCommands(Scanner inputs) {
         return inputs.nextLine();
     }
 
+    /**
+     * Prints list of tasks.
+     *
+     * @param listOfTasks List of tasks to print.
+     */
     public void printList(ArrayList<Task> listOfTasks) {
         System.out.println("Here are the tasks in your list:");
         for (int i = 0; i < listOfTasks.size(); i++) {
@@ -35,6 +55,12 @@ public class Ui {
         }
     }
 
+    /**
+     * Prints the toggling status of the task.
+     *
+     * @param task Task that was marked or unmarked.
+     * @param keyword Word to indicate whether the task was marked as complete or incomplete.
+     */
     public void toggleDone(Task task, String keyword) {
         if (keyword.equals("mark")) {
             System.out.printf("Nice! I've marked this task as done:%n %s%n", task.printTask());
@@ -43,11 +69,23 @@ public class Ui {
         }
     }
 
+    /**
+     * Prints the deletion status of the task.
+     *
+     * @param task Task that was deleted.
+     * @param size Updated number of tasks in the list.
+     */
     public void removeItem(Task task, int size) {
         System.out.printf("Noted. I've removed this task:%n %s%nNow you have %d tasks in the list.%n"
                 , task.printTask(), size);
     }
 
+    /**
+     * Prints the addition status of the task.
+     *
+     * @param task Task that was added.
+     * @param size Updated number of tasks in the list.
+     */
     public void addItem(Task task, int size) {
         System.out.printf("Got it. I've added this task:%n %s%nNow you have %d tasks in the list.%n",
                 task.printTask(), size);

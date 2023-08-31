@@ -18,10 +18,21 @@ public class Storage {
 
     private File file;
 
+    /**
+     * Constructs a new Storage space.
+     *
+     * @param filePath File path of where data will be stored.
+     */
     public Storage(String filePath) {
         this.file = new File(filePath);
     }
 
+    /**
+     * Creates a new directory and file to store the data.
+     *
+     * @return boolean Indicate whether there was already existing data.
+     * @throws DukeException if there are issues with the file creation.
+     */
     public boolean createStorage() throws DukeException {
         try {
             Files.createDirectories(Paths.get(this.file.getParent()));
@@ -32,6 +43,13 @@ public class Storage {
         }
     }
 
+    /**
+     * Saves data into storage.
+     *
+     * @param listOfTasks List of tasks that needs to be saved.
+     * @return boolean Indicate whether saving was successful.
+     * @throws DukeException if there are issues with writing data into the file.
+     */
     public boolean saveStorage(TaskList listOfTasks) throws DukeException {
         try {
             FileWriter fileWriter = new FileWriter(this.file);
@@ -43,6 +61,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Reads data from storage into bot.
+     *
+     * @return ArrayList<Task> List of tasks to be loaded into the bot.
+     * @throws DukeException if there is a missing file or corrupt data.
+     */
     public ArrayList<Task> load() throws DukeException {
         ArrayList<Task> listOfTasks = new ArrayList<>();;
         try {

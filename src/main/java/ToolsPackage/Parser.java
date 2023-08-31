@@ -10,6 +10,15 @@ public class Parser {
     public Parser() {
     }
 
+    /**
+     * Parses and executes command given by user.
+     *
+     * @param userInput String given by user.
+     * @param tasks Task list of bot to be modified.
+     * @param ui UI of bot.
+     * @return boolean Indicate whether Duke bot loop should continue.
+     * @throws DukeException if there are any issues in the command execution.
+     */
     public static boolean parse(String userInput, TaskList tasks, Ui ui) throws DukeException {
         String[] parsedCommand = userInput.split(" ", 2);
         String command = parsedCommand[0];
