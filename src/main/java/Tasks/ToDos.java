@@ -1,13 +1,8 @@
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
+package Tasks;
 
-public class Deadlines extends Task {
-    private LocalDate by;
-
-    Deadlines(String name, String by, boolean isDone) throws DateTimeParseException {
+public class ToDos extends Task {
+    public ToDos(String name, boolean isDone) {
         super(name, isDone);
-        this.by = LocalDate.parse(by.trim());
     }
 
     /*
@@ -16,13 +11,13 @@ public class Deadlines extends Task {
      */
     @Override
     public String toString() {
-        return "[D] " + super.toString() + "(by : " + this.by.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
+        return "[T] " + super.toString();
     }
 
     /*
-Method name: markDone
-Description: Checks the specified task
- */
+    Method name: markDone
+    Description: Checks the specified task
+     */
     @Override
     public void markDone() {
         super.markDone();

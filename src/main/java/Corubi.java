@@ -1,3 +1,7 @@
+import Tasks.*;
+import Parser.Parser;
+import Ui.Ui;
+import Storage.Storage;
 import java.io.IOException;
 
 public class Corubi {

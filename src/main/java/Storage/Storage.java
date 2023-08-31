@@ -1,7 +1,11 @@
+package Storage;
 import java.io.IOException;
 import java.util.Scanner;
 import java.io.File;
 import java.io.FileWriter;
+import Tasks.*;
+import Parser.Parser;
+import Ui.Ui;
 
 public class Storage {
     private FileWriter pw;
@@ -15,7 +19,7 @@ public class Storage {
      * @param dir   The directory where the data is stored.
      * @param tasks The TaskList instance for managing tasks.
      */
-    Storage(String dir, TaskList tasks) {
+    public Storage(String dir, TaskList tasks) {
         this.currdir = dir;
         this.tasks = tasks;
     }

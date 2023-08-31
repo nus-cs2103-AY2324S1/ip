@@ -1,3 +1,5 @@
+package Tasks;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -15,7 +17,7 @@ public class Events extends Task {
      * @param isDone Whether the event task is marked as done or not.
      * @throws DateTimeParseException If there's an issue parsing the date strings.
      */
-    Events(String name, String from, String to, boolean isDone) throws DateTimeParseException {
+    public Events(String name, String from, String to, boolean isDone) throws DateTimeParseException {
         super(name, isDone);
         this.from = LocalDate.parse(from.trim());
         this.to = LocalDate.parse(to.trim());

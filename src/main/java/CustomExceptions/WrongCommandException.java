@@ -1,3 +1,4 @@
+package CustomExceptions;
 public class WrongCommandException extends Exception {
     public WrongCommandException(String command) {
         super(command + " is not a proper command! " +

@@ -1,3 +1,4 @@
+package Tasks;
 public class Task {
     private boolean isDone;
     private final String NAME;
