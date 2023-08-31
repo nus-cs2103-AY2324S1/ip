@@ -24,6 +24,12 @@ public class Input {
             this.active = false;
             return new TerminateResponse();
         }
+        else if (command.equals("mark")) {
+            return this.todo.mark(Integer.parseInt(commandArgs[1]));
+        }
+        else if (command.equals("unmark")) {
+            return this.todo.unmark(Integer.parseInt(commandArgs[1]));
+        }
         else if (command.equals("list")) {
             return this.todo.list();
         }
