@@ -2,17 +2,34 @@ package sana;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Represents a command for adding tasks to the task list.
+ */
 public class AddCommand extends Command {
 
+    /**
+     * Constructs an AddCommand object.
+     *
+     * @param cmd       The command type (e.g., "todo", "deadline", "event").
+     * @param arguments The arguments associated with the command.
+     */
     public AddCommand(String cmd, String arguments) {
         super(cmd, arguments);
     }
 
+    /**
+     * Executes the add command by adding a task to the task list.
+     *
+     * @param tasks   The TaskList object containing the list of tasks.
+     * @param ui      The Ui object for handling user interface.
+     * @param storage The Storage object for managing data storage.
+     * @throws SanaException If an error specific to Sana occurs during execution.
+     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws SanaException {
         switch (cmd) {
         case "todo":
-            if (arguments.isEmpty()) {
+            if (arguments.isBlank()) {
                 throw new SanaException("OOPS!!! The description of a todo cannot be empty.");
             } else {
                 Task newTodo = new Todo(arguments, false);
@@ -27,7 +44,7 @@ public class AddCommand extends Command {
             break;
 
         case "deadline":
-            if (arguments.isEmpty()) {
+            if (arguments.isBlank()) {
                 throw new SanaException("OOPS!!! Incomplete task description.\nMake sure you follow the format " +
                         "'deadline [name of task] /by [deadline]'");
             }
@@ -58,7 +75,7 @@ public class AddCommand extends Command {
             break;
 
         case "event":
-            if (arguments.isEmpty()) {
+            if (arguments.isBlank()) {
                 throw new SanaException("OOPS!!! Incomplete command. Make sure you follow the format " +
                         "'event [name of task] /from [from] /to [to]'");
             }
@@ -100,6 +117,11 @@ public class AddCommand extends Command {
         }
     }
 
+    /**
+     * Checks if the command is an exit command.
+     *
+     * @return returns false as add command is not an exit command.
+     */
     @Override
     public boolean isExit() {
         return false;
