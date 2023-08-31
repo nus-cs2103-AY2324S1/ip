@@ -76,4 +76,13 @@ public abstract class Task {
 
         return false;
     }
+
+    /**
+     * Returns whether the task's name contains the keyword
+     * @param keyword Keyword to query for
+     * @return True if it contains the keyword, false otherwise
+     */
+    public boolean hasKeyword(String keyword) {
+        return name.contains(keyword);
+    }
 }
