@@ -1,6 +1,10 @@
+package tasks;
+
 import java.time.LocalDateTime;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import exceptions.*;
+import commands.Parser;
 
 public class Deadline extends Task {
 
@@ -11,7 +15,7 @@ public class Deadline extends Task {
     }
 
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + TimeParser.formatTime(this.by) + ")";
+        return "[D]" + super.toString() + " (by: " + Parser.formatTime(this.by) + ")";
     }
     public static Deadline interpret(String cmd) throws EmptyTaskException {
         Pattern pt = Pattern.compile("deadline(( (.*) )?/by( (.*))?)?");
@@ -23,15 +27,15 @@ public class Deadline extends Task {
         // grab desc
         String desc = mt.group(3);
         // and the due date/time
-        LocalDateTime due = TimeParser.parseTime(mt.group(5));
+        LocalDateTime due = Parser.parseTime(mt.group(5));
         if (Task.checkEmpty(overall)|| Task.checkEmpty(desc)) {
-            throw new EmptyTaskException("Deadline");
+            throw new EmptyTaskException("tasks.Deadline");
         }
         return new Deadline(desc, due);
     }
 
     @Override
     public String getCmd() {
-        return "deadline " + super.description + " /by " + TimeParser.getCmd(this.by);
+        return "deadline " + super.description + " /by " + Parser.getCmd(this.by);
     }
 }

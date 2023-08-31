@@ -1,8 +1,61 @@
+package commands;
+
+import exceptions.EmptyTaskException;
+import exceptions.InvalidCommand;
+import tasks.Deadline;
+import tasks.Event;
+import tasks.ToDo;
+import tasks.Task;
+import ui.Ui;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
-public class TimeParser {
+public class Parser {
+    // used to handle type of tasks
+    public static void handleCommand(String cmd, Ui ui) {
+        if (cmd.equals("bye")) {
+            ui.bye();
+            //online = false;
+        } else if (cmd.equals("list")) {
+            // print list
+            ui.printList();
+        } else if (cmd.startsWith("mark")) {
+            ui.mark(cmd);
+        } else if (cmd.startsWith("unmark")) {
+            ui.unmark(cmd);
+        } else if (cmd.startsWith("delete")) {
+            ui.delete(cmd);
+        } else {
+            // add task to list
+            try {
+                String type = cmd.split("\\s+")[0]; // grab the first word
+                Task newTask;
+                // get a new task
+                switch (type) {
+                    case "todo":
+                        newTask = ToDo.interpret(cmd);
+                        break;
+                    case "deadline":
+                        newTask = Deadline.interpret(cmd);
+                        break;
+                    case "event":
+                        newTask = Event.interpret(cmd);
+                        break;
+                    default:
+                        throw new InvalidCommand(cmd);
+                }
+                // add new task using ui
+                ui.add(newTask);
+            } catch(EmptyTaskException e) {
+                e.printStackTrace();
+            } catch(InvalidCommand e) {
+                e.printStackTrace();
+            }
+
+        }
+    }
 
     public static LocalDateTime parseTime(String input) {
         // formatting
