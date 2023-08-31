@@ -33,9 +33,9 @@ public class ToDoCommand extends Command {
     @Override
     public void execute() {
         try {
-            String[] type_description = inp.split(" ", 2);
-            String type = type_description[0];
-            String description = type_description[1];
+            String[] typeDescription = inp.split(" ", 2);
+            String type = typeDescription[0];
+            String description = typeDescription[1];
             Task newTask = new ToDo(description);
             taskList.add(newTask);
             System.out.println("Okay! Task added \n" + newTask);

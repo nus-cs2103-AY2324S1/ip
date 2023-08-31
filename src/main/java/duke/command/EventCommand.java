@@ -33,9 +33,9 @@ public class EventCommand extends Command {
     public void execute() {
         try {
             String[] parts = inp.split("/", 3);
-            String[] type_description = parts[0].split(" ", 2);
-            String type = type_description[0];
-            String description = type_description[1];
+            String[] typeDescription = parts[0].split(" ", 2);
+            String type = typeDescription[0];
+            String description = typeDescription[1];
             String from = parts[1].trim().split(" ", 2)[1];
             String to = parts[2].trim().split(" ", 2)[1];
             Task newTask = new Event(description, from, to);
