@@ -12,7 +12,12 @@ import java.util.IllegalFormatException;
 import cheese.Task.Task;
 import cheese.TaskList.TaskList;
 
+/**
+ * Parser class to parse user input
+ */
+
 public class Parser {
+    /** Regex patterns for parsing user input */    
     final static String byPatternString = "\\(by: (.*?)\\)";
     final static String fromPatternString = "from: (.*?) to:";
     final static String toPatternString = "to: (.*)\\)$";
@@ -21,42 +26,78 @@ public class Parser {
     final static Pattern fromPattern = Pattern.compile(fromPatternString);
     final static Pattern toPattern = Pattern.compile(toPatternString);
 
+    /**
+     * Parses user input and valid dates
+     * @param input User input
+     * @return booleon
+     */
     public boolean isBy(String input) {
         Matcher byMatcher = byPattern.matcher(input);
         return byMatcher.find();
     }
-
+    
+    /**
+     * Matches user input and return matcher
+     *
+     * @param input User input
+     * @return Matcher
+     */
     public Matcher matchBy(String input) {
         Matcher byMatcher = byPattern.matcher(input);
-
+        //Required to find() to return Matcher
         byMatcher.find();
         return byMatcher;
     }
 
 
-
+    /**
+     * Similar to isBy but for from
+     * @param input User input
+     * @return booleon
+     */
     public boolean isFrom(String input) {
         Matcher fromMatcher = fromPattern.matcher(input);
         return fromMatcher.find();
     }
 
+
+    /**
+     * Similar to matchBy but for from
+     * @param input User input
+     * @return Matcher
+     */
     public Matcher matchFrom(String input) {
         Matcher fromMatcher = fromPattern.matcher(input);
         fromMatcher.find();
         return fromMatcher;
     }
 
+    /**
+     * Similar to isBy but for to
+     * @param input User input
+     * @return booleon
+     */
     public boolean isTo(String input) {
         Matcher toMatcher = toPattern.matcher(input);
         return toMatcher.find();
     }
 
+    /**
+     * Similar to matchBy but for to
+     * @param input User input
+     * @return Matcher
+     */
     public Matcher matchTo(String input) {
         Matcher toMatcher = toPattern.matcher(input);
         toMatcher.find();
         return toMatcher;
     }
 
+    /**
+     * Converts user input to LocalDate or null
+     * @param dateInput User input
+     * @return LocalDate
+     */
     public LocalDate dateTimeConverted(String dateInput) {
         DateTimeFormatter inputformat = DateTimeFormatter.ofPattern("dd-MM-yyyy");
         DateTimeFormatter outputformat = DateTimeFormatter.ofPattern("MMM dd yyyy");
@@ -73,6 +114,12 @@ public class Parser {
         return null;
     }
 
+    /**
+     * Converts user input to LocalDate
+     * @param dateInput User input
+     * @param outputformat DateTimeFormatter
+     * @return LocalDate
+     */
     private LocalDate parseMMMFormat(String dateInput, DateTimeFormatter outputformat) {
         try {
             return LocalDate.parse(dateInput, outputformat);
@@ -81,6 +128,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Converts user input to Optional<LocalDate>
+     * @param dateInput User input
+     * @param inputformat DateTimeFormatter
+     * @return LocalDate
+     */
     private Optional<LocalDate> parseDate(String dateInput, DateTimeFormatter inputformat) {
         try {
             return Optional.of(LocalDate.parse(dateInput, inputformat));
@@ -89,6 +142,11 @@ public class Parser {
         }
     }
 
+    /**
+     * Checks if user input is a command
+     * @param input User input
+     * @return booleon
+     */
     public boolean isCommand(String input) {
         String[] inputSplit = input.split(" ");
         switch (inputSplit[0]) {
@@ -105,11 +163,22 @@ public class Parser {
         }
     }
 
+    /**
+     * Gets command from user input
+     * @param input User input
+     * @return String
+     */
     public String getCommand(String input) {
         String[] inputSplit = input.split(" ");
         return inputSplit[0];
     }
 
+
+    /**
+     * Parses user input and returns Task
+     * @param input User input
+     * @return Task
+     */
     public Task parseTask(String input) {
       String[] inputSplit = input.split(" ", 2);
       String command = inputSplit[0];
