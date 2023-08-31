@@ -12,17 +12,29 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Class manages all things that due with the storing of tasks on the hard disk.
+ */
 public class Storage {
     Parser parser;
     String filePath;
     File textFile;
 
+    /**
+     * A constructor for the Storage class.
+     * @param filePath provides the path of the stored file.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
         this.textFile = new File(filePath);
         parser = new Parser();
     }
 
+    /**
+     * Saves the tasks that the user has entered into the chatbot.
+     * @param tasks The list of tasks that is entered in to the chatbot.
+     * @throws IOException If the filePath is not valid.
+     */
     public void saveTasks(ArrayList<Task> tasks) throws IOException {
         FileWriter fw = new FileWriter(filePath);
         for (Task task : tasks) {
@@ -31,6 +43,11 @@ public class Storage {
         fw.close();
     }
 
+    /**
+     * Loads the tasks from the pre-existing tasks file on the hard disk.
+     * @return The list of tasks that were stored in the pre-existing tasks file on the hard disk.
+     * @throws FileNotFoundException If the file at the given filepath does not exist.
+     */
     public ArrayList<Task> loadTasks() throws FileNotFoundException {
         File f = new File(filePath);
         Scanner s = new Scanner(f);

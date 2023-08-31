@@ -4,6 +4,9 @@ import ruiz.task.Task;
 
 import java.util.ArrayList;
 
+/**
+ * Deals with the interactions with the user.
+ */
 public class Ui {
     /**
      * This method prints the greeting message of the bot.
@@ -59,6 +62,11 @@ public class Ui {
                 "____________________________________________________________");
     }
 
+    /**
+     * Prints an acknowledgement message that a new task has been added.
+     * @param task task that is added.
+     * @param taskListSize size of the task list after this task is added.
+     */
     public void addedNewTaskMsg(Task task, int taskListSize) {
         System.out.println("____________________________________________________________\n" +
                 "Got it. I've added this task:\n" +
@@ -68,6 +76,11 @@ public class Ui {
         );
     }
 
+    /**
+     * Prints an acknowledgement message that the task has been deleted.
+     * @param task task that is deleted.
+     * @param taskListSize size of the task list after the task is deleted.
+     */
     public void deletedTask(Task task, int taskListSize) {
         System.out.println("____________________________________________________________\n" +
                 "Noted. I've removed this task:\n" + task);
@@ -75,6 +88,10 @@ public class Ui {
                 "____________________________________________________________");
     }
 
+    /**
+     * Prints an acknowledgement message that the task has been unmarked.
+     * @param task task that is marked.
+     */
     public void unmarkTask(Task task) {
         System.out.println("____________________________________________________________\n" +
                 "OK, I've marked this task as not done yet\n" +
@@ -83,6 +100,10 @@ public class Ui {
                 "____________________________________________________________\n");
     }
 
+    /**
+     * Prints an acknowledgement message that the task has been marked.
+     * @param task
+     */
     public void markTask(Task task) {
         System.out.println("____________________________________________________________\n" +
                 "Nice! I've marked this task as done\n" +

@@ -9,12 +9,19 @@ import java.io.IOException;
 import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
+/**
+ * Ruiz is a task management chatbot.
+ */
 public class Ruiz {
     private TaskList tasks;
     private Storage storage;
     private Ui ui;
     private Parser parser;
 
+    /**
+     * Constructor for the Ruiz class.
+     * @param filePath path to the file that the tasks are saved in.
+     */
     public Ruiz(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
@@ -27,6 +34,9 @@ public class Ruiz {
         }
     }
 
+    /**
+     * Runs the chatbot.
+     */
     public void run() {
         Scanner inputObj = new Scanner(System.in);
         ui.greet();
