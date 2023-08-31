@@ -25,7 +25,7 @@ public class AddCommand extends Command{
             try {
                 Task currTask = new Event(s[0], s[1], s[2]);
                 tasks.add(currTask);
-                ui.taskPrint(currTask,tasks.getTaskCount() + 1);
+                ui.taskPrint(currTask,tasks.getTaskCount());
             } catch (DateTimeParseException e) {
                 throw new DukeException("Invalid date format! Please command date using the format yyyy-MM-dd");
             }
@@ -34,7 +34,7 @@ public class AddCommand extends Command{
             try {
                 Task currTask = new Deadline(s[0], s[1]);
                 tasks.add(currTask);
-                ui.taskPrint(currTask,tasks.getTaskCount() + 1);
+                ui.taskPrint(currTask,tasks.getTaskCount());
             } catch (DateTimeParseException e) {
                 throw new DukeException("Invalid date format! Please command date using the format yyyy-MM-dd");
             }
