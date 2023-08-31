@@ -1,3 +1,4 @@
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -120,10 +121,11 @@ public class Moss {
 
                 // The day is the last part of the parts array
                 String day = parts[parts.length - 1];
+                LocalDate date = LocalDate.parse(day);
                 // Extract the substring before "/by"
                 String taskDescription = message.substring(9, byIndex).trim();
 
-                Deadline task = new Deadline(taskDescription, day);
+                Deadline task = new Deadline(taskDescription, date);
                 things.add(task);
                 storage.saveTasks(things);
             }
@@ -139,11 +141,14 @@ public class Moss {
 
                 // Extract the substring between "/from" and "/to" and behind "to"
                 String from = message.substring(fromIndex + 5, toIndex).trim();
+                LocalDate fromDate = LocalDate.parse(from);
+
                 String to = message.substring(toIndex + 3).trim();
+                LocalDate toDate = LocalDate.parse(to);
 
                 String taskDescription = message.substring(6, byIndex).trim();
 
-                Event task = new Event(taskDescription, from, to);
+                Event task = new Event(taskDescription, fromDate, toDate);
                 things.add(task);
                 storage.saveTasks(things);
             }

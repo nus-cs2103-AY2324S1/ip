@@ -1,20 +1,23 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 public class Deadline extends Task {
 
-    protected String by;
+    protected LocalDate date;
 
     /**
      * Constructs a Deadline object with the given description and deadline.
      *
      * @param description The description of the task.
-     * @param by          The deadline for the task.
+     * @param date          The deadline for the task.
      */
-    public Deadline(String description, String by) {
+    public Deadline(String description, LocalDate date) {
         super(description);
-        this.by = by;
+        this.date = date;
     }
 
     @Override
     public String toString() {
-        return "D | " + super.toString() + " | " + by + "";
+        return "D | " + super.toString() + " | " + date.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + "";
     }
 }
