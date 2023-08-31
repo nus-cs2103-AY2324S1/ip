@@ -1,14 +1,23 @@
+package task;
+
 import java.util.List;
 import java.util.ArrayList;
 
+import util.Ui;
+import exception.LinusException;
+
 public class TaskList {
-    List<Task> tasks = null;
+    private List<Task> tasks = null;
 
     public TaskList() {
         this.tasks = new ArrayList<>();
     }
     public TaskList(List<Task> tasks) {
         this.tasks = tasks;
+    }
+
+    public List<Task> getList() {
+        return this.tasks;
     }
     public void list() {
         String listOfItems = "Here are the tasks in your list:\n";
@@ -27,7 +36,7 @@ public class TaskList {
                 + "Now you have " + numOfTasks + " task" + (numOfTasks > 1 ? "s" : "") + " in the list.");
     }
 
-    public void delete(int index) throws LinusException{
+    public void delete(int index) throws LinusException {
         index -= 1;
         if (index < 0 || index >= tasks.size()) {
             throw new LinusException("Cannot delete task. Please provide a valid index.");
@@ -40,7 +49,7 @@ public class TaskList {
                 + "Now you have " + numOfTasks + " task" + (numOfTasks > 1 ? "s" : "") + " in the list.");
     }
 
-    public void mark(int index) throws LinusException{
+    public void mark(int index) throws LinusException {
         index -= 1;
         if (index < 0 || index >= tasks.size()) {
             throw new LinusException("Cannot mark task. Please provide a valid index.");
@@ -48,7 +57,7 @@ public class TaskList {
         tasks.get(index).mark();
 
     }
-    public void unmark(int index) throws LinusException{
+    public void unmark(int index) throws LinusException {
         index -= 1;
         if (index < 0 || index >= tasks.size()) {
             throw new LinusException("Cannot unmark task. Please provide a valid index.");

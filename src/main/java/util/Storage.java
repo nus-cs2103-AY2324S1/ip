@@ -1,6 +1,12 @@
+package util;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
+import task.Deadline;
+import task.Event;
+import task.Task;
+import task.ToDo;
 
 import java.io.IOException;
 import java.io.File;
@@ -11,6 +17,9 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
+import task.TaskList;
+import exception.LinusException;
+
 public class Storage {
     private Gson gson = null;
     private File file = null;
@@ -20,16 +29,16 @@ public class Storage {
         this.filePath = filePath;
     }
 
-    public List<Task> load() throws LinusException{
+    public List<Task> load() throws LinusException {
         try {
             Path path = Paths.get(filePath);
             String json = Files.readString(path);
 
             // Deserialize the Json String into an ArrayList of Tasks
             TaskDeserializer deserializer = new TaskDeserializer("type");
-            deserializer.registerTaskType("ToDo", ToDo.class);
-            deserializer.registerTaskType("Deadline", Deadline.class);
-            deserializer.registerTaskType("Event", Event.class);
+            deserializer.registerTaskType("task.ToDo", ToDo.class);
+            deserializer.registerTaskType("task.Deadline", Deadline.class);
+            deserializer.registerTaskType("task.Event", Event.class);
 
             gson = new GsonBuilder()
                     .registerTypeAdapter(Task.class, deserializer)
@@ -45,8 +54,8 @@ public class Storage {
         }
     }
 
-    public void store(List<Task> tasks) {
-        String json = gson.toJson(tasks);
+    public void store(TaskList tasks) {
+        String json = gson.toJson(tasks.getList());
         try {
             FileWriter fileWriter = new FileWriter(filePath);
             fileWriter.write(json);
