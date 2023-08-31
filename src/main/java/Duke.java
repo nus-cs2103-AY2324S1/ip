@@ -1,62 +1,57 @@
+import Exceptions.ErrorStorageException;
 import Exceptions.InvalidCommandException;
 import Helpers.Parser;
-import Tasks.Task;
+import Helpers.Storage;
+import Helpers.TaskList;
+import Helpers.Ui;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
 
 
 public class Duke {
-    public static void main(String[] args) {
-        final boolean isDebug = true;
-        final String divider = "\n____________________________________________________________";
-        final String logo = isDebug ? "" :
-                "      ＼ﾌﾌ 　　      ム｀ヽ\n" +
-                        "    / ノ)　  A　 A 　  ）  ヽ\n" +
-                        "   / ｜　　( ´・ω・`)ノ⌒ ゝ_ノ\n" +
-                        "  /　ﾉ⌒ 7  ⌒ヽーく　 ＼　／\n" +
-                        "  丶＿ ノ ｡　　  ノ､　　|/\n" +
-                        "　　  `ヽ   `ー-'_人`ーﾉ\n" +
-                        "　　　   丶   ￣ _人'彡ﾉ\n";
 
-        final String endLogo = isDebug ? "" :
-                "               ＿   ★★EVERYDAY★★\n" +
-                        "           ／     j     ★★ IS A  ★★\n" +
-                        "        ／     /ｰ'          ★★ MACHO  ★★\n" +
-                        "     〈       ヽ               ★★ DAY!!!  ★★\n" +
-                        "           ､       ヽ ﾍ⌒ ヽﾌ\n" +
-                        "             〉       ´ ･ω )        ,-､、\n" +
-                        "           / ノ         ￣⌒ヽ　「　   〉\n" +
-                        "          ﾉ       ' L          `ヽ.／   /\n" +
-                        "     ／    , '           .ノ＼    ´    /\n" +
-                        "    (                ∠_       ヽ､＿,.\n" +
-                        "     ＼   (            ヽ ";
+    private Storage storage;
+    private static TaskList taskList;
+    private Ui ui;
 
+    public Duke (String filePath) throws ErrorStorageException {
+        ui = new Ui();
+        this.storage = new Storage(filePath);
+        try {
+            taskList = new TaskList(this.storage.read());
+        } catch (Exception e) {
+            ui.showLoadingError();
+            taskList = new TaskList();
+        }
+
+    }
+
+    public void run() {
         //Create buffered reader for user input
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-
         try {
-            System.out.println(logo + divider + "\nHello! I'm MACHO-CATTO! Your personal chat-bot to make your \nday macho!"
-                    + "\nWhat can I do for you today?" + divider);
-
+            ui.showStartLogo();
+            ui.showWelcome();
             boolean isRunning = true;
-
             //exits the echo commands when input contains 'bye'
             while (isRunning) {
-                String input = br.readLine();
+                String input = ui.getCommand(br);
                 String cmd = input.split(" ")[0].toUpperCase();
-                Parser commands = new Parser(cmd, input, "tasks.txt");
-                commands.execute();
+                Parser parser = new Parser(cmd, input, taskList, ui, storage);
+                parser.execute();
                 if (cmd.equalsIgnoreCase("bye")) {
-                    System.out.println(endLogo);
                     isRunning = false;
                 }
-
             }
-        } catch (IOException | InvalidCommandException e) {
+        } catch (IOException | InvalidCommandException | ErrorStorageException e) {
             System.out.println(e.getMessage());
-            System.out.println(divider);
         }
+    }
+
+    public static void main(String[] args) throws ErrorStorageException {
+
+        new Duke("tasks.txt").run();
+
     }
 }

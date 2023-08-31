@@ -7,7 +7,7 @@ public class EmptyTasksException extends Exception {
 
     public EmptyTasksException(String message) {
         super("Macho! The number you entered is incorrect! The task list is empty"
-                + " or not part of the tasks, macho!");
+                + " or not part of the tasks, macho!\n" + message);
     }
 
 }

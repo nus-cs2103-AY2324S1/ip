@@ -9,8 +9,10 @@ import java.io.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Arrays;
 
+/**
+ * Represents Storage class that deals with processing read and write to data storage
+ */
 public class Storage {
     private final String path;
     private final static DateTimeFormatter dateTimeFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
@@ -20,7 +22,7 @@ public class Storage {
     }
 
     public ArrayList<Task> read() {
-        ArrayList<Task> taskList = new ArrayList<>();
+        TaskList taskList = new TaskList();
         try {
             File file = new File("data\\" + this.path);
             if (!file.getParentFile().exists()) {
@@ -40,14 +42,14 @@ public class Storage {
                 try {
                     switch (type) {
                         case "T":
-                            taskList.add(new Todo(lines[2], !lines[1].equals("0")));
+                            taskList.addTask(new Todo(lines[2], !lines[1].equals("0")));
                             break;
                         case "D":
-                            taskList.add(new Deadline(lines[2], !lines[1].equals("0"),
+                            taskList.addTask(new Deadline(lines[2], !lines[1].equals("0"),
                                     LocalDateTime.parse(lines[3], dateTimeFormat)));
                             break;
                         case "E":
-                            taskList.add(new Events(lines[2], !lines[1].equals("0"),
+                            taskList.addTask(new Events(lines[2], !lines[1].equals("0"),
                                     LocalDateTime.parse(lines[3], dateTimeFormat),
                                     LocalDateTime.parse(lines[4], dateTimeFormat)));
                             break;
@@ -63,7 +65,7 @@ public class Storage {
             throw new RuntimeException(ex);
 
         }
-        return taskList;
+        return taskList.getTaskList();
     }
 
     public void write(ArrayList<Task> taskList) {
