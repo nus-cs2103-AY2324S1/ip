@@ -1,16 +1,20 @@
+package taskstuff;
+
 import java.time.LocalDateTime;
 
+import duke.Parser;
+
 /**
- * A class which inherits from Task class.
+ * A class which inherits from task.Task class.
  * Represents a task with deadline and start time.
  */
 public class Event extends Task {
 
     /** The starting time of this event. */
-    protected LocalDateTime startTime;
+    private LocalDateTime startTime;
 
     /** The ending time of this event. */
-    protected LocalDateTime endTime;
+    private LocalDateTime endTime;
 
     /**
      * Initialises using the given description,start time and end time.

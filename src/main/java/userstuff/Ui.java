@@ -1,6 +1,9 @@
+package userstuff;
+
 import java.util.Scanner;
+
 /**
- * A class to handle the Ui of chatbot.
+ * A class to handle the ui.Ui of chatbot.
  */
 public class Ui {
     /** The Scanner object used by this ui to read input. */
