@@ -1,4 +1,4 @@
-package TaskList;
+package kevin.taskList;
 
 public class ToDo extends Task{
     public ToDo(Boolean isDone, String name) {

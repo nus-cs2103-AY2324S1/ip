@@ -1,6 +1,6 @@
-package Evaluator;
+package kevin.evaluator;
 
-import TaskList.TaskList;
+import kevin.taskList.TaskList;
 import java.util.ArrayList;
 
 public class ByeStrategy extends BaseStrategy {

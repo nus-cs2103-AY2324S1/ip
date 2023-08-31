@@ -1,7 +1,7 @@
-package Parser;
+package kevin.parser;
 
 import java.util.ArrayList;
-import Exception.KevinException;
+import kevin.exception.KevinException;
 
 public class Parser {
     public QueryObject prepareArguments(String userInput) throws KevinException {

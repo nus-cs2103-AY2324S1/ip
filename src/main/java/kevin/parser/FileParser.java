@@ -1,9 +1,8 @@
-package Parser;
+package kevin.parser;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
-import Exception.KevinException;
+import kevin.exception.KevinException;
 
 public class FileParser {
     public QueryObject parseLine(String input) throws KevinException {

@@ -1,4 +1,4 @@
-package TaskList;
+package kevin.taskList;
 
 public class Task {
     protected final String name;

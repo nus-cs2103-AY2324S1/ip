@@ -1,11 +1,13 @@
-import Evaluator.Evaluator;
-import Parser.Parser;
-import Parser.FileParser;
-import Parser.QueryObject;
-import Ui.Logger;
-import Exception.KevinException;
-import Storage.FileStorage;
-import TaskList.TaskList;
+package kevin;
+
+import kevin.evaluator.Evaluator;
+import kevin.parser.Parser;
+import kevin.parser.FileParser;
+import kevin.parser.QueryObject;
+import kevin.ui.Logger;
+import kevin.exception.KevinException;
+import kevin.storage.FileStorage;
+import kevin.taskList.TaskList;
 
 import java.util.ArrayList;
 import java.util.Scanner;

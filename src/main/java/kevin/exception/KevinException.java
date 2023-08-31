@@ -1,4 +1,4 @@
-package Exception;
+package kevin.exception;
 
 public class KevinException extends Exception {
     public KevinException(String errorMessage) {

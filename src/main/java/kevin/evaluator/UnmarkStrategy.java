@@ -1,10 +1,10 @@
-package Evaluator;
+package kevin.evaluator;
 
-import Ui.Logger;
-import Storage.FileStorage;
-import TaskList.Task;
-import TaskList.TaskList;
-import Exception.KevinException;
+import kevin.ui.Logger;
+import kevin.storage.FileStorage;
+import kevin.taskList.Task;
+import kevin.taskList.TaskList;
+import kevin.exception.KevinException;
 
 import java.util.ArrayList;
 

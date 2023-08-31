@@ -1,4 +1,4 @@
-package Parser;
+package kevin.parser;
 
 public enum Commands {
     BYE,

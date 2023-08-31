@@ -1,13 +1,10 @@
-package Storage;
+package kevin.storage;
 
-import Parser.FileParser;
-import Parser.QueryObject;
-import TaskList.Task;
-import TaskList.ToDo;
-import TaskList.Event;
-import TaskList.Deadline;
-import TaskList.TaskList;
-import Exception.KevinException;
+import kevin.taskList.Task;
+import kevin.taskList.ToDo;
+import kevin.taskList.Event;
+import kevin.taskList.Deadline;
+import kevin.exception.KevinException;
 
 import java.util.ArrayList;
 import java.util.Arrays;

@@ -1,6 +1,6 @@
-package Storage;
+package kevin.storage;
 
-import Exception.KevinException;
+import kevin.exception.KevinException;
 
 import java.io.File;
 import java.io.FileWriter;
