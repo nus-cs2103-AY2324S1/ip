@@ -1,19 +1,14 @@
 list
-todo read book
-todo buy groceries
-deadline finish assignment /by Next Monday
-deadline
-deadline finish other assignment
+hi
+todo new task!
+mark 2
+unmark 0
+mark 1
 list
-event school interviews /from Monday
-event school interviews /from Monday /to Friday
+event sports meet/gathering /from 12/08 2023
+event sports meet/gathering /from 12/08 2023 /to Tomorrow
+event sports meet/gathering /from 12/08/2023 /to Tomorrow
+event sports meet/gathering /from 12/08/2023
+event sports meet/gathering /from 12/08/2023 /to 13/08/2023
 list
-mark 0
-mark 5
-mark 4
-mark 3
-list
-unmark 4
-delete 3
-delete 7
 bye
