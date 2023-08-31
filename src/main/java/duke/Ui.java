@@ -1,3 +1,7 @@
+package duke;
+
+import duke.task.Task;
+
 import java.util.List;
 
 public class Ui {
@@ -24,11 +28,11 @@ public class Ui {
     }
 
     public static void markDoneMessage() {
-        System.out.println(" Nice! I've marked this task as done:");
+        System.out.println(" Nice! I've marked this duke.task as done:");
     }
 
     public static void markUndoneMessage() {
-        System.out.println(" OK, I've marked this task as not done yet:");
+        System.out.println(" OK, I've marked this duke.task as not done yet:");
     }
 
     public static void showTaskMessage(Task task) {
@@ -36,13 +40,13 @@ public class Ui {
     }
 
     public static void addTaskMessage(TaskList tasks) {
-        System.out.println(" Got it. I've added this task:" + "\n" + "   "
+        System.out.println(" Got it. I've added this duke.task:" + "\n" + "   "
                             + tasks.getAll().get(tasks.getAll().size() - 1).toString() + "\n" + " Now you have "
                             + tasks.getAll().size() + " tasks in the list.");
     }
 
     public static void removeTaskMessage() {
-        System.out.println(" Noted. I've removed this task:");
+        System.out.println(" Noted. I've removed this duke.task:");
     }
 
     public static void showLoadingError(DukeException e) {

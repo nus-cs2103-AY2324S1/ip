@@ -1,18 +1,20 @@
+package duke.task;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 /**
- * The Deadline class represents a task of type "Deadline" inherited from the Task class.
- * It contains a description and a deadline (by when the task should be completed).
+ * The duke.task.Deadline class represents a duke.task of type "duke.task.Deadline" inherited from the duke.task.Task class.
+ * It contains a description and a deadline (by when the duke.task should be completed).
  */
 public class Deadline extends Task {
     protected LocalDate by;
 
     /**
-     * Constructs a new Deadline task with the provided description and deadline.
+     * Constructs a new duke.task.Deadline duke.task with the provided description and deadline.
      *
-     * @param description The description of the Deadline task.
-     * @param by          The deadline for completing the task.
+     * @param description The description of the duke.task.Deadline duke.task.
+     * @param by          The deadline for completing the duke.task.
      */
     public Deadline(String description, LocalDate by) {
         super(description);
@@ -31,9 +33,9 @@ public class Deadline extends Task {
 
 
     /**
-     * Returns a string representation of the Deadline task, including its completion status, description, and deadline.
+     * Returns a string representation of the duke.task.Deadline duke.task, including its completion status, description, and deadline.
      *
-     * @return A formatted string indicating the task type, completion status, and deadline.
+     * @return A formatted string indicating the duke.task type, completion status, and deadline.
      */
     @Override
     public String toString() {

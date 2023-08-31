@@ -1,14 +1,16 @@
+package duke.task;
+
 /**
- * The Task class represents a basic task with a description and completion status.
+ * The duke.task.Task class represents a basic duke.task with a description and completion status.
  */
 public class Task {
     protected String description;
     protected boolean isDone;
 
     /**
-     * Constructs a new Task with the provided description.
+     * Constructs a new duke.task.Task with the provided description.
      *
-     * @param description The description of the task.
+     * @param description The description of the duke.task.
      */
     public Task(String description) {
         this.description = description;
@@ -21,23 +23,23 @@ public class Task {
     }
 
     /**
-     * Marks the task as done.
+     * Marks the duke.task as done.
      */
     public void markAsDone() {
         isDone = true;
     }
 
     /**
-     * Marks the task as not done.
+     * Marks the duke.task as not done.
      */
     public void markAsUndone() {
         isDone = false;
     }
 
     /**
-     * Returns a string representing the completion status of the task.
+     * Returns a string representing the completion status of the duke.task.
      *
-     * @return "X" if the task is done, " " (a space) if the task is not done.
+     * @return "X" if the duke.task is done, " " (a space) if the duke.task is not done.
      */
     public String getStatusIcon() {
         return (isDone ? "X" : " ");
@@ -48,9 +50,9 @@ public class Task {
     }
 
     /**
-     * Returns a string representation of the task.
+     * Returns a string representation of the duke.task.
      *
-     * @return A formatted string including the task's completion status icon and description.
+     * @return A formatted string including the duke.task's completion status icon and description.
      */
     @Override
     public String toString() {

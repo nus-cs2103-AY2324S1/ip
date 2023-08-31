@@ -1,3 +1,10 @@
+package duke;
+
+import duke.task.Deadline;
+import duke.task.Event;
+import duke.task.Task;
+import duke.task.ToDo;
+
 import java.io.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -37,21 +44,21 @@ public class Storage {
                 String description = parts[2].trim();
 
                 if (taskType.equals("T")) {
-                    // Create a ToDo task
+                    // Create a duke.task.ToDo duke.task
                     tasks.add(new ToDo(description, isDone));
                 } else if (taskType.equals("D")) {
                     // Extract 'by' from parts[3] if applicable
                     LocalDate by = LocalDate.parse(parts[3].trim());
-                    // Create a Deadline task
+                    // Create a duke.task.Deadline duke.task
                     tasks.add(new Deadline(description, by, isDone));
                 } else if (taskType.equals("E")) {
                     // Extract 'from' and 'to' from parts[3] and parts[4] if applicable
                     String from = parts[3].trim();
                     String to = parts[4].trim();
-                    // Create an Event task
+                    // Create an duke.task.Event duke.task
                     tasks.add(new Event(description, from, to, isDone));
                 } else {
-                    // Handle unsupported task type
+                    // Handle unsupported duke.task type
                     throw new DukeException("☹ OOPS!!! I'm sorry, but there's an error loading the file");
                 }
             }
@@ -65,7 +72,7 @@ public class Storage {
         try {
             FileWriter writer = new FileWriter(filePath);
             for (Task task : tasks.getAll()) {
-                // Convert each task to its string representation and write to file
+                // Convert each duke.task to its string representation and write to file
                 writer.write(task.toFileString() + "\n");
             }
             writer.close();
