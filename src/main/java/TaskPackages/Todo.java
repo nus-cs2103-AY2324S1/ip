@@ -1,11 +1,11 @@
 package TaskPackages;
 
-public class Todo extends Task{
+public class Todo extends Task {
 
-  protected Todo(String description) {
-    super(description);
+  public Todo(String description, boolean doneness) {
+    super(description, doneness);
   }
-  
+
   @Override
   public String toString() {
     return String.format("[T][%s] %s", this.getStatusIcon(), this.description);
@@ -13,6 +13,6 @@ public class Todo extends Task{
 
   @Override
   public String toFileString() {
-    return String.format("T # %d # %s", (isDone ? 1 : 0), this.description);
+    return String.format("T # %d # %s", (doneness ? 1 : 0), this.description);
   }
 }

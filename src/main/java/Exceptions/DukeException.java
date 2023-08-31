@@ -1,4 +1,4 @@
-package Utility;
+package Exceptions;
 
 public class DukeException extends Exception{
 
@@ -9,6 +9,10 @@ public class DukeException extends Exception{
     }
 
     public String toString() {
+        return "OOPS! " + this.errDescription;
+    }
+
+    public String getMessage() {
         return "OOPS! " + this.errDescription;
     }
     
