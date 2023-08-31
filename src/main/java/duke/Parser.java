@@ -4,6 +4,15 @@ public class Parser {
 
     private boolean isExit = false;
 
+    /**
+     * Parses and executes the given user command.
+     *
+     * @param fullCommand The full string of the user's command.
+     * @param tasks The current list of tasks.
+     * @param ui The UI of the Duke application.
+     * @param storage The storage of the Duke application.
+     * @throws DukeException If there's an error in command execution.
+     */
     public void parseAndExecute(String fullCommand, TaskList tasks, Ui ui, Storage storage) throws DukeException {
         validateInput(fullCommand);
         String[] tokens = fullCommand.split("\\s+");
@@ -12,7 +21,6 @@ public class Parser {
             case "bye":
                 this.isExit = true;
                 ui.printBye();
-//                System.exit(0);
                 break;
             case "list":
                 tasks.printList();
@@ -63,10 +71,21 @@ public class Parser {
         }
     }
 
+    /**
+     * Checks if the exit command has been issued.
+     *
+     * @return true if the exit command has been issued, false otherwise.
+     */
     public boolean isExit() {
         return this.isExit;
     }
 
+    /**
+     * Validates the given user input.
+     *
+     * @param input The user's input string.
+     * @throws DukeException If the input is invalid.
+     */
     public void validateInput(String input) throws DukeException {
         if (input.equals("todo") || input.equals("deadline") || input.equals("event") || input.equals("mark")
                 || input.equals("unmark") || input.equals("delete")) {

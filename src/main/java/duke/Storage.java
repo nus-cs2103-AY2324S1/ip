@@ -10,10 +10,21 @@ import java.util.List;
 public class Storage {
     private String filePath;
 
+    /**
+     * Constructs a new Storage with the specified file path.
+     *
+     * @param filePath The path of the file to load from and save to.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
+    /**
+     * Loads tasks from the file.
+     *
+     * @return A list of tasks loaded from the file.
+     * @throws DukeException If there's an error loading from the file.
+     */
     public List<Task> load() throws DukeException {
         List<Task> tasks = new ArrayList<>();
         Path path = Paths.get(filePath);
@@ -56,6 +67,11 @@ public class Storage {
         return tasks;
     }
 
+    /**
+     * Saves the tasks to the file.
+     *
+     * @param tasks The list of tasks to save.
+     */
     public void save(List<Task> tasks) {
         List<String> saveLines = new ArrayList<>();
         for(Task task : tasks) {
