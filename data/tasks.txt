@@ -5,4 +5,4 @@ T | 0 | abc
 T | 0 | abc
 D | 0 | asd | Dec 12 2020
 T | 0 | abc 
-D | 0 | alsdol | Dec 21 2020
+D | 1 | alsdol | Dec 21 2020

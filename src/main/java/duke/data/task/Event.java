@@ -4,9 +4,18 @@ import java.util.Date;
 import java.text.SimpleDateFormat;
 
 public class Event extends Task {
+    /** Start date of event */
     protected Date from;
+    /** End date of event */
     protected Date to;
 
+    /**
+     * Constructor to initialize Event.
+     *
+     * @param description Description of the event.
+     * @param from Start date of event.
+     * @param to End date of event.
+     */
     public Event(String description, Date from, Date to) {
         super(description);
 //        if (description.isEmpty())

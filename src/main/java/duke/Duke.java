@@ -16,6 +16,11 @@ public class Duke {
     private TaskList tasks;
     private final Ui ui;
 
+    /**
+     * Constructor to initialize Duke.
+     *
+     * @param filePath the path of the .txt file to be loaded
+     */
     public Duke(String filePath)  {
         ui = new Ui();
         try {
@@ -29,6 +34,7 @@ public class Duke {
         }
     }
 
+    /** Executes Duke */
     public void run() {
         ui.showWelcome();
         boolean isExit = false;
@@ -54,6 +60,11 @@ public class Duke {
         }
     }
 
+    /**
+     * Start point of Duke.
+     *
+     * @param args arguments passed in by user.
+     */
     public static void main(String[] args) {
         new Duke("data/tasks.txt").run();
     }

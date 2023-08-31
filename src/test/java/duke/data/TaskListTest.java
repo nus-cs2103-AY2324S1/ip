@@ -7,6 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class TaskListTest {
+    /** Tests add feature of TaskList */
     @Test
     public void test_add() {
         TaskList taskList = new TaskList();
@@ -16,6 +17,7 @@ public class TaskListTest {
         assertEquals(taskList.getTask(0), newToDo);
     }
 
+    /** Tests delete feature of TaskList */
     @Test
     public void test_delete() throws DukeException {
         TaskList taskList = new TaskList();
@@ -28,6 +30,7 @@ public class TaskListTest {
         assertEquals(taskList.countTasks(), 1);
     }
 
+    /** Tests marked feature of TaskList */
     @Test
     public void test_mark() throws DukeException {
         TaskList taskList = new TaskList();
@@ -39,6 +42,7 @@ public class TaskListTest {
         assertEquals(taskList.getTask(0).getDone(), true);
     }
 
+    /** Tests unmarked feature of TaskList */
     @Test
     public void test_unmark() throws DukeException {
         TaskList taskList = new TaskList();
@@ -52,6 +56,7 @@ public class TaskListTest {
         assertEquals(taskList.getTask(0).getDone(), false);
     }
 
+    /** Tests exceptions thrown by TaskList */
     @Test
     public void test_exceptions() throws DukeException {
         TaskList taskList = new TaskList();

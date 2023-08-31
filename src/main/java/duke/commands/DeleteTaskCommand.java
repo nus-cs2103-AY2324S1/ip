@@ -8,8 +8,13 @@ import duke.data.exception.DukeException;
 import duke.data.task.Task;
 public class DeleteTaskCommand extends Command {
 
+    /** ID of task to be deleted. */
     private final int taskID;
-
+    /**
+     * Constructor to initialize DeleteTaskCommand.
+     *
+     * @param taskID ID of task to be deleted.
+     */
     public DeleteTaskCommand(int taskID) {
         this.taskID = taskID;
     }

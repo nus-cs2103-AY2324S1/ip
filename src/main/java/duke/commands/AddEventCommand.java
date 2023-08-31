@@ -8,10 +8,21 @@ import duke.storage.Storage;
 import duke.data.task.Event;
 
 public class AddEventCommand extends Command {
+    /** Description of the event */
     private final String description;
+    /** Start date of event */
     private final Date from;
+
+    /** End date of event */
     private final Date to;
 
+    /**
+     * Constructor to initialize AddEventCommand.
+     *
+     * @param description Description of the event.
+     * @param from Start date of event.
+     * @param to End date of event.
+     */
     public AddEventCommand(String description, Date from, Date to) {
         this.description = description;
         this.from = from;

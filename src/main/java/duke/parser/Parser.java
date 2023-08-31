@@ -11,6 +11,15 @@ public class Parser {
 
     enum Instruction {bye, list, mark, unmark, todo, deadline, event, delete}
 
+    /**
+     * Returns the command object based on the command string entered by the user.
+     *
+     * @param command the first word entered by the user.
+     * @return a new command object based on the input of the user.
+     * @throws ParseException when the user enters an invalid date format.
+     * @throws DukeException when the user enters a description or date.
+     * @throws IllegalArgumentException when the user enters an invalid command.
+     */
     public static Command parseCommand(String command) throws ParseException, DukeException, IllegalArgumentException {
         SimpleDateFormat inputDateFormatter = new SimpleDateFormat("yyyy-MM-dd");
         String first_word = command.split(" ", 2)[0];
@@ -54,6 +63,14 @@ public class Parser {
         }
     }
 
+    /**
+     * Returns the task object based on each line of the .txt file.
+     *
+     * @param task the first character of the .txt file
+     * @return the task object that has been created using the correct type and whether it is marked or not.
+     * @throws ParseException when there is an invalid date format in the .txt file
+     * @throws DukeException when the file is corrupted.
+     */
     public static Task parseTask(String task) throws ParseException, DukeException {
         SimpleDateFormat readDateFormatter = new SimpleDateFormat("MMM dd yyyy");
         String[] splitTask = task.split(" \\| ");
@@ -70,6 +87,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Marks task as done based on input.
+     *
+     * @param task the task to be marked.
+     * @param toMark whether the program should mark the task or not.
+     * @return the updated task.
+     */
     private static Task markTask(Task task, String toMark) {
         if (toMark.equals("1"))
             task.markAsDone();
