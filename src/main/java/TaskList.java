@@ -125,7 +125,6 @@ public class TaskList {
             if (!input.contains("/by")) {
                 throw new DeadlineNoEndException("here's literally how to create a deadline: deadline [task name] /by [date]");
             }
-            System.out.println(parts[0]);
             Deadline item = new Deadline(parts[0].replace("deadline ", ""), parts[1]);
             this.taskList.add(item);
             if (input.contains("deadline")) {
@@ -184,17 +183,4 @@ public class TaskList {
         }
     }
 
-    public void saveTasksToFile() {
-        try {
-            String filename = "./data/paulist.txt";
-            FileWriter writer = new FileWriter(filename);
-            for(int i = 0; i < this.listSize(); i++) {
-                Task task = this.taskList.get(i);
-                writer.write(task.writeToFile() + "\n");
-            }
-            writer.close();
-        } catch (IOException e) {
-            System.out.println("problem saving to file: " + e.getMessage());
-        }
-    }
 }
