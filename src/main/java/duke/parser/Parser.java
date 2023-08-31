@@ -22,6 +22,12 @@ public class Parser {
             return new ByeCommand();
         case "list":
             return new ListCommand();
+        case "find":
+            if (commandArr.length < 2) {
+                throw new DukeException("\"OOPS!!! Please include the keyword you would like to search.");
+            }
+            String searchWord = commandArr[1].trim();
+            return new FindCommand(searchWord);
         case "mark":
             if (commandArr.length < 2) {
                 throw new DukeException("OOPS!!! Please include the task number you would like to mark.");

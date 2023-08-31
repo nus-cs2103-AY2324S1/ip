@@ -51,6 +51,19 @@ public class Ui {
         }
     }
 
+    public void listSearch(ArrayList<?> items) {
+        int count = items.size();
+        if (count == 0) {
+            talk("Your keyword search returned no matching tasks.");
+        } else {
+            String list = "";
+            for (int i = 0; i < count; i++) {
+                list += "  " + (i + 1) + ". " + items.get(i) + "\n";
+            }
+            talk(list);
+        }
+    }
+
     public void markItem(String item) {
         talk("Nice! I've marked this task as done:\n  " + item);
     }
