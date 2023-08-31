@@ -88,6 +88,19 @@ public class Ui {
         System.out.println("____________________________________________________________");
     }
 
+    public void printMatchingTasks(TaskList tasks, String query){
+        this.printLines();
+        System.out.println("Here are the matching tasks in your list:");
+        int i = 1;
+        for (Task t: tasks.getList()){
+            if (t.toString().contains(query)){
+            System.out.println(String.valueOf(i) + "." + t.toString());
+            i++;
+            }
+        }
+        this.printLines();
+    }
+
     public static void Error(){
         System.out.println("An error occurred");
     }
