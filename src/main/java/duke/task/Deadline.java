@@ -3,17 +3,17 @@ package duke.task;
 import java.time.LocalDate;
 
 public class Deadline extends Task {
-    protected LocalDate by;
+    protected LocalDate byDate;
 
-    public Deadline(String description, LocalDate by) {
+    public Deadline(String description, LocalDate byDate) {
         super(description);
-        this.by = by;
+        this.byDate = byDate;
     }
 
     @Override
     public String toString() {
         String status = "[" + (super.isDone ? "X" : " ") + "]";
-        String deadline = "(by: " + this.by + ")";
+        String deadline = "(by: " + this.byDate + ")";
         return "[D]" + status + " " + super.description + " " + deadline;
     }
 }
