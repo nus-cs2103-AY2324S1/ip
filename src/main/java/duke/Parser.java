@@ -31,7 +31,8 @@ public class Parser {
             String command = words[0];
 
             for (Command c : Command.values()) {
-                if (c.name().toLowerCase().equals(command) && !c.equals(Command.BYE) && !c.equals(Command.LIST)) {
+                if (c.name().toLowerCase().equals(command) &&
+                        !c.equals(Command.BYE) && !c.equals(Command.LIST)) {
                     return c;
                 }
             }

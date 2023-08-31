@@ -11,26 +11,26 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class DeadlineTest {
 
     @Test
-    public void testToString() {
+    public void toString_correctStringReturned() {
         Task task = new Deadline(LocalDate.of(2023, 6, 23), "abc");
         assertEquals("[D][ ] abc (by: 2023-06-23)", task.toString());
     }
 
     @Test
-    public void testTaskToString() {
+    public void taskToString_correctStringReturned() {
         Task task = new Deadline(LocalDate.of(2023, 6, 23), "abc");
         assertEquals("D | 0 | abc | 2023-06-23", task.tasktoString());
     }
 
     @Test
-    public void testMarkAsDone() {
+    public void markAsDone_markedTaskReturned() {
         Task task = new Deadline(LocalDate.of(2023, 6, 23), "abc");
         task.markAsDone();
         assertEquals("D | 1 | abc | 2023-06-23", task.tasktoString());
     }
 
     @Test
-    public void testUnMark() {
+    public void UnMark_unMarkedTaskReturned() {
         Task task = new Deadline(LocalDate.of(2023, 6, 23), "abc");
         task.markAsDone();
         task.unMark();
