@@ -95,6 +95,9 @@ public class Parser {
             case "save":
                 storage.save(tasks, removeCommandWord(command));
                 break;
+            case "find":
+                System.out.println(tasks.find(removeCommandWord(command)));
+                break;
 
 
             default:

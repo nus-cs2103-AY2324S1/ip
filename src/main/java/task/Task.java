@@ -32,5 +32,9 @@ public class Task {
     public boolean isDeadline() {
         return false;
     }
+
+    public boolean contains(String searchBy) {
+        return description.contains(searchBy);
+    }
 }
 
