@@ -21,6 +21,16 @@ public class TaskList {
     public int getCount() {
         return items.size();
     }
+    
+    public ArrayList<Task> searchFor(String keyword) {
+        ArrayList<Task> result = new ArrayList<>();
+        for (Task item : items) {
+            if (item.getName().contains(keyword)) {
+                result.add(item);
+            }
+        }
+        return result;
+    }
 
     public Task mark(int number) {
         items.get(number - 1).markDone();
