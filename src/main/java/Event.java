@@ -1,17 +1,39 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 public class Event extends Task {
     String start;
     String end;
+
 
     public Event(String msg, boolean isDone, String start, String end) {
         super(Type.E, isDone, msg);
         this.start = start;
         this.end = end;
+        LocalDate startDate;
+        LocalDate endDate;
+        DateTimeFormatter inputFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        DateTimeFormatter outputFormat = DateTimeFormatter.ofPattern("MMM dd yyyy");
+
+        try {
+            startDate = LocalDate.parse(start, inputFormat);
+            this.start = startDate.format(outputFormat);
+        } catch (DateTimeParseException e) {
+            System.out.println("Can't find a proper date format, using /from input as a String");
+        }
+
+        try {
+            endDate = LocalDate.parse(end, inputFormat);
+            this.end = endDate.format(outputFormat);
+        } catch (DateTimeParseException e) {
+            System.out.println("Can't find a proper date format, using /to input as a String");
+        }
     }
 
     @Override
     public String toString() {
-        return super.toString() +
-                String.format(" (from: %s to: %s)", start, end);
+        return super.toString() + String.format(" (from: %s to: %s)", start, end);
     }
 
     public static Event newEvent(String input) {
@@ -40,14 +62,18 @@ public class Event extends Task {
             throw new IllegalArgumentException("Your \"/from\" flag can't be empty! Leave a space if you want it blank.");
         } else if (input.endsWith("/to")) {
             throw new IllegalArgumentException("Your \"/to\" flag can't be empty! Leave a space if you want it blank.");
-        } else {
-            return new Event(input.substring(6, fromFlagStart - 1), false, input.substring(fromFlagEnd, toFlagStart - 1),
-                    input.substring(toFlagEnd));
         }
+
+        String taskMsg = input.substring(6, fromFlagStart - 1);
+        String fromStr = input.substring(fromFlagEnd, toFlagStart - 1);
+        String toStr = input.substring(toFlagEnd);
+
+        return new Event(taskMsg, false, fromStr, toStr);
     }
 
     @Override
     public String outputFormat() {
         return String.format("%s|%b|%s|%s|%s", taskType.toString(), done, taskName, start, end);
+
     }
 }
