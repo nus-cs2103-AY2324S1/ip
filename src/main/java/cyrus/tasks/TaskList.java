@@ -84,13 +84,13 @@ public class TaskList {
     @Override
     public String toString() {
         if (this.tasks.size() == 0) {
-            return "You do not have any cyrus.tasks, use todo, deadline, or event to add new ones!";
+            return "You do not have any tasks, use todo, deadline, or event to add new ones!";
         }
         List<String> formattedTasks = IntStream
                 .range(0, tasks.size())
                 .mapToObj((j) -> String.format("%d. %s", j + 1, this.tasks.get(j)))
                 .collect(Collectors.toList());
-        formattedTasks.add(0, "Here are the cyrus.tasks in your list:");
+        formattedTasks.add(0, "Here are the tasks in your list:");
         return String.join("\n", formattedTasks);
     }
 

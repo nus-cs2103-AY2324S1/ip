@@ -33,6 +33,7 @@ public class Ui {
         for (String line : text) {
             System.out.printf("%s%s\n", frontPadding, line);
         }
+        System.out.printf("%s%s\n", frontPadding, DELIMITER);
     }
 
     /**
@@ -45,7 +46,7 @@ public class Ui {
         printText(
                 "Got it. I've added this task:",
                 task.toString(),
-                String.format("Now you have %d cyrus.tasks in the list.", taskListSize)
+                String.format("Now you have %d tasks in the list.", taskListSize)
         );
     }
 }
