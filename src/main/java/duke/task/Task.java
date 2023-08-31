@@ -19,6 +19,7 @@ public class Task {
      *
      * @param description The description of the task.
      */
+
     public Task(String description) {
         this.description = description;
         this.isDone = false;

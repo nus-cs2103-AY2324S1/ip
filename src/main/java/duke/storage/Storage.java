@@ -1,12 +1,14 @@
 package duke.storage;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Scanner;
+
 import duke.DukeException;
-import duke.task.*;
+import duke.task.Task;
 
 /**
  * Represents a class for managing data storage and retrieval.

@@ -1,6 +1,11 @@
 package duke.parser;
 
-import duke.command.*;
+import duke.command.AddCommand;
+import duke.command.DeleteCommand;
+import duke.command.ExitCommand;
+import duke.command.Command;
+import duke.command.MarkCommand;
+import duke.command.ListCommand;
 import duke.ui.Ui;
 import duke.DukeException;
 
