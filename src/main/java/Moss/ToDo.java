@@ -1,6 +1,8 @@
+package Moss;
+
 public class ToDo extends Task{
     /**
-     * Constructs a ToDo object with the given description.
+     * Constructs a Moss.ToDo object with the given description.
      *
      * @param description The description of the to-do task.
      */

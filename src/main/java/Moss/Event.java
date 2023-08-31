@@ -1,3 +1,5 @@
+package Moss;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
@@ -7,7 +9,7 @@ public class Event extends Task {
     protected LocalDate toDate;
 
     /**
-     * Constructs an Event object with the given description, start time, and end time.
+     * Constructs an Moss.Event object with the given description, start time, and end time.
      *
      * @param description The description of the event.
      * @param fromDate        The start time of the event.

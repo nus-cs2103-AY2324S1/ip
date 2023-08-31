@@ -1,3 +1,5 @@
+package Moss;
+
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -10,7 +12,7 @@ public class Storage {
     private final String filePath;
 
     public Storage() {
-        this.filePath = "./data/Moss.txt";
+        this.filePath = "./data/Moss.Moss.txt";
     }
 
     public List<Task> loadTasks() throws MossException{

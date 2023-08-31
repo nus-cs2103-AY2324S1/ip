@@ -1,8 +1,10 @@
+package Moss;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
- * Moss is a simple task management application that allows users to add, list, mark, unmark, and delete tasks.
+ * Moss.Moss is a simple task management application that allows users to add, list, mark, unmark, and delete tasks.
  */
 public class Moss {
     static ArrayList<Task> things = new ArrayList<>();

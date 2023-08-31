@@ -1,3 +1,5 @@
+package Moss;
+
 import java.time.LocalDate;
 
 /**
@@ -9,7 +11,7 @@ public class Task {
 
 
     /**
-     * Constructs a Task object with the given description and sets its completion status to false.
+     * Constructs a Moss.Task object with the given description and sets its completion status to false.
      *
      * @param description The description of the task.
      */

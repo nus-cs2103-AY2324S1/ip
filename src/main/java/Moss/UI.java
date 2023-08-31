@@ -1,7 +1,9 @@
+package Moss;
+
 public class UI {
     public void greeting(){
         String greet = "____________________________________________________________\n"
-                + "Hello! I'm Moss \n"
+                + "Hello! I'm Moss.Moss \n"
                 + "What can I do for you? \n"
                 + "____________________________________________________________\n";
         System.out.println(greet);
@@ -15,7 +17,7 @@ public class UI {
 
     public void welcome(){
         System.out.println("____________________________________________________________");
-        System.out.println("Welcome to Moss! How can I help you today?");
+        System.out.println("Welcome to Moss.Moss! How can I help you today?");
         System.out.println("____________________________________________________________");
     }
 

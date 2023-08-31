@@ -1,3 +1,5 @@
+package Moss;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
@@ -6,7 +8,7 @@ public class Deadline extends Task {
     protected LocalDate date;
 
     /**
-     * Constructs a Deadline object with the given description and deadline.
+     * Constructs a Moss.Deadline object with the given description and deadline.
      *
      * @param description The description of the task.
      * @param date          The deadline for the task.
