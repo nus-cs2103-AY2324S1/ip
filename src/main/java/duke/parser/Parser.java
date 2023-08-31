@@ -102,6 +102,18 @@ public class Parser {
         return newTask;
     }
 
+    public String getExtracted(){
+
+        if(inputArray.length <= 1){
+            return "";
+        }
+
+        String extractedWord = String.join(" ", Arrays.copyOfRange(inputArray, 1, inputArray.length));
+
+        return extractedWord;
+    }
+
+
 
     public int processMarkIndex(){
         try {

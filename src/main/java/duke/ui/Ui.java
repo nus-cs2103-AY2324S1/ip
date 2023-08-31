@@ -4,6 +4,7 @@ import duke.Duke;
 import duke.task.*;
 import duke.parser.*;
 
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Ui {
@@ -52,6 +53,9 @@ public class Ui {
                     break;
                 case "list":
                     taskArray.printTaskArrayList();
+                    break;
+                case "find":
+                    taskArray.printFind(input.getExtracted());
                     break;
                 case "delete":
                     int deleteIndex = input.processMarkIndex();
@@ -128,24 +132,24 @@ public class Ui {
 
     public void printInsufficientArgEvent(){
         System.out.println(Duke.horiLine);
-        System.out.println("☹ OOPS!!! The argument for the event is insufficient!");
+        System.out.println("OOPS!!! The argument for the event is insufficient!");
         System.out.println(Duke.horiLine);
     }
     public void printInsufficientArgDeadline(){
         System.out.println(Duke.horiLine);
-        System.out.println("☹ OOPS!!! The argument for the deadline is insufficient!");
+        System.out.println("OOPS!!! The argument for the deadline is insufficient!");
         System.out.println(Duke.horiLine);
     }
 
     public void printInsufficientArgToDo(){
         System.out.println(Duke.horiLine);
-        System.out.println("☹ OOPS!!! The description of a deadline cannot be empty.");
+        System.out.println("OOPS!!! The description of a deadline cannot be empty.");
         System.out.println(Duke.horiLine);
     }
 
     public void printInvalidArg(){
         System.out.println(Duke.horiLine);
-        System.out.println("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+        System.out.println("OOPS!!! I'm sorry, but I don't know what that means :-(");
         System.out.println(Duke.horiLine);
     }
 
