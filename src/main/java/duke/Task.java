@@ -80,7 +80,7 @@ public class Task {
      * @return The description of the task.
      */
     public String getDescription() {
-        return toString();
+        return "Task";
     }
 
     /**
@@ -88,6 +88,7 @@ public class Task {
      *
      * @return A string representation of the task's status and name.
      */
+
     public String statusAndTask() {
         return "[Task]" + statusString() + " " + this.taskName;
     }

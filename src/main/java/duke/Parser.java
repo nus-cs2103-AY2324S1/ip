@@ -28,8 +28,22 @@ public class Parser {
                     System.exit(0);
 
                 } else if (Objects.equals(userInput, "list")) {
-                    System.out.println("Here are the tasks in your list:");
-                    System.out.println(TaskList.listTasks());
+                    String listTasks = taskList.listTasks();
+                    if (listTasks != "") {
+                        System.out.println("Here are the tasks in your list:");
+                        System.out.println(listTasks);
+                    } else {
+                        System.out.println("There are no tasks in your list at the moment. Add some!");
+                    }
+
+                } else if (userInput.startsWith("find")) {
+                    String foundTasks = taskList.find(userInput);
+                    if (foundTasks != "") {
+                        System.out.println("Here are the matching tasks in your list:");
+                        System.out.println(foundTasks);
+                    } else {
+                        System.out.println("There are no matching tasks in your list.");
+                    }
 
                 } else if (userInput.startsWith("mark")) {
                     taskList.markTask(userInput);

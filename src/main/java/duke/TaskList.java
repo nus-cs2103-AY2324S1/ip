@@ -4,6 +4,7 @@ import exceptions.EmptyTaskException;
 import exceptions.EmptyDateException;
 import exceptions.OutOfRangeException;
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
@@ -188,9 +189,30 @@ public class TaskList {
     /**
      * Retrieves a task from the task array based on its index.
      *
-     * @param i The index of the task to retrieve.
+     * @param userInput The index of the task to retrieve.
      * @return The retrieved task.
      */
+    public String find(String userInput) throws EmptyTaskException {
+        if (userInput.equals("find")) {
+            throw new EmptyTaskException("find");
+        }
+        String[] parts = userInput.split("\\s+");
+        String keyword = parts[1];
+        ArrayList<Task> foundTasks = new ArrayList<>();
+        for (Task task : taskArray) {
+            if (task.getName().contains(keyword)) {
+                foundTasks.add(task);
+            }
+        }
+        String foundTasksString = "";
+        int num = 1;
+        for (Task task : foundTasks) {
+            foundTasksString += num + ". " + task.statusAndTask() + "\n";
+            num++;
+        }
+        return foundTasksString;
+    }
+
     public Task getTask(int i) {
          return taskArray.get(i);
     }
