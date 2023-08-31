@@ -47,7 +47,7 @@ public class DateTimeParser {
     }
 
     private static LocalDateTime parseTimeAmPm(String timeString) {
-        timeString = timeString.toUpperCase();
+        timeString = timeString.toUpperCase().replaceAll("\\.", "");
         LocalTime time = LocalTime.parse(timeString, DateTimeFormatter.ofPattern("h:mm[ ]a"));
         LocalDate today = LocalDate.now();
 
@@ -63,6 +63,10 @@ public class DateTimeParser {
      *                                any of the accepted formats.
      */
     public static LocalDateTime parse(String datetime) throws DateTimeParseException {
+        if (datetime == null) {
+            throw new DateTimeParseException(ERROR_MESSAGE, "", 0);
+        }
+
         datetime = datetime.trim(); // Remove leading and trailing whitespace
         // DateTime string must be an exact match for one of the following patterns
         if (DATE_TIME_PATTERN.matcher(datetime).matches()) {
