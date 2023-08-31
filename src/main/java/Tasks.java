@@ -1,10 +1,8 @@
-import java.io.FileNotFoundException;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.PrintWriter;
-import java.io.FileWriter;
+import java.util.Arrays;
+import java.util.List;
+import java.io.BufferedWriter;
 public class Tasks {
 
     private ArrayList<Task> storagePile;
@@ -34,18 +32,26 @@ public class Tasks {
         }
     }
 
-    private static final String path = "data/";
+    private static final String path = "./data/data.txt";
 
     public void saveTasks() {
         try {
-            PrintWriter writer = new PrintWriter(new FileWriter(path));
+            File file = new File(path);
+            file.getParentFile().mkdirs();
+            PrintWriter writer = new PrintWriter(new FileWriter(file));
 
+            //System.out.println("What is saved");
             for (Task item : storagePile) {
                 String str = item.toString();
+                System.out.println(str);
                 writer.println(str);
             }
-        } catch (IOException e) {
 
+            writer.close();
+
+        } catch (IOException e) {
+            System.out.println("IO");
+            e.printStackTrace();
         }
     };
 
@@ -55,15 +61,22 @@ public class Tasks {
         try {
             BufferedReader reader = new BufferedReader(new FileReader(path));
             String line = reader.readLine();
-            System.out.println(line);
+            //System.out.println("What is pulled when I load");
             while (line != null) {
-                String[] splitsy = line.split(" | ");
-                tasks.add(new Task(splitsy[0], splitsy[1], splitsy[2], splitsy[3]));
+                //System.out.println(line);
+                List<String> splitsy = new ArrayList<>(Arrays.asList(line.split("\\| ")));
+                if (splitsy.size() < 4) {
+                    splitsy.add("hi");
+                }
+                tasks.add(Task.correctTask(splitsy.get(0), splitsy.get(1), splitsy.get(2), splitsy.get(3)));
+                line = reader.readLine();
             }
         } catch (FileNotFoundException e) {
-
+            System.out.println("File");
+            e.printStackTrace();
         } catch (IOException e) {
-
+            System.out.println("IO");
+            e.printStackTrace();
         }
         return tasks;
     }

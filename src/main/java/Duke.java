@@ -14,7 +14,8 @@ public class Duke {
     public void inputsForList() {
         Scanner sc = new Scanner(System.in);
         Tasks lst = new Tasks();
-        while (sc.hasNext()) {
+        boolean running = true;
+        while (running) {
             String entry = sc.nextLine();
             String[] words = entry.split(" ");
             if (entry.equals("bye")) {
@@ -23,6 +24,7 @@ public class Duke {
                         + "finally.  \n"
                         + "_______________ \n";
                 System.out.println(logo);
+                running = false;
             } else if (entry.equals("list")) {
                 String condemn = "_______________ \n\n"
                         + "What a terrible day to be alive. \n"

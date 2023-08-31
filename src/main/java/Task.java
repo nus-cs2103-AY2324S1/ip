@@ -1,11 +1,10 @@
 public class Task {
-    private Boolean done;
+    private Boolean done = false;
 
     private String task;
 
     public Task(String input) {
         task = input;
-        done = false;
     }
 
     private String type;
@@ -16,22 +15,28 @@ public class Task {
 
     private String deadline;
 
-    public Task(String type, String item, String completion, String deadline) {
-        if (type.equals("[T]")) {
-            Task t = new ToDoTask("todo " +  item);
-            if (completion.equals("[X]")) {
+    public static Task correctTask(String type, String completion, String item, String deadline) {
+        if (type.equals("[T] ")) {
+            //System.out.println("todo " +  item);
+            Task t = new ToDoTask(item);
+            if (completion.equals("[X] ")) {
                 t.markDone();
             }
-        } else if (type.equals("[E]")) {
-            Task t = new EventTask("event " + item + " /" + deadline);
-            if (completion.equals("[X]")) {
+            return t;
+        } else if (type.equals("[E] ")) {
+            String from = deadline.split("-")[0];
+            String to = deadline.split("-")[1];
+            Task t = new EventTask(item.trim() + " /from " + from.trim() + " /to " + to.trim());
+            if (completion.equals("[X] ")) {
                 t.markDone();
             }
+            return t;
         } else {
-            Task t = new DeadlineTask("deadline " + item + " /" + deadline);
-            if (completion.equals("[X]")) {
+            Task t = new DeadlineTask(item.trim() + " /by " + deadline.trim());
+            if (completion.equals("[X] ")) {
                 t.markDone();
             }
+            return t;
         }
     }
 
