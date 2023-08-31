@@ -10,4 +10,10 @@ public class DateTimeParser {
         DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
         return LocalDateTime.parse(dateTime, format);
     }
+
+    public static LocalDateTime readTasksParser(String dateTime) {
+        //2019-10-15 1800
+        DateTimeFormatter format = DateTimeFormatter.ofPattern("MMM d yyyy ha");
+        return LocalDateTime.parse(dateTime, format);
+    }
 }

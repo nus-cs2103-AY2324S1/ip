@@ -13,12 +13,12 @@ public class Event extends Task {
     @Override
     public String toString() {
         DateTimeFormatter format = DateTimeFormatter.ofPattern("MMM d yyyy ha");
-        return "[E]" + super.toString() + "(from: " + this.start.format(format) + " to: " + this.end.format(format) + ")";
+        return "[E]" + super.toString() + " (from: " + this.start.format(format) + " to: " + this.end.format(format) + ")";
     }
 
     @Override
     public String toStringWithDateTime() {
         DateTimeFormatter format = DateTimeFormatter.ofPattern("MMM d yyyy ha");
-        return "[D]" + super.toString() + "DATETIME " + this.start.format(format) + " " + this.end.format(format);
+        return "[E]" + super.toString() + "DATETIME " + this.start.format(format) + " DATETIME_SPLIT " + this.end.format(format);
     }
 }

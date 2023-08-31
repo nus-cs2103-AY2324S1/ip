@@ -71,20 +71,17 @@ public class Hong {
                     tasks.add(newTodo);
                     break;
                 case 'D':
-                    arrTaskSplit = taskDescription.split("\\(by: ");
-                    Deadline newDeadline = new Deadline(arrTaskSplit[1].substring(0, arrTaskSplit[1].length() - 1),
-                            arrTaskSplit[0]);
+                    arrTaskSplit = taskDescription.split(" DATETIME ");
+                    LocalDateTime dateTime = DateTimeParser.readTasksParser(arrTaskSplit[1]);
+                    Deadline newDeadline = new Deadline(dateTime, arrTaskSplit[0]);
                     tasks.add(newDeadline);
                     break;
                 case 'E':
-                    arrTaskSplit = taskDescription.split("\\(from: ");
-//                    constructorInput = "event " + arrTaskSplit[0] + " /from ";
-                    String[] arrStartEndSplit = arrTaskSplit[1].split(" to: ");
-//                    constructorInput += arrStartEndSplit[0] + " /to " +
-//                            arrStartEndSplit[1].substring(0, arrStartEndSplit[1].length() - 1);
-//                    createEvent(constructorInput);
-                    Event newEvent = new Event(arrStartEndSplit[0],
-                            arrStartEndSplit[1].substring(0, arrStartEndSplit[1].length() - 1), arrTaskSplit[0]);
+                    arrTaskSplit = taskDescription.split(" DATETIME ");
+                    String[] dateTimeSplit = arrTaskSplit[1].split(" DATETIME_SPLIT ");
+                    LocalDateTime startDateTime = DateTimeParser.readTasksParser(dateTimeSplit[0]);
+                    LocalDateTime endDateTime = DateTimeParser.readTasksParser(dateTimeSplit[1]);
+                    Event newEvent = new Event(startDateTime, endDateTime, arrTaskSplit[0]);
                     tasks.add(newEvent);
                     break;
                 }
@@ -110,7 +107,7 @@ public class Hong {
             String toWrite = "";
             for (int i = 0; i < tasks.size(); i++) {
                 Task currentTask = tasks.get(i);
-                String currentItem = currentTask.toString();
+                String currentItem = currentTask.toStringWithDateTime();
                 toWrite += currentItem +"\n";
             }
             FileWriter myWriter = new FileWriter("./src/main/storage/writtenStorage.txt");
