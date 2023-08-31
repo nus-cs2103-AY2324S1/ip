@@ -4,7 +4,7 @@ public class TaskFactory {
     public TaskFactory() {
     }
 
-    public Task createTask(String taskType, String taskName, String[] args) {
+    public Task createTask(String taskType, String taskName, String[] args) throws TaskParseException {
         if (taskName.isEmpty()) {
             throw new TaskParseException("usage: TaskType(todo | deadline | event) " +
                     "TaskName " +
