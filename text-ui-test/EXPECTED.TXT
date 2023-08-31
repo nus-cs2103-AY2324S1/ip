@@ -30,7 +30,7 @@
     [T][X] get eggs
     ____________________________________________________________
 
-ipduke.InvalidTaskNumberException:
+duke.exception.InvalidTaskNumberException:
     ____________________________________________________________
     TWEET!!! I can't find the task you are looking for!
     ____________________________________________________________
@@ -46,7 +46,7 @@ ipduke.InvalidTaskNumberException:
     [T][X] get candles
     ____________________________________________________________
 
-ipduke.EmptyDeadlineException:
+duke.exception.EmptyDeadlineException:
     ____________________________________________________________
     TWEET!!! The description of a deadline cannot be empty.
     ____________________________________________________________
