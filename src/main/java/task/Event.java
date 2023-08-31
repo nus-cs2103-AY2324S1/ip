@@ -1,34 +1,37 @@
 package task;
 
+import java.time.LocalDateTime;
+
 public class Event extends Task {
-    private final String start;
-    private final String end;
+    private final LocalDateTime start;
+    private final LocalDateTime end;
 
     public Event(String name, String start, String end) {
         super(name);
-        this.start = start;
-        this.end = end;
+        this.start = LocalDateTime.parse(start, INPUT_FORMATTER);
+        this.end = LocalDateTime.parse(end, INPUT_FORMATTER);
     }
 
     public Event(String name, String start, String end, Boolean marked) {
         super(name, marked);
-        this.start = start;
-        this.end = end;
+        this.start = LocalDateTime.parse(start, INPUT_FORMATTER);
+        this.end = LocalDateTime.parse(end, INPUT_FORMATTER);
     }
 
     @Override
     public Event mark() {
-        return new Event(this.name, this.start, this.end, true);
+        return new Event(this.name, this.start.format(INPUT_FORMATTER), this.end.format(INPUT_FORMATTER), true);
     }
 
     @Override
     public Event unmark() {
-        return new Event(this.name, this.start, this.end, false);
+        return new Event(this.name, this.start.format(INPUT_FORMATTER), this.end.format(INPUT_FORMATTER), false);
     }
 
     @Override
     public String saveTask() {
-        return String.format("%s | %s-%s", super.saveTask(), this.start, this.end);
+        return String.format("E | %s | %s | %s", super.saveTask(),
+                this.start.format(INPUT_FORMATTER), this.end.format(INPUT_FORMATTER));
     }
 
     /**
@@ -41,8 +44,8 @@ public class Event extends Task {
         return String.format(
                 "[E]%s (from: %s to: %s)",
                 super.toString(),
-                this.start,
-                this.end
+                this.start.format(OUTPUT_FORMATTER),
+                this.end.format(OUTPUT_FORMATTER)
         );
     }
 }

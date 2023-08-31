@@ -19,6 +19,11 @@ public class Todo extends Task {
         return new Todo(this.name, false);
     }
 
+    @Override
+    public String saveTask() {
+        return String.format("T | %s", super.saveTask());
+    }
+
     /**
      * Returns the name of task to be done.
      *

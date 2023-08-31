@@ -1,6 +1,12 @@
 package task;
 
+import java.time.format.DateTimeFormatter;
+
 public abstract class Task {
+    protected static final DateTimeFormatter INPUT_FORMATTER =
+            DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+    protected static final DateTimeFormatter OUTPUT_FORMATTER =
+            DateTimeFormatter.ofPattern("yyyy-MMM-dd HH:mm:ss");
     protected final String name;
     private final boolean marked;
 
@@ -33,7 +39,7 @@ public abstract class Task {
      * @return String to be saved
      */
     public String saveTask() {
-        return String.format("%s | %s", this.name, this.marked ? "1" : "0");
+        return String.format("%s | %s", this.marked ? "1" : "0", this.name);
     }
 
     /**

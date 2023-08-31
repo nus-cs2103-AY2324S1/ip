@@ -1,32 +1,34 @@
 package task;
 
+import java.time.LocalDateTime;
+
 public class Deadline extends Task {
-    private final String deadline;
+    private final LocalDateTime deadline;
 
     public Deadline(String name, String deadline) {
         super(name);
-        this.deadline = deadline;
+        this.deadline = LocalDateTime.parse(deadline, INPUT_FORMATTER);
     }
 
     public Deadline(String name, String deadline, Boolean marked) {
         super(name, marked);
-        this.deadline = deadline;
+        this.deadline = LocalDateTime.parse(deadline, INPUT_FORMATTER);
     }
 
 
     @Override
     public Deadline mark() {
-        return new Deadline(this.name, this.deadline, true);
+        return new Deadline(this.name, this.deadline.format(INPUT_FORMATTER), true);
     }
 
     @Override
     public Deadline unmark() {
-        return new Deadline(this.name, this.deadline, false);
+        return new Deadline(this.name, this.deadline.format(INPUT_FORMATTER), false);
     }
 
     @Override
     public String saveTask() {
-        return String.format("%s | %s", super.saveTask(), this.deadline);
+        return String.format("D | %s | %s", super.saveTask(), this.deadline.format(INPUT_FORMATTER));
     }
 
     /**
@@ -39,7 +41,7 @@ public class Deadline extends Task {
         return String.format(
                 "[D]%s (by: %s)",
                 super.toString(),
-                this.deadline
+                this.deadline.format(OUTPUT_FORMATTER)
         );
     }
 }
