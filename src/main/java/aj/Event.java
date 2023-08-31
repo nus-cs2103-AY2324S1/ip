@@ -1,16 +1,24 @@
 package aj;
 
 public class Event extends Task {
-    private final String from, to;
+    private final String fromDt, toDt;
+
+    public String getFromDt() {
+        return this.fromDt;
+    }
+
+    public String getToDt() {
+        return this.toDt;
+    }
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + this.from + " to: " + this.to + ")";
+        return "[E]" + super.toString() + " (from: " + this.fromDt + " to: " + this.toDt + ")";
     }
 
-    Event(String taskName, boolean isMarked, String from, String to) {
+    Event(String taskName, boolean isMarked, String fromDt, String toDt) {
         super(taskName, isMarked);
-        this.from = from;
-        this.to = to;
+        this.fromDt = fromDt;
+        this.toDt = toDt;
     }
 }
