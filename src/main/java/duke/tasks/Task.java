@@ -47,4 +47,8 @@ public class Task {
         return false;
     }
 
+    public boolean isRelatedContent(String keyword) {
+        return description.contains(keyword);
+    }
+
 }

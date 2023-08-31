@@ -153,6 +153,24 @@ public class Ui {
     }
 
     /**
+     * Displays the tasks related to a certain keyword.
+     *
+     * @param tasks    The list of tasks to be displayed.
+     * @param keyword  The word used to filter tasks.
+     */
+    public void printRelatedTasks(TaskList tasks, String keyword) {
+        System.out.println("Here are your list of tasks:");
+        int index = 1;
+        for (int i = 0; i < tasks.size(); i++) {
+            Task task = tasks.get(i);
+            if (task.isRelatedContent(keyword)) {
+                System.out.printf(INDENTATION + "%d. %s%n", index++, task);
+            }
+        }
+        System.out.println(LINE);
+    }
+
+    /**
      * Displays an error message.
      *
      * @param e The exception containing the error message.
