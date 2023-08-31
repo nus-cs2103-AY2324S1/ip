@@ -37,6 +37,9 @@ public class Parser {
             case "delete":
                 c = validateDelete(split);
                 break;
+            case "find":
+                c = validateFind(split);
+                break;
             default:
                 c = new IncorrectCommand("I'm sorry, but I don't know what that means :-(");
         }
@@ -105,6 +108,13 @@ public class Parser {
         } catch (DateTimeParseException e) {
             return new IncorrectCommand("Please enter the date & time in DD/MM/YY HHMM format");
         }
+    }
+
+    private  static Command validateFind(String[] split) {
+        if (split.length == 1 || split[1].isBlank()) {
+            return new IncorrectCommand("Please enter a valid find command.");
+        }
+        return new FindCommand(split[1]);
     }
 
     private static Command validateExit(String[] split) {

@@ -75,4 +75,8 @@ public class Task {
     public boolean isDone() {
         return isDone;
     }
+
+    public String getDescription() {
+        return description;
+    }
 }

@@ -1,2 +1,4 @@
-E | 0 | eat chicken | 2021-03-22T09:00--2022-05-22T09:00
-D | 0 | food | 2021-03-09T18:00
+T | 0 | read book | 
+D | 0 | return book | 2023-06-06T09:00
+E | 0 | eat chicken rice | 2023-09-22T09:00--2023-09-23T12:00
+D | 0 | cook rotisserie chicken | 2023-09-22T09:00
