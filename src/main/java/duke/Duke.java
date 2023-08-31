@@ -7,19 +7,27 @@ import java.io.File;
  * Class for the ChatBot
  */
 class Duke {
-    /**
-     * Name of the text file.
-     */
-    public static String textFile = "duke.txt";
-    public static String dataFile = "data.txt";
-    public static String delim = " ";
+    public static String TEXTFILE = "duke.txt";
+    public static String DATAFILE = "data.txt";
+    public static String DELIM = " ";
+    public static String GREETING = "-------------------------------\n"
+            + "Hello! I'm Skog.\n"
+            + "What can I do for you?\n"
+            + "-------------------------------\n";
+    public static String EXIT = "-------------------------------\n"
+            + "Bye. Hope to see you again soon!\n"
+            + "-------------------------------\n";
 
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
 
+    /**
+     * Constructor for the Duke class.
+     * @param filePath Specifies the name of the text file
+     */
     public Duke(String filePath) {
-        this.storage = new Storage(textFile, dataFile);
+        this.storage = new Storage(TEXTFILE, DATAFILE);
         this.ui = new Ui();
         try {
             tasks = new TaskList(storage.load());
@@ -28,10 +36,12 @@ class Duke {
             tasks = new TaskList();
         }
     }
-
+    /**
+     * Method to initiate the chatbot.
+     */
     public void run() {
         try {
-            File myFile = new File(textFile);
+            File myFile = new File(TEXTFILE);
             if (myFile.createNewFile()) {
                 System.out.println("-------------------------------\n"
                         + "Welcome! New text file created.");
@@ -42,19 +52,18 @@ class Duke {
             System.out.println("An error has occurred!");
         }
 
-        System.out.println(greeting);
+        System.out.println(GREETING);
 
         while (ui.sc.hasNext()) {
             try {
-
-                String[] arr = ui.sc.nextLine().split(delim);
+                String[] arr = ui.sc.nextLine().split(DELIM);
                 String type = arr[0];
 
                 if (type.equals("bye")) {
                     ui.end();
-                    storage.writeToFile(tasks);
-                    storage.save(tasks);
-                    System.out.println(exit);
+                    storage.saveTextFile(tasks);
+                    storage.saveDataFile(tasks);
+                    System.out.println(EXIT);
                     break;
                 } else if (type.equals("list")) {
                     tasks.listOut();
@@ -94,23 +103,7 @@ class Duke {
         }
     }
 
-    /**
-     * Greeting from the bot when user launches the program.
-     */
-    public static String greeting = "-------------------------------\n"
-            + "Hello! I'm Skog.\n"
-            + "What can I do for you?\n"
-            + "-------------------------------\n";
-    /**
-     * Exit message when user exits the bot.
-     */
-    public static String exit = "-------------------------------\n"
-            + "Bye. Hope to see you again soon!\n"
-            + "-------------------------------\n";
-
-
-
     public static void main(String[] args) {
-        new Duke(textFile).run();
+        new Duke(TEXTFILE).run();
     }
 }

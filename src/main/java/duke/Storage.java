@@ -1,22 +1,36 @@
 package duke;
 
-import java.io.FileInputStream;
 import java.io.FileWriter;
 import java.io.BufferedWriter;
-import java.io.ObjectInputStream;
-import java.io.IOException;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.IOException;
 
 import java.util.ArrayList;
 
+/**
+ * Class to handle data writing and reading of task list to user hard disk.
+ */
 class Storage {
     private String textFile;
     private String dataFile;
+
+    /**
+     * Constructor for Storage class.
+     * @param textFile Name of the text file
+     * @param dataFile Name of the data file
+     */
     public Storage(String textFile, String dataFile) {
         this.textFile = textFile;
         this.dataFile = dataFile;
     }
+    /**
+     * Reads the data file and initializes the Task ArrayList
+     * @return ArrayList<Task> based on data from the data file
+     * @throws DukeException Error incurred when attempting to read the data file
+     */
     public ArrayList<Task> load() throws DukeException {
         try {
             FileInputStream fileIn = new FileInputStream(this.dataFile);
@@ -35,9 +49,10 @@ class Storage {
         }
     }
     /**
-     * Saves all the tasks' information in a text file.
+     * Saves the current task list into the text file
+     * @param tasks TaskList that contains the list's data
      */
-    public void writeToFile(TaskList tasks) {
+    public void saveTextFile(TaskList tasks) {
         try {
             ArrayList<Task> arr = tasks.retrieveArray();
             FileWriter fw = new FileWriter(textFile);
@@ -52,7 +67,11 @@ class Storage {
             System.out.println(e.getMessage());
         }
     }
-    public void save(TaskList tasks) {
+    /**
+     * Saves the current task list into the data file
+     * @param tasks TaskList that contains the list's data
+     */
+    public void saveDataFile(TaskList tasks) {
         try {
             FileOutputStream fos = new FileOutputStream(dataFile);
             ObjectOutputStream oos = new ObjectOutputStream(fos);
@@ -61,6 +80,5 @@ class Storage {
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
-
     }
 }

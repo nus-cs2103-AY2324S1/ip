@@ -6,13 +6,7 @@ import java.io.Serializable;
  * Class representing a task to be completed.
  */
 class Task implements Serializable {
-    /**
-     * Description of the specific task.
-     */
     protected String description;
-    /**
-     * Whether the task is completed or not.
-     */
     protected boolean isDone;
 
     /**
@@ -26,7 +20,7 @@ class Task implements Serializable {
 
     /**
      * Task's completion status.
-     * @return An "X" if the task is completed and a blank space otherwise
+     * @return "1" if the task is completed and "0" otherwise
      */
     public int getStatusIcon() {
         return (isDone ? 1 : 0);

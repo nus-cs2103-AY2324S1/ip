@@ -4,9 +4,6 @@ package duke;
  * Special kind of task that only has a description
  */
 class Todo extends Task {
-    /**
-     * Signifies the specific type of task.
-     */
     protected String type = "T";
 
     /**
@@ -26,7 +23,6 @@ class Todo extends Task {
         System.out.println("Nice! I've marked this task as done:\n"
                 + this);
     }
-
     /**
      * Unmark this Todo task as not done yet.
      */
@@ -36,11 +32,6 @@ class Todo extends Task {
         System.out.println("OK, I've marked this task as not done yet:\n"
                 + this);
     }
-
-    /**
-     * Description of this Todo task.
-     * @return String containing all relevant information about this Todo task
-     */
     @Override
     public String toString() {
         return this.type + " | " + this.getStatusIcon()
