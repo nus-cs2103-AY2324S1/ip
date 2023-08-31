@@ -12,14 +12,11 @@ import java.nio.file.Paths;
  * Represents a command line-based task manager.
  */
 public class Duke {
-    private static final String mark = "mark";
-    private static final String unmark = "unmark";
-    private static final String bye = "bye";
-    private static final String list = "list";
-    private static final String delete = "delete";
+
+    /**
+     * String constant for the find command.
+     */
     private static final String FIND = "find";
-    private static final Path filePath = Paths.get("./data/bot.txt");
-    private Tasklist todolist;
 
     /**
      * String constant for the mark command.
@@ -109,8 +106,6 @@ public class Duke {
         } else if (check1.equals(FIND)) {
             Ui.find(todoList.find(str.substring(5, str.length())));
             return true;
-        } else if (check2.equals(unmark)) {
-            todolist.unmark(Integer.parseInt(str.substring(7, str.length())));
         } else if (check2.equals(UNMARK)) {
             todoList.unmark(Integer.parseInt(str.substring(7, str.length())));
             return true;
@@ -125,7 +120,6 @@ public class Duke {
             }
             return true;
         }
-        return true;
     }
 
     /**
