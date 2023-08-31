@@ -1,10 +1,10 @@
-package duke.Tasks;
+package duke.tasks;
 
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 public class DeadlineTest {
     @Test
-    public void testStringConverstion() {
+    public void toString_testStringConverstion_correctResult() {
         assertEquals(
                 "| D |   | study cs2103 (by: Dec 01 2023)",
                 new Deadlines(

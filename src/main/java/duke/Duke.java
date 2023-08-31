@@ -2,16 +2,22 @@ package duke;
 
 // fixing DukeException based on my understanding of exceptions 27/8/23
 import java.util.Scanner;
+<<<<<<< HEAD
 import duke.Exceptions.DukeException;
 import duke.Tasks.TaskList;
+=======
+
+import duke.exceptions.DukeException;
+import duke.tasks.TaskList;
+>>>>>>> branch-A-CodingStandard
 
 /**
  * The main file that the application runs
  */
 public class Duke {
-    public UI helper;
-    public TaskList tasks;
-    public Storage storage;
+    protected UI helper;
+    protected TaskList tasks;
+    protected Storage storage;
 
     /**
      * Constructor of the main file, takes in the filePath that
@@ -57,7 +63,7 @@ public class Duke {
         while (true) {
             // end the program
             try {
-                isDone = Parser.parse(string, tasks, helper, storage);
+                isDone = Parser.isExitOrContinue(string, tasks, helper, storage);
             } catch (DukeException e) {
                 System.out.println(e.getMessage());
             } finally {

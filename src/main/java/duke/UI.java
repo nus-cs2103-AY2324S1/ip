@@ -1,8 +1,13 @@
 package duke;
 
+<<<<<<< HEAD
 import java.util.ArrayList;
 import duke.Tasks.TaskList;
 import duke.Tasks.Task;
+=======
+import duke.tasks.TaskList;
+import duke.tasks.Task;
+>>>>>>> branch-A-CodingStandard
 
 /**
  * Describes the various possible interaction the bot has when you command
@@ -64,29 +69,37 @@ public class UI {
         System.out.println(output);
     }
 
+<<<<<<< HEAD
     /**
      * Describes what the bot say when task is deleted successfully
      * @param list Take in the taskList to delete the task from it
      * @param taskNumber Take in the task to be deleted from the taskList
      */
     public void deleteTask(TaskList list, int taskNumber) {
+=======
+    public void deleteTask(TaskList tasks, int taskNumber) {
+>>>>>>> branch-A-CodingStandard
         String deletingTask = "Noted. I've removed this task:";
-        int taskInArray = list.size() - 1;
-        Task removedTask = list.deleteTask(taskNumber);
+        int taskInArray = tasks.size() - 1;
+        Task removedTask = tasks.deleteTask(taskNumber);
         String numberOfTask = "Now you have " + taskInArray + " tasks in the list.";
         String output = String.format("%s\n  %s\n%s", deletingTask, removedTask, numberOfTask);
         printLine();
         System.out.println(output);
     }
 
+<<<<<<< HEAD
     /**
      * Describes what the bot say when you successfully adds in a task
      * @param task Take in the task to be added
      * @param list Takes in the TaskList that the task is added to
      */
     public void addTask(Task task, ArrayList<Task> list) {
+=======
+    public void addTask(Task task, TaskList tasks) {
+>>>>>>> branch-A-CodingStandard
         String addingTask = "Got it. I've added this task:";
-        String numberOfTask = "Now you have " + list.size() + " tasks in the list.";
+        String numberOfTask = "Now you have " + tasks.size() + " tasks in the list.";
         String output = String.format("%s\n  %s\n%s", addingTask, task, numberOfTask);
         printLine();
         System.out.println(output);

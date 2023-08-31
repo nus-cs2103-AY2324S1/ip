@@ -6,9 +6,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 
-import duke.Tasks.TaskList;
-
-import duke.Tasks.Task;
+import duke.tasks.TaskList;
+import duke.tasks.Task;
 
 /**
  * Implements a storage class to allow the bot to be able to save tasks
@@ -33,6 +32,7 @@ public class Storage {
         this.fr = new FileReader(file);
     }
 
+<<<<<<< HEAD
     /**
      * Describes the process of saving the taskList into a file
      * @param taskList Takes in the original taskList
@@ -42,8 +42,11 @@ public class Storage {
     // solution for save adapted from asdfghjkxd
     // Storage.java write method
     public void save(TaskList taskList) throws IOException {
+=======
+    public void save(TaskList tasks) throws IOException {
+>>>>>>> branch-A-CodingStandard
         FileWriter fw = new FileWriter(filePath);
-        for (Task task : taskList) {
+        for (Task task : tasks) {
             fw.write(task.toString() + "\n");
         }
         fw.close();

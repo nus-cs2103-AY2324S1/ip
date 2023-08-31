@@ -1,4 +1,4 @@
-package duke.Exceptions;
+package duke.exceptions;
 
 /**
  * Exceptions of Duke object, errors which duke is likely to encounter and what is done

@@ -1,19 +1,19 @@
-package duke.Tasks;
+package duke.tasks;
 
 import java.time.LocalDate;
 import java.util.regex.Pattern;
 
 import duke.Commands;
 import duke.FormatterDate;
-import duke.Exceptions.EmptyDetailsOfTaskError;
-import duke.Exceptions.UnknownCommandException;
+import duke.exceptions.EmptyDetailsOfTaskError;
+import duke.exceptions.UnknownCommandException;
 
 /**
  * SuperClass of task to be implemented such as todo, deadLine and event
  */
 public class Task {
     protected String description;
-    public boolean isDone;
+    protected boolean isDone;
 
     /**
      * Constructor of the task object
@@ -41,6 +41,7 @@ public class Task {
         return (isDone ? "x" : " ");
     }
 
+<<<<<<< HEAD:src/main/java/duke/Tasks/Task.java
     /**
      * Changes a task to be done
      */
@@ -52,6 +53,13 @@ public class Task {
      * Changes a task to be not done
      */
     public void markAsUndone() {
+=======
+    public void setAsDone() {
+        this.isDone = true;
+    }
+
+    public void setAsUndone() {
+>>>>>>> branch-A-CodingStandard:src/main/java/duke/tasks/Task.java
         this.isDone = false;
     }
 
@@ -132,7 +140,7 @@ public class Task {
             currentTask = new Events(splittedData[0], taskStart, taskEnd);
         }
         if (taskStatus.equals("x")) {
-            currentTask.markAsDone();
+            currentTask.setAsDone();
         }
         return currentTask;
     }

@@ -1,6 +1,4 @@
-package duke.Exceptions;
-
-import duke.Exceptions.DukeException;
+package duke.exceptions;
 
 /**
  * Subclass of dukeException

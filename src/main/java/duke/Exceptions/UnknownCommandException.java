@@ -1,4 +1,4 @@
-package duke.Exceptions;
+package duke.exceptions;
 
 /**
  * The UnknownCommandException, which is basically what the bot does when
