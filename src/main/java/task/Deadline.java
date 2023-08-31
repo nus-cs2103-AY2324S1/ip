@@ -104,6 +104,11 @@ public class Deadline extends Task {
         }
     }
 
+    /**
+     * Returns a boolean of whether the deadline is due by the specified date
+     * @param localDateTime Date and Time of the deadline
+     * @return boolean
+     */
     public boolean dueBy(LocalDateTime localDateTime) {
         if (isDateTime) {
             try {
@@ -121,6 +126,10 @@ public class Deadline extends Task {
         }
     }
 
+    /**
+     * Display a Date Time object in a nicer string format
+     * @return String
+     */
     public String displayTime() {
         if (isDateTime) {
             return deadlineDateTime.format(DateTimeFormatter.ofPattern("dd-MMM-yyyy HH:mm")).replaceAll("[T\\-/]", " ");
