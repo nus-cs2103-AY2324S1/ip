@@ -20,7 +20,8 @@ public class Parser {
         TODO,
         DEADLINE,
         EVENT,
-        DELETE
+        DELETE,
+        FIND
     }
 
     /**
@@ -40,88 +41,102 @@ public class Parser {
 
 
         switch (commandEnum) {
-            case BYE:
-                Ui.exit();
-                return false;
-            case LIST:
-                taskList.displayList();
-                break;
-            case MARK: {
-                if (content == null) {
-                    throw new MondayExceptions("Mark requires a index to mark the task as completed.");
-                }
-                int index = Integer.parseInt(content);
-
-                taskList.mark(index);
-                break;
+        case BYE:
+            Ui.exit();
+            return false;
+        case LIST:
+            taskList.displayList();
+            break;
+        case MARK: {
+            if (content == null) {
+                throw new MondayExceptions("Mark requires a index to mark the task as completed.");
             }
-            case UNMARK: {
-                if (content == null) {
-                    throw new MondayExceptions("UnMark requires a index to mark the task as uncompleted.");
-                }
+            int index = Integer.parseInt(content);
 
-                int index = Integer.parseInt(content);
-
-                taskList.unMark(index);
-                break;
+            taskList.mark(index);
+            break;
+        }
+        case UNMARK: {
+            if (content == null) {
+                throw new MondayExceptions("UnMark requires a index to mark the task as uncompleted.");
             }
-            case TODO:
+
+            int index = Integer.parseInt(content);
+
+            taskList.unMark(index);
+            break;
+        }
+        case TODO:
+            if (content == null) {
+                throw new MondayExceptions("The description of a todo cannot be empty.\n" +
+                        "Usage: todo (task)");
+            }
+
+            taskList.addToTask(new ToDo(content));
+            break;
+        case DEADLINE:
+            try {
                 if (content == null) {
-                    throw new MondayExceptions("The description of a todo cannot be empty.\n" +
-                            "Usage: todo (task)");
-                }
-
-                taskList.addToTask(new ToDo(content));
-                break;
-            case DEADLINE:
-                try {
-                    if (content == null) {
-                        throw new MondayExceptions("The description of a deadline cannot be empty.\n" +
-                                "Usage: deadline (task) /by (time)");
-                    }
-
-                    String[] taskDetails = content.split("/by",2);
-                    String description = taskDetails[0];
-                    String date = taskDetails[1];
-
-                    taskList.addToTask(new Deadline(description.trim(), date.trim()));
-                } catch (ArrayIndexOutOfBoundsException e) {
-                    throw new IllegalArgumentException("Invalid Format. " +
+                    throw new MondayExceptions("The description of a deadline cannot be empty.\n" +
                             "Usage: deadline (task) /by (time)");
                 }
-                break;
-            case EVENT:
-                try {
-                    if (content == null) {
-                        throw new MondayExceptions("The description of a event cannot be empty.\n" +
-                                "Usage: event (task) /from (start time) /to (end time)");
-                    }
 
-                    String[] taskDetails = content.split("/from", 2);
-                    String description = taskDetails[0];
-                    String[] taskTiming = taskDetails[1].split("/to", 2);
-                    String start = taskTiming[0];
-                    String end = taskTiming[1];
+                String[] taskDetails = content.split("/by",2);
+                String description = taskDetails[0];
+                String date = taskDetails[1];
 
-                    taskList.addToTask(new Event(description.trim(),
-                            start.trim(),
-                            end.trim()));
-                } catch (ArrayIndexOutOfBoundsException e) {
-                    throw new IllegalArgumentException("Invalid Format. " +
+                taskList.addToTask(new Deadline(description.trim(), date.trim()));
+            } catch (ArrayIndexOutOfBoundsException e) {
+                throw new IllegalArgumentException("Invalid Format. " +
+                        "Usage: deadline (task) /by (time)");
+            }
+            break;
+        case EVENT:
+            try {
+                if (content == null) {
+                    throw new MondayExceptions("The description of a event cannot be empty.\n" +
                             "Usage: event (task) /from (start time) /to (end time)");
                 }
-                break;
-            case DELETE:
-                if (content == null) {
-                    throw new MondayExceptions("Delete requires a index to delete the task");
-                }
-                int index = Integer.parseInt(content);
 
-                taskList.delete(index);
-                break;
-            default:
-                throw new MondayExceptions("Sorry, I do not understand what that means.\n" +
-                        "Please provide a valid input/command. e.g todo read book");
+                String[] taskDetails = content.split("/from", 2);
+                String description = taskDetails[0];
+                String[] taskTiming = taskDetails[1].split("/to", 2);
+                String start = taskTiming[0];
+                String end = taskTiming[1];
+
+                taskList.addToTask(new Event(description.trim(),
+                        start.trim(),
+                        end.trim()));
+            } catch (ArrayIndexOutOfBoundsException e) {
+                throw new IllegalArgumentException("Invalid Format. " +
+                        "Usage: event (task) /from (start time) /to (end time)");
+            }
+            break;
+        case DELETE:
+            if (content == null) {
+                throw new MondayExceptions("Delete requires a index to delete the task");
+            }
+            int index = Integer.parseInt(content);
+
+            taskList.delete(index);
+            break;
+        case FIND:
+            if (content == null) {
+                throw new MondayExceptions("Find requires a keyword to find the tasks");
+            }
+
+            String[] keywordDetails = content.split(" ");
+
+            if (keywordDetails.length > 1) {
+                throw new IllegalArgumentException("Invalid Format. " +
+                        "Usage: find (keyword), there should only be one keyword.");
+            }
+
+            taskList.find(keywordDetails[0]);
+            break;
+        default:
+            throw new MondayExceptions("Sorry, I do not understand what that means.\n" +
+                    "Please provide a valid input/command. e.g todo read book");
         }
         return true;
     }

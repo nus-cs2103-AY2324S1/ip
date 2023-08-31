@@ -12,6 +12,11 @@ public class TaskList {
     private ArrayList<Task> list;
     private Storage storage;
 
+    /**
+     * Constructs a TaskList object with the given file path.
+     *
+     * @param filePath the path to the file used for storage
+     */
     public TaskList(String filePath) {
         this.storage = new Storage(filePath);
         try {
@@ -21,6 +26,9 @@ public class TaskList {
         }
     }
 
+    /**
+     * Saves the tasks to the storage.
+     */
     private void save() {
         try {
             storage.save(list);
@@ -101,5 +109,24 @@ public class TaskList {
         save();
         System.out.println("Noted. I've removed this task:\n" + taskToEdit);
         System.out.println("Now you have " + list.size() + " tasks in the list.");
+    }
+
+    /**
+     * Finds and prints tasks containing the specified keyword.
+     *
+     * @param keyword the keyword to search for in the tasks
+     */
+    public void find(String keyword) {
+        if (list.isEmpty()) {
+            System.out.println("Your list is empty.");
+        } else {
+            int matchingTaskCount = 1;
+            for (Task curr : list) {
+                if (curr.toString().contains(keyword)) {
+                    System.out.println(matchingTaskCount + "." + curr);
+                    matchingTaskCount++;
+                }
+            }
+        }
     }
 }
