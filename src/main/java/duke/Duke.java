@@ -17,11 +17,21 @@ public class Duke {
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
+
+    /**
+     * Constructor to start the program.
+     *
+     * @param filePath The file path of the saved task list.
+     */
     public Duke(Path filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
         tasks = new TaskList(storage.loadTaskList());
     }
+
+    /**
+     * Runs the program.
+     */
     public void run() {
         ui.greet();
         Scanner scanner = new Scanner(System.in);
@@ -35,6 +45,11 @@ public class Duke {
         storage.updateTaskList();
     }
 
+    /**
+     * Main function that starts the program loading in the saved task list.
+     *
+     * @param args The command line arguments.
+     */
     public static void main(String[] args) {
         new Duke(Paths.get(".", "data", "duke.txt")).run(); // ./data/duke.txt
     }

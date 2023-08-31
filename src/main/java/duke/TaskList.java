@@ -11,9 +11,20 @@ import java.util.ArrayList;
 public class TaskList {
     private ArrayList<Task> taskList;
 
+    /**
+     * Constructor to create a TaskList.
+     *
+     * @param taskList The previously saved task list.
+     */
     public TaskList(ArrayList<Task> taskList) {
         this.taskList = taskList;
     }
+
+    /**
+     * Displays the current list to the user.
+     *
+     * @param input User input.
+     */
     public void showList(String input[]) {
         try {
             if (!(input.length == 1 || input[1].strip().equals(""))) {
@@ -29,6 +40,11 @@ public class TaskList {
         }
     }
 
+    /**
+     * Marks the indicated task as done.
+     *
+     * @param input User input.
+     */
     public void markTask(String input[]) {
         try {
             int toMark = Integer.parseInt(input[1]);
@@ -42,6 +58,12 @@ public class TaskList {
             System.out.println("    Please enter a number e.g., mark 1");
         }
     }
+
+    /**
+     * Marks the indicated task as not done.
+     *
+     * @param input User input.
+     */
     public void unmarkTask(String input[]) {
         try {
             int toMark = Integer.parseInt(input[1]);
@@ -56,6 +78,11 @@ public class TaskList {
         }
     }
 
+    /**
+     * Deletes the indicated task.
+     *
+     * @param input User input.
+     */
     public void deleteTask(String input[]) {
         try {
             int toDelete = Integer.parseInt(input[1]);
@@ -70,6 +97,12 @@ public class TaskList {
             System.out.println("    Please enter a number e.g., delete 1");
         }
     }
+
+    /**
+     * Adds an Event to the task list.
+     *
+     * @param input User input.
+     */
     public void addEvent(String input[]) {
         try {
             String[] s1 = input[1].split("/from", 2);
@@ -93,6 +126,12 @@ public class TaskList {
             System.out.println("    Enter valid date yyyy-mm-dd");
         }
     }
+
+    /**
+     * Adds a Deadline to the task list.
+     *
+     * @param input User input.
+     */
     public void addDeadline(String input[]) {
         try {
             String[] s = input[1].split("/by", 2);
@@ -114,6 +153,12 @@ public class TaskList {
             System.out.println("    Enter valid date yyyy-mm-dd");
         }
     }
+
+    /**
+     * Adds a ToDo to the task list.
+     *
+     * @param input User input.
+     */
     public void addToDo(String input[]) {
         try {
             String desc = input[1];

@@ -17,11 +17,21 @@ public class Storage {
     private Path filePath;
     ArrayList<Task> list;
 
+    /**
+     * Constructor to create a Storage object.
+     *
+     * @param filePath The file path of the saved task list.
+     */
     public Storage(Path filePath) {
         this.filePath = filePath;
         list = new ArrayList<>();
     }
 
+    /**
+     * Loads a saved task list if it exists.
+     *
+     * @return An ArrayList that was saved.
+     */
     public ArrayList<Task> loadTaskList() {
         try {
             // Create the directory if it doesn't exist
@@ -56,6 +66,9 @@ public class Storage {
         }
     }
 
+    /**
+     * Updates the hard drive with the current task list.
+     */
     public void updateTaskList() {
         try {
             // Create the directory if it doesn't exist
@@ -84,6 +97,13 @@ public class Storage {
         }
     }
 
+    /**
+     * Converts a string representation of a task to a Task object.
+     *
+     * @param s String representation of the task.
+     * @return The task object.
+     * @throws DukeException Throws DukeException if data file is corrupted.
+     */
     public Task stringToTask(String s) throws DukeException {
         String[] details = s.split("[|]", 0);
         String type = details[0].strip();
