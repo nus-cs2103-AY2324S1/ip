@@ -28,9 +28,11 @@ public class StorageTest {
     private TaskList taskList;
     private UI ui;
 
-    @BeforeEach void setUp() {
-        dirPath = "data/";
-        fileName = "bruno.txt";
+
+    @BeforeEach
+    void setUp() {
+        dirPath = "data-test/";
+        fileName = "bruno-test.txt";
         storage = new Storage(dirPath, fileName);
         ui = new UI();
         taskList = new TaskList(storage, ui);

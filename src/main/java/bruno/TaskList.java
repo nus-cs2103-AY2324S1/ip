@@ -227,8 +227,32 @@ public class TaskList {
         ui.displayMessage(taskInfo);
     }
 
-    public void setList(List<Task> tasks) {
-        this.tasks = tasks;
+    /**
+     * Finds all tasks whose description contains the keyword.
+     *
+     * @param task The user input for the task.
+     */
+    public void findTasks(String task) {
+        String taskInfo = "";
+        String keyWord = task.split(" ")[1];
+        int counter = 0;
+        for (int i = 0; i < tasks.size(); i++) {
+            String description = tasks.get(i).getDescription();
+            if (description.contains(keyWord)) {
+                taskInfo += "\t" + (++counter) + ". " + tasks.get(i).getString() + "\n";
+            }
+        }
+        if (counter == 0) {
+            taskInfo += "\tThere are no items matching your search.";
+        }
+        else {
+            taskInfo = "\tHere are the tasks matching your search:\n" + taskInfo;
+        }
+        ui.displayMessage(taskInfo);
+    }
+
+    public void setList(List<Task> list) {
+        this.tasks = list;
     }
 
     public List<Task> getList() {

@@ -33,6 +33,7 @@ public class Storage {
         if (!directory.exists()) {
             directory.mkdir();
         }
+        taskList = new TaskList(this, ui);
     }
 
     /**
