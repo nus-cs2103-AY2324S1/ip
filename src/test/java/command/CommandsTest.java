@@ -280,6 +280,43 @@ public class CommandsTest {
                 assertEquals("Unknown command", e.getMessage());
             }
         }
+    }
+
+    @Test
+    public void commandsExecuteFind() {
+        String[] cmd = {"todo CS2103T A-JUnit",
+                "deadline CS2103T B-JUnit /by 18-09-2023 0000",
+                "event CS2103T C-JUnit /from 18-09-2023 0000 /to 18-09-2024 0000"};
+        String[] cmdi = {"3.[E][ ] CS2103T C-JUnit (from: 18-09-2023 0000 to: 18-09-2024 0000)\r\n",
+                "2.[D][ ] CS2103T B-JUnit (by: 18-09-2023 0000)\r\n",
+                "1.[T][ ] CS2103T A-JUnit\r\n",
+                "Whoopys uWu, sorry I couldnyt fynd any taysk that contyain that strying. XD uWu\r\n"};
+        ListOfTask taskList = new ListOfTask();
+        for (String str : cmd) {
+            ParserStud cm = new ParserStud(str);
+            try {
+                Commands c = cm.parse();
+                c.execute(taskList, new Ui(), 0, null);
+            } catch (DukeException e) {
+                System.out.println("check the test cases again");
+            }
+        }
+
+        String[] cmdj = {"f", "find", "find ", "find C-JUnit", "find B", "find A", "find d"};
+        for (int i = 0; i < cmdj.length; i++) {
+            try {
+                final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+                System.setOut(new PrintStream(outContent));
+                ParserStud p = new ParserStud(cmdj[i]);
+                Commands c = p.parse();
+                c.execute(taskList, new Ui(), 0, null);
+                assertEquals(cmdi[i - 3], outContent.toString());
+            } catch (DukeUnknownCommandException e) {
+                assertEquals("Unknown command", e.getMessage());
+            } catch (DukeException e) {
+                assertEquals("Please add the task name", e.getMessage());
+            }
+        }
 
     }
 }

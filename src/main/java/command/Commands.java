@@ -146,7 +146,7 @@ public class Commands {
                 break;
 
             case FIND:
-                //taskList.find(this.name);
+                taskList.find(this.name);
                 break;
 
             case SORT:
