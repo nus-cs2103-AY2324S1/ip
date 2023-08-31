@@ -2,10 +2,15 @@ public class Deadline extends Task {
 
     protected String dueDate;
 
-    public Deadline(String description, String dueDate) {
+    public Deadline(String description, boolean isDone, String dueDate) {
 
-        super(description);
+        super(description, isDone);
         this.dueDate = dueDate;
+    }
+
+    @Override
+    public String contentLine() {
+        return "D" + super.contentLine() + "/" + this.dueDate;
     }
 
     @Override
