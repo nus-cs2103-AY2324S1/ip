@@ -1,3 +1,8 @@
+package Pau.util;
+
+import Pau.task.Task;
+import Pau.task.TaskList;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -34,7 +39,7 @@ public class Storage {
         try {
             FileWriter writer = new FileWriter(DEFAULT_STORAGE_FILEPATH);
             for(int i = 0; i < tasks.listSize(); i++) {
-                Task task = tasks.taskList.get(i);
+                Task task = tasks.getTask(i);
                 writer.write(task.writeToFile() + "\n");
             }
             writer.close();

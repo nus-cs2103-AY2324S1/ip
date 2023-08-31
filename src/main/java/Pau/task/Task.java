@@ -1,3 +1,5 @@
+package Pau.task;
+
 import java.util.Scanner;
 
 public abstract class Task {

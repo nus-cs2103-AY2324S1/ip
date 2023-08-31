@@ -1,25 +1,23 @@
-import java.io.FileWriter;
-import java.io.IOException;
+package Pau.task;
+
+import Pau.exception.DeadlineNoEndException;
+import Pau.exception.NoDescException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class TaskList {
-    ArrayList<Task> taskList;
+    private ArrayList<Task> taskList;
 
     public TaskList() {
         this.taskList = new ArrayList<>();
     }
 
-    public TaskList(ArrayList<Task> taskList) {
-        this.taskList = taskList;
-    }
-
-    public void addTask(Task taskToAdd) {
-        this.taskList.add(taskToAdd);
-    }
-
     public int listSize() {
         return this.taskList.size();
+    }
+
+    public Task getTask(int index) {
+        return taskList.get(index);
     }
 
     /**

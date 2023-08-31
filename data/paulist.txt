@@ -1,2 +1,3 @@
 D | 0 | do stuff  | wed
 T | 0 | learn badminton
+T | 0 | run

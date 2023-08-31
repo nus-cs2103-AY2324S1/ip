@@ -1,3 +1,8 @@
+package Pau.util;
+
+import Pau.Pau;
+import Pau.task.TaskList;
+
 public class Parser {
     public static boolean parseCommand(String input, TaskList list) {
         if (input.equals("bye")) {

@@ -1,3 +1,10 @@
+package Pau;
+
+import Pau.util.Parser;
+import Pau.util.Storage;
+import Pau.task.TaskList;
+import Pau.util.Ui;
+
 import java.util.Scanner;
 
 public class Pau {

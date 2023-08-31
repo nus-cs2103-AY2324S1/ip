@@ -1,3 +1,5 @@
+package Pau.exception;
+
 public class DeadlineNoEndException extends Exception {
     public DeadlineNoEndException(String errorMessage) {
         int cryingEmojiUnicode = 0x1F62D;
