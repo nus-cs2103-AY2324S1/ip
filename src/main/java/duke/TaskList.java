@@ -120,7 +120,7 @@ public class TaskList {
         Pattern todoPattern = Pattern.compile("todo\\s+(.*?)$");
 
         // Match the input string with the pattern
-        Matcher matcher = todoPattern.matcher(input);
+        Matcher matcher = todoPattern.matcher(input.trim());
 
         // Check if the input string matches the pattern
         if (matcher.matches()) {
@@ -200,4 +200,43 @@ public class TaskList {
         System.out.println("-----------------------------------------------");
     }
 
+    /**
+     * Prints all the tasks in the current list that matches the target string.
+     *
+     * @param target The search target to match to.
+     */
+    public void printMatchingTasks(String target) {
+        System.out.println("-----------------------------------------------");
+        System.out.println("Here are the matching tasks in your list:");
+        for (int i = 0; i < list.size(); i++) {
+            if (list.get(i).contains(target)) {
+                System.out.println("" + (i + 1) + "." + list.get(i));
+            }
+        }
+        System.out.println("-----------------------------------------------");
+    }
+
+    /**
+     * Extracts the search target from the user input and calls printMatchingTasks
+     * to print the results that match.
+     *
+     * @param input The text input by user.
+     * @throws DukeException If the user left the search target blank.
+     */
+    public void find(String input) throws DukeException {
+        // Define regular expressions for pattern matching for todo
+        Pattern todoPattern = Pattern.compile("find\\s+(.*?)$");
+
+        // Match the input string with the pattern
+        Matcher matcher = todoPattern.matcher(input.trim());
+
+        // Check if the input string matches the pattern
+        if (matcher.matches()) {
+            String target = matcher.group(1); // Extract search target
+            printMatchingTasks(target); // Print results
+        } else {
+            // find description is empty
+            throw new DukeException("OOPS!!! Field after find cannot be empty :(");
+        }
+    }
 }

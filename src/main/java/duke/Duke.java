@@ -54,6 +54,9 @@ public class Duke {
                 case DEADLINE:
                     tasks.addDeadline(input);
                     break;
+                case FIND:
+                    tasks.find(input);
+                    break;
                 default:
                     // invalid input
                     throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");

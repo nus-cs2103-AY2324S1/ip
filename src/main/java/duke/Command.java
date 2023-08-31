@@ -12,5 +12,6 @@ enum Command {
     TODO,
     DEADLINE,
     EVENT,
+    FIND,
     INVALID
 }
