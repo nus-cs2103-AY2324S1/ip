@@ -3,11 +3,12 @@ package main;
 import task.Task;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Ui {
     private StringBuilder output;
 
-    Ui() {
+    public Ui() {
         output = new StringBuilder();
     }
 
@@ -71,7 +72,7 @@ public class Ui {
         }
     }
 
-    String getGreeting() {
+    public String getGreeting() {
         return "Hello from Dialogix\nWhat can I do for you?";
     }
 
@@ -91,5 +92,13 @@ public class Ui {
     public void printMessage(String message) {
         addToOutput(message);
     }
+
+    public void showSearchResults(List<Task> matchingTasks) {
+        System.out.println("Here are the matching tasks in your list:");
+        for (int i = 0; i < matchingTasks.size(); i++) {
+            System.out.println((i + 1) + "." + matchingTasks.get(i).toString());
+        }
+    }
+
 }
 

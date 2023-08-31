@@ -1,6 +1,7 @@
 package main;
 
 import command.ExitCommand;
+import command.FindCommand;
 import command.UndoCommand;
 import exception.DialogixException;
 import task.TaskType;
@@ -51,7 +52,7 @@ public class Parser {
         } else if (isFindCommand(fullCommand)) {
             String toFind = fullCommand.replaceFirst("find", "").trim();
             validateFindInput(toFind);
-            // return new FindCommand(toFind);
+            return new FindCommand(toFind);
         } else {
             // throw new DialogixException("OOPS!!! I'm sorry, but I don't know what that means :-(");
         }

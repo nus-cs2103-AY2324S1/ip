@@ -8,6 +8,7 @@ import task.Todo;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class TaskList {
     private List<Task> tasks;
@@ -40,5 +41,11 @@ public class TaskList {
 
     public List<Task> getTasks() {
         return tasks;
+    }
+
+    public List<Task> findTasks(String keyword) {
+        return tasks.stream()
+            .filter(task -> task.getDescription().contains(keyword))
+            .collect(Collectors.toList());
     }
 }
