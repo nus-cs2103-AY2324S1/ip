@@ -1,3 +1,4 @@
+package JavAI;
 public class Ui {
 
     String line = "     ____________________________________________________________";
@@ -15,12 +16,16 @@ public class Ui {
         displayLine();
     }
     public void printList(TaskList tasks) {
-        displayLine();
-        System.out.println("Here are the tasks in your list:");
-        for (int i = 0; i < tasks.size(); i++) {
-            System.out.println((i + 1) + "." + tasks.get(i).toString());
+        try {
+            displayLine();
+            System.out.println("Here are the tasks in your list:");
+            for (int i = 0; i < tasks.size(); i++) {
+                System.out.println((i + 1) + "." + tasks.get(i).toString());
+            }
+            displayLine();
+        } catch (JavAIException e) {
+            showLoadingError(e);
         }
-        displayLine();
     }
     public void printDelete(Task task, TaskList tasks) {
         displayLine();
@@ -43,7 +48,6 @@ public class Ui {
     public void exit() {
         System.out.println(line + "\n      Bye. Hope to see you again soon!\n" + line);
     }
-
     public void showLoadingError(Exception e) {
         System.out.println(e.getMessage());
     }

@@ -1,2 +1,2 @@
-[T][ ] clean bedsheet 
+[T][X] clean bedsheet 
 [E][ ]  ( from: to: )

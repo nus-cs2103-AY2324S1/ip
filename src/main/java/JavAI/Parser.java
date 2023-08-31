@@ -1,7 +1,7 @@
-
+package JavAI;
 public class Parser {
 
-    public void parse(String input, TaskList tasks, Ui ui) throws JavAIException, Exception {
+    public void parse(String input, TaskList tasks, Ui ui) throws JavAIException {
         String[] words = input.split(" ");
         String description = "";
         int iterator = 1;
@@ -79,11 +79,11 @@ public class Parser {
                 tasks.get(iden).markAsDone();
                 ui.printDone(tasks.get(iden));
             } catch (ArrayIndexOutOfBoundsException e) {
-                ui.print("☹ OOPS!!! Please input a valid numerical value after 'mark'.");
+                throw new JavAIException("☹ OOPS!!! Please input a valid numerical value after 'mark'.");
             } catch (NullPointerException e) {
-                ui.print("☹ OOPS!!! Please input a valid numerical value after 'mark'.");
+                throw new JavAIException("☹ OOPS!!! Please input a valid numerical value after 'mark'.");
             } catch (NumberFormatException e) {
-                ui.print("☹ OOPS!!! Please input a valid numerical value after 'mark'.");
+                throw new JavAIException("☹ OOPS!!! Please input a valid numerical value after 'mark'.");
             }
         } else if (words[0].equals("unmark")) {
             try {
@@ -91,11 +91,11 @@ public class Parser {
                 tasks.get(iden).markAsUndone();
                 ui.printUndone(tasks.get(iden));
             } catch (ArrayIndexOutOfBoundsException e) {
-                ui.print("☹ OOPS!!! Please input a valid numerical value after 'unmark'.");
+                throw new JavAIException("☹ OOPS!!! Please input a valid numerical value after 'unmark'.");
             } catch (NullPointerException e) {
-                ui.print("☹ OOPS!!! Please input a valid numerical value after 'unmark'.");
+                throw new JavAIException("☹ OOPS!!! Please input a valid numerical value after 'unmark'.");
             } catch (NumberFormatException e) {
-                ui.print("☹ OOPS!!! Please input a valid numerical value after 'unmark'.");
+                throw new JavAIException("☹ OOPS!!! Please input a valid numerical value after 'unmark'.");
             }
 
         } else if (words[0].equals("delete")) {

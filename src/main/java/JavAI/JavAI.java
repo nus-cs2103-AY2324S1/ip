@@ -1,3 +1,5 @@
+package JavAI;
+
 import java.util.Scanner;
 
 /**
@@ -34,7 +36,7 @@ public class JavAI {
             } else {
                 try {
                     parser.parse(input, tasks, ui);
-                } catch (Exception e) {
+                } catch (JavAIException e) {
                     ui.showLoadingError(e);
                 }
             }
