@@ -1,7 +1,4 @@
-import duke.DukeException;
-import duke.Storage;
-import duke.StoreList;
-import duke.UserInterface;
+package duke;
 
 public class Duke {
     private static final String NAME = "Nino!";
