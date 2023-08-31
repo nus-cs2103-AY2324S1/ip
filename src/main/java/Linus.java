@@ -107,6 +107,7 @@ public class Linus {
                 Ui.print(e.getMessage());
             }
         }
+        storage.store(tasks.getList());
         Ui.showExitMessage();
     }
 

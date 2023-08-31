@@ -8,6 +8,7 @@ import java.io.FileWriter;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -46,6 +47,10 @@ public class Storage {
     }
 
     public void store(List<Task> tasks) {
+        gson = new GsonBuilder()
+                .registerTypeAdapter(LocalDate.class, new LocalDateTypeAdapter())
+                .create();
+
         String json = gson.toJson(tasks);
         try {
             FileWriter fileWriter = new FileWriter(filePath);

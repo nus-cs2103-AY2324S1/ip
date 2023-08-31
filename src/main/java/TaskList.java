@@ -10,6 +10,10 @@ public class TaskList {
     public TaskList(List<Task> tasks) {
         this.tasks = tasks;
     }
+
+    public List<Task> getList() {
+        return this.tasks;
+    }
     public void list() {
         String listOfItems = "Here are the tasks in your list:\n";
         for (int i = 0; i < tasks.size(); ++i) {
