@@ -12,11 +12,6 @@ public class TaskList {
     private ArrayList<Task> list;
     private Storage storage;
 
-    /**
-     * Constructs a TaskList object with the given file path.
-     *
-     * @param filePath the path to the file used for storage
-     */
     public TaskList(String filePath) {
         this.storage = new Storage(filePath);
         try {
@@ -26,9 +21,6 @@ public class TaskList {
         }
     }
 
-    /**
-     * Saves the tasks to the storage.
-     */
     private void save() {
         try {
             storage.save(list);
