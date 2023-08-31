@@ -18,3 +18,4 @@ text-ui-test/EXPECTED-UNIX.TXT
 *.class
 text-ui-test/input.txt
 data/tasks.ser
+.vscode/settings.json

@@ -29,9 +29,14 @@ test {
 }
 
 application {
-    mainClass.set("client.Rock.Main")
+    mainClass.set("client.Rock")
 }
 
+sourceSets {
+    test {
+        java.srcDirs = ['src/test/java']
+    }
+}
 shadowJar {
     archiveBaseName = "duke"
     archiveClassifier = null
@@ -40,4 +45,8 @@ shadowJar {
 
 run{
     standardInput = System.in
+}
+
+checkstyle{
+    toolVersion = '10.2'
 }
