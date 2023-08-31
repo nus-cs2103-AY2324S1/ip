@@ -38,5 +38,4 @@ public class TaskList {
     public ArrayList<Task> getList() {
         return this.tasks;
     }
-
 }

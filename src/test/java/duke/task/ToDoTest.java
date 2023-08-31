@@ -16,9 +16,9 @@ public class ToDoTest {
     @Test
     public void testFileDescription() {
         ToDo todo = new ToDo("Read a book");
-        assertEquals("T | 1 | Read a book" + "\n", todo.fileDescription());
+        assertEquals("T | 1 | Read a book" + "\n", todo.toFileFormat());
 
         todo.markAsDone();
-        assertEquals("T | 0 | Read a book" + "\n", todo.fileDescription());
+        assertEquals("T | 0 | Read a book" + "\n", todo.toFileFormat());
     }
 }

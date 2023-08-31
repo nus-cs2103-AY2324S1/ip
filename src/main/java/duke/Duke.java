@@ -11,13 +11,12 @@ import java.util.Scanner;
 
 public class Duke {
     public static final String FILE_PATH = "data/duke.txt";
-
     private final Storage storage;
     private TaskList tasks;
     private final Ui ui;
 
     public Duke(String filePath) {
-        this.ui = new Ui();
+        ui = new Ui();
         storage = new Storage(FILE_PATH);
         try {
             tasks = new TaskList(storage.load());

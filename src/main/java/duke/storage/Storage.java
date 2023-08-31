@@ -20,12 +20,14 @@ import java.util.Scanner;
 
 public class Storage {
     String filePath;
+
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
     /**
      * Saves the task list data to the storage file.
+     *
      * @param tasks List of tasks to be added into the storage file.
      */
     public void save(ArrayList<Task> tasks, Ui ui) {
@@ -43,11 +45,11 @@ public class Storage {
 
         try {
             // Write tasks into hard disk
-            FileWriter fw = new FileWriter(this.filePath);
-            for (Task task: tasks) {
-                fw.write(task.fileDescription());
+            FileWriter fileWriter = new FileWriter(this.filePath);
+            for (Task task : tasks) {
+                fileWriter.write(task.toFileFormat());
             }
-            fw.close();
+            fileWriter.close();
         } catch (IOException e) {
             ui.showErrorMessage(e.getMessage());
         }
@@ -61,31 +63,31 @@ public class Storage {
             Scanner scanner = new Scanner(file);
 
             while (scanner.hasNextLine()) {
-                String taskLine = scanner.nextLine();
-                String[] taskParts = taskLine.split("\\|");
+                String fullTaskCommand = scanner.nextLine();
+                String[] taskParts = fullTaskCommand.split("\\|");
                 String taskType = taskParts[0].trim();
 
                 switch (taskType) {
-                    case "T":
-                        tasks.add(new ToDo(taskParts[2].trim()));
-                        break;
-                    case "D":
-                        String datePart = taskParts[3].replace(" by ", "").trim();
-                        String timePart = taskParts[4].trim();
+                case "T":
+                    tasks.add(new ToDo(taskParts[2].trim()));
+                    break;
+                case "D":
+                    String datePart = taskParts[3].replace(" by ", "").trim();
+                    String timePart = taskParts[4].trim();
 
-                        LocalDate date = LocalDate.parse(datePart, DateTimeFormatter.ofPattern("d MMM yyyy", Locale.US));
-                        String formattedDate = date.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+                    LocalDate date = LocalDate.parse(datePart, DateTimeFormatter.ofPattern("d MMM yyyy", Locale.US));
+                    String formattedDate = date.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
 
-                        LocalTime time = LocalTime.parse(timePart, DateTimeFormatter.ofPattern("h.mma", Locale.US));
-                        String formattedTime = time.format(DateTimeFormatter.ofPattern("HHmm"));
+                    LocalTime time = LocalTime.parse(timePart, DateTimeFormatter.ofPattern("h.mma", Locale.US));
+                    String formattedTime = time.format(DateTimeFormatter.ofPattern("HHmm"));
 
-                        tasks.add(new Deadline(taskParts[2].trim(), formattedDate, formattedTime));
-                        break;
-                    case "E":
-                        tasks.add(new Event(taskParts[2].trim(), taskParts[3].trim(), taskParts[4].trim()));
-                        break;
-                    default:
-                        throw new DukeException("Invalid task type in file: " + taskType);
+                    tasks.add(new Deadline(taskParts[2].trim(), formattedDate, formattedTime));
+                    break;
+                case "E":
+                    tasks.add(new Event(taskParts[2].trim(), taskParts[3].trim(), taskParts[4].trim()));
+                    break;
+                default:
+                    throw new DukeException("Invalid task type in file: " + taskType);
                 }
             }
             scanner.close();

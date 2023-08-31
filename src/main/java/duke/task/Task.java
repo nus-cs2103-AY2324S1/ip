@@ -4,9 +4,9 @@ public class Task {
     protected String description;
     protected boolean isDone;
 
-    public Task(String description) {
-        this.description = description;
-        this.isDone = false;
+    public Task(String d) {
+        description = d;
+        isDone = false;
     }
 
     public String getStatusIcon() {
@@ -26,7 +26,7 @@ public class Task {
         return "[" + getStatusIcon() + "] " + this.description;
     }
 
-    public String fileDescription() {
+    public String toFileFormat() {
         if (this.isDone) {
             return " | 0 | " + this.description;
         } else {

@@ -14,66 +14,51 @@ import java.time.format.DateTimeParseException;
 public class Parser {
     public static Command parse(String userInput) throws DukeException {
         String[] splitCommand = userInput.trim().split(" ", 2);
+
         switch (splitCommand[0]) {
-            case "list": {
-                return new ListCommand();
+        case "list":
+            return new ListCommand();
+        case "bye":
+            return new ExitCommand();
+        case "event":
+            // Add event task into task list
+            if (!userInput.matches("event .*/from .* /to .*")) {
+                throw new DukeException("OOPS!!! The format of an event task is " +
+                        "\"event TASK_DESCRIPTION /from START /to END\"");
             }
-            case "bye": {
-                return new ExitCommand();
+            String[] taskParts = splitCommand[1].split("/");
+            return new AddCommand(new Event(taskParts[0], taskParts[1], taskParts[2]));
+        case "deadline":
+            // Add deadline task into task list
+            return parseDeadlineCommand(splitCommand[1]);
+        case "todo":
+            // Add to-do task into task list
+            if (!userInput.matches("todo .*")) {
+                throw new DukeException("OOPS!!! The description of a todo cannot be empty.");
             }
-            case "event": {
-                // Add event task into task list
-                if (!userInput.matches("event .*/from .* /to .*")) {
-                    throw new DukeException("OOPS!!! The format of an event task is " +
-                            "\"event TASK_DESCRIPTION /from START /to END\"");
-                }
-                String[] taskParts = splitCommand[1].split("/");
-                return new AddCommand(new Event(taskParts[0], taskParts[1], taskParts[2]));
+            return new AddCommand(new ToDo(splitCommand[1]));
+        case "mark":
+        case "unmark":
+        case "delete":
+            if (!userInput.matches(".* \\d+")) {
+                String errorMessage = String.format(
+                        "OOPS!!! The format of this command is \"%s TASK_NUMBER\". "
+                                + "Task number must exist in the task list.", splitCommand[0]);
+                throw new DukeException(errorMessage);
             }
-            case "deadline": {
-                // Add deadline task into task list
-                return parseDeadlineCommand(splitCommand[1]);
-            }
-            case "todo": {
-                // Add to-do task into task list
-                if (!userInput.matches("todo .*")) {
-                    throw new DukeException("OOPS!!! The description of a todo cannot be empty.");
-                }
-                return new AddCommand(new ToDo(splitCommand[1]));
-            }
-            case "mark": {
-                // Mark tasks as done
-                if (!userInput.matches("mark \\d+")) {
-                    String errorMessage = "OOPS!!! The format of marking a task done is \"mark TASK_NUMBER\".\n" +
-                            "Task number must exist in the task list.";
-                    throw new DukeException(errorMessage);
-                }
-                int taskNumber = Integer.parseInt(splitCommand[1]);
+
+            int taskNumber = Integer.parseInt(splitCommand[1]);
+            switch (splitCommand[0]) {
+            case "mark":
                 return new MarkCommand(taskNumber);
-            }
-            case "unmark": {
-                // Mark tasks as undone
-                if (!userInput.matches("unmark \\d+")) {
-                    String errorMessage = "OOPS!!! The format of marking a task done is \"unmark TASK_NUMBER\".\n" +
-                            "Task number must exist in the task list.";
-                    throw new DukeException(errorMessage);
-                }
-                int taskNumber = Integer.parseInt(splitCommand[1]);
+            case "unmark":
                 return new UnmarkCommand(taskNumber);
-            }
-            case "delete": {
-                // Delete task from list
-                if (!userInput.matches("delete \\d+")) {
-                    String errorMessage = "OOPS!!! The format of marking a task done is \"delete TASK_NUMBER\".\n" +
-                            "Task number must exist in the task list.";
-                    throw new DukeException(errorMessage);
-                }
-                int taskNumber = Integer.parseInt(splitCommand[1]);
+            case "delete":
                 return new DeleteCommand(taskNumber);
             }
-            default: {
-                throw new DukeException();
-            }
+
+        default:
+            throw new DukeException();
         }
     }
 

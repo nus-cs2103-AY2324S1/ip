@@ -11,7 +11,7 @@ public class ToDo extends Task {
     }
 
     @Override
-    public String fileDescription() {
-        return "T" + super.fileDescription() + "\n";
+    public String toFileFormat() {
+        return "T" + super.toFileFormat() + "\n";
     }
 }
