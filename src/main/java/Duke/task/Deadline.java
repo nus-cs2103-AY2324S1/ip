@@ -33,7 +33,7 @@ public class Deadline extends Task{
     }
     public static Deadline ParseContent(String content) throws DukeException {
         String[] components = content.split("\\|", 3);
-        Deadline task = new Deadline(components[1] + "/by" + components[0]);
+        Deadline task = new Deadline(components[1] + "/by " + components[0]);
         if(components[2].equals("X"))
             task.SetCompleted();
         else

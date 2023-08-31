@@ -22,6 +22,8 @@ public abstract class Command {
             return new Deadline(content);
         case "event":
             return new Event(content);
+        case "find":
+            return new Find(content);
         case "list":
             return new List(content);
         case "mark":
@@ -89,8 +91,8 @@ class List extends Command {
     }
     @Override
     public Message execute(Application application) {
-        return Message.AccumulateList(Message.ConvertTasks(application), "\n").ChainTo(
-                Message.NumberOfTasks(application), "\n");
+        return Message.AccumulateList(Message.ConvertTasks(application.getTaskList()), "\n").ChainTo(
+                Message.OnList(application), "\n");
     }
 }
 class Mark extends Command {
@@ -137,6 +139,19 @@ class Unmark extends Command {
         }
         task.SetUncompleted();
         return Message.OnTaskUncomplete(task);
+    }
+}
+
+class Find extends Command {
+    public Find(String content) {
+        super(content);
+    }
+
+    @Override
+    public Message execute(Application application) {
+        return Message.OnTaskFind().ChainTo(
+                Message.AccumulateList(Message.ConvertTasks(application.findMatchingTasks(content)), "\n"),
+                "\n");
     }
 }
 class Delete extends Command {

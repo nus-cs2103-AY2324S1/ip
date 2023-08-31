@@ -27,6 +27,10 @@ public abstract class Task {
         }
     }
 
+    public boolean containsString(String content) {
+        return name.contains(content);
+    }
+
     public enum TaskType {
         TODO,
         DEADLINE,

@@ -2,6 +2,7 @@ package Duke.message;
 
 import Duke.task.Task;
 import Duke.application.Application;
+import Duke.task.TaskList;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,10 +15,10 @@ public class Message {
         this.content = content;
     }
 
-    public static List<Message> ConvertTasks(Application application) {
+    public static List<Message> ConvertTasks(TaskList taskList) {
         List<Message> messages = new ArrayList<>();
-        for(int i = 0; i < application.TaskCount(); i++) {
-            messages.add((new Message((i + 1) + ". " + application.GetTask(i).toString())));
+        for(int i = 0; i < taskList.getNumberOfTasks(); i++) {
+            messages.add((new Message((i + 1) + ". " + taskList.getTask(i).toString())));
         }
         return messages;
     }
@@ -45,8 +46,12 @@ public class Message {
         return new Message ("I've removed this task: \n" + task.toString());
     }
 
-    public static Message NumberOfTasks(Application tasks) {
-        return new Message ("There are " + tasks.TaskCount() + " tasks in the list.");
+    public static Message OnTaskFind() {
+        return new Message("Here are the matching tasks in your list: ");
+    }
+
+    public static Message OnList(Application tasks) {
+        return new Message ("There are " + tasks.getTaskCount() + " tasks in the list.");
     }
     public Message ChainTo(Message message, String splitString) {
         return new Message(this.content + splitString + message.content);

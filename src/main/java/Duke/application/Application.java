@@ -4,15 +4,13 @@ import Duke.duke.Duke;
 import Duke.exception.DukeException;
 import Duke.storage.Storage;
 import Duke.task.Task;
-
-import java.util.ArrayList;
-import java.util.List;
+import Duke.task.TaskList;
 
 /**
  * The application that manages UI and the taskList.
  */
 public class Application {
-    private List<Task> taskList = new ArrayList<>();
+    private TaskList taskList = new TaskList();
 
     private final Duke duke;
 
@@ -45,7 +43,7 @@ public class Application {
      */
     public void AddTask(Task task) {
         storage.AddLine(task.toSaveFormat());
-        taskList.add(task);
+        taskList.addTask(task);
     }
 
     /**
@@ -54,8 +52,8 @@ public class Application {
      * @param task The task to be removed.
      */
     public void RemoveTask(Task task) {
-        storage.RemoveLine(taskList.indexOf(task) + 1);
-        taskList.remove(task);
+        storage.RemoveLine(taskList.findTaskIndex(task) + 1);
+        taskList.removeTask(task);
     }
 
     /**
@@ -64,11 +62,11 @@ public class Application {
      * @throws DukeException If there's an issue with loading tasks from storage.
      */
     public void LoadTaskList() throws DukeException {
-        taskList = new ArrayList<>();
+        taskList = new TaskList();
         String line;
         int currentLine = 1;
         while(!(line = storage.GetLine(currentLine)).equals("")) {
-            taskList.add(Task.Parse(line));
+            taskList.addTask(Task.Parse(line));
             currentLine++;
         }
     }
@@ -78,8 +76,8 @@ public class Application {
      *
      * @return The number of tasks.
      */
-    public int TaskCount() {
-        return taskList.size();
+    public int getTaskCount() {
+        return taskList.getNumberOfTasks();
     }
 
     /**
@@ -89,6 +87,20 @@ public class Application {
      * @return The task at the specified index.
      */
     public Task GetTask(int index) {
-        return taskList.get(index);
+        return taskList.getTask(index);
+    }
+
+    public TaskList getTaskList() {
+        return taskList;
+    }
+
+    public TaskList findMatchingTasks(String content) {
+        TaskList matchingTasks = new TaskList();
+        for(int i = 0; i < getTaskCount(); i++) {
+            if(taskList.getTask(i).containsString(content)) {
+                matchingTasks.addTask(taskList.getTask(i));
+            }
+        }
+        return matchingTasks;
     }
 }
