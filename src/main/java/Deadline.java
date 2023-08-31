@@ -1,6 +1,7 @@
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatterBuilder;
 import java.time.format.DateTimeParseException;
+import java.time.temporal.ChronoUnit;
 
 public class Deadline extends Task {
 
@@ -13,6 +14,10 @@ public class Deadline extends Task {
     public Deadline(String description, LocalDateTime endTime) {
         super(description);
         this.endTime = endTime;
+    }
+
+    public boolean isDue(LocalDateTime dateTime) {
+        return this.endTime.truncatedTo(ChronoUnit.DAYS).isEqual(dateTime.truncatedTo(ChronoUnit.DAYS));
     }
 
     @Override

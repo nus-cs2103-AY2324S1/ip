@@ -1,5 +1,7 @@
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
+import java.time.temporal.ChronoUnit;
+import java.time.temporal.TemporalUnit;
 
 public class Event extends Task {
 
@@ -17,6 +19,11 @@ public class Event extends Task {
         super(description);
         this.startTime = startTime;
         this.endTime = endTime;
+    }
+
+    public boolean isOngoing(LocalDateTime dateTime) {
+        return !this.startTime.truncatedTo(ChronoUnit.DAYS).isAfter(dateTime.truncatedTo(ChronoUnit.DAYS))
+                && !dateTime.truncatedTo(ChronoUnit.DAYS).isAfter(this.endTime.truncatedTo(ChronoUnit.DAYS));
     }
 
     @Override
