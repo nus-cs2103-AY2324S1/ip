@@ -32,6 +32,13 @@ public class Event extends Task {
     public String getEndFormatted() {
         return this.end.format(DateTimeFormatter.ofPattern("d MMM yyyy h:mma"));
     }
+    public LocalDateTime getStart() {
+        return this.start;
+    }
+
+    public LocalDateTime getEnd() {
+        return this.end;
+    }
 
     @Override
     public String statusAndTask() {

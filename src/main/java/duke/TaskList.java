@@ -6,6 +6,7 @@ import exceptions.OutOfRangeException;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.concurrent.Future;
 
 public class TaskList {
     private static ArrayList<Task> taskArray;
@@ -127,5 +128,7 @@ public class TaskList {
         }
     }
 
-
+    public Task getTask(int i) {
+         return taskArray.get(i);
+    }
 }
