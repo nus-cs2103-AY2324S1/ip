@@ -15,10 +15,22 @@ public class Cloud {
     private static Scanner SCANNER = new Scanner(System.in);
     private static List<Todo> TODOS = new ArrayList<>();
 
-    private static void handle(String input) {
+    private static List<Token> toTokens(String input) {
         String[] words = input.split(" ");
-        String command = words.length >= 1 ? words[0] : "";
+        List<Token> tokens = new ArrayList<>();
 
+        for (int i = 0; i < words.length; i++) {
+            String word = words[i];
+            Token token = new Token(word);
+            tokens.add(token);
+        }
+        return tokens;
+    }
+
+    private static void handle(String input) {
+        List<Token> tokens = Cloud.toTokens(input);
+
+        String command = tokens.size() >= 1 ? tokens.get(0).get() : "";
         switch (command) {
         case "":
             Cloud.say("Please enter a valid command.");
@@ -35,7 +47,7 @@ public class Cloud {
             }
             break;
         case "mark": {
-            Integer number = wordToInt(words, 1);
+            Integer number = Cloud.verifyNumber(tokens);
             if (number == null) {
                 return;
             }
@@ -46,7 +58,7 @@ public class Cloud {
             break;
         }
         case "unmark": {
-            Integer number = wordToInt(words, 1);
+            Integer number = Cloud.verifyNumber(tokens);
             if (number == null) {
                 return;
             }
@@ -69,32 +81,33 @@ public class Cloud {
         }
     }
 
-    private static Integer wordToInt(String[] words, int index) {
-        String numberString = words.length >= index + 1 ? words[index] : "";
-        int number;
-        try {
-            number = Integer.parseInt(numberString);
-        } catch (NumberFormatException e) {
+    private static Integer verifyNumber(List<Token> tokens) {
+        if (tokens.size() <= 1) {
+            return null;
+        }
+
+        Token numberToken = tokens.get(1);
+        if (!numberToken.isInt()) {
             Cloud.say(
                 String.format(
                     "\"%s\" is not a valid TODO number.",
-                    numberString
+                    numberToken.get()
                 )
             );
             return null;
         }
 
-        if (number < 0 || number > Cloud.TODOS.size()) {
+        if (!numberToken.isValidNumber(Cloud.TODOS)) {
             Cloud.say(
                 String.format(
                     "TODO #%d does not exist.",
-                    number
+                    numberToken.asInt()
                 )
             );
             return null;
         }
 
-        return number;
+        return numberToken.asInt();
     }
 
     private static void say(String text) {

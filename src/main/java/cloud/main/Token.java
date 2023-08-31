@@ -24,6 +24,14 @@ public class Token {
         }
     }
 
+    public String get() {
+        return this.token;
+    }
+
+    public void set(String _token) {
+        this.token = _token;
+    }
+
     /**
      * Whether the token can be converted to a valid integer.
      */
