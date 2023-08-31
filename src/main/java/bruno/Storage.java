@@ -7,17 +7,14 @@ import java.util.List;
 import java.util.Scanner;
 
 import bruno.exceptions.BrunoException;
-import bruno.exceptions.BrunoIncorrectFormatException;
-import bruno.task.Deadline;
-import bruno.task.Event;
 import bruno.task.Task;
-import bruno.task.ToDo;
 
 /**
  * The Storage class is responsible for all actions relating to the bruno.txt file, such as loading the
  * file at the start of the application, and writing to the file whenever changes are made to the task list.
  */
 public class Storage {
+
     private String dirPath;
     private String fileName;
     private UI ui;
@@ -25,6 +22,7 @@ public class Storage {
 
     /**
      * Creates a new instance of the Storage class using the specified directory path and file name.
+     *
      * @param dirPath The path of the directory where the file will be stored.
      * @param fileName The name of the file that is loaded, or the tasks are written to.
      */
@@ -55,6 +53,7 @@ public class Storage {
 
     /**
      * Loads the bruno.txt file and populates the list of tasks.
+     *
      * @throws BrunoException Thrown if file to be read is not in proper format.
      */
     public void loadFile(TaskList taskList) throws BrunoException {
@@ -68,14 +67,18 @@ public class Storage {
                 String s = sc.nextLine();
                 String[] task = s.split("\\|");
                 List<Task> list = taskList.getList();
-                if (task[0].equals("T")) {
-                    list.add(new ToDo(task[2]));
-                } else if (task[0].equals("D")) {
-                    list.add(new Deadline(task[2], task[3]));
-                } else if (task[0].equals("E")) {
-                    list.add(new Event(task[2], task[3], task[4]));
-                } else {
-                    throw new BrunoIncorrectFormatException();
+                switch (task[0]) {
+                case "T":
+                    list.add(new bruno.task.ToDo(task[2]));
+                    break;
+                case "D":
+                    list.add(new bruno.task.Deadline(task[2], task[3]));
+                    break;
+                case "E":
+                    list.add(new bruno.task.Event(task[2], task[3], task[4]));
+                    break;
+                default:
+                    throw new bruno.exceptions.BrunoIncorrectFormatException();
                 }
                 taskList.setList(list);
             }

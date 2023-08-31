@@ -5,6 +5,7 @@ package bruno.exceptions;
  * "yyyy-MM-dd HH:mm" format.
  */
 public class BrunoDateTimeFormatException extends BrunoException {
+
     public BrunoDateTimeFormatException() {
         super("Date and Time are not in correct format. They must be in YYYY-MM-DD HH:MM format.");
     }

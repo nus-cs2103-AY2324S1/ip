@@ -12,9 +12,10 @@ public class Event extends Task {
 
     /**
      * Creates a new instance of the Event class.
+     *
      * @param description Description of the task.
-     * @param from Start time of the task.
-     * @param by End time of the task.
+     * @param from        Start time of the task.
+     * @param by          End time of the task.
      */
     public Event(String description, String from, String by) {
         super(TaskType.EVENT, description);

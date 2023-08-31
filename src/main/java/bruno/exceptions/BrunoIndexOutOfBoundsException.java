@@ -5,10 +5,12 @@ package bruno.exceptions;
  * greater than the number of tasks in the list, for mark, unmark or delete.
  */
 public class BrunoIndexOutOfBoundsException extends BrunoException {
+
     private String activity;
 
     /**
      * Displays the error message.
+     *
      * @param activity One of mark, unmark or delete.
      */
     public BrunoIndexOutOfBoundsException(String activity) {

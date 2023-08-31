@@ -11,8 +11,9 @@ public class Deadline extends Task {
 
     /**
      * Creates a new instance of the Deadline class.
+     *
      * @param description Description of the task.
-     * @param by Deadline of the task.
+     * @param by          Deadline of the task.
      */
     public Deadline(String description, String by) {
         super(TaskType.DEADLINE, description);

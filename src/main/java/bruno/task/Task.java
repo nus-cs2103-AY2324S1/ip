@@ -9,17 +9,18 @@ import java.util.Locale;
  * Superclass for all task types.
  */
 public class Task {
-    protected TaskType type;
+    protected TaskType taskType;
     protected String description;
     private boolean isDone;
 
     /**
      * Creates a new instance of the Task class.
-     * @param type The task type.
+     *
+     * @param type        The task type.
      * @param description Description of the task.
      */
     public Task(TaskType type, String description) {
-        this.type = type;
+        this.taskType = type;
         this.description = description;
         this.isDone = false;
     }
@@ -56,6 +57,7 @@ public class Task {
 
     /**
      * Converts the string into instance of LocalDateTime.
+     *
      * @param s The input string.
      * @return LocalDateTime instance for the converted string.
      * @throws DateTimeException Thrown if string cannot be converted to LocalDateTime.
@@ -67,6 +69,7 @@ public class Task {
 
     /**
      * Converts the LocalDateTime instance into a string.
+     *
      * @param dt LocalDateTime instance to be converted.
      * @return String representation of the LocalDateTime instance.
      * @throws DateTimeException Thrown if LocalDateTime cannot be converted to string.

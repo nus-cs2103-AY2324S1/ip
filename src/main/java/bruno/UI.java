@@ -5,10 +5,11 @@ package bruno;
  * management system.
  */
 public class UI {
+
     /**
      * Displays the divider lines before and after each command.
      */
-    public void display_lines() {
+    public void displayLines() {
         for (int i = 0; i < 20; i++) {
             System.out.print((i == 0 ? "-" : " -"));
         }
@@ -25,6 +26,7 @@ public class UI {
         String name = "Bruno";
         System.out.println("Woof Woof! I'm " + name + " 🐾");
         System.out.println("How can I help you?");
+        System.out.println("[Please not that date/time must be in \"yyyy-MM-dd HH:mm\" format]");
     }
 
     /**
@@ -37,9 +39,10 @@ public class UI {
 
     /**
      * Displays the appropriate messages for each command.
-     * @param s The command message.
+     *
+     * @param taskInfo The command message.
      */
-    public void displayMessage(String s) {
-        System.out.println(s);
+    public void displayMessage(String taskInfo) {
+        System.out.println(taskInfo);
     }
 }

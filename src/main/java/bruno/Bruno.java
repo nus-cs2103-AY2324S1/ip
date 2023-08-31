@@ -16,6 +16,7 @@ public class Bruno {
 
     /**
      * Creates a new instance of the Bruno class with the specified directory path and file name
+     *
      * @param dirPath The path of the directory that will store the file.
      * @param fileName The name of the file where the tasks are being loaded, or read from.
      */
@@ -33,36 +34,35 @@ public class Bruno {
     /**
      * Runs the Bruno application, allowing the user to interact with the task management system
      */
-    public void run() {
+    public void runBruno() {
         Parser parser = new Parser(tasks);
         Scanner sc = new Scanner(System.in);
-        try {
-            ui.display_lines();
-            ui.displayGreeting();
-            ui.display_lines();
-            outer:
-            do {
+        ui.displayLines();
+        ui.displayGreeting();
+        ui.displayLines();
+        do {
+            try {
                 String s = sc.nextLine();
-                ui.display_lines();
-                boolean flag = parser.parse(s);
+                ui.displayLines();
+                boolean flag = parser.parseInput(s);
                 if (!flag) {
                     ui.displayBye();
-                    ui.display_lines();
+                    ui.displayLines();
                     System.exit(0);
                 }
-                ui.display_lines();
-            } while (true);
-        } catch (BrunoException e) {
-            System.out.println(e.getMessage());
-            ui.display_lines();
-        } catch (DateTimeException e) {
-            System.out.println("\tDate and Time is not in correct format.");
-            ui.display_lines();
-        }
+                ui.displayLines();
+            } catch (BrunoException e) {
+                System.out.println(e.getMessage());
+                ui.displayLines();
+            } catch (DateTimeException e) {
+                System.out.println("\tDate and Time is not in correct format.");
+                ui.displayLines();
+            }
+        } while (true);
     }
 
     public static void main(String[] args) {
         Bruno bruno = new Bruno("data/", "bruno.txt");
-        bruno.run();
+        bruno.runBruno();
     }
 }

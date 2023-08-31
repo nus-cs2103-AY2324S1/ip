@@ -28,8 +28,7 @@ public class StorageTest {
     private TaskList taskList;
     private UI ui;
 
-    @BeforeEach
-    void setUp() {
+    @BeforeEach void setUp() {
         dirPath = "data/";
         fileName = "bruno.txt";
         storage = new Storage(dirPath, fileName);
@@ -37,65 +36,63 @@ public class StorageTest {
         taskList = new TaskList(storage, ui);
     }
 
-    @Test
-    void testDirectoryExists() {
+    @Test void testDirectoryExists_normalCase_trueReturned() {
         File directory = new File(dirPath);
         assertTrue(directory.exists());
         directory.delete();
     }
 
-    @Test
-    void testWriteToFile() {
+    @Test void testWriteToFile_normalInput_writtenToFile() {
         File file = new File(dirPath + fileName);
         List<Task> list = new ArrayList<>();
         list.add(new ToDo("work"));
         taskList.setList(list);
-        storage.writeToFile();
+        storage.writeToFile(taskList);
         assertTrue(file.exists());
         file.delete();
     }
 
-    @Test
-    void testWriteToFile_emptyList() {
+    @Test void testWriteToFile_emptyList_writtenToFile() {
         File file = new File(dirPath + fileName);
         List<Task> list = new ArrayList<>();
         taskList.setList(list);
-        storage.writeToFile();
+        storage.writeToFile(taskList);
         assertEquals(0, file.length());
     }
 
-    @Test
-    void testLoadFile() {
+    @Test void testLoadFile_normalInput_fileLoaded() {
         try {
             List<Task> tasks = new ArrayList<>();
             tasks.add(new ToDo("work"));
             tasks.add(new Deadline("quiz", "2023-08-29 18:00"));
             tasks.add(new Event("hackathon", "2023-08-31 18:00", "2023-09-01 18:00"));
             taskList.setList(tasks);
-            storage.writeToFile();
-            storage.loadFile();
-            assertEquals(3, taskList.getList().size());
+            storage.writeToFile(taskList);
+            storage.loadFile(taskList);
+            assertEquals(6, taskList.getList().size());
         } catch (BrunoException e) {
             fail();
         }
     }
 
-    @Test
-    void testLoadFile_fileDoesNotExist() {
+    @Test void testLoadFile_fileDoesNotExist_correctOutputGenerated() {
+        File file = new File(dirPath + fileName);
+        if (file.exists()) {
+            file.delete();
+        }
         try {
-            storage.loadFile();
+            storage.loadFile(taskList);
             assertEquals(0, taskList.getList().size());
         } catch (BrunoException e) {
             fail();
         }
     }
 
-    @Test
-    void testLoadFile_invalidTaskType_exceptionThrown() {
+    @Test void testLoadFile_invalidTaskType_exceptionThrown() {
         File file = new File(dirPath + fileName);
         try (FileWriter fileWriter = new FileWriter(file)) {
             fileWriter.write("X|⭕️|work");
-            storage.loadFile();
+            storage.loadFile(taskList);
         } catch (IOException e) {
             fail();
         } catch (BrunoException e) {
@@ -103,12 +100,11 @@ public class StorageTest {
         }
     }
 
-    @Test
-    void testLoadFile_incorrectDateFormat_exceptionThrown() {
+    @Test void testLoadFile_incorrectDateFormat_exceptionThrown() {
         File file = new File(dirPath + fileName);
         try (FileWriter fileWriter = new FileWriter(file)) {
             fileWriter.write("D|⭕️|work|23-08-2023 18:00");
-            storage.loadFile();
+            storage.loadFile(taskList);
         } catch (IOException e) {
             fail();
         } catch (BrunoException e) {
@@ -116,12 +112,11 @@ public class StorageTest {
         }
     }
 
-    @Test
-    void testLoadFile_missingDeadline_exceptionThrown() {
+    @Test void testLoadFile_missingDeadline_exceptionThrown() {
         File file = new File(dirPath + fileName);
         try (FileWriter fileWriter = new FileWriter(file)) {
             fileWriter.write("D|⭕️|work");
-            storage.loadFile();
+            storage.loadFile(taskList);
         } catch (IOException e) {
             fail();
         } catch (BrunoException e) {
