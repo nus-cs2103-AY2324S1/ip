@@ -1,21 +1,27 @@
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.util.ArrayList;
 import java.util.NoSuchElementException;
 
 public class Duke {
 
-  public static void main(String[] args) {
+  private TaskList taskList;
+  private Parser parser;
+  private Ui ui;
+  private Storage storage;
+
+  public Duke() {
+    this.taskList = new TaskList();
+    this.parser = new Parser();
+    this.ui = new Ui();
+    this.storage = new Storage(this.taskList);
+  }
+
+  public void run() {
 
     String greeting = "Hello! I'm KimochiUsagi (きもち　うさぎ)!\n";
     String info = "Ask the bunny a question!\n";
     String goodbye = "Bye. See you again! (またね)";
-
-    TaskList taskList = new TaskList();
-    Parser parser = new Parser();
-    Ui ui = new Ui();
-    Storage storage = new Storage(taskList);
 
     storage.loadTasks();
     System.out.println(greeting);
@@ -168,6 +174,14 @@ public class Duke {
 
     System.out.println(goodbye);
     storage.saveTasks();
+
+
+  }
+
+  public static void main(String[] args) {
+
+    Duke duke = new Duke();
+    duke.run();
 
   }
 }
