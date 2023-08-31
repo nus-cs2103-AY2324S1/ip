@@ -1,3 +1,9 @@
+import ip.utils.TaskDateHandler;
+
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
+import java.time.format.DateTimeParseException;
+
 /**
  * The Deadline class for TrackerBot, inheriting from the Task class. <br>
  * This Task child contains the deadline to complete the task by.
@@ -7,25 +13,25 @@
  */
 public class Deadline extends Task {
     /** The Deadline of the task. **/
-    String by;
+    LocalDateTime by;
 
     /**
      * The constructor for the class.
      * @param desc The description of the Deadline task.
      */
-    public Deadline(String desc, String by) {
+    public Deadline(String desc, String by) throws DateTimeParseException {
         super(desc);
-        this.by = by;
+        this.by = TaskDateHandler.convertInputToDate(by);
     }
 
-    public Deadline(String[] args) {
+    protected Deadline(String[] args) throws DateTimeParseException {
         super(args);
-        this.by = args[2];
+        this.by = TaskDateHandler.convertSaveToDate(args[2]);
     }
 
     @Override
     public String toSaveString() {
-        return "D|" + getSaveInfo() + "|" + this.by;
+        return "D|" + getSaveInfo() + "|" + this.by.toEpochSecond(ZoneOffset.UTC);
     }
 
     /**
@@ -36,6 +42,6 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + this.by + ")";
+        return "[D]" + super.toString() + " (by: " + TaskDateHandler.convertDateToUi(this.by) + ")";
     }
 }
