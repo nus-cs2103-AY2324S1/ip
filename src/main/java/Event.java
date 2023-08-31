@@ -9,7 +9,7 @@ public class Event extends Task {
         this.to = to;
     }
 
-    // Constructor for Deadline with done status
+    // Constructor for Event with done status
     public Event(String name, String from, String to, boolean isDone) {
         super(name, isDone);
         this.from = from;
@@ -19,6 +19,15 @@ public class Event extends Task {
     // Get string representation of the Event
     public String toString() {
         return "[E]" + super.toString() + " (from: " + from + " to: " + to + ")";
+    }
+
+    // Gets string representation of the Todo for hard disk
+    public String toStringStorage() {
+        String nameField = this.getName();
+        String isDoneField = this.isDone() ? "1" : "0";
+        String fromField = this.from;
+        String toField = this.to;
+        return "E|" + isDoneField + "|" + nameField + "|" + fromField + "|" + toField;
     }
 
     // Gets the start of the Event

@@ -13,4 +13,11 @@ public class Todo extends Task {
     public String toString() {
         return "[T]" + super.toString();
     }
+
+    // Gets string representation of the Todo for hard disk
+    public String toStringStorage() {
+        String nameField = this.getName();
+        String isDoneField = this.isDone() ? "1" : "0";
+        return "T|" + isDoneField + "|" + nameField;
+    }
 }

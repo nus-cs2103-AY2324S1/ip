@@ -1,5 +1,8 @@
+import java.time.LocalDateTime;
+
 public class Deadline extends Task {
     private String by;
+    private LocalDateTime dateTime;
 
     // Constructor for Deadline
     public Deadline(String name, String by) {
@@ -13,9 +16,33 @@ public class Deadline extends Task {
         this.by = by;
     }
 
+    // Constructor for Deadline with date and time
+    public Deadline(String name, LocalDateTime dateTime) {
+        super(name);
+        this.dateTime = dateTime;
+    }
+
+    // Constructor for Deadline with date and time and done status
+    public Deadline(String name, LocalDateTime dateTime, boolean isDone) {
+        super(name, isDone);
+        this.dateTime = dateTime;
+    }
+
     // Gets string representation of the Deadline
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + by + ")";
+        if (by == null) {
+            return "[D]" + super.toString() + " (by: " + DateManager.dateTimeToString(dateTime) + ")";
+        } else {
+            return "[D]" + super.toString() + " (by: " + by + ")";
+        }
+    }
+
+    // Gets string representation of the Deadline for hard disk
+    public String toStringStorage() {
+        String nameField = this.getName();
+        String isDoneField = this.isDone() ? "1" : "0";
+        String deadlineField = by == null ? DateManager.dateTimeToStringStorage(this.dateTime) : by;
+        return "D|" + isDoneField + "|" + nameField + "|" + deadlineField;
     }
 
     // Gets the date that the Deadline is due by

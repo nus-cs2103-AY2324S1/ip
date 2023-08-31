@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
 public class HardDiskManager {
@@ -37,7 +39,7 @@ public class HardDiskManager {
             while ((line = br.readLine()) != null) {
                 String[] parts = line.split("\\|");
 
-                if (parts.length < 2) {
+                if (parts.length < 3) {
                     continue;
                 }
 
@@ -48,7 +50,13 @@ public class HardDiskManager {
                 if (identifier.equals("T") && parts.length == 3) {
                     tasks.add(new Todo(name, done));
                 } else if (identifier.equals("D") && parts.length == 4) {
-                    tasks.add(new Deadline(name, parts[3], done));
+                    LocalDateTime dateTime = null;
+                    String[] dSplitStr = parts[3].split(" ");
+                    if (dSplitStr.length == 2) {
+                        dateTime = DateManager.parseStorageDateString(dSplitStr[0], dSplitStr[1]);
+                    }
+                    tasks.add(dateTime == null ? new Deadline(name, parts[3], done)
+                            : new Deadline(name, dateTime, done));
                 } else if (identifier.equals("E") && parts.length == 5) {
                     tasks.add(new Event(name, parts[3], parts[4], done));
                 }
@@ -64,18 +72,15 @@ public class HardDiskManager {
             for (Task task : tasks) {
                 if (task instanceof Todo) {
                     Todo todo = (Todo) task;
-                    writer.write("T|" + (todo.isDone() ? 1 : 0) + "|" + todo.getName());
+                    writer.write(todo.toStringStorage());
                 } else if (task instanceof Deadline) {
                     Deadline deadline = (Deadline) task;
-                    writer.write("D|" + (deadline.isDone() ? 1 : 0) + "|" + deadline.getName()
-                            + "|" + deadline.getBy());
+                    writer.write(deadline.toStringStorage());
                 } else if (task instanceof Event) {
                     Event event = (Event) task;
-                    writer.write("E|" + (event.isDone() ? 1 : 0) + "|" + event.getName()
-                            + "|" + event.getFrom() + "|" + event.getTo());
+                    writer.write(event.toStringStorage());
                 }
                 writer.newLine();
-                System.out.println("Added task");
             }
         } catch (IOException e) {
             System.out.println("Error when updating tasks: " + e);
