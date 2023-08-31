@@ -9,6 +9,7 @@ import command.CommandTodoHandler;
 import command.CommandDeadlineHandler;
 import command.CommandEventHandler;
 import command.CommandDeleteHandler;
+import command.CommandFindHandler;
 import command.Parser;
 import task.TaskList;
 import util.Storage;
@@ -42,6 +43,7 @@ public class Main {
         this.parser.registerCommand("deadline", new CommandDeadlineHandler());
         this.parser.registerCommand("event", new CommandEventHandler());
         this.parser.registerCommand("delete", new CommandDeleteHandler());
+        this.parser.registerCommand("find", new CommandFindHandler());
     }
 
     /**
