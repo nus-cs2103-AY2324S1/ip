@@ -66,4 +66,20 @@ public class TaskList {
         this.listOfTasks.add(task);
         ui.addItem(task, this.listOfTasks.size());
     }
+
+    /**
+     * Finds the tasks that contains the given word.
+     *
+     * @param word Keyword to find in the task.
+     * @param ui UI to print tasks that contains the word.
+     */
+    public void findTasks(String word, Ui ui) {
+        ArrayList<Task> matchingTasks = new ArrayList<>();
+        for (Task task : listOfTasks) {
+            if (task.matchKeyword(word)) {
+                matchingTasks.add(task);
+            }
+        }
+        ui.printMatchingTasks(matchingTasks);
+    }
 }

@@ -48,4 +48,14 @@ public class Task {
             return String.format("| 0 | %s", this.task);
         }
     }
+
+    /**
+     * Checks whether the given keyword is found in the task string.
+     *
+     * @param word Keyword to find in the task.
+     * @return boolean Whether the word is inside.
+     */
+    public boolean matchKeyword(String word) {
+        return this.task.contains(word);
+    }
 }

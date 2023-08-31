@@ -27,6 +27,8 @@ public class Parser {
             tasks.toggleDone(task, "unmark", ui);
         } else if (command.equals("delete")) {
             tasks.removeItem(task, ui);
+        } else if (command.equals("find")) {
+            tasks.findTasks(task, ui);
         } else if (command.equals("todo")) {
             tasks.addItem(new ToDos(task, "0"), ui);
         } else if (command.equals("deadline")) {

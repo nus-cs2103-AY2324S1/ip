@@ -52,4 +52,16 @@ public class Ui {
         System.out.printf("Got it. I've added this task:%n %s%nNow you have %d tasks in the list.%n",
                 task.printTask(), size);
     }
+
+    /**
+     * Prints out the list of tasks that contain the given keyword.
+     *
+     * @param listOfTasks List of tasks to print.
+     */
+    public void printMatchingTasks(ArrayList<Task> listOfTasks) {
+        System.out.println("Here are the matching tasks in your list:");
+        for (int i = 0; i < listOfTasks.size(); i++) {
+            System.out.printf("%d.%s%n", i+1, listOfTasks.get(i).printTask());
+        }
+    }
 }
