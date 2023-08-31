@@ -291,11 +291,11 @@ public class Rocket {
      * @throws RocketIllegalArgumentException throws illegal argument exception if there is no
      *         description or deadline provided
      */
-    private static void handleDeadline(List<Task> taskList, String arguments, DateTimeFormatter formatter) throws RocketIllegalArgumentException {
+    private static void handleDeadline(List<Task> taskList, String arguments) throws RocketIllegalArgumentException {
         if (arguments.isBlank()) {
             throw new RocketIllegalArgumentException("The description of a Deadline");
         }
-        Deadline deadline = makeDeadline(arguments, false, formatter);
+        Deadline deadline = makeDeadline(arguments, false, formatUglyDateTime);
         taskList.add(deadline);
         System.out.println(LINE);
         System.out.println("    Got it. I've added this task:");
@@ -311,11 +311,11 @@ public class Rocket {
      * @throws RocketIllegalArgumentException throws illegal argument exception if there is no
      *         description or duration provided
      */
-    private static void handleEvent(List<Task> taskList, String arguments, DateTimeFormatter formatter) throws RocketIllegalArgumentException {
+    private static void handleEvent(List<Task> taskList, String arguments) throws RocketIllegalArgumentException {
         if (arguments.isBlank()) {
             throw new RocketIllegalArgumentException("The description of an Event");
         }
-        Event event = makeEvent(arguments, false, formatter);
+        Event event = makeEvent(arguments, false, formatUglyDateTime);
         taskList.add(event);
         System.out.println(LINE);
         System.out.println("    Got it. I've added this task:");
