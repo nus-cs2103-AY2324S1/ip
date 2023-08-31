@@ -88,8 +88,8 @@ public class Ui {
      *
      * @param tasks The list of tasks to be displayed.
      */
-    public void printTaskList(ArrayList<Task> tasks) {
-        System.out.println("Here are your entries:");
+    public void printTaskList(ArrayList<Task> tasks, String message) {
+        System.out.println(message);
         for (int i = 0; i < tasks.size(); i++) {
             System.out.println("\t" + (i + 1) + ". " + tasks.get(i).toString());
         }
