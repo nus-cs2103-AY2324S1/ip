@@ -1,3 +1,5 @@
+import Exceptions.DukeException;
+
 public class Ui {
     public void showWelcome() {
         String logo = "I'm Chewy,\n" +

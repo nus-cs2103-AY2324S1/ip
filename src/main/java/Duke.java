@@ -1,3 +1,5 @@
+import Exceptions.DukeException;
+
 import java.util.Scanner;
 public class Duke {
     private final Ui _ui;

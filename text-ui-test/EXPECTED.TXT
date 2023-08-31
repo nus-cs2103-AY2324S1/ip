@@ -1,6 +1,6 @@
 Loading tasks...
-Task failed to load
-:( Chewy can't understand! No Task Id found. Please enter a Task Id after your command
+Tasks.Task failed to load
+:( Chewy can't understand! No Tasks.Task Id found. Please enter a Tasks.Task Id after your command
 Hello!
 I'm Chewy,
 What can I do for you?
@@ -13,19 +13,19 @@ Got it. I've added this task:
 Now you have 1 tasks in the list
 Saving tasks...
 Error saving tasks to filedata\duke.txt (The system cannot find the path specified)
-Task saved successfully
+Tasks.Task saved successfully
 Got it. I've added this task:
 	[D][ ] do something
 Now you have 2 tasks in the list
 Saving tasks...
 Error saving tasks to filedata\duke.txt (The system cannot find the path specified)
-Task saved successfully
+Tasks.Task saved successfully
 Got it. I've added this task:
 	[D][ ] do something (by: 24 Oct 2023)
 Now you have 3 tasks in the list
 Saving tasks...
 Error saving tasks to filedata\duke.txt (The system cannot find the path specified)
-Task saved successfully
+Tasks.Task saved successfully
 :( Chewy can't understand! Invalid DateTime format. Here are some example dates:
 6/3/2023 5:30 AM, 16/12/2024 6:30PM
 :( Chewy can't understand! Invalid DateTime format. Here are some example dates:
@@ -34,12 +34,12 @@ Nice! I've marked this task as done:
 [T][X] run script
 Saving tasks...
 Error saving tasks to filedata\duke.txt (The system cannot find the path specified)
-Task saved successfully
+Tasks.Task saved successfully
 Nice! I've marked this task as done:
 [D][X] do something (by: 24 Oct 2023)
 Saving tasks...
 Error saving tasks to filedata\duke.txt (The system cannot find the path specified)
-Task saved successfully
+Tasks.Task saved successfully
 Here are the tasks in your list:
 
 1.[T][X] run script
@@ -49,19 +49,19 @@ OK, I've marked this task as not done yet:
 [T][ ] run script
 Saving tasks...
 Error saving tasks to filedata\duke.txt (The system cannot find the path specified)
-Task saved successfully
+Tasks.Task saved successfully
 Here are the tasks in your list:
 
 1.[T][ ] run script
 2.[D][ ] do something
 3.[D][X] do something (by: 24 Oct 2023)
-:( Chewy can't understand! No Task Id found. Please enter a Task Id after your command
+:( Chewy can't understand! No Tasks.Task Id found. Please enter a Tasks.Task Id after your command
 Noted. I've removed this task:
 	[D][X] do something (by: 24 Oct 2023)
 Now you have 2 tasks in the list
 Saving tasks...
 Error saving tasks to filedata\duke.txt (The system cannot find the path specified)
-Task saved successfully
+Tasks.Task saved successfully
 Here are the tasks in your list:
 
 1.[T][ ] run script

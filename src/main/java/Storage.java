@@ -1,3 +1,7 @@
+import Exceptions.DukeException;
+import Exceptions.NoTaskFoundException;
+import Tasks.Task;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -23,7 +27,7 @@ public class Storage {
             System.out.println("Tasks loaded successfully!");
             return tasks;
         } catch (IOException e) {
-            System.out.println("Task failed to load");
+            System.out.println("Tasks.Task failed to load");
             throw new NoTaskFoundException();
         }
     }
