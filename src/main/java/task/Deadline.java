@@ -3,7 +3,6 @@ import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
 import exception.InvalidDeadlineException;
-import exception.InvalidEventException;
 
 /**
  * Deadline class

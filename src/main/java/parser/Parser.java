@@ -1,5 +1,6 @@
 package parser;
 
+import command.Command;
 import exception.InvalidCommandException;
 import exception.InvalidDeadlineException;
 import exception.InvalidEventException;
@@ -13,43 +14,31 @@ import task.ToDo;
 import ui.Ui;
 
 public class Parser {
+    /**
+     * Parses the message given
+     * 
+     * @param message the message given
+     * @param ui the ui of the program
+     * @param tasks the list of tasks
+     * @param storage the storage program
+     */
     public static void parse(String message, Ui ui, TaskList tasks, Storage storage) {
         try{
             String messageType = message.split(" ")[0];
             if(message.equals("list")) {
                 ui.printTasks(tasks);
-            } else if(messageType.equals("mark") && message.split(" ").length == 2 && isInt(message.split(" ")[1]) 
-                    && Integer.parseInt(message.split(" ")[1]) <= tasks.size() && Integer.parseInt(message.split(" ")[1]) > 0) {
-                Task markTask = tasks.getTask(Integer.parseInt(message.split(" ")[1]) - 1);
-                markTask.mark();
-                ui.printMarkTask(markTask);
-            } else if(messageType.equals("unmark") && message.split(" ").length == 2 && isInt(message.split(" ")[1]) 
-                    && Integer.parseInt(message.split(" ")[1]) <= tasks.size() && Integer.parseInt(message.split(" ")[1]) > 0) {
-                Task unmarkTask = tasks.getTask(Integer.parseInt(message.split(" ")[1]) - 1);
-                unmarkTask.unmark();
-                storage.updateTask(tasks);
-                ui.printUnmarkTask(unmarkTask);
+            } else if(messageType.equals("mark")) {
+                Command.mark(message, ui, tasks, storage);
+            } else if(messageType.equals("unmark")) {
+                Command.unmark(message, ui, tasks, storage);
             } else if(messageType.equals("todo")) {
-                Task newTask = ToDo.create(message);
-                tasks.addTask(newTask);
-                storage.addTask(newTask);
-                ui.printAddTask(newTask, tasks.size());
+                Command.addToDo(message, ui, tasks, storage);
             } else if(messageType.equals("deadline")) {
-                Task newTask = Deadline.create(message);
-                tasks.addTask(newTask);
-                storage.addTask(newTask);
-                ui.printAddTask(newTask, tasks.size());
+                Command.addDeadline(message, ui, tasks, storage);
             } else if(messageType.equals("event")) {
-                Task newTask = Event.create(message);
-                tasks.addTask(newTask);
-                storage.addTask(newTask);
-                ui.printAddTask(newTask, tasks.size());
-            } else if(messageType.equals("delete") && message.split(" ").length == 2 && isInt(message.split(" ")[1]) 
-                    && Integer.parseInt(message.split(" ")[1]) <= tasks.size() && Integer.parseInt(message.split(" ")[1]) > 0) {
-                Task removedTask = tasks.getTask(Integer.parseInt(message.split(" ")[1]) - 1);
-                tasks.removeTask(Integer.parseInt(message.split(" ")[1]) - 1);
-                storage.updateTask(tasks);
-                ui.printRemoveTask(removedTask, tasks.size());
+                Command.addEvent(message, ui, tasks, storage);
+            } else if(messageType.equals("delete")) {
+                Command.delete(message, ui, tasks, storage);
             } else {
                 throw new InvalidCommandException();
             }
