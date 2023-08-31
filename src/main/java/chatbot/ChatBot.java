@@ -7,9 +7,9 @@ import chatbot.exceptions.LocalFileException;
 import chatbot.tasks.Task;
 
 public class ChatBot {
-    static final String name = "4F5DA2";
-    static final String localDirectoryPath = "./data";
-    static final String localFilePath = localDirectoryPath + "/chatbot.txt";
+    static final String NAME = "4F5DA2";
+    static final String LOCAL_DIRECTORY_PATH = "./data";
+    static final String LOCAL_FILE_PATH = LOCAL_DIRECTORY_PATH + "/chatbot.txt";
     private final Ui ui;
     private final Storage storage;
     private TaskList tasks;
@@ -100,6 +100,6 @@ public class ChatBot {
     }
 
     public static void main(String[] args) {
-        new ChatBot(ChatBot.localDirectoryPath, ChatBot.localFilePath).run();
+        new ChatBot(ChatBot.LOCAL_DIRECTORY_PATH, ChatBot.LOCAL_FILE_PATH).run();
     }
 }

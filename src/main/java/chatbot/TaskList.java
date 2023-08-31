@@ -7,14 +7,14 @@ import java.util.ArrayList;
 
 public class TaskList {
     private final ArrayList<Task> taskList;
-    static final int maxNumberOfTasks = 100;
+    static final int MAX_NUMBER_OF_TASKS = 100;
 
     public TaskList(ArrayList<Task> taskList) {
         this.taskList = taskList;
     }
 
     public TaskList() {
-        this.taskList = new ArrayList<>(maxNumberOfTasks);
+        this.taskList = new ArrayList<>(MAX_NUMBER_OF_TASKS);
     }
 
     public void addTask(Task task) {

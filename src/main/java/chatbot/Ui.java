@@ -1,6 +1,5 @@
 package chatbot;
 
-import chatbot.ChatBot;
 import chatbot.exceptions.LocalFileException;
 
 import java.util.Scanner;
@@ -21,7 +20,7 @@ public class Ui {
     public void greet() {
         this.showLine();
         System.out.println("\tWelcome back, human!");
-        System.out.println("\tI'm your personal chatBot, " + ChatBot.name + ".");
+        System.out.println("\tI'm your personal chatBot, " + ChatBot.NAME + ".");
         System.out.println("\tWhat can I do for you today?");
         this.showLine();
     }
