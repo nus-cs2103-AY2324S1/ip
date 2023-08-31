@@ -17,7 +17,8 @@ public class Event extends Task {
         try {
             FileWriter file = new FileWriter(path, true);
             int completed = this.isDone ? 1 : 0;
-            file.write("E " + "| " + completed + " | " + this.description + "| " + this.from + "| " + this.to);
+            file.write("E " + "| " + completed + " | " + this.description + "| " + this.from
+                    + "| " + this.to + "\r\n");
             file.close();
         } catch (IOException e) {
             e.printStackTrace();
@@ -26,6 +27,6 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + "(from: " + from + "to: " + to + ")";
+        return "[E]" + super.toString() + " (from: " + from + " to: " + to + ")";
     }
 }
