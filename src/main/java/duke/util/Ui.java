@@ -36,7 +36,7 @@ public class Ui {
 
     public void printList(TaskList list) {
         System.out.print(HORIZONTAL_LINE);
-        System.out.println(list.toString());
+        System.out.print(list.toString());
         System.out.println(HORIZONTAL_LINE);
     }
 
@@ -80,6 +80,13 @@ public class Ui {
     public void printCommandNotFound() {
         System.out.print(HORIZONTAL_LINE);
         System.out.println("Oops! I'm sorry, but I don't know what that means :-(");
+        System.out.println(HORIZONTAL_LINE);
+    }
+
+    public void printFind(TaskList taskList) {
+        System.out.print(HORIZONTAL_LINE);
+        System.out.println("Here are the matching tasks in your list:");
+        System.out.print(taskList.toString());
         System.out.println(HORIZONTAL_LINE);
     }
 }
