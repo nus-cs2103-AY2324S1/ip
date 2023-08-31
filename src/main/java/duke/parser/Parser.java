@@ -82,6 +82,19 @@ public class Parser {
     }
 
     /**
+     * Parses the find arguments.
+     *
+     * @return The arguments of the find command.
+     * @throws DukeException if argument is empty.
+     */
+    public String parseFindQuery() throws DukeException {
+        if (arguments.length() == 0) {
+            throw new DukeException("Hey! The task description cannot be empty!");
+        }
+        return arguments;
+    }
+
+    /**
      * Parses the Deadline arguments from the input.
      *
      * @return The String Array containing the description as the first element

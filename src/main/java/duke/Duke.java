@@ -71,6 +71,10 @@ public class Duke {
                         String[] eventData = parseLine.parseEventArguments();
                         ui.printOutput(tasks.handleEvent(eventData[0], eventData[1], eventData[2]));
                         break;
+                    case FIND:
+                        String findQuery = parseLine.parseFindQuery();
+                        ui.printOutput(tasks.findTasks(findQuery).formatList());
+                        break;
                     default:
                         ui.printOutput("I don't understand what you're saying.");
                         break;

@@ -4,6 +4,7 @@ import duke.storage.Storage;
 import duke.exception.DukeException;
 import duke.ui.Ui;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 /**
@@ -156,6 +157,22 @@ public class TaskList {
         return "Got it. I've added this task:\n   " +
                 INDENTATION + item + "\n " + INDENTATION + "Now you have " +
                 taskList.size() + " tasks in the list.";
+    }
+
+    /**
+     * Finds the tasks containing the query and returns a new Task List.
+     *
+     * @param query The query to find the tasks.
+     * @return The new Task List containing the tasks that contain the query.
+     */
+    public TaskList findTasks(String query) {
+        ArrayList<Task> buffer = new ArrayList<>();
+        for (Task task : taskList) {
+            if (task.getDescription().contains(query)) {
+                buffer.add(task);
+            }
+        }
+        return new TaskList(buffer, storage);
     }
 
     /**
