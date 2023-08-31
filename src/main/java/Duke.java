@@ -59,7 +59,7 @@ public class Duke {
             System.out.printf("Welcome, new user! I'm %s!%n" +
                     "Hope you have a great time!%n", this.name);
         } else {
-            System.out.println("Welcome back!");
+            System.out.println("Welcome back, friend!");
         }
         try {
             File file = new File("./data/tasks.txt");
