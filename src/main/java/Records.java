@@ -17,9 +17,8 @@ public class Records {
 		try {
 			FileWriter fw = new FileWriter(filePath, true);
 			for (Task t: tasks) {
-				// to implement
-//				System.out.println(t.writeToFile());
 				fw.write(t.writeToFile());
+				fw.write("\n");
 			}
 			fw.close();
 		} catch (IOException e) {
@@ -28,23 +27,22 @@ public class Records {
 
 	}
 
-	public void readFile() throws IOException {
+
+	public ArrayList<Task> readFile() throws IOException {
+//		ArrayList<Task> t = new ArrayList<>(100);
 		try (BufferedReader in = new BufferedReader(new FileReader(filePath))) {
 			StringBuilder br = new StringBuilder();
-			String line;
-			int i = 0;
-			while((line = in.readLine()) != null) {
-				br.append(fileToString(line, i));
-				i++;
+			String fileLine;
+			while ((fileLine = in.readLine()) != null) {
+				// append raw unformatted version
+				br.append(fileLine);
 				br.append("\n");
+				addTask(tasks, fileLine);
 			}
-			System.out.println(br.toString());
 		}
-//		catch(IOException e) {
-//			System.out.println(e.getMessage());
-//		}
+		return tasks;
 	}
-	public String fileToString(String fileLine, int idx) throws IOException {
+	public void addTask(ArrayList<Task> t, String fileLine) throws IOException {
 		String[] str = fileLine.split("\\|");
 		for (int i  = 0; i < str.length; i++) {
 			String s = str[i].trim();
@@ -53,41 +51,65 @@ public class Records {
 		StringBuilder br = new StringBuilder();
 		String taskType = str[0];
 		String isDone = str[1];
-		int idxList = idx + 1;
-		br.append(idxList).append(". ");
 		switch(taskType) {
 		case "T":
-			br.append("[T]");
-			if (Integer.parseInt(isDone) == 1) {
-				br.append("[X]");
-			} else {
-				br.append("[ ]");
-			}
-			br.append(" ").append(str[2]);
+			t.add(new ToDos(br.toString()));
 			break;
 		case "D":
-			br.append("[D]");
-			if (Integer.parseInt(isDone) == 1) {
-				br.append("[X]");
-			} else {
-				br.append("[ ]");
-			}
-			br.append(" ").append(str[2]).append(" ");
-			br.append("(by: ").append(str[3]).append(")");
+			t.add(new Deadline(str[2], str[3]));
 			break;
 		case "E":
-			br.append("[E]");
-			if (Integer.parseInt(isDone) == 1) {
-				br.append("[X]");
-			} else {
-				br.append("[ ]");
-			}
-			br.append(" ").append(str[2]).append("(from: ").append(str[3]);
-			br.append(" to: ").append(str[4]).append(")");
+			t.add(new Event(str[2], str[3], str[4]));
 			break;
 		default:
 			throw new IOException("file saved has errors");
 		}
-		return br.toString();
 	}
+
+//	public String fileToString(String fileLine, int idx) throws IOException {
+//		String[] str = fileLine.split("\\|");
+//		for (int i  = 0; i < str.length; i++) {
+//			String s = str[i].trim();
+//			str[i] = s;
+//		}
+//		StringBuilder br = new StringBuilder();
+//		String taskType = str[0];
+//		String isDone = str[1];
+//		int idxList = idx + 1;
+//		br.append(idxList).append(". ");
+//		switch(taskType) {
+//			case "T":
+//				br.append("[T]");
+//				if (Integer.parseInt(isDone) == 1) {
+//					br.append("[X]");
+//				} else {
+//					br.append("[ ]");
+//				}
+//				br.append(" ").append(str[2]);
+//				break;
+//			case "D":
+//				br.append("[D]");
+//				if (Integer.parseInt(isDone) == 1) {
+//					br.append("[X]");
+//				} else {
+//					br.append("[ ]");
+//				}
+//				br.append(" ").append(str[2]).append(" ");
+//				br.append("(by: ").append(str[3]).append(")");
+//				break;
+//			case "E":
+//				br.append("[E]");
+//				if (Integer.parseInt(isDone) == 1) {
+//					br.append("[X]");
+//				} else {
+//					br.append("[ ]");
+//				}
+//				br.append(" ").append(str[2]).append("(from: ").append(str[3]);
+//				br.append(" to: ").append(str[4]).append(")");
+//				break;
+//			default:
+//				throw new IOException("file saved has errors");
+//		}
+//		return br.toString();
+//	}
 }

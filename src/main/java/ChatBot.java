@@ -11,8 +11,6 @@ public class ChatBot {
 	ChatBot(String name) {
 		this.name = name;
 	}
-
-
 	public void greet() {
 		String greeting = String.format("____________________________________________________________\n" +
 				"Hello! I'm %s\n" +
@@ -21,19 +19,39 @@ public class ChatBot {
 		System.out.println(greeting);
 	}
 
+	public void list(ArrayList<Task> taskList) {
+		String lst = "";
+		StringBuilder br = new StringBuilder();
+		for (int i = 0; i < taskList.size(); i++) {
+			// int idx = i + 1;
+			br.append(i + 1).append(". ");
+			br.append((taskList.get(i)).toString()).append("\n");
+		}
+		String echo = String.format("____________________________________________________________\n"
+				+ "Here are the task in your list:\n"
+				+ "%s"
+				+ "____________________________________________________________", br.toString());
+		System.out.println(echo);
+	}
+
 
 	public void run() {
 		Scanner newScan = new Scanner(System.in);
-		ArrayList<Task> l1 = new ArrayList<>(100);
-		Records r = new Records("./duke.txt", l1);
+		ArrayList<Task> taskList = new ArrayList<>(100);
+		Records r = new Records("./duke.txt", taskList);
 		try {
 			r.readFile();
-		} catch (IOException e) {
+			list(taskList);
+		}
+		catch (IOException e) {
+			System.out.println("read fail");
 			try {
 				r.writeFile();
 			} catch (IOException j) {
 				System.out.println("sheesh");
 			}
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
 		}
 
 		while (newScan.hasNextLine()) {
@@ -48,10 +66,10 @@ public class ChatBot {
 
 				if (Event.equals("unmark") || Event.equals("mark")) {
 					int idx = Integer.parseInt(words[1]) - 1;
-					if (idx + 1 > l1.size()) {
+					if (idx + 1 > taskList.size()) {
 						throw new DukeException("trying to mark or unmark something beyond the list");
 					}
-					Task t = l1.get(idx);
+					Task t = taskList.get(idx);
 					if (Event.equals("mark")) {
 						t.markAsDone();
 						String echo = String.format("____________________________________________________________\n" +
@@ -60,7 +78,7 @@ public class ChatBot {
 								"____________________________________________________________");
 						System.out.println(echo);
 					} else {
-						l1.get(idx).unMark();
+						taskList.get(idx).unMark();
 						String echo = String.format("____________________________________________________________\n" +
 								"Nice! I've marked this task as not done yet:\n" +
 								t.toString() + "\n" +
@@ -81,15 +99,15 @@ public class ChatBot {
 					}
 					System.exit(0);
 				} else if (Event.equals("delete")) {
-					int len = l1.size();
+					int len = taskList.size();
 					String[] delete = action.split(" ");
 					if (delete.length != 2) {
 						throw new DukeException("Invalid delete args");
 					}
 					// check for exceptions as well
-					Task t = l1.get(Integer.parseInt(delete[1]));
-					String remaining = Integer.toString(l1.size() - 1);
-					l1.remove(Integer.parseInt(delete[1]));
+					Task t = taskList.get(Integer.parseInt(delete[1]));
+					String remaining = Integer.toString(taskList.size() - 1);
+					taskList.remove(Integer.parseInt(delete[1]));
 					String echo = String.format("    ____________________________________________________________\n" +
 							"Noted. I've removed this task:\n" +
 							"%s\n" +
@@ -111,7 +129,7 @@ public class ChatBot {
 						if (first.length == 1) {
 							throw new DukeException("enter todo like this, todo description");
 						}
-						l1.add(new ToDos(description));
+						taskList.add(new ToDos(description));
 					} else if (Event.equals("deadline")) {
 						String[] byCheck = items[1].split(" ");
 						if (items.length != 2 || !byCheck[0].equals("by")) {
@@ -123,7 +141,7 @@ public class ChatBot {
 							newStart = newStart + s + " ";
 						}
 						newStart = newStart.trim();
-						l1.add(new Deadline(description, newStart));
+						taskList.add(new Deadline(description, newStart));
 					} else {
 						String[] startCheck = items[1].split(" ");
 						String[] endCheck = items[2].split(" ");
@@ -142,27 +160,30 @@ public class ChatBot {
 							newEnd = newEnd + s + " ";
 						}
 						newEnd = newEnd.trim();
-						l1.add(new Event(Event, newStart, newEnd));
+						taskList.add(new Event(Event, newStart, newEnd));
 					}
-					Task t = l1.get(l1.size() - 1);
+					Task t = taskList.get(taskList.size() - 1);
 					String echo = String.format("____________________________________________________________\n" +
 							"Got it. I've added this task:\n" +
 							"%s\n" +
 							"Now you have %s tasks in the list\n" +
-							"____________________________________________________________", t.toString(), l1.size());
+							"____________________________________________________________", t.toString(), taskList.size());
+
+
 					System.out.println(echo);
 				} else if (Event.equals("list")) {
-					String lst = "";
-					for (int i = 0; i < l1.size(); i++) {
-						int idx = i + 1;
-						lst += idx + ". " + l1.get(i).toString() + "\n";
-					}
-
-					String echo = String.format("____________________________________________________________\n"
-							+ "Here are the task in your list:\n"
-							+ "%s"
-							+ "____________________________________________________________", lst);
-					System.out.println(echo);
+					list(taskList);
+//					String lst = "";
+//					for (int i = 0; i < taskList.size(); i++) {
+//						int idx = i + 1;
+//						lst += idx + ". " + taskList.get(i).toString() + "\n";
+//					}
+//
+//					String echo = String.format("____________________________________________________________\n"
+//							+ "Here are the task in your list:\n"
+//							+ "%s"
+//							+ "____________________________________________________________", lst);
+//					System.out.println(echo);
 				} else {
 					throw new DukeException("enter valid args");
 				}
