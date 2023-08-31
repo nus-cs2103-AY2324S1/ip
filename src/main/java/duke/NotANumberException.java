@@ -1,4 +1,5 @@
-public class NotANumberException extends DukeException{
+package duke;
+public class NotANumberException extends DukeException {
     public static String line = "\t____________________________________________________________\n";
 
     public NotANumberException() {

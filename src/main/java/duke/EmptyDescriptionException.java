@@ -1,3 +1,4 @@
+package duke;
 public class EmptyDescriptionException extends DukeException {
     public static String line = "\t____________________________________________________________\n";
     public EmptyDescriptionException(String task) {
