@@ -10,11 +10,11 @@ public class Task {
     /**
      * Constructs a Task object.
      *
-     * @param description Description of the task.
+     * @param d Description of the task.
      */
-    public Task(String description) {
-        this.description = description;
-        this.isDone = false;
+    public Task(String d) {
+        description = d;
+        isDone = false;
     }
 
     /**
@@ -30,14 +30,14 @@ public class Task {
      * Marks the task as done by setting its completion status to true.
      */
     public void markAsDone() {
-        this.isDone = true;
+        isDone = true;
     }
 
     /**
      * Marks the task as undone by setting its completion status to false.
      */
     public void markAsUndone() {
-        this.isDone = false;
+        isDone = false;
     }
 
     /**
@@ -48,7 +48,7 @@ public class Task {
      */
     @Override
     public String toString() {
-        return "[" + getStatusIcon() + "] " + this.description;
+        return "[" + getStatusIcon() + "] " + description;
     }
 
     /**
@@ -56,11 +56,11 @@ public class Task {
      *
      * @return String representation of task status and description for hard disk file.
      */
-    public String fileDescription() {
-        if (this.isDone) {
-            return " | 0 | " + this.description;
+    public String toFileFormat() {
+        if (isDone) {
+            return " | 0 | " + description;
         } else {
-            return " | 1 | " + this.description;
+            return " | 1 | " + description;
         }
     }
 }

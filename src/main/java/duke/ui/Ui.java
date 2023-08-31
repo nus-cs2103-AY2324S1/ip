@@ -72,7 +72,7 @@ public class Ui {
             System.out.println(INDENT + "Here are the task(s) in your list:");
 
             for (Task task : tasks) {
-                System.out.println(INDENT + (tasks.indexOf(task) + 1) + ". " + task.toString());
+                System.out.println(INDENT + (tasks.indexOf(task) + 1) + ". " + task);
             }
         }
         System.out.println(HORIZONTAL_LINE);
@@ -87,7 +87,7 @@ public class Ui {
         System.out.print(HORIZONTAL_LINE);
         System.out.println(INDENT + "Great! I've completed this task!");
         task.markAsDone();
-        System.out.println(INDENT + task.toString());
+        System.out.println(INDENT + task);
         System.out.println(HORIZONTAL_LINE);
     }
 
@@ -100,7 +100,7 @@ public class Ui {
         System.out.print(HORIZONTAL_LINE);
         System.out.println(INDENT + "Okay, I have not yet completed this task:");
         task.markAsUndone();
-        System.out.println(INDENT + task.toString());
+        System.out.println(INDENT + task);
         System.out.println(HORIZONTAL_LINE);
     }
 

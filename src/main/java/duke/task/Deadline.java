@@ -65,7 +65,7 @@ public class Deadline extends Task {
     }
 
     @Override
-    public String fileDescription() {
-        return "D" + super.fileDescription() + " | " + reformatDate() + " | " + reformatTime() + "\n";
+    public String toFileFormat() {
+        return "D" + super.toFileFormat() + " | " + reformatDate() + " | " + reformatTime() + "\n";
     }
 }
