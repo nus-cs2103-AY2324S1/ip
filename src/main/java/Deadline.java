@@ -1,5 +1,4 @@
 import java.time.LocalDate;
-
 public class Deadline extends Task {
     private LocalDate due;
     public Deadline(String desc, LocalDate due) {
