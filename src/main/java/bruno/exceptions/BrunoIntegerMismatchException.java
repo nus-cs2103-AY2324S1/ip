@@ -5,6 +5,7 @@ package bruno.exceptions;
  * an integer value.
  */
 public class BrunoIntegerMismatchException extends BrunoException {
+
     private String activity;
 
     public BrunoIntegerMismatchException(String activity) {

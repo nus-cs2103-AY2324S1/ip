@@ -19,40 +19,43 @@ import bruno.task.Task;
 import bruno.task.ToDo;
 
 /**
- * The TaskList class handles all functionality relating to the list of tasks, such as addition, deletion,
+ * The TaskList class handles all functionality relating to the tasks of tasks, such as addition, deletion,
  * update and display of tasks.
  */
 public class TaskList {
-    private List<Task> list;
-    private final Storage storage;
-    private final UI ui;
+
+    private List<Task> tasks;
+    private Storage storage;
+    private UI ui;
 
     TaskList(Storage storage, UI ui) {
-        list = new ArrayList<>();
+        tasks = new ArrayList<>();
         this.storage = storage;
         this.ui = ui;
     }
 
     /**
-     * Adds a task of type ToDo to the list of tasks.
-     * @param task
-     * @throws BrunoException
+     * Adds a task of type ToDo to the tasks of tasks.
+     *
+     * @param task The user input for task.
+     * @throws BrunoException Thrown if user does not provide description for task.
      */
     public void addToDo(String task) throws BrunoException {
         if (task.split(" ").length == 1) {
             System.out.print("\t");
             throw new BrunoEmptyException(task.split(" ")[0]);
         }
-        list.add(new ToDo(task.substring(task.indexOf(" ") + 1)));
-        String s = "\tWoof. I have added this task:\n\t\t" + list.get(list.size() - 1).getString();
+        tasks.add(new ToDo(task.substring(task.indexOf(" ") + 1)));
+        String taskInfo = "\tWoof. I have added this task:\n\t\t" + tasks.get(tasks.size() - 1).getString();
         storage.writeToFile();
-        ui.displayMessage(s);
+        ui.displayMessage(taskInfo);
     }
 
     /**
-     * Adds a task of type Deadline to the list of tasks.
-     * @param task
-     * @throws BrunoException
+     * Adds a task of type Deadline to the tasks of tasks.
+     *
+     * @param task The user input for the task.
+     * @throws BrunoException Thrown if user does not provide description or deadline date/time.
      */
     public void addDeadline(String task) throws BrunoException {
         if (task.split(" ").length == 1 || task.indexOf('/') == 9) {
@@ -63,17 +66,18 @@ public class TaskList {
             System.out.print("\t");
             throw new BrunoMissingDeadlineException();
         }
-        list.add(new Deadline(task.substring(task.indexOf(' ') + 1, task.indexOf('/') - 1),
+        tasks.add(new Deadline(task.substring(task.indexOf(' ') + 1, task.indexOf('/') - 1),
                 task.substring(task.lastIndexOf('/') + 4)));
         storage.writeToFile();
-        String s = "\tWoof. I have added this task:\n\t\t" + list.get(list.size() - 1).getString();
-        ui.displayMessage(s);
+        String taskInfo = "\tWoof. I have added this task:\n\t\t" + tasks.get(tasks.size() - 1).getString();
+        ui.displayMessage(taskInfo);
     }
 
     /**
-     * Adds a task of type Event to the list of tasks.
-     * @param task
-     * @throws BrunoException
+     * Adds a task of type Event to the tasks of tasks.
+     *
+     * @param task The user input for the task.
+     * @throws BrunoException Thrown if the user does not provide description or start/end time.
      */
     public void addEvent(String task) throws BrunoException {
         if (task.split(" ").length == 1 || task.indexOf('/') == 6) {
@@ -85,18 +89,19 @@ public class TaskList {
             System.out.print("\t");
             throw new BrunoMissingEventException();
         }
-        list.add(new Event(task.substring(task.indexOf(' ') + 1, task.indexOf('/') - 1),
+        tasks.add(new Event(task.substring(task.indexOf(' ') + 1, task.indexOf('/') - 1),
                 task.substring(task.indexOf("from") + 5, task.lastIndexOf('/') - 1),
                 task.substring(task.indexOf("to") + 3)));
         storage.writeToFile();
-        String s = "\tWoof. I have added this task:\n\t\t" + list.get(list.size() - 1).getString();
-        ui.displayMessage(s);
+        String taskInfo = "\tWoof. I have added this task:\n\t\t" + tasks.get(tasks.size() - 1).getString();
+        ui.displayMessage(taskInfo);
     }
 
     /**
-     * Marks a task as done from the list of tasks.
-     * @param task
-     * @throws BrunoException
+     * Marks a task as done from the tasks of tasks.
+     *
+     * @param task The user input for the task.
+     * @throws BrunoException Thrown if the user tries to mark an invalid task.
      */
     public void markTask(String task) throws BrunoException {
         String markVal = task.split(" ")[1];
@@ -105,22 +110,23 @@ public class TaskList {
         } catch (NumberFormatException e) {
             throw new BrunoIntegerMismatchException("mark");
         }
-        if (Integer.parseInt(markVal) > list.size()) {
+        if (Integer.parseInt(markVal) > tasks.size()) {
             throw new BrunoIndexOutOfBoundsException("mark");
         }
         if (Integer.parseInt(markVal) < 0) {
             throw new BrunoNegativeArgException("mark");
         }
-        list.get(Integer.parseInt(markVal) - 1).markAsDone();
+        tasks.get(Integer.parseInt(markVal) - 1).markAsDone();
         storage.writeToFile();
-        String s =
-                "\tWoof Woof! I have marked the task as done.\n\t" + list.get(Integer.parseInt(markVal) - 1)
+        String taskInfo =
+                "\tWoof Woof! I have marked the task as done.\n\t" + tasks.get(Integer.parseInt(markVal) - 1)
                         .getString();
-        ui.displayMessage(s);
+        ui.displayMessage(taskInfo);
     }
 
     /**
-     * Unmarks a task to show that it is not done, from the list of tasks.
+     * Unmarks a task to show that it is not done, from the tasks of tasks.
+     *
      * @param task
      * @throws BrunoException
      */
@@ -131,21 +137,22 @@ public class TaskList {
         } catch (NumberFormatException e) {
             throw new BrunoIntegerMismatchException("mark");
         }
-        if (Integer.parseInt(unmarkVal) > list.size()) {
+        if (Integer.parseInt(unmarkVal) > tasks.size()) {
             throw new BrunoIndexOutOfBoundsException("unmark");
         }
         if (Integer.parseInt(unmarkVal) < 0) {
             throw new BrunoNegativeArgException("unmark");
         }
-        list.get(Integer.parseInt(unmarkVal) - 1).unMark();
+        tasks.get(Integer.parseInt(unmarkVal) - 1).unMark();
         storage.writeToFile();
-        String s = "\tOK, I have marked the task as not done yet.\n\t" + list.get(
+        String taskInfo = "\tOK, I have marked the task as not done yet.\n\t" + tasks.get(
                 Integer.parseInt(unmarkVal) - 1).getString();
-        ui.displayMessage(s);
+        ui.displayMessage(taskInfo);
     }
 
     /**
-     * Deletes a task from the list of tasks.
+     * Deletes a task from the tasks of tasks.
+     *
      * @param task
      * @throws BrunoException
      */
@@ -156,72 +163,75 @@ public class TaskList {
         } catch (NumberFormatException e) {
             throw new BrunoIntegerMismatchException("mark");
         }
-        if (Integer.parseInt(deleteVal) > list.size()) {
+        if (Integer.parseInt(deleteVal) > tasks.size()) {
             throw new BrunoIndexOutOfBoundsException("delete");
         }
         if (Integer.parseInt(deleteVal) < 0) {
             throw new BrunoNegativeArgException("delete");
         }
-        String s1 = list.get(Integer.parseInt(deleteVal) - 1).getString();
-        list.remove(Integer.parseInt(deleteVal) - 1);
+        String s1 = tasks.get(Integer.parseInt(deleteVal) - 1).getString();
+        tasks.remove(Integer.parseInt(deleteVal) - 1);
         storage.writeToFile();
-        String s = "\tI have removed this task from your list:\n\t" + s1;
-        ui.displayMessage(s);
+        String taskInfo = "\tI have removed this task from your tasks:\n\t" + s1;
+        ui.displayMessage(taskInfo);
     }
 
     /**
-     * Displays the number of tasks in the list.
+     * Displays the number of tasks in the tasks.
      */
     public void displayListSum() {
-        String s = "\tNow you have " + list.size() + (list.size() == 1 ? " task" : " tasks") + " in your "
-                + "list.";
-        ui.displayMessage(s);
+        String taskInfo = "\tNow you have " + tasks.size() + (tasks.size() == 1 ? " task" : " tasks") + " "
+                + "in your "
+                + "tasks.";
+        ui.displayMessage(taskInfo);
     }
 
     /**
-     * Displays the list of tasks.
+     * Displays the tasks of tasks.
      */
     public void displayList() {
-        String s = "\tHere are the tasks in your list:\n";
-        for (int i = 0; i < list.size(); i++) {
-            s += "\t\t" + (i + 1) + ". " + list.get(i).getString() + "\n";
+        String taskInfo = "\tHere are the tasks in your tasks:\n";
+        for (int i = 0; i < tasks.size(); i++) {
+            taskInfo += "\t\t" + (i + 1) + ". " + tasks.get(i).getString() + "\n";
         }
-        ui.displayMessage(s);
+        ui.displayMessage(taskInfo);
     }
 
     /**
      * Displays all the tasks the user has on a given date.
+     *
      * @param task
      * @throws DateTimeException
      */
     public void showSchedule(String task) throws DateTimeException {
-        String s = "";
+        String taskInfo = "";
         int counter = 0;
         LocalDate d = LocalDate.parse(task.split(" ")[1], DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-        for (Task t : list) {
+        for (Task t : tasks) {
             if (t instanceof Deadline) {
                 if (d.isEqual(((Deadline) t).getBy().toLocalDate())) {
-                    s = s + "\t" + (++counter) + ". " + t.getString() + "\n";
+                    taskInfo = taskInfo + "\t" + (++counter) + ". " + t.getString() + "\n";
                 }
             } else if (t instanceof Event) {
-                if ((d.isAfter(((Event) t).getFrom().toLocalDate()) && d.isBefore(((Event) t).getBy().toLocalDate()))
-                        || d.isEqual(((Event) t).getFrom().toLocalDate()) || d.isEqual((
-                                (Event) t).getBy().toLocalDate())) {
-                    s = s + "\t" + (++counter) + ". " + t.getString() + "\n";
+                if ((d.isAfter(((Event) t).getFrom().toLocalDate())
+                        && d.isBefore(((Event) t).getBy().toLocalDate()))
+                        || d.isEqual(((Event) t).getFrom().toLocalDate())
+                        || d.isEqual(((Event) t).getBy().toLocalDate())) {
+                    taskInfo = taskInfo + "\t" + (++counter) + ". " + t.getString() + "\n";
                 }
             }
         }
         if (counter == 0) {
             ui.displayMessage("\tYou have no deadlines or events on this date.");
         }
-        ui.displayMessage(s);
+        ui.displayMessage(taskInfo);
     }
 
-    public void setList(List<Task> list) {
-        this.list = list;
+    public void setList(List<Task> tasks) {
+        this.tasks = tasks;
     }
 
     public List<Task> getList() {
-        return this.list;
+        return this.tasks;
     }
 }

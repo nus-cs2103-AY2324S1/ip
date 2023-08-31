@@ -9,6 +9,7 @@ import bruno.task.TaskType;
  * appropriate tasks.
  */
 public class Parser {
+
     private TaskList taskList;
 
     public Parser(TaskList taskList) {
@@ -17,13 +18,14 @@ public class Parser {
 
     /**
      * Parses the user input and calls methods to perform the appropriate task.
-     * @param s User input string.
+     *
+     * @param input User input string.
      * @return Flag value for termination.
-     * @throws BrunoException
+     * @throws BrunoException Thrown if an unknown task is entered.
      */
-    public boolean parse(String s) throws BrunoException {
+    public boolean parseInput(String input) throws BrunoException {
         try {
-            TaskType type = TaskType.valueOf(s.split(" ")[0].toUpperCase());
+            TaskType type = TaskType.valueOf(input.split(" ")[0].toUpperCase());
             switch (type) {
             case BYE:
                 return false;
@@ -31,29 +33,29 @@ public class Parser {
                 taskList.displayList();
                 return true;
             case MARK:
-                taskList.markTask(s);
+                taskList.markTask(input);
                 return true;
             case UNMARK:
-                taskList.unmarkTask(s);
+                taskList.unmarkTask(input);
                 return true;
             case DELETE:
-                taskList.deleteTask(s);
+                taskList.deleteTask(input);
                 taskList.displayListSum();
                 return true;
             case TODO:
-                taskList.addToDo(s);
+                taskList.addToDo(input);
                 taskList.displayListSum();
                 return true;
             case DEADLINE:
-                taskList.addDeadline(s);
+                taskList.addDeadline(input);
                 taskList.displayListSum();
                 return true;
             case EVENT:
-                taskList.addEvent(s);
+                taskList.addEvent(input);
                 taskList.displayListSum();
                 return true;
             case SCHEDULE:
-                taskList.showSchedule(s);
+                taskList.showSchedule(input);
                 return true;
             default:
                 throw new BrunoUnknownTaskException();

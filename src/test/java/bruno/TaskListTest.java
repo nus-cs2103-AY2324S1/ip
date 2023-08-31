@@ -24,12 +24,12 @@ import bruno.task.Task;
 import bruno.task.ToDo;
 
 public class TaskListTest {
-    private final UI ui = new UI();
-    private final Storage storage = new Storage("data/", "bruno.txt");
-    private final TaskList taskList = new TaskList(this.storage, this.ui);
 
-    @Test
-    void testAddToDo() {
+    private UI ui = new UI();
+    private Storage storage = new Storage("data/", "bruno.txt");
+    private TaskList taskList = new TaskList(this.storage, this.ui);
+
+    @Test void testAddToDo_normalInput_correctOutputGenerated() {
         try {
             taskList.addToDo("todo buy groceries");
             List<Task> tasks = taskList.getList();
@@ -40,14 +40,12 @@ public class TaskListTest {
         }
     }
 
-    @Test
-    void testAddToDo_withoutDescription_exceptionThrown() {
+    @Test void testAddToDo_withoutDescription_exceptionThrown() {
         Exception exception = assertThrows(BrunoEmptyException.class, () -> taskList.addToDo("todo"));
         assertEquals("Ruff Ruff! Description of todo cannot be empty! ❌", exception.getMessage());
     }
 
-    @Test
-    void testAddDeadline() {
+    @Test void testAddDeadline_normalInput_correctOutputGenerated() {
         try {
             taskList.addDeadline("deadline assignment /by 2023-08-30 19:00");
             List<Task> tasks = taskList.getList();
@@ -58,29 +56,25 @@ public class TaskListTest {
         }
     }
 
-    @Test
-    void testAddDeadline_withoutDescription_exceptionThrown() {
-        Exception exception = assertThrows(BrunoEmptyException.class, () -> taskList.addDeadline("deadline "
-                + "/by 2023-08-30 19:00"));
+    @Test void testAddDeadline_withoutDescription_exceptionThrown() {
+        Exception exception = assertThrows(BrunoEmptyException.class, ()
+                -> taskList.addDeadline("deadline " + "/by 2023-08-30 19:00"));
         assertEquals("Ruff Ruff! Description of deadline cannot be empty! ❌", exception.getMessage());
     }
 
-    @Test
-    void testAddDeadline_withoutDeadline_exceptionThrown() {
-        Exception exception = assertThrows(BrunoMissingDeadlineException.class, () -> taskList.addDeadline(
-                "deadline work"));
+    @Test void testAddDeadline_withoutDeadline_exceptionThrown() {
+        Exception exception = assertThrows(BrunoMissingDeadlineException.class, ()
+                -> taskList.addDeadline("deadline work"));
         assertEquals("Ruff Ruff! You cannot add a Deadline task without setting the deadline! ❌",
                 exception.getMessage());
     }
 
-    @Test
-    void testAddDeadline_incorrectDateFormat_exceptionThrown() {
-        assertThrows(DateTimeException.class, () -> taskList.addDeadline("deadline "
-                + "work /by 29-08-2023 19:00"));
+    @Test void testAddDeadline_incorrectDateFormat_exceptionThrown() {
+        assertThrows(DateTimeException.class, ()
+                -> taskList.addDeadline("deadline " + "work /by 29-08-2023 19:00"));
     }
 
-    @Test
-    void testAddEvent() {
+    @Test void testAddEvent_normalInput_correctOutputGenerated() {
         try {
             taskList.addEvent("event presentation /from 2023-08-31 10:00 /to 2023-08-31 11:00");
             List<Task> tasks = taskList.getList();
@@ -91,28 +85,24 @@ public class TaskListTest {
         }
     }
 
-    @Test
-    void testAddEvent_withoutDescription_exceptionThrown() {
-        Exception e = assertThrows(BrunoEmptyException.class, () -> taskList.addEvent("event /from "
-                + "2023-08-31 10:00 /to "
-                + "2023-08-31 11:00"));
+    @Test void testAddEvent_withoutDescription_exceptionThrown() {
+        Exception e = assertThrows(BrunoEmptyException.class, ()
+                -> taskList.addEvent("event /from " + "2023-08-31 10:00 /to " + "2023-08-31 11:00"));
         assertEquals("Ruff Ruff! Description of event cannot be empty! ❌", e.getMessage());
     }
 
-    @Test
-    void testAddEvent_withoutStartEndTime_exceptionThrown() {
+    @Test void testAddEvent_withoutStartEndTime_exceptionThrown() {
         Exception e = assertThrows(BrunoMissingEventException.class, () -> taskList.addEvent("event work"));
-        assertEquals("Ruff Ruff! You cannot add an Event task without setting start and end time! ❌", e.getMessage());
+        assertEquals("Ruff Ruff! You cannot add an Event task without setting start and end time! ❌",
+                e.getMessage());
     }
 
-    @Test
-    void testAddEvent_incorrectDateFormat_exceptionThrown() {
-        assertThrows(DateTimeException.class, () -> taskList.addEvent("event work /from 30-08-2023 18:00 "
-                + "/to 30-08-2023 19:00"));
+    @Test void testAddEvent_incorrectDateFormat_exceptionThrown() {
+        assertThrows(DateTimeException.class, ()
+                -> taskList.addEvent("event work /from 30-08-2023 18:00 " + "/to 30-08-2023 19:00"));
     }
 
-    @Test
-    void testMarkTask() {
+    @Test void testMarkTask_normalInput_correctOutputGenerated() {
         try {
             List<Task> tasks = taskList.getList();
             taskList.addToDo("todo work");
@@ -124,32 +114,28 @@ public class TaskListTest {
         }
     }
 
-    @Test
-    void testMarkTask_stringArg_exceptionThrown() {
+    @Test void testMarkTask_stringArg_exceptionThrown() {
         List<Task> tasks = taskList.getList();
         tasks.add(new ToDo("work"));
         taskList.setList(tasks);
         assertThrows(BrunoIntegerMismatchException.class, () -> taskList.markTask("mark abc"));
     }
 
-    @Test
-    void testMarkTask_negativeArg_exceptionThrown() {
+    @Test void testMarkTask_negativeArg_exceptionThrown() {
         List<Task> tasks = taskList.getList();
         tasks.add(new Deadline("post-lecture quiz", "2023-08-30 18:00"));
         taskList.setList(tasks);
         assertThrows(BrunoNegativeArgException.class, () -> taskList.markTask("mark -1"));
     }
 
-    @Test
-    void testMarkTask_outOfBoundsArg_exceptionThrown() {
+    @Test void testMarkTask_outOfBoundsArg_exceptionThrown() {
         List<Task> tasks = taskList.getList();
         tasks.add(new ToDo("project"));
         taskList.setList(tasks);
         assertThrows(BrunoIndexOutOfBoundsException.class, () -> taskList.markTask("mark 2"));
     }
 
-    @Test
-    void testUnmarkTask() {
+    @Test void testUnmarkTask_normalInput_correctOutputGenerated() {
         try {
             List<Task> tasks = taskList.getList();
             Task task = new ToDo("todo work");
@@ -163,8 +149,7 @@ public class TaskListTest {
         }
     }
 
-    @Test
-    void testUnmarkTask_stringArg_exceptionThrown() {
+    @Test void testUnmarkTask_stringArg_exceptionThrown() {
         List<Task> tasks = taskList.getList();
         tasks.add(new ToDo("work"));
         taskList.setList(tasks);
@@ -172,24 +157,21 @@ public class TaskListTest {
         assertThrows(BrunoIntegerMismatchException.class, () -> taskList.unmarkTask("unmark abc"));
     }
 
-    @Test
-    void testUnmarkTask_negativeArg_exceptionThrown() {
+    @Test void testUnmarkTask_negativeArg_exceptionThrown() {
         List<Task> tasks = taskList.getList();
         tasks.add(new Deadline("post-lecture quiz", "2023-08-30 18:00"));
         taskList.getList().get(0).markAsDone();
         assertThrows(BrunoNegativeArgException.class, () -> taskList.unmarkTask("unmark -1"));
     }
 
-    @Test
-    void testUnmarkTask_outOfBoundsArg_exceptionThrown() {
+    @Test void testUnmarkTask_outOfBoundsArg_exceptionThrown() {
         List<Task> tasks = taskList.getList();
         tasks.add(new ToDo("project"));
         taskList.getList().get(0).markAsDone();
         assertThrows(BrunoIndexOutOfBoundsException.class, () -> taskList.unmarkTask("unmark 2"));
     }
 
-    @Test
-    void testDeleteTask() {
+    @Test void testDeleteTask_normalInput_correctOutputGenerated() {
         try {
             List<Task> tasks = taskList.getList();
             tasks.add(new Event("hackathon", "2023-08-29 10:00", "2023-09-01 10:00"));
@@ -202,24 +184,21 @@ public class TaskListTest {
         }
     }
 
-    @Test
-    void testDeleteTask_stringArg_exceptionThrown() {
+    @Test void testDeleteTask_stringArg_exceptionThrown() {
         List<Task> tasks = taskList.getList();
         tasks.add(new Deadline("project", "2023-09-01 18:00"));
         taskList.setList(tasks);
         assertThrows(BrunoIntegerMismatchException.class, () -> taskList.deleteTask("delete a"));
     }
 
-    @Test
-    void testDeleteTask_outOfBoundsArg_exceptionThrown() {
+    @Test void testDeleteTask_outOfBoundsArg_exceptionThrown() {
         List<Task> tasks = taskList.getList();
         tasks.add(new ToDo("debug project"));
         taskList.setList(tasks);
         assertThrows(BrunoIndexOutOfBoundsException.class, () -> taskList.deleteTask("delete 2"));
     }
 
-    @Test
-    void testDeleteTask_negativeArg_exceptionThrown() {
+    @Test void testDeleteTask_negativeArg_exceptionThrown() {
         List<Task> tasks = taskList.getList();
         tasks.add(new Event("career fair", "2023-08-29 17:00", "2023-08-31 17:00"));
         taskList.setList(tasks);

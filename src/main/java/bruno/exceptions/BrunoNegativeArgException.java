@@ -5,6 +5,7 @@ package bruno.exceptions;
  * for mark, unmark or delete.
  */
 public class BrunoNegativeArgException extends BrunoException {
+
     private String activity;
 
     public BrunoNegativeArgException(String activity) {

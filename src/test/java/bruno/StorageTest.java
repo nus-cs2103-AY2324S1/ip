@@ -28,8 +28,7 @@ public class StorageTest {
     private TaskList taskList;
     private UI ui;
 
-    @BeforeEach
-    void setUp() {
+    @BeforeEach void setUp() {
         dirPath = "data/";
         fileName = "bruno.txt";
         storage = new Storage(dirPath, fileName);
@@ -37,15 +36,13 @@ public class StorageTest {
         taskList = new TaskList(storage, ui);
     }
 
-    @Test
-    void testDirectoryExists() {
+    @Test void testDirectoryExists_normalCase_trueReturned() {
         File directory = new File(dirPath);
         assertTrue(directory.exists());
         directory.delete();
     }
 
-    @Test
-    void testWriteToFile() {
+    @Test void testWriteToFile_normalInput_writtenToFile() {
         File file = new File(dirPath + fileName);
         List<Task> list = new ArrayList<>();
         list.add(new ToDo("work"));
@@ -55,8 +52,7 @@ public class StorageTest {
         file.delete();
     }
 
-    @Test
-    void testWriteToFile_emptyList() {
+    @Test void testWriteToFile_emptyList_writtenToFile() {
         File file = new File(dirPath + fileName);
         List<Task> list = new ArrayList<>();
         taskList.setList(list);
@@ -64,8 +60,7 @@ public class StorageTest {
         assertEquals(0, file.length());
     }
 
-    @Test
-    void testLoadFile() {
+    @Test void testLoadFile_normalInput_fileLoaded() {
         try {
             List<Task> tasks = new ArrayList<>();
             tasks.add(new ToDo("work"));
@@ -80,8 +75,11 @@ public class StorageTest {
         }
     }
 
-    @Test
-    void testLoadFile_fileDoesNotExist() {
+    @Test void testLoadFile_fileDoesNotExist_correctOutputGenerated() {
+        File file = new File(dirPath + fileName);
+        if (file.exists()) {
+            file.delete();
+        }
         try {
             storage.loadFile();
             assertEquals(0, taskList.getList().size());
@@ -90,8 +88,7 @@ public class StorageTest {
         }
     }
 
-    @Test
-    void testLoadFile_invalidTaskType_exceptionThrown() {
+    @Test void testLoadFile_invalidTaskType_exceptionThrown() {
         File file = new File(dirPath + fileName);
         try (FileWriter fileWriter = new FileWriter(file)) {
             fileWriter.write("X|⭕️|work");
@@ -103,8 +100,7 @@ public class StorageTest {
         }
     }
 
-    @Test
-    void testLoadFile_incorrectDateFormat_exceptionThrown() {
+    @Test void testLoadFile_incorrectDateFormat_exceptionThrown() {
         File file = new File(dirPath + fileName);
         try (FileWriter fileWriter = new FileWriter(file)) {
             fileWriter.write("D|⭕️|work|23-08-2023 18:00");
@@ -116,8 +112,7 @@ public class StorageTest {
         }
     }
 
-    @Test
-    void testLoadFile_missingDeadline_exceptionThrown() {
+    @Test void testLoadFile_missingDeadline_exceptionThrown() {
         File file = new File(dirPath + fileName);
         try (FileWriter fileWriter = new FileWriter(file)) {
             fileWriter.write("D|⭕️|work");
