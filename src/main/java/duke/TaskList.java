@@ -129,8 +129,8 @@ public class TaskList {
             addTask(task);
         } else {
             // Todo description is empty
-            throw new DukeException("☹ OOPS!!! The description of a todo cannot be empty." +
-                    "\ntodo ...");
+            throw new DukeException("☹ OOPS!!! The description of a todo cannot be empty."
+                    + "\ntodo {description}");
         }
     }
 
@@ -142,8 +142,8 @@ public class TaskList {
      */
     public void addEvent(String input) throws DukeException {
         // Define regular expressions for pattern matching for event
-        Pattern eventPattern = Pattern.compile("event\\s+(.*?)\\s+/from" +
-                "\\s+(.*?)\\s+/to\\s+(.*?)$");
+        Pattern eventPattern = Pattern.compile("event\\s+(.*?)\\s+/from"
+                + "\\s+(.*?)\\s+/to\\s+(.*?)$");
 
         // Match the input string with the pattern
         Matcher matcher = eventPattern.matcher(input);
@@ -157,8 +157,8 @@ public class TaskList {
             addTask(task);
         } else {
             // User did not follow event format
-            throw new DukeException("Input for event doesn't match the expected format." +
-                    "\nevent ... /from ... /to ...");
+            throw new DukeException("Input for event doesn't match the expected format."
+                    + "\nevent {task} /from {startDate in YYYY-MM-DD} /to {endDate in YYYY-MM-DD}");
         }
     }
 
@@ -183,8 +183,8 @@ public class TaskList {
             addTask(task);
         } else {
             // User did not follow deadline format
-            throw new DukeException("Input for deadline doesn't match the expected format." +
-                    "\ndeadline ... /by ...");
+            throw new DukeException("Input for deadline doesn't match the expected format."
+                    + "\ndeadline {description} /by {endDate in YYYY-MM-DD}");
         }
     }
 
