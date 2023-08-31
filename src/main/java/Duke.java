@@ -3,6 +3,8 @@ import java.io.FileWriter;
 import java.io.File;
 import java.io.IOException;
 import java.io.FileReader;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 public class Duke {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
@@ -34,8 +36,15 @@ public class Duke {
                 System.out.println("Now you have " + counter + " tasks in the list.");
             } else if (input.startsWith("list")) {
                 System.out.println("Here are the tasks in your list:");
+                String DMYString = "";
+//                for (int i = 0; i < counter; i++) {
+//                    System.out.println((i + 1) + "." + helper(actions[i], type[i], isDone[i]));
                 for (int i = 0; i < counter; i++) {
-                    System.out.println((i + 1) + "." + helper(actions[i], type[i], isDone[i]));
+                    if (type[i].equals("D") || type[i].equals("E")) {
+                        LocalDateTime DMY = LocalDateTime.parse(actions[i], DateTimeFormatter.ofPattern("d/M/yyyy HHmm"));
+                        DMYString = DMY.format(DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm"));
+                    }
+                    System.out.println((i + 1) + "." + helper(actions[i], type[i], isDone[i]) + " " + DMYString);
                 }
             } else if (input.startsWith("todo")) {
                 if (input.length() <= 4) {
@@ -50,18 +59,21 @@ public class Duke {
                     System.out.println("Now you have " + counter + " tasks in the list.");
                 }
             } else if (input.startsWith("deadline")) {
-                String action = input.substring(9, input.indexOf("/by")).trim();
-                String by = input.substring(input.indexOf("/by") + 3).trim();
-                actions[counter] = action;
-                type[counter] = "D";
-                isDone[counter] = false;
-                counter++;
-                System.out.println("Got it. I've added this task: \n" + helper(action, "D", false) + " (by: " + by + ")");
-                System.out.println("Now you have " + counter + " tasks in the list.");
-            } else if (input.startsWith("event")) {
+            String action = input.substring(9, input.indexOf("/by")).trim();
+            String by = input.substring(input.indexOf("/by") + 4).trim(); // Adjusted index
+            LocalDateTime timeDeadline = dateTask(by);
+            actions[counter] = action;
+            type[counter] = "D";
+            isDone[counter] = false;
+            counter++;
+            System.out.println("Got it. I've added this task: \n" + helper(action, "D", false) + " (by: " + timeDeadline.format(DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm")) + ")");
+            System.out.println("Now you have " + counter + " tasks in the list.");
+        } else if (input.startsWith("event")) {
                 String action = input.substring(6, input.indexOf("/from")).trim();
                 String from = input.substring(input.indexOf("/from") + 6, input.indexOf("/to")).trim();
                 String to = input.substring(input.indexOf("/to") + 4).trim();
+                LocalDateTime startTimeEvent = dateTask(from);
+                LocalDateTime endTimeEvent = dateTask(to);
                 actions[counter] = action;
                 isDone[counter] = false;
                 type[counter] = "E";
@@ -110,8 +122,8 @@ public class Duke {
             writer.write(counter + "\n");
             for (int i = 0; i < counter; i++) {
                 int isDoneNum = isDone[i]
-                                ? 1
-                                : 0;
+                        ? 1
+                        : 0;
                 writer.write(type[i] + " | " + isDoneNum + " | " + actions[i] + "\n");
             }
         } catch (IOException e) {
@@ -140,6 +152,12 @@ public class Duke {
         return count;
     }
 
+    private static LocalDateTime dateTask (String dateTimeStr) {
+        DateTimeFormatter DMYhelper = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
+        // HHmm for the hour and minutes
+        return LocalDateTime.parse(dateTimeStr, DMYhelper);
+    }
 }
+
 
 
