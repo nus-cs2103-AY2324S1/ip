@@ -44,4 +44,16 @@ public class Deadline extends Task {
     public String taskToString() {
         return "D | " + super.taskToString() + " | " + by;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == this) {
+            return true;
+        }
+        if (!(o instanceof Deadline)) {
+            return false;
+        }
+        Deadline c = (Deadline) o;
+        return this.toString().equals(c.toString());
+    }
 }

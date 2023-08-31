@@ -1,3 +1,4 @@
-T | N | idabikf
-T | Y | dosifs
-T | N | odbf
+T | N | Homework
+D | Y | Project | 2023-11-11
+E | N | Midterms | 2023-10-11 | 2023-10-12
+E | N | Finals | 2023-11-11 | 2023-11-12

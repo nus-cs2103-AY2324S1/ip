@@ -84,7 +84,7 @@ public class Storage {
         }
     }
 
-    private Task stringToTask(String s) throws DukeException {
+    public Task stringToTask(String s) throws DukeException {
         String[] details = s.split("[|]", 0);
         String type = details[0].strip();
         Task t;
