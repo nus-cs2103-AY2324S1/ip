@@ -79,7 +79,10 @@ public class TaskList {
         }
     }
 
-    /** Goes through all task stored in list and updates the hard drive. */
+    /** Goes through all task stored in list and updates the hard drive.
+     *
+     * @param filePath Path to the file data.txt.
+     */
     public void updateStorage(String filePath) {
         try {
             FileWriter writer = new FileWriter(filePath);

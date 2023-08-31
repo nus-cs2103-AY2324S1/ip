@@ -64,7 +64,10 @@ public class Storage {
         return null;
     }
 
-    /** Creates a file named data.txt. */
+    /** Creates a file named data.txt.
+     *
+     * @param filePath Path to the file data.txt.
+     */
     public void createFile(String filePath) {
         try {
             File file = new File(filePath);
