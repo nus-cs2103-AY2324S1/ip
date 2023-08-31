@@ -19,13 +19,19 @@ public class Parser {
     private static boolean isRunning = true;
 
 
-    public static void parse(String userInput, ArrayList<Task> taskList, int i, Ui ui) throws DukeException {
+    public static void parse(ArrayList<Task> taskList,
+                             int i, Ui ui, Storage storage) throws DukeException {
+        String userInput = ui.next();
         while (!userInput.equals(EXIT_PHRASE)) {
             if (userInput.equals(LIST_PHRASE)) {
-                Ui.print("Here are the tasks in your list:");
-                for (int j = 0; j < i; j++) {
-                    Ui.print(j + 1 + "." +
-                            taskList.get(j).toString());
+                if (taskList.isEmpty()) {
+                    Ui.print("There are currently no tasks in your list");
+                } else {
+                    Ui.print("Here are the tasks in your list:");
+                    for (int j = 0; j < i; j++) {
+                        Ui.print(j + 1 + "." +
+                                taskList.get(j).toString());
+                    }
                 }
                 userInput = ui.next();
                 continue;
@@ -121,12 +127,13 @@ public class Parser {
                 String searchTerm = ui.nextLine();
                 ArrayList<Task> searchList = new TaskList();
                 taskList.forEach(t -> {
-                    if (t.contains(searchTerm)) {
+                    if (t.getDescription().contains(searchTerm)) {
                         searchList.add(t);
                     }
                 });
+                int searchListSize = searchList.size();
                 System.out.println("Here are the matching tasks in your list:");
-                for (int j = 0; j < i; j++) {
+                for (int j = 0; j < searchListSize; j++) {
                     Ui.print(j + 1 + "." +
                             searchList.get(j).toString());
                 }
@@ -135,10 +142,6 @@ public class Parser {
             }
             throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
-        isRunning = false;
-    }
-
-    public boolean getRunning() {
-        return isRunning;
+        saveTasksToFile(taskList, String.valueOf(storage.path));
     }
 }
