@@ -1,9 +1,9 @@
-
+package Duke;
 
 public class Ui {
 
     public static void greet() {
-        System.out.println("Hello! I'm Gman! \nWhat can I do for you?");
+        System.out.println("Hello! I'm Duke.Gman! \nWhat can I do for you?");
     }
 
     public static void goodbye() {
