@@ -1,13 +1,23 @@
+import java.io.IOException;
+import java.io.FileReader;
+import java.io.BufferedReader;
+
+import java.io.File;
+import java.io.FileWriter;
+import java.io.BufferedWriter;
+
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.io.FileNotFoundException;
 
 public class Duke {
 
     Scanner userInput = new Scanner(System.in);
-    ArrayList<Task> taskList = new ArrayList<Task>();
+    TaskList tasks = new TaskList();
 
     public static void main(String[] args) {
+
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
                 + "| | | | | | | |/ / _ \\\n"
@@ -19,7 +29,7 @@ public class Duke {
 
     }
 
-    private void line() {
+    static void line() {
         String line = "____________________________________________________________";
         System.out.println(line);
     }
@@ -30,6 +40,12 @@ public class Duke {
         System.out.println("What can I do for you?");
         line();
 
+        try {
+            this.loadList();
+        } catch (DukeException | IOException e) {
+            System.out.println(e.getMessage());
+        }
+
         while (true) {
             String input = userInput.nextLine();
 
@@ -38,19 +54,15 @@ public class Duke {
                     exit();
                     break;
                 } else if (input.equals("list")) {
-                    list();
+                    tasks.list();
                 } else if (input.startsWith("mark")) {
                     testMarkAndDelete(input);
-
                     int taskIndex = Integer.parseInt(input.substring(5)) - 1;
-                    Task currTask = taskList.get(taskIndex);
-                    currTask.taskDone(true);
+                    tasks.mark(taskIndex);
                 } else if (input.startsWith("unmark")) {
                     testMarkAndDelete(input);
-
                     int taskIndex = Integer.parseInt(input.substring(7)) - 1;
-                    Task currTask = taskList.get(taskIndex);
-                    currTask.taskDone(false);
+                    tasks.unmark(taskIndex);
                 } else {
                     if (input.startsWith("todo")) {
 
@@ -58,78 +70,41 @@ public class Duke {
                         // test whether the todo is valid
                         testToDo(description);
 
-                        System.out.println("Got it. I've added this task:");
-                        ToDo toDo = new ToDo(description);
-                        System.out.println(toDo.toString());
-                        taskList.add(toDo);
+                        tasks.addToDo(description);
 
                     } else if (input.startsWith("event")) {
 
                         testEvent(input);
-
-                        System.out.println("Got it. I've added this task:");
-
-                        String[] list = input.split("/");
-                        String title = list[0].substring(6);
-                        String start = list[1].substring(5);
-                        String end = list[2].substring(3);
-
-                        Event event = new Event(title, start, end);
-                        System.out.println(event.toString());
-                        taskList.add(event);
+                        tasks.addEvent(input);
 
                     } else if (input.startsWith("deadline")) {
 
                         testDeadline(input);
+                        tasks.addDeadline(input);
 
-                        System.out.println("Got it. I've added this task:");
-
-                        String[] list = input.split("/");
-                        String title = list[0].substring(9);
-                        String time = list[1].substring(3);
-
-                        Deadline deadline = new Deadline(title, time);
-                        System.out.println(deadline.toString());
-                        taskList.add(deadline);
                     } else if (input.startsWith("delete")) {
 
                         testMarkAndDelete(input);
-
-                        int taskIndex = Integer.parseInt(input.substring(7)) - 1;
-                        System.out.println("Noted. I've removed this task:");
-                        System.out.println(taskList.get(taskIndex));
-                        taskList.remove(taskIndex);
+                        tasks.deleteTask(input);
 
                     } else {
                         throw new DukeException("OOPS!!! I'm sorry, but I don't know what that means :-(");
                     }
 
-                    System.out.println("Now you have " + taskList.size() + " tasks in the list.");
+                    System.out.println("Now you have " + tasks.size() + " tasks in the list.");
                     line();
                 }
             } catch (DukeException exception) {
                 System.out.println(exception.getMessage());
+            } catch (IOException e) {
+                throw new RuntimeException(e);
             }
         }
     }
 
-    private void list() {
-        line();
-        if (taskList.size() == 0) {
-            System.out.println("There are no tasks in your list.");
-        } else {
-            System.out.println("Here are the tasks in your list:");
-            for (int i = 0; i < taskList.size(); i++) {
-                int index = i + 1;
-                Task t = taskList.get(i);
-                System.out.println(index + "." + t.toString());
-            }
-        }
-        line();
-    }
-
-    private void exit() {
+    private void exit() throws DukeException, IOException {
         System.out.println("Bye. Hope to see you again soon!");
+        this.saveList();
         line();
     }
 
@@ -153,7 +128,7 @@ public class Duke {
         // Passing the first case means the index is an integer
         if (intIndex < 1) {
             throw new DukeException("The index following \"mark\" or \"unmark\" should start from 1.");
-        } else if (intIndex > taskList.size()) {
+        } else if (intIndex > tasks.size()) {
             throw new DukeException("The index following \"mark\" or \"unmark\" should not exceed the total number of "
                     + "tasks in the list");
         }
@@ -192,6 +167,70 @@ public class Duke {
             throw new DukeException("Invalid input. Start with \"by\".");
         } else if (time.substring(2).equals(" ") || time.substring(2).isEmpty()) {
             throw new DukeException("Invalid input. Field Empty.");
+        }
+    }
+
+    private void loadList() throws DukeException, IOException {
+        try {
+            File file = new File("./data/data.txt");
+            FileReader fileReader = new FileReader(file);
+            BufferedReader reader = new BufferedReader(fileReader); // BufferedReader wraps the fileReader
+
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] inputArray = line.split(" \\| ");
+
+                switch(inputArray[0]) {
+                    case "T":
+                        ToDo toDo = new ToDo(inputArray[2]);
+                        if (inputArray[1] == "1") {
+                            toDo.taskDone(true);
+                        }
+                        tasks.addTask(toDo);
+                        break;
+
+                    case "E":
+                        Event event = new Event(inputArray[2], inputArray[3], inputArray[4]);
+
+                        if (inputArray[1] == "1") {
+                            event.taskDone(true);
+                        }
+                        tasks.addTask(event);
+                        break;
+
+                    case "D":
+                        Deadline deadline = new Deadline(inputArray[2], inputArray[3]);
+
+                        if (inputArray[1] == "1") {
+                            deadline.taskDone(true);
+                        }
+                        tasks.addTask(deadline);
+                        break;
+
+                    default:
+                        throw new DukeException("An unexpected error occurred while reading the text file. Error Code:" +
+                                " 01");
+                }
+            }
+
+        } catch (FileNotFoundException e) {
+            this.saveList();
+        } catch (IOException e) {
+            throw new DukeException("IO error occurred. Check the formatting of the text file - data.txt.");
+        }
+    }
+
+    private void saveList() throws DukeException, IOException {
+        try {
+            File file = new File("./data/data.txt");
+            file.getParentFile().mkdirs();
+
+            BufferedWriter writer = new BufferedWriter(new FileWriter(file));
+            writer = tasks.printStoreFormat(writer);
+
+            writer.close();
+        } catch (IOException e) {
+            throw new DukeException("IO exception occurred.");
         }
     }
 }
