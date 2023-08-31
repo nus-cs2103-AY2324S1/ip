@@ -9,6 +9,14 @@ public class Parser {
     private Ui Ui;
     private Storage storage;
     private Scanner myScanner;
+
+    /**
+     * Creates a Parser
+     * @param tasks the TaskList
+     * @param Ui the ui object
+     * @param storage the storage object
+     * @param myScanner the created Scanner object
+     */
     Parser(TaskList tasks, Ui Ui, Storage storage, Scanner myScanner) {
         this.tasks = tasks;
         this.Ui = Ui;
@@ -16,6 +24,10 @@ public class Parser {
         this.myScanner = myScanner;
     }
 
+    /**
+     * Parses the input given by the user
+     * @param inValue the initials of the string given by user
+     */
     public void parseInput(String inValue){
         Task item;
         switch(inValue) {
