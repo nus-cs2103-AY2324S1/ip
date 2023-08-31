@@ -3,8 +3,8 @@ public class Todo extends Task{
      * Make new Todo
      * @param description todo description
      */
-    public Todo(String description) {
-        super(description);
+    public Todo(String description, boolean isDone) {
+        super(description, isDone);
     }
 
     @Override

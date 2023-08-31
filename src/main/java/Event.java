@@ -8,8 +8,8 @@ public class Event extends Task{
      * @param from event start
      * @param to event end
      */
-    public Event(String description, String from, String to) {
-        super(description);
+    public Event(String description, boolean isDone, String from, String to) {
+        super(description, isDone);
         this.from = from;
         this.to = to;
     }

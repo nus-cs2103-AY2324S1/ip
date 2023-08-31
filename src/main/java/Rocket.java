@@ -1,3 +1,4 @@
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -33,6 +34,21 @@ public class Rocket {
         // Create list
         List<Task> taskList = new ArrayList<>();
 
+        // Load Saved tasks
+        try {
+            Scanner fileScanner = new Scanner(file);
+            while (fileScanner.hasNext()) {
+                String taskString = fileScanner.nextLine();
+                try {
+                    taskList.add(stringToTask(taskString));
+                } catch (RocketIllegalArgumentException e) {
+                    printError(e.getMessage());
+                }
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found");
+        }
+
         // Create scanner to read user input
         Scanner scanner = new Scanner(System.in);
 
@@ -51,7 +67,6 @@ public class Rocket {
                 case "bye": {
                     try {
                         saveTaskList(taskList, filePath);
-//                        writeToFile(filePath, String.valueOf(taskList.get(0)));
                     } catch (IOException e) {
                         printError(e.getMessage());
                     }
@@ -74,12 +89,12 @@ public class Rocket {
                     handleDelete(taskList, arguments);
                     break;
                 }
-                case "deadline": {
-                    handleDeadline(taskList, arguments);
-                    break;
-                }
                 case "todo": {
                     handleTodo(taskList, arguments);
+                    break;
+                }
+                case "deadline": {
+                    handleDeadline(taskList, arguments);
                     break;
                 }
                 case "event": {
@@ -125,6 +140,18 @@ public class Rocket {
         System.out.println(LINE);
     }
 
+    private static Task stringToTask(String taskString) throws RocketIllegalArgumentException {
+        char taskType = taskString.charAt(1);
+        boolean isDone = taskString.charAt(4) == 'X';
+        if (taskType == 'T') {
+            return new Todo(taskString.substring(7), isDone);
+        } else if (taskType == 'D') {
+            return makeDeadline(taskString.substring(7), isDone);
+        } else {
+            return makeEvent(taskString.substring(7), isDone);
+        }
+    }
+
 
     /**
      * Saves tasklist in to a file
@@ -162,47 +189,6 @@ public class Rocket {
         FileWriter fw = new FileWriter(filePath, true); // create a FileWriter in append mode
         fw.write(textToAppend);
         fw.close();
-    }
-
-    /**
-     * Extracts deadline from input.
-     * @param arguments information about task.
-     * @return a deadline task.
-     * @throws RocketIllegalArgumentException because of illegal argument.
-     */
-    private static Deadline getDeadline(String arguments) throws RocketIllegalArgumentException {
-        int descriptionIndex = arguments.indexOf(" /by");
-        String description = arguments.substring(0, descriptionIndex);
-        if (description.isEmpty()) {
-            throw new RocketIllegalArgumentException("The description of a deadline");
-        }
-        String by = arguments.substring(descriptionIndex + 5);
-        if (by.isEmpty()) {
-            throw new RocketIllegalArgumentException("The deadline of a deadline");
-        }
-        return new Deadline(description, by);
-    }
-
-    /**
-     * Extracts event from input.
-     * @param arguments information about event.
-     * @return an event.
-     * @throws RocketIllegalArgumentException because of Illegal Argument.
-     */
-    private static Event getEvent(String arguments) throws RocketIllegalArgumentException{
-        int descriptionIndex = arguments.indexOf(" /from");
-        String description = arguments.substring(0, descriptionIndex);
-        if (description.isEmpty()) {
-            throw new RocketIllegalArgumentException("The description of an event.");
-        }
-        String duration = arguments.substring(descriptionIndex + 7);
-        if (duration.isBlank()) {
-            throw new RocketIllegalArgumentException("The duration of an event");
-        }
-        int fromIndex = duration.indexOf(" /to");
-        String from = duration.substring(0, fromIndex);
-        String to = duration.substring(fromIndex + 5);
-        return new Event(description, from, to);
     }
 
     /**
@@ -274,6 +260,25 @@ public class Rocket {
     }
 
     /**
+     * handle Todo command
+     * @param taskList the ArrayList that represents the list of tasks
+     * @param arguments the command line arguments
+     * @throws RocketIllegalArgumentException throws illegal argument exception if there is no description provided
+     */
+    private static void handleTodo(List<Task> taskList, String arguments) throws RocketIllegalArgumentException {
+        if (arguments.isBlank()) {
+            throw new RocketIllegalArgumentException("The description of a Todo");
+        }
+        Todo todo = new Todo(arguments, false);
+        taskList.add(todo);
+        System.out.println(LINE);
+        System.out.println("    Got it. I've added this task:");
+        System.out.println("      " + todo);
+        System.out.println("    Now you have " + taskList.size() + " tasks in the list");
+        System.out.println(LINE);
+    }
+
+    /**
      * handle Deadline command
      * @param taskList the ArrayList that represents the list of tasks
      * @param arguments the command line arguments
@@ -284,30 +289,11 @@ public class Rocket {
         if (arguments.isBlank()) {
             throw new RocketIllegalArgumentException("The description of a Deadline");
         }
-        Deadline deadline = getDeadline(arguments);
+        Deadline deadline = makeDeadline(arguments, false);
         taskList.add(deadline);
         System.out.println(LINE);
         System.out.println("    Got it. I've added this task:");
         System.out.println("      " + deadline);
-        System.out.println("    Now you have " + taskList.size() + " tasks in the list");
-        System.out.println(LINE);
-    }
-
-    /**
-     * handle Todo command
-     * @param taskList the ArrayList that represents the list of tasks
-     * @param arguments the command line arguments
-     * @throws RocketIllegalArgumentException throws illegal argument exception if there is no description provided
-     */
-    private static void handleTodo(List<Task> taskList, String arguments) throws RocketIllegalArgumentException {
-        if (arguments.isBlank()) {
-            throw new RocketIllegalArgumentException("The description of a Todo");
-        }
-        Todo todo = new Todo(arguments);
-        taskList.add(todo);
-        System.out.println(LINE);
-        System.out.println("    Got it. I've added this task:");
-        System.out.println("      " + todo);
         System.out.println("    Now you have " + taskList.size() + " tasks in the list");
         System.out.println(LINE);
     }
@@ -323,13 +309,57 @@ public class Rocket {
         if (arguments.isBlank()) {
             throw new RocketIllegalArgumentException("The description of an Event");
         }
-        Event event = getEvent(arguments);
+        Event event = makeEvent(arguments, false);
         taskList.add(event);
         System.out.println(LINE);
         System.out.println("    Got it. I've added this task:");
         System.out.println("      " + event);
         System.out.println("    Now you have " + taskList.size() + " tasks in the list");
         System.out.println(LINE);
+    }
+
+    /**
+     * Extracts deadline from input.
+     * @param arguments information about task.
+     * @return a deadline task.
+     * @throws RocketIllegalArgumentException because of illegal argument.
+     */
+    private static Deadline makeDeadline(String arguments, boolean isDone) throws RocketIllegalArgumentException {
+        int descriptionIndex = arguments.indexOf("by") - 2;
+        String description = arguments.substring(0, descriptionIndex);
+        if (description.isEmpty()) {
+            throw new RocketIllegalArgumentException("The description of a deadline");
+        }
+        String by = arguments.substring(descriptionIndex + 5)
+                .replace(')', ' ')
+                .trim();
+        if (by.isEmpty()) {
+            throw new RocketIllegalArgumentException("The deadline of a deadline");
+        }
+        return new Deadline(description, isDone, by);
+    }
+
+    /**
+     * Extracts event from input.
+     * @param arguments information about event.
+     * @return an event.
+     * @throws RocketIllegalArgumentException because of Illegal Argument.
+     */
+    private static Event makeEvent(String arguments, boolean isDone) throws RocketIllegalArgumentException{
+        int descriptionIndex = arguments.indexOf("from") - 2;
+        String description = arguments.substring(0, descriptionIndex);
+        if (description.isEmpty()) {
+            throw new RocketIllegalArgumentException("The description of an event.");
+        }
+        String duration = arguments.substring(descriptionIndex + 7)
+                .trim();
+        if (duration.isBlank()) {
+            throw new RocketIllegalArgumentException("The duration of an event");
+        }
+        int fromIndex = duration.indexOf("to") - 1;
+        String from = duration.substring(0, fromIndex).trim();
+        String to = duration.substring(fromIndex + 4).trim();
+        return new Event(description, isDone, from, to);
     }
 
 }
