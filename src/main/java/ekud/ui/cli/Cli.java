@@ -14,11 +14,22 @@ import ekud.state.TaskList;
 import ekud.ui.Ui;
 import ekud.util.Pair;
 
+/**
+ * Represents a command-line user interface to the ekud program.
+ */
 public final class Cli extends Ui {
     private final Scanner in;
     private final PrintStream out;
     private final PrintStream err;
 
+    /**
+     * Creates a new command-line user interface with the given input, output and
+     * error streams.
+     * 
+     * @param in  The input stream to read user commands from.
+     * @param out The output stream to print successful results.
+     * @param err The error stream to print any error messages.
+     */
     public Cli(InputStream in, OutputStream out, OutputStream err) {
         this.in = new Scanner(in);
         this.out = new PrintStream(out);

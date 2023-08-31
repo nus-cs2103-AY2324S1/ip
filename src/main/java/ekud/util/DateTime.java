@@ -6,6 +6,12 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Represents either a date, time or both.
+ * Wraps the {@link java.time.LocalDate}, {@link java.time.LocalTime} and
+ * {@link java.time.LocalDateTime} classes available in the standard library and
+ * represents only one of them at a given time.
+ */
 public final class DateTime {
     private static DateTimeFormatter PARSE_DATE_FORMATTER = DateTimeFormatter.ofPattern("dd-MM-yyyy");
     private static DateTimeFormatter PARSE_TIME_FORMATTER = DateTimeFormatter.ofPattern("HH:mm");
@@ -36,6 +42,11 @@ public final class DateTime {
         this.dateTime = dateTime;
     }
 
+    /**
+     * Parses the given string to return a date, time or both.
+     * 
+     * @param data The raw string to parse as a date, time or both.
+     */
     public static DateTime parse(String data) {
         try {
             return new DateTime(LocalDate.parse(data, PARSE_DATE_FORMATTER));
@@ -48,6 +59,11 @@ public final class DateTime {
         }
     }
 
+    /**
+     * Returns the time stored, or null if only a date is stored.
+     * 
+     * @return The time.
+     */
     public LocalTime getTime() {
         if (time != null) {
             return time;
@@ -58,6 +74,11 @@ public final class DateTime {
         }
     }
 
+    /**
+     * Returns the date stored, or null if only a time is stored.
+     * 
+     * @return The date.
+     */
     public LocalDate getDate() {
         if (date != null) {
             return date;
@@ -68,6 +89,12 @@ public final class DateTime {
         }
     }
 
+    /**
+     * Returns the date and time stored, the date stored combined with the current
+     * time, or the time stored combined with the current date.
+     * 
+     * @return The date and time.
+     */
     public LocalDateTime getDateTime() {
         if (dateTime != null) {
             return dateTime;

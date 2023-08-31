@@ -15,7 +15,18 @@ import ekud.command.UnmarkCommand;
 import ekud.error.ParseException;
 import ekud.util.DateTime;
 
+/**
+ * Parses a single line of text into a user command to ekud.
+ */
 public final class Parser {
+    /**
+     * Parses the given line of text into a user command.
+     * 
+     * @param line The line to parse.
+     * @return The command that was parsed.
+     * @throws ParseException           If the command cannot be parsed.
+     * @throws IllegalArugmentException If the line is empty.
+     */
     public static Command parseCommand(String line) {
         if (line.isEmpty()) {
             throw new IllegalArgumentException("Empty line passed to Command.parse");
