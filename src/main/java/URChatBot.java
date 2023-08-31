@@ -1,4 +1,16 @@
-import java.io.*;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeFormatterBuilder;
+import java.time.format.DateTimeParseException;
+import java.time.temporal.ChronoField;
+import java.time.temporal.ChronoUnit;
+import java.io.BufferedReader;
+import java.io.FileWriter;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -58,6 +70,26 @@ public class URChatBot {
         }
         return tasks;
     }
+
+    private static String changeTimeFormat(String time) {
+        try {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+            LocalDateTime d = LocalDateTime.parse(time, formatter);
+            return d.format(DateTimeFormatter.ofPattern("MMM d yyyy HH:mm"));
+        } catch (DateTimeParseException e){
+            try {
+                LocalDate d = LocalDate.parse(time);
+                return d.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
+            } catch (DateTimeParseException err) {
+                try {
+                    LocalTime t = LocalTime.parse(time);
+                    return t.format(DateTimeFormatter.ofPattern("HH:mm"));
+                } catch (DateTimeParseException tErr) {
+                    return null;
+                }
+            }
+        }
+    }
     public static void main(String[] args) {
         loadTasksFromFile(FILEPATH);
 
@@ -71,14 +103,17 @@ public class URChatBot {
             } else if (command.toUpperCase().contentEquals("LIST")) {
                 System.out.println("Here are the tasks in your list:");
                 for(int i = 0; i < tasks.size(); i ++) {
-                        System.out.println(i+1 + "." + tasks.get(i).toString());
+                    System.out.println(i + 1 + "." + tasks.get(i).toString());
                 }
+            } else if (command.toUpperCase().contentEquals("CLEAR")) {
+                tasks.clear();
+                saveTasksToFile(FILEPATH);
+                System.out.println("All tasks are cleared");
             } else if (command.toUpperCase().startsWith("MARK")) {
                 int value = Integer.parseInt(command.replaceAll("[^0-9]", ""));
                 tasks.get(value - 1).markAsDone();
                 saveTasksToFile(FILEPATH);
                 System.out.println("Nice! I've marked this task as done:\n" + tasks.get(value - 1).toString());
-
             } else if (command.toUpperCase().startsWith("UNMARK")) {
                 int value = Integer.parseInt(command.replaceAll("[^0-9]", ""));
                 tasks.get(value - 1).markAsUnDone();
@@ -96,6 +131,24 @@ public class URChatBot {
                     System.out.println("Noted. I've removed this task:\n  " + deletedTask.toString() + "\nNow you have " + tasks.size() + " task in the list.");
                 } else {
                     System.out.println("Noted. I've removed this task:\n  " + deletedTask.toString() + "\nNow you have " + tasks.size()  + " tasks in the list.");
+                }
+            } else if (command.toUpperCase().startsWith("PRINT")) {
+                int count = 0;
+                String date = command.substring(command.indexOf("print") + 6).trim();
+                String formattedDate = changeTimeFormat(date);
+                if (formattedDate == null) {
+                    throw new URChatBotException("Wrong DateTime format. Please enter 'yyyy-MM-dd HH:mm:ss' or 'yyyy-MM-dd'");
+                }
+                for (int i = 0; i < tasks.size(); i++) {
+                    if (tasks.get(i).toString().contains(formattedDate)) {
+                        count ++;
+                        System.out.println(tasks.get(i).toString() + "\n");
+                    }
+                }
+                if (count <= 1) {
+                    System.out.println("There are a total of " + count + "task on " + formattedDate);
+                } else {
+                    System.out.println("There are a total of " + count + "tasks on " + formattedDate);
                 }
             } else if (command.toUpperCase().startsWith("TODO")) {
                 if (command.length() <= 5) {
@@ -118,8 +171,12 @@ public class URChatBot {
                     throw new URChatBotException("OOPS!!! The deadline cannot be empty.");
                 }
                 String task = command.substring(command.indexOf("deadline") + 9, command.indexOf("/by") - 1);
-                String by = command.substring(command.indexOf("/by") + 4);
-                Task newTask = new Deadline(task, isDone, by);
+                String by = command.substring(command.indexOf("/by") + 4).trim();
+                String time = changeTimeFormat(by);
+                if (time == null) {
+                    throw new URChatBotException("Wrong DateTime format. Please enter 'yyyy-MM-dd HH:mm:ss' or 'yyyy-MM-dd'");
+                }
+                Task newTask = new Deadline(task, isDone, time);
                 tasks.add(newTask);
                 saveTasksToFile(FILEPATH);
                 if (tasks.size() == 1 || tasks.size() ==0) {
@@ -135,9 +192,14 @@ public class URChatBot {
                     throw new URChatBotException("OOPS!!! The from or/and to cannot be empty.");
                 }
                 String task = command.substring(command.indexOf("event") + 6, command.indexOf("/from") - 1);
-                String from = command.substring(command.indexOf("/from") + 6, command.indexOf("/to") - 1);
-                String to = command.substring(command.indexOf("/to") + 4);
-                Task newTask = new Event(task, isDone, from, to);
+                String from = command.substring(command.indexOf("/from") + 6, command.indexOf("/to") - 1).trim();
+                String to = command.substring(command.indexOf("/to") + 4).trim();
+                String timeFrom = changeTimeFormat(from);
+                String timeTo = changeTimeFormat(to);
+                if (timeFrom == null || timeTo == null) {
+                    throw new URChatBotException("Wrong DateTime format. Please enter 'yyyy-MM-dd HH:mm:ss' or 'yyyy-MM-dd'");
+                }
+                Task newTask = new Event(task, isDone, timeFrom, timeTo);
                 tasks.add(newTask);
                 saveTasksToFile(FILEPATH);
                 if (tasks.size() == 1 || tasks.size() ==0) {
