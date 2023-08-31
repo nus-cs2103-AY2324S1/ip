@@ -1,11 +1,15 @@
 import java.io.FileNotFoundException;
 import java.io.IOException;
+
 import duke.Storage;
 import duke.TaskList;
 import duke.Ui;
 import duke.DukeException;
 import duke.Parser;
 
+/**
+ * Duke class that runs the chatbot.
+ */
 public class Duke {
 
     private Storage storage;
@@ -18,6 +22,11 @@ public class Duke {
         tasks = new TaskList(storage.load());
     }
 
+    /**
+     * Runs the chatbot.
+     * @throws DukeException if command is not formatted correctly
+     * @throws IOException if file cannot be accessed
+     */
     public void run() throws DukeException, IOException {
         ui.welcome();
         while (true) {

@@ -4,9 +4,12 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Event class that stores information about the task and duration of the event.
+ * Inherits from the parent class Task.
+ */
 public class Event extends Task {
 
-    protected String taskDescription;
     protected LocalDateTime from;
     protected LocalTime to;
     private String identifier;
@@ -18,10 +21,10 @@ public class Event extends Task {
         this.to = to;
         this.identifier = "[E]";
     }
-
+    @Override
     public String toString() {
-        return this.identifier + super.toString() +
-                "(from: " + from.format(DateTimeFormatter.ofPattern("LLL dd yyyy Ka")) +
-                " to: " + to.format(DateTimeFormatter.ofPattern("Ka")) + ")";
+        return this.identifier + super.toString()
+                + "(from: " + from.format(DateTimeFormatter.ofPattern("LLL dd yyyy Ka"))
+                + " to: " + to.format(DateTimeFormatter.ofPattern("Ka")) + ")";
     }
 }
