@@ -73,8 +73,9 @@ class Duke {
                     tasks.unmark(arr);
                 } else if (type.equals("delete")) {
                     tasks.delete(arr);
-                }
-                else {
+                } else if (type.equals("find")) {
+                    tasks.find(arr);
+                } else {
                     // check for task type first
                     if (type.equals("todo")) {
                         if (arr.length == 1) {
