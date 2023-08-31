@@ -1,9 +1,12 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 public class Deadline extends Task {
-    protected String deadline;
-    public Deadline(String description, String deadline) {
+    protected LocalDate deadline;
+    public Deadline(String description, LocalDate deadline) {
         super(description);
         this.deadline = deadline;
     }
+
 
     @Override
     public String writeToFile() {
@@ -16,4 +19,5 @@ public class Deadline extends Task {
     public String toString() {
         return "[D]" + super.toString() + "(by:" + deadline + ")";
     }
+
 }
