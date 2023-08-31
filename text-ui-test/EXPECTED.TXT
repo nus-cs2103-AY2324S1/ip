@@ -7,7 +7,7 @@ What will you do today?
 
 
 -----------------------------------------------------------------------------------
-!ERROR! InvalidCommandException: No such command exists, please try again
+!ERROR! duke.exceptions.InvalidCommandException: No such command exists, please try again
 -----------------------------------------------------------------------------------
 
 
@@ -31,7 +31,7 @@ There are now 2 tasks in the list
 
 
 -----------------------------------------------------------------------------------
-!ERROR! InvalidTaskTimeException: Deadline task must have exactly one /by deadline
+!ERROR! duke.exceptions.InvalidTaskTimeException: Deadline task must have exactly one /by deadline
 -----------------------------------------------------------------------------------
 
 
@@ -43,12 +43,12 @@ There are now 3 tasks in the list
 
 
 -----------------------------------------------------------------------------------
-!ERROR! InvalidTaskTimeException: Event task must have exactly one /from and one /to times, in that order
+!ERROR! duke.exceptions.InvalidTaskTimeException: Event task must have exactly one /from and one /to times, in that order
 -----------------------------------------------------------------------------------
 
 
 -----------------------------------------------------------------------------------
-!ERROR! MissingTaskNameException: Event task name cannot be empty
+!ERROR! duke.exceptions.MissingTaskNameException: Event task name cannot be empty
 -----------------------------------------------------------------------------------
 
 
@@ -111,47 +111,47 @@ There are now 0 tasks in the list
 
 
 -----------------------------------------------------------------------------------
-!ERROR! MissingTaskDescriptionException: Todo task description cannot be empty
+!ERROR! duke.exceptions.MissingTaskDescriptionException: Todo task description cannot be empty
 -----------------------------------------------------------------------------------
 
 
 -----------------------------------------------------------------------------------
-!ERROR! MissingTaskDescriptionException: Deadline task description cannot be empty
+!ERROR! duke.exceptions.MissingTaskDescriptionException: Deadline task description cannot be empty
 -----------------------------------------------------------------------------------
 
 
 -----------------------------------------------------------------------------------
-!ERROR! MissingTaskDescriptionException: Event task description cannot be empty
+!ERROR! duke.exceptions.MissingTaskDescriptionException: Event task description cannot be empty
 -----------------------------------------------------------------------------------
 
 
 -----------------------------------------------------------------------------------
-!ERROR! MissingTaskNumberException: Task number cannot be empty
+!ERROR! duke.exceptions.MissingTaskNumberException: Task number cannot be empty
 -----------------------------------------------------------------------------------
 
 
 -----------------------------------------------------------------------------------
-!ERROR! MissingTaskNumberException: Task number cannot be empty
+!ERROR! duke.exceptions.MissingTaskNumberException: Task number cannot be empty
 -----------------------------------------------------------------------------------
 
 
 -----------------------------------------------------------------------------------
-!ERROR! MissingTaskNumberException: Task number cannot be empty
+!ERROR! duke.exceptions.MissingTaskNumberException: Task number cannot be empty
 -----------------------------------------------------------------------------------
 
 
 -----------------------------------------------------------------------------------
-!ERROR! EmptyListException: List is currently empty
+!ERROR! duke.exceptions.EmptyListException: List is currently empty
 -----------------------------------------------------------------------------------
 
 
 -----------------------------------------------------------------------------------
-!ERROR! EmptyListException: List is currently empty
+!ERROR! duke.exceptions.EmptyListException: List is currently empty
 -----------------------------------------------------------------------------------
 
 
 -----------------------------------------------------------------------------------
-!ERROR! EmptyListException: List is currently empty
+!ERROR! duke.exceptions.EmptyListException: List is currently empty
 -----------------------------------------------------------------------------------
 
 
