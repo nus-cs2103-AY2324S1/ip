@@ -155,7 +155,10 @@ public class TaskList implements StorableList<Task> {
     public String toString() {
         String s = "";
         for (int i = 0; i < this.tasks.size(); i++) {
-            s += (i+1) + ") " + this.tasks.get(i) + "\n";
+            s += (i+1) + ") " + this.tasks.get(i);
+            if (i < this.tasks.size() - 1) {
+                s += "\n";
+            }
         }
         return s;
     }
