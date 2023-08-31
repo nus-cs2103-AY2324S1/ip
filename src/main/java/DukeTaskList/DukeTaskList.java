@@ -7,8 +7,8 @@ import DukeTasks.Deadline;
 import DukeTasks.Event;
 import DukeTasks.Task;
 import DukeTasks.Todo;
-import DukeUIClasses.DukeErrorUI;
-import DukeUIClasses.DukeUI;
+import DukeUIClasses.DukeErrorUi;
+import DukeUIClasses.DukeUi;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -20,10 +20,10 @@ import java.util.ArrayList;
  */
 public class DukeTaskList {
     private ArrayList<Task> tasks;
-    private final DukeErrorUI errorUI;
+    private final DukeErrorUi errorUI;
     private DukeStorageDatabase databaseController;
     private DukeParser parser;
-    private final DukeUI ui;
+    private final DukeUi ui;
 
     /**
      * Constructs an instance of the DukeTaskList. Initialises the
@@ -32,13 +32,13 @@ public class DukeTaskList {
      * @author Tan Kerway
      */
     public DukeTaskList() {
-        this.errorUI = new DukeErrorUI();
+        this.errorUI = new DukeErrorUi();
         this.tasks = new ArrayList<>();
-        this.ui = new DukeUI();
+        this.ui = new DukeUi();
     }
 
     /**
-     * Sets the database object
+     * Sets the database object.
      *
      * @author Tan Kerway
      * @param databaseController the DukeStorageDatabase object
@@ -49,7 +49,7 @@ public class DukeTaskList {
     }
 
     /**
-     * sets the parser object
+     * Sets the parser object.
      *
      * @author Tan Kerway
      * @param parser the parser object
@@ -59,7 +59,7 @@ public class DukeTaskList {
     }
 
     /**
-     * loads the list of tasks from the database(if any)
+     * Loads the list of tasks from the database(if any).
      *
      * @author Tan Kerway
      */
@@ -68,7 +68,7 @@ public class DukeTaskList {
     }
 
     /**
-     * Returns the current list of tasks
+     * Returns the current list of tasks.
      *
      * @author Tan Kerway
      * @return the list of tasks that the chatbot has
@@ -92,74 +92,74 @@ public class DukeTaskList {
         StringBuilder description = new StringBuilder();
         // case where todo
         switch (tokens[0]) {
-            case "t":
-                for (int i = 2; i < n; i++) {
-                    description.append(tokens[i]);
-                    if (i != n - 1) {
-                        description.append(" ");
-                    }
+        case "t":
+            for (int i = 2; i < n; i++) {
+                description.append(tokens[i]);
+                if (i != n - 1) {
+                    description.append(" ");
                 }
-                currentTask = new Todo(description.toString(), Boolean.parseBoolean(tokens[1]));
-                break;
-            case "d": {
-                int i;
-                for (i = 2; i < n; i++) {
-                    if (tokens[i].equals("by")) {
-                        i++;
-                        break;
-                    }
-                    description.append(tokens[i]);
-                    if (i != n - 2) {
-                        description.append(" ");
-                    }
-                }
-                StringBuilder sb = new StringBuilder();
-                for (; i < n; i++) {
-                    sb.append(tokens[i]);
-                    if (i != n - 1) {
-                        sb.append(" ");
-                    }
-                }
-                currentTask = new Deadline(description.toString().trim(), Boolean.parseBoolean(tokens[1]), sb.toString());
-                // case where the deadline is not valid
-                if (((Deadline) currentTask).getBy() == null) {
-                    return null;
-                }
-                break;
             }
-            case "e": {
-                int i;
-                for (i = 2; i < n - 2; i++) {
-                    if (tokens[i].equals("from")) {
-                        i++;
-                        break;
-                    }
-                    description.append(tokens[i]);
-                    if (i != n - 1) {
-                        description.append(" ");
-                    }
+            currentTask = new Todo(description.toString(), Boolean.parseBoolean(tokens[1]));
+            break;
+        case "d": {
+            int i;
+            for (i = 2; i < n; i++) {
+                if (tokens[i].equals("by")) {
+                    i++;
+                    break;
                 }
-                StringBuilder sb1 = new StringBuilder();
-                while (!tokens[i].equals("to")) {
-                    sb1.append(tokens[i++]);
-                    sb1.append(" ");
+                description.append(tokens[i]);
+                if (i != n - 2) {
+                    description.append(" ");
                 }
-                i++;
-                StringBuilder sb2 = new StringBuilder();
-                for (; i < n; i++) {
-                    sb2.append(tokens[i]);
-                    sb2.append(" ");
-                }
-                currentTask = new Event(description.toString().trim(), Boolean.parseBoolean(tokens[1]), sb1.toString().trim(), sb2.toString().trim());
-                Event t = (Event) currentTask;
-                // case where the deadline is not valid
-                if (t.getFrom() == null || t.getTo() == null || !t.isValid()) {
-                    return null;
-                }
-                break;
             }
-            default:
-                throw new IOException("Bad file type!");
+            StringBuilder sb = new StringBuilder();
+            for (; i < n; i++) {
+                sb.append(tokens[i]);
+                if (i != n - 1) {
+                    sb.append(" ");
+                }
+            }
+            currentTask = new Deadline(description.toString().trim(), Boolean.parseBoolean(tokens[1]), sb.toString());
+            // case where the deadline is not valid
+            if (((Deadline) currentTask).getBy() == null) {
+                return null;
+            }
+            break;
+        }
+        case "e": {
+            int i;
+            for (i = 2; i < n - 2; i++) {
+                if (tokens[i].equals("from")) {
+                    i++;
+                    break;
+                }
+                description.append(tokens[i]);
+                if (i != n - 1) {
+                    description.append(" ");
+                }
+            }
+            StringBuilder sb1 = new StringBuilder();
+            while (!tokens[i].equals("to")) {
+                sb1.append(tokens[i++]);
+                sb1.append(" ");
+            }
+            i++;
+            StringBuilder sb2 = new StringBuilder();
+            for (; i < n; i++) {
+                sb2.append(tokens[i]);
+                sb2.append(" ");
+            }
+            currentTask = new Event(description.toString().trim(), Boolean.parseBoolean(tokens[1]), sb1.toString().trim(), sb2.toString().trim());
+            Event t = (Event) currentTask;
+            // case where the deadline is not valid
+            if (t.getFrom() == null || t.getTo() == null || !t.isValid()) {
+                return null;
+            }
+            break;
+        }
+        default:
+            throw new IOException("Bad file type!");
         }
         return currentTask;
     }

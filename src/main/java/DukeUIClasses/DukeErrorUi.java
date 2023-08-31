@@ -1,13 +1,18 @@
 package DukeUIClasses;
 
-import DukeExceptions.*;
+import DukeExceptions.DukeInvalidTimeException;
+import DukeExceptions.DukeException;
+import DukeExceptions.DukeEmptyInputException;
+import DukeExceptions.DukeEmptyTaskListException;
+import DukeExceptions.DukeInvalidCommandException;
+import DukeExceptions.DukeInvalidIndexException;
 
 /**
  * Encapsulates a class which will help to print UI messages.
  *
  * @author Tan Kerway
  */
-public class DukeErrorUI {
+public class DukeErrorUi {
 
     /**
      * Handles the case where the tasks list is empty but the user enters a delete command.

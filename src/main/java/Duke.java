@@ -1,7 +1,7 @@
 import DukeParsers.DukeParser;
 import DukeStorage.DukeStorageDatabase;
 import DukeTaskList.DukeTaskList;
-import DukeUIClasses.DukeUI;
+import DukeUIClasses.DukeUi;
 
 import java.io.IOException;
 
@@ -12,7 +12,7 @@ import java.io.IOException;
  */
 public class Duke {
     // ui class for normal ui displays to the user
-    private final DukeUI ui;
+    private final DukeUi ui;
     // storage class for db operations
     private final DukeStorageDatabase databaseController;
     // tasklist class for manipulating the tasklist
@@ -27,7 +27,7 @@ public class Duke {
      * @throws IOException if the database is unable to be loaded
      */
     public Duke() throws IOException {
-        this.ui = new DukeUI();
+        this.ui = new DukeUi();
         this.taskList = new DukeTaskList();
         this.databaseController = new DukeStorageDatabase(taskList);
         this.parser = new DukeParser(this.taskList);
