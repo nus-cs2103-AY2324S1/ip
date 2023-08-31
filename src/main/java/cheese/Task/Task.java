@@ -3,7 +3,7 @@ package cheese.Task;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-
+// Task class
 public class Task {
     private char type;
     private String description;
@@ -77,20 +77,6 @@ public class Task {
           sb.append(")");
         }
     }
-    /*
-    if (dateTimeHr1 != null) {
-        String formattedDate = dateTimeHr1.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
-        sb.append(" (by: ").append(formattedDate).append(")");
-      } else if (dateTime2 == null) {
-        sb.append(" (by: ").append(dateTime1).append(")");
-      } else if (dateTime1 != null) {
-        sb.append(" (from: ").append(dateTime1);
-        if (dateTime2 != null) {
-          sb.append(" to: ").append(dateTime2);
-        }
-        sb.append(")");
-      }
-    */
       return sb.toString();
     }
   }

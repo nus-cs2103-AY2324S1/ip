@@ -34,10 +34,10 @@ public class Ui {
       "\nmark <task number>,"+
       //"\nfind <keyword>,"+
       "\nbye");
-      
+
     System.out.println("-----------------------------------------------");
   }
-  
+
   /**
    * show error message
    *
