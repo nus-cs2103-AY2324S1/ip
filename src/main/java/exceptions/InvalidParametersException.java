@@ -5,6 +5,6 @@ package exceptions;
  */
 public class InvalidParametersException extends Exception{
     public InvalidParametersException(String parameter, String usage) {
-        super("OOPS!!! The " + parameter + " parameter is invalid!\n\tUsage: " + usage);
+        super("OOPS!!! The " + parameter + " parameter is invalid!\n    Usage: " + usage);
     }
 }
