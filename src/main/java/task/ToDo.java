@@ -14,6 +14,16 @@ public class ToDo extends Task {
     public ToDo(String name) {
         super(name);
     };
+    
+    // Method
+
+    public static ToDo create(String message) throws InvalidToDoException {
+        try {
+            return new ToDo(message.substring(5));
+        } catch (IndexOutOfBoundsException e) {
+            throw new InvalidToDoException();
+        }
+    }
 
     /**
      * Method to return the string representation of todo
@@ -33,23 +43,5 @@ public class ToDo extends Task {
     @Override
     public String storeInString() {
         return "T | " + (this.getMark() ? "1 | " : "0 | ") + this.getName();
-    }
-
-    /**
-     * Method to check whether the command is a todo or not
-     * 
-     * @param str the command
-     * @return whether the command is a todo or not
-     * @throws InvalidToDoException
-     */
-    public static boolean isToDo(String str) throws InvalidToDoException{
-        if(str.split(" ")[0].equals("todo")) {
-            if(str.equals("todo")) {
-                throw new InvalidToDoException();
-            } else {
-                return true;
-            }
-        }
-        return false;
     }
 }

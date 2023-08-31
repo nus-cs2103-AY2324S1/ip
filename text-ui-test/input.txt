@@ -24,14 +24,30 @@ event September /from 2023-09-01 /to 2023-09-30
 unmark 3
 list
 mark my words
+mark this
 mark -9
 mark 0
 mark 999
+unmark 1 1
 mark 1
 unmark my words
+unmark that
 unmark -9
 unmark 0
 unmark 999
+unmark 1 1
 unmark 1
+list
+delete
+list
+delete -1
+list
+delete haha
+list
+delete 99
+list
+delete 1 1
+list
+delete 1
 list
 bye

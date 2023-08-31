@@ -12,13 +12,13 @@ import java.util.ArrayList;
 import task.Deadline;
 import task.Event;
 import task.Task;
+import task.TaskList;
 import task.ToDo;
 
 /*
  * Storage class that save the data
  */
 public class Storage {
-    private ArrayList<Task> tasks = new ArrayList<>();
     private final String filePath;
 
 
@@ -52,11 +52,12 @@ public class Storage {
     // Method
 
     /**
-     * Method to load the tasks from the storage
+     * Loads the tasks from the storage
      * 
+     * @return the tasks loaded
      * @throws IOException
      */
-    private void loadTasks() throws IOException {
+    public ArrayList<Task> loadTasks() throws IOException {
         ArrayList<Task> loadedTasks = new ArrayList<>();
         BufferedReader reader = new BufferedReader(new FileReader(this.filePath));
         String line = reader.readLine();
@@ -75,8 +76,8 @@ public class Storage {
             loadedTasks.add(currentTask);
             line = reader.readLine();
         }
-        this.tasks = loadedTasks;
         reader.close();
+        return loadedTasks;
     }
 
     /**
@@ -86,7 +87,6 @@ public class Storage {
      */
     public void addTask(Task task) {
         try {
-            this.tasks.add(task);
             BufferedWriter writer = new BufferedWriter(new FileWriter(filePath, true));
             writer.write(task.storeInString());
             writer.newLine();
@@ -100,45 +100,13 @@ public class Storage {
      * Method to update the storage based on current tasks
      * 
      */
-    public void updateTask() {
+    public void updateTask(TaskList tasks) {
         try{
             BufferedWriter writer = new BufferedWriter(new FileWriter(this.filePath));
-            for(Task task: this.tasks) {
-                writer.write(task.storeInString());
-                writer.newLine();
-            }
+            writer.write(tasks.storeInString());
             writer.close();
         } catch(IOException e) {
             System.out.println("Failed to update task: " + e.getMessage());
         }
-    }
-
-    /**
-     * Method to delete task
-     * 
-     * @param index the index of deleted task
-     */
-    public void deleteTask(int index) {
-        this.tasks.remove(index);
-        updateTask();
-    }
-
-    /**
-     * Method to get task with a certain index
-     * 
-     * @param index the index of the task
-     * @return the task with certain index
-     */
-    public Task getTask(int index) {
-        return this.tasks.get(index);
-    }
-
-    /**
-     * Method to get how many tasks are stored
-     * 
-     * @return how many tasks are stored
-     */
-    public int size() {
-        return this.tasks.size();
     }
 }
