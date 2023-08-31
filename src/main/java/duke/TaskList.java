@@ -1,5 +1,6 @@
 package duke;
 
+import java.sql.Array;
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -19,10 +20,22 @@ public class TaskList {
         this.tasks = tasks;
     }
 
+    /**
+     * Returns the current list of tasks
+     *
+     * @return ArrayList of tasks
+     */
     public ArrayList<Task> getAll() {
         return tasks;
     }
 
+    /**
+     * Creates and adds a type of task to tasks
+     *
+     * @param command String command specifying the type of task and associated values to add
+     * @return Task created
+     * @throws LukeException If the first word in the command is not a recognised command
+     */
     public Task add(String command) throws LukeException {
         Task task;
         switch (command.split(" ")[0]) {
@@ -43,6 +56,13 @@ public class TaskList {
         return task;
     }
 
+    /**
+     * Deletes and Returns a specified task from tasks
+     *
+     * @param command String command specifying which task to delete
+     * @return Deleted task
+     * @throws LukeException If the command is of invalid format, or the number specified is an invalid number.
+     */
     public Task delete(String command) throws LukeException {
         Matcher matcher = deleteCommand.matcher(command);
         if (!matcher.find()) {
@@ -64,6 +84,13 @@ public class TaskList {
         return task;
     }
 
+    /**
+     * Mark a task as done
+     *
+     * @param command String command specifying which task to mark as done
+     * @return Task that is successfully marked as done
+     * @throws LukeException If task is already marked as done
+     */
     public Task markAsDone(String command) throws LukeException {
         Task task = getTask(command);
         task.setIsDone(true);
@@ -71,6 +98,13 @@ public class TaskList {
         return task;
     }
 
+    /**
+     * Mark a task as undone
+     *
+     * @param command String command specifying which task to mark as undone
+     * @return Task that is successfully marked as undone
+     * @throws LukeException If the task is already marked as undone
+     */
     public Task markAsUndone(String command) throws LukeException {
         Task task = getTask(command);
 

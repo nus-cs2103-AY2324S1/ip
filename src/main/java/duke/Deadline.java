@@ -12,6 +12,7 @@ public class Deadline extends Task {
     private static Pattern createCommand =
             Pattern.compile("^deadline ?(?<taskName>.*?)? ?(/by (?<finishByTime>.*))?$");
     private LocalDate finishByTime;
+
     Deadline(String name, LocalDate finishByTime) {
         super(name);
         this.finishByTime = finishByTime;
@@ -21,6 +22,13 @@ public class Deadline extends Task {
         this.finishByTime = finishByTime;
     }
 
+    /**
+     * Creates and returns a Deadline
+     *
+     * @param command String command of the form 'deadline ... /by ...'
+     * @return Deadline object created
+     * @throws LukeException If the command is invalid
+     */
     public static Deadline createDeadline(String command) throws LukeException {
         Matcher matcher = createCommand.matcher(command);
         matcher.find();
@@ -41,6 +49,16 @@ public class Deadline extends Task {
         }
     }
 
+    /**
+     * Creates and returns a Deadline
+     * This function assumes correct ordering of args provided.
+     *
+     * @param args Arguments to be used to create the Deadline from its constructor
+     * @param isDone Boolean indicating if the Deadline is done
+     * @return Deadline object created
+     * @throws LukeException If there is insufficient/ excessive number of arguments in args,
+     *         or if the argument for date provided is invalid
+     */
     public static Deadline createDeadline(String[] args, boolean isDone) throws LukeException {
         if (args.length != 2) {
             throw new LukeException("Error creating Deadline: Incorrect number of arguments");
@@ -59,6 +77,13 @@ public class Deadline extends Task {
                 + " | " + finishByTime;
     }
 
+    /**
+     * Determines if this Deadline is equal to another object
+     *
+     * @param o Other object to be compared with
+     * @return true if o is a Deadline, satisfies the equals condition of its superclass,
+     *         and has the same finishByTime.
+     */
     @Override
     public boolean equals(Object o) {
         if (o instanceof Deadline) {

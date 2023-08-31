@@ -23,13 +23,17 @@ public class Duke {
         luke.run();
     }
 
+    /**
+     * Handles the main program and logic of Luke (Duke)
+     *
+     */
     private void run() {
         greet();
 
         String input = ui.readNextInput();
         while (!input.equals("bye")) {
             try {
-                processCommand(input);
+                executeCommand(input);
             } catch (LukeException e) {
                 ui.displayError(e.getMessage());
             }
@@ -45,7 +49,14 @@ public class Duke {
         }
     }
 
-    private void processCommand(String command) throws LukeException {
+    /**
+     * Executes a given command
+     *
+     * @param command String command detailing what and how to execute
+     * @throws LukeException If the leading word in the command is not a recognised command, or
+     *         if the processes associated with executing the command encounters an error
+     */
+    private void executeCommand(String command) throws LukeException {
         switch(command.split(" ")[0]) {
         case "list":
             ui.list(tasks.getAll());

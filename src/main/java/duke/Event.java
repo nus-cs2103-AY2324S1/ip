@@ -22,6 +22,13 @@ public class Event extends Task{
         this.endTime = endTime.trim();
     }
 
+    /**
+     * Creates and Returns an Event
+     *
+     * @param command String command that specifies the values the created Event object should have
+     * @return Event created
+     * @throws LukeException If command is of an invalid format
+     */
     public static Event createEvent(String command) throws LukeException {
         Matcher matcher = createCommand.matcher(command);
         matcher.find();
@@ -44,6 +51,15 @@ public class Event extends Task{
         return new Event(taskName, startTime, endTime);
     }
 
+    /**
+     * Creates and Returns an Event
+     * This function assumes correct ordering of args provided
+     *
+     * @param args Arguments used to create the Event from its constructor
+     * @param isDone Boolean indicating if the Event is done
+     * @return Event object created
+     * @throws LukeException If there is insufficient/ excessive number of arguments in args
+     */
     public static Event createEvent(String[] args, boolean isDone) throws LukeException {
         if (args.length != 3) {
             throw new LukeException("Error creating Event: Incorrect number of arguments");
@@ -60,6 +76,13 @@ public class Event extends Task{
                 + " | " + endTime;
     }
 
+    /**
+     * Determines if this Event is equal to another object
+     *
+     * @param o Other object to be compared with
+     * @return true if o is an Event, satisfies the equals condition of its superclass,
+     *         and has the same start and end time.
+     */
     @Override
     public boolean equals(Object o) {
         if (o instanceof Event) {
