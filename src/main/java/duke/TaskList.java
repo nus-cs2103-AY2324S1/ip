@@ -10,8 +10,18 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
+/**
+ * Data structure that stores the bot's tasks,
+ * along with its operations to manipulate the data structure.
+ */
 public class TaskList {
+    /** ArrayList stores bot's tasks. **/
     private ArrayList<Task> tasks;
+
+    /**
+     * Constructor for Tasklist with initial tasks read from saved file.
+     * @param inputList String array containing tasks from saved file
+     */
     public TaskList(ArrayList<String[]> inputList) {
         tasks = new ArrayList<>();
         for (String[] line : inputList) {
@@ -44,10 +54,18 @@ public class TaskList {
         }
     }
 
+    /**
+     * Constructor for empty tasklist.
+     */
     public TaskList() {
         tasks = new ArrayList<>();
     }
 
+    /**
+     * Deletes specified task from memory.
+     * @param index Task number to be deleted
+     * @throws DukeException errors that occur due to invalid user input
+     */
     public void delete(int index) throws DukeException {
         if (index < 0 || index > tasks.size()-1) {
             throw new DukeException("Wow, deleting a nonexistent task? Check your tasks again with 'list'.");
@@ -60,30 +78,59 @@ public class TaskList {
         System.out.println(returnLine);
     }
 
+    /**
+     * Adds a new Deadline task.
+     * @param task Deadline to be added
+     */
     public void addDeadline(Deadline task) {
         tasks.add(task);
     }
 
+    /**
+     * Adds a new Event task.
+     * @param task Event to be added
+     */
     public void addEvent(Event task) {
         tasks.add(task);
     }
 
+    /**
+     * Adds a new ToDo task.
+     * @param task ToDo to be added
+     */
     public void addToDo(ToDo task) {
         tasks.add(task);
     }
 
+    /**
+     * Adds a new Task into the tasklist.
+     * @param task Task to be added
+     */
     public void addTask(Task task) {
-        taskList.add(task);
+        tasks.add(task);
     }
 
+    /**
+     * Retrieves specified task from tasklist
+     * @param index task number to be retrieved
+     * @return task specified
+     */
     public Task getTask(int index) {
         return tasks.get(index);
     }
 
+    /**
+     * Returns number of tasks in tasklist
+     * @return number of tasks in tasklist
+     */
     public int getLength() {
         return tasks.size();
     }
 
+    /**
+     * Returns a string representation of the tasks in the tasklist.
+     * @return Tasks to write into save file
+     */
     public String[] toWriteString() {
         String[] writtenTasks = new String[tasks.size()];
         for (int i = 0; i < tasks.size(); i++) {
