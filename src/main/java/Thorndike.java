@@ -3,7 +3,6 @@ import java.util.Scanner;
 import java.util.Map;
 import java.io.IOException;
 import java.time.LocalDateTime;
-
 import utility.DateTimeParser;
 import utility.TextFileHandler;
 
@@ -11,16 +10,13 @@ public class Thorndike {
     private Scanner scanner;
     private TaskList taskList;
     private Boolean running;
-    public static final String TASK_FILE_PATH = "data/tasks.txt";
-    public static final String TASK_FILE_SEPARATOR = "-";
-    public static final String TASK_FILE_TB_FORMAT = "dd/MM/yyyy HHmm";
 
     public Thorndike() {
         this.scanner = new Scanner(System.in);
         this.running = true;
 
         try {
-            TextFileHandler.createFile(TASK_FILE_PATH);
+            TextFileHandler.createFile(Storage.TASK_FILE_PATH);
             this.taskList = Storage.readFromFile();
         } catch (IOException e) {
             e.printStackTrace();
