@@ -8,13 +8,26 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Writes and reads from the bot's save files.
+ */
 public class Storage {
+    /** Contains path to save file **/
     private String filePath;
 
+    /**
+     * Constructor for Storage.
+     * @param filePath path to save file
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
+    /**
+     * Reads data of tasks from save file.
+     * @return ArrayList containing all tasks in a String array
+     * @throws DukeException for errors that occur while reading from save file
+     */
     public ArrayList<String[]> loadData() throws DukeException {
         ArrayList<String[]> stringList = new ArrayList<>();
         try {
@@ -33,6 +46,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Writes list of tasks into a save file.
+     * @param inputList tasks to be written to file
+     * @throws DukeException for errors that occur while writing to save file
+     */
     public void writeData(String[] inputList) throws DukeException {
         try {
             FileWriter fw = new FileWriter(this.filePath);

@@ -3,10 +3,19 @@ package duke;
 import duke.command.Command;
 import duke.exception.DukeException;
 
+/**
+ * Overall Duke class encapsulating the duke bot, Chatty.
+ * @author Goh Ler Xuan
+ */
 public class Duke {
     private Storage storage;
     private TaskList taskList;
     private Ui ui;
+
+    /**
+     * Constructor for the Duke bot.
+     * @param filePath Path to data file with saved tasks from user's previous sessions
+     */
     public Duke(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
@@ -17,8 +26,10 @@ public class Duke {
             taskList = new TaskList();
         }
     }
-    static boolean isEnd = false;
 
+    /**
+     * Starts running the bot.
+     */
     public void run() {
         ui.greet();
         boolean isExit = false;

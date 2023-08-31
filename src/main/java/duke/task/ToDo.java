@@ -1,7 +1,14 @@
 package duke.task;
 
+/**
+ * A ToDo task.
+ */
 public class ToDo extends Task {
-    protected String by;
+
+    /**
+     * Constructor for ToDo instance.
+     * @param description string description
+     */
     public ToDo(String description) {
         super(description);
     }
@@ -11,6 +18,10 @@ public class ToDo extends Task {
         return "[T]" + super.toString();
     }
 
+    /**
+     * Returns string representation of task to be written into save file.
+     * @return string representation of task
+     */
     public String toWriteString() {
         return "T | " + super.toWriteString();
     }
