@@ -12,12 +12,19 @@ public class TaskList {
     private Parser parser;
     private Ui ui;
 
+    /**
+     * Constructor for the taskList class that is inititalised with a pre-saved taskList
+     * @param taskList List of tasks pre-saved in the hard disk
+     */
     public TaskList(ArrayList<Task> taskList) {
         this.taskList = taskList;
         this.parser = new Parser();
         this.ui = new Ui();
     }
 
+    /**
+     * Constructor for the taskList class
+     */
     public TaskList() {
         this.taskList = new ArrayList<>();
         this.parser = new Parser();
@@ -28,13 +35,16 @@ public class TaskList {
         return this.taskList;
     }
 
+    /**
+     * Returns the size of the taskList.
+     * @return size of taskList.
+     */
     public int getTaskListSize() {
         return this.taskList.size();
     }
 
     /**
      * This method marks the given task in the input.
-     *
      * @param input The string that consists of the keyWord "mark" and task index being input by the user.
      * @throws BotException if the input is not a valid one.
      */

@@ -3,7 +3,15 @@ package ruiz;
 import ruiz.command.Command;
 import ruiz.exception.BotException;
 
+/**
+ * Deals with making sense of the user command
+ */
 public class Parser {
+    /**
+     * Parses the input of the user and returns a Command
+     * @param input This is the input of the user.
+     * @return The Command used in the input of the user.
+     */
     public Command getCommand(String input) {
         String[] words = input.split(" ");
         if (words.length == 0) {
@@ -32,6 +40,11 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses and splits the input by the user.
+     * @param input
+     * @return
+     */
     public String[] splitInputFromFile(String input) {
         return input.split(" \\| ");
     }
