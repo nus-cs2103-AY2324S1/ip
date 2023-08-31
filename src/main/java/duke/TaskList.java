@@ -29,7 +29,7 @@ public class TaskList {
 
     @Override
     public String toString() {
-        StringBuffer s = new StringBuffer();
+        StringBuilder s = new StringBuilder();
         s.append("Here are the tasks in your list:\n");
         for (int i = 0; i < this.list.size(); i++) {
             s.append((i + 1) + "." + this.list.get(i));
@@ -37,7 +37,27 @@ public class TaskList {
                 s.append("\n");
             }
         }
-        String display = s.toString();
-        return display;
+        return s.toString();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == this) {
+            return true;
+        } else if (!(o instanceof TaskList)) {
+            return false;
+        } else {
+            TaskList taskList = (TaskList) o;
+            if (taskList.getNumberOfTasks() == this.getNumberOfTasks()) {
+                for (int i = 0; i < this.getNumberOfTasks(); i++) {
+                    if (!(taskList.getTaskAt(i).equals(this.getTaskAt(i)))) {
+                        return false;
+                    }
+                }
+                return true;
+            } else {
+                return false;
+            }
+        }
     }
 }

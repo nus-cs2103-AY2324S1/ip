@@ -38,4 +38,17 @@ public class Task {
     public String toString() {
         return "[" + this.getStatusIcon() + "] " + this.description;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == this) {
+            return true;
+        } else if (!(o instanceof Task)) {
+            return false;
+        } else {
+            Task task = (Task) o;
+            return task.description.equals(this.description)
+                    && task.isDone == this.isDone;
+        }
+    }
 }

@@ -31,4 +31,19 @@ public class Event extends Task {
         return "[E]" + super.toString() + " (from: " + this.from.format(Duke.TIME_FORMAT)
                 + " to: " + this.to.format(Duke.TIME_FORMAT) + ")";
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == this) {
+            return true;
+        } else if (!(o instanceof Event)) {
+            return false;
+        } else {
+            Event event = (Event) o;
+            return event.from.equals(this.from)
+                    && event.to.equals(this.to)
+                    && event.description.equals(this.description)
+                    && event.isDone == this.isDone;
+        }
+    }
 }

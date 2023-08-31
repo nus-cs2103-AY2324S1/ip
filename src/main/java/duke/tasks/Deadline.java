@@ -25,4 +25,18 @@ public class Deadline extends Task {
     public String toString() {
         return "[D]" + super.toString() + " (by: " + this.by.format(Duke.TIME_FORMAT) + ")";
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == this) {
+            return true;
+        } else if (!(o instanceof Deadline)) {
+            return false;
+        } else {
+            Deadline deadline = (Deadline) o;
+            return deadline.by.equals(this.by)
+                    && deadline.description.equals(this.description)
+                    && deadline.isDone == this.isDone;
+        }
+    }
 }
