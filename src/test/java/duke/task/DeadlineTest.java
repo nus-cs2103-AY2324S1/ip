@@ -9,6 +9,7 @@ public class DeadlineTest {
 
     @Test
     public void testInvalidDateFormat() {
+        // Invalid date format should throw an error of DukeException type.
         assertThrows(DukeException.class, () -> {
             new Deadline("deadline project", "August 2023");
         });
@@ -16,6 +17,7 @@ public class DeadlineTest {
 
     @Test
     public void testValidDateFormat() {
+        // Correct date format should not throw an error.
         assertDoesNotThrow(() -> {
             new Deadline("deadline project", "2023-08-01");
         });
