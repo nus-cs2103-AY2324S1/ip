@@ -3,22 +3,33 @@ package Duke.tasks;
 import Duke.parser.Parser;
 import core.DukeException;
 
+/**
+ * Manages tasks, handling operations like adding, deleting, etc.
+ */
 public class TaskManager {
     private TaskList tasks;
     private Parser p = new Parser();
 
+    /**
+     * Constructs a TaskManager with a given TaskList.
+     * @param tasks TaskList to manage.
+     */
     public TaskManager(TaskList tasks) {
         this.tasks = tasks;
     }
 
+    /**
+     * Default constructor. Initializes an empty TaskList.
+     */
     public TaskManager() {
         this.tasks = new TaskList();
     }
+
     /**
-     * Handles the deletion of a task from the list based on the user command.
+     * Deletes a task based on the given user command.
      *
-     * @param userCommand The command given by the user to delete a task.
-     * @param tasks       A list of tasks from which a task will be deleted.
+     * @param userCommand Command to specify which task to delete.
+     * @return Result of the delete operation.
      */
     public String handleDelete(String userCommand) {
         String[] parts = userCommand.split(" ", 2);
@@ -38,16 +49,21 @@ public class TaskManager {
         }
     }
 
+    /**
+     * Constructs a message indicating the current number of tasks.
+     *
+     * @param numTasks The current number of tasks.
+     * @return A formatted message indicating the count of tasks.
+     */
     private String updateNumMessage(int numTasks) {
-        return "\n Now you have " + String.valueOf(numTasks) + " task(s) in the list";
+        return "\n Now you have " + numTasks + " task(s) in the list";
     }
 
     /**
-     * Handles the marking of a task as completed based on the user command.
+     * Marks a task as completed based on the given user command.
      *
-     * @param userCommand The command given by the user to mark a task as completed.
-     * @param tasks       A list of tasks from which a specific task will be marked
-     *                    as completed.
+     * @param userCommand Command to specify which task to mark as completed.
+     * @return Result of the mark operation.
      */
     public String handleMark(String userCommand) {
         String[] parts = userCommand.split(" ");
@@ -69,12 +85,10 @@ public class TaskManager {
     }
 
     /**
-     * Handles the unmarking of a task, reverting its status to not completed based
-     * on the user command.
+     * Reverts a task to its incomplete status based on the given user command.
      *
-     * @param userCommand The command given by the user to unmark a task.
-     * @param tasks       A list of tasks from which a specific task will be
-     *                    unmarked.
+     * @param userCommand Command to specify which task to unmark.
+     * @return Result of the unmark operation.
      */
     public String handleUnmark(String userCommand) {
         try {
@@ -95,6 +109,12 @@ public class TaskManager {
         }
     }
 
+    /**
+     * Adds a task based on the given user command.
+     *
+     * @param userCommand Command describing the task to add.
+     * @return Result of the add operation.
+     */
     public String addTask(String userCommand) {
         try {
             Task task = p.parseTaskFromCommand(userCommand);

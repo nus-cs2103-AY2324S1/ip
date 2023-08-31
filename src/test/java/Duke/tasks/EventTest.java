@@ -9,6 +9,14 @@ import java.time.format.DateTimeFormatter;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class EventTest {
+
+    /**
+     * Tests the creation of an Event.
+     * Ensures that when an event is created with a specific description,
+     * the getDescription method returns the correct description.
+     *
+     * @throws DukeException if there is an error during event creation.
+     */
     @Test
     public void eventCreation() throws DukeException {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");

@@ -35,7 +35,7 @@ public class Events extends Task {
         this.endDate = endDate;
     }
 
-    public Events(String description, LocalDateTime startDate, LocalDateTime endDate, boolean completed) throws DukeException {
+    public Events(String description, LocalDateTime startDate, LocalDateTime endDate, boolean isCompleted) throws DukeException {
         super(description);
         if (description == null || description.trim().isEmpty()) {
             throw new DukeException("description of event cannot be empty");
@@ -48,7 +48,7 @@ public class Events extends Task {
         }
         this.startDate = startDate;
         this.endDate = endDate;
-        this.completed = completed;
+        this.isCompleted = isCompleted;
     }
 
     /**
@@ -86,13 +86,13 @@ public class Events extends Task {
      */
     @Override
     public String toString() {
-        String completed = this.isCompleted() ? "[X] " : "[ ] ";
+        String isCompleted = this.isCompleted() ? "[X] " : "[ ] ";
         String taskType = "[" + this.getType() + "]";
         DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy, hh:mm a");
         String fromDateString = getStartDate().format(outputFormatter);
         String fromMessage = "from: " + fromDateString;
         String toDateString = getEndDate().format(outputFormatter);
         String toMessage = "to: " + toDateString;
-        return taskType + completed + this.getDescription() + "(" + fromMessage + " " + toMessage + ")";
+        return taskType + isCompleted + this.getDescription() + "(" + fromMessage + " " + toMessage + ")";
     }
 }

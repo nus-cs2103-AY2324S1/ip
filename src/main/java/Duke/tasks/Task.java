@@ -1,9 +1,10 @@
 package Duke.tasks;
+
 /**
  * Represents a general task with a description and completion status.
  */
 public abstract class Task {
-    protected boolean completed;
+    protected boolean isCompleted;
     private final String description;
 
     /**
@@ -13,21 +14,21 @@ public abstract class Task {
      */
     public Task(String description) {
         this.description = description;
-        this.completed = false;  // Tasks are uncompleted by default
+        this.isCompleted = false;  // Tasks are unisCompleted by default
     }
 
-    public Task(String description, boolean completed) {
+    public Task(String description, boolean isCompleted) {
         this.description = description;
-        this.completed = completed;
+        this.isCompleted = isCompleted;
     }
 
     /**
-     * Checks if the task is completed.
+     * Checks if the task is isCompleted.
      *
-     * @return true if completed, otherwise false.
+     * @return true if isCompleted, otherwise false.
      */
     public boolean isCompleted() {
-        return this.completed;
+        return this.isCompleted;
     }
 
     /**
@@ -43,7 +44,7 @@ public abstract class Task {
      * Toggles the completion status of the task.
      */
     public void toggleCompleted() {
-        this.completed = !this.completed;
+        this.isCompleted = !this.isCompleted;
     }
 
     /**
@@ -63,7 +64,7 @@ public abstract class Task {
      */
     @Override
     public String toString() {
-        String completionStatus = isCompleted() ? "[X] " : "[ ] ";
+        String completionStatus =  isCompleted() ? "[X] " : "[ ] ";
         String taskType = "[" + getType() + "]";
         return taskType + completionStatus + description;
     }

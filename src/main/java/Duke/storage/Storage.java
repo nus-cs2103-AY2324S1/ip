@@ -43,7 +43,7 @@ public class Storage {
     }
     
 
-    public static List<Task> loadFromFile(String filename) throws FileNotFoundException {
+    public List<Task> loadFromFile(String filename) throws FileNotFoundException {
         List<Task> tasks = new ArrayList<>();
 
         try {
@@ -68,11 +68,11 @@ public class Storage {
     }
 
 
-    public static boolean isValidFormat(String line) {
+    public boolean isValidFormat(String line) {
         return line.matches("^[TDE] \\| [01] \\| .+");
     }
 
-    public static Task parseTask(String line) throws DukeException {
+    public Task parseTask(String line) throws DukeException {
         String[] parts = line.split("\\|");
 
         // Trim spaces for each part
@@ -117,7 +117,7 @@ public class Storage {
         return task;
     }
 
-    public static void saveToFile(TaskList tasks) throws IOException {
+    public void saveToFile(TaskList tasks) throws IOException {
         File directory = new File("./data");
         if (!directory.exists()) {
             directory.mkdirs();
@@ -131,7 +131,7 @@ public class Storage {
         }
     }
 
-    public static String taskToFileString(Task task) {
+    public String taskToFileString(Task task) {
         StringBuilder sb = new StringBuilder();
 
         if (task instanceof ToDos) {
