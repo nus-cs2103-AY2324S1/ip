@@ -6,12 +6,7 @@ public class Deadline extends Task {
 
     public Deadline(String name, String by) {
         super(name);
-        this.by = parseDate(by);
-    }
-
-    private String parseDate(String date) {
-        LocalDate date1 = LocalDate.parse(date);
-        return date1.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
+        this.by = by;
     }
 
     @Override
