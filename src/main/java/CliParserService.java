@@ -1,7 +1,7 @@
+import exception.DukeStorageException;
 import exception.TaskParseException;
 
 import java.util.*;
-import java.util.function.Function;
 
 public class CliParserService {
     private final Duke dukeBot;
@@ -28,10 +28,10 @@ public class CliParserService {
                     outputService.printTasks(dukeBot.getTaskList());
                     break;
                 case "mark":
-                    handleTaskAction(input, dukeBot::markTask, "Nice! I've marked this task as done:");
+                    handleMarkTask(input);
                     break;
                 case "unmark":
-                    handleTaskAction(input, dukeBot::unmarkTask, "OK, I've unmarked this task:");
+                    handleUnmarkTask(input);
                     break;
                 case "delete":
                     handleDelete(input);
@@ -66,30 +66,57 @@ public class CliParserService {
             outputService.echo(displayText);
         } catch (TaskParseException e) {
             outputService.echo(e.getMessage());
+        } catch (DukeStorageException e) {
+            outputService.echo("Failed to write task to storage! :<");
         }
     }
-
-    private void handleTaskAction(String[] input, Function<Integer, Optional<Task>> action, String successMessage) {
+    private void handleMarkTask(String[] input) {
         if (!isValidTaskNumberArgument(input)) {
             return;
         }
-
         int taskNumber = Integer.parseInt(input[1]);
-        Optional<Task> optionalTask = action.apply(taskNumber - 1);
+        try {
+            Optional<Task> optionalTask = dukeBot.markTask(taskNumber - 1);
+            optionalTask.ifPresentOrElse(task -> {
+                List<String> displayText = new ArrayList<>();
+                displayText.add("Nice! I've marked this task as done:");
+                displayText.add(outputService.indentLeft(task.toString()));
+                outputService.echo(displayText);
+            }, () -> {
+                if (dukeBot.getNumberOfTasks() == 0) {
+                    outputService.echo("There are no tasks left!");
+                }
+                outputService.echo(String.format("Invalid Task index: %s provided.%n" +
+                        "Specify a number between %s - %s", taskNumber, 1, dukeBot.getNumberOfTasks() + 1));
+            });
+        } catch (DukeStorageException e) {
+            outputService.echo("Failed to save marked task to storage :>");
+        }
+    }
 
-        optionalTask.ifPresentOrElse(task -> {
-            List<String> displayText = new ArrayList<>();
-            displayText.add(successMessage);
-            displayText.add(outputService.indentLeft(task.toString()));
-            outputService.echo(displayText);
-        }, () -> {
-            if (dukeBot.getNumberOfTasks() == 0) {
-                outputService.echo("There are no tasks left!");
-            }
-            outputService.echo(String.format("Invalid Task index: %s provided.%n" +
-                    "Specify a number between %s - %s", taskNumber, 1, dukeBot.getNumberOfTasks() + 1));
+    private void handleUnmarkTask(String[] input) {
+        if (!isValidTaskNumberArgument(input)) {
+            return;
+        }
+        int taskNumber = Integer.parseInt(input[1]);
+        try {
+            Optional<Task> optionalTask = dukeBot.unmarkTask(taskNumber - 1);
+            optionalTask.ifPresentOrElse(task -> {
+                List<String> displayText = new ArrayList<>();
+                displayText.add("OK, I've unmarked this task:");
+                displayText.add(outputService.indentLeft(task.toString()));
+                outputService.echo(displayText);
+            }, () -> {
+                if (dukeBot.getNumberOfTasks() == 0) {
+                    outputService.echo("There are no tasks left!");
+                }
+                outputService.echo(String.format("Invalid Task index: %s provided.%n" +
+                        "Specify a number between %s - %s", taskNumber, 1, dukeBot.getNumberOfTasks() + 1));
 
-        });
+            });
+        } catch (DukeStorageException e) {
+            outputService.echo("Failed to save unmarked task to storage! :<");
+        }
     }
 
     private void handleDelete(String[] input) {
@@ -98,20 +125,25 @@ public class CliParserService {
         }
 
         int taskNumber = Integer.parseInt(input[1]);
-        Optional<Task> optionalTask = dukeBot.deleteTask(taskNumber - 1);
+        try {
+            Optional<Task> optionalTask = dukeBot.deleteTask(taskNumber - 1);
 
-        optionalTask.ifPresentOrElse(task -> {
-            List<String> displayText = new ArrayList<>();
-            displayText.add("Noted. I have removed this task:");
-            displayText.add(outputService.indentLeft(task.toString()));
-            displayText.add(String.format("Now you have %s %s in the list.",
-                    dukeBot.getNumberOfTasks(),
-                    dukeBot.getNumberOfTasks() == 1 ? "task" : "tasks"));
-            outputService.echo(displayText);
-        }, () ->
-            outputService.echo(String.format("Invalid Task index: %s provided.%n" +
-                    "Specify a number between %s - %s", taskNumber, 1, dukeBot.getNumberOfTasks() + 1))
-        );
+            optionalTask.ifPresentOrElse(task -> {
+                        List<String> displayText = new ArrayList<>();
+                        displayText.add("Noted. I have removed this task:");
+                        displayText.add(outputService.indentLeft(task.toString()));
+                        displayText.add(String.format("Now you have %s %s in the list.",
+                                dukeBot.getNumberOfTasks(),
+                                dukeBot.getNumberOfTasks() == 1 ? "task" : "tasks"
+                        ));
+                        outputService.echo(displayText);
+                    }, () ->
+                            outputService.echo(String.format("Invalid Task index: %s provided.%n" +
+                                    "Specify a number between %s - %s", taskNumber, 1, dukeBot.getNumberOfTasks() + 1))
+            );
+        } catch (DukeStorageException e) {
+            outputService.echo("Failed to delete task from local storage :<");
+        }
     }
 
     // Utility method to check if a string is numeric
