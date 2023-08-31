@@ -1,5 +1,7 @@
 package main.java;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.io.BufferedReader;
@@ -9,6 +11,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.time.LocalDateTime;
 
 public class ChadBod {
     private static final String FILE_PATH = "./data/tasks.txt";
@@ -135,7 +138,13 @@ public class ChadBod {
                         if (deadlineDetails.length < 2 || deadlineDetails[1].isEmpty()) {
                             throw new InvalidTaskException("Deadline due date cannot be empty.");
                         }
-                        Deadline newDeadline = new Deadline(deadlineDetails[0], deadlineDetails[1]);
+                        LocalDateTime byDate;
+                        try {
+                            byDate = LocalDateTime.parse(deadlineDetails[1]);
+                        } catch (DateTimeParseException e) {
+                            throw new InvalidTaskException("Deadline due date/time not in ISO format. (e.g. 2007-12-03T10:15:30)");
+                        }
+                        Deadline newDeadline = new Deadline(deadlineDetails[0], byDate);
                         tasks.add(newDeadline);
                         System.out.println("Got it. I've added this task:");
                         System.out.println(newDeadline);
@@ -154,7 +163,14 @@ public class ChadBod {
                         if (eventTimings.length < 2 || eventTimings[1].isEmpty()) {
                             throw new InvalidTaskException("Event from and to timings cannot be empty.");
                         }
-                        Event newEvent = new Event(eventDetails[0], eventTimings[0], eventTimings[1]);
+                        LocalDateTime fromDate, toDate;
+                        try {
+                            fromDate = LocalDateTime.parse(eventTimings[0]);
+                            toDate = LocalDateTime.parse(eventTimings[1]);
+                        } catch (DateTimeParseException e) {
+                            throw new InvalidTaskException("Deadline due date/time not in ISO format. (e.g. 2007-12-03T10:15:30)");
+                        }
+                        Event newEvent = new Event(eventDetails[0], fromDate, toDate);
                         tasks.add(newEvent);
                         System.out.println("Got it. I've added this task:");
                         System.out.println(newEvent);

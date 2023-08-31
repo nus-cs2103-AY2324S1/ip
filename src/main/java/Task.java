@@ -1,5 +1,7 @@
 package main.java;
 
+import java.time.LocalDateTime;
+
 public abstract class Task {
     protected String description;
     protected boolean isDone;
@@ -39,7 +41,7 @@ public abstract class Task {
         } else if (parts.length >= 4 && parts[0].equals("D")) {
             boolean isDone = parts[1].equals("1");
             String description = parts[2];
-            String deadline = parts[3];
+            LocalDateTime deadline = LocalDateTime.parse(parts[3]);
             Task t = new Deadline(description, deadline);
             if (isDone) {
                 t.markDone();
@@ -48,8 +50,8 @@ public abstract class Task {
         } else if (parts.length >= 5 && parts[0].equals("E")) {
             boolean isDone = parts[1].equals("1");
             String description = parts[2];
-            String from = parts[3];
-            String to = parts[4];
+            LocalDateTime from = LocalDateTime.parse(parts[3]);
+            LocalDateTime to = LocalDateTime.parse(parts[4]);
             Task t = new Event(description, from, to);
             if (isDone) {
                 t.markDone();
