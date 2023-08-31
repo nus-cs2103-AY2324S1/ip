@@ -1,4 +1,4 @@
-package Duke.tasks;
+package duke.tasks;
 
 
 /***
@@ -8,7 +8,7 @@ public class Task {
     protected String description;
     protected boolean isDone;
 
-    //total number of Duke.tasks
+    //total number of tasks
     protected static int size = 0;
 
 
@@ -16,8 +16,6 @@ public class Task {
         this.description = description;
         this.isDone = false;
         size = size + 1;
-
-
     }
 
     public String getDescription(){
@@ -37,17 +35,14 @@ public class Task {
      * @param action string mark or unmark
      */
     public void setAction(String action){
-        String s = "";
         if(action.equals("mark")){
             this.isDone = true;
             System.out.println("Nice! I've marked this task as done:");
-        }
-        else if(action.equals("unmark")){
+        } else if(action.equals("unmark")){
             this.isDone = false;
             System.out.println("OK, I've marked this task as not done yet:");
         }
         System.out.println("  " + this);
-
     }
 
     /***

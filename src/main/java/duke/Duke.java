@@ -1,14 +1,14 @@
-package Duke;
+package duke; // Use lowercase for package names
 
-import Duke.exceptions.DukeException;
-import Duke.fileHandler.Storage;
-import Duke.parsers.InputParser;
-import Duke.tasks.Task;
-import Duke.ui.Ui;
+import duke.exceptions.DukeException;
+import duke.filehandler.Storage;
+import duke.parsers.InputParser;
+import duke.tasks.Task;
+import duke.ui.Ui;
 
 import java.util.ArrayList;
-public class Duke {
 
+public class Duke {
 
     private static ArrayList<Task> tasks;
     private Ui ui;
@@ -27,15 +27,11 @@ public class Duke {
     }
 
     public void run() {
-
         InputParser.getUserInputs(tasks);
         ui.printEnding();
-
     }
+
     public static void main(String[] args) {
-
         new Duke("tasks.txt").run();
-
-        }
     }
-
+}
