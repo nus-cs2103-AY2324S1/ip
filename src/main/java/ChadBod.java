@@ -1,13 +1,63 @@
 package main.java;
+
 import java.util.Scanner;
 import java.util.ArrayList;
-
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
 
 public class ChadBod {
+    private static final String FILE_PATH = "./data/tasks.txt";
+    private static void saveTasks(ArrayList<Task> tasks) {
+        try {
+            File file = new File(FILE_PATH);
+            if (!file.exists()) {
+                // Create necessary directories and files
+                file.getParentFile().mkdirs();
+                file.createNewFile();
+            }
+            BufferedWriter writer = new BufferedWriter(new FileWriter(file));
+            for (Task task : tasks) {
+                writer.write(task.toFileString());
+                writer.newLine();
+            }
+            writer.close();
+        } catch (IOException e) {
+            System.out.println("Error saving tasks to file.");
+        } catch (SecurityException e) {
+            System.out.println("Error writing to file. Check permissions.");
+        }
+    }
+
+    private static ArrayList<Task> loadTasks() {
+        ArrayList<Task> tasks = new ArrayList<>();
+        try (BufferedReader reader = new BufferedReader(new FileReader(FILE_PATH))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                Task task = Task.fromString(line);
+                if (task != null) {
+                    tasks.add(task);
+                } else {
+                    System.out.println("File content invalid. Skipping this task.");
+                }
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println("Task storage file not found. Starting with an empty task list.");
+        } catch (IOException e) {
+            System.out.println("Error parsing task storage file. Starting with an empty task list.");
+        }
+
+        return tasks;
+    }
+
     public static void main(String[] args) {
+        ArrayList<Task> tasks = loadTasks();
         System.out.println("Hello! I'm ChadBod.");
         System.out.println("What can I do for you?");
-        ArrayList<Task> tasks = new ArrayList<>();
         Scanner sc = new Scanner(System.in);
         boolean shouldExit = false;
 
@@ -53,6 +103,7 @@ public class ChadBod {
                         markedTask.markDone();
                         System.out.println("Nice! I've marked this task as done:");
                         System.out.printf("%s\n", markedTask);
+                        saveTasks(tasks);
                         break;
                     case UNMARK:
                         int unmarkTaskNumber = Integer.parseInt(commandArray[1]);
@@ -63,6 +114,7 @@ public class ChadBod {
                         unmarkedTask.markUndone();
                         System.out.println("OK, I've marked this task as not done yet:");
                         System.out.printf("%s\n", unmarkedTask);
+                        saveTasks(tasks);
                         break;
                     case TODO:
                         if (commandArray.length < 2 || commandArray[1].isEmpty()) {
@@ -73,6 +125,7 @@ public class ChadBod {
                         System.out.println("Got it. I've added this task:");
                         System.out.println(newTodo);
                         System.out.printf("Now you have %d tasks in the list.\n", tasks.size());
+                        saveTasks(tasks);
                         break;
                     case DEADLINE:
                         if (commandArray.length < 2 || commandArray[1].isEmpty()) {
@@ -87,6 +140,7 @@ public class ChadBod {
                         System.out.println("Got it. I've added this task:");
                         System.out.println(newDeadline);
                         System.out.printf("Now you have %d tasks in the list.\n", tasks.size());
+                        saveTasks(tasks);
                         break;
                     case EVENT:
                         if (commandArray.length < 2 || commandArray[1].isEmpty()) {
@@ -105,6 +159,7 @@ public class ChadBod {
                         System.out.println("Got it. I've added this task:");
                         System.out.println(newEvent);
                         System.out.printf("Now you have %d tasks in the list.\n", tasks.size());
+                        saveTasks(tasks);
                         break;
                     case DELETE:
                         int taskNumber = Integer.parseInt(commandArray[1]);
@@ -115,12 +170,13 @@ public class ChadBod {
                         System.out.println("Noted. I've removed this task:");
                         System.out.printf("%s\n", deletedTask);
                         System.out.printf("Now you have %d tasks in the list.\n", tasks.size());
+                        saveTasks(tasks);
                         break;
                     default:
                         throw new InvalidInputException();
                 }
             } catch (NumberFormatException e) {
-            System.out.println("☹ OOPS!!! Invalid task index.");
+                System.out.println("☹ OOPS!!! Invalid task index.");
             } catch (ChadBodException e) {
                 System.out.println(e.getMessage());
             }

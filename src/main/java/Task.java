@@ -1,6 +1,6 @@
 package main.java;
 
-public class Task {
+public abstract class Task {
     protected String description;
     protected boolean isDone;
 
@@ -25,4 +25,40 @@ public class Task {
     public String toString() {
         return String.format("[%s] %s", this.getStatusIcon(), this.description);
     }
+
+    public static Task fromString(String line) {
+        String[] parts = line.split(" \\| ");
+        if (parts.length >= 3 && parts[0].equals("T")) {
+            boolean isDone = parts[1].equals("1");
+            String description = parts[2];
+            Task t = new Todo(description);
+            if (isDone) {
+                t.markDone();
+            }
+            return t;
+        } else if (parts.length >= 4 && parts[0].equals("D")) {
+            boolean isDone = parts[1].equals("1");
+            String description = parts[2];
+            String deadline = parts[3];
+            Task t = new Deadline(description, deadline);
+            if (isDone) {
+                t.markDone();
+            }
+            return t;
+        } else if (parts.length >= 5 && parts[0].equals("E")) {
+            boolean isDone = parts[1].equals("1");
+            String description = parts[2];
+            String from = parts[3];
+            String to = parts[4];
+            Task t = new Event(description, from, to);
+            if (isDone) {
+                t.markDone();
+            }
+            return t;
+        } else {
+            return null;
+        }
+    }
+
+    public abstract String toFileString();
 }

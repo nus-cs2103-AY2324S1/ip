@@ -1,3 +1,4 @@
+Task storage file not found. Starting with an empty task list.
 Hello! I'm ChadBod.
 What can I do for you?
 Got it. I've added this task:
