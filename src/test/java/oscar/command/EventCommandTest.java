@@ -23,8 +23,8 @@ public class EventCommandTest {
             eventCommand.validate();
             fail();
         } catch (OscarException e) {
-            assertEquals("Sorry! The event task is not formatted correctly.\n" +
-                    "Please use the format: 'event [task] /from yyyy-MM-dd HHmm /to yyyy-MM-dd HHmm'.\n",
+            assertEquals("Sorry! The event task is not formatted correctly.\n"
+                            + "Please use the format: 'event [task] /from yyyy-MM-dd HHmm /to yyyy-MM-dd HHmm'.\n",
                     e.getMessage());
         }
     }
@@ -58,8 +58,8 @@ public class EventCommandTest {
             eventCommand.validate();
             fail();
         } catch (OscarException e) {
-            assertEquals("Sorry! The event task is not formatted correctly.\n" +
-                            "Please use the format: 'event [task] /from yyyy-MM-dd HHmm /to yyyy-MM-dd HHmm'.\n",
+            assertEquals("Sorry! The event task is not formatted correctly.\n"
+                            + "Please use the format: 'event [task] /from yyyy-MM-dd HHmm /to yyyy-MM-dd HHmm'.\n",
                     e.getMessage());
         }
     }

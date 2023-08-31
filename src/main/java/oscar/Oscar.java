@@ -15,7 +15,7 @@ import java.util.Scanner;
  * Chatbot named Oscar that can respond to user input.
  */
 public class Oscar {
-    static final String FILEPATH = "./data/tasklist";
+    static final String FILE_PATH = "./data/tasklist";
 
     private final Storage storage;
     private TaskList tasks;
@@ -63,6 +63,6 @@ public class Oscar {
      * Programme flow to run Oscar.
      */
     public static void main(String[] args) {
-        new Oscar(FILEPATH).run();
+        new Oscar(FILE_PATH).run();
     }
 }

@@ -27,8 +27,8 @@ public class TodoCommandTest {
     @Test
     public void validate_longTodoCommand_success() {
         try {
-            String details = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. " +
-                    "Morbi pellentesque eros sem, et accumsan lectus placerat volutpat.";
+            String details = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. "
+                    + "Morbi pellentesque eros sem, et accumsan lectus placerat volutpat.";
             TodoCommand todoCommand = new TodoCommand(details);
             todoCommand.validate();
         } catch (OscarException e) {

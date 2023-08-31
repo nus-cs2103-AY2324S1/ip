@@ -2,7 +2,6 @@ package oscar.command;
 
 import oscar.essential.Storage;
 import oscar.essential.TaskList;
-import oscar.essential.Ui;
 
 import oscar.exception.OscarException;
 
@@ -38,7 +37,7 @@ public class DeadlineCommand extends Command {
         String[] validatedDetails = validate();
         String description = validatedDetails[0];
         String deadline = validatedDetails[1];
-        LocalDateTime deadlineDateTime = LocalDateTime.parse(deadline, DTFORMAT);
+        LocalDateTime deadlineDateTime = LocalDateTime.parse(deadline, DATE_TIME_FORMAT);
         Task newDeadline = new Deadline(description, deadlineDateTime);
         tasks.add(newDeadline);
         storage.save(tasks);
@@ -53,24 +52,26 @@ public class DeadlineCommand extends Command {
      */
     public String[] validate() throws OscarException {
         if (!details.contains(" /by ")) {
-            throw new OscarException("Sorry! " +
-                    "The deadline task is not formatted correctly.\n" +
-                    "Please use the format: 'deadline [task] /by yyyy-MM-dd HHmm'.\n");
+            throw new OscarException("Sorry! "
+                    + "The deadline task is not formatted correctly.\n"
+                    + "Please use the format: 'deadline [task] /by yyyy-MM-dd HHmm'.\n");
         }
-        String[] detailsSplit = details.split(" /by ", 2);
-        String description = detailsSplit[0];
+        String[] splitDetails = details.split(" /by ", 2);
+        String description = splitDetails[0];
         if (description.isEmpty()) {
-            throw new OscarException("Sorry! " +
-                    "The description of a deadline task cannot be empty.\n");
+            throw new OscarException("Sorry! "
+                    + "The description of a deadline task cannot be empty.\n");
         }
-        String deadline = detailsSplit[1];
+        String deadline = splitDetails[1];
         if (!deadline.contains(" ")) {
-            throw new OscarException("Sorry! Please enter a valid date and time in this format: '2019-10-15 1800'.\n");
+            throw new OscarException("Sorry! "
+                    + "Please enter a valid date and time in this format: '2019-10-15 1800'.\n");
         }
         try {
-            LocalDateTime.parse(deadline, DTFORMAT);
+            LocalDateTime.parse(deadline, DATE_TIME_FORMAT);
         } catch (DateTimeParseException e) {
-            throw new OscarException("Sorry! Please enter a valid date and time in this format: '2019-10-15 1800'.\n");
+            throw new OscarException("Sorry! "
+                    + "Please enter a valid date and time in this format: '2019-10-15 1800'.\n");
         }
         return new String[]{description, deadline};
     }
