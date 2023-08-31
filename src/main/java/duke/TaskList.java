@@ -72,6 +72,10 @@ public class TaskList {
         taskList.add(task);
     }
 
+    public void addTask(Task task) {
+        taskList.add(task);
+    }
+
     public Task getTask(int index) {
         return taskList.get(index);
     }
