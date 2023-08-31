@@ -16,7 +16,7 @@ public class Message {
 
     public static List<Message> ConvertTasks(Application application) {
         List<Message> messages = new ArrayList<>();
-        for(int i = 0; i < application.Size(); i++) {
+        for(int i = 0; i < application.TaskCount(); i++) {
             messages.add((new Message((i + 1) + ". " + application.GetTask(i).toString())));
         }
         return messages;
@@ -46,7 +46,7 @@ public class Message {
     }
 
     public static Message NumberOfTasks(Application tasks) {
-        return new Message ("There are " + tasks.Size() + " tasks in the list.");
+        return new Message ("There are " + tasks.TaskCount() + " tasks in the list.");
     }
     public Message ChainTo(Message message, String splitString) {
         return new Message(this.content + splitString + message.content);
