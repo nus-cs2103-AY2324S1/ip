@@ -19,7 +19,7 @@ public class TaskListTest {
     }
 
     @Test
-    void testDeleteTask() {
+    void testDeleteTask() throws CommandDetailException{
         TaskList taskList = new TaskList();
         Task task = new ToDo("test");
         taskList.add(task);
@@ -59,6 +59,33 @@ public class TaskListTest {
         Task task = new ToDo("test");
         assertThrows(CommandDetailException.class, () -> {
             taskList.getTask(3);
+        });
+    }
+
+    @Test
+    void testDeleteTaskException() {
+        TaskList taskList = new TaskList();
+        Task task = new ToDo("test");
+        assertThrows(CommandDetailException.class, () -> {
+            taskList.deleteTask(3);
+        });
+    }
+
+    @Test
+    void testMarkTaskException() {
+        TaskList taskList = new TaskList();
+        Task task = new ToDo("test");
+        assertThrows(CommandDetailException.class, () -> {
+            taskList.markTask(3);
+        });
+    }
+
+    @Test
+    void testUnmarkTaskException() {
+        TaskList taskList = new TaskList();
+        Task task = new ToDo("test");
+        assertThrows(CommandDetailException.class, () -> {
+            taskList.unmarkTask(3);
         });
     }
 }

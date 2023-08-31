@@ -14,8 +14,8 @@ public class MarkCommand extends Command {
     }
 
     public void execute(TaskList tasks, Ui ui, Storage storage) throws StorageException, CommandDetailException {
-        ui.showMark(tasks, index);
         tasks.markTask(index);
+        ui.showMark(tasks, index);
         storage.save(tasks);
     }
 

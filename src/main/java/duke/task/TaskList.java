@@ -20,17 +20,15 @@ public class TaskList {
         tasks.add(task);
     }
 
-    public void deleteTask(int index) {
-        tasks.remove(index);
+    public void deleteTask(int index) throws CommandDetailException {
+        try {
+            tasks.remove(index);
+        } catch (IndexOutOfBoundsException e) {
+            throw new CommandDetailException("OOPS!!! There is no such task!");
+        }
     }
 
-    public void markTask(int index) {
-        tasks.get(index).setDone();
-    }
 
-    public void unmarkTask(int index) {
-        tasks.get(index).setUndone();
-    }
 
     public Task getTask(int index) throws CommandDetailException {
         try {
@@ -40,6 +38,13 @@ public class TaskList {
         }
     }
 
+    public void markTask(int index) throws CommandDetailException{
+        this.getTask(index).setDone();
+    }
+
+    public void unmarkTask(int index) throws CommandDetailException{
+        this.getTask(index).setUndone();
+    }
     public int size() {
         return tasks.size();
     }

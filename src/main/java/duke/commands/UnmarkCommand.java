@@ -14,8 +14,8 @@ public class UnmarkCommand extends Command {
     }
 
     public void execute(TaskList tasks, Ui ui, Storage storage) throws StorageException, CommandDetailException {
-        ui.showUnmark(tasks, index);
         tasks.unmarkTask(index);
+        ui.showUnmark(tasks, index);
         storage.save(tasks);
     }
 
