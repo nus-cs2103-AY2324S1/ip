@@ -84,7 +84,7 @@ public class Parser {
                     }
                     String[] arr = input.split(" ", 2);
                     Task newTask = new Todo(arr[1]);
-                    this.taskList.addToStorage(newTask);
+                    this.taskList.addToList(newTask);
                     this.ui.printAdded(newTask);
                 } else if (input.startsWith("deadline")) {
                     // Throw error if description or by is missing
@@ -100,7 +100,7 @@ public class Parser {
                     String taskDesc = arr[0].substring(9);
                     String by = arr[1];
                     Task newTask = new Deadline(taskDesc, by);
-                    this.taskList.addToStorage(newTask);
+                    this.taskList.addToList(newTask);
                     this.ui.printAdded(newTask);
                 } else if (input.startsWith("event")) {
                     // Throw error if description or from or to is missing
@@ -121,7 +121,7 @@ public class Parser {
                     String from = arrBack[0];
                     String to = arrBack[1];
                     Task newTask = new Event(taskDesc, from, to);
-                    this.taskList.addToStorage(newTask);
+                    this.taskList.addToList(newTask);
                     this.ui.printAdded(newTask);
                 } else if (input.startsWith("delete")) {
                     // Throw error if there is no index

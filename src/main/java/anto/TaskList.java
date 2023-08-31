@@ -31,7 +31,7 @@ public class TaskList {
      * @param newTask Task to be added.
      * @throws AntoException Throws anto exception if there is an IO Exception
      */
-    public void addToStorage(Task newTask) throws AntoException {
+    public void addToList(Task newTask) throws AntoException {
         this.taskList.add(newTask);
 
         String relativePath = "data/anto.txt";
