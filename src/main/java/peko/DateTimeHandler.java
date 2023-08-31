@@ -36,7 +36,7 @@ public class DateTimeHandler {
 
     /**
      * Generates a formatted string representation of date and time.
-     * This method creates and returns a string containing the date, time, and optionally padded minutes.
+     * This method creates and returns a string containing the date, time, and padded minutes.
      *
      * @return A formatted string representation of date and time.
      */
