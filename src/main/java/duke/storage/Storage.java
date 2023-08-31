@@ -15,9 +15,17 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Represents the storage manager for saving and loading tasks to/from a file.
+ */
 public class Storage {
     private File file;
 
+    /**
+     * Constructs a Storage instance and initializes the file based on the given path.
+     *
+     * @param path The path to the storage file.
+     */
     public Storage(String path) {
         try {
             String[] splitted = path.split("/");
@@ -37,6 +45,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Loads tasks from the storage file.
+     *
+     * @return An ArrayList of Task objects loaded from the storage file.
+     * @throws DukeException If an error occurs during reading or parsing the file.
+     */
     public ArrayList<Task> load() throws DukeException {
         try {
             Scanner sc = new Scanner(this.file);
@@ -76,6 +90,11 @@ public class Storage {
         return null;
     }
 
+    /**
+     * Updates the storage file with the given list of tasks.
+     *
+     * @param tasks The list of tasks to be saved.
+     */
     public void updateStorage(ArrayList<Task> tasks) {
         try {
             FileWriter writer = new FileWriter(this.file);
@@ -88,6 +107,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Formats an input date string into a LocalDateTime object.
+     *
+     * @param date The input date string.
+     * @return A LocalDateTime object representing the formatted date.
+     */
     public LocalDateTime formatInputDate(String date) {
         DateTimeFormatter formatter = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
         LocalDateTime localDateTime = LocalDateTime.parse(date, formatter);
