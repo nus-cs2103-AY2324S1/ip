@@ -1,8 +1,8 @@
 package duke.ui;
 
-import duke.tasks.Task;
-
 import java.util.Scanner;
+
+import duke.tasks.Task;
 
 /**
  * Represents the Ui Class.
