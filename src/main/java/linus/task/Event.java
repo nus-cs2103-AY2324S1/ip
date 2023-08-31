@@ -1,13 +1,13 @@
-package task;
+package linus.task;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
-import exception.LinusException;
+import linus.exception.LinusException;
 
 public class Event extends Task {
-    protected String type = "task.Event";
+    protected String type = "linus.task.Event";
     protected LocalDate from = null;
     protected LocalDate to = null;
 

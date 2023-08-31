@@ -1,3 +1,5 @@
+package linus.util;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
@@ -12,8 +14,11 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-import task.Task;
-import exception.LinusException;
+import linus.task.Task;
+import linus.task.ToDo;
+import linus.task.Deadline;
+import linus.task.Event;
+import linus.exception.LinusException;
 
 public class Storage {
     private Gson gson = null;
@@ -31,9 +36,9 @@ public class Storage {
 
             // Deserialize the Json String into an ArrayList of Tasks
             TaskDeserializer deserializer = new TaskDeserializer("type");
-            deserializer.registerTaskType("task.ToDo", ToDo.class);
-            deserializer.registerTaskType("task.Deadline", Deadline.class);
-            deserializer.registerTaskType("task.Event", Event.class);
+            deserializer.registerTaskType("linus.task.ToDo", ToDo.class);
+            deserializer.registerTaskType("linus.task.Deadline", Deadline.class);
+            deserializer.registerTaskType("linus.task.Event", Event.class);
 
             gson = new GsonBuilder()
                     .registerTypeAdapter(Task.class, deserializer)

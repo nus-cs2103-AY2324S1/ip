@@ -1,11 +1,13 @@
-import exception.LinusException;
-import task.Deadline;
-import task.Event;
-import task.TaskList;
-import task.ToDo;
-import util.Parser;
-import util.Storage;
-import util.Ui;
+package linus;
+
+import linus.exception.LinusException;
+import linus.task.Deadline;
+import linus.task.Event;
+import linus.task.TaskList;
+import linus.task.ToDo;
+import linus.util.Parser;
+import linus.util.Storage;
+import linus.util.Ui;
 
 public class Linus {
     private static final String FILE_PATH = "data/linus.txt";

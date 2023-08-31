@@ -1,4 +1,4 @@
-package util;
+package linus.util;
 
 import java.util.Scanner;
 public class Ui {

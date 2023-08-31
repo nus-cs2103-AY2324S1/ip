@@ -1,4 +1,4 @@
-package util;
+package linus.util;
 
 public class Parser {
     public static String[] parse(String input) {
