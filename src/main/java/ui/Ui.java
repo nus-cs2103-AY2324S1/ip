@@ -1,9 +1,9 @@
 package ui;
 
+import data.TaskList;
 import exceptions.EmptyTaskException;
 import exceptions.InvalidCommand;
 import tasks.Task;
-import data.TaskList;
 
 import static java.lang.Integer.parseInt;
 

@@ -4,10 +4,8 @@ import exceptions.EmptyTaskException;
 import exceptions.InvalidCommand;
 import tasks.Task;
 
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.ArrayList;
-import java.io.File;
+
 
 public class TaskList {
     public static final ArrayList<Task>  taskList = new ArrayList<>();
