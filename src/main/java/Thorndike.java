@@ -1,10 +1,8 @@
 import exceptions.*;
 import storage.Storage;
-import task.Task;
 import task.TaskList;
 import ui.Ui;
 import java.util.Scanner;
-
 import command.CmdBye;
 import command.Command;
 import command.CommandParser;
@@ -69,10 +67,5 @@ public class Thorndike {
     private void greet() {
         ui.print("Meow! I'm Thorndike.");
         ui.print("What can I do for you?");
-    }
-
-    public static void main(String[] args) {
-        Thorndike chatbot = new Thorndike();
-        chatbot.start();
     }
 }
