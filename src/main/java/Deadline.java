@@ -5,13 +5,12 @@ import java.time.format.DateTimeParseException;
 public class Deadline extends Task {
     private LocalDateTime by;
 
-    public Deadline(String description, String by) {
+    public Deadline(String description, String by) throws DukeException {
         super(description);
         try {
             this.by = LocalDateTime.parse(by, DateTimeFormatter.ofPattern("d/M/yyyy HHmm"));
         } catch (DateTimeParseException e) {
-            // Handle invalid date format exception here
-            System.out.println("Invalid date format provided. Please use the format d/M/yyyy HHmm.");
+            throw new DukeException("Invalid date format provided. Please use the format d/M/yyyy HHmm.");
         }
     }
 

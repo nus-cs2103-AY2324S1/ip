@@ -1,2 +1,3 @@
-package PACKAGE_NAME;public class CommandType {
+public enum CommandType {
+    BYE, LIST, TODO, DEADLINE, EVENT, MARK, UNMARK, DELETE, TASKS_ON_DATE, UNKNOWN
 }

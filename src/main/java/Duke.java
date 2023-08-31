@@ -1,6 +1,3 @@
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -19,39 +16,6 @@ public class Duke {
         BYE, LIST, TODO, DEADLINE, EVENT, MARK, UNMARK, DELETE, TASKS_ON_DATE, UNKNOWN
     }
 
-    private static Command parseCommand(String input) {
-        if (input.equalsIgnoreCase("bye")) return Command.BYE;
-        if (input.equalsIgnoreCase("list")) return Command.LIST;
-        if (input.startsWith("todo")) return Command.TODO;
-        if (input.startsWith("deadline")) return Command.DEADLINE;
-        if (input.startsWith("event")) return Command.EVENT;
-        if (input.startsWith("mark")) return Command.MARK;
-        if (input.startsWith("unmark")) return Command.UNMARK;
-        if (input.startsWith("delete")) return Command.DELETE;
-        if (input.startsWith("tasks on")) return Command.TASKS_ON_DATE;
-        return Command.UNKNOWN;
-    }
-
-    private static Task parseFileTask(String taskData) throws DukeException {
-        String[] parts = taskData.split(" \\| ");
-        switch (parts[0]) {
-            case "T":
-                ToDo todo = new ToDo(parts[2]);
-                if (parts[1].equals("1")) todo.markAsDone();
-                return todo;
-            case "D":
-                Deadline deadline = new Deadline(parts[2], parts[3]);
-                if (parts[1].equals("1")) deadline.markAsDone();
-                return deadline;
-            case "E":
-                Event event = new Event(parts[2], parts[3], parts[4]);
-                if (parts[1].equals("1")) event.markAsDone();
-                return event;
-            default:
-                throw new DukeException("Unknown task type: " + parts[0]);
-        }
-    }
-
     public static void echoMessages() {
         Scanner scanner = new Scanner(System.in);
         String input;
@@ -61,7 +25,7 @@ public class Duke {
 
         while (true) {
             input = scanner.nextLine();
-            Command command = parseCommand(input);
+            CommandType command = Parser.parseCommand(input);
 
             ui.printHorizontalLine();
 
@@ -128,11 +92,11 @@ public class Duke {
                         break;
 
                     case TASKS_ON_DATE:
-                        LocalDate givenDate = getLocalDate(input);
+                        LocalDate givenDate = Parser.getLocalDate(input);
                         List<Task> tasksOnGivenDate = tasks.stream()
                                 .filter(task ->
                                         (task instanceof Deadline && ((Deadline) task).getBy().toLocalDate().isEqual(givenDate)) ||
-                                                (task instanceof Event && isWithinEventDate((Event) task, givenDate)))
+                                                (task instanceof Event && Parser.isWithinEventDate((Event) task, givenDate)))
                                 .collect(Collectors.toList());
                         ui.printTasksOnDate(tasksOnGivenDate, givenDate);
                         break;
@@ -146,28 +110,6 @@ public class Duke {
 
             ui.printHorizontalLine();
         }
-    }
-
-
-    private static LocalDate getLocalDate(String input) throws DukeException {
-        String[] dateParts = input.split(" ");
-        if (dateParts.length < 3) {
-            throw new DukeException("Please provide a valid date in the format d/M/yyyy.");
-        }
-        LocalDate givenDate;
-        try {
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy");
-            givenDate = LocalDate.parse(dateParts[2], formatter);
-        } catch (DateTimeParseException e) {
-            throw new DukeException("Invalid date format. Please use d/M/yyyy.");
-        }
-        return givenDate;
-    }
-
-    private static boolean isWithinEventDate(Event event, LocalDate date) {
-        LocalDate startDate = event.getFrom().toLocalDate();
-        LocalDate endDate = event.getTo().toLocalDate();
-        return (date.isEqual(startDate) || date.isEqual(endDate) || (date.isAfter(startDate) && date.isBefore(endDate)));
     }
 
     public static void main(String[] args) {
