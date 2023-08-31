@@ -1,7 +1,4 @@
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.PrintWriter;
+import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -173,8 +170,9 @@ public class Ax {
      */
     public static void readSave() {
         // read save file
+        Path path = Paths.get("data/save.txt");
         try {
-            Path saveFilepath = Paths.get("data/save.txt");
+            Path saveFilepath = path;
             File saveFile = saveFilepath.toFile();
             Scanner scanner = new Scanner(saveFile);
             // Declaring loop variable
@@ -204,7 +202,18 @@ public class Ax {
                 }
 
             }
-        } catch (Exception e) {
+        } catch (FileNotFoundException e) {
+            // create the file
+            File saveFile = path.toFile();
+            Path dir = Paths.get("data/");
+            try {
+                Files.createDirectory(dir);
+                saveFile.createNewFile();
+            } catch (IOException ex) {
+                System.out.println("ex = " + ex);
+            }
+        }
+        catch (Exception e) {
             System.out.println("error = " + e);
         }
     }
