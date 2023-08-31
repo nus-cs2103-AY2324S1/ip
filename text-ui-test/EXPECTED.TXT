@@ -10,6 +10,8 @@ Now you have 2 tasks in the list.
 > Got it. I've added this task:
    [T] [ ] Clear the trash
 Now you have 3 tasks in the list.
+> Here are the matching tasks in your list:
+1. [E] [ ] Birthday celebration (from: 17:00 to: 21:00)
 > Here are the tasks in your list:
 1. [D] [ ] Submit Tutorial 1 (by: 5 Apr 2023)
 2. [E] [ ] Birthday celebration (from: 17:00 to: 21:00)

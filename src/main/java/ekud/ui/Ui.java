@@ -1,5 +1,7 @@
 package ekud.ui;
 
+import java.util.List;
+
 import ekud.command.Command;
 import ekud.error.EkudException;
 import ekud.state.Task;
@@ -71,6 +73,13 @@ public abstract class Ui {
      * @param task The unmarked task.
      */
     public abstract void showTaskUnmarked(Task task);
+
+    /**
+     * Display a list of tasks that matched the find query.
+     * 
+     * @param foundTasks The tasks that matched the find query.
+     */
+    public abstract void showFoundTasks(List<Task> foundTasks);
 
     /**
      * Display an error that occured to the user.

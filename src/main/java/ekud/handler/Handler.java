@@ -1,11 +1,15 @@
 package ekud.handler;
 
 import ekud.command.Command;
+
+import java.util.List;
+
 import ekud.command.ByeCommand;
 import ekud.command.CreateDeadlineCommand;
 import ekud.command.CreateEventCommand;
 import ekud.command.CreateTodoCommand;
 import ekud.command.DeleteCommand;
+import ekud.command.FindCommand;
 import ekud.command.ListCommand;
 import ekud.command.MarkCommand;
 import ekud.command.UnmarkCommand;
@@ -93,6 +97,12 @@ public final class Handler {
             }
             ui.showTaskRemoved(task);
             ui.showTaskCount(taskList);
+            return true;
+        } else if (command instanceof FindCommand) {
+            FindCommand findCommand = (FindCommand) command;
+            TaskList taskList = state.getTaskList();
+            List<Task> foundTasks = taskList.findTasks(findCommand.getQuery().trim());
+            ui.showFoundTasks(foundTasks);
             return true;
         } else {
             throw new UnsupportedOperationException("Invalid command!");

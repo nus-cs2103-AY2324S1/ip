@@ -2,6 +2,8 @@ package ekud.state;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 /**
  * Represents a list of tasks and implements the actions that can be performed
@@ -71,5 +73,20 @@ public final class TaskList {
             return null;
         }
         return tasks.remove(taskId - 1);
+    }
+
+    /**
+     * Finds tasks that match the given query within the task list, returning them
+     * as a list.
+     * Simply checks if the query is contained within the title of the task.
+     * 
+     * @param query The search query.
+     * @return The list of tasks that match the query.
+     */
+    public List<Task> findTasks(String query) {
+        return asList()
+                .stream()
+                .filter(task -> task.getTitle().contains(query))
+                .collect(Collectors.toList());
     }
 }

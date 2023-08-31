@@ -9,6 +9,7 @@ import ekud.command.CreateDeadlineCommand;
 import ekud.command.CreateEventCommand;
 import ekud.command.CreateTodoCommand;
 import ekud.command.DeleteCommand;
+import ekud.command.FindCommand;
 import ekud.command.ListCommand;
 import ekud.command.MarkCommand;
 import ekud.command.UnmarkCommand;
@@ -91,6 +92,12 @@ public final class Parser {
                 int taskId = parseIntArgument(argument);
                 return new DeleteCommand(taskId);
             }
+            case "find": {
+                if (argument.isEmpty()) {
+                    throw new ParseException(line, "A search query must be provided.");
+                }
+                return new FindCommand(argument);
+            }
             case "bye": {
                 return new ByeCommand();
             }
@@ -116,6 +123,7 @@ public final class Parser {
         public String getArgument() {
             return argument;
         }
+
     }
 
     private static Component parseComponent(String component) {
