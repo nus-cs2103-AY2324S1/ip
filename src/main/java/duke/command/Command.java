@@ -1,3 +1,9 @@
+package duke.command;
+
+import duke.Storage;
+import duke.TaskList;
+import duke.Ui;
+
 public abstract class Command {
     protected String fullCommand;
 
@@ -5,5 +11,5 @@ public abstract class Command {
         this.fullCommand = fullCommand;
     }
     public abstract boolean isExit();
-    public abstract void execute(TaskList tasks ,Ui ui, Storage storage);
+    public abstract void execute(TaskList tasks , Ui ui, Storage storage);
 }

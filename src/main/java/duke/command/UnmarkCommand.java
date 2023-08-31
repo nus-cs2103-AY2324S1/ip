@@ -1,15 +1,23 @@
-public class MarkCommand extends Command {
-    public MarkCommand(String fullCommand) {
+package duke.command;
+
+import duke.Storage;
+import duke.TaskList;
+import duke.Ui;
+import duke.exception.InvalidArgumentException;
+import duke.task.Task;
+
+public class UnmarkCommand extends Command {
+    public UnmarkCommand(String fullCommand) {
         super(fullCommand);
     }
     @Override
-    public void execute(TaskList tasks ,Ui ui, Storage storage) {
+    public void execute(TaskList tasks , Ui ui, Storage storage) {
         try {
             String[] words = this.fullCommand.split(" ", 2);
             Task t = tasks.getTasks().get(Integer.parseInt(words[1]) - 1);
-            t.markDone();
+            t.markUndone();
             Ui.showLine();
-            System.out.println("Nice! I've marked this task as done:");
+            System.out.println("OK, I've marked this task as not done yet:");
             System.out.println(t);
             Ui.showLine();
         } catch (NumberFormatException | IndexOutOfBoundsException e) {

@@ -1,3 +1,11 @@
+package duke.command;
+import duke.Storage;
+import duke.TaskList;
+import duke.Ui;
+import duke.exception.InvalidArgumentException;
+import duke.exception.InvalidDateException;
+import duke.task.Event;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 
@@ -7,7 +15,7 @@ public class EventCommand extends Command {
         super(fullCommand);
     }
     @Override
-    public void execute(TaskList tasks ,Ui ui, Storage storage) {
+    public void execute(TaskList tasks , Ui ui, Storage storage) {
         String[] words = this.fullCommand.split(" ", 2);
         if(words.length < 2) {
             throw new InvalidArgumentException("event");
