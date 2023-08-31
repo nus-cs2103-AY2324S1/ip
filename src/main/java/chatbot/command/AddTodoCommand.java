@@ -1,3 +1,9 @@
+package chatbot.command;
+
+import chatbot.Ui;
+import chatbot.ChatbotException;
+import chatbot.task.TaskManager;
+
 public class AddTodoCommand extends Command {
     private String description;
 

@@ -1,3 +1,8 @@
+package chatbot.command;
+
+import chatbot.Ui;
+import chatbot.task.TaskManager;
+
 public class ExitCommand extends Command {
 
     @Override

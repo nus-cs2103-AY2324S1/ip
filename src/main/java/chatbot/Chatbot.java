@@ -1,3 +1,8 @@
+package chatbot;
+
+import chatbot.task.*;
+import chatbot.command.Command;
+
 public class Chatbot {
     private TaskManager taskManager;
     private Ui ui;

@@ -1,4 +1,10 @@
-public class AddDeadlineCommand extends Command {
+package chatbot.command;
+
+import chatbot.Ui;
+import chatbot.ChatbotException;
+
+
+public class AddDeadlineCommand extends chatbot.command.Command {
     private String description;
     private String time;
 
@@ -8,7 +14,7 @@ public class AddDeadlineCommand extends Command {
     }
 
     @Override
-    public void execute(TaskManager taskManager, Ui ui) throws ChatbotException {
+    public void execute(chatbot.task.TaskManager taskManager, Ui ui) throws ChatbotException {
         taskManager.addDeadlines(description, time);
     }
 

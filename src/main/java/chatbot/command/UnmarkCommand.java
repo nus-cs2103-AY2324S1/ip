@@ -1,13 +1,19 @@
-public class MarkCommand extends Command {
+package chatbot.command;
+
+import chatbot.Ui;
+import chatbot.ChatbotException;
+import chatbot.task.TaskManager;
+
+public class UnmarkCommand extends Command {
     private int index;
 
-    public MarkCommand(int index) {
+    public UnmarkCommand(int index) {
         this.index = index;
     }
 
     @Override
     public void execute(TaskManager taskManager, Ui ui) throws ChatbotException {
-        taskManager.taskDone(index);
+        taskManager.unMarktask(index);
     }
 
     @Override
