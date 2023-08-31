@@ -21,18 +21,9 @@ public class Deadline extends Task {
         }
     }
 
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("[D]");
-        sb.append("[" + getStatusIcon() + "] ");
-        sb.append(description);
-        sb.append(" (by: " + displayTime() + ")");
-        return sb.toString();
-    }
-
     /**
      * If deadline is a datetime, convert to datetime object
+     *
      * @param deadlineString String of the deadline
      */
     public static LocalDateTime convertDate(String deadlineString) {
@@ -78,8 +69,19 @@ public class Deadline extends Task {
         return null;
     }
 
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("[D]");
+        sb.append("[" + getStatusIcon() + "] ");
+        sb.append(description);
+        sb.append(" (by: " + displayTime() + ")");
+        return sb.toString();
+    }
+
     /**
      * Checks if it is a deadline, to differentiate between tasks
+     *
      * @return true
      */
     @Override
@@ -122,8 +124,7 @@ public class Deadline extends Task {
     public String displayTime() {
         if (isDateTime) {
             return deadlineDateTime.format(DateTimeFormatter.ofPattern("dd-MMM-yyyy HH:mm")).replaceAll("[T\\-/]", " ");
-        }
-        else {
+        } else {
             return deadlineString;
         }
     }

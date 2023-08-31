@@ -5,8 +5,6 @@ import util.Ui;
 
 import java.util.Scanner;
 
-import static java.lang.Integer.parseInt;
-
 public class EpochMind {
 
     public static void main(String[] args) {

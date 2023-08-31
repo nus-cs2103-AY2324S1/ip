@@ -11,12 +11,15 @@ import static java.lang.Integer.parseInt;
 public class Parser {
     public TaskList tasks;
     public Storage storage;
+
     public Parser(TaskList tasks, Storage storage) {
         this.tasks = tasks;
         this.storage = storage;
     }
+
     /**
      * Helper function to remove the first command word
+     *
      * @param command String obtained from scanner
      * @return String without first command word
      */
@@ -36,6 +39,7 @@ public class Parser {
 
     /**
      * Helper function to get the index from command
+     *
      * @param command
      * @return
      */
@@ -58,6 +62,7 @@ public class Parser {
 
     /**
      * Executes the command
+     *
      * @param command User input
      */
     public void execute(String command) {
@@ -106,6 +111,7 @@ public class Parser {
 
     /**
      * Parse command for todo creation
+     *
      * @param command User Input
      */
     public void toDoParser(String command) {
@@ -120,6 +126,7 @@ public class Parser {
 
     /**
      * Parse command for deadline creation
+     *
      * @param command User Input
      */
     public void deadlineParser(String command) {
@@ -143,6 +150,7 @@ public class Parser {
 
     /**
      * Add an event task
+     *
      * @param command String obtained from scanner
      */
     public void eventParser(String command) {
