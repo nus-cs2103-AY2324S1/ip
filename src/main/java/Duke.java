@@ -4,8 +4,6 @@ import java.lang.reflect.Array;
 import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 import java.util.ArrayList;
-import java.io.File;
-import java.io.FileWriter;
 import java.io.FileNotFoundException;
 
 public class Duke {
@@ -14,9 +12,10 @@ public class Duke {
         Scanner scanner = new Scanner(System.in);
         ArrayList<Task> tasks;
         String filepath = "data/tasks.txt";
+        Storage storage = new Storage(filepath);
 
         try {
-            tasks = readFile(filepath);
+            tasks = storage.readFile();
         } catch (FileNotFoundException e) {
             tasks = new ArrayList<>();
         }
@@ -37,7 +36,7 @@ public class Duke {
 
             if (command.equals("bye")) {
                 try {
-                    writeToFile(tasks, filepath);
+                    storage.writeToFile(tasks);
                     System.out.println("Bye. Hope to see you again soon!");
                     printLine();
                     break;
@@ -174,74 +173,6 @@ public class Duke {
         }
     }
 
-
-    public static Task constructTaskFromFile(String line) {
-        String type = line.substring(1, 2);
-        String doneString = line.substring(4, 5);
-        String text = line.substring(7);
-
-        String description;
-        Task newTask = new Task("");
-
-        switch (type) {
-            case "T":
-                description = text;
-                newTask = new ToDo(text);
-                break;
-
-            case "D":
-                int OpenBracketIndex = text.indexOf("(by: ");
-                description = text.substring(0, OpenBracketIndex -1);
-                String by = text.substring(OpenBracketIndex + 5, text.length()-1);
-                newTask = new Deadline(description, by, true);
-                break;
-
-            case "E":
-                int fromIndex = text.indexOf("(from: ");
-                int toIndex = text.indexOf("to: ");
-
-                description = text.substring(0, fromIndex-1);
-                String from = text.substring(fromIndex+7, toIndex-1);
-                String to = text.substring(toIndex+4, text.length()-1);
-                newTask = new Event(description, from, to, true);
-                break;
-        }
-
-        boolean done = doneString.equals("X");
-        newTask.setDone(done);
-        return newTask;
-    }
-
-
-    public static ArrayList<Task> readFile(String filepath) throws FileNotFoundException {
-        File file = new File(filepath);
-        Scanner fileScanner = new Scanner(file);
-        ArrayList<Task> tasks = new ArrayList<>();
-        while (fileScanner.hasNext()) {
-            String line = fileScanner.nextLine();
-            tasks.add(constructTaskFromFile(line));
-        }
-
-        return tasks;
-    }
-
-
-    public static void writeToFile(ArrayList<Task> tasks, String filepath) throws IOException {
-        // create data folder if it does not exist
-        File file = new File(filepath);
-        System.out.println(System.getProperty("user.dir"));
-        if (!file.getParentFile().exists()) {
-            System.out.println("FILE does not exists");
-            file.getParentFile().mkdir();
-        }
-
-        FileWriter fileWriter = new FileWriter(filepath);
-        for (Task task : tasks) {
-            String line = task.toString() + "\n";
-            fileWriter.write(line);
-        }
-        fileWriter.close();
-    }
 
     public static void printLine() {
         System.out.println("____________________________________________________________");
