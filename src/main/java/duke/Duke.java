@@ -30,7 +30,7 @@ public class Duke {
                 if (parser.bye()) {
                     break;
                 }
-                if (parser.list()){
+                if (parser.list()) {
                     tasks.printFileContents();
                 } else if (parser.mark()) {
                     tasks.mark(userInput);
