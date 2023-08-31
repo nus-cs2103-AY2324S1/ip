@@ -54,6 +54,15 @@ public class Ui {
         displayLine();
     }
 
+    public void showFind(TaskList matchingTasks) {
+        displayLine();
+        System.out.println("Here are the matching tasks in your list:");
+        for (int i = 0; i < matchingTasks.size(); i++) {
+            System.out.println((i + 1) + "." + matchingTasks.get(i));
+        }
+        displayLine();
+    }
+
     public void displayError(DukeException e) {
         System.out.println(e.getMessage());
     }

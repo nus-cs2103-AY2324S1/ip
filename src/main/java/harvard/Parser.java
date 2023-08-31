@@ -92,6 +92,14 @@ public class Parser {
             String[] split = command.split(" ");
             int index = Integer.parseInt(split[1]) - 1;
             return new UnmarkCommand(index);
+        } else if (command.startsWith("find")) {
+            // Parse and return a FindCommand
+            String[] split = command.split(" ");
+            if (split.length != 2) {
+                throw new DukeException("☹ OOPS!!! The keyword must be specified.");
+            }
+            String keyword = split[1];
+            return new FindCommand(keyword);
         } else {
             throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
