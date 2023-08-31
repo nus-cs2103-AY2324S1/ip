@@ -13,7 +13,7 @@ public interface Command {
      * @param storage A Storage to save and load tasks
      * @return The updated TaskList after execution.
      */
-    public TaskList execute(TaskList tasks, Ui ui, Storage storage) throws Exception;
+    TaskList execute(TaskList tasks, Ui ui, Storage storage) throws Exception;
 
     /**
      * Returns true for ExitCommand and false for all other cases.
@@ -29,5 +29,5 @@ public interface Command {
      * @return A boolean indicating whether they are equal or not.
      */
     @Override
-    public boolean equals(Object o);
+    boolean equals(Object o);
 }

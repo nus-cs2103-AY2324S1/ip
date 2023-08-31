@@ -25,7 +25,7 @@ public class ExitCommand implements Command {
      * @return Current TaskList.
      */
     @Override
-    public TaskList execute(TaskList tasks, Ui ui, Storage storage) throws Exception{
+    public TaskList execute(TaskList tasks, Ui ui, Storage storage) throws Exception {
         ui.showGoodbye();
         return tasks;
     }

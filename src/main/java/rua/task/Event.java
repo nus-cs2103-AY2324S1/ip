@@ -3,7 +3,7 @@ package rua.task;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-public class Event extends Task{
+public class Event extends Task {
     private final LocalDate from;
     private final LocalDate to;
 
@@ -91,8 +91,8 @@ public class Event extends Task{
      */
     @Override
     public Boolean isHappeningOnThatDate(LocalDate date) {
-        return (date.isEqual(from) || date.isAfter(from)) &&
-                (date.isEqual(to) || date.isBefore(to));
+        return (date.isEqual(from) || date.isAfter(from))
+                && (date.isEqual(to) || date.isBefore(to));
     }
 
     /**
@@ -113,10 +113,10 @@ public class Event extends Task{
         Event c = (Event) o;
 
         // Compare the data members and return accordingly
-        return c.description.equals(this.description) &&
-                c.isMarked.equals(this.isMarked) &&
-                c.from.isEqual(this.from) &&
-                c.to.isEqual(this.to);
+        return c.description.equals(this.description)
+                && c.isMarked.equals(this.isMarked)
+                && c.from.isEqual(this.from)
+                && c.to.isEqual(this.to);
     }
 
     /**
@@ -127,9 +127,9 @@ public class Event extends Task{
      */
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " +
-                this.from.format(DateTimeFormatter.ofPattern("MM dd yyyy")) +
-                " to: " + this.to.format(DateTimeFormatter.ofPattern("MM dd yyyy")) +
-                ")";
+        return "[E]" + super.toString() + " (from: "
+                + this.from.format(DateTimeFormatter.ofPattern("MM dd yyyy"))
+                + " to: " + this.to.format(DateTimeFormatter.ofPattern("MM dd yyyy"))
+                + ")";
     }
 }

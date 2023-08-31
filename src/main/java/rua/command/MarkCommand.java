@@ -32,14 +32,14 @@ public class MarkCommand implements Command {
      * @return The updated TaskList after marking/unmarking the Task.
      */
     @Override
-    public TaskList execute(TaskList tasks, Ui ui, Storage storage) throws Exception{
+    public TaskList execute(TaskList tasks, Ui ui, Storage storage) throws Exception {
         if (marked) {
             ui.showMessage("Nice! I've marked this task as done:\n");
         } else {
             ui.showMessage("OK, I've marked this task as not done yet:\n");
         }
         TaskList newTasks = marked ? tasks.mark(index) : tasks.unmark(index);
-        ui.showMessage("    " + tasks.getTasks().get(index - 1));;
+        ui.showMessage("    " + tasks.getTasks().get(index - 1));
         return newTasks;
     }
 

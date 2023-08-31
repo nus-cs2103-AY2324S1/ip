@@ -105,8 +105,8 @@ public class Task {
         Task c = (Task) o;
 
         // Compare the data members and return accordingly
-        return c.description.equals(this.description) &&
-                c.isMarked.equals(this.isMarked);
+        return c.description.equals(this.description)
+                && c.isMarked.equals(this.isMarked);
     }
 
     /**

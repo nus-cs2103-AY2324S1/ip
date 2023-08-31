@@ -24,7 +24,7 @@ public class ListCommand implements Command {
      * @return Current TaskList.
      */
     @Override
-    public TaskList execute(TaskList tasks, Ui ui, Storage storage) throws Exception{
+    public TaskList execute(TaskList tasks, Ui ui, Storage storage) throws Exception {
         ui.showMessage(tasks.toString() + "\n");
         return tasks;
     }

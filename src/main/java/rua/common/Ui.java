@@ -3,6 +3,7 @@ package rua.common;
 import java.io.InputStream;
 import java.io.PrintStream;
 import java.util.Scanner;
+
 public class Ui {
     private final Scanner in;
     private final PrintStream out;
@@ -15,20 +16,21 @@ public class Ui {
         this.in = new Scanner(in);
         this.out = out;
     }
+
     public void showLine() {
         out.println("____________________________________________________________");
     }
 
     public void showWelcome() {
-        String greeting = "____________________________________________________________\n" +
-                " Hello! I'm Rua, your ChatBot\n" +
-                " What can I do for you?\n" +
-                "____________________________________________________________";
+        String greeting = "____________________________________________________________\n"
+                + " Hello! I'm Rua, your ChatBot\n"
+                + " What can I do for you?\n"
+                + "____________________________________________________________";
         out.println(greeting);
     }
 
     public void showGoodbye() {
-        String goodbye= " Bye. Hope to see you again soon!";
+        String goodbye = " Bye. Hope to see you again soon!";
         out.println(goodbye);
     }
 

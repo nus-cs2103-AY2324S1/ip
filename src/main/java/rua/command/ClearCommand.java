@@ -23,7 +23,7 @@ public class ClearCommand implements Command{
      * @return The empty TaskList after execution.
      */
     @Override
-    public TaskList execute(TaskList tasks, Ui ui, Storage storage) throws Exception{
+    public TaskList execute(TaskList tasks, Ui ui, Storage storage) throws Exception {
         ui.showMessage("Task list cleared.\n");
         tasks = new TaskList();
         storage.save(tasks);
@@ -41,7 +41,6 @@ public class ClearCommand implements Command{
         if (o == this) {
             return true;
         }
-
         return o instanceof ClearCommand;
     }
 }

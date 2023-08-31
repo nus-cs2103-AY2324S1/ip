@@ -1,10 +1,11 @@
 package rua.command;
 
 import java.time.LocalDate;
+
 import rua.task.TaskList;
 import rua.common.*;
 
-public class DateSearchCommand implements Command{
+public class DateSearchCommand implements Command {
     private final LocalDate date;
 
     public DateSearchCommand(LocalDate date) {
@@ -30,9 +31,9 @@ public class DateSearchCommand implements Command{
      * @return Current TaskList.
      */
     @Override
-    public TaskList execute(TaskList tasks, Ui ui, Storage storage) throws Exception{
+    public TaskList execute(TaskList tasks, Ui ui, Storage storage) throws Exception {
         ui.showMessage(" These are events happening on that day\n");
-        String result = tasks.dateSearch(date);
+        String result = tasks.searchByDate(date);
         ui.showMessage(result);
         return tasks;
     }

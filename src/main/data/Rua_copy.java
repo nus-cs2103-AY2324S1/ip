@@ -79,7 +79,7 @@ public class Rua_copy {
                     if (arr.length == 1) {
                         throw new EmptyDescriptionException("date search");
                     }
-                    System.out.println(taskList.dateSearch(LocalDate.parse(arr[1])));
+                    System.out.println(taskList.searchByDate(LocalDate.parse(arr[1])));
                 }
                 else {
                     throw new InvalidCommandException();

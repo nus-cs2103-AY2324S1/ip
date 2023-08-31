@@ -71,8 +71,8 @@ public class Todo extends Task{
         Todo c = (Todo) o;
 
         // Compare the data members and return accordingly
-        return c.description.equals(this.description) &&
-                c.isMarked.equals(this.isMarked);
+        return c.description.equals(this.description)
+                && c.isMarked.equals(this.isMarked);
     }
 
     /**

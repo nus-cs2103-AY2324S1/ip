@@ -99,7 +99,7 @@ public class TaskList {
      * @param date A date that will be searched.
      * @return A String with information of all tasks happening on a given date.
      */
-    public String dateSearch(LocalDate date) {
+    public String searchByDate(LocalDate date) {
         String res= "";
         for (int i = 0; i < tasks.size(); i++) {
             if (tasks.get(i).isHappeningOnThatDate(date)) {
@@ -119,8 +119,7 @@ public class TaskList {
     public String toString() {
         String result = "Here are the tasks in your list:\n";
         for (int i = 0; i < tasks.size(); i++) {
-            result = result + Integer.toString(i + 1) +
-                    ": " + tasks.get(i).toString() + "\n";
+            result = result + (i + 1) + ": " + tasks.get(i).toString() + "\n";
         }
         return result;
     }

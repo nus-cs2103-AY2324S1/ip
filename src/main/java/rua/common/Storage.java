@@ -1,7 +1,5 @@
 package rua.common;
 
-import rua.task.*;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -10,6 +8,12 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.io.IOException;
+
+import rua.task.Deadline;
+import rua.task.Event;
+import rua.task.Task;
+import rua.task.Todo;
+import rua.task.TaskList;
 import rua.exception.InvalidTypeException;
 
 public class Storage {
@@ -32,22 +36,24 @@ public class Storage {
      * @throws InvalidTypeException if the task type is not supported.
      */
     static Task stringToTask(String str) throws InvalidTypeException{
-        String[] arr = str.split(" \\| ");
+        String[] features = str.split(" \\| ");
         Task output;
         DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("MM dd yyyy");
-        switch (arr[0]) {
-            case "T":
-                output = new Todo(arr[2], arr[1].equals("1"));
-                break;
-            case "D":
-                output = new Deadline(arr[2], LocalDate.parse(arr[3], dateFormat), arr[1].equals("1"));
-                break;
-            case "E":
-                output = new Event(arr[2], LocalDate.parse(arr[3], dateFormat), LocalDate.parse(arr[4], dateFormat), arr[1].equals("1"));
-                break;
-            default:
-                output = null;
-                throw new InvalidTypeException(arr[0]);
+        switch (features[0]) {
+        case "T":
+            output = new Todo(features[2], features[1].equals("1"));
+            break;
+        case "D":
+            output = new Deadline(features[2], LocalDate.parse(features[3], dateFormat),
+                    features[1].equals("1"));
+            break;
+        case "E":
+            output = new Event(features[2], LocalDate.parse(features[3], dateFormat),
+                    LocalDate.parse(features[4], dateFormat), features[1].equals("1"));
+            break;
+        default:
+            output = null;
+            throw new InvalidTypeException(features[0]);
         }
         return output;
     }
@@ -59,20 +65,21 @@ public class Storage {
      * @return The corresponding String.
      * @throws InvalidTypeException if the task type is not supported.
      */
-    static String taskToString(Task task) throws InvalidTypeException{
-        String output = task.getType() + " | " + (task.isMarked() ? 1:0) + " | "+ task.getDescription();
+    static String taskToString(Task task) throws InvalidTypeException {
+        String output = task.getType() + " | " + (task.isMarked() ? 1 : 0)
+                + " | " + task.getDescription();
         switch (task.getType()) {
-            case "T":
-                break;
-            case "D":
-                output += " | " + ((Deadline) task).getDue();
-                break;
-            case "E":
-                output += " | " + ((Event) task).getFrom() + " | " + ((Event) task).getTo();
-                break;
-            default:
-                output = null;
-                throw new InvalidTypeException(task.getType());
+        case "T":
+            break;
+        case "D":
+            output += " | " + ((Deadline) task).getDue();
+            break;
+        case "E":
+            output += " | " + ((Event) task).getFrom() + " | " + ((Event) task).getTo();
+            break;
+        default:
+            output = null;
+            throw new InvalidTypeException(task.getType());
         }
         return output;
     }
@@ -111,8 +118,7 @@ public class Storage {
             }
             fw.write(saveTxt);
             fw.close();
-        }
-        catch (FileNotFoundException exp) {
+        } catch (FileNotFoundException exp) {
             Scanner sc = new Scanner(System.in);
             System.out.println("Target file not found. Do you want to create it now? Please type yes or no\n");
             String create = sc.nextLine();
@@ -127,8 +133,7 @@ public class Storage {
                 System.out.println("File successfully created. Progress saved.\n");
                 try {
                     save(tasks);
-                }
-                catch (IOException ioExp) {
+                } catch (IOException ioExp) {
                     System.out.println("Some error occurs and progress is not saved.\n");
                 }
             }

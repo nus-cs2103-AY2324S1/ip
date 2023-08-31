@@ -3,7 +3,7 @@ package rua.task;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-public class Deadline extends Task{
+public class Deadline extends Task {
     private final LocalDate due;
 
     /**
@@ -98,9 +98,9 @@ public class Deadline extends Task{
         Deadline c = (Deadline) o;
 
         // Compare the data members and return accordingly
-        return c.description.equals(this.description) &&
-                c.isMarked.equals(this.isMarked) &&
-                c.due.isEqual(this.due);
+        return c.description.equals(this.description)
+                && c.isMarked.equals(this.isMarked)
+                && c.due.isEqual(this.due);
     }
 
     /**
@@ -111,7 +111,7 @@ public class Deadline extends Task{
      */
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " +
-                due.format(DateTimeFormatter.ofPattern("MM dd yyyy"))  + ")";
+        return "[D]" + super.toString() + " (by: "
+                + due.format(DateTimeFormatter.ofPattern("MM dd yyyy")) + ")";
     }
 }

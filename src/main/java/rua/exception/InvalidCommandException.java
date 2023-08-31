@@ -1,4 +1,5 @@
 package rua.exception;
+
 public class InvalidCommandException extends Exception{
     /**
      * Returns the error message of this exception.
