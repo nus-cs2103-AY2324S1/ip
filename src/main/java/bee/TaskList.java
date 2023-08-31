@@ -15,6 +15,10 @@ public class TaskList {
         this.tasks = tasks;
     }
 
+    public int size() {
+        return this.tasks.size();
+    }
+
     public void quietlyAddTask(Task task) {
         this.tasks.add(task);
     }
@@ -37,6 +41,9 @@ public class TaskList {
         return tasks;
     }
 
+    public Task getTask(int index) {
+        return tasks.get(index);
+    }
     public void setTaskDone(int taskIndex) throws BeeException {
         if (taskIndex > this.tasks.size() || taskIndex < 1) {
             throw new BeeException("OOPS!! Please enter a valid task number.");
