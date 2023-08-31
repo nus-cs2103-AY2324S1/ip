@@ -1,3 +1,4 @@
-[D][X] list (by: Oct 15 2019)
-[T][ ] 3
-[T][ ] 2
+[T][ ] student
+[T][ ] student life fair
+[E][ ] student life fair (from: 2pm to 3pm)
+[D][ ] student life fair (by: 3pm)
