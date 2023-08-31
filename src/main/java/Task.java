@@ -1,7 +1,7 @@
 /**
  * Class For Task
  */
-public class Task {
+public abstract class Task {
     /**
      * To show whether it is marked/not
      */
@@ -42,17 +42,25 @@ public class Task {
         }
     }
 
+    public String getName() {
+        return this.name;
+    }
+
+    public Boolean getMarkStatus() {
+        return this.isDone;
+    }
+    public abstract String writeString();
     /**
      * To check whether the input is a task
      * @param input the task
      * @return Boolean
-     * @throws TodoEmptyNameException
+     * @throws DukeException
      */
-    public static boolean isTask(String input) throws CommanNotFoundException {
+    public static boolean isTask(String input) throws DukeException {
         if(input.split( " ")[0].equals("todo") || input.split( " ")[0].equals("deadline") || input.split( " ")[0].equals("event")) {
             return true;
         } else {
-            throw new CommanNotFoundException();
+            throw new DukeException("OOPS!!! I'm sorry, but I don't know what that means");
         }
     }
 }

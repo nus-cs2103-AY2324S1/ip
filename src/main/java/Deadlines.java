@@ -17,6 +17,15 @@ public class Deadlines extends Task{
         this.ddl = ddl;
     }
 
+    @Override
+    public String writeString() {
+        if (this.getMarkStatus()) {
+            return "D,0" + this.getName() + "," + this.ddl + "\n";
+        } else  {
+            return "D,1," + this.getName() + "," + this.ddl + "\n";
+        }
+    }
+
     /**
      * Convert to string
      * @return a string
@@ -30,14 +39,14 @@ public class Deadlines extends Task{
      * To check whether the input is a Deadlines
      * @param input the task
      * @return Boolean
-     * @throws TodoEmptyNameException
+     * @throws DukeException
      */
-    public static boolean isDeadline(String input) throws DeadlineEmptyNameException, DeadlineByNotFoundException {
+    public static boolean isDeadline(String input) throws DukeException {
         if(input.split( " ")[0].equals("deadline")) {
             if (input.split(" ").length == 1) {
-                throw new DeadlineEmptyNameException();
+                throw new DukeException("OOPS! The description of deadline cannot be empty");
             } else if (input.indexOf("/by ") == -1){
-                throw new DeadlineByNotFoundException();
+                throw new DukeException("OOPS! The description of deadline does not contain /by");
             } else {
                 return true;
             }

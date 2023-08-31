@@ -23,6 +23,15 @@ public class Events extends Task{
         this.end = end;
     }
 
+    @Override
+    public String writeString() {
+        if (this.getMarkStatus()) {
+            return "E,0," + this.getName() + "," + this.start + "," + this.end + "\n";
+        } else  {
+            return "E,1," + this.getName() + "," + this.start + "," + this.end + "\n";
+        }
+    }
+
     /**
      * To convert the task to string
      * @return a string
@@ -36,16 +45,16 @@ public class Events extends Task{
      * To check whether the input is a Deadlines
      * @param input the task
      * @return Boolean
-     * @throws TodoEmptyNameException
+     * @throws DukeException
      */
-    public static boolean isEvent(String input) throws EventEmptyNameException, EventFromNotFoundException, EventToNotFoundException {
+    public static boolean isEvent(String input) throws DukeException {
         if(input.split( " ")[0].equals("event")) {
             if (input.split(" ").length == 1) {
-                throw new EventEmptyNameException();
+                throw new DukeException("OOPS! The description of event cannot be empty");
             } else if (input.indexOf("/from ") == -1){
-                throw new EventFromNotFoundException();
+                throw new DukeException("OOPS! The description of event does not contain /from");
             } else if (input.indexOf("/to ") == -1){
-                throw new EventToNotFoundException();
+                throw new DukeException("OOPS! The description of event does not contain /to");
             } else {
                 return true;
             }
