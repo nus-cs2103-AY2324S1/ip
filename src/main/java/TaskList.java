@@ -1,10 +1,9 @@
-package tasks;
-
 import exceptions.DukeException;
+import tasks.Deadline;
+import tasks.Event;
+import tasks.Task;
+import tasks.ToDo;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
 import java.util.ArrayList;
 
 public class TaskList {
@@ -15,51 +14,39 @@ public class TaskList {
         this.tasks = new ArrayList<>(0);
     }
 
-    public TaskList(String filePath) {
+    public TaskList(String content) {
         this.tasks = new ArrayList<>(0);
-        try {
-            BufferedReader reader = new BufferedReader(new FileReader(filePath));
-            String line = reader.readLine();
 
-            while (line != null) {
-
-                addTextToTask(line);
-                line = reader.readLine();
-            }
-
-            reader.close();
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-
-
-
-
+        addTextToTask(content);
     }
 
-    public void addTextToTask(String input) {
-        String[] parts = input.split(" ", 3);
+    public void addTextToTask(String content) {
+        String[] lines = content.split("\n");
 
-        if (parts[0].equals("T")) {
+        for (String line: lines) {
+            String[] parts = line.split(" ", 3);
+            if (parts[0].equals("T")) {
 
-            ToDo task = new ToDo(parts[2]);
-            this.tasks.add(task);
+                ToDo task = new ToDo(parts[2]);
+                this.tasks.add(task);
 
-        } else if (parts[0].equals("D")) {
+            } else if (parts[0].equals("D")) {
 
-            String[] arr = parts[2].split("/");
-            Deadline task = new Deadline(arr[0], arr[1]);
-            this.tasks.add(task);
+                String[] arr = parts[2].split("/");
+                Deadline task = new Deadline(arr[0], arr[1]);
+                this.tasks.add(task);
 
-        } else {
+            } else {
 
-            String[] arr = parts[2].split("/");
-            Event task = new Event(arr[0], arr[1], arr[2]);
-            this.tasks.add(task);
+                String[] arr = parts[2].split("/");
+                Event task = new Event(arr[0], arr[1], arr[2]);
+                this.tasks.add(task);
+
+            }
 
         }
+
+
     }
 
 
@@ -84,7 +71,7 @@ public class TaskList {
 
     }
 
-    public ArrayList<Task> getTasks() {
+    public ArrayList<Task> getTaskList() {
         return this.tasks;
     }
 

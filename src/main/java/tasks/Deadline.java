@@ -13,6 +13,11 @@ public class Deadline extends Task {
         setDateTime(end);
     }
 
+    public Deadline(String description, boolean isDone, String end) {
+        super(description, isDone);
+        setDateTime(end);
+    }
+
     public void setDateTime(String input) {
         String[] parts = input.split(" ", 2);
         System.out.println(parts[1]);
