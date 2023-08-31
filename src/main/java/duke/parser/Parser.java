@@ -3,6 +3,7 @@ package duke.parser;
 import duke.Duke;
 import duke.command.Command;
 import duke.exception.DukeException;
+import duke.ui.Ui;
 
 /**
  * The Parser to parse input for the Chatbot.
@@ -97,7 +98,7 @@ public class Parser {
         if (arr.length != 2) {
             throw new DukeException("Hey, the Deadline given is Invalid! " +
                     "Make sure that you follow this format:\n" +
-                    Duke.INDENTATION + "'taskDescription /by time'");
+                    Ui.INDENTATION + "'taskDescription /by time'");
         }
 
         return arr;
@@ -118,7 +119,7 @@ public class Parser {
         if (arr.length != 2) {
             throw new DukeException("Hey, the Event given is Invalid!" +
                     " Make sure that you follow this format:\n" +
-                    Duke.INDENTATION + " 'eventDescription /from startTime /to endTime'");
+                    Ui.INDENTATION + " 'eventDescription /from startTime /to endTime'");
         }
         String desc = arr[0];
 
@@ -126,7 +127,7 @@ public class Parser {
         if (startEnd.length != 2) {
             throw new DukeException("Hey, the Event given is Invalid!" +
                     " Make sure that you follow this format:\n" +
-                    Duke.INDENTATION + " 'eventDescription /from startTime /to endTime'");
+                    Ui.INDENTATION + " 'eventDescription /from startTime /to endTime'");
         }
         String start = startEnd[0];
         String end = startEnd[1];

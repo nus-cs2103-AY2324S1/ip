@@ -15,9 +15,6 @@ import java.util.ArrayList;
  */
 public class Duke {
 
-    /** The Indentation Level to format text. */
-    public static final String INDENTATION = "    ";
-
     /** The storage that is used to save and load the user's tasks. */
     private static Storage storage;
 

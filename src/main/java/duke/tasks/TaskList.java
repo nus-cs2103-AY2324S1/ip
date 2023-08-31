@@ -2,6 +2,7 @@ package duke.tasks;
 
 import duke.storage.Storage;
 import duke.exception.DukeException;
+import duke.ui.Ui;
 
 import java.util.ArrayList;
 
@@ -9,9 +10,8 @@ import java.util.ArrayList;
  * Represents a Task List to store User's Tasks.
  */
 public class TaskList {
-
     /** The Indentation Level to format text. */
-    private static final String INDENTATION = "    ";
+    private static final String INDENTATION = Ui.INDENTATION;
 
     /** The ArrayList to represent the Task List. */
     private ArrayList<Task> taskList;
