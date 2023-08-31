@@ -1,4 +1,8 @@
+package bongo.task;
+
 import java.time.LocalDateTime;
+import bongo.helper.BongoException;
+import bongo.helper.DateHelper;
 
 public class Deadline extends Task {
     LocalDateTime deadline;
@@ -20,6 +24,11 @@ public class Deadline extends Task {
         if (deadline.isBefore(LocalDateTime.now())) throw new BongoException("Deadline must be in the future.");
     }
 
+    @Override
+    public String generateStringForTextFile() {
+        String isTaskMarkedDone = this.isDone ? "1" : "0";
+        return String.join(" | ", "D", isTaskMarkedDone, this.description, DateHelper.formatter.format(this.deadline));
+    }
     @Override
     public String toString() {
         return "[D]" + super.toString() + String.format(" (by: %s)", super.generateDateString(this.deadline));

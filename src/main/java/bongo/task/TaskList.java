@@ -1,8 +1,9 @@
-import java.time.LocalDateTime;
+package bongo.task;
+
 import java.util.ArrayList;
 
 public class TaskList {
-    ArrayList<Task> tasks;
+    protected ArrayList<Task> tasks;
     public TaskList() {
         this.tasks = new ArrayList<>();
     }
@@ -11,27 +12,32 @@ public class TaskList {
         this.tasks = loadedTasks;
     }
 
-    protected int getTotalTasks() {
-        return this.tasks.size();
-    }
 
-    protected Task getTask(int taskIndex) {
+    public Task getTask(int taskIndex) {
         return this.tasks.get(taskIndex);
     }
 
-    protected void addTask(Task newTask) {
+    public void addTask(Task newTask) {
         tasks.add(newTask);
     }
 
-    protected void deleteTask(int taskIndex) {
+    public void deleteTask(int taskIndex) {
         tasks.remove(taskIndex);
     }
 
-    protected void markTaskDone(int taskIndex) {
+    public int getTotalTasks() {
+        return this.tasks.size();
+    }
+
+    public ArrayList<Task> getAllTasks() {
+        return this.tasks;
+    }
+
+    public void markTaskDone(int taskIndex) {
         tasks.get(taskIndex).markAsDone();
     }
 
-    protected void markTaskUndone(int taskIndex) {
+    public void markTaskUndone(int taskIndex) {
         tasks.get(taskIndex).markAsUndone();
     }
 }

@@ -1,5 +1,14 @@
+package bongo.command;
 import java.time.LocalDateTime;
-import java.util.Arrays;
+import bongo.task.TaskList;
+import bongo.helper.BongoException;
+import bongo.helper.DateHelper;
+import bongo.helper.Ui;
+import bongo.helper.Storage;
+import bongo.task.Deadline;
+import bongo.task.Event;
+import bongo.task.Todo;
+import bongo.task.Task;
 
 public class AddCommand extends Command {
     String[] command;
@@ -41,7 +50,7 @@ public class AddCommand extends Command {
     }
 
     @Override
-    protected void execute(TaskList tasks, Ui ui, Storage storage) {
+    public void execute(TaskList tasks, Ui ui, Storage storage) {
         tasks.addTask(newTask);
         ui.showAddedTask(newTask, tasks.getTotalTasks());
         storage.add(newTask);
