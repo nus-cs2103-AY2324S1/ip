@@ -18,12 +18,12 @@ public class Todo {
         return this.description;
     }
 
-    public void setDescription(String _description) {
-        this.description = _description;
-    }
-
     public boolean isComplete() {
         return this.isComplete;
+    }
+
+    public String getCompleteSymbol() {
+        return this.isComplete ? "X" : " ";
     }
 
     public void setComplete(boolean _isComplete) {

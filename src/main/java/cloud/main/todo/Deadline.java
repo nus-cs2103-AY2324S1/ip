@@ -17,8 +17,4 @@ public class Deadline extends Todo {
     public String getEnd() {
         return this.timestampEnd;
     }
-
-    public void setEnd(String end) {
-        this.timestampEnd = end;
-    }
 }

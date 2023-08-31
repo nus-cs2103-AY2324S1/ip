@@ -17,8 +17,4 @@ public class Event extends Deadline {
     public String getStart() {
         return this.timestampStart;
     }
-
-    public void setStart(String start) {
-        this.timestampStart = start;
-    }
 }

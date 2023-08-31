@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Scanner;
 
 import cloud.main.todo.Todo;
+import cloud.main.token.Token;
+import cloud.main.token.TokenManager;
 
 
 
@@ -12,26 +14,12 @@ import cloud.main.todo.Todo;
  * The chatbot's main class.
  */
 public class Cloud {
-    private static Scanner SCANNER = new Scanner(System.in);
-    private static List<Todo> TODOS = new ArrayList<>();
-
-    private static List<Token> toTokens(String input) {
-        String[] words = input.split(" ");
-        List<Token> tokens = new ArrayList<>();
-
-        for (int i = 0; i < words.length; i++) {
-            String word = words[i];
-            Token token = new Token(word);
-            tokens.add(token);
-        }
-        return tokens;
-    }
+    private static final Scanner SCANNER = new Scanner(System.in);
+    private static final List<Todo> TODOS = new ArrayList<>();
 
     private static void handle(String input) {
-        List<Token> tokens = Cloud.toTokens(input);
-
-        String command = tokens.size() >= 1 ? tokens.get(0).get() : "";
-        switch (command) {
+        TokenManager manager = new TokenManager(input);
+        switch (manager.getCommand()) {
         case "":
             Cloud.say("Please enter a valid command.");
             break;
@@ -47,7 +35,7 @@ public class Cloud {
             }
             break;
         case "mark": {
-            Integer number = Cloud.verifyNumber(tokens);
+            Integer number = Cloud.verifyNumber(manager);
             if (number == null) {
                 return;
             }
@@ -58,7 +46,7 @@ public class Cloud {
             break;
         }
         case "unmark": {
-            Integer number = Cloud.verifyNumber(tokens);
+            Integer number = Cloud.verifyNumber(manager);
             if (number == null) {
                 return;
             }
@@ -74,14 +62,15 @@ public class Cloud {
             break;
         default:
             // Stores new TODO
-            Todo todo = new Todo(input);
+            Todo todo = new Todo(manager.toString());
             Cloud.TODOS.add(todo);
             Cloud.sayTodo(todo, Cloud.TODOS.size());
             break;
         }
     }
 
-    private static Integer verifyNumber(List<Token> tokens) {
+    private static Integer verifyNumber(TokenManager manager) {
+        List<Token> tokens = manager.getTokens();
         if (tokens.size() <= 1) {
             return null;
         }
@@ -118,7 +107,7 @@ public class Cloud {
         Cloud.say(
             String.format(
                 "%s | #%d: %s",
-                todo.isComplete() ? "X" : " ",
+                todo.getCompleteSymbol(),
                 number,
                 todo.getDescription()
             )
