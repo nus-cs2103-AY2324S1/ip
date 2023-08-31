@@ -1,201 +1,144 @@
 package main.java;
 
-import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.Scanner;
-import java.util.ArrayList;
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.IOException;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
 import java.time.LocalDateTime;
 
 public class ChadBod {
     private static final String FILE_PATH = "./data/tasks.txt";
-    private static void saveTasks(ArrayList<Task> tasks) {
+    private Storage storage;
+    private TaskList tasks;
+    private Ui ui;
+    private static final int TASK_DISPLAY_OFFSET = 1;
+
+    public ChadBod(String filePath) {
+        ui = new Ui();
+        storage = new Storage(filePath);
         try {
-            File file = new File(FILE_PATH);
-            if (!file.exists()) {
-                // Create necessary directories and files
-                file.getParentFile().mkdirs();
-                file.createNewFile();
-            }
-            BufferedWriter writer = new BufferedWriter(new FileWriter(file));
-            for (Task task : tasks) {
-                writer.write(task.toFileString());
-                writer.newLine();
-            }
-            writer.close();
-        } catch (IOException e) {
-            System.out.println("Error saving tasks to file.");
-        } catch (SecurityException e) {
-            System.out.println("Error writing to file. Check permissions.");
+            tasks = storage.loadTasks();
+        } catch (ChadBodException e) {
+            ui.printErrorMessage(e.getMessage());
+            tasks = new TaskList();
         }
     }
 
-    private static ArrayList<Task> loadTasks() {
-        ArrayList<Task> tasks = new ArrayList<>();
-        try (BufferedReader reader = new BufferedReader(new FileReader(FILE_PATH))) {
-            String line;
-            while ((line = reader.readLine()) != null) {
-                Task task = Task.fromString(line);
-                if (task != null) {
-                    tasks.add(task);
-                } else {
-                    System.out.println("File content invalid. Skipping this task.");
-                }
-            }
-        } catch (FileNotFoundException e) {
-            System.out.println("Task storage file not found. Starting with an empty task list.");
-        } catch (IOException e) {
-            System.out.println("Error parsing task storage file. Starting with an empty task list.");
-        }
-
-        return tasks;
-    }
-
-    public static void main(String[] args) {
-        ArrayList<Task> tasks = loadTasks();
-        System.out.println("Hello! I'm ChadBod.");
-        System.out.println("What can I do for you?");
+    public void run() {
+        ui.showGreeting();
         Scanner sc = new Scanner(System.in);
         boolean shouldExit = false;
 
         while (!shouldExit) {
             String input = sc.nextLine();
-            // may need try catch here
-            String[] commandArray = input.split(" ", 2);
-            Command command = null;
             try {
-                if (commandArray.length > 0) {
-                    String commandString = commandArray[0];
-                    for (Command cmd : Command.values()) {
-                        if (cmd.getValue().equals(commandString)) {
-                            command = cmd;
-                            break;
-                        }
+                ParsedCommand parsedCommand = Parser.parseCommand(input);
+                String details = parsedCommand.getDetails();
+                switch (parsedCommand.getCommand()) {
+                case BYE:
+                    ui.showFarewell();
+                    shouldExit = true;
+                    break;
+                case LIST:
+                    ui.printTasks(tasks);
+                    break;
+                case MARK:
+                    int markTaskNumber = getTaskNumber(details);
+                    Task markedTask = tasks.getTask(markTaskNumber);
+                    markedTask.markDone();
+                    ui.printStatusUpdate(true, markedTask);
+                    storage.saveTasks(tasks);
+                    break;
+                case UNMARK:
+                    int unmarkTaskNumber = getTaskNumber(details);
+                    Task unmarkedTask = tasks.getTask(unmarkTaskNumber);
+                    unmarkedTask.markUndone();
+                    ui.printStatusUpdate(false, unmarkedTask);
+                    storage.saveTasks(tasks);
+                    break;
+                case TODO:
+                    if (details.isEmpty()) {
+                        throw new InvalidTaskException("Description of todo cannot be empty.");
                     }
-                }
-                if (command == null) {
+                    Todo newTodo = new Todo(details);
+                    tasks.addTask(newTodo);
+                    ui.printTaskAddedMessage(newTodo, tasks.getTaskCount());
+                    storage.saveTasks(tasks);
+                    break;
+                case DEADLINE:
+                    Deadline newDeadline = createDeadline(details);
+                    tasks.addTask(newDeadline);
+                    ui.printTaskAddedMessage(newDeadline, tasks.getTaskCount());
+                    storage.saveTasks(tasks);
+                    break;
+                case EVENT:
+                    Event newEvent = createEvent(details);
+                    tasks.addTask(newEvent);
+                    ui.printTaskAddedMessage(newEvent, tasks.getTaskCount());
+                    storage.saveTasks(tasks);
+                    break;
+                case DELETE:
+                    int taskNumber = getTaskNumber(details);
+                    Task removedTask = tasks.removeTask(taskNumber);
+                    ui.printTaskRemovedMessage(removedTask, tasks.getTaskCount());
+                    storage.saveTasks(tasks);
+                    break;
+                default:
                     throw new InvalidInputException();
                 }
-                switch (command) {
-                    case BYE:
-                        System.out.println("Bye. Hope to see you again soon!");
-                        shouldExit = true;
-                        break;
-                    case LIST:
-                        if (tasks.isEmpty()) {
-                            System.out.println("There are no tasks in your list!");
-                        } else {
-                            System.out.println("Here are the tasks in your list:");
-                            for (int i = 0; i < tasks.size(); i ++) {
-                                System.out.printf("%d.%s\n", i + 1, tasks.get(i));
-                            }
-                        }
-                        break;
-                    case MARK:
-                        int markTaskNumber = Integer.parseInt(commandArray[1]);
-                        if (markTaskNumber < 1 || markTaskNumber > tasks.size()) {
-                            throw new TaskIndexOutOfBoundsException();
-                        }
-                        Task markedTask = tasks.get(markTaskNumber - 1);
-                        markedTask.markDone();
-                        System.out.println("Nice! I've marked this task as done:");
-                        System.out.printf("%s\n", markedTask);
-                        saveTasks(tasks);
-                        break;
-                    case UNMARK:
-                        int unmarkTaskNumber = Integer.parseInt(commandArray[1]);
-                        if (unmarkTaskNumber < 1 || unmarkTaskNumber > tasks.size()) {
-                            throw new TaskIndexOutOfBoundsException();
-                        }
-                        Task unmarkedTask = tasks.get(unmarkTaskNumber - 1);
-                        unmarkedTask.markUndone();
-                        System.out.println("OK, I've marked this task as not done yet:");
-                        System.out.printf("%s\n", unmarkedTask);
-                        saveTasks(tasks);
-                        break;
-                    case TODO:
-                        if (commandArray.length < 2 || commandArray[1].isEmpty()) {
-                            throw new InvalidTaskException("Description of todo cannot be empty.");
-                        }
-                        Todo newTodo = new Todo(commandArray[1]);
-                        tasks.add(newTodo);
-                        System.out.println("Got it. I've added this task:");
-                        System.out.println(newTodo);
-                        System.out.printf("Now you have %d tasks in the list.\n", tasks.size());
-                        saveTasks(tasks);
-                        break;
-                    case DEADLINE:
-                        if (commandArray.length < 2 || commandArray[1].isEmpty()) {
-                            throw new InvalidTaskException("Description of deadline cannot be empty.");
-                        }
-                        String[] deadlineDetails = commandArray[1].split(" /by ", 2);
-                        if (deadlineDetails.length < 2 || deadlineDetails[1].isEmpty()) {
-                            throw new InvalidTaskException("Deadline due date cannot be empty.");
-                        }
-                        LocalDateTime byDate;
-                        try {
-                            byDate = LocalDateTime.parse(deadlineDetails[1]);
-                        } catch (DateTimeParseException e) {
-                            throw new InvalidTaskException("Deadline due date/time not in ISO format. (e.g. 2007-12-03T10:15:30)");
-                        }
-                        Deadline newDeadline = new Deadline(deadlineDetails[0], byDate);
-                        tasks.add(newDeadline);
-                        System.out.println("Got it. I've added this task:");
-                        System.out.println(newDeadline);
-                        System.out.printf("Now you have %d tasks in the list.\n", tasks.size());
-                        saveTasks(tasks);
-                        break;
-                    case EVENT:
-                        if (commandArray.length < 2 || commandArray[1].isEmpty()) {
-                            throw new InvalidTaskException("Description of event cannot be empty.");
-                        }
-                        String[] eventDetails = commandArray[1].split(" /from ", 2);
-                        if (eventDetails.length < 2 || eventDetails[1].isEmpty()) {
-                            throw new InvalidTaskException("Event timings cannot be empty.");
-                        }
-                        String[] eventTimings = eventDetails[1].split(" /to ", 2);
-                        if (eventTimings.length < 2 || eventTimings[1].isEmpty()) {
-                            throw new InvalidTaskException("Event from and to timings cannot be empty.");
-                        }
-                        LocalDateTime fromDate, toDate;
-                        try {
-                            fromDate = LocalDateTime.parse(eventTimings[0]);
-                            toDate = LocalDateTime.parse(eventTimings[1]);
-                        } catch (DateTimeParseException e) {
-                            throw new InvalidTaskException("Deadline due date/time not in ISO format. (e.g. 2007-12-03T10:15:30)");
-                        }
-                        Event newEvent = new Event(eventDetails[0], fromDate, toDate);
-                        tasks.add(newEvent);
-                        System.out.println("Got it. I've added this task:");
-                        System.out.println(newEvent);
-                        System.out.printf("Now you have %d tasks in the list.\n", tasks.size());
-                        saveTasks(tasks);
-                        break;
-                    case DELETE:
-                        int taskNumber = Integer.parseInt(commandArray[1]);
-                        if (taskNumber < 1 || taskNumber > tasks.size()) {
-                            throw new TaskIndexOutOfBoundsException();
-                        }
-                        Task deletedTask = tasks.remove(taskNumber - 1);
-                        System.out.println("Noted. I've removed this task:");
-                        System.out.printf("%s\n", deletedTask);
-                        System.out.printf("Now you have %d tasks in the list.\n", tasks.size());
-                        saveTasks(tasks);
-                        break;
-                    default:
-                        throw new InvalidInputException();
-                }
             } catch (NumberFormatException e) {
-                System.out.println("☹ OOPS!!! Invalid task index.");
+                ui.printErrorMessage("☹ OOPS!!! Invalid task index.");
             } catch (ChadBodException e) {
-                System.out.println(e.getMessage());
+                ui.printErrorMessage(e.getMessage());
             }
         }
+    }
+
+    private int getTaskNumber(String details) throws NumberFormatException, TaskIndexOutOfBoundsException {
+        int unmarkTaskNumber = Integer.parseInt(details);
+        if (unmarkTaskNumber < ChadBod.TASK_DISPLAY_OFFSET ||
+                unmarkTaskNumber > tasks.getTaskCount() - 1 + TASK_DISPLAY_OFFSET) {
+            throw new TaskIndexOutOfBoundsException();
+        }
+        return unmarkTaskNumber - TASK_DISPLAY_OFFSET;
+    }
+
+    private static Deadline createDeadline(String details) throws InvalidTaskException {
+        if (details.isEmpty()) {
+            throw new InvalidTaskException("Description of deadline cannot be empty.");
+        }
+        String[] deadlineDetails = details.split(" /by ", 2);
+        if (deadlineDetails.length < 2 || deadlineDetails[1].isEmpty()) {
+            throw new InvalidTaskException("Deadline due date cannot be empty.");
+        }
+        LocalDateTime byDate;
+        try {
+            byDate = LocalDateTime.parse(deadlineDetails[1]);
+        } catch (DateTimeParseException e) {
+            throw new InvalidTaskException("Deadline due date/time not in ISO format. (e.g. 2007-12-03T10:15:30)");
+        }
+        return new Deadline(deadlineDetails[0], byDate);
+    }
+    private static Event createEvent(String details) throws InvalidTaskException {
+        if (details.isEmpty()) {
+            throw new InvalidTaskException("Description of event cannot be empty.");
+        }
+        String[] eventDetails = details.split(" /from ", 2);
+        if (eventDetails.length < 2 || eventDetails[1].isEmpty()) {
+            throw new InvalidTaskException("Event timings cannot be empty.");
+        }
+        String[] eventTimings = eventDetails[1].split(" /to ", 2);
+        if (eventTimings.length < 2 || eventTimings[1].isEmpty()) {
+            throw new InvalidTaskException("Event from and to timings cannot be empty.");
+        }
+        LocalDateTime fromDate, toDate;
+        try {
+            fromDate = LocalDateTime.parse(eventTimings[0]);
+            toDate = LocalDateTime.parse(eventTimings[1]);
+        } catch (DateTimeParseException e) {
+            throw new InvalidTaskException("Deadline due date/time not in ISO format. (e.g. 2007-12-03T10:15:30)");
+        }
+        return new Event(eventDetails[0], fromDate, toDate);
+    }
+    public static void main(String[] args) {
+        new ChadBod(FILE_PATH).run();
     }
 }
