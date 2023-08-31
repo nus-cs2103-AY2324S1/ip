@@ -1,9 +1,11 @@
-package duke;
+package duke.task;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import duke.Duke;
 
 /**
  * Duke.TaskStorage class is used to store all the tasks in the list. It also has the capability of saving the tasks to
@@ -12,12 +14,15 @@ import java.util.Scanner;
  * The task list class and the storage class are not separated because I disagree with the idea of having a separate
  * storage class in this project since the storage class is not reusable and is tightly coupled with the task list.
  */
-class TaskStorage {
+public class TaskStorage {
     private final int size = 100;
     private final String filePath = "data/meowies.txt";
     private final ArrayList<Task> tasks = new ArrayList<>(size);
     private final File file;
 
+    /**
+     * Loads the tasks from the file.
+     */
     public TaskStorage() {
         this.file = new File(filePath);
         try {
@@ -32,6 +37,11 @@ class TaskStorage {
         }
     }
 
+    /**
+     * Loads the tasks from the file.
+     * @param input The input string.
+     * @return The output string.
+     */
     public String save(String input) {
         Task task;
         try {
@@ -46,6 +56,11 @@ class TaskStorage {
         return "added: " + task;
     }
 
+    /**
+     * Mark a task as done.
+     * @param index The index of the task.
+     * @return The output string.
+     */
     public String markAsDone(int index) {
         this.tasks.get(index).markAsDone();
         this.saveToFile();
@@ -53,6 +68,11 @@ class TaskStorage {
                 + "    " + this.tasks.get(index);
     }
 
+    /**
+     * Unmark a task as done.
+     * @param index The index of the task.
+     * @return The output string.
+     */
     public String unmarkAsDone(int index) {
         this.tasks.get(index).unmarkAsDone();
         this.saveToFile();
@@ -60,6 +80,11 @@ class TaskStorage {
                 + "    " + this.tasks.get(index);
     }
 
+    /**
+     * Delete a task.
+     * @param index The index of the task to delete.
+     * @return The output string.
+     */
     public String delete(int index) {
         Task task = this.tasks.get(index);
         this.tasks.remove(index);

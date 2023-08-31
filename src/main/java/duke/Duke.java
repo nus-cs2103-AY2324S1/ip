@@ -8,25 +8,34 @@ public class Duke {
     /**
      * All exceptions that arise when parsing user input.
      */
-    static class ParserException extends RuntimeException {
+    public static class ParserException extends RuntimeException {
         public ParserException(String message) {
             super(message);
         }
     }
 
-    static class WrongCommandException extends ParserException {
+    /**
+     * Exceptions that arise when the user input is not a valid command.
+     */
+    public static class WrongCommandException extends ParserException {
         public WrongCommandException(String message) {
             super(message);
         }
     }
 
-    static class WrongFormatException extends ParserException {
+    /**
+     * Exceptions that arise when the user input is not in the correct format.
+     */
+    public static class WrongFormatException extends ParserException {
         public WrongFormatException(String message) {
             super(message);
         }
     }
 
-    static class InvalidFileException extends RuntimeException {
+    /**
+     * Exceptions that arise when the file is corrupted.
+     */
+    public static class InvalidFileException extends RuntimeException {
         public InvalidFileException(String message) {
             super(message);
         }

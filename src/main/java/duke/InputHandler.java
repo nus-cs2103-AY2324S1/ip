@@ -2,6 +2,8 @@ package duke;
 
 import java.util.Scanner;
 
+import duke.task.TaskStorage;
+
 class InputHandler {
     private final Scanner scanner = new Scanner(System.in);
     private final UI.OutputUI outputUI;

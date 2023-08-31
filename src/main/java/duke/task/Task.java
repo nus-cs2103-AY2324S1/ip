@@ -1,8 +1,10 @@
-package duke;
+package duke.task;
 
 import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+
+import duke.Duke;
 
 abstract class Task {
     protected boolean isDone = false;
