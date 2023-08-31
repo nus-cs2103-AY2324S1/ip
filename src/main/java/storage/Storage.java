@@ -54,7 +54,7 @@ public class Storage {
                 }
                 Parser cmd = new Parser(command);
                 Commands action = cmd.parse();
-                action.execute(taskList, new Ui(), startLine, error);
+                action.execute(taskList, startLine, error);
                 startLine++;
             }
             readData.close();

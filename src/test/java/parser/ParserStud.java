@@ -19,14 +19,14 @@ public class ParserStud {
     public Commands parse() throws DukeException {
         Commands.COMMANDS cmd = this.mainCommand();
         if (cmd == Commands.COMMANDS.BYE || cmd == Commands.COMMANDS.LIST) {
-            return new Commands(cmd);
+            return Commands.of(cmd);
         }
 
         if (cmd == Commands.COMMANDS.TODO || cmd == Commands.COMMANDS.FIND) {
             if (this.secondWord() == null) {
                 throw new DukeException("Please add the task name");
             } else {
-                return new Commands(cmd, this.secondWord());
+                return Commands.of(cmd, this.secondWord());
             }
         }
 
@@ -34,7 +34,7 @@ public class ParserStud {
             String restOfCommand = this.secondWord().trim();
             try {
                 LocalDateTime dateTime = LocalDateTime.parse(restOfCommand, Duke.FORMAT);
-                return new Commands(cmd, dateTime);
+                return Commands.of(cmd, dateTime);
             } catch (DateTimeParseException e) {
                 throw new DukeDateTimeParseException("The format for dates&time is 'dd-MM-yyyy hhmm'");
             }
@@ -43,7 +43,7 @@ public class ParserStud {
         if (cmd == Commands.COMMANDS.MARK || cmd == Commands.COMMANDS.UNMARK || cmd == Commands.COMMANDS.DELETE) {
             try {
                 int index = Integer.parseInt(this.secondWord());
-                return new Commands(cmd, index);
+                return Commands.of(cmd, index);
             } catch (NumberFormatException e) {
                 throw new DukeNumberFormatException("Place a number after the command");
             }
@@ -56,8 +56,8 @@ public class ParserStud {
                 if (task != null) {
                     ParserStud phaseTwo = new ParserStud(command2);
                     Commands c = phaseTwo.parse();
-                    if (c.getCommand() == Commands.COMMANDS.BY) {
-                        return new Commands.TwoCommands(Commands.COMMANDS.DEADLINE, task, c);
+                    if (c.checkCommand(Commands.COMMANDS.BY)) {
+                        return Commands.of(Commands.COMMANDS.DEADLINE, task, c);
                     }
                 } else {
                     throw new DukeException("Please add the task name");
@@ -79,9 +79,9 @@ public class ParserStud {
                     Commands c1 = phaseTwo.parse();
                     ParserStud phaseThree = new ParserStud(command3);
                     Commands c2 = phaseThree.parse();
-                    if (c1.getCommand() == Commands.COMMANDS.FROM && c2.getCommand() == Commands.COMMANDS.TO) {
+                    if (c1.checkCommand(Commands.COMMANDS.FROM) && c2.checkCommand(Commands.COMMANDS.TO)) {
                         if (c1.compareTime(c2)) {
-                            return new Commands.ThreeCommands(Commands.COMMANDS.EVENT, task, c1, c2);
+                            return Commands.of(Commands.COMMANDS.EVENT, task, c1, c2);
                         } else {
                             throw new DukeFromEarlierThanToException("From must be earlier than To");
                         }
