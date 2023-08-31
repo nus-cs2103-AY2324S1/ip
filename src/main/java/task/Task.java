@@ -59,4 +59,13 @@ public abstract class Task implements Serializable {
         // return in format [statusIcon] taskname
     }
 
+    /**
+     * Gets task name of this task
+     * @return the task name of this task
+     */
+    public String getTaskName() {
+        return this.taskName;
+    }
+
+
 }

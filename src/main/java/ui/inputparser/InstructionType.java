@@ -14,6 +14,7 @@ public enum InstructionType {
     LIST("list", 0, 0, new String[]{}),
     QUIT("bye", 0 , 0, new String[]{}),
     DELETE("delete", 1, 0, new String[]{}),
+    FIND("find",1,0,new String[]{}),
     INVALID("", 0 , 0, new String[]{}); // placeholder for anything not recognised
 
     public final String alias;
