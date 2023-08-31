@@ -32,8 +32,9 @@ application {
 }
 
 shadowJar {
-    archiveBaseName = "duke"
+    archiveBaseName = "Jarvis"
     archiveClassifier = null
+    archiveFileName = 'Jarvis.jar'
     dependsOn("distZip", "distTar")
 }
 
