@@ -23,6 +23,10 @@ public class Task {
         this.isDone = false;
     }
 
+    public String getDescription() {
+        return this.description;
+    }
+
     /**
      * Method to get the status icon of the task.
      *
@@ -30,6 +34,10 @@ public class Task {
      */
     public String getStatusIcon() {
         return (isDone ? "X" : " "); // mark done task with X
+    }
+
+    public boolean isDone() {
+        return this.isDone;
     }
 
     /**
