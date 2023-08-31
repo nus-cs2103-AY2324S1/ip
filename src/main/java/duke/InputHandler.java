@@ -40,6 +40,12 @@ class InputHandler {
             return;
         }
 
+        if (input.startsWith("find")) {
+            String keyword = input.split(" ")[1];
+            outputUI.echo(taskStorage.find(keyword));
+            return;
+        }
+
         if (input.startsWith("delete")) {
             int index = Integer.parseInt(input.split(" ")[1]) - 1;
             outputUI.echo(taskStorage.delete(index));
