@@ -1,14 +1,21 @@
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
 
 public class Event extends Task {
-    protected String from;
-    protected String to;
+    protected LocalDateTime from;
+    protected LocalDateTime to;
 
     public Event(String description, String from, String to) {
         super(description);
-        this.from = from;
-        this.to = to;
+        try {
+            System.out.println(from);
+            this.from = DateHelper.parse(from);
+            this.to = DateHelper.parse(to);
+        } catch (DateTimeParseException e) {
+            throw new DukeException(DukeException.WRONG_DATETIME_FORMAT);
+        }
     }
 
     @Override
@@ -16,8 +23,8 @@ public class Event extends Task {
         try {
             FileWriter file = new FileWriter(path, true);
             int completed = this.isDone ? 1 : 0;
-            file.write("E " + "| " + completed + " | " + this.description + "| " + this.from
-                    + "| " + this.to + "\r\n");
+            file.write("E " + "| " + completed + " | " + this.description + " | " + DateHelper.saveFormat(this.from)
+                    + " | " + DateHelper.saveFormat(this.to) + "\r\n");
             file.close();
         } catch (IOException e) {
             e.printStackTrace();
@@ -26,6 +33,6 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + "(from: " + from + "to: " + to + ")";
+        return "[E]" + super.toString() + " (from: " + DateHelper.format(from) + " to: " + DateHelper.format(to) + ")";
     }
 }
