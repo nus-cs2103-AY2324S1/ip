@@ -15,7 +15,7 @@ import monday.task.Task;
  * Class for handling the storage of tasks in a file.
  */
 public class Storage {
-    private final String filePath;
+    private final String FILEPATH;
 
     /**
      * Constructs a Storage object with the specified file path.
@@ -60,8 +60,8 @@ public class Storage {
         try (ObjectInputStream input = new ObjectInputStream(new FileInputStream(filePath))) {
             // We know the objects inside are all Tasks, therefore we can suppress the unchecked warning.
             @SuppressWarnings("unchecked")
-            ArrayList<Task> tasklist = (ArrayList<Task>) input.readObject();
-            return tasklist;
+            ArrayList<Task> tasklists = (ArrayList<Task>) input.readObject();
+            return tasklists;
         } catch (EOFException e) {
             return new ArrayList<>();
         }
