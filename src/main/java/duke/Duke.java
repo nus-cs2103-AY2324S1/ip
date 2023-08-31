@@ -16,10 +16,12 @@ public class Duke {
         Ui.greet();
         Scanner sc = new Scanner(System.in);
         String currStr = sc.nextLine();
+
         while (!currStr.equals("bye")) {
             Parser.parseResponse(currStr, tasks);
             currStr = sc.nextLine();
         }
+
         sc.close();
         Ui.goodbye();
         storage.updateTasks(tasks.getTasks());
