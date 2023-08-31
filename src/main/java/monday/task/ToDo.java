@@ -5,14 +5,14 @@ package monday.task;
  * It contains a description and inherits the 
  * completion status functionality from the Task class.
  */
-public class ToDos extends Task {
+public class ToDo extends Task {
 
     /**
      * Constructs a ToDos object with the given description.
      *
      * @param description the description of the ToDos task
      */
-    public ToDos(String description) {
+    public ToDo(String description) {
         super(description);
     }
 

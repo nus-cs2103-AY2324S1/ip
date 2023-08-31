@@ -9,7 +9,7 @@ import monday.monday.dateTime.DateFormatter;
  * It contains a description, start time, end time, and inherits the
  * completion status functionality from the Task class.
  */
-public class Events extends Task {
+public class Event extends Task {
     protected LocalDateTime start;
     protected LocalDateTime end;
 
@@ -20,7 +20,7 @@ public class Events extends Task {
      * @param start the start time of the Events task
      * @param end the end time of the Events task
      */
-    public Events(String description, String start, String end) {
+    public Event(String description, String start, String end) {
         super(description);
         this.start = DateFormatter.parseTime(start, "yyyy-MM-dd HH:mm");;
         this.end = DateFormatter.parseTime(end, "yyyy-MM-dd HH:mm");;
