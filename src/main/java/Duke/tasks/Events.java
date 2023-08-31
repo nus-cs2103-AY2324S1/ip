@@ -20,7 +20,8 @@ public class Events extends Task {
      * @param endDate End date of the event.
      * @throws DukeException if the provided description, start date, or end date is null or empty.
      */
-    public Events(String description, LocalDateTime startDate, LocalDateTime endDate) throws DukeException {
+    public Events(String description, LocalDateTime startDate, LocalDateTime endDate)
+            throws DukeException {
         super(description);
         if (description == null || description.trim().isEmpty()) {
             throw new DukeException("description of event cannot be empty");
@@ -35,7 +36,8 @@ public class Events extends Task {
         this.endDate = endDate;
     }
 
-    public Events(String description, LocalDateTime startDate, LocalDateTime endDate, boolean isCompleted) throws DukeException {
+    public Events(String description, LocalDateTime startDate, LocalDateTime endDate, boolean isCompleted)
+            throws DukeException {
         super(description);
         if (description == null || description.trim().isEmpty()) {
             throw new DukeException("description of event cannot be empty");

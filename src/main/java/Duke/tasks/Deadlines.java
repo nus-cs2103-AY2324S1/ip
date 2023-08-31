@@ -37,10 +37,10 @@ public class Deadlines extends Task {
      *
      * @param description description of the deadline.
      * @param date Date of the deadline.
-     * @param isisCompleted boolean status representing whether task is isisCompleted.
+     * @param isCompleted boolean status representing whether task is isisCompleted.
      * @throws DukeException
      */
-    public Deadlines(String description, LocalDateTime date, boolean isisCompleted) throws DukeException {
+    public Deadlines(String description, LocalDateTime date, boolean isCompleted) throws DukeException {
         super(description);
         if (description == null || description.trim().isEmpty()) {
             throw new DukeException("description of deadline cannot be empty");
@@ -49,7 +49,7 @@ public class Deadlines extends Task {
             throw new DukeException("date of deadline cannot be empty");
         }
         this.date = date;
-        this.isCompleted = isisCompleted;
+        this.isCompleted = isCompleted;
     }
 
     /**

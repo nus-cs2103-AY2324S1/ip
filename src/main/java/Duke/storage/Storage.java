@@ -83,7 +83,7 @@ public class Storage {
         // Extract fields
         Task task = null;
         String taskType = parts[0];
-        boolean completed = "1".equals(parts[1]);
+        boolean isCompleted = "1".equals(parts[1]);
         String description = parts[2];
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         LocalDateTime date = (parts.length >= 4 && !parts[3].isEmpty()) ? LocalDateTime.parse(parts[3], formatter) : null;
@@ -94,16 +94,16 @@ public class Storage {
         try {
             switch (taskType) {
                 case "T":
-                    task = new ToDos(description, completed);
+                    task = new ToDos(description, isCompleted);
                     break;
 
                 case "D":
-                    task = new Deadlines(description, date, completed);
+                    task = new Deadlines(description, date, isCompleted);
                     break;
 
                 case "E":
                     System.out.println(endDate);
-                    task = new Events(description, startDate, endDate, completed);
+                    task = new Events(description, startDate, endDate, isCompleted);
                     break;
             }
         } catch (DukeException e) {
