@@ -7,7 +7,6 @@ import java.util.Scanner;
 
 public class Ben {
     private boolean isActive = true;
-    private final Scanner user = new Scanner(System.in);
     private final TaskList tasks = new TaskList();
     private final Storage storage;
     private final Ui ui;
@@ -35,7 +34,7 @@ public class Ben {
 
         Parser parser = new Parser();
         while (isActive) {
-            String message = user.nextLine();
+            String message = ui.nextLine();
             if (Objects.equals(message.toLowerCase(), "bye")) {
                 deactivate();
             } else if (Objects.equals(message.toLowerCase(), "list")) {
