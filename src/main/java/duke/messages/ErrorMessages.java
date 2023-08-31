@@ -1,5 +1,8 @@
 package duke.messages;
 
+/**
+ * An enum class that states all the error messages.
+ */
 public enum ErrorMessages {
     INVALID_INPUT("I'm sorry, I don't understand this command. Did you mean to type "),
     MISSING_TASK_NUMBER("I'm sorry, you seem to have forgotten to enter the task number."),

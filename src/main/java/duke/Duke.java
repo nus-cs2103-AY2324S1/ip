@@ -5,6 +5,10 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Main class of the application.
+ */
+
 public class Duke {
     private String filePath;
     private Storage storage;
@@ -24,6 +28,10 @@ public class Duke {
 
     }
 
+    /**
+     * Runs the chatbot.
+     * @throws DukeException if the filepath is incorrectly provided
+     */
     public void run() throws DukeException {
         Parser parser = new Parser();
         ui.showWelcome();

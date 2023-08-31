@@ -5,6 +5,10 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
+/**
+ * Handles all operations of the taskList.
+ */
+
 public class TaskList {
     protected ArrayList<Task> taskList;
 
@@ -32,28 +36,52 @@ public class TaskList {
         }
     }
 
+    /**
+     * Displays all tasks loaded in the user's previous sessions.
+     */
     public void load() {
         for (Task task:this.taskList){
             System.out.println(task.toString());
         }
     }
 
+    /**
+     * Obtain the task list in arraylist format.
+     * @return the ArrayList
+     */
     public ArrayList<Task> getTaskList(){
         return this.taskList;
     }
 
+    /**
+     * Get the length of the task list
+     * @return an integer of the list's length
+     */
     public int getLengthOfTaskList(){
         return this.taskList.size();
     }
 
+    /**
+     * Obtain a specific task from the list
+     * @param taskNumber the index of the task in the list
+     * @return the specified task
+     */
     public Task getTask(int taskNumber){
         return this.taskList.get(taskNumber);
     }
 
+    /**
+     * Adds a task to the list.
+     * @param task the task to be added
+     */
     public void addTask(Task task){
         this.taskList.add(task);
     }
 
+    /**
+     * Removes the specified task from the task list.
+     * @param taskNumber the index of the task to be removed
+     */
     public void removeTask(int taskNumber){
         this.taskList.remove(taskNumber);
     }

@@ -5,7 +5,9 @@ import duke.DukeException;
 import duke.task.Task;
 import duke.messages.ErrorMessages;
 
-import duke.command.Command;
+/**
+ * A command that unmarks a specified task
+ */
 
 public class UnmarkCommand extends Command {
     protected int taskNumber;
@@ -13,6 +15,13 @@ public class UnmarkCommand extends Command {
     public UnmarkCommand(int taskNumber){
         this.taskNumber = taskNumber;
     }
+
+    /**
+     * Unmarks the specific task provided by the user.
+     * @param taskList the existing task list
+     * @param ui the ui that handles successful/unsuccessful messages
+     * @throws DukeException If the task has already been unmarked, an error is thrown
+     */
 
     public void execute(TaskList taskList, Ui ui) throws DukeException {
         try {

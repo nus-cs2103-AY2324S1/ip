@@ -1,5 +1,9 @@
 package duke.task;
 
+/**
+ * Represents a task to be added by the user.
+ */
+
 public class Task {
     protected String name ;
     protected boolean status ;

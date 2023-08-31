@@ -2,6 +2,10 @@ package duke;
 
 import duke.messages.Messages;
 
+/**
+ * Shows all appropriate messages to the user.
+ */
+
 public class Ui {
 
     public void showWelcome(){

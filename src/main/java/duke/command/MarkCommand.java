@@ -5,7 +5,9 @@ import duke.Ui;
 import duke.DukeException;
 import duke.messages.ErrorMessages;
 
-import duke.command.Command;
+/**
+ * A command that marks a specified task as Completed
+ */
 
 public class MarkCommand extends Command {
     protected int taskNumber;
@@ -14,6 +16,12 @@ public class MarkCommand extends Command {
         this.taskNumber = taskNumber;
     }
 
+    /**
+     * Marks the specific task provided by the user.
+     * @param taskList the existing task list
+     * @param ui the ui that handles successful/unsuccessful messages
+     * @throws DukeException If the task has already been marked, an error is thrown
+     */
     public void execute(TaskList taskList, Ui ui)throws DukeException {
         try {
             Task taskToBeMarked= taskList.getTask(this.taskNumber);

@@ -1,5 +1,8 @@
 package duke.messages;
 
+/**
+ * An enum class that states all general messages.
+ */
 public enum Messages {
     INTRODUCTION("Hello! I'm Chad. \n" + "What can I do for you?"),
     LIST_COMMAND("Here are the tasks on your list: "),

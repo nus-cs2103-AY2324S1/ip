@@ -7,8 +7,18 @@ import duke.task.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Parses the user input into the respective command.
+ */
+
 public class Parser {
 
+    /**
+     * Returns the appropriate command to be executed.
+     * @param command the command inputted by the user
+     * @return the appropriate command to be executed
+     * @throws DukeException if command is not recognised, an error is thrown
+     */
     public Command parse(String command) throws DukeException {
         if (command.contains("bye")) {
             if (command.length() == 3){

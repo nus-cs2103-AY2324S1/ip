@@ -2,9 +2,16 @@ package duke.command;
 import duke.TaskList;
 import duke.Ui;
 
-import duke.command.Command;
+/**
+ * Display all tasks in the current task list
+ */
 
 public class ListCommand extends Command {
+    /**
+     * Shows all tasks in the current task list.
+     * @param taskList the existing task list of the user
+     * @param ui the ui that handles successful/unsuccessful messages
+     */
 
     public void execute(TaskList taskList, Ui ui){
         ui.showListMessage();
