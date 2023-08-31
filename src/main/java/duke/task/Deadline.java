@@ -10,12 +10,12 @@ import java.time.format.DateTimeFormatter;
  */
 public class Deadline extends Task {
 
-    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d-MMM-yyyy");
+    private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d-MMM-yyyy");
 
     /**
      * Deadline of the task.
      */
-    protected LocalDate by;
+    private LocalDate by;
 
     /**
      * Constructor to create a Deadline.

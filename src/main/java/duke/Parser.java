@@ -9,10 +9,10 @@ public class Parser {
         this.finish = false;
     }
     public void parse(String s) {
-        String input[] = s.split(" ", 2);
+        String[] input = s.split(" ", 2);
         String command = input[0];
         ui.horizontalLine();
-        if (command.equals("list") ) {
+        if (command.equals("list")) {
             tasks.showList(input);
         } else if (command.equals("mark")) {
             tasks.markTask(input);
@@ -26,7 +26,7 @@ public class Parser {
             tasks.addEvent(input);
         } else if (command.equals("todo")) {
             tasks.addToDo(input);
-        } else if (command.equals("bye")){
+        } else if (command.equals("bye")) {
             this.finish = true;
             ui.bye();
         } else {

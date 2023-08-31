@@ -2,10 +2,10 @@ package duke;
 
 import duke.task.Task;
 
-import java.util.Scanner;
-import java.util.ArrayList;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.Scanner;
 
 /**
  * Program to run a task manager that can add, delete and mark tasks.
@@ -13,7 +13,7 @@ import java.nio.file.Paths;
  * @author Teo Kai Sheng
  */
 public class Duke {
-    public static ArrayList<Task> list = new ArrayList<Task>();
+    private static ArrayList<Task> list = new ArrayList<Task>();
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
@@ -34,7 +34,6 @@ public class Duke {
         }
         storage.updateTaskList();
     }
-
     public static void main(String[] args) {
         new Duke(Paths.get(".", "data", "duke.txt")).run(); // ./data/duke.txt
     }
