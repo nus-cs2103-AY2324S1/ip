@@ -19,7 +19,6 @@ public class Storage {
         this.DEFAULT_STORAGE_FILEPATH = filepath;
     }
     public TaskList loadTasks() {
-
         try {
             File toLoad = new File(DEFAULT_STORAGE_FILEPATH);
             Scanner scan = new Scanner(toLoad);

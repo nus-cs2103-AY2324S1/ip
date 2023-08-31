@@ -20,7 +20,7 @@ public class Parser {
             list.deleteTask(input);
             return true;
         } else if (input.startsWith("todo")) {
-            list.addsToDo(input);
+            list.addToDo(input);
             return true;
         } else if (input.startsWith("deadline")) {
             list.addDeadline(input);

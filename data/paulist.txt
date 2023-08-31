@@ -1,3 +1,2 @@
-D | 0 | do stuff  | wed
-T | 0 | learn badminton
-T | 0 | run
+D | 0 | watch lecture  | Sept 23 2023
+E | 0 | soc bash  |  friday 6pm  |  10pm

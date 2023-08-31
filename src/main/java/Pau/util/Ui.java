@@ -1,7 +1,6 @@
 package Pau.util;
 
 public class Ui {
-
     private final String botName = "\n" +
             "██████╗  █████╗ ██╗   ██╗\n" +
             "██╔══██╗██╔══██╗██║   ██║\n" +

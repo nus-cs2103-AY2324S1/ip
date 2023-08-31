@@ -1,7 +1,5 @@
 package Pau.task;
 
-import java.util.Scanner;
-
 public abstract class Task {
     protected String description;
     protected boolean isDone;

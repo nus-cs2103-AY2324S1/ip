@@ -2,6 +2,8 @@ package Pau.task;
 
 import Pau.exception.DeadlineNoEndException;
 import Pau.exception.NoDescException;
+import Pau.exception.NoSuchTaskException;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -71,17 +73,24 @@ public class TaskList {
      * @param input The task the user wants to delete.
      */
     public void deleteTask(String input) {
-        String parts[] = input.split(" ");
-        int taskNo = Integer.parseInt(parts[1]);
-        Task checkedTask = this.taskList.get(taskNo - 1);
-        this.taskList.remove(checkedTask);
-        if (checkedTask.getStatusIcon().equals("X")) {
-            System.out.println("good job! you're officially done with this:");
-            System.out.println(checkedTask.toString());
-        } else {
-            System.out.println("not you running away from your responsibilities, i guess you don't have to do this now:");
-            System.out.println(checkedTask.toString());
+        try {
+            String parts[] = input.split(" ");
+            int taskNo = Integer.parseInt(parts[1]);
+            if(taskNo > this.listSize()) {
+                throw new NoSuchTaskException("you can't delete this task");
+            }
+            Task checkedTask = this.taskList.get(taskNo - 1);
+            this.taskList.remove(checkedTask);
+            if (checkedTask.getStatusIcon().equals("X")) {
+                System.out.println("good job! you're officially done with this:");
+                System.out.println(checkedTask.toString());
+            } else {
+                System.out.println("not you running away from your responsibilities, i guess you don't have to do this now:");
+                System.out.println(checkedTask.toString());
+            }
+        } catch (NoSuchTaskException e) {
         }
+
         if (this.listSize() == 0) {
             System.out.println("THERES NOTHING LEFT TO DO!!!!");
         } else {
@@ -94,7 +103,7 @@ public class TaskList {
      *
      * @param input The ToDo the user wants to add.
      */
-    public void addsToDo(String input) {
+    public void addToDo(String input) {
         try {
             ToDo item = new ToDo(input.replace("todo ", ""));
             if (item.description.isEmpty()) {
@@ -163,7 +172,7 @@ public class TaskList {
         String description = s.next();
         switch (taskType) {
             case "T":
-                this.addsToDo(description);
+                this.addToDo(description);
                 this.taskList.get(listSize() - 1).setStatus(status);
                 break;
             case "D":
