@@ -3,7 +3,7 @@ import java.util.Scanner;
 
 public class Crusader {
     /** Logo generated from https://patorjk.com/software/taag */
-    private static final String logo =
+    private static final String LOGO =
               "   _____                          _\n"
             + "  / ____|                        | |\n"
             + " | |     _ __ _   _ ___  __ _  __| | ___ _ __\n"
@@ -14,15 +14,20 @@ public class Crusader {
     /**
      * A list of tasks for the chatbot.
      */
-    private static final ArrayList<Task> tasks = new ArrayList<>();
+    private static final ArrayList<Task> TASKS = new ArrayList<>();
+
+    /**
+     * The filepath used to save data.
+     */
+    private static final String SAVE_FILE = "../data/crusader.txt";
 
     /**
      * Describes the list of tasks in the chatbot.
      */
     private static void tasksToString() {
         System.out.println("Here are your tasks:");
-        for (int x = 0; x < tasks.size(); x++) {
-            System.out.printf("%d. %s\n", x + 1, tasks.get(x).toString());
+        for (int x = 0; x < TASKS.size(); x++) {
+            System.out.printf("%d. %s\n", x + 1, TASKS.get(x).toString());
         }
         addDivider();
     }
@@ -33,7 +38,7 @@ public class Crusader {
      * @param i index of the task to be marked. 1-indexed.
      */
     private static void mark(int i) {
-        Task t = tasks.get(i - 1);
+        Task t = TASKS.get(i - 1);
         System.out.println("I have marked the task as done:");
         t.mark();
         System.out.println(t.toString());
@@ -45,7 +50,7 @@ public class Crusader {
      * @param i index of the task to be unmarked. 1-indexed.
      */
     private static void unmark(int i) {
-        Task t = tasks.get(i - 1);
+        Task t = TASKS.get(i - 1);
         System.out.println("I have unmarked the task, it is no longer done:");
         t.unmark();
         System.out.println(t.toString());
@@ -57,18 +62,18 @@ public class Crusader {
      * @param i index of the task to be deleted. 1-indexed.
      */
     private static void delete(int i) {
-        Task t = tasks.get(i - 1);
+        Task t = TASKS.get(i - 1);
         System.out.println("I have deleted the following task:");
         System.out.println(t.toString());
-        tasks.remove(t);
-        System.out.printf("Now there are %d tasks in the list.\n", tasks.size());
+        TASKS.remove(t);
+        System.out.printf("Now there are %d tasks in the list.\n", TASKS.size());
     }
 
     /**
      * Displays the logo for the chatbot.
      */
     private static void showLogo() {
-        System.out.println(logo);
+        System.out.println(LOGO);
         addDivider();
     }
 
@@ -114,8 +119,8 @@ public class Crusader {
         Todo t = new Todo(name);
         System.out.println("Adding the task:");
         System.out.println(t.toString());
-        tasks.add(t);
-        System.out.printf("Now there are %d tasks in the list.\n", tasks.size());
+        TASKS.add(t);
+        System.out.printf("Now there are %d tasks in the list.\n", TASKS.size());
         addDivider();
     }
 
@@ -150,8 +155,8 @@ public class Crusader {
         Event e = new Event(name, from, to);
         System.out.println("Adding the task:");
         System.out.println(e.toString());
-        tasks.add(e);
-        System.out.printf("Now there are %d tasks in the list.\n", tasks.size());
+        TASKS.add(e);
+        System.out.printf("Now there are %d tasks in the list.\n", TASKS.size());
         addDivider();
     }
 
@@ -172,9 +177,17 @@ public class Crusader {
         Deadline d = new Deadline(name, by);
         System.out.println("Adding the task:");
         System.out.println(d.toString());
-        tasks.add(d);
-        System.out.printf("Now there are %d tasks in the list.\n", tasks.size());
+        TASKS.add(d);
+        System.out.printf("Now there are %d tasks in the list.\n", TASKS.size());
         addDivider();
+    }
+
+    private static void loadIntoTasks(String loadPath) {
+        
+    }
+
+    private static void saveTasks(String savePath) {
+
     }
 
     public static void main(String[] args) {
@@ -183,6 +196,7 @@ public class Crusader {
         addDivider();
         showLogo();
         greet();
+        loadIntoTasks(SAVE_FILE);
         while (notEnded) {
             String currentPrompt = sc.nextLine();
             addDivider();
@@ -252,6 +266,7 @@ public class Crusader {
                     break;
             }
         }
+        saveTasks(SAVE_FILE);
         farewell();
     }
 }
