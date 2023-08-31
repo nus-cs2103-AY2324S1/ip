@@ -73,6 +73,7 @@ public class Storage {
     /**
      * Writes a single task into the file, useful if adding only a single task
      * @param task Task to be written into the file
+     * @throws IOException Thrown if task cannot be written into file
      */
     public void write(Task task) throws IOException {
         createFileIfNotExists();
@@ -87,9 +88,8 @@ public class Storage {
     /**
      * Creates file if file is not found at filepath
      * @throws IOException Thrown if file cannot be created for some reason
-     * @throws SecurityException Thrown if unable to verify existence of parent directories
      */
-    protected void createFileIfNotExists() throws IOException, SecurityException {
+    protected void createFileIfNotExists() throws IOException {
         File saveFile = new File(filePath);
         if (!saveFile.exists()) {
             saveFile.mkdirs();
