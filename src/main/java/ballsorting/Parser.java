@@ -1,3 +1,4 @@
+package ballsorting;
 import java.time.LocalDateTime;
 import java.util.Scanner;
 public class Parser {

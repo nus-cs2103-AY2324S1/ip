@@ -1,3 +1,4 @@
+package ballsorting;
 import java.util.Scanner;
 public class Ui {
     Scanner sc;
