@@ -1,2 +1,15 @@
-todo borrow book
-todo
+todo first
+second
+deadline
+event third /from 4pm /to 6pm
+list
+mark 2
+list
+unmark 2
+deadline fourth /by 7pm
+mark 3
+list
+delete 1
+delete 1
+list
+bye
