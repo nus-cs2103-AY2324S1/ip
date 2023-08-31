@@ -5,7 +5,11 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.FileNotFoundException;
-
+import parsers.DateTimeParser;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class Hong {
     private static ArrayList<Task> tasks = new ArrayList<Task>();
@@ -67,20 +71,17 @@ public class Hong {
                     tasks.add(newTodo);
                     break;
                 case 'D':
-                    arrTaskSplit = taskDescription.split("\\(by: ");
-                    Deadline newDeadline = new Deadline(arrTaskSplit[1].substring(0, arrTaskSplit[1].length() - 1),
-                            arrTaskSplit[0]);
+                    arrTaskSplit = taskDescription.split(" DATETIME ");
+                    LocalDateTime dateTime = DateTimeParser.readTasksParser(arrTaskSplit[1]);
+                    Deadline newDeadline = new Deadline(dateTime, arrTaskSplit[0]);
                     tasks.add(newDeadline);
                     break;
                 case 'E':
-                    arrTaskSplit = taskDescription.split("\\(from: ");
-//                    constructorInput = "event " + arrTaskSplit[0] + " /from ";
-                    String[] arrStartEndSplit = arrTaskSplit[1].split(" to: ");
-//                    constructorInput += arrStartEndSplit[0] + " /to " +
-//                            arrStartEndSplit[1].substring(0, arrStartEndSplit[1].length() - 1);
-//                    createEvent(constructorInput);
-                    Event newEvent = new Event(arrStartEndSplit[0],
-                            arrStartEndSplit[1].substring(0, arrStartEndSplit[1].length() - 1), arrTaskSplit[0]);
+                    arrTaskSplit = taskDescription.split(" DATETIME ");
+                    String[] dateTimeSplit = arrTaskSplit[1].split(" DATETIME_SPLIT ");
+                    LocalDateTime startDateTime = DateTimeParser.readTasksParser(dateTimeSplit[0]);
+                    LocalDateTime endDateTime = DateTimeParser.readTasksParser(dateTimeSplit[1]);
+                    Event newEvent = new Event(startDateTime, endDateTime, arrTaskSplit[0]);
                     tasks.add(newEvent);
                     break;
                 }
@@ -106,7 +107,7 @@ public class Hong {
             String toWrite = "";
             for (int i = 0; i < tasks.size(); i++) {
                 Task currentTask = tasks.get(i);
-                String currentItem = currentTask.toString();
+                String currentItem = currentTask.toStringWithDateTime();
                 toWrite += currentItem +"\n";
             }
             FileWriter myWriter = new FileWriter("./src/main/storage/writtenStorage.txt");
@@ -159,7 +160,8 @@ public class Hong {
         if (arrInput.length != 2) {
             System.out.println("Error! There is an issue with the format of your message. ");
         } else {
-            Deadline newDeadline = new Deadline(arrInput[1], arrInput[0]);
+            LocalDateTime dateTime = DateTimeParser.parseDateTime(arrInput[1]);
+            Deadline newDeadline = new Deadline(dateTime, arrInput[0]);
             tasks.add(newDeadline);
             addedMessage(newDeadline.toString());
         }
@@ -178,7 +180,8 @@ public class Hong {
         String[] arrInput = newInput.split("/from ");
         String eventDetails = arrInput[0];
         String[] fromToArr = arrInput[1].split(" /to ");
-        Event newEvent = new Event(fromToArr[0], fromToArr[1], eventDetails);
+        Event newEvent = new Event(DateTimeParser.parseDateTime(fromToArr[0]),
+                DateTimeParser.parseDateTime(fromToArr[1]), eventDetails);
         tasks.add(newEvent);
         addedMessage(newEvent.toString());
     }
