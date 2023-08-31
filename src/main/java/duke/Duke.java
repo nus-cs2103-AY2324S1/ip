@@ -18,7 +18,7 @@ import duke.task.Task;
 import duke.task.ToDo;
 
 /**
- * A chatbot that helps to record tasks.
+ * A chatbot that helps to record tasks and store tasks.
  */
 public class Duke {
     private TaskList tasks;
