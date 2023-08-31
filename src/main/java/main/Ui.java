@@ -38,13 +38,20 @@ public class Ui {
      */
     public void say(String content, boolean outputUpperLine, boolean outputLowerLine) {
         if(outputUpperLine){
-            System.out.println("    ____________________________________________________________");
+            this.outputLine();
         }
         System.out.println("    " + content);
         if(outputLowerLine){
-            System.out.println("    ____________________________________________________________");
+            this.outputLine();
         }
 
+    }
+
+    /**
+     * Outputs the split line
+     */
+    public void outputLine(){
+        System.out.println("    ____________________________________________________________");
     }
 
     /**
