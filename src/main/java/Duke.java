@@ -8,9 +8,10 @@ public class Duke {
     static int count;
     public static void main(String[] args) {
         // an array list of tasks
-         tasks = new ArrayList<>();
+        tasks = new ArrayList<>();
 
         Scanner scanner = new Scanner(System.in);
+
         printHorizontalLine();
         System.out.println("\t " + "Hey there amigo, excited to meet you! I'm Buddy, your friendly chat companion!\n" +
                 "\t " + "What can I do for you?");
