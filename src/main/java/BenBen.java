@@ -1,9 +1,15 @@
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.io.File;
 import java.io.FileWriter;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.ZoneId;
+import java.time.temporal.ChronoUnit;
 import java.io.IOException;
 
 public class BenBen {
@@ -15,6 +21,8 @@ public class BenBen {
     private static String FILEPATH = "./src/main/java/tasks.txt";
 
     private static File FILE;
+
+    private static final DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm").withZone(ZoneId.systemDefault());
     //private static boolean[] bool;
     private static final String line ="_______________________________________\n";
 
@@ -67,57 +75,87 @@ public class BenBen {
     }
 
     public static class Deadline extends Task {
-        protected String ddl;
+        protected LocalDate ddl;
+
+        protected final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-mm-dd");
         public Deadline(String description, String ddl) {
             super(description);
-            this.ddl = ddl;
+                this.ddl = LocalDate.parse(ddl);
         }
         @Override
         public String toString() {
-            return "[D] " + super.toString() + " (by: " + ddl + ")";
+            return "[D] " + super.toString() + " (by: " + getDdl() + ")";
         }
 
         public String getDdl() {
-            return ddl;
+            return this.ddl.getMonth().toString() + " " + this.ddl.getDayOfMonth() + " " + this.ddl.getYear();
+        }
+
+        public String getFormattedDdl() {
+            return ddl.format(formatter);
         }
 
         @Override
         public String getLog() {
             return "D | " + (isDone? "1" : "0")
                     + " | " + this.description
-                    + " | " + this.ddl + System.lineSeparator();
+                    + " | " + this.getFormattedDdl() + System.lineSeparator();
         }
 
 
     }
 
     public static class Event extends Task {
-        protected String startTime;
-        protected String endTime;
-        public Event(String description, String startTime, String endTime) {
+        protected LocalDateTime startTime;
+        protected LocalDateTime endTime;
+
+        protected final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm").withZone(ZoneId.systemDefault());
+
+        public Event(String description,String startTime, String endTime) throws BenBenException {
             super(description);
-            this.startTime = startTime;
-            this.endTime = endTime;
+            try {
+                this.startTime = LocalDateTime.parse(startTime, formatter);
+                this.endTime = LocalDateTime.parse(endTime, formatter);
+                if (this.startTime.isAfter(this.endTime)) {
+                    throw new BenBenException("The end time should be later than the start time!");
+                }
+            } catch (DateTimeParseException e) {
+                throw new BenBenException("The date and time is of the wrong format! Please use yyyy-MM-dd HH:mm");
+            }
         }
         @Override
         public String toString() {
-            return "[E] " + super.toString() + " (from: " + startTime + " to: " + endTime + ")";
+            return "[E] " + super.toString() + " (from: " + getStartTime() + " to: " + getEndTime() + ")";
         }
 
         public String getStartTime() {
-            return startTime;
+            return startTime.getMonth().toString()
+                    + " " + startTime.getDayOfMonth()
+                    + " " + startTime.getYear()
+                    + " " + startTime.getHour() + ":" + startTime.getMinute();
         }
 
         public String getEndTime() {
-            return endTime;
+            return endTime.getMonth().toString()
+                    + " " + endTime.getDayOfMonth()
+                    + " " + endTime.getYear()
+                    + " " + endTime.getHour() + ":" + endTime.getMinute();
+        }
+
+        public String getFormattedStart() {
+            return startTime.format(formatter);
+        }
+
+        public String getFormattedEnd() {
+            return endTime.format(formatter);
         }
 
         @Override
         public String getLog() {
             return "E | " + (isDone? "1" : "0")
                     + " | " + this.description
-                    + " | " + this.startTime
-                    + " | " + this.endTime + System.lineSeparator();
+                    + " | " + getFormattedStart()
+                    + " | " + getFormattedEnd() + System.lineSeparator();
         }
     }
 
@@ -182,7 +220,7 @@ public class BenBen {
         ddl = ddl.trim();
 
         if (des.length() == 0 || ddl.length() == 0 ) {
-            throw new BenBenException("Please follow the format: deadline deadline details /by deadline time");
+            throw new BenBenException("Please follow the format: deadline deadline details /by yyyy/mm/dd");
         }
 
         Task t = new Deadline(des, ddl);
@@ -227,9 +265,8 @@ public class BenBen {
         end = end.trim();
 
         if (des.length() == 0 || start.length() == 0 || end.length() == 0 ) {
-            throw new BenBenException("Please follow the format: event event details /from start time /to end time");
+            throw new BenBenException("Please follow the format: event event details /from yyyy-MM-dd HH-mm /to yyyy-MM-dd HH-mm");
         }
-
 
         Task t = new Event(des, start, end);
         //arr[counter] = t;
