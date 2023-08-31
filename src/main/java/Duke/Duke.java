@@ -27,9 +27,12 @@ public class Duke {
     }
 
     public void run() {
-        InputParser.parse(tasks);
+
+        InputParser.getUserInputs(tasks);
+        ui.printEnding();
+
     }
-    public static void main(String[] args) throws DukeException {
+    public static void main(String[] args) {
 
         new Duke("tasks.txt").run();
 

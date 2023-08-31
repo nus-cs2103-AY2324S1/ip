@@ -10,4 +10,9 @@ public class Ui {
         System.out.println("Hello! I'm Mikhil" + '\n' + "What can I do for you");
     }
 
+    public void printEnding(){ System.out.println("Bye. Hope to see you again soon!");
+    }
+
+
+
 }
