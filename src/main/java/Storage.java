@@ -4,17 +4,28 @@ import java.io.File;
 import java.io.FileWriter;
 
 public class Storage {
-    // Array of Tasks that user has entered
     private FileWriter pw;
     private String currdir;
     private TaskList tasks;
     Ui userUi = new Ui();
 
+    /**
+     * Constructor for the Storage class.
+     *
+     * @param dir   The directory where the data is stored.
+     * @param tasks The TaskList instance for managing tasks.
+     */
     Storage(String dir, TaskList tasks) {
         this.currdir = dir;
         this.tasks = tasks;
     }
 
+    /**
+     * Loads tasks from the OUTPUT.txt file and adds them to the TaskList.
+     *
+     * @param parser The Parser instance for parsing task details.
+     * @throws IOException If an I/O operation is interrupted.
+     */
     public void load(Parser parser) throws IOException {
         try (Scanner fileScanner = new Scanner(new File("./src/main/java/OUTPUT.txt"))) {
             System.out.println("Your leftover tasks are:");
@@ -55,11 +66,22 @@ public class Storage {
         }
     }
 
+    /**
+     * Writes a task to the OUTPUT.txt file.
+     *
+     * @param task The task to be written.
+     * @throws IOException If an I/O operation is interrupted.
+     */
     public void write(Task task) throws IOException {
         pw.write(task.toString() + "\n");
         pw.flush();
     }
 
+    /**
+     * Overwrites the OUTPUT.txt file with updated task information.
+     *
+     * @throws IOException If an I/O operation is interrupted.
+     */
     public void overwrite() throws IOException {
         FileWriter nw = new FileWriter(currdir);
         pw = nw;

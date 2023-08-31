@@ -1,8 +1,4 @@
-import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Scanner;
@@ -15,7 +11,9 @@ public class Ui {
     // Array of Tasks that user has entered
     String input;
 
-
+    /**
+     * Displays the bot's greeting message.
+     */
     public void start() {
         // Initiate the bot greeting
         System.out.println(divider);
@@ -23,6 +21,14 @@ public class Ui {
         System.out.println(divider);
     }
 
+    /**
+     * Handles user input and performs corresponding actions.
+     *
+     * @param store  The Storage instance for managing data persistence.
+     * @param tasks  The TaskList instance for managing tasks.
+     * @param parser The Parser instance for parsing user input.
+     * @throws IOException If an I/O operation is interrupted.
+     */
     public void takeCommands(Storage store, TaskList tasks, Parser parser) throws IOException {
         Scanner sc = new Scanner(System.in);
         store.load(parser);
@@ -75,19 +81,19 @@ public class Ui {
 
                 int number = parser.findNum(input);
 
-                        // Handle the exception if number provided is beyond the size of list
-                        try {
-                            Task index = tasks.retrieve(number - 1);
-                            tasks.remove(index);
-                            System.out.printf("I have deleted the following task:\n" +
-                                    "%s\n" +
-                                    "Your list has %d items left\n\n", index.toString(), tasks.size());
-                        } catch (IndexOutOfBoundsException e) {
-                            System.out.println(number + " is too high! List size is only " + tasks.size());
-                        }
-                        System.out.println(divider);
-                        store.overwrite();
-                        input = sc.nextLine();
+                // Handle the exception if number provided is beyond the size of list
+                try {
+                    Task index = tasks.retrieve(number - 1);
+                    tasks.remove(index);
+                    System.out.printf("I have deleted the following task:\n" +
+                            "%s\n" +
+                            "Your list has %d items left\n\n", index.toString(), tasks.size());
+                } catch (IndexOutOfBoundsException e) {
+                    System.out.println(number + " is too high! List size is only " + tasks.size());
+                }
+                System.out.println(divider);
+                store.overwrite();
+                input = sc.nextLine();
             } else {
                 // Add the input to the list
                 if (input.contains("todo ")) {
@@ -99,7 +105,7 @@ public class Ui {
                     Task newTask = new Deadlines(parser.taskName(input), parser.taskBy(input), false);
                     tasks.add(newTask);
                     System.out.println("Okay! I have added the following task\n" + newTask);
-                    store.write(newTask );
+                    store.write(newTask);
                 } else if (input.contains("event ")) {
                     Task newTask = new Events(parser.taskName(input), parser.taskFrom(input), parser.taskTo(input), false);
                     tasks.add(newTask);

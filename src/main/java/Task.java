@@ -1,27 +1,33 @@
-
 public class Task {
     private boolean isDone;
     private final String NAME;
     final String DONE = "[X] ";
     final String NOTDONE = "[] ";
 
-
+    /**
+     * Constructor for the Task class.
+     *
+     * @param name   The name of the task.
+     * @param isDone Whether the task is marked as done or not.
+     */
     Task(String name, boolean isDone) {
         this.NAME = name;
         this.isDone = isDone;
     }
 
-    /*
-    Method name: checkDone
-    Description: Checks if the task is done
+    /**
+     * Checks if the task is marked as done.
+     *
+     * @return True if the task is done, false otherwise.
      */
     public boolean checkDone() {
         return isDone;
     }
 
-    /*
-    Method name: toString
-    Description: Prints the task name and whether it is done
+    /**
+     * Returns a string representation of the task, including its name and status.
+     *
+     * @return A formatted string representing the task.
      */
     public String toString() {
         return this.checkDone()
@@ -29,17 +35,15 @@ public class Task {
                 : NOTDONE + this.NAME;
     }
 
-    /*
-    Method name: markDone
-    Description: Checks the specified task
+    /**
+     * Marks the task as done.
      */
     public void markDone() {
         isDone = true;
     }
 
-    /*
-    Method name: unmarkDone
-    Description: Unchecks the specified task
+    /**
+     * Unmarks the task as done.
      */
     public void unmarkDone() {
         isDone = false;
