@@ -38,6 +38,25 @@ public class TaskStorage {
     }
 
     /**
+     * Clean constructor for testing.
+     * @param isTest Whether the program is running in test mode.
+     */
+    public TaskStorage(boolean isTest) {
+        String newFilePath = "data/meowies_test.txt";
+        this.file = new File(newFilePath);
+        try {
+            this.loadFromFile();
+        } catch (FileNotFoundException | Duke.WrongFormatException | Duke.InvalidFileException e) {
+            try {
+                this.file.getParentFile().mkdirs();
+                this.file.createNewFile();
+            } catch (Exception ex) {
+                System.out.println(ex.getMessage());
+            }
+        }
+    }
+
+    /**
      * Loads the tasks from the file.
      * @param input The input string.
      * @return The output string.
@@ -92,6 +111,31 @@ public class TaskStorage {
         return "Noted. I've removed this task:\n"
                 + "    " + task + "\n"
                 + "    " + "Now you have " + this.tasks.size() + " tasks in the list.";
+    }
+
+    /**
+     * Find tasks that contain the keyword.
+     * @param keyword The keyword to search for.
+     * @return The list of tasks that contain the keyword.
+     */
+    public String find(String keyword) {
+        StringBuilder sb = new StringBuilder();
+        int num = 0;
+
+        sb.append("Here are the matching tasks in your list:\n");
+
+        for (Task task : tasks) {
+            if (task == null) {
+                continue;
+            }
+
+            if (task.toString().contains(keyword)) {
+                num++;
+                sb.append(num).append(". ").append(task).append("\n");
+            }
+        }
+
+        return sb.toString();
     }
 
     private void saveToFile() {
