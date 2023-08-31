@@ -26,17 +26,17 @@ public class TaskList {
     public Task add(String command) throws LukeException {
         Task task;
         switch (command.split(" ")[0]) {
-            case "todo":
-                task = Todo.createTodo(command);
-                break;
-            case "deadline":
-                task = Deadline.createDeadline(command);
-                break;
-            case "event":
-                task = Event.createEvent(command);
-                break;
-            default:
-                throw new LukeException("Error processing command in addTask: '" + command + "'");
+        case "todo":
+            task = Todo.createTodo(command);
+            break;
+        case "deadline":
+            task = Deadline.createDeadline(command);
+            break;
+        case "event":
+            task = Event.createEvent(command);
+            break;
+        default:
+            throw new LukeException("Error processing command in addTask: '" + command + "'");
         }
 
         tasks.add(task);

@@ -46,29 +46,29 @@ public class Storage {
 
                 boolean isDone;
                 switch (taskDetails[1]) {
-                    case "Done":
-                        isDone = true;
-                        break;
-                    case "Not Done":
-                        isDone = false;
-                        break;
-                    default:
-                        throw new LukeException("Task neither 'Done' nor 'Not Done'");
+                case "Done":
+                    isDone = true;
+                    break;
+                case "Not Done":
+                    isDone = false;
+                    break;
+                default:
+                    throw new LukeException("Task neither 'Done' nor 'Not Done'");
                 }
 
                 Task createdTask;
                 switch (taskDetails[0]) {
-                    case "T":
-                        createdTask = Todo.createTodo(Arrays.copyOfRange(taskDetails, 2, taskDetails.length), isDone);
-                        break;
-                    case "D":
-                        createdTask = Deadline.createDeadline(Arrays.copyOfRange(taskDetails, 2, taskDetails.length), isDone);
-                        break;
-                    case "E":
-                        createdTask = Event.createEvent(Arrays.copyOfRange(taskDetails, 2, taskDetails.length), isDone);
-                        break;
-                    default:
-                        throw new LukeException("Unknown Task Type '" + taskDetails[0] +"'");
+                case "T":
+                    createdTask = Todo.createTodo(Arrays.copyOfRange(taskDetails, 2, taskDetails.length), isDone);
+                    break;
+                case "D":
+                    createdTask = Deadline.createDeadline(Arrays.copyOfRange(taskDetails, 2, taskDetails.length), isDone);
+                    break;
+                case "E":
+                    createdTask = Event.createEvent(Arrays.copyOfRange(taskDetails, 2, taskDetails.length), isDone);
+                    break;
+                default:
+                    throw new LukeException("Unknown Task Type '" + taskDetails[0] +"'");
                 }
                 allTasks.add(createdTask);
             }

@@ -47,27 +47,27 @@ public class Duke {
 
     private void processCommand(String command) throws LukeException {
         switch(command.split(" ")[0]) {
-            case "list":
-                ui.list(tasks.getAll());
-                break;
-            case "mark":
-                ui.displayMessage("Nice! I've marked this task as done: \n" + tasks.markAsDone(command));
-                break;
-            case "unmark":
-                ui.displayMessage("OK, I've marked this task as not done yet: \n" + tasks.markAsUndone(command));
-                break;
-            case "delete":
-                ui.displayMessage("Noted. I've removed this task: \n" + tasks.delete(command));
-                break;
-            case "todo":
-                // Fallthrough
-            case "deadline":
-                // Fallthrough
-            case "event":
-                ui.displayMessage("added : " + tasks.add(command));
-                break;
-            default:
-                throw new LukeException("I'm sorry, but I don't know what that means :-(");
+        case "list":
+            ui.list(tasks.getAll());
+            break;
+        case "mark":
+            ui.displayMessage("Nice! I've marked this task as done: \n" + tasks.markAsDone(command));
+            break;
+        case "unmark":
+            ui.displayMessage("OK, I've marked this task as not done yet: \n" + tasks.markAsUndone(command));
+            break;
+        case "delete":
+            ui.displayMessage("Noted. I've removed this task: \n" + tasks.delete(command));
+            break;
+        case "todo":
+            // Fallthrough
+        case "deadline":
+            // Fallthrough
+        case "event":
+            ui.displayMessage("added : " + tasks.add(command));
+            break;
+        default:
+            throw new LukeException("I'm sorry, but I don't know what that means :-(");
         }
     }
 
