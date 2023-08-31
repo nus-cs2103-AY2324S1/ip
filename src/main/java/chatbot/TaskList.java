@@ -4,6 +4,7 @@ import chatbot.exceptions.InvalidTaskIndexException;
 import chatbot.tasks.Task;
 
 import java.util.ArrayList;
+import java.util.function.Consumer;
 
 public class TaskList {
     private final ArrayList<Task> taskList;
@@ -57,6 +58,23 @@ public class TaskList {
                     task.toString()));
         }
         return sb.toString();
+    }
+
+    public String findTasks(String name) {
+        ArrayList<Task> matchedTasks = new ArrayList<>();
+        taskList.forEach(new Consumer<Task>() {
+            @Override
+            public void accept(Task t) {
+                if (t.getName().contains(name)) {
+                    matchedTasks.add(t);
+                }
+            }
+        });
+        if (matchedTasks.isEmpty()) {
+            return "\tNo task in the list matches the query.";
+        } else {
+            return "\tHere are the matching tasks in your list:\n" + new TaskList(matchedTasks).listTasks();
+        }
     }
 
     public int getSize() {

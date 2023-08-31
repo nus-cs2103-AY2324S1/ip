@@ -7,6 +7,18 @@ import chatbot.tasks.Task;
 import chatbot.tasks.ToDoTask;
 
 public class Parser {
+    public static String parseFindCommand(String command) throws FindMissingFieldException {
+        try {
+            String name = command.substring(5);
+            if (name.isEmpty()) {
+                throw new FindMissingFieldException();
+            }
+            return name;
+        } catch (IndexOutOfBoundsException e) {
+            throw new FindMissingFieldException();
+        }
+    }
+
     public static int parseMarkCommand(String[] commandWords) throws MarkMissingFieldException, InvalidTaskIndexException {
         if (commandWords.length != 2) {
             throw new MarkMissingFieldException();
@@ -29,13 +41,12 @@ public class Parser {
         }
     }
 
-    public static Task parseTodoTaskCommand(String command) throws TodoMissingFieldException{
+    public static Task parseTodoTaskCommand(String command) throws TodoMissingFieldException {
         try {
             return new ToDoTask(command.substring(5));
         } catch (IndexOutOfBoundsException e) {
             throw new TodoMissingFieldException();
         }
-
     }
 
     public static Task parseDeadlineTaskCommand(String command) throws DeadlineMissingFieldException {
