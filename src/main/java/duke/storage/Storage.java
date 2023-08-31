@@ -28,9 +28,7 @@ public class Storage {
         List<String> output = new ArrayList<>();
         File f = new File(path);
         try {
-            if (!f.exists()) {
-                f.createNewFile();
-            }
+            f.createNewFile();
             Scanner s = new Scanner(f);
             while (s.hasNext()) {
                 String task = s.nextLine().trim();
@@ -68,7 +66,6 @@ public class Storage {
             writeToFile(fw, input);
             return "Tasks saved successfully";
         } catch (IOException e) {
-            System.out.println(e);
             return "Tasks could not be saved";
         }
     }

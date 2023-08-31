@@ -93,6 +93,6 @@ public class Duke {
     }
 
     public static void main(String[] args) {
-        new Duke("src/main/java/duke/storage/toothless.txt").run();
+        new Duke("toothless.txt").run();
     }
 }
