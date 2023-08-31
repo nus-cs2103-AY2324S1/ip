@@ -1,5 +1,8 @@
-package Duke;
+package duke;
 
+/**
+ * The chat bot.
+ */
 public class Duke {
 
     /**

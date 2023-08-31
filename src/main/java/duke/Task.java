@@ -1,4 +1,4 @@
-package Duke;
+package duke;
 
 import java.time.DateTimeException;
 import java.time.LocalDate;
@@ -11,17 +11,19 @@ abstract class Task {
 
     public static Task createTask(String task) throws Duke.WrongCommandException, Duke.WrongFormatException {
         TaskType taskType = getTaskType(task);
-        if (taskType == null) throw new Duke.WrongCommandException("Whopsie daisies! I don't understand that command!");
+        if (taskType == null) {
+            throw new Duke.WrongCommandException("Whopsie daisies! I don't understand that command!");
+        }
 
         switch (taskType) {
-            case TODO:
-                return new TodoTask(task);
-            case DEADLINE:
-                return new DeadlineTask(task);
-            case EVENT:
-                return new EventTask(task);
-            default:
-                return null;
+        case TODO:
+            return new TodoTask(task);
+        case DEADLINE:
+            return new DeadlineTask(task);
+        case EVENT:
+            return new EventTask(task);
+        default:
+            return null;
         }
     }
 
@@ -33,14 +35,14 @@ abstract class Task {
             String description = taskDetails[2];
 
             switch (taskType) {
-                case TODO:
-                    return new TodoTask(isDone, description);
-                case DEADLINE:
-                    return new DeadlineTask(isDone, description, taskDetails[3]);
-                case EVENT:
-                    return new EventTask(isDone, description, taskDetails[3], taskDetails[4]);
-                default:
-                    return null;
+            case TODO:
+                return new TodoTask(isDone, description);
+            case DEADLINE:
+                return new DeadlineTask(isDone, description, taskDetails[3]);
+            case EVENT:
+                return new EventTask(isDone, description, taskDetails[3], taskDetails[4]);
+            default:
+                return null;
             }
         } catch (NullPointerException | IllegalArgumentException | DateTimeException e) {
             throw new Duke.InvalidFileException("File is corrupted!");
@@ -90,8 +92,9 @@ abstract class Task {
     private static final class TodoTask extends Task {
         public TodoTask(String task) throws Duke.WrongFormatException {
             String description = getDescription(task);
-            if (description == null)
+            if (description == null) {
                 throw new Duke.WrongFormatException("Whopsie daisies! I don't understand that format!");
+            }
             this.description = description;
         }
 
@@ -129,8 +132,9 @@ abstract class Task {
 
         public DeadlineTask(String task) throws Duke.WrongFormatException {
             String description = getDescription(task);
-            if (description == null)
+            if (description == null) {
                 throw new Duke.WrongFormatException("Whopsie daisies! I don't understand that format!");
+            }
             this.description = description;
         }
 
@@ -184,8 +188,9 @@ abstract class Task {
 
         public EventTask(String task) throws Duke.WrongFormatException {
             String description = getDescription(task);
-            if (description == null)
+            if (description == null) {
                 throw new Duke.WrongFormatException("Whopsie daisies! I don't understand that format!");
+            }
             this.description = description;
         }
 

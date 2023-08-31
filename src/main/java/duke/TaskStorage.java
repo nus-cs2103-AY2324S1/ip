@@ -1,4 +1,4 @@
-package Duke;
+package duke;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -6,20 +6,20 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
- * Duke.TaskStorage class is used to store all the tasks in the list. It also has the capability of saving the tasks to a
- * file and loading the tasks from a file.
+ * Duke.TaskStorage class is used to store all the tasks in the list. It also has the capability of saving the tasks to
+ * a file and loading the tasks from a file.
  *
  * The task list class and the storage class are not separated because I disagree with the idea of having a separate
  * storage class in this project since the storage class is not reusable and is tightly coupled with the task list.
  */
 class TaskStorage {
-    private final int SIZE = 100;
-    private final ArrayList<Task> tasks = new ArrayList<>(SIZE);
-    private final String FILE_PATH = "data/meowies.txt";
+    private final int size = 100;
+    private final String filePath = "data/meowies.txt";
+    private final ArrayList<Task> tasks = new ArrayList<>(size);
     private final File file;
 
     public TaskStorage() {
-        this.file = new File(FILE_PATH);
+        this.file = new File(filePath);
         try {
             this.loadFromFile();
         } catch (FileNotFoundException | Duke.WrongFormatException | Duke.InvalidFileException e) {
@@ -71,7 +71,7 @@ class TaskStorage {
 
     private void saveToFile() {
         try {
-            java.io.FileWriter fw = new java.io.FileWriter(FILE_PATH);
+            java.io.FileWriter fw = new java.io.FileWriter(filePath);
             for (Task task : tasks) {
                 fw.write(task.saveToFileString() + "\n");
             }
@@ -96,7 +96,9 @@ class TaskStorage {
         int num = 0;
 
         for (Task task : tasks) {
-            if (task == null) continue;
+            if (task == null) {
+                continue;
+            }
 
             num++;
             sb.append(num).append(". ").append(task).append("\n");
