@@ -1,11 +1,11 @@
 package monday.monday.parser;
 
 import monday.monday.exception.MondayExceptions;
+import monday.monday.ui.Ui;
 import monday.task.TaskList;
 import monday.task.ToDo;
 import monday.task.Event;
 import monday.task.Deadline;
-import monday.monday.ui.Ui;
 
 
 /** 
@@ -47,7 +47,6 @@ public class Parser {
         case BYE:
             Ui.exit();
             return false;
-            // Fallthrough
         case LIST:
             taskList.displayList();
             break;

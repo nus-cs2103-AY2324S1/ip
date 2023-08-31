@@ -1,6 +1,7 @@
 package monday;
 
 import java.util.Scanner;
+
 import monday.monday.ui.Ui;
 import monday.task.TaskList;
 import monday.monday.parser.Parser;
