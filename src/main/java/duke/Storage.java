@@ -1,3 +1,5 @@
+package duke;
+
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -6,6 +8,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.io.BufferedReader;
+import duke.task.*;
 
 public class Storage {
     static String filePath = "./data/duke.txt";

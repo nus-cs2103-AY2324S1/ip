@@ -1,5 +1,7 @@
+package duke;
+
 public class Task {
-    enum Type {
+    public enum Type {
         TODO,
         DEADLINE,
         EVENT,

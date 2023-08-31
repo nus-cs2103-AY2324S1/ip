@@ -1,9 +1,19 @@
+package duke.command;
+
 import java.time.LocalDateTime;
+import duke.Ui;
+import duke.Storage;
+import duke.TaskList;
+import duke.Command;
+import duke.Task;
+import duke.task.Todo;
+import duke.task.Deadline;
+import duke.task.Event;
 
 // Solution below adapted and inspired by https://chat.openai.com/share/7f037351-3be6-4105-b138-77f68d428c84
 public class AddCommand extends Command {
 
-    enum TaskType {
+    public enum TaskType {
         TODO, DEADLINE, EVENT
     }
 
