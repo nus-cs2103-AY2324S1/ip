@@ -169,6 +169,11 @@ public class TaskList {
         }
     }
 
+    /**
+     * Returns a string representation of all the tasks that are due by the specified date
+     * @param command The input by user with the command of dueby and second argument of the date
+     * @return String
+     */
     public String dueBy(String command) {
         String[] commandList = command.trim().toLowerCase().split(" ");
         if (commandList.length > 1) {
