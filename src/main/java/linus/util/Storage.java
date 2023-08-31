@@ -43,9 +43,10 @@ public class Storage {
             gson = new GsonBuilder()
                     .registerTypeAdapter(Task.class, deserializer)
                     .create();
-            List<Task> tasks = gson.fromJson(json, new TypeToken<ArrayList<Task>>(){}.getType());
+            List<Task> tasks = gson.fromJson(json, new TypeToken<ArrayList<Task>>() {
+            }.getType());
 
-            if(tasks == null) {
+            if (tasks == null) {
                 return new ArrayList<>();
             }
             return tasks;
