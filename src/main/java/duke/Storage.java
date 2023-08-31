@@ -12,13 +12,33 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * Handles storage operations including loading tasks from a file and saving tasks to a file.
+ * <p>
+ * This class provides methods to interact with the storage file where tasks are saved.
+ * It ensures that the necessary directory and file exist and provides utility functions
+ * to read and write tasks from and to the storage file.
+ * </p>
+ */
 public class Storage {
     private static final String FILE_PATH = "./data/duke.txt";
     private final Ui ui;
 
+    /**
+     * Constructs a new {@code Storage} object with a reference to the UI.
+     *
+     * @param ui The UI instance for displaying storage-related messages.
+     */
     public Storage(Ui ui) {
         this.ui = ui;
     }
+
+    /**
+     * Ensures the storage directory exists.
+     * <p>
+     * If the directory does not exist, it is created.
+     * </p>
+     */
 
     private void ensureDirectoryExists() {
         File directory = new File("./data/");
@@ -26,6 +46,12 @@ public class Storage {
             directory.mkdirs();
         }
     }
+
+    /**
+     * Saves the provided list of tasks to the storage file.
+     *
+     * @param tasks The list of tasks to be saved.
+     */
 
     public void saveTasks(List<Task> tasks) {
         try {
@@ -40,6 +66,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Loads tasks from the storage file into a list.
+     *
+     * @return A list of tasks loaded from the storage file.
+     */
     public List<Task> loadTasks() {
         List<Task> tasks = new ArrayList<>();
         try {
@@ -61,6 +92,13 @@ public class Storage {
         return tasks;
     }
 
+    /**
+     * Parses a task represented as a string from the storage file.
+     *
+     * @param taskData The task data as a string.
+     * @return A {@link Task} object based on the provided task data.
+     * @throws DukeException If the task type is unknown or there's an error in parsing.
+     */
     private Task parseFileTask(String taskData) throws DukeException {
         String[] parts = taskData.split(" \\| ");
         switch (parts[0]) {
