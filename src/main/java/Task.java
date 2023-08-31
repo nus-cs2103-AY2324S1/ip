@@ -18,7 +18,8 @@ public abstract class Task implements Comparable<Task> {
         numberOfTasks++;
     }
 
-    public static Task addTask(String command, Scanner tokeniser) throws IllegalCommandException {
+    public static Task addTask(String command, Scanner tokeniser) throws IllegalCommandException,
+            IllegalDateTimeException {
         Task newTask;
         if (!command.equals("todo") && !command.equals("deadline")
             && !command.equals("event")) {
@@ -106,7 +107,7 @@ public abstract class Task implements Comparable<Task> {
         }
     }
 
-    public static Task addSavedTask(int id, boolean mark, String description) {
+    public static Task addSavedTask(int id, boolean mark, String description) throws IllegalDateTimeException {
         switch (id) {
         case (1):
             return new ToDo(description, mark);

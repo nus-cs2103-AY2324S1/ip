@@ -6,8 +6,12 @@ public class Event extends Task {
     private String toDate;
     private String toTime;
     public Event(String d, String fromDate, String fromTime,
-                 String toDate, String toTime ) {
+                 String toDate, String toTime) throws IllegalDateTimeException {
         super(d);
+        TimeParser.checkValidEventDate(fromDate, toDate);
+        if (fromDate.equals(toDate)) {
+            TimeParser.checkValidEventTime(fromTime, toTime);
+        }
         this.fromDate = fromDate;
         this.fromTime = fromTime;
         this.toDate = toDate;
