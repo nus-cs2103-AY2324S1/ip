@@ -46,13 +46,17 @@ public abstract class Task {
     public abstract boolean contains(String query);
 
     /**
-     * Returns the string representation of the task.
-     * @return string representation of the task.
+     * Returns the string representation of the task for output to user.
+     * @return string representation of the task for output to user.
      */
     @Override
     public String toString() {
         return "[" + this.getStatusIcon() + "] " + this.description;
     }
 
+    /**
+     * Returns the string representation of the task for storage purposes.
+     * @return string representation of the task for storage purposes.
+     */
     public abstract String toStringStorage();
 }

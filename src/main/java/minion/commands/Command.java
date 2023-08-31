@@ -12,7 +12,7 @@ import java.io.IOException;
  */
 public abstract class Command {
     /**
-     * Execute the command given the tasks, ui, storage.
+     * Executes the command given the tasks, ui, storage.
      * @param tasks Task list.
      * @param ui Ui of chatbot.
      * @param storage Storage of chatbot.

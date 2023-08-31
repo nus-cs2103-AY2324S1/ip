@@ -12,6 +12,7 @@ import minion.data.task.ToDo;
  * Represents a command parser.
  */
 public class CommandParser {
+
     /**
      * Parses a task from the command. Throws an exception if unable to parse or invalid argument(s) provided.
      * @param command command given.
@@ -19,7 +20,6 @@ public class CommandParser {
      * @throws MinionException if unable to parse or invalid argument(s) provided.
      */
     public static Command parse(String command) throws MinionException {
-
         command = command.trim();
 
         if (command.isEmpty()) {
@@ -80,7 +80,7 @@ public class CommandParser {
     }
 
     /**
-     * Precursor to returning a mark command.
+     * Parses arguments in the context of the mark command.
      * @param arr Array of string parts.
      * @return Mark command.
      * @throws ParserException if unable to parse task index.
@@ -91,7 +91,7 @@ public class CommandParser {
     }
 
     /**
-     * Precursor to returning an unmark command.
+     * Parses arguments in the context of the unmark command.
      * @param arr Array of string parts.
      * @return Unmark command.
      * @throws ParserException if unable to parse task index.
@@ -102,7 +102,7 @@ public class CommandParser {
     }
 
     /**
-     * Precursor to returning a delete command.
+     * Parses arguments in the context of the delete command.
      * @param arr Array of string parts.
      * @return Delete command.
      * @throws ParserException if unable to parse task index.
@@ -113,7 +113,7 @@ public class CommandParser {
     }
 
     /**
-     * Precursor to returning a ToDo command.
+     * Parses arguments in the context of the ToDo command.
      * @param arr Array of string parts.
      * @return ToDo command.
      * @throws ParserException if unable to parse the command.
@@ -126,7 +126,7 @@ public class CommandParser {
 }
 
     /**
-     * Precursor to returning a Deadline command.
+     * Parses arguments in the context of the Deadline command.
      * @param arr Array of string parts.
      * @return Deadline command.
      * @throws ParserException if unable to parse the command.
@@ -167,7 +167,7 @@ public class CommandParser {
     }
 
     /**
-     * Precursor to returning an Event command.
+     * Parses arguments in the context of the Event command.
      * @param arr Array of string parts.
      * @return Event command.
      * @throws MinionException if unable to parse the command.
@@ -177,9 +177,7 @@ public class CommandParser {
             throw new ParserException(Messages.MESSAGE_EVENT_DESCRIPTION_ERROR);
         }
         String[] strs = arr[1].split("/from");
-
         String description = null;
-
         switch (strs.length) {
         // nothing to left and right
         case 0:
@@ -230,7 +228,7 @@ public class CommandParser {
     }
 
     /**
-     * Precursor to returning a find command.
+     * Parses arguments in the context of the find command.
      * @param arr Array of strings.
      * @return Find command.
      * @throws ParserException when unable to parse the command.

@@ -54,9 +54,16 @@ public class Deadline extends Task {
         return "D | " + (isDone ? "1" : "0") + " | " + description + " | " + this.datetime;
     }
 
+    /**
+     * Checks whether this object equals the other object.
+     * @param o other object.
+     * @return whether this object equals the other object.
+     */
     @Override
     public boolean equals(Object o) {
-        if(o == null || !(o instanceof Deadline)) return false;
+        if (o == null || !(o instanceof Deadline)) {
+            return false;
+        }
         Deadline t = (Deadline) o;
         return this.description.equals(t.description) && this.isDone == t.isDone && this.datetime.equals(t.datetime);
     }

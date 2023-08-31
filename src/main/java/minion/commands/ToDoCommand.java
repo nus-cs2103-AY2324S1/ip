@@ -12,7 +12,7 @@ import java.io.IOException;
  */
 public class ToDoCommand extends Command {
     public static final String COMMAND_WORD = "todo";
-    public final ToDo toDo;
+    private final ToDo toDo;
 
     /**
      * Constructs a todo command.
@@ -47,7 +47,9 @@ public class ToDoCommand extends Command {
      */
     @Override
     public boolean equals(Object o) {
-        if(o == null || !(o instanceof ToDoCommand)) return false;
+        if (o == null || !(o instanceof ToDoCommand)) {
+            return false;
+        }
         ToDoCommand c = (ToDoCommand) o;
         return this.toDo.equals(c.toDo);
     }

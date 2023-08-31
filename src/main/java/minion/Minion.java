@@ -18,7 +18,7 @@ public class Minion {
     private final Storage storage;
 
     /**
-     * A constructor for the Minion chatbot.
+     * Constructs the Minion chatbot.
      * @param filePath The file path of the file storing the task list.
      */
     public Minion(String filePath) {
@@ -37,7 +37,7 @@ public class Minion {
     }
 
     /**
-     * Driver function for main.
+     * Runs the chatbot.
      */
     private void run()  {
         ui.showWelcome();

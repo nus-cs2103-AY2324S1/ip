@@ -48,7 +48,9 @@ public class UnmarkCommand extends Command {
      */
     @Override
     public boolean equals(Object o) {
-        if(o == null || !(o instanceof UnmarkCommand)) return false;
+        if (o == null || !(o instanceof UnmarkCommand)) {
+            return false;
+        }
         UnmarkCommand c = (UnmarkCommand) o;
         return this.taskIdx == c.taskIdx;
     }

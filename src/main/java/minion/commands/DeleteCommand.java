@@ -47,7 +47,9 @@ public class DeleteCommand extends Command {
      */
     @Override
     public boolean equals(Object o) {
-        if(o == null || !(o instanceof DeleteCommand)) return false;
+        if (o == null || !(o instanceof DeleteCommand)) {
+            return false;
+        }
         DeleteCommand c = (DeleteCommand) o;
         return this.taskIdx == c.taskIdx;
     }

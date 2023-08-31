@@ -47,7 +47,9 @@ public class DeadlineCommand extends Command {
      */
     @Override
     public boolean equals(Object o) {
-        if(o == null || !(o instanceof DeadlineCommand)) return false;
+        if (o == null || !(o instanceof DeadlineCommand)) {
+            return false;
+        }
         DeadlineCommand c = (DeadlineCommand) o;
         return this.deadline.equals(c.deadline);
     }

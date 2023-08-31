@@ -58,9 +58,16 @@ public class Event extends Task {
         return "E | " + (isDone ? "1" : "0") + " | " + description + " | " + start + " - " + end;
     }
 
+    /**
+     * Checks whether this object equals the other object.
+     * @param o other object.
+     * @return whether this object equals the other object.
+     */
     @Override
     public boolean equals(Object o) {
-        if(o == null || !(o instanceof Event)) return false;
+        if (o == null || !(o instanceof Event)) {
+            return false;
+        }
         Event t = (Event) o;
         return this.description.equals(t.description) && this.isDone == t.isDone && this.start.equals(t.start) && this.end.equals(t.end);
     }

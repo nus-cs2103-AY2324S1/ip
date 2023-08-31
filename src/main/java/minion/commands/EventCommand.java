@@ -47,7 +47,9 @@ public class EventCommand extends Command {
      */
     @Override
     public boolean equals(Object o) {
-        if(o == null || !(o instanceof EventCommand)) return false;
+        if (o == null || !(o instanceof EventCommand)) {
+            return false;
+        }
         EventCommand c = (EventCommand) o;
         return this.event.equals(c.event);
     }
