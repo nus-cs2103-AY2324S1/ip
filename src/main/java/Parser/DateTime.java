@@ -1,6 +1,8 @@
+package Parser;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+
 public class DateTime {
     private DateTimeFormatter inputFormatter;
     private DateTimeFormatter outputFormatter;
@@ -18,7 +20,5 @@ public class DateTime {
             return "Invalid format";
         }
     }
-
-
 
 }

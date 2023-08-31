@@ -1,19 +1,23 @@
-public class DeleteCommand extends Command{
+package Comm;
+import Ui.Ui;
+import Storage.TaskList;
+import Storage.FileHandler;
+import TaskManager.Tasks;
+public class MarkCommand extends Command{
 
     private String userInput;
 
-    public DeleteCommand(String userInput) {
+    public MarkCommand(String userInput) {
         this.userInput = userInput;
     }
 
     @Override
     public void execute(TaskList t, Ui ui, FileHandler f) {
         try {
-            int index = Integer.parseInt(userInput.substring(7));
-            Tasks deleted = t.get(index - 1);
-            t.remove(index - 1);
+            int index = Integer.parseInt(userInput.substring(5));
+            t.get(index - 1).markDone();
             FileHandler.writeTasksToFile(t);
-            ui.delete(deleted);
+            ui.mark(index);
         } catch (IndexOutOfBoundsException e) {
             ui.IOOBExceptionMessage();
         }

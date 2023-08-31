@@ -1,3 +1,8 @@
+package Comm;
+import Ui.Ui;
+import Storage.TaskList;
+import Storage.FileHandler;
+import TaskManager.Events;
 public class AddEventCommand extends Command{
     private String userInput;
     private String to;

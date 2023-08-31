@@ -1,4 +1,11 @@
+package Ui;
 import java.util.Scanner;
+import Storage.TaskList;
+import TaskManager.Tasks;
+import TaskManager.Events;
+import TaskManager.ToDos;
+import TaskManager.Deadlines;
+
 public class Ui {
     private final String name = "Yours";
     private TaskList taskList;

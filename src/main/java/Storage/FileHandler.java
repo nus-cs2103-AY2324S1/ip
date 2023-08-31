@@ -1,3 +1,4 @@
+package Storage;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.nio.file.Files;
@@ -6,6 +7,11 @@ import java.nio.file.Paths;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
+import TaskManager.Tasks;
+import TaskManager.Events;
+import TaskManager.ToDos;
+import TaskManager.Deadlines;
+
 public class FileHandler {
     private static String filePath;
     public FileHandler(String filePath) {
