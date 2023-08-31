@@ -1,7 +1,5 @@
 /**
  * Deadline is the main class for Deadline task used by the Sidtacphi bot.
- *
- * @author Yu Lexuan
  */
 public class Deadline extends Task {
     private String deadline = "";

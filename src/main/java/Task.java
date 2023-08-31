@@ -1,7 +1,5 @@
 /**
  * Task is the main class for tasks used by the Sidtacphi bot.
- *
- * @author Yu Lexuan
  */
 public class Task {
     private String name = "";

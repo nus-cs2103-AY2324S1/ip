@@ -1,7 +1,5 @@
 /**
  * Event is the main class for Event task used by the Sidtacphi bot.
- *
- * @author Yu Lexuan
  */
 public class Event extends Task {
     private String start = "";

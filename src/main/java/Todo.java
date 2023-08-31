@@ -1,7 +1,5 @@
 /**
  * Todo is the main class for Todo task used by the Sidtacphi bot.
- *
- * @author Yu Lexuan
  */
 public class Todo extends Task {
 
