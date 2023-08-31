@@ -104,6 +104,16 @@ public class Ui {
         Ui.showLine();
     }
 
+    public static void showMatchingTasks(TaskList matchingTasks) {
+        Ui.showLine();
+        System.out.println("        Here are the matching tasks in your list:");
+        for (int i = 0; i < matchingTasks.getSize(); i++) {
+            String str = String.format("            %d.%s", i + 1, matchingTasks.getTask(i));
+            System.out.println(str);
+        }
+        Ui.showLine();
+    }
+
     /**
      * Displays a farewell message to the user.
      */
