@@ -26,4 +26,28 @@ public class DukeException extends Exception {
             super("deadline cannot be empty");
         }
     }
+
+    public static class MarkException extends DukeException{
+        public MarkException() {
+            super("Task to mark not specified");
+        }
+    }
+
+    public static class UnmarkException extends DukeException{
+        public UnmarkException() {
+            super("Task to unmark not specified");
+        }
+    }
+
+    public static class DeadlineFormatException extends DukeException{
+        public DeadlineFormatException() {
+            super("Deadline not in the correct format");
+        }
+    }
+
+    public static class EventFormatException extends DukeException{
+        public EventFormatException() {
+            super("Event not in the correct format");
+        }
+    }
 }

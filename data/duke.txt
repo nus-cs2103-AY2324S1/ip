@@ -1,3 +1,2 @@
-E | 1 | project meeting | November 1 2023 3pm - November 2 2023 8am
-D | 1 | return book | 02 Feb 2022 6:30am
-E | 0 | buy groceries | May 22 2023 6am - May 23 2023 12pm
+T | 0 | buy food
+T | 0 | buy groceries
