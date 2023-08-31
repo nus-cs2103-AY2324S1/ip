@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.regex.Pattern;
 
+import exceptions.DukeInvalidDateException;
 import task.Deadline;
 import task.Event;
 import task.Task;
@@ -51,19 +52,25 @@ public class Storage {
 
             Task task;
 
-            switch (taskType) {
-                case "T":
-                    task = new ToDo(taskInfo[1]);
-                    break;
-                case "D":
-                    task = new Deadline(taskInfo[1], taskInfo[2]);
-                    break;
-                case "E":
-                    task = new Event(taskInfo[1], taskInfo[2], taskInfo[3]);
-                    break;
-                default:
-                    continue;
+            try {
+                switch (taskType) {
+                    case "T":
+                        task = new ToDo(taskInfo[1]);
+                        break;
+                    case "D":
+                        task = new Deadline(taskInfo[1], taskInfo[2]);
+                        break;
+                    case "E":
+                        task = new Event(taskInfo[1], taskInfo[2], taskInfo[3]);
+                        break;
+                    default:
+                        continue;
+                }
+            } catch (DukeInvalidDateException error) {
+                System.out.println("\t Something went wrong when loading tasks :(");
+                break;
             }
+
 
             if (taskInfo[0].equals("1")) {
                 task.markAsDone();

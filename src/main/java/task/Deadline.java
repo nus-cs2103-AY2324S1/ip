@@ -1,5 +1,11 @@
 package task;
 
+import exceptions.DukeInvalidDateException;
+
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 /**
  * Represents a task that needs to be done before a specific date/time.
  *
@@ -9,16 +15,21 @@ public class Deadline extends Task {
     /**
      * The end time or due date of the deadline.
      */
-    protected String endTime;
+    protected LocalDate endTime;
 
     /**
      * A public constructor for the task.Deadline.
      * @param description
      * @param endTime
      */
-    public Deadline(String description, String endTime) {
+    public Deadline(String description, String endTime) throws DukeInvalidDateException{
         super(description);
-        this.endTime = endTime;
+        try {
+            this.endTime = LocalDate.parse(endTime);
+        } catch (DateTimeParseException error) {
+            throw new DukeInvalidDateException("Date must be of the form yyyy-mm-dd.");
+        }
+
     }
 
     @Override
@@ -33,6 +44,6 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + this.endTime + ")";
+        return "[D]" + super.toString() + " (by: " + this.endTime.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
     }
 }
