@@ -1,7 +1,7 @@
-Hello! It's sally.Sally here!
+Hello! It's Sally here!
 How can I help you today?
 My list:
-Added to My List:
+Added to My List: 
  [T][ ] buy
 Now you have 1 tasks in the list.
 Sorry, I do not understand the command :-(
@@ -10,7 +10,7 @@ OOPS! The description of a deadline cannot be incomplete, you need a ' /by '.
 OOPS! The description of a deadline cannot be incomplete, you need a ' /by '.
 OOPS! The date and time format is invalid.
 Added to My List: 
- [D][ ] read  (by: Aug 29 2023, 6:00 PM)
+ [D][ ] read  (by: Aug 31 2023, 6:00 PM)
 Now you have 2 tasks in the list.
 Added to My List: 
  [D][ ] read  (by: Jun 05 2018, 12:00 AM)
@@ -25,31 +25,36 @@ OOPS! The description of an event cannot be incomplete, you need a '/from' and '
 OOPS! The description of an event cannot be incomplete, you need a '/from' and '/to'.
 OOPS! The date and time format is invalid.
 Added to My List: 
- [E][ ] read  (from: Jun 05 2018, 12:00 AM to: Aug 29 2023, 6:00 PM)
+ [E][ ] read  (from: Jun 05 2018, 12:00 AM to: Aug 31 2023, 6:00 PM)
 Now you have 5 tasks in the list.
 Added to My List: 
  [E][ ] read  (from: Jun 05 2018, 6:00 PM to: Jun 06 2018, 12:00 AM)
 Now you have 6 tasks in the list.
 My list:
 1.[T][ ] buy
-2.[D][ ] read  (by: Aug 29 2023, 6:00 PM)
+2.[D][ ] read  (by: Aug 31 2023, 6:00 PM)
 3.[D][ ] read  (by: Jun 05 2018, 12:00 AM)
 4.[D][ ] read  (by: Jun 05 2018, 6:00 PM)
-5.[E][ ] read  (from: Jun 05 2018, 12:00 AM to: Aug 29 2023, 6:00 PM)
+5.[E][ ] read  (from: Jun 05 2018, 12:00 AM to: Aug 31 2023, 6:00 PM)
 6.[E][ ] read  (from: Jun 05 2018, 6:00 PM to: Jun 06 2018, 12:00 AM)
 Sorry, I do not understand the command :-(
 Nice! I've marked this task as done:
- [D][X] read  (by: Aug 29 2023, 6:00 PM)
+ [D][X] read  (by: Aug 31 2023, 6:00 PM)
 OOPS! Provide a valid task number to mark.
 OOPS! Provide a valid task number to mark.
 Ok, I've marked this task as not done yet:
- [D][ ] read  (by: Aug 29 2023, 6:00 PM)
+ [D][ ] read  (by: Aug 31 2023, 6:00 PM)
 OOPS! Provide a valid task number to unmark.
 OOPS! Provide a valid task number to unmark.
 Noted. I've removed this task:
- [D][ ] read  (by: Aug 29 2023, 6:00 PM)
+ [T][ ] buy
 Now you have 5 tasks in the list.
 OOPS! Provide a valid task number to delete.
 OOPS! Provide a valid task number to delete.
-Sorry, I do not understand the command :-(
+Here are the matching tasks in your list:
+1.[D][ ] read  (by: Aug 31 2023, 6:00 PM)
+2.[D][ ] read  (by: Jun 05 2018, 12:00 AM)
+3.[D][ ] read  (by: Jun 05 2018, 6:00 PM)
+4.[E][ ] read  (from: Jun 05 2018, 12:00 AM to: Aug 31 2023, 6:00 PM)
+5.[E][ ] read  (from: Jun 05 2018, 6:00 PM to: Jun 06 2018, 12:00 AM)
 Bye! See you again next time.

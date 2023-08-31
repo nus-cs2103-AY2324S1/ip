@@ -8,16 +8,6 @@ import java.util.Scanner;
 public class Ui {
 
     /**
-     * Reads and returns the user's input command.
-     *
-     * @return The user's input command.
-     */
-    public String readCommand() {
-        Scanner scanner = new Scanner(System.in);
-        return scanner.nextLine();
-    }
-
-    /**
      * Displays an error message indicating a loading error.
      */
     public void showLoadingError() {
@@ -28,7 +18,7 @@ public class Ui {
      * Displays a welcome message to greet the user.
      */
     public void showWelcomeMessage() {
-        System.out.println("Hello! It's sally.Sally here!");
+        System.out.println("Hello! It's Sally here!");
         System.out.println("How can I help you today?");
     }
 

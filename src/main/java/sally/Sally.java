@@ -1,4 +1,5 @@
 package sally;
+import java.util.Scanner;
 
 /**
  * Represents the main class that interacts with the user and coordinates the program execution.
@@ -34,9 +35,11 @@ public class Sally {
     public void run() {
         ui.showWelcomeMessage();
 
+        Scanner scanner = new Scanner(System.in);
+
         while (true) {
             try {
-                String input = ui.readCommand();
+                String input = scanner.nextLine();
                 if (input.equals("bye")) {
                     ui.showGoodbyeMessage();
                     break;
