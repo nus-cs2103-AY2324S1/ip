@@ -14,6 +14,9 @@ public class Main {
 
     private TaskList taskList;
 
+    /**
+     * Default constructor of the program's main class
+     */
     public Main(){
         this.parser = new Parser();
         this.ui = new Ui();
@@ -31,6 +34,11 @@ public class Main {
         this.parser.registerCommand("delete", new CommandDeleteHandler());
     }
 
+    /**
+     * Main function for the program
+     *
+     * @param args The arugments from JVM
+     */
     public static void main(String[] args) {
         initialize();
         INSTANCE.run();
@@ -50,26 +58,55 @@ public class Main {
         INSTANCE = new Main();
     }
 
+    /**
+     * Returns the application singleton instance
+     *
+     * @return the instance
+     */
     public static Main getInstance(){
         return INSTANCE;
     }
 
+    /**
+     * Return the name of the chat bot
+     *
+     * @return the name
+     */
     public String getName(){
         return this.name;
     }
 
+    /**
+     * Exit the program
+     */
     public void exit(){
         this.isRunning = false;
     }
 
 
+    /**
+     * Returns the TaskList instance
+     *
+     * @return the instance
+     */
     public TaskList getTaskList(){
         return this.taskList;
     }
+
+    /**
+     * Returns the Parser instance
+     *
+     * @return the instance
+     */
     public Parser getParser(){
         return this.parser;
     }
 
+    /**
+     * Returns the Ui instance
+     *
+     * @return the instance
+     */
     public Ui getUi(){
         return this.ui;
     }

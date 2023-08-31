@@ -11,8 +11,11 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class MainTest {
 
+    /**
+     * Test cases for DateTimeUtil.parseDateTimeString
+     */
     @Test
-    public void dateTimeParseTest() throws CommandException {
+    public void dateTimeParseTest() {
         try{
             assertEquals(DateTimeUtil.parseDateTimeString("1970-01-01").toString(), "1970-01-01T00:00");
             assertEquals(DateTimeUtil.parseDateTimeString("1970-01-01 05:01:03").toString(), "1970-01-01T05:01:03");
@@ -20,8 +23,13 @@ public class MainTest {
         catch (Exception e){
             fail();
         }
+        assertThrows(CommandException.class, () -> DateTimeUtil.parseDateTimeString("1970 01 01"));
+        assertThrows(CommandException.class, () -> DateTimeUtil.parseDateTimeString("1970-01-01 00:00:100"));
     }
 
+    /**
+     * Test cases for testing some exceptions in the program
+     */
     @Test
     public void exceptionTest(){
         // Event tasks: start time must <= end time

@@ -8,6 +8,10 @@ import java.io.*;
 
 public class Storage {
     private static final String path = "data.bin";
+
+    /**
+     * Serializes all tasks into the data file.
+     */
     public static void saveTasksToFile(){
         try{
             FileOutputStream fos = new FileOutputStream(path);
@@ -27,6 +31,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Create the TaskList instance from deserializing the data file
+     * @return The TaskList containing all deserialized tasks form the data file,
+     * or a TaskList instance containing no tasks if the data file not exists or can not be read.
+     */
     public static TaskList createTaskListFromFile() {
         File file = new File(path);
         if(!file.exists()){
