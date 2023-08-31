@@ -1,3 +1,7 @@
+package duke.commands;
+import duke.utils.*;
+import duke.tasks.*;
+
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
@@ -76,7 +80,7 @@ public class AddCommand extends Command {
             System.out.println(newTask);
             Ui.printLine();
         } catch (StringIndexOutOfBoundsException e) {
-            System.out.println("Invalid command");
+            System.out.println("Invalid duke.command");
             Ui.printLine();
         }
     }

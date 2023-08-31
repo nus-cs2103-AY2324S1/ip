@@ -1,3 +1,7 @@
+package duke.commands;
+
+import duke.utils.*;
+import duke.tasks.*;
 import java.util.ArrayList;
 
 public class UnmarkCommand extends Command {

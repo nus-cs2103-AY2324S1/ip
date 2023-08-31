@@ -1,3 +1,12 @@
+package duke;
+
+import duke.commands.Command;
+import duke.commands.ExitCommand;
+import duke.commands.ListCommand;
+import duke.tasks.Task;
+import duke.utils.Parser;
+import duke.utils.Storage;
+import duke.utils.Ui;
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.io.FileNotFoundException;

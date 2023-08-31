@@ -1,3 +1,7 @@
+package duke.utils;
+
+import duke.commands.*;
+
 public class Parser {
 
     public Command parse(String fullCommand) {
