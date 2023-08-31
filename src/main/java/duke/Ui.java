@@ -45,6 +45,9 @@ public class Ui {
                 } else if (words[0].equalsIgnoreCase("event")) {
                     String description = String.join(" ", Arrays.copyOfRange(words, 1, words.length));
                     tasks.eventHandler(description, false, false);
+                } else if (words[0].equalsIgnoreCase("find")) {
+                    String description = String.join(" ", Arrays.copyOfRange(words, 1, words.length));
+                    tasks.findTask(description);
                 } else {
                     throw new InvalidCommandException();
                 }

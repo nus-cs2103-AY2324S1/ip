@@ -117,6 +117,23 @@ public class TaskList {
         return this.strList;
     }
 
+    public void findTask(String taskName) {
+        System.out.println(taskName);
+        ArrayList<Task> findList = new ArrayList<>();
+        for (Task i : this.strList) {
+            if ((i.toString().toLowerCase()).contains(taskName.toLowerCase())) {
+                findList.add(i);
+            }
+        }
+        System.out.println(line);
+        System.out.println("\tHere are the matching tasks in your list:");
+        for (int i = 0; i < findList.size(); i++) {
+            int number = i + 1;
+            System.out.println("\t" + number + "." + findList.get(i).toString());
+        }
+        System.out.println(line);
+    }
+
     public TaskList() {
         this.strList = new ArrayList<>();
     }
