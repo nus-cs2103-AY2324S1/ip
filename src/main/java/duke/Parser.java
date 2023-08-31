@@ -1,10 +1,21 @@
 package duke;
 
-import duke.command.*;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
+import duke.command.AddDeadlineCommand;
+import duke.command.AddEventCommand;
+import duke.command.AddTodoCommand;
+import duke.command.ByeCommand;
+import duke.command.Command;
+import duke.command.DeleteTaskCommand;
+import duke.command.ListCommand;
+import duke.command.MarkDoneCommand;
+import duke.command.MarkNotDoneCommand;
+
+/**
+ * The Parser class.
+ */
 public class Parser {
     /**
      * Checks if a string is numeric.
