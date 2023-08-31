@@ -116,4 +116,8 @@ public class TaskList {
         System.out.println("OK, I've marked this task as not done yet:\n"
                 + tasksList.get(taskId - 1).toString());
     }
+
+    public Task get(int id) {
+        return tasksList.get(id);
+    }
 }

@@ -33,6 +33,8 @@ public class Parser {
             return new MarkCommand(cmdWord, arguments);
         case "unmark":
             return new UnmarkCommand(cmdWord, arguments);
+        case "find":
+            return new FindCommand(cmdWord, arguments);
         default:
             return new HelpCommand(cmdWord, arguments);
         }
