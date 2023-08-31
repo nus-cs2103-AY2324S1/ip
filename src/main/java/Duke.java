@@ -326,26 +326,7 @@ class TaskList {
     public String toString() {
         StringBuilder stringBuilder = new StringBuilder();
         for (Task task : tasks) {
-            if (task instanceof Todo) {
-                stringBuilder.append("[T]");
-            } else if (task instanceof Deadline) {
-                stringBuilder.append("[D]");
-            } else if (task instanceof Event) {
-                stringBuilder.append("[E]");
-            }
-            
-            stringBuilder.append(task.isDone ? "[X] " : "[ ] ");
-            
-            if (task instanceof Todo) {
-                stringBuilder.append(task.description);
-            } else if (task instanceof Deadline) {
-                stringBuilder.append(task.description).append(" (by: ").append(((Deadline) task).by).append(")");
-            } else if (task instanceof Event) {
-                stringBuilder.append(task.description)
-                             .append(" (from: ").append(((Event) task).from)
-                             .append(" to: ").append(((Event) task).to).append(")");
-            }
-            
+            stringBuilder.append(task.toString());
             stringBuilder.append("\n");
         }
         return stringBuilder.toString();
