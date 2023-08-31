@@ -1,3 +1,5 @@
+package instructionstuff;
+
 /**
  * An enum class to represent the different Instructions.
  */

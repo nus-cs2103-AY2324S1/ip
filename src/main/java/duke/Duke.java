@@ -1,5 +1,15 @@
+package duke;
+
+import taskstuff.TaskList;
+
+import storagestuff.Storage;
+
+import userstuff.Ui;
+
+import instructionstuff.Instruction;
+
 /**
- * Main class of Duke bot.
+ * Main class of duke.Duke bot.
  * This class performs simple input and output handling and calls
  * appropriate functions from other classes.
  */
@@ -14,7 +24,7 @@ public class Duke {
     /** String representing filepath of data file. */
     private String filePath;
 
-    /** The Ui object which handles the ui of this chatbot. */
+    /** The ui.Ui object which handles the ui of this chatbot. */
     private Ui ui;
 
 
@@ -73,7 +83,7 @@ public class Duke {
      */
     public static void main(String[] args) {
 
-        String filePath = "./data/Duke.txt";
+        String filePath = "./data/duke.Duke.txt";
         Duke duke = new Duke(filePath);
         duke.run();
 

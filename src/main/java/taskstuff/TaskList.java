@@ -1,5 +1,8 @@
+package taskstuff;
+
 import java.util.ArrayList;
 
+import duke.DukeException;
 /**
  * A class to hold a list of tasks and perform operations on
  * this list.
@@ -45,7 +48,7 @@ public class TaskList {
     }
 
     /**
-     * Marks a given Task and throws DukeException if invalid index.
+     * Marks a given task.Task and throws duke.DukeException if invalid index.
      *
      * @param index The location of the task in tasks ArrayList.
      */
@@ -57,7 +60,7 @@ public class TaskList {
     }
 
     /**
-     * Marks a given Task as not done and throws DukeException if invalid index.
+     * Marks a given task.Task as not done and throws duke.DukeException if invalid index.
      *
      * @param index The location of the task in tasks ArrayList.
      */
@@ -70,13 +73,13 @@ public class TaskList {
     }
 
     /**
-     * Deletes a given Task from the tasklist and throws DukeException if invalid index.
+     * Deletes a given task.Task from the tasklist and throws duke.DukeException if invalid index.
      * Returns the deleted task's string representation.
      *
      * @param index The location of the task in tasks ArrayList.
      * @return Returns the string of deleted task if successful.
      */
-    public String deleteTask(int index) throws DukeException{
+    public String deleteTask(int index) throws DukeException {
         if (index > tasks.size() || index <= 0) {
             throw new DukeException("The index is not a valid index. Try again.");
         }
@@ -96,7 +99,7 @@ public class TaskList {
 
     /**
      * Returns the string representation of task at index i.
-     * If invalid index DukeException is thrown.
+     * If invalid index duke.DukeException is thrown.
      *
      * @param index The index of task whose string representation is needed.
      */

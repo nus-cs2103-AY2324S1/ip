@@ -1,3 +1,14 @@
+package instructionstuff;
+
+import duke.DukeException;
+
+import taskstuff.Task;
+import taskstuff.TaskList;
+
+import storagestuff.Storage;
+
+import userstuff.Ui;
+
 /**
  * An abstract class for all instructions.
  * Serves as parent class for all instructions.

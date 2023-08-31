@@ -1,9 +1,20 @@
-import java.time.LocalDate;
+package duke;
+
+import instructionstuff.Instruction;
+import instructionstuff.InstructionEnum;
+
+import taskstuff.Event;
+import taskstuff.Task;
+import taskstuff.Todo;
+import taskstuff.Deadline;
+
+import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+
 
 /**
  * A parser class whose main method is the parse method which
@@ -21,7 +32,7 @@ public class Parser {
      * returns an instruction corresponding to it.
      *
      * @param userInput The string from user to parse.
-     * @return Returns an instance of Instruction if parse was successful and null if not.
+     * @return Returns an instance of instruction.Instruction if parse was successful and null if not.
      */
     public static Instruction parse(String userInput) throws DukeException {
 
@@ -134,7 +145,7 @@ public class Parser {
      *
      * @param data String to parse from data file.
      * @return returns the task if parse was successful.
-     * @throws DukeException Throws DukeException if parse failed.
+     * @throws DukeException Throws duke.DukeException if parse failed.
      */
     public static Task parseData(String data) throws DukeException {
         String regex = "\\[(.)]\\[(.)](((.*)\\(from: (.*) to: (.*)\\))|((.*)\\(by: (.*)\\))|(.*))";

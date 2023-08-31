@@ -1,5 +1,13 @@
-import java.io.File;
+package storagestuff;
+
+import duke.DukeException;
+import duke.Parser;
+
+import taskstuff.Task;
+
 import java.util.ArrayList;
+
+import java.io.File;
 import java.io.IOException;
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -20,7 +28,7 @@ public class Storage {
      * Initialises the filePath and makes the file and directory if they don't exist.
      *
      * @param filePath String representing filePath of storage file.
-     * @Throws DukeException Throws DukeException if error occurred during accessing or making file.
+     * @Throws duke.DukeException Throws duke.DukeException if error occurred during accessing or making file.
      */
     public Storage(String filePath) throws DukeException {
         this.filePath = filePath;

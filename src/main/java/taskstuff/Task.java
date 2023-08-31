@@ -1,19 +1,24 @@
+package taskstuff;
+
 /**
  * An abstract class which can only be inherited from.
  * Serves as parent class of all tasks.
  */
 public abstract class Task {
 
-    /** The name of the task. */
+    /**
+     * The name of the task.
+     */
     protected String description;
 
-    /** Boolean variable indicating whether task is done. */
+    /**
+     * Boolean variable indicating whether task is done.
+     */
     protected boolean isDone;
 
 
     /**
      * Initialises name of task and isDone.
-     *
      *
      * @param description Name of task.
      */
@@ -34,7 +39,6 @@ public abstract class Task {
 
     /**
      * Sets isDone to true.
-     *
      */
     public void setAsDone() {
         this.isDone = true;
@@ -42,7 +46,6 @@ public abstract class Task {
 
     /**
      * Sets isDone to false.
-     *
      */
     public void setAsNotDone() {
         this.isDone = false;
@@ -58,3 +61,4 @@ public abstract class Task {
         return ("[" + this.getStatusIcon() + "] " + this.description);
     }
 }
+
