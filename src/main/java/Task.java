@@ -26,5 +26,5 @@ public abstract class Task {
         return this.getStatusIcon() + this.description;
     }
 
-    abstract void writeToFile(String path);
+    abstract String writeToFile();
 }

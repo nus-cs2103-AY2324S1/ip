@@ -7,15 +7,9 @@ public class Todo extends Task {
     }
 
     @Override
-    public void writeToFile(String path) {
-        try {
-            FileWriter file = new FileWriter(path, true);
-            int completed = this.isDone ? 1 : 0;
-            file.write("T " + "| " + completed + " | " + this.description + "\r\n");
-            file.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    public String writeToFile() {
+        int completed = this.isDone ? 1 : 0;
+        return "T " + "| " + completed + " | " + this.description + "\r\n";
     }
 
     @Override

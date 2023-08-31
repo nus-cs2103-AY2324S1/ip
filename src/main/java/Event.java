@@ -10,7 +10,6 @@ public class Event extends Task {
     public Event(String description, String from, String to) {
         super(description);
         try {
-            System.out.println(from);
             this.from = DateHelper.parse(from);
             this.to = DateHelper.parse(to);
         } catch (DateTimeParseException e) {
@@ -19,16 +18,10 @@ public class Event extends Task {
     }
 
     @Override
-    public void writeToFile(String path) {
-        try {
-            FileWriter file = new FileWriter(path, true);
-            int completed = this.isDone ? 1 : 0;
-            file.write("E " + "| " + completed + " | " + this.description + " | " + DateHelper.saveFormat(this.from)
-                    + " | " + DateHelper.saveFormat(this.to) + "\r\n");
-            file.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    public String writeToFile() {
+        int completed = this.isDone ? 1 : 0;
+        return "E " + "| " + completed + " | " + this.description + " | " + DateHelper.saveFormat(this.from)
+                + " | " + DateHelper.saveFormat(this.to) + "\r\n";
     }
 
     @Override
