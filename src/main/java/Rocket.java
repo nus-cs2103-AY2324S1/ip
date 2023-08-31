@@ -358,7 +358,9 @@ public class Rocket {
         }
         int fromIndex = duration.indexOf("to") - 1;
         String from = duration.substring(0, fromIndex).trim();
-        String to = duration.substring(fromIndex + 4).trim();
+        String to = duration.substring(fromIndex + 4)
+                .replace(')', ' ')
+                .trim();
         return new Event(description, isDone, from, to);
     }
 
