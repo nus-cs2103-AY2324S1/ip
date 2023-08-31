@@ -1,36 +1,60 @@
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.io.File;
+
 
 public class Rocket {
     private static final String LINE = "    ____________________________________________________________";
     public static void main(String[] args) {
 
-        String input;
+        // Create data file and directory if they don't exist
+        String directoryPath = "./data/";
+        String filePath = directoryPath + "rocket.txt";
+
+        // Make new folder if it doesn't exist
+        File directory = new File(directoryPath);
+        if (!directory.exists()) {
+            directory.mkdirs();
+        }
+
+        // Make new file if it doesn't exist
+        File file = new File(filePath);
+        if (!file.exists()) {
+            try {
+                file.createNewFile();
+            } catch (IOException e) {
+                printError(e.getMessage());
+            }
+        }
+
         // Create list
         List<Task> taskList = new ArrayList<>();
 
         // Create scanner to read user input
         Scanner scanner = new Scanner(System.in);
 
+        // Read user input
         System.out.println(LINE + "\n    Hello! I'm Rocket\n" +
                 "    What can I do for you?\n" + LINE);
-        input = scanner.nextLine();
+        String input = scanner.nextLine();
 
         while (true) {
             // Split string to get command and arguments
-            int firstWordIndex = input.indexOf(' ');
-            String command;
-            String arguments = "";
-            if (firstWordIndex == -1) {
-                command = input;
-            } else {
-                command = input.substring(0, firstWordIndex);
-                arguments = input.substring(firstWordIndex + 1);
-            }
+            String[] CommandAndArguments = processInput(input);
+            String command = CommandAndArguments[0];
+            String arguments = CommandAndArguments[1];
             try {
                 switch (command) {
                 case "bye": {
+                    try {
+                        saveTaskList(taskList, filePath);
+//                        writeToFile(filePath, String.valueOf(taskList.get(0)));
+                    } catch (IOException e) {
+                        printError(e.getMessage());
+                    }
                     handleBye();
                     return;
                 }
@@ -67,15 +91,77 @@ public class Rocket {
                 }
                 }
             } catch (RocketException e) {
-                System.out.println(LINE);
-                System.out.println("     ☹ OOPS!!! " + e.getMessage());
-                System.out.println(LINE);
+                printError(e.getMessage());
             } finally {
                 if (!input.equals("bye")) {
                     input = scanner.nextLine();
                 }
             }
         }
+    }
+
+    /**
+     * Processes input into command and arguments.
+     * @param input the user input.
+     * @return an array where the first element is the command and the second argument is the arguments
+     */
+    private static String[] processInput(String input) {
+        int firstWordIndex = input.indexOf(' ');
+        if (firstWordIndex == -1) {
+            return new String[]{input, ""};
+        } else {
+            return new String[]{input.substring(0, firstWordIndex),
+                    input.substring(firstWordIndex + 1)};
+        }
+    }
+
+    /**
+     * Prints out a nicely-formatted error message
+     * @param message the error message.
+     */
+    private static void printError(String message) {
+        System.out.println(LINE);
+        System.out.println("     ☹ OOPS!!! " + message);
+        System.out.println(LINE);
+    }
+
+
+    /**
+     * Saves tasklist in to a file
+     * @param taskList the tasklist.
+     * @param filePath the filePath that indicates where the file is located at.
+     * @throws IOException occurs when there are problems writing to the file
+     */
+    private static void saveTaskList(List<Task> taskList, String filePath) throws IOException{
+        writeToFile(filePath, "");
+        for (Task task: taskList) {
+            appendToFile(filePath, String.valueOf(task));
+            appendToFile(filePath, System.lineSeparator());
+        }
+    }
+
+    /**
+     * Writes a string to a file
+     * @param filePath the file path that indicates where the file is located at.
+     * @param textToAdd the text to be added to the file
+     * @throws IOException occurs when there are problems writing to the file
+     */
+    private static void writeToFile(String filePath, String textToAdd) throws IOException {
+        FileWriter fw = new FileWriter(filePath);
+        fw.write(textToAdd);
+        fw.close();
+    }
+
+    /**
+     * Appends a string to a file
+     * @param filePath the file path that indicates where the file is located at
+     * @param textToAppend the text to be appended to the file
+     * @throws IOException occurs when there are problems writing to the file
+     */
+    private static void appendToFile(String filePath, String textToAppend) throws IOException {
+        FileWriter fw = new FileWriter(filePath, true); // create a FileWriter in append mode
+        fw.write(textToAppend);
+        fw.close();
     }
 
     /**
