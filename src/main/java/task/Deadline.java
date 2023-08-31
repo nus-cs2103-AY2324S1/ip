@@ -1,3 +1,7 @@
+package task;
+
+import dukeutilities.TimeFormatter;
+
 public class Deadline extends Task {
     private String title;
     private TimeFormatter deadline;
