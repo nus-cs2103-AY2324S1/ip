@@ -1,10 +1,37 @@
+import Parser.Parser;
+import Storage.FileHandler;
+import Storage.TaskList;
+import Ui.Ui;
+import Comm.Command;
+
 public class Duke {
+    private FileHandler fileHandler;
+    private TaskList task;
+    private Ui ui;
+
+    public Duke(String filePath) {
+        this.fileHandler = new FileHandler(filePath);
+        this.task = new TaskList(FileHandler.readTasksFromFile());
+        this.ui = new Ui(task);
+    }
+
+    public void run() {
+        ui.showWelcome();
+        boolean isExit = false;
+        while (!isExit) {
+            try {
+                String fullCommand = ui.readCommand();
+                Command c = Parser.parse(fullCommand);
+                c.execute(task, ui, fileHandler);
+                isExit = c.isExit();
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+        }
+    }
+
     public static void main(String[] args) {
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
-        System.out.println("Hello from\n" + logo);
+        new Duke("data/TaskList.txt").run();
     }
 }
+
