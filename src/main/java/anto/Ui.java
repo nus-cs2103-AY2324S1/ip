@@ -162,4 +162,29 @@ public class Ui {
 
         this.printBlock();
     }
+
+    /**
+     * Prints list of tasks found.
+     *
+     * @param foundTasks List of tasks found.
+     */
+    public void printFoundTasks(ArrayList<Task> foundTasks) {
+        if (foundTasks.size() == 0) {
+            this.printBlock();
+            System.out.println("There are no matching tasks in your list.");
+            this.printBlock();
+            return;
+        }
+
+        this.printBlock();
+
+        int length = foundTasks.size();
+        System.out.println("Here are the matching tasks in your list:");
+        for (int i = 0; i < length; i++) {
+            System.out.println(String.format("%d. %s",
+                    i + 1, foundTasks.get(i)));
+        }
+
+        this.printBlock();
+    }
 }
