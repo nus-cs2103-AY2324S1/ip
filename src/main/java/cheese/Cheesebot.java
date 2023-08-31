@@ -8,10 +8,20 @@ import cheese.Task.Task;
 
 import java.util.Scanner;
 
+/**
+ * Represents a Cheesebot that can add, delete, and mark tasks as done.
+ *
+ * @version v0.1
+ */
+
 public class Cheesebot {
+  /** The task list of the Cheesebot. */
   private TaskList taskList;
+  /** The user interface of the Cheesebot. */
   private Ui ui;
+  /** The storage of the Cheesebot. */
   private Storage storage;
+  /** The parser of the Cheesebot. */
   private Parser parser = new Parser();
 
   public Cheesebot() {
@@ -20,6 +30,9 @@ public class Cheesebot {
     this.storage = new Storage("./data/cheese.txt");
   }
 
+  /**
+   * Runs the Cheesebot.
+   */
   public void run() {
     ui.showWelcome();
     taskList = storage.loadTask();
@@ -35,7 +48,12 @@ public class Cheesebot {
     ui.showBye();
     scanner.close();
   }
-
+  
+  /**
+   * Processes the user input.
+   *
+   * @param input The user input.
+   */
   private void processCommand(String input) {
     if (parser.isCommand(input)) {
       String command = parser.getCommand(input);
