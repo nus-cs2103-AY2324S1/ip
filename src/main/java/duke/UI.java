@@ -1,13 +1,7 @@
 package duke;
 
-<<<<<<< HEAD
-import java.util.ArrayList;
-import duke.Tasks.TaskList;
-import duke.Tasks.Task;
-=======
 import duke.tasks.TaskList;
 import duke.tasks.Task;
->>>>>>> branch-A-CodingStandard
 
 /**
  * Describes the various possible interaction the bot has when you command
@@ -49,6 +43,7 @@ public class UI {
 
     /**
      * Describes what the bot say when you mark a task successfully
+     * 
      * @param task Take in the task to be marked
      */
     public void markTask(Task task) {
@@ -60,6 +55,7 @@ public class UI {
 
     /**
      * Describes what the bot say when you unmark a task successfully
+     * 
      * @param task Take in the task to be unmarked
      */
     public void unMarkTask(Task task) {
@@ -69,16 +65,13 @@ public class UI {
         System.out.println(output);
     }
 
-<<<<<<< HEAD
     /**
      * Describes what the bot say when task is deleted successfully
-     * @param list Take in the taskList to delete the task from it
+     * 
+     * @param list       Take in the taskList to delete the task from it
      * @param taskNumber Take in the task to be deleted from the taskList
      */
-    public void deleteTask(TaskList list, int taskNumber) {
-=======
     public void deleteTask(TaskList tasks, int taskNumber) {
->>>>>>> branch-A-CodingStandard
         String deletingTask = "Noted. I've removed this task:";
         int taskInArray = tasks.size() - 1;
         Task removedTask = tasks.deleteTask(taskNumber);
@@ -88,16 +81,13 @@ public class UI {
         System.out.println(output);
     }
 
-<<<<<<< HEAD
     /**
      * Describes what the bot say when you successfully adds in a task
+     * 
      * @param task Take in the task to be added
      * @param list Takes in the TaskList that the task is added to
      */
-    public void addTask(Task task, ArrayList<Task> list) {
-=======
     public void addTask(Task task, TaskList tasks) {
->>>>>>> branch-A-CodingStandard
         String addingTask = "Got it. I've added this task:";
         String numberOfTask = "Now you have " + tasks.size() + " tasks in the list.";
         String output = String.format("%s\n  %s\n%s", addingTask, task, numberOfTask);

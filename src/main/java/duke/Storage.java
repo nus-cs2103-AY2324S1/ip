@@ -20,6 +20,7 @@ public class Storage {
 
     /**
      * Constructor of the storage class
+     * 
      * @param filePath
      * @throws IOException if file is not found or created
      */
@@ -32,19 +33,16 @@ public class Storage {
         this.fr = new FileReader(file);
     }
 
-<<<<<<< HEAD
     /**
      * Describes the process of saving the taskList into a file
+     * 
      * @param taskList Takes in the original taskList
      * @throws IOException if there is no file for the contents in the taskList
-     * to be recorded
+     *                     to be recorded
      */
     // solution for save adapted from asdfghjkxd
     // Storage.java write method
-    public void save(TaskList taskList) throws IOException {
-=======
     public void save(TaskList tasks) throws IOException {
->>>>>>> branch-A-CodingStandard
         FileWriter fw = new FileWriter(filePath);
         for (Task task : tasks) {
             fw.write(task.toString() + "\n");
@@ -54,6 +52,7 @@ public class Storage {
 
     /**
      * Allows the contents from the file to be loaded
+     * 
      * @return a scanner to read the contents form the file
      */
     public Scanner load() {

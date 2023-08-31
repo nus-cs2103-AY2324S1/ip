@@ -17,6 +17,7 @@ public class Task {
 
     /**
      * Constructor of the task object
+     * 
      * @param description is the details of the task given
      */
     public Task(String description) {
@@ -26,6 +27,7 @@ public class Task {
 
     /**
      * Checks if the task is done
+     * 
      * @return a boolean, true if it is done and false if it is not done
      */
     public boolean isItDone() {
@@ -35,43 +37,37 @@ public class Task {
     /**
      * Gets the status icons that is recorded in the taskList when the
      * task is done
+     * 
      * @return a String which is "x" if it is done and " " if it is not done
      */
     public String getStatusIcon() {
         return (isDone ? "x" : " ");
     }
 
-<<<<<<< HEAD:src/main/java/duke/Tasks/Task.java
     /**
      * Changes a task to be done
      */
-    public void markAsDone() {
+    public void setAsDone() {
         this.isDone = true;
     }
 
     /**
      * Changes a task to be not done
      */
-    public void markAsUndone() {
-=======
-    public void setAsDone() {
-        this.isDone = true;
-    }
-
     public void setAsUndone() {
->>>>>>> branch-A-CodingStandard:src/main/java/duke/tasks/Task.java
         this.isDone = false;
     }
 
     /**
      * To create a task without letting classes at higher level know the type of
      * task to be created, basically making use of polymorphism.
+     * 
      * @param description takes in a string which is the details of the task
      * @return a Task
      * @throws EmptyDetailsOfTaskError is thrown when there is no description
-     * for the task
+     *                                 for the task
      * @throws UnknownCommandException is thrown when the command is not
-     * recognised by the user
+     *                                 recognised by the user
      */
     public static Task createTask(String description) throws EmptyDetailsOfTaskError, UnknownCommandException {
         String[] splittedDescription = description.split(" ");
@@ -118,6 +114,7 @@ public class Task {
     /**
      * Takes in the string of the task that is saved in the previously
      * saved file and returns a task to be added back into the taskList
+     * 
      * @param data is the string of the task
      * @return a Task to be added into the taskList
      */
@@ -148,13 +145,14 @@ public class Task {
     /**
      * Converts the date in the string format to a date in
      * the localDate format
+     * 
      * @param sDate is the string of the date
      * @return a localDate object
      */
     public static LocalDate convertDatePlease(String sDate) {
-        //@@author-zhanyang01-reused
-        //Reused from m1oojv DateTimeParser.java, LocalDateTime method
-        //reuse with minor modifications
+        // @@author-zhanyang01-reused
+        // Reused from m1oojv DateTimeParser.java, LocalDateTime method
+        // reuse with minor modifications
         for (FormatterDate formatterDate : FormatterDate.values()) {
             try {
                 return LocalDate.parse(sDate, formatterDate.formatter);
@@ -164,11 +162,12 @@ public class Task {
         }
         System.out.println("Why is it invalid??!!??!");
         return null;
-        //@@author
+        // @@author
     }
 
     /**
      * toString of a task, basically the string of the task object
+     * 
      * @return a string of the task object
      */
     @Override

@@ -2,14 +2,9 @@ package duke;
 
 // fixing DukeException based on my understanding of exceptions 27/8/23
 import java.util.Scanner;
-<<<<<<< HEAD
-import duke.Exceptions.DukeException;
-import duke.Tasks.TaskList;
-=======
 
 import duke.exceptions.DukeException;
 import duke.tasks.TaskList;
->>>>>>> branch-A-CodingStandard
 
 /**
  * The main file that the application runs
@@ -24,6 +19,7 @@ public class Duke {
      * allow the bot to store the file with the saved taskList
      * at a known place to be retrieved later
      * Contains the UI, Storage and taskList
+     * 
      * @param filePath the path in the application that contains the file
      */
     public Duke(String filePath) {
@@ -39,6 +35,7 @@ public class Duke {
 
     /**
      * Main method, create a duke object with the filepath and run it
+     * 
      * @param args takes in the arguments for the respective commands
      *             from the user
      */
