@@ -51,8 +51,8 @@ public class Rocket {
             System.out.println("File not found");
         }
 
-        LocalDateTime dateTime = stringToDateTime("15-10-2019 15:30");
-        System.out.println(dateTime);
+        LocalDateTime dateTime = stringToDateTime("15-10-2019 11:30");
+        System.out.println(dateTimeToString(dateTime));
 
         // Create scanner to read user input
         Scanner scanner = new Scanner(System.in);
@@ -372,6 +372,11 @@ public class Rocket {
     private static LocalDateTime stringToDateTime(String s) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
         return LocalDateTime.parse(s, formatter);
+    }
+
+    private static String dateTimeToString(LocalDateTime dateTime) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy, h:mm a");
+        return dateTime.format(formatter);
     }
 
 }
