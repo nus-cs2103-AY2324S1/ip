@@ -1,0 +1,5 @@
+4
+T | 0 | eat
+T | 0 | eat
+T | 0 | sleep
+D | 0 | return book
