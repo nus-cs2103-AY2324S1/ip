@@ -1,10 +1,11 @@
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
+import java.util.function.Predicate;
 
 import tasks.Task;
+import tasks.TaskList;
+import tasks.TaskListIndexOutOfBoundsException;
 import tasks.TaskStatusException;
 import tasks.ToDo;
 import tasks.Deadline;
@@ -20,7 +21,7 @@ import parsers.TaskParser;
 import storage.Storage;
 
 public class Corgi {
-    private List<Task> tasks;
+    private TaskList tasks;
     private Storage<Task> storage;
 
     public static void main(String[] args) {
@@ -33,7 +34,7 @@ public class Corgi {
      */
     public Corgi() {
         this.storage = new Storage<>(new TaskParser(), "./data/tasks.txt");
-        this.tasks = new ArrayList<>(storage.load());
+        this.tasks = new TaskList(storage.load());
 
         if (tasks.size() > 0) {
             System.out.println("Successfully loaded " + tasks.size() + " tasks!");
@@ -170,29 +171,26 @@ public class Corgi {
             throw new InvalidDescFormatException();
         }
 
-        List<Task> tasksOnDate = new ArrayList<>();
+        final LocalDate FINAL_TARGET = target;
 
-        for (Task t : this.tasks) {
+        Predicate<Task> isOnDate = t -> {
             if (t instanceof Deadline) {
                 Deadline d = (Deadline) t;
-                if (d.isHappeningOnDate(target)) {
-                    tasksOnDate.add(d);
-                }
+                return d.isHappeningOnDate(FINAL_TARGET);
             } else if (t instanceof Event) {
                 Event e = (Event) t;
-                if (e.isHappeningOnDate(target)) {
-                    tasksOnDate.add(e);
-                }
+                return e.isHappeningOnDate(FINAL_TARGET);
             }
-        }
+            return false;
+        };
+
+        TaskList tasksOnDate = this.tasks.filter(isOnDate);
         
         if (tasksOnDate.isEmpty()) {
             System.out.println("No tasks or events are scheduled for " + target.format(Task.DATE_OUTPUT_FORMATTER) + ".");
         } else {
             System.out.println("Here are the tasks and events happening on " + target.format(Task.DATE_OUTPUT_FORMATTER) + ":");
-            for (int i = 0; i < tasksOnDate.size(); i++) {
-                System.out.println((i + 1) + ") " + tasksOnDate.get(i));
-            }
+            TaskList.printTasks(tasksOnDate);
         }
     }
 
@@ -204,18 +202,16 @@ public class Corgi {
     private void markTaskAsDone(String indexStr) {
         try {
             int index = Integer.parseInt(indexStr) - 1;
-            if (index >= 0 && index < this.tasks.size()) {
-                Task target = tasks.get(index);
-                target.markAsDone();
-                this.storage.save(tasks);
-                System.out.println("Congratulations, I guess! You finally managed to do something right 🎉:\n" + "\n " + target + "\n");
-            } else {
-                System.out.println("Arf! Invalid task number? Seriously, can't you count? 💢");
-            }
+            this.tasks.mark(index, true);
+            this.storage.save(tasks);
+            System.out.println("Congratulations, I guess! You finally managed to do something right 🎉:\n" 
+                    + "\n " + this.tasks.getTaskInfo(index) + "\n");     
         } catch (NumberFormatException e) {
             this.printException("Arf! You're trying to trick me with words instead of numbers?");
         } catch (TaskStatusException e) {
             this.printException("This task is already marked as done. What are you trying to do? 🤔");
+        } catch (TaskListIndexOutOfBoundsException e) {
+            this.printException("Arf! Invalid task number? Seriously, can't you count? 💢");
         }
     }
 
@@ -227,18 +223,16 @@ public class Corgi {
     private void markTaskAsNotDone(String indexStr) {
         try {
             int index = Integer.parseInt(indexStr) - 1;
-            if (index >= 0 && index < this.tasks.size()) {
-                Task target = tasks.get(index);
-                target.markAsNotDone();
-                this.storage.save(tasks);
-                System.out.println("Oh great, you've undone something 🐕. Just like always:\n" + "\n " + target + "\n");
-            } else {
-                System.out.println("Arf! Invalid task number? Seriously, can't you count? 💢");
-            }
+            this.tasks.mark(index, false);
+            this.storage.save(tasks);
+            System.out.println("Oh great, you've undone something 🐕. Just like always:\n" 
+                    + "\n " + this.tasks.getTaskInfo(index) + "\n");
         } catch (NumberFormatException e) {
             this.printException("Arf! You're trying to trick me with words instead of numbers?");
         } catch (TaskStatusException e) {
             this.printException("This task isn't even marked as done yet. What are you trying to do? 🤔");
+        } catch (TaskListIndexOutOfBoundsException e) {
+            this.printException("Arf! Invalid task number? Seriously, can't you count? 💢");
         }
     }
 
@@ -249,9 +243,7 @@ public class Corgi {
         if (tasks.isEmpty()) {
             System.out.println("If you haven't noticed, there's nothing here! No tasks to be found.");
         } else {
-            for (int i = 0; i < tasks.size(); i++) {
-                System.out.println((i+1) + ") " + tasks.get(i));
-            }
+            TaskList.printTasks(this.tasks);
         }
     }
 
@@ -263,18 +255,16 @@ public class Corgi {
     private void deleteTask(String indexStr) {
         try {
             int index = Integer.parseInt(indexStr) - 1;
-            if (index >= 0 && index < this.tasks.size()) {
-                Task target = this.tasks.get(index);
-                this.tasks.remove(index);
-                this.storage.save(tasks);
-                System.out.println("Finally got rid of that task. Took you long enough... uninterested woof\n" 
+            String target = this.tasks.getTaskInfo(index);
+            this.tasks.remove(index);
+            this.storage.save(tasks);
+            System.out.println("Finally got rid of that task. Took you long enough... uninterested woof\n" 
                     + "\n " + target + "\n\nNow you have " + this.tasks.size() + " tasks in the list.🐾");
-            } else {
-                System.out.println("Arf! Invalid task number? Seriously, can't you count? 💢");
-            }
         } catch (NumberFormatException e) {
             this.printException("Arf! You're trying to trick me with words instead of numbers?");
-        } 
+        } catch (TaskListIndexOutOfBoundsException e) {
+            this.printException("Arf! Invalid task number? Seriously, can't you count? 💢");
+        }
     }
 
      /**
