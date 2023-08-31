@@ -14,13 +14,30 @@ import duke.task.Event;
 import duke.list.FunnyList;
 import duke.exception.DukeException;
 
+/**
+ *  The Storage class is responsible for handling operations with saved task data in a text file for the Duke Program.
+ *  It is capable of reading / loading and writing to the file.
+ */
 public class Storage {
 
 	private File data;
+
+	/**
+	 * Constructs a new instance of the Ui class.
+	 * Initialises an internal File object to read / write Task data.
+	 * @param filePath The path location of the data text file.
+	 */
 	public Storage(String filePath) {
 		this.data = new File(filePath);
 	}
 
+	/**
+	 * Reads the data from the text file and converts them to their corresponding task objects.
+	 * The tasks are added to an ArrayList to be returned.
+	 *
+	 * @return An ArrayList of Task objects which were originally stored in the text file.
+	 * @throws DukeException If the file specified cannot be found.
+	 */
 	public ArrayList<Task> load() throws DukeException {
 		try {
 			Scanner s = new Scanner(this.data);
@@ -47,6 +64,12 @@ public class Storage {
 		}
 	}
 
+	/**
+	 * Takes a FunnyList of tasks and writes each task to the specified data source.
+	 *
+	 * @param taskList The FunnyList containing the tasks to be written.
+	 * @throws DukeException If there is an issue writing the data.
+	 */
 	public void write(FunnyList taskList) throws DukeException {
 		try {
 			FileWriter fw = new FileWriter(this.data);

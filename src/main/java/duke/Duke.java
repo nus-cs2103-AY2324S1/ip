@@ -7,11 +7,21 @@ import duke.storage.Storage;
 import duke.ui.Ui;
 import duke.list.FunnyList;
 
-
+/**
+ * Main class for the Duke application.
+ * This class initializes and manages the Duke application. It handles user interaction,
+ * task processing, and exception handling.
+ */
 public class Duke {
     private Storage storage;
     private FunnyList tasks;
     private Ui ui;
+
+    /**
+     * Constructs a Duke instance with the specified file path.
+     *
+     * @param filePath The file path to the text file to load and save task data.
+     */
     public Duke(String filePath) {
         this.ui = new Ui();
         this.storage = new Storage(filePath);
@@ -23,10 +33,19 @@ public class Duke {
         }
     }
 
+    /**
+     * Main method to start the Duke application.
+     *
+     * @param args Command-line arguments (Not applicable).
+     */
     public static void main(String[] args) {
         new Duke("./tasks.txt").run();
     }
 
+    /**
+     * Runs the main loop of the Duke application.
+     * Processes user commands and handles exceptions.
+     */
     public void run() {
         ui.showWelcome();
         boolean isExit = false;
