@@ -9,13 +9,23 @@ import java.util.function.BiConsumer;
 
 public class TaskList {
 
-    ArrayList<Task> tasks;
+    private ArrayList<Task> tasks;
 
-    public TaskList(){
+
+    /**
+     * The default constructor for the Task class
+     */
+    public TaskList() {
         this.tasks = new ArrayList<Task>();
     }
 
-    public Task findTaskByName(String name){
+    /**
+     * Finds a task in the list by name and returns the task instance
+     *
+     * @param name The name of the task that you want to find
+     * @return The task instance found by the given name, or "null" if no task in the list has the given name.
+     */
+    public Task findTaskByName(String name) {
         int count = this.tasks.size();
         for(int i = 0; i < count; i++){
             Task task = this.tasks.get(i);
@@ -26,6 +36,13 @@ public class TaskList {
         return null;
     }
 
+    /**
+     * Adds a new task into the list and then send a message to the user.
+     * The new task must have a unique name from the names of all other tasks in the list.
+     *
+     * @param newTask the instance of the new task to add
+     * @throws CommandException when there is already a task in the list that has the same name as the new task
+     */
     public void addTaskAndSay(Task newTask) throws CommandException {
         if(this.findTaskByName(newTask.getName()) != null){
             throw new CommandException("Error: A task with name '" + newTask.getName() + "' already exists.");
@@ -37,17 +54,35 @@ public class TaskList {
         Storage.saveTasksToFile();
     }
 
-    public void addTask(Task newTask){
+    /**
+     * Simply adds a new task into the list.
+     *
+     * @param newTask the instance of the new task to add
+     */
+    public void addTask(Task newTask) {
         this.tasks.add(newTask);
     }
 
-    public Task removeTask(int index){
+    /**
+     * Removes a task from the list
+     *
+     * @param index the index of the task instance that will be removed in the list
+     * @return The removed task instance
+     */
+    public Task removeTask(int index) {
         Task removedTask = this.tasks.remove(index);
         Storage.saveTasksToFile();
         return removedTask;
     }
 
-    public void iterate(BiConsumer<Integer, Task> consumer){
+    /**
+     * Iterates all tasks by a given consumer method
+     *
+     * @param consumer a BiConsumer that takes two parameters to consume:
+     * the first parameter is the index of the current task in the list,
+     * the second parameter is the current task instance.
+     */
+    public void iterate(BiConsumer<Integer, Task> consumer) {
         int index = 0;
         for(Task task : this.tasks){
             consumer.accept(index, task);
@@ -55,6 +90,11 @@ public class TaskList {
         }
     }
 
+    /**
+     * Get the number of tasks in the list
+     *
+     * @return the number of tasks in the list
+     */
     public int getCount(){
         return this.tasks.size();
     }

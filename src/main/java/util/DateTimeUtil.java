@@ -7,6 +7,13 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 public class DateTimeUtil {
+
+    /**
+     * Parse a string into a LocalDateTime instance
+     * @param str The string representing a time in the format "yyyy-MM-dd" or "yyyy-MM-dd HH:mm:ss"
+     * @return The LocalDateTime instance created from the String
+     * @throws CommandException when the string isn't in the correct format
+     */
     public static LocalDateTime parseDateTimeString(String str) throws CommandException {
         LocalDateTime retVal;
         try {
@@ -22,7 +29,12 @@ public class DateTimeUtil {
         return retVal;
     }
 
-    public static String dateTimeToString(LocalDateTime dt){
+    /**
+     * Returns a formatted string representing a LocalDateTime instance
+     * @param dt the LocalDateTime instance
+     * @return the formatted string representing the LocalDateTime instance
+     */
+    public static String dateTimeToString(LocalDateTime dt) {
         return dt.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
     }
 }

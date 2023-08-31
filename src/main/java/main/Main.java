@@ -1,8 +1,18 @@
 package main;
 
-import command.*;
-import task.*;
+import command.CommandAddTaskHandler;
+import command.CommandExitHandler;
+import command.CommandIntroHandler;
+import command.CommandListHandler;
+import command.CommandMarkUnmarkHandler;
+import command.CommandTodoHandler;
+import command.CommandDeadlineHandler;
+import command.CommandEventHandler;
+import command.CommandDeleteHandler;
+import command.Parser;
+import task.TaskList;
 import util.Storage;
+
 
 
 public class Main {
@@ -14,7 +24,10 @@ public class Main {
 
     private TaskList taskList;
 
-    public Main(){
+    /**
+     * Default constructor of the program's main class
+     */
+    public Main() {
         this.parser = new Parser();
         this.ui = new Ui();
         this.taskList = Storage.createTaskListFromFile();
@@ -31,12 +44,17 @@ public class Main {
         this.parser.registerCommand("delete", new CommandDeleteHandler());
     }
 
+    /**
+     * Main function for the program
+     *
+     * @param args The arugments from JVM
+     */
     public static void main(String[] args) {
         initialize();
         INSTANCE.run();
     }
 
-    private void run(){
+    private void run() {
         this.parser.executeCommand("intro");
         this.isRunning = true;
         while(this.isRunning){
@@ -46,30 +64,59 @@ public class Main {
         return;
     }
 
-    private static void initialize(){
+    private static void initialize() {
         INSTANCE = new Main();
     }
 
-    public static Main getInstance(){
+    /**
+     * Returns the application singleton instance
+     *
+     * @return the instance
+     */
+    public static Main getInstance() {
         return INSTANCE;
     }
 
-    public String getName(){
+    /**
+     * Return the name of the chat bot
+     *
+     * @return the name
+     */
+    public String getName() {
         return this.name;
     }
 
-    public void exit(){
+    /**
+     * Exit the program
+     */
+    public void exit() {
         this.isRunning = false;
     }
 
 
-    public TaskList getTaskList(){
+    /**
+     * Returns the TaskList instance
+     *
+     * @return the instance
+     */
+    public TaskList getTaskList() {
         return this.taskList;
     }
-    public Parser getParser(){
+
+    /**
+     * Returns the Parser instance
+     *
+     * @return the instance
+     */
+    public Parser getParser() {
         return this.parser;
     }
 
+    /**
+     * Returns the Ui instance
+     *
+     * @return the instance
+     */
     public Ui getUi(){
         return this.ui;
     }
