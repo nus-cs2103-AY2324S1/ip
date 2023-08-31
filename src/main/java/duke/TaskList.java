@@ -26,22 +26,69 @@ public class TaskList {
     }
 
     /**
+     * Returns the string representation of the list of tasks
+     *
+     * @return String representation of the list of tasks
+     */
+    public String list() {
+        String listStr = "";
+
+        for (int i = 0; i < tasks.size(); i++) {
+            listStr += (i + 1) + ". " + tasks.get(i - 1) + "\n";
+        }
+
+        if (listStr.isBlank()) {
+            listStr = "Congrats! You have no tasks!";
+        }
+
+        return listStr.trim();
+    }
+
+    /**
+     * The saving string representation of the list of tasks.
+     *
+     * @return Saving string representation of the list of tasks
+     */
+    public String toSaveString() {
+        String inputTxt = "";
+
+        for (Task task : tasks) {
+            inputTxt += task.toSaveStr() + "\n";
+        }
+
+        return inputTxt.trim();
+    }
+
+    /**
      * Returns a list of tasks whose names contain the specified substring
      *
      * @param command Command specifying the substring to search for
      * @return ArrayList of tasks whose names has the substring
      */
-    public ArrayList<Task> find(String command) throws LukeException {
+    public String find(String command) {
         Matcher matcher = findCommand.matcher(command);
         matcher.find();
 
         String searchString = matcher.group("searchString");
         if (searchString == null || searchString.isBlank()) {
-            return getAll();
+            return list();
         }
 
-        return tasks.stream().filter(task -> task.hasSubstring(searchString))
-                .collect(Collectors.toCollection(ArrayList::new));
+        String result = "";
+        for (int i = 0; i < tasks.size(); ++i) {
+            Task task = tasks.get(i);
+            if (!task.hasSubstring(searchString)) {
+                continue;
+            }
+
+            result += (i + 1) + ". " + task + "\n";
+        }
+
+        if (result.isBlank()) {
+            result = "You have no tasks that contain this substring!";
+        }
+
+        return result;
     }
 
     public Task add(String command) throws LukeException {
