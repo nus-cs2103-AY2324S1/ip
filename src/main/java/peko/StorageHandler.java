@@ -52,6 +52,19 @@ public class StorageHandler {
         }
 
     }
+
+    public Task[] search(String searchQuery) {
+        Task[] tempTaskList = new Task[100];
+        int pos = 0;
+        for (Task t : todoList) {
+            if (t.hasString(searchQuery)) {
+                tempTaskList[pos] = t;
+                pos++;
+            }
+        }
+        return tempTaskList;
+    }
+
     public static void setDelete(int i) {
         i--;
         while (i <= size) {
