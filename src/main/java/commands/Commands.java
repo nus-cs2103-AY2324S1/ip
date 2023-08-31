@@ -19,6 +19,7 @@ public class Commands {
      */
     public Commands(Rock client) {
         this.commandList = new Hashtable<String, Command>() {{
+<<<<<<< HEAD
                 put("bye", new CommandBye(client));
                 put("list", new CommandTaskList(client));
                 put("mark", new CommandTaskMark(client, true));
@@ -29,6 +30,19 @@ public class Commands {
                 put("delete", new CommandTaskDelete(client));
                 put("listbydate", new CommandTaskListByDate(client));
                 }};
+=======
+            put("bye", new CommandBye(client));
+            put("list", new CommandTaskList(client));
+            put("mark", new CommandTaskMark(client, true));
+            put("unmark", new CommandTaskMark(client, false));
+            put("todo", new CommandTaskCreate(client, TaskTypes.TODO));
+            put("deadline" ,new CommandTaskCreate(client, TaskTypes.DEADLINE));
+            put("event", new CommandTaskCreate(client, TaskTypes.EVENT));
+            put("delete", new CommandTaskDelete(client));
+            put("listbydate", new CommandTaskListByDate(client));
+            put("find", new CommandTaskFind(client));
+    }};
+>>>>>>> branch-Level-9
     }
     /**
      * Method used to get the appropriate command from a keyword

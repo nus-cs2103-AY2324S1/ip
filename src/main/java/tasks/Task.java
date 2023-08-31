@@ -37,10 +37,16 @@ public abstract class Task implements Serializable {
     public void setCompleted(boolean completed) {
         this.completed = completed;
     }
+<<<<<<< HEAD
     /**
      * Used to get the date of the task object.
      * @return Date of task
      */
+=======
+    public String getName() {
+        return this.taskName;
+    }
+>>>>>>> branch-Level-9
     public abstract LocalDate getDate();
     /**
      * String representation of Task
