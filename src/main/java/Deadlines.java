@@ -1,28 +1,36 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.time.temporal.ChronoUnit;
 /**
  * class for deadline
  */
-public class Deadlines extends Task{
+public class Deadlines extends Task {
     /**
      * The deadline of the task
      */
-    private String ddl;
+    private LocalDate ddl;
 
     /**
      * The constructor
      * @param name the name of the deadline task
      * @param ddl the deadline
      */
-    public Deadlines (String name, String ddl) {
+    public Deadlines (String name, String ddl) throws DukeException {
         super(name);
-        this.ddl = ddl;
+        try {
+            this.ddl = LocalDate.parse(ddl);
+        } catch (DateTimeParseException e) {
+            throw new DukeException(" OOPS!!! Invalid date format. Please type dates in the format yyyy-mm-dd");
+        }
     }
 
     @Override
     public String writeString() {
         if (this.getMarkStatus()) {
-            return "D,0" + this.getName() + "," + this.ddl + "\n";
+            return "D,0" + this.getName() + " ," + this.ddl + "\n";
         } else  {
-            return "D,1," + this.getName() + "," + this.ddl + "\n";
+            return "D,1," + this.getName() + " ," + this.ddl + "\n";
         }
     }
 
@@ -32,7 +40,7 @@ public class Deadlines extends Task{
      */
     @Override
     public String toString() {
-        return "[D]" + super.toString() + "(by: "+ ddl +")";
+        return "[D]" + super.toString() + "(by: "+ this.ddl.format(DateTimeFormatter.ofPattern("MMM d yyyy")) +")";
     }
 
     /**
@@ -45,7 +53,7 @@ public class Deadlines extends Task{
         if(input.split( " ")[0].equals("deadline")) {
             if (input.split(" ").length == 1) {
                 throw new DukeException("OOPS! The description of deadline cannot be empty");
-            } else if (input.indexOf("/by ") == -1){
+            } else if (!input.contains("/by ")){
                 throw new DukeException("OOPS! The description of deadline does not contain /by");
             } else {
                 return true;

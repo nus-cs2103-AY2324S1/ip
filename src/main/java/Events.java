@@ -1,3 +1,7 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.time.temporal.ChronoUnit;
 /**
  * class for events
  */
@@ -5,11 +9,11 @@ public class Events extends Task{
     /**
      * For the start
      */
-    private String start;
+    private LocalDate start;
     /**
      * For the end
      */
-    private String end;
+    private LocalDate end;
 
     /**
      * The constructor
@@ -17,18 +21,22 @@ public class Events extends Task{
      * @param start The starting time
      * @param end The ending time
      */
-    public Events (String name, String start, String end) {
+    public Events (String name, String start, String end) throws DukeException {
         super(name);
-        this.start = start;
-        this.end = end;
+        try {
+            this.start = LocalDate.parse(start);
+            this.end = LocalDate.parse(end);
+        } catch (DateTimeParseException e) {
+            throw new DukeException(" OOPS!!! Invalid date format. Please type dates in the format yyyy-mm-dd");
+        }
     }
 
     @Override
     public String writeString() {
         if (this.getMarkStatus()) {
-            return "E,0," + this.getName() + "," + this.start + "," + this.end + "\n";
+            return "E,0," + this.getName() + " ," + this.start + "," + this.end + "\n";
         } else  {
-            return "E,1," + this.getName() + "," + this.start + "," + this.end + "\n";
+            return "E,1," + this.getName() + " ," + this.start + "," + this.end + "\n";
         }
     }
 
@@ -38,7 +46,13 @@ public class Events extends Task{
      */
     @Override
     public String toString() {
-        return "[E]" + super.toString() + "(from: " + start + "to: " + end + ")";
+        return "[E]"
+                + super.toString()
+                + "(from: "
+                + this.start.format(DateTimeFormatter.ofPattern("MMM d yyyy"))
+                + " to: "
+                + this.end.format(DateTimeFormatter.ofPattern("MMM d yyyy"))
+                + ")";
     }
 
     /**
@@ -51,9 +65,9 @@ public class Events extends Task{
         if(input.split( " ")[0].equals("event")) {
             if (input.split(" ").length == 1) {
                 throw new DukeException("OOPS! The description of event cannot be empty");
-            } else if (input.indexOf("/from ") == -1){
+            } else if (!input.contains("/from")){
                 throw new DukeException("OOPS! The description of event does not contain /from");
-            } else if (input.indexOf("/to ") == -1){
+            } else if (!input.contains("/to")){
                 throw new DukeException("OOPS! The description of event does not contain /to");
             } else {
                 return true;

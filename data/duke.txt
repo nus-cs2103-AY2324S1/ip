@@ -1,4 +1,0 @@
-T,1,b
-T,1,ada
-D,1,asa ,anskaxn
-E,1,absdajx ,cjabc ,ca

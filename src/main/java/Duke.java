@@ -37,7 +37,7 @@ public class Duke {
                             input.split(" ").length == 2
                                     && input.split(" ")[0].equals("mark")
                                     && isInteger(input.split(" ")[1])
-                                    && Integer.parseInt(input.split(" ")[1]) <= taskList.size() + 1
+                                    && Integer.parseInt(input.split(" ")[1]) <= taskList.size()
                                     && Integer.parseInt(input.split(" ")[1]) >= 1
                     ) {
                         taskList.get(Integer.parseInt(input.split(" ")[1]) - 1).changeMarkStatus(true);
@@ -51,7 +51,7 @@ public class Duke {
                             input.split(" ").length == 2
                                     && input.split(" ")[0].equals("unmark")
                                     && isInteger((input.split(" "))[1])
-                                    && Integer.parseInt(input.split(" ")[1]) <= taskList.size() + 1
+                                    && Integer.parseInt(input.split(" ")[1]) <= taskList.size()
                                     && Integer.parseInt(input.split(" ")[1]) >= 1
                     ) {
                         taskList.get(Integer.parseInt(input.split(" ")[1]) - 1).changeMarkStatus(false);
@@ -72,7 +72,7 @@ public class Duke {
                     } else if (input.split(" ").length == 2
                             && input.split(" ")[0].equals("delete")
                             && isInteger((input.split(" "))[1])
-                            && Integer.parseInt(input.split(" ")[1]) <= taskList.size() + 1
+                            && Integer.parseInt(input.split(" ")[1]) <= taskList.size()
                             && Integer.parseInt(input.split(" ")[1]) >= 1) {
                         System.out.println(
                                 "____________________________________________________________\n" +
@@ -99,7 +99,7 @@ public class Duke {
                         } else if (Events.isEvent(input)) {
                             taskList.add(new Events(
                                             input.substring(6, input.indexOf("/from ")),
-                                            input.substring(input.indexOf("/from ") + 6, input.indexOf("/to ")),
+                                            input.substring(input.indexOf("/from ") + 6, input.indexOf("/to ") - 1),
                                             input.substring(input.indexOf("/to ") + 4)
                                     )
                             );
