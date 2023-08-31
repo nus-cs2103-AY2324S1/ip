@@ -21,6 +21,14 @@ public class Task {
         this.isDone = false;
     }
 
+    public String toFileString() {
+        if (isDone) {
+            return "1";
+        } else {
+            return "0";
+        }
+    }
+
     @Override
     public String toString() {
         return "[" + (this.isDone? "X" : " ") + "] " + this.task;
