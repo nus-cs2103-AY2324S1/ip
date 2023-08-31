@@ -49,8 +49,8 @@ public class Ui {
     }
 
 
-    public void printTaskList(ArrayList<Task> taskList) {
-        System.out.println("Here are your entries:");
+    public void printTaskList(ArrayList<Task> taskList, String message) {
+        System.out.println(message);
         for (int i = 0; i < taskList.size(); i++) {
             System.out.println("\t" + (i + 1) + ". " + taskList.get(i).toString());
         }

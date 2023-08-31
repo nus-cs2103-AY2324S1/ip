@@ -1,14 +1,6 @@
 package duke.main;
 
-import duke.command.Command;
-import duke.command.DeadlineCommand;
-import duke.command.EventCommand;
-import duke.command.ToDoCommand;
-import duke.command.DeleteCommand;
-import duke.command.MarkCommand;
-import duke.command.UnmarkCommand;
-import duke.command.ExitCommand;
-import duke.command.ListCommand;
+import duke.command.*;
 import duke.exception.DukeException;
 
 public class Parser {
@@ -36,6 +28,9 @@ public class Parser {
         } else if (userInput.startsWith("delete")) {
             int taskIndex = validateMarkAndDelete(userInput.substring(7));
             return new DeleteCommand(taskIndex);
+        } else if (userInput.startsWith("find")) {
+            String keyword = validateFind(userInput);
+            return new FindCommand(keyword);
         } else {
             throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
@@ -47,6 +42,15 @@ public class Parser {
         }
 
         return Integer.parseInt(input);
+    }
+
+    private static String validateFind(String input) throws DukeException {
+        String keyword = input.replace("find", "");
+        if (keyword.isEmpty()) {
+            throw new DukeException("☹ OOPS!!! Please enter a keyword to find.");
+        }
+
+        return keyword;
     }
 
     private static boolean isNumeric(String str) {
@@ -75,7 +79,7 @@ public class Parser {
         }
 
         if (splitInput.length != 2 || splitInput[0].isBlank() || splitInput[1].isBlank()) {
-            throw new DukeException("☹ OOPS!!! Please remember to put a task description and deadline");
+            throw new DukeException("☹ OOPS!!! Please remember to put a task description and deadline.");
         }
         return splitInput;
     }
