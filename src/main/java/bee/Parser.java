@@ -60,6 +60,9 @@ public class Parser {
                 case "delete":
                     tasks.updateTask(TaskAction.DELETE, userInput);
                     break;
+                case "find":
+                    tasks.findTasksByKeyword(userInput);
+                    break;
                 default:
                     throw new BeeException("Sorry, you need to use a command!");
             }
