@@ -1,0 +1,4 @@
+[T][ ] homework
+[D][ ] math (by: monday)
+[E][ ] weekend (from: sat to: sun)
+[T][ ] add homework
