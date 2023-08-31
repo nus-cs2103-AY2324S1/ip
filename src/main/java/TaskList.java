@@ -114,18 +114,16 @@ public class TaskList {
     /**
      * Displays the tasks in the task list with their details.
      */
-    public void displayTasks() {
+    @Override
+    public String toString() {
         if (taskCount == 0) {
-            System.out.println("____________________________________________________________");
-            System.out.println("Horray!! No tasks in the task list!");
-            System.out.println("____________________________________________________________");
+            return "Horray!! No tasks in the task list!";
         } else {
-            System.out.println("____________________________________________________________");
-            System.out.println("Here are the tasks in your list:");
+            StringBuilder taskListString = new StringBuilder("Here are the tasks in your list:\n");
             for (int i = 0; i < taskCount; i++) {
-                System.out.println((i + 1) + ". " + this.getTaskDetails(i));
+                taskListString.append((i + 1)).append(". ").append(this.getTaskDetails(i)).append("\n");
             }
-            System.out.println("____________________________________________________________");
+            return taskListString.toString();
         }
     }
 
