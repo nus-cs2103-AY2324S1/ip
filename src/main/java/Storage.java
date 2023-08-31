@@ -2,15 +2,24 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 public class Storage {
     //path for file to read/right to
-    private static final String FILE_PATH = "./data/duke.txt";
+    private final String FILE_PATH;
+    public static final String DATETIME_INPUT_FORMAT = "yyyy-MM-dd HHmm";
+    public static final DateTimeFormatter dateTimeInputFormatter
+            = DateTimeFormatter.ofPattern(DATETIME_INPUT_FORMAT);
 
-    public static void writeTasksToFile(ArrayList<Task> taskList) throws IOException {
+    public Storage(String filePath) {
+        this.FILE_PATH = filePath;
+
+    }
+    public void writeTasksToFile(ArrayList<Task> taskList) throws IOException {
         //check if file path exists already or not
-        File dir = new File("./data");
+        String fileDirectory = "./" + FILE_PATH.split("/",2)[0];
+        File dir = new File(fileDirectory);
         if (!dir.exists()) {
             dir.mkdir();
         }
@@ -20,7 +29,7 @@ public class Storage {
         }
         fw.close();
     }
-    public static ArrayList<Task> readTasksFromFile() throws FileNotFoundException {
+    public ArrayList<Task> readTasksFromFile() throws FileNotFoundException {
         File file = new File(FILE_PATH);
         Scanner scanner = new Scanner(file);
         ArrayList<Task> savedTasks = new ArrayList<>();
@@ -33,4 +42,4 @@ public class Storage {
         }
         return savedTasks;
     }
-    }
+}
