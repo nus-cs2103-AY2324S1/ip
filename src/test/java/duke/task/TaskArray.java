@@ -6,17 +6,17 @@ public class TaskArray {
 
     private ArrayList<Task> taskArrayList;
 
-    public TaskArray(){
+    public TaskArray() {
         taskArrayList = new ArrayList<>();
     }
 
-    public TaskArray(ArrayList<Task> array){
+    public TaskArray(ArrayList<Task> array) {
         taskArrayList = array;
     }
 
-    public void printTaskArrayList(){
+    public void printTaskArrayList() {
         System.out.println(horiLine);
-        for(int i = 0; i < taskArrayList.size(); i++ ){
+        for(int i = 0; i < taskArrayList.size(); i++ ) {
             int index = i + 1;
             System.out.println(index +": " + taskArrayList.get(i).getTypeCheckedText());
         }
@@ -24,7 +24,7 @@ public class TaskArray {
 
     }
 
-    public void add(Task task){
+    public void add(Task task) {
         taskArrayList.add(task);
         String word = "added:" + task.getText();
         System.out.println(horiLine);
@@ -33,15 +33,15 @@ public class TaskArray {
         System.out.println("Now you have "+ getTaskCount()+" tasks in the list.");
         System.out.println(horiLine);
     }
-    public Task get(int index){
+    public Task get(int index) {
         return taskArrayList.get(index);
     }
-    public int getTaskCount(){
+    public int getTaskCount() {
         return taskArrayList.size();
     }
 
-    public void removeTask(int index){
-        if(index < 0 && index >=taskArrayList.size()){
+    public void removeTask(int index) {
+        if(index < 0 && index >=taskArrayList.size()) {
             System.out.println(horiLine);
             System.out.println("Invalid Index");
             System.out.println(horiLine);
@@ -56,7 +56,7 @@ public class TaskArray {
         System.out.println(horiLine);
     }
 
-    public ArrayList<Task> getTaskArrayList(){
+    public ArrayList<Task> getTaskArrayList() {
         return taskArrayList;
     }
 

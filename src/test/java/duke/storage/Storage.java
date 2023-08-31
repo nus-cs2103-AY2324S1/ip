@@ -8,13 +8,12 @@ import java.util.ArrayList;
 
 public class Storage {
     String filePath;
-    public Storage(String filePath){
+    public Storage(String filePath) {
         this.filePath = filePath;
     }
 
 
-    public TaskArray load(){
-
+    public TaskArray load() {
         // Create the folder/file if it doesn't exist
         boolean createdFolder = createFolder(this.filePath);
         boolean createdFile =createFile(this.filePath);
@@ -44,7 +43,7 @@ public class Storage {
             return true;
         }
     }
-    public boolean createFolder(String folderPath){
+    public boolean createFolder(String folderPath) {
         File folder = new File(folderPath).getParentFile();
 
         if (!folder.exists()) {
@@ -63,8 +62,7 @@ public class Storage {
         }
     }
 
-    public ArrayList<String> scanFile(String fileName){
-
+    public ArrayList<String> scanFile(String fileName) {
         ArrayList<String> lines = new ArrayList<>();
 
         try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
@@ -78,8 +76,7 @@ public class Storage {
         return lines;
     }
 
-    public TaskArray parseData(ArrayList<String> inputList){
-
+    public TaskArray parseData(ArrayList<String> inputList) {
         ArrayList<Task> arrayTask = new ArrayList<>();
 
         for (String input : inputList) {
@@ -88,7 +85,7 @@ public class Storage {
             String text = parts[1];
             boolean checked = false;
 
-            if(parts[2].equals("true")){
+            if(parts[2].equals("true")) {
                 checked = true;
             }
 
@@ -120,8 +117,7 @@ public class Storage {
         return new TaskArray(arrayTask);
     }
 
-    public ArrayList<String> formatData(TaskArray taskArray){
-        ArrayList<Task> taskArrayList = taskArray.getTaskArrayList();
+    public ArrayList<String> formatData(TaskArray taskArray) {        ArrayList<Task> taskArrayList = taskArray.getTaskArrayList();
 
         ArrayList<String> output = new ArrayList<>();
 
@@ -132,8 +128,7 @@ public class Storage {
         return output;
 
     }
-    public void inputFile(ArrayList<String> inputArray, String filePath){
-
+    public void inputFile(ArrayList<String> inputArray, String filePath) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
             for (String line : inputArray) {
                 writer.write(line);
@@ -144,7 +139,6 @@ public class Storage {
         }
     }
 
-    public void upload(TaskArray taskArray){
-        inputFile(formatData(taskArray),this.filePath);
+    public void upload(TaskArray taskArray) {        inputFile(formatData(taskArray),this.filePath);
     }
 }

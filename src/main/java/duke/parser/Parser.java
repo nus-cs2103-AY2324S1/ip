@@ -12,45 +12,40 @@ public class Parser {
     String input;
     String[] inputArray;
 
-    public Parser(String input){
+    public Parser(String input) {
         this.input = input;
         inputArray= this.input.split(" ");
-
     }
 
-    public String[] parseInput(){
-
+    public String[] parseInput() {
         return inputArray;
     }
 
-    public String getCommand(){
+    public String getCommand() {
         return parseInput()[0];
     }
-    public String getIndex(){
+    public String getIndex() {
         return parseInput()[1];
     }
 
-    public Task processEvent(){
-
-        if(inputArray.length <= 2){
+    public Task processEvent() {
+        if(inputArray.length <= 2) {
             return null;
         }
 
 
         Integer startIndex = -1;
-        Integer endIndex = -1;
         String extractedTask = String.join(" ", Arrays.copyOfRange(inputArray, 1, inputArray.length));
 
-        String endDate ="";
+        String endDate = "";
         String startDate = "";
-        for(int i = 0; i < inputArray.length; i++){
-            if(inputArray[i].equals("/from") && startIndex == -1){
+        for(int i = 0; i < inputArray.length; i++) {
+            if(inputArray[i].equals("/from") && startIndex == -1) {
                 startIndex = i;
                 extractedTask = String.join(" ", Arrays.copyOfRange(inputArray, 1, i ));
-            }else if(inputArray[i].equals("/to") && startIndex != -1){
+            } else if(inputArray[i].equals("/to") && startIndex != -1) {
                 endDate = String.join(" ", Arrays.copyOfRange(inputArray, i+1, inputArray.length));
                 startDate = String.join(" ", Arrays.copyOfRange(inputArray, startIndex + 1, i));
-
             }
         }
 
@@ -58,27 +53,26 @@ public class Parser {
         return newTask;
 
     }
-    public LocalDateTime convertDateTime(String input){
+
+    public LocalDateTime convertDateTime(String input) {
         //Using format given by textbook dd-mm-yyyy HHmm example :"02/12/2019 1800"
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
         LocalDateTime dateTime = LocalDateTime.parse(input, formatter);
 
         return dateTime;
-
     }
 
 
-    public Task processDeadline(){
-
-        if(inputArray.length <= 2){
+    public Task processDeadline() {
+        if(inputArray.length <= 2) {
             return null;
         }
 
         String dueDate = "";
         String extractedTask = String.join(" ", Arrays.copyOfRange(inputArray, 1, inputArray.length));
 
-        for(int i = 0; i < inputArray.length; i++){
-            if(inputArray[i].equals("/by")){
+        for(int i = 0; i < inputArray.length; i++) {
+            if(inputArray[i].equals("/by")) {
                 dueDate = String.join(" ", Arrays.copyOfRange(inputArray, i+1, inputArray.length));
                 extractedTask = String.join(" ", Arrays.copyOfRange(inputArray, 1, i));
 
@@ -90,9 +84,8 @@ public class Parser {
         return newTask;
     }
 
-    public Task processToDo(){
-
-        if(inputArray.length <= 1){
+    public Task processToDo() {
+        if(inputArray.length <= 1) {
             return null;
         }
 
@@ -103,24 +96,23 @@ public class Parser {
     }
 
 
-    public int processMarkIndex(){
+    public int processMarkIndex() {
         try {
             int index = Integer.parseInt(getIndex());
             return index;
-        }catch(Exception e){
+        }catch(Exception e) {
             return -1;
         }
     }
-    public int processUnmarkIndex(){
+    public int processUnmarkIndex() {
         try {
             int index = Integer.parseInt(getIndex());
             return index;
-        }catch(Exception e){
+        }catch(Exception e) {
             return -1;
         }
     }
-    public int processDelete(){
-
+    public int processDelete() {
         if(inputArray.length != 2) {
             return -1;
         }else{

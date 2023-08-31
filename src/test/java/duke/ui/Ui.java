@@ -1,27 +1,26 @@
 package duke.ui;
 
 import duke.Duke;
-import duke.task.*;
-import duke.parser.*;
+import duke.parser.Parser;
+import duke.task.Task;
+import duke.task.TaskArray;
 
 import java.util.Scanner;
 
 public class Ui {
     String name;
 
-    public Ui(){
-
+    public Ui() {
     }
-    public void greetFunction(String name){
-
-        String greetings = Duke.horiLine +"\nHello! I'm " + name + "\n"
-                + Duke.logo
-                + "What can I do for you?\n" + Duke.horiLine;
+    public void greetFunction(String name) {
+        String greetings = Duke.HORIZONTAL_LINE +"\nHello! I'm " + name + "\n"
+                + Duke.LOGO
+                + "What can I do for you?\n" + Duke.HORIZONTAL_LINE;
         System.out.println(greetings);
     }
 
-    public void helpFunction(){
-        System.out.println(Duke.horiLine);
+    public void helpFunction() {
+        System.out.println(Duke.HORIZONTAL_LINE);
         System.out.println("You can utilise our functions below : ");
         System.out.println("bye");
         System.out.println("list");
@@ -29,24 +28,24 @@ public class Ui {
         System.out.println("deadline [task] /by [dd/MM/yyyy]");
         System.out.println("event [task] /from [dd/MM/yyyy] /to [dd/MM/yyyy]");
         System.out.println("Note that all input date format will only accepted in format : \n 02/12/2019 1800 dd/MM/yyyy HHmm");
-        System.out.println(Duke.horiLine);
+        System.out.println(Duke.HORIZONTAL_LINE);
     }
 
-    public String acceptInput(Scanner scanner){
+    public String acceptInput(Scanner scanner) {
         String input = scanner.nextLine();
 
         return input;
     }
 
-    public TaskArray runTask(TaskArray oriTaskArray){
+    public TaskArray runTask(TaskArray oriTaskArray) {
         TaskArray taskArray = oriTaskArray;
         //Requesting Input and Redirect to Parser
         Scanner scanner = new Scanner(System.in);
         Parser input = new Parser(acceptInput(scanner));
         //Repeating Asking User if Not Equals Bye
         String command = input.getCommand();
-        while(!command.equals("bye")){
-            switch(command){
+        while(!command.equals("bye")) {
+            switch(command) {
                 case "help":
                     helpFunction();
                     break;
@@ -82,7 +81,7 @@ public class Ui {
 
                 case "todo":
                     Task toDo = input.processToDo();
-                    if(toDo == null){
+                    if(toDo == null) {
                         printInsufficientArgToDo();
                     }else{
                         taskArray.add(toDo);
@@ -91,7 +90,7 @@ public class Ui {
 
                 case "deadline":
                     Task deadlineTask = input.processDeadline();
-                    if(deadlineTask == null){
+                    if(deadlineTask == null) {
                         printInsufficientArgDeadline();
                     }else{
                         taskArray.add(deadlineTask);
@@ -100,7 +99,7 @@ public class Ui {
 
                 case "event":
                     Task eventTask = input.processEvent();
-                    if(eventTask == null){
+                    if(eventTask == null) {
                         printInsufficientArgEvent();
                     }else{
                         taskArray.add(eventTask);
@@ -120,33 +119,32 @@ public class Ui {
         return taskArray;
 
     }
-    public static void byeFunction(){
-
-        String byeword = Duke.horiLine + "\nBye. Hope to see you again soon\n" + Duke.horiLine;
-        System.out.println(byeword);
+    public static void byeFunction() {
+        String words = Duke.HORIZONTAL_LINE + "\nBye. Hope to see you again soon\n" + Duke.HORIZONTAL_LINE;
+        System.out.println(words);
     }
 
-    public void printInsufficientArgEvent(){
-        System.out.println(Duke.horiLine);
+    public void printInsufficientArgEvent() {
+        System.out.println(Duke.HORIZONTAL_LINE);
         System.out.println("☹ OOPS!!! The argument for the event is insufficient!");
-        System.out.println(Duke.horiLine);
+        System.out.println(Duke.HORIZONTAL_LINE);
     }
-    public void printInsufficientArgDeadline(){
-        System.out.println(Duke.horiLine);
+    public void printInsufficientArgDeadline() {
+        System.out.println(Duke.HORIZONTAL_LINE);
         System.out.println("☹ OOPS!!! The argument for the deadline is insufficient!");
-        System.out.println(Duke.horiLine);
+        System.out.println(Duke.HORIZONTAL_LINE);
     }
 
-    public void printInsufficientArgToDo(){
-        System.out.println(Duke.horiLine);
+    public void printInsufficientArgToDo() {
+        System.out.println(Duke.HORIZONTAL_LINE);
         System.out.println("☹ OOPS!!! The description of a deadline cannot be empty.");
-        System.out.println(Duke.horiLine);
+        System.out.println(Duke.HORIZONTAL_LINE);
     }
 
-    public void printInvalidArg(){
-        System.out.println(Duke.horiLine);
+    public void printInvalidArg() {
+        System.out.println(Duke.HORIZONTAL_LINE);
         System.out.println("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
-        System.out.println(Duke.horiLine);
+        System.out.println(Duke.HORIZONTAL_LINE);
     }
 
 
