@@ -6,14 +6,16 @@ import java.util.Scanner;
 
 public class TimeParser {
     public static String parseDateOut(String input) {
-        LocalDate date = LocalDate.parse(input);
+        String modifiedInput = input.replace("/", "-");
+        DateTimeFormatter format = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        LocalDate date = LocalDate.parse(modifiedInput, format);
         return date.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
     }
 
     public static String parseDateForFile(String input) {
         DateTimeFormatter format = DateTimeFormatter.ofPattern("MMM d yyyy");
         LocalDate date = LocalDate.parse(input, format);
-        return date.toString();
+        return date.format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
     }
 
     public static String parseTimeOut(String input) {
