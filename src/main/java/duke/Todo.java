@@ -1,3 +1,5 @@
+package duke;
+
 /**
  * Special kind of task that only has a description
  */
