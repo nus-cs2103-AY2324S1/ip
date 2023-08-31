@@ -12,7 +12,7 @@ public class Task implements Serializable {
     private String desc;
 
     /** Variable to reflect whether a task is finished */
-    private Boolean done;
+    private boolean isDone;
 
     /** Type of task, can be either a todo, deadline, or event */
     private Type type;
@@ -26,7 +26,7 @@ public class Task implements Serializable {
      */
     public Task(String name, Type type, String desc) {
         this.name = name;
-        this.done = false;
+        this.isDone = false;
         this.type = type;
         this.desc = desc;
     }
@@ -35,7 +35,7 @@ public class Task implements Serializable {
      * Marks a task as done
      */
     public void markAsDone() {
-        this.done = true;
+        this.isDone = true;
         System.out.println("You have marked this task as done");
         System.out.println("\t" + this.convertToString());
     }
@@ -44,7 +44,7 @@ public class Task implements Serializable {
      * Marks a task as not done
      */
     public void markAsNotDone() {
-        this.done = false;
+        this.isDone = false;
         System.out.println("You have marked this task as not done");
         System.out.println("\t" + this.convertToString());
     }
@@ -55,15 +55,15 @@ public class Task implements Serializable {
      * @return the String representation of the task
      */
     public String convertToString() {
-        return "[" + this.getType().charAt(0) + "][" + (this.getDone() ? "X" : " ") + "] " + this.name + this.desc;
+        return "[" + this.getType().charAt(0) + "][" + (this.getDone() ? "X" : " ") + "] " + this.getName() + this.desc;
     }
 
     public String getName() {
         return this.name;
     }
     
-    public Boolean getDone() {
-        return this.done;
+    public boolean getDone() {
+        return this.isDone;
     }
 
     public String getType() {

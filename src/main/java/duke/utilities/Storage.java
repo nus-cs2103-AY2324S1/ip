@@ -15,7 +15,7 @@ public class Storage {
     
     /** Variable to store relative file path */
     File file;
-    Boolean exists;
+    boolean exists;
 
     public Storage(String filePath) {
         this.file = new File(filePath);
@@ -30,34 +30,44 @@ public class Storage {
      * Overwrites existing data in tasks.txt
      * 
      * @param list List of tasks that will overwrite the data in the file
-     * @throws FileNotFoundException
-     * @throws IOException
      */
-    public void overwriteTasksData(ArrayList<Task> list) throws FileNotFoundException, IOException {
-        FileOutputStream fos = new FileOutputStream(file);
-        ObjectOutputStream oos = new ObjectOutputStream(fos);
-        oos.writeObject(list);
-        oos.flush();
-        oos.close();
+    public void overwriteTasksData(ArrayList<Task> list) {
+        try {
+            FileOutputStream fos = new FileOutputStream(file);
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
+            oos.writeObject(list);
+            oos.flush();
+            oos.close();
+        } catch (FileNotFoundException e) {
+            System.out.println("!ERROR! File is not found");
+        } catch (IOException e) {
+            System.out.println("!ERROR! " + e);
+        }
     }
 
     /**
      * Loads the data from tasks.txt
      * 
      * @return A list of tasks
-     * @throws FileNotFoundException
-     * @throws IOException
-     * @throws ClassNotFoundException
      */
-    public ArrayList<Task> loadTasksData() throws FileNotFoundException, IOException, ClassNotFoundException {
-        FileInputStream fis = new FileInputStream(file);
-        ObjectInputStream ois = new ObjectInputStream(fis);
-        ArrayList<Task> list = (ArrayList<Task>) ois.readObject();
-        ois.close();
+    public ArrayList<Task> loadTasksData() {
+        ArrayList<Task> list = new ArrayList<>();
+        try {
+            FileInputStream fis = new FileInputStream(file);
+            ObjectInputStream ois = new ObjectInputStream(fis);
+            list = (ArrayList<Task>) ois.readObject();
+            ois.close();
+        } catch (FileNotFoundException e) {
+            System.out.println("!ERROR! File is not found");
+        } catch (IOException e) {
+            System.out.println("!ERROR! " + e);
+        } catch (ClassNotFoundException e) {
+            System.out.println("!ERROR! Class is not found");
+        }
         return list;
     }
 
-    public Boolean fileExists() {
+    public boolean fileExists() {
         return this.exists;
     }
 }

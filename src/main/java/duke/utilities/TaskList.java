@@ -78,7 +78,6 @@ public class TaskList {
      * Deletes a task from the specified list
      * 
      * @param task Task object to be deleted
-     * @param list List of tasks
      */
     public void deleteTask(Task task) {
         System.out.println("You have deleted a task:");
@@ -100,7 +99,7 @@ public class TaskList {
         return parseDate.format(formatter);
     }
 
-    public void overwriteTasksData(Storage storage) throws FileNotFoundException, IOException {
+    public void overwriteTasksData(Storage storage) {
         storage.overwriteTasksData(this.list);
     }
 
