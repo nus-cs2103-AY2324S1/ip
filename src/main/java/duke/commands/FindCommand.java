@@ -13,7 +13,7 @@ import duke.ui.Ui;
 public class FindCommand extends Command {
 
     /** String entered by user. */
-    String find;
+    private String find;
 
     /**
      * Constructs the FindCommand object.

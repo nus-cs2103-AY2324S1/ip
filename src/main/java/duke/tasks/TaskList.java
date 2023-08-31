@@ -41,7 +41,8 @@ public class TaskList {
             throw new DukeException("I'm unable to perform the mark/unmark operation due to an invalid index!");
         }
         if (this.tasks.get(index).isCompleted() == isMark) {
-            throw new DukeException("I'm unable to perform the mark/unmark operation because the task is already marked/unmarked!");
+            throw new DukeException("I'm unable to perform the mark/unmark operation because the task"
+                    + " is already marked/unmarked!");
         }
         this.tasks.get(index).completeTask(isMark);
     }

@@ -6,7 +6,7 @@ package duke.tasks;
  *
  * @author Shishir
  */
-abstract public class Task {
+public abstract class Task {
 
     /** Description of the task. */
     private String description;
@@ -62,7 +62,9 @@ abstract public class Task {
      * Returns the status of a task.
      * @return Status of completion.
      */
-    public boolean isCompleted() { return this.completed; }
+    public boolean isCompleted() {
+        return this.completed;
+    }
 
     public boolean contains(String name) {
         return this.description.contains(name);

@@ -1,18 +1,17 @@
 package duke.parser;
 
-import duke.commands.AddCommand;
-import duke.commands.IncorrectCommand;
-import duke.commands.ListCommand;
-import duke.commands.ExitCommand;
-import duke.commands.Command;
-import duke.commands.FindCommand;
-import duke.commands.MarkCommand;
-import duke.commands.DeleteCommand;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+import duke.commands.AddCommand;
+import duke.commands.Command;
+import duke.commands.DeleteCommand;
+import duke.commands.ExitCommand;
+import duke.commands.FindCommand;
+import duke.commands.IncorrectCommand;
+import duke.commands.ListCommand;
+import duke.commands.MarkCommand;
 
 /**
  * Represents the Parser Class.
@@ -155,7 +154,8 @@ public class Parser {
         return flag ? new ExitCommand() : new ListCommand();
     }
 
-    public static Command validateFind(String[] split) {
+
+    private static Command validateFind(String[] split) {
         if (split.length <= 1) {
             return new IncorrectCommand("Please enter a valid command!");
         }

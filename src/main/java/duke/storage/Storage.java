@@ -1,11 +1,5 @@
 package duke.storage;
 
-import duke.exceptions.DukeException;
-import duke.tasks.Deadline;
-import duke.tasks.Event;
-import duke.tasks.Task;
-import duke.tasks.Todo;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -15,6 +9,12 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import duke.exceptions.DukeException;
+import duke.tasks.Deadline;
+import duke.tasks.Event;
+import duke.tasks.Task;
+import duke.tasks.Todo;
 
 /**
  * Represents the Storage Class.
@@ -81,11 +81,11 @@ public class Storage {
                 }
             }
         } catch (FileNotFoundException exc) {
-            System.out.println("The file doesn't exist yet, but will be created" +
-                    " under the path (" + this.file.getPath() + ")");
+            System.out.println("The file doesn't exist yet, but will be created"
+                    + " under the path (" + this.file.getPath() + ")");
         } catch (DukeException exc) {
-            System.out.println("Incorrect input has been detected from the file " +
-                    "stored at the path (" + this.file.getPath() + ") at line number " + lineNumber + ".");
+            System.out.println("Incorrect input has been detected from the file "
+                    + "stored at the path (" + this.file.getPath() + ") at line number " + lineNumber + ".");
             System.out.println("Error Message: " + exc);
             System.out.println("The invalid task will be overwritten and removed.");
         } finally {
@@ -114,8 +114,8 @@ public class Storage {
     /**
      * Converts the given string into a task object.
      * @param line String representation of the task object.
-     * @throws DukeException thrown on invalid input.
      * @return Task object.
+     * @throws DukeException thrown on invalid input.
      */
     public Task stringToTask(String line) throws DukeException {
         String[] split = line.split(" \\| ", 4);
@@ -155,7 +155,8 @@ public class Storage {
                 if (interval.length < 2) {
                     throw new DukeException("Invalid range of task detected!");
                 } else {
-                    task = new Event(action, LocalDateTime.parse(interval[0], formatter),  LocalDateTime.parse(interval[1], formatter), status.equals("X"));
+                    task = new Event(action, LocalDateTime.parse(interval[0], formatter),
+                            LocalDateTime.parse(interval[1], formatter), status.equals("X"));
                 }
                 break;
             default:
