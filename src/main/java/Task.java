@@ -1,5 +1,5 @@
 
-public class Task extends Corubi {
+public class Task {
     private boolean isDone;
     private final String NAME;
     final String DONE = "[X] ";
