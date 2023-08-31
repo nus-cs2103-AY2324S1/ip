@@ -66,6 +66,9 @@ public class Duke {
         case "event":
             ui.displayMessage("added : " + tasks.add(command));
             break;
+        case "find":
+            ui.list(tasks.find(command));
+            break;
         default:
             throw new LukeException("I'm sorry, but I don't know what that means :-(");
         }

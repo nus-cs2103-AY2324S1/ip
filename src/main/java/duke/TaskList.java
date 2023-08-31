@@ -3,10 +3,12 @@ package duke;
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 public class TaskList {
     private static Pattern deleteCommand = Pattern.compile("^delete (?<taskNumber>\\d*)$");
     private static Pattern markUnmarkCommand = Pattern.compile("^(mark|unmark) (?<taskNumber>\\d*)$");
+    private static Pattern findCommand = Pattern.compile("^find( (?<searchString>.*))?$");
 
 
     private ArrayList<Task> tasks;
@@ -21,6 +23,25 @@ public class TaskList {
 
     public ArrayList<Task> getAll() {
         return tasks;
+    }
+
+    /**
+     * Returns a list of tasks whose names contain the specified substring
+     *
+     * @param command Command specifying the substring to search for
+     * @return ArrayList of tasks whose names has the substring
+     */
+    public ArrayList<Task> find(String command) throws LukeException {
+        Matcher matcher = findCommand.matcher(command);
+        matcher.find();
+
+        String searchString = matcher.group("searchString");
+        if (searchString == null || searchString.isBlank()) {
+            return getAll();
+        }
+
+        return tasks.stream().filter(task -> task.hasSubstring(searchString))
+                .collect(Collectors.toCollection(ArrayList::new));
     }
 
     public Task add(String command) throws LukeException {

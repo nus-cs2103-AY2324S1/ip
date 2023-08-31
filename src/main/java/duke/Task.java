@@ -1,5 +1,8 @@
 package duke;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class Task {
     private boolean isDone;
     private String name;
@@ -12,6 +15,19 @@ public class Task {
     Task(String name, boolean isDone) {
         this.name = name.trim();
         this.isDone = isDone;
+    }
+
+    /**
+     * Checks if this task's name contains the specified substring
+     *
+     * @param subString Substring to check for
+     * @return true if this task's name contains the substring
+     */
+    public boolean hasSubstring(String subString) {
+        Pattern pattern = Pattern.compile(subString, Pattern.LITERAL);
+        Matcher matcher = pattern.matcher(name);
+
+        return matcher.find();
     }
 
     public void setIsDone(boolean isDone) throws LukeException {
