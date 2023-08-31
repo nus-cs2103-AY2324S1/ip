@@ -105,6 +105,7 @@ public class Ax {
                     System.out.println(listItem);
                     printWriter.println(listItem);
                 }
+                printWriter.close();
 
                 return true;
             } else if (input.equals("list")) {
