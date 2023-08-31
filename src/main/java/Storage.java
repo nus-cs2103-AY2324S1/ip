@@ -7,15 +7,15 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Storage {
-    private static String filePath = "../../duke.txt";
+    private static final String FILE_PATH = "../../duke.txt";
     private File file;
 
-    public Storage(File file) throws DukeException {
+    public Storage(File file) {
         this.file = file;
     }
 
-    public Storage(String pathname) throws DukeException {
-        this.file = new File(pathname);
+    public Storage(String pathName) throws DukeException {
+        this.file = new File(pathName);
         try {
             file.createNewFile();
         } catch (IOException e) {
@@ -24,7 +24,7 @@ public class Storage {
     }
 
     public Storage() throws DukeException {
-        this.file = new File(filePath);
+        this.file = new File(FILE_PATH);
         try {
             file.createNewFile();
         } catch (IOException e) {

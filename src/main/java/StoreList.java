@@ -1,22 +1,17 @@
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Scanner;
 
 public class StoreList {
 
-    private static String filePath = "../../duke.txt";
-    ArrayList<Task> list = new ArrayList<>();
-    StoreList() {
+    ArrayList<Task> list;
+    public StoreList() {
+        this.list = new ArrayList<>();
     }
 
-    String add(Commands type, String item) {
+    String add(Commands type, String description) {
         try {
 
-            Task task = Task.create(type, item);
+            Task task = Task.create(type, description);
             list.add(task);
             return String.format(
                     "added: %s\nYou have %d tasks.",
@@ -92,63 +87,6 @@ public class StoreList {
             result += String.format("    %d. %s\n", i + 1, list.get(i));
         }
         return result;
-    }
-
-    public boolean readFromFile() {
-        File file = new File(filePath);
-        Scanner sc;
-        try {
-            file.createNewFile();
-            sc = new Scanner(file);
-        } catch (IOException e) {
-            System.out.println("Unable to find or create file.");
-            return false;
-        }
-
-        while(sc.hasNext()) {
-            String s = sc.nextLine();
-            String[] tokens = s.split(" ", 3);
-            try {
-                Commands c = Commands.valueOf(tokens[0]);
-                boolean done = !tokens[1].equals("0");
-                String desc = tokens[2];
-                Task task = Task.create(c, desc);
-                if (done) {
-                    task.markAsDone();
-                } else {
-                    task.markAsNotDone();
-                }
-                list.add(task);
-            } catch (IllegalArgumentException | IndexOutOfBoundsException | DukeException e) {
-                System.out.println("Corrupted file. Delete all text in the duke.txt to use it again.");
-                return false;
-            } catch (RuntimeException e) {
-                System.out.println("Corrupted file. Delete all text in the duke.txt to use it again.");
-                return false;
-            }
-        }
-        sc.close();
-
-        return true;
-    }
-
-    public boolean writeToFile() {
-        String s = "";
-        for (Task t: list) {
-            s += t.fileString() + "\n";
-        }
-        try {
-            FileWriter fileWriter = new FileWriter(filePath);
-            PrintWriter pw = new PrintWriter(fileWriter);
-            pw.write(s);
-            pw.flush();
-            pw.close();
-        } catch (IOException e) {
-            System.out.println("Unable to write to duke.txt");
-            return false;
-        }
-
-        return true;
     }
 
     public String showSaveText() {

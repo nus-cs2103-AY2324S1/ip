@@ -9,8 +9,6 @@ public class UserInterface {
 
     private StoreList list;
 
-    private UserInterface() {}
-
     public UserInterface(Storage storage, StoreList list) {
         this.list = list;
         this.storage = storage;
@@ -28,11 +26,10 @@ public class UserInterface {
             String line = sc.nextLine();
             if (line.length() == 0) {
                 display("Err: No command input");
-                continue Reading;
+                continue;
             }
             String[] instruction = line.split(" ", 2);
             Commands cmd = Commands.get(instruction[0]);
-            boolean hasSecondPart = instruction.length == 2;
             String response;
             switch (cmd) {
                 case bye:
@@ -96,7 +93,7 @@ public class UserInterface {
         sc.close();
     }
 
-    private static void display(String s) {
+    public static void display(String s) {
         System.out.println(wrapper(s));
     }
 
