@@ -19,8 +19,10 @@ class Deadline extends Task {
     @Override
     public void mark() {
         this.isDone = true;
-        System.out.println("Nice! I've marked this task as done:\n"
-                + this);
+        System.out.println("-------------------------------\n"
+                + "Nice! I've marked this task as done:\n"
+                + this
+                + "\n-------------------------------");
     }
     @Override
     public void unmark() {

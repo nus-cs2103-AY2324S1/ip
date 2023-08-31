@@ -201,9 +201,39 @@ class TaskList {
                 toInput = arr[i + 3];
             }
         }
-        String from = LocalDate.parse(fromInput).format(DateTimeFormatter.ofPattern("MMM d yyyy"));
-        String to = LocalDate.parse(toInput).format(DateTimeFormatter.ofPattern("MMM d yyyy"));
+        String from = LocalDate.parse(fromInput)
+                .format(DateTimeFormatter.ofPattern("MMM d yyyy"));
+        String to = LocalDate.parse(toInput)
+                .format(DateTimeFormatter.ofPattern("MMM d yyyy"));
         return from + " - " + to;
+    }
+    public void find(String[] arr) throws WrongInput {
+        if (arr.length == 1) {
+            throw new WrongInput();
+        } else {
+            System.out.println("-------------------------------\n"
+                    + "Here are the matching tasks in your list:");
+
+            int[] result = new int[taskArr.size()];
+            String term = arr[1];
+
+            for (int i = 0; i < taskArr.size(); i++) {
+                String currDescription = taskArr.get(i).desc();
+                if (currDescription.toLowerCase().contains(term.toLowerCase())) {
+                    result[i] = 1;
+                } else {
+                    result[i] = 0;
+                }
+            }
+
+            for (int i = 0; i < taskArr.size(); i++) {
+                if (result[i] == 1) {
+                    System.out.println(taskArr.get(i).toString());
+                }
+            }
+
+            System.out.println("-------------------------------\n");
+        }
     }
     public ArrayList<Task> retrieveArray() {
         return this.taskArr;
