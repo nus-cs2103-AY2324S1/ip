@@ -1,15 +1,17 @@
+package duke;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
-public class Deadline extends Task {
-//    protected String by;
-    protected LocalDateTime by;
+public class Event extends Task {
+    private LocalDateTime from;
+    private LocalDateTime to;
 
-    public Deadline(String description, String by) {
+    public Event(String description, String from, String to) {
         super(description);
-        this.by = parseDateTime(by);
-//        this.by = by;
+        this.from = parseDateTime(from);
+        this.to = parseDateTime(to);
     }
 
     private LocalDateTime parseDateTime(String by) {
@@ -32,11 +34,12 @@ public class Deadline extends Task {
     @Override
     public String toString() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy HHmm");
-        return "[D]" + super.toString() + " (by: " + this.by.format(formatter) + ")";
+        return "[E]" + super.toString() + " (from: " + this.from.format(formatter) + " to: "
+                + this.to.format(formatter) + ")";
     }
 
     @Override
     public String toFile() {
-        return "D | " + super.toFile() + " | " + this.by;
+        return "E | " + super.toFile() + " | " + this.from + " | " + this.to;
     }
 }
