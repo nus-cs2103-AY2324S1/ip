@@ -35,7 +35,9 @@ public class Duke {
 
     /** Provides interaction with the user. */
     public void interact() {
+        this.ui.showLine();
         this.ui.greet();
+        this.ui.showLine();
         boolean isExit = false;
         while (!isExit) {
             try {

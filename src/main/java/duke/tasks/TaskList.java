@@ -2,6 +2,8 @@ package duke.tasks;
 
 import java.util.ArrayList;
 
+import duke.exceptions.DukeException;
+
 /**
  * Represents the TaskList Class.
  *
@@ -31,24 +33,28 @@ public class TaskList {
     /**
      * Marks the task with the given index.
      * @param index Index of the task to be marked.
+     * @param isMark Mark if true, Unmark if false.
+     * @throws DukeException Exception thrown upon invalid index.
      */
-    public void mark(int index) {
-        this.tasks.get(index).completeTask();
-    }
-
-    /**
-     * Unmarks the task with the given index.
-     * @param index Index of the task to be unmarked.
-     */
-    public void unmark(int index) {
-        this.tasks.get(index).revertTask();
+    public void changeStatus(int index, boolean isMark) throws DukeException {
+        if (index >= this.size()) {
+            throw new DukeException("I'm unable to perform the mark/unmark operation due to an invalid index!");
+        }
+        if (this.tasks.get(index).isCompleted() == isMark) {
+            throw new DukeException("I'm unable to perform the mark/unmark operation because the task is already marked/unmarked!");
+        }
+        this.tasks.get(index).completeTask(isMark);
     }
 
     /**
      * Deletes the task with the given index.
      * @param index Index of the task to be deleted.
+     * @throws DukeException Exception thrown on invalid index.
      */
-    public void delete(int index) {
+    public void delete(int index) throws DukeException {
+        if (index > this.size()) {
+            throw new DukeException("I'm unable to perform the delete operation due to an invalid index!");
+        }
         this.tasks.remove(index);
     }
 
@@ -77,14 +83,26 @@ public class TaskList {
         return this.tasks;
     }
 
-    public ArrayList<Task> filterByName(String name) {
-        ArrayList<Task> filtered = new ArrayList<>();
+    /**
+     * Filters and prints the list of all the tasks matching with the given keyword.
+     * @param name Given keyword.
+     */
+    public void filterByName(String name) {
+        int count = 1;
         for (Task t : this.tasks) {
             if (t.contains(name)) {
-                filtered.add(t);
+                System.out.println(count + ") " + t.toString());
             }
         }
-        return filtered;
+    }
+
+    /**
+     * Prints the list of all the tasks.
+     */
+    public void print() {
+        for (int i = 0; i < this.tasks.size(); i++) {
+            System.out.println((i + 1) + ") " + tasks.get(i).toString());
+        }
     }
 
 }

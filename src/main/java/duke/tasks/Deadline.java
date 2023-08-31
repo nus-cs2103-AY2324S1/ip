@@ -15,21 +15,11 @@ public class Deadline extends Task {
 
     /**
      * Constructs the deadline class.
-     * @param deadline Deadline of the task.
-     * @param description Description of the task.
-     */
-    public Deadline(String description, LocalDateTime deadline) {
-        super(description);
-        this.deadline = deadline;
-    }
-
-    /**
-     * Constructs the deadline class.
      * @param description Description of the task.
      * @param deadline Deadline of the task.
      * @param status Status of completion.
      */
-    public Deadline(String description, LocalDateTime deadline, String status) {
+    public Deadline(String description, LocalDateTime deadline, boolean status) {
         super(description, status);
         this.deadline = deadline;
     }

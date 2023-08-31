@@ -2,6 +2,7 @@ package duke.commands;
 
 import duke.exceptions.DukeException;
 import duke.storage.Storage;
+import duke.tasks.Task;
 import duke.tasks.TaskList;
 import duke.ui.Ui;
 
@@ -33,12 +34,11 @@ public class DeleteCommand extends Command {
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
-        // Check if index is invalid or the task exists.
-        if (tasks.size() < index) {
-            throw new DukeException("The task you are trying to delete either doesnt exist, or is already deleted!");
-        }
-        ui.showDelete(index, tasks.getTask(index - 1));
-        tasks.delete(index - 1);
+        Task task = tasks.getTask(this.index - 1);
+        tasks.delete(this.index - 1);
+        ui.showLine();
+        ui.showDelete(this.index, task);
+        ui.showLine();
         storage.writeData(tasks.getAllTasks());
     }
 

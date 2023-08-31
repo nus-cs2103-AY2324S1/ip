@@ -19,23 +19,11 @@ public class Event extends Task {
     /**
      * Constructs the event class.
      * @param description Description of the task.
-     * @param from Start date and time.
-     * @param to End date and time.
-     */
-    public Event(String description, LocalDateTime from, LocalDateTime to) {
-        super(description);
-        this.from = from;
-        this.to = to;
-    }
-
-    /**
-     * Constructs the event class.
-     * @param description Description of the task.
      * @param status Status of completion.
      * @param from Start date and time.
      * @param to End date and time.
      */
-    public Event(String description, LocalDateTime from, LocalDateTime to, String status) {
+    public Event(String description, LocalDateTime from, LocalDateTime to, boolean status) {
         super(description, status);
         this.from = from;
         this.to = to;
