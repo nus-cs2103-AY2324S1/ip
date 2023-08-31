@@ -1,5 +1,5 @@
 [T][x]  drink water
-[E][ ]  st1131 from: 29 Aug 2023 12:34 PM to: 30 Aug 2023 12:00 PM
-[D][ ]  cs2103t by: 28 Aug 2023 12:44 PM
+[E][ ]  book fair from: 29 Aug 2023 12:34 PM to: 30 Aug 2023 12:00 PM
+[D][ ]  study CS2013T by: 28 Aug 2023 12:44 PM
 [E][ ]  123456 from: 29 Aug 2023 01:56 PM to: 30 Aug 2023 12:00 AM
-[D][x]  abcde by: 29 Aug 2023 12:44 PM
+[D][x]  return book by: 29 Aug 2023 12:44 PM

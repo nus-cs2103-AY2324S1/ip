@@ -1,21 +1,31 @@
-package duke.task;
+package roo.task;
 
-import duke.DukeException;
+import roo.RooException;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Represents a event with start and end time.
+ */
 public class Event extends Task {
     private LocalDateTime start;
     private LocalDateTime end;
 
-    public Event(String task, String start, String end) throws DukeException {
+    /**
+     * Constructs a Event with given event details and date. It is initialised as not finished.
+     * @param task The description of the event.
+     * @param start Start date and time of the event with dd-MM-yyyy HH:mm format.
+     * @param end End date and time of the event with dd-MM-yyyy HH:mm format.
+     * @throws RooException If the dates are empty or consist only of spaces.
+     */
+    public Event(String task, String start, String end) throws RooException {
         super(task);
         if (start.isEmpty() || start.equals(" ")) {
-            throw new DukeException("Missing time!!!\n");
+            throw new RooException("Missing time!!!\n");
         } else if (end.isEmpty() || end.equals(" ")) {
-            throw new DukeException("Missing time!!!\n");
+            throw new RooException("Missing time!!!\n");
         }
         DateTimeFormatter formatter1 = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
         DateTimeFormatter formatter2 = DateTimeFormatter.ofPattern("dd MMM yyyy hh:mm a");
@@ -40,12 +50,21 @@ public class Event extends Task {
         }
     }
 
-    public Event(String task, String start, String end, boolean finish) throws DukeException{
-        super(task, finish);
+
+    /**
+     * Constructs a Event with given event details and date.
+     * @param task The description of the event.
+     * @param start Start date and time of the event with dd-MM-yyyy HH:mm format.
+     * @param end End date and time of the event with dd-MM-yyyy HH:mm format.
+     * @param isFinish The completion status of the task.
+     * @throws RooException If the dates are empty or consist only of spaces.
+     */
+    public Event(String task, String start, String end, boolean isFinish) throws RooException {
+        super(task, isFinish);
         if (start.isEmpty() || start.equals(" ")) {
-            throw new DukeException("Missing time !!!\n");
+            throw new RooException("Missing time !!!\n");
         } else if (end.isEmpty() || end.equals(" ")) {
-            throw new DukeException("Missing time!!!\n");
+            throw new RooException("Missing time!!!\n");
         }
         DateTimeFormatter formatter1 = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
         DateTimeFormatter formatter2 = DateTimeFormatter.ofPattern("dd MMM yyyy hh:mm a");
@@ -70,11 +89,19 @@ public class Event extends Task {
         }
     }
 
+    /**
+     * Returns the start date of the task
+     * @return the start date of the task
+     */
     @Override
     public LocalDateTime getDate() {
         return this.start;
     }
 
+    /**
+     * Returns a string representation of the task
+     * @return A string representation of the task
+     */
     @Override
     public String toString() {
         return "[E]" + super.toString()

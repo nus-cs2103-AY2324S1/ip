@@ -1,11 +1,19 @@
-package duke;
+package roo;
 
-import duke.task.Deadline;
-import duke.task.Event;
-import duke.task.Task;
-import duke.task.Todo;
+import roo.task.Deadline;
+import roo.task.Event;
+import roo.task.Task;
+import roo.task.Todo;
 
+/**
+ * Deals with making sense of the user command.
+ */
 public class Parse {
+    /**
+     * Creates a Task object based on the input string.
+     * @param str The input string representing a task.
+     * @return A Task object parsed from the input string, or null if parsing fails.
+     */
     public static Task makeTask(String str) {
         try {
             if (str.startsWith("[T]")) {
@@ -32,12 +40,17 @@ public class Parse {
                             str.substring(sub2 + 4), false);
                 }
             }
-        } catch (DukeException e) {
+        } catch (RooException e) {
             System.err.println(e.getMessage());
         }
         return null;
     }
 
+    /**
+     * Parses a user input string and determines the corresponding command.
+     * @param input The user input string.
+     * @return The Commands enum representing the detected command.
+     */
     public static Commands parse(String input) {
         Commands c;
         if (input.equals("list")) {
@@ -46,7 +59,7 @@ public class Parse {
             c = Commands.UNMARK;
         } else if (input.startsWith("mark")) {
             c = Commands.MARK;
-        } else if (input.startsWith("delete")) {
+        } else if (input.startsWith("delete") || input.startsWith("remove")) {
             c = Commands.DELETE;
         } else if (input.startsWith("todo")) {
             c = Commands.TODO;
@@ -58,6 +71,8 @@ public class Parse {
             c = Commands.DATE;
         } else if (input.startsWith("clear")) {
             c = Commands.CLEAR;
+        } else if (input.startsWith("find")) {
+            c = Commands.FIND;
         } else if (input.startsWith("end") || input.startsWith("bye")) {
             c = Commands.END;
         } else {

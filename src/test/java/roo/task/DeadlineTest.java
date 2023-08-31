@@ -1,6 +1,6 @@
-package duke.task;
+package roo.task;
 
-import duke.DukeException;
+import roo.RooException;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
@@ -15,7 +15,7 @@ public class DeadlineTest {
         try {
             Deadline deadline = new Deadline("valid input 1", "30-08-2023 23:59");
             assertEquals("[D][ ] valid input 1 by: 30 Aug 2023 11:59 PM", deadline.toString());
-        } catch (DukeException exception) {
+        } catch (RooException exception) {
             fail();
         }
     }
@@ -25,7 +25,7 @@ public class DeadlineTest {
         try {
             Deadline deadline = new Deadline("valid input 2", "30 Aug 2023 09:00 PM");
             assertEquals("[D][ ] valid input 2 by: 30 Aug 2023 09:00 PM", deadline.toString());
-        } catch (DukeException exception) {
+        } catch (RooException exception) {
             fail();
         }
     }
@@ -35,7 +35,7 @@ public class DeadlineTest {
         try {
             Deadline deadline = new Deadline("", "30/08/2023 2359");
             fail();
-        } catch (DukeException exception) {
+        } catch (RooException exception) {
             assertEquals("Description is EMPTY!!!\n", exception.getMessage());
         }
     }
@@ -46,7 +46,7 @@ public class DeadlineTest {
             Deadline deadline = new Deadline("valid date 1", "30-08-2023 21:00");
             assertEquals(LocalDateTime.parse("30-08-2023 21:00", DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm")),
                     deadline.getDate());
-        } catch (DukeException exception) {
+        } catch (RooException exception) {
             fail();
         }
     }
@@ -57,7 +57,7 @@ public class DeadlineTest {
             Deadline deadline = new Deadline("valid date 2", "30 Aug 2023 09:00 PM");
             assertEquals(LocalDateTime.parse("30-08-2023 21:00", DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm")),
                     deadline.getDate());
-        } catch (DukeException exception) {
+        } catch (RooException exception) {
             fail();
         }
     }
