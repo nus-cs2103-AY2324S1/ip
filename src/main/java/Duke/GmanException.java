@@ -1,3 +1,5 @@
+package Duke;
+
 public class GmanException extends Exception {
     public GmanException(String message) {
         super(message);

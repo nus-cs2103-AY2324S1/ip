@@ -1,10 +1,12 @@
+package Duke;
+
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 public class TaskList {
 
     private ArrayList<Task> tasks;
-    private Storage storage = new Storage(); //take tasks from Storage.
+    private Storage storage = new Storage(); //take tasks from Duke.Storage.
 
     public TaskList() { //tries to take any previously stored tasks
         try {
