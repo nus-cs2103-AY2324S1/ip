@@ -2,6 +2,8 @@ import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -150,7 +152,12 @@ public class Duke {
                     if (deadlineStr.isBlank() || deadlineDescription.isBlank())
                         throw new DukeException("I can't read your mind. Do add more details.");
                     System.out.println("Alright. I'll make sure you don't forget it.");
-                    tasks.add(new Deadline(deadlineDescription, deadlineStr));
+                    try {
+                        LocalDateTime deadlineDate = LocalDateTime.parse(deadlineStr);
+                        tasks.add(new Deadline(deadlineDescription, deadlineDate));
+                    } catch (DateTimeParseException e) {
+                        tasks.add(new Deadline(deadlineDescription, deadlineStr));
+                    }
                     System.out.println(tasks.get(tasks.size() - 1));
                 } catch (ArrayIndexOutOfBoundsException e) {
                     throw new DukeException("Please format your description properly.");
@@ -170,7 +177,13 @@ public class Duke {
                     if (eventDescription.isBlank() || startDate.isBlank() || endDate.isBlank())
                         throw new DukeException("I can't read your mind. Do add more details.");
                     System.out.println("Roger that. Preparations will be underway.");
-                    tasks.add(new Event(eventDescription, startDate, endDate));
+                    try {
+                        LocalDateTime eventStartDate = LocalDateTime.parse(startDate);
+                        LocalDateTime eventEndDate = LocalDateTime.parse(endDate);
+                        tasks.add(new Event(eventDescription, eventStartDate, eventEndDate));
+                    } catch (DateTimeParseException e) {
+                        tasks.add(new Event(eventDescription, startDate, endDate));
+                    }
                     System.out.println(tasks.get(tasks.size() - 1));
                 } catch (ArrayIndexOutOfBoundsException e) {
                     throw new DukeException("Please format your description properly.");
