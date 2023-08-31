@@ -9,10 +9,15 @@ import tasks.Task;
 public class Duke {
 
     private static Storage storage;
-    public static void main(String[] args) {
+    private TaskList tasks;
+    private Ui ui;
 
-        Scanner scanner = new Scanner(System.in);
+    public Duke() {
         storage = new Storage();
+    }
+
+    public void run() {
+        Scanner scanner = new Scanner(System.in);
 
         String logo = "  OOOO                         OOOO\n" +
                 " O    O     w           w     O    O\n" +
@@ -47,5 +52,9 @@ public class Duke {
 
         System.out.println(exitMessage);
         scanner.close();
+    }
+    public static void main(String[] args) {
+        new Duke().run();
+
     }
 }
