@@ -9,10 +9,18 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
+/**
+ * Task list that contains all tasks and reads or writes from a storage.
+ */
 public class TaskList {
     private ArrayList<Task> taskList;
     private Storage storage;
 
+    /**
+     * Initialises TaskList object and loads tasks from storage.
+     * @param storage Storage object which task list loads tasks from.
+     * @throws GlubException If loading of tasks fails.
+     */
     public TaskList(Storage storage) throws GlubException {
         this.storage = storage;
         this.taskList = new ArrayList<>();
@@ -23,6 +31,10 @@ public class TaskList {
         return this.taskList;
     }
 
+    /**
+     * Adds tasks from storage into task list.
+     * @throws GlubException If loading fails.
+     */
     public void loadTasks() throws GlubException {
         ArrayList<String> taskDetails = storage.getTaskDetails();
         for (int i = 0; i < taskDetails.size(); i++) {
@@ -45,6 +57,14 @@ public class TaskList {
         }
 
     }
+
+    /**
+     * Adds task into task list.
+     * @param task Description of the task.
+     * @param taskType Type of task.
+     * @param isDone Status of task.
+     * @throws GlubException If input is invalid.
+     */
     public void addTask(String task, TaskType taskType, boolean isDone) throws GlubException {
         DateTimeFormatter dateTimeFormat = DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm");
         if (task.equals("")) {
@@ -89,6 +109,11 @@ public class TaskList {
         storage.saveTasks(this.taskList);
     }
 
+    /**
+     * Deletes a task from the task list.
+     * @param taskNum Index of task to be deleted.
+     * @throws GlubException If taskNum indicated is invalid.
+     */
     public void deleteTask(int taskNum) throws GlubException {
         try {
             Task deleted = taskList.remove(taskNum - 1);
@@ -99,6 +124,10 @@ public class TaskList {
         storage.saveTasks(this.taskList);
     }
 
+    /**
+     * Displays all tasks.
+     * @return String of all tasks.
+     */
     public String showList() {
         StringBuilder list = new StringBuilder();
         for (int i = 0; i < taskList.size(); i++) {
@@ -107,6 +136,10 @@ public class TaskList {
         return list.toString();
     }
 
+    /**
+     * Marks a task from the task list.
+     * @param taskNum Index of task to be marked.
+     */
     public void mark(int taskNum) {
         Task task = taskList.get(taskNum - 1);
         task.setDone();
@@ -114,6 +147,10 @@ public class TaskList {
         storage.saveTasks(this.taskList);
     }
 
+    /**
+     * Unmarks a task from the task list.
+     * @param taskNum Index of task to be unmarked.
+     */
     public void unmark(int taskNum) {
         Task task = taskList.get(taskNum - 1);
         task.setUndone();

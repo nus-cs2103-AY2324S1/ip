@@ -5,11 +5,20 @@ import glub.task.TaskList;
 
 import java.util.ArrayList;
 
+/**
+ * Ui handles all messages that the user will see.
+ */
 public class Ui {
+    /**
+     * Print horizontal line.
+     */
     public static void printHorizontalLine() {
         System.out.println("_________________________________________________");
     }
 
+    /**
+     * Displays welcome message.
+     */
     public static void greet() {
         printHorizontalLine();
         System.out.println("Hello! I'm Glub!");
@@ -17,12 +26,19 @@ public class Ui {
         printHorizontalLine();
     }
 
+    /**
+     * Displays farewell message.
+     */
     public static void sayGoodbye() {
         printHorizontalLine();
         System.out.println("Bye. Hope to see you again soon!");
         printHorizontalLine();
     }
 
+    /**
+     * Displays message indicating that a task has been added to the task list.
+     * @param taskList Task list which task has been added to.
+     */
     public static void printAddMsg(ArrayList<Task> taskList) {
         int size = taskList.size();
         printHorizontalLine();
@@ -32,6 +48,11 @@ public class Ui {
         printHorizontalLine();
     }
 
+    /**
+     * Displays message indicating that a task has been deleted from the task list.
+     * @param taskList Task list which task has been deleted from.
+     * @param deleted Task that has been deleted.
+     */
     public static void printDeleteMsg(ArrayList<Task> taskList, Task deleted) {
         int size = taskList.size();
         printHorizontalLine();
@@ -41,6 +62,10 @@ public class Ui {
         printHorizontalLine();
     }
 
+    /**
+     * Displays all tasks in the task list.
+     * @param taskList Task list containing all the tasks.
+     */
     public static void printListMsg(TaskList taskList) {
         printHorizontalLine();
         System.out.println("Here are the tasks in your list:");
@@ -48,13 +73,20 @@ public class Ui {
         printHorizontalLine();
     }
 
+    /**
+     * Displays message indicating that a task has been marked.
+     * @param task Task that has been marked.
+     */
     public static void printMarkMsg(Task task) {
         printHorizontalLine();
         System.out.println("Nice! I've marked this task as done:");
         System.out.printf("\t%s%n", task);
         printHorizontalLine();
     }
-
+    /**
+     * Displays message indicating that a task has been unmarked.
+     * @param task Task that has been unmarked.
+     */
     public static void printUnmarkMsg(Task task) {
         printHorizontalLine();
         System.out.println("Ok, I've marked this task as not done yet:");
@@ -62,6 +94,10 @@ public class Ui {
         printHorizontalLine();
     }
 
+    /**
+     * Displays error message.
+     * @param msg Message to be displayed.
+     */
     public static void printError(String msg) {
         System.err.println(msg);
     }

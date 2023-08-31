@@ -5,15 +5,30 @@ import glub.task.TaskType;
 
 import java.util.Scanner;
 
+/**
+ * Parser that handles user inputs.
+ */
 public class Parser {
+    /** Tasklist associated to parser. */
     TaskList taskList;
+    /** Storage associated to parser. */
     Storage storage;
+    /** Status of parser. */
     boolean isListening = true;
+
+    /**
+     * Initialises Parser object.
+     * @param taskList TaskList with all tasks.
+     * @param storage Storage object which saves tasks.
+     */
     public Parser(TaskList taskList, Storage storage) {
         this.taskList = taskList;
         this.storage = storage;
     }
 
+    /**
+     * Listen to user input and execute the corresponding command.
+     */
     public void listen() {
         Scanner inputScanner = new Scanner(System.in);
         while (isListening) {
