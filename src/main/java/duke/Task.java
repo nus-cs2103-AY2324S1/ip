@@ -1,5 +1,7 @@
 package duke;
 
+import java.time.LocalDateTime;
+
 public class Task {
     protected String taskName;
     protected boolean status;
@@ -21,7 +23,7 @@ public class Task {
 
     public String getType() { return "No task type"; };
 
-    public boolean getStatus() {
+    public boolean isDone() {
         return this.status;
     }
 
@@ -47,4 +49,5 @@ public class Task {
     public String toString() {
         return this.taskName;
     }
+
 }

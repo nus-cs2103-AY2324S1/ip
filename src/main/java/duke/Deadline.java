@@ -27,6 +27,10 @@ public class Deadline extends Task {
         return this.by.format(DateTimeFormatter.ofPattern("d MMM yyyy h:mma"));
     }
 
+    public LocalDateTime getBy() {
+        return this.by;
+    }
+
     @Override
     public String statusAndTask() {
         return "[D]" + statusString() + " " + super.toString() + " (by: " + getByFormatted() + ")";

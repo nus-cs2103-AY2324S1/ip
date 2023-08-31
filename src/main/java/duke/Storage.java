@@ -1,6 +1,9 @@
 package duke;
 
 import exceptions.FileUnloadableException;
+import exceptions.ParseTaskFromStringException;
+
+import javax.swing.*;
 import java.io.IOException;
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -43,13 +46,13 @@ public class Storage {
     }
 
     private static String writeTaskLine(Task task) {
-        Boolean isDone = task.getStatus();
+        Boolean isDone = task.isDone();
         String taskLine = task.getType() + " | " + (isDone ? "1" : "0") + " | " + task.getDescription() + "\n";
         return taskLine;
     }
 
 
-    public static ArrayList<Task> load() throws IOException, FileUnloadableException {
+    public static ArrayList<Task> load() throws IOException, FileUnloadableException, ParseTaskFromStringException {
         ArrayList<Task> taskArray = new ArrayList<>();
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
             String line;
@@ -61,22 +64,25 @@ public class Storage {
         return taskArray;
     }
 
-    private static Task parseTaskFromString(String line) {
+    public static Task parseTaskFromString(String line) throws ParseTaskFromStringException {
         String[] parts = line.split("\\|");
+        if (parts.length < 3) {
+            throw new ParseTaskFromStringException(line);
+        }
         String taskType = parts[0].trim();
         boolean isDone = parts[1].trim().equals("1");
         String taskDescription = parts[2].trim();
 
-        if (taskType.equals("T")) {
+        if (taskType.equals("T") && parts.length == 3) {
             Task task = new ToDo(taskDescription);
             setStatus(task, isDone);
             return task;
-        } else if (taskType.equals("D")) {
+        } else if (taskType.equals("D") && parts.length == 4) {
             LocalDateTime by = Storage.saveAsDate(parts[3].trim());
             Task task = new Deadline(taskDescription, by);
             setStatus(task, isDone);
             return task;
-        } else if (taskType.equals("E")) {
+        } else if (taskType.equals("E") && parts.length == 5) {
             LocalDateTime start = Storage.saveAsDate(parts[3].trim());
             LocalDateTime end = Storage.saveAsDate(parts[4].trim());
             Task task = new Event(taskDescription, start, end);
@@ -84,7 +90,7 @@ public class Storage {
             return task;
         } else {
             // Handle unrecognized task type
-            return null;
+            throw new ParseTaskFromStringException(line);
         }
     }
 

@@ -2,6 +2,8 @@ package duke;
 
 import exceptions.DukeException;
 import exceptions.FileUnloadableException;
+import exceptions.ParseTaskFromStringException;
+
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -39,11 +41,13 @@ public class Duke {
                 System.out.println(taskList.listTasks());
             }
         } catch (FileNotFoundException e) {
-            System.out.println("File not found.");
+            System.out.println("There are no tasks in your list at the moment. Add some!");
         } catch (FileUnloadableException e) {
             System.out.println("File cannot be loaded.");
         } catch (IOException e) {
             System.out.println("e.getMessage");
+        } catch (ParseTaskFromStringException e) {
+            System.out.println(e);
         }
 
         // Implement function to read user input via keyboard
