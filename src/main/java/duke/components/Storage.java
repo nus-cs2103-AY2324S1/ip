@@ -15,14 +15,17 @@ import java.util.Scanner;
  * Handler to load tasks from file and save tasks to file
  */
 public class Storage {
-    final String filePath;
+    final String fileDir;
+    final String fileName;
 
     /**
      * Constructs a storage object
-     * @param filePath Location of file to save to
+     * @param fileDir Location of file to save to
+     * @param fileName Name of file to save to
      */
-    public Storage(String filePath) {
-        this.filePath = filePath;
+    public Storage(String fileDir, String fileName) {
+        this.fileDir = fileDir;
+        this.fileName = fileName;
     }
 
     /**
@@ -32,7 +35,7 @@ public class Storage {
     public List<Task> load() {
         List<Task> loadedTasks = new ArrayList<>();
         try {
-            File fileToLoad = new File(filePath);
+            File fileToLoad = new File(getFilePath());
             Scanner listReader = new Scanner(fileToLoad);
             while (listReader.hasNextLine()) {
                 try {
@@ -46,9 +49,13 @@ public class Storage {
             }
             listReader.close();
         } catch (FileNotFoundException e) {
-            System.out.println("Could not find file: " + filePath);
+            System.out.println("Could not find file: " + getFilePath());
         }
         return loadedTasks;
+    }
+
+    private String getFilePath() {
+        return fileDir + fileName;
     }
 
     /**
@@ -59,13 +66,13 @@ public class Storage {
     public void save(TaskList taskList) throws DukeException {
         try {
             createFileIfNotExists();
-            try (FileWriter taskListWriter = new FileWriter(filePath)) {
+            try (FileWriter taskListWriter = new FileWriter(getFilePath())) {
                 for (Task t : taskList.getTasks()) {
                     taskListWriter.write(t.generateSaveString() + "\n");
                 }
             }
         } catch (IOException e) {
-            throw new DukeException("Unable to create file: " + filePath + "\n"
+            throw new DukeException("Unable to create file: " + fileName + "\n"
                     + "Reason: " + e.getMessage());
         }
     }
@@ -77,10 +84,10 @@ public class Storage {
      */
     public void write(Task task) throws IOException {
         createFileIfNotExists();
-        try (FileWriter taskListWriter = new FileWriter(filePath)){
+        try (FileWriter taskListWriter = new FileWriter(getFilePath())){
             taskListWriter.append(String.format("%s\n", task.generateSaveString()));
         } catch (IOException e) {
-            throw new IOException("Unable to save task list to destination: "  + filePath + "\n"
+            throw new IOException("Unable to save task list to destination: "  + getFilePath() + "\n"
                     + "Reason: " + e.getMessage());
         }
     }
@@ -90,9 +97,10 @@ public class Storage {
      * @throws IOException Thrown if file cannot be created for some reason
      */
     protected void createFileIfNotExists() throws IOException {
-        File saveFile = new File(filePath);
-        if (!saveFile.exists()) {
-            saveFile.mkdirs();
+        File saveDir = new File(fileDir);
+        if (!saveDir.exists()) {
+            saveDir.mkdirs();
+            File saveFile = new File(getFilePath());
             saveFile.createNewFile();
         }
     }

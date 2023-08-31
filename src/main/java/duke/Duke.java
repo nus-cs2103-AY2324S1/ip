@@ -21,10 +21,11 @@ public class Duke {
 
     /**
      * Constructs a Duke object
-     * @param filePath Relative path to save task list
+     * @param fileDir Relative path to save task list
+     * @param fileName Name of file to save task list
      */
-    public Duke(String filePath) {
-        storage = new Storage(filePath);
+    public Duke(String fileDir, String fileName) {
+        storage = new Storage(fileDir, fileName);
         taskList = new TaskList(storage.load());
         ui = new Ui();
         parser = new Parser();
@@ -35,7 +36,7 @@ public class Duke {
      * @param args Command-line arguments passed in at startup
      */
     public static void main(String[] args) {
-        new Duke("./data/duke.txt").run();
+        new Duke("./data/", "duke.txt").run();
     }
 
     /**
