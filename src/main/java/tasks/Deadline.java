@@ -1,22 +1,34 @@
 package tasks;
 
-import tasks.Task;
+import helpers.DateTimeDetection;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.LocalDate;
 
 public class Deadline extends Task {
-    protected String end;
+    protected LocalDateTime end;
 
     public Deadline(String description, String end) {
         super(description);
-        this.end = end;
+        setDateTime(end);
+    }
+
+    public void setDateTime(String input) {
+        String[] parts = input.split(" ", 2);
+        System.out.println(parts[1]);
+        this.end = DateTimeDetection.detectDateTime(parts[1]);
     }
 
     @Override
     public String toText() {
-        return "D " + this.getDoneStatus() + " " + this.description + " /" + this.end;
+        return "D " + this.getDoneStatus() + " " +
+                this.description + " /" +
+                this.end.toString().replace("T", " ");
     }
 
     @Override
     public String toString() {
-        return "[D] " + super.toString() + " (" + this.end + ")";
+        return "[D] " + super.toString() +
+                " (" + DateTimeDetection.formatDateTime(this.end) + ")";
     }
 }
