@@ -1,9 +1,10 @@
+package ben;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.time.format.DateTimeParseException;
 import java.util.Objects;
-import java.util.Scanner;
 
 public class Ben {
     private boolean isActive = true;

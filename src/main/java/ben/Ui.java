@@ -1,5 +1,6 @@
-import java.util.Scanner;
+package ben;
 
+import java.util.Scanner;
 public class Ui {
     private final Scanner user;
 
