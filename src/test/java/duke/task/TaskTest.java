@@ -17,23 +17,23 @@ class TaskTest {
     @Test
     void taskDoneTest() {
         Task task = new Task("sleep");
-        task.taskDone();
-        assertEquals("X",task.getStatusIcon());
+        task.setTaskDone();
+        assertEquals("X",task.getStatus());
     }
 
     @Test
     void taskStatusFromFileTest() {
         Task task = new Task("sleep");
         task.taskStatusFromFile(true);
-        assertEquals("X",task.getStatusIcon());
+        assertEquals("X",task.getStatus());
     }
 
     @Test
     void undoTaskTest() {
         Task task = new Task("sleep");
-        task.taskDone();
+        task.setTaskDone();
         task.undoTask();
-        assertEquals(" ",task.getStatusIcon());
+        assertEquals(" ",task.getStatus());
     }
 
     @Test
@@ -100,7 +100,7 @@ class TaskTest {
     @Test
     void testToString() {
         Task task = new Task("sleep");
-        task.taskDone();
+        task.setTaskDone();
         assertEquals(" [X] sleep", task.toString());
     }
 

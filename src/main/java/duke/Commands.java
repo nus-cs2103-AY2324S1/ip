@@ -48,7 +48,7 @@ public class Commands {
         try {
             if (task_number > 0 && task_List.getTask(task_number) != null) {
                 Task taskTobeMarked = task_List.getTask(task_number);
-                taskTobeMarked.taskDone();
+                taskTobeMarked.setTaskDone();
                 storage.saveTasksToFile(task_List);
                 ui.printMarkTask(taskTobeMarked);
             } else {

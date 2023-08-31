@@ -40,11 +40,11 @@ public class Task {
         this.isDone = false;
     }
 
-    public String getStatusIcon() {
+    public String getStatus() {
         return (isDone ? "X" : " "); // mark done task with X
     }
 
-    public String fileGetStatusIcon(){
+    public String getStatusFromFile(){
         return (isDone ? "Y" : "N");
     }
 
@@ -52,7 +52,7 @@ public class Task {
         return description;
     }
 
-    public void taskDone(){
+    public void setTaskDone(){
         isDone = true;
     }
 
@@ -122,10 +122,10 @@ public class Task {
     }
     @Override
     public String toString(){
-        return " [" + getStatusIcon() + "] " + getDescription();
+        return " [" + getStatus() + "] " + getDescription();
     }
 
     public String toFileString(){
-        return "|" + fileGetStatusIcon() + "|" + getDescription();
+        return "|" + getStatusFromFile() + "|" + getDescription();
     }
 }
