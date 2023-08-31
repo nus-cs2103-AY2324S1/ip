@@ -3,8 +3,9 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Rocket {
+    private static final String LINE = "    ____________________________________________________________";
     public static void main(String[] args) {
-        String LINE = "    ____________________________________________________________";
+
         String input;
         // Create list
         List<Task> taskList = new ArrayList<>();
@@ -30,26 +31,15 @@ public class Rocket {
             try {
                 switch (command) {
                 case "bye": {
-                    System.out.println(LINE + "\n    Bye. Hope to see you again soon!\n" + LINE);
+                    handleBye();
                     return;
                 }
                 case "list": {
-                    System.out.println(LINE);
-                    for (int i = 0; i < taskList.size(); i++) {
-                        Task task = taskList.get(i);
-                        System.out.println("    " + (i + 1) + "." + task);
-                    }
-                    System.out.println(LINE);
+                    handleList(taskList);
                     break;
                 }
                 case "mark": {
-                    int taskNumber = Integer.parseInt(arguments) - 1;
-                    Task task = taskList.get(taskNumber);
-                    task.markAsDone();
-                    System.out.println(LINE);
-                    System.out.println("    Nice! I've marked this task as done:");
-                    System.out.println("      " + task);
-                    System.out.println(LINE);
+                    handleMark(taskList, arguments);
                     break;
                 }
                 case "unmark": {
@@ -161,5 +151,30 @@ public class Rocket {
         String from = duration.substring(0, fromIndex);
         String to = duration.substring(fromIndex + 5);
         return new Event(description, from, to);
+    }
+
+    private static void handleBye() {
+        System.out.println(LINE);
+        System.out.println("    Bye. Hope to see you again soon!");
+        System.out.println(LINE);
+    }
+
+    private static void handleList(List<Task> taskList) {
+        System.out.println(LINE);
+        for (int i = 0; i < taskList.size(); i++) {
+            Task task = taskList.get(i);
+            System.out.println("    " + (i + 1) + "." + task);
+        }
+        System.out.println(LINE);
+    }
+
+    private static void handleMark(List<Task> taskList, String arguments) {
+        int taskNumber = Integer.parseInt(arguments) - 1;
+        Task task = taskList.get(taskNumber);
+        task.markAsDone();
+        System.out.println(LINE);
+        System.out.println("    Nice! I've marked this task as done:");
+        System.out.println("      " + task);
+        System.out.println(LINE);
     }
 }
