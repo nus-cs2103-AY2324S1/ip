@@ -1,6 +1,7 @@
 package ip.utils;
 
 import java.time.LocalDateTime;
+import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
 import java.time.format.DateTimeParseException;
@@ -32,6 +33,11 @@ public class TaskDateHandler {
                 .parseDefaulting(ChronoField.MINUTE_OF_HOUR, 0)
                 .toFormatter();
         return LocalDateTime.parse(input, format);
+    }
+
+    public static LocalDateTime convertSaveToDate(String input) throws DateTimeParseException {
+        long epoch = Long.parseLong(input);
+        return LocalDateTime.ofEpochSecond(epoch, 0, ZoneOffset.UTC);
     }
 
     public static String convertDateToUi(LocalDateTime date) {

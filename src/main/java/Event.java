@@ -30,8 +30,8 @@ public class Event extends Task {
 
     protected Event(String[] args) throws DateTimeParseException {
         super(args);
-        this.from = TaskDateHandler.convertInputToDate(args[2]);
-        this.to = TaskDateHandler.convertInputToDate(args[3]);
+        this.from = TaskDateHandler.convertSaveToDate(args[2]);
+        this.to = TaskDateHandler.convertSaveToDate(args[3]);
     }
 
     @Override
