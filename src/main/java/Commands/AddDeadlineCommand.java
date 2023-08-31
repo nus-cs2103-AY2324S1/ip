@@ -1,3 +1,8 @@
+package Commands;
+import OOP.TaskList;
+import OOP.Ui;
+import OOP.Storage;
+import Tasks.Task;
 public class AddDeadlineCommand implements Command {
     private String deadlineName;
     private String deadlineString;

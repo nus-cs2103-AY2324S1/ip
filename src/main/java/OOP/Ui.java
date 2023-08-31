@@ -1,3 +1,7 @@
+package OOP;
+
+import Tasks.Task;
+
 import java.util.Scanner;
 
 public class Ui {

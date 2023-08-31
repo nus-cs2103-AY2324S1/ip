@@ -1,3 +1,9 @@
+package Commands;
+import OOP.TaskList;
+import OOP.Ui;
+import OOP.Storage;
+import Tasks.Task;
+import Tasks.Event;
 public class AddEventCommand implements Command {
     private String eventName;
     private String eventStart;

@@ -1,4 +1,11 @@
-import java.time.format.DateTimeFormatter;
+package Duke;
+
+import Commands.Command;
+import Commands.ExitCommand;
+import OOP.Parser;
+import OOP.Storage;
+import OOP.TaskList;
+import OOP.Ui;
 
 public class Duke {
     private String name = "WallE";
@@ -20,11 +27,11 @@ public class Duke {
     }
     public void run() {
         ui.printGreeting(this.name);
-        runCommandLoopUntilByeCommand();
+        runCommandLoopUntilExitCommand();
     }
 
     /** Reads the user command and executes it, until the user issues the bye (exit) command.  */
-    private void runCommandLoopUntilByeCommand() {
+    private void runCommandLoopUntilExitCommand() {
         Command command = null;
         do {
             try {
