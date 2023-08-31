@@ -1,6 +1,9 @@
+import java.time.LocalDate;
+
 public class Task {
     private String task;
     private boolean done;
+    private LocalDate deadlineDate;
 
     public Task() {
         task = "default";
@@ -25,6 +28,10 @@ public class Task {
 
     public String getStatusIcon() {
         return (done ? "X" : " ");
+    }
+
+    public String fileSaveFormat() {
+        return getStatusIcon() + "|" + task;
     }
 
     @Override

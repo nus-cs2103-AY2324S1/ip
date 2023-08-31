@@ -3,6 +3,10 @@ public class ToDo extends Task{
         super(task);
     }
     @Override
+    public String fileSaveFormat() {
+        return "T|" + super.fileSaveFormat();
+    }
+    @Override
     public String toString() {
         return "[T]" + super.toString();
     }

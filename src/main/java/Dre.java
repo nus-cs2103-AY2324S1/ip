@@ -1,7 +1,11 @@
 import java.io.*;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 public class Dre {
     private List<Task> list;
@@ -13,11 +17,16 @@ public class Dre {
         loadTasks();
     }
 
+    private LocalDate parseDate(String dateString) {
+        DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd"); // adjust format
+        return LocalDate.parse(dateString, inputFormatter);
+    }
+
     public void saveTasks() {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(dataFilePath))) {
             for (Task task : list) {
                 // Write task details to the file
-                writer.write(task.toString());
+                writer.write(task.fileSaveFormat());
                 writer.newLine();
             }
         } catch (IOException e) {
@@ -46,31 +55,44 @@ public class Dre {
     }
 
     private void parseTask(String line) {
-        String type = line.substring(1, 2);
-        boolean isDone = line.charAt(4) == 'X';
-
-        String description = line.substring(7);
+        String type = line.substring(0, 1);
+        boolean isDone = line.charAt(2) == 'X';
+        String description;
         Task task = null;
 
         switch (type) {
             case "T":
-                task = new ToDo(description);
+                String[] todoInfo = line.split("\\|");
+                task = new ToDo(todoInfo[2]);
                 break;
             case "D":
-                description = description.substring(0, description.indexOf('(') - 1);
-                String additionalInfo = line.substring(line.indexOf('(') + 1, line.indexOf(')'));
-                String[] deadlineInfo = additionalInfo.split(": ");
-                String by = deadlineInfo[1];
-                task = new Deadline(description, by);
+//                description = description.substring(0, description.indexOf('(') - 1);
+//                String additionalInfo = line.substring(line.indexOf('(') + 1, line.indexOf(')'));
+//                String[] deadlineInfo = additionalInfo.split(": ");
+//                LocalDate byDate = parseDate(deadlineInfo[1]);
+//                task = new Deadline(description, byDate);
+//                break;
+                System.out.println(line);
+                String[] deadlineInfo = line.split("\\|");
+                System.out.println(Arrays.toString(deadlineInfo));
+                description = deadlineInfo[2].trim();
+                LocalDate byDate = parseDate(deadlineInfo[3].trim());
+                task = new Deadline(description, byDate);
                 break;
+
             case "E":
-                description = description.substring(0, description.indexOf('(') - 1);
-                String addInfo = line.substring(line.indexOf('(') + 1, line.indexOf(')'));
-                String[] eventInfo = addInfo.split(":");
-                String from = eventInfo[1].substring(0, eventInfo[1].length() - 2).trim();
-                String to = eventInfo[2].trim();
-                task = new Event(description, from, to);
-                break;
+//                description = description.substring(0, description.indexOf('(') - 1);
+//                String addInfo = line.substring(line.indexOf('(') + 1, line.indexOf(')'));
+//                String[] eventInfo = addInfo.split(":");
+//                LocalDate fromDate = parseDate(eventInfo[1].substring(0, eventInfo[1].length() - 2).trim());
+//                LocalDate toDate = parseDate(eventInfo[2].trim());
+//                task = new Event(description, fromDate, toDate);
+//                break;
+                String[] eventInfo = line.split("\\|");
+                description = eventInfo[2];
+                LocalDate fromDate = parseDate(eventInfo[3]);
+                LocalDate toDate = parseDate(eventInfo[4]);
+                task = new Event(description, fromDate, toDate);
         }
 
         if (task != null) {
@@ -96,7 +118,7 @@ public class Dre {
 
     public void add(String next) {
         if (next.startsWith("todo")) {
-            String desc = next.substring(5);
+            String desc = next.substring(4).trim();
             if (desc.isBlank()) {
                 System.out.println("OOPS!!! The description of a todo cannot be empty.");
                 return;
@@ -107,36 +129,39 @@ public class Dre {
             System.out.println("Got it. I've added this task:");
             System.out.println(task);
         } else if (next.startsWith("deadline")) {
-            String desc = next.substring(9, next.lastIndexOf('/') - 1);
-            String by = next.substring(next.lastIndexOf("/by") + 4);
+            String desc = next.substring(8, next.indexOf("/by") - 1).trim();
+            String by = next.substring(next.indexOf("/by") + 4);
             if (desc.isBlank()) {
                 System.out.println("OOPS!!! The description of a deadline cannot be empty.");
                 return;
             }
-            if (by.isBlank()) {
-                System.out.println("OOPS!!! The date of a deadline cannot be empty.");
-                return;
+            try {
+                LocalDate byDate = parseDate(by);
+                Deadline task = new Deadline(desc, byDate);
+                list.add(task);
+                System.out.println("Got it. I've added this task:");
+                System.out.println(task);
+            } catch (DateTimeParseException e) {
+                System.out.println("OOPS!!! Invalid date format for deadline. Use this format: yyyy-mm-dd");
             }
-            Deadline task = new Deadline(desc, by);
-            list.add(task);
-            System.out.println("Got it. I've added this task:");
-            System.out.println(task);
         } else if (next.startsWith("event")) {
-            String desc = next.substring(6, next.indexOf("/from") - 1);
+            String desc = next.substring(5, next.indexOf("/from") - 1).trim();
             String from = next.substring(next.indexOf("/from") + 6, next.indexOf("/to") - 1);
             String to = next.substring(next.indexOf("/to") + 4);
             if (desc.isBlank()) {
                 System.out.println("OOPS!!! The description of an event cannot be empty.");
                 return;
             }
-            if (from.isBlank() || to.isBlank()) {
-                System.out.println("OOPS!!! The dates of an event cannot be empty.");
-                return;
+            try {
+                LocalDate fromDate = parseDate(from);
+                LocalDate toDate = parseDate(to);
+                Event task = new Event(desc, fromDate, toDate);
+                list.add(task);
+                System.out.println("Got it. I've added this task:");
+                System.out.println(task);
+            } catch (DateTimeParseException e) {
+            System.out.println("OOPS!!! Invalid date format for event. Use this format: yyyy-mm-dd");
             }
-            Event task = new Event(desc, from, to);
-            list.add(task);
-            System.out.println("Got it. I've added this task:");
-            System.out.println(task);
         } else {
             System.out.println("OOPS!!! I'm sorry, but I don't know what that means :-(");
         }

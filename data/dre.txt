@@ -1,4 +1,3 @@
-[T][ ] something
-[D][X] two (by: time)
-[E][ ] three (from: here and there to: later)
-[T][ ] something else
+T| |something
+D|X|something|2023-12-31
+E| |something else|1000-01-01|1000-10-10
