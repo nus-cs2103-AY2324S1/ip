@@ -10,43 +10,22 @@ public class Storage {
     private File file;
 
     public Storage(String filePath) {
-        //try {
-//            String[] splited = filePath.split("/");
-//            File dir = new File(splited[0]);
-//            if (!dir.exists()) {
-//                dir.mkdir();
-//            }
-//            File content = new File(filePath);
-//            if (!content.exists()) {
-//                content.createNewFile();
-//            }
-//            this.file = content;
-//        } catch (IOException e) {
-//            System.out.println(e.getMessage());
-//        }
-            this.file = new File(filePath);
+        try {
+            String[] splited = filePath.split("/");
+            File dir = new File(splited[0]);
+            if (!dir.exists()) {
+                dir.mkdir();
+            }
+            File content = new File(filePath);
+            if (!content.exists()) {
+                content.createNewFile();
+           }
+            this.file = content;
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
 
     }
-
-//    public Storage(String filePath) {
-//        try {
-//            File file = new File(filePath);
-//
-//            File parentDirectory = file.getParentFile();
-//            if (!parentDirectory.exists()) {
-//                parentDirectory.mkdirs();
-//            }
-//
-//            if (!file.exists()) {
-//                file.createNewFile();
-//            }
-//
-//            this.file = file;
-//        } catch (IOException e) {
-//            System.out.println(e.getMessage());
-//       }
-//
-//    }
 
     public ArrayList<Task> getData() throws DukeException {
         try {

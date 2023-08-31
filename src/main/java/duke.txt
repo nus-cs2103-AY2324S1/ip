@@ -1,4 +1,5 @@
 0 | [T] [ ] make tiramisu
 0 | [T] [ ] borrow book
-0 | [D] [ ] return book   (by:21 of October 2023, 5:30PM)
-0 | [D] [ ] make brownies  (by:21 of October 2023, 5:30PM)
+0 | [D] [ ] return book    (by:21 of October 2023, 5:30PM)
+0 | [D] [ ] make brownies   (by:21 of October 2023, 5:30PM)
+0 | [T] [ ] eat 
