@@ -1,7 +1,6 @@
 package duke;
 
 import java.util.Scanner;
-import java.time.format.DateTimeFormatter;
 
 public class Ui {
     Scanner uiScanner = new Scanner(System.in);

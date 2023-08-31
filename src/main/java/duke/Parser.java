@@ -2,10 +2,10 @@ package duke;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+
 import java.util.ArrayList;
 
 import static duke.Event.DATE_TIME_FORMATTER;
-import static duke.Storage.saveTasksToFile;
 
 public class Parser {
     final static String EXIT_PHRASE = "bye";
