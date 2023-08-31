@@ -7,6 +7,7 @@ import duke.command.ClearCommand;
 import duke.command.Command;
 import duke.command.DeleteCommand;
 import duke.command.ExitCommand;
+import duke.command.FindCommand;
 import duke.command.ListCommand;
 import duke.command.MarkCommand;
 import duke.command.UnmarkCommand;
@@ -20,16 +21,17 @@ import java.util.regex.Pattern;
  */
 public class Parser {
 
-    public static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
-    public static final Pattern TASK_INDEX_ARGS_FORMAT = Pattern.compile("(?<taskIndex>-?\\d+)");
-    public static final Pattern TODO_DATA_ARGS_FORMAT = Pattern.compile("(?<description>[^/]+)");
-    public static final Pattern DEADLINE_DATA_ARGS_FORMAT =
+    private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
+    private static final Pattern TASK_INDEX_ARGS_FORMAT = Pattern.compile("(?<taskIndex>-?\\d+)");
+    private static final Pattern TODO_DATA_ARGS_FORMAT = Pattern.compile("(?<description>[^/]+)");
+    private static final Pattern DEADLINE_DATA_ARGS_FORMAT =
             Pattern.compile("(?<description>[^/]+)"
                     + " /by (?<by>[^/]+)");
-    public static final Pattern EVENT_DATA_ARGS_FORMAT =
+    private static final Pattern EVENT_DATA_ARGS_FORMAT =
             Pattern.compile("(?<description>[^/]+)"
                     + " /from (?<from>[^/]+)"
                     + " /to (?<to>[^/]+)");
+    private static final Pattern KEYWORD_DATA_ARGS_FORMAT = Pattern.compile("(?<keyword>\\w+)");
 
     /**
      * Returns a command from the given user input. If no such command matches
@@ -69,7 +71,6 @@ public class Parser {
             return prepareDelete(arguments);
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
-
         default:
             throw new DukeException("I'm sorry, but I don't know what that means :-(");
         }
@@ -157,6 +158,22 @@ public class Parser {
         }
 
         return new DeleteCommand(matcher.group("taskIndex"));
+    }
+
+    /**
+     * Returns a {@code FindCommand} from the given arguments.
+     *
+     * @param arguments  The user arguments to the command.
+     * @return An instance of {@code FindCommand} with the given arguments.
+     * @throws DukeException If no keywords were provided.
+     */
+    private Command prepareFind(String arguments) throws DukeException {
+        final Matcher matcher = KEYWORD_DATA_ARGS_FORMAT.matcher(arguments.trim());
+        if (!matcher.matches()) {
+            throw new DukeException("The keyword must be specified and a single word.");
+        }
+
+        return new FindCommand(matcher.group("keyword"));
     }
 
 }

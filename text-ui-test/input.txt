@@ -31,6 +31,11 @@ delete -1
 delete 100
 delete 2
 list
+
+find
+find book book
+find books
+find book
 clear
 list
 bye

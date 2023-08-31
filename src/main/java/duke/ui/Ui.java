@@ -99,4 +99,25 @@ public class Ui {
 
         System.out.println("\n" + LINE + "\n");
     }
+
+    /**
+     * Prints the filtered list of tasks as a formatted indexed list.
+     *
+     * @param tasks The filtered list of tasks to be printed.
+     */
+    public void showFilteredList(List<? extends Task> tasks) {
+        System.out.println(LINE);
+
+        if (tasks.size() == 0) {
+            System.out.println("\t There are no matching tasks in your list.");
+        } else {
+            System.out.println("\t Here are the matching tasks in your list:");
+        }
+
+        for (int i = 0; i < tasks.size(); i++) {
+            System.out.printf("\t%d. %s\n", i + 1, tasks.get(i));
+        }
+
+        System.out.println("\n" + LINE + "\n");
+    }
 }
