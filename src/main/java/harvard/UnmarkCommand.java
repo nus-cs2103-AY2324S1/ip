@@ -10,6 +10,11 @@ public class UnmarkCommand extends Command{
     public boolean isExit() {
         return false;
     }
+    /**
+     * Constructs a UnmarkCommand object.
+     *
+     * @param index The index of the task to be unmarked.
+     */
     public UnmarkCommand(int index) {
         this.index = index;
     }

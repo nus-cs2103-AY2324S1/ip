@@ -52,8 +52,19 @@ public abstract class Task {
     public void markAsUndone() {
         this.isDone = false;
     }
+    /**
+     * Returns the string representation of the task to be written to file.
+     * @return The string representation of the task to be written to file.
+     */
 
     public abstract String toFileString() ;
+
+    /**
+     * Returns the task from the file string.
+     * @param fileString
+     * @return The task from the file string.
+     * @throws DukeException
+     */
 
     public static Task fromFileString(String fileString) throws DukeException{
         String[] split = fileString.split(" \\| ");

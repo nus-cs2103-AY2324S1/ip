@@ -4,12 +4,27 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
+/**
+ * Represents a task reader that reads tasks from a file.
+ */
 public class TaskReader {
+    /**
+     * The file path.
+     */
     private String filePath;
+    /**
+     * Constructs a TaskReader object.
+     * @param filePath The file path.
+     */
 
     public TaskReader(String filePath) {
         this.filePath = filePath;
     }
+
+    /**
+     * Reads tasks from the file.
+     * @return The list of tasks.
+     */
 
     public ArrayList<Task> readTasks() {
         ArrayList<Task> tasks = new ArrayList<>();

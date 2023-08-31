@@ -2,12 +2,20 @@ package harvard;
 
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-
+/**
+ * Represents a todo task.
+ */
 public class TodoTest {
+    /**
+     * Tests the todo task.
+     */
     @Test
     public void testTodo() {
         assertEquals("[T][ ] read book", new Todo("read book").toString());
     }
+    /**
+     * Tests the todo task.
+     */
 
     @Test
     public void testTodoDone() {
@@ -15,6 +23,9 @@ public class TodoTest {
         todo.markAsDone();
         assertEquals("[T][X] read book", todo.toString());
     }
+    /**
+     * Tests the todo task.
+     */
 
     @Test
     public void testTodoUndone() {

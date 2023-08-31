@@ -32,12 +32,24 @@ public class Event extends Task{
             throw new DukeException("Please enter a valid date and time in the format d/M/yyyy HHmm");
         }
     }
+    /**
+     * Constructs an Event object.
+     *
+     * @param description The description of the task.
+     * @param from        The start time of the event.
+     * @param to          The end time of the event.
+     */
 
     public Event (String description, LocalDateTime from, LocalDateTime to) {
         super(description, "E");
         this.from = from;
         this.to = to;
     }
+    /**
+     * Returns the string representation of the task to be written to file.
+     *
+     * @return The string representation of the task to be written to file.
+     */
 
     @Override
     public String toFileString() {
