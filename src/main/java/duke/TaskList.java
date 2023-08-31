@@ -58,6 +58,11 @@ public class TaskList {
         Ui.showDeletedTask(task, this);
     }
 
+    /**
+     * Finds and displays tasks that contain the specified keyword in their description.
+     *
+     * @param keyword The keyword to search for in task descriptions.
+     */
     public void findTasks(String keyword) {
         List<Task> matchingTasks = new ArrayList<>();
         TaskList matchingTasksList = new TaskList(matchingTasks);
