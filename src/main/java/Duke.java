@@ -52,6 +52,8 @@ public class Duke {
             }
         }
 
+        dukeHandler.writeTaskList();
+
         scanner.close();
     }
 }

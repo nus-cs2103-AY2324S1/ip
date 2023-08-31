@@ -191,4 +191,18 @@ public class TaskList {
     returnString += String.format("You have %d task(s) in the list.\n", i-1);
     return returnString;
   }
+
+  public boolean isEmpty() {
+    return list.size() == 0;
+  }
+  
+  public String clearList() {
+    String tempString = list.get(0).toFileString();
+    list.remove(0);
+    return tempString;
+  }
+
+  public int getSize() {
+    return list.size();
+  }
 }
