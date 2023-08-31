@@ -27,6 +27,18 @@ public class Task {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (o instanceof Task) {
+            Task taskObj = (Task) o;
+
+            return this.name.equals(taskObj.name)
+                    && this.isDone == taskObj.isDone;
+        }
+
+        return false;
+    }
+
+    @Override
     public String toString() {
         String doneIndicator = isDone ? "x" : " ";
         return "[" + doneIndicator + "] " + name;

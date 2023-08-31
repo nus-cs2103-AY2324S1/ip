@@ -61,6 +61,19 @@ public class Event extends Task{
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (o instanceof Event) {
+            Event eventObj = (Event) o;
+
+            return super.equals(o)
+                    && startTime.equals(eventObj.startTime)
+                    && endTime.equals(eventObj.endTime);
+        }
+
+        return false;
+    }
+
+    @Override
     public String toString() {
         return "[E]" + super.toString() + " (from: " + startTime + " to: " + endTime + ")";
     }

@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.time.format.FormatStyle;
+import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -56,6 +57,17 @@ public class Deadline extends Task {
         return "D"
                 + " | " + super.toSaveStr()
                 + " | " + finishByTime;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o instanceof Deadline) {
+            Deadline deadlineObj = (Deadline) o;
+
+            return super.equals(o) && finishByTime.equals(deadlineObj.finishByTime);
+        }
+
+        return false;
     }
 
     @Override
