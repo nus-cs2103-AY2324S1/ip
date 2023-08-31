@@ -1,35 +1,53 @@
 package duke;
 
-import java.io.*;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
 import java.time.LocalDateTime;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Represents the class which handles reading and writing tasks to a file.
+ */
 public class FileStorage {
-    private final String filePath;
+    private final String FILE_PATH;
 
+    /**
+     * Constructs a FileStorage object with the specified file path.
+     *
+     * @param filePath The path to the file used for storing tasks.
+     */
     public FileStorage(String filePath) {
-        this.filePath = filePath;
+        this.FILE_PATH = filePath;
     }
 
-    // To save all the tasks into a file before the chatbot closes
+    /**
+     * Adds all items in the TaskList to the file in the specified file path.
+     *
+     * @param taskList The list of tasks to be saved.
+     */
     public void saveTasks (TaskList taskList) {
-        File file = new File(filePath);
+        File file = new File(FILE_PATH);
         file.mkdirs();
 
         if (file.exists()) {
-            boolean deleteFileSuccess = file.delete();
-            if (!deleteFileSuccess) {
+            boolean isDeleteFileSuccess = file.delete();
+            if (!isDeleteFileSuccess) {
                 System.out.println("Failed to delete previous save file!");
             }
         }
 
         try {
-            boolean createNewFileSuccess = file.createNewFile();
-            if (!createNewFileSuccess) {
+            boolean isCreateNewFileSuccess = file.createNewFile();
+            if (!isCreateNewFileSuccess) {
                 System.out.println("Failed to create save file!");
             } else {
-                BufferedWriter writer = new BufferedWriter(new FileWriter(filePath, true));
+                BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_PATH, true));
                 for (Task task : taskList.getTask()) {
                     writer.append(task.toFileString()).append("\n");
                 }
@@ -40,7 +58,11 @@ public class FileStorage {
         }
     }
 
-    // To read whether task is done
+    /**
+     * Returns true if the Task is completed, false otherwise.
+     *
+     * @param input The input representing the task's status.
+     */
     public boolean isTaskDone(String input) {
         if (input.equals("T")) {
             return true;
@@ -49,10 +71,17 @@ public class FileStorage {
         }
     }
 
+    /**
+     * Returns a LocalDateTime object by converting the String provided.
+     *
+     * @param date The date string to be converted.
+     * @return A LocalDateTime object representing the date and time.
+     */
     public LocalDateTime setDate(String date) {
         try {
             String[] dateParts = date.split("-");
             String[] timePart = dateParts[2].split(" ");
+
             int day = Integer.parseInt(dateParts[0]);
             int month = Integer.parseInt(dateParts[1]);
             int year = Integer.parseInt(timePart[0]);
@@ -69,9 +98,14 @@ public class FileStorage {
         }
     }
 
-    // To load all tasks in a file when the chatbot starts up
+    /**
+     * Loads tasks from a file and returns them as a list.
+     *
+     * @return An ArrayList of Task objects creating from the file.
+     * @throws FileLoadException If there is any error loading tasks from the file.
+     */
     public ArrayList<Task> loadFiles() throws FileLoadException {
-        File file = new File(filePath);
+        File file = new File(FILE_PATH);
         try {
             Scanner scanner = new Scanner(file);
             ArrayList<Task> tempList = new ArrayList<>();
@@ -111,7 +145,7 @@ public class FileStorage {
             return tempList;
         } catch (FileNotFoundException e) {
             System.out.println("There are no existing tasks, please use the commands to add new tasks!");
-            File newFile = new File(filePath);
+            File newFile = new File(FILE_PATH);
             newFile.mkdirs();
             return new ArrayList<>();
         }
