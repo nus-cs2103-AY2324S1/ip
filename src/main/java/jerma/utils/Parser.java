@@ -4,6 +4,7 @@ import jerma.commands.AddTask;
 import jerma.commands.Bye;
 import jerma.commands.Command;
 import jerma.commands.Delete;
+import jerma.commands.Find;
 import jerma.commands.List;
 import jerma.commands.Mark;
 import jerma.commands.Unmark;
@@ -13,7 +14,7 @@ import jerma.tasks.Task;
 import jerma.tasks.Todo;
 
 enum Keywords {
-    LIST, BYE, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE;
+    LIST, BYE, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, FIND;
 
     public static Keywords parse(String input) {
         for (Keywords command : Keywords.values()) {
@@ -65,7 +66,8 @@ public class Parser {
 
             task = new Event(description, from, to);
             return new AddTask(ui, tasks, task);
-        default:
+        case FIND:
+            return new Find(ui, tasks, inputArgs[1]);
         }
 
         throw new UnsupportedOperationException();
