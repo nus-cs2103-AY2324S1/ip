@@ -38,7 +38,8 @@ public class TaskList {
     public void printDateTask(Keyword key, LocalDate date, Ui ui) throws DukeException {
         if (taskList.isEmpty()) {
             throw new DukeException("OOPS!!! There is nothing in the list, yet!");
-        } else if (key.equals(Keyword.DEADLINE) || key.equals(Keyword.EVENT)) {
+        }
+        if (key.equals(Keyword.DEADLINE) || key.equals(Keyword.EVENT)) {
             List<String> tasksOnDate = new ArrayList<>();
             for (Task task : taskList) {
                 if (task.onDate(key, date)) {
@@ -85,6 +86,9 @@ public class TaskList {
     }
 
     public void findTask(String commandBody, Ui ui) throws DukeException {
+        if (taskList.isEmpty()) {
+            throw new DukeException("OOPS!!! There is nothing in the list, yet!");
+        }
         List<String> tasksFound = new ArrayList<>();
         List<String> taskIndexFound = new ArrayList<>();
         for (int i = 0; i < taskList.size(); i++) {

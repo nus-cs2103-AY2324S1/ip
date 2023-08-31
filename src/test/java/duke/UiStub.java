@@ -46,10 +46,10 @@ public class UiStub extends Ui {
     }
 
     @Override
-    public void listTask(String[] tasks) {
+    public void showListTask(String[] tasks) {
     }
 
     @Override
-    public void printDateTask(String[] tasksOnDate, String date) {
+    public void showPrintDateTask(String[] tasksOnDate, String date) {
     }
 }
