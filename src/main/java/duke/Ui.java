@@ -16,16 +16,16 @@ public class Ui {
      * user input.
      */
     public Ui() {
-        scanner = new Scanner(System.in);
 
+        scanner = new Scanner(System.in);
     }
 
     /**
      * Prints the introduction message when the bot is first launched.
      */
     public void introMessage() {
-        System.out.println("Hello! I'm BaekBot.\nIf you're unsure of the commands available, type /help. " +
-                "\nWhat can I do for you?");
+        System.out.println("Hello! I'm BaekBot.\nIf you're unsure of the commands available, type /help. "
+                + "\nWhat can I do for you?");
     }
 
     /**
@@ -116,11 +116,11 @@ public class Ui {
      * Prints message containing all commands that bot recognizes.
      */
     public void helpMessage() {
-        System.out.println("To view the list of tasks, type list. \nTo add a todo, type todo." +
-                "\nTo add a deadline, type deadline with /by.\nTo add a event, type event with /from and /to." +
-                "\nTo mark/unmark tasks, type mark/unmark followed by the index." +
-                "\nTo delete a task, type delete followed by the index." +
-                "\nTo exit, type bye.");
+        System.out.println("To view the list of tasks, type list. \nTo add a todo, type todo."
+                + "\nTo add a deadline, type deadline with /by.\nTo add a event, type event with /from and /to."
+                + "\nTo mark/unmark tasks, type mark/unmark followed by the index."
+                + "\nTo delete a task, type delete followed by the index."
+                + "\nTo exit, type bye.");
     }
 
     /**
