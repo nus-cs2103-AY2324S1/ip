@@ -43,7 +43,7 @@
     Now you have 5 tasks in the list.
     __________________________________________
     __________________________________________
-    OOPS!!! The description of a todo cannot be empty.
+    OOPS!!! I'm sorry, but you have entered an invalid argument :-(
     __________________________________________
     __________________________________________
     OOPS!!! Please enter a deadline with the format '<<message>> /by dd/mm/yyyy HH:mm' format
@@ -87,7 +87,7 @@
     7.[E][ ] project meetup (from: 1800, Aug 21 2012 to: 2200, Dec 31 2033)
     __________________________________________
     __________________________________________
-    OOPS!!! The description of a delete cannot be empty.
+    OOPS!!! I'm sorry, but you have entered an invalid argument :-(
     __________________________________________
     __________________________________________
     Noted. I've removed this task:

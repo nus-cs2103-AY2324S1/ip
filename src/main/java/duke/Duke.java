@@ -8,13 +8,14 @@ import duke.tasks.Tasks;
 import duke.ui.Ui;
 
 public class Duke {
+    private final String FILE_PATH = "./data/duke.txt";
     private Storage storage;
     private Tasks tasks;
     private Ui ui;
 
     public Duke() {
         this.ui = new Ui();
-        this.storage = new Storage();
+        this.storage = new Storage(FILE_PATH);
         tasks = storage.load();
     }
 
@@ -48,8 +49,4 @@ public class Duke {
     public static void main(String[] args) {
         new Duke().run();
     }
-
-
-
-
 }

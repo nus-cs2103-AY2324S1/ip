@@ -52,9 +52,20 @@ public abstract class Task {
     }
 
     @Override
-
     public String toString() {
         String s = String.format("[%s][%s] %s", this.type.substring(0,1).toUpperCase(), this.getStatusIcon(), this.description);
         return s;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+
+        if (o instanceof Task) {
+            Task t = (Task) o;
+            return this.isDone == t.isDone && this.description.equals(t.description);
+        }
+
+        return false;
     }
 }

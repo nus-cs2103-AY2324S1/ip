@@ -13,22 +13,26 @@ import java.io.PrintWriter;
 import java.util.Scanner;
 
 public class Storage {
-    private final String FILE_PATH = "./data/duke.txt";
+    private String filepath;
     private Ui ui = new Ui();
+
+    public Storage(String filepath) {
+        this.filepath = filepath;
+    }
 
     public Tasks load() {
         Tasks tasks = new Tasks();
-        File myObj = new File(this.FILE_PATH);
+        File myObj = new File(this.filepath);
         try {
             Scanner myReader = new Scanner(myObj);
-            ui.showSuccessLoadingStorage(this.FILE_PATH);
+            ui.showSuccessLoadingStorage(this.filepath);
             while (myReader.hasNextLine()) {
                 String text = myReader.nextLine();
                 Command c = Parser.parse(text, true);
                 if (c == null) {
                     continue;
                 }
-                c.execute(tasks, ui, new Storage(), true);
+                c.execute(tasks, ui, new Storage(this.filepath), true);
             }
 
         } catch (FileNotFoundException ex) {
@@ -50,7 +54,7 @@ public class Storage {
     public void save(Tasks tasks) {
         // Delete everything in
         try {
-            PrintWriter writer = new PrintWriter(this.FILE_PATH);
+            PrintWriter writer = new PrintWriter(this.filepath);
             writer.print("");
             writer.close();
         } catch (IOException ex) {
@@ -60,7 +64,7 @@ public class Storage {
 
         // Rewrite everything
         for (int i = 0; i < tasks.size(); i++) {
-            tasks.get(i).save(this.FILE_PATH);
+            tasks.get(i).save(this.filepath);
         }
     }
 }
