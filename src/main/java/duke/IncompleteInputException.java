@@ -1,3 +1,5 @@
+package duke;
+
 public class IncompleteInputException extends Exception {
 
     public IncompleteInputException(String type) {
