@@ -9,6 +9,9 @@ public class CheeChat {
 
     public static void main(String[] args) {
         File f = new File("./data/duke.txt");
+        Scanner s = new Scanner("./data/duke.txt");
+
+        s.nextLine();
         try {
             if (!f.getParentFile().isDirectory()) {
                 f.mkdirs();
