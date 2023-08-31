@@ -4,7 +4,7 @@ import duke.tools.Storage;
 import duke.tools.TaskList;
 import duke.tools.Ui;
 
-abstract public class Command {
+public abstract class Command {
 
     protected String fullCommand;
     protected boolean isExit;
@@ -14,7 +14,7 @@ abstract public class Command {
         this.isExit = false;
     }
 
-    abstract public void execute(TaskList tasks, Ui ui, Storage storage) throws Exception;
+    public abstract void execute(TaskList tasks, Ui ui, Storage storage) throws Exception;
 
     public boolean isExit() {
         return isExit;

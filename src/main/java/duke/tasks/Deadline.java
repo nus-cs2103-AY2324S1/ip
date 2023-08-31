@@ -32,7 +32,8 @@ public class Deadline extends Task {
 
     @Override
     public String formatForStorage() {
-        return String.format("D | %s | %s", super.formatForStorage(), deadline);
+        return String.format("D | %s | %s",
+                super.formatForStorage(), deadline);
     }
 
     @Override

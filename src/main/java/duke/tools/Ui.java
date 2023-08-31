@@ -7,8 +7,8 @@ import duke.tasks.Task;
 
 public class Ui {
 
-    private final String LINE = "_______________________________________";
-    private final String INDENTATION = "  ";
+    static final String LINE = "_______________________________________";
+    static final String INDENTATION = "  ";
     private final Scanner scanner;
 
     public Ui() {

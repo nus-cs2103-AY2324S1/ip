@@ -37,7 +37,9 @@ public class Parser {
 
         switch (command) {
         case TODO:
+            // Fallthrough
         case DEADLINE:
+            // Fallthrough
         case EVENT:
             return new AddCommand(fullCommand, FORMATTER);
         case BYE:

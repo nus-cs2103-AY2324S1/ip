@@ -27,8 +27,8 @@ public class AddCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage)
-            throws NoDescriptionException, UnknownTimeException, BackwardsTimeException, UnknownCommandException {
+    public void execute(TaskList tasks, Ui ui, Storage storage) throws NoDescriptionException,
+            UnknownTimeException, BackwardsTimeException, UnknownCommandException {
         Parser.Operations operation = Parser.Operations.valueOf(
                 fullCommand.replaceAll("^\\W*\\b(\\w+).*", "$1").toUpperCase());
         Task task;
