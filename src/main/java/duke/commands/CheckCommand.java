@@ -1,11 +1,11 @@
 package duke.commands;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 import duke.tools.Storage;
 import duke.tools.TaskList;
 import duke.tools.Ui;
-
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 public class CheckCommand extends Command {
 

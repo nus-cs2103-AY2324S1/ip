@@ -1,8 +1,8 @@
 package duke.commands;
 
 import duke.exceptions.NoIndexException;
-import duke.tools.Storage;
 import duke.tasks.Task;
+import duke.tools.Storage;
 import duke.tools.TaskList;
 import duke.tools.Ui;
 

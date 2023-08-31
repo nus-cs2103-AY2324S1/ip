@@ -1,13 +1,14 @@
 package duke;
 
+import java.io.File;
+import java.io.IOException;
+
 import duke.commands.Command;
 import duke.tools.Parser;
 import duke.tools.Storage;
 import duke.tools.TaskList;
 import duke.tools.Ui;
 
-import java.io.File;
-import java.io.IOException;
 
 /**
  * Encapsulates the logic of a Chat bot

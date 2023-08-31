@@ -1,11 +1,18 @@
 package duke.tools;
 
-import duke.commands.*;
-import duke.exceptions.UnknownCommandException;
-
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
 import java.time.temporal.ChronoField;
+
+import duke.commands.AddCommand;
+import duke.commands.CheckCommand;
+import duke.commands.Command;
+import duke.commands.DeleteCommand;
+import duke.commands.ExitCommand;
+import duke.commands.ListCommand;
+import duke.commands.MarkCommand;
+import duke.commands.UnmarkCommand;
+import duke.exceptions.UnknownCommandException;
 
 public class Parser {
 

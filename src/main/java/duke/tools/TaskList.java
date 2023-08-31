@@ -1,9 +1,9 @@
 package duke.tools;
 
-import duke.tasks.Task;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import duke.tasks.Task;
 
 public class TaskList {
 

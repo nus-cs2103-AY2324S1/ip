@@ -1,9 +1,9 @@
 package duke.tools;
 
-import duke.tasks.Task;
-
 import java.time.LocalDateTime;
 import java.util.Scanner;
+
+import duke.tasks.Task;
 
 public class Ui {
 
