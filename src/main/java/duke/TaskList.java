@@ -9,21 +9,36 @@ import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * The TaskList class manages a list of tasks and provides methods to interact with and manipulate the tasks.
+ */
 public class TaskList {
     static File taskList;
     static int taskCount = 0;
 
+    /**
+     * Constructs a TaskList instance with the specified file containing task data.
+     *
+     * @param file The file containing task data.
+     * @throws FileNotFoundException If the specified file is not found.
+     */
     public TaskList(File file) throws FileNotFoundException {
         taskList = file;
         taskList.deleteOnExit();
     }
 
+    /**
+     * Constructs a TaskList instance with a default file path for task data.
+     */
     public TaskList() {
         taskList = new File("./src/main/data/tasklist.txt");
         taskList.deleteOnExit();
     }
     static ArrayList<Task> tasks = new ArrayList<>();
 
+    /**
+     * Prints the contents of the task list.
+     */
     public void printFileContents() {
         try {
             Scanner s = new Scanner(taskList);
@@ -36,6 +51,9 @@ public class TaskList {
 
     }
 
+    /**
+     * Writes the task list contents to the file.
+     */
     public void writeToFile() {
         try {
             FileWriter fw = new FileWriter(taskList.getPath());
@@ -46,6 +64,11 @@ public class TaskList {
         }
     }
 
+    /**
+     * Displays the task list as a formatted string.
+     *
+     * @return The formatted string representation of the task list.
+     */
     public static String displayList() {
         StringBuilder res;
         try {
@@ -65,6 +88,11 @@ public class TaskList {
         return res.toString();
     }
 
+    /**
+     * Deletes a task given its index as a string.
+     *
+     * @param input The string representation of the index of the task to be deleted.
+     */
     public void delete(String input) {
         int taskIndex = Integer.parseInt(input.substring(7)) - 1;
         try {
@@ -86,6 +114,11 @@ public class TaskList {
         }
     }
 
+    /**
+     * Marks a task as completed given its index as a string.
+     *
+     * @param input The string representation of the index of the task to be marked completed.
+     */
     public void mark(String input) {
         int taskIndex = Integer.parseInt(input.substring(5)) - 1;
         try {
@@ -102,6 +135,11 @@ public class TaskList {
         }
     }
 
+    /**
+     * Unmarks a task as completed given its index as a string.
+     *
+     * @param input The string representation of the index of the task to be unmarked as deleted.
+     */
     public void unMark(String input) {
         int taskIndex = Integer.parseInt(input.substring(7)) - 1;
         try {
@@ -130,12 +168,22 @@ public class TaskList {
         System.out.println(response);
     }
 
+    /**
+     * handles a todo task.
+     *
+     * @param input  The string representation of the todo task.
+     */
     public void handleTodo(String input) {
         String nameOfTask = input.substring(5);
         ToDos task = new ToDos(nameOfTask);
         addToList(task, taskCount);
     }
 
+    /**
+     * handles a deadline task.
+     *
+     * @param input The string representation of the todo task and deadline.
+     */
     public void handleDeadline(String input) {
         String[] parts = input.split("/by ");
         String nameOfTask = parts[0].trim().substring(9);
@@ -148,6 +196,11 @@ public class TaskList {
         }
     }
 
+    /**
+     * handles a event task.
+     *
+     * @param input The string representation of the event, start time, and end time.
+     */
     public void handleEvent(String input) {
         String[] taskAndTime = input.split("/from ");
         String[] fromAndTo = taskAndTime[1].split("/to ");
