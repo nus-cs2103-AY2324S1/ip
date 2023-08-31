@@ -31,4 +31,18 @@ public class ToDo extends Task {
     public String stringifyTask() {
         return String.format("T|%d|%s", this.isDone ? 1 : 0, this.description);
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) {
+            return true;
+        }
+
+        if (obj instanceof ToDo) {
+            ToDo task = (ToDo) obj;
+            return this.stringifyTask().equals(task.stringifyTask());
+        }
+
+        return false;
+    }
 }

@@ -30,4 +30,18 @@ public class UnmarkCommand extends Command {
         task.updateDone();
         ui.printUnmarkMessage(task);
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) {
+            return true;
+        }
+
+        if (obj instanceof UnmarkCommand) {
+            UnmarkCommand unmarkCmd = (UnmarkCommand) obj;
+            return this.taskIndex == unmarkCmd.taskIndex;
+        }
+
+        return false;
+    }
 }

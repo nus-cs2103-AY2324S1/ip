@@ -1,6 +1,5 @@
 package helpbuddy.task;
 
-
 import java.util.ArrayList;
 
 public class TaskList {

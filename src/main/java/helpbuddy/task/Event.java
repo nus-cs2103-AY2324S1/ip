@@ -53,4 +53,18 @@ public class Event extends Task {
         return String.format("E|%d|%s|%s", this.isDone ? 1 : 0, this.description, this.from + " to " + this.to);
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) {
+            return true;
+        }
+
+        if (obj instanceof Event) {
+            Event task = (Event) obj;
+            return this.stringifyTask().equals(task.stringifyTask());
+        }
+
+        return false;
+    }
+
 }

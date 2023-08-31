@@ -34,7 +34,7 @@ public class Storage {
         return taskList;
     }
 
-    private Task readEntry(String entry) throws HelpBuddyException, IOException {
+    public Task readEntry(String entry) throws HelpBuddyException, IOException {
         String[] fields = entry.split("\\|");
         Task taskToAdd;
         DateTimeFormatter formatter = DateTimeFormatter.ISO_LOCAL_DATE_TIME;

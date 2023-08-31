@@ -1,5 +1,6 @@
 package helpbuddy.task;
 
+import helpbuddy.command.MarkCommand;
 import helpbuddy.exception.HelpBuddyException;
 
 import java.time.LocalDateTime;
@@ -41,6 +42,20 @@ public class Deadline extends Task {
     @Override
     public String stringifyTask() {
         return String.format("D|%d|%s|%s", this.isDone ? 1 : 0, this.description, this.by);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) {
+            return true;
+        }
+
+        if (obj instanceof Deadline) {
+            Deadline task = (Deadline) obj;
+            return this.stringifyTask().equals(task.stringifyTask());
+        }
+
+        return false;
     }
 
 }

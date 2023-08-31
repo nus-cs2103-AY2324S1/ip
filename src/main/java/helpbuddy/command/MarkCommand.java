@@ -30,4 +30,18 @@ public class MarkCommand extends Command {
         task.updateDone();
         ui.printMarkMessage(task);
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) {
+            return true;
+        }
+
+        if (obj instanceof MarkCommand) {
+            MarkCommand markCmd = (MarkCommand) obj;
+            return this.taskIndex == markCmd.taskIndex;
+        }
+
+        return false;
+    }
 }

@@ -27,4 +27,18 @@ public class DeleteCommand extends Command {
         taskList.deleteTask(this.taskIndex - 1);
         ui.printDeleteTaskMessage(task, taskList);
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) {
+            return true;
+        }
+
+        if (obj instanceof DeleteCommand) {
+            DeleteCommand deleteCmd = (DeleteCommand) obj;
+            return this.taskIndex == deleteCmd.taskIndex;
+        }
+
+        return false;
+    }
 }
