@@ -227,6 +227,11 @@ public class TaskList {
         }
     }
 
+    /**
+     * Find all tasks that contains the string searchBy
+     * @param searchBy The string to searchBy
+     * @return String representation of all the tasks that contains the string
+     */
     public String find(String searchBy) {
         TaskList contains = new TaskList();
         for (Task task : tasks) {
