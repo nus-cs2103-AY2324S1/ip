@@ -1,10 +1,12 @@
-import javax.xml.crypto.Data;
-import java.time.format.DateTimeParseException;
+package duke;
+
+import duke.tasks.Task;
+
 import java.util.ArrayList;
 
 public class TaskList {
 
-    ArrayList<Task> taskList;
+    public ArrayList<Task> taskList;
 
     public TaskList(DataStorage store) {
         taskList = store.taskData;

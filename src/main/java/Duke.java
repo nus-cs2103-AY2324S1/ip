@@ -1,6 +1,7 @@
+import duke.commands.Command;
+import duke.*;
+
 import java.time.format.DateTimeParseException;
-import java.util.ArrayList;
-import java.util.Scanner;
 
 public class Duke {
 
