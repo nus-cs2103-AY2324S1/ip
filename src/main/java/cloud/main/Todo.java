@@ -7,15 +7,15 @@ package cloud.main;
  */
 public class Todo {
 	private String description;
-	private boolean isDone;
+	private boolean isComplete;
 
 	public Todo(String _description) {
 		this(_description, false);
 	}
 
-    public Todo(String _description, boolean _isDone) {
+    public Todo(String _description, boolean _isComplete) {
 		this.description = _description;
-		this.isDone = _isDone;
+		this.isComplete = _isComplete;
     }
 
 	public String getDescription() {
@@ -26,11 +26,11 @@ public class Todo {
 		this.description = _description;
 	}
 
-	public boolean isDone() {
-		return this.isDone;
+	public boolean isComplete() {
+		return this.isComplete;
 	}
 
-	public void setDone(boolean _isDone) {
-		this.isDone = _isDone;
+	public void setComplete(boolean _isComplete) {
+		this.isComplete = _isComplete;
 	}
 }
