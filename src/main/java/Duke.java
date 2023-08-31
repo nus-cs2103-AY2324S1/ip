@@ -11,6 +11,8 @@ import java.io.PrintWriter;
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.List;
+import java.time.LocalDate;
+import java.time.LocalTime;
 
 
 enum TaskTypes {
@@ -207,17 +209,20 @@ public class Duke {
                     String year = endDate.substring(0, 4);
                     String month = endDate.substring(5, 7);
                     String day = endDate.substring(8, 10);
+                    LocalDate endDateObj = LocalDate.parse(String.format("%s-%s-%s", year, month, day));
                     if (dates.length > 1) {
                         Integer.parseInt(dates[1]);
+                        LocalTime timeObj = LocalTime.parse(dates[1]);
                     }
-                } catch (IndexOutOfBoundsException indexExcept) {
-                    System.out.println("ChadGPT: Ensure that deadline date follows the following format: yyyy-mm-dd.");
-                    return false;
                 } catch (NumberFormatException numberExcept) {
                     System.out.println("ChadGPT: Please ensure the time of your deadline is in numerical format.");
                     return false;
+                } catch (IndexOutOfBoundsException | IllegalArgumentException formatExcept) {
+                    System.out.println("ChadGPT: Ensure that deadline date follows the following format: yyyy-mm-dd.");
+                    return false;
                 }
                 return true;
+
             case "event":
                 try {
                     String information = delimitedBySlash[0].split(" ")[1];
@@ -240,7 +245,34 @@ public class Duke {
 
                 try {
                     String dates = nextLine.split(" /from ")[1];
-                    String startDate = dates.split(" /to ")
+                    String[] startDateArr = dates.split(" /to ")[0].split(" ");
+                    String startDate = startDateArr[0];
+                    String startDateYear = startDate.substring(0, 4);
+                    String startDateMonth = startDate.substring(5, 7);
+                    String startDateDay = startDate.substring(8, 10);
+                    LocalDate startDateObj = LocalDate.parse(String.format("%s-%s-%s", startDateYear,
+                            startDateMonth, startDateDay));
+                    if (startDateArr.length > 1) {
+                        Integer.parseInt(startDateArr[1]);
+                        LocalTime startTimeObj = LocalTime.parse(startDateArr[1]);
+                    }
+                    String[] endDateArr = dates.split(" /to ")[1].split(" ");
+                    String endDate = endDateArr[0];
+                    String endDateYear = endDate.substring(0, 4);
+                    String endDateMonth = endDate.substring(5, 7);
+                    String endDateDay = endDate.substring(8, 10);
+                    LocalDate endDateObj = LocalDate.parse(String.format("%s-%s-%s", endDateYear,
+                            endDateMonth, endDateDay));
+                    if (endDateArr.length > 1) {
+                        Integer.parseInt(endDateArr[1]);
+                        LocalTime endDateTime = LocalTime.parse(endDateArr[1]);
+                    }
+                } catch (NumberFormatException numberExcept) {
+                    System.out.println("ChadGPT: Please ensure the time of your deadline is in numerical format.");
+                    return false;
+                } catch (IndexOutOfBoundsException | IllegalArgumentException indexExcept) {
+                    System.out.println("ChadGPT: Ensure that deadline date follows the following format: yyyy-mm-dd.");
+                    return false;
                 }
         }
         return true;
