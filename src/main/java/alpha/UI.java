@@ -89,17 +89,21 @@ public class UI {
     /**
      * Outputs a display of the current list.
      *
-     * @param size     Current size of the task list.
      * @param taskList Current taskList.
      */
-    public void list(int size, TaskList taskList) {
-        System.out.println(LINE_SEPARATOR + "\n" +
-                "Here are the tasks in your list:");
-        for (int i = 0; i < size; i++) {
-            int plusOne = i + 1; // Increment by one so starting display index is 1
-            System.out.println(plusOne + ". " + taskList.getTask(i));
+    public void list(TaskList taskList) {
+        int size = taskList.size();
+        if (size == 0) {
+            System.out.println(LINE_SEPARATOR + "\n" + "There are no tasks in your list." + "\n" + LINE_SEPARATOR);
+        } else {
+            System.out.println(LINE_SEPARATOR + "\n" +
+                    "Here are the tasks in your list:");
+            for (int i = 0; i < size; i++) {
+                int plusOne = i + 1; // Increment by one so starting display index is 1
+                System.out.println(plusOne + ". " + taskList.getTask(i));
+            }
+            System.out.println(LINE_SEPARATOR);
         }
-        System.out.println(LINE_SEPARATOR);
     }
 
     /**

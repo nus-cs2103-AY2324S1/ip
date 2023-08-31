@@ -1,6 +1,7 @@
 package alpha;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 /**
  * Class that stores the current list of tasks.
@@ -46,7 +47,6 @@ public class TaskList {
         return taskList.get(i);
     }
 
-
     /**
      * Marks a task at the given index and returns it.
      *
@@ -81,5 +81,17 @@ public class TaskList {
         Task curr = taskList.get(index - 1);
         taskList.remove(index - 1);
         return curr;
+    }
+
+
+    public TaskList search(String input) {
+        TaskList newList = new TaskList();
+        for (int i = 0; i < taskList.size(); i++) {
+            Task curr = taskList.get(i);
+            if (curr.getDescription().toUpperCase().contains(input.toUpperCase())) {
+                newList.add(curr);
+            }
+        }
+        return newList;
     }
 }

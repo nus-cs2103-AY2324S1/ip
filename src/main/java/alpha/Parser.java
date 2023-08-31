@@ -15,6 +15,7 @@ public class Parser {
     private final static String DEADLINE = "deadline";
     private final static String EVENT = "event";
     private final static String DELETE = "delete";
+    private final static String FIND = "find";
 
     private FileHandler fileHandler;
     private TaskList taskList;
@@ -60,6 +61,8 @@ public class Parser {
                 return new ExitCommand(taskList, fileHandler, ui);
             } else if (splitInput[0].equals(DELETE)) {
                 return delete(input);
+            } else if (splitInput[0].equals(FIND)) {
+                return find(input);
             } else {
                 throw new InvalidInputException("Invalid Input!");
             }
@@ -212,6 +215,16 @@ public class Parser {
             throw new InvalidIndexException("Invalid Index!");
         } else {
             return new UnmarkCommand(taskList, fileHandler, ui, Integer.parseInt(splitInput[1]));
+        }
+    }
+
+    public Command find(String input) throws MissingIndexException {
+        String[] splitInput = input.split(" ");
+        if (splitInput.length == 1) {
+            throw new MissingIndexException("Missing Index!");
+        } else {
+            splitInput[0] = "";
+            return new FindCommand(taskList, fileHandler, ui, String.join(" ", splitInput));
         }
     }
 }
