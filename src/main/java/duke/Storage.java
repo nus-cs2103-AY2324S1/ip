@@ -25,6 +25,8 @@ public class Storage {
         this.fr = new FileReader(file);
     }
 
+    // solution for save adapted from asdfghjkxd
+    // Storage.java write method
     public void save(TaskList taskList) throws IOException {
         FileWriter fw = new FileWriter(filePath);
         for (Task task : taskList) {
