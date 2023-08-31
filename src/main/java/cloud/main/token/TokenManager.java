@@ -10,9 +10,9 @@ import java.util.stream.Collectors;
 /**
  * Manages all the Tokens representing an instance of user input.
  *
- * Flag sets are stored separate from the list of Tokens. The entire set is stored in a nested
- * TokenManager, with each first token understood to be the flag, whose flag text is used as the
- * key.
+ * Flag sets are stored separate from the list of Tokens. The first token is understood to be the
+ * flag, whose flag text is used as the key. The remaining tokens are the sub input, stored in a
+ * nested TokenManager.
  */
 public class TokenManager {
     private List<Token> tokens = new ArrayList<>();
@@ -36,7 +36,8 @@ public class TokenManager {
                 int endIndex = this.findFlagSetEnd(i);
                 List<Token> flagSet = this.removeTokens(i, endIndex);
 
-                Token flag = flagSet.get(0);
+                // This removal degrades the flag set into a sub input
+                Token flag = flagSet.remove(0);
                 this.flagSets.put(
                     flag.getFlag(),
                     new TokenManager(flagSet)
