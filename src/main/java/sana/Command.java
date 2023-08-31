@@ -13,4 +13,17 @@ public abstract class Command {
     public abstract void execute(TaskList tasks, Ui ui, Storage storage) throws SanaException;
     public abstract boolean isExit();
 
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof Command) {
+            Command c = (Command) obj;
+
+            if (c == null || this == null) {
+                return false;
+            }
+
+            return this.cmd.equals(c.cmd) && this.arguments.equals(c.arguments);
+        }
+        return false;
+    }
 }

@@ -14,5 +14,19 @@ public class ExitCommand extends Command {
         return true;
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof Command) {
+            Command c = (Command) obj;
+
+            if (c == null || this == null) {
+                return false;
+            }
+
+            return this.cmd.equals(c.cmd);
+        }
+        return false;
+    }
+
 
 }
