@@ -2,8 +2,11 @@ package duke;
 
 import java.util.Scanner;
 
+/**
+ * Represents the class which handles user interactions and the messages
+ * to be displayed to the user.
+ */
 public class Ui {
-
     private Scanner scanner;
     private final String line = "------------------------------------";
     private final String chatbot = "chuababyy";
@@ -20,14 +23,23 @@ public class Ui {
             + "8. bye\n"
             + line ;
 
+    /**
+     * Constructs a Ui instance and initializes the scanner.
+     */
     public Ui() {
         this.scanner = new Scanner(System.in);
     }
 
+    /**
+     * Displays a separator line.
+     */
     public void line() {
         System.out.println(line);
     }
 
+    /**
+     * Displays a welcome message when the chatbot starts.
+     */
     public void showWelcome() {
         line();
         System.out.println("Hello! I'm " + chatbot);
@@ -35,39 +47,64 @@ public class Ui {
         line();
     }
 
+    /**
+     * Displays a message which indicates that the item to be added cannot be empty.
+     */
     public void showEmptyMessage() {
         line();
         System.out.println("Item to be added cannot be empty");
         line();
     }
 
+    /**
+     * Displays a message which indicates an invalid command.
+     */
     public void showUnknownMessage() {
         line();
         System.out.println("Invalid structure. Please follow the valid commands below.\n" + commands);
         line();
     }
 
+    /**
+     * Displays a message which indicates an invalid command.
+     */
     public void showInvalidMessage() {
         System.out.println("Invalid structure. Please follow the valid commands below.\n" + commands);
     }
 
+    /**
+     * Displays a message which indicated the item does not exist.
+     */
     public void showNoItemMessage() {
         line();
         System.out.println("No such item exists");
         line();
     }
-
+    /**
+     * Displays a goodbye message.
+     */
     public void showByeMessage() {
         line();
         System.out.println("Bye. Hope to see you again soon!");
         line();
     }
 
+    /**
+     * Displays a TaskList to indicate what are the current items in the list.
+     *
+     * @param fullList The list to be displayed.
+     */
     public void showList(TaskList fullList) {
         System.out.println("Here are the tasks in your list:");
         System.out.println(fullList.toString());
     }
 
+    /**
+     * Displays a success message when the user successfully adds a task.
+     *
+     * @param task The task to be added.
+     * @param size The size of the current list.
+     */
     public void showAddMessage(Task task, int size) {
         System.out.println(line);
         System.out.println("Got it. I've added this task:");
@@ -76,6 +113,12 @@ public class Ui {
         System.out.println(line);
     };
 
+    /**
+     * Displays a success message when the user successfully deletes a task.
+     *
+     * @param task The task to be deleted.
+     * @param size The size of the current list.
+     */
     public void showDeleteMessage(Task task, int size) {
         line();
         System.out.println("Noted. I've removed this task:\n" +
@@ -84,6 +127,11 @@ public class Ui {
         line();
     }
 
+    /**
+     * Displays a success message when the user successfully marks a task.
+     *
+     * @param task The task to be marked.
+     */
     public void showMarkMessage(Task task) {
         line();
         System.out.println("Nice! I've marked this task as done:");
@@ -91,6 +139,11 @@ public class Ui {
         line();
     }
 
+    /**
+     * Displays a success message when the user successfully unMarks a task.
+     *
+     * @param task The task to be unMarked.
+     */
     public void showUnmarkMessage(Task task) {
         line();
         System.out.println("Ok, I've marked this task as not done yet:");
@@ -98,6 +151,9 @@ public class Ui {
         line();
     }
 
+    /**
+     * Displays an error message when the date format is invalid.
+     */
     public void showInvalidDate() {
         line();
         System.out.println("Invalid date format. Start date is after end date");

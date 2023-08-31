@@ -4,15 +4,26 @@ import java.io.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Scanner;
-
+/**
+ * Represents the class which handles reading and writing tasks to a file.
+ */
 public class FileStorage {
     private final String filePath;
 
+    /**
+     * Constructs a FileStorage object with the specified file path.
+     *
+     * @param filePath The path to the file used for storing tasks.
+     */
     public FileStorage(String filePath) {
         this.filePath = filePath;
     }
 
-    // To save all the tasks into a file before the chatbot closes
+    /**
+     * Adds all items in the TaskList to the file in the specified file path.
+     *
+     * @param taskList The list of tasks to be saved.
+     */
     public void saveTasks (TaskList taskList) {
         File file = new File(filePath);
         file.mkdirs();
@@ -40,7 +51,11 @@ public class FileStorage {
         }
     }
 
-    // To read whether task is done
+    /**
+     * Returns true if the Task is completed, false otherwise.
+     *
+     * @param input The input representing the task's status.
+     */
     public boolean isTaskDone(String input) {
         if (input.equals("T")) {
             return true;
@@ -49,6 +64,12 @@ public class FileStorage {
         }
     }
 
+    /**
+     * Returns a LocalDateTime object by converting the String provided.
+     *
+     * @param date The date string to be converted.
+     * @return A LocalDateTime object representing the date and time.
+     */
     public LocalDateTime setDate(String date) {
         try {
             String[] dateParts = date.split("-");
@@ -69,7 +90,12 @@ public class FileStorage {
         }
     }
 
-    // To load all tasks in a file when the chatbot starts up
+    /**
+     * Loads tasks from a file and returns them as a list.
+     *
+     * @return An ArrayList of Task objects creating from the file.
+     * @throws FileLoadException If there is any error loading tasks from the file.
+     */
     public ArrayList<Task> loadFiles() throws FileLoadException {
         File file = new File(filePath);
         try {
