@@ -8,10 +8,22 @@ import java.util.Scanner;
 public class StorageHandler {
     private static Task[] todoList;
     private static int size;
+
+    /**
+     * Constructor for the StorageHandler class.
+     * Initializes the todoList by loading tasks from a txt file using SaveHandler
+     * and stores the size of the stored list.
+     */
     public StorageHandler() {
         todoList = SaveHandler.loadFrom();
         size = SaveHandler.size();
     }
+    /**
+     * Reads and displays tasks from the todoList array.
+     * This method iterates through the todoList array and prints each task,
+     * along with its corresponding index, to the console.
+     * If the todoList is empty, a special message is displayed.
+     */
     public static void readArray() {
         int i = 0;
         System.out.println("--------------LIST-PEKO------------------");
@@ -23,6 +35,15 @@ public class StorageHandler {
             System.out.println("You are FREE PEKO!!!!!");
         }
     }
+
+    /**
+     * Adds a task to the todoList array.
+     * This method adds the provided task to the next available position in the todoList array,
+     * increments the size counter, displays a confirmation message, updates the task count,
+     * and saves the updated list of tasks using SaveHandler.
+     *
+     * @param t The task to be added to the array.
+     */
     public static void addToArray(Task t) {
         todoList[size] = t;
         System.out.println("Added: \n   " + todoList[size].toString() + "\npeko!");
@@ -30,6 +51,15 @@ public class StorageHandler {
         size++;
         SaveHandler.saveTo();
     }
+
+    /**
+     * Marks a task as done in the todoList array.
+     * This method sets the mark of the task at the specified index to "done",
+     * displays a confirmation message along with the marked task,
+     * and updates the task list by saving it using SaveHandler.
+     *
+     * @param i The index of the task to be marked (1-based).
+     */
     public static void setMarkArray(int i) {
         try {
             todoList[i-1].setMark();
@@ -41,6 +71,15 @@ public class StorageHandler {
             System.out.println("You don't have so many Tasks Peko!");
         }
     }
+
+    /**
+     * Unmarks a task as done in the todoList array.
+     * This method removes the mark from the task at the specified index,
+     * displays a message indicating the task is now unmarked,
+     * and updates the task list by saving it using SaveHandler.
+     *
+     * @param i The index of the task to be unmarked (1-based).
+     */
     public static void setUnmarkArray(int i) {
         try {
             todoList[i-1].setUnmark();
@@ -52,6 +91,14 @@ public class StorageHandler {
         }
 
     }
+
+    /**
+     * Deletes a task from the todoList array.
+     * This method removes the task at the specified index by shifting subsequent tasks up,
+     * updates the size counter, and saves the updated task list using SaveHandler.
+     *
+     * @param i The index of the task to be deleted (1-based).
+     */
     public static void setDelete(int i) {
         i--;
         while (i <= size) {
@@ -61,6 +108,13 @@ public class StorageHandler {
         size--;
         SaveHandler.saveTo();
     }
+
+    /**
+     * Displays content from a text file called "Copypasta.txt".
+     * This method reads and prints each line of content from the specified text file.
+     *
+     * @throws FileNotFoundException If the specified file is not found.
+     */
     public static void degen() throws FileNotFoundException {
         File text = new File("src/main/Copypasta.txt");
         Scanner sc = new Scanner(text);
