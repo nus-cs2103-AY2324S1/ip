@@ -3,9 +3,21 @@ package duke;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * The Events class represents a task with a specific start and end time.
+ * It extends the Task class and provides methods to mark and unmark the task as done.
+ */
 public class Events extends Task {
     private final LocalDate start;
     private final LocalDate end;
+
+    /**
+     * Constructs a Events instance with the specified task description, start time, and end time.
+     *
+     * @param task The description of the task.
+     * @param start The start time for the event.
+     * @param end The end time for the event.
+     */
     public Events(String task, LocalDate start, LocalDate end) {
         super(task);
         this.start = start;

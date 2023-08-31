@@ -21,9 +21,6 @@ public class Deadlines extends Task {
         this.deadline = deadline;
     }
 
-    /**
-     * Marks the task as done and displays a completion message.
-     */
     @Override
     public void mark() {
         this.done = true;
@@ -31,9 +28,6 @@ public class Deadlines extends Task {
         System.out.println(super.line());
     }
 
-    /**
-     * Marks the task as incomplete and displays a message indicating the change.
-     */
     @Override
     public void unMark() {
         this.done = false;
@@ -41,11 +35,6 @@ public class Deadlines extends Task {
         System.out.println(super.line());
     }
 
-    /**
-     * Returns a string representation of the task with checkbox status and deadline.
-     *
-     * @return The formatted string representation of the task.
-     */
     @Override
     public String toString() {
         String checkbox = this.done ? "[X] " : "[ ] ";
