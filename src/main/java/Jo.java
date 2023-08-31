@@ -1,3 +1,7 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -5,10 +9,11 @@ import java.util.Scanner;
 public class Jo {
 
     protected static List<Task> taskList = new ArrayList<>();
+    protected static String filePath = "data/jo.txt";
     protected enum TASK {
         todo {
             public void perform(String input) {
-                addTask(new Task(input));
+                addTask(new Task(input, false));
             }
         },
         deadline {
@@ -19,7 +24,7 @@ public class Jo {
                     String[] description = input.split("/by", 2);
                     String deadline = description[1].trim();
                     String taskName = description[0].trim();
-                    addTask(new Deadline(taskName, deadline));
+                    addTask(new Deadline(taskName, false, deadline));
                 }
             }
         },
@@ -33,7 +38,7 @@ public class Jo {
                     String start = dates[0].trim();
                     String end = dates[1].trim();
                     String taskName = description[0].trim();
-                    addTask(new Event(taskName, start, end));
+                    addTask(new Event(taskName, false, start, end));
                 }
             }
         };
@@ -65,21 +70,76 @@ public class Jo {
 
     }
 
+    private static void initiateList() throws FileNotFoundException {
+        File f = new File(filePath);
+        Scanner s = new Scanner(f);
+        while (s.hasNext()) {
+            String[] task = s.nextLine().split("\\|");
+            String taskType = task[0].trim();
+            boolean isDone = task[1].trim().equals("1");
+            if (taskType.equals("T")) {
+                taskList.add(new Task(task[2].trim(), isDone));
+            } else if (taskType.equals("D")) {
+                taskList.add(new Deadline(task[2].trim(), isDone, task[3].trim()));
+            } else if (taskType.equals("E")) {
+                taskList.add(new Event(task[2].trim(), isDone, task[3].trim(), task[4].trim()));
+            }
+        }
+    }
+
+    private static void updateFile(String filepath) throws IOException {
+        FileWriter fw = new FileWriter(filepath);
+        for (Task t : taskList) {
+            fw.write(t.toFile() + System.lineSeparator());
+        }
+        fw.close();
+    }
+
+    private static void printFileContents(String filePath) throws FileNotFoundException {
+        File f = new File(filePath);
+        Scanner s = new Scanner(f);
+        int i = 1;
+        while (s.hasNext()) {
+            System.out.println("\t" + i + ". " + s.nextLine());
+            i++;
+        }
+    }
 
     public static void markDone(Task task) {
         task.mark();
+
+        try {
+            updateFile(filePath);
+        } catch (IOException e) {
+            System.out.println("> OOPS!! Something went wrong: " + e.getMessage());
+        }
+
         System.out.println("> Nice! I've marked this task as done:");
         System.out.println("\t" + task);
     }
 
     public static void markNotDone(Task task) {
         task.unmark();
+
+        try {
+            updateFile(filePath);
+        } catch (IOException e) {
+            System.out.println("> OOPS!! Something went wrong: " + e.getMessage());
+        }
+
         System.out.println("> OK, I've marked this task as not done yet:");
         System.out.println("\t" + task);
     }
 
     public static void addTask(Task task) {
         taskList.add(task);
+
+        try {
+            updateFile(filePath);
+        } catch (IOException e) {
+            System.out.println("> OOPS!! Something went wrong: " + e.getMessage());
+        }
+
         System.out.println("> Got it. I've added this task:");
         System.out.println("\t" + task.toString());
         System.out.println(String.format("> Now you have %d tasks in the list.", taskList.size()));
@@ -88,6 +148,13 @@ public class Jo {
     public static void deleteTask(int index) {
         Task removedTask = taskList.get(index);
         taskList.remove(index);
+
+        try {
+            updateFile(filePath);
+        } catch (IOException e) {
+            System.out.println("> OOPS!! Something went wrong: " + e.getMessage());
+        }
+
         System.out.println("> Noted. I've removed this task:");
         System.out.println("\t" + removedTask.toString());
         System.out.println(String.format("> Now you have %d tasks in the list.", taskList.size()));
@@ -106,11 +173,14 @@ public class Jo {
         if (input.trim().isEmpty()) {
             throw new JoException("OOPS!!! The command cannot be empty.");
         } else if (input.equals("list")) {
+
             System.out.println("> Here are the tasks in your list:");
+
             for (int i = 0; i < taskList.size(); i++) {
                 Task t = taskList.get(i);
-                System.out.println("\t" + (i+1) + ". " + t.toString());
+                System.out.println("\t" + (i + 1) + ". " + t.toString());
             }
+
         } else if (isInEnum(input, TASK.class)) {
             throw new JoException(String.format("OOPS!!! The description of a %s cannot be empty.", input));
         } else if (isInEnum(input, COMMAND.class)) {
@@ -141,6 +211,12 @@ public class Jo {
     }
 
     public static void main(String[] args) {
+
+        try {
+            initiateList();
+        } catch (FileNotFoundException e) {
+            System.out.println("> OOPS!! Something went wrong: " + e.getMessage());
+        }
 
         System.out.println("> Hello! I'm Jo.\n> What can I do for you?");
         Scanner scanner = new Scanner(System.in);
