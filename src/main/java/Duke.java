@@ -1,11 +1,8 @@
-import exception.DukeException;
 import exception.DukeStorageException;
-import exception.FileCorruptedException;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.Scanner;
 
 public class Duke {
     private final String botName;
@@ -15,11 +12,7 @@ public class Duke {
     public Duke(String botName, StorageService storageService) {
         this.botName = botName;
         this.storageService = storageService;
-        try {
-            this.taskList = storageService.loadTasks();
-        } catch (FileCorruptedException e) {
-
-        }
+        this.taskList = new ArrayList<>(storageService.loadTasks());
     }
 
     public static void main(String[] args) {
