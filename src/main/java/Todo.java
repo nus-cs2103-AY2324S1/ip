@@ -15,3 +15,143 @@ public class Todo extends Task {
     }
 }
 
+/*
+while (true) {
+            try {
+                String userInput = scanner.nextLine();
+
+                if ("bye".equalsIgnoreCase(userInput)) {
+                    break;
+                }
+
+                if ("list".equalsIgnoreCase(userInput)) {
+                    ui.showTasksList(tasks);
+                } else if (userInput.startsWith("mark")) {
+                    processTask(userInput, tasks, true);
+                    try {
+                        Storage.saveTasks(tasks); // Save the updated tasks to file
+                    } catch (IOException e) {
+                        ui.showSavingError(e.getMessage());
+                    }
+
+                } else if (userInput.startsWith("unmark")) {
+                    processTask(userInput, tasks, false);
+                    try {
+                        Storage.saveTasks(tasks); // Save the updated tasks to file
+                    } catch (IOException e) {
+                        ui.showSavingError(e.getMessage());
+                    }
+
+                } else if (userInput.startsWith("todo")) {
+                    String description = userInput.substring(4).trim();
+
+                    if (description.isEmpty()) {
+                        throw new DukeException("☹ OOPS!!! The description of a todo cannot be empty.");
+                    }
+
+                    Todo newTodo = new Todo(description);
+                    tasks.add(newTodo);
+
+                    try {
+                        Storage.saveTasks(tasks); // Save the updated tasks to file
+                    } catch (IOException e) {
+                        ui.showSavingError(e.getMessage());
+                    }
+
+                    ui.showAddedTask(newTodo, tasks.size());
+                } else if (userInput.startsWith("deadline")) {
+                    String content = userInput.substring(8).trim();
+                    int index = content.indexOf("/by");
+
+                    if (index == -1) {
+                        throw new DukeException("Please use '/by' to specify the deadline time.");
+                    } else {
+                        String description = content.substring(0, index).trim();
+                        String by = content.substring(index + 4).trim();
+                        Deadline newDeadline;
+                        try {
+                            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
+                            LocalDateTime dateTime = LocalDateTime.parse(by, formatter);
+                            newDeadline = new Deadline(description, dateTime);
+                            tasks.add(newDeadline);
+
+                            try {
+                                Storage.saveTasks(tasks); // Save the updated tasks to file
+                            } catch (IOException e) {
+                                ui.showSavingError(e.getMessage());
+                            }
+                        } catch (DateTimeParseException e) {
+                            throw new DukeException("Invalid date-time format! Please use d/M/yyyy HHmm format.");
+                        }
+
+                        ui.showAddedTask(newDeadline, tasks.size());
+                    }
+                } else if (userInput.startsWith("event")) {
+                    String content = userInput.substring(5).trim();
+
+                    String[] parts = content.split("/from | /to ");
+
+                    if (parts.length < 3) {
+                        throw new DukeException("Please use the format: event [description] /from [start time] /to [end time]");
+                    }
+
+                    String description = parts[0].trim();
+                    String from = parts[1].trim();
+                    String to = parts[2].trim();
+
+                    Event newEvent;
+                    try {
+                        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
+                        LocalDateTime dateTimeFrom = LocalDateTime.parse(from, formatter);
+                        LocalDateTime dateTimeTo = LocalDateTime.parse(to, formatter);
+                        newEvent = new Event(description, dateTimeFrom, dateTimeTo);
+                        tasks.add(newEvent);
+
+                        try {
+                            Storage.saveTasks(tasks); // Save the updated tasks to file
+                        } catch (IOException e) {
+                            ui.showSavingError(e.getMessage());
+                        }
+                    } catch (DateTimeParseException e) {
+                        throw new DukeException("Invalid date-time format! Please use d/M/yyyy HHmm format.");
+                    }
+
+                    ui.showAddedTask(newEvent, tasks.size());
+                } else if (userInput.startsWith("delete")) {
+                    int taskNumber;
+                    try {
+                        taskNumber = Integer.parseInt(userInput.split(" ")[1]);
+                        if (taskNumber <= 0 || taskNumber > tasks.size()) {
+                            throw new DukeException("Invalid task number!");
+                        }
+
+                        Task deletedTask = tasks.get(taskNumber - 1);
+
+                        tasks.remove(taskNumber - 1);
+
+                        try {
+                            Storage.saveTasks(tasks); // Save the updated tasks to file
+                        } catch (IOException e) {
+                            ui.showSavingError(e.getMessage());
+                        }
+
+                        ui.showDeletedTask(deletedTask, tasks.size());
+                    } catch (NumberFormatException e) {
+                        ui.showInvalidTaskNumber();
+                    } catch (DukeException de) {
+                        System.out.println("____________________________________________________________");
+                        System.out.println(de.getMessage());
+                        System.out.println("____________________________________________________________");
+                    }
+                } else {
+                    throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+                }
+            } catch (DukeException de) {
+                ui.printMessage(de.getMessage());
+            }
+        }
+
+        ui.showGoodbye();
+    }
+ */
+
