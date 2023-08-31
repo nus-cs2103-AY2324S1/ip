@@ -85,4 +85,20 @@ public class TaskList {
 	public ArrayList<Task> getAllTasks() {
 		return this.list;
 	}
+
+	/**
+	 * Returns the filtered tasks
+	 *
+	 * @param keyword the keyword to filter
+	 * @return the filtered tasks
+	 */
+	public TaskList filter(String keyword) {
+		ArrayList<Task> filteredTasks = new ArrayList<>();
+		for (Task task : this.list) {
+			if (task.getDescription().contains(keyword)) {
+				filteredTasks.add(task);
+			}
+		}
+		return new TaskList(filteredTasks);
+	}
 }
