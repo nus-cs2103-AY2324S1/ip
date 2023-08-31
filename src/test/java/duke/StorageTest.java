@@ -20,6 +20,7 @@ public class StorageTest {
             "DEADLINE#test3#0#2024-01-01T12:00",
             "DEADLINE#test4#0#2024-05-05T12:00",
             "EVENT#test5#1#2023-05-07T03:03#2023-05-07T03:05"};
+
         try {
             Storage storage = new Storage("data/testData.txt");
             List<String> ret = storage.readFile();
