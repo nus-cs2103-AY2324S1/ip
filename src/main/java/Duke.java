@@ -6,7 +6,7 @@ public class Duke {
 //                + "| |_| | |_| |   <  __/\n"
 //                + "|____/ \\__,_|_|\\_\\___|\n";
 //        System.out.println("Hello from\n" + logo);
-        Chatbot b1 = new Chatbot("Zhen Dong");
+        ChatBot b1 = new ChatBot("Zhen Dong");
         b1.greet();
         b1.run();
 
