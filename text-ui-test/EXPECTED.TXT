@@ -26,7 +26,7 @@ Nice! You have completed the task:
     3. [E][ ] project meeting (from: Mon 2pm to: 4pm)
 
 =====================
-Ok! Task marked undone:
+Ok! duke.Task marked undone:
     [T][X] borrow book
 =====================
     1. [D][ ] return book (by Sunday)
