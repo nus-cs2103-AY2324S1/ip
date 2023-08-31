@@ -50,7 +50,7 @@ public class Parser {
         String[] arr = this.arguments.split(" /by ");
 
         if (arr.length != 2) {
-            throw new DukeException("Hey, the duke.tasks.Deadline given is Invalid! " +
+            throw new DukeException("Hey, the Deadline given is Invalid! " +
                     "Make sure that you follow this format:\n" +
                     Duke.INDENTATION + "'taskDescription /by time'");
         }
@@ -64,7 +64,7 @@ public class Parser {
         }
         String[] arr = this.arguments.split(" /from ");
         if (arr.length != 2) {
-            throw new DukeException("Hey, the duke.tasks.Event given is Invalid!" +
+            throw new DukeException("Hey, the Event given is Invalid!" +
                     " Make sure that you follow this format:\n" +
                     Duke.INDENTATION + " 'eventDescription /from startTime /to endTime'");
         }
@@ -72,7 +72,7 @@ public class Parser {
 
         String[] startEnd = arr[1].split(" /to ");
         if (startEnd.length != 2) {
-            throw new DukeException("Hey, the duke.tasks.Event given is Invalid!" +
+            throw new DukeException("Hey, the Event given is Invalid!" +
                     " Make sure that you follow this format:\n" +
                     Duke.INDENTATION + " 'eventDescription /from startTime /to endTime'");
         }
