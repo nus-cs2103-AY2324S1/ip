@@ -1,4 +1,4 @@
-package monday.exception;
+package monday.monday.exception;
 
 /**
  * MondayExceptions is a custom exception class for handling

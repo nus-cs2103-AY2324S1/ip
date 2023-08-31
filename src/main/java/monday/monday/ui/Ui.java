@@ -1,4 +1,4 @@
-package monday.ui;
+package monday.monday.ui;
 
 public class Ui {
     /**
