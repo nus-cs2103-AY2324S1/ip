@@ -1,14 +1,12 @@
 package task;
 
-import task.Task;
-
 public class Event extends Task {
 
-    private String start;
-    private String end;
+    private final String start;
+    private final String end;
 
-    public Event(String nameOfTask, String start, String end) {
-        super(nameOfTask);
+    public Event(boolean completed, String nameOfTask, String start, String end) {
+        super(completed, nameOfTask);
         this.start = start;
         this.end = end;
     }
@@ -16,9 +14,19 @@ public class Event extends Task {
     @Override
     public String toString() {
         if (completed) {
-            return "[E][X] " + nameOfTask + "(from: " + start + "to: " + end + ")";
+            return "[E][X] " + nameOfTask + " (from: " + start + " to: " + end + ")";
         } else {
-            return "[E][ ] " + nameOfTask + "(from: " + start + "to: " + end + ")";
+            return "[E][ ] " + nameOfTask + " (from: " + start + " to: " + end + ")";
         }
+    }
+
+    @Override
+    public String typeOfString() {
+        return "E ";
+    }
+
+    @Override
+    public String taskDetailsString() {
+        return super.nameOfTask + " |" + " " + start + " |" + " " + end;
     }
 }

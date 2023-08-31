@@ -1,10 +1,8 @@
 package task;
 
-import task.Task;
-
 public class ToDo extends Task {
-    public ToDo(String nameOfTask) {
-        super(nameOfTask);
+    public ToDo(boolean completed, String nameOfTask) {
+        super(completed, nameOfTask);
     }
 
     @Override
@@ -15,4 +13,15 @@ public class ToDo extends Task {
             return "[T][ ] " + nameOfTask;
         }
     }
+
+    @Override
+    public String typeOfString() {
+        return "T ";
+    }
+
+    @Override
+    public String taskDetailsString() {
+        return super.nameOfTask;
+    }
+
 }
