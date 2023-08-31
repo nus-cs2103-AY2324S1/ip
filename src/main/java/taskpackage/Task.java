@@ -44,7 +44,7 @@ public class Task {
      * Toggles the completed status of the task.
      *
      * @param keyword Word to indicate whether to mark the task as complete or incomplete.
-     * @parma ui UI of the bot.
+     * @param ui UI of the bot.
      */
     public void toggleDone(String keyword, Ui ui) {
         this.isDone = keyword.equals("mark");
@@ -62,5 +62,15 @@ public class Task {
         } else {
             return String.format("| 0 | %s", this.task);
         }
+    }
+
+    /**
+     * Checks whether the given keyword is found in the task string.
+     *
+     * @param word Keyword to find in the task.
+     * @return boolean Whether the word is inside.
+     */
+    public boolean matchKeyword(String word) {
+        return this.task.contains(word);
     }
 }
