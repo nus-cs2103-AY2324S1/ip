@@ -1,5 +1,7 @@
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 /**
  * A parser class whose main method is the parse method which
@@ -7,6 +9,10 @@ import java.util.regex.Matcher;
  * or not.
  */
 public class Parser {
+
+    public static DateTimeFormatter inputFormat = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+    public static DateTimeFormatter outputFormat = DateTimeFormatter.ofPattern("d MMM yyyy hh:mm a");
+
 
     /**
      * Parses the given input and checks if it is valid and if it is
@@ -86,7 +92,14 @@ public class Parser {
                 if (matcher.group(9) == null || matcher.group(9).isBlank()) {
                     throw new DukeException("Insufficient number of arguments for a deadline. Try again.");
                 } else {
-                    return new Instruction.Add(new Deadline(matcher.group(8).trim(), matcher.group(9).trim()));
+                    LocalDateTime dateTime;
+                    try {
+                        dateTime = LocalDateTime.parse(matcher.group(9).trim(), Parser.inputFormat);
+                    } catch (Exception e) {
+                        throw new DukeException("");
+                    }
+
+                    return new Instruction.Add(new Deadline(matcher.group(8).trim(), dateTime.format(outputFormat)));
                 }
             }
         case EVENT:
@@ -96,7 +109,14 @@ public class Parser {
                 if (matcher.group(5) == null || matcher.group(6) == null || matcher.group(5).isBlank() || matcher.group(6).isBlank()) {
                     throw new DukeException("Insufficient number of arguments for an event. Try again.");
                 } else {
-                    return new Instruction.Add(new Event(matcher.group(4).trim(), matcher.group(5).trim(), matcher.group(6).trim()));
+                    LocalDateTime startDateTime, endDateTime;
+                    try {
+                        startDateTime = LocalDateTime.parse(matcher.group(5).trim(), Parser.inputFormat);
+                        endDateTime = LocalDateTime.parse(matcher.group(6).trim(), Parser.inputFormat);
+                    } catch (Exception e) {
+                        throw new DukeException("");
+                    }
+                    return new Instruction.Add(new Event(matcher.group(4).trim(), startDateTime.format(Parser.outputFormat), endDateTime.format(Parser.outputFormat)));
                 }
             }
         default:
@@ -145,6 +165,7 @@ public class Parser {
                     matcher.group(7) == null || matcher.group(6).isBlank() || matcher.group(7).isBlank()) {
                 throw new DukeException("");
             } else {
+
                 task = new Event(matcher.group(5).trim(), matcher.group(6), matcher.group(7));
             }
             break;

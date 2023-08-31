@@ -1,3 +1,4 @@
+import java.time.LocalDateTime;
 /**
  * A class which inherits from Task class.
  * Represents a task with deadline but no start time.
@@ -5,7 +6,7 @@
 public class Deadline extends Task {
 
     /** The due date of this task. */
-    protected String endTime;
+    protected LocalDateTime endTime;
 
     /**
      * Initialises using the given description and end time.
@@ -14,7 +15,7 @@ public class Deadline extends Task {
      */
     public Deadline(String description, String endTime) {
         super(description);
-        this.endTime = endTime;
+        this.endTime = LocalDateTime.parse(endTime, Parser.outputFormat);
     }
 
     /**
