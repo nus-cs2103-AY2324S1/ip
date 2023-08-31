@@ -25,13 +25,13 @@ public class Duke {
      * Greets the user, reads and parses commands, and executes corresponding actions.
      */
     public void run() {
-        boolean run = true;
+        boolean shouldContinue = true;
         this.ui.greet();
-        while (run) {
+        while (shouldContinue) {
             try {
                 String input = this.ui.readCommand();
                 this.parser.parse(input);
-                run = this.parser.status();
+                shouldContinue = this.parser.getStatus();
             } catch (DukeException e) {
                 System.out.println(e.getMessage());
             }
