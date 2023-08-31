@@ -29,7 +29,7 @@ public class TaskArray {
     /**
      * Prints the list of tasks along with their indexes.
      */
-    public void printTaskArrayList(){
+    public void printTaskArrayList() {
         System.out.println(horiLine);
         for(int i = 0; i < taskArrayList.size(); i++ ){
             int index = i + 1;
@@ -45,7 +45,7 @@ public class TaskArray {
      *
      * @param task The task to be added to the TaskArray.
      */
-    public void add(Task task){
+    public void add(Task task) {
         taskArrayList.add(task);
         String word = "added:" + task.getText();
         System.out.println(horiLine);
@@ -79,7 +79,7 @@ public class TaskArray {
      *
      * @param index The index of the task to be removed.
      */
-    public void removeTask(int index){
+    public void removeTask(int index) {
         if(index < 0 && index >=taskArrayList.size()){
             System.out.println(horiLine);
             System.out.println("Invalid Index");
@@ -94,6 +94,25 @@ public class TaskArray {
         System.out.println("Now you have "+ getTaskCount()+" tasks in the list.");
         System.out.println(horiLine);
     }
+    public void printFind(String arg) {
+
+        ArrayList<Task> tempTaskArraylist = new ArrayList<>();
+
+
+        for (Task task : taskArrayList) {
+            if(task.getText().contains(arg)) {
+                tempTaskArraylist.add(task);
+            }
+        }
+        System.out.println(horiLine);
+        System.out.println("Here are the matching tasks in your list:");
+        for(int i = 0; i < tempTaskArraylist.size(); i++) {
+            int index = i + 1;
+            System.out.println(index+"."+ tempTaskArraylist.get(i).getTypeCheckedText());
+        }
+        System.out.println(horiLine);
+    }
+
     /**
      * Returns the list of tasks in the TaskArray.
      *
