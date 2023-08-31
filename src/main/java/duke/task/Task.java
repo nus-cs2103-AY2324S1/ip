@@ -1,9 +1,11 @@
+package duke.task;
+
 public class Task {
     protected boolean done;
     protected String name;
 
     /**
-     * Constructor for the Task class.
+     * Constructor for the duke.task.Task class.
      *
      * @param name The name of the task.
      * @param done Whether the task is marked done or not.

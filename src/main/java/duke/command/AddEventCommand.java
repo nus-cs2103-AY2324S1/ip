@@ -1,3 +1,11 @@
+package duke.command;
+
+import duke.DukeException;
+import duke.Storage;
+import duke.TaskList;
+import duke.Ui;
+import duke.task.Event;
+
 import java.io.IOException;
 
 public class AddEventCommand extends Command {
@@ -6,7 +14,7 @@ public class AddEventCommand extends Command {
     private String endDate;
 
     /**
-     * Constructor for the Command class.
+     * Constructor for the duke.command.Command class.
      *
      * @param taskName
      * @param startDate

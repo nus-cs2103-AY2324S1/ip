@@ -1,24 +1,32 @@
+package duke.command;
+
+import duke.DukeException;
+import duke.Storage;
+import duke.TaskList;
+import duke.Ui;
+import duke.task.Task;
+
 import java.io.IOException;
 
-public class DeleteTaskCommand extends Command{
+public class MarkNotDoneCommand extends Command {
     private int index;
 
     /**
-     * Constructor for the DeleteTaskCommand class.
+     * Constructor for the duke.command.MarkNotDoneCommand class.
      *
-     * @param index Index of the task to be deleted.
+     * @param index Index of the task to be marked.
      */
-    public DeleteTaskCommand(int index) {
+    public MarkNotDoneCommand(int index) {
         this.index = index;
     }
 
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) throws DukeException {
         try {
+            taskList.markNotDone(index);
             Task task = taskList.getTask(index);
-            taskList.delete(index);
             storage.rewriteToFile(taskList.getList());
-            ui.successfulTaskDeletionMsg(task.displayableForm(), taskList.getSize());
+            ui.successfulMarkNotDoneMsg(task.displayableForm());
         } catch (IOException e) {
             throw new DukeException("Something went wrong: " + e.getMessage());
         }

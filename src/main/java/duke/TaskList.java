@@ -1,3 +1,7 @@
+package duke;
+
+import duke.task.Task;
+
 import java.util.ArrayList;
 
 public class TaskList {
@@ -11,7 +15,7 @@ public class TaskList {
     private int index;
 
     /**
-     * Constructor for the TaskList class.
+     * Constructor for the duke.TaskList class.
      *
      * @param list The list to become the list in the task list.
      */
@@ -21,7 +25,7 @@ public class TaskList {
     }
 
     /**
-     * Constructor for the TaskList class.
+     * Constructor for the duke.TaskList class.
      */
     public TaskList() {
         this.taskList = new ArrayList<>(100);

@@ -1,3 +1,11 @@
+package duke.command;
+
+import duke.DukeException;
+import duke.Storage;
+import duke.TaskList;
+import duke.Ui;
+import duke.task.Deadline;
+
 import java.io.IOException;
 
 public class AddDeadlineCommand extends Command {
@@ -5,7 +13,7 @@ public class AddDeadlineCommand extends Command {
     private String dueDate;
 
     /**
-     * Constructor for the AddDeadlineCommand class.
+     * Constructor for the duke.command.AddDeadlineCommand class.
      *
      * @param taskName
      * @param dueDate

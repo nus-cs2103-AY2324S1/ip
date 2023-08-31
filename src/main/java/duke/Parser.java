@@ -1,3 +1,7 @@
+package duke;
+
+import duke.command.*;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
@@ -21,7 +25,7 @@ public class Parser {
      * Checks for a valid "bye" command
      *
      * @param input the string input by the user
-     * @return A ByeCommand if the command is valid and null otherwise.
+     * @return A duke.command.ByeCommand if the command is valid and null otherwise.
      */
     public static ByeCommand byeCommandChecker(String input) {
         if (input.trim().equals("bye")) {
@@ -35,7 +39,7 @@ public class Parser {
      * Checks for a valid "list" command
      *
      * @param input the string input by the user
-     * @return A ListCommand containing the keywords if the command is valid and null otherwise.
+     * @return A duke.command.ListCommand containing the keywords if the command is valid and null otherwise.
      */
     public static ListCommand listCommandChecker(String input) {
         if (input.trim().equals("list")) {
@@ -49,7 +53,7 @@ public class Parser {
      * Checks for a valid "todo" command
      *
      * @param input the string input by the user
-     * @return A AddTodoCommand if the command is valid and null if the command is not a "todo".
+     * @return A duke.command.AddTodoCommand if the command is valid and null if the command is not a "todo".
      * @throws DukeException if the command is "todo" but the keywords are not valid
      */
     public static AddTodoCommand todoCommandChecker(String input) throws DukeException {
@@ -71,7 +75,7 @@ public class Parser {
      * Checks for a valid "deadline" command
      *
      * @param input the string input by the user
-     * @return A AddDeadlineCommand if the command is valid
+     * @return A duke.command.AddDeadlineCommand if the command is valid
      *         and null if the command is not a "deadline".
      * @throws DukeException if the command is "deadline" but the keywords are not valid
      */
@@ -103,7 +107,7 @@ public class Parser {
      * Checks for a valid "event" command
      *
      * @param input the string input by the user
-     * @return An AddEventCommand if the command is valid and null if the command is not an "event".
+     * @return An duke.command.AddEventCommand if the command is valid and null if the command is not an "event".
      * @throws DukeException if the command is "event" but the keywords are not valid
      */
     public static AddEventCommand eventCommandChecker(String input) throws DukeException {
@@ -144,7 +148,7 @@ public class Parser {
      * Checks for a valid "mark" command
      *
      * @param input the string input by the user
-     * @return A MarkDoneCommand if the command is valid and null if the command is not a "mark".
+     * @return A duke.command.MarkDoneCommand if the command is valid and null if the command is not a "mark".
      * @throws DukeException if the command is "mark" but the keywords are not valid
      */
     public static MarkDoneCommand markCommandChecker(String input) throws DukeException {
@@ -170,7 +174,7 @@ public class Parser {
      * Checks for a valid "unmark" command
      *
      * @param input the string input by the user
-     * @return A MarkNotDoneCommand if the command is valid and null if the command is not a "unmark".
+     * @return A duke.command.MarkNotDoneCommand if the command is valid and null if the command is not a "unmark".
      * @throws DukeException if the command is "unmark" but the keywords are not valid
      */
     public static MarkNotDoneCommand unmarkCommandChecker(String input) throws DukeException {
@@ -196,7 +200,7 @@ public class Parser {
      * Checks for a valid "delete" command
      *
      * @param input the string input by the user
-     * @return A DeleteTaskCommand if the command is valid and null if the command is not a delete command.
+     * @return A duke.command.DeleteTaskCommand if the command is valid and null if the command is not a delete command.
      * @throws DukeException if the command is "delete" but the keywords are not valid
      */
     public static DeleteTaskCommand deleteCommandChecker(String input) throws DukeException {
@@ -222,7 +226,7 @@ public class Parser {
      * Checks for a valid command.
      *
      * @param input the string input by the user
-     * @return a Command corresponding to the correct command
+     * @return a duke.command.Command corresponding to the correct command
      * @throws DukeException if the command is invalid.
      */
     public static Command parse(String input) throws DukeException {

@@ -1,3 +1,10 @@
+package duke.command;
+
+import duke.DukeException;
+import duke.Storage;
+import duke.TaskList;
+import duke.Ui;
+
 public abstract class Command {
     /**
      * Creates a new task, adds it to the task list, stores it in the file,
