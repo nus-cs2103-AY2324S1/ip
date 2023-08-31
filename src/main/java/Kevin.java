@@ -2,7 +2,7 @@ import Evaluator.Evaluator;
 import Parser.Parser;
 import Parser.FileParser;
 import Parser.QueryObject;
-import Logger.Logger;
+import Ui.Logger;
 import Exception.KevinException;
 import Storage.FileStorage;
 import TaskList.TaskList;

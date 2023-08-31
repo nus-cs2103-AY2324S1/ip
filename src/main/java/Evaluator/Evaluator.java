@@ -1,6 +1,6 @@
 package Evaluator;
 
-import Logger.Logger;
+import Ui.Logger;
 import Parser.Commands;
 import Parser.QueryObject;
 import Storage.FileStorage;

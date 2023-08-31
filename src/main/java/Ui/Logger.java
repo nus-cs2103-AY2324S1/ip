@@ -1,4 +1,4 @@
-package Logger;
+package Ui;
 
 public class Logger {
     public void log(String str) {

@@ -1,6 +1,6 @@
 package Evaluator;
 
-import Logger.Logger;
+import Ui.Logger;
 import Storage.FileStorage;
 import TaskList.TaskList;
 import TaskList.Event;
