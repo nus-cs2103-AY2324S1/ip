@@ -1,0 +1,107 @@
+package ben;
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.util.Arrays;
+
+public class AddCommand extends Command{
+    private final String command;
+    private Task task;
+
+    public AddCommand(String command) {
+        this.command = command;
+    }
+
+    public void interpretTask() throws InvalidCommandException, EmptyDescriptionException, DateTimeParseException {
+        String[] words = command.split("\\s+");
+
+        if(words[0].equalsIgnoreCase("todo")) {
+            String description = String.join(" ", Arrays.copyOfRange(words, 1, words.length));
+            if (description.isEmpty()) {
+                throw new EmptyDescriptionException("Description cannot be empty");
+            }
+            task = new ToDos(description, false);
+            return;
+        } else if (words[0].equalsIgnoreCase("deadline")) {
+            int positionBy = 0;
+
+            for (int i = 1; i < words.length; i++) {
+                if (words[i].equalsIgnoreCase("/by")) {
+                    positionBy = i;
+                    break;
+                }
+            }
+
+            if (positionBy == 0) {
+                throw new InvalidCommandException("Did not include /by");
+            }
+
+            String description = String.join(" ", Arrays.copyOfRange(words, 1, positionBy));
+            if (description.isEmpty()) {
+                throw new EmptyDescriptionException("Description cannot be empty");
+            }
+            String by = String.join(" ", Arrays.copyOfRange(words, positionBy + 1, words.length));
+            if (by.isEmpty()) {
+                throw new EmptyDescriptionException("/by cannot be empty");
+            }
+
+            task = new Deadlines(description, false, dateTimeParser(by));
+            return;
+        } else if (words[0].toLowerCase().contains("event")) {
+            int positionFrom = 0;
+            int positionTo = 0;
+
+            for (int i = 1; i < words.length; i++) {
+                if (words[i].equalsIgnoreCase("/from")) {
+                    positionFrom = i;
+                }
+
+                if (words[i].equalsIgnoreCase("/to")) {
+                    positionTo = i;
+                }
+            }
+
+            if (positionFrom == 0 || positionTo == 0) {
+                throw new InvalidCommandException("Did not include both /from and /to");
+            }
+
+            String description = String.join(" ", Arrays.copyOfRange(words, 1, positionFrom));
+            if (description.isEmpty()) {
+                throw new EmptyDescriptionException("Description cannot be empty");
+            }
+
+            String from = String.join(" ", Arrays.copyOfRange(words, positionFrom + 1, positionTo));
+            if (from.isEmpty()) {
+                throw new EmptyDescriptionException("/from cannot be empty");
+            }
+
+            String to = String.join(" ", Arrays.copyOfRange(words, positionTo + 1, words.length));
+            if (to.isEmpty()) {
+                throw new EmptyDescriptionException("/to cannot be empty");
+            }
+
+            task = new Events(description, false, dateTimeParser(from), dateTimeParser(to));
+            return;
+        }
+        throw new InvalidCommandException("Oops this Command: " + command + " is not found");
+    }
+
+    public LocalDateTime dateTimeParser(String dateTime) throws DateTimeParseException {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
+
+        if (dateTime.length() <= 10) {
+            return LocalDateTime.parse(dateTime + " 2359", formatter);
+        }
+        return LocalDateTime.parse(dateTime, formatter);
+    }
+    @Override
+    public boolean isExit() {
+        return false;
+    }
+    @Override
+    public void execute(TaskList tasks, Ui ui) throws InvalidCommandException, EmptyDescriptionException, DateTimeParseException{
+        interpretTask();
+        tasks.add(task, true);
+    }
+}

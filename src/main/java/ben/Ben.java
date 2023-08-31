@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.time.format.DateTimeParseException;
-import java.util.Objects;
 
 public class Ben {
     private boolean isActive = true;
@@ -33,23 +32,19 @@ public class Ben {
 
         ui.greeting();
 
-        Parser parser = new Parser();
+        //Parser parser = new Parser();
         while (isActive) {
             String message = ui.nextLine();
-            if (Objects.equals(message.toLowerCase(), "bye")) {
-                deactivate();
-            } else if (Objects.equals(message.toLowerCase(), "list")) {
-                ui.displayList(tasks);
-            } else {
-                if (!parser.isEditListCommand(message, tasks)) {
-                    try {
-                        parser.commandParser(message, tasks);
-                    } catch (EmptyDescriptionException | InvalidCommandException e) {
-                        Ui.showError(e.getMessage());
-                    } catch (DateTimeParseException e) {
-                        ui.showDateTimeParseError(e.getParsedString());
-                    }
-                }
+            Parser parser = new Parser(tasks);
+
+            try {
+                Command command = parser.parse(message);
+                command.execute(tasks, ui);
+                isActive = !command.isExit();
+            } catch (EmptyDescriptionException | InvalidCommandException e) {
+                Ui.showError(e.getMessage());
+            } catch (DateTimeParseException e) {
+                ui.showDateTimeParseError(e.getParsedString());
             }
         }
 
@@ -57,8 +52,6 @@ public class Ben {
             storage.saveTasks(tasks);
         } catch (IOException e) {
             System.out.println(e.getMessage());
-        } finally {
-            ui.bye();
         }
     }
 
