@@ -197,4 +197,22 @@ public class TaskList {
         return this.taskList.remove(index);
     }
 
+    /**
+     * Find tasks with matching keyword.
+     *
+     * @param keyword Keyword to search tasks.
+     * @return Return Array List of tasks with specified keyword.
+     */
+    public ArrayList<Task> findTask(String keyword) {
+        ArrayList<Task> foundTasks = new ArrayList<>();
+
+        for (Task curr : this.taskList) {
+            if (curr.description.contains(keyword)) {
+                foundTasks.add(curr);
+            }
+        }
+
+        return foundTasks;
+    }
+
 }

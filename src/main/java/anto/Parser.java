@@ -3,6 +3,7 @@ package anto;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
@@ -48,16 +49,19 @@ public class Parser {
                     if (input.length() < 6 || input.split(" ", 2).length < 2) {
                         throw new InvalidIndexException("OOPS!!! You need to include an index to mark task.");
                     }
+
                     String strIndex = input.split(" ", 2)[1];
                     // Throw error if index given is not an int
                     if (!Parser.isInt(strIndex)) {
                         throw new InvalidIndexException("OOPS!!! You need to include an index to mark task.");
                     }
+
                     int index = Integer.parseInt(strIndex) - 1;
                     // Throw error if there is no task at index
                     if (index >= this.taskList.getLength()) {
                         throw new InvalidIndexException("OOPS!!! There is no task at that index.");
                     }
+
                     this.taskList.markTaskAsDone(index);
                     this.ui.printMarkAsDone(index);
                 } else if (input.startsWith("unmark")) {
@@ -65,16 +69,19 @@ public class Parser {
                     if (input.length() < 8 || input.split(" ", 2).length < 2) {
                         throw new InvalidIndexException("OOPS!!! You need to include an index to unmark task.");
                     }
+
                     String strIndex = input.split(" ", 2)[1];
                     // Throw error if index given is not an int
                     if (!Parser.isInt(strIndex)) {
                         throw new InvalidIndexException("OOPS!!! You need to include an index to unmark task.");
                     }
+
                     int index = Integer.parseInt(strIndex) - 1;
                     // Throw error if there is no task at index
                     if (index >= this.taskList.getLength()) {
                         throw new InvalidIndexException("OOPS!!! There is no task at that index.");
                     }
+
                     this.taskList.unmarkTask(index);
                     this.ui.printUnmark(index);
                 } else if (input.startsWith("todo")) {
@@ -82,6 +89,7 @@ public class Parser {
                     if (input.length() < 6) {
                         throw new InvalidParametersException("OOPS!!! The description of a todo cannot be empty.");
                     }
+
                     String[] arr = input.split(" ", 2);
                     Task newTask = new Todo(arr[1]);
                     this.taskList.addToList(newTask);
@@ -96,6 +104,7 @@ public class Parser {
                         throw new InvalidParametersException("OOPS!!! The description and by of a deadline"
                                 + " cannot be empty.");
                     }
+
                     String[] arr = input.split(" /by ");
                     String taskDesc = arr[0].substring(9);
                     String by = arr[1];
@@ -115,6 +124,7 @@ public class Parser {
                         throw new InvalidParametersException("OOPS!!! The description and from and to of an event"
                                 + " cannot be empty.");
                     }
+
                     String[] arr = input.split(" /from ");
                     String taskDesc = arr[0].substring(6);
                     String[] arrBack = arr[1].split(" /to ");
@@ -128,18 +138,30 @@ public class Parser {
                     if (input.length() < 8 || input.split(" ", 2).length < 2) {
                         throw new InvalidIndexException("OOPS!!! You need to include an index to delete task.");
                     }
+
                     String strIndex = input.split(" ", 2)[1];
                     // Throw error if index given is not an int
                     if (!Parser.isInt(strIndex)) {
                         throw new InvalidIndexException("OOPS!!! You need to include an index to delete task.");
                     }
+
                     int index = Integer.parseInt(strIndex) - 1;
                     // Throw error if there is no task at index
                     if (index >= this.taskList.getLength()) {
                         throw new InvalidIndexException("OOPS!!! There is no task at that index.");
                     }
+
                     Task removedTask = this.taskList.deleteTask(index);
                     this.ui.printDelete(removedTask);
+                } else if (input.startsWith("find")) {
+                    // Throw error if there is no keyword
+                    if (input.length() < 6 || input.split(" ", 2).length < 2) {
+                        throw new InvalidIndexException("OOPS!!! You need to include a keyword to find tasks.");
+                    }
+
+                    String keyword = input.split(" ", 2)[1];
+                    ArrayList<Task> foundTasks = this.taskList.findTask(keyword);
+                    this.ui.printFoundTasks(foundTasks);
                 } else {
                     throw new AntoException("OOPS!!! I'm sorry, but I don't know what that means :(");
                 }
