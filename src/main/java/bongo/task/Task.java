@@ -1,7 +1,9 @@
+package bongo.task;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-public class Task {
+public abstract class Task {
     protected String description;
     protected boolean isDone;
 
@@ -26,6 +28,8 @@ public class Task {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("EEEE, MMM d, yyyy hh:mm a");
         return formatter.format(datetime);
     }
+
+    public abstract String generateStringForTextFile();
 
     @Override
     public String toString() {

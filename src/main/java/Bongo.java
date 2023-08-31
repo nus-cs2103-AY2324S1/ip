@@ -1,25 +1,17 @@
+import bongo.command.Command;
+import bongo.helper.BongoException;
+import bongo.helper.Parser;
+import bongo.helper.Storage;
+import bongo.helper.Ui;
+import bongo.task.TaskList;
+
 import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.time.format.DateTimeParseException;
-import java.util.ArrayList;
-import java.util.Locale;
-import java.util.Scanner;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 public class Bongo {
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
     private Parser parser;
-
-    enum FileAction {
-        MARK_TASK,
-        UNMARK_TASK,
-        DELETE_TASK
-    }
 
     public Bongo(String filepath) {
         this.ui = new Ui();

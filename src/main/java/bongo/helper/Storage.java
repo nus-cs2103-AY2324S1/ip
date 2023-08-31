@@ -1,15 +1,29 @@
+package bongo.helper;
+
+import bongo.command.Command;
+import bongo.task.Deadline;
+import bongo.task.Event;
+import bongo.task.Task;
+import bongo.task.Todo;
+
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Storage {
+    public enum FileAction {
+        MARK_TASK,
+        UNMARK_TASK,
+        DELETE_TASK
+    }
     String pathname;
 
     public Storage(String pathname) {
         this.pathname = pathname;
     }
 
-    protected ArrayList<Task> load() throws FileNotFoundException, BongoException {
+    public ArrayList<Task> load() throws FileNotFoundException, BongoException {
         File file = new File(this.pathname);
         Scanner fileScanner = new Scanner(file);
         ArrayList<Task> loadedTasks = new ArrayList<>();
@@ -19,6 +33,7 @@ public class Storage {
             for (int i = 0; i < arr.length; i++) {
                 arr[i] = arr[i].trim();
             }
+            System.out.println(Arrays.toString(arr));
             boolean isTaskMarkedDone = arr[1].equals("1");
             switch (arr[0]) {
                 case "T":
@@ -36,7 +51,7 @@ public class Storage {
         return loadedTasks;
     }
 
-    protected void checkIfFilesExist() {
+    public void checkIfFilesExist() {
         File file = new File(this.pathname);
         String directoryPath = file.getParent();
         File directory = new File(directoryPath);
@@ -58,21 +73,21 @@ public class Storage {
         }
     }
 
-    protected void add(Task newTask) {
+    public void add(Task newTask) {
         try {
             File file = new File(this.pathname);
             FileWriter fw = new FileWriter(this.pathname, true);
-            String newLine = "";
-            String isTaskMarkedDone = newTask.isDone ? "1" : "0";
-            if (newTask instanceof Todo) {
-                newLine = String.join(" | ", "T", isTaskMarkedDone, newTask.description);
-            } else if (newTask instanceof Deadline) {
-                Deadline newDeadline = (Deadline) newTask;
-                newLine = String.join(" | ", "D", isTaskMarkedDone, newDeadline.description, DateHelper.formatter.format(newDeadline.deadline));
-            } else if (newTask instanceof Event) {
-                Event newEvent = (Event) newTask;
-                newLine = String.join(" | ", "E", isTaskMarkedDone, newEvent.description, DateHelper.formatter.format(newEvent.from), DateHelper.formatter.format(newEvent.to));
-            }
+            String newLine = newTask.generateStringForTextFile();
+//            String isTaskMarkedDone = newTask.isDone ? "1" : "0";
+//            if (newTask instanceof bongo.task.Todo) {
+//                newLine = String.join(" | ", "T", isTaskMarkedDone, newTask.description);
+//            } else if (newTask instanceof bongo.task.Deadline) {
+//                bongo.task.Deadline newDeadline = (bongo.task.Deadline) newTask;
+//                newLine = String.join(" | ", "D", isTaskMarkedDone, newDeadline.description, bongo.helper.DateHelper.formatter.format(newDeadline.deadline));
+//            } else if (newTask instanceof bongo.task.Event) {
+//                bongo.task.Event newEvent = (bongo.task.Event) newTask;
+//                newLine = String.join(" | ", "E", isTaskMarkedDone, newEvent.description, bongo.helper.DateHelper.formatter.format(newEvent.from), bongo.helper.DateHelper.formatter.format(newEvent.to));
+//            }
             if (file.length() != 0) {
                 fw.write(String.format("\n%s", newLine));
             } else {
@@ -85,7 +100,7 @@ public class Storage {
         }
     }
 
-    public void edit(Bongo.FileAction action, int taskNumber) {
+    public void edit(FileAction action, int taskNumber) {
         try {
             File file = new File(this.pathname);
             BufferedReader fileReader = new BufferedReader(new FileReader(file));

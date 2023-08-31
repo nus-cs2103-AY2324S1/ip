@@ -1,4 +1,6 @@
-import java.util.Scanner;
+package bongo.helper;
+
+import bongo.command.*;
 
 public class Parser {
     public Parser() {
@@ -6,7 +8,7 @@ public class Parser {
 
     ;
 
-    protected Command parse(String command) throws BongoException {
+    public Command parse(String command) throws BongoException {
         String[] input = command.split(" ");
         switch (input[0]) {
             case "bye":

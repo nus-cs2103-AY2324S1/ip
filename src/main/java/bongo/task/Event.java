@@ -1,4 +1,8 @@
+package bongo.task;
+
 import java.time.LocalDateTime;
+import bongo.helper.BongoException;
+import bongo.helper.DateHelper;
 
 public class Event extends Task {
     LocalDateTime from;
@@ -21,6 +25,12 @@ public class Event extends Task {
     private void validateEventDuration(LocalDateTime from, LocalDateTime to) throws BongoException {
         if (from.isBefore(LocalDateTime.now()) || to.isBefore(LocalDateTime.now())) throw new BongoException("Start and end of event must be in the future.");
         if (from.isAfter(to)) throw new BongoException("End of event must be after start of event.");
+    }
+
+    @Override
+    public String generateStringForTextFile() {
+        String isTaskMarkedDone = this.isDone ? "1" : "0";
+        return String.join(" | ", "E", isTaskMarkedDone, this.description, DateHelper.formatter.format(this.from), DateHelper.formatter.format(this.to));
     }
 
     @Override
