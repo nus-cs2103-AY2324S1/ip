@@ -1,4 +1,4 @@
-package Rocket;
+package rocket;
 
 public class ListCommand extends Command{
     public ListCommand() {

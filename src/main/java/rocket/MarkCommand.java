@@ -1,10 +1,8 @@
-package Rocket;
+package rocket;
 
-import Rocket.*;
-
-public class UnmarkCommand extends Command {
+public class MarkCommand extends Command{
     private int taskNumber;
-    public UnmarkCommand(int taskNumber) {
+    public MarkCommand(int taskNumber) {
         super(false);
         this.taskNumber = taskNumber;
     }
@@ -12,8 +10,8 @@ public class UnmarkCommand extends Command {
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         Task task = tasks.get(taskNumber);
-        task.markAsUndone();
-        System.out.println("    OK, I've marked this task as not done yet:");
+        task.markAsDone();
+        System.out.println("    Nice! I've marked this task as done:");
         System.out.println("      " + task);
     }
 }

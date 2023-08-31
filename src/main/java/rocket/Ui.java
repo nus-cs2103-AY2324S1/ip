@@ -1,7 +1,4 @@
-package Rocket;
-
-import Rocket.Task;
-import Rocket.TaskList;
+package rocket;
 
 import java.util.Scanner;
 

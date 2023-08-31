@@ -1,6 +1,4 @@
-package Rocket;
-
-import Rocket.Task;
+package rocket;
 
 public class Todo extends Task {
     /**

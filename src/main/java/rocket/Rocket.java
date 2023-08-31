@@ -1,4 +1,4 @@
-package Rocket;
+package rocket;
 
 import java.time.format.DateTimeFormatter;
 

@@ -1,4 +1,4 @@
-package Rocket;
+package rocket;
 
 public class AddCommand extends Command{
     private Task task;

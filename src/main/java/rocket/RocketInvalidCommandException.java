@@ -1,6 +1,4 @@
-package Rocket;
-
-import Rocket.RocketException;
+package rocket;
 
 public class RocketInvalidCommandException extends RocketException {
     public RocketInvalidCommandException() {

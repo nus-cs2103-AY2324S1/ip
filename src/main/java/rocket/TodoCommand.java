@@ -1,7 +1,4 @@
-package Rocket;
-
-import Rocket.AddCommand;
-import Rocket.Todo;
+package rocket;
 
 public class TodoCommand extends AddCommand {
     private String description;

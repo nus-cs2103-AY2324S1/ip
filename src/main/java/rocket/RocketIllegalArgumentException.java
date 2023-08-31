@@ -1,4 +1,4 @@
-package Rocket;
+package rocket;
 
 /**
  * Takes the description of the illegal argument and says that it cannot be empty

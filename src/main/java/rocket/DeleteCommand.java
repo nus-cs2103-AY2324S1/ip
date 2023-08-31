@@ -1,4 +1,4 @@
-package Rocket;
+package rocket;
 
 public class DeleteCommand extends Command{
     public DeleteCommand() {
