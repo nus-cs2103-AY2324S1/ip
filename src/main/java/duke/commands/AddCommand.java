@@ -72,17 +72,19 @@ public class AddCommand extends Command {
         Task task = null;
         switch (this.type) {
         case "todo":
-            task = new Todo(this.description);
+            task = new Todo(this.description, false);
             break;
         case "deadline":
-            task = new Deadline(this.description,this.till);
+            task = new Deadline(this.description, this.till, false);
             break;
         case "event":
-            task = new Event(this.description, this.from, this.till);
+            task = new Event(this.description, this.from, this.till, false);
             break;
         }
         tasks.add(task);
+        ui.showLine();
         ui.showAdd(tasks.size(), task);
+        ui.showLine();
         storage.writeData(tasks.getAllTasks());
     }
 
@@ -94,6 +96,5 @@ public class AddCommand extends Command {
     public boolean isExit() {
         return false;
     }
-
 
 }

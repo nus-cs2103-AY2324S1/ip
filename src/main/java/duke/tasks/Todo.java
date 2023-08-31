@@ -6,21 +6,12 @@ package duke.tasks;
  * @author Shishir
  */
 public class Todo extends Task {
-
-    /**
-     * Constructs a new Todo task.
-     * @param description The description of the task.
-     */
-    public Todo(String description) {
-        super(description);
-    }
-
     /**
      * Constructs a new Todo task.
      * @param description The description of the task.
      * @param status The status of completion.
      */
-    public Todo(String description, String status) {
+    public Todo(String description, boolean status) {
         super(description, status);
     }
 

@@ -28,9 +28,9 @@ abstract public class Task {
      * @param action Description of the task.
      * @param status Status of completion of the task.
      */
-    public Task(String action, String status) {
+    public Task(String action, boolean status) {
         this.description = action;
-        this.completed = status.equals("X");
+        this.completed = status;
     }
 
     /**
@@ -50,9 +50,12 @@ abstract public class Task {
         return " | " + (this.completed ? "X" : "O") + " | " + this.description;
     }
 
-    /** Sets the completion status of the task to true. */
-    public void completeTask() {
-        this.completed = true;
+    /**
+     * Sets the completion status of the task to given boolean value.
+     * @param isMark Given boolean value.
+     */
+    public void completeTask(boolean isMark) {
+        this.completed = isMark;
     }
 
     /**
@@ -60,11 +63,6 @@ abstract public class Task {
      * @return Status of completion.
      */
     public boolean isCompleted() { return this.completed; }
-
-    /** Sets the completion status of the task to false. */
-    public void revertTask() {
-        this.completed = false;
-    }
 
     public boolean contains(String name) {
         return this.description.contains(name);

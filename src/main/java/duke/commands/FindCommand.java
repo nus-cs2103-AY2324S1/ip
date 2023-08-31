@@ -31,7 +31,10 @@ public class FindCommand extends Command {
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
-        ui.showFind(tasks.filterByName(this.find));
+        ui.showLine();
+        ui.showFind(this.find);
+        tasks.filterByName(this.find);
+        ui.showLine();
     }
 
     /**

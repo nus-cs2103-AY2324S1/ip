@@ -12,8 +12,8 @@ public class DeadlineTest {
     public void toString_correctOuput() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yy HHmm");
         LocalDateTime by = LocalDateTime.parse("21/08/02 1900", formatter);
-        Task task = new Deadline("Finish HW", by);
-        task.completeTask();
+        Task task = new Deadline("Finish HW", by, false);
+        task.completeTask(true);
         assertEquals("[Deadline] [X] Finish HW" +
                 " (by: Aug 21 2002 07:00 PM)", task.toString());
     }
@@ -22,7 +22,7 @@ public class DeadlineTest {
     public void toFile_correctOuput() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yy HHmm");
         LocalDateTime by = LocalDateTime.parse("21/08/02 1900", formatter);
-        Task task = new Deadline("Finish HW", by);
+        Task task = new Deadline("Finish HW", by, false);
         assertEquals("D | O | Finish HW | " +
                 "Aug 21 2002 07:00 PM", task.toFile());
     }
