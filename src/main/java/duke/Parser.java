@@ -2,6 +2,10 @@ package duke;
 
 import java.util.EnumSet;
 
+/**
+ * Parses user input commands and performs corresponding actions on the task list and user interface.
+ * The Parser class handles various commands related to managing tasks and interacting with the user.
+ */
 public class Parser {
     private final TaskList taskList;
     private final Ui ui;
@@ -11,18 +15,34 @@ public class Parser {
         this.taskList = taskList;
     }
 
+    /**
+     * Represents different types of commands that the user can input.
+     */
     private enum Command {
         invalid, bye, list, mark, unmark, delete, todo, deadline, event;
 
         /*
-        If more task types are added in the future can just add here so I don't have to change in main
-        when checking if it's an adding task command
+
+         */
+        /**
+         * Returns an EnumSet of Command containing task-related command types.
+         * This is useful for determining whether a given command involves adding tasks.
+         * If more task types are added in the future can just add here so I don't have to change in main
+         * when checking if it's an adding task command
+         *
+         * @return An EnumSet containing task-related command types (todo, deadline, event).
          */
         public static EnumSet<Command> taskTypes() {
             return EnumSet.of(todo, deadline, event);
         }
     }
 
+    /**
+     * Parses the user's input command and executes the corresponding action.
+     *
+     * @param input The user's input command.
+     * @return True if the program should continue executing, false if the program should exit.
+     */
     public boolean parseCommand(String input) {
         Command cmd = Command.invalid;
         for (Command c : Command.values()) {
@@ -81,6 +101,12 @@ public class Parser {
         return null;
     }
 
+    /**
+     * Parses the input information to create and add an Event task to the TaskList.
+     *
+     * @param info The input information containing details about the Event task.
+     * @throws DukeInvalidDateException If the input contains invalid date formats for the event's start and end times.
+     */
     private void parseAndAndEvent(String info) throws DukeInvalidDateException {
         if (!info.matches(".*\\b /by \\b.*") || !info.matches(".*\\b /to \\b.*")) {
             ui.showAddTaskError("An event must contain a description," +
@@ -102,6 +128,14 @@ public class Parser {
             }
         }
     }
+
+    /**
+     * Creates a task based on the provided command and input, and adds it to the task list.
+     *
+     * @param cmd The command indicating the type of task to create.
+     * @param input The user's input containing task information.
+     * @throws DukeInvalidDateException If the input contains an invalid date format for tasks that require dates.
+     */
     private void createTask(Command cmd, String input) throws DukeInvalidDateException {
         String[] splitInput = input.split(" ");
         if (splitInput.length < 2) {

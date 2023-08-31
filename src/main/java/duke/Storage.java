@@ -4,6 +4,9 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Handles saving and loading tasks to/from a file.
+ */
 public class Storage {
     private final String saveLocation;
     private final Ui ui;
@@ -13,6 +16,11 @@ public class Storage {
         this.ui = ui;
     }
 
+    /**
+     * Saves the tasks from the provided TaskList to the specified file.
+     *
+     * @param taskList The TaskList containing tasks to be saved.
+     */
     public void saveTasks(TaskList taskList) {
         File saveFile = new File(saveLocation);
         saveFile.mkdirs();
@@ -38,6 +46,13 @@ public class Storage {
         }
     }
 
+    /**
+     * Loads saved tasks from the file and returns them as a list.
+     *
+     * @return A List of loaded Task objects.
+     * @throws DukeLoadTasksException If an error occurs while loading tasks.
+     * @throws DukeNoExistingTasksException If the save file does not exist.
+     */
     public List<Task> loadSavedTasks() throws DukeLoadTasksException {
         File saveFile = new File(saveLocation);
         if (saveFile.exists()) {
