@@ -21,6 +21,11 @@ public class Storage {
     private final String localDirectoryPath;
     private final String localFilePath;
 
+    /**
+     * Constructor that instantiates a Storage object with the paths.
+     * @param directoryPath String path to the directory containing the data file
+     * @param filePath String path to the data file
+     */
     public Storage(String directoryPath, String filePath) {
         this.localDirectoryPath = directoryPath;
         this.localFilePath = filePath;
@@ -107,6 +112,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Load data from the data file.
+     * @return ArrayList of Tasks represented by the Strings in the data file
+     * @throws LocalFileException when the file contains invalid data, or cannot be accessed due to permission issue
+     */
     public ArrayList<Task> readData() throws LocalFileException {
         try {
             File d = new File(localDirectoryPath);
@@ -131,6 +141,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Rewrite the data file with the data provided.
+     * @param data the String data to store in the data file
+     * @throws LocalFileException when the file cannot be written due to permission issue
+     */
     public void writeToDataFile(String data) throws LocalFileException {
         try {
             FileWriter fw = new FileWriter(localFilePath);
