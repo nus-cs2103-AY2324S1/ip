@@ -44,8 +44,8 @@ public class Ui {
      */
     public static String getInput(Scanner in) {
         System.out.println("");
-        String s = in.nextLine();
-        System.out.println("You entered: " + s);
-        return s;
+        String input = in.nextLine();
+        System.out.println("You entered: " + input);
+        return input;
     }
 }

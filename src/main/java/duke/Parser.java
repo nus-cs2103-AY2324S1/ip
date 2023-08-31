@@ -9,29 +9,29 @@ import java.time.format.DateTimeFormatter;
 public class Parser {
     /**
      * Parses the input gotten from the main menu.
-     * @param s user input
+     * @param input user input
      * @param taskList task list managed by the chatbot
      * @return process code, where 0 means the program should end and 1 otherwise
      * @throws DukeException if there are malformed inputs
      */
-    public static int parseInput(String s, TaskList taskList) throws DukeException {
-        if (s.equals("bye")) {
+    public static int parseInput(String input, TaskList taskList) throws DukeException {
+        if (input.equals("bye")) {
             System.out.println("Bye. Hope to see you again soon!");
             return 0;
-        } else if (s.equals("list")) {
+        } else if (input.equals("list")) {
             taskList.printTasks();
-        } else if (s.startsWith("mark")) {
-            parseMark(s, taskList);
-        } else if (s.startsWith("unmark")) {
-            parseUnmark(s, taskList);
-        } else if (s.startsWith("todo")) {
-            parseToDo(s, taskList);
-        } else if (s.startsWith("deadline")) {
-            parseDeadline(s, taskList);
-        } else if (s.startsWith("event")) {
-            parseEvent(s, taskList);
-        } else if (s.startsWith("delete")) {
-            parseDelete(s, taskList);
+        } else if (input.startsWith("mark")) {
+            parseMark(input, taskList);
+        } else if (input.startsWith("unmark")) {
+            parseUnmark(input, taskList);
+        } else if (input.startsWith("todo")) {
+            parseToDo(input, taskList);
+        } else if (input.startsWith("deadline")) {
+            parseDeadline(input, taskList);
+        } else if (input.startsWith("event")) {
+            parseEvent(input, taskList);
+        } else if (input.startsWith("delete")) {
+            parseDelete(input, taskList);
         } else {
             throw new DukeException("I do not understand :(((");
         }
