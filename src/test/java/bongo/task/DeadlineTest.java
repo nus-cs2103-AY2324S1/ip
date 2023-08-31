@@ -17,6 +17,15 @@ public class DeadlineTest {
     }
 
     @Test
+    public void testEmptyDeadline_exceptionThrown() {
+        Exception exception = assertThrows(BongoException.class, () -> {
+            Parser.parse("deadline");
+        });
+        String expectedMessage = "Please include the description and datetime of your deadline.";
+        assertEquals(expectedMessage, exception.getMessage());
+    }
+
+    @Test
     public void testInvalidDeadline_exceptionThrown() {
         Exception exception = assertThrows(BongoException.class, () -> {
             Parser.parse("deadline homework /by 14/6/2001 1200");
@@ -32,17 +41,8 @@ public class DeadlineTest {
         Exception exception2 = assertThrows(BongoException.class, () -> {
             Parser.parse("deadline homework /by");
         });
-        String expectedMessage = "Please include the deadline.";
+        String expectedMessage = "Please include the datetime of your deadline.";
         assertEquals(expectedMessage, exception1.getMessage());
         assertEquals(expectedMessage, exception2.getMessage());
-    }
-
-    @Test
-    public void testEmptyDeadlineDescription_exceptionThrown() {
-        Exception exception = assertThrows(BongoException.class, () -> {
-            Parser.parse("deadline");
-        });
-        String expectedMessage = "Please include the description and datetime of your deadline.";
-        assertEquals(expectedMessage, exception.getMessage());
     }
 }
