@@ -4,6 +4,9 @@ import duke.storage.Storage;
 import duke.data.task.TaskList;
 import duke.ui.Ui;
 
+/**
+ * Represents a command to exit the chatbot application.
+ */
 public class ExitCommand extends Command {
 
     public static final String COMMAND_WORD = "bye";

@@ -15,6 +15,9 @@ import duke.data.exception.DukeException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * Represents the parser of user-given commands.
+ */
 public class Parser {
 
     public static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
@@ -28,6 +31,16 @@ public class Parser {
                     + " /from (?<from>[^/]+)"
                     + " /to (?<to>[^/]+)");
 
+    /**
+     * Returns a command from the given user input. If no such command matches
+     * the user input, or there was an error with the command arguments,
+     * throws a {@code DukeException}.
+     *
+     * @param fullCommand The given user input.
+     * @return The command represented by the user input.
+     * @throws DukeException If no such command exists or there was an error with
+     *                       the command arguments.
+     */
     public Command parse(String fullCommand) throws DukeException {
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(fullCommand.trim());
         if (!matcher.matches()) {
@@ -62,6 +75,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Returns an {@code AddTodoCommand} from the given arguments.
+     * @param arguments The user arguments to the command.
+     * @return An instance of {@code AddTodoCommand} with the given arguments.
+     * @throws DukeException If the arguments were invalid.
+     */
     private Command prepareTodo(String arguments) throws DukeException {
         final Matcher matcher = TODO_DATA_ARGS_FORMAT.matcher(arguments.trim());
         if (!matcher.matches()) {
@@ -71,6 +90,12 @@ public class Parser {
         return new AddTodoCommand(matcher.group("description"));
     }
 
+    /**
+     * Returns an {@code AddDeadlineCommand} from the given arguments.
+     * @param arguments The user arguments to the command.
+     * @return An instance of {@code AddDeadlineCommand} with the given arguments.
+     * @throws DukeException If the arguments were invalid.
+     */
     private Command prepareDeadline(String arguments) throws DukeException {
         final Matcher matcher = DEADLINE_DATA_ARGS_FORMAT.matcher(arguments.trim());
         if (!matcher.matches()) {
@@ -80,6 +105,12 @@ public class Parser {
         return new AddDeadlineCommand(matcher.group("description"), matcher.group("by"));
     }
 
+    /**
+     * Returns an {@code AddEventCommand} from the given arguments.
+     * @param arguments The user arguments to the command.
+     * @return An instance of {@code AddEventCommand} with the given arguments.
+     * @throws DukeException If the arguments were invalid.
+     */
     private Command prepareEvent(String arguments) throws DukeException {
         final Matcher matcher = EVENT_DATA_ARGS_FORMAT.matcher(arguments.trim());
         if (!matcher.matches()) {
@@ -92,6 +123,14 @@ public class Parser {
                 matcher.group("to"));
     }
 
+    /**
+     * Returns an {@code MarkCommand} or {@code UnmarkCommand} from the given arguments.
+     *
+     * @param arguments The user arguments to the command.
+     * @param isMarked True if the command is meant to mark the task, false otherwise.
+     * @return An instance of {@code MarkCommand} or {@code UnmarkCommand} with the given arguments.
+     * @throws DukeException If the task was not specified or invalid.
+     */
     private Command prepareMark(String arguments, boolean isMarked) throws DukeException {
         final Matcher matcher = TASK_INDEX_ARGS_FORMAT.matcher(arguments.trim());
         if (!matcher.matches()) {
@@ -105,6 +144,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Returns an {@code DeleteCommand} from the given arguments.
+     * @param arguments The user arguments to the command.
+     * @return An instance of {@code DeleteCommand} with the given arguments.
+     * @throws DukeException If the task was not specified or invalid.
+     */
     private Command prepareDelete(String arguments) throws DukeException {
         final Matcher matcher = TASK_INDEX_ARGS_FORMAT.matcher(arguments.trim());
         if (!matcher.matches()) {

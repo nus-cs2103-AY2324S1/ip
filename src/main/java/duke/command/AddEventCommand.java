@@ -9,6 +9,9 @@ import duke.data.task.Event;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Represents a command to add a new event to the list of tasks.
+ */
 public class AddEventCommand extends Command {
 
     public static final String COMMAND_WORD = "event";

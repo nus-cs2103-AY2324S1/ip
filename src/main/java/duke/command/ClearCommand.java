@@ -5,6 +5,9 @@ import duke.storage.Storage;
 import duke.data.task.TaskList;
 import duke.ui.Ui;
 
+/**
+ * Represents a command to clear the task list.
+ */
 public class ClearCommand extends Command {
 
     public static final String COMMAND_WORD = "clear";

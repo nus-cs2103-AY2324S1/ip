@@ -6,6 +6,9 @@ import duke.data.task.Task;
 import duke.data.task.TaskList;
 import duke.ui.Ui;
 
+/**
+ * Represents a command to mark the specified task as done.
+ */
 public class MarkCommand extends Command {
 
     public static final String COMMAND_WORD = "mark";

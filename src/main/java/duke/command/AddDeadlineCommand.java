@@ -8,6 +8,9 @@ import duke.ui.Ui;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Represents a command to add a new deadline to the list of tasks.
+ */
 public class AddDeadlineCommand extends Command {
 
     public static final String COMMAND_WORD = "deadline";

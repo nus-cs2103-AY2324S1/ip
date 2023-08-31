@@ -6,6 +6,9 @@ import duke.data.task.Task;
 import duke.data.task.TaskList;
 import duke.ui.Ui;
 
+/**
+ * Represents a command to delete the specified task.
+ */
 public class DeleteCommand extends Command {
 
     public static final String COMMAND_WORD = "delete";
