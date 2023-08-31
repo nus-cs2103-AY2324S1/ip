@@ -2,8 +2,8 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Duke {
-    static ArrayList<Task> taskList = new ArrayList<>();
-    static int counter = 0;
+    private final static FileManager fm = new FileManager("data/duke.txt");
+    private static ArrayList<Task> taskList;
 
     private static void greet() {
         System.out.println("Hello! I'm Duke\nWhat can I do for you?");
@@ -17,21 +17,18 @@ public class Duke {
     private static void addTodo(String description) {
         Task task = new Task(description);
         taskList.add(task);
-        counter++;
         System.out.println(formatTask(task));
     }
 
     private static void addDeadline(String description, String by) {
         Task task = new Deadline(description, by);
         taskList.add(task);
-        counter++;
         System.out.println(formatTask(task));
     }
 
-    private static void addEvent(String description, String from, String by) {
-        Task task = new Event(description, from, by);
+    private static void addEvent(String description, String from, String to) {
+        Task task = new Event(description, from, to);
         taskList.add(task);
-        counter++;
         System.out.println(formatTask(task));
     }
 
@@ -78,6 +75,7 @@ public class Duke {
     }
 
     public static void main(String[] args) throws ChatException{
+        taskList = fm.loadFile();
         Scanner sc = new Scanner(System.in);
         greet();
         String userCommand = sc.nextLine();
@@ -143,6 +141,7 @@ public class Duke {
             }
             userCommand = sc.nextLine();
         }
+        fm.saveList(taskList);
         exit();
     }
 }
