@@ -17,6 +17,9 @@ public class Duke {
         tasks = new TaskList(storage.load());
     }
 
+    /**
+     * Starts running the chatbot on the terminal.
+     */
     public void run() {
         ui.printGreetings();
         Scanner scanner = new Scanner(System.in);
