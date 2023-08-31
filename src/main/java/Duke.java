@@ -1,5 +1,8 @@
+import java.io.FileNotFoundException;
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.io.FileWriter;
+import java.io.IOException;
 
 public class Duke {
     public static void main(String[] args) {
@@ -9,8 +12,14 @@ public class Duke {
         System.out.println("____________________________________________________________");
 
         Scanner scanner = new Scanner(System.in);
-        ArrayList<Task> tasks = new ArrayList<>();
+        ArrayList<Task> tasks;
 
+        try {
+            tasks = Utils.loadTasks();
+        } catch (FileNotFoundException e) {
+            System.out.println("Couldn't load tasks from file. Starting with an empty list.");
+            tasks = new ArrayList<>();  // Start with empty list if file not found
+        }
 
         while (true) {
             try {
@@ -30,8 +39,20 @@ public class Duke {
                     System.out.println("____________________________________________________________");
                 } else if (userInput.startsWith("mark")) {
                     processTask(userInput, tasks, true);
+                    try {
+                        Utils.saveTasks(tasks); // Save the updated tasks to file
+                    } catch (IOException e) {
+                        System.out.println("Error saving tasks: " + e.getMessage());
+                    }
+
                 } else if (userInput.startsWith("unmark")) {
                     processTask(userInput, tasks, false);
+                    try {
+                        Utils.saveTasks(tasks); // Save the updated tasks to file
+                    } catch (IOException e) {
+                        System.out.println("Error saving tasks: " + e.getMessage());
+                    }
+
                 } else if (userInput.startsWith("todo")) {
                     String description = userInput.substring(4).trim();
 
@@ -41,6 +62,12 @@ public class Duke {
 
                     Todo newTodo = new Todo(description);
                     tasks.add(newTodo);
+
+                    try {
+                        Utils.saveTasks(tasks); // Save the updated tasks to file
+                    } catch (IOException e) {
+                        System.out.println("Error saving tasks: " + e.getMessage());
+                    }
 
                     System.out.println("____________________________________________________________");
                     System.out.println("Got it. I've added this task:");
@@ -58,6 +85,13 @@ public class Duke {
                         String by = content.substring(index + 4).trim();
                         Deadline newDeadline = new Deadline(description, by);
                         tasks.add(newDeadline);
+
+                        try {
+                            Utils.saveTasks(tasks); // Save the updated tasks to file
+                        } catch (IOException e) {
+                            System.out.println("Error saving tasks: " + e.getMessage());
+                        }
+
                         System.out.println("____________________________________________________________");
                         System.out.println("Got it. I've added this task:");
                         System.out.println("  " + newDeadline);
@@ -80,6 +114,12 @@ public class Duke {
                     Event newEvent = new Event(description, from, to);
                     tasks.add(newEvent);
 
+                    try {
+                        Utils.saveTasks(tasks); // Save the updated tasks to file
+                    } catch (IOException e) {
+                        System.out.println("Error saving tasks: " + e.getMessage());
+                    }
+
                     System.out.println("____________________________________________________________");
                     System.out.println("Got it. I've added this task:");
                     System.out.println("  " + newEvent);
@@ -96,6 +136,12 @@ public class Duke {
                         Task deletedTask = tasks.get(taskNumber - 1);
 
                         tasks.remove(taskNumber - 1);
+
+                        try {
+                            Utils.saveTasks(tasks); // Save the updated tasks to file
+                        } catch (IOException e) {
+                            System.out.println("Error saving tasks: " + e.getMessage());
+                        }
 
                         System.out.println("____________________________________________________________");
                         System.out.println("Noted. I've removed this task: ");

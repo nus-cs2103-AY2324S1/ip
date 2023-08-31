@@ -8,7 +8,11 @@ public class Task {
     }
 
     public String getStatusIcon() {
-        return (isDone ? "X" : " "); // mark done task with X
+        return (isDone ? "X" : " ");
+    }
+
+    public String getNumberIcon() {
+        return (isDone ? "1" : "0");
     }
 
     public void markAsDone() {
@@ -23,5 +27,10 @@ public class Task {
     public String toString() {
         return "[" + getStatusIcon() + "] " + description;
     }
+
+    public String toFileString() {
+        return " | " + getNumberIcon() + " | " + description;
+    }
+
 }
 
