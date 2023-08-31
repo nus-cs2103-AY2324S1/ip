@@ -20,6 +20,7 @@ public class Ruiz {
 
     /**
      * Constructor for the Ruiz class.
+     *
      * @param filePath path to the file that the tasks are saved in.
      */
     public Ruiz(String filePath) {

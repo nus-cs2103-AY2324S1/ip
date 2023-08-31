@@ -1,5 +1,8 @@
 package ruiz.task;
 
+/**
+ * Represents a task that just has a description.
+ */
 public class ToDos extends Task {
     /**
      * A constructor for the public ToDos class.

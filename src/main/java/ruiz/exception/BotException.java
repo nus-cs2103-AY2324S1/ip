@@ -1,5 +1,13 @@
 package ruiz.exception;
+
+/**
+ * Exceptions that may arise when the chatbot is in operation
+ */
 public class BotException extends Exception {
+    /**
+     * A constructor for a BotException
+     * @param errorMessage message to be displayed when the error is thrown.
+     */
     public BotException(String errorMessage) {
         super(errorMessage);
     }

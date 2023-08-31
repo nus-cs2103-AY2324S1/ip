@@ -4,6 +4,9 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Represents a task that has a beginning time and an ending time.
+ */
 public class Events extends Task {
     protected LocalDateTime from;
     protected LocalDateTime to;

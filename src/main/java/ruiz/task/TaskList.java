@@ -7,6 +7,9 @@ import ruiz.exception.BotException;
 import java.io.IOException;
 import java.util.ArrayList;
 
+/**
+ * Represents a list of tasks.
+ */
 public class TaskList {
     private ArrayList<Task> taskList;
     private Parser parser;
@@ -14,6 +17,7 @@ public class TaskList {
 
     /**
      * Constructor for the taskList class that is inititalised with a pre-saved taskList
+     *
      * @param taskList List of tasks pre-saved in the hard disk
      */
     public TaskList(ArrayList<Task> taskList) {
@@ -37,6 +41,7 @@ public class TaskList {
 
     /**
      * Returns the size of the taskList.
+     *
      * @return size of taskList.
      */
     public int getTaskListSize() {
@@ -45,6 +50,7 @@ public class TaskList {
 
     /**
      * This method marks the given task in the input.
+     *
      * @param input The string that consists of the keyWord "mark" and task index being input by the user.
      * @throws BotException if the input is not a valid one.
      */
@@ -164,8 +170,8 @@ public class TaskList {
     public void findTasksWithKeyword(String input) throws BotException {
         ArrayList<Task> tasksWithKeyword = new ArrayList<>();
         String keyword = parser.getKeyword(input);
-        for (Task task: taskList) {
-            if(task.containsKeyword(keyword)) {
+        for (Task task : taskList) {
+            if (task.containsKeyword(keyword)) {
                 tasksWithKeyword.add(task);
             }
         }
