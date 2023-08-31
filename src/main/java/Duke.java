@@ -3,6 +3,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -43,16 +44,34 @@ public class Duke {
             if (str.length() <= 6) {
                 throw new DukeException("So um, what exactly do you have? Add it as the description of the event.");
             }
+            if (!str.contains("/from") || !str.contains("/to")) {
+                throw new DukeException("When's the event? Write it explicitly."
+                        + "eg. Holiday /from 2023-12-07 1800 /to 2023-12-20 1800");
+            }
             int indexFrom = str.lastIndexOf("/from");
             int indexTo = str.lastIndexOf("/to");
-            t = new Event(str.substring(6, indexFrom-1),
-                    str.substring(indexFrom+6, indexTo-1), str.substring(indexTo+4));
+            try {
+                t = new Event(str.substring(6, indexFrom - 1),
+                        str.substring(indexFrom + 6, indexTo - 1), str.substring(indexTo + 4));
+            } catch (DateTimeParseException parseError) {
+                throw new DukeException("Enter a proper date in the YYYY-MM-DD format."
+                        + "eg. Holiday /from 2023-12-07 1800 /to 2023-12-20 1800");
+            }
         } else if (str.startsWith("deadline")) {
             if (str.length() <= 9) {
                 throw new DukeException("So um, what exactly do you need to do? Add it as the description of the deadline.");
             }
+            if (!str.contains("/by")) {
+                throw new DukeException("When's the deadline? Write it explicitly."
+                        + "eg. Assignment /by 2023-12-12 1800");
+            }
             int indexBy = str.lastIndexOf("/by");
-            t = new Deadline(str.substring(9, indexBy-1), str.substring(indexBy+4));
+            try {
+                t = new Deadline(str.substring(9, indexBy - 1), str.substring(indexBy + 4));
+            } catch (DateTimeParseException parseError) {
+                throw new DukeException("Enter a proper date in the YYYY-MM-DD format."
+                        + "eg. Assignment /by 2023-12-12 1800");
+            }
         } else if (str.startsWith("mark")) {
             throw new DukeException("Specify the task number after the word 'mark', please. I can't read minds.");
         } else if (str.startsWith("unmark")) {
@@ -158,7 +177,6 @@ public class Duke {
 
             if (!Files.exists(Paths.get("data/duke.txt"))) {
                 Files.createFile(Paths.get("data/duke.txt"));
-                System.out.println("new file created");
             }
             duke.loadData();
         } catch (Exception e) {
