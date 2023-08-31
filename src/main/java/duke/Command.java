@@ -1,6 +1,8 @@
-import exception.IncompleteMessageException;
-import exception.DetailsUnknownException;
-import exception.InvalidTaskNumberException;
+package duke;
+
+import duke.exception.IncompleteMessageException;
+import duke.exception.DetailsUnknownException;
+import duke.exception.InvalidTaskNumberException;
 public class Command {
 
     private TaskList taskList;
@@ -62,7 +64,7 @@ public class Command {
 
     public void handleDeadline(String userInput, String keyword) throws IncompleteMessageException, DetailsUnknownException {
         if (userInput.length() == keyword.length()) {
-            throw new IncompleteMessageException("Deadline");
+            throw new IncompleteMessageException("duke.Deadline");
         }
 
         int byIndex = userInput.indexOf("/by");
@@ -86,7 +88,7 @@ public class Command {
         int toIndex = userInput.indexOf("/to");
 
         if (userInput.length() == keyword.length() || fromIndex == -1 || toIndex == -1) {
-            throw new IncompleteMessageException("Event");
+            throw new IncompleteMessageException("duke.Event");
         }
 
         String taskDescription = userInput.substring(keyword.length() + 1, userInput.indexOf("/from") - 1);
@@ -102,7 +104,7 @@ public class Command {
 
     public void handleTodo(String userInput, String keyword) throws IncompleteMessageException, DetailsUnknownException {
         if (userInput.length() <= keyword.length() + 1) {
-            throw new IncompleteMessageException("ToDo");
+            throw new IncompleteMessageException("duke.ToDo");
         }
 
         String taskDescription = userInput.substring(keyword.length() + 1);

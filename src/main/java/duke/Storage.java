@@ -1,5 +1,10 @@
+package duke;
+
+import duke.Task;
+import duke.TaskList;
+import duke.ToDo;
+
 import java.io.*;
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Storage {
