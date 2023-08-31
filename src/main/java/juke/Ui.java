@@ -1,3 +1,5 @@
+package juke;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -15,7 +17,7 @@ public class Ui {
     }
     public void printStart() {
         //Introduce itself to the user
-        System.out.println("Hello! I'm Juke!");
+        System.out.println("Hello! I'm juke.Juke!");
         System.out.println("What can I do for you?");
         printLine();
     }

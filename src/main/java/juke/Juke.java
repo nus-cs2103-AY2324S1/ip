@@ -1,13 +1,14 @@
+package juke;
+
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.time.LocalDate;
-
 public class Juke {
     private final Storage storage;
     private TaskList tasks;
     private final Ui ui;
 
-    private Parser parser;
+    private final Parser parser;
 
     private boolean isEnded;
 
