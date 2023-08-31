@@ -28,13 +28,20 @@ test {
 }
 
 application {
-    mainClass.set("seedu.duke.Duke")
+    mainClass.set("chatbot.Chatbot")
 }
 
 shadowJar {
-    archiveBaseName = "duke"
+    archiveBaseName = "chatbot"
     archiveClassifier = null
     dependsOn("distZip", "distTar")
+}
+
+apply plugin: 'checkstyle'
+
+checkstyle {
+    toolVersion = '8.37' // specify the version
+    configFile = file("${project.rootDir}/config/checkstyle/checkstyle.xml")
 }
 
 run{
