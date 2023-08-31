@@ -11,6 +11,7 @@ import java.io.IOException;
 
 public class Jarvis {
     private static TaskList tasks;
+    private static Storage storage;
     private static ArrayList<String> validCommands = new ArrayList<>(); // list of valid commands
 
     private static void addValidCommands() {
@@ -164,29 +165,6 @@ public class Jarvis {
         return validInputCommand;
     }
 
-    // delete contents in data.txt and return empty data.txt
-    private static File deleteContentsDataFile(File dataFile) {
-        try (FileWriter writer = new FileWriter(dataFile)) {
-            // Write an empty string to the file
-            writer.write("");
-        } catch (IOException e) {
-            System.err.println("An error occurred: " + e.getMessage());
-        }
-        return dataFile;
-    }
-
-    // write tasks toString() to data.txt
-    private static void writeTaskListToDataFile(File dataFile) {
-        for (int i = 0; i < tasks.countTask(); i++) { // writing the string of each task to the data file
-            Task currentTask = tasks.getTask(i);
-            try (FileWriter dataFileWriter = new FileWriter(dataFile, true)) {
-                dataFileWriter.write(currentTask.toString() + "\n");
-            } catch (IOException e) {
-                System.err.println("An error occurred: " + e.getMessage());
-            }
-        }
-    }
-
     public static void main(String[] args) {
 
         addValidCommands(); // adding the list of valid commands to the validCommands arraylist
@@ -196,19 +174,14 @@ public class Jarvis {
         String home = System.getProperty("user.home");
         Path pathToSaveFile = Paths.get(home, "Desktop", "CS2103T", "IP", "data", "data.txt");
         boolean isFileExists = Files.exists(pathToSaveFile);
-        File dataFile = new File(pathToSaveFile.toString());
-        try {
-            dataFile.createNewFile();
-        } catch (IOException e) {
-            System.err.println("An error occurred: " + e.getMessage());
-        }
+        storage = new Storage(pathToSaveFile.toString());
+        tasks = new TaskList(storage.load());
 
         Pattern todoPattern = Pattern.compile("(todo) (.+)");
         Pattern deadlinePattern = Pattern.compile("(deadline) (.+) /by (.+)");
         Pattern eventPattern = Pattern.compile("(event) (.+) /from (.+) /to (.+)");
         Pattern deletePattern = Pattern.compile("(delete) (\\d+)");
 
-        tasks = new TaskList();
         Scanner scanner = new Scanner(System.in);
         while (true) {
             String command = scanner.nextLine().trim();
@@ -279,7 +252,8 @@ public class Jarvis {
                 printIncorrectFormat(command, nameOfValidCommand);
             }
 
-            writeTaskListToDataFile(deleteContentsDataFile(dataFile)); // write task list to data file after every iteration
+            storage.deleteContents();
+            storage.save(tasks); // save task list to data file after every iteration
         }
         scanner.close(); // closing the user input scanner
     }
