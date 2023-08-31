@@ -1,7 +1,10 @@
 package duke.command;
-import duke.tasklist.*;
-import duke.tasks.*;
-import duke.exception.*;
+import duke.tasklist.TaskList;
+import duke.tasks.Task;
+import duke.tasks.Deadline;
+import duke.tasks.Event;
+import duke.tasks.ToDo;
+import duke.exception.DukeException;
 
 /**
  * Represents the actions needed when the user says Hi.
