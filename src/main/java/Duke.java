@@ -1,8 +1,4 @@
-import Parser.Parser;
-import Storage.FileHandler;
-import Storage.TaskList;
-import Ui.Ui;
-import Comm.Command;
+import java.util.Scanner;
 
 public class Duke {
     private FileHandler fileHandler;
