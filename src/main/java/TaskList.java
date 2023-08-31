@@ -5,6 +5,7 @@ import java.util.ArrayList;
  * this list.
  */
 public class TaskList {
+
     /** An ArrayList to hold tasks entered by the User. */
     private ArrayList<Task> tasks;
 
@@ -35,15 +36,12 @@ public class TaskList {
      *
      * @return Returns a string describing this taskList.
      */
-    public String listTasks() {
-        String result = "";
+    public String[] getTasks() {
+        String[] s = new String[this.tasks.size()];
         for (int i = 0; i < tasks.size(); i++) {
-            result += "\t";
-            result += (i + 1);
-            result += ". " + tasks.get(i) + "\n";
+            s[i] = tasks.get(i).toString();
         }
-
-        return result;
+        return s;
     }
 
     /**

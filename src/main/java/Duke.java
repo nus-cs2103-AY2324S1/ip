@@ -1,5 +1,3 @@
-import java.util.Scanner;
-
 /**
  * Main class of Duke bot.
  * This class performs simple input and output handling and calls
@@ -15,13 +13,10 @@ public class Duke {
 
     /** String representing filepath of data file. */
     private String filePath;
-    /**
-     * Draws a line separating each conversation.
-     *
-     */
-    public static void drawLine() {
-        System.out.println("\t____________________________________________________________");
-    }
+
+    /** The Ui object which handles the ui of this chatbot. */
+    private Ui ui;
+
 
     /**
      * Initialises filepath field to given parameter.
@@ -30,6 +25,14 @@ public class Duke {
      */
     public Duke(String filePath) {
         this.filePath = filePath;
+        this.ui = new Ui();
+        try {
+            this.storage = new Storage(this.filePath);
+            this.taskList = new TaskList(this.storage.load());
+        } catch (DukeException d) {
+            ui.showMessage(d.getMessage());
+            return;
+        }
     }
 
 
@@ -38,39 +41,29 @@ public class Duke {
      *
      */
     public void run() {
-
-        try {
-            this.storage = new Storage(this.filePath);
-            this.taskList = new TaskList(this.storage.load());
-        } catch (DukeException d) {
-            System.out.println("\t" + d.getMessage());
-            return;
-        }
-
-        Scanner scanner = new Scanner(System.in);
-        System.out.println();
-        String userInput = scanner.nextLine();
-        Duke.drawLine();
+        this.ui.showWelcome();
+        this.ui.showMessage("");
+        String userInput = ui.readCommand();
+        this.ui.showLine();
         Instruction instruction = null;
         while (true) {
             try {
                 instruction = Parser.parse(userInput);
-
-                instruction.execute(this.storage, this.taskList);
+                instruction.execute(this.storage, this.taskList, this.ui);
 
             } catch (DukeException d) {
-                System.out.println("\t" + d.getMessage());
-
+                this.ui.showMessage(d.getMessage());
             }
             if (instruction instanceof Instruction.Exit) {
                 return;
             }
-            Duke.drawLine();
-            System.out.println();
-            userInput = scanner.nextLine();
+            this.ui.showLine();
+            this.ui.showMessage("");
+            userInput = this.ui.readCommand();
+            this.ui.showLine();
 
-            drawLine();
         }
+
     }
 
     /**
@@ -80,14 +73,9 @@ public class Duke {
      */
     public static void main(String[] args) {
 
-        String filePath = "./data/src/Duke.txt";
-        drawLine();
-        System.out.println("\tHello I am Vishnu.");
-        System.out.println("\tWhat can I do for you?");
-        drawLine();
+        String filePath = "./data/Duke.txt";
         Duke duke = new Duke(filePath);
         duke.run();
-        System.out.println("\tBye. Hope to see you again soon!");
-        drawLine();
+
     }
 }
