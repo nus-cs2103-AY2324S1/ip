@@ -8,6 +8,7 @@ import java.nio.file.Paths;
 import java.nio.file.Files;
 import java.io.BufferedWriter;
 import java.io.BufferedReader;
+import java.io.File;
 
 public class Thea {
 
@@ -59,7 +60,6 @@ public class Thea {
                     if (commandWordsArray.size() != 1) {
                         ToDo todo = new ToDo(commandWords[1]);
                         add(todo, tasks);
-                        writeTask(todo);
                     } else {
                         throw new EmptyDescriptionException("The description of a todo cannot be empty! '^'");
                     }
@@ -69,7 +69,6 @@ public class Thea {
                         String[] nameAndTime = relevantData.split(" /by ");
                         Deadline deadline = new Deadline(nameAndTime[0], nameAndTime[1]);
                         add(deadline, tasks);
-                        writeTask(deadline);
                     } else {
                         throw new EmptyDescriptionException("The description of a deadline cannot be empty! '^'");
                     }
@@ -79,7 +78,6 @@ public class Thea {
                         String[] nameAndTime = relevantData.split(" /from | /to ");
                         Event event = new Event(nameAndTime[0], nameAndTime[1], nameAndTime[2]);
                         add(event, tasks);
-                        writeTask(event);
                     } else {
                         throw new EmptyDescriptionException("The description of an event cannot be empty! '^'");
                     }
@@ -87,47 +85,50 @@ public class Thea {
                     throw new WrongCommandException("Sorry, I don't understand what that means.. '^'");
                 }
             }
+            saveTaskList(tasks);
             userInput = input.nextLine();
         }
     }
 
-    public static void writeTask(ToDo todo) throws Exception {
+    public static void saveTaskList(ArrayList<Task> tasks) {
         String currentDir = System.getProperty("user.dir");
+        Path dataDirPath =Paths.get(currentDir, "data");
         Path path = Paths.get(currentDir, "data", "thea.txt");
+        if(!Files.exists(dataDirPath)) {
+            try {
+                Files.createDirectories(dataDirPath);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        } else {
+            if (!Files.exists(path)) {
+                try {
+                    Files.createFile(path);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        }
         try (BufferedWriter bufferWriter = Files.newBufferedWriter(path)) {
-            bufferWriter.newLine();
-            bufferWriter.write("T" + " | "+ (todo.isDone ? 1 : 0) + " | " + todo.getTaskName());
+            for (Task task: tasks) {
+                bufferWriter.write(task.toMemoryFormat());
+                bufferWriter.newLine();
+            }
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
 
-    public static void writeTask(Deadline deadline) throws Exception {
-        String currentDir = System.getProperty("user.dir");
-        Path path = Paths.get(currentDir, "data", "thea.txt");
-        try (BufferedWriter bufferWriter = Files.newBufferedWriter(path)) {
-            bufferWriter.newLine();
-            bufferWriter.write("T" + " | "+ (deadline.isDone ? 1 : 0)
-                    + " | " + deadline.getTaskName() + " | " + deadline.time);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    public static void writeTask(Event event) throws Exception {
-        String currentDir = System.getProperty("user.dir");
-        Path path = Paths.get(currentDir, "data", "thea.txt");
-        try (BufferedWriter bufferWriter = Files.newBufferedWriter(path)) {
-            bufferWriter.newLine();
-            bufferWriter.write("T" + " | "+ (event.isDone ? 1 : 0)
-                    + " | " + event.getTaskName() + " | " + event.from + " | " + event.to);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
     public static ArrayList<Task> retrieveTasks() throws Exception{
         String currentDir = System.getProperty("user.dir");
+        Path dataDirPath =Paths.get(currentDir, "data");
         Path path = Paths.get(currentDir, "data", "thea.txt");
+        if(!Files.exists(dataDirPath)) {
+            return new ArrayList<>();
+        }
+        if (!Files.exists(path)) {
+            return new ArrayList<>();
+        }
         String line;
         ArrayList<Task> retrievedTasks = new ArrayList<>();
         Task task;
@@ -169,8 +170,12 @@ public class Thea {
                 + " in the list. You can do this!");
     }
     public static void printList(ArrayList<Task> tasks) {
-        for (int i = 0; i < tasks.size(); i++) {
-            System.out.printf("%d. %s%n", i + 1, tasks.get(i));
+        if (!tasks.isEmpty()) {
+            for (int i = 0; i < tasks.size(); i++) {
+                System.out.printf("%d. %s%n", i + 1, tasks.get(i));
+            }
+        } else {
+            System.out.println("Yay! You have no tasks in your list.");
         }
     }
 }
