@@ -17,6 +17,9 @@ public class Task {
 	public String getTask() {
 		return isDone ? "[X]" : "[ ]";
 	}
+	public String writeToFile() {
+		return "";
+	}
 	@Override
 	public String toString() {
 		return isDone ? "[X]" + " " + this.description : "[ ]" + " " + this.description;

@@ -1,12 +1,14 @@
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.Arrays;
-// test
-public class Chatbot {
 
-	private String name;
+//test
+public class ChatBot {
 
-	Chatbot(String name) {
+	private final String name;
+
+	ChatBot(String name) {
 		this.name = name;
 	}
 
@@ -19,9 +21,21 @@ public class Chatbot {
 		System.out.println(greeting);
 	}
 
+
 	public void run() {
 		Scanner newScan = new Scanner(System.in);
 		ArrayList<Task> l1 = new ArrayList<>(100);
+		Records r = new Records("./duke.txt", l1);
+		try {
+			r.readFile();
+		} catch (IOException e) {
+			try {
+				r.writeFile();
+			} catch (IOException j) {
+				System.out.println("sheesh");
+			}
+		}
+
 		while (newScan.hasNextLine()) {
 			// outer try loop to validate Scanner input
 			try {
@@ -59,6 +73,12 @@ public class Chatbot {
 							"Bye. Hope to see you again soon!\n" +
 							"____________________________________________________________";
 					System.out.println(echo);
+					// write to file before leaving the system
+					try {
+						r.writeFile();
+					} catch (IOException e) {
+						System.out.println(e.getMessage());
+					}
 					System.exit(0);
 				} else if (Event.equals("delete")) {
 					int len = l1.size();
@@ -103,7 +123,7 @@ public class Chatbot {
 							newStart = newStart + s + " ";
 						}
 						newStart = newStart.trim();
-						l1.add(new Deadlines(description, newStart));
+						l1.add(new Deadline(description, newStart));
 					} else {
 						String[] startCheck = items[1].split(" ");
 						String[] endCheck = items[2].split(" ");
@@ -122,7 +142,7 @@ public class Chatbot {
 							newEnd = newEnd + s + " ";
 						}
 						newEnd = newEnd.trim();
-						l1.add(new Events(Event, newStart, newEnd));
+						l1.add(new Event(Event, newStart, newEnd));
 					}
 					Task t = l1.get(l1.size() - 1);
 					String echo = String.format("____________________________________________________________\n" +
@@ -131,33 +151,34 @@ public class Chatbot {
 							"Now you have %s tasks in the list\n" +
 							"____________________________________________________________", t.toString(), l1.size());
 					System.out.println(echo);
-			} else if (Event.equals("list")) {
-				String lst = "";
-				for (int i = 0; i < l1.size(); i++) {
-					int idx = i + 1;
-					lst += idx + ". " + l1.get(i).toString() + "\n";
-				}
+				} else if (Event.equals("list")) {
+					String lst = "";
+					for (int i = 0; i < l1.size(); i++) {
+						int idx = i + 1;
+						lst += idx + ". " + l1.get(i).toString() + "\n";
+					}
 
-				String echo = String.format("____________________________________________________________\n"
-						+ "Here are the task in your list:\n"
-						+ "%s"
-						+ "____________________________________________________________", lst);
-				System.out.println(echo);
-			} else {
-				throw new DukeException("enter valid args");
+					String echo = String.format("____________________________________________________________\n"
+							+ "Here are the task in your list:\n"
+							+ "%s"
+							+ "____________________________________________________________", lst);
+					System.out.println(echo);
+				} else {
+					throw new DukeException("enter valid args");
+				}
+			} catch(DukeException e){
+				System.out.println(e.getMessage());
+				System.out.println("Enter valid string input:\n"
+						+ "todo\n"
+						+ "deadline description by:\n"
+						+ "event /from /to \n"
+						+ "list\n"
+						+ "mark idx\n"
+						+ "unmark idx\n"
+						+ "bye");
 			}
-		} catch(DukeException e){
-			System.out.println(e.getMessage());
-			System.out.println("Enter valid string input:\n"
-					+ "todo\n"
-					+ "deadline description by:\n"
-					+ "event /from /to \n"
-					+ "list\n"
-					+ "mark idx\n"
-					+ "unmark idx\n"
-					+ "bye");
 		}
 	}
-	}
+
 
 }
