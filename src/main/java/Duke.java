@@ -11,6 +11,7 @@ public class Duke {
     private Messages messages;
     private TaskList tasklist;
     private Storage storage;
+
     public Duke() {
         this.messages = new Messages();
         this.ui = new Ui();

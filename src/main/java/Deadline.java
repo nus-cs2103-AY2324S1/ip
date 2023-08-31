@@ -9,7 +9,6 @@ public class Deadline extends Task {
         super(task);
         LocalDateTime dueDateTime = Parser.formatDate(deadlineDetails);
         this.time = dueDateTime;
-
     }
 
 
