@@ -1,6 +1,9 @@
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.*;
 
 
@@ -52,27 +55,44 @@ public class DeterministicParrot {
         }
     }
     private class Deadline extends Task{
-        private String by;
-        Deadline(String s, String by){
+        private LocalDateTime by;
+        Deadline(String s, String by) throws DateTimeParseException {
             super(s);
-            this.by = by;
+            try {
+                this.by = dPTryParseDateTime(by);
+            } catch (DateTimeParseException e) {
+                throw new IllegalArgumentException("Invalid date format for 'by'. Please provide a valid date format.", e);
+            }
         }
         @Override
         public String toString(){
-            return String.format("[D]%s (by: %s)", super.toString(), this.by);
+            return String.format("[D]%s (by: %s)", super.toString(), dPFormatDateTime(this.by));
         }
     }
     private class Event extends Task{
-        private String timeStart;
-        private String timeEnd;
-        Event(String name, String timeStart, String timeEnd){
+        private LocalDateTime timeStart;
+        private LocalDateTime timeEnd;
+        Event(String name, String timeStart, String timeEnd) throws DateTimeParseException {
             super(name);
-            this.timeStart = timeStart;
-            this.timeEnd = timeEnd;
+            try {
+                this.timeStart = dPTryParseDateTime(timeStart);
+            } catch (DateTimeParseException e) {
+                throw new IllegalArgumentException("Invalid date format for 'timeStart'. Please provide a valid date.", e);
+            }
+
+            try {
+                this.timeEnd = dPTryParseDateTime(timeEnd);
+            } catch (DateTimeParseException e) {
+                throw new IllegalArgumentException("Invalid date format for 'timeEnd'. Please provide a valid date.", e);
+            }
+            //add a catch for if timeStart is after timeEnd
+            if(this.timeStart.isAfter(this.timeEnd)){
+                throw new IllegalArgumentException("'timeStart' cannot be after 'timeEnd'.");
+            }
         }
         @Override
         public String toString(){
-            return String.format("[E]%s (from: %s to: %s)", super.toString(), this.timeStart, this.timeEnd);
+            return String.format("[E]%s (from: %s to: %s)", super.toString(), dPFormatDateTime(this.timeStart), dPFormatDateTime(this.timeEnd));
         }
     }
 
@@ -99,7 +119,18 @@ public class DeterministicParrot {
         this.pw = pw;
         this.initCommandHandlers();
     }
-    private void loadData() {
+    //takes a datetime and prints it in a certain format
+    public String dPFormatDateTime(LocalDateTime dateTime) {
+        return dateTime.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
+    }
+    public String saveFormatDateTime(LocalDateTime dateTime) {
+        return dateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+    }
+    public LocalDateTime dPTryParseDateTime(String dateTime) throws DateTimeParseException {
+        //TODO: add different formats
+        return LocalDateTime.parse(dateTime+ "T00:00:00");
+    }
+    private void loadData() throws FileNotFoundException, DateTimeParseException {
         File file = new File(DATA_FILE_PATH);
         if (file.exists()) {
             try (Scanner fileScanner = new Scanner(file)) {
@@ -125,8 +156,9 @@ public class DeterministicParrot {
                             break;
                     }
                 }
+                //TODO: might be redundant? might suffcie to just check if file exists.
             } catch (FileNotFoundException e) {
-                // handle error
+                this.pw.println("File not found. Creating new file...");
             }
         } else {
             file.getParentFile().mkdirs();
@@ -140,14 +172,15 @@ public class DeterministicParrot {
                     fileWriter.println("T | " + (task.getIsDone() ? "1" : "0") + " | " + task.getName());
                 } else if (task instanceof Deadline) {
                     Deadline deadline = (Deadline) task;
-                    fileWriter.println("D | " + (task.getIsDone() ? "1" : "0") + " | " + task.getName() + " | " + deadline.by);
+                    fileWriter.println("D | " + (task.getIsDone() ? "1" : "0") + " | " + task.getName() + " | " + saveFormatDateTime(deadline.by));
                 } else if (task instanceof Event) {
                     Event event = (Event) task;
-                    fileWriter.println("E | " + (task.getIsDone() ? "1" : "0") + " | " + task.getName() + " | " + event.timeStart + " " + event.timeEnd);
+                    fileWriter.println("E | " + (task.getIsDone() ? "1" : "0") + " | " + task.getName() + " | " + saveFormatDateTime(event.timeStart)+ " " + saveFormatDateTime(event.timeEnd));
                 }
             }
         } catch (FileNotFoundException e) {
-            // handle the error
+            // handle error
+            System.out.println(e.getMessage());
         }
     }
 
@@ -230,6 +263,7 @@ public class DeterministicParrot {
         this.list.get(i-1).markAsDone();
         this.pw.println("    " + "Nice! I've marked this task as done:");
         this.pw.println("       " + this.list.get(i-1));
+        saveData();
     }
     private void markAsUndone(String toks[]) throws DeterministicParrotException {
         if(toks.length < 2){
@@ -247,6 +281,7 @@ public class DeterministicParrot {
         this.list.get(i-1).markAsUndone();
         this.pw.println("    " + "OK, I've marked this task as not done yet:\n");
         this.pw.println("       " + this.list.get(i-1));
+        saveData();
     }
 
     private void addToDo(String[] args) throws DeterministicParrotException {
@@ -330,8 +365,9 @@ public class DeterministicParrot {
             } else {
                 throw new DeterministicParrotException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
             }
-        } catch (DeterministicParrotException de) {
+        } catch (Exception de) {
             this.pw.println("     " + de.getMessage());
+            this.pw.println("     " + de.getCause());
         }
         finally{
             this.printDash();
@@ -348,6 +384,7 @@ public class DeterministicParrot {
             }
             if(input.equals("bye")){
                 bye();
+                saveData();
                 break;
             }
             handleCommand(input);
