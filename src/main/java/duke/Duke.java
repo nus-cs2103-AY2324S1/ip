@@ -18,7 +18,6 @@ public class Duke {
     private Ui ui;
 
     public Duke(String filePath) {
-        //Initialising array to store list items
         ui = new Ui();
         this.storage = new Storage(filePath);
 
