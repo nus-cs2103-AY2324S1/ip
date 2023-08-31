@@ -1,3 +1,4 @@
+import java.io.*;
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.List;
@@ -6,8 +7,7 @@ import java.util.List;
  * The Duke class represents a simple chatbot application that helps manage tasks.
  */
 public class Duke {
-    private List<Task> tasks = new ArrayList<>();
-
+    private static List<Task> tasks = new ArrayList<>();
     /**
      * The main method to start the Duke chatbot.
      *
@@ -16,7 +16,14 @@ public class Duke {
     public static void main(String[] args) {
         Duke wizzer = new Duke();
         String logo = "Wiz";
-        List<Task> tasks = new ArrayList<>();
+        String filePath = "./data/duke.txt";
+        //        wizzer.readFile();
+//        List<Task> tasks = new ArrayList<>();
+        try {
+            tasks = readFile(filePath);
+        } catch (DukeException e) {
+            System.out.println(e);
+        }
         System.out.println("Hello from " + logo +
                 "\nWhat can I do for you?\n");
         System.out.println("--------------------------");
@@ -26,7 +33,7 @@ public class Duke {
         while (!command.equals("bye")) {
             System.out.println("--------------------------");
             try {
-                wizzer.executeCommand(command);
+                wizzer.executeCommand(command, filePath);
             } catch (DukeException e) {
                 System.out.println(e);
             }
@@ -36,15 +43,84 @@ public class Duke {
         scanner.close();
         System.out.println("Bye. Hope to see you again soon!");
         System.out.println("--------------------------");
-
     }
+    public static void writeLine(String filePath) throws DukeException {
+        File resourceFile = new File(filePath);
+        try {
+            FileWriter writer = new FileWriter(resourceFile);
+            for (Task task : tasks) {
+                writer.write(task.toTxtString() + "\n");
+            }
+            writer.close();
+        } catch (IOException e) {
+            throw new DukeException("☹ OOPS!!! The description of a deadline cannot be empty.");
+        }
+    }
+    public static List<Task> readFile(String filePath) throws DukeException {
+        List<Task> tasks = new ArrayList<>();
+        try {
+            File resourceFile = new File(filePath);
+            Scanner myReader = new Scanner(resourceFile);
+            int count = -1;
+            while (myReader.hasNextLine()) {
+                count += 1;
+                String data = myReader.nextLine();
+
+//                String[] parts = data.split(" \\| ");
+//                String taskType = parts[0];
+//                int isDone = Integer.parseInt(parts[1]);
+//                String description = parts[2];
+//                String date = parts.length > 3 ? parts[3] : "";
+
+//                String[] parts = data.split("]\\[");
+//                String isDone = parts[1].substring(0, 1); //"X" or " "
+
+                //[E] | [0] | project meeting | Mon 2-4pm
+                String[] parts = data.split(" \\| ");
+                String taskType = parts[0].substring(1,2);
+                String description = parts[2];
+                String date = parts.length > 3 ? parts[3] : "";
+//                String descripNtime[] = parts[1].substring(3).split("\\(");  //description to time
+//                String description1 = descripNtime[0].trim();  // "project meeting"
+//                String[] dates = descripNtime[1].split(" to: ");
+//                String start1 = dates[0].substring(6); // "Mon 2pm"
+//                String end1 = dates[1].substring(0, dates[1].length() - 1); //"4pm"
+                if (taskType.equals("T")) {
+                    Task currTask = new ToDo(description);
+                    tasks.add(currTask);
+                    if (parts[1].charAt(1) == 'X') {
+                        tasks.get(count).markAsDone();
+                    }
+                } else if (taskType.equals("E")) {
+                    String start = date.split("-")[0] + "pm";
+                    String end = date.split("-")[1].trim();
+                    Task currTask = new Event(description, start, end);
+                    tasks.add(currTask);
+                    if (parts[1].charAt(1) == 'X') {
+                        tasks.get(count).markAsDone();
+                    }
+                } else if (taskType.equals("D")) {
+                    Task currTask = new Deadline(description, date);
+                    tasks.add(currTask);
+                    if (parts[1].charAt(1) == 'X') {
+                        tasks.get(count).markAsDone();
+                    }
+                }
+            }
+            myReader.close();
+            return tasks;
+        } catch (FileNotFoundException e) {
+            throw new DukeException("Unable to find file.");
+        }
+    }
+
     /**
      * Parses and handles the user's command to perform various tasks.
      *
      * @param command The user's command to be processed.
      * @throws DukeException If the command is not recognised, or error
      */
-    public void executeCommand(String command) throws DukeException{
+    public void executeCommand(String command, String filePath) throws DukeException {
         String[] separateCommand = command.split(" ");
         System.out.println("--------------------------");
         System.out.println("--------------------------");
@@ -62,23 +138,27 @@ public class Duke {
                 if (command.startsWith("mark")) {
                     tasks.get(taskNumber - 1).markAsDone();
                     System.out.println(" Marked as done: ");
+
                 } else if (command.startsWith("unmark")) {
                     tasks.get(taskNumber - 1).markAsUndone();
                     System.out.println(" Marked as not done yet: ");
                 }
+                writeLine(filePath);
                 System.out.println("   " + tasks.get(taskNumber - 1).toString());
             } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
                 throw new DukeException("☹ OOPS!!! Invalid number");
             }
         } else if (command.startsWith("todo") || command.startsWith("deadline") || command.startsWith("event")
-        || command.startsWith("delete")) {
+                || command.startsWith("delete")) {
             if (command.startsWith("todo")) {
                 try {
                     String description = command.substring(5);
                     if (description.length() == 0) {
                         throw new DukeException("☹ OOPS!!! The description of a todo cannot be empty.");
                     }
-                    tasks.add(new ToDo(description));
+                    Task currTask = new ToDo(description);
+                    tasks.add(currTask);
+                    writeLine(currTask.toTxtString());
                 } catch (StringIndexOutOfBoundsException e) {
                     throw new DukeException("☹ OOPS!!! The description of a todo cannot be empty.");
                 }
@@ -90,7 +170,9 @@ public class Duke {
                         throw new DukeException("☹ OOPS!!! The description of a deadline cannot be empty.");
                     }
                     String byID = parts[1].trim();
-                    tasks.add(new Deadline(description, byID));
+                    Task currTask = new Deadline(description, byID);
+                    tasks.add(currTask);
+                    writeLine(currTask.toTxtString());
                 } catch (StringIndexOutOfBoundsException e) {
                     throw new DukeException("☹ OOPS!!! The description of a deadline cannot be empty.");
                 }
@@ -104,7 +186,9 @@ public class Duke {
                     String[] timeParts = parts[1].split("/to");
                     String start = timeParts[0].trim();
                     String end = timeParts[1].trim();
-                    tasks.add(new Event(description, start, end));
+                    Task currTask = new Event(description, start, end);
+                    tasks.add(currTask);
+                    writeLine(currTask.toTxtString());
                 } catch (StringIndexOutOfBoundsException e) {
                     throw new DukeException("☹ OOPS!!! The description of an event cannot be empty.");
                 }
@@ -131,6 +215,7 @@ public class Duke {
                 System.out.println(" I've added this task:" + "\n" + "   " + tasks.get(tasks.size() - 1).toString()
                         + "\n" + " Now you have " + tasks.size() + " tasks in the list.");
             }
+            writeLine(filePath);
         } else {
             throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
