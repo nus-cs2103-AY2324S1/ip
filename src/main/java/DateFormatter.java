@@ -20,6 +20,4 @@ public class DateFormatter {
         }
         return true;
     }
-
-
 }
