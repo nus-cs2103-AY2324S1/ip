@@ -2,7 +2,15 @@ package duke.task;
 
 import duke.Duke;
 
-final class TodoTask extends Task {
+/**
+ * A task that needs to be done.
+ */
+public final class TodoTask extends Task {
+    /**
+     * Creates a todo task.
+     * @param task The input string.
+     * @throws Duke.WrongFormatException If the input string is in the wrong format.
+     */
     public TodoTask(String task) throws Duke.WrongFormatException {
         String description = getDescription(task);
         if (description == null) {
@@ -11,6 +19,11 @@ final class TodoTask extends Task {
         this.description = description;
     }
 
+    /**
+     * Creates a todo task.
+     * @param isDone Whether the task is done.
+     * @param description The description of the task.
+     */
     public TodoTask(boolean isDone, String description) {
         this.isDone = isDone;
         this.description = description;
