@@ -15,7 +15,7 @@ public class TaskList {
     /**
      * The default constructor for the Task class
      */
-    public TaskList(){
+    public TaskList() {
         this.tasks = new ArrayList<Task>();
     }
 
@@ -25,7 +25,7 @@ public class TaskList {
      * @param name The name of the task that you want to find
      * @return The task instance found by the given name, or "null" if no task in the list has the given name.
      */
-    public Task findTaskByName(String name){
+    public Task findTaskByName(String name) {
         int count = this.tasks.size();
         for(int i = 0; i < count; i++){
             Task task = this.tasks.get(i);
@@ -59,7 +59,7 @@ public class TaskList {
      *
      * @param newTask the instance of the new task to add
      */
-    public void addTask(Task newTask){
+    public void addTask(Task newTask) {
         this.tasks.add(newTask);
     }
 
@@ -69,7 +69,7 @@ public class TaskList {
      * @param index the index of the task instance that will be removed in the list
      * @return The removed task instance
      */
-    public Task removeTask(int index){
+    public Task removeTask(int index) {
         Task removedTask = this.tasks.remove(index);
         Storage.saveTasksToFile();
         return removedTask;
@@ -82,7 +82,7 @@ public class TaskList {
      * the first parameter is the index of the current task in the list,
      * the second parameter is the current task instance.
      */
-    public void iterate(BiConsumer<Integer, Task> consumer){
+    public void iterate(BiConsumer<Integer, Task> consumer) {
         int index = 0;
         for(Task task : this.tasks){
             consumer.accept(index, task);

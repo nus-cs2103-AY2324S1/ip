@@ -34,7 +34,7 @@ public class DateTimeUtil {
      * @param dt the LocalDateTime instance
      * @return the formatted string representing the LocalDateTime instance
      */
-    public static String dateTimeToString(LocalDateTime dt){
+    public static String dateTimeToString(LocalDateTime dt) {
         return dt.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
     }
 }

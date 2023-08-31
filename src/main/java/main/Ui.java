@@ -8,14 +8,14 @@ public class Ui {
     /**
      * The default constructor for the Ui class
      */
-    public Ui(){
+    public Ui() {
         this.scanner = new Scanner(System.in);
     }
 
     /**
      * Updates the user input (read the next user input)
      */
-    public void update(){
+    public void update() {
         String input = this.scanner.nextLine();
         Main.getInstance().getParser().executeCommand(input);
     }
@@ -25,7 +25,7 @@ public class Ui {
      *
      * @param content The message content
      */
-    public void say(String content){
+    public void say(String content) {
         this.say(content, true,true);
     }
 
@@ -36,7 +36,7 @@ public class Ui {
      * @param outputUpperLine Set to true to output a split line above the message
      * @param outputLowerLine Set to true to output a split line under the message
      */
-    public void say(String content, boolean outputUpperLine, boolean outputLowerLine){
+    public void say(String content, boolean outputUpperLine, boolean outputLowerLine) {
         if(outputUpperLine){
             System.out.println("    ____________________________________________________________");
         }

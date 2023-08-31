@@ -17,7 +17,7 @@ public class TodoTask extends Task{
      * @return string representation of the task
      */
     @Override
-    public String toString(){
+    public String toString() {
         return "[T]" + super.toString();
     }
 }

@@ -1,8 +1,18 @@
 package main;
 
-import command.*;
-import task.*;
+import command.CommandAddTaskHandler;
+import command.CommandExitHandler;
+import command.CommandIntroHandler;
+import command.CommandListHandler;
+import command.CommandMarkUnmarkHandler;
+import command.CommandTodoHandler;
+import command.CommandDeadlineHandler;
+import command.CommandEventHandler;
+import command.CommandDeleteHandler;
+import command.Parser;
+import task.TaskList;
 import util.Storage;
+
 
 
 public class Main {
@@ -17,7 +27,7 @@ public class Main {
     /**
      * Default constructor of the program's main class
      */
-    public Main(){
+    public Main() {
         this.parser = new Parser();
         this.ui = new Ui();
         this.taskList = Storage.createTaskListFromFile();
@@ -44,7 +54,7 @@ public class Main {
         INSTANCE.run();
     }
 
-    private void run(){
+    private void run() {
         this.parser.executeCommand("intro");
         this.isRunning = true;
         while(this.isRunning){
@@ -54,7 +64,7 @@ public class Main {
         return;
     }
 
-    private static void initialize(){
+    private static void initialize() {
         INSTANCE = new Main();
     }
 
@@ -63,7 +73,7 @@ public class Main {
      *
      * @return the instance
      */
-    public static Main getInstance(){
+    public static Main getInstance() {
         return INSTANCE;
     }
 
@@ -72,14 +82,14 @@ public class Main {
      *
      * @return the name
      */
-    public String getName(){
+    public String getName() {
         return this.name;
     }
 
     /**
      * Exit the program
      */
-    public void exit(){
+    public void exit() {
         this.isRunning = false;
     }
 
@@ -89,7 +99,7 @@ public class Main {
      *
      * @return the instance
      */
-    public TaskList getTaskList(){
+    public TaskList getTaskList() {
         return this.taskList;
     }
 
@@ -98,7 +108,7 @@ public class Main {
      *
      * @return the instance
      */
-    public Parser getParser(){
+    public Parser getParser() {
         return this.parser;
     }
 

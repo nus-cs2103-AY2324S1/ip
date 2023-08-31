@@ -34,7 +34,7 @@ public class EventTask extends Task{
      * @return string representation of the task
      */
     @Override
-    public String toString(){
+    public String toString() {
         return "[E]" + super.toString() + " (from: " + DateTimeUtil.dateTimeToString(this.from )+ " to: " + DateTimeUtil.dateTimeToString(this.to) + ")";
     }
 }

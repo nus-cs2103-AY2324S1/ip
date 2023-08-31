@@ -11,7 +11,7 @@ public class Task implements Serializable {
      *
      * @param name The name of the task
      */
-    public Task(String name){
+    public Task(String name) {
         this.name = name;
         this.isDone = false;
     }
@@ -21,7 +21,7 @@ public class Task implements Serializable {
      *
      * @param isDone Set to "true" if the task is marked as done, "false" otherwise.
      */
-    public void setIsDone(boolean isDone){
+    public void setIsDone(boolean isDone) {
         this.isDone = isDone;
     }
 
@@ -30,7 +30,7 @@ public class Task implements Serializable {
      *
      * @return "true" if the task is marked as done and "false" otherwise.
      */
-    public boolean getIsDone(){
+    public boolean getIsDone() {
         return this.isDone;
     }
 
@@ -40,7 +40,7 @@ public class Task implements Serializable {
      * @return string representation of the task
      */
     @Override
-    public String toString(){
+    public String toString() {
         return "[" + (this.isDone ? "X" : " ") + "] " + this.name;
     }
 
