@@ -1,18 +1,17 @@
-package storage;
+package duke.storage;
 
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
-import java.time.temporal.TemporalAdjuster;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 import java.util.regex.Pattern;
 
-import exceptions.DukeInvalidDateException;
-import task.*;
-import ui.Ui;
+import duke.exceptions.DukeInvalidDateException;
+import duke.task.*;
+import duke.ui.Ui;
 
 public class Storage {
     private List<Task> tasks;
