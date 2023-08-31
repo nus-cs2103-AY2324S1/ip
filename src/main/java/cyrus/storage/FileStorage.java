@@ -55,6 +55,10 @@ public class FileStorage implements IStorage {
             List<HashMap<String, String>> jsonTasks = GSON.fromJson(br, listType);
             List<Task> fileTasks = new ArrayList<>();
 
+            if (jsonTasks == null) {
+                return new ArrayList<>();
+            }
+
             for (HashMap<String, String> entry : jsonTasks) {
                 enforceFields(entry);
                 String type = entry.get("type");

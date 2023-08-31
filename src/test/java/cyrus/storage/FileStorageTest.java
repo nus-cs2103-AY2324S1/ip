@@ -28,7 +28,7 @@ public class FileStorageTest {
         storage.load();
         File testFile = new File("test_data/test.json");
         assertTrue(testFile.exists());
-        testFile.deleteOnExit();
+        testFile.delete();
     }
 
     @Test
@@ -37,7 +37,7 @@ public class FileStorageTest {
         storage.load();
         File testFile = new File("test_data/nested/test.json");
         assertTrue(testFile.exists());
-        testFile.deleteOnExit();
+        testFile.delete();
     }
 
     @Test
@@ -48,7 +48,7 @@ public class FileStorageTest {
         FileStorage storage = new FileStorage("test_data/test.json");
         var tasks = storage.load();
         assertEquals(0, tasks.size());
-        testFile.deleteOnExit();
+        testFile.delete();
     }
 
     @Test
@@ -82,6 +82,6 @@ public class FileStorageTest {
             assertEquals(tasks.get(i).toString(), retrievedTasks.get(i).toString());
         }
 
-        testFile.deleteOnExit();
+        testFile.delete();
     }
 }

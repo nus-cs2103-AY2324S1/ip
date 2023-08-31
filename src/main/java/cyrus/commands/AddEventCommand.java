@@ -47,8 +47,13 @@ public class AddEventCommand extends Command {
         LocalDate eventFromDate = DateUtility.parse(eventFrom);
         LocalDate eventToDate = DateUtility.parse(eventTo);
 
-        if (eventFrom == null) {
+        if (eventFromDate == null) {
             throw new CommandError("Invalid event format: invalid from string, must be format" +
+                    " dd/MM/yyyy");
+        }
+
+        if (eventToDate == null) {
+            throw new CommandError("Invalid event format: invalid to string, must be format" +
                     " dd/MM/yyyy");
         }
 
