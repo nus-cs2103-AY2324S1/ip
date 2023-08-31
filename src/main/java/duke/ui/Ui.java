@@ -81,5 +81,26 @@ public class Ui {
                 + INDENT + errorMessage + "\n"
                 + HORIZONTAL_LINE);
     }
+
+    /**
+     * Displays the list of tasks matching the keyword search.
+     *
+     * @param tasks Tasks associated to the keyword search.
+     */
+    public void showMatchingTasksToKeyword(ArrayList<Task> tasks) {
+        System.out.print(HORIZONTAL_LINE);
+
+        if (tasks.isEmpty()) {
+            // Case where there is no matching tasks to be displayed
+            System.out.println(INDENT + "No matching tasks in the list. ");
+        } else {
+            System.out.println(INDENT + "Here are the matching task(s) in your list:");
+
+            for (Task task: tasks) {
+                System.out.println(INDENT + (tasks.indexOf(task) + 1) + ". " + task.toString());
+            }
+        }
+        System.out.println(HORIZONTAL_LINE);
+    }
 }
 
