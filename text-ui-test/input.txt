@@ -1,9 +1,5 @@
-todo borrow book
-event book presentation /from 2023-10-12 15:00 /to 2023-10-12 16:00
-deadline return book /by 2023-10-12 18:00
-mark 1
-mark 2
-list
-unmark 1
+todo eat
+deadline sleep /by 2023-03-10 20:00
+event fight /from 2023-03-10 12:00 /to 2023-03-10 14:00
 list
 bye

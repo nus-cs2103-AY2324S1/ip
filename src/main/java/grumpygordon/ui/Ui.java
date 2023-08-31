@@ -17,8 +17,7 @@ public class Ui {
     /**
      * Separator for responses.
      */
-    private static final String SEPARATOR = "    __________________________________"
-            + "_________________________________________________\n";
+    public static final String SEPARATOR = "    ____________________________________________________________\n";
 
     /**
      * Indentation for responses.
@@ -26,23 +25,9 @@ public class Ui {
     private static final String INDENTATION = "     ";
 
     /**
-     * Ascii-art for Grumpy Gordon.
-     * Credits: https://patorjk.com/software/taag/#p=display&f=Big&t=GrumpyGordon
-     */
-    private static final String ASCII_ART =
-                    INDENTATION + "    _____                                   _____               _              \n" +
-                    INDENTATION + "   / ____|                                 / ____|             | |             \n" +
-                    INDENTATION + "  | |  __ _ __ _   _ _ __ ___  _ __  _   _| |  __  ___  _ __ __| | ___  _ __   \n" +
-                    INDENTATION + "  | | |_ | '__| | | | '_ ` _ \\| '_ \\| | | | | |_ |/ _ \\| '__/ _` |/ _ \\| '_ \\  \n" +
-                    INDENTATION + "  | |__| | |  | |_| | | | | | | |_) | |_| | |__| | (_) | | | (_| | (_) | | | | \n" +
-                    INDENTATION + "   \\_____|_|   \\__,_|_| |_| |_| .__/ \\__, |\\_____|\\___/|_|  \\__,_|\\___/|_| |_| \n" +
-                    INDENTATION + "                              | |     __/ |                                    \n" +
-                    INDENTATION + "                              |_|    |___/                                     \n";
-
-    /**
      * Intro string when chatbot starts.
      */
-    private static final String INTRO = INDENTATION + "Oi! I'm Grumpy Gordon. Why are you bothering me?\n";
+    private static final String INTRO = INDENTATION + "Oi! I'm Grumpy Gordon.\n" + INDENTATION + "Why are you bothering me?\n";
 
     /**
      * Outro string when chatbot ends.
@@ -100,7 +85,7 @@ public class Ui {
      * Shows the intro message when GrumpyGordon starts.
      */
     public void showIntroMessage() {
-        System.out.println(SEPARATOR + ASCII_ART + "\n" + INTRO + SEPARATOR);
+        System.out.println(SEPARATOR + INTRO + SEPARATOR);
     }
 
     /**
