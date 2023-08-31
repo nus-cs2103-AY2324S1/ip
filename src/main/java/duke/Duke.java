@@ -1,5 +1,9 @@
 package duke;
-import duke.utilities.*;
+import duke.utilities.Parser;
+import duke.utilities.TaskList;
+import duke.utilities.Storage;
+import duke.utilities.Ui;
+import duke.utilities.Input;
 
 /**
  * The main class for Duke Chatbot
@@ -35,7 +39,7 @@ public class Duke {
         while(endSession) {
             String userInput = ui.inputSession();
             Input parsedInput = parser.parse(userInput);
-            endSession = ui.handleInput(tasks, parsedInput);
+            endSession = ui.handleInput(tasks, parsedInput, parser);
             tasks.overwriteTasksData(storage);
         }
     }

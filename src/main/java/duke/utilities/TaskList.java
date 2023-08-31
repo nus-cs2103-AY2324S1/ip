@@ -86,19 +86,6 @@ public class TaskList {
         System.out.println("There are now " + this.getSize() + " tasks in the list");
     }
 
-    /**
-     * Parses and formats the date input into another format
-     * 
-     * @param strDate Date in String format
-     * @return Date in "MMM dd yyyy" format
-     * @throws DateTimeParseException
-     */
-    public String formatDate(String strDate) throws DateTimeParseException {
-        LocalDate parseDate = LocalDate.parse(strDate);
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy");
-        return parseDate.format(formatter);
-    }
-
     public void overwriteTasksData(Storage storage) {
         storage.overwriteTasksData(this.list);
     }
