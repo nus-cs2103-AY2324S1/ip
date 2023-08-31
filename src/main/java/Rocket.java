@@ -381,8 +381,4 @@ public class Rocket {
         return LocalDateTime.parse(s, formatter);
     }
 
-    private static String dateTimeToString(LocalDateTime dateTime, DateTimeFormatter formatter) {
-        return dateTime.format(formatter);
-    }
-
 }
