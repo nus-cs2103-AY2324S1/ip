@@ -73,8 +73,7 @@ class Duke {
                     tasks.unmark(arr);
                 } else if (type.equals("delete")) {
                     tasks.delete(arr);
-                }
-                else {
+                } else {
                     // check for task type first
                     if (type.equals("todo")) {
                         if (arr.length == 1) {
@@ -87,13 +86,11 @@ class Duke {
                         String desc = tasks.getDescription(arr);
                         String date = tasks.getDeadline(arr);
                         tasks.addDeadline(desc, date);
-                    }
-                    else if (type.equals("event")) {
+                    } else if (type.equals("event")) {
                         String desc = tasks.getDescription(arr);
                         String timeline = tasks.getEventTimeline(arr);
                         tasks.addEvent(desc, timeline);
-                    }
-                    else {
+                    } else {
                         throw new WrongInput();
                     }
                 }

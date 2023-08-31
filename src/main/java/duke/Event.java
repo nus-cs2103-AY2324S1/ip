@@ -19,12 +19,14 @@ class Event extends Task {
     @Override
     public void mark() {
         this.isDone = true;
+
         System.out.println("Nice! I've marked this task as done:\n"
                 + this);
     }
     @Override
     public void unmark() {
         this.isDone = false;
+
         System.out.println("OK, I've marked this task as not done yet:\n"
                 + this);
     }
