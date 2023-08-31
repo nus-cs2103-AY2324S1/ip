@@ -9,6 +9,10 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Represents a deadline task that has a name and deadline time.
+ * Extends the {@link Task} class.
+ */
 public class Deadline extends Task{
     final private LocalDateTime deadlineTime;
 

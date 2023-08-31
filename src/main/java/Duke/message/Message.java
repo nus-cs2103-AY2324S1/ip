@@ -37,7 +37,6 @@ public class Message {
     public static Message onTaskComplete(Task task) {
         return new Message("Nice! I've marked this task as done:\n" + task.toString());
     }
-
     public static Message onTaskUncomplete(Task task) {
         return new Message("OK, I've marked this task as not done yet:\n" + task.toString());
     }
