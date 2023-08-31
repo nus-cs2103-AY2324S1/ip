@@ -24,6 +24,7 @@ public class Adam {
         }
 
     }
+
     public void start() {
         boolean running =  true;
         ui.welcome();
@@ -39,10 +40,6 @@ public class Adam {
                 }
             }
     }
-
-    /**
-     * This method stops the chatbot and ending the whole program
-     */
 
     public static void main(String[] args) {
         Adam test = new Adam();
