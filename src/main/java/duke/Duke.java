@@ -1,8 +1,12 @@
+package duke;
+
+import duke.task.DukeList;
+
 public class Duke {
     private DukeList dukelist;
     private Ui ui;
     private Storage storage;
-    private static final String FILE_PATH = "src/main/java/duke.txt";
+    private static final String FILE_PATH = "data/duke.txt";
 
     public Duke(String filePath) {
         ui = new Ui();

@@ -1,3 +1,5 @@
+package duke;
+
 public class Ui {
     public void hello() {
         System.out.println("Hello! I'm froggie!");
