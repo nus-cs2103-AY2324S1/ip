@@ -1,3 +1,5 @@
+package duke.task;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -5,7 +7,7 @@ public class Event extends Task {
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
     private LocalDateTime start;
     private LocalDateTime end;
-    Event(String task, String start, String end, boolean done) {
+    public Event(String task, String start, String end, boolean done) {
         super(task, done);
         this.start = stringToDateObj(start);
         this.end = stringToDateObj(end);

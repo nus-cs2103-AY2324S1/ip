@@ -1,10 +1,12 @@
+package duke.task;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class Deadline extends Task {
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
     private LocalDateTime duedate;
-    Deadline(String task, String duedate, boolean done) {
+    public Deadline(String task, String duedate, boolean done) {
         super(task, done);
         this.duedate = stringToDateObj(duedate);
     }

@@ -1,3 +1,5 @@
+package duke.exception;
+
 public class NoEventEndException extends DukeException {
 
     public NoEventEndException() {

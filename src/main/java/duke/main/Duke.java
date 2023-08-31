@@ -1,9 +1,14 @@
+package duke.main;
+
+import duke.command.*;
+import duke.exception.*;
+import duke.task.*;
+
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-import java.io.File;
 
 public class Duke {
 
@@ -51,9 +56,9 @@ public class Duke {
             +  "     ``         ``         ``         ``         ``         ``\n";
 
     static String importantNotes = "    IMPORTANT NOTES:\n"
-            + "        Todo: todo <task>\n"
-            + "        Deadline: deadline <deadline> /by <duedate>\n"
-            + "        Event: event <event> /from <start> /to <end>\n"
+            + "        duke.task.Todo: todo <task>\n"
+            + "        duke.task.Deadline: deadline <deadline> /by <duedate>\n"
+            + "        duke.task.Event: event <event> /from <start> /to <end>\n"
             + "        Datetime format: \"dd/MM/yyyy HH:mm\"\n"
             + divider;
 
@@ -159,7 +164,7 @@ public class Duke {
                 case "delete":
                     int deleteIndex = Integer.parseInt(taskDetails) - 1;
                     if (deleteIndex < 0 || deleteIndex >= taskList.size()) throw new InvalidTaskNumberException();
-                    taskList.remove(deleteIndex);System.out.print(divider + "    chirp! chirp! Task right out the window!\n" + divider);
+                    taskList.remove(deleteIndex);System.out.print(divider + "    chirp! chirp! duke.task.Task right out the window!\n" + divider);
                     rewriteTaskListFile(filepath, taskList);
                     break;
                 case "mark":

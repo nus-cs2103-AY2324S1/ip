@@ -1,3 +1,7 @@
+package duke.main;
+
+import duke.task.Task;
+
 import java.util.List;
 import java.util.Scanner;
 
@@ -58,7 +62,7 @@ public class Ui {
                 + DIVIDER);
     }
     public void showDeleteSuccess(String task) {
-        System.out.println(DIVIDER + "    chirp! chirp! Task right out the window!\n" + DIVIDER);
+        System.out.println(DIVIDER + "    chirp! chirp! duke.task.Task right out the window!\n" + DIVIDER);
     }
     public void showMark(Task task) {
         System.out.println(DIVIDER + "    chirp! I've mark this task as done:\n" +  String.format("    %s\n", task.toString()) + DIVIDER);

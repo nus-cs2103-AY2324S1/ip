@@ -1,3 +1,11 @@
+package duke.main;
+
+import duke.command.*;
+import duke.exception.*;
+import duke.task.Deadline;
+import duke.task.Event;
+import duke.task.Todo;
+
 public class Parser {
     public static Command parse(String fullCommand) throws DukeException {
         Command c;

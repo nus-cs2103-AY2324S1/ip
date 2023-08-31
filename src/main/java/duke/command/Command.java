@@ -1,3 +1,8 @@
+package duke.command;
+
+import duke.main.*;
+import duke.exception.*;
+import duke.task.*;
 import java.io.IOException;
 
 public class Command {
