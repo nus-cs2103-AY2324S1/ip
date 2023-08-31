@@ -1,5 +1,7 @@
-import exception.InvalidDateTimeException;
-import taskClasses.*;
+package duke;
+
+import duke.exception.InvalidDateTimeException;
+import duke.taskClasses.*;
 
 import java.io.File;
 import java.io.FileNotFoundException;

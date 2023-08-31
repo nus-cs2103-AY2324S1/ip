@@ -1,12 +1,12 @@
-package taskClasses;
+package duke.taskClasses;
 
 /**
  * Abstract class representing a general task.
- * Specific types of tasks (e.g., taskClasses.ToDo, taskClasses.Deadline, taskClasses.Event) should extend this class.
+ * Specific types of tasks (e.g., duke.taskClasses.ToDo, duke.taskClasses.Deadline, duke.taskClasses.Event) should extend this class.
  */
 public abstract class Task {
     protected String description;  // Description of the task
-    protected boolean isDone; // taskClasses.Task completion status
+    protected boolean isDone; // duke.taskClasses.Task completion status
     protected String type; // Type of the task (e.g., TODO, DEADLINE, EVENT)
 
     /**
@@ -21,7 +21,7 @@ public abstract class Task {
 
 
     /**
-     * Constructor to initialize a taskClasses.Task object.
+     * Constructor to initialize a duke.taskClasses.Task object.
      *
      * @param description Description of the task.
      * @param type        Type of the task.

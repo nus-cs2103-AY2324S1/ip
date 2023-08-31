@@ -1,10 +1,12 @@
-import exception.*;
-import taskClasses.*;
+package duke;
+
+import duke.exception.*;
+import duke.taskClasses.*;
 
 import java.util.Scanner;
 
 /**
- * Parser class for handling various task-related commands.
+ * duke.Parser class for handling various task-related commands.
  */
 public class Parser {
 

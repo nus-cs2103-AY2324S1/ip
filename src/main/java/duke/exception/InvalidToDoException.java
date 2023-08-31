@@ -1,4 +1,4 @@
-package exception;
+package duke.exception;
 
 public class InvalidToDoException extends DukeException {
     public InvalidToDoException() {
