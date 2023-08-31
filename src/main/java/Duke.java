@@ -1,49 +1,47 @@
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.util.ArrayList;
 import java.util.NoSuchElementException;
-import java.util.Scanner;
 
 public class Duke {
 
-  public static void main(String[] args) {
+  private TaskList taskList;
+  private Parser parser;
+  private Ui ui;
+  private Storage storage;
+
+  public Duke() {
+    this.taskList = new TaskList();
+    this.parser = new Parser();
+    this.ui = new Ui();
+    this.storage = new Storage(this.taskList);
+  }
+
+  public void run() {
 
     String greeting = "Hello! I'm KimochiUsagi (きもち　うさぎ)!\n";
     String info = "Ask the bunny a question!\n";
     String goodbye = "Bye. See you again! (またね)";
 
-    ArrayList<Task> taskList = new ArrayList<>();
-    UiFormatter uiFormatter = new UiFormatter();
-    Tasklistloader tasklistloader = new Tasklistloader(taskList);
-
-    tasklistloader.loadTasks();
+    storage.loadTasks();
     System.out.println(greeting);
     System.out.println(info);
-
-    Scanner scanner = new Scanner(System.in);
 
     label:
     while (true) {
 
-      String inputString = null;
-      String[] inputTokens = null;
-
       try {
-        inputString = scanner.nextLine();
-        inputTokens = inputString.split(" ");
+        parser.update();
       } catch (NoSuchElementException ex) {
         break;
       }
 
       // there is no input
-      if (inputTokens.length == 0) {
+      if (parser.isInputThere()) {
         break;
       }
 
-      String commandString = inputTokens[0];
-
-      switch (commandString) {
+      switch (parser.getCommandString()) {
         case "bye":
           break label;
         case "list":
@@ -57,19 +55,17 @@ public class Duke {
 
             String index = Integer.toString(i + 1);
             Task selectedTask = taskList.get(i);
-            System.out.println(index + " " + uiFormatter.displayTask(selectedTask));
+            System.out.println(index + " " + ui.displayTask(selectedTask));
 
           }
           break;
         case "mark": {
           try {
-            int index = Integer.parseInt(inputTokens[1]);
-            index--;
             // set current task as done
-            Task selectedTask = taskList.get(index);
+            Task selectedTask = taskList.get(parser.getIndex());
             selectedTask.setDone();
             System.out.println("Marked selected task as done");
-            System.out.println(uiFormatter.displayTask(selectedTask));
+            System.out.println(ui.displayTask(selectedTask));
           } catch (IndexOutOfBoundsException ex) {
             System.out.println("Please enter a valid index!");
           }
@@ -79,13 +75,11 @@ public class Duke {
         case "unmark": {
 
           try {
-            int index = Integer.parseInt(inputTokens[1]);
-            index--;
             // set current task as un-done
-            Task selectedTask = taskList.get(index);
+            Task selectedTask = taskList.get(parser.getIndex());
             System.out.println("Marked selected task as un-done desu");
             selectedTask.setUnDone();
-            System.out.println(uiFormatter.displayTask(selectedTask));
+            System.out.println(ui.displayTask(selectedTask));
           } catch (IndexOutOfBoundsException ex) {
             System.out.println("Please enter a valid index!");
           }
@@ -94,12 +88,10 @@ public class Duke {
         }
         case "todo": {
           try {
-            int commandLength = commandString.length() + 1;
-            String taskName = inputString.substring(commandLength);
-            Task curentTask = new Todo(taskName);
+            Task curentTask = new Todo(parser.getTaskName());
             taskList.add(curentTask);
 
-            System.out.println("added:\t" + uiFormatter.displayTask(curentTask));
+            System.out.println("added:\t" + ui.displayTask(curentTask));
           } catch (StringIndexOutOfBoundsException ex) {
 
             System.out.println("Please enter a name after the todo command!");
@@ -109,8 +101,7 @@ public class Duke {
         }
         case "deadline": {
           try {
-            int commandLength = commandString.length() + 1;
-            String taskName = inputString.substring(commandLength);
+            String taskName = parser.getTaskName();
             String[] parts = taskName.split("/by", 2);
 
             String name = parts[0];
@@ -123,7 +114,7 @@ public class Duke {
             Task curentTask = new Deadline(name, date);
             taskList.add(curentTask);
 
-            System.out.println("added:\t" + uiFormatter.displayTask(curentTask));
+            System.out.println("added:\t" + ui.displayTask(curentTask));
           } catch (ArrayIndexOutOfBoundsException ex) {
             System.out.println("Please include a (/by) command, followed by a date");
           } catch (StringIndexOutOfBoundsException ex) {
@@ -137,8 +128,7 @@ public class Duke {
         }
         case "event": {
           try {
-            int commandLength = commandString.length() + 1;
-            String taskName = inputString.substring(commandLength);
+            String taskName = parser.getTaskName();
             String[] parts = taskName.split("/from", 2);
             String name = parts[0];
             String dates = parts[1];
@@ -149,7 +139,7 @@ public class Duke {
             Task curentTask = new Event(name, startDate, endDate);
             taskList.add(curentTask);
 
-            System.out.println("added:\t" + uiFormatter.displayTask(curentTask));
+            System.out.println("added:\t" + ui.displayTask(curentTask));
           } catch (StringIndexOutOfBoundsException ex) {
             System.out.println("The event command cannot be empty!");
           } catch (ArrayIndexOutOfBoundsException ex) {
@@ -165,13 +155,11 @@ public class Duke {
             break;
           }
           try {
-            int index = Integer.parseInt(inputTokens[1]);
-            index--;
             // remove the current task
-            Task selectedTask = taskList.get(index);
-            taskList.remove(index);
+            Task selectedTask = taskList.get(parser.getIndex());
+            taskList.remove(parser.getIndex());
             System.out.println("Deleting selected task!");
-            System.out.println(uiFormatter.displayTask(selectedTask));
+            System.out.println(ui.displayTask(selectedTask));
           } catch (IndexOutOfBoundsException ex) {
             System.out.println("Please enter a valid index!");
           }
@@ -185,7 +173,15 @@ public class Duke {
     }
 
     System.out.println(goodbye);
-    tasklistloader.saveTasks();
+    storage.saveTasks();
+
+
+  }
+
+  public static void main(String[] args) {
+
+    Duke duke = new Duke();
+    duke.run();
 
   }
 }
