@@ -1,11 +1,13 @@
-package TaskPackage;
+package taskpackage;
 
-import DukePackage.DukeException;
+import dukepackage.DukeException;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 public class Deadlines extends Task {
+
     private LocalDate by;
 
     /**
@@ -13,11 +15,12 @@ public class Deadlines extends Task {
      *
      * @param task Task to complete.
      * @param details Date to complete task by.
-     * @param done Indicator of whether task has been completed.
+     * @param isDone Indicator of whether task has been completed.
      * @throws DukeException if there are missing dates or improper date format used.
      */
-    public Deadlines(String task, String details, String done) throws DukeException {
-        super(task, done);
+    public Deadlines(String task, String details, String isDone) throws DukeException {
+        super(task, isDone);
+        
         try {
             this.by = LocalDate.parse(details.substring(3));
         } catch (DateTimeParseException e) {

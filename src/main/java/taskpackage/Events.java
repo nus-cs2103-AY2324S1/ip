@@ -1,6 +1,7 @@
-package TaskPackage;
+package taskpackage;
 
-import DukePackage.DukeException;
+import dukepackage.DukeException;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -16,11 +17,12 @@ public class Events extends Task {
      * @param task Task to complete.
      * @param from Start date of event.
      * @param to End date of event.
-     * @param done Indicator of whether task has been completed.
+     * @param isDone Indicator of whether task has been completed.
      * @throws DukeException if there are missing or improper date format used.
      */
-    public Events(String task, String from, String to, String done) throws DukeException {
-        super(task, done);
+    public Events(String task, String from, String to, String isDone) throws DukeException {
+        super(task, isDone);
+
         try {
             this.from = LocalDate.parse(from.substring(5).replaceAll("\\s", ""));
             this.to = LocalDate.parse(to.substring(3));

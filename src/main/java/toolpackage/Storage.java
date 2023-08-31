@@ -1,16 +1,20 @@
-package ToolsPackage;
+package toolpackage;
 
-import DukePackage.DukeException;
-import TaskPackage.Deadlines;
-import TaskPackage.Events;
-import TaskPackage.Task;
-import TaskPackage.ToDos;
+import dukepackage.DukeException;
+
+import taskpackage.Deadlines;
+import taskpackage.Events;
+import taskpackage.Task;
+import taskpackage.ToDos;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+
 import java.nio.file.Files;
 import java.nio.file.Paths;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -69,9 +73,11 @@ public class Storage {
      */
     public ArrayList<Task> load() throws DukeException {
         ArrayList<Task> listOfTasks = new ArrayList<>();;
+        Scanner data;
         try {
-            Scanner data = new Scanner(this.file);
+            data = new Scanner(this.file);
             String[] input;
+
             while (data.hasNextLine()) {
                 input = data.nextLine().split("\\| ");
                 if (input[0].equals("T ")) {
@@ -82,9 +88,11 @@ public class Storage {
                     listOfTasks.add(new Events(input[2], input[3], input[4], input[1]));
                 }
             }
+            
         } catch (FileNotFoundException | DukeException e) {
             throw new DukeException("☹ OOPS!!! There was an error loading data from the storage.");
         }
+        data.close();
         return listOfTasks;
     }
 }

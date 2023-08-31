@@ -1,13 +1,15 @@
-package ToolsPackage;
+package toolpackage;
 
-import TaskPackage.Task;
+import taskpackage.Task;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Ui {
-    private final String greetingString =  "Hello! I'm ChampionSOS\nWhat can I do for you?";
-    private final String exitString =  "Bye. Hope to see you again soon!";
-    private final String dataNotFoundString =  "No existing data found. New file created!";
+    
+    private static final String TEXT_GREETING =  "Hello! I'm ChampionSOS\nWhat can I do for you?";
+    private static final String TEXT_GOODBYE =  "Bye. Hope to see you again soon!";
+    private static final String TEXT_NO_DATA =  "No existing data found. New file created!";
 
     public Ui() {
     }
@@ -16,21 +18,21 @@ public class Ui {
      * Prints greeting message to user.
      */
     public void showWelcome() {
-        System.out.println(this.greetingString);
+        System.out.println(Ui.TEXT_GREETING);
     }
 
     /**
      * Prints goodbye message to user.
      */
     public void showBye() {
-        System.out.println(this.exitString);
+        System.out.println(Ui.TEXT_GOODBYE);
     }
 
     /**
      * Prints "No existing data" message to user.
      */
     public void showLoadingError() {
-        System.out.println(this.dataNotFoundString);
+        System.out.println(Ui.TEXT_NO_DATA);
     }
 
     /**

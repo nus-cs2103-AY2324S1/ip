@@ -1,12 +1,16 @@
-package ToolsPackage;
+package toolpackage;
 
-import DukePackage.DukeException;
-import TaskPackage.Task;
+import dukepackage.DukeException;
+
+import taskpackage.Task;
+
 import java.io.FileWriter;
 import java.io.IOException;
+
 import java.util.ArrayList;
 
 public class TaskList {
+
     private ArrayList<Task> listOfTasks;
 
     /**
