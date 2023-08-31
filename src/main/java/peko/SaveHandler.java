@@ -9,11 +9,13 @@ public class SaveHandler {
     private static Task[] tasks = new Task[100];
     private static File file = new File("src/main/List.txt");
 
-
-    public SaveHandler() {
-    }
-
     //System.out.println("Gomen peko, something broke...");
+    /**
+     * Saves tasks to a text file.
+     * This method clears the existing file content, then iterates through the task list,
+     * converting each task to a line of tex and appending it to the file.
+     * If the file is not found, a new file is created.
+     */
     public static void saveTo() {
 
         System.out.println(file.getAbsolutePath());
@@ -52,6 +54,13 @@ public class SaveHandler {
         }
     }
 
+    /**
+     * Loads tasks from a text file.
+     * This method reads the content of the file, parses each line to create tasks,
+     * and populates the tasks array with the loaded tasks.
+     *
+     * @return An array of tasks loaded from the file.
+     */
     public static Task[] loadFrom() {
 
         System.out.println(file.getAbsolutePath());
@@ -75,6 +84,14 @@ public class SaveHandler {
         return tasks;
     }
 
+    /**
+     * Converts a string array to a Task object.
+     * This method takes a string array containing task details and converts it into a Task object,
+     * handling various task types (ToDos, Deadlines, and Events) and marking done as needed.
+     *
+     * @param arr The string array containing task details.
+     * @return A Task object created from the provided string array, or null if parsing fails.
+     */
     private static Task stringToTask(String[] arr) {
         Task t;
         try {
@@ -108,8 +125,14 @@ public class SaveHandler {
             System.out.println("Incomplete task an error in the list, Pain peko, I'll delete it");
         }
         return  null;
+
     }
 
+    /**
+     * Retrieves the number of tasks in the task list.
+     *
+     * @return The number of tasks in the list.
+     */
     public static int size() {
         return listSize;
     }
