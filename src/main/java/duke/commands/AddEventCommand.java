@@ -2,10 +2,11 @@ package duke.commands;
 
 import java.io.IOException;
 import java.util.Date;
+
+import duke.data.task.Event;
 import duke.data.TaskList;
 import duke.ui.Ui;
 import duke.storage.Storage;
-import duke.data.task.Event;
 
 public class AddEventCommand extends Command {
     private final String description;

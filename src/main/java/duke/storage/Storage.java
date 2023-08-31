@@ -9,10 +9,11 @@ import java.nio.file.Paths;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
-import duke.data.exception.DukeException;
-import duke.parser.Parser;
+
 import duke.data.TaskList;
 import duke.data.task.Task;
+import duke.data.exception.DukeException;
+import duke.parser.Parser;
 
 public class Storage {
     public static String DEFAULT_STORAGE_FILEPATH;
@@ -38,8 +39,9 @@ public class Storage {
 
     public static void save(TaskList tasks) throws IOException {
         FileWriter fw = new FileWriter(DEFAULT_STORAGE_FILEPATH);
-        for (Task task: tasks.getList())
+        for (Task task: tasks.getList()) {
             fw.write(task.toWrite());
+        }
         fw.close();
     }
 

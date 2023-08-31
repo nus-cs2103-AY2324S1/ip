@@ -1,4 +1,5 @@
 package duke.data.task;
+
 public class Task {
     protected String description;
     protected boolean isDone;
@@ -25,11 +26,12 @@ public class Task {
     }
 
     public String toWrite() {
-        if (isDone)
+        if (isDone) {
             return "1 | " + description;
+        }
         return "0 | " + description;
-
     }
+
     @Override
     public String toString() {
         return "[" + getStatusIcon() + "] " + description;

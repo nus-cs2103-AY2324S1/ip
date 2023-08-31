@@ -1,18 +1,20 @@
 package duke.commands;
 
 import java.io.IOException;
+
+import duke.data.exception.DukeException;
 import duke.data.TaskList;
 import duke.ui.Ui;
 import duke.storage.Storage;
-import duke.data.exception.DukeException;
 
 public class UnmarkCommand extends Command {
 
     private final int taskID;
 
     public UnmarkCommand(int taskID) throws DukeException {
-        if (taskID < 1)
+        if (taskID < 1) {
             throw new DukeException("☹ OOPS!!! Invalid Task ID.");
+        }
         this.taskID = taskID;
     }
 

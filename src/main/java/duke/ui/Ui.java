@@ -1,6 +1,7 @@
 package duke.ui;
 
 import java.util.Scanner;
+
 import duke.data.TaskList;
 import duke.data.task.Task;
 
@@ -64,8 +65,9 @@ public class Ui {
         if (!taskList.hasTasks()) {
             System.out.println("No tasks have been created.");
         } else {
-            for (int i = 0; i < taskList.countTasks(); i++)
+            for (int i = 0; i < taskList.countTasks(); i++) {
                 System.out.println((i + 1) + "." + taskList.getTask(i));
+            }
         }
     }
 
