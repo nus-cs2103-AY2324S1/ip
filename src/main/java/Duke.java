@@ -1,6 +1,11 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Duke {
     private final static String CHATBOT_NAME = "Fluke";
@@ -10,6 +15,7 @@ public class Duke {
                     "  / /_  / / / / / //_/ _ \\\n" +
                     " / __/ / / /_/ / ,< /  __/\n" +
                     "/_/   /_/\\__,_/_/|_|\\___/";
+    private final static String SAVE_FILE_NAME = "fluke.txt";
     private static ArrayList<Task> listOfTasks = new ArrayList<>();
 
     private enum Command {
@@ -22,6 +28,26 @@ public class Duke {
         addHorizontalLine();
         greet();
         addHorizontalLine();
+        // initialise scanner to read file
+        File saveFile = new File(SAVE_FILE_NAME);
+        if (saveFile.exists()) {
+            // parse the file and write to list
+            try {
+                Scanner fileScanner = new Scanner(saveFile);
+                while (fileScanner.hasNextLine()) {
+                    String line = fileScanner.nextLine();
+                    if (!line.equals("")) {
+                        Task task = parseTask(line);
+                        listOfTasks.add(task);
+                    }
+                }
+
+            } catch (DukeException d) {
+                printError(d.getMessage());
+            } catch (FileNotFoundException f) {
+                printError("Oh no!");
+            }
+        }
         // initialise scanner to check for user input
         Scanner scanner = new Scanner(System.in);
         boolean waitingForInput = true;
@@ -39,22 +65,12 @@ public class Duke {
                     list();
                     break;
                 case MARK:
-                    markTaskAsDone(nextCommand);
-                    break;
                 case UNMARK:
-                    markTaskAsUndone(nextCommand);
-                    break;
                 case DELETE:
-                    deleteTask(nextCommand);
-                    break;
                 case TODO:
-                    addTodo(nextCommand);
-                    break;
                 case DEADLINE:
-                    addDeadline(nextCommand);
-                    break;
                 case EVENT:
-                    addEvent(nextCommand);
+                    changeTodoList(commandType, nextCommand);
                     break;
                 default:
                     throw new InvalidInputException();
@@ -247,5 +263,139 @@ public class Duke {
 
     private static void printError(String message) {
         System.out.println("☹ OOPS!!! " + message);
+    }
+
+    /**
+     * Helper function for additional logic related to changing the list.
+     * @param commandType type of command
+     * @param nextCommand the content in the command
+     */
+    private static void changeTodoList(Command commandType, String nextCommand) {
+        // 1. make changes to the list
+        switch (commandType) {
+        case MARK:
+            markTaskAsDone(nextCommand);
+            break;
+        case UNMARK:
+            markTaskAsUndone(nextCommand);
+            break;
+        case DELETE:
+            deleteTask(nextCommand);
+            break;
+        case TODO:
+            addTodo(nextCommand);
+            break;
+        case DEADLINE:
+            addDeadline(nextCommand);
+            break;
+        case EVENT:
+            addEvent(nextCommand);
+            break;
+        default:
+            // should not occur
+            printError("An unknown error has occurred.");
+        }
+        // 2. save to file
+        try {
+            save();
+        } catch (DukeException e) {
+            printError(e.getMessage());
+        }
+    }
+
+    private static void save() throws DukeException {
+        try {
+            FileWriter writer = new FileWriter("fluke.txt");
+            for (int i = 0; i < listOfTasks.size(); i++) {
+                String out = listOfTasks.get(i).toString() + "\n";
+                writer.write(out);
+            }
+            writer.close();
+        } catch (IOException e) {
+            throw new DukeException(e.getMessage());
+        }
+    }
+
+    private static Task parseTask(String taskString) throws DukeException {
+        Command taskType;
+        boolean isMarked;
+        // parse type
+        Pattern typePattern = Pattern.compile("\\[[TDE]]");
+        Matcher typeMatcher = typePattern.matcher(taskString);
+        boolean typeFound = typeMatcher.find();
+        if (!typeFound) {
+            throw new SaveFileParsingException();
+        }
+        switch (typeMatcher.group()) {
+        case "[T]":
+            taskType = Command.TODO;
+            break;
+        case "[D]":
+            taskType = Command.DEADLINE;
+            break;
+        case "[E]":
+            taskType = Command.EVENT;
+            break;
+        default:
+            throw new SaveFileParsingException();
+        }
+
+        // parse mark
+        Pattern markPattern = Pattern.compile("\\[[X ]]");
+        Matcher markMatcher = markPattern.matcher(taskString);
+        boolean markFound = markMatcher.find();
+        if (!markFound) {
+            throw new SaveFileParsingException();
+        }
+        String mark = markMatcher.group();
+        switch (mark) {
+        case "[ ]":
+            isMarked = false;
+            break;
+        case "[X]":
+            isMarked = true;
+            break;
+        default:
+            throw new SaveFileParsingException();
+        }
+
+        String taskDesc = taskString.substring(7);
+        if (taskType == Command.TODO) {
+            return new Todo(taskDesc, isMarked);
+        } else if (taskType == Command.DEADLINE) {
+            // parse by date
+            int bracketStartIndex = taskDesc.indexOf('(');
+            int bracketEndIndex = taskDesc.indexOf(')');
+            if (bracketStartIndex < 0 || bracketEndIndex < 0) {
+                throw new SaveFileParsingException();
+            }
+            String desc = taskDesc.substring(0, bracketStartIndex).trim();
+            String by = taskDesc.substring(bracketStartIndex + 4, bracketEndIndex).trim();
+            return new Deadline(desc, isMarked, by);
+        } else if (taskType == Command.EVENT) {
+            int bracketStartIndex = taskDesc.indexOf('(');
+            if (bracketStartIndex < 0) {
+                throw new SaveFileParsingException();
+            }
+            String desc = taskDesc.substring(0, bracketStartIndex).trim();
+            // parse from date
+            Pattern fromPattern = Pattern.compile("from:.+to:");
+            Matcher fromMatcher = fromPattern.matcher(taskDesc);
+            boolean fromFound = fromMatcher.find();
+            if (!fromFound) {
+                throw new SaveFileParsingException();
+            }
+            String from = fromMatcher.group().replaceFirst("to:", "").substring(5).trim();
+            // parse to date
+            Pattern toPattern = Pattern.compile("to:[\\S\\s]+");
+            Matcher toMatcher = toPattern.matcher(taskDesc);
+            boolean toFound = toMatcher.find();
+            if (!toFound) {
+                throw new SaveFileParsingException();
+            }
+            String to = toMatcher.group().substring(3).trim();
+            return new Event(desc, isMarked, from, to);
+        }
+        throw new SaveFileParsingException();
     }
 }

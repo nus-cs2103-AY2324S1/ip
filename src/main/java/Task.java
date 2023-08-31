@@ -10,6 +10,15 @@ abstract class Task {
         this.description = trimmedDescription;
     }
 
+    protected Task(String description, boolean isDone) throws DukeException {
+        String trimmedDescription = description.trim();
+        if (trimmedDescription.equals("")) {
+            throw new EmptyDescriptionException();
+        }
+        this.description = trimmedDescription;
+        this.isDone = isDone;
+    }
+
     /**
      * Marks this task as done.
      */

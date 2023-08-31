@@ -7,6 +7,12 @@ public class Event extends Task {
         this.to = to;
     }
 
+    public Event(String description, boolean isDone, String from, String to) throws DukeException {
+        super(description, isDone);
+        this.from = from;
+        this.to = to;
+    }
+
     @Override
     public String toString() {
         return "[E]" + super.toString() + " (from: " + from + " to: " + to + ")";
