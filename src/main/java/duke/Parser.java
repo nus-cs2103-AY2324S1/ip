@@ -29,7 +29,7 @@ public class Parser {
         return 1;
     }
 
-    public static void parseToDo(String s, TaskList taskList) throws DukeException {
+    private static void parseToDo(String s, TaskList taskList) throws DukeException {
         String name = s.substring(4).trim();
         if (name.length() == 0) {
             throw new DukeException("Description of todo cannot be empty!");
@@ -38,7 +38,7 @@ public class Parser {
         taskList.addTask(new ToDo(name), true);
     }
 
-    public static void parseDeadline(String s, TaskList taskList) throws DukeException {
+    private static void parseDeadline(String s, TaskList taskList) throws DukeException {
         // Extract name and by
         int byIndex = s.indexOf("/by");
         if (byIndex == -1) {
@@ -58,14 +58,14 @@ public class Parser {
         taskList.addTask(new Deadline(name, parseDate(by)), true);
     }
 
-    public static void parseEvent(String s, TaskList taskList) throws DukeException {
+    private static void parseEvent(String s, TaskList taskList) throws DukeException {
         // Extract name, from and to
         int fromIndex = s.indexOf("/from");
         int toIndex = s.indexOf("/to");
         if (fromIndex == -1 || toIndex == -1) {
             // "/from" or "/to" not found
             throw new DukeException("Please include when the event is from and to!"
-                    + "(`event name /from date /to date`)");
+                    + " (`event name /from date /to date`)");
         }
 
         String name = s.substring(5, fromIndex).trim();
@@ -74,13 +74,13 @@ public class Parser {
         if (name.equals("") || from.equals("") || to.equals("")) {
             // No name, from or to
             throw new DukeException("Please include the name of the event"
-                    + "and when the event is from and to! (`event name /from date /to date`)");
+                    + " and when the event is from and to! (`event name /from date /to date`)");
         }
 
         taskList.addTask(new Event(name, from, to), true);
     }
 
-    public static void parseMark(String s, TaskList taskList) throws DukeException {
+    private static void parseMark(String s, TaskList taskList) throws DukeException {
         try {
             int index = Integer.parseInt(s.substring(4).trim()) - 1;
 
@@ -92,7 +92,7 @@ public class Parser {
         }
     }
 
-    public static void parseUnmark(String s, TaskList taskList) throws DukeException {
+    private static void parseUnmark(String s, TaskList taskList) throws DukeException {
         try {
             int index = Integer.parseInt(s.substring(6).trim()) - 1;
 
@@ -104,7 +104,7 @@ public class Parser {
         }
     }
 
-    public static void parseDelete(String s, TaskList taskList) throws DukeException {
+    private static void parseDelete(String s, TaskList taskList) throws DukeException {
         try {
             int index = Integer.parseInt(s.substring(6).trim()) - 1;
 
@@ -138,7 +138,7 @@ public class Parser {
         return task;
     }
 
-    public static String parseDate(String date) {
+    private static String parseDate(String date) {
         LocalDate date1 = LocalDate.parse(date);
         return date1.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
     }

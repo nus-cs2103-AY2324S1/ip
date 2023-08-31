@@ -3,8 +3,8 @@ package duke;
 import java.util.ArrayList;
 
 public class TaskList {
-    private static ArrayList<Task> tasks = new ArrayList<>();
-    private static int count = 0;
+    private ArrayList<Task> tasks = new ArrayList<>();
+    private int count = 0;
 
     public Task getTask(int index) {
         return tasks.get(index);
