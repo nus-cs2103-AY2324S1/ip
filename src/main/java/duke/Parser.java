@@ -40,29 +40,29 @@ public class Parser {
                 } else if (splitStr[0].equals("todo") || splitStr[0].equals("deadline") || splitStr[0].equals("event")) {
                     Task addedTask = new Task("");
                     switch (splitStr[0]) {
-                        case "todo":
-                            String[] todoSplit = s.split("todo");
-                            if (todoSplit.length <= 1 || todoSplit[1].trim().equals("")) {
-                                throw new EmptyTodoException();
-                            }
-                            addedTask = new Todo(todoSplit[1].trim());
-                            break;
-                        case "deadline":
-                            String splitStr1 = s.split("deadline ")[1];
-                            String[] splitStr2 = splitStr1.split(" /by ");
-                            String[] splitStr3 = splitStr2[1].split(" ");
-                            LocalDateTime dateTime = null;
-                            if (splitStr3.length == 2) {
-                                dateTime = DateManager.parseDateString(splitStr3[0], splitStr3[1]);
-                            }
-                            addedTask = dateTime == null ? new Deadline(splitStr2[0], splitStr2[1])
-                                    : new Deadline(splitStr2[0], dateTime);
-                            break;
-                        case "event":
-                            String eSplitStr1 = s.split("event ")[1];
-                            String[] eSplitStr2 = eSplitStr1.split(" /");
-                            addedTask = new Event(eSplitStr2[0], eSplitStr2[1].substring(5), eSplitStr2[2].substring(3));
-                            break;
+                    case "todo":
+                        String[] todoSplit = s.split("todo");
+                        if (todoSplit.length <= 1 || todoSplit[1].trim().equals("")) {
+                            throw new EmptyTodoException();
+                        }
+                        addedTask = new Todo(todoSplit[1].trim());
+                        break;
+                    case "deadline":
+                        String splitStr1 = s.split("deadline ")[1];
+                        String[] splitStr2 = splitStr1.split(" /by ");
+                        String[] splitStr3 = splitStr2[1].split(" ");
+                        LocalDateTime dateTime = null;
+                        if (splitStr3.length == 2) {
+                            dateTime = DateManager.parseDateString(splitStr3[0], splitStr3[1]);
+                        }
+                        addedTask = dateTime == null ? new Deadline(splitStr2[0], splitStr2[1])
+                                : new Deadline(splitStr2[0], dateTime);
+                        break;
+                    case "event":
+                        String eSplitStr1 = s.split("event ")[1];
+                        String[] eSplitStr2 = eSplitStr1.split(" /");
+                        addedTask = new Event(eSplitStr2[0], eSplitStr2[1].substring(5), eSplitStr2[2].substring(3));
+                        break;
                     }
                     tasks.addTask(addedTask);
                     Ui.informTaskAdded(addedTask, tasks.getSize());
