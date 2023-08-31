@@ -235,7 +235,7 @@ public class TrackerBot {
 
         try (Scanner input = new Scanner(new FileReader(path.toFile()))){
             while (input.hasNextLine()) {
-                System.out.println(input.nextLine());
+                TASKS.add(Task.parseSaveLine(input.nextLine()));
             }
         } catch (IOException e) {
             System.out.println(e.getMessage());
@@ -253,7 +253,7 @@ public class TrackerBot {
 
         try (FileOutputStream output = new FileOutputStream(file, false)) {
             for (int i = 1; i < TASKS.size() + 1; i++) {
-                output.write(TASKS.get(i - 1).toString().getBytes());
+                output.write(TASKS.get(i - 1).toSaveString().getBytes());
                 output.write("\n".getBytes());
             }
         } catch (IOException e) {

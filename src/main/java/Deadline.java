@@ -18,6 +18,11 @@ public class Deadline extends Task {
         this.by = by;
     }
 
+    public Deadline(String[] args) {
+        super(args);
+        this.by = args[2];
+    }
+
     @Override
     public String toSaveString() {
         return "D|" + getSaveInfo() + "|" + this.by;

@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 /**
  * The Task class for TrackerBot. <br>
  * The Task class abstracts each checklist item inside a Reminder-Type app. <br>
@@ -8,11 +10,6 @@
  * @version Level-4
  */
 public abstract class Task {
-    /** Enumerates the Task subtypes. **/
-    public enum TaskType {
-        TODO, DEADLINE, EVENT
-    }
-
     /** The description of the task instance. **/
     private String description;
 
@@ -55,25 +52,30 @@ public abstract class Task {
         this.isDone = false;
     }
 
+    protected Task(String[] args) {
+        this.description = args[1];
+        this.isDone = args[0].equals("1");
+    }
+
 
     // TODO: Create the Factory method.
-    public static Task of(TaskType type, String... args) throws IllegalArgumentException {
+    public static Task of(String type, String... args) throws IllegalArgumentException {
         switch (type) {
-        case TODO:
-            if (args.length != 1) {
-                throw new IllegalArgumentException("Todos should have exactly 1 argument.");
-            }
-            return new Todo(args[0]);
-        case DEADLINE:
+        case "T":
             if (args.length != 2) {
-                throw new IllegalArgumentException("Deadline should have exactly 2 argument.");
+                throw new IllegalArgumentException("Todos should have exactly 2 arguments.");
             }
-            return new Deadline(args[0], args[1]);
-        case EVENT:
+            return new Todo(args);
+        case "D":
             if (args.length != 3) {
-                throw new IllegalArgumentException("Events should have exactly 3 argument.");
+                throw new IllegalArgumentException("Deadline should have exactly 3 arguments.");
             }
-            return new Event(args[0], args[1], args[2]);
+            return new Deadline(args);
+        case "E":
+            if (args.length != 4) {
+                throw new IllegalArgumentException("Events should have exactly 4 arguments.");
+            }
+            return new Event(args);
         default:
             throw new IllegalArgumentException("Unknown Task type.");
         }
@@ -88,8 +90,9 @@ public abstract class Task {
      * @return The Task object from parsing the String.
      */
     public static Task parseSaveLine(String saveStr) {
-        // TODO: Implement after creating the Factory method for Task
-        return null;
+        String delimiter = "|";
+        String[] args = saveStr.split("[|]");
+        return Task.of(args[0], Arrays.copyOfRange(args, 1, args.length));
     }
 
     /**

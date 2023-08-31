@@ -15,6 +15,10 @@ public class Todo extends Task {
         super(desc);
     }
 
+    public Todo(String[] args) {
+        super(args);
+    }
+
     @Override
     public String toSaveString() {
         return "T|" + getSaveInfo();
