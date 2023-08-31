@@ -11,6 +11,14 @@ public class TaskList {
         this.list = new ArrayList<>();
     }
 
+    public static TaskList of(Task ... args) {
+        TaskList taskList = new TaskList();
+        for (Task task: args) {
+            taskList.addToList(task);
+        }
+        return taskList;
+    }
+
     public void addToList(Task s) {
         this.list.add(s);
     }
