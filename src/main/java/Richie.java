@@ -1,11 +1,24 @@
+
+
 import java.util.ArrayList;
 import java.util.Scanner;
 public class Richie {
     static private String CHATBOT_NAME = "Richie";
     static private ArrayList<Task> itemArray = new ArrayList<>();
+
+    /**
+     * Adds a task into the task array
+     *
+     * @Param item The task that should be added to the task array
+     */
     public static void addItem(Task item) {
         itemArray.add(item);
     }
+
+    /**
+     * Returns a formatted string that lists out all the tasks that are in the task array
+     * @return A string that lists out all the tasks that are in the task array
+     */
     public static String listItems() {
         int length = itemArray.size();
         String result = "";
@@ -14,6 +27,11 @@ public class Richie {
         }
         return result;
     }
+
+    /**
+     * Early version of code which handles all parsing on user inputs, storage of tasks and user interface.
+     * @param args not used in this application
+     */
     public static void main(String[] args) {
         System.out.println("Hello! I'm " + CHATBOT_NAME + "\nWhat can I do for you?");
         Scanner input = new Scanner(System.in);
@@ -89,8 +107,8 @@ public class Richie {
 
             } else {
                 try {
-                    throw new InvalidInputException();
-                } catch (InvalidInputException e) {
+                    throw new RichieException();
+                } catch (RichieException e) {
                     System.out.println(e.getMessage());
                     message = input.nextLine();
                 }
