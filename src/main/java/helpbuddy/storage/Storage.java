@@ -12,12 +12,26 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * The Storage class that loads, reads and saves data. Creates a new file if file search is unsuccessful.
+ */
 public class Storage {
     private String filePath;
 
+    /**
+     * Constructs a new Storage under the specified filePath.
+     * @param filePath the filePath with data stored.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
+
+    /**
+     * Reads data from filePath and add Task from filePath to an ArrayList.
+     * @return an ArrayList containing Task that is previously stored under the filePath.
+     * @throws IOException if unable to read data from file or error creating a new file.
+     * @throws HelpBuddyException if Task details in file are not present or invalid.
+     */
     public ArrayList<Task> loadData() throws IOException, HelpBuddyException {
         ArrayList<Task> taskList = new ArrayList<>();
         try {
@@ -34,6 +48,13 @@ public class Storage {
         return taskList;
     }
 
+    /**
+     * Reads each line under the filePath and creates a Task object corresponding to each line.
+     * @param entry the entry under the filePath.
+     * @return Task that is saved under the filePath.
+     * @throws HelpBuddyException if Task details in file are not present or invalid.
+     * @throws IOException if unable to read data from file.
+     */
     public Task readEntry(String entry) throws HelpBuddyException, IOException {
         String[] fields = entry.split("\\|");
         Task taskToAdd;
@@ -63,6 +84,10 @@ public class Storage {
         return taskToAdd;
     }
 
+    /**
+     * Creates a new file upon unsuccessful search of file under filePath.
+     * @throws IOException if unable to create new file.
+     */
     private void createDatabase() throws IOException {
         File data = new File(this.filePath);
         File dataDir = new File(data.getParent());
@@ -70,6 +95,11 @@ public class Storage {
         data.createNewFile();
     }
 
+    /**
+     * Writes all Task in TaskList into a file.
+     * @param taskList the taskList with Task to be saved.
+     * @throws IOException if unable to write to file.
+     */
     public void saveData(TaskList taskList) throws IOException {
         FileWriter fw = new FileWriter(this.filePath);
         for (int i = 0; i < taskList.getSize(); i++) {

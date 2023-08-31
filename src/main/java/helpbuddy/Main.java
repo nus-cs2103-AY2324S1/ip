@@ -3,7 +3,7 @@ package helpbuddy;
 import helpbuddy.HelpBuddy;
 
 /**
- * A class which runs the HelpBuddy chatbot.
+ * A Main class that runs the HelpBuddy chatbot.
  */
 public class Main {
     public static void main(String[] args) {

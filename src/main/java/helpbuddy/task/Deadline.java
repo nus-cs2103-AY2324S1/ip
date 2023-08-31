@@ -7,17 +7,16 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 /**
- * This class is a subclass of Task which defines tasks with deadline.
+ * The Deadline class creates a Task storing a deadline of type LocalDateTime.
  */
 public class Deadline extends Task {
-    /** A String that indicates deadline of task. */
     private LocalDateTime by;
 
     /**
-     * A constructor for tasks with deadline
-     * @param description Name of task
-     * @param by Deadline of task to be completed by.
-     * @throws HelpBuddyException If description or deadline is empty.
+     * Constructs a new Deadline object with specified String description and LocalDateTime by as deadline.
+     * @param description the description of Task.
+     * @param by the deadline of task to be completed by.
+     * @throws HelpBuddyException if description or by has no value.
      */
     public Deadline(String description, LocalDateTime by) throws HelpBuddyException {
         super(description);
@@ -30,8 +29,8 @@ public class Deadline extends Task {
     }
 
     /**
-     *
-     * @return String representation of task with deadline
+     * Returns String representing the Deadline object.
+     * @return a string representation of description, isDone and by.
      */
     @Override
     public String toString() {
@@ -39,11 +38,21 @@ public class Deadline extends Task {
         return "[D]" + super.toString() + " (by: " + deadline + ")";
     }
 
+    /**
+     * Returns String representing the Deadline object to be saved in a file.
+     * @return a string representation of description, isDone and by.
+     */
     @Override
     public String stringifyTask() {
         return String.format("D|%d|%s|%s", this.isDone ? 1 : 0, this.description, this.by);
     }
 
+    /**
+     * Compares the object to the specified object. The result is true if and only if argument is not null and
+     * its stringifyTask() is the same as the object's.
+     * @param obj the object to compare with.
+     * @return true if objects are the same; false otherwise.
+     */
     @Override
     public boolean equals(Object obj) {
         if (obj == this) {

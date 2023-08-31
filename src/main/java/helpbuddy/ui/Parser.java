@@ -8,7 +8,18 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * A Parser class interprets the user input and produces a corresponding Command.
+ */
 public class Parser {
+    /**
+     * Interprets the userCommand and produces a corresponding Command.
+     * @param userCommand the String that user keys into HelpBuddy.
+     * @return the Command to be executed by HelpBuddy.
+     * @throws HelpBuddyException if userCommand is invalid.
+     * @throws DateTimeParseException if the time keyed in for Deadline and Event Task is not in the
+     * format of dd/MM/yy HH:mm.
+     */
     public static Command parseCommand(String userCommand) throws HelpBuddyException, DateTimeParseException {
         String[] userInput = userCommand.split(" ", 2);
         String command = userInput[0];
