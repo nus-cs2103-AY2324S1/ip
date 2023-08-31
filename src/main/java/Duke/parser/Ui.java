@@ -1,27 +1,20 @@
 package Duke.parser;
 
+import Duke.command.Command;
 import Duke.exception.DukeException;
 import Duke.message.Message;
-import Duke.tasklist.TaskList;
 
 import java.util.Scanner;
 
 public class Ui {
     Scanner scanner = new Scanner(System.in);
     private final InputParser parser = new InputParser();
-    private final TaskList taskList;
-    public Ui(TaskList taskList) {
-        this.taskList = taskList;
+    public Command ParseLine() throws DukeException {
+        return parser.ParseInput(scanner.nextLine());
     }
-    public void HandleLine() {
-        if (scanner.hasNext()) {
-            try {
-                ShowMessage(parser.HandleInput(scanner.nextLine())
-                        .execute(taskList));
-            } catch (DukeException de) {
-                ShowError(de);
-            }
-        }
+
+    public boolean HasNext() {
+        return scanner.hasNext();
     }
     public void ShowMessage(Message message) {
         message.Print();
