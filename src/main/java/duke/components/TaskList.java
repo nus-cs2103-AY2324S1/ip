@@ -81,6 +81,21 @@ public class TaskList {
         return tasksOnDate;
     }
 
+    /**
+     * Returns all tasks containing a particular keyword
+     * @param keyword Keyword to query for
+     * @return List of tasks that contain keyword
+     */
+    public List<Task> getTasksWithKeyword(String keyword) {
+        List<Task> tasksWithKeyword = new ArrayList<>();
+        for (Task t : tasks) {
+            if (t.hasKeyword(keyword)) {
+                tasksWithKeyword.add(t);
+            }
+        }
+        return tasksWithKeyword;
+    }
+
     public List<Task> getTasks() {
         return List.copyOf(tasks);
     }

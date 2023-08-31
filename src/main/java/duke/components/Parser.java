@@ -4,6 +4,7 @@ import duke.commands.AddTaskCommand;
 import duke.commands.Command;
 import duke.commands.DeleteTaskCommand;
 import duke.commands.ExitCommand;
+import duke.commands.FindCommand;
 import duke.commands.ListByDateCommand;
 import duke.commands.ListCommand;
 import duke.commands.MarkTaskCommand;
@@ -59,6 +60,8 @@ public class Parser {
                 return parseArguments(Command.Type.DELETE, splitInput[1]);
             case "date":
                 return parseArguments(Command.Type.DATE, splitInput[1]);
+            case "find":
+                return parseArguments(Command.Type.FIND, splitInput[1]);
             default:
                 return new UnknownCommand();
             }
@@ -94,6 +97,8 @@ public class Parser {
                 return new UnmarkTaskCommand(parseOneBasedIndexToZeroBased(args));
             case DELETE:
                 return new DeleteTaskCommand(parseOneBasedIndexToZeroBased(args));
+            case FIND:
+                return new FindCommand(args);
             default:
                 return new UnknownCommand();
             }
