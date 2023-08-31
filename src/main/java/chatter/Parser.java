@@ -1,6 +1,12 @@
 package chatter;
 
-import chatter.command.*;
+import chatter.command.AddCommand;
+import chatter.command.Command;
+import chatter.command.DeleteCommand;
+import chatter.command.ExitCommand;
+import chatter.command.FindCommand;
+import chatter.command.ListCommand;
+import chatter.command.MarkCommand;
 import chatter.task.Deadline;
 import chatter.task.Event;
 import chatter.task.ToDo;

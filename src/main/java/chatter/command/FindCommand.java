@@ -10,7 +10,7 @@ import chatter.Ui;
  * @author Anthony Tamzil
  * @version CS2103T Individual Project AY2023/24 Semester 1
  */
-public class FindCommand extends Command{
+public class FindCommand extends Command {
     /** Keyword to search for in tasks */
     private String keyword;
 
