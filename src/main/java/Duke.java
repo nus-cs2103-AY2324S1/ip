@@ -4,12 +4,10 @@ import command.Command;
 
 import storage.Storage;
 
-import task.Deadline;
-import task.Event;
-import task.Task;
-import task.ToDo;
+import task.*;
 import ui.Ui;
 
+import java.io.IOException;
 import java.util.Scanner;
 
 /**
@@ -18,7 +16,8 @@ import java.util.Scanner;
  * @author Andrew Daniel Janong
  */
 public class Duke {
-    private static Storage storage = new Storage();
+    private static final Storage storage = new Storage();
+    private static final TaskList tasks = new TaskList();
 
     /**
      * Sends a greeting message to the user.
@@ -47,7 +46,7 @@ public class Duke {
             newTask = new Event(eventInfo[0], eventTime[0], eventTime[1]);
         }
 
-        storage.addTask(newTask);
+        tasks.addTask(newTask);
     }
 
     /**
@@ -59,11 +58,11 @@ public class Duke {
     private static void editTask (Command command, int taskIndex) {
 
         if (command == Command.DELETE) {
-            storage.deleteTask(taskIndex);
+            tasks.deleteTask(taskIndex);
         } else if (command == Command.MARK) {
-            storage.markTask(taskIndex);
+            tasks.markTask(taskIndex);
         } else if (command == Command.UNMARK) {
-            storage.unmarkTask(taskIndex);
+            tasks.unmarkTask(taskIndex);
         }
     }
 
@@ -74,7 +73,7 @@ public class Duke {
      */
     private static void executeSingleCommand(Command command) {
         if (command == Command.LIST) {
-            Ui.printLines(storage.toString());
+            Ui.printLines(tasks.toString());
         } else if (command == Command.BYE) {
             Ui.printExitMessage();
         }
@@ -91,6 +90,7 @@ public class Duke {
 
         if (command.equals("bye")) {
             Ui.printExitMessage();
+            storage.writeTasks(tasks);
             return false;
         } else if (command.equals("todo") || command.equals("deadline") || command.equals("event")) {
             if (inputs.length == 1 || inputs[1].equals("")) {
@@ -111,11 +111,11 @@ public class Duke {
             }
 
             try {
-                if (!storage.checkIndexValidity(Integer.parseInt(inputs[1]))) {
-                    throw new DukeInvalidIndexException(Integer.toString(storage.getTasksSize()));
+                if (!tasks.isValidIndex(Integer.parseInt(inputs[1]))) {
+                    throw new DukeInvalidIndexException(Integer.toString(tasks.getSize()));
                 }
             } catch (NumberFormatException e) {
-                throw new DukeInvalidIndexException(Integer.toString(storage.getTasksSize()));
+                throw new DukeInvalidIndexException(Integer.toString(tasks.getSize()));
             }
 
             editTask(Command.DELETE, Integer.parseInt(inputs[1]));
@@ -127,11 +127,11 @@ public class Duke {
             }
 
             try {
-                if (!storage.checkIndexValidity(Integer.parseInt(inputs[1]))) {
-                    throw new DukeInvalidIndexException(Integer.toString(storage.getTasksSize()));
+                if (!tasks.isValidIndex(Integer.parseInt(inputs[1]))) {
+                    throw new DukeInvalidIndexException(Integer.toString(tasks.getSize()));
                 }
             } catch (NumberFormatException e) {
-                throw new DukeInvalidIndexException(Integer.toString(storage.getTasksSize()));
+                throw new DukeInvalidIndexException(Integer.toString(tasks.getSize()));
             }
 
             editTask(Command.MARK, Integer.parseInt(inputs[1]));
@@ -141,11 +141,11 @@ public class Duke {
             }
 
             try {
-                if (!storage.checkIndexValidity(Integer.parseInt(inputs[1]))) {
-                    throw new DukeInvalidIndexException(Integer.toString(storage.getTasksSize()));
+                if (!tasks.isValidIndex(Integer.parseInt(inputs[1]))) {
+                    throw new DukeInvalidIndexException(Integer.toString(tasks.getSize()));
                 }
             } catch (NumberFormatException e) {
-                throw new DukeInvalidIndexException(Integer.toString(storage.getTasksSize()));
+                throw new DukeInvalidIndexException(Integer.toString(tasks.getSize()));
             }
 
             Duke.editTask(Command.UNMARK, Integer.parseInt(inputs[1]));
@@ -158,8 +158,14 @@ public class Duke {
     public static void main(String[] args) {
 
         Scanner sc = new Scanner(System.in);
-
         Ui.greetUser();
+
+        try {
+            storage.getTasksFromData(tasks);
+        } catch (IOException error) {
+            Ui.printLines("Shutting down...");
+            return;
+        }
 
         while (true) {
             try {
@@ -172,6 +178,5 @@ public class Duke {
                 Ui.printLines(e.getMessage());
             }
         }
-
     }
 }
