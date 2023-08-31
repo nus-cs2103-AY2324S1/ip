@@ -7,13 +7,13 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class TestEvent {
     @Test
-    public void testEventSaveString() throws DukeInvalidDateException {
+    public void event_testSaveString() throws DukeInvalidDateException {
         assertEquals(new Event("Test event", "2023-12-18 00:00", "2023-12-19 23:59").saveString(),
                 "E| |Test event|2023-12-18 00:00|2023-12-19 23:59");
     }
 
     @Test
-    public void testEventIsCompletedSaveString() throws DukeInvalidDateException {
+    public void event_testIsCompletedSaveString() throws DukeInvalidDateException {
         Event completedEvent = new Event("Test event", "2023-12-18 00:00", "2023-12-19 23:59");
         completedEvent.setIsCompleted(true);
         assertEquals(completedEvent.saveString(),
@@ -21,7 +21,7 @@ public class TestEvent {
     }
 
     @Test
-    public void testEventWithWrongDatetimeFormat() {
+    public void event_testWrongDatetimeFormat() {
         assertThrows(
                 DukeInvalidDateException.class,
                 ()->{
