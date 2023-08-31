@@ -1,3 +1,5 @@
+package Rocket;
+
 import java.time.LocalDateTime;
 
 public class EventCommand extends AddCommand{

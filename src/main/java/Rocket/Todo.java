@@ -1,6 +1,10 @@
-public class Todo extends Task{
+package Rocket;
+
+import Rocket.Task;
+
+public class Todo extends Task {
     /**
-     * Make new Todo
+     * Make new Rocket.Todo
      * @param description todo description
      */
     public Todo(String description, boolean isDone) {

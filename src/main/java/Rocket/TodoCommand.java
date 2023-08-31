@@ -1,6 +1,9 @@
-import java.io.IOException;
+package Rocket;
 
-public class TodoCommand extends AddCommand{
+import Rocket.AddCommand;
+import Rocket.Todo;
+
+public class TodoCommand extends AddCommand {
     private String description;
 
     public TodoCommand (String description, boolean isDone) {

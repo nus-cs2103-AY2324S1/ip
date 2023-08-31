@@ -1,3 +1,5 @@
+package Rocket;
+
 public class Task {
     //Solution below adapted from: https://nus-cs2103-ay2324s1.github.io/website/schedule/week2/project.html#:~:text=Partial-,solution,-Duke%20Level%2D4
     protected String description;
