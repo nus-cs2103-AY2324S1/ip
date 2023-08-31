@@ -3,7 +3,6 @@ package duke;
 public class Task {
     protected String description;
     protected boolean isDone;
-
     protected String tag;
 
     /**
@@ -21,7 +20,8 @@ public class Task {
     public String getStatusIcon() {
         return (isDone ? "X" : " "); // mark done task with X
     }
-    public String generalTag() {
+
+    public String getTag() {
         return this.tag;
     }
 

@@ -9,10 +9,8 @@ import java.util.Objects;
 import java.util.Scanner;
 
 public class Storage {
-
-    public String filePath;
-
-    public ArrayList<Task> fileData;
+    protected String filePath;
+    protected ArrayList<Task> fileData;
 
     public Storage(String filePath) {
         this.filePath = filePath;
@@ -30,12 +28,10 @@ public class Storage {
      */
     public ArrayList<Task> load(String filePath) throws DukeException, IOException {
         File f = new File(filePath);
-
         if (!f.exists()) {
             f.getParentFile().mkdirs();
             f.createNewFile();
         }
-
         try {
             Scanner s = new Scanner(f);
             while (s.hasNext()) {
@@ -63,22 +59,21 @@ public class Storage {
         return fileData;
     }
 
-    public void save(String filePath, ArrayList<Task> newTasks) throws DukeException, IOException {
+    public void save(String filePath, ArrayList<Task> newTasks) throws IOException {
         try {
             FileWriter fw = new FileWriter(filePath);
             for (int i = 0; i < newTasks.size(); i++) {
                 Task newTask = newTasks.get(i);
                 int isDoneValue = newTask.isDone ? 1 : 0;
                 if (Objects.equals(newTask.tag, "T")) {
-                    fw.write(String.format("%s|%d|%s%n", newTask.generalTag(), isDoneValue, newTask.getDescription()));
+                    fw.write(String.format("%s|%d|%s%n", newTask.getTag(), isDoneValue, newTask.getDescription()));
                 } else if (Objects.equals(newTask.tag, "D")) {
                     Deadline deadlineTask = (Deadline) newTask;
-                    fw.write(String.format("%s|%d|%s|%s%n", deadlineTask.generalTag(), isDoneValue, deadlineTask.getDescription(), deadlineTask.getDeadline()));
+                    fw.write(String.format("%s|%d|%s|%s%n", deadlineTask.getTag(), isDoneValue, deadlineTask.getDescription(), deadlineTask.getDeadline()));
                 } else if (Objects.equals(newTask.tag, "E")) {
                     Event eventTask = (Event) newTask;
-                    fw.write(String.format("%s|%d|%s|%s|%s%n", eventTask.generalTag(), isDoneValue, eventTask.getDescription(), eventTask.getFrom(), eventTask.getTo()));
+                    fw.write(String.format("%s|%d|%s|%s|%s%n", eventTask.getTag(), isDoneValue, eventTask.getDescription(), eventTask.getFrom(), eventTask.getTo()));
                 }
-
             }
             fw.close();
         } catch (FileNotFoundException e) {

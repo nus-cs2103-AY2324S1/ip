@@ -7,7 +7,6 @@ import java.time.format.DateTimeParseException;
 import java.time.temporal.Temporal;
 
 public class Deadline extends Task {
-
     protected Temporal by;
     protected String deadline;
 
@@ -24,7 +23,6 @@ public class Deadline extends Task {
         this.deadline = deadline;
         DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
-
         try {
             if (deadline.contains(" ")) {
                 this.by = LocalDateTime.parse(deadline, dateTimeFormatter);
@@ -47,7 +45,7 @@ public class Deadline extends Task {
      * @return MMM-D-YYYY representation from LocalDate or LocalDateTime object
      * @throws UnsupportedOperationException If object is not of LocalDate or LocalDateTime
      */
-    public String byString() {
+    public String generateNewDateString() {
         if (this.by instanceof LocalDate) {
             return ((LocalDate) this.by).format(DateTimeFormatter.ofPattern("MMM d yyyy"));
         } else if (this.by instanceof LocalDateTime) {
@@ -58,6 +56,6 @@ public class Deadline extends Task {
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + this.byString() + ")";
+        return "[D]" + super.toString() + " (by: " + this.generateNewDateString() + ")";
     }
 }

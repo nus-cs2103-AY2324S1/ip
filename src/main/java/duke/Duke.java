@@ -5,11 +5,9 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Duke {
-
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
-
     private String filePath;
 
     /**
@@ -39,7 +37,7 @@ public class Duke {
             while (true) {
                 String user_input = scanner.nextLine();
                 Parser parser = new Parser(user_input);
-                parser.parserChecker(tasks);
+                parser.validateParser(tasks);
                 storage.save(filePath, tasks.userData);
             }
         } catch (Exception e) {

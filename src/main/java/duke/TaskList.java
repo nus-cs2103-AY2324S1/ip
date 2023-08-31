@@ -3,7 +3,6 @@ package duke;
 import java.util.ArrayList;
 
 public class TaskList {
-
     public ArrayList<Task> userData;
 
     public TaskList(ArrayList<Task> userData) {
