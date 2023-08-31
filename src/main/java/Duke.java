@@ -1,7 +1,9 @@
-import java.util.ArrayList;
-import java.util.Scanner;
 import java.io.File;
 import java.io.IOException;
+
+import java.util.ArrayList;
+import java.util.Scanner;
+
 
 /**
  * This program is a chatbot, somebodyhaha, used to mark completion of tasks
@@ -39,22 +41,27 @@ public class Duke {
                 String[] fields;
                 fields = info.split(" \\| ");
                 Task tempT;
-
-                switch (fields[0].replaceAll("\\s+", "")) {
-                case "T":
-                    tempT = ToDo.of(fields[2]);
-                    tasklst.add(tempT);
-                    break;
-                case "D":
-                    tempT = new Deadline(fields[2],fields[3]);
-                    tasklst.add(tempT);
-                    break;
-                case "E":
-                    String[] time;
-                    time = fields[3].split("-");
-                    tempT = new Event(fields[2], time[0], time[1]);
-                    tasklst.add(tempT);
-                    break;
+                try {
+                    switch (fields[0].trim()) {
+                    case "T":
+                        tempT = ToDo.of(fields[2]);
+                        tasklst.add(tempT);
+                        break;
+                    case "D":
+                        tempT = new Deadline(fields[2], fields[3]);
+                        tasklst.add(tempT);
+                        break;
+                    case "E":
+                        String[] time;
+                        time = fields[3].split("->");
+                        tempT = new Event(fields[2], time[0], time[1]);
+                        tasklst.add(tempT);
+                        break;
+                    }
+                } catch (InvalidFormatException e){
+                    Printer.printLine();
+                    System.out.println("Format Error! Please format the date in {yyyy mm dd} or {yyyy mm dd hhhh}");
+                    Printer.printLine();
                 }
             }
             fileReader.close();
@@ -145,7 +152,7 @@ public class Duke {
                 default:
                     throw new UnknownActionException("OOPS!!! I'm sorry, but I don't know what that means :-(");
                 }
-            } catch (UnknownActionException e) {
+            } catch (UnknownActionException | NoTaskException e) {
                 Printer.printLine();
                 System.out.println(e.getMessage());
                 Printer.printLine();
@@ -153,11 +160,7 @@ public class Duke {
                 Printer.printLine();
                 System.out.println("OOPS! Invalid number of arguments " + e.getMessage());
                 Printer.printLine();
-            } catch (NoTaskException e) {
-                Printer.printLine();
-                System.out.println(e.getMessage());
-                Printer.printLine();
-            } catch (IOException e) {
+            } catch (IOException | InvalidFormatException e) {
                 Printer.printLine();
                 System.out.println("Error!");
                 e.printStackTrace();

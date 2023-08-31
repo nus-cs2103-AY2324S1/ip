@@ -1,7 +1,13 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 public class Event extends Task{
 
-    private String from;
-    private String to;
+    private final LocalDate fromDate;
+    private String fromTime = "";
+    private final LocalDate toDate;
+    private String toTime = "";
 
     /**
      * Constructs a event with a given description. Completion of the task
@@ -11,10 +17,22 @@ public class Event extends Task{
      * @param from The start time of the event
      * @param to The end time of the event
      */
-    public Event(String description, String from, String to) {
+    public Event(String description, String from, String to) throws InvalidFormatException {
         super(description);
-        this.from = from;
-        this.to = to;
+        String[] fromTemp = from.split("\\s+");
+        String[] toTemp = to.split("\\s+");
+        try {
+            this.fromDate = LocalDate.parse(fromTemp[0]);
+            this.toDate = LocalDate.parse(toTemp[0]);
+        } catch (DateTimeParseException e) {
+            throw new InvalidFormatException(e.getMessage());
+        }
+        if(fromTemp.length == 2) {
+            this.fromTime = fromTemp[1];
+        }
+        if(toTemp.length == 2) {
+            this.toTime = toTemp[1];
+        }
     }
 
 
@@ -27,7 +45,9 @@ public class Event extends Task{
     @Override
     public String toString() {
         return "[E]" + super.toString() +
-                " (from: " + this.from + " to: " + this.to + ")";
+                " (from: " + this.fromDate.format(DateTimeFormatter.ofPattern("dd MMM yyyy")) + " "
+                + this.fromTime + " to: " + this.toDate.format(DateTimeFormatter.ofPattern("dd MMM yyyy"))
+                + " " + this.toTime + ")";
     }
 
     /**
@@ -36,6 +56,7 @@ public class Event extends Task{
      */
     public String toSaveFormat() {
         return "E | " + (this.isDone ? 1 : 0) + " | " + this.description + " | "
-                + this.from + "-" + this.to;
+                + this.fromDate + " " + this.fromTime + "->"
+                + this.toDate + " " + this.toTime;
     }
 }
