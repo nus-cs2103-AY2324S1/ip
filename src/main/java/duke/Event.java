@@ -1,6 +1,4 @@
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.time.temporal.ChronoUnit;
+package duke;
 
 /**
  * Special type of task that has a description, 'from' date and 'to' date.

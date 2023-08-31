@@ -1,6 +1,4 @@
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.time.temporal.ChronoUnit;
+package duke;
 
 /**
  * Special kind of task that has a description and a deadline

@@ -1,3 +1,5 @@
+package duke;
+
 /**
  * Special exceptions encountered by the chatbot.
  */

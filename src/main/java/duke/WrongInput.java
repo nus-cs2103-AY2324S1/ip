@@ -1,3 +1,5 @@
+package duke;
+
 /**
  * Exception when an illegal argument is found.
  */
