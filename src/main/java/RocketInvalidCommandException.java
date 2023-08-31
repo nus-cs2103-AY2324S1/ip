@@ -1,5 +1,5 @@
 public class RocketInvalidCommandException extends RocketException {
-    public RocketInvalidCommandException(String message) {
-        super(message);
+    public RocketInvalidCommandException() {
+        super("I'm sorry, but I don't know what that means :-(");
     }
 }
