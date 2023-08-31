@@ -39,23 +39,7 @@ public class Cloud {
             }
 
             Todo todo = Cloud.TODOS.get(number - 1);
-            if (todo.isComplete()) {
-                Cloud.say(
-                    String.format(
-                        "TODO #%d is already marked as complete.",
-                        number
-                    )
-                );
-                return;
-            }
-
             todo.setComplete(true);
-            Cloud.say(
-                String.format(
-                    "TODO #%d marked as complete.",
-                    number
-                )
-            );
             Cloud.sayTodo(todo, number);
             break;
         }
@@ -66,23 +50,7 @@ public class Cloud {
             }
 
             Todo todo = Cloud.TODOS.get(number - 1);
-            if (!todo.isComplete()) {
-                Cloud.say(
-                    String.format(
-                        "TODO #%d is already not marked as complete.",
-                        number
-                    )
-                );
-                return;
-            }
-
             todo.setComplete(false);
-            Cloud.say(
-                String.format(
-                    "TODO #%d marked as incomplete.",
-                    number
-                )
-            );
             Cloud.sayTodo(todo, number);
             break;
         }
@@ -92,16 +60,9 @@ public class Cloud {
             break;
         default:
             // Stores new TODO
-            Cloud.TODOS.add(
-                new Todo(input)
-            );
-            Cloud.say(
-                String.format(
-                    "Added new TODO #%d: \"%s\"",
-                    Cloud.TODOS.size(),
-                    input
-                )
-            );
+            Todo todo = new Todo(input);
+            Cloud.TODOS.add(todo);
+            Cloud.sayTodo(todo, Cloud.TODOS.size());
             break;
         }
     }
@@ -141,7 +102,7 @@ public class Cloud {
     private static void sayTodo(Todo todo, int number) {
         Cloud.say(
             String.format(
-                "[%s] %d) %s",
+                "%s | #%d: %s",
                 todo.isComplete() ? "X" : " ",
                 number,
                 todo.getDescription()
