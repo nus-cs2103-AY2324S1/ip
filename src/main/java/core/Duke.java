@@ -19,6 +19,7 @@ public class Duke {
         MARK,
         UNMARK,
         BYE,
+        FIND,
         UNKNOWN
     }
 
@@ -41,13 +42,6 @@ public class Duke {
         tm = new TaskManager(tasks);
     }
 
-    /**
-     * The main method for the Duke application.
-     * It initializes the task list and listens for user commands,
-     * handling them appropriately based on their type.
-     *
-     * @param args Command line arguments.
-     */
     public void run() {
         boolean isRunning = true;
         while (isRunning) {
@@ -76,6 +70,9 @@ public class Duke {
                 case DEADLINE:
                     case TODO:
                     ui.showMessage(tm.addTask(userCommand));
+                    break;
+                case FIND:
+                    ui.showMessage(tm.findTasks(userCommand));
                     break;
                 case UNKNOWN:
                     ui.showError("unknown command.");

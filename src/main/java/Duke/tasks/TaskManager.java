@@ -14,12 +14,7 @@ public class TaskManager {
     public TaskManager() {
         this.tasks = new TaskList();
     }
-    /**
-     * Handles the deletion of a task from the list based on the user command.
-     *
-     * @param userCommand The command given by the user to delete a task.
-     * @param tasks       A list of tasks from which a task will be deleted.
-     */
+
     public String handleDelete(String userCommand) {
         String[] parts = userCommand.split(" ", 2);
         Task removedTask;
@@ -42,13 +37,7 @@ public class TaskManager {
         return "\n Now you have " + String.valueOf(numTasks) + " task(s) in the list";
     }
 
-    /**
-     * Handles the marking of a task as completed based on the user command.
-     *
-     * @param userCommand The command given by the user to mark a task as completed.
-     * @param tasks       A list of tasks from which a specific task will be marked
-     *                    as completed.
-     */
+
     public String handleMark(String userCommand) {
         String[] parts = userCommand.split(" ");
         try {
@@ -68,14 +57,6 @@ public class TaskManager {
         }
     }
 
-    /**
-     * Handles the unmarking of a task, reverting its status to not completed based
-     * on the user command.
-     *
-     * @param userCommand The command given by the user to unmark a task.
-     * @param tasks       A list of tasks from which a specific task will be
-     *                    unmarked.
-     */
     public String handleUnmark(String userCommand) {
         try {
             String[] parts = userCommand.split(" ");
@@ -103,5 +84,22 @@ public class TaskManager {
         } catch (DukeException e) {
             return e.getMessage();
         }
+    }
+
+    public String findTasks(String userCommand) {
+        StringBuilder msg = new StringBuilder();
+        try {
+            TaskList matchingTasks = p.parseMatchingTasks(userCommand, tasks);
+            if (matchingTasks.size() == 0) {
+                return "No matching tasks.";
+            }
+            msg.append("Here are the tasks in your list:");
+            for (Task task : matchingTasks.getTasks()) {
+                msg.append("\n").append(task.toString());
+            }
+        } catch (DukeException e) {
+            return e.getMessage();
+        }
+        return msg.toString();
     }
 }
