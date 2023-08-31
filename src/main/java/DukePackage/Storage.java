@@ -17,6 +17,9 @@ public class Storage {
         this.taskList = new ArrayList<Task>();
     }
 
+    public ArrayList<Task> getTaskList() {
+        return this.taskList;
+    }
     public void addList(Task t) {
         this.taskList.add(t);
     }

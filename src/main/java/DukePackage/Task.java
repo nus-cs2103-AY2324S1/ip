@@ -1,6 +1,5 @@
 package DukePackage;
 
-import DukePackage.TaskType;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Objects;
@@ -27,6 +26,10 @@ public class Task {
                 ? null
                 : LocalDateTime.parse(end, formatter);
 
+    }
+
+    public String getDescription() {
+        return this.description;
     }
 
     public String getStatusIcon() {
