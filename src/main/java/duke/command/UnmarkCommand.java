@@ -6,6 +6,9 @@ import duke.data.task.Task;
 import duke.data.task.TaskList;
 import duke.ui.Ui;
 
+/**
+ * Represents a command to mark the specified task as not done yet.
+ */
 public class UnmarkCommand extends Command {
 
     public static final String COMMAND_WORD = "unmark";

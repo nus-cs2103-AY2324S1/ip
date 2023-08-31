@@ -1,6 +1,15 @@
 package duke.data.task;
 
+/**
+ * Represents a todo item to be done.
+ */
 public class Todo extends Task {
+
+    /**
+     * Returns an instance of {@code Todo} with the given description.
+     *
+     * @param description The description of the task.
+     */
     public Todo(String description) {
         super(description);
     }

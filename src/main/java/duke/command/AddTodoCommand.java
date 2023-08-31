@@ -5,6 +5,9 @@ import duke.data.task.TaskList;
 import duke.data.task.Todo;
 import duke.ui.Ui;
 
+/**
+ * Represents a command to add a new todo to the list of tasks.
+ */
 public class AddTodoCommand extends Command {
 
     public static final String COMMAND_WORD = "todo";

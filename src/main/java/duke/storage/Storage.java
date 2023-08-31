@@ -16,14 +16,25 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Represents the file used to store task data.
+ */
 public class Storage {
 
+    /** The file path where the task data is stored */
     private String filePath;
 
+    /** Initializes the data file with the given path */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
+    /**
+     * Loads the data from the file and returns it as a list.
+     *
+     * @return The list of tasks.
+     * @throws DukeException If there was an issue running the file.
+     */
     public List<Task> load() throws DukeException {
         try {
             List<Task> tasks = new ArrayList<>();
@@ -76,6 +87,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Saves the list of tasks to the file.
+     *
+     * @param tasks The list of tasks to be saved to the file.
+     * @throws DukeException If there was an issue saving the file.
+     */
     public void save(TaskList tasks) throws DukeException {
         try {
             File file = new File(filePath);
