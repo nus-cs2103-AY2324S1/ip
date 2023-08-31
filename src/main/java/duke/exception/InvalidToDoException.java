@@ -1,4 +1,4 @@
-package exception;
+package duke.exception;
 /**
  * The Exception for invalid todo command
  */

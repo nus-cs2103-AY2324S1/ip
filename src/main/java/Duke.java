@@ -2,10 +2,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import parser.Parser;
-import storage.Storage;
-import task.TaskList;
-import ui.Ui;
+import duke.parser.Parser;
+import duke.storage.Storage;
+import duke.task.TaskList;
+import duke.ui.Ui;
 
 /**
  * Chatbot class

@@ -1,8 +1,8 @@
-package task;
+package duke.task;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
-import exception.InvalidEventException;
+import duke.exception.InvalidEventException;
 
 /**
  * Event class

@@ -1,4 +1,4 @@
-package exception;
+package duke.exception;
 /**
  * The exception for invalid deadline command
  */

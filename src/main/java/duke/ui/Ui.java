@@ -1,9 +1,9 @@
-package ui;
+package duke.ui;
 
 import java.util.Scanner;
 
-import task.Task;
-import task.TaskList;
+import duke.task.Task;
+import duke.task.TaskList;
 
 public class Ui {
     // Attribute

@@ -1,13 +1,13 @@
-package parser;
+package duke.parser;
 
-import command.Command;
-import exception.InvalidCommandException;
-import exception.InvalidDeadlineException;
-import exception.InvalidEventException;
-import exception.InvalidToDoException;
-import storage.Storage;
-import task.TaskList;
-import ui.Ui;
+import duke.command.Command;
+import duke.exception.InvalidCommandException;
+import duke.exception.InvalidDeadlineException;
+import duke.exception.InvalidEventException;
+import duke.exception.InvalidToDoException;
+import duke.storage.Storage;
+import duke.task.TaskList;
+import duke.ui.Ui;
 
 public class Parser {
     /**

@@ -1,5 +1,5 @@
-package task;
-import exception.InvalidToDoException;
+package duke.task;
+import duke.exception.InvalidToDoException;
 
 /**
  * Class for ToDo

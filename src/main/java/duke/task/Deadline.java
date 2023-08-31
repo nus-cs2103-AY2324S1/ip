@@ -1,8 +1,8 @@
-package task;
+package duke.task;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
-import exception.InvalidDeadlineException;
+import duke.exception.InvalidDeadlineException;
 
 /**
  * Deadline class

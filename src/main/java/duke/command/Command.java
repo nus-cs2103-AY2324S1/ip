@@ -1,16 +1,16 @@
-package command;
+package duke.command;
 
-import exception.InvalidCommandException;
-import exception.InvalidDeadlineException;
-import exception.InvalidEventException;
-import exception.InvalidToDoException;
-import storage.Storage;
-import task.Deadline;
-import task.Event;
-import task.Task;
-import task.TaskList;
-import task.ToDo;
-import ui.Ui;
+import duke.exception.InvalidCommandException;
+import duke.exception.InvalidDeadlineException;
+import duke.exception.InvalidEventException;
+import duke.exception.InvalidToDoException;
+import duke.storage.Storage;
+import duke.task.Deadline;
+import duke.task.Event;
+import duke.task.Task;
+import duke.task.TaskList;
+import duke.task.ToDo;
+import duke.ui.Ui;
 
 /**
  * The class for Command
