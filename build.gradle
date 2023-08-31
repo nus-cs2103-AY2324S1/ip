@@ -22,6 +22,10 @@ test {
     useJUnitPlatform()
 }
 
+shadowJar {
+    archiveFileName = 'rua.jar'
+}
+
 application {
     mainClass.set("rua/Rua")
 }

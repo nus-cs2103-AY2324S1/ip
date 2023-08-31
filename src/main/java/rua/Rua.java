@@ -12,6 +12,11 @@ public class Rua {
     private TaskList tasks;
     private Ui ui;
 
+    /**
+     * Constructs a chatbot Rua object.
+     *
+     * @param filePath The path to the file which stores the tasks.
+     */
     public Rua(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
@@ -26,6 +31,9 @@ public class Rua {
         }
     }
 
+    /**
+     * Runs the chatbot.
+     */
     public void run() {
         ui.showWelcome();
         boolean isExit = false;
