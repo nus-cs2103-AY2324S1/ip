@@ -1,17 +1,14 @@
 import java.util.Scanner;
-import java.io.BufferedReader;
 import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
-/*
+/**
  * A chat bot that can be renamed, and responds to inputs from users
  * 
  * @author Owen Yeo
- * Version Level-3
+ * Version Level-7
  */
 public class ChatBot {
 
@@ -51,6 +48,14 @@ public class ChatBot {
             this.input = input;
         }
 
+        /**
+         * Parses the input and returns the appropriate command if the input is
+         * valid.
+         * 
+         * @param input User's input
+         * @return Command that tells what the chatbot should do. 
+         * @return null if the input in invalid
+         */
         public static Command parseInput(String input) {
             for(Command command: Command.values()) {
                 if (command.input.equals(input)) {
@@ -67,19 +72,19 @@ public class ChatBot {
         this.name = name;
     }
 
-    /* 
+    /** 
      * Command to introduce the bot. Outputs an introduction with the bot's name.
      * 
-     * @return void
      */
     public void intro() {
         System.out.println(BORDER);
         System.out.println("Hello! I am " + this.name + ".\n");
         System.out.println("What can I do for you today?\n"); 
         System.out.println(BORDER);
+        saveTasks();
     }
 
-    /* 
+    /** 
      * To exit chat and end the session.
      * 
      * @return void
@@ -91,7 +96,7 @@ public class ChatBot {
         hasEnded = true;
     }
 
-    /* 
+    /** 
      * To exit chat and end the session.
      * 
      * @return boolean The hasEnded encapsulated in the chatbot.
@@ -100,12 +105,13 @@ public class ChatBot {
         return this.hasEnded;
     }
 
-    /* 
+    /**
      * Adds the user input into a list, depending on the command.
      * If description is wrong, throws an exception.
      * 
-     * @param String message User input, parsed in readInput.
-     * @return void
+     * @param taskString
+     * @param command
+     * @throws InvalidDescriptionException
      */
     public void addToList(String taskString, Command command) 
         throws InvalidDescriptionException {
@@ -148,10 +154,9 @@ public class ChatBot {
         System.out.println(BORDER);
     }
 
-    /*
+    /**
      * Prints the list that has been built so far.
      * 
-     * @return void 
      */
     public void displayList() {
 
@@ -163,11 +168,10 @@ public class ChatBot {
         System.out.println(BORDER);
     }
 
-    /*
+    /**
      * To mark tasks as done.
      * 
      * @param int listNum the item on the list to mark.
-     * @return void
      */
     public void mark(int listNum) {
         int index = listNum - 1;
@@ -222,30 +226,16 @@ public class ChatBot {
         saveTasks();
     }
 
-    private void loadTasks() {
-        try {
-            File file = new File(DATA_SAVE_PATH);
-            
-            if (file.exists()) {
-                BufferedReader br = new BufferedReader(new FileReader(file));
-                String line;
-
-                while ((line = br.readLine()) != null) {
-                    
-                }
-            }
-        } catch (IOException e) {
-            System.out.println("Error loading tasks: " + e.getMessage());
-        }
-    }
-
+    /**
+     * Saves the tasks into a text file.
+     */
     private void saveTasks() {
         try {
             BufferedWriter bw = new BufferedWriter(new FileWriter
             (DATA_SAVE_PATH, false));
 
             for (int i = 0; i < list.size(); i++) {
-                bw.write(list.get(i).toString());
+                bw.write(list.get(i).toSaveString());
                 bw.newLine();
             }
             bw.close();

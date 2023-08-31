@@ -1,1 +1,2 @@
-[E][ ] yourmom(from: today to: tomorrow)
+D | 0 | die | today
+E | 1 | dog giving birth | 10pm - 2am
