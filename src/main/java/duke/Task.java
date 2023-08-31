@@ -45,7 +45,7 @@ public abstract class Task {
     }
 
     /**
-     * Generates task list entry in specified format
+     * Generates task list entry in specified format.
      * @return task list entry as a string
      */
     public abstract String toTaskListEntry();
