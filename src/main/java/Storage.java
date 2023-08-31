@@ -14,7 +14,7 @@ public class Storage {
 
     private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy");
 
-    public Storage() throws DukeException {
+    public void init() throws DukeException {
         try {
             File dir = new File(this.DIRECTORY);
             if (!dir.exists()) {
@@ -30,9 +30,9 @@ public class Storage {
         }
     }
 
-    public ArrayList<Task> readFromFile() throws DukeException {
+    public TaskList readFromFile() throws DukeException {
         try {
-            ArrayList<Task> listOfTasks = new ArrayList<>();
+            TaskList listOfTasks = new TaskList();
             Scanner scanner = new Scanner(this.STORAGE_FILE);
             while (scanner.hasNextLine()) {
                 String task = scanner.nextLine();
@@ -69,17 +69,17 @@ public class Storage {
             }
             return listOfTasks;
         } catch (DateTimeParseException e) {
-            throw new DukeException("yeehaw");
+            throw new DukeException("Invalid date format! Pleas input date using the format yyyy-MM-dd");
         } catch (IOException e) {
             throw new DukeException("OOPS !!! Can't Load Task from File");
         }
     }
 
-    public void writeToFile(ArrayList<Task> tasks) throws DukeException {
+    public void writeToFile(TaskList tasks) throws DukeException {
         try {
             FileWriter fileWriter = new FileWriter(STORAGE_FILE);
-            for (int i = 0; i < tasks.size(); i++) {
-                Task currTask = tasks.get(i);
+            for (int i = 0; i < tasks.getLength(); i++) {
+                Task currTask = tasks.getTask(i);
                 fileWriter.write(currTask.toString() + "\n");
             }
             fileWriter.close();
