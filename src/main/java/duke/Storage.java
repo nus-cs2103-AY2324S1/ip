@@ -16,6 +16,9 @@ import duke.task.Event;
 import duke.task.Task;
 import duke.task.Todo;
 
+/**
+ * Storage class is used to load and save the task list to a file.
+ */
 public class Storage {
 
     public static final String SEPARATOR = " !%&%! ";
@@ -24,6 +27,12 @@ public class Storage {
     private String filePath;
     private String folderPath;
 
+    /**
+     * Constructor for Storage class.
+     *
+     * @param folderPath The path of the folder to store the file.
+     * @param fileName   The name of the file to store the task list.
+     */
     public Storage(String folderPath, String fileName) {
         this.filePath = folderPath + "/" + fileName;
         this.folderPath = folderPath;
@@ -31,6 +40,13 @@ public class Storage {
         this.folder = new File(this.folderPath);
     }
 
+    /**
+     * Load the task list from the file.
+     * <p>If the file is not found or the format is wrong, it will throw an exception.</p>
+     *
+     * @return List of tasks.
+     * @throws DukeException If the file is not found or the format is wrong.
+     */
     public List<Task> load() throws DukeException {
         List<Task> taskList = new ArrayList<>();
 
@@ -70,6 +86,12 @@ public class Storage {
         return taskList;
     }
 
+    /**
+     * Create a new file to store the task list.
+     * <p>If the file already exists, it will clear the file.<br>
+     * If the folder does not exist, it will create the folder.<br>
+     * If the file cannot be created, it will throw a runtime exception.</p>
+     */
     public void createFile() {
         if (!this.folder.exists()) {
             folder.mkdirs();
@@ -87,12 +109,23 @@ public class Storage {
         }
     }
 
+    /**
+     * Clear the file.
+     *
+     * @throws IOException If the file is not found.
+     */
     private void clearFile() throws IOException {
         FileWriter fw = new FileWriter(this.filePath);
         fw.write("");
         fw.close();
     }
 
+    /**
+     * Append the text to the end of the file.
+     *
+     * @param text The text to be appended.
+     * @throws DukeException If the file is not found.
+     */
     public void appendFile(String text) throws DukeException {
         try {
             FileWriter fw = new FileWriter(this.filePath, true);
@@ -104,6 +137,17 @@ public class Storage {
         }
     }
 
+    /**
+     * Change the file according to the keyword and index.
+     * <p>If the index is <b>NEGATIVE</b>, it will change <b>ALL</b> the tasks.<br>
+     * If the keyword is <b>DELETE</b>, it will delete the task.<br>
+     * If the keyword is <b>MARK</b>, it will mark the task.<br>
+     * If the keyword is <b>UNMARK</b>, it will unmark the task.</p>
+     *
+     * @param key   The keyword to change the file.
+     * @param index The index of the task to be changed.
+     * @throws DukeException If the file is not found.
+     */
     public void changeFile(Keyword key, int index) throws DukeException {
         try {
             String tempPath = this.folderPath + "/temp.txt";
@@ -132,6 +176,14 @@ public class Storage {
         }
     }
 
+    /**
+     * Remove the line with the index in the file.
+     *
+     * @param index The index of the line to be removed.
+     * @param sc    The scanner of the file.
+     * @param fw    The file writer of the file.
+     * @throws IOException If the file is not found.
+     */
     private void removeLine(int index, Scanner sc, FileWriter fw) throws IOException {
         int curr = 0;
 
@@ -146,7 +198,16 @@ public class Storage {
         }
     }
 
-    private void markLine(int index, boolean isMark, Scanner sc, FileWriter fw) throws IOException {
+    /**
+     * Mark or unmark the line with the index in the file.
+     *
+     * @param index  The index of the line to be marked.
+     * @param isMark Whether to mark or unmark the line.
+     * @param sc     The scanner of the file.
+     * @param fw     The file writer of the file.
+     * @throws IOException If the file is not found.
+     */
+    public void markLine(int index, boolean isMark, Scanner sc, FileWriter fw) throws IOException {
         int curr = 0;
 
         while (sc.hasNext()) {
@@ -163,6 +224,14 @@ public class Storage {
         }
     }
 
+    /**
+     * Mark or unmark all the lines in the file.
+     *
+     * @param isMark Whether to mark or unmark the line.
+     * @param sc     The scanner of the file.
+     * @param fw     The file writer of the file.
+     * @throws IOException If the file is not found.
+     */
     private void markAll(boolean isMark, Scanner sc, FileWriter fw) throws IOException {
 
         while (sc.hasNext()) {
