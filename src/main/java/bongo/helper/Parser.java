@@ -3,11 +3,16 @@ package bongo.helper;
 import bongo.command.*;
 
 public class Parser {
-    public Parser() {
-    }
+    public Parser() {};
 
-    ;
-
+    /**
+     * Parses command that user inputs into the bot.
+     * Returns the Command that matches the user's input.
+     * Throws a BongoException if user enters unknown command.
+     * @param command
+     * @return A Command which corresponds to user's input.
+     * @throws BongoException
+     */
     public static Command parse(String command) throws BongoException {
         String[] input = command.split(" ");
         switch (input[0]) {

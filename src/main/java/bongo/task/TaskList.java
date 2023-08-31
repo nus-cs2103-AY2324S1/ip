@@ -4,14 +4,21 @@ import java.util.ArrayList;
 
 public class TaskList {
     protected ArrayList<Task> tasks;
+
+    /**
+     * A constructor for a TaskList.
+     */
     public TaskList() {
         this.tasks = new ArrayList<>();
     }
 
+    /**
+     * A constructor for a TaskList, with preloaded tasks.
+     * @param loadedTasks
+     */
     public TaskList(ArrayList<Task> loadedTasks) {
         this.tasks = loadedTasks;
     }
-
 
     public Task getTask(int taskIndex) {
         return this.tasks.get(taskIndex);
@@ -21,6 +28,10 @@ public class TaskList {
         tasks.add(newTask);
     }
 
+    /**
+     * Deletes a specific task from the TaskList.
+     * @param taskIndex
+     */
     public void deleteTask(int taskIndex) {
         tasks.remove(taskIndex);
     }

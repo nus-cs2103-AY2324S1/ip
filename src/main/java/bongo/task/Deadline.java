@@ -7,12 +7,25 @@ import bongo.helper.DateHelper;
 public class Deadline extends Task {
     LocalDateTime deadline;
 
+    /**
+     * A constructor for a Deadline.
+     * @param description
+     * @param deadline
+     * @throws BongoException
+     */
     public Deadline(String description, LocalDateTime deadline) throws BongoException {
         super(description);
         this.validateDeadline(deadline);
         this.deadline = deadline;
     }
 
+    /**
+     * A constructor for a Deadline, specifying whether it is done.
+     * @param description
+     * @param isDone
+     * @param deadline
+     * @throws BongoException
+     */
     public Deadline(String description, boolean isDone, LocalDateTime deadline) throws BongoException {
         super(description);
         this.isDone = isDone;
@@ -20,6 +33,11 @@ public class Deadline extends Task {
         this.deadline = deadline;
     }
 
+    /**
+     * Check if deadline provided is valid.
+     * @param deadline
+     * @throws BongoException
+     */
     private void validateDeadline(LocalDateTime deadline) throws BongoException {
         if (deadline.isBefore(LocalDateTime.now())) throw new BongoException("Deadline must be in the future.");
     }

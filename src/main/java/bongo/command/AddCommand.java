@@ -13,11 +13,22 @@ import bongo.task.Task;
 public class AddCommand extends Command {
     String[] command;
     Task newTask;
+
+    /**
+     * A constructor for a AddCommand.
+     * @param command
+     * @throws BongoException
+     */
     public AddCommand(String[] command) throws BongoException {
         this.command = command;
         this.initialiseTask();
     }
 
+    /**
+     * Processes user input and initializes the respective task (Todo, Event or Deadline).
+     * Checks if user input to create task is valid.
+     * @throws BongoException
+     */
     private void initialiseTask() throws BongoException {
         String taskInput = "";
         if (command.length > 1) {

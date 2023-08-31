@@ -6,6 +6,10 @@ import bongo.helper.Storage;
 public class UnmarkCommand extends Command {
     int taskIndex;
 
+    /**
+     * A constructor for a UnmarkCommand, with a taskIndex.
+     * @param taskIndex
+     */
     public UnmarkCommand(int taskIndex) {
         this.taskIndex = taskIndex;
     }

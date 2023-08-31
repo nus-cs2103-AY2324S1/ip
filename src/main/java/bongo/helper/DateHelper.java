@@ -5,7 +5,15 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 public class DateHelper {
+
     public static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
+
+    /**
+     * Helper method to convert LocalDateTime object to a nicely formatted datetime string.
+     * @param datetime
+     * @return A formatted datetime string.
+     * @throws BongoException
+     */
     public static LocalDateTime formatDateTime(String datetime) throws BongoException {
         try {
             return LocalDateTime.parse(datetime, formatter);

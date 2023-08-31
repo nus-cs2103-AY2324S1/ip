@@ -14,6 +14,10 @@ public class Bongo {
     private final Ui ui;
     private TaskList tasks;
 
+    /**
+     * Initializes Bongo object with filepath.
+     * @param filepath
+     */
     public Bongo(String filepath) {
         this.ui = new Ui();
         this.storage = new Storage(filepath);
@@ -28,6 +32,9 @@ public class Bongo {
         }
     }
 
+    /**
+     * Runs the Bongo bot.
+     */
     public void run() {
         ui.showWelcome();
         boolean isExit = false;

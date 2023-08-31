@@ -8,6 +8,10 @@ import bongo.task.Task;
 public class DeleteCommand extends Command {
     int taskIndex;
 
+    /**
+     * A constructor for a DeleteCommand, with a taskIndex.
+     * @param taskIndex
+     */
     public DeleteCommand(int taskIndex) {
         this.taskIndex = taskIndex;
     }
