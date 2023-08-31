@@ -2,8 +2,12 @@ package duke;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+
 import java.util.ArrayList;
 
+/**
+ * Class to handle individual task and task list manipulation.
+ */
 class TaskList {
     private ArrayList<Task> taskArr;
     public TaskList(ArrayList<Task> taskArr) {
@@ -12,6 +16,7 @@ class TaskList {
     public TaskList() {
         this.taskArr = new ArrayList<>();
     }
+
     /**
      * Creates a Todo task in taskArr.
      * @param desc Description of the Todo task
@@ -56,6 +61,11 @@ class TaskList {
                 + "\n-------------------------------\n");
         return curr;
     }
+    /**
+     * Mark a specific task in the Task ArrayList as done.
+     * @param input User input for mark action
+     * @throws WrongInput Error when user enters illegal input
+     */
     public void mark(String[] input) throws WrongInput {
         int size = taskArr.size();
         try {
@@ -69,6 +79,11 @@ class TaskList {
             throw new WrongInput();
         }
     }
+    /**
+     * Unmarks a specific task in the Task ArrayList as not done.
+     * @param input User input for unmark action
+     * @throws WrongInput Error when user enters illegal input
+     */
     public void unmark(String[] input) throws WrongInput {
         int size = taskArr.size();
         try {
@@ -83,8 +98,9 @@ class TaskList {
         }
     }
     /**
-     * Remove a task from taskArr.
-     * @param
+     * Deletes a specified task from the Task ArrayList.
+     * @param input User input for delete action
+     * @throws WrongInput Error when user enters illegal input
      */
     public void delete(String[] input) throws WrongInput {
         int size = taskArr.size();
@@ -106,7 +122,6 @@ class TaskList {
             throw new WrongInput();
         }
     }
-
     /**
      * Lists out all the tasks in taskArr.
      */
@@ -120,18 +135,17 @@ class TaskList {
         System.out.println("-------------------------------\n");
     }
     /**
-     * Number of tasks in taskArr currently.
-     * @return String containing the number of tasks added to taskArr
+     * String to show the user the current state of the Task ArrayList.
+     * @return String containing all information of the current Task ArrayList
      */
     public String totalTasks() {
         int size = taskArr.size();
         return "\nNow you have " + size + " tasks in the list.";
     }
-
     /**
-     * String of the description of the task.
-     * @param arr Array of words from the user input
-     * @return Description of the task specified by user input
+     * String representing what the user input into the scanner
+     * @param arr User input converted to String array
+     * @return Description of the task specified by user
      */
     public String getDescription(String[] arr) {
         String result = null;
@@ -155,9 +169,9 @@ class TaskList {
         return result;
     }
     /**
-     * Extracts the deadline from the String.
-     * @param arr Array of Strings after using delimiter
-     * @return Final String to be passed in to parse
+     * Retrieves deadline of a Deadline task
+     * @param arr User input converted to String array
+     * @return Task deadline set by user in Month Day Year format
      */
     public String getDeadline(String[] arr) {
         String input = null;
@@ -173,6 +187,11 @@ class TaskList {
 
         return result;
     }
+    /**
+     * Retrieves timeline of an Event task
+     * @param arr User input converted to String array
+     * @return Event timeline set by user in Month Day Year format
+     */
     public String getEventTimeline(String[] arr) {
         String fromInput = null;
         String toInput = null;
