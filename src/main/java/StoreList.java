@@ -3,6 +3,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Scanner;
 
 public class StoreList {
@@ -27,6 +28,19 @@ public class StoreList {
         }
     }
 
+    public String add(Task task) {
+        list.add(task);
+        return String.format(
+                "added: %s\nYou have %d tasks.",
+                task,
+                list.size()
+        );
+    }
+
+    public void addTasks(Collection<? extends Task> tasks) {
+        list.addAll(tasks);
+    }
+
     String markDone(String position) {
         try {
             int index = Integer.parseInt(position) - 1;
@@ -44,6 +58,7 @@ public class StoreList {
         try {
             int index = Integer.parseInt(position) - 1;
             Task task = list.get(index);
+            task.markAsNotDone();
             return String.format("Ok! Task marked undone:\n    %s", task);
         } catch (NumberFormatException e) {
             return "Err: Index provided is not an integer";
@@ -134,5 +149,13 @@ public class StoreList {
         }
 
         return true;
+    }
+
+    public String showSaveText() {
+        String saveText = "";
+        for (int i = 0; i < list.size(); i++) {
+            saveText += list.get(i).fileString() + (i + 1 == list.size() ? "" : "\n");
+        }
+        return saveText;
     }
 }

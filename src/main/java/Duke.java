@@ -8,15 +8,23 @@ import java.io.File;
 public class Duke {
 
     private static StoreList list = new StoreList();
+
+    private static UserInterface userInterface;
     public static void main(String[] args) {
-        if (!list.readFromFile()) {
-            System.out.println("Error");
+        try {
+            userInterface = new UserInterface(new Storage(), new StoreList());
+
+            String logo = "Nino!";
+            System.out.println("Hello, my name is " + logo);
+            System.out.println(wrapper("What can I do for you?"));
+            userInterface.start();
+            userInterface.readCommandLine();
+            userInterface.exit();
+
+        } catch (DukeException e) {
+            System.out.println(e.toString());
             return;
         }
-        String logo = "Nino!";
-        System.out.println("Hello, my name is " + logo);
-        System.out.println(wrapper("What can I do for you?"));
-        reader();
     }
 
     private static void reader() {
