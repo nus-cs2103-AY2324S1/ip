@@ -15,13 +15,21 @@ public class TaskListTest {
     public void setup() throws IOException {
         File tempFile = File.createTempFile("tempTaskList", ".txt");
         taskList = new TaskList(tempFile);
-        taskList.tasks = new ArrayList<>();
-        taskList.taskCount = 0;
     }
 
     @Test
     public void testHandleTodo() {
         taskList.handleTodo("todo Sample todo task");
+
+        assertEquals(1, taskList.taskCount);
+        assertTrue(taskList.tasks.get(0) instanceof ToDos);
+    }
+
+    @Test
+    public void testDelete() {
+        taskList.handleTodo("todo Sample todo task");
+        taskList.handleTodo("todo Sample todo task 2");
+        taskList.delete("delete 2");
 
         assertEquals(1, taskList.taskCount);
         assertTrue(taskList.tasks.get(0) instanceof ToDos);

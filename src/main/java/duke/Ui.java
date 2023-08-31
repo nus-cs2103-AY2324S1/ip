@@ -16,7 +16,4 @@ public class Ui {
         return line;
     }
 
-    public String showLoadingError() {
-        return "Error";
-    }
 }
