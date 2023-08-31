@@ -20,7 +20,7 @@ public class FindCommand extends Command {
 
         String keyword = super.parameterMap.get("default");
         Stream<String> taskDetails = tasks.getTasks().map(task -> task.toString())
-                                                     .filter(task -> task.contains(keyword));
+                .filter(task -> task.contains(keyword));
         Ui.respond(taskDetails);
     }
 }
