@@ -38,4 +38,35 @@ public class Parser {
         char[] charArray = input.toCharArray();
         return Character.getNumericValue(charArray[7]);
     }
+
+    /**
+     * Checks if input statement is a command to find a keyword
+     *
+     * @param input
+     * @return boolean true if input is find command
+     */
+    public boolean isFind(String input) {
+        char[] charArray = input.toCharArray();
+        if (charArray[0] == 'f' && charArray[1] == 'i' && charArray[2] == 'n' && charArray[3] == 'd'
+                && Character.isWhitespace(charArray[4])) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * Returns the keyword to be used to search for tasks
+     * @param input
+     * @return String the keyword to find
+     */
+    public String findKeyword(String input) {
+        char[] charArray = input.toCharArray();
+        String str = "";
+
+        for (int i = 5; i < charArray.length; i++) {
+            str += charArray[i];
+        }
+
+        return str;
+    }
 }

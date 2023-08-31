@@ -31,6 +31,8 @@ public class Bob {
                 ui.markTask(tasks, parser.getMarkDigit(input));
             } else if (parser.isDelete(input)) {
                 ui.deleteTask(tasks, parser.getDeleteDigit(input));
+            } else if (parser.isFind(input)) {
+                ui.findTask(tasks, parser.findKeyword(input));
             } else if (input.equals("bye")) {
                 ui.printGoodbye();
                 storage.saveNewList(tasks);
