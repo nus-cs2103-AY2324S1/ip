@@ -1,3 +1,5 @@
+package eva.task;
+
 /**
  * A Task class to represent tasks
  */

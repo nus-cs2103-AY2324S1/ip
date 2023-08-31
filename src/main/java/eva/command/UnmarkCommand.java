@@ -1,3 +1,10 @@
+package eva.command;
+
+import eva.Ui;
+import eva.task.TaskList;
+import eva.Storage;
+import eva.DukeException;
+
 public class UnmarkCommand extends Command {
     private int taskIndexToUnmark;
 

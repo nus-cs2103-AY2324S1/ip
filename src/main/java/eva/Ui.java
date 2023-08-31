@@ -1,3 +1,8 @@
+package eva;
+
+import eva.task.Task;
+import eva.task.TaskList;
+
 import java.util.Scanner;
 
 public class Ui {

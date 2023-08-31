@@ -1,3 +1,12 @@
+package eva.command;
+
+import eva.Ui;
+import eva.task.TaskList;
+import eva.task.Task;
+import eva.Storage;
+import eva.DukeException;
+
+
 public class DeleteCommand extends Command {
     private int taskIndexToDelete;
 

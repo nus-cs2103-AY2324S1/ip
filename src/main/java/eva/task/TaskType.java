@@ -1,3 +1,5 @@
+package eva.task;
+
 /**
  * Enums to represent the different types of tasks
  */

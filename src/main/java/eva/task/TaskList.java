@@ -1,3 +1,7 @@
+package eva.task;
+
+import eva.DukeException;
+
 import java.util.ArrayList;
 
 public class TaskList extends ArrayList<Task>{
