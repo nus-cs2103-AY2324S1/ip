@@ -22,7 +22,7 @@ public class Duke {
                 Parser.Command command = parser.parse(input);
                 if (command == Parser.Command.BYE) {
                     list.close();
-                    System.out.println("Bye. Hope to see you again soon!");
+                    ui.end();
                     break;
                 } else if (command == Parser.Command.LIST) {
                     list.printList();
