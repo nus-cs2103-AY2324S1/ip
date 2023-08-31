@@ -2,9 +2,9 @@ package monday.monday.parser;
 
 import monday.monday.exception.MondayExceptions;
 import monday.task.TaskList;
-import monday.task.ToDos;
-import monday.task.Events;
-import monday.task.Deadlines;
+import monday.task.ToDo;
+import monday.task.Event;
+import monday.task.Deadline;
 import monday.monday.ui.Ui;
 
 public class Parser {
@@ -71,7 +71,7 @@ public class Parser {
                             "Usage: todo (task)");
                 }
 
-                taskList.addToTask(new ToDos(content));
+                taskList.addToTask(new ToDo(content));
                 break;
             case DEADLINE:
                 try {
@@ -84,7 +84,7 @@ public class Parser {
                     String description = taskDetails[0];
                     String date = taskDetails[1];
 
-                    taskList.addToTask(new Deadlines(description.trim(), date.trim()));
+                    taskList.addToTask(new Deadline(description.trim(), date.trim()));
                 } catch (ArrayIndexOutOfBoundsException e) {
                     throw new IllegalArgumentException("Invalid Format. " +
                             "Usage: deadline (task) /by (time)");
@@ -103,7 +103,7 @@ public class Parser {
                     String start = taskTiming[0];
                     String end = taskTiming[1];
 
-                    taskList.addToTask(new Events(description.trim(),
+                    taskList.addToTask(new Event(description.trim(),
                             start.trim(),
                             end.trim()));
                 } catch (ArrayIndexOutOfBoundsException e) {

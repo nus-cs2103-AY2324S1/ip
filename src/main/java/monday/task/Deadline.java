@@ -9,7 +9,7 @@ import monday.monday.dateTime.DateFormatter;
  * It contains a description, a deadline, and inherits the
  * completion status functionality from the Task class.
  */
-public class Deadlines extends Task {
+public class Deadline extends Task {
     protected LocalDateTime deadline;
 
     /**
@@ -18,7 +18,7 @@ public class Deadlines extends Task {
      * @param description the description of the Deadlines task
      * @param deadline the deadline of the Deadlines task
      */
-    public Deadlines(String description, String deadline) {
+    public Deadline(String description, String deadline) {
         super(description);
         this.deadline = DateFormatter.parseTime(deadline, "yyyy-MM-dd HH:mm");
     }
