@@ -11,12 +11,18 @@ public class Event extends Task {
         this.to = LocalDate.parse(to);
     }
 
-    public String getFrom() {
-        return this.from.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
+    public Event(String description, LocalDate from, LocalDate to) {
+        super(description);
+        this.from = from;
+        this.to = to;
     }
 
-    public String getTo() {
-        return this.to.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
+    public LocalDate getFrom() {
+        return this.from;
+    }
+
+    public LocalDate getTo() {
+        return this.to;
     }
 
     @Override

@@ -1,3 +1,2 @@
-T | 0 | borrow
-T | 0 | bororw
-D | 0 | nothing | 2023-08-31
+D | 0 | return book | 2023-01-01
+E | 0 | supernova | 2023-12-01 | 2023-01-10

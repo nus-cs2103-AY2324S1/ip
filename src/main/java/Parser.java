@@ -3,7 +3,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 public class Parser {
-    private static final DateTimeFormatter dataFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+    private static final DateTimeFormatter dataFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
     public static Command parse(String userInput) throws DukeException {
         String commandType = getCommandType(userInput);
@@ -109,17 +109,17 @@ public class Parser {
     }
 
     public static String getDescription(String userInput) {
-        String[] parts = userInput.split(" ", 2);
+        String[] parts = userInput.split(" ");
         return parts.length > 1 ? parts[1] : "";
     }
 
-    public static int getTaskIndex(String userInput) {
+    public static int getTaskIndex(String userInput) throws DukeException {
         String[] parts = userInput.split(" ");
         if (parts.length == 2) {
             try {
                 return Integer.parseInt(parts[1]);
             } catch (NumberFormatException e) {
-                return -1;
+                throw new DukeException("Error, please enter a number.");
             }
         }
         return -1;
@@ -127,71 +127,63 @@ public class Parser {
 
     private static LocalDate getDeadlineDate(String userInput) throws DeadlineException {
         String[] parts = userInput.split(" ", 2);
+        if (parts.length < 2) {
+            throw new DeadlineException("detail: Description or deadline date is empty");
+        }
+
         String description = parts[1];
-        String taskDescription;
-        String deadlineDate;
 
-
-        // make sure /by exist to avoid exception in "split() array"
+        // Check if /by exists in the description
         if (!description.contains("/by")) {
-            throw new DeadlineException();
-        } else {
-            // split the description to task description and timing, with /by in between
-            String[] desArray = description.split("/by", 2);
-            taskDescription = desArray[0];
-            deadlineDate = desArray[1];
+            throw new DeadlineException("detail: Description does not contain /by");
+        }
 
-            if (taskDescription.isEmpty() || deadlineDate.isEmpty()) {
-                throw new DeadlineException();
-            }
+        String[] desArray = description.split("/by", 2);
+        String taskDescription = desArray[0].trim();
+        String deadlineDate = desArray[1].trim();
 
-            try {
-                // Validate date format and return LocalDate object
-                return LocalDate.parse(deadlineDate.trim(), dataFormatter);
-            } catch (DateTimeParseException e) {
-                throw new DeadlineException();
-            }
+        if (taskDescription.isEmpty() || deadlineDate.isEmpty()) {
+            throw new DeadlineException("detail: Description or deadline date is empty");
+        }
+
+        try {
+            // Validate date format and return LocalDate object
+            return LocalDate.parse(deadlineDate, dataFormatter);
+        } catch (DateTimeParseException e) {
+            throw new DeadlineException("detail: Invalid date format. Please use yyyy-MM-dd");
         }
     }
 
     private static LocalDate[] getEventDates(String userInput) throws EventException {
         String[] parts = userInput.split(" ", 2);
+        if (parts.length < 2) {
+            throw new EventException("details: Description or event dates are empty");
+        }
         String description = parts[1];
-        String taskDescription;
-        String eventFrom;
-        String eventTo;
-        LocalDate[] eventDates = new LocalDate[2];
 
-        // make sure /from and /to exist to avoid exception in "split() array"
+        // Check if both /from and /to exist in the description
         if (!description.contains("/from") || !description.contains("/to")) {
-            throw new EventException();
-        } else {
-            // split the description to task description and timing, with /from in between
-            String[] desArray = description.split("/from", 2);
-            taskDescription = desArray[0];
-            // when from /to comes before /from
-            if (taskDescription.contains("/to")) {
-                throw new EventException();
-            }
+            throw new EventException("details: Description does not contain /from or /to");
+        }
 
-            // split the timing description further, with /to in between
-            String[] timingArr = desArray[1].split("/to", 2);
-            eventFrom = timingArr[0];
-            eventTo = timingArr[1];
+        String[] desArray = description.split("/from", 2);
+        String taskDescription = desArray[0].trim();
 
-            if (eventFrom.isEmpty() || eventTo.isEmpty()) {
-                throw new EventException();
-            }
+        // Split the timing description further using /to
+        String[] timingArr = desArray[1].split("/to", 2);
+        String eventFrom = timingArr[0].trim();
+        String eventTo = timingArr[1].trim();
 
-            try {
-                // validate format and return LocalDate object
-                eventDates[0] = LocalDate.parse(eventFrom.trim(), dataFormatter);
-                eventDates[1] = LocalDate.parse(eventTo.trim(), dataFormatter);
-                return eventDates;
-            } catch (DateTimeParseException e) {
-                throw new EventException();
-            }
+        if (taskDescription.isEmpty() || eventFrom.isEmpty() || eventTo.isEmpty()) {
+            throw new EventException("details: Description or event dates are empty");
+        }
 
+        try {
+            LocalDate eventFromDate = LocalDate.parse(eventFrom, dataFormatter);
+            LocalDate eventToDate = LocalDate.parse(eventTo, dataFormatter);
+            return new LocalDate[]{eventFromDate, eventToDate};
+        } catch (DateTimeParseException e) {
+            throw new EventException("details: Invalid date format. Please use yyyy-MM-dd");
         }
     }
 }

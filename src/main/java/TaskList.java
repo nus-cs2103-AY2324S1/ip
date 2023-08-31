@@ -121,7 +121,7 @@ public class TaskList {
         } else {
             StringBuilder taskListString = new StringBuilder("Here are the tasks in your list:\n");
             for (int i = 0; i < taskCount; i++) {
-                taskListString.append((i + 1)).append(". ").append(this.getTaskDetails(i));
+                taskListString.append((i + 1)).append(". ").append(this.getTaskDetails(i)).append("\n");
             }
             return taskListString.toString();
         }
