@@ -1,3 +1,5 @@
+package bongo;
+
 import bongo.command.Command;
 import bongo.helper.BongoException;
 import bongo.helper.Parser;
