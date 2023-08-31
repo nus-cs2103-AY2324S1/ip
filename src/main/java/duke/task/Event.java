@@ -6,13 +6,13 @@ import java.time.LocalDate;
  * Represents an event with a given start and end date.
  */
 public class Event extends Task {
-    protected LocalDate from;
-    protected LocalDate to;
+    protected LocalDate fromDate;
+    protected LocalDate toDate;
 
-    public Event(String description, LocalDate from, LocalDate to) {
+    public Event(String description, LocalDate fromDate, LocalDate toDate) {
         super(description);
-        this.from = from;
-        this.to = to;
+        this.fromDate = fromDate;
+        this.toDate = toDate;
     }
 
     /**
@@ -23,7 +23,7 @@ public class Event extends Task {
     @Override
     public String toString() {
         String status = "[" + (this.isDone ? "X" : " ") + "]";
-        String duration = "(from: " + this.from + " to: " + this.to + ")";
+        String duration = "(from: " + this.fromDate + " to: " + this.toDate + ")";
         return "[E]" + status + " " + this.description + " " + duration;
     }
 }

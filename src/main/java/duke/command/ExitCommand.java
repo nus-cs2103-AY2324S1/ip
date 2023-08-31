@@ -20,8 +20,8 @@ public class ExitCommand extends Command {
      * @param storage The given Storage that saves the TaskList locally.
      */
     @Override
-    public void execute(TaskList list, Ui ui, Storage storage) {
-        storage.save(list);
+    public void execute(TaskList taskList, Ui ui, Storage storage) {
+        storage.save(taskList);
         ui.printExitMessage();
     }
 }

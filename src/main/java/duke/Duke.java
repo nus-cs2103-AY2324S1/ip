@@ -12,23 +12,21 @@ import java.util.Scanner;
 
 public class Duke {
     private Storage storage;
-    private TaskList tasks;
+    private TaskList taskList;
     private Ui ui;
 
     public Duke(String filePath) {
         this.ui = new Ui();
         this.storage = new Storage(filePath);
         try {
-            this.tasks = new TaskList(storage.load());
+            this.taskList = new TaskList(storage.load());
         } catch (FileNotFoundException e) {
             this.ui.printError(e);
-            this.tasks = new TaskList();
+            this.taskList = new TaskList();
         }
     }
 
     public void run() {
-        String input = "";
-
         this.ui.printEntryMessage();
         boolean isExit = false;
 
@@ -36,7 +34,7 @@ public class Duke {
             try {
                 String fullCommand = ui.nextCommand();
                 Command c = Parser.parse(fullCommand);
-                c.execute(tasks, ui, storage);
+                c.execute(taskList, ui, storage);
                 isExit = c.isExit();
             } catch (TaskException e) {
                 ui.printError(e);

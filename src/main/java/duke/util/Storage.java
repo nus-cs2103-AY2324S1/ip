@@ -53,13 +53,13 @@ public class Storage {
     /**
      * Save the given TaskList into a local data file.
      *
-     * @param list The given TaskList to be saved locally.
+     * @param taskList The given TaskList to be saved locally.
      */
-    public void save(TaskList list) {
-        String input = list.toString();
+    public void save(TaskList taskList) {
+        String input = taskList.toString();
         String newData = "";
 
-        for (int i = 0; i < list.size(); i++) {
+        for (int i = 0; i < taskList.size(); i++) {
             int startIndex = input.indexOf((i + 1) + ".");
             int endIndex = input.indexOf("\n", startIndex);
 

@@ -24,8 +24,8 @@ public class AddCommand extends Command {
      * @param storage The given Storage that saves the TaskList locally.
      */
     @Override
-    public void execute(TaskList list, Ui ui, Storage storage) {
-        list.add(this.task);
-        ui.printAdd(this.task, list.size());
+    public void execute(TaskList taskList, Ui ui, Storage storage) {
+        taskList.add(this.task);
+        ui.printAdd(this.task, taskList.size());
     }
 }

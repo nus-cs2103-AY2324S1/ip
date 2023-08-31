@@ -24,8 +24,8 @@ public class DeleteCommand extends Command {
      * @param storage The given Storage that saves the TaskList locally.
      */
     @Override
-    public void execute(TaskList list, Ui ui, Storage storage) {
-        Task task = list.remove(this.index);
-        ui.printDelete(task, list.size());
+    public void execute(TaskList taskList, Ui ui, Storage storage) {
+        Task task = taskList.remove(this.index);
+        ui.printDelete(task, taskList.size());
     }
 }

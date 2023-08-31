@@ -20,7 +20,7 @@ public class UnknownCommand extends Command {
      * @param storage The given Storage that saves the TaskList locally.
      */
     @Override
-    public void execute(TaskList list, Ui ui, Storage storage) {
+    public void execute(TaskList taskList, Ui ui, Storage storage) {
         ui.printCommandNotFound();
     }
 }
