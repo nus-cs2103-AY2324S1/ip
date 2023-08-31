@@ -4,12 +4,9 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.time.format.DateTimeParseException;
-import java.util.Objects;
-import java.util.Scanner;
 
 public class Ben {
     private boolean isActive = true;
-    private final Scanner user = new Scanner(System.in);
     private final TaskList tasks = new TaskList();
     private final Storage storage;
     private final Ui ui;
@@ -35,23 +32,19 @@ public class Ben {
 
         ui.greeting();
 
-        Parser parser = new Parser();
+        //Parser parser = new Parser();
         while (isActive) {
-            String message = user.nextLine();
-            if (Objects.equals(message.toLowerCase(), "bye")) {
-                deactivate();
-            } else if (Objects.equals(message.toLowerCase(), "list")) {
-                ui.displayList(tasks);
-            } else {
-                if (!parser.isEditListCommand(message, tasks)) {
-                    try {
-                        parser.commandParser(message, tasks);
-                    } catch (EmptyDescriptionException | InvalidCommandException e) {
-                        Ui.showError(e.getMessage());
-                    } catch (DateTimeParseException e) {
-                        ui.showDateTimeParseError(e.getParsedString());
-                    }
-                }
+            String message = ui.nextLine();
+            Parser parser = new Parser(tasks);
+
+            try {
+                Command command = parser.parse(message);
+                command.execute(tasks, ui);
+                isActive = !command.isExit();
+            } catch (EmptyDescriptionException | InvalidCommandException e) {
+                Ui.showError(e.getMessage());
+            } catch (DateTimeParseException e) {
+                ui.showDateTimeParseError(e.getParsedString());
             }
         }
 
@@ -59,8 +52,6 @@ public class Ben {
             storage.saveTasks(tasks);
         } catch (IOException e) {
             System.out.println(e.getMessage());
-        } finally {
-            ui.bye();
         }
     }
 

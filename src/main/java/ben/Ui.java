@@ -1,6 +1,17 @@
 package ben;
+
+import java.util.Scanner;
 public class Ui {
-    private static final String HORIZONTAL_LINE = "------------------------------------------";
+    private final Scanner user;
+
+    public Ui() {
+        this.user = new Scanner(System.in);
+    }
+    private final static String HORIZONTAL_LINE = "------------------------------------------";
+
+    public String nextLine() {
+        return user.nextLine();
+    }
 
     public static void displayMessage(String message) {
         System.out.println(HORIZONTAL_LINE + message + HORIZONTAL_LINE);
