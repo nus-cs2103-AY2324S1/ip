@@ -3,7 +3,7 @@ package Duke.command;
 import Duke.exception.*;
 import Duke.message.Message;
 import Duke.task.Task;
-import Duke.tasklist.TaskList;
+import Duke.application.Application;
 
 public abstract class Command {
     protected String content;
@@ -34,14 +34,15 @@ public abstract class Command {
             throw new NoCommandFoundException(commandName);
         }
     }
-    public abstract Message execute(TaskList taskList) throws DukeException;
+    public abstract Message execute(Application application) throws DukeException;
 }
 class Bye extends Command {
     public Bye(String content) {
         super(content);
     }
     @Override
-    public Message execute(TaskList taskList) {
+    public Message execute(Application application) {
+        application.kill();
         return Message.OnExit();
     }
 }
@@ -51,10 +52,10 @@ class Todo extends Command {
         super(content);
     }
     @Override
-    public Message execute(TaskList taskList)
+    public Message execute(Application application)
             throws DukeException {
         Task task = Task.Of(content, Task.TaskType.TODO);
-        taskList.AddTask(task);
+        application.AddTask(task);
         return Message.OnTaskAdd(task);
     }
 }
@@ -63,10 +64,10 @@ class Deadline extends Command {
         super(content);
     }
     @Override
-    public Message execute(TaskList taskList)
+    public Message execute(Application application)
             throws DukeException {
         Task task = Task.Of(content, Task.TaskType.DEADLINE);
-        taskList.AddTask(task);
+        application.AddTask(task);
         return Message.OnTaskAdd(task);
     }
 }
@@ -75,10 +76,10 @@ class Event extends Command {
         super(content);
     }
     @Override
-    public Message execute(TaskList taskList)
+    public Message execute(Application application)
             throws DukeException {
         Task task = Task.Of(content, Task.TaskType.EVENT);
-        taskList.AddTask(task);
+        application.AddTask(task);
         return Message.OnTaskAdd((task));
     }
 }
@@ -87,9 +88,9 @@ class List extends Command {
         super(content);
     }
     @Override
-    public Message execute(TaskList taskList) {
-        return Message.AccumulateList(Message.ConvertTasks(taskList), "\n").ChainTo(
-                Message.NumberOfTasks(taskList), "\n");
+    public Message execute(Application application) {
+        return Message.AccumulateList(Message.ConvertTasks(application), "\n").ChainTo(
+                Message.NumberOfTasks(application), "\n");
     }
 }
 class Mark extends Command {
@@ -97,7 +98,7 @@ class Mark extends Command {
         super(content);
     }
     @Override
-    public Message execute(TaskList taskList)
+    public Message execute(Application application)
             throws InvalidTaskIndexException, TaskIndexOutOfRangeException {
         int taskIndex;
         Task task;
@@ -107,7 +108,7 @@ class Mark extends Command {
             throw new InvalidTaskIndexException(content);
         }
         try {
-            task = taskList.GetTask(taskIndex);
+            task = application.GetTask(taskIndex);
         } catch (IndexOutOfBoundsException e) {
             throw new TaskIndexOutOfRangeException(String.valueOf(taskIndex));
         }
@@ -120,7 +121,7 @@ class Unmark extends Command {
         super(content);
     }
     @Override
-    public Message execute(TaskList taskList)
+    public Message execute(Application application)
             throws InvalidTaskIndexException, TaskIndexOutOfRangeException {
         int taskIndex;
         Task task;
@@ -130,7 +131,7 @@ class Unmark extends Command {
             throw new InvalidTaskIndexException(content);
         }
         try {
-            task = taskList.GetTask(taskIndex);
+            task = application.GetTask(taskIndex);
         } catch (IndexOutOfBoundsException e) {
             throw new TaskIndexOutOfRangeException(String.valueOf(taskIndex));
         }
@@ -143,7 +144,7 @@ class Delete extends Command {
         super(content);
     }
     @Override
-    public Message execute(TaskList taskList)
+    public Message execute(Application application)
             throws InvalidTaskIndexException, TaskIndexOutOfRangeException {
         int taskIndex;
         Task task;
@@ -153,11 +154,11 @@ class Delete extends Command {
             throw new InvalidTaskIndexException(content);
         }
         try {
-            task = taskList.GetTask(taskIndex);
+            task = application.GetTask(taskIndex);
         } catch (IndexOutOfBoundsException e) {
             throw new TaskIndexOutOfRangeException(String.valueOf(taskIndex));
         }
-        taskList.RemoveTask((task));
+        application.RemoveTask((task));
         return Message.OnTaskDelete(task);
     }
 }
