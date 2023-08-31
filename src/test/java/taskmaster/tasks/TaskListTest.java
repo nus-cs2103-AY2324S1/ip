@@ -1,11 +1,12 @@
 package taskmaster.tasks;
+
 import org.junit.jupiter.api.Test;
 import taskmaster.exceptions.DukeException;
-
-import java.time.LocalDate;
 import java.util.ArrayList;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import static org.junit.jupiter.api.Assertions.*;
 public class TaskListTest {
     @Test
     public void toggleMark_invalidInput_throwsException() throws DukeException {
