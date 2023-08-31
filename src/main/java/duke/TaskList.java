@@ -129,8 +129,8 @@ public class TaskList {
             addTask(task);
         } else {
             // Todo description is empty
-            throw new DukeException("☹ OOPS!!! The description of a todo cannot be empty."
-                    + "\ntodo ...");
+            throw new DukeException("☹ OOPS!!! The description of a todo cannot be empty." +
+                    "\ntodo ...");
         }
     }
 
@@ -157,8 +157,8 @@ public class TaskList {
             addTask(task);
         } else {
             // User did not follow event format
-            throw new DukeException("Input for event doesn't match the expected format."
-                    + "\nevent ... /from ... /to ...");
+            throw new DukeException("Input for event doesn't match the expected format." +
+                    "\nevent ... /from ... /to ...");
         }
     }
 
@@ -183,8 +183,8 @@ public class TaskList {
             addTask(task);
         } else {
             // User did not follow deadline format
-            throw new DukeException("Input for deadline doesn't match the expected format."
-                    + "\ndeadline ... /by ...");
+            throw new DukeException("Input for deadline doesn't match the expected format." +
+                    "\ndeadline ... /by ...");
         }
     }
 

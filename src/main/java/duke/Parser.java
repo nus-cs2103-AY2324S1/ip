@@ -21,6 +21,7 @@ public class Parser {
      * @return The command to be used by the bot.
      */
     public static Command decideCommand(String input) {
+        // return BYE and LIST only if the input matches exactly
         if (input.equals("bye")) {
             return Command.BYE;
         } else if (input.equals(("list"))) {
@@ -30,7 +31,7 @@ public class Parser {
             String command = words[0];
 
             for (Command c : Command.values()) {
-                if (c.name().toLowerCase().equals(command)) {
+                if (c.name().toLowerCase().equals(command) && !c.equals(Command.BYE) && !c.equals(Command.LIST)) {
                     return c;
                 }
             }
