@@ -14,6 +14,15 @@ public class Todo {
         this.description = _description;
     }
 
+    public String toString(int number) {
+        return String.format(
+            "%s | #%d: %s",
+            this.getCompletionString(),
+            number,
+            this.getDescription()
+        );
+    }
+
     public String getDescription() {
         return this.description;
     }
@@ -22,11 +31,21 @@ public class Todo {
         return this.isComplete;
     }
 
-    public String getCompleteSymbol() {
+    /**
+     * Returns a string representing whether the TODO has been completed.
+     */
+    public String getCompletionString() {
         return this.isComplete ? "X" : " ";
     }
 
     public void setComplete(boolean _isComplete) {
         this.isComplete = _isComplete;
+    }
+
+    /**
+     * Returns a string representing the type of this TODO.
+     */
+    public String getTypeString() {
+        return "T";
     }
 }

@@ -31,7 +31,7 @@ public class Cloud {
 
             for (int i = 0; i < Cloud.TODOS.size(); i++) {
                 Todo todo = Cloud.TODOS.get(i);
-                Cloud.sayTodo(todo, i + 1);
+                Cloud.say(todo.toString(i + 1));
             }
             break;
         case "mark": {
@@ -42,7 +42,7 @@ public class Cloud {
 
             Todo todo = Cloud.TODOS.get(number - 1);
             todo.setComplete(true);
-            Cloud.sayTodo(todo, number);
+            Cloud.say(todo.toString(number));
             break;
         }
         case "unmark": {
@@ -53,7 +53,7 @@ public class Cloud {
 
             Todo todo = Cloud.TODOS.get(number - 1);
             todo.setComplete(false);
-            Cloud.sayTodo(todo, number);
+            Cloud.say(todo.toString(number));
             break;
         }
         case "bye":
@@ -62,11 +62,16 @@ public class Cloud {
             break;
         default:
             // Stores new TODO
-            Todo todo = new Todo(manager.toString());
+            Todo todo = Cloud.createTodo(manager);
             Cloud.TODOS.add(todo);
-            Cloud.sayTodo(todo, Cloud.TODOS.size());
+            Cloud.say(todo.toString(Cloud.TODOS.size()));
             break;
         }
+    }
+
+    private static Todo createTodo(TokenManager manager) {
+        //TODO base on flags
+        return new Todo(manager.toString());
     }
 
     private static Integer verifyNumber(TokenManager manager) {
@@ -101,17 +106,6 @@ public class Cloud {
 
     private static void say(String text) {
         System.out.println(text);
-    }
-
-    private static void sayTodo(Todo todo, int number) {
-        Cloud.say(
-            String.format(
-                "%s | #%d: %s",
-                todo.getCompleteSymbol(),
-                number,
-                todo.getDescription()
-            )
-        );
     }
 
     /**

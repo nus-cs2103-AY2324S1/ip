@@ -14,6 +14,11 @@ public class Event extends Deadline {
         this.timestampStart = start;
     }
 
+    @Override
+    public String getTypeString() {
+        return "E";
+    }
+
     public String getStart() {
         return this.timestampStart;
     }

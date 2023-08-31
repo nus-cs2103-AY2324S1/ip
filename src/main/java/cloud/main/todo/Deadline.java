@@ -14,6 +14,11 @@ public class Deadline extends Todo {
         this.timestampEnd = end;
     }
 
+    @Override
+    public String getTypeString() {
+        return "D";
+    }
+
     public String getEnd() {
         return this.timestampEnd;
     }
