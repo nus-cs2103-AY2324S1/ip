@@ -34,9 +34,9 @@ public class Events extends Task{
     @Override
     public String writeString() {
         if (this.getMarkStatus()) {
-            return "E,0," + this.getName() + " ," + this.start + "," + this.end + "\n";
+            return "E,0," + this.getName() + "," + this.start + "," + this.end + "\n";
         } else  {
-            return "E,1," + this.getName() + " ," + this.start + "," + this.end + "\n";
+            return "E,1," + this.getName() + "," + this.start + "," + this.end + "\n";
         }
     }
 
