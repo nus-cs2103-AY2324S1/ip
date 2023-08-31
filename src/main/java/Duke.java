@@ -1,14 +1,75 @@
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.*;
+import java.io.File;
 public class Duke {
     public static Integer count = 0;
+    static List<Task> inputs;
+
+    static {
+        try {
+            inputs = readFromFile();
+        } catch (FileNotFoundException e) {
+            System.err.println("File cannot be found: " + e.getMessage());
+        }
+    }
+
+    public static void saveToFile() {
+        try {
+            File f = new File("./data/duke.txt");
+
+            FileWriter fw = new FileWriter(f);
+            for (Task t : inputs) {
+                fw.write(t.store() + "\n");
+            }
+            System.out.println(inputs);
+            fw.close();
+        } catch (IOException e) {
+            System.err.println("An error occurred while saving to the file: " + e.getMessage());
+        }
+    }
+
+    public static ArrayList<Task> readFromFile() throws FileNotFoundException {
+        ArrayList<Task> taskList = new ArrayList<>();
+
+        File f = new File("./data/duke.txt");
+
+        if(!f.exists()){
+            System.out.println("File does not exist");
+            return taskList;
+        } else {
+            Scanner scanner = new Scanner(f);
+            while(scanner.hasNext()){
+                String[] type = scanner.nextLine().substring(4).split(" ");
+                String[] description = scanner.nextLine().substring(4).split("\\|");
+
+                if(type[0].equals("todo")){
+                    Todo todo = new Todo(description[1]);
+                    taskList.add(todo);
+                } else if (type[0].equals("deadline")){
+                    Deadline deadline = new Deadline(description[1], description[2]);
+                    taskList.add(deadline);
+                } else if (type[0].equals("event")){
+                    String date[] = scanner.nextLine().substring(4).split("-");
+                    Event event = new Event(description[1], description[2], date[1]);
+                    taskList.add(event);
+                } else {
+                    System.out.println ("Invalid Input");
+                }
+            }
+        }
+        return taskList;
+    }
+
+
     public static void main(String[] args) {
         System.out.println("Hello! I'm ChatBot.\n" +
                 "What can I do for you?\n" );
 
         Scanner scanner = new Scanner(System.in);
-        List<Task> inputs = new ArrayList<>();
         String input = scanner.nextLine();
 
         while (!input.equals("bye")) {
@@ -81,7 +142,7 @@ public class Duke {
 
             input = scanner.nextLine();
         }
-
+        saveToFile();
         System.out.println("Bye. Hope to see you again soon!");
     }
 }
