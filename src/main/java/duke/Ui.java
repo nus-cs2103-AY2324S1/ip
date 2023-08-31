@@ -8,13 +8,13 @@ public class Ui {
     private Scanner scanner;
 
     public Ui() {
-        scanner = new Scanner(System.in);
 
+        scanner = new Scanner(System.in);
     }
 
     public void introMessage() {
-        System.out.println("Hello! I'm BaekBot.\nIf you're unsure of the commands available, type /help. " +
-                "\nWhat can I do for you?");
+        System.out.println("Hello! I'm BaekBot.\nIf you're unsure of the commands available, type /help. "
+                + "\nWhat can I do for you?");
     }
 
     public String getInput() {
@@ -60,11 +60,11 @@ public class Ui {
     }
 
     public void helpMessage() {
-        System.out.println("To view the list of tasks, type list. \nTo add a todo, type todo." +
-                "\nTo add a deadline, type deadline with /by.\nTo add a event, type event with /from and /to." +
-                "\nTo mark/unmark tasks, type mark/unmark followed by the index." +
-                "\nTo delete a task, type delete followed by the index." +
-                "\nTo exit, type bye.");
+        System.out.println("To view the list of tasks, type list. \nTo add a todo, type todo."
+                + "\nTo add a deadline, type deadline with /by.\nTo add a event, type event with /from and /to."
+                + "\nTo mark/unmark tasks, type mark/unmark followed by the index."
+                + "\nTo delete a task, type delete followed by the index."
+                + "\nTo exit, type bye.");
     }
 
     public void closeScanner() {
