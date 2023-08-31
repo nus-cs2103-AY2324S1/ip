@@ -1,3 +1,8 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.util.zip.DataFormatException;
+
 public class Task {
 
     private String description;
@@ -29,6 +34,14 @@ public class Task {
         }
     }
 
+    public LocalDateTime formatDateAndTime(String userDateAndTime) throws DateTimeParseException {
+        DateTimeFormatter inputFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        return LocalDateTime.parse(userDateAndTime, inputFormat);
+    }
+    public String printDateTimeFormat(LocalDateTime systemDateAndTime) {
+        DateTimeFormatter outputFormat = DateTimeFormatter.ofPattern("MMM dd, yyyy HH:mm");
+        return systemDateAndTime.format(outputFormat);
+    }
     public int getStatus() {
         return this.status ? 1 : 0;
     }
