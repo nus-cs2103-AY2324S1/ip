@@ -1,10 +1,8 @@
 package helpbuddy.command;
 
 import helpbuddy.storage.Storage;
-import helpbuddy.ui.Ui;
 import helpbuddy.task.TaskList;
-
-import java.io.IOException;
+import helpbuddy.ui.Ui;
 
 /**
  * The ListCommand class calls Ui to list all Task in TaskList upon execution.

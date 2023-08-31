@@ -1,10 +1,9 @@
 package helpbuddy.task;
 
-import helpbuddy.command.MarkCommand;
-import helpbuddy.exception.HelpBuddyException;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+
+import helpbuddy.exception.HelpBuddyException;
 
 /**
  * The Deadline class creates a Task storing a deadline of type LocalDateTime.

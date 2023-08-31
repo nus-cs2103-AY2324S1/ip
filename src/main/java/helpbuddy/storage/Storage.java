@@ -1,8 +1,5 @@
 package helpbuddy.storage;
 
-import helpbuddy.exception.HelpBuddyException;
-import helpbuddy.task.*;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -11,6 +8,13 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import helpbuddy.exception.HelpBuddyException;
+import helpbuddy.task.Deadline;
+import helpbuddy.task.Event;
+import helpbuddy.task.Task;
+import helpbuddy.task.TaskList;
+import helpbuddy.task.ToDo;
 
 /**
  * The Storage class that loads, reads and saves data. Creates a new file if file search is unsuccessful.
@@ -61,20 +65,20 @@ public class Storage {
         DateTimeFormatter formatter = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
 
         switch (fields[0]) {
-            case "T":
-                taskToAdd = new ToDo(fields[2]);
-                break;
-            case "D":
-                taskToAdd = new Deadline(fields[2], LocalDateTime.parse(fields[3], formatter));
-                break;
-            case "E":
-                String[] fromToFields = fields[3].split(" to ");
-                taskToAdd = new Event(fields[2],
-                        LocalDateTime.parse(fromToFields[0], formatter),
-                        LocalDateTime.parse(fromToFields[1], formatter));
-                break;
-            default:
-                throw new IOException("Error occurred when reading data from storage file.");
+        case "T":
+            taskToAdd = new ToDo(fields[2]);
+            break;
+        case "D":
+            taskToAdd = new Deadline(fields[2], LocalDateTime.parse(fields[3], formatter));
+            break;
+        case "E":
+            String[] fromToFields = fields[3].split(" to ");
+            taskToAdd = new Event(fields[2],
+                    LocalDateTime.parse(fromToFields[0], formatter),
+                    LocalDateTime.parse(fromToFields[1], formatter));
+            break;
+        default:
+            throw new IOException("Error occurred when reading data from storage file.");
         }
 
         if (Integer.parseInt(fields[1]) == 1) {

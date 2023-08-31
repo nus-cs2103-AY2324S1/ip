@@ -1,7 +1,5 @@
 package helpbuddy;
 
-import helpbuddy.HelpBuddy;
-
 /**
  * A Main class that runs the HelpBuddy chatbot.
  */

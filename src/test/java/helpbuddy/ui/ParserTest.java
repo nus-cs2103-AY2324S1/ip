@@ -1,22 +1,27 @@
 package helpbuddy.ui;
 
-import helpbuddy.command.*;
-import helpbuddy.exception.HelpBuddyException;
-import helpbuddy.task.Deadline;
-import helpbuddy.task.Event;
-import helpbuddy.task.ToDo;
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
+import org.junit.jupiter.api.Test;
+
+import helpbuddy.command.AddCommand;
+import helpbuddy.command.Command;
+import helpbuddy.command.DeleteCommand;
+import helpbuddy.command.MarkCommand;
+import helpbuddy.command.UnmarkCommand;
+import helpbuddy.exception.HelpBuddyException;
+import helpbuddy.task.Deadline;
+import helpbuddy.task.Event;
+import helpbuddy.task.ToDo;
 
 public class ParserTest {
-    DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yy HH:mm");
+    private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yy HH:mm");
     @Test
-    public void parseCommand_unknownCommand_exceptionThrown_1() {
+    public void parseCommand_unknownCommand_exceptionThrown1() {
         try {
             Parser.parseCommand("ashhsdlf");
             fail();
@@ -26,7 +31,7 @@ public class ParserTest {
     }
 
     @Test
-    public void parseCommand_unknownCommand_exceptionThrown_2() {
+    public void parseCommand_unknownCommand_exceptionThrown2() {
         try {
             Parser.parseCommand("help");
             fail();
@@ -36,12 +41,12 @@ public class ParserTest {
     }
 
     @Test
-    public void parseCommand_addCommand_success_1() {
+    public void parseCommand_addCommand_success1() {
         try {
             Event e = new Event(
                     "meeting",
-                    LocalDateTime.parse("31/08/23 18:20", FORMATTER),
-                    LocalDateTime.parse("31/08/23 19:20", FORMATTER)
+                    LocalDateTime.parse("31/08/23 18:20", formatter),
+                    LocalDateTime.parse("31/08/23 19:20", formatter)
             );
             Command expectedCmd = new AddCommand(e);
             Command actualCmd = Parser.parseCommand("event meeting /from 31/08/23 18:20 /to 31/08/23 19:20");
@@ -52,9 +57,9 @@ public class ParserTest {
     }
 
     @Test
-    public void parseCommand_addCommand_success_2() {
+    public void parseCommand_addCommand_success2() {
         try {
-            Deadline d = new Deadline("meeting", LocalDateTime.parse("31/08/23 18:20", FORMATTER));
+            Deadline d = new Deadline("meeting", LocalDateTime.parse("31/08/23 18:20", formatter));
             Command expectedCmd = new AddCommand(d);
             Command actualCmd = Parser.parseCommand("deadline meeting /by 31/08/23 18:20");
             assertEquals(true, expectedCmd.equals(actualCmd));
@@ -64,7 +69,7 @@ public class ParserTest {
     }
 
     @Test
-    public void parseCommand_addCommand_success_3() {
+    public void parseCommand_addCommand_success3() {
         try {
             ToDo d = new ToDo("meeting");
             Command expectedCmd = new AddCommand(d);

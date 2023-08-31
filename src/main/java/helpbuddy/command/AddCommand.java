@@ -1,12 +1,11 @@
 package helpbuddy.command;
 
+import java.io.IOException;
+
 import helpbuddy.storage.Storage;
-import helpbuddy.task.Deadline;
-import helpbuddy.ui.Ui;
 import helpbuddy.task.Task;
 import helpbuddy.task.TaskList;
-
-import java.io.IOException;
+import helpbuddy.ui.Ui;
 
 /**
  * The AddCommand class adds a value of type Task to TaskList and calls Ui to print corresponding

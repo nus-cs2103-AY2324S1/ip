@@ -1,16 +1,17 @@
 package helpbuddy.task;
 
-import helpbuddy.exception.HelpBuddyException;
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
+import org.junit.jupiter.api.Test;
+
+import helpbuddy.exception.HelpBuddyException;
 
 public class EventTest {
-    DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yy HH:mm");
+    private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yy HH:mm");
     @Test
     public void event_noTaskName_exceptionThrown() {
         try {
@@ -34,7 +35,7 @@ public class EventTest {
     @Test
     public void event_noEndTime_exceptionThrown() {
         try {
-            new Event("meeting", LocalDateTime.parse("31/08/23 17:41", FORMATTER), null);
+            new Event("meeting", LocalDateTime.parse("31/08/23 17:41", formatter), null);
             fail();
         } catch (HelpBuddyException e) {
             assertEquals("OOPS! Please enter /to followed by an end time of event.\n", e.getMessage());
@@ -46,8 +47,8 @@ public class EventTest {
         try {
             new Event(
                     "meeting",
-                    LocalDateTime.parse("31/08/23 17:41", FORMATTER),
-                    LocalDateTime.parse("31/08/23 17:41", FORMATTER)
+                    LocalDateTime.parse("31/08/23 17:41", formatter),
+                    LocalDateTime.parse("31/08/23 17:41", formatter)
             );
             fail();
         } catch (HelpBuddyException e) {
@@ -60,8 +61,8 @@ public class EventTest {
         try {
             new Event(
                     "meeting",
-                    LocalDateTime.parse("31/08/23 17:41", FORMATTER),
-                    LocalDateTime.parse("31/08/23 17:40", FORMATTER)
+                    LocalDateTime.parse("31/08/23 17:41", formatter),
+                    LocalDateTime.parse("31/08/23 17:40", formatter)
             );
             fail();
         } catch (HelpBuddyException e) {
@@ -74,8 +75,8 @@ public class EventTest {
         try {
             Event task = new Event(
                     "meeting",
-                    LocalDateTime.parse("31/08/23 17:41", FORMATTER),
-                    LocalDateTime.parse("31/08/23 18:41", FORMATTER)
+                    LocalDateTime.parse("31/08/23 17:41", formatter),
+                    LocalDateTime.parse("31/08/23 18:41", formatter)
             );
             assertEquals("E|0|meeting|2023-08-31T17:41 to 2023-08-31T18:41", task.stringifyTask());
         } catch (HelpBuddyException e) {

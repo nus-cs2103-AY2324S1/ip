@@ -1,9 +1,9 @@
 package helpbuddy.task;
 
-import helpbuddy.exception.HelpBuddyException;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+
+import helpbuddy.exception.HelpBuddyException;
 
 /**
  * The Event class creates a Task storing a start time and an end time of type LocalDateTime.
