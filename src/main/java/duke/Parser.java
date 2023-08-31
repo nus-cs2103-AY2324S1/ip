@@ -49,40 +49,40 @@ public class Parser {
         String desc;
 
         switch (splitInput[0].toUpperCase()) {
-            case "BYE":
-                return new ExitCommand();
-            case "HELP":
-                return new HelpCommand();
-            case "LIST":
-                return new ListCommand();
-            case "MARK":
-                return new MarkCommand(true, findIndex(splitInput));
-            case "UNMARK":
-                return new MarkCommand(false, findIndex(splitInput));
-            case "DELETE":
-                return new DeleteCommand(findIndex(splitInput));
-            case "FIND":
-                if (splitInput.length < 2) {
-                    throw new DukeBadInputException(
-                            "Quack doesn't understand an empty find query, please provide one!!");
-                }
-                // join the string to find the query
-                return new FindCommand(String.join(" ", Arrays.copyOfRange(splitInput, 1, splitInput.length)));
-            case "TODO":
-                if (splitInput.length < 2) {
-                    throw new DukeBadInputException(
-                            "Quack doesn't understand an empty todo description, please provide one!!");
-                }
-                // join the string to find the description
-                return new TodoCommand(String.join(" ", Arrays.copyOfRange(splitInput, 1, splitInput.length)));
-            case "DEADLINE":
-                desc = Parser.findFlags(flagMap, splitInput, "/by");
-                return new DeadlineCommand(flagMap.get("/by"), desc);
-            case "EVENT":
-                desc = Parser.findFlags(flagMap, splitInput, "/from", "/to");
-                return new EventCommand(flagMap.get("/from"), flagMap.get("/to"), desc);
-            default:
-                return new UnrecognisedCommand();
+        case "BYE":
+            return new ExitCommand();
+        case "HELP":
+            return new HelpCommand();
+        case "LIST":
+            return new ListCommand();
+        case "MARK":
+            return new MarkCommand(true, findIndex(splitInput));
+        case "UNMARK":
+            return new MarkCommand(false, findIndex(splitInput));
+        case "DELETE":
+            return new DeleteCommand(findIndex(splitInput));
+        case "FIND":
+            if (splitInput.length < 2) {
+                throw new DukeBadInputException(
+                        "Quack doesn't understand an empty find query, please provide one!!");
+            }
+            // join the string to find the query
+            return new FindCommand(String.join(" ", Arrays.copyOfRange(splitInput, 1, splitInput.length)));
+        case "TODO":
+            if (splitInput.length < 2) {
+                throw new DukeBadInputException(
+                        "Quack doesn't understand an empty todo description, please provide one!!");
+            }
+            // join the string to find the description
+            return new TodoCommand(String.join(" ", Arrays.copyOfRange(splitInput, 1, splitInput.length)));
+        case "DEADLINE":
+            desc = Parser.findFlags(flagMap, splitInput, "/by");
+            return new DeadlineCommand(flagMap.get("/by"), desc);
+        case "EVENT":
+            desc = Parser.findFlags(flagMap, splitInput, "/from", "/to");
+            return new EventCommand(flagMap.get("/from"), flagMap.get("/to"), desc);
+        default:
+            return new UnrecognisedCommand();
         }
     }
 
@@ -104,21 +104,21 @@ public class Parser {
 
         boolean isCompleted = content[2].equals("1");
         switch (content[0]) {
-            case "TODO":
-                return new TodoTask(content[1], isCompleted);
-            case "DEADLINE":
-                if (content.length != 4) {
-                    throw new DukeLoadingException(storedStr + ", this command cannot be read");
-                }
-                return new DeadlineTask(LocalDateTime.parse(content[3]), content[1], isCompleted);
-            case "EVENT":
-                if (content.length != 5) {
-                    throw new DukeLoadingException(storedStr + ", this command cannot be read");
-                }
-                return new EventTask(LocalDateTime.parse(content[3]),
-                        LocalDateTime.parse(content[4]), content[1], isCompleted);
-            default:
+        case "TODO":
+            return new TodoTask(content[1], isCompleted);
+        case "DEADLINE":
+            if (content.length != 4) {
                 throw new DukeLoadingException(storedStr + ", this command cannot be read");
+            }
+            return new DeadlineTask(LocalDateTime.parse(content[3]), content[1], isCompleted);
+        case "EVENT":
+            if (content.length != 5) {
+                throw new DukeLoadingException(storedStr + ", this command cannot be read");
+            }
+            return new EventTask(LocalDateTime.parse(content[3]),
+                    LocalDateTime.parse(content[4]), content[1], isCompleted);
+        default:
+            throw new DukeLoadingException(storedStr + ", this command cannot be read");
         }
     }
 
