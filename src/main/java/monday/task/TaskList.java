@@ -9,36 +9,46 @@ import monday.storage.Storage;
  * The TaskList class is responsible for storing and managing the tasks in the task list.
  */
 public class TaskList {
-    private ArrayList<Task> list;
+    private ArrayList<Task> lists;
     private Storage storage;
 
+    /** 
+     * Constructs a TaskList object with the specified file path. 
+     * 
+     * @param filePath the file path to store the tasks 
+     */ 
     public TaskList(String filePath) {
         this.storage = new Storage(filePath);
         try {
-            this.list = storage.load();
+            this.lists = storage.load();
         } catch (IOException | ClassNotFoundException e) {
             System.out.println("Error loading tasks from file: " + e.getMessage());
         }
     }
 
+    /**
+    * Saves the list of tasks to the storage.
+    * 
+    * @throws IOException if an I/O error occurs while saving the tasks
+    */
     private void save() {
         try {
-            storage.save(list);
+            storage.save(lists);
         } catch (IOException e) {
             System.out.println("Error saving tasks: " + e.getMessage());
         }
     }
-
+    
     /**
      * Adds a task to the task list.
      *
      * @param task The task to be added.
      */
     public void addToTask(Task task) {
-        list.add(task);
+        lists.add(task);
         save();
         System.out.println("Got it. I've added this task:\n    " + task.toString());
-        System.out.println("Now you have " + list.size() + " tasks in the list.");
+        System.out.println("Now you have " + lists.size() + " tasks in the list.");
     }
 
     /**
@@ -46,8 +56,8 @@ public class TaskList {
      */
     public void displayList() {
         System.out.println("Here are the tasks in your list:");
-        for (int i = 0; i < list.size(); i++) {
-            System.out.println((i + 1) + "." + list.get(i).toString());
+        for (int i = 0; i < lists.size(); i++) {
+            System.out.println((i + 1) + "." + lists.get(i).toString());
         }
     }
 
@@ -58,11 +68,11 @@ public class TaskList {
      * @throws IndexOutOfBoundsException If the index is out of range.
      */
     public void mark(int index) {
-        if (index < 1 || index > list.size()) {
+        if (index < 1 || index > lists.size()) {
             throw new IndexOutOfBoundsException("Task index is out of range. " +
                     "Check the number of tasks using the 'list' command.");
         }
-        Task taskToEdit = list.get(index - 1);
+        Task taskToEdit = lists.get(index - 1);
         taskToEdit.markAsDone();
         save();
         System.out.println("Nice! I've marked this task as done:\n" + taskToEdit);
@@ -75,11 +85,11 @@ public class TaskList {
      * @throws IndexOutOfBoundsException If the index is out of range.
      */
     public void unMark(int index) {
-        if (index < 1 || index > list.size()) {
+        if (index < 1 || index > lists.size()) {
             throw new IndexOutOfBoundsException("Task index is out of range. " +
                     "Check the number of tasks using the 'list' command.");
         }
-        Task taskToEdit = list.get(index - 1);
+        Task taskToEdit = lists.get(index - 1);
         taskToEdit.unMark();
         save();
         System.out.println("OK, I've marked this task as not done yet:\n" + taskToEdit);
@@ -92,14 +102,14 @@ public class TaskList {
      * @throws IndexOutOfBoundsException If the index is out of range.
      */
     public void delete(int index) {
-        if (index < 1 || index > list.size()) {
+        if (index < 1 || index > lists.size()) {
             throw new IndexOutOfBoundsException("Task index is out of range. " +
                     "Check the number of tasks using the 'list' command.");
         }
-        Task taskToEdit = list.get(index - 1);
-        list.remove(index - 1);
+        Task taskToEdit = lists.get(index - 1);
+        lists.remove(index - 1);
         save();
         System.out.println("Noted. I've removed this task:\n" + taskToEdit);
-        System.out.println("Now you have " + list.size() + " tasks in the list.");
+        System.out.println("Now you have " + lists.size() + " tasks in the list.");
     }
 }

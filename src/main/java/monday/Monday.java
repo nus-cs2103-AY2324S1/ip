@@ -11,23 +11,25 @@ import monday.monday.exception.MondayExceptions;
  * delete, keep track of the tasks they have.
  */
 public class Monday {
-    /**
-     * Starts Monday application.
-     * Initialises necessary components, greets the user, handle user input and handle errors.
-     */
+    /** 
+     * Starts the Monday application. 
+     * Initializes necessary components, greets the user, handles user input, and handles errors. 
+     * 
+     * @param filepath the filepath to store the tasks 
+     */ 
     private static void startMonday(String filepath) {
         Scanner scanner = new Scanner(System.in);
         TaskList taskList = new TaskList(filepath);
-        boolean running = true;
+        boolean isRunning = true;
 
         Ui.printSeparator();
         Ui.greet();
         Ui.printSeparator();
-        while (running) {
+        while (isRunning) {
             String userInput = scanner.nextLine();
             Ui.printSeparator();
             try {
-                running = Parser.mondayParser(userInput, taskList);
+                isRunning = Parser.mondayParser(userInput, taskList);
             } catch (MondayExceptions e) {
                 System.out.println(e);
             } catch (NumberFormatException e) {
