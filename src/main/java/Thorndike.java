@@ -11,8 +11,7 @@ import utility.TextFileHandler;
 
 public class Thorndike {
     private Scanner scanner;
-    private ArrayList<Task> taskList;
-    private int index;
+    private TaskList taskList;
     private Boolean running;
     public static final String TASK_FILE_PATH = "data/tasks.txt";
     public static final String TASK_FILE_SEPARATOR = "-";
@@ -20,8 +19,7 @@ public class Thorndike {
 
     public Thorndike() {
         this.scanner = new Scanner(System.in);
-        this.taskList = new ArrayList<>();
-        this.index = 0;
+        this.taskList = new TaskList();
         this.running = true;
 
         try {
@@ -132,8 +130,8 @@ public class Thorndike {
      */
     private void markDone(int idx) {
         echo("Meow! I've marked this task as done:");
-        taskList.get(idx - 1).setDone();
-        echo(taskList.get(idx - 1).toString());
+        taskList.markDone(idx - 1);
+        echo(taskList.getTask(idx - 1).toString());
         writeTasksToFile();
     }
 
@@ -145,8 +143,8 @@ public class Thorndike {
      */
     private void markNotDone(int idx) {
         echo("Meow! I've marked this task as not done yet:");
-        taskList.get(idx - 1).setNotDone();
-        echo(taskList.get(idx - 1).toString());
+        taskList.markNotDone(idx - 1);
+        echo(taskList.getTask(idx - 1).toString());
         writeTasksToFile();
     }
 
@@ -157,11 +155,10 @@ public class Thorndike {
      * 
      */
     private void addTask(Task task) {
-        this.taskList.add(task);
-        this.index++;
+        this.taskList.addTask(task);
         echo("Got it. I've added this task:");
         echo(task.toString());
-        echo(String.format("Now you have %d tasks in the list.", index));
+        echo(String.format("Now you have %d tasks in the list.", taskList.size()));
         writeTasksToFile();
     }
 
@@ -172,12 +169,10 @@ public class Thorndike {
      * 
      */
     private void deleteTask(int index) {
-        Task deleted = this.taskList.get(index - 1);
-        this.taskList.remove(index - 1);
-        this.index--;
+        Task deleted = taskList.deleteTask(index - 1);
         echo("Meow. I've removed this task:");
         echo(deleted.toString());
-        echo(String.format("Now you have %d tasks in the list.", this.index));
+        echo(String.format("Now you have %d tasks in the list.", taskList.size()));
         writeTasksToFile();
     }
 
@@ -187,8 +182,8 @@ public class Thorndike {
      */
     private void list() {
         echo("Here are the tasks in your list:");
-        for (int i = 1; i < this.index + 1; i++) {
-            Task task = this.taskList.get(i - 1);
+        for (int i = 1; i < taskList.size() + 1; i++) {
+            Task task = this.taskList.getTask(i - 1);
             echo(String.format("%d. %s", i, task.toString()));
         }
     }
@@ -232,7 +227,7 @@ public class Thorndike {
             throw new InvalidIndexException();
         }
 
-        if (idx < 1 || idx > this.index) {
+        if (!taskList.hasIndex(idx - 1)) {
             throw new InvalidIndexException();
         }
 
@@ -261,7 +256,7 @@ public class Thorndike {
                 }
 
                 if (status.equals("1")) {
-                    markDoneSilent(this.index);
+                    markDoneSilent(taskList.size());
                 }
             }
         } catch (IOException e) {
@@ -273,7 +268,7 @@ public class Thorndike {
         String output = "";
 
         for (int i = 0; i < taskList.size(); i++) {
-            Task task = taskList.get(i);
+            Task task = taskList.getTask(i);
             output += task.getDescription();
 
             if (task.isDone()) {
@@ -308,12 +303,11 @@ public class Thorndike {
     }
 
     private void addTaskSilent(Task task) {
-        this.taskList.add(task);
-        this.index++;
+        this.taskList.addTask(task);
     }
 
     private void markDoneSilent(int idx) {
-        taskList.get(idx - 1).setDone();
+        taskList.getTask(idx - 1).setDone();
     }
 
     public static void main(String[] args) {
