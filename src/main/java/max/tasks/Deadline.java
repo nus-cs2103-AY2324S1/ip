@@ -1,3 +1,13 @@
+package max.tasks;
+
+import max.commands.*;
+import max.exception.MaxException;
+import max.parser.Parser;
+import max.storage.Storage;
+import max.tasks.TaskList;
+import max.tasks.*;
+import max.ui.Ui;
+
 import java.time.LocalDate;
 
 public class Deadline extends Task {

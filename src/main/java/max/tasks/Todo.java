@@ -1,3 +1,5 @@
+package max.tasks;
+
 public class Todo extends Task {
     public Todo(String item) {
         super(item);

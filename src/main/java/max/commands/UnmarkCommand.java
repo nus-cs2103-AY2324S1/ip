@@ -1,5 +1,14 @@
+package max.commands;
+import max.commands.*;
+import max.exception.MaxException;
+import max.parser.Parser;
+import max.storage.Storage;
+import max.tasks.TaskList;
+import max.tasks.Task;
+import max.ui.Ui;
+
 public class UnmarkCommand extends Command {
-    static final String COMMAND_WORD = "unmark";
+    public static final String COMMAND_WORD = "unmark";
     private int taskNumber;
     public UnmarkCommand(int taskNumber) {
         this.taskNumber = taskNumber;
