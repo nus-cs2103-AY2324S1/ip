@@ -52,6 +52,15 @@ public class Task{
     }
 
     /**
+     * Returns the description of the task.
+     *
+     * @return Description of task.
+     */
+    public String getDescription() {
+        return this.description;
+    }
+
+    /**
      * Returns a formatted string of the task for file storage.
      *
      * @return A String representation of the task.
