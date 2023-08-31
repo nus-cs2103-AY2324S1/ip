@@ -1,3 +1,4 @@
+package duke;
 public class MYBotExceptions extends Exception {
 
     public MYBotExceptions(String message) {
