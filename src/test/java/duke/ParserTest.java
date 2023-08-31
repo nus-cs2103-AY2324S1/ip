@@ -1,10 +1,12 @@
 package duke;
 
-import duke.exception.DukeException;
-import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
+
+import org.junit.jupiter.api.Test;
+
+import duke.exception.DukeException;
+
 
 public class ParserTest {
 
@@ -36,7 +38,7 @@ public class ParserTest {
     }
 
     @Test
-    public void parse_oneWord_ValidCommand_success() {
+    public void parse_oneWordValidCommand_success() {
         try {
             Parser.parse("bye");
             Parser.parse("list");
@@ -47,7 +49,7 @@ public class ParserTest {
     }
 
     @Test
-    public void parse_oneWord_InvalidCommand_exceptionThrown() {
+    public void parse_oneWordInvalidCommand_exceptionThrown() {
         try {
             Parser.parse("todo");
             fail();
@@ -64,7 +66,7 @@ public class ParserTest {
     }
 
     @Test
-    public void parse_multiWordCommand_invalidCommand_exceptionThrown() {
+    public void parse_multiWordCommandInvalidCommand_exceptionThrown() {
         try {
             Parser.parse("bye bye");
             fail();
