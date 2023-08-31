@@ -22,7 +22,7 @@ Now you have 1 tasks in the list.
 > OOPS!!! Please specify the description and deadline for this Deadline!
 
 > Got it. I've added this task:
-[D][ ] read (by: april)
+[D][ ] read (by: Oct 4 2023)
 Now you have 2 tasks in the list.
 
 > OOPS!!! Please specify the description, start, and end time for this Event!
@@ -34,17 +34,17 @@ Now you have 2 tasks in the list.
 > OOPS!!! Please specify the description, start, and end time for this Event!
 
 > Got it. I've added this task:
-[D][ ] shop (from: monday to: tuesday)
+[E][ ] shop (from: Sep 5 2023 to: Sep 10 2023)
 Now you have 3 tasks in the list.
 
 > Here are the tasks in your list:
 
 1. [T][ ] study
-2. [D][ ] read (by: april)
-3. [D][ ] shop (from: monday to: tuesday)
+2. [D][ ] read (by: Oct 4 2023)
+3. [E][ ] shop (from: Sep 5 2023 to: Sep 10 2023)
 
 > Nice! I've marked this task as done:
-[D][X] read (by: april)
+[D][X] read (by: Oct 4 2023)
 
 > OOPS!!! Please type a valid command!
 
@@ -57,11 +57,11 @@ Now you have 3 tasks in the list.
 > OOPS!!! There is no task 5!
 
 > Noted. I've removed this task:
-[D][ ] shop (from: monday to: tuesday)
+[E][ ] shop (from: Sep 5 2023 to: Sep 10 2023)
 
 > Here are the tasks in your list:
 
 1. [T][ ] study
-2. [D][X] read (by: april)
+2. [D][X] read (by: Oct 4 2023)
 
 > Bye. Hope to see you again soon!
