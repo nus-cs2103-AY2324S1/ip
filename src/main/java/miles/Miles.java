@@ -2,6 +2,8 @@ package miles;
 
 import java.util.Scanner;
 
+import miles.command.Command;
+
 /**
  * Represents our chat bot, Miles.
  */
@@ -12,6 +14,11 @@ public class Miles {
     private Storage storage;
     private TaskList taskList;
 
+    /**
+     * Constructor for Miles.
+     * 
+     * @param filePath The path to the file where the tasks are stored.
+     */
     public Miles(String filePath) {
         this.ui = new Ui();
         this.storage = new Storage(filePath, directoryPath);
@@ -25,15 +32,21 @@ public class Miles {
         this.ui.greet();
         boolean shouldExit =  false;
         Scanner scanner  = new Scanner(System.in);
-        Parser parser = new Parser(this.storage, this.taskList);
+        Parser parser = new Parser();
 
         while (!shouldExit) {
             String input = scanner.nextLine();
-            shouldExit = parser.parse(input);
+            try {
+                Command c = parser.parse(input);
+                c.execute(this.taskList, this.ui, this.storage);
+                shouldExit = c.isExit();
+            } catch (MilesException e) {
+                this.ui.printErrorMsg(e.getMessage());
+                continue;
+            }
         }
 
         scanner.close();
-        this.ui.exit();
     }
     
     public static void main(String[] args) {

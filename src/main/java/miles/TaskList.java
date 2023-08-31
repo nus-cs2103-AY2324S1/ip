@@ -11,11 +11,19 @@ public class TaskList {
     private ArrayList<Task> taskList;
     private Ui ui;
 
+    /**
+     * Constructor to create a new task list.
+     */
     public TaskList() {
         this.taskList = new ArrayList<>();
         this.ui = new Ui();
     }
 
+    /**
+     * Constructor to create a new task list when given an existing array list.
+     * 
+     * @param taskList
+     */
     public TaskList(ArrayList<Task> taskList) {
         this.taskList = taskList;
     }
@@ -80,7 +88,7 @@ public class TaskList {
      */
     public void markTaskAsDone(int taskNum) {
         if (taskNum <= 0 || taskNum > this.taskList.size()) {
-            MilesExceptionHandler.handleTaskNumOutOfBounds(taskNum);
+            ui.printInvalidTaskNumber(taskNum);
             return;
         }
 
@@ -99,7 +107,7 @@ public class TaskList {
      */
     public void markTaskAsUndone(int taskNum) {
         if (taskNum <= 0 || taskNum > taskList.size()) {
-            MilesExceptionHandler.handleTaskNumOutOfBounds(taskNum);
+            ui.printInvalidTaskNumber(taskNum);
             return;
         }
 
@@ -143,7 +151,7 @@ public class TaskList {
         int n = this.getSize();
 
         this.ui.showLine();
-        this.ui.formatString(" Here are the tasks in your list:");
+        this.ui.formatString(" Here are the tasks in your list my G:");
         for (int i = 0; i < n; i += 1) {
             Task currentTask = taskList.get(i);
             String output = " " + (i + 1) + ". " + currentTask.toString();

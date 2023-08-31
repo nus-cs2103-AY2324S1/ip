@@ -6,8 +6,8 @@ import miles.task.Task;
  * Represents the user interface of the chatbot.
  */
 public class Ui {
-    private String DIVIDER = "____________________________________________________________";
-    private String INDENT = "     ";
+    private final String DIVIDER = "____________________________________________________________";
+    private final String INDENT = "     ";
 
     /*
      * Adds indentation to the string given and prints it out.
@@ -62,6 +62,28 @@ public class Ui {
         formatString(" Noted. I've removed this task:");
         formatString("  " + task.toString());
         formatString(" Now you have " + n + " tasks in the list.");
+        showLine();
+    }
+    
+    /**
+     * Prints the error message when an exception is raised.
+     * 
+     * @param errorMsg error message to be printed
+     */
+    public void printErrorMsg(String errorMsg) {
+        showLine();
+        formatString(" " + errorMsg);
+        showLine();
+    }
+
+    /**
+     * Prints the error message when the task number is invalid.
+     * 
+     * @param number the task number that is invalid
+     */
+    public void printInvalidTaskNumber(int number) {
+        showLine();
+        formatString(" There is no task " + number + ", friend.");
         showLine();
     }
 

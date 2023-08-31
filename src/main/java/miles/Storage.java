@@ -18,10 +18,18 @@ import miles.task.ToDo;
 public class Storage {
     private String filePath;
     private String directoryPath;
+    private Ui ui;
 
+    /**
+     * Constructor to create a new storage.
+     * 
+     * @param filePath       file path of the text file
+     * @param directoryPath  directory path of the text file
+     */
     public Storage(String filePath, String directoryPath) {
         this.filePath = filePath;
         this.directoryPath = directoryPath;
+        this.ui = new Ui();
     }
 
     /**
@@ -98,7 +106,7 @@ public class Storage {
             return taskList;
 
         } catch (IOException e) {
-            MilesExceptionHandler.printErrorMsg(e.getMessage());
+            this.ui.printErrorMsg(e.getMessage());
             return new TaskList();
         }
     }
@@ -124,7 +132,7 @@ public class Storage {
 
             bufferedWriter.close();
         } catch (IOException e) {
-            MilesExceptionHandler.printErrorMsg(e.getMessage());
+            this.ui.printErrorMsg(e.getMessage());
         }
     }
 }
