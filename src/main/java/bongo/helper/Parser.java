@@ -8,7 +8,7 @@ public class Parser {
 
     ;
 
-    public Command parse(String command) throws BongoException {
+    public static Command parse(String command) throws BongoException {
         String[] input = command.split(" ");
         switch (input[0]) {
             case "bye":
