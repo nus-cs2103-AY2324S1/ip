@@ -204,24 +204,4 @@ public class TaskList {
             count++;
         }
     }
-
-    /**
-     * Returns tasks that is matching keyword provided.
-     * @param keyword Keyword to match task with.
-     */
-    public void findTask(String keyword) {
-        System.out.println(Ui.line);
-        int count = 1;
-        for (Task task: list) {
-            String description = task.getDescription();
-            if (description.contains(keyword)) {
-                System.out.println(count + ": " + task);
-                count++;
-            }
-        }
-        if (count == 1) {
-            System.out.println("No task found with given keywords!");
-        }
-        System.out.println(Ui.line);
-    }
 }
