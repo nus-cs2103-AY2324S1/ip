@@ -69,6 +69,9 @@ public class Ruiz {
                 case EVENT:
                     this.tasks.addEvent(input);
                     break;
+                case FIND:
+                    this.tasks.findTasksWithKeyword(input);
+                    break;
                 case UNKNOWN:
                     throw new BotException(ui.botErrorMsg());
                 }

@@ -160,4 +160,15 @@ public class TaskList {
         this.taskList.add(temp);
         ui.addedNewTaskMsg(temp, this.getTaskListSize());
     }
+
+    public void findTasksWithKeyword(String input) throws BotException {
+        ArrayList<Task> tasksWithKeyword = new ArrayList<>();
+        String keyword = parser.getKeyword(input);
+        for (Task task: taskList) {
+            if(task.containsKeyword(keyword)) {
+                tasksWithKeyword.add(task);
+            }
+        }
+        new Ui().getTasks(tasksWithKeyword);
+    }
 }

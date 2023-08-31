@@ -31,6 +31,9 @@ public class Task {
     public String saveTaskString() {
         return completed ? " | 1 | " + description : " | 0 | " + description;
     }
+    public Boolean containsKeyword(String keyword) {
+        return description.contains(keyword);
+    }
 
     /**
      * This method converts the value of the task into a String value.
