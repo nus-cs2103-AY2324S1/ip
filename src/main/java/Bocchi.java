@@ -2,6 +2,11 @@ import exceptions.BocchiException;
 import exceptions.EmptyTaskException;
 import exceptions.InvalidInputException;
 import exceptions.InvalidSyntaxException;
+import task.Deadline;
+import task.Event;
+import task.Task;
+import task.TaskList;
+import task.Todo;
 
 import java.util.Scanner;
 
